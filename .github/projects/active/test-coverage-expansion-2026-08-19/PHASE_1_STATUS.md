@@ -9,6 +9,7 @@
 ## Completed
 
 ### ✅ Mermaid Syntax Validator Tests
+
 - **File:** `scripts/validation/__tests__/validate-mermaid-syntax.test.js`
 - **Test Cases:** 27
 - **Coverage:** ~85%
@@ -22,12 +23,14 @@ Time:        2.365s
 ```
 
 **Test Coverage:**
+
 - ✅ Mermaid diagram extraction (7 test cases)
 - ✅ Diagram type validation (9 test cases)
 - ✅ Fixture validation (5 test cases)
 - ✅ Edge cases (6 test cases)
 
 ### ✅ Mermaid Accessibility Validator Tests
+
 - **File:** `scripts/validation/__tests__/validate-mermaid-accessibility.test.js`
 - **Test Cases:** 25
 - **Coverage:** ~85%
@@ -41,6 +44,7 @@ Time:        2.27s
 ```
 
 **Test Coverage:**
+
 - ✅ accTitle validation (4 test cases) — colon format, space format, missing, before diagram type
 - ✅ accDescr validation (7 test cases) — colon format, block format, space format, missing, before diagram type, unclosed block
 - ✅ YAML front-matter rejection (2 test cases) — detection and early exit
@@ -49,6 +53,7 @@ Time:        2.27s
 - ✅ Edge cases (8 test cases) — whitespace, comments, line endings, long text, special characters, nested brackets
 
 ### ✅ Frontmatter Freshness Validator Tests
+
 - **File:** `scripts/validation/__tests__/validate-frontmatter-freshness.test.js`
 - **Test Cases:** 23
 - **Coverage:** ~90%
@@ -62,6 +67,7 @@ Time:        2.40s
 ```
 
 **Test Coverage:**
+
 - ✅ extractFrontmatter (5 test cases) — YAML block extraction, null handling, malformed YAML, multiple fields, empty body
 - ✅ Version validation (4 test cases) — updated version, unchanged version, no body change, missing field
 - ✅ Last_updated validation (4 test cases) — today's date, not today, wrong format, missing field
@@ -69,6 +75,7 @@ Time:        2.40s
 - ✅ Edge cases (5 test cases) — whitespace changes, newline variations, long content, missing frontmatter
 
 ### ✅ Links Validator Tests
+
 - **File:** `scripts/validation/__tests__/validate-links.test.js`
 - **Test Cases:** 32
 - **Coverage:** ~90%
@@ -82,6 +89,7 @@ Time:        2.41s
 ```
 
 **Test Coverage:**
+
 - ✅ Link extraction (7 test cases) — single/multiple links, anchors, absolute URLs, special characters
 - ✅ Link skipping (5 test cases) — HTTP/HTTPS, anchors, mailto, relative paths
 - ✅ Link resolution (4 test cases) — relative paths, parent references, anchor stripping, nested directories
@@ -89,6 +97,7 @@ Time:        2.41s
 - ✅ Edge cases (7 test cases) — empty content, no links, special characters, query parameters, mixed link types
 
 ### ✅ Structure Validator Tests
+
 - **File:** `scripts/validation/__tests__/validate-structure.test.js`
 - **Test Cases:** 18
 - **Coverage:** ~85%
@@ -102,6 +111,7 @@ Time:        2.39s
 ```
 
 **Test Coverage:**
+
 - ✅ Index file detection (4 test cases) — README.md, index.md, both, missing
 - ✅ Required folders (7 test cases) — all exist, missing folder, file instead of dir, missing index, mixed index types, multiple errors, broken structure
 - ✅ Pilot plugin validation (4 test cases) — not exists, exists with README, file instead of dir, missing README

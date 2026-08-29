@@ -536,6 +536,7 @@ npm run check:data-integrity -- \
 ---
 
 **Phase 5.2 Status:** 🟡 In Progress | **Owner:** lightspeedwp/maintainers | **Last Updated:** 2026-08-12
+
 ## Visual Workflow
 
 ```mermaid

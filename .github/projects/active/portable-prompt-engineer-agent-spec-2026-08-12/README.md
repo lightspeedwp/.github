@@ -44,6 +44,7 @@ See [QUESTIONS.md](./QUESTIONS.md) for the full question set.
 **Commit:** `67fa12ec908584b443b42127e74851cf6a10b587`
 
 **Implementation Summary:**
+
 - 154 framework-specific validation rules (exceeds 150+ target)
 - 2,096 LOC across 4 files
 - 52 GitHub control-plane rules (workflows, labels, governance)
@@ -69,6 +70,7 @@ See [QUESTIONS.md](./QUESTIONS.md) for the full question set.
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
 ## Visual Workflow
 
 ```mermaid

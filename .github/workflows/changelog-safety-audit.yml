@@ -1,0 +1,169 @@
+name: Changelog Safety Audit
+
+on:
+  pull_request:
+    paths:
+      - CHANGELOG.md
+      - agents/changelog/**
+      - schemas/changelog.schema.json
+      - docs/CHANGELOG_AUTOMATION.md
+      - .github/agents/changelog.agent.md
+      - .github/workflows/changelog-*.yml
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - CHANGELOG.md
+      - agents/changelog/**
+      - schemas/changelog.schema.json
+  workflow_dispatch:
+
+jobs:
+  changelog-safety-audit:
+    name: Changelog Safety Audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Changelog Safety Audit
+        run: node scripts/validation/validate-changelog-safety.js
+        continue-on-error: false
+
+  changelog-format-validation:
+    name: Changelog Format Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Keep a Changelog format
+        run: |
+          node -e "
+            const fs = require('fs');
+            const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
+
+            // Basic validation
+            if (!changelog.includes('[Unreleased]')) {
+              console.error('❌ Missing [Unreleased] section');
+              process.exit(1);
+            }
+
+            if (!changelog.match(/## \[\d+\.\d+\.\d+\]/)) {
+              console.error('❌ No version sections found (expected format: ## [X.Y.Z])');
+              process.exit(1);
+            }
+
+            console.log('✅ Changelog format validation passed');
+          "
+
+  changelog-cross-references:
+    name: Changelog Cross-Reference Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify cross-references
+        run: |
+          #!/bin/bash
+          set -e
+
+          echo "🔍 Checking changelog cross-references..."
+
+          # Check spec agent exists
+          if [ ! -f .github/agents/changelog.agent.md ]; then
+            echo "❌ Missing: .github/agents/changelog.agent.md"
+            exit 1
+          fi
+
+          # Check portable agent exists
+          if [ ! -f agents/changelog/changelog.agent.js ]; then
+            echo "❌ Missing: agents/changelog/changelog.agent.js"
+            exit 1
+          fi
+
+          # Check schema exists
+          if [ ! -f schemas/changelog.schema.json ]; then
+            echo "❌ Missing: schemas/changelog.schema.json"
+            exit 1
+          fi
+
+          # Check documentation exists
+          if [ ! -f docs/CHANGELOG_AUTOMATION.md ]; then
+            echo "❌ Missing: docs/CHANGELOG_AUTOMATION.md"
+            exit 1
+          fi
+
+          # Verify bidirectional references
+          if ! grep -q "changelog.agent.js" .github/agents/changelog.agent.md; then
+            echo "⚠️  Warning: spec agent doesn't reference portable agent"
+          fi
+
+          if ! grep -q "changelog.agent.md" agents/changelog/README.md; then
+            echo "⚠️  Warning: portable agent README doesn't reference spec agent"
+          fi
+
+          if ! grep -q "changelog.schema.json" agents/changelog/README.md; then
+            echo "⚠️  Warning: portable agent README doesn't reference schema"
+          fi
+
+          echo "✅ All changelog cross-references verified"
+        shell: bash
+
+  report-on-failure:
+    name: Report Audit Failure
+    runs-on: ubuntu-latest
+    needs: [changelog-safety-audit]
+    if: failure()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Comment on PR about failed audit
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Changelog Safety Audit Failed**
+
+The changelog safety audit detected issues that must be fixed before merging:
+
+1. **CHANGELOG.md issues** — Review the audit output above
+2. **Format compliance** — Ensure entries follow Keep a Changelog 1.1.0 format
+3. **Cross-references** — Verify all related files are properly linked
+
+Please fix the issues and push another commit. For help, see:
+- [Changelog Automation Guide](docs/CHANGELOG_AUTOMATION.md)
+- [Changelog Contributor Checklist](docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md)
+
+**Issue #2354** — Changelog Safety Audit (prevent future incidents)`
+            })

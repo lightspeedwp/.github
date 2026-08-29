@@ -21,10 +21,12 @@ last_updated: 2026-08-22
 ### Automatic Allocation (No Action Needed)
 
 The allocation script runs automatically when:
+
 - ✅ A PR is merged (`pull_request.closed` with `merged=true`)
 - ✅ An issue is closed (`issues.closed`)
 
 **What happens:**
+
 1. Script fetches all open milestones
 2. Selects the "current" active milestone (earliest due date)
 3. Allocates the PR/issue to that milestone
@@ -32,6 +34,7 @@ The allocation script runs automatically when:
 5. Also allocates any linked issues (from "Closes #123" in PR body)
 
 **You'll see:**
+
 - A comment on the PR: `✅ Allocated to milestone #X "vX.Y.Z"`
 - The milestone updated in GitHub UI
 
@@ -42,6 +45,7 @@ The allocation script runs automatically when:
 ### When to Run Manually
 
 Run the script manually if:
+
 - ⚙️ You need to allocate items from more than 7 days ago
 - ⚙️ You want to force allocation to a different milestone
 - ⚙️ The automatic workflow failed or didn't run
@@ -57,6 +61,7 @@ node scripts/automation/allocate-to-milestone.js --dry-run --verbose
 ```
 
 **Output example:**
+
 ```
 🚀 PR/Issue → Milestone Allocation Tool
 
@@ -94,6 +99,7 @@ Issues allocated:     2
 ```
 
 **Review the output to verify:**
+
 - ✓ Correct milestone selected
 - ✓ Correct number of PRs/issues found
 - ✓ No unexpected allocations
@@ -118,18 +124,21 @@ node scripts/automation/allocate-to-milestone.js --verbose
 ### How to Run: Custom Options
 
 #### Look back N days (default: 7)
+
 ```bash
 node scripts/automation/allocate-to-milestone.js --days 30 --verbose
 # Allocates PRs/issues from the last 30 days
 ```
 
 #### Force a specific milestone (override auto-detection)
+
 ```bash
 node scripts/automation/allocate-to-milestone.js --milestone 42 --dry-run
 # Forces allocation to milestone #42 regardless of due date
 ```
 
 #### Combine options
+
 ```bash
 node scripts/automation/allocate-to-milestone.js --days 30 --milestone 42 --dry-run --verbose
 ```
@@ -168,6 +177,7 @@ When a PR body contains "Closes #123" or "Resolves #456":
 ### Patterns Detected
 
 The script detects these patterns (case-insensitive):
+
 - `Closes #123`
 - `Resolves #456`
 - `Fixes #789`
@@ -191,6 +201,7 @@ This PR fixes the critical bug in the auth middleware.
 ```
 
 **Result:**
+
 - PR #1950 → Allocated to milestone
 - Issue #1885 → Allocated to same milestone
 - Issue #1886 → Allocated to same milestone
@@ -202,12 +213,14 @@ This PR fixes the critical bug in the auth middleware.
 ### Issue: "No open milestones found"
 
 **Error Message:**
+
 ```
 ❌ No open milestones found. Create at least one milestone in the repository:
    → https://github.com/lightspeedwp/.github/milestones/new
 ```
 
 **Solution:**
+
 1. Go to [Create Milestone](https://github.com/lightspeedwp/.github/milestones/new)
 2. Create a new milestone (e.g., "v1.5.0") with a due date
 3. Mark it as "Open" (not "Closed")
@@ -218,16 +231,19 @@ This PR fixes the critical bug in the auth middleware.
 ### Issue: "GITHUB_TOKEN not set"
 
 **Error Message:**
+
 ```
 ❌ GITHUB_TOKEN not set. Generate a token at: https://github.com/settings/tokens
 ```
 
 **Solution:**
+
 1. Go to [GitHub Token Settings](https://github.com/settings/tokens)
 2. Click "Generate new token"
 3. Set scopes: `repo` (full control of private repositories)
 4. Generate and copy the token
 5. Export and re-run:
+
 ```bash
 export GITHUB_TOKEN="ghp_xxxxxxxxxxxx"
 node scripts/automation/allocate-to-milestone.js --dry-run
@@ -238,24 +254,29 @@ node scripts/automation/allocate-to-milestone.js --dry-run
 ### Issue: "API rate limit exceeded"
 
 **Error Message:**
+
 ```
 ❌ API Error 429: Rate limit exceeded. Retry after 60s
 ⏳ Rate limited. Retrying in 4s... (attempt 2/3)
 ```
 
 **What's happening:**
+
 - GitHub API rate limit hit (typically 60 requests/hour for search)
 - Script auto-retries up to 3 times with exponential backoff
 - If still failing after 3 retries, you must wait before trying again
 
 **Solution:**
+
 1. Wait 60 seconds (as shown in error message)
 2. Run again:
+
 ```bash
 node scripts/automation/allocate-to-milestone.js --dry-run
 ```
 
 **To avoid rate limiting:**
+
 - Use `--days 1` instead of `--days 30` to reduce API calls
 - Space out manual runs by waiting 5-10 minutes between attempts
 
@@ -264,11 +285,13 @@ node scripts/automation/allocate-to-milestone.js --dry-run
 ### Issue: "Failed to allocate pull #1950"
 
 **Error Message:**
+
 ```
 ❌ Failed to allocate pull #1950: API Error 403: Insufficient permissions
 ```
 
 **Solution:**
+
 - Check that your GITHUB_TOKEN has `repo` scope
 - Verify you have write access to the repository
 - Generate a new token with `repo` scope selected
@@ -278,11 +301,13 @@ node scripts/automation/allocate-to-milestone.js --dry-run
 ### Issue: "Issue #1885 not found (deleted or inaccessible)"
 
 **Message (verbose mode):**
+
 ```
 ⏭️  issue #1885 not found (deleted or inaccessible), skipping
 ```
 
 **What's happening:**
+
 - The PR references a linked issue that was deleted or archived
 - Script safely skips it (expected behavior)
 - No action needed
@@ -294,6 +319,7 @@ node scripts/automation/allocate-to-milestone.js --dry-run
 ### Check Recent Allocations
 
 View the GitHub Actions workflow runs:
+
 1. Go to [Actions → Allocate PR/Issue to Current Milestone](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml)
 2. Click on recent runs to see logs
 3. Check for any failures or errors
@@ -301,6 +327,7 @@ View the GitHub Actions workflow runs:
 ### Manual Workflow Trigger
 
 To test the workflow manually:
+
 1. Go to [Actions → Allocate PR/Issue to Current Milestone](https://github.com/lightspeedwp/.github/actions/workflows/allocate-pr-issue-to-milestone.yml)
 2. Click "Run workflow"
 3. Set options:

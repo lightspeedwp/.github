@@ -3,8 +3,8 @@ title: Changelog Automation & Integration
 description: Complete guide to changelog management, automation workflows, and integration with release processes
 file_type: documentation
 created_date: '2026-07-24'
-last_updated: '2026-08-25'
-version: '1.1'
+last_updated: '2026-08-27'
+version: '1.2'
 owners:
   - LightSpeed Team
 tags:
@@ -77,32 +77,36 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 - ✅ Entries follow format standards
 
 ```mermaid
-accTitle: Flowchart
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
+---
+config:
+  flowchart:
+    useMaxWidth: true
+  accessibility:
+    diagramMarginX: 8
+    diagramMarginY: 8
+---
 flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
-accTitle: Flowchart
-    A["Release triggered<br/>on develop branch"] --> B["Run Phase 5A Gates"]
-    B -->|"GATE 1"| C["Changelog Validation"]
-    C --> D{["CHANGELOG.md<br/>exists?"]}
-    D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
-    D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
-    E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
-    E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
-    F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
-    F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
-    G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
-    G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
-    H --> I["Continue to GATE 2"]
+  accTitle: Changelog Validation Flowchart
+  accDescr: Flowchart showing changelog validation gates for release process
+  A["Release triggered on develop branch"] --> B["Run Phase 5A Gates"]
+  B -->|"GATE 1"| C["Changelog Validation"]
+  C --> D{["CHANGELOG.md<br/>exists?"]}
+  D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
+  D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
+  E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
+  E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
+  F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
+  F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
+  G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
+  G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
+  H --> I["Continue to GATE 2"]
 
-    style C fill:#1b5e20,color:#fff
-    style H fill:#2e7d32,color:#fff
-    style Z1 fill:#b71c1c,color:#fff
-    style Z2 fill:#b71c1c,color:#fff
-    style Z3 fill:#b71c1c,color:#fff
-    style Z4 fill:#b71c1c,color:#fff
-accDescr: Detailed diagram showing structure and relationships
+  style C fill:#1b5e20,color:#fff
+  style H fill:#2e7d32,color:#fff
+  style Z1 fill:#b71c1c,color:#fff
+  style Z2 fill:#b71c1c,color:#fff
+  style Z3 fill:#b71c1c,color:#fff
+  style Z4 fill:#b71c1c,color:#fff
 ```
 
 **Why GATE 1 matters:**
@@ -111,6 +115,141 @@ accDescr: Detailed diagram showing structure and relationships
 - Ensures changelog quality before release
 - Blocks accidentally releasing without documentation
 - Catches schema violations early
+
+### Phase 1 Safety Audit (NEW — v1.0.1)
+
+**Added in v1.0.1 (2026-08-27):** Issue #2354 introduces a comprehensive seven-layer changelog safety audit system to prevent future incidents like the history loss event. This system validates changelog integrity, format compliance, cross-references, data integrity, and link validity.
+
+**The 7-Layer Validation System:**
+
+1. **File Integrity Audit** — Detects empty/corrupted files, validates UTF-8 encoding
+2. **Format Compliance Audit** — Validates Keep a Changelog 1.1.0 format and entry structure
+3. **Structure Compliance Audit** — Ensures required sections ([Unreleased], version headers)
+4. **Frontmatter Validation Audit** — Checks YAML metadata (title, description, last_updated)
+5. **Data Integrity Audit** — Detects duplicate versions, invalid dates, truncated content
+6. **Cross-Reference Audit** — Verifies changelog-related files exist and link bidirectionally
+7. **Link Validity Audit** — Validates PR/issue link format and reference sanity
+
+**How It Works:**
+
+The safety audit runs automatically on every PR and push:
+
+- **On Pull Requests**: Blocks merge if critical errors detected (file corruption, structure violations, data corruption)
+- **On Push to main/develop**: Validates before merge
+- **Locally**: Run `npm run validate:changelog` before pushing
+
+**Integration Points:**
+
+```bash
+# Local validation
+npm run validate:changelog
+
+# Full validation suite
+npm run validate:all
+
+# CI/CD workflow
+.github/workflows/changelog-safety-audit.yml
+```
+
+**Error Handling:**
+
+- 🔴 **Critical Errors** (block merge): File corruption, missing structure, data corruption, invalid links
+- 🟡 **Warnings** (don't block): Format issues, stale updates, weak cross-references
+
+**Detailed Audit Report:**
+
+See [Phase 1 Audit Report](../.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md) for complete findings and implementation details.
+
+---
+
+### Phase 2: Write Protection & Audit Logging (NEW — v1.1)
+
+**Added in v1.1 (2026-08-27):** Issue #2382 introduces write protection and comprehensive audit logging to complement Phase 1's validation system. This phase adds local commit-time validation and detailed tracking of all changelog modifications.
+
+**Phase 2 Components:**
+
+1. **Write Protection** — Pre-commit hook validation
+   - Runs Phase 1 validation before allowing commits
+   - Blocks commits on critical errors (file corruption, structure violations, data corruption)
+   - Prevents invalid CHANGELOG.md from being committed locally
+   - Option to bypass with `git commit --no-verify` (not recommended — CI will still validate)
+
+2. **Audit Logging** — Complete modification tracking
+   - Automatic tracking of all CHANGELOG.md changes
+   - Records: author, timestamp, commit hash, message
+   - Per-author contribution statistics
+   - Audit log stored in `.github/reports/audits/changelog-audit-log.md`
+   - Updated automatically on every modification
+
+3. **Regression Test Suite** — Comprehensive validation testing
+   - Tests all 7 Phase 1 validation layers
+   - Edge case coverage (large files, malformed entries, etc.)
+   - Performance benchmarks (< 500ms validation overhead)
+   - Run with: `npm test -- --testPathPattern=changelog-safety`
+
+4. **Agent Constraints** — AI-enforced validation rules
+   - Updated changelog agent with Phase 2 constraints
+   - Documented write protection rules for agents
+   - Audit logging requirements documented
+   - Test coverage expectations defined
+
+**How It Works:**
+
+**Local (Pre-commit):**
+
+```bash
+# Add changelog changes
+git add CHANGELOG.md
+
+# Pre-commit hook runs automatically
+git commit -m "..."
+# → Hook validates staged CHANGELOG.md
+# → Blocks if critical errors detected
+# → Allows commit if validation passes
+```
+
+**Audit Logging:**
+
+```bash
+# Generate/update audit log (runs automatically)
+npm run audit:changelog
+
+# or manually
+node scripts/validation/changelog-audit-log.js
+```
+
+**Testing:**
+
+```bash
+# Run regression tests
+npm test -- --testPathPattern=changelog-safety
+
+# Expected output: all layers passing with <500ms performance
+```
+
+**Integration Points:**
+
+```text
+Phase 1 (Validation) + Phase 2 (Protection & Logging) → Phase 3+ (Future)
+
+Local commit-time: Pre-commit hook validation
+↓
+CI/CD: GitHub Actions workflow validation
+↓
+Audit: Tracked in changelog-audit-log.md
+↓
+Release: Audit trail ensures integrity
+```
+
+**Error Handling:**
+
+- 🔴 **Critical Errors** (block commit): File corruption, missing structure, data corruption, invalid links
+- 🟡 **Warnings** (don't block): Format issues, stale updates, weak cross-references
+- 📋 **Audit Trail** (always tracked): All modifications logged with timestamp and author
+
+**Detailed Phase 2 Report:**
+
+See [Phase 2 Implementation Report](../.github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27-PHASE2.md) for complete implementation details, test coverage, and performance metrics.
 
 ---
 
@@ -169,7 +308,7 @@ Every entry follows this exact format:
 
 #### Entry Length Limits
 
-```
+```text
 Title:        <60 characters
 Description:  <150 characters
 Full entry:   <250 characters (total)
@@ -180,7 +319,7 @@ Sentences:    1-2 maximum
 
 This project uses [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html):
 
-```
+```text
 MAJOR.MINOR.PATCH
 
 Example: 1.5.3
@@ -275,7 +414,7 @@ npm run validate:changelog
 
 Expected output:
 
-```
+```text
 📋 CHANGELOG Validation Report
 
 📊 Summary:
@@ -302,7 +441,7 @@ Submit your PR with:
 
 ### Validation Pipeline
 
-```
+```text
 Developer commits CHANGELOG.md update
          ↓
 PR created (changelog-management.yml triggered)
@@ -529,7 +668,7 @@ npm run lint:all
 Error: Changelog validation failed
   Reason: [Unreleased] section missing or empty
   Action: Add entries to [Unreleased] before release
-```
+```text
 
 ---
 
@@ -539,7 +678,7 @@ Error: Changelog validation failed
 
 **Symptom:**
 
-```
+```text
 CI Red: changelog-management.yml failed
 Error: Missing PR link. Required format: ([PR #1234](url))
 ```
@@ -564,7 +703,7 @@ Error: Missing PR link. Required format: ([PR #1234](url))
 
 **Symptom:**
 
-```
+```text
 develop merge completed, but CHANGELOG.md is missing "### Fixed" header
 Entries exist, but section organization is lost
 ```
@@ -596,7 +735,7 @@ PR #1100 entry appears twice in CHANGELOG.md after merge
 
 **Symptom:**
 
-```
+```text
 npm run validate:changelog reports error, but entry looks correct
 ```
 
@@ -794,8 +933,8 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 - **Schema:** [`schemas/changelog.schema.json`](../schemas/changelog.schema.json) — JSON Schema for validation
 - **Changelog:** [`CHANGELOG.md`](../CHANGELOG.md) — Production changelog using Keep a Changelog format
-- **Keep a Changelog Spec:** https://keepachangelog.com/en/1.1.0/
-- **Semantic Versioning:** https://semver.org/
+- **Keep a Changelog Spec:** <https://keepachangelog.com/en/1.1.0/>
+- **Semantic Versioning:** <https://semver.org/>
 
 ---
 

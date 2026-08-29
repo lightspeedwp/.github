@@ -6,7 +6,7 @@ file_type: agent
 target: github-copilot
 version: v1.0
 created_date: '2026-08-25'
-last_updated: '2026-08-25'
+last_updated: '2026-08-27'
 author: LightSpeed Team
 maintainer: Claude Code
 category: changelog-management
@@ -54,7 +54,7 @@ permissions:
   - "github:workflows"
   - "shell"
 metadata:
-  guardrails: "Never modify CHANGELOG.md without validation. Always enforce Keep a Changelog 1.1.0 format. Validate entry format (title, description, PR link, em-dash separator) on every change. Never merge invalid entries. Support dry-run validation before changes. Log all validation results for audit. Ensure all entries are user-facing and meaningful."
+  guardrails: "Never modify CHANGELOG.md without validation (Phase 1). Always enforce Keep a Changelog 1.1.0 format. Validate entry format (title, description, PR link, em-dash separator) on every change. Never merge invalid entries. Support dry-run validation before changes. Log all validation results for audit (Phase 2). Ensure all entries are user-facing and meaningful. Pre-commit hook blocks invalid modifications. All changes tracked in audit log (.github/reports/audits/changelog-audit-log.md). Regression tests cover all 7 validation layers. Performance target: <500ms validation."
 ---
 
 # Role
@@ -404,6 +404,103 @@ The changelog manager integrates with the release workflow as **GATE 1** in the 
 - **Changelog validation tests** — Comprehensive test coverage for entry format and structure validation. ([PR #2340](https://github.com/lightspeedwp/.github/pull/2340))
 ```
 
+# Phase 2: Write Protection & Audit Logging Constraints
+
+## Write Protection Rules
+
+**Pre-commit Hook Validation** (Phase 2 — `.github/hooks/pre-commit`):
+
+All changelog modifications are validated locally before committing via the pre-commit hook:
+
+1. **Automatic Validation** — Hook runs `validate-changelog-safety.js` on staged CHANGELOG.md changes
+2. **Blocking on Errors** — Commits blocked if validation detects critical issues:
+   - Missing [Unreleased] section
+   - Invalid YAML frontmatter
+   - Duplicate version tags
+   - Invalid dates in version headers
+   - Corrupted markdown links
+   - Malformed entry format
+3. **Bypass Option** — Use `git commit --no-verify` only for emergency fixes (not recommended)
+4. **CI Enforcement** — Even bypassed commits will fail CI validation (see `.github/workflows/changelog-safety-audit.yml`)
+
+**When Adding Entries:**
+
+- Always run `npm run validate:changelog` before committing
+- Ensure entry follows exact format: `- **Title** — Description ([PR #N](url))`
+- Verify [Unreleased] section exists and has proper subsections
+- Check for duplicate entries in other [Unreleased] sections
+- Use em-dash (—) separator, not hyphen or en-dash
+
+**Unsafe Operations Prevented:**
+
+- ❌ Committing empty CHANGELOG.md
+- ❌ Removing [Unreleased] section
+- ❌ Corrupting version headers
+- ❌ Creating duplicate version tags
+- ❌ Adding entries with invalid links
+- ❌ Truncating changelog mid-entry
+
+## Audit Logging Rules
+
+**Modification Tracking** (Phase 2 — `scripts/validation/changelog-audit-log.js`):
+
+All CHANGELOG.md modifications are automatically logged:
+
+1. **Who** — Git author name and email captured
+2. **When** — Timestamp of each modification (ISO 8601 format)
+3. **What** — Commit message and diff stored in audit log
+4. **Where** — Modification location (Unreleased, version section, etc.)
+
+**Audit Log Location:** `.github/reports/audits/changelog-audit-log.md`
+
+**Generated Audit Report Includes:**
+
+- Complete git history for CHANGELOG.md
+- Per-author contribution statistics
+- Timestamp of every modification
+- Commit hash for traceability
+- Modification summary for each entry
+
+**Audit Log Access:**
+
+- Public read access (part of `.github/reports/audits/`)
+- Updated automatically on every modification
+- Linked from main CHANGELOG.md for transparency
+- Part of release documentation
+
+**Running Audit Log Manually:**
+
+```bash
+npm run audit:changelog
+# or
+node scripts/validation/changelog-audit-log.js
+```
+
+## Regression Test Coverage
+
+**Test Suite** (Phase 2 — `scripts/validation/__tests__/validate-changelog-safety.test.js`):
+
+All 7 validation layers have comprehensive regression test coverage:
+
+1. **File Integrity Audit** — Tests for empty files, size validation, UTF-8 encoding
+2. **Format Compliance Audit** — Tests for entry formatting, line lengths, link syntax
+3. **Structure Compliance Audit** — Tests for [Unreleased], version headers, section ordering
+4. **Frontmatter Validation Audit** — Tests for required YAML fields, date formats, staleness
+5. **Data Integrity Audit** — Tests for duplicate versions, invalid dates, corrupted links
+6. **Cross-Reference Check** — Tests for related files and bidirectional references
+7. **Links Validity Audit** — Tests for GitHub links, PR number validation, URL format
+
+**Running Tests:**
+
+```bash
+npm test -- --testPathPattern=changelog-safety
+```
+
+**Performance Requirement:**
+
+- Validation must complete in < 500ms even for large changelogs (100+ versions)
+- Pre-commit hook should not cause noticeable git delays
+
 # Tools & Permissions
 
 ## Required Tools
@@ -505,7 +602,7 @@ npm run validate:changelog
 
 ---
 
-**Last Updated:** 2026-08-25  
+**Last Updated:** 2026-08-27  
 **Author:** LightSpeed  
-**Status:** Active — Phase 4 refactored, Phase 5A integrated  
-**Version:** v1.0
+**Status:** Active — Phase 4 refactored, Phase 5A integrated, Phase 2 write protection & audit logging added  
+**Version:** v1.1

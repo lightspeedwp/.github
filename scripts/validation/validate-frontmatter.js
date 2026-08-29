@@ -146,7 +146,7 @@ class FrontmatterValidator {
   constructor(schemaPath, logger) {
     this.logger = logger;
     this.schema = this.loadSchema(schemaPath);
-    this.ajv = new Ajv({ allErrors: true, verbose: true });
+    this.ajv = new Ajv({ allErrors: true, verbose: true, strict: false });
     addFormats(this.ajv);
     this.validate = this.ajv.compile(this.schema);
     this.stats = {

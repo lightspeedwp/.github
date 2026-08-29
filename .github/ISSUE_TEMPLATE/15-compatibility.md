@@ -1,8 +1,13 @@
 ---
 name: "🧩 Compatibility"
+description: "🧩 Compatibility"
 about: "Track browser/device/WordPress/plugin compatibility issues."
 title: "[Compatibility] <Brief summary>"
 labels: [status:needs-testing, area:compatibility]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--

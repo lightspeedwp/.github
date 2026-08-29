@@ -1,8 +1,13 @@
 ---
 name: "🚀 Release"
+description: "🚀 Release"
 about: "Propose or track release management, versioning, or deployment tasks."
 title: "[Release] <Brief summary>"
 labels: [status:needs-triage, area:release]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 ## Release Summary

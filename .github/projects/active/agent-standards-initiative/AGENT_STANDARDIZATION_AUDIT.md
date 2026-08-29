@@ -17,11 +17,13 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ### 1.1 Agent Landscape
 
 **Agent Specs (`.agent.md` files):** 25 files
+
 - Format: YAML frontmatter + Markdown content
 - Standards: Defined in `agents/agent.md` and `instructions/agent-spec.instructions.md`
 - Examples: `testing.agent.md`, `release.agent.md`, `reporting.agent.md`
 
 **ChatGPT Exports (Folder-based):** 16 folders
+
 - Structure: `agent/`, `skills/`, `manifests/`, `checksums.sha256`, `README.md`
 - Status: **NOT integrated with Claude/Copilot/OpenAI ecosystems**
 - Examples:
@@ -36,6 +38,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ### 1.2 Plugin Architecture
 
 **Existing Plugins:** 6 fully structured
+
 - Pattern: `lightspeed-{domain}-{focus}` (kebab-case)
 - Multi-provider support: `.claude-plugin/`, `.codex-plugin/`, `.gemini-plugin/` directories
 - Agents storage: `agents/` subfolder per plugin
@@ -48,6 +51,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ### 1.3 Instruction Landscape
 
 **Coverage:** 42 files including dedicated agent guidance
+
 - `agent-spec.instructions.md` — Agent specification standards
 - `automation.instructions.md` — Agent automation patterns
 - `copilot-operations.instructions.md` — GitHub Copilot-specific rules
@@ -57,6 +61,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ### 1.4 Hooks & Security
 
 **Existing Hooks:** 3 hooks registered
+
 - `secrets-scanner` — Detect hardcoded secrets
 - `session-logger` — Session tracking
 - `tool-guardian` — Tool access controls
@@ -66,6 +71,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ### 1.5 Schema & Configuration
 
 **Existing Schemas:** 16 JSON schemas
+
 - `agent-config.schema.json` — Agent configuration
 - `plugin-manifest.schema.json` — Plugin manifest
 - `skill-agent-config.schema.json` — Skill-agent binding
@@ -76,6 +82,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ### 1.6 Documentation & Cookbook
 
 **Cookbook Entries:** 4
+
 - `project-planning-and-prd-playbook.md`
 - `spec-driven-workflow-example.md`
 - `wordpress-plugin-checklist.md`
@@ -142,6 +149,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ```
 
 **Rationale:**
+
 - Separates provider-specific instructions from shared base
 - Enables single-source-of-truth for common logic
 - Provides per-provider customization without duplication
@@ -187,6 +195,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ```
 
 **Rationale:**
+
 - Plugin groups related agents under common identity
 - Provider-specific configs live in `.{provider}-plugin/` directories
 - Shared skills & hooks avoid duplication
@@ -278,6 +287,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 **Branch:** `feat/agent-standards-playwright-testing`
 
 **Deliverables:**
+
 1. Rewrite `playwright-testing-agent/` folder per new structure
 2. Create Claude, Copilot, OpenAI provider configs
 3. Create `lightspeed-playwright-testing` plugin
@@ -292,6 +302,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 **Approach:** Generic reusable prompt for remaining 15 ChatGPT agents
 
 **Per-Agent:** ~2-3 hours each
+
 - Rewrite folder structure
 - Create provider configs
 - Create/update plugin (group by domain)
@@ -300,6 +311,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 ### Phase 3: Repo-wide Governance
 
 **Deliverables:**
+
 1. Merge all phase 1 & 2 schemas
 2. Deploy hooks as org-wide enforcement
 3. Update instruction files
@@ -315,6 +327,7 @@ The LightSpeedWP `.github` repository contains **16 ChatGPT agent exports** in m
 See **PLAYWRIGHT_AGENT_REWRITE_PROMPT.md** (separate document)
 
 **Scope:**
+
 - Audit: instructions, hooks, schema, ai configs
 - Create: standardized folder structure & naming conventions
 - Implement: playwright-testing-agent rewrite
@@ -328,6 +341,7 @@ See **PLAYWRIGHT_AGENT_REWRITE_PROMPT.md** (separate document)
 See **GENERIC_AGENT_REWRITE_PROMPT.md** (separate document)
 
 **Scope:**
+
 - Single agent conversion (ChatGPT → multi-provider)
 - Provider-specific config generation
 - Plugin integration

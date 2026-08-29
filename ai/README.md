@@ -37,6 +37,7 @@ These references are consumed by:
 - `.github/custom-instructions.md`
 
 Keep this directory focused on canonical references and audit evidence, not implementation code.
+
 ## Visual Workflow
 
 ```mermaid

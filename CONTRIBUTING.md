@@ -98,6 +98,49 @@ To maintain a consistent, high-quality codebase and community, please follow the
   - For version bumps, include release notes and summary.
 - **Draft PRs:** If not ready for review, open as Draft. Convert to ready once complete.
 
+### Linking Issues in PRs (Important!)
+
+**Never close epic issues with PRs** — epic issues should only close when all child tasks are complete.
+
+#### What to link in the "Linked issues" section
+
+**Use closing keywords for:**
+Supported keywords: `close`, `closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved`
+(Optional colon after keyword: e.g., `Closes: #123` or `fixes #123`)
+
+- ✅ Bug issues (closes when fix merges)
+- ✅ Task issues (closes when work completes)
+- ✅ Story issues (closes when feature ships)
+- ✅ Feature issues (closes when implemented)
+
+**Never use "Closes" for:**
+
+- ❌ Epic issues (prevents proper epic closure)
+- ❌ Initiative issues (higher-level tracking)
+- ❌ Milestone issues (meta-tracking)
+
+**Use "Relates to" for:**
+
+- ✅ Epic issues (shows connection without closing)
+- ✅ Parent issues (acknowledges dependency without closing)
+- ✅ Milestone tracking issues
+
+#### Example
+
+```markdown
+## Linked issues
+
+Closes #2387 (child task)
+Closes #2388 (child story)
+Relates to #2396 (epic — not closed)
+```
+
+**Why this matters:**
+
+- Epics track high-level work across multiple child issues
+- Closing an epic with a PR prevents proper tracking and can cause workflow chaos
+- The PR validation workflow will block merge if you attempt to close an epic
+
 ### 5. Review & Merge
 
 - PRs are reviewed by maintainers, Copilot, or designated reviewers.

@@ -103,6 +103,7 @@ Phase 2D focuses on preparing Meta Agent v2.0 for production release as v1.0.0. 
 **Question Categories:**
 
 **General (10 Q&A)**
+
 - What is Meta Agent v2.0?
 - Why do I need it?
 - How is it different from v1.0?
@@ -110,6 +111,7 @@ Phase 2D focuses on preparing Meta Agent v2.0 for production release as v1.0.0. 
 - Can I use it with existing tools?
 
 **Setup & Installation (10 Q&A)**
+
 - How do I install it?
 - Do I need special permissions?
 - Can I run it locally?
@@ -117,6 +119,7 @@ Phase 2D focuses on preparing Meta Agent v2.0 for production release as v1.0.0. 
 - What's the performance impact?
 
 **Usage & Configuration (15 Q&A)**
+
 - How do I run validation?
 - What's the correct frontmatter format?
 - Can I customize schema?
@@ -124,6 +127,7 @@ Phase 2D focuses on preparing Meta Agent v2.0 for production release as v1.0.0. 
 - What does each schema field mean?
 
 **Troubleshooting (10 Q&A)**
+
 - Why is my file rejected?
 - How do I debug issues?
 - What if validation gives false positives?
@@ -131,6 +135,7 @@ Phase 2D focuses on preparing Meta Agent v2.0 for production release as v1.0.0. 
 - Where do I get support?
 
 **Advanced Topics (10+ Q&A)**
+
 - Can I contribute schema changes?
 - How do I audit validation history?
 - Can I use with multiple repos?
@@ -162,11 +167,13 @@ Phase 2D focuses on preparing Meta Agent v2.0 for production release as v1.0.0. 
    - Resources & next steps
 
 **Recorded Video (Optional):**
+
 - 10-minute walkthrough with screen recording
 - Hosted on video platform (Loom, YouTube, etc.)
 - Embedded in documentation
 
 **Slack Announcement Template:**
+
 - Brief intro (1 paragraph)
 - Key benefits (3 bullets)
 - Get started link
@@ -217,6 +224,7 @@ Phase 2D focuses on preparing Meta Agent v2.0 for production release as v1.0.0. 
 **Phase 3: Pilot Testing & Real-World Validation (Aug 29–Sep 6)**
 
 After Phase 2D release, Phase 3 runs the agent in 2–3 pilot repos:
+
 - Block plugin repo (e.g., ls-plugin)
 - Block theme repo (e.g., ls-theme)
 - Control-plane repo (.github)
@@ -241,4 +249,3 @@ Gather real-world feedback, refine schemas, validate performance. Complete Phase
 ---
 
 *Phase 2D begins 2026-08-22. Phase 2 (2A–2C) is complete with 116 tests passing. Let's ship it!* 🚀
-

@@ -1,8 +1,13 @@
 ---
 name: "🔐 Security"
+description: "🔐 Security"
 about: "Report vulnerabilities, security improvements, or compliance requirements."
 title: "[Security] <Brief summary>"
 labels: [status:needs-triage, priority:critical, area:security]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 <!--

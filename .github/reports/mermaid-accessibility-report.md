@@ -1506,7 +1506,7 @@ stability: stable
 - agents/meta-agent/PHASE-2B-COMPLETION.md
 - agents/meta-agent/PHASE-2C-PLAN.md
 - agents/meta-agent/README.md
-- agents/meta-agent/__tests__/fixtures/sample-readme.md
+- agents/meta-agent/**tests**/fixtures/sample-readme.md
 - agents/metadata-agent/README.md
 - agents/pagespeed-agent/AGENT.md
 - agents/pagespeed-agent/README.md
@@ -5586,15 +5586,15 @@ stability: stable
 - scripts/agents/PHASE-3-GUIDE.md
 - scripts/agents/PHASE-4-GUIDE.md
 - scripts/agents/TRIAGE-AGENT-GUIDE.md
-- scripts/agents/__tests__/README.md
+- scripts/agents/**tests**/README.md
 - scripts/agents/includes/README.md
-- scripts/agents/includes/__tests__/README.md
+- scripts/agents/includes/**tests**/README.md
 - scripts/automation/ADD-ISSUE-SECTIONS-GUIDE.md
 - scripts/automation/MANAGE_STALE_ISSUES_README.md
 - scripts/automation/README.md
 - scripts/automation/SYNC_PR_LABELS_README.md
 - scripts/automation/issue-agent/README.md
-- scripts/automation/issue-agent/shared/__tests__/fixtures/README.md
+- scripts/automation/issue-agent/shared/**tests**/fixtures/README.md
 - scripts/metrics/PROGRESS.md
 - scripts/metrics/README.md
 - scripts/metrics/docs/HANDOFF.md
@@ -5604,19 +5604,19 @@ stability: stable
 - scripts/metrics/docs/USAGE_GUIDE.md
 - scripts/metrics/integrations/README.md
 - scripts/validation/README.md
-- scripts/validation/__fixtures__/pr-templates/README.md
-- scripts/validation/__fixtures__/pr-templates/invalid/missing-changelog-entry.md
-- scripts/validation/__fixtures__/pr-templates/invalid/missing-linked-issues.md
-- scripts/validation/__fixtures__/pr-templates/invalid/unchecked-checklist.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_bug.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_chore.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_ci.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_dep_update.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_docs.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_feature.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_hotfix.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_refactor.md
-- scripts/validation/__fixtures__/pr-templates/valid/pr_release.md
+- scripts/validation/**fixtures**/pr-templates/README.md
+- scripts/validation/**fixtures**/pr-templates/invalid/missing-changelog-entry.md
+- scripts/validation/**fixtures**/pr-templates/invalid/missing-linked-issues.md
+- scripts/validation/**fixtures**/pr-templates/invalid/unchecked-checklist.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_bug.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_chore.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_ci.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_dep_update.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_docs.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_feature.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_hotfix.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_refactor.md
+- scripts/validation/**fixtures**/pr-templates/valid/pr_release.md
 - scripts/workflows/metrics/TASK_2.3_DOCUMENTATION.md
 - skills/README.md
 - skills/agency-scope-change-control/SKILL.md
@@ -6332,10 +6332,12 @@ stability: stable
 ## Compliance Criteria
 
 All diagrams must include:
+
 - ✅ **accTitle attribute** — Brief accessible title for screen readers
 - ✅ **accDescr attribute** — Detailed accessible description of diagram content
 
 Supported formats:
+
 - Single-line: `accTitle Title text` or `accDescr: "Description text"`
 - Block format: `accDescr { ... }`
 
@@ -6345,1132 +6347,1133 @@ Supported formats:
 
 ### .github/DISCUSSION_TEMPLATE/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/PULL_REQUEST_TEMPLATE/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/SAVED_REPLIES/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/agentic-workflows/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/instructions/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/metrics/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/operations/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/reports/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/rulesets/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/website/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .github/workflows/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### .schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### README.md — Diagram #2 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### README.md — Diagram #3 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### README.md — Diagram #4 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/agent/references/agent_files/commercial-rules/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/agent/references/agent_files/docs/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/agent/references/agent_files/memory-schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/agent/references/agent_files/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/agent/references/agent_files/service-templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/agent/references/agent_files/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/ai-readiness-estimator-agent/skills/agent-attached/markdown-content-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/changelog/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/client-website-discovery-assistant-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/client-website-discovery-assistant-agent/agent/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/client-website-discovery-assistant-agent/agent/references/docs/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/client-website-discovery-assistant-agent/agent/references/questionnaires/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/references/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/references/memory-snapshots/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/references/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/references/schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/references/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/agent/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/design-partner-agent/skills/agent-attached/hermes/content-file-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/harvest-analytical-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/harvest-analytical-agent/agent/instructions/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/harvest-analytical-agent/agent/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/linear-advisor-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/linear-advisor-agent/agent/references/agent_files/PULL_REQUEST_TEMPLATE/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/linear-advisor-agent/agent/references/agent_files/SAVED_REPLIES/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/linear-advisor-agent/skills/local/Presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/meta-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/metadata-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/pagespeed-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/pagespeed-agent/agent/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/pagespeed-agent/skills/agent-attached/builtins/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/assets/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/configuration/plugins/github/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/agent_files/docs/uat/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/agent_files/lightspeed-prd-task-manager-agent-pack/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/agent_files/questionnaires/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/docs/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/examples/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/examples/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/intake/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/memory-templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/memory-templates/defaults/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/memory-templates/schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/profiles/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/rollout/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/references/tests/validation-pack/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/scripts/validation-pack/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/agent/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/skills/agent-attached/content-file-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/skills/agent-attached/markdown-content-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-agent/skills/local/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-factory-planner-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-factory-planner-agent/agent/references/agent_files/docs/uat/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-factory-planner-agent/agent/references/agent_files/lightspeed-prd-task-manager-agent-pack/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-factory-planner-agent/agent/references/agent_files/questionnaires/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-factory-planner-agent/skills/agent-attached/content-file-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-factory-planner-agent/skills/agent-attached/markdown-content-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prd-factory-planner-agent/skills/local/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/prompt-engineer/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/proposal-desk-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/proposal-desk-agent/agent/configuration/plugin-cache/figma/local/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/proposal-desk-agent/agent/configuration/plugin-cache/github/local/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/proposal-desk-agent/agent/references/agent_files/docs/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/proposal-desk-agent/agent/references/agent_files/rollout/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/proposal-desk-agent/agent/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/proposal-desk-agent/skills/local/builtins/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/release/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/configuration/plugins/github/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/profiles/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/testing-agent/agent/other/agent_files/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/code/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/configuration/schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/instructions/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/instructions/prompts/tour-operator-website-local-skill/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/instructions/prompts/tour-operator-website/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/instructions/prompts/tour-operator-website/references/content-model/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/other/attached-memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/agent/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-agent-instructions/agent_files/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-website/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-website/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-website/references/content-model/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/skills/agent-attached/wordpress-accessibility-checker/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/tour-operator-config-agent/skills/local/Presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/configuration/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/other/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/references/docs/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/references/docs/intake/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/references/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/templates/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-content-strategist-agent/agent/templates/questionnaires/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-scope-estimator-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-scope-estimator-agent/agent/references/docs/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-scope-estimator-agent/agent/references/package-addons/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-scope-estimator-agent/agent/references/packages/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-scope-estimator-agent/agent/references/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/website-scope-estimator-agent/skills/local/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/configuration/memory-starters/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/configuration/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/configuration/schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/configuration/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/agent/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wordpress/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/configuration/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/configuration/profiles/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/configuration/schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/other/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/other/prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/other/prompts/yoast-configuration-audit/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/other/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/references/references/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/scripts/scripts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/agent/templates/templates/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/skills/agent-attached/wordpress-accessibility-checker/memory/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/wp-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/zendesk-support-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/zendesk-support-agent/skills/agent-attached/zendesk-evidence-collector/examples/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### ai/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### cookbook/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### docs/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### docs/RELEASE_PROCESS.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### docs/RELEASE_PROCESS.md — Diagram #2 (sequenceDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### docs/RELEASE_PROCESS.md — Diagram #3 (sequenceDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/agent-security-auditor/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/agent-spec-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/multi-provider-consistency-checker/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/plugin-integrity-checker/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/secrets-scanner/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/session-logger/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### hooks/tool-guardian/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### instructions/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-configuration-tour-operator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-github-ops/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-github-ops/hooks/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-metrics-and-reporting/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-planning-prd/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-planning-prd/hooks/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-playwright-testing/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-playwright-testing/hooks/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-quality-assurance/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-release-ops/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-wordpress-governance/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### plugins/lightspeed-wordpress-planning/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### prompts/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### schemas/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
-### scripts/agents/__tests__/README.md — Diagram #1 (graph)
+### scripts/agents/**tests**/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### scripts/agents/includes/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
-### scripts/agents/includes/__tests__/README.md — Diagram #1 (flowchart)
+### scripts/agents/includes/**tests**/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### scripts/automation/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### scripts/automation/issue-agent/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### scripts/metrics/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### scripts/metrics/docs/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### scripts/validation/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### skills/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### skills/markdown-content-validator/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### skills/slides/artifact_tool/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/invalid/malformed-node.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/invalid/missing-keyword.md — Diagram #1 (TD)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/invalid/unclosed-bracket.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/valid/flowchart.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/valid/graph.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/valid/multiple-diagrams.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/valid/multiple-diagrams.md — Diagram #2 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/valid/sequencediagram.md — Diagram #1 (sequenceDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### tests/fixtures/mermaid/valid/statediagram.md — Diagram #1 (stateDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### website/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### workflows/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ### workflows/memory/README.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
 
 ## Recommendations
 
 ⚠️ Recommended actions:
+
 1. Add missing `accTitle` attributes to identify each diagram
 2. Add comprehensive `accDescr` blocks describing diagram purpose and key relationships
 3. Test with screen readers to verify readability

@@ -1,1 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Implementation plan icon"><rect width="64" height="64" rx="14" fill="#2563eb"/><path d="M18 20h28v6H18zM18 30h20v6H18zM18 40h28v6H18z" fill="#fff"/><path d="M45 30l5 5-10 10-5-5z" fill="#facc15"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" aria-label="Implementation plan icon" role="img" viewBox="0 0 64 64"><rect width="64" height="64" fill="#2563eb" rx="14"/><path fill="#fff" d="M18 20h28v6H18zM18 30h20v6H18zM18 40h28v6H18z"/><path fill="#facc15" d="M45 30l5 5-10 10-5-5z"/></svg>

@@ -20,6 +20,7 @@ This prompt orchestrates a complete audit and implementation. Use it as a workfl
 **Objective:** Review all instruction files in `.github/instructions/` to identify conflicts with proposed standards.
 
 **Sources to Review:**
+
 - `agent-spec.instructions.md` — Agent specification standards
 - `automation.instructions.md` — Agent automation patterns
 - `copilot-operations.instructions.md` — GitHub Copilot rules
@@ -28,12 +29,14 @@ This prompt orchestrates a complete audit and implementation. Use it as a workfl
 
 **Deliverable:**
 Create `.github/tmp/instruction-audit.md` documenting:
+
 1. Existing standards that support multi-provider agents
 2. Gaps where new instruction files are needed
 3. Proposed modifications to existing files
 4. No conflicts found, or recommended changes
 
 **Success Criteria:**
+
 - [ ] All instruction files reviewed
 - [ ] Audit report completed
 - [ ] Conflicts (if any) clearly identified with recommended fixes
@@ -45,6 +48,7 @@ Create `.github/tmp/instruction-audit.md` documenting:
 **Objective:** Review existing hooks and propose new hooks for agent validation.
 
 **Sources to Review:**
+
 - `.github/hooks/secrets-scanner/` — Secret detection
 - `.github/hooks/session-logger/` — Session tracking
 - `.github/hooks/tool-guardian/` — Tool access controls
@@ -52,12 +56,14 @@ Create `.github/tmp/instruction-audit.md` documenting:
 
 **Deliverable:**
 Create `.github/tmp/hooks-audit.md` proposing:
+
 1. New hook: `agent-spec-validator.js` — Validates agent YAML/frontmatter
 2. New hook: `multi-provider-consistency-checker.js` — Detects provider divergences
 3. New hook: `plugin-integrity-checker.js` — Validates plugin manifests
 4. Hook registry updates
 
 **Output Template:**
+
 ```markdown
 ## Proposed Hook: {hook-name}
 
@@ -82,6 +88,7 @@ Create `.github/tmp/hooks-audit.md` proposing:
 ```
 
 **Success Criteria:**
+
 - [ ] 4 hooks documented
 - [ ] Each has clear triggers, actions, integration points
 - [ ] Code outline provided
@@ -94,6 +101,7 @@ Create `.github/tmp/hooks-audit.md` proposing:
 **Objective:** Review existing schemas and create new schemas for multi-provider agents.
 
 **Sources to Review:**
+
 - `.github/.schemas/agent-config.schema.json`
 - `.github/.schemas/plugin-manifest.schema.json`
 - `.github/.schemas/skill-agent-config.schema.json`
@@ -102,6 +110,7 @@ Create `.github/tmp/hooks-audit.md` proposing:
 
 **Deliverable:**
 Create `.github/tmp/schema-audit.md` documenting:
+
 1. Existing schema coverage (good, gaps)
 2. 4 new schemas to create:
    - `multi-provider-agent.schema.json` — Multi-provider agent validation
@@ -110,12 +119,14 @@ Create `.github/tmp/schema-audit.md` documenting:
    - `agent-capability-manifest.schema.json` — Agent capabilities
 
 **For Each New Schema:**
+
 - List JSON Schema properties
 - Provide example valid JSON
 - Document validation rules
 - Specify required fields
 
 **Success Criteria:**
+
 - [ ] 4 new schemas defined
 - [ ] Each has example valid JSON
 - [ ] Registered in schema-registry.json
@@ -127,6 +138,7 @@ Create `.github/tmp/schema-audit.md` documenting:
 **Objective:** Review AI configurations and propose updates for multi-provider standardization.
 
 **Sources to Review:**
+
 - `.github/ai/Claude.md`
 - `.github/ai/Gemini.md`
 - `.github/ai/RUNNERS.md`
@@ -136,12 +148,14 @@ Create `.github/tmp/schema-audit.md` documenting:
 
 **Deliverable:**
 Create `.github/tmp/ai-config-audit.md` proposing:
+
 1. Updates to Claude.md, Gemini.md, RUNNERS.md (if needed)
 2. New file: `agents-unified.md` — Meta-config for all agents
 3. New file: `multi-provider-mapping.md` — Tool mapping, capability parity
 4. Agent provider support matrix (Claude, Copilot, OpenAI)
 
 **Success Criteria:**
+
 - [ ] All AI configs reviewed
 - [ ] Provider support matrix created
 - [ ] Migration tracking documented
@@ -153,17 +167,20 @@ Create `.github/tmp/ai-config-audit.md` proposing:
 **Objective:** Audit memory schema and work-focus folder to ensure agent memory persistence aligns with new standards.
 
 **Sources:**
+
 - `.github/.schemas/memory/` folder
 - `.github/.remember/` folder (session memory)
 
 **Deliverable:**
 Create `.github/tmp/memory-audit.md` documenting:
+
 1. Current memory schema
 2. How agent state should persist (at agent level vs. plugin level)
 3. Proposed updates to memory schema for agents
 4. Work-focus folder recommendations (clarity on usage)
 
 **Success Criteria:**
+
 - [ ] Memory schema reviewed
 - [ ] Agent memory persistence model proposed
 - [ ] Work-focus structure clarified
@@ -208,6 +225,7 @@ Create `.github/tmp/standardization-framework.md` (summary of audit findings + s
 ```
 
 **Success Criteria:**
+
 - [ ] Naming conventions documented
 - [ ] Folder structures defined
 - [ ] Validation rules clear
@@ -221,10 +239,12 @@ Create `.github/tmp/standardization-framework.md` (summary of audit findings + s
 **Objective:** Understand current playwright-testing-agent structure.
 
 **Source:**
+
 - `.github/agents/playwright-testing-agent/`
 
 **Deliverable:**
 Create `.github/tmp/playwright-export-analysis.md` documenting:
+
 1. Current folder structure
 2. Files in `agent/`, `skills/`, `manifests/`
 3. Agent capabilities & tools
@@ -232,6 +252,7 @@ Create `.github/tmp/playwright-export-analysis.md` documenting:
 5. How to map to multi-provider format
 
 **Success Criteria:**
+
 - [ ] Current structure fully understood
 - [ ] Mapping plan created
 
@@ -242,7 +263,9 @@ Create `.github/tmp/playwright-export-analysis.md` documenting:
 **Objective:** Restructure playwright-testing-agent with new standardized format.
 
 **Operations:**
+
 1. Move existing files to preserve data:
+
    ```bash
    # Keep existing as reference
    mv .github/agents/playwright-testing-agent .github/agents/playwright-testing-agent-chatgpt-backup
@@ -250,6 +273,7 @@ Create `.github/tmp/playwright-export-analysis.md` documenting:
    ```
 
 2. Create new folder structure:
+
    ```
    .github/agents/playwright-testing-agent/
    ├── AGENT.md                    # Agent spec
@@ -279,9 +303,11 @@ Create `.github/tmp/playwright-export-analysis.md` documenting:
    ```
 
 **Deliverable:**
+
 - New folder structure created and empty template files initialized
 
 **Success Criteria:**
+
 - [ ] Folder structure created
 - [ ] Template files initialized
 - [ ] Old backup preserved
@@ -419,13 +445,16 @@ The Playwright Testing Agent automates end-to-end testing, cross-browser validat
 
 **Agent Prompt:**
 ```
+
 Test the user registration flow:
+
 1. Navigate to /signup
 2. Fill email, password, confirm password
 3. Accept terms & conditions
 4. Submit form
 5. Verify success message
 6. Validate new user email in database
+
 ```
 
 **Expected Output:**
@@ -440,13 +469,16 @@ Test the user registration flow:
 
 **Agent Prompt:**
 ```
+
 Compare home page appearance across browsers.
 Take screenshots on:
+
 - Chromium (desktop 1920x1080)
 - Firefox (desktop 1920x1080)
 - WebKit (mobile 375x812)
 
 Compare against baseline and report visual differences.
+
 ```
 
 **Expected Output:**
@@ -492,6 +524,7 @@ Compare against baseline and report visual differences.
 ```
 
 **Success Criteria:**
+
 - [ ] Agent spec follows template
 - [ ] All capabilities documented
 - [ ] Security rules clear
@@ -603,10 +636,12 @@ Always return:
 ### Integration with Claude Code
 
 When working in Claude Code:
+
 1. Install dependencies: `npm install @playwright/test`
 2. Create test file: `.test.ts` or `.test.js`
 3. Run tests: `npm test` or `npx playwright test`
 4. Analyze results: Parse JSON output
+
 ```
 
 ##### C. Create `.github/agents/playwright-testing-agent/copilot/agent.md`
@@ -651,10 +686,12 @@ You are a Copilot skill for Playwright testing within GitHub's ecosystem.
 ### GitHub Actions Integration
 
 Copilot can suggest workflow steps:
+
 ```yaml
 - name: Run Playwright Tests
   run: npx playwright test
 ```
+
 ```
 
 ##### D. Create `.github/agents/playwright-testing-agent/openai/agent.md`
@@ -696,6 +733,7 @@ When called via OpenAI API:
   }
 }
 ```
+
 ```
 
 **Success Criteria:**
@@ -815,6 +853,7 @@ skills:
 ```
 
 **Success Criteria:**
+
 - [ ] Claude tools.json created with 5+ tools
 - [ ] Copilot skills.yaml references skill folders
 - [ ] OpenAI functions.json follows OpenAI spec
@@ -1007,6 +1046,7 @@ See [agents/playwright-e2e-testing/config.md](./agents/playwright-e2e-testing/co
 ## Support
 
 [contact@lightspeedwp.agency](mailto:contact@lightspeedwp.agency)
+
 ```
 
 ##### D. Create `.github/plugins/lightspeed-playwright-testing/INSTALL.md`
@@ -1024,11 +1064,12 @@ See [agents/playwright-e2e-testing/config.md](./agents/playwright-e2e-testing/co
    cd .github/plugins/lightspeed-playwright-testing
    ```
 
-2. **Add to Claude Code:**
+1. **Add to Claude Code:**
    - Place plugin folder in your Claude plugins directory
    - Or import via Claude Code settings
 
-3. **Verify Installation:**
+2. **Verify Installation:**
+
    ```bash
    npx playwright --version
    ```
@@ -1036,16 +1077,19 @@ See [agents/playwright-e2e-testing/config.md](./agents/playwright-e2e-testing/co
 ### GitHub Copilot
 
 1. **Enable in Copilot:**
+
    ```bash
    gh copilot plugin add lightspeedwp/lightspeed-playwright-testing
    ```
 
 2. **Verify:**
+
    ```bash
    gh copilot plugin list
    ```
 
 3. **Use in Copilot Chat:**
+
    ```
    @playwright test my login flow
    ```
@@ -1056,6 +1100,7 @@ See [agents/playwright-e2e-testing/config.md](./agents/playwright-e2e-testing/co
    Add `copilot-plugin.json` to your OpenAI API config
 
 2. **Call via API:**
+
    ```python
    import openai
    
@@ -1069,15 +1114,18 @@ See [agents/playwright-e2e-testing/config.md](./agents/playwright-e2e-testing/co
 ## Troubleshooting
 
 **Missing Playwright:**
+
 ```bash
 npm install @playwright/test
 npx playwright install
 ```
 
 **Plugin Not Recognized:**
+
 - Verify installation path
 - Check plugin.json syntax
 - Restart IDE/tool
+
 ```
 
 **Success Criteria:**
@@ -1159,6 +1207,7 @@ Report security issues to: [security@lightspeedwp.agency](mailto:security@lights
 ```
 
 **Success Criteria:**
+
 - [ ] INSTALL.md created
 - [ ] MANIFEST.json valid
 - [ ] security-policy.md complete
@@ -1280,6 +1329,7 @@ This guide explains how to write agents that work across Claude, GitHub Copilot,
 ## Structure Pattern
 
 ```
+
 agent-folder/
 ├── shared/
 │   ├── core-prompt.md      # Used by all providers
@@ -1293,6 +1343,7 @@ agent-folder/
 └── openai/
     ├── agent.md            # OpenAI customizations
     └── tools.json          # OpenAI-specific functions
+
 ```
 
 ## Writing Core Prompts
@@ -1388,6 +1439,7 @@ Group agents by:
 
 **Example: Testing Plugin**
 ```
+
 lightspeed-testing/
 ├── agents/
 │   ├── playwright-e2e/
@@ -1400,6 +1452,7 @@ lightspeed-testing/
 └── hooks/
     ├── test-validation/
     └── flaky-test-detection/
+
 ```
 
 ## Hook Integration
@@ -1537,6 +1590,7 @@ This cookbook entry walks through the creation of the Playwright Testing Agent a
 ```
 
 **Success Criteria:**
+
 - [ ] agent-creation-workflow.instructions.md created
 - [ ] multi-provider-compatibility.instructions.md created
 - [ ] plugin-architecture.instructions.md created
@@ -1563,6 +1617,7 @@ D. `.github/.schemas/agent-capability-manifest.schema.json` — Validates agent 
 [Full JSON schema specifications for each]
 
 **Success Criteria:**
+
 - [ ] All 4 schemas created
 - [ ] Validated against example JSONs
 - [ ] Registered in schema-registry.json
@@ -1586,6 +1641,7 @@ D. Register all hooks in `.github/hooks/hook-registry.json`
 [Full hook implementations with test cases]
 
 **Success Criteria:**
+
 - [ ] All 4 hooks implemented
 - [ ] Registered in hook-registry.json
 - [ ] Tests passing
@@ -1635,6 +1691,7 @@ describe('Playwright Testing Agent', () => {
 ```
 
 **Success Criteria:**
+
 - [ ] Test file created
 - [ ] All tests passing
 - [ ] Test coverage >80%
@@ -1674,6 +1731,7 @@ describe('LightSpeed Playwright Testing Plugin', () => {
 ```
 
 **Success Criteria:**
+
 - [ ] Test file created
 - [ ] All tests passing
 - [ ] Manifest validation working
@@ -1695,6 +1753,7 @@ B. Create `.github/plugins/lightspeed-playwright-testing/docs/architecture.md`
 C. Update `.github/AGENTS.md` with new agent reference
 
 **Success Criteria:**
+
 - [ ] Documentation complete
 - [ ] Links working
 - [ ] Examples provided
@@ -1720,6 +1779,7 @@ npm run validate:agents
 ```
 
 **Success Criteria:**
+
 - [ ] Temporary files removed
 - [ ] Final validation passing
 - [ ] Ready for PR
@@ -1734,6 +1794,7 @@ npm run validate:agents
 **Target:** `develop`
 
 **PR Checklist:**
+
 - [ ] Branch name follows convention: `feat/agent-standards-playwright-testing`
 - [ ] All tests passing
 - [ ] No conflicts with develop
@@ -1741,6 +1802,7 @@ npm run validate:agents
 - [ ] Changelog entry added (if applicable)
 
 **Merge Strategy:**
+
 - Use squash merge
 - Delete branch after merge
 - Update CHANGELOG.md
@@ -1754,6 +1816,7 @@ This prompt orchestrates the complete rewrite of the Playwright Testing Agent fr
 ### Key Deliverables
 
 **Agent Rewrite:**
+
 - Restructured folder with provider-specific configs
 - AGENT.md spec with YAML frontmatter
 - Core prompts (provider-agnostic)
@@ -1761,18 +1824,21 @@ This prompt orchestrates the complete rewrite of the Playwright Testing Agent fr
 - Tool/function definitions per provider
 
 **Plugin:**
+
 - `lightspeed-playwright-testing` plugin wrapper
 - plugin.json manifest
 - copilot-plugin.json config
 - Provider-specific plugin configs
 
 **Repository Standardization:**
+
 - 4 new JSON schemas
 - 4 new hooks (validator, consistency-checker, integrity-checker, security-auditor)
 - 4 new instruction files
 - 1 new cookbook entry
 
 **Documentation:**
+
 - Installation guide
 - Architecture documentation
 - Cookbook entry

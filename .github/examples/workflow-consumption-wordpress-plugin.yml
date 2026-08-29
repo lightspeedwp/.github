@@ -1,0 +1,81 @@
+# Example: Using LightSpeed reusable workflows in a WordPress block plugin
+#
+# Place this in: .github/workflows/ci.yml (in your wordpress-block-plugin repo)
+#
+# This example shows how to consume reusable workflows from lightspeedwp/.github
+
+name: Plugin CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - '**.js'
+      - '**.php'
+      - 'package.json'
+      - 'composer.json'
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  # Run AI feedback validation on PRs
+  ai-feedback:
+    if: github.event_name == 'pull_request'
+    uses: lightspeedwp/.github/workflows/ai-feedback-validation@main
+    with:
+      context: wordpress-plugin
+      severity: warning
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Run integration tests using PR creation agent
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      # Use the reusable workflow if it supports your test setup
+      - name: Run integration tests
+        uses: lightspeedwp/.github/workflows/pr-creation-agent-integration-tests@main
+        secrets:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # PHP linting
+  php-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - run: composer install
+      - run: composer run lint
+
+  # JavaScript linting
+  js-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  # Phase progression (on main branch pushes)
+  update-phase:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    uses: lightspeedwp/.github/workflows/orchestrate-phase-progression@main
+    with:
+      repo-context: wordpress-plugin
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

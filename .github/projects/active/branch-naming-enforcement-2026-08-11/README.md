@@ -74,6 +74,7 @@ This initiative addresses recurring violations of the branch naming convention `
 ## Completed Work Summary (2026-08-22)
 
 ### Phase 1: Validators & Post-Release Sync (P1.1, P1.2)
+
 - **P1.1:** Unified `.cjs` and `.js` validators to strict `{type}/{scope}-{short-title}` pattern
   - Fixed divergence: `.js` was permissive, `.cjs` was strict
   - Updated workflow to use unified `.cjs` validator
@@ -82,6 +83,7 @@ This initiative addresses recurring violations of the branch naming convention `
   - Updated in 3 documentation files (ADR-003, BRANCHING_STRATEGY.md, RELEASE_PROCESS.md)
 
 ### Phase 2: Agent Guidance & Pre-Creation Validation (P2.1-P2.5)
+
 - **P2.1:** Added branch naming guidance to 19 spec-based agents
 - **P2.2:** Created portable instruction file: `instructions/branch-naming.instructions.md`
 - **P2.3:** Added pre-creation validation to release agent
@@ -89,6 +91,7 @@ This initiative addresses recurring violations of the branch naming convention `
 - **P2.5:** Updated agent spec template with three branch naming options
 
 ### Phase 3: Improved Discoverability (P3.1-P3.5)
+
 - **P3.1:** Created quick reference guide: `docs/QUICK_REFERENCE_BRANCH_NAMING.md`
 - **P3.2:** Expanded CLAUDE.md with 7-step validation checklist
 - **P3.3:** Significantly expanded AGENTS.md Branch Governance section (100+ lines)
@@ -114,12 +117,14 @@ This initiative addresses recurring violations of the branch naming convention `
 ## Related Issues & Pull Requests
 
 ### Primary PR
+
 - **PR #2302** — [refactor(validation): P1-P2 - Unified validators and agent branch guidance](https://github.com/lightspeedwp/.github/pull/2302)
   - Status: Open, auto-merge enabled
   - Contains: All Phase 1-3 work (validators, agent guidance, discoverability improvements)
   - Updated: 2026-08-22 with Phase 3 commits (50 files, 893 additions)
 
 ### Related Issues & Epics
+
 - **Epic:** [#1755 - Branch Naming Enforcement Workflow](https://github.com/lightspeedwp/.github/issues/1755) (parent epic)
 - **Related Issue:** [#1967 - CI Validation Issues: Branch Naming & Gitleaks Discrepancies](https://github.com/lightspeedwp/.github/issues/1967)
 - **Related Documentation:** [docs/BRANCHING_STRATEGY.md](../../../../docs/BRANCHING_STRATEGY.md)
@@ -128,6 +133,7 @@ This initiative addresses recurring violations of the branch naming convention `
 ## Key Documentation Updates
 
 New and updated files from Phase 1-3:
+
 - ✅ `docs/QUICK_REFERENCE_BRANCH_NAMING.md` — Quick one-page reference guide
 - ✅ `instructions/branch-naming.instructions.md` — Comprehensive portable guide
 - ✅ `CLAUDE.md` — Expanded "Before Every Push" validation checklist
@@ -140,6 +146,7 @@ New and updated files from Phase 1-3:
 **Total:** 50 files changed, 893 additions, 28 deletions
 
 **By Category:**
+
 - Agent specifications: 19 files (`.agent.md`)
 - Portable agents: 19 files (`agents/*/AGENT.md`)
 - Core documentation: 2 files (CLAUDE.md, AGENTS.md)
@@ -156,6 +163,7 @@ New and updated files from Phase 1-3:
 **Project Owner:** Ash Shaw  
 **Last Updated:** 2026-08-11  
 **Next Review:** 2026-08-14
+
 ## Visual Workflow
 
 ```mermaid

@@ -1,8 +1,13 @@
 ---
 name: "🤖 Automation"
+description: "🤖 Automation"
 about: "Propose, fix, or improve automation (actions, scripts, bots)."
 title: "[Automation] <Short summary>"
 labels: [status:needs-triage, area:automation]
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 ---
 
 ## Automation Summary

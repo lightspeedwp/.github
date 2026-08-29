@@ -1,7 +1,11 @@
 ---
-file_type: "issue-template"
 name: "🏠 Chore"
+description: "🏠 Chore"
 about: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
+assignees: []
+projects: []
+milestone: ""
+file_type: issue-template
 version: "1.0.3"
 last_updated: "2026-06-19"
 category: "github-templates"

@@ -15,6 +15,7 @@ For detailed project information, see [PROJECT_README.md](./PROJECT_README.md).
 | TBD | task | Link GitHub issue for develop branch stability | 📋 Pending |
 
 **Note:** This project needs a linked GitHub issue for tracking. Create an issue and update this section with the issue number.
+
 ## Visual Workflow
 
 ```mermaid

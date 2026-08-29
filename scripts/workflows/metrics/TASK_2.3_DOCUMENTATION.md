@@ -50,14 +50,17 @@ new MetricsCollectionOrchestrator({
 **Type:** Scheduled + manual trigger
 
 **Triggers:**
+
 - **Schedule:** Every Monday at 6:00 AM UTC (configurable)
 - **Workflow Dispatch:** Manual trigger with context selection
 
 **Inputs (Workflow Dispatch):**
+
 - `context` — Select context (all, github-control-plane, wordpress-plugin, wordpress-theme)
 - `dry_run` — Preview without collecting
 
 **Jobs:**
+
 1. **collect** — Main metrics collection job
    - Checks out repository
    - Sets up Node.js
@@ -67,6 +70,7 @@ new MetricsCollectionOrchestrator({
    - Auto-commits results to develop branch
 
 **Outputs:**
+
 - `collection_timestamp` — Collection date (YYYY-MM-DD)
 - `results_file` — Path to results JSON
 - `successful` — Number of successful contexts
@@ -79,6 +83,7 @@ new MetricsCollectionOrchestrator({
 **Coverage:** 79.11%
 
 Test categories:
+
 - Constructor initialization (3 tests)
 - Context selection (3 tests)
 - Setup validation (3 tests)
@@ -113,12 +118,14 @@ node scripts/workflows/metrics/collect-metrics.js --verbose
 ### GitHub Actions Workflow
 
 **Scheduled Collection (Weekly):**
+
 - Runs automatically every Monday at 6:00 AM UTC
 - Collects metrics for all contexts
 - Commits results to develop branch
 - Uploads artifacts for 30 days
 
 **Manual Trigger:**
+
 1. Go to `.github` repository
 2. Click "Actions" tab
 3. Select "Metrics Collection" workflow
@@ -166,11 +173,13 @@ MetricsCollectionOrchestrator
 ### Configuration Sources
 
 **Metrics Agent Configs:**
+
 - `scripts/metrics/config/github-control-plane.json`
 - `scripts/metrics/config/wordpress-plugin.json`
 - `scripts/metrics/config/wordpress-theme.json`
 
 **Output Locations:**
+
 - `.github/reports/metrics/collection-YYYY-MM-DD.json` — Orchestration results
 - Individual context reports from metrics-agent.js
 
@@ -181,11 +190,13 @@ MetricsCollectionOrchestrator
 ### Collection Failures
 
 Orchestrator captures and logs:
+
 - Missing configuration files
 - Metrics agent execution errors
 - Shell command failures
 
 **Failure modes:**
+
 - Individual context failure → captures error, continues with other contexts
 - Multiple failures → exits with error code 1
 - All failures → exits with error code 1
@@ -203,11 +214,13 @@ Orchestrator captures and logs:
 ### With metrics-agent.js
 
 Orchestrator executes:
+
 ```bash
 node scripts/metrics/metrics-agent.js <config-path>
 ```
 
 Expects output format:
+
 ```
 Report saved to: /path/to/report.json
 ```
@@ -215,6 +228,7 @@ Report saved to: /path/to/report.json
 ### With GitHub Actions
 
 Orchestrator sets outputs for downstream jobs:
+
 ```
 collection_timestamp=2026-08-18
 results_file=/path/to/collection-2026-08-18.json
@@ -281,16 +295,19 @@ npm test -- scripts/workflows/metrics/__tests__/collect-metrics.test.js --covera
 ### Manual Testing
 
 1. **Dry Run:**
+
    ```bash
    npm run metrics:collect:all -- --dry --verbose
    ```
 
 2. **Single Context:**
+
    ```bash
    npm run metrics:collect:control-plane
    ```
 
 3. **Check Output:**
+
    ```bash
    ls -la .github/reports/metrics/
    cat .github/reports/metrics/collection-*.json | jq .
@@ -314,6 +331,7 @@ npm test -- scripts/workflows/metrics/__tests__/collect-metrics.test.js --covera
 
 **Cause:** metrics-agent.js execution error  
 **Solution:**
+
 1. Check GitHub API token has proper permissions
 2. Review metrics-agent logs
 3. Run locally: `npm run metrics:collect:control-plane`
