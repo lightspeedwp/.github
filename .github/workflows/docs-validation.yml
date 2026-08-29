@@ -77,13 +77,21 @@ jobs:
       - name: Validate diagram syntax
         id: syntax
         if: steps.has_diagrams.outputs.result == 'true'
-        run: npm run validate:mermaid-syntax
+        run: |
+          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
+          ${{ steps.changed.outputs.files }}
+          CHANGED_FILES_EOF
+          node scripts/validation/validate-mermaid-syntax.js --changed-files-list="$RUNNER_TEMP/changed-md-files.txt"
         continue-on-error: true
 
       - name: Validate accessibility (accTitle / accDescr)
         id: accessibility
         if: steps.has_diagrams.outputs.result == 'true'
-        run: npm run validate:mermaid-accessibility
+        run: |
+          cat > "$RUNNER_TEMP/changed-md-files.txt" << 'CHANGED_FILES_EOF'
+          ${{ steps.changed.outputs.files }}
+          CHANGED_FILES_EOF
+          node scripts/validation/validate-mermaid-accessibility.js --changed-files-list="$RUNNER_TEMP/changed-md-files.txt"
         continue-on-error: true
 
       - name: Validate colour contrast (WCAG 2.2 AA)

@@ -13,21 +13,22 @@ import { globSync } from "glob";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
-const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
-  cwd: ROOT,
-  ignore: [
-    "**/node_modules/**",
-    "**/.git/**",
-    "**/coverage/**",
-    "**/logs/**",
-    "**/.github/projects/**",
-    "**/plugin-provided/**",
-    "**/platform-managed/**",
-    "**/directory-installed/**",
-    "**/agentskills-main/**",
-    "**/tests/fixtures/**",
-  ],
-}).sort();
+const getMarkdownFiles = () =>
+  globSync("**/*.{md,mdx}", {
+    cwd: ROOT,
+    ignore: [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/coverage/**",
+      "**/logs/**",
+      "**/.github/projects/**",
+      "**/plugin-provided/**",
+      "**/platform-managed/**",
+      "**/directory-installed/**",
+      "**/agentskills-main/**",
+      "**/tests/fixtures/**",
+    ],
+  }).sort();
 
 // Mermaid syntax validation patterns
 const DIAGRAM_TYPES = {
@@ -183,6 +184,34 @@ function validateDiagramSyntax(content) {
 }
 
 async function main() {
+  const args = process.argv.slice(2);
+  const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
+  const changedFilesListArg = args.find((a) =>
+    a.startsWith("--changed-files-list="),
+  );
+  const isVendorPath = (filePath) =>
+    /\/(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
+      filePath,
+    );
+  const targetFiles = (
+    changedFilesListArg
+      ? fs
+          .readFileSync(
+            changedFilesListArg.replace("--changed-files-list=", ""),
+            "utf8",
+          )
+          .split("\n")
+          .map((f) => f.trim())
+          .filter(Boolean)
+      : changedFilesArg
+        ? changedFilesArg
+            .replace("--changed-files=", "")
+            .split(",")
+            .map((f) => f.trim())
+            .filter(Boolean)
+        : getMarkdownFiles()
+  ).filter((f) => !isVendorPath(f));
+
   console.log("🔍 Validating Mermaid diagram syntax...\n");
 
   const report = {
@@ -192,8 +221,8 @@ async function main() {
     errors: [],
   };
 
-  for (const file of MARKDOWN_FILES) {
-    const filePath = path.join(ROOT, file);
+  for (const file of targetFiles) {
+    const filePath = path.isAbsolute(file) ? file : path.join(ROOT, file);
 
     if (!fs.existsSync(filePath)) {
       console.log(`⚠️  File not found: ${file}`);
@@ -282,7 +311,7 @@ stability: stable
 - **Success rate**: ${(report.totalDiagrams === 0 ? 100 : (report.validDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
 ## Files Analyzed
 
-${MARKDOWN_FILES.map((f) => `- ${f}`).join("\n")}
+${targetFiles.map((f) => `- ${f}`).join("\n")}
 
 ## Detailed Results
 
