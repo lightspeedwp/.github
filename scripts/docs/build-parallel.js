@@ -23,20 +23,16 @@ async function buildDoc(docPath) {
   const startTime = Date.now();
 
   try {
-    // Placeholder: actual build logic would go here
+    // TODO: Implement actual build logic
     // In real implementation, this would:
     // 1. Parse markdown
     // 2. Generate HTML
     // 3. Process metadata
     // 4. Return success result
-
-    const buildTime = Date.now() - startTime;
-
-    return {
-      path: docPath,
-      status: "success",
-      buildTime,
-    };
+    // For now, throw to prevent accidental false success in production
+    throw new Error(
+      "buildDoc() not yet implemented - wire actual markdown build logic here",
+    );
   } catch (error) {
     const buildTime = Date.now() - startTime;
 

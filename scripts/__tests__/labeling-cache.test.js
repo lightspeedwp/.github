@@ -113,7 +113,9 @@ describe("LabelingRuleCache", () => {
 
       // Next evaluation should be a miss
       cache.evaluateWithCache(mockIssue, mockRule);
-      expect(stats.misses).toBe(0); // Stats were reset
+      const newStats = cache.getStats();
+      expect(newStats.misses).toBe(1); // Stats incremented after clear
+      expect(newStats.hits).toBe(0);
     });
   });
 
