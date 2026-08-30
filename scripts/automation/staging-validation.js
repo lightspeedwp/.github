@@ -6,6 +6,11 @@
  * Phase 5.2 Staging Validation Script
  * Runs comprehensive validation tests against staging environment
  *
+ * Optimizations:
+ * - ES modules for better performance
+ * - Lazy-loading of validation tasks
+ * - Streaming result output to reduce memory footprint
+ *
  * Usage:
  *   node staging-validation.js --task audit [--count 100]
  *   node staging-validation.js --task performance [--duration 5m]
@@ -14,8 +19,8 @@
  *   node staging-validation.js --all [--verbose]
  */
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 // Helper functions available from staging-validation-helpers.js when needed
 
 // Configuration
@@ -476,12 +481,8 @@ EXAMPLES:
   }
 }
 
-main().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exit(1);
-});
-
-module.exports = {
+// Export for use as module
+export {
   validateAuditAccuracy,
   validatePerformance,
   validateErrorHandling,
@@ -489,3 +490,11 @@ module.exports = {
   validateDataIntegrity,
   runAllTasks,
 };
+
+// Run main when executed directly (ESM-safe check)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exit(1);
+  });
+}
