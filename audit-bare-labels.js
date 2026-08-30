@@ -151,8 +151,10 @@ function createBareToCanonicalMapping(canonicalLabels) {
           canonical = "type:test";
           break;
         case "documentation":
-        case "docs":
           canonical = "type:documentation";
+          break;
+        case "docs":
+          canonical = "area:documentation";
           break;
         case "chore":
           canonical = "type:chore";
@@ -216,6 +218,9 @@ function createBareToCanonicalMapping(canonicalLabels) {
         case "high":
         case "important":
           canonical = "priority:important";
+          break;
+        case "urgent-fix":
+          canonical = "priority:critical";
           break;
         case "medium":
           canonical = "priority:normal";
@@ -364,7 +369,12 @@ function main() {
   console.log(`\n✓ Total bare labels mapped: ${Object.keys(mapping).length}`);
 
   // Save mapping to JSON for use in remediation script
-  const reportDir = path.join(__dirname, "reports", "label-remediation");
+  const reportDir = path.join(
+    __dirname,
+    ".github",
+    "reports",
+    "label-remediation",
+  );
   const mappingPath = path.join(reportDir, "bare-label-mapping.json");
 
   if (!fs.existsSync(reportDir)) {

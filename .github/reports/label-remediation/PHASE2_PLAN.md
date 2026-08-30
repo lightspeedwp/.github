@@ -26,41 +26,41 @@ Phase 2 of the label prefix governance initiative focuses on remediating ~100 ex
 - Issue #1604: Bulk label remediation for existing bare labels
 - Issue #1592: Label Prefix Governance Enforcement (tracking)
 
-### Bare Labels Identified (76 total)
+### Bare Labels Identified (77 total)
 
 #### Type Labels (28)
 
 `bug`, `feature`, `enhancement`, `task`, `refactor`, `test`, `documentation`, `chore`, `improve`, `ui`, `ux`, `help`, `support`, `research`, `investigation`, `build`, `release`, `performance`, `security`, `a11y`, `accessibility`, `design`, `content`, `epic`, `story`, `qa`, `bug-report`, `feature-request`
 
-#### Priority Labels (8)
+#### Priority Labels (9)
 
-`urgent`, `critical`, `high`, `medium`, `low`, `important`, `minor`, `priority`
+`urgent`, `critical`, `high`, `medium`, `low`, `important`, `minor`, `priority`, `urgent-fix`
 
 #### Status Labels (14)
 
 `needs-review`, `in-progress`, `done`, `blocked`, `wontfix`, `duplicate`, `invalid`, `stale`, `on-hold`, `needs-triage`, `needs-design`, `needs-documentation`, `needs-qa`, `needs-testing`
 
-#### Area Labels (11)
+#### Area Labels (15)
 
 `core`, `docs`, `testing`, `infrastructure`, `devops`, `backend`, `frontend`, `database`, `api`, `plugin`, `theme`, `block-editor`, `woocommerce`, `dependencies`, `deployment`
 
-#### Contributor/Meta Labels (6)
+#### Contributor/Meta Labels (10)
 
-`good-first-issue`, `help-wanted`, `help wanted`, `discussion`, `contributor`, `community`, `question`, `feedback`, `improvement`, `urgent-fix`
+`good-first-issue`, `help-wanted`, `help wanted`, `discussion`, `contributor`, `community`, `question`, `feedback`, `improvement`, `ci`, `cd`
 
 ## Remediation Process
 
 ### Step 1: Audit & Mapping (✅ Complete)
 
 - Generated `audit-bare-labels.js` script
-- Created comprehensive bare→canonical mapping (76 labels)
-- Output: `reports/label-remediation/bare-label-mapping.json`
+- Created comprehensive bare→canonical mapping (77 labels)
+- Output: `.github/reports/label-remediation/bare-label-mapping.json`
 
 ### Step 2: Query & Discovery
 
 - Use `query-bare-labels.js` to identify actual bare labels in use
 - Execute: `GITHUB_TOKEN=... node query-bare-labels.js`
-- Output: `reports/label-remediation/bare-labels-found.json`
+- Output: `.github/reports/label-remediation/bare-labels-found.json`
 
 ### Step 3: Remediation Workflow
 
@@ -122,7 +122,8 @@ gh workflow run remediate-bare-labels.yml -f dry_run=false
 | `task` | `type:task` | Tasks/to-dos |
 | `refactor` | `type:refactor` | Code refactoring |
 | `test` | `type:test` | Testing work |
-| `documentation`, `docs` | `type:documentation` | Docs updates |
+| `documentation` | `type:documentation` | Docs updates |
+| `docs` | `area:documentation` | Documentation area |
 | `chore` | `type:chore` | Maintenance |
 | `ui` | `type:ui` | UI work |
 | `ux`, `feedback`, `ux-feedback` | `type:ux-feedback` | UX feedback |
@@ -144,7 +145,7 @@ gh workflow run remediate-bare-labels.yml -f dry_run=false
 
 | Bare | Canonical |
 |---|---|
-| `urgent`, `critical`, `priority` | `priority:critical` |
+| `urgent`, `critical`, `priority`, `urgent-fix` | `priority:critical` |
 | `high`, `important` | `priority:important` |
 | `medium` | `priority:normal` |
 | `low`, `minor` | `priority:minor` |
@@ -172,9 +173,11 @@ gh workflow run remediate-bare-labels.yml -f dry_run=false
 | Bare | Canonical |
 |---|---|
 | `core`, `backend`, `api`, `database` | `area:core` |
-| `docs`, `testing` | `area:tests` |
+| `docs` | `area:documentation` |
+| `testing` | `area:tests` |
 | `infrastructure`, `devops` | `area:infrastructure` |
 | `frontend`, `theme` | `area:theme` |
+| `ci`, `cd` | `area:ci` |
 | `plugin` | `area:plugins` |
 | `block-editor` | `area:block-editor` |
 | `woocommerce` | `area:woocommerce` |
@@ -196,8 +199,8 @@ gh workflow run remediate-bare-labels.yml -f dry_run=false
 | `audit-bare-labels.js` | Generates bare→canonical mapping |
 | `query-bare-labels.js` | Queries GitHub API for bare labels in use |
 | `.github/workflows/remediate-bare-labels.yml` | Workflow for bulk remediation |
-| `reports/label-remediation/bare-label-mapping.json` | Mapping output |
-| `reports/label-remediation/bare-labels-found.json` | Query results |
+| `.github/reports/label-remediation/bare-label-mapping.json` | Mapping output |
+| `.github/reports/label-remediation/bare-labels-found.json` | Query results |
 
 ## Timeline
 
@@ -211,7 +214,7 @@ gh workflow run remediate-bare-labels.yml -f dry_run=false
 ## Done Criteria
 
 - [ ] All bare labels identified and documented
-- [ ] Mapping created and validated (76 labels)
+- [ ] Mapping created and validated (77 labels)
 - [ ] Query script identifies actual bare labels in use
 - [ ] Remediation workflow tested in dry-run mode
 - [ ] Bulk remediation executed
@@ -234,7 +237,7 @@ All remediation adheres to:
 
 1. ✅ **0 bare labels**: All unprefixed labels removed
 2. ✅ **100% canonical**: All labels use family prefixes
-3. ✅ **Complete mapping**: All 76 bare labels documented
+3. ✅ **Complete mapping**: All 77 bare labels documented
 4. ✅ **Process automation**: Workflow in place for prevention
 
 ## Related Issues

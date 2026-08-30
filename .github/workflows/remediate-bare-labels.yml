@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
@@ -40,7 +40,7 @@ jobs:
           # Export mapping as environment variable for step
           node -e "
             const fs = require('fs');
-            const mapping = JSON.parse(fs.readFileSync('reports/label-remediation/bare-label-mapping.json', 'utf8'));
+            const mapping = JSON.parse(fs.readFileSync('.github/reports/label-remediation/bare-label-mapping.json', 'utf8'));
             console.log('BARE_LABELS=' + JSON.stringify(Object.keys(mapping)));
             console.log('MAPPING=' + JSON.stringify(mapping));
           " >> $GITHUB_OUTPUT
@@ -162,6 +162,7 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run }}
 
       - name: Generate report
+        id: generate-report
         if: always()
         uses: actions/github-script@v7
         with:

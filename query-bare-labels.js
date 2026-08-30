@@ -2,7 +2,7 @@
 
 /**
  * Query script to identify issues/PRs with bare labels
- * Uses GitHub GraphQL API via Octokit
+ * Uses GitHub REST API via Octokit
  */
 
 import fs from "fs";
@@ -25,6 +25,7 @@ const octokit = new Octokit({ auth: token });
 function loadMapping() {
   const mappingPath = path.join(
     __dirname,
+    ".github",
     "reports",
     "label-remediation",
     "bare-label-mapping.json",
@@ -150,7 +151,12 @@ function generateReport(findings) {
     });
 
   // Save detailed findings
-  const reportDir = path.join(__dirname, "reports", "label-remediation");
+  const reportDir = path.join(
+    __dirname,
+    ".github",
+    "reports",
+    "label-remediation",
+  );
   if (!fs.existsSync(reportDir)) {
     fs.mkdirSync(reportDir, { recursive: true });
   }

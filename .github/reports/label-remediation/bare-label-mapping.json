@@ -50,7 +50,7 @@
   "needs-qa": "status:needs-qa",
   "needs-testing": "status:needs-testing",
   "core": "area:core",
-  "docs": "type:documentation",
+  "docs": "area:documentation",
   "testing": "area:tests",
   "infrastructure": "area:infrastructure",
   "devops": "area:infrastructure",
@@ -74,5 +74,6 @@
   "feature-request": "type:feature",
   "question": "type:question",
   "feedback": "type:ux-feedback",
-  "improvement": "type:improve"
+  "improvement": "type:improve",
+  "urgent-fix": "priority:critical"
 }
