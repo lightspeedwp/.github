@@ -99,6 +99,7 @@
     "validate:mermaid-accessibility": "node scripts/validation/validate-mermaid-accessibility.js",
     "validate:mermaid-contrast": "node scripts/validation/validate-mermaid-colour-contrast.js",
     "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:json:all",
+    "audit:readme": "node scripts/validation/validate-readme-links.js",
     "eslint:delta:wave-1": "node scripts/compute-eslint-delta-wave-1.js",
     "sync-version": "node scripts/sync-version.js",
     "metrics:run": "node metrics/frontmatter-metrics.js",
