@@ -100,7 +100,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Analyse Issue Content
         id: analyze
@@ -158,38 +158,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Apply Labels
         id: label
         run: |
-          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
-          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+          # DISABLED: The labeling-agent.js was removed in Phase 1 (Issue #2283)
+          # as it was applying bare labels without required family prefixes.
+          # TODO: Implement corrected labeling-agent that enforces canonical prefixed labels
+          # See: https://github.com/lightspeedwp/.github/issues/2283
 
-          # For scheduled/manual runs without explicit issue, find first needs-triage issue
-          if [[ -z "$ISSUE_NUM" ]]; then
-            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
-              | jq -r '.[0].number // empty')
-
-            if [[ -z "$NEEDS_TRIAGE" ]]; then
-              echo "status=skipped" >> $GITHUB_OUTPUT
-              exit 0
-            fi
-            ISSUE_NUM="$NEEDS_TRIAGE"
-          fi
-
-          # Call labelling script
-          node scripts/automation/labeling-agent.js \
-            --issue "$ISSUE_NUM" \
-            --repo "${{ github.repository }}" \
-            --token "${{ secrets.GITHUB_TOKEN }}" \
-            --type "${{ needs.content-analysis.outputs.detected_type }}" || {
-            echo "status=error" >> $GITHUB_OUTPUT
-            exit 1
-          }
-
-          echo "status=success" >> $GITHUB_OUTPUT
+          echo "status=skipped" >> $GITHUB_OUTPUT
+          echo "Labeling step disabled - awaiting corrected implementation"
 
       - name: Log Labeling Results
         if: always()
@@ -214,7 +194,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Enrich Issue
         id: enrich
@@ -264,7 +244,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Validate Issue
         id: validate
@@ -322,7 +302,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Generate Report
         id: report

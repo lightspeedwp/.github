@@ -69,6 +69,52 @@ references:
 
 ---
 
+## Label Creation Governance (CRITICAL)
+
+When your code creates issues via `gh issue create` or GitHub API:
+
+1. **Always validate labels against canonical set** (`.github/labels.yml`)
+2. **All labels MUST include family prefix**:
+   - `type:*` for issue classification (bug, feature, documentation, task, design, etc.)
+   - `status:*` for workflow state (needs-triage, ready, in-progress, blocked, done, etc.)
+   - `priority:*` for urgency (critical, important, normal, minor)
+   - `area:*` for domain/component (ci, docs, security, labels, tests, scripts, etc.)
+   - `meta:*` for automation markers (needs-changelog, has-pr, duplicate, etc.)
+
+### Example: Creating an issue with correct labels
+
+```bash
+# ✅ CORRECT — All labels use required prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "type:feature" \
+  --label "area:block-editor" \
+  --label "priority:normal" \
+  --label "status:needs-triage"
+
+# ❌ INCORRECT — Bare labels without prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "feature" \
+  --label "block-editor" \
+  --label "normal" \
+  --label "needs-triage"
+```
+
+### Validation Checklist
+
+Before creating any issue programmatically:
+
+- [ ] Each label exists in `.github/labels.yml`
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, etc.)
+- [ ] No bare labels (labels without colons are invalid)
+
+**Reference**: `.github/scripts/validation/validate-labels-before-creation.cjs`
+
+---
+
 ## PR Templates
 
 - Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
@@ -96,6 +142,61 @@ Start here for all key standards:
 | **Main Agent Index**      | [agents/agent.md](agents/agent.md)                               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
 | **Instruction Migration** | [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
+
+---
+
+## Label Creation Governance (CRITICAL)
+
+### For Programmatic Issue and PR Creation
+
+When your code creates issues or PRs via `gh issue create`, `gh pr create`, or GitHub API:
+
+1. **Always validate labels against the canonical set** (`.github/labels.yml`)
+2. **ALL labels MUST include family prefix** — never apply bare labels
+3. **Prefix families and examples**:
+   - `type:*` — bug, feature, documentation, task, design, security, performance, a11y
+   - `status:*` — needs-triage, ready, in-progress, blocked, review, done
+   - `priority:*` — critical, high, normal, low
+   - `area:*` — ci, docs, security, labels, tests, scripts, automation, etc.
+   - `meta:*` — needs-changelog, has-pr, duplicate, needs-audit
+
+### Example: Creating an Issue with Correct Labels
+
+```bash
+# ✅ CORRECT — All labels use required prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "type:feature" \
+  --label "area:core" \
+  --label "priority:normal" \
+  --label "status:needs-triage"
+
+# ❌ INCORRECT — Bare labels without prefixes (DO NOT USE)
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "feature" \
+  --label "core" \
+  --label "normal" \
+  --label "needs-triage"
+```
+
+### Pre-Creation Validation Checklist
+
+Before creating any issue or PR programmatically:
+
+- [ ] Each label exists in `.github/labels.yml`
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, `priority:`, `meta:`)
+- [ ] No bare labels without colons
+- [ ] Canonical case (lowercase, hyphens for spaces)
+
+### References
+
+- **Canonical labels**: `.github/labels.yml` (158 prefixed labels)
+- **Label taxonomy**: `docs/LABEL_STRATEGY.md`
+- **Labeling guide**: `docs/LABELING.md`
+- **Governance audit**: [Issue #1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Enforcement
 
 ---
 

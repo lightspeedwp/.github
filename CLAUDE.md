@@ -35,6 +35,23 @@ It also hosts **portable AI operations assets** in top-level source folders that
 
 Do **not** place reusable assets under `.github/`—use the matching top-level folder instead.
 
+## Git Branching Strategy
+
+**CRITICAL:** All development must start from the `develop` branch, never `main`.
+
+- `main` — production releases only. Never commit feature work directly to `main`.
+- `develop` — active development integration branch. All feature branches must be based on `develop`.
+- Feature branches — use the pattern `{type}/{scope}-{title}` (e.g., `refactor/pr-triage-tests-production-imports`, `feat/label-automation-v2`).
+
+When starting work on an issue:
+
+```bash
+git fetch origin develop
+git checkout -B {type}/{scope}-{title} origin/develop
+```
+
+This ensures your branch includes all latest development work and integrates cleanly without merge conflicts from diverged histories.
+
 ## Development Commands
 
 ```bash
@@ -66,6 +83,34 @@ npm run validate:frontmatter
 - **Performance:** Avoid unnecessary JS, defer/lazy-load where possible, prefer native blocks.
 - **No `references` frontmatter field:** Use inline links or footer sections instead.
 - **Instruction files:** Follow the pattern in `.github/instructions/instructions.instructions.md`—frontmatter + role declaration + Overview + General Rules + Detailed Guidance + Examples + Validation + References.
+
+## Label Creation Rules (CRITICAL)
+
+When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL labels MUST be from the canonical set in `.github/labels.yml` with their required family prefix**. Never apply bare labels without prefixes.
+
+### Valid Label Examples (Prefixed)
+
+- `type:bug`, `type:feature`, `type:task`, `type:documentation`, `type:security`, `type:design`
+- `status:needs-triage`, `status:in-progress`, `status:done`, `status:blocked`
+- `priority:critical`, `priority:high`, `priority:normal`, `priority:low`
+- `area:ci`, `area:docs`, `area:labels`, `area:security`, `area:testing`, `area:automation`
+- `meta:needs-changelog`, `meta:has-pr`, `meta:duplicate`, `meta:needs-audit`
+
+### INVALID Label Examples (Bare — DO NOT USE)
+
+- ❌ `bug` — use `type:bug`
+- ❌ `feature` — use `type:feature`
+- ❌ `urgent` — use `priority:critical`
+- ❌ `ci` — use `area:ci`
+- ❌ `duplicate` — use `meta:duplicate`
+
+### References
+
+- Source of truth: `.github/labels.yml` (158 canonical labels)
+- Label taxonomy: `docs/LABEL_STRATEGY.md`
+- Labeling guide: `docs/LABELING.md`
+- Root cause analysis: `.github/projects/active/label-prefix-audit-2026-08-05/`
+- Related issue: [#1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Governance Enforcement
 
 ## Repository Boundaries
 

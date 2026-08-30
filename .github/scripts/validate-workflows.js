@@ -11,7 +11,7 @@
 
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 
 const CONTROL_PLANE_DIR = ".github/workflows";
 const REUSABLE_DIR = "workflows";
@@ -46,7 +46,7 @@ function getWorkflowFiles(dir) {
 // Parse YAML workflow content
 function parseWorkflow(content) {
   try {
-    return yaml.load(content);
+    return load(content);
   } catch (err) {
     return null;
   }

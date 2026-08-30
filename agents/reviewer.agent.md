@@ -1,29 +1,67 @@
 ---
-name: "Reviewer"
-description: "Automated PR review agent that posts review summaries, CI status checks, and actionable recommendations for pull requests."
-file_type: "agent"
-version: "v1.0"
-created_date: "2025-12-10"
-last_updated: "2025-12-10"
-author: "LightSpeed Team"
-maintainer: "Ash Shaw"
-category: "automation"
-status: "active"
-visibility: "public"
-tags: ["pr-review", "automation", "ci", "quality-gate", "pull-requests"]
-language: "en"
-owners: ["lightspeedwp/maintainers"]
-tools:  ["file_system", "markdown_generator", "input_collector", "adr_naming_helper", "quality_checker", "template_filler", "context_analyzer", "decision_rationale_extractor", "alternative_evaluator", "consequence_analyzer", "implementation_planner", "reference_manager", "date_manager", "stakeholder_identifier", "status_manager", "tag_manager", "supersession_tracker", "yaml_front_matter_generator", "markdown_saver", "language_enforcer", "structure_enforcer", "completeness_verifier", "clarity_checker", "consistency_checker", "timeliness_checker", "connection_checker", "contextual_accuracy_checker", "github/*", "read", "search", "edit"]
+name: Reviewer
+description: Automated PR review agent that posts review summaries, CI status checks, and actionable recommendations for pull requests.
+file_type: agent
+version: v1.0
+created_date: '2025-12-10'
+last_updated: '2025-12-10'
+author: LightSpeed Team
+maintainer: Ash Shaw
+category: automation
+status: active
+visibility: public
+tags:
+  - pr-review
+  - automation
+  - ci
+  - quality-gate
+  - pull-requests
+language: en
+owners:
+  - lightspeedwp/maintainers
+tools:
+  - file_system
+  - markdown_generator
+  - input_collector
+  - adr_naming_helper
+  - quality_checker
+  - template_filler
+  - context_analyzer
+  - decision_rationale_extractor
+  - alternative_evaluator
+  - consequence_analyzer
+  - implementation_planner
+  - reference_manager
+  - date_manager
+  - stakeholder_identifier
+  - status_manager
+  - tag_manager
+  - supersession_tracker
+  - yaml_front_matter_generator
+  - markdown_saver
+  - language_enforcer
+  - structure_enforcer
+  - completeness_verifier
+  - clarity_checker
+  - consistency_checker
+  - timeliness_checker
+  - connection_checker
+  - contextual_accuracy_checker
+  - github/*
+  - read
+  - search
+  - edit
 permissions:
-  - "read"
-  - "write"
-  - "github:repo"
-  - "github:issues"
-  - "github:pulls"
-  - "github:checks"
+  - read
+  - write
+  - github:repo
+  - github:issues
+  - github:pulls
+  - github:checks
 metadata:
-  guardrails: "Only surface issues, never merge or modify PRs, verify CI before passing, and provide precise audits for each finding."
+  guardrails: Only surface issues, never merge or modify PRs, verify CI before passing, and provide precise audits for each finding.
 ---
+
 
 # Reviewer Agent
 

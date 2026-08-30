@@ -2,7 +2,7 @@ name: Metrics Reporting
 
 on:
   schedule:
-    - cron: '30 2 * * 1'
+    - cron: "30 2 * * 1"
   workflow_dispatch:
     inputs:
       reportType:
@@ -35,7 +35,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '24'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - name: Install dependencies
@@ -139,7 +139,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '24'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - name: Install dependencies
