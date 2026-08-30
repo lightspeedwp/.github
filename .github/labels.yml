@@ -683,3 +683,29 @@
 - name: openspec:status/deprecated
   color: 6F42C1
   description: "Openspec deprecated - component no longer active"
+
+# --- OpenSpec Phase Labels (Specification & Implementation) ---
+
+- name: openspec:specification-pending
+  color: C5DEF5
+  description: "OpenSpec specification needed - phase documentation awaiting review/approval"
+
+- name: openspec:specification-in-progress
+  color: F2D06D
+  description: "OpenSpec specification in progress - phase requirements/success criteria being finalized"
+
+- name: openspec:specification-complete
+  color: 1A7F37
+  description: "OpenSpec specification complete - phase requirements locked; ready for implementation"
+
+- name: openspec:implementation-pending
+  color: C5DEF5
+  description: "OpenSpec implementation pending - phase awaiting execution start"
+
+- name: openspec:implementation-in-progress
+  color: F2D06D
+  description: "OpenSpec implementation in progress - phase actively being executed"
+
+- name: openspec:implementation-complete
+  color: 1A7F37
+  description: "OpenSpec implementation complete - phase completed; success criteria met"
