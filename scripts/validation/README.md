@@ -37,6 +37,8 @@ All schema files are stored in `../../.schemas/`.
 
 ```mermaid
 graph TD
+    accTitle: Validation System Flow Diagram
+    accDescr: Flowchart showing file discovery, frontmatter extraction, schema validation, LightSpeed rules check, reference validation, report generation, and log output steps
     A[File Discovery] --> B[Frontmatter Extraction]
     B --> C[Schema Validation]
     C --> D[LightSpeed Rules Check]
