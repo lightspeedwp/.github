@@ -26,25 +26,29 @@ const PR_REGEX = /#(\d+)/g;
 // PR validation cache for improved performance (Phase 2 optimization)
 const prValidationCache = {
   data: new Map(),
-  ttl: 10 * 60 * 1000, // 10 minute cache TTL
-  lastUpdate: 0,
+  ttl: 10 * 60 * 1000, // 10 minute TTL per entry
 
   set(key, value) {
-    this.data.set(key, value);
-    this.lastUpdate = Date.now();
+    this.data.set(key, {
+      value,
+      timestamp: Date.now(),
+    });
   },
 
   get(key) {
-    if (Date.now() - this.lastUpdate > this.ttl) {
-      this.data.clear();
+    const entry = this.data.get(key);
+    if (!entry) return null;
+
+    // Check if entry has expired
+    if (Date.now() - entry.timestamp > this.ttl) {
+      this.data.delete(key);
       return null;
     }
-    return this.data.get(key);
+    return entry.value;
   },
 
   clear() {
     this.data.clear();
-    this.lastUpdate = 0;
   },
 };
 
@@ -76,10 +80,18 @@ async function isPRValid(prNumber) {
     const isOpen = response.data.state === "open";
     prValidationCache.set(cacheKey, isOpen);
     return isOpen;
-  } catch {
-    // PR not found or error retrieving
-    prValidationCache.set(cacheKey, false);
-    return false;
+  } catch (error) {
+    // PR not found or error retrieving - cache as invalid
+    const isNotFound = error.status === 404;
+    const result = isNotFound;
+    prValidationCache.set(cacheKey, result);
+
+    if (!isNotFound) {
+      console.warn(
+        `Warning: PR #${prNumber} validation error: ${error.message}`,
+      );
+    }
+    return result;
   }
 }
 
@@ -108,6 +120,48 @@ async function analyzeIssuePRs(issue) {
 }
 
 /**
+ * Validate and normalize format parameter
+ */
+function validateFormat(format) {
+  const valid = ["json", "csv", "markdown", "md"];
+  const normalized = format.toLowerCase();
+  if (!valid.includes(normalized)) {
+    throw new Error(
+      `Invalid format: ${format}. Must be one of: ${valid.join(", ")}`,
+    );
+  }
+  return normalized === "md" ? "markdown" : normalized;
+}
+
+/**
+ * Validate issue number parameter
+ */
+function validateIssueNumber(issueNumber) {
+  if (!issueNumber) return null;
+  const num = parseInt(issueNumber, 10);
+  if (isNaN(num) || num < 1 || num > 999999) {
+    throw new Error(
+      `Invalid issue number: ${issueNumber}. Must be between 1 and 999999.`,
+    );
+  }
+  return num;
+}
+
+/**
+ * Validate output path to prevent directory traversal
+ */
+function validateOutputPath(output) {
+  if (!output) return null;
+  if (output.includes("..")) {
+    throw new Error("Output path cannot contain '..' (directory traversal)");
+  }
+  if (output.startsWith("/")) {
+    throw new Error("Output path must be relative, not absolute");
+  }
+  return output;
+}
+
+/**
  * Main sync function
  */
 async function syncPRLabels(options = {}) {
@@ -118,6 +172,23 @@ async function syncPRLabels(options = {}) {
     format = "json",
     output = null,
   } = options;
+
+  // Validate input parameters
+  let validatedFormat;
+  let validatedIssueNumber;
+  let validatedOutput;
+
+  try {
+    validatedFormat = validateFormat(format);
+    validatedIssueNumber = validateIssueNumber(issueNumber);
+    validatedOutput = validateOutputPath(output);
+  } catch (err) {
+    return {
+      success: false,
+      error: `Input validation failed: ${err.message}`,
+      duration: 0,
+    };
+  }
 
   const startTime = Date.now();
   const changes = [];
@@ -137,8 +208,8 @@ async function syncPRLabels(options = {}) {
     const allIssues = await manager.fetchAllIssues({ limit: 350 });
 
     // Filter to specific issue if requested
-    const issuesToProcess = issueNumber
-      ? allIssues.filter((i) => i.number === issueNumber)
+    const issuesToProcess = validatedIssueNumber
+      ? allIssues.filter((i) => i.number === validatedIssueNumber)
       : allIssues;
 
     if (verbose) {
@@ -154,10 +225,17 @@ async function syncPRLabels(options = {}) {
         const analysis = await analyzeIssuePRs(issue);
         analysisResults.push(analysis);
       } catch (err) {
-        errors.push({
+        const errorEntry = {
           issue: issue.number,
+          type: "analysis-error",
           error: err.message,
-        });
+        };
+        errors.push(errorEntry);
+        if (verbose) {
+          console.error(
+            `Error analyzing issue #${issue.number}: ${err.message}`,
+          );
+        }
       }
     }
 
@@ -181,8 +259,14 @@ async function syncPRLabels(options = {}) {
           } catch (err) {
             errors.push({
               issue: analysis.number,
+              type: "label-add-error",
               error: `Failed to add label: ${err.message}`,
             });
+            if (verbose) {
+              console.error(
+                `Failed to add label to issue #${analysis.number}: ${err.message}`,
+              );
+            }
           }
         }
       } else if (!analysis.hasValidPR && hasPRLabel) {
@@ -204,8 +288,14 @@ async function syncPRLabels(options = {}) {
           } catch (err) {
             errors.push({
               issue: analysis.number,
+              type: "label-remove-error",
               error: `Failed to remove label: ${err.message}`,
             });
+            if (verbose) {
+              console.error(
+                `Failed to remove label from issue #${analysis.number}: ${err.message}`,
+              );
+            }
           }
         }
       }
@@ -232,13 +322,30 @@ async function syncPRLabels(options = {}) {
     };
 
     // Export if output path provided
-    if (output) {
-      const ext = format === "json" ? ".json" : `.${format}`;
-      const outputPath = output.endsWith(ext) ? output : `${output}${ext}`;
-      reporter.exportToFile(format, report, outputPath);
+    if (validatedOutput) {
+      const formatToExt = {
+        json: ".json",
+        csv: ".csv",
+        markdown: ".md",
+      };
+      const ext = formatToExt[validatedFormat];
+      const outputPath = validatedOutput.endsWith(ext)
+        ? validatedOutput
+        : `${validatedOutput}${ext}`;
 
-      if (verbose) {
-        console.log(`Report saved to: ${outputPath}`);
+      try {
+        reporter.exportToFile(validatedFormat, report, outputPath);
+        if (verbose) {
+          console.log(`Report saved to: ${outputPath}`);
+        }
+      } catch (err) {
+        errors.push({
+          type: "report-export",
+          error: `Failed to export report: ${err.message}`,
+        });
+        if (verbose) {
+          console.error(`Report export failed: ${err.message}`);
+        }
       }
     }
 
