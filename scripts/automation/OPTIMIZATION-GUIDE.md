@@ -1,3 +1,11 @@
+---
+title: "Automation Scripts Performance Optimization Guide"
+description: "Phase 2 optimization strategy with baseline metrics, tiered approaches, and implementation roadmap"
+status: "active"
+version: "1.0"
+lastUpdated: "2026-08-30"
+---
+
 # Automation Scripts Performance Optimization Guide
 
 **Version:** 1.0  
@@ -111,7 +119,7 @@ function makeRequest(path) {
 **Optimized Pattern:**
 
 ```javascript
-// Use native fetch (available in Node.js 18+)
+// Use native fetch (available in Node.js 24+ — this repo's supported runtime)
 async function makeRequest(path) {
   const response = await fetch(`https://api.github.com${path}`, {
     method: 'GET',
@@ -455,7 +463,7 @@ async function auditAllIssues(numbers) {
 **After (with optimization):**
 
 ```javascript
-import { batchFetchIssues } from './lib/github-api-optimized.js';
+import { batchFetchIssues } from './includes/github-api-optimized.js';
 
 // Usage: Parallel batch fetching with caching
 async function auditAllIssues(numbers) {
@@ -477,7 +485,7 @@ async function auditAllIssues(numbers) {
 ### Example 2: Caching Pattern
 
 ```javascript
-import { githubApiRequest, clearCache } from './lib/github-api-optimized.js';
+import { githubApiRequest, clearCache } from './includes/github-api-optimized.js';
 
 // Read operations use cache automatically
 async function getRepoLabels(owner, repo) {
@@ -594,8 +602,7 @@ npm run triage:analyze -- --issue 1 2352 2146 2442 2396
 
 ## Related Documentation
 
-- [github-api-optimized.js](./lib/github-api-optimized.js) — Optimized API client module
-- [profiler.js](./profiler.js) — Performance profiling utility
+- [github-api-optimized.js](./includes/github-api-optimized.js) — Optimized API client module
 - [AUTOMATION_GOVERNANCE.md](../../docs/AUTOMATION_GOVERNANCE.md) — Governance rules
 - [AGENTS.md](../../AGENTS.md) — AI operations guidelines
 

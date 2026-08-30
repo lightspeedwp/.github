@@ -124,7 +124,7 @@ export async function githubApiRequest(
     try {
       const response = await fetch(url, fetchOptions);
 
-      // Handle rate limiting
+      // Handle rate limiting (both 429 and 403 with exhausted rate limit)
       if (response.status === 429) {
         const retryAfter = parseInt(
           response.headers.get("retry-after") || "60",
@@ -134,6 +134,18 @@ export async function githubApiRequest(
           await new Promise((resolve) =>
             setTimeout(resolve, retryAfter * 1000),
           );
+          continue;
+        }
+      }
+
+      // Handle 403 with exhausted primary rate limit
+      if (response.status === 403) {
+        const remaining = response.headers.get("x-ratelimit-remaining");
+        const reset = response.headers.get("x-ratelimit-reset");
+        if (remaining === "0" && reset && attempt < MAX_RETRIES - 1) {
+          const resetTime = parseInt(reset, 10) * 1000;
+          const waitTime = Math.max(0, resetTime - Date.now());
+          await new Promise((resolve) => setTimeout(resolve, waitTime + 1000));
           continue;
         }
       }
@@ -151,7 +163,17 @@ export async function githubApiRequest(
         );
       }
 
-      const data = await response.json();
+      // Handle 204 No Content (no response body)
+      let data = null;
+      if (response.status !== 204) {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          data = await response.json();
+        } else if (response.status !== 204) {
+          const text = await response.text();
+          data = text || null;
+        }
+      }
 
       // Cache successful GET responses
       if (useCache && method === "GET") {
