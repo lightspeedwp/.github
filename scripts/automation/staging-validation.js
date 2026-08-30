@@ -491,8 +491,10 @@ export {
   runAllTasks,
 };
 
-// Run main when executed directly
-main().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exit(1);
-});
+// Run main when executed directly (ESM-safe check)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exit(1);
+  });
+}
