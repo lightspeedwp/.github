@@ -1,7 +1,16 @@
 ---
-title: Script Usage Examples
-date: 2026-08-30
-version: 1.0
+file_type: "documentation"
+title: "Automation Script Usage Examples"
+description: "Command-line examples and integration patterns for the automation scripts in this repository."
+version: "v1.0"
+created_date: "2026-08-30"
+last_updated: "2026-08-30"
+owners: ["LightSpeed Engineering"]
+tags: ["automation", "scripts", "usage"]
+status: "active"
+stability: "stable"
+domain: "governance"
+mode: "information"
 ---
 
 # Automation Script Usage Examples
