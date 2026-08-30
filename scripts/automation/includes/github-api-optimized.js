@@ -276,7 +276,7 @@ export async function fetchPaginated(path, options = {}) {
 export async function parallelFetchPaginated(path, options = {}) {
   const perPage = options.perPage || 30;
   const concurrency = options.concurrency || 3;
-  const totalEstimate = options.totalEstimate || 300; // Estimate for initial batch size
+  const totalEstimate = options.totalEstimate || 10000; // Estimate for initial batch size - high to avoid truncation
 
   // Fetch first page to get total count (if available)
   const url = `${path}${path.includes("?") ? "&" : "?"}per_page=${perPage}&page=1`;
