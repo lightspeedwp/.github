@@ -99,6 +99,61 @@ Start here for all key standards:
 
 ---
 
+## Label Creation Governance (CRITICAL)
+
+### For Programmatic Issue and PR Creation
+
+When your code creates issues or PRs via `gh issue create`, `gh pr create`, or GitHub API:
+
+1. **Always validate labels against the canonical set** (`.github/labels.yml`)
+2. **ALL labels MUST include family prefix** — never apply bare labels
+3. **Prefix families and examples**:
+   - `type:*` — bug, feature, documentation, task, design, security, performance, a11y
+   - `status:*` — needs-triage, ready, in-progress, blocked, review, done
+   - `priority:*` — critical, high, normal, low
+   - `area:*` — ci, docs, security, labels, tests, scripts, automation, etc.
+   - `meta:*` — needs-changelog, has-pr, duplicate, needs-audit
+
+### Example: Creating an Issue with Correct Labels
+
+```bash
+# ✅ CORRECT — All labels use required prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "type:feature" \
+  --label "area:core" \
+  --label "priority:normal" \
+  --label "status:needs-triage"
+
+# ❌ INCORRECT — Bare labels without prefixes (DO NOT USE)
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "feature" \
+  --label "core" \
+  --label "normal" \
+  --label "needs-triage"
+```
+
+### Pre-Creation Validation Checklist
+
+Before creating any issue or PR programmatically:
+
+- [ ] Each label exists in `.github/labels.yml`
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, `priority:`, `meta:`)
+- [ ] No bare labels without colons
+- [ ] Canonical case (lowercase, hyphens for spaces)
+
+### References
+
+- **Canonical labels**: `.github/labels.yml` (158 prefixed labels)
+- **Label taxonomy**: `docs/LABEL_STRATEGY.md`
+- **Labeling guide**: `docs/LABELING.md`
+- **Governance audit**: [Issue #1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Enforcement
+
+---
+
 ## References
 
 - [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
