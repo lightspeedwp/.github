@@ -18,7 +18,7 @@ function parseArgs(args) {
   return result;
 }
 
-// Label governance rules
+// Label governance rules (optimized with Sets for O(1) lookups - Phase 2)
 const labelGovernance = {
   type: {
     canonical: [
@@ -80,6 +80,12 @@ const labelGovernance = {
   },
 };
 
+// Build Sets for fast lookups (performance optimization)
+const labelSets = {};
+Object.entries(labelGovernance).forEach(([category, rule]) => {
+  labelSets[category] = new Set(rule.canonical);
+});
+
 // Determine area labels from keywords
 function detectAreaLabels(type, keywords) {
   const areaLabels = [];
@@ -115,60 +121,60 @@ function detectPlatformLabels(keywords) {
   return platformLabels;
 }
 
-// Apply labels
+// Apply labels (optimized with Set-based deduplication - Phase 2)
 function generateLabels(type, keywords = []) {
-  const labelsToApply = [];
+  const labelsSet = new Set(); // Use Set to avoid duplicates automatically
 
   // Always apply type label
   const typeLabel = `type:${type}`;
-  if (labelGovernance.type.canonical.includes(typeLabel)) {
-    labelsToApply.push(typeLabel);
+  if (labelSets.type.has(typeLabel)) {
+    labelsSet.add(typeLabel);
   }
 
   // Always apply initial status
-  labelsToApply.push("status:needs-triage");
+  labelsSet.add("status:needs-triage");
 
   // Set priority based on type and keywords
   if (type === "security") {
-    labelsToApply.push("priority:critical");
+    labelsSet.add("priority:critical");
   } else if (keywords.includes("urgent") || keywords.includes("blocking")) {
-    labelsToApply.push("priority:high");
+    labelsSet.add("priority:high");
   } else {
-    labelsToApply.push("priority:normal");
+    labelsSet.add("priority:normal");
   }
 
-  // Add area labels
+  // Add area labels (max 3)
   const areaLabels = detectAreaLabels(type, keywords);
-  labelsToApply.push(...areaLabels.slice(0, 3)); // Max 3 area labels
+  areaLabels.slice(0, 3).forEach((label) => labelsSet.add(label));
 
-  // Add platform labels
+  // Add platform labels (max 3)
   const platformLabels = detectPlatformLabels(keywords);
-  labelsToApply.push(...platformLabels.slice(0, 3)); // Max 3 platform labels
+  platformLabels.slice(0, 3).forEach((label) => labelsSet.add(label));
 
   // Add openspec labels
-  labelsToApply.push("openspec:status/production");
-  labelsToApply.push("openspec:priority/normal");
+  labelsSet.add("openspec:status/production");
+  labelsSet.add("openspec:priority/normal");
 
-  return labelsToApply;
+  return Array.from(labelsSet);
 }
 
-// Check for conflicts
+// Check for conflicts (optimized with Map - Phase 2)
 function checkConflicts(labelsToApply) {
   const conflicts = [];
-  const byCategory = {};
+  const byCategory = new Map();
 
   for (const label of labelsToApply) {
     // Extract category (e.g., 'type' from 'type:bug')
     const category = label.split(":")[0];
 
-    if (!byCategory[category]) {
-      byCategory[category] = [];
+    if (!byCategory.has(category)) {
+      byCategory.set(category, []);
     }
-    byCategory[category].push(label);
+    byCategory.get(category).push(label);
   }
 
   // Check if any category has too many labels
-  for (const [category, labels] of Object.entries(byCategory)) {
+  for (const [category, labels] of byCategory.entries()) {
     const rule = labelGovernance[category];
     if (rule && labels.length > rule.maxPerIssue) {
       conflicts.push(`Too many ${category} labels: ${labels.join(", ")}`);
