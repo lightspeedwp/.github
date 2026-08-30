@@ -46,14 +46,20 @@ Each phase **must** complete sequentially. No parallel work possible on core pha
 **Dependencies:** None — Can start immediately
 
 #### Objectives
+- Audit existing enforcement infrastructure (labeling-governance.yml, run-labeling-agent.js, validation rules)
+- Assess current validation path and identify potential job conflicts or duplicate checks
+- Decide whether to reuse existing components or build replacement system
 - Implement automated validation to prevent new label prefix violations
 - Add pre-commit hooks to catch violations before merge
 - Update CI/CD pipeline with label validation gates
 
 #### Deliverables
+- [ ] Audit report of existing enforcement path (labeling-governance.yml, run-labeling-agent.js, validation rules)
+- [ ] Assessment of local pre-commit check feasibility and GitHub API label-data availability
+- [ ] Decision document: reuse vs. replace existing enforcement components
 - [ ] Validation script (`scripts/validate-labels.js` or similar)
 - [ ] GitHub Actions workflow for PR label validation
-- [ ] Pre-commit hook configuration
+- [ ] Pre-commit hook configuration (or rationale for CI-only approach)
 - [ ] Documentation of validation rules
 
 #### Success Criteria
@@ -109,6 +115,44 @@ Each phase **must** complete sequentially. No parallel work possible on core pha
 #### Blocker Status
 🚫 **BLOCKS** Phases 3, 4, 5  
 ✅ Can proceed once Phase 1 ✓
+
+---
+
+## Canonical Label Schema (Reconciled across all phases)
+
+**Purpose:** Single source of truth for label validation, compliance audits, and CI enforcement  
+**Scope:** Applies to Phases 1-5; referenced in all success criteria and compliance checks  
+**Sources:** Reconciles LABEL_STRATEGY.md (strategy layer) with labeling-governance.yml (governance layer)
+
+### Label Categories
+
+| Category | Prefix | Required? | Constraints | Conflicts With | Phase Implementation |
+|----------|--------|-----------|-------------|-----------------|-------------------|
+| **Status** | `status:` | Yes, one per PR | Exactly one required per PR | Cannot combine multiple `status:` values | Phase 1 validation |
+| **Priority** | `priority:` | No (optional) | Zero or one per issue/PR | Cannot combine `priority:critical` with `status:blocked` without justification | Phase 1 validation |
+| **Type** | `type:` | Yes, one per issue | Exactly one required per issue | Cannot combine `type:task` with `type:bug` in same item | Phase 2 audit |
+| **Area** | `area:` | Optional | Zero or more allowed | None | Phase 1 validation |
+| **Component** | `component:` | Optional | Zero or more allowed | None | Phase 1 validation |
+| **Lifecycle** | `lifecycle:` | OpenSpec only | Zero or one per OpenSpec proposal | Cannot combine `lifecycle:proposal` with `status:merged` | Phase 3 (#1944) |
+| **Audit Flag** | `audit:` | Conditional | Used during Phase 2-3 migrations | None; temporary | Phase 2 (#909, #656, #664) |
+
+### Compliance Rules (All Phases)
+
+1. **Prefix Validation:** All labels must follow `prefix:value` format; no labels with spaces or special chars except hyphens
+2. **Required Labels:** Every PR must have `status:` label before merge (enforced Phase 1)
+3. **Conflict Prevention:** Validation rules must reject conflicting label combinations at GitHub API level
+4. **Backwards Compatibility:** During Phase 2, old label names mapped to new format; no breaking changes to historical data
+5. **Documentation Sync:** Any label added/removed requires CONTRIBUTING.md + labeling-governance.yml update
+
+### Validation Checkpoints
+
+| Checkpoint | Phase | Tool/Script | Enforced? |
+|-----------|-------|-----------|-----------|
+| PR label validation | 1 | GitHub Actions + pre-commit hook | Yes (CI blocks merge) |
+| Issue label audit | 2 | Audit script (#909, #656) | No (informational) |
+| Label coverage enforcement | 3 | GitHub API enforcement | Yes (merge gate) |
+| Documentation audit | 4 | Manual review + #664 | No (documentation gate) |
+| Team compliance verification | 5 | Analytics dashboard | No (monitoring) |
 
 ---
 
