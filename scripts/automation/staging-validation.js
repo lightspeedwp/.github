@@ -476,10 +476,12 @@ EXAMPLES:
   }
 }
 
-main().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exit(1);
+  });
+}
 
 module.exports = {
   validateAuditAccuracy,

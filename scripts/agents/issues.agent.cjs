@@ -10,8 +10,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const __filename = __filename || process.argv[1];
-const __dirname = __dirname || path.dirname(__filename);
 
 const DEFAULT_LABELS = ["status:needs-triage", "priority:normal"];
 const KEYWORD_TYPE_MAP = {
