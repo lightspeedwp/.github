@@ -11,6 +11,10 @@ const { MetricsStorage } = require("../../scripts/metrics/metrics-storage.cjs");
 const { MetricsReporter } = require("../../scripts/metrics/metrics-reporter");
 const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer.cjs");
 const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector.cjs");
+const {
+  createTelemetryClient,
+} = require("../telemetry/telemetry-client.js");
+const { EVENT_SCHEMAS } = require("../telemetry/event-schemas.js");
 
 class MetricsReportingOrchestrator {
   constructor() {
@@ -23,6 +27,11 @@ class MetricsReportingOrchestrator {
       this.anomalyDetector,
     );
     this.reports = [];
+    
+    // Initialize telemetry client
+    this.telemetry = createTelemetryClient({
+      eventSchemas: EVENT_SCHEMAS,
+    });
   }
 
   async generateReports(repositories, period = "weekly") {
@@ -33,6 +42,8 @@ class MetricsReportingOrchestrator {
       try {
         const reportKey = `${repo.owner}/${repo.repo}`;
         console.log(`\n📝 Generating report for ${reportKey}...`);
+        
+        const reportStartTime = Date.now();
 
         const report = await this.reporter.generateReport(reportKey, {
           period,
@@ -47,6 +58,28 @@ class MetricsReportingOrchestrator {
 
         // Save report to file
         const reportPath = this.saveReport(reportKey, report, period);
+        
+        const generationDuration = Date.now() - reportStartTime;
+
+        // Emit: metrics.report.generated
+        const fileSize = fs.statSync(reportPath).size;
+        const metricsIncluded = (report.match(/###/g) || []).length; // Rough count of metrics sections
+        
+        this.telemetry.emit('metrics.report.generated', {
+          safe: {
+            reportType: 'metrics-report',
+            period,
+            metricsIncluded,
+            trendsIncluded: true,
+            anomaliesIncluded: true,
+            generationDuration
+          },
+          restricted: {
+            repository: reportKey,
+            reportPath,
+            fileSize
+          }
+        });
 
         this.reports.push({
           repository: reportKey,
