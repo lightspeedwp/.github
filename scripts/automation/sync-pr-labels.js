@@ -23,6 +23,31 @@ const OWNER = "lightspeedwp";
 const REPO = ".github";
 const PR_REGEX = /#(\d+)/g;
 
+// PR validation cache for improved performance (Phase 2 optimization)
+const prValidationCache = {
+  data: new Map(),
+  ttl: 10 * 60 * 1000, // 10 minute cache TTL
+  lastUpdate: 0,
+
+  set(key, value) {
+    this.data.set(key, value);
+    this.lastUpdate = Date.now();
+  },
+
+  get(key) {
+    if (Date.now() - this.lastUpdate > this.ttl) {
+      this.data.clear();
+      return null;
+    }
+    return this.data.get(key);
+  },
+
+  clear() {
+    this.data.clear();
+    this.lastUpdate = 0;
+  },
+};
+
 /**
  * Extract PR numbers from issue text
  */
@@ -33,18 +58,27 @@ function extractPRNumbers(text) {
 }
 
 /**
- * Check if a PR number is valid and open
+ * Check if a PR number is valid and open (cached for improved performance)
  */
 async function isPRValid(prNumber) {
+  const cacheKey = `pr-${prNumber}`;
+  const cached = prValidationCache.get(cacheKey);
+  if (cached !== null && cached !== undefined) {
+    return cached;
+  }
+
   try {
     const response = await octokit.rest.pulls.get({
       owner: OWNER,
       repo: REPO,
       pull_number: prNumber,
     });
-    return response.data.state === "open";
+    const isOpen = response.data.state === "open";
+    prValidationCache.set(cacheKey, isOpen);
+    return isOpen;
   } catch {
     // PR not found or error retrieving
+    prValidationCache.set(cacheKey, false);
     return false;
   }
 }
