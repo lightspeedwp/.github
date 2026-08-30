@@ -75,6 +75,27 @@ All issues assigned to milestone `v1.1`:
 
 ---
 
+## 🔗 Related Issues
+
+| Issue | Type | Status |
+|-------|------|--------|
+| [#2396](https://github.com/lightspeedwp/.github/issues/2396) | Epic | In Progress |
+| [#2534](https://github.com/lightspeedwp/.github/issues/2534) | Feature | Ready |
+| [#2535](https://github.com/lightspeedwp/.github/issues/2535) | Feature | Ready |
+| [#2536](https://github.com/lightspeedwp/.github/issues/2536) | Feature | Ready |
+| [#2537](https://github.com/lightspeedwp/.github/issues/2537) | Feature | Ready |
+| [#2538](https://github.com/lightspeedwp/.github/issues/2538) | Feature | Ready |
+| [#2539](https://github.com/lightspeedwp/.github/issues/2539) | Feature | Ready |
+| [#2540](https://github.com/lightspeedwp/.github/issues/2540) | Test | Ready |
+| [#2541](https://github.com/lightspeedwp/.github/issues/2541) | Feature | Ready |
+| [#2542](https://github.com/lightspeedwp/.github/issues/2542) | Feature | Ready |
+| [#2543](https://github.com/lightspeedwp/.github/issues/2543) | Feature | Ready |
+| [#2544](https://github.com/lightspeedwp/.github/issues/2544) | Test | Ready |
+| [#2545](https://github.com/lightspeedwp/.github/issues/2545) | Documentation | Ready |
+| [#2546](https://github.com/lightspeedwp/.github/issues/2546) | Feature | Ready |
+
+---
+
 ## Related Audit Reports
 
 **Phase 1-2 Audit (Complete):**  
