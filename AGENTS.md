@@ -47,6 +47,50 @@ references:
 
 ---
 
+## Branch Naming Governance (CRITICAL)
+
+**All branches MUST follow this pattern:** `{type}/{scope}-{title}`
+
+This is enforced globally across all LightSpeed projects. See [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) for complete details, 34 allowed type values, examples, and why this matters.
+
+### Quick Reference
+
+✅ **Correct:**
+
+- `feat/governance-audit-implementation`
+- `fix/pr-template-routing-bug`
+- `docs/branching-strategy-guide`
+
+❌ **Forbidden (never use):**
+
+- `claude/something` — Reserved for Claude Code internal sessions
+- `copilot/something` — Reserved for GitHub Copilot integration
+- `openai/something` — Reserved for OpenAI integration
+
+### Why This Matters
+
+Incorrect branch names cause:
+
+1. PR template assignment failures
+2. GitHub Actions workflow failures
+3. Validation check failures
+4. Downstream automation breaks
+
+### Before You Push
+
+```bash
+npm run validate:branch-name -- --branch <your-branch>
+```
+
+### Full Reference
+
+- **Complete guidance:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (34 types, examples, consequences)
+- **Detailed rules:** [.github/instructions/branch-naming.instructions.md](.github/instructions/branch-naming.instructions.md)
+- **Strategy doc:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
+- **Copilot-specific:** [.github/custom-instructions.md](.github/custom-instructions.md)
+
+---
+
 ## Contribution Guidelines & Indexes
 
 | Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
