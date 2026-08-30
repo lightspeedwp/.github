@@ -117,7 +117,8 @@ Each phase **must** complete sequentially. No parallel work possible on core pha
 **Issue:** #1605  
 **Estimated Duration:** 3–5 days  
 **Status:** WAITING for Phase 2  
-**Dependencies:** Phase 2 ✓, #1323 (Integration Testing)
+**Start After:** Phase 2 ✓  
+**Completion Gate:** #1323 (Integration Testing) — must pass before Phase 3 sign-off
 
 #### Objectives
 - Implement comprehensive validation rules across all label types
@@ -251,11 +252,12 @@ Each phase **must** complete sequentially. No parallel work possible on core pha
 - [ ] Training completion sign-off documentation
 - [ ] 30/60/90 day follow-up plan
 
-#### Success Criteria
+#### Success Criteria (By Day 30)
 - 100% of team completes training
-- Label compliance rate reaches 95%+
-- Training feedback score ≥ 4/5 stars
-- Zero preventable label violations from 30 days post-training
+- Compliance rate ≥ 95%
+- Support requests <3/week
+- Preventable violations <2/week
+- Training feedback score ≥ 4.5/5 stars
 
 #### Blocker Status
 ✅ Final phase - No blocking dependencies
