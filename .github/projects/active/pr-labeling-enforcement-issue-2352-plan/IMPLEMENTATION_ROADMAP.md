@@ -9,9 +9,9 @@ status: active
 
 ## Overview
 
-This document outlines the four implementation phases for the PR labeling enforcement initiative (#2352). Each phase is sequential and depends on the completion of the previous phase.
+This document outlines the five sequential implementation phases for the PR labeling enforcement initiative (#2352). Each phase is sequential and depends on the completion of the previous phase.
 
-**Total Timeline:** 7–12 business days (critical path 1 week + adoption 1 week)  
+**Total Timeline:** 12–14 business days (critical path Phases 1–3: 7–8 days; Phases 4–5: additional 5–6 days)  
 **Start Date:** Ready to begin immediately after approval  
 **Success Criteria:** 100% label compliance with <2 preventable violations/week by Day 30
 

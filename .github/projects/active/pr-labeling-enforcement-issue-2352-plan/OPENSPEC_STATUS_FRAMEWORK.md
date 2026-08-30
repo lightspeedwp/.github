@@ -347,16 +347,18 @@ Phase 5 (Specification: Complete | Implementation: Pending)
 
 The following transitions will be automated via GitHub Actions:
 
-1. **PR Merge Triggers Implementation Start**
-   - When PR #2521 merges → Issues #2283-#1607 reviewed for Phase 1 start
-   - Trigger: `handle-pr-merged.cjs` workflow
+1. **PR Merge Triggers Phase Progression**
+   - When a PR merges → `handle-pr-merged.cjs` processes linked issue(s)
+   - One issue processed per `pull_request_target` event
+   - Trigger: `openspec-progress-phase.yml` workflow
+   - Alternative trigger: `workflow_dispatch` for manual phase progression
 
 2. **Phase Completion Gates**
    - When Phase N success criteria verified → Phase lead applies `openspec:implementation-complete` label
    - Prerequisite for Phase N+1 start → Workflow checks for completion label before allowing next phase
 
 3. **Issue Labeling Automation**
-   - `openspec-progress-phase.yml` watches issues for phase transitions
+   - `openspec-progress-phase.yml` watches PR and workflow_dispatch events for phase transitions
    - `openspec-sync-labels.yml` maintains label consistency across related issues
    - `openspec-validate-labels.yml` ensures labels meet naming conventions
 
@@ -366,7 +368,10 @@ The following require manual tech lead approval:
 
 1. **Phase Go/No-Go Decision**
    - Tech lead reviews phase deliverables
-   - Tech lead applies `openspec:specification-complete` → `openspec:implementation-complete` transition labels
+   - Tech lead applies `openspec:specification-complete` label when spec is locked
+   - Tech lead applies `openspec:implementation-pending` label to gate phase advancement
+   - Tech lead approves `openspec:implementation-in-progress` when phase lead begins execution
+   - Tech lead applies `openspec:implementation-complete` when all success criteria met
 
 2. **Blocker Resolution**
    - If phase fails: Phase lead performs root cause analysis (24h max)
