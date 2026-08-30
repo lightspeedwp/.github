@@ -23,18 +23,50 @@ const META_LABELS = [
   "meta:dependabot-security",
 ];
 
+// Label cache with TTL for improved performance (Phase 2 optimization)
+const labelCache = {
+  data: new Map(),
+  ttl: 5 * 60 * 1000, // 5 minute cache TTL
+  lastUpdate: 0,
+
+  set(key, value) {
+    this.data.set(key, value);
+    this.lastUpdate = Date.now();
+  },
+
+  get(key) {
+    if (Date.now() - this.lastUpdate > this.ttl) {
+      this.data.clear();
+      return null;
+    }
+    return this.data.get(key);
+  },
+
+  clear() {
+    this.data.clear();
+    this.lastUpdate = 0;
+  },
+};
+
 /**
- * Analyze an issue for meta label coverage
+ * Analyze an issue for meta label coverage (optimized with caching)
  */
 function analyzeIssue(issue) {
+  const cacheKey = `issue-${issue.number}`;
+  const cached = labelCache.get(cacheKey);
+  if (cached) return cached;
+
   const labels = issue.labels?.map((l) => l.name) || [];
   const metaLabels = labels.filter((l) => l.startsWith("meta:"));
 
-  return {
+  const result = {
     number: issue.number,
     title: issue.title,
     labels: metaLabels,
   };
+
+  labelCache.set(cacheKey, result);
+  return result;
 }
 
 /**
@@ -106,11 +138,13 @@ async function auditMetaLabels(options = {}) {
       console.log("Analyzing issues...");
     }
 
-    // Analyze meta label coverage
+    // Analyze meta label coverage (optimized with single-pass algorithm and Set operations)
     const labelAnalysis = {};
     const issueAnalysis = [];
     const recommendations = [];
+    const metaLabelSet = new Set(META_LABELS); // O(1) lookups instead of O(n)
 
+    // Initialize label analysis (required for report structure)
     META_LABELS.forEach((ml) => {
       labelAnalysis[ml] = {
         count: 0,
@@ -120,17 +154,19 @@ async function auditMetaLabels(options = {}) {
       };
     });
 
-    // Analyse each issue
+    // Analyze each issue with optimized label operations
     allIssues.forEach((issue) => {
       const labels = issue.labels?.map((l) => l.name) || [];
       const analysis = analyzeIssue(issue);
       issueAnalysis.push(analysis);
 
-      // Track all configured meta label usage
-      META_LABELS.forEach((metaLabel) => {
-        if (labels.includes(metaLabel)) {
-          labelAnalysis[metaLabel].count++;
-          labelAnalysis[metaLabel].issues.push(issue.number);
+      // Track meta label usage efficiently
+      labels.forEach((label) => {
+        if (metaLabelSet.has(label)) {
+          labelAnalysis[label].count++;
+          if (labelAnalysis[label].issues.length < 10) {
+            labelAnalysis[label].issues.push(issue.number);
+          }
         }
       });
 
@@ -142,19 +178,13 @@ async function auditMetaLabels(options = {}) {
     });
 
     // Calculate percentages for all meta labels
+    const totalIssues = allIssues.length;
     META_LABELS.forEach((metaLabel) => {
       labelAnalysis[metaLabel].percentage =
-        allIssues.length > 0
-          ? Math.round(
-              (labelAnalysis[metaLabel].count / allIssues.length) * 1000,
-            ) / 10
+        totalIssues > 0
+          ? Math.round((labelAnalysis[metaLabel].count / totalIssues) * 1000) /
+            10
           : 0;
-
-      // Limit issues array to first 10 for report
-      labelAnalysis[metaLabel].issues = labelAnalysis[metaLabel].issues.slice(
-        0,
-        10,
-      );
     });
 
     // Build report

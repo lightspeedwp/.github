@@ -125,23 +125,34 @@ async function githubRequest(method, path, body = null) {
   });
 }
 
-// Parse labels into categories
+// Parse labels into categories (optimized with prefix detection - Phase 2)
 function categorizeLabels(labels) {
   const result = { type: [], area: [], status: [], priority: [], other: [] };
 
   for (const label of labels) {
     const name = label.name || label;
-    if (name.startsWith("type:")) {
-      result.type.push(name);
-    } else if (name.startsWith("area:")) {
-      result.area.push(name);
-    } else if (name.startsWith("status:")) {
-      result.status.push(name);
-    } else if (name.startsWith("priority:")) {
-      result.priority.push(name);
-    } else {
-      result.other.push(name);
+    const colonIdx = name.indexOf(":");
+
+    // Fast categorization using prefix detection
+    if (colonIdx > 0) {
+      const prefix = name.substring(0, colonIdx + 1);
+      switch (prefix) {
+        case "type:":
+          result.type.push(name);
+          continue;
+        case "area:":
+          result.area.push(name);
+          continue;
+        case "status:":
+          result.status.push(name);
+          continue;
+        case "priority:":
+          result.priority.push(name);
+          continue;
+      }
     }
+
+    result.other.push(name);
   }
 
   return result;
@@ -344,15 +355,18 @@ function exportJSON(data) {
   return filename;
 }
 
-// Export as CSV
+// Export as CSV (optimized for large datasets - Phase 2)
 function exportCSV(data) {
   const filename = path.join(config.outputDir, "audit-results.csv");
 
-  const rows = [
-    "Issue #,Title,Type Labels,Area Labels,Status Labels,Priority Labels,Assignees,Milestone,Gaps",
-  ];
+  // Pre-allocate rows array to avoid reallocation
+  const rows = new Array(data.analyzedIssues.length + 1);
+  rows[0] =
+    "Issue #,Title,Type Labels,Area Labels,Status Labels,Priority Labels,Assignees,Milestone,Gaps";
 
-  data.analyzedIssues.forEach((issue) => {
+  // Batch process issues for better performance
+  for (let i = 0; i < data.analyzedIssues.length; i++) {
+    const issue = data.analyzedIssues[i];
     const row = [
       issue.number,
       `"${issue.title.replace(/"/g, '""')}"`,
@@ -364,8 +378,8 @@ function exportCSV(data) {
       issue.milestone || "",
       issue.gaps.join(";"),
     ];
-    rows.push(row.join(","));
-  });
+    rows[i + 1] = row.join(",");
+  }
 
   fs.writeFileSync(filename, rows.join("\n"));
   console.log(`✅ CSV export: ${filename}`);
