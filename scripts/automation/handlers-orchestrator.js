@@ -28,7 +28,7 @@ import { Octokit } from "@octokit/rest";
 import * as templateFixHandler from "./handlers/handle-needs-template-fix.js";
 import * as triageHandler from "./handlers/handle-needs-triage.js";
 
-// Configuration
+// Configuration (optimized with Set for skip label checking - Phase 2)
 const defaultConfig = {
   owner: "lightspeedwp",
   repo: ".github",
@@ -36,8 +36,10 @@ const defaultConfig = {
   handlers: "template-fix,triage", // Comma-separated list
   limit: 50, // Max issues to process
   batchSize: 10, // Process N issues at a time
+  parallelHandlers: true, // Run handlers in parallel for each issue (Phase 2)
   autoThreshold: 80, // Min confidence for auto mode (%)
   skipLabels: ["status:done", "type:external"], // Never touch these
+  skipLabelsSet: new Set(["status:done", "type:external"]), // For O(1) lookups
 };
 
 // Parse command-line arguments
@@ -124,28 +126,29 @@ async function fetchIssuesNeedingTriage(octokit, config) {
   return issues.slice(0, config.limit);
 }
 
-// Route issue to appropriate handler(s)
+// Route issue to appropriate handler(s) (optimized for parallel execution - Phase 2)
 async function routeToHandlers(issue, handlers, options) {
-  const results = [];
+  // Enable parallel handler execution for better performance
+  const handlerPromises = Object.entries(handlers).map(
+    async ([handlerName, handler]) => {
+      try {
+        const result = await handler.processIssue(issue, options);
+        return {
+          handler: handlerName,
+          ...result,
+        };
+      } catch (error) {
+        return {
+          handler: handlerName,
+          status: "error",
+          reason: error.message,
+          issueNumber: issue.number,
+        };
+      }
+    },
+  );
 
-  for (const [handlerName, handler] of Object.entries(handlers)) {
-    try {
-      const result = await handler.processIssue(issue, options);
-      results.push({
-        handler: handlerName,
-        ...result,
-      });
-    } catch (error) {
-      results.push({
-        handler: handlerName,
-        status: "error",
-        reason: error.message,
-        issueNumber: issue.number,
-      });
-    }
-  }
-
-  return results;
+  return Promise.all(handlerPromises);
 }
 
 // Format result for display
@@ -293,9 +296,9 @@ async function orchestrate(config) {
     console.log(`Processing batch ${Math.floor(i / config.batchSize) + 1}...`);
 
     for (const issue of batch) {
-      // Skip issues with protection labels
+      // Skip issues with protection labels (optimized with Set lookup)
       const hasSkipLabel = (issue.labels || []).some((l) =>
-        config.skipLabels.includes(l.name || l),
+        config.skipLabelsSet.has(l.name || l),
       );
 
       if (hasSkipLabel) {
