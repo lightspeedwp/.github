@@ -202,8 +202,7 @@ Secondary rate limit exceeded. Please wait before retrying.
 
 2. **Use exponential backoff** (already implemented in handlers-orchestrator):
    ```bash
-   --max-retries 5 \
-   --retry-delay 1000
+   --max-retries 5
    ```
 
 3. **Reduce concurrent operations**:
