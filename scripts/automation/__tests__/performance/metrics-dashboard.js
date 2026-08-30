@@ -6,7 +6,6 @@
  */
 
 import fs from "fs";
-import path from "path";
 
 /**
  * Generate HTML dashboard for performance metrics
