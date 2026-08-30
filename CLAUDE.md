@@ -86,15 +86,15 @@ npm run validate:frontmatter
 
 ## Label Creation Rules (CRITICAL)
 
-When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL labels MUST be from the canonical set in `.github/labels.yml` with their required family prefix**.
+When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL labels MUST be from the canonical set in `.github/labels.yml` with their required family prefix**. Never apply bare labels without prefixes.
 
 ### Valid Label Examples (Prefixed)
 
-- `type:bug`, `type:feature`, `type:task`, `type:documentation`
-- `status:needs-triage`, `status:in-progress`, `status:done`
-- `priority:critical`, `priority:important`, `priority:normal`
-- `area:ci`, `area:docs`, `area:security`, `area:labels`
-- `meta:needs-changelog`, `meta:has-pr`
+- `type:bug`, `type:feature`, `type:task`, `type:documentation`, `type:security`, `type:design`
+- `status:needs-triage`, `status:in-progress`, `status:done`, `status:blocked`
+- `priority:critical`, `priority:high`, `priority:normal`, `priority:low`
+- `area:ci`, `area:docs`, `area:labels`, `area:security`, `area:testing`, `area:automation`
+- `meta:needs-changelog`, `meta:has-pr`, `meta:duplicate`, `meta:needs-audit`
 
 ### INVALID Label Examples (Bare — DO NOT USE)
 
@@ -102,13 +102,15 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 - ❌ `feature` — use `type:feature`
 - ❌ `urgent` — use `priority:critical`
 - ❌ `ci` — use `area:ci`
+- ❌ `duplicate` — use `meta:duplicate`
 
-### Reference
+### References
 
 - Source of truth: `.github/labels.yml` (158 canonical labels)
-- Labeling guide: `docs/LABELING.md`
 - Label taxonomy: `docs/LABEL_STRATEGY.md`
+- Labeling guide: `docs/LABELING.md`
 - Root cause analysis: `.github/projects/active/label-prefix-audit-2026-08-05/`
+- Related issue: [#1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Governance Enforcement
 
 ## Repository Boundaries
 
