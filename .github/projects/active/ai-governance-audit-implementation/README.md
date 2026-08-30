@@ -1,3 +1,10 @@
+---
+name: AI Governance Audit Implementation
+title: AI Governance Audit Implementation — Active Project
+file_type: project
+status: in-progress
+---
+
 # AI Governance Audit Implementation — Active Project
 
 **Status:** 🔄 In Progress (Phase 3)  

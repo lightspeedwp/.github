@@ -1,3 +1,10 @@
+---
+name: Workflow Automation Fixes (Post Node 24)
+title: Workflow Automation Fixes (Post Node 24) — Active Project
+file_type: project
+status: in-progress
+---
+
 # Workflow Automation Fixes (Post Node 24) — Active Project
 
 **Status:** 🔄 In Progress  

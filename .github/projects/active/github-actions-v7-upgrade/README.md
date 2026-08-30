@@ -1,3 +1,10 @@
+---
+name: GitHub Actions v7 Upgrade
+title: GitHub Actions v7 Upgrade — Completed Project
+file_type: project
+status: completed
+---
+
 # GitHub Actions v7 Upgrade — Completed Project
 
 **Status:** ✅ Complete  
