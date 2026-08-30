@@ -54,7 +54,7 @@ All changes were applied via GitHub API using MCP tools to ensure accuracy and c
 | `automation` | `type:automation` | Already canonical form |
 | `workflows` | `type:ci` | Workflows are CI/CD infrastructure |
 | `glossary` | `type:documentation` | Glossaries are documentation |
-| `notebooklm` | Removed | Project-specific; no canonical equivalent |
+| `notebooklm` | Removed (issue #567 only) | Bare form removed from #567; project-specific label retained project-wide |
 | `content` | `area:content` | Content work belongs in area:content |
 | `assets` | `area:assets` | Asset work belongs in area:assets |
 | `completed` | `status:done` | Status labels use `status:` prefix |
@@ -105,7 +105,9 @@ GitHub search API rate limits were encountered during execution. Remaining bare 
 - Combined effect ensures consistent label usage going forward
 
 **Repository State:**
-- All actively-used issue labels now follow canonical prefixed format
+- 10 issues remediated to use canonical prefixed labels (complete within coverage scope)
+- Remaining bare labels may exist due to API rate limiting during scan
+- Project-specific labels intentionally retained (wceu-2026, critical-path, phase-1/2/3, awesome-github, notebooklm)
 - No breaking changes to issue functionality
 - Project tracking and workflow not impacted
 
