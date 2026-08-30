@@ -359,20 +359,22 @@ async function routeToHandlers(issue, handlers, options, config) {
           await rateLimiter.acquire(1);
         }
 
-        // Wrap handler call with timeout and retry logic
+        let timeoutId;
+
+        const timeoutPromise = new Promise((_, reject) => {
+          timeoutId = setTimeout(
+            () => reject(new Error(`Handler timeout after ${config.timeout}ms`)),
+            config.timeout,
+          );
+        });
+
         const result = await Promise.race([
           retryWithBackoff(() => handler.processIssue(issue, options), config, {
             handler: handlerName,
             issue: issue.number,
           }),
-          new Promise((_, reject) =>
-            setTimeout(
-              () =>
-                reject(new Error(`Handler timeout after ${config.timeout}ms`)),
-              config.timeout,
-            ),
-          ),
-        ]);
+          timeoutPromise,
+        ]).finally(() => clearTimeout(timeoutId));
 
         return {
           handler: handlerName,
