@@ -162,6 +162,9 @@ Phase 1: Deploy ✅     Phase 2: Monitor    Phase 3: Enhance   Phase 4: Maintain
 
 ```mermaid
 graph TD
+    accTitle: Milestone Automation Four-Phase Dependency Graph
+    accDescr: Four-phase roadmap showing dependencies. Phase 1 deployment leads to Phase 2 with four areas (monitoring, troubleshooting, testing, risk), which converge to Phase 3 enhancements (dashboard, notifications, triggers, optimization), leading to Phase 4 maintenance.
+    
     A["Phase 1: Deploy<br/>(Complete)"] --> B["Phase 2: Monitor & Document"]
     
     B --> B1["Monitoring Setup"]

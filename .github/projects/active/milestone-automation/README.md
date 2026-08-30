@@ -88,6 +88,9 @@ This builds on Phase 1 (script and workflow deployment) which is already in prod
 
 ```mermaid
 graph LR
+  accTitle: Phase 1-3 Milestone Automation Workflow
+  accDescr: Three-phase workflow showing Phase 1 deployment (complete), Phase 2 monitoring and documentation (current), and Phase 3 scaling (future). Phase 2 breaks into four areas: Monitoring Setup, Documentation, Edge Case Testing, and Enhancements.
+  
   A["Phase 1: Deploy<br/>(Complete)"] --> B["Phase 2: Monitor & Document<br/>(Current)"]
   B --> C["Phase 3: Scale & Enhance<br/>(Future)"]
   
