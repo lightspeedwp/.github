@@ -4,7 +4,6 @@
  * @module scripts/docs/build-parallel.js
  */
 
-const path = require("path");
 const glob = require("glob");
 const {
   loadBuildCache,
