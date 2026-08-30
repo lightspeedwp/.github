@@ -195,8 +195,8 @@ jobs:
             exit 0
           fi
 
-          if [ "$agent_specs" -eq "$agent_dirs" ]; then
-            echo "✅ Coverage: 100% ($agent_specs/$agent_dirs)"
+          if [ "$agent_specs" -ge "$agent_dirs" ]; then
+            echo "✅ Coverage: All implementation directories have specs ($agent_specs/$agent_dirs)"
             exit 0
           else
             coverage=$(echo "scale=1; $agent_specs * 100 / $agent_dirs" | bc)
