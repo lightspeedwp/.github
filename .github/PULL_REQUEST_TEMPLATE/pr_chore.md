@@ -12,9 +12,14 @@ labels: ["status:needs-review", "priority:normal"]
 
 ## Linked issues
 
-<!--
-List any related issues by number (e.g. closes #123, relates to #789).
--->
+Link this PR to the issue(s) it addresses. Use keywords to auto-close issues when merged:
+
+- `Closes #123` — use for issues this PR resolves (auto-closes on merge)
+- `Fixes #123` — alternative to "Closes"
+- `Resolves #123` — alternative to "Closes"
+- `Relates to #123` — for related but not directly resolved issues
+
+Example: `Closes #123` (issue 123 auto-closes when this PR merges)
 
 Closes #
 

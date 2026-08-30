@@ -115,7 +115,7 @@ export async function githubApiRequest(
     },
   };
 
-  if (body) {
+  if (body && method !== "GET" && method !== "HEAD") {
     fetchOptions.body = JSON.stringify(body);
   }
 
@@ -124,43 +124,55 @@ export async function githubApiRequest(
     try {
       const response = await fetch(url, fetchOptions);
 
-      // Handle rate limiting (both 429 and 403 with exhausted rate limit)
-      if (response.status === 429) {
-        const retryAfter = parseInt(
-          response.headers.get("retry-after") || "60",
-          10,
-        );
+      // Handle rate limiting (429 or 403 with no remaining calls)
+      const isRateLimited =
+        response.status === 429 ||
+        (response.status === 403 &&
+          response.headers.get("x-ratelimit-remaining") === "0");
+
+      if (isRateLimited) {
         if (attempt < MAX_RETRIES - 1) {
+          const retryAfter = parseInt(
+            response.headers.get("retry-after") ||
+              response.headers.get("x-ratelimit-reset") ||
+              "60",
+            10,
+          );
+          const delayMs =
+            response.headers.get("retry-after") || response.status === 429
+              ? retryAfter * 1000
+              : (retryAfter - Math.floor(Date.now() / 1000)) * 1000;
           await new Promise((resolve) =>
-            setTimeout(resolve, retryAfter * 1000),
+            setTimeout(resolve, Math.max(delayMs, 1000)),
           );
           continue;
         }
       }
 
-      // Handle 403 with exhausted primary rate limit
-      if (response.status === 403) {
-        const remaining = response.headers.get("x-ratelimit-remaining");
-        const reset = response.headers.get("x-ratelimit-reset");
-        if (remaining === "0" && reset && attempt < MAX_RETRIES - 1) {
-          const resetTime = parseInt(reset, 10) * 1000;
-          const waitTime = Math.max(0, resetTime - Date.now());
-          await new Promise((resolve) => setTimeout(resolve, waitTime + 1000));
-          continue;
-        }
-      }
-
       if (!response.ok) {
-        if (attempt < MAX_RETRIES - 1 && response.status >= 500) {
+        const errorBody = await response.text();
+        let errorMessage = `GitHub API error: ${response.status} ${response.statusText}`;
+        try {
+          const json = JSON.parse(errorBody);
+          if (json.message) {
+            errorMessage = `GitHub API error: ${response.status} ${json.message}`;
+          }
+        } catch {
+          // Keep the basic error message
+        }
+
+        if (
+          attempt < MAX_RETRIES - 1 &&
+          response.status >= 500 &&
+          !isRateLimited
+        ) {
           // Retry on server errors
           await new Promise((resolve) =>
             setTimeout(resolve, RETRY_DELAYS[attempt]),
           );
           continue;
         }
-        throw new Error(
-          `GitHub API error: ${response.status} ${response.statusText}`,
-        );
+        throw new Error(errorMessage);
       }
 
       // Handle 204 No Content (no response body)
@@ -243,7 +255,7 @@ export async function fetchPaginated(path, options = {}) {
   const perPage = options.perPage || 30;
   let page = 1;
 
-  while (true) {
+  for (;;) {
     const url = `${path}${path.includes("?") ? "&" : "?"}per_page=${perPage}&page=${page}`;
     const data = await githubApiRequest("GET", url, null, options);
 
