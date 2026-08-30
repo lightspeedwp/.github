@@ -1,16 +1,7 @@
 ---
-file_type: "documentation"
-title: "Automation Script Troubleshooting Guide"
-description: "Troubleshooting and recovery guidance for automation scripts in this repository."
-version: "v1.0"
-created_date: "2026-08-30"
-last_updated: "2026-08-30"
-owners: ["LightSpeed Engineering"]
-tags: ["automation", "scripts", "troubleshooting"]
-status: "active"
-stability: "stable"
-domain: "governance"
-mode: "information"
+title: Script Troubleshooting Guide
+date: 2026-08-30
+version: 1.0
 ---
 
 # Automation Script Troubleshooting Guide
@@ -157,14 +148,14 @@ Rate limit exceeded. Retry-After: 3600
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --batch-size 5 \
-     --limit 50
+     --limit 50  # Reduced batch-size from 10
    ```
 
 2. **Reduce rate limit** (slower execution):
    ```bash
    node scripts/automation/handlers-orchestrator.js \
-     --rate-limit 50 \  # Reduced from 100
-     --batch-size 10
+     --rate-limit 50 \
+     --batch-size 10  # Reduced rate-limit from 100
    ```
 
 3. **Increase delay between batches**:
@@ -211,7 +202,8 @@ Secondary rate limit exceeded. Please wait before retrying.
 
 2. **Use exponential backoff** (already implemented in handlers-orchestrator):
    ```bash
-   --max-retries 5
+   --max-retries 5 \
+   --retry-delay 1000
    ```
 
 3. **Reduce concurrent operations**:
@@ -246,14 +238,14 @@ Error: Timeout after 30000ms
 
 3. **Retry with backoff** (already enabled):
    ```bash
-   --max-retries 5 \  # More retry attempts
-   --retry-delay 2000  # Longer initial delay
+   --max-retries 5 \
+   --retry-delay 2000  # More retry attempts, longer initial delay
    ```
 
 4. **Reduce batch size** (fewer parallel operations):
    ```bash
-   --batch-size 5 \  # Reduce from 10
-   --max-concurrent 3
+   --batch-size 5 \
+   --max-concurrent 3  # Reduce batch-size from 10
    ```
 
 5. **Run during off-peak hours**:
@@ -399,8 +391,8 @@ Script fails immediately on first error, no retry attempts
 2. **Verify retry configuration**:
    ```bash
    node scripts/automation/handlers-orchestrator.js \
-     --max-retries 3 \  # Must be > 0
-     --mode auto        # Interactive mode doesn't auto-retry
+     --max-retries 3 \
+     --mode auto  # Must be > 0, interactive mode doesn't auto-retry
    ```
 
 3. **Enable verbose logging** to see retry attempts:
@@ -517,8 +509,8 @@ Expected: ~2 minutes
 3. **Increase parallelism** if available:
    ```bash
    node scripts/automation/handlers-orchestrator.js \
-     --parallel-handlers true \  # Enable parallel handler execution
-     --max-concurrent 5
+     --parallel-handlers true \
+     --max-concurrent 5  # Enable parallel handler execution
    ```
 
 4. **Reduce API overhead**:

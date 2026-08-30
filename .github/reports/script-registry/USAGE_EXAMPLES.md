@@ -83,7 +83,7 @@ node scripts/automation/handlers-orchestrator.js \
 
 **Configuration**:
 - Max 100 issues
-- Process 5 at a time
+- Process five issues per batch
 - Retry transient errors up to 3 times
 - Rate limit to 100 API calls/minute
 - 30 second timeout per issue
@@ -645,16 +645,16 @@ node scripts/automation/handlers-orchestrator.js \
 ```bash
 # Increase timeout and retry limit
 node scripts/automation/handlers-orchestrator.js \
-  --timeout 60000 \  # Increased from 30000
-  --max-retries 5
+  --timeout 60000 \
+  --max-retries 5  # Increased timeout from 30000
 ```
 
 ### "Memory usage too high"
 ```bash
 # Reduce batch size
 node scripts/automation/handlers-orchestrator.js \
-  --batch-size 3 \  # Reduced from 10
-  --limit 100
+  --batch-size 3 \
+  --limit 100  # Reduced batch size from 10
 ```
 
 ---

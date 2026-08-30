@@ -10,7 +10,7 @@ related_epic: "#2396"
 Comprehensive inventory of all automation scripts in the LightSpeed `.github` repository, including performance baselines, optimization status, and integration details.
 
 **Last Updated**: 2026-08-30  
-**Total Scripts**: 26  
+**Total Scripts**: 29  
 **Performance Baseline**: `.github/reports/profiling/baseline-2026-08-30.json`
 
 ---

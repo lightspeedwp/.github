@@ -185,6 +185,34 @@ class RateLimiter {
   }
 }
 
+// Task 3: Semaphore for concurrent operation limiting
+class Semaphore {
+  constructor(max) {
+    this.max = max;
+    this.current = 0;
+    this.queue = [];
+  }
+
+  async acquire() {
+    if (this.current < this.max) {
+      this.current++;
+      return;
+    }
+
+    // Wait for a slot to become available
+    await new Promise((resolve) => this.queue.push(resolve));
+    this.current++;
+  }
+
+  release() {
+    this.current--;
+    const resolve = this.queue.shift();
+    if (resolve) {
+      resolve();
+    }
+  }
+}
+
 // Task 3: Progress tracker for real-time updates
 class ProgressTracker {
   constructor(total, progressCallback) {
@@ -267,38 +295,46 @@ function parseArgs(argv) {
       config.handlers = argv[++i];
     } else if (arg === "--limit" && i + 1 < argv.length) {
       config.limit = parseInt(argv[++i], 10);
+      if (!Number.isInteger(config.limit) || config.limit <= 0) {
+        throw new Error("--limit must be a positive integer");
+      }
     } else if (arg === "--batch-size" && i + 1 < argv.length) {
       config.batchSize = parseInt(argv[++i], 10);
+      if (!Number.isInteger(config.batchSize) || config.batchSize <= 0) {
+        throw new Error("--batch-size must be a positive integer");
+      }
     } else if (arg === "--auto-threshold" && i + 1 < argv.length) {
       config.autoThreshold = parseInt(argv[++i], 10);
+      if (
+        !Number.isInteger(config.autoThreshold) ||
+        config.autoThreshold <= 0
+      ) {
+        throw new Error("--auto-threshold must be a positive integer");
+      }
     } else if (arg === "--max-retries" && i + 1 < argv.length) {
       config.maxRetries = parseInt(argv[++i], 10);
+      if (!Number.isInteger(config.maxRetries) || config.maxRetries < 0) {
+        throw new Error("--max-retries must be a non-negative integer");
+      }
     } else if (arg === "--rate-limit" && i + 1 < argv.length) {
       config.rateLimit = parseInt(argv[++i], 10);
+      if (!Number.isInteger(config.rateLimit) || config.rateLimit <= 0) {
+        throw new Error("--rate-limit must be a positive integer");
+      }
     } else if (arg === "--timeout" && i + 1 < argv.length) {
       config.timeout = parseInt(argv[++i], 10);
+      if (!Number.isInteger(config.timeout) || config.timeout <= 0) {
+        throw new Error("--timeout must be a positive integer");
+      }
+    } else if (arg === "--max-concurrent" && i + 1 < argv.length) {
+      config.maxConcurrent = parseInt(argv[++i], 10);
+      if (
+        !Number.isInteger(config.maxConcurrent) ||
+        config.maxConcurrent <= 0
+      ) {
+        throw new Error("--max-concurrent must be a positive integer");
+      }
     }
-  }
-
-  // Validate numeric options: must be positive integers (maxRetries allows 0).
-  const positiveOptions = {
-    limit: config.limit,
-    batchSize: config.batchSize,
-    autoThreshold: config.autoThreshold,
-    rateLimit: config.rateLimit,
-    timeout: config.timeout,
-  };
-  for (const [key, value] of Object.entries(positiveOptions)) {
-    if (!Number.isInteger(value) || value <= 0) {
-      throw new Error(
-        `Invalid value for --${key.replace(/([A-Z])/g, "-$1").toLowerCase()}: must be a positive integer, got "${value}".`,
-      );
-    }
-  }
-  if (!Number.isInteger(config.maxRetries) || config.maxRetries < 0) {
-    throw new Error(
-      `Invalid value for --max-retries: must be a non-negative integer, got "${config.maxRetries}".`,
-    );
   }
 
   return config;
@@ -370,37 +406,70 @@ async function fetchIssuesNeedingTriage(octokit, config) {
 async function routeToHandlers(issue, handlers, options, config) {
   const rateLimiter = options.rateLimiter;
   const progressTracker = options.progressTracker;
+  const concurrencySemaphore = options.concurrencySemaphore;
 
   // Enable parallel handler execution for better performance
   const handlerPromises = Object.entries(handlers).map(
     async ([handlerName, handler]) => {
       try {
-        // Acquire rate limit tokens before calling handler
-        if (rateLimiter) {
-          await rateLimiter.acquire(1);
+        // Acquire concurrency semaphore slot
+        if (concurrencySemaphore) {
+          await concurrencySemaphore.acquire();
         }
 
-        let timeoutId;
+        try {
+          // Wrap handler call with timeout and retry logic
+          let timeoutHandle;
+          const result = await Promise.race([
+            retryWithBackoff(
+              async () => {
+                const handlerResult = await handler.processIssue(
+                  issue,
+                  options,
+                );
 
-        const timeoutPromise = new Promise((_, reject) => {
-          timeoutId = setTimeout(
-            () => reject(new Error(`Handler timeout after ${config.timeout}ms`)),
-            config.timeout,
-          );
-        });
+                // If handler resolved with error status and it's retryable, reject for retry
+                if (handlerResult.status === "error" && handlerResult.reason) {
+                  const errorInfo = categorizeError(
+                    new Error(handlerResult.reason),
+                  );
+                  if (errorInfo.retryable) {
+                    throw new Error(handlerResult.reason);
+                  }
+                }
 
-        const result = await Promise.race([
-          retryWithBackoff(() => handler.processIssue(issue, options), config, {
+                return handlerResult;
+              },
+              config,
+              {
+                handler: handlerName,
+                issue: issue.number,
+              },
+            ),
+            new Promise((_, reject) => {
+              timeoutHandle = setTimeout(
+                () =>
+                  reject(
+                    new Error(`Handler timeout after ${config.timeout}ms`),
+                  ),
+                config.timeout,
+              );
+            }),
+          ]);
+
+          // Clear timeout on success
+          if (timeoutHandle) clearTimeout(timeoutHandle);
+
+          return {
             handler: handlerName,
-            issue: issue.number,
-          }),
-          timeoutPromise,
-        ]).finally(() => clearTimeout(timeoutId));
-
-        return {
-          handler: handlerName,
-          ...result,
-        };
+            ...result,
+          };
+        } finally {
+          // Release semaphore slot
+          if (concurrencySemaphore) {
+            concurrencySemaphore.release();
+          }
+        }
       } catch (error) {
         // Track retries
         if (error.attempts && error.attempts > 1) {
@@ -544,8 +613,13 @@ async function orchestrate(config) {
   const token = getAuthToken();
   const octokit = initializeOctokit(token);
 
-  // Create wrapper for GitHub API calls
+  // Task 3: Initialize resource limiters and progress tracking
+  const rateLimiter = new RateLimiter(config.rateLimit);
+
+  // Create wrapper for GitHub API calls with rate limiting
   const githubRequest = async (method, path, data) => {
+    // Acquire rate limit token before each request
+    await rateLimiter.acquire(1);
     return octokit.request(method + " " + path, data);
   };
 
@@ -555,11 +629,13 @@ async function orchestrate(config) {
 
   if (issues.length === 0) {
     console.log("No issues to process. Exiting.");
-    return { stats: { total: 0 } };
+    const progressTracker = new ProgressTracker(0, config.progressCallback);
+    const metrics = progressTracker.getMetrics();
+    if (config.metricsCallback) {
+      config.metricsCallback(metrics);
+    }
+    return { stats: { total: 0 }, metrics };
   }
-
-  // Task 3: Initialize resource limiters and progress tracking
-  const rateLimiter = new RateLimiter(config.rateLimit);
   const progressTracker = new ProgressTracker(
     issues.length,
     config.progressCallback,
@@ -567,6 +643,7 @@ async function orchestrate(config) {
 
   // Process issues
   const allResults = [];
+  const concurrencySemaphore = new Semaphore(config.maxConcurrent);
   const processingOptions = {
     dryRun: config.mode !== "auto",
     githubRequest,
@@ -575,6 +652,7 @@ async function orchestrate(config) {
     confidenceThreshold: config.autoThreshold,
     rateLimiter,
     progressTracker,
+    concurrencySemaphore,
   };
 
   for (let i = 0; i < issues.length; i += config.batchSize) {
@@ -617,18 +695,8 @@ async function orchestrate(config) {
         }
 
         allResults.push(result);
+        progressTracker.recordProcessed(result.status);
       }
-
-      // Record one progress entry per issue, using the most significant result status.
-      // Map "applied" to "updated" so ProgressTracker.updated is incremented correctly.
-      const issueStatus = results.some(
-        (r) => r.status === "applied" || r.status === "updated",
-      )
-        ? "updated"
-        : results.some((r) => r.status === "error")
-          ? "error"
-          : results[0]?.status ?? "skipped";
-      progressTracker.recordProcessed(issueStatus);
     }
   }
 
@@ -665,6 +733,7 @@ export {
   categorizeError,
   retryWithBackoff,
   RateLimiter,
+  Semaphore,
   ProgressTracker,
 };
 
