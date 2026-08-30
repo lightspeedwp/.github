@@ -1,11 +1,17 @@
 ---
+document_type: "Specification"
 title: Branding Configuration Specification
 description: Complete specification for category-aware branding, frontmatter validation, and header/footer management
 file_type: documentation
-version: 1.0.2
+version: 1.0.3
 created_date: '2026-05-29'
-last_updated: '2026-08-21'
+last_updated: '2026-08-27'
 category: governance
+openspec_status: "production"
+openspec_labels:
+  - "openspec:status/production"
+  - "openspec:domain/governance"
+  - "openspec:priority/medium"
 owners:
   - LightSpeedWP Automation Team
 ---
