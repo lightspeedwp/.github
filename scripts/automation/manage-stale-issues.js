@@ -23,21 +23,22 @@ const octokit = new Octokit({
 const OWNER = "lightspeedwp";
 const REPO = ".github";
 
-// Exclusion rules - issues to skip stale tagging
+// Exclusion rules - issues to skip stale tagging (optimized with Set for O(1) lookup - Phase 2)
 const EXCLUSION_RULES = {
   labels: ["type:epic", "status:in-progress", "priority:critical"],
+  labelsSet: new Set(["type:epic", "status:in-progress", "priority:critical"]),
   hasMilestone: true,
 };
 
 /**
- * Check if issue should be excluded from stale tagging
+ * Check if issue should be excluded from stale tagging (optimized)
  */
 function shouldExcludeIssue(issue) {
   const labels = issue.labels?.map((l) => l.name) || [];
 
-  // Check label exclusions
-  for (const excludeLabel of EXCLUSION_RULES.labels) {
-    if (labels.includes(excludeLabel)) {
+  // Check label exclusions with Set (O(1) lookups)
+  for (const label of labels) {
+    if (EXCLUSION_RULES.labelsSet.has(label)) {
       return true;
     }
   }
