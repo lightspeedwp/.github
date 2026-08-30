@@ -59,3 +59,8 @@ tmp/
 *.zip
 *.tar.gz
 *.tgz
+.claude/settings.local.json
+
+# Prevent local Claude Code settings from being committed
+.claude/settings*.json
+.claude/.settings*.json
