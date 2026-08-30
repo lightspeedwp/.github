@@ -12,16 +12,29 @@
  * - --interactive: Prompt before each change
  * - --auto: Apply changes with confidence >threshold
  *
+ * Task 3 Enhancements:
+ * - Batch processing with configurable size
+ * - Error retry with exponential backoff
+ * - Progress tracking with real-time callbacks
+ * - Rate limiting (API calls per minute)
+ * - Per-issue timeout
+ * - Comprehensive error categorization
+ *
  * Usage:
  *   node scripts/automation/handlers-orchestrator.js \
  *     --mode dry-run \
  *     --handlers template-fix,triage \
- *     --limit 50
+ *     --limit 50 \
+ *     --batch-size 10 \
+ *     --max-retries 3 \
+ *     --rate-limit 100 \
+ *     --timeout 30000
  *
  *   node scripts/automation/handlers-orchestrator.js \
  *     --mode auto \
  *     --auto-threshold 85 \
- *     --batch-size 10
+ *     --batch-size 5 \
+ *     --max-retries 2
  */
 
 import { Octokit } from "@octokit/rest";
@@ -29,6 +42,7 @@ import * as templateFixHandler from "./handlers/handle-needs-template-fix.js";
 import * as triageHandler from "./handlers/handle-needs-triage.js";
 
 // Configuration (optimized with Set for skip label checking - Phase 2)
+// Task 3: Enhanced with retry logic, progress tracking, and resource limiting
 const defaultConfig = {
   owner: "lightspeedwp",
   repo: ".github",
@@ -40,7 +54,205 @@ const defaultConfig = {
   autoThreshold: 80, // Min confidence for auto mode (%)
   skipLabels: ["status:done", "type:external"], // Never touch these
   skipLabelsSet: new Set(["status:done", "type:external"]), // For O(1) lookups
+
+  // Task 3: Error handling & retry
+  maxRetries: 3, // Max retry attempts for transient errors
+  retryDelayMs: 1000, // Initial retry delay in milliseconds
+  retryBackoffMultiplier: 2, // Exponential backoff multiplier (1s, 2s, 4s, 8s)
+
+  // Task 3: Progress tracking
+  progressCallback: null, // fn(progress) for real-time updates
+  metricsCallback: null, // fn(metrics) for completion metrics
+
+  // Task 3: Resource limiting
+  rateLimit: 100, // API calls per minute
+  timeout: 30000, // Per-issue timeout in ms
+  maxConcurrent: 5, // Max concurrent API calls
 };
+
+// Task 3: Categorize errors for retry logic
+function categorizeError(error) {
+  const message = error.message || "";
+  const code = error.code || "";
+
+  // Transient errors (safe to retry)
+  if (code === "ECONNRESET" || code === "ETIMEDOUT" || code === "ENOTFOUND") {
+    return { type: "network", retryable: true };
+  }
+
+  if (
+    message.includes("timeout") ||
+    message.includes("ECONNREFUSED") ||
+    message.includes("temporarily unavailable")
+  ) {
+    return { type: "timeout", retryable: true };
+  }
+
+  if (message.includes("rate limit") || message.includes("abuse detection")) {
+    return { type: "rate-limit", retryable: true };
+  }
+
+  if (
+    message.includes("500") ||
+    message.includes("502") ||
+    message.includes("503")
+  ) {
+    return { type: "server-error", retryable: true };
+  }
+
+  // Permanent errors (do not retry)
+  if (message.includes("401") || message.includes("403")) {
+    return { type: "auth", retryable: false };
+  }
+
+  if (message.includes("404") || message.includes("not found")) {
+    return { type: "not-found", retryable: false };
+  }
+
+  if (message.includes("validation") || message.includes("invalid")) {
+    return { type: "validation", retryable: false };
+  }
+
+  return { type: "unknown", retryable: false };
+}
+
+// Task 3: Retry logic with exponential backoff
+async function retryWithBackoff(fn, config, context = {}) {
+  const {
+    maxRetries = 3,
+    retryDelayMs = 1000,
+    retryBackoffMultiplier = 2,
+  } = config;
+
+  let lastError;
+  let delay = retryDelayMs;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error;
+
+      const errorInfo = categorizeError(error);
+
+      if (!errorInfo.retryable || attempt >= maxRetries) {
+        error.attempts = attempt + 1;
+        error.errorType = errorInfo.type;
+        throw error;
+      }
+
+      console.log(
+        `⚠️  Retry ${attempt + 1}/${maxRetries} after ${delay}ms (${errorInfo.type})`,
+      );
+
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      delay *= retryBackoffMultiplier;
+    }
+  }
+
+  throw lastError;
+}
+
+// Task 3: Rate limiter with token bucket
+class RateLimiter {
+  constructor(ratePerMinute) {
+    this.ratePerMinute = ratePerMinute;
+    this.tokensAvailable = ratePerMinute;
+    this.lastRefillTime = Date.now();
+  }
+
+  async acquire(tokens = 1) {
+    const now = Date.now();
+    const elapsedSeconds = (now - this.lastRefillTime) / 1000;
+    const tokensToAdd = (elapsedSeconds * this.ratePerMinute) / 60;
+
+    this.tokensAvailable = Math.min(
+      this.ratePerMinute,
+      this.tokensAvailable + tokensToAdd,
+    );
+    this.lastRefillTime = now;
+
+    if (this.tokensAvailable >= tokens) {
+      this.tokensAvailable -= tokens;
+      return;
+    }
+
+    // Wait for tokens to become available
+    const waitMs =
+      ((tokens - this.tokensAvailable) * 60 * 1000) / this.ratePerMinute;
+    await new Promise((resolve) => setTimeout(resolve, waitMs));
+    await this.acquire(tokens); // Recursive call after waiting
+  }
+}
+
+// Task 3: Progress tracker for real-time updates
+class ProgressTracker {
+  constructor(total, progressCallback) {
+    this.total = total;
+    this.processed = 0;
+    this.updated = 0;
+    this.skipped = 0;
+    this.errors = 0;
+    this.retries = 0;
+    this.startTime = Date.now();
+    this.progressCallback = progressCallback;
+  }
+
+  recordProcessed(status) {
+    this.processed++;
+
+    if (status === "updated") this.updated++;
+    else if (status === "skipped") this.skipped++;
+    else if (status === "error") this.errors++;
+
+    this.reportProgress();
+  }
+
+  recordRetry() {
+    this.retries++;
+  }
+
+  reportProgress() {
+    if (!this.progressCallback) return;
+
+    const elapsed = Date.now() - this.startTime;
+    const rate = this.processed > 0 ? (this.processed / elapsed) * 1000 : 0;
+    const remaining = this.total - this.processed;
+    const estimatedRemainingMs = remaining > 0 ? remaining / rate : 0;
+
+    this.progressCallback({
+      processed: this.processed,
+      total: this.total,
+      percentage: Math.round((this.processed / this.total) * 100),
+      updated: this.updated,
+      skipped: this.skipped,
+      errors: this.errors,
+      retries: this.retries,
+      ratePerSecond: rate.toFixed(2),
+      elapsedMs: elapsed,
+      estimatedRemainingMs: Math.round(estimatedRemainingMs),
+    });
+  }
+
+  getMetrics() {
+    const elapsed = Date.now() - this.startTime;
+
+    return {
+      processed: this.processed,
+      updated: this.updated,
+      skipped: this.skipped,
+      errors: this.errors,
+      retries: this.retries,
+      elapsedMs: elapsed,
+      averageTimePerIssue:
+        this.processed > 0 ? (elapsed / this.processed).toFixed(2) : 0,
+      successRate:
+        this.processed > 0
+          ? (((this.processed - this.errors) / this.processed) * 100).toFixed(2)
+          : 0,
+    };
+  }
+}
 
 // Parse command-line arguments
 function parseArgs(argv) {
@@ -59,6 +271,12 @@ function parseArgs(argv) {
       config.batchSize = parseInt(argv[++i], 10);
     } else if (arg === "--auto-threshold" && i + 1 < argv.length) {
       config.autoThreshold = parseInt(argv[++i], 10);
+    } else if (arg === "--max-retries" && i + 1 < argv.length) {
+      config.maxRetries = parseInt(argv[++i], 10);
+    } else if (arg === "--rate-limit" && i + 1 < argv.length) {
+      config.rateLimit = parseInt(argv[++i], 10);
+    } else if (arg === "--timeout" && i + 1 < argv.length) {
+      config.timeout = parseInt(argv[++i], 10);
     }
   }
 
@@ -127,22 +345,54 @@ async function fetchIssuesNeedingTriage(octokit, config) {
 }
 
 // Route issue to appropriate handler(s) (optimized for parallel execution - Phase 2)
-async function routeToHandlers(issue, handlers, options) {
+// Task 3: Enhanced with retry logic and timeout support
+async function routeToHandlers(issue, handlers, options, config) {
+  const rateLimiter = options.rateLimiter;
+  const progressTracker = options.progressTracker;
+
   // Enable parallel handler execution for better performance
   const handlerPromises = Object.entries(handlers).map(
     async ([handlerName, handler]) => {
       try {
-        const result = await handler.processIssue(issue, options);
+        // Acquire rate limit tokens before calling handler
+        if (rateLimiter) {
+          await rateLimiter.acquire(1);
+        }
+
+        // Wrap handler call with timeout and retry logic
+        const result = await Promise.race([
+          retryWithBackoff(() => handler.processIssue(issue, options), config, {
+            handler: handlerName,
+            issue: issue.number,
+          }),
+          new Promise((_, reject) =>
+            setTimeout(
+              () =>
+                reject(new Error(`Handler timeout after ${config.timeout}ms`)),
+              config.timeout,
+            ),
+          ),
+        ]);
+
         return {
           handler: handlerName,
           ...result,
         };
       } catch (error) {
+        // Track retries
+        if (error.attempts && error.attempts > 1) {
+          if (progressTracker) {
+            progressTracker.recordRetry();
+          }
+        }
+
         return {
           handler: handlerName,
           status: "error",
           reason: error.message,
           issueNumber: issue.number,
+          attempts: error.attempts || 1,
+          errorType: error.errorType || "unknown",
         };
       }
     },
@@ -236,11 +486,15 @@ function generateReport(allResults, _config) {
 }
 
 // Main orchestrator function
+// Task 3: Enhanced with rate limiting, progress tracking, and error retry
 async function orchestrate(config) {
   console.log("🚀 Starting Handlers Orchestrator");
   console.log(`Mode: ${config.mode}`);
   console.log(`Handlers: ${config.handlers}`);
   console.log(`Limit: ${config.limit}`);
+  console.log(`Max Retries: ${config.maxRetries}`);
+  console.log(`Rate Limit: ${config.rateLimit} calls/min`);
+  console.log(`Timeout: ${config.timeout}ms per issue`);
   console.log("");
 
   // Validate mode
@@ -281,6 +535,13 @@ async function orchestrate(config) {
     return { stats: { total: 0 } };
   }
 
+  // Task 3: Initialize resource limiters and progress tracking
+  const rateLimiter = new RateLimiter(config.rateLimit);
+  const progressTracker = new ProgressTracker(
+    issues.length,
+    config.progressCallback,
+  );
+
   // Process issues
   const allResults = [];
   const processingOptions = {
@@ -289,11 +550,16 @@ async function orchestrate(config) {
     owner: config.owner,
     repo: config.repo,
     confidenceThreshold: config.autoThreshold,
+    rateLimiter,
+    progressTracker,
   };
 
   for (let i = 0; i < issues.length; i += config.batchSize) {
     const batch = issues.slice(i, i + config.batchSize);
-    console.log(`Processing batch ${Math.floor(i / config.batchSize) + 1}...`);
+    const batchNumber = Math.floor(i / config.batchSize) + 1;
+    const totalBatches = Math.ceil(issues.length / config.batchSize);
+
+    console.log(`Processing batch ${batchNumber}/${totalBatches}...`);
 
     for (const issue of batch) {
       // Skip issues with protection labels (optimized with Set lookup)
@@ -303,11 +569,17 @@ async function orchestrate(config) {
 
       if (hasSkipLabel) {
         console.log(`⏭️  Skipping issue #${issue.number} (protected label)`);
+        progressTracker.recordProcessed("skipped");
         continue;
       }
 
-      // Route to handlers
-      const results = await routeToHandlers(issue, handlers, processingOptions);
+      // Route to handlers with retry and rate limiting
+      const results = await routeToHandlers(
+        issue,
+        handlers,
+        processingOptions,
+        config,
+      );
 
       for (const result of results) {
         console.log(formatResult(result));
@@ -322,13 +594,21 @@ async function orchestrate(config) {
         }
 
         allResults.push(result);
+        progressTracker.recordProcessed(result.status);
       }
     }
   }
 
-  // Generate summary
+  // Generate summary with metrics callback
   const stats = generateReport(allResults, config);
-  return { stats, results: allResults };
+  const metrics = progressTracker.getMetrics();
+
+  // Call metrics callback if provided
+  if (config.metricsCallback) {
+    config.metricsCallback(metrics);
+  }
+
+  return { stats, results: allResults, metrics };
 }
 
 // Entry point
@@ -344,7 +624,16 @@ async function main() {
 }
 
 // Export for testing
-export { orchestrate, parseArgs, fetchIssuesNeedingTriage, routeToHandlers };
+export {
+  orchestrate,
+  parseArgs,
+  fetchIssuesNeedingTriage,
+  routeToHandlers,
+  categorizeError,
+  retryWithBackoff,
+  RateLimiter,
+  ProgressTracker,
+};
 
 // Run if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
