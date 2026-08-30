@@ -146,12 +146,10 @@ class GitHubAPIClient {
   constructor(tokenOrOptions, cache) {
     // Support both old format (token) and new format (options object)
     let token;
-    let options = {};
 
     if (typeof tokenOrOptions === 'object') {
       // New format: { token, owner, repo, cache }
       token = tokenOrOptions.token;
-      options = tokenOrOptions;
       this.owner = tokenOrOptions.owner;
       this.repo = tokenOrOptions.repo;
       cache = tokenOrOptions.cache || cache;
