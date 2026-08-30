@@ -9,54 +9,41 @@ const path = require("path");
 const originalExit = process.exit;
 process.exit = jest.fn();
 
+// Mock the external dependencies before importing MetricsCollectionOrchestrator
+jest.mock("../../../../scripts/metrics/metrics-agent.cjs", () => ({
+  GitHubAPIClient: jest.fn().mockImplementation(() => ({
+    fetchMetrics: jest.fn().mockResolvedValue({
+      repository: "test/repo",
+      stats: { stargazers_count: 100 },
+      issues: [],
+      pullRequests: [],
+      contributors: [],
+      timestamp: new Date().toISOString(),
+    }),
+  })),
+}));
+
+jest.mock("../../../../scripts/metrics/metrics-storage.cjs", () => ({
+  MetricsStorage: jest.fn().mockImplementation(() => ({
+    saveMetrics: jest.fn().mockResolvedValue(true),
+  })),
+}));
+
+jest.mock("../../../../scripts/metrics/trend-analyzer.cjs", () => ({
+  TrendAnalyzer: jest.fn().mockImplementation(() => ({
+    analyzeTrends: jest.fn().mockResolvedValue({}),
+  })),
+}));
+
+jest.mock("../../../../scripts/metrics/anomaly-detector.cjs", () => ({
+  AnomalyDetector: jest.fn().mockImplementation(() => ({
+    detectAnomalies: jest.fn().mockResolvedValue([]),
+  })),
+}));
+
 const {
   MetricsCollectionOrchestrator,
 } = require("../metrics-collection-orchestrator.cjs");
-
-// Mock the GitHubAPIClient
-jest.mock("../../../../scripts/metrics/metrics-agent.cjs", () => {
-  return {
-    GitHubAPIClient: jest.fn().mockImplementation(() => ({
-      fetchMetrics: jest.fn().mockResolvedValue({
-        issues: { total: 10, closed: 5 },
-        pullRequests: { total: 8, merged: 6 },
-        contributors: 5,
-        stars: 100,
-      }),
-    })),
-  };
-});
-
-// Mock the MetricsStorage
-jest.mock("../../../../scripts/metrics/metrics-storage.cjs", () => {
-  return {
-    MetricsStorage: jest.fn().mockImplementation(() => ({
-      saveMetrics: jest.fn().mockResolvedValue(true),
-      getMetrics: jest.fn().mockResolvedValue([]),
-    })),
-  };
-});
-
-// Mock the TrendAnalyzer
-jest.mock("../../../../scripts/metrics/trend-analyzer.cjs", () => {
-  return {
-    TrendAnalyzer: jest.fn().mockImplementation(() => ({
-      analyzeTrends: jest.fn().mockResolvedValue({
-        issuesTrend: "stable",
-        prsTrend: "increasing",
-      }),
-    })),
-  };
-});
-
-// Mock the AnomalyDetector
-jest.mock("../../../../scripts/metrics/anomaly-detector.cjs", () => {
-  return {
-    AnomalyDetector: jest.fn().mockImplementation(() => ({
-      detectAnomalies: jest.fn().mockResolvedValue([]),
-    })),
-  };
-});
 
 describe("MetricsCollectionOrchestrator", () => {
   let orchestrator;
@@ -121,6 +108,8 @@ describe("MetricsCollectionOrchestrator", () => {
     if (fs.existsSync(configPath)) {
       fs.unlinkSync(configPath);
     }
+    // Clear all mocks after each test
+    jest.clearAllMocks();
   });
 
   test("should load configuration successfully", () => {
