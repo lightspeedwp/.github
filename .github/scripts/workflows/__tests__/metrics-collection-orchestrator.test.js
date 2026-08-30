@@ -4,6 +4,39 @@
 
 const fs = require("fs");
 const path = require("path");
+
+// Mock the external dependencies before importing MetricsCollectionOrchestrator
+jest.mock("../../../../scripts/metrics/metrics-agent.cjs", () => ({
+  GitHubAPIClient: jest.fn().mockImplementation(() => ({
+    fetchMetrics: jest.fn().mockResolvedValue({
+      repository: "test/repo",
+      stats: { stargazers_count: 100 },
+      issues: [],
+      pullRequests: [],
+      contributors: [],
+      timestamp: new Date().toISOString(),
+    }),
+  })),
+}));
+
+jest.mock("../../../../scripts/metrics/metrics-storage.cjs", () => ({
+  MetricsStorage: jest.fn().mockImplementation(() => ({
+    saveMetrics: jest.fn().mockResolvedValue(true),
+  })),
+}));
+
+jest.mock("../../../../scripts/metrics/trend-analyzer.cjs", () => ({
+  TrendAnalyzer: jest.fn().mockImplementation(() => ({
+    analyzeTrends: jest.fn().mockResolvedValue({}),
+  })),
+}));
+
+jest.mock("../../../../scripts/metrics/anomaly-detector.cjs", () => ({
+  AnomalyDetector: jest.fn().mockImplementation(() => ({
+    detectAnomalies: jest.fn().mockResolvedValue([]),
+  })),
+}));
+
 const {
   MetricsCollectionOrchestrator,
 } = require("../metrics-collection-orchestrator.cjs");
@@ -66,6 +99,8 @@ describe("MetricsCollectionOrchestrator", () => {
     if (fs.existsSync(configPath)) {
       fs.unlinkSync(configPath);
     }
+    // Clear all mocks after each test
+    jest.clearAllMocks();
   });
 
   test("should load configuration successfully", () => {
