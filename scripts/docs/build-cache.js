@@ -5,14 +5,15 @@
  */
 
 const fs = require("fs");
+const path = require("path");
 const crypto = require("crypto");
 
-const CACHE_FILE = ".docs-cache.json";
+const CACHE_FILE = "tmp/.docs-cache.json";
 
 /**
  * Generate SHA-256 fingerprint of file contents
  * @param {string} filePath - Path to file
- * @returns {string} SHA-256 hash of file contents
+ * @returns {string|null} SHA-256 hash of file contents, or null on error
  */
 function getDocFingerprint(filePath) {
   try {
@@ -51,6 +52,10 @@ function loadBuildCache() {
  */
 function saveBuildCache(cache) {
   try {
+    const dir = path.dirname(CACHE_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
     fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2), "utf8");
   } catch (error) {
     console.error(`Failed to save cache: ${error.message}`);

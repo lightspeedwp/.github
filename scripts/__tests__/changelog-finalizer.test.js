@@ -78,10 +78,11 @@ describe("Changelog Finalizer", () => {
       const result = await verifyIssueFinalized(
         mockOctokit,
         { owner: "org", repo: "repo", number: 123 },
-        2,
+        3,
       );
 
       expect(result).toEqual(stableState);
+      expect(mockOctokit.rest.issues.get).toHaveBeenCalledTimes(3);
     });
 
     test("should retry when state changes", async () => {
@@ -103,6 +104,7 @@ describe("Changelog Finalizer", () => {
       mockOctokit.rest.issues.get
         .mockResolvedValueOnce({ data: state1 })
         .mockResolvedValueOnce({ data: state2 })
+        .mockResolvedValueOnce({ data: finalState })
         .mockResolvedValueOnce({ data: finalState });
 
       const result = await verifyIssueFinalized(
@@ -112,7 +114,7 @@ describe("Changelog Finalizer", () => {
       );
 
       expect(result).toEqual(finalState);
-      expect(mockOctokit.rest.issues.get).toHaveBeenCalledTimes(3);
+      expect(mockOctokit.rest.issues.get).toHaveBeenCalledTimes(4);
     });
 
     test("should throw when state not finalized after max retries", async () => {
@@ -142,14 +144,13 @@ describe("Changelog Finalizer", () => {
     });
 
     test("should handle API errors gracefully", async () => {
+      const stableState = { number: 123, labels: [{ name: "type:bug" }] };
+
       mockOctokit.rest.issues.get
         .mockRejectedValueOnce(new Error("API error"))
-        .mockResolvedValueOnce({
-          data: { number: 123, labels: [{ name: "type:bug" }] },
-        })
-        .mockResolvedValueOnce({
-          data: { number: 123, labels: [{ name: "type:bug" }] },
-        });
+        .mockResolvedValueOnce({ data: stableState })
+        .mockResolvedValueOnce({ data: stableState })
+        .mockResolvedValueOnce({ data: stableState });
 
       const result = await verifyIssueFinalized(
         mockOctokit,
@@ -157,7 +158,7 @@ describe("Changelog Finalizer", () => {
         5,
       );
 
-      expect(result).toBeDefined();
+      expect(result).toEqual(stableState);
     });
   });
 

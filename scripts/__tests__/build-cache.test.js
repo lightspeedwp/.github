@@ -101,7 +101,7 @@ describe("Build Cache", () => {
       saveBuildCache(mockCache);
 
       expect(fs.writeFileSync).toHaveBeenCalledWith(
-        ".docs-cache.json",
+        "tmp/.docs-cache.json",
         JSON.stringify(mockCache, null, 2),
         "utf8",
       );
@@ -192,7 +192,7 @@ describe("Build Cache", () => {
 
       const stats = getCacheStats(mockCache);
 
-      expect(stats.totalDocs).toBe(2);
+      expect(stats.totalDocs).toBe(3);
       expect(stats.totalBuildTime).toMatch(/\d+ms/);
       expect(stats.avgBuildTime).toMatch(/\d+ms/);
     });
@@ -211,12 +211,13 @@ describe("Build Cache", () => {
       mockCache.docs["docs/deleted.md"] = { fingerprint: "hash" };
       mockCache.docs["docs/existing.md"] = { fingerprint: "hash" };
 
-      const currentDocs = ["docs/existing.md"];
+      const currentDocs = ["docs/guide.md", "docs/existing.md"];
       const removed = cleanStaleEntries(mockCache, currentDocs);
 
       expect(removed).toBe(1);
       expect(mockCache.docs["docs/deleted.md"]).toBeUndefined();
       expect(mockCache.docs["docs/existing.md"]).toBeDefined();
+      expect(mockCache.docs["docs/guide.md"]).toBeDefined();
     });
 
     test("should return zero when no stale entries", () => {

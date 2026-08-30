@@ -27,13 +27,17 @@ class LabelingRuleCache {
 
     if (this.cache.has(cacheKey)) {
       this.hits += 1;
-      return this.cache.get(cacheKey);
+      const result = this.cache.get(cacheKey);
+      // Refresh recency by deleting and re-adding (true LRU behavior)
+      this.cache.delete(cacheKey);
+      this.cache.set(cacheKey, result);
+      return result;
     }
 
     this.misses += 1;
     const result = rule.evaluate(issue);
 
-    // Implement simple LRU eviction if cache grows too large
+    // Implement LRU eviction if cache grows too large
     if (this.cache.size >= this.maxSize) {
       const firstKey = this.cache.keys().next().value;
       this.cache.delete(firstKey);

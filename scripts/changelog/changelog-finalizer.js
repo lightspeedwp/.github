@@ -21,7 +21,7 @@ async function verifyIssueFinalized(
 ) {
   let lastState = null;
   let stateConsistencyCount = 0;
-  const requiredConsistency = 2; // State must be consistent across 2 checks
+  const requiredConsistency = 2; // Require 2 consecutive comparisons showing consistency (needs 3 total reads)
 
   for (let i = 0; i < maxRetries; i++) {
     try {
