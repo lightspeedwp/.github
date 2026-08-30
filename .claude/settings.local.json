@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/ash/Studio/.github/**)",
+      "Bash(npm run *)",
+      "Bash(git checkout *)",
+      "Bash(gh pr create --title 'feat: Chat Closure Agent Implementation — Planning & Project Setup' --body ' *)"
+    ]
+  }
+}
