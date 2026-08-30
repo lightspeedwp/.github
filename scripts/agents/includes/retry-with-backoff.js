@@ -12,7 +12,6 @@
  */
 
 const { spawn } = require("child_process");
-const path = require("path");
 
 async function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
