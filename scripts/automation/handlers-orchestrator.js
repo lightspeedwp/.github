@@ -415,7 +415,6 @@ async function fetchIssuesNeedingTriage(octokit, config) {
 // Route issue to appropriate handler(s) (optimized for parallel execution - Phase 2)
 // Task 3: Enhanced with retry logic and timeout support
 async function routeToHandlers(issue, handlers, options, config) {
-  const rateLimiter = options.rateLimiter;
   const progressTracker = options.progressTracker;
   const concurrencySemaphore = options.concurrencySemaphore;
 
