@@ -52,6 +52,10 @@
   color: FEF2C0
   description: "Testing needed (manual/automated)"
 
+- name: status:needs-audit
+  color: BFD4F2
+  description: "Needs audit or review"
+
 - name: status:needs-documentation
   color: BFD4F2
   description: "Needs documentation update"
@@ -220,6 +224,14 @@
   color: 4393F8
   description: "Support or assistance needed"
 
+- name: support
+  color: 4393F8
+  description: "Support request (legacy)"
+
+- name: question
+  color: 4393F8
+  description: "Question or enquiry (legacy)"
+
 - name: type:ui
   color: 3FB950
   description: "User interface work"
@@ -361,6 +373,42 @@
 - name: area:ci
   color: BFD4F2
   description: "Build and CI pipelines"
+
+- name: area:automation
+  color: BFD4F2
+  description: "Automation & workflows"
+
+- name: area:a11y
+  color: DB61A2
+  description: "Accessibility"
+
+- name: area:ai
+  color: 0052CC
+  description: "Artificial Intelligence"
+
+- name: area:compatibility
+  color: 8D4821
+  description: "Compatibility & support"
+
+- name: area:maintenance
+  color: 9198A1
+  description: "Maintenance & hygiene"
+
+- name: area:performance
+  color: D29922
+  description: "Performance & optimization"
+
+- name: area:release
+  color: 3FB950
+  description: "Release operations"
+
+- name: area:security
+  color: 9F3734
+  description: "Security"
+
+- name: area:testing
+  color: D4C5F9
+  description: "Test infrastructure & automation"
 
 - name: area:deployment
   color: 006B75
