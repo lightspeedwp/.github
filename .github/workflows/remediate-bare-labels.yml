@@ -1,0 +1,236 @@
+name: Remediate Bare Labels (Phase 2)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode (no actual changes)"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  remediate:
+    name: Remediate Bare Labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Load bare label mapping
+        id: mapping
+        run: |
+          # Export mapping as environment variable for step
+          node -e "
+            const fs = require('fs');
+            const mapping = JSON.parse(fs.readFileSync('reports/label-remediation/bare-label-mapping.json', 'utf8'));
+            console.log('BARE_LABELS=' + JSON.stringify(Object.keys(mapping)));
+            console.log('MAPPING=' + JSON.stringify(mapping));
+          " >> $GITHUB_OUTPUT
+
+      - name: Query for issues with bare labels
+        id: query
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const mapping = JSON.parse(process.env.MAPPING);
+            const bareLabels = Object.keys(mapping);
+            const findings = {
+              issues: [],
+              pullRequests: [],
+              summary: {}
+            };
+
+            for (const bareLabel of bareLabels) {
+              try {
+                const { data } = await github.rest.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  labels: bareLabel,
+                  state: 'all',
+                  per_page: 100,
+                });
+
+                if (data.length > 0) {
+                  const issues = data.filter(item => !item.pull_request);
+                  const prs = data.filter(item => item.pull_request);
+
+                  if (issues.length > 0 || prs.length > 0) {
+                    findings.summary[bareLabel] = { issues: issues.length, prs: prs.length };
+
+                    issues.forEach(issue => {
+                      findings.issues.push({
+                        number: issue.number,
+                        title: issue.title,
+                        bareLabel,
+                        canonicalLabel: mapping[bareLabel],
+                      });
+                    });
+
+                    prs.forEach(pr => {
+                      findings.pullRequests.push({
+                        number: pr.number,
+                        title: pr.title,
+                        bareLabel,
+                        canonicalLabel: mapping[bareLabel],
+                      });
+                    });
+                  }
+                }
+              } catch (error) {
+                if (error.status !== 404) {
+                  core.warning(`Error querying label "${bareLabel}": ${error.message}`);
+                }
+              }
+            }
+
+            core.setOutput('findings', JSON.stringify(findings));
+            console.log(`Found ${findings.issues.length} issues and ${findings.pullRequests.length} PRs with bare labels`);
+
+        env:
+          MAPPING: ${{ steps.mapping.outputs.MAPPING }}
+
+      - name: Remediate bare labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const mapping = JSON.parse(process.env.MAPPING);
+            const findings = JSON.parse(process.env.FINDINGS);
+            const dryRun = process.env.DRY_RUN === 'true';
+            const allItems = [...findings.issues, ...findings.pullRequests];
+
+            let updated = 0;
+            let errors = 0;
+
+            for (const item of allItems) {
+              try {
+                const issueParams = {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: item.number,
+                };
+
+                // Get current labels
+                const { data: issue } = await github.rest.issues.get(issueParams);
+                const currentLabels = issue.labels.map(l => l.name);
+
+                // Remove bare label and add canonical label
+                const newLabels = currentLabels
+                  .filter(label => label !== item.bareLabel)
+                  .concat(item.canonicalLabel);
+
+                if (!dryRun) {
+                  await github.rest.issues.update({
+                    ...issueParams,
+                    labels: newLabels,
+                  });
+                }
+
+                const type = item.title ? 'Issue' : 'PR';
+                const action = dryRun ? '[DRY RUN]' : '[UPDATED]';
+                core.info(`${action} ${type} #${item.number}: ${item.bareLabel} → ${item.canonicalLabel}`);
+                updated++;
+              } catch (error) {
+                core.error(`Error updating #${item.number}: ${error.message}`);
+                errors++;
+              }
+            }
+
+            core.setOutput('updated', updated);
+            core.setOutput('errors', errors);
+
+        env:
+          MAPPING: ${{ steps.mapping.outputs.MAPPING }}
+          FINDINGS: ${{ steps.query.outputs.findings }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+
+      - name: Generate report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const findings = JSON.parse(process.env.FINDINGS);
+            const mapping = JSON.parse(process.env.MAPPING);
+
+            let report = '# Label Remediation Report\n\n';
+            report += `**Dry Run:** ${process.env.DRY_RUN}\n`;
+            report += `**Date:** ${new Date().toISOString()}\n\n`;
+
+            report += `## Summary\n\n`;
+            report += `- **Issues with bare labels:** ${findings.issues.length}\n`;
+            report += `- **PRs with bare labels:** ${findings.pullRequests.length}\n`;
+            report += `- **Total to remediate:** ${findings.issues.length + findings.pullRequests.length}\n\n`;
+
+            if (Object.keys(findings.summary).length > 0) {
+              report += '## Bare Labels Found\n\n';
+              report += '| Bare Label | Canonical | Issues | PRs |\n';
+              report += '|---|---|---|---|\n';
+
+              for (const [bareLabel, counts] of Object.entries(findings.summary)) {
+                const canonical = mapping[bareLabel];
+                report += `| \`${bareLabel}\` | \`${canonical}\` | ${counts.issues} | ${counts.prs} |\n`;
+              }
+              report += '\n';
+            }
+
+            if (findings.issues.length > 0) {
+              report += '## Issues to Remediate\n\n';
+              findings.issues.forEach(issue => {
+                report += `- #${issue.number}: ${issue.title}\n`;
+                report += `  - ${issue.bareLabel} → ${issue.canonicalLabel}\n`;
+              });
+              report += '\n';
+            }
+
+            if (findings.pullRequests.length > 0) {
+              report += '## Pull Requests to Remediate\n\n';
+              findings.pullRequests.forEach(pr => {
+                report += `- #${pr.number}: ${pr.title}\n`;
+                report += `  - ${pr.bareLabel} → ${pr.canonicalLabel}\n`;
+              });
+              report += '\n';
+            }
+
+            core.setOutput('report', report);
+
+        env:
+          FINDINGS: ${{ steps.query.outputs.findings }}
+          MAPPING: ${{ steps.mapping.outputs.MAPPING }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+
+      - name: Comment on run summary
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = process.env.REPORT;
+            fs.writeFileSync('REMEDIATION_REPORT.md', report);
+            core.notice(report);
+
+        env:
+          REPORT: ${{ steps.generate-report.outputs.report }}
+
+      - name: Upload report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: remediation-report
+          path: REMEDIATION_REPORT.md
