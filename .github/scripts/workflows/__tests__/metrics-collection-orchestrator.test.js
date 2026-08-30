@@ -4,14 +4,69 @@
 
 const fs = require("fs");
 const path = require("path");
+
+// Mock process.exit to prevent Jest from exiting
+const originalExit = process.exit;
+process.exit = jest.fn();
+
 const {
   MetricsCollectionOrchestrator,
 } = require("../metrics-collection-orchestrator.cjs");
+
+// Mock the GitHubAPIClient
+jest.mock("../../../../scripts/metrics/metrics-agent.cjs", () => {
+  return {
+    GitHubAPIClient: jest.fn().mockImplementation(() => ({
+      fetchMetrics: jest.fn().mockResolvedValue({
+        issues: { total: 10, closed: 5 },
+        pullRequests: { total: 8, merged: 6 },
+        contributors: 5,
+        stars: 100,
+      }),
+    })),
+  };
+});
+
+// Mock the MetricsStorage
+jest.mock("../../../../scripts/metrics/metrics-storage.cjs", () => {
+  return {
+    MetricsStorage: jest.fn().mockImplementation(() => ({
+      saveMetrics: jest.fn().mockResolvedValue(true),
+      getMetrics: jest.fn().mockResolvedValue([]),
+    })),
+  };
+});
+
+// Mock the TrendAnalyzer
+jest.mock("../../../../scripts/metrics/trend-analyzer.cjs", () => {
+  return {
+    TrendAnalyzer: jest.fn().mockImplementation(() => ({
+      analyzeTrends: jest.fn().mockResolvedValue({
+        issuesTrend: "stable",
+        prsTrend: "increasing",
+      }),
+    })),
+  };
+});
+
+// Mock the AnomalyDetector
+jest.mock("../../../../scripts/metrics/anomaly-detector.cjs", () => {
+  return {
+    AnomalyDetector: jest.fn().mockImplementation(() => ({
+      detectAnomalies: jest.fn().mockResolvedValue([]),
+    })),
+  };
+});
 
 describe("MetricsCollectionOrchestrator", () => {
   let orchestrator;
   let configPath;
   let testConfig;
+
+  afterAll(() => {
+    // Restore process.exit
+    process.exit = originalExit;
+  });
 
   beforeEach(() => {
     // Create test configuration
@@ -252,5 +307,70 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(orchestrator.config.storage).toBeDefined();
     expect(orchestrator.config.notifications).toBeDefined();
     expect(orchestrator.config.logging).toBeDefined();
+  });
+
+  test("should collect metrics for a single repository without exiting", async () => {
+    orchestrator = new MetricsCollectionOrchestrator(configPath);
+    orchestrator.startTime = Date.now();
+
+    const result = await orchestrator.collectMetricsForRepository(
+      testConfig.repositories[0],
+    );
+
+    expect(result).toBeDefined();
+    expect(result.status).toBe("success");
+    expect(result.repository).toBe("lightspeedwp/.github");
+    expect(result.metricsCount).toBeGreaterThan(0);
+  });
+
+  test("should orchestrate collection for multiple repositories", async () => {
+    testConfig.repositories = [
+      {
+        owner: "lightspeedwp",
+        repo: ".github",
+        context: "github-control-plane",
+        enabled: true,
+      },
+      {
+        owner: "lightspeedwp",
+        repo: "plugin",
+        context: "wordpress-plugin",
+        enabled: true,
+      },
+    ];
+    fs.writeFileSync(configPath, JSON.stringify(testConfig, null, 2));
+
+    orchestrator = new MetricsCollectionOrchestrator(configPath);
+    const summary = await orchestrator.orchestrateCollection();
+
+    expect(summary).toBeDefined();
+    expect(summary.execution).toBeDefined();
+    expect(summary.execution.repositories.total).toBe(2);
+    expect(summary.results.length).toBeGreaterThan(0);
+  });
+
+  test("should skip disabled repositories during orchestration", async () => {
+    testConfig.repositories = [
+      {
+        owner: "lightspeedwp",
+        repo: ".github",
+        context: "github-control-plane",
+        enabled: true,
+      },
+      {
+        owner: "lightspeedwp",
+        repo: "plugin",
+        context: "wordpress-plugin",
+        enabled: false,
+      },
+    ];
+    fs.writeFileSync(configPath, JSON.stringify(testConfig, null, 2));
+
+    orchestrator = new MetricsCollectionOrchestrator(configPath);
+    const summary = await orchestrator.orchestrateCollection();
+
+    expect(summary).toBeDefined();
+    // Only one repository should be processed (the enabled one)
+    expect(summary.execution.repositories.total).toBeLessThanOrEqual(1);
   });
 });
