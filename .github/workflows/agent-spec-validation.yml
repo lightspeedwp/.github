@@ -1,0 +1,244 @@
+name: Agent Spec Validation
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths:
+      - "agents/**/*.agent.md"
+      - ".github/scripts/validate-agent-specs.js"
+      - ".github/workflows/agent-spec-validation.yml"
+  push:
+    branches:
+      - develop
+    paths:
+      - "agents/**/*.agent.md"
+
+concurrency:
+  group: agent-spec-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  frontmatter-validation:
+    name: Frontmatter & Metadata Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get changed agent spec files
+        id: changed-files
+        uses: tj-actions/changed-files@v47
+        with:
+          files: agents/**/*.agent.md
+          base_sha: ${{ github.event.pull_request.base.sha || github.event.before }}
+
+      - name: Validate frontmatter on changed specs
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          files="${{ steps.changed-files.outputs.all_changed_files }}"
+          echo "Validating frontmatter on agent specs..."
+
+          failed=0
+          for file in $files; do
+            if [ -f "$file" ] && [[ "$file" == *.agent.md ]]; then
+              echo "Checking frontmatter: $file"
+
+              # Validate required frontmatter fields
+              if ! grep -q "^---$" "$file"; then
+                echo "❌ Missing frontmatter delimiter in $file"
+                ((failed++))
+                continue
+              fi
+
+              # Extract frontmatter
+              frontmatter=$(sed -n '/^---$/,/^---$/p' "$file" | sed '1d;$d')
+
+              # Check required fields
+              required_fields=("name" "description" "file_type" "category" "status" "version" "created_date" "last_updated" "author" "language")
+              for field in "${required_fields[@]}"; do
+                if ! echo "$frontmatter" | grep -q "^$field:"; then
+                  echo "❌ Missing required field '$field' in $file"
+                  ((failed++))
+                fi
+              done
+
+              # Validate file_type is 'agent'
+              if ! echo "$frontmatter" | grep -q 'file_type:.*"agent"'; then
+                if ! echo "$frontmatter" | grep -q "file_type: agent"; then
+                  echo "❌ file_type must be 'agent' in $file"
+                  ((failed++))
+                fi
+              fi
+
+              # Validate date formats (YYYY-MM-DD)
+              if ! echo "$frontmatter" | grep -E "^created_date: [0-9]{4}-[0-9]{2}-[0-9]{2}$" > /dev/null; then
+                echo "❌ Invalid created_date format in $file (must be YYYY-MM-DD)"
+                ((failed++))
+              fi
+
+              if ! echo "$frontmatter" | grep -E "^last_updated: [0-9]{4}-[0-9]{2}-[0-9]{2}$" > /dev/null; then
+                echo "❌ Invalid last_updated format in $file (must be YYYY-MM-DD)"
+                ((failed++))
+              fi
+            fi
+          done
+
+          if [ $failed -gt 0 ]; then
+            echo "❌ Frontmatter validation failed with $failed issues"
+            exit 1
+          fi
+          echo "✅ All frontmatter validations passed"
+
+  cross-reference-validation:
+    name: Cross-Reference & Implementation Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run cross-reference validation
+        run: |
+          echo "Running comprehensive agent spec validation..."
+          node .github/scripts/validate-agent-specs.js
+
+          if [ $? -ne 0 ]; then
+            echo "❌ Cross-reference validation failed"
+            exit 1
+          fi
+          echo "✅ Cross-reference validation passed"
+
+      - name: Generate validation report
+        if: always()
+        run: |
+          if [ -f ".github/reports/audit/agent-specs-phase3-validation.json" ]; then
+            echo "Validation report generated"
+            cat .github/reports/audit/agent-specs-phase3-validation.json | head -50
+          fi
+
+  spec-coverage:
+    name: Agent Spec Coverage Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check spec coverage
+        run: |
+          # Count agent directories
+          agent_dirs=$(find agents -maxdepth 1 -type d ! -name "agents" | wc -l)
+
+          # Count .agent.md files
+          agent_specs=$(find agents -maxdepth 1 -name "*.agent.md" | wc -l)
+
+          # Count .agent.md files in repository (including internal agents)
+          all_agent_specs=$(find . -maxdepth 2 -name "*.agent.md" | wc -l)
+
+          echo "Agent Coverage Report:"
+          echo "===================="
+          echo "Implementation Directories: $agent_dirs"
+          echo "Agent Specs (in agents/): $agent_specs"
+          echo "Total Agent Specs: $all_agent_specs"
+
+          if [ "$agent_dirs" -gt 0 ] && [ "$agent_specs" -eq "$agent_dirs" ]; then
+            echo "✅ Coverage: 100% ($agent_specs/$agent_dirs)"
+            exit 0
+          else
+            echo "⚠️  Coverage: $(echo "scale=1; $agent_specs * 100 / $agent_dirs" | bc)% ($agent_specs/$agent_dirs)"
+            exit 0
+          fi
+
+  status-check:
+    name: Agent Spec Validation Status
+    runs-on: ubuntu-latest
+    needs: [frontmatter-validation, cross-reference-validation, spec-coverage]
+    if: always()
+
+    steps:
+      - name: Check validation results
+        run: |
+          frontmatter=${{ needs.frontmatter-validation.result }}
+          cross_ref=${{ needs.cross-reference-validation.result }}
+          coverage=${{ needs.spec-coverage.result }}
+
+          echo "Validation Status:"
+          echo "=================="
+          echo "Frontmatter Validation: $frontmatter"
+          echo "Cross-Reference Validation: $cross_ref"
+          echo "Coverage Check: $coverage"
+
+          if [ "$frontmatter" = "failure" ] || [ "$cross_ref" = "failure" ]; then
+            echo "❌ Agent spec validation failed"
+            exit 1
+          fi
+
+          echo "✅ All agent spec validations passed"
+
+      - name: Comment validation results on PR
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const frontmatter = '${{ needs.frontmatter-validation.result }}';
+            const crossRef = '${{ needs.cross-reference-validation.result }}';
+            const coverage = '${{ needs.spec-coverage.result }}';
+
+            const statusLine = frontmatter === 'success' && crossRef === 'success'
+              ? '✅ All validations passed'
+              : '❌ Agent spec validation failed';
+
+            const detailsLine1 = `- **Frontmatter Validation**: ${frontmatter === 'success' ? '✅ Passed' : '❌ Failed'}`;
+            const detailsLine2 = `- **Cross-Reference Validation**: ${crossRef === 'success' ? '✅ Passed' : '❌ Failed'}`;
+            const detailsLine3 = `- **Coverage Check**: ${coverage === 'success' ? '✅ Passed' : '⚠️  Warning'}`;
+
+            const body = `## Agent Spec Validation\n\n${statusLine}\n\n${detailsLine1}\n${detailsLine2}\n${detailsLine3}\n\nSee the workflow run for detailed validation results.`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
