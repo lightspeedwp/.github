@@ -47,6 +47,50 @@ references:
 
 ---
 
+## Branch Naming Governance (CRITICAL)
+
+**All branches MUST follow this pattern:** `{type}/{scope}-{title}`
+
+This is enforced globally across all LightSpeed projects. See [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) for complete details, 34 allowed type values, examples, and why this matters.
+
+### Quick Reference
+
+✅ **Correct:**
+
+- `feat/governance-audit-implementation`
+- `fix/pr-template-routing-bug`
+- `docs/branching-strategy-guide`
+
+❌ **Forbidden (never use):**
+
+- `claude/something` — Reserved for Claude Code internal sessions
+- `copilot/something` — Reserved for GitHub Copilot integration
+- `openai/something` — Reserved for OpenAI integration
+
+### Why This Matters
+
+Incorrect branch names cause:
+
+1. PR template assignment failures
+2. GitHub Actions workflow failures
+3. Validation check failures
+4. Downstream automation breaks
+
+### Before You Push
+
+```bash
+npm run validate:branch-name -- --branch <your-branch>
+```
+
+### Full Reference
+
+- **Complete guidance:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (34 types, examples, consequences)
+- **Detailed rules:** [.github/instructions/branch-naming.instructions.md](.github/instructions/branch-naming.instructions.md)
+- **Strategy doc:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
+- **Copilot-specific:** [.github/custom-instructions.md](.github/custom-instructions.md)
+
+---
+
 ## Contribution Guidelines & Indexes
 
 | Area                      | File Reference                                                                                                                 | Notes / Usage                                                 |
@@ -66,6 +110,52 @@ references:
 - **quality-assurance.instructions.md** - Testing, Jest, coverage, CI/CD (consolidated 3 files)
 - **automation.instructions.md** - Agents, labeling, release, metrics (consolidated 8 files)
 - **community-standards.instructions.md** - Files, naming, README, saved replies (consolidated 4 files)
+
+---
+
+## Label Creation Governance (CRITICAL)
+
+When your code creates issues via `gh issue create` or GitHub API:
+
+1. **Always validate labels against canonical set** (`.github/labels.yml`)
+2. **All labels MUST include family prefix**:
+   - `type:*` for issue classification (bug, feature, documentation, task, design, etc.)
+   - `status:*` for workflow state (needs-triage, ready, in-progress, blocked, done, etc.)
+   - `priority:*` for urgency (critical, important, normal, minor)
+   - `area:*` for domain/component (ci, docs, security, labels, tests, scripts, etc.)
+   - `meta:*` for automation markers (needs-changelog, has-pr, duplicate, etc.)
+
+### Example: Creating an issue with correct labels
+
+```bash
+# ✅ CORRECT — All labels use required prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "type:feature" \
+  --label "area:block-editor" \
+  --label "priority:normal" \
+  --label "status:needs-triage"
+
+# ❌ INCORRECT — Bare labels without prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "feature" \
+  --label "block-editor" \
+  --label "normal" \
+  --label "needs-triage"
+```
+
+### Validation Checklist
+
+Before creating any issue programmatically:
+
+- [ ] Each label exists in `.github/labels.yml`
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, etc.)
+- [ ] No bare labels (labels without colons are invalid)
+
+**Reference**: `.github/scripts/validation/validate-labels-before-creation.cjs`
 
 ---
 
@@ -96,6 +186,61 @@ Start here for all key standards:
 | **Main Agent Index**      | [agents/agent.md](agents/agent.md)                               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
 | **Instruction Migration** | [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
+
+---
+
+## Label Creation Governance (CRITICAL)
+
+### For Programmatic Issue and PR Creation
+
+When your code creates issues or PRs via `gh issue create`, `gh pr create`, or GitHub API:
+
+1. **Always validate labels against the canonical set** (`.github/labels.yml`)
+2. **ALL labels MUST include family prefix** — never apply bare labels
+3. **Prefix families and examples**:
+   - `type:*` — bug, feature, documentation, task, design, security, performance, a11y
+   - `status:*` — needs-triage, ready, in-progress, blocked, review, done
+   - `priority:*` — critical, high, normal, low
+   - `area:*` — ci, docs, security, labels, tests, scripts, automation, etc.
+   - `meta:*` — needs-changelog, has-pr, duplicate, needs-audit
+
+### Example: Creating an Issue with Correct Labels
+
+```bash
+# ✅ CORRECT — All labels use required prefixes
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "type:feature" \
+  --label "area:core" \
+  --label "priority:normal" \
+  --label "status:needs-triage"
+
+# ❌ INCORRECT — Bare labels without prefixes (DO NOT USE)
+gh issue create \
+  --title "Add support for new widget configuration" \
+  --body "Users need to configure widgets via JSON..." \
+  --label "feature" \
+  --label "core" \
+  --label "normal" \
+  --label "needs-triage"
+```
+
+### Pre-Creation Validation Checklist
+
+Before creating any issue or PR programmatically:
+
+- [ ] Each label exists in `.github/labels.yml`
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, `priority:`, `meta:`)
+- [ ] No bare labels without colons
+- [ ] Canonical case (lowercase, hyphens for spaces)
+
+### References
+
+- **Canonical labels**: `.github/labels.yml` (158 prefixed labels)
+- **Label taxonomy**: `docs/LABEL_STRATEGY.md`
+- **Labeling guide**: `docs/LABELING.md`
+- **Governance audit**: [Issue #1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Enforcement
 
 ---
 
