@@ -637,7 +637,7 @@ node scripts/automation/bulk-issue-metadata-updater.js \
 ```bash
 # Reduce rate limit or batch size
 node scripts/automation/handlers-orchestrator.js \
-  --rate-limit 50 \  # Reduced from 100
+  --rate-limit 50 \
   --batch-size 5
 ```
 
