@@ -20,8 +20,6 @@ const AGENT_LOCATIONS = [
   path.join(REPO_ROOT, "agents"),
   path.join(REPO_ROOT, ".github/agents"),
 ];
-// plugins can have agents at plugins/*/agents or plugins/*/*/agents etc
-const PLUGINS_AGENTS_PATTERN = path.join(REPO_ROOT, "plugins/**/agents");
 
 // Category metadata
 const CATEGORY_INFO = {
