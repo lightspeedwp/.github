@@ -280,21 +280,25 @@ function parseArgs(argv) {
     }
   }
 
-  // Validate numeric options: must be positive integers.
-  const numericOptions = {
+  // Validate numeric options: must be positive integers (maxRetries allows 0).
+  const positiveOptions = {
     limit: config.limit,
     batchSize: config.batchSize,
     autoThreshold: config.autoThreshold,
-    maxRetries: config.maxRetries,
     rateLimit: config.rateLimit,
     timeout: config.timeout,
   };
-  for (const [key, value] of Object.entries(numericOptions)) {
+  for (const [key, value] of Object.entries(positiveOptions)) {
     if (!Number.isInteger(value) || value <= 0) {
       throw new Error(
         `Invalid value for --${key.replace(/([A-Z])/g, "-$1").toLowerCase()}: must be a positive integer, got "${value}".`,
       );
     }
+  }
+  if (!Number.isInteger(config.maxRetries) || config.maxRetries < 0) {
+    throw new Error(
+      `Invalid value for --max-retries: must be a non-negative integer, got "${config.maxRetries}".`,
+    );
   }
 
   return config;
@@ -616,8 +620,11 @@ async function orchestrate(config) {
       }
 
       // Record one progress entry per issue, using the most significant result status.
-      const issueStatus = results.some((r) => r.status === "applied")
-        ? "applied"
+      // Map "applied" to "updated" so ProgressTracker.updated is incremented correctly.
+      const issueStatus = results.some(
+        (r) => r.status === "applied" || r.status === "updated",
+      )
+        ? "updated"
         : results.some((r) => r.status === "error")
           ? "error"
           : results[0]?.status ?? "skipped";
