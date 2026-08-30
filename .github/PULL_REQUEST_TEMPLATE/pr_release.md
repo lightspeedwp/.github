@@ -1,7 +1,7 @@
 ---
-name: "Release PR"
-about: "Release new features or enhancements"
-title: "release: {short summary}"
+file_type: "pr-template"
+title: "Release PR"
+description: "Release new features or enhancements"
 labels: ["status:needs-review", "area:release", "release:patch"]
 ---
 
