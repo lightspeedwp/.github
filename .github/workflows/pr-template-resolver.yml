@@ -1,0 +1,193 @@
+name: PR Template Resolver
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  resolve-template:
+    runs-on: ubuntu-latest
+    if: contains(github.head_ref, 'claude/') || contains(github.head_ref, 'copilot/')
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Resolve template from linked issue
+        id: resolve
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branchName = context.payload.pull_request.head.ref;
+            const prNumber = context.issue.number;
+
+            // Type to template mapping (matches config.yml)
+            const typeToTemplate = {
+              'bug': 'pr_bug.md',
+              'feature': 'pr_feature.md',
+              'hotfix': 'pr_hotfix.md',
+              'refactor': 'pr_refactor.md',
+              'chore': 'pr_chore.md',
+              'docs': 'pr_docs.md',
+              'documentation': 'pr_docs.md',
+              'test': 'pr_chore.md',
+              'perf': 'pr_feature.md',
+              'performance': 'pr_feature.md',
+              'ci': 'pr_ci.md',
+              'build': 'pr_ci.md',
+              'deps': 'pr_dep_update.md',
+              'dependency': 'pr_dep_update.md',
+              'security': 'pr_bug.md',
+              'design': 'pr_feature.md',
+              'a11y': 'pr_feature.md',
+              'accessibility': 'pr_feature.md',
+              'ux': 'pr_feature.md',
+              'release': 'pr_release.md',
+              'research': 'pr_feature.md',
+              'revert': 'pr_chore.md',
+              'i18n': 'pr_feature.md',
+              'ops': 'pr_chore.md',
+              'proto': 'pr_feature.md',
+              'ds': 'pr_feature.md',
+              'api': 'pr_feature.md',
+              'schema': 'pr_feature.md',
+              'telemetry': 'pr_feature.md',
+              'content': 'pr_docs.md',
+              'seo': 'pr_docs.md',
+              'config': 'pr_chore.md',
+              'migrate': 'pr_chore.md',
+              'migration': 'pr_chore.md',
+              'qa': 'pr_chore.md',
+              'uat': 'pr_chore.md',
+              'audit': 'pr_feature.md'
+            };
+
+            // Fallback template
+            const defaultTemplate = 'pr_feature.md';
+
+            // Step 1: Query linked issue via GitHub API
+            let linkedIssueType = null;
+            let linkedIssueFound = false;
+
+            try {
+              const prData = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+              });
+
+              // Try to find linked issue in PR body
+              const body = prData.data.body || '';
+              const issueMatch = body.match(/(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+#(\d+)/i);
+
+              if (issueMatch) {
+                const linkedIssueNumber = parseInt(issueMatch[2]);
+
+                // Get the linked issue
+                const issue = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: linkedIssueNumber
+                });
+
+                linkedIssueFound = true;
+
+                // Step 2a: Check issue labels for type: prefix
+                if (issue.data.labels && issue.data.labels.length > 0) {
+                  for (const label of issue.data.labels) {
+                    const labelName = label.name.toLowerCase();
+                    if (labelName.startsWith('type:')) {
+                      linkedIssueType = labelName.replace('type:', '');
+                      break;
+                    }
+                  }
+                }
+              }
+            } catch (error) {
+              console.log('Could not fetch linked issue:', error.message);
+            }
+
+            // Step 2b: Check PR labels for type: prefix if no issue type found
+            let prType = null;
+            if (!linkedIssueType && context.payload.pull_request.labels) {
+              for (const label of context.payload.pull_request.labels) {
+                const labelName = label.name.toLowerCase();
+                if (labelName.startsWith('type:')) {
+                  prType = labelName.replace('type:', '');
+                  linkedIssueType = prType;
+                  break;
+                }
+              }
+            }
+
+            // Step 2c: Scan PR description for type indicators
+            if (!linkedIssueType) {
+              const prBody = context.payload.pull_request.body || '';
+              const typeIndicators = prBody.match(/type:\s*(\w+)/i);
+              if (typeIndicators) {
+                linkedIssueType = typeIndicators[1].toLowerCase();
+              }
+            }
+
+            // Step 3: Determine correct template
+            let resolvedTemplate = defaultTemplate;
+            let detectedType = 'feature';
+
+            if (linkedIssueType) {
+              detectedType = linkedIssueType;
+              resolvedTemplate = typeToTemplate[linkedIssueType] || defaultTemplate;
+            }
+
+            // Set outputs
+            core.setOutput('template', resolvedTemplate);
+            core.setOutput('type', detectedType);
+            core.setOutput('linked-issue-found', linkedIssueFound);
+            core.setOutput('branch-name', branchName);
+
+      - name: Comment on PR
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branchName = '${{ steps.resolve.outputs.branch-name }}';
+            const template = '${{ steps.resolve.outputs.template }}';
+            const type = '${{ steps.resolve.outputs.type }}';
+            const linkedIssueFound = '${{ steps.resolve.outputs.linked-issue-found }}' === 'true';
+
+            let comment = `⚠️ **Branch Naming Issue**\n\n`;
+            comment += `This PR's branch name \`${branchName}\` doesn't follow the standard pattern.\n\n`;
+            comment += `**Standard pattern:** \`{type}/{scope}-{title}\` (e.g., \`feat/something\`, \`fix/bug-name\`)\n\n`;
+
+            if (linkedIssueFound) {
+              comment += `**Based on linked issue type:** \`${type}\`\n`;
+            } else {
+              comment += `⚠️ **Note:** No linked issue found. Template resolved to default.\n`;
+            }
+
+            comment += `\n**Correct template should be:** \`${template}\`\n\n`;
+            comment += `No action required — this is informational. Future PRs should use the correct branch name.\n\n`;
+            comment += `See [Branching Strategy](../../docs/BRANCHING_STRATEGY.md) for more info.`;
+
+            // Check if comment already exists to avoid duplicates
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+
+            const existingComment = comments.data.find(c =>
+              c.body.includes('Branch Naming Issue') &&
+              c.user.type === 'Bot'
+            );
+
+            if (!existingComment) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            }
