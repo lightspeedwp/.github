@@ -1,7 +1,16 @@
 ---
-title: Script Troubleshooting Guide
-date: 2026-08-30
-version: 1.0
+file_type: "documentation"
+title: "Automation Script Troubleshooting Guide"
+description: "Troubleshooting and recovery guidance for automation scripts in this repository."
+version: "v1.0"
+created_date: "2026-08-30"
+last_updated: "2026-08-30"
+owners: ["LightSpeed Engineering"]
+tags: ["automation", "scripts", "troubleshooting"]
+status: "active"
+stability: "stable"
+domain: "governance"
+mode: "information"
 ---
 
 # Automation Script Troubleshooting Guide
