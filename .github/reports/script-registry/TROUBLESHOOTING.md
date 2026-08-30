@@ -147,7 +147,7 @@ Rate limit exceeded. Retry-After: 3600
 1. **Reduce batch size** (fewer API calls per iteration):
    ```bash
    node scripts/automation/handlers-orchestrator.js \
-     --batch-size 5 \  # Reduced from 10
+     --batch-size 5 \
      --limit 50
    ```
 
