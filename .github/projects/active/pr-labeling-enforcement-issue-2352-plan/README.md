@@ -162,9 +162,9 @@ Phase 5: Training (1–2d)
 | Labels remediated | Day 3 | Phases 1-2 | 🔴 Waiting |
 | System enforcement live | Day 8 | Phases 1-3 | 🔴 Waiting |
 | Documentation ready | Day 11 | Phases 1-4 | 🔴 Waiting |
-| Team trained | Day 13 | Phases 1-5 | 🔴 Waiting |
+| Team trained | Day 14 | Phases 1-5 | 🔴 Waiting |
 
-**Total Duration:** 7–12 business days
+**Total Duration:** 7–12 business days (2–3 weeks on critical path, up to 3 weeks with Phase 5 adoption)
 
 ---
 
