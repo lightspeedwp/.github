@@ -13,7 +13,6 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { performance } from "perf_hooks";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.join(__dirname, "../../../..");

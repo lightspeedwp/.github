@@ -11,10 +11,8 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import {
   runBenchmarks,
-  createMockBenchmark,
   generateReport,
   saveResults,
-  BASELINE_METRICS,
   OPTIMIZATION_TARGET,
 } from "./performance-benchmarking.js";
 import {
@@ -205,7 +203,7 @@ describe("Phase 2B Performance Validation", () => {
   describe("Results Persistence", () => {
     it("should save results to JSON file", () => {
       const resultsPath = path.join(__dirname, "results-phase-2b.json");
-      const output = saveResults(benchmarkResults, resultsPath);
+      saveResults(benchmarkResults, resultsPath);
 
       expect(fs.existsSync(resultsPath)).toBe(true);
 
