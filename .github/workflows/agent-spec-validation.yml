@@ -7,6 +7,8 @@ on:
       - main
     paths:
       - "agents/**/*.agent.md"
+      - ".github/agents/**/*.agent.md"
+      - "plugins/**/agents/**/*.agent.md"
       - ".github/scripts/validate-agent-specs.js"
       - ".github/workflows/agent-spec-validation.yml"
   push:
@@ -14,6 +16,8 @@ on:
       - develop
     paths:
       - "agents/**/*.agent.md"
+      - ".github/agents/**/*.agent.md"
+      - "plugins/**/agents/**/*.agent.md"
 
 concurrency:
   group: agent-spec-validation-${{ github.ref }}
@@ -49,7 +53,10 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v47
         with:
-          files: agents/**/*.agent.md
+          files: |
+            agents/**/*.agent.md
+            .github/agents/**/*.agent.md
+            plugins/**/agents/**/*.agent.md
           base_sha: ${{ github.event.pull_request.base.sha || github.event.before }}
 
       - name: Validate frontmatter on changed specs
@@ -66,7 +73,7 @@ jobs:
               # Validate required frontmatter fields
               if ! grep -q "^---$" "$file"; then
                 echo "❌ Missing frontmatter delimiter in $file"
-                ((failed++))
+                failed=$((failed+1))
                 continue
               fi
 
@@ -78,7 +85,7 @@ jobs:
               for field in "${required_fields[@]}"; do
                 if ! echo "$frontmatter" | grep -q "^$field:"; then
                   echo "❌ Missing required field '$field' in $file"
-                  ((failed++))
+                  failed=$((failed+1))
                 fi
               done
 
@@ -86,19 +93,19 @@ jobs:
               if ! echo "$frontmatter" | grep -q 'file_type:.*"agent"'; then
                 if ! echo "$frontmatter" | grep -q "file_type: agent"; then
                   echo "❌ file_type must be 'agent' in $file"
-                  ((failed++))
+                  failed=$((failed+1))
                 fi
               fi
 
               # Validate date formats (YYYY-MM-DD)
               if ! echo "$frontmatter" | grep -E "^created_date: [0-9]{4}-[0-9]{2}-[0-9]{2}$" > /dev/null; then
                 echo "❌ Invalid created_date format in $file (must be YYYY-MM-DD)"
-                ((failed++))
+                failed=$((failed+1))
               fi
 
               if ! echo "$frontmatter" | grep -E "^last_updated: [0-9]{4}-[0-9]{2}-[0-9]{2}$" > /dev/null; then
                 echo "❌ Invalid last_updated format in $file (must be YYYY-MM-DD)"
-                ((failed++))
+                failed=$((failed+1))
               fi
             fi
           done
@@ -183,12 +190,18 @@ jobs:
           echo "Agent Specs (in agents/): $agent_specs"
           echo "Total Agent Specs: $all_agent_specs"
 
-          if [ "$agent_dirs" -gt 0 ] && [ "$agent_specs" -eq "$agent_dirs" ]; then
+          if [ "$agent_dirs" -eq 0 ]; then
+            echo "⚠️  No implementation directories found"
+            exit 0
+          fi
+
+          if [ "$agent_specs" -eq "$agent_dirs" ]; then
             echo "✅ Coverage: 100% ($agent_specs/$agent_dirs)"
             exit 0
           else
-            echo "⚠️  Coverage: $(echo "scale=1; $agent_specs * 100 / $agent_dirs" | bc)% ($agent_specs/$agent_dirs)"
-            exit 0
+            coverage=$(echo "scale=1; $agent_specs * 100 / $agent_dirs" | bc)
+            echo "❌ Coverage: ${coverage}% ($agent_specs/$agent_dirs) — all implementation directories must have specs"
+            exit 1
           fi
 
   status-check:

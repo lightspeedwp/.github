@@ -14,8 +14,14 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const AGENT_SPEC_DIR = path.join(__dirname, "../../agents");
+const REPO_ROOT = path.join(__dirname, "../../");
 const OUTPUT_FILE = path.join(__dirname, "../../docs/AGENT-INDEX.md");
+const AGENT_LOCATIONS = [
+  path.join(REPO_ROOT, "agents"),
+  path.join(REPO_ROOT, ".github/agents"),
+];
+// plugins can have agents at plugins/*/agents or plugins/*/*/agents etc
+const PLUGINS_AGENTS_PATTERN = path.join(REPO_ROOT, "plugins/**/agents");
 
 // Category metadata
 const CATEGORY_INFO = {
@@ -43,7 +49,7 @@ function parseFrontmatter(content) {
 }
 
 // Parse agent spec file
-function parseAgentSpec(filePath) {
+function parseAgentSpec(filePath, repoRoot) {
   try {
     const content = fs.readFileSync(filePath, "utf8");
     const frontmatter = parseFrontmatter(content);
@@ -59,11 +65,14 @@ function parseAgentSpec(filePath) {
     );
     const summary = contentMatch ? contentMatch[1].trim().split("\n")[0] : "";
 
+    // Calculate relative path from repo root for correct linking
+    const relPath = path.relative(repoRoot, filePath);
+
     return {
       name: frontmatter.name || path.basename(filePath, ".agent.md"),
       description: frontmatter.description || summary || "",
       file: path.basename(filePath),
-      path: path.relative(AGENT_SPEC_DIR, filePath),
+      path: relPath,
       category: frontmatter.category || "unknown",
       status: frontmatter.status || "active",
       version: frontmatter.version || "1.0.0",
@@ -86,26 +95,45 @@ function collectAgentSpecs() {
 
   // Find all .agent.md files
   function walkDir(dir) {
-    const files = fs.readdirSync(dir);
+    if (!fs.existsSync(dir)) {
+      return;
+    }
 
-    for (const file of files) {
-      const filePath = path.join(dir, file);
-      const stat = fs.statSync(filePath);
+    try {
+      const files = fs.readdirSync(dir);
 
-      if (stat.isDirectory()) {
-        walkDir(filePath);
-      } else if (file.endsWith(".agent.md")) {
-        const spec = parseAgentSpec(filePath);
-        if (spec) {
-          specs.push(spec);
+      for (const file of files) {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+
+        if (stat.isDirectory()) {
+          walkDir(filePath);
+        } else if (file.endsWith(".agent.md")) {
+          const spec = parseAgentSpec(filePath, REPO_ROOT);
+          if (spec) {
+            specs.push(spec);
+          }
         }
       }
+    } catch (error) {
+      console.warn(`Error reading directory ${dir}: ${error.message}`);
     }
   }
 
-  // Start from repository root to catch all agents
-  const repoRoot = path.join(__dirname, "../../");
-  walkDir(repoRoot);
+  // Search all agent locations
+  for (const location of AGENT_LOCATIONS) {
+    walkDir(location);
+  }
+
+  // Also search plugins directories (handle glob-like pattern)
+  const pluginsDir = path.join(REPO_ROOT, "plugins");
+  if (fs.existsSync(pluginsDir)) {
+    const pluginDirs = fs.readdirSync(pluginsDir);
+    for (const pluginDir of pluginDirs) {
+      const agentsPath = path.join(pluginsDir, pluginDir, "agents");
+      walkDir(agentsPath);
+    }
+  }
 
   return specs.sort((a, b) => a.name.localeCompare(b.name));
 }
@@ -176,7 +204,7 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
         agent.tags.length > 0
           ? agent.tags.map((t) => `\`${t}\``).join(", ")
           : "—";
-      const specLink = `[${agent.name}](../agents/${agent.file})`;
+      const specLink = `[${agent.name}](../${agent.path})`;
 
       markdown += `| ${specLink} | ${statusBadge} | ${agent.version} | ${tags} |\n`;
     }
@@ -193,7 +221,7 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   for (const spec of specs) {
     const statusBadge =
       spec.status === "active" ? "✅" : spec.status === "draft" ? "📝" : "🚫";
-    const specLink = `[${spec.name}](../agents/${spec.file})`;
+    const specLink = `[${spec.name}](../${spec.path})`;
     const catInfo = CATEGORY_INFO[spec.category] || { icon: "📦" };
 
     markdown += `| ${specLink} | ${catInfo.icon} ${spec.category} | ${statusBadge} ${spec.status} | ${spec.version} | ${spec.last_updated} |\n`;
@@ -205,13 +233,16 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   markdown += `**With Implementation Directory** (${specs.filter((s) => s.implementation).length})\n\n`;
 
   for (const spec of specs.filter((s) => s.implementation)) {
-    markdown += `- [${spec.name}](../agents/${spec.file}) → [\`${spec.implementation}/\`](../agents/${spec.implementation}/)\n`;
+    // Construct implementation directory path relative to spec file location
+    const specDir = path.dirname(spec.path);
+    const implPath = path.join(specDir, spec.implementation);
+    markdown += `- [${spec.name}](../${spec.path}) → [\`${spec.implementation}/\`](../${implPath}/)\n`;
   }
 
   markdown += `\n**Specification-Only** (${specs.filter((s) => !s.implementation).length})\n\n`;
 
   for (const spec of specs.filter((s) => !s.implementation)) {
-    markdown += `- [${spec.name}](../agents/${spec.file}) — ${spec.description}\n`;
+    markdown += `- [${spec.name}](../${spec.path}) — ${spec.description}\n`;
   }
 
   // Add tags section
@@ -230,7 +261,7 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
       markdown += `### \`${tag}\`\n\n`;
 
       for (const spec of tagged) {
-        markdown += `- [${spec.name}](../agents/${spec.file})\n`;
+        markdown += `- [${spec.name}](../${spec.path})\n`;
       }
 
       markdown += "\n";
@@ -251,7 +282,7 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   for (const [author, agents] of Object.entries(byAuthor).sort()) {
     markdown += `### ${author} (${agents.length})\n\n`;
     for (const agent of agents) {
-      markdown += `- [${agent.name}](../agents/${agent.file}) — ${agent.description}\n`;
+      markdown += `- [${agent.name}](../${agent.path}) — ${agent.description}\n`;
     }
     markdown += "\n";
   }
@@ -260,8 +291,8 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   markdown += `\n---\n\n`;
   markdown += `## Related Documentation\n\n`;
   markdown += `- [Agent Developer Guide](./AGENT-DEVELOPER-GUIDE.md)\n`;
-  markdown += `- [Agent Specification Audit - Phase 3 Results](./.github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md)\n`;
-  markdown += `- [CONTRIBUTING.md](./CONTRIBUTING.md)\n\n`;
+  markdown += `- [Agent Specification Audit - Phase 3 Results](../.github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md)\n`;
+  markdown += `- [CONTRIBUTING.md](../CONTRIBUTING.md)\n\n`;
   markdown += `**Generated**: ${new Date().toISOString()}\n`;
   markdown += `**Total Agents**: ${specs.length}\n`;
 

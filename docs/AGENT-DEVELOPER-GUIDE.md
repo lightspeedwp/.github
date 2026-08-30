@@ -27,7 +27,7 @@ This guide covers:
 
 ## Agent Categories
 
-All agents are classified into 8 functional categories:
+Agents are classified into functional categories for discovery and organisation. Common categories include:
 
 | Category | Purpose | Examples |
 | --- | --- | --- |
@@ -39,6 +39,8 @@ All agents are classified into 8 functional categories:
 | **automation** | Workflow and release automation | PR creation, changelog generation |
 | **tooling** | Development tools and utilities | Project metadata sync, templates |
 | **mode** | Operational modes and decision frameworks | Thinking mode, documentation mode |
+
+New categories can be added as needed for domain-specific agents (e.g., infrastructure, ecommerce, analytics).
 
 ## Creating a New Agent
 
@@ -53,18 +55,19 @@ mkdir -p agents/my-new-agent/
 Standard structure:
 
 ```
-agents/my-new-agent/
-├── AGENT.md                    # Agent specification (metadata & usage)
-├── README.md                   # Implementation documentation
-├── skills/                     # Skill implementations
-│   ├── skill-1.js
-│   ├── skill-2.js
-│   └── index.js
-├── tests/                      # Test suite
-│   ├── skill-1.test.js
-│   └── skill-2.test.js
-└── config/                     # Configuration files
-    └── default.json
+agents/
+├── my-new-agent.agent.md       # Agent specification (metadata & usage)
+└── my-new-agent/               # Implementation directory (optional)
+    ├── README.md               # Implementation documentation
+    ├── skills/                 # Skill implementations
+    │   ├── skill-1.js
+    │   ├── skill-2.js
+    │   └── index.js
+    ├── tests/                  # Test suite
+    │   ├── skill-1.test.js
+    │   └── skill-2.test.js
+    └── config/                 # Configuration files
+        └── default.json
 ```
 
 ### Step 2: Create the Specification File
@@ -165,7 +168,7 @@ All agent specs must have frontmatter with these required fields:
 | `name` | String | My New Agent | Display name |
 | `description` | String | Brief description | One-line summary |
 | `file_type` | String | agent | Always "agent" |
-| `category` | String | configuration | One of 8 categories |
+| `category` | String | configuration | Domain-specific category for discovery |
 | `status` | String | active | active, draft, or deprecated |
 | `version` | String | 1.0.0 | Semantic versioning |
 | `created_date` | Date | 2026-08-30 | YYYY-MM-DD format |
@@ -249,14 +252,28 @@ Create `README.md` with:
 
 ### File Location
 
-All agent specifications must be placed in the `agents/` directory:
+Agent specifications can be placed in one of three locations:
 
-```
-agents/my-agent.agent.md
-agents/my-other-agent.agent.md
-```
+1. **Primary location** – `agents/` for main agent specs:
 
-**Note**: Repository-maintenance agents (issues.agent.md, labeling.agent.md, etc.) are an exception and can be placed at the root level when they don't have corresponding implementation directories.
+   ```
+   agents/my-agent.agent.md
+   agents/my-other-agent.agent.md
+   ```
+
+2. **GitHub control plane** – `.github/agents/` for repository-maintenance agents:
+
+   ```
+   .github/agents/issues-manager.agent.md
+   .github/agents/labeling-automation.agent.md
+   ```
+
+3. **Plugin-scoped agents** – `plugins/{plugin-name}/agents/` for plugin-specific agents:
+
+   ```
+   plugins/wordpress-plugin/agents/wordpress-manager.agent.md
+   plugins/woocommerce-plugin/agents/product-sync.agent.md
+   ```
 
 ### Naming Convention
 
@@ -269,7 +286,7 @@ agents/my-other-agent.agent.md
 All specs are validated against:
 
 - **Required fields**: name, description, file_type, category, status, version, created_date, last_updated, author, language
-- **Field formats**: file_type must be "agent", category from allowed list, dates in YYYY-MM-DD
+- **Field formats**: file_type must be "agent", category must be non-empty (can be any domain-specific category), dates in YYYY-MM-DD
 - **Implementation reference**: If present, implementation directory must exist
 
 ### Cross-Reference Rules
@@ -471,7 +488,7 @@ Related documentation and links.
 
 **Error**: "Missing required field 'category'"
 
-**Solution**: Add missing field to frontmatter with valid value (one of: configuration, analysis, integration, planning, governance, automation, tooling, mode)
+**Solution**: Add missing field to frontmatter with a non-empty category value. Use domain-specific categories such as: configuration, analysis, integration, planning, governance, automation, tooling, mode, infrastructure, ecommerce, analytics, or any other category appropriate for your agent.
 
 ### Date Format Invalid
 
