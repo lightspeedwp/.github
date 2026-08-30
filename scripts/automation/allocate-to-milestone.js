@@ -216,27 +216,27 @@ class MilestoneAllocator {
       }
 
       // Sort milestones by due date (earliest first), then by creation date (latest first)
-      const sorted = response.data.sort((a, b) => {
+      // Optimize by pre-parsing dates to avoid repeated Date object creation (Phase 2)
+      const milestonesWithParsedDates = response.data.map((m) => ({
+        ...m,
+        dueTime: m.due_on ? new Date(m.due_on).getTime() : Infinity,
+        createdTime: new Date(m.created_at).getTime(),
+      }));
+
+      const sorted = milestonesWithParsedDates.sort((a, b) => {
         // Primary sort: by due_on date (ascending = earliest first)
-        if (a.due_on && b.due_on) {
-          const dateA = new Date(a.due_on);
-          const dateB = new Date(b.due_on);
-          if (dateA.getTime() !== dateB.getTime()) {
-            return dateA.getTime() - dateB.getTime(); // Earliest due date wins
+        if (a.dueTime !== Infinity && b.dueTime !== Infinity) {
+          if (a.dueTime !== b.dueTime) {
+            return a.dueTime - b.dueTime; // Earliest due date wins
           }
-        } else if (a.due_on) {
-          // If only 'a' has a due date, it comes first
-          return -1;
-        } else if (b.due_on) {
-          // If only 'b' has a due date, it comes first
-          return 1;
+        } else if (a.dueTime !== Infinity) {
+          return -1; // a has due date, b doesn't
+        } else if (b.dueTime !== Infinity) {
+          return 1; // b has due date, a doesn't
         }
 
-        // Secondary sort (tiebreaker): by created_at date (descending = latest first)
-        // This ensures deterministic selection when multiple milestones share the same due date
-        const createdA = new Date(a.created_at);
-        const createdB = new Date(b.created_at);
-        return createdB.getTime() - createdA.getTime(); // Latest created date wins
+        // Secondary sort: by created_at date (descending = latest first)
+        return b.createdTime - a.createdTime; // Latest created date wins
       });
 
       const milestone = sorted[0];

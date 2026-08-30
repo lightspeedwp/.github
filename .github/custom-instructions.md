@@ -30,6 +30,58 @@ folders created for the portable AI plugin restructure.
 - Keep security, accessibility, performance, maintainability, and UK English as
   non-negotiable standards.
 
+## Branch Naming (CRITICAL for Copilot)
+
+**All branches MUST follow this pattern:** `{type}/{scope}-{title}`
+
+**NEVER use `copilot/` as a prefix** — it is reserved for GitHub Copilot integration and will break PR template assignment and GitHub Actions workflows.
+
+### Copilot-Specific Rules
+
+- Copilot must ALWAYS use `{type}/{scope}-{title}` pattern
+- Type value must be one of the 34 allowed values (feat, fix, docs, ci, etc.)
+- Use lowercase, hyphens for word separation
+- Scope should be concise (1-3 words)
+- Title should be brief (3-5 words max)
+
+### Examples
+
+✅ **Correct (Copilot should create these):**
+
+- `feat/governance-audit-implementation`
+- `fix/pr-template-routing-bug`
+- `docs/branching-strategy-guide`
+- `ci/github-actions-validation`
+
+❌ **Wrong (Never create these):**
+
+- `copilot/fix-something` — FORBIDDEN
+- `feature/my-feature` — Wrong (should be `feat/`)
+- `my-feature` — Missing type prefix
+
+### Before Pushing
+
+**Always validate branch name:**
+
+```bash
+npm run validate:branch-name -- --branch <your-branch>
+```
+
+Expected output:
+
+```
+Branch '{your-branch}' matches the repository branching strategy.
+```
+
+### Full Reference
+
+- **Complete guidance:** [CLAUDE.md — Branch Naming](../CLAUDE.md#-branch-naming--critical-read-first) (34 types, examples, consequences)
+- **Global rules:** [AGENTS.md — Branch Naming Governance](../AGENTS.md#branch-naming-governance-critical)
+- **Detailed rules:** [.github/instructions/branch-naming.instructions.md](./instructions/branch-naming.instructions.md)
+- **Strategy doc:** [docs/BRANCHING_STRATEGY.md](../docs/BRANCHING_STRATEGY.md)
+
+---
+
 ## Start Here
 
 Use these files as the primary map before editing:
