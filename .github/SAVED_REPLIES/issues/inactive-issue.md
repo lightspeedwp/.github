@@ -3,6 +3,7 @@ title: "Inactive Issue Saved Reply"
 description: "Message for closing an issue due to inactivity."
 category: "Issue"
 labels:
+  []
   - status:closed
 ---
 

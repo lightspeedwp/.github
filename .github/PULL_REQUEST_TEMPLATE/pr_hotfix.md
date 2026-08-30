@@ -3,6 +3,7 @@ file_type: "pr-template"
 title: "Hotfix PR"
 description: "Critical fixes for production issues"
 labels:
+  []
   ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
 ---
 
