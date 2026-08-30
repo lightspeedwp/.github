@@ -351,9 +351,20 @@ function getAuthToken() {
   return token;
 }
 
-// Initialize Octokit client
-function initializeOctokit(token) {
-  return new Octokit({ auth: token });
+// Initialize Octokit client with rate limiting enforcement
+function initializeOctokit(token, rateLimiter) {
+  const octokit = new Octokit({ auth: token });
+
+  // Wrap the request method to enforce rate limiting on ALL API calls
+  const originalRequest = octokit.request.bind(octokit);
+  octokit.request = async function (route, parameters) {
+    if (rateLimiter) {
+      await rateLimiter.acquire(1);
+    }
+    return originalRequest(route, parameters);
+  };
+
+  return octokit;
 }
 
 // Fetch issues that need triage
@@ -420,50 +431,55 @@ async function routeToHandlers(issue, handlers, options, config) {
         try {
           // Wrap handler call with timeout and retry logic
           let timeoutHandle;
-          const result = await Promise.race([
-            retryWithBackoff(
-              async () => {
-                const handlerResult = await handler.processIssue(
-                  issue,
-                  options,
-                );
-
-                // If handler resolved with error status and it's retryable, reject for retry
-                if (handlerResult.status === "error" && handlerResult.reason) {
-                  const errorInfo = categorizeError(
-                    new Error(handlerResult.reason),
+          try {
+            const result = await Promise.race([
+              retryWithBackoff(
+                async () => {
+                  const handlerResult = await handler.processIssue(
+                    issue,
+                    options,
                   );
-                  if (errorInfo.retryable) {
-                    throw new Error(handlerResult.reason);
+
+                  // If handler resolved with error status and it's retryable, reject for retry
+                  if (
+                    handlerResult.status === "error" &&
+                    handlerResult.reason
+                  ) {
+                    const errorInfo = categorizeError(
+                      new Error(handlerResult.reason),
+                    );
+                    if (errorInfo.retryable) {
+                      throw new Error(handlerResult.reason);
+                    }
                   }
-                }
 
-                return handlerResult;
-              },
-              config,
-              {
-                handler: handlerName,
-                issue: issue.number,
-              },
-            ),
-            new Promise((_, reject) => {
-              timeoutHandle = setTimeout(
-                () =>
-                  reject(
-                    new Error(`Handler timeout after ${config.timeout}ms`),
-                  ),
-                config.timeout,
-              );
-            }),
-          ]);
+                  return handlerResult;
+                },
+                config,
+                {
+                  handler: handlerName,
+                  issue: issue.number,
+                },
+              ),
+              new Promise((_, reject) => {
+                timeoutHandle = setTimeout(
+                  () =>
+                    reject(
+                      new Error(`Handler timeout after ${config.timeout}ms`),
+                    ),
+                  config.timeout,
+                );
+              }),
+            ]);
 
-          // Clear timeout on success
-          if (timeoutHandle) clearTimeout(timeoutHandle);
-
-          return {
-            handler: handlerName,
-            ...result,
-          };
+            return {
+              handler: handlerName,
+              ...result,
+            };
+          } finally {
+            // Ensure timeout is cleared in all cases (success and error)
+            if (timeoutHandle) clearTimeout(timeoutHandle);
+          }
         } finally {
           // Release semaphore slot
           if (concurrencySemaphore) {
@@ -584,9 +600,11 @@ async function orchestrate(config) {
   console.log(`Mode: ${config.mode}`);
   console.log(`Handlers: ${config.handlers}`);
   console.log(`Limit: ${config.limit}`);
+  console.log(`Batch Size: ${config.batchSize}`);
   console.log(`Max Retries: ${config.maxRetries}`);
   console.log(`Rate Limit: ${config.rateLimit} calls/min`);
   console.log(`Timeout: ${config.timeout}ms per issue`);
+  console.log(`Max Concurrent: ${config.maxConcurrent}`);
   console.log("");
 
   // Validate mode
@@ -609,19 +627,12 @@ async function orchestrate(config) {
     throw new Error("No valid handlers specified");
   }
 
-  // Initialize GitHub API client
-  const token = getAuthToken();
-  const octokit = initializeOctokit(token);
-
-  // Task 3: Initialize resource limiters and progress tracking
+  // Initialize resource limiters first (needed for Octokit wrapping)
   const rateLimiter = new RateLimiter(config.rateLimit);
 
-  // Create wrapper for GitHub API calls with rate limiting
-  const githubRequest = async (method, path, data) => {
-    // Acquire rate limit token before each request
-    await rateLimiter.acquire(1);
-    return octokit.request(method + " " + path, data);
-  };
+  // Initialize GitHub API client with rate limiting enforcement
+  const token = getAuthToken();
+  const octokit = initializeOctokit(token, rateLimiter);
 
   // Fetch issues to process
   const issues = await fetchIssuesNeedingTriage(octokit, config);
@@ -646,7 +657,7 @@ async function orchestrate(config) {
   const concurrencySemaphore = new Semaphore(config.maxConcurrent);
   const processingOptions = {
     dryRun: config.mode !== "auto",
-    githubRequest,
+    octokit,
     owner: config.owner,
     repo: config.repo,
     confidenceThreshold: config.autoThreshold,
