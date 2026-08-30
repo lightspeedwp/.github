@@ -350,7 +350,7 @@ Phase 5 (Train)
 
 ## Milestone Checkpoints
 
-### Milestone 1: Validation Prevention ✓ (Phase 1 Complete)
+### Milestone 1: Validation Prevention (Phase 1 — Ready to Start)
 - [ ] Validation script deployed and tested
 - [ ] CI/CD integration verified
 - [ ] No new violations can be merged
@@ -361,7 +361,7 @@ Phase 5 (Train)
 
 ---
 
-### Milestone 2: Compliance Baseline ✓ (Phase 2 Complete)
+### Milestone 2: Compliance Baseline (Phase 2 — Blocked by Phase 1)
 - [ ] All existing labels audited
 - [ ] Non-compliant labels remediated
 - [ ] All workflows updated
@@ -372,7 +372,7 @@ Phase 5 (Train)
 
 ---
 
-### Milestone 3: System-Wide Enforcement ✓ (Phase 3 Complete)
+### Milestone 3: System-Wide Enforcement (Phase 3 — Blocked by Phase 2)
 - [ ] Validation schema implemented
 - [ ] Auto-sync working (linked issues/PRs)
 - [ ] OpenSpec lifecycle labels deployed
@@ -384,7 +384,7 @@ Phase 5 (Train)
 
 ---
 
-### Milestone 4: Knowledge Base Ready ✓ (Phase 4 Complete)
+### Milestone 4: Knowledge Base Ready (Phase 4 — Blocked by Phase 3)
 - [ ] All documentation current and accurate
 - [ ] Label glossary complete
 - [ ] Troubleshooting guides published
@@ -395,7 +395,7 @@ Phase 5 (Train)
 
 ---
 
-### Milestone 5: Team Adoption ✓ (Phase 5 Complete)
+### Milestone 5: Team Adoption (Phase 5 — Blocked by Phase 4)
 - [ ] 100% team training completion
 - [ ] Compliance rate ≥ 95%
 - [ ] Support tickets <5/week
@@ -532,11 +532,11 @@ Estimated: 1-2 days
 
 ## Related Documentation
 
-- [Label Prefix Enforcement Project](./label-prefix-enforcement-2026-08-05/README.md)
-- [Label Audit Plan](./label-prefix-audit-2026-08-05/README.md)
-- [OpenSpec Labels Automation](./openspec-labels-automation/README.md)
-- [Contributing Guidelines](../../CONTRIBUTING.md)
-- [Label Reference](../../.github/labels/)
+- [Label Prefix Enforcement Project](../label-prefix-enforcement-2026-08-05/README.md)
+- [Label Audit Plan](../label-prefix-audit-2026-08-05/README.md)
+- [OpenSpec Labels Automation](../openspec-labels-automation/README.md)
+- [Contributing Guidelines](../../../../CONTRIBUTING.md)
+- [Label Reference](../../../../.github/labels/)
 
 ---
 
