@@ -5,6 +5,26 @@
    Sun  = currently dark mode  (click to go light)
 */
 
+// Simple browser telemetry client
+const telemetry = {
+  emit(eventType, properties) {
+    const event = {
+      eventType,
+      timestamp: new Date().toISOString(),
+      environment: 'browser',
+      ...properties
+    };
+    
+    // Log to console in development
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('[Telemetry]', event);
+    }
+    
+    // Could send to analytics endpoint in production
+    // fetch('/api/telemetry', { method: 'POST', body: JSON.stringify(event) });
+  }
+};
+
 const SVG_MOON = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none"
   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
   <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>
@@ -33,14 +53,38 @@ function updateAllIcons() {
 }
 
 function toggleTheme() {
-  const next = getTheme() === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", next);
-  document.documentElement.style.colorScheme = next;
+  const fromTheme = getTheme();
+  const toTheme = fromTheme === "dark" ? "light" : "dark";
+  
+  document.documentElement.setAttribute("data-theme", toTheme);
+  document.documentElement.style.colorScheme = toTheme;
+  
   try {
-    localStorage.setItem("ag-theme", next);
-  } catch (_e) {
-    // Ignore storage failures in private/locked contexts.
+    localStorage.setItem("ag-theme", toTheme);
+    
+    // Emit: website.theme.toggled
+    telemetry.emit('website.theme.toggled', {
+      safe: {
+        fromTheme,
+        toTheme,
+        method: 'user-click'
+      }
+    });
+  } catch (e) {
+    // Emit: website.theme.storage.failure
+    telemetry.emit('website.theme.storage.failure', {
+      safe: {
+        failureType: e.name || 'StorageError',
+        theme: toTheme,
+        fallbackUsed: false
+      },
+      restricted: {
+        storageError: e.message,
+        browserInfo: navigator.userAgent
+      }
+    });
   }
+  
   updateAllIcons();
   document.dispatchEvent(new CustomEvent("theme-changed"));
 }
