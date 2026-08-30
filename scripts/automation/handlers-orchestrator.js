@@ -280,6 +280,23 @@ function parseArgs(argv) {
     }
   }
 
+  // Validate numeric options: must be positive integers.
+  const numericOptions = {
+    limit: config.limit,
+    batchSize: config.batchSize,
+    autoThreshold: config.autoThreshold,
+    maxRetries: config.maxRetries,
+    rateLimit: config.rateLimit,
+    timeout: config.timeout,
+  };
+  for (const [key, value] of Object.entries(numericOptions)) {
+    if (!Number.isInteger(value) || value <= 0) {
+      throw new Error(
+        `Invalid value for --${key.replace(/([A-Z])/g, "-$1").toLowerCase()}: must be a positive integer, got "${value}".`,
+      );
+    }
+  }
+
   return config;
 }
 
@@ -596,8 +613,15 @@ async function orchestrate(config) {
         }
 
         allResults.push(result);
-        progressTracker.recordProcessed(result.status);
       }
+
+      // Record one progress entry per issue, using the most significant result status.
+      const issueStatus = results.some((r) => r.status === "applied")
+        ? "applied"
+        : results.some((r) => r.status === "error")
+          ? "error"
+          : results[0]?.status ?? "skipped";
+      progressTracker.recordProcessed(issueStatus);
     }
   }
 
