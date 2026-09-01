@@ -260,6 +260,51 @@ describe("RateLimiter", () => {
     });
   });
 
+  describe("estimateQuotaRecovery", () => {
+    test("returns 0 when quota is available", async () => {
+      mockClient.rateLimit.get.mockResolvedValue({
+        data: {
+          rate_limit: {
+            limit: 5000,
+            remaining: 1000,
+            reset: Math.floor(Date.now() / 1000) + 3600,
+          },
+          resources: {
+            graphql: {
+              limit: 5000,
+              remaining: 5000,
+              reset: Math.floor(Date.now() / 1000) + 3600,
+            },
+            search: {
+              limit: 30,
+              remaining: 30,
+              reset: Math.floor(Date.now() / 1000) + 60,
+            },
+          },
+        },
+      });
+
+      const result = await rateLimiter.estimateQuotaRecovery("core");
+      expect(result).toBe(0);
+    });
+
+    test("returns time until reset when quota is exhausted", async () => {
+      const resetTime = Math.floor(Date.now() / 1000) + 3600;
+      mockClient.rateLimit.get.mockResolvedValue({
+        data: {
+          rate_limit: { limit: 5000, remaining: 0, reset: resetTime },
+          resources: {
+            graphql: { limit: 5000, remaining: 5000, reset: resetTime },
+            search: { limit: 30, remaining: 30, reset: resetTime },
+          },
+        },
+      });
+
+      const result = await rateLimiter.estimateQuotaRecovery("core");
+      expect(result).toBeGreaterThan(0);
+    });
+  });
+
   describe("getSummary", () => {
     test("returns comprehensive summary", async () => {
       mockClient.rateLimit.get.mockResolvedValue({
