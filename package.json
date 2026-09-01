@@ -126,7 +126,7 @@
     "@babel/runtime": "^7.29.7",
     "@eslint/js": "^10.0.1",
     "@github/markdownlint-github": "^0.8.3",
-    "@jest/pattern": "30.0.1",
+    "@jest/pattern": "30.5.0",
     "@mermaid-js/mermaid-cli": "11.16.0",
     "@stoplight/spectral-cli": "^6.16.3",
     "@stoplight/spectral-core": "^1.23.1",
