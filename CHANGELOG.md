@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-08-30"
+last_updated: "2026-09-01"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -45,6 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 ### Fixed
+
+- **CI Validation Fixes — Issue #1967** — Resolved two failure modes causing CI instability: (1) `BRANCH_PATTERN` constant was referenced in `validate-branch-name.cjs` debug and print-pattern output but not exported from the module, causing `ReferenceError` in CI environments; fixed by exporting `BRANCH_PATTERN` as an alias for `BRANCH_PATTERN_STANDARD` for backward compatibility. (2) Gitleaks reusable workflow checkout was triggering unintended gitlink/submodule initialisation on test fixture directories; fixed by setting `submodules: false` in the checkout step of `.github/workflows/gitleaks-reusable.yml`. ([#1967](https://github.com/lightspeedwp/.github/issues/1967), [PR #2502](https://github.com/lightspeedwp/.github/pull/2502))
 
 - **Test Suite Refactoring — Issues #2157, #2158, #2159** — Eliminated ~500 lines of duplicate mock implementations across test files by creating shared helper modules (`staging-validation-helpers.js`, `integration-workflow-staging-helpers.js`). Updated test suites to import production modules instead of inline implementations, improving code maintainability and reducing duplication. Fixed pre-existing test failures in label-sync and performance test suites. All 161 refactored tests passing with improved linting compliance. ([#2157](https://github.com/lightspeedwp/.github/issues/2157), [#2158](https://github.com/lightspeedwp/.github/issues/2158), [#2159](https://github.com/lightspeedwp/.github/issues/2159), [#2456](https://github.com/lightspeedwp/.github/pull/2456))
 
