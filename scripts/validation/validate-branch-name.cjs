@@ -74,7 +74,7 @@ const BRANCH_PATTERN_STANDARD = new RegExp(
   `^(${ALLOWED_TYPES.filter(t => t !== 'release').join('|')})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`
 );
 
-// Alias for backward compatibility and clarity in debug output
+// Alias for backward compatibility. This is the non-release standard pattern.
 const BRANCH_PATTERN = BRANCH_PATTERN_STANDARD;
 
 // Branches exempt from validation (protected branches, bot branches, etc.)
@@ -255,6 +255,7 @@ function printPattern() {
   console.log('Release branches (special rules):');
   console.log(`  Semver regex:   ${BRANCH_PATTERN_RELEASE_SEMVER.source}`);
   console.log(`  Standard regex: ${BRANCH_PATTERN_RELEASE_STANDARD.source}`);
+  console.log('  Note: release branches are validated separately from BRANCH_PATTERN.');
   console.log('  Accepted formats:');
   console.log('    release/v1.2.3  (semantic version with "v" prefix)');
   console.log('    release/1.2.3   (semantic version without prefix)');
@@ -327,6 +328,7 @@ function main() {
 
   if (process.env.DEBUG_VALIDATION) {
     console.error('[DEBUG] branchName:', branchName);
+    console.error('[DEBUG] BRANCH_PATTERN (standard, non-release):', BRANCH_PATTERN);
     console.error('[DEBUG] BRANCH_PATTERN_STANDARD:', BRANCH_PATTERN_STANDARD);
     console.error('[DEBUG] BRANCH_PATTERN_RELEASE_SEMVER:', BRANCH_PATTERN_RELEASE_SEMVER);
     console.error('[DEBUG] BRANCH_PATTERN_RELEASE_STANDARD:', BRANCH_PATTERN_RELEASE_STANDARD);

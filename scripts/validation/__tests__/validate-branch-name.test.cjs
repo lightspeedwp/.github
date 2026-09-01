@@ -16,6 +16,9 @@ const {
   validateBranchName,
   ALLOWED_TYPES,
   BRANCH_PATTERN,
+  BRANCH_PATTERN_STANDARD,
+  BRANCH_PATTERN_RELEASE_SEMVER,
+  BRANCH_PATTERN_RELEASE_STANDARD,
   PROTECTED_BRANCHES,
   BOT_PREFIXES,
 } = require("../validate-branch-name.cjs");
@@ -91,6 +94,13 @@ describe("validate-branch-name", () => {
 
     test("should reject dots", () => {
       expect(BRANCH_PATTERN.test("feat/my.feature")).toBe(false);
+    });
+
+    test("should be the standard non-release pattern", () => {
+      expect(BRANCH_PATTERN).toBe(BRANCH_PATTERN_STANDARD);
+      expect(BRANCH_PATTERN.test("release/v1.2.3")).toBe(false);
+      expect(BRANCH_PATTERN_RELEASE_SEMVER.test("release/v1.2.3")).toBe(true);
+      expect(BRANCH_PATTERN_RELEASE_STANDARD.test("release/v1-2-3")).toBe(true);
     });
   });
 
