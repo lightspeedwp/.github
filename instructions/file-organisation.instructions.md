@@ -91,10 +91,54 @@ projects, or plugin bundles.
 | `skills/` | Self-contained skills. | Each skill uses `SKILL.md`; assets stay inside the skill folder. |
 | `workflows/` | Portable agentic workflows. | GitHub Actions stay in `.github/workflows/`. |
 
+## Repository Scripts Organisation (CRITICAL)
+
+**ALL repository scripts MUST be placed in `scripts/` at the root, NOT in `.github/scripts/`.**
+
+### Correct Script Locations
+
+```text
+✅ scripts/automation/        - Automation and workflow scripts
+✅ scripts/metrics/           - Metrics collection and analysis
+✅ scripts/telemetry/         - Telemetry instrumentation
+✅ scripts/release/           - Release preparation and validation
+✅ scripts/validation/        - Validation and linting scripts
+✅ scripts/badges/            - Badge generation scripts
+✅ scripts/workflows/         - Workflow orchestration scripts
+
+❌ .github/scripts/           - DO NOT CREATE - Reserved for GitHub governance only
+```
+
+### The ONLY Exception
+
+Website browser-specific JavaScript that runs client-side (location varies by project structure).
+
+### Why This Matters
+
+- `.github/` is for **GitHub-native governance files** (templates, workflows, configs)
+- `scripts/` is for **executable code** that powers the repository
+- Mixing these creates confusion about file ownership and purpose
+- Import paths become inconsistent when scripts are in the wrong location
+
+### Enforcement
+
+When creating any new script:
+1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
+2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
+3. **Create tests**: `scripts/{category}/__tests__/script-name.test.js`
+4. **Never use `.github/scripts/`** - This directory should not exist for new work
+5. **Update imports**: Ensure all imports use correct paths from `scripts/`
+
+### Test Coverage
+
+ALL scripts in `scripts/` and subfolders require 100% test coverage. Place tests in `__tests__/` subdirectories alongside the code.
+
 ## File Type Mapping
 
 | File Type | Canonical Location | Rule |
 | --- | --- | --- |
+| **Repository scripts** | `scripts/{category}/` | **ALWAYS root `scripts/`, never `.github/scripts/`** |
+| Repository script tests | `scripts/{category}/__tests__/` | **100% coverage required** |
 | Repo GitHub workflow | `.github/workflows/` | Keep executable GitHub Actions here. |
 | Portable agentic workflow | `workflows/` | Use for tool-neutral AI processes. |
 | Repo community-health file | `.github/` | Keep issue, PR, support, security, and governance files in place. |
