@@ -316,8 +316,10 @@ function main() {
 
   if (process.env.DEBUG_VALIDATION) {
     console.error('[DEBUG] branchName:', branchName);
-    console.error('[DEBUG] BRANCH_PATTERN:', BRANCH_PATTERN);
-    console.error('[DEBUG] Pattern matches:', BRANCH_PATTERN.test(branchName));
+    console.error('[DEBUG] BRANCH_PATTERN_STANDARD:', BRANCH_PATTERN_STANDARD);
+    console.error('[DEBUG] Standard pattern matches:', BRANCH_PATTERN_STANDARD.test(branchName));
+    console.error('[DEBUG] Release semver pattern matches:', BRANCH_PATTERN_RELEASE_SEMVER.test(branchName));
+    console.error('[DEBUG] Release standard pattern matches:', BRANCH_PATTERN_RELEASE_STANDARD.test(branchName));
   }
 
   if (!branchName) {
