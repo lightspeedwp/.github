@@ -276,7 +276,7 @@ Run unit tests:
 npm test .github/scripts/telemetry/__tests__/telemetry-client.test.js
 ```
 
-Test coverage targets 90%+ for the telemetry client.
+Test coverage targets 100% for scripts, including the telemetry client.
 
 ## Instrumented Code
 
