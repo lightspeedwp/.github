@@ -6,7 +6,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 const yaml = require('js-yaml');
 
 const TEMPLATE_PATH = '.github/pull_request_template.md';
