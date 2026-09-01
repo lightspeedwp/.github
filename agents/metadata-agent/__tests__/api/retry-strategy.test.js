@@ -102,10 +102,7 @@ describe("RetryStrategy", () => {
 
     test("caps delay at maxDelayMs", () => {
       const delay = strategy.calculateDelay(10); // Would exceed 60000ms
-      // After capping, jitter can add up to maxDelayMs * jitterFactor (= 6000ms)
-      expect(delay).toBeLessThanOrEqual(
-        strategy.maxDelayMs * (1 + strategy.jitterFactor),
-      );
+      expect(delay).toBeLessThanOrEqual(strategy.maxDelayMs + 6000); // jitter
     });
 
     test("returns non-negative delay", () => {

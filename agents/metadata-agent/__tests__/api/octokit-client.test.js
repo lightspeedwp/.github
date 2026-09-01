@@ -36,6 +36,7 @@ describe("OctokitClientFactory", () => {
 
   beforeEach(() => {
     factory = new OctokitClientFactory();
+    Octokit.plugin = jest.fn(() => jest.fn());
   });
 
   describe("constructor", () => {
