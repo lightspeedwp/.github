@@ -7,14 +7,14 @@
 
 const fs = require("fs");
 const path = require("path");
-const { MetricsStorage } = require("../../scripts/metrics/metrics-storage.cjs");
-const { MetricsReporter } = require("../../scripts/metrics/metrics-reporter");
-const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer.cjs");
-const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector.cjs");
+const { MetricsStorage } = require("../metrics/metrics-storage.cjs");
+const { MetricsReporter } = require("../metrics/metrics-reporter");
+const { TrendAnalyzer } = require("../metrics/trend-analyzer.cjs");
+const { AnomalyDetector } = require("../metrics/anomaly-detector.cjs");
 const {
   createTelemetryClient,
-} = require("../../../scripts/telemetry/telemetry-client.js");
-const { EVENT_SCHEMAS } = require("../../../scripts/telemetry/event-schemas.js");
+} = require("../telemetry/telemetry-client.js");
+const { EVENT_SCHEMAS } = require("../telemetry/event-schemas.js");
 
 class MetricsReportingOrchestrator {
   constructor() {
