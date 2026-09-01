@@ -248,13 +248,13 @@ function printPattern() {
   console.log('Branch Naming Patterns:');
   console.log('');
   console.log('Standard branches (all types except "release"):');
-  console.log(`  Regex: ${BRANCH_PATTERN_STANDARD.source}`);
+  console.log(`  BRANCH_PATTERN (standard, non-release): ${BRANCH_PATTERN.source}`);
   console.log('  Format: {type}/{scope}-{title}');
   console.log(`  Allowed types: ${ALLOWED_TYPES.filter(t => t !== 'release').join(', ')}`);
   console.log('');
   console.log('Release branches (special rules):');
-  console.log(`  Semver regex:   ${BRANCH_PATTERN_RELEASE_SEMVER.source}`);
-  console.log(`  Standard regex: ${BRANCH_PATTERN_RELEASE_STANDARD.source}`);
+  console.log(`  BRANCH_PATTERN_RELEASE_SEMVER: ${BRANCH_PATTERN_RELEASE_SEMVER.source}`);
+  console.log(`  BRANCH_PATTERN_RELEASE_STANDARD: ${BRANCH_PATTERN_RELEASE_STANDARD.source}`);
   console.log('  Note: release branches are validated separately from BRANCH_PATTERN.');
   console.log('  Accepted formats:');
   console.log('    release/v1.2.3  (semantic version with "v" prefix)');
