@@ -117,14 +117,14 @@
   "devDependencies": {
     "@actions/core": "1.11.1",
     "@actions/github": "9.1.1",
-    "@babel/core": "7.29.7",
+    "@babel/core": "8.0.1",
     "@babel/plugin-syntax-import-meta": "7.10.4",
     "@babel/plugin-transform-class-properties": "8.0.1",
     "@babel/plugin-transform-object-rest-spread": "8.0.1",
     "@babel/plugin-transform-runtime": "8.0.1",
-    "@babel/preset-env": "7.28.5",
+    "@babel/preset-env": "8.0.2",
     "@babel/preset-react": "8.0.1",
-    "@babel/preset-typescript": "7.29.7",
+    "@babel/preset-typescript": "8.0.1",
     "@babel/runtime": "^7.29.7",
     "@eslint/js": "^10.0.1",
     "@github/markdownlint-github": "^0.8.3",
@@ -187,6 +187,9 @@
   },
   "overrides": {
     "fast-json-patch": "3.1.1",
-    "tmp": "0.2.4"
+    "tmp": "0.2.4",
+    "@babel/plugin-syntax-import-meta": "7.10.4",
+    "@babel/preset-env": "8.0.2",
+    "@babel/preset-typescript": "8.0.1"
   }
 }
