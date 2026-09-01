@@ -402,7 +402,7 @@ graph TB
 ```mermaid
 graph LR
   accTitle: Architecture Diagram
-  accDescr: Flowchart diagram showing architecture diagram
+  accDescr: Left-to-right graph showing how code, tests, docs, and automation relate within a repository
     subgraph "Repository"
         A[Code] --> B[Tests]
         C[Docs] --> D[Automation]

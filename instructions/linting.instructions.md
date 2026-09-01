@@ -131,7 +131,7 @@ graph TD
 ```mermaid
 graph LR
   accTitle: 🛠️ Linting Toolchain
-  accDescr: Flowchart diagram showing 🛠️ linting toolchain
+  accDescr: Left-to-right graph showing how source code flows through ESLint, PHPCS, Prettier, and Stylelint linting tools
     A[Source Code] --> B[ESLint]
     A --> C[PHPCS]
     A --> D[Prettier]

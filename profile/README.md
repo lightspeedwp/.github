@@ -162,7 +162,7 @@ At LightSpeed, we believe in the power of open-source software. We contribute to
 ```mermaid
 graph TB
   accTitle: 🏗️ Project Architecture & Integration
-  accDescr: Flowchart diagram showing 🏗️ project architecture & integration
+  accDescr: Top-down graph showing 🏗️ project architecture and integration relationships between frontend, backend, and open-source components
     subgraph "🎨 Frontend Solutions"
         A[LSX Design Theme]
         B[Block Patterns]

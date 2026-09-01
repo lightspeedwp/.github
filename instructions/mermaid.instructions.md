@@ -282,7 +282,7 @@ stateDiagram-v2
 ```mermaid
 graph LR
   accTitle: Git branching workflow
-  accDescr: Left-to-right flowchart showing the feature-branch to pull-request to merge cycle through develop and release branches
+  accDescr: Left-to-right graph showing the feature-branch to pull-request to merge cycle through develop and release branches
     A[Main] --> B[Develop]
     B --> C[Feature Branch]
     C --> D[Pull Request]
