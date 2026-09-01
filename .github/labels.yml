@@ -410,6 +410,10 @@
   color: 9198A1
   description: "Maintenance and housekeeping"
 
+- name: area:ai
+  color: 0052CC
+  description: "AI operations and AI-related work"
+
 # --- Components (comp:*) ---
 
 - name: comp:block-editor
