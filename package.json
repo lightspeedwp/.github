@@ -139,7 +139,7 @@
     "ajv-cli": "5.0.0",
     "ajv-formats": "^3.0.1",
     "all-contributors-cli": "6.26.1",
-    "babel-jest": "29.7.0",
+    "babel-jest": "30.5.0",
     "bats": "^1.8.0",
     "dotenv": "^16.4.5",
     "eslint": "^10.9.1",
