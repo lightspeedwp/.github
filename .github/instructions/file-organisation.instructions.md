@@ -90,10 +90,32 @@ projects, or plugin bundles.
 | `skills/` | Self-contained skills. | Each skill uses `SKILL.md`; assets stay inside the skill folder. |
 | `workflows/` | Portable agentic workflows. | GitHub Actions stay in `.github/workflows/`. |
 
+## Repository Scripts Location (CRITICAL)
+
+**ALL scripts belong in `scripts/` at the root, NOT in `.github/scripts/`.**
+
+| Script Type | Correct Location | WRONG Location |
+| --- | --- | --- |
+| Repository automation scripts | `scripts/automation/` | ❌ `.github/scripts/automation/` |
+| Metrics collection scripts | `scripts/metrics/` | ❌ `.github/scripts/metrics/` |
+| Telemetry scripts | `scripts/telemetry/` | ❌ `.github/scripts/telemetry/` |
+| Release scripts | `scripts/release/` | ❌ `.github/scripts/release/` |
+| Validation scripts | `scripts/validation/` | ❌ `.github/scripts/validation/` |
+| Badge generation scripts | `scripts/badges/` | ❌ `.github/scripts/badges/` |
+| **ONLY EXCEPTION:** Website browser scripts | `.github/website/src/scripts/` | ✅ Correct location for browser-specific code |
+
+**Rules:**
+- `.github/` is for GitHub-native governance files only (templates, workflows, configs)
+- All executable scripts belong in `scripts/` with appropriate subfolders
+- The ONLY exception is `.github/website/src/scripts/` for website browser code
+- When in doubt, check existing script locations in `scripts/` directory
+- Never create new scripts under `.github/scripts/` - this path should not exist
+
 ## File Type Mapping
 
 | File Type | Canonical Location | Rule |
 | --- | --- | --- |
+| **Repository scripts** | `scripts/{category}/` | **ALWAYS root `scripts/`, never `.github/scripts/`** |
 | Repo GitHub workflow | `.github/workflows/` | Keep executable GitHub Actions here. |
 | Portable agentic workflow | `workflows/` | Use for tool-neutral AI processes. |
 | Repo community-health file | `.github/` | Keep issue, PR, support, security, and governance files in place. |
