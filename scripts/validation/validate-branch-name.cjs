@@ -74,6 +74,9 @@ const BRANCH_PATTERN_STANDARD = new RegExp(
   `^(${ALLOWED_TYPES.filter(t => t !== 'release').join('|')})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`
 );
 
+// Alias for backward compatibility and clarity in debug output
+const BRANCH_PATTERN = BRANCH_PATTERN_STANDARD;
+
 // Branches exempt from validation (protected branches, bot branches, etc.)
 const PROTECTED_BRANCHES = new Set(['main', 'develop']);
 const BOT_PREFIXES = /^(dependabot|renovate)\//;
@@ -345,6 +348,7 @@ if (require.main === module) {
 module.exports = {
   validateBranchName,
   ALLOWED_TYPES,
+  BRANCH_PATTERN,
   BRANCH_PATTERN_RELEASE_SEMVER,
   BRANCH_PATTERN_RELEASE_STANDARD,
   BRANCH_PATTERN_STANDARD,
