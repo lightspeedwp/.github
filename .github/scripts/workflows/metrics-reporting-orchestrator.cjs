@@ -13,8 +13,8 @@ const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer.cjs");
 const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector.cjs");
 const {
   createTelemetryClient,
-} = require("../telemetry/telemetry-client.js");
-const { EVENT_SCHEMAS } = require("../telemetry/event-schemas.js");
+} = require("../../../scripts/telemetry/telemetry-client.js");
+const { EVENT_SCHEMAS } = require("../../../scripts/telemetry/event-schemas.js");
 
 class MetricsReportingOrchestrator {
   constructor() {

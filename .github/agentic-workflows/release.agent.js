@@ -25,8 +25,8 @@ import path from "path";
 import { execSync } from "child_process";
 import {
   createTelemetryClient,
-} from "../scripts/telemetry/telemetry-client.js";
-import { EVENT_SCHEMAS } from "../scripts/telemetry/event-schemas.js";
+} from "../../scripts/telemetry/telemetry-client.js";
+import { EVENT_SCHEMAS } from "../../scripts/telemetry/event-schemas.js";
 
 // ============================================================================
 // Configuration

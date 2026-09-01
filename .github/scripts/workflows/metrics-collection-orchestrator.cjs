@@ -16,8 +16,8 @@ const {
 } = require("../../../scripts/metrics/anomaly-detector.cjs");
 const {
   createTelemetryClient,
-} = require("../telemetry/telemetry-client.js");
-const { EVENT_SCHEMAS } = require("../telemetry/event-schemas.js");
+} = require("../../../scripts/telemetry/telemetry-client.js");
+const { EVENT_SCHEMAS } = require("../../../scripts/telemetry/event-schemas.js");
 
 class MetricsCollectionOrchestrator {
   constructor(configPath) {

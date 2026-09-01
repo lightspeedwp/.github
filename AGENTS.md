@@ -49,47 +49,54 @@ references:
 
 ---
 
-## Branch Naming Governance (CRITICAL)
+## Repository Scripts Organisation (CRITICAL)
 
-**All branches MUST follow this pattern:** `{type}/{scope}-{title}`
+**ALL repository scripts MUST be placed in `scripts/` at the root, NOT in `.github/scripts/`.**
 
-This is enforced globally across all LightSpeed projects. See [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) for complete details, 34 allowed type values, examples, and why this matters.
+### Correct Script Locations
 
-### Quick Reference
+```text
+✅ scripts/automation/        - Automation and workflow scripts
+✅ scripts/metrics/           - Metrics collection and analysis
+✅ scripts/telemetry/         - Telemetry instrumentation
+✅ scripts/release/           - Release preparation and validation
+✅ scripts/validation/        - Validation and linting scripts
+✅ scripts/badges/            - Badge generation scripts
+✅ scripts/agents/            - Agent runner scripts
+✅ scripts/workflows/         - Agentic workflow orchestration
 
-✅ **Correct:**
+❌ .github/scripts/           - DO NOT CREATE - Reserved for GitHub governance only
+```
 
-- `feat/governance-audit-implementation`
-- `fix/pr-template-routing-bug`
-- `docs/branching-strategy-guide`
+### The ONLY Exception
 
-❌ **Forbidden (never use):**
-
-- `claude/something` — Reserved for Claude Code internal sessions
-- `copilot/something` — Reserved for GitHub Copilot integration
-- `openai/something` — Reserved for OpenAI integration
+`.github/website/src/scripts/` - Website browser-specific JavaScript that runs client-side
 
 ### Why This Matters
 
-Incorrect branch names cause:
+- `.github/` is for **GitHub-native governance files** (templates, workflows, configs)
+- `scripts/` is for **executable code** that powers the repository
+- Mixing these creates confusion about file ownership and purpose
+- Import paths become inconsistent when scripts are in the wrong location
 
-1. PR template assignment failures
-2. GitHub Actions workflow failures
-3. Validation check failures
-4. Downstream automation breaks
+### Enforcement
 
-### Before You Push
+When creating any new script:
 
-```bash
-npm run validate:branch-name -- --branch <your-branch>
-```
+1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
+2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
+3. **Never use `.github/scripts/`** - This directory should not exist for new work
+4. **Update imports**: Ensure all imports use correct paths from `scripts/`
 
-### Full Reference
+### Quick Reference
 
-- **Complete guidance:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (34 types, examples, consequences)
-- **Detailed rules:** [.github/instructions/branch-naming.instructions.md](.github/instructions/branch-naming.instructions.md)
-- **Strategy doc:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
-- **Copilot-specific:** [.github/custom-instructions.md](.github/custom-instructions.md)
+| You're Creating | Put It In | NOT In |
+| --- | --- | --- |
+| A telemetry client | `scripts/telemetry/` | ~~`.github/scripts/telemetry/`~~ |
+| An automation script | `scripts/automation/` | ~~`.github/scripts/automation/`~~ |
+| A metrics collector | `scripts/metrics/` | ~~`.github/scripts/metrics/`~~ |
+| A release validator | `scripts/release/` | ~~`.github/scripts/release/`~~ |
+| Website JS (browser) | `.github/website/src/scripts/` | ✅ Exception - correct location |
 
 ---
 
