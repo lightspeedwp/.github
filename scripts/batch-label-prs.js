@@ -14,7 +14,6 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const OWNER = "lightspeedwp";
 const REPO = ".github";
 const LABELS_CONFIG = ".github/labels.yml";
-const LABELER_RULES = ".github/labeler.yml";
 const DRY_RUN = process.argv.includes("--dry-run");
 const SPECIFIC_PR = process.argv
   .find((arg) => arg.startsWith("--pr="))
