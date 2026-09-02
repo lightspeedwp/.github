@@ -65,31 +65,23 @@ Phase 7: Project Finalization      [                    ] 0%
 
 ---
 
-## 🔗 Related GitHub Issues
+## 🔗 Related Issues
 
-### Epic
-
-- **[#2396](https://github.com/lightspeedwp/.github/issues/2396)** - EPIC: Issue Management Agent Audit & Polish
-
-### Active Phase Issues
-
-- **[#2383](https://github.com/lightspeedwp/.github/issues/2383)** - Create Issue Management Orchestration Workflow (Phase 3)
-- **[#2384](https://github.com/lightspeedwp/.github/issues/2384)** - Update issues.agent.md v2.1 (Phase 3)
-
-### Planned Phase Issues
-
-- **[#2385](https://github.com/lightspeedwp/.github/issues/2385)** - Add openspec status labels (Phase 5)
-- **[#2386](https://github.com/lightspeedwp/.github/issues/2386)** - Enable test suite (Phase 6)
-- **[#2387](https://github.com/lightspeedwp/.github/issues/2387)** - Update documentation (Phase 4)
-- **[#2388](https://github.com/lightspeedwp/.github/issues/2388)** - Create architecture overview (Phase 4)
-- **[#2389](https://github.com/lightspeedwp/.github/issues/2389)** - Create quick-start guide (Phase 4)
-- **[#2390](https://github.com/lightspeedwp/.github/issues/2390)** - Optimize scripts (Phase 2)
-- **[#2391](https://github.com/lightspeedwp/.github/issues/2391)** - Create script orchestrator (Phase 2)
-- **[#2392](https://github.com/lightspeedwp/.github/issues/2392)** - Create script registry (Phase 2)
-- **[#2393](https://github.com/lightspeedwp/.github/issues/2393)** - Project closeout (Phase 7)
-- **[#2399](https://github.com/lightspeedwp/.github/issues/2399)** - Phase 5 summary
-- **[#2400](https://github.com/lightspeedwp/.github/issues/2400)** - Phase 6 summary
-- **[#2401](https://github.com/lightspeedwp/.github/issues/2401)** - Phase 7 summary
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#2396](../../../issues/2396) | epic | Issue Management Agent Audit & Polish | 🟢 Open |
+| [#2383](../../../issues/2383) | task | Phase 3: Create Issue Management Orchestration Workflow | 🟢 Open |
+| [#2384](../../../issues/2384) | task | Phase 3: Update issues.agent.md v2.1 with openspec integration | 🟢 Open |
+| [#2390](../../../issues/2390) | task | Phase 2: Optimize automation scripts for performance | ✅ In Progress |
+| [#2391](../../../issues/2391) | task | Phase 2: Create unified script orchestrator | ✅ In Progress |
+| [#2392](../../../issues/2392) | task | Phase 2: Create script registry documentation | ✅ In Progress |
+| [#2385](../../../issues/2385) | task | Phase 5: Add openspec status labels | ⏰ Planned |
+| [#2386](../../../issues/2386) | task | Phase 6: Enable and maintain test suite | ⏰ Planned |
+| [#2387](../../../issues/2387) | task | Phase 4: Update documentation with openspec status | ⏰ Planned |
+| [#2388](../../../issues/2388) | task | Phase 4: Create Issue Management Architecture Overview | ⏰ Planned |
+| [#2389](../../../issues/2389) | task | Phase 4: Create quick start guide | ⏰ Planned |
+| [#2393](../../../issues/2393) | task | Phase 7: Project closeout | ⏰ Planned |
+| [#2611](../../../issues/2611) | analysis | CI Failure Root Cause Analysis & Prevention | 📋 Documentation |
 
 ---
 
@@ -240,6 +232,7 @@ Phase 7: Project Finalization      [                    ] 0%
 
 ---
 
+<<<<<<< HEAD
 ## 🔗 Related Issues
 
 ### Epic
@@ -271,6 +264,8 @@ Phase 7: Project Finalization      [                    ] 0%
 
 ---
 
+=======
+>>>>>>> origin/develop
 **🚀 Ready for Phase 2 and 3 Implementation!**
 
 Start here for project orientation, then refer to phase-specific documentation for detailed work items.

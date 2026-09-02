@@ -4,7 +4,7 @@
  * Skip if GITHUB_TOKEN not available
  */
 
-const { ConfigurationLoader, GitHubAPIClient } = require("../metrics-agent.cjs");
+const { GitHubAPIClient } = require("../metrics-agent.cjs");
 
 describe("GitHubAPIClient Integration Tests", () => {
   let client;

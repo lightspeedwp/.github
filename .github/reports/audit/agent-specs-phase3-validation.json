@@ -1,0 +1,521 @@
+{
+  "agents": [
+    {
+      "specFile": "adr.agent.md",
+      "specPath": "/home/user/.github/agents/adr.agent.md",
+      "implementationPath": "adr-generator",
+      "implementationExists": true,
+      "entryPoints": ["SKILL.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "ai-readiness-estimator.agent.md",
+      "specPath": "/home/user/.github/agents/ai-readiness-estimator.agent.md",
+      "implementationPath": "ai-readiness-estimator-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "changelog.agent.md",
+      "specPath": "/home/user/.github/agents/changelog.agent.md",
+      "implementationPath": "changelog",
+      "implementationExists": true,
+      "entryPoints": ["README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "chat-closure.agent.md",
+      "specPath": "/home/user/.github/agents/chat-closure.agent.md",
+      "implementationPath": "chat-closure-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "client-website-discovery-assistant.agent.md",
+      "specPath": "/home/user/.github/agents/client-website-discovery-assistant.agent.md",
+      "implementationPath": "client-website-discovery-assistant-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "design-partner.agent.md",
+      "specPath": "/home/user/.github/agents/design-partner.agent.md",
+      "implementationPath": "design-partner-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "harvest-analytical.agent.md",
+      "specPath": "/home/user/.github/agents/harvest-analytical.agent.md",
+      "implementationPath": "harvest-analytical-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "issues.agent.md",
+      "specPath": "/home/user/.github/agents/issues.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "labeling.agent.md",
+      "specPath": "/home/user/.github/agents/labeling.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "linear-advisor.agent.md",
+      "specPath": "/home/user/.github/agents/linear-advisor.agent.md",
+      "implementationPath": "linear-advisor-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "linting.agent.md",
+      "specPath": "/home/user/.github/agents/linting.agent.md",
+      "implementationPath": "linting-agent",
+      "implementationExists": true,
+      "entryPoints": ["README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "meta.agent.md",
+      "specPath": "/home/user/.github/agents/meta.agent.md",
+      "implementationPath": "meta-agent",
+      "implementationExists": true,
+      "entryPoints": ["README.md", "index.js"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "metadata.agent.md",
+      "specPath": "/home/user/.github/agents/metadata.agent.md",
+      "implementationPath": "metadata-agent",
+      "implementationExists": true,
+      "entryPoints": ["README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "metrics.agent.md",
+      "specPath": "/home/user/.github/agents/metrics.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "mode-demonstrate-understanding.agent.md",
+      "specPath": "/home/user/.github/agents/mode-demonstrate-understanding.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "mode-document-reviewer.agent.md",
+      "specPath": "/home/user/.github/agents/mode-document-reviewer.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "mode-prd.agent.md",
+      "specPath": "/home/user/.github/agents/mode-prd.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "mode-thinking.agent.md",
+      "specPath": "/home/user/.github/agents/mode-thinking.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "pagespeed.agent.md",
+      "specPath": "/home/user/.github/agents/pagespeed.agent.md",
+      "implementationPath": "pagespeed-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "pr-creation.agent.md",
+      "specPath": "/home/user/.github/agents/pr-creation.agent.md",
+      "implementationPath": "pr-creation-agent",
+      "implementationExists": true,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "prd-factory-planner.agent.md",
+      "specPath": "/home/user/.github/agents/prd-factory-planner.agent.md",
+      "implementationPath": "prd-factory-planner-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "prd.agent.md",
+      "specPath": "/home/user/.github/agents/prd.agent.md",
+      "implementationPath": "prd-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "project-meta-sync.agent.md",
+      "specPath": "/home/user/.github/agents/project-meta-sync.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "prompt-engineer.agent.md",
+      "specPath": "/home/user/.github/agents/prompt-engineer.agent.md",
+      "implementationPath": "prompt-engineer",
+      "implementationExists": true,
+      "entryPoints": ["README.md", "index.js"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "proposal-desk.agent.md",
+      "specPath": "/home/user/.github/agents/proposal-desk.agent.md",
+      "implementationPath": "proposal-desk-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "release.agent.md",
+      "specPath": "/home/user/.github/agents/release.agent.md",
+      "implementationPath": "release",
+      "implementationExists": true,
+      "entryPoints": ["README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "reporting.agent.md",
+      "specPath": "/home/user/.github/agents/reporting.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "reviewer.agent.md",
+      "specPath": "/home/user/.github/agents/reviewer.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "task-planner.agent.md",
+      "specPath": "/home/user/.github/agents/task-planner.agent.md",
+      "implementationPath": "task-planner-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "task-researcher.agent.md",
+      "specPath": "/home/user/.github/agents/task-researcher.agent.md",
+      "implementationPath": "task-researcher-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "template.agent.md",
+      "specPath": "/home/user/.github/agents/template.agent.md",
+      "implementationPath": null,
+      "implementationExists": false,
+      "entryPoints": [],
+      "frontmatterValid": true,
+      "frontmatterIssues": [
+        "Missing required field: implementation",
+        "Missing implementation field"
+      ],
+      "referenceResolved": false
+    },
+    {
+      "specFile": "testing.agent.md",
+      "specPath": "/home/user/.github/agents/testing.agent.md",
+      "implementationPath": "testing-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "tour-operator-config.agent.md",
+      "specPath": "/home/user/.github/agents/tour-operator-config.agent.md",
+      "implementationPath": "tour-operator-config-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "website-content-strategist.agent.md",
+      "specPath": "/home/user/.github/agents/website-content-strategist.agent.md",
+      "implementationPath": "website-content-strategist-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "website-scope-estimator.agent.md",
+      "specPath": "/home/user/.github/agents/website-scope-estimator.agent.md",
+      "implementationPath": "website-scope-estimator-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "woo-config.agent.md",
+      "specPath": "/home/user/.github/agents/woo-config.agent.md",
+      "implementationPath": "woo-config-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "wordpress.agent.md",
+      "specPath": "/home/user/.github/agents/wordpress.agent.md",
+      "implementationPath": "wordpress",
+      "implementationExists": true,
+      "entryPoints": ["README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "wp-config.agent.md",
+      "specPath": "/home/user/.github/agents/wp-config.agent.md",
+      "implementationPath": "wp-config-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "specFile": "zendesk-support.agent.md",
+      "specPath": "/home/user/.github/agents/zendesk-support.agent.md",
+      "implementationPath": "zendesk-support-agent",
+      "implementationExists": true,
+      "entryPoints": ["AGENT.md", "README.md"],
+      "frontmatterValid": true,
+      "frontmatterIssues": [],
+      "referenceResolved": true
+    },
+    {
+      "directory": "adr-generator",
+      "directoryPath": "/home/user/.github/agents/adr-generator",
+      "specFile": null,
+      "issue": "No corresponding spec file found",
+      "entryPoints": ["SKILL.md"]
+    }
+  ],
+  "summary": {
+    "totalDirectories": 28,
+    "totalSpecFiles": 39,
+    "specsWithValidReferences": 28,
+    "specsMissingReferences": 11,
+    "directoryMissingSpec": 1,
+    "consistencyIssues": [],
+    "metadataIssues": [
+      {
+        "file": "issues.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "labeling.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "metrics.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "mode-demonstrate-understanding.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "mode-document-reviewer.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "mode-prd.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "mode-thinking.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "project-meta-sync.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "reporting.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "reviewer.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      },
+      {
+        "file": "template.agent.md",
+        "issues": [
+          "Missing required field: implementation",
+          "Missing implementation field"
+        ]
+      }
+    ]
+  }
+}

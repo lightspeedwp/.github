@@ -80,6 +80,10 @@
   color: 0E8A16
   description: "Completed"
 
+- name: status:needs-audit
+  color: 7E6007
+  description: "Audit needed (security/compliance/quality)"
+
 # --- Priority ---
 
 - name: priority:critical
@@ -374,6 +378,42 @@
   color: D93F0B
   description: "3rd-party integrations / ecosystem"
 
+- name: area:automation
+  color: 0F448A
+  description: "Automation and scripting"
+
+- name: area:testing
+  color: 4D1A93
+  description: "Testing and QA"
+
+- name: area:performance
+  color: 7E6007
+  description: "Performance optimization"
+
+- name: area:a11y
+  color: 4D1A93
+  description: "Accessibility (WCAG compliance)"
+
+- name: area:security
+  color: 810E18
+  description: "Security concerns and fixes"
+
+- name: area:compatibility
+  color: 883D07
+  description: "Compatibility issues"
+
+- name: area:release
+  color: 1D7232
+  description: "Release management"
+
+- name: area:maintenance
+  color: 4E575F
+  description: "Maintenance and housekeeping"
+
+- name: area:ai
+  color: 0F448A
+  description: "AI operations and AI-related work"
+
 # --- Components (comp:*) ---
 
 - name: comp:block-editor
@@ -609,3 +649,55 @@
 - name: discussion:partnership
   color: bfd4f2
   description: "Partnership/collaboration"
+
+# --- Openspec Status ---
+
+- name: openspec:status/discovery
+  color: FBCA04
+  description: "Openspec discovery phase - component identified and audited"
+
+- name: openspec:status/planning
+  color: FF6600
+  description: "Openspec planning phase - improvement plan documented"
+
+- name: openspec:status/implementation
+  color: 0052CC
+  description: "Openspec implementation phase - component being built/improved"
+
+- name: openspec:status/testing
+  color: 9B00CC
+  description: "Openspec testing phase - component being tested and validated"
+
+- name: openspec:status/production
+  color: 28A745
+  description: "Openspec production - component complete and production-ready"
+
+- name: openspec:status/deprecated
+  color: 6F42C1
+  description: "Openspec deprecated - component no longer active"
+
+# --- OpenSpec Phase Labels (Specification & Implementation) ---
+
+- name: openspec:specification-pending
+  color: C5DEF5
+  description: "OpenSpec specification needed - phase documentation awaiting review/approval"
+
+- name: openspec:specification-in-progress
+  color: F2D06D
+  description: "OpenSpec specification in progress - phase requirements/success criteria being finalized"
+
+- name: openspec:specification-complete
+  color: 1A7F37
+  description: "OpenSpec specification complete - phase requirements locked; ready for implementation"
+
+- name: openspec:implementation-pending
+  color: C5DEF5
+  description: "OpenSpec implementation pending - phase awaiting execution start"
+
+- name: openspec:implementation-in-progress
+  color: F2D06D
+  description: "OpenSpec implementation in progress - phase actively being executed"
+
+- name: openspec:implementation-complete
+  color: 1A7F37
+  description: "OpenSpec implementation complete - phase completed; success criteria met"

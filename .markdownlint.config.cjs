@@ -19,12 +19,44 @@
  */
 require("dotenv").config();
 
+const fs = require("fs");
+const path = require("path");
+
 /**
  * Configuration constants with environment variable overrides
  */
 const lineLength = parseInt(process.env.MARKDOWNLINT_LINE_LENGTH) || 120;
 const strictMode = process.env.MARKDOWNLINT_STRICT === "true";
 const ignoreGenerated = process.env.MARKDOWNLINT_IGNORE_GENERATED !== "false";
+
+/**
+ * Load ignore patterns from .markdownlintignore file
+ */
+function loadIgnorePatterns() {
+  const ignoreFilePath = path.join(__dirname, ".markdownlintignore");
+
+  if (!fs.existsSync(ignoreFilePath)) {
+    return [];
+  }
+
+  try {
+    const content = fs.readFileSync(ignoreFilePath, "utf-8");
+    return content
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#"))
+      .map((line) => {
+        // Convert bare filenames to glob patterns
+        if (!line.includes("/") && !line.includes("*")) {
+          return `**/${line}`;
+        }
+        return line;
+      });
+  } catch (error) {
+    console.warn("Could not read .markdownlintignore:", error.message);
+    return [];
+  }
+}
 
 /**
  * Markdownlint Configuration Object
@@ -39,18 +71,10 @@ module.exports = {
 
   /**
    * Files and directories to ignore
-   * These patterns exclude auto-generated content and third-party files
+   * These patterns are loaded from .markdownlintignore (canonical source)
    */
   ignorePaths: [
-    "node_modules/**",
-    "coverage/**",
-    "dist/**",
-    "build/**",
-    ".git/**",
-    // Ignore auto-generated files if enabled
-    ...(ignoreGenerated
-      ? ["**/CHANGELOG.md", "**/ALL-CONTRIBUTORS.md", "docs/api/**/*.md"]
-      : []),
+    ...loadIgnorePatterns(),
   ],
 
   /**

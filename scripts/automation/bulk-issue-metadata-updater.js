@@ -29,9 +29,66 @@
 
 import fs from "fs";
 import readline from "readline";
-import { octokit } from "../includes/github-client.js";
 import * as templateFixHandler from "./handlers/handle-needs-template-fix.js";
 import * as triageHandler from "./handlers/handle-needs-triage.js";
+import {
+  githubApiRequest,
+  fetchPaginated,
+  getCacheStats,
+} from "./includes/github-api-optimized.js";
+
+const { URLSearchParams } = globalThis;
+
+// GitHub API client using optimized fetch with caching
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
+const githubApi = {
+  async request(method, path, data = {}) {
+    return githubApiRequest(method, path, data, {
+      token: GITHUB_TOKEN,
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+        Accept: "application/vnd.github+json",
+      },
+      useCache: method === "GET",
+    });
+  },
+
+  async listIssues(owner, repo, options = {}) {
+    const params = new URLSearchParams({
+      state: options.state || "open",
+      per_page: options.per_page || 30,
+      ...(options.labels && { labels: options.labels }),
+    });
+
+    let path = `/repos/${owner}/${repo}/issues?${params}`;
+    if (options.page) {
+      path += `&page=${options.page}`;
+    }
+
+    return this.request("GET", path);
+  },
+
+  async listMilestones(owner, repo) {
+    return this.request(
+      "GET",
+      `/repos/${owner}/${repo}/milestones?state=all&per_page=100`,
+    );
+  },
+
+  async listAllIssuesByLabel(owner, repo, label) {
+    const path = `/repos/${owner}/${repo}/issues?state=open&labels=${encodeURIComponent(label)}`;
+    return fetchPaginated(path, {
+      token: GITHUB_TOKEN,
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+        Accept: "application/vnd.github+json",
+      },
+      useCache: true,
+      perPage: 100,
+    });
+  },
+};
 
 // Configuration
 const config = {
@@ -85,54 +142,36 @@ console.log(
 );
 console.log(`📊 Processing up to ${limitArg} issues\n`);
 
-// Fetch all issues with status:needs-* labels
+// Fetch all issues with status:needs-* labels (optimized)
 async function fetchIssuesWithStatusLabels() {
-  const issues = [];
-  let page = 1;
-  let hasMore = true;
-
-  const statusLabels = [
-    "status:needs-template-fix",
-    "status:needs-triage",
-    "status:needs-more-info",
-  ];
+  const statusLabels = config_.targetLabel
+    ? [config_.targetLabel]
+    : [
+        "status:needs-template-fix",
+        "status:needs-triage",
+        "status:needs-more-info",
+      ];
 
   try {
-    while (hasMore && issues.length < config_.limit) {
-      console.log(`⏳ Fetching page ${page}...`);
+    // Fetch all issues for each label in parallel
+    const labelPromises = statusLabels.map((label) =>
+      githubApi.listAllIssuesByLabel(config_.owner, config_.repo, label),
+    );
 
-      for (const label of statusLabels) {
-        if (config_.targetLabel && config_.targetLabel !== label) continue;
+    const labelResults = await Promise.all(labelPromises);
 
-        try {
-          const rawPage = await octokit.rest.issues.listForRepo({
-            owner: config_.owner,
-            repo: config_.repo,
-            labels: label,
-            state: "open",
-            per_page: config_.perPage,
-            page,
-          });
-
-          const pageIssues = (rawPage.data || []).filter(
-            (item) => !item.pull_request,
-          );
-
-          issues.push(...pageIssues.slice(0, config_.limit - issues.length));
-
-          if (pageIssues.length < config_.perPage) {
-            hasMore = false;
-          }
-        } catch (error) {
-          console.error(`❌ Error fetching label ${label}:`, error.message);
-          continue;
+    // Combine and deduplicate issues
+    const issuesMap = new Map();
+    for (const results of labelResults) {
+      for (const issue of results || []) {
+        if (!issue.pull_request && !issuesMap.has(issue.number)) {
+          issuesMap.set(issue.number, issue);
         }
       }
-
-      if (issues.length < config_.limit && hasMore) {
-        page++;
-      }
     }
+
+    // Convert to array and apply limit
+    const issues = Array.from(issuesMap.values()).slice(0, config_.limit);
 
     console.log(`✅ Fetched ${issues.length} issues\n`);
     return issues;
@@ -140,6 +179,34 @@ async function fetchIssuesWithStatusLabels() {
     console.error("❌ Fatal error fetching issues:", error.message);
     process.exit(1);
   }
+}
+
+// Milestone cache to avoid repeated API calls
+const milestoneCache = {};
+
+// Get milestone number by title
+async function getMilestoneNumber(milestoneTitle) {
+  if (milestoneCache[milestoneTitle]) {
+    return milestoneCache[milestoneTitle];
+  }
+
+  try {
+    const response = await githubApi.listMilestones(
+      config_.owner,
+      config_.repo,
+    );
+
+    for (const milestone of response) {
+      milestoneCache[milestone.title] = milestone.number;
+      if (milestone.title === milestoneTitle) {
+        return milestone.number;
+      }
+    }
+  } catch (error) {
+    console.warn(`⚠️  Could not fetch milestones: ${error.message}`);
+  }
+
+  return null;
 }
 
 // Create GitHub request function for handlers
@@ -150,7 +217,7 @@ function createGithubRequest(dryRun = false) {
     }
 
     try {
-      const response = await octokit.request(method, path, data);
+      const response = await githubApi.request(method, path, data);
       return response;
     } catch (err) {
       throw new Error(`GitHub API error: ${err.message}`, { cause: err });
@@ -195,6 +262,35 @@ async function routeToHandler(issue, options = {}) {
     handler: "unknown",
     result: { status: "skipped" },
   };
+}
+
+// Apply milestone to an issue
+async function applyMilestone(issueNumber, milestoneSuggestion, dryRun = true) {
+  if (!milestoneSuggestion || dryRun) {
+    return { applied: false, reason: dryRun ? "dry-run" : "no suggestion" };
+  }
+
+  try {
+    const milestoneNumber = await getMilestoneNumber(milestoneSuggestion);
+    if (!milestoneNumber) {
+      return {
+        applied: false,
+        reason: `Milestone "${milestoneSuggestion}" not found`,
+      };
+    }
+
+    await githubApi.request(
+      "PATCH",
+      `/repos/${config_.owner}/${config_.repo}/issues/${issueNumber}`,
+      {
+        milestone: milestoneNumber,
+      },
+    );
+
+    return { applied: true, milestone: milestoneSuggestion };
+  } catch (error) {
+    return { applied: false, reason: error.message };
+  }
 }
 
 // Prompt user for confirmation (interactive mode)
@@ -259,9 +355,16 @@ async function processBatch(issues) {
               dryRun: false,
             });
             if (applyResult.result.status === "updated") {
+              // Apply milestone if suggested
+              const milestoneResult = await applyMilestone(
+                issue.number,
+                applyResult.result.milestoneSuggested,
+                false,
+              );
               summary.updated.push({
                 issue: issue.number,
                 ...applyResult.result,
+                milestoneApplied: milestoneResult,
               });
               summary.totalApplied++;
             } else if (applyResult.result.status === "error") {
@@ -274,7 +377,21 @@ async function processBatch(issues) {
           }
         }
       } else if (result.status === "updated") {
-        summary.updated.push({ issue: issue.number, ...result });
+        // Apply milestone if suggested (auto mode only)
+        const milestoneResult =
+          mode === "auto"
+            ? await applyMilestone(
+                issue.number,
+                result.milestoneSuggested,
+                false,
+              )
+            : { applied: false, reason: "not in auto mode" };
+
+        summary.updated.push({
+          issue: issue.number,
+          ...result,
+          milestoneApplied: milestoneResult,
+        });
         summary.totalApplied++;
       } else if (result.status === "skipped") {
         summary.skipped.push({ issue: issue.number, ...result });
@@ -345,6 +462,16 @@ function displaySummary(summary) {
   }
 
   console.log("\n" + "=".repeat(60));
+
+  // Performance metrics
+  const cacheStats = getCacheStats();
+  console.log(`\n⚡ Performance Metrics:`);
+  console.log(
+    `   Cache Entries: ${cacheStats.validEntries} (${cacheStats.expiredEntries} expired)`,
+  );
+  console.log(
+    `   Cache Size: ${(cacheStats.cacheSizeBytes / 1024).toFixed(2)} KB`,
+  );
 
   if (mode === "dry-run") {
     console.log(`\n💡 Tip: Run with --interactive or --auto to apply changes`);

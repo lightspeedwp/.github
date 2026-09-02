@@ -137,6 +137,8 @@ Keep connectors dark (`#0f172a` or similar) on light backgrounds; if using dark 
 
 ```mermaid
 flowchart TD
+  accTitle: Example class definitions
+  accDescr: Flowchart diagram showing example class definitions
     A[Input] --> B[Process]
     B --> C{Decision}
     C -->|Success| D[Output]
@@ -197,6 +199,8 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+  accTitle: Basic decision flowchart
+  accDescr: Flowchart diagram showing a start-to-end flow with a decision node and two outcomes
     A[Start] --> B{Decision?}
     B -->|Yes| C[Action 1]
     B -->|No| D[Action 2]
@@ -208,6 +212,8 @@ flowchart TD
 
 ```mermaid
 graph TB
+  accTitle: Schema relationships graph
+  accDescr: Top-down graph showing how schemas (frontmatter, CodeRabbit, collections) feed into a shared validation step
     A[Schemas] --> B[Frontmatter]
     A --> C[CodeRabbit]
     A --> D[Collections]
@@ -220,6 +226,8 @@ graph TB
 
 ```mermaid
 graph LR
+  accTitle: LightSpeed .github repository structure
+  accDescr: Left-to-right subgraph showing scripts, schemas, agents and their relationships inside and outside the repository
     subgraph "LightSpeed .github"
         A[Scripts] --> B[Tests]
         C[Schemas] --> D[Validation]
@@ -241,6 +249,8 @@ graph LR
 
 ```mermaid
 sequenceDiagram
+  accTitle: Script validation sequence
+  accDescr: Sequence diagram showing the interaction between a user, a script, validation logic, and a log output
     participant U as User
     participant S as Script
     participant V as Validation
@@ -257,6 +267,8 @@ sequenceDiagram
 
 ```mermaid
 stateDiagram-v2
+  accTitle: Document review state machine
+  accDescr: State diagram showing a document lifecycle from Draft through Review and Approved to Published
     [*] --> Draft
     Draft --> Review: Submit
     Review --> Approved: Accept
@@ -269,6 +281,8 @@ stateDiagram-v2
 
 ```mermaid
 graph LR
+  accTitle: Git branching workflow
+  accDescr: Left-to-right graph showing the feature-branch to pull-request to merge cycle through develop and release branches
     A[Main] --> B[Develop]
     B --> C[Feature Branch]
     C --> D[Pull Request]
@@ -317,6 +331,8 @@ Brief description.
 
 ```mermaid
 graph TB
+  accTitle: Architecture Overview
+  accDescr: Top-down graph showing a simple input → processing → output architecture
     A[Input] --> B[Processing]
     B --> C[Output]
 ```
@@ -331,6 +347,8 @@ Short prose explaining relationships.
 **Agent Ecosystem Map**
 ```mermaid
 graph TB
+  accTitle: LightSpeedWP directory structure
+  accDescr: Top-down graph showing how agents, instructions, workflows, prompts, chatmodes and custom instructions are organised
     A[Agents Directory] --> B[Instructions Index]
     B --> C[Workflows Directory]
     C --> D[Prompts Directory]
@@ -347,6 +365,8 @@ graph TB
 
 ```mermaid
 graph LR
+  accTitle: Core schemas and validation
+  accDescr: Left-to-right subgraph linking frontmatter, collection and CodeRabbit schemas to validation scripts and output
     subgraph "Core Schemas"
         A[frontmatter.schema.json]
         B[collection.schema.json]
@@ -379,6 +399,8 @@ graph LR
 
 ```mermaid
 flowchart TD
+  accTitle: Code change quality pipeline
+  accDescr: Flowchart showing the path from a code change through pre-commit hooks, linting, and tests to a successful commit
     A[Code Change] --> B[Pre-commit Hooks]
     B --> C{Linting Pass?}
     C -->|No| D[Fix Issues]

@@ -32,7 +32,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - name: Install dependencies
@@ -54,7 +54,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24'
+          node-version-file: ".nvmrc"
           cache: npm
 
       - name: Install dependencies
@@ -153,17 +153,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `❌ **Changelog Safety Audit Failed**
-
-The changelog safety audit detected issues that must be fixed before merging:
-
-1. **CHANGELOG.md issues** — Review the audit output above
-2. **Format compliance** — Ensure entries follow Keep a Changelog 1.1.0 format
-3. **Cross-references** — Verify all related files are properly linked
-
-Please fix the issues and push another commit. For help, see:
-- [Changelog Automation Guide](docs/CHANGELOG_AUTOMATION.md)
-- [Changelog Contributor Checklist](docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md)
-
-**Issue #2354** — Changelog Safety Audit (prevent future incidents)`
+              body: `❌ **Changelog Safety Audit Failed**\n\nThe changelog safety audit detected issues that must be fixed before merging:\n\n1. **CHANGELOG.md issues** — Review the audit output above\n2. **Format compliance** — Ensure entries follow Keep a Changelog 1.1.0 format\n3. **Cross-references** — Verify all related files are properly linked\n\nPlease fix the issues and push another commit. For help, see:\n- [Changelog Automation Guide](\\`docs/CHANGELOG_AUTOMATION.md\\`)\n- [Changelog Contributor Checklist](\\`docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md\\`)\n\n**Issue #2354** — Changelog Safety Audit (prevent future incidents)`
             })

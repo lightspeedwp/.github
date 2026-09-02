@@ -137,6 +137,14 @@ describe("hasIssueReference", () => {
       true,
     );
   });
+
+  it("detects keyword-prefixed references with optional colon", () => {
+    expect(hasIssueReference("Closes: #123")).toBe(true);
+    expect(hasIssueReference("fixes: #456")).toBe(true);
+    expect(hasIssueReference("Resolves: #789")).toBe(true);
+    expect(hasIssueReference("- Closes: #2352")).toBe(true);
+    expect(hasIssueReference("- Fixes: #111")).toBe(true);
+  });
 });
 
 describe("hasChangelogEntry", () => {
@@ -275,7 +283,8 @@ describe("extractClosingIssueNumbers", () => {
   });
 
   it("handles all GitHub closing keywords", () => {
-    const text = "Close #1\nCloses #2\nClosed #3\nFix #4\nFixes #5\nFixed #6\nResolve #7\nResolves #8\nResolved #9";
+    const text =
+      "Close #1\nCloses #2\nClosed #3\nFix #4\nFixes #5\nFixed #6\nResolve #7\nResolves #8\nResolved #9";
     const result = extractClosingIssueNumbers(text);
     expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   });
@@ -345,6 +354,12 @@ Fixes #123
     const body = `## Linked issues\nFixes #123\n## Changelog\n- Added feature`;
     const result = validatePullRequestBody(body, [], "feature/test");
     expect(result.missing).toContain("Global DoD checklist");
+  });
+
+  it("accepts '## Global DoD Checklist' as an alternative checklist heading", () => {
+    const body = `## Linked issues\nCloses: #123\n## Changelog\n- Added feature\n## Global DoD Checklist\n- [x] Done`;
+    const result = validatePullRequestBody(body, [], "feature/test");
+    expect(result.missing).not.toContain("Global DoD checklist");
   });
 
   it('uses "Linked issues & merged PRs" for release branches', () => {

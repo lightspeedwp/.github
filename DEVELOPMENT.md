@@ -2,8 +2,8 @@
 file_type: "documentation"
 title: "Development Setup"
 description: "Developer setup guide and repository contribution instructions for the LightSpeed community health repository"
-version: "1.0"
-last_updated: "2025-12-04"
+version: "1.1"
+last_updated: "2026-08-29"
 owners: ["LightSpeed Team"]
 tags: ["development", "setup", "installation", "contributing"]
 references:
@@ -11,6 +11,8 @@ references:
     description: "Full contribution guidelines"
   - path: "docs/LINTING.md"
     description: "Linting standards and troubleshooting"
+  - path: ".github/projects/active/nodejs-upgrade-2026-q4/COMPLETION_REPORT.md"
+    description: "Node.js 24 upgrade project completion report"
 ---
 
 # Community Health Repository Setup
@@ -19,8 +21,10 @@ This document provides guidance for contributing to and maintaining this communi
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or later)
-- [npm](https://www.npmjs.com/) (v9 or later)
+- [Node.js](https://nodejs.org/) (v24 or later) — **Required as of 2026-08-29**
+- [npm](https://www.npmjs.com/) (v10 or later) — **Required as of 2026-08-29**
+
+> **Note:** This repository requires **Node.js 24** following the completion of the [Node.js 24 Upgrade Project](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/nodejs-upgrade-2026-q4/COMPLETION_REPORT.md) on 2026-08-29. All workflows and scripts are configured for Node.js 24 via `.nvmrc`. Using an older version may cause compatibility issues.
 
 ## Installation & Package Review
 

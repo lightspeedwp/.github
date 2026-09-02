@@ -191,6 +191,17 @@ const teamLeadMapping = {
   "area:accessibility": "ashleyshaw", // A11y lead
 };
 
+// Milestone mapping (priority + type → milestone title)
+const milestoneMapping = {
+  "priority:critical": "Backlog", // Using Backlog as catch-all; could be "Critical Issues" if milestone exists
+  "priority:high": "Backlog",
+  "type:epic": "Backlog",
+  "type:bug": "Backlog",
+  "type:feature": "Backlog",
+  "type:code-refactor": "Backlog",
+  default: "Backlog",
+};
+
 // Score type/area inference
 function scoreMatch(text, patterns) {
   if (!text) return 0;
@@ -256,6 +267,11 @@ function inferArea(issue) {
   }));
 }
 
+// Backward-compatible alias used by older tests/integrations
+function detectArea(issue) {
+  return inferArea(issue);
+}
+
 // Suggest assignee based on inferred area
 function suggestAssignee(inferredAreas) {
   if (!inferredAreas || inferredAreas.length === 0) {
@@ -264,6 +280,31 @@ function suggestAssignee(inferredAreas) {
 
   const topArea = inferredAreas[0];
   return teamLeadMapping[topArea.area] || null;
+}
+
+// Suggest milestone based on priority and type labels
+function suggestMilestone(issue) {
+  if (!issue || !issue.labels) {
+    return milestoneMapping.default;
+  }
+
+  const labels = (issue.labels || []).map((l) => l.name || l);
+
+  // Priority takes precedence over type
+  for (const label of labels) {
+    if (label.startsWith("priority:") && milestoneMapping[label]) {
+      return milestoneMapping[label];
+    }
+  }
+
+  // Fall back to type-based mapping
+  for (const label of labels) {
+    if (label.startsWith("type:") && milestoneMapping[label]) {
+      return milestoneMapping[label];
+    }
+  }
+
+  return milestoneMapping.default;
 }
 
 // Process a single issue
@@ -295,6 +336,7 @@ async function processIssue(issue, options = {}) {
   const typeInference = inferType(issue);
   const areaInference = inferArea(issue);
   const suggestedAssignee = suggestAssignee(areaInference);
+  const suggestedMilestone = suggestMilestone(issue);
 
   // Check confidence thresholds (warn only if both type and area are below threshold)
   const typeConfidentEnough =
@@ -341,6 +383,7 @@ async function processIssue(issue, options = {}) {
       areaInference,
       labelsToAdd,
       suggestedAssignee,
+      suggestedMilestone,
     };
   }
 
@@ -392,6 +435,7 @@ async function processIssue(issue, options = {}) {
       labelsAdded: labelsToAdd.length,
       assigneeAdded,
       labelRemoved,
+      milestoneSuggested: suggestedMilestone,
     };
   } catch (error) {
     return {
@@ -433,7 +477,10 @@ export {
   processBatch,
   inferType,
   inferArea,
+  detectArea,
   suggestAssignee,
+  suggestMilestone,
   typePatterns,
   areaPatterns,
+  milestoneMapping,
 };
