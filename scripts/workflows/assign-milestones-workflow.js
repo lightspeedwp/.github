@@ -5,11 +5,9 @@
  * Runs in GitHub Actions context with access to GITHUB_TOKEN
  */
 
-const github = require("@actions/github");
-const core = require("@actions/core");
-const {
-  MilestoneAssignmentAgent,
-} = require("../agents/includes/milestone-assignment.cjs");
+import { context, getOctokit } from "@actions/github";
+import * as core from "@actions/core";
+import { MilestoneAssignmentAgent } from "../agents/includes/milestone-assignment.js";
 
 async function main() {
   try {
@@ -28,8 +26,8 @@ async function main() {
     );
 
     // Create GitHub API client
-    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
-    const { owner, repo } = github.context.repo;
+    const octokit = getOctokit(process.env.GITHUB_TOKEN);
+    const { owner, repo } = context.repo;
 
     // Create agent and perform bulk assignment
     const agent = new MilestoneAssignmentAgent(octokit, owner, repo);
