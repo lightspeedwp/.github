@@ -2,31 +2,31 @@
 
 /**
  * Telemetry Client
- * 
+ *
  * Lightweight telemetry client for tracking events across the codebase.
  * Supports multiple backends (console, file, analytics) and environment-aware behavior.
- * 
+ *
  * Features:
  * - Safe vs restricted property separation
  * - Environment detection (development vs production)
  * - Multiple backend support
  * - Automatic property validation
  * - Error handling with fallback
- * 
+ *
  * @module TelemetryClient
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Environment types
  * @enum {string}
  */
 const Environment = {
-  DEVELOPMENT: 'development',
-  PRODUCTION: 'production',
-  TEST: 'test'
+  DEVELOPMENT: "development",
+  PRODUCTION: "production",
+  TEST: "test",
 };
 
 /**
@@ -34,10 +34,10 @@ const Environment = {
  * @enum {string}
  */
 const BackendType = {
-  CONSOLE: 'console',
-  FILE: 'file',
-  ANALYTICS: 'analytics',
-  NONE: 'none'
+  CONSOLE: "console",
+  FILE: "file",
+  ANALYTICS: "analytics",
+  NONE: "none",
 };
 
 /**
@@ -45,19 +45,19 @@ const BackendType = {
  * @enum {string}
  */
 const PropertyClassification = {
-  SAFE: 'safe',         // Anonymous, aggregated data safe for all environments
-  RESTRICTED: 'restricted'  // May contain repo-specific or detailed information
+  SAFE: "safe", // Anonymous, aggregated data safe for all environments
+  RESTRICTED: "restricted", // May contain repo-specific or detailed information
 };
 
 /**
  * Telemetry Client
- * 
+ *
  * @class TelemetryClient
  */
 class TelemetryClient {
   /**
    * Create a telemetry client
-   * 
+   *
    * @param {Object} options - Configuration options
    * @param {string} options.environment - Environment (development, production, test)
    * @param {string} options.backend - Backend type (console, file, analytics, none)
@@ -68,39 +68,39 @@ class TelemetryClient {
   constructor(options = {}) {
     this.environment = options.environment || this.detectEnvironment();
     this.backend = options.backend || this.getDefaultBackend();
-    this.outputPath = options.outputPath || '.github/reports/telemetry';
+    this.outputPath = options.outputPath || ".github/reports/telemetry";
     this.eventSchemas = options.eventSchemas || {};
     this.enabled = options.enabled !== undefined ? options.enabled : true;
     this.errorHandler = options.errorHandler || this.defaultErrorHandler;
-    
+
     // Statistics tracking
     this.stats = {
       totalEvents: 0,
       eventsByType: {},
-      errors: 0
+      errors: 0,
     };
   }
 
   /**
    * Detect current environment
-   * 
+   *
    * @returns {string} Environment type
    */
   detectEnvironment() {
-    if (process.env.NODE_ENV === 'test') {
+    if (process.env.NODE_ENV === "test") {
       return Environment.TEST;
     }
-    
-    if (process.env.NODE_ENV === 'production' || process.env.CI === 'true') {
+
+    if (process.env.NODE_ENV === "production" || process.env.CI === "true") {
       return Environment.PRODUCTION;
     }
-    
+
     return Environment.DEVELOPMENT;
   }
 
   /**
    * Get default backend based on environment
-   * 
+   *
    * @returns {string} Backend type
    */
   getDefaultBackend() {
@@ -118,24 +118,24 @@ class TelemetryClient {
 
   /**
    * Default error handler - never throws, just logs
-   * 
+   *
    * @param {Error} error - The error that occurred
    * @param {Object} context - Context about the error
    */
   defaultErrorHandler(error, context) {
     this.stats.errors++;
-    
+
     // In development, log to console for debugging
     if (this.environment === Environment.DEVELOPMENT) {
-      console.warn('[Telemetry Error]', error.message, context);
+      console.warn("[Telemetry Error]", error.message, context);
     }
-    
+
     // Never throw - telemetry failures should not break the application
   }
 
   /**
    * Emit a telemetry event
-   * 
+   *
    * @param {string} eventType - Event type (e.g., 'release.validation.started')
    * @param {Object} properties - Event properties
    * @param {Object} properties.safe - Safe properties (anonymous, aggregated)
@@ -150,7 +150,7 @@ class TelemetryClient {
 
     try {
       // Validate event type
-      if (!eventType || typeof eventType !== 'string') {
+      if (!eventType || typeof eventType !== "string") {
         throw new Error(`Invalid event type: ${eventType}`);
       }
 
@@ -170,7 +170,9 @@ class TelemetryClient {
         timestamp: new Date().toISOString(),
         environment: this.environment,
         safe: safeProps,
-        restricted: this.shouldIncludeRestrictedProperties() ? restrictedProps : {}
+        restricted: this.shouldIncludeRestrictedProperties()
+          ? restrictedProps
+          : {},
       };
 
       // Send to backend
@@ -181,14 +183,20 @@ class TelemetryClient {
 
       return true;
     } catch (error) {
-      this.errorHandler(error, { eventType, properties });
+      // Protect custom error-handler invocation with a non-throwing internal reporter
+      try {
+        this.errorHandler(error, { eventType, properties });
+      } catch (handlerError) {
+        // Silently ignore handler errors - telemetry should never throw
+        this.defaultErrorHandler(handlerError, { eventType, properties });
+      }
       return false;
     }
   }
 
   /**
    * Validate properties against schema
-   * 
+   *
    * @param {string} eventType - Event type
    * @param {Object} safeProps - Safe properties
    * @param {Object} restrictedProps - Restricted properties
@@ -200,7 +208,9 @@ class TelemetryClient {
     if (schema.safe) {
       for (const prop of schema.safe.required || []) {
         if (!(prop in safeProps)) {
-          throw new Error(`Missing required safe property '${prop}' for event '${eventType}'`);
+          throw new Error(
+            `Missing required safe property '${prop}' for event '${eventType}'`,
+          );
         }
       }
     }
@@ -209,7 +219,9 @@ class TelemetryClient {
     if (schema.restricted) {
       for (const prop of schema.restricted.required || []) {
         if (!(prop in restrictedProps)) {
-          throw new Error(`Missing required restricted property '${prop}' for event '${eventType}'`);
+          throw new Error(
+            `Missing required restricted property '${prop}' for event '${eventType}'`,
+          );
         }
       }
     }
@@ -217,22 +229,22 @@ class TelemetryClient {
 
   /**
    * Determine if restricted properties should be included
-   * 
+   *
    * @returns {boolean} True if restricted properties should be included
    */
   shouldIncludeRestrictedProperties() {
     // In production, be more conservative
     if (this.environment === Environment.PRODUCTION) {
-      return process.env.TELEMETRY_INCLUDE_RESTRICTED === 'true';
+      return process.env.TELEMETRY_INCLUDE_RESTRICTED === "true";
     }
-    
+
     // In development and test, include by default
     return true;
   }
 
   /**
    * Send event to configured backend
-   * 
+   *
    * @param {Object} event - Event payload
    */
   sendToBackend(event) {
@@ -240,19 +252,19 @@ class TelemetryClient {
       case BackendType.CONSOLE:
         this.sendToConsole(event);
         break;
-      
+
       case BackendType.FILE:
         this.sendToFile(event);
         break;
-      
+
       case BackendType.ANALYTICS:
         this.sendToAnalytics(event);
         break;
-      
+
       case BackendType.NONE:
         // No-op for testing
         break;
-      
+
       default:
         throw new Error(`Unknown backend type: ${this.backend}`);
     }
@@ -260,65 +272,67 @@ class TelemetryClient {
 
   /**
    * Send event to console
-   * 
+   *
    * @param {Object} event - Event payload
    */
   sendToConsole(event) {
-    console.log('[Telemetry]', JSON.stringify(event, null, 2));
+    console.log("[Telemetry]", JSON.stringify(event, null, 2));
   }
 
   /**
    * Send event to file
-   * 
+   *
    * @param {Object} event - Event payload
    */
   sendToFile(event) {
     try {
       // Ensure output directory exists
       fs.mkdirSync(this.outputPath, { recursive: true });
-      
+
       // Generate filename with date
-      const date = new Date().toISOString().split('T')[0];
+      const date = new Date().toISOString().split("T")[0];
       const filename = `telemetry-${date}.jsonl`;
       const filepath = path.join(this.outputPath, filename);
-      
+
       // Append event as JSON line
-      const line = JSON.stringify(event) + '\n';
-      fs.appendFileSync(filepath, line, 'utf8');
+      const line = JSON.stringify(event) + "\n";
+      fs.appendFileSync(filepath, line, "utf8");
     } catch (error) {
-      this.errorHandler(error, { event, backend: 'file' });
+      // Protect custom error-handler invocation with a non-throwing internal reporter
+      try {
+        this.errorHandler(error, { event, backend: "file" });
+      } catch (handlerError) {
+        // Silently ignore handler errors - telemetry should never throw
+        this.defaultErrorHandler(handlerError, { event, backend: "file" });
+      }
     }
   }
 
   /**
    * Send event to analytics service
-   * 
-   * @param {Object} event - Event payload
+   *
+   * @param {Object} _event - Event payload
    */
-  sendToAnalytics(event) {
-    // Placeholder for future analytics integration
-    // Could integrate with services like:
-    // - Google Analytics
-    // - Mixpanel
-    // - Segment
-    // - Custom analytics endpoint
-    
-    console.warn('[Telemetry] Analytics backend not yet implemented');
+  sendToAnalytics(_event) {
+    // Analytics backend not yet implemented
+    // Return a non-throwing failure result
+    return false;
   }
 
   /**
    * Update statistics
-   * 
+   *
    * @param {string} eventType - Event type
    */
   updateStats(eventType) {
     this.stats.totalEvents++;
-    this.stats.eventsByType[eventType] = (this.stats.eventsByType[eventType] || 0) + 1;
+    this.stats.eventsByType[eventType] =
+      (this.stats.eventsByType[eventType] || 0) + 1;
   }
 
   /**
    * Get current statistics
-   * 
+   *
    * @returns {Object} Statistics
    */
   getStats() {
@@ -332,13 +346,13 @@ class TelemetryClient {
     this.stats = {
       totalEvents: 0,
       eventsByType: {},
-      errors: 0
+      errors: 0,
     };
   }
 
   /**
    * Flush any pending events (for file backend)
-   * 
+   *
    * @returns {Promise<void>}
    */
   async flush() {
@@ -350,7 +364,7 @@ class TelemetryClient {
 
 /**
  * Create a telemetry client instance
- * 
+ *
  * @param {Object} options - Configuration options
  * @returns {TelemetryClient} Telemetry client instance
  */
@@ -364,5 +378,5 @@ module.exports = {
   createTelemetryClient,
   Environment,
   BackendType,
-  PropertyClassification
+  PropertyClassification,
 };

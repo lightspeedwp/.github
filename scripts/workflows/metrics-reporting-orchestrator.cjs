@@ -158,7 +158,7 @@ class MetricsReportingOrchestrator {
     try {
       // Get list of repositories from config
       const configPath = path.join(
-        ".github/scripts/workflows/metrics-config.json",
+        "scripts/workflows/metrics-config.json",
       );
       const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
       const repositories = config.repositories.filter(
