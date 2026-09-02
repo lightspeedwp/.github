@@ -1,9 +1,9 @@
 ---
 file_type: project-index
-title: ""Template Enforcement Governance Closeout""
-description: ""Closeout summary for the implemented template enforcement scope and the remaining remote/admin follow-up checks.""
+title: ""Template Enforcement Governance — Complete""
+description: ""Completed template enforcement and frontmatter standardization; remaining work is remote/admin follow-up checks.""
 created_date: "2026-06-08"
-last_updated: "2026-08-25"
+last_updated: "2026-09-02"
 status: active
 ---
 
@@ -23,6 +23,7 @@ from this workspace, so they have been split into a smaller follow-up task.
 - `.github/workflows/template-enforcement.yml` covers issue and PR template validation.
 - `scripts/validation/__fixtures__/pr-templates/` provides validation fixtures.
 - `AGENTS.md`, `CLAUDE.md`, and `docs/BRANCHING_STRATEGY.md` include template-routing guidance.
+- **Frontmatter standardization** completed across all 34 PR and issue templates with unified schema validation (September 2, 2026).
 - The project audit and action documents now describe the implemented scope rather than the original planning-only backlog.
 
 ## Remaining Follow-Up
