@@ -1,10 +1,9 @@
 ---
-file_type: "pr-template"
-title: "Hotfix PR"
+file_type: pr-template
+title: "hotfix: {scope}"
+name: "Hotfix"
 description: "Critical fixes for production issues"
-labels:
-  []
-  ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
+labels: ["type:hotfix", "status:needs-review", "priority:critical"]
 ---
 
 # Hotfix Pull Request

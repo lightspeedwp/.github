@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global fetch */
 
 /**
  * distribute-unallocated-milestones.js
@@ -35,6 +34,7 @@
  */
 
 import { Octokit } from "octokit";
+import fetch from "node-fetch";
 
 class MilestoneDistributor {
   constructor(options = {}) {

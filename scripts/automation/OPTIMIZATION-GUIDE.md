@@ -605,12 +605,7 @@ npm run triage:analyze -- --issue 1 2352 2146 2442 2396
 ## Related Documentation
 
 - [github-api-optimized.js](./includes/github-api-optimized.js) — Optimized API client module
-<<<<<<< HEAD
-=======
 - [profiler.js](./profiler.js) — Performance profiling utility
-
->>>>>>> 2991e2b58 (fix: Address all CodeRabbit review findings for Phase 2B optimization)
-
 - [AUTOMATION_GOVERNANCE.md](../../docs/AUTOMATION_GOVERNANCE.md) — Governance rules
 - [AGENTS.md](../../AGENTS.md) — AI operations guidelines
 

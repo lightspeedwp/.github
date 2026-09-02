@@ -112,6 +112,16 @@ author: Your Name
 date: 2026-08-12
 status: active
 language: en
+references:
+  block_json: ./block.json
+  guide: ./docs/usage.md
+---
+```
+
+**Control-Plane Example:**
+
+```markdown
+---
 title: Custom Instructions
 description: Organisation-wide AI governance and coding standards.
 file_type: instructions

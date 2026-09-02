@@ -1,8 +1,9 @@
 ---
-file_type: "pr-template"
-title: "Build/CI PR"
+file_type: pr-template
+title: "ci: {scope}"
+name: "CI/CD"
 description: "Pipelines, linting, packaging, or release automation"
-labels: ["status:needs-review", "area:ci"]
+labels: ["type:ci", "status:needs-review", "area:ci"]
 ---
 
 # Build/CI Pull Request

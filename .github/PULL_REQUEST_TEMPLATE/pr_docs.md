@@ -1,8 +1,9 @@
 ---
-file_type: "pr-template"
-title: "Docs-only PR"
+file_type: pr-template
+title: "docs: {scope}"
+name: "Documentation"
 description: "Documentation updates: READMEs, guides, contributor docs"
-labels: ["status:needs-review", "lang:md", "area:documentation"]
+labels: ["type:docs", "status:needs-review", "area:documentation"]
 ---
 
 # Documentation Pull Request

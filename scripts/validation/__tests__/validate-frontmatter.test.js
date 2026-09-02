@@ -8,35 +8,17 @@ const { execSync } = require("child_process");
 
 describe("Frontmatter Validation", () => {
   it("should validate all markdown files and report errors for invalid frontmatter", () => {
-    const fs = require("fs");
     // Run the validation script and capture output
     const scriptPath = path.join(__dirname, "../validate-frontmatter.js");
     let output = "";
-    let stderr = "";
     try {
-      output = execSync(`node ${scriptPath}`, {
-        encoding: "utf8",
-        stdio: ["pipe", "pipe", "pipe"],
-      });
+      output = execSync(`node ${scriptPath}`, { encoding: "utf8" });
     } catch (err) {
-      output = err.stdout || "";
-      stderr = err.stderr || "";
+      output = err.stdout || err.message;
     }
-
-    const fullOutput = output + stderr;
-
-    // Check for expected output or verify log file was created
-    const logPath = path.join(
-      __dirname,
-      "../../../logs/validation/frontmatter-validation.log",
-    );
-    const logExists = fs.existsSync(logPath);
-
-    // Test passes if log file was created (indicating validation completed)
-    expect(logExists).toBe(true);
-    // Also check that output contains start or completion indicators
-    expect(fullOutput).toMatch(
-      /Starting frontmatter validation|Validation completed|Validation log written to:/,
-    );
+    // Check for expected output
+    expect(output).toMatch(/Validation log written to:/);
+    // Optionally, check for summary or error lines
+    expect(output).toMatch(/Validation complete|Validation log written to:/);
   });
 });

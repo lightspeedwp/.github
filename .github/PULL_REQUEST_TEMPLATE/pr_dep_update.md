@@ -1,8 +1,9 @@
 ---
-file_type: "pr-template"
-title: "Dependencies/Maintenance PR"
+file_type: pr-template
+title: "deps: {scope}"
+name: "Dependency Update"
 description: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
-labels: ["status:needs-review", "area:dependencies"]
+labels: ["type:deps", "status:needs-review", "area:dependencies"]
 ---
 
 # Dependencies / Maintenance Pull Request
