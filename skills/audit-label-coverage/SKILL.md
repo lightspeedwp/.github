@@ -121,7 +121,7 @@ Runs comprehensive label coverage audit.
 - `state` (string, default: `'open'`) — Issue state filter (`'open'`, `'closed'`, `'all'`)
 - `outputFormat` (string, default: `'all'`) — Report format (`'cli'`, `'markdown'`, `'json'`, `'all'`)
 - `outputPath` (string, optional) — Directory to save reports
-- `dryRun` (boolean, default: `false'`) — Preview mode (no changes)
+- `dryRun` (boolean, default: `false`) — Preview mode (no changes)
 
 **Returns:** Promise resolving to:
 
