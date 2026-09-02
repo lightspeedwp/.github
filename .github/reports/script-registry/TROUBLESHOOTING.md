@@ -153,9 +153,10 @@ Rate limit exceeded. Retry-After: 3600
 
 2. **Reduce rate limit** (slower execution):
    ```bash
+   # Reduced rate-limit from 100
    node scripts/automation/handlers-orchestrator.js \
      --rate-limit 50 \
-     --batch-size 10  # Reduced rate-limit from 100
+     --batch-size 10
    ```
 
 3. **Increase delay between batches**:
@@ -228,8 +229,9 @@ Error: Timeout after 30000ms
 
 1. **Increase timeout** (give API more time):
    ```bash
+   # 60 seconds (increased from 30)
    node scripts/automation/handlers-orchestrator.js \
-     --timeout 60000  # 60 seconds (increased from 30)
+     --timeout 60000
    ```
 
 2. **Check GitHub status**:
@@ -239,15 +241,17 @@ Error: Timeout after 30000ms
 3. **Retry with backoff** (already enabled):
    ```bash
    # More retry attempts, longer initial delay
-   --max-retries 5 \
-   --retry-delay 2000
+   node scripts/automation/handlers-orchestrator.js \
+     --max-retries 5 \
+     --retry-delay 2000
    ```
 
 4. **Reduce batch size** (fewer parallel operations):
    ```bash
    # Reduce batch-size from 10
-   --batch-size 5 \
-   --max-concurrent 3
+   node scripts/automation/handlers-orchestrator.js \
+     --batch-size 5 \
+     --max-concurrent 3
    ```
 
 5. **Run during off-peak hours**:
