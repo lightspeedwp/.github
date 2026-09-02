@@ -316,7 +316,6 @@ async function normalize() {
         });
 
         if (issuesResponse.data.items.length === 0) {
-          hasMoreIssues = false;
           break;
         }
 
@@ -392,7 +391,6 @@ async function normalize() {
         });
 
         if (prsResponse.data.items.length === 0) {
-          hasMorePrs = false;
           break;
         }
 
