@@ -41,6 +41,7 @@ jobs:
         with:
           fetch-depth: ${{ inputs.full-history && '0' || '1' }}
           persist-credentials: false
+          submodules: false
 
       - name: Install gitleaks from a checksum-verified download
         run: |

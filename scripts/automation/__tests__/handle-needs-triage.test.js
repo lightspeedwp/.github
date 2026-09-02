@@ -200,6 +200,30 @@ describe("handle-needs-triage", () => {
     });
   });
 
+  describe("detectArea", () => {
+    it("should expose backward-compatible alias for inferArea", () => {
+      const issue = {
+        title: "GitHub Actions workflow failing",
+        body: "The CI pipeline needs fixing",
+      };
+      expect(typeof handler.detectArea).toBe("function");
+      expect(handler.detectArea(issue)).toEqual(handler.inferArea(issue));
+    });
+
+    it("should preserve inferArea error behaviour for invalid input", () => {
+      let inferAreaError;
+      try {
+        handler.inferArea();
+      } catch (error) {
+        inferAreaError = error;
+      }
+
+      expect(inferAreaError).toBeTruthy();
+      expect(() => handler.inferArea()).toThrow();
+      expect(() => handler.detectArea()).toThrow(inferAreaError.message);
+    });
+  });
+
   describe("suggestAssignee", () => {
     it("should suggest ashleyshaw for ci area", () => {
       const areaInference = [{ area: "area:ci", confidence: 0.95 }];
