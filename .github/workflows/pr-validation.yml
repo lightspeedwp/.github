@@ -27,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -35,11 +35,31 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Validate PR template structure
+        run: node scripts/validation/validate-pr-template-structure.cjs
+        continue-on-error: true
+
+      - name: Load canonical labels
+        id: load-labels
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const yaml = require('js-yaml');
+            const labelsConfig = yaml.load(fs.readFileSync('.github/labels.yml', 'utf8'));
+            const canonicalLabels = new Set(
+              labelsConfig
+                .map(label => typeof label === 'string' ? label : label?.name)
+                .filter(Boolean)
+            );
+            core.setOutput('canonical-labels', JSON.stringify(Array.from(canonicalLabels)));
+
       - name: Extract and validate linked issues
         id: validate
         uses: actions/github-script@v9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CANONICAL_LABELS: ${{ steps.load-labels.outputs.canonical-labels }}
         with:
           script: |
             const { extractClosingIssueNumbers, sectionBody, stripHtmlComments } = require('./scripts/validation/template-helpers.cjs');
@@ -48,6 +68,7 @@ jobs:
             const body = pr.body || '';
             const prNumber = pr.number;
             const prAuthor = pr.user?.login || '';
+            const canonicalLabels = new Set(JSON.parse(process.env.CANONICAL_LABELS || '[]'));
 
             // Skip validation for dependabot and renovate PRs
             if (prAuthor === 'dependabot[bot]' || prAuthor === 'app/dependabot' || prAuthor === 'renovate[bot]' || prAuthor === 'app/renovate') {
@@ -55,6 +76,14 @@ jobs:
               core.setOutput('skip', 'true');
               return;
             }
+
+            // Validate PR labels are canonical (PREFIX:name format)
+            const prLabels = (pr.labels || []).map(l => l.name);
+            const bareLabels = prLabels.filter(l => !canonicalLabels.has(l));
+            if (bareLabels.length > 0) {
+              core.warning(`PR #${prNumber} has bare labels (not canonical): ${bareLabels.join(', ')}`);
+            }
+            core.setOutput('bare-labels', JSON.stringify(bareLabels));
 
             const linkedIssuesSection = sectionBody(body, /^##\s+Linked issues\s*$/im);
             const closingIssueNumbers = extractClosingIssueNumbers(linkedIssuesSection);
@@ -257,6 +286,19 @@ jobs:
 
             core.setOutput('check-conclusion', conclusion);
             core.setOutput('check-result', isSuccess ? 'passed' : 'failed');
+
+      - name: Validate PR labels are canonical
+        if: steps.validate.outputs.skip != 'true'
+        uses: actions/github-script@v9
+        env:
+          BARE_LABELS: ${{ steps.validate.outputs.bare-labels }}
+        with:
+          script: |
+            const bareLabels = JSON.parse(process.env.BARE_LABELS || '[]');
+            if (bareLabels.length > 0) {
+              const message = `PR has bare labels that are not canonical:\n${bareLabels.map(l => `  - ${l}`).join('\n')}\n\nUse canonical labels with prefix: type:*, status:*, priority:*, area:*, meta:*, etc.\n\nSee .github/labels.yml for the complete canonical label taxonomy.`;
+              core.setFailed(message);
+            }
 
       - name: Post or update validation comment
         if: steps.validate.outputs.skip != 'true' && steps.create-status-check.outputs.check-result != null
