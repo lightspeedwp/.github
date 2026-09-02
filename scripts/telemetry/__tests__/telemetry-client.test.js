@@ -361,6 +361,7 @@ describe('TelemetryClient', () => {
       });
 
       // Should still return true but log error
+      expect(result).toBe(true);
       expect(client.stats.errors).toBeGreaterThan(0);
     });
   });
