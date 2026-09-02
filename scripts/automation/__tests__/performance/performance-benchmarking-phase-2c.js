@@ -220,7 +220,7 @@ export function createMockBenchmark(scriptName) {
     cacheHits,
     cacheMisses: apiCallCount - cacheHits,
     cacheHitRate: 55,
-    uniqueEndpoints: Math.min(30, baseline.apiCalls),
+    uniqueEndpoints: Math.min(apiCallCount, baseline.apiCalls),
   };
 
   return result;
