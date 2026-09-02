@@ -1,5 +1,9 @@
 # Milestone Assignment Report
+<<<<<<< HEAD
 Generated: 2026-09-02T20:45:32.742Z
+=======
+Generated: 2026-09-02T20:38:23.577Z
+>>>>>>> 824b5ea9 (fix: convert milestone assignment scripts to ES modules)
 Mode: DRY-RUN
 
 ## Summary
