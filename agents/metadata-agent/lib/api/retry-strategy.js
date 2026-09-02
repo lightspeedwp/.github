@@ -6,8 +6,8 @@
 class RetryStrategy {
   constructor(config = {}) {
     this.maxRetries = config.maxRetries || 5;
-    this.initialDelayMs = config.initialDelayMs || 1000;
-    this.maxDelayMs = config.maxDelayMs || 60000;
+    this.initialDelayMs = config.initialDelayMs ?? 1000;
+    this.maxDelayMs = config.maxDelayMs ?? 60000;
     this.backoffFactor = config.backoffFactor || 2;
     this.jitterFactor = config.jitterFactor || 0.1;
 
