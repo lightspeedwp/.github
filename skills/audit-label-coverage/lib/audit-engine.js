@@ -70,12 +70,6 @@ class AuditEngine {
     return missing;
   }
 
-  _detectInvalid(labels) {
-    const labelNames = labels.map((l) => l.name);
-    // In real implementation, validate against canonical set
-    return [];
-  }
-
   _calculateCoverage(labels) {
     if (Object.keys(this.required).length === 0) {
       return 0;

@@ -1,5 +1,3 @@
-const crypto = require("crypto");
-
 class GitHubClient {
   constructor(octokit, owner, repo, options = {}) {
     this.octokit = octokit;
