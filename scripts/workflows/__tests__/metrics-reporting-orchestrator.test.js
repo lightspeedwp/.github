@@ -2,8 +2,6 @@
  * Metrics Reporting Orchestrator Tests
  */
 
-const fs = require("fs");
-
 // Mock process.exit to prevent Jest from exiting
 const originalExit = process.exit;
 process.exit = jest.fn();
