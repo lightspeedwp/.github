@@ -152,6 +152,6 @@ Expected additional improvement: 10-15%
 
 ## References
 
-- [Optimization Guide](./OPTIMIZATION-GUIDE.md)
-- [Optimized API Client](./includes/github-api-optimized.js)
-- [Performance Benchmarking Suite](./\_\_tests\_\_/performance/performance-benchmarking.js)
+- [Benchmarking Guide](./PHASE-2B-BENCHMARKING-GUIDE.md)
+- [Performance Benchmarking Suite](../scripts/automation/__tests__/performance/performance-benchmarking.js)
+- [Validation Test Suite](../scripts/automation/__tests__/performance/phase-2b-validation.test.js)

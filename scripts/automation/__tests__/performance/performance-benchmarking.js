@@ -182,21 +182,25 @@ export function createMockBenchmark(scriptName) {
   // Simulate 30% improvement
   const result = new BenchmarkResult(scriptName, baseline);
   result.executionTime = baseline.executionTime * 0.7; // 30% faster
+
+  const startUsage = baseline.memoryUsage * 0.85;
+  const peakUsage = baseline.memoryUsage * 0.73; // 27% less memory
   result.memory = {
-    startUsage: baseline.memoryUsage * 0.9,
-    avgUsage: baseline.memoryUsage * 0.85,
-    peakUsage: baseline.memoryUsage * 0.75, // 25% less memory
-    deltaFromStart: baseline.memoryUsage * 0.1,
+    startUsage,
+    avgUsage: baseline.memoryUsage * 0.78,
+    peakUsage,
+    deltaFromStart: peakUsage - startUsage,
   };
 
   // Simulate API call reduction (20% fewer calls)
   const apiCallCount = Math.floor(baseline.apiCalls * 0.8);
+  const cacheHits = Math.floor(apiCallCount * 0.65);
   result.apiCalls = {
     totalCalls: apiCallCount,
-    cacheHits: Math.floor(apiCallCount * 0.65),
-    cacheMisses: Math.floor(apiCallCount * 0.35),
+    cacheHits,
+    cacheMisses: apiCallCount - cacheHits,
     cacheHitRate: 65,
-    uniqueEndpoints: baseline.apiCalls,
+    uniqueEndpoints: Math.min(40, baseline.apiCalls),
   };
 
   return result;

@@ -105,7 +105,7 @@ describe("Phase 2B Performance Validation", () => {
       for (const result of benchmarkResults) {
         const improvements = result.calculateImprovements();
         // Should reduce API calls by at least 20%
-        expect(improvements.apiCalls.improvement).toBeGreaterThanOrEqual(15);
+        expect(improvements.apiCalls.improvement).toBeGreaterThanOrEqual(20);
       }
     });
 
@@ -214,6 +214,11 @@ describe("Phase 2B Performance Validation", () => {
   });
 
   afterAll(() => {
+    // Only generate reports if requested via environment variable
+    if (process.env.GENERATE_REPORTS !== "true") {
+      return;
+    }
+
     // Generate and save reports
     const report = generateReport(benchmarkResults);
     const reportPath = path.join(__dirname, "PHASE-2B-VALIDATION-REPORT.txt");
