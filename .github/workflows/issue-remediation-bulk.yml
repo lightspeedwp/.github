@@ -108,7 +108,8 @@ jobs:
         shell: bash
         run: |
           set +e
-          node scripts/workflows/assign-milestones-workflow.js
+          echo "=== DEBUG: Running milestone assignment ===" >&2
+          node scripts/workflows/assign-milestones-workflow.js 2>&1
           echo "Exit code: $?"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
