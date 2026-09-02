@@ -1,14 +1,10 @@
 ---
-file_type: readme
 title: Milestone Automation — Phase 2
 description: Planning, monitoring, and operational documentation for milestone distribution automation
-created_date: 2026-08-30
-last_updated: 2026-08-30
-version: 2.0.0
-status: active
-maintainer: lightspeedwp/maintainers
-owners:
-  - lightspeedwp/maintainers
+type: guide
+status: approved
+version: "1.0.0"
+owner: lightspeedwp/maintainers
 tags:
   - automation
   - milestones
