@@ -369,8 +369,9 @@ export function saveResults(results, outputPath) {
 
 /**
  * Main execution for mock benchmarking
+ * Accepts optional outputPath for test isolation; if omitted, does not persist results.
  */
-export async function runBenchmarks(scripts = null) {
+export async function runBenchmarks(scripts = null, outputPath = null) {
   const scriptsToTest = scripts || Object.keys(BASELINE_METRICS);
   const results = [];
 
@@ -392,19 +393,23 @@ export async function runBenchmarks(scripts = null) {
 
   console.log("\n");
 
+  // Validate results before proceeding
+  if (results.length === 0) {
+    throw new Error(
+      "No benchmark results generated. Verify baseline metrics and script selection.",
+    );
+  }
+
   // Generate report
   const report = generateReport(results);
   console.log(report);
 
-  // Save results
-  const resultsPath = path.join(
-    REPO_ROOT,
-    "scripts/automation/__tests__/performance/results-phase-2b.json",
-  );
-  fs.mkdirSync(path.dirname(resultsPath), { recursive: true });
-  saveResults(results, resultsPath);
-
-  console.log(`💾 Results saved to: ${resultsPath}\n`);
+  // Optionally save results (only if outputPath is provided)
+  if (outputPath) {
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    saveResults(results, outputPath);
+    console.log(`💾 Results saved to: ${outputPath}\n`);
+  }
 
   return results;
 }
