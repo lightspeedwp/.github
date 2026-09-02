@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* global process, console, __dirname */
+
 /**
  * Metrics Reporting Orchestrator
  * Generates metrics reports and manages GitHub issues
