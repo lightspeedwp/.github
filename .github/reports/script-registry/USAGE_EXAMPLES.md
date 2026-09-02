@@ -644,17 +644,19 @@ node scripts/automation/handlers-orchestrator.js \
 ### "Timeout errors"
 ```bash
 # Increase timeout and retry limit
+# Note: Increased timeout from 30000
 node scripts/automation/handlers-orchestrator.js \
   --timeout 60000 \
-  --max-retries 5  # Increased timeout from 30000
+  --max-retries 5
 ```
 
 ### "Memory usage too high"
 ```bash
 # Reduce batch size
+# Note: Reduced batch size from 10
 node scripts/automation/handlers-orchestrator.js \
   --batch-size 3 \
-  --limit 100  # Reduced batch size from 10
+  --limit 100
 ```
 
 ---

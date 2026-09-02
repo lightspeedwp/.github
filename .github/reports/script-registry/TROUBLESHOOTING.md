@@ -238,14 +238,16 @@ Error: Timeout after 30000ms
 
 3. **Retry with backoff** (already enabled):
    ```bash
+   # More retry attempts, longer initial delay
    --max-retries 5 \
-   --retry-delay 2000  # More retry attempts, longer initial delay
+   --retry-delay 2000
    ```
 
 4. **Reduce batch size** (fewer parallel operations):
    ```bash
+   # Reduce batch-size from 10
    --batch-size 5 \
-   --max-concurrent 3  # Reduce batch-size from 10
+   --max-concurrent 3
    ```
 
 5. **Run during off-peak hours**:
@@ -316,9 +318,10 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
 
 1. **Reduce batch size** (process fewer items at once):
    ```bash
+   # Reduce from 500 items and batch size from 20
    node scripts/automation/handlers-orchestrator.js \
-     --limit 100 \       # Reduce from 500
-     --batch-size 5      # Reduce from 20
+     --limit 100 \
+     --batch-size 5
    ```
 
 2. **Increase Node.js heap size**:
