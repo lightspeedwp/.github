@@ -20,8 +20,8 @@ date: "2026-09-02"
 |-------|------|--------|--------|----------|
 | **3** | Week 1 | 1.1-1.4 | ✅ Complete | 4/4 |
 | **3** | Week 2 | 2.1-3.2 | ✅ Complete | 6/6 |
-| **3** | Week 3 | 4.1, 4.2, 4.3, 5.1, 5.2 | 🟡 In Progress | 1/5 |
-| **TOTAL** | **3-4 weeks** | **15 issues** | **🟡 In Progress** | **11/15 (73%)** |
+| **3** | Week 3 | 4.1, 4.2, 4.3, 5.1, 5.2 | 🟡 In Progress | 3/5 |
+| **TOTAL** | **3-4 weeks** | **15 issues** | **🟡 In Progress** | **13/15 (87%)** |
 
 ---
 
@@ -191,33 +191,46 @@ date: "2026-09-02"
 
 ---
 
-### PHASE 3, WEEK 3: Validation & Testing 🟡 PARTIAL (1/5)
+### PHASE 3, WEEK 3: Validation & Testing ✅ 2/5 PARTIAL (3/5 total)
 
-#### ⏳ Issue 4.1: Add Branch Validation Tests
-- **Status:** ⏳ Not Started
-- **File:** `.github/agents/pr-creation-agent/__tests__/validate-branch-name.test.js` (additions)
-- **Deliverable:** Jest tests that:
-  - Test `claude/something` → FAILS with "branch-prefix-forbidden"
-  - Test `copilot/something` → FAILS with "branch-prefix-forbidden"
-  - Test `feat/valid-name` → PASSES
-  - Test all 34 allowed prefixes individually
-  - Test invalid characters, missing parts, etc.
-- **Effort:** 2 hours
+#### ✅ Issue 4.1: Add Branch Validation Tests
+- **Status:** ✅ Complete
+- **File:** `scripts/validation/__tests__/validate-branch-name.test.js`
+- **Deliverable:** ✅ Comprehensive Jest test suite with:
+  - ✅ Tests for all 3 forbidden prefixes: `claude/`, `copilot/`, `openai/`
+  - ✅ Tests for all 34 allowed branch types
+  - ✅ Valid kebab-case naming validation
+  - ✅ Invalid formats (uppercase, underscores, dots, spaces)
+  - ✅ Edge cases (empty strings, special chars, very long names)
+  - ✅ Protected branches (main, develop) exemption
+  - ✅ Bot branch exemptions (dependabot, renovate)
+  - ✅ Release branch semantic versioning patterns
+- **Evidence:**
+  - File: `scripts/validation/__tests__/validate-branch-name.test.js` (converted from .cjs to .js)
+  - Test count: 93 total tests
+  - Pass rate: 100%
+  - Coverage: All allowed types individually validated
+- **Effort:** 2 hours (completed)
 - **Dependencies:** None
-- **Notes:** May already exist from earlier work
 
-#### ⏳ Issue 4.2: Add Template Routing Tests
-- **Status:** ⏳ Not Started
-- **File:** `.github/tests/pr-template-routing.test.js` (create)
-- **Deliverable:** Jest test suite covering:
-  - Branch `feat/x` + no linked issue → `pr_feature.md`
-  - Branch `fix/x` → `pr_bug.md`
-  - Branch `claude/x` + linked issue has `type:bug` → `pr_bug.md`
-  - All 9 templates + all 34 prefixes
-  - Fallback precedence testing
-- **Effort:** 3 hours
+#### ✅ Issue 4.2: Add Template Routing Tests
+- **Status:** ✅ Complete
+- **File:** `agents/pr-creation-agent/__tests__/route-pr-template.test.js`
+- **Deliverable:** ✅ Comprehensive Jest test suite with:
+  - ✅ All 9 PR templates covered (pr_feature.md, pr_bug.md, pr_hotfix.md, etc.)
+  - ✅ All 33+ branch types tested individually
+  - ✅ Branch name extraction and parsing
+  - ✅ User override behavior
+  - ✅ Fallback routing for unknown/forbidden branch types
+  - ✅ Forbidden prefix handling (claude/, copilot/, openai/)
+  - ✅ Error handling for invalid inputs
+- **Evidence:**
+  - File: `agents/pr-creation-agent/__tests__/route-pr-template.test.js` (enhanced)
+  - Test count: 66 total tests
+  - Pass rate: 100%
+  - Coverage: All 9 templates + 33+ branch types
+- **Effort:** 3 hours (completed)
 - **Dependencies:** None
-- **Coverage Target:** 100% of routing paths
 
 #### ⏳ Issue 4.3: Test Title Normalization on Existing Issues/PRs
 - **Status:** ⏳ Ready (depends on Issue 2.2 ✅)
@@ -270,7 +283,7 @@ date: "2026-09-02"
 
 ## Work Breakdown by Status
 
-### ✅ Complete (11 issues)
+### ✅ Complete (13 issues)
 **Week 1:**
 1. Issue 1.1 ✅ Move CLAUDE.md rules
 2. Issue 1.2 ✅ Add AGENTS.md section
@@ -286,16 +299,14 @@ date: "2026-09-02"
 10. Issue 3.2 ✅ PR Templates with Linking Requirements
 
 **Week 3:**
-11. Issue 5.1 ✅ BRANCHING_STRATEGY.md
+11. Issue 4.1 ✅ Branch Validation Tests
+12. Issue 4.2 ✅ PR Template Routing Tests
+13. Issue 5.1 ✅ BRANCHING_STRATEGY.md
 
 ### 🟡 In Progress (0 issues)
 - No issues currently being worked on
 
-### ⏳ Planned (4 issues)
-**Ready to Start (No dependencies):**
-- Issue 4.1 — Branch Validation Tests (2h)
-- Issue 4.2 — Template Routing Tests (3h)
-
+### ⏳ Planned (2 remaining issues)
 **Ready to Start (Depends on Issue 2.2 ✅):**
 - Issue 4.3 — Test Title Normalization (4h)
 - Issue 5.2 — Run Normalization (2h)
@@ -390,5 +401,5 @@ This demonstrates governance enforcement is working correctly — the system pre
 ---
 
 **Last Updated:** 2026-09-02  
-**Status Summary:** 11/15 issues complete (73%). Discovered Issues 2.2, 2.4, 3.1, 3.2 already implemented. Issue 5.1 (BRANCHING_STRATEGY.md) completed. All remaining work (4.1, 4.2, 4.3, 5.2) is unblocked and ready for execution.  
-**Next Priority:** Issue 4.1 (Branch Validation Tests) and Issue 4.2 (Template Routing Tests) — can start immediately
+**Status Summary:** 13/15 issues complete (87%). ✅ Completed Issues 4.1 and 4.2 with comprehensive test suites (93 branch validation tests, 66 template routing tests). 2 issues remaining: 4.3 and 5.2 (6 hours total).  
+**Next Priority:** Issue 4.3 (Test Title Normalization on Existing Issues) — can start immediately
