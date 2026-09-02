@@ -160,7 +160,7 @@ if (fs.existsSync(missingFieldsPath)) {
   const content = fs.readFileSync(missingFieldsPath, "utf8");
   const frontmatter = parseFrontmatter(content);
   if (frontmatter) {
-    const issues = validateFrontmatter(frontmatter, missingFieldsPath);
+    const issues = validateFrontmatter(frontmatter);
     assertTrue(issues.length > 0, "Should have issues for missing fields");
     assertTrue(
       issues.some((i) => i.includes("category")),
@@ -176,7 +176,7 @@ if (fs.existsSync(invalidDatePath)) {
   const content = fs.readFileSync(invalidDatePath, "utf8");
   const frontmatter = parseFrontmatter(content);
   if (frontmatter) {
-    const issues = validateFrontmatter(frontmatter, invalidDatePath);
+    const issues = validateFrontmatter(frontmatter);
     assertTrue(issues.length > 0, "Should have issues for invalid dates");
     assertTrue(
       issues.some((i) => i.includes("date")),
@@ -191,7 +191,7 @@ if (fs.existsSync(validSpecPath)) {
   const content = fs.readFileSync(validSpecPath, "utf8");
   const frontmatter = parseFrontmatter(content);
   if (frontmatter) {
-    const issues = validateFrontmatter(frontmatter, validSpecPath);
+    const issues = validateFrontmatter(frontmatter);
     assertEqual(issues.length, 0, "Valid spec should have no issues");
   }
 }
@@ -203,7 +203,7 @@ if (fs.existsSync(draftPath)) {
   const content = fs.readFileSync(draftPath, "utf8");
   const frontmatter = parseFrontmatter(content);
   if (frontmatter) {
-    const issues = validateFrontmatter(frontmatter, draftPath);
+    const issues = validateFrontmatter(frontmatter);
     assertTrue(
       issues.length === 0 || !issues.some((i) => i.includes("status")),
       "Draft status should be valid",
@@ -218,7 +218,7 @@ if (fs.existsSync(deprecatedPath)) {
   const content = fs.readFileSync(deprecatedPath, "utf8");
   const frontmatter = parseFrontmatter(content);
   if (frontmatter) {
-    const issues = validateFrontmatter(frontmatter, deprecatedPath);
+    const issues = validateFrontmatter(frontmatter);
     assertTrue(
       issues.length === 0 || !issues.some((i) => i.includes("status")),
       "Deprecated status should be valid",
@@ -292,7 +292,7 @@ if (fs.existsSync(validSpecPath)) {
   const content = fs.readFileSync(validSpecPath, "utf8");
   const frontmatter = parseFrontmatter(content);
   if (frontmatter) {
-    const issues = validateFrontmatter(frontmatter, validSpecPath);
+    const issues = validateFrontmatter(frontmatter);
     assertTrue(
       !issues.some((i) => i.includes("implementation")),
       "Implementation should be optional",
