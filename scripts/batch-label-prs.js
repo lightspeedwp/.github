@@ -40,20 +40,6 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "hotfix/": "type:bug",
 };
 
-// File pattern to area mapping
-const FILE_TO_AREA_MAP = {
-  ".github/workflows/": "area:ci",
-  ".github/actions/": "area:ci",
-  "scripts/": "area:scripts",
-  "docs/": "area:documentation",
-  "README.md": "area:documentation",
-  "**/*.md": "area:documentation",
-  "tests/": "area:tests",
-  "**/*.test.": "area:tests",
-  "**/*.spec.": "area:tests",
-  "__tests__/": "area:tests",
-};
-
 // Language mapping
 const FILE_TO_LANG_MAP = {
   "**/*.php": "lang:php",
