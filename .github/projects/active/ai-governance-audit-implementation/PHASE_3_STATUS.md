@@ -19,9 +19,9 @@ date: "2026-09-02"
 | Phase | Week | Issues | Status | Progress |
 |-------|------|--------|--------|----------|
 | **3** | Week 1 | 1.1-1.4 | ✅ Complete | 4/4 |
-| **3** | Week 2 | 2.1-3.2 | 🟡 Partial | 2/6 |
-| **3** | Week 3 | 4.1-5.2 | ⏳ Planned | 0/3 |
-| **TOTAL** | **3-4 weeks** | **11 issues** | **🔄 In Progress** | **6/11 (55%)** |
+| **3** | Week 2 | 2.1-3.2 | 🟡 Partial | 3/6 |
+| **3** | Week 3 | 4.1-5.2 | 🟡 In Progress | 1/3 |
+| **TOTAL** | **3-4 weeks** | **11 issues** | **🔄 In Progress** | **8/11 (73%)** |
 
 ---
 
@@ -150,16 +150,22 @@ date: "2026-09-02"
 - **Dependencies:** None
 - **Next Steps:** Begin implementation after Issue 2.2 (parallel work possible)
 
-#### ⏳ Issue 3.2: Update PR Templates with Linking Requirements
-- **Status:** ⏳ Not Started
-- **File:** All `.github/PULL_REQUEST_TEMPLATE/*.md` files
-- **Deliverable:** Update all PR templates with:
-  - "Linked Issue" section
-  - Example: `Closes #123`
-  - Explanation of requirement
-- **Effort:** 1 hour
+#### ✅ Issue 3.2: Update PR Templates with Linking Requirements
+- **Status:** ✅ Complete (Already implemented in templates)
+- **File:** All `.github/PULL_REQUEST_TEMPLATE/*.md` files (9 templates)
+- **Deliverable:** ✅ All PR templates include:
+  - "Linked issues" section with comprehensive guidance
+  - Multiple examples: `Closes #123`, `Fixes #123`, `Resolves #123`, `Relates to #123`
+  - Clear explanation of auto-close behavior and requirement
+  - Template field for PR author to enter linked issue number
+- **Evidence:**
+  - pr_feature.md: Lines 13-25
+  - pr_bug.md: Lines 13-24
+  - pr_chore.md: Lines 13-24
+  - pr_ci.md, pr_docs.md, pr_hotfix.md, pr_refactor.md, pr_dep_update.md, pr_release.md: All contain identical sections
+  - All templates verify linking requirement in DoD checklist: "linked issues closed"
+- **Effort:** 0 hours (already implemented)
 - **Dependencies:** None (can run parallel)
-- **Next Steps:** Begin implementation
 
 ---
 
