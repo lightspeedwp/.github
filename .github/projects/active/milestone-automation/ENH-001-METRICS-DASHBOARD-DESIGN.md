@@ -144,10 +144,10 @@ A metrics dashboard to track milestone distribution workflow performance, health
 
 ```
 Milestone Distribution (Last 30 Days)
-├─ v1.1: 245 issues (52%)
-├─ v2.0: 180 issues (38%)
+├─ v1.1: 245 issues (53%)
+├─ v2.0: 180 issues (39%)
 ├─ v1.0: 25 issues (5%)
-└─ Backlog: 10 issues (2%)
+└─ Backlog: 10 issues (3%)
 ```
 
 **Metrics per Milestone:**

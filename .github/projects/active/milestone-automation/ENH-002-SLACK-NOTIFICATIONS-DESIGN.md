@@ -396,13 +396,19 @@ curl -X POST $SLACK_WEBHOOK \
 **1. View Run Button**
 ```json
 {
-  "type": "button",
-  "text": {
-    "type": "plain_text",
-    "text": "View Run Logs"
-  },
-  "url": "https://github.com/lightspeedwp/.github/actions/runs/33650372958",
-  "style": "primary"
+  "type": "actions",
+  "elements": [
+    {
+      "type": "button",
+      "text": {
+        "type": "plain_text",
+        "text": "View Run Logs"
+      },
+      "url": "https://github.com/lightspeedwp/.github/actions/runs/33650372958",
+      "action_id": "view_run_logs",
+      "style": "primary"
+    }
+  ]
 }
 ```
 
