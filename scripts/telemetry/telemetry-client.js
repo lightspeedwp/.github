@@ -298,13 +298,7 @@ class TelemetryClient {
       const line = JSON.stringify(event) + "\n";
       fs.appendFileSync(filepath, line, "utf8");
     } catch (error) {
-      // Protect custom error-handler invocation with a non-throwing internal reporter
-      try {
-        this.errorHandler(error, { event, backend: "file" });
-      } catch (handlerError) {
-        // Silently ignore handler errors - telemetry should never throw
-        this.defaultErrorHandler(handlerError, { event, backend: "file" });
-      }
+      throw error;
     }
   }
 
@@ -315,8 +309,7 @@ class TelemetryClient {
    */
   sendToAnalytics(_event) {
     // Analytics backend not yet implemented
-    // Return a non-throwing failure result
-    return false;
+    throw new Error("Analytics backend is not implemented");
   }
 
   /**

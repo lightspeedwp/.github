@@ -389,9 +389,21 @@ describe("TelemetryClient", () => {
         safe: { key: "value" },
       });
 
-      // Should still return true but log error
-      expect(result).toBe(true);
-      expect(client.stats.errors).toBeGreaterThan(0);
+      // Application callers receive a non-throwing failure result.
+      expect(result).toBe(false);
+      expect(client.stats.errors).toBe(1);
+    });
+  });
+
+  describe("Backend - Analytics", () => {
+    it("should return a non-throwing failure when unavailable", () => {
+      client = new TelemetryClient({
+        backend: BackendType.ANALYTICS,
+      });
+
+      expect(client.emit("test.event", { safe: {} })).toBe(false);
+      expect(client.stats.totalEvents).toBe(0);
+      expect(client.stats.errors).toBe(1);
     });
   });
 
