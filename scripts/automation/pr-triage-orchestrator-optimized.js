@@ -19,7 +19,6 @@
 import { Octokit } from "octokit";
 import fs from "fs";
 import { ResponseCache } from "./includes/response-cache.js";
-import { BatchOperations } from "./includes/batch-operations.js";
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -28,14 +27,9 @@ const octokit = new Octokit({
 const OWNER = "lightspeedwp";
 const REPO = ".github";
 
-// Initialize caching and batch operations
+// Initialize caching
 const cache = new ResponseCache({
   ttl: 5 * 60 * 1000, // 5 minutes for query caching
-});
-
-const batcher = new BatchOperations({
-  concurrency: 5,
-  verbose: false,
 });
 
 // Parse command-line arguments

@@ -1,9 +1,14 @@
 ---
-file_type: planning
 title: Milestone Automation — Phase 2 Planning
 description: Detailed planning document for Phase 2 operational readiness and enhancements
-created_date: 2026-08-30
-last_updated: 2026-08-30
+type: guide
+status: approved
+version: "1.0.0"
+owner: lightspeedwp/maintainers
+tags:
+  - automation
+  - phase-2
+  - planning
 ---
 
 # Phase 2 Planning — Milestone Automation
