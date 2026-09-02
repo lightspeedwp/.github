@@ -41,6 +41,50 @@ jest.mock("../../metrics/anomaly-detector.cjs", () => ({
   })),
 }));
 
+jest.mock("../../telemetry/telemetry-client.js", () => ({
+  createTelemetryClient: jest.fn().mockReturnValue({
+    emit: jest.fn(),
+  }),
+}));
+
+jest.mock("../../telemetry/event-schemas.js", () => ({
+  EVENT_SCHEMAS: {
+    "metrics.collection.started": {
+      eventName: "metrics.collection.started",
+      safe: {
+        component: "string",
+        trigger: "string",
+      },
+      restricted: {
+        repositoryCount: "number",
+      },
+    },
+    "metrics.collection.completed": {
+      eventName: "metrics.collection.completed",
+      safe: {
+        component: "string",
+        duration: "number",
+        repositoriesProcessed: "number",
+      },
+      restricted: {
+        successCount: "number",
+        failureCount: "number",
+      },
+    },
+    "metrics.repository.collection.failed": {
+      eventName: "metrics.repository.collection.failed",
+      safe: {
+        component: "string",
+        trigger: "string",
+      },
+      restricted: {
+        repositoryName: "string",
+        errorMessage: "string",
+      },
+    },
+  },
+}));
+
 const {
   MetricsCollectionOrchestrator,
 } = require("../metrics-collection-orchestrator.cjs");

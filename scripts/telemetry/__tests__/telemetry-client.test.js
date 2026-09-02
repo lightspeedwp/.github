@@ -379,8 +379,11 @@ describe("TelemetryClient", () => {
     });
 
     it("should handle file write errors gracefully", () => {
-      // Use invalid path to trigger error
-      client.outputPath = "/invalid/path/that/does/not/exist";
+      // Create a file at tempDir path to make mkdir fail deterministically
+      const filePath = path.join(tempDir, "blocking-file");
+      fs.writeFileSync(filePath, "blocking content");
+      // Set outputPath to the file path so mkdir fails when trying to create it
+      client.outputPath = filePath;
 
       const result = client.emit("test.event", {
         safe: { key: "value" },

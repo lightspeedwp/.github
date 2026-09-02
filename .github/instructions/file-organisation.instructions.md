@@ -104,12 +104,15 @@ projects, or plugin bundles.
 | Badge generation scripts | `scripts/badges/` | ❌ `.github/scripts/badges/` |
 | Workflow orchestration scripts | `scripts/workflows/` | ❌ `.github/scripts/workflows/` |
 | **ONLY EXCEPTION:** Website browser scripts | `.github/website/src/scripts/` | ✅ Correct location for browser-specific code |
+| **GitHub-native agentic workflows** | `.github/agentic-workflows/` | ✅ Agent specs that manage repository governance (e.g., release.agent.js) |
 
 **Rules:**
 
 - `.github/` is for GitHub-native governance files only (templates, workflows, configs)
 - All executable scripts belong in `scripts/` with appropriate subfolders
-- The ONLY exception is `.github/website/src/scripts/` for website browser code
+- **Exceptions:**
+  - `.github/website/src/scripts/` for website browser code
+  - `.github/agentic-workflows/` for agent specs that manage repository governance (e.g., release.agent.js)
 - When in doubt, check existing script locations in `scripts/` directory
 - Never create new scripts under `.github/scripts/` - this path should not exist
 

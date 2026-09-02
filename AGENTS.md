@@ -68,9 +68,10 @@ references:
 ❌ .github/scripts/           - DO NOT CREATE - Reserved for GitHub governance only
 ```
 
-### The ONLY Exception
+### The ONLY Exceptions
 
-`.github/website/src/scripts/` - Website browser-specific JavaScript that runs client-side
+- `.github/website/src/scripts/` - Website browser-specific JavaScript that runs client-side
+- `.github/agentic-workflows/` - Agent specifications for repository governance automation
 
 ### Why This Matters
 
@@ -85,8 +86,9 @@ When creating any new script:
 
 1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
 2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
-3. **Never use `.github/scripts/`** - This directory should not exist for new work
-4. **Update imports**: Ensure all imports use correct paths from `scripts/`
+3. **Known exceptions**: `.github/website/src/scripts/` (browser), `.github/agentic-workflows/` (repo governance agents)
+4. **Never use `.github/scripts/`** - This directory should not exist for new work
+5. **Update imports**: Ensure all imports use correct paths from `scripts/`
 
 ### Quick Reference
 
