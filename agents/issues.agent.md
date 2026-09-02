@@ -232,11 +232,98 @@ Issue Triaged & Ready for Development
 
 See [Agentic Workflow Design](/.github/projects/active/issue-management-audit-polish-2026-08-27/04-AGENTIC-WORKFLOW-DESIGN.md) for complete workflow specification.
 
+## Milestone Management Integration
+
+This agent works in conjunction with **milestone allocation scripts** to organize issues across release cycles:
+
+### Available Milestone Management Scripts
+
+1. **`scripts/automation/reassign-v1-to-v1-1.js`**
+   - Bulk migrates open issues from milestone v1.0 → v1.1
+   - Use when retiring a completed milestone
+   - **Usage**: `node scripts/automation/reassign-v1-to-v1-1.js --dry-run --verbose`
+   - **Features**: Dry-run mode, detailed logging, error tracking
+
+2. **`scripts/automation/distribute-unallocated-milestones.js`**
+   - Intelligently distributes unallocated issues across v1.1–v1.6
+   - Uses AI-powered categorization (Claude API) or local label-based analysis
+   - Groups related issues in same milestone for cohesive releases
+   - **Usage**: `node scripts/automation/distribute-unallocated-milestones.js --dry-run`
+   - **Features**: AI categorization, round-robin distribution, local fallback analysis
+
+### Automated Milestone Distribution Workflow
+
+The `milestone-distribution.yml` GitHub Actions workflow:
+
+- **Scheduled**: Runs every Monday at 9 AM UTC (configurable)
+- **Manual Trigger**: Can be run on-demand via `workflow_dispatch`
+- **Jobs**:
+  - `distribute-milestones`: Allocates unallocated issues to v1.1–v1.6
+  - `reassign-v1-to-v1-1`: Migrates v1.0 → v1.1 (manual trigger only)
+- **Environment**: Requires `GITHUB_TOKEN` (required), `ANTHROPIC_API_KEY` (optional for AI)
+
+### Workflow in Action
+
+**Step 1: Issues Created/Updated**
+
+- This agent processes new/updated issues
+- Applies type, status, priority labels
+- Enriches with acceptance criteria
+
+**Step 2: Scheduled Milestone Distribution**
+
+- Weekly automation job runs Monday 9 AM UTC
+- Identifies unallocated issues
+- Categorizes by AI or local analysis
+- Distributes across v1.1–v1.6 milestones
+- Related issues grouped together
+
+**Step 3: Release Tracking**
+
+- Milestones organize issues by release
+- Issue labels + milestone metadata drive changelog
+- Team monitors milestone progress via project boards
+
+### Milestone Assignment Logic
+
+**Distribution Categories** (if AI enabled):
+
+- Bug Fixes → Grouped in same milestone
+- Features & Enhancements → Grouped in same milestone
+- Documentation & Examples → Grouped in same milestone
+- Testing & Quality → Grouped in same milestone
+- Infrastructure & Tooling → Grouped in same milestone
+
+**Local Analysis Categories** (fallback):
+
+- Labels: `bug`, `documentation`, `test`, `ci`, `chore`, `infrastructure`
+- Title keywords: `fix`, `broken`, `doc`, `example`, `test`, `setup`, `config`
+- Default: Features & Enhancements
+
+### Manual Milestone Operations
+
+Trigger manually via GitHub Actions:
+
+```bash
+# Redistribute unallocated issues (manually)
+gh workflow run milestone-distribution.yml -f job=distribute-milestones
+
+# Migrate v1.0 → v1.1 (manually, rare)
+gh workflow run milestone-distribution.yml -f job=reassign-v1-to-v1-1
+```
+
+### Documentation
+
+- **Quick Start**: `scripts/automation/MILESTONE-QUICK-START.md`
+- **Full Guide**: `scripts/automation/MILESTONE-MANAGEMENT-README.md`
+- **Examples**: `scripts/automation/examples-milestone-usage.js`
+
 ## Integration Points
 
 - **Agentic Orchestration Workflow**: Core participant in unified workflow
 - **Labeling Workflow**: Syncs with unified labeling agent
 - **Project Board Sync**: Enables automated project field mapping
+- **Milestone Automation**: Triggers issue distribution across release cycles
 - **PR Linking**: Correlates issues with related PRs
 - **Metrics**: Feeds issue data to reporting systems
 - **Release Automation**: Type and label metadata drives changelog generation

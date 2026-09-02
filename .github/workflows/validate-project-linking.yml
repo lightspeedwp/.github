@@ -41,8 +41,8 @@ jobs:
 
               # Check if project has a README.md
               if [ -f "$project_dir/README.md" ]; then
-                # Check for "Related Issues" section
-                if grep -q "## Related Issues" "$project_dir/README.md"; then
+                # Check for "Related Issues" section (accept emoji-prefixed headers like "## 🔗 Related Issues")
+                if grep -qE "^## +[^#]*Related Issues" "$project_dir/README.md"; then
                   projects_with_links=$((projects_with_links + 1))
                   echo "✅ $project_name has Related Issues section"
                 else

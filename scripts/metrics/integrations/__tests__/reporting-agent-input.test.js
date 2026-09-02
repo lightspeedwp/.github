@@ -293,4 +293,96 @@ describe("MetricsReportFormatter", () => {
       expect(recommendations[0]).toHaveProperty("expectedOutcome");
     });
   });
+
+  describe("Phase 4.3 - API Stability & Edge Cases", () => {
+    test("handles high-volume repository and commit input", () => {
+      const repositories = Array.from({ length: 1000 }, (_, index) => ({
+        owner: "lightspeedwp",
+        name: `repo-${index + 1}`,
+        metrics: {
+          issues: { total: 1 },
+          pullRequests: { total: 1 },
+          contributors: {
+            active: 1,
+            topContributors: [{ name: `dev-${index + 1}`, commits: 10 }],
+          },
+          codeQuality: { testCoverage: 0.9 },
+        },
+      }));
+
+      const rawMetrics = {
+        timestamp: "2026-08-29T00:00:00Z",
+        repositories,
+        healthScore: { overall: 80, trend: "stable", components: {} },
+        recommendations: [{ action: "Prioritize triage" }],
+      };
+
+      const startTime = Date.now();
+      const report = formatter.generateWeeklyReport(rawMetrics);
+      const durationMs = Date.now() - startTime;
+
+      expect(report.repositorySummary.totalRepositories).toBe(1000);
+      expect(report.repositorySummary.totalCommits).toBe(10000);
+      expect(durationMs).toBeLessThan(1000);
+    });
+
+    test("handles archived and inaccessible repositories safely", () => {
+      const rawMetrics = {
+        timestamp: "2026-08-29T00:00:00Z",
+        repositories: [
+          { name: "archived-repo", archived: true, metrics: {} },
+          { name: "private-repo", permissionDenied: true, metrics: {} },
+          {
+            name: "active-repo",
+            metrics: {
+              issues: { total: 9 },
+              pullRequests: { total: 4 },
+              contributors: { active: 2, totalCommits: 120 },
+              codeQuality: { testCoverage: 0.85 },
+            },
+          },
+        ],
+      };
+
+      const report = formatter.generateWeeklyReport(rawMetrics);
+
+      expect(report.repositorySummary.archivedRepositories).toBe(1);
+      expect(report.repositorySummary.inaccessibleRepositories).toBe(1);
+      expect(report.repositorySummary.processedRepositories).toBe(1);
+      expect(report.metrics.issues.total).toBe(9);
+    });
+
+    test("summarizes network, auth, and rate-limit failures", () => {
+      const rawMetrics = {
+        timestamp: "2026-08-29T00:00:00Z",
+        repositories: [],
+        errors: [
+          { status: 429, message: "rate limit exceeded" },
+          { code: "ENOTFOUND", message: "dns lookup failed" },
+          { status: 403, message: "forbidden" },
+          { status: 401, message: "unauthorized" },
+        ],
+      };
+
+      const report = formatter.generateWeeklyReport(rawMetrics);
+
+      expect(report.failureSummary.total).toBe(4);
+      expect(report.failureSummary.byType.rate_limit).toBe(1);
+      expect(report.failureSummary.byType.network).toBe(1);
+      expect(report.failureSummary.byType.permissions).toBe(2);
+      expect(report.failureSummary.retryable).toBe(2);
+    });
+
+    test("gracefully handles null input and malformed recommendations", () => {
+      const report = formatter.generateWeeklyReport({
+        recommendations: [{ priority: "high", action: null }],
+      });
+
+      expect(report.type).toBe("metrics-report");
+      expect(report.metrics).toEqual({});
+      expect(report.recommendations[0].action).toBe("Improve metric hygiene");
+      expect(report.nextSteps[0]).toContain("Improve metric hygiene");
+      expect(report.timestamp).toBeDefined();
+    });
+  });
 });

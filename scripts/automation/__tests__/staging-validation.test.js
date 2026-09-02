@@ -1,3 +1,13 @@
+const fs = require("fs");
+const {
+  validateAuditAccuracy,
+  validatePerformance,
+  validateErrorHandling,
+  validateReportGeneration,
+  validateDataIntegrity,
+  runAllTasks,
+} = require("../staging-validation.js");
+
 // Import validation functions from production module helpers
 const {
   validateAudit,
@@ -8,6 +18,63 @@ const {
   parseArguments,
   executeAllValidations,
 } = require("../staging-validation-helpers.js");
+
+jest.mock("fs");
+jest.mock("console", () => ({
+  log: jest.fn(),
+  error: jest.fn(),
+}));
+
+describe("staging-validation (production module)", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    fs.mkdirSync.mockResolvedValue(undefined);
+    fs.writeFileSync.mockResolvedValue(undefined);
+  });
+
+  describe("production module exports", () => {
+    it("exports validateAuditAccuracy function", () => {
+      expect(typeof validateAuditAccuracy).toBe("function");
+    });
+
+    it("exports validatePerformance function", () => {
+      expect(typeof validatePerformance).toBe("function");
+    });
+
+    it("exports validateErrorHandling function", () => {
+      expect(typeof validateErrorHandling).toBe("function");
+    });
+
+    it("exports validateReportGeneration function", () => {
+      expect(typeof validateReportGeneration).toBe("function");
+    });
+
+    it("exports validateDataIntegrity function", () => {
+      expect(typeof validateDataIntegrity).toBe("function");
+    });
+
+    it("exports runAllTasks function", () => {
+      expect(typeof runAllTasks).toBe("function");
+    });
+  });
+
+  describe("production module integration", () => {
+    it("runAllTasks returns a promise", () => {
+      const result = runAllTasks();
+      expect(result instanceof Promise).toBe(true);
+    });
+
+    it("validateAuditAccuracy is callable", async () => {
+      const result = validateAuditAccuracy({});
+      expect(result instanceof Promise).toBe(true);
+    });
+
+    it("validatePerformance is callable", async () => {
+      const result = validatePerformance({});
+      expect(result instanceof Promise).toBe(true);
+    });
+  });
+});
 
 describe("staging-validation", () => {
   describe("validateAudit", () => {

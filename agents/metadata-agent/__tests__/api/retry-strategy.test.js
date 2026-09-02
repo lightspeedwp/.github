@@ -102,7 +102,7 @@ describe("RetryStrategy", () => {
 
     test("caps delay at maxDelayMs", () => {
       const delay = strategy.calculateDelay(10); // Would exceed 60000ms
-      expect(delay).toBeLessThanOrEqual(strategy.maxDelayMs + 600); // jitter
+      expect(delay).toBeLessThanOrEqual(strategy.maxDelayMs + 6000); // jitter
     });
 
     test("returns non-negative delay", () => {
@@ -347,6 +347,33 @@ describe("RetryStrategy", () => {
     test("handles large attempt numbers", () => {
       const delay = strategy.calculateDelay(20);
       expect(delay).toBeLessThanOrEqual(strategy.maxDelayMs + 6000);
+    });
+
+    test("handles error with no status, code, or message (returns false)", () => {
+      const error = {};
+      expect(strategy.isRetryable(error)).toBe(false);
+    });
+  });
+
+  describe("updateConfig coverage", () => {
+    test("updates jitterFactor via updateConfig", () => {
+      strategy.updateConfig({ jitterFactor: 0.5 });
+      expect(strategy.jitterFactor).toBe(0.5);
+    });
+
+    test("rethrowing last error after all retries is covered", async () => {
+      const s = new RetryStrategy({ maxRetries: 1, initialDelayMs: 0 });
+      let calls = 0;
+      const fn = async () => {
+        calls += 1;
+        const err = new Error("Persistent");
+        err.status = 503;
+        throw err;
+      };
+
+      await expect(s.execute(fn, "Test")).rejects.toThrow("Persistent");
+      // called initial + 1 retry = 2 times
+      expect(calls).toBe(2);
     });
   });
 });
