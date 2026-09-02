@@ -66,7 +66,7 @@ function parseFrontmatter(content) {
   if (!match) return null;
   try {
     return YAML.load(match[1]);
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -76,7 +76,7 @@ function isValidDate(dateStr) {
   return /^\d{4}-\d{2}-\d{2}$/.test(dateStr);
 }
 
-function validateFrontmatter(frontmatter, specFile) {
+function validateFrontmatter(frontmatter) {
   const issues = [];
   const required = [
     "name",
@@ -259,7 +259,7 @@ for (const file of fixtureFiles) {
     if (frontmatter !== null) {
       parsedCount++;
     }
-  } catch (e) {
+  } catch {
     errors++;
   }
 }

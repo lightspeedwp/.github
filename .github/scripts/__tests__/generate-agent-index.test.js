@@ -62,18 +62,6 @@ function assertTrue(condition, message) {
   }
 }
 
-function assertArrayIncludes(array, value, message) {
-  if (array.includes(value)) {
-    testsPassed++;
-    console.log(`${GREEN}✅ PASS${NC}`);
-  } else {
-    testsFailed++;
-    console.log(`${RED}❌ FAIL: ${message}${NC}`);
-    console.log(`  Expected to include: ${value}`);
-    console.log(`  Actual array: ${array.join(", ")}`);
-  }
-}
-
 // Helper functions (from generate-agent-index.js)
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -81,7 +69,7 @@ function parseFrontmatter(content) {
 
   try {
     return YAML.load(match[1]);
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -116,7 +104,7 @@ function parseAgentSpec(filePath) {
       author: frontmatter.author || "Unknown",
       language: frontmatter.language || "en",
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
