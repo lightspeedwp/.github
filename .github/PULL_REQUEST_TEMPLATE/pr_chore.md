@@ -1,8 +1,9 @@
 ---
-name: "Chore PR"
-about: "Repo hygiene: configs, scripts, formatting — no behaviour change"
+file_type: pr-template
 title: "chore: {scope}"
-labels: ["status:needs-review", "priority:normal"]
+name: "Chore"
+description: "Repo hygiene: configs, scripts, formatting — no behaviour change"
+labels: ["type:chore", "status:needs-review"]
 ---
 
 # Chore Pull Request
