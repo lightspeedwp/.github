@@ -16,7 +16,6 @@ import url from "url";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "../../../");
-const AGENTS_DIR = path.join(PROJECT_ROOT, "agents");
 const TEMPLATE_PATH = path.join(
   PROJECT_ROOT,
   "scripts/templates/agent.template.md",

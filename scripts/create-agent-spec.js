@@ -14,9 +14,6 @@
 import fs from "fs";
 import path from "path";
 import url from "url";
-import { createReadStream, createWriteStream } from "fs";
-import { pipeline } from "stream/promises";
-import { Transform } from "stream";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -405,28 +402,6 @@ function writeSpecFile(details, content) {
 }
 
 /**
- * Validate generated spec using the validation script
- */
-async function validateGeneratedSpec(specPath) {
-  const { execSync } = await import("child_process");
-
-  try {
-    execSync(
-      `node ${path.join(__dirname, "validate-agent-specs.js")} "${specPath}"`,
-      {
-        stdio: "pipe",
-      },
-    );
-    return { valid: true };
-  } catch (error) {
-    return {
-      valid: false,
-      error: error.message,
-    };
-  }
-}
-
-/**
  * Create directory structure for implementation
  */
 function createImplementationDirectory(details) {
@@ -524,7 +499,7 @@ async function processBatchFile(batchFilePath) {
 
     try {
       const content = generateSpecContent(details);
-      const specPath = writeSpecFile(details, content);
+      writeSpecFile(details, content);
       createImplementationDirectory(details);
 
       console.log(`✅ Created: ${details.agentName}`);
