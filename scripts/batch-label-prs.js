@@ -9,7 +9,6 @@
 import fs from "fs";
 import { load } from "js-yaml";
 import github from "@actions/github";
-import core from "@actions/core";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const OWNER = "lightspeedwp";
