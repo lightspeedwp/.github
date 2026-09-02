@@ -119,6 +119,8 @@ agents/{agent-name}.agent.md
 
 ```mermaid
 graph TB
+  accTitle: Agent Specification Architecture
+  accDescr: Flowchart diagram showing agent specification architecture
     subgraph "📝 Agent Specification"
         A[YAML Frontmatter]
         B[Purpose & Overview]
@@ -191,6 +193,8 @@ Create a new agent when:
 
 ```mermaid
 flowchart TD
+  accTitle: Mermaid: Should You Create a New Agent?
+  accDescr: Flowchart diagram showing mermaid: should you create a new agent?
     A([New Workflow Identified]) --> B{Is it deterministic?}
     B -->|No| N1[Do NOT create agent]
     B -->|Yes| C{Is there an existing agent<br/>that covers this scope?}
@@ -222,6 +226,8 @@ Before drafting a spec:
 
 ```mermaid
 flowchart LR
+  accTitle: Mermaid: Pre-Creation Review Path
+  accDescr: Flowchart diagram showing mermaid: pre-creation review path
     Start([Start]) --> Check1[Define Problem]
     Check1 --> Check2[Assess Overlap]
     Check2 --> Check3[Define Tools + Permissions]
@@ -310,6 +316,8 @@ Frontmatter `owners:` must map to a team or individual who is responsible for:
 
 ```mermaid
 flowchart TD
+  accTitle: Mermaid: Approval Workflow
+  accDescr: Flowchart diagram showing mermaid: approval workflow
     A([Spec Drafted]) --> B[Frontmatter Validation]
     B --> C[Add to Agent Index]
     C --> D[Maintainer Review]
@@ -353,6 +361,8 @@ Frontmatter is **machine-validated**. Errors break CI.
 
 ```mermaid
 mindmap
+  accTitle: Mermaid: Frontmatter Scope Map
+  accDescr: Mind map showing mermaid: frontmatter scope map
   root((Frontmatter))
     Required
       file_type
@@ -403,6 +413,8 @@ mindmap
 
 ```mermaid
 sequenceDiagram
+  accTitle: Mermaid: Full Publishing Pipeline
+  accDescr: Sequence diagram showing mermaid: full publishing pipeline
     participant H as Human Author
     participant CI as CI Validation
     participant Git as GitHub Repo
@@ -474,6 +486,8 @@ To avoid premature complexity, agents evolve through stages:
 
 ```mermaid
 flowchart LR
+  accTitle: 10. Agent Lifecycle Maturity Model
+  accDescr: Flowchart diagram showing 10. agent lifecycle maturity model
     Draft --> Prototype --> Active --> Mature --> Deprecated
 ```
 
@@ -522,6 +536,8 @@ Example patterns:
 
 ```mermaid
 flowchart TD
+  accTitle: Mermaid: Handoff Example
+  accDescr: Flowchart diagram showing mermaid: handoff example
     A[Labeling Agent] --> B{Conditions Met?}
     B -->|Yes| C[Reviewer Agent]
     B -->|No| D[No Handoff]

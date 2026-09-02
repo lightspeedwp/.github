@@ -84,6 +84,10 @@
   color: 0E8A16
   description: "Completed"
 
+- name: status:needs-audit
+  color: 7E6007
+  description: "Audit needed (security/compliance/quality)"
+
 # --- Priority ---
 
 - name: priority:critical
@@ -421,6 +425,42 @@
 - name: area:integration
   color: D93F0B
   description: "3rd-party integrations / ecosystem"
+
+- name: area:automation
+  color: 0F448A
+  description: "Automation and scripting"
+
+- name: area:testing
+  color: 4D1A93
+  description: "Testing and QA"
+
+- name: area:performance
+  color: 7E6007
+  description: "Performance optimization"
+
+- name: area:a11y
+  color: 4D1A93
+  description: "Accessibility (WCAG compliance)"
+
+- name: area:security
+  color: 810E18
+  description: "Security concerns and fixes"
+
+- name: area:compatibility
+  color: 883D07
+  description: "Compatibility issues"
+
+- name: area:release
+  color: 1D7232
+  description: "Release management"
+
+- name: area:maintenance
+  color: 4E575F
+  description: "Maintenance and housekeeping"
+
+- name: area:ai
+  color: 0F448A
+  description: "AI operations and AI-related work"
 
 # --- Components (comp:*) ---
 

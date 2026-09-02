@@ -6,6 +6,8 @@
  * and formats metrics appropriately for each.
  */
 
+const DEFAULT_RECOMMENDATION_ACTION = "Improve metric hygiene";
+
 class MetricsReportFormatter {
   constructor(options = {}) {
     this.metricsDir = options.metricsDir || ".github/reports/metrics";
@@ -34,34 +36,37 @@ class MetricsReportFormatter {
    * @returns {Object} Weekly report object
    */
   generateWeeklyReport(rawMetrics) {
-    const healthScore = rawMetrics.healthScore || {};
-    const startDate = new Date(rawMetrics.timestamp);
+    const safeMetrics = this.normaliseRawMetrics(rawMetrics);
+    const healthScore = safeMetrics.healthScore;
+    const startDate = new Date(safeMetrics.timestamp);
     startDate.setDate(startDate.getDate() - 7);
 
     return {
       type: "metrics-report",
       reportType: "weekly",
-      timestamp: rawMetrics.timestamp,
+      timestamp: safeMetrics.timestamp,
       period: {
         start: startDate.toISOString(),
-        end: rawMetrics.timestamp,
-        label: `Week of ${this.formatDate(startDate)} - ${this.formatDate(new Date(rawMetrics.timestamp))}`,
+        end: safeMetrics.timestamp,
+        label: `Week of ${this.formatDate(startDate)} - ${this.formatDate(new Date(safeMetrics.timestamp))}`,
       },
       executive_summary: {
         healthScore: healthScore.overall || 0,
         trend: healthScore.trend || "unknown",
         status: this.getHealthStatus(healthScore.overall),
-        topPriority: this.getTopPriority(rawMetrics),
+        topPriority: this.getTopPriority(safeMetrics),
       },
-      metrics: this.formatMetricsSection(rawMetrics),
-      trends: this.formatTrendsSection(rawMetrics),
-      anomalies: this.formatAnomaliesSection(rawMetrics),
-      insights: this.formatInsightsSection(rawMetrics),
-      recommendations: this.formatRecommendationsSection(rawMetrics),
+      repositorySummary: this.formatRepositorySummary(safeMetrics.repositories),
+      failureSummary: this.formatFailureSummary(safeMetrics.errors),
+      metrics: this.formatMetricsSection(safeMetrics),
+      trends: this.formatTrendsSection(safeMetrics),
+      anomalies: this.formatAnomaliesSection(safeMetrics),
+      insights: this.formatInsightsSection(safeMetrics),
+      recommendations: this.formatRecommendationsSection(safeMetrics),
       health_components: this.formatHealthComponentsSection(
         healthScore.components || {},
       ),
-      nextSteps: this.generateNextSteps(rawMetrics),
+      nextSteps: this.generateNextSteps(safeMetrics),
       reportLinks: {
         fullReport: this.generateReportLink("weekly-summary-latest.md"),
         previousWeek: this.generateReportLink(
@@ -117,11 +122,12 @@ class MetricsReportFormatter {
    * @returns {Object} Formatted metrics
    */
   formatMetricsSection(rawMetrics) {
-    if (!rawMetrics.repositories || !rawMetrics.repositories[0]) {
+    const repo = this.getPrimaryRepository(rawMetrics.repositories);
+
+    if (!repo) {
       return {};
     }
 
-    const repo = rawMetrics.repositories[0];
     const metrics = repo.metrics || {};
 
     return {
@@ -269,14 +275,18 @@ class MetricsReportFormatter {
    * @returns {Array} Formatted recommendations
    */
   formatRecommendationsSection(rawMetrics) {
-    return (rawMetrics.recommendations || []).map((rec) => ({
-      priority: rec.priority,
-      action: rec.action,
-      effort: rec.effort,
-      owner: rec.owner,
-      timeframe: rec.timeframe,
-      expectedOutcome: `Improve ${rec.action.toLowerCase()}`,
-    }));
+    return (rawMetrics.recommendations || []).map((rec) => {
+      const action = this.normaliseRecommendationAction(rec);
+
+      return {
+        priority: rec.priority,
+        action,
+        effort: rec.effort,
+        owner: rec.owner,
+        timeframe: rec.timeframe,
+        expectedOutcome: `Improve ${action.toLowerCase()}`,
+      };
+    });
   }
 
   /**
@@ -317,15 +327,178 @@ class MetricsReportFormatter {
 
     if (rawMetrics.recommendations) {
       rawMetrics.recommendations.slice(0, 3).forEach((rec, index) => {
+        const action = this.normaliseRecommendationAction(rec);
         const dueDate = new Date(friday);
         dueDate.setDate(dueDate.getDate() + index);
-        steps.push(
-          `${rec.action} (due: ${dueDate.toISOString().split("T")[0]})`,
-        );
+        steps.push(`${action} (due: ${dueDate.toISOString().split("T")[0]})`);
       });
     }
 
     return steps;
+  }
+
+  /**
+   * Normalise raw metrics input to avoid runtime failures
+   * @param {Object|null|undefined} rawMetrics - Raw metrics
+   * @returns {Object} Safe metrics object
+   */
+  normaliseRawMetrics(rawMetrics) {
+    const safeMetrics =
+      rawMetrics && typeof rawMetrics === "object" ? rawMetrics : {};
+
+    const timestamp =
+      typeof safeMetrics.timestamp === "string" &&
+      !Number.isNaN(Date.parse(safeMetrics.timestamp))
+        ? safeMetrics.timestamp
+        : new Date().toISOString();
+
+    return {
+      ...safeMetrics,
+      timestamp,
+      repositories: Array.isArray(safeMetrics.repositories)
+        ? safeMetrics.repositories
+        : [],
+      anomalies: Array.isArray(safeMetrics.anomalies)
+        ? safeMetrics.anomalies
+        : [],
+      insights: Array.isArray(safeMetrics.insights) ? safeMetrics.insights : [],
+      recommendations: Array.isArray(safeMetrics.recommendations)
+        ? safeMetrics.recommendations
+        : [],
+      errors: Array.isArray(safeMetrics.errors) ? safeMetrics.errors : [],
+      healthScore:
+        safeMetrics.healthScore && typeof safeMetrics.healthScore === "object"
+          ? safeMetrics.healthScore
+          : {},
+    };
+  }
+
+  /**
+   * Pick the best repository candidate for detailed metrics output
+   * @param {Array<Object>} repositories - Repository list
+   * @returns {Object|null} Primary repository or null
+   */
+  getPrimaryRepository(repositories) {
+    if (!Array.isArray(repositories) || repositories.length === 0) {
+      return null;
+    }
+
+    return (
+      repositories.find(
+        (repo) => repo.metrics && !repo.archived && !repo.permissionDenied,
+      ) ||
+      repositories.find((repo) => repo.metrics) ||
+      null
+    );
+  }
+
+  /**
+   * Generate repository-level processing summary
+   * @param {Array<Object>} repositories - Repository list
+   * @returns {Object} Summary counts
+   */
+  formatRepositorySummary(repositories) {
+    const repoList = Array.isArray(repositories) ? repositories : [];
+    const summary = repoList.reduce(
+      (accumulator, repo) => {
+        if (repo.archived) {
+          accumulator.archivedRepositories += 1;
+        }
+
+        if (repo.permissionDenied || repo.access === "denied") {
+          accumulator.inaccessibleRepositories += 1;
+        }
+
+        if (repo.metrics && !repo.permissionDenied && !repo.archived) {
+          accumulator.processedRepositories += 1;
+        }
+
+        const explicitTotal = repo.metrics?.contributors?.totalCommits;
+        if (typeof explicitTotal === "number") {
+          accumulator.totalCommits += explicitTotal;
+          return accumulator;
+        }
+
+        const topContributors = repo.metrics?.contributors?.topContributors;
+        if (Array.isArray(topContributors)) {
+          accumulator.totalCommits += topContributors.reduce(
+            (sum, contributor) => sum + (contributor.commits || 0),
+            0,
+          );
+        }
+
+        return accumulator;
+      },
+      {
+        archivedRepositories: 0,
+        inaccessibleRepositories: 0,
+        processedRepositories: 0,
+        totalCommits: 0,
+      },
+    );
+
+    return {
+      totalRepositories: repoList.length,
+      ...summary,
+    };
+  }
+
+  /**
+   * Summarise known API failures captured upstream
+   * @param {Array<Object>} errors - Error events
+   * @returns {Object} Failure summary
+   */
+  formatFailureSummary(errors) {
+    const safeErrors = Array.isArray(errors) ? errors : [];
+    const byType = {
+      network: 0,
+      rate_limit: 0,
+      permissions: 0,
+      not_found: 0,
+      unknown: 0,
+    };
+
+    safeErrors.forEach((error) => {
+      if (error.status === 429) {
+        byType.rate_limit += 1;
+        return;
+      }
+
+      if (error.status === 401 || error.status === 403) {
+        byType.permissions += 1;
+        return;
+      }
+
+      if (error.status === 404) {
+        byType.not_found += 1;
+        return;
+      }
+
+      if (["ENOTFOUND", "ETIMEDOUT", "ECONNRESET"].includes(error.code)) {
+        byType.network += 1;
+        return;
+      }
+
+      byType.unknown += 1;
+    });
+
+    return {
+      total: safeErrors.length,
+      byType,
+      retryable: byType.network + byType.rate_limit,
+    };
+  }
+
+  /**
+   * Normalise recommendation action text
+   * @param {Object} recommendation - Recommendation object
+   * @returns {string} Safe action text
+   */
+  normaliseRecommendationAction(recommendation) {
+    return typeof recommendation?.action === "string" &&
+      recommendation.action.length > 0
+      ? recommendation.action
+      : DEFAULT_RECOMMENDATION_ACTION;
   }
 
   /**
