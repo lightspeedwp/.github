@@ -98,7 +98,22 @@ For all repos (client, product, infra, etc.), use:
 - `qa/` — test harnesses, UAT scaffolding
 - `uat/` — UAT-only changes or staging toggles
 
-### 3.4 Examples
+### 3.4 Governance & Audit Prefixes (optional)
+
+- `audit/` — audit, compliance, security reviews
+- `codex/` — code generation, AI-assisted tooling
+
+### 3.5 Forbidden Prefixes
+
+**These prefixes are NEVER allowed:**
+
+- ❌ `claude/` — Reserved for Claude Code internal sessions
+- ❌ `copilot/` — Reserved for GitHub Copilot integration
+- ❌ `openai/` — Reserved for OpenAI integration
+
+**Why?** These break PR template assignment, GitHub Actions workflows, and validation automation that depends on branch prefixes.
+
+### 3.6 Examples
 
 ```text
 feat/product-grid-quick-add
@@ -123,31 +138,91 @@ hotfix/ga4-purchase-duplicate
 
 Use a single regex in a workflow to enforce naming discipline:
 
+**Strict Pattern (LightSpeed standard):**
+
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-z0-9._-]+$
+^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$
 ```
 
-Example workflow (`.github/workflows/validate-branch-name.yml`):
+**Pattern explanation:**
+
+- `{type}` — one of 33+ allowed prefixes (listed above)
+- `/` — literal slash separator
+- `{scope}` — lowercase, kebab-case (hyphens only, no underscores)
+- `-` — hyphen separator between scope and title
+- `{title}` — lowercase, kebab-case (hyphens only, no underscores)
+
+**Release branches special case:**  
+Release branches allow semantic versioning format:
+
+- `release/v1.2.3` (with "v" prefix)
+- `release/1.2.3` (without "v" prefix)
+- Or standard format: `release/{scope}-{title}`
+
+### 4.1 Validation Commands
+
+**Local validation:**
+
+```bash
+# Test a branch name locally
+node scripts/validation/validate-branch-name.cjs feat/my-feature-name
+
+# Verbose output
+node scripts/validation/validate-branch-name.cjs feat/my-feature-name --verbose
+
+# Show the validation pattern
+node scripts/validation/validate-branch-name.cjs --show-pattern
+
+# Get help
+node scripts/validation/validate-branch-name.cjs --help
+```
+
+**GitHub Actions validation:**  
+Use workflow `.github/workflows/branch-name-validation.yml` which runs automatically on PR events.
+
+### 4.2 Example Workflow Implementation
 
 ```yaml
 name: Validate branch name
 on:
   pull_request:
-    types: [opened, reopened, synchronize, edited, ready_for_review]
+    types: [opened, reopened, synchronize]
 jobs:
   check-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Enforce {type}/{scope}-{short-title}
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - run: npm ci
+      - name: Validate branch name
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
         run: |
-          BRANCH="${{ github.head_ref }}"
           # Allow dependabot/renovate
-          if [[ "$BRANCH" =~ ^(dependabot|renovate)/ ]]; then exit 0; fi
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-z0-9._-]+$ ]]; then
-            echo "❌ Branch '$BRANCH' must match the required pattern."
-            exit 1
+          if [[ "$BRANCH_NAME" =~ ^(dependabot|renovate)/ ]]; then
+            echo "✅ Automated bot branch allowed"
+            exit 0
           fi
+          # Validate against pattern
+          node scripts/validation/validate-branch-name.cjs "$BRANCH_NAME"
 ```
+
+### 4.3 Consequences of Violations
+
+**Blocked merge:**
+
+- CI check fails with detailed error message
+- PR cannot be merged until branch is renamed
+
+**How to fix:**
+
+1. Rename the branch locally: `git branch -m old-name new-name`
+2. Force-push to update the PR: `git push -u origin new-name --force-with-lease`
+3. Delete the old remote branch: `git push origin :old-name`
+4. GitHub will automatically update the PR to point to the new branch
+5. Re-run validation checks
 
 **[NEW]**
 
@@ -244,7 +319,53 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 8. Quick Per-Repo Checklist
+## 8. Quick Reference: All 33+ Allowed Types
+
+| Type | Purpose | Example |
+|------|---------|---------|
+| `feat` | New feature | `feat/user-preferences-panel` |
+| `fix` | Bug fix | `fix/authentication-timeout` |
+| `hotfix` | Urgent production fix | `hotfix/critical-security-patch` |
+| `release` | Release branch | `release/v1.0.0` |
+| `refactor` | Code refactoring | `refactor/api-response-structure` |
+| `chore` | Maintenance, no code changes | `chore/dependency-updates` |
+| `docs` | Documentation | `docs/branching-strategy-guide` |
+| `test` | Tests, test infrastructure | `test/integration-test-suite` |
+| `perf` | Performance improvements | `perf/query-optimization` |
+| `ci` | CI/CD, pipelines | `ci/github-actions-workflow` |
+| `build` | Build system, package changes | `build/webpack-config-update` |
+| `deps` | Dependency updates | `deps/upgrade-npm-packages` |
+| `security` | Security fixes | `security/xss-vulnerability-fix` |
+| `design` | Design system, UI | `design/button-component-update` |
+| `a11y` | Accessibility | `a11y/wcag-compliance-audit` |
+| `ux` | User experience | `ux/form-validation-feedback` |
+| `i18n` | Internationalization | `i18n/german-translation-pack` |
+| `ops` | Operations, deployment | `ops/database-migration-script` |
+| `proto` | Prototype, experimental | `proto/new-caching-strategy` |
+| `ds` | Design system | `ds/component-library-update` |
+| `api` | API changes | `api/rest-endpoint-versioning` |
+| `schema` | Data schema | `schema/user-model-changes` |
+| `telemetry` | Analytics, monitoring | `telemetry/event-tracking-setup` |
+| `content` | Content changes | `content/blog-post-updates` |
+| `seo` | SEO optimizations | `seo/meta-tag-improvements` |
+| `config` | Configuration | `config/environment-variables` |
+| `migrate` | Data/schema migrations | `migrate/user-table-migration` |
+| `qa` | QA processes | `qa/test-automation-framework` |
+| `uat` | User acceptance testing | `uat/staging-validation-suite` |
+| `audit` | Audit, compliance, review | `audit/security-code-review` |
+| `codex` | Code generation, AI-assisted | `codex/auto-documentation-tool` |
+| `revert` | Revert previous commit | `revert/pr-2345-bad-merge` |
+| `research` | Research, investigation | `research/performance-benchmarks` |
+
+**Forbidden types (never use):**
+
+- ❌ `claude/` — Reserved for Claude Code
+- ❌ `copilot/` — Reserved for GitHub Copilot
+- ❌ `openai/` — Reserved for OpenAI
+
+---
+
+## 9. Quick Per-Repo Checklist
 
 - Enable branch protections on `main` (+ `develop` if used).
 - Adopt branch naming discipline; enforce via CI workflow.
@@ -252,12 +373,13 @@ Issue Types and Project fields carry the semantic meaning.
 - Prefer Issue Types and Project fields over proliferation of `type:*` labels.
 - Squash merge only; delete branches post-merge.
 - Share this strategy in repo READMEs and onboarding docs.
-  **[NEW]**
 - Document exceptions (e.g., legacy branches, vendor integrations) in `CONTRIBUTING.md`.
+- **[NEW]** Validate branch names locally before pushing: `node scripts/validation/validate-branch-name.cjs <branch-name>`
+- **[NEW]** Document forbidden prefixes (`claude/`, `copilot/`, `openai/`) and why they're forbidden.
 
 ---
 
-## 9. FAQ & Guardrails
+## 10. FAQ & Guardrails
 
 - **Do we need `develop`?** Optional; skip if deployment model supports feature/release branches.
 - **Where do we record “type of work”?** Project **Type** field (from branch) and **Issue Type** on linked issue.
@@ -271,7 +393,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 10. References
+## 11. References
 
 - [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](../CHANGELOG.md): Changelog format, release notes, and versioning.
@@ -289,7 +411,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 11. Appendix: Getting Started
+## 12. Appendix: Getting Started
 
 1. Create or update org-level `.github` defaults (workflows, labeler, protections).
 2. Sync labels using `gh label` or `.github/labels.yml`.
@@ -299,7 +421,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 12. Advanced Practices & Troubleshooting
+## 13. Advanced Practices & Troubleshooting
 
 - For monorepos, coordinate releases and branch protection across all workspaces.
 - If CI blocks a merge due to naming, run `git branch -m <old> <new>` locally, then push and re-open PR.
@@ -308,7 +430,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 13. Onboarding & Training
+## 14. Onboarding & Training
 
 - New contributors must review this document and complete onboarding modules.
 - Include branch naming and merge training in onboarding sessions.
