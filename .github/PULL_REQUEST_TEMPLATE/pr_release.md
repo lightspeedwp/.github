@@ -1,8 +1,9 @@
 ---
-name: "Release PR"
-about: "Release new features or enhancements"
-title: "release: {short summary}"
-labels: ["status:needs-review", "area:release", "release:patch"]
+file_type: pr-template
+title: "release: {scope}"
+name: "Release"
+description: "Release new features or enhancements"
+labels: ["type:release", "status:needs-review"]
 ---
 
 # Release Pull Request
