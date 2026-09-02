@@ -69,6 +69,8 @@ Ensure consistent, reliable, and maintainable automation across GitHub repositor
 
 ```mermaid
 graph TB
+  accTitle: System Overview
+  accDescr: Top-down graph showing how GitHub events trigger workflows, agents, and resulting outcomes
     subgraph "GitHub Events"
         A[Issue Created]
         B[PR Opened]
@@ -655,6 +657,8 @@ jobs:
 
 ```mermaid
 sequenceDiagram
+  accTitle: Automation Pipeline
+  accDescr: Sequence diagram showing automation pipeline
     participant Event as GitHub Event
     participant Workflow as Workflow
     participant Agent as Agent
