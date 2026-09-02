@@ -22,7 +22,7 @@ const fs = require("fs");
 let Octokit;
 try {
   ({ Octokit } = require("octokit"));
-} catch (e) {
+} catch (_e) {
   // Octokit might not be available in test environment
   Octokit = null;
 }
@@ -120,7 +120,7 @@ async function getTypePrefix(item, owner, repo) {
               }
             }
           }
-        } catch (e) {
+        } catch (_e) {
           // Linked issue not found or not accessible
         }
       }
