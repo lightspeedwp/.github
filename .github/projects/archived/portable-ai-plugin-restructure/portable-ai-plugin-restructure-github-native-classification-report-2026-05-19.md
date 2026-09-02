@@ -10,6 +10,27 @@ license: "GPL-3.0"
 tags: ["audit", "github-native", "migration-map", "ai-ops", "plugin-restructure"]
 domain: "governance"
 stability: "draft"
+references:
+  - path: "portable-ai-plugin-restructure-prd-2026-05-14.md"
+    description: "Active PRD defining the target portable AI operations structure."
+  - path: "portable-ai-plugin-restructure-migration-map-2026-05-15.csv"
+    description: "Canonical migration decision map updated by this audit."
+  - path: "issues/children/batch-02-portable-migration/02-01-audit-classify-github-native-files.md"
+    description: "GitHub issue #293 local source draft."
+---
+
+# Portable AI Plugin Restructure GitHub-Native Classification Report
+
+Parent epic: #283. Child issue: #293.
+
+## Summary
+
+This audit protects GitHub inheritance and repository automation behaviour by
+identifying files that must remain under `.github`. It also flags existing
+portable AI assets that should move, convert, or defer through later migration
+issues rather than being moved in this audit.
+
+The migration decision map now includes the #293 GitHub-native classification
 work:
 
 - Migration map rows after this audit: **416**.

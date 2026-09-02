@@ -3,7 +3,6 @@ title: "Duplicate Issue Saved Reply"
 description: "Response for duplicate issues."
 category: "Issue"
 labels:
-  []
   - status:duplicate
 ---
 

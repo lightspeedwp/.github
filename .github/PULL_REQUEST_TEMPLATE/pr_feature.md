@@ -1,7 +1,7 @@
 ---
-file_type: "pr-template"
-title: "Feature PR"
-description: "New features or enhancements"
+name: "Feature PR"
+about: "New features or enhancements"
+title: "feat: {short summary}"
 labels: ["status:needs-review", "area:feature"]
 ---
 

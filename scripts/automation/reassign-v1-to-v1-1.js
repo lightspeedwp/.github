@@ -116,7 +116,9 @@ class MilestoneReassigner {
 
       return response.data;
     } catch (err) {
-      throw new Error(`Failed to fetch issues with milestone: ${err.message}`);
+      throw new Error(
+        `Failed to fetch issues with milestone: ${err.message}`,
+      );
     }
   }
 

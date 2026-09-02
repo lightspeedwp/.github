@@ -1,7 +1,7 @@
 ---
-file_type: "pr-template"
-title: "Dependencies/Maintenance PR"
-description: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
+name: "Dependencies/Maintenance PR"
+about: "Routine upkeep: dependency bumps, lint/format, low-risk hygiene"
+title: "chore(deps): {packages}"
 labels: ["status:needs-review", "area:dependencies"]
 ---
 

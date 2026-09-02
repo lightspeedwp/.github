@@ -1,7 +1,7 @@
 ---
-file_type: "pr-template"
-title: "Bugfix PR"
-description: "Fix a defect/regression with clear repro, fix, and verification"
+name: "Bugfix PR"
+about: "Fix a defect/regression with clear repro, fix, and verification"
+title: "fix: {short summary}"
 labels: ["status:needs-review", "priority:normal"]
 ---
 

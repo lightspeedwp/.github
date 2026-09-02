@@ -1,7 +1,7 @@
 ---
-file_type: "pr-template"
-title: "Chore PR"
-description: "Repo hygiene: configs, scripts, formatting — no behaviour change"
+name: "Chore PR"
+about: "Repo hygiene: configs, scripts, formatting — no behaviour change"
+title: "chore: {scope}"
 labels: ["status:needs-review", "priority:normal"]
 ---
 

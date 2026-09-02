@@ -239,6 +239,14 @@ All legacy instruction files have been moved to preserve history and enable roll
 **Old:**
 
 ```yaml
+references:
+  - path: ".github/instructions/javascript.instructions.md"
+```
+
+**New:**
+
+```yaml
+references:
   - path: ".github/instructions/languages.instructions.md"
     description: "Language-specific standards (JavaScript, JSON, YAML)"
 ```

@@ -3,7 +3,6 @@ title: "Workflow Failure Saved Reply"
 description: "Explanation and next steps when CI or automation workflows fail."
 category: "Workflow"
 labels:
-  []
   - status:blocked
 ---
 

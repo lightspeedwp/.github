@@ -2,7 +2,8 @@
 title: "Code Style Saved Reply"
 description: "Feedback on code style or formatting in PRs or issues."
 category: "Technical"
-labels: []
+labels:
+  # Note: Issue Type is specified via the Issue Type field, not a label
 ---
 
 # Code Style Saved Reply
