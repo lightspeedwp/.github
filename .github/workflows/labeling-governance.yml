@@ -29,7 +29,6 @@ permissions:
 
 concurrency:
   group: labeling-governance-${{ github.event_name }}-${{ github.event.number || github.run_id }}
-  cancel-in-progress: true
 
 env:
   LABELS_CONFIG: .github/labels.yml

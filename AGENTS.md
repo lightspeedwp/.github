@@ -25,6 +25,8 @@ references:
 - Prefer minimal, modular solutions; justify heavier tools with return on investment and maintenance cost.
 - Follow WordPress Coding Standards (CSS, HTML, JavaScript, PHP) and inline‑documentation standards at all times.
 - All code changes must include lint fixes, relevant tests and a short rationale summarising the change.
+- Before creating or pushing branch changes, verify the target branch already exists and matches the PR branch; never create a new remote branch when the work is intended for an existing pull request.
+- Any new scripts, modules, or utilities must have related tests in a matching `__tests__/` subtree with the smallest focused coverage that exercises the changed behaviour.
 - Never output secrets. Treat production and customer data as sensitive. Follow the OWASP top 10 for web security.
 - Accessibility and performance are non‑negotiable; highlight potential issues during reviews.
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
