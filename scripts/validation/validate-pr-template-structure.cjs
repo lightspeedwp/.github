@@ -11,10 +11,19 @@ const yaml = require('js-yaml');
 const TEMPLATE_PATH = '.github/pull_request_template.md';
 const LABELS_FILE = '.github/labels.yml';
 
+/**
+ * Load a YAML file and return parsed content.
+ * @param {string} file - Path to the YAML file
+ * @returns {any} Parsed YAML content
+ */
 function loadYaml(file) {
   return yaml.load(fs.readFileSync(file, 'utf8'));
 }
 
+/**
+ * Extract canonical label names from labels.yml.
+ * @returns {Set<string>} Set of canonical label names
+ */
 function getCanonicalLabels() {
   const labels = loadYaml(LABELS_FILE);
   return new Set(
@@ -30,6 +39,11 @@ function getCanonicalLabels() {
   );
 }
 
+/**
+ * Validate PR template structure against required sections and DoD items.
+ * @param {string} templateContent - Raw template markdown content
+ * @returns {{errors: string[], warnings: string[]}} Validation errors and warnings
+ */
 function validateTemplateStructure(templateContent) {
   const errors = [];
   const warnings = [];
@@ -98,6 +112,12 @@ function validateTemplateStructure(templateContent) {
   return { errors, warnings };
 }
 
+/**
+ * Validate that all label references in the template use canonical labels.
+ * @param {string} templateContent - Raw template markdown content
+ * @param {Set<string>} canonicalLabels - Set of canonical label names
+ * @returns {string[]} Validation errors for non-canonical labels
+ */
 function validateLabelReferencesInTemplate(templateContent, canonicalLabels) {
   const errors = [];
 
@@ -137,6 +157,10 @@ function validateLabelReferencesInTemplate(templateContent, canonicalLabels) {
   return errors;
 }
 
+/**
+ * Main entry point: Validate PR template structure and label references.
+ * Exits with code 1 if validation fails, 0 on success.
+ */
 function main() {
   if (!fs.existsSync(TEMPLATE_PATH)) {
     console.error(`PR template not found at: ${TEMPLATE_PATH}`);
