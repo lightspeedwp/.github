@@ -1,7 +1,8 @@
 ---
-file_type: readme
-title: audit-label-coverage Skill
+file_type: documentation
 description: Comprehensive GitHub label coverage auditing for issues and pull requests
+mode: reference
+domain: governance
 version: 1.0.0
 last_updated: 2026-09-02
 owners:
@@ -13,6 +14,7 @@ tags:
   - coverage
   - governance
   - reporting
+stability: stable
 ---
 
 # audit-label-coverage Skill
