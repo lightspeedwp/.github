@@ -53,12 +53,12 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Validate labeling config schema
         run: node scripts/validation/validate-labeling-configs.cjs
@@ -110,6 +110,75 @@ jobs:
           git add .github/reports/labeling/${{ github.run_id }}.md
           git commit -m "chore(labeling): add report for run ${{ github.run_id }}"
           git push origin HEAD:develop
+
+  # Job 1b: Detect and warn about bare labels (Priority 3 enhancement)
+  detect-bare-labels:
+    name: Detect Bare Labels in Current PR/Issue
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' || github.event_name == 'issues'
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Load canonical labels
+        id: load-labels
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const yaml = require('js-yaml');
+            const labelsConfig = yaml.load(fs.readFileSync('.github/labels.yml', 'utf8'));
+            const canonicalLabels = new Set(
+              labelsConfig
+                .map(label => typeof label === 'string' ? label : label?.name)
+                .filter(Boolean)
+            );
+            core.setOutput('canonical-labels', JSON.stringify(Array.from(canonicalLabels)));
+
+      - name: Check for bare labels
+        uses: actions/github-script@v9
+        env:
+          CANONICAL_LABELS: ${{ steps.load-labels.outputs.canonical-labels }}
+        with:
+          script: |
+            const canonicalLabels = new Set(JSON.parse(process.env.CANONICAL_LABELS || '[]'));
+            const item = github.event_name === 'pull_request'
+              ? context.payload.pull_request
+              : context.payload.issue;
+
+            if (!item) {
+              core.notice('No PR or issue payload found; skipping bare label check.');
+              return;
+            }
+
+            const itemNumber = item.number;
+            const itemType = github.event_name === 'pull_request' ? 'PR' : 'Issue';
+            const itemLabels = (item.labels || []).map(l => l.name);
+            const bareLabels = itemLabels.filter(l => !canonicalLabels.has(l));
+
+            if (bareLabels.length === 0) {
+              core.notice(`✅ ${itemType} #${itemNumber} has no bare labels`);
+              return;
+            }
+
+            // Log bare labels found
+            core.warning(`${itemType} #${itemNumber} has bare labels: ${bareLabels.join(', ')}`);
 
   # Job 2: Dependabot Security Labeling (from dependabot-security-label.yml)
   label-dependabot-security:

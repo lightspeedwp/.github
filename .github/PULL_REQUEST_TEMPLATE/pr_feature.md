@@ -1,8 +1,9 @@
 ---
-name: "Feature PR"
-about: "New features or enhancements"
-title: "feat: {short summary}"
-labels: ["status:needs-review", "area:feature"]
+file_type: pr-template
+title: "type:feature: {scope}"
+name: "Feature Request"
+description: "New features or enhancements"
+labels: ["type:feature", "status:needs-review"]
 ---
 
 # Feature Pull Request

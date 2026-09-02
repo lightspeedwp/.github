@@ -12,8 +12,8 @@
  * Used by: issue creation workflows, batch remediation tasks
  */
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 class MilestoneAssignmentAgent {
   constructor(github, owner, repo) {
@@ -353,4 +353,4 @@ class MilestoneAssignmentAgent {
   }
 }
 
-module.exports = { MilestoneAssignmentAgent };
+export { MilestoneAssignmentAgent };
