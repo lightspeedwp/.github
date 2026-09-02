@@ -345,12 +345,15 @@ async function runAllTasks(options = {}) {
   const startTime = Date.now();
 
   try {
-    // Run all validation tasks
-    const auditPass = await validateAuditAccuracy(options);
-    const perfPass = await validatePerformance(options);
-    const errorPass = await validateErrorHandling(options);
-    const reportPass = await validateReportGeneration(options);
-    const integrityPass = await validateDataIntegrity(options);
+    // Run all validation tasks in parallel for faster execution (Phase 2B optimization)
+    const [auditPass, perfPass, errorPass, reportPass, integrityPass] =
+      await Promise.all([
+        validateAuditAccuracy(options),
+        validatePerformance(options),
+        validateErrorHandling(options),
+        validateReportGeneration(options),
+        validateDataIntegrity(options),
+      ]);
 
     // Calculate summary
     const totalTests = 5;
