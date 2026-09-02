@@ -116,9 +116,36 @@ graph LR
 | [Workflow](.github/workflows/milestone-distribution.yml) | GitHub Actions workflow |
 | [Scripts](scripts/automation/) | Automation scripts |
 
+## 🔗 Related Issues
+
+### Master Epic
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| [#1240](https://github.com/lightspeedwp/.github/issues/1240) | Milestone Distribution Automation | 🟢 Active |
+
+### Phase 2 Issues (Current)
+
+| Group | Issue | Title | Status |
+|-------|-------|-------|--------|
+| Monitoring | [#2558](https://github.com/lightspeedwp/.github/issues/2558) | MON-001: Set up GitHub Actions workflow alerts | ✅ Complete |
+| Monitoring | [#2559](https://github.com/lightspeedwp/.github/issues/2559) | MON-002: Monitor GitHub API rate limits and quota | ✅ Complete |
+| Monitoring | [#2560](https://github.com/lightspeedwp/.github/issues/2560) | MON-003: Create workflow execution dashboard | ✅ Complete |
+| Documentation | [#2561](https://github.com/lightspeedwp/.github/issues/2561) | DOC-001: Create comprehensive troubleshooting guide | ✅ Complete |
+| Documentation | [#2562](https://github.com/lightspeedwp/.github/issues/2562) | DOC-002: Create operational runbook with procedures | ✅ Complete |
+| Documentation | [#2563](https://github.com/lightspeedwp/.github/issues/2563) | DOC-003: Document API rate limit handling strategy | ✅ Complete |
+| Documentation | [#2564](https://github.com/lightspeedwp/.github/issues/2564) | DOC-004: Create edge case handling documentation | ✅ Complete |
+| Testing | [#2565](https://github.com/lightspeedwp/.github/issues/2565) | TEST-001: Test workflow with zero unallocated issues | ✅ Complete |
+| Testing | [#2566](https://github.com/lightspeedwp/.github/issues/2566) | TEST-002: Test workflow with large issue sets (100+) | ✅ Complete |
+| Testing | [#2567](https://github.com/lightspeedwp/.github/issues/2567) | TEST-003: Test fallback when ANTHROPIC_API_KEY unavailable | ✅ Complete |
+| Testing | [#2568](https://github.com/lightspeedwp/.github/issues/2568) | TEST-004: Validate dry-run mode operation | ✅ Complete |
+| Enhancements | [#2569](https://github.com/lightspeedwp/.github/issues/2569) | ENH-001: Design metrics dashboard for milestone distribution | ✅ Complete |
+| Enhancements | [#2571](https://github.com/lightspeedwp/.github/issues/2571) | ENH-002: Design Slack notification system | ✅ Complete |
+| Enhancements | [#2572](https://github.com/lightspeedwp/.github/issues/2572) | ENH-003: Plan manual trigger system via issue labels/commands | ✅ Complete |
+
 ---
 
 **Project Lead:** TBD  
 **Started:** 2026-08-30  
 **Status:** Active  
-**Last Updated:** 2026-08-30
+**Last Updated:** 2026-09-02
