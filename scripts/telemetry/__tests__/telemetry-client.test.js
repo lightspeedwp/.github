@@ -15,8 +15,7 @@ const {
   TelemetryClient,
   createTelemetryClient,
   Environment,
-  BackendType,
-  PropertyClassification
+  BackendType
 } = require('../telemetry-client');
 const { EVENT_SCHEMAS } = require('../event-schemas');
 
