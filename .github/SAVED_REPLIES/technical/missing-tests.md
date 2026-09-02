@@ -2,8 +2,7 @@
 title: "Missing Tests Saved Reply"
 description: "Prompt to add required tests to a PR or issue."
 category: "Technical"
-labels:
-  # Note: Issue Type (Test Coverage) is specified via the Issue Type field, not a label
+labels: []
 ---
 
 # Missing Tests Saved Reply
