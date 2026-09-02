@@ -1,10 +1,14 @@
 ---
-file_type: specification
 title: Milestone Automation — OpenSpec
 description: Technical specifications and architecture documentation
-created_date: 2026-08-30
-last_updated: 2026-08-30
-status: draft
+type: spec
+status: approved
+version: "1.0.0"
+owner: lightspeedwp/maintainers
+tags:
+  - automation
+  - specification
+  - technical
 ---
 
 # Milestone Automation — Technical Specification
