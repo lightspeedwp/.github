@@ -79,13 +79,23 @@ describe("Phase 2B Performance Validation", () => {
   });
 
   describe("Memory Usage Improvements", () => {
-    it("should reduce memory usage by at least 25%", () => {
+    it("should reduce memory usage by at least 27%", () => {
       const avgMemoryImprovement =
         benchmarkResults.reduce((sum, r) => {
           return sum + r.calculateImprovements().memory.improvement;
         }, 0) / benchmarkResults.length;
 
-      expect(avgMemoryImprovement).toBeGreaterThanOrEqual(25);
+      expect(avgMemoryImprovement).toBeGreaterThanOrEqual(27);
+    });
+
+    it("should keep the memory profile internally consistent", () => {
+      for (const result of benchmarkResults) {
+        const memory = result.memory;
+        expect(memory.peakUsage).toBeGreaterThanOrEqual(memory.startUsage);
+        expect(memory.deltaFromStart).toBeCloseTo(
+          memory.peakUsage - memory.startUsage,
+        );
+      }
     });
 
     it("should have measurable peak memory reduction", () => {
@@ -102,8 +112,15 @@ describe("Phase 2B Performance Validation", () => {
     it("should reduce API calls through caching", () => {
       for (const result of benchmarkResults) {
         const improvements = result.calculateImprovements();
-        // Should reduce API calls by at least 20%
         expect(improvements.apiCalls.improvement).toBeGreaterThanOrEqual(20);
+      }
+    });
+
+    it("should keep unique endpoints within the total call budget", () => {
+      for (const result of benchmarkResults) {
+        expect(result.apiCalls.uniqueEndpoints).toBeLessThanOrEqual(
+          result.apiCalls.totalCalls,
+        );
       }
     });
 

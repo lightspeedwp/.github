@@ -183,24 +183,26 @@ export function createMockBenchmark(scriptName) {
   const result = new BenchmarkResult(scriptName, baseline);
   result.executionTime = baseline.executionTime * 0.7; // 30% faster
 
-  const startUsage = baseline.memoryUsage * 0.85;
+  // Keep the mock memory profile internally consistent while hitting the 27% target.
+  const startUsage = baseline.memoryUsage * 0.72;
   const peakUsage = baseline.memoryUsage * 0.73; // 27% less memory
   result.memory = {
     startUsage,
-    avgUsage: baseline.memoryUsage * 0.78,
+    avgUsage: baseline.memoryUsage * 0.745,
     peakUsage,
     deltaFromStart: peakUsage - startUsage,
   };
 
-  // Simulate API call reduction (20% fewer calls)
+  // Simulate API call reduction (20% fewer calls) without exceeding the total call count.
   const apiCallCount = Math.floor(baseline.apiCalls * 0.8);
   const cacheHits = Math.floor(apiCallCount * 0.65);
+  const uniqueEndpoints = Math.max(1, Math.min(apiCallCount, Math.floor(apiCallCount * 0.8)));
   result.apiCalls = {
     totalCalls: apiCallCount,
     cacheHits,
     cacheMisses: apiCallCount - cacheHits,
     cacheHitRate: 65,
-    uniqueEndpoints: Math.min(40, baseline.apiCalls),
+    uniqueEndpoints,
   };
 
   return result;
