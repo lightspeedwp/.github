@@ -98,6 +98,7 @@ When creating any new script:
 | An automation script | `scripts/automation/` | ~~`.github/scripts/automation/`~~ |
 | A metrics collector | `scripts/metrics/` | ~~`.github/scripts/metrics/`~~ |
 | A release validator | `scripts/release/` | ~~`.github/scripts/release/`~~ |
+| A workflow orchestrator | `scripts/workflows/` | ~~`.github/scripts/workflows/`~~ |
 | Website JS (browser) | `.github/website/src/scripts/` | ✅ Exception - correct location |
 ## Branch Naming Governance (CRITICAL)
 
