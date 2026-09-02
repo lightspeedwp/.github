@@ -202,14 +202,20 @@ describe("Phase 2B Performance Validation", () => {
 
   describe("Results Persistence", () => {
     it("should save results to JSON file", () => {
-      const resultsPath = path.join(__dirname, "results-phase-2b.json");
-      saveResults(benchmarkResults, resultsPath);
+      const tempDir = fs.mkdtempSync(path.join(__dirname, ".tmp-phase-2b-"));
+      const resultsPath = path.join(tempDir, "results-phase-2b.json");
 
-      expect(fs.existsSync(resultsPath)).toBe(true);
+      try {
+        saveResults(benchmarkResults, resultsPath);
 
-      const saved = JSON.parse(fs.readFileSync(resultsPath, "utf8"));
-      expect(saved.metadata.phase).toBe("2B Validation");
-      expect(saved.results).toHaveLength(benchmarkResults.length);
+        expect(fs.existsSync(resultsPath)).toBe(true);
+
+        const saved = JSON.parse(fs.readFileSync(resultsPath, "utf8"));
+        expect(saved.metadata.phase).toBe("2B Validation");
+        expect(saved.results).toHaveLength(benchmarkResults.length);
+      } finally {
+        fs.rmSync(tempDir, { recursive: true, force: true });
+      }
     });
   });
 
