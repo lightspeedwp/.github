@@ -137,14 +137,6 @@ module.exports = { AuditLabelCoverageSkill };
 
 // CLI usage
 if (require.main === module) {
-  const args = process.argv.slice(2);
-  const format = args.includes("--format")
-    ? args[args.indexOf("--format") + 1]
-    : "all";
-  const outputPath = args.includes("--output")
-    ? args[args.indexOf("--output") + 1]
-    : ".github/reports/audit-label-coverage";
-
   // Note: In real usage, would need proper GitHub authentication
   console.log('Usage: require("./index.js").AuditLabelCoverageSkill');
   console.log("");

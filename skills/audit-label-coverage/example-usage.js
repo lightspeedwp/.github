@@ -11,8 +11,6 @@
  *   - Authenticated Octokit instance
  */
 
-const { AuditLabelCoverageSkill } = require("./index");
-
 async function main() {
   // In real usage, would initialize Octokit with GitHub token
   // const { Octokit } = require('@octokit/rest');
