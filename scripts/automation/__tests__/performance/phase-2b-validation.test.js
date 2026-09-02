@@ -21,13 +21,14 @@ import {
 } from "./metrics-dashboard.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.join(__dirname, "../../..");
+// Derive REPO_ROOT from __dirname: scripts/automation/__tests__/performance -> repo root
+const REPO_ROOT = path.resolve(path.join(__dirname, "../../../../"));
 
 describe("Phase 2B Performance Validation", () => {
   let benchmarkResults;
 
   beforeAll(async () => {
-    // Run benchmarks
+    // Run benchmarks without persisting to tracked file
     benchmarkResults = await runBenchmarks();
   });
 
@@ -178,15 +179,22 @@ describe("Phase 2B Performance Validation", () => {
     });
 
     it("should generate HTML dashboard", () => {
-      const dashboardPath = path.join(__dirname, "phase-2b-dashboard.html");
-      generateHTMLDashboard(benchmarkResults, dashboardPath);
+      const tempDir = fs.mkdtempSync(path.join(__dirname, ".tmp-html-"));
+      const dashboardPath = path.join(tempDir, "phase-2b-dashboard.html");
 
-      expect(fs.existsSync(dashboardPath)).toBe(true);
+      try {
+        generateHTMLDashboard(benchmarkResults, dashboardPath);
 
-      const html = fs.readFileSync(dashboardPath, "utf8");
-      expect(html).toContain("Phase 2B Performance Validation");
-      expect(html).toContain("Avg Execution Time Improvement");
-      expect(html).toContain("Per-Script Performance Metrics");
+        expect(fs.existsSync(dashboardPath)).toBe(true);
+
+        const html = fs.readFileSync(dashboardPath, "utf8");
+        expect(html).toContain("Phase 2B Performance Validation");
+        expect(html).toContain("Avg Execution Time Improvement");
+        expect(html).toContain("Per-Script Performance Metrics");
+      } finally {
+        // Clean up temporary directory
+        fs.rmSync(tempDir, { recursive: true, force: true });
+      }
     });
 
     it("should generate Markdown report", () => {

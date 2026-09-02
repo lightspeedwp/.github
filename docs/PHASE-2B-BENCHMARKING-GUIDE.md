@@ -311,7 +311,16 @@ Cache Hit Rate: (24/37) × 100 = 64.86%
 
 ### Summary
 
-Phase 2B optimization achieved **30% execution time improvement** and **21% API call reduction** across all three priority scripts through:
+**⚠️ BENCHMARK STATUS: Mock/Synthetic Data**
+
+Phase 2B optimization targets are based on synthetic fixture benchmarks. Real-world performance measurements with actual scripts will be added once the executable benchmark harness is deployed.
+
+Expected optimization goals (pending real measurements):
+
+- **30% execution time improvement**
+- **21% API call reduction**
+
+These targets are derived from Phase 2A analysis and are implemented in the following areas:
 
 1. **Native Fetch API** - Replaced https.request with 2-3x faster fetch
 2. **Response Caching** - 5-minute TTL cache reduces repeated calls
@@ -319,7 +328,9 @@ Phase 2B optimization achieved **30% execution time improvement** and **21% API 
 4. **Rate Limiting** - Automatic detection prevents 429 errors
 5. **Batch Operations** - Parallel fetching reduces round-trips
 
-### Per-Script Results
+### Per-Script Synthetic Benchmark Results
+
+**NOTE: These are simulated/fixture results pending real measurements.**
 
 | Script | Time ⬇️ | Memory ⬇️ | API Calls ⬇️ | Cache Hit Rate |
 |--------|----------|----------|------------|---|
