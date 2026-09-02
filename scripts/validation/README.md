@@ -35,6 +35,8 @@ All schema files are stored in `../../.schemas/`.
 
 ```mermaid
 graph TD
+  accTitle: Frontmatter validation pipeline
+  accDescr: Top-down graph showing the frontmatter validation pipeline from discovery through report generation
     A[File Discovery] --> B[Frontmatter Extraction]
     B --> C[Schema Validation]
     C --> D[LightSpeed Rules Check]

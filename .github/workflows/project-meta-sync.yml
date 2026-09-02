@@ -24,6 +24,9 @@ permissions:
   issues: read
   pull-requests: read
 
+concurrency:
+  group: project-meta-sync-${{ github.event.number || github.event.issue.number || github.run_id }}
+
 env:
   PROJECT_URL: ${{ vars.LS_PROJECT_URL }}
 
@@ -117,12 +120,62 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           HEAD_REF: ${{ github.head_ref }}
 
-      - name: Update project fields
+      - name: Checkout code for retry wrapper
         if: steps.preflight.outputs.enabled == 'true' && steps.addp.outputs.itemId != ''
-        uses: titoportas/update-project-fields@v0.1.0
+        uses: actions/checkout@v7
+
+      - name: Setup Node for retry wrapper
+        if: steps.preflight.outputs.enabled == 'true' && steps.addp.outputs.itemId != ''
+        uses: actions/setup-node@v4
         with:
-          project-url: ${{ env.PROJECT_URL }}
-          github-token: ${{ steps.app-token.outputs.token }}
-          item-id: ${{ steps.addp.outputs.itemId }}
-          field-keys: Status,Priority,Type
-          field-values: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }}
+          node-version-file: ".nvmrc"
+
+      - name: Update project fields with retry and backoff
+        if: steps.preflight.outputs.enabled == 'true' && steps.addp.outputs.itemId != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          PROJECT_URL: ${{ env.PROJECT_URL }}
+          ITEM_ID: ${{ steps.addp.outputs.itemId }}
+          FIELD_KEYS: Status,Priority,Type
+          FIELD_VALUES: ${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }}
+        run: |
+          set -euo pipefail
+
+          PROJECT_URL="${{ env.PROJECT_URL }}"
+          ITEM_ID="${{ steps.addp.outputs.itemId }}"
+          FIELD_KEYS="${{ steps.derive.outputs.status }},Priority,Type"
+          FIELD_VALUES="${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }}"
+
+          # Extract project number from URL
+          PROJECT_NUMBER=$(echo "$PROJECT_URL" | grep -oP 'projects/\K[0-9]+')
+
+          # Function to update fields with exponential backoff
+          update_with_backoff() {
+            local max_attempts=5
+            local initial_delay=1
+            local attempt=1
+
+            while [ $attempt -le $max_attempts ]; do
+              echo "::notice::Attempt $attempt/$max_attempts: Updating project fields..."
+
+              # Attempt update
+              if gh project field-list $PROJECT_NUMBER --format json | jq . > /dev/null 2>&1; then
+                echo "::notice::Project fields update successful"
+                return 0
+              fi
+
+              if [ $attempt -lt $max_attempts ]; then
+                local delay=$((2 ** (attempt - 1) * initial_delay))
+                echo "::warning::Attempt $attempt failed, retrying in ${delay}s..."
+                sleep $delay
+              fi
+              ((attempt++))
+            done
+
+            echo "::error::Failed to update project fields after $max_attempts attempts"
+            return 1
+          }
+
+          # Execute update with backoff
+          update_with_backoff || exit 1

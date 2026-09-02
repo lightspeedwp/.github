@@ -48,6 +48,8 @@ We're a **WordPress design and development agency** with a focus on creating pow
 
 ```mermaid
 flowchart LR
+  accTitle: 🏛️ Organisation Overview
+  accDescr: Flowchart showing the LightSpeed agency, core products, and open-source commitment areas
     subgraph "🏢 LightSpeed Agency"
         A[👥 Team Since 2003]
         B[🎯 WordPress Experts]
@@ -107,6 +109,8 @@ We believe in the power of community and open-source collaboration! If you're pa
 
 ```mermaid
 flowchart TD
+  accTitle: 🔄 Contribution Process Flow
+  accDescr: Flowchart diagram showing 🔄 contribution process flow
     A[🚀 Start Here] --> B{What do you want to do?}
 
     B -->|🐛 Report Issue| C[📝 Submit Issue]
@@ -157,6 +161,8 @@ At LightSpeed, we believe in the power of open-source software. We contribute to
 
 ```mermaid
 graph TB
+  accTitle: 🏗️ Project Architecture & Integration
+  accDescr: Top-down graph showing 🏗️ project architecture and integration relationships between frontend, backend, and open-source components
     subgraph "🎨 Frontend Solutions"
         A[LSX Design Theme]
         B[Block Patterns]
@@ -232,6 +238,8 @@ We welcome contributions from the community! If you're interested in collaborati
 
 ```mermaid
 stateDiagram-v2
+  accTitle: 🤝 Community Engagement Lifecycle
+  accDescr: State diagram showing 🤝 community engagement lifecycle
     [*] --> Discover
     Discover --> Explore
     Explore --> Engage

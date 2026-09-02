@@ -44,8 +44,9 @@ function sectionBody(body, headingRegex) {
 function hasIssueReference(sectionText) {
   const cleaned = stripHtmlComments(sectionText);
   // Matches same-repo (#123) or cross-repo (owner/repo#123) issue references (optionally preceded by
-  // GitHub closing keywords) at the start of a line, plus full GitHub issue/PR URLs anywhere in the text.
-  return /(?:^|\n)\s*(?:[-*]\s*)?(?:(?:closes|fixes|resolves|relates to)\s+)?(?:[\w.-]+\/[\w.-]+)?#\d+\b/i.test(cleaned)
+  // GitHub closing keywords with an optional colon, e.g. "Closes: #123" or "fixes #123") at the start
+  // of a line, plus full GitHub issue/PR URLs anywhere in the text.
+  return /(?:^|\n)\s*(?:[-*]\s*)?(?:(?:closes|fixes|resolves|relates to):?\s+)?(?:[\w.-]+\/[\w.-]+)?#\d+\b/i.test(cleaned)
     || /https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/(?:issues|pull)\/\d+\b/.test(cleaned);
 }
 
@@ -150,9 +151,12 @@ function validatePullRequestBody(body, labels, headRef) {
     missing.push('Changelog');
   }
 
+  // Accepts both canonical "### Checklist (Global DoD / PR)" and the alternative
+  // "## Global DoD Checklist" heading. Any heading depth of H2 or deeper (##, ###, …)
+  // is intentionally accepted to reduce friction with auto-generated PR bodies.
   const checklist = sectionBody(
     body,
-    /^###\s+Checklist\s+\(Global DoD\s*\/\s*PR\)\s*$/im
+    /^##+\s+(?:Checklist\s+\(Global DoD\s*\/\s*PR\)|Global DoD\s+Checklist)\s*$/im
   );
   if (!hasCompletedChecklist(checklist)) {
     missing.push('Global DoD checklist');

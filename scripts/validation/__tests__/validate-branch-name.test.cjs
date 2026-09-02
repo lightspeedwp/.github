@@ -16,11 +16,29 @@ const {
   validateBranchName,
   ALLOWED_TYPES,
   BRANCH_PATTERN,
+  BRANCH_PATTERN_STANDARD,
+  BRANCH_PATTERN_RELEASE_SEMVER,
+  BRANCH_PATTERN_RELEASE_STANDARD,
   PROTECTED_BRANCHES,
   BOT_PREFIXES,
 } = require("../validate-branch-name.cjs");
 
 describe("validate-branch-name", () => {
+  describe("CLI output", () => {
+    test("should describe BRANCH_PATTERN as non-release in --show-pattern output", () => {
+      const { spawnSync } = require("child_process");
+      const result = spawnSync(process.execPath, ["scripts/validation/validate-branch-name.cjs", "--show-pattern"], {
+        encoding: "utf8",
+      });
+
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain("BRANCH_PATTERN (standard, non-release):");
+      expect(result.stdout).toContain("BRANCH_PATTERN_RELEASE_SEMVER:");
+      expect(result.stdout).toContain("BRANCH_PATTERN_RELEASE_STANDARD:");
+      expect(result.stdout).toContain("release/v1.2.3");
+    });
+  });
+
   describe("ALLOWED_TYPES", () => {
     test("should contain at least 30 types", () => {
       expect(ALLOWED_TYPES.length).toBeGreaterThanOrEqual(30);
@@ -91,6 +109,13 @@ describe("validate-branch-name", () => {
 
     test("should reject dots", () => {
       expect(BRANCH_PATTERN.test("feat/my.feature")).toBe(false);
+    });
+
+    test("should be the standard non-release pattern", () => {
+      expect(BRANCH_PATTERN).toBe(BRANCH_PATTERN_STANDARD);
+      expect(BRANCH_PATTERN.test("release/v1.2.3")).toBe(false);
+      expect(BRANCH_PATTERN_RELEASE_SEMVER.test("release/v1.2.3")).toBe(true);
+      expect(BRANCH_PATTERN_RELEASE_STANDARD.test("release/v1-2-3")).toBe(true);
     });
   });
 
