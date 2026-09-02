@@ -6,6 +6,8 @@ assignees: []
 projects: []
 milestone: ""
 file_type: issue-template
+title: "type:security: {scope}"
+labels: [type:security, status:needs-triage, priority:high]
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"
