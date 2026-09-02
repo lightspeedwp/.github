@@ -1,8 +1,9 @@
 ---
-name: "Bugfix PR"
-about: "Fix a defect/regression with clear repro, fix, and verification"
-title: "fix: {short summary}"
-labels: ["status:needs-review", "priority:normal"]
+file_type: pr-template
+title: "type:bug: {scope}"
+name: "Bug Fix"
+description: "Fix a defect/regression with clear repro, fix, and verification"
+labels: ["type:bug", "status:needs-review"]
 ---
 
 # Bugfix Pull Request
