@@ -1,9 +1,9 @@
 ---
-document_type: "Framework Definition"
-framework: "OpenSpec Status Labels"
-initiative: "PR Labeling Enforcement (#2352)"
+file_type: documentation
+title: OpenSpec Status Framework — PR Labeling Enforcement Initiative
+description: Defines the OpenSpec status labels and tracking framework for the PR Labeling Enforcement initiative (#2352), mapping the 5-phase implementation roadmap to OpenSpec lifecycle states.
 created_date: 2026-08-30
-status: "Active"
+status: active
 ---
 
 # OpenSpec Status Framework — PR Labeling Enforcement Initiative (#2352)

@@ -95,6 +95,7 @@ Each issue/PR gets **exactly one label per family** (unless explicitly multiple)
 ```yaml
 # ✅ CORRECT
 labels:
+  []
   - type:bug
   - status:needs-triage
   - priority:normal
@@ -102,6 +103,7 @@ labels:
 
 # ❌ INCORRECT (multiple from same family)
 labels:
+  []
   - type:bug
   - type:feature  # violates one-hot
   - status:needs-triage
