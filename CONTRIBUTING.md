@@ -27,6 +27,8 @@ For details, see the full guidelines below and the [Documentation Index](./docs/
 
 ```mermaid
 flowchart TD
+  accTitle: 🚀 Quick Start (TL;DR)
+  accDescr: Flowchart diagram showing 🚀 quick start (tl;dr)
   A[Open Issue or Feature Request] --> B[Discuss & Plan]
   B --> C[Create Branch]
   C --> D[Write Code & Tests]

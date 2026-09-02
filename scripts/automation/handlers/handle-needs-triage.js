@@ -267,6 +267,11 @@ function inferArea(issue) {
   }));
 }
 
+// Backward-compatible alias used by older tests/integrations
+function detectArea(issue) {
+  return inferArea(issue);
+}
+
 // Suggest assignee based on inferred area
 function suggestAssignee(inferredAreas) {
   if (!inferredAreas || inferredAreas.length === 0) {
@@ -472,6 +477,7 @@ export {
   processBatch,
   inferType,
   inferArea,
+  detectArea,
   suggestAssignee,
   suggestMilestone,
   typePatterns,

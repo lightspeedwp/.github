@@ -10,7 +10,7 @@ import {
   buildSyncConfig,
   processIssue,
   generateReport,
-} from "../lib/sync-labels-helpers.js";
+} from "../includes/sync-labels-helpers.js";
 
 describe("sync-pr-labels", () => {
   describe("extractPRs", () => {

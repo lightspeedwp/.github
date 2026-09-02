@@ -137,6 +137,14 @@ describe("hasIssueReference", () => {
       true,
     );
   });
+
+  it("detects keyword-prefixed references with optional colon", () => {
+    expect(hasIssueReference("Closes: #123")).toBe(true);
+    expect(hasIssueReference("fixes: #456")).toBe(true);
+    expect(hasIssueReference("Resolves: #789")).toBe(true);
+    expect(hasIssueReference("- Closes: #2352")).toBe(true);
+    expect(hasIssueReference("- Fixes: #111")).toBe(true);
+  });
 });
 
 describe("hasChangelogEntry", () => {
@@ -346,6 +354,12 @@ Fixes #123
     const body = `## Linked issues\nFixes #123\n## Changelog\n- Added feature`;
     const result = validatePullRequestBody(body, [], "feature/test");
     expect(result.missing).toContain("Global DoD checklist");
+  });
+
+  it("accepts '## Global DoD Checklist' as an alternative checklist heading", () => {
+    const body = `## Linked issues\nCloses: #123\n## Changelog\n- Added feature\n## Global DoD Checklist\n- [x] Done`;
+    const result = validatePullRequestBody(body, [], "feature/test");
+    expect(result.missing).not.toContain("Global DoD checklist");
   });
 
   it('uses "Linked issues & merged PRs" for release branches', () => {
