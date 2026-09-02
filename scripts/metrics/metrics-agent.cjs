@@ -143,7 +143,21 @@ class ConfigurationLoader {
 // ============================================================================
 
 class GitHubAPIClient {
-  constructor(token, cache = {}) {
+  constructor(tokenOrOptions, cache) {
+    // Support both old format (token) and new format (options object)
+    let token;
+
+    if (typeof tokenOrOptions === 'object') {
+      // New format: { token, owner, repo, cache }
+      token = tokenOrOptions.token;
+      this.owner = tokenOrOptions.owner;
+      this.repo = tokenOrOptions.repo;
+      cache = tokenOrOptions.cache || cache;
+    } else {
+      // Old format: (token, cache)
+      token = tokenOrOptions;
+    }
+
     this.token = token || process.env.GITHUB_TOKEN;
     if (!this.token) {
       throw new Error(
@@ -151,7 +165,7 @@ class GitHubAPIClient {
       );
     }
 
-    this.cache = cache;
+    this.cache = cache || {};
     this.baseUrl = "https://api.github.com";
     this.headers = {
       Authorization: `token ${this.token}`,
@@ -245,6 +259,42 @@ class GitHubAPIClient {
 
   async getRepositoryStats(owner, repo) {
     return this.request(`/repos/${owner}/${repo}`);
+  }
+
+  async fetchMetrics(owner, repo, since, until) {
+    // Use instance properties if not provided as parameters
+    const _owner = owner || this.owner;
+    const _repo = repo || this.repo;
+
+    if (!_owner || !_repo) {
+      throw new Error(
+        "Owner and repo are required for fetchMetrics. Pass as parameters or set in constructor.",
+      );
+    }
+
+    try {
+      // Collect all metrics in parallel
+      const [issues, pullRequests, contributors, stats] = await Promise.all([
+        this.getIssues(_owner, _repo, since, until),
+        this.getPullRequests(_owner, _repo, since, until),
+        this.getContributors(_owner, _repo),
+        this.getRepositoryStats(_owner, _repo),
+      ]);
+
+      // Aggregate into a single metrics object
+      return {
+        repository: `${_owner}/${_repo}`,
+        stats,
+        issues,
+        pullRequests,
+        contributors,
+        timestamp: new Date().toISOString(),
+      };
+    } catch (error) {
+      throw new Error(`Failed to fetch metrics for ${_owner}/${_repo}: ${error.message}`, {
+        cause: error,
+      });
+    }
   }
 }
 
