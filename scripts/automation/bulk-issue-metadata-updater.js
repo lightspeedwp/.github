@@ -31,51 +31,42 @@ import fs from "fs";
 import readline from "readline";
 import * as templateFixHandler from "./handlers/handle-needs-template-fix.js";
 import * as triageHandler from "./handlers/handle-needs-triage.js";
+import {
+  githubApiRequest,
+  fetchPaginated,
+  getCacheStats,
+} from "./includes/github-api-optimized.js";
 
 const { URLSearchParams } = globalThis;
 
-// GitHub API client using native fetch
+// GitHub API client using optimized fetch with caching
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_API_BASE = "https://api.github.com";
 
 const githubApi = {
   async request(method, path, data = {}) {
-    const url = `${GITHUB_API_BASE}${path}`;
-    const options = {
-      method,
+    return githubApiRequest(method, path, data, {
+      token: GITHUB_TOKEN,
       headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
         "X-GitHub-Api-Version": "2022-11-28",
         Accept: "application/vnd.github+json",
       },
-    };
-
-    if (Object.keys(data).length > 0) {
-      options.body = JSON.stringify(data);
-      options.headers["Content-Type"] = "application/json";
-    }
-
-    // eslint-disable-next-line no-undef
-    const response = await fetch(url, options);
-
-    if (!response.ok) {
-      throw new Error(
-        `GitHub API error: ${response.status} ${response.statusText}`,
-      );
-    }
-
-    return response.json();
+      useCache: method === "GET",
+    });
   },
 
   async listIssues(owner, repo, options = {}) {
     const params = new URLSearchParams({
       state: options.state || "open",
       per_page: options.per_page || 30,
-      page: options.page || 1,
       ...(options.labels && { labels: options.labels }),
     });
 
-    return this.request("GET", `/repos/${owner}/${repo}/issues?${params}`);
+    let path = `/repos/${owner}/${repo}/issues?${params}`;
+    if (options.page) {
+      path += `&page=${options.page}`;
+    }
+
+    return this.request("GET", path);
   },
 
   async listMilestones(owner, repo) {
@@ -83,6 +74,19 @@ const githubApi = {
       "GET",
       `/repos/${owner}/${repo}/milestones?state=all&per_page=100`,
     );
+  },
+
+  async listAllIssuesByLabel(owner, repo, label) {
+    const path = `/repos/${owner}/${repo}/issues?state=open&labels=${encodeURIComponent(label)}`;
+    return fetchPaginated(path, {
+      token: GITHUB_TOKEN,
+      headers: {
+        "X-GitHub-Api-Version": "2022-11-28",
+        Accept: "application/vnd.github+json",
+      },
+      useCache: true,
+      perPage: 100,
+    });
   },
 };
 
@@ -138,12 +142,8 @@ console.log(
 );
 console.log(`📊 Processing up to ${limitArg} issues\n`);
 
-// Fetch all issues with status:needs-* labels
+// Fetch all issues with status:needs-* labels (optimized)
 async function fetchIssuesWithStatusLabels() {
-  const issues = [];
-  let page = 1;
-  let hasMore = true;
-
   const statusLabels = config_.targetLabel
     ? [config_.targetLabel]
     : [
@@ -153,41 +153,25 @@ async function fetchIssuesWithStatusLabels() {
       ];
 
   try {
-    while (hasMore && issues.length < config_.limit) {
-      console.log(`⏳ Fetching page ${page}...`);
+    // Fetch all issues for each label in parallel
+    const labelPromises = statusLabels.map((label) =>
+      githubApi.listAllIssuesByLabel(config_.owner, config_.repo, label),
+    );
 
-      for (const label of statusLabels) {
-        try {
-          const rawPage = await githubApi.listIssues(
-            config_.owner,
-            config_.repo,
-            {
-              labels: label,
-              state: "open",
-              per_page: config_.perPage,
-              page,
-            },
-          );
+    const labelResults = await Promise.all(labelPromises);
 
-          const pageIssues = (rawPage || []).filter(
-            (item) => !item.pull_request,
-          );
-
-          issues.push(...pageIssues.slice(0, config_.limit - issues.length));
-
-          if (pageIssues.length < config_.perPage) {
-            hasMore = false;
-          }
-        } catch (error) {
-          console.error(`❌ Error fetching label ${label}:`, error.message);
-          continue;
+    // Combine and deduplicate issues
+    const issuesMap = new Map();
+    for (const results of labelResults) {
+      for (const issue of results || []) {
+        if (!issue.pull_request && !issuesMap.has(issue.number)) {
+          issuesMap.set(issue.number, issue);
         }
       }
-
-      if (issues.length < config_.limit && hasMore) {
-        page++;
-      }
     }
+
+    // Convert to array and apply limit
+    const issues = Array.from(issuesMap.values()).slice(0, config_.limit);
 
     console.log(`✅ Fetched ${issues.length} issues\n`);
     return issues;
@@ -478,6 +462,16 @@ function displaySummary(summary) {
   }
 
   console.log("\n" + "=".repeat(60));
+
+  // Performance metrics
+  const cacheStats = getCacheStats();
+  console.log(`\n⚡ Performance Metrics:`);
+  console.log(
+    `   Cache Entries: ${cacheStats.validEntries} (${cacheStats.expiredEntries} expired)`,
+  );
+  console.log(
+    `   Cache Size: ${(cacheStats.cacheSizeBytes / 1024).toFixed(2)} KB`,
+  );
 
   if (mode === "dry-run") {
     console.log(`\n💡 Tip: Run with --interactive or --auto to apply changes`);

@@ -27,6 +27,7 @@ Reassigns all open issues from milestone v1.0 to milestone v1.1.
 **Purpose**: Migrate issues from a completed milestone to the next phase.
 
 **Features**:
+
 - Fetches all open issues with v1.0 milestone
 - Reassigns them to v1.1 in batch
 - Provides detailed logging and statistics
@@ -49,17 +50,20 @@ node reassign-v1-to-v1-1.js --source v1.0 --target v1.1
 ```
 
 **Options**:
+
 - `--dry-run`: Show what would be changed without making API calls
 - `--verbose`: Enable detailed logging of each operation
 - `--source MILESTONE`: Source milestone to reassign from (default: v1.0)
 - `--target MILESTONE`: Target milestone to reassign to (default: v1.1)
 
 **Environment Variables**:
+
 - `GITHUB_TOKEN`: Required. Personal Access Token with 'repo' scope
 - `GITHUB_OWNER`: Optional. Repository owner (default: lightspeedwp)
 - `GITHUB_REPO`: Optional. Repository name (default: .github)
 
 **Output Example**:
+
 ```
 ✅ 2024-08-29T10:30:45.123Z [reassign-v1-to-v1-1] Starting milestone reassignment...
 ℹ️ 2024-08-29T10:30:46.234Z [reassign-v1-to-v1-1] Found 45 open issue(s) with milestone #3
@@ -76,6 +80,7 @@ AI-enhanced script that distributes issues without milestone assignments across 
 **Purpose**: Intelligently allocate backlog items to upcoming milestones based on related topics/features.
 
 **Features**:
+
 - Fetches all open issues without milestone
 - Groups related issues using AI analysis (if Claude API available)
 - Falls back to local analysis using labels and keywords
@@ -85,12 +90,14 @@ AI-enhanced script that distributes issues without milestone assignments across 
 
 **AI Analysis**:
 When `ANTHROPIC_API_KEY` is set, the script uses Claude API to:
+
 1. Analyze issue titles, descriptions, and labels
 2. Identify natural groupings and themes
 3. Suggest optimal milestone allocation
 4. Consider issue complexity and relationships
 
 Without API key, falls back to local analysis using:
+
 - Label categorization (bug, feature, documentation, etc.)
 - Title keyword matching
 - Issue content analysis
@@ -115,17 +122,20 @@ node distribute-unallocated-milestones.js --dry-run --limit 10
 ```
 
 **Options**:
+
 - `--dry-run`: Show what would be changed without making API calls
 - `--verbose`: Enable detailed logging of analysis and decisions
 - `--limit N`: Limit to processing first N issues (for testing)
 
 **Environment Variables**:
+
 - `GITHUB_TOKEN`: Required. Personal Access Token with 'repo' scope
 - `ANTHROPIC_API_KEY`: Optional. Claude API key for intelligent analysis
 - `GITHUB_OWNER`: Optional. Repository owner (default: lightspeedwp)
 - `GITHUB_REPO`: Optional. Repository name (default: .github)
 
 **Output Example**:
+
 ```
 ✅ 2024-08-29T10:30:45.123Z [distribute-milestones] Starting intelligent milestone distribution...
 ℹ️ 2024-08-29T10:30:46.234Z [distribute-milestones] Found 150 target milestone(s): v1.1, v1.2, v1.3, v1.4, v1.5, v1.6
@@ -157,11 +167,13 @@ When `ANTHROPIC_API_KEY` is not set, issues are automatically categorized as:
 ### Round-Robin Allocation
 
 Issues are distributed across milestones using a round-robin approach:
+
 - Each category is assigned to the next available milestone in sequence
 - This ensures balanced workload distribution
 - Related issues within a category stay in the same milestone
 
 Example with 5 categories and 6 milestones:
+
 ```
 Category 1 → v1.1
 Category 2 → v1.2
@@ -178,11 +190,13 @@ Category 5 → v1.5
 ### Workflow 1: Migrate Completed Milestone
 
 1. **Preview the migration**:
+
    ```bash
    node reassign-v1-to-v1-1.js --dry-run --verbose
    ```
 
 2. **Execute the migration**:
+
    ```bash
    node reassign-v1-to-v1-1.js
    ```
@@ -194,6 +208,7 @@ Category 5 → v1.5
 ### Workflow 2: Plan Next Release with Backlog Issues
 
 1. **Analyze unallocated issues with AI** (optional):
+
    ```bash
    ANTHROPIC_API_KEY=sk-... node distribute-unallocated-milestones.js --dry-run --verbose
    ```
@@ -203,6 +218,7 @@ Category 5 → v1.5
    - Look for logical groupings
 
 3. **Apply the distribution**:
+
    ```bash
    ANTHROPIC_API_KEY=sk-... node distribute-unallocated-milestones.js --verbose
    ```
@@ -218,6 +234,7 @@ Category 5 → v1.5
 ### MilestoneReassigner Class
 
 **Constructor**:
+
 ```javascript
 const reassigner = new MilestoneReassigner({
   owner: 'lightspeedwp',      // GitHub org/user
@@ -228,6 +245,7 @@ const reassigner = new MilestoneReassigner({
 ```
 
 **Methods**:
+
 - `reassignMilestone(sourceMilestoneNumber, targetMilestoneNumber)`: Main method
 - `findMilestones()`: Fetch all milestones
 - `fetchIssuesWithMilestone(milestoneNumber)`: Get issues for a milestone
@@ -236,6 +254,7 @@ const reassigner = new MilestoneReassigner({
 ### MilestoneDistributor Class
 
 **Constructor**:
+
 ```javascript
 const distributor = new MilestoneDistributor({
   owner: 'lightspeedwp',      // GitHub org/user
@@ -247,6 +266,7 @@ const distributor = new MilestoneDistributor({
 ```
 
 **Methods**:
+
 - `distribute(issues)`: Main method
 - `findMilestones()`: Fetch target milestones (v1.1-v1.6)
 - `fetchUnallocatedIssues()`: Get issues without milestone
@@ -306,27 +326,32 @@ All errors are collected and reported in the summary statistics.
 ## Troubleshooting
 
 ### "GITHUB_TOKEN environment variable is required"
+
 ```bash
 export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"
 node script.js
 ```
 
 ### "No open milestones found"
+
 - Check that target milestones exist in repository
 - For reassign script: ensure v1.0 and v1.1 milestones exist
 - For distribute script: ensure v1.1 through v1.6 milestones exist
 
 ### "API error: 403 Forbidden"
+
 - Verify GitHub token has 'repo' scope
 - Check rate limiting: 60 requests/minute
 - Wait a few minutes before retrying
 
 ### AI analysis producing unexpected categories
+
 - Review verbose output: `--verbose` flag shows analysis details
 - Check issue labels and titles are descriptive
 - Consider providing explicit milestone assignments manually
 
 ### Dry-run shows no changes
+
 - Confirm there are actually unallocated issues
 - Use `--verbose` to see detailed analysis
 - Check milestone names match exactly (case-sensitive)
@@ -367,6 +392,7 @@ jobs:
 ## Support & Contributing
 
 For issues or improvements:
+
 1. Check existing GitHub issues in the `.github` repository
 2. Test in dry-run mode first
 3. Document any edge cases or special handling needed

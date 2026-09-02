@@ -25,6 +25,8 @@ references:
 - Prefer minimal, modular solutions; justify heavier tools with return on investment and maintenance cost.
 - Follow WordPress Coding Standards (CSS, HTML, JavaScript, PHP) and inline‑documentation standards at all times.
 - All code changes must include lint fixes, relevant tests and a short rationale summarising the change.
+- Before creating or pushing branch changes, verify the target branch already exists and matches the PR branch; never create a new remote branch when the work is intended for an existing pull request.
+- Any new scripts, modules, or utilities must have related tests in a matching `__tests__/` subtree with the smallest focused coverage that exercises the changed behaviour.
 - Never output secrets. Treat production and customer data as sensitive. Follow the OWASP top 10 for web security.
 - Accessibility and performance are non‑negotiable; highlight potential issues during reviews.
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
@@ -95,6 +97,47 @@ When creating any new script:
 | A metrics collector | `scripts/metrics/` | ~~`.github/scripts/metrics/`~~ |
 | A release validator | `scripts/release/` | ~~`.github/scripts/release/`~~ |
 | Website JS (browser) | `.github/website/src/scripts/` | ✅ Exception - correct location |
+## Branch Naming Governance (CRITICAL)
+
+**All branches MUST follow this pattern:** `{type}/{scope}-{title}`
+
+This is enforced globally across all LightSpeed projects. See [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) for complete details, 34 allowed type values, examples, and why this matters.
+
+### Quick Reference
+
+✅ **Correct:**
+
+- `feat/governance-audit-implementation`
+- `fix/pr-template-routing-bug`
+- `docs/branching-strategy-guide`
+
+❌ **Forbidden (never use):**
+
+- `claude/something` — Reserved for Claude Code internal sessions
+- `copilot/something` — Reserved for GitHub Copilot integration
+- `openai/something` — Reserved for OpenAI integration
+
+### Why This Matters
+
+Incorrect branch names cause:
+
+1. PR template assignment failures
+2. GitHub Actions workflow failures
+3. Validation check failures
+4. Downstream automation breaks
+
+### Before You Push
+
+```bash
+npm run validate:branch-name -- --branch <your-branch>
+```
+
+### Full Reference
+
+- **Complete guidance:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (34 types, examples, consequences)
+- **Detailed rules:** [.github/instructions/branch-naming.instructions.md](.github/instructions/branch-naming.instructions.md)
+- **Strategy doc:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
+- **Copilot-specific:** [.github/custom-instructions.md](.github/custom-instructions.md)
 
 ---
 
