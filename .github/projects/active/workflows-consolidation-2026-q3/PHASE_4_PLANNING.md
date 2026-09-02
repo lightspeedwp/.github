@@ -4,16 +4,16 @@ title: Phase 4 — Issue Lifecycle & Deprecated Workflow Cleanup
 description: Concrete execution plan for Phase 4 consolidations, taking the workflow count from 33 (post-Phase 3.3) to the original target of 25.
 metadata:
   created: 2026-07-29
-  updated: 2026-07-29
+  updated: 2026-08-29
   phase: 4
-  status: planning
+  status: in-progress
   epic: "#1227"
   blockers: "Phase 3.3 must complete before Phase 4.1 can run"
 ---
 
 # Phase 4: Issue Lifecycle & Deprecated Workflow Cleanup
 
-**Status:** 📋 PLANNING | **Target Start:** After Phase 3.3 | **Goal:** 33 → 25 workflows (−8)
+**Status:** 🔄 IN PROGRESS (Phase 4.1 ✅ Complete) | **Goal:** 33 → 25 workflows (−8)
 
 > **Revised 2026-07-29:** PR #1377 (issue triage automation) added `issue-create-enhanced.yml` and `issue-remediation-bulk.yml`, bringing the pre-Phase-4 total to 36. After Phase 3.3 removes 3 legacy labeling workflows, Phase 4 starts at 33 and must remove 8 (not 6) to reach 25. Sub-phases 4.5 and 4.6 address the two new additions.
 
@@ -26,15 +26,15 @@ Phase 4 reaches the original target of 25 workflows by completing two categories
 1. **Cleanup** — delete workflows that are already deprecated or fully superseded
 2. **Consolidation** — merge overlapping issue-lifecycle and project-sync workflows added during Q3
 
-| Sub-phase | Title | Type | Net Δ | Effort | Issue |
-|-----------|-------|------|-------|--------|-------|
-| 4.1 | Delete deprecated workflows | Cleanup | −2 | 1h | [#1406](https://github.com/lightspeedwp/.github/issues/1406) |
-| 4.2 | Issue-close governance | Consolidation | −2 | 4-5h | [#1407](https://github.com/lightspeedwp/.github/issues/1407) |
-| 4.3 | Project sync unification | Consolidation | −1 | 3-4h | [#1408](https://github.com/lightspeedwp/.github/issues/1408) |
-| 4.4 | Flaky test absorption | Consolidation | −1 | 1-2h | [#1409](https://github.com/lightspeedwp/.github/issues/1409) |
-| 4.5 | Delete superseded issue-create workflow | Cleanup | −1 | 0.5h | [#1410](https://github.com/lightspeedwp/.github/issues/1410) |
-| 4.6 | Consolidate issue audit + remediation | Consolidation | −1 | 3-4h | [#1411](https://github.com/lightspeedwp/.github/issues/1411) |
-| **Total** | | | **−8** | **13-16h** | |
+| Sub-phase | Title | Type | Net Δ | Effort | Issue | Status |
+|-----------|-------|------|-------|--------|-------|--------|
+| 4.1 | Delete deprecated workflows | Cleanup | −2 | 1h | [#1406](https://github.com/lightspeedwp/.github/issues/1406) | ✅ Complete |
+| 4.2 | Issue-close governance | Consolidation | −2 | 4-5h | [#1407](https://github.com/lightspeedwp/.github/issues/1407) | 📋 Pending |
+| 4.3 | Project sync unification | Consolidation | −1 | 3-4h | [#1408](https://github.com/lightspeedwp/.github/issues/1408) | 📋 Pending |
+| 4.4 | Flaky test absorption | Consolidation | −1 | 1-2h | [#1409](https://github.com/lightspeedwp/.github/issues/1409) | 📋 Pending |
+| 4.5 | Delete superseded issue-create workflow | Cleanup | −1 | 0.5h | [#1410](https://github.com/lightspeedwp/.github/issues/1410) | 📋 Pending |
+| 4.6 | Consolidate issue audit + remediation | Consolidation | −1 | 3-4h | [#1411](https://github.com/lightspeedwp/.github/issues/1411) | 📋 Pending |
+| **Total** | | | **−8** | **13-16h** | | |
 
 ---
 
@@ -61,8 +61,8 @@ After Phase 3.3 removes the 3 legacy labeling workflows, the inventory will be:
 | documentation.yml | — | ✅ Keep | No overlap |
 | flaky-test-detection.yml | 42 | ⚠️ Phase 4.4 | Absorb into checks.yml |
 | issue-close-label-hygiene.yml | — | ❌ Deleted in 3.3 | — |
-| issue-create-enhanced.yml | 306 | ✅ Keep | Added PR #1377; replaces issue-create-from-template.yml |
-| issue-create-from-template.yml | — | ⚠️ Phase 4.5 | Superseded by issue-create-enhanced.yml → delete |
+| issue-create-enhanced.yml | 306 | ✅ Keep | Added PR #1377; replaces issue-create-enhanced.yml |
+| issue-create-enhanced.yml | — | ⚠️ Phase 4.5 | Superseded by issue-create-enhanced.yml → delete |
 | issue-fields-backfill.yml | 342 | ⚠️ Phase 4.3 | Merge → project-field-sync.yml |
 | issue-health-audit.yml | 267 | ⚠️ Phase 4.6 | Merge with issue-remediation-bulk.yml → issue-audit-remediation.yml |
 | issue-project-field-sync.yml | 386 | ⚠️ Phase 4.3 | Merge → project-field-sync.yml |
@@ -111,9 +111,9 @@ Both workflows are safe to remove with zero re-implementation work.
 
 **Verification before deletion:**
 
-- [ ] Confirm `metrics-reporting.yml` covers all jobs from `metrics-pipeline.yml`
-- [ ] Run `metrics-reporting.yml` manually (`workflow_dispatch`) and verify output
-- [ ] Check CHANGELOG.md or Phase 1B docs for confirmation of supersession
+- [x] Confirm `metrics-reporting.yml` covers all jobs from `metrics-pipeline.yml`
+- [x] Run `metrics-reporting.yml` manually (`workflow_dispatch`) and verify output
+- [x] Check CHANGELOG.md or Phase 1B docs for confirmation of supersession
 
 **Steps:**
 
@@ -290,15 +290,15 @@ flaky-detection:
 
 **Effort:** 0.5 hours | **Net:** −1 (27 → 26) | **Issue:** [#1410](https://github.com/lightspeedwp/.github/issues/1410)
 
-`issue-create-enhanced.yml` (added in PR #1377) supersedes `issue-create-from-template.yml`. Both accept the same `template_key` choice list and perform the same core function. `issue-create-enhanced.yml` adds additional inputs and improved template resolution logic.
+`issue-create-enhanced.yml` (added in PR #1377) supersedes `issue-create-enhanced.yml`. Both accept the same `template_key` choice list and perform the same core function. `issue-create-enhanced.yml` adds additional inputs and improved template resolution logic.
 
 **Steps:**
 
-1. Cross-check input parity: confirm all `issue-create-from-template.yml` inputs are present or intentionally superseded in `issue-create-enhanced.yml`
+1. Cross-check input parity: confirm all `issue-create-enhanced.yml` inputs are present or intentionally superseded in `issue-create-enhanced.yml`
 2. Search for references to the old workflow name in agents, prompts, instructions, and docs
 3. Update any references to `issue-create-enhanced`
-4. `git rm .github/workflows/issue-create-from-template.yml`
-5. Commit: `chore(ci): delete issue-create-from-template.yml (superseded by issue-create-enhanced.yml, #1377)`
+4. `git rm .github/workflows/issue-create-enhanced.yml`
+5. Commit: `chore(ci): delete issue-create-enhanced.yml (superseded by issue-create-enhanced.yml, #1377)`
 
 **Risk:** Low — the enhanced version is the direct replacement; no behaviour change.
 
@@ -433,7 +433,7 @@ Phases 4.1, 4.2, 4.3, 4.4, 4.5, and 4.6 are mutually independent from a code per
 | [#1407](https://github.com/lightspeedwp/.github/issues/1407) | Phase 4.2: Consolidate issue-close governance | Code Refactor | 4-5h |
 | [#1408](https://github.com/lightspeedwp/.github/issues/1408) | Phase 4.3: Unify project field sync | Code Refactor | 3-4h |
 | [#1409](https://github.com/lightspeedwp/.github/issues/1409) | Phase 4.4: Absorb flaky-test-detection | Code Refactor | 1-2h |
-| [#1410](https://github.com/lightspeedwp/.github/issues/1410) | Phase 4.5: Delete superseded issue-create-from-template.yml | Chore | 0.5h |
+| [#1410](https://github.com/lightspeedwp/.github/issues/1410) | Phase 4.5: Delete superseded issue-create-enhanced.yml | Chore | 0.5h |
 | [#1411](https://github.com/lightspeedwp/.github/issues/1411) | Phase 4.6: Consolidate issue audit + remediation | Code Refactor | 3-4h |
 
 ---

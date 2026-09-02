@@ -99,7 +99,7 @@ class OctokitClientFactory {
   getClient() {
     if (!this.client) {
       throw new Error(
-        "Client not initialized. Call a createWith* method first.",
+        "Client not initialised. Call a createWith* method first.",
       );
     }
     return this.client;
@@ -151,7 +151,7 @@ class OctokitClientFactory {
    */
   async getRateLimit() {
     if (!this.client) {
-      throw new Error("Client not initialized");
+      throw new Error("Client not initialised");
     }
 
     try {

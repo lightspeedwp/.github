@@ -18,11 +18,13 @@ status: active
 ## 30-Second Setup
 
 1. **Get your GitHub Token**:
+
    ```bash
    export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"
    ```
 
 2. **(Optional) Get Claude API Key for AI analysis**:
+
    ```bash
    export ANTHROPIC_API_KEY="sk-ant-xxxxxxxxxxxxxxxxxxxx"
    ```
@@ -63,11 +65,13 @@ ANTHROPIC_API_KEY=sk-... ./distribute-unallocated-milestones.js --dry-run --verb
 ## What These Scripts Do
 
 ### `reassign-v1-to-v1-1.js`
+
 Moves all open issues from milestone **v1.0** → **v1.1**
 
 **Use when**: Completing a milestone and moving work to next phase
 
 ### `distribute-unallocated-milestones.js`
+
 Analyzes unallocated issues and spreads them across **v1.1 to v1.6**
 
 **Use when**: Planning next 5 releases and organizing backlog
@@ -89,11 +93,13 @@ Analyzes unallocated issues and spreads them across **v1.1 to v1.6**
 ## Success Indicators
 
 ✅ All issues moved successfully:
+
 ```
 ✅ 2024-08-29T10:30:50.678Z [script-name] Reassignment complete. | Reassigned: 45 | Skipped: 0 | Errors: 0
 ```
 
 ✅ Check GitHub:
+
 - Visit repo's Milestones page
 - Verify issues appear in correct milestone
 - Check issue activity log shows recent updates
