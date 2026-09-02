@@ -1,7 +1,7 @@
 ---
-file_type: "pr-template"
-title: "Refactor PR"
-description: "Internal code improvement; no external behaviour change"
+name: "Refactor PR"
+about: "Internal code improvement; no external behaviour change"
+title: "refactor: {scope}"
 labels: ["status:needs-review"]
 ---
 

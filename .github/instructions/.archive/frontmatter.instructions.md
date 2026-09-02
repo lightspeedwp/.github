@@ -67,6 +67,134 @@ stability: "stable"
 domain: "governance"
 mode: "instruction"
 deprecated: false
+references:
+  - path: "schemas/frontmatter.schema.json"
+    description: "Unified frontmatter schema definition"
+  - path: "docs/frontmatter-schema.md"
+    description: "Frontmatter schema documentation"
+  - path: "docs/YAML.md"
+    description: "YAML frontmatter documentation"
+---
+```
+
+## Validation
+
+- All frontmatter must validate against the schema at `schemas/frontmatter.schema.json`
+- VS Code and Copilot validate automatically if configured (see `.vscode/settings.json`).
+
+```mermaid
+graph TD
+    A[File with Frontmatter] --> B[Schema Validation]
+    B -->|Valid| C[Accepted]
+    B -->|Invalid| D[Error: Fix Required]
+    D --> A
+    C --> E[Automation, Search, Discoverability]
+```
+
+## References
+
+- [Unified Frontmatter Schema](../../schemas/frontmatter.schema.json)
+- [Frontmatter Schema Documentation](../../docs/frontmatter-schema.md)
+- [YAML Frontmatter Documentation](../../docs/YAML.md)
+- [Chatmode Frontmatter Documentation](../../docs/CHATMODE-FRONTMATTER.md)
+- [Tagging and Frontmatter Conventions](tagging-and-frontmatter-conventions.instructions.md)
+- [VS Code Settings](../../.vscode/settings.json)
+
+# LightSpeedWP Unified Frontmatter Conventions
+
+**Version**: v2.0 | **Last Updated**: 2025-10-24 | **Author**: LightSpeedWP | **Maintainer**: Ash Shaw
+
+These conventions merge **LightSpeedWP governance requirements** with **awesome-copilot tagging standards** to create a unified frontmatter system for all `.github` assets. This includes instructions (`*.instructions.md`), prompts (`*.prompt.md`), chat modes (`*.chatmode.md`), agents (`*.agent.md`), templates, and collection manifests.
+
+**Key Integration Points:**
+
+- LightSpeedWP governance fields (`file_type`, `version`, `author`, `maintainer`, `owners`)
+- Awesome-copilot conventions (`mode`, `applyTo`, `stability`, `domain`, `deprecated`)
+- GitHub/Copilot compatibility (validated against `../../schemas/frontmatter.schema.json`)
+
+## Universal Required Fields (All File Types)
+
+| Field          | Type                         | Applies To           | Required | Purpose                                                |
+| -------------- | ---------------------------- | -------------------- | -------- | ------------------------------------------------------ |
+| `file_type`    | string (const per file type) | all LightSpeed files | ✅       | Discriminator for schema validation                    |
+| `description`  | string                       | all asset markdown   | ✅       | Human-readable summary (single sentence preferred)     |
+| `title`        | string                       | governance files     | ✅\*     | Human-readable title (required for governance docs)    |
+| `version`      | string (e.g., v1.1)          | governance files     | ✅\*     | Version string for governance tracking                 |
+| `last_updated` | string (ISO date)            | governance files     | ✅\*     | Date of last update (YYYY-MM-DD format)                |
+| `author`       | string                       | governance files     | 📋       | Main author or responsible party                       |
+| `maintainer`   | string                       | governance files     | 📋       | Current maintainer                                     |
+| `owners`       | array[string]                | team files           | 📋       | List of owners/maintainers (alternative to maintainer) |
+
+## Awesome-Copilot Integration Fields
+
+| Field          | Type                                                                                                  | Applies To          | Required | Purpose                                                             |
+| -------------- | ----------------------------------------------------------------------------------------------------- | ------------------- | -------- | ------------------------------------------------------------------- |
+| `mode`         | enum(`agent`,`ask`,`edit`)                                                                            | prompts, chat modes | 📋       | Execution style (contextual agent vs single-turn ask)               |
+| `applyTo`      | glob string or array[string]                                                                          | instructions        | ✅\*     | Scope selectors for auto-application (instructions only)            |
+| `model`        | string                                                                                                | prompts, chat modes | 📋       | Preferred AI model (e.g., "gpt-4", "claude-3")                      |
+| `tools`        | array[string]                                                                                         | prompts, chat modes | 📋       | Available tools/capabilities                                        |
+| `deprecated`   | boolean                                                                                               | all                 | 📋       | Signals exclusion from generated tables (generator skips when true) |
+| `replacement`  | string (path)                                                                                         | deprecated assets   | ✅\*     | Points to canonical successor file (required if deprecated=true)    |
+| `stability`    | enum(`stable`,`experimental`,`incubating`)                                                            | all                 | 📋       | Communicates maturity expectation                                   |
+| `tags`         | array[string] (max 8)                                                                                 | all                 | 📋       | Taxonomy for discovery/filtering (limit 8 items)                    |
+| `domain`       | enum(`wp-core`,`block-theme`,`plugin-hardening`,`perf`,`a11y`,`i18n`,`security`,`headless`,`generic`) | all                 | 📋       | Primary classification (choose one)                                 |
+| `extraDomains` | array[string]                                                                                         | optional            | 📋       | Secondary classifications if needed                                 |
+| `license`      | string                                                                                                | all                 | 📋       | License identifier (e.g., "GPL-3.0", "MIT")                         |
+| `references`   | array[string]                                                                                         | all                 | 📋       | AI-focused references to related docs (relative paths)              |
+
+**Legend**: ✅ = Required, 📋 = Recommended, ✅\* = Required conditionally
+
+## LightSpeedWP Domain Taxonomy
+
+**Primary Domains** (choose exactly one for `domain`):
+
+- `wp-core` - WordPress core functionality, hooks, APIs
+- `block-theme` - Block themes, FSE, theme.json, patterns
+- `plugin-hardening` - Plugin security, validation, best practices
+- `perf` - Performance optimization, caching, speed
+- `a11y` - Accessibility, WCAG compliance, inclusive design
+- `i18n` - Internationalization, localization, translations
+- `security` - Security hardening, sanitization, authentication
+- `headless` - Headless WordPress, APIs, decoupled architecture
+- `generic` - General purpose, cross-domain, or unclassified
+
+**Supplemental Tags** (use in `tags` array, max 8 total):
+
+*Development*: `testing`, `lint`, `ci`, `automation`, `docs`, `validation`
+*WordPress*: `rest`, `graphql`, `gutenberg`, `blocks`, `patterns`, `theme-json`
+*Technical*: `api`, `data`, `editor`, `cli`, `deployment`, `logging`
+*UX/Design*: `ux`, `design-tokens`, `accessibility`, `responsive`, `mobile`
+
+**Tagging Rules**:
+
+1. **Limit**: Max 8 tags total for clarity and performance
+2. **Format**: Use lowercase kebab-case only (no spaces, no uppercase)
+3. **No Duplication**: Don't repeat the chosen `domain` in `tags` (it's implicit)
+4. **Consistency**: Prefer existing tags; only create new ones with clear reuse potential
+5. **Specificity**: Be specific enough for discovery, general enough for reuse
+
+## Deprecation Workflow
+
+1. Mark legacy file with `deprecated: true` and add `replacement: 'relative/path/to/new-file.ext'`.
+2. Keep content minimal: brief rationale + migration pointer.
+3. Generator excludes deprecated assets from tables automatically (implemented in `update-readme.js`).
+4. After one release cycle (or zero inbound references in link audit), remove the deprecated file.
+
+## Stability Lifecycle
+
+| Stability      | Intent                         | Change Expectations                       |
+| -------------- | ------------------------------ | ----------------------------------------- |
+| `experimental` | Early exploration              | Breaking changes likely                   |
+| `incubating`   | Maturing, seeking feedback     | Minor structural tweaks possible          |
+| `stable`       | Adopted, versioned conventions | Backward compatibility strongly preferred |
+
+## File Type Specific Examples
+
+### LightSpeed Governance File (Documentation)
+
+```markdown
+---
+$schema: "schemas/frontmatter.schema.json"
 file_type: "documentation"
 title: "WordPress Security Guidelines"
 description: "Security best practices for WordPress development"
@@ -78,6 +206,31 @@ domain: "security"
 stability: "stable"
 tags: ["guidelines", "best-practices", "wp-core"]
 license: "GPL-3.0"
+references:
+  - "CONTRIBUTING.md"
+  - "README.md"
+  - ".github/README.md"
+  - "schemas/frontmatter.schema.json"
+---
+
+# WordPress Security Guidelines
+
+Content here...
+
+---
+
+## References
+
+- [Contributing Guidelines](CONTRIBUTING.md) - For human contributors
+- [Main Documentation](README.md) - Project overview
+- [GitHub Documentation](.github/README.md) - Repository structure
+- [Frontmatter Schema](schemas/frontmatter.schema.json) - Schema validation
+```
+
+### Copilot Instructions File
+
+```markdown
+---
 description: "Secure coding guardrails for custom WP REST endpoints"
 applyTo: "includes/api/**/*.php"
 ---

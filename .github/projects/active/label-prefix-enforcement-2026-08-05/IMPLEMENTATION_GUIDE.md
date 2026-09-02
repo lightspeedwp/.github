@@ -133,7 +133,6 @@ The labeling agent in `.github/scripts/agents/labeling.agent.js` is the authorit
 **Correct pattern**:
 ```yaml
 labels:
-  []
   - type:bug           # Problem classification
   - status:needs-triage  # Workflow state
   - priority:normal    # Urgency
@@ -144,7 +143,6 @@ labels:
 
 ```yaml
 labels:
-  []
   - bug               # Bare label (missing type: prefix)
   - needs-triage      # Bare label (missing status: prefix)
   - urgent            # Bare label (missing priority: prefix)

@@ -1,7 +1,7 @@
 ---
-file_type: "pr-template"
-title: "Docs-only PR"
-description: "Documentation updates: READMEs, guides, contributor docs"
+name: "Docs-only PR"
+about: "Documentation updates: READMEs, guides, contributor docs"
+title: "docs: {short summary}"
 labels: ["status:needs-review", "lang:md", "area:documentation"]
 ---
 

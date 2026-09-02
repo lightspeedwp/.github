@@ -1,7 +1,7 @@
 ---
-file_type: "pr-template"
-title: "Build/CI PR"
-description: "Pipelines, linting, packaging, or release automation"
+name: "Build/CI PR"
+about: "Pipelines, linting, packaging, or release automation"
+title: "build(ci): {short summary}"
 labels: ["status:needs-review", "area:ci"]
 ---
 

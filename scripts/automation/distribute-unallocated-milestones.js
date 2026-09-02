@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global fetch */
 
 /**
  * distribute-unallocated-milestones.js
@@ -188,10 +187,7 @@ Example format:
         return this.analyzeIssuesLocally(issues);
       }
     } catch (err) {
-      this.log(
-        "warn",
-        `AI analysis failed: ${err.message}, using local analysis`,
-      );
+      this.log("warn", `AI analysis failed: ${err.message}, using local analysis`);
       return this.analyzeIssuesLocally(issues);
     }
   }
@@ -218,7 +214,9 @@ Example format:
       });
 
       if (!response.ok) {
-        throw new Error(`API error: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `API error: ${response.status} ${response.statusText}`,
+        );
       }
 
       const data = await response.json();
@@ -231,9 +229,7 @@ Example format:
       }
 
       const categories = JSON.parse(jsonMatch[0]);
-      this.verbose_log(
-        `AI analysis produced ${Object.keys(categories).length} categories`,
-      );
+      this.verbose_log(`AI analysis produced ${Object.keys(categories).length} categories`);
       return categories;
     } catch (err) {
       throw new Error(`Failed to call Claude API: ${err.message}`);
@@ -254,10 +250,7 @@ Example format:
     };
 
     for (const issue of issues) {
-      const labels = issue.labels
-        .map((l) => l.name)
-        .join(" ")
-        .toLowerCase();
+      const labels = issue.labels.map((l) => l.name).join(" ").toLowerCase();
       const title = issue.title.toLowerCase();
 
       // Simple categorization by labels and keywords
@@ -313,8 +306,7 @@ Example format:
 
     // Round-robin distribution
     for (const [category, issues] of categoryEntries) {
-      const targetMilestone =
-        milestoneArray[milestoneIndex % milestoneArray.length];
+      const targetMilestone = milestoneArray[milestoneIndex % milestoneArray.length];
 
       if (!distribution[targetMilestone]) {
         distribution[targetMilestone] = [];
@@ -352,10 +344,7 @@ Example format:
         milestone: milestoneNumber,
       });
 
-      this.log(
-        "success",
-        `Assigned issue #${issueNumber} to milestone #${milestoneNumber}`,
-      );
+      this.log("success", `Assigned issue #${issueNumber} to milestone #${milestoneNumber}`);
       this.stats.distributed++;
       return { status: "assigned" };
     } catch (err) {
@@ -369,7 +358,10 @@ Example format:
 
   async distribute(issues) {
     try {
-      this.log("success", "Starting intelligent milestone distribution...");
+      this.log(
+        "success",
+        "Starting intelligent milestone distribution...",
+      );
 
       if (issues.length === 0) {
         this.log("skip", "No unallocated issues found");
@@ -378,9 +370,7 @@ Example format:
 
       // Step 1: Analyze and categorize issues
       const categories = await this.analyzeIssuesWithAI(issues);
-      this.verbose_log(
-        `Issues categorized into ${Object.keys(categories).length} group(s)`,
-      );
+      this.verbose_log(`Issues categorized into ${Object.keys(categories).length} group(s)`);
 
       // Step 2: Distribute categories across milestones
       const distribution = this.distributeToMilestones(categories);
@@ -391,10 +381,7 @@ Example format:
         distribution,
       )) {
         for (const issueNumber of issueNumbers) {
-          await this.assignIssueToMilestone(
-            issueNumber,
-            parseInt(milestoneNumber, 10),
-          );
+          await this.assignIssueToMilestone(issueNumber, parseInt(milestoneNumber, 10));
         }
       }
 
@@ -410,7 +397,7 @@ Example format:
     }
   }
 
-  logSummary(_distribution) {
+  logSummary(distribution) {
     const summary = [
       `Distribution complete.`,
       `Distributed: ${this.stats.distributed}`,
