@@ -113,6 +113,23 @@ Capture rate limit info after each script execution:
 // scripts/automation/includes/rate-limit-logger.js
 
 class RateLimitLogger {
+  /**
+   * Octokit Rate Limit Monitoring
+   * 
+   * IMPORTANT: Response object structure
+   * - github.rest.rateLimit.get() returns response directly (not destructured)
+   * - response.headers contains rate limit headers as STRINGS
+   * - MUST parse header values to integers: parseInt(value, 10)
+   * - Always validate parsed values are not NaN before use
+   * 
+   * Correct usage:
+   *   const response = await github.rest.rateLimit.get();
+   *   const remaining = parseInt(response.headers['x-ratelimit-remaining'], 10);
+   * 
+   * Incorrect usage (will fail):
+   *   const { response } = await github.rest.rateLimit.get();  // undefined
+   *   const remaining = response.headers['x-ratelimit-remaining'];  // string "4500"
+   */
   constructor(github) {
     this.github = github;
     this.startTime = Date.now();
@@ -121,12 +138,20 @@ class RateLimitLogger {
 
   async logUsage(context = '') {
     try {
-      const { response } = await this.github.rest.rateLimit.get();
-      const remaining = response.headers['x-ratelimit-remaining'];
-      const limit = response.headers['x-ratelimit-limit'];
-      const reset = response.headers['x-ratelimit-reset'];
+      // Correct: Use Octokit response object directly (not destructured)
+      const response = await this.github.rest.rateLimit.get();
       
-      const resetDate = new Date(parseInt(reset) * 1000);
+      // Headers are strings and must be parsed to numbers
+      const remaining = parseInt(response.headers['x-ratelimit-remaining'], 10);
+      const limit = parseInt(response.headers['x-ratelimit-limit'], 10);
+      const reset = parseInt(response.headers['x-ratelimit-reset'], 10);
+      
+      // Validate parsed values
+      if (isNaN(remaining) || isNaN(limit) || isNaN(reset)) {
+        throw new Error('Failed to parse rate limit headers as integers');
+      }
+      
+      const resetDate = new Date(reset * 1000);
       const percentUsed = ((limit - remaining) / limit * 100).toFixed(1);
       
       const info = {
@@ -139,28 +164,39 @@ class RateLimitLogger {
         apiCallsThisRun: this.apiCalls
       };
       
+      // Create info object with numeric values preserved
+      const info = {
+        context,
+        timestamp: new Date().toISOString(),
+        remaining: remaining,  // Numeric value, not string
+        limit: limit,           // Numeric value, not string
+        percentUsed: `${percentUsed}%`,
+        resetAt: resetDate.toISOString(),
+        apiCallsThisRun: this.apiCalls
+      };
+      
       // Log to console
       console.log(`
 📊 Rate Limit Status (${context})
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Remaining: ${remaining}/${limit}
-Used: ${percentUsed}%
+Remaining: ${info.remaining}/${info.limit}
+Used: ${info.percentUsed}
 Reset: ${resetDate.toLocaleString()}
-API Calls This Run: ${this.apiCalls}
+API Calls This Run: ${info.apiCallsThisRun}
       `);
       
-      // Check thresholds and warn
-      if (remaining < 100) {
+      // Check thresholds and warn (remaining is numeric, safe for comparison)
+      if (info.remaining < 100) {
         console.error('🚨 CRITICAL: Rate limit exhaustion imminent!');
         return { level: 'critical', info };
       }
       
-      if (remaining < 500) {
+      if (info.remaining < 500) {
         console.warn('🔴 WARNING: Rate limit critical (<500 remaining)');
         return { level: 'warning', info };
       }
       
-      if (remaining < 1000) {
+      if (info.remaining < 1000) {
         console.warn('🟡 CAUTION: Rate limit approaching (<1000 remaining)');
         return { level: 'caution', info };
       }
