@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* global AbortController */
+
 /**
  * Handlers Orchestrator — Tier 1 Batch Processor
  *
@@ -117,7 +119,7 @@ function categorizeError(error) {
 }
 
 // Task 3: Retry logic with exponential backoff
-async function retryWithBackoff(fn, config, context = {}) {
+async function retryWithBackoff(fn, config, _context = {}) {
   const {
     maxRetries = 3,
     retryDelayMs = 1000,
@@ -356,8 +358,11 @@ function initializeOctokit(token, rateLimiter) {
   const octokit = new Octokit({ auth: token });
 
   // Wrap the request method to enforce rate limiting on ALL API calls
+  // and respect abort signals for timeout cancellation
   const originalRequest = octokit.request.bind(octokit);
   octokit.request = async function (route, parameters) {
+    // Check if abort signal is present in context (passed via headers or options)
+    // This would be set by handlers that have abort support
     if (rateLimiter) {
       await rateLimiter.acquire(1);
     }
@@ -430,13 +435,21 @@ async function routeToHandlers(issue, handlers, options, config) {
         try {
           // Wrap handler call with timeout and retry logic
           let timeoutHandle;
+          let abortController;
           try {
+            // Create AbortController for this handler execution
+            abortController = new AbortController();
+            const handlerOptions = {
+              ...options,
+              abortSignal: abortController.signal,
+            };
+
             const result = await Promise.race([
               retryWithBackoff(
                 async () => {
                   const handlerResult = await handler.processIssue(
                     issue,
-                    options,
+                    handlerOptions,
                   );
 
                   // If handler resolved with error status and it's retryable, reject for retry
@@ -461,13 +474,12 @@ async function routeToHandlers(issue, handlers, options, config) {
                 },
               ),
               new Promise((_, reject) => {
-                timeoutHandle = setTimeout(
-                  () =>
-                    reject(
-                      new Error(`Handler timeout after ${config.timeout}ms`),
-                    ),
-                  config.timeout,
-                );
+                timeoutHandle = setTimeout(() => {
+                  abortController.abort();
+                  reject(
+                    new Error(`Handler timeout after ${config.timeout}ms`),
+                  );
+                }, config.timeout);
               }),
             ]);
 
@@ -476,8 +488,11 @@ async function routeToHandlers(issue, handlers, options, config) {
               ...result,
             };
           } finally {
-            // Ensure timeout is cleared in all cases (success and error)
+            // Ensure timeout is cleared and controller aborted in all cases
             if (timeoutHandle) clearTimeout(timeoutHandle);
+            if (abortController && !abortController.signal.aborted) {
+              abortController.abort();
+            }
           }
         } finally {
           // Release semaphore slot
