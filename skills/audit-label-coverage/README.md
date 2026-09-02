@@ -1,3 +1,20 @@
+---
+file_type: readme
+title: audit-label-coverage Skill
+description: Comprehensive GitHub label coverage auditing for issues and pull requests
+version: 1.0.0
+last_updated: 2026-09-02
+owners:
+  - LightSpeed Automation Team
+tags:
+  - labels
+  - audit
+  - github
+  - coverage
+  - governance
+  - reporting
+---
+
 # audit-label-coverage Skill
 
 Comprehensive GitHub label coverage auditing for issues and pull requests.
