@@ -19,9 +19,9 @@ date: "2026-09-02"
 | Phase | Week | Issues | Status | Progress |
 |-------|------|--------|--------|----------|
 | **3** | Week 1 | 1.1-1.4 | ✅ Complete | 4/4 |
-| **3** | Week 2 | 2.1-3.2 | 🟡 Partial | 3/6 |
-| **3** | Week 3 | 4.1-5.2 | 🟡 In Progress | 1/3 |
-| **TOTAL** | **3-4 weeks** | **11 issues** | **🔄 In Progress** | **8/11 (73%)** |
+| **3** | Week 2 | 2.1-3.2 | ✅ Complete | 6/6 |
+| **3** | Week 3 | 4.1, 4.2, 4.3, 5.1, 5.2 | 🟡 In Progress | 1/5 |
+| **TOTAL** | **3-4 weeks** | **15 issues** | **🟡 In Progress** | **11/15 (73%)** |
 
 ---
 
@@ -70,7 +70,7 @@ date: "2026-09-02"
 
 ---
 
-### PHASE 3, WEEK 2: Fallback Routing Action + Scripts 🟡 PARTIAL (1/6)
+### PHASE 3, WEEK 2: Fallback Routing Action + Scripts ✅ COMPLETE (6/6)
 
 #### ✅ Issue 2.1: Create PR Template Resolver GitHub Action
 - **Status:** ✅ Complete (Implemented & Running)
@@ -85,19 +85,27 @@ date: "2026-09-02"
 - **Evidence:** Workflow exists, tested on PR #2585 and #2586
 - **Validation:** Action successfully comments on non-standard branch PRs
 
-#### ⏳ Issue 2.2: Create Title Normalization Script
-- **Status:** ⏳ Not Started
-- **File:** `scripts/automation/normalize-issue-pr-titles.js` (to create)
-- **Deliverable:** CLI tool for batch title normalization with:
-  - Options: `--dry-run`, `--state open|closed|all`, `--since YYYY-MM-DD`
-  - Logic for issues: type field or `type:*` label → prefix title
-  - Logic for PRs: linked issue type → PR label → description
-  - Format: `{TYPE}: {existing-title}`
-  - Output: summary report + detailed log
-  - Idempotent operation
-- **Effort:** 6 hours
+#### ✅ Issue 2.2: Create Title Normalization Script
+- **Status:** ✅ Complete (Already implemented)
+- **File:** `scripts/automation/normalize-issue-pr-titles.js` (508 lines)
+- **Deliverable:** ✅ CLI tool for batch title normalization with:
+  - ✅ Options: `--dry-run`, `--state open|closed|all`, `--since YYYY-MM-DD`, `--output file.json`, `--verbose`
+  - ✅ Logic for issues: type field or `type:*` label → prefix title
+  - ✅ Logic for PRs: linked issue type → PR label → description
+  - ✅ Format: `{TYPE}: {existing-title}` (40+ type-to-prefix mappings)
+  - ✅ Output: summary report + detailed JSON log
+  - ✅ Idempotent operation (detects already-prefixed titles)
+  - ✅ Octokit-based GitHub API integration with pagination
+  - ✅ Exports functions for testing
+- **Evidence:**
+  - Script: `scripts/automation/normalize-issue-pr-titles.js` (508 lines)
+  - TYPE_PREFIXES mapping: lines 39-81 (40+ mappings)
+  - Functions: normalizeTitle, isAlreadyPrefixed, getTypePrefix, parseArgs, formatDate
+  - Idempotency: lines 196-200 (checks for existing prefixes)
+  - GitHub API: lines 87-181 (Octokit integration)
+  - CLI options: lines 206-228 (argument parsing)
+- **Effort:** 0 hours (already implemented)
 - **Dependencies:** None
-- **Next Steps:** Begin implementation
 
 #### ✅ Issue 2.3: Add Comprehensive Tests for Title Normalization
 - **Status:** ✅ Complete (PR #2612 - In Review)
@@ -126,29 +134,43 @@ date: "2026-09-02"
 - **Dependencies:** Requires Issue 2.2 ✅ (Complete)
 - **Subscribed:** Monitoring CI status and review comments on PR #2612
 
-#### ⏳ Issue 2.4: Create Title Normalization GitHub Action Workflow
-- **Status:** ⏳ Blocked (depends on Issue 2.2)
-- **File:** `.github/workflows/normalize-titles.yml` (to create)
-- **Deliverable:** On-demand workflow that:
-  - Accepts input filters (--state, --since)
-  - Calls normalize-issue-pr-titles.js script
-  - Creates summary comment or issue with report
-  - Links to all renamed items
-- **Effort:** 2 hours
-- **Dependencies:** Requires Issue 2.2
-- **Blocked Until:** Issue 2.2 complete
+#### ✅ Issue 2.4: Create Title Normalization GitHub Action Workflow
+- **Status:** ✅ Complete (Already implemented)
+- **File:** `.github/workflows/normalize-titles.yml` (100+ lines)
+- **Deliverable:** ✅ On-demand workflow that:
+  - ✅ Triggered via workflow_dispatch with input parameters
+  - ✅ Accepts filters: state (open/closed/all), since (date), item_type (issue/pr/all), dry_run
+  - ✅ Calls normalize-issue-pr-titles.js script with proper arguments
+  - ✅ Parses JSON report output
+  - ✅ Creates summary with stats (total, updated, skipped, errors)
+  - ✅ Generates GitHub comment with results
+- **Evidence:**
+  - Workflow: `.github/workflows/normalize-titles.yml`
+  - Inputs: lines 5-32 (state, since, item_type, dry_run)
+  - Script invocation: lines 50-74
+  - Report parsing: lines 76-90
+  - Result comment: lines 92+
+- **Effort:** 0 hours (already implemented)
+- **Dependencies:** Requires Issue 2.2 ✅ (Complete)
 
-#### ⏳ Issue 3.1: Create PR-Issue Linking Enforcement Workflow
-- **Status:** ⏳ Not Started
-- **File:** `.github/workflows/enforce-pr-issue-linking.yml` (to create)
-- **Deliverable:** GitHub Action that:
-  - Triggers on PR opened/synchronize
-  - Checks if PR has linked issue via GitHub API
-  - If no linked issue: adds comment with requirement + link to docs
-  - (Optional) Request changes or block merge
-- **Effort:** 3 hours
+#### ✅ Issue 3.1: Create PR-Issue Linking Enforcement Workflow
+- **Status:** ✅ Complete (Already implemented)
+- **File:** `.github/workflows/enforce-pr-issue-linking.yml` (152 lines)
+- **Deliverable:** ✅ GitHub Action that:
+  - ✅ Triggers on PR opened/synchronize/reopened
+  - ✅ Checks if PR has linked issue via GitHub API
+  - ✅ If no linked issue: adds informative comment with requirement + documentation links
+  - ✅ Detects multiple linking keywords: Closes, Fixes, Resolves, Relates to, Part of
+  - ✅ Avoids duplicate comments (idempotent)
+  - ✅ Logs results for debugging
+- **Evidence:**
+  - Workflow: `.github/workflows/enforce-pr-issue-linking.yml` (lines 1-152)
+  - Linking keywords: lines 25-37
+  - Comment logic: lines 82-149
+  - Error handling: lines 97-105 (prevents duplicate comments)
+  - Documentation links: lines 136-138
+- **Effort:** 0 hours (already implemented)
 - **Dependencies:** None
-- **Next Steps:** Begin implementation after Issue 2.2 (parallel work possible)
 
 #### ✅ Issue 3.2: Update PR Templates with Linking Requirements
 - **Status:** ✅ Complete (Already implemented in templates)
@@ -169,7 +191,7 @@ date: "2026-09-02"
 
 ---
 
-### PHASE 3, WEEK 3: Validation & Testing ⏳ PLANNED (0/3)
+### PHASE 3, WEEK 3: Validation & Testing 🟡 PARTIAL (1/5)
 
 #### ⏳ Issue 4.1: Add Branch Validation Tests
 - **Status:** ⏳ Not Started
@@ -198,7 +220,7 @@ date: "2026-09-02"
 - **Coverage Target:** 100% of routing paths
 
 #### ⏳ Issue 4.3: Test Title Normalization on Existing Issues/PRs
-- **Status:** ⏳ Blocked (depends on Issue 2.2)
+- **Status:** ⏳ Ready (depends on Issue 2.2 ✅)
 - **Task:** Run title normalization script in dry-run mode
 - **Deliverable:**
   - Generate report of what would be renamed
@@ -206,26 +228,34 @@ date: "2026-09-02"
   - Identify edge cases
   - Create follow-up issues for edge cases
 - **Effort:** 4 hours
-- **Dependencies:** Requires Issue 2.2
+- **Dependencies:** Requires Issue 2.2 ✅ (Complete)
 - **Output:** Dry-run report + edge case analysis
 
-#### ⏳ Issue 5.1: Create/Update BRANCHING_STRATEGY.md
-- **Status:** ⏳ Not Started
+#### ✅ Issue 5.1: Create/Update BRANCHING_STRATEGY.md
+- **Status:** ✅ Complete
 - **File:** `docs/BRANCHING_STRATEGY.md`
-- **Deliverable:** Comprehensive guide with:
-  - Complete branching rules
-  - All 34 allowed type values with descriptions
-  - Forbidden prefixes and why
-  - Consequences of violations
-  - Examples for each type
-  - Validation commands
-  - Links to supporting docs
-- **Effort:** 2 hours
+- **Deliverable:** ✅ Comprehensive guide with:
+  - ✅ Complete branching rules
+  - ✅ All 34+ allowed type values with descriptions and examples
+  - ✅ Forbidden prefixes section (claude/, copilot/, openai/)
+  - ✅ Consequences of violations and remediation procedures
+  - ✅ Examples for each type
+  - ✅ Validation commands (local: `node validate-branch-name.cjs`, CI: GitHub Actions)
+  - ✅ Example workflow implementation
+  - ✅ Links to supporting docs (BRANCHING_STRATEGY.md, validate-branch-name.cjs, BRANCHING_STRATEGY.md)
+  - ✅ Section 8: Quick reference table of all 33+ types
+  - ✅ All section numbers updated correctly
+- **Evidence:**
+  - File: `docs/BRANCHING_STRATEGY.md` (comprehensive update)
+  - Sections added: 3.4 (Governance Prefixes), 3.5 (Why Prefixes Matter), 3.6 (Validation)
+  - Sections added: 4.1 (Local Validation), 4.2 (GitHub Actions Validation), 4.3 (Consequences & Remediation)
+  - Section added: 8 (Quick Reference Table)
+  - Complete table of all 33+ allowed types with descriptions
+- **Effort:** 2 hours (completed)
 - **Dependencies:** None
-- **Note:** Partial work may exist
 
 #### ⏳ Issue 5.2: Run Title Normalization on All Existing Issues/PRs
-- **Status:** ⏳ Blocked (depends on Issues 2.2 and 4.3)
+- **Status:** ⏳ Ready (depends on Issues 2.2 ✅ and 4.3)
 - **Task:** Execute title normalization script on all issues/PRs
 - **Deliverable:**
   - Run with `--state all --since 2025-01-01`
@@ -233,36 +263,40 @@ date: "2026-09-02"
   - Handle edge cases
   - Create follow-up issues for non-normalizable items
 - **Effort:** 2 hours (including review)
-- **Dependencies:** Requires Issues 2.2 and 4.3
+- **Dependencies:** Requires Issues 2.2 ✅ (Complete) and 4.3 (in progress)
 - **Data Validation:** Verify no data corruption before merge
 
 ---
 
 ## Work Breakdown by Status
 
-### ✅ Complete (6 issues)
+### ✅ Complete (11 issues)
+**Week 1:**
 1. Issue 1.1 ✅ Move CLAUDE.md rules
 2. Issue 1.2 ✅ Add AGENTS.md section
 3. Issue 1.3 ✅ Add custom-instructions.md section
 4. Issue 1.4 ✅ Update PR template config
-5. Issue 2.1 ✅ PR Template Resolver workflow
-6. Issue 2.3 ✅ Title Normalization Tests
 
-### 🟡 Partial (0 issues in progress, ready to start)
+**Week 2:**
+5. Issue 2.1 ✅ PR Template Resolver workflow
+6. Issue 2.2 ✅ Title Normalization Script
+7. Issue 2.3 ✅ Title Normalization Tests
+8. Issue 2.4 ✅ Title Normalization Workflow
+9. Issue 3.1 ✅ PR-Issue Linking Workflow
+10. Issue 3.2 ✅ PR Templates with Linking Requirements
+
+**Week 3:**
+11. Issue 5.1 ✅ BRANCHING_STRATEGY.md
+
+### 🟡 In Progress (0 issues)
 - No issues currently being worked on
 
-### ⏳ Planned / Blocked (6 issues)
-**Not Started (Ready to Start):**
-- Issue 2.2 — Title Normalization Script (6h) — START HERE
-- Issue 3.1 — PR-Issue Linking Workflow (3h) — Can start now
-- Issue 3.2 — Update PR Templates (1h) — Can start now
-- Issue 4.1 — Branch Validation Tests (2h) — Can start now
-- Issue 4.2 — Template Routing Tests (3h) — Can start now
-- Issue 5.1 — BRANCHING_STRATEGY.md (2h) — Can start now
+### ⏳ Planned (4 issues)
+**Ready to Start (No dependencies):**
+- Issue 4.1 — Branch Validation Tests (2h)
+- Issue 4.2 — Template Routing Tests (3h)
 
-**Blocked (Depends on Issue 2.2):**
-- Issue 2.3 — Title Normalization Tests (4h)
-- Issue 2.4 — Title Normalization Workflow (2h)
+**Ready to Start (Depends on Issue 2.2 ✅):**
 - Issue 4.3 — Test Title Normalization (4h)
 - Issue 5.2 — Run Normalization (2h)
 
@@ -296,23 +330,18 @@ PARALLEL WORK: ~11 hours
 ## Recommended Action Plan
 
 ### Immediate (Next 1-2 days)
-**Priority 1 (Critical Path - Must Start):**
-- [ ] Issue 2.2: Create title normalization script (6h)
-
-**Priority 2 (Parallel - Can Start Now):**
-- [ ] Issue 3.1: Create PR-issue linking workflow (3h)
-- [ ] Issue 3.2: Update PR templates (1h)
+**Priority 1 (No Dependencies - Start Now):**
 - [ ] Issue 4.1: Add branch validation tests (2h)
 - [ ] Issue 4.2: Add template routing tests (3h)
-- [ ] Issue 5.1: Create BRANCHING_STRATEGY.md (2h)
 
-### Week 2 (After Issue 2.2 complete)
-- [ ] Issue 2.3: Title normalization tests (4h)
-- [ ] Issue 2.4: Title normalization workflow (2h)
-- [ ] Issue 4.3: Test title normalization (4h)
+**Priority 2 (Depends on Issue 2.2 ✅ - Can Start Now):**
+- [ ] Issue 4.3: Test title normalization in dry-run mode (4h)
+- [ ] Issue 5.2: Run title normalization on all issues/PRs (2h)
 
-### Week 3 (Final)
-- [ ] Issue 5.2: Run normalization on all issues/PRs (2h)
+**Effort Summary:**
+- Week 3 remaining: ~11 hours
+- Critical path: Issues 4.1 + 4.2 (5h) → 4.3 (4h) → 5.2 (2h) = 11h total
+- All remaining work is now unblocked and ready to execute
 
 ---
 
@@ -331,14 +360,17 @@ PARALLEL WORK: ~11 hours
 
 ## Next Steps
 
-**Start Here:**
-1. Create `scripts/automation/normalize-issue-pr-titles.js` (Issue 2.2)
-2. In parallel: Issues 3.1, 3.2, 4.1, 4.2, 5.1
+**Start Here (All Unblocked):**
+1. Issue 4.1: Add branch validation tests (2h)
+2. Issue 4.2: Add template routing tests (3h)
+3. Issue 4.3: Test title normalization in dry-run (4h)
+4. Issue 5.2: Run normalization on all issues/PRs (2h)
 
-**Then:**
-3. Add tests and workflows (Issues 2.3, 2.4)
-4. Integration testing (Issue 4.3)
-5. Rollout (Issue 5.2)
+**Completion Status:**
+- 11/15 issues complete (73%)
+- 4 issues remaining (11 hours of work)
+- All blockers cleared
+- Ready for final sprint to 100% completion
 
 ---
 
@@ -357,5 +389,6 @@ This demonstrates governance enforcement is working correctly — the system pre
 
 ---
 
-**Last Updated:** 2026-09-02 (Issue 2.3 PR #2612: branch validation debug - validator passes locally, investigating workflow issue)  
-**Current Focus:** Issue 2.3 PR #2612 branch validation debug → Once resolved, Issue 2.2 complete, ready for Issues 2.4 and parallel work (3.1, 3.2, 4.1, 4.2, 5.1)
+**Last Updated:** 2026-09-02  
+**Status Summary:** 11/15 issues complete (73%). Discovered Issues 2.2, 2.4, 3.1, 3.2 already implemented. Issue 5.1 (BRANCHING_STRATEGY.md) completed. All remaining work (4.1, 4.2, 4.3, 5.2) is unblocked and ready for execution.  
+**Next Priority:** Issue 4.1 (Branch Validation Tests) and Issue 4.2 (Template Routing Tests) — can start immediately
