@@ -35,6 +35,7 @@
  */
 
 import { Octokit } from "octokit";
+import fetch from "node-fetch";
 
 class MilestoneDistributor {
   constructor(options = {}) {
