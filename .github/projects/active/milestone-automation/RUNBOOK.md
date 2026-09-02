@@ -1,9 +1,14 @@
 ---
-file_type: runbook
 title: Milestone Automation Operational Runbook
 description: Procedures for operational tasks and manual interventions
-created_date: 2026-08-30
-last_updated: 2026-08-30
+type: guide
+status: approved
+version: "1.0.0"
+owner: lightspeedwp/maintainers
+tags:
+  - automation
+  - operations
+  - runbook
 ---
 
 # Operational Runbook — Milestone Automation
@@ -55,7 +60,7 @@ last_updated: 2026-08-30
 **When to use:** Workflow failed or needs immediate attention
 
 **Prerequisites:**
-- Node.js v20+ installed
+- Node.js >=24 installed
 - GitHub token with issues:write permission
 - Script: `scripts/automation/distribute-unallocated-milestones.js`
 
@@ -74,10 +79,12 @@ last_updated: 2026-08-30
 
 3. **Set up environment:**
    ```bash
-   export GITHUB_TOKEN="ghp_xxxxxxxxxxxx"
+   export GITHUB_TOKEN="$(gh auth token)"
    export GITHUB_REPOSITORY="lightspeedwp/.github"
    export LOG_LEVEL="INFO"
    ```
+   
+   Or use your GitHub token (run `gh auth token` to retrieve it safely).
 
 4. **Run in dry-run mode first:**
    ```bash

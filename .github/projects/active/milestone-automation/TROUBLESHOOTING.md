@@ -1,9 +1,14 @@
 ---
-file_type: troubleshooting
 title: Milestone Automation Troubleshooting Guide
 description: Common failures, diagnostics, and solutions
-created_date: 2026-08-30
-last_updated: 2026-08-30
+type: guide
+status: approved
+version: "1.0.0"
+owner: lightspeedwp/maintainers
+tags:
+  - automation
+  - troubleshooting
+  - milestone-distribution
 ---
 
 # Troubleshooting Guide — Milestone Automation
@@ -454,7 +459,7 @@ When troubleshooting a failure:
 
 - [OPENSPEC.md](./OPENSPEC.md) — Technical specifications
 - [RUNBOOK.md](./RUNBOOK.md) — Operational procedures
-- [.github/workflows/milestone-distribution.yml](../../workflows/milestone-distribution.yml) — Workflow source
+- [.github/workflows/milestone-distribution.yml](../../../workflows/milestone-distribution.yml) — Workflow source
 
 ---
 
