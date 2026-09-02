@@ -3,7 +3,6 @@
  */
 
 const fs = require("fs");
-const path = require("path");
 
 // Mock process.exit to prevent Jest from exiting
 const originalExit = process.exit;
