@@ -41,6 +41,7 @@ Comprehensive guide for diagnosing and resolving common issues with automation s
 ### Error: "GITHUB_TOKEN environment variable not set"
 
 **Symptoms**:
+
 ```
 Error: GITHUB_TOKEN environment variable not set. Unable to authenticate with GitHub API.
 ```
@@ -50,18 +51,21 @@ Error: GITHUB_TOKEN environment variable not set. Unable to authenticate with Gi
 **Solutions**:
 
 1. **Set token for current session**:
+
    ```bash
    export GITHUB_TOKEN="ghp_your_token_here"
    node scripts/automation/my-script.js
    ```
 
 2. **Set permanently in shell profile** (`.bashrc`, `.zshrc`, etc.):
+
    ```bash
    echo 'export GITHUB_TOKEN="ghp_your_token_here"' >> ~/.bashrc
    source ~/.bashrc
    ```
 
 3. **For GitHub Actions workflows**:
+
    ```yaml
    - name: Run script
      run: node scripts/automation/my-script.js
@@ -78,6 +82,7 @@ Error: GITHUB_TOKEN environment variable not set. Unable to authenticate with Gi
 ### Error: "401 Unauthorized"
 
 **Symptoms**:
+
 ```
 401 Unauthorized - Invalid credentials
 ```
@@ -87,6 +92,7 @@ Error: GITHUB_TOKEN environment variable not set. Unable to authenticate with Gi
 **Solutions**:
 
 1. **Verify token is valid**:
+
    ```bash
    curl -H "Authorization: token $GITHUB_TOKEN" \
      https://api.github.com/user
@@ -107,6 +113,7 @@ Error: GITHUB_TOKEN environment variable not set. Unable to authenticate with Gi
 ### Error: "403 Forbidden"
 
 **Symptoms**:
+
 ```
 403 Forbidden - Access denied
 ```
@@ -116,6 +123,7 @@ Error: GITHUB_TOKEN environment variable not set. Unable to authenticate with Gi
 **Solutions**:
 
 1. **Check repository access**:
+
    ```bash
    curl -H "Authorization: token $GITHUB_TOKEN" \
      https://api.github.com/repos/lightspeedwp/.github
@@ -136,6 +144,7 @@ Error: GITHUB_TOKEN environment variable not set. Unable to authenticate with Gi
 ### Error: "API rate limit exceeded"
 
 **Symptoms**:
+
 ```
 Rate limit exceeded. Retry-After: 3600
 ```
@@ -146,6 +155,7 @@ Rate limit exceeded. Retry-After: 3600
 
 1. **Reduce batch size** (fewer API calls per iteration):
    Reduced batch-size from 10 to 5
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --batch-size 5 \
@@ -154,6 +164,7 @@ Rate limit exceeded. Retry-After: 3600
 
 2. **Reduce rate limit** (slower execution):
    Reduced rate-limit from 100 to 50
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --rate-limit 50 \
@@ -161,6 +172,7 @@ Rate limit exceeded. Retry-After: 3600
    ```
 
 3. **Increase delay between batches**:
+
    ```bash
    # After each batch, wait
    for batch in {1..10}; do
@@ -170,12 +182,14 @@ Rate limit exceeded. Retry-After: 3600
    ```
 
 4. **Check current rate limit status**:
+
    ```bash
    curl -H "Authorization: token $GITHUB_TOKEN" \
      https://api.github.com/rate_limit
    ```
 
 5. **Spread execution over time**:
+
    ```yaml
    # In GitHub Actions, schedule at off-peak hours
    schedule:
@@ -185,6 +199,7 @@ Rate limit exceeded. Retry-After: 3600
 ### Error: "Secondary rate limit"
 
 **Symptoms**:
+
 ```
 Secondary rate limit exceeded. Please wait before retrying.
 ```
@@ -194,6 +209,7 @@ Secondary rate limit exceeded. Please wait before retrying.
 **Solutions**:
 
 1. **Increase batch delay**:
+
    ```javascript
    // Add delay between batches
    for (let i = 0; i < issues.length; i += batchSize) {
@@ -203,12 +219,14 @@ Secondary rate limit exceeded. Please wait before retrying.
    ```
 
 2. **Use exponential backoff** (already implemented in handlers-orchestrator):
+
    ```bash
    --max-retries 5 \
    --retry-delay 1000
    ```
 
 3. **Reduce concurrent operations**:
+
    ```bash
    --max-concurrent 3  # Process max 3 issues at once
    ```
@@ -220,6 +238,7 @@ Secondary rate limit exceeded. Please wait before retrying.
 ### Error: "Timeout waiting for API response"
 
 **Symptoms**:
+
 ```
 Error: Timeout after 30000ms
 ```
@@ -230,17 +249,19 @@ Error: Timeout after 30000ms
 
 1. **Increase timeout** (give API more time):
    60 seconds (increased from 30 seconds default)
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --timeout 60000
    ```
 
 2. **Check GitHub status**:
-   - Visit https://www.githubstatus.com/
+   - Visit <https://www.githubstatus.com/>
    - API may be slow or experiencing issues
 
 3. **Retry with backoff** (already enabled):
    More retry attempts with longer initial delay
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --max-retries 5 \
@@ -249,6 +270,7 @@ Error: Timeout after 30000ms
 
 4. **Reduce batch size** (fewer parallel operations):
    Reduce batch-size from 10 to 5
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --batch-size 5 \
@@ -262,6 +284,7 @@ Error: Timeout after 30000ms
 ### Script hangs indefinitely
 
 **Symptoms**:
+
 ```
 Process appears stuck, no output for extended time
 ```
@@ -271,6 +294,7 @@ Process appears stuck, no output for extended time
 **Solutions**:
 
 1. **Kill the process**:
+
    ```bash
    # Find process ID
    ps aux | grep node
@@ -283,6 +307,7 @@ Process appears stuck, no output for extended time
    ```
 
 2. **Check for infinite loops**:
+
    ```javascript
    // Ensure all loops have exit conditions
    while (true) {
@@ -291,6 +316,7 @@ Process appears stuck, no output for extended time
    ```
 
 3. **Add timeout to main script**:
+
    ```javascript
    setTimeout(() => {
      console.error("Script timeout after 5 minutes");
@@ -299,6 +325,7 @@ Process appears stuck, no output for extended time
    ```
 
 4. **Enable verbose logging** to see where it hangs:
+
    ```bash
    node scripts/automation/my-script.js --verbose
    ```
@@ -310,11 +337,13 @@ Process appears stuck, no output for extended time
 ### Error: "JavaScript heap out of memory"
 
 **Symptoms**:
+
 ```
 FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory
 ```
 
 **Cause**: Script is consuming too much memory, likely due to:
+
 - Processing too many issues at once
 - Memory leak in handler logic
 - Large data structures not being garbage collected
@@ -322,6 +351,7 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
 **Solutions**:
 
 1. **Reduce batch size** (process fewer items at once):
+
    ```bash
    # Reduce from 500 items and batch size from 20
    node scripts/automation/handlers-orchestrator.js \
@@ -330,17 +360,20 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
    ```
 
 2. **Increase Node.js heap size**:
+
    ```bash
    node --max-old-space-size=4096 \
      scripts/automation/my-script.js
    ```
 
 3. **Enable garbage collection logging**:
+
    ```bash
    node --trace-gc scripts/automation/my-script.js 2>&1 | tail -20
    ```
 
 4. **Check for memory leaks** in handler code:
+
    ```javascript
    // ❌ BAD - Accumulating data in memory
    const cache = {};
@@ -369,6 +402,7 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
    ```
 
 5. **Monitor memory usage** during execution:
+
    ```bash
    # In one terminal
    node scripts/automation/my-script.js
@@ -384,6 +418,7 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
 ### Retry Logic Not Working
 
 **Symptoms**:
+
 ```
 Script fails immediately on first error, no retry attempts
 ```
@@ -397,6 +432,7 @@ Script fails immediately on first error, no retry attempts
    - Non-retryable: auth (401), not found (404), validation error
 
 2. **Verify retry configuration**:
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --max-retries 3 \
@@ -404,6 +440,7 @@ Script fails immediately on first error, no retry attempts
    ```
 
 3. **Enable verbose logging** to see retry attempts:
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --mode dry-run \
@@ -413,6 +450,7 @@ Script fails immediately on first error, no retry attempts
 ### Partial Failures (Some Issues Processed, Some Failed)
 
 **Symptoms**:
+
 ```
 Summary: 10 processed, 5 updated, 3 errors, 2 skipped
 ```
@@ -422,6 +460,7 @@ Summary: 10 processed, 5 updated, 3 errors, 2 skipped
 **Solutions**:
 
 1. **Re-run the script** (failed issues will be retried):
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --mode auto \
@@ -429,6 +468,7 @@ Summary: 10 processed, 5 updated, 3 errors, 2 skipped
    ```
 
 2. **Check error logs** to understand failures:
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --mode auto \
@@ -436,6 +476,7 @@ Summary: 10 processed, 5 updated, 3 errors, 2 skipped
    ```
 
 3. **Run in dry-run mode first** to preview:
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --mode dry-run \
@@ -445,6 +486,7 @@ Summary: 10 processed, 5 updated, 3 errors, 2 skipped
 ### Script Crash on Specific Issue
 
 **Symptoms**:
+
 ```
 Error processing issue #1234
 Script exits with code 1
@@ -455,12 +497,14 @@ Script exits with code 1
 **Solutions**:
 
 1. **Test issue in isolation**:
+
    ```bash
    # If script supports single-issue mode
    node scripts/automation/my-script.js --issue 1234
    ```
 
 2. **Inspect issue data**:
+
    ```bash
    # Check issue structure
    curl -H "Authorization: token $GITHUB_TOKEN" \
@@ -468,6 +512,7 @@ Script exits with code 1
    ```
 
 3. **Add defensive checks**:
+
    ```javascript
    // Validate data before processing
    if (!issue || !issue.number) {
@@ -479,6 +524,7 @@ Script exits with code 1
    ```
 
 4. **Skip problematic issue** using exclude flag:
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --exclude-issues "1234,5678"
@@ -491,6 +537,7 @@ Script exits with code 1
 ### Script Running Slowly
 
 **Symptoms**:
+
 ```
 Processing 50 issues takes 5+ minutes
 Expected: ~2 minutes
@@ -501,6 +548,7 @@ Expected: ~2 minutes
 **Solutions**:
 
 1. **Profile the script**:
+
    ```bash
    time node scripts/automation/my-script.js --limit 50
    
@@ -508,6 +556,7 @@ Expected: ~2 minutes
    ```
 
 2. **Check baseline expectations**:
+
    ```bash
    node scripts/automation/profiler.js
    
@@ -515,6 +564,7 @@ Expected: ~2 minutes
    ```
 
 3. **Increase parallelism** if available:
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --parallel-handlers true \
@@ -522,6 +572,7 @@ Expected: ~2 minutes
    ```
 
 4. **Reduce API overhead**:
+
    ```javascript
    // ❌ SLOW - One API call per issue
    for (const issue of issues) {
@@ -533,6 +584,7 @@ Expected: ~2 minutes
    ```
 
 5. **Enable caching** for expensive operations:
+
    ```javascript
    // Cache label lookups
    const labelCache = new Map();
@@ -551,6 +603,7 @@ Expected: ~2 minutes
 ### High CPU Usage
 
 **Symptoms**:
+
 ```
 Process using 100% CPU, machine sluggish
 ```
@@ -560,6 +613,7 @@ Process using 100% CPU, machine sluggish
 **Solutions**:
 
 1. **Add throttling** between operations:
+
    ```javascript
    // Process items with delay between them
    for (const item of items) {
@@ -569,6 +623,7 @@ Process using 100% CPU, machine sluggish
    ```
 
 2. **Use batching** instead of individual operations:
+
    ```javascript
    // ❌ Inefficient - Process one at a time
    for (const issue of issues) {
@@ -582,6 +637,7 @@ Process using 100% CPU, machine sluggish
    ```
 
 3. **Check for busy-waiting**:
+
    ```javascript
    // ❌ BAD - Busy loop
    while (!done) {
@@ -599,6 +655,7 @@ Process using 100% CPU, machine sluggish
 ### Issues Updated Incorrectly
 
 **Symptoms**:
+
 ```
 Wrong labels applied
 Incorrect assignees
@@ -610,6 +667,7 @@ Unexpected status changes
 **Solutions**:
 
 1. **Always test in dry-run mode first**:
+
    ```bash
    node scripts/automation/handlers-orchestrator.js \
      --mode dry-run \
@@ -617,12 +675,14 @@ Unexpected status changes
    ```
 
 2. **Review preview output** before applying:
+
    ```
    👀 Issue #123 — preview: Add labels [type:bug, priority:high]
    👀 Issue #456 — preview: Assign @username
    ```
 
 3. **Check handler logic**:
+
    ```javascript
    // Log decision rationale
    console.log(`Analyzing issue #${issue.number}...`);
@@ -632,6 +692,7 @@ Unexpected status changes
    ```
 
 4. **Validate label prefixes**:
+
    ```bash
    # All labels must be from canonical set
    grep "label:" scripts/automation/handlers/*.js | \
@@ -645,6 +706,7 @@ Unexpected status changes
 ### Stale Data Issues
 
 **Symptoms**:
+
 ```
 Script shows different results than GitHub UI
 Issue data not matching expected state
@@ -655,6 +717,7 @@ Issue data not matching expected state
 **Solutions**:
 
 1. **Add delay between operations**:
+
    ```javascript
    // GitHub has eventual consistency
    await updateIssue(issue);
@@ -663,6 +726,7 @@ Issue data not matching expected state
    ```
 
 2. **Refresh issue data** before checking:
+
    ```javascript
    // Don't use stale data from input
    const freshIssue = await fetchIssue(issue.number);
@@ -672,6 +736,7 @@ Issue data not matching expected state
    ```
 
 3. **Check GitHub API rate limit**:
+
    ```bash
    curl -H "Authorization: token $GITHUB_TOKEN" \
      https://api.github.com/rate_limit | jq .
@@ -789,7 +854,7 @@ chmod +x scripts/automation/*.js
 
 1. **Check this guide** for your specific issue
 2. **Review script logs** with `--verbose` flag
-3. **Check GitHub status** at https://www.githubstatus.com/
+3. **Check GitHub status** at <https://www.githubstatus.com/>
 4. **Inspect issue data** via GitHub API
 5. **Review related documentation**:
    - `REGISTRY.md` — Script details
@@ -807,9 +872,9 @@ chmod +x scripts/automation/*.js
   - #2396: Issue Management Agent Audit & Polish
 
 - **External Resources**:
-  - GitHub API Docs: https://docs.github.com/rest
-  - GitHub Status: https://www.githubstatus.com/
-  - Node.js Docs: https://nodejs.org/docs/
+  - GitHub API Docs: <https://docs.github.com/rest>
+  - GitHub Status: <https://www.githubstatus.com/>
+  - Node.js Docs: <https://nodejs.org/docs/>
 
 ---
 

@@ -27,6 +27,7 @@ Comprehensive inventory of all automation scripts in the LightSpeed `.github` re
 ## Script Categories
 
 ### Type A: Orchestrators
+
 Scripts that coordinate and delegate work to multiple handlers or workflows.
 
 - `handlers-orchestrator.js` — Routes issues to Tier 1 handlers (template-fix, triage)
@@ -34,6 +35,7 @@ Scripts that coordinate and delegate work to multiple handlers or workflows.
 - `pr-triage-orchestrator.js` — Coordinates PR triage across multiple handlers
 
 ### Type B: Handlers & Agents
+
 Scripts that perform specific automated tasks on issues/PRs.
 
 - `handle-needs-template-fix.js` — Fixes invalid issue templates
@@ -50,6 +52,7 @@ Scripts that perform specific automated tasks on issues/PRs.
 - `validation-agent.js` — Validates issue structure and metadata
 
 ### Type C: Utilities & Helpers
+
 Scripts for data processing, validation, and integration support.
 
 - `audit-issue-metadata.js` — Audits and reports on issue metadata
@@ -86,18 +89,21 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ✅ Optimized (Prefix detection, Array pre-allocation) |
 
 **Key Features**:
+
 - Analyzes issue metadata patterns
 - Exports findings to CSV
 - Supports filtering and categorization
 - Generates audit reports
 
 **Configuration Options**:
+
 - `--output`: CSV output file path
 - `--filter`: Filter criteria (label, author, etc.)
 - `--start-date`: Analysis start date
 - `--end-date`: Analysis end date
 
 **Integration Points**:
+
 - Reads from GitHub API
 - Exports to file system
 - Used by reporting workflows
@@ -118,18 +124,21 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ⏳ Pending optimization |
 
 **Key Features**:
+
 - Validates release criteria
 - Checks issue completeness
 - Verifies label consistency
 - Generates validation reports
 
 **Configuration Options**:
+
 - `--branch`: Branch to validate
 - `--milestone`: Target milestone
 - `--strict`: Strict validation mode
 - `--report`: Generate report
 
 **Integration Points**:
+
 - Release automation workflows
 - CI/CD pipeline validation
 - Pre-deployment checks
@@ -150,18 +159,21 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ✅ Optimized (Date pre-parsing, sorting optimization) |
 
 **Key Features**:
+
 - Smart milestone allocation
 - Capacity-aware distribution
 - Priority-based sorting
 - Deadline tracking
 
 **Configuration Options**:
+
 - `--milestone`: Target milestone
 - `--capacity`: Milestone capacity (max issues)
 - `--priority-weight`: Weight priority in allocation
 - `--strategy`: Allocation strategy (greedy, balanced, deadline-first)
 
 **Integration Points**:
+
 - Release planning workflows
 - Milestone management
 - Sprint allocation
@@ -182,18 +194,21 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ⏳ Pending optimization |
 
 **Key Features**:
+
 - Validates status label usage
 - Detects inconsistencies
 - Auto-corrects conflicts
 - Generates status reports
 
 **Configuration Options**:
+
 - `--fix`: Auto-fix issues (default: false)
 - `--report`: Generate status report
 - `--filter`: Filter by status
 - `--dry-run`: Preview changes
 
 **Integration Points**:
+
 - Issue triage workflows
 - Status synchronization
 - Metrics generation
@@ -216,6 +231,7 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ⏳ Pending optimization |
 
 **Configuration Options**:
+
 - `--data-file`: Input CSV/JSON with updates
 - `--field`: Field to update
 - `--value`: New value
@@ -238,6 +254,7 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ⏳ Pending optimization |
 
 **Configuration Options**:
+
 - `--pr-number`: Specific PR to process
 - `--handlers`: Comma-separated handler list
 - `--batch-size`: Batch processing size
@@ -261,12 +278,14 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ✅ Optimized (In-memory cache, Set operations) |
 
 **Key Features**:
+
 - Validates meta label syntax
 - Detects duplicate labels
 - Checks for inconsistencies
 - Auto-fixes common issues
 
 **Configuration Options**:
+
 - `--fix`: Auto-fix issues
 - `--strict`: Strict validation
 - `--report`: Generate report
@@ -287,12 +306,14 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ✅ Optimized (API validation cache) |
 
 **Key Features**:
+
 - Syncs PR and issue labels
 - Maintains label consistency
 - Detects conflicts
 - Auto-resolves common issues
 
 **Configuration Options**:
+
 - `--pr-number`: Specific PR
 - `--fix`: Apply sync changes
 - `--strategy`: Sync strategy (merge, override, conflict-only)
@@ -313,12 +334,14 @@ Scripts for data processing, validation, and integration support.
 | **Phase 2 Status** | ✅ Optimized (Exclusion Set, O(1) lookups) |
 
 **Key Features**:
+
 - Detects stale issues (no activity)
 - Applies notifications/labels
 - Auto-closes inactive issues
 - Exclusion rules support
 
 **Configuration Options**:
+
 - `--days`: Stale threshold (days without activity)
 - `--action`: Action (notify, label, close)
 - `--exclude-labels`: Labels to exclude
@@ -341,6 +364,7 @@ Scripts for data processing, validation, and integration support.
 | **Phase 3 Status** | ✅ Enhanced (Retry logic, rate limiting, progress tracking) |
 
 **Key Features**:
+
 - Batch processing with configurable size
 - Error retry with exponential backoff
 - Progress tracking and metrics
@@ -349,6 +373,7 @@ Scripts for data processing, validation, and integration support.
 - Comprehensive error categorization
 
 **Configuration Options**:
+
 - `--mode`: dry-run, interactive, auto
 - `--handlers`: Handler list (template-fix, triage)
 - `--limit`: Max issues to process
@@ -359,6 +384,7 @@ Scripts for data processing, validation, and integration support.
 - `--auto-threshold`: Min confidence for auto mode
 
 **Usage Examples**:
+
 ```bash
 # Dry-run with 5 retries
 node scripts/automation/handlers-orchestrator.js \
@@ -409,6 +435,7 @@ node scripts/automation/handlers-orchestrator.js \
 | **Phase 2 Status** | ✅ Already optimized |
 
 **Key Features**:
+
 - Minimal overhead
 - Label validation
 - Batch operations support
@@ -418,6 +445,7 @@ node scripts/automation/handlers-orchestrator.js \
 ## Performance Tiers
 
 ### Tier 1: Highest Priority (1400-1600ms)
+
 - `audit-issue-metadata.js` — 1600ms
 - `staging-validation.js` — 1600ms
 - `allocate-to-milestone.js` — 1400ms
@@ -426,12 +454,14 @@ node scripts/automation/handlers-orchestrator.js \
 **Optimization Status**: 50% optimized (2/4 scripts)
 
 ### Tier 2: Medium Priority (1000-1200ms)
+
 - `bulk-issue-metadata-updater.js` — 1100ms
 - `pr-triage-orchestrator.js` — 1100ms
 
 **Optimization Status**: 0% optimized (0/2 scripts)
 
 ### Tier 3: Standard (900ms)
+
 - `add-issue-template-sections.js` — 900ms
 - `manage-stale-issues.js` — 900ms
 - `review-meta-labels.js` — 900ms
@@ -441,6 +471,7 @@ node scripts/automation/handlers-orchestrator.js \
 **Optimization Status**: 80% optimized (4/5 scripts)
 
 ### Tier 4: Already Optimized (<100ms)
+
 - `label-orchestrator.js` — 100ms
 
 **Optimization Status**: 100% optimized (1/1 script)
@@ -469,6 +500,7 @@ node scripts/automation/handlers-orchestrator.js \
 ### Phase 3 Enhancements (In Progress)
 
 ✅ **handlers-orchestrator.js**:
+
 - Retry logic with exponential backoff
 - Rate limiting (token bucket)
 - Progress tracking callbacks
@@ -480,18 +512,21 @@ node scripts/automation/handlers-orchestrator.js \
 ## Dependencies Summary
 
 ### Most Common Dependencies
+
 1. **Octokit** - GitHub API client (26 scripts)
 2. **Node.js fs** - File system operations (8 scripts)
 3. **Node.js path** - Path utilities (6 scripts)
 4. **Custom handlers** - Local handler modules (5 scripts)
 
 ### API Integration Pattern
+
 - All scripts use `GITHUB_TOKEN` environment variable
 - Authenticated Octokit client initialization
 - Query-based issue/PR retrieval
 - Batch update patterns
 
 ### File I/O Pattern
+
 - CSV export/import for reporting
 - JSON data persistence
 - Staging directory validation
@@ -502,19 +537,23 @@ node scripts/automation/handlers-orchestrator.js \
 ## Usage Patterns
 
 ### Standalone Execution
+
 ```bash
 node scripts/automation/handlers-orchestrator.js --mode dry-run
 node scripts/automation/manage-stale-issues.js --days 30
 ```
 
 ### Orchestrated Execution
+
 ```bash
 node scripts/automation/auto-update-all.js
 node scripts/automation/orchestrator.js
 ```
 
 ### Batch Processing
+
 Scripts support batch size configuration:
+
 - `--batch-size N` — Process N items per batch
 - `--limit N` — Maximum items to process
 - `--dry-run` — Preview without changes
@@ -524,12 +563,14 @@ Scripts support batch size configuration:
 ## Error Handling & Recovery
 
 ### Retry Strategy (Task 3)
+
 - Transient errors (network, timeout, rate-limit): **Retryable**
 - Permanent errors (auth, validation, not-found): **Non-retryable**
 - Exponential backoff: 1s, 2s, 4s, 8s (configurable)
 - Max retries: 3 (configurable)
 
 ### Resource Limits
+
 - Rate limit: 100 API calls/minute (configurable)
 - Timeout per issue: 30000ms (configurable)
 - Max concurrent: 5 (configurable)
@@ -539,6 +580,7 @@ Scripts support batch size configuration:
 ## Integration Examples
 
 ### GitHub Actions Workflow
+
 ```yaml
 - name: Run Handlers Orchestrator
   run: |
@@ -551,6 +593,7 @@ Scripts support batch size configuration:
 ```
 
 ### Scheduled Cron Job
+
 ```bash
 # Daily stale issue check
 0 2 * * * cd /repo && node scripts/automation/manage-stale-issues.js --days 30 --action notify
@@ -561,6 +604,7 @@ Scripts support batch size configuration:
 ## Maintenance & Support
 
 ### Adding New Scripts
+
 1. Ensure script follows naming convention: `action-description.js`
 2. Include header documentation with purpose and configuration
 3. Export main function for testing
@@ -569,13 +613,16 @@ Scripts support batch size configuration:
 6. Document in registry
 
 ### Troubleshooting
-See `.github/reports/script-registry/TROUBLESHOOTING.md` for:
+
+See [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md) for:
+
 - Common errors and solutions
 - Debug logging setup
 - Performance profiling
 - Recovery procedures
 
 ### Performance Monitoring
+
 - Baseline: `.github/reports/profiling/baseline-2026-08-30.json`
 - Re-run profiler after optimizations
 - Track improvements vs. baseline

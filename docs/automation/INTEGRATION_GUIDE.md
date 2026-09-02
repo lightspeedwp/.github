@@ -31,17 +31,20 @@ Scripts are classified into three types based on functionality and responsibilit
 **Purpose**: Coordinate and delegate work to multiple handlers or workflows.
 
 **Characteristics**:
+
 - Entry point for multi-step operations
 - Routes issues/PRs to appropriate handlers
 - Manages batch processing and rate limiting
 - Collects and reports results
 
 **Examples**:
+
 - `handlers-orchestrator.js` — Routes issues to Tier 1 handlers
 - `label-orchestrator.js` — Coordinates label operations
 - `pr-triage-orchestrator.js` — Manages PR triage workflow
 
 **Template**:
+
 ```javascript
 /**
  * <Name> Orchestrator
@@ -65,6 +68,7 @@ async function orchestrate(config) {
 ```
 
 **Validation Checklist**:
+
 - [ ] Supports `--dry-run` mode (preview changes)
 - [ ] Supports `--mode` parameter (dry-run, interactive, auto)
 - [ ] Implements batch processing (`--batch-size`)
@@ -78,17 +82,20 @@ async function orchestrate(config) {
 **Purpose**: Perform specific automated tasks on individual issues/PRs.
 
 **Characteristics**:
+
 - Process single issue/PR or small batch
 - Return structured result (status, action, metadata)
 - Implement decision-making logic
 - Called by orchestrators
 
 **Examples**:
+
 - `review-meta-labels.js` — Validates meta labels
 - `sync-pr-labels.js` — Synchronizes PR labels
 - `manage-stale-issues.js` — Marks stale issues
 
 **Template**:
+
 ```javascript
 /**
  * <Name> Handler
@@ -130,6 +137,7 @@ export async function processIssue(issue, options) {
 ```
 
 **Validation Checklist**:
+
 - [ ] Exports `processIssue(issue, options)` function
 - [ ] Returns structured result with status and metadata
 - [ ] Respects `dryRun` option (no writes when true)
@@ -143,17 +151,20 @@ export async function processIssue(issue, options) {
 **Purpose**: Perform data processing, validation, and integration support.
 
 **Characteristics**:
+
 - Standalone operations or supporting functions
 - May read/write file system
 - Generate reports or audit data
 - Optional execution from CLI
 
 **Examples**:
+
 - `audit-issue-metadata.js` — Audit and report
 - `profiler.js` — Performance profiling
 - `staging-validation.js` — Release validation
 
 **Template**:
+
 ```javascript
 /**
  * <Name> Utility
@@ -189,6 +200,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 ```
 
 **Validation Checklist**:
+
 - [ ] Handles file I/O safely (error handling, path validation)
 - [ ] Supports `--output` for report destination
 - [ ] Provides `--format` option (csv, json, markdown)
@@ -732,6 +744,7 @@ node scripts/automation/profiler.js
 ### Optimization Techniques
 
 **Phase 2 Applied Techniques**:
+
 1. **Set-based operations** for O(1) lookups (vs O(n) arrays)
 2. **In-memory caching** for expensive computations
 3. **Pre-allocation** of arrays to avoid growth overhead
@@ -811,12 +824,14 @@ jobs:
 ## Validation Checklist for New Scripts
 
 ### Code Quality
+
 - [ ] ESLint passes: `npm run lint:js`
 - [ ] Prettier formatted: `npm run format`
 - [ ] No console.log in production code
 - [ ] Proper error handling
 
 ### Functionality
+
 - [ ] Handles all error scenarios
 - [ ] Respects `--dry-run` flag
 - [ ] Supports batch processing
@@ -824,18 +839,21 @@ jobs:
 - [ ] Returns correct status codes
 
 ### Performance
+
 - [ ] Execution time <1000ms (if possible)
 - [ ] Memory usage <1MB
 - [ ] Avoids N² algorithms
 - [ ] Uses Sets for label lookups
 
 ### Documentation
+
 - [ ] Header comments describe purpose
 - [ ] Configuration options documented
 - [ ] Usage examples provided
 - [ ] Error messages are helpful
 
 ### Integration
+
 - [ ] Registered in REGISTRY.md
 - [ ] Exportable for module use
 - [ ] CLI executable with --help
