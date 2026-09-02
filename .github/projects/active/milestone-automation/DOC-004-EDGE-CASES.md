@@ -375,13 +375,23 @@ echo "Estimated time: ${ESTIMATED_SECS}s"
 
 **Expected Behavior:**
 - Workflow fails with timeout message
-- No partial updates (transaction rolls back)
+- **IMPORTANT:** Partial updates ARE possible (NO transaction rollback)
+- Some issues may be updated before timeout occurs
+- Remaining issues will not be updated
 - Failure issue created per MON-001
-- Can be retried with smaller batch
+- Safe to retry (idempotent - already-updated issues skipped)
+
+**Transaction Semantics:**
+This workflow processes issues **sequentially without transaction support**. If a timeout occurs mid-execution:
+1. Issues already updated remain updated (committed)
+2. Issues not yet processed need to be retried
+3. No atomicity guarantee (either all-or-nothing)
+4. Recovery requires tracking which issues were completed
 
 **Handling Strategy:**
 ```javascript
-// Implement timeout awareness
+// Implement timeout awareness WITH PROGRESS TRACKING
+// Since there's no rollback, we must track what was completed
 const maxDuration = 25 * 60 * 1000; // 25 min (5 min safety margin)
 const startTime = Date.now();
 
@@ -408,22 +418,43 @@ async function processBatch(batch) {
 
 **Action Required:**
 - ✅ Increase workflow timeout if needed (default: 30 min)
-- Implement timeout awareness in script
-- Document expected duration per issue count
+- Implement timeout awareness in script with progress tracking
+- Save progress to `timeout-recovery.json` before exit
+- Document expected duration per issue count (50ms/issue)
+- Configure scheduled retry for pending issues
+
+**Implementation Notes:**
+- Script MUST track completed issues separately from pending
+- Recovery file must be written BEFORE process.exit()
+- Next run should skip already-processed issues (check milestone assignment)
+- Alert should include count of partial updates vs pending
 
 **Testing:**
 - [ ] Create 200+ test issues
-- [ ] Monitor workflow duration
-- [ ] Verify timeout doesn't occur
-- [ ] If timeout: increase batch delay or timeout
+- [ ] Set workflow timeout to 5 minutes (force short timeout)
+- [ ] Trigger workflow and monitor logs
+- [ ] Verify partial updates occur as expected
+- [ ] Check that some issues updated and some pending
+- [ ] Verify recovery file written correctly
+- [ ] Trigger workflow again and verify pending issues completed
+- [ ] Confirm no duplicate updates (idempotency works)
 
 **Timeout Configuration:**
 ```yaml
 # .github/workflows/milestone-distribution.yml
 jobs:
   distribute:
-    timeout-minutes: 30  # Increase if needed for large sets
+    timeout-minutes: 30  # Adjust based on expected issue count
+    # Expected: 50ms/issue, so 30 min = 36,000 issues (very safe)
+    # 5 min safety margin recommended for large batches
 ```
+
+**Expected Performance:**
+- Single issue: ~50ms
+- 10 issues: ~500ms
+- 100 issues: ~5-10s
+- 500 issues: ~25-50s
+- 1000 issues: ~50-100s (requires ~5-10 minute timeout)
 
 ---
 
