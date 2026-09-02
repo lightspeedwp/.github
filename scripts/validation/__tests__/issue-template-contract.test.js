@@ -55,4 +55,16 @@ describe("issue template contract", () => {
 
     expect(missing).toEqual([]);
   });
+
+  it("supports canonical_type overrides without conflicting type labels", () => {
+    const workflowPath = path.join(
+      __dirname,
+      "../../../.github/workflows/issue-create-enhanced.yml",
+    );
+    const workflow = fs.readFileSync(workflowPath, "utf8");
+
+    expect(workflow).toMatch(/canonical_type:/u);
+    expect(workflow).toMatch(/requestedType\s*\|\|\s*explicitTypeLabels\[0\]/u);
+    expect(workflow).toMatch(/filter\(\(label\)\s*=>\s*!\/\^type:\/i\.test\(label\)\)/u);
+  });
 });
