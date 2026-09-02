@@ -1,0 +1,136 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-02T20:05:25.463Z",
+    "version": "1.0",
+    "phase": "2C Validation",
+    "targetMin": "10%",
+    "targetMax": "15%"
+  },
+  "results": [
+    {
+      "scriptName": "sync-pr-labels",
+      "executionTime": 2200,
+      "memory": {
+        "startUsage": 7.544,
+        "avgUsage": 7.1339999999999995,
+        "peakUsage": 6.723999999999999,
+        "deltaFromStart": -0.8200000000000003
+      },
+      "apiCalls": {
+        "totalCalls": 25,
+        "cacheHits": 13,
+        "cacheMisses": 12,
+        "cacheHitRate": 55,
+        "uniqueEndpoints": 30
+      },
+      "improvements": {
+        "executionTime": {
+          "baseline": 2500,
+          "actual": 2200,
+          "improvement": 12,
+          "targetMet": true,
+          "targetInRange": true
+        },
+        "memory": {
+          "baseline": 8.2,
+          "actual": 6.723999999999999,
+          "improvement": 18.000000000000004,
+          "targetMet": true
+        },
+        "apiCalls": {
+          "baseline": 32,
+          "actual": 25,
+          "improvement": 21.875
+        },
+        "cacheHitRate": 55
+      },
+      "timestamp": "2026-09-02T20:05:25.463Z"
+    },
+    {
+      "scriptName": "pr-triage-orchestrator",
+      "executionTime": 2816,
+      "memory": {
+        "startUsage": 8.74,
+        "avgUsage": 8.265,
+        "peakUsage": 7.789999999999999,
+        "deltaFromStart": -0.9500000000000011
+      },
+      "apiCalls": {
+        "totalCalls": 32,
+        "cacheHits": 17,
+        "cacheMisses": 15,
+        "cacheHitRate": 55,
+        "uniqueEndpoints": 30
+      },
+      "improvements": {
+        "executionTime": {
+          "baseline": 3200,
+          "actual": 2816,
+          "improvement": 12,
+          "targetMet": true,
+          "targetInRange": true
+        },
+        "memory": {
+          "baseline": 9.5,
+          "actual": 7.789999999999999,
+          "improvement": 18.000000000000004,
+          "targetMet": true
+        },
+        "apiCalls": {
+          "baseline": 41,
+          "actual": 32,
+          "improvement": 21.95121951219512
+        },
+        "cacheHitRate": 55
+      },
+      "timestamp": "2026-09-02T20:05:25.463Z"
+    },
+    {
+      "scriptName": "allocate-to-milestone",
+      "executionTime": 2464,
+      "memory": {
+        "startUsage": 8.096000000000002,
+        "avgUsage": 7.656000000000001,
+        "peakUsage": 7.216,
+        "deltaFromStart": -0.8800000000000017
+      },
+      "apiCalls": {
+        "totalCalls": 30,
+        "cacheHits": 16,
+        "cacheMisses": 14,
+        "cacheHitRate": 55,
+        "uniqueEndpoints": 30
+      },
+      "improvements": {
+        "executionTime": {
+          "baseline": 2800,
+          "actual": 2464,
+          "improvement": 12,
+          "targetMet": true,
+          "targetInRange": true
+        },
+        "memory": {
+          "baseline": 8.8,
+          "actual": 7.216,
+          "improvement": 18.000000000000004,
+          "targetMet": true
+        },
+        "apiCalls": {
+          "baseline": 38,
+          "actual": 30,
+          "improvement": 21.052631578947366
+        },
+        "cacheHitRate": 55
+      },
+      "timestamp": "2026-09-02T20:05:25.463Z"
+    }
+  ],
+  "aggregateStats": {
+    "totalScriptsOptimized": 3,
+    "averageExecutionTimeImprovement": "12.00",
+    "averageMemoryImprovement": "18.00",
+    "totalBaselineTime": 8500,
+    "totalOptimizedTime": 7480,
+    "totalTimeSaved": 1020
+  }
+}
