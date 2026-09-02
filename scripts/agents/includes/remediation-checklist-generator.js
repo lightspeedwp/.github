@@ -327,4 +327,4 @@ class RemediationChecklistGenerator {
   }
 }
 
-module.exports = { RemediationChecklistGenerator };
+export { RemediationChecklistGenerator };
