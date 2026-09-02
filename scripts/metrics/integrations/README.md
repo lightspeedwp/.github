@@ -411,6 +411,17 @@ Expected:
 - Format for Reporting Agent: <100ms
 - Generate issues: <100ms
 
+### Phase 4.3 Stability Benchmarks
+
+- Synthetic benchmark validates formatting for **1,000 repositories** and **10,000 commits** in under 1 second.
+- Benchmarks are covered by `scripts/metrics/integrations/__tests__/reporting-agent-input.test.js`.
+
+## Known Limitations
+
+- Detailed `metrics` and `trends` sections are generated from the first accessible repository with metrics.
+- `failureSummary` depends on upstream adapters populating an `errors` array with HTTP status and/or network codes.
+- Performance benchmark assertions use synthetic in-memory fixtures, not live GitHub API latency.
+
 ## Validation
 
 ### Schema Validation

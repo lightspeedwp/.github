@@ -66,6 +66,8 @@ Applies to testing and QA across code, automation, and workflows. Covers strateg
 
 ```mermaid
 graph TD
+  accTitle: Testing Pyramid
+  accDescr: Top-down graph showing the testing pyramid from E2E tests down to static analysis
     A[E2E Tests<br/>User Workflows] --> B[Integration Tests<br/>Component Interaction]
     B --> C[Unit Tests<br/>Pure Functions & Logic]
     C --> D[Static Analysis<br/>Linting & Type Checking]
@@ -361,6 +363,8 @@ describe("Issue Lifecycle E2E", () => {
 
 ```mermaid
 sequenceDiagram
+  accTitle: Test Execution Flow
+  accDescr: Sequence diagram showing test execution flow
     participant Dev as Developer
     participant Local as Local Tests
     participant CI as CI Pipeline
