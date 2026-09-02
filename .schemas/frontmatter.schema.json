@@ -532,33 +532,64 @@
     },
     {
       "title": "Issue Template (.github/ISSUE_TEMPLATE/*.md)",
-      "description": "Templates for GitHub issues.",
+      "description": "Templates for GitHub issues with standardized frontmatter.",
       "properties": {
         "file_type": {
-          "const": "issue-template"
+          "const": "issue-template",
+          "description": "File type identifier"
+        },
+        "title": {
+          "type": "string",
+          "description": "Template title pattern (e.g., 'type:bug: {scope}')"
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "Human-readable template name (e.g., '🐛 Bug report')"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "Brief description of template purpose"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Default labels applied to issues created from this template"
         }
       },
-      "required": ["file_type", "name", "description"],
+      "required": ["file_type", "title", "name", "description", "labels"],
       "additionalProperties": true
     },
     {
       "title": "Pull Request Template (.github/PULL_REQUEST_TEMPLATE/*.md)",
-      "description": "Templates for GitHub PRs.",
+      "description": "Templates for GitHub PRs with standardized frontmatter.",
       "properties": {
         "file_type": {
-          "const": "pr-template"
+          "const": "pr-template",
+          "description": "File type identifier"
         },
         "title": {
-          "type": "string"
+          "type": "string",
+          "description": "Template title pattern (e.g., 'chore: {scope}')"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable template name (e.g., 'Chore PR')"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of template purpose"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Default labels applied to PRs created from this template"
         }
       },
-      "required": ["file_type", "title"],
+      "required": ["file_type", "title", "name", "description", "labels"],
       "additionalProperties": true
     },
     {
