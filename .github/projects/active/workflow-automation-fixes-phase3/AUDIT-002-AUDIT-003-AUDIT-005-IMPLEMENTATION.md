@@ -581,6 +581,7 @@ async function incrementalBuild() {
 ## File Changes Summary
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### New Files (AUDIT-002: Labeling Cache)
 - `scripts/agents/includes/labeling-cache.js` — Rule evaluation caching with LRU eviction
 - `scripts/__tests__/labeling-cache.test.js` — Cache operations and LRU eviction tests
@@ -597,6 +598,8 @@ async function incrementalBuild() {
 ### Documentation
 - `.github/projects/active/workflow-automation-fixes-phase3/AUDIT-002-AUDIT-003-AUDIT-005-IMPLEMENTATION.md` — This implementation plan
 =======
+=======
+>>>>>>> feat/audit-fixes-phase2
 ### New Files
 - `scripts/docs/build-cache.js` — Build fingerprinting and caching
 - `scripts/docs/build-parallel.js` — Parallel markdown build pipeline
@@ -610,7 +613,10 @@ async function incrementalBuild() {
 - `.github/workflows/docs-build.yml` — Staged build pipeline
 - `scripts/agents/run-labeling-agent.js` — Integrate caching
 - `scripts/changelog-builder.js` — Add state finalization verification
+<<<<<<< HEAD
 >>>>>>> origin/develop
+=======
+>>>>>>> feat/audit-fixes-phase2
 
 ---
 
