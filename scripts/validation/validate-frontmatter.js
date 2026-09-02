@@ -412,7 +412,7 @@ class FileDiscovery {
         { cwd: rootDir, encoding: "utf8" },
       );
       changedRelative = output
-        .split("\n")
+        .split(/\r?\n/)
         .map((line) => line.trim())
         .filter(Boolean);
     } catch {
