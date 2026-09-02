@@ -53,8 +53,14 @@ jest.mock("../../telemetry/event-schemas.js", () => ({
   EVENT_SCHEMAS: {
     "metrics.report.generated": {
       eventName: "metrics.report.generated",
-      safeProperties: ["reportType", "duration"],
-      restrictedProperties: ["repository", "filePath"],
+      safe: {
+        reportType: "string",
+        duration: "number",
+      },
+      restricted: {
+        repository: "string",
+        filePath: "string",
+      },
     },
   },
 }));
@@ -121,8 +127,15 @@ describe("MetricsReportingOrchestrator", () => {
       expect(orchestrator.telemetry.emit).toHaveBeenCalledWith(
         "metrics.report.generated",
         expect.objectContaining({
-          reportType: expect.any(String),
-          filePath: mockReport.path,
+          safe: expect.objectContaining({
+            reportType: expect.any(String),
+            period: expect.any(String),
+            metricsIncluded: expect.any(Array),
+          }),
+          restricted: expect.objectContaining({
+            repository: expect.any(String),
+            filePath: mockReport.path,
+          }),
         }),
       );
     });
@@ -157,7 +170,7 @@ describe("MetricsReportingOrchestrator", () => {
   describe("Telemetry Integration", () => {
     it("should use correct event schema", () => {
       const { EVENT_SCHEMAS } = require("../../telemetry/event-schemas.js");
-      
+
       expect(EVENT_SCHEMAS["metrics.report.generated"]).toBeDefined();
       expect(
         EVENT_SCHEMAS["metrics.report.generated"].safeProperties,

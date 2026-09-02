@@ -61,6 +61,7 @@ references:
 ✅ scripts/validation/        - Validation and linting scripts
 ✅ scripts/badges/            - Badge generation scripts
 ✅ scripts/agents/            - Agent runner scripts
+✅ scripts/workflows/         - Agentic workflow orchestration
 
 ❌ .github/scripts/           - DO NOT CREATE - Reserved for GitHub governance only
 ```
@@ -79,6 +80,7 @@ references:
 ### Enforcement
 
 When creating any new script:
+
 1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
 2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
 3. **Never use `.github/scripts/`** - This directory should not exist for new work

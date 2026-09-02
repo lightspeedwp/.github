@@ -102,9 +102,11 @@ projects, or plugin bundles.
 | Release scripts | `scripts/release/` | ❌ `.github/scripts/release/` |
 | Validation scripts | `scripts/validation/` | ❌ `.github/scripts/validation/` |
 | Badge generation scripts | `scripts/badges/` | ❌ `.github/scripts/badges/` |
+| Workflow orchestration scripts | `scripts/workflows/` | ❌ `.github/scripts/workflows/` |
 | **ONLY EXCEPTION:** Website browser scripts | `.github/website/src/scripts/` | ✅ Correct location for browser-specific code |
 
 **Rules:**
+
 - `.github/` is for GitHub-native governance files only (templates, workflows, configs)
 - All executable scripts belong in `scripts/` with appropriate subfolders
 - The ONLY exception is `.github/website/src/scripts/` for website browser code

@@ -1,4 +1,4 @@
-/* global window, document, localStorage, CustomEvent */
+/* global window, document, localStorage, CustomEvent, navigator, fetch */
 /* theme-toggle.js
    Handles all .theme-toggle-btn buttons on the page.
    Moon = currently light mode (click to go dark)
@@ -11,18 +11,30 @@ const telemetry = {
     const event = {
       eventType,
       timestamp: new Date().toISOString(),
-      environment: 'browser',
-      ...properties
+      environment: "browser",
+      ...properties,
     };
-    
+
     // Log to console in development
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      console.log('[Telemetry]', event);
+    if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    ) {
+      console.log("[Telemetry]", event);
+    } else {
+      // Send to analytics endpoint in production (best-effort, never block theme changes)
+      try {
+        fetch("/api/telemetry", {
+          method: "POST",
+          body: JSON.stringify(event),
+        }).catch(() => {
+          // Silently fail - telemetry should never block user interactions
+        });
+      } catch (_err) {
+        // Ignore fetch errors
+      }
     }
-    
-    // Could send to analytics endpoint in production
-    // fetch('/api/telemetry', { method: 'POST', body: JSON.stringify(event) });
-  }
+  },
 };
 
 const SVG_MOON = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none"
@@ -55,36 +67,36 @@ function updateAllIcons() {
 function toggleTheme() {
   const fromTheme = getTheme();
   const toTheme = fromTheme === "dark" ? "light" : "dark";
-  
+
   document.documentElement.setAttribute("data-theme", toTheme);
   document.documentElement.style.colorScheme = toTheme;
-  
+
   try {
     localStorage.setItem("ag-theme", toTheme);
-    
+
     // Emit: website.theme.toggled
-    telemetry.emit('website.theme.toggled', {
+    telemetry.emit("website.theme.toggled", {
       safe: {
         fromTheme,
         toTheme,
-        method: 'user-click'
-      }
+        method: "user-click",
+      },
     });
   } catch (e) {
     // Emit: website.theme.storage.failure
-    telemetry.emit('website.theme.storage.failure', {
+    telemetry.emit("website.theme.storage.failure", {
       safe: {
-        failureType: e.name || 'StorageError',
+        failureType: e.name || "StorageError",
         theme: toTheme,
-        fallbackUsed: false
+        fallbackUsed: false,
       },
       restricted: {
         storageError: e.message,
-        browserInfo: navigator.userAgent
-      }
+        browserInfo: window.navigator.userAgent,
+      },
     });
   }
-  
+
   updateAllIcons();
   document.dispatchEvent(new CustomEvent("theme-changed"));
 }
