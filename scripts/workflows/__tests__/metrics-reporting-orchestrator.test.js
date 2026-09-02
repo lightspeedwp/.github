@@ -2,6 +2,8 @@
  * Metrics Reporting Orchestrator Tests
  */
 
+const fs = require("fs");
+
 // Mock process.exit to prevent Jest from exiting
 const originalExit = process.exit;
 process.exit = jest.fn();
@@ -50,14 +52,18 @@ jest.mock("../../telemetry/telemetry-client.js", () => ({
 jest.mock("../../telemetry/event-schemas.js", () => ({
   EVENT_SCHEMAS: {
     "metrics.report.generated": {
-      eventName: "metrics.report.generated",
+      description: "Metrics report successfully generated and saved",
       safe: {
-        reportType: "string",
-        duration: "number",
+        required: ["reportType", "period", "metricsIncluded"],
+        optional: [
+          "trendsIncluded",
+          "anomaliesIncluded",
+          "generationDuration",
+        ],
       },
       restricted: {
-        repository: "string",
-        filePath: "string",
+        required: ["repository"],
+        optional: ["reportPath", "fileSize"],
       },
     },
   },
@@ -113,26 +119,28 @@ describe("MetricsReportingOrchestrator", () => {
     });
 
     it("should emit telemetry event on successful report generation", async () => {
-      const mockReport = {
-        path: ".github/reports/metrics/weekly-report-2026-09-01.md",
-        summary: "Weekly report generated",
-      };
+      const repositories = [{ owner: "test", repo: "repo" }];
+      const mockReport = "### Summary\n### Metrics";
+      const reportPath = ".github/reports/metrics/weekly-report.md";
 
       orchestrator.reporter.generateReport.mockResolvedValue(mockReport);
+      jest.spyOn(orchestrator, "saveReport").mockReturnValue(reportPath);
+      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
 
-      await orchestrator.generateReports();
+      await orchestrator.generateReports(repositories);
 
       expect(orchestrator.telemetry.emit).toHaveBeenCalledWith(
         "metrics.report.generated",
         expect.objectContaining({
           safe: expect.objectContaining({
-            reportType: expect.any(String),
-            period: expect.any(String),
-            metricsIncluded: expect.any(Array),
+            reportType: "metrics-report",
+            period: "weekly",
+            metricsIncluded: 2,
           }),
           restricted: expect.objectContaining({
-            repository: expect.any(String),
-            filePath: mockReport.path,
+            repository: "test/repo",
+            reportPath,
+            fileSize: 123,
           }),
         }),
       );
@@ -171,11 +179,11 @@ describe("MetricsReportingOrchestrator", () => {
 
       expect(EVENT_SCHEMAS["metrics.report.generated"]).toBeDefined();
       expect(
-        EVENT_SCHEMAS["metrics.report.generated"].safeProperties,
+        EVENT_SCHEMAS["metrics.report.generated"].safe.required,
       ).toContain("reportType");
       expect(
-        EVENT_SCHEMAS["metrics.report.generated"].restrictedProperties,
-      ).toContain("filePath");
+        EVENT_SCHEMAS["metrics.report.generated"].restricted.required,
+      ).toContain("repository");
     });
 
     it("should not throw if telemetry fails", async () => {
