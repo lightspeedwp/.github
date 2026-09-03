@@ -95,6 +95,8 @@ This builds on Phase 1 (script and workflow deployment) which is already in prod
 
 - **[FOLLOW-UP-FIXES.md](./FOLLOW-UP-FIXES.md)** — 28-item CodeRabbit tracker with implementation plan
 - **[ISSUE-LINKS.md](./ISSUE-LINKS.md)** — Central registry linking project to GitHub issues
+- **[PHASE-2-FOLLOWUP-SUMMARY.md](./PHASE-2-FOLLOWUP-SUMMARY.md)** — Executive summary of follow-up work status
+- **[CI-INVESTIGATION-PLAN.md](./CI-INVESTIGATION-PLAN.md)** — Detailed plan for CI checks 11-28 investigation
 
 ### Design & Implementation
 
