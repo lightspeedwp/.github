@@ -144,10 +144,10 @@ A metrics dashboard to track milestone distribution workflow performance, health
 
 ```
 Milestone Distribution (Last 30 Days)
-├─ v1.1: 245 issues (52%)
-├─ v2.0: 180 issues (38%)
+├─ v1.1: 245 issues (53%)
+├─ v2.0: 180 issues (39%)
 ├─ v1.0: 25 issues (5%)
-└─ Backlog: 10 issues (2%)
+└─ Backlog: 10 issues (3%)
 ```
 
 **Metrics per Milestone:**
@@ -309,28 +309,89 @@ Team views dashboard at https://lightspeedwp.github.io/.github/dashboard
 4. **Scalable:** Can add more metrics easily
 5. **Accessible:** Standard web dashboard
 
-### Data Collection
+### Data Collection & Durable Persistence
 
 **1. Write Metrics After Each Run**
 
 ```javascript
 // In workflow or script
 const fs = require('fs');
+const { execSync } = require('child_process');
+
+// Collect metrics
 const metrics = {
   runId: github.context.runId,
   timestamp: new Date().toISOString(),
+  trigger: 'schedule', // or 'manual', 'webhook'
   status: 'success',
   durationMs: 3200,
   issuesProcessed: 8,
+  issuesSuccessful: 8,
+  issuesFailed: 0,
   apiCallsUsed: 45,
-  milestone: 'v1.1'
+  apiCallsLimit: 5000,
+  apiCallsPercent: 0.9,
+  milestone: 'v1.1',
+  errorType: null,
+  errorMessage: null
 };
 
+// Validate against schema BEFORE persisting
+validateMetricsRecord(metrics);
+
+// Append to JSONL file
 fs.appendFileSync(
   '.github/reports/metrics.jsonl',
   JSON.stringify(metrics) + '\n'
 );
 ```
+
+**2. Commit Metrics to Git (Ensures Durability)**
+
+```javascript
+// Persist metrics to git (backup against workflow failures)
+async function persistMetricsToGit(metrics) {
+  try {
+    // Stage the metrics file
+    execSync('git add .github/reports/metrics.jsonl', { stdio: 'pipe' });
+    
+    // Commit with metadata
+    execSync(
+      `git commit -m "chore: record workflow metrics for run ${metrics.runId}"`,
+      { stdio: 'pipe' }
+    );
+    
+    // Push with retry logic
+    const maxRetries = 3;
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        execSync('git push origin develop', { stdio: 'pipe' });
+        console.log('Metrics persisted to git successfully');
+        return true;
+      } catch (pushError) {
+        const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
+        console.warn(`Git push attempt ${attempt + 1} failed, retrying in ${delay}ms...`);
+        await sleep(delay);
+      }
+    }
+    
+    throw new Error('Git push failed after retries');
+  } catch (error) {
+    // Non-fatal: Metrics are written locally, just not yet persisted
+    console.warn('WARNING: Metrics not persisted to git:', error.message);
+    console.warn('Metrics remain in working directory. Manual push may be needed.');
+    // Do NOT fail workflow - metrics are safe in the file
+    return false;
+  }
+}
+```
+
+**Why Git Persistence?**
+- Metrics survive workflow failures (data not lost between runs)
+- Natural backup via GitHub (git history)
+- Integration with git workflow (part of version control)
+- No additional infrastructure needed
+- Can be audited via git commit log
 
 **2. Generate Static HTML**
 
@@ -338,18 +399,53 @@ fs.appendFileSync(
 # GitHub Actions job
 - name: Generate Dashboard
   run: |
+    # Create dashboard-specific directory (separate from existing site)
+    mkdir -p docs/dashboard
+    
     node scripts/monitoring/generate-dashboard.js
     
 # Output: docs/dashboard/index.html
+# Critical: Do NOT output to docs/ root (would overwrite existing site)
 ```
 
-**3. Publish to GitHub Pages**
+**3. Publish to GitHub Pages (Separate Deployment)**
 
 ```yaml
-- name: Deploy Dashboard
-  uses: actions/upload-pages-artifact@v1
+# IMPORTANT: Use separate deployment configuration
+# This ensures dashboard doesn't overwrite existing GitHub Pages site
+
+- name: Deploy Metrics Dashboard
+  uses: peaceiris/actions-gh-pages@v3
   with:
-    path: docs/dashboard
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./docs/dashboard
+    destination_dir: dashboard
+    # Result: Deployed to https://lightspeedwp.github.io/.github/dashboard/
+    # Existing site at https://lightspeedwp.github.io/ remains untouched
+```
+
+**Alternative: Separate Branch (If existing GitHub Pages in use)**
+
+If the repository already uses GitHub Pages for other content:
+
+```yaml
+- name: Deploy to Separate Pages Branch
+  run: |
+    git config user.name "GitHub Actions"
+    git config user.email "actions@github.com"
+    
+    # Checkout gh-pages branch
+    git fetch origin gh-pages 2>/dev/null || git checkout --orphan gh-pages
+    git checkout gh-pages
+    
+    # Copy dashboard content
+    mkdir -p dashboard
+    cp -r docs/dashboard/* dashboard/
+    
+    # Commit and push
+    git add dashboard/
+    git commit -m "chore: update metrics dashboard" || exit 0
+    git push origin gh-pages
 ```
 
 ---
@@ -411,19 +507,95 @@ fs.appendFileSync(
 
 ## Data Storage
 
-### Primary Storage: JSONL File
+### Canonical JSONL Schema
+
+**Critical:** All metrics collectors MUST write records matching this exact schema. Validation ensures data integrity.
+
+```json
+{
+  "runId": "33650372958",
+  "timestamp": "2026-09-02T15:43:32Z",
+  "trigger": "schedule|manual|webhook",
+  "status": "success|failure|partial",
+  "durationMs": 3200,
+  "issuesProcessed": 8,
+  "issuesSuccessful": 8,
+  "issuesFailed": 0,
+  "apiCallsUsed": 45,
+  "apiCallsLimit": 5000,
+  "apiCallsPercent": 0.9,
+  "milestone": "v1.1",
+  "errorType": null,
+  "errorMessage": null
+}
+```
+
+**Required Fields:** runId, timestamp, status, durationMs, issuesProcessed, issuesSuccessful, issuesFailed, apiCallsUsed, apiCallsLimit, milestone
+
+**Optional Fields:** trigger, errorType, errorMessage
+
+**Validation Rules:**
+- `timestamp` must be ISO 8601 format
+- `durationMs` must be non-negative integer
+- `issuesSuccessful + issuesFailed >= issuesProcessed` (no double-counting)
+- `apiCallsUsed <= apiCallsLimit`
+- `status` must be one of: success, failure, partial
+- `trigger` must be one of: schedule, manual, webhook (if present)
+
+### Primary Storage: JSONL File with Git Persistence
 
 **Path:** `.github/reports/metrics.jsonl`
 
-**Format:** One JSON object per line
+**Format:** One JSON object per line (matching canonical schema above)
 
-**Retention:** 90 days of rolling data (automatic cleanup)
+**Retention:** 90 days of rolling data (automatic cleanup via workflow)
 
-**Size:** ~500 bytes/run × 1 run/day = ~150KB/year
+**Durability:** Git-backed persistence ensures metrics survive workflow failures
 
-### Backup: Issue Archive
+**Write Process:**
+```javascript
+// 1. Append to JSONL file
+const metrics = { runId, timestamp, status, ... };
+fs.appendFileSync(
+  '.github/reports/metrics.jsonl',
+  JSON.stringify(metrics) + '\n'
+);
 
-**Optional:** Create monthly summary issues
+// 2. Validate record against schema
+function validateMetricsRecord(record) {
+  const required = ['runId', 'timestamp', 'status', 'durationMs', 
+                    'issuesProcessed', 'issuesSuccessful', 'issuesFailed',
+                    'apiCallsUsed', 'apiCallsLimit', 'milestone'];
+  
+  for (const field of required) {
+    if (record[field] === undefined) {
+      throw new Error(`Missing required field: ${field}`);
+    }
+  }
+  
+  if (record.issuesSuccessful + record.issuesFailed > record.issuesProcessed) {
+    throw new Error('issuesSuccessful + issuesFailed cannot exceed issuesProcessed');
+  }
+  
+  return true;
+}
+
+// 3. Commit to git (ensures persistence)
+execSync('git add .github/reports/metrics.jsonl');
+execSync('git commit -m "chore: record workflow metrics"');
+execSync('git push origin develop');
+```
+
+**Error Handling:**
+- If git commit fails, log error but don't fail workflow
+- Retry git push up to 3 times with exponential backoff
+- Fallback: Write to temporary location if git unavailable
+
+**Size Estimate:** ~616 bytes/run × 1 run/day = ~183KB/year
+
+### Backup: Monthly Summary Issues (Optional)
+
+**Optional:** Create monthly summary issues for archive
 
 ```markdown
 # Metrics Summary — September 2026
