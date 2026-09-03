@@ -104,7 +104,7 @@ const METRICS_COLLECTION_EVENTS = {
    * Emitted when metrics collection completes
    *
    * Use case: Track successful collections and measure performance
-   * Location: .github/scripts/workflows/metrics-collection-orchestrator.cjs
+   * Location: scripts/workflows/metrics-collection-orchestrator.cjs
    */
   "metrics.collection.completed": {
     description: "Metrics collection workflow completed",
@@ -127,7 +127,7 @@ const METRICS_COLLECTION_EVENTS = {
    * Emitted when metrics collection fails for a specific repository
    *
    * Use case: Track per-repository failures and identify problematic repos
-   * Location: .github/scripts/workflows/metrics-collection-orchestrator.cjs
+   * Location: scripts/workflows/metrics-collection-orchestrator.cjs
    */
   "metrics.repository.collection.failed": {
     description: "Metrics collection failed for a specific repository",
@@ -152,7 +152,7 @@ const METRICS_REPORTING_EVENTS = {
    * Emitted when a metrics report is successfully generated
    *
    * Use case: Track report generation and storage
-   * Location: .github/scripts/workflows/metrics-reporting-orchestrator.cjs
+   * Location: scripts/workflows/metrics-reporting-orchestrator.cjs
    */
   "metrics.report.generated": {
     description: "Metrics report successfully generated and saved",

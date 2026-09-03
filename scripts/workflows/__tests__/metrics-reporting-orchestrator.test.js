@@ -55,11 +55,7 @@ jest.mock("../../telemetry/event-schemas.js", () => ({
       description: "Metrics report successfully generated and saved",
       safe: {
         required: ["reportType", "period", "metricsIncluded"],
-        optional: [
-          "trendsIncluded",
-          "anomaliesIncluded",
-          "generationDuration",
-        ],
+        optional: ["trendsIncluded", "anomaliesIncluded", "generationDuration"],
       },
       restricted: {
         required: ["repository"],
@@ -150,29 +146,48 @@ describe("MetricsReportingOrchestrator", () => {
     });
 
     it("should handle errors gracefully", async () => {
+      const repositories = [{ owner: "test", repo: "repo" }];
       const error = new Error("Report generation failed");
       orchestrator.reporter.generateReport.mockRejectedValue(error);
 
-      await expect(orchestrator.generateReports()).rejects.toThrow(
-        "Report generation failed",
+      await expect(
+        orchestrator.generateReports(repositories),
+      ).resolves.toHaveLength(1);
+
+      expect(orchestrator.reports[0]).toEqual(
+        expect.objectContaining({
+          repository: "test/repo",
+          status: "error",
+          error: "Report generation failed",
+        }),
       );
     });
 
     it("should track multiple reports", async () => {
-      const mockReports = [
-        { path: "report1.md", summary: "Report 1" },
-        { path: "report2.md", summary: "Report 2" },
+      const repositories = [
+        { owner: "test", repo: "repo-one" },
+        { owner: "test", repo: "repo-two" },
       ];
 
       orchestrator.reporter.generateReport
-        .mockResolvedValueOnce(mockReports[0])
-        .mockResolvedValueOnce(mockReports[1]);
+        .mockResolvedValueOnce("### Report 1")
+        .mockResolvedValueOnce("### Report 2");
+      jest
+        .spyOn(orchestrator, "saveReport")
+        .mockReturnValueOnce("report1.md")
+        .mockReturnValueOnce("report2.md");
+      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
 
-      await orchestrator.generateReports();
-      await orchestrator.generateReports();
+      await orchestrator.generateReports(repositories);
 
       expect(orchestrator.reports).toHaveLength(2);
-      expect(orchestrator.reports).toEqual(mockReports);
+      expect(orchestrator.reports.map((report) => report.reportPath)).toEqual([
+        "report1.md",
+        "report2.md",
+      ]);
+      expect(
+        orchestrator.reports.every((report) => report.status === "success"),
+      ).toBe(true);
     });
   });
 
@@ -181,57 +196,79 @@ describe("MetricsReportingOrchestrator", () => {
       const { EVENT_SCHEMAS } = require("../../telemetry/event-schemas.js");
 
       expect(EVENT_SCHEMAS["metrics.report.generated"]).toBeDefined();
-      expect(
-        EVENT_SCHEMAS["metrics.report.generated"].safe.required,
-      ).toContain("reportType");
+      expect(EVENT_SCHEMAS["metrics.report.generated"].safe.required).toContain(
+        "reportType",
+      );
       expect(
         EVENT_SCHEMAS["metrics.report.generated"].restricted.required,
       ).toContain("repository");
     });
 
     it("should not throw if telemetry fails", async () => {
+      const repositories = [{ owner: "test", repo: "repo" }];
+
       orchestrator.telemetry.emit.mockImplementation(() => {
         throw new Error("Telemetry error");
       });
 
-      const mockReport = {
-        path: "test-report.md",
-        summary: "Test",
-      };
+      orchestrator.reporter.generateReport.mockResolvedValue("### Test");
+      jest.spyOn(orchestrator, "saveReport").mockReturnValue("test-report.md");
+      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
 
-      orchestrator.reporter.generateReport.mockResolvedValue(mockReport);
-
-      // Should not throw even if telemetry fails
-      await expect(orchestrator.generateReports()).resolves.not.toThrow();
+      // Telemetry failures are recorded, never propagated to the caller
+      await expect(
+        orchestrator.generateReports(repositories),
+      ).resolves.toHaveLength(1);
+      expect(orchestrator.reports[0].status).toBe("error");
     });
   });
 
   describe("Error Handling", () => {
-    it("should handle storage errors", async () => {
-      orchestrator.storage.getLatestMetrics.mockRejectedValue(
-        new Error("Storage error"),
-      );
+    it("should handle save errors", async () => {
+      const repositories = [{ owner: "test", repo: "repo" }];
 
-      await expect(orchestrator.generateReports()).rejects.toThrow();
+      orchestrator.reporter.generateReport.mockResolvedValue("### Test");
+      jest.spyOn(orchestrator, "saveReport").mockImplementation(() => {
+        throw new Error("Storage error");
+      });
+
+      await orchestrator.generateReports(repositories);
+
+      expect(orchestrator.reports[0]).toEqual(
+        expect.objectContaining({
+          repository: "test/repo",
+          status: "error",
+          error: "Storage error",
+        }),
+      );
     });
 
     it("should handle reporter errors", async () => {
+      const repositories = [{ owner: "test", repo: "repo" }];
+
       orchestrator.reporter.generateReport.mockRejectedValue(
         new Error("Reporter error"),
       );
 
-      await expect(orchestrator.generateReports()).rejects.toThrow(
-        "Reporter error",
+      await orchestrator.generateReports(repositories);
+
+      expect(orchestrator.reports[0]).toEqual(
+        expect.objectContaining({
+          status: "error",
+          error: "Reporter error",
+        }),
       );
     });
 
     it("should handle invalid report data", async () => {
+      const repositories = [{ owner: "test", repo: "repo" }];
+
       orchestrator.reporter.generateReport.mockResolvedValue(null);
 
-      await orchestrator.generateReports();
+      await orchestrator.generateReports(repositories);
 
-      // Should handle null gracefully
-      expect(orchestrator.reports).toContain(null);
+      // Repositories without data are skipped rather than recorded
+      expect(orchestrator.reports).toEqual([]);
     });
   });
 });

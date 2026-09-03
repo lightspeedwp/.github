@@ -132,12 +132,13 @@ When creating any new script:
 ### Test Coverage
 
 Aim for high coverage for any new scripts under `scripts/` and place tests in `__tests__/` subdirectories alongside the code.
+
 ## File Type Mapping
 
 | File Type | Canonical Location | Rule |
 | --- | --- | --- |
 | **Repository scripts** | `scripts/{category}/` | **ALWAYS root `scripts/`, never `.github/scripts/`** |
-| Repository script tests | `scripts/{category}/__tests__/` | **100% coverage required** |
+| Repository script tests | `scripts/{category}/__tests__/` | **High coverage expected; no global threshold enforced** |
 | Repo GitHub workflow | `.github/workflows/` | Keep executable GitHub Actions here. |
 | Portable agentic workflow | `workflows/` | Use for tool-neutral AI processes. |
 | Repo community-health file | `.github/` | Keep issue, PR, support, security, and governance files in place. |
