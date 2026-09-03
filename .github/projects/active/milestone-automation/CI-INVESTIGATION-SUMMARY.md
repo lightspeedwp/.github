@@ -1,7 +1,6 @@
 ---
 title: CI Investigation Summary (Checks 11-24)
 description: Validation and workflow automation check findings and status
-type: report
 file_type: documentation
 status: active
 version: "1.0.0"

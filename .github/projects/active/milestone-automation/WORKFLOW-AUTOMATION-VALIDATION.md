@@ -1,7 +1,6 @@
 ---
 title: Workflow Automation Validation (Checks 19-24)
 description: Investigation of labeling, reviewer, and milestone automation workflows
-type: report
 file_type: documentation
 status: active
 version: "1.0.0"
