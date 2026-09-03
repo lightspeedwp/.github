@@ -211,16 +211,19 @@ class WorkflowValidator {
 
     // Check for secrets in shell
     if (this.guardrails.security.rules.noSecretsInShell.enabled) {
-      const jobsContent = JSON.stringify(workflow.jobs || {});
-      if (
-        jobsContent.includes("${{ secrets.") &&
-        jobsContent.includes("run:")
-      ) {
-        this.addError(
-          filename,
-          "Do not pass secrets directly to shell commands (use env or input)",
-        );
-        hasErrors = true;
+      for (const [jobName, job] of Object.entries(workflow.jobs || {})) {
+        for (const step of job.steps || []) {
+          if (step.run && typeof step.run === "string") {
+            // Check if secrets are directly interpolated in the run command
+            if (step.run.includes("${{ secrets.")) {
+              this.addError(
+                filename,
+                `Job "${jobName}": Do not pass secrets directly to shell commands (use env or input)`,
+              );
+              hasErrors = true;
+            }
+          }
+        }
       }
     }
 

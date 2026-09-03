@@ -120,10 +120,13 @@ jobs:
       - name: Add missing type labels
         if: ${{ inputs.remediate_labels == 'true' && steps.fetch.outputs.count > 0 }}
         uses: actions/github-script@v9
+        env:
+          ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
+          DRY_RUN_MODE: ${{ inputs.dry_run }}
         with:
           script: |
-            const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
-            const dryRun = '${{ inputs.dry_run }}' === 'true';
+            const issues = JSON.parse(process.env.ISSUES_JSON || '[]');
+            const dryRun = process.env.DRY_RUN_MODE === 'true';
 
             let labelCount = 0;
             for (const issue of issues) {
@@ -173,11 +176,14 @@ jobs:
       - name: Post remediation checklists
         if: ${{ inputs.remediate_templates == 'true' && steps.fetch.outputs.count > 0 }}
         uses: actions/github-script@v9
+        env:
+          ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
+          DRY_RUN_MODE: ${{ inputs.dry_run }}
         with:
           script: |
             const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
-            const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
-            const dryRun = '${{ inputs.dry_run }}' === 'true';
+            const issues = JSON.parse(process.env.ISSUES_JSON || '[]');
+            const dryRun = process.env.DRY_RUN_MODE === 'true';
 
             const generator = new RemediationChecklistGenerator(github, context.repo.owner, context.repo.repo);
             const results = await generator.postRemediationChecklists(issues, { dryRun });
