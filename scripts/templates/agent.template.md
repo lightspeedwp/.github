@@ -37,8 +37,8 @@ implementation: "{{IMPLEMENTATION}}"
 ## Implementation Reference
 
 - **Folder:** `{{IMPLEMENTATION}}`
-- **Entry Point:** [SKILL.md]({{IMPLEMENTATION_DIR}}/SKILL.md)
-- **Related:** [README.md]({{IMPLEMENTATION_DIR}}/README.md)
+- **Entry Point:** [SKILL.md](./{{AGENT_NAME}}/SKILL.md)
+- **Related:** [README.md](./{{AGENT_NAME}}/README.md)
 
 ---
 

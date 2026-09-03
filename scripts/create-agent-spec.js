@@ -33,7 +33,7 @@ const VALID_CATEGORIES = [
   "communication",
 ];
 const VALID_STATUSES = ["active", "draft", "deprecated"];
-const DEFAULT_VERSION = "v1.0";
+const DEFAULT_VERSION = "v1.0.0";
 
 /**
  * Parse command-line arguments
@@ -365,24 +365,36 @@ async function gatherAgentDetails(prefilledCategory = null) {
 }
 
 /**
+ * Escape YAML string values to ensure valid YAML output
+ */
+function escapeYamlString(value) {
+  if (typeof value !== "string") return String(value);
+  return value
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, "\\n");
+}
+
+/**
  * Generate spec file content from template and values
  */
 function generateSpecContent(details) {
   let content = fs.readFileSync(TEMPLATE_PATH, "utf-8");
 
   const replacements = {
-    "{{NAME}}": details.agentName,
-    "{{DISPLAY_NAME}}": details.displayName,
-    "{{DESCRIPTION}}": details.description,
-    "{{CATEGORY}}": details.category,
-    "{{STATUS}}": details.status,
-    "{{VERSION}}": details.version,
-    "{{CREATED_DATE}}": details.createdDate,
-    "{{LAST_UPDATED}}": details.lastUpdated,
-    "{{AUTHOR}}": details.author,
+    "{{NAME}}": escapeYamlString(details.agentName),
+    "{{AGENT_NAME}}": details.agentName,
+    "{{DISPLAY_NAME}}": escapeYamlString(details.displayName),
+    "{{DESCRIPTION}}": escapeYamlString(details.description),
+    "{{CATEGORY}}": escapeYamlString(details.category),
+    "{{STATUS}}": escapeYamlString(details.status),
+    "{{VERSION}}": escapeYamlString(details.version),
+    "{{CREATED_DATE}}": escapeYamlString(details.createdDate),
+    "{{LAST_UPDATED}}": escapeYamlString(details.lastUpdated),
+    "{{AUTHOR}}": escapeYamlString(details.author),
     "{{IMPLEMENTATION}}": details.implementationDir,
     "{{IMPLEMENTATION_DIR}}": details.implementationDir.replace(/\/$/, ""),
-    "{{PURPOSE}}": details.purpose,
+    "{{PURPOSE}}": escapeYamlString(details.purpose),
   };
 
   for (const [key, value] of Object.entries(replacements)) {
@@ -464,40 +476,89 @@ async function processBatchFile(batchFilePath) {
   let failed = 0;
 
   for (const agent of agents) {
-    // Construct details from batch entry
-    const details = {
-      agentName: agent.name.toLowerCase().replace(/\s+/g, "-"),
-      displayName: agent.name,
-      description: agent.description,
-      category: agent.category || "automation",
-      status: agent.status || "draft",
-      version: agent.version || DEFAULT_VERSION,
-      author: agent.author || "LightSpeed Team",
-      purpose: agent.purpose || agent.description,
-      implementationDir:
-        agent.implementation ||
-        `agents/${agent.name.toLowerCase().replace(/\s+/g, "-")}/`,
-      createdDate: getCurrentDate(),
-      lastUpdated: getCurrentDate(),
-    };
-
-    // Validate details
-    const nameValidation = validateAgentName(details.agentName);
-    const categoryValidation = validateCategory(details.category);
-
-    if (!nameValidation.valid) {
-      console.error(`❌ ${agent.name}: ${nameValidation.error}`);
-      failed++;
-      continue;
-    }
-
-    if (!categoryValidation.valid) {
-      console.error(`❌ ${agent.name}: ${categoryValidation.error}`);
-      failed++;
-      continue;
-    }
-
     try {
+      if (!agent || typeof agent !== "object") {
+        console.error("❌ Invalid batch entry: must be an object");
+        failed++;
+        continue;
+      }
+
+      if (typeof agent.name !== "string" || !agent.name.trim()) {
+        console.error(
+          "❌ Invalid batch entry: name must be a non-empty string",
+        );
+        failed++;
+        continue;
+      }
+
+      const agentName = agent.name.toLowerCase().replace(/\s+/g, "-");
+      const nameValidation = validateAgentName(agentName);
+      if (!nameValidation.valid) {
+        console.error(`❌ ${agent.name}: ${nameValidation.error}`);
+        failed++;
+        continue;
+      }
+
+      const description = String(agent.description || "").trim();
+      if (!description) {
+        console.error(`❌ ${agent.name}: description is required`);
+        failed++;
+        continue;
+      }
+
+      const category = String(agent.category || "automation").trim();
+      const categoryValidation = validateCategory(category);
+      if (!categoryValidation.valid) {
+        console.error(`❌ ${agent.name}: ${categoryValidation.error}`);
+        failed++;
+        continue;
+      }
+
+      const status = String(agent.status || "draft").trim();
+      if (!VALID_STATUSES.includes(status)) {
+        console.error(`❌ ${agent.name}: invalid status "${status}"`);
+        failed++;
+        continue;
+      }
+
+      const version = String(agent.version || DEFAULT_VERSION).trim();
+      const versionValidation = validateVersion(version);
+      if (!versionValidation.valid) {
+        console.error(`❌ ${agent.name}: ${versionValidation.error}`);
+        failed++;
+        continue;
+      }
+
+      const author = String(agent.author || "LightSpeed Team").trim();
+      const purpose = String(agent.purpose || description).trim();
+
+      let implementationDir = agent.implementation || `agents/${agentName}/`;
+      const normalizedImplPath = path.normalize(
+        path.resolve(AGENTS_DIR, implementationDir),
+      );
+      if (!normalizedImplPath.startsWith(path.resolve(AGENTS_DIR))) {
+        console.error(
+          `❌ ${agent.name}: implementation path outside agents directory`,
+        );
+        failed++;
+        continue;
+      }
+      implementationDir = path.relative(AGENTS_DIR, normalizedImplPath) + "/";
+
+      const details = {
+        agentName,
+        displayName: agent.name,
+        description,
+        category,
+        status,
+        version,
+        author,
+        purpose,
+        implementationDir,
+        createdDate: getCurrentDate(),
+        lastUpdated: getCurrentDate(),
+      };
+
       const content = generateSpecContent(details);
       writeSpecFile(details, content);
       createImplementationDirectory(details);
@@ -505,7 +566,7 @@ async function processBatchFile(batchFilePath) {
       console.log(`✅ Created: ${details.agentName}`);
       successful++;
     } catch (error) {
-      console.error(`❌ ${agent.name}: ${error.message}`);
+      console.error(`❌ Error processing agent: ${error.message}`);
       failed++;
     }
   }

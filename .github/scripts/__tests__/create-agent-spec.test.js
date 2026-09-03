@@ -13,6 +13,7 @@
 import fs from "fs";
 import path from "path";
 import url from "url";
+import { execSync } from "child_process";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "../../../");
@@ -278,6 +279,89 @@ test("npm script is registered", () => {
   assert(
     packageJson.scripts["create:agent"].includes("create-agent-spec.js"),
     "npm script does not reference create-agent-spec.js",
+  );
+});
+
+/**
+ * Test 20: CLI --help displays usage information
+ */
+test("CLI --help displays usage information", () => {
+  try {
+    const output = execSync(`node ${CREATE_AGENT_SCRIPT} --help`, {
+      cwd: PROJECT_ROOT,
+      encoding: "utf-8",
+    }).toString();
+    assert(
+      output.includes("Agent Specification Generator"),
+      "Help text missing title",
+    );
+    assert(
+      output.includes("--category"),
+      "Help text missing --category option",
+    );
+    assert(output.includes("--batch"), "Help text missing --batch option");
+  } catch (error) {
+    assert(false, `CLI --help failed: ${error.message}`);
+  }
+});
+
+/**
+ * Test 21: DEFAULT_VERSION is valid (v1.0.0 format)
+ */
+test("DEFAULT_VERSION is valid semantic version", () => {
+  const content = fs.readFileSync(CREATE_AGENT_SCRIPT, "utf-8");
+  const versionMatch = content.match(/DEFAULT_VERSION\s*=\s*"([^"]+)"/);
+  assert(
+    versionMatch && versionMatch[1] === "v1.0.0",
+    "DEFAULT_VERSION should be v1.0.0",
+  );
+});
+
+/**
+ * Test 22: YAML escaping function exists
+ */
+test("YAML escaping function exists", () => {
+  const content = fs.readFileSync(CREATE_AGENT_SCRIPT, "utf-8");
+  assert(
+    content.includes("escapeYamlString"),
+    "escapeYamlString function not found",
+  );
+  assert(
+    content.includes(
+      "replace(/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\",
+    ) || content.includes('"\\\\\\\\"'),
+    "YAML escaping not implemented",
+  );
+});
+
+/**
+ * Test 23: Path validation for batch processing
+ */
+test("Batch processing validates paths", () => {
+  const content = fs.readFileSync(CREATE_AGENT_SCRIPT, "utf-8");
+  assert(
+    content.includes("path.normalize") && content.includes("path.resolve"),
+    "Path normalization missing for security",
+  );
+  assert(
+    content.includes("startsWith") &&
+      content.includes(content.includes("AGENTS_DIR")),
+    "Path traversal protection missing",
+  );
+});
+
+/**
+ * Test 24: Batch entry validation implemented
+ */
+test("Batch entry validation checks data types", () => {
+  const content = fs.readFileSync(CREATE_AGENT_SCRIPT, "utf-8");
+  assert(
+    content.includes("typeof agent") && content.includes("typeof agent.name"),
+    "Type checking for batch entries missing",
+  );
+  assert(
+    content.includes("String(") && content.includes(".trim()"),
+    "String validation for batch fields missing",
   );
 });
 
