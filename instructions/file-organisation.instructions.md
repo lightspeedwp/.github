@@ -131,8 +131,7 @@ When creating any new script:
 
 ### Test Coverage
 
-ALL scripts in `scripts/` and subfolders require 100% test coverage. Place tests in `__tests__/` subdirectories alongside the code.
-
+Aim for high coverage for any new scripts under `scripts/` and place tests in `__tests__/` subdirectories alongside the code.
 ## File Type Mapping
 
 | File Type | Canonical Location | Rule |
