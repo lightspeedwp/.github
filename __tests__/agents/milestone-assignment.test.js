@@ -142,7 +142,7 @@ describe("MilestoneAssignmentAgent", () => {
       const issue = sampleIssues.edgeCases.specialCharactersInTitle;
       const result = await agent.assignMilestone(issue);
       expect(result).toBeDefined();
-      expect(typeof result === "object" || result === null).toBe(true);
+      expect(typeof result).toBe("object");
     });
 
     test("should handle very long title", async () => {
@@ -359,8 +359,7 @@ describe("MilestoneAssignmentAgent", () => {
       const hasPhaseAlias = Object.keys(agent.milestoneMap).some((key) =>
         key.includes("Phase 1.0"),
       );
-      // This depends on implementation - just verify consistency
-      expect(agent.milestoneMap).toBeDefined();
+      expect(hasPhaseAlias).toBe(false);
     });
   });
 });
