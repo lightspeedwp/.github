@@ -146,15 +146,15 @@ related_branches:
 ## Test Case: Issue #1240 Epic + 6 Child Issues
 
 ### Epic Issue
-- **#1240** — [TBD: Epic Title] (open)
+- **[#1240](https://github.com/lightspeedwp/.github/issues/1240)** — [Epic] Project Management Agent & Automation Consolidation Initiative (open)
 
 ### Test Issues (6 total, currently closed)
-- **#2569** — [TBD: Title] (closed, requires remediation)
-- **#2571** — [TBD: Title] (closed, requires remediation)
-- **#2572** — [TBD: Title] (closed, requires remediation)
-- **#2558** — [TBD: Title] (closed, requires remediation)
-- **#2559** — [TBD: Title] (closed, requires remediation)
-- **#2564** — [TBD: Title] (closed, requires remediation)
+- **[#2569](https://github.com/lightspeedwp/.github/issues/2569)** — Test issue 1 (closed, requires remediation)
+- **[#2571](https://github.com/lightspeedwp/.github/issues/2571)** — Test issue 2 (closed, requires remediation)
+- **[#2572](https://github.com/lightspeedwp/.github/issues/2572)** — Test issue 3 (closed, requires remediation)
+- **[#2558](https://github.com/lightspeedwp/.github/issues/2558)** — Test issue 4 (closed, requires remediation)
+- **[#2559](https://github.com/lightspeedwp/.github/issues/2559)** — Test issue 5 (closed, requires remediation)
+- **[#2564](https://github.com/lightspeedwp/.github/issues/2564)** — Test issue 6 (closed, requires remediation)
 
 ### Validation Checklist (Per Issue)
 
@@ -341,13 +341,73 @@ This audit consolidates findings from the above projects into a unified framewor
 
 ---
 
+## All Created Issues (32 Total)
+
+### Phase 1: Audit & Planning (10 issues)
+
+| # | Issue | Title | Effort |
+|---|-------|-------|--------|
+| audit-001 | [#2715](https://github.com/lightspeedwp/.github/issues/2715) | Audit all project management scripts | 10h |
+| audit-002 | [#2716](https://github.com/lightspeedwp/.github/issues/2716) | Audit all GitHub workflows | 8h |
+| audit-003 | [#2717](https://github.com/lightspeedwp/.github/issues/2717) | Audit agent definitions | 6h |
+| audit-004 | [#2718](https://github.com/lightspeedwp/.github/issues/2718) | Analyze documentation duplication | 8h |
+| audit-005 | [#2719](https://github.com/lightspeedwp/.github/issues/2719) | Create comprehensive findings report | 10h |
+| audit-006 | [#2720](https://github.com/lightspeedwp/.github/issues/2720) | Design issue management agent specification | 12h |
+| audit-007 | [#2721](https://github.com/lightspeedwp/.github/issues/2721) | Design PR management agent specification | 12h |
+| audit-008 | [#2722](https://github.com/lightspeedwp/.github/issues/2722) | Plan org-wide rollout strategy | 8h |
+| audit-009 | [#2723](https://github.com/lightspeedwp/.github/issues/2723) | Create bulk update test plan | 6h |
+| audit-010 | [#2724](https://github.com/lightspeedwp/.github/issues/2724) | Document consolidation roadmap | 8h |
+
+**Phase 1 Total: 88 hours**
+
+### Phase 2: Implementation (10 issues)
+
+| # | Issue | Title | Effort |
+|---|-------|-------|--------|
+| impl-001 | [#2725](https://github.com/lightspeedwp/.github/issues/2725) | Consolidate duplicate labeling scripts | 16h |
+| impl-002 | [#2726](https://github.com/lightspeedwp/.github/issues/2726) | Consolidate duplicate issue metadata updaters | 12h |
+| impl-003 | [#2727](https://github.com/lightspeedwp/.github/issues/2727) | Consolidate agent definitions | 10h |
+| impl-004 | [#2728](https://github.com/lightspeedwp/.github/issues/2728) | Restructure documentation | 16h |
+| impl-005 | [#2729](https://github.com/lightspeedwp/.github/issues/2729) | Implement issue management agent | 24h |
+| impl-006 | [#2730](https://github.com/lightspeedwp/.github/issues/2730) | Implement PR management agent | 24h |
+| impl-007 | [#2731](https://github.com/lightspeedwp/.github/issues/2731) | Build agentic workflow integrations | 12h |
+| impl-008 | [#2732](https://github.com/lightspeedwp/.github/issues/2732) | Implement safety gates for agents | 8h |
+| impl-009 | [#2733](https://github.com/lightspeedwp/.github/issues/2733) | Create monitoring & observability dashboard | 10h |
+| impl-010 | [#2734](https://github.com/lightspeedwp/.github/issues/2734) | Write agent usage documentation | 8h |
+
+**Phase 2 Total: 140 hours**
+
+### Phase 3: Testing & Rollout (12 issues)
+
+| # | Issue | Title | Effort |
+|---|-------|-------|--------|
+| test-001 | [#2735](https://github.com/lightspeedwp/.github/issues/2735) | Test issue agent on #2569 | 3h |
+| test-002 | [#2736](https://github.com/lightspeedwp/.github/issues/2736) | Test issue agent on #2571 | 3h |
+| test-003 | [#2737](https://github.com/lightspeedwp/.github/issues/2737) | Test issue agent on #2572 | 3h |
+| test-004 | [#2738](https://github.com/lightspeedwp/.github/issues/2738) | Test issue agent on #2558 | 3h |
+| test-005 | [#2739](https://github.com/lightspeedwp/.github/issues/2739) | Test issue agent on #2559 | 3h |
+| test-006 | [#2740](https://github.com/lightspeedwp/.github/issues/2740) | Test issue agent on #2564 | 3h |
+| test-007 | [#2741](https://github.com/lightspeedwp/.github/issues/2741) | Link all test issues to epic #1240 | 2h |
+| test-008 | [#2742](https://github.com/lightspeedwp/.github/issues/2742) | Validate all linked PRs | 6h |
+| test-009 | [#2743](https://github.com/lightspeedwp/.github/issues/2743) | Test PR agent on linked PRs | 6h |
+| test-010 | [#2744](https://github.com/lightspeedwp/.github/issues/2744) | Document test results | 4h |
+| test-011 | [#2745](https://github.com/lightspeedwp/.github/issues/2745) | Deploy to additional repo | 6h |
+| test-012 | [#2746](https://github.com/lightspeedwp/.github/issues/2746) | Team training & feedback | 4h |
+
+**Phase 3 Total: 46 hours**
+
+**Grand Total: 274 hours across 3 phases (Sep 3 - Nov 30, 2026)**
+
+---
+
 ## Files in This Project
 
 ```
 .github/projects/active/automation-consolidation-agentic-workflows-2026-09/
 ├── README.md (this file)
 ├── PHASE_1_AUDIT_PLAN.md (detailed audit approach)
-├── OPENSPEC_REQUIREMENTS.md (openspec.json source)
+├── OPENSPEC_REQUIREMENTS.md (requirements specification source)
+├── openspec.json (structured requirements for issue generation)
 ├── ISSUE_MANAGEMENT_AGENT_SPEC.md (design doc)
 ├── PR_MANAGEMENT_AGENT_SPEC.md (design doc)
 ├── TEST_PLAN_BULK_UPDATES.md (validation approach)

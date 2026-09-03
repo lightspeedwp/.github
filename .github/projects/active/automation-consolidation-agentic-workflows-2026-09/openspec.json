@@ -1,0 +1,330 @@
+{
+  "project": {
+    "title": "Project Management Agent & Automation Consolidation Initiative",
+    "slug": "automation-consolidation-agentic-workflows-2026-09",
+    "version": "1.0.0",
+    "status": "active",
+    "epic_issue": 1240,
+    "start_date": "2026-09-03",
+    "target_completion": "2026-11-30",
+    "phases": [
+      {
+        "number": 1,
+        "title": "Audit & Planning",
+        "duration": "2-3 weeks",
+        "start": "2026-09-03",
+        "end": "2026-09-21",
+        "status": "active",
+        "effort_hours": 50,
+        "deliverables": 6
+      },
+      {
+        "number": 2,
+        "title": "Implementation",
+        "duration": "4-6 weeks",
+        "start": "2026-09-22",
+        "end": "2026-10-31",
+        "status": "planned",
+        "effort_hours": 80,
+        "deliverables": 10
+      },
+      {
+        "number": 3,
+        "title": "Testing & Rollout",
+        "duration": "2-3 weeks",
+        "start": "2026-11-01",
+        "end": "2026-11-30",
+        "status": "planned",
+        "effort_hours": 40,
+        "deliverables": 5
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "category": "audit",
+      "items": [
+        {
+          "id": "audit-001",
+          "title": "Audit all project management scripts",
+          "description": "Analyze 45+ scripts in scripts/ directory for purpose, status, dependencies, and duplication",
+          "phase": 1,
+          "effort_hours": 10,
+          "priority": "high"
+        },
+        {
+          "id": "audit-002",
+          "title": "Audit all GitHub workflows",
+          "description": "Analyze 25+ workflows in .github/workflows/ for purpose, status, dependencies, and duplication",
+          "phase": 1,
+          "effort_hours": 8,
+          "priority": "high"
+        },
+        {
+          "id": "audit-003",
+          "title": "Audit agent definitions",
+          "description": "Identify 20+ agent files across multiple directories (.github/agents/, agents/, scripts/agents/), consolidation opportunities",
+          "phase": 1,
+          "effort_hours": 6,
+          "priority": "high"
+        },
+        {
+          "id": "audit-004",
+          "title": "Analyze documentation duplication",
+          "description": "Review 30+ docs for overlapping content, identify consolidation opportunities",
+          "phase": 1,
+          "effort_hours": 8,
+          "priority": "medium"
+        },
+        {
+          "id": "audit-005",
+          "title": "Create comprehensive findings report",
+          "description": "Compile audit findings into structured report with inventory tables, analysis, recommendations",
+          "phase": 1,
+          "effort_hours": 10,
+          "priority": "high",
+          "deliverable": true
+        },
+        {
+          "id": "audit-006",
+          "title": "Design issue management agent specification",
+          "description": "Create detailed spec with decision trees, triggers, actions, safety gates for issue agent",
+          "phase": 1,
+          "effort_hours": 12,
+          "priority": "high",
+          "deliverable": true
+        },
+        {
+          "id": "audit-007",
+          "title": "Design PR management agent specification",
+          "description": "Create detailed spec with decision trees, triggers, actions, safety gates for PR agent",
+          "phase": 1,
+          "effort_hours": 12,
+          "priority": "high",
+          "deliverable": true
+        },
+        {
+          "id": "audit-008",
+          "title": "Plan org-wide rollout strategy",
+          "description": "Design installation process, config templates, monitoring approach for deployment to other repos",
+          "phase": 1,
+          "effort_hours": 8,
+          "priority": "medium",
+          "deliverable": true
+        },
+        {
+          "id": "audit-009",
+          "title": "Create bulk update test plan",
+          "description": "Plan validation of issue #1240 epic + 6 child issues + linked PRs",
+          "phase": 1,
+          "effort_hours": 6,
+          "priority": "high",
+          "deliverable": true
+        },
+        {
+          "id": "audit-010",
+          "title": "Document consolidation roadmap",
+          "description": "Create Phase 2-3 implementation roadmap with prioritized tasks and timeline",
+          "phase": 1,
+          "effort_hours": 8,
+          "priority": "medium",
+          "deliverable": true
+        }
+      ]
+    },
+    {
+      "category": "implementation",
+      "items": [
+        {
+          "id": "impl-001",
+          "title": "Consolidate duplicate labeling scripts",
+          "description": "Merge sync-pr-labels.js, sync-pr-labels-optimized.js, and review-status-labels.js into single implementation",
+          "phase": 2,
+          "effort_hours": 16,
+          "priority": "high",
+          "blockers": ["audit-001"]
+        },
+        {
+          "id": "impl-002",
+          "title": "Consolidate duplicate issue metadata updaters",
+          "description": "Merge audit-issue-metadata.js, bulk-issue-metadata-updater.js, and related scripts",
+          "phase": 2,
+          "effort_hours": 12,
+          "priority": "high",
+          "blockers": ["audit-001"]
+        },
+        {
+          "id": "impl-003",
+          "title": "Consolidate agent definitions",
+          "description": "Merge task-planner, task-researcher, labeling, issues agents from 3+ locations into canonical locations",
+          "phase": 2,
+          "effort_hours": 10,
+          "priority": "medium",
+          "blockers": ["audit-003"]
+        },
+        {
+          "id": "impl-004",
+          "title": "Restructure documentation",
+          "description": "Consolidate 30+ docs into canonical hierarchy with redirects",
+          "phase": 2,
+          "effort_hours": 16,
+          "priority": "medium",
+          "blockers": ["audit-004"]
+        },
+        {
+          "id": "impl-005",
+          "title": "Implement issue management agent",
+          "description": "Build agent based on spec with decision tree, label routing, milestone allocation, validation",
+          "phase": 2,
+          "effort_hours": 24,
+          "priority": "high",
+          "blockers": ["audit-006"]
+        },
+        {
+          "id": "impl-006",
+          "title": "Implement PR management agent",
+          "description": "Build agent based on spec with template validation, linking, conflict detection, review integration",
+          "phase": 2,
+          "effort_hours": 24,
+          "priority": "high",
+          "blockers": ["audit-007"]
+        },
+        {
+          "id": "impl-007",
+          "title": "Build agentic workflow integrations",
+          "description": "Create GitHub Actions workflows to trigger agents on issue/PR events",
+          "phase": 2,
+          "effort_hours": 12,
+          "priority": "high"
+        },
+        {
+          "id": "impl-008",
+          "title": "Implement safety gates for agents",
+          "description": "Add validation gates to prevent agents from making unintended changes",
+          "phase": 2,
+          "effort_hours": 8,
+          "priority": "high"
+        },
+        {
+          "id": "impl-009",
+          "title": "Create monitoring & observability dashboard",
+          "description": "Build dashboard to track agent actions, decisions, and performance",
+          "phase": 2,
+          "effort_hours": 10,
+          "priority": "medium"
+        },
+        {
+          "id": "impl-010",
+          "title": "Write agent usage documentation",
+          "description": "Create guides for using agents, troubleshooting, feedback process",
+          "phase": 2,
+          "effort_hours": 8,
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "category": "testing",
+      "items": [
+        {
+          "id": "test-001",
+          "title": "Test issue agent on #2569",
+          "description": "Run issue management agent on closed test issue #2569, validate all remediation",
+          "phase": 3,
+          "effort_hours": 3,
+          "priority": "high"
+        },
+        {
+          "id": "test-002",
+          "title": "Test issue agent on #2571",
+          "description": "Run issue management agent on closed test issue #2571, validate all remediation",
+          "phase": 3,
+          "effort_hours": 3,
+          "priority": "high"
+        },
+        {
+          "id": "test-003",
+          "title": "Test issue agent on #2572",
+          "description": "Run issue management agent on closed test issue #2572, validate all remediation",
+          "phase": 3,
+          "effort_hours": 3,
+          "priority": "high"
+        },
+        {
+          "id": "test-004",
+          "title": "Test issue agent on #2558",
+          "description": "Run issue management agent on closed test issue #2558, validate all remediation",
+          "phase": 3,
+          "effort_hours": 3,
+          "priority": "high"
+        },
+        {
+          "id": "test-005",
+          "title": "Test issue agent on #2559",
+          "description": "Run issue management agent on closed test issue #2559, validate all remediation",
+          "phase": 3,
+          "effort_hours": 3,
+          "priority": "high"
+        },
+        {
+          "id": "test-006",
+          "title": "Test issue agent on #2564",
+          "description": "Run issue management agent on closed test issue #2564, validate all remediation",
+          "phase": 3,
+          "effort_hours": 3,
+          "priority": "high"
+        },
+        {
+          "id": "test-007",
+          "title": "Link all test issues to epic #1240",
+          "description": "Ensure all 6 test issues are properly linked as children to epic #1240",
+          "phase": 3,
+          "effort_hours": 2,
+          "priority": "high"
+        },
+        {
+          "id": "test-008",
+          "title": "Validate all linked PRs",
+          "description": "For each test issue, validate that linked PRs meet governance standards (template, labels, milestone, assignees)",
+          "phase": 3,
+          "effort_hours": 6,
+          "priority": "high"
+        },
+        {
+          "id": "test-009",
+          "title": "Test PR agent on linked PRs",
+          "description": "Run PR management agent on all PRs linked to test issues, validate all validations/remediations",
+          "phase": 3,
+          "effort_hours": 6,
+          "priority": "high"
+        },
+        {
+          "id": "test-010",
+          "title": "Document test results",
+          "description": "Create comprehensive test report showing before/after state, agent decisions, lessons learned",
+          "phase": 3,
+          "effort_hours": 4,
+          "priority": "medium",
+          "deliverable": true
+        },
+        {
+          "id": "test-011",
+          "title": "Deploy to additional repo",
+          "description": "Install agents on test repository to validate rollout process",
+          "phase": 3,
+          "effort_hours": 6,
+          "priority": "medium"
+        },
+        {
+          "id": "test-012",
+          "title": "Team training & feedback",
+          "description": "Train team on using agents, collect feedback, iterate on design",
+          "phase": 3,
+          "effort_hours": 4,
+          "priority": "medium",
+          "deliverable": true
+        }
+      ]
+    }
+  ]
+}
