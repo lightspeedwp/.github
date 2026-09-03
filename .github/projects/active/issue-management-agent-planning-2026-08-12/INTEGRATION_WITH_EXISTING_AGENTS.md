@@ -85,13 +85,9 @@ Error Detection           ✅ Content errors   ✅ Operations errors
 ### Pattern 1: Complementary Operations
 
 ```mermaid
----
-config:
-  theme: base
-  accTitle: Integration Pattern - Complementary Operations
-  accDescr: Two-agent workflow showing Issues Agent (quality triage and enrichment) and Issue Management Agent (operations and monitoring) working on the same issue from different angles
----
 graph LR
+    accTitle: Integration Pattern - Complementary Operations
+    accDescr: Two-agent workflow showing Issues Agent (quality triage and enrichment) and Issue Management Agent (operations and monitoring) working on the same issue from different angles
     Issue["Create Issue"]
     
     subgraph IssuAgent["Issues Agent<br/>(Quality)"]
