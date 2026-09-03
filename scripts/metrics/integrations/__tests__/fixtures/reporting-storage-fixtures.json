@@ -1,0 +1,73 @@
+{
+  "seedRecords": [
+    {
+      "id": "meta-001",
+      "repository": "lightspeedwp/.github",
+      "key": "issues-open",
+      "value": 42,
+      "metadata": {
+        "source": "weekly-crawl",
+        "period": "2026-W34"
+      },
+      "captured_at": "2026-08-20T00:00:00.000Z"
+    },
+    {
+      "id": "meta-002",
+      "repository": "lightspeedwp/.github",
+      "key": "prs-merged",
+      "value": 18,
+      "metadata": {
+        "source": "weekly-crawl",
+        "period": "2026-W34"
+      },
+      "captured_at": "2026-08-20T01:00:00.000Z"
+    }
+  ],
+  "backfillRecords": [
+    {
+      "id": "hist-001",
+      "repository": "lightspeedwp/.github",
+      "key": "issues-open",
+      "value": 50,
+      "metadata": {
+        "source": "historical-backfill",
+        "period": "2026-W30"
+      },
+      "captured_at": "2026-07-23T00:00:00.000Z"
+    },
+    {
+      "id": "hist-002",
+      "repository": "lightspeedwp/.github",
+      "key": "issues-open",
+      "value": 48,
+      "metadata": {
+        "source": "historical-backfill",
+        "period": "2026-W31"
+      },
+      "captured_at": "2026-07-30T00:00:00.000Z"
+    },
+    {
+      "id": "hist-003",
+      "repository": "lightspeedwp/.github",
+      "key": "issues-open",
+      "value": 45,
+      "metadata": {
+        "source": "historical-backfill",
+        "period": "2026-W32"
+      },
+      "captured_at": "2026-08-06T00:00:00.000Z"
+    }
+  ],
+  "invalidRecords": [
+    {
+      "id": "bad-001",
+      "key": "issues-open",
+      "value": 99
+    },
+    {
+      "id": "bad-002",
+      "repository": "lightspeedwp/.github",
+      "value": 99
+    }
+  ]
+}
