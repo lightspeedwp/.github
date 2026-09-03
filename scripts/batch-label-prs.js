@@ -201,7 +201,7 @@ function detectLangsFromFiles(files = []) {
  * Get all files changed in a PR.
  * @param {object} octokit - Octokit client instance.
  * @param {number} prNumber - The PR number.
- * @returns {Promise<string[]>} Array of changed file paths.
+ * @returns {Promise<{files: string[], error: string|null}>} Object with files array and optional error.
  */
 async function getPRChangedFiles(octokit, prNumber) {
   try {
@@ -211,10 +211,10 @@ async function getPRChangedFiles(octokit, prNumber) {
       pull_number: prNumber,
       per_page: 100,
     });
-    return files.map((f) => f.filename);
+    return { files: files.map((f) => f.filename), error: null };
   } catch (error) {
     log(`Error fetching files for PR #${prNumber}: ${error.message}`, "error");
-    return [];
+    return { files: [], error: error.message };
   }
 }
 
@@ -229,6 +229,7 @@ async function labelPR(octokit, prNumber, pr) {
   try {
     const labelsToApply = new Set();
     const canonicalLabels = loadCanonicalLabels();
+    let fetchError = null;
 
     log(`\nProcessing PR #${prNumber}: "${pr.title}"`);
 
@@ -249,8 +250,12 @@ async function labelPR(octokit, prNumber, pr) {
     }
 
     // 3. Detect areas from files
-    const changedFiles = await getPRChangedFiles(octokit, prNumber);
-    const areas = detectAreasFromFiles(changedFiles);
+    const fileResult = await getPRChangedFiles(octokit, prNumber);
+    if (fileResult.error) {
+      fetchError = fileResult.error;
+      log(`  ⚠️  Could not fetch files (area/language labels incomplete)`);
+    }
+    const areas = detectAreasFromFiles(fileResult.files);
     areas.forEach((area) => {
       if (canonicalLabels.has(area)) {
         labelsToApply.add(area);
@@ -261,7 +266,7 @@ async function labelPR(octokit, prNumber, pr) {
     }
 
     // 4. Detect languages from files
-    const langs = detectLangsFromFiles(changedFiles);
+    const langs = detectLangsFromFiles(fileResult.files);
     langs.forEach((lang) => {
       if (canonicalLabels.has(lang)) {
         labelsToApply.add(lang);
@@ -288,7 +293,7 @@ async function labelPR(octokit, prNumber, pr) {
 
     if (newLabels.length === 0) {
       log(`  ℹ No new labels to apply`);
-      return { prNumber, applied: [] };
+      return { prNumber, applied: [], fetchError };
     }
 
     // Apply labels
@@ -304,7 +309,7 @@ async function labelPR(octokit, prNumber, pr) {
       log(`  📋 [DRY RUN] Would apply: ${newLabels.join(", ")}`);
     }
 
-    return { prNumber, applied: newLabels };
+    return { prNumber, applied: newLabels, fetchError };
   } catch (error) {
     log(`❌ Error labeling PR #${prNumber}: ${error.message}`, "error");
     return { prNumber, applied: [], error: error.message };
@@ -367,13 +372,17 @@ async function main() {
     log("\n" + "=".repeat(60));
     log("SUMMARY");
     log("=".repeat(60));
-    const successCount = results.filter((r) => !r.error).length;
+    const successCount = results.filter(
+      (r) => !r.error && !r.fetchError,
+    ).length;
     const errorCount = results.filter((r) => r.error).length;
+    const fetchErrorCount = results.filter((r) => r.fetchError).length;
     const totalApplied = results.reduce((sum, r) => sum + r.applied.length, 0);
 
     log(`PRs processed: ${results.length}`);
     log(`Labels applied: ${totalApplied}`);
     log(`Successful: ${successCount}`);
+    log(`Partial (fetch error): ${fetchErrorCount}`);
     log(`Errors: ${errorCount}`);
 
     // Write report file
@@ -384,6 +393,7 @@ async function main() {
         prsProcessed: results.length,
         labelsApplied: totalApplied,
         successful: successCount,
+        partial: fetchErrorCount,
         errors: errorCount,
       },
       results,

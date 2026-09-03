@@ -52,9 +52,14 @@ This document provides detailed technical specification for the **unified label 
 
 ## Proposed Schema Structure (v2.0)
 
-### Enhanced YAML Schema
+**Phase Implementation Note:**
+- **Phase 1–3 (Current):** Maintain existing flat array format with `name`, `color`, and `description` only for backward compatibility
+- **Phase 4 (Enhancement):** Introduce metadata fields documented below; requires schema migration and coordinated workflow updates
+- **Validation:** Enhanced fields are optional preparation for Phase 4; Phase 1–3 continue with minimal validation
 
-The proposed schema adds metadata fields while maintaining backward compatibility:
+### Enhanced YAML Schema (Phase 4 Target)
+
+The proposed schema adds metadata fields for Phase 4 implementation:
 
 **Metadata Categories:**
 

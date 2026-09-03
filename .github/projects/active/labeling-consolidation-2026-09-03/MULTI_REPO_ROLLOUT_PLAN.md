@@ -131,12 +131,20 @@ This plan details the **phased rollout** of the unified labeling system across t
 
 If issues detected during Week 2:
 
+**Before Cutover (Oct 5):**
+Record the pre-cutover commit SHA for immediate reference:
+```bash
+PRE_CUTOVER_SHA=$(git rev-parse HEAD)
+echo "Pre-cutover commit: $PRE_CUTOVER_SHA" > ROLLBACK_REFERENCE.txt
+```
+
 1. **Immediate Rollback** (< 5 minutes)
    ```bash
-   # Restore old workflows from archive
-   git checkout HEAD~1 -- .github/workflows/labeling.yml
-   git checkout HEAD~1 -- .github/workflows/issue-labeling-automation.yml
-   # ... etc for all 11 workflows
+   # Use recorded pre-cutover commit SHA, not HEAD~1 (which may be unrelated after other pushes)
+   ROLLBACK_SHA="<recorded pre-cutover SHA>"
+   git checkout $ROLLBACK_SHA -- .github/workflows/
+   git commit -m "rollback: Restore workflows from $ROLLBACK_SHA"
+   git push origin <branch>
    ```
 
 2. **Investigation** (1–2 hours)
@@ -276,9 +284,12 @@ If issues detected during rollout:
 
 **Per-Repo Rollback:**
 ```bash
-# For affected repo only
-git -C repos/plugin-x/ checkout HEAD~1 -- .github/workflows/
-git -C repos/plugin-x/ checkout HEAD~1 -- .github/labeler-extensions.yml
+# For affected repo only - use recorded pre-deployment SHA, not HEAD~1
+ROLLBACK_SHA="<recorded pre-deployment SHA for this repo>"
+git -C repos/plugin-x/ checkout $ROLLBACK_SHA -- .github/workflows/
+git -C repos/plugin-x/ checkout $ROLLBACK_SHA -- .github/labeler-extensions.yml
+git -C repos/plugin-x/ commit -m "rollback: Restore labeling from $ROLLBACK_SHA"
+git -C repos/plugin-x/ push origin main
 ```
 
 **Full Rollback (if systemic issue):**
@@ -423,8 +434,11 @@ node scripts/automation/label-orchestrator.js apply \
 **Restore Previous Workflows:**
 
 ```bash
-# Restore all workflows from archived versions
-git checkout HEAD~1 -- .github/workflows/
+# Restore all workflows from archived versions (use recorded pre-deployment SHA)
+ROLLBACK_SHA="<recorded pre-deployment SHA>"
+git checkout $ROLLBACK_SHA -- .github/workflows/
+git commit -m "rollback: Restore workflows from $ROLLBACK_SHA"
+git push origin main
 
 # Clear any partial labels
 # (Handled by automated cleanup job)

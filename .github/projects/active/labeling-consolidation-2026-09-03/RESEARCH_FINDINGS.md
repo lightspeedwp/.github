@@ -308,7 +308,7 @@ Add JSON Schema validation without restructuring labels.yml:
       },
       "color": {
         "type": "string",
-        "pattern": "^[0-9A-F]{6}$"
+        "pattern": "^[0-9A-Fa-f]{6}$"
       },
       "description": {
         "type": "string",

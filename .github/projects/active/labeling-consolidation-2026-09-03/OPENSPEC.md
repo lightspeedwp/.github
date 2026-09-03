@@ -238,7 +238,7 @@ The unified labeling agent operates as a **hybrid system** combining GitHub Acti
 
 5. **Extensibility:**
    - Skills extracted to `skills/` for reuse
-   - Per-repo label extensions via `.github/labeler.yml` overrides
+   - Per-repo label extensions via `.github/labeler-extensions.yml` overrides
    - Support for custom heuristics via configuration
 
 ---
@@ -513,10 +513,10 @@ repo_config:
 # Phase 1: Root-level array for backward compatibility
 # Migration to object+metadata deferred to Phase 4 with coordinated workflow updates
 - name: type:bug
-    family: type
-    color: d73a49
-    description: "A bug, defect, or error"
-    usage_pattern: "automatic"  # auto | manual | mixed
+  family: type
+  color: d73a49
+  description: "A bug, defect, or error"
+  usage_pattern: "automatic"  # auto | manual | mixed
     aliases:
       - bug
       - defect
@@ -680,6 +680,11 @@ repo_config:
 }
 ```
 
+**Schema Compatibility Notes:**
+- **Phase 1 (Current):** `labels.yml` remains a root array for backward compatibility with existing consumers (`labelsConfig.map(...)`). This schema defines the target shape for Phase 4 migration.
+- **Phase 4 (Migration):** When schema is migrated to object format with metadata, all consuming workflows must be updated atomically to parse the new structure. This requires coordinated Phase 4 implementation.
+- **Validation:** Use this schema for validating enhanced label definitions starting in Phase 4. Phase 1–3 continue using array validation.
+
 ### Cross-Repo Consistency Rules
 
 **Canonical Labels (Mandatory Everywhere):**
@@ -799,12 +804,13 @@ validation:
 
 // Expected Output
 {
-  auto_apply: [
+  suggested_labels: [
     { label: 'type:documentation', confidence: 1.0, reason: 'Branch prefix docs/' },
     { label: 'status:ready-to-merge', confidence: 0.90, reason: 'Docs-only change' },
     { label: 'area:documentation', confidence: 1.0, reason: 'Changed files in docs/*' },
     { label: 'meta:no-changelog', confidence: 1.0, reason: 'Documentation change doesn\'t affect changelog' }
-  ]
+  ],
+  auto_apply: ['type:documentation', 'status:ready-to-merge', 'area:documentation', 'meta:no-changelog']
 }
 
 // Schema Validation
@@ -2087,7 +2093,7 @@ npm run test:load -- --concurrency 100 --duration 60s
 ### Configuration Files
 
 - **[.github/labels.yml](../../labels.yml)** — Canonical label definitions (158 labels)
-- **[.github/labeler.yml](../../labeler.yml)** — Automatic labeling rules (43 rules)
+- **[.github/labeler-extensions.yml](../../labeler.yml)** — Automatic labeling rules (43 rules)
 - **[.github/issue-types.yml](../../issue-types.yml)** — GitHub issue type mappings (33 types)
 - **[.github/label-governance-policy.yml](../../label-governance-policy.yml)** — Governance policy
 
