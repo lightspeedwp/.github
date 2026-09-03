@@ -1,7 +1,7 @@
 ---
-file_type: audit
-title: "Labeling Components Audit"
-description: "Comprehensive inventory of all labeling-related files and components in .github repository"
+file_type: documentation
+title: Labeling Components Audit
+description: Comprehensive inventory of all labeling-related files and components in .github repository
 created_date: 2026-09-03
 last_updated: 2026-09-03
 status: draft
