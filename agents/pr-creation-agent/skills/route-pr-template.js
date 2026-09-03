@@ -80,7 +80,12 @@ export async function routePrTemplate(input) {
   }
 
   // Look up template for branch type
-  const template = BRANCH_TYPE_ROUTING[branchType];
+  const template = Object.prototype.hasOwnProperty.call(
+    BRANCH_TYPE_ROUTING,
+    branchType,
+  )
+    ? BRANCH_TYPE_ROUTING[branchType]
+    : null;
 
   if (template) {
     return {

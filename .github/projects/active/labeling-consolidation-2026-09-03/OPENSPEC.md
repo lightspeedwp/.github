@@ -1544,10 +1544,11 @@ class ConfigManager {
   }
   
   async loadLabels() {
-    if (this.cache.labels) return this.cache.labels;
+    const now = Date.now();
+    if (this.cache.labels && this.cacheTTL > now) return this.cache.labels;
     const labels = await fs.readFile('.github/labels.yml');
     this.cache.labels = yaml.parse(labels);
-    this.cacheTTL = Date.now() + 300000;
+    this.cacheTTL = now + 300000;
     return this.cache.labels;
   }
 }
@@ -1750,9 +1751,9 @@ async function deployToMultipleRepos(repos, schema) {
     
     // Check results before next batch
     const failures = results.filter(r => r.status === 'rejected');
-    if (failures.length > 0.2 * batchSize) {
+    if (failures.length > 0.2 * batch.length) {
       // > 20% failure rate, halt deployment
-      throw new Error(`Deployment failure rate too high: ${failures.length}/${batchSize}`);
+      throw new Error(`Deployment failure rate too high: ${failures.length}/${batch.length}`);
     }
   }
 }
@@ -1771,7 +1772,7 @@ async function healthCheck(repo) {
       workflows_enabled: await checkWorkflows(repo),
       recent_label_success: await checkRecentLabeling(repo)
     },
-    status: 'healthy' | 'degraded' | 'failed'
+    status: determineHealthStatus(checks)
   };
 }
 ```

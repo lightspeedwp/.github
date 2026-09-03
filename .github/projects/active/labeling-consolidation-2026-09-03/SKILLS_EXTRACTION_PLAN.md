@@ -374,13 +374,13 @@ const multiRepoSync = require('skills/multi-repo-label-sync');
 const releasePRs = findReleasePRs();
 
 // Detect labels
-releasePRs.forEach(pr => {
-  const labels = prLabelDetection.detect({...});
-  // Apply release:* labels
-});
+const labels = await Promise.all(
+  releasePRs.map(pr => prLabelDetection.detect({...}))
+);
+// Apply release:* labels
 
 // Sync across repos if needed
-multiRepoSync.syncAcrossRepos({...});
+await multiRepoSync.syncAcrossRepos({...});
 ```
 
 **Task-Researcher:**
@@ -400,7 +400,7 @@ const priority = statusInference.inferPriority({
 // When identifying changelog-relevant PRs
 const prLabelDetection = require('skills/pr-label-detection');
 
-releasePRs.forEach(pr => {
+for (const pr of releasePRs) {
   const labels = await prLabelDetection.detect({
     branch: pr.headRef,
     title: pr.title,
@@ -411,7 +411,7 @@ releasePRs.forEach(pr => {
   if (labels.some(l => l.label === 'type:feature')) {
     // Add to changelog
   }
-});
+}
 ```
 
 ---

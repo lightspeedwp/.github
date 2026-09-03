@@ -28,14 +28,14 @@ tags:
 |----------|-------|--------|
 | Workflow Files | 10 | Production |
 | Configuration Files | 4 | Production |
-| Scripts (inc. tests) | 37 | Production |
+| Scripts (inc. tests) | 45 | Production |
 | Documentation Files | 11 | Production |
 | Instructions & Guidance | 2 | Production |
 | Agent Definitions | 1 | Production |
 | Saved Replies | 6 | Production |
 | Skills | 2 | Production |
 | PR Templates | 9 | Production |
-| **Total** | **82** | **All Active** |
+| **Total** | **90** | **All Active** |
 
 ---
 

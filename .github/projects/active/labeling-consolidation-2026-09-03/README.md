@@ -80,7 +80,7 @@ tags:
 | **2. Planning & Design** | Wks 2–3 (Sept 3–23) | OPENSPEC.md + SCHEMA_DESIGN.md + Plans | ✅ Complete |
 | **3. Spec → Issues** | Wk 4 (Sept 24–30) | GitHub Issues created + OpenSpec tasks | ⚪ Planned |
 | **4. Implementation** | Wks 5–8 (Oct 1–31) | Unified labeling agent + skills extraction | ⚪ Planned |
-| **5. Testing & Rollout** | Wks 9–22 (Nov 1–Dec 15) | Pilot → multi-repo deployment | ⚪ Planned |
+| **5. Testing & Rollout** | Wks 9–15 (Nov 1–Dec 15) | Pilot → multi-repo deployment | ⚪ Planned |
 
 ---
 

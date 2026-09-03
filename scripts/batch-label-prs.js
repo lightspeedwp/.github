@@ -40,11 +40,20 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "hotfix/": "type:bug",
 };
 
+/**
+ * Log a message with timestamp and level.
+ * @param {string} message - The message to log.
+ * @param {string} level - Log level (info, error, warn).
+ */
 function log(message, level = "info") {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] [${level.toUpperCase()}] ${message}`);
 }
 
+/**
+ * Load canonical labels from the labels configuration file.
+ * @returns {Set<string>} Set of canonical label names.
+ */
 function loadCanonicalLabels() {
   if (!fs.existsSync(LABELS_CONFIG)) {
     log(`Labels config not found at ${LABELS_CONFIG}`, "error");
@@ -61,6 +70,11 @@ function loadCanonicalLabels() {
   );
 }
 
+/**
+ * Detect PR type label from branch name prefix.
+ * @param {string} branchName - The branch name to analyze.
+ * @returns {string|null} The detected type label or null.
+ */
 function detectTypeFromBranch(branchName = "") {
   if (!branchName) return null;
 
@@ -74,6 +88,12 @@ function detectTypeFromBranch(branchName = "") {
   return null;
 }
 
+/**
+ * Detect PR type label from title and body content.
+ * @param {string} title - The PR title.
+ * @param {string} body - The PR body/description.
+ * @returns {string|null} The detected type label or null.
+ */
 function detectTypeFromContent(title = "", body = "") {
   const lowerTitle = (title + " " + body).toLowerCase();
 
@@ -102,6 +122,11 @@ function detectTypeFromContent(title = "", body = "") {
   return null;
 }
 
+/**
+ * Detect area labels based on file paths changed in PR.
+ * @param {string[]} files - List of file paths.
+ * @returns {string[]} Array of detected area labels.
+ */
 function detectAreasFromFiles(files = []) {
   const areas = new Set();
 
@@ -146,6 +171,11 @@ function detectAreasFromFiles(files = []) {
   return Array.from(areas);
 }
 
+/**
+ * Detect language labels based on file extensions.
+ * @param {string[]} files - List of file paths.
+ * @returns {string[]} Array of detected language labels.
+ */
 function detectLangsFromFiles(files = []) {
   const langs = new Set();
 
@@ -167,9 +197,15 @@ function detectLangsFromFiles(files = []) {
   return Array.from(langs);
 }
 
+/**
+ * Get all files changed in a PR.
+ * @param {object} octokit - Octokit client instance.
+ * @param {number} prNumber - The PR number.
+ * @returns {Promise<string[]>} Array of changed file paths.
+ */
 async function getPRChangedFiles(octokit, prNumber) {
   try {
-    const { data: files } = await octokit.rest.pulls.listFiles({
+    const files = await octokit.paginate(octokit.rest.pulls.listFiles, {
       owner: OWNER,
       repo: REPO,
       pull_number: prNumber,
@@ -182,6 +218,13 @@ async function getPRChangedFiles(octokit, prNumber) {
   }
 }
 
+/**
+ * Analyze PR and apply appropriate labels.
+ * @param {object} octokit - Octokit client instance.
+ * @param {number} prNumber - The PR number.
+ * @param {object} pr - The PR object with title, body, labels, head ref.
+ * @returns {Promise<object>} Result object with prNumber, applied labels, and optional error.
+ */
 async function labelPR(octokit, prNumber, pr) {
   try {
     const labelsToApply = new Set();
@@ -268,6 +311,9 @@ async function labelPR(octokit, prNumber, pr) {
   }
 }
 
+/**
+ * Main entry point: label all open PRs or a specific PR.
+ */
 async function main() {
   if (!GITHUB_TOKEN) {
     log("GITHUB_TOKEN not set", "error");
@@ -290,7 +336,7 @@ async function main() {
     if (SPECIFIC_PR) {
       prNumbers = [parseInt(SPECIFIC_PR)];
     } else {
-      const { data: prs } = await octokit.rest.pulls.list({
+      const prs = await octokit.paginate(octokit.rest.pulls.list, {
         owner: OWNER,
         repo: REPO,
         state: "open",
