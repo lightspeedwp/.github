@@ -83,6 +83,7 @@ jobs:
     outputs:
       issue_number: ${{ steps.create.outputs.issue_number }}
       milestone_assigned: ${{ steps.assign_milestone.outputs.assigned }}
+      milestone_validation: ${{ steps.validate_milestone.outputs.validation_result }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -270,14 +271,24 @@ jobs:
 
             core.setOutput('issue_number', issue.data.number);
 
+            const summaryContent = [
+              `- **Issue:** #${issue.data.number}`,
+              `- **Title:** ${title}`,
+              `- **Template:** ${templateKey}`,
+              `- **Type:** ${selectedType}`,
+            ];
+
+            if (milestone) {
+              summaryContent.push(`- **Milestone:** ${milestoneTitle} (explicit)`);
+            } else {
+              summaryContent.push(`- **Milestone:** Will be auto-assigned`);
+            }
+
+            summaryContent.push(`- **URL:** [${issue.data.html_url}](${issue.data.html_url})`);
+
             await core.summary
-              .addHeading('Issue created successfully')
-              .addRaw(`- Issue: #${issue.data.number}\n`)
-              .addRaw(`- Title: ${title}\n`)
-              .addRaw(`- Template: ${templateKey}\n`)
-              .addRaw(`- Type: ${selectedType}\n`)
-              .addRaw(`${milestone ? `- Milestone: ${milestoneTitle || 'auto-assigned'}\n` : ''}`)
-              .addRaw(`- URL: ${issue.data.html_url}\n`)
+              .addHeading('✅ Issue created successfully')
+              .addRaw(summaryContent.join('\n'))
               .write();
 
       - name: Auto-assign milestone (if not provided)
@@ -301,17 +312,82 @@ jobs:
             const assignment = await agent.assignMilestone(issue);
 
             if (assignment) {
+              // Update issue with assigned milestone
               await github.rest.issues.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issueNum,
-                milestone: assignment.milestoneNumber,
+                milestone: assignment.milestone.number,
               });
 
-              core.setOutput('assigned', `${assignment.milestoneTitle} (${assignment.reason})`);
-              core.info(`Milestone assigned: ${assignment.milestoneTitle}`);
+              // Format confidence as percentage
+              const confidencePercent = Math.round((assignment.confidence || 0) * 100);
+              const assignmentSummary = `${assignment.milestone.title} (${confidencePercent}% confidence, ${assignment.reason})`;
+
+              core.setOutput('assigned', assignmentSummary);
+              core.info(`Milestone assigned: ${assignmentSummary}`);
             } else {
-              core.info('No applicable milestone found for auto-assignment');
+              core.setOutput('assigned', 'none');
+              core.warning('No applicable milestone found for auto-assignment');
+            }
+
+      - name: Validate milestone assignment
+        id: validate_milestone
+        if: success() && !inputs.milestone
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
+
+            // Fetch the issue to check if milestone was actually assigned
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNum,
+            });
+
+            const hasMilestone = issue.milestone && issue.milestone.number;
+            const assignmentOutput = '${{ steps.assign_milestone.outputs.assigned }}';
+
+            if (assignmentOutput === 'none' && !hasMilestone) {
+              // Assignment failed - post feedback comment
+              const manualLink = 'https://github.com/lightspeedwp/.github/blob/develop/docs/SYSTEM_INTEGRATION.md#4-milestone-assignment-agent';
+              const feedbackLines = [
+                '❌ **Milestone Assignment Failed**',
+                '',
+                'No applicable milestone could be assigned to this issue. This might be because:',
+                '- The issue title and body do not match any milestone assignment rules',
+                '- No milestone matches the issue type or priority',
+                '- The repository does not have appropriate milestones configured',
+                '',
+                '**Manual Override:**',
+                'You can manually assign a milestone using one of these methods:',
+                '',
+                '1. **GitHub UI:** Click "Milestone" in the right sidebar',
+                `2. **CLI:** \`gh issue edit #${issueNum} --milestone "Your Milestone"\``,
+                '',
+                '**Assignment Rules Reference:**',
+                '- Version keywords (e.g., "v1.5") → version milestone',
+                '- Epic type → next major milestone',
+                '- Release type → release milestone',
+                '- Phase mentions (e.g., "Phase 2") → phase milestone',
+                '- High priority → current milestone',
+                '',
+                `For more details, see [Milestone Assignment Rules](${manualLink}).`,
+              ];
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNum,
+                body: feedbackLines.join('\n'),
+              });
+
+              core.setOutput('validation_result', 'assignment-failed');
+              core.warning(`Issue #${issueNum}: Milestone assignment failed`);
+            } else if (hasMilestone) {
+              core.setOutput('validation_result', 'assignment-succeeded');
+              core.info(`Issue #${issueNum}: Milestone validation passed`);
             }
 
       - name: Post remediation checklist (if template gaps exist)
@@ -347,3 +423,65 @@ jobs:
                 `Issue #${issueNum} is missing template sections (DoR: ${!compliance.hasDoR}, DoD: ${!compliance.hasDoD})`
               );
             }
+
+      - name: Generate comprehensive workflow summary
+        if: success()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
+            const milestoneAssignment = '${{ steps.assign_milestone.outputs.assigned }}';
+            const milestoneValidation = '${{ steps.validate_milestone.outputs.validation_result }}';
+            const explicitMilestone = '${{ inputs.milestone }}';
+
+            // Fetch final issue state
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNum,
+            });
+
+            // Build summary based on results
+            const summaryLines = [
+              '# Issue #' + issueNum + ' Created Successfully',
+              '',
+              '## Issue Details',
+              '- **URL:** [#' + issueNum + '](' + issue.html_url + ')',
+              '- **Title:** ' + issue.title,
+              '- **Type:** ' + (issue.labels.find(l => l.name.startsWith('type:'))?.name || 'unknown'),
+              '- **Status:** ' + (issue.labels.find(l => l.name.startsWith('status:'))?.name || 'needs-triage'),
+              '',
+              '## Milestone Assignment',
+            ];
+
+            if (explicitMilestone) {
+              summaryLines.push('- **Assigned:** `' + explicitMilestone + '` (explicit)');
+              summaryLines.push('- **Validation:** ✅ Passed');
+            } else if (milestoneValidation === 'assignment-succeeded') {
+              summaryLines.push('- **Assigned:** `' + issue.milestone.title + '`');
+              summaryLines.push('- **Method:** Auto-assigned (' + milestoneAssignment + ')');
+              summaryLines.push('- **Validation:** ✅ Passed');
+            } else if (milestoneValidation === 'assignment-failed') {
+              summaryLines.push('- **Assigned:** None');
+              summaryLines.push('- **Validation:** ❌ Failed - See issue comment for details');
+              summaryLines.push('- **Action:** Please manually assign a milestone');
+            } else {
+              summaryLines.push('- **Status:** Pending validation');
+            }
+
+            summaryLines.push('');
+            summaryLines.push('## Labels');
+            issue.labels.forEach(l => {
+              summaryLines.push('- `' + l.name + '`');
+            });
+
+            summaryLines.push('');
+            summaryLines.push('## Next Steps');
+            summaryLines.push('1. Review the issue description');
+            summaryLines.push('2. Verify the assigned milestone (or manually assign if needed)');
+            summaryLines.push('3. Check for any remediation checklists posted as comments');
+            summaryLines.push('4. Add to a project or assign to a team member as needed');
+
+            await core.summary
+              .addRaw(summaryLines.join('\n'))
+              .write();
