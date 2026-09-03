@@ -113,7 +113,7 @@ describe("Category C: Template Routing Scenarios", () => {
 
     expect(result.routed).toBe(false);
     expect(result.fallback).toBe(true);
-    expect(result.template).toBe("pull_request_template.md");
+    expect(result.template).toBe("pr_feature.md");
     expect(result.warning).toBeDefined();
   });
 });
