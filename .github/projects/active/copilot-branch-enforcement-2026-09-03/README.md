@@ -264,6 +264,14 @@ Total effort: ~4 days (13.5 hours developer time)
 
 ---
 
+## 🔗 Related Issues
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| TBD | GitHub issue to be created | 🟡 Planning |
+
+---
+
 ## Related Files
 
 | Document | Location | Purpose |

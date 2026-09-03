@@ -96,6 +96,10 @@ run_test_suite \
   "Index Generator Unit Tests" \
   "$SCRIPT_DIR/generate-agent-index.test.js"
 
+run_test_suite \
+  "Agent Spec Generator CLI Tests" \
+  "$SCRIPT_DIR/create-agent-spec.test.js"
+
 # Summary
 echo ""
 echo "${BLUE}════════════════════════════════════════════════════════════════════${NC}"
