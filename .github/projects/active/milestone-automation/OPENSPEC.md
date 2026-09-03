@@ -2,13 +2,15 @@
 title: Milestone Automation — OpenSpec
 description: Technical specifications and architecture documentation
 type: spec
-status: approved
-version: "1.0.0"
+status: in-progress
+version: "1.1.0"
 owner: lightspeedwp/maintainers
 tags:
   - automation
   - specification
   - technical
+  - phase-2
+  - coderabbit-review
 ---
 
 # Milestone Automation — Technical Specification
@@ -576,15 +578,43 @@ node scripts/automation/reassign-v1-to-v1-1.js --from v1.1 --to v1
 - ⚠️ High error rate (>5%) → Alert team
 - 📊 Rate limit critical (<100 remaining) → Warn
 
+## 10. Phase 2 Follow-Up Status
+
+### 10.1 CodeRabbit Review Findings (28 Total)
+
+**✅ Completed (10/28):**
+- ENH-003: Security vulnerabilities fixed
+- ENH-002: Slack error handling fixed
+- ENH-001: Metrics persistence fixed
+- MON-002: Rate limit response parsing fixed
+- DOC-004: Transaction documentation clarified
+- MON-001: Job failure status corrected
+- STATUS.md: Evidence alignment updated
+- ENH-001: Calculation errors corrected
+- ENH-002: Block Kit formatting fixed
+- README/STATUS: Alignment synchronized
+
+**⏳ Remaining (18/28):**
+- 9 CI Investigation checks (infrastructure validation, Node 24+ required)
+- See [FOLLOW-UP-FIXES.md](./FOLLOW-UP-FIXES.md) for detailed tracking
+
+### 10.2 Related Documentation
+
+- **Tracker:** [FOLLOW-UP-FIXES.md](./FOLLOW-UP-FIXES.md) — 28-item tracker with priority organization
+- **API Strategy:** [DOC-003-API-RATE-LIMITS-STRATEGY.md](./DOC-003-API-RATE-LIMITS-STRATEGY.md) — Comprehensive rate limiting guide
+- **Edge Cases:** [DOC-004-EDGE-CASES.md](./DOC-004-EDGE-CASES.md) — Transaction semantics and recovery procedures
+
 ## References
 
 - [GitHub REST API Documentation](https://docs.github.com/en/rest)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Node.js Best Practices](https://nodejs.org/en/docs/guides/)
+- [Phase 2 Follow-Up Tracker](./FOLLOW-UP-FIXES.md)
 
 ---
 
 **Document Owner:** lightspeedwp/maintainers  
-**Last Updated:** 2026-08-30  
-**Status:** Draft (Phase 2)  
-**Next Review:** When Phase 1 deployment complete
+**Last Updated:** 2026-09-03  
+**Status:** In Progress (Phase 2 Follow-Up)  
+**Target Completion:** 2026-09-10  
+**Progress:** 10/28 findings resolved (36%)
