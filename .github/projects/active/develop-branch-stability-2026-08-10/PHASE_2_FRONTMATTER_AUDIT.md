@@ -3,6 +3,11 @@ file_type: documentation
 name: Phase 2 — Frontmatter Validation Audit & Remediation
 description: Strategy for auditing and fixing 589 frontmatter validation errors
 status: active
+file_type: discussion_template
+file_type: project
+status: "completed"
+status: "In Progress"
+status: "active"
 ---
 
 # Phase 2: Frontmatter Audit & Remediation
@@ -43,7 +48,6 @@ Files skipped:              8,156
 
 ```yaml
 ---
-file_type: discussion_template
 name: "Announcements"
 about: "Announcements for the community"
 ---
@@ -72,10 +76,8 @@ about: "Announcements for the community"
 
 ```yaml
 ---
-file_type: project
 name: "GitHub Actions v7 Upgrade"
 description: "Phase 1 completion summary for GitHub Actions v7 upgrade initiative"
-status: "completed"
 ---
 
 # Content...
@@ -94,10 +96,8 @@ status: "completed"
 
 ```yaml
 # Invalid:
-status: "In Progress"
 
 # Valid:
-status: "active"
 ```
 
 **Action:** Update status values to match schema enum
