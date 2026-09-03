@@ -83,7 +83,7 @@ All issues assigned to milestone `v1.1`:
 
 ---
 
-## Phase 3 Issues (COMPLETE)
+## 🔗 Related Issues — Phase 3 (COMPLETE)
 
 | Issue | Type | Status |
 |-------|------|--------|
@@ -103,7 +103,7 @@ All issues assigned to milestone `v1.1`:
 
 ---
 
-## Phase 4 Issues (In Progress)
+## 🔗 Related Issues — Phase 4 (In Progress)
 
 ### 4.1: Governance Rule Migration
 - [#2663](https://github.com/lightspeedwp/.github/issues/2663) — Migrate governance rules to core organization repositories
