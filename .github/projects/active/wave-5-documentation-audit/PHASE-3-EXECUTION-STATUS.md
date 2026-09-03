@@ -9,6 +9,7 @@ status: active
 domain: governance
 owner: "Documentation Audit Initiative"
 maintainer: "Ash Shaw"
+status: archived
 ---
 
 # Wave 5 Phase 3 Execution Status & Timeline
@@ -251,8 +252,6 @@ For each archived file, add:
 
 ```yaml
 ---
-file_type: documentation
-status: archived
 archive_date: "2026-07-31"
 original_location: "[docs/ path]"
 reason_archived: "Wave 5 Phase 3 audit—completed and archived"
