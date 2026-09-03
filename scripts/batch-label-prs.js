@@ -9,13 +9,11 @@
 import fs from "fs";
 import { load } from "js-yaml";
 import github from "@actions/github";
-import core from "@actions/core";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const OWNER = "lightspeedwp";
 const REPO = ".github";
 const LABELS_CONFIG = ".github/labels.yml";
-const LABELER_RULES = ".github/labeler.yml";
 const DRY_RUN = process.argv.includes("--dry-run");
 const SPECIFIC_PR = process.argv
   .find((arg) => arg.startsWith("--pr="))
@@ -40,37 +38,6 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "design/": "type:design",
   "release/": "type:release",
   "hotfix/": "type:bug",
-};
-
-// File pattern to area mapping
-const FILE_TO_AREA_MAP = {
-  ".github/workflows/": "area:ci",
-  ".github/actions/": "area:ci",
-  "scripts/": "area:scripts",
-  "docs/": "area:documentation",
-  "README.md": "area:documentation",
-  "**/*.md": "area:documentation",
-  "tests/": "area:tests",
-  "**/*.test.": "area:tests",
-  "**/*.spec.": "area:tests",
-  "__tests__/": "area:tests",
-};
-
-// Language mapping
-const FILE_TO_LANG_MAP = {
-  "**/*.php": "lang:php",
-  "**/*.js": "lang:js",
-  "**/*.jsx": "lang:js",
-  "**/*.ts": "lang:js",
-  "**/*.tsx": "lang:js",
-  "**/*.css": "lang:css",
-  "**/*.scss": "lang:css",
-  "**/*.sass": "lang:css",
-  "**/*.less": "lang:css",
-  "**/*.md": "lang:md",
-  "**/*.json": "lang:json",
-  "**/*.yaml": "lang:yaml",
-  "**/*.yml": "lang:yaml",
 };
 
 function log(message, level = "info") {
