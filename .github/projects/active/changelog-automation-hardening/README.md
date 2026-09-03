@@ -10,6 +10,10 @@
 - **[Active Issues (Phase 4)](#-active-issues-phase-4)** — All tracked work
 
 ---
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
 
 ## 🎯 What This Project Does
 

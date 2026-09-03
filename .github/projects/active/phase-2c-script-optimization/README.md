@@ -1,3 +1,11 @@
+---
+title: Phase 2C Script Optimization Project
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
+---
+
 # Phase 2C Script Optimization Project
 
 **Status:** ✅ COMPLETE (2026-09-02)  
