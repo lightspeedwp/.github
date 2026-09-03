@@ -18,24 +18,26 @@ tags:
 # Phase 2 Follow-Up Fixes — Tracker
 
 **PR:** [#2601](https://github.com/lightspeedwp/.github/pull/2601) (Merged 2026-09-02)  
+**Follow-Up PR:** [#2640](https://github.com/lightspeedwp/.github/pull/2640) (In Progress - Phase 2 Follow-Up Fixes)  
 **CodeRabbit Review:** 28 findings (24 major, 4 minor)  
-**CI Failures:** 9 checks failed before merge  
-**Status:** 🟡 In Progress (11/28 findings resolved)
+**CI Status:** Multiple checks passing; validation phase in progress  
+**Status:** 🟡 In Progress (13/28 findings resolved + validation improvements)
 
 ---
 
 ## Progress Summary
 
-**Completed (11/28):**
+**Completed (13/28):**
 - ✅ Critical Fixes: 4/4 (100%) — ENH-003, ENH-002, ENH-001, MON-002
 - ✅ Important Fixes: 3/3 (100%) — DOC-004, MON-001, STATUS.md
 - ✅ Polish Fixes: 3/3 (100%) — ENH-001 calcs, ENH-002 Block Kit, README/STATUS alignment
-- ✅ **Frontmatter Schema Validation (NEW):** 24/24 milestone-automation files pass ✓
+- ✅ **Frontmatter Schema Validation:** 24/24 milestone-automation files pass ✓
+- ✅ **Project Documentation Frontmatter:** 16 additional project files fixed
+- ✅ **Project Linking Validation:** milestone-automation + phase-2c-script-optimization compliant
 
-**Remaining (17/28):**
-- ⏳ CI Investigation: 8 checks — Pending infrastructure validation
-- ⏳ Mermaid Diagram accessibility (Check #12)
-- ⏳ Labeling & Workflow validation (Checks #13, #19-24)
+**Remaining (15/28):**
+- ⏳ CI Investigation: 7 checks pending (labels, workflows, secrets)
+- ⏳ Mermaid Diagram accessibility validation
 - ⏳ Infrastructure upgrade: Node.js 24+ required (Checks #25-28)
 
 **Estimated Completion:** 2026-09-10
