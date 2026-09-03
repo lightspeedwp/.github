@@ -1,14 +1,14 @@
 ---
 title: Milestone Automation Edge Case Handling
 description: Handling guide for edge cases and unusual scenarios
-type: guide
-status: approved
+type: documentation
+file_type: documentation
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
-tags:
-  - automation
-  - edge-cases
-  - milestone-distribution
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # DOC-004: Edge Case Handling Documentation
@@ -375,13 +375,23 @@ echo "Estimated time: ${ESTIMATED_SECS}s"
 
 **Expected Behavior:**
 - Workflow fails with timeout message
-- No partial updates (transaction rolls back)
+- **IMPORTANT:** Partial updates ARE possible (NO transaction rollback)
+- Some issues may be updated before timeout occurs
+- Remaining issues will not be updated
 - Failure issue created per MON-001
-- Can be retried with smaller batch
+- Safe to retry (idempotent - already-updated issues skipped)
+
+**Transaction Semantics:**
+This workflow processes issues **sequentially without transaction support**. If a timeout occurs mid-execution:
+1. Issues already updated remain updated (committed)
+2. Issues not yet processed need to be retried
+3. No atomicity guarantee (either all-or-nothing)
+4. Recovery requires tracking which issues were completed
 
 **Handling Strategy:**
 ```javascript
-// Implement timeout awareness
+// Implement timeout awareness WITH PROGRESS TRACKING
+// Since there's no rollback, we must track what was completed
 const maxDuration = 25 * 60 * 1000; // 25 min (5 min safety margin)
 const startTime = Date.now();
 
@@ -408,22 +418,43 @@ async function processBatch(batch) {
 
 **Action Required:**
 - ✅ Increase workflow timeout if needed (default: 30 min)
-- Implement timeout awareness in script
-- Document expected duration per issue count
+- Implement timeout awareness in script with progress tracking
+- Save progress to `timeout-recovery.json` before exit
+- Document expected duration per issue count (50ms/issue)
+- Configure scheduled retry for pending issues
+
+**Implementation Notes:**
+- Script MUST track completed issues separately from pending
+- Recovery file must be written BEFORE process.exit()
+- Next run should skip already-processed issues (check milestone assignment)
+- Alert should include count of partial updates vs pending
 
 **Testing:**
 - [ ] Create 200+ test issues
-- [ ] Monitor workflow duration
-- [ ] Verify timeout doesn't occur
-- [ ] If timeout: increase batch delay or timeout
+- [ ] Set workflow timeout to 5 minutes (force short timeout)
+- [ ] Trigger workflow and monitor logs
+- [ ] Verify partial updates occur as expected
+- [ ] Check that some issues updated and some pending
+- [ ] Verify recovery file written correctly
+- [ ] Trigger workflow again and verify pending issues completed
+- [ ] Confirm no duplicate updates (idempotency works)
 
 **Timeout Configuration:**
 ```yaml
 # .github/workflows/milestone-distribution.yml
 jobs:
   distribute:
-    timeout-minutes: 30  # Increase if needed for large sets
+    timeout-minutes: 30  # Adjust based on expected issue count
+    # Expected: 50ms/issue, so 30 min = 36,000 issues (very safe)
+    # 5 min safety margin recommended for large batches
 ```
+
+**Expected Performance:**
+- Single issue: ~50ms
+- 10 issues: ~500ms
+- 100 issues: ~5-10s
+- 500 issues: ~25-50s
+- 1000 issues: ~50-100s (requires ~5-10 minute timeout)
 
 ---
 
@@ -469,6 +500,406 @@ async function updateIssue(issue, milestone) {
 **Action Required:**
 - ✅ Workflow handles via tracking
 - Final state is correct (idempotent)
+
+---
+
+## Edge Case 8: Partial Updates After Timeout
+
+**Scenario:** Workflow times out mid-execution after updating some issues.
+
+**Root Cause:**
+- Processing 200+ issues hits 30-minute limit
+- Network latency delays API calls
+- Batch size too large for available time
+
+**Detection:**
+```bash
+# Check workflow duration and completion
+curl -s https://api.github.com/repos/lightspeedwp/.github/actions/runs/{RUN_ID} \
+  | jq '{status, conclusion, run_number, created_at, updated_at}'
+
+# Verify which issues were updated
+curl -s -H "Authorization: token $GITHUB_TOKEN" \
+  "https://api.github.com/repos/lightspeedwp/.github/issues?milestone=v1.1&state=open" \
+  | jq '.[] | {number, milestone}'
+```
+
+**Expected Behavior:**
+- Some issues already updated (cannot rollback)
+- Remaining unupdated issues need retry
+- Summary indicates partial completion
+- Failure status on the workflow run
+- Alert created per MON-001
+
+**Handling Strategy:**
+```javascript
+// Track progress separately for recovery
+const completedIssues = [];
+const failedIssues = [];
+const pendingIssues = [];
+const startTime = Date.now();
+const maxDuration = 25 * 60 * 1000; // 25 min (5 min buffer)
+
+async function processWithTimeoutTracking(allIssues, targetMilestone) {
+  for (const issue of allIssues) {
+    const elapsed = Date.now() - startTime;
+    
+    // Check if timeout imminent
+    if (elapsed > maxDuration) {
+      console.warn(`⏱️  Timeout threshold reached`);
+      console.warn(`Processed: ${completedIssues.length} successful`);
+      console.warn(`Pending: ${allIssues.length - completedIssues.length - failedIssues.length}`);
+      
+      // Save progress for retry
+      fs.writeFileSync('timeout-recovery.json', JSON.stringify({
+        completedIssues,
+        failedIssues,
+        pendingIssues: allIssues.slice(completedIssues.length + failedIssues.length),
+        timestamp: new Date().toISOString()
+      }), 'utf8');
+      
+      process.exit(1); // Fail so workflow retries
+    }
+    
+    try {
+      await updateIssue(issue, targetMilestone);
+      completedIssues.push(issue.number);
+    } catch (error) {
+      if (error.status >= 500) {
+        // Likely transient - mark for retry
+        pendingIssues.push(issue.number);
+      } else {
+        failedIssues.push({ number: issue.number, error: error.message });
+      }
+    }
+  }
+}
+```
+
+**Action Required:**
+- Create recovery workflow to process pending issues
+- Document partial completion in alert
+- Save recovery metadata for next run
+- Do not delete completed assignments
+
+**Testing:**
+- [ ] Create 150+ test issues
+- [ ] Set timeout to 5 minutes
+- [ ] Monitor for partial updates
+- [ ] Verify recovery mechanism works
+
+**Recovery Procedure:**
+1. Monitor workflow logs for timeout message
+2. Check alert issue created by MON-001
+3. Review `timeout-recovery.json` for pending count
+4. Wait for auto-retry (scheduled workflow)
+5. If manual retry needed: trigger workflow again with --limit flag
+
+---
+
+## Edge Case 9: Missing Milestone Permissions
+
+**Scenario:** Workflow lacks permission to create or update specific milestone.
+
+**Root Cause:**
+- Repository permission not granted to token
+- Milestone access restricted to admins
+- Organization-level permission denied
+
+**Detection:**
+```bash
+# Check token permissions
+curl -H "Authorization: token $GITHUB_TOKEN" \
+  https://api.github.com/user/repos \
+  | jq '.[] | select(.name == ".github") | {admin, push, pull, permissions}'
+
+# Check milestone access
+curl -H "Authorization: token $GITHUB_TOKEN" \
+  https://api.github.com/repos/lightspeedwp/.github/milestones \
+  | jq '.[] | {title, state}'
+```
+
+**Expected Behavior:**
+- Workflow fails with 403 Forbidden
+- Error message: "Resource not accessible by integration"
+- Alert created per MON-001
+- No issues updated (transaction safety)
+
+**Handling Strategy:**
+```javascript
+// Pre-flight permission check
+async function validatePermissions(targetMilestone) {
+  // Check if we can update issues
+  const testIssue = await github.rest.issues.get({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    issue_number: 1 // Use first issue as test
+  });
+  
+  if (!testIssue.data) {
+    throw new Error('Cannot read issues - permission denied');
+  }
+  
+  // Verify milestone exists and is accessible
+  const milestone = await github.rest.issues.getMilestone({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    milestone_number: targetMilestone.number
+  });
+  
+  if (!milestone.data) {
+    throw new Error(`Cannot access milestone ${targetMilestone.title}`);
+  }
+  
+  return true;
+}
+```
+
+**Action Required:**
+- Run permission check before processing
+- Contact repository admin if permission denied
+- Regenerate token with correct scopes
+- Verify token not expired
+
+**Testing:**
+- [ ] Use token with read-only access
+- [ ] Trigger workflow and verify permission error
+- [ ] Verify alert created
+- [ ] Regenerate token and retry
+
+---
+
+## Edge Case 10: Concurrent Milestone Changes
+
+**Scenario:** Milestone is renamed or deleted while workflow is running.
+
+**Root Cause:**
+- Admin changes milestone during execution
+- Cleanup workflow deletes old milestone
+- Manual UI change during distribution
+
+**Detection:**
+```bash
+# Monitor milestone changes in real-time
+while true; do
+  curl -s -H "Authorization: token $GITHUB_TOKEN" \
+    https://api.github.com/repos/lightspeedwp/.github/milestones/{MILESTONE_ID} \
+    | jq '.title, .state'
+  sleep 5
+done
+```
+
+**Expected Behavior:**
+- Workflow continues (idempotent)
+- Issues get old milestone if unchanged
+- Issues skip if milestone no longer exists
+- Warning logged for deleted milestone
+
+**Handling Strategy:**
+```javascript
+// Cache milestone data at start
+const milestoneCache = new Map();
+
+async function updateIssueWithMilestoneCheck(issue, targetMilestone) {
+  // Use cached milestone ID if available
+  let milestone = milestoneCache.get(targetMilestone.number);
+  
+  if (!milestone) {
+    // Fetch fresh (in case it changed)
+    try {
+      const response = await github.rest.issues.getMilestone({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        milestone_number: targetMilestone.number
+      });
+      milestone = response.data;
+      milestoneCache.set(targetMilestone.number, milestone);
+    } catch (error) {
+      if (error.status === 404) {
+        console.warn(`⚠️  Milestone #${targetMilestone.number} no longer exists`);
+        console.warn(`Issue #${issue.number} will not be updated`);
+        return null;
+      }
+      throw error;
+    }
+  }
+  
+  // Update using cached/fetched milestone
+  return await github.rest.issues.update({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    issue_number: issue.number,
+    milestone: milestone.number
+  });
+}
+```
+
+**Action Required:**
+- Cache milestone data at workflow start
+- Validate milestone exists before each batch
+- Log warnings for deleted milestones
+- Continue with other issues
+
+**Testing:**
+- [ ] Start workflow with large batch
+- [ ] Delete milestone mid-execution
+- [ ] Verify workflow continues
+- [ ] Verify issues already updated retain milestone
+- [ ] Verify remaining issues skip gracefully
+
+---
+
+## Edge Case 11: API Response Timeout (Partial JSON)
+
+**Scenario:** GitHub API returns partial response or times out during read.
+
+**Root Cause:**
+- Network timeout before full response received
+- GitHub API server overload
+- Connection reset mid-stream
+
+**Detection:**
+```bash
+# Monitor response times
+time curl -H "Authorization: token $GITHUB_TOKEN" \
+  "https://api.github.com/repos/lightspeedwp/.github/issues?per_page=100"
+
+# Log any truncated responses
+curl -v ... | grep -E "Content-Length|Transfer-Encoding"
+```
+
+**Expected Behavior:**
+- Request fails with ECONNRESET or timeout
+- Octokit retry mechanism kicks in (up to 3x)
+- If all retries fail: workflow exits with error
+- Alert created per MON-001
+
+**Handling Strategy:**
+```javascript
+// Implement timeout and retry wrapper
+async function fetchWithRetry(
+  fetchFn,
+  maxRetries = 3,
+  timeoutMs = 30000
+) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      // Wrap with timeout
+      const controller = new AbortController();
+      const timeoutHandle = setTimeout(() => controller.abort(), timeoutMs);
+      
+      const result = await Promise.race([
+        fetchFn(),
+        new Promise((_, reject) =>
+          controller.signal.addEventListener('abort', () =>
+            reject(new Error(`Timeout after ${timeoutMs}ms`))
+          )
+        )
+      ]);
+      
+      clearTimeout(timeoutHandle);
+      return result;
+    } catch (error) {
+      clearTimeout(timeoutHandle);
+      
+      if (attempt === maxRetries - 1) throw error;
+      
+      const backoffMs = Math.pow(2, attempt) * 1000;
+      console.warn(`Attempt ${attempt + 1} failed, retrying in ${backoffMs}ms`);
+      await new Promise(resolve => setTimeout(resolve, backoffMs));
+    }
+  }
+}
+
+// Usage
+const issues = await fetchWithRetry(() =>
+  github.rest.issues.listForRepo({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    milestone: 'none',
+    state: 'open'
+  })
+);
+```
+
+**Action Required:**
+- Implement timeout wrapper for critical API calls
+- Log all timeout occurrences
+- Monitor GitHub status page for outages
+- Alert on repeated timeouts (threshold: 3+)
+
+**Testing:**
+- [ ] Simulate network timeout with proxy
+- [ ] Verify retry mechanism works
+- [ ] Verify alert created after max retries
+
+---
+
+## Edge Case 12: Invalid Milestone State Transitions
+
+**Scenario:** Attempt to assign closed or non-existent milestone.
+
+**Root Cause:**
+- Milestone closed before workflow execution
+- Wrong milestone number in configuration
+- Milestone deleted between workflow start and assignment
+
+**Detection:**
+```bash
+# List all milestone states
+curl -s -H "Authorization: token $GITHUB_TOKEN" \
+  https://api.github.com/repos/lightspeedwp/.github/milestones?state=all \
+  | jq '.[] | {number, title, state, open_issues}'
+```
+
+**Expected Behavior:**
+- Fail fast with clear error
+- Alert identifies invalid milestone
+- No issues updated (transaction safety)
+- Actionable message: "Milestone v2.5 is closed"
+
+**Handling Strategy:**
+```javascript
+// Validate milestone state before processing
+async function validateMilestoneForDistribution(milestone) {
+  const milestoneData = await github.rest.issues.getMilestone({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    milestone_number: milestone.number
+  });
+  
+  if (milestoneData.data.state !== 'open') {
+    throw new Error(
+      `Milestone "${milestoneData.data.title}" is ${milestoneData.data.state}. ` +
+      `Open milestones only. Reopen in Issues > Milestones.`
+    );
+  }
+  
+  if (milestoneData.data.open_issues === 0 && milestoneData.data.closed_issues === 0) {
+    console.warn(`⚠️  Milestone "${milestoneData.data.title}" has no issues`);
+  }
+  
+  return milestoneData.data;
+}
+
+// Call before any updates
+const validatedMilestone = await validateMilestoneForDistribution(targetMilestone);
+```
+
+**Action Required:**
+- Validate milestone state at workflow start
+- Provide clear error message and fix instructions
+- Alert admin to investigate
+- Do not proceed with distribution
+
+**Testing:**
+- [ ] Close target milestone
+- [ ] Trigger workflow
+- [ ] Verify error message
+- [ ] Verify alert created
+- [ ] Reopen milestone and retry
+
+---
 
 ---
 
