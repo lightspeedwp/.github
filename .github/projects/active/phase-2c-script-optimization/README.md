@@ -99,6 +99,13 @@ All 8 validation tests passing:
 - ✅ Zero code quality issues
 - ✅ Complete documentation
 
+## 🔗 Related Issues
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| [#2615](https://github.com/lightspeedwp/.github/issues/2615) | Phase 2C Script Optimization — Completion Report | ✅ Complete |
+| [#2560](https://github.com/lightspeedwp/.github/issues/2560) | MON-003: Create workflow execution dashboard | ✅ Complete |
+
 ## Related PRs
 
 - **#2604** ✅ MERGED - Final implementation (perf/secondary-optimization) - 2026-09-02
