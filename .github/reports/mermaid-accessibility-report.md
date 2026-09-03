@@ -27,13 +27,14 @@ stability: stable
 
 ## Summary
 
-- **Total diagrams**: 320
-- **Accessible diagrams**: 95
-- **Non-compliant diagrams**: 225
-- **Compliance rate**: 29.7%
+- **Total diagrams**: 151
+- **Accessible diagrams**: 118
+- **Non-compliant diagrams**: 33
+- **Compliance rate**: 78.1%
 
 ## Files Analyzed
 
+- .github/CHANGELOG_CONTRIBUTOR_CHECKLIST.md
 - .github/DISCUSSION_TEMPLATE/README.md
 - .github/ISSUE_TEMPLATE/01-task.md
 - .github/ISSUE_TEMPLATE/02-bug.md
@@ -42,24 +43,43 @@ stability: stable
 - .github/ISSUE_TEMPLATE/05-epic.md
 - .github/ISSUE_TEMPLATE/06-story.md
 - .github/ISSUE_TEMPLATE/07-improvement.md
+- .github/ISSUE_TEMPLATE/07-user-experience-feedback.md
 - .github/ISSUE_TEMPLATE/08-chore.md
+- .github/ISSUE_TEMPLATE/08-code-refactor.md
+- .github/ISSUE_TEMPLATE/09-build-ci.md
 - .github/ISSUE_TEMPLATE/09-code-refactor.md
+- .github/ISSUE_TEMPLATE/10-automation.md
 - .github/ISSUE_TEMPLATE/10-build-ci.md
 - .github/ISSUE_TEMPLATE/11-automation.md
+- .github/ISSUE_TEMPLATE/11-testing-coverage.md
+- .github/ISSUE_TEMPLATE/12-performance.md
 - .github/ISSUE_TEMPLATE/12-testing-coverage.md
+- .github/ISSUE_TEMPLATE/13-a11y.md
 - .github/ISSUE_TEMPLATE/13-performance.md
 - .github/ISSUE_TEMPLATE/14-a11y.md
+- .github/ISSUE_TEMPLATE/14-security.md
+- .github/ISSUE_TEMPLATE/15-compatibility.md
 - .github/ISSUE_TEMPLATE/15-security.md
 - .github/ISSUE_TEMPLATE/16-compatibility.md
+- .github/ISSUE_TEMPLATE/16-integration-issue.md
 - .github/ISSUE_TEMPLATE/17-integration-issue.md
+- .github/ISSUE_TEMPLATE/17-release.md
+- .github/ISSUE_TEMPLATE/18-maintenance.md
 - .github/ISSUE_TEMPLATE/18-release.md
+- .github/ISSUE_TEMPLATE/19-documentation.md
 - .github/ISSUE_TEMPLATE/19-maintenance.md
 - .github/ISSUE_TEMPLATE/20-documentation.md
+- .github/ISSUE_TEMPLATE/20-research.md
+- .github/ISSUE_TEMPLATE/21-audit.md
 - .github/ISSUE_TEMPLATE/21-research.md
 - .github/ISSUE_TEMPLATE/22-audit.md
+- .github/ISSUE_TEMPLATE/22-code-review.md
+- .github/ISSUE_TEMPLATE/23-ai-ops.md
 - .github/ISSUE_TEMPLATE/23-code-review.md
 - .github/ISSUE_TEMPLATE/24-ai-ops.md
+- .github/ISSUE_TEMPLATE/24-content-modelling.md
 - .github/ISSUE_TEMPLATE/25-content-modelling.md
+- .github/ISSUE_TEMPLATE/25-help.md
 - .github/ISSUE_TEMPLATE/README.md
 - .github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md
 - .github/PULL_REQUEST_TEMPLATE/README.md
@@ -74,6 +94,7 @@ stability: stable
 - .github/PULL_REQUEST_TEMPLATE/pr_release.md
 - .github/README.md
 - .github/SAVED_REPLIES.md
+- .github/SAVED_REPLIES.md .md
 - .github/SAVED_REPLIES/README.md
 - .github/SAVED_REPLIES/community/code-of-conduct.md
 - .github/SAVED_REPLIES/community/contribution-thanks.md
@@ -153,7 +174,9 @@ stability: stable
 - .github/agentic-workflows/SECURITY_REVIEW.md
 - .github/agentic-workflows/TEST_RESULTS.md
 - .github/agentic-workflows/release.md
+- .github/agents/README.md
 - .github/agents/adr.agent.md
+- .github/agents/changelog.agent.md
 - .github/agents/issues.agent.md
 - .github/agents/labeling.agent.md
 - .github/agents/linting.agent.md
@@ -179,10 +202,17 @@ stability: stable
 - .github/instructions/.archive/INSTRUCTION_CONSOLIDATION_MIGRATION.md
 - .github/instructions/.archive/README.md
 - .github/instructions/.archive/agents.instructions.md
+- .github/instructions/.archive/file-management.instructions.md
 - .github/instructions/.archive/frontmatter.instructions.md
+- .github/instructions/.archive/javascript.instructions.md
 - .github/instructions/.archive/jest.instructions.md
+- .github/instructions/.archive/jsdoc.instructions.md
+- .github/instructions/.archive/json.instructions.md
 - .github/instructions/.archive/markdown.instructions.md
+- .github/instructions/.archive/naming-conventions.instructions.md
 - .github/instructions/.archive/reporting.instructions.md
+- .github/instructions/.archive/reviewer.instructions.md
+- .github/instructions/.archive/saved-replies.instructions.md
 - .github/instructions/.archive/testing.instructions.md
 - .github/instructions/.archive/tests.instructions.md
 - .github/instructions/.archive/yaml.instructions.md
@@ -190,11 +220,13 @@ stability: stable
 - .github/instructions/agent-spec.instructions.md
 - .github/instructions/automation.instructions.md
 - .github/instructions/docs.instructions.md
+- .github/instructions/file-organisation.instructions.md
 - .github/instructions/hooks.instructions.md
 - .github/instructions/instructions.instructions.md
 - .github/instructions/markdown.instructions.md
 - .github/instructions/mermaid.instructions.md
 - .github/instructions/meta.instructions.md
+- .github/instructions/plugin-structure.instructions.md
 - .github/instructions/prompt.instructions.md
 - .github/instructions/readme.instructions.md
 - .github/instructions/release.instructions.md
@@ -359,6 +391,16 @@ stability: stable
 - .github/reports/active/wave-5-completion-summary.md
 - .github/reports/active/weekly-summary-2025-12-08.md
 - .github/reports/active/workflow-standards-audit-2026-05-31.md
+- .github/reports/agent-audit/AGENT_NAMING_CONVENTIONS.md
+- .github/reports/agent-audit/AGENT_SPEC_ACTION_PLAN.md
+- .github/reports/agent-audit/AGENT_SPEC_AUDIT_REPORT.md
+- .github/reports/agent-audit/README.md
+- .github/reports/agents/agent-infrastructure-audit-2025-12-10.md
+- .github/reports/agents/agent-tool-permission-alignment-audit-2026-08-29.md
+- .github/reports/agents/critical-agent-fixes-2025-12-10.md
+- .github/reports/analysis/pre-release-audit-v1.0.0.md
+- .github/reports/analysis/reports-folder-structure-audit-2025-12-10.md
+- .github/reports/analysis/test-coverage-expansion-plan.md
 - .github/reports/archive/a11y-completed/mermaid-accessibility-report.md
 - .github/reports/archive/a11y-completed/mermaid-validation-report.md
 - .github/reports/archive/deprecated-audits/2026-06-03-agent-script-migration-status-audit-672.md
@@ -401,9 +443,90 @@ stability: stable
 - .github/reports/archive/workflow-artifacts/branch-cleanup-2026-07-22T18-01-32.md
 - .github/reports/archive/workflow-artifacts/branch-cleanup-2026-07-23T16-44-03.md
 - .github/reports/archive/workflow-artifacts/branch-cleanup-2026-07-25T08-20-01.md
+- .github/reports/audit/AGENT-SPECS-PHASE3-BASELINE.md
+- .github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md
+- .github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27-PHASE2.md
+- .github/reports/audits/CHANGELOG_AUDIT_REPORT_2026-08-27.md
+- .github/reports/audits/WORKFLOW_AUDIT_REPORT.md
+- .github/reports/audits/changelog-audit-log.md
 - .github/reports/audits/changelog/CHANGELOG-CONSOLIDATION-AUDIT.md
+- .github/reports/audits/governance-change-management-audit-2026-05-19.md
+- .github/reports/issue-reviews/ISSUE_STATUS_REVIEW_2026-08-21.md
+- .github/reports/label-remediation/PHASE2_PLAN.md
+- .github/reports/mermaid-accessibility-report.md
 - .github/reports/mermaid-validation-report.md
+- .github/reports/mermaid/colour-contrast-report-2026-08-28.md
+- .github/reports/mermaid/colour-contrast-report-2026-09-03.md
+- .github/reports/mermaid/diagram-validation-2025-12-11.md
+- .github/reports/metrics/weekly-summary-2025-12-08.md
+- .github/reports/migration/INSTRUCTIONS_MIGRATION_GUIDE.md
+- .github/reports/migration/file-organization-migration-2025-12-09.md
+- .github/reports/phase-4-review/PHASE4_VERIFICATION_REPORT.md
+- .github/reports/phase-4-review/PHASE5_PLANNING.md
+- .github/reports/phase-4-review/REVIEW_SUMMARY.md
+- .github/reports/phase-9-pilot-release-2026-08-22/DRY_RUN_REPORT.md
+- .github/reports/phase-9-pilot-release-2026-08-22/V1_0_0_MAJOR_RELEASE_VALIDATION.md
+- .github/reports/releases/v1.0.0-release-summary.md
+- .github/reports/releases/v1.0.1-preparation-checklist.md
+- .github/reports/remediation/milestone-assignment-test.md
+- .github/reports/tech-debt/v1.0.0-pre-launch-debt.md
+- .github/reports/validation/pre-launch-validation-2025-12-10.md
+- .github/reports/validation/v1.0.0-launch-readiness-final-2025-12-10.md
+- .github/reports/weekly-summary-2025-12-15.md
+- .github/reports/weekly-summary-2025-12-22.md
+- .github/reports/weekly-summary-2025-12-29.md
+- .github/reports/weekly-summary-2026-01-05.md
+- .github/reports/weekly-summary-2026-01-12.md
+- .github/reports/weekly-summary-2026-01-19.md
+- .github/reports/weekly-summary-2026-01-26.md
+- .github/reports/weekly-summary-2026-02-02.md
+- .github/reports/weekly-summary-2026-02-09.md
+- .github/reports/weekly-summary-2026-02-16.md
+- .github/reports/weekly-summary-2026-02-23.md
+- .github/reports/weekly-summary-2026-03-02.md
+- .github/reports/weekly-summary-2026-03-09.md
+- .github/reports/weekly-summary-2026-03-16.md
+- .github/reports/weekly-summary-2026-03-23.md
+- .github/reports/weekly-summary-2026-03-30.md
+- .github/reports/weekly-summary-2026-04-06.md
+- .github/reports/weekly-summary-2026-04-13.md
+- .github/reports/weekly-summary-2026-04-20.md
+- .github/reports/weekly-summary-2026-04-27.md
+- .github/reports/weekly-summary-2026-05-04.md
+- .github/reports/weekly-summary-2026-05-11.md
+- .github/reports/weekly-summary-2026-05-18.md
+- .github/reports/weekly-summary-2026-05-25.md
 - .github/rulesets/README.md
+- .github/schemas/README.md
+- .github/scripts/__tests__/PHASE-5-TESTING.md
+- .github/scripts/__tests__/fixtures/automation-agent.agent.md
+- .github/scripts/__tests__/fixtures/config-agent.agent.md
+- .github/scripts/__tests__/fixtures/deprecated-agent.agent.md
+- .github/scripts/__tests__/fixtures/draft-agent.agent.md
+- .github/scripts/__tests__/fixtures/empty-name.agent.md
+- .github/scripts/__tests__/fixtures/future-date.agent.md
+- .github/scripts/__tests__/fixtures/implementation-ref.agent.md
+- .github/scripts/__tests__/fixtures/integration-agent.agent.md
+- .github/scripts/__tests__/fixtures/invalid-date-format.agent.md
+- .github/scripts/__tests__/fixtures/invalid-file-type.agent.md
+- .github/scripts/__tests__/fixtures/invalid-status.agent.md
+- .github/scripts/__tests__/fixtures/long-version.agent.md
+- .github/scripts/__tests__/fixtures/missing-fields.agent.md
+- .github/scripts/__tests__/fixtures/mode-agent.agent.md
+- .github/scripts/__tests__/fixtures/multiline-description.agent.md
+- .github/scripts/__tests__/fixtures/no-frontmatter.agent.md
+- .github/scripts/__tests__/fixtures/planning-agent.agent.md
+- .github/scripts/__tests__/fixtures/research-agent.agent.md
+- .github/scripts/__tests__/fixtures/special-chars-name.agent.md
+- .github/scripts/__tests__/fixtures/tags-agent.agent.md
+- .github/scripts/__tests__/fixtures/tooling-agent.agent.md
+- .github/scripts/__tests__/fixtures/unknown-category.agent.md
+- .github/scripts/__tests__/fixtures/valid-agent.agent.md
+- .github/scripts/workflows/TASK_2_3_IMPLEMENTATION.md
+- .github/training/CERTIFICATION_TEMPLATE.md
+- .github/training/README.md
+- .github/training/RELEASE_FAQ.md
+- .github/training/RELEASE_QUICK_REFERENCE.md
 - .github/website/README.md
 - .github/website/src/content/agents/claude.md
 - .github/workflows/README.md
@@ -416,7 +539,7 @@ stability: stable
 - .remember/today-2026-07-24.done.md
 - .remember/today-2026-07-25.done.md
 - .schemas/README.md
-- .schemas/agent-config.example.md
+- .todo/GITHUB_RESEARCH_SUMMARY.md
 - .vscode/README.md
 - AGENTS.md
 - CHANGELOG.md
@@ -425,7 +548,9 @@ stability: stable
 - CONTRIBUTING.md
 - DEVELOPMENT.md
 - GOVERNANCE.md
+- ISSUE-MANAGEMENT-AUDIT-REPORT.md
 - METRICS_AGENT_PHASE_2_CONTINUATION_3_4_5.md
+- MIGRATION_GUIDE.md
 - README.md
 - SECURITY.md
 - SUPPORT.md
@@ -438,6 +563,7 @@ stability: stable
 - agents/adr-generator/templates/lightweight.md
 - agents/adr-generator/templates/security.md
 - agents/adr-generator/templates/standard.md
+- agents/adr.agent.md
 - agents/agent.md
 - agents/ai-readiness-estimator-agent/AGENT.md
 - agents/ai-readiness-estimator-agent/README.md
@@ -781,18 +907,25 @@ stability: stable
 - agents/ai-readiness-estimator-agent/skills/agent-attached/post-launch-optimisation/SKILL.md
 - agents/ai-readiness-estimator-agent/skills/agent-attached/technical-seo-audit/SKILL.md
 - agents/ai-readiness-estimator-agent/skills/local/frontend-skill/SKILL.md
+- agents/ai-readiness-estimator.agent.md
+- agents/changelog.agent.md
 - agents/changelog/README.md
 - agents/chat-closure-agent/AGENT.md
+- agents/chat-closure-agent/claude/agent.md
 - agents/chat-closure-agent/claude/prompt.md
+- agents/chat-closure-agent/copilot/agent.md
 - agents/chat-closure-agent/docs/ARCHITECTURE.md
 - agents/chat-closure-agent/docs/TESTING_GUIDE.md
 - agents/chat-closure-agent/docs/USAGE_GUIDE.md
 - agents/chat-closure-agent/examples/sample-closure-workflow.md
+- agents/chat-closure-agent/openai/agent.md
+- agents/chat-closure-agent/shared/core-prompt.md
 - agents/chat-closure-agent/skills/git-metadata-extractor.md
 - agents/chat-closure-agent/skills/project-linker.md
 - agents/chat-closure-agent/tests/fixtures/memory-test/.remember/MEMORY.md
 - agents/chat-closure-agent/tests/fixtures/memory-test/.remember/test-memory-1.md
 - agents/chat-closure-agent/tests/fixtures/memory-test/.remember/test-memory-2.md
+- agents/chat-closure.agent.md
 - agents/client-website-discovery-assistant-agent/AGENT.md
 - agents/client-website-discovery-assistant-agent/README.md
 - agents/client-website-discovery-assistant-agent/agent/configuration/memory/discovery/defaults.md
@@ -997,6 +1130,8 @@ stability: stable
 - agents/client-website-discovery-assistant-agent/skills/agent-attached/hermes/wordpress-plugin-packaging-review/references/output-templates.md
 - agents/client-website-discovery-assistant-agent/skills/agent-attached/hermes/wordpress-plugin-packaging-review/references/qa-rubric.md
 - agents/client-website-discovery-assistant-agent/skills/agent-attached/hermes/wordpress-plugin-packaging-review/references/workflow.md
+- agents/client-website-discovery-assistant.agent.md
+- agents/client-website-discovery.agent.md
 - agents/design-partner-agent/AGENT.md
 - agents/design-partner-agent/README.md
 - agents/design-partner-agent/agent/instructions/AGENTS.md
@@ -1193,6 +1328,7 @@ stability: stable
 - agents/design-partner-agent/skills/agent-attached/hermes/ux-writing/SKILL.md
 - agents/design-partner-agent/skills/agent-attached/hermes/wordpress-block-theme-handoff/SKILL.md
 - agents/design-partner-agent/skills/local/frontend-skill/SKILL.md
+- agents/design-partner.agent.md
 - agents/harvest-analytical-agent/AGENT.md
 - agents/harvest-analytical-agent/README.md
 - agents/harvest-analytical-agent/agent/instructions/AGENTS.md
@@ -1259,6 +1395,9 @@ stability: stable
 - agents/harvest-analytical-agent/openai/agent.md
 - agents/harvest-analytical-agent/shared/core-prompt.md
 - agents/harvest-analytical-agent/skills/local/frontend-skill/SKILL.md
+- agents/harvest-analytical.agent.md
+- agents/issues.agent.md
+- agents/labeling.agent.md
 - agents/linear-advisor-agent/AGENT.md
 - agents/linear-advisor-agent/README.md
 - agents/linear-advisor-agent/agent/instructions/AGENTS.md
@@ -1502,12 +1641,28 @@ stability: stable
 - agents/linear-advisor-agent/skills/local/skill-creator/SKILL.md
 - agents/linear-advisor-agent/skills/local/skill-creator/references/openai_yaml.md
 - agents/linear-advisor-agent/skills/local/skill-installer/SKILL.md
+- agents/linear-advisor.agent.md
 - agents/linting-agent/README.md
+- agents/linting.agent.md
+- agents/meta-agent/CHANGELOG.md
+- agents/meta-agent/FAQ.md
+- agents/meta-agent/IMPLEMENTATION_GUIDE.md
 - agents/meta-agent/PHASE-2B-COMPLETION.md
 - agents/meta-agent/PHASE-2C-PLAN.md
+- agents/meta-agent/QUICK_START.md
 - agents/meta-agent/README.md
-- agents/meta-agent/**tests**/fixtures/sample-readme.md
+- agents/meta-agent/TEAM_OPERATIONS_GUIDE.md
+- agents/meta-agent/TRAINING_GUIDE.md
+- agents/meta-agent/TROUBLESHOOTING.md
+- agents/meta-agent/__tests__/fixtures/sample-readme.md
+- agents/meta.agent.md
 - agents/metadata-agent/README.md
+- agents/metadata.agent.md
+- agents/metrics.agent.md
+- agents/mode-demonstrate-understanding.agent.md
+- agents/mode-document-reviewer.agent.md
+- agents/mode-prd.agent.md
+- agents/mode-thinking.agent.md
 - agents/pagespeed-agent/AGENT.md
 - agents/pagespeed-agent/README.md
 - agents/pagespeed-agent/agent/instructions/AGENTS.md
@@ -1621,6 +1776,8 @@ stability: stable
 - agents/pagespeed-agent/skills/agent-attached/hermes/pagespeed-intake-normalizer/references/brief-template.md
 - agents/pagespeed-agent/skills/agent-attached/hermes/pagespeed-skill-router/SKILL.md
 - agents/pagespeed-agent/skills/agent-attached/hermes/wordpress-pagespeed-diagnosis/SKILL.md
+- agents/pagespeed.agent.md
+- agents/pr-creation.agent.md
 - agents/prd-agent/AGENT.md
 - agents/prd-agent/CONTEXT_DETECTION.md
 - agents/prd-agent/INTEGRATION_GUIDE.md
@@ -2922,6 +3079,10 @@ stability: stable
 - agents/prd-factory-planner-agent/skills/local/spreadsheets/domain_guidance/scientific_research.md
 - agents/prd-factory-planner-agent/skills/local/spreadsheets/routing/google_sheets.md
 - agents/prd-factory-planner-agent/skills/local/spreadsheets/style_guidelines.md
+- agents/prd-factory-planner.agent.md
+- agents/prd.agent.md
+- agents/project-meta-sync.agent.md
+- agents/prompt-engineer.agent.md
 - agents/prompt-engineer/API.md
 - agents/prompt-engineer/EXAMPLES.md
 - agents/prompt-engineer/README.md
@@ -3092,17 +3253,25 @@ stability: stable
 - agents/proposal-desk-agent/skills/local/system/skill-creator/SKILL.md
 - agents/proposal-desk-agent/skills/local/system/skill-creator/references/openai_yaml.md
 - agents/proposal-desk-agent/skills/local/system/skill-installer/SKILL.md
+- agents/proposal-desk.agent.md
+- agents/release.agent.md
 - agents/release/README.md
+- agents/release/gates/README.md
+- agents/reporting.agent.md
+- agents/reviewer.agent.md
 - agents/task-planner-agent/AGENT.md
 - agents/task-planner-agent/claude/agent.md
 - agents/task-planner-agent/copilot/agent.md
 - agents/task-planner-agent/openai/agent.md
 - agents/task-planner-agent/shared/core-prompt.md
+- agents/task-planner.agent.md
 - agents/task-researcher-agent/AGENT.md
 - agents/task-researcher-agent/claude/agent.md
 - agents/task-researcher-agent/copilot/agent.md
 - agents/task-researcher-agent/openai/agent.md
 - agents/task-researcher-agent/shared/core-prompt.md
+- agents/task-researcher.agent.md
+- agents/template.agent.md
 - agents/testing-agent/.github/INSTALL.md
 - agents/testing-agent/.github/security-policy.md
 - agents/testing-agent/AGENT.md
@@ -3176,7 +3345,9 @@ stability: stable
 - agents/testing-agent/agent/other/agent_files/tests/README.md
 - agents/testing-agent/agent/other/agent_files/tests/schema-validation-tests.md
 - agents/testing-agent/claude/agent.md
+- agents/testing-agent/claude/config.md
 - agents/testing-agent/copilot/agent.md
+- agents/testing-agent/copilot/config.md
 - agents/testing-agent/docs/USAGE_GUIDE.md
 - agents/testing-agent/guides/jest-implementation-guide.md
 - agents/testing-agent/guides/phpunit-implementation-guide.md
@@ -3185,6 +3356,7 @@ stability: stable
 - agents/testing-agent/manifests/redactions.md
 - agents/testing-agent/manifests/skills.md
 - agents/testing-agent/openai/agent.md
+- agents/testing-agent/openai/config.md
 - agents/testing-agent/shared/core-prompt.md
 - agents/testing-agent/skills/agent-attached/frontend-skill/SKILL.md
 - agents/testing-agent/skills/agent-attached/hermes/test-pack-builder/SKILL.md
@@ -3192,6 +3364,7 @@ stability: stable
 - agents/testing-agent/skills/phpunit-spec-generation.md
 - agents/testing-agent/skills/playwright-spec-generation.md
 - agents/testing-agent/skills/pytest-spec-generation.md
+- agents/testing.agent.md
 - agents/tour-operator-config-agent/AGENT.md
 - agents/tour-operator-config-agent/README.md
 - agents/tour-operator-config-agent/agent/code/tests/README.md
@@ -3760,6 +3933,7 @@ stability: stable
 - agents/tour-operator-config-agent/skills/local/skill-creator/SKILL.md
 - agents/tour-operator-config-agent/skills/local/skill-creator/references/openai_yaml.md
 - agents/tour-operator-config-agent/skills/local/skill-installer/SKILL.md
+- agents/tour-operator-config.agent.md
 - agents/website-content-strategist-agent/AGENT.md
 - agents/website-content-strategist-agent/README.md
 - agents/website-content-strategist-agent/agent/configuration/memory/README.md
@@ -4116,6 +4290,7 @@ stability: stable
 - agents/website-content-strategist-agent/skills/agent-attached/website-pages-builder/SKILL.md
 - agents/website-content-strategist-agent/skills/agent-attached/website-pages-builder/references/page-type-map.md
 - agents/website-content-strategist-agent/skills/local/frontend-skill/SKILL.md
+- agents/website-content-strategist.agent.md
 - agents/website-scope-estimator-agent/AGENT.md
 - agents/website-scope-estimator-agent/README.md
 - agents/website-scope-estimator-agent/agent/configuration/CONNECTORS.md
@@ -4282,6 +4457,7 @@ stability: stable
 - agents/website-scope-estimator-agent/skills/local/spreadsheets/domain_guidance/scientific_research.md
 - agents/website-scope-estimator-agent/skills/local/spreadsheets/routing/google_sheets.md
 - agents/website-scope-estimator-agent/skills/local/spreadsheets/style_guidelines.md
+- agents/website-scope-estimator.agent.md
 - agents/woo-config-agent/AGENT.md
 - agents/woo-config-agent/README.md
 - agents/woo-config-agent/agent/configuration/current-memory/project-history.md
@@ -4662,6 +4838,8 @@ stability: stable
 - agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/templates/fix-plan.md
 - agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md
 - agents/woo-config-agent/skills/local/frontend-skill/SKILL.md
+- agents/woo-config.agent.md
+- agents/wordpress.agent.md
 - agents/wordpress/README.md
 - agents/wp-config-agent/AGENT.md
 - agents/wp-config-agent/README.md
@@ -5074,6 +5252,7 @@ stability: stable
 - agents/wp-config-agent/skills/agent-attached/yoast-configuration/tests/research-pack-scenario-tests.md
 - agents/wp-config-agent/skills/agent-attached/yoast-configuration/tests/woocommerce-scenario-tests.md
 - agents/wp-config-agent/skills/local/frontend-skill/SKILL.md
+- agents/wp-config.agent.md
 - agents/zendesk-support-agent/AGENT.md
 - agents/zendesk-support-agent/README.md
 - agents/zendesk-support-agent/agent/instructions/AGENTS.md
@@ -5354,6 +5533,7 @@ stability: stable
 - agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/references/shared-agent-portability.md
 - agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/references/synthetic-test-scenarios.md
 - agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/references/zendesk-field-map.md
+- agents/zendesk-support.agent.md
 - ai/AUDIT-SUMMARY.md
 - ai/Claude.md
 - ai/Gemini.md
@@ -5371,6 +5551,8 @@ stability: stable
 - docs/ADRs/ADR-002-authorization-gating.md
 - docs/ADRs/ADR-003-post-release-sync.md
 - docs/ADRs/ADR-004-rollback-strategy.md
+- docs/AGENT-DEVELOPER-GUIDE.md
+- docs/AGENT-INDEX.md
 - docs/AGENTIC_RELEASE_ADMIN_GUIDE.md
 - docs/AGENTIC_RELEASE_TEAM_TRAINING.md
 - docs/AGENTIC_RELEASE_USER_GUIDE.md
@@ -5384,6 +5566,7 @@ stability: stable
 - docs/ARCHIVE_WORKFLOW_GUIDE.md
 - docs/AUDIT_PR_DOCS_663.md
 - docs/AUTOMATION.md
+- docs/AUTOMATION_GOVERNANCE.md
 - docs/AWESOME_ALIGNMENT.md
 - docs/AWESOME_GITHUB_MAPPING_STRATEGY.md
 - docs/BADGES_EXAMPLES.md
@@ -5413,9 +5596,12 @@ stability: stable
 - docs/HOOKS_STANDARDS.md
 - docs/HUSKY_PRECOMMITS.md
 - docs/INSTRUCTIONS_STANDARDS.md
+- docs/ISSUE-TRIAGE-GUIDE.md
 - docs/ISSUE_CREATION_GUIDE.md
 - docs/ISSUE_FIELDS.md
+- docs/ISSUE_LABELS.md
 - docs/ISSUE_MAINTENANCE_SCRIPTS.md
+- docs/ISSUE_MANAGEMENT_QUICKSTART.md
 - docs/ISSUE_TRIAGE.md
 - docs/ISSUE_TRIAGE_AUTOMATION.md
 - docs/ISSUE_TRIAGE_LABELING.md
@@ -5437,16 +5623,28 @@ stability: stable
 - docs/MILESTONE_ALLOCATION_STRATEGY.md
 - docs/ORGANIZATION.md
 - docs/OVERRIDE_POLICY.md
+- docs/PHASE-2B-BENCHMARKING-GUIDE.md
+- docs/PHASE-2B-VALIDATION-RESULTS.md
+- docs/PHASE-2C-IMPLEMENTATION-STATUS.md
+- docs/PHASE-2C-OPTIMIZATION-PLAN.md
 - docs/PLUGINS_STANDARDS.md
 - docs/PLUGIN_INSTALLATION_GUIDE.md
 - docs/PLUGIN_PACK_ROADMAP.md
 - docs/PROMPTS_STANDARDS.md
 - docs/PR_CREATION_PROCESS.md
+- docs/PR_LABELS.md
 - docs/PR_TEMPLATE_VALIDATION.md
 - docs/QUICK_REFERENCE_AI_FEEDBACK.md
+- docs/QUICK_REFERENCE_BRANCH_NAMING.md
 - docs/QUIRKY_FOOTERS_GUIDE.md
 - docs/README.md
+- docs/RELEASE_E2E_TEST_PLAN.md
 - docs/RELEASE_PROCESS.md
+- docs/RELEASE_RUNBOOK_MAJOR.md
+- docs/RELEASE_RUNBOOK_MINOR.md
+- docs/RELEASE_RUNBOOK_PATCH.md
+- docs/RELEASE_TEAM_TRAINING.md
+- docs/RELEASE_TROUBLESHOOTING.md
 - docs/RELEASE_WORDPRESS.md
 - docs/ROADMAP.md
 - docs/SCHEMA_MIGRATION.md
@@ -5457,6 +5655,7 @@ stability: stable
 - docs/TESTING.md
 - docs/VERSIONING.md
 - docs/WORKFLOW-REFACTORING-GUIDE.md
+- docs/WORKFLOWS.md
 - docs/WORKFLOWS_STANDARDS.md
 - docs/WORKFLOW_AI_FEEDBACK_VALIDATION.md
 - docs/WORKFLOW_COORDINATION.md
@@ -5464,6 +5663,10 @@ stability: stable
 - docs/agents/PLANNER_RUNBOOK.md
 - docs/agents/REVIEWER_RUNBOOK.md
 - docs/ai-feedback-response-tracking.md
+- docs/automation/INTEGRATION_GUIDE.md
+- docs/automation/REGISTRY.md
+- docs/automation/TROUBLESHOOTING.md
+- docs/automation/USAGE_EXAMPLES.md
 - docs/chat-closure-agent/cli-reference.md
 - docs/chat-closure-agent/index.md
 - docs/chat-closure-agent/integration-guide.md
@@ -5492,16 +5695,24 @@ stability: stable
 - instructions/README.md
 - instructions/a11y.instructions.md
 - instructions/agent-creation-workflow.instructions.md
+- instructions/agent-spec.instructions.md
 - instructions/ai-operations-unified.instructions.md
+- instructions/automation.instructions.md
+- instructions/branch-naming.instructions.md
 - instructions/coding-standards.instructions.md
 - instructions/community-standards.instructions.md
 - instructions/copilot-operations.instructions.md
+- instructions/docs.instructions.md
 - instructions/documentation-formats.instructions.md
 - instructions/file-organisation.instructions.md
+- instructions/instructions.instructions.md
 - instructions/issue-templates.instructions.md
 - instructions/issues.instructions.md
+- instructions/labeling.instructions.md
 - instructions/languages.instructions.md
 - instructions/linting.instructions.md
+- instructions/mermaid.instructions.md
+- instructions/meta.instructions.md
 - instructions/metrics.instructions.md
 - instructions/multi-platform-skill-manifests.instructions.md
 - instructions/multi-provider-compatibility.instructions.md
@@ -5511,14 +5722,22 @@ stability: stable
 - instructions/pr-automation-review.instructions.md
 - instructions/pr-templates.instructions.md
 - instructions/project-meta-sync.instructions.md
+- instructions/prompt.instructions.md
 - instructions/pull-requests.instructions.md
 - instructions/quality-assurance.instructions.md
+- instructions/readme.instructions.md
+- instructions/release.instructions.md
+- instructions/reporting.instructions.md
 - instructions/reviewer.instructions.md
 - instructions/saved-replies.instructions.md
 - instructions/self-explanatory-code-commenting.instructions.md
 - instructions/spec-driven-workflow.instructions.md
 - instructions/task-implementation.instructions.md
+- instructions/tasksync.instructions.md
+- instructions/template.instructions.md
+- instructions/tools.instructions.md
 - instructions/wordpress-project-planning.instructions.md
+- instructions/workflows.instructions.md
 - memory/agent_standards_deliverables.md
 - memory/project_agent_standardization_initiative.md
 - packages/metadata-agent/CHANGELOG.md
@@ -5579,45 +5798,83 @@ stability: stable
 - plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-milestone-planner/SKILL.md
 - plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-spec-planning/SKILL.md
 - plugins/lightspeed-wordpress-planning/skills/lightspeed-wordpress-sprint-roadmap/SKILL.md
+- profile/README.md
+- projects/active/issue-management-audit-polish-2026-08-27/00-INDEX.md
+- projects/active/issue-management-audit-polish-2026-08-27/00-PROJECT-OVERVIEW.md
+- projects/active/issue-management-audit-polish-2026-08-27/01-CURRENT-STATE-AUDIT.md
+- projects/active/issue-management-audit-polish-2026-08-27/02-IMPROVEMENT-PLAN.md
+- projects/active/issue-management-audit-polish-2026-08-27/03-OPENSPEC-STATUS-FRAMEWORK.md
+- projects/active/issue-management-audit-polish-2026-08-27/04-AGENTIC-WORKFLOW-DESIGN.md
+- projects/active/issue-management-audit-polish-2026-08-27/05-AUTOMATION-SCRIPTS-INVENTORY.md
+- projects/active/issue-management-audit-polish-2026-08-27/06-OPENSPEC-LABELS-MAPPING.md
+- projects/active/issue-management-audit-polish-2026-08-27/07-ISSUES-TO-CREATE.md
+- projects/active/issue-management-audit-polish-2026-08-27/08-GITHUB-ISSUES-CREATED.md
+- projects/active/issue-management-audit-polish-2026-08-27/09-PHASE-1-DISCOVERY-PLANNING.md
+- projects/active/issue-management-audit-polish-2026-08-27/10-PHASE-2-AUTOMATION-OPTIMIZATION.md
+- projects/active/issue-management-audit-polish-2026-08-27/11-PHASE-3-WORKFLOW-IMPLEMENTATION.md
+- projects/active/issue-management-audit-polish-2026-08-27/12-PHASES-4-5-6-7.md
+- projects/active/issue-management-audit-polish-2026-08-27/COMPLETION-SUMMARY.md
+- projects/active/issue-management-audit-polish-2026-08-27/PHASE-2-OPTIMIZATION-REPORT.md
+- projects/active/issue-management-audit-polish-2026-08-27/PHASE-3-TRIGGER-TESTING-PLAN.md
+- projects/active/issue-management-audit-polish-2026-08-27/PHASE-3-VALIDATION-CHECKLIST.md
+- projects/active/issue-management-audit-polish-2026-08-27/PHASE-4-COMPLETION-SUMMARY.md
+- projects/active/issue-management-audit-polish-2026-08-27/PHASE-4-IMPLEMENTATION-PLAN.md
+- projects/active/issue-management-audit-polish-2026-08-27/PROJECT-STATUS-2026-08-27.md
+- projects/active/issue-management-audit-polish-2026-08-27/README.md
+- projects/active/issue-management-audit-polish-2026-08-27/SESSION-SUMMARY-2026-08-27-CONTINUATION.md
+- projects/active/issue-management-audit-polish-2026-08-27/SESSION-SUMMARY-2026-08-27.md
+- projects/active/issue-management-audit-polish-2026-08-27/reports/issue-management/ISSUE-MANAGEMENT-AUDIT-REPORT.md
+- projects/active/openspec/PHASE-3-IMPLEMENTATION.md
+- projects/active/release-workflow-validation-phase9-2026-08-22/README.md
 - prompts/README.md
 - schemas/README.md
 - schemas/agent-config.example.md
 - scripts/README.md
+- scripts/SCRIPT-REGISTRY.md
 - scripts/agents/PHASE-3-GUIDE.md
 - scripts/agents/PHASE-4-GUIDE.md
 - scripts/agents/TRIAGE-AGENT-GUIDE.md
-- scripts/agents/**tests**/README.md
+- scripts/agents/__tests__/README.md
+- scripts/agents/includes/BARE_LABEL_FIXER_README.md
 - scripts/agents/includes/README.md
-- scripts/agents/includes/**tests**/README.md
+- scripts/agents/includes/__tests__/README.md
 - scripts/automation/ADD-ISSUE-SECTIONS-GUIDE.md
 - scripts/automation/MANAGE_STALE_ISSUES_README.md
+- scripts/automation/MILESTONE-MANAGEMENT-README.md
+- scripts/automation/MILESTONE-QUICK-START.md
+- scripts/automation/OPTIMIZATION-GUIDE.md
 - scripts/automation/README.md
 - scripts/automation/SYNC_PR_LABELS_README.md
 - scripts/automation/issue-agent/README.md
-- scripts/automation/issue-agent/shared/**tests**/fixtures/README.md
+- scripts/automation/issue-agent/shared/__tests__/fixtures/README.md
+- scripts/metrics/PHASE_2_COMPLETION_SUMMARY.md
 - scripts/metrics/PROGRESS.md
 - scripts/metrics/README.md
+- scripts/metrics/TASK_2_4_IMPLEMENTATION.md
+- scripts/metrics/TASK_2_5_IMPLEMENTATION.md
 - scripts/metrics/docs/HANDOFF.md
 - scripts/metrics/docs/INTEGRATION_GUIDE.md
 - scripts/metrics/docs/README.md
 - scripts/metrics/docs/TRAINING_GUIDE.md
 - scripts/metrics/docs/USAGE_GUIDE.md
 - scripts/metrics/integrations/README.md
+- scripts/release/__tests__/e2e/README.md
 - scripts/validation/README.md
-- scripts/validation/**fixtures**/pr-templates/README.md
-- scripts/validation/**fixtures**/pr-templates/invalid/missing-changelog-entry.md
-- scripts/validation/**fixtures**/pr-templates/invalid/missing-linked-issues.md
-- scripts/validation/**fixtures**/pr-templates/invalid/unchecked-checklist.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_bug.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_chore.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_ci.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_dep_update.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_docs.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_feature.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_hotfix.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_refactor.md
-- scripts/validation/**fixtures**/pr-templates/valid/pr_release.md
+- scripts/validation/__fixtures__/pr-templates/README.md
+- scripts/validation/__fixtures__/pr-templates/invalid/missing-changelog-entry.md
+- scripts/validation/__fixtures__/pr-templates/invalid/missing-linked-issues.md
+- scripts/validation/__fixtures__/pr-templates/invalid/unchecked-checklist.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_bug.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_chore.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_ci.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_dep_update.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_docs.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_feature.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_hotfix.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_refactor.md
+- scripts/validation/__fixtures__/pr-templates/valid/pr_release.md
 - scripts/workflows/metrics/TASK_2.3_DOCUMENTATION.md
+- scripts/workflows/release/README.md
 - skills/README.md
 - skills/agency-scope-change-control/SKILL.md
 - skills/agency-scope-change-control/references/change-control-register.md
@@ -5648,6 +5905,8 @@ stability: stable
 - skills/ai-readiness-assessor/references/tool-checks.md
 - skills/apply-design-system/SKILL.md
 - skills/audit-design-system/SKILL.md
+- skills/audit-label-coverage/README.md
+- skills/audit-label-coverage/SKILL.md
 - skills/block-theme-audit/SKILL.md
 - skills/cc-figma-component/SKILL.md
 - skills/chatgpt-apps/SKILL.md
@@ -5664,6 +5923,697 @@ stability: stable
 - skills/content-collection-planner/references/folder-structure.md
 - skills/content-collection-planner/references/generic-website-content-checklist.md
 - skills/content-collection-planner/references/sector-addons.md
+- skills/design-md-agent/agent-creator/SKILL.md
+- skills/design-md-agent/agent-creator/references/agent-requirements-template.md
+- skills/design-md-agent/agent-creator/references/agent-system-prompt-template.md
+- skills/design-md-agent/agent-creator/references/example-pre-call-researcher.md
+- skills/design-md-agent/agent-creator/references/output-template-library.md
+- skills/design-md-agent/agent-creator/references/quality-checklist.md
+- skills/design-md-agent/agent-creator/references/skill-package-template.md
+- skills/design-md-agent/agent-creator/references/tool-permission-matrix-template.md
+- skills/design-md-agent/ai-chatbot-planner/SKILL.md
+- skills/design-md-agent/ai-chatbot-planner/references/ai-engine-implementation-notes.md
+- skills/design-md-agent/ai-chatbot-planner/references/chatbot-brief-template.md
+- skills/design-md-agent/ai-chatbot-planner/references/launch-gates.md
+- skills/design-md-agent/ai-chatbot-planner/references/privacy-log-retention.md
+- skills/design-md-agent/ai-chatbot-planner/references/test-scripts.md
+- skills/design-md-agent/ai-governance-documentor/SKILL.md
+- skills/design-md-agent/ai-governance-documentor/references/governance-guide-template.md
+- skills/design-md-agent/ai-governance-documentor/references/high-risk-interactive-mode.md
+- skills/design-md-agent/ai-governance-documentor/references/minimum-client-inputs.md
+- skills/design-md-agent/ai-governance-documentor/references/prompt-templates.md
+- skills/design-md-agent/ai-governance-documentor/references/role-map.md
+- skills/design-md-agent/ai-readiness-assessor/SKILL.md
+- skills/design-md-agent/ai-readiness-assessor/references/red-flags.md
+- skills/design-md-agent/ai-readiness-assessor/references/report-template.md
+- skills/design-md-agent/ai-readiness-assessor/references/scoring-model.md
+- skills/design-md-agent/ai-readiness-assessor/references/tool-checks.md
+- skills/design-md-agent/apply-design-system/SKILL.md
+- skills/design-md-agent/audit-design-system/SKILL.md
+- skills/design-md-agent/cc-figma-component/SKILL.md
+- skills/design-md-agent/chatgpt-apps/SKILL.md
+- skills/design-md-agent/chatgpt-apps/references/app-archetypes.md
+- skills/design-md-agent/chatgpt-apps/references/apps-sdk-docs-workflow.md
+- skills/design-md-agent/chatgpt-apps/references/interactive-state-sync-patterns.md
+- skills/design-md-agent/chatgpt-apps/references/repo-contract-and-validation.md
+- skills/design-md-agent/chatgpt-apps/references/search-fetch-standard.md
+- skills/design-md-agent/chatgpt-apps/references/upstream-example-workflow.md
+- skills/design-md-agent/chatgpt-apps/references/window-openai-patterns.md
+- skills/design-md-agent/content-collection-planner/SKILL.md
+- skills/design-md-agent/content-collection-planner/references/client-email-template.md
+- skills/design-md-agent/content-collection-planner/references/content-gap-report-template.md
+- skills/design-md-agent/content-collection-planner/references/folder-structure.md
+- skills/design-md-agent/content-collection-planner/references/generic-website-content-checklist.md
+- skills/design-md-agent/content-collection-planner/references/sector-addons.md
+- skills/design-md-agent/design-md-evidence-gatherer/SKILL.md
+- skills/design-md-agent/design-md-format-enforcer/SKILL.md
+- skills/design-md-agent/design-md-generator/SKILL.md
+- skills/design-md-agent/design-md-generator/references/design-md-cli-and-portability.md
+- skills/design-md-agent/design-md-generator/references/design-md-workflow.md
+- skills/design-md-agent/design-md-generator/references/figma-to-design-md-mapping.md
+- skills/design-md-agent/design-md-generator/references/output-templates.md
+- skills/design-md-agent/design-md-generator/references/qa-rubric.md
+- skills/design-md-agent/design-md-generator/references/wordpress-ci-integration.md
+- skills/design-md-agent/design-md-generator/references/wordpress-theme-json-mapping.md
+- skills/design-md-agent/design-md-intake-triage/SKILL.md
+- skills/design-md-agent/design-md-standards-validator/SKILL.md
+- skills/design-md-agent/design-md-user-defaults-onboarding/SKILL.md
+- skills/design-md-agent/docx/SKILL.md
+- skills/design-md-agent/docx/examples/end_to_end_smoke_test.md
+- skills/design-md-agent/docx/ooxml/comments.md
+- skills/design-md-agent/docx/ooxml/hyperlinks_and_fields.md
+- skills/design-md-agent/docx/ooxml/rels_and_content_types.md
+- skills/design-md-agent/docx/ooxml/tracked_changes.md
+- skills/design-md-agent/docx/tasks/accessibility_a11y.md
+- skills/design-md-agent/docx/tasks/captions_crossrefs.md
+- skills/design-md-agent/docx/tasks/clean_tracked_changes.md
+- skills/design-md-agent/docx/tasks/comments_manage.md
+- skills/design-md-agent/docx/tasks/compare_diff.md
+- skills/design-md-agent/docx/tasks/create_edit.md
+- skills/design-md-agent/docx/tasks/fields_update.md
+- skills/design-md-agent/docx/tasks/fixtures_edge_cases.md
+- skills/design-md-agent/docx/tasks/footnotes_endnotes.md
+- skills/design-md-agent/docx/tasks/forms_content_controls.md
+- skills/design-md-agent/docx/tasks/headings_numbering.md
+- skills/design-md-agent/docx/tasks/images_figures.md
+- skills/design-md-agent/docx/tasks/multi_doc_merge.md
+- skills/design-md-agent/docx/tasks/navigation_internal_links.md
+- skills/design-md-agent/docx/tasks/privacy_scrub_metadata.md
+- skills/design-md-agent/docx/tasks/protection_restrict_editing.md
+- skills/design-md-agent/docx/tasks/read_review.md
+- skills/design-md-agent/docx/tasks/redaction_anonymization.md
+- skills/design-md-agent/docx/tasks/sections_layout.md
+- skills/design-md-agent/docx/tasks/style_lint_normalize.md
+- skills/design-md-agent/docx/tasks/tables_spreadsheets.md
+- skills/design-md-agent/docx/tasks/templates_style_packs.md
+- skills/design-md-agent/docx/tasks/toc_workflow.md
+- skills/design-md-agent/docx/tasks/verify_render.md
+- skills/design-md-agent/docx/tasks/watermarks_background.md
+- skills/design-md-agent/docx/troubleshooting/libreoffice_headless.md
+- skills/design-md-agent/docx/troubleshooting/run_splitting.md
+- skills/design-md-agent/edit-figma-design/SKILL.md
+- skills/design-md-agent/figma-code-connect/SKILL.md
+- skills/design-md-agent/figma-code-connect/references/advanced-patterns.md
+- skills/design-md-agent/figma-code-connect/references/api.md
+- skills/design-md-agent/figma-create-design-system-rules/SKILL.md
+- skills/design-md-agent/figma-implement-design/SKILL.md
+- skills/design-md-agent/figma-themejson-custom-color-tokens/SKILL.md
+- skills/design-md-agent/figma-themejson-palette/SKILL.md
+- skills/design-md-agent/figma-themejson-radius/SKILL.md
+- skills/design-md-agent/figma-themejson-shadow/SKILL.md
+- skills/design-md-agent/figma-themejson-spacing/SKILL.md
+- skills/design-md-agent/figma-themejson-style-variations/SKILL.md
+- skills/design-md-agent/figma-themejson-typography/SKILL.md
+- skills/design-md-agent/figma-use/SKILL.md
+- skills/design-md-agent/figma-use/references/api-reference.md
+- skills/design-md-agent/figma-use/references/common-patterns.md
+- skills/design-md-agent/figma-use/references/component-patterns.md
+- skills/design-md-agent/figma-use/references/effect-style-patterns.md
+- skills/design-md-agent/figma-use/references/gotchas.md
+- skills/design-md-agent/figma-use/references/plugin-api-patterns.md
+- skills/design-md-agent/figma-use/references/plugin-api-standalone.index.md
+- skills/design-md-agent/figma-use/references/text-style-patterns.md
+- skills/design-md-agent/figma-use/references/validation-and-recovery.md
+- skills/design-md-agent/figma-use/references/variable-patterns.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-components--creating.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-components--using.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-components.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-effect-styles.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-text-styles.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-variables--creating.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-variables--using.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds-variables.md
+- skills/design-md-agent/figma-use/references/working-with-design-systems/wwds.md
+- skills/design-md-agent/figma-wordpress-skill-creator/SKILL.md
+- skills/design-md-agent/figma-wordpress-skill-creator/references/eval-and-trigger-rubric.md
+- skills/design-md-agent/figma-wordpress-skill-creator/references/figma-wordpress-patterns.md
+- skills/design-md-agent/figma-wordpress-skill-creator/references/output-templates.md
+- skills/design-md-agent/fix-design-system-finding/SKILL.md
+- skills/design-md-agent/generate-project-plan/SKILL.md
+- skills/design-md-agent/generate-project-plan/references/blocks/diagram-section.md
+- skills/design-md-agent/generate-project-plan/references/blocks/intro-callout.md
+- skills/design-md-agent/generate-project-plan/references/blocks/metadata-strip.md
+- skills/design-md-agent/generate-project-plan/references/blocks/multi-column-text.md
+- skills/design-md-agent/generate-project-plan/references/blocks/nested-section.md
+- skills/design-md-agent/generate-project-plan/references/blocks/section.md
+- skills/design-md-agent/generate-project-plan/references/blocks/sticky-column.md
+- skills/design-md-agent/generate-project-plan/references/blocks/table.md
+- skills/design-md-agent/generate-project-plan/references/blocks/text-primitives.md
+- skills/design-md-agent/generate-project-plan/references/foundation/codebase-grounding.md
+- skills/design-md-agent/generate-project-plan/references/foundation/layout.md
+- skills/design-md-agent/generate-project-plan/references/foundation/palette.md
+- skills/design-md-agent/generate-project-plan/references/foundation/plugin-api-traps.md
+- skills/design-md-agent/generate-project-plan/references/section-catalog.md
+- skills/design-md-agent/gh-fix-ci/SKILL.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/SKILL.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/assets/acceptance-test-plan-template.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/assets/go-no-go-acceptance-template.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/assets/issue-test-matrix-template.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/assets/requirement-test-matrix-template.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/assets/test-script-template.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/references/acceptance-test-workflow.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/references/accessibility-responsive-tests.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/references/block-plugin-tests.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/references/figma-parity-tests.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/references/report-template.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/references/test-scenario-types.md
+- skills/design-md-agent/lightspeed-acceptance-test-planner/references/wordpress-block-theme-tests.md
+- skills/design-md-agent/lightspeed-ai-readiness-orchestrator/SKILL.md
+- skills/design-md-agent/lightspeed-ai-readiness-orchestrator/references/client-project-wizard.md
+- skills/design-md-agent/lightspeed-ai-readiness-orchestrator/references/lightspeed-service-positioning.md
+- skills/design-md-agent/lightspeed-ai-readiness-orchestrator/references/output-standards.md
+- skills/design-md-agent/lightspeed-ai-readiness-orchestrator/references/red-flags.md
+- skills/design-md-agent/lightspeed-ai-readiness-orchestrator/references/skill-routing-rules.md
+- skills/design-md-agent/lightspeed-ai-readiness-router/SKILL.md
+- skills/design-md-agent/lightspeed-ai-readiness-router/references/client-project-pack-outputs.md
+- skills/design-md-agent/lightspeed-ai-readiness-router/references/proposal-line-items.md
+- skills/design-md-agent/lightspeed-ai-readiness-router/references/workflow-router.md
+- skills/design-md-agent/lightspeed-ai-readiness/SKILL.md
+- skills/design-md-agent/lightspeed-ai-readiness/assets/chatbot-planning-wizard.md
+- skills/design-md-agent/lightspeed-ai-readiness/assets/content-collection-wizard.md
+- skills/design-md-agent/lightspeed-ai-readiness/assets/governance-discovery-wizard.md
+- skills/design-md-agent/lightspeed-ai-readiness/assets/readiness-assessment-wizard.md
+- skills/design-md-agent/lightspeed-ai-readiness/assets/universal-client-project-kickoff.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/ai-chatbot-planner.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/ai-governance-documentor.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/ai-readiness-assessor.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/client-output-standards.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/content-collection-planner.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/lightspeed-style-guide.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/router-and-project-pack.md
+- skills/design-md-agent/lightspeed-ai-readiness/references/source-frameworks.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/SKILL.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/assets/approval-summary-template.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/assets/decision-log-template.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/assets/gate-checklist-template.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/assets/risk-register-template.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/assets/stakeholder-review-pack-template.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/references/approval-gate-workflow.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/references/decision-log-rules.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/references/gate-types.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/references/stakeholder-review-rules.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/references/status-model.md
+- skills/design-md-agent/lightspeed-approval-gate-manager/references/wordpress-project-gates.md
+- skills/design-md-agent/lightspeed-change-request-router/SKILL.md
+- skills/design-md-agent/lightspeed-change-request-router/assets/approval-checklist-template.md
+- skills/design-md-agent/lightspeed-change-request-router/assets/artifact-update-notes-template.md
+- skills/design-md-agent/lightspeed-change-request-router/assets/change-log-template.md
+- skills/design-md-agent/lightspeed-change-request-router/assets/change-request-assessment-template.md
+- skills/design-md-agent/lightspeed-change-request-router/assets/client-summary-template.md
+- skills/design-md-agent/lightspeed-change-request-router/references/approval-rules.md
+- skills/design-md-agent/lightspeed-change-request-router/references/artifact-update-rules.md
+- skills/design-md-agent/lightspeed-change-request-router/references/change-request-workflow.md
+- skills/design-md-agent/lightspeed-change-request-router/references/classification-rules.md
+- skills/design-md-agent/lightspeed-change-request-router/references/impact-analysis-rules.md
+- skills/design-md-agent/lightspeed-change-request-router/references/report-template.md
+- skills/design-md-agent/lightspeed-change-request-router/references/specialist-routing.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/SKILL.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/assets/approved-wording-template.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/assets/claim-register-template.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/assets/evidence-needed-template.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/assets/page-location-map-template.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/assets/publication-summary-template.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/assets/rejected-wording-template.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/assets/review-owner-template.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/references/approved-wording-rules.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/references/chatbot-claim-rules.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/references/claim-audit-workflow.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/references/claim-types.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/references/classification-rules.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/references/evidence-standards.md
+- skills/design-md-agent/lightspeed-claim-register-auditor/references/report-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/SKILL.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/assets/chatbot-safe-faq-register-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/assets/company-faq-page-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/assets/duplicate-faq-report-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/assets/escalation-questions-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/assets/page-level-faq-map-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/assets/schema-ready-faq-answers-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/assets/unsupported-questions-template.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/references/chatbot-safe-source-rules.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/references/escalation-and-unsupported-rules.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/references/faq-curation-workflow.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/references/faq-taxonomy.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/references/report-templates.md
+- skills/design-md-agent/lightspeed-faq-and-chatbot-source-curator/references/schema-ready-faq-rules.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/SKILL.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/accessibility-state-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/component-block-map-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/issue-register-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/light-dark-mode-qa-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/parity-audit-report-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/pattern-section-map-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/responsive-qa-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/assets/token-parity-table-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/accessibility-state-qa.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/component-block-mapping.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/issue-severity-model.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/light-dark-mode-qa.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/parity-audit-workflow.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/pattern-section-mapping.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/responsive-state-qa.md
+- skills/design-md-agent/lightspeed-figma-wordpress-parity-auditor/references/theme-json-token-mapping.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/SKILL.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/assets/block-plugin-requirements-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/assets/component-block-map-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/assets/github-issue-seeds-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/assets/open-questions-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/assets/technical-brief-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/assets/template-pattern-map-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/assets/token-map-template.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/block-plugin-requirements.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/block-theme-requirements.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/component-to-block-mapping.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/editor-experience.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/figma-evidence-intake.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/pattern-template-mapping.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/qa-handoff.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/technical-brief-workflow.md
+- skills/design-md-agent/lightspeed-figma-wordpress-technical-brief/references/theme-json-token-mapping.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/SKILL.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/chatbot-handoff-events-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/consultation-cta-tracking-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/form-tracking-plan-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/ga4-event-plan-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/gtm-trigger-notes-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/launch-baseline-report-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/lead-magnet-tracking-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/looker-studio-dashboard-brief-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/assets/measurement-qa-checklist-template.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/chatbot-handoff-events.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/event-naming-and-parameters.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/form-and-lead-tracking.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/gtm-trigger-notes.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/launch-baseline-report.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/looker-studio-dashboard.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/measurement-workflow.md
+- skills/design-md-agent/lightspeed-ga4-conversion-tracking-planner/references/privacy-and-consent-notes.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/SKILL.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/assets/epic-issue-template.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/assets/issue-index-template.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/assets/issue-template.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/assets/launch-qa-issue-template.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/assets/review-checklist-template.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/references/acceptance-criteria-rules.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/references/dependency-rules.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/references/issue-drafting-workflow.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/references/issue-templates.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/references/label-and-milestone-rules.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/references/qa-and-review-rules.md
+- skills/design-md-agent/lightspeed-github-issue-drafter/references/wordpress-issue-rules.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/SKILL.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/assets/branch-pr-strategy-template.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/assets/dependency-map-template.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/assets/handoff-notes-template.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/assets/implementation-plan-template.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/assets/risk-register-template.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/assets/wave-plan-template.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/assets/workstream-plan-template.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/references/branch-pr-strategy.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/references/implementation-workflow.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/references/risk-and-decision-rules.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/references/testing-and-qa.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/references/wave-planning.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/references/wordpress-implementation-rules.md
+- skills/design-md-agent/lightspeed-implementation-plan-generator/references/workstream-model.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/SKILL.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/assets/block-plugin-qa-matrix-template.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/assets/go-no-go-summary-template.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/assets/launch-gate-checklist-template.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/assets/launch-qa-plan-template.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/assets/page-template-qa-matrix-template.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/assets/pattern-qa-matrix-template.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/assets/qa-workstream-table-template.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/accessibility-responsive-qa.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/block-plugin-qa.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/block-theme-qa.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/conversion-and-tracking-qa.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/figma-to-wordpress-qa.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/launch-gate-model.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/launch-qa-planning-workflow.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/pattern-and-template-qa.md
+- skills/design-md-agent/lightspeed-launch-qa-planner/references/specialist-skill-routing.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/SKILL.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/accessibility-testing-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/analytics-tagging-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/broken-link-checklist-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/form-testing-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/go-no-go-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/launch-checklist-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/mobile-responsive-qa-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/page-qa-table-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/assets/performance-notes-template.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/references/go-no-go-rules.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/references/issue-severity-model.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/references/launch-readiness-workflow.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/references/qa-checklists.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/references/report-templates.md
+- skills/design-md-agent/lightspeed-launch-readiness-auditor/references/wordpress-launch-notes.md
+- skills/design-md-agent/lightspeed-launch-task-router/SKILL.md
+- skills/design-md-agent/lightspeed-launch-task-router/assets/go-no-go-routing-summary-template.md
+- skills/design-md-agent/lightspeed-launch-task-router/assets/launch-router-checklist-template.md
+- skills/design-md-agent/lightspeed-launch-task-router/assets/routing-report-template.md
+- skills/design-md-agent/lightspeed-launch-task-router/assets/specialist-prompt-starters-template.md
+- skills/design-md-agent/lightspeed-launch-task-router/assets/workstream-routing-template.md
+- skills/design-md-agent/lightspeed-launch-task-router/references/approval-gates.md
+- skills/design-md-agent/lightspeed-launch-task-router/references/dependency-sequencing.md
+- skills/design-md-agent/lightspeed-launch-task-router/references/launch-task-routing-workflow.md
+- skills/design-md-agent/lightspeed-launch-task-router/references/launch-workstreams.md
+- skills/design-md-agent/lightspeed-launch-task-router/references/specialist-skill-routing.md
+- skills/design-md-agent/lightspeed-policy-page-generator/SKILL.md
+- skills/design-md-agent/lightspeed-policy-page-generator/assets/accessibility-statement-template.md
+- skills/design-md-agent/lightspeed-policy-page-generator/assets/ai-governance-page-template.md
+- skills/design-md-agent/lightspeed-policy-page-generator/assets/chatbot-disclosure-template.md
+- skills/design-md-agent/lightspeed-policy-page-generator/assets/cookie-policy-brief-template.md
+- skills/design-md-agent/lightspeed-policy-page-generator/assets/data-log-retention-decision-template.md
+- skills/design-md-agent/lightspeed-policy-page-generator/assets/privacy-policy-brief-template.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/accessibility-statement.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/ai-governance-page.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/chatbot-disclosure.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/cookie-policy-brief.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/data-log-retention.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/policy-workflow.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/privacy-policy-brief.md
+- skills/design-md-agent/lightspeed-policy-page-generator/references/review-and-approval.md
+- skills/design-md-agent/lightspeed-prd-generator/SKILL.md
+- skills/design-md-agent/lightspeed-prd-generator/assets/discovery-summary-template.md
+- skills/design-md-agent/lightspeed-prd-generator/assets/open-questions-template.md
+- skills/design-md-agent/lightspeed-prd-generator/assets/persona-template.md
+- skills/design-md-agent/lightspeed-prd-generator/assets/prd-template.md
+- skills/design-md-agent/lightspeed-prd-generator/assets/requirements-template.md
+- skills/design-md-agent/lightspeed-prd-generator/assets/success-metrics-template.md
+- skills/design-md-agent/lightspeed-prd-generator/assets/user-story-template.md
+- skills/design-md-agent/lightspeed-prd-generator/references/acceptance-criteria-rules.md
+- skills/design-md-agent/lightspeed-prd-generator/references/approval-gates.md
+- skills/design-md-agent/lightspeed-prd-generator/references/figma-design-system-rules.md
+- skills/design-md-agent/lightspeed-prd-generator/references/prd-workflow.md
+- skills/design-md-agent/lightspeed-prd-generator/references/project-types.md
+- skills/design-md-agent/lightspeed-prd-generator/references/success-metrics.md
+- skills/design-md-agent/lightspeed-prd-generator/references/wordpress-prd-rules.md
+- skills/design-md-agent/lightspeed-prd-task-manager/SKILL.md
+- skills/design-md-agent/lightspeed-prd-task-manager/assets/full-project-pack-structure.md
+- skills/design-md-agent/lightspeed-prd-task-manager/assets/issue-template.md
+- skills/design-md-agent/lightspeed-prd-task-manager/assets/prd-template.md
+- skills/design-md-agent/lightspeed-prd-task-manager/assets/task-plan-template.md
+- skills/design-md-agent/lightspeed-prd-task-manager/assets/technical-brief-template.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/acceptance-criteria.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/agent-spec.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/figma-wordpress-technical-brief.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/github-issue-drafts.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/memory-bank.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/prd-template.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/qa-and-launch-routing.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/task-breakdown-rules.md
+- skills/design-md-agent/lightspeed-prd-task-manager/references/wordpress-standards.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/SKILL.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/assets/README-template.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/assets/file-index-template.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/assets/next-actions-template.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/assets/pack-status-template.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/assets/review-checklist-template.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/assets/source-inventory-template.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/references/file-naming-rules.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/references/pack-quality-checklist.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/references/pack-workflow.md
+- skills/design-md-agent/lightspeed-prd-task-pack-exporter/references/source-classification.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/SKILL.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/assets/gap-register-template.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/assets/go-no-go-template.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/assets/issue-quality-template.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/assets/review-report-template.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/references/issue-review-rules.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/references/prd-review-rules.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/references/readiness-scoring.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/references/report-template.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/references/review-workflow.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/references/task-review-rules.md
+- skills/design-md-agent/lightspeed-prd-task-reviewer/references/technical-brief-review-rules.md
+- skills/design-md-agent/lightspeed-project-intake-router/SKILL.md
+- skills/design-md-agent/lightspeed-project-intake-router/assets/kickoff-pack-template.md
+- skills/design-md-agent/lightspeed-project-intake-router/assets/missing-inputs-template.md
+- skills/design-md-agent/lightspeed-project-intake-router/assets/prompt-starters-template.md
+- skills/design-md-agent/lightspeed-project-intake-router/assets/source-inventory-template.md
+- skills/design-md-agent/lightspeed-project-intake-router/assets/workflow-route-template.md
+- skills/design-md-agent/lightspeed-project-intake-router/references/approval-gates.md
+- skills/design-md-agent/lightspeed-project-intake-router/references/clarifying-questions.md
+- skills/design-md-agent/lightspeed-project-intake-router/references/intake-workflow.md
+- skills/design-md-agent/lightspeed-project-intake-router/references/project-type-classification.md
+- skills/design-md-agent/lightspeed-project-intake-router/references/source-inventory-rules.md
+- skills/design-md-agent/lightspeed-project-intake-router/references/specialist-routing.md
+- skills/design-md-agent/lightspeed-project-memory-manager/SKILL.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/README-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/activeContext-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/assumptions-risks-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/decision-log-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/handoff-summary-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/productContext-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/progress-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/projectbrief-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/systemPatterns-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/task-index-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/assets/techContext-template.md
+- skills/design-md-agent/lightspeed-project-memory-manager/references/file-definitions.md
+- skills/design-md-agent/lightspeed-project-memory-manager/references/handoff-rules.md
+- skills/design-md-agent/lightspeed-project-memory-manager/references/memory-bank-workflow.md
+- skills/design-md-agent/lightspeed-project-memory-manager/references/status-and-decision-rules.md
+- skills/design-md-agent/lightspeed-project-memory-manager/references/task-index-rules.md
+- skills/design-md-agent/lightspeed-project-memory-manager/references/wordpress-project-memory.md
+- skills/design-md-agent/lightspeed-project-researcher/SKILL.md
+- skills/design-md-agent/lightspeed-project-researcher/assets/decision-blockers-template.md
+- skills/design-md-agent/lightspeed-project-researcher/assets/open-questions-template.md
+- skills/design-md-agent/lightspeed-project-researcher/assets/research-report-template.md
+- skills/design-md-agent/lightspeed-project-researcher/assets/source-inventory-template.md
+- skills/design-md-agent/lightspeed-project-researcher/references/evidence-classification.md
+- skills/design-md-agent/lightspeed-project-researcher/references/figma-research.md
+- skills/design-md-agent/lightspeed-project-researcher/references/github-research.md
+- skills/design-md-agent/lightspeed-project-researcher/references/prd-handoff.md
+- skills/design-md-agent/lightspeed-project-researcher/references/research-workflow.md
+- skills/design-md-agent/lightspeed-project-researcher/references/source-inventory.md
+- skills/design-md-agent/lightspeed-project-researcher/references/wordpress-site-research.md
+- skills/design-md-agent/lightspeed-project-status-reporter/SKILL.md
+- skills/design-md-agent/lightspeed-project-status-reporter/assets/client-update-template.md
+- skills/design-md-agent/lightspeed-project-status-reporter/assets/decision-update-template.md
+- skills/design-md-agent/lightspeed-project-status-reporter/assets/internal-delivery-report-template.md
+- skills/design-md-agent/lightspeed-project-status-reporter/assets/launch-readiness-snapshot-template.md
+- skills/design-md-agent/lightspeed-project-status-reporter/assets/weekly-status-template.md
+- skills/design-md-agent/lightspeed-project-status-reporter/references/audience-rules.md
+- skills/design-md-agent/lightspeed-project-status-reporter/references/report-templates.md
+- skills/design-md-agent/lightspeed-project-status-reporter/references/status-model.md
+- skills/design-md-agent/lightspeed-project-status-reporter/references/status-report-workflow.md
+- skills/design-md-agent/lightspeed-project-status-reporter/references/update-examples.md
+- skills/design-md-agent/lightspeed-project-status-reporter/references/workstream-model.md
+- skills/design-md-agent/lightspeed-qa-findings-router/SKILL.md
+- skills/design-md-agent/lightspeed-qa-findings-router/assets/client-summary-template.md
+- skills/design-md-agent/lightspeed-qa-findings-router/assets/github-issue-draft-template.md
+- skills/design-md-agent/lightspeed-qa-findings-router/assets/launch-blocker-list-template.md
+- skills/design-md-agent/lightspeed-qa-findings-router/assets/qa-findings-register-template.md
+- skills/design-md-agent/lightspeed-qa-findings-router/assets/retest-checklist-template.md
+- skills/design-md-agent/lightspeed-qa-findings-router/assets/workstream-routing-template.md
+- skills/design-md-agent/lightspeed-qa-findings-router/references/github-issue-drafting.md
+- skills/design-md-agent/lightspeed-qa-findings-router/references/qa-findings-workflow.md
+- skills/design-md-agent/lightspeed-qa-findings-router/references/report-template.md
+- skills/design-md-agent/lightspeed-qa-findings-router/references/retest-rules.md
+- skills/design-md-agent/lightspeed-qa-findings-router/references/severity-and-launch-status.md
+- skills/design-md-agent/lightspeed-qa-findings-router/references/workstream-routing.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/SKILL.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/assets/404-risk-list-template.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/assets/current-url-inventory-template.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/assets/launch-day-checklist-template.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/assets/new-url-map-template.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/assets/redirect-status-table-template.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/assets/seo-migration-summary-template.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/references/redirect-planning-workflow.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/references/redirect-status-model.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/references/report-template.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/references/seo-migration-notes.md
+- skills/design-md-agent/lightspeed-redirect-map-planner/references/wordpress-redirect-notes.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/SKILL.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/assets/client-handoff-template.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/assets/internal-handoff-template.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/assets/known-issues-register-template.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/assets/post-launch-monitoring-template.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/assets/release-notes-template.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/assets/support-transition-template.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/references/client-handoff-rules.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/references/known-issues-rules.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/references/post-launch-monitoring.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/references/release-handoff-workflow.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/references/release-notes-rules.md
+- skills/design-md-agent/lightspeed-release-handoff-generator/references/support-transition-rules.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/SKILL.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/assets/coverage-summary-template.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/assets/gap-register-template.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/assets/orphan-task-report-template.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/assets/requirement-register-template.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/assets/traceability-matrix-template.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/references/coverage-rules.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/references/qa-coverage-rules.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/references/report-template.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/references/requirement-classification.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/references/traceability-workflow.md
+- skills/design-md-agent/lightspeed-requirements-traceability-mapper/references/wordpress-traceability.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/SKILL.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/assets/ai-visibility-baseline-template.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/assets/claim-safe-wording-template.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/assets/faq-schema-map-template.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/assets/internal-linking-plan-template.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/assets/page-schema-recommendation-template.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/assets/schema-launch-checklist-template.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/ai-visibility-baseline.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/answer-engine-optimisation.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/claim-safe-wording.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/faq-schema-map.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/internal-linking-rules.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/schema-types.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/schema-workflow.md
+- skills/design-md-agent/lightspeed-schema-and-ai-discoverability-planner/references/validation-and-monitoring.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/SKILL.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/assets/acceptance-test-map-template.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/assets/dependency-map-template.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/assets/epic-map-template.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/assets/github-issue-template.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/assets/implementation-waves-template.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/assets/task-plan-template.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/acceptance-criteria.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/dependency-and-wave-planning.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/estimation-models.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/issue-draft-rules.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/qa-mapping.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/task-breakdown-workflow.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/wordpress-task-rules.md
+- skills/design-md-agent/lightspeed-task-breakdown-planner/references/workstream-model.md
+- skills/design-md-agent/lightspeed-website-content-generator/SKILL.md
+- skills/design-md-agent/lightspeed-website-content-generator/assets/case-study-template.md
+- skills/design-md-agent/lightspeed-website-content-generator/assets/content-pack-readme-template.md
+- skills/design-md-agent/lightspeed-website-content-generator/assets/faq-page-template.md
+- skills/design-md-agent/lightspeed-website-content-generator/assets/page-brief-template.md
+- skills/design-md-agent/lightspeed-website-content-generator/assets/service-page-template.md
+- skills/design-md-agent/lightspeed-website-content-generator/assets/solution-page-template.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/chatbot-safe-content-rules.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/claim-handling-rules.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/content-generation-workflow.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/lightspeed-style-guide.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/page-output-templates.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/review-status-labels.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/seo-and-schema-rules.md
+- skills/design-md-agent/lightspeed-website-content-generator/references/source-inputs.md
+- skills/design-md-agent/linear/SKILL.md
+- skills/design-md-agent/markdown-content-validator/README.md
+- skills/design-md-agent/markdown-content-validator/SKILL.md
+- skills/design-md-agent/markdown-content-validator/references/example-validation-report.md
+- skills/design-md-agent/markdown-content-validator/references/markdown-validation-rules.md
+- skills/design-md-agent/markdown-content-validator/references/schema-customisation.md
+- skills/design-md-agent/markdown-content-validator/references/semver-versioning-rules.md
+- skills/design-md-agent/markdown-content-validator/tests/invalid-version.md
+- skills/design-md-agent/markdown-content-validator/tests/markdown-content-validation-report.md
+- skills/design-md-agent/markdown-content-validator/tests/markdown-issues.md
+- skills/design-md-agent/markdown-content-validator/tests/missing-frontmatter.md
+- skills/design-md-agent/markdown-content-validator/tests/report.md
+- skills/design-md-agent/markdown-content-validator/tests/valid-example.md
+- skills/design-md-agent/markdown-content-validator/tests/valid-report.md
+- skills/design-md-agent/pdfs/SKILL.md
+- skills/design-md-agent/pdfs/examples/smoke_test.md
+- skills/design-md-agent/pdfs/tasks/batch.md
+- skills/design-md-agent/pdfs/tasks/compare.md
+- skills/design-md-agent/pdfs/tasks/convert.md
+- skills/design-md-agent/pdfs/tasks/coords.md
+- skills/design-md-agent/pdfs/tasks/create.md
+- skills/design-md-agent/pdfs/tasks/edit.md
+- skills/design-md-agent/pdfs/tasks/extract.md
+- skills/design-md-agent/pdfs/tasks/forms_annotations.md
+- skills/design-md-agent/pdfs/tasks/forms_debugging.md
+- skills/design-md-agent/pdfs/tasks/forms_nonfillable.md
+- skills/design-md-agent/pdfs/tasks/js_tools.md
+- skills/design-md-agent/pdfs/tasks/ocr.md
+- skills/design-md-agent/pdfs/tasks/parity.md
+- skills/design-md-agent/pdfs/tasks/preflight.md
+- skills/design-md-agent/pdfs/tasks/read_review.md
+- skills/design-md-agent/pdfs/tasks/redact.md
+- skills/design-md-agent/pdfs/troubleshooting/common.md
+- skills/design-md-agent/skill-creator/SKILL.md
+- skills/design-md-agent/skill-creator/references/output-patterns.md
+- skills/design-md-agent/skill-creator/references/sample-prompts.md
+- skills/design-md-agent/skill-creator/references/workflows.md
+- skills/design-md-agent/slides/SKILL.md
+- skills/design-md-agent/slides/artifact_tool/README.md
+- skills/design-md-agent/slides/artifact_tool/auto-layout.spec.md
+- skills/design-md-agent/slides/artifact_tool/charts.spec.md
+- skills/design-md-agent/slides/artifact_tool/fill.spec.md
+- skills/design-md-agent/slides/artifact_tool/images.spec.md
+- skills/design-md-agent/slides/artifact_tool/inspect.spec.md
+- skills/design-md-agent/slides/artifact_tool/layout.spec.md
+- skills/design-md-agent/slides/artifact_tool/master.spec.md
+- skills/design-md-agent/slides/artifact_tool/presentation.spec.md
+- skills/design-md-agent/slides/artifact_tool/rich-text.spec.md
+- skills/design-md-agent/slides/artifact_tool/shapes.spec.md
+- skills/design-md-agent/slides/artifact_tool/slide.spec.md
+- skills/design-md-agent/slides/artifact_tool/speaker-notes.spec.md
+- skills/design-md-agent/slides/artifact_tool/styles.spec.md
+- skills/design-md-agent/slides/artifact_tool/tables.spec.md
+- skills/design-md-agent/slides/artifact_tool/theme.spec.md
+- skills/design-md-agent/spreadsheets/API_QUICK_START.md
+- skills/design-md-agent/spreadsheets/SKILL.md
+- skills/design-md-agent/spreadsheets/templates/financial_models.md
+- skills/design-md-agent/sync-figma-token/SKILL.md
+- skills/design-md-agent/theme-color-token-enforcer/SKILL.md
+- skills/design-md-agent/themejson-extractor-orchestrator/SKILL.md
+- skills/design-md-agent/themejson-extractor-orchestrator/references/lightspeed-themejson-example.md
+- skills/design-md-agent/wordpress-asset-parameter-generator/SKILL.md
+- skills/design-md-agent/wordpress-asset-parameter-generator/references/output-templates.md
+- skills/design-md-agent/wordpress-asset-parameter-generator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-asset-parameter-generator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-asset-parameter-generator/references/workflow.md
+- skills/design-md-agent/wordpress-block-asset-validator/SKILL.md
+- skills/design-md-agent/wordpress-block-asset-validator/references/output-templates.md
+- skills/design-md-agent/wordpress-block-asset-validator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-block-asset-validator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-block-asset-validator/references/workflow.md
+- skills/design-md-agent/wordpress-block-style-generator/SKILL.md
+- skills/design-md-agent/wordpress-block-style-generator/references/output-templates.md
+- skills/design-md-agent/wordpress-block-style-generator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-block-style-generator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-block-style-generator/references/workflow.md
+- skills/design-md-agent/wordpress-block-theme-router/SKILL.md
+- skills/design-md-agent/wordpress-block-theme-router/references/output-templates.md
+- skills/design-md-agent/wordpress-block-theme-router/references/qa-rubric.md
+- skills/design-md-agent/wordpress-block-theme-router/references/routing-matrix.md
+- skills/design-md-agent/wordpress-block-theme-router/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-block-theme-router/references/workflow.md
+- skills/design-md-agent/wordpress-custom-template-generator/SKILL.md
+- skills/design-md-agent/wordpress-custom-template-generator/references/output-templates.md
+- skills/design-md-agent/wordpress-custom-template-generator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-custom-template-generator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-custom-template-generator/references/workflow.md
+- skills/design-md-agent/wordpress-design-system-intake-onboarding/SKILL.md
+- skills/design-md-agent/wordpress-pattern-generator/SKILL.md
+- skills/design-md-agent/wordpress-pattern-generator/references/output-templates.md
+- skills/design-md-agent/wordpress-pattern-generator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-pattern-generator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-pattern-generator/references/workflow.md
+- skills/design-md-agent/wordpress-plugin-extension-audit/SKILL.md
+- skills/design-md-agent/wordpress-plugin-extension-audit/references/plugin-audit-checklist.md
+- skills/design-md-agent/wordpress-plugin-packaging-review/SKILL.md
+- skills/design-md-agent/wordpress-plugin-packaging-review/references/output-templates.md
+- skills/design-md-agent/wordpress-plugin-packaging-review/references/qa-rubric.md
+- skills/design-md-agent/wordpress-plugin-packaging-review/references/workflow.md
+- skills/design-md-agent/wordpress-section-style-generator/SKILL.md
+- skills/design-md-agent/wordpress-section-style-generator/references/output-templates.md
+- skills/design-md-agent/wordpress-section-style-generator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-section-style-generator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-section-style-generator/references/workflow.md
+- skills/design-md-agent/wordpress-template-generator/SKILL.md
+- skills/design-md-agent/wordpress-template-generator/references/output-templates.md
+- skills/design-md-agent/wordpress-template-generator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-template-generator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-template-generator/references/workflow.md
+- skills/design-md-agent/wordpress-template-part-generator/SKILL.md
+- skills/design-md-agent/wordpress-template-part-generator/references/output-templates.md
+- skills/design-md-agent/wordpress-template-part-generator/references/qa-rubric.md
+- skills/design-md-agent/wordpress-template-part-generator/references/wordpress-rules.md
+- skills/design-md-agent/wordpress-template-part-generator/references/workflow.md
+- skills/design-md-agent/wordpress-theme-validation/SKILL.md
+- skills/design-md-agent/wordpress-theme-validation/references/figma-traceability.md
+- skills/design-md-agent/wordpress-theme-validation/references/validation-checklist.md
 - skills/design-md-evidence-gatherer/SKILL.md
 - skills/design-md-format-enforcer/SKILL.md
 - skills/design-md-generator/SKILL.md
@@ -6332,1148 +7282,172 @@ stability: stable
 ## Compliance Criteria
 
 All diagrams must include:
-
 - ✅ **accTitle attribute** — Brief accessible title for screen readers
 - ✅ **accDescr attribute** — Detailed accessible description of diagram content
 
 Supported formats:
-
 - Single-line: `accTitle Title text` or `accDescr: "Description text"`
 - Block format: `accDescr { ... }`
 
 ## Detailed Results
 
-⚠️ 225 diagram(s) missing accessibility attributes:
+⚠️ 33 diagram(s) missing accessibility attributes:
 
-### .github/DISCUSSION_TEMPLATE/README.md — Diagram #1 (flowchart)
+### .github/ISSUE_TEMPLATE/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/PULL_REQUEST_TEMPLATE/README.md — Diagram #1 (flowchart)
+### .github/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/SAVED_REPLIES/README.md — Diagram #1 (flowchart)
+### .github/README.md — Diagram #2 (sequenceDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/agentic-workflows/README.md — Diagram #1 (flowchart)
+### .github/README.md — Diagram #3 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/instructions/README.md — Diagram #1 (flowchart)
+### .github/README.md — Diagram #4 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/metrics/README.md — Diagram #1 (flowchart)
+### .github/instructions/.archive/frontmatter.instructions.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/operations/README.md — Diagram #1 (flowchart)
+### .github/instructions/.archive/tests.instructions.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/prompts/README.md — Diagram #1 (flowchart)
+### .github/instructions/.archive/tests.instructions.md — Diagram #2 (sequenceDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/reports/README.md — Diagram #1 (flowchart)
+### .github/instructions/.archive/tests.instructions.md — Diagram #3 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/rulesets/README.md — Diagram #1 (flowchart)
+### .github/prompts/breakdown-plan.prompt.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/website/README.md — Diagram #1 (flowchart)
+### .github/prompts/breakdown-plan.prompt.md — Diagram #2 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .github/workflows/README.md — Diagram #1 (flowchart)
+### .github/prompts/create-github-action-workflow-specification.prompt.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### .schemas/README.md — Diagram #1 (flowchart)
+### .github/prompts/create-github-action-workflow-specification.prompt.md — Diagram #2 (style)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### README.md — Diagram #1 (graph)
+### .github/prompts/create-github-action-workflow-specification.prompt.md — Diagram #3 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### README.md — Diagram #2 (graph)
+### .github/prompts/update-oo-component-documentation.prompt.md — Diagram #1 (unknown)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### README.md — Diagram #3 (graph)
+### .github/reports/accessibility/MERMAID_ACCESSIBILITY_AUDIT_2026-08-19.md — Diagram #1 (unknown)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### README.md — Diagram #4 (graph)
+### .github/reports/accessibility/MERMAID_ACCESSIBILITY_AUDIT_2026-08-19.md — Diagram #2 (unknown)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/README.md — Diagram #1 (flowchart)
+### .github/reports/accessibility/MERMAID_ACCESSIBILITY_AUDIT_2026-08-19.md — Diagram #3 (unknown)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### agents/ai-readiness-estimator-agent/README.md — Diagram #1 (graph)
+### .github/reports/accessibility/MERMAID_ACCESSIBILITY_AUDIT_2026-08-19.md — Diagram #4 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### agents/ai-readiness-estimator-agent/agent/references/agent_files/commercial-rules/README.md — Diagram #1 (flowchart)
+### .github/reports/mermaid/diagram-validation-2025-12-11.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### agents/ai-readiness-estimator-agent/agent/references/agent_files/docs/README.md — Diagram #1 (flowchart)
+### .vscode/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### agents/ai-readiness-estimator-agent/agent/references/agent_files/memory-schemas/README.md — Diagram #1 (flowchart)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #1 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/ai-readiness-estimator-agent/agent/references/agent_files/references/README.md — Diagram #1 (flowchart)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #2 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/ai-readiness-estimator-agent/agent/references/agent_files/service-templates/README.md — Diagram #1 (flowchart)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #3 (sequenceDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/ai-readiness-estimator-agent/agent/references/agent_files/tests/README.md — Diagram #1 (flowchart)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #4 (sequenceDiagram)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/ai-readiness-estimator-agent/skills/agent-attached/markdown-content-validator/README.md — Diagram #1 (flowchart)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #5 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/changelog/README.md — Diagram #1 (graph)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #6 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/client-website-discovery-assistant-agent/README.md — Diagram #1 (graph)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #7 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/client-website-discovery-assistant-agent/agent/references/README.md — Diagram #1 (flowchart)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #8 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
-### agents/client-website-discovery-assistant-agent/agent/references/docs/README.md — Diagram #1 (flowchart)
+### agents/chat-closure-agent/docs/ARCHITECTURE.md — Diagram #9 (graph)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/client-website-discovery-assistant-agent/agent/references/questionnaires/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/references/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/references/memory-snapshots/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/references/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/references/schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/references/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/agent/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/design-partner-agent/skills/agent-attached/hermes/content-file-validator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/harvest-analytical-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/harvest-analytical-agent/agent/instructions/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/harvest-analytical-agent/agent/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/linear-advisor-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/linear-advisor-agent/agent/references/agent_files/PULL_REQUEST_TEMPLATE/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/linear-advisor-agent/agent/references/agent_files/SAVED_REPLIES/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/linear-advisor-agent/skills/local/Presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/meta-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/metadata-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/pagespeed-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/pagespeed-agent/agent/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/pagespeed-agent/skills/agent-attached/builtins/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/assets/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/configuration/plugins/github/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/agent_files/docs/uat/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/agent_files/lightspeed-prd-task-manager-agent-pack/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/agent_files/questionnaires/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/docs/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/examples/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/examples/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/intake/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/memory-templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/memory-templates/defaults/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/memory-templates/schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/profiles/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/rollout/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/references/tests/validation-pack/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/scripts/validation-pack/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/agent/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/skills/agent-attached/content-file-validator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/skills/agent-attached/markdown-content-validator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-agent/skills/local/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-factory-planner-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-factory-planner-agent/agent/references/agent_files/docs/uat/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-factory-planner-agent/agent/references/agent_files/lightspeed-prd-task-manager-agent-pack/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-factory-planner-agent/agent/references/agent_files/questionnaires/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-factory-planner-agent/skills/agent-attached/content-file-validator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-factory-planner-agent/skills/agent-attached/markdown-content-validator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prd-factory-planner-agent/skills/local/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/prompt-engineer/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/proposal-desk-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/proposal-desk-agent/agent/configuration/plugin-cache/figma/local/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/proposal-desk-agent/agent/configuration/plugin-cache/github/local/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/proposal-desk-agent/agent/references/agent_files/docs/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/proposal-desk-agent/agent/references/agent_files/rollout/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/proposal-desk-agent/agent/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/proposal-desk-agent/skills/local/builtins/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/release/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/configuration/plugins/github/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/profiles/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/testing-agent/agent/other/agent_files/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/code/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/configuration/schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/instructions/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/instructions/prompts/tour-operator-website-local-skill/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/instructions/prompts/tour-operator-website/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/instructions/prompts/tour-operator-website/references/content-model/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/other/attached-memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/agent/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-agent-instructions/agent_files/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-website/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-website/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/skills/agent-attached/tour-operator-website/references/content-model/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/skills/agent-attached/wordpress-accessibility-checker/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/tour-operator-config-agent/skills/local/Presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/configuration/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/other/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/references/docs/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/references/docs/intake/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/references/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/templates/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-content-strategist-agent/agent/templates/questionnaires/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-scope-estimator-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-scope-estimator-agent/agent/references/docs/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-scope-estimator-agent/agent/references/package-addons/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-scope-estimator-agent/agent/references/packages/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-scope-estimator-agent/agent/references/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/website-scope-estimator-agent/skills/local/presentations/builtin_templates_support/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/configuration/memory-starters/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/configuration/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/configuration/schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/configuration/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/agent/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wordpress/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/configuration/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/configuration/profiles/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/configuration/schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/other/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/other/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/other/prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/other/prompts/yoast-configuration-audit/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/other/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/references/references/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/scripts/scripts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/agent/templates/templates/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/skills/agent-attached/wordpress-accessibility-checker/memory/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/wp-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/zendesk-support-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/zendesk-support-agent/skills/agent-attached/zendesk-evidence-collector/examples/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- accTitle/accDescr must appear after the diagram type declaration, not before it. Move the diagram type (e.g. `flowchart TD`) to the first line.
 
 ### ai/README.md — Diagram #1 (flowchart)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)
+- Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)
 
-### cookbook/README.md — Diagram #1 (flowchart)
+### docs/CHANGELOG_AUTOMATION.md — Diagram #1 (config)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- YAML front-matter (---) syntax is not supported by GitHub's Mermaid renderer. Move accTitle and accDescr inline, after the diagram type declaration.
 
-### docs/README.md — Diagram #1 (flowchart)
+### scripts/validation/README.md — Diagram #1 (config)
 
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### docs/RELEASE_PROCESS.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### docs/RELEASE_PROCESS.md — Diagram #2 (sequenceDiagram)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### docs/RELEASE_PROCESS.md — Diagram #3 (sequenceDiagram)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/agent-security-auditor/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/agent-spec-validator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/multi-provider-consistency-checker/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/plugin-integrity-checker/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/secrets-scanner/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/session-logger/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### hooks/tool-guardian/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### instructions/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-configuration-tour-operator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-github-ops/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-github-ops/hooks/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-metrics-and-reporting/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-planning-prd/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-planning-prd/hooks/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-playwright-testing/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-playwright-testing/hooks/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-quality-assurance/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-release-ops/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-wordpress-governance/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### plugins/lightspeed-wordpress-planning/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### prompts/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### schemas/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/agents/**tests**/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/agents/includes/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/agents/includes/**tests**/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/automation/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/automation/issue-agent/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/metrics/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/metrics/docs/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### scripts/validation/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### skills/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### skills/markdown-content-validator/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### skills/slides/artifact_tool/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/invalid/malformed-node.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/invalid/missing-keyword.md — Diagram #1 (TD)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/invalid/unclosed-bracket.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/valid/flowchart.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/valid/graph.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/valid/multiple-diagrams.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/valid/multiple-diagrams.md — Diagram #2 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/valid/sequencediagram.md — Diagram #1 (sequenceDiagram)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### tests/fixtures/mermaid/valid/statediagram.md — Diagram #1 (stateDiagram)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### website/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### workflows/README.md — Diagram #1 (flowchart)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
-
-### workflows/memory/README.md — Diagram #1 (graph)
-
-- Missing accTitle — add it inline after the diagram type (e.g. `accTitle: My title`)
-- Missing accDescr — add it inline after the diagram type (e.g. `accDescr: My description`)
+- YAML front-matter (---) syntax is not supported by GitHub's Mermaid renderer. Move accTitle and accDescr inline, after the diagram type declaration.
 
 ## Recommendations
 
 ⚠️ Recommended actions:
-
 1. Add missing `accTitle` attributes to identify each diagram
 2. Add comprehensive `accDescr` blocks describing diagram purpose and key relationships
 3. Test with screen readers to verify readability

@@ -238,8 +238,8 @@ See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.git
 
 ```mermaid
 flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
+  accTitle: Issue Type Workflow Execution Process
+  accDescr: Sequential workflow diagram showing: Start Here (green), Read Scope and Prerequisites (blue), Run the Documented Workflow (orange), Validate with Repo Tooling (purple), Open PR or Hand-off (teal) with color-coded stages
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]
