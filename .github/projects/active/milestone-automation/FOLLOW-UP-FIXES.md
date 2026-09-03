@@ -20,19 +20,23 @@ tags:
 **PR:** [#2601](https://github.com/lightspeedwp/.github/pull/2601) (Merged 2026-09-02)  
 **CodeRabbit Review:** 28 findings (24 major, 4 minor)  
 **CI Failures:** 9 checks failed before merge  
-**Status:** 🟡 In Progress (10/28 findings resolved)
+**Status:** 🟡 In Progress (11/28 findings resolved)
 
 ---
 
 ## Progress Summary
 
-**Completed (10/28):**
+**Completed (11/28):**
 - ✅ Critical Fixes: 4/4 (100%) — ENH-003, ENH-002, ENH-001, MON-002
 - ✅ Important Fixes: 3/3 (100%) — DOC-004, MON-001, STATUS.md
 - ✅ Polish Fixes: 3/3 (100%) — ENH-001 calcs, ENH-002 Block Kit, README/STATUS alignment
+- ✅ **Frontmatter Schema Validation (NEW):** 24/24 milestone-automation files pass ✓
 
-**Remaining (18/28):**
-- ⏳ CI Investigation: 9 checks — Pending infrastructure validation
+**Remaining (17/28):**
+- ⏳ CI Investigation: 8 checks — Pending infrastructure validation
+- ⏳ Mermaid Diagram accessibility (Check #12)
+- ⏳ Labeling & Workflow validation (Checks #13, #19-24)
+- ⏳ Infrastructure upgrade: Node.js 24+ required (Checks #25-28)
 
 **Estimated Completion:** 2026-09-10
 
