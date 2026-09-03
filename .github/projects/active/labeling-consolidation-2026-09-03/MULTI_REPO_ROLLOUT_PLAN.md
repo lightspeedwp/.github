@@ -59,10 +59,16 @@ This plan details the **phased rollout** of the unified labeling system across t
    git checkout -b feat/labeling-staging
    Deploy labeling-core.yml, labeling-automation.yml, etc.
    ```
+   
+   ⚠️ **Workflow Trigger Limitation:** GitHub Actions workflows only trigger on the default branch by default. For staging validation on a non-default branch, use one of:
+   - Create a staging repository instead of a staging branch
+   - Use `workflow_dispatch` (manual) triggers for testing
+   - Manually replay test events using a CI simulation harness
+   - Use a separate staging environment with a staging default branch
 
 2. **Run parallel validation** (7 days)
    - Old workflows on main branch (production)
-   - New workflows on staging branch
+   - New workflows on staging branch (using manual triggers or replay harness)
    - Compare outputs for equivalence
 
 3. **Validation Checks:**
