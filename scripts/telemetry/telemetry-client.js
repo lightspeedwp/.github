@@ -285,21 +285,18 @@ class TelemetryClient {
    * @param {Object} event - Event payload
    */
   sendToFile(event) {
-    try {
-      // Ensure output directory exists
-      fs.mkdirSync(this.outputPath, { recursive: true });
+    // Ensure output directory exists
+    fs.mkdirSync(this.outputPath, { recursive: true });
 
-      // Generate filename with date
-      const date = new Date().toISOString().split("T")[0];
-      const filename = `telemetry-${date}.jsonl`;
-      const filepath = path.join(this.outputPath, filename);
+    // Generate filename with date
+    const date = new Date().toISOString().split("T")[0];
+    const filename = `telemetry-${date}.jsonl`;
+    const filepath = path.join(this.outputPath, filename);
 
-      // Append event as JSON line
-      const line = JSON.stringify(event) + "\n";
-      fs.appendFileSync(filepath, line, "utf8");
-    } catch (error) {
-      throw error;
-    }
+    // Append event as JSON line
+    // Write failures propagate to emit(), which reports them as a failed emit
+    const line = JSON.stringify(event) + "\n";
+    fs.appendFileSync(filepath, line, "utf8");
   }
 
   /**

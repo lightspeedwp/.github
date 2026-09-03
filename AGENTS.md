@@ -100,6 +100,7 @@ When creating any new script:
 | A release validator | `scripts/release/` | ~~`.github/scripts/release/`~~ |
 | A workflow orchestrator | `scripts/workflows/` | ~~`.github/scripts/workflows/`~~ |
 | Website JS (browser) | `.github/website/src/scripts/` | ✅ Exception - correct location |
+
 ## Branch Naming Governance (CRITICAL)
 
 **All branches MUST follow this pattern:** `{type}/{scope}-{title}`

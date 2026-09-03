@@ -22,12 +22,20 @@ const telemetry = {
     ) {
       console.log("[Telemetry]", event);
     } else {
-      // Send to analytics endpoint in production (best-effort, never block theme changes)
+      // Send to analytics endpoint in production (best-effort, never block theme
+      // changes). Restricted properties are never transmitted from the browser.
+      const safePayload = {
+        eventType: event.eventType,
+        timestamp: event.timestamp,
+        environment: event.environment,
+        safe: event.safe || {},
+      };
+
       try {
         fetch("/api/telemetry", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...event, restricted: undefined }),
+          body: JSON.stringify(safePayload),
         }).catch(() => {
           // Silently fail - telemetry should never block user interactions
         });
