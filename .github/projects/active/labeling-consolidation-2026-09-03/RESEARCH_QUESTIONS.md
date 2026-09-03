@@ -1,10 +1,12 @@
 ---
-project_id: labeling-consolidation-2026-09-03
+name: Research Questions
 title: Research Phase - Clarifying Questions & Responses
-status: in-progress
-phase: 1-research
-created: 2026-09-03
-version: 1.0
+description: 14 clarifying questions to guide labeling consolidation research phase
+metadata:
+  created: 2026-09-03
+  updated: 2026-09-03
+  phase: 1-research
+  status: in-progress
 ---
 
 # Labeling Consolidation — Research Phase Questions
