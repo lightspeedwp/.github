@@ -1,14 +1,14 @@
 ---
 title: Milestone Automation Roadmap
 description: High-level roadmap and feature priorities
-type: reference
-status: approved
+type: planning
+file_type: documentation
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
-tags:
-  - automation
-  - roadmap
-  - planning
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # Milestone Automation Roadmap

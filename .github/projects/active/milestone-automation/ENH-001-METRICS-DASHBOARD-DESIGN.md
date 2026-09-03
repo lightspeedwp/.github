@@ -1,15 +1,14 @@
 ---
 title: Metrics Dashboard Design — Milestone Distribution
 description: Design specification for Phase 3 metrics dashboard
-type: design
-status: proposed
+type: documentation
+file_type: documentation
+status: draft
 version: "1.0.0"
 owner: lightspeedwp/maintainers
-tags:
-  - automation
-  - metrics
-  - dashboard
-  - phase-3
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # ENH-001: Metrics Dashboard Design
