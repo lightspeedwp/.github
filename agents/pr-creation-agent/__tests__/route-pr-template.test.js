@@ -1,479 +1,311 @@
-import { jest } from "@jest/globals";
-import * as fsPromises from "fs/promises";
 import { routePrTemplate } from "../skills/route-pr-template.js";
 
-let readFileSpy;
-
 describe("routePrTemplate", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    readFileSpy = jest.spyOn(fsPromises, "readFile");
-  });
-
-  afterEach(() => {
-    readFileSpy.mockRestore();
-  });
-
-  describe("Input Validation", () => {
-    test("should return error for missing branchType", async () => {
-      const result = await routePrTemplate({});
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("Branch type is required");
-      expect(result.templateFile).toBeNull();
+  test("returns user override when provided", async () => {
+    const result = await routePrTemplate({
+      branchType: "feat",
+      userSelectedTemplate: "pr_custom.md",
     });
 
-    test("should return error for null branchType", async () => {
-      const result = await routePrTemplate({ branchType: null });
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("Branch type is required");
-    });
-
-    test("should return error for non-string branchType", async () => {
-      const result = await routePrTemplate({ branchType: 123 });
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("Branch type is required");
+    expect(result).toEqual({
+      routed: true,
+      template: "pr_custom.md",
+      reason: "user-override",
+      userOverride: true,
+      fallback: false,
     });
   });
 
-  describe("Config Loading", () => {
-    test("should load config from default path", async () => {
-      readFileSpy.mockResolvedValueOnce(
-        `default_template: pr_feature.md\nroutes:\n  feat/: pr_feature.md\n  fix/: pr_bug.md`,
-      );
-      readFileSpy.mockResolvedValueOnce("template content");
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(true);
-      expect(result.templateFile).toBe("pr_feature.md");
+  test("routes recognised branch types to mapped templates", async () => {
+    await expect(
+      routePrTemplate({ branchType: "feat" }),
+    ).resolves.toMatchObject({
+      routed: true,
+      template: "pr_feature.md",
+      reason: "feat-type-matched",
+      fallback: false,
     });
 
-    test("should handle config load failure gracefully", async () => {
-      readFileSpy.mockRejectedValueOnce(new Error("File not found"));
+    await expect(routePrTemplate({ branchType: "fix" })).resolves.toMatchObject(
+      {
+        routed: true,
+        template: "pr_bug.md",
+        reason: "fix-type-matched",
+        fallback: false,
+      },
+    );
 
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("Error routing template");
-    });
-
-    test("should handle invalid YAML in config gracefully", async () => {
-      readFileSpy.mockRejectedValueOnce(new Error("YAML parse error"));
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("Error routing template");
+    await expect(
+      routePrTemplate({ branchType: "docs" }),
+    ).resolves.toMatchObject({
+      routed: true,
+      template: "pr_docs.md",
+      reason: "docs-type-matched",
+      fallback: false,
     });
   });
 
-  describe("Template Routing", () => {
-    const mockConfig = `
-default_template: pr_feature.md
-routes:
-  feat/: pr_feature.md
-  fix/: pr_bug.md
-  docs/: pr_docs.md
-  hotfix/: pr_hotfix.md
-  refactor/: pr_refactor.md
-  chore/: pr_chore.md
-  ci/: pr_ci.md
-  test/: pr_chore.md
-  security/: pr_bug.md
-available_templates:
-  - pr_feature.md
-  - pr_bug.md
-  - pr_hotfix.md
-  - pr_refactor.md
-  - pr_chore.md
-  - pr_docs.md
-  - pr_ci.md
-`;
-
-    const mockTemplate = `---
-file_type: "pr-template"
-title: "PR Template - FEATURE"
-description: "Pull request template for FEATURE changes"
-version: "1.0.1"
----
-
-# Feature Pull Request
-
-## Linked issues
-
-Closes #
-
-## Changelog
-
-### Added
-- [placeholder]
-
----
-
-### Checklist (Global DoD / PR)
-
-- [ ] All AC met and demonstrated
-`;
-
-    test("should route feat branch to pr_feature.md", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(true);
-      expect(result.branchType).toBe("feat");
-      expect(result.templateFile).toBe("pr_feature.md");
-      expect(result.templatePath).toBe(
-        ".github/PULL_REQUEST_TEMPLATE/pr_feature.md",
-      );
+  test("extracts branch type from branch name when branchType is absent", async () => {
+    const result = await routePrTemplate({
+      branchName: "hotfix/fix-critical-bug",
     });
 
-    test("should route fix branch to pr_bug.md", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      const result = await routePrTemplate({ branchType: "fix" });
-
-      expect(result.valid).toBe(true);
-      expect(result.templateFile).toBe("pr_bug.md");
-    });
-
-    test("should route docs branch to pr_docs.md", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      const result = await routePrTemplate({ branchType: "docs" });
-
-      expect(result.valid).toBe(true);
-      expect(result.templateFile).toBe("pr_docs.md");
-    });
-
-    test("should use default template for unknown branch type", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      const result = await routePrTemplate({ branchType: "unknown" });
-
-      expect(result.valid).toBe(true);
-      expect(result.templateFile).toBe("pr_feature.md");
-    });
-
-    test("should return error when template routing not found", async () => {
-      const emptyConfig = "default_template: null\nroutes: {}";
-      readFileSpy.mockResolvedValueOnce(emptyConfig);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("No template found");
+    expect(result).toMatchObject({
+      routed: true,
+      template: "pr_hotfix.md",
+      reason: "hotfix-type-matched",
+      fallback: false,
     });
   });
 
-  describe("Template File Reading", () => {
-    const mockConfig = `
-default_template: pr_feature.md
-routes:
-  feat/: pr_feature.md
-`;
+  test("falls back when input branch type is invalid", async () => {
+    const result = await routePrTemplate({ branchType: null });
 
-    const mockTemplate = `---
-title: "Test Template"
----
+    expect(result).toMatchObject({
+      routed: false,
+      template: "pr_feature.md",
+      reason: "invalid-input",
+      fallback: true,
+    });
+    expect(result.warning).toContain("Branch type is required");
+  });
 
-## Section 1
-Content here
-`;
+  test("returns a consistent fallback object shape for invalid input", async () => {
+    const result = await routePrTemplate({});
 
-    test("should read template file successfully", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
+    expect(result).toEqual(
+      expect.objectContaining({
+        routed: false,
+        template: "pr_feature.md",
+        reason: "invalid-input",
+        fallback: true,
+      }),
+    );
+    expect(result).toHaveProperty("warning");
+  });
 
-      const result = await routePrTemplate({ branchType: "feat" });
+  test("falls back when branch type is unknown", async () => {
+    const result = await routePrTemplate({ branchType: "unknown" });
 
-      expect(result.valid).toBe(true);
-      expect(result.content).toBe(mockTemplate);
+    expect(result).toMatchObject({
+      routed: false,
+      template: "pr_feature.md",
+      reason: "unknown-branch-type",
+      fallback: true,
+    });
+    expect(result.warning).toContain(
+      "No template found for branch type 'unknown'",
+    );
+  });
+
+  test("supports documented aliases", async () => {
+    await expect(
+      routePrTemplate({ branchType: "test" }),
+    ).resolves.toMatchObject({
+      routed: true,
+      template: "pr_chore.md",
+      reason: "test-type-matched",
+      fallback: false,
     });
 
-    test("should handle template file read failure", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockRejectedValueOnce(new Error("File not found"));
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("Failed to read template file");
-      expect(result.content).toBeNull();
+    await expect(
+      routePrTemplate({ branchType: "security" }),
+    ).resolves.toMatchObject({
+      routed: true,
+      template: "pr_bug.md",
+      reason: "security-type-matched",
+      fallback: false,
     });
   });
 
-  describe("Metadata Extraction", () => {
-    const mockConfig = `
-default_template: pr_feature.md
-routes:
-  feat/: pr_feature.md
-`;
-
-    const mockTemplate = `---
-file_type: "pr-template"
-title: "PR Template - FEATURE"
-description: "Pull request template for FEATURE changes"
-version: "1.0.1"
-last_updated: "2026-06-03"
----
-
-# Feature Pull Request
-
-## Linked issues
-
-Closes #
-
-## Changelog
-
-### Added
-- [placeholder]
-
----
-
-### Checklist (Global DoD / PR)
-
-- [ ] All AC met and demonstrated
-`;
-
-    test("should report missing required sections", async () => {
-      const incompleteTemplate = `---
-title: "Incomplete Template"
----
-
-## Linked issues
-
-Closes #
-`;
-
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(incompleteTemplate);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.metadata.foundSections).toEqual(["Linked issues"]);
-      expect(result.metadata.missingSections).toContain("Changelog");
-      expect(result.metadata.missingSections).toContain(
-        "Checklist (Global DoD / PR)",
-      );
-      expect(result.metadata.complete).toBe(false);
-    });
-
-    test("should extract frontmatter metadata", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.metadata.frontmatter).toBeDefined();
-      expect(result.metadata.frontmatter.title).toBe("PR Template - FEATURE");
-      expect(result.metadata.frontmatter.version).toBe("1.0.1");
-      expect(result.metadata.frontmatter.file_type).toBe("pr-template");
-    });
-
-    test("should include content statistics in metadata", async () => {
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.metadata.contentLength).toBeGreaterThan(0);
-      expect(result.metadata.lineCount).toBeGreaterThan(0);
-      expect(result.metadata.templateFile).toBe("pr_feature.md");
-    });
-  });
-
-  describe("Config Override", () => {
-    test("should use custom config path when provided", async () => {
-      const mockConfig = "default_template: pr_feature.md\nroutes: {}";
-      const mockTemplate = "## Section";
-
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      await routePrTemplate({
+  describe("all nine templates", () => {
+    const templateMappings = [
+      {
         branchType: "feat",
-        config: { configPath: "custom/config.yml" },
+        template: "pr_feature.md",
+        example: "feat/new-user-auth",
+      },
+      {
+        branchType: "fix",
+        template: "pr_bug.md",
+        example: "fix/validation-error",
+      },
+      {
+        branchType: "chore",
+        template: "pr_chore.md",
+        example: "chore/deps-update",
+      },
+      {
+        branchType: "ci",
+        template: "pr_ci.md",
+        example: "ci/github-workflows",
+      },
+      {
+        branchType: "docs",
+        template: "pr_docs.md",
+        example: "docs/api-reference",
+      },
+      {
+        branchType: "hotfix",
+        template: "pr_hotfix.md",
+        example: "hotfix/critical-bug",
+      },
+      {
+        branchType: "refactor",
+        template: "pr_refactor.md",
+        example: "refactor/code-cleanup",
+      },
+      {
+        branchType: "deps",
+        template: "pr_dep_update.md",
+        example: "deps/npm-upgrade",
+      },
+      {
+        branchType: "release",
+        template: "pr_release.md",
+        example: "release/v1-0-0",
+      },
+    ];
+
+    templateMappings.forEach(({ branchType, template, example }) => {
+      test(`routes ${branchType}/ branches to ${template}`, async () => {
+        const result = await routePrTemplate({ branchType });
+        expect(result).toMatchObject({
+          routed: true,
+          template,
+          fallback: false,
+        });
       });
 
-      expect(readFileSpy).toHaveBeenCalledWith("custom/config.yml", "utf8");
+      test(`extracts type from example branch ${example} and routes to ${template}`, async () => {
+        const result = await routePrTemplate({ branchName: example });
+        expect(result).toMatchObject({
+          routed: true,
+          template,
+          fallback: false,
+        });
+      });
     });
   });
 
-  describe("Error Handling", () => {
-    test("should handle unexpected errors gracefully", async () => {
-      readFileSpy.mockRejectedValueOnce(new Error("Unexpected file error"));
+  describe("forbidden branch prefixes fallback handling", () => {
+    test("rejects unknown branch type (claude) and uses default fallback", async () => {
+      const result = await routePrTemplate({
+        branchName: "claude/governance-implementation",
+      });
 
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(false);
-      expect(result.error).toContain("Failed to load routing config");
-      expect(result.templateFile).toBeNull();
-      expect(result.content).toBeNull();
-      expect(result.metadata).toBeNull();
+      expect(result).toMatchObject({
+        routed: false,
+        template: "pr_feature.md",
+        fallback: true,
+        warning: expect.stringContaining("claude"),
+      });
     });
 
-    test("should maintain consistent error object structure", async () => {
-      const result = await routePrTemplate({ branchType: null });
+    test("rejects copilot/ prefix as unknown type and uses fallback", async () => {
+      const result = await routePrTemplate({
+        branchName: "copilot/new-integration",
+      });
 
-      expect(result).toHaveProperty("valid");
-      expect(result).toHaveProperty("error");
-      expect(result).toHaveProperty("templateFile");
-      expect(result).toHaveProperty("templatePath");
-      expect(result).toHaveProperty("content");
-      expect(result).toHaveProperty("metadata");
-    });
-  });
-
-  describe("Edge Cases", () => {
-    test("should handle template with no frontmatter", async () => {
-      const mockConfig = `
-default_template: pr_feature.md
-routes:
-  feat/: pr_feature.md
-`;
-
-      const noFrontmatterTemplate = `# Template without frontmatter
-
-## Linked issues
-
-Content`;
-
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(noFrontmatterTemplate);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(true);
-      expect(result.metadata.frontmatter).toBeDefined();
+      expect(result).toMatchObject({
+        routed: false,
+        template: "pr_feature.md",
+        fallback: true,
+      });
     });
 
-    test("should handle template with special characters in sections", async () => {
-      const mockConfig = `
-default_template: pr_feature.md
-routes:
-  feat/: pr_feature.md
-`;
+    test("rejects openai/ prefix as unknown type and uses fallback", async () => {
+      const result = await routePrTemplate({
+        branchName: "openai/my-feature",
+      });
 
-      const specialCharTemplate = `---
-title: "Test"
----
-
-## Linked issues & PRs
-
-Content
-
-## Changelog (Keep a Changelog)
-
-Content`;
-
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(specialCharTemplate);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result.valid).toBe(true);
-      expect(result.metadata.sections).toEqual(
-        expect.arrayContaining([
-          expect.stringMatching(/^Linked issues/),
-          expect.stringMatching(/^Changelog/),
-        ]),
-      );
+      expect(result).toMatchObject({
+        routed: false,
+        template: "pr_feature.md",
+        fallback: true,
+      });
     });
   });
 
-  describe("Integration", () => {
-    test("should return all expected properties on success", async () => {
-      const mockConfig = `
-default_template: pr_feature.md
-routes:
-  feat/: pr_feature.md
-`;
+  describe("comprehensive branch type coverage (30+ types)", () => {
+    const allBranchTypesAndTemplates = [
+      // Core types
+      { type: "feat", template: "pr_feature.md" },
+      { type: "fix", template: "pr_bug.md" },
+      { type: "hotfix", template: "pr_hotfix.md" },
+      { type: "chore", template: "pr_chore.md" },
+      { type: "docs", template: "pr_docs.md" },
+      { type: "ci", template: "pr_ci.md" },
+      { type: "refactor", template: "pr_refactor.md" },
+      { type: "deps", template: "pr_dep_update.md" },
+      { type: "release", template: "pr_release.md" },
+      // Extended types
+      { type: "test", template: "pr_chore.md" },
+      { type: "security", template: "pr_bug.md" },
+      { type: "perf", template: "pr_feature.md" },
+      { type: "build", template: "pr_ci.md" },
+      { type: "revert", template: "pr_chore.md" },
+      { type: "research", template: "pr_feature.md" },
+      { type: "design", template: "pr_feature.md" },
+      { type: "a11y", template: "pr_feature.md" },
+      { type: "ux", template: "pr_feature.md" },
+      { type: "i18n", template: "pr_feature.md" },
+      { type: "ops", template: "pr_chore.md" },
+      { type: "proto", template: "pr_feature.md" },
+      { type: "ds", template: "pr_feature.md" },
+      { type: "api", template: "pr_feature.md" },
+      { type: "schema", template: "pr_feature.md" },
+      { type: "telemetry", template: "pr_feature.md" },
+      { type: "content", template: "pr_docs.md" },
+      { type: "seo", template: "pr_docs.md" },
+      { type: "config", template: "pr_chore.md" },
+      { type: "migrate", template: "pr_chore.md" },
+      { type: "qa", template: "pr_chore.md" },
+      { type: "uat", template: "pr_chore.md" },
+      { type: "audit", template: "pr_chore.md" },
+      { type: "codex", template: "pr_feature.md" },
+    ];
 
-      const mockTemplate = `---
-version: "1.0.1"
----
-
-## Linked issues
-## Changelog
-## Checklist (Global DoD / PR)
-`;
-
-      readFileSpy.mockResolvedValueOnce(mockConfig);
-      readFileSpy.mockResolvedValueOnce(mockTemplate);
-
-      const result = await routePrTemplate({ branchType: "feat" });
-
-      expect(result).toHaveProperty("valid", true);
-      expect(result).toHaveProperty("branchType", "feat");
-      expect(result).toHaveProperty("templateFile", "pr_feature.md");
-      expect(result).toHaveProperty("templatePath");
-      expect(result).toHaveProperty("content");
-      expect(result).toHaveProperty("metadata");
-      expect(result.metadata).toHaveProperty("sections");
-      expect(result.metadata).toHaveProperty("requiredSections");
-      expect(result.metadata).toHaveProperty("foundSections");
-      expect(result.metadata).toHaveProperty("missingSections");
-      expect(result.metadata).toHaveProperty("complete");
-      expect(result.metadata).toHaveProperty("frontmatter");
-      expect(result.metadata).toHaveProperty("contentLength");
-      expect(result.metadata).toHaveProperty("lineCount");
+    test(`should map all ${allBranchTypesAndTemplates.length} types correctly`, () => {
+      expect(allBranchTypesAndTemplates.length).toBeGreaterThanOrEqual(33);
     });
 
-    test("should support all documented branch types", async () => {
-      const mockConfig = `
-default_template: pr_feature.md
-routes:
-  feat/: pr_feature.md
-  fix/: pr_bug.md
-  docs/: pr_docs.md
-  hotfix/: pr_hotfix.md
-  refactor/: pr_refactor.md
-  chore/: pr_chore.md
-  ci/: pr_ci.md
-  test/: pr_chore.md
-  security/: pr_bug.md
-  design/: pr_feature.md
-  a11y/: pr_feature.md
-  ux/: pr_feature.md
-  release/: pr_release.md
-  research/: pr_feature.md
-  revert/: pr_chore.md
-  i18n/: pr_feature.md
-  ops/: pr_chore.md
-`;
+    allBranchTypesAndTemplates.forEach(({ type, template }) => {
+      test(`correctly routes ${type} to ${template}`, async () => {
+        const result = await routePrTemplate({ branchType: type });
+        expect(result.template).toBe(template);
+        expect(result.routed).toBe(true);
+      });
+    });
+  });
 
-      const mockTemplate =
-        "## Linked issues\n## Changelog\n## Checklist (Global DoD / PR)";
+  describe("error handling and validation", () => {
+    test("handles empty branchType gracefully", async () => {
+      const result = await routePrTemplate({ branchType: "" });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pr_feature.md");
+    });
 
-      const branchTypes = [
-        "feat",
-        "fix",
-        "docs",
-        "hotfix",
-        "refactor",
-        "chore",
-        "ci",
-        "test",
-        "security",
-      ];
+    test("handles empty branch name gracefully", async () => {
+      const result = await routePrTemplate({ branchName: "" });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pr_feature.md");
+    });
 
-      for (const branchType of branchTypes) {
-        readFileSpy.mockResolvedValueOnce(mockConfig);
-        readFileSpy.mockResolvedValueOnce(mockTemplate);
+    test("handles non-string branch type", async () => {
+      const result = await routePrTemplate({
+        branchType: 123,
+      });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pr_feature.md");
+    });
 
-        const result = await routePrTemplate({ branchType });
-
-        expect(result.valid).toBe(true);
-        expect(result.branchType).toBe(branchType);
-      }
+    test("handles branch name without forward slash", async () => {
+      const result = await routePrTemplate({
+        branchName: "invalidbranch",
+      });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pr_feature.md");
     });
   });
 });

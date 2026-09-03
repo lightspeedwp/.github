@@ -66,17 +66,35 @@ This directory contains the complete work plan for GitHub issue #2352: **Enforce
 
 ---
 
+### 🔄 [OPENSPEC_STATUS_FRAMEWORK.md](./OPENSPEC_STATUS_FRAMEWORK.md) — Governance & Automation
+**Best for:** Tech leads, automation engineers, governance tracking  
+**Contains:**
+- OpenSpec status label mapping for all 5 phases
+- Specification and implementation phase tracking
+- Component status tracking with deliverables
+- Automated label progression rules
+- Phase dependency graph
+- Go/no-go gates and escalation procedures
+- Success metrics per phase and post-launch verification
+- GitHub Actions automation configuration
+
+**Start here if:** You're setting up governance automation or tracking phase progression via labels.
+
+---
+
 ## 🚀 Quick Start: Where to Go Based on Your Role
 
 ### 👔 Project Manager / Initiative Owner
 1. Read: [WORK_PLAN.md](./WORK_PLAN.md) — Full context
 2. Use: [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) — Status dashboard
 3. Track: [EXECUTION_CHECKLIST.md](./EXECUTION_CHECKLIST.md) — Phase gates
+4. Monitor: [OPENSPEC_STATUS_FRAMEWORK.md](./OPENSPEC_STATUS_FRAMEWORK.md) — Label-based progression tracking
 
 ### 🛠️ Phase Lead (Any Phase)
 1. Read: [WORK_PLAN.md](./WORK_PLAN.md) — Your phase details
 2. Reference: [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) — Dependencies and timeline
 3. Execute: [EXECUTION_CHECKLIST.md](./EXECUTION_CHECKLIST.md) — Your phase checklist
+4. Track: [OPENSPEC_STATUS_FRAMEWORK.md](./OPENSPEC_STATUS_FRAMEWORK.md) — Phase status labels
 
 ### 💻 Software Engineer (Phase 1-3)
 1. Quick ref: [QUICK_REFERENCE.md](./QUICK_REFERENCE.md) — Issue lookup

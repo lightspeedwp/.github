@@ -1,430 +1,542 @@
 /**
  * Tests for normalize-issue-pr-titles.js
- *
- * Tests cover:
- * - Type detection from labels, linked issues, PR descriptions
- * - Title formatting with type prefixes
- * - Idempotency (already-prefixed titles)
- * - Edge cases (empty, special characters)
- * - Report generation
+ * Covers type detection, title formatting, idempotency, and edge cases
  */
 
-describe("Title Normalization Script", () => {
-  // Mock type-to-displayName mapping
-  const typeMapping = {
-    bug: "Bug",
-    feature: "Feature",
-    documentation: "Documentation",
-    docs: "Documentation",
-    chore: "Chore",
-    ci: "Build & CI",
-    build: "Build & CI",
-    refactor: "Refactor",
-    security: "Security",
-    test: "Test",
-    task: "Task",
-    hotfix: "Hotfix",
-    perf: "Performance",
-    performance: "Performance",
-  };
+const {
+  normalizeTitle,
+  isAlreadyPrefixed,
+  parseArgs,
+  formatDate,
+} = require("../normalize-issue-pr-titles");
 
-  const prefixPattern = /^(\w+):\s+/;
-
-  // Helper function to detect type from item
-  function detectType(item, itemType) {
-    // For issues: Check labels first
-    if (itemType === "issue" && item.labels && item.labels.length > 0) {
-      for (const label of item.labels) {
-        const labelName = label.name.toLowerCase();
-        if (labelName.startsWith("type:")) {
-          return labelName.replace("type:", "");
-        }
-      }
-    }
-
-    // Check PR/issue labels (fallback)
-    if (item.labels && item.labels.length > 0) {
-      for (const label of item.labels) {
-        const labelName = label.name.toLowerCase();
-        if (labelName.startsWith("type:")) {
-          return labelName.replace("type:", "");
-        }
-      }
-    }
-
-    // Scan body/description for type indicators
-    if (item.body) {
-      const bodyMatch = item.body.match(/type:\s*(\w+)/i);
-      if (bodyMatch) {
-        return bodyMatch[1].toLowerCase();
-      }
-    }
-
-    return "feature";
-  }
-
-  // Helper function to generate new title
-  function generateNewTitle(item, itemType) {
-    const currentTitle = item.title;
-
-    // Check if already prefixed
-    if (prefixPattern.test(currentTitle)) {
-      return { newTitle: currentTitle, type: null, skipped: true };
-    }
-
-    // Detect type
-    const type = detectType(item, itemType);
-    const displayName = typeMapping[type] || "Feature";
-    const newTitle = `${displayName}: ${currentTitle}`;
-
-    return { newTitle, type, skipped: false };
-  }
-
-  describe("Type Detection", () => {
-    it("should detect type from type: label on issue", () => {
-      const issue = {
-        title: "Fix authentication",
-        labels: [{ name: "type:bug" }],
-      };
-      const type = detectType(issue, "issue");
-      expect(type).toBe("bug");
+describe("normalizeTitle()", () => {
+  describe("Basic functionality", () => {
+    it("should add prefix to unprefixed title", () => {
+      const result = normalizeTitle("Update documentation", "docs");
+      expect(result).toBe("docs: Update documentation");
     });
 
-    it("should detect type from multiple labels (first type: match)", () => {
-      const issue = {
-        title: "Add feature",
-        labels: [
-          { name: "area:core" },
-          { name: "type:feature" },
-          { name: "priority:high" },
-        ],
-      };
-      const type = detectType(issue, "issue");
-      expect(type).toBe("feature");
+    it("should add prefix with various types", () => {
+      expect(normalizeTitle("Fix login bug", "fix")).toBe("fix: Fix login bug");
+      expect(normalizeTitle("Add new feature", "feat")).toBe(
+        "feat: Add new feature",
+      );
+      expect(normalizeTitle("Refactor API", "refactor")).toBe(
+        "refactor: Refactor API",
+      );
+      expect(normalizeTitle("Security patch", "security")).toBe(
+        "security: Security patch",
+      );
     });
 
-    it("should detect type from PR labels", () => {
-      const pr = {
-        title: "Update docs",
-        labels: [{ name: "type:docs" }],
-      };
-      const type = detectType(pr, "pr");
-      expect(type).toBe("docs");
+    it("should preserve original title content", () => {
+      const original = "Fix issue with user authentication and session timeout";
+      const result = normalizeTitle(original, "fix");
+      expect(result).toBe(`fix: ${original}`);
     });
 
-    it("should detect type from body/description", () => {
-      const pr = {
-        title: "Refactor module",
-        labels: [],
-        body: "type: refactor\n\nThis PR refactors the core module.",
-      };
-      const type = detectType(pr, "pr");
-      expect(type).toBe("refactor");
+    it("should handle titles with special characters", () => {
+      const title = "Update docs for A/B testing & metrics";
+      const result = normalizeTitle(title, "docs");
+      expect(result).toBe(`docs: ${title}`);
     });
 
-    it("should fallback to feature type when no type detected", () => {
-      const issue = {
-        title: "Random change",
-        labels: [{ name: "area:core" }],
-      };
-      const type = detectType(issue, "issue");
-      expect(type).toBe("feature");
+    it("should handle titles with unicode characters", () => {
+      const title = "Add support for café, naïve, and Ångström";
+      const result = normalizeTitle(title, "feat");
+      expect(result).toBe(`feat: ${title}`);
     });
 
-    it("should handle case-insensitive type detection", () => {
-      const issue = {
-        title: "Security fix",
-        labels: [{ name: "TYPE:SECURITY" }],
-      };
-      const type = detectType(issue, "issue");
-      expect(type).toBe("security");
-    });
-
-    it("should handle type: prefix in body with case variation", () => {
-      const pr = {
-        title: "Build script",
-        labels: [],
-        body: "Type: CI\n\nThis updates the CI pipeline.",
-      };
-      const type = detectType(pr, "pr");
-      expect(type).toBe("ci");
+    it("should handle very long titles", () => {
+      const longTitle = "A".repeat(200);
+      const result = normalizeTitle(longTitle, "chore");
+      expect(result).toBe(`chore: ${longTitle}`);
+      expect(result.length).toBe(207); // "chore: " + 200 A's
     });
   });
 
-  describe("Title Formatting", () => {
-    it("should format title with Bug prefix", () => {
-      const issue = {
-        title: "Fix authentication",
-        labels: [{ name: "type:bug" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Bug: Fix authentication");
-      expect(skipped).toBe(false);
+  describe("Already-prefixed titles (idempotency)", () => {
+    it("should return null for title already prefixed with valid type", () => {
+      expect(normalizeTitle("feat: Add new feature", "feat")).toBeNull();
+      expect(normalizeTitle("fix: Fix bug", "fix")).toBeNull();
+      expect(normalizeTitle("docs: Update docs", "docs")).toBeNull();
     });
 
-    it("should format title with Feature prefix", () => {
-      const pr = {
-        title: "Add user preferences",
-        labels: [{ name: "type:feature" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(pr, "pr");
-      expect(newTitle).toBe("Feature: Add user preferences");
-      expect(skipped).toBe(false);
+    it("should return null regardless of suggested prefix if already prefixed", () => {
+      // Title is already prefixed, so ignore the suggested prefix
+      expect(normalizeTitle("fix: Some fix", "feat")).toBeNull();
+      expect(normalizeTitle("docs: Some doc", "chore")).toBeNull();
     });
 
-    it("should format title with Documentation prefix", () => {
-      const issue = {
-        title: "Update README",
-        labels: [{ name: "type:documentation" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Documentation: Update README");
-      expect(skipped).toBe(false);
+    it("should handle prefixes with various spacing", () => {
+      expect(normalizeTitle("feat:  Add feature", "feat")).toBeNull(); // double space - matches
+      // Note: 'fix:Add something' without space does NOT match the pattern, so it gets prefixed
+      expect(normalizeTitle("fix:Add something", "fix")).toBe(
+        "fix: fix:Add something",
+      );
     });
 
-    it("should use docs alias for Documentation", () => {
-      const issue = {
-        title: "Update API docs",
-        labels: [{ name: "type:docs" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Documentation: Update API docs");
-      expect(skipped).toBe(false);
+    it("should be case-insensitive for prefix detection", () => {
+      expect(normalizeTitle("FEAT: Some feature", "feat")).toBeNull();
+      expect(normalizeTitle("Fix: Some fix", "fix")).toBeNull();
+      expect(normalizeTitle("DOCS: Some doc", "docs")).toBeNull();
     });
 
-    it("should handle Build & CI prefix", () => {
-      const issue = {
-        title: "Fix GitHub Actions workflow",
-        labels: [{ name: "type:ci" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Build & CI: Fix GitHub Actions workflow");
-      expect(skipped).toBe(false);
-    });
-
-    it("should preserve special characters in title", () => {
-      const issue = {
-        title: "Fix user's profile @ /settings",
-        labels: [{ name: "type:bug" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Bug: Fix user's profile @ /settings");
-      expect(skipped).toBe(false);
-    });
-
-    it("should handle titles with emoji", () => {
-      const issue = {
-        title: "🐛 Fix crash on reload",
-        labels: [{ name: "type:bug" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Bug: 🐛 Fix crash on reload");
-      expect(skipped).toBe(false);
-    });
-
-    it("should handle very short titles", () => {
-      const issue = {
-        title: "Fix",
-        labels: [{ name: "type:bug" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Bug: Fix");
-      expect(skipped).toBe(false);
-    });
-  });
-
-  describe("Idempotency", () => {
-    it("should skip already-prefixed title with Bug prefix", () => {
-      const issue = {
-        title: "Bug: Fix authentication",
-        labels: [{ name: "type:bug" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Bug: Fix authentication");
-      expect(skipped).toBe(true);
-    });
-
-    it("should skip already-prefixed title with Feature prefix", () => {
-      const pr = {
-        title: "Feature: Add user preferences",
-        labels: [{ name: "type:feature" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(pr, "pr");
-      expect(newTitle).toBe("Feature: Add user preferences");
-      expect(skipped).toBe(true);
-    });
-
-    it("should skip any title with Type: format", () => {
-      const issue = {
-        title: "CustomType: Something",
-        labels: [],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("CustomType: Something");
-      expect(skipped).toBe(true);
-    });
-
-    it("should not double-prefix on re-run", () => {
-      const issue = {
-        title: "Fix auth",
-        labels: [{ name: "type:bug" }],
-      };
-
-      // First run
-      const result1 = generateNewTitle(issue, "issue");
-      expect(result1.newTitle).toBe("Bug: Fix auth");
-      expect(result1.skipped).toBe(false);
-
-      // Simulate second run with already-prefixed title
-      const issue2 = {
-        title: result1.newTitle,
-        labels: [{ name: "type:bug" }],
-      };
-      const result2 = generateNewTitle(issue2, "issue");
-      expect(result2.newTitle).toBe("Bug: Fix auth");
-      expect(result2.skipped).toBe(true);
-    });
-  });
-
-  describe("Edge Cases", () => {
-    it("should handle title with leading/trailing spaces", () => {
-      const issue = {
-        title: "  Fix bug  ",
-        labels: [{ name: "type:bug" }],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      // Note: In real implementation, might want to trim
-      expect(newTitle).toBe("Bug:   Fix bug  ");
-      expect(skipped).toBe(false);
-    });
-
-    it("should handle empty labels array", () => {
-      const issue = {
-        title: "Some change",
-        labels: [],
-      };
-      const { newTitle, skipped } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Feature: Some change");
-      expect(skipped).toBe(false);
-    });
-
-    it("should handle null body", () => {
-      const pr = {
-        title: "Add feature",
-        labels: [],
-        body: null,
-      };
-      const { newTitle, skipped } = generateNewTitle(pr, "pr");
-      expect(newTitle).toBe("Feature: Add feature");
-      expect(skipped).toBe(false);
-    });
-
-    it("should handle undefined body", () => {
-      const pr = {
-        title: "Add feature",
-        labels: [],
-      };
-      const { newTitle, skipped } = generateNewTitle(pr, "pr");
-      expect(newTitle).toBe("Feature: Add feature");
-      expect(skipped).toBe(false);
-    });
-
-    it("should handle labels with special characters", () => {
-      const issue = {
-        title: "Update component",
-        labels: [{ name: "type:feature" }, { name: "area:ui-components" }],
-      };
-      const type = detectType(issue, "issue");
-      expect(type).toBe("feature");
-    });
-
-    it("should handle multiple type: labels (take first match)", () => {
-      const issue = {
-        title: "Something",
-        labels: [
-          { name: "type:bug" },
-          { name: "type:feature" }, // Should not reach this
-        ],
-      };
-      const type = detectType(issue, "issue");
-      expect(type).toBe("bug"); // First match wins
-    });
-  });
-
-  describe("Type Mapping", () => {
-    it("should map all expected type values to display names", () => {
-      const types = [
-        { input: "bug", expected: "Bug" },
-        { input: "feature", expected: "Feature" },
-        { input: "documentation", expected: "Documentation" },
-        { input: "docs", expected: "Documentation" },
-        { input: "chore", expected: "Chore" },
-        { input: "ci", expected: "Build & CI" },
-        { input: "refactor", expected: "Refactor" },
-        { input: "security", expected: "Security" },
-        { input: "test", expected: "Test" },
-        { input: "task", expected: "Task" },
+    it("should handle all valid prefix types", () => {
+      const prefixes = [
+        "fix",
+        "feat",
+        "hotfix",
+        "refactor",
+        "chore",
+        "docs",
+        "test",
+        "perf",
+        "ci",
+        "build",
+        "deps",
+        "security",
+        "design",
+        "a11y",
+        "ux",
+        "release",
+        "research",
+        "revert",
+        "i18n",
+        "ops",
+        "proto",
+        "ds",
+        "api",
+        "schema",
+        "telemetry",
+        "content",
+        "seo",
+        "config",
+        "migrate",
+        "qa",
+        "uat",
+        "audit",
       ];
 
-      for (const testCase of types) {
-        const issue = {
-          title: "Test",
-          labels: [{ name: `type:${testCase.input}` }],
-        };
-        const { newTitle } = generateNewTitle(issue, "issue");
-        expect(newTitle).toBe(`${testCase.expected}: Test`);
-      }
-    });
-
-    it("should use Feature as default for unknown type", () => {
-      const issue = {
-        title: "Change",
-        labels: [{ name: "type:unknown-type" }],
-      };
-      const { newTitle } = generateNewTitle(issue, "issue");
-      expect(newTitle).toBe("Feature: Change");
+      prefixes.forEach((prefix) => {
+        const title = `${prefix}: Some title`;
+        expect(normalizeTitle(title, prefix)).toBeNull();
+      });
     });
   });
 
-  describe("Report Generation", () => {
-    it("should generate correct report structure", () => {
-      const report = {
-        startTime: new Date(),
-        endTime: new Date(),
-        total: 5,
-        updated: 3,
-        skipped: 2,
-        errors: 0,
-        details: [
-          {
-            number: 1,
-            type: "issue",
-            oldTitle: "Fix bug",
-            newTitle: "Bug: Fix bug",
-            typePrefix: "bug",
-            action: "updated",
-          },
-        ],
-        errors_list: [],
-      };
-
-      expect(report.total).toBe(5);
-      expect(report.updated).toBe(3);
-      expect(report.skipped).toBe(2);
-      expect(report.errors).toBe(0);
-      expect(report.details).toHaveLength(1);
+  describe("Edge cases", () => {
+    it("should handle empty title", () => {
+      const result = normalizeTitle("", "chore");
+      expect(result).toBe("chore: ");
     });
 
-    it("should track errors in report", () => {
-      const report = {
-        total: 3,
-        errors: 1,
-        errors_list: [{ issue: 123, error: "API rate limit exceeded" }],
-      };
+    it("should handle title with only whitespace", () => {
+      const result = normalizeTitle("   ", "chore");
+      expect(result).toBe("chore:    ");
+    });
 
-      expect(report.errors).toBe(1);
-      expect(report.errors_list).toHaveLength(1);
-      expect(report.errors_list[0].error).toContain("rate limit");
+    it("should not normalize if title is just prefix and colon with space", () => {
+      expect(normalizeTitle("feat: ", "feat")).toBeNull(); // colon with space matches
+      expect(normalizeTitle("fix: ", "fix")).toBeNull(); // colon with space matches
+      // Without space after colon, they don't match the pattern
+      expect(normalizeTitle("feat:", "feat")).toBe("feat: feat:");
+      expect(normalizeTitle("fix:", "fix")).toBe("fix: fix:");
+    });
+
+    it("should handle title that looks like prefix but isnt", () => {
+      // "feature" has "feat" in it but isn't a valid prefix
+      const result = normalizeTitle("feature/add-something", "feat");
+      expect(result).toBe("feat: feature/add-something");
+    });
+
+    it("should not match invalid prefixes", () => {
+      const result = normalizeTitle("feature: Some title", "feat");
+      expect(result).toBe("feat: feature: Some title");
+    });
+
+    it("should handle prefix at end of title", () => {
+      const result = normalizeTitle("Something fix: this bug", "fix");
+      expect(result).toBe("fix: Something fix: this bug");
+    });
+  });
+
+  describe("Type family coverage", () => {
+    it("should handle all type prefixes correctly", () => {
+      const typePrefixes = [
+        "fix",
+        "feat",
+        "hotfix",
+        "refactor",
+        "chore",
+        "docs",
+        "test",
+        "perf",
+        "ci",
+        "build",
+        "deps",
+        "security",
+        "design",
+        "a11y",
+        "ux",
+        "release",
+        "research",
+        "revert",
+        "i18n",
+        "ops",
+        "proto",
+        "ds",
+        "api",
+        "schema",
+        "telemetry",
+        "content",
+        "seo",
+        "config",
+        "migrate",
+        "qa",
+        "uat",
+        "audit",
+      ];
+
+      typePrefixes.forEach((type) => {
+        const title = `Update ${type} system`;
+        const result = normalizeTitle(title, type);
+        expect(result).toBe(`${type}: ${title}`);
+      });
+    });
+  });
+});
+
+describe("isAlreadyPrefixed()", () => {
+  describe("Valid prefixed titles", () => {
+    it("should recognize titles with valid type prefixes", () => {
+      expect(isAlreadyPrefixed("feat: Add new feature")).toBe(true);
+      expect(isAlreadyPrefixed("fix: Fix bug")).toBe(true);
+      expect(isAlreadyPrefixed("docs: Update documentation")).toBe(true);
+      expect(isAlreadyPrefixed("chore: Cleanup")).toBe(true);
+    });
+
+    it("should handle all valid prefixes", () => {
+      const prefixes = [
+        "fix",
+        "feat",
+        "hotfix",
+        "refactor",
+        "chore",
+        "docs",
+        "test",
+        "perf",
+        "ci",
+        "build",
+        "deps",
+        "security",
+        "design",
+        "a11y",
+        "ux",
+        "release",
+        "research",
+        "revert",
+        "i18n",
+        "ops",
+        "proto",
+        "ds",
+        "api",
+        "schema",
+        "telemetry",
+        "content",
+        "seo",
+        "config",
+        "migrate",
+        "qa",
+        "uat",
+        "audit",
+      ];
+
+      prefixes.forEach((prefix) => {
+        expect(isAlreadyPrefixed(`${prefix}: Some title`)).toBe(true);
+      });
+    });
+
+    it("should be case-insensitive", () => {
+      expect(isAlreadyPrefixed("FEAT: Add feature")).toBe(true);
+      expect(isAlreadyPrefixed("Fix: Fix bug")).toBe(true);
+      expect(isAlreadyPrefixed("DOCS: Update docs")).toBe(true);
+    });
+
+    it("should handle various spacing after colon", () => {
+      expect(isAlreadyPrefixed("feat: Title")).toBe(true);
+      expect(isAlreadyPrefixed("feat:  Title")).toBe(true); // double space
+      expect(isAlreadyPrefixed("feat:\tTitle")).toBe(true); // tab
+    });
+  });
+
+  describe("Unprefixed titles", () => {
+    it("should reject titles without prefix", () => {
+      expect(isAlreadyPrefixed("Add new feature")).toBe(false);
+      expect(isAlreadyPrefixed("Fix this bug")).toBe(false);
+      expect(isAlreadyPrefixed("Update documentation")).toBe(false);
+    });
+
+    it("should reject invalid prefixes", () => {
+      expect(isAlreadyPrefixed("feature: Add feature")).toBe(false);
+      expect(isAlreadyPrefixed("bug: Fix bug")).toBe(false);
+      expect(isAlreadyPrefixed("change: Update something")).toBe(false);
+    });
+
+    it("should reject prefix without colon", () => {
+      expect(isAlreadyPrefixed("feat Add feature")).toBe(false);
+      expect(isAlreadyPrefixed("fix Update bug")).toBe(false);
+    });
+
+    it("should reject prefix at end of title", () => {
+      expect(isAlreadyPrefixed("Something fix: this bug")).toBe(false);
+    });
+
+    it("should reject colons not preceded by valid prefix", () => {
+      expect(isAlreadyPrefixed("HTTP: The web protocol")).toBe(false);
+      expect(isAlreadyPrefixed("Note: This is important")).toBe(false);
+    });
+  });
+
+  describe("Edge cases", () => {
+    it("should handle empty string", () => {
+      expect(isAlreadyPrefixed("")).toBe(false);
+    });
+
+    it("should handle just prefix and colon", () => {
+      expect(isAlreadyPrefixed("feat:")).toBe(false); // no space after colon
+      expect(isAlreadyPrefixed("feat: ")).toBe(true); // space after colon is enough
+    });
+
+    it("should handle multiple colons", () => {
+      expect(isAlreadyPrefixed("feat: Note: This is important")).toBe(true);
+    });
+
+    it("should handle titles with special characters", () => {
+      expect(isAlreadyPrefixed("feat: A/B testing & metrics")).toBe(true);
+      expect(isAlreadyPrefixed("A/B testing & metrics")).toBe(false);
+    });
+  });
+});
+
+describe("parseArgs()", () => {
+  it("should parse --dry-run flag", () => {
+    process.argv = ["node", "script.js", "--dry-run"];
+    const args = parseArgs();
+    expect(args.dryRun).toBe(true);
+  });
+
+  it("should parse --verbose flag", () => {
+    process.argv = ["node", "script.js", "--verbose"];
+    const args = parseArgs();
+    expect(args.verbose).toBe(true);
+  });
+
+  it("should parse --state argument", () => {
+    process.argv = ["node", "script.js", "--state", "closed"];
+    const args = parseArgs();
+    expect(args.state).toBe("closed");
+  });
+
+  it("should parse --since argument", () => {
+    process.argv = ["node", "script.js", "--since", "2026-01-01"];
+    const args = parseArgs();
+    expect(args.since).toBe("2026-01-01");
+  });
+
+  it("should parse --output argument", () => {
+    process.argv = ["node", "script.js", "--output", "report.json"];
+    const args = parseArgs();
+    expect(args.output).toBe("report.json");
+  });
+
+  it("should parse multiple arguments", () => {
+    process.argv = [
+      "node",
+      "script.js",
+      "--dry-run",
+      "--state",
+      "all",
+      "--since",
+      "2025-06-01",
+      "--output",
+      "result.json",
+      "--verbose",
+    ];
+    const args = parseArgs();
+    expect(args.dryRun).toBe(true);
+    expect(args.state).toBe("all");
+    expect(args.since).toBe("2025-06-01");
+    expect(args.output).toBe("result.json");
+    expect(args.verbose).toBe(true);
+  });
+
+  it("should have correct defaults", () => {
+    process.argv = ["node", "script.js"];
+    const args = parseArgs();
+    expect(args.dryRun).toBe(false);
+    expect(args.state).toBe("open");
+    expect(args.since).toBeNull();
+    expect(args.output).toBeNull();
+    expect(args.verbose).toBe(false);
+  });
+});
+
+describe("formatDate()", () => {
+  it("should format valid date strings to ISO", () => {
+    const result = formatDate("2026-01-15");
+    expect(result).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+  });
+
+  it("should return null for invalid date", () => {
+    const result = formatDate("not-a-date");
+    expect(result).toBeNull();
+  });
+
+  it("should handle already-ISO dates", () => {
+    const result = formatDate("2026-01-15T10:30:00Z");
+    expect(result).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+  });
+
+  it("should return null for empty string", () => {
+    const result = formatDate("");
+    expect(result).toBeNull();
+  });
+});
+
+describe("Integration: Type detection → Title normalization", () => {
+  it("should handle complete workflow: detect type and normalize", () => {
+    // Simulate detecting 'bug' type and normalizing title
+    const title = "Fix authentication timeout";
+    const detectedType = "bug"; // simulated
+    const typeToPrefix = { bug: "fix" };
+    const prefix = typeToPrefix[detectedType];
+    const result = normalizeTitle(title, prefix);
+
+    expect(result).toBe("fix: Fix authentication timeout");
+    expect(isAlreadyPrefixed(result)).toBe(true);
+  });
+
+  it("should handle idempotency in complete workflow", () => {
+    const title = "Update API documentation";
+
+    // First pass: add prefix
+    const pass1 = normalizeTitle(title, "docs");
+    expect(pass1).toBe("docs: Update API documentation");
+
+    // Second pass: should detect it's already prefixed
+    const pass2 = normalizeTitle(pass1, "docs");
+    expect(pass2).toBeNull(); // No change needed
+
+    // Verify no double-prefixing
+    expect(pass1).toBe("docs: Update API documentation");
+  });
+
+  it("should handle workflow with various type families", () => {
+    const workflows = [
+      {
+        title: "Add user preferences",
+        type: "feature",
+        expected: "feat: Add user preferences",
+      },
+      {
+        title: "Fix memory leak",
+        type: "bug",
+        expected: "fix: Fix memory leak",
+      },
+      {
+        title: "Update README",
+        type: "documentation",
+        expected: "docs: Update README",
+      },
+      {
+        title: "Refactor services",
+        type: "refactor",
+        expected: "refactor: Refactor services",
+      },
+      {
+        title: "Add unit tests",
+        type: "test",
+        expected: "test: Add unit tests",
+      },
+      {
+        title: "Fix XSS vulnerability",
+        type: "security",
+        expected: "security: Fix XSS vulnerability",
+      },
+      {
+        title: "Improve query performance",
+        type: "performance",
+        expected: "perf: Improve query performance",
+      },
+    ];
+
+    const typeToPrefix = {
+      feature: "feat",
+      bug: "fix",
+      documentation: "docs",
+      refactor: "refactor",
+      test: "test",
+      security: "security",
+      performance: "perf",
+    };
+
+    workflows.forEach(({ title, type, expected }) => {
+      const prefix = typeToPrefix[type];
+      const result = normalizeTitle(title, prefix);
+      expect(result).toBe(expected);
+      expect(isAlreadyPrefixed(result)).toBe(true);
+    });
+  });
+});
+
+describe("Boundary conditions and error tolerance", () => {
+  it("should not modify title format beyond adding prefix", () => {
+    const original = "Update  docs  (with   spaces)";
+    const result = normalizeTitle(original, "docs");
+    expect(result).toBe(`docs: ${original}`);
+  });
+
+  it("should handle titles that might break parsing", () => {
+    const titles = [
+      "Title with (parentheses)",
+      "Title with [brackets]",
+      "Title with {braces}",
+      'Title with "quotes"',
+      "Title with 'single quotes'",
+      "Title with $special $chars",
+      "Title with @mentions",
+      "Title with #hashtags",
+    ];
+
+    titles.forEach((title) => {
+      const result = normalizeTitle(title, "feat");
+      expect(result).toBe(`feat: ${title}`);
+      expect(isAlreadyPrefixed(result)).toBe(true);
+    });
+  });
+
+  it("should handle real-world GitHub issue titles", () => {
+    const realTitles = [
+      "Implement OAuth2 integration with third-party providers",
+      "Users cannot reset password via email link",
+      "Database migration: convert legacy schema to v2",
+      "Performance: reduce bundle size by 40%",
+      "Accessibility audit & WCAG 2.2 AA compliance",
+      "Security: CVE-2024-12345 XSS vulnerability in comments",
+      "Refactor: split monolithic AuthService into modules",
+      "A/B test: new checkout flow vs. legacy flow",
+    ];
+
+    realTitles.forEach((title) => {
+      const prefix = "feat"; // Generic for this test
+      const result = normalizeTitle(title, prefix);
+      // Some titles contain colons that match the prefix pattern, so they might already be "prefixed"
+      if (result !== null) {
+        expect(result).toContain("feat: ");
+        expect(isAlreadyPrefixed(result)).toBe(true);
+      }
     });
   });
 });

@@ -1,6 +1,9 @@
 name: Remediate Bare Labels (Phase 2)
 
 on:
+  schedule:
+    # Run every Monday at 08:00 UTC (Priority 4 enhancement for automated remediation)
+    - cron: "0 8 * * 1"
   workflow_dispatch:
     inputs:
       dry_run:

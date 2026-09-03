@@ -254,6 +254,8 @@ Action: Post comment "approved" to proceed
 
 ```mermaid
 flowchart TD
+  accTitle: Gate Flow Diagram
+  accDescr: Flowchart diagram showing gate flow diagram
     A["Release triggered<br/>on develop branch"] --> B["GATE 1<br/>Pre-flight Checks"]
     B -->|"PASS"| C["GATE 2<br/>Agentic Score"]
     B -->|"FAIL"| Z1["❌ RELEASE BLOCKED"]
