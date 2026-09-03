@@ -164,17 +164,19 @@ See `SKILL.md` for complete workflow example (lines 61-97).
 - Scheduled audit workflow
 - GitHub Issue template auto-updates
 
-### Enhancement Issues to Create
+### Enhancement Issues Created
 
-1. **#1786.1** — Skill integration examples (GitHub Actions workflow templates)
+1. **[#2658](https://github.com/lightspeedwp/.github/issues/2658)** — Skill integration examples (GitHub Actions workflow templates)
    - Scope: Create reusable workflow templates for common audit scenarios
    - Effort: 3-4h
    - Audience: DevOps engineers, workflow maintainers
+   - Status: 🔴 Open (Needs Triage)
 
-2. **#1786.2** — Real repository testing
+2. **[#2659](https://github.com/lightspeedwp/.github/issues/2659)** — Real repository testing
    - Scope: Test skill against actual lightspeedwp/.github repository data
    - Effort: 2-3h
    - Audience: QA, validation
+   - Status: 🔴 Open (Needs Triage)
 
 ---
 
