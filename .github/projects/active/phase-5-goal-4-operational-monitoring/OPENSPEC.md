@@ -562,11 +562,29 @@ See [TASKS.md](./TASKS.md) for optional enhancements including:
 
 ## Related Issues & PRs
 
-| Item | Type | Description |
-|------|------|-------------|
-| [#2692](https://github.com/lightspeedwp/.github/pull/2692) | PR | Phase 5 Goal 4 implementation |
-| Phase 5 Goal 1 | Issue | Comprehensive Validation Test Suite (dependency) |
-| Phase 5 Goal 2 | Issue | Agent Specification Generator CLI (dependency) |
+### Project Tracking
+| Item | Type | Description | Status |
+|------|------|-------------|--------|
+| [#2698](https://github.com/lightspeedwp/.github/issues/2698) | Issue | Phase 5 Goal 4: Operational Monitoring & Debugging — Complete | Open |
+| [#2692](https://github.com/lightspeedwp/.github/pull/2692) | PR | Phase 5 Goal 4 implementation | Ready for Review |
+
+### Enhancement Tasks (Pending Implementation)
+| Issue | Task | Effort | Priority |
+|-------|------|--------|----------|
+| [#2699](https://github.com/lightspeedwp/.github/issues/2699) | TASK-01: Advanced Chart Library Integration | 3-4h | Medium |
+| [#2700](https://github.com/lightspeedwp/.github/issues/2700) | TASK-05: Historical Trend Analysis | 4-5h | Medium |
+| [#2701](https://github.com/lightspeedwp/.github/issues/2701) | TASK-08: Slack Integration | 4-5h | Medium |
+| [#2703](https://github.com/lightspeedwp/.github/issues/2703) | TASK-10: GitHub Issue Auto-Linking | 3-4h | Medium |
+| [#2706](https://github.com/lightspeedwp/.github/issues/2706) | TASK-14: CI/CD Integration Guide | 2h | Medium |
+
+**View all tasks:** [TASKS.md](./TASKS.md) contains 15 total enhancement tasks (45-55 hours effort)
+
+### Dependencies (Phase 5 Goals)
+| Issue | Title | Status |
+|-------|-------|--------|
+| — | Phase 5 Goal 1: Comprehensive Validation Test Suite | ✅ Complete |
+| — | Phase 5 Goal 2: Agent Specification Generator CLI | ✅ Complete |
+| — | Phase 5 Goal 3: Enhanced Documentation & Examples | ✅ Complete |
 
 ---
 

@@ -552,25 +552,28 @@ Generate API documentation from JSDoc comments in source files:
 
 ## Task Summary
 
-| Task | Category | Effort | Priority | Status |
-|------|----------|--------|----------|--------|
-| TASK-01 | Dashboard | 3-4h | Medium | Pending |
-| TASK-02 | Dashboard | 4-5h | Low | Pending |
-| TASK-03 | Dashboard | 3-4h | Medium | Pending |
-| TASK-04 | Dashboard | 2-3h | Low | Pending |
-| TASK-05 | Reports | 4-5h | Medium | Pending |
-| TASK-06 | Reports | 3-4h | Low | Pending |
-| TASK-07 | Reports | 2h | Low | Pending |
-| TASK-08 | Integration | 4-5h | Medium | Pending |
-| TASK-09 | Integration | 4-5h | Medium | Pending |
-| TASK-10 | Integration | 3-4h | Medium | Pending |
-| TASK-11 | Performance | 2-3h | Low | Pending |
-| TASK-12 | Performance | 2-3h | Low | Pending |
-| TASK-13 | Docs | 2-3h | Low | Pending |
-| TASK-14 | Docs | 2h | Medium | Pending |
-| TASK-15 | Docs | 2-3h | Low | Pending |
+| Task | Category | Effort | Priority | Status | GitHub Issue |
+|------|----------|--------|----------|--------|--------------|
+| TASK-01 | Dashboard | 3-4h | Medium | Open | [#2699](https://github.com/lightspeedwp/.github/issues/2699) |
+| TASK-02 | Dashboard | 4-5h | Low | Pending | — |
+| TASK-03 | Dashboard | 3-4h | Medium | Pending | — |
+| TASK-04 | Dashboard | 2-3h | Low | Pending | — |
+| TASK-05 | Reports | 4-5h | Medium | Open | [#2700](https://github.com/lightspeedwp/.github/issues/2700) |
+| TASK-06 | Reports | 3-4h | Low | Pending | — |
+| TASK-07 | Reports | 2h | Low | Pending | — |
+| TASK-08 | Integration | 4-5h | Medium | Open | [#2701](https://github.com/lightspeedwp/.github/issues/2701) |
+| TASK-09 | Integration | 4-5h | Medium | Pending | — |
+| TASK-10 | Integration | 3-4h | Medium | Open | [#2703](https://github.com/lightspeedwp/.github/issues/2703) |
+| TASK-11 | Performance | 2-3h | Low | Pending | — |
+| TASK-12 | Performance | 2-3h | Low | Pending | — |
+| TASK-13 | Docs | 2-3h | Low | Pending | — |
+| TASK-14 | Docs | 2h | Medium | Open | [#2706](https://github.com/lightspeedwp/.github/issues/2706) |
+| TASK-15 | Docs | 2-3h | Low | Pending | — |
 
 **Total Enhancement Effort:** 45-55 hours (optional, not required for MVP)
+
+**Created Issues:** 5 (TASK-01, TASK-05, TASK-08, TASK-10, TASK-14)  
+**Open for Assignment:** All created issues available for team members to claim
 
 ---
 
