@@ -4,12 +4,33 @@
 
 ## 📋 Quick Links
 
+### Strategic & Planning
 - **[PROJECT_PLAN.md](./PROJECT_PLAN.md)** — Full 4-phase strategic plan
-- **[PHASE_4_KICKOFF.md](./PHASE_4_KICKOFF.md)** — Phase 4 execution instructions (current)
+- **[PHASE_4_KICKOFF.md](./PHASE_4_KICKOFF.md)** — Phase 4 execution instructions
+- **[OPENSPEC_2026-09-03.md](./OPENSPEC_2026-09-03.md)** — Extended specification & implementation status (UPDATED 2026-09-03)
 - **[CHANGELOG_GUIDELINES.md](./CHANGELOG_GUIDELINES.md)** — What belongs in CHANGELOG.md
+
+### Audit & Implementation (NEW - 2026-09-03)
+- **[EXECUTIVE_SUMMARY_2026-09-03.md](./EXECUTIVE_SUMMARY_2026-09-03.md)** — Quick reference (START HERE)
+- **[DETAILED_FINDINGS_2026-09-03.md](./DETAILED_FINDINGS_2026-09-03.md)** — Deep-dive analysis of 7 findings
+- **[CONSOLIDATION_AUDIT_DETAILED_PROMPT_2026-09-03.md](./CONSOLIDATION_AUDIT_DETAILED_PROMPT_2026-09-03.md)** — Full implementation prompt (3,200+ lines)
+- **[IMPLEMENTATION_PROMPTS_2026-09-03.md](./IMPLEMENTATION_PROMPTS_2026-09-03.md)** — 6 copy/paste prompts ready to use
+
+### Audit Issues (2026-09-03)
+- **[#2650](https://github.com/lightspeedwp/.github/issues/2650)** — Fix 2 Critical CHANGELOG.md Validation Errors (⚠️ CRITICAL)
+- **[#2651](https://github.com/lightspeedwp/.github/issues/2651)** — Investigate v1.0.0 Release Changelog Corruption (⚠️ CRITICAL)
+- **[#2652](https://github.com/lightspeedwp/.github/issues/2652)** — Consolidate Changelog Workflows into Single Agentic Workflow (HIGH)
+- **[#2653](https://github.com/lightspeedwp/.github/issues/2653)** — Create Changelog Automation Shared Skill (HIGH)
+- **[#2654](https://github.com/lightspeedwp/.github/issues/2654)** — Audit & Add Missing Changelog Entries Since v1.0.0 (HIGH)
+
+### Tracking
 - **[Active Issues (Phase 4)](#-active-issues-phase-4)** — All tracked work
 
 ---
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
 
 ## 🎯 What This Project Does
 
