@@ -271,11 +271,11 @@ async function labelPR(octokit, prNumber, pr) {
       log(`  ✓ Languages: ${langs.join(", ")}`);
     }
 
-    // 5. Add status label for new PRs
-    if (
-      labelsToApply.size === 0 ||
-      !Array.from(labelsToApply).some((l) => l.startsWith("type:"))
-    ) {
+    // 5. Ensure PR has a status label (independent of type label)
+    const hasStatusLabel = Array.from(labelsToApply).some((l) =>
+      l.startsWith("status:"),
+    );
+    if (!hasStatusLabel) {
       labelsToApply.add("status:needs-review");
       log(`  ✓ Default status: status:needs-review`);
     }
@@ -376,10 +376,25 @@ async function main() {
     log(`Successful: ${successCount}`);
     log(`Errors: ${errorCount}`);
 
+    // Write report file
+    const report = {
+      timestamp: new Date().toISOString(),
+      dryRun: DRY_RUN,
+      summary: {
+        prsProcessed: results.length,
+        labelsApplied: totalApplied,
+        successful: successCount,
+        errors: errorCount,
+      },
+      results,
+    };
+    fs.writeFileSync("labeling-report.json", JSON.stringify(report, null, 2));
+    log("\n✅ Report written to labeling-report.json");
+
     if (!DRY_RUN) {
-      log("\n✅ Batch labeling complete!");
+      log("✅ Batch labeling complete!");
     } else {
-      log("\n📋 [DRY RUN] Completed - no changes made");
+      log("📋 [DRY RUN] Completed - no changes made");
     }
   } catch (error) {
     log(`Fatal error: ${error.message}`, "error");

@@ -125,7 +125,8 @@ Weekly: remediate-bare-labels.yml + label-audit-report.yml
           (Single coordinated run, no race conditions)
 
 Sundays 03:00 UTC: labeling-governance.yml runs
-                   (Audit after labeling-automation completes)
+                   (Depends on labeling-automation.yml completion)
+                   (Requires workflow_run trigger on labeling-automation.yml)
 ```
 
 ---
