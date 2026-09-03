@@ -8,6 +8,19 @@ status: active
 tags:- planning
   - agent-integration
   - coordination
+type:bug
+type:feature
+type:task
+type:epic
+type:story
+type:documentation
+type:research
+type:chore
+status:needs-triage
+status:needs-review
+status:in-progress
+status:blocked
+status:done
 ---
 
 # Issue Management Agent — Integration with Existing Agents
@@ -73,6 +86,8 @@ Error Detection           ✅ Content errors   ✅ Operations errors
 
 ```mermaid
 graph LR
+    accTitle: Integration Pattern - Complementary Operations
+    accDescr: Two-agent workflow showing Issues Agent (quality triage and enrichment) and Issue Management Agent (operations and monitoring) working on the same issue from different angles
     Issue["Create Issue"]
     
     subgraph IssuAgent["Issues Agent<br/>(Quality)"]
@@ -216,14 +231,6 @@ Daily Sync Scheduled (3 AM UTC)
 
 ```yaml
 # Types (assigned by Issues Agent)
-type:bug
-type:feature
-type:task
-type:epic
-type:story
-type:documentation
-type:research
-type:chore
 
 # Categories (assigned by Issues Agent)
 category:governance
@@ -249,11 +256,6 @@ meta:no-issue-activity
 meta:no-pr-activity
 
 # Status Labels (managed by Issue Management Agent)
-status:needs-triage
-status:needs-review
-status:in-progress
-status:blocked
-status:done
 
 # Area Labels (may be reported on)
 area:ci

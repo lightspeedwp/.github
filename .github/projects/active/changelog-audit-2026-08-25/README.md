@@ -7,6 +7,10 @@ area: automation
 type: project
 created: 2026-08-25
 updated: 2026-08-28
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
 ---
 
 # Changelog Safety Audit & Automation System
