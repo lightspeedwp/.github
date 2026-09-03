@@ -1,6 +1,6 @@
 ---
 title: "Project Management Scripts & Agents Audit"
-status: "active"
+status: "completed"
 priority: "high"
 type: "audit"
 effort: "40h"

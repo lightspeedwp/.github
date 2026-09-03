@@ -311,12 +311,19 @@ related_branches:
 **Next Milestone**: Phase 4 execution pending Issue Type project coordination
 **Blocked By**: Issue Type workflow integration (target: Aug 13)
 
+**Related Projects**:
+- `.github/projects/active/scripts-audit-2026-09-03/` — Project management scripts and agents consolidation (completed)
+  - Coordinated effort to consolidate project infrastructure
+  - Includes 237 unit tests and comprehensive architecture documentation
+  - Links back to this workflows project via shared orchestration scripts
+
 ### Documentation
 
 - `.github/reports/workflows/WORKFLOWS-CONSOLIDATION-AUDIT.md` — Detailed audit findings
 - `projects/active/workflows-consolidation-2026-q3/IMPLEMENTATION_NOTES.md` — Technical details
 - `projects/active/workflows-consolidation-2026-q3/PHASE_3_STATUS.md` — Phase 3 completion details
 - Phase-specific implementation guides (created per phase)
+- **Related**: `.github/projects/active/scripts-audit-2026-09-03/` — Scripts and agents consolidation audit
 
 ## Next Steps
 
