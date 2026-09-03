@@ -298,6 +298,15 @@ owner: lightspeedwp/maintainers
 
 ---
 
+## Related Issues
+
+- [#1852](https://github.com/lightspeedwp/.github/issues/1852) — Phase 2 Final Validation & Merge Preparation
+- [#1524](https://github.com/lightspeedwp/.github/issues/1524) — Create integration tests for Phase 3 labeling automation
+- [#1673](https://github.com/lightspeedwp/.github/issues/1673) — Phase 3A: Automation Workflows Upgrade
+- [#786](https://github.com/lightspeedwp/.github/issues/786) — CodeRabbit v2 schema validation
+- [PR #2629](https://github.com/lightspeedwp/.github/pull/2629) — Phase 2 Core Findings (MERGED)
+- [PR #2678](https://github.com/lightspeedwp/.github/pull/2678) — Phase 2 Follow-Up: CI Investigation (IN PROGRESS)
+
 **Tracker Owner:** lightspeedwp/maintainers  
 **Created:** 2026-09-03  
 **Updated:** 2026-09-03  
