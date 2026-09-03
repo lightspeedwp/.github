@@ -42,9 +42,16 @@ See [REMOTE_ADMIN_CHECKS.md](./REMOTE_ADMIN_CHECKS.md) for the smaller follow-up
 
 ## Related Issues
 
-This project is coordinated with:
+### Completed Work
+- [#2693](https://github.com/lightspeedwp/.github/issues/2693) — Template Content Review & Refinement (**BLOCKER** — awaiting user approval)
+- [#2694](https://github.com/lightspeedwp/.github/issues/2694) — Template Testing Framework (enhancement)
+- [#2695](https://github.com/lightspeedwp/.github/issues/2695) — Contributor Guide for Template Maintenance (critical)
 
+### Related Work
 - [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+- [#1012](https://github.com/lightspeedwp/.github/issues/1012) — Standardise front matter field usage
+- [#1230](https://github.com/lightspeedwp/.github/issues/1230) — Phase 2 Frontmatter Standardization for Portable Assets
+- [#1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Governance Enforcement
 
 See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
 

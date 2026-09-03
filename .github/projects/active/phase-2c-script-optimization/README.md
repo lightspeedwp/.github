@@ -11,7 +11,8 @@ last_updated: "2026-09-03"
 
 **Status:** ✅ COMPLETE (2026-09-02)  
 **Branch:** `perf/secondary-optimization` (Merged)  
-**Merged PR:** #2604
+**Merged PR:** #2604  
+**Phase 3 Planning:** 📋 ACTIVE — 6 Epic issues created (2702, 2704, 2705, 2707, 2708, 2710)
 
 ## Overview
 
@@ -132,24 +133,16 @@ All 8 validation tests passing:
 
 ### Phase 3 (Planned - 34-49 business days)
 
-| Task | Issue | Title | Effort | Status | Details |
+| Epic | Issue | Title | Effort | Status | Details |
 |------|-------|-------|--------|--------|---------|
-| 3-1-1 | TBD | Phase 3-1: Streaming Response Handler | 3-4 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-1-streaming-responses-for-large-datasets) |
-| 3-1-2 | TBD | Phase 3-1: Edge Case Testing — Network Faults | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-1-streaming-responses-for-large-datasets) |
-| 3-2-1 | TBD | Phase 3-2: Automated Performance Monitoring | 4-6 bd | 📋 Planned | **CRITICAL** — See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-2-continuous-benchmarking-in-cicd) |
-| 3-2-2 | TBD | Phase 3-2: Load Testing Suite | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-2-continuous-benchmarking-in-cicd) |
-| 3-2-3 | TBD | Phase 3-2: Error Budget Tracking | 1-2 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-2-continuous-benchmarking-in-cicd) |
-| 3-3-1 | TBD | Phase 3-3: Adaptive Cache TTL System | 4-5 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-3-adaptive-cache-ttls) |
-| 3-3-2 | TBD | Phase 3-3: Cache Consistency Testing | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-3-adaptive-cache-ttls) |
-| 3-4-1 | TBD | Phase 3-4: Architecture Decision Records | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-4-additional-scripts-optimization) |
-| 3-4-2 | TBD | Phase 3-4: Optimization Patterns Guide | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-4-additional-scripts-optimization) |
-| 3-4-3 | TBD | Phase 3-4: Configuration System | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-4-additional-scripts-optimization) |
-| 3-4-4 | TBD | Phase 3-4: Optimize Additional Scripts | 6-8 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-4-additional-scripts-optimization) |
-| 3-4-5 | TBD | Phase 3-4: Integration Testing Suite | 4-5 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-4-additional-scripts-optimization) |
-| 3-5-1 | TBD | Phase 3-5: Webhook Integration Evaluation | 3-5 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-5-webhook-integration-evaluation) |
-| 3-5-2 | TBD | Phase 3-5: Rollback Strategy & Procedures | 1-2 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-5-webhook-integration-evaluation) |
-| 3-6-1 | TBD | Phase 3-6: Rate Limit Telemetry | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-6-predictive-rate-limiting) |
-| 3-6-2 | TBD | Phase 3-6: Predictive Rate Limiting | 2-3 bd | 📋 Planned | See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-6-predictive-rate-limiting) |
+| 3-1 | [#2702](https://github.com/lightspeedwp/.github/issues/2702) | Phase 3-1: Streaming Responses for Large Datasets | 5-8 bd | 📋 Planned | 2 sub-tasks — See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-1-streaming-responses-for-large-datasets) |
+| 3-2 | [#2704](https://github.com/lightspeedwp/.github/issues/2704) | Phase 3-2: Continuous Benchmarking in CI/CD | 4-6 bd | 📋 Planned | **🚨 CRITICAL** — 3 sub-tasks — See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-2-continuous-benchmarking-in-cicd) |
+| 3-3 | [#2705](https://github.com/lightspeedwp/.github/issues/2705) | Phase 3-3: Adaptive Cache TTLs | 6-8 bd | 📋 Planned | 2 sub-tasks — See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-3-adaptive-cache-ttls) |
+| 3-4 | [#2707](https://github.com/lightspeedwp/.github/issues/2707) | Phase 3-4: Additional Scripts Optimization | 12-16 bd | 📋 Planned | 5 sub-tasks — See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-4-additional-scripts-optimization) |
+| 3-5 | [#2708](https://github.com/lightspeedwp/.github/issues/2708) | Phase 3-5: Webhook Integration Evaluation | 3-5 bd | 📋 Planned | 2 sub-tasks — See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-5-webhook-integration-evaluation) |
+| 3-6 | [#2710](https://github.com/lightspeedwp/.github/issues/2710) | Phase 3-6: Predictive Rate Limiting | 4-6 bd | 📋 Planned | 2 sub-tasks — See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#phase-3-6-predictive-rate-limiting) |
+
+**Detailed Sub-task Tracking:** See [PHASE_3_TASKS.md](./PHASE_3_TASKS.md#github-issue-mapping) for complete sub-task breakdown and effort distribution across all 16 tasks.
 
 ## Related PRs
 
