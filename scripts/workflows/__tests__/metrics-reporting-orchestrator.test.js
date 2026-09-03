@@ -82,6 +82,11 @@ describe("MetricsReportingOrchestrator", () => {
     orchestrator = new MetricsReportingOrchestrator();
   });
 
+  afterEach(() => {
+    // Restore module-level spies (e.g. fs.statSync) so tests stay isolated
+    jest.restoreAllMocks();
+  });
+
   describe("Constructor", () => {
     it("should initialize with correct dependencies", () => {
       expect(orchestrator).toBeInstanceOf(MetricsReportingOrchestrator);
