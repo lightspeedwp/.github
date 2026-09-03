@@ -35,10 +35,6 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Validate PR template structure
-        run: node scripts/validation/validate-pr-template-structure.cjs
-        continue-on-error: true
-
       - name: Load canonical labels
         id: load-labels
         uses: actions/github-script@v9
