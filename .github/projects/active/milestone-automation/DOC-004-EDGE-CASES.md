@@ -1,14 +1,14 @@
 ---
 title: Milestone Automation Edge Case Handling
 description: Handling guide for edge cases and unusual scenarios
-type: guide
-status: approved
+type: documentation
+file_type: documentation
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
-tags:
-  - automation
-  - edge-cases
-  - milestone-distribution
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # DOC-004: Edge Case Handling Documentation

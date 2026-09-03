@@ -63,6 +63,7 @@ routes:
   qa/: pr_chore.md
   uat/: pr_chore.md
   audit/: pr_feature.md
+  codex/: pr_docs.md
 
   # FORBIDDEN PREFIXES: Fallback routing required
   #
