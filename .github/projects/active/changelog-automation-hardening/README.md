@@ -4,9 +4,19 @@
 
 ## 📋 Quick Links
 
+### Strategic & Planning
 - **[PROJECT_PLAN.md](./PROJECT_PLAN.md)** — Full 4-phase strategic plan
-- **[PHASE_4_KICKOFF.md](./PHASE_4_KICKOFF.md)** — Phase 4 execution instructions (current)
+- **[PHASE_4_KICKOFF.md](./PHASE_4_KICKOFF.md)** — Phase 4 execution instructions
+- **[OPENSPEC_2026-09-03.md](./OPENSPEC_2026-09-03.md)** — Extended specification & implementation status (UPDATED 2026-09-03)
 - **[CHANGELOG_GUIDELINES.md](./CHANGELOG_GUIDELINES.md)** — What belongs in CHANGELOG.md
+
+### Audit & Implementation (NEW - 2026-09-03)
+- **[EXECUTIVE_SUMMARY_2026-09-03.md](./EXECUTIVE_SUMMARY_2026-09-03.md)** — Quick reference (START HERE)
+- **[DETAILED_FINDINGS_2026-09-03.md](./DETAILED_FINDINGS_2026-09-03.md)** — Deep-dive analysis of 7 findings
+- **[CONSOLIDATION_AUDIT_DETAILED_PROMPT_2026-09-03.md](./CONSOLIDATION_AUDIT_DETAILED_PROMPT_2026-09-03.md)** — Full implementation prompt (3,200+ lines)
+- **[IMPLEMENTATION_PROMPTS_2026-09-03.md](./IMPLEMENTATION_PROMPTS_2026-09-03.md)** — 6 copy/paste prompts ready to use
+
+### Tracking
 - **[Active Issues (Phase 4)](#-active-issues-phase-4)** — All tracked work
 
 ---
