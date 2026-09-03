@@ -1,6 +1,5 @@
 ---
 name: "⚡ Performance"
-description: "⚡ Performance"
 about: "Report performance-related issues (speed, efficiency, resource usage) or propose optimisations."
 assignees: []
 projects: []

@@ -1,8 +1,14 @@
-name: Issue Fields • Bulk Backfill
+name: Project Field Sync
 
-# Back-fills GitHub native issue types and project board fields for all open
-# issues in one run. Useful for catching up after enabling the integration or
-# after a batch of issues was created without field values.
+# Unified workflow for syncing GitHub native issue types and project board
+# fields (Status, Priority, Type, Effort) across open issues.
+#
+# Two modes:
+#   bulk     — processes all open issues (equivalent to the former
+#              issue-fields-backfill.yml)
+#   targeted — processes a filtered subset of issues identified by a label
+#              or a comma-separated list of issue numbers (equivalent to the
+#              former issue-project-field-sync.yml)
 #
 # PREREQUISITES
 # ─────────────
@@ -15,19 +21,19 @@ name: Issue Fields • Bulk Backfill
 # The GitHub App must have:
 #   • Issues: Read & Write
 #   • Projects: Read & Write
-#   • Organization members: Read  (needed to query org issue types)
+#   • Organisation members: Read  (needed to query org issue types)
 
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Dry run — report only, no changes applied"
+      mode:
+        description: "Sync mode"
         required: false
-        default: "false"
+        default: "bulk"
         type: choice
         options:
-          - "false"
-          - "true"
+          - bulk
+          - targeted
       sync_native_types:
         description: "Set GitHub native issue type from type:* labels"
         required: false
@@ -44,10 +50,27 @@ on:
         options:
           - "true"
           - "false"
+      issue_filter:
+        description: "Targeted mode only — label name (e.g. 'priority:critical') OR comma-separated issue numbers (e.g. '12,34,56')"
+        required: false
+        default: ""
+        type: string
       issue_limit:
-        description: "Max issues to process (0 = all open issues)"
+        description: "Bulk mode only — max issues to process (0 = all open issues)"
         required: false
         default: "0"
+        type: string
+      dry_run:
+        description: "Dry run — report only, no changes applied"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+  schedule:
+    # Runs every Monday at 09:00 UTC to keep project board fields current
+    - cron: "0 9 * * 1"
 
 permissions:
   issues: write
@@ -55,8 +78,8 @@ permissions:
   repository-projects: write
 
 jobs:
-  backfill:
-    name: Back-fill issue fields
+  sync:
+    name: Sync project fields (${{ github.event.inputs.mode || 'bulk' }} mode)
     runs-on: ubuntu-latest
 
     steps:
@@ -77,29 +100,24 @@ jobs:
         id: app-token
         uses: actions/create-github-app-token@v3
         with:
-          # LS_APP_CLIENT_ID is preferred; LS_APP_ID is the legacy numeric App ID
-          # and must be passed as app-id, not as a client-id fallback.
+          # LS_APP_CLIENT_ID is preferred; LS_APP_ID is the legacy numeric App ID.
           client-id: ${{ vars.LS_APP_CLIENT_ID }}
           app-id: ${{ vars.LS_APP_CLIENT_ID == '' && vars.LS_APP_ID || '' }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
           repositories: ${{ github.repository }}
-          # Least privilege, each justified against what this job actually does:
-          #   issues                : set native issue types on open issues
-          #   organization-projects : add items to the org Projects v2 board and
-          #                           set Status / Priority / Type field values
-          # The repository checkout uses the default GITHUB_TOKEN, so this token
-          # needs no contents access.
           permission-issues: write
           permission-organization-projects: write
 
-      - name: Run bulk backfill
+      - name: Run project field sync
         uses: actions/github-script@v9
         env:
           APP_TOKEN: ${{ steps.app-token.outputs.token }}
-          DRY_RUN: ${{ github.event.inputs.dry_run }}
-          SYNC_NATIVE_TYPES: ${{ github.event.inputs.sync_native_types }}
-          SYNC_PROJECT_FIELDS: ${{ github.event.inputs.sync_project_fields }}
-          ISSUE_LIMIT: ${{ github.event.inputs.issue_limit }}
+          MODE: ${{ github.event.inputs.mode || 'bulk' }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+          SYNC_NATIVE_TYPES: ${{ github.event.inputs.sync_native_types || 'true' }}
+          SYNC_PROJECT_FIELDS: ${{ github.event.inputs.sync_project_fields || 'true' }}
+          ISSUE_FILTER: ${{ github.event.inputs.issue_filter || '' }}
+          ISSUE_LIMIT: ${{ github.event.inputs.issue_limit || '0' }}
           PROJECT_NUMBER: ${{ vars.LS_PROJECT_NUMBER || '' }}
           PROJECT_URL: ${{ vars.LS_PROJECT_URL || '' }}
           ISSUE_FIELDS_CONFIG: .github/issue-fields.yml
@@ -110,9 +128,11 @@ jobs:
             const path = require('path');
             const yaml = require('js-yaml');
 
+            const mode = process.env.MODE || 'bulk';
             const dryRun = process.env.DRY_RUN === 'true';
             const syncNativeTypes = process.env.SYNC_NATIVE_TYPES !== 'false';
             const syncProjectFields = process.env.SYNC_PROJECT_FIELDS !== 'false';
+            const issueFilter = (process.env.ISSUE_FILTER || '').trim();
             const issueLimit = parseInt(process.env.ISSUE_LIMIT || '0', 10);
             const owner = context.repo.owner;
             const repo = context.repo.repo;
@@ -153,21 +173,56 @@ jobs:
               return '';
             }
 
-            // ─── Step 1: Fetch all open issues ───────────────────────────
-            core.info('Fetching open issues...');
-            const allIssues = await github.paginate(github.rest.issues.listForRepo, {
-              owner, repo, state: 'open', per_page: 100,
-            });
-            const issues = allIssues
-              .filter(i => !i.pull_request)
-              .slice(0, issueLimit > 0 ? issueLimit : undefined);
+            // ─── Step 1: Fetch issues based on mode ──────────────────────
+            core.info(`Mode: ${mode}`);
+            let issues = [];
+
+            if (mode === 'targeted' && !issueFilter) {
+              core.warning(
+                'targeted mode selected but issue_filter is empty — falling back to bulk (all open issues). ' +
+                'Provide a label name or comma-separated issue numbers via the issue_filter input to use targeted mode.'
+              );
+            }
+
+            if (mode === 'targeted' && issueFilter) {
+              // Determine whether issueFilter is issue numbers or a label name
+              const numberList = issueFilter.split(',').map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n));
+              if (numberList.length > 0) {
+                core.info(`Targeted mode — fetching ${numberList.length} issue(s) by number: ${numberList.join(', ')}`);
+                const fetched = await Promise.allSettled(
+                  numberList.map(n => github.rest.issues.get({ owner, repo, issue_number: n }))
+                );
+                for (const result of fetched) {
+                  if (result.status === 'fulfilled' && result.value?.data && !result.value.data.pull_request) {
+                    issues.push(result.value.data);
+                  } else if (result.status === 'rejected') {
+                    core.warning(`Could not fetch issue: ${result.reason?.message}`);
+                  }
+                }
+              } else {
+                core.info(`Targeted mode — fetching issues with label: "${issueFilter}"`);
+                const labelIssues = await github.paginate(github.rest.issues.listForRepo, {
+                  owner, repo, state: 'open', labels: issueFilter, per_page: 100,
+                });
+                issues = labelIssues.filter(i => !i.pull_request);
+              }
+            } else {
+              core.info('Bulk mode — fetching all open issues...');
+              const allIssues = await github.paginate(github.rest.issues.listForRepo, {
+                owner, repo, state: 'open', per_page: 100,
+              });
+              issues = allIssues
+                .filter(i => !i.pull_request)
+                .slice(0, issueLimit > 0 ? issueLimit : undefined);
+            }
+
             core.info(`Processing ${issues.length} issue(s).`);
 
             const report = { nativeTypeSet: [], projectFieldsSet: [], errors: [] };
 
             // ─── Step 2 (optional): Native issue type sync ───────────────
             if (syncNativeTypes) {
-              core.info('Fetching issue types...');
+              core.info('Fetching org issue types...');
               let orgTypeMap = new Map();
               let orgFetchError = '';
 
@@ -184,7 +239,7 @@ jobs:
                 for (const node of typeData.organization.issueTypes.nodes) {
                   orgTypeMap.set(node.name.toLowerCase(), node.id);
                 }
-                core.info(`Organization has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
+                core.info(`Organisation has ${orgTypeMap.size} issue type(s): ${[...orgTypeMap.keys()].join(', ')}`);
               } catch (err) {
                 orgFetchError = err.message;
                 core.warning(
@@ -252,7 +307,6 @@ jobs:
             if (syncProjectFields && projectUrl) {
               core.info(`Syncing project fields to ${projectUrl}...`);
 
-              // Resolve project node ID and fields
               const projNumFromUrl = resolveProjectNumberFromUrl(projectUrl);
               const projNum = Number.isInteger(projectNumber) && projectNumber > 0
                 ? projectNumber
@@ -384,9 +438,10 @@ jobs:
             }
 
             // ─── Summary ────────────────────────────────────────────────
+            const modeLabel = mode === 'targeted' ? `Targeted (filter: "${issueFilter || 'none'}")` : 'Bulk';
             const lines = [
-              `# Issue Fields Backfill Report`,
-              `> ${dryRun ? '🔍 DRY RUN — no changes applied' : '✅ Changes applied'}`,
+              `# Project Field Sync Report`,
+              `> Mode: ${modeLabel} | ${dryRun ? '🔍 DRY RUN — no changes applied' : '✅ Changes applied'}`,
               `> Run: ${new Date().toISOString()} | Issues processed: ${issues.length}`,
               '',
               `## Native Types Set (${report.nativeTypeSet.length})`,
@@ -402,4 +457,4 @@ jobs:
             await core.summary.addRaw(lines).write();
             core.info(lines);
 
-            if (report.errors.length > 0) core.setFailed(`Backfill completed with ${report.errors.length} error(s).`);
+            if (report.errors.length > 0) core.setFailed(`Sync completed with ${report.errors.length} error(s).`);

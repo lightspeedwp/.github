@@ -1,6 +1,5 @@
 ---
 name: "🧠 AI Ops"
-description: "🧠 AI Ops"
 about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
 assignees: []
 projects: []
