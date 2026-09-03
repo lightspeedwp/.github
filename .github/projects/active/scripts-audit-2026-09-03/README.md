@@ -6,6 +6,8 @@ type: "audit"
 effort: "40h"
 created_date: "2026-09-03"
 last_updated: "2026-09-03"
+related_issues:
+  - '#2687'
 ---
 
 # Project Management Scripts & Agents Audit
@@ -282,7 +284,7 @@ Link to any GitHub issues tracking this work:
 
 | Issue | Title | Status |
 |-------|-------|--------|
-| TBD | To be created | TBD |
+| #2687 | Project Management Scripts & Agents Audit | active |
 
 ---
 
