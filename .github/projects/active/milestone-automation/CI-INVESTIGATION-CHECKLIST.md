@@ -1,9 +1,8 @@
 ---
 title: CI Investigation Checklist (Checks 11-24)
 description: Systematic validation of documentation, labeling, and workflow automation checks
-type: checklist
 file_type: documentation
-status: in-progress
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 ---
