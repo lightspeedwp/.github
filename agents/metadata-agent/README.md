@@ -24,7 +24,7 @@ The Metadata Agent helps teams:
 2. **Sync** labels and project fields with confidence scoring
 3. **Validate** release readiness across Tier 1, Tier 2, and Tier 3 checks
 4. **Discover** and learn label taxonomy
-5. **Recover** from errors with intelligent retry and suggestions
+5. **Recover** from errors with intelligent retry, adaptive backoff, and quota forecasting
 
 Perfect for:
 
@@ -301,6 +301,12 @@ Auto-apply threshold: **85%+** confidence (customizable)
 ```
 Hit rate limit → Wait until reset → Retry → Continue
 ```
+
+The Phase 2.4 rate limit modules provide:
+
+- `lib/rate-limit/rate-limit-tracker.js` — independent tracking for core, GraphQL, and search quotas
+- `lib/rate-limit/backoff-calculator.js` — adaptive exponential backoff with jitter and Retry-After support
+- `lib/rate-limit/quota-monitor.js` — quota health states and recovery estimates
 
 ### Missing Labels
 
