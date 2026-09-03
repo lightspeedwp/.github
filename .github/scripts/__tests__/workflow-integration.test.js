@@ -19,7 +19,6 @@ import path from "path";
 const RED = "\x1b[0;31m";
 const GREEN = "\x1b[0;32m";
 const YELLOW = "\x1b[1;33m";
-const BLUE = "\x1b[0;34m";
 const NC = "\x1b[0m";
 
 // Test counters
@@ -31,18 +30,6 @@ let testsTotal = 0;
 function testCase(name) {
   testsTotal++;
   console.log(`\n${YELLOW}[Test ${testsTotal}] ${name}${NC}`);
-}
-
-function assertEqual(actual, expected, message) {
-  if (actual === expected) {
-    testsPassed++;
-    console.log(`${GREEN}✅ PASS${NC}`);
-  } else {
-    testsFailed++;
-    console.log(`${RED}❌ FAIL: ${message}${NC}`);
-    console.log(`  Expected: ${expected}`);
-    console.log(`  Actual: ${actual}`);
-  }
 }
 
 function assertTrue(condition, message) {
@@ -283,7 +270,6 @@ if (fs.existsSync(WORKFLOW_PATH)) {
 testCase("Workflow validates all 10 required frontmatter fields");
 if (fs.existsSync(WORKFLOW_PATH)) {
   const content = fs.readFileSync(WORKFLOW_PATH, "utf8");
-  const fieldsMatch = content.match(/required_fields.*?name.*?description/s);
   assertTrue(
     content.includes("name") &&
       content.includes("description") &&
