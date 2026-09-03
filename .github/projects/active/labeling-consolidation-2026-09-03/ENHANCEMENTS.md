@@ -194,19 +194,19 @@ During Phase 3 (Spec → Issues), several enhancement opportunities and document
 ## Summary: Enhancement Candidates by Priority
 
 ### High Priority (Enable Phase 4)
-- **2.1:** JSON Schema Examples → should be done before Phase 4 starts
-- **2.2:** Mock Test Fixtures → will accelerate Phase 4 testing
+- **2.1:** JSON Schema Examples → Issue #2709 (should be done before Phase 4 starts)
+- **2.2:** Mock Test Fixtures → Issue #2711 (will accelerate Phase 4 testing)
 
 ### Medium Priority (Improve Quality & Visibility)
-- **1.1:** Issue ↔ Project File Cross-Linking → improves traceability
-- **1.2:** OPENSPEC.md Status Update → documentation accuracy
-- **3.2:** Rollout Readiness Checklist → critical for Phase 5 safety
-- **4.2:** Phase 4 Handoff Document → improves team velocity
+- **1.1:** Issue ↔ Project File Cross-Linking → Issue #2714 (improves traceability)
+- **1.2:** OPENSPEC.md Status Update → Issue #2712 (documentation accuracy)
+- **3.2:** Rollout Readiness Checklist → (critical for Phase 5 safety)
+- **4.2:** Phase 4 Handoff Document → Issue #2713 (improves team velocity)
 
 ### Low Priority (Nice-to-Have)
-- **1.3:** Validation Playbook → improves QA but not blocking
-- **3.1:** Progress Dashboard → improves visibility but not blocking
-- **4.1:** Architecture Decision Records → future maintenance knowledge
+- **1.3:** Validation Playbook → (improves QA but not blocking)
+- **3.1:** Progress Dashboard → (improves visibility but not blocking)
+- **4.1:** Architecture Decision Records → (future maintenance knowledge)
 
 ---
 

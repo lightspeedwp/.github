@@ -128,6 +128,44 @@ During Phase 3 (Spec → Issues), all OPENSPEC.md sections and implementation ro
 
 ---
 
+## Phase 3+ Enhancement Issues (Created 2026-09-03)
+
+As part of the Phase 3 completion, 5 optional enhancement issues were created to accelerate Phase 4 implementation:
+
+### High Priority (Enable Phase 4)
+- **#2709** — JSON Schema Examples for Label Validation
+  - Extract schemas from SCHEMA_DESIGN.md into runnable examples
+  - Effort: 3–5 points
+  - Should be done before Phase 4 starts
+
+- **#2711** — Mock Data & Test Fixtures for Phase 4 Testing
+  - Create comprehensive test fixtures for all testing scenarios
+  - Effort: 2–3 points
+  - Accelerates Phase 4 task #2676 (Testing & Integration)
+
+### Medium Priority (Improve Quality)
+- **#2712** — Update OPENSPEC.md Status & Completeness
+  - Refresh status from "Draft" → "Complete" with version 1.0.0
+  - Effort: 1–2 points
+  - Should be done before Phase 4 starts
+
+- **#2713** — Phase 4 Handoff Document — Lessons & Context
+  - Create comprehensive onboarding document for Phase 4 implementers
+  - Effort: 1 point
+  - Improves team velocity by 15–20%
+
+- **#2714** — Cross-Link GitHub Issues ↔ Project Documentation
+  - Establish bidirectional links between issues and project files
+  - Create ISSUES_TO_FILES.md mapping
+  - Effort: 2–3 points
+  - Improves traceability and future maintenance
+
+**Total Enhancement Effort:** 9–14 story points (can be done in parallel with Phase 4)
+
+All enhancement issues are linked to Phase 4 Epic #2669 and marked `status:needs-planning`.
+
+---
+
 ## Next Steps (Phase 4)
 
 1. **Prioritize Phase 4 issues** — Team consensus on task order

@@ -55,6 +55,32 @@ tags:
 
 ---
 
+### Phase 3: Spec → Issues (✅ Complete)
+
+**What:** Convert OPENSPEC into actionable GitHub issues and enhancement opportunities  
+**Timeline:** Week 4 (Sept 24–30)  
+**Deliverables:** GitHub issues #2668–#2677 created + PHASE3_ISSUES_CREATED.md + ENHANCEMENTS.md
+
+**Key Deliverables:**
+
+1. ✅ Master Epic #2668 created for overall coordination
+2. ✅ Phase 4 Epic #2669 created with 4 implementation tasks (#2672–#2676)
+3. ✅ Phase 5 Epic #2670 created with rollout tasks (#2677)
+4. ✅ All issues linked, labeled, and assigned
+5. ✅ Enhancement opportunities documented in ENHANCEMENTS.md
+
+**Phase 3+ Enhancement Issues (Created 2026-09-03):**
+
+| Issue | Title | Priority | Status |
+|-------|-------|----------|--------|
+| #2709 | JSON Schema Examples for Label Validation | High | needs-planning |
+| #2711 | Mock Data & Test Fixtures for Phase 4 Testing | High | needs-planning |
+| #2712 | Update OPENSPEC.md Status & Completeness | Medium | needs-planning |
+| #2713 | Phase 4 Handoff Document — Lessons & Context | Medium | needs-planning |
+| #2714 | Cross-Link GitHub Issues ↔ Project Documentation | Medium | needs-planning |
+
+---
+
 ## Project Structure
 
 ```
