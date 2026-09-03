@@ -1,3 +1,11 @@
+---
+file_type: documentation
+title: "Issue Type Allocator Initiative — Complete Project"
+description: "8-phase project to establish unified issue type taxonomy, standardize labels and colors, integrate with AI agents, and validate end-to-end workflow"
+status: active
+last_updated: "2026-09-03"
+---
+
 # Issue Type Allocator Initiative — Complete Project
 
 **Status:** 🟢 Active | **Phases 1-4:** ✅ Complete (Merged PR #2686) | **Phases 5-8:** 🚀 Ready to Execute
