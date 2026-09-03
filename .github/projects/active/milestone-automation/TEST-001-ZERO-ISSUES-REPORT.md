@@ -3,7 +3,7 @@ title: Test Report — Workflow with Zero Unallocated Issues
 description: Test execution and results for zero-issue scenario
 type: documentation
 file_type: documentation
-status: approved
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:

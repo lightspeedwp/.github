@@ -3,7 +3,7 @@ title: Milestone Automation Phase 2 — Status Tracker
 description: Current status and issue tracking for Phase 2
 type: status-report
 file_type: documentation
-status: approved
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:

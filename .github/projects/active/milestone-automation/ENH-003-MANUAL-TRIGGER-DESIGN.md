@@ -3,7 +3,7 @@ title: Manual Trigger System Design
 description: Design specification for Phase 3 manual workflow triggering
 type: documentation
 file_type: documentation
-status: proposed
+status: draft
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:

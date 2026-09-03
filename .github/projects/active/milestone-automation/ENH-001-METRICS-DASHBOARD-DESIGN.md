@@ -3,7 +3,7 @@ title: Metrics Dashboard Design — Milestone Distribution
 description: Design specification for Phase 3 metrics dashboard
 type: documentation
 file_type: documentation
-status: proposed
+status: draft
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:

@@ -3,7 +3,7 @@ title: Milestone Automation Operational Runbook
 description: Procedures for operational tasks and manual interventions
 type: guide
 file_type: documentation
-status: approved
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:

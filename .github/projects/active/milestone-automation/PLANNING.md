@@ -3,7 +3,7 @@ title: Milestone Automation — Phase 2 Planning
 description: Detailed planning document for Phase 2 operational readiness and enhancements
 type: planning
 file_type: documentation
-status: approved
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:

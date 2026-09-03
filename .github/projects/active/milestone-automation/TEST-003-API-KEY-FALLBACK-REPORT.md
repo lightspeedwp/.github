@@ -3,7 +3,7 @@ title: Test Report — ANTHROPIC_API_KEY Fallback Handling
 description: Test execution and results for API key unavailability scenario
 type: documentation
 file_type: documentation
-status: approved
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:

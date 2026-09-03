@@ -3,7 +3,7 @@ title: API Rate Limit Handling Strategy
 description: Comprehensive strategy for managing GitHub API rate limits during automation
 type: documentation
 file_type: documentation
-status: approved
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:
