@@ -1,0 +1,34 @@
+{
+  "name": "audit-label-coverage-skill",
+  "version": "1.0.0",
+  "description": "Audit and report on GitHub issue/PR label coverage with actionable recommendations",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "github",
+    "labels",
+    "audit",
+    "coverage",
+    "governance"
+  ],
+  "author": "LightSpeed Automation Team",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "index.js",
+      "!**/*.test.js"
+    ]
+  }
+}

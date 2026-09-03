@@ -117,4 +117,195 @@ describe("routePrTemplate", () => {
       fallback: false,
     });
   });
+
+  describe("all nine templates", () => {
+    const templateMappings = [
+      {
+        branchType: "feat",
+        template: "pr_feature.md",
+        example: "feat/new-user-auth",
+      },
+      {
+        branchType: "fix",
+        template: "pr_bug.md",
+        example: "fix/validation-error",
+      },
+      {
+        branchType: "chore",
+        template: "pr_chore.md",
+        example: "chore/deps-update",
+      },
+      {
+        branchType: "ci",
+        template: "pr_ci.md",
+        example: "ci/github-workflows",
+      },
+      {
+        branchType: "docs",
+        template: "pr_docs.md",
+        example: "docs/api-reference",
+      },
+      {
+        branchType: "hotfix",
+        template: "pr_hotfix.md",
+        example: "hotfix/critical-bug",
+      },
+      {
+        branchType: "refactor",
+        template: "pr_refactor.md",
+        example: "refactor/code-cleanup",
+      },
+      {
+        branchType: "deps",
+        template: "pr_dep_update.md",
+        example: "deps/npm-upgrade",
+      },
+      {
+        branchType: "release",
+        template: "pr_release.md",
+        example: "release/v1-0-0",
+      },
+    ];
+
+    templateMappings.forEach(({ branchType, template, example }) => {
+      test(`routes ${branchType}/ branches to ${template}`, async () => {
+        const result = await routePrTemplate({ branchType });
+        expect(result).toMatchObject({
+          routed: true,
+          template,
+          fallback: false,
+        });
+      });
+
+      test(`extracts type from example branch ${example} and routes to ${template}`, async () => {
+        const result = await routePrTemplate({ branchName: example });
+        expect(result).toMatchObject({
+          routed: true,
+          template,
+          fallback: false,
+        });
+      });
+    });
+  });
+
+  describe("forbidden branch prefixes fallback handling", () => {
+    test("rejects unknown branch type (claude) and uses default fallback", async () => {
+      const result = await routePrTemplate({
+        branchName: "claude/governance-implementation",
+      });
+
+      expect(result).toMatchObject({
+        routed: false,
+        template: "pull_request_template.md",
+        fallback: true,
+        warning: expect.stringContaining("claude"),
+      });
+    });
+
+    test("rejects copilot/ prefix as unknown type and uses fallback", async () => {
+      const result = await routePrTemplate({
+        branchName: "copilot/new-integration",
+      });
+
+      expect(result).toMatchObject({
+        routed: false,
+        template: "pull_request_template.md",
+        fallback: true,
+      });
+    });
+
+    test("rejects openai/ prefix as unknown type and uses fallback", async () => {
+      const result = await routePrTemplate({
+        branchName: "openai/my-feature",
+      });
+
+      expect(result).toMatchObject({
+        routed: false,
+        template: "pull_request_template.md",
+        fallback: true,
+      });
+    });
+  });
+
+  describe("comprehensive branch type coverage (30+ types)", () => {
+    const allBranchTypesAndTemplates = [
+      // Core types
+      { type: "feat", template: "pr_feature.md" },
+      { type: "fix", template: "pr_bug.md" },
+      { type: "hotfix", template: "pr_hotfix.md" },
+      { type: "chore", template: "pr_chore.md" },
+      { type: "docs", template: "pr_docs.md" },
+      { type: "ci", template: "pr_ci.md" },
+      { type: "refactor", template: "pr_refactor.md" },
+      { type: "deps", template: "pr_dep_update.md" },
+      { type: "release", template: "pr_release.md" },
+      // Extended types
+      { type: "test", template: "pr_chore.md" },
+      { type: "security", template: "pr_bug.md" },
+      { type: "perf", template: "pr_feature.md" },
+      { type: "build", template: "pr_ci.md" },
+      { type: "revert", template: "pr_chore.md" },
+      { type: "research", template: "pr_feature.md" },
+      { type: "design", template: "pr_feature.md" },
+      { type: "a11y", template: "pr_feature.md" },
+      { type: "ux", template: "pr_feature.md" },
+      { type: "i18n", template: "pr_feature.md" },
+      { type: "ops", template: "pr_chore.md" },
+      { type: "proto", template: "pr_feature.md" },
+      { type: "ds", template: "pr_feature.md" },
+      { type: "api", template: "pr_feature.md" },
+      { type: "schema", template: "pr_feature.md" },
+      { type: "telemetry", template: "pr_feature.md" },
+      { type: "content", template: "pr_docs.md" },
+      { type: "seo", template: "pr_docs.md" },
+      { type: "config", template: "pr_chore.md" },
+      { type: "migrate", template: "pr_chore.md" },
+      { type: "qa", template: "pr_chore.md" },
+      { type: "uat", template: "pr_chore.md" },
+      { type: "audit", template: "pr_chore.md" },
+      { type: "codex", template: "pr_feature.md" },
+    ];
+
+    test(`should map all ${allBranchTypesAndTemplates.length} types correctly`, () => {
+      expect(allBranchTypesAndTemplates.length).toBeGreaterThanOrEqual(33);
+    });
+
+    allBranchTypesAndTemplates.forEach(({ type, template }) => {
+      test(`correctly routes ${type} to ${template}`, async () => {
+        const result = await routePrTemplate({ branchType: type });
+        expect(result.template).toBe(template);
+        expect(result.routed).toBe(true);
+      });
+    });
+  });
+
+  describe("error handling and validation", () => {
+    test("handles empty branchType gracefully", async () => {
+      const result = await routePrTemplate({ branchType: "" });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pull_request_template.md");
+    });
+
+    test("handles empty branch name gracefully", async () => {
+      const result = await routePrTemplate({ branchName: "" });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pull_request_template.md");
+    });
+
+    test("handles non-string branch type", async () => {
+      const result = await routePrTemplate({
+        branchType: 123,
+      });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pull_request_template.md");
+    });
+
+    test("handles branch name without forward slash", async () => {
+      const result = await routePrTemplate({
+        branchName: "invalidbranch",
+      });
+      expect(result.fallback).toBe(true);
+      expect(result.template).toBe("pull_request_template.md");
+    });
+  });
 });
