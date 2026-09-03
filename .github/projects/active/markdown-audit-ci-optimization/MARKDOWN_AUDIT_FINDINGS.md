@@ -3,6 +3,7 @@ title: Markdown Audit - CI/CD Optimization Findings
 description: Comprehensive audit of markdown files and CI/CD coverage for LightSpeedWP .github repository
 date: 2026-07-24
 status: draft
+status: [active|deprecated|draft]
 ---
 
 # Markdown Audit - CI/CD Optimization Findings
@@ -422,7 +423,6 @@ wceu-2026/**/*.md
 ---
 title: "[Name of agent/skill/workflow]"
 description: "Short summary of purpose"
-status: [active|deprecated|draft]
 last_updated: YYYY-MM-DD
 author: "[GitHub username]"
 ---

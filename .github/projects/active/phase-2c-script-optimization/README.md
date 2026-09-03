@@ -1,3 +1,11 @@
+---
+title: Phase 2C Script Optimization Project
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
+---
+
 # Phase 2C Script Optimization Project
 
 **Status:** ✅ COMPLETE (2026-09-02)  
@@ -91,13 +99,21 @@ All 8 validation tests passing:
 - ✅ Zero code quality issues
 - ✅ Complete documentation
 
+## 🔗 Related Issues
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| [#2615](https://github.com/lightspeedwp/.github/issues/2615) | Phase 2C Script Optimization — Completion Report | ✅ Complete |
+| [#2560](https://github.com/lightspeedwp/.github/issues/2560) | MON-003: Create workflow execution dashboard | ✅ Complete |
+
 ## Related PRs
 
-- **#2604** ✅ MERGED - Final implementation (perf/secondary-optimization)
+- **#2604** ✅ MERGED - Final implementation (perf/secondary-optimization) - 2026-09-02
+- **#2609** - Documentation & project closure (docs/phase-2c-completion-documentation)
 - **#2603** - Closed (invalid branch name)
 - **#2602** - Closed (invalid branch name)
 - **#2597** - Closed (invalid branch name)
-- **#2555** - Open (superseded, see completion report)
+- **#2555** - Closed (superseded by PR #2604)
 
 ## Next Steps
 
