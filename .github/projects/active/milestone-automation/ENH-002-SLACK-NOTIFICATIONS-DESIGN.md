@@ -2,9 +2,12 @@
 title: Slack Notification System Design
 description: Design specification for Phase 3 Slack integration
 type: design
+file_type: project-documentation
 status: proposed
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - notifications

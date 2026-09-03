@@ -2,9 +2,12 @@
 title: Milestone Automation Phase 2 — Planning Artifacts
 description: Gantt timeline, dependency graph, and risk assessment
 type: reference
+file_type: reference
 status: approved
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - artifacts

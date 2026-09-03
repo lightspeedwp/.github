@@ -2,9 +2,12 @@
 title: API Rate Limit Handling Strategy
 description: GitHub API quota management and backoff strategies for milestone automation
 type: guide
+file_type: project-documentation
 status: approved
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - api

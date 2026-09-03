@@ -2,9 +2,12 @@
 title: Milestone Automation — OpenSpec
 description: Technical specifications and architecture documentation
 type: spec
+file_type: project-documentation
 status: in-progress
 version: "1.1.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - specification

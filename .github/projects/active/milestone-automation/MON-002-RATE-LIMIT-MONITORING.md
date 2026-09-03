@@ -2,9 +2,12 @@
 title: GitHub API Rate Limit Monitoring Setup
 description: Implementation guide for monitoring and alerting on API quota usage
 type: guide
+file_type: project-documentation
 status: approved
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - monitoring

@@ -2,9 +2,12 @@
 title: Phase 2 Follow-Up Fixes Tracker
 description: CodeRabbit findings and CI failures requiring resolution
 type: tracker
+file_type: project-tracking
 status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - phase-2

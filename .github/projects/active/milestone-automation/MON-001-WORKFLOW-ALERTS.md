@@ -2,9 +2,12 @@
 title: GitHub Actions Workflow Alerts Setup
 description: Implementation guide for monitoring milestone distribution workflow execution
 type: guide
+file_type: project-documentation
 status: approved
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - monitoring

@@ -2,9 +2,12 @@
 title: Phase 2 Follow-Up — Issue Links & Tracking
 description: Central registry linking milestone-automation project to related GitHub issues
 type: tracker
+file_type: project-tracking
 status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - phase-2
   - issue-tracking

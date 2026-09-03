@@ -2,9 +2,12 @@
 title: Test Report — Dry-Run Mode Validation
 description: Test execution and results for dry-run simulation mode
 type: report
+file_type: project-documentation
 status: approved
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - testing
