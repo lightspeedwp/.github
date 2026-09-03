@@ -111,6 +111,7 @@
     "test:agent-spec-validation": "node .github/scripts/__tests__/validate-agent-specs.test.js",
     "test:index-generator": "node .github/scripts/__tests__/generate-agent-index.test.js",
     "test:create-agent-spec": "node .github/scripts/__tests__/create-agent-spec.test.js",
+    "test:workflow-integration": "node .github/scripts/__tests__/workflow-integration.test.js",
     "test:pre-commit": "bash hooks/__tests__/pre-commit-agent-spec-validation.test.sh",
     "test:phase-5": "bash .github/scripts/__tests__/run-all-tests.sh",
     "test": "npm run test:js && npm run test:phase-5",
