@@ -109,7 +109,7 @@ All 8 validation tests passing:
 ## Related PRs
 
 - **#2604** ✅ MERGED - Final implementation (perf/secondary-optimization) - 2026-09-02
-- **#2609** - Documentation & project closure (docs/phase-2c-completion-documentation)
+- **#2673** - Documentation & project closure (docs/phase-2c-completion-documentation)
 - **#2603** - Closed (invalid branch name)
 - **#2602** - Closed (invalid branch name)
 - **#2597** - Closed (invalid branch name)
@@ -125,9 +125,9 @@ Phase 2C is complete. Ready for:
 
 ## Project Closure Documentation
 
-**Closure PR:** #2609  
+**Closure PR:** #2673  
 **Closure Date:** 2026-09-03  
-**Documentation PR:** docs/phase-2c-completion-documentation
+**Documentation Branch:** docs/phase-2c-completion-documentation
 
 This project is now complete with all deliverables merged and fully documented.
 
