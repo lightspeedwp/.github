@@ -3,6 +3,8 @@ title: "Changelog System Consolidation & Audit — Complete Implementation Promp
 description: "Comprehensive prompt for consolidating changelog agents, skills, workflows, and auditing the current CHANGELOG.md"
 created: 2026-09-03
 updated: 2026-09-03
+file_type: skill
+status: active
 ---
 
 # Changelog System Consolidation & Audit — Complete Implementation Prompt
@@ -201,12 +203,10 @@ The skill should include:
 ---
 name: Changelog Automation
 description: Portable skill for managing Keep a Changelog 1.1.0 changelogs with validation, formatting, and release integration
-file_type: skill
 category: automation
 version: 1.0.0
 created_date: 2026-09-03
 author: LightSpeed Team
-status: active
 tags:
   - changelog
   - keep-a-changelog

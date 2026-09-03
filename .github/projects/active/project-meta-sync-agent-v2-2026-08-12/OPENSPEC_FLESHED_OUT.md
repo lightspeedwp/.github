@@ -5,6 +5,7 @@ description: ""Complete fleshed-out OpenSpec specification with all implementati
 created_date: 2026-08-12
 last_updated: "2026-08-25"
 status: active
+file_type: agent
 ---
 
 # OpenSpec: Project Meta Sync Agent v2 — Final Implementation Specification
@@ -89,11 +90,9 @@ title: Project Meta Sync Agent v2
 description: Modernized agent for metadata governance orchestration
 target: github-copilot
 version: v2.0
-status: active
 last_updated: '2026-08-12'
 author: LightSpeed
 maintainer: Ash Shaw
-file_type: agent
 category: automation
 tags:
   - metadata-governance
