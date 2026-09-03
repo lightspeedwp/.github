@@ -1,12 +1,10 @@
 ---
-file_type: readme
-title: "Labeling Agent Consolidation & Multi-Repo Rollout"
-description: "Organisation-wide labeling solution consolidating fragmented workflows into unified, reusable skills integrated with GitHub agentic workflows"
+file_type: documentation
+title: Labeling Agent Consolidation & Multi-Repo Rollout
+description: Organisation-wide labeling solution consolidating fragmented workflows into unified, reusable skills integrated with GitHub agentic workflows
 created_date: 2026-09-03
 last_updated: 2026-09-03
 status: active
-owner: Claude
-duration_estimate: "4–6 weeks"
 tags:
   - automation
   - labeling
