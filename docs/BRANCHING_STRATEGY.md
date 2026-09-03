@@ -80,6 +80,8 @@ For all repos (client, product, infra, etc.), use:
 - `ux/` — user experience
 - `i18n/` — internationalization
 - `ops/` — operations
+- `audit/` — governance audits and compliance reviews
+- `codex/` — codex, knowledge base, or reference documentation
 
 ### 3.2 Product-specific Prefixes (optional)
 
@@ -98,22 +100,7 @@ For all repos (client, product, infra, etc.), use:
 - `qa/` — test harnesses, UAT scaffolding
 - `uat/` — UAT-only changes or staging toggles
 
-### 3.4 Governance & Audit Prefixes (optional)
-
-- `audit/` — audit, compliance, security reviews
-- `codex/` — code generation, AI-assisted tooling
-
-### 3.5 Forbidden Prefixes
-
-**These prefixes are NEVER allowed:**
-
-- ❌ `claude/` — Reserved for Claude Code internal sessions
-- ❌ `copilot/` — Reserved for GitHub Copilot integration
-- ❌ `openai/` — Reserved for OpenAI integration
-
-**Why?** These break PR template assignment, GitHub Actions workflows, and validation automation that depends on branch prefixes.
-
-### 3.6 Examples
+### 3.4 Examples
 
 ```text
 feat/product-grid-quick-add
@@ -138,100 +125,100 @@ hotfix/ga4-purchase-duplicate
 
 Use a single regex in a workflow to enforce naming discipline:
 
-**Strict Pattern (LightSpeed standard):**
+**Non-release branches:**
 
-The exact regex pattern is defined in the branch validator script:
-
-- **File:** `scripts/validation/validate-branch-name.cjs`
-- **Patterns:** `BRANCH_PATTERN_STANDARD` and `BRANCH_PATTERN_RELEASE_*` (lines 77-81)
-- **Allowed types:** Dynamic list built from `ALLOWED_TYPES` array (lines 30-67)
-
-**Pattern explanation:**
-
-- `{type}` — one of 30+ allowed prefixes (see ALLOWED_TYPES in validator, or listed in section 2 above)
-- `/` — literal slash separator
-- `{scope}` — lowercase, kebab-case (hyphens only, no underscores)
-- `-` — hyphen separator between scope and title
-- `{title}` — lowercase, kebab-case (hyphens only, no underscores)
-- **Release exception:** `release/v1.2.3` (semver format allowed)
-
-**Release branches special case:**  
-Release branches allow semantic versioning format:
-
-- `release/v1.2.3` (with "v" prefix)
-- `release/1.2.3` (without "v" prefix)
-- Or standard format: `release/{scope}-{title}`
-
-### 4.1 Validation Commands
-
-**Local validation:**
-
-```bash
-# Test a branch name locally
-node scripts/validation/validate-branch-name.cjs feat/my-feature-name
-
-# Verbose output
-node scripts/validation/validate-branch-name.cjs feat/my-feature-name --verbose
-
-# Show the validation pattern
-node scripts/validation/validate-branch-name.cjs --show-pattern
-
-# Get help
-node scripts/validation/validate-branch-name.cjs --help
+```regex
+^(feat|fix|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
 ```
 
-**GitHub Actions validation:**  
-Use workflow `.github/workflows/branch-name-validation.yml` which runs automatically on PR events.
+**Release branches (semantic versioning):**
 
-### 4.2 Example Workflow Implementation
+```regex
+^release/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$
+```
+
+**Release branches (standard format):**
+
+```regex
+^release/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
+```
+
+**For exact patterns, see the authoritative validator:** `scripts/validation/validate-branch-name.cjs` (lines 66-78)
+
+### 4.1 Forbidden Prefixes (AI Agent Governance)
+
+The following prefixes are **strictly forbidden** for all branches to enforce proper governance of AI-assisted development:
+
+- `claude/` — Reserved for governance audits only; blocks automated routing
+- `copilot/` — GitHub Copilot-specific branches not permitted
+- `openai/` — OpenAI-related work must use appropriate type prefixes
+
+**Rationale:** Forbidden prefixes act as circuit-breakers for AI agents (Claude Code, GitHub Copilot). When detected, they trigger fallback routing to default PR templates and prevent type-based automation. This ensures:
+
+- AI agents cannot bypass branch naming governance
+- Explicit type prefixes drive proper automation routing
+- Governance audits are tracked and auditable
+- No silent acceptance of non-conforming branch names
+
+**Enforcement:** CI will reject any branch matching `claude/`, `copilot/`, or `openai/` prefixes, even if followed by valid scope-title patterns.
+
+Example workflow (`.github/workflows/validate-branch-name.yml`):
 
 ```yaml
 name: Validate branch name
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, edited, ready_for_review]
 jobs:
   check-branch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-      - run: npm ci
-      - name: Validate branch name
-        env:
-          BRANCH_NAME: ${{ github.head_ref }}
+      - name: Enforce {type}/{scope}-{short-title}
         run: |
+          BRANCH="${{ github.head_ref }}"
           # Allow dependabot/renovate
-          if [[ "$BRANCH_NAME" =~ ^(dependabot|renovate)/ ]]; then
-            echo "✅ Automated bot branch allowed"
-            exit 0
+          if [[ "$BRANCH" =~ ^(dependabot|renovate)/ ]]; then exit 0; fi
+          # Allow release branches with semantic versioning
+          if [[ "$BRANCH" =~ ^release/v?[0-9]+\.[0-9]+\.[0-9]+ ]]; then exit 0; fi
+          # Standard pattern: {type}/{scope}-{title}
+          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo "❌ Branch '$BRANCH' must match the pattern: {type}/{scope}-{title}"
+            echo "Example: feat/user-auth-login"
+            exit 1
           fi
-          # Validate against pattern
-          node scripts/validation/validate-branch-name.cjs "$BRANCH_NAME"
 ```
-
-### 4.3 Consequences of Violations
-
-**Blocked merge:**
-
-- CI check fails with detailed error message
-- PR cannot be merged until branch is renamed
-
-**How to fix:**
-
-1. Rename the branch locally: `git branch -m old-name new-name`
-2. Force-push to update the PR: `git push -u origin new-name --force-with-lease`
-3. Delete the old remote branch: `git push origin :old-name`
-4. Create a new PR pointing to the correctly-named branch (GitHub closes the old PR when the branch is deleted)
-5. Link the old PR in the new one with a comment explaining the rename
-6. Re-run validation checks
 
 **[NEW]**
 
 - For monorepos, ensure branch naming applies to each package/subproject, or use a consistent prefix (e.g. `feat/frontend-...`, `fix/api-...`).
 - For forked repos, always clean up branches after merging upstream PRs, and avoid duplicating branch names across forks to prevent confusion.
+
+### 4.3 PR Template Routing & Fallback Behavior
+
+PR template selection is automatically routed based on branch type prefix:
+
+| Branch Type | PR Template |
+|---|---|
+| `feat/` | `pr_feature.md` |
+| `fix/` | `pr_bug.md` |
+| `hotfix/` | `pr_hotfix.md` |
+| `release/` | `pr_release.md` |
+| `refactor/` | `pr_refactor.md` |
+| `chore/` | `pr_chore.md` |
+| `docs/` | `pr_docs.md` |
+| `ci/` | `pr_ci.md` |
+| `deps/` | `pr_dep_update.md` |
+| `audit/` | `pr_chore.md` (governance review) |
+| `codex/` | `pr_docs.md` (knowledge base) |
+| Other types | `pr_chore.md` (default) |
+| Forbidden prefixes | `pr_chore.md` (fallback) |
+
+**Fallback Logic:** If a branch uses a forbidden prefix (e.g., `claude/governance-audit-implementation`), the PR template resolver detects the violation and routes to the default `pr_chore.md` template. This ensures:
+
+- No PR is left without template guidance
+- Forbidden prefixes trigger visible fallback routing (auditable)
+- Authors are prompted to re-open PR with proper branch naming
+- Type detection hierarchy: branch type → linked issue type → default
 
 ---
 
@@ -276,6 +263,8 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
         "^migrate/.*",
         "^qa/.*",
         "^uat/.*",
+        "^audit/.*",
+        "^codex/.*",
       ]
 ```
 
@@ -323,53 +312,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 8. Quick Reference: All 33+ Allowed Types
-
-| Type | Purpose | Example |
-|------|---------|---------|
-| `feat` | New feature | `feat/user-preferences-panel` |
-| `fix` | Bug fix | `fix/authentication-timeout` |
-| `hotfix` | Urgent production fix | `hotfix/critical-security-patch` |
-| `release` | Release branch | `release/v1.0.0` |
-| `refactor` | Code refactoring | `refactor/api-response-structure` |
-| `chore` | Maintenance, no code changes | `chore/dependency-updates` |
-| `docs` | Documentation | `docs/branching-strategy-guide` |
-| `test` | Tests, test infrastructure | `test/integration-test-suite` |
-| `perf` | Performance improvements | `perf/query-optimization` |
-| `ci` | CI/CD, pipelines | `ci/github-actions-workflow` |
-| `build` | Build system, package changes | `build/webpack-config-update` |
-| `deps` | Dependency updates | `deps/upgrade-npm-packages` |
-| `security` | Security fixes | `security/xss-vulnerability-fix` |
-| `design` | Design system, UI | `design/button-component-update` |
-| `a11y` | Accessibility | `a11y/wcag-compliance-audit` |
-| `ux` | User experience | `ux/form-validation-feedback` |
-| `i18n` | Internationalization | `i18n/german-translation-pack` |
-| `ops` | Operations, deployment | `ops/database-migration-script` |
-| `proto` | Prototype, experimental | `proto/new-caching-strategy` |
-| `ds` | Design system | `ds/component-library-update` |
-| `api` | API changes | `api/rest-endpoint-versioning` |
-| `schema` | Data schema | `schema/user-model-changes` |
-| `telemetry` | Analytics, monitoring | `telemetry/event-tracking-setup` |
-| `content` | Content changes | `content/blog-post-updates` |
-| `seo` | SEO optimizations | `seo/meta-tag-improvements` |
-| `config` | Configuration | `config/environment-variables` |
-| `migrate` | Data/schema migrations | `migrate/user-table-migration` |
-| `qa` | QA processes | `qa/test-automation-framework` |
-| `uat` | User acceptance testing | `uat/staging-validation-suite` |
-| `audit` | Audit, compliance, review | `audit/security-code-review` |
-| `codex` | Code generation, AI-assisted | `codex/auto-documentation-tool` |
-| `revert` | Revert previous commit | `revert/pr-2345-bad-merge` |
-| `research` | Research, investigation | `research/performance-benchmarks` |
-
-**Forbidden types (never use):**
-
-- ❌ `claude/` — Reserved for Claude Code
-- ❌ `copilot/` — Reserved for GitHub Copilot
-- ❌ `openai/` — Reserved for OpenAI
-
----
-
-## 9. Quick Per-Repo Checklist
+## 8. Quick Per-Repo Checklist
 
 - Enable branch protections on `main` (+ `develop` if used).
 - Adopt branch naming discipline; enforce via CI workflow.
@@ -377,13 +320,12 @@ Issue Types and Project fields carry the semantic meaning.
 - Prefer Issue Types and Project fields over proliferation of `type:*` labels.
 - Squash merge only; delete branches post-merge.
 - Share this strategy in repo READMEs and onboarding docs.
+  **[NEW]**
 - Document exceptions (e.g., legacy branches, vendor integrations) in `CONTRIBUTING.md`.
-- **[NEW]** Validate branch names locally before pushing: `node scripts/validation/validate-branch-name.cjs <branch-name>`
-- **[NEW]** Document forbidden prefixes (`claude/`, `copilot/`, `openai/`) and why they're forbidden.
 
 ---
 
-## 10. FAQ & Guardrails
+## 9. FAQ & Guardrails
 
 - **Do we need `develop`?** Optional; skip if deployment model supports feature/release branches.
 - **Where do we record “type of work”?** Project **Type** field (from branch) and **Issue Type** on linked issue.
@@ -397,7 +339,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 11. References
+## 10. References
 
 - [BRANCHING_STRATEGY.md](./BRANCHING_STRATEGY.md): Org-wide branch naming, merge discipline, and automation mapping.
 - [CHANGELOG.md](../CHANGELOG.md): Changelog format, release notes, and versioning.
@@ -415,7 +357,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 12. Appendix: Getting Started
+## 11. Appendix: Getting Started
 
 1. Create or update org-level `.github` defaults (workflows, labeler, protections).
 2. Sync labels using `gh label` or `.github/labels.yml`.
@@ -425,7 +367,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 13. Advanced Practices & Troubleshooting
+## 12. Advanced Practices & Troubleshooting
 
 - For monorepos, coordinate releases and branch protection across all workspaces.
 - If CI blocks a merge due to naming, run `git branch -m <old> <new>` locally, then push and re-open PR.
@@ -434,7 +376,7 @@ Issue Types and Project fields carry the semantic meaning.
 
 ---
 
-## 14. Onboarding & Training
+## 13. Onboarding & Training
 
 - New contributors must review this document and complete onboarding modules.
 - Include branch naming and merge training in onboarding sessions.
