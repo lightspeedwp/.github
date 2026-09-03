@@ -161,7 +161,7 @@
     "markdownlint": "0.41.1",
     "markdownlint-cli2": "0.23.2",
     "markdownlint-cli2-formatter-pretty": "^0.0.6",
-    "mermaid": "^11.17.1",
+    "mermaid": "^11.17.2",
     "micromatch": "^4.0.7",
     "node-fetch": "^3.3.2",
     "npm-package-json-lint": "^11.0.0",
