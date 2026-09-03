@@ -456,6 +456,7 @@ stability: stable
 - .github/reports/mermaid-accessibility-report.md
 - .github/reports/mermaid-validation-report.md
 - .github/reports/mermaid/colour-contrast-report-2026-08-28.md
+- .github/reports/mermaid/colour-contrast-report-2026-09-03.md
 - .github/reports/mermaid/diagram-validation-2025-12-11.md
 - .github/reports/metrics/weekly-summary-2025-12-08.md
 - .github/reports/migration/INSTRUCTIONS_MIGRATION_GUIDE.md
