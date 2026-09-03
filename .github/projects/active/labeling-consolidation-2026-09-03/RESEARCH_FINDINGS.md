@@ -279,6 +279,8 @@ skills/
   description: "Bug or defect"
 ```
 
+Color examples use six uppercase hexadecimal characters without a leading `#`, as required by the GitHub REST API.
+
 **Strengths (Flat):**
 - Simple to read, parse, validate
 - GitHub's native label format is flat

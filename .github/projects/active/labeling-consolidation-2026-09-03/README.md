@@ -159,11 +159,11 @@ tags:
 ✅ **Phase 2:** Consolidation plan has before/after file count  
 ✅ **Phase 2:** Skills extraction targets high-reuse components  
 ✅ **Phase 2:** Multi-repo rollout is realistic and phased  
-✅ **Phase 3:** All GitHub issues created and linked  
-✅ **Phase 4:** Unified labeling agent implemented and tested  
-✅ **Phase 4:** All fragmented workflows replaced  
-✅ **Phase 5:** Deployed to control plane successfully  
-✅ **Phase 5:** Pilot rollout to 2–3 WordPress repos complete  
+⬜ **Phase 3:** All GitHub issues created and linked  
+⬜ **Phase 4:** Unified labeling agent implemented and tested  
+⬜ **Phase 4:** All fragmented workflows replaced  
+⬜ **Phase 5:** Deployed to control plane successfully  
+⬜ **Phase 5:** Pilot rollout to 2–3 WordPress repos complete  
 
 ---
 

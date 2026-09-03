@@ -115,8 +115,9 @@ The research phase will answer these 14 questions to guide architecture and plan
 
 ### Phase 1: Research & Audit (Sept 3–9, Week 1)
 
+**Status:** ✅ Complete  
 **Owner:** Task-Researcher Agent  
-**Deliverables:** RESEARCH_FINDINGS.md + AUDIT_FINDINGS.md  
+**Deliverables:** [RESEARCH_FINDINGS.md](./RESEARCH_FINDINGS.md) + [AUDIT_FINDINGS.md](./AUDIT_FINDINGS.md) — complete  
 **Related GitHub Issues:** [#TBD — Research Epic]
 
 **What:** Answer 14 clarifying questions and audit all labeling components
@@ -133,19 +134,20 @@ The research phase will answer these 14 questions to guide architecture and plan
   - Existing labeling-related GitHub issues
 - [x] Task 1.3: Identify all dependencies, circular references, and blockers
 - [x] Task 1.4: Document findings in RESEARCH_FINDINGS.md and AUDIT_FINDINGS.md
-- [ ] Task 1.5: Get user approval on research findings before proceeding to Phase 2 (awaiting Phase 3)
+- [ ] Task 1.5: Get user approval on research findings before proceeding to Phase 3
 
 **Success Criteria:**
 
-- All 14 questions answered with clear, documented reasoning
-- Zero unlisted labeling components (complete audit)
-- Dependencies clearly mapped
-- User approval to proceed to planning phase
+- [x] All 14 questions answered with clear, documented reasoning
+- [x] Zero unlisted labeling components (complete audit)
+- [x] Dependencies clearly mapped
+- [ ] User approval to proceed to Phase 3
 
 ---
 
 ### Phase 2: Planning & Design (Sept 10–23, Weeks 2–3)
 
+**Status:** ✅ Deliverables complete; awaiting Phase 3 approval  
 **Owner:** Task-Planner Agent  
 **Deliverables:** OPENSPEC.md + SCHEMA_DESIGN.md + consolidation plan + skills extraction plan + rollout plan  
 **Related GitHub Issues:** [#TBD — Planning Epic]
@@ -154,46 +156,46 @@ The research phase will answer these 14 questions to guide architecture and plan
 
 **Tasks:**
 
-- [ ] Task 2.1: Design unified labeling agent architecture:
+- [x] Task 2.1: Design unified labeling agent architecture:
   - GitHub agentic workflow vs Claude-based approach (based on research findings)
   - Component diagram
   - Integration points with other agents
   - Configuration structure
-- [ ] Task 2.2: Design label schema with validation:
+- [x] Task 2.2: Design label schema with validation:
   - Hierarchical vs flat structure
   - Metadata fields (automation rules, usage patterns, etc.)
   - JSON Schema definitions
   - Cross-repo consistency rules
   - Examples with validation
-- [ ] Task 2.3: Create workflow consolidation plan:
+- [x] Task 2.3: Create workflow consolidation plan:
   - Current workflow file count
   - Target file count and structure
   - Before/after comparison
   - Migration strategy
   - Risk assessment
-- [ ] Task 2.4: Plan reusable skills extraction:
+- [x] Task 2.4: Plan reusable skills extraction:
   - Identify high-reuse components
   - Define skill interfaces
   - Plan for `skills/` folder structure
   - Integration with issues-agent, task-researcher, task-planner
-- [ ] Task 2.5: Create multi-repo rollout strategy:
+- [x] Task 2.5: Create multi-repo rollout strategy:
   - Phasing: control plane → WordPress plugins → WordPress themes
   - Per-phase validation and testing
   - Rollback procedures
   - Success metrics
   - Timeline
-- [ ] Task 2.6: Document all findings in formal OpenSpec + plans
+- [x] Task 2.6: Document all findings in formal OpenSpec + plans
 - [ ] Task 2.7: Get user approval before creating GitHub issues
 
 **Success Criteria:**
 
-- Architecture clearly defined with diagrams
-- Schema validated with examples
-- Consolidation plan shows file count reduction
-- Skills extraction targets 70%+ reuse potential
-- Rollout plan is realistic and phased
-- All interdependencies documented
-- User approval to proceed to Phase 3
+- [x] Architecture clearly defined with diagrams
+- [x] Schema validated with examples
+- [x] Consolidation plan shows file count reduction
+- [x] Skills extraction targets 70%+ reuse potential
+- [x] Rollout plan is realistic and phased
+- [x] All interdependencies documented
+- [ ] User approval to proceed to Phase 3
 
 ---
 
