@@ -326,6 +326,104 @@ Week 3:
 
 ---
 
+## PHASE 4: Deploy & Enforce Governance Rules Organization-Wide
+
+**Phase 4 Overview:** Extend governance rules to the entire organization, establish enforcement policy, train teams, and set up compliance tracking.
+
+**Duration:** 2-3 weeks  
+**Milestone:** `v1.2`  
+**Status:** In Progress (5 issues created 2026-09-03)
+
+### Phase 4 Issues
+
+#### Issue 4.1: Migrate Governance Rules to Core Organization Repositories
+- **Issue:** [#2663](https://github.com/lightspeedwp/.github/issues/2663)
+- **Type:** `feat`
+- **Scope:** automation
+- **Template:** Feature
+- **Labels:** `type:feat`, `area:automation`, `area:governance`, `priority:high`, `status:needs-triage`
+- **Effort:** 3-4 hours
+- **Deliverables:**
+  - Deploy `.github/workflows/validate-branch-name.yml` to sister repos
+  - Configure PR template resolver for consistent routing
+  - Enable title normalization automation
+  - Document migration steps and validation
+- **Success Criteria:** Branch validation passing on all target repos, zero manual workarounds
+
+#### Issue 4.2: Establish Organization-Wide Branch Naming Enforcement Policy
+- **Issue:** [#2664](https://github.com/lightspeedwp/.github/issues/2664)
+- **Type:** `feat`
+- **Scope:** governance
+- **Template:** Feature
+- **Labels:** `type:feat`, `area:governance`, `area:docs`, `priority:high`, `status:needs-triage`
+- **Effort:** 4-5 hours
+- **Deliverables:**
+  - Create `docs/ORG_GOVERNANCE_POLICY.md` with complete policy
+  - Document allowed types (33), forbidden prefixes
+  - Establish exceptions and override procedures
+  - Define escalation path for violations
+- **Success Criteria:** Policy documented, all org repos aware, team acknowledgment > 90%
+
+#### Issue 4.3: Create Team Onboarding and Training Documentation
+- **Issue:** [#2665](https://github.com/lightspeedwp/.github/issues/2665)
+- **Type:** `feat`
+- **Scope:** docs
+- **Template:** Documentation
+- **Labels:** `type:feat`, `area:docs`, `area:automation`, `priority:high`, `status:needs-triage`
+- **Effort:** 3-4 hours
+- **Deliverables:**
+  - `docs/DEVELOPER_ONBOARDING.md` — step-by-step guide
+  - `docs/BRANCH_NAMING_QUICK_REFERENCE.md` — quick reference
+  - FAQs, troubleshooting, success examples
+  - Rollout schedule with enforcement timeline
+- **Success Criteria:** > 90% developer adoption within 2 weeks, > 95% documentation completeness
+
+#### Issue 4.4: Set Up Governance Compliance Reporting and Metrics Dashboard
+- **Issue:** [#2666](https://github.com/lightspeedwp/.github/issues/2666)
+- **Type:** `feat`
+- **Scope:** automation
+- **Template:** Feature
+- **Labels:** `type:feat`, `area:automation`, `area:governance`, `priority:normal`, `status:needs-triage`
+- **Effort:** 4-5 hours
+- **Deliverables:**
+  - Design metrics framework (compliance rate, CI failures, PR template routing accuracy)
+  - Create reporting dashboard (GitHub Project or GitHub Actions workflow)
+  - Set up automated data collection and reporting
+  - Generate weekly/monthly reports
+- **Success Criteria:** Dashboard live and updating daily, compliance > 95%, < 5 manual report requests/week
+
+#### Issue 4.5: Define Governance Exceptions and Override Procedures
+- **Issue:** [#2667](https://github.com/lightspeedwp/.github/issues/2667)
+- **Type:** `feat`
+- **Scope:** governance
+- **Template:** Feature
+- **Labels:** `type:feat`, `area:governance`, `area:docs`, `priority:normal`, `status:needs-triage`
+- **Effort:** 2-3 hours
+- **Deliverables:**
+  - Create `docs/GOVERNANCE_EXCEPTIONS.md` with policy
+  - Document exception request process
+  - Create exception tracking mechanism
+  - Establish override procedures for urgent cases
+  - Build appeals process
+- **Success Criteria:** Policy documented, exception request process clear, all exceptions tracked, appeals resolved within 24 hours
+
+---
+
+## Phase 4 Dependencies & Critical Path
+
+```
+4.1 Migration ──┐
+                ├──> 4.4 Reporting (compliance data)
+4.2 Policy ─────┤
+                ├──> 4.5 Exceptions (policy coordination)
+4.3 Training ───┘
+```
+
+**Critical Path:** 4.2 (Policy) → 4.3 (Training) → Org rollout
+**Parallel Work:** 4.1 (Migration) + 4.4 (Reporting) + 4.5 (Exceptions)
+
+---
+
 ## Issue Templates & Labels
 
 **All issues use these labels:**
