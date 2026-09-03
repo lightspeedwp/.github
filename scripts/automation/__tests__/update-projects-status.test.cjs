@@ -3,7 +3,6 @@
  * Validates project status auditing and template generation
  */
 const fs = require('fs');
-const path = require('path');
 const { jest } = require('@jest/globals');
 
 jest.mock('fs');
@@ -52,10 +51,6 @@ priority: high
     });
 
     it('should check for specific field in frontmatter', () => {
-      const content = `---
-status: active
-priority: high
----`;
       const frontmatter = { status: 'active', priority: 'high' };
       const hasField = 'status' in frontmatter;
 

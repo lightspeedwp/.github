@@ -4,7 +4,6 @@
  */
 import { execFileSync } from "child_process";
 import fs from "fs";
-import path from "path";
 import { jest } from "@jest/globals";
 
 // Mock modules

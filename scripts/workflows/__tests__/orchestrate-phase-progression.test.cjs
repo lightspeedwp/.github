@@ -214,7 +214,7 @@ describe('orchestrate-phase-progression', () => {
   describe('phase progression', () => {
     it('should identify trigger type as PR opened', () => {
       const eventType = 'pr-opened';
-      let trigger = 'PR opened';
+      let trigger = eventType === 'pr-merged' ? 'PR merged' : 'PR opened';
 
       expect(trigger).toBe('PR opened');
     });

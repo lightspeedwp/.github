@@ -3,7 +3,6 @@
  * Validates report directory structure and file formats
  */
 import fs from "fs";
-import path from "path";
 import { jest } from "@jest/globals";
 
 jest.mock("fs");
