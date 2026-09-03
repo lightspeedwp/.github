@@ -6,7 +6,6 @@ on:
       - develop
       - main
     paths:
-      - ".github/agents/meta-agent/**"
       - ".github/workflows/meta-agent-validation.yml"
       - "agents/meta-agent/**"
       - "hooks/meta-agent-validate.sh"

@@ -137,6 +137,7 @@ class FrontmatterExtractor {
     } catch (error) {
       throw new Error(
         `Invalid YAML frontmatter in ${filePath}: ${error.message}`,
+        { cause: error },
       );
     }
   }
@@ -166,6 +167,7 @@ class FrontmatterValidator {
     } catch (error) {
       throw new Error(
         `Failed to load schema from ${schemaPath}: ${error.message}`,
+        { cause: error },
       );
     }
   }
@@ -520,7 +522,11 @@ Examples:
     ) {
       knownOptionIndices.add(i);
       knownOptionIndices.add(i + 1);
-    } else if (args[i] === "--help" || args[i] === "-h" || args[i] === "--alt") {
+    } else if (
+      args[i] === "--help" ||
+      args[i] === "-h" ||
+      args[i] === "--alt"
+    ) {
       knownOptionIndices.add(i);
     }
   }
@@ -531,7 +537,16 @@ Examples:
     const { execFileSync } = require("child_process");
     rawTargets = execFileSync(
       "git",
-      ["diff", "--name-only", baseSha, headSha, "--", "*.md", "*.yml", "*.yaml"],
+      [
+        "diff",
+        "--name-only",
+        baseSha,
+        headSha,
+        "--",
+        "*.md",
+        "*.yml",
+        "*.yaml",
+      ],
       { cwd: CONFIG.rootDir, encoding: "utf8", maxBuffer: 1024 * 1024 },
     )
       .trim()
