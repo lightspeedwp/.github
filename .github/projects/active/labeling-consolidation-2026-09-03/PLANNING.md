@@ -1,5 +1,5 @@
 ---
-file_type: planning
+file_type: documentation
 title: Labeling Agent Consolidation — Project Planning
 description: Detailed project plan with phases, timeline, team structure, dependencies, and GitHub issue tracking
 created_date: 2026-09-03

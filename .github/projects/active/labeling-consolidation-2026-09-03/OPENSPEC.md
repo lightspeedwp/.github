@@ -1,5 +1,5 @@
 ---
-file_type: openspec
+file_type: documentation
 title: Labeling Agent Consolidation — Technical Specification
 description: Detailed technical specification for unified labeling agent with architecture, component specs, schemas, and implementation details
 created_date: 2026-09-03
