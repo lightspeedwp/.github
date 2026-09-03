@@ -1,6 +1,5 @@
 ---
 name: "🤖 Automation"
-description: "🤖 Automation"
 about: "Propose, fix, or improve automation (actions, scripts, bots)."
 assignees: []
 projects: []
