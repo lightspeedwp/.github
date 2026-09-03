@@ -40,8 +40,8 @@ describe("validate-branch-name", () => {
   });
 
   describe("ALLOWED_TYPES", () => {
-    test("should contain at least 30 types", () => {
-      expect(ALLOWED_TYPES.length).toBeGreaterThanOrEqual(30);
+    test("should contain exactly 33 types", () => {
+      expect(ALLOWED_TYPES.length).toBe(33);
     });
 
     test("should include all core branch types", () => {

@@ -125,9 +125,25 @@ hotfix/ga4-purchase-duplicate
 
 Use a single regex in a workflow to enforce naming discipline:
 
+**Non-release branches:**
+
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9._-]+$
+^(feat|fix|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
 ```
+
+**Release branches (semantic versioning):**
+
+```regex
+^release/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$
+```
+
+**Release branches (standard format):**
+
+```regex
+^release/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
+```
+
+**For exact patterns, see the authoritative validator:** `scripts/validation/validate-branch-name.cjs` (lines 66-78)
 
 ### 4.1 Forbidden Prefixes (AI Agent Governance)
 
@@ -162,8 +178,12 @@ jobs:
           BRANCH="${{ github.head_ref }}"
           # Allow dependabot/renovate
           if [[ "$BRANCH" =~ ^(dependabot|renovate)/ ]]; then exit 0; fi
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9._-]+$ ]]; then
-            echo "❌ Branch '$BRANCH' must match the required pattern."
+          # Allow release branches with semantic versioning
+          if [[ "$BRANCH" =~ ^release/v?[0-9]+\.[0-9]+\.[0-9]+ ]]; then exit 0; fi
+          # Standard pattern: {type}/{scope}-{title}
+          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo "❌ Branch '$BRANCH' must match the pattern: {type}/{scope}-{title}"
+            echo "Example: feat/user-auth-login"
             exit 1
           fi
 ```
@@ -188,6 +208,8 @@ PR template selection is automatically routed based on branch type prefix:
 | `docs/` | `pr_docs.md` |
 | `ci/` | `pr_ci.md` |
 | `deps/` | `pr_dep_update.md` |
+| `audit/` | `pr_chore.md` (governance review) |
+| `codex/` | `pr_docs.md` (knowledge base) |
 | Other types | `pr_chore.md` (default) |
 | Forbidden prefixes | `pr_chore.md` (fallback) |
 
