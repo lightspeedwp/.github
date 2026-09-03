@@ -39,11 +39,13 @@ Critical Path: All phases are blocking (must run sequentially)
 | #656 | Audit Issue Labeling (Child) | 2 | 8–12h | 🔴 Blocked |
 | #664 | Audit Labeling Docs | 2/4 | 2–3h | 🔴 Blocked |
 | #1786 | Label Coverage Audit Skill | 2 | 6–8h | ✅ Completed (PR #2623) |
+| #2658 | Skill integration examples | 2 | 3–4h | 🔴 Blocked |
+| #2659 | Real repository testing | 2 | 2–3h | 🔴 Blocked |
 
 ### By Phase
 
 **Phase 1** → #2283  
-**Phase 2** → #1604, #909, #656, #664 (✅ #1786 completed)  
+**Phase 2** → #1604, #909, #656, #664, #2658, #2659 (✅ #1786 completed)  
 **Phase 3** → #1605, #1719, #1944, #1323  
 **Phase 4** → #1606  
 **Phase 5** → #1607  
