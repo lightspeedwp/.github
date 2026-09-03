@@ -1,18 +1,14 @@
 ---
 title: Manual Trigger System Design
 description: Design specification for Phase 3 manual workflow triggering
-type: design
-file_type: project-documentation
+type: documentation
+file_type: documentation
 status: proposed
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:
   - lightspeedwp/maintainers
-tags:
-  - automation
-  - manual-trigger
-  - workflow
-  - phase-3
+tags: []
 ---
 
 # ENH-003: Manual Trigger System Design

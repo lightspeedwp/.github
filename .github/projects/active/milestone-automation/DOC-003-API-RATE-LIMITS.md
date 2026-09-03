@@ -8,6 +8,7 @@ version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:
   - lightspeedwp/maintainers
+  - lightspeedwp/maintainers
 tags:
   - automation
   - api

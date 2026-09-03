@@ -2,7 +2,7 @@
 title: Milestone Automation — Phase 2
 description: Planning, monitoring, and operational documentation for milestone distribution automation
 type: guide
-file_type: readme
+file_type: documentation
 status: approved
 version: "1.0.0"
 owner: lightspeedwp/maintainers

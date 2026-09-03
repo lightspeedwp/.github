@@ -2,16 +2,13 @@
 title: Milestone Automation Troubleshooting Guide
 description: Common failures, diagnostics, and solutions
 type: guide
-file_type: implementation-guide
+file_type: documentation
 status: approved
 version: "1.0.0"
 owner: lightspeedwp/maintainers
 owners:
   - lightspeedwp/maintainers
-tags:
-  - automation
-  - troubleshooting
-  - milestone-distribution
+tags: []
 ---
 
 # Troubleshooting Guide — Milestone Automation
