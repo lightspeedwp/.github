@@ -16,9 +16,9 @@ stability: "stable"
 # Active Projects Index
 
 **Index Version:** 2.5  
-**Last Updated:** 2026-08-21 (18:00 UTC)  
-**Total Active Projects:** 67  
-**Status Update Cycle:** Batch Review Completed (All 67 Projects Analyzed)
+**Last Updated:** 2026-09-03 (14:00 UTC)  
+**Total Active Projects:** 68  
+**Status Update Cycle:** Batch Review Completed + New Project Initiated (All 68 Projects Analyzed)
 
 ---
 
@@ -36,12 +36,12 @@ This directory contains all active projects, initiatives, and work in progress f
 |--------|-------|-----------|----------|
 | ✅ **Complete** | 10 | 15% | Delivered, production-ready |
 | 🟢 **Active Ready** | 12 | 18% | In progress, well-scoped |
-| 🟡 **In Progress** | 35 | 52% | Active development, phased |
+| 🟡 **In Progress** | 35 | 51% | Active development, phased |
 | 🔴 **Critical** | 1 | 2% | Blocked or high-risk |
 | 🟠 **Blocked** | 3 | 4% | Waiting for dependencies |
-| 🔵 **Planning** | 4 | 6% | Early stage, planning phase |
+| 🔵 **Planning** | 5 | 7% | Early stage, planning phase |
 | 🔄 **Transitioning** | 2 | 3% | Between phases |
-| **TOTAL** | **67** | **100%** | All active initiatives |
+| **TOTAL** | **68** | **100%** | All active initiatives |
 
 ---
 
@@ -357,7 +357,7 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ---
 
-## 🔵 Planning Phase Projects (4) — Early Stage
+## 🔵 Planning Phase Projects (5) — Early Stage
 
 **Initiating or planning, not yet in execution.**
 
@@ -367,7 +367,13 @@ This directory contains all active projects, initiatives, and work in progress f
 
 2. **agent-skills-standards-comprehensive** (See Complete section — now moved to Ready for Phase 3)
 
-3. **label-prefix-audit-2026-08-05** (✅ / 🔴 Audit Complete | 20%)
+3. **labeling-consolidation-2026-09-03** (🔵 Research Phase | 5%)
+   - Research phase initiated 2026-09-03
+   - Active project folder created with PLANNING.md, OPENSPEC.md skeleton
+   - 14 clarifying questions to answer, org-wide audit in progress
+   - Target: Consolidate 11+ fragmented labeling workflows → unified agent + reusable skills
+
+4. **label-prefix-audit-2026-08-05** (✅ / 🔴 Audit Complete | 20%)
    - Audit findings complete, remediation phase 2 in progress
    - 100+ label prefix violations identified
 
@@ -389,7 +395,7 @@ This directory contains all active projects, initiatives, and work in progress f
 ## 📈 Project Distribution by Category
 
 ```
-Infrastructure & Automation:  8 projects
+Infrastructure & Automation:  9 projects (labeling-consolidation added)
 Agent Development:           11 projects  
 Testing & Quality:            6 projects
 Documentation & Planning:      6 projects
@@ -398,7 +404,7 @@ GitHub/Actions/Workflows:      5 projects
 Release & Deployment:          5 projects
 Other Initiatives:            14 projects
 ─────────────────────────────
-TOTAL:                        67 projects
+TOTAL:                        68 projects
 ```
 
 ---
@@ -508,6 +514,6 @@ A: See "Priority Action Items" section at top of active projects section.
 
 **Active Projects Index**  
 **Version:** 2.5  
-**Last Updated:** 2026-08-21 18:00 UTC  
-**Total Projects:** 67  
+**Last Updated:** 2026-09-03 14:00 UTC  
+**Total Projects:** 68  
 **Maintained By:** LightSpeed Team
