@@ -101,7 +101,7 @@ The current `.github/labels.yml` **already supports all repo types:**
 
 2. **Extensibility (Optional):**
    - Allow custom `area:*` labels for repo-specific needs (e.g., `area:mypy-plugin-x`)
-   - Create repo-specific `.github/labeler.yml` overrides to add these custom areas to PRs
+   - Create repo-specific `.github/labeler-extensions.yml` overrides to add these custom areas to PRs
    - Keep canonical labels in org-wide `.github/labels.yml`
 
 3. **No Repo-Specific Type/Status/Priority Labels:** These must remain universal for cross-repo issue linking and reporting.
@@ -342,7 +342,7 @@ Only pursue if:
 
 ### Q8: Cross-repo label consistency — identical canonical or repo-specific extensions?
 
-**Answer:** Identical canonical labels org-wide; repo-specific extensions via `.github/labeler.yml` overrides.
+**Answer:** Identical canonical labels org-wide; repo-specific extensions via `.github/labeler-extensions.yml` overrides.
 
 **Evidence:**
 
@@ -353,7 +353,8 @@ Only pursue if:
 - `.github/labels.yml` is org-wide (inherited by all repos if configured)
 
 **Repo-Specific Extensions (If Needed):**
-- Create `repos/{repo-name}/.github/labeler.yml` override
+
+- Create `repos/{repo-name}/.github/labeler-extensions.yml` override
 - Add repo-specific rules (e.g., `area:mypy-plugin` for Python plugins)
 - Do NOT create repo-specific `.github/labels.yml` (complexity, inconsistency)
 
@@ -365,7 +366,7 @@ Only pursue if:
 **Recommendation:**
 
 1. **Mandate:** All repos use identical canonical `.github/labels.yml`
-2. **Allow:** Repo-specific `.github/labeler.yml` rule extensions
+2. **Allow:** Repo-specific `.github/labeler-extensions.yml` rule extensions
 3. **Enforce:** Branch naming and issue types consistent across repos
 4. **Audit:** Annual label inventory to identify orphaned/unused labels
 

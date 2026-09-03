@@ -69,6 +69,7 @@ The proposed schema adds metadata fields for Phase 4 implementation:
    - `aliases`: Bare label mappings for auto-correction
 
 2. **Constraint Fields:**
+   - `family`: Canonical family key; derive it from the `name` prefix while absent from Phase 1–3 entries
    - `one_hot_family`: Family with one-label-only constraint
    - `incompatible_with`: Labels that conflict
    - `requires`: Labels that must accompany this
@@ -97,33 +98,29 @@ The proposed schema adds metadata fields for Phase 4 implementation:
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": ["schema_version", "labels"],
-  "properties": {
-    "schema_version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+$"
-    },
-    "labels": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name", "family", "color", "description"],
-        "properties": {
-          "name": {
-            "type": "string",
-            "pattern": "^[a-z][a-z0-9]*(?::[a-z0-9-]+)*$"
-          },
-          "color": {
-            "type": "string",
-            "pattern": "^[0-9A-Fa-f]{6}$"
-          },
-          "one_hot_family": {
-            "type": ["string", "null"],
-            "enum": ["type", "status", "priority", null]
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["name", "color", "description"],
+    "properties": {
+      "name": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9/-]+)*$"
+      },
+      "family": {
+        "type": "string"
+      },
+      "color": {
+        "type": "string",
+        "pattern": "^[0-9A-Fa-f]{6}$"
+      },
+      "description": {
+        "type": "string"
+      },
+      "one_hot_family": {
+        "type": ["string", "null"],
+        "enum": ["type", "status", "priority", null]
           }
-        }
-      }
     }
   }
 }
@@ -146,6 +143,13 @@ if (!valid) {
   const errors = ajv.errorsText();
   throw new ValidationError(`Schema validation failed: ${errors}`);
 }
+
+// Consumers keep reading the root array directly. During the metadata migration,
+// use the canonical `family` key when present and otherwise derive the prefix.
+const labels = labelsYaml.map((label) => ({
+  ...label,
+  family: label.family ?? label.name.split(':', 1)[0],
+}));
 ```
 
 ---
@@ -201,13 +205,15 @@ repo_config:
 
 ### Phase 1: Current → Schema 1.0 (Week of Sept 3)
 
-- [ ] Expand labels.yml with metadata fields
-- [ ] Create schema.json with JSON Schema validation
+- [ ] Keep labels.yml as a root array with `name`, `color`, and `description`
+- [ ] Create schema.json with root-array JSON Schema validation
 - [ ] Implement schema validation in CI
-- [ ] Migrate existing labels with automation rules
+- [ ] Keep existing consumers reading the root array directly
 
 ### Phase 2: Schema Evolution (Phase 4, during implementation)
 
+- [ ] Add optional metadata fields to each label without changing the root shape
+- [ ] Use `family` consistently, deriving it from the name prefix during migration
 - [ ] Add support for custom families
 - [ ] Implement label versioning
 - [ ] Add label deprecation mechanism

@@ -517,56 +517,56 @@ repo_config:
   color: d73a49
   description: "A bug, defect, or error"
   usage_pattern: "automatic"  # auto | manual | mixed
-    aliases:
-      - bug
-      - defect
-      - error
-    one_hot_family: "type"  # Can only have one label from this family
-    automation_rules:
-      auto_apply:
-        - condition: "branch_prefix == 'fix/'"
-          confidence: 0.85
-        - condition: "has_label('type:investigation') && contains('bug')"
-          confidence: 0.70
-      incompatible_with:
-        - type:feature
-        - type:documentation
-      requires:
-        - status:*  # Must have one status:* label
-    category: "issue-type"
-    searchable: true
+  aliases:
+    - bug
+    - defect
+    - error
+  one_hot_family: "type"  # Can only have one label from this family
+  automation_rules:
+    auto_apply:
+      - condition: "branch_prefix == 'fix/'"
+        confidence: 0.85
+      - condition: "has_label('type:investigation') && contains('bug')"
+        confidence: 0.70
+    incompatible_with:
+      - type:feature
+      - type:documentation
+    requires:
+      - status:*  # Must have one status:* label
+  category: "issue-type"
+  searchable: true
 
-  - name: status:needs-triage
-    family: status
-    color: fbca04
-    description: "Needs triage and prioritization"
-    usage_pattern: "automatic"
-    one_hot_family: "status"
-    automation_rules:
-      auto_apply:
-        - condition: "is_new_issue"
-          confidence: 1.0
-      required_for:
-        - "new issues"
-        - "unlabeled items"
-    category: "workflow-state"
-    searchable: true
+- name: status:needs-triage
+  family: status
+  color: fbca04
+  description: "Needs triage and prioritization"
+  usage_pattern: "automatic"
+  one_hot_family: "status"
+  automation_rules:
+    auto_apply:
+      - condition: "is_new_issue"
+        confidence: 1.0
+    required_for:
+      - "new issues"
+      - "unlabeled items"
+  category: "workflow-state"
+  searchable: true
 
-  - name: priority:critical
-    family: priority
-    color: b60205
-    description: "Critical priority - address immediately"
-    usage_pattern: "manual"
-    one_hot_family: "priority"
-    automation_rules:
-      auto_apply:
-        - condition: "branch_prefix == 'hotfix/'"
-          confidence: 0.95
-        - condition: "has_label('type:security')"
-          confidence: 1.0
-    category: "urgency"
-    searchable: true
-    sla: "4 hours"  # Expected response time
+- name: priority:critical
+  family: priority
+  color: b60205
+  description: "Critical priority - address immediately"
+  usage_pattern: "manual"
+  one_hot_family: "priority"
+  automation_rules:
+    auto_apply:
+      - condition: "branch_prefix == 'hotfix/'"
+        confidence: 0.95
+      - condition: "has_label('type:security')"
+        confidence: 1.0
+  category: "urgency"
+  searchable: true
+  sla: "4 hours"  # Expected response time
 ```
 
 ### JSON Schema Validation (schema.json)
@@ -574,33 +574,14 @@ repo_config:
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": ["schema_version", "labels"],
-  "properties": {
-    "schema_version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+$",
-      "description": "Semantic version of schema format"
-    },
-    "last_updated": {
-      "type": "string",
-      "format": "date-time",
-      "description": "ISO 8601 timestamp of last update"
-    },
-    "sync_status": {
-      "type": "string",
-      "enum": ["in-sync", "out-of-sync", "pending-review"],
-      "description": "Synchronization status with other config files"
-    },
-    "labels": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["name", "family", "color", "description"],
-        "properties": {
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["name", "color", "description"],
+    "properties": {
           "name": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9]*(?::[a-z0-9-]+)*$",
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z0-9/-]+)*$",
             "description": "Label name with family prefix"
           },
           "family": {
@@ -615,7 +596,7 @@ repo_config:
           },
           "description": {
             "type": "string",
-            "minLength": 5,
+            "minLength": 1,
             "maxLength": 200,
             "description": "Human-readable label description"
           },
@@ -673,17 +654,16 @@ repo_config:
             "type": ["string", "null"],
             "description": "Service level agreement / expected resolution time"
           }
-        }
-      }
     }
   }
 }
 ```
 
 **Schema Compatibility Notes:**
-- **Phase 1 (Current):** `labels.yml` remains a root array for backward compatibility with existing consumers (`labelsConfig.map(...)`). This schema defines the target shape for Phase 4 migration.
-- **Phase 4 (Migration):** When schema is migrated to object format with metadata, all consuming workflows must be updated atomically to parse the new structure. This requires coordinated Phase 4 implementation.
-- **Validation:** Use this schema for validating enhanced label definitions starting in Phase 4. Phase 1–3 continue using array validation.
+
+- **Phase 1 (Current):** `labels.yml` and its schema use a root array for compatibility with existing consumers (`labelsConfig.map(...)`).
+- **Phase 4 (Enhancement):** Add optional metadata to each array item without wrapping the array. The canonical family field is `family`; consumers derive it from the label-name prefix when the field is absent.
+- **Validation:** The required `name`, `color`, and `description` fields match the current registry. Enhanced metadata remains optional.
 
 ### Cross-Repo Consistency Rules
 
@@ -2093,7 +2073,7 @@ npm run test:load -- --concurrency 100 --duration 60s
 ### Configuration Files
 
 - **[.github/labels.yml](../../labels.yml)** — Canonical label definitions (158 labels)
-- **[.github/labeler-extensions.yml](../../labeler.yml)** — Automatic labeling rules (43 rules)
+- **[.github/labeler.yml](../../labeler.yml)** — Automatic labeling rules (43 rules)
 - **[.github/issue-types.yml](../../issue-types.yml)** — GitHub issue type mappings (33 types)
 - **[.github/label-governance-policy.yml](../../label-governance-policy.yml)** — Governance policy
 
