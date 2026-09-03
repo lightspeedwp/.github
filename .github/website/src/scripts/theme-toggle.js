@@ -26,7 +26,8 @@ const telemetry = {
       try {
         fetch("/api/telemetry", {
           method: "POST",
-          body: JSON.stringify(event),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...event, restricted: undefined }),
         }).catch(() => {
           // Silently fail - telemetry should never block user interactions
         });

@@ -104,18 +104,21 @@ describe("MetricsReportingOrchestrator", () => {
 
   describe("generateReports", () => {
     it("should generate reports successfully", async () => {
-      const mockReport = {
-        path: ".github/reports/metrics/test-report.md",
-        summary: "Test report generated successfully",
-      };
+      const repositories = [{ owner: "test", repo: "repo" }];
+      const mockReport = "### Summary\n### Metrics";
+      const reportPath = ".github/reports/metrics/test-report.md";
 
       orchestrator.reporter.generateReport.mockResolvedValue(mockReport);
+      jest.spyOn(orchestrator, "saveReport").mockReturnValue(reportPath);
+      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
 
-      await orchestrator.generateReports();
+      await orchestrator.generateReports(repositories);
 
       expect(orchestrator.reporter.generateReport).toHaveBeenCalled();
       expect(orchestrator.reports).toHaveLength(1);
-      expect(orchestrator.reports[0]).toEqual(mockReport);
+      expect(orchestrator.reports[0]).toEqual(
+        expect.objectContaining({ repository: "test/repo", status: "success" }),
+      );
     });
 
     it("should emit telemetry event on successful report generation", async () => {
