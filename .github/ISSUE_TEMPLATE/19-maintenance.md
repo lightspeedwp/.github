@@ -1,6 +1,5 @@
 ---
 name: "🧹 Maintenance"
-description: "🧹 Maintenance"
 about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks."
 assignees: []
 projects: []

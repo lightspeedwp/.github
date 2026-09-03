@@ -1,6 +1,5 @@
 ---
 name: "🛡️ Audit"
-description: "🛡️ Audit"
 about: "Propose, conduct, or document a security, accessibility, code, or process audit."
 assignees: []
 projects: []
