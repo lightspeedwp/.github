@@ -19,7 +19,8 @@ Executing bulk remediation to fix 226+ non-compliant issues. Workflow runs are t
 | #57 | claude/... | 2026-09-02 20:34 | ❌ FAILED | ERR_PACKAGE_PATH_NOT_EXPORTED: CommonJS cannot import @actions/github | Scripts converted to ES modules (.cjs→.js) |
 | #58 | feat/issue-triage-phase-2c-execution | 2026-09-02 20:38 | ❌ FAILED | "Maximum object size exceeded" - context limit with 226 issues | File-based JSON passing (write to .github/tmp/issues-{runId}.json) |
 | #59 | develop | 2026-09-02 20:46 | 🟡 IN PROGRESS | — | — |
-| #60 | feat/issue-triage-phase-2c-execution | 2026-09-02 20:51 | 🟡 QUEUED | — | ✅ File-based context fix deployed |
+| #60 | feat/issue-triage-phase-2c-execution | 2026-09-02 20:51 | ❌ FAILED | Step 8 failed: require() cannot load ES module remediation-checklist-generator | RemediationChecklistGenerator converted to ES module export syntax |
+| #61 | feat/issue-triage-phase-2c-execution | 2026-09-02 20:57 | 🟡 QUEUED | — | ✅ ES module export fix deployed, dynamic import in workflow |
 
 ## Critical Fixes Applied
 
@@ -121,20 +122,52 @@ const github = require("@actions/github");
 
 ---
 
-## Current Status: Run #60
+### Fix #4: ES Module Export Syntax (Run #60 → Run #61)
+
+**Error:** `require()` cannot load ES module remediation-checklist-generator
+
+```javascript
+// In GitHub Actions workflow step
+const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
+// Error: Cannot require ES module - file has `export` statement instead of module.exports
+```
+
+**Root Cause:** The `remediation-checklist-generator.js` file uses CommonJS `module.exports` but is being treated as an ES module (package.json has "type": "module"). When the workflow tries to `require()` an ES module, Node.js throws an error.
+
+**Fix Applied:** Two-part fix
+1. **Convert generator to ES module syntax:**
+   ```javascript
+   // Before: module.exports = { RemediationChecklistGenerator };
+   // After:  export { RemediationChecklistGenerator };
+   ```
+
+2. **Update workflow to use dynamic import:**
+   ```javascript
+   // Before: const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
+   // After:  const { RemediationChecklistGenerator } = await import('./scripts/agents/includes/remediation-checklist-generator.js');
+   ```
+
+**Verification:** Pending run #61 completion
+
+**Commits:**
+- Run #61: "fix: convert remediation checklist generator to ES module"
+
+---
+
+## Current Status: Run #61
 
 **Branch:** `feat/issue-triage-phase-2c-execution`  
-**Commit:** 0d3331285 (file-based context fix)  
-**Queued:** 2026-09-02 20:51:16Z  
-**Expected:** Context size error resolved, workflow should progress past milestone assignment step
+**Commit:** 3f874d066 (ES module export fix)  
+**Status:** Queued (queued ~2026-09-02 21:00Z)  
+**Expected:** File-based JSON passing + ES module fixes enable workflow to complete all steps
 
 **Testing Scope:**
-- ✅ npm dependencies install (Babel fix verified in #57)
-- ✅ ES modules import (verified in #58)
-- 🟡 File-based JSON passing (testing now)
-- 🟡 Milestone assignment (pending)
-- 🟡 Label inference (pending)
-- 🟡 Remediation checklists (pending)
+- ✅ npm dependencies install (Babel fix verified in #56)
+- ✅ ES modules import (scripts converted in #57)
+- ✅ File-based JSON passing (verified in #60 - passed steps 1-7)
+- ✅ Milestone assignment (step 6 passed in #60)
+- ✅ Label inference (step 7 passed in #60)
+- 🟡 Remediation checklists (step 8 failed in #60, fix #4 deployed)
 
 ---
 
