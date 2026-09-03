@@ -2,8 +2,8 @@
 title: Mermaid Diagram Syntax Validation Report
 description: Mermaid diagram syntax validation results for repository README files
 version: "1.0.0"
-created_date: "2026-08-29"
-last_updated: "2026-08-29"
+created_date: "2026-09-03"
+last_updated: "2026-09-03"
 file_type: documentation
 tags: ["mermaid", "validation", "diagrams"]
 domain: generic
@@ -13,12 +13,12 @@ stability: stable
 
 # Mermaid Diagram Syntax Validation Report
 
-**Generated**: 2026-08-29T07:19:41.921Z
+**Generated**: 2026-09-03T08:22:56.807Z
 
 ## Summary
 
-- **Total diagrams**: 105
-- **Valid diagrams**: 105
+- **Total diagrams**: 106
+- **Valid diagrams**: 106
 - **Error diagrams**: 0
 - **Success rate**: 100.0%
 ## Files Analyzed
@@ -389,15 +389,22 @@ stability: stable
 - agents/ai-readiness-estimator-agent/skills/agent-attached/post-launch-optimisation/SKILL.md
 - agents/ai-readiness-estimator-agent/skills/agent-attached/technical-seo-audit/SKILL.md
 - agents/ai-readiness-estimator-agent/skills/local/frontend-skill/SKILL.md
+- agents/ai-readiness-estimator.agent.md
+- agents/changelog.agent.md
 - agents/changelog/README.md
 - agents/chat-closure-agent/AGENT.md
+- agents/chat-closure-agent/claude/agent.md
 - agents/chat-closure-agent/claude/prompt.md
+- agents/chat-closure-agent/copilot/agent.md
 - agents/chat-closure-agent/docs/ARCHITECTURE.md
 - agents/chat-closure-agent/docs/TESTING_GUIDE.md
 - agents/chat-closure-agent/docs/USAGE_GUIDE.md
 - agents/chat-closure-agent/examples/sample-closure-workflow.md
+- agents/chat-closure-agent/openai/agent.md
+- agents/chat-closure-agent/shared/core-prompt.md
 - agents/chat-closure-agent/skills/git-metadata-extractor.md
 - agents/chat-closure-agent/skills/project-linker.md
+- agents/chat-closure.agent.md
 - agents/client-website-discovery-assistant-agent/AGENT.md
 - agents/client-website-discovery-assistant-agent/README.md
 - agents/client-website-discovery-assistant-agent/agent/configuration/memory/discovery/defaults.md
@@ -602,6 +609,8 @@ stability: stable
 - agents/client-website-discovery-assistant-agent/skills/agent-attached/hermes/wordpress-plugin-packaging-review/references/output-templates.md
 - agents/client-website-discovery-assistant-agent/skills/agent-attached/hermes/wordpress-plugin-packaging-review/references/qa-rubric.md
 - agents/client-website-discovery-assistant-agent/skills/agent-attached/hermes/wordpress-plugin-packaging-review/references/workflow.md
+- agents/client-website-discovery-assistant.agent.md
+- agents/client-website-discovery.agent.md
 - agents/design-partner-agent/AGENT.md
 - agents/design-partner-agent/README.md
 - agents/design-partner-agent/agent/instructions/AGENTS.md
@@ -798,6 +807,7 @@ stability: stable
 - agents/design-partner-agent/skills/agent-attached/hermes/ux-writing/SKILL.md
 - agents/design-partner-agent/skills/agent-attached/hermes/wordpress-block-theme-handoff/SKILL.md
 - agents/design-partner-agent/skills/local/frontend-skill/SKILL.md
+- agents/design-partner.agent.md
 - agents/harvest-analytical-agent/AGENT.md
 - agents/harvest-analytical-agent/README.md
 - agents/harvest-analytical-agent/agent/instructions/AGENTS.md
@@ -864,6 +874,7 @@ stability: stable
 - agents/harvest-analytical-agent/openai/agent.md
 - agents/harvest-analytical-agent/shared/core-prompt.md
 - agents/harvest-analytical-agent/skills/local/frontend-skill/SKILL.md
+- agents/harvest-analytical.agent.md
 - agents/issues.agent.md
 - agents/labeling.agent.md
 - agents/linear-advisor-agent/AGENT.md
@@ -1109,6 +1120,7 @@ stability: stable
 - agents/linear-advisor-agent/skills/local/skill-creator/SKILL.md
 - agents/linear-advisor-agent/skills/local/skill-creator/references/openai_yaml.md
 - agents/linear-advisor-agent/skills/local/skill-installer/SKILL.md
+- agents/linear-advisor.agent.md
 - agents/linting-agent/README.md
 - agents/linting.agent.md
 - agents/meta-agent/CHANGELOG.md
@@ -1124,6 +1136,7 @@ stability: stable
 - agents/meta-agent/__tests__/fixtures/sample-readme.md
 - agents/meta.agent.md
 - agents/metadata-agent/README.md
+- agents/metadata.agent.md
 - agents/metrics.agent.md
 - agents/mode-demonstrate-understanding.agent.md
 - agents/mode-document-reviewer.agent.md
@@ -1242,6 +1255,8 @@ stability: stable
 - agents/pagespeed-agent/skills/agent-attached/hermes/pagespeed-intake-normalizer/references/brief-template.md
 - agents/pagespeed-agent/skills/agent-attached/hermes/pagespeed-skill-router/SKILL.md
 - agents/pagespeed-agent/skills/agent-attached/hermes/wordpress-pagespeed-diagnosis/SKILL.md
+- agents/pagespeed.agent.md
+- agents/pr-creation.agent.md
 - agents/prd-agent/AGENT.md
 - agents/prd-agent/CONTEXT_DETECTION.md
 - agents/prd-agent/INTEGRATION_GUIDE.md
@@ -2527,6 +2542,8 @@ stability: stable
 - agents/prd-factory-planner-agent/skills/local/spreadsheets/domain_guidance/scientific_research.md
 - agents/prd-factory-planner-agent/skills/local/spreadsheets/routing/google_sheets.md
 - agents/prd-factory-planner-agent/skills/local/spreadsheets/style_guidelines.md
+- agents/prd-factory-planner.agent.md
+- agents/prd.agent.md
 - agents/project-meta-sync.agent.md
 - agents/prompt-engineer.agent.md
 - agents/prompt-engineer/API.md
@@ -2699,6 +2716,7 @@ stability: stable
 - agents/proposal-desk-agent/skills/local/system/skill-creator/SKILL.md
 - agents/proposal-desk-agent/skills/local/system/skill-creator/references/openai_yaml.md
 - agents/proposal-desk-agent/skills/local/system/skill-installer/SKILL.md
+- agents/proposal-desk.agent.md
 - agents/release.agent.md
 - agents/release/README.md
 - agents/release/gates/README.md
@@ -3376,6 +3394,7 @@ stability: stable
 - agents/tour-operator-config-agent/skills/local/skill-creator/SKILL.md
 - agents/tour-operator-config-agent/skills/local/skill-creator/references/openai_yaml.md
 - agents/tour-operator-config-agent/skills/local/skill-installer/SKILL.md
+- agents/tour-operator-config.agent.md
 - agents/website-content-strategist-agent/AGENT.md
 - agents/website-content-strategist-agent/README.md
 - agents/website-content-strategist-agent/agent/configuration/memory/README.md
@@ -3732,6 +3751,7 @@ stability: stable
 - agents/website-content-strategist-agent/skills/agent-attached/website-pages-builder/SKILL.md
 - agents/website-content-strategist-agent/skills/agent-attached/website-pages-builder/references/page-type-map.md
 - agents/website-content-strategist-agent/skills/local/frontend-skill/SKILL.md
+- agents/website-content-strategist.agent.md
 - agents/website-scope-estimator-agent/AGENT.md
 - agents/website-scope-estimator-agent/README.md
 - agents/website-scope-estimator-agent/agent/configuration/CONNECTORS.md
@@ -3898,6 +3918,7 @@ stability: stable
 - agents/website-scope-estimator-agent/skills/local/spreadsheets/domain_guidance/scientific_research.md
 - agents/website-scope-estimator-agent/skills/local/spreadsheets/routing/google_sheets.md
 - agents/website-scope-estimator-agent/skills/local/spreadsheets/style_guidelines.md
+- agents/website-scope-estimator.agent.md
 - agents/woo-config-agent/AGENT.md
 - agents/woo-config-agent/README.md
 - agents/woo-config-agent/agent/configuration/current-memory/project-history.md
@@ -4278,6 +4299,8 @@ stability: stable
 - agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/templates/fix-plan.md
 - agents/woo-config-agent/skills/agent-attached/wordpress-accessibility-checker/tests/README.md
 - agents/woo-config-agent/skills/local/frontend-skill/SKILL.md
+- agents/woo-config.agent.md
+- agents/wordpress.agent.md
 - agents/wordpress/README.md
 - agents/wp-config-agent/AGENT.md
 - agents/wp-config-agent/README.md
@@ -4690,6 +4713,7 @@ stability: stable
 - agents/wp-config-agent/skills/agent-attached/yoast-configuration/tests/research-pack-scenario-tests.md
 - agents/wp-config-agent/skills/agent-attached/yoast-configuration/tests/woocommerce-scenario-tests.md
 - agents/wp-config-agent/skills/local/frontend-skill/SKILL.md
+- agents/wp-config.agent.md
 - agents/zendesk-support-agent/AGENT.md
 - agents/zendesk-support-agent/README.md
 - agents/zendesk-support-agent/agent/instructions/AGENTS.md
@@ -4970,6 +4994,7 @@ stability: stable
 - agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/references/shared-agent-portability.md
 - agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/references/synthetic-test-scenarios.md
 - agents/zendesk-support-agent/skills/agent-attached/zendesk-triage-router/references/zendesk-field-map.md
+- agents/zendesk-support.agent.md
 - ai/AUDIT-SUMMARY.md
 - ai/Claude.md
 - ai/Gemini.md
@@ -4987,6 +5012,8 @@ stability: stable
 - docs/ADRs/ADR-002-authorization-gating.md
 - docs/ADRs/ADR-003-post-release-sync.md
 - docs/ADRs/ADR-004-rollback-strategy.md
+- docs/AGENT-DEVELOPER-GUIDE.md
+- docs/AGENT-INDEX.md
 - docs/AGENTIC_RELEASE_ADMIN_GUIDE.md
 - docs/AGENTIC_RELEASE_TEAM_TRAINING.md
 - docs/AGENTIC_RELEASE_USER_GUIDE.md
@@ -5030,6 +5057,7 @@ stability: stable
 - docs/HOOKS_STANDARDS.md
 - docs/HUSKY_PRECOMMITS.md
 - docs/INSTRUCTIONS_STANDARDS.md
+- docs/ISSUE-TRIAGE-GUIDE.md
 - docs/ISSUE_CREATION_GUIDE.md
 - docs/ISSUE_FIELDS.md
 - docs/ISSUE_LABELS.md
@@ -5056,6 +5084,10 @@ stability: stable
 - docs/MILESTONE_ALLOCATION_STRATEGY.md
 - docs/ORGANIZATION.md
 - docs/OVERRIDE_POLICY.md
+- docs/PHASE-2B-BENCHMARKING-GUIDE.md
+- docs/PHASE-2B-VALIDATION-RESULTS.md
+- docs/PHASE-2C-IMPLEMENTATION-STATUS.md
+- docs/PHASE-2C-OPTIMIZATION-PLAN.md
 - docs/PLUGINS_STANDARDS.md
 - docs/PLUGIN_INSTALLATION_GUIDE.md
 - docs/PLUGIN_PACK_ROADMAP.md
@@ -5092,6 +5124,10 @@ stability: stable
 - docs/agents/PLANNER_RUNBOOK.md
 - docs/agents/REVIEWER_RUNBOOK.md
 - docs/ai-feedback-response-tracking.md
+- docs/automation/INTEGRATION_GUIDE.md
+- docs/automation/REGISTRY.md
+- docs/automation/TROUBLESHOOTING.md
+- docs/automation/USAGE_EXAMPLES.md
 - docs/chat-closure-agent/cli-reference.md
 - docs/chat-closure-agent/index.md
 - docs/chat-closure-agent/integration-guide.md
@@ -5248,6 +5284,7 @@ stability: stable
 - projects/active/issue-management-audit-polish-2026-08-27/README.md
 - projects/active/issue-management-audit-polish-2026-08-27/SESSION-SUMMARY-2026-08-27-CONTINUATION.md
 - projects/active/issue-management-audit-polish-2026-08-27/SESSION-SUMMARY-2026-08-27.md
+- projects/active/issue-management-audit-polish-2026-08-27/reports/issue-management/ISSUE-MANAGEMENT-AUDIT-REPORT.md
 - projects/active/openspec/PHASE-3-IMPLEMENTATION.md
 - projects/active/release-workflow-validation-phase9-2026-08-22/README.md
 - prompts/README.md
@@ -5259,10 +5296,14 @@ stability: stable
 - scripts/agents/PHASE-4-GUIDE.md
 - scripts/agents/TRIAGE-AGENT-GUIDE.md
 - scripts/agents/__tests__/README.md
+- scripts/agents/includes/BARE_LABEL_FIXER_README.md
 - scripts/agents/includes/README.md
 - scripts/agents/includes/__tests__/README.md
 - scripts/automation/ADD-ISSUE-SECTIONS-GUIDE.md
 - scripts/automation/MANAGE_STALE_ISSUES_README.md
+- scripts/automation/MILESTONE-MANAGEMENT-README.md
+- scripts/automation/MILESTONE-QUICK-START.md
+- scripts/automation/OPTIMIZATION-GUIDE.md
 - scripts/automation/README.md
 - scripts/automation/SYNC_PR_LABELS_README.md
 - scripts/automation/issue-agent/README.md
@@ -5279,6 +5320,7 @@ stability: stable
 - scripts/metrics/docs/USAGE_GUIDE.md
 - scripts/metrics/integrations/README.md
 - scripts/release/__tests__/e2e/README.md
+- scripts/templates/agent.template.md
 - scripts/validation/README.md
 - scripts/validation/__fixtures__/pr-templates/README.md
 - scripts/validation/__fixtures__/pr-templates/invalid/missing-changelog-entry.md
@@ -5325,6 +5367,8 @@ stability: stable
 - skills/ai-readiness-assessor/references/tool-checks.md
 - skills/apply-design-system/SKILL.md
 - skills/audit-design-system/SKILL.md
+- skills/audit-label-coverage/README.md
+- skills/audit-label-coverage/SKILL.md
 - skills/block-theme-audit/SKILL.md
 - skills/cc-figma-component/SKILL.md
 - skills/chatgpt-apps/SKILL.md
