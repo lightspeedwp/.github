@@ -71,10 +71,8 @@ describe("normalizeTitle()", () => {
 
     it("should handle prefixes with various spacing", () => {
       expect(normalizeTitle("feat:  Add feature", "feat")).toBeNull(); // double space - matches
-      // Note: 'fix:Add something' without space does NOT match the pattern, so it gets prefixed
-      expect(normalizeTitle("fix:Add something", "fix")).toBe(
-        "fix: fix:Add something",
-      );
+      // Note: 'fix:Add something' without space now matches the pattern (zero or more spaces)
+      expect(normalizeTitle("fix:Add something", "fix")).toBeNull();
     });
 
     it("should be case-insensitive for prefix detection", () => {
@@ -140,9 +138,9 @@ describe("normalizeTitle()", () => {
     it("should not normalize if title is just prefix and colon with space", () => {
       expect(normalizeTitle("feat: ", "feat")).toBeNull(); // colon with space matches
       expect(normalizeTitle("fix: ", "fix")).toBeNull(); // colon with space matches
-      // Without space after colon, they don't match the pattern
-      expect(normalizeTitle("feat:", "feat")).toBe("feat: feat:");
-      expect(normalizeTitle("fix:", "fix")).toBe("fix: fix:");
+      // Without space after colon now matches the pattern (zero or more spaces)
+      expect(normalizeTitle("feat:", "feat")).toBeNull();
+      expect(normalizeTitle("fix:", "fix")).toBeNull();
     });
 
     it("should handle title that looks like prefix but isnt", () => {
@@ -321,6 +319,16 @@ describe("isAlreadyPrefixed()", () => {
 });
 
 describe("parseArgs()", () => {
+  let originalArgv;
+
+  beforeEach(() => {
+    originalArgv = process.argv;
+  });
+
+  afterEach(() => {
+    process.argv = originalArgv;
+  });
+
   it("should parse --dry-run flag", () => {
     process.argv = ["node", "script.js", "--dry-run"];
     const args = parseArgs();
@@ -532,10 +540,12 @@ describe("Boundary conditions and error tolerance", () => {
     realTitles.forEach((title) => {
       const prefix = "feat"; // Generic for this test
       const result = normalizeTitle(title, prefix);
-      // Some titles contain colons that match the prefix pattern, so they might already be "prefixed"
+      // Result should either be null (already prefixed) or start with "feat: "
       if (result !== null) {
         expect(result).toContain("feat: ");
         expect(isAlreadyPrefixed(result)).toBe(true);
+      } else {
+        expect(isAlreadyPrefixed(title)).toBe(true);
       }
     });
   });

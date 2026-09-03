@@ -140,17 +140,20 @@ Use a single regex in a workflow to enforce naming discipline:
 
 **Strict Pattern (LightSpeed standard):**
 
-```regex
-^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$
-```
+The exact regex pattern is defined in the branch validator script:
+
+- **File:** `scripts/validation/validate-branch-name.cjs`
+- **Patterns:** `BRANCH_PATTERN_STANDARD` and `BRANCH_PATTERN_RELEASE_*` (lines 77-81)
+- **Allowed types:** Dynamic list built from `ALLOWED_TYPES` array (lines 30-67)
 
 **Pattern explanation:**
 
-- `{type}` — one of 33+ allowed prefixes (listed above)
+- `{type}` — one of 30+ allowed prefixes (see ALLOWED_TYPES in validator, or listed in section 2 above)
 - `/` — literal slash separator
 - `{scope}` — lowercase, kebab-case (hyphens only, no underscores)
 - `-` — hyphen separator between scope and title
 - `{title}` — lowercase, kebab-case (hyphens only, no underscores)
+- **Release exception:** `release/v1.2.3` (semver format allowed)
 
 **Release branches special case:**  
 Release branches allow semantic versioning format:
@@ -221,8 +224,9 @@ jobs:
 1. Rename the branch locally: `git branch -m old-name new-name`
 2. Force-push to update the PR: `git push -u origin new-name --force-with-lease`
 3. Delete the old remote branch: `git push origin :old-name`
-4. GitHub will automatically update the PR to point to the new branch
-5. Re-run validation checks
+4. Create a new PR pointing to the correctly-named branch (GitHub closes the old PR when the branch is deleted)
+5. Link the old PR in the new one with a comment explaining the rename
+6. Re-run validation checks
 
 **[NEW]**
 

@@ -185,7 +185,7 @@ async function getTypePrefix(item, owner, repo) {
  */
 function isAlreadyPrefixed(title) {
   const prefixPattern =
-    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit):\s+/i;
+    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit):\s*/i;
   return prefixPattern.test(title);
 }
 
