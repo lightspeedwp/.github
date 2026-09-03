@@ -4,11 +4,14 @@ description: "Remediation and permanent governance for label prefix violations"
 file_type: "readme"
 version: "1.1.0"
 created_date: "2026-08-05"
-last_updated: "2026-08-07"
+last_updated: "2026-09-03"
 author: "Claude Code Audit"
 maintainer: "LightSpeed Team"
 domain: "governance"
 status: "active"
+priority: "critical"
+type: "enforcement"
+effort: "32h"
 ---
 
 # Label Prefix Enforcement Project
@@ -219,13 +222,16 @@ Reference `.github/labels.yml` (158 canonical labels).
 
 *Built with ☕ and 🚀 by Claude Code Audit · LightSpeedWP*
 
-## Related Issues
+## Related Issues & PRs
 
-This project is coordinated with:
+| Issue/PR | Type | Status | Purpose |
+|----------|------|--------|---------|
+| [#1592](https://github.com/lightspeedwp/.github/issues/1592) | Issue | Open | Root issue: Label Prefix Governance Enforcement |
+| [#1733](https://github.com/lightspeedwp/.github/issues/1733) | Issue | Open | Phase 2: Folder Structure & Linking |
+| [#2476](https://github.com/lightspeedwp/.github/pull/2476) | PR | Merged | Phase 1: Governance framework |
+| [#2590](https://github.com/lightspeedwp/.github/pull/2590) | PR | Merged | Phase 3: Label prefix enforcement in PR templates |
 
-- [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
-
-See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
+**Project Coordination**: Works alongside label-prefix-audit-2026-08-05 and labeling-consolidation-2026-09-03
 
 ## Visual Workflow
 

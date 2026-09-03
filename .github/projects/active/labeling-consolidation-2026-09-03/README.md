@@ -5,6 +5,9 @@ description: Organisation-wide labeling solution consolidating fragmented workfl
 created_date: 2026-09-03
 last_updated: 2026-09-03
 status: active
+priority: "high"
+type: "consolidation"
+effort: "60h"
 tags:
   - automation
   - labeling
@@ -182,6 +185,20 @@ npm run lint:md
 # View current active projects
 ls -la .github/projects/active/
 ```
+
+---
+
+## Related Issues & PRs
+
+| Issue/PR | Type | Status | Purpose |
+|----------|------|--------|---------|
+| [#1592](https://github.com/lightspeedwp/.github/issues/1592) | Issue | Open | Related: Label Prefix Governance Enforcement |
+| [#2626](https://github.com/lightspeedwp/.github/pull/2626) | PR | Open | Phase 2: Labeling workflow consolidation (branch naming issue) |
+| [#2687](https://github.com/lightspeedwp/.github/issues/2687) | Issue | Open | Scripts & Agents Audit (related infrastructure) |
+
+**Phase Timeline**: Sept 3 – Dec 31, 2026  
+**Next Milestone**: Phase 3 Master Epic creation (Sept 10)  
+**Blocker Status**: PR #2626 branch naming needs fixing
 
 ---
 

@@ -1,9 +1,12 @@
 ---
 file_type: documentation
-title: ""OpenSpec Labels Automation""
-description: "Project documentation"
-last_updated: "2026-08-25"
+title: "OpenSpec Labels Automation"
+description: "Automated GitHub issue template system with DoR/DoD injection and event-driven workflow orchestration"
+last_updated: "2026-09-03"
 status: active
+priority: "high"
+type: "automation"
+effort: "56h"
 ---
 
 # OpenSpec Labels Automation
@@ -101,15 +104,16 @@ OpenSpec Labels Automation implements an automated GitHub issue template system 
 - [ ] 50+ integration tests (85%+ coverage target)
 - [ ] Production deployment and rollout
 
-## Related Issues
+## Related Issues & PRs
 
-This project is coordinated with GitHub issues for tracking work items and progress. Phase 2–3 complete; Phase 4 planning in progress.
+| Issue/PR | Type | Status | Purpose |
+|----------|------|--------|---------|
+| [#2048](https://github.com/lightspeedwp/.github/issues/2048) | Epic | ✅ Complete | OpenSpec Labels Automation — Phase 2–3 Epic |
+| [#2049](https://github.com/lightspeedwp/.github/issues/2049) | Task | ✅ Complete | Phase 3: Workflow Orchestration |
+| [#2232](https://github.com/lightspeedwp/.github/issues/2232) | Epic | 📋 Planning | Phase 4: External Tool Integration & Metrics |
+| [#2687](https://github.com/lightspeedwp/.github/issues/2687) | Issue | Open | Scripts & Agents Audit (related infrastructure) |
 
-| Issue | Type | Purpose | Status |
-|-------|------|---------|--------|
-| [#2048](../../../issues/2048) | epic | OpenSpec Labels Automation — Phase 2–3 Epic | ✅ Complete |
-| [#2049](../../../issues/2049) | task | Phase 3: Workflow Orchestration | ✅ Complete |
-| [#2232](../../../issues/2232) | epic | Phase 4: External Tool Integration & Metrics | 📋 Planning |
+**Coordination**: Works with label-prefix-audit and labeling-consolidation projects
 | [#2233](../../../issues/2233) | task | Phase 4.1: Jira Integration Module | 📋 Planning |
 | [#2234](../../../issues/2234) | task | Phase 4.2: Linear Integration Module | 📋 Planning |
 | [#2235](../../../issues/2235) | task | Phase 4.3: Metrics System & SLA Tracking | 📋 Planning |
