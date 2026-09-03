@@ -1,14 +1,14 @@
 ---
-project_id: labeling-consolidation-2026-09-03
+name: Labeling Consolidation
 title: Labeling Infrastructure Consolidation & Org-Wide Rollout
-status: research
-phase: 1-research
-created: 2026-09-03
-created_by: claude@lightspeedwp.agency
-last_updated: 2026-09-03
-version: 1.0
-priority: high
-complexity: high
+description: Consolidate fragmented labeling infrastructure (11+ workflows, 30+ scripts) into unified system deployable org-wide
+metadata:
+  created: 2026-09-03
+  updated: 2026-09-03
+  phase: 1-research
+  status: research
+  priority: high
+  complexity: high
 ---
 
 # Labeling Infrastructure Consolidation & Org-Wide Rollout

@@ -1,10 +1,12 @@
 ---
-project_id: labeling-consolidation-2026-09-03
+name: Infrastructure Inventory
 title: Existing Labeling Infrastructure Inventory
-status: draft
-phase: 1-research
-created: 2026-09-03
-version: 1.0
+description: Comprehensive audit of 40+ labeling-related files (workflows, scripts, agents, configuration, documentation)
+metadata:
+  created: 2026-09-03
+  updated: 2026-09-03
+  phase: 1-research
+  status: draft
 ---
 
 # Existing Labeling Infrastructure Inventory
