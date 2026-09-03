@@ -13,7 +13,7 @@
 import fs from "fs";
 import path from "path";
 import url from "url";
-import { execSync } from "child_process";
+import { execFileSync } from "child_process";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.join(__dirname, "../../../");
@@ -287,7 +287,7 @@ test("npm script is registered", () => {
  */
 test("CLI --help displays usage information", () => {
   try {
-    const output = execSync(`node ${CREATE_AGENT_SCRIPT} --help`, {
+    const output = execFileSync("node", [CREATE_AGENT_SCRIPT, "--help"], {
       cwd: PROJECT_ROOT,
       encoding: "utf-8",
     }).toString();
