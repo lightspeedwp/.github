@@ -1,15 +1,14 @@
 ---
 title: Manual Trigger System Design
 description: Design specification for Phase 3 manual workflow triggering
-type: design
-status: proposed
+type: documentation
+file_type: documentation
+status: draft
 version: "1.0.0"
 owner: lightspeedwp/maintainers
-tags:
-  - automation
-  - manual-trigger
-  - workflow
-  - phase-3
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # ENH-003: Manual Trigger System Design
@@ -313,39 +312,69 @@ permissions:
 
 jobs:
   handle-command:
-    if: |
-      (github.event.issue.pull_request == null) &&
-      contains(github.event.comment.body, '/distribute-milestones')
-    
+    if: github.event.issue.pull_request == null
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
+      - name: Check Permissions
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const permission = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: context.actor
+            });
+            
+            if (permission.data.permission !== 'write' && permission.data.permission !== 'admin') {
+              core.setFailed('Insufficient permissions. Write access required.');
+            }
+      
+      - name: Validate Command
+        id: validate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = context.payload.comment.body;
+            const matches = comment.match(/^\/distribute-milestones(\s|$)/m);
+            
+            if (!matches) {
+              core.notice('Not a milestone distribution command. Exiting.');
+              return;
+            }
+            core.setOutput('isCommand', 'true');
+      
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
       
       - name: Parse Command
         id: parse
+        if: steps.validate.outputs.isCommand == 'true'
         uses: actions/github-script@v7
         with:
           script: |
             const comment = context.payload.comment.body;
-            const matches = comment.match(/\/distribute-milestones\s*(.*)/);
+            const matches = comment.match(/^\/distribute-milestones\s*(.*)/m);
             
             if (!matches) return;
             
             const args = matches[1].split(/\s+/).filter(Boolean);
             const params = {
               milestone: 'auto',
-              dryRun: false,
+              dryRun: true,
               force: false,
               batchSize: 25
             };
             
-            // Parse arguments
-            for (const arg of args) {
+            // Parse arguments with proper option consumption
+            for (let i = 0; i < args.length; i++) {
+              const arg = args[i];
               if (arg === '--dry-run') params.dryRun = true;
-              if (arg === '--force') params.force = true;
-              if (arg.startsWith('--batch')) params.batchSize = parseInt(args[args.indexOf(arg) + 1]);
-              if (!arg.startsWith('--')) params.milestone = arg;
+              else if (arg === '--force') params.force = true;
+              else if (arg === '--batch' && i + 1 < args.length) {
+                params.batchSize = parseInt(args[++i], 10);
+              }
+              else if (!arg.startsWith('--')) params.milestone = arg;
             }
             
             core.setOutput('milestone', params.milestone);
@@ -354,22 +383,32 @@ jobs:
             core.setOutput('batchSize', params.batchSize);
       
       - name: Distribute Milestones
+        if: steps.validate.outputs.isCommand == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          MILESTONE: ${{ steps.parse.outputs.milestone }}
+          DRY_RUN: ${{ steps.parse.outputs.dryRun }}
+          FORCE: ${{ steps.parse.outputs.force }}
+          BATCH_SIZE: ${{ steps.parse.outputs.batchSize }}
         run: |
           node scripts/automation/distribute-unallocated-milestones.js \
-            --milestone ${{ steps.parse.outputs.milestone }} \
-            --dry-run ${{ steps.parse.outputs.dryRun }} \
-            --force ${{ steps.parse.outputs.force }} \
-            --batch-size ${{ steps.parse.outputs.batchSize }}
+            --milestone "$MILESTONE" \
+            --dry-run "$DRY_RUN" \
+            --force "$FORCE" \
+            --batch-size "$BATCH_SIZE"
       
       - name: Reply with Results
-        if: always()
+        if: steps.validate.outputs.isCommand == 'true' && always()
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            const results = JSON.parse(fs.readFileSync('distribution-results.json', 'utf8'));
             
-            const reply = `
+            let body = '';
+            if (fs.existsSync('distribution-results.json')) {
+              const results = JSON.parse(fs.readFileSync('distribution-results.json', 'utf8'));
+              body = `
 ✅ **Distribution Complete**
 
 Milestone: ${{ steps.parse.outputs.milestone }}
@@ -380,12 +419,23 @@ Duration: ${results.duration}ms
 Mode: ${{ steps.parse.outputs.dryRun == 'true' ? '🔒 Dry-Run' : '⚡ Production' }}
 
 [View Run →](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            `;
+              `;
+            } else if (context.payload.pull_request === null) {
+              body = `
+⚠️ **Distribution Failed**
+
+No results file generated. Check workflow logs for details.
+
+[View Run →](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+              `;
+            }
             
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              body: reply
-            });
+            if (body) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                body: body.trim()
+              });
+            }
 ```
 
 ---
@@ -413,25 +463,14 @@ Mode: ${{ steps.parse.outputs.dryRun == 'true' ? '🔒 Dry-Run' : '⚡ Productio
 
 ### Implementation
 
-```yaml
-# Workflow permission check
-jobs:
-  handle-command:
-    steps:
-      - name: Check Permissions
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const permission = await github.rest.repos.getCollaboratorPermissionLevel({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              username: context.actor
-            });
-            
-            if (permission.data.permission !== 'write' && permission.data.permission !== 'admin') {
-              core.setFailed('Insufficient permissions. Write access required.');
-            }
-```
+Permission checking is enforced at the **start of the workflow** (before command parsing). The "Check Permissions" step:
+
+1. Queries GitHub API for user's permission level on the repository
+2. Fails the workflow if user has less than write access
+3. Prevents read-only users from triggering distribution
+4. Logs the failure with clear error message
+
+This fail-closed approach ensures that only authorized users (with write access) can execute distribution commands, regardless of the milestone parameter or options used.
 
 ---
 

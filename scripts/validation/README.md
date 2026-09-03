@@ -1,9 +1,9 @@
 ---
 file_type: "documentation"
-name: "Frontmatter Validation"
-description: "Comprehensive frontmatter validation scripts for LightSpeedWP .github repository ensuring schema compliance and consistency"
-version: "1.0.0"
-last_updated: "2025-12-04"
+name: "Validation Scripts & Tests"
+description: "Comprehensive validation scripts and tests for frontmatter, JSON, YAML, and branch naming in LightSpeedWP .github repository ensuring schema compliance and governance"
+version: "1.1.0"
+last_updated: "2026-08-30"
 owners:
   - "LightSpeedWP Team"
 tags:
@@ -12,10 +12,12 @@ tags:
   - "schema"
   - "testing"
   - "automation"
+  - "branch-governance"
 apply_to:
   - "repository maintenance"
   - "documentation standards"
   - "quality assurance"
+  - "branch naming governance"
 ---
 
 
@@ -34,9 +36,15 @@ The validation system provides automated checking of:
 All schema files are stored in `../../.schemas/`.
 
 ```mermaid
+---
+config:
+  theme: default
+  look: handDrawn
+  layout: elk
+  accTitle: Validation System Flow
+  accDescr: Flowchart showing file discovery through log output with configuration, schema, and pattern inputs
+---
 graph TD
-  accTitle: Frontmatter validation pipeline
-  accDescr: Top-down graph showing the frontmatter validation pipeline from discovery through report generation
     A[File Discovery] --> B[Frontmatter Extraction]
     B --> C[Schema Validation]
     C --> D[LightSpeed Rules Check]
@@ -63,6 +71,7 @@ graph TD
 ## Test Files
 
 - **`__tests__/validate-frontmatter.test.js`** — Test suite for frontmatter validation
+- **`__tests__/validate-branch-names.test.js`** — Jest test suite for branch name validation (34 allowed types, forbidden prefix rejection, format validation)
 - **`validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
 
 ## Features
