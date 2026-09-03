@@ -57,7 +57,19 @@ The milestone distribution workflow (`.github/workflows/milestone-distribution.y
 
 ### Step 1: Add Workflow Failure Detection
 
-Add a step to detect failures and create an issue:
+**CRITICAL:** Do NOT use `continue-on-error: true` on the main script step. This masks failures and makes the job report success even when the distribution fails.
+
+Instead:
+1. Let the script step fail naturally (remove `continue-on-error`)
+2. Add a failure-handling step that runs `if: failure()`
+3. Create alert issue first, THEN exit with code 1 to fail the job
+4. Add success reporting for successful runs
+
+This ensures:
+- Job fails when distribution fails (proper CI signal)
+- Alert issues are created for failures (monitoring)
+- Success summaries are posted (visibility)
+- Workflow status correctly reflects actual state
 
 ```yaml
 # .github/workflows/milestone-distribution.yml
@@ -79,12 +91,24 @@ jobs:
       - run: npm ci
       - name: Run distribution script
         run: node scripts/automation/distribute-unallocated-milestones.js
-        continue-on-error: true
         id: distribute
 
-      # Detect and report failures
-      - name: Check for failures
-        if: failure() || steps.distribute.outcome == 'failure'
+      # Report success summaries to GitHub
+      - name: Post Success Summary
+        if: success()
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## ✅ Milestone Distribution Complete
+          - Run: ${{ github.run_id }}
+          - Event: ${{ github.event_name }}
+          - Status: Success
+          
+          [View Full Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          EOF
+
+      # Detect and report failures (runs even if previous step failed)
+      - name: Handle Failure - Create Alert Issue
+        if: failure()
         uses: actions/github-script@v7
         with:
           script: |
@@ -93,17 +117,35 @@ jobs:
               repo: context.repo.repo,
               title: '🚨 Milestone Distribution Workflow Failed',
               body: `
-            Workflow failed at: ${new Date().toISOString()}
+            ## Workflow Failure Alert
             
-            **Run:** [#${context.runId}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
-            **Event:** ${context.eventName}
-            **Ref:** ${context.ref}
+            **Time:** ${new Date().toISOString()}
+            **Run ID:** [#${context.runId}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
+            **Event Type:** ${context.eventName}
+            **Branch:** ${context.ref}
+            **Commit:** ${context.sha}
             
-            Check the logs for details.
+            ### Action Required
+            1. Check the [workflow logs](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for error details
+            2. Fix the underlying issue
+            3. The workflow will retry automatically on next trigger
+            
+            ### Common Causes
+            - API rate limit exceeded (wait 1 hour for reset)
+            - Permission denied (check token permissions)
+            - Milestone not found (verify milestone exists)
+            - Network timeout (may be transient)
               `,
               labels: ['type:bug', 'area:automation', 'priority:critical']
             });
-            console.log(`Created issue #${issue.data.number}`);
+            core.info(`Created failure issue #${issue.data.number}`);
+      
+      # Explicit failure after alert creation (ensures job fails)
+      - name: Fail Job After Alert
+        if: failure()
+        run: |
+          echo "🚨 Distribution job failed. Alert issue created above."
+          exit 1
 ```
 
 ### Step 2: Slack Notifications (Optional)
