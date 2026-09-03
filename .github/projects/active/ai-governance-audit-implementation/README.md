@@ -119,8 +119,6 @@ All issues assigned to milestone `v1.1`:
 
 ### 4.5: Governance Exceptions & Overrides
 - [#2667](https://github.com/lightspeedwp/.github/issues/2667) — Define governance exceptions and override procedures
-| [#2545](https://github.com/lightspeedwp/.github/issues/2545) | Documentation | Ready |
-| [#2546](https://github.com/lightspeedwp/.github/issues/2546) | Feature | Ready |
 
 ---
 
