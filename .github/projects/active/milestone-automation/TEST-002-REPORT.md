@@ -1,14 +1,14 @@
 ---
 title: TEST-002 Report — Load Testing with Large Issue Sets
 description: Performance and reliability validation for 100+ issue scenarios
-type: reference
-status: approved
+type: documentation
+file_type: documentation
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
-tags:
-  - automation
-  - testing
-  - phase-2
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # TEST-002: Load Testing Report — Large Issue Sets (100+)

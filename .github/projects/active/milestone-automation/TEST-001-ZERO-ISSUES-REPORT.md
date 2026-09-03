@@ -1,14 +1,14 @@
 ---
 title: Test Report — Workflow with Zero Unallocated Issues
 description: Test execution and results for zero-issue scenario
-type: report
-status: approved
+type: documentation
+file_type: documentation
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
-tags:
-  - automation
-  - testing
-  - edge-cases
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # TEST-001: Zero Unallocated Issues Test Report

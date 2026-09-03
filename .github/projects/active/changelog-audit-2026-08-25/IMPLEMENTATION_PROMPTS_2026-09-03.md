@@ -2,6 +2,10 @@
 title: "Implementation Copy/Paste Prompts — Ready to Use"
 description: "Direct, copy-paste-ready prompts for Claude Code to implement changelog improvements"
 date: 2026-09-03
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
 ---
 
 # Implementation Copy/Paste Prompts
