@@ -396,13 +396,19 @@ curl -X POST $SLACK_WEBHOOK \
 **1. View Run Button**
 ```json
 {
-  "type": "button",
-  "text": {
-    "type": "plain_text",
-    "text": "View Run Logs"
-  },
-  "url": "https://github.com/lightspeedwp/.github/actions/runs/33650372958",
-  "style": "primary"
+  "type": "actions",
+  "elements": [
+    {
+      "type": "button",
+      "text": {
+        "type": "plain_text",
+        "text": "View Run Logs"
+      },
+      "url": "https://github.com/lightspeedwp/.github/actions/runs/33650372958",
+      "action_id": "view_run_logs",
+      "style": "primary"
+    }
+  ]
 }
 ```
 
@@ -421,28 +427,195 @@ curl -X POST $SLACK_WEBHOOK \
 
 ## Error Handling
 
-### If Slack API Fails
+### Separate Success/Failure Conditions
+
+**Critical:** Use separate workflow step conditions for success vs. failure notifications. Never use `if: always()` with a single message format.
+
+```yaml
+- name: Send Success Notification
+  if: success()
+  uses: slackapi/slack-github-action@v1.24.0
+  with:
+    webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+    payload: |
+      {
+        "text": "✅ Milestone Distribution Complete",
+        "blocks": [...]
+      }
+
+- name: Send Failure Notification
+  if: failure()
+  uses: slackapi/slack-github-action@v1.24.0
+  with:
+    webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+    payload: |
+      {
+        "text": "🚨 Milestone Distribution FAILED",
+        "blocks": [...]
+      }
+```
+
+### Slack API Error Handling
+
+Never fail the workflow due to Slack unavailability:
 
 ```javascript
-// Never fail workflow due to Slack
-try {
-  await sendSlackNotification(result);
-} catch (error) {
-  console.warn('Slack notification failed (non-blocking):', error.message);
-  // Continue workflow execution
+// Exponential backoff for rate limits
+async function sendSlackNotification(result, maxRetries = 3) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      const response = await fetch(SLACK_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      // Respect rate limit headers (1 msg/sec)
+      const retryAfter = parseInt(response.headers.get('retry-after') || '1', 10);
+      if (response.status === 429) {
+        await sleep(retryAfter * 1000);
+        continue;
+      }
+
+      if (!response.ok) {
+        throw new Error(`Slack API error: ${response.status}`);
+      }
+
+      return true; // Success
+    } catch (error) {
+      console.warn(`Slack notification attempt ${attempt + 1} failed:`, error.message);
+      
+      if (attempt < maxRetries - 1) {
+        await sleep(Math.pow(2, attempt) * 1000); // Exponential backoff
+      }
+    }
+  }
+
+  // All retries exhausted - fallback to GitHub Issue
+  console.warn('Slack unavailable after retries. Creating GitHub Issue fallback.');
+  return await createGitHubIssueFallback(result);
 }
 ```
 
-### Fallback Notification
+### GitHub Issue Fallback
 
-```markdown
-# GitHub Issue Fallback
+If Slack is unavailable after retry attempts, create an issue instead:
 
-If Slack is unavailable, create an issue instead:
-- Title: "Workflow Notification - [Status]"
-- Label: type:notification
-- Body: Full summary details
+```javascript
+async function createGitHubIssueFallback(result) {
+  const timestamp = new Date().toISOString();
+  const title = `[AUTO] Workflow Notification - ${result.status === 'success' ? '✅' : '🚨'} ${timestamp}`;
+  
+  const body = `
+**Automated Notification (Slack Unavailable)**
+
+This issue was created because Slack notification failed.
+
+**Workflow Result:** ${result.status}
+**Run ID:** ${result.runId}
+**Duration:** ${result.duration}ms
+**Issues Processed:** ${result.issuesProcessed}
+**Successful:** ${result.successCount}
+**Failed:** ${result.failureCount}
+
+**Run URL:** ${result.runUrl}
+  `;
+
+  // Deduplicate: Check if recent issue exists to avoid spam
+  const existingIssues = await github.rest.issues.listForRepo({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    labels: ['type:notification'],
+    state: 'open',
+    per_page: 5
+  });
+
+  const recentIssue = existingIssues.data.find(issue => {
+    const createdTime = new Date(issue.created_at).getTime();
+    const now = Date.now();
+    return (now - createdTime) < 60000; // Within last 60 seconds
+  });
+
+  if (recentIssue) {
+    // Update existing issue instead of creating new one
+    await github.rest.issues.createComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: recentIssue.number,
+      body: `**[${timestamp}]** ${result.status === 'success' ? '✅' : '🚨'} Run ${result.runId}: ${result.successCount} success, ${result.failureCount} failed`
+    });
+  } else {
+    // Create new issue
+    await github.rest.issues.create({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      title: title,
+      body: body,
+      labels: ['type:notification', 'area:automation']
+    });
+  }
+
+  return true;
+}
 ```
+
+### Rate Limit Handling
+
+**Slack Webhook Rate Limits:** 1 message per second per webhook
+
+```javascript
+// Track and respect rate limits
+class SlackRateLimiter {
+  constructor() {
+    this.lastMessageTime = 0;
+    this.messageInterval = 1000; // 1 second
+  }
+
+  async sendMessage(payload) {
+    const now = Date.now();
+    const timeSinceLastMessage = now - this.lastMessageTime;
+
+    if (timeSinceLastMessage < this.messageInterval) {
+      const delay = this.messageInterval - timeSinceLastMessage;
+      await sleep(delay);
+    }
+
+    // Send message
+    const response = await fetch(SLACK_WEBHOOK, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+
+    this.lastMessageTime = Date.now();
+    return response;
+  }
+}
+```
+
+### User-Group Mentions
+
+**Correct Format:** Use Slack user-group ID instead of `@name`
+
+```
+❌ WRONG: @milestone-automation-oncall
+✅ RIGHT: <!subteam^S123456|@milestone-automation-oncall>
+```
+
+**In Slack Messages:**
+```json
+{
+  "type": "section",
+  "text": {
+    "type": "mrkdwn",
+    "text": "Alert for <!subteam^S123456|@milestone-automation-oncall>"
+  }
+}
+```
+
+**Finding User-Group ID:**
+1. Open user group in Slack
+2. Click details → "Copy ID"
+3. Format as: `<!subteam^{ID}|@{name}>`
 
 ---
 
