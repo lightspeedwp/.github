@@ -63,7 +63,7 @@ describe("routePrTemplate", () => {
 
     expect(result).toMatchObject({
       routed: false,
-      template: "pull_request_template.md",
+      template: "pr_feature.md",
       reason: "invalid-input",
       fallback: true,
     });
@@ -76,7 +76,7 @@ describe("routePrTemplate", () => {
     expect(result).toEqual(
       expect.objectContaining({
         routed: false,
-        template: "pull_request_template.md",
+        template: "pr_feature.md",
         reason: "invalid-input",
         fallback: true,
       }),
@@ -89,7 +89,7 @@ describe("routePrTemplate", () => {
 
     expect(result).toMatchObject({
       routed: false,
-      template: "pull_request_template.md",
+      template: "pr_feature.md",
       reason: "unknown-branch-type",
       fallback: true,
     });
@@ -196,7 +196,7 @@ describe("routePrTemplate", () => {
 
       expect(result).toMatchObject({
         routed: false,
-        template: "pull_request_template.md",
+        template: "pr_feature.md",
         fallback: true,
         warning: expect.stringContaining("claude"),
       });
@@ -209,7 +209,7 @@ describe("routePrTemplate", () => {
 
       expect(result).toMatchObject({
         routed: false,
-        template: "pull_request_template.md",
+        template: "pr_feature.md",
         fallback: true,
       });
     });
@@ -221,7 +221,7 @@ describe("routePrTemplate", () => {
 
       expect(result).toMatchObject({
         routed: false,
-        template: "pull_request_template.md",
+        template: "pr_feature.md",
         fallback: true,
       });
     });
@@ -283,13 +283,13 @@ describe("routePrTemplate", () => {
     test("handles empty branchType gracefully", async () => {
       const result = await routePrTemplate({ branchType: "" });
       expect(result.fallback).toBe(true);
-      expect(result.template).toBe("pull_request_template.md");
+      expect(result.template).toBe("pr_feature.md");
     });
 
     test("handles empty branch name gracefully", async () => {
       const result = await routePrTemplate({ branchName: "" });
       expect(result.fallback).toBe(true);
-      expect(result.template).toBe("pull_request_template.md");
+      expect(result.template).toBe("pr_feature.md");
     });
 
     test("handles non-string branch type", async () => {
@@ -297,7 +297,7 @@ describe("routePrTemplate", () => {
         branchType: 123,
       });
       expect(result.fallback).toBe(true);
-      expect(result.template).toBe("pull_request_template.md");
+      expect(result.template).toBe("pr_feature.md");
     });
 
     test("handles branch name without forward slash", async () => {
@@ -305,7 +305,7 @@ describe("routePrTemplate", () => {
         branchName: "invalidbranch",
       });
       expect(result.fallback).toBe(true);
-      expect(result.template).toBe("pull_request_template.md");
+      expect(result.template).toBe("pr_feature.md");
     });
   });
 });

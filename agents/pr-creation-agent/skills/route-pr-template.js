@@ -72,7 +72,7 @@ export async function routePrTemplate(input) {
   if (!branchType || typeof branchType !== "string") {
     return {
       routed: false,
-      template: "pull_request_template.md",
+      template: "pr_feature.md",
       reason: "invalid-input",
       fallback: true,
       warning: "Branch type is required and must be a string",
@@ -94,10 +94,10 @@ export async function routePrTemplate(input) {
   // No matching template - use fallback
   return {
     routed: false,
-    template: "pull_request_template.md",
+    template: "pr_feature.md",
     reason: "unknown-branch-type",
     fallback: true,
-    warning: `No template found for branch type '${branchType}', using default template`,
+    warning: `No template found for branch type '${branchType}', using pr_feature.md as fallback`,
   };
 }
 
