@@ -30,11 +30,16 @@ The current labeling system is `.github`-specific:
 
 **Current Scope:** The system is production-ready and actively used by:
 1. `.github` itself (10 labeling workflows running)
-2. Potentially other repos (via GitHub's org-wide label inheritance)
+2. Multi-repo deployment via explicit distribution (GitHub org-wide default labels apply only to new repos; existing repos require synchronization or bootstrap)
+
+**Distribution Strategy for Multi-Repo Rollout:**
+- **Label Synchronization:** Use GitHub API or `.github/workflows/` distributed across all target repos to synchronize canonical labels
+- **Per-Repo Bootstrap:** Each repo receives `.github/labeler-extensions.yml` + unified workflows (`labeling-core.yml`, etc.)
+- **Required Permissions:** Write access to repository labels and workflow configuration (requires GitHub App installation or fine-grained token)
 
 **Recommendation:**
-- **Phase 1 (Pilot):** Continue with `.github` + 1-2 WordPress plugin repos as test subjects
-- **Phase 2 (Rollout):** Roll out to all WordPress plugin and theme repos once Phase 1 validates multi-repo label syncing
+- **Phase 1 (Pilot):** Continue with `.github` + 1-2 WordPress plugin repos as test subjects with synchronization validation
+- **Phase 2 (Rollout):** Roll out to all WordPress plugin and theme repos once Phase 1 validates multi-repo label syncing and bootstrap mechanism
 - **Phased Enablement:** Use repo-specific `.github/workflows/` overrides if repo-type-specific labeling is needed
 
 **Blocking Decision:** Q3 (label differences by repo type) will inform rollout scope.
@@ -314,7 +319,7 @@ Add JSON Schema validation without restructuring labels.yml:
         "items": {"type": "string"}
       },
       "one-hot-family": {
-        "type": "string",
+        "type": ["string", "null"],
         "enum": ["status", "priority", "type", null]
       },
       "automation-rules": {
@@ -584,8 +589,14 @@ templates:
 
 **Implementation:**
 ```bash
-gh issue create --title "..." --template breaking_change
-gh pr create --template bug_fix
+# Option 1: Apply labels explicitly via --label flags
+gh issue create --title "..." --template breaking_change --label "type:bug" --label "area:api"
+
+# Option 2: Use wrapper script to expand label template and apply
+gh issue create --title "..." --template breaking_change --label "type:bug,area:api"
+
+# Note: --template selects body template only; labels must be applied via --label flags
+# Wrapper script (if needed) should read .github/label-templates.yml and expand labels before calling gh
 ```
 
 ---

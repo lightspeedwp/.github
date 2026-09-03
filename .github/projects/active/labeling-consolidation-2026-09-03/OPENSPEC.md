@@ -505,16 +505,14 @@ repo_config:
 
 ### Proposed Schema Structure
 
-**Enhanced Flat Schema (labels.yml):**
+**Note:** Phase 2 maintains backward compatibility with existing consumers (e.g., `labelsConfig.map(...)` in validate-issue-labels.yml). If schema structure changes to object-with-metadata format, all consuming workflows must be updated together as part of Phase 4 implementation.
+
+**Enhanced Flat Schema (labels.yml) — Phase 1 Compatibility:**
 
 ```yaml
-# Schema version and metadata
-schema_version: "2.0"
-last_updated: "2026-09-03"
-sync_status: "in-sync"  # Tracked for consistency validation
-
-labels:
-  - name: type:bug
+# Phase 1: Root-level array for backward compatibility
+# Migration to object+metadata deferred to Phase 4 with coordinated workflow updates
+- name: type:bug
     family: type
     color: d73a49
     description: "A bug, defect, or error"

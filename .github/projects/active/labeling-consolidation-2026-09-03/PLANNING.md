@@ -123,17 +123,17 @@ The research phase will answer these 14 questions to guide architecture and plan
 
 **Tasks:**
 
-- [ ] Task 1.1: Answer clarifying questions 1–14 through interviews, code review, and documentation analysis
-- [ ] Task 1.2: Create comprehensive inventory of all labeling components:
+- [x] Task 1.1: Answer clarifying questions 1–14 through interviews, code review, and documentation analysis
+- [x] Task 1.2: Create comprehensive inventory of all labeling components:
   - Labeling workflows in `.github/workflows/`
   - Labeling scripts in `scripts/` and elsewhere
   - Label definitions in `labels.yml`, `issue-types.yml`
   - PR template routing logic
   - Copilot/agent labeling instructions
   - Existing labeling-related GitHub issues
-- [ ] Task 1.3: Identify all dependencies, circular references, and blockers
-- [ ] Task 1.4: Document findings in RESEARCH_FINDINGS.md and AUDIT_FINDINGS.md
-- [ ] Task 1.5: Get user approval on research findings before proceeding to Phase 2
+- [x] Task 1.3: Identify all dependencies, circular references, and blockers
+- [x] Task 1.4: Document findings in RESEARCH_FINDINGS.md and AUDIT_FINDINGS.md
+- [ ] Task 1.5: Get user approval on research findings before proceeding to Phase 2 (awaiting Phase 3)
 
 **Success Criteria:**
 

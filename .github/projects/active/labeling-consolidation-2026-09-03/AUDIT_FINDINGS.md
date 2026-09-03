@@ -16,9 +16,9 @@ tags:
 
 ## Executive Summary
 
-**Total Labeling Components:** 82 files across 8 categories  
+**Total Labeling Components:** 82 files across 9 categories  
 **Fragmentation Score:** 11+ separate files (source control, configuration, workflows, automation)  
-**Estimated Consolidation Effort:** Medium (3–4 weeks, primarily refactoring existing files)  
+**Estimated Consolidation Effort:** Phase 1–4 planning and implementation: 6–8 weeks. Excludes Phase 5 multi-repo rollout (additional 12 weeks parallel).  
 **Risk Level:** Low (no circular dependencies, modular architecture)  
 **Quality Assessment:** High (well-documented, tested, actively maintained)
 
@@ -48,21 +48,21 @@ tags:
 
 | File | Purpose | Triggers | Dependencies | Lines | Last Updated |
 |------|---------|----------|--------------|-------|--------------|
-| [`labeling.yml`](../../workflows/labeling.yml) | Unified labeling for issues, PRs, discussions | PR (opened, edited, sync, reopen, ready_for_review, labeled, unlabeled, transferred), issue (opened, edited, reopen, labeled, unlabeled, transferred), discussion (created, edited, answered, reopened), manual | `labels.yml`, `issue-types.yml`, `labeler.yml` | ~150 | 2026-06-01 |
-| [`issue-labeling-automation.yml`](../../workflows/issue-labeling-automation.yml) | Daily auto-labeling of unlabeled issues | Schedule: 02:00 UTC daily, manual (workflow_dispatch) | `labels.yml`, Node.js runtime | ~80 | 2026-08-15 |
-| [`meta-labels-sync.yml`](../../workflows/meta-labels-sync.yml) | Sync PR labels to linked issues daily | PR events, schedule, manual | `labels.yml`, GitHub API | ~100 | 2026-08-10 |
-| [`remediate-bare-labels.yml`](../../workflows/remediate-bare-labels.yml) | Convert bare labels to canonical form | Schedule: weekly, manual | `labels.yml`, `bare-label-mapping.json` | ~90 | 2026-07-20 |
-| [`label-audit-report.yml`](../../workflows/label-audit-report.yml) | Generate weekly audit trail of label changes | Schedule: weekly, manual | `labels.yml`, audit scripts | ~100 | 2026-08-05 |
+| [`labeling.yml`](../../../../.github/workflows/labeling.yml) | Unified labeling for issues, PRs, discussions | PR (opened, edited, sync, reopen, ready_for_review, labeled, unlabeled, transferred), issue (opened, edited, reopen, labeled, unlabeled, transferred), discussion (created, edited, answered, reopened), manual | `labels.yml`, `issue-types.yml`, `labeler.yml` | ~150 | 2026-06-01 |
+| [`issue-labeling-automation.yml`](../../../../.github/workflows/issue-labeling-automation.yml) | Daily auto-labeling of unlabeled issues | Schedule: 02:00 UTC daily, manual (workflow_dispatch) | `labels.yml`, Node.js runtime | ~80 | 2026-08-15 |
+| [`meta-labels-sync.yml`](../../../../.github/workflows/meta-labels-sync.yml) | Sync PR labels to linked issues daily | PR events, schedule, manual | `labels.yml`, GitHub API | ~100 | 2026-08-10 |
+| [`remediate-bare-labels.yml`](../../../../.github/workflows/remediate-bare-labels.yml) | Convert bare labels to canonical form | Schedule: weekly, manual | `labels.yml`, `bare-label-mapping.json` | ~90 | 2026-07-20 |
+| [`label-audit-report.yml`](../../../../.github/workflows/label-audit-report.yml) | Generate weekly audit trail of label changes | Schedule: weekly, manual | `labels.yml`, audit scripts | ~100 | 2026-08-05 |
 
 ### Specialized Workflows
 
 | File | Purpose | Triggers | Dependencies | Lines | Last Updated |
 |------|---------|----------|--------------|-------|--------------|
-| [`openspec-sync-labels.yml`](../../workflows/openspec-sync-labels.yml) | Sync OpenSpec phase labels and status | OpenSpec issue events, schedule | `labels.yml`, OpenSpec structure | ~80 | 2026-07-15 |
-| [`openspec-validate-labels.yml`](../../workflows/openspec-validate-labels.yml) | Validate OpenSpec labels on phase transitions | OpenSpec workflow events | `labels.yml`, OpenSpec phase mapping | ~75 | 2026-07-15 |
-| [`manage-blocking-status-labels.yml`](../../workflows/manage-blocking-status-labels.yml) | Auto-manage blocking status labels | PR/issue dependency events | `labels.yml`, issue linking | ~85 | 2026-06-20 |
-| [`labeling-governance.yml`](../../workflows/labeling-governance.yml) | Enforce labeling governance policies | Multiple triggers | `label-governance-policy.yml`, `labels.yml` | ~110 | 2026-05-27 |
-| [`validate-issue-labels.yml`](../../workflows/validate-issue-labels.yml) | Validate labels before issue/PR creation | Issue creation, PR creation | `labels.yml`, validation scripts | ~95 | 2026-06-15 |
+| [`openspec-sync-labels.yml`](../../../../.github/workflows/openspec-sync-labels.yml) | Sync OpenSpec phase labels and status | OpenSpec issue events, schedule | `labels.yml`, OpenSpec structure | ~80 | 2026-07-15 |
+| [`openspec-validate-labels.yml`](../../../../.github/workflows/openspec-validate-labels.yml) | Validate OpenSpec labels on phase transitions | OpenSpec workflow events | `labels.yml`, OpenSpec phase mapping | ~75 | 2026-07-15 |
+| [`manage-blocking-status-labels.yml`](../../../../.github/workflows/manage-blocking-status-labels.yml) | Auto-manage blocking status labels | PR/issue dependency events | `labels.yml`, issue linking | ~85 | 2026-06-20 |
+| [`labeling-governance.yml`](../../../../.github/workflows/labeling-governance.yml) | Enforce labeling governance policies | Multiple triggers | `label-governance-policy.yml`, `labels.yml` | ~110 | 2026-05-27 |
+| [`validate-issue-labels.yml`](../../../../.github/workflows/validate-issue-labels.yml) | Validate labels before issue/PR creation | Issue creation, PR creation | `labels.yml`, validation scripts | ~95 | 2026-06-15 |
 
 ### Workflow Fragmentation Issues
 

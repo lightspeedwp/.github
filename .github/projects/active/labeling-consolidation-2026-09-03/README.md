@@ -15,11 +15,11 @@ tags:
 
 # Labeling Agent Consolidation & Multi-Repo Rollout
 
-**Status:** 🟡 Active — Research Phase  
+**Status:** 🟢 Phase 2 Complete — Planning & Design  
 **Owner:** Claude  
 **Start Date:** 2026-09-03  
-**Est. Duration:** 4–6 weeks  
-**Master Epic:** [To be created]
+**Est. Duration:** 4–6 weeks (Phase 1–4); 12 weeks (Phase 5 rollout parallel)  
+**Master Epic:** [To be created in Phase 3]
 
 ---
 
@@ -61,13 +61,13 @@ tags:
 .github/projects/active/labeling-consolidation-2026-09-03/
 ├── README.md              (this file — quick dashboard)
 ├── PLANNING.md            (detailed phases, timeline, team)
-├── OPENSPEC.md            (technical architecture spec)
-├── RESEARCH_FINDINGS.md   (answers to clarifying questions)
-├── AUDIT_FINDINGS.md      (inventory of all labeling components)
-├── SCHEMA_DESIGN.md       (label schema specification)
-├── WORKFLOW_CONSOLIDATION_PLAN.md
-├── SKILLS_EXTRACTION_PLAN.md
-└── MULTI_REPO_ROLLOUT_PLAN.md
+├── OPENSPEC.md            (technical architecture spec) — COMPLETE
+├── RESEARCH_FINDINGS.md   (answers to clarifying questions) — COMPLETE
+├── AUDIT_FINDINGS.md      (inventory of all labeling components) — COMPLETE
+├── SCHEMA_DESIGN.md       (label schema specification) — COMPLETE
+├── WORKFLOW_CONSOLIDATION_PLAN.md — COMPLETE
+├── SKILLS_EXTRACTION_PLAN.md — COMPLETE
+└── MULTI_REPO_ROLLOUT_PLAN.md — COMPLETE
 ```
 
 ---
@@ -76,11 +76,11 @@ tags:
 
 | Phase | Duration | Deliverable | Status |
 |-------|----------|-------------|--------|
-| **1. Research & Audit** | Wk 1 (Sept 3–9) | RESEARCH_FINDINGS.md + AUDIT_FINDINGS.md | 🟡 In Progress |
-| **2. Planning & Design** | Wks 2–3 (Sept 10–23) | OPENSPEC.md + SCHEMA_DESIGN.md + Plans | ⚪ Planned |
+| **1. Research & Audit** | Wk 1 (Sept 3–9) | RESEARCH_FINDINGS.md + AUDIT_FINDINGS.md | ✅ Complete |
+| **2. Planning & Design** | Wks 2–3 (Sept 3–23) | OPENSPEC.md + SCHEMA_DESIGN.md + Plans | ✅ Complete |
 | **3. Spec → Issues** | Wk 4 (Sept 24–30) | GitHub Issues created + OpenSpec tasks | ⚪ Planned |
-| **4. Implementation** | Wks 5–6 (Oct 1–15) | Unified labeling agent + skills extraction | ⚪ Planned |
-| **5. Testing & Rollout** | Wk 7+ (Oct 16+) | Pilot → multi-repo deployment | ⚪ Planned |
+| **4. Implementation** | Wks 5–8 (Oct 1–31) | Unified labeling agent + skills extraction | ⚪ Planned |
+| **5. Testing & Rollout** | Wks 9–22 (Nov 1–Dec 15) | Pilot → multi-repo deployment | ⚪ Planned |
 
 ---
 
@@ -95,7 +95,7 @@ tags:
 | [AUDIT_FINDINGS.md](./AUDIT_FINDINGS.md) | Full inventory of existing labeling components (when complete) |
 | [`../../AGENTS.md`](../../AGENTS.md) | Org-wide AI rules and coding standards |
 | [`../../labels.yml`](../../labels.yml) | Current canonical label definitions (158 labels) |
-| [`../../.github/instructions/branch-naming.instructions.md`](../../.github/instructions/branch-naming.instructions.md) | Branch naming rules (note: PR #2626 violates this) |
+| [`../../../.github/instructions/branch-naming.instructions.md`](../../../.github/instructions/branch-naming.instructions.md) | Branch naming rules (note: PR #2626 violates this) |
 
 ---
 
