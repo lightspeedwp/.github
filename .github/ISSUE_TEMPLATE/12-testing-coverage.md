@@ -1,6 +1,5 @@
 ---
 name: "🧪 Test Coverage"
-description: "🧪 Test Coverage"
 about: "Propose, add, or expand tests (unit, integration, E2E)."
 assignees: []
 projects: []

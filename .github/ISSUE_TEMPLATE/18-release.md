@@ -1,6 +1,5 @@
 ---
 name: "🚀 Release"
-description: "🚀 Release"
 about: "Track and coordinate a versioned release: changelog, tagging, GitHub Release publication, and post-merge verification."
 assignees: []
 projects: []

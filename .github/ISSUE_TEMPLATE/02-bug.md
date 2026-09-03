@@ -2,7 +2,7 @@
 file_type: issue-template
 title: "type:bug: {scope}"
 name: "🐛 Bug report"
-description: "Report a bug to help us improve this WordPress project"
+about: "Report a bug to help us improve this WordPress project"
 labels: [type:bug, status:needs-triage, priority:normal]
 ---
 

@@ -1,6 +1,5 @@
 ---
 name: "🔐 Security"
-description: "🔐 Security"
 about: "Report vulnerabilities, security improvements, or compliance requirements."
 assignees: []
 projects: []

@@ -5,7 +5,7 @@ description: Strategic consolidation of workflows to eliminate duplication, redu
 file_type: readme
 status: active
 created: 2026-07-24
-last_updated: 2026-08-04
+last_updated: 2026-09-03
 version: 1.1.0
 owners:
   - lightspeedwp/maintainers

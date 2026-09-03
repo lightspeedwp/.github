@@ -136,6 +136,12 @@ During Phase 3 (Spec → Issues), all OPENSPEC.md sections and implementation ro
 4. **Begin implementation** — Start with core agent (#2672)
 5. **Track progress** — Update issue status weekly
 
+### Recommended Phase 4 Enhancements (Optional)
+See [ENHANCEMENTS.md](./ENHANCEMENTS.md) for optional improvements that can accelerate Phase 4:
+- JSON Schema Examples (high priority — enable Phase 4)
+- Test Fixtures & Mocks (accelerates testing)
+- Phase 4 Handoff Document (improves team velocity)
+
 ---
 
 ## Related Documents
@@ -143,6 +149,13 @@ During Phase 3 (Spec → Issues), all OPENSPEC.md sections and implementation ro
 - [PLANNING.md](./PLANNING.md) — Project timeline and phases
 - [OPENSPEC.md](./OPENSPEC.md) — Technical specification
 - [README.md](./README.md) — Project dashboard
+- [ENHANCEMENTS.md](./ENHANCEMENTS.md) — Optional improvements & outstanding gaps
+- [RESEARCH_FINDINGS.md](./RESEARCH_FINDINGS.md) — Phase 1 research output
+- [AUDIT_FINDINGS.md](./AUDIT_FINDINGS.md) — Phase 1 audit output
+- [SCHEMA_DESIGN.md](./SCHEMA_DESIGN.md) — Label schema specification
+- [WORKFLOW_CONSOLIDATION_PLAN.md](./WORKFLOW_CONSOLIDATION_PLAN.md) — Workflow consolidation strategy
+- [SKILLS_EXTRACTION_PLAN.md](./SKILLS_EXTRACTION_PLAN.md) — Reusable skills design
+- [MULTI_REPO_ROLLOUT_PLAN.md](./MULTI_REPO_ROLLOUT_PLAN.md) — Multi-repo deployment strategy
 
 ---
 
