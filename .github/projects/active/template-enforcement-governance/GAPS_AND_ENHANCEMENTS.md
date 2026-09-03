@@ -263,10 +263,10 @@ status: active
 - #1230: feat(markdown-audit): Phase 2 — Frontmatter Standardization for Portable Assets
 - #1592: Label Prefix Governance Enforcement — Audit Results & Remediation Plan
 
-### To Create
-- New issue: Template Enforcement Governance Completion & Testing
-- New issue: Template Content Review & Refinement
-- New issue: OpenSpec Documentation for Template Governance
+### Created (2026-09-02)
+- [#2693](https://github.com/lightspeedwp/.github/issues/2693) — Template Content Review & Refinement (**BLOCKER**)
+- [#2694](https://github.com/lightspeedwp/.github/issues/2694) — Template Testing Framework
+- [#2695](https://github.com/lightspeedwp/.github/issues/2695) — Contributor Guide for Template Maintenance
 
 ---
 

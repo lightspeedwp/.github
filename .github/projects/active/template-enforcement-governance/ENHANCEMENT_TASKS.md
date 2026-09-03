@@ -20,7 +20,7 @@ All tasks are optional enhancements. Priority order:
 
 ## Task 1: Template Testing Framework
 
-**Issue:** None yet (to be created)  
+**Issue:** [#2694](https://github.com/lightspeedwp/.github/issues/2694)  
 **Priority:** Medium  
 **Effort:** 4-5 hours  
 **Type:** Feature  
@@ -77,8 +77,8 @@ Create automated tests for template correctness and validation.
 
 ## Task 2: Contributor Guide for Template Maintenance
 
-**Issue:** None yet (to be created)  
-**Priority:** Medium  
+**Issue:** [#2695](https://github.com/lightspeedwp/.github/issues/2695)  
+**Priority:** High  
 **Effort:** 3-4 hours  
 **Type:** Documentation  
 **Status:** Not started
