@@ -1,6 +1,5 @@
 ---
 name: "🔗 Integration"
-description: "🔗 Integration"
 about: "Report or propose integration with external plugins, services, or APIs."
 title: "[Integration] <Short summary>"
 labels: [status:needs-triage, priority:normal, area:integration]

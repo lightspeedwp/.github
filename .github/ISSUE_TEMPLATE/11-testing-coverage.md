@@ -1,6 +1,5 @@
 ---
 name: "🧪 Test Coverage"
-description: "🧪 Test Coverage"
 about: "Propose, add, or expand tests (unit, integration, E2E)."
 title: "[Test Coverage] <Short summary>"
 labels: [status:needs-triage, priority:normal, area:testing]

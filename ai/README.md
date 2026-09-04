@@ -42,8 +42,6 @@ Keep this directory focused on canonical references and audit evidence, not impl
 
 ```mermaid
 flowchart TD
-  accTitle: flowchart diagram
-  accDescr: flowchart flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]
@@ -54,6 +52,15 @@ flowchart TD
   classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
   classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
   classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
+
+  class A start;
+  class B prep;
+  class C run;
+  class D gate;
+  class E done;
+```
+
+## Key References
 
 - **[CLAUDE.md](../CLAUDE.md)** (repo root) — Primary reference for AI instructions and repository boundaries
 - **[AGENTS.md](../AGENTS.md)** (repo root) — Full organization-wide AI rules and guidelines
