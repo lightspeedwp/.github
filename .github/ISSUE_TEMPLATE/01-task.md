@@ -1,12 +1,9 @@
 ---
 name: "📝 Task"
-description: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
-about: "Propose a well-scoped unit of work: template tweaks, config updates, copy edits, etc."
-title: "[Task] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
-assignees: []
-projects: []
-milestone: ""
+about: "Template for Task issues"
+title: "task: {scope}"
+labels: ["type:task", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
+recommended_branch: "task/"
 file_type: issue-template
 ---
 

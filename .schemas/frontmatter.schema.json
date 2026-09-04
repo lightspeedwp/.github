@@ -546,7 +546,7 @@
           "type": "string",
           "description": "Human-readable template name (e.g., '🐛 Bug report')"
         },
-        "description": {
+        "about": {
           "type": "string",
           "description": "Brief description of template purpose"
         },
@@ -558,7 +558,7 @@
           "description": "Default labels applied to issues created from this template"
         }
       },
-      "required": ["file_type", "title", "name", "description", "labels"],
+      "required": ["file_type", "title", "name", "about", "labels"],
       "additionalProperties": true
     },
     {

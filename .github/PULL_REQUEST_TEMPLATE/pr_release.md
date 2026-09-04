@@ -1,9 +1,10 @@
 ---
 file_type: pr-template
-title: "release: {scope}"
 name: "Release"
-description: "Release new features or enhancements"
-labels: ["type:release", "status:needs-review"]
+about: "Prepare release (version bump, changelog aggregation, release notes)"
+title: "release: {scope}"
+labels: ["type:release", "status:needs-review", "priority:critical", "area:release", "meta:needs-changelog"]
+recommended_issue_type: "type:release"
 ---
 
 # Release Pull Request

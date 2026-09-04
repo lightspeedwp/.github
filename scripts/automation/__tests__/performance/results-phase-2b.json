@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "timestamp": "2026-08-30T12:08:59.313Z",
+    "timestamp": "2026-09-02T16:56:10.353Z",
     "version": "1.0",
     "phase": "2B Validation"
   },
@@ -9,17 +9,17 @@
       "scriptName": "audit-issue-metadata",
       "executionTime": 2940,
       "memory": {
-        "startUsage": 11.07,
-        "avgUsage": 10.455,
-        "peakUsage": 9.225000000000001,
-        "deltaFromStart": 1.2300000000000002
+        "startUsage": 8.856,
+        "avgUsage": 9.1635,
+        "peakUsage": 8.979000000000001,
+        "deltaFromStart": 0.12300000000000111
       },
       "apiCalls": {
         "totalCalls": 37,
         "cacheHits": 24,
-        "cacheMisses": 12,
+        "cacheMisses": 13,
         "cacheHitRate": 65,
-        "uniqueEndpoints": 47
+        "uniqueEndpoints": 29
       },
       "improvements": {
         "executionTime": {
@@ -30,9 +30,9 @@
         },
         "memory": {
           "baseline": 12.3,
-          "actual": 9.225000000000001,
-          "improvement": 24.99999999999999,
-          "targetMet": false
+          "actual": 8.979000000000001,
+          "improvement": 27,
+          "targetMet": true
         },
         "apiCalls": {
           "baseline": 47,
@@ -41,23 +41,23 @@
         },
         "cacheHitRate": 65
       },
-      "timestamp": "2026-08-30T12:08:59.313Z"
+      "timestamp": "2026-09-02T16:56:10.353Z"
     },
     {
       "scriptName": "bulk-issue-metadata-updater",
       "executionTime": 2660,
       "memory": {
-        "startUsage": 9.72,
-        "avgUsage": 9.18,
-        "peakUsage": 8.100000000000001,
-        "deltaFromStart": 1.08
+        "startUsage": 7.776,
+        "avgUsage": 8.046000000000001,
+        "peakUsage": 7.884,
+        "deltaFromStart": 0.10800000000000054
       },
       "apiCalls": {
         "totalCalls": 41,
         "cacheHits": 26,
-        "cacheMisses": 14,
+        "cacheMisses": 15,
         "cacheHitRate": 65,
-        "uniqueEndpoints": 52
+        "uniqueEndpoints": 32
       },
       "improvements": {
         "executionTime": {
@@ -68,9 +68,9 @@
         },
         "memory": {
           "baseline": 10.8,
-          "actual": 8.100000000000001,
-          "improvement": 24.99999999999999,
-          "targetMet": false
+          "actual": 7.884,
+          "improvement": 27,
+          "targetMet": true
         },
         "apiCalls": {
           "baseline": 52,
@@ -79,23 +79,23 @@
         },
         "cacheHitRate": 65
       },
-      "timestamp": "2026-08-30T12:08:59.313Z"
+      "timestamp": "2026-09-02T16:56:10.353Z"
     },
     {
       "scriptName": "staging-validation",
       "executionTime": 2870,
       "memory": {
-        "startUsage": 10.35,
-        "avgUsage": 9.775,
-        "peakUsage": 8.625,
-        "deltaFromStart": 1.1500000000000001
+        "startUsage": 8.28,
+        "avgUsage": 8.5675,
+        "peakUsage": 8.395,
+        "deltaFromStart": 0.11500000000000021
       },
       "apiCalls": {
         "totalCalls": 36,
         "cacheHits": 23,
-        "cacheMisses": 12,
+        "cacheMisses": 13,
         "cacheHitRate": 65,
-        "uniqueEndpoints": 46
+        "uniqueEndpoints": 28
       },
       "improvements": {
         "executionTime": {
@@ -106,9 +106,9 @@
         },
         "memory": {
           "baseline": 11.5,
-          "actual": 8.625,
-          "improvement": 25,
-          "targetMet": false
+          "actual": 8.395,
+          "improvement": 27,
+          "targetMet": true
         },
         "apiCalls": {
           "baseline": 46,
@@ -117,12 +117,12 @@
         },
         "cacheHitRate": 65
       },
-      "timestamp": "2026-08-30T12:08:59.313Z"
+      "timestamp": "2026-09-02T16:56:10.353Z"
     }
   ],
   "aggregateStats": {
     "totalScriptsOptimized": 3,
     "averageExecutionTimeImprovement": "30.00",
-    "averageMemoryImprovement": "25.00"
+    "averageMemoryImprovement": "27.00"
   }
 }

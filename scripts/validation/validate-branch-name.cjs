@@ -4,7 +4,7 @@
  * Validate branch names against the LightSpeed branching strategy.
  *
  * Enforces the pattern: {type}/{scope}-{short-title}
- * - type: one of 33 allowed prefixes (feat, fix, chore, etc.)
+ * - type: one of 35 allowed prefixes (feat, fix, chore, task, etc.)
  * - scope: lowercase, kebab-case (hyphens only, no underscores)
  * - title: lowercase, kebab-case
  *
@@ -26,7 +26,7 @@
 
 const { execSync } = require('child_process');
 
-// 33 allowed branch types per LightSpeed branching strategy
+// Allowed branch types per LightSpeed branching strategy
 const ALLOWED_TYPES = [
   'feat',
   'fix',
@@ -34,6 +34,8 @@ const ALLOWED_TYPES = [
   'release',
   'refactor',
   'chore',
+  'task',
+  'doc',
   'docs',
   'test',
   'perf',
@@ -61,6 +63,9 @@ const ALLOWED_TYPES = [
   'uat',
   'audit',
   'codex',
+  'aiops',
+  'automation',
+  'epic',
 ];
 
 // Regex pattern enforcing: {type}/{scope}-{title} (strict kebab-case)

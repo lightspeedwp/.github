@@ -30,18 +30,18 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ---
 
-## 📊 Status Summary (2026-09-03)
+## 📊 Status Summary (2026-09-04)
 
 | Status | Count | Percentage | Projects |
 |--------|-------|-----------|----------|
-| ✅ **Complete** | 10 | 15% | Delivered, production-ready |
+| ✅ **Complete** | 11 | 16% | Delivered, production-ready |
 | 🟢 **Active Ready** | 12 | 18% | In progress, well-scoped |
 | 🟡 **In Progress** | 35 | 51% | Active development, phased |
 | 🔴 **Critical** | 1 | 2% | Blocked or high-risk |
 | 🟠 **Blocked** | 3 | 4% | Waiting for dependencies |
 | 🔵 **Planning** | 5 | 7% | Early stage, planning phase |
 | 🔄 **Transitioning** | 2 | 3% | Between phases |
-| **TOTAL** | **68** | **100%** | All active initiatives |
+| **TOTAL** | **69** | **100%** | All active initiatives |
 
 ---
 
@@ -96,6 +96,12 @@ This directory contains all active projects, initiatives, and work in progress f
 12. **repository-restructuring-phase-1** (✅ COMPLETE | 96%)
     - Phase 1 complete and finalized
     - Restructuring foundations in place
+
+13. **reusable-prompts-setup** (✅ COMPLETE | 100%)
+    - Phase 1: 9 reusable operational prompts created
+    - PR #2802 merged to develop (commit 43da11cc)
+    - GitHub issues #2803-#2811 created for tracking
+    - Phase 2 planned: 5 enhancement issues #2812-#2816
 
 ---
 
@@ -367,11 +373,13 @@ This directory contains all active projects, initiatives, and work in progress f
 
 2. **agent-skills-standards-comprehensive** (See Complete section — now moved to Ready for Phase 3)
 
-3. **labeling-consolidation-2026-09-03** (🟢 Phase 2 Complete | 40%)
-   - Research, audit, planning, and design deliverables complete
-   - OpenSpec, schema, consolidation, skills extraction, and rollout plans documented
-   - Awaiting approval to create Phase 3 GitHub issues
+3. **labeling-consolidation-2026-09-03** (🟢 Phase 3 Complete | 60%)
+   - ✅ Phase 1: Research & audit complete (RESEARCH_FINDINGS.md + AUDIT_FINDINGS.md)
+   - ✅ Phase 2: Planning & design complete (OPENSPEC.md, SCHEMA_DESIGN.md, rollout plans)
+   - ✅ Phase 3: GitHub issues created (#2668–#2677) + 5 enhancement issues (#2709–#2714)
+   - 🟡 Phase 4: Implementation ready to begin (Oct 1–31)
    - Target: Consolidate 11+ fragmented labeling workflows → unified agent + reusable skills
+   - **Recent:** Phase 3+ enhancements documented; JSON Schema examples, test fixtures, handoff docs, OPENSPEC refresh, issue-docs cross-linking queued as high/medium priority tasks
 
 4. **label-prefix-audit-2026-08-05** (✅ / 🔴 Audit Complete | 20%)
    - Audit findings complete, remediation phase 2 in progress

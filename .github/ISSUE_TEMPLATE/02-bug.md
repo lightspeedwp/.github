@@ -1,9 +1,10 @@
 ---
-file_type: issue-template
-title: "type:bug: {scope}"
 name: "🐛 Bug report"
-description: "Report a bug to help us improve this WordPress project"
-labels: [type:bug, status:needs-triage, priority:normal]
+about: "Report a bug to help us improve this WordPress project"
+title: "bug: {scope}"
+labels: ["type:bug", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
+recommended_branch: "fix/"
+file_type: issue-template
 ---
 
 <!--

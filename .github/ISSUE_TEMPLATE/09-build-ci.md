@@ -1,12 +1,9 @@
 ---
-name: "⚙️ Build & CI"
-description: "⚙️ Build & CI"
-about: "Propose changes, fixes, or improvements to build tools, CI/CD pipelines, or automation."
-title: "[Build/CI] <Short summary>"
-labels: [status:needs-triage, area:ci]
-assignees: []
-projects: []
-milestone: ""
+name: "🏗️ Build/CI"
+about: "Template for Build/CI issues"
+title: "build: {scope}"
+labels: ["type:build", "status:needs-triage", "priority:normal", "area:ci", "meta:infrastructure"]
+recommended_branch: "ci/"
 file_type: issue-template
 ---
 

@@ -1,12 +1,9 @@
 ---
-name: "🧪 Test Coverage"
-description: "🧪 Test Coverage"
-about: "Propose, add, or expand tests (unit, integration, E2E)."
-title: "[Test Coverage] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:testing]
-assignees: []
-projects: []
-milestone: ""
+name: "🧪 Testing/Coverage"
+about: "Template for Testing/Coverage issues"
+title: "test: {scope}"
+labels: ["type:test", "status:needs-triage", "priority:normal", "area:testing", "meta:coverage"]
+recommended_branch: "test/"
 file_type: issue-template
 ---
 

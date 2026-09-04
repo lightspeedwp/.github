@@ -268,7 +268,7 @@ Epic #1376 (Issue Triage Automation System)
 
 - **labeling.yml workflow** — Triggered by bulk remediation
 - **template-enforcement.yml workflow** — Works with DoR/DoD validation
-- **issue-create-from-template.yml workflow** — Superseded by enhanced version
+- **issue-create-enhanced.yml workflow** — Superseded by enhanced version
 
 ---
 

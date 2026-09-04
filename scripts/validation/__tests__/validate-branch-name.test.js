@@ -25,6 +25,7 @@ const {
   PROTECTED_BRANCHES,
   BOT_PREFIXES,
 } = require("../validate-branch-name.cjs");
+const { ALLOWED_PREFIXES, isAllowed } = require("../validate-branch-name.js");
 
 describe("validate-branch-name", () => {
   describe("CLI output", () => {
@@ -61,6 +62,8 @@ describe("validate-branch-name", () => {
         "release",
         "refactor",
         "chore",
+        "task",
+        "doc",
         "docs",
         "test",
         "perf",
@@ -75,6 +78,9 @@ describe("validate-branch-name", () => {
         "ux",
         "i18n",
         "ops",
+        "aiops",
+        "automation",
+        "epic",
       ];
 
       coreTypes.forEach((type) => {
@@ -87,6 +93,16 @@ describe("validate-branch-name", () => {
         expect(type).toBe(type.toLowerCase());
       });
     });
+  });
+
+  test("should stay aligned with the runtime validator", () => {
+    expect(new Set(ALLOWED_PREFIXES)).toEqual(new Set(ALLOWED_TYPES));
+
+    ["task", "doc", "docs", "aiops", "automation", "epic", "build"].forEach(
+      (type) => {
+        expect(isAllowed(`${type}/scope-title`)).toBe(true);
+      },
+    );
   });
 
   describe("BRANCH_PATTERN", () => {

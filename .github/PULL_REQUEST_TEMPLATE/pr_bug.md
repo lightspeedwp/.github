@@ -1,9 +1,10 @@
 ---
 file_type: pr-template
-title: "type:bug: {scope}"
 name: "Bug Fix"
-description: "Fix a defect/regression with clear repro, fix, and verification"
-labels: ["type:bug", "status:needs-review"]
+about: "Fix a defect or regression"
+title: "fix: {scope}"
+labels: ["type:bug", "status:needs-review", "priority:normal", "area:core", "meta:needs-changelog"]
+recommended_issue_type: "type:bug"
 ---
 
 # Bugfix Pull Request

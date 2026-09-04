@@ -1,12 +1,9 @@
 ---
 name: "🤖 Automation"
-description: "🤖 Automation"
-about: "Propose, fix, or improve automation (actions, scripts, bots)."
-title: "[Automation] <Short summary>"
-labels: [status:needs-triage, area:automation]
-assignees: []
-projects: []
-milestone: ""
+about: "Template for Automation issues"
+title: "automation: {scope}"
+labels: ["type:automation", "status:needs-triage", "priority:normal", "area:automation", "meta:infrastructure"]
+recommended_branch: "automation/"
 file_type: issue-template
 ---
 

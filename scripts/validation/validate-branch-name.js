@@ -17,6 +17,8 @@ const ALLOWED_PREFIXES = [
   "release",
   "refactor",
   "chore",
+  "task",
+  "doc",
   "docs",
   "test",
   "perf",
@@ -44,6 +46,9 @@ const ALLOWED_PREFIXES = [
   "uat",
   "audit",
   "codex",
+  "aiops",
+  "automation",
+  "epic",
 ];
 
 const BOT_PREFIXES = /^(dependabot|renovate)\//;
@@ -89,7 +94,7 @@ function resolveBranchName() {
       stdio: ["ignore", "pipe", "ignore"],
       encoding: "utf8",
     }).trim();
-  } catch (_err) {
+  } catch {
     return "";
   }
 }

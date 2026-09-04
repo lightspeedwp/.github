@@ -1,12 +1,9 @@
 ---
-name: "🔐 Security"
-description: "🔐 Security"
-about: "Report vulnerabilities, security improvements, or compliance requirements."
-title: "[Security] <Brief summary>"
-labels: [status:needs-triage, priority:critical, area:security]
-assignees: []
-projects: []
-milestone: ""
+name: "🔒 Security"
+about: "Template for Security issues"
+title: "security: {scope}"
+labels: ["type:security", "status:needs-triage", "priority:critical", "area:security", "meta:security-issue"]
+recommended_branch: "security/"
 file_type: issue-template
 ---
 

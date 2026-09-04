@@ -1,11 +1,12 @@
 /**
  * reporting.agent.js
  *
- * Reporting Agent implementation for LightSpeed.
+ * Reporting Agent v2 implementation for LightSpeed.
  * Automates report creation, organisation, and maintenance.
+ * v2 adds multi-repository support, session caching, and flexible storage.
  *
  * @file reporting.agent.js
- * @version 1.0.0
+ * @version 2.0.0
  * @author LightSpeed Team
  * @license GPL-3.0
  * @module scripts/agents/reporting.agent.js
@@ -14,10 +15,9 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+/** @type {string} Current semantic version of the Reporting Agent */
+const AGENT_VERSION = "2.0.0";
 
 /**
  * Report categories and their paths
@@ -31,6 +31,268 @@ const CATEGORIES = {
   meta: ".github/reports/meta",
   "issue-metrics": ".github/reports/issue-metrics",
 };
+
+// ---------------------------------------------------------------------------
+// v2: Session cache
+// ---------------------------------------------------------------------------
+
+/**
+ * In-memory session cache.
+ * Stores keyed report data within a single process lifetime.
+ *
+ * @type {Map<string, {data: *, cachedAt: Date, ttlMs: number}>}
+ */
+const _sessionCache = new Map();
+
+/** Default cache TTL: 15 minutes */
+const DEFAULT_CACHE_TTL_MS = 15 * 60 * 1000;
+
+/**
+ * Store a value in the session cache.
+ *
+ * @param {string} key - Cache key
+ * @param {*} data - Value to cache
+ * @param {number} [ttlMs=DEFAULT_CACHE_TTL_MS] - Time-to-live in milliseconds
+ */
+function cacheSet(key, data, ttlMs = DEFAULT_CACHE_TTL_MS) {
+  _sessionCache.set(key, { data, cachedAt: new Date(), ttlMs });
+}
+
+/**
+ * Retrieve a value from the session cache, returning undefined if missing or
+ * expired.
+ *
+ * @param {string} key - Cache key
+ * @returns {*} Cached value or undefined
+ */
+function cacheGet(key) {
+  const entry = _sessionCache.get(key);
+  if (!entry) return undefined;
+  const age = Date.now() - entry.cachedAt.getTime();
+  if (age > entry.ttlMs) {
+    _sessionCache.delete(key);
+    return undefined;
+  }
+  return entry.data;
+}
+
+/**
+ * Clear all entries from the session cache.
+ */
+function cacheClear() {
+  _sessionCache.clear();
+}
+
+/**
+ * Return the number of live (non-expired) entries in the session cache.
+ *
+ * @returns {number} Live entry count
+ */
+function cacheSize() {
+  let count = 0;
+  for (const [key, entry] of _sessionCache.entries()) {
+    if (Date.now() - entry.cachedAt.getTime() <= entry.ttlMs) {
+      count++;
+    } else {
+      _sessionCache.delete(key);
+    }
+  }
+  return count;
+}
+
+// ---------------------------------------------------------------------------
+// v2: Multi-repository helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Normalise a repository identifier to `{ owner, repo }`.
+ *
+ * Accepts `"owner/repo"` strings or plain `{ owner, repo }` objects.
+ *
+ * @param {string|{owner: string, repo: string}} repoRef - Repository reference
+ * @returns {{ owner: string, repo: string }}
+ */
+function parseRepoRef(repoRef) {
+  if (typeof repoRef === "string") {
+    const parts = repoRef.split("/");
+    if (parts.length !== 2 || !parts[0] || !parts[1]) {
+      throw new Error(
+        `Invalid repository reference "${repoRef}". Expected "owner/repo".`,
+      );
+    }
+    const [owner, repo] = parts;
+    return { owner: owner.trim(), repo: repo.trim() };
+  }
+  if (repoRef && typeof repoRef === "object") {
+    const { owner, repo } = repoRef;
+    if (!owner || !repo) {
+      throw new Error(
+        'Repository reference object must have "owner" and "repo" properties.',
+      );
+    }
+    return { owner: String(owner).trim(), repo: String(repo).trim() };
+  }
+  throw new Error("Repository reference must be a string or object.");
+}
+
+/**
+ * Build a canonical cache key for a per-repository report.
+ *
+ * @param {{ owner: string, repo: string }} parsed - Parsed repo ref
+ * @param {string} category - Report category
+ * @returns {string}
+ */
+function buildRepoCacheKey(parsed, category) {
+  return `repo:${parsed.owner}/${parsed.repo}:${category}`;
+}
+
+/**
+ * Generate a multi-repository summary report that aggregates data from
+ * multiple repositories into a single Markdown document.
+ *
+ * @param {object} options - Report options
+ * @param {string} options.title - Report title
+ * @param {string} options.description - Description
+ * @param {string} options.category - Report category
+ * @param {Array<string|{owner:string,repo:string}>} options.repos - Repository list
+ * @param {Array<{metric: string, value: string, status: string}>} [options.metrics] - Aggregate metrics
+ * @param {string} [options.summary] - Executive summary
+ * @param {string} [options.author] - Report author
+ * @param {string[]} [options.tags] - Tags
+ * @returns {string} Multi-repo Markdown report
+ */
+function generateMultiRepoReport(options) {
+  const {
+    title,
+    description,
+    category,
+    repos = [],
+    metrics = [],
+    summary = "",
+    author,
+    tags = [],
+  } = options;
+
+  if (!Array.isArray(repos) || repos.length === 0) {
+    throw new Error("generateMultiRepoReport requires at least one repository.");
+  }
+
+  const parsed = repos.map(parseRepoRef);
+
+  const repoList = parsed
+    .map((r) => `| \`${r.owner}/${r.repo}\` | — |`)
+    .join("\n");
+
+  const metricsTable =
+    metrics.length > 0
+      ? `## Aggregate Metrics\n\n| Metric | Value | Status |\n|--------|-------|--------|\n${metrics.map((m) => `| ${m.metric} | ${m.value} | ${m.status} |`).join("\n")}`
+      : "";
+
+  const frontmatter = generateFrontmatter({
+    title,
+    description,
+    category,
+    author,
+    tags: ["multi-repo", ...tags],
+  });
+
+  return `${frontmatter}
+
+# ${title}
+
+## Repositories (${parsed.length})
+
+| Repository | Notes |
+|------------|-------|
+${repoList}
+
+## Summary
+
+${summary || "Multi-repository report generated by Reporting Agent v2."}
+
+${metricsTable}
+`.trim();
+}
+
+// ---------------------------------------------------------------------------
+// v2: Pluggable storage backend
+// ---------------------------------------------------------------------------
+
+/**
+ * @typedef {object} StorageBackend
+ * @property {function(string, string): void} write - Write content to path
+ * @property {function(string): boolean} exists - Check path existence
+ * @property {function(string): void} mkdirp - Ensure directory exists
+ */
+
+/**
+ * Default filesystem storage backend (production use).
+ *
+ * @type {StorageBackend}
+ */
+const fsStorage = {
+  write(filePath, content) {
+    fs.writeFileSync(filePath, content, "utf-8");
+  },
+  exists(filePath) {
+    return fs.existsSync(filePath);
+  },
+  mkdirp(dir) {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  },
+};
+
+/**
+ * Create an in-memory storage backend (useful for testing).
+ *
+ * @returns {StorageBackend & {store: Map<string, string>}}
+ */
+function createMemoryStorage() {
+  const store = new Map();
+  return {
+    store,
+    write(filePath, content) {
+      store.set(filePath, content);
+    },
+    exists(filePath) {
+      return store.has(filePath);
+    },
+    mkdirp() {
+      /* no-op for in-memory */
+    },
+  };
+}
+
+/** Active storage backend (defaults to filesystem, replaceable in tests) */
+let _storage = fsStorage;
+
+/**
+ * Replace the active storage backend.
+ *
+ * @param {StorageBackend} backend - New storage backend
+ */
+function setStorage(backend) {
+  if (
+    !backend ||
+    typeof backend.write !== "function" ||
+    typeof backend.exists !== "function" ||
+    typeof backend.mkdirp !== "function"
+  ) {
+    throw new Error(
+      "Storage backend must implement { write, exists, mkdirp }.",
+    );
+  }
+  _storage = backend;
+}
+
+/**
+ * Reset storage backend to the default filesystem implementation.
+ */
+function resetStorage() {
+  _storage = fsStorage;
+}
 
 /**
  * Generate frontmatter for a report
@@ -321,14 +583,11 @@ function saveReport(content, filename, category) {
   const sanitisedFilename = sanitiseFilename(filename);
   const reportPath = getReportPath(category, sanitisedFilename);
 
-  // Ensure directory exists
+  // Ensure directory exists via pluggable storage backend
   const dir = path.dirname(reportPath);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-
   try {
-    fs.writeFileSync(reportPath, content, "utf-8");
+    _storage.mkdirp(dir);
+    _storage.write(reportPath, content);
     return { success: true, path: reportPath };
   } catch (error) {
     return { success: false, error: error.message };
@@ -436,6 +695,14 @@ function runAgent(context = {}) {
         category: options.category || determineCategory(options.title || ""),
       };
 
+    case "generate:multi-repo":
+      return {
+        ok: true,
+        report: generateMultiRepoReport(options),
+        category: options.category || "agents",
+        repos: (options.repos || []).map(parseRepoRef),
+      };
+
     case "spec":
       return {
         ok: true,
@@ -454,12 +721,33 @@ function runAgent(context = {}) {
     case "save":
       return saveReport(options.content, options.filename, options.category);
 
+    case "cache:get": {
+      const cached = cacheGet(options.key);
+      return {
+        ok: true,
+        value: cached,
+        hit: cached !== undefined,
+      };
+    }
+
+    case "cache:set":
+      cacheSet(options.key, options.value, options.ttlMs);
+      return { ok: true };
+
+    case "cache:clear":
+      cacheClear();
+      return { ok: true };
+
+    case "cache:size":
+      return { ok: true, size: cacheSize() };
+
     default:
       return {
         ok: true,
         timestamp: new Date().toISOString(),
+        version: AGENT_VERSION,
         categories: Object.keys(CATEGORIES),
-        message: "Reporting Agent ready",
+        message: "Reporting Agent v2 ready",
       };
   }
 }
@@ -467,6 +755,7 @@ function runAgent(context = {}) {
 export {
   runAgent,
   generateReport,
+  generateMultiRepoReport,
   generateSpecFile,
   generateFrontmatter,
   determineCategory,
@@ -475,7 +764,17 @@ export {
   saveReport,
   validateReport,
   archiveReport,
+  parseRepoRef,
+  buildRepoCacheKey,
+  cacheGet,
+  cacheSet,
+  cacheClear,
+  cacheSize,
+  setStorage,
+  resetStorage,
+  createMemoryStorage,
   CATEGORIES,
+  AGENT_VERSION,
 };
 
 export default { runAgent };

@@ -1,9 +1,10 @@
 ---
 file_type: pr-template
-title: "hotfix: {scope}"
 name: "Hotfix"
-description: "Critical fixes for production issues"
-labels: ["type:hotfix", "status:needs-review", "priority:critical"]
+about: "Critical production fix (urgent, bypasses normal release cycle)"
+title: "hotfix: {scope}"
+labels: ["type:release", "status:needs-review", "priority:critical", "area:core", "meta:needs-changelog"]
+recommended_issue_type: "type:release"
 ---
 
 # Hotfix Pull Request

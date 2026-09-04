@@ -1,12 +1,9 @@
 ---
-name: "📖 Content Modelling"
-description: "📖 Content Modelling"
-about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
-title: "[Content Modelling] <Brief summary>"
-labels: [status:needs-triage, area:content]
-assignees: []
-projects: []
-milestone: ""
+name: "📝 Content Modelling"
+about: "Template for Content Modelling issues"
+title: "design: {scope}"
+labels: ["type:design", "status:needs-triage", "priority:normal", "area:content", "meta:schema-design"]
+recommended_branch: "design/"
 file_type: issue-template
 ---
 

@@ -1,12 +1,9 @@
 ---
 name: "📚 Documentation"
-description: "📚 Documentation"
-about: "Request new documentation or propose updates/clarifications to existing docs."
-title: "[Documentation] <Brief summary>"
-labels: [status:needs-triage, priority:normal, area:documentation]
-assignees: []
-projects: []
-milestone: ""
+about: "Template for Documentation issues"
+title: "docs: {scope}"
+labels: ["type:documentation", "status:needs-triage", "priority:normal", "area:docs", "meta:content"]
+recommended_branch: "docs/"
 file_type: issue-template
 ---
 

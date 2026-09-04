@@ -1,12 +1,9 @@
 ---
-name: "🔧 Improvement"
-description: "🔧 Improvement"
-about: "Propose enhancements, polish, or usability improvements."
-title: "[Improvement] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:core]
-assignees: []
-projects: []
-milestone: ""
+name: "✨ Improvement"
+about: "Template for Improvement issues"
+title: "improve: {scope}"
+labels: ["type:improve", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
+recommended_branch: "feat/"
 file_type: issue-template
 ---
 
