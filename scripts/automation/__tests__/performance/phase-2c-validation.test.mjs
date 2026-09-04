@@ -417,16 +417,4 @@ export async function runAllTests() {
   return failed === 0;
 }
 
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  runAllTests()
-    .then((success) => {
-      process.exit(success ? 0 : 1);
-    })
-    .catch((err) => {
-      console.error(`Test execution failed: ${err.message}`);
-      process.exit(1);
-    });
-}
-
 export { TEST_CONFIG };
