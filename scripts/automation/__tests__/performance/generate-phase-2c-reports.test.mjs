@@ -167,7 +167,7 @@ describe("generate-phase-2c-reports", () => {
           (sum, i) => sum + (i.executionTime.baseline - i.executionTime.actual),
           0
         ),
-        totalAPICalls Reduced: improvements.reduce(
+        totalAPICallsReduced: improvements.reduce(
           (sum, i) => sum + (i.apiCalls.baseline - i.apiCalls.actual),
           0
         ),
