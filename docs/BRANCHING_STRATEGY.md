@@ -52,8 +52,8 @@ Enable squash merge only; disable merge commits and rebase merges.
 
 ## 3. Branch Naming
 
-**Format:**  
-`{type}/{scope}-{short-title}`  
+**Format:**
+`{type}/{scope}-{short-title}`
 Use lower-case, kebab-case, and keep it short.
 
 ### 3.1 Shared Core Prefixes
@@ -66,7 +66,8 @@ For all repos (client, product, infra, etc.), use:
 - `release/` — release branches (e.g., `release/v1.6.0`)
 - `refactor/` — internal restructure
 - `chore/` — maintenance, housekeeping
-- `docs/` — documentation
+- `task/` — scoped project or epic work
+- `docs/` or `doc/` — documentation
 - `test/` — testing only
 - `perf/` — performance improvements
 - `ci/` — CI/CD or workflow changes
@@ -83,6 +84,8 @@ For all repos (client, product, infra, etc.), use:
 - `audit/` — governance audits and compliance reviews
 - `codex/` — codex, knowledge base, or reference documentation
 - `aiops/` — AI-assisted operations and automation
+- `automation/` — automation scripts and tooling
+- `epic/` — epic completion or merge work
 
 ### 3.2 Product-specific Prefixes (optional)
 
@@ -129,7 +132,7 @@ Use a single regex in a workflow to enforce naming discipline:
 **Non-release branches:**
 
 ```regex
-^(feat|fix|hotfix|refactor|chore|task|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
+^(feat|fix|hotfix|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
 ```
 
 **Release branches (semantic versioning):**
@@ -182,7 +185,7 @@ jobs:
           # Allow release branches with semantic versioning
           if [[ "$BRANCH" =~ ^release/v?[0-9]+\.[0-9]+\.[0-9]+ ]]; then exit 0; fi
           # Standard pattern: {type}/{scope}-{title}
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
             echo "❌ Branch '$BRANCH' must match the pattern: {type}/{scope}-{title}"
             echo "Example: feat/user-auth-login"
             exit 1
@@ -194,33 +197,37 @@ jobs:
 - For monorepos, ensure branch naming applies to each package/subproject, or use a consistent prefix (e.g. `feat/frontend-...`, `fix/api-...`).
 - For forked repos, always clean up branches after merging upstream PRs, and avoid duplicating branch names across forks to prevent confusion.
 
-### 4.3 PR Template Routing, Default Labels & Two-Way Mapping
+### 4.3 Authoritative Branch and PR Template Matrix
 
-PR template selection is automatically routed based on branch type prefix. Each PR template now seeds default labels for **type**, **status**, **priority**, **area**, and **meta** families to ensure consistent automation across all PRs. Each template also pairs with a **recommended issue type** for clear two-way mapping (issue type → branch prefix → PR template).
+`.github/PULL_REQUEST_TEMPLATE/config.yml` is the canonical route map. The branch validators enforce the prefixes below, while `.github/labeler.yml` applies the listed type labels where a rule exists. GitHub does not consume label or issue-type metadata from PR template frontmatter.
 
-| Branch Type | PR Template | Default Labels | Recommended Issue Type |
-|---|---|---|---|
-| `feat/` | `pr_feature.md` | type:feature, status:needs-review, priority:normal, area:core, meta:needs-changelog | type:feature |
-| `fix/` | `pr_bug.md` | type:bug, status:needs-review, priority:normal, area:core, meta:needs-changelog | type:bug |
-| `hotfix/` | `pr_hotfix.md` | type:release, status:needs-review, priority:critical, area:core, meta:needs-changelog | type:release |
-| `release/` | `pr_release.md` | type:release, status:needs-review, priority:critical, area:release, meta:needs-changelog | type:release |
-| `refactor/` | `pr_refactor.md` | type:refactor, status:needs-review, priority:normal, area:core | type:refactor |
-| `chore/` | `pr_chore.md` | type:chore, status:needs-review, priority:normal, area:core | type:chore |
-| `task/` | `pr_task.md` | type:task, status:needs-review, priority:normal, area:core | type:task |
-| `docs/` or `doc/` | `pr_docs.md` | type:documentation, status:needs-review, priority:normal, area:documentation | type:documentation |
-| `ci/` | `pr_ci.md` | type:ci, status:needs-review, priority:normal, area:ci | type:ci |
-| `build/` | `pr_chore.md` | type:chore, status:needs-review, priority:normal, area:core | type:build |
-| `deps/` | `pr_dep_update.md` | type:dependency, status:needs-review, priority:normal, area:dependencies | type:dependency |
-| `test/` | `pr_test.md` | type:test, status:needs-review, priority:normal, area:testing | type:test |
-| `a11y/` | `pr_a11y.md` | type:a11y, status:needs-review, priority:high, area:a11y, meta:needs-changelog | type:a11y |
-| `design/` | `pr_design.md` | type:design, status:needs-review, priority:normal, area:design-system, meta:needs-changelog | type:design |
-| `audit/` | `pr_audit.md` | type:audit, status:needs-review, priority:normal, area:release, meta:needs-changelog | type:audit |
-| `security/` | `pr_security.md` | type:security, status:needs-review, priority:critical, area:security, meta:needs-changelog | type:security |
-| `aiops/` | `pr_aiops.md` | type:ai-ops, status:needs-review, priority:normal, area:ai, meta:needs-changelog | type:ai-ops |
-| `epic/` | `pr_epic.md` | type:epic, status:needs-review, priority:normal, area:core, meta:needs-changelog | type:epic |
-| `perf/` | `pr_chore.md` | type:chore, status:needs-review, priority:normal, area:performance | type:performance |
-| Other prefixes | `pr_chore.md` (default) | type:chore, status:needs-review, priority:normal, area:core | type:task (default) |
-| Forbidden prefixes | `pr_chore.md` (fallback) | type:chore, status:needs-review | ⚠️ Invalid branch name |
+| Branch Type | PR Template | Default Type Label |
+|---|---|---|
+| `feat/` | `pr_feature.md` | type:feature |
+| `fix/` | `pr_bug.md` | type:bug |
+| `hotfix/` | `pr_hotfix.md` | type:release |
+| `release/` | `pr_release.md` | type:release |
+| `refactor/` | `pr_refactor.md` | type:refactor |
+| `chore/` | `pr_chore.md` | type:chore |
+| `task/` | `pr_task.md` | type:task |
+| `docs/` or `doc/` | `pr_docs.md` | type:documentation |
+| `test/` | `pr_chore.md` | type:test |
+| `perf/` | `pr_feature.md` | type:performance |
+| `ci/` | `pr_ci.md` | type:ci |
+| `build/` | `pr_ci.md` | type:build |
+| `automation/` | `pr_ci.md` | type:automation |
+| `deps/` | `pr_dep_update.md` | — |
+| `security/` | `pr_bug.md` | type:security |
+| `design/` | `pr_feature.md` | type:design |
+| `a11y/` | `pr_feature.md` | type:a11y |
+| `audit/` | `pr_feature.md` | type:audit |
+| `aiops/` | `pr_aiops.md` | type:ai-ops |
+| `epic/` | `pr_epic.md` | type:epic |
+| `research/`, `ux/`, `i18n/`, `proto/`, `ds/`, `api/`, `schema/`, `telemetry/` | `pr_feature.md` | — |
+| `revert/`, `ops/`, `config/`, `migrate/`, `qa/`, `uat/` | `pr_chore.md` | — |
+| `content/`, `seo/`, `codex/` | `pr_docs.md` | — |
+
+The fallback resolver runs only for `claude/` and `copilot/` branches. It recommends a template from the linked issue or PR type and falls back to `pr_feature.md`; it posts an informational comment and does not replace the PR body. `openai/` branches are invalid but are excluded from this resolver workflow.
 
 **Key Improvements**:
 
@@ -264,7 +271,7 @@ type:release → release/ or hotfix/
 - All standard branch types (`feat/`, `fix/`, `docs/`, `chore/`, etc.) automatically receive `status:needs-review` label
 - Labeler also maps **priority** based on branch type:
   - `hotfix/` and `security/` → `priority:critical`
-  - `a11y/` → `priority:high`
+  - `a11y/` → `priority:important`
   - All others → `priority:normal` (default)
 
 **Area/Component Mapping (by file path):**
@@ -311,7 +318,7 @@ Branch prefixes drive both **Issue Type** labels and **Project Type** field assi
 | `release/` | type:release | Release | Release branches, versioning |
 | Other prefixes | type:task (default) | Task | Fallback for non-standard branches |
 
-**Principle:**  
+**Principle:**
 
 - **Labels** remain **routing signals** (status, priority, area/component, type) — they drive automation
 - **Issue Types** and **Project Types** carry **semantic meaning** — they describe what the work is

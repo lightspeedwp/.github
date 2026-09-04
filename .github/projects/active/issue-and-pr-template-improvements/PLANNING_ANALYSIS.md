@@ -11,8 +11,8 @@ owner: ashley@lightspeedwp.agency
 
 **Scope**: Review and align issue templates, PR templates, branch prefixes, labels, and governance to reduce complexity and improve consistency.
 
-**Session Start**: 2026-09-04  
-**Status**: ✅ Complete  
+**Session Start**: 2026-09-04
+**Status**: ✅ Complete
 **Completion Date**: 2026-09-04
 
 ---
@@ -105,17 +105,17 @@ owner: ashley@lightspeedwp.agency
   - `pr_task.md` should note: "Links to `type:task` issues"
   - This helps maintainers understand which issue types each PR template is for
 
-### 8. **Openspec Status Labels — Redundant Complexity**
-- **Current openspec labels** (13 total):
-  - Phase labels: `openspec:status/discovery`, `.../planning`, `.../implementation`, `.../testing`, `.../production`, `.../deprecated`
-  - Specification labels: `openspec:specification-pending`, `-in-progress`, `-complete`
-  - Implementation labels: `openspec:implementation-pending`, `-in-progress`, `-complete`
-- **Problem**: 
+
+### 8. **OpenSpec Status Labels — Redundant Complexity**
+- **Original OpenSpec labels** (12 total):
+  - **Keep**: `openspec:status/discovery`, `openspec:status/planning`, `openspec:status/implementation`, `openspec:status/testing`, `openspec:status/production`, `openspec:status/deprecated`
+  - **Deprecate**: `openspec:specification-pending`, `openspec:specification-in-progress`, `openspec:specification-complete`, `openspec:implementation-pending`, `openspec:implementation-in-progress`, `openspec:implementation-complete`
+- **Problem**:
   - Status phases overlap with implementation phases
   - Already have `status:*` labels that cover most of this
   - Unclear which to use when (e.g., when do you use `openspec:status/planning` vs `status:needs-planning`?)
-- **Recommendation**: Simplify openspec labels to only essential ones:
-  - **Keep**: `openspec:status/discovery`, `/implementation`, `/production`, `/deprecated` (high-level phases only)
+- **Recommendation**: Simplify OpenSpec labels to the six phase labels:
+  - **Keep**: All six `openspec:status/*` labels as high-level lifecycle phases
   - **Deprecate**: Specification/implementation pending/in-progress/complete (use standard `status:*` labels instead)
   - **Rationale**: Standard status labels already handle workflow state; openspec labels should only track openspec-specific phases
 
@@ -161,7 +161,7 @@ owner: ashley@lightspeedwp.agency
 | **Branch prefix mapping** | 22 prefixes in templates | Map each issue template to one of 19 PR templates | HIGH |
 | **PR template labels** | Minimal (2–3 labels) | Expand to include area, status, priority, meta families | MEDIUM |
 | **Recommended issue type** | Not in PR templates | Add to each PR template | LOW |
-| **Openspec labels** | 13 labels (redundant) | Reduce to 4–5 essential; use standard `status:*` for workflow | MEDIUM |
+| **OpenSpec labels** | 12 labels (redundant) | Reduce to 6 phase labels; use standard `status:*` for workflow | MEDIUM |
 | **New area labels** | Missing | Add `area:playwright`, `area:jest`, `area:phpunit`, `area:pagespeed` | LOW |
 | **Title governance** | Informal | Document issue & PR title format + examples | MEDIUM |
 
@@ -201,9 +201,9 @@ Which templates should we consolidate or remove?
 - Should `support/` / `help/` / `question/` be separate or use `type:question`?
 - Should we keep `story/` or merge into `feature/`?
 
-### 6. **Openspec Label Simplification**
-Do you agree to simplify openspec labels from 13 to 4–5?
-- **Keep**: `openspec:status/discovery`, `/implementation`, `/production`, `/deprecated`
+### 6. **OpenSpec Label Simplification**
+Do you agree to simplify OpenSpec labels from 12 to 6?
+- **Keep**: `openspec:status/discovery`, `/planning`, `/implementation`, `/testing`, `/production`, `/deprecated`
 - **Deprecate**: Specification/implementation workflow labels (use `status:*` instead)
 - **Remove or alias**: Any others?
 
@@ -218,18 +218,19 @@ Do you agree to simplify openspec labels from 13 to 4–5?
 1. **Labels** (`.github/labels.yml`):
    - ✅ Added 4 new area labels: `area:playwright`, `area:jest`, `area:phpunit`, `area:pagespeed`
    - ✅ Deprecated `type:integration` (consolidated into `area:integration`)
-   - ✅ Removed 6 openspec workflow labels (specification/implementation)
-   - ✅ Kept 4 essential openspec status labels
+   - ✅ Removed 6 OpenSpec workflow labels (specification/implementation)
+   - ✅ Kept all 6 OpenSpec phase labels
 
 2. **Issue Templates** (.github/ISSUE_TEMPLATE/):
-   - ✅ Deleted: `06-story.md` (merged into feature), `18-maintenance.md` (merged into task), `25-help.md` (merged into question)
-   - ✅ Created: `26-question.md` (consolidates help/support/question)
-   - ✅ Result: 26 templates → 23 templates
+   - ✅ Deleted: `06-story.md` (merged into feature)
+   - ✅ Created: `06-question.md`
+   - ✅ Result: 25 templates
 
 3. **PR Templates** (.github/PULL_REQUEST_TEMPLATE/):
    - ✅ Enriched all 14 PR templates with default labels across type, status, priority, area, meta families
    - ✅ Added `recommended_issue_type` field to each template for two-way mapping
    - ✅ Example: `pr_bug.md` now seeds [type:bug, status:needs-review, priority:normal, area:core, meta:needs-changelog]
+  - ✅ Updated the accessibility template to use the canonical `priority:important` label
 
 4. **Configuration** (.github/):
    - ✅ Updated `labeler.yml`: Split build/ci, added type mappings, new area label rules, priority automation
@@ -248,9 +249,9 @@ Do you agree to simplify openspec labels from 13 to 4–5?
 | Story issue type | B (Replace with type:ci) | Deleted story template; `ci/` branch maps to `pr_ci.md`, type:ci label |
 | Improve vs Enhance | C (Keep both with distinct meanings) | Both `type:improve` and `type:enhancement` retained; distinct use cases |
 | Default area label | C (Auto-assign via labeler.yml rules) | Added file path patterns to labeler.yml (tests/ → area:testing, etc.) |
-| Default priority label | C (Assign by branch type) | Configured: hotfix/security→critical, a11y→high, others→normal |
+| Default priority label | C (Assign by branch type) | Configured: hotfix/security→critical, a11y→important, others→normal
 | Consolidate issue templates | maintenance→task, help→question, story→feature | Deleted 3 templates, created 1; now 23 templates total |
-| Simplify openspec labels | Keep 4 status, deprecate workflow labels | Removed 6 specification/implementation labels; use standard status:* instead |
+| Simplify OpenSpec labels | Keep 6 phase labels, deprecate 6 workflow labels | Reduced 12 labels to 6; use standard status:* for workflow state |
 
 ### Deliverables
 

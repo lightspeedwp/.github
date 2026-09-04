@@ -323,7 +323,7 @@ class FrontmatterValidator {
       instruction: ["file_type", "description"], // apply_to/applyTo verified separately if present
       prompt: ["file_type", "description"],
       collection: ["file_type", "name", "description"],
-      issue_template: ["file_type", "name", "description"],
+      issue_template: ["file_type", "name", "about"],
       pull_request_template: ["file_type", "title"],
       discussion_template: ["file_type", "name", "description"],
       saved_reply: ["file_type", "title"],
