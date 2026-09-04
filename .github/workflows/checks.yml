@@ -15,6 +15,9 @@ on:
       - ".github/tmp/**"
   merge_group:
     types: [checks_requested]
+  schedule:
+    - cron: "0 */12 * * 1-5" # Every 12 hours, Monday-Friday
+  workflow_dispatch: # Allow manual trigger for testing
 
 permissions:
   contents: read
@@ -27,7 +30,7 @@ concurrency:
 jobs:
   lint:
     name: Linting
-    if: github.actor != 'imgbot[bot]'
+    if: github.actor != 'imgbot[bot]' && github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     env:
       # lint:md:changed diffs this range; without it the base ref cannot be
@@ -49,21 +52,12 @@ jobs:
       # workflow step invoking an npm script that doesn't exist in
       # package.json. Scoped to workflow files this diff changed.
       - run: npm run validate:workflow-npm-scripts
-      # validate:skill-manifests and validate:agent-hooks removed: neither npm
-      # script has ever existed, so both steps only ever exited with
-      # "Missing script". No CI job currently validates skill-manifest
-      # content directly — validate:skills in validate:all would cover it,
-      # but validate:all is not invoked by any workflow (verified via grep
-      # across .github/workflows/); that's a separate, pre-existing gap, not
-      # something this removal closes. validate-agent-hooks.cjs exists and is
-      # functional, but wiring it up surfaces two pre-existing content
-      # defects in agents/chat-closure-agent/AGENT.md (invalid status, 0/4
-      # provider coverage) that are an authoring task for that agent's
-      # owner, not a CI plumbing fix — tracked in #1962.
+      - run: npm run validate:agent-hooks
       - run: npm run validate:plugins
 
   test:
     name: Testing
+    if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -77,7 +71,7 @@ jobs:
 
   validate:
     name: Validation
-    if: github.actor != 'imgbot[bot]'
+    if: github.actor != 'imgbot[bot]' && github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     env:
       BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
@@ -105,11 +99,48 @@ jobs:
       - name: Validate frontmatter (changed only)
         run: npm run validate:frontmatter:changed -- --base ${{ env.BASE_SHA }} --head ${{ env.HEAD_SHA }}
 
+  flaky-detection:
+    name: Flaky Test Detection (Run ${{ matrix.run_number }})
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        run_number: [1, 2, 3, 4, 5]
+    env:
+      HUSKY: "0"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm install --no-save jest-junit
+
+      - name: Run unit tests
+        env:
+          JEST_JUNIT_OUTPUT_FILE: junit-unit-${{ matrix.run_number }}.xml
+        run: npx jest --config .jest.config.cjs --reporters=jest-junit || true
+
+      - name: Upload test results to Mergify
+        if: success() || failure()
+        uses: mergifyio/gha-mergify-ci@v25
+        with:
+          token: ${{ secrets.MERGIFY_TOKEN }}
+          flaky_test_detection: true
+          report_path: "junit-unit-${{ matrix.run_number }}.xml"
+          job_name: check
+
   # Composite status check: ensures all checks pass before merge
   all-checks:
     name: All Checks Passed
     needs: [lint, test, validate]
-    if: always()
+    if: always() && github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Evaluate check results

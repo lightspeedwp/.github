@@ -1,0 +1,165 @@
+{
+  "happyPath": {
+    "standardTask": {
+      "number": 1001,
+      "title": "Implement user authentication",
+      "body": "## Definition of Ready\n- [ ] Requirements documented\n- [ ] API design reviewed\n\n## Definition of Done\n- [ ] Code reviewed\n- [ ] Tests passing\n- [ ] Documentation updated",
+      "labels": [{ "name": "type:task" }, { "name": "priority:normal" }],
+      "milestone": null
+    },
+    "versionKeywordIssue": {
+      "number": 1002,
+      "title": "Fix v1.5 login timeout bug",
+      "body": "## Description\nUsers reporting 30-second timeout on login endpoint",
+      "labels": [{ "name": "type:bug" }, { "name": "priority:high" }],
+      "milestone": null
+    },
+    "epicIssue": {
+      "number": 1003,
+      "title": "Epic: Complete Phase 2 implementation",
+      "body": "## Summary\nImplement all Phase 2 requirements",
+      "labels": [{ "name": "type:epic" }, { "name": "priority:high" }],
+      "milestone": null
+    },
+    "phaseReferenceIssue": {
+      "number": 1004,
+      "title": "Refactor database queries (Phase 2.1)",
+      "body": "## Context\nThis work is part of Phase 2.1 optimization",
+      "labels": [{ "name": "type:refactor" }, { "name": "priority:normal" }],
+      "milestone": null
+    },
+    "highPriorityIssue": {
+      "number": 1005,
+      "title": "Critical security vulnerability fix",
+      "body": "## Details\nXSS vulnerability in user input validation",
+      "labels": [{ "name": "type:security" }, { "name": "priority:urgent" }],
+      "milestone": null
+    }
+  },
+  "edgeCases": {
+    "emptyBody": {
+      "number": 2001,
+      "title": "Short issue",
+      "body": "",
+      "labels": [{ "name": "type:task" }],
+      "milestone": null
+    },
+    "specialCharactersInTitle": {
+      "number": 2002,
+      "title": "Fix: \"Quote\" handling & escaping [URGENT]",
+      "body": "Testing special characters: @#$%^&*()",
+      "labels": [{ "name": "type:bug" }],
+      "milestone": null
+    },
+    "veryLongTitle": {
+      "number": 2003,
+      "title": "Implement comprehensive user authentication system with multi-factor authentication support including TOTP, SMS, and hardware key backup codes across all platforms",
+      "body": "Long title test",
+      "labels": [{ "name": "type:feature" }],
+      "milestone": null
+    },
+    "unicodeCharacters": {
+      "number": 2004,
+      "title": "Support internationalization: 你好世界 🌍",
+      "body": "Unicode test: ñ, é, ü, ৎ, 中文, العربية",
+      "labels": [{ "name": "type:feature" }],
+      "milestone": null
+    },
+    "missingTypeLabel": {
+      "number": 2005,
+      "title": "Unknown issue type",
+      "body": "No type label provided",
+      "labels": [{ "name": "priority:normal" }],
+      "milestone": null
+    },
+    "multipleTypeLabels": {
+      "number": 2006,
+      "title": "Issue with multiple types",
+      "body": "This shouldn't happen but let's test it",
+      "labels": [
+        { "name": "type:bug" },
+        { "name": "type:feature" },
+        { "name": "type:task" }
+      ],
+      "milestone": null
+    },
+    "noLabels": {
+      "number": 2007,
+      "title": "Issue without any labels",
+      "body": "Testing missing labels",
+      "labels": [],
+      "milestone": null
+    }
+  },
+  "errorScenarios": {
+    "nullIssue": null,
+    "undefinedIssue": null,
+    "missingTitle": {
+      "number": 3001,
+      "title": null,
+      "body": "Missing title test",
+      "labels": [{ "name": "type:task" }],
+      "milestone": null
+    },
+    "missingLabels": {
+      "number": 3002,
+      "title": "Issue with missing labels array",
+      "body": "No labels field",
+      "labels": null,
+      "milestone": null
+    },
+    "invalidLabelFormat": {
+      "number": 3003,
+      "title": "Test invalid labels",
+      "body": "Labels as strings instead of objects",
+      "labels": ["type:bug", "priority:high"],
+      "milestone": null
+    }
+  },
+  "complianceScenarios": {
+    "compliantIssue": {
+      "number": 4001,
+      "title": "Add dark mode support",
+      "body": "## Definition of Ready\n- [ ] Design mockups reviewed\n- [ ] Browser compatibility confirmed\n\n## Definition of Done\n- [ ] Feature tested across all browsers\n- [ ] Accessibility verified\n- [ ] Documentation updated",
+      "labels": [{ "name": "type:feature" }],
+      "milestone": null
+    },
+    "missingDoR": {
+      "number": 4002,
+      "title": "Improve API response time",
+      "body": "## Definition of Done\n- [ ] Performance metrics improved\n- [ ] Tests passing\n\nNote: No DoR section",
+      "labels": [{ "name": "type:improvement" }],
+      "milestone": null
+    },
+    "missingDoD": {
+      "number": 4003,
+      "title": "Refactor legacy code",
+      "body": "## Definition of Ready\n- [ ] Code review scheduled\n- [ ] Scope documented\n\nNote: No DoD section",
+      "labels": [{ "name": "type:refactor" }],
+      "milestone": null
+    },
+    "missingBoth": {
+      "number": 4004,
+      "title": "Update dependencies",
+      "body": "Need to update npm packages to latest versions",
+      "labels": [{ "name": "type:chore" }],
+      "milestone": null
+    }
+  },
+  "integrationScenarios": {
+    "completeBugReport": {
+      "number": 5001,
+      "title": "Login fails on Safari with 2FA enabled",
+      "body": "## Environment\n- OS: macOS 12.3\n- Browser: Safari 15.4\n- Version: 2.1.0\n\n## Steps to Reproduce\n1. Enable 2FA\n2. Open Safari\n3. Navigate to login\n4. Enter credentials\n\n## Expected Behavior\nRedirected to 2FA screen\n\n## Actual Behavior\n500 error displayed\n\n## Definition of Ready\n- [ ] Reproducible by team\n- [ ] Root cause identified\n\n## Definition of Done\n- [ ] Fix deployed\n- [ ] Regression tests added\n- [ ] Safari 2FA flow re-tested",
+      "labels": [{ "name": "type:bug" }, { "name": "priority:high" }],
+      "milestone": null
+    },
+    "completeFeatureRequest": {
+      "number": 5002,
+      "title": "Add webhook support for v1.4",
+      "body": "## User Story\nAs a developer, I want to receive webhook events so I can integrate with external services\n\n## Acceptance Criteria\n- Webhooks configurable via API\n- Retry logic for failed deliveries\n- Webhook logs available\n\n## Definition of Ready\n- [ ] API design finalized\n- [ ] Database schema prepared\n- [ ] Security review completed\n\n## Definition of Done\n- [ ] API endpoints implemented\n- [ ] E2E tests passing\n- [ ] Documentation published\n- [ ] Webhook logs visible in dashboard",
+      "labels": [{ "name": "type:feature" }, { "name": "priority:high" }],
+      "milestone": null
+    }
+  }
+}

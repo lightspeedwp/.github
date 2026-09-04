@@ -355,6 +355,8 @@ This comprehensive workflow diagram illustrates the complete ecosystem of the Li
 
 ```mermaid
 flowchart TB
+  accTitle: Complete Repository Ecosystem Flow
+  accDescr: Flowchart diagram showing complete repository ecosystem flow
     subgraph "📁 Core Repository Structure"
         A[🏠 .github Repository]
         B[📋 Community Health Files]
@@ -423,6 +425,8 @@ flowchart TB
 
 ```mermaid
 stateDiagram-v2
+  accTitle: Repository Maintenance & Update Cycle
+  accDescr: State diagram showing repository maintenance & update cycle
     [*] --> ContentUpdate
     ContentUpdate --> ValidationPending
     ValidationPending --> TestsRunning
@@ -469,6 +473,8 @@ All code quality, formatting, and automation standards are documented and enforc
 
 ```mermaid
 flowchart LR
+  accTitle: Testing Architecture & Flow
+  accDescr: Flowchart diagram showing testing architecture & flow
     subgraph "🧪 Test Types"
         A[Unit Tests]
         B[Integration Tests]

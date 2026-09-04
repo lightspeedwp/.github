@@ -1,12 +1,9 @@
 ---
-name: "🧩 Compatibility"
-description: "🧩 Compatibility"
-about: "Track browser/device/WordPress/plugin compatibility issues."
-title: "[Compatibility] <Brief summary>"
-labels: [status:needs-testing, area:compatibility]
-assignees: []
-projects: []
-milestone: ""
+name: "🔄 Compatibility"
+about: "Template for Compatibility issues"
+title: "type:compatibility: {scope}"
+labels: ["type:compatibility", "status:needs-triage", "priority:normal", "area:compatibility", "meta:verification"]
+recommended_branch: "compat/"
 file_type: issue-template
 ---
 

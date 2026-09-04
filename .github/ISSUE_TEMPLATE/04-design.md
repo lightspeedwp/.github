@@ -1,12 +1,9 @@
 ---
 name: "🎨 Design"
-description: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
-about: "Propose, review, or discuss design artefacts, tokens, accessibility, or UI/UX specifications"
-title: "[Design] <Brief summary>"
-labels: [status:needs-design-review, priority:normal, area:design-system]
-assignees: []
-projects: []
-milestone: ""
+about: "Template for Design issues"
+title: "type:design: {scope}"
+labels: ["type:design", "status:needs-triage", "priority:normal", "area:design", "meta:needs-review"]
+recommended_branch: "design/"
 file_type: issue-template
 ---
 

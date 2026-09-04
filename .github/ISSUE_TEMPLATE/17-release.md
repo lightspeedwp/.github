@@ -1,12 +1,9 @@
 ---
 name: "🚀 Release"
-description: "🚀 Release"
-about: "Propose or track release management, versioning, or deployment tasks."
-title: "[Release] <Brief summary>"
-labels: [status:needs-triage, area:release]
-assignees: []
-projects: []
-milestone: ""
+about: "Template for Release issues"
+title: "type:release: {scope}"
+labels: ["type:release", "status:planning", "priority:high", "area:ops", "meta:release-prep"]
+recommended_branch: "release/"
 file_type: issue-template
 ---
 

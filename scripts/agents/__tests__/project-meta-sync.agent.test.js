@@ -2,6 +2,11 @@
  * Jest suite verifying the baseline behaviour of `project-meta-sync.agent.js`.
  * @see ../project-meta-sync.agent.js
  */
+
+// Mock @actions/github since it's only available in GitHub Actions environment
+jest.mock("@actions/github");
+jest.mock("@actions/core");
+
 const agent = require("../project-meta-sync.agent");
 
 describe("project-meta-sync.agent", () => {

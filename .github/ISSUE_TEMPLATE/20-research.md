@@ -1,12 +1,9 @@
 ---
-name: "🔍 Research"
-description: "🔍 Research"
-about: "Propose or document technical research, investigation, or exploratory work."
-title: "[Research] <Brief summary>"
-labels: [status:needs-review, priority:minor, area:core]
-assignees: []
-projects: []
-milestone: ""
+name: "🔬 Research"
+about: "Template for Research issues"
+title: "type:research: {scope}"
+labels: ["type:research", "status:needs-triage", "priority:normal", "area:research", "meta:investigation"]
+recommended_branch: "research/"
 file_type: issue-template
 ---
 

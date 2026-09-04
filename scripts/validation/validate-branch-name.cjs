@@ -4,7 +4,7 @@
  * Validate branch names against the LightSpeed branching strategy.
  *
  * Enforces the pattern: {type}/{scope}-{short-title}
- * - type: one of 30+ allowed prefixes (feat, fix, chore, etc.)
+ * - type: one of 35 allowed prefixes (feat, fix, chore, task, etc.)
  * - scope: lowercase, kebab-case (hyphens only, no underscores)
  * - title: lowercase, kebab-case
  *
@@ -26,7 +26,7 @@
 
 const { execSync } = require('child_process');
 
-// 30+ allowed branch types per LightSpeed branching strategy
+// 33 allowed branch types per LightSpeed branching strategy
 const ALLOWED_TYPES = [
   'feat',
   'fix',
@@ -34,6 +34,7 @@ const ALLOWED_TYPES = [
   'release',
   'refactor',
   'chore',
+  'task',
   'docs',
   'test',
   'perf',
@@ -61,6 +62,7 @@ const ALLOWED_TYPES = [
   'uat',
   'audit',
   'codex',
+  'aiops',
 ];
 
 // Regex pattern enforcing: {type}/{scope}-{title} (strict kebab-case)
@@ -73,6 +75,9 @@ const BRANCH_PATTERN_RELEASE_STANDARD = /^release\/([a-z0-9]+(?:-[a-z0-9]+)*)-([
 const BRANCH_PATTERN_STANDARD = new RegExp(
   `^(${ALLOWED_TYPES.filter(t => t !== 'release').join('|')})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`
 );
+
+// Alias for backward compatibility. This is the non-release standard pattern.
+const BRANCH_PATTERN = BRANCH_PATTERN_STANDARD;
 
 // Branches exempt from validation (protected branches, bot branches, etc.)
 const PROTECTED_BRANCHES = new Set(['main', 'develop']);
@@ -242,19 +247,28 @@ function hasFlag(flag) {
  * Print the validation pattern to console.
  */
 function printPattern() {
-  console.log('Branch Naming Pattern:');
-  console.log(`  Regex: ${BRANCH_PATTERN.source}`);
+  console.log('Branch Naming Patterns:');
   console.log('');
-  console.log('Pattern explanation:');
-  console.log('  ^           - Start of string');
-  console.log(`  (${ALLOWED_TYPES.join('|')}) - Type prefix (required)`);
-  console.log('  /           - Literal forward slash');
-  console.log('  ([a-z0-9-]+) - Scope (lowercase, hyphens)');
-  console.log('  -           - Literal hyphen');
-  console.log('  ([a-z0-9-]+) - Title (lowercase, hyphens)');
-  console.log('  $           - End of string');
+  console.log('Standard branches (all types except "release"):');
+  console.log(`  BRANCH_PATTERN (standard, non-release): ${BRANCH_PATTERN.source}`);
+  console.log('  Format: {type}/{scope}-{title}');
+  console.log(`  Allowed types: ${ALLOWED_TYPES.filter(t => t !== 'release').join(', ')}`);
   console.log('');
-  console.log('Valid example: feat/my-feature-name');
+  console.log('Release branches (special rules):');
+  console.log(`  BRANCH_PATTERN_RELEASE_SEMVER: ${BRANCH_PATTERN_RELEASE_SEMVER.source}`);
+  console.log(`  BRANCH_PATTERN_RELEASE_STANDARD: ${BRANCH_PATTERN_RELEASE_STANDARD.source}`);
+  console.log('  Note: release branches are validated separately from BRANCH_PATTERN.');
+  console.log('  Accepted formats:');
+  console.log('    release/v1.2.3  (semantic version with "v" prefix)');
+  console.log('    release/1.2.3   (semantic version without prefix)');
+  console.log('    release/{scope}-{title}  (standard format)');
+  console.log('');
+  console.log('Valid examples:');
+  console.log('  feat/my-feature-name');
+  console.log('  fix/validation-bug');
+  console.log('  release/v1.2.3');
+  console.log('  release/1.2.3-beta');
+  console.log('');
   console.log('Invalid example: feat/myFeatureName (uppercase not allowed)');
 }
 
@@ -316,8 +330,13 @@ function main() {
 
   if (process.env.DEBUG_VALIDATION) {
     console.error('[DEBUG] branchName:', branchName);
-    console.error('[DEBUG] BRANCH_PATTERN:', BRANCH_PATTERN);
-    console.error('[DEBUG] Pattern matches:', BRANCH_PATTERN.test(branchName));
+    console.error('[DEBUG] BRANCH_PATTERN (standard, non-release):', BRANCH_PATTERN);
+    console.error('[DEBUG] BRANCH_PATTERN_STANDARD:', BRANCH_PATTERN_STANDARD);
+    console.error('[DEBUG] BRANCH_PATTERN_RELEASE_SEMVER:', BRANCH_PATTERN_RELEASE_SEMVER);
+    console.error('[DEBUG] BRANCH_PATTERN_RELEASE_STANDARD:', BRANCH_PATTERN_RELEASE_STANDARD);
+    console.error('[DEBUG] Standard match:', BRANCH_PATTERN_STANDARD.test(branchName));
+    console.error('[DEBUG] Release semver match:', BRANCH_PATTERN_RELEASE_SEMVER.test(branchName));
+    console.error('[DEBUG] Release standard match:', BRANCH_PATTERN_RELEASE_STANDARD.test(branchName));
   }
 
   if (!branchName) {
@@ -348,6 +367,7 @@ module.exports = {
   BRANCH_PATTERN_RELEASE_SEMVER,
   BRANCH_PATTERN_RELEASE_STANDARD,
   BRANCH_PATTERN_STANDARD,
+  BRANCH_PATTERN,
   PROTECTED_BRANCHES,
   BOT_PREFIXES,
   getCurrentBranchName,

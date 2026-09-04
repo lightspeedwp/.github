@@ -1,12 +1,9 @@
 ---
-name: "🔗 Integration"
-description: "🔗 Integration"
-about: "Report or propose integration with external plugins, services, or APIs."
-title: "[Integration] <Short summary>"
-labels: [status:needs-triage, priority:normal, area:integration]
-assignees: []
-projects: []
-milestone: ""
+name: "🔗 Integration Issue"
+about: "Template for Integration Issue issues"
+title: "type:integration: {scope}"
+labels: ["type:integration", "status:needs-triage", "priority:normal", "area:integration", "meta:external-dependency"]
+recommended_branch: "integration/"
 file_type: issue-template
 ---
 

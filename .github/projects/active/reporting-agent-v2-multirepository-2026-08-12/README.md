@@ -48,13 +48,15 @@ The Reporting Agent v2 extends the original Reporting Agent with deterministic m
 ## Project Documentation
 
 - `README.md` — This file (project overview)
-- `PLANNING.md` — Phase 2 detailed timeline (6 weeks)
+- `INTEGRATION_GUIDE.md` — Comprehensive Reporting Agent v2 integration guide (15,000+ words)
+- `REPORTING_AGENT_V2_PHASE2_WEEK1_PLAN.md` — Phase 2 Week 1 implementation plan
+- `REPORTING_AGENT_V2_PHASE5_2_ADMIN_OPERATIONS_GUIDE.md` — Phase 5.2 operational documentation (deployment, monitoring, scaling, incident runbooks)
 - `SPECIFICATION.md` — OpenSpec formal specification
 
 ---
 
-**Last Updated**: 2026-08-18  
-**Status**: ✅ Phase 1 Production-Ready, Phase 2 Planning
+**Last Updated**: 2026-09-04  
+**Status**: ✅ Phase 1 Production-Ready, Phase 2 Planning, Phase 5.2 Operations Guide Complete
 
 ## Visual Workflow
 

@@ -80,6 +80,9 @@ For all repos (client, product, infra, etc.), use:
 - `ux/` — user experience
 - `i18n/` — internationalization
 - `ops/` — operations
+- `audit/` — governance audits and compliance reviews
+- `codex/` — codex, knowledge base, or reference documentation
+- `aiops/` — AI-assisted operations and automation
 
 ### 3.2 Product-specific Prefixes (optional)
 
@@ -123,9 +126,42 @@ hotfix/ga4-purchase-duplicate
 
 Use a single regex in a workflow to enforce naming discipline:
 
+**Non-release branches:**
+
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-z0-9._-]+$
+^(feat|fix|hotfix|refactor|chore|task|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
 ```
+
+**Release branches (semantic versioning):**
+
+```regex
+^release/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$
+```
+
+**Release branches (standard format):**
+
+```regex
+^release/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
+```
+
+**For exact patterns, see the authoritative validator:** `scripts/validation/validate-branch-name.cjs` (lines 66-78)
+
+### 4.1 Forbidden Prefixes (AI Agent Governance)
+
+The following prefixes are **strictly forbidden** for all branches to enforce proper governance of AI-assisted development:
+
+- `claude/` — Reserved for governance audits only; blocks automated routing
+- `copilot/` — GitHub Copilot-specific branches not permitted
+- `openai/` — OpenAI-related work must use appropriate type prefixes
+
+**Rationale:** Forbidden prefixes act as circuit-breakers for AI agents (Claude Code, GitHub Copilot). When detected, they trigger fallback routing to default PR templates and prevent type-based automation. This ensures:
+
+- AI agents cannot bypass branch naming governance
+- Explicit type prefixes drive proper automation routing
+- Governance audits are tracked and auditable
+- No silent acceptance of non-conforming branch names
+
+**Enforcement:** CI will reject any branch matching `claude/`, `copilot/`, or `openai/` prefixes, even if followed by valid scope-title patterns.
 
 Example workflow (`.github/workflows/validate-branch-name.yml`):
 
@@ -143,8 +179,12 @@ jobs:
           BRANCH="${{ github.head_ref }}"
           # Allow dependabot/renovate
           if [[ "$BRANCH" =~ ^(dependabot|renovate)/ ]]; then exit 0; fi
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat)/[a-z0-9._-]+$ ]]; then
-            echo "❌ Branch '$BRANCH' must match the required pattern."
+          # Allow release branches with semantic versioning
+          if [[ "$BRANCH" =~ ^release/v?[0-9]+\.[0-9]+\.[0-9]+ ]]; then exit 0; fi
+          # Standard pattern: {type}/{scope}-{title}
+          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo "❌ Branch '$BRANCH' must match the pattern: {type}/{scope}-{title}"
+            echo "Example: feat/user-auth-login"
             exit 1
           fi
 ```
@@ -153,6 +193,40 @@ jobs:
 
 - For monorepos, ensure branch naming applies to each package/subproject, or use a consistent prefix (e.g. `feat/frontend-...`, `fix/api-...`).
 - For forked repos, always clean up branches after merging upstream PRs, and avoid duplicating branch names across forks to prevent confusion.
+
+### 4.3 PR Template Routing & Fallback Behavior
+
+PR template selection is automatically routed based on branch type prefix:
+
+| Branch Type | PR Template |
+|---|---|
+| `feat/` | `pr_feature.md` |
+| `fix/` | `pr_bug.md` |
+| `hotfix/` | `pr_hotfix.md` |
+| `release/` | `pr_release.md` |
+| `refactor/` | `pr_refactor.md` |
+| `chore/` | `pr_chore.md` |
+| `task/` | `pr_task.md` |
+| `docs/` | `pr_docs.md` |
+| `ci/` | `pr_ci.md` |
+| `deps/` | `pr_dep_update.md` |
+| `test/` | `pr_test.md` |
+| `a11y/` | `pr_a11y.md` |
+| `design/` | `pr_design.md` |
+| `audit/` | `pr_audit.md` |
+| `security/` | `pr_security.md` |
+| `aiops/` | `pr_aiops.md` |
+| `epic/` | `pr_epic.md` |
+| `codex/` | `pr_docs.md` (knowledge base) |
+| Other types | `pr_chore.md` (default) |
+| Forbidden prefixes | `pr_chore.md` (fallback) |
+
+**Fallback Logic:** If a branch uses a forbidden prefix (e.g., `claude/governance-audit-implementation`), the PR template resolver detects the violation and routes to the default `pr_chore.md` template. This ensures:
+
+- No PR is left without template guidance
+- Forbidden prefixes trigger visible fallback routing (auditable)
+- Authors are prompted to re-open PR with proper branch naming
+- Type detection hierarchy: branch type → linked issue type → default
 
 ---
 
@@ -172,6 +246,7 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
         "^release/.*",
         "^refactor/.*",
         "^chore/.*",
+        "^task/.*",
         "^docs/.*",
         "^test/.*",
         "^perf/.*",
@@ -197,6 +272,8 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
         "^migrate/.*",
         "^qa/.*",
         "^uat/.*",
+        "^audit/.*",
+        "^codex/.*",
       ]
 ```
 
@@ -212,7 +289,9 @@ Extend your project sync workflow so branch prefixes set the Project **Type** fi
 - `feat/` → Feature/Story
 - `fix/` → Bug (hotfix → critical Bug)
 - `refactor/` → Refactor
-- `chore/`, `ci/`, `build/`, `deps/`, `security/` → Chore
+- `chore/` → Chore
+- `task/` → Task (scoped project/epic-bound work)
+- `ci/`, `build/`, `deps/`, `security/` → Chore
 - `design/`, `a11y/`, `ux/` → Design/Task
 - `content/`, `seo/`, `config/`, `migrate/`, `qa/`, `uat/` → Task/Operations
 - `proto/`, `api/`, `schema/`, `telemetry/`, `ds/` → Feature/Task

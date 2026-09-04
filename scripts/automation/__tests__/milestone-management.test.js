@@ -125,7 +125,10 @@ describe("milestone-management", () => {
       };
 
       // Local analysis logic
-      const labels = issue.labels.map((l) => l.name).join(" ").toLowerCase();
+      const labels = issue.labels
+        .map((l) => l.name)
+        .join(" ")
+        .toLowerCase();
       const title = issue.title.toLowerCase();
       const isBug = labels.includes("bug") || title.includes("fix");
 
@@ -139,7 +142,10 @@ describe("milestone-management", () => {
         labels: [{ name: "documentation" }],
       };
 
-      const labels = issue.labels.map((l) => l.name).join(" ").toLowerCase();
+      const labels = issue.labels
+        .map((l) => l.name)
+        .join(" ")
+        .toLowerCase();
       const isDoc = labels.includes("documentation");
 
       expect(isDoc).toBe(true);
@@ -152,7 +158,10 @@ describe("milestone-management", () => {
         labels: [{ name: "enhancement" }],
       };
 
-      const labels = issue.labels.map((l) => l.name).join(" ").toLowerCase();
+      const labels = issue.labels
+        .map((l) => l.name)
+        .join(" ")
+        .toLowerCase();
       const isFeature = !labels.includes("bug");
 
       expect(isFeature).toBe(true);
@@ -165,7 +174,10 @@ describe("milestone-management", () => {
         labels: [],
       };
 
-      const labels = issue.labels.map((l) => l.name).join(" ").toLowerCase();
+      const labels = issue.labels
+        .map((l) => l.name)
+        .join(" ")
+        .toLowerCase();
       expect(labels).toBe("");
     });
   });
@@ -298,7 +310,8 @@ describe("milestone-management", () => {
     it("should parse --limit option with value", () => {
       const args = ["--limit", "5"];
       const limitIndex = args.indexOf("--limit");
-      const limit = limitIndex !== -1 ? parseInt(args[limitIndex + 1], 10) : null;
+      const limit =
+        limitIndex !== -1 ? parseInt(args[limitIndex + 1], 10) : null;
       expect(limit).toBe(5);
     });
 
@@ -328,7 +341,8 @@ describe("milestone-management", () => {
       };
       const targetMilestone = { number: 10 };
 
-      const isAllocated = issue.milestone && issue.milestone.number === targetMilestone.number;
+      const isAllocated =
+        issue.milestone && issue.milestone.number === targetMilestone.number;
       expect(isAllocated).toBe(true);
     });
 

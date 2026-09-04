@@ -1,12 +1,9 @@
 ---
-name: "📦 Epic"
-description: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
-about: "Propose/manage a large, multi-part initiative or project grouping stories/features/tasks"
-title: "[Epic] <Brief summary>"
-labels: [status:needs-planning, priority:important, area:core]
-assignees: []
-projects: []
-milestone: ""
+name: "🎯 Epic"
+about: "Template for Epic issues"
+title: "type:epic: {scope}"
+labels: ["type:epic", "status:needs-triage", "priority:high", "area:core", "meta:epic-planning"]
+recommended_branch: "epic/"
 file_type: issue-template
 ---
 

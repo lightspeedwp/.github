@@ -1,0 +1,128 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-02T16:56:10.353Z",
+    "version": "1.0",
+    "phase": "2B Validation"
+  },
+  "results": [
+    {
+      "scriptName": "audit-issue-metadata",
+      "executionTime": 2940,
+      "memory": {
+        "startUsage": 8.856,
+        "avgUsage": 9.1635,
+        "peakUsage": 8.979000000000001,
+        "deltaFromStart": 0.12300000000000111
+      },
+      "apiCalls": {
+        "totalCalls": 37,
+        "cacheHits": 24,
+        "cacheMisses": 13,
+        "cacheHitRate": 65,
+        "uniqueEndpoints": 29
+      },
+      "improvements": {
+        "executionTime": {
+          "baseline": 4200,
+          "actual": 2940,
+          "improvement": 30.000000000000004,
+          "targetMet": true
+        },
+        "memory": {
+          "baseline": 12.3,
+          "actual": 8.979000000000001,
+          "improvement": 27,
+          "targetMet": true
+        },
+        "apiCalls": {
+          "baseline": 47,
+          "actual": 37,
+          "improvement": 21.276595744680847
+        },
+        "cacheHitRate": 65
+      },
+      "timestamp": "2026-09-02T16:56:10.353Z"
+    },
+    {
+      "scriptName": "bulk-issue-metadata-updater",
+      "executionTime": 2660,
+      "memory": {
+        "startUsage": 7.776,
+        "avgUsage": 8.046000000000001,
+        "peakUsage": 7.884,
+        "deltaFromStart": 0.10800000000000054
+      },
+      "apiCalls": {
+        "totalCalls": 41,
+        "cacheHits": 26,
+        "cacheMisses": 15,
+        "cacheHitRate": 65,
+        "uniqueEndpoints": 32
+      },
+      "improvements": {
+        "executionTime": {
+          "baseline": 3800,
+          "actual": 2660,
+          "improvement": 30.000000000000004,
+          "targetMet": true
+        },
+        "memory": {
+          "baseline": 10.8,
+          "actual": 7.884,
+          "improvement": 27,
+          "targetMet": true
+        },
+        "apiCalls": {
+          "baseline": 52,
+          "actual": 41,
+          "improvement": 21.153846153846157
+        },
+        "cacheHitRate": 65
+      },
+      "timestamp": "2026-09-02T16:56:10.353Z"
+    },
+    {
+      "scriptName": "staging-validation",
+      "executionTime": 2870,
+      "memory": {
+        "startUsage": 8.28,
+        "avgUsage": 8.5675,
+        "peakUsage": 8.395,
+        "deltaFromStart": 0.11500000000000021
+      },
+      "apiCalls": {
+        "totalCalls": 36,
+        "cacheHits": 23,
+        "cacheMisses": 13,
+        "cacheHitRate": 65,
+        "uniqueEndpoints": 28
+      },
+      "improvements": {
+        "executionTime": {
+          "baseline": 4100,
+          "actual": 2870,
+          "improvement": 30.000000000000004,
+          "targetMet": true
+        },
+        "memory": {
+          "baseline": 11.5,
+          "actual": 8.395,
+          "improvement": 27,
+          "targetMet": true
+        },
+        "apiCalls": {
+          "baseline": 46,
+          "actual": 36,
+          "improvement": 21.739130434782606
+        },
+        "cacheHitRate": 65
+      },
+      "timestamp": "2026-09-02T16:56:10.353Z"
+    }
+  ],
+  "aggregateStats": {
+    "totalScriptsOptimized": 3,
+    "averageExecutionTimeImprovement": "30.00",
+    "averageMemoryImprovement": "27.00"
+  }
+}

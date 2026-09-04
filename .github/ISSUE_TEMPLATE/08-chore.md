@@ -1,14 +1,10 @@
 ---
-name: "🏠 Chore"
-description: "🏠 Chore"
-about: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
-assignees: []
-projects: []
-milestone: ""
+name: "🔧 Chore"
+about: "Template for Chore issues"
+title: "type:chore: {scope}"
+labels: ["type:chore", "status:needs-triage", "priority:low", "area:ops", "meta:maintenance"]
+recommended_branch: "chore/"
 file_type: issue-template
-version: "1.0.3"
-last_updated: "2026-06-19"
-category: "github-templates"
 ---
 
 <!--
