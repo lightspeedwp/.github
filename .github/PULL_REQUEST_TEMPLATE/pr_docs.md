@@ -1,8 +1,9 @@
 ---
-name: "Docs-only PR"
-about: "Documentation updates: READMEs, guides, contributor docs"
-title: "docs: {short summary}"
-labels: ["status:needs-review", "lang:md", "area:documentation"]
+file_type: pr-template
+title: "docs: {scope}"
+name: "Documentation"
+description: "Documentation updates: READMEs, guides, contributor docs"
+labels: ["type:docs", "status:needs-review", "area:documentation"]
 ---
 
 # Documentation Pull Request
@@ -12,9 +13,14 @@ labels: ["status:needs-review", "lang:md", "area:documentation"]
 
 ## Linked issues
 
-<!--
-List any related issues by number (e.g. closes #123, relates to #789).
--->
+Link this PR to the issue(s) it addresses. Use keywords to auto-close issues when merged:
+
+- `Closes #123` — use for issues this PR resolves (auto-closes on merge)
+- `Fixes #123` — alternative to "Closes"
+- `Resolves #123` — alternative to "Closes"
+- `Relates to #123` — for related but not directly resolved issues
+
+Example: `Relates to #123` (related but not directly resolving)
 
 Relates to #
 

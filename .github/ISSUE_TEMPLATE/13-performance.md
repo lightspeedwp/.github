@@ -1,11 +1,12 @@
 ---
 name: "⚡ Performance"
-description: "⚡ Performance"
 about: "Report performance-related issues (speed, efficiency, resource usage) or propose optimisations."
 assignees: []
 projects: []
 milestone: ""
 file_type: issue-template
+title: "type:performance: {scope}"
+labels: [type:performance, status:needs-triage]
 version: "1.0.3"
 last_updated: "2026-06-19"
 category: "github-templates"

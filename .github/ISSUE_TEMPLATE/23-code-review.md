@@ -1,11 +1,12 @@
 ---
 name: "👀 Code Review"
-description: "👀 Code Review"
 about: "Request or conduct code review, peer validation, or QA."
 assignees: []
 projects: []
 milestone: ""
 file_type: issue-template
+title: "type:review: {scope}"
+labels: [type:review, status:needs-triage]
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

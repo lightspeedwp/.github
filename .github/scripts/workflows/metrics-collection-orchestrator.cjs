@@ -255,9 +255,12 @@ async function main() {
   process.exit(0);
 }
 
-main().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exit(1);
-});
+// Only run main if executed directly, not when imported as a module
+if (require.main === module) {
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exit(1);
+  });
+}
 
 module.exports = { MetricsCollectionOrchestrator };

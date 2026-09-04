@@ -1,9 +1,8 @@
 ---
 name: "❓ Help / Support"
-description: "❓ Help / Support"
 about: "Submit your WordPress-related questions or support requests."
 title: "[Help] <Short summary>"
-labels: [question, support, status:needs-triage]
+labels: [type:question, type:support, status:needs-triage]
 assignees: []
 projects: []
 milestone: ""

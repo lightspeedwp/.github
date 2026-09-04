@@ -1,11 +1,12 @@
 ---
 name: "🔗 Integration"
-description: "🔗 Integration"
 about: "Report or propose integration with external plugins, services, or APIs."
 assignees: []
 projects: []
 milestone: ""
 file_type: issue-template
+title: "type:integration: {scope}"
+labels: [type:integration, status:needs-triage]
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

@@ -1,8 +1,9 @@
 ---
-name: "Feature PR"
-about: "New features or enhancements"
-title: "feat: {short summary}"
-labels: ["status:needs-review", "area:feature"]
+file_type: pr-template
+title: "type:feature: {scope}"
+name: "Feature Request"
+description: "New features or enhancements"
+labels: ["type:feature", "status:needs-review"]
 ---
 
 # Feature Pull Request
@@ -12,9 +13,15 @@ labels: ["status:needs-review", "area:feature"]
 
 ## Linked issues
 
-<!--
-List any related issues by number (e.g. closes #123, fixes #456, relates to #789).
--->
+Link this PR to the issue(s) it addresses. Use keywords to auto-close issues when merged:
+
+- `Closes #123` — use for issues this PR resolves (auto-closes on merge)
+- `Fixes #123` — alternative to "Closes"
+- `Resolves #123` — alternative to "Closes"
+- `Relates to #123` — for related but not directly resolved issues
+- `Part of #456` — for PRs that are part of a larger initiative
+
+Example: `Closes #123` (issue 123 auto-closes when this PR merges)
 
 Closes #
 

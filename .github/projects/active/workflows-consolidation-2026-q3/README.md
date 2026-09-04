@@ -4,8 +4,11 @@ title: Consolidate 31 GitHub Workflows → 25 for Efficiency & Maintainability
 description: Strategic consolidation of workflows to eliminate duplication, reduce GitHub Actions minutes, and improve maintainability
 file_type: readme
 status: active
+priority: "high"
+type: "consolidation"
+effort: "72h"
 created: 2026-07-24
-last_updated: 2026-08-04
+last_updated: 2026-09-03
 version: 1.1.0
 owners:
   - lightspeedwp/maintainers
@@ -294,23 +297,25 @@ related_branches:
 | **Phase 3: Labeling** | Week 7-12 | ✅ Complete | 20 | ~50 min/week |
 | **Total** | 12 weeks | | **85 hours** | **~265 min/week** (15-20% savings) |
 
-## Related Issues & Documentation
+## Related Issues & PRs
 
-### GitHub Issues
+| Issue/PR | Type | Status | Purpose |
+|----------|------|--------|---------|
+| [#1227](https://github.com/lightspeedwp/.github/issues/1227) | Epic | Open | GitHub Workflows Consolidation Initiative |
+| [#1228](https://github.com/lightspeedwp/.github/pull/1228) | PR | Merged | Workflows consolidation audit and project documentation |
+| [#1280](https://github.com/lightspeedwp/.github/pull/1280) | PR | Merged | Phase 1B.i: Consolidate changelog management workflows |
+| [#1282](https://github.com/lightspeedwp/.github/pull/1282) | PR | Merged | Phase 1B.ii: Consolidate metrics collection workflows |
+| [#1496](https://github.com/lightspeedwp/.github/pull/1496) | PR | Merged | Phase 3.3: Labeling Workflows Consolidation |
+| [#2687](https://github.com/lightspeedwp/.github/issues/2687) | Issue | Open | Scripts & Agents Audit (related infrastructure work) |
 
-- **Epic #1227** — GitHub Workflows Consolidation Initiative
-- **Phase 1A Issues** — Quick wins (TBD)
-- **Phase 1B Issues** — Changelog & metrics (TBD)
-- **Phase 2 Issues** — Documentation (TBD)
-- **Phase 3 Issues** — Labeling (TBD)
+**Next Milestone**: Phase 4 execution pending Issue Type project coordination
+**Blocked By**: Issue Type workflow integration (target: Aug 13)
 
-### Related PRs
-
-- **PR #1228** — Workflows consolidation audit and project documentation
-- **PR #1280** — Phase 1B.i: Consolidate changelog management workflows
-- **PR #1282** — Phase 1B.ii: Consolidate metrics collection and reporting workflows
-- **PR #1286** — Phase 1B: Consolidate changelog & metrics workflows (unified PR)
-- **PR #1496** — Phase 3.3: Labeling Workflows Consolidation (merged 2026-08-04)
+**Related Projects**:
+- `.github/projects/active/scripts-audit-2026-09-03/` — Project management scripts and agents consolidation (completed)
+  - Coordinated effort to consolidate project infrastructure
+  - Includes 237 unit tests and comprehensive architecture documentation
+  - Links back to this workflows project via shared orchestration scripts
 
 ### Documentation
 
@@ -318,6 +323,7 @@ related_branches:
 - `projects/active/workflows-consolidation-2026-q3/IMPLEMENTATION_NOTES.md` — Technical details
 - `projects/active/workflows-consolidation-2026-q3/PHASE_3_STATUS.md` — Phase 3 completion details
 - Phase-specific implementation guides (created per phase)
+- **Related**: `.github/projects/active/scripts-audit-2026-09-03/` — Scripts and agents consolidation audit
 
 ## Next Steps
 

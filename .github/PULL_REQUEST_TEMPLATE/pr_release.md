@@ -1,8 +1,9 @@
 ---
-name: "Release PR"
-about: "Release new features or enhancements"
-title: "release: {short summary}"
-labels: ["status:needs-review", "area:release", "release:patch"]
+file_type: pr-template
+title: "release: {scope}"
+name: "Release"
+description: "Release new features or enhancements"
+labels: ["type:release", "status:needs-review"]
 ---
 
 # Release Pull Request
@@ -12,9 +13,13 @@ labels: ["status:needs-review", "area:release", "release:patch"]
 
 ## Linked issues & merged PRs
 
-<!--
-List all issues and PRs included in this release (e.g. closes #123, includes #456).
--->
+Link all issues and PRs included in this release using these keywords:
+
+- `Closes #123` — issues resolved in this release (auto-closed on merge)
+- `Includes #456` — PRs merged into this release
+- `Related to #789` — related issues or PRs
+
+Release commits should reference all related work for proper tracking.
 
 Includes:
 

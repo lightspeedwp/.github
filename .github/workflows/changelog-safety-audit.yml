@@ -7,7 +7,7 @@ on:
       - agents/changelog/**
       - schemas/changelog.schema.json
       - docs/CHANGELOG_AUTOMATION.md
-      - .github/agents/changelog.agent.md
+      - agents/changelog.agent.md
       - .github/workflows/changelog-*.yml
   push:
     branches:
@@ -96,13 +96,13 @@ jobs:
 
           echo "🔍 Checking changelog cross-references..."
 
-          # Check spec agent exists
-          if [ ! -f .github/agents/changelog.agent.md ]; then
-            echo "❌ Missing: .github/agents/changelog.agent.md"
+          # Check agent exists (canonical location: agents/)
+          if [ ! -f agents/changelog.agent.md ]; then
+            echo "❌ Missing: agents/changelog.agent.md"
             exit 1
           fi
 
-          # Check portable agent exists
+          # Check portable agent implementation exists
           if [ ! -f agents/changelog/changelog.agent.js ]; then
             echo "❌ Missing: agents/changelog/changelog.agent.js"
             exit 1
@@ -120,9 +120,9 @@ jobs:
             exit 1
           fi
 
-          # Verify bidirectional references
-          if ! grep -q "changelog.agent.js" .github/agents/changelog.agent.md; then
-            echo "⚠️  Warning: spec agent doesn't reference portable agent"
+          # Verify agent references schema
+          if ! grep -q "changelog.schema.json" agents/changelog.agent.md; then
+            echo "⚠️  Warning: agent doesn't reference schema"
           fi
 
           if ! grep -q "changelog.agent.md" agents/changelog/README.md; then
@@ -153,5 +153,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: \`❌ **Changelog Safety Audit Failed**\n\nThe changelog safety audit detected issues that must be fixed before merging:\n\n1. **CHANGELOG.md issues** — Review the audit output above\n2. **Format compliance** — Ensure entries follow Keep a Changelog 1.1.0 format\n3. **Cross-references** — Verify all related files are properly linked\n\nPlease fix the issues and push another commit. For help, see:\n- [Changelog Automation Guide](docs/CHANGELOG_AUTOMATION.md)\n- [Changelog Contributor Checklist](docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md)\n\n**Issue #2354** — Changelog Safety Audit (prevent future incidents)\`
+              body: `❌ **Changelog Safety Audit Failed**\n\nThe changelog safety audit detected issues that must be fixed before merging:\n\n1. **CHANGELOG.md issues** — Review the audit output above\n2. **Format compliance** — Ensure entries follow Keep a Changelog 1.1.0 format\n3. **Cross-references** — Verify all related files are properly linked\n\nPlease fix the issues and push another commit. For help, see:\n- [Changelog Automation Guide](\\`docs/CHANGELOG_AUTOMATION.md\\`)\n- [Changelog Contributor Checklist](\\`docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md\\`)\n\n**Issue #2354** — Changelog Safety Audit (prevent future incidents)`
             })

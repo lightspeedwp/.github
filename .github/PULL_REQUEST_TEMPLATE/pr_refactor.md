@@ -1,8 +1,9 @@
 ---
-name: "Refactor PR"
-about: "Internal code improvement; no external behaviour change"
+file_type: pr-template
 title: "refactor: {scope}"
-labels: ["status:needs-review"]
+name: "Refactor"
+description: "Internal code improvement; no external behaviour change"
+labels: ["type:refactor", "status:needs-review"]
 ---
 
 # Refactor Pull Request
@@ -12,9 +13,14 @@ labels: ["status:needs-review"]
 
 ## Linked issues
 
-<!--
-List any related issues by number (e.g. closes #123, relates to #456).
--->
+Link this PR to the issue(s) it addresses. Use keywords to auto-close issues when merged:
+
+- `Closes #123` — use for issues this PR resolves (auto-closes on merge)
+- `Fixes #123` — alternative to "Closes"
+- `Resolves #123` — alternative to "Closes"
+- `Relates to #123` — for related but not directly resolved issues
+
+Example: `Relates to #123` (related but not directly resolving)
 
 Closes #
 
