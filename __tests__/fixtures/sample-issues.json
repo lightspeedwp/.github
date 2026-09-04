@@ -93,7 +93,7 @@
   },
   "errorScenarios": {
     "nullIssue": null,
-    "undefinedIssue": undefined,
+    "undefinedIssue": null,
     "missingTitle": {
       "number": 3001,
       "title": null,

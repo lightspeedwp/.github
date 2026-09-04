@@ -415,11 +415,14 @@ jobs:
       - name: Post remediation checklists
         if: ${{ inputs.remediate_templates != 'false' && steps.fetch.outputs.count > 0 }}
         uses: actions/github-script@v9
+        env:
+          ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
+          DRY_RUN: ${{ inputs.dry_run || 'true' }}
         with:
           script: |
             const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
-            const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
-            const dryRun = '${{ inputs.dry_run || 'true' }}' === 'true';
+            const issues = JSON.parse(process.env.ISSUES_JSON || '[]');
+            const dryRun = (process.env.DRY_RUN || 'true') === 'true';
 
             const generator = new RemediationChecklistGenerator(github, context.repo.owner, context.repo.repo);
             const results = await generator.postRemediationChecklists(issues, { dryRun });
@@ -441,6 +444,8 @@ jobs:
       - name: Trigger labeling workflow
         if: success()
         uses: actions/github-script@v9
+        env:
+          DRY_RUN: ${{ inputs.dry_run || 'true' }}
         with:
           script: |
             core.info('Triggering unified labeling workflow...');
@@ -452,7 +457,7 @@ jobs:
                 workflow_id: 'labeling.yml',
                 ref: 'develop',
                 inputs: {
-                  dry_run: '${{ inputs.dry_run || 'true' }}',
+                  dry_run: process.env.DRY_RUN || 'true',
                   report_commit: 'false',
                 },
               });
@@ -474,14 +479,17 @@ jobs:
       - name: Summary
         if: always()
         uses: actions/github-script@v9
+        env:
+          DRY_RUN: ${{ inputs.dry_run || 'true' }}
+          RUN_ID: ${{ github.run_id }}
         with:
           script: |
-            const dryRun = '${{ inputs.dry_run || 'true' }}' === 'true';
+            const dryRun = (process.env.DRY_RUN || 'true') === 'true';
             const mode = dryRun ? '🏁 DRY-RUN' : '✅ APPLIED';
 
             core.summary
               .addHeading(`${mode} - Bulk Issue Remediation Complete`)
               .addRaw(`\n**Reports available in artifacts**\n`)
-              .addRaw(`- Milestone assignment: .github/reports/remediation/milestone-assignment-${{ github.run_id }}.md\n`)
+              .addRaw(`- Milestone assignment: .github/reports/remediation/milestone-assignment-${process.env.RUN_ID}.md\n`)
               .addRaw(`- Labeling workflow initiated\n`)
               .write();

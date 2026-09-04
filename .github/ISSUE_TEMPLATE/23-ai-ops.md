@@ -1,11 +1,9 @@
 ---
-name: "🧠 AI Ops"
-about: "Propose, discuss, or troubleshoot AI/ML operations, workflows, or automation."
-title: "[AI Ops] <Brief summary>"
-labels: [status:needs-triage, area:ai]
-assignees: []
-projects: []
-milestone: ""
+name: "🤖 AI Ops"
+about: "Template for AI Ops issues"
+title: "type:automation: {scope}"
+labels: ["type:automation", "status:needs-triage", "priority:normal", "area:aiops", "meta:ai-augmented"]
+recommended_branch: "aiops/"
 file_type: issue-template
 ---
 

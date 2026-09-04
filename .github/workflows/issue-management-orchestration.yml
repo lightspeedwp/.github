@@ -104,15 +104,20 @@ jobs:
 
       - name: Analyse Issue Content
         id: analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER_OUTPUT: ${{ needs.setup.outputs.issue_number }}
+          ISSUE_NUMBER_EVENT: ${{ github.event.issue.number }}
+          REPO_NAME: ${{ github.repository }}
         run: |
-          # Load issue details
-          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
-          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+          # Load issue details from environment variables
+          ISSUE_NUM="${ISSUE_NUMBER_OUTPUT}"
+          ISSUE_NUM=${ISSUE_NUM:-$ISSUE_NUMBER_EVENT}
 
           # For scheduled/manual runs without explicit issue, find first needs-triage issue
           if [[ -z "$ISSUE_NUM" ]]; then
-            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/$REPO_NAME/issues?labels=status:needs-triage&state=open&per_page=1" \
               | jq -r '.[0].number // empty')
 
             if [[ -z "$NEEDS_TRIAGE" ]]; then
@@ -126,8 +131,8 @@ jobs:
           # Call content analysis script
           node scripts/automation/content-analysis-agent.js \
             --issue "$ISSUE_NUM" \
-            --repo "${{ github.repository }}" \
-            --token "${{ secrets.GITHUB_TOKEN }}" || {
+            --repo "$REPO_NAME" \
+            --token "$GITHUB_TOKEN" || {
             echo "status=error" >> $GITHUB_OUTPUT
             exit 1
           }
@@ -198,9 +203,16 @@ jobs:
 
       - name: Enrich Issue
         id: enrich
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER_OUTPUT: ${{ needs.setup.outputs.issue_number }}
+          ISSUE_NUMBER_EVENT: ${{ github.event.issue.number }}
+          REPO_NAME: ${{ github.repository }}
+          DETECTED_TYPE: ${{ needs.content-analysis.outputs.detected_type }}
+          CONFIDENCE: ${{ needs.content-analysis.outputs.confidence }}
         run: |
-          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
-          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+          ISSUE_NUM="${ISSUE_NUMBER_OUTPUT}"
+          ISSUE_NUM=${ISSUE_NUM:-$ISSUE_NUMBER_EVENT}
 
           if [[ -z "$ISSUE_NUM" ]]; then
             echo "status=skipped" >> $GITHUB_OUTPUT
@@ -210,11 +222,11 @@ jobs:
           # Call enrichment script
           node scripts/automation/enrichment-agent.js \
             --issue "$ISSUE_NUM" \
-            --repo "${{ github.repository }}" \
-            --token "${{ secrets.GITHUB_TOKEN }}" \
-            --type "${{ needs.content-analysis.outputs.detected_type }}" \
-            --confidence "${{ needs.content-analysis.outputs.confidence }}" \
-            --threshold "${{ env.ENRICHMENT_THRESHOLD }}" || {
+            --repo "$REPO_NAME" \
+            --token "$GITHUB_TOKEN" \
+            --type "$DETECTED_TYPE" \
+            --confidence "$CONFIDENCE" \
+            --threshold "$ENRICHMENT_THRESHOLD" || {
             echo "status=error" >> $GITHUB_OUTPUT
             exit 1
           }
@@ -248,14 +260,19 @@ jobs:
 
       - name: Validate Issue
         id: validate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER_OUTPUT: ${{ needs.setup.outputs.issue_number }}
+          ISSUE_NUMBER_EVENT: ${{ github.event.issue.number }}
+          REPO_NAME: ${{ github.repository }}
         run: |
-          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
-          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+          ISSUE_NUM="${ISSUE_NUMBER_OUTPUT}"
+          ISSUE_NUM=${ISSUE_NUM:-$ISSUE_NUMBER_EVENT}
 
           # For scheduled/manual runs without explicit issue, find first needs-triage issue
           if [[ -z "$ISSUE_NUM" ]]; then
-            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/$REPO_NAME/issues?labels=status:needs-triage&state=open&per_page=1" \
               | jq -r '.[0].number // empty')
 
             if [[ -z "$NEEDS_TRIAGE" ]]; then
@@ -269,8 +286,8 @@ jobs:
           # Call validation script
           node scripts/automation/validation-agent.js \
             --issue "$ISSUE_NUM" \
-            --repo "${{ github.repository }}" \
-            --token "${{ secrets.GITHUB_TOKEN }}" || {
+            --repo "$REPO_NAME" \
+            --token "$GITHUB_TOKEN" || {
             echo "status=error" >> $GITHUB_OUTPUT
             echo "passed=false" >> $GITHUB_OUTPUT
             exit 1
@@ -306,14 +323,20 @@ jobs:
 
       - name: Generate Report
         id: report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER_OUTPUT: ${{ needs.setup.outputs.issue_number }}
+          ISSUE_NUMBER_EVENT: ${{ github.event.issue.number }}
+          REPO_NAME: ${{ github.repository }}
+          TRIGGER_TYPE: ${{ needs.setup.outputs.trigger_type }}
         run: |
-          ISSUE_NUM="${{ needs.setup.outputs.issue_number }}"
-          ISSUE_NUM=${ISSUE_NUM:-${{ github.event.issue.number }}}
+          ISSUE_NUM="${ISSUE_NUMBER_OUTPUT}"
+          ISSUE_NUM=${ISSUE_NUM:-$ISSUE_NUMBER_EVENT}
 
           # For scheduled/manual runs without explicit issue, find first needs-triage issue
           if [[ -z "$ISSUE_NUM" ]]; then
-            NEEDS_TRIAGE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              "https://api.github.com/repos/${{ github.repository }}/issues?labels=status:needs-triage&state=open&per_page=1" \
+            NEEDS_TRIAGE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/$REPO_NAME/issues?labels=status:needs-triage&state=open&per_page=1" \
               | jq -r '.[0].number // empty')
 
             if [[ -z "$NEEDS_TRIAGE" ]]; then
@@ -327,9 +350,9 @@ jobs:
           # Call reporting script
           node scripts/automation/reporting-agent.js \
             --issue "$ISSUE_NUM" \
-            --repo "${{ github.repository }}" \
-            --token "${{ secrets.GITHUB_TOKEN }}" \
-            --trigger "${{ needs.setup.outputs.trigger_type }}" || {
+            --repo "$REPO_NAME" \
+            --token "$GITHUB_TOKEN" \
+            --trigger "$TRIGGER_TYPE" || {
             echo "status=error" >> $GITHUB_OUTPUT
             exit 1
           }
