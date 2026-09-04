@@ -1,11 +1,9 @@
 ---
-name: "🛡️ Audit"
-about: "Propose, conduct, or document a security, accessibility, code, or process audit."
-title: "[Audit] <Brief summary>"
-labels: [status:needs-audit, priority:normal, area:security]
-assignees: []
-projects: []
-milestone: ""
+name: "🔍 Audit"
+about: "Template for Audit issues"
+title: "type:audit: {scope}"
+labels: ["type:audit", "status:needs-triage", "priority:normal", "area:audit", "meta:audit-finding"]
+recommended_branch: "audit/"
 file_type: issue-template
 ---
 

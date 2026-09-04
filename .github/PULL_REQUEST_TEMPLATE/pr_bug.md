@@ -1,8 +1,8 @@
 ---
 file_type: pr-template
-title: "type:bug: {scope}"
 name: "Bug Fix"
-description: "Fix a defect/regression with clear repro, fix, and verification"
+about: "Fix a defect or regression"
+title: "fix: {scope}"
 labels: ["type:bug", "status:needs-review"]
 ---
 

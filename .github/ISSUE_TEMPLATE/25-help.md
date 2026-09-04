@@ -1,11 +1,9 @@
 ---
-name: "❓ Help / Support"
-about: "Submit your WordPress-related questions or support requests."
-title: "[Help] <Short summary>"
-labels: [type:question, type:support, status:needs-triage]
-assignees: []
-projects: []
-milestone: ""
+name: "❓ Help"
+about: "Template for Help issues"
+title: "type:question: {scope}"
+labels: ["type:question", "status:needs-triage", "priority:normal", "area:support", "meta:user-support"]
+recommended_branch: "support/"
 file_type: issue-template
 ---
 
