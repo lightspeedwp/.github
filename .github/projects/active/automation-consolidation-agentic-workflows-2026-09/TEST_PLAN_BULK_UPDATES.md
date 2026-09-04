@@ -292,16 +292,16 @@ Before write mode is enabled, replace every `TBD` in this fixture ledger. Labels
 
 | Fixture | Expected labels (exact set) | Expected milestone | Expected reviewers (exact set) | Expected blocked? |
 |---------|-----------------------------|--------------------|--------------------------------|-------------------|
-| #2569 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2571 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2572 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2558 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2559 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2564 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+| #2569 | `type:task`, `area:automation`, `priority:medium`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2571 | `type:task`, `area:automation`, `priority:medium`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2572 | `type:task`, `area:automation`, `priority:low`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2558 | `type:task`, `area:automation`, `priority:high`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2559 | `type:task`, `area:automation`, `priority:high`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2564 | `type:task`, `area:automation`, `priority:medium`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
 
 **Adjudication rule:** Compare observed and expected values after execution. Labels and reviewers pass only on exact set equality; milestone and blocked decision pass only on exact equality. A fixture is accurate only when all four fields pass. Any unexpected mutation, including a write when `blocked: yes`, is a false positive. Report field accuracy as passed fields / 24, fixture accuracy as fully passing fixtures / 6, and false-positive rate as fixtures with any unexpected mutation / 6.
 
-- [ ] All 24 expected fields were recorded before writes were enabled
+- [x] All 24 expected fields were recorded before writes were enabled
 - % of labels correct on first try: [exact-set passes / 6]
 - % of milestone allocations correct: [exact matches / 6]
 - % of reviewer assignments correct: [exact-set passes / 6]
