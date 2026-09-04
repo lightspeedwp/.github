@@ -275,11 +275,29 @@ Task 2C.5 (Archive & Closure) includes:
 - **Scope:** 3 scripts optimized (sync-pr-labels, pr-triage-orchestrator, allocate-to-milestone)
 - **Results:** 12% execution time, 18% memory, 21.5% API reduction
 - **Status:** ✅ COMPLETE - Merged to develop (PR #2604, 2026-09-02)
-- **Documentation:** See `phase-2c-script-optimization/COMPLETION_REPORT.md`
+
+### Phase 2C Script Optimization - Documentation
+
+**Phase 2C Completion:**
+- [COMPLETION_REPORT.md](../../phase-2c-script-optimization/COMPLETION_REPORT.md) - Final Phase 2C report with metrics
+
+**Phase 3 Planning (2026-09-03):**
+- [PHASE_3_PLANNING.md](../../phase-2c-script-optimization/PHASE_3_PLANNING.md) - Phase 3 roadmap (6 tasks, 34-49 bd)
+- [OUTSTANDING_GAPS.md](../../phase-2c-script-optimization/OUTSTANDING_GAPS.md) - Gap analysis with resolutions
+- [OPTIONAL_ENHANCEMENTS.md](../../phase-2c-script-optimization/OPTIONAL_ENHANCEMENTS.md) - Extensions & future work
+- [OPENSPEC.md](../../phase-2c-script-optimization/OPENSPEC.md) - Technical specification
+
+**Phase 3 Planning GitHub Issues:**
+- [#2679](https://github.com/lightspeedwp/.github/issues/2679) - Phase 3-1: Streaming Responses
+- [#2680](https://github.com/lightspeedwp/.github/issues/2680) - Phase 3-2: Continuous Benchmarking
+- [#2681](https://github.com/lightspeedwp/.github/issues/2681) - Phase 3-3: Adaptive Cache TTLs
+- [#2682](https://github.com/lightspeedwp/.github/issues/2682) - Phase 3-4: Additional Scripts
+- [#2683](https://github.com/lightspeedwp/.github/issues/2683) - Phase 3-5: Webhook Evaluation
+- [#2684](https://github.com/lightspeedwp/.github/issues/2684) - Phase 3-6: Predictive Rate Limiting
 
 ### Distinction
 
 This file documents Phase 2C **Testing & Validation** (release-workflow-authorization-fixes project).  
 The script optimization project represents a separate **Performance Optimization** Phase 2C initiative.
 
-Both Phase 2C initiatives have completed successfully with full validation and are ready for production deployment.
+Both Phase 2C initiatives have completed successfully with full validation. Phase 3 planning now underway for the script optimization project (Phase 3: 34-49 business days, 6 major initiatives).
