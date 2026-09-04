@@ -132,6 +132,22 @@ This directory contains the complete work plan for GitHub issue #2352: **Enforce
 
 ---
 
+### 📋 [PHASE2_PLUS_ENHANCEMENT_ISSUES.md](./PHASE2_PLUS_ENHANCEMENT_ISSUES.md) — Phase 2+ Issue Planning
+**Best for:** Planning and creating Phase 2+ enhancement issues  
+**Contains:**
+- Issue #2660: Maintainer Tooling & Bulk Label Operations (5 pts)
+- Issue #2661: Enhanced Labeling Documentation & Decision Tree (3 pts)
+- Issue #2662: Workflow Modernization & Integration Fixes (8 pts)
+- Issue #2663: Monitoring & Observability Dashboard (5 pts)
+- Complete issue descriptions and acceptance criteria
+- Dependency mapping and timeline
+- Creation checklist
+
+**Status:** 🟢 READY FOR CREATION  
+**Next Step:** Create issues #2660-2663 in GitHub
+
+---
+
 ## 🚀 Quick Start: Where to Go Based on Your Role
 
 ### 👔 Project Manager / Initiative Owner
@@ -218,11 +234,23 @@ Phase 5: Training (1–2d)
   - Timeline: 2-3 days
   - Status: [PHASE2_EXECUTION_STATUS.md](./PHASE2_EXECUTION_STATUS.md)
 
-### Phase 2 Enhancement Gaps (Future)
-- **#2660** — Maintainer Tooling & Bulk Label Operations (3-5 pts)
+### Phase 2+ Enhancement Gaps (Ready for Creation)
+- **#2660** — Maintainer Tooling & Bulk Label Operations (5 pts)
+  - Planning: [PHASE2_PLUS_ENHANCEMENT_ISSUES.md](./PHASE2_PLUS_ENHANCEMENT_ISSUES.md)
+  - Ready to create: CLI tool for bulk operations
+  
 - **#2661** — Enhanced Labeling Documentation & Decision Tree (3 pts)
+  - Planning: [PHASE2_PLUS_ENHANCEMENT_ISSUES.md](./PHASE2_PLUS_ENHANCEMENT_ISSUES.md)
+  - Ready to create: Comprehensive labeling guide with decision trees
+  
 - **#2662** — Workflow Modernization & Integration Fixes (8 pts)
+  - Planning: [PHASE2_PLUS_ENHANCEMENT_ISSUES.md](./PHASE2_PLUS_ENHANCEMENT_ISSUES.md)
+  - Ready to create: Update GitHub Actions workflows and fix integration issues
+  - Blocks: Phase 3 enforcement rollout
+  
 - **#2663** — Monitoring & Observability (5 pts)
+  - Planning: [PHASE2_PLUS_ENHANCEMENT_ISSUES.md](./PHASE2_PLUS_ENHANCEMENT_ISSUES.md)
+  - Ready to create: Compliance dashboard and trend tracking
 
 ### Phase 3+ Planning (Future)
 - **#1604** — Phase 3: Enforce Label Validation

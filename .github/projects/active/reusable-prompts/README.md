@@ -8,7 +8,7 @@ status: in-progress
 # Reusable Prompts Library — Active Project
 
 **Phase 1 Status:** ✅ **COMPLETE & MERGED** (2026-09-04)  
-**Phase 2 Status:** 🚀 **KICKOFF** (2026-09-04)  
+**Phase 2 Status:** 🚀 **IN PROGRESS** (2026-09-04 — Issues Created)  
 **Branch:** `feat/reusable-prompts-structure` (Phase 1 complete, awaiting merge & Phase 2 kickoff)  
 **Milestone Phase 1:** `v1.2` (In Review)  
 **Phase 1 Duration:** 1 session (Completed)  
@@ -101,29 +101,31 @@ This project creates a comprehensive, organization-wide reusable prompts library
 
 ## Phase 2: OpenSpec & Issue Creation
 
-### 2.1 Generate OpenSpec Documentation (Next Step)
+### ✅ 2.1 Generate OpenSpec Documentation (COMPLETE)
 
-- [ ] Create `.openspec.yaml` or `openspec.json` in this folder
-- [ ] Define prompt library structure in OpenSpec format
-- [ ] Generate issue specs for Phase 2 enhancements
-- [ ] Validate specs against repository standards
+- [x] Create `openspec.json` in this folder
+- [x] Define prompt library structure in OpenSpec format
+- [x] Generate issue specs for Phase 2 enhancements (5 issues)
+- [x] Validate specs against repository standards
 
-### 2.2 Create GitHub Issues from Specs
+### ✅ 2.2 Create GitHub Issues from Specs (COMPLETE)
 
-- [ ] Issue 2-1: Optional prompt enhancements (code review, linting)
-- [ ] Issue 2-2: Prompt automation workflows (trigger-based execution)
-- [ ] Issue 2-3: Prompt versioning and backwards compatibility
-- [ ] Issue 2-4: Analytics and usage tracking for prompts
-- [ ] Issue 2-5: Prompt discovery and search interface
+- [x] [#2792](https://github.com/lightspeedwp/.github/issues/2792): Prompt Enhancements & Refinements (2h, HIGH)
+- [x] [#2793](https://github.com/lightspeedwp/.github/issues/2793): Prompt Automation Workflows (3h, HIGH)
+- [x] [#2794](https://github.com/lightspeedwp/.github/issues/2794): Prompt Versioning & Compatibility (2h, MEDIUM)
+- [x] [#2795](https://github.com/lightspeedwp/.github/issues/2795): Usage Analytics & Tracking (3h, MEDIUM)
+- [x] [#2796](https://github.com/lightspeedwp/.github/issues/2796): Prompt Discovery & Search (3h, MEDIUM)
 
-### 2.3 Link Issues to Active Project
+### 🔄 2.3 Link Issues to Active Project (IN PROGRESS)
 
-- [ ] Update README with issue links
-- [ ] Add milestone assignment (v1.3)
-- [ ] Create issue labels: `type:enhancement`, `area:prompts`
+- [x] Issues created with `type:enhancement`, `area:prompts` labels
+- [ ] Milestone assignment (v1.3) — needs GitHub action/manual assignment
+- [x] Issue descriptions link to active project folder
+- [ ] README updated with issue links (this file)
 
 **Phase 2 Effort:** 4-6 hours  
-**Phase 2 Timeline:** 1 week
+**Phase 2 Timeline:** 1 week  
+**Phase 2 Status:** 60% complete (specs + issues done, linking in progress)
 
 ---
 
@@ -167,18 +169,25 @@ This project creates a comprehensive, organization-wide reusable prompts library
 
 ## 🔗 Related Issues
 
+### Phase 1
+
 | Issue | Type | Status | PR |
 |-------|------|--------|-----|
 | [#2777](https://github.com/lightspeedwp/.github/issues/2777) | Epic | In Progress | [#2778](https://github.com/lightspeedwp/.github/pull/2778) |
 | [#2778](https://github.com/lightspeedwp/.github/pull/2778) | Feature PR | In Review | — |
 
-**Phase 2 Issues (To Be Created):**
+### Phase 2 (Active)
 
-- [ ] 2-1: Prompt enhancements
-- [ ] 2-2: Prompt automation workflows
-- [ ] 2-3: Prompt versioning
-- [ ] 2-4: Analytics and usage
-- [ ] 2-5: Prompt discovery
+| Issue | Title | Effort | Priority | Status |
+|-------|-------|--------|----------|--------|
+| [#2792](https://github.com/lightspeedwp/.github/issues/2792) | Prompt Enhancements & Refinements | 2h | HIGH | ⬜ Planned |
+| [#2793](https://github.com/lightspeedwp/.github/issues/2793) | Prompt Automation Workflows | 3h | HIGH | ⬜ Planned |
+| [#2794](https://github.com/lightspeedwp/.github/issues/2794) | Prompt Versioning & Compatibility | 2h | MEDIUM | ⬜ Planned |
+| [#2795](https://github.com/lightspeedwp/.github/issues/2795) | Usage Analytics & Tracking | 3h | MEDIUM | ⬜ Planned |
+| [#2796](https://github.com/lightspeedwp/.github/issues/2796) | Prompt Discovery & Search | 3h | MEDIUM | ⬜ Planned |
+
+**Total Phase 2 Effort:** 13 hours  
+**Phase 2 Timeline:** Sep 4-11 (estimated)
 
 ---
 
@@ -205,13 +214,12 @@ Several checks fail due to pre-existing repository infrastructure issues (not ca
 **Impact:** CI shows red, but PR content is valid.  
 **Solution:** These are tracked as separate repository issues.
 
-### Phase 2 Gaps
+### Phase 2 Progress
 
-- [ ] OpenSpec configuration not yet created
-- [ ] GitHub issues for Phase 2 not yet created
-- [ ] Prompt discovery/search interface not planned
-- [ ] Usage analytics not yet implemented
-- [ ] Automation workflows not yet designed
+- [x] OpenSpec configuration created
+- [x] GitHub issues for Phase 2 created (5 issues, #2792-2796)
+- [ ] Milestone v1.3 assignment in progress
+- [ ] Issue implementation starting (Sep 9+)
 
 See **[ENHANCEMENTS.md](./ENHANCEMENTS.md)** for complete Phase 2+ roadmap.
 
