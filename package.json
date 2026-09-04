@@ -138,7 +138,7 @@
     "@babel/plugin-syntax-import-meta": "7.10.4",
     "@babel/plugin-transform-class-properties": "8.0.1",
     "@babel/plugin-transform-object-rest-spread": "8.0.1",
-    "@babel/plugin-transform-runtime": "7.24.6",
+    "@babel/plugin-transform-runtime": "8.0.1",
     "@babel/preset-env": "8.0.2",
     "@babel/preset-react": "7.24.6",
     "@babel/preset-typescript": "8.0.1",
