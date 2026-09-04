@@ -49,6 +49,58 @@ references:
 
 ---
 
+## Repository Scripts Organisation (CRITICAL)
+
+**ALL repository scripts MUST be placed in `scripts/` at the root, NOT in `.github/scripts/`.**
+
+### Correct Script Locations
+
+```text
+✅ scripts/automation/        - Automation and workflow scripts
+✅ scripts/metrics/           - Metrics collection and analysis
+✅ scripts/telemetry/         - Telemetry instrumentation
+✅ scripts/release/           - Release preparation and validation
+✅ scripts/validation/        - Validation and linting scripts
+✅ scripts/badges/            - Badge generation scripts
+✅ scripts/agents/            - Agent runner scripts
+✅ scripts/workflows/         - Agentic workflow orchestration
+
+❌ .github/scripts/           - DO NOT CREATE - Reserved for GitHub governance only
+```
+
+### The ONLY Exceptions
+
+- `.github/website/src/scripts/` - Website browser-specific JavaScript that runs client-side
+- `.github/agentic-workflows/` - Agent specifications for repository governance automation
+
+### Why This Matters
+
+- `.github/` is for **GitHub-native governance files** (templates, workflows, configs)
+- `scripts/` is for **executable code** that powers the repository
+- Mixing these creates confusion about file ownership and purpose
+- Import paths become inconsistent when scripts are in the wrong location
+
+### Enforcement
+
+When creating any new script:
+
+1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
+2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
+3. **Known exceptions**: `.github/website/src/scripts/` (browser), `.github/agentic-workflows/` (repo governance agents)
+4. **Never use `.github/scripts/`** - This directory should not exist for new work
+5. **Update imports**: Ensure all imports use correct paths from `scripts/`
+
+### Quick Reference
+
+| You're Creating | Put It In | NOT In |
+| --- | --- | --- |
+| A telemetry client | `scripts/telemetry/` | ~~`.github/scripts/telemetry/`~~ |
+| An automation script | `scripts/automation/` | ~~`.github/scripts/automation/`~~ |
+| A metrics collector | `scripts/metrics/` | ~~`.github/scripts/metrics/`~~ |
+| A release validator | `scripts/release/` | ~~`.github/scripts/release/`~~ |
+| A workflow orchestrator | `scripts/workflows/` | ~~`.github/scripts/workflows/`~~ |
+| Website JS (browser) | `.github/website/src/scripts/` | ✅ Exception - correct location |
+
 ## Branch Naming Governance (CRITICAL)
 
 **All branches MUST follow this pattern:** `{type}/{scope}-{title}`

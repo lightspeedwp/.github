@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* global process, console, __dirname */
+
 /**
  * Metrics Collection Orchestrator
  * Coordinates metrics collection across multiple repositories
@@ -8,12 +10,12 @@
 
 const fs = require("fs");
 const path = require("path");
-const { GitHubAPIClient } = require("../../../scripts/metrics/metrics-agent.cjs");
-const { MetricsStorage } = require("../../../scripts/metrics/metrics-storage.cjs");
-const { TrendAnalyzer } = require("../../../scripts/metrics/trend-analyzer.cjs");
-const {
-  AnomalyDetector,
-} = require("../../../scripts/metrics/anomaly-detector.cjs");
+const { GitHubAPIClient } = require("../metrics/metrics-agent.cjs");
+const { MetricsStorage } = require("../metrics/metrics-storage.cjs");
+const { TrendAnalyzer } = require("../metrics/trend-analyzer.cjs");
+const { AnomalyDetector } = require("../metrics/anomaly-detector.cjs");
+const { createTelemetryClient } = require("../telemetry/telemetry-client.js");
+const { EVENT_SCHEMAS } = require("../telemetry/event-schemas.js");
 
 class MetricsCollectionOrchestrator {
   constructor(configPath) {
@@ -24,6 +26,12 @@ class MetricsCollectionOrchestrator {
     this.anomalyDetector = new AnomalyDetector();
     this.results = [];
     this.errors = [];
+
+    // Initialize telemetry client
+    this.telemetry = createTelemetryClient({
+      eventSchemas: EVENT_SCHEMAS,
+    });
+    this.collectionStartTime = null;
   }
 
   loadConfig() {
@@ -104,6 +112,23 @@ class MetricsCollectionOrchestrator {
 
       return result;
     } catch (error) {
+      // Emit: metrics.repository.collection.failed
+      this.telemetry.emit("metrics.repository.collection.failed", {
+        safe: {
+          failureReason: error.message.substring(0, 200),
+          attemptNumber: 1,
+          recoverable:
+            error.message.includes("rate limit") ||
+            error.message.includes("timeout"),
+        },
+        restricted: {
+          repository: repositoryKey,
+          errorDetails: error.message,
+          apiResponse: error.response?.status || "unknown",
+          stackTrace: error.stack,
+        },
+      });
+
       const errorResult = {
         repository: repositoryKey,
         status: "error",
@@ -122,15 +147,32 @@ class MetricsCollectionOrchestrator {
   }
 
   async orchestrateCollection() {
+    // Emit: metrics.collection.started
+    this.collectionStartTime = Date.now();
+    this.startTime = this.collectionStartTime; // Keep existing property
+
+    const enabledRepos = this.config.repositories.filter(
+      (repo) => repo.enabled !== false,
+    );
+
+    this.telemetry.emit("metrics.collection.started", {
+      safe: {
+        repositoryCount: enabledRepos.length,
+        collectionType: this.config.schedule?.cron ? "scheduled" : "manual",
+        scheduledRun: !!this.config.schedule?.cron,
+        trigger: process.env.GITHUB_EVENT_NAME || "manual",
+      },
+      restricted: {
+        repositories: enabledRepos.map((r) => `${r.owner}/${r.repo}`),
+        configPath: this.configPath,
+      },
+    });
+
     console.log("\n🚀 Starting metrics collection...");
     console.log(
       `📋 Repositories to process: ${this.config.repositories.length}`,
     );
     console.log(`⚙️  Parallel jobs: ${this.config.execution.parallelJobs}`);
-
-    const enabledRepos = this.config.repositories.filter(
-      (repo) => repo.enabled !== false,
-    );
 
     if (enabledRepos.length === 0) {
       console.warn("⚠️  No enabled repositories found in configuration");
@@ -193,6 +235,32 @@ class MetricsCollectionOrchestrator {
     );
     fs.mkdirSync(path.dirname(summaryPath), { recursive: true });
     fs.writeFileSync(summaryPath, JSON.stringify(summary, null, 2));
+
+    // Emit: metrics.collection.completed
+    const totalMetrics = this.results.reduce(
+      (sum, r) => sum + (r.metricsCount || 0),
+      0,
+    );
+    const totalAnomalies = this.results.reduce(
+      (sum, r) => sum + (r.anomalies || 0),
+      0,
+    );
+
+    this.telemetry.emit("metrics.collection.completed", {
+      safe: {
+        repositoryCount: totalCount,
+        successCount,
+        failureCount: errorCount,
+        collectionDuration: summary.execution.duration,
+        metricsCollected: totalMetrics,
+        anomaliesDetected: totalAnomalies,
+      },
+      restricted: {
+        repositories: this.results.map((r) => r.repository),
+        failedRepositories: this.errors.map((e) => e.repository),
+        summaryPath,
+      },
+    });
 
     console.log("\n📈 Collection Summary");
     console.log(`✅ Successful: ${successCount}/${totalCount}`);

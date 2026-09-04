@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+/* global process, console, __dirname */
+
 /**
  * Metrics Reporting Orchestrator
  * Generates metrics reports and manages GitHub issues
@@ -7,10 +9,14 @@
 
 const fs = require("fs");
 const path = require("path");
-const { MetricsStorage } = require("../../scripts/metrics/metrics-storage.cjs");
-const { MetricsReporter } = require("../../scripts/metrics/metrics-reporter");
-const { TrendAnalyzer } = require("../../scripts/metrics/trend-analyzer.cjs");
-const { AnomalyDetector } = require("../../scripts/metrics/anomaly-detector.cjs");
+const { MetricsStorage } = require("../metrics/metrics-storage.cjs");
+const { MetricsReporter } = require("../metrics/metrics-reporter");
+const { TrendAnalyzer } = require("../metrics/trend-analyzer.cjs");
+const { AnomalyDetector } = require("../metrics/anomaly-detector.cjs");
+const {
+  createTelemetryClient,
+} = require("../telemetry/telemetry-client.js");
+const { EVENT_SCHEMAS } = require("../telemetry/event-schemas.js");
 
 class MetricsReportingOrchestrator {
   constructor() {
@@ -23,6 +29,11 @@ class MetricsReportingOrchestrator {
       this.anomalyDetector,
     );
     this.reports = [];
+    
+    // Initialize telemetry client
+    this.telemetry = createTelemetryClient({
+      eventSchemas: EVENT_SCHEMAS,
+    });
   }
 
   async generateReports(repositories, period = "weekly") {
@@ -33,6 +44,8 @@ class MetricsReportingOrchestrator {
       try {
         const reportKey = `${repo.owner}/${repo.repo}`;
         console.log(`\n📝 Generating report for ${reportKey}...`);
+        
+        const reportStartTime = Date.now();
 
         const report = await this.reporter.generateReport(reportKey, {
           period,
@@ -47,6 +60,32 @@ class MetricsReportingOrchestrator {
 
         // Save report to file
         const reportPath = this.saveReport(reportKey, report, period);
+        
+        const generationDuration = Date.now() - reportStartTime;
+
+        // Emit: metrics.report.generated (best-effort telemetry)
+        try {
+          const fileSize = fs.statSync(reportPath).size;
+          const metricsIncluded = (typeof report === 'string' ? report.match(/###/g) : null)?.length || 0;
+
+          this.telemetry.emit('metrics.report.generated', {
+            safe: {
+              reportType: 'metrics-report',
+              period,
+              metricsIncluded,
+              trendsIncluded: true,
+              anomaliesIncluded: true,
+              generationDuration,
+            },
+            restricted: {
+              repository: reportKey,
+              reportPath,
+              fileSize,
+            },
+          });
+        } catch (telemetryError) {
+          console.warn(`⚠️  Telemetry emission failed (non-fatal):`, telemetryError.message);
+        }
 
         this.reports.push({
           repository: reportKey,
@@ -125,7 +164,8 @@ class MetricsReportingOrchestrator {
     try {
       // Get list of repositories from config
       const configPath = path.join(
-        ".github/scripts/workflows/metrics-config.json",
+        __dirname,
+        "metrics-config.json",
       );
       const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
       const repositories = config.repositories.filter(

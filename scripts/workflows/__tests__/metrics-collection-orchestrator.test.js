@@ -10,7 +10,7 @@ const originalExit = process.exit;
 process.exit = jest.fn();
 
 // Mock the external dependencies before importing MetricsCollectionOrchestrator
-jest.mock("../../../../scripts/metrics/metrics-agent.cjs", () => ({
+jest.mock("../../metrics/metrics-agent.cjs", () => ({
   GitHubAPIClient: jest.fn().mockImplementation(() => ({
     fetchMetrics: jest.fn().mockResolvedValue({
       repository: "test/repo",
@@ -23,22 +23,66 @@ jest.mock("../../../../scripts/metrics/metrics-agent.cjs", () => ({
   })),
 }));
 
-jest.mock("../../../../scripts/metrics/metrics-storage.cjs", () => ({
+jest.mock("../../metrics/metrics-storage.cjs", () => ({
   MetricsStorage: jest.fn().mockImplementation(() => ({
     saveMetrics: jest.fn().mockResolvedValue(true),
   })),
 }));
 
-jest.mock("../../../../scripts/metrics/trend-analyzer.cjs", () => ({
+jest.mock("../../metrics/trend-analyzer.cjs", () => ({
   TrendAnalyzer: jest.fn().mockImplementation(() => ({
     analyzeTrends: jest.fn().mockResolvedValue({}),
   })),
 }));
 
-jest.mock("../../../../scripts/metrics/anomaly-detector.cjs", () => ({
+jest.mock("../../metrics/anomaly-detector.cjs", () => ({
   AnomalyDetector: jest.fn().mockImplementation(() => ({
     detectAnomalies: jest.fn().mockResolvedValue([]),
   })),
+}));
+
+jest.mock("../../telemetry/telemetry-client.js", () => ({
+  createTelemetryClient: jest.fn().mockReturnValue({
+    emit: jest.fn(),
+  }),
+}));
+
+jest.mock("../../telemetry/event-schemas.js", () => ({
+  EVENT_SCHEMAS: {
+    "metrics.collection.started": {
+      eventName: "metrics.collection.started",
+      safe: {
+        component: "string",
+        trigger: "string",
+      },
+      restricted: {
+        repositoryCount: "number",
+      },
+    },
+    "metrics.collection.completed": {
+      eventName: "metrics.collection.completed",
+      safe: {
+        component: "string",
+        duration: "number",
+        repositoriesProcessed: "number",
+      },
+      restricted: {
+        successCount: "number",
+        failureCount: "number",
+      },
+    },
+    "metrics.repository.collection.failed": {
+      eventName: "metrics.repository.collection.failed",
+      safe: {
+        component: "string",
+        trigger: "string",
+      },
+      restricted: {
+        repositoryName: "string",
+        errorMessage: "string",
+      },
+    },
+  },
 }));
 
 const {

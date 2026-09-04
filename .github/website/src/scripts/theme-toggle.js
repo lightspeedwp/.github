@@ -1,9 +1,50 @@
-/* global window, document, localStorage, CustomEvent */
+/* global window, document, localStorage, CustomEvent, navigator, fetch */
 /* theme-toggle.js
    Handles all .theme-toggle-btn buttons on the page.
    Moon = currently light mode (click to go dark)
    Sun  = currently dark mode  (click to go light)
 */
+
+// Simple browser telemetry client
+const telemetry = {
+  emit(eventType, properties) {
+    const event = {
+      eventType,
+      timestamp: new Date().toISOString(),
+      environment: "browser",
+      ...properties,
+    };
+
+    // Log to console in development
+    if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    ) {
+      console.log("[Telemetry]", event);
+    } else {
+      // Send to analytics endpoint in production (best-effort, never block theme
+      // changes). Restricted properties are never transmitted from the browser.
+      const safePayload = {
+        eventType: event.eventType,
+        timestamp: event.timestamp,
+        environment: event.environment,
+        safe: event.safe || {},
+      };
+
+      try {
+        fetch("/api/telemetry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(safePayload),
+        }).catch(() => {
+          // Silently fail - telemetry should never block user interactions
+        });
+      } catch (_err) {
+        // Ignore fetch errors
+      }
+    }
+  },
+};
 
 const SVG_MOON = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none"
   stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -20,6 +61,9 @@ function getTheme() {
   return document.documentElement.getAttribute("data-theme") || "light";
 }
 
+/**
+ * Updates all theme toggle buttons to reflect the current theme.
+ */
 function updateAllIcons() {
   const isDark = getTheme() === "dark";
   document.querySelectorAll(".theme-toggle-btn").forEach((btn) => {
@@ -32,15 +76,42 @@ function updateAllIcons() {
   });
 }
 
+/**
+ * Toggles the document theme and notifies listeners of the change.
+ */
 function toggleTheme() {
-  const next = getTheme() === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", next);
-  document.documentElement.style.colorScheme = next;
+  const fromTheme = getTheme();
+  const toTheme = fromTheme === "dark" ? "light" : "dark";
+
+  document.documentElement.setAttribute("data-theme", toTheme);
+  document.documentElement.style.colorScheme = toTheme;
+
   try {
-    localStorage.setItem("ag-theme", next);
-  } catch (_e) {
-    // Ignore storage failures in private/locked contexts.
+    localStorage.setItem("ag-theme", toTheme);
+
+    // Emit: website.theme.toggled
+    telemetry.emit("website.theme.toggled", {
+      safe: {
+        fromTheme,
+        toTheme,
+        method: "user-click",
+      },
+    });
+  } catch (e) {
+    // Emit: website.theme.storage.failure
+    telemetry.emit("website.theme.storage.failure", {
+      safe: {
+        failureType: e.name || "StorageError",
+        theme: toTheme,
+        fallbackUsed: false,
+      },
+      restricted: {
+        storageError: e.message,
+        browserInfo: window.navigator.userAgent,
+      },
+    });
   }
+
   updateAllIcons();
   document.dispatchEvent(new CustomEvent("theme-changed"));
 }
