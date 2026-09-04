@@ -17,9 +17,22 @@ scope: workflow-security-environment-variable-marshalling
 
 ## 🔗 Related Issues
 
+### Primary Work
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
 | [#2601](https://github.com/lightspeedwp/.github/issues/2601) | task | Phase 2 Implementation: Workflow Security & Label Remediation | 🟡 In Review |
+| [#2641](https://github.com/lightspeedwp/.github/pull/2641) | pr | Security Hardening: Environment Variable Marshalling | 🔄 CI Checks |
+
+### Follow-up Work Created (2026-09-04)
+| Issue | Type | Purpose | Status | Priority |
+|-------|------|---------|--------|----------|
+| [#2798](https://github.com/lightspeedwp/.github/issues/2798) | task | Audit remaining workflows for secrets exposure patterns | 🟡 Ready | 🔴 High |
+| [#2799](https://github.com/lightspeedwp/.github/issues/2799) | task | Optimize workflow performance (concurrency, caching, fetch-depth) | 🟡 Ready | 🔴 High |
+| [#2800](https://github.com/lightspeedwp/.github/issues/2800) | task | Document environment variable marshalling pattern | 🟡 Ready | 🔴 High |
+
+### Related Epics
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
 | [#2283](https://github.com/lightspeedwp/.github/issues/2283) | epic | Labeling Agent Implementation | 🟢 Open |
 | [#1240](https://github.com/lightspeedwp/.github/issues/1240) | task | Milestone Automation Implementation | 🟢 Open |
 
@@ -45,7 +58,7 @@ scope: workflow-security-environment-variable-marshalling
 3. **01-SECURITY-HARDENING-REPORT.md** - Detailed security findings and fixes
 4. **02-WORKFLOW-MODIFICATIONS.md** - Specific changes to each workflow
 5. **03-IMPLEMENTATION-PLAN.md** - Outstanding work and enhancement opportunities
-6. **04-GITHUB-ISSUES-TRACKER.md** - Issues created for follow-up work
+6. **04-GITHUB-ISSUES-TRACKER.md** - Issues created for follow-up work (#2798, #2799, #2800)
 
 ---
 
