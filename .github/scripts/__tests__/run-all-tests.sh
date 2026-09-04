@@ -85,6 +85,10 @@ echo -e "${YELLOW}Running test suites...${NC}"
 echo ""
 
 run_test_suite \
+  "Workflow Integration Tests" \
+  "$SCRIPT_DIR/workflow-integration.test.js"
+
+run_test_suite \
   "Pre-commit Hook Validation Tests" \
   "$SCRIPT_DIR/../../../hooks/__tests__/pre-commit-agent-spec-validation.test.sh"
 
