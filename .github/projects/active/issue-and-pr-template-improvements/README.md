@@ -90,6 +90,19 @@ Poorly structured templates:
 | `OPENSPEC.yml` | OpenSpec configuration for issue generation |
 | `STATUS_TRACKING.md` | Real-time status updates |
 
+## GitHub Issues
+
+All phases have been created as GitHub issues for tracking and execution:
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| #2771 | Phase 1: Delete 17 Duplicate Issue Templates & Renumber | ⏳ Ready |
+| #2772 | Phase 2: Standardize Frontmatter & Fix YAML Syntax | 🔒 Blocked |
+| #2773 | Phase 3: Correct PR Template Title Patterns | 🔒 Blocked |
+| #2774 | Phase 4: Validate All Templates & Test Routing | 🔒 Blocked |
+| #2775 | Phase 5: Create Issue Type Allocator Skill | 🔒 Blocked |
+| #2776 | [TRACKING] Issue & PR Template Improvements | ⏳ In Progress |
+
 ## Related Documentation
 
 - **Template Review Analysis:** https://claude.ai/code/artifact/bdda3d82-0c82-4f26-85c2-f222b1693ce0
