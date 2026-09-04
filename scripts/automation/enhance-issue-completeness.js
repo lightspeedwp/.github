@@ -179,7 +179,13 @@ const templates = {
   },
 };
 
-// Utility: Make GitHub API request
+/**
+ * Send an HTTP request to the GitHub API.
+ * @param {string} method - The HTTP method.
+ * @param {string} path - The GitHub API endpoint path.
+ * @param {Object|null} [body=null] - The request payload.
+ * @returns {Promise<{status: number, data: Object}>} The response status and parsed response data.
+ */
 async function githubRequest(method, path, body = null) {
   return new Promise((resolve, reject) => {
     const options = {
@@ -229,7 +235,11 @@ async function githubRequest(method, path, body = null) {
   });
 }
 
-// Determine issue type from labels
+/**
+ * Determines the issue type from its labels.
+ * @param {Object} issue - The issue whose labels are classified.
+ * @return {string} The issue type: `feature`, `bug`, `epic`, or `default`.
+ */
 function getIssueType(issue) {
   const labels = (issue.labels || []).map((l) => l.name || l);
 
@@ -241,7 +251,11 @@ function getIssueType(issue) {
   return "default";
 }
 
-// Check what sections are missing
+/**
+ * Identifies the issue sections that are absent from the body.
+ * @param {string} body - The issue body to inspect.
+ * @return {string[]} The missing section names in the order they are checked.
+ */
 function checkMissingSections(body) {
   const missing = [];
 
@@ -270,7 +284,12 @@ function checkMissingSections(body) {
   return missing;
 }
 
-// Get appropriate template sections for issue type
+/**
+ * Builds the requested template sections for an issue type.
+ * @param {string} issueType - The issue classification used to select a template.
+ * @param {string[]} sectionsNeeded - The section names to include.
+ * @return {string} The selected sections in template order, separated by blank lines.
+ */
 function getTemplateSections(issueType, sectionsNeeded) {
   const template = templates[issueType] || templates.default;
   const sections = [];
@@ -291,7 +310,12 @@ function getTemplateSections(issueType, sectionsNeeded) {
   return sections.join("\n\n");
 }
 
-// Add missing sections to issue body
+/**
+ * Adds the specified issue sections while removing existing versions of those sections.
+ * @param {string} body - The current issue body.
+ * @param {string} sections - The sections to add to the issue body.
+ * @return {string} The issue body with the specified sections appended.
+ */
 function enhanceIssueBody(body, sections) {
   if (!body) {
     return sections;
@@ -309,7 +333,11 @@ function enhanceIssueBody(body, sections) {
   return `${cleanedBody}\n\n---\n\n${sections}`;
 }
 
-// Process a single issue
+/**
+ * Enhances an issue with its missing template sections.
+ * @param {Object} issue - The GitHub issue to process.
+ * @return {Promise<Object>} Processing details, including whether the issue was updated, previewed, skipped, or encountered an error.
+ */
 async function processIssue(issue) {
   const issueNumber = issue.number;
   const issueType = getIssueType(issue);
@@ -376,7 +404,10 @@ async function processIssue(issue) {
   }
 }
 
-// Fetch issues with status:needs-more-info label
+/**
+ * Fetch open issues matching the configured repository and label.
+ * @return {Promise<Array>} The matching issues, ordered from oldest to newest.
+ */
 async function fetchIssues() {
   const query = `repo:${config.owner}/${config.repo} label:${config.label} is:open`;
   let allIssues = [];
