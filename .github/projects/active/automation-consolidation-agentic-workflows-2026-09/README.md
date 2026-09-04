@@ -30,6 +30,20 @@ related_branches:
 
 # Project Management Agent & Automation Consolidation Initiative
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1240](../../../issues/1240) | epic | Master epic: Project Management Agent & Automation Consolidation Initiative | 🟢 Open |
+| [#2569](../../../issues/2569) | task | Phase 3: Test issue 1 (bulk update validation) | ⏰ Planned |
+| [#2571](../../../issues/2571) | task | Phase 3: Test issue 2 (bulk update validation) | ⏰ Planned |
+| [#2572](../../../issues/2572) | task | Phase 3: Test issue 3 (bulk update validation) | ⏰ Planned |
+| [#2558](../../../issues/2558) | task | Phase 3: Test issue 4 (bulk update validation) | ⏰ Planned |
+| [#2559](../../../issues/2559) | task | Phase 3: Test issue 5 (bulk update validation) | ⏰ Planned |
+| [#2564](../../../issues/2564) | task | Phase 3: Test issue 6 (bulk update validation) | ⏰ Planned |
+
+---
+
 ## Quick Facts
 
 | Metric | Value |
