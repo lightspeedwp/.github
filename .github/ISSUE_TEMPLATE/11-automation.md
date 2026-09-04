@@ -1,13 +1,12 @@
 ---
 name: "🤖 Automation"
-description: "🤖 Automation"
 about: "Propose, fix, or improve automation (actions, scripts, bots)."
 assignees: []
 projects: []
 milestone: ""
 file_type: issue-template
-title: "type:ops: {scope}"
-labels: [type:ops, status:needs-triage]
+title: "type:automation: {scope}"
+labels: [type:automation, status:needs-triage]
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

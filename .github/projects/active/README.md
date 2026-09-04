@@ -3,7 +3,7 @@ title: "Active Projects Index"
 description: "Comprehensive index of all active projects, initiatives, and work in progress for the LightSpeed .github control plane"
 file_type: readme
 version: v2.5
-last_updated: "2026-08-21"
+last_updated: "2026-09-03"
 created_date: "2025-12-08"
 authors: ["LightSpeed Team"]
 maintainer: "LightSpeed Team"
@@ -16,9 +16,9 @@ stability: "stable"
 # Active Projects Index
 
 **Index Version:** 2.5  
-**Last Updated:** 2026-08-21 (18:00 UTC)  
-**Total Active Projects:** 67  
-**Status Update Cycle:** Batch Review Completed (All 67 Projects Analyzed)
+**Last Updated:** 2026-09-03 (14:00 UTC)  
+**Total Active Projects:** 68  
+**Status Update Cycle:** Batch Review Completed + New Project Initiated (All 68 Projects Analyzed)
 
 ---
 
@@ -30,18 +30,18 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ---
 
-## 📊 Status Summary (2026-08-21)
+## 📊 Status Summary (2026-09-03)
 
 | Status | Count | Percentage | Projects |
 |--------|-------|-----------|----------|
 | ✅ **Complete** | 10 | 15% | Delivered, production-ready |
 | 🟢 **Active Ready** | 12 | 18% | In progress, well-scoped |
-| 🟡 **In Progress** | 35 | 52% | Active development, phased |
+| 🟡 **In Progress** | 35 | 51% | Active development, phased |
 | 🔴 **Critical** | 1 | 2% | Blocked or high-risk |
 | 🟠 **Blocked** | 3 | 4% | Waiting for dependencies |
-| 🔵 **Planning** | 4 | 6% | Early stage, planning phase |
+| 🔵 **Planning** | 5 | 7% | Early stage, planning phase |
 | 🔄 **Transitioning** | 2 | 3% | Between phases |
-| **TOTAL** | **67** | **100%** | All active initiatives |
+| **TOTAL** | **68** | **100%** | All active initiatives |
 
 ---
 
@@ -357,7 +357,7 @@ This directory contains all active projects, initiatives, and work in progress f
 
 ---
 
-## 🔵 Planning Phase Projects (4) — Early Stage
+## 🔵 Planning Phase Projects (5) — Early Stage
 
 **Initiating or planning, not yet in execution.**
 
@@ -367,7 +367,15 @@ This directory contains all active projects, initiatives, and work in progress f
 
 2. **agent-skills-standards-comprehensive** (See Complete section — now moved to Ready for Phase 3)
 
-3. **label-prefix-audit-2026-08-05** (✅ / 🔴 Audit Complete | 20%)
+3. **labeling-consolidation-2026-09-03** (🟢 Phase 3 Complete | 60%)
+   - ✅ Phase 1: Research & audit complete (RESEARCH_FINDINGS.md + AUDIT_FINDINGS.md)
+   - ✅ Phase 2: Planning & design complete (OPENSPEC.md, SCHEMA_DESIGN.md, rollout plans)
+   - ✅ Phase 3: GitHub issues created (#2668–#2677) + 5 enhancement issues (#2709–#2714)
+   - 🟡 Phase 4: Implementation ready to begin (Oct 1–31)
+   - Target: Consolidate 11+ fragmented labeling workflows → unified agent + reusable skills
+   - **Recent:** Phase 3+ enhancements documented; JSON Schema examples, test fixtures, handoff docs, OPENSPEC refresh, issue-docs cross-linking queued as high/medium priority tasks
+
+4. **label-prefix-audit-2026-08-05** (✅ / 🔴 Audit Complete | 20%)
    - Audit findings complete, remediation phase 2 in progress
    - 100+ label prefix violations identified
 
@@ -389,23 +397,23 @@ This directory contains all active projects, initiatives, and work in progress f
 ## 📈 Project Distribution by Category
 
 ```
-Infrastructure & Automation:  8 projects
+Infrastructure & Automation:  10 projects (labeling-consolidation added)
 Agent Development:           11 projects  
 Testing & Quality:            6 projects
-Documentation & Planning:      6 projects
+Documentation & Planning:      7 projects
 PR & Review Workflows:         6 projects
 GitHub/Actions/Workflows:      5 projects
 Release & Deployment:          5 projects
-Other Initiatives:            14 projects
+Other Initiatives:            18 projects
 ─────────────────────────────
-TOTAL:                        67 projects
+TOTAL:                        68 projects
 ```
 
 ---
 
 ## 🚨 Priority Action Items
 
-### TODAY (2026-08-21)
+### TODAY (2026-09-03)
 
 - **CRITICAL:** test-coverage-implementation (phase 3-6 pending, blocks release)
 - **HIGH:** label-prefix-enforcement-2026-08-05 (Phase 1 pending approval)
@@ -476,6 +484,8 @@ TOTAL:                        67 projects
 
 ## 📊 Recent Activity Log
 
+**2026-09-03** — New project: labeling-consolidation-2026-09-03 initiated with Phase 1 research and Phase 2 planning complete. Category totals updated for 68 active projects.
+
 **2026-08-21** — Full status review completed for all 67 active projects. Status indicators updated, completion percentages refined, priority actions identified.
 
 **2026-08-19** — Test coverage expansion phases 2-4 milestones updated. Phase 4A complete with 81 integration tests.
@@ -508,6 +518,6 @@ A: See "Priority Action Items" section at top of active projects section.
 
 **Active Projects Index**  
 **Version:** 2.5  
-**Last Updated:** 2026-08-21 18:00 UTC  
-**Total Projects:** 67  
+**Last Updated:** 2026-09-03 14:00 UTC  
+**Total Projects:** 68  
 **Maintained By:** LightSpeed Team

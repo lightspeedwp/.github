@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - "agents/**/*.agent.md"
-      - ".github/agents/**/*.agent.md"
+      - "agents/**/*.agent.md"
       - "plugins/**/agents/**/*.agent.md"
       - ".github/scripts/validate-agent-specs.js"
       - ".github/workflows/agent-spec-validation.yml"
@@ -16,7 +16,7 @@ on:
       - develop
     paths:
       - "agents/**/*.agent.md"
-      - ".github/agents/**/*.agent.md"
+      - "agents/**/*.agent.md"
       - "plugins/**/agents/**/*.agent.md"
 
 concurrency:
@@ -55,7 +55,7 @@ jobs:
         with:
           files: |
             agents/**/*.agent.md
-            .github/agents/**/*.agent.md
+            agents/**/*.agent.md
             plugins/**/agents/**/*.agent.md
           base_sha: ${{ github.event.pull_request.base.sha || github.event.before }}
 

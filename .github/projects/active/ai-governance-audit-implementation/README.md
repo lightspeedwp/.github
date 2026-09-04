@@ -2,7 +2,7 @@
 name: AI Governance Audit Implementation
 title: AI Governance Audit Implementation — Active Project
 file_type: project
-status: complete
+status: in-progress
 ---
 
 # AI Governance Audit Implementation — Active Project
@@ -28,9 +28,12 @@ This project implements fixes for critical gaps in AI governance discovered in P
 
 | File | Purpose |
 |------|---------|
-| **KICKOFF.md** | Project overview, objectives, timeline |
-| **PLANNING.md** | Detailed work breakdown, effort estimates, dependencies |
-| **SPEC-issue-*.md** | OpenSpec documents for each GitHub issue |
+| **KICKOFF.md** | Project overview, objectives, timeline (Phase 3) |
+| **PLANNING.md** | Detailed work breakdown, effort estimates, dependencies (Phases 3 & 4) |
+| **PHASE_3_STATUS.md** | Phase 3 completion tracking and deliverables |
+| **PHASE_4_STATUS.md** | Phase 4 real-time status tracking and metrics |
+| **SPEC-issue-*.md** | OpenSpec documents for each GitHub issue (Phase 3 & 4) |
+| **ENHANCEMENTS.md** | Optional enhancements and outstanding gaps for future phases |
 | **README.md** | This file |
 
 ---
@@ -53,33 +56,88 @@ All issues assigned to milestone `v1.1`:
 - [#2542](https://github.com/lightspeedwp/.github/issues/2542) — Create PR-issue linking enforcement
 - [#2543](https://github.com/lightspeedwp/.github/issues/2543) — Update PR templates
 
-### Week 3: Testing & Documentation (2 issues)
+### Week 3: Testing & Documentation (3 issues)
 - [#2544](https://github.com/lightspeedwp/.github/issues/2544) — Add branch validation tests
 - [#2545](https://github.com/lightspeedwp/.github/issues/2545) — Create BRANCHING_STRATEGY.md
 - [#2546](https://github.com/lightspeedwp/.github/issues/2546) — Run title normalization
 
 ---
 
+## Phase 4: Governance Deployment & Organization-Wide Rollout
+
+Phase 4 focuses on deploying Phase 3 governance automation org-wide and creating supporting documentation for team adoption. All Phase 4 issues assigned to milestone `v1.2`.
+
+### 4.1: Migration (2-3 hours)
+- [#2663](https://github.com/lightspeedwp/.github/issues/2663) — Migrate governance rules to core organization repositories
+  - **OpenSpec:** [SPEC-issue-4-1.md](./SPEC-issue-4-1.md)
+  - Deploy branch validation, PR template routing, title normalization to additional repos
+  - Effort: 2-3 hours | Status: 🔲 Not Started
+
+### 4.2: Policy ⭐ CRITICAL PATH (4-5 hours)
+- [#2664](https://github.com/lightspeedwp/.github/issues/2664) — Establish organization-wide branch naming enforcement policy
+  - **OpenSpec:** [SPEC-issue-4-2.md](./SPEC-issue-4-2.md)
+  - Create `docs/ORG_GOVERNANCE_POLICY.md` with enforcement timeline, exceptions, appeals
+  - Effort: 4-5 hours | Status: 🔲 Not Started | **Gates Issues 4.3 & Rollout**
+
+### 4.3: Training ⭐ CRITICAL PATH (3-4 hours)
+- [#2665](https://github.com/lightspeedwp/.github/issues/2665) — Create team onboarding and training documentation
+  - **OpenSpec:** [SPEC-issue-4-3.md](./SPEC-issue-4-3.md)
+  - Create `DEVELOPER_ONBOARDING.md`, FAQs, troubleshooting, quick reference guides
+  - Effort: 3-4 hours | Status: 🔲 Not Started | **Depends on 4.2, Gates Rollout**
+
+### 4.4: Reporting (4-5 hours)
+- [#2666](https://github.com/lightspeedwp/.github/issues/2666) — Set up governance compliance reporting and metrics dashboard
+  - **OpenSpec:** [SPEC-issue-4-4.md](./SPEC-issue-4-4.md)
+  - Create metrics framework, reporting dashboard, automated data collection
+  - Effort: 4-5 hours | Status: 🔲 Not Started | **Parallel Work**
+
+### 4.5: Exceptions & Overrides (2-3 hours)
+- [#2667](https://github.com/lightspeedwp/.github/issues/2667) — Define governance exceptions and override procedures
+  - **OpenSpec:** [SPEC-issue-4-5.md](./SPEC-issue-4-5.md)
+  - Create exception request process, appeals procedure, governance committee structure
+  - Effort: 2-3 hours | Status: 🔲 Not Started | **Parallel Work**
+
+**Phase 4 Total Effort:** 17-21 hours over 2-3 weeks  
+**Critical Path:** 4.2 (policy) → 4.3 (training) = 7-9 hours minimum  
+**Parallel Capacity:** Issues 4.1, 4.4, 4.5 can run simultaneously with 4.2
+
+See **[PHASE_4_STATUS.md](./PHASE_4_STATUS.md)** for detailed real-time tracking and dependency graph.
+
+---
+
 ## Getting Started
 
-1. **Read the docs:**
-   - Start with **KICKOFF.md** for overview
-   - Then **PLANNING.md** for detailed work plan
-   - Each issue has a corresponding SPEC-*.md file with complete details
+### For Phase 4 Work:
 
-2. **Check dependencies:**
-   - See dependency graph in PLANNING.md
-   - Critical path: Script → Tests → Real execution
+1. **Understand the roadmap:**
+   - Start with **PHASE_4_STATUS.md** for current status
+   - Review **PLANNING.md** for Phase 4 section with detailed work plan
+   - Read **ORG_GOVERNANCE_POLICY.md** (Phase 4.2 deliverable) once published
 
-3. **Assign issues:**
-   - Issues are ready to assign
-   - Labels already applied
-   - Will need manual milestone assignment (v1.1)
+2. **Start with critical path:**
+   - **Issue #2664** (Policy) is critical path starter — begin here
+   - **Issue #2665** (Training) depends on #2664 — start after policy ready
+   - Issues #2663, #2666, #2667 can run in parallel
+
+3. **Each issue has complete spec:**
+   - SPEC-issue-4-1.md through SPEC-issue-4-5.md
+   - Each spec includes: problem, solution, implementation notes, DoD checklist, test scenarios
+   - Use specs to scope work and verify completion
 
 4. **Track progress:**
-   - Use GitHub project view to see issue status
-   - Link issues to PRs as work is done
-   - Update PLANNING.md as progress is made
+   - Update **PHASE_4_STATUS.md** weekly (real-time metrics)
+   - Link PRs to corresponding GitHub issues
+   - Mark SPEC DoD checklist items as completed
+
+5. **Optional enhancements:**
+   - See **ENHANCEMENTS.md** for Phase 4 optional work
+   - See **ENHANCEMENTS.md** for known gaps to address in Phase 5+
+
+### For Phase 3 (Completed):
+
+1. **Phase 3 is complete:** All 15 issues merged to develop
+2. **Review Phase 3 Status:** See **PHASE_3_STATUS.md** for completion summary
+3. **Phase 3 specs:** SPEC-issue-1-1.md through SPEC-issue-2-2.md (archived for reference)
 
 ---
 
@@ -173,21 +231,55 @@ All issues assigned to milestone `v1.1`:
 
 ---
 
+## Phase 4 Critical Path & Timeline
+
+**Week 1 (Sep 3-9):** Issue 4.2 (Policy) + Issue 4.1 (Migration)  
+**Week 2 (Sep 10-16):** Issue 4.3 (Training) + Issue 4.4 (Reporting)  
+**Week 3 (Sep 17-23):** Issue 4.5 (Exceptions) + Cleanup & Rollout
+
+See **[PHASE_4_STATUS.md](./PHASE_4_STATUS.md)** for detailed dependency graph and tracking.
+
+---
+
 ## Notes for Future Phases
 
-**Phase 4 (Validation):**
-- Comprehensive testing of all fixes
-- Edge case handling
-- Integration with existing workflows
+**Phase 4 Enhancements (Optional):**
+- Visual branch naming decision tree (1-2h)
+- Git hooks for local validation (2-3h)
+- IDE/editor extensions (4-6h per IDE)
+- AI assistant integration improvements (1-2h)
+- Per-team governance rules framework (3-4h)
 
-**Phase 5 (Rollout):**
-- Extend rules to WordPress block themes and plugins
-- Create portable instructions and workflows
-- Team onboarding and documentation
+See **[ENHANCEMENTS.md](./ENHANCEMENTS.md)** for complete list of optional Phase 4 work.
+
+**Phase 5 & Beyond:**
+- Commit message governance (HIGH priority)
+- Dependency security governance (HIGH priority)
+- Release process governance (MEDIUM priority)
+- PR size/complexity governance (MEDIUM priority)
+- Accessibility governance enhancements (MEDIUM-LOW priority)
+- Portable governance rule package (MEDIUM priority)
+- Project management tool integration (MEDIUM priority)
+- Governance audit reports (quarterly)
+
+See **[ENHANCEMENTS.md](./ENHANCEMENTS.md)** for detailed Phase 5+ roadmap, effort estimates, and priorities.
+
+---
+
+## Related Project Documentation
+
+| Document | Purpose | Current Phase |
+|----------|---------|---------------|
+| [PHASE_3_STATUS.md](./PHASE_3_STATUS.md) | Phase 3 completion summary | Complete |
+| [PHASE_4_STATUS.md](./PHASE_4_STATUS.md) | Phase 4 real-time status & metrics | In Progress |
+| [ENHANCEMENTS.md](./ENHANCEMENTS.md) | Optional Phase 4 work & Phase 5+ roadmap | Reference |
+| [PLANNING.md](./PLANNING.md) | Detailed work breakdown (Phases 3 & 4) | Reference |
+| [KICKOFF.md](./KICKOFF.md) | Project overview & objectives | Reference |
 
 ---
 
 **Project Owner:** Ashley @ LightSpeed  
 **Created:** 2026-08-30  
-**Last Updated:** 2026-09-03  
-**Completion Date:** 2026-09-03
+**Phase 3 Completion:** 2026-09-03  
+**Phase 4 Start:** 2026-09-03  
+**Last Updated:** 2026-09-03

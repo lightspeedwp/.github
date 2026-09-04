@@ -1,6 +1,10 @@
 ---
 title: "Changelog System — Detailed Findings & Recommendations"
 date: 2026-09-03
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
 ---
 
 # Changelog System — Detailed Findings & Recommendations
