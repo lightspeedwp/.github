@@ -537,8 +537,8 @@ ${improvements
 
 ### Optimizations Applied
 
-1. **Native Fetch API** - Replaced https.request with native fetch (2-3x speed improvement)
-2. **Response Caching** - Implemented 5-minute TTL cache for GET requests (5-10% improvement)
+1. **Native Fetch API** - Replaced https.request with native fetch (performance pending real-world validation)
+2. **Response Caching** - Implemented 5-minute TTL cache for GET requests
 3. **Batch Operations** - Parallel fetching with configurable concurrency
 4. **Retry Logic** - Exponential backoff (1s, 2s, 4s) for transient failures
 5. **Rate Limit Handling** - Automatic detection and retry for 429/403 responses
