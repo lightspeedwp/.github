@@ -88,6 +88,7 @@ const METRICS_COLLECTION_EVENTS = {
    *
    * Use case: Track collection workflow initiation and repository count
    * Location: scripts/workflows/metrics-collection-orchestrator.cjs
+   */
   "metrics.collection.started": {
     description: "Metrics collection workflow started",
     safe: {

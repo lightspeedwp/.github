@@ -63,25 +63,29 @@ class MetricsReportingOrchestrator {
         
         const generationDuration = Date.now() - reportStartTime;
 
-        // Emit: metrics.report.generated
-        const fileSize = fs.statSync(reportPath).size;
-        const metricsIncluded = (report.match(/###/g) || []).length; // Rough count of metrics sections
-        
-        this.telemetry.emit('metrics.report.generated', {
-          safe: {
-            reportType: 'metrics-report',
-            period,
-            metricsIncluded,
-            trendsIncluded: true,
-            anomaliesIncluded: true,
-            generationDuration
-          },
-          restricted: {
-            repository: reportKey,
-            reportPath,
-            fileSize
-          }
-        });
+        // Emit: metrics.report.generated (best-effort telemetry)
+        try {
+          const fileSize = fs.statSync(reportPath).size;
+          const metricsIncluded = (typeof report === 'string' ? report.match(/###/g) : null)?.length || 0;
+
+          this.telemetry.emit('metrics.report.generated', {
+            safe: {
+              reportType: 'metrics-report',
+              period,
+              metricsIncluded,
+              trendsIncluded: true,
+              anomaliesIncluded: true,
+              generationDuration,
+            },
+            restricted: {
+              repository: reportKey,
+              reportPath,
+              fileSize,
+            },
+          });
+        } catch (telemetryError) {
+          console.warn(`⚠️  Telemetry emission failed (non-fatal):`, telemetryError.message);
+        }
 
         this.reports.push({
           repository: reportKey,
@@ -160,7 +164,8 @@ class MetricsReportingOrchestrator {
     try {
       // Get list of repositories from config
       const configPath = path.join(
-        "scripts/workflows/metrics-config.json",
+        __dirname,
+        "metrics-config.json",
       );
       const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
       const repositories = config.repositories.filter(

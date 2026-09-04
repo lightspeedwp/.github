@@ -158,7 +158,7 @@ class MetricsCollectionOrchestrator {
     this.telemetry.emit("metrics.collection.started", {
       safe: {
         repositoryCount: enabledRepos.length,
-        collectionType: this.config.schedule?.type || "manual",
+        collectionType: this.config.schedule?.cron ? "scheduled" : "manual",
         scheduledRun: !!this.config.schedule?.cron,
         trigger: process.env.GITHUB_EVENT_NAME || "manual",
       },
