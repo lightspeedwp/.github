@@ -22,7 +22,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 1. Update Active Projects From Chat Work
 
-**File:** `01-update-active-projects-from-chat.md`  
+**File:** [01-update-active-projects-from-chat.md](./01-update-active-projects-from-chat.md)  
+**GitHub Issue:** [#2803](https://github.com/lightspeedwp/.github/issues/2803)  
 **Purpose:** Systematically document session work in active project files, create enhancement tasks, regenerate openspec, and create/link GitHub issues.  
 **Use When:** Chat session delivered feature/fix work tied to an active project  
 **Output:** Updated project docs, enhancement tasks, GitHub issues, merged commits to develop  
@@ -44,7 +45,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 2. PR Finalisation Complete Workflow
 
-**File:** `02-pr-finalization-workflow.md`  
+**File:** [02-pr-finalization-workflow.md](./02-pr-finalization-workflow.md)  
+**GitHub Issue:** [#2804](https://github.com/lightspeedwp/.github/issues/2804)  
 **Purpose:** 10-step comprehensive PR finalization with label family prefix enforcement, template auto-selection, and merge validation.  
 **Use When:** PR is ready to finalize, needs label audit, template update, or merge  
 **Output:** Merged PR, updated labels, closed linked issue, clean CI  
@@ -80,7 +82,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 3. Context Continuation Prompt Generator
 
-**File:** `03-context-continuation-prompt.md`  
+**File:** [03-context-continuation-prompt.md](./03-context-continuation-prompt.md)  
+**GitHub Issue:** [#2805](https://github.com/lightspeedwp/.github/issues/2805)  
 **Purpose:** Generate self-contained continuation prompt when context window grows too large. Includes incomplete tasks, open PRs, branch warnings, labels, templates, review feedback, CI errors, merge conflicts.  
 **Use When:** Context approaching limit, need to resume work in new chat  
 **Output:** Ready-to-paste continuation prompt (markdown) for new chat  
@@ -111,7 +114,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 4. Dependabot PR Manual Merge Workflow
 
-**File:** `04-dependabot-pr-merge-workflow.md`  
+**File:** [04-dependabot-pr-merge-workflow.md](./04-dependabot-pr-merge-workflow.md)  
+**GitHub Issue:** [#2806](https://github.com/lightspeedwp/.github/issues/2806)  
 **Purpose:** Review and manually merge dependabot PRs one-by-one, respecting package dependency ordering. Includes decision logic for manual vs. mergify automation.  
 **Use When:** Dependabot PRs are open, need merging in correct order  
 **Output:** Merged PRs, updated dependencies, clean CI  
@@ -141,7 +145,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 5. Recommend Next Focus Task
 
-**File:** `05-recommend-next-focus-task.md`  
+**File:** [05-recommend-next-focus-task.md](./05-recommend-next-focus-task.md)  
+**GitHub Issue:** [#2807](https://github.com/lightspeedwp/.github/issues/2807)  
 **Purpose:** Identify and prioritize next work by auditing active projects, open issues, discovering pre-existing CI errors, and applying priority scoring framework.  
 **Use When:** Finished one task, unsure what to work on next  
 **Output:** Ranked task recommendations, prioritization report, active projects audit  
@@ -174,7 +179,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 6. Evaluate Open Issues and Milestone Allocation
 
-**File:** `06-milestone-allocation-strategy.md`  
+**File:** [06-milestone-allocation-strategy.md](./06-milestone-allocation-strategy.md)  
+**GitHub Issue:** [#2808](https://github.com/lightspeedwp/.github/issues/2808)  
 **Purpose:** Allocate open issues to milestones by priority, dependencies, and time estimates. Spread grouped work across multiple version milestones (v1.0, v1.1, v1.2, etc.).  
 **Use When:** Planning release cycle, allocating issues to milestones  
 **Output:** Milestone allocations, utilization charts, allocation report  
@@ -212,7 +218,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 7. Branch and Worktree Cleanup
 
-**File:** `07-branch-worktree-cleanup.md`  
+**File:** [07-branch-worktree-cleanup.md](./07-branch-worktree-cleanup.md)  
+**GitHub Issue:** [#2809](https://github.com/lightspeedwp/.github/issues/2809)  
 **Purpose:** Clean up local branches and worktrees based on merge status, staleness (2+ weeks), and branch naming validation. Includes safe deletion guidance.  
 **Use When:** Session complete, local repo has accumulated many branches  
 **Output:** Cleaned local branches, removed stale worktrees, cleanup report  
@@ -249,7 +256,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 8. Create or Update README Files with Mermaid Diagrams
 
-**File:** `08-create-update-readme-with-diagrams.md`  
+**File:** [08-create-update-readme-with-diagrams.md](./08-create-update-readme-with-diagrams.md)  
+**GitHub Issue:** [#2810](https://github.com/lightspeedwp/.github/issues/2810)  
 **Purpose:** Create new or update existing README.md files with YAML frontmatter, folder-specific section patterns, Mermaid diagrams, and accessibility guidance.  
 **Use When:** Need to create/update README for agents/, skills/, workflows/, instructions/, etc.  
 **Output:** Well-structured README with frontmatter, sections, optional Mermaid diagrams  
@@ -300,7 +308,8 @@ This document indexes the 9 new reusable prompts created for LightSpeed organisa
 
 ### 9. Move Files From .github/ to Root Folders
 
-**File:** `09-move-files-to-root-folders.md`  
+**File:** [09-move-files-to-root-folders.md](./09-move-files-to-root-folders.md)  
+**GitHub Issue:** [#2811](https://github.com/lightspeedwp/.github/issues/2811)  
 **Purpose:** Audit `.github/` subfolders for misplaced files, categorize by portability, migrate to correct root locations, update all references, and generate migration audit report.  
 **Use When:** File organisation audit, migrating legacy structure to portable standards  
 **Output:** Moved files with git history, updated references, migration audit report  
