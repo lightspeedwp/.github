@@ -183,24 +183,29 @@ export function createMockBenchmark(scriptName) {
   const result = new BenchmarkResult(scriptName, baseline);
   result.executionTime = baseline.executionTime * 0.7; // 30% faster
 
-  const startUsage = baseline.memoryUsage * 0.85;
+  // Keep the mock memory profile internally consistent while hitting the 27% target.
+  const startUsage = baseline.memoryUsage * 0.72;
   const peakUsage = baseline.memoryUsage * 0.73; // 27% less memory
   result.memory = {
     startUsage,
-    avgUsage: baseline.memoryUsage * 0.78,
+    avgUsage: baseline.memoryUsage * 0.745,
     peakUsage,
     deltaFromStart: peakUsage - startUsage,
   };
 
-  // Simulate API call reduction (20% fewer calls)
+  // Simulate API call reduction (20% fewer calls) without exceeding the total call count.
   const apiCallCount = Math.floor(baseline.apiCalls * 0.8);
   const cacheHits = Math.floor(apiCallCount * 0.65);
+  const uniqueEndpoints = Math.max(
+    1,
+    Math.min(apiCallCount, Math.floor(apiCallCount * 0.8)),
+  );
   result.apiCalls = {
     totalCalls: apiCallCount,
     cacheHits,
     cacheMisses: apiCallCount - cacheHits,
     cacheHitRate: 65,
-    uniqueEndpoints: Math.min(40, baseline.apiCalls),
+    uniqueEndpoints,
   };
 
   return result;
@@ -210,6 +215,12 @@ export function createMockBenchmark(scriptName) {
  * Generate a comprehensive performance report
  */
 export function generateReport(results) {
+  if (results.length === 0) {
+    throw new Error(
+      "No benchmark results to report. Verify baseline metrics and script selection.",
+    );
+  }
+
   const reportLines = [];
 
   reportLines.push("");
@@ -337,6 +348,12 @@ export function generateReport(results) {
  * Save results to JSON for analysis
  */
 export function saveResults(results, outputPath) {
+  if (results.length === 0) {
+    throw new Error(
+      "No benchmark results to save. Verify baseline metrics and script selection.",
+    );
+  }
+
   const output = {
     metadata: {
       timestamp: new Date().toISOString(),
@@ -367,8 +384,9 @@ export function saveResults(results, outputPath) {
 
 /**
  * Main execution for mock benchmarking
+ * Accepts optional outputPath for test isolation; if omitted, does not persist results.
  */
-export async function runBenchmarks(scripts = null) {
+export async function runBenchmarks(scripts = null, outputPath = null) {
   const scriptsToTest = scripts || Object.keys(BASELINE_METRICS);
   const results = [];
 
@@ -390,19 +408,23 @@ export async function runBenchmarks(scripts = null) {
 
   console.log("\n");
 
+  // Validate results before proceeding
+  if (results.length === 0) {
+    throw new Error(
+      "No benchmark results generated. Verify baseline metrics and script selection.",
+    );
+  }
+
   // Generate report
   const report = generateReport(results);
   console.log(report);
 
-  // Save results
-  const resultsPath = path.join(
-    REPO_ROOT,
-    "scripts/automation/__tests__/performance/results-phase-2b.json",
-  );
-  fs.mkdirSync(path.dirname(resultsPath), { recursive: true });
-  saveResults(results, resultsPath);
-
-  console.log(`💾 Results saved to: ${resultsPath}\n`);
+  // Optionally save results (only if outputPath is provided)
+  if (outputPath) {
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    saveResults(results, outputPath);
+    console.log(`💾 Results saved to: ${outputPath}\n`);
+  }
 
   return results;
 }
