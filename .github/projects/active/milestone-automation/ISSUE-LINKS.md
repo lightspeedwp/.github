@@ -193,11 +193,58 @@ This document maintains the relationship between the `milestone-automation` acti
 
 ---
 
+## Phase 3 Enhancement Implementation Issues
+
+### Metrics Dashboard Implementation (ENH-001)
+
+**Issue:** [#2763](https://github.com/lightspeedwp/.github/issues/2763)  
+**Title:** Phase 3-ENH-001: Implement Metrics Dashboard for milestone automation  
+**Status:** 🟡 Open (Ready for implementation)  
+**Priority:** High  
+**Labels:** `type:feature`, `area:monitoring`, `meta:phase-3`, `meta:enhancement`  
+
+**Linked Documentation:**
+- [PHASE-3-ENHANCEMENT-TASKS.md § Metrics Dashboard Implementation](./PHASE-3-ENHANCEMENT-TASKS.md#2-metrics-dashboard-implementation-enh-001)
+- [ENH-001-METRICS-DASHBOARD-DESIGN.md](./ENH-001-METRICS-DASHBOARD-DESIGN.md) — Design specification
+
+---
+
+### Slack Notification System Implementation (ENH-002)
+
+**Issue:** [#2764](https://github.com/lightspeedwp/.github/issues/2764)  
+**Title:** Phase 3-ENH-002: Implement Slack notification system for workflow events  
+**Status:** 🟡 Open (Ready for implementation)  
+**Priority:** High  
+**Labels:** `type:feature`, `area:communication`, `meta:phase-3`, `meta:enhancement`  
+
+**Linked Documentation:**
+- [PHASE-3-ENHANCEMENT-TASKS.md § Slack Notification System](./PHASE-3-ENHANCEMENT-TASKS.md#3-slack-notification-system-enh-002)
+- [ENH-002-SLACK-NOTIFICATIONS-DESIGN.md](./ENH-002-SLACK-NOTIFICATIONS-DESIGN.md) — Design specification
+
+---
+
+### Manual Trigger System Implementation (ENH-003)
+
+**Issue:** [#2765](https://github.com/lightspeedwp/.github/issues/2765)  
+**Title:** Phase 3-ENH-003: Implement manual trigger system for milestone distribution  
+**Status:** 🟡 Open (Ready for implementation)  
+**Priority:** Medium  
+**Labels:** `type:feature`, `area:workflow-control`, `meta:phase-3`, `meta:enhancement`  
+
+**Linked Documentation:**
+- [PHASE-3-ENHANCEMENT-TASKS.md § Manual Trigger System](./PHASE-3-ENHANCEMENT-TASKS.md#4-manual-trigger-system-enh-003)
+- [ENH-003-MANUAL-TRIGGER-DESIGN.md](./ENH-003-MANUAL-TRIGGER-DESIGN.md) — Design specification
+
+---
+
 ## Quick Reference
 
 | Issue | Title | Type | Status | Progress |
 |-------|-------|------|--------|----------|
 | [#1852](https://github.com/lightspeedwp/.github/issues/1852) | Phase 2 Final Validation & Merge Preparation | Epic | 🟡 In Progress | 46% (13/28) |
+| [#2763](https://github.com/lightspeedwp/.github/issues/2763) | Phase 3-ENH-001: Implement Metrics Dashboard | Feature | 🟡 Open | Ready for Phase 3 |
+| [#2764](https://github.com/lightspeedwp/.github/issues/2764) | Phase 3-ENH-002: Implement Slack Notifications | Feature | 🟡 Open | Ready for Phase 3 |
+| [#2765](https://github.com/lightspeedwp/.github/issues/2765) | Phase 3-ENH-003: Implement Manual Triggers | Feature | 🟡 Open | Ready for Phase 3 |
 | [#1524](https://github.com/lightspeedwp/.github/issues/1524) | Create integration tests for Phase 3 labeling automation | Task | 🟡 Open | Unblocked, ready for Phase 3 |
 | [#786](https://github.com/lightspeedwp/.github/issues/786) | CodeRabbit v2 schema validation and configuration cleanup | Docs | 🟡 Open | Ongoing, Phase 2 findings incorporated |
 | [#1673](https://github.com/lightspeedwp/.github/issues/1673) | Phase 3A: Automation Workflows Upgrade | Task | 🟡 Open | Unblocked, ready for Phase 3 |
