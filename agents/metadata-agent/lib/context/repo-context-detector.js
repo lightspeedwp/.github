@@ -175,10 +175,7 @@ class RepoContextDetector {
     if (hasStyleCss && hasFunctionsPhp) return true;
 
     // Topic-based
-    if (
-      topics.includes("wordpress-theme") ||
-      topics.includes("block-theme")
-    ) {
+    if (topics.includes("wordpress-theme") || topics.includes("block-theme")) {
       return true;
     }
 

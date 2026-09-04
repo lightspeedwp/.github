@@ -1,11 +1,9 @@
 ---
-name: "🧹 Maintenance"
-about: "Propose routine hygiene, dependency bumps, CI updates, or other maintenance tasks"
-title: "[Maintenance] <Brief summary of the maintenance or chore>"
-labels: [status:needs-triage, area:maintenance]
-assignees: []
-projects: []
-milestone: ""
+name: "🛠️ Maintenance"
+about: "Template for Maintenance issues"
+title: "type:maintenance: {scope}"
+labels: ["type:maintenance", "status:needs-triage", "priority:normal", "area:ops", "meta:maintenance"]
+recommended_branch: "maintenance/"
 file_type: issue-template
 ---
 

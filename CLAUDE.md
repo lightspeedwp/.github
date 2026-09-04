@@ -33,6 +33,7 @@ Examples:
 | `release` | Release branch | `release/v1.0.0` |
 | `refactor` | Code refactoring | `refactor/api-response-structure` |
 | `chore` | Maintenance, no code changes | `chore/dependency-updates` |
+| `task` | Scoped unit of work (often project/epic-bound) | `task/authentication-refactor` |
 | `docs` | Documentation | `docs/branching-strategy-guide` |
 | `test` | Tests, test infrastructure | `test/integration-test-suite` |
 | `perf` | Performance improvements | `perf/query-optimization` |
