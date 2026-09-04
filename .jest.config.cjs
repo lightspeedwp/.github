@@ -19,8 +19,8 @@ module.exports = {
             useESM: true,
         },
     },
-    // Treat TypeScript and ES modules as ESM so import.meta and top-level await work in tests.
-    extensionsToTreatAsEsm: ['.ts', '.tsx', '.mjs'],
+    // Treat TypeScript as ESM so import.meta and top-level await work in tests (.mjs is already ESM)
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     testMatch: [
         process.env.JEST_TEST_MATCH_1 || '**/tests/**/*.test.js',
         process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',

@@ -14,7 +14,7 @@ import {
   BASELINE_METRICS,
   OPTIMIZATION_TARGET_MIN,
   OPTIMIZATION_TARGET_MAX,
-} from "./performance-benchmarking-phase-2c.js";
+} from "./performance-benchmarking-phase-2c.mjs";
 
 describe("performance-benchmarking-phase-2c", () => {
   describe("BASELINE_METRICS constant", () => {
