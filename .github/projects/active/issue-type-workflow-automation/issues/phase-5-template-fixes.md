@@ -67,18 +67,18 @@ All issue types have templates
 Total: 29 files
 ```
 
-**Renumbering Map:**
-- 01: Task (01-task.md)
-- 02: Bug (02-bug.md)
-- 03: Feature (03-feature.md)
-- 04: Design (04-design.md)
-- 05: Epic (05-epic.md)
-- 06: Story (06-story.md)
-- 07: Improvement → Keep as-is
-- 08: Code Refactor (08-code-refactor.md, keep first copy)
-- 09: Build & CI
+**Consolidated Template Map (29 types):**
+- 01: Task
+- 02: Bug
+- 03: Feature
+- 04: Design
+- 05: Epic
+- 06: Story
+- 07: Improvement
+- 08: Code Refactor
+- 09: Build (merged: Build + CI)
 - 10: Automation
-- 11: Test Coverage
+- 11: Test
 - 12: Performance
 - 13: A11y
 - 14: Security
@@ -90,23 +90,19 @@ Total: 29 files
 - 20: Research
 - 21: Chore
 - 22: Audit
-- 23: Code Review
+- 23: Content Modelling
 - 24: AI Ops
-- 25: Content Modelling
-- 26: Question (NEW - create)
-- 27: UX Feedback (NEW - create from 07-user-experience-feedback.md)
-- 28: Help (NEW - create)
-- 29: Support (NEW - create from 25-help.md)
-- 30: UI (NEW - create) OR CONSOLIDATE into 29 types
-- 31: Enhancement (NEW - create) OR CONSOLIDATE into 29 types
-- 32: CI (NEW - create) OR CONSOLIDATE into 09 Build & CI
-- 33: Dependency (NEW - create)
-- 34: Investigation (NEW - create) OR CONSOLIDATE into 20 Research
-- 35: QA (NEW - create)
+- 25: Question
+- 26: UX Feedback
+- 27: Help
+- 28: Support
+- 29: Enhancement
 
-**Decision:** Follow consolidation strategy (35 → 29 types):
-- Eliminate types: Code Review (#23), CI (merge to #9 Build), Improvement (merge to Enhancement)
-- Final count: 29 distinct types numbered 01-29
+**Consolidation Decision (35 → 29 types):**
+- Eliminated types: Code Review, UI, Dependency, QA, Investigation (merged to Research)
+- CI merged into Build (#09)
+- All eliminated types are documented in Phase 4; this phase creates only the 29 retained types
+- Final state: 29 templates numbered 01-29
 
 ### 3. Create Missing Templates (10 types)
 

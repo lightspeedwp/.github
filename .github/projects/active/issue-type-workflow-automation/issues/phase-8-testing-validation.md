@@ -51,9 +51,9 @@ After implementing template fixes, label standardization, and agent integration 
 | 4 | Design | type:design, area:design, status:ready | v1.1 | ⏳ |
 | 5 | Epic | type:epic, priority:high, status:planning | v1.1 | ⏳ |
 | 6 | Story | type:story, priority:*, status:needs-triage | v1.1 | ⏳ |
-| 7 | Enhancement | type:enhancement, priority:normal, status:ready | v1.1 | ⏳ |
-| 8 | Refactor | type:refactor, area:*, status:ready | v1.1 | ⏳ |
-| 9 | Build | type:build, area:ci, status:ready | v1.1 | ⏳ |
+| 7 | Improvement | type:improve, priority:normal, status:ready | v1.1 | ⏳ |
+| 8 | Code Refactor | type:refactor, area:*, status:ready | v1.1 | ⏳ |
+| 9 | Build (merged CI) | type:build, area:ci, status:ready | v1.1 | ⏳ |
 | 10 | Automation | type:automation, area:automation, status:ready | v1.1 | ⏳ |
 | 11 | Test | type:test, area:testing, status:ready | v1.1 | ⏳ |
 | 12 | Performance | type:performance, area:*, priority:high | v1.1 | ⏳ |
@@ -67,15 +67,15 @@ After implementing template fixes, label standardization, and agent integration 
 | 20 | Research | type:research, area:*, status:ready | v1.1 | ⏳ |
 | 21 | Chore | type:chore, priority:low, status:ready | v1.1 | ⏳ |
 | 22 | Audit | type:audit, area:*, status:ready | v1.1 | ⏳ |
-| 23 | Code Review | type:review, area:*, status:needs-review | v1.1 | ⏳ |
-| 24 | AI Ops | type:ai-ops, area:ai-ops, status:ready | v1.1 | ⏳ |
-| 25 | Content Modelling | type:content-modelling, area:*, status:ready | v1.1 | ⏳ |
-| 26 | Question | type:question, status:needs-triage | v1.1 | ⏳ |
-| 27 | UX Feedback | type:ux-feedback, area:ux, status:needs-triage | v1.1 | ⏳ |
-| 28 | Help | type:help, status:needs-triage | v1.1 | ⏳ |
-| 29 | Support | type:support, status:needs-triage | v1.1 | ⏳ |
+| 23 | AI Ops | type:ai-ops, area:ai-ops, status:ready | v1.1 | ⏳ |
+| 24 | Content Modelling | type:content-modelling, area:*, status:ready | v1.1 | ⏳ |
+| 25 | Question | type:question, status:needs-triage | v1.1 | ⏳ |
+| 26 | UX Feedback | type:ux-feedback, area:ux, status:needs-triage | v1.1 | ⏳ |
+| 27 | Help | type:help, status:needs-triage | v1.1 | ⏳ |
+| 28 | Support | type:support, status:needs-triage | v1.1 | ⏳ |
+| 29 | Enhancement | type:enhancement, priority:normal, status:ready | v1.1 | ⏳ |
 
-**Note:** Consolidated from 35→29 types. Removed: CI (merged to Build), Dependency, Investigation, QA, UI
+**Note:** Consolidated from 35→29 types. Eliminated: Code Review, UI, Dependency, Investigation, QA. CI merged into Build (#9).
 
 **Validation steps:**
 1. Create test issue using each template

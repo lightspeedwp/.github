@@ -300,8 +300,9 @@ status: active
 **Template Status:**
 - Total Files: 44 → Target 29
 - Duplicates: 19 pairs → Delete 19
-- Missing: 10 → Create 10
-- Net Change: 44 - 19 + 10 = 35 files needed, consolidated to 29 with dedup
+- After deduplication: 25 unique files
+- New templates needed: 4 (to complete the 29-type set)
+- Final state: 29 templates (01-29), one per consolidated type
 
 **Label Status:**
 - Total Labels: 158 (canonical set)
