@@ -1,7 +1,7 @@
 ---
 name: "📝 Content Modelling"
 about: "Template for Content Modelling issues"
-title: "type:design: {scope}"
+title: "design: {scope}"
 labels: ["type:design", "status:needs-triage", "priority:normal", "area:content", "meta:schema-design"]
 recommended_branch: "design/"
 file_type: issue-template

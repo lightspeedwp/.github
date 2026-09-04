@@ -1,7 +1,7 @@
 ---
 name: "📝 Task"
 about: "Template for Task issues"
-title: "type:task: {scope}"
+title: "task: {scope}"
 labels: ["type:task", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
 recommended_branch: "task/"
 file_type: issue-template

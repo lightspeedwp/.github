@@ -1,7 +1,7 @@
 ---
 name: "🔄 Compatibility"
 about: "Template for Compatibility issues"
-title: "type:compatibility: {scope}"
+title: "compat: {scope}"
 labels: ["type:compatibility", "status:needs-triage", "priority:normal", "area:compatibility", "meta:verification"]
 recommended_branch: "compat/"
 file_type: issue-template

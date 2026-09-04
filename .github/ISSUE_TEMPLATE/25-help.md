@@ -1,7 +1,7 @@
 ---
 name: "❓ Help"
 about: "Template for Help issues"
-title: "type:question: {scope}"
+title: "question: {scope}"
 labels: ["type:question", "status:needs-triage", "priority:normal", "area:support", "meta:user-support"]
 recommended_branch: "support/"
 file_type: issue-template

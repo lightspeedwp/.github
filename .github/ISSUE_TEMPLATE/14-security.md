@@ -1,7 +1,7 @@
 ---
 name: "🔒 Security"
 about: "Template for Security issues"
-title: "type:security: {scope}"
+title: "security: {scope}"
 labels: ["type:security", "status:needs-triage", "priority:critical", "area:security", "meta:security-issue"]
 recommended_branch: "security/"
 file_type: issue-template

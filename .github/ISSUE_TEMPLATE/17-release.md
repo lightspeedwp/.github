@@ -1,7 +1,7 @@
 ---
 name: "🚀 Release"
 about: "Template for Release issues"
-title: "type:release: {scope}"
+title: "release: {scope}"
 labels: ["type:release", "status:planning", "priority:high", "area:ops", "meta:release-prep"]
 recommended_branch: "release/"
 file_type: issue-template

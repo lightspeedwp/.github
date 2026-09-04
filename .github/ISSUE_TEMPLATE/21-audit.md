@@ -1,7 +1,7 @@
 ---
 name: "🔍 Audit"
 about: "Template for Audit issues"
-title: "type:audit: {scope}"
+title: "audit: {scope}"
 labels: ["type:audit", "status:needs-triage", "priority:normal", "area:audit", "meta:audit-finding"]
 recommended_branch: "audit/"
 file_type: issue-template

@@ -1,7 +1,7 @@
 ---
 name: "👀 Code Review"
 about: "Template for Code Review issues"
-title: "type:refactor: {scope}"
+title: "refactor: {scope}"
 labels: ["type:refactor", "status:needs-triage", "priority:normal", "area:code", "meta:code-quality"]
 recommended_branch: "refactor/"
 file_type: issue-template
