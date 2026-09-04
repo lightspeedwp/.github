@@ -68,10 +68,23 @@ All prompts placed in root `prompts/` folder per repository boundaries (portable
 
 ### GitHub Issues (Created ✅)
 
-All 9 GitHub issues created for tracking and adoption:
+All 9 GitHub issues created for tracking and adoption. Each issue documents a delivered prompt with step-by-step workflows, examples, and use cases.
 
-- [#2803](https://github.com/lightspeedwp/.github/issues/2803)–[#2811](https://github.com/lightspeedwp/.github/issues/2811)
-- All issues link to main PR #2802
+#### Issue Status & Prompt Mapping
+
+| # | Prompt | Title | Status | Labels |
+|---|--------|-------|--------|--------|
+| [#2803](https://github.com/lightspeedwp/.github/issues/2803) | [01-update-active-projects-from-chat.md](../../prompts/01-update-active-projects-from-chat.md) | Update Active Projects From Chat Work | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2804](https://github.com/lightspeedwp/.github/issues/2804) | [02-pr-finalization-workflow.md](../../prompts/02-pr-finalization-workflow.md) | PR Finalisation Steps and Requirements | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2805](https://github.com/lightspeedwp/.github/issues/2805) | [03-context-continuation-prompt.md](../../prompts/03-context-continuation-prompt.md) | Context Continuation Prompt Generator | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2806](https://github.com/lightspeedwp/.github/issues/2806) | [04-dependabot-pr-merge-workflow.md](../../prompts/04-dependabot-pr-merge-workflow.md) | Dependabot PR Merge Workflow | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2807](https://github.com/lightspeedwp/.github/issues/2807) | [05-recommend-next-focus-task.md](../../prompts/05-recommend-next-focus-task.md) | Recommend Next Focus Task | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2808](https://github.com/lightspeedwp/.github/issues/2808) | [06-milestone-allocation-strategy.md](../../prompts/06-milestone-allocation-strategy.md) | Evaluate Open Issues and Milestone Allocation | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2809](https://github.com/lightspeedwp/.github/issues/2809) | [07-branch-worktree-cleanup.md](../../prompts/07-branch-worktree-cleanup.md) | Branch and Worktree Cleanup | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2810](https://github.com/lightspeedwp/.github/issues/2810) | [08-create-update-readme-with-diagrams.md](../../prompts/08-create-update-readme-with-diagrams.md) | Create or Update README Files with Mermaid Diagrams | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+| [#2811](https://github.com/lightspeedwp/.github/issues/2811) | [09-move-files-to-root-folders.md](../../prompts/09-move-files-to-root-folders.md) | Move Files From .github/ to Root Folders | ✅ Delivered | `type:ai-ops`, `area:automation`, `area:docs` |
+
+**Summary:** All 9 prompts delivered and linked to tracking issues. Each issue references the prompt file location and describes the workflow/automation provided.
 
 ---
 
