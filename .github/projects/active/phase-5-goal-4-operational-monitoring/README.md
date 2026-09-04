@@ -246,20 +246,38 @@ Following repository conventions:
 - **Examples:** Include both simple and complex cases
 - **Accessibility:** Clear headings, semantic structure
 
+## Supplementary: CI Infrastructure Hardening
+
+During Phase 5 Goal 4 implementation, pre-existing CI/CD infrastructure issues were identified (unrelated to this goal's work). These infrastructure-level issues are being tracked separately:
+
+- **Issue:** [#2760](https://github.com/lightspeedwp/.github/issues/2760) — CI Infrastructure Remediation: Jest, ESLint, and Validation Configuration
+- **Status:** 🔄 In Progress
+- **Scope:** Configuration fixes only (not feature work)
+- **Documentation:** [CI_HARDENING.md](./CI_HARDENING.md)
+
+### Infrastructure Issues
+
+1. **Jest Configuration** — ESM/CommonJS module conflict resolution
+2. **ESLint Configuration** — Node.js undefined globals (URL, fetch)
+3. **TypeScript Configuration** — Type declaration resolution
+4. **Frontmatter Validation** — Schema standardisation
+
+**This supplementary task is independent of Phase 5 Goal 4 and should not delay its deployment.**
+
+---
+
 ## Next Steps
 
-1. Implement validation report generator with multi-format export
-2. Build debug mode for enhanced troubleshooting
-3. Create health check script with comprehensive checks
-4. Develop monitoring dashboard with real-time display
-5. Integrate all tools with npm scripts
-6. Create comprehensive test suite
-7. Create PR for review and merge
+1. ✅ Phase 5 Goal 4 complete and merged ([PR #2692](https://github.com/lightspeedwp/.github/pull/2692))
+2. 🔄 CI Infrastructure Hardening ([Issue #2760](https://github.com/lightspeedwp/.github/issues/2760))
+3. ⏳ Optional Enhancements (see [TASKS.md](./TASKS.md))
 
 ## Related GitHub Issues
 
-### Project Tracking
+### Project Tracking & Supplementary Work
 - **#2698** — [Phase 5 Goal 4: Operational Monitoring & Debugging — Complete](https://github.com/lightspeedwp/.github/issues/2698) — Main completion issue with full documentation links
+- **#2760** — [CI Infrastructure Remediation: Jest, ESLint, and Validation Configuration](https://github.com/lightspeedwp/.github/issues/2760) — Supplementary infrastructure hardening task
+- **#2692** — [PR: Phase 5 Goal 4 Implementation](https://github.com/lightspeedwp/.github/pull/2692) — Merged main deliverables
 
 ### Enhancement Tasks (Open)
 | Issue | Task | Priority | Effort |
