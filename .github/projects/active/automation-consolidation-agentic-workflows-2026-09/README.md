@@ -32,9 +32,27 @@ related_branches:
 
 ## Related Issues
 
+### Master Epic & Phase 2 Planning
+
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1240](../../../issues/1240) | epic | Master epic: Project Management Agent & Automation Consolidation Initiative | 🟢 Open |
+| [#2779](../../../issues/2779) | epic | Master epic: Project Management Agent & Automation Consolidation Initiative | 🟢 Open |
+| [#2780](../../../issues/2780) | task | [PHASE 2] Task 1: Script Consolidation Analysis | 🟢 Open |
+| [#2781](../../../issues/2781) | task | [PHASE 2] Task 2: Documentation Consolidation Plan | 🟢 Open |
+| [#2782](../../../issues/2782) | task | [PHASE 2] Task 3: Agent Consolidation Strategy | 🟢 Open |
+| [#2783](../../../issues/2783) | task | [PHASE 2] Task 4: Early Test Execution & Validation | 🟢 Open |
+| [#2784](../../../issues/2784) | task | [PHASE 2] Enhancement 5: Cross-File Dependency Graph | 🟢 Open |
+| [#2785](../../../issues/2785) | task | [PHASE 2] Enhancement 6: Duplicate Code Inventory | 🟢 Open |
+| [#2786](../../../issues/2786) | task | [PHASE 2] Enhancement 7: Agent Capability Matrix | 🟢 Open |
+| [#2787](../../../issues/2787) | task | [PHASE 2] Enhancement 8: Event Coverage Analysis | 🟢 Open |
+| [#2788](../../../issues/2788) | task | [PHASE 2] Enhancement 9: Performance Benchmarks | 🟢 Open |
+| [#2789](../../../issues/2789) | task | [PHASE 2] Enhancement 10: Error Handling Playbooks | 🟢 Open |
+| [#2790](../../../issues/2790) | task | [PHASE 2] Enhancement 11: Monitoring & Observability | 🟢 Open |
+
+### Phase 3 Test Cases
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
 | [#2569](../../../issues/2569) | task | Phase 3: Test issue 1 (bulk update validation) | ⏰ Planned |
 | [#2571](../../../issues/2571) | task | Phase 3: Test issue 2 (bulk update validation) | ⏰ Planned |
 | [#2572](../../../issues/2572) | task | Phase 3: Test issue 3 (bulk update validation) | ⏰ Planned |
@@ -359,9 +377,15 @@ This audit consolidates findings from the above projects into a unified framewor
 
 ---
 
-## All Created Issues (32 Total)
+## All Created Issues (54 Total)
 
-### Phase 1: Audit & Planning (10 issues)
+### Epic Master Issue (1 issue)
+
+| # | Issue | Title | Status |
+|---|-------|-------|--------|
+| epic | [#2779](https://github.com/lightspeedwp/.github/issues/2779) | Epic: Project Management Agent & Automation Consolidation Initiative | 🟢 Open |
+
+### Phase 1: Audit & Planning (10 issues, 88 hours)
 
 | # | Issue | Title | Effort |
 |---|-------|-------|--------|
@@ -376,9 +400,30 @@ This audit consolidates findings from the above projects into a unified framewor
 | audit-009 | [#2723](https://github.com/lightspeedwp/.github/issues/2723) | Create bulk update test plan | 6h |
 | audit-010 | [#2724](https://github.com/lightspeedwp/.github/issues/2724) | Document consolidation roadmap | 8h |
 
-**Phase 1 Total: 88 hours**
+### Phase 2: Planning & Design — Critical Gaps (4 issues, 28–43 hours)
 
-### Phase 2: Implementation (10 issues)
+| # | Issue | Title | Effort | Status |
+|---|-------|-------|--------|--------|
+| gap-1 | [#2780](https://github.com/lightspeedwp/.github/issues/2780) | Script Consolidation Analysis | 10–15h | 🟢 Open |
+| gap-2 | [#2781](https://github.com/lightspeedwp/.github/issues/2781) | Documentation Consolidation Plan | 8–12h | 🟢 Open |
+| gap-3 | [#2782](https://github.com/lightspeedwp/.github/issues/2782) | Agent Consolidation Strategy | 6–10h | 🟢 Open |
+| gap-4 | [#2783](https://github.com/lightspeedwp/.github/issues/2783) | Early Test Execution & Validation | 4–6h | 🟢 Open |
+
+### Phase 2: Planning & Design — Important Enhancements (7 issues, 31–49 hours)
+
+| # | Issue | Title | Effort | Status |
+|---|-------|-------|--------|--------|
+| enh-5 | [#2784](https://github.com/lightspeedwp/.github/issues/2784) | Cross-File Dependency Graph | 4–6h | 🟢 Open |
+| enh-6 | [#2785](https://github.com/lightspeedwp/.github/issues/2785) | Duplicate Code Inventory & Refactoring Options | 6–10h | 🟢 Open |
+| enh-7 | [#2786](https://github.com/lightspeedwp/.github/issues/2786) | Agent Capability Matrix | 3–5h | 🟢 Open |
+| enh-8 | [#2787](https://github.com/lightspeedwp/.github/issues/2787) | Workflow Trigger & Event Coverage Analysis | 4–6h | 🟢 Open |
+| enh-9 | [#2788](https://github.com/lightspeedwp/.github/issues/2788) | Performance & Scalability Benchmarks | 5–8h | 🟢 Open |
+| enh-10 | [#2789](https://github.com/lightspeedwp/.github/issues/2789) | Error Handling & Recovery Playbooks | 4–6h | 🟢 Open |
+| enh-11 | [#2790](https://github.com/lightspeedwp/.github/issues/2790) | Monitoring & Observability Design | 5–8h | 🟢 Open |
+
+**Phase 2 Planning Total: 59–92 hours**
+
+### Phase 2: Implementation (10 issues, 140 hours)
 
 | # | Issue | Title | Effort |
 |---|-------|-------|--------|

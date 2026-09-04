@@ -19,12 +19,12 @@ version: "1.0.0"
 
 | Issue | Title | Status | Type | Linked PRs | Priority |
 |-------|-------|--------|------|-----------|----------|
-| #2569 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2571 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2572 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2558 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2559 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2564 | [TBD] | ✅ Closed | ? | ? | HIGH |
+| #2569 | ENH-001: Design metrics dashboard for milestone distribution | 🟢 Open | enhancement | 1 | HIGH |
+| #2571 | ENH-002: Design Slack notification system | 🟢 Open | enhancement | 1 | HIGH |
+| #2572 | ENH-003: Plan manual trigger system via issue labels/commands | 🟢 Open | enhancement | 0 | HIGH |
+| #2558 | MON-001: Set up GitHub Actions workflow alerts | 🟢 Open | enhancement | 1 | HIGH |
+| #2559 | MON-002: Monitor GitHub API rate limits and quota | 🟢 Open | enhancement | 2 | HIGH |
+| #2564 | DOC-004: Create edge case handling documentation | 🟢 Open | task | 0 | HIGH |
 
 **Epic:** #1240 (all 6 issues should link as children)
 
@@ -77,12 +77,12 @@ Before running agents, verify test setup:
    - [ ] Linked issues
 3. [ ] Document any anomalies (e.g., missing labels, wrong template)
 
-**Expected Issues:**
-- Description outdated (per user brief)
-- Labels may be incomplete or incorrect
-- Milestone may be unset
-- Assignees may be missing
-- May not be linked to epic #1240
+**Current State (Reopened Issues):**
+- Issues have been reopened for Phase 3 testing
+- Labels may need correction (currently have status:needs-more-info, missing status:done)
+- Milestone is set to v1.1
+- Assignees are set to ashleyshaw
+- May not be linked to epic #1240 as children
 
 ### Agent Execution
 
@@ -292,16 +292,16 @@ Before write mode is enabled, replace every `TBD` in this fixture ledger. Labels
 
 | Fixture | Expected labels (exact set) | Expected milestone | Expected reviewers (exact set) | Expected blocked? |
 |---------|-----------------------------|--------------------|--------------------------------|-------------------|
-| #2569 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2571 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2572 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2558 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2559 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
-| #2564 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+| #2569 | `type:task`, `area:automation`, `priority:medium`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2571 | `type:task`, `area:automation`, `priority:medium`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2572 | `type:task`, `area:automation`, `priority:low`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2558 | `type:task`, `area:automation`, `priority:high`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2559 | `type:task`, `area:automation`, `priority:high`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
+| #2564 | `type:task`, `area:automation`, `priority:medium`, `status:done` | v1.1 | ashleyshaw | no — all DOD criteria met, issue closed |
 
 **Adjudication rule:** Compare observed and expected values after execution. Labels and reviewers pass only on exact set equality; milestone and blocked decision pass only on exact equality. A fixture is accurate only when all four fields pass. Any unexpected mutation, including a write when `blocked: yes`, is a false positive. Report field accuracy as passed fields / 24, fixture accuracy as fully passing fixtures / 6, and false-positive rate as fixtures with any unexpected mutation / 6.
 
-- [ ] All 24 expected fields were recorded before writes were enabled
+- [x] All 24 expected fields were recorded before writes were enabled
 - % of labels correct on first try: [exact-set passes / 6]
 - % of milestone allocations correct: [exact matches / 6]
 - % of reviewer assignments correct: [exact-set passes / 6]
