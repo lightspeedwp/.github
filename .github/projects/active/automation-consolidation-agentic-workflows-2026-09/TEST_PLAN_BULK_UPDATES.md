@@ -19,12 +19,12 @@ version: "1.0.0"
 
 | Issue | Title | Status | Type | Linked PRs | Priority |
 |-------|-------|--------|------|-----------|----------|
-| #2569 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2571 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2572 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2558 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2559 | [TBD] | ✅ Closed | ? | ? | HIGH |
-| #2564 | [TBD] | ✅ Closed | ? | ? | HIGH |
+| #2569 | ENH-001: Design metrics dashboard for milestone distribution | 🟢 Open | enhancement | 1 | HIGH |
+| #2571 | ENH-002: Design Slack notification system | 🟢 Open | enhancement | 1 | HIGH |
+| #2572 | ENH-003: Plan manual trigger system via issue labels/commands | 🟢 Open | enhancement | 0 | HIGH |
+| #2558 | MON-001: Set up GitHub Actions workflow alerts | 🟢 Open | enhancement | 1 | HIGH |
+| #2559 | MON-002: Monitor GitHub API rate limits and quota | 🟢 Open | enhancement | 2 | HIGH |
+| #2564 | DOC-004: Create edge case handling documentation | 🟢 Open | task | 0 | HIGH |
 
 **Epic:** #1240 (all 6 issues should link as children)
 
@@ -77,12 +77,12 @@ Before running agents, verify test setup:
    - [ ] Linked issues
 3. [ ] Document any anomalies (e.g., missing labels, wrong template)
 
-**Expected Issues:**
-- Description outdated (per user brief)
-- Labels may be incomplete or incorrect
-- Milestone may be unset
-- Assignees may be missing
-- May not be linked to epic #1240
+**Current State (Reopened Issues):**
+- Issues have been reopened for Phase 3 testing
+- Labels may need correction (currently have status:needs-more-info, missing status:done)
+- Milestone is set to v1.1
+- Assignees are set to ashleyshaw
+- May not be linked to epic #1240 as children
 
 ### Agent Execution
 
