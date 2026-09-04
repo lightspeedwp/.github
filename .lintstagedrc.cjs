@@ -16,6 +16,7 @@ const EXCLUDED_PATTERNS = [
   /\/directory-installed\//,
   /\/tests\/markdown-issues\.md$/,
   /\/agentskills-main\//,
+  /scripts\/dashboard\//,
 ];
 
 function isExcluded(filename) {

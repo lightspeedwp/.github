@@ -1,6 +1,5 @@
 ---
 name: "🧩 Compatibility"
-description: "🧩 Compatibility"
 about: "Track browser/device/WordPress/plugin compatibility issues."
 assignees: []
 projects: []

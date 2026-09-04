@@ -1,6 +1,5 @@
 ---
 name: "📖 Content Modelling"
-description: "📖 Content Modelling"
 about: "Propose, update, or discuss content structure, CPTs, or taxonomy."
 assignees: []
 projects: []

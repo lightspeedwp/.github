@@ -508,7 +508,7 @@ If issues occur:
 
 ## Summary
 
-Delete `issue-create-from-template.yml` — superseded by `issue-create-enhanced.yml` (PR #1377)
+Delete `issue-create-enhanced.yml` — superseded by `issue-create-enhanced.yml` (PR #1377)
 
 **Part of:** Epic #1227 (GitHub Workflows Consolidation Initiative)  
 **Effort:** 0.5 hours  
@@ -516,7 +516,7 @@ Delete `issue-create-from-template.yml` — superseded by `issue-create-enhanced
 
 ## Problem
 
-`issue-create-enhanced.yml` (created in PR #1377) is the direct replacement for `issue-create-from-template.yml`:
+`issue-create-enhanced.yml` (created in PR #1377) is the direct replacement for `issue-create-enhanced.yml`:
 - Same input parameters (`template_key`, etc.)
 - Enhanced logic and metadata handling
 - All old features preserved + new features added
@@ -535,15 +535,15 @@ Delete the old workflow — consolidated functionality in enhanced version
 
 ## Definition of Done (DoD)
 
-- [ ] Search for all references to `issue-create-from-template.yml`
+- [ ] Search for all references to `issue-create-enhanced.yml`
   - [ ] Check GitHub Actions history
   - [ ] Check AI agents and prompts
   - [ ] Check documentation
   - [ ] Check scripts and workflow references
 - [ ] Update any documentation pointing to old workflow
-- [ ] Delete `issue-create-from-template.yml`
+- [ ] Delete `issue-create-enhanced.yml`
 - [ ] Verify no broken workflow references
-- [ ] Code committed with message: `chore(ci): delete issue-create-from-template.yml (superseded by issue-create-enhanced.yml, #1377)`
+- [ ] Code committed with message: `chore(ci): delete issue-create-enhanced.yml (superseded by issue-create-enhanced.yml, #1377)`
 - [ ] PR created and reviewed
 - [ ] Merged to develop
 
@@ -557,7 +557,7 @@ Delete the old workflow — consolidated functionality in enhanced version
 ## Rollback Plan
 
 If issues occur:
-1. Git restore `issue-create-from-template.yml`
+1. Git restore `issue-create-enhanced.yml`
 2. Commit restore
 3. Investigate what was using old workflow
 
