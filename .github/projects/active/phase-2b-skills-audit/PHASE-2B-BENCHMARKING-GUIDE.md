@@ -321,7 +321,7 @@ Expected optimization goals (pending real measurements):
 
 These targets are derived from Phase 2A analysis and are implemented in the following areas:
 
-1. **Native Fetch API** - Replaced https.request with 2-3x faster fetch
+1. **Native Fetch API** - Replaced https.request with native fetch (performance pending real-world validation)
 2. **Response Caching** - 5-minute TTL cache reduces repeated calls
 3. **Retry Logic** - Exponential backoff handles transient failures
 4. **Rate Limiting** - Automatic detection prevents 429 errors

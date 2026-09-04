@@ -28,8 +28,31 @@ describe("Phase 2B Performance Validation", () => {
   let benchmarkResults;
 
   beforeAll(async () => {
+    // Capture tracked results file state before test
+    const trackedResultsPath = path.join(
+      REPO_ROOT,
+      "scripts/automation/__tests__/performance/results-phase-2b.json",
+    );
+    const beforeStats = fs.existsSync(trackedResultsPath)
+      ? fs.statSync(trackedResultsPath)
+      : null;
+
     // Run benchmarks without persisting to tracked file
     benchmarkResults = await runBenchmarks();
+
+    // Verify that tracked file was not modified during benchmark execution
+    const afterStats = fs.existsSync(trackedResultsPath)
+      ? fs.statSync(trackedResultsPath)
+      : null;
+    expect({
+      existedBefore: beforeStats !== null,
+      existsAfter: afterStats !== null,
+      sameModificationTime: beforeStats?.mtime === afterStats?.mtime,
+    }).toEqual({
+      existedBefore: beforeStats !== null,
+      existsAfter: afterStats !== null,
+      sameModificationTime: true,
+    });
   });
 
   describe("Execution Time Improvements", () => {

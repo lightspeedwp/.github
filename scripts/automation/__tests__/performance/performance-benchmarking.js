@@ -210,6 +210,12 @@ export function createMockBenchmark(scriptName) {
  * Generate a comprehensive performance report
  */
 export function generateReport(results) {
+  if (results.length === 0) {
+    throw new Error(
+      "No benchmark results to report. Verify baseline metrics and script selection.",
+    );
+  }
+
   const reportLines = [];
 
   reportLines.push("");
@@ -337,6 +343,12 @@ export function generateReport(results) {
  * Save results to JSON for analysis
  */
 export function saveResults(results, outputPath) {
+  if (results.length === 0) {
+    throw new Error(
+      "No benchmark results to save. Verify baseline metrics and script selection.",
+    );
+  }
+
   const output = {
     metadata: {
       timestamp: new Date().toISOString(),

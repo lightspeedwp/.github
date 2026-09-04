@@ -156,5 +156,5 @@ Expected additional improvement: 10-15%
 
 - [Benchmarking Guide](./PHASE-2B-BENCHMARKING-GUIDE.md)
 - [Phase 2B Validation Results](./PHASE-2B-VALIDATION-RESULTS.md)
-- [Performance Benchmarking Suite](../scripts/automation/__tests__/performance/performance-benchmarking.js)
-- [Validation Test Suite](../scripts/automation/__tests__/performance/phase-2b-validation.test.js)
+- [Performance Benchmarking Suite](../../../../scripts/automation/__tests__/performance/performance-benchmarking.js)
+- [Validation Test Suite](../../../../scripts/automation/__tests__/performance/phase-2b-validation.test.js)
