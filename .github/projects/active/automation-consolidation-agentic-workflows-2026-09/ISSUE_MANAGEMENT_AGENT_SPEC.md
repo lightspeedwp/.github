@@ -85,18 +85,21 @@ The agent activates on these GitHub events:
   3. Update status labels (remove `status:done`, add `status:in-progress`)
   4. Notify area owner of reopen
 
-### 6. Issue Closed
+### 6. Issue Closed (Post-Closure Verification)
 - **Event:** `issues.closed`
-- **Validation (blocked close if fails):**
+- **Post-Closure Validation (cannot block, but flags issues):**
   1. Verify DOD checklist is complete
   2. Verify no blocking issues remain open
   3. Verify all linked PRs are merged
   4. Verify no `status:blocked` label
-- **Actions (if validation passes):**
+- **Actions:**
   1. Add `status:done` label
   2. Remove `status:in-progress` label
   3. Archive project fields (if applicable)
-  4. Send completion notification
+  4. Comment with validation results:
+     - ✅ Pass: "Issue closed successfully. All DOD criteria met."
+     - ⚠️ Warning: "Issue closed, but detected potential issues: [list]"
+  5. Send completion notification
 
 ---
 
@@ -281,26 +284,34 @@ Every label must have a family prefix:
 
 ```javascript
 function allocateMilestone(issue) {
-  // 1. Check linked PRs
+  // 1. Check linked PRs (highest precedence)
   const prMilestones = getLinkedPRMilestones(issue);
   if (prMilestones.length > 0) {
-    return getEarliest(prMilestones);
+    return getEarliest(prMilestones);  // Use earliest PR milestone
   }
 
-  // 2. Check issue type
+  // 2. Check issue type (determines base milestone)
   const type = extractIssueType(issue.labels);
-  const baseDate = getCurrentMilestone();
+  let baseMilestone;
+  
+  if (['type:bugfix', 'type:hotfix'].includes(type)) {
+    baseMilestone = getCurrentMilestone();  // Current sprint
+  } else if (['type:feature', 'type:epic'].includes(type)) {
+    baseMilestone = getNextMilestone();  // Next planning cycle
+  } else {
+    baseMilestone = getBacklogMilestone();  // General backlog
+  }
 
-  // 3. Check priority
+  // 3. Check priority (offset within type base)
   const priority = extractPriority(issue.labels);
   const offset = {
-    'priority:critical': 0,
-    'priority:high': 0,
-    'priority:normal': 1,
-    'priority:low': 2,
+    'priority:critical': 0,   // Stay at base
+    'priority:high': 0,       // Stay at base
+    'priority:normal': 1,     // Add 1 milestone
+    'priority:low': 2,        // Add 2 milestones (or backlog)
   }[priority] || 1;
 
-  return getMilestoneByOffset(baseDate, offset);
+  return getMilestoneByOffset(baseMilestone, offset);
 }
 ```
 

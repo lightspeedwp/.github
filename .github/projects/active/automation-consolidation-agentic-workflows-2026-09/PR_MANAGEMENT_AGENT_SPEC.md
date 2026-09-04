@@ -39,7 +39,7 @@ The agent activates on these GitHub events:
 - **Actions:**
   1. Validate PR template usage
   2. Extract referenced issues (#NNN)
-  3. Validate PR has linked issue (block if orphaned)
+  3. Check for linked issues (validation comment if none found — cannot block creation)
   4. Inherit labels from linked issues
   5. Apply PR-specific labels
   6. Allocate milestone from linked issue
@@ -75,7 +75,7 @@ The agent activates on these GitHub events:
   4. Update project field to "In Review"
 
 ### 5. Review Submitted
-- **Event:** `pull_request.review_submitted`
+- **Event:** `pull_request_review` with `types: [submitted]`
 - **Trigger Conditions:**
   - Review with changes-requested
   - Review with approve
@@ -92,9 +92,24 @@ The agent activates on these GitHub events:
      - Check if all required reviewers approved
      - Update project field to "Ready to Merge"
 
-### 6. PR Ready for Merge (All Checks Pass)
-- **Event:** `pull_request` + workflow_run `completed`
+### 6. Workflow Run Completed
+- **Event:** `workflow_run` with `types: [completed]`
+- **Correlation:**
+  - Query PRs associated with the workflow run's `head_sha` using GitHub API
+  - Only proceed if PR found; orphaned workflow runs (no associated PR) are skipped
 - **Trigger Conditions:**
+  - Workflow is on the PR's branch
+  - Outcome is `success`, `failure`, or `skipped`
+- **Actions:**
+  1. Correlate to associated PR
+  2. Fetch PR status (checks, approvals, conflicts)
+  3. Classify workflow result (success/failure/infrastructure issue)
+  4. Update PR labels based on workflow outcome
+  5. Update project field status
+
+### 7. PR Ready for Merge (All Checks Pass + Workflow Completes)
+- **Preconditions:**
+  - Workflow run completed (from trigger 6)
   - All status checks pass (green)
   - All required approvals obtained
   - No merge conflicts
@@ -334,31 +349,44 @@ area_reviewers:
 
 ---
 
-## Merge Conflict Auto-Resolution
+## Merge Conflict Resolution Workflow
 
 **Triggers:**
 - PR becomes un-mergeable after base branch update
 - OR PR author pushes new commits that create conflicts
 
+**IMPORTANT:** Auto-merge API cannot resolve conflicts. This workflow must execute BEFORE enabling auto-merge.
+
 **Strategy:**
 
-1. **Detect conflict** — Check if PR is mergeable
+1. **Detect conflict** — Check if PR is mergeable (`mergeable_state = "conflicting"`)
 2. **Fetch conflict files** — Get list of files with conflicts
 3. **Categorize conflicts:**
-   - **Trivial** (comments, spacing) → Safe to auto-merge
-   - **Structural** (logic, functions) → Unsafe, need manual resolution
-4. **Attempt resolution:**
-   - For trivial: auto-merge
-   - For structural: add comment with instructions
-5. **Notify PR author** with results
+   - **Trivial** (comments, spacing, YAML list items) → Safe for local resolution
+   - **Structural** (logic changes, function signatures) → Require PR author action
+4. **Local resolution (trivial only):**
+   - Pull base branch locally
+   - Merge base into PR branch using `git merge`
+   - Resolve conflicts (keep both changes or pick one, depending on file type)
+   - Regenerate lockfiles if applicable
+   - Push resolved merge commit
+5. **Manual resolution (structural):**
+   - Add `status:merge-conflict` label
+   - Comment with conflict details and resolution instructions
+   - Wait for PR author to resolve
+6. **After resolution:**
+   - Remove `status:merge-conflict` label
+   - Then enable auto-merge if all other conditions met
 
 **Example:**
 ```
 Conflict detected in .github/labels.yml
 Type: Trivial (both sides added new labels)
-→ Auto-merge successful
-→ Remove status:merge-conflict label
-→ Comment: "Conflicts auto-resolved. Files merged."
+→ Pull base branch locally
+→ Run: git merge origin/develop
+→ Resolve: Keep both label sets
+→ Push: git push origin branch-name
+→ Comment: "Conflicts resolved locally. CI re-running. Auto-merge will engage once checks pass."
 ```
 
 ---

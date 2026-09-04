@@ -100,12 +100,16 @@ Before running agents, verify test setup:
 **PR Management Agent (For Each Linked PR):**
 1. [ ] Identify all PRs linked to #2569
 2. [ ] For each PR, run agent:
+   - [ ] Check PR state (must be: draft, open, mergeable_state != 'blocked')
+   - [ ] If state is closed/merged: skip to validation, do not request changes
    - [ ] Validate PR template
    - [ ] Validate issue linking
    - [ ] Check/correct labels
    - [ ] Allocate milestone
-   - [ ] Request reviewers
-   - [ ] Check merge conflicts
+   - [ ] **If mergeable_state == "dirty" (has conflicts): resolve via git merge, regenerate lockfiles, push merge commit. Only then request reviewers.**
+   - [ ] Request reviewers (only if mergeable and draft/open)
+   - [ ] Enable auto-merge (only if mergeable, no conflicts, and CI green)
+   - [ ] Check merge conflicts (detect locally; do not assume auto-merge can resolve)
    - [ ] Validate CI status
    - [ ] Capture audit log
 
@@ -228,9 +232,11 @@ After all 6 issues are processed:
 
 ### Milestone Consistency
 
-- [ ] All issues with linked PRs have matching milestones
-- [ ] No issues have future milestones if closed (status:done)
-- [ ] Milestone progression makes sense
+- [ ] **POLICY:** Milestones are allocated based on issue type (bugfix/hotfix = current sprint; feature/epic = next planning cycle; general = backlog). Closed issues may retroactively receive milestone allocation if none was set.
+- [ ] All issues with linked PRs have matching milestones (or agent explanation if not possible)
+- [ ] Closed issues have retroactive milestone assignment (if open status didn't have one)
+- [ ] No issues are assigned future milestones that are >2 cycles ahead (unless epic)
+- [ ] Milestone progression makes sense relative to closure date
 
 ### PR Coverage
 
@@ -245,19 +251,38 @@ After all 6 issues are processed:
 
 ### Execution Metrics
 
-**For Each Issue:**
-- Time agent took to process
-- Number of API calls made
-- Number of labels applied/corrected
-- Number of PRs processed
-- Number of conflicts detected/resolved
+**For Each Issue (Pre-Declared Expected Outcomes):**
+- **Expected time per issue:** 30-90 seconds (discovery + API calls)
+- **Expected API calls per issue:** 8-12 (fetch issue, fetch PRs, update labels, fetch milestone options, allocate milestone, sync fields, validate DOD, create comment)
+- **Expected labels applied per issue:** 3-5 (type, priority, area, status)
+- **Expected PRs processed per issue:** 1-3 (average closed issue has 1-2 linked PRs)
+- **Expected conflicts detected:** 0-2 per issue (anticipate 30-50% of PRs have merge conflicts)
 
-**Aggregated:**
+**For Each Issue (Actual Metrics - Recorded During Execution):**
+- Time agent took to process: [actual]
+- Number of API calls made: [actual]
+- Number of labels applied/corrected: [actual]
+- Number of PRs processed: [actual]
+- Number of conflicts detected/resolved: [actual]
+
+**Aggregated Expectations (Before Testing):**
+- Total issues processed: 6 (fixed)
+- Total PRs processed: ~9 (expect 1.5 PRs/issue avg)
+- Total labels applied: ~24 (expect 4 labels/issue avg)
+- Total conflicts resolved: ~3-4 (expect 1 per 2-3 PRs)
+- Average time per issue: ~60 seconds (target)
+
+**Aggregated Actual (After Testing):**
 - Total issues processed: 6
-- Total PRs processed: ? (TBD after discovery)
-- Total labels applied: ? (TBD)
-- Total conflicts resolved: ? (TBD)
-- Average time per issue: ? (TBD)
+- Total PRs processed: [actual count]
+- Total labels applied: [actual count]
+- Total conflicts resolved: [actual count]
+- Average time per issue: [actual seconds]
+
+**Success Measurement:**
+- ✅ Pass if actual within ±50% of expected (30-150 sec/issue acceptable; 9-13 PRs acceptable)
+- ⚠️ Warn if 50-100% deviation (flag for investigation)
+- ❌ Fail if >100% deviation (indicates performance or logic issue)
 
 ### Quality Metrics
 
@@ -410,15 +435,41 @@ If agents cause issues during testing:
 
 ---
 
+## Approved Test Issue Allowlist
+
+**BEFORE EXECUTION: Engineering lead and product manager must approve this exact list.**
+
+```javascript
+// Approved issues for live agent testing
+const APPROVED_TEST_ISSUES = [
+  2569,  // [TBD - confirm title from GitHub]
+  2571,  // [TBD - confirm title from GitHub]
+  2572,  // [TBD - confirm title from GitHub]
+  2558,  // [TBD - confirm title from GitHub]
+  2559,  // [TBD - confirm title from GitHub]
+  2564,  // [TBD - confirm title from GitHub]
+];
+
+// Epic to link all 6 issues to
+const APPROVED_EPIC = 1240;
+
+// Safety check in agent execution:
+if (!APPROVED_TEST_ISSUES.includes(issueNumber)) {
+  throw new Error(`Issue #${issueNumber} is not in approved test allowlist. Aborting.`);
+}
+```
+
+---
+
 ## Test Execution Timeline
 
 ### Week 1: Test Preparation
 
-- [ ] Day 1: Verify test setup (all 6 issues accessible)
-- [ ] Day 2: Document pre-test state (take baseline)
-- [ ] Day 3: Dry-run agents on 1 test issue
-- [ ] Day 4: Review dry-run results, adjust if needed
-- [ ] Day 5: Final prep, get approval to proceed
+- [ ] Day 1: Verify test setup (all 6 issues accessible; match APPROVED_TEST_ISSUES list above)
+- [ ] Day 2: **APPROVAL GATE:** Engineering lead and product manager sign off on the 6 approved issue IDs
+- [ ] Day 3: Document pre-test state (take baseline on all 6 issues + linked PRs)
+- [ ] Day 4: Dry-run agents on 1 test issue (#2569) with safety checks enabled
+- [ ] Day 5: Review dry-run results, compare against expected outcomes, adjust if needed. Get final approval to proceed to Week 2.
 
 ### Week 2: Agent Execution
 
