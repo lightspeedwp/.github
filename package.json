@@ -98,7 +98,6 @@
     "validate:workflow-npm-scripts": "node scripts/validation/validate-workflow-npm-scripts.cjs",
     "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
     "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter.js",
-    "validate:workflow-npm-scripts": "node scripts/validation/validate-workflow-npm-scripts.cjs",
     "validate:workflows": "node scripts/validation/validate-workflows.js",
     "validate:changelog": "node scripts/validation/validate-changelog-safety.js",
     "validate:mermaid-syntax": "node scripts/validation/validate-mermaid-syntax.js",
