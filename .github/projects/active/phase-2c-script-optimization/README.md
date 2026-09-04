@@ -124,8 +124,11 @@ All 8 validation tests passing:
 
 | Issue | Title | Status |
 |-------|-------|--------|
+| [#2090](https://github.com/lightspeedwp/.github/issues/2090) | Phase 2C: Script Optimization Complete | ✅ Complete |
 | [#2615](https://github.com/lightspeedwp/.github/issues/2615) | Phase 2C Script Optimization — Completion Report | ✅ Complete |
 | [#2560](https://github.com/lightspeedwp/.github/issues/2560) | MON-003: Create workflow execution dashboard | ✅ Complete |
+
+**Note:** For clarification of how this Phase 2C initiative relates to other parallel Phase 2C work (Reviewer Agent v2 Testing, Release Agent Development), see [PHASE_2C_DEPENDENCY_MAP.md](./PHASE_2C_DEPENDENCY_MAP.md).
 
 ### Phase 3 (Planned - 34-49 business days)
 
