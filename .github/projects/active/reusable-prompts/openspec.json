@@ -1,0 +1,105 @@
+{
+  "project": {
+    "title": "Reusable Prompts Library",
+    "slug": "reusable-prompts",
+    "version": "1.0.0",
+    "status": "active",
+    "epic_issue": 2777,
+    "start_date": "2026-09-03",
+    "target_completion": "2026-09-11",
+    "phases": [
+      {
+        "number": 1,
+        "title": "Reusable Prompts Structure & Migration",
+        "duration": "1 session",
+        "start": "2026-09-03",
+        "end": "2026-09-04",
+        "status": "complete",
+        "effort_hours": 5,
+        "deliverables": 4
+      },
+      {
+        "number": 2,
+        "title": "OpenSpec & Issue Creation",
+        "duration": "1 week",
+        "start": "2026-09-04",
+        "end": "2026-09-11",
+        "status": "active",
+        "effort_hours": 8,
+        "deliverables": 5
+      },
+      {
+        "number": 3,
+        "title": "Implementation & Rollout",
+        "duration": "4-6 weeks",
+        "start": "2026-09-12",
+        "end": "2026-10-31",
+        "status": "planned",
+        "effort_hours": 40,
+        "deliverables": 10
+      }
+    ]
+  },
+  "requirements": [
+    {
+      "category": "phase2",
+      "items": [
+        {
+          "id": "phase2-001",
+          "title": "Prompt Enhancements & Refinements",
+          "description": "Add specialized prompts for code review, linting, and security analysis. Create targeted prompts for common review tasks (security, performance, accessibility). Add templates for ESLint, Prettier, and PHPCS integration.",
+          "phase": 2,
+          "effort_hours": 2,
+          "priority": "high",
+          "milestone": "v1.3",
+          "labels": ["type:enhancement", "area:prompts"],
+          "body": "## Objective\n\nAdd 5-7 specialized prompts for enhanced code review capabilities.\n\n## Requirements\n\n### 1. Security Code Review Prompt\n- Specialized for OWASP vulnerability analysis\n- Includes security checklist\n- Detects common security patterns\n- Effort: 30 min\n\n### 2. Performance Review Prompt\n- Analyzes code for performance issues\n- Suggests optimization strategies\n- Benchmarking recommendations\n- Effort: 30 min\n\n### 3. ESLint Auto-Fixer\n- Generates ESLint configuration\n- Creates custom rule prompts\n- Auto-fix templates\n- Effort: 20 min\n\n### 4. Accessibility Audit Prompt\n- WCAG 2.2 AA compliance checker\n- Semantic HTML verification\n- ARIA attribute guidance\n- Effort: 20 min\n\n### 5. PHP Linting Prompt\n- PHPCS integration\n- WordPress Coding Standards\n- Common PHP issues detection\n- Effort: 20 min\n\n## Definition of Done\n\n- [ ] 5-7 new prompts created\n- [ ] All prompts in `prompts/` folder with `.prompt.md` naming\n- [ ] Updated `prompts/PROMPTS-V1-INDEX.md` with new prompts\n- [ ] Each prompt includes usage examples\n- [ ] Markdown linting passes\n- [ ] YAML frontmatter valid\n- [ ] Prompt descriptions include effort estimates\n\n## Acceptance Criteria\n\n- Prompts are production-ready\n- Clear documentation and examples\n- Integration with existing prompt library\n- All governance standards met"
+        },
+        {
+          "id": "phase2-002",
+          "title": "Prompt Automation Workflows",
+          "description": "Create trigger-based prompt execution patterns. Build GitHub Actions workflows for running prompts on PR/issue events. Add CI/CD pipeline integration and scheduled execution templates.",
+          "phase": 2,
+          "effort_hours": 3,
+          "priority": "high",
+          "milestone": "v1.3",
+          "labels": ["type:enhancement", "area:prompts"],
+          "body": "## Objective\n\nEnable automated prompt execution through GitHub Actions and CI/CD pipelines.\n\n## Requirements\n\n### 1. GitHub Actions Workflow Templates\n- Trigger prompts on PR events\n- Trigger prompts on issue creation/update\n- Result validation and comment posting\n- Effort: 1 hour\n\n### 2. CI/CD Pipeline Integration\n- Pre-commit hook templates\n- GitHub Actions reusable workflows\n- Build pipeline prompt integration\n- Effort: 1 hour\n\n### 3. Scheduled Execution\n- Cron-based prompt runners\n- Daily/weekly analysis workflows\n- Report generation templates\n- Effort: 30 min\n\n### 4. Prompt Chaining\n- Sequential prompt execution\n- Result passing between prompts\n- Conditional execution logic\n- Effort: 30 min\n\n## Definition of Done\n\n- [ ] 3-5 workflow templates created\n- [ ] GitHub Actions examples in `workflows/` folder\n- [ ] Pre-commit hook examples in `hooks/` folder\n- [ ] Documentation with usage examples\n- [ ] Tested with sample prompts\n- [ ] Error handling and notifications\n- [ ] All governance standards met\n\n## Acceptance Criteria\n\n- Workflows execute correctly\n- Results properly formatted and posted\n- Conditional logic working as specified\n- Documentation clear and comprehensive"
+        },
+        {
+          "id": "phase2-003",
+          "title": "Prompt Versioning & Compatibility",
+          "description": "Implement version control and backwards compatibility framework. Define version numbering scheme. Create compatibility matrix and deprecation procedures.",
+          "phase": 2,
+          "effort_hours": 2,
+          "priority": "medium",
+          "milestone": "v1.3",
+          "labels": ["type:enhancement", "area:prompts"],
+          "body": "## Objective\n\nImplement versioning scheme and backwards compatibility management for prompts.\n\n## Requirements\n\n### 1. Version Numbering Scheme\n- Define semantic versioning (semver) for prompts\n- Version tracking in YAML frontmatter\n- Migration guides for breaking changes\n- Effort: 30 min\n\n### 2. Compatibility Matrix\n- Map prompt versions to feature support\n- Document breaking changes\n- Define deprecation timeline\n- Effort: 30 min\n\n### 3. Change Management\n- CHANGELOG for prompts library\n- Deprecation notice templates\n- Rollback procedures\n- Effort: 30 min\n\n### 4. Backwards Compatibility Policy\n- Support lifecycle documentation\n- Major/minor/patch strategy\n- Update procedures for users\n- Effort: 30 min\n\n## Definition of Done\n\n- [ ] Version scheme documented in README\n- [ ] All prompts include version in frontmatter\n- [ ] CHANGELOG created and updated\n- [ ] Compatibility matrix created\n- [ ] Migration guides for major versions\n- [ ] Policy documentation complete\n- [ ] All governance standards met\n\n## Acceptance Criteria\n\n- Versioning scheme clear and easy to follow\n- Compatibility matrix accurate and complete\n- Deprecation procedures well-documented\n- Users can easily identify breaking changes"
+        },
+        {
+          "id": "phase2-004",
+          "title": "Usage Analytics & Tracking",
+          "description": "Implement telemetry and analytics framework. Track prompt usage and effectiveness. Build analytics dashboard for metrics visualization.",
+          "phase": 2,
+          "effort_hours": 3,
+          "priority": "medium",
+          "milestone": "v1.3",
+          "labels": ["type:enhancement", "area:prompts"],
+          "body": "## Objective\n\nImplement usage tracking and analytics framework for the prompts library.\n\n## Requirements\n\n### 1. Telemetry Infrastructure\n- Usage event schema definition\n- Data collection pipeline\n- Storage and aggregation\n- Effort: 1 hour\n\n### 2. Analytics Dashboard\n- Prompt usage statistics\n- Trend analysis and visualization\n- Popularity rankings\n- Effort: 1 hour\n\n### 3. Feedback & Rating System\n- User rating mechanism\n- Feedback collection form\n- Quality metrics calculation\n- Effort: 30 min\n\n### 4. Reporting Framework\n- Weekly usage reports\n- Adoption metrics\n- Feedback summary reports\n- Effort: 30 min\n\n## Definition of Done\n\n- [ ] Event schema documented\n- [ ] Data collection implemented\n- [ ] Dashboard created and functional\n- [ ] Rating system integrated\n- [ ] Reports generate automatically\n- [ ] Privacy and compliance verified\n- [ ] All governance standards met\n\n## Acceptance Criteria\n\n- Accurate usage tracking\n- Clear and actionable dashboard\n- Feedback mechanism working\n- Reports providing useful insights"
+        },
+        {
+          "id": "phase2-005",
+          "title": "Prompt Discovery & Search",
+          "description": "Build search and discovery interface for 113 prompts. Implement full-text search with faceted filtering. Create prompt recommendation engine.",
+          "phase": 2,
+          "effort_hours": 3,
+          "priority": "medium",
+          "milestone": "v1.3",
+          "labels": ["type:enhancement", "area:prompts"],
+          "body": "## Objective\n\nCreate comprehensive search and discovery interface for the prompts library.\n\n## Requirements\n\n### 1. Search Infrastructure\n- Full-text search indexing\n- Faceted search capability (category, tag, language)\n- Fuzzy matching for typo tolerance\n- Effort: 1 hour\n\n### 2. Discovery Interface\n- Web-based search UI\n- Advanced filtering options\n- Prompt previews and quick access\n- Effort: 1 hour\n\n### 3. Recommendation Engine\n- Content-based recommendations\n- Usage-based suggestions\n- Role-specific recommendations\n- Effort: 30 min\n\n### 4. Integration Points\n- Copilot Chat integration\n- CLI search tool\n- GitHub integration\n- Effort: 30 min\n\n## Definition of Done\n\n- [ ] Search index created and working\n- [ ] Discovery interface functional and tested\n- [ ] Recommendations engine producing relevant results\n- [ ] Integration with 2+ tools complete\n- [ ] Documentation with usage examples\n- [ ] Performance meets requirements (<100ms searches)\n- [ ] All governance standards met\n\n## Acceptance Criteria\n\n- Fast and accurate search results\n- Intuitive discovery interface\n- Relevant recommendations\n- Seamless integrations"
+        }
+      ]
+    }
+  ]
+}

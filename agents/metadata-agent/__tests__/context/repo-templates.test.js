@@ -323,4 +323,173 @@ describe("all templates share common properties", () => {
       });
     });
   }
+
+  // ---------------------------------------------------------------------------
+  // Additional edge cases and comprehensive coverage
+  // ---------------------------------------------------------------------------
+
+  describe("edge cases and context handling", () => {
+    it("handles missing optional context fields", () => {
+      const minimalCtx = {
+        repoName: "minimal-repo",
+      };
+      const result = blockPluginTemplate(minimalCtx);
+      expect(result).toContain("minimal-repo");
+    });
+
+    it("handles empty context values gracefully", () => {
+      const emptyCtx = {
+        repoName: "",
+        owner: "",
+        date: "",
+        period: "",
+      };
+      const result = blockPluginTemplate(emptyCtx);
+      expect(result).toContain("---");
+    });
+
+    it("renders all template types without errors", () => {
+      const templates = [
+        blockPluginTemplate,
+        blockThemeTemplate,
+        controlPlaneTemplate,
+        platformTemplate,
+        unknownTemplate,
+      ];
+
+      for (const tmpl of templates) {
+        expect(() => tmpl(SAMPLE_CTX)).not.toThrow();
+      }
+    });
+
+    it("produces valid YAML frontmatter structure", () => {
+      const report = blockPluginTemplate(SAMPLE_CTX);
+      const lines = report.split("\n");
+
+      expect(lines[0]).toBe("---");
+      let endDelimiterFound = false;
+
+      for (let i = 1; i < lines.length; i++) {
+        if (lines[i] === "---") {
+          endDelimiterFound = true;
+          break;
+        }
+      }
+
+      expect(endDelimiterFound).toBe(true);
+    });
+
+    it("includes repository link in all templates", () => {
+      const templates = [
+        blockPluginTemplate,
+        blockThemeTemplate,
+        controlPlaneTemplate,
+        platformTemplate,
+        unknownTemplate,
+      ];
+
+      for (const tmpl of templates) {
+        const report = tmpl(SAMPLE_CTX);
+        expect(report).toContain("lightspeedwp/test-repo");
+      }
+    });
+
+    it("includes all frontmatter required fields", () => {
+      const report = blockPluginTemplate(SAMPLE_CTX);
+      expect(report).toContain("file_type:");
+      expect(report).toContain("created_date:");
+      expect(report).toContain("repository:");
+      expect(report).toContain("authors:");
+    });
+
+    it("handles special characters in repository name", () => {
+      const ctx = {
+        ...SAMPLE_CTX,
+        repoName: "repo-with-dashes_and_underscores",
+      };
+      const report = blockPluginTemplate(ctx);
+      expect(report).toContain("repo-with-dashes_and_underscores");
+    });
+
+    it("preserves markdown structure in all templates", () => {
+      const templates = [
+        blockPluginTemplate,
+        blockThemeTemplate,
+        controlPlaneTemplate,
+        platformTemplate,
+        unknownTemplate,
+      ];
+
+      for (const tmpl of templates) {
+        const report = tmpl(SAMPLE_CTX);
+        // Should have at least one h2 header
+        expect(report).toMatch(/^##\s/m);
+      }
+    });
+
+    it("blockPluginTemplate specific sections", () => {
+      const report = blockPluginTemplate(SAMPLE_CTX);
+      expect(report).toContain("## Plugin Health");
+      expect(report).toContain("## Block Inventory");
+      expect(report).toContain("## Test Coverage");
+      expect(report).toContain("## Security & Compliance");
+    });
+
+    it("blockThemeTemplate specific sections", () => {
+      const report = blockThemeTemplate(SAMPLE_CTX);
+      expect(report).toContain("## Theme Health");
+      expect(report).toContain("## Template & Pattern Inventory");
+      expect(report).toContain("## Design System");
+      expect(report).toContain("## Accessibility Checks");
+      expect(report).toContain("## Performance");
+    });
+
+    it("controlPlaneTemplate specific sections", () => {
+      const report = controlPlaneTemplate(SAMPLE_CTX);
+      expect(report).toContain("## Agent & Automation Health");
+      expect(report).toContain("## Workflow Activity");
+      expect(report).toContain("## Issue & PR Metrics");
+    });
+
+    it("platformTemplate specific sections", () => {
+      const report = platformTemplate(SAMPLE_CTX);
+      expect(report).toContain("## Infrastructure Health");
+      expect(report).toContain("## Deployment Activity");
+      expect(report).toContain("## Security");
+    });
+
+    it("unknownTemplate has generic sections", () => {
+      const report = unknownTemplate(SAMPLE_CTX);
+      expect(report).toContain("## Development Activity");
+      expect(report).toContain("## Next Steps");
+    });
+
+    it("templates include period in title when provided", () => {
+      const ctxWithPeriod = { ...SAMPLE_CTX, period: "2026-Q2" };
+      const report = blockPluginTemplate(ctxWithPeriod);
+      expect(report).toContain("2026-Q2");
+    });
+
+    it("templates fall back to date when period not provided", () => {
+      const ctxNoperiod = { ...SAMPLE_CTX };
+      delete ctxNoperiod.period;
+      const report = blockPluginTemplate(ctxNoperiod);
+      expect(report).toContain(SAMPLE_CTX.date);
+    });
+
+    it("renderTemplate returns consistent output for same input", () => {
+      const result1 = renderTemplate("block-plugin", SAMPLE_CTX);
+      const result2 = renderTemplate("block-plugin", SAMPLE_CTX);
+      expect(result1).toBe(result2);
+    });
+
+    it("TEMPLATES registry includes all expected templates", () => {
+      const templateNames = Object.keys(TEMPLATES);
+      expect(templateNames).toContain("block-plugin");
+      expect(templateNames).toContain("block-theme");
+      expect(templateNames).toContain("control-plane");
+      expect(templateNames).toContain("platform");
+      expect(templateNames).toContain("unknown");
+    });
+  });
 });
