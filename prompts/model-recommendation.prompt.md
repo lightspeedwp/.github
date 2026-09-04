@@ -1,4 +1,47 @@
 ---
+file_type: "prompt"
+title: "Model Recommendation"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/model-recommendation.prompt.md"
+version: "1.0.0"
+last_updated: "2026-06-01"
+owners: ["LightSpeed Team"]
+tags: ["prompts", "migration", "organisation-wide"]
+status: "active"
+stability: "stable"
+domain: "generic"
+migration_source: ".github/prompts/model-recommendation.prompt.md"
+---
+
+# Model Recommendation
+
+## Context
+
+Define the repository context, objective, and constraints relevant to this task.
+
+## Task
+
+Describe exactly what needs to be produced and where outputs should be stored.
+
+## Constraints
+
+- Use UK English.
+- Keep outputs practical, reproducible, and maintainable.
+- Prefer minimal, modular solutions.
+- Include validation steps for quality, performance, and accessibility where applicable.
+
+## Acceptance Criteria
+
+- Deliverable is complete and aligned to LightSpeed standards.
+- Any generated code/documentation includes clear rationale.
+- Validation checks are listed and, where possible, executed.
+
+## References
+
+- Source prompt: `.github/prompts` migration origin
+## Legacy Source (For Transition)
+
+```markdown
+---
 description: "Analyze chatmode or prompt files and recommend optimal AI models based on task complexity, required capabilities, and cost-efficiency"
 mode: "agent"
 tools:
@@ -668,3 +711,4 @@ Library: /websites/github_en_copilot
 **Last Updated**: 2025-10-28
 **Model Data Current As Of**: October 2025
 **Deprecation Deadline**: 2025-10-23 for o3, o4-mini, Claude Sonnet 3.7 variants, Gemini 2.0 Flash
+```

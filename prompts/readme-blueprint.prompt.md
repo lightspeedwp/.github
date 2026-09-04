@@ -1,7 +1,7 @@
 ---
 file_type: "prompt"
-title: "Create Llms"
-description: "Refactored organisation-wide prompt migrated from .github/prompts/create-llms.prompt.md"
+title: "Readme Blueprint"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/readme-blueprint-generator.prompt.md"
 version: "1.0.0"
 last_updated: "2026-06-01"
 owners: ["LightSpeed Team"]
@@ -9,10 +9,10 @@ tags: ["prompts", "migration", "organisation-wide"]
 status: "active"
 stability: "stable"
 domain: "generic"
-migration_source: ".github/prompts/create-llms.prompt.md"
+migration_source: ".github/prompts/readme-blueprint-generator.prompt.md"
 ---
 
-# Create Llms
+# Readme Blueprint
 
 ## Context
 
@@ -42,26 +42,8 @@ Describe exactly what needs to be produced and where outputs should be stored.
 
 ```markdown
 ---
+description: "Intelligent README.md generation prompt that analyzes project documentation structure and creates comprehensive repository documentation. Scans .github/copilot directory files and copilot-instructions.md to extract project information, technology stack, architecture, development workflow, coding standards, and testing approaches while generating well-structured markdown documentation with proper formatting, cross-references, and developer-focused content."
+
 mode: "agent"
-description: "Create an llms.txt file from scratch based on repository structure following the llms.txt specification at https://llmstxt.org/"
-tools:
-  [
-    "changes",
-    "search/codebase",
-    "edit/editFiles",
-    "extensions",
-    "fetch",
-    "githubRepo",
-    "openSimpleBrowser",
-    "problems",
-    "runTasks",
-    "search",
-    "search/searchResults",
-    "runCommands/terminalLastCommand",
-    "runCommands/terminalSelection",
-    "testFailure",
-    "usages",
-    "vscodeAPI",
-  ]
 ---
 ```

@@ -1,7 +1,7 @@
 ---
 file_type: "prompt"
-title: "Create Llms"
-description: "Refactored organisation-wide prompt migrated from .github/prompts/create-llms.prompt.md"
+title: "Git Branch Creator"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/git-flow-branch-creator.prompt.md"
 version: "1.0.0"
 last_updated: "2026-06-01"
 owners: ["LightSpeed Team"]
@@ -9,10 +9,10 @@ tags: ["prompts", "migration", "organisation-wide"]
 status: "active"
 stability: "stable"
 domain: "generic"
-migration_source: ".github/prompts/create-llms.prompt.md"
+migration_source: ".github/prompts/git-flow-branch-creator.prompt.md"
 ---
 
-# Create Llms
+# Git Branch Creator
 
 ## Context
 
@@ -42,26 +42,8 @@ Describe exactly what needs to be produced and where outputs should be stored.
 
 ```markdown
 ---
+description: "Intelligent Git Flow branch creator that analyzes git status/diff and creates appropriate branches following the nvie Git Flow branching model."
+tools: ["runCommands/runInTerminal", "runCommands/getTerminalOutput"]
 mode: "agent"
-description: "Create an llms.txt file from scratch based on repository structure following the llms.txt specification at https://llmstxt.org/"
-tools:
-  [
-    "changes",
-    "search/codebase",
-    "edit/editFiles",
-    "extensions",
-    "fetch",
-    "githubRepo",
-    "openSimpleBrowser",
-    "problems",
-    "runTasks",
-    "search",
-    "search/searchResults",
-    "runCommands/terminalLastCommand",
-    "runCommands/terminalSelection",
-    "testFailure",
-    "usages",
-    "vscodeAPI",
-  ]
 ---
 ```

@@ -1,21 +1,48 @@
 ---
-mode: "agent"
-description: "Create a README.md file for the project"
+file_type: "prompt"
+title: "Create Readme"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/create-readme.prompt.md"
+version: "1.0.0"
+last_updated: "2026-06-01"
+owners: ["LightSpeed Team"]
+tags: ["prompts", "migration", "organisation-wide"]
+status: "active"
+stability: "stable"
+domain: "generic"
+migration_source: ".github/prompts/create-readme.prompt.md"
 ---
 
-## Role
+# Create Readme
 
-You're a senior expert software engineer with extensive experience in open source projects. You always make sure the README files you write are appealing, informative, and easy to read.
+## Context
+
+Define the repository context, objective, and constraints relevant to this task.
 
 ## Task
 
-1. Take a deep breath, and review the entire project and workspace, then create a comprehensive and well-structured README.md file for the project.
-2. Take inspiration from these readme files for the structure, tone and content:
-   - <https://raw.githubusercontent.com/Azure-Samples/serverless-chat-langchainjs/refs/heads/main/README.md>
-   - <https://raw.githubusercontent.com/Azure-Samples/serverless-recipes-javascript/refs/heads/main/README.md>
-   - <https://raw.githubusercontent.com/sinedied/run-on-output/refs/heads/main/README.md>
-   - <https://raw.githubusercontent.com/sinedied/smoke/refs/heads/main/README.md>
-3. Do not overuse emojis, and keep the readme concise and to the point.
-4. Do not include sections like "LICENSE", "CONTRIBUTING", "CHANGELOG", etc. There are dedicated files for those sections.
-5. Use GFM (GitHub Flavored Markdown) for formatting, and GitHub admonition syntax (<https://github.com/orgs/community/discussions/16925>) where appropriate.
-6. If you find a logo or icon for the project, use it in the readme's header.
+Describe exactly what needs to be produced and where outputs should be stored.
+
+## Constraints
+
+- Use UK English.
+- Keep outputs practical, reproducible, and maintainable.
+- Prefer minimal, modular solutions.
+- Include validation steps for quality, performance, and accessibility where applicable.
+
+## Acceptance Criteria
+
+- Deliverable is complete and aligned to LightSpeed standards.
+- Any generated code/documentation includes clear rationale.
+- Validation checks are listed and, where possible, executed.
+
+## References
+
+- Source prompt: `.github/prompts` migration origin
+## Legacy Source (For Transition)
+
+```markdown
+---
+mode: "agent"
+description: "Create a README.md file for the project"
+---
+```

@@ -1,7 +1,7 @@
 ---
 file_type: "prompt"
-title: "Create Llms"
-description: "Refactored organisation-wide prompt migrated from .github/prompts/create-llms.prompt.md"
+title: "Project Workflow Analysis Blueprint"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/project-workflow-analysis-blueprint-generator.prompt.md"
 version: "1.0.0"
 last_updated: "2026-06-01"
 owners: ["LightSpeed Team"]
@@ -9,10 +9,10 @@ tags: ["prompts", "migration", "organisation-wide"]
 status: "active"
 stability: "stable"
 domain: "generic"
-migration_source: ".github/prompts/create-llms.prompt.md"
+migration_source: ".github/prompts/project-workflow-analysis-blueprint-generator.prompt.md"
 ---
 
-# Create Llms
+# Project Workflow Analysis Blueprint
 
 ## Context
 
@@ -42,26 +42,8 @@ Describe exactly what needs to be produced and where outputs should be stored.
 
 ```markdown
 ---
+description: "Comprehensive technology-agnostic prompt generator for documenting end-to-end application workflows. Automatically detects project architecture patterns, technology stacks, and data flow patterns to generate detailed implementation blueprints covering entry points, service layers, data access, error handling, and testing approaches across multiple technologies including .NET, Java/Spring, React, and microservices architectures."
+
 mode: "agent"
-description: "Create an llms.txt file from scratch based on repository structure following the llms.txt specification at https://llmstxt.org/"
-tools:
-  [
-    "changes",
-    "search/codebase",
-    "edit/editFiles",
-    "extensions",
-    "fetch",
-    "githubRepo",
-    "openSimpleBrowser",
-    "problems",
-    "runTasks",
-    "search",
-    "search/searchResults",
-    "runCommands/terminalLastCommand",
-    "runCommands/terminalSelection",
-    "testFailure",
-    "usages",
-    "vscodeAPI",
-  ]
 ---
 ```

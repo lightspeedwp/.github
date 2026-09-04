@@ -1,7 +1,7 @@
 ---
 file_type: "prompt"
-title: "Create Llms"
-description: "Refactored organisation-wide prompt migrated from .github/prompts/create-llms.prompt.md"
+title: "Plan Breakdown"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/breakdown-plan.prompt.md"
 version: "1.0.0"
 last_updated: "2026-06-01"
 owners: ["LightSpeed Team"]
@@ -9,10 +9,10 @@ tags: ["prompts", "migration", "organisation-wide"]
 status: "active"
 stability: "stable"
 domain: "generic"
-migration_source: ".github/prompts/create-llms.prompt.md"
+migration_source: ".github/prompts/breakdown-plan.prompt.md"
 ---
 
-# Create Llms
+# Plan Breakdown
 
 ## Context
 
@@ -43,25 +43,6 @@ Describe exactly what needs to be produced and where outputs should be stored.
 ```markdown
 ---
 mode: "agent"
-description: "Create an llms.txt file from scratch based on repository structure following the llms.txt specification at https://llmstxt.org/"
-tools:
-  [
-    "changes",
-    "search/codebase",
-    "edit/editFiles",
-    "extensions",
-    "fetch",
-    "githubRepo",
-    "openSimpleBrowser",
-    "problems",
-    "runTasks",
-    "search",
-    "search/searchResults",
-    "runCommands/terminalLastCommand",
-    "runCommands/terminalSelection",
-    "testFailure",
-    "usages",
-    "vscodeAPI",
-  ]
+description: "Issue Planning and Automation prompt that generates comprehensive project plans with Epic > Feature > Story/Enabler > Test hierarchy, dependencies, priorities, and automated tracking."
 ---
 ```

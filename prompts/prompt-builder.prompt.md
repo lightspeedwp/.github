@@ -1,4 +1,47 @@
 ---
+file_type: "prompt"
+title: "Prompt Builder"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/prompt-builder.prompt.md"
+version: "1.0.0"
+last_updated: "2026-06-01"
+owners: ["LightSpeed Team"]
+tags: ["prompts", "migration", "organisation-wide"]
+status: "active"
+stability: "stable"
+domain: "generic"
+migration_source: ".github/prompts/prompt-builder.prompt.md"
+---
+
+# Prompt Builder
+
+## Context
+
+Define the repository context, objective, and constraints relevant to this task.
+
+## Task
+
+Describe exactly what needs to be produced and where outputs should be stored.
+
+## Constraints
+
+- Use UK English.
+- Keep outputs practical, reproducible, and maintainable.
+- Prefer minimal, modular solutions.
+- Include validation steps for quality, performance, and accessibility where applicable.
+
+## Acceptance Criteria
+
+- Deliverable is complete and aligned to LightSpeed standards.
+- Any generated code/documentation includes clear rationale.
+- Validation checks are listed and, where possible, executed.
+
+## References
+
+- Source prompt: `.github/prompts` migration origin
+## Legacy Source (For Transition)
+
+```markdown
+---
 mode: "agent"
 tools: ["search/codebase", "edit/editFiles", "search"]
 description: "Guide users through creating high-quality GitHub Copilot prompts with proper structure, tools, and best practices."
@@ -116,45 +159,4 @@ mode: "[agent|ask|edit based on task type]"
 tools: ["[appropriate tools based on functionality]"]
 model: "[only if specific model required]"
 ---
-
-# [Prompt Title]
-
-[Persona definition - specific role and expertise]
-
-## [Task Section]
-
-[Clear task description with specific requirements]
-
-## [Instructions Section]
-
-[Step-by-step instructions following established patterns]
-
-## [Context/Input Section]
-
-[Variable usage and context requirements]
-
-## [Output Section]
-
-[Expected output format and structure]
-
-## [Quality/Validation Section]
-
-[Success criteria and validation steps]
 ```
-
-The generated prompt will follow patterns observed in high-quality prompts like:
-
-- **Comprehensive blueprints** (architecture-blueprint-generator)
-- **Structured specifications** (create-github-action-workflow-specification)
-- **Best practice guides** (dotnet-best-practices, csharp-xunit)
-- **Implementation plans** (create-implementation-plan)
-- **Code generation** (generate test patterns)
-
-Each prompt will be optimized for:
-
-- **AI Consumption**: Token-efficient, structured content
-- **Maintainability**: Clear sections, consistent formatting
-- **Extensibility**: Easy to modify and enhance
-- **Reliability**: Comprehensive instructions and error handling
-
-Please start by telling me the name and description for the new prompt you want to build.

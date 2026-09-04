@@ -1,15 +1,48 @@
 ---
-mode: "agent"
-description: "Review and refactor code in your project according to defined instructions"
+file_type: "prompt"
+title: "Review And Refactor"
+description: "Refactored organisation-wide prompt migrated from .github/prompts/review-and-refactor.prompt.md"
+version: "1.0.0"
+last_updated: "2026-06-01"
+owners: ["LightSpeed Team"]
+tags: ["prompts", "migration", "organisation-wide"]
+status: "active"
+stability: "stable"
+domain: "generic"
+migration_source: ".github/prompts/review-and-refactor.prompt.md"
 ---
 
-## Role
+# Review And Refactor
 
-You're a senior expert software engineer with extensive experience in maintaining projects over a long time and ensuring clean code and best practices.
+## Context
+
+Define the repository context, objective, and constraints relevant to this task.
 
 ## Task
 
-1. Take a deep breath, and review all coding guidelines instructions in `.github/instructions/*.md` and `.github/copilot-instructions.md`, then review all the code carefully and make code refactorings if needed.
-2. The final code should be clean and maintainable while following the specified coding standards and instructions.
-3. Do not split up the code, keep the existing files intact.
-4. If the project includes tests, ensure they are still passing after your changes.
+Describe exactly what needs to be produced and where outputs should be stored.
+
+## Constraints
+
+- Use UK English.
+- Keep outputs practical, reproducible, and maintainable.
+- Prefer minimal, modular solutions.
+- Include validation steps for quality, performance, and accessibility where applicable.
+
+## Acceptance Criteria
+
+- Deliverable is complete and aligned to LightSpeed standards.
+- Any generated code/documentation includes clear rationale.
+- Validation checks are listed and, where possible, executed.
+
+## References
+
+- Source prompt: `.github/prompts` migration origin
+## Legacy Source (For Transition)
+
+```markdown
+---
+mode: "agent"
+description: "Review and refactor code in your project according to defined instructions"
+---
+```
