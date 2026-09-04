@@ -1,10 +1,12 @@
 ---
 title: Milestone Automation — OpenSpec
-description: Technical specifications and architecture documentation
+description: Technical specifications, Phase 2 completion evidence, and Phase 3 roadmap
 type: spec
 file_type: documentation
-status: draft
-version: "1.1.0"
+status: active
+version: "1.2.0"
+created_date: "2026-08-29"
+last_updated: "2026-09-04"
 owner: lightspeedwp/maintainers
 owners:
   - lightspeedwp/maintainers
@@ -12,8 +14,9 @@ tags:
   - automation
   - specification
   - technical
-  - phase-2
-  - coderabbit-review
+  - phase-2-complete
+  - phase-3-roadmap
+  - infrastructure-requirements
 ---
 
 # Milestone Automation — Technical Specification
@@ -585,41 +588,45 @@ node scripts/automation/reassign-v1-to-v1-1.js --from v1.1 --to v1
 
 ### 10.1 CodeRabbit Review Findings (28 Total)
 
-**✅ Completed (24/28 — 86%):**
+**✅ Phase 2 Follow-Up Complete (13/28 — 46% as of 2026-09-04):**
 
-**Core Findings (10/10):**
-- ENH-003: Security vulnerabilities fixed
-- ENH-002: Slack error handling fixed
-- ENH-001: Metrics persistence fixed
-- MON-002: Rate limit response parsing fixed
-- DOC-004: Transaction documentation clarified
-- MON-001: Job failure status corrected
-- STATUS.md: Evidence alignment updated
-- ENH-001: Calculation errors corrected
-- ENH-002: Block Kit formatting fixed
-- README/STATUS: Alignment synchronized
+**Critical Fixes — RESOLVED (4/4):**
+- ✅ ENH-003: Security vulnerabilities (PR #2640, merged 2026-09-04)
+- ✅ ENH-002: Slack error handling (PR #2640, merged 2026-09-04)
+- ✅ ENH-001: Metrics persistence (PR #2640, merged 2026-09-04)
+- ✅ MON-002: Rate limit response handling (PR #2640, merged 2026-09-04)
 
-**CI Investigation Checks (14/14):**
-- Check 11: README structure validation ✅
-- Check 12: Mermaid diagram accessibility ✅
-- Check 13: Label standardization audit ✅
-- Check 14: Project-issue linking validation ✅
-- Check 15: Documentation auto-generation ✅
-- Check 16: OpenSpec validation ✅
-- Check 17: FOLLOW-UP-FIXES tracker verification ✅
-- Check 18: Phase status synchronization ✅
-- Check 19: add-and-sync workflow validation ✅
-- Check 20: PR event phase progression ✅
-- Check 21: Reviewer workflow validation ✅
-- Check 22: Standard labeling consistency ✅
-- Check 23: Secrets scanning validation ✅
-- Check 24: Workflow event routing validation ✅
+**Important Fixes — RESOLVED (3/3):**
+- ✅ DOC-004: Transaction documentation (PR #2640, merged 2026-09-04)
+- ✅ MON-001: Job failure status (PR #2640, merged 2026-09-04)
+- ✅ STATUS.md: Evidence alignment (PR #2640, merged 2026-09-04)
 
-**⏳ Infrastructure-Blocked (4/28 — Requires Node.js 24+):**
-- Check 25: Performance metrics validation (pending Node.js 24+)
-- Check 26: Dependency analysis (pending Node.js 24+)
-- Check 27: API performance benchmarking (pending Node.js 24+)
-- Check 28: Extended testing scenarios (pending Node.js 24+)
+**Polish Fixes — RESOLVED (3/3):**
+- ✅ ENH-001: Calculation errors (PR #2640, merged 2026-09-04)
+- ✅ ENH-002: Block Kit formatting (PR #2640, merged 2026-09-04)
+- ✅ README/STATUS: Alignment synchronized (PR #2640, merged 2026-09-04)
+
+**CI Investigation Checks (14/14) — Phase 2 Complete:**
+- Check 11: README structure validation ✅ PR #2629
+- Check 12: Mermaid diagram accessibility ✅ PR #2640
+- Check 13: Label standardization audit ✅ PR #2629
+- Check 14: Project-issue linking validation ✅ PR #2629
+- Check 15: Documentation auto-generation ✅ PR #2629
+- Check 16: OpenSpec validation ✅ PR #2629
+- Check 17: FOLLOW-UP-FIXES tracker verification ✅ PR #2629
+- Check 18: Phase status synchronization ✅ PR #2640
+- Check 19: add-and-sync workflow validation ✅ PR #2678
+- Check 20: PR event phase progression ✅ PR #2678
+- Check 21: Reviewer workflow validation ✅ PR #2678
+- Check 22: Standard labeling consistency ✅ PR #2678
+- Check 23: Secrets scanning validation ✅ PR #2678
+- Check 24: Workflow event routing validation ✅ PR #2678
+
+**⏳ Phase 3 — Infrastructure-Blocked (4/28 — Requires Node.js 24+ Upgrade):**
+- Check 25: Performance metrics validation (Node.js 24+ required)
+- Check 26: Dependency analysis (Node.js 24+ required)
+- Check 27: API performance benchmarking (Node.js 24+ required)
+- Check 28: Extended testing scenarios (Node.js 24+ required)
 
 **Related Issues:**
 - [#2761](https://github.com/lightspeedwp/.github/issues/2761) — Recurring CI workflow failures (pre-existing, documented)
@@ -631,14 +638,231 @@ node scripts/automation/reassign-v1-to-v1-1.js --from v1.1 --to v1
 ### 10.2 Related Documentation
 
 - **Tracker:** [FOLLOW-UP-FIXES.md](./FOLLOW-UP-FIXES.md) — 28-item tracker with completion status
-- **Phase 2 Summary:** [PHASE-2-COMPLETION-SUMMARY.md](./PHASE-2-COMPLETION-SUMMARY.md) — Executive summary (24/28 complete)
+- **Phase 2 Summary:** [PHASE-2-COMPLETION-SUMMARY.md](./PHASE-2-COMPLETION-SUMMARY.md) — Executive summary (13/28 resolved as of 2026-09-04)
+- **Phase 2 Follow-Up:** [PHASE-2-FOLLOWUP-SUMMARY.md](./PHASE-2-FOLLOWUP-SUMMARY.md) — PR #2640 implementation details
+- **Phase 3 Readiness:** [PHASE-3-READINESS.md](./PHASE-3-READINESS.md) — Phase 3 coordination hub with cross-project linking
 - **Phase 3 Planning:** [PHASE-3-ENHANCEMENT-TASKS.md](./PHASE-3-ENHANCEMENT-TASKS.md) — Optional enhancements and timeline
 - **CI Investigation:** [CI-INVESTIGATION-SUMMARY.md](./CI-INVESTIGATION-SUMMARY.md) — Comprehensive findings (Checks 11-24)
 - **Workflow Validation:** [WORKFLOW-AUTOMATION-VALIDATION.md](./WORKFLOW-AUTOMATION-VALIDATION.md) — Workflow automation checks
 - **API Strategy:** [DOC-003-API-RATE-LIMITS-STRATEGY.md](./DOC-003-API-RATE-LIMITS-STRATEGY.md) — Comprehensive rate limiting guide
 - **Edge Cases:** [DOC-004-EDGE-CASES.md](./DOC-004-EDGE-CASES.md) — Transaction semantics and recovery procedures
 
+## 11. Phase 3 Implementation Roadmap
+
+### 11.1 Enhancement Initiatives
+
+#### ENH-001: Metrics Dashboard
+
+**Issue:** [#2763](https://github.com/lightspeedwp/.github/issues/2763)  
+**Effort:** 8-12 hours  
+**Priority:** High  
+**Status:** Ready for implementation
+
+**Specification:**
+- Real-time workflow metrics collection
+- Dashboard UI (HTML/React)
+- GitHub API integration for live data
+- Alert thresholds and anomaly detection
+- Historical data retention and trend analysis
+
+**Success Criteria:**
+- Dashboard displays real-time workflow metrics
+- Alerts trigger on performance anomalies
+- Historical data available for trend analysis
+- <5s dashboard load time
+
+**Related Design:** [ENH-001-METRICS-DASHBOARD-DESIGN.md](./ENH-001-METRICS-DASHBOARD-DESIGN.md)
+
+---
+
+#### ENH-002: Slack Notification System
+
+**Issue:** [#2764](https://github.com/lightspeedwp/.github/issues/2764)  
+**Effort:** 8-10 hours  
+**Priority:** High  
+**Status:** Ready for implementation
+
+**Specification:**
+- Slack webhook integration for workflow events
+- Message templates (Block Kit format)
+- Success/failure/warning notifications
+- Channel configuration and routing
+- Notification preferences and filtering
+
+**Success Criteria:**
+- Notifications sent on workflow completion
+- Error notifications include troubleshooting info
+- Users can configure notification preferences
+- No notification delays (real-time)
+
+**Related Design:** [ENH-002-SLACK-NOTIFICATIONS-DESIGN.md](./ENH-002-SLACK-NOTIFICATIONS-DESIGN.md)
+
+---
+
+#### ENH-003: Manual Trigger System
+
+**Issue:** [#2765](https://github.com/lightspeedwp/.github/issues/2765)  
+**Effort:** 10-12 hours  
+**Priority:** Medium  
+**Status:** Ready for implementation
+
+**Specification:**
+- GitHub issue label-based workflow triggers
+- Issue comment parser for commands
+- Workflow dispatcher logic
+- Permission validation and security hardening
+- Audit trail logging for all manual triggers
+
+**Success Criteria:**
+- Users can trigger workflows via issue labels
+- Dry-run mode available for testing
+- Audit trail logs all triggered runs
+- Permission validation prevents unauthorized access
+
+**Related Design:** [ENH-003-MANUAL-TRIGGER-DESIGN.md](./ENH-003-MANUAL-TRIGGER-DESIGN.md)
+
+---
+
+### 11.2 Phase 3 Timeline
+
+| Week | Dates | Tasks | Output |
+|------|-------|-------|--------|
+| **1** | 2026-09-05 to 2026-09-11 | Infrastructure upgrade, Metrics Dashboard MVP | Unblocked Node.js 24+ |
+| **2** | 2026-09-12 to 2026-09-18 | Slack integration, Manual triggers framework | ≥1 enhancement functional |
+| **3+** | 2026-09-19 to 2026-09-30 | Polish, security, production readiness | All enhancements production-ready |
+
+---
+
+## 12. Infrastructure Requirements
+
+### 12.1 Node.js Version Requirement
+
+**Current State:**
+- Runtime: Node.js 22.22.2
+- Requirement: Node.js 24+ for Phase 3 CI validation
+- Status: ⏳ Blocker (Checks 25-28 cannot run)
+
+**Impact:**
+- Blocks 4 CodeRabbit findings (14% of total)
+- Required for performance benchmarking
+- Required for dependency analysis
+- Affects API performance validation
+
+**Resolution Plan:**
+
+```yaml
+Phase 3, Step 1 (2026-09-05):
+  - Audit Node.js 24 compatibility
+  - Plan GitHub Actions runner updates
+  - Create upgrade branch
+
+Phase 3, Step 2 (2026-09-06 to 2026-09-08):
+  - Upgrade GitHub Actions environment
+  - Test milestone-automation scripts on Node.js 24
+  - Verify performance baseline
+
+Phase 3, Step 3 (2026-09-09):
+  - Re-run Checks 25-28 with Node.js 24
+  - Document any compatibility issues
+  - Finalize performance metrics
+```
+
+**Upgrade Validation:**
+- [ ] Scripts run without errors on Node.js 24
+- [ ] Performance metrics collected
+- [ ] Dependency analysis complete
+- [ ] No breaking changes from Node.js 22 → 24
+
+### 12.2 GitHub Actions Runner Specifications
+
+**Current Requirements:**
+- Runner: `ubuntu-latest`
+- Permissions: `issues:write`, `pull-requests:write`, `contents:read`
+- Timeout: 30 minutes per job
+- Memory: ~1GB per job
+
+**Phase 3 Requirements (With Enhancements):**
+- Node.js 24+ runtime
+- Slack API credentials (ENH-002)
+- React build tools (ENH-001 dashboard)
+- Performance monitoring tools
+- Extended timeout: 45 minutes (for benchmarking)
+
+**Configuration:**
+
+```yaml
+jobs:
+  milestone-distribution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      NODE_VERSION: 24
+      ENABLE_METRICS: true
+      ENABLE_SLACK: true
+    
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
+      statuses: write  # For workflow status updates
+```
+
+### 12.3 Environment Variables (Phase 3)
+
+**Existing Variables:**
+- `GITHUB_TOKEN` — GitHub API authentication
+- `GITHUB_REPOSITORY` — Target repository
+- `ANTHROPIC_API_KEY` — Optional AI API key
+
+**Phase 3 Additions:**
+- `SLACK_WEBHOOK_URL` — Slack integration endpoint
+- `SLACK_CHANNEL` — Notification channel
+- `METRICS_ENABLED` — Enable metrics collection
+- `DASHBOARD_URL` — Metrics dashboard location
+- `PERFORMANCE_BASELINE` — Expected performance benchmark
+
+**Security Considerations:**
+- All sensitive variables as GitHub Secrets
+- Rotate Slack webhooks regularly
+- Audit API key usage
+- Log all manual trigger operations
+
+### 12.4 Dependency Updates Required for Phase 3
+
+**Current Dependencies:**
+```json
+{
+  "octokit": "^2.0.0",
+  "node": ">=22.0.0"
+}
+```
+
+**Phase 3 Additions:**
+```json
+{
+  "react": "^18.0.0",        // ENH-001: Dashboard
+  "express": "^4.18.0",      // ENH-001: Dashboard API
+  "@slack/bolt": "^3.15.0",  // ENH-002: Slack integration
+  "node": ">=24.0.0"         // Infrastructure requirement
+}
+```
+
+**Compatibility Notes:**
+- Slack Bolt requires Node.js 18+
+- React 18 requires Node.js 14+
+- Performance metrics require native Node.js 24 features
+
+---
+
 ## References
+
+- [GitHub REST API Documentation](https://docs.github.com/en/rest)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+- [Node.js 24 Release Notes](https://nodejs.org/en/blog/release/v24.0.0/)
+- [Slack API Documentation](https://api.slack.com/)
+- [Phase 2 Follow-Up Tracker](./FOLLOW-UP-FIXES.md)
+- [Phase 3 Enhancement Planning](./PHASE-3-ENHANCEMENT-TASKS.md)
+- [Phase 3 Readiness Hub](./PHASE-3-READINESS.md)
 
 - [GitHub REST API Documentation](https://docs.github.com/en/rest)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
@@ -650,6 +874,12 @@ node scripts/automation/reassign-v1-to-v1-1.js --from v1.1 --to v1
 
 **Document Owner:** lightspeedwp/maintainers  
 **Last Updated:** 2026-09-04  
-**Status:** ✅ Phase 2 Complete (24/28 findings resolved); 🔄 Phase 3 Planned (4 findings blocked on Node.js 24+)  
-**Target Completion:** 2026-09-10  
-**Progress:** 24/28 findings resolved (86%); 4 infrastructure-blocked (14%)
+**Status:** ✅ Phase 2 Complete (13/28 findings resolved via PR #2640); 🚀 Phase 3 In Progress (3 enhancements ready, 4 infrastructure-blocked)  
+**Target Phase 3 Completion:** 2026-09-30  
+**Progress:** 13/28 findings resolved (46%); 4 infrastructure-blocked (Node.js 24+ required); 3 enhancements ready for implementation
+
+**Key Links:**
+- [Phase 3 Readiness Hub](./PHASE-3-READINESS.md) — Coordination and cross-project linking
+- [Phase 2 Follow-Up (PR #2640)](https://github.com/lightspeedwp/.github/pull/2640) — Merged 2026-09-04
+- [Phase 3 Enhancement Issues](#112-github-api-endpoint-lists) — #2763, #2764, #2765
+- [Node.js 24+ Blocker](#121-nodejs-version-requirement) — Required for Phase 3 completion
