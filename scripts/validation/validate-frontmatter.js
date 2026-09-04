@@ -13,10 +13,12 @@
 
 const fs = require("fs");
 const path = require("path");
+const { execFileSync } = require("child_process");
 const yaml = require("js-yaml");
 const Ajv = require("ajv");
 const addFormats = require("ajv-formats");
 const glob = require("glob");
+const minimatch = require("minimatch");
 
 // Configuration
 const CONFIG = {
@@ -376,6 +378,67 @@ class FileDiscovery {
     // Remove duplicates and sort
     return [...new Set(allFiles)].sort();
   }
+
+  /**
+   * Returns only the files changed between two git SHAs that match the given
+   * patterns and are not excluded. Falls back to findFiles() when git is
+   * unavailable or the range cannot be resolved.
+   *
+   * @param {string} baseSha - Base commit SHA.
+   * @param {string} headSha - Head commit SHA.
+   * @param {string[]} patterns - Glob patterns to match (e.g. ["**\/*.md"]).
+   * @param {string[]} excludePatterns - Glob patterns to exclude.
+   * @param {string} rootDir - Repository root directory.
+   * @returns {string[]} Absolute paths of changed, matching files.
+   */
+  static findChangedFiles(
+    baseSha,
+    headSha,
+    patterns,
+    excludePatterns,
+    rootDir,
+  ) {
+    // Validate SHAs to prevent shell injection — must be 4–64 hex characters
+    const shaRe = /^[0-9a-f]{4,64}$/i;
+    if (!shaRe.test(baseSha) || !shaRe.test(headSha)) {
+      console.warn(
+        "Invalid SHA format for --base/--head; falling back to full validation.",
+      );
+      return FileDiscovery.findFiles(patterns, excludePatterns, rootDir);
+    }
+
+    let changedRelative;
+    try {
+      const output = execFileSync(
+        "git",
+        ["diff", "--name-only", "--diff-filter=ACMRT", baseSha, headSha],
+        { cwd: rootDir, encoding: "utf8" },
+      );
+      changedRelative = output
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+    } catch {
+      // git unavailable or SHA range invalid — fall back to full scan
+      return FileDiscovery.findFiles(patterns, excludePatterns, rootDir);
+    }
+
+    if (!changedRelative.length) {
+      return [];
+    }
+
+    // Filter changed paths directly against patterns/excludes without a full
+    // filesystem walk, keeping work proportional to diff size rather than repo size.
+    const mmOpts = { dot: true };
+    return changedRelative
+      .filter((rel) => {
+        const matched = patterns.some((p) => minimatch(rel, p, mmOpts));
+        if (!matched) return false;
+        return !excludePatterns.some((p) => minimatch(rel, p, mmOpts));
+      })
+      .map((rel) => path.resolve(rootDir, rel))
+      .sort();
+  }
 }
 
 function resolveCliTargetFiles(fileArgs, rootDir) {
@@ -415,7 +478,7 @@ function runAltValidation() {
 }
 
 // Main validation function
-async function validateFrontmatter() {
+async function validateFrontmatter(filePaths) {
   const logger = new Logger(CONFIG.outputFile);
 
   logger.info("Starting frontmatter validation", null, {
@@ -430,15 +493,14 @@ async function validateFrontmatter() {
     // Initialize validator
     const validator = new FrontmatterValidator(CONFIG.schemaPath, logger);
 
-    // Discover files
+    // Discover files — use provided list or fall back to full discovery
     const files =
-      CONFIG.targetFiles.length > 0
-        ? resolveCliTargetFiles(CONFIG.targetFiles, CONFIG.rootDir)
-        : FileDiscovery.findFiles(
-            CONFIG.patterns,
-            CONFIG.excludePatterns,
-            CONFIG.rootDir,
-          );
+      filePaths ||
+      FileDiscovery.findFiles(
+        CONFIG.patterns,
+        CONFIG.excludePatterns,
+        CONFIG.rootDir,
+      );
 
     logger.info(`Found ${files.length} files to validate`);
 
@@ -477,15 +539,18 @@ Frontmatter Validation Script
 Usage: node validate-frontmatter.js [options]
 
 Options:
-  --help, -h     Show this help message
-  --schema PATH  Custom schema file path
-  --root PATH    Custom root directory
-  --output PATH  Custom output log file
+  --help, -h       Show this help message
+  --schema PATH    Custom schema file path
+  --root PATH      Custom root directory
+  --output PATH    Custom output log file
+  --base SHA       Base commit SHA (used with --head to validate only changed files)
+  --head SHA       Head commit SHA (used with --base to validate only changed files)
 
 Examples:
   node validate-frontmatter.js
   node validate-frontmatter.js --schema ./custom-schema.json
   node validate-frontmatter.js --root /path/to/repo --output ./validation.log
+  node validate-frontmatter.js --base abc1234 --head def5678
     `);
     process.exit(0);
   }
@@ -506,69 +571,31 @@ Examples:
     CONFIG.outputFile = path.resolve(args[outputIndex + 1]);
   }
 
-  const knownOptionIndices = new Set();
   const baseIndex = args.indexOf("--base");
-  const headIndex = args.indexOf("--head");
   const baseSha = baseIndex !== -1 ? args[baseIndex + 1] : null;
+
+  const headIndex = args.indexOf("--head");
   const headSha = headIndex !== -1 ? args[headIndex + 1] : null;
-
-  for (let i = 0; i < args.length; i++) {
-    if (
-      args[i] === "--schema" ||
-      args[i] === "--root" ||
-      args[i] === "--output" ||
-      args[i] === "--base" ||
-      args[i] === "--head"
-    ) {
-      knownOptionIndices.add(i);
-      knownOptionIndices.add(i + 1);
-    } else if (
-      args[i] === "--help" ||
-      args[i] === "-h" ||
-      args[i] === "--alt"
-    ) {
-      knownOptionIndices.add(i);
-    }
-  }
-
-  let rawTargets = args.filter((_, index) => !knownOptionIndices.has(index));
-
-  if (rawTargets.length === 0 && baseSha && headSha) {
-    const { execFileSync } = require("child_process");
-    rawTargets = execFileSync(
-      "git",
-      [
-        "diff",
-        "--name-only",
-        baseSha,
-        headSha,
-        "--",
-        "*.md",
-        "*.yml",
-        "*.yaml",
-      ],
-      { cwd: CONFIG.rootDir, encoding: "utf8", maxBuffer: 1024 * 1024 },
-    )
-      .trim()
-      .split("\n")
-      .filter(Boolean);
-  }
-
-  const unknownFlags = rawTargets.filter((arg) => arg.startsWith("--"));
-
-  if (unknownFlags.length > 0) {
-    console.error(
-      `Unknown option(s): ${unknownFlags.join(", ")}. Use --help for supported options.`,
-    );
-    process.exit(1);
-  }
-
-  CONFIG.targetFiles = rawTargets;
-
   if (altMode) {
     runAltValidation();
+  } else if (baseSha && headSha) {
+    // Validate only files changed between the two SHAs
+    const changedFiles = FileDiscovery.findChangedFiles(
+      baseSha,
+      headSha,
+      CONFIG.patterns,
+      CONFIG.excludePatterns,
+      CONFIG.rootDir,
+    );
+    validateFrontmatter(changedFiles).catch((err) => {
+      console.error("Frontmatter validation error:", err?.stack ?? String(err));
+      process.exit(1);
+    });
   } else {
-    validateFrontmatter();
+    validateFrontmatter().catch((err) => {
+      console.error("Frontmatter validation error:", err?.stack ?? String(err));
+      process.exit(1);
+    });
   }
 }
 
