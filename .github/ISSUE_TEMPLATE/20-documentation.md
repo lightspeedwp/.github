@@ -1,6 +1,5 @@
 ---
 name: "📚 Documentation"
-description: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 assignees: []
 projects: []

@@ -279,7 +279,7 @@ await github.rest.issues.update({
   - Boxes are auto-marked when closing
   - No validation that work is actually done
 
-#### `issue-create-from-template.yml` (Trigger: `workflow_dispatch` manual only)
+#### `issue-create-enhanced.yml` (Trigger: `workflow_dispatch` manual only)
 
 - **What It Does:**
   1. Accepts workflow inputs: template type, issue title, labels
@@ -302,7 +302,7 @@ await github.rest.issues.update({
   - User selects "Feature" template
   - Body mentions "fixing bug" in example context
   - Workflow assigns `type:bug` instead of `type:feature`
-- **Workaround:** `issue-create-from-template.yml` works correctly but is manual workflow_dispatch only
+- **Workaround:** `issue-create-enhanced.yml` works correctly but is manual workflow_dispatch only
 
 #### 🔴 CRITICAL #2: Silent Issue Reopening Without Clear Guidance
 
@@ -777,7 +777,7 @@ Include these sections (auto-detected):
 - `.github/workflows/template-enforcement.yml` (DoR/DoD section validation)
 - `.github/workflows/validate-pr-template.yml` (PR DoD checklist validation)
 - `.github/workflows/checklist-finalisation.yml` (auto-completes checklist items)
-- `.github/workflows/issue-create-from-template.yml` (manual workflow_dispatch)
+- `.github/workflows/issue-create-enhanced.yml` (manual workflow_dispatch)
 
 **Issue Templates:**
 

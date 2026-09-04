@@ -6,7 +6,7 @@ on:
     paths:
       - "**/*.md"
       - ".github/workflows/**"
-      - ".github/agents/**"
+      - "agents/**"
       - ".github/instructions/**"
       - "docs/**"
       - "scripts/**"

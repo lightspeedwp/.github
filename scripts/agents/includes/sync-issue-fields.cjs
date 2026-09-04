@@ -7,12 +7,18 @@
  * Sets the GitHub native issue type on an issue based on its type:* labels,
  * using the canonical mapping in .github/issue-fields.yml.
  *
+ * Supports two modes (set via the MODE environment variable):
+ *   event    (default) — processes the single issue from GITHUB_EVENT_PATH
+ *   bulk               — processes all open issues in the repository
+ *
  * Reads:
  *   GITHUB_TOKEN        - Token with issues:write + project scope
  *   GITHUB_REPOSITORY   - "owner/repo"
- *   GITHUB_EVENT_PATH   - Path to the webhook event JSON
+ *   GITHUB_EVENT_PATH   - Path to the webhook event JSON (event mode only)
  *   ISSUE_FIELDS_CONFIG - Optional path to issue-fields.yml (defaults to
  *                         .github/issue-fields.yml)
+ *   MODE                - "event" (default) or "bulk"
+ *   DRY_RUN             - "true" to report without applying changes
  *
  * Outputs (GITHUB_OUTPUT):
  *   native_type_set     - Name of the native type that was applied, or ""
@@ -131,27 +137,14 @@ async function setIssueType(octokit, issueNodeId, typeId) {
 
 async function run() {
   const token = process.env.GITHUB_TOKEN;
-  const eventPath = process.env.GITHUB_EVENT_PATH;
   const repo = process.env.GITHUB_REPOSITORY || "";
   const dryRun = (process.env.DRY_RUN || "false").toLowerCase() === "true";
+  const mode = (process.env.MODE || "event").toLowerCase();
 
   if (!token) throw new Error("GITHUB_TOKEN is required");
-  if (!eventPath) throw new Error("GITHUB_EVENT_PATH is required");
   if (!repo.includes("/")) throw new Error("GITHUB_REPOSITORY is required");
 
-  const [owner] = repo.split("/");
-  const event = readJsonFile(eventPath);
-
-  // Only process issues (not PRs)
-  if (!event.issue) {
-    console.info("Event is not an issue — skipping native type sync.");
-    return { nativeTypeSet: "", nativeTypeId: "" };
-  }
-
-  const issue = event.issue;
-  const labelNames = (issue.labels ?? []).map((l) => l.name).filter(Boolean);
-  const issueNodeId = issue.node_id;
-  const issueNumber = issue.number;
+  const [owner, repoName] = repo.split("/");
 
   // Read canonical config
   const configPath = process.env.ISSUE_FIELDS_CONFIG
@@ -165,6 +158,35 @@ async function run() {
       t.toLowerCase(),
     ),
   );
+
+  const octokit = getOctokit(token);
+
+  if (mode === "bulk") {
+    return runBulk({ octokit, owner, repo: repoName, typeMapping, enabledTypes, dryRun });
+  }
+
+  return runEvent({ octokit, owner, typeMapping, enabledTypes, dryRun });
+}
+
+/**
+ * Process the single issue from the GitHub event payload (event mode).
+ */
+async function runEvent({ octokit, owner, typeMapping, enabledTypes, dryRun }) {
+  const eventPath = process.env.GITHUB_EVENT_PATH;
+  if (!eventPath) throw new Error("GITHUB_EVENT_PATH is required");
+
+  const event = readJsonFile(eventPath);
+
+  // Only process issues (not PRs)
+  if (!event.issue) {
+    console.info("Event is not an issue — skipping native type sync.");
+    return { nativeTypeSet: "", nativeTypeId: "" };
+  }
+
+  const issue = event.issue;
+  const labelNames = (issue.labels ?? []).map((l) => l.name).filter(Boolean);
+  const issueNodeId = issue.node_id;
+  const issueNumber = issue.number;
 
   // Derive target native type name from labels
   const targetTypeName = deriveTypeFromLabels(labelNames, typeMapping);
@@ -184,8 +206,6 @@ async function run() {
     writeOutputs({ nativeTypeSet: "", nativeTypeId: "" });
     return { nativeTypeSet: "", nativeTypeId: "" };
   }
-
-  const octokit = getOctokit(token);
 
   // Fetch org issue types to get the ID for targetTypeName
   const orgTypeMap = await fetchOrgIssueTypes(octokit, owner);
@@ -226,6 +246,73 @@ async function run() {
   return { nativeTypeSet: appliedName, nativeTypeId: typeId };
 }
 
+/**
+ * Process all open issues in the repository (bulk mode).
+ *
+ * @param {{ octokit: import("@octokit/core").Octokit, owner: string, repo: string,
+ *           typeMapping: Record<string,string>, enabledTypes: Set<string>,
+ *           dryRun: boolean }} options
+ * @returns {Promise<{ applied: string[], skipped: string[], errors: string[] }>}
+ */
+async function runBulk({ octokit, owner, repo, typeMapping, enabledTypes, dryRun }) {
+  console.info("Bulk mode — fetching all open issues...");
+
+  const orgTypeMap = await fetchOrgIssueTypes(octokit, owner);
+
+  if (orgTypeMap.size === 0) {
+    console.info(
+      `Org "${owner}" has no enabled issue types or access is insufficient — skipping bulk sync.`,
+    );
+    return { applied: [], skipped: [], errors: [] };
+  }
+
+  // Paginate all open issues
+  const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
+    owner,
+    repo,
+    state: "open",
+    per_page: 100,
+  });
+
+  const openIssues = issues.filter((i) => !i.pull_request);
+  console.info(`Processing ${openIssues.length} open issue(s).`);
+
+  const result = { applied: [], skipped: [], errors: [] };
+
+  for (const issue of openIssues) {
+    const labelNames = (issue.labels ?? []).map((l) => l.name).filter(Boolean);
+    const targetTypeName = deriveTypeFromLabels(labelNames, typeMapping);
+
+    if (!targetTypeName || !enabledTypes.has(targetTypeName.toLowerCase())) {
+      result.skipped.push(`#${issue.number}: no matching enabled type`);
+      continue;
+    }
+
+    const typeId = orgTypeMap.get(targetTypeName.toLowerCase());
+    if (!typeId) {
+      result.skipped.push(`#${issue.number}: type "${targetTypeName}" not in org types`);
+      continue;
+    }
+
+    console.info(
+      `#${issue.number}: native type → "${targetTypeName}"${dryRun ? " [DRY RUN]" : ""}`,
+    );
+
+    if (!dryRun) {
+      try {
+        await setIssueType(octokit, issue.node_id, typeId);
+        result.applied.push(`#${issue.number} → ${targetTypeName}`);
+      } catch (err) {
+        result.errors.push(`#${issue.number}: ${err.message}`);
+      }
+    } else {
+      result.applied.push(`#${issue.number} → ${targetTypeName} [DRY RUN]`);
+    }
+  }
+
+  return result;
+}
+
 function writeOutputs({ nativeTypeSet, nativeTypeId }) {
   const outputFile = process.env.GITHUB_OUTPUT;
   if (!outputFile) return;
@@ -249,4 +336,6 @@ module.exports = {
   fetchOrgIssueTypes,
   setIssueType,
   run,
+  runEvent,
+  runBulk,
 };
