@@ -169,7 +169,7 @@ CI minute cost: Minimal increase expected, offset by v7 caching improvements
 
 ✅ Already Compliant (34):
 
-- checks.yml, documentation.yml, changelog-management.yml, docs-maintenance.yml, issue-create-from-template.yml, issue-remediation-bulk.yml, docs-validation.yml, metrics-pipeline.yml, labeling-governance.yml, and 25 more
+- checks.yml, documentation.yml, changelog-management.yml, docs-maintenance.yml, issue-create-enhanced.yml, issue-remediation-bulk.yml, docs-validation.yml, metrics-pipeline.yml, labeling-governance.yml, and 25 more
 
 ---
 

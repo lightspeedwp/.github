@@ -1,6 +1,5 @@
 ---
 name: "🏠 Chore"
-description: "🏠 Chore"
 about: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, or minor non-functional clean-ups."
 assignees: []
 projects: []

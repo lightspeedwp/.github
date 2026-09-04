@@ -1,6 +1,5 @@
 ---
 name: "👀 Code Review"
-description: "👀 Code Review"
 about: "Request or conduct code review, peer validation, or QA."
 title: "[Review] <Brief summary>"
 labels: [status:needs-review, area:core]

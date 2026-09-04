@@ -5,6 +5,9 @@ description: Organisation-wide labeling solution consolidating fragmented workfl
 created_date: 2026-09-03
 last_updated: 2026-09-03
 status: active
+priority: "high"
+type: "consolidation"
+effort: "60h"
 tags:
   - automation
   - labeling
@@ -15,11 +18,11 @@ tags:
 
 # Labeling Agent Consolidation & Multi-Repo Rollout
 
-**Status:** 🟢 Phase 2 Complete — Planning & Design  
+**Status:** 🟢 Phase 3 Complete — Spec → Issues (GitHub issues created)  
 **Owner:** Claude  
 **Start Date:** 2026-09-03  
 **Est. Duration:** 4–6 weeks (Phase 1–4); 12 weeks (Phase 5 rollout parallel)  
-**Master Epic:** [To be created in Phase 3]
+**Master Epic:** [#2668 — Labeling Agent Consolidation & Multi-Repo Rollout](https://github.com/lightspeedwp/.github/issues/2668)
 
 ---
 
@@ -55,6 +58,32 @@ tags:
 
 ---
 
+### Phase 3: Spec → Issues (✅ Complete)
+
+**What:** Convert OPENSPEC into actionable GitHub issues and enhancement opportunities  
+**Timeline:** Week 4 (Sept 24–30)  
+**Deliverables:** GitHub issues #2668–#2677 created + PHASE3_ISSUES_CREATED.md + ENHANCEMENTS.md
+
+**Key Deliverables:**
+
+1. ✅ Master Epic #2668 created for overall coordination
+2. ✅ Phase 4 Epic #2669 created with 4 implementation tasks (#2672–#2676)
+3. ✅ Phase 5 Epic #2670 created with rollout tasks (#2677)
+4. ✅ All issues linked, labeled, and assigned
+5. ✅ Enhancement opportunities documented in ENHANCEMENTS.md
+
+**Phase 3+ Enhancement Issues (Created 2026-09-03):**
+
+| Issue | Title | Priority | Status |
+|-------|-------|----------|--------|
+| #2709 | JSON Schema Examples for Label Validation | High | needs-planning |
+| #2711 | Mock Data & Test Fixtures for Phase 4 Testing | High | needs-planning |
+| #2712 | Update OPENSPEC.md Status & Completeness | Medium | needs-planning |
+| #2713 | Phase 4 Handoff Document — Lessons & Context | Medium | needs-planning |
+| #2714 | Cross-Link GitHub Issues ↔ Project Documentation | Medium | needs-planning |
+
+---
+
 ## Project Structure
 
 ```
@@ -78,7 +107,7 @@ tags:
 |-------|----------|-------------|--------|
 | **1. Research & Audit** | Wk 1 (Sept 3–9) | RESEARCH_FINDINGS.md + AUDIT_FINDINGS.md | ✅ Complete |
 | **2. Planning & Design** | Wks 2–3 (Sept 3–23) | OPENSPEC.md + SCHEMA_DESIGN.md + Plans | ✅ Complete |
-| **3. Spec → Issues** | Wk 4 (Sept 24–30) | GitHub Issues created + OpenSpec tasks | ⚪ Planned |
+| **3. Spec → Issues** | Wk 4 (Sept 24–30) | GitHub Issues created + OpenSpec tasks | ✅ Complete |
 | **4. Implementation** | Wks 5–8 (Oct 1–31) | Unified labeling agent + skills extraction | ⚪ Planned |
 | **5. Testing & Rollout** | Wks 9–15 (Nov 1–Dec 15) | Pilot → multi-repo deployment | ⚪ Planned |
 
@@ -159,7 +188,9 @@ tags:
 ✅ **Phase 2:** Consolidation plan has before/after file count  
 ✅ **Phase 2:** Skills extraction targets high-reuse components  
 ✅ **Phase 2:** Multi-repo rollout is realistic and phased  
-⬜ **Phase 3:** All GitHub issues created and linked  
+✅ **Phase 3:** All 7 GitHub issues created and linked  
+✅ **Phase 3:** PHASE3_ISSUES_CREATED.md documentation complete  
+✅ **Phase 3:** PR #2685 merged to develop with all deliverables  
 ⬜ **Phase 4:** Unified labeling agent implemented and tested  
 ⬜ **Phase 4:** All fragmented workflows replaced  
 ⬜ **Phase 5:** Deployed to control plane successfully  
@@ -182,6 +213,20 @@ npm run lint:md
 # View current active projects
 ls -la .github/projects/active/
 ```
+
+---
+
+## Related Issues & PRs
+
+| Issue/PR | Type | Status | Purpose |
+|----------|------|--------|---------|
+| [#1592](https://github.com/lightspeedwp/.github/issues/1592) | Issue | Open | Related: Label Prefix Governance Enforcement |
+| [#2626](https://github.com/lightspeedwp/.github/pull/2626) | PR | Open | Phase 2: Labeling workflow consolidation (branch naming issue) |
+| [#2687](https://github.com/lightspeedwp/.github/issues/2687) | Issue | Open | Scripts & Agents Audit (related infrastructure) |
+
+**Phase Timeline**: Sept 3 – Dec 31, 2026  
+**Next Milestone**: Phase 3 Master Epic creation (Sept 10)  
+**Blocker Status**: PR #2626 branch naming needs fixing
 
 ---
 

@@ -64,12 +64,20 @@ Configurable concurrent batch operations:
 ### Phase 4 (Deferred)
 - **[PHASE_4_ASSESSMENT.md](./PHASE_4_ASSESSMENT.md)** - Assessment of Phase 4 scope; planning deferred until Phase 3 completion to enable data-driven decisions
 
+### Optional Enhancements & Future Phases
+- **[OPTIONAL_ENHANCEMENTS.md](./OPTIONAL_ENHANCEMENTS.md)** - Optional enhancements (Phase 3 extensions, Phase 4 preparation, Phase 5+ future work)
+
+### Technical Specifications
+- **[OPENSPEC.md](./OPENSPEC.md)** - OpenSpec technical specification with issue links and deliverables
+
 ## Files
 
 - **README.md** - Project overview and quick reference
+- **OPENSPEC.md** - OpenSpec technical specification for project
 - **COMPLETION_REPORT.md** - Phase 2C final report with metrics and achievements
 - **PHASE_3_PLANNING.md** - Phase 3 detailed planning (6 tasks, 34-49 business days)
 - **OUTSTANDING_GAPS.md** - Gap analysis and resolution roadmap
+- **OPTIONAL_ENHANCEMENTS.md** - Optional enhancements for Phase 3 extensions and Phase 4 prep
 - **PHASE_4_ASSESSMENT.md** - Phase 4 scope deferral and rationale
 
 ## Implementation Details
@@ -117,8 +125,11 @@ All 8 validation tests passing:
 
 | Issue | Title | Status |
 |-------|-------|--------|
+| [#2090](https://github.com/lightspeedwp/.github/issues/2090) | Phase 2C: Script Optimization Complete | ✅ Complete |
 | [#2615](https://github.com/lightspeedwp/.github/issues/2615) | Phase 2C Script Optimization — Completion Report | ✅ Complete |
 | [#2560](https://github.com/lightspeedwp/.github/issues/2560) | MON-003: Create workflow execution dashboard | ✅ Complete |
+
+**Note:** For clarification of how this Phase 2C initiative relates to other parallel Phase 2C work (Reviewer Agent v2 Testing, Release Agent Development), see [PHASE_2C_DEPENDENCY_MAP.md](./PHASE_2C_DEPENDENCY_MAP.md).
 
 ### Phase 3 (Planned - 34-49 business days)
 

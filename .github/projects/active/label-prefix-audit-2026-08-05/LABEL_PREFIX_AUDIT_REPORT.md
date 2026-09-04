@@ -203,7 +203,7 @@ This violates the canonical labeling governance documented in:
 ├── labeling.yml
 ├── labeling-governance.yml
 ├── issue-create-enhanced.yml
-├── issue-create-from-template.yml
+├── issue-create-enhanced.yml
 ├── issue-labeling-automation.yml
 ├── template-enforcement.yml
 └── [4 other label/issue workflows]
