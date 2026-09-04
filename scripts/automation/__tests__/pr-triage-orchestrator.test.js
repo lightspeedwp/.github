@@ -9,7 +9,7 @@ import {
   determineTriage,
   buildMetadata,
   generateSummary,
-} from "../lib/pr-triage-helpers.js";
+} from "../includes/pr-triage-helpers.js";
 
 describe("pr-triage-orchestrator", () => {
   describe("parseConfig", () => {
