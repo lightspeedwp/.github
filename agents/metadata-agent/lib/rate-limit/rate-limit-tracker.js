@@ -63,11 +63,16 @@ class RateLimitTracker {
     const parsedLimit = Number(payload.limit);
     const parsedRemaining = Number(payload.remaining);
     const current = this.limits[fallbackType];
-    const reset = payload.reset !== undefined ? this._toResetDate(payload.reset) : current.reset;
+    const reset =
+      payload.reset !== undefined
+        ? this._toResetDate(payload.reset)
+        : current.reset;
 
     return {
       limit: Number.isFinite(parsedLimit) ? parsedLimit : current.limit,
-      remaining: Number.isFinite(parsedRemaining) ? parsedRemaining : current.remaining,
+      remaining: Number.isFinite(parsedRemaining)
+        ? parsedRemaining
+        : current.remaining,
       reset,
     };
   }

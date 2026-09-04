@@ -91,7 +91,12 @@ class TagsAPI {
    */
   async getLatestTag(options = {}) {
     const { owner, repo, fallback = null } = options;
-    const tags = await this.getTags({ owner, repo, perPage: 100, fallback: [] });
+    const tags = await this.getTags({
+      owner,
+      repo,
+      perPage: 100,
+      fallback: [],
+    });
 
     if (!tags.length) {
       return fallback;
