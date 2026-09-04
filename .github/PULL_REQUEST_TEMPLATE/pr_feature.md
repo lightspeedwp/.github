@@ -1,8 +1,8 @@
 ---
 file_type: pr-template
-title: "type:feature: {scope}"
-name: "Feature Request"
-description: "New features or enhancements"
+name: "Feature"
+about: "Add net-new feature or enhancement"
+title: "feat: {scope}"
 labels: ["type:feature", "status:needs-review"]
 ---
 

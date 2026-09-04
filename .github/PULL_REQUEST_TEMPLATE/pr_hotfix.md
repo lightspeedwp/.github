@@ -1,8 +1,8 @@
 ---
 file_type: pr-template
-title: "hotfix: {scope}"
 name: "Hotfix"
-description: "Critical fixes for production issues"
+about: "Critical production fix (urgent, bypasses normal release cycle)"
+title: "hotfix: {scope}"
 labels: ["type:hotfix", "status:needs-review", "priority:critical"]
 ---
 

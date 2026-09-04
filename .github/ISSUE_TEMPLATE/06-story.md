@@ -1,11 +1,9 @@
 ---
-name: "📑 Story"
-about: "Propose a user-centric story as part of an Epic or milestone."
-title: "[Story] <Brief summary>"
-labels: [status:needs-triage, priority:normal, area:core]
-assignees: []
-projects: []
-milestone: ""
+name: "📖 Story"
+about: "Template for Story issues"
+title: "type:story: {scope}"
+labels: ["type:story", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
+recommended_branch: "feat/"
 file_type: issue-template
 ---
 

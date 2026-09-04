@@ -4,7 +4,7 @@
  * Validate branch names against the LightSpeed branching strategy.
  *
  * Enforces the pattern: {type}/{scope}-{short-title}
- * - type: one of 33 allowed prefixes (feat, fix, chore, etc.)
+ * - type: one of 35 allowed prefixes (feat, fix, chore, task, etc.)
  * - scope: lowercase, kebab-case (hyphens only, no underscores)
  * - title: lowercase, kebab-case
  *
@@ -34,6 +34,7 @@ const ALLOWED_TYPES = [
   'release',
   'refactor',
   'chore',
+  'task',
   'docs',
   'test',
   'perf',
@@ -61,6 +62,7 @@ const ALLOWED_TYPES = [
   'uat',
   'audit',
   'codex',
+  'aiops',
 ];
 
 // Regex pattern enforcing: {type}/{scope}-{title} (strict kebab-case)
