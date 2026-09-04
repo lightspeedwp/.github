@@ -246,7 +246,12 @@ function checkMissingSections(body) {
   const missing = [];
 
   if (!body) {
-    return ["Definition of Ready", "Definition of Done", "Owner", "Acceptance Criteria"];
+    return [
+      "Definition of Ready",
+      "Definition of Done",
+      "Owner",
+      "Acceptance Criteria",
+    ];
   }
 
   if (!body.includes("## Definition of Ready")) {
@@ -314,7 +319,7 @@ async function processIssue(issue) {
     return {
       skipped: true,
       reason: "all sections present",
-      issue: issueNumber
+      issue: issueNumber,
     };
   }
 
@@ -327,7 +332,9 @@ async function processIssue(issue) {
     );
     console.log(`   Title: ${issue.title}`);
     console.log(`   Missing: ${missingSections.join(", ")}`);
-    console.log(`   Change: +${newBody.length - (issue.body?.length || 0)} chars`);
+    console.log(
+      `   Change: +${newBody.length - (issue.body?.length || 0)} chars`,
+    );
     return {
       preview: true,
       issue: issueNumber,
@@ -346,7 +353,7 @@ async function processIssue(issue) {
     try {
       await githubRequest("DELETE", removeLabel);
       console.log(
-        `✅ #${issueNumber} - Enhanced (${issueType}) - Added: ${missingSections.join(", ")}`
+        `✅ #${issueNumber} - Enhanced (${issueType}) - Added: ${missingSections.join(", ")}`,
       );
     } catch (e) {
       console.log(
@@ -473,9 +480,7 @@ async function main() {
     console.log(`\n📝 Detailed Results:`);
     results.forEach((r) => {
       if (r.updated) {
-        console.log(
-          `   ✅ #${r.issue}: Added ${r.added?.join(", ")}`
-        );
+        console.log(`   ✅ #${r.issue}: Added ${r.added?.join(", ")}`);
       } else if (r.skipped) {
         console.log(`   ⏭️  #${r.issue}: Already complete`);
       } else if (r.error) {

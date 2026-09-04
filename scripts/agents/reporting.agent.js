@@ -174,7 +174,9 @@ function generateMultiRepoReport(options) {
   } = options;
 
   if (!Array.isArray(repos) || repos.length === 0) {
-    throw new Error("generateMultiRepoReport requires at least one repository.");
+    throw new Error(
+      "generateMultiRepoReport requires at least one repository.",
+    );
   }
 
   const parsed = repos.map(parseRepoRef);
