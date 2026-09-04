@@ -447,7 +447,10 @@ class MilestoneAllocator {
 
       // Log summary with cache performance
       this.logSummary();
-      return { success: true, stats: this.stats };
+      return {
+        success: this.stats.errors === 0,
+        stats: this.stats,
+      };
     } catch (err) {
       if (err instanceof AllocationError) {
         this.log("error", "main", `${err.code}: ${err.message}`);
