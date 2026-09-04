@@ -1,6 +1,5 @@
 ---
 name: "🔗 Integration"
-description: "🔗 Integration"
 about: "Report or propose integration with external plugins, services, or APIs."
 assignees: []
 projects: []

@@ -42,6 +42,7 @@ const CONFIG = {
     "logs/**",
     "**/package-lock.json",
   ],
+  targetFiles: [],
 };
 
 // Logging utility
@@ -136,6 +137,7 @@ class FrontmatterExtractor {
     } catch (error) {
       throw new Error(
         `Invalid YAML frontmatter in ${filePath}: ${error.message}`,
+        { cause: error },
       );
     }
   }
@@ -165,6 +167,7 @@ class FrontmatterValidator {
     } catch (error) {
       throw new Error(
         `Failed to load schema from ${schemaPath}: ${error.message}`,
+        { cause: error },
       );
     }
   }
@@ -375,6 +378,20 @@ class FileDiscovery {
   }
 }
 
+function resolveCliTargetFiles(fileArgs, rootDir) {
+  if (!Array.isArray(fileArgs) || fileArgs.length === 0) {
+    return [];
+  }
+
+  return [
+    ...new Set(
+      fileArgs.map((filePath) =>
+        path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath),
+      ),
+    ),
+  ].filter((filePath) => fs.existsSync(filePath));
+}
+
 function runAltValidation() {
   try {
     const schemaContent = fs.readFileSync(CONFIG.schemaPath, "utf8");
@@ -406,6 +423,7 @@ async function validateFrontmatter() {
     rootDir: CONFIG.rootDir,
     patterns: CONFIG.patterns,
     excludePatterns: CONFIG.excludePatterns,
+    targetFiles: CONFIG.targetFiles,
   });
 
   try {
@@ -413,11 +431,14 @@ async function validateFrontmatter() {
     const validator = new FrontmatterValidator(CONFIG.schemaPath, logger);
 
     // Discover files
-    const files = FileDiscovery.findFiles(
-      CONFIG.patterns,
-      CONFIG.excludePatterns,
-      CONFIG.rootDir,
-    );
+    const files =
+      CONFIG.targetFiles.length > 0
+        ? resolveCliTargetFiles(CONFIG.targetFiles, CONFIG.rootDir)
+        : FileDiscovery.findFiles(
+            CONFIG.patterns,
+            CONFIG.excludePatterns,
+            CONFIG.rootDir,
+          );
 
     logger.info(`Found ${files.length} files to validate`);
 
@@ -485,6 +506,65 @@ Examples:
     CONFIG.outputFile = path.resolve(args[outputIndex + 1]);
   }
 
+  const knownOptionIndices = new Set();
+  const baseIndex = args.indexOf("--base");
+  const headIndex = args.indexOf("--head");
+  const baseSha = baseIndex !== -1 ? args[baseIndex + 1] : null;
+  const headSha = headIndex !== -1 ? args[headIndex + 1] : null;
+
+  for (let i = 0; i < args.length; i++) {
+    if (
+      args[i] === "--schema" ||
+      args[i] === "--root" ||
+      args[i] === "--output" ||
+      args[i] === "--base" ||
+      args[i] === "--head"
+    ) {
+      knownOptionIndices.add(i);
+      knownOptionIndices.add(i + 1);
+    } else if (
+      args[i] === "--help" ||
+      args[i] === "-h" ||
+      args[i] === "--alt"
+    ) {
+      knownOptionIndices.add(i);
+    }
+  }
+
+  let rawTargets = args.filter((_, index) => !knownOptionIndices.has(index));
+
+  if (rawTargets.length === 0 && baseSha && headSha) {
+    const { execFileSync } = require("child_process");
+    rawTargets = execFileSync(
+      "git",
+      [
+        "diff",
+        "--name-only",
+        baseSha,
+        headSha,
+        "--",
+        "*.md",
+        "*.yml",
+        "*.yaml",
+      ],
+      { cwd: CONFIG.rootDir, encoding: "utf8", maxBuffer: 1024 * 1024 },
+    )
+      .trim()
+      .split("\n")
+      .filter(Boolean);
+  }
+
+  const unknownFlags = rawTargets.filter((arg) => arg.startsWith("--"));
+
+  if (unknownFlags.length > 0) {
+    console.error(
+      `Unknown option(s): ${unknownFlags.join(", ")}. Use --help for supported options.`,
+    );
+    process.exit(1);
+  }
+
+  CONFIG.targetFiles = rawTargets;
+
   if (altMode) {
     runAltValidation();
   } else {
@@ -498,4 +578,5 @@ module.exports = {
   FileDiscovery,
   Logger,
   CONFIG,
+  resolveCliTargetFiles,
 };

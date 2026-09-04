@@ -95,7 +95,7 @@ jobs:
                   '',
                   'The issue will remain open and flagged until the body is corrected.',
                   'Update the automation to render the canonical template before creating the issue.',
-                  '- Recommended workflow: `.github/workflows/issue-create-from-template.yml`',
+                  '- Recommended workflow: `.github/workflows/issue-create-enhanced.yml`',
                 ].join('\n')
               : [
                   marker,

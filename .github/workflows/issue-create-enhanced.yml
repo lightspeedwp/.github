@@ -32,6 +32,11 @@ on:
           - code-review
           - ai-ops
           - content-modelling
+      canonical_type:
+        description: "Optional canonical issue type override for compatibility with legacy dispatchers"
+        required: false
+        default: ""
+        type: string
       title:
         description: "Issue title"
         required: true
@@ -100,24 +105,26 @@ jobs:
             const path = require('path');
 
             function normalizeType(value) {
-              return (value || '').trim().replace(/^type:/i, '');
+              return (value || '').trim().toLowerCase();
+            }
+
+            function normalizeLabel(value) {
+              const normalized = normalizeType(value).replace(/^type:/i, 'type:');
+              return /^type:[a-z0-9-]+$/u.test(normalized) ? normalized : '';
             }
 
             const inputs = context.payload.inputs || {};
             const templateKey = (inputs.template_key || '').trim();
             const title = (inputs.title || '').trim();
             const extraBody = (inputs.body || '').trim();
-            const extraLabels = (inputs.labels || '')
-              .split(',')
-              .map((label) => label.trim())
-              .filter(Boolean);
             const assignee = (inputs.assignee || '').trim();
             const milestoneTitle = (inputs.milestone || '').trim();
             const parentIssueNum = (inputs.parent_issue || '').trim();
             const linkPrNum = (inputs.link_pr || '').trim();
+            const requestedType = normalizeLabel(inputs.canonical_type);
 
             const templates = {
-              task: { file: '.github/ISSUE_TEMPLATE/08-task.md', defaultType: 'type:task' },
+              task: { file: '.github/ISSUE_TEMPLATE/01-task.md', defaultType: 'type:task' },
               bug: { file: '.github/ISSUE_TEMPLATE/02-bug.md', defaultType: 'type:bug' },
               feature: { file: '.github/ISSUE_TEMPLATE/03-feature.md', defaultType: 'type:feature' },
               design: { file: '.github/ISSUE_TEMPLATE/04-design.md', defaultType: 'type:design' },
@@ -148,13 +155,43 @@ jobs:
             if (!title) throw new Error('title is required.');
 
             const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
+            const labelsPath = path.join(workspace, '.github/labels.yml');
+            const validTypeLabels = new Set(
+              fs.existsSync(labelsPath)
+                ? (fs.readFileSync(labelsPath, 'utf8').match(/name:\s*type:[a-z0-9-]+/gi) || [])
+                    .map((match) => match.replace(/^name:\s*/i, '').trim().toLowerCase())
+                : [],
+            );
+
+            const explicitTypeLabels = (inputs.labels || '')
+              .split(',')
+              .map((label) => label.trim())
+              .filter(Boolean)
+              .map((label) => normalizeLabel(label))
+              .filter(Boolean);
+
+            if (requestedType && !validTypeLabels.has(requestedType)) {
+              throw new Error(`Invalid canonical_type: ${requestedType}`);
+            }
+
+            if (!requestedType && explicitTypeLabels.length > 1) {
+              throw new Error(`Multiple issue type labels supplied: ${explicitTypeLabels.join(', ')}. Use a single canonical type only.`);
+            }
+
+            if (requestedType && explicitTypeLabels.length > 0 && explicitTypeLabels.some((label) => label !== requestedType)) {
+              throw new Error(`Conflicting issue type labels supplied: ${explicitTypeLabels.join(', ')}. Use canonical_type or labels, not both.`);
+            }
+
             const templatePath = path.join(workspace, template.file);
             if (!fs.existsSync(templatePath)) {
               throw new Error(`Template file not found: ${template.file}`);
             }
 
             const templateBody = fs.readFileSync(templatePath, 'utf8').trimEnd();
-            const selectedType = template.defaultType;
+            const selectedType = requestedType || explicitTypeLabels[0] || template.defaultType;
+            if (!validTypeLabels.has(selectedType)) {
+              throw new Error(`Unsupported issue type: ${selectedType}`);
+            }
 
             // Build issue body with enhanced metadata
             const metaComments = [
@@ -178,6 +215,12 @@ jobs:
             ]
               .filter(Boolean)
               .join('\n\n');
+
+            const extraLabels = (inputs.labels || '')
+              .split(',')
+              .map((label) => label.trim())
+              .filter(Boolean)
+              .filter((label) => !/^type:/i.test(label));
 
             const labels = new Set([
               'status:needs-triage',
