@@ -88,7 +88,7 @@ class AuditLabelCoverageSkill {
     return reports;
   }
 
-  _saveReports(reports, basePath, format) {
+  _saveReports(reports, basePath, _format) {
     if (!fs.existsSync(basePath)) {
       fs.mkdirSync(basePath, { recursive: true });
     }
