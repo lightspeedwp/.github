@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: "Issues Agent Template Updates & Improvements"
 date: 2026-09-04
 status: in-progress

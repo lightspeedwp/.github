@@ -1,4 +1,5 @@
 ---
+file_type: documentation
 title: "Issue Enrichment Scripts — Complete Guide"
 date: 2026-09-04
 status: production
