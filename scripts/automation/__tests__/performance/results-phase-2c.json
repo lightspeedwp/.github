@@ -20,8 +20,8 @@
         "totalCalls": 25,
         "cacheHits": 13,
         "cacheMisses": 12,
-        "cacheHitRate": 55,
-        "uniqueEndpoints": 30
+        "cacheHitRate": 52,
+        "uniqueEndpoints": 25
       },
       "improvements": {
         "executionTime": {
@@ -59,8 +59,8 @@
         "totalCalls": 32,
         "cacheHits": 17,
         "cacheMisses": 15,
-        "cacheHitRate": 55,
-        "uniqueEndpoints": 30
+        "cacheHitRate": 53,
+        "uniqueEndpoints": 32
       },
       "improvements": {
         "executionTime": {
@@ -98,7 +98,7 @@
         "totalCalls": 30,
         "cacheHits": 16,
         "cacheMisses": 14,
-        "cacheHitRate": 55,
+        "cacheHitRate": 53,
         "uniqueEndpoints": 30
       },
       "improvements": {
