@@ -252,10 +252,10 @@ function isValidEventType(eventType) {
 }
 
 /**
- * Get events by domain
+ * Retrieve event schemas belonging to a domain.
  *
- * @param {string} domain - Domain name (e.g., 'release', 'metrics', 'website')
- * @returns {Object} Event schemas for the domain
+ * @param {string} domain - Domain prefix, such as `release`, `metrics`, or `website`.
+ * @returns {Object} Event schemas whose types begin with the specified domain.
  */
 function getEventsByDomain(domain) {
   const domainEvents = {};

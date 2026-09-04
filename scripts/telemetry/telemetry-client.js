@@ -353,10 +353,9 @@ class TelemetryClient {
 }
 
 /**
- * Create a telemetry client instance
- *
- * @param {Object} options - Configuration options
- * @returns {TelemetryClient} Telemetry client instance
+ * Create a configured telemetry client.
+ * @param {Object} options - Telemetry client configuration.
+ * @return {TelemetryClient} The telemetry client instance.
  */
 function createTelemetryClient(options = {}) {
   return new TelemetryClient(options);

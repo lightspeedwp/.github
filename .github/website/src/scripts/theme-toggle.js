@@ -61,6 +61,9 @@ function getTheme() {
   return document.documentElement.getAttribute("data-theme") || "light";
 }
 
+/**
+ * Updates all theme toggle buttons to reflect the current theme.
+ */
 function updateAllIcons() {
   const isDark = getTheme() === "dark";
   document.querySelectorAll(".theme-toggle-btn").forEach((btn) => {
@@ -73,6 +76,9 @@ function updateAllIcons() {
   });
 }
 
+/**
+ * Toggles the document theme and notifies listeners of the change.
+ */
 function toggleTheme() {
   const fromTheme = getTheme();
   const toTheme = fromTheme === "dark" ? "light" : "dark";
