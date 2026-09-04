@@ -3,9 +3,9 @@ file_type: openspec
 title: Phase 5 Goal 4 — Operational Monitoring & Debugging
 description: Technical specification for the operational monitoring, validation reporting, and debugging tools suite
 created_date: 2026-09-03
-last_updated: 2026-09-03
+last_updated: 2026-09-04
 status: published
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Phase 5 Goal 4: Operational Monitoring & Debugging
@@ -565,8 +565,9 @@ See [TASKS.md](./TASKS.md) for optional enhancements including:
 ### Project Tracking
 | Item | Type | Description | Status |
 |------|------|-------------|--------|
-| [#2698](https://github.com/lightspeedwp/.github/issues/2698) | Issue | Phase 5 Goal 4: Operational Monitoring & Debugging — Complete | Open |
-| [#2692](https://github.com/lightspeedwp/.github/pull/2692) | PR | Phase 5 Goal 4 implementation | Ready for Review |
+| [#2698](https://github.com/lightspeedwp/.github/issues/2698) | Issue | Phase 5 Goal 4: Operational Monitoring & Debugging — Complete | ✅ Complete |
+| [#2692](https://github.com/lightspeedwp/.github/pull/2692) | PR | Phase 5 Goal 4 implementation | ✅ Merged |
+| [#2760](https://github.com/lightspeedwp/.github/issues/2760) | Issue | Supplementary: CI Infrastructure Remediation | 🔄 In Progress |
 
 ### Enhancement Tasks (Pending Implementation)
 | Issue | Task | Effort | Priority |
@@ -590,6 +591,13 @@ See [TASKS.md](./TASKS.md) for optional enhancements including:
 
 ## Changelog
 
+### Version 1.0.1 (2026-09-04)
+
+**Supplementary Documentation**
+- Added CI infrastructure hardening supplementary task (Issue #2760)
+- Documented Jest, ESLint, TypeScript, and frontmatter fixes
+- Updated OPENSPEC to reference CI remediation work
+
 ### Version 1.0.0 (2026-09-03)
 
 **Initial Release**
@@ -611,7 +619,7 @@ See [TASKS.md](./TASKS.md) for optional enhancements including:
 
 ---
 
-**Specification Version:** 1.0.0  
-**Last Updated:** September 3, 2026  
+**Specification Version:** 1.0.1  
+**Last Updated:** September 4, 2026  
 **Status:** Published & Complete  
 **Lead:** Claude Haiku 4.5
