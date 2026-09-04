@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Release"
 about: "Prepare release (version bump, changelog aggregation, release notes)"
 title: "release: {scope}"
-labels: ["type:release", "status:needs-review"]
+labels: ["type:release", "status:needs-review", "priority:critical", "area:release", "meta:needs-changelog"]
+recommended_issue_type: "type:release"
 ---
 
 # Release Pull Request

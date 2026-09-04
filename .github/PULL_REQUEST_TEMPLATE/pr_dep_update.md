@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Dependency Update"
 about: "Update dependencies, packages, or routine maintenance (lint, format)"
 title: "deps: {scope}"
-labels: ["type:deps", "status:needs-review", "area:dependencies"]
+labels: ["type:dependency", "status:needs-review", "priority:normal", "area:dependencies"]
+recommended_issue_type: "type:dependency"
 ---
 
 # Dependencies / Maintenance Pull Request

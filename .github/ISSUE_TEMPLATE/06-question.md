@@ -56,7 +56,7 @@ Link to related docs, issues, or similar questions if applicable.
 
 - [ ] Issue resolved or answered
 - [ ] Routed to correct template if it's actually a bug or feature request
-- [ ] Maintainer saved reply used if applicable
+- [ ] Use a maintainer-saved reply when applicable
 - [ ] Documentation or help resources referenced (if needed)
 
 ---

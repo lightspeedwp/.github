@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Refactor"
 about: "Refactor code for clarity or performance (no external behaviour change)"
 title: "refactor: {scope}"
-labels: ["type:refactor", "status:needs-review"]
+labels: ["type:refactor", "status:needs-review", "priority:normal", "area:core"]
+recommended_issue_type: "type:refactor"
 ---
 
 # Refactor Pull Request

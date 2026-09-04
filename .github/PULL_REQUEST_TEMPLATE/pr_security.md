@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Security"
 about: "Address security vulnerability or implement security hardening"
 title: "security: {scope}"
-labels: ["type:security", "status:needs-review", "priority:critical"]
+labels: ["type:security", "status:needs-review", "priority:critical", "area:security", "meta:needs-changelog"]
+recommended_issue_type: "type:security"
 ---
 
 # Security Pull Request

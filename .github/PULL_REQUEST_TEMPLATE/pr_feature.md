@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Feature"
 about: "Add net-new feature or enhancement"
 title: "feat: {scope}"
-labels: ["type:feature", "status:needs-review"]
+labels: ["type:feature", "status:needs-review", "priority:normal", "area:core", "meta:needs-changelog"]
+recommended_issue_type: "type:feature"
 ---
 
 # Feature Pull Request

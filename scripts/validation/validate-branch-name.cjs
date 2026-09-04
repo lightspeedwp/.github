@@ -26,7 +26,7 @@
 
 const { execSync } = require('child_process');
 
-// 33 allowed branch types per LightSpeed branching strategy
+// Allowed branch types per LightSpeed branching strategy
 const ALLOWED_TYPES = [
   'feat',
   'fix',
@@ -35,6 +35,7 @@ const ALLOWED_TYPES = [
   'refactor',
   'chore',
   'task',
+  'doc',
   'docs',
   'test',
   'perf',
@@ -63,6 +64,8 @@ const ALLOWED_TYPES = [
   'audit',
   'codex',
   'aiops',
+  'automation',
+  'epic',
 ];
 
 // Regex pattern enforcing: {type}/{scope}-{title} (strict kebab-case)

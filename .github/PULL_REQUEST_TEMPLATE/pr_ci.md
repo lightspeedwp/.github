@@ -3,7 +3,8 @@ file_type: pr-template
 name: "CI/CD"
 about: "Update CI/CD pipelines, linting, packaging, or release automation"
 title: "ci: {scope}"
-labels: ["type:ci", "status:needs-review", "area:ci"]
+labels: ["type:ci", "status:needs-review", "priority:normal", "area:ci"]
+recommended_issue_type: "type:ci"
 ---
 
 # Build/CI Pull Request

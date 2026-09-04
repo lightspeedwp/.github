@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Design"
 about: "Design system updates, component improvements, or visual changes"
 title: "design: {scope}"
-labels: ["type:design", "status:needs-review"]
+labels: ["type:design", "status:needs-review", "priority:normal", "area:design-system", "meta:needs-changelog"]
+recommended_issue_type: "type:design"
 ---
 
 # Design Pull Request
