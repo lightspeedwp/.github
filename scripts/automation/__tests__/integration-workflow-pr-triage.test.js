@@ -8,7 +8,7 @@ import {
   triageAndExtractIssues,
   syncLabelsBasedOnIssues,
   generateTriageSummary,
-} from "../lib/integration-workflow-helpers.js";
+} from "../includes/integration-workflow-helpers.js";
 
 describe("integration: pr triage workflow", () => {
   describe("triage to label sync workflow", () => {
