@@ -65,6 +65,8 @@ describe("issue template contract", () => {
 
     expect(workflow).toMatch(/canonical_type:/u);
     expect(workflow).toMatch(/requestedType\s*\|\|\s*explicitTypeLabels\[0\]/u);
-    expect(workflow).toMatch(/filter\(\(label\)\s*=>\s*!\/\^type:\/i\.test\(label\)\)/u);
+    expect(workflow).toMatch(
+      /filter\(\(label\)\s*=>\s*!\/\^type:\/i\.test\(label\)\)/u,
+    );
   });
 });

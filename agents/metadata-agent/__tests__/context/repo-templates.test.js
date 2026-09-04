@@ -24,13 +24,25 @@ const SAMPLE_CTX = {
 
 describe("buildFrontmatter", () => {
   it("produces valid YAML delimiters", () => {
-    const fm = buildFrontmatter("Title", "Desc", "metrics", "2026-08-29", "my-repo");
+    const fm = buildFrontmatter(
+      "Title",
+      "Desc",
+      "metrics",
+      "2026-08-29",
+      "my-repo",
+    );
     expect(fm.startsWith("---\n")).toBe(true);
     expect(fm).toContain("---\n\n");
   });
 
   it("includes all required frontmatter fields", () => {
-    const fm = buildFrontmatter("My Title", "My Desc", "analysis", "2026-08-29", "my-repo");
+    const fm = buildFrontmatter(
+      "My Title",
+      "My Desc",
+      "analysis",
+      "2026-08-29",
+      "my-repo",
+    );
     expect(fm).toContain('title: "My Title"');
     expect(fm).toContain('description: "My Desc"');
     expect(fm).toContain("file_type: report");
@@ -48,7 +60,13 @@ describe("buildFrontmatter", () => {
 describe("TEMPLATES registry", () => {
   it("contains all five expected keys", () => {
     expect(Object.keys(TEMPLATES).sort()).toEqual(
-      ["block-plugin", "block-theme", "control-plane", "platform", "unknown"].sort(),
+      [
+        "block-plugin",
+        "block-theme",
+        "control-plane",
+        "platform",
+        "unknown",
+      ].sort(),
     );
   });
 
@@ -280,7 +298,9 @@ describe("all templates share common properties", () => {
   for (const tmpl of templates) {
     describe(`${tmpl.name}`, () => {
       let report;
-      beforeEach(() => { report = tmpl(SAMPLE_CTX); });
+      beforeEach(() => {
+        report = tmpl(SAMPLE_CTX);
+      });
 
       it("starts with YAML frontmatter", () => {
         expect(report.startsWith("---\n")).toBe(true);

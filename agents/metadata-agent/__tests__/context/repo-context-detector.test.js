@@ -119,10 +119,7 @@ describe("RepoContextDetector", () => {
     });
 
     it("sets templateKey to block-plugin", () => {
-      const ctx = detector.detect("my-plugin", [
-        "my-plugin.php",
-        "block.json",
-      ]);
+      const ctx = detector.detect("my-plugin", ["my-plugin.php", "block.json"]);
       expect(ctx.templateKey).toBe("block-plugin");
     });
 
