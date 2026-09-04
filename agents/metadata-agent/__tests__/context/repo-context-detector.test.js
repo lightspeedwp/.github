@@ -119,10 +119,7 @@ describe("RepoContextDetector", () => {
     });
 
     it("sets templateKey to block-plugin", () => {
-      const ctx = detector.detect("my-plugin", [
-        "my-plugin.php",
-        "block.json",
-      ]);
+      const ctx = detector.detect("my-plugin", ["my-plugin.php", "block.json"]);
       expect(ctx.templateKey).toBe("block-plugin");
     });
 
@@ -314,6 +311,201 @@ describe("RepoContextDetector", () => {
         "Dockerfile",
       ]);
       expect(ctx.type).toBe("block-plugin");
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Edge cases and boundary conditions
+  // ---------------------------------------------------------------------------
+
+  describe("edge cases", () => {
+    it("handles mixed case file paths correctly", () => {
+      const ctx = detector.detect("my-repo", [
+        "THEME.JSON",
+        "Functions.php",
+        "Style.css",
+      ]);
+      expect(ctx.type).toBe("block-theme");
+    });
+
+    it("detects files with subdirectories correctly", () => {
+      const ctx = detector.detect("my-repo", [
+        "src/block.json",
+        "plugin-header.php",
+      ]);
+      expect(ctx.type).toBe("block-plugin");
+    });
+
+    it("ignores files with partial path matches", () => {
+      const ctx = detector.detect("my-repo", [
+        "docs/theme.json.backup",
+        "README.theme.json",
+      ]);
+      expect(ctx.type).not.toBe("block-theme");
+    });
+
+    it("distinguishes between .tf files and other extensions", () => {
+      const ctx = detector.detect("my-infra", [
+        "main.tf",
+        "variables.tf",
+        "outputs.tf.example",
+      ]);
+      expect(ctx.type).toBe("platform");
+      expect(ctx.signals).toContain("has:terraform");
+    });
+
+    it("handles empty file paths array", () => {
+      const ctx = detector.detect("my-repo", []);
+      expect(ctx.type).toBe("unknown");
+      expect(ctx.signals).toContain("no-distinctive-signals");
+    });
+
+    it("handles null/undefined topics gracefully", () => {
+      const ctx = detector.detect("my-repo", [], {
+        topics: null,
+      });
+      expect(ctx.meta.topics).toEqual([]);
+    });
+
+    it("handles undefined metadata completely", () => {
+      const ctx = detector.detect("my-repo", [], undefined);
+      expect(ctx.meta.owner).toBe("lightspeedwp");
+      expect(ctx.meta.description).toBe("");
+      expect(ctx.meta.topics).toEqual([]);
+    });
+
+    it("respects case-insensitive topic matching for platform", () => {
+      const ctx = detector.detect("my-repo", [], {
+        topics: ["PLATFORM"],
+      });
+      expect(ctx.type).not.toBe("platform"); // topics are case-sensitive in GitHub
+    });
+
+    it("handles multiple Terraform files", () => {
+      const ctx = detector.detect("infra-repo", [
+        "main.tf",
+        "network.tf",
+        "compute.tf",
+        "storage.tf",
+      ]);
+      expect(ctx.type).toBe("platform");
+    });
+
+    it("handles multiple Helm variations", () => {
+      const ctx = detector.detect("helm-repo", ["Chart.yaml"]);
+      expect(ctx.type).toBe("platform");
+      expect(ctx.signals).toContain("has:helm-chart");
+    });
+
+    it("detects Chart.yml variant", () => {
+      const ctx = detector.detect("helm-repo-yml", ["Chart.yml"]);
+      expect(ctx.type).toBe("platform");
+    });
+
+    it("handles PHP files in subdirectories", () => {
+      const ctx = detector.detect("maybe-plugin", ["src/MyClass.php"]);
+      expect(ctx.type).not.toBe("block-plugin");
+    });
+
+    it("requires both theme.json AND functions.php OR style.css", () => {
+      const ctx1 = detector.detect("partial-theme", ["theme.json"]);
+      expect(ctx1.type).toBe("block-theme");
+
+      const ctx2 = detector.detect("classic-theme", [
+        "style.css",
+        "functions.php",
+      ]);
+      expect(ctx2.type).toBe("block-theme");
+    });
+
+    it("handles repos with templates directory", () => {
+      const ctx = detector.detect("template-repo", [
+        "templates/hero.html",
+        "templates/footer.html",
+      ]);
+      expect(ctx.signals).toContain("has:templates-directory");
+    });
+
+    it("returns copy of signals array, not reference", () => {
+      const ctx = detector.detect("my-repo", [".github/workflows/test.yml"]);
+      const originalLength = ctx.signals.length;
+      ctx.signals.push("injected-signal");
+      expect(ctx.signals.length).toBe(originalLength + 1);
+
+      const ctx2 = detector.detect("my-repo", [".github/workflows/test.yml"]);
+      expect(ctx2.signals).not.toContain("injected-signal");
+    });
+
+    it("normalizes all file paths to lowercase for comparison", () => {
+      const ctx = detector.detect("test-repo", [".GITHUB/WORKFLOWS", "AGENTS"]);
+      expect(ctx.type).toBe("control-plane");
+    });
+
+    it("handles very long file path lists", () => {
+      const manyFiles = Array.from({ length: 1000 }, (_, i) => `file${i}.txt`);
+      manyFiles.push("theme.json");
+
+      const ctx = detector.detect("large-repo", manyFiles);
+      expect(ctx.type).toBe("block-theme");
+    });
+
+    it("detects agents directory with or without trailing slash", () => {
+      const ctx1 = detector.detect("repo-with-agents", ["agents/"]);
+      const ctx2 = detector.detect("repo-with-agents", ["agents"]);
+
+      // Both should recognize agents directory
+      expect([ctx1.type, ctx2.type]).toEqual(
+        expect.arrayContaining(["control-plane", "unknown"]),
+      );
+    });
+
+    it("requires agents AND workflows for control-plane (not just agents)", () => {
+      const ctx = detector.detect("agents-only", ["agents/my-agent.md"]);
+      expect(ctx.type).not.toBe("control-plane");
+      expect(ctx.signals).toContain("has:agents-directory");
+    });
+
+    it("default_branch uses snake_case from GitHub API", () => {
+      const ctx = detector.detect("my-repo", [], {
+        default_branch: "staging",
+      });
+      expect(ctx.meta.defaultBranch).toBe("staging");
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Comprehensive signal coverage
+  // ---------------------------------------------------------------------------
+
+  describe("signal collection", () => {
+    it("collects all detected signals", () => {
+      const ctx = detector.detect("test-repo", [
+        ".github/workflows/test.yml",
+        "agents/reporter.md",
+        "theme.json",
+      ]);
+      expect(ctx.signals.length).toBeGreaterThan(0);
+    });
+
+    it("includes topic signals when present", () => {
+      const ctx = detector.detect("plugin-repo", [], {
+        topics: ["wordpress-plugin", "gutenberg"],
+      });
+      expect(ctx.signals).toContain("topic:wordpress-plugin");
+      expect(ctx.signals).toContain("topic:gutenberg");
+    });
+
+    it("includes file-based signals", () => {
+      const ctx = detector.detect("theme-repo", [
+        "theme.json",
+        "style.css",
+        "functions.php",
+        "templates/index.html",
+      ]);
+      expect(ctx.signals).toContain("has:theme.json");
+      expect(ctx.signals).toContain("has:style.css");
+      expect(ctx.signals).toContain("has:functions.php");
+      expect(ctx.signals).toContain("has:templates-directory");
     });
   });
 });

@@ -42,7 +42,7 @@ on:
     branches: [develop, main]
     paths:
       - ".github/reports/**"
-      - ".github/agents/reporting.agent.*"
+      - "agents/reporting.agent.*"
       - ".github/instructions/reporting.instructions.md"
 
 # Prevent concurrent runs
