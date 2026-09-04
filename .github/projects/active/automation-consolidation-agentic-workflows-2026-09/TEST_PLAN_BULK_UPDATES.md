@@ -287,10 +287,26 @@ After all 6 issues are processed:
 ### Quality Metrics
 
 **Accuracy:**
-- % of labels correct on first try: ?
-- % of milestone allocations correct: ?
-- % of reviewer assignments correct: ?
-- % of false positives (agent made wrong decision): ?
+
+Before write mode is enabled, replace every `TBD` in this fixture ledger. Labels and reviewers must be complete sets, milestones must name the exact milestone or `none`, and blocked must be `yes` or `no` with a reason. Dry-run output is used to complete the ledger; it does not authorise writes.
+
+| Fixture | Expected labels (exact set) | Expected milestone | Expected reviewers (exact set) | Expected blocked? |
+|---------|-----------------------------|--------------------|--------------------------------|-------------------|
+| #2569 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+| #2571 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+| #2572 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+| #2558 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+| #2559 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+| #2564 | TBD before writes | TBD before writes | TBD before writes | TBD before writes |
+
+**Adjudication rule:** Compare observed and expected values after execution. Labels and reviewers pass only on exact set equality; milestone and blocked decision pass only on exact equality. A fixture is accurate only when all four fields pass. Any unexpected mutation, including a write when `blocked: yes`, is a false positive. Report field accuracy as passed fields / 24, fixture accuracy as fully passing fixtures / 6, and false-positive rate as fixtures with any unexpected mutation / 6.
+
+- [ ] All 24 expected fields were recorded before writes were enabled
+- % of labels correct on first try: [exact-set passes / 6]
+- % of milestone allocations correct: [exact matches / 6]
+- % of reviewer assignments correct: [exact-set passes / 6]
+- % of blocked decisions correct: [exact matches / 6]
+- % of false positives: [fixtures with unexpected mutation / 6]
 
 **Completeness:**
 - % of issues with all required labels: ?

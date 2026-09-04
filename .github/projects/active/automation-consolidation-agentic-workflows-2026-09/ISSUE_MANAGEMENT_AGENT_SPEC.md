@@ -85,21 +85,20 @@ The agent activates on these GitHub events:
   3. Update status labels (remove `status:done`, add `status:in-progress`)
   4. Notify area owner of reopen
 
-### 6. Issue Closed (Post-Closure Verification)
+### 6. Issue Closed (Post-Closure Verification and Retry)
 - **Event:** `issues.closed`
-- **Post-Closure Validation (cannot block, but flags issues):**
+- **Post-Closure Validation:**
   1. Verify DOD checklist is complete
   2. Verify no blocking issues remain open
   3. Verify all linked PRs are merged
   4. Verify no `status:blocked` label
 - **Actions:**
-  1. Add `status:done` label
-  2. Remove `status:in-progress` label
-  3. Archive project fields (if applicable)
-  4. Comment with validation results:
-     - ✅ Pass: "Issue closed successfully. All DOD criteria met."
-     - ⚠️ Warning: "Issue closed, but detected potential issues: [list]"
-  5. Send completion notification
+  1. Run all four validation checks before changing status labels or project fields
+  2. If any check fails, reopen the issue, remove `status:done` if present, and comment with the failed checks; do not archive project fields
+  3. Make failure handling idempotent by recording the processed `closed_at` value; duplicate deliveries for the same closure must not create another reopen or comment
+  4. After the failures are corrected, the next close event runs the complete validation again
+  5. Only after all checks pass, add `status:done`, remove `status:in-progress`, archive project fields (if applicable), and comment: "Issue closed successfully. All DOD criteria met."
+  6. Send the completion notification only for a validated closure
 
 ---
 
@@ -185,28 +184,33 @@ graph TD
 ```mermaid
 graph TD
     accTitle: Issue closed validation decision tree
-    accDescr: Flowchart for validating issues can be closed, checking DOD completeness, blocking issues, linked PRs, and status labels
-    A["Close Issue"] --> B["Check DOD Checklist"]
+    accDescr: Flowchart for validating a closure and reopening the issue when DOD, blocking issue, linked PR, or status label checks fail
+    A["issues.closed Event"] --> B["Check DOD Checklist"]
     B --> C{DOD Complete?}
     
-    C -->|No| D["❌ Block Close & List Missing Items"]
+    C -->|No| D["❌ Reopen & List Missing Items"]
     C -->|Yes| E["Check Blocking Issues"]
     
     E --> F{Any Open Blockers?}
-    F -->|Yes| G["❌ Block Close & List Blockers"]
+    F -->|Yes| G["❌ Reopen & List Blockers"]
     F -->|No| H["Check Linked PRs"]
     
     H --> I{All PRs Merged?}
-    I -->|No| J["❌ Block Close & List Unmerged PRs"]
+    I -->|No| J["❌ Reopen & List Unmerged PRs"]
     I -->|Yes| K["Check status:blocked Label"]
     
     K --> L{Has blocked?}
-    L -->|Yes| M["❌ Block Close: Remove blocked Label First"]
-    L -->|No| N["✅ Allow Close"]
+    L -->|Yes| M["❌ Reopen: Remove blocked Label First"]
+    L -->|No| N["✅ Validate Closure"]
     
     N --> O["Add status:done Label"]
     O --> P["Archive Project Fields"]
     P --> Q["Notify Area Owner"]
+
+    D --> R["Record closed_at Attempt"]
+    G --> R
+    J --> R
+    M --> R
     
     style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
     style N fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20

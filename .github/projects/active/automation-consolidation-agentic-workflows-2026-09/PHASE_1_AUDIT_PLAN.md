@@ -16,21 +16,21 @@ version: "1.0.0"
 
 ## Audit Scope
 
-### Files to Analyze (150+ total)
+### Canonical Script and Workflow Inventory (57 unique files)
+
+Count only explicitly named file paths, once per repository-relative path. Directory placeholders and phrases such as "similar utilities" are excluded. When a file serves multiple categories, its first category below owns the count and later categories show it as a cross-reference. This produces one canonical inventory of 34 scripts and 23 workflows.
 
 **Summary Table:**
 | Category | Count | Notes |
 |----------|-------|-------|
-| Scripts | 45 | Project mgmt, validation, labeling, issue, PR, orchestration |
-| Workflows | 19 | Issue (13), PR (6) |
-| Agent Definitions | 16 | `.github/agents/` (8), `agents/` (5), `scripts/agents/` (3) |
-| Configuration | 5 | Labels, labeler, governance, issue-types, issue-fields |
-| Issue Templates | 25+ | `.github/ISSUE_TEMPLATE/*.md` |
-| Documentation | 30+ | Issue (9), PR (3), Automation (18+) |
-| **TOTAL** | **140+** | Comprehensive automation landscape |
+| Scripts | 34 | Unique named paths across project management, validation, labeling, issue, PR, and orchestration |
+| Workflows | 23 | 13 issue + 6 PR + 4 additional labeling workflows |
+| **Canonical total** | **57** | Deduplicated scripts and workflows used for scope and success criteria |
 
-#### 1. Scripts (45 files)
-- **Project management scripts** (8 files)
+Agent definitions, configuration, templates, and documentation remain additional audit scope, but their estimates are tracked separately and are not included in this canonical total.
+
+#### 1. Scripts (34 unique files)
+- **Project management scripts** (9 files)
   - `scripts/collect-link-targets.js`
   - `scripts/validate-reports-structure.js`
   - `scripts/workflows/projects/archive-projects.cjs`
@@ -39,17 +39,17 @@ version: "1.0.0"
   - `scripts/automation/project-docs-update.sh`
   - `scripts/automation/test-project-docs-update.sh`
   - `scripts/automation/update-projects-status.cjs`
+  - `scripts/consolidate-issue-types.js`
 
-- **Validation scripts** (8 files)
+- **Validation scripts** (6 files)
   - `scripts/validation/validate-labeling-configs.cjs`
   - `scripts/validation/validate-labels-before-creation.cjs`
   - `scripts/validation/validate-issue-fields.cjs`
   - `scripts/validation/validate-links.js`
   - `scripts/validation/validate-pr-template-structure.cjs`
   - `scripts/validation/validate-reports-structure.js`
-  - Similar validation utilities
 
-- **Labeling scripts** (8 files)
+- **Labeling scripts** (7 files)
   - `scripts/automation/update-pr-labels-simple.js`
   - `scripts/automation/sync-pr-labels.js`
   - `scripts/automation/sync-pr-labels-optimized.js`
@@ -58,7 +58,7 @@ version: "1.0.0"
   - `scripts/agents/labeling.agent.js`
   - `scripts/agents/run-labeling-agent.js`
 
-- **Issue management scripts** (8 files)
+- **Issue management scripts** (7 files)
   - `scripts/automation/add-issue-template-sections.js`
   - `scripts/automation/audit-issue-metadata.js`
   - `scripts/automation/bulk-issue-metadata-updater.js`
@@ -66,23 +66,21 @@ version: "1.0.0"
   - `scripts/agents/issues.agent.cjs`
   - `scripts/agents/issues.agent.js`
   - `scripts/agents/issue-remediation-orchestrator.js`
-  - `scripts/automation/issue-agent/` (directory)
+  - `scripts/automation/issue-agent/` is a directory and is excluded from the file count
 
-- **PR automation scripts** (8 files)
+- **PR automation scripts** (2 unique files)
   - `scripts/automation/normalize-issue-pr-titles.cjs`
   - `scripts/automation/normalize-issue-pr-titles.js`
-  - `scripts/automation/sync-pr-labels.js`
-  - Similar PR utilities
+  - Cross-reference: `scripts/automation/sync-pr-labels.js` is counted under labeling scripts
 
-- **Agent orchestration scripts** (6+ files)
+- **Agent orchestration scripts** (3 files)
   - `scripts/agents/planner.agent.cjs`
   - `scripts/agents/planner.agent.js`
   - `scripts/agents/issue-type.agent.js`
-  - `scripts/consolidate-issue-types.js`
 
-#### 2. Workflows (25+ files in `.github/workflows/`)
+#### 2. Workflows (23 unique files in `.github/workflows/`)
 
-**Issue Management (8 workflows)**
+**Issue Management (13 workflows)**
 - `issue-create-enhanced.yml`
 - `issue-create-from-template.yml`
 - `issue-fields-backfill.yml`
@@ -97,7 +95,7 @@ version: "1.0.0"
 - `validate-issue-dod-before-close.yml`
 - `validate-issue-labels.yml`
 
-**PR Management (5 workflows)**
+**PR Management (6 workflows)**
 - `allocate-pr-issue-to-milestone.yml`
 - `enforce-pr-issue-linking.yml`
 - `pr-template-resolver.yml`
@@ -105,13 +103,12 @@ version: "1.0.0"
 - `pr-validation.yml`
 - `validate-pr-template.yml`
 
-**Labeling (6 workflows)**
+**Labeling (4 additional unique workflows)**
 - `labeling.yml`
 - `labeling-governance.yml`
 - `label-audit-report.yml`
 - `meta-labels-sync.yml`
-- `validate-issue-labels.yml`
-- `issue-labeling-automation.yml`
+- Cross-references: `validate-issue-labels.yml` and `issue-labeling-automation.yml` are counted under Issue Management
 
 #### 3. Agent Definitions (20+ files)
 
@@ -266,13 +263,13 @@ version: "1.0.0"
 
 ### Week 1: File Inventory & Classification
 
-**Days 1-2: Scripts (45+ files)**
+**Days 1-2: Scripts (34 unique files)**
 - [ ] Create inventory table with all fields above
 - [ ] Categorize: Active, Dead, Duplicate, Essential
 - [ ] Identify dependencies (what calls what)
 - [ ] Flag for detailed analysis
 
-**Days 3-4: Workflows & Agents (45+ files)**
+**Days 3-4: Workflows (23 unique files) & Agents (separately tracked)**
 - [ ] Inventory all workflows with purpose/status/dependencies
 - [ ] Inventory all agent definitions (multiple locations)
 - [ ] Cross-reference agents with scripts
@@ -314,6 +311,13 @@ version: "1.0.0"
 
 **Days 3-4: Test Plan & Rollout Strategy**
 - [ ] Plan bulk update testing (6 issues + PRs)
+- [ ] Run the workflow regression matrix from `scripts/automation/__tests__/integration/workflows.integration.test.js`:
+
+  | Validation target | Expected behaviour |
+  |-------------------|--------------------|
+  | Six-issue bulk update | Each fixture matches its predeclared labels, milestone, reviewers, and blocked/not-blocked decision; no write occurs until expectations are complete |
+  | `meta-labels-sync.yml` | Identifies linked-PR issues missing `meta:has-pr`, applies `meta:has-pr`, marks issues stale after 30+ inactive days with `meta:stale`, preserves manual labels, records label changes, handles concurrent runs without conflicts, respects branch protection, and completes the test fixture within 5 seconds |
+  | `label-audit-report.yml` | Reports accurate total, labelled, stale, and coverage metrics, completes the test fixture within 5 seconds, and emits parseable JSON plus CSV with the expected headers and issue rows |
 - [ ] Org-wide rollout approach
 - [ ] Installation process for new repos
 - [ ] Monitoring & observability design
@@ -328,7 +332,7 @@ version: "1.0.0"
 ## Deliverables Checklist
 
 ### 1. Audit Findings Report 📋
-- [x] **Inventory Table:** All 140+ files with purpose/status
+- [x] **Inventory Table:** All 57 canonical scripts and workflows with purpose/status
 - [ ] **Duplicate Analysis:** Specific findings with consolidation options (Phase 2)
 - [ ] **Risk Assessment:** What could break if we consolidate (Phase 2)
 - [ ] **Effort Estimates:** Hours required per consolidation (Phase 2)
@@ -375,7 +379,7 @@ version: "1.0.0"
 - [ ] **Timeline:** Gantt-style schedule with milestones (Phase 2)
 
 ### 6. Related Files Inventory 📋
-- [x] **Complete inventory:** All 140+ files catalogued
+- [x] **Complete inventory:** All 57 canonical scripts and workflows catalogued
 - [ ] **Cross-reference map** (which files reference which) — Phase 2
 - [ ] **Dependency graph** (visual representation) — Phase 2
 - [ ] **Consolidation impact analysis** — Phase 2
@@ -386,7 +390,7 @@ version: "1.0.0"
 
 ### Scripts & Workflows
 
-- **Total Count:** 70 files
+- **Total Count:** 57 unique files (34 scripts + 23 workflows)
 - **Active:** ? (TBD in audit)
 - **Dead/Unused:** ? (TBD in audit)
 - **Duplicates:** 15-20 estimated
@@ -413,7 +417,7 @@ version: "1.0.0"
 ## Success Criteria (Phase 1)
 
 **Quantitative:**
-- ✅ 150+ files analyzed and categorized
+- ✅ 57 unique scripts and workflows analysed and categorised
 - ✅ All duplicate files identified with consolidation plan
 - ✅ All documentation assessed for consolidation
 - ✅ 6 test issues + linked PRs fully documented
@@ -431,7 +435,7 @@ version: "1.0.0"
 
 **Audit Scope & Methodology:**
 - Audit baseline: develop branch as of Sep 3, 2026
-- Files analyzed: 140+ scripts, workflows, configs, templates, docs
+- Files analysed: 57 unique scripts and workflows; agents, configuration, templates, and documentation are tracked separately
 - Categorization: By function (project mgmt, validation, labeling, issues, PRs)
 - Duplication analysis: Focuses on logic overlap, not exact code matches
 

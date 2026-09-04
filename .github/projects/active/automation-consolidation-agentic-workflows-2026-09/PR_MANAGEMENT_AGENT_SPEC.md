@@ -34,12 +34,12 @@ The PR Management Agent automates management of pull requests in the `.github` r
 
 The agent activates on these GitHub events:
 
-### 1. PR Created
-- **Event:** `pull_request.opened`
+### 1. PR Opened or Link Updated
+- **Event:** `pull_request` with `types: [opened, edited, reopened]`
 - **Actions:**
   1. Validate PR template usage
   2. Extract referenced issues (#NNN)
-  3. Check for linked issues (validation comment if none found — cannot block creation)
+  3. Check for a valid linked issue and publish the `pr-issue-link` status check (failure if none is found; PR creation still succeeds)
   4. Inherit labels from linked issues
   5. Apply PR-specific labels
   6. Allocate milestone from linked issue
@@ -148,17 +148,18 @@ graph TD
     C -->|Yes| F["Extract Issue References"]
     F --> G{Issues Found?}
     
-    G -->|No| H["❌ Block: Orphaned PR"]
-    H --> I["Require Issue Link"]
+    G -->|No| H["❌ Fail pr-issue-link Check"]
+    H --> I["Comment: Require Valid Issue Link"]
     I --> E
     
     G -->|Yes| J["Validate Issues Exist"]
     J --> K{Valid Issues?}
     
-    K -->|No| L["❌ Comment: Invalid Issue Refs"]
-    L --> E
+    K -->|No| L["❌ Fail pr-issue-link Check"]
+    L --> I
     
-    K -->|Yes| M["Inherit Labels from Issues"]
+    K -->|Yes| V["✅ Pass pr-issue-link Check"]
+    V --> M["Inherit Labels from Issues"]
     M --> N["Apply PR-Specific Labels"]
     N --> O["Allocate Milestone"]
     O --> P["Request Reviewers"]
@@ -491,6 +492,8 @@ Agent checks:
 5. ✅ PR description complete
 6. ✅ No blocking labels (`status:blocked`, `status:changes-requested`)
 
+The `pr-issue-link` check is a required branch-protection status check. An orphaned PR remains open but unmergeable until an edited or reopened event finds at least one valid linked issue and replaces the failing result with a passing result.
+
 **Reversible Actions Only:**
 
 - ✅ Can add/remove labels
@@ -588,7 +591,8 @@ pr_management:
   
   linking:
     require_issue_link: true
-    block_orphaned_prs: true
+    status_check_name: "pr-issue-link"
+    required_for_merge: true
   
   labels:
     inherit_from_issues: true
