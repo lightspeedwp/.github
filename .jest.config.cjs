@@ -38,7 +38,7 @@ module.exports = {
     },
     // Enable Babel to transform ES modules in scripts directory
     transformIgnorePatterns: [
-        'node_modules/(?!(scripts|@actions)\/)',
+        'node_modules/(?!(scripts|@actions|octokit|@octokit)\/)',
         '<rootDir>/scripts/agents/includes/sync-version.js',
     ],
     // Module name mapper is disabled to allow proper .cjs resolution

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// CommonJS compatibility for Jest testing
 
 /**
  * allocate-to-milestone.js - Phase 2C Optimized
