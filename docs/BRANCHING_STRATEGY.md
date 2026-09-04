@@ -129,7 +129,7 @@ Use a single regex in a workflow to enforce naming discipline:
 **Non-release branches:**
 
 ```regex
-^(feat|fix|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
+^(feat|fix|hotfix|refactor|chore|task|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
 ```
 
 **Release branches (semantic versioning):**
@@ -182,7 +182,7 @@ jobs:
           # Allow release branches with semantic versioning
           if [[ "$BRANCH" =~ ^release/v?[0-9]+\.[0-9]+\.[0-9]+ ]]; then exit 0; fi
           # Standard pattern: {type}/{scope}-{title}
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
             echo "❌ Branch '$BRANCH' must match the pattern: {type}/{scope}-{title}"
             echo "Example: feat/user-auth-login"
             exit 1
@@ -206,6 +206,7 @@ PR template selection is automatically routed based on branch type prefix:
 | `release/` | `pr_release.md` |
 | `refactor/` | `pr_refactor.md` |
 | `chore/` | `pr_chore.md` |
+| `task/` | `pr_task.md` |
 | `docs/` | `pr_docs.md` |
 | `ci/` | `pr_ci.md` |
 | `deps/` | `pr_dep_update.md` |
@@ -245,6 +246,7 @@ Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appro
         "^release/.*",
         "^refactor/.*",
         "^chore/.*",
+        "^task/.*",
         "^docs/.*",
         "^test/.*",
         "^perf/.*",
@@ -287,7 +289,9 @@ Extend your project sync workflow so branch prefixes set the Project **Type** fi
 - `feat/` → Feature/Story
 - `fix/` → Bug (hotfix → critical Bug)
 - `refactor/` → Refactor
-- `chore/`, `ci/`, `build/`, `deps/`, `security/` → Chore
+- `chore/` → Chore
+- `task/` → Task (scoped project/epic-bound work)
+- `ci/`, `build/`, `deps/`, `security/` → Chore
 - `design/`, `a11y/`, `ux/` → Design/Task
 - `content/`, `seo/`, `config/`, `migrate/`, `qa/`, `uat/` → Task/Operations
 - `proto/`, `api/`, `schema/`, `telemetry/`, `ds/` → Feature/Task

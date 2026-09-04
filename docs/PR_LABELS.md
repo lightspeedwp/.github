@@ -40,6 +40,7 @@ Every PR should use a standard branch prefix for correct label and template auto
 | release/  | Release prep/deployment    | release              | .github/PULL_REQUEST_TEMPLATE/pr_release.md    |
 | refactor/ | Internal code refactoring  | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md   |
 | chore/    | Maintenance/hygiene tasks  | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md      |
+| task/     | Scoped project/epic work   | task                 | .github/PULL_REQUEST_TEMPLATE/pr_task.md       |
 | docs/     | Documentation changes      | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md       |
 | ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md         |
 | deps/     | Dependency updates         | dependencies         | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md |
