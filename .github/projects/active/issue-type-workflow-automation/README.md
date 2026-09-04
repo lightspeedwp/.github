@@ -3,7 +3,7 @@ file_type: documentation
 title: "Issue Type Allocator Initiative — Complete Project"
 description: "8-phase project to establish unified issue type taxonomy, standardize labels and colors, integrate with AI agents, and validate end-to-end workflow"
 status: active
-last_updated: "2026-09-03"
+last_updated: "2026-09-04"
 ---
 
 # Issue Type Allocator Initiative — Complete Project
@@ -49,6 +49,8 @@ Comprehensive 8-phase initiative to establish unified issue type taxonomy, stand
 **Key Files:**
 
 - `STATUS.md` ⭐ — Authoritative project status (phases 1-8)
+- `OPENSPEC.md` — Technical specification (29 types, 158 labels, 5 agents, validation)
+- `OPTIONAL_ENHANCEMENTS.md` — Optional improvements (28-40 hours across 3 priority levels)
 - `issues/phase-5-template-fixes.md` — Phase 5 task breakdown
 - `issues/phase-6-label-standardization.md` — Phase 6 task breakdown
 - `issues/phase-7-agent-integration.md` — Phase 7 task breakdown
@@ -106,6 +108,8 @@ Eight-phase initiative to establish unified issue type taxonomy and integrate wi
 **Key Files:**
 
 - `STATUS.md` ⭐ — Authoritative status (all phases)
+- `OPENSPEC.md` — Technical specification for implementation (29 types, 158 labels, 5 agents)
+- `OPTIONAL_ENHANCEMENTS.md` — Phase 9 optional improvements (3 priority levels, 28-40 hours)
 - `issues/phase-5-template-fixes.md` — Phase 5 complete breakdown
 - `issues/phase-6-label-standardization.md` — Phase 6 complete breakdown
 - `issues/phase-7-agent-integration.md` — Phase 7 complete breakdown
@@ -177,6 +181,8 @@ You're assigned to one or more tasks across Phase 5, 6, 7, or 8. Each phase has 
 **Key Files:**
 
 - `STATUS.md` ⭐ — Project status (phases 1-8 complete documentation)
+- `OPENSPEC.md` — Technical specification for all 29 types and 158 labels
+- `OPTIONAL_ENHANCEMENTS.md` — Phase 9 enhancement opportunities (optional follow-up work)
 - `issues/phase-5-template-fixes.md` — Phase 5 task breakdown
 - `issues/phase-6-label-standardization.md` — Phase 6 task breakdown
 - `issues/phase-7-agent-integration.md` — Phase 7 task breakdown
@@ -206,10 +212,12 @@ You're assigned to one or more tasks across Phase 5, 6, 7, or 8. Each phase has 
 .github/projects/active/issue-type-workflow-automation/
 ├── README.md (this file — project overview)
 ├── STATUS.md ⭐ (AUTHORITATIVE — Phases 1-8 status, timeline, metrics)
+├── OPENSPEC.md (Technical specification — 29 types, 158 labels, 5 agents, validation)
+├── OPTIONAL_ENHANCEMENTS.md (Phase 9 optional improvements — 28-40 hours, 3 priority levels)
 ├── PROJECT_INDEX.md (legacy project details)
 ├── IMPLEMENTATION_PLAN.md (legacy phases 1-3 roadmap)
 │
-├── issues/ (Phase 1-3: Original automation tasks)
+├── issues/ (Phase 1-8: Automation tasks)
 │   ├── 01-epic-issue-type-automation.md
 │   ├── 02-fix-nonexistent-label.md
 │   ├── 03-fix-type-aliases.md
@@ -232,6 +240,8 @@ You're assigned to one or more tasks across Phase 5, 6, 7, or 8. Each phase has 
 **Key Documents:**
 
 - **STATUS.md** — Authoritative project status for all 8 phases (phases 1-4 complete, 5-8 documented)
+- **OPENSPEC.md** — Complete technical specification (29 types, 158 labels, 5 agents, validation checks)
+- **OPTIONAL_ENHANCEMENTS.md** — Optional Phase 9 improvements (Label Migration, Agent Behavior, Test Suite, etc.)
 - **skills/issue-type-allocator/SKILL.md** — 570-line skill (merged PR #2686, merged 2026-09-03)
 - `.github/reports/issue-management/audit-2026-07-23-comprehensive.md` (audit findings)
 - `.github/reports/issue-management/solution-design-2026-07-23.md` (design details)
@@ -278,6 +288,11 @@ You're assigned to one or more tasks across Phase 5, 6, 7, or 8. Each phase has 
 
 **In Progress:**
 - [PR #2696](https://github.com/lightspeedwp/.github/pull/2696) — Phase 5-8: Task Documentation (Draft, Ready for Phase 5 Execution)
+
+**Phase 9 Optional Enhancements (Created 2026-09-04):**
+- [#2767](https://github.com/lightspeedwp/.github/issues/2767) — Phase 9: Label Migration Script (3-4 hours, high priority)
+- [#2768](https://github.com/lightspeedwp/.github/issues/2768) — Phase 9: Agent Behavior Documentation (3-4 hours, high priority)
+- [#2769](https://github.com/lightspeedwp/.github/issues/2769) — Phase 9: Automated Test Suite (3-5 hours, high priority)
 
 **Related Coordination:**
 - [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
