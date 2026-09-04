@@ -246,6 +246,9 @@ const issues = generator.generateAllIssues(metrics);
 
 ## Usage Examples
 
+For Reporting Agent v2 integration examples with PRD Agent, Testing Agent, and Metrics Agent,
+see [agent-integration-examples.md](./agent-integration-examples.md).
+
 ### Example 1: Get Metrics Context for Meta Agent
 
 ```javascript

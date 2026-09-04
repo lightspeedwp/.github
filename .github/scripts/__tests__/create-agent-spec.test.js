@@ -290,7 +290,7 @@ test("CLI --help displays usage information", () => {
     const output = execFileSync("node", [CREATE_AGENT_SCRIPT, "--help"], {
       cwd: PROJECT_ROOT,
       encoding: "utf-8",
-    }).toString();
+    });
     assert(
       output.includes("Agent Specification Generator"),
       "Help text missing title",

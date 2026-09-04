@@ -8,13 +8,13 @@ on:
     paths:
       - "**/*.md"
       - ".github/automation/**"
-      - ".github/agents/**"
+      - "agents/**"
   push:
     branches: [develop]
     paths:
       - "**/*.md"
       - ".github/automation/**"
-      - ".github/agents/**"
+      - "agents/**"
   schedule:
     - cron: "0 3 * * 1" # weekly metrics roll-up (Mon 03:00 UTC)
 
