@@ -74,20 +74,24 @@ Current label state has inconsistencies:
 | Color | Semantics | Types (Count) | Current | Target |
 |-------|-----------|---|---------|--------|
 | 🔴 Red | Critical/Security | Bug, Security (2) | 2 | 2 |
-| 🟠 Orange | Quality/Testing | Test, Performance, QA (3) | 3 | 3 |
-| 🟢 Green | Growth/New | Feature, Enhancement, UI, Release (4) | 4 | 4 |
+| 🟠 Orange | Quality/Testing | Test, Performance (2) | 3 | 2 |
+| 🟢 Green | Growth/New | Feature, Enhancement, Release (3) | 4 | 3 |
 | 🔵 Blue | Maintenance/Small | Task, Chore, Build, Code Review, Question, Help, Support (7) | 10 | 7 |
 | 🟣 Purple | Planning/Strategy | Epic, Story, Design, Content Modelling, UX Feedback (5) | 4 | 5 |
 | 🩷 Pink | Compliance/Legal | A11y, Audit (2) | 1 | 2 |
-| 🟫 Brown | Integration/External | Integration, Compatibility, Dependency, Automation, AI Ops (5) | 3 | 5 |
-| ⚪ Gray | Documentation/Research | Documentation, Research, Maintenance, Investigation, Refactor (5) | 8 | 5 |
+| 🟫 Brown | Integration/External | Integration, Compatibility, Automation, AI Ops (4) | 3 | 4 |
+| ⚪ Gray | Documentation/Research | Documentation, Research, Maintenance, Refactor (4) | 8 | 4 |
 
 **Notes:**
-- Blue reduced from 10→7 (moved to other categories; keeps Task, Chore, Build, Code Review, Question, Help, Support)
-- Brown increased to 5 (moved AI Ops here from Blue)
-- Gray reduced from 8→5 (moved UI to Green, Documentation/Research remain, added Maintenance/Investigation/Refactor)
-- Purple remains 5 types (Planning/Strategy focus)
-- All 29 final types accounted for
+- Red: unchanged (Bug, Security)
+- Orange: reduced from 3→2 (removed QA, kept Test, Performance)
+- Green: reduced from 4→3 (removed UI, kept Feature, Enhancement, Release)
+- Blue: increased to 7 (Task, Chore, Build, Code Review, Question, Help, Support)
+- Purple: unchanged (Epic, Story, Design, Content Modelling, UX Feedback)
+- Pink: unchanged (A11y, Audit)
+- Brown: reduced from 5→4 (removed Dependency, kept Integration, Compatibility, Automation, AI Ops)
+- Gray: reduced from 5→4 (removed Investigation, kept Documentation, Research, Maintenance, Refactor)
+- **Total: 2+2+3+7+5+2+4+4 = 29 final types** (consolidated from 35, eliminated: CI, QA, Dependency, Investigation, UI)
 
 **Color update checklist:**
 - [ ] Review semantic color assignments (see table above)
