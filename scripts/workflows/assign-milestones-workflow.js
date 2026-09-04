@@ -12,14 +12,16 @@ import { MilestoneAssignmentAgent } from "../agents/includes/milestone-assignmen
 async function main() {
   try {
     // Get inputs from environment (passed from workflow)
-    const issuesJson = process.env.ISSUES_JSON;
+    const issuesFile = process.env.ISSUES_FILE;
     const dryRun = process.env.DRY_RUN === "true";
     const runId = process.env.RUN_ID;
 
-    if (!issuesJson) {
-      throw new Error("ISSUES_JSON environment variable not set");
+    if (!issuesFile) {
+      throw new Error("ISSUES_FILE environment variable not set");
     }
 
+    const fs = await import("fs");
+    const issuesJson = fs.readFileSync(issuesFile, "utf8");
     const issues = JSON.parse(issuesJson);
     core.info(
       `Starting milestone assignment for ${issues.length} issues (dry-run: ${dryRun})`,
