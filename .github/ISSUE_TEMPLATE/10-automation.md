@@ -1,7 +1,7 @@
 ---
 name: "🤖 Automation"
 about: "Template for Automation issues"
-title: "type:automation: {scope}"
+title: "automation: {scope}"
 labels: ["type:automation", "status:needs-triage", "priority:normal", "area:automation", "meta:infrastructure"]
 recommended_branch: "automation/"
 file_type: issue-template

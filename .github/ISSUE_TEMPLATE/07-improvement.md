@@ -1,7 +1,7 @@
 ---
 name: "✨ Improvement"
 about: "Template for Improvement issues"
-title: "type:improve: {scope}"
+title: "improve: {scope}"
 labels: ["type:improve", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
 recommended_branch: "feat/"
 file_type: issue-template

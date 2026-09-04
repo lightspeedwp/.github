@@ -1,7 +1,7 @@
 ---
 name: "🧪 Testing/Coverage"
 about: "Template for Testing/Coverage issues"
-title: "type:test: {scope}"
+title: "test: {scope}"
 labels: ["type:test", "status:needs-triage", "priority:normal", "area:testing", "meta:coverage"]
 recommended_branch: "test/"
 file_type: issue-template
