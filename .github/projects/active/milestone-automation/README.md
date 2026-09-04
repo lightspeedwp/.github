@@ -95,12 +95,18 @@ This builds on Phase 1 (script and workflow deployment) which is already in prod
 
 ### Phase 2 Follow-Up Tracking
 
-- **[FOLLOW-UP-FIXES.md](./FOLLOW-UP-FIXES.md)** — 28-item CodeRabbit tracker with implementation plan (24/28 complete)
+- **[FOLLOW-UP-FIXES.md](./FOLLOW-UP-FIXES.md)** — 28-item CodeRabbit tracker with implementation plan (13/28 resolved)
 - **[ISSUE-LINKS.md](./ISSUE-LINKS.md)** — Central registry linking project to GitHub issues
-- **[PHASE-2-COMPLETION-SUMMARY.md](./PHASE-2-COMPLETION-SUMMARY.md)** — Executive summary of Phase 2 completion (24/28, 86%)
+- **[PHASE-2-COMPLETION-SUMMARY.md](./PHASE-2-COMPLETION-SUMMARY.md)** — Executive summary of Phase 2 completion
+- **[PHASE-2-FOLLOWUP-SUMMARY.md](./PHASE-2-FOLLOWUP-SUMMARY.md)** — Phase 2 Follow-Up implementation details
 - **[CI-INVESTIGATION-CHECKLIST.md](./CI-INVESTIGATION-CHECKLIST.md)** — Systematic tracking for Checks 11-24
 - **[CI-INVESTIGATION-SUMMARY.md](./CI-INVESTIGATION-SUMMARY.md)** — Comprehensive findings and recommendations for CI checks
 - **[WORKFLOW-AUTOMATION-VALIDATION.md](./WORKFLOW-AUTOMATION-VALIDATION.md)** — Validation report for workflow automation (Checks 19-24)
+
+### Phase 3 Planning & Readiness
+
+- **[PHASE-3-READINESS.md](./PHASE-3-READINESS.md)** — 🆕 Phase 3 readiness hub with cross-project coordination
+- **[PHASE-3-ENHANCEMENT-TASKS.md](./PHASE-3-ENHANCEMENT-TASKS.md)** — Phase 3 enhancement tasks with priority matrix
 
 ### Design & Implementation
 
