@@ -46,9 +46,11 @@ describe("allocate-to-milestone-optimized", () => {
   let mockFetch;
   let mockCache;
   let mockBatch;
+  let originalGithubToken;
 
   beforeEach(() => {
     jest.clearAllMocks();
+    originalGithubToken = process.env.GITHUB_TOKEN;
     process.env.GITHUB_TOKEN = "mock-token";
 
     // Get mocked instances
@@ -63,25 +65,23 @@ describe("allocate-to-milestone-optimized", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    process.env.GITHUB_TOKEN = originalGithubToken;
   });
 
   describe("Initialization and configuration", () => {
     it("should require GITHUB_TOKEN environment variable", () => {
+      const savedToken = process.env.GITHUB_TOKEN;
       delete process.env.GITHUB_TOKEN;
 
-      try {
-        // Module initialization should fail without token
-        expect(() => {
-          require.cache[
-            require.resolve("../allocate-to-milestone-optimized.js")
-          ] = undefined;
-          require("../allocate-to-milestone-optimized.js");
-        }).toThrow();
-      } catch (err) {
-        expect(err).toBeDefined();
-      }
+      // Module initialization should fail without token
+      expect(() => {
+        require.cache[
+          require.resolve("../allocate-to-milestone-optimized.js")
+        ] = undefined;
+        require("../allocate-to-milestone-optimized.js");
+      }).toThrow();
 
-      process.env.GITHUB_TOKEN = "mock-token";
+      process.env.GITHUB_TOKEN = savedToken;
     });
 
     it("should initialize with default GitHub API endpoint", () => {

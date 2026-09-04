@@ -38,11 +38,13 @@ class MockBenchmarkResult {
       executionTime: {
         baseline: this.baseline.executionTime,
         actual: this.actual.executionTime,
-        improvement: (
-          ((this.baseline.executionTime - this.actual.executionTime) /
-            this.baseline.executionTime) *
-          100
-        ).toFixed(2),
+        improvement: parseFloat(
+          (
+            ((this.baseline.executionTime - this.actual.executionTime) /
+              this.baseline.executionTime) *
+            100
+          ).toFixed(2)
+        ),
         targetMet:
           ((this.baseline.executionTime - this.actual.executionTime) /
             this.baseline.executionTime) *
@@ -52,19 +54,23 @@ class MockBenchmarkResult {
       memory: {
         baseline: this.baseline.memory,
         actual: this.actual.memory,
-        improvement: (
-          ((this.baseline.memory - this.actual.memory) / this.baseline.memory) *
-          100
-        ).toFixed(2),
+        improvement: parseFloat(
+          (
+            ((this.baseline.memory - this.actual.memory) / this.baseline.memory) *
+            100
+          ).toFixed(2)
+        ),
       },
       apiCalls: {
         baseline: this.baseline.apiCalls,
         actual: this.actual.apiCalls,
-        improvement: (
-          ((this.baseline.apiCalls - this.actual.apiCalls) /
-            this.baseline.apiCalls) *
-          100
-        ).toFixed(2),
+        improvement: parseFloat(
+          (
+            ((this.baseline.apiCalls - this.actual.apiCalls) /
+              this.baseline.apiCalls) *
+            100
+          ).toFixed(2)
+        ),
       },
       cacheHitRate: this.cacheHitRate,
     };
