@@ -1,9 +1,10 @@
 ---
-file_type: issue-template
-title: "type:feature: {scope}"
 name: "🚀 Feature"
 about: "Propose a net-new capability, enhancement, or workflow improvement."
-labels: [type:feature, status:needs-triage, priority:normal]
+title: "type:feature: {scope}"
+labels: ["type:feature", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
+recommended_branch: "feat/"
+file_type: issue-template
 ---
 
 <!--

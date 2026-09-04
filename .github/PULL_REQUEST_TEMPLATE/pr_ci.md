@@ -1,8 +1,8 @@
 ---
 file_type: pr-template
-title: "ci: {scope}"
 name: "CI/CD"
-description: "Pipelines, linting, packaging, or release automation"
+about: "Update CI/CD pipelines, linting, packaging, or release automation"
+title: "ci: {scope}"
 labels: ["type:ci", "status:needs-review", "area:ci"]
 ---
 
