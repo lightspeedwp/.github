@@ -34,26 +34,22 @@ Every PR should use a standard branch prefix for correct label and template auto
 
 | Prefix    | Purpose                    | Maps to Type / Label | PR Template                                    |
 | --------- | -------------------------- | -------------------- | ---------------------------------------------- |
-| fix/      | Bugfix or regression       | bug                  | .github/PULL_REQUEST_TEMPLATE/pr_bug.md        |
-| chore/    | Maintenance/hygiene tasks  | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md      |
-| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md         |
-| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md |
-| docs/     | Documentation changes      | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md       |
-| hotfix/   | Emergency production fix   | hotfix / bug         | .github/PULL_REQUEST_TEMPLATE/pr_hotfix.md     |
 | feat/     | New feature or enhancement | feature              | .github/PULL_REQUEST_TEMPLATE/pr_feature.md    |
-| refactor/ | Internal code refactoring  | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md   |
+| fix/      | Bugfix or regression       | bug                  | .github/PULL_REQUEST_TEMPLATE/pr_bug.md        |
+| hotfix/   | Emergency production fix   | hotfix / bug         | .github/PULL_REQUEST_TEMPLATE/pr_hotfix.md     |
 | release/  | Release prep/deployment    | release              | .github/PULL_REQUEST_TEMPLATE/pr_release.md    |
-
-### Branch specific PR Templates to be created
-
-| Prefix    | Purpose                     | Maps to Type / Label | PR Template to be created                          |
-| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
-| build/    | Build/CI/automation changes | build / ci           | .github/PULL_REQUEST_TEMPLATE/pr_build.md          |
-| test/     | Add or update tests         | test                 | .github/PULL_REQUEST_TEMPLATE/pr_test.md           |
-| design/   | Design changes/assets       | design               | .github/PULL_REQUEST_TEMPLATE/pr_design.md         |
-| research/ | Technical spike/research    | research             | .github/PULL_REQUEST_TEMPLATE/pr_research.md       |
-| perf/     | Performance improvements    | performance          | .github/PULL_REQUEST_TEMPLATE/pr_performance.md    |
-| --------- | --------------------------- | -------------------- | -------------------------------------------------- |
+| refactor/ | Internal code refactoring  | refactor             | .github/PULL_REQUEST_TEMPLATE/pr_refactor.md   |
+| chore/    | Maintenance/hygiene tasks  | chore                | .github/PULL_REQUEST_TEMPLATE/pr_chore.md      |
+| docs/     | Documentation changes      | documentation        | .github/PULL_REQUEST_TEMPLATE/pr_docs.md       |
+| ci/       | CI/CD or workflow changes  | ci                   | .github/PULL_REQUEST_TEMPLATE/pr_ci.md         |
+| deps/     | Dependency updates         | dependencies         | .github/PULL_REQUEST_TEMPLATE/pr_dep_update.md |
+| test/     | Add or update tests        | test                 | .github/PULL_REQUEST_TEMPLATE/pr_test.md       |
+| design/   | Design system or UI changes| design               | .github/PULL_REQUEST_TEMPLATE/pr_design.md     |
+| a11y/     | Accessibility improvements | a11y                 | .github/PULL_REQUEST_TEMPLATE/pr_a11y.md       |
+| audit/    | Audit or compliance review | audit                | .github/PULL_REQUEST_TEMPLATE/pr_audit.md      |
+| security/ | Security fixes/hardening   | security             | .github/PULL_REQUEST_TEMPLATE/pr_security.md   |
+| aiops/    | AI-assisted operations     | task                 | .github/PULL_REQUEST_TEMPLATE/pr_aiops.md      |
+| epic/     | Epic completion or merge   | task                 | .github/PULL_REQUEST_TEMPLATE/pr_epic.md       |
 
 ---
 

@@ -1,8 +1,8 @@
 ---
 file_type: pr-template
-title: "docs: {scope}"
 name: "Documentation"
-description: "Documentation updates: READMEs, guides, contributor docs"
+about: "Documentation updates (READMEs, guides, contributor docs)"
+title: "docs: {scope}"
 labels: ["type:docs", "status:needs-review", "area:documentation"]
 ---
 

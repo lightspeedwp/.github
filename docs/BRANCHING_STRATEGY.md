@@ -82,6 +82,7 @@ For all repos (client, product, infra, etc.), use:
 - `ops/` — operations
 - `audit/` — governance audits and compliance reviews
 - `codex/` — codex, knowledge base, or reference documentation
+- `aiops/` — AI-assisted operations and automation
 
 ### 3.2 Product-specific Prefixes (optional)
 
@@ -128,7 +129,7 @@ Use a single regex in a workflow to enforce naming discipline:
 **Non-release branches:**
 
 ```regex
-^(feat|fix|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
+^(feat|fix|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
 ```
 
 **Release branches (semantic versioning):**
@@ -181,7 +182,7 @@ jobs:
           # Allow release branches with semantic versioning
           if [[ "$BRANCH" =~ ^release/v?[0-9]+\.[0-9]+\.[0-9]+ ]]; then exit 0; fi
           # Standard pattern: {type}/{scope}-{title}
-          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+          if [[ ! "$BRANCH" =~ ^(feat|fix|hotfix|release|refactor|chore|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
             echo "❌ Branch '$BRANCH' must match the pattern: {type}/{scope}-{title}"
             echo "Example: feat/user-auth-login"
             exit 1
@@ -208,7 +209,13 @@ PR template selection is automatically routed based on branch type prefix:
 | `docs/` | `pr_docs.md` |
 | `ci/` | `pr_ci.md` |
 | `deps/` | `pr_dep_update.md` |
-| `audit/` | `pr_chore.md` (governance review) |
+| `test/` | `pr_test.md` |
+| `a11y/` | `pr_a11y.md` |
+| `design/` | `pr_design.md` |
+| `audit/` | `pr_audit.md` |
+| `security/` | `pr_security.md` |
+| `aiops/` | `pr_aiops.md` |
+| `epic/` | `pr_epic.md` |
 | `codex/` | `pr_docs.md` (knowledge base) |
 | Other types | `pr_chore.md` (default) |
 | Forbidden prefixes | `pr_chore.md` (fallback) |

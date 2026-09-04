@@ -1,8 +1,8 @@
 ---
 file_type: pr-template
-title: "chore: {scope}"
 name: "Chore"
-description: "Repo hygiene: configs, scripts, formatting — no behaviour change"
+about: "Repo maintenance and housekeeping (configs, scripts, formatting)"
+title: "chore: {scope}"
 labels: ["type:chore", "status:needs-review"]
 ---
 
