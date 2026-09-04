@@ -107,10 +107,6 @@ badges:
       description: "Enhanced issue creation workflow"
       branch: "develop"
 
-    issue-create-from-template:
-      label: "Issue Create from Template"
-      description: "Creates issues from templates"
-      branch: "develop"
 
     issue-fields-backfill:
       label: "Issue Fields Backfill"
@@ -412,7 +408,6 @@ groups:
       - badges-readme-status
       - badges-workflow-audit
       - issue-create-enhanced
-      - issue-create-from-template
       - issue-labeling-automation
       - issue-project-field-sync
       - labeling

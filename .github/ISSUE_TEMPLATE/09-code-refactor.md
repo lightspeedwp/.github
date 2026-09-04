@@ -1,11 +1,12 @@
 ---
 name: "♻️ Code Refactor"
-description: "♻️ Code Refactor"
 about: "Request or propose a code refactoring or review to improve code quality, maintainability, and consistency."
 assignees: []
 projects: []
 milestone: ""
 file_type: issue-template
+title: "type:refactor: {scope}"
+labels: [type:refactor, status:needs-triage]
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

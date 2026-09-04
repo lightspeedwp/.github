@@ -1,0 +1,121 @@
+name: Issue Label Validation
+
+on:
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate-issue-labels:
+    name: Validate Issue Labels Are Canonical
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Load canonical labels
+        id: load-labels
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const yaml = require('js-yaml');
+            const labelsConfig = yaml.load(fs.readFileSync('.github/labels.yml', 'utf8'));
+            const canonicalLabels = new Set(
+              labelsConfig
+                .map(label => typeof label === 'string' ? label : label?.name)
+                .filter(Boolean)
+            );
+            core.setOutput('canonical-labels', JSON.stringify(Array.from(canonicalLabels)));
+
+      - name: Validate issue labels
+        uses: actions/github-script@v9
+        env:
+          CANONICAL_LABELS: ${{ steps.load-labels.outputs.canonical-labels }}
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const issueNumber = issue.number;
+            const issueAuthor = issue.user?.login || '';
+            const canonicalLabels = new Set(JSON.parse(process.env.CANONICAL_LABELS || '[]'));
+
+            // Skip validation for bot-authored issues
+            if (issueAuthor === 'dependabot[bot]' || issueAuthor === 'app/dependabot' ||
+                issueAuthor === 'renovate[bot]' || issueAuthor === 'app/renovate' ||
+                issueAuthor === 'github-actions[bot]') {
+              core.notice(`Skipping label validation for bot-authored issue #${issueNumber}`);
+              return;
+            }
+
+            // Validate all issue labels are canonical
+            const issueLabels = (issue.labels || []).map(l => l.name);
+            const bareLabels = issueLabels.filter(l => !canonicalLabels.has(l));
+
+            if (bareLabels.length === 0) {
+              core.notice(`✅ Issue #${issueNumber} labels are all canonical`);
+              return;
+            }
+
+            // Post warning comment for bare labels
+            const bareList = bareLabels.map(l => '- `' + l + '`').join('\n');
+            const message = '## ⚠️ Bare Labels Detected\n\n' +
+              'This issue has labels that are not in the canonical taxonomy:\n\n' +
+              bareList + '\n\n' +
+              '### Valid Canonical Labels\n\n' +
+              'Please use labels with a prefix from the canonical taxonomy:\n\n' +
+              '- **Type:** `type:bug`, `type:feature`, `type:task`, `type:documentation`, etc.\n' +
+              '- **Status:** `status:needs-triage`, `status:in-progress`, `status:done`, etc.\n' +
+              '- **Priority:** `priority:critical`, `priority:high`, `priority:normal`, `priority:low`\n' +
+              '- **Area:** `area:ci`, `area:docs`, `area:labels`, `area:security`, etc.\n' +
+              '- **Meta:** `meta:needs-changelog`, `meta:duplicate`, `meta:blocked`, etc.\n\n' +
+              'For the complete list, see [.github/labels.yml](./.github/labels.yml).\n\n' +
+              '<!-- issue-label-validation -->';
+
+            // Check if warning comment already exists
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+            });
+
+            const marker = '<!-- issue-label-validation -->';
+            const existingComment = comments.find(
+              (c) => c.body.includes(marker) && c.user.type === 'Bot'
+            );
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: message,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: message,
+              });
+            }
+
+            // Record metrics
+            core.warning(`Issue #${issueNumber} has bare labels: ${bareLabels.join(', ')}`);

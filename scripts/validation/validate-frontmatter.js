@@ -44,6 +44,7 @@ const CONFIG = {
     "logs/**",
     "**/package-lock.json",
   ],
+  targetFiles: [],
 };
 
 // Logging utility
@@ -138,6 +139,7 @@ class FrontmatterExtractor {
     } catch (error) {
       throw new Error(
         `Invalid YAML frontmatter in ${filePath}: ${error.message}`,
+        { cause: error },
       );
     }
   }
@@ -167,6 +169,7 @@ class FrontmatterValidator {
     } catch (error) {
       throw new Error(
         `Failed to load schema from ${schemaPath}: ${error.message}`,
+        { cause: error },
       );
     }
   }
@@ -438,6 +441,20 @@ class FileDiscovery {
   }
 }
 
+function resolveCliTargetFiles(fileArgs, rootDir) {
+  if (!Array.isArray(fileArgs) || fileArgs.length === 0) {
+    return [];
+  }
+
+  return [
+    ...new Set(
+      fileArgs.map((filePath) =>
+        path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath),
+      ),
+    ),
+  ].filter((filePath) => fs.existsSync(filePath));
+}
+
 function runAltValidation() {
   try {
     const schemaContent = fs.readFileSync(CONFIG.schemaPath, "utf8");
@@ -469,6 +486,7 @@ async function validateFrontmatter(filePaths) {
     rootDir: CONFIG.rootDir,
     patterns: CONFIG.patterns,
     excludePatterns: CONFIG.excludePatterns,
+    targetFiles: CONFIG.targetFiles,
   });
 
   try {
@@ -558,7 +576,6 @@ Examples:
 
   const headIndex = args.indexOf("--head");
   const headSha = headIndex !== -1 ? args[headIndex + 1] : null;
-
   if (altMode) {
     runAltValidation();
   } else if (baseSha && headSha) {
@@ -588,4 +605,5 @@ module.exports = {
   FileDiscovery,
   Logger,
   CONFIG,
+  resolveCliTargetFiles,
 };

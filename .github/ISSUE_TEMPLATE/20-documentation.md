@@ -1,11 +1,12 @@
 ---
 name: "📚 Documentation"
-description: "📚 Documentation"
 about: "Request new documentation or propose updates/clarifications to existing docs."
 assignees: []
 projects: []
 milestone: ""
 file_type: issue-template
+title: "type:documentation: {scope}"
+labels: [type:documentation, status:needs-triage]
 version: "1.0.2"
 last_updated: "2026-06-19"
 category: "github-templates"

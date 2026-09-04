@@ -2,9 +2,12 @@
 title: Milestone Automation — Phase 2
 description: Planning, monitoring, and operational documentation for milestone distribution automation
 type: guide
-status: approved
+file_type: documentation
+status: active
 version: "1.0.0"
 owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
 tags:
   - automation
   - milestones
@@ -17,9 +20,14 @@ tags:
 
 ## Project Status
 
-🟢 **ACTIVE** — Planning, documentation, and operational setup in progress.
+🟡 **IN PROGRESS** — Phase 2 Follow-Up: Addressing CodeRabbit review findings before Phase 3 implementation.
 
-**Master Epic:** [#1240](https://github.com/lightspeedwp/.github/issues/1240) — Milestone Distribution Automation
+**Status:** CodeRabbit Review Findings (10/28 resolved, 18 under investigation)  
+**Progress:** 36% complete (10 critical/important/polish items merged)  
+**Target Completion:** 2026-09-10  
+**Current Branch:** `chore/phase-2-coderabbit-ci-integration`  
+**Master Epic:** [#1240](https://github.com/lightspeedwp/.github/issues/1240) — Milestone Distribution Automation  
+**Umbrella Issue:** [#1852](https://github.com/lightspeedwp/.github/issues/1852) — Phase 2 Final Validation & Merge Preparation
 
 ## Overview
 
@@ -74,11 +82,41 @@ This builds on Phase 1 (script and workflow deployment) which is already in prod
 
 ## Related Documents
 
+### Core Documentation
+
+- [OPENSPEC.md](./OPENSPEC.md) — Technical specifications with Phase 2 progress
 - [PLANNING.md](./PLANNING.md) — Strategic plan and phase timeline
 - [ROADMAP.md](./ROADMAP.md) — Feature roadmap and dependencies
+- [STATUS.md](./STATUS.md) — Completion evidence and metrics
 - [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) — Common failures and solutions
 - [RUNBOOK.md](./RUNBOOK.md) — Operational procedures
-- [OPENSPEC.md](./OPENSPEC.md) — Technical specifications
+
+### Phase 2 Follow-Up Tracking
+
+- **[FOLLOW-UP-FIXES.md](./FOLLOW-UP-FIXES.md)** — 28-item CodeRabbit tracker with implementation plan
+- **[ISSUE-LINKS.md](./ISSUE-LINKS.md)** — Central registry linking project to GitHub issues
+- **[PHASE-2-FOLLOWUP-SUMMARY.md](./PHASE-2-FOLLOWUP-SUMMARY.md)** — Executive summary of follow-up work status
+- **[CI-INVESTIGATION-PLAN.md](./CI-INVESTIGATION-PLAN.md)** — Detailed plan for CI checks 11-28 investigation
+
+### Design & Implementation
+
+- [ENH-001-METRICS-DASHBOARD-DESIGN.md](./ENH-001-METRICS-DASHBOARD-DESIGN.md) — Metrics dashboard specification
+- [ENH-002-SLACK-NOTIFICATIONS-DESIGN.md](./ENH-002-SLACK-NOTIFICATIONS-DESIGN.md) — Slack notifications design
+- [ENH-003-MANUAL-TRIGGER-DESIGN.md](./ENH-003-MANUAL-TRIGGER-DESIGN.md) — Manual trigger system design
+- [MON-001-WORKFLOW-ALERTS.md](./MON-001-WORKFLOW-ALERTS.md) — Workflow alert system
+- [MON-002-RATE-LIMIT-MONITORING.md](./MON-002-RATE-LIMIT-MONITORING.md) — API rate limit monitoring
+- [DOC-003-API-RATE-LIMITS-STRATEGY.md](./DOC-003-API-RATE-LIMITS-STRATEGY.md) — Rate limiting strategy
+
+### Test Reports
+
+- [TEST-001-ZERO-ISSUES-REPORT.md](./TEST-001-ZERO-ISSUES-REPORT.md) — Zero unallocated issues test
+- [TEST-002-REPORT.md](./TEST-002-REPORT.md) — Large issue set test (100+ items)
+- [TEST-003-API-KEY-FALLBACK-REPORT.md](./TEST-003-API-KEY-FALLBACK-REPORT.md) — API key fallback test
+- [TEST-004-DRY-RUN-MODE-REPORT.md](./TEST-004-DRY-RUN-MODE-REPORT.md) — Dry-run mode validation
+
+### Artifacts
+
+- [ARTIFACTS.md](./ARTIFACTS.md) — Design artifacts and diagrams
 
 ## Visual Workflow
 
@@ -111,8 +149,11 @@ graph LR
 | Link | Purpose |
 |------|---------|
 | [Epic #1240](https://github.com/lightspeedwp/.github/issues/1240) | Master epic tracking all work |
-| [PLANNING.md](./PLANNING.md) | Detailed planning document |
-| [OPENSPEC.md](./OPENSPEC.md) | Technical specifications |
+| [**FOLLOW-UP-FIXES.md**](./FOLLOW-UP-FIXES.md) | Phase 2 CodeRabbit tracker (28 items) |
+| [**ISSUE-LINKS.md**](./ISSUE-LINKS.md) | Issue tracking & cross-project links |
+| [OPENSPEC.md](./OPENSPEC.md) | Technical specifications + Phase 2 status |
+| [STATUS.md](./STATUS.md) | Completion evidence & metrics |
+| [PLANNING.md](./PLANNING.md) | Strategic planning & phases |
 | [Workflow](.github/workflows/milestone-distribution.yml) | GitHub Actions workflow |
 | [Scripts](scripts/automation/) | Automation scripts |
 
@@ -145,7 +186,16 @@ graph LR
 
 ---
 
-**Project Lead:** TBD  
-**Started:** 2026-08-30  
-**Status:** Active  
-**Last Updated:** 2026-09-02
+**Project Lead:** lightspeedwp/maintainers  
+**Started:** 2026-08-29  
+**Phase 2 Started:** 2026-09-02  
+**Phase 2 Follow-Up Started:** 2026-09-03  
+**Status:** 🟡 Active (Phase 2 Follow-Up)  
+**Last Updated:** 2026-09-03  
+**Target Completion:** 2026-09-10
+
+**Key Tracking:**
+- Progress: 36% (10/28 findings resolved)
+- Branch: `chore/phase-2-coderabbit-ci-integration`
+- PR: To be created
+- Umbrella Issue: [#1852](https://github.com/lightspeedwp/.github/issues/1852)
