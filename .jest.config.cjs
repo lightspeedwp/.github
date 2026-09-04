@@ -19,17 +19,19 @@ module.exports = {
             useESM: true,
         },
     },
-    // Treat TypeScript modules as ESM so import.meta and top-level await work in tests.
-    extensionsToTreatAsEsm: ['.ts', '.tsx'],
+    // Treat TypeScript and ES modules as ESM so import.meta and top-level await work in tests.
+    extensionsToTreatAsEsm: ['.ts', '.tsx', '.mjs'],
     testMatch: [
         process.env.JEST_TEST_MATCH_1 || '**/tests/**/*.test.js',
         process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',
-        process.env.JEST_TEST_MATCH_3 || '**/__tests__/**/*.test.js',
-        process.env.JEST_TEST_MATCH_4 || '**/__tests__/**/*.test.ts',
+        process.env.JEST_TEST_MATCH_3 || '**/tests/**/*.test.mjs',
+        process.env.JEST_TEST_MATCH_4 || '**/__tests__/**/*.test.js',
+        process.env.JEST_TEST_MATCH_5 || '**/__tests__/**/*.test.ts',
+        process.env.JEST_TEST_MATCH_6 || '**/__tests__/**/*.test.mjs',
     ],
     verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
     transform: {
-        '^.+\\.[jt]sx?$': [
+        '^.+\\.(js|mjs|ts|tsx|jsx)?$': [
             process.env.JEST_TRANSFORM || 'babel-jest',
             { configFile: './babel.config.cjs' },
         ],
@@ -43,16 +45,16 @@ module.exports = {
     // moduleNameMapper: {
     //     '^(\.{1,2}/.*)\.js$': '$1',
     // },
-    moduleFileExtensions: ['js', 'cjs', 'ts', 'tsx', 'jsx', 'json'],
+    moduleFileExtensions: ['js', 'cjs', 'mjs', 'ts', 'tsx', 'jsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
     collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
     collectCoverageFrom: [
         process.env.JEST_COVERAGE_FROM_1 || 'scripts/**/*.js',
-        process.env.JEST_COVERAGE_FROM_2 || 'tests/**/*.{js,ts}',
-        process.env.JEST_COVERAGE_FROM_3 || '**/__tests__/**/*.{js,ts}',
-        '!**/*.test.{js,ts}',
-        '!**/*.spec.{js,ts}',
-        '!**/test-*.{js,ts}',
+        process.env.JEST_COVERAGE_FROM_2 || 'tests/**/*.{js,ts,mjs}',
+        process.env.JEST_COVERAGE_FROM_3 || '**/__tests__/**/*.{js,ts,mjs}',
+        '!**/*.test.{js,ts,mjs}',
+        '!**/*.spec.{js,ts,mjs}',
+        '!**/test-*.{js,ts,mjs}',
     ],
     testPathIgnorePatterns: [
         process.env.JEST_IGNORE_PATTERN || '<rootDir>/node_modules/',
