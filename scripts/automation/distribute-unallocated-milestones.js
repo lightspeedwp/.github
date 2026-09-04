@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global fetch */
 
 /**
  * distribute-unallocated-milestones.js
