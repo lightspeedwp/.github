@@ -2,7 +2,7 @@
 file_type: issue-template
 title: "type:feature: {scope}"
 name: "🚀 Feature"
-description: "Propose a net-new capability, enhancement, or workflow improvement."
+about: "Propose a net-new capability, enhancement, or workflow improvement."
 labels: [type:feature, status:needs-triage, priority:normal]
 ---
 

@@ -91,7 +91,7 @@ Agent-triggered workflows are invoked **on demand** via `workflow_dispatch` or c
 | `reviewer.yml` | workflow_dispatch (manual) | Reviewer Agent | Post PR review summaries |
 | `metrics.yml` | workflow_dispatch ± scheduled | Metrics Agent | Collect repo health metrics |
 | `readme-update.yml` | workflow_dispatch + workflow_call | Release Agent (post-release) | Apply README & Mermaid diagram fixes |
-| `issue-create-from-template.yml` | workflow_dispatch | Issue Agent / LLM caller | Create issues from canonical numbered templates before the issue exists |
+| `issue-create-enhanced.yml` | workflow_dispatch | Issue Agent / LLM caller | Create issues from canonical numbered templates before the issue exists |
 | `checklist-finalisation.yml` | issues.closed / pull_request_target.closed | Workflow backstop | Finalise checklists in closed issues and merged PRs |
 
 ### When to Use

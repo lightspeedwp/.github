@@ -324,7 +324,7 @@ async function main() {
   // getMarkdownFiles()'s glob `ignore` patterns entirely, so vendor paths
   // must be filtered again here.
   const isVendorPath = (filePath) =>
-    /\/(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
+    /(^|\/)(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
       filePath,
     );
 
