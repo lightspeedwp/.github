@@ -13519,7 +13519,7 @@
     },
     {
       "number": 1410,
-      "title": "Phase 4.5: Delete issue-create-from-template.yml (superseded by issue-create-enhanced.yml)",
+      "title": "Phase 4.5: Delete issue-create-enhanced.yml (superseded by issue-create-enhanced.yml)",
       "labels": {
         "type": ["type:chore"],
         "area": [],
