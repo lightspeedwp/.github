@@ -26,7 +26,7 @@ scope: workflow-security-environment-variable-marshalling
 ### Follow-up Work Created (2026-09-04)
 | Issue | Type | Purpose | Status | Priority |
 |-------|------|---------|--------|----------|
-| [#2798](https://github.com/lightspeedwp/.github/issues/2798) | task | Audit remaining workflows for secrets exposure patterns | 🟡 Ready | 🔴 High |
+| [#2798](https://github.com/lightspeedwp/.github/issues/2798) | task | Audit remaining workflows for secrets exposure patterns | 🔄 In Review ([#2801](https://github.com/lightspeedwp/.github/pull/2801)) | 🔴 High |
 | [#2799](https://github.com/lightspeedwp/.github/issues/2799) | task | Optimize workflow performance (concurrency, caching, fetch-depth) | 🟡 Ready | 🔴 High |
 | [#2800](https://github.com/lightspeedwp/.github/issues/2800) | task | Document environment variable marshalling pattern | 🟡 Ready | 🔴 High |
 
