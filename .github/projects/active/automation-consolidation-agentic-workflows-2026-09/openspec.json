@@ -15,7 +15,7 @@
         "start": "2026-09-03",
         "end": "2026-09-21",
         "status": "active",
-        "effort_hours": 50,
+        "effort_hours": 88,
         "deliverables": 6
       },
       {
@@ -25,7 +25,7 @@
         "start": "2026-09-22",
         "end": "2026-10-31",
         "status": "planned",
-        "effort_hours": 80,
+        "effort_hours": 140,
         "deliverables": 10
       },
       {
@@ -35,7 +35,7 @@
         "start": "2026-11-01",
         "end": "2026-11-30",
         "status": "planned",
-        "effort_hours": 40,
+        "effort_hours": 46,
         "deliverables": 5
       }
     ]

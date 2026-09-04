@@ -32,7 +32,7 @@ This document defines the requirements that will be converted to `openspec.json`
         "start": "2026-09-03",
         "end": "2026-09-21",
         "status": "active",
-        "effort_hours": 40-50,
+        "effort_hours": 88,
         "deliverables": 6
       },
       {
@@ -42,7 +42,7 @@ This document defines the requirements that will be converted to `openspec.json`
         "start": "2026-09-22",
         "end": "2026-10-31",
         "status": "planned",
-        "effort_hours": 60-80,
+        "effort_hours": 140,
         "deliverables": 10
       },
       {
@@ -52,7 +52,7 @@ This document defines the requirements that will be converted to `openspec.json`
         "start": "2026-11-01",
         "end": "2026-11-30",
         "status": "planned",
-        "effort_hours": 30-40,
+        "effort_hours": 46,
         "deliverables": 5
       }
     ]
@@ -387,9 +387,9 @@ See `.github/projects/active/automation-consolidation-agentic-workflows-2026-09/
 
 ## Success Criteria
 
-- [x] All 150+ files audited and categorized
-- [x] Consolidation strategy defined
-- [x] Agent specifications complete
+- [ ] All 150+ files audited and categorized
+- [ ] Consolidation strategy defined
+- [ ] Agent specifications complete
 - [ ] Agents implemented and tested
 - [ ] Documentation restructured
 - [ ] Deployed to organization

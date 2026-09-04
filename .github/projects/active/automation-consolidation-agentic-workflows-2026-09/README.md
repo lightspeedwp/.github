@@ -38,7 +38,7 @@ related_branches:
 | **Critical Files to Audit** | 150+ |
 | **Script/Workflow Duplication** | ~15-20 files with overlapping logic |
 | **Documentation Duplication** | 20+ docs with overlapping content |
-| **Estimated Effort** | 120-160 hours across 3 phases |
+| **Estimated Effort** | 274 hours across 3 phases |
 | **Phase 1 Duration** | 2-3 weeks (audit + planning) |
 | **Phase 2 Duration** | 4-6 weeks (implementation) |
 | **Phase 3 Duration** | 2-3 weeks (testing + rollout) |
@@ -302,10 +302,10 @@ This audit consolidates findings from the above projects into a unified framewor
 ### Phase 1 (Audit)
 
 **Quantitative:**
-- ✅ 150+ files analyzed and categorized
-- ✅ 15-20 duplicate files identified with consolidation plan
-- ✅ 20+ documentation files assessed for consolidation
-- ✅ 6 test issues + linked PRs fully validated
+- [ ] 150+ files analyzed and categorized
+- [ ] 15-20 duplicate files identified with consolidation plan
+- [ ] 20+ documentation files assessed for consolidation
+- [ ] 6 test issues + linked PRs fully validated
 
 **Qualitative:**
 - ✅ Clear understanding of current automation landscape
@@ -445,7 +445,7 @@ This audit consolidates findings from the above projects into a unified framewor
 ```mermaid
 flowchart TD
   accTitle: Project phases and flow
-  accDescr: Three phases from audit through rollout
+  accDescr: Three phases from audit through rollout: Phase 1 Audit Sep 3-21, Phase 2 Implementation Sep 22-Oct 31, Phase 3 Testing and Rollout Nov 1-30, followed by ongoing monitoring
 
   A[Phase 1: Audit<br/>Sep 3-21] --> B[Phase 2: Implement<br/>Sep 22-Oct 31]
   B --> C[Phase 3: Test & Rollout<br/>Nov 1-30]

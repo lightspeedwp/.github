@@ -104,6 +104,8 @@ The agent activates on these GitHub events:
 
 ```mermaid
 graph TD
+    accTitle: Issue opened decision tree
+    accDescr: Flowchart showing issue detection, template validation, label application, milestone allocation, and final readiness check
     A["Issue Opened"] --> B["Detect Issue Type"]
     B --> C{Type Found?}
     
@@ -135,11 +137,11 @@ graph TD
     T -->|Yes| U["Add status:blocked Label"]
     T -->|No| V["✅ Issue Ready for Work"]
     
-    style A fill:#E8F5E9
-    style V fill:#C8E6C9
-    style E fill:#FFF3E0
-    style G fill:#FFCDD2
-    style K fill:#FFCDD2
+    style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style V fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style E fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
+    style G fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style K fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
 ```
 
 ---
@@ -148,6 +150,8 @@ graph TD
 
 ```mermaid
 graph TD
+    accTitle: Issue labeled manually decision tree
+    accDescr: Flowchart for manual label application with validation, conflict detection, and complementary label checking
     A["Label Applied"] --> B["Extract Label"]
     B --> C{Valid Label?}
     
@@ -165,10 +169,10 @@ graph TD
     J --> K
     K --> L["✅ Labels Updated"]
     
-    style A fill:#E8F5E9
-    style L fill:#C8E6C9
-    style D fill:#FFCDD2
-    style G fill:#FFF3E0
+    style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style L fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style D fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style G fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
 ```
 
 ---
@@ -177,6 +181,8 @@ graph TD
 
 ```mermaid
 graph TD
+    accTitle: Issue closed validation decision tree
+    accDescr: Flowchart for validating issues can be closed, checking DOD completeness, blocking issues, linked PRs, and status labels
     A["Close Issue"] --> B["Check DOD Checklist"]
     B --> C{DOD Complete?}
     
@@ -199,12 +205,12 @@ graph TD
     O --> P["Archive Project Fields"]
     P --> Q["Notify Area Owner"]
     
-    style A fill:#E8F5E9
-    style N fill:#C8E6C9
-    style D fill:#FFCDD2
-    style G fill:#FFCDD2
-    style J fill:#FFCDD2
-    style M fill:#FFCDD2
+    style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style N fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style D fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style G fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style J fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style M fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
 ```
 
 ---

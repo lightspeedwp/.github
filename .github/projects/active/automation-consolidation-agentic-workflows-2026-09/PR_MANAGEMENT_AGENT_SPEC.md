@@ -122,6 +122,8 @@ The agent activates on these GitHub events:
 
 ```mermaid
 graph TD
+    accTitle: Pull request created decision tree
+    accDescr: Flowchart for PR validation including template check, issue reference validation, label inheritance, milestone allocation, and reviewer assignment
     A["PR Created"] --> B["Validate Template"]
     B --> C{Template Valid?}
     
@@ -152,12 +154,12 @@ graph TD
     S -->|No| T["⚠️ Suggest Missing Sections"]
     S -->|Yes| U["✅ PR Ready for Review"]
     
-    style A fill:#E8F5E9
-    style U fill:#C8E6C9
-    style D fill:#FFCDD2
-    style H fill:#FFCDD2
-    style L fill:#FFCDD2
-    style T fill:#FFF3E0
+    style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style U fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style D fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style H fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style L fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style T fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
 ```
 
 ---
@@ -166,6 +168,8 @@ graph TD
 
 ```mermaid
 graph TD
+    accTitle: Merge conflict detection decision tree
+    accDescr: Flowchart for detecting and resolving merge conflicts, checking CI status, and determining if PR is ready to merge
     A["Synchronize Event"] --> B["Check Merge Status"]
     B --> C{Conflicts?}
     
@@ -188,10 +192,10 @@ graph TD
     M -->|Yes| N["✅ Ready to Merge"]
     M -->|No| O["⚠️ CI Failing"]
     
-    style A fill:#E8F5E9
-    style N fill:#C8E6C9
-    style E fill:#FFCDD2
-    style O fill:#FFF3E0
+    style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style N fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style E fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style O fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
 ```
 
 ---
@@ -200,6 +204,8 @@ graph TD
 
 ```mermaid
 graph TD
+    accTitle: Review feedback integration decision tree
+    accDescr: Flowchart for processing review submissions, applying status labels, checking all reviewers, and notifying PR author
     A["Review Submitted"] --> B{Approval Type?}
     
     B -->|Approve| C["Add status:approved"]
@@ -219,10 +225,10 @@ graph TD
     
     E --> J
     
-    style A fill:#E8F5E9
-    style I fill:#C8E6C9
-    style J fill:#E3F2FD
-    style N fill:#FFF3E0
+    style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style I fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style J fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1
+    style N fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
 ```
 
 ---
@@ -320,10 +326,10 @@ CODEOWNERS:
 **Configuration:**
 ```yaml
 area_reviewers:
-  area:ci: @lightspeedwp/ci-team
-  area:automation: @lightspeedwp/automation-team
-  area:docs: @lightspeedwp/docs-team
-  area:security: @lightspeedwp/security-team
+  area:ci: "@lightspeedwp/ci-team"
+  area:automation: "@lightspeedwp/automation-team"
+  area:docs: "@lightspeedwp/docs-team"
+  area:security: "@lightspeedwp/security-team"
 ```
 
 ---
