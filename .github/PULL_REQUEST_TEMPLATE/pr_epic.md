@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Epic"
 about: "Merge completion of an epic spanning multiple related PRs and issues"
 title: "epic: {scope}"
-labels: ["type:task", "status:needs-review"]
+labels: ["type:epic", "status:needs-review", "priority:normal", "area:core", "meta:needs-changelog"]
+recommended_issue_type: "type:epic"
 ---
 
 # Epic Pull Request

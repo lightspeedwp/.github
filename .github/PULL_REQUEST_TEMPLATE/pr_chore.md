@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Chore"
 about: "Repo maintenance and housekeeping (configs, scripts, formatting)"
 title: "chore: {scope}"
-labels: ["type:chore", "status:needs-review"]
+labels: ["type:chore", "status:needs-review", "priority:normal", "area:core"]
+recommended_issue_type: "type:chore"
 ---
 
 # Chore Pull Request

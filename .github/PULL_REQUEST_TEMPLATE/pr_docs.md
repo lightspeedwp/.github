@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Documentation"
 about: "Documentation updates (READMEs, guides, contributor docs)"
 title: "docs: {scope}"
-labels: ["type:docs", "status:needs-review", "area:documentation"]
+labels: ["type:documentation", "status:needs-review", "priority:normal", "area:documentation"]
+recommended_issue_type: "type:documentation"
 ---
 
 # Documentation Pull Request

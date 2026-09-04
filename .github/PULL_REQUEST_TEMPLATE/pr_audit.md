@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Audit"
 about: "Conduct review, assessment, or compliance audit"
 title: "audit: {scope}"
-labels: ["type:audit", "status:needs-review"]
+labels: ["type:audit", "status:needs-review", "priority:normal", "area:release", "meta:needs-changelog"]
+recommended_issue_type: "type:audit"
 ---
 
 # Audit Pull Request

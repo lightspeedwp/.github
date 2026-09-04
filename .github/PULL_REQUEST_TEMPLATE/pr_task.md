@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Task"
 about: "Complete a well-scoped unit of work"
 title: "chore: {scope}"
-labels: ["type:task", "status:needs-review"]
+labels: ["type:task", "status:needs-review", "priority:normal", "area:core"]
+recommended_issue_type: "type:task"
 ---
 
 # Task Pull Request

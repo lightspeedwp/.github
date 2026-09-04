@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Test"
 about: "Add or update tests, test infrastructure, or testing framework"
 title: "test: {scope}"
-labels: ["type:test", "status:needs-review", "area:testing"]
+labels: ["type:test", "status:needs-review", "priority:normal", "area:testing"]
+recommended_issue_type: "type:test"
 ---
 
 # Test Pull Request

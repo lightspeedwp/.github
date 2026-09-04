@@ -194,112 +194,129 @@ jobs:
 - For monorepos, ensure branch naming applies to each package/subproject, or use a consistent prefix (e.g. `feat/frontend-...`, `fix/api-...`).
 - For forked repos, always clean up branches after merging upstream PRs, and avoid duplicating branch names across forks to prevent confusion.
 
-### 4.3 PR Template Routing & Fallback Behavior
+### 4.3 PR Template Routing, Default Labels & Two-Way Mapping
 
-PR template selection is automatically routed based on branch type prefix:
+PR template selection is automatically routed based on branch type prefix. Each PR template now seeds default labels for **type**, **status**, **priority**, **area**, and **meta** families to ensure consistent automation across all PRs. Each template also pairs with a **recommended issue type** for clear two-way mapping (issue type → branch prefix → PR template).
 
-| Branch Type | PR Template |
-|---|---|
-| `feat/` | `pr_feature.md` |
-| `fix/` | `pr_bug.md` |
-| `hotfix/` | `pr_hotfix.md` |
-| `release/` | `pr_release.md` |
-| `refactor/` | `pr_refactor.md` |
-| `chore/` | `pr_chore.md` |
-| `task/` | `pr_task.md` |
-| `docs/` | `pr_docs.md` |
-| `ci/` | `pr_ci.md` |
-| `deps/` | `pr_dep_update.md` |
-| `test/` | `pr_test.md` |
-| `a11y/` | `pr_a11y.md` |
-| `design/` | `pr_design.md` |
-| `audit/` | `pr_audit.md` |
-| `security/` | `pr_security.md` |
-| `aiops/` | `pr_aiops.md` |
-| `epic/` | `pr_epic.md` |
-| `codex/` | `pr_docs.md` (knowledge base) |
-| Other types | `pr_chore.md` (default) |
-| Forbidden prefixes | `pr_chore.md` (fallback) |
+| Branch Type | PR Template | Default Labels | Recommended Issue Type |
+|---|---|---|---|
+| `feat/` | `pr_feature.md` | type:feature, status:needs-review, priority:normal, area:core, meta:needs-changelog | type:feature |
+| `fix/` | `pr_bug.md` | type:bug, status:needs-review, priority:normal, area:core, meta:needs-changelog | type:bug |
+| `hotfix/` | `pr_hotfix.md` | type:release, status:needs-review, priority:critical, area:core, meta:needs-changelog | type:release |
+| `release/` | `pr_release.md` | type:release, status:needs-review, priority:critical, area:release, meta:needs-changelog | type:release |
+| `refactor/` | `pr_refactor.md` | type:refactor, status:needs-review, priority:normal, area:core | type:refactor |
+| `chore/` | `pr_chore.md` | type:chore, status:needs-review, priority:normal, area:core | type:chore |
+| `task/` | `pr_task.md` | type:task, status:needs-review, priority:normal, area:core | type:task |
+| `docs/` or `doc/` | `pr_docs.md` | type:documentation, status:needs-review, priority:normal, area:documentation | type:documentation |
+| `ci/` | `pr_ci.md` | type:ci, status:needs-review, priority:normal, area:ci | type:ci |
+| `build/` | `pr_chore.md` | type:chore, status:needs-review, priority:normal, area:core | type:build |
+| `deps/` | `pr_dep_update.md` | type:dependency, status:needs-review, priority:normal, area:dependencies | type:dependency |
+| `test/` | `pr_test.md` | type:test, status:needs-review, priority:normal, area:testing | type:test |
+| `a11y/` | `pr_a11y.md` | type:a11y, status:needs-review, priority:high, area:a11y, meta:needs-changelog | type:a11y |
+| `design/` | `pr_design.md` | type:design, status:needs-review, priority:normal, area:design-system, meta:needs-changelog | type:design |
+| `audit/` | `pr_audit.md` | type:audit, status:needs-review, priority:normal, area:release, meta:needs-changelog | type:audit |
+| `security/` | `pr_security.md` | type:security, status:needs-review, priority:critical, area:security, meta:needs-changelog | type:security |
+| `aiops/` | `pr_aiops.md` | type:ai-ops, status:needs-review, priority:normal, area:ai, meta:needs-changelog | type:ai-ops |
+| `epic/` | `pr_epic.md` | type:epic, status:needs-review, priority:normal, area:core, meta:needs-changelog | type:epic |
+| `perf/` | `pr_chore.md` | type:chore, status:needs-review, priority:normal, area:performance | type:performance |
+| Other prefixes | `pr_chore.md` (default) | type:chore, status:needs-review, priority:normal, area:core | type:task (default) |
+| Forbidden prefixes | `pr_chore.md` (fallback) | type:chore, status:needs-review | ⚠️ Invalid branch name |
 
-**Fallback Logic:** If a branch uses a forbidden prefix (e.g., `claude/governance-audit-implementation`), the PR template resolver detects the violation and routes to the default `pr_chore.md` template. This ensures:
+**Key Improvements**:
 
-- No PR is left without template guidance
-- Forbidden prefixes trigger visible fallback routing (auditable)
-- Authors are prompted to re-open PR with proper branch naming
-- Type detection hierarchy: branch type → linked issue type → default
+- All PR templates now seed **default labels** across type, status, priority, area, and meta families
+- Each template pairs with a **recommended issue type** for clear two-way mapping
+- Maintainers can override seed labels per-PR; seed labels ensure no PR is left with incomplete labeling
+- **Fallback Logic**: If a branch uses a forbidden prefix (e.g., `claude/governance-audit-implementation`), the PR template resolver detects the violation and routes to the default `pr_chore.md` template
+- **Type detection hierarchy**: branch type → linked issue type → default (type:task)
+- This ensures: no PR is left without template guidance, forbidden prefixes trigger visible fallback routing (auditable), authors are prompted to re-open PR with proper branch naming
 
 ---
 
 ## 5. Prefixes Drive Automation
 
-### 5.1 Labeler (Status Kick-off)
+### 5.1 Labeler (Type & Status Automation)
 
-Ensure `.github/labeler.yml` seeds new PRs with `status:needs-review` when appropriate:
+The `.github/labeler.yml` file maps branch prefixes to labels, ensuring PRs are automatically labeled by type, priority, and area. This drives all downstream automation:
+
+**Branch Type → Type Label Mappings:**
 
 ```yaml
-"status:needs-review":
-  - head-branch:
-      [
-        "^feat/.*",
-        "^fix/.*",
-        "^hotfix/.*",
-        "^release/.*",
-        "^refactor/.*",
-        "^chore/.*",
-        "^task/.*",
-        "^docs/.*",
-        "^test/.*",
-        "^perf/.*",
-        "^ci/.*",
-        "^build/.*",
-        "^deps/.*",
-        "^security/.*",
-        "^revert/.*",
-        "^research/.*",
-        "^design/.*",
-        "^a11y/.*",
-        "^ux/.*",
-        "^i18n/.*",
-        "^ops/.*",
-        "^proto/.*",
-        "^ds/.*",
-        "^api/.*",
-        "^schema/.*",
-        "^telemetry/.*",
-        "^content/.*",
-        "^seo/.*",
-        "^config/.*",
-        "^migrate/.*",
-        "^qa/.*",
-        "^uat/.*",
-        "^audit/.*",
-        "^codex/.*",
-      ]
+type:feature → feat/
+type:bug → fix/
+type:documentation → docs/ or doc/
+type:chore → chore/
+type:build → build/
+type:ci → ci/
+type:refactor → refactor/
+type:test → test/
+type:performance → perf/
+type:design → design/
+type:a11y → a11y/
+type:audit → audit/
+type:security → security/
+type:automation → automation/
+type:release → release/ or hotfix/
 ```
+
+**Status Automation:**
+
+- All standard branch types (`feat/`, `fix/`, `docs/`, `chore/`, etc.) automatically receive `status:needs-review` label
+- Labeler also maps **priority** based on branch type:
+  - `hotfix/` and `security/` → `priority:critical`
+  - `a11y/` → `priority:high`
+  - All others → `priority:normal` (default)
+
+**Area/Component Mapping (by file path):**
+
+- File changes trigger area labels automatically (e.g., changes to `tests/**/*.js` → `area:testing`)
+- New area labels for testing frameworks:
+  - `area:playwright` — Playwright E2E tests
+  - `area:jest` — Jest unit tests
+  - `area:phpunit` — PHPUnit tests
+  - `area:pagespeed` — Performance monitoring and metrics
 
 **[NEW]**
 
-- For automation, use GitHub Actions to auto-assign reviewers based on branch type (e.g., security → security lead).
-- Sync project automation rules across all repos using `.github` repo templates.
+- For automation, use GitHub Actions to auto-assign reviewers based on branch type (e.g., `security/` → security lead, `a11y/` → accessibility lead).
+- Sync project automation rules across all repos using `.github` repo templates and labeler rules.
+- Monitor label application via the `labeling` workflow badge and audit logs.
 
-### 5.2 Project Type Mapping
+### 5.2 Issue Type & Project Type Mapping
 
-Extend your project sync workflow so branch prefixes set the Project **Type** field:
+Branch prefixes drive both **Issue Type** labels and **Project Type** field assignments. This creates a clear two-way mapping: issue type → branch prefix → PR template → default labels → project type.
 
-- `feat/` → Feature/Story
-- `fix/` → Bug (hotfix → critical Bug)
-- `refactor/` → Refactor
-- `chore/` → Chore
-- `task/` → Task (scoped project/epic-bound work)
-- `ci/`, `build/`, `deps/`, `security/` → Chore
-- `design/`, `a11y/`, `ux/` → Design/Task
-- `content/`, `seo/`, `config/`, `migrate/`, `qa/`, `uat/` → Task/Operations
-- `proto/`, `api/`, `schema/`, `telemetry/`, `ds/` → Feature/Task
-- `release/` → Release PR
+**Branch Type → Issue Type Mappings (Issues & PRs):**
+
+| Branch | Issue Type | Project Type | Purpose |
+|--------|-----------|--------------|---------|
+| `feat/` | type:feature | Feature | Net-new capability or user-facing enhancement |
+| `fix/` | type:bug | Bug | Defect or regression fix |
+| `hotfix/` | type:release | Critical Bug | Urgent production fix |
+| `refactor/` | type:refactor | Refactor | Internal restructure, no behaviour change |
+| `chore/` | type:chore | Chore | Maintenance, hygiene, no user impact |
+| `task/` | type:task | Task | Scoped unit of work (default for ambiguous cases) |
+| `ci/` | type:ci | Infrastructure | CI/CD workflows, GitHub Actions |
+| `build/` | type:build | Chore | Build system, bundling, package changes |
+| `test/` | type:test | Test | Testing infrastructure, test harnesses |
+| `design/` | type:design | Design | Design system, UI components, visual work |
+| `a11y/` | type:a11y | Accessibility | WCAG compliance, accessible patterns |
+| `security/` | type:security | Security | Security vulnerabilities, exploit fixes |
+| `docs/` | type:documentation | Documentation | User-facing docs, guides, reference |
+| `audit/` | type:audit | Audit | Compliance audits, code reviews, governance |
+| `aiops/` | type:ai-ops | Infrastructure | AI-assisted operations, automation |
+| `perf/` | type:performance | Performance | Performance optimization, metrics |
+| `research/` | type:research | Research | Investigation, prototyping, spikes |
+| `automation/` | type:automation | Infrastructure | Automation scripting, tooling |
+| `release/` | type:release | Release | Release branches, versioning |
+| Other prefixes | type:task (default) | Task | Fallback for non-standard branches |
 
 **Principle:**  
-Labels remain **routing signals** (status, priority, area/component).  
-Issue Types and Project fields carry the semantic meaning.
+
+- **Labels** remain **routing signals** (status, priority, area/component, type) — they drive automation
+- **Issue Types** and **Project Types** carry **semantic meaning** — they describe what the work is
+- **Two-way mapping** ensures consistency: issue type decides branch prefix, branch prefix decides PR template and default labels
+- **Default type is `type:task`** — when in doubt about issue type or branch prefix, use task
 
 ---
 

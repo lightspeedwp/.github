@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Bug Fix"
 about: "Fix a defect or regression"
 title: "fix: {scope}"
-labels: ["type:bug", "status:needs-review"]
+labels: ["type:bug", "status:needs-review", "priority:normal", "area:core", "meta:needs-changelog"]
+recommended_issue_type: "type:bug"
 ---
 
 # Bugfix Pull Request

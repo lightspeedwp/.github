@@ -3,7 +3,8 @@ file_type: pr-template
 name: "AI Operations"
 about: "AI-assisted operations, automation, or agent-driven tasks"
 title: "aiops: {scope}"
-labels: ["type:task", "status:needs-review"]
+labels: ["type:ai-ops", "status:needs-review", "priority:normal", "area:ai", "meta:needs-changelog"]
+recommended_issue_type: "type:ai-ops"
 ---
 
 # AI Operations Pull Request

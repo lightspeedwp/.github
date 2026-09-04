@@ -23,7 +23,7 @@ destructive_cleanup:
     - type:test
     - type:ai-ops
     - type:build
-    - type:integration
+    - type:ci
     - type:dependency
     - type:compatibility
     - type:research
@@ -40,6 +40,7 @@ destructive_cleanup:
     - type:a11y
     - type:improve
     - type:enhancement
+    - type:help
     - area:ci
     - area:dependencies
     - area:labels
@@ -52,6 +53,12 @@ destructive_cleanup:
     - area:woocommerce
     - area:block-editor
     - area:theme
+    - area:testing
+    - area:performance
+    - area:playwright
+    - area:jest
+    - area:phpunit
+    - area:pagespeed
     - lang:php
     - lang:js
     - lang:css

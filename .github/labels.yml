@@ -166,7 +166,7 @@
 
 - name: type:integration
   color: 8D4821
-  description: "Integration"
+  description: "[DEPRECATED] Use `area:integration` instead; consolidated into area taxonomy"
 
 - name: type:release
   color: 3FB950
@@ -413,6 +413,22 @@
 - name: area:ai
   color: 0F448A
   description: "AI operations and AI-related work"
+
+- name: area:playwright
+  color: 4D1A93
+  description: "Playwright testing and E2E automation"
+
+- name: area:jest
+  color: 4D1A93
+  description: "Jest unit and integration testing"
+
+- name: area:phpunit
+  color: 4D1A93
+  description: "PHPUnit testing framework"
+
+- name: area:pagespeed
+  color: 7E6007
+  description: "PageSpeed Insights, performance monitoring, and metrics"
 
 # --- Components (comp:*) ---
 
@@ -675,29 +691,3 @@
 - name: openspec:status/deprecated
   color: 6F42C1
   description: "Openspec deprecated - component no longer active"
-
-# --- OpenSpec Phase Labels (Specification & Implementation) ---
-
-- name: openspec:specification-pending
-  color: C5DEF5
-  description: "OpenSpec specification needed - phase documentation awaiting review/approval"
-
-- name: openspec:specification-in-progress
-  color: F2D06D
-  description: "OpenSpec specification in progress - phase requirements/success criteria being finalized"
-
-- name: openspec:specification-complete
-  color: 1A7F37
-  description: "OpenSpec specification complete - phase requirements locked; ready for implementation"
-
-- name: openspec:implementation-pending
-  color: C5DEF5
-  description: "OpenSpec implementation pending - phase awaiting execution start"
-
-- name: openspec:implementation-in-progress
-  color: F2D06D
-  description: "OpenSpec implementation in progress - phase actively being executed"
-
-- name: openspec:implementation-complete
-  color: 1A7F37
-  description: "OpenSpec implementation complete - phase completed; success criteria met"

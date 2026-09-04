@@ -3,7 +3,8 @@ file_type: pr-template
 name: "Accessibility"
 about: "Implement accessibility improvements or fix accessibility issues (WCAG compliance)"
 title: "a11y: {scope}"
-labels: ["type:a11y", "status:needs-review", "priority:high"]
+labels: ["type:a11y", "status:needs-review", "priority:high", "area:a11y", "meta:needs-changelog"]
+recommended_issue_type: "type:a11y"
 ---
 
 # Accessibility Pull Request
