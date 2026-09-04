@@ -24,8 +24,12 @@ const config = {
   owner: "lightspeedwp",
   repo: ".github",
   label: process.argv.find((arg) => arg.startsWith("--label="))?.split("=")[1],
-  output: process.argv.find((arg) => arg.startsWith("--output="))?.split("=")[1],
-  format: process.argv.find((arg) => arg.startsWith("--format="))?.split("=")[1] || "json",
+  output: process.argv
+    .find((arg) => arg.startsWith("--output="))
+    ?.split("=")[1],
+  format:
+    process.argv.find((arg) => arg.startsWith("--format="))?.split("=")[1] ||
+    "json",
   limit: parseInt(
     process.argv.find((arg) => arg.startsWith("--limit="))?.split("=")[1] ||
       "999999",
@@ -89,13 +93,18 @@ async function githubRequest(method, path, body = null) {
 }
 
 // Check what sections are missing
-function analyzeMissingSections(body, labels) {
+function analyzeMissingSections(body, _labels) {
   const missing = [];
   const present = [];
 
   if (!body) {
     return {
-      missing: ["Definition of Ready", "Definition of Done", "Owner", "Acceptance Criteria"],
+      missing: [
+        "Definition of Ready",
+        "Definition of Done",
+        "Owner",
+        "Acceptance Criteria",
+      ],
       present: [],
     };
   }
@@ -215,7 +224,9 @@ async function fetchIssues() {
 
       process.stdout.write(`.`); // Progress indicator
     } catch (error) {
-      console.error(`\nFailed to fetch issues (page ${page}): ${error.message}`);
+      console.error(
+        `\nFailed to fetch issues (page ${page}): ${error.message}`,
+      );
       hasMore = false;
     }
   }
@@ -281,7 +292,9 @@ function generateSummary(audits) {
   });
 
   Object.keys(byType).forEach((type) => {
-    byType[type].avgScore = Math.round(byType[type].avgScore / byType[type].total);
+    byType[type].avgScore = Math.round(
+      byType[type].avgScore / byType[type].total,
+    );
   });
 
   return {
@@ -323,14 +336,24 @@ async function main() {
   console.log("📊 Summary Statistics:");
   console.log(`   Total Issues: ${summary.total_issues}`);
   console.log(`   Avg Completeness: ${summary.average_completeness}%`);
-  console.log(`   Missing DoR: ${summary.issues_needing_dor} (${Math.round((summary.issues_needing_dor / summary.total_issues) * 100)}%)`);
-  console.log(`   Missing DoD: ${summary.issues_needing_dod} (${Math.round((summary.issues_needing_dod / summary.total_issues) * 100)}%)`);
-  console.log(`   Missing Owner: ${summary.issues_needing_owner} (${Math.round((summary.issues_needing_owner / summary.total_issues) * 100)}%)`);
-  console.log(`   Missing AC: ${summary.issues_needing_ac} (${Math.round((summary.issues_needing_ac / summary.total_issues) * 100)}%)`);
+  console.log(
+    `   Missing DoR: ${summary.issues_needing_dor} (${Math.round((summary.issues_needing_dor / summary.total_issues) * 100)}%)`,
+  );
+  console.log(
+    `   Missing DoD: ${summary.issues_needing_dod} (${Math.round((summary.issues_needing_dod / summary.total_issues) * 100)}%)`,
+  );
+  console.log(
+    `   Missing Owner: ${summary.issues_needing_owner} (${Math.round((summary.issues_needing_owner / summary.total_issues) * 100)}%)`,
+  );
+  console.log(
+    `   Missing AC: ${summary.issues_needing_ac} (${Math.round((summary.issues_needing_ac / summary.total_issues) * 100)}%)`,
+  );
 
   console.log("\n📊 By Type:");
   Object.entries(summary.issues_by_type).forEach(([type, stats]) => {
-    console.log(`   ${type}: ${stats.total} issues, avg ${stats.avgScore}% complete`);
+    console.log(
+      `   ${type}: ${stats.total} issues, avg ${stats.avgScore}% complete`,
+    );
   });
 
   // Save output
