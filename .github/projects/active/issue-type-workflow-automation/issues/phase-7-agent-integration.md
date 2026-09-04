@@ -316,7 +316,7 @@ When creating automation or AI Ops issues, use the **Issue Type Allocator Skill*
 3. **Choose type:**
    - General process automation → type:automation
    - AI agent configuration → type:ai-ops
-   - GitHub Actions/workflow → type:build or type:ci
+   - GitHub Actions/workflow → type:build (canonical label for Build & CI)
 4. **Apply labels:** Use correct type + area labels
 5. **Link workflow:** Reference related GitHub Actions file
 

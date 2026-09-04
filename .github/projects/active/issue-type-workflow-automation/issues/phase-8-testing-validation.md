@@ -13,7 +13,7 @@ milestone: v1.1
 
 ## Overview
 
-End-to-end testing of all 35 issue types, agent integration validation, label consistency verification, and accessibility compliance.
+End-to-end testing of all 29 issue types, agent integration validation, label consistency verification, and accessibility compliance.
 
 **Duration:** 2-3 hours  
 **Effort:** 2-3 hours  
@@ -23,7 +23,7 @@ End-to-end testing of all 35 issue types, agent integration validation, label co
 ## Problem Statement
 
 After implementing template fixes, label standardization, and agent integration across phases 5-7, comprehensive testing is required to:
-- Validate all 35 issue types work correctly
+- Validate all 29 issue types work correctly (consolidated from 35)
 - Confirm agent decision trees align with skill guidance
 - Verify label assignments are consistent
 - Ensure color accessibility meets WCAG 2.2 AA standards
@@ -32,7 +32,7 @@ After implementing template fixes, label standardization, and agent integration 
 
 ## Solution
 
-### 1. Issue Type Validation (35 types)
+### 1. Issue Type Validation (29 types)
 
 **Test approach:**
 - Create one test issue per issue type
@@ -41,7 +41,7 @@ After implementing template fixes, label standardization, and agent integration 
 - Check milestone assignment
 - Validate area labels
 
-**Test matrix (35 types):**
+**Test matrix (29 consolidated types):**
 
 | # | Type | Expected Labels | Expected Milestone | Test Status |
 |---|------|-----------------|-------------------|------------|
@@ -51,11 +51,11 @@ After implementing template fixes, label standardization, and agent integration 
 | 4 | Design | type:design, area:design, status:ready | v1.1 | ⏳ |
 | 5 | Epic | type:epic, priority:high, status:planning | v1.1 | ⏳ |
 | 6 | Story | type:story, priority:*, status:needs-triage | v1.1 | ⏳ |
-| 7 | Improvement | type:enhancement, priority:normal, status:ready | v1.1 | ⏳ |
-| 8 | Code Refactor | type:refactor, area:*, status:ready | v1.1 | ⏳ |
-| 9 | Build & CI | type:build, area:ci, status:ready | v1.1 | ⏳ |
+| 7 | Enhancement | type:enhancement, priority:normal, status:ready | v1.1 | ⏳ |
+| 8 | Refactor | type:refactor, area:*, status:ready | v1.1 | ⏳ |
+| 9 | Build | type:build, area:ci, status:ready | v1.1 | ⏳ |
 | 10 | Automation | type:automation, area:automation, status:ready | v1.1 | ⏳ |
-| 11 | Test Coverage | type:test, area:testing, status:ready | v1.1 | ⏳ |
+| 11 | Test | type:test, area:testing, status:ready | v1.1 | ⏳ |
 | 12 | Performance | type:performance, area:*, priority:high | v1.1 | ⏳ |
 | 13 | A11y | type:a11y, area:accessibility, priority:high | v1.1 | ⏳ |
 | 14 | Security | type:security, priority:critical, area:security | v1.1 | ⏳ |
@@ -67,19 +67,15 @@ After implementing template fixes, label standardization, and agent integration 
 | 20 | Research | type:research, area:*, status:ready | v1.1 | ⏳ |
 | 21 | Chore | type:chore, priority:low, status:ready | v1.1 | ⏳ |
 | 22 | Audit | type:audit, area:*, status:ready | v1.1 | ⏳ |
-| 23 | Code Review | type:code-review, area:*, status:needs-review | v1.1 | ⏳ |
+| 23 | Code Review | type:review, area:*, status:needs-review | v1.1 | ⏳ |
 | 24 | AI Ops | type:ai-ops, area:ai-ops, status:ready | v1.1 | ⏳ |
 | 25 | Content Modelling | type:content-modelling, area:*, status:ready | v1.1 | ⏳ |
 | 26 | Question | type:question, status:needs-triage | v1.1 | ⏳ |
 | 27 | UX Feedback | type:ux-feedback, area:ux, status:needs-triage | v1.1 | ⏳ |
 | 28 | Help | type:help, status:needs-triage | v1.1 | ⏳ |
 | 29 | Support | type:support, status:needs-triage | v1.1 | ⏳ |
-| 30 | UI | type:ui, area:ui, status:ready | v1.1 | ⏳ |
-| 31 | Enhancement | type:enhancement, priority:*, status:ready | v1.1 | ⏳ |
-| 32 | CI | type:ci, area:ci, status:ready | v1.1 | ⏳ |
-| 33 | Dependency | type:dependency, area:*, status:ready | v1.1 | ⏳ |
-| 34 | Investigation | type:investigation, area:*, status:ready | v1.1 | ⏳ |
-| 35 | QA | type:qa, area:testing, status:ready | v1.1 | ⏳ |
+
+**Note:** Consolidated from 35→29 types. Removed: CI (merged to Build), Dependency, Investigation, QA, UI
 
 **Validation steps:**
 1. Create test issue using each template
@@ -151,11 +147,13 @@ Documentation | Gray (#9198A1) | 4.5:1+ | ✅ | ⏳
 
 **Test approach:**
 1. Extract all label colors from `.github/labels.yml`
-2. Test contrast against white (#FFFFFF) background
-3. Test contrast against dark (#000000) background
-4. Test contrast against light theme background
-5. Test contrast against dark theme background
-6. Verify all ratios ≥ 4.5:1 (AA standard)
+2. Test contrast for white text (#FFFFFF) on each label color (light theme usage)
+3. Test contrast for dark text (#000000) on each label color (dark theme usage)
+4. Verify all ratios meet WCAG 2.2 AA standard: ≥ 4.5:1
+5. Document any colors that fail, e.g.:
+   - Orange (#D29922) with white text (#FFFFFF) = ~2.52:1 contrast (FAILS 4.5:1 requirement)
+   - Solution: Use dark text (#1A1A1A) instead for better contrast
+6. Update `.github/labels.yml` color values for colors that fail contrast validation
 
 **Accessibility validation script:**
 ```bash
@@ -283,14 +281,14 @@ Type label applied before agent runs | Agent respects existing label | ⏳
 ## Implementation Checklist
 
 - [ ] Create test environment (staging or feature branch)
-- [ ] Create 35 test issues (one per type)
+- [ ] Create 29 test issues (one per consolidated type)
 - [ ] Document type validation results
 - [ ] Test Release Agent integration
 - [ ] Test Issues Agent integration
 - [ ] Test PR Agent integration
 - [ ] Test Changelog Agent integration
 - [ ] Test Automation Agent integration
-- [ ] Validate label consistency across all 35 types
+- [ ] Validate label consistency across all 29 types
 - [ ] Validate label standardization (Phase 6 fixes)
 - [ ] Test color contrast on white background
 - [ ] Test color contrast on black background

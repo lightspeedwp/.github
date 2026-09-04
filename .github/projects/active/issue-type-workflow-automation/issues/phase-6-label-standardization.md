@@ -41,7 +41,7 @@ Current label state has inconsistencies:
 | `type:ops` (AI Ops) | `type:ai-ops` | 24-ai-ops.md |
 | `type:ops` (Automation) | `type:automation` | 10-automation.md |
 | Missing `type:` | Add label | 01-task.md, 04-design.md, 05-epic.md, 06-story.md |
-| `type:review` | `type:code-review` | (ELIMINATE or keep?) |
+| `type:review` | `type:review` | 23-code-review.md (keep as canonical) |
 | `type:question` | `type:question` | 26-question.md (new) |
 | `type:support` | `type:support` | 28-help.md, 29-support.md (new) |
 
@@ -76,11 +76,18 @@ Current label state has inconsistencies:
 | 🔴 Red | Critical/Security | Bug, Security (2) | 2 | 2 |
 | 🟠 Orange | Quality/Testing | Test, Performance, QA (3) | 3 | 3 |
 | 🟢 Green | Growth/New | Feature, Enhancement, UI, Release (4) | 4 | 4 |
-| 🔵 Blue | Maintenance/Small | Task, Chore, Build/CI (3) | 10 | 3 |
+| 🔵 Blue | Maintenance/Small | Task, Chore, Build, Code Review, Question, Help, Support (7) | 10 | 7 |
 | 🟣 Purple | Planning/Strategy | Epic, Story, Design, Content Modelling, UX Feedback (5) | 4 | 5 |
 | 🩷 Pink | Compliance/Legal | A11y, Audit (2) | 1 | 2 |
-| 🟫 Brown | Integration/External | Integration, Compatibility, Dependency, Automation (4) | 3 | 4 |
-| ⚪ Gray | Documentation/Research | Documentation, Research (2) | 8 | 2 |
+| 🟫 Brown | Integration/External | Integration, Compatibility, Dependency, Automation, AI Ops (5) | 3 | 5 |
+| ⚪ Gray | Documentation/Research | Documentation, Research, Maintenance, Investigation, Refactor (5) | 8 | 5 |
+
+**Notes:**
+- Blue reduced from 10→7 (moved to other categories; keeps Task, Chore, Build, Code Review, Question, Help, Support)
+- Brown increased to 5 (moved AI Ops here from Blue)
+- Gray reduced from 8→5 (moved UI to Green, Documentation/Research remain, added Maintenance/Investigation/Refactor)
+- Purple remains 5 types (Planning/Strategy focus)
+- All 29 final types accounted for
 
 **Color update checklist:**
 - [ ] Review semantic color assignments (see table above)
@@ -133,30 +140,38 @@ Current label state has inconsistencies:
 ```
 
 #### `.github/labeler.yml`
-Update detection patterns to use canonical label names:
+Update detection patterns to use canonical label names. Repository uses `head-branch` (for branch patterns) and `changed-files` (for file path patterns). Example mappings:
 ```yaml
-- name: type:documentation
-  patterns:
-    - 'docs/', 'documentation/'
-    - body: [type:docs, type:documentation]  # Match both, apply canonical
+# Type labels via branch prefix (head-branch rule)
+"type:documentation":
+  head-branch: ['^docs/.*']
 
-- name: type:content-modelling
-  patterns:
-    - 'custom post type', 'CPT', 'taxonomy'
-    - body: [type:modeling, type:content-modelling]  # Match both, apply canonical
+"type:test":
+  head-branch: ['^test/.*']
 
-- name: type:ai-ops
-  patterns:
-    - 'AI agent', 'Copilot', 'Claude configuration'
-    - body: 'type:ops.*AI|type:ai-ops'  # Specific to AI Ops
+"type:ai-ops":
+  head-branch: ['^ai-ops/.*']
 
-- name: type:automation
-  patterns:
-    - 'automate', 'automation', 'workflow'
-    - body: 'type:ops.*automat|type:automation'  # Specific to Automation
+"type:automation":
+  head-branch: ['^(automation|workflow)/.*']
 
-# ... (update all patterns)
+# Area labels via file path (changed-files rule)
+"area:documentation":
+  changed-files:
+    any-glob-to-any-file:
+      - '**/*.md'
+      - 'docs/**'
+
+"area:ai-ops":
+  changed-files:
+    any-glob-to-any-file:
+      - '.github/agents/**'
+      - 'skills/**'
+
+# ... (apply all canonical labels using head-branch and changed-files rules only)
 ```
+
+**Note:** Use only `head-branch` and `changed-files` rules. Do not use `name`, `patterns`, or `body` object structures — they are not part of the repository's labeler schema.
 
 ### 4. Update Templates
 

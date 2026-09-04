@@ -76,15 +76,15 @@ Eight-phase initiative to establish unified issue type taxonomy and integrate wi
 - **Phase 5:** Deduplicate 19 template pairs, renumber to 01-29, create missing templates, validate structure
 - **Phase 6:** Standardize label names, redistribute colors per 8 semantic categories, update configs (.github/labels.yml, .github/issue-types.yml, .github/labeler.yml)
 - **Phase 7:** Update 5 agent instructions (Release, Issues, PR, Changelog, Automation) to reference skill decision tree
-- **Phase 8:** Test 35 issue types + 5 agents + labels + colors + edge cases, generate test report
+- **Phase 8:** Test 29 consolidated issue types + 5 agents + labels + colors + edge cases, generate test report
 
 **Success Criteria:**
 
-- ✅ All 35 issue types have correct templates (01-29 clean sequence)
+- ✅ All 29 consolidated issue types have correct templates (01-29 clean sequence)
 - ✅ All label names standardized, no type:docs or type:ops ambiguity
 - ✅ Semantic color distribution applied (8 categories, WCAG 2.2 AA compliant)
 - ✅ All 5 agents wire correctly to skill decision tree
-- ✅ End-to-end testing validates complete workflow
+- ✅ End-to-end testing validates complete workflow (29 types + agents + labels + colors)
 - ✅ Release-ready for v1.1
 
 **Team Allocation:**
@@ -190,7 +190,7 @@ You're assigned to one or more tasks across Phase 5, 6, 7, or 8. Each phase has 
 | Metric | Details |
 |--------|---------|
 | **Status** | 🟢 Active (Phases 1-4 ✅ Complete, Phases 5-8 Ready) |
-| **Total Duration** | 8 phases (July 23, 2026 — Target Sept 10, 2026) |
+| **Total Duration** | 8 phases (July 23, 2026 — Target Sept 7, 2026) |
 | **Total Effort** | ~30-40 hours (distributed across 8 phases) |
 | **Phases** | 8 (Analysis + Skill, then 4 implementation phases) |
 | **Team Size** | 1–2 engineers |
