@@ -148,7 +148,7 @@
     "@eslint/js": "^10.0.1",
     "@github/markdownlint-github": "^0.8.3",
     "@jest/pattern": "30.5.0",
-    "@mermaid-js/mermaid-cli": "11.16.0",
+    "@mermaid-js/mermaid-cli": "11.17.0",
     "@stoplight/spectral-cli": "^6.16.3",
     "@stoplight/spectral-core": "^1.23.1",
     "@stoplight/spectral-functions": "^1.10.2",
