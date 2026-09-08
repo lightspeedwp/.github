@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /* global console, process */
-/* eslint-disable no-console */
 
 const fs = require("fs");
 const path = require("path");
-const { getOctokit } = require("@actions/github");
+// @actions/github v9 is ESM-only; see ./octokit.cjs for why this is not a
+// direct require of that package.
+const { getOctokit } = require("./octokit.cjs");
 const {
   readConfig,
   getMilestoneForIssue,
@@ -121,7 +122,7 @@ async function run() {
   const [owner, repoName] = repo.split("/");
   const event = JSON.parse(fs.readFileSync(eventPath, "utf8"));
   const config = readConfig(configPath);
-  const github = getOctokit(token);
+  const github = await getOctokit(token);
   const item = getItemFromEvent(event);
 
   // Only allocate on issue/PR open or reopen (not on edit/sync)

@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /* global console, process */
-/* eslint-disable no-console */
 
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
-const { getOctokit } = require("@actions/github");
+// @actions/github v9 is ESM-only; see ./octokit.cjs for why this is not a
+// direct require of that package.
+const { getOctokit } = require("./octokit.cjs");
 
 const COMMENT_MARKER = "<!-- metadata-governance -->";
 const GHSA_RE = /\bGHSA-[A-Z0-9-]+\b/gi;
@@ -438,7 +439,7 @@ async function run() {
     ? path.resolve(process.env.ISSUE_FIELDS_CONFIG)
     : path.resolve(".github/issue-fields.yml");
   const config = readConfig(configPath);
-  const github = getOctokit(token);
+  const github = await getOctokit(token);
 
   const result = await syncItemMetadata({
     github,

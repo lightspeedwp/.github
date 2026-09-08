@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* global console, process */
-/* eslint-disable no-console */
+
 /**
  * sync-issue-fields.cjs
  *
@@ -30,7 +30,9 @@
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
-const { getOctokit } = require("@actions/github");
+// @actions/github v9 is ESM-only; see ./octokit.cjs for why this is not a
+// direct require of that package.
+const { getOctokit } = require("./octokit.cjs");
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -159,10 +161,17 @@ async function run() {
     ),
   );
 
-  const octokit = getOctokit(token);
+  const octokit = await getOctokit(token);
 
   if (mode === "bulk") {
-    return runBulk({ octokit, owner, repo: repoName, typeMapping, enabledTypes, dryRun });
+    return runBulk({
+      octokit,
+      owner,
+      repo: repoName,
+      typeMapping,
+      enabledTypes,
+      dryRun,
+    });
   }
 
   return runEvent({ octokit, owner, typeMapping, enabledTypes, dryRun });
@@ -234,7 +243,8 @@ async function runEvent({ octokit, owner, typeMapping, enabledTypes, dryRun }) {
       (dryRun ? " [DRY RUN]" : ""),
   );
 
-  let appliedName = "";
+  // No initialiser: both branches below assign before it is read.
+  let appliedName;
   if (!dryRun) {
     appliedName = await setIssueType(octokit, issueNodeId, typeId);
     console.info(`#${issueNumber}: native type set to "${appliedName}"`);
@@ -254,7 +264,14 @@ async function runEvent({ octokit, owner, typeMapping, enabledTypes, dryRun }) {
  *           dryRun: boolean }} options
  * @returns {Promise<{ applied: string[], skipped: string[], errors: string[] }>}
  */
-async function runBulk({ octokit, owner, repo, typeMapping, enabledTypes, dryRun }) {
+async function runBulk({
+  octokit,
+  owner,
+  repo,
+  typeMapping,
+  enabledTypes,
+  dryRun,
+}) {
   console.info("Bulk mode — fetching all open issues...");
 
   const orgTypeMap = await fetchOrgIssueTypes(octokit, owner);
@@ -290,7 +307,9 @@ async function runBulk({ octokit, owner, repo, typeMapping, enabledTypes, dryRun
 
     const typeId = orgTypeMap.get(targetTypeName.toLowerCase());
     if (!typeId) {
-      result.skipped.push(`#${issue.number}: type "${targetTypeName}" not in org types`);
+      result.skipped.push(
+        `#${issue.number}: type "${targetTypeName}" not in org types`,
+      );
       continue;
     }
 
