@@ -42,7 +42,13 @@ if (!token) {
   process.exit(1);
 }
 
-// Make GitHub API request
+/**
+ * Sends an authenticated request to the GitHub API.
+ * @param {string} method - The HTTP method.
+ * @param {string} path - The GitHub API request path.
+ * @param {Object|null} body - The optional request payload.
+ * @return {Promise<{status: number, data: Object}>} The response status and parsed response data.
+ */
 async function githubRequest(method, path, body = null) {
   return new Promise((resolve, reject) => {
     const options = {
@@ -92,7 +98,11 @@ async function githubRequest(method, path, body = null) {
   });
 }
 
-// Check what sections are missing
+/**
+ * Identifies required and optional issue-body sections.
+ * @param {string} body - The issue body to inspect.
+ * @return {{missing: string[], present: string[]}} The missing required sections and detected sections.
+ */
 function analyzeMissingSections(body, _labels) {
   const missing = [];
   const present = [];
@@ -154,14 +164,22 @@ function analyzeMissingSections(body, _labels) {
   return { missing, present };
 }
 
-// Calculate completeness score
+/**
+ * Calculates the percentage of expected issue sections that are present.
+ * @param {Object} analysis - Section analysis containing a `present` array.
+ * @return {number} The completeness score as a percentage from 0 to 100.
+ */
 function calculateCompletenessScore(analysis) {
   const maxScore = 6; // DoR, DoD, Owner, AC, Technical, Testing
   const present = analysis.present.length;
   return Math.round((present / maxScore) * 100);
 }
 
-// Analyze a single issue
+/**
+ * Analyze a GitHub issue for metadata, section presence, and completeness.
+ * @param {Object} issue - The GitHub issue to analyze.
+ * @returns {Object} An audit record containing issue metadata, detected sections, completeness score, and missing-section flags.
+ */
 function analyzeIssue(issue) {
   const labels = (issue.labels || []).map((l) => l.name || l);
   const typeLabel = labels.find((l) => l.startsWith("type:"));
@@ -191,7 +209,10 @@ function analyzeIssue(issue) {
   };
 }
 
-// Fetch issues
+/**
+ * Fetches open issues from the configured GitHub repository.
+ * @return {Promise<Array>} The fetched issues, limited to the configured maximum.
+ */
 async function fetchIssues() {
   let query = `repo:${config.owner}/${config.repo} is:open is:issue`;
   if (config.label) {
@@ -235,7 +256,11 @@ async function fetchIssues() {
   return allIssues.slice(0, config.limit);
 }
 
-// Generate CSV output
+/**
+ * Converts issue audit records into a CSV-formatted report.
+ * @param {Array<Object>} audits - The issue audit records to include.
+ * @return {string} The generated CSV content.
+ */
 function generateCSV(audits) {
   const headers = [
     "Issue #",
@@ -270,7 +295,11 @@ function generateCSV(audits) {
   return [headers, ...rows].map((row) => row.join(",")).join("\n");
 }
 
-// Generate summary statistics
+/**
+ * Generate aggregate completeness statistics for issue audits.
+ * @param {Array<Object>} audits - Issue audit records to summarize.
+ * @returns {Object} Summary statistics, including completeness averages, missing-section counts, per-type results, and an ISO timestamp.
+ */
 function generateSummary(audits) {
   const total = audits.length;
   const avgCompleteness = Math.round(
@@ -309,7 +338,9 @@ function generateSummary(audits) {
   };
 }
 
-// Main execution
+/**
+ * Runs the issue completeness audit and outputs the generated report.
+ */
 async function main() {
   console.log("📊 Issue Completeness Audit\n");
   console.log(`📋 Configuration:`);

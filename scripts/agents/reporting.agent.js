@@ -147,19 +147,18 @@ function buildRepoCacheKey(parsed, category) {
 }
 
 /**
- * Generate a multi-repository summary report that aggregates data from
- * multiple repositories into a single Markdown document.
+ * Generate a Markdown report summarizing multiple repositories.
  *
- * @param {object} options - Report options
- * @param {string} options.title - Report title
- * @param {string} options.description - Description
- * @param {string} options.category - Report category
- * @param {Array<string|{owner:string,repo:string}>} options.repos - Repository list
- * @param {Array<{metric: string, value: string, status: string}>} [options.metrics] - Aggregate metrics
- * @param {string} [options.summary] - Executive summary
- * @param {string} [options.author] - Report author
- * @param {string[]} [options.tags] - Tags
- * @returns {string} Multi-repo Markdown report
+ * @param {object} options - Report options.
+ * @param {string} options.title - Report title.
+ * @param {string} options.description - Report description.
+ * @param {string} options.category - Report category.
+ * @param {Array<string|{owner:string,repo:string}>} options.repos - Repositories to include.
+ * @param {Array<{metric:string,value:string,status:string}>} [options.metrics] - Aggregate metrics.
+ * @param {string} [options.summary] - Executive summary.
+ * @param {string} [options.author] - Report author.
+ * @param {string[]} [options.tags] - Additional report tags.
+ * @returns {string} The generated multi-repository Markdown report.
  */
 function generateMultiRepoReport(options) {
   const {
