@@ -7,10 +7,13 @@ on:
     branches: [develop]
     paths:
       - "CHANGELOG.md"
+  # A workflow_call may not declare a secret whose name begins with GITHUB_.
+  # The reserved GITHUB_TOKEN is passed to a called workflow automatically, so
+  # declaring it here was both unnecessary and a workflow file error, which is
+  # why every run of this workflow failed before starting a single job.
+  # Nothing currently calls this workflow, but the trigger stays so it remains
+  # reusable.
   workflow_call:
-    secrets:
-      GITHUB_TOKEN:
-        required: false
 
 permissions:
   contents: read
