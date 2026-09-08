@@ -9,7 +9,8 @@ on:
   issues:
     types: [opened, edited, reopened, closed]
   discussion:
-    types: [created, edited, answered, reopened]
+    # Discussions have no `reopened` activity type.
+    types: [created, edited, answered, labeled, unlabeled]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -302,7 +303,13 @@ jobs:
   # Job 4: Enforce Labeling as Required Status Check (PRs only)
   labeling-check:
     name: Labeling Governance Check (Required)
-    if: github.event_name == 'pull_request'
+    # This job reads needs.standard-labeling.result but declared no `needs:`,
+    # so the property resolved against an empty object. `always()` keeps the
+    # required check reporting even when standard-labeling is skipped (draft
+    # PRs, [skip labeling], bot actors), which is what the result comparison
+    # below is there to distinguish.
+    needs: standard-labeling
+    if: always() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -457,7 +464,10 @@ jobs:
         if: steps.check.outputs.status == 'failure' || steps.validate.outputs.validation_status != 'valid'
         run: |
           VALIDATION_STATUS="${{ steps.validate.outputs.validation_status }}"
-          if [[ "${{ needs.standard-labeling.result }}" != "success" ]]; then
+          # Only a genuine failure of the labeling job is reported as such.
+          # `skipped` is a legitimate outcome (draft PR, [skip labeling], bot
+          # actor) and must not be conflated with a broken run.
+          if [[ "${{ needs.standard-labeling.result }}" == "failure" ]]; then
             echo "::error::Labeling governance workflow failed. Review logs for details."
             exit 1
           elif [[ "$VALIDATION_STATUS" == "no_labels" ]]; then

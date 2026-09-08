@@ -14,11 +14,14 @@ on:
           - archive-stale
           - sync-indexes
       category:
-        description: "Report category (leave empty for all)"
+        # A choice option may not be an empty string, so "all" replaces the
+        # blank entry that previously stood for "every category".
+        description: "Report category"
         required: false
+        default: all
         type: choice
         options:
-          - ""
+          - all
           - agents
           - linting
           - labeling

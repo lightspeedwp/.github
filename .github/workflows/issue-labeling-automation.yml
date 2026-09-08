@@ -59,9 +59,14 @@ jobs:
       - name: Fetch issues to label
         id: fetch
         uses: actions/github-script@v9
+        env:
+          # Read through env rather than interpolating into the script body:
+          # workflow_dispatch inputs are caller-supplied, so inlining them is a
+          # script injection vector.
+          ISSUE_FILTER: ${{ inputs.issue_filter }}
         with:
           script: |
-            const filter = '${{ inputs.issue_filter || "created >= 7 days ago" }}';
+            const filter = process.env.ISSUE_FILTER || 'created >= 7 days ago';
 
             try {
               const issues = await github.paginate(

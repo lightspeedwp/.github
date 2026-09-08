@@ -32,11 +32,16 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Fetch PR version of validator
+        env:
+          # A branch name is attacker controlled on a fork PR. Interpolating it
+          # straight into the shell allows arbitrary command execution, so it
+          # is passed through the environment and quoted at each use instead.
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           # Explicitly fetch the PR's version of the validator to avoid bootstrapping issues
           # This ensures we validate against the rules that will be in effect after merge
-          git fetch origin ${{ github.head_ref }}
-          if git show origin/${{ github.head_ref }}:scripts/validation/validate-branch-name.cjs > scripts/validation/validate-branch-name-pr.cjs 2>/dev/null; then
+          git fetch origin "$HEAD_REF"
+          if git show "origin/${HEAD_REF}:scripts/validation/validate-branch-name.cjs" > scripts/validation/validate-branch-name-pr.cjs 2>/dev/null; then
             echo "Using PR's version of validator"
             cp scripts/validation/validate-branch-name-pr.cjs scripts/validation/validate-branch-name.cjs
           else
@@ -49,7 +54,7 @@ jobs:
           BRANCH_NAME: ${{ github.head_ref }}
           TARGET_BRANCH: ${{ github.base_ref }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          DEBUG_VALIDATION: '1'
+          DEBUG_VALIDATION: "1"
         run: |
           echo "DEBUG: Branch name = '$BRANCH_NAME'"
           echo "DEBUG: Target branch = '$TARGET_BRANCH'"
@@ -80,13 +85,19 @@ jobs:
       - name: Post validation result
         if: always()
         uses: actions/github-script@v9
+        env:
+          # Branch names are attacker controlled on fork PRs; interpolating one
+          # into the script body would let it break out of the string literal.
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+          VALIDATE_RESULT: ${{ steps.validate.outputs.valid }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            const branch = '${{ github.head_ref }}';
-            const valid = '${{ steps.validate.outputs.valid }}' === 'true';
-            const targetBranch = '${{ github.base_ref }}';
+            const branch = process.env.HEAD_REF;
+            const valid = process.env.VALIDATE_RESULT === 'true';
+            const targetBranch = process.env.BASE_REF;
 
             // Read validation output if validation failed
             let validationOutput = '';
