@@ -360,10 +360,13 @@ jobs:
 
       - name: Create status check
         uses: actions/github-script@v9
+        env:
+          LABELING_RESULT: ${{ needs.standard-labeling.result }}
         with:
           script: |
             const status = '${{ steps.check.outputs.status }}';
             const validationStatus = '${{ steps.validate.outputs.validation_status }}';
+            const labelingResult = process.env.LABELING_RESULT;
 
             let conclusion = status;
             let summary = 'This PR has been labelled according to governance rules.';
@@ -373,6 +376,12 @@ jobs:
               conclusion = 'failure';
               summary = 'This PR has no labels. At least one label is required.';
               detailedText = '## PR Labels Required\n\nThis PR must have at least one label before it can be merged.\n\n**Required Label Categories:**\n- `type:*` (feature, bug, chore, etc.)\n- `area:*` (ci, docs, security, etc.)\n- `priority:*` (critical, important, normal)\n- `meta:*` (needs-changelog, no-changelog, etc.)\n\n## How to Fix\n\n1. Add at least one label from the required categories above\n2. Labels are typically auto-applied based on:\n   - Branch prefix (e.g., `feat/`, `fix/`, `chore/`)\n   - File changes (e.g., documentation files, CI files)\n   - PR title and description content\n3. If auto-labeling didn\'t work, [manually add a label](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/labels)\n4. The labeling check will run again automatically';
+            } else if (labelingResult === 'failure') {
+              // A failed labeling job must not report a green required check,
+              // even when the PR happens to carry acceptable labels already.
+              conclusion = 'failure';
+              summary = 'The labeling job failed, so label governance could not be confirmed.';
+              detailedText = '## Labeling Job Failed\n\nThe `Standard Labeling, Status, and Type Assignment` job did not complete successfully, so its result cannot be trusted.\n\nReview that job\'s logs, then re-run the workflow.';
             } else if (validationStatus === 'invalid_labels_only') {
               conclusion = 'failure';
               summary = 'This PR has labels but none from the required categories.';
@@ -460,8 +469,15 @@ jobs:
 
             core.setOutput('status', conclusion);
 
+      # needs.standard-labeling.result is part of the condition, not just the
+      # message: if the labeling job fails while the PR happens to carry valid
+      # labels, this step would otherwise be skipped and the required check
+      # would report success over a failed run.
       - name: Enforce labeling requirement
-        if: steps.check.outputs.status == 'failure' || steps.validate.outputs.validation_status != 'valid'
+        if: |
+          needs.standard-labeling.result == 'failure' ||
+          steps.check.outputs.status == 'failure' ||
+          steps.validate.outputs.validation_status != 'valid'
         run: |
           VALIDATION_STATUS="${{ steps.validate.outputs.validation_status }}"
           # Only a genuine failure of the labeling job is reported as such.

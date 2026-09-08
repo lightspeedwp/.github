@@ -20,6 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
         with:
+          persist-credentials: false
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -31,22 +32,18 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Fetch PR version of validator
-        env:
-          # A branch name is attacker controlled on a fork PR. Interpolating it
-          # straight into the shell allows arbitrary command execution, so it
-          # is passed through the environment and quoted at each use instead.
-          HEAD_REF: ${{ github.head_ref }}
-        run: |
-          # Explicitly fetch the PR's version of the validator to avoid bootstrapping issues
-          # This ensures we validate against the rules that will be in effect after merge
-          git fetch origin "$HEAD_REF"
-          if git show "origin/${HEAD_REF}:scripts/validation/validate-branch-name.cjs" > scripts/validation/validate-branch-name-pr.cjs 2>/dev/null; then
-            echo "Using PR's version of validator"
-            cp scripts/validation/validate-branch-name-pr.cjs scripts/validation/validate-branch-name.cjs
-          else
-            echo "PR version not found or validator not modified; using base version"
-          fi
+      # A step here previously fetched the pull request's copy of
+      # scripts/validation/validate-branch-name.cjs and overwrote the base
+      # copy with it, so that a PR editing the rules was validated against its
+      # own rules. That executed pull-request-controlled code inside a job
+      # holding pull-requests: write and checks: write, which is a code
+      # execution path a fork PR could take. It was also broken for forks:
+      # github.head_ref names a branch in the fork, not in origin, so the
+      # fetch failed there anyway.
+      #
+      # The validator now always comes from the base repository. A PR that
+      # changes the rules is validated against the current rules, and the new
+      # rules apply from the merge onwards.
 
       - name: Validate branch name
         id: validate

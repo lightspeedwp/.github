@@ -28,6 +28,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          # actions/checkout persists the job token in .git/config by
+          # default. These jobs execute code from the pull request
+          # checkout, so a crafted PR could read it.
+          persist-credentials: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -50,6 +55,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          # actions/checkout persists the job token in .git/config by
+          # default. These jobs execute code from the pull request
+          # checkout, so a crafted PR could read it.
+          persist-credentials: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -88,6 +98,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          # actions/checkout persists the job token in .git/config by
+          # default. These jobs execute code from the pull request
+          # checkout, so a crafted PR could read it.
+          persist-credentials: false
 
       - name: Verify cross-references
         run: |
