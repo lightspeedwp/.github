@@ -118,6 +118,11 @@ jobs:
           echo "type=$TYPE"         >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # This step runs before any actions/checkout, so gh has no git remote
+          # to infer the repository from and fails with "failed to run git:
+          # fatal: not a git repository". GH_REPO supplies the context directly,
+          # which is all these two API reads need - no clone required.
+          GH_REPO: ${{ github.repository }}
           HEAD_REF: ${{ github.head_ref }}
 
       - name: Checkout code for retry wrapper
@@ -126,7 +131,7 @@ jobs:
 
       - name: Setup Node for retry wrapper
         if: steps.preflight.outputs.enabled == 'true' && steps.addp.outputs.itemId != ''
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 

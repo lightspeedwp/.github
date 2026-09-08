@@ -5,6 +5,8 @@ on:
     branches: [develop]
   pull_request:
     branches: [develop]
+    # `transferred` is an issues activity type; it does not exist for
+    # pull_request and was rejected as an invalid activity type.
     types:
       [
         opened,
@@ -14,12 +16,12 @@ on:
         ready_for_review,
         labeled,
         unlabeled,
-        transferred,
       ]
   issues:
     types: [opened, edited, reopened, labeled, unlabeled, transferred]
   discussion:
-    types: [created, edited, answered, reopened]
+    # Discussions have no `reopened` activity type.
+    types: [created, edited, answered, labeled, unlabeled]
   workflow_dispatch:
     inputs:
       dry_run:

@@ -27,10 +27,15 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          # actions/checkout persists the job token in .git/config by
+          # default. These jobs execute code from the pull request
+          # checkout, so a crafted PR could read it.
+          persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
           cache: npm
@@ -49,10 +54,15 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          # actions/checkout persists the job token in .git/config by
+          # default. These jobs execute code from the pull request
+          # checkout, so a crafted PR could read it.
+          persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
           cache: npm
@@ -87,7 +97,12 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          # actions/checkout persists the job token in .git/config by
+          # default. These jobs execute code from the pull request
+          # checkout, so a crafted PR could read it.
+          persist-credentials: false
 
       - name: Verify cross-references
         run: |
@@ -146,7 +161,7 @@ jobs:
     steps:
       - name: Comment on PR about failed audit
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             github.rest.issues.createComment({

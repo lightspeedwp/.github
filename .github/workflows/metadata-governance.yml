@@ -91,12 +91,29 @@ jobs:
       # on the issue using the type:* label → project_field_mappings.Type mapping
       # in .github/issue-fields.yml. Requires a GitHub App token with
       # issues:write and project scope (supplied via LS_APP_PRIVATE_KEY secret).
+      # The `secrets` context is not available in a step-level `if:`, and
+      # referencing it there is a workflow file error that stops the whole run
+      # before any job starts. The secret is surfaced through `env` on a plain
+      # step instead, and its presence read back as a step output.
+      - name: Check for the GitHub App private key
+        id: app-key
+        if: github.event_name == 'issues'
+        env:
+          LS_APP_PRIVATE_KEY: ${{ secrets.LS_APP_PRIVATE_KEY }}
+        run: |
+          if [ -n "${LS_APP_PRIVATE_KEY:-}" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::LS_APP_PRIVATE_KEY is not configured; skipping native issue type sync."
+          fi
+
       - name: Create GitHub App token for native type sync
         id: app-token
         if: |
           github.event_name == 'issues' &&
           vars.LS_APP_ID != '' &&
-          secrets.LS_APP_PRIVATE_KEY != ''
+          steps.app-key.outputs.present == 'true'
         uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.LS_APP_ID }}
