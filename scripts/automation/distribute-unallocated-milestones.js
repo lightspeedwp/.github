@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* global fetch */
-
 /**
  * distribute-unallocated-milestones.js
  *
@@ -116,7 +114,9 @@ class MilestoneDistributor {
 
       return targetMilestones;
     } catch (err) {
-      throw new Error(`Failed to fetch milestones: ${err.message}`);
+      throw new Error(`Failed to fetch milestones: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 
@@ -144,7 +144,9 @@ class MilestoneDistributor {
 
       return issues;
     } catch (err) {
-      throw new Error(`Failed to fetch unallocated issues: ${err.message}`);
+      throw new Error(`Failed to fetch unallocated issues: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 
@@ -237,7 +239,9 @@ Example format:
       );
       return categories;
     } catch (err) {
-      throw new Error(`Failed to call Claude API: ${err.message}`);
+      throw new Error(`Failed to call Claude API: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 

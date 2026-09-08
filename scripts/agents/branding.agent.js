@@ -21,7 +21,7 @@ function loadFooterConfig() {
     return null;
   }
   const content = fs.readFileSync(configPath, "utf-8");
-  return load(content);
+  return yaml.load(content);
 }
 
 /**
@@ -221,7 +221,7 @@ function loadBadgeSchema() {
     return null;
   }
   const content = fs.readFileSync(schemaPath, "utf-8");
-  return load(content);
+  return yaml.load(content);
 }
 
 /**

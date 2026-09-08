@@ -44,7 +44,69 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
       "skills/design-md-agent/figma-use/references/plugin-api-standalone.d.ts", // Imported Figma API typings
+      "**/figma-use/references/plugin-api-standalone.d.ts", // Same vendored typings, copied under agents/*
     ];
+
+/**
+ * Globals shared by every Node-executed file in this repository.
+ *
+ * Declared once here rather than repeated per block. The `**` + `/*.cjs` block
+ * previously carried no `globals` at all, which is why every `.cjs` test file
+ * reported `describe`, `it`, `expect`, `console` and `process` as undefined -
+ * roughly 1,700 `no-undef` errors that were configuration, not code.
+ *
+ * @type {Record<string, "readonly">}
+ */
+const nodeGlobals = {
+  Buffer: "readonly",
+  __dirname: "readonly",
+  __filename: "readonly",
+  clearImmediate: "readonly",
+  clearInterval: "readonly",
+  clearTimeout: "readonly",
+  console: "readonly",
+  global: "readonly",
+  process: "readonly",
+  setImmediate: "readonly",
+  setInterval: "readonly",
+  setTimeout: "readonly",
+  TextDecoder: "readonly",
+  TextEncoder: "readonly",
+  // Web-standard globals Node has exposed since v18; the agent scripts use
+  // these for HTTP and URL handling.
+  AbortController: "readonly",
+  URL: "readonly",
+  URLSearchParams: "readonly",
+  fetch: "readonly",
+};
+
+/**
+ * CommonJS module globals, for files loaded by `require` rather than `import`.
+ *
+ * @type {Record<string, "readonly">}
+ */
+const commonjsGlobals = {
+  exports: "readonly",
+  module: "readonly",
+  require: "readonly",
+};
+
+/**
+ * Jest test-environment globals.
+ *
+ * @type {Record<string, "readonly">}
+ */
+const jestGlobals = {
+  afterAll: "readonly",
+  afterEach: "readonly",
+  beforeAll: "readonly",
+  beforeEach: "readonly",
+  describe: "readonly",
+  expect: "readonly",
+  it: "readonly",
+  jest: "readonly",
+  test: "readonly",
+};
 
 /**
  * ESLint Flat Configuration
@@ -118,6 +180,11 @@ module.exports = [
         ecmaVersion: 2024,
         sourceType: "commonjs",
       },
+      globals: {
+        ...nodeGlobals,
+        ...commonjsGlobals,
+        ...jestGlobals,
+      },
     },
     plugins: { prettier },
     rules: {
@@ -142,31 +209,8 @@ module.exports = [
         sourceType: "module",
       },
       globals: {
-        // Node.js globals
-        Buffer: "readonly",
-        __dirname: "readonly",
-        __filename: "readonly",
-        clearImmediate: "readonly",
-        clearInterval: "readonly",
-        clearTimeout: "readonly",
-        global: "readonly",
-        process: "readonly",
-        setImmediate: "readonly",
-        setInterval: "readonly",
-        setTimeout: "readonly",
-        console: "readonly",
-        // Jest test environment globals
-        describe: "readonly",
-        it: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
-        jest: "readonly",
-        TextDecoder: "readonly",
-        TextEncoder: "readonly",
+        ...nodeGlobals,
+        ...jestGlobals,
       },
     },
     plugins: { prettier },
@@ -185,34 +229,9 @@ module.exports = [
         sourceType: "commonjs",
       },
       globals: {
-        // Node.js globals
-        Buffer: "readonly",
-        __dirname: "readonly",
-        __filename: "readonly",
-        clearImmediate: "readonly",
-        clearInterval: "readonly",
-        clearTimeout: "readonly",
-        global: "readonly",
-        process: "readonly",
-        require: "readonly",
-        module: "readonly",
-        exports: "readonly",
-        setImmediate: "readonly",
-        setInterval: "readonly",
-        setTimeout: "readonly",
-        console: "readonly",
-        // Jest test environment globals
-        describe: "readonly",
-        it: "readonly",
-        test: "readonly",
-        expect: "readonly",
-        beforeAll: "readonly",
-        afterAll: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
-        jest: "readonly",
-        TextDecoder: "readonly",
-        TextEncoder: "readonly",
+        ...nodeGlobals,
+        ...commonjsGlobals,
+        ...jestGlobals,
       },
     },
     plugins: { prettier },
@@ -224,7 +243,8 @@ module.exports = [
   },
   // Browser-based JavaScript files (website scripts)
   {
-    files: ["website/src/scripts/**/*.js"],
+    // scripts/dashboard is a browser bundle too, not a Node script.
+    files: ["website/src/scripts/**/*.js", "scripts/dashboard/**/*.js"],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2024,
@@ -239,6 +259,12 @@ module.exports = [
         IntersectionObserver: "readonly",
         requestAnimationFrame: "readonly",
         navigator: "readonly",
+        // Used by the dashboard's import/export controls
+        alert: "readonly",
+        Blob: "readonly",
+        FileReader: "readonly",
+        URL: "readonly",
+        fetch: "readonly",
         // Console is available in browser
         console: "readonly",
       },
@@ -298,7 +324,10 @@ module.exports = [
   },
   // Agent skill scripts - may use Figma and browser APIs
   {
-    files: ["agents/*/skills/plugin-provided/figma/**/scripts/**/*.js"],
+    // `**` before plugin-provided so the `skills/local/plugin-provided/...`
+    // layout is matched too; the previous `skills/plugin-provided` glob missed
+    // it, leaving `figma` undefined across those scripts.
+    files: ["agents/**/plugin-provided/figma/**/scripts/**/*.js"],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2024,

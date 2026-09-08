@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global __dirname, console, process */
 
 /**
  * Set up Git hooks for the LightSpeed .github repository.

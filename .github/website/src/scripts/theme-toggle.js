@@ -1,4 +1,4 @@
-/* global window, document, localStorage, CustomEvent, navigator, fetch */
+/* global window, document, localStorage, CustomEvent, navigator */
 /* theme-toggle.js
    Handles all .theme-toggle-btn buttons on the page.
    Moon = currently light mode (click to go dark)

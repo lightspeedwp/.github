@@ -41,7 +41,9 @@ module.exports = {
      * Previous config: 120/140/160 chars for content/headings/code blocks.
      */
     MD013: false,
-    MD024: false,
+    // MD024 is configured further down as { siblings_only: true }. A duplicate
+    // key here was silently discarded by JS, so removing it changes nothing at
+    // runtime and lets this file lint.
     MD025: false,
     MD036: false,
     MD033: {

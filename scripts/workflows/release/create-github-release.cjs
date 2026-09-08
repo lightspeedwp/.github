@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* eslint-env node */
-
 const { process } = globalThis;
 const {
   readEnv,

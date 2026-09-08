@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* global AbortController */
-
 /**
  * Handlers Orchestrator — Tier 1 Batch Processor
  *
