@@ -123,7 +123,7 @@ function createBareToCanonicalMapping(canonicalLabels) {
 
   bareLabels.forEach((bare) => {
     const normalized = bare.toLowerCase().trim();
-    let canonical = null;
+    let canonical;
 
     // Direct matching logic
     {

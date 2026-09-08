@@ -163,7 +163,9 @@ async function syncLabelsWithCanonical(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to sync labels: ${error.message}`);
+    throw new Error(`Failed to sync labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -253,7 +255,9 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to validate labels: ${error.message}`);
+    throw new Error(`Failed to validate labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -352,7 +356,9 @@ async function standardizeLabelsOnRepo(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to standardize labels: ${error.message}`);
+    throw new Error(`Failed to standardize labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 

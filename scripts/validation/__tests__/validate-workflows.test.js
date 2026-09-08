@@ -8,7 +8,7 @@ const { execSync } = require("child_process");
 describe("Workflow Validation", () => {
   it("should run the workflow validation script and output expected result", () => {
     const scriptPath = path.join(__dirname, "../validate-workflows.js");
-    let output = "";
+    let output;
     try {
       output = execSync(`node ${scriptPath}`, { encoding: "utf8" });
     } catch (err) {
