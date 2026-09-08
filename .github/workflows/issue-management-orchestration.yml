@@ -95,10 +95,10 @@ jobs:
       analysis_status: ${{ steps.analyze.outputs.status }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
@@ -158,10 +158,10 @@ jobs:
       label_status: ${{ steps.label.outputs.status }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
@@ -194,10 +194,10 @@ jobs:
       enrichment_status: ${{ steps.enrich.outputs.status }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
@@ -251,10 +251,10 @@ jobs:
       validation_passed: ${{ steps.validate.outputs.passed }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
@@ -314,10 +314,10 @@ jobs:
       report_status: ${{ steps.report.outputs.status }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
