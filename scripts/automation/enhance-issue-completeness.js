@@ -23,7 +23,9 @@ import https from "https";
 const config = {
   owner: "lightspeedwp",
   repo: ".github",
-  label: "status:needs-more-info",
+  label:
+    process.argv.find((arg) => arg.startsWith("--label="))?.split("=")[1] ||
+    "status:needs-more-info",
   perPage: 30,
   dryRun: process.argv.includes("--dry-run"),
   autoOwner: process.argv.includes("--auto-owner"),
@@ -187,6 +189,10 @@ const templates = {
  * @returns {Promise<{status: number, data: Object}>} The response status and parsed response data.
  */
 async function githubRequest(method, path, body = null) {
+  if (!token) {
+    throw new Error("GITHUB_TOKEN is required for API requests");
+  }
+
   return new Promise((resolve, reject) => {
     const options = {
       hostname: "api.github.com",
@@ -311,7 +317,8 @@ function getTemplateSections(issueType, sectionsNeeded) {
 }
 
 /**
- * Adds the specified issue sections while removing existing versions of those sections.
+ * Adds the specified issue sections to the issue body.
+ * Only adds sections that don't already exist; preserves existing content.
  * @param {string} body - The current issue body.
  * @param {string} sections - The sections to add to the issue body.
  * @return {string} The issue body with the specified sections appended.
@@ -321,16 +328,7 @@ function enhanceIssueBody(body, sections) {
     return sections;
   }
 
-  // Clean up any existing partial/incomplete sections
-  let cleanedBody = body
-    .replace(/\n*## Definition of Ready.*?(?=\n##|$)/s, "")
-    .replace(/\n*## Definition of Done.*?(?=\n##|$)/s, "")
-    .replace(/\n*## Owner.*?(?=\n##|$)/s, "")
-    .replace(/\n*## Assignee.*?(?=\n##|$)/s, "")
-    .replace(/\n*## Acceptance Criteria.*?(?=\n##|$)/s, "")
-    .trim();
-
-  return `${cleanedBody}\n\n---\n\n${sections}`;
+  return `${body.trim()}\n\n---\n\n${sections}`;
 }
 
 /**

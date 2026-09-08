@@ -1,6 +1,7 @@
 ---
 file_type: documentation
 title: "Issues Agent Template Updates & Improvements"
+description: Comprehensive improvement plan addressing 91 issues missing Definition of Ready with enhanced templates and automated enrichment scripts
 date: 2026-09-04
 status: in-progress
 priority: critical
@@ -109,6 +110,7 @@ body:
 ```
 
 **Templates to Update**:
+
 - `01-task.md` — Add owner, DoR/DoD checkboxes
 - `02-bug.md` — Enhance to require reproduction + fix criteria
 - `03-feature.md` — Add acceptance criteria + success metrics
@@ -119,7 +121,8 @@ body:
 - `08-chore.md` (new) — Add scope + completion criteria
 - [All remaining 17 types] — Consistent DoR/DoD structure
 
-**Implementation**: 
+**Implementation**:
+
 - Update each template file to enforce required fields
 - Add `required: true` to critical sections
 - Ensure all labels match `.github/labels.yml` canonical set
@@ -129,6 +132,7 @@ body:
 #### 2.1 Update `add-issue-template-sections.js`
 
 **Enhancements**:
+
 ```javascript
 // New capabilities needed:
 - Detect missing sections: DoR, DoD, Acceptance Criteria, Owner
@@ -140,6 +144,7 @@ body:
 ```
 
 **New Options**:
+
 ```bash
 node add-issue-template-sections.js --dry-run [--limit=N]
 node add-issue-template-sections.js --auto --confidence=0.9
@@ -152,6 +157,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 **Purpose**: Audit and validate issue completeness across all open issues
 
 **Features**:
+
 - Scan all issues for required sections
 - Generate completeness score (0-100%)
 - Identify specific gaps per issue
@@ -159,6 +165,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 - Generate CSV report of gaps
 
 **Output**:
+
 ```json
 {
   "issue": 2833,
@@ -184,6 +191,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 **Purpose**: Bulk-add missing sections to issues intelligently
 
 **Workflow**:
+
 1. Fetch issues with `status:needs-more-info`
 2. Analyze each issue type
 3. Generate suggested DoR/DoD sections
@@ -192,6 +200,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 6. Generate audit trail
 
 **Modes**:
+
 - `--dry-run` — Preview changes
 - `--interactive` — Prompt per issue
 - `--auto` — Apply all with confidence >0.85
@@ -203,6 +212,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 **Trigger**: `issue.opened` or `issue.edited`
 
 **New Steps**:
+
 ```yaml
 - name: Validate Issue Completeness
   runs-on: ubuntu-latest
@@ -229,6 +239,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 **Trigger**: Every Monday 9 AM UTC
 
 **Actions**:
+
 1. Fetch all issues with `status:needs-more-info`
 2. Analyze each for missing sections
 3. Apply enrichment with high confidence (>0.9)
@@ -240,6 +251,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 #### 4.1 Enhance `agents/issues.agent.md`
 
 **New Capabilities**:
+
 ```markdown
 ## Enhanced Type Assignment
 - Analyze issue body for DoR/DoD sections
@@ -259,7 +271,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 - Validate DoR prerequisites are realistic
 ```
 
-#### 4.2 Add to `agents/issues.agent.md`:
+#### 4.2 Add to `agents/issues.agent.md`
 
 - "DoR/DoD Enrichment" mode — add missing sections
 - "Template Compliance Check" — validate issue structure
@@ -271,24 +283,28 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 ## Implementation Roadmap
 
 ### Week 1: Foundation (Sept 4-10)
+
 - [ ] Update all 25 issue templates with enforced DoR/DoD/Owner fields
 - [ ] Enhance `add-issue-template-sections.js` script
 - [ ] Create validation script
 - [ ] Commit to `claude/issues-agent-template-updates-hslov7` branch
 
 ### Week 2: Automation (Sept 11-17)
+
 - [ ] Create bulk enrichment script
 - [ ] Update workflow validation jobs
 - [ ] Test on subset of issues (10 issues)
 - [ ] Generate audit reports
 
 ### Week 3: Refinement (Sept 18-24)
+
 - [ ] Apply to all 100 issues with `status:needs-more-info`
 - [ ] Monitor for accuracy
 - [ ] Adjust templates based on results
 - [ ] Train team on new structure
 
 ### Week 4: Integration (Sept 25-30)
+
 - [ ] Update issues agent documentation
 - [ ] Schedule recurring enrichment jobs
 - [ ] Implement workflow validation
@@ -357,6 +373,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 ### Risk 1: Over-enrichment (False Positives)
 
 **Mitigation**:
+
 - Use `--dry-run` mode for all initial runs
 - Set high confidence threshold (0.85+) for auto-apply
 - Manual review of first 10 issues
@@ -365,6 +382,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 ### Risk 2: Breaking Existing Workflows
 
 **Mitigation**:
+
 - Test template changes locally first
 - Validate GitHub accepts updated YAML frontmatter
 - Implement alongside existing templates
@@ -373,6 +391,7 @@ node add-issue-template-sections.js --label=type:bug --start-from=100
 ### Risk 3: Incomplete Enrichment
 
 **Mitigation**:
+
 - Keep manual override capability
 - Prioritize issues by type (Epic > Feature > Task)
 - Post comment when auto-enriching with suggested changes
@@ -394,6 +413,7 @@ If implementation causes issues:
 ## Success Criteria
 
 ✅ **Complete** when:
+
 1. All 25 templates updated with enforced DoR/DoD/Owner sections
 2. 95% of issues with `status:needs-more-info` enriched with missing sections
 3. `add-issue-template-sections.js` updated to handle all patterns
@@ -429,5 +449,4 @@ If implementation causes issues:
 - **Baseline Analysis**: Explore agent analysis of 100 issues with `status:needs-more-info`
 - **Issues Agent**: `agents/issues.agent.md` (v2.1)
 - **Existing Scripts**: `scripts/automation/{add-issue-template-sections,bulk-issue-metadata-updater}.js`
-- **GitHub Issue Templates Docs**: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema
-
+- **GitHub Issue Templates Docs**: <https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema>
