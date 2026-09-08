@@ -11,10 +11,14 @@ on:
         options:
           - "true"
           - "false"
-      issue_filter:
-        description: 'Filter issues (e.g., "created >= 7 days ago")'
+      # Replaces a free-text `issue_filter` that was read into a variable and
+      # then never used, so neither the default nor any caller value had any
+      # effect. A day count maps directly onto listForRepo's `since`, so this
+      # one actually narrows the query.
+      updated_within_days:
+        description: "Only consider issues updated in the last N days (0 for no limit)"
         required: false
-        default: "created >= 7 days ago"
+        default: "7"
         type: string
       label_types:
         description: "Which label types to apply"
@@ -63,20 +67,33 @@ jobs:
           # Read through env rather than interpolating into the script body:
           # workflow_dispatch inputs are caller-supplied, so inlining them is a
           # script injection vector.
-          ISSUE_FILTER: ${{ inputs.issue_filter }}
+          UPDATED_WITHIN_DAYS: ${{ inputs.updated_within_days }}
         with:
           script: |
-            const filter = process.env.ISSUE_FILTER || 'created >= 7 days ago';
+            const days = Number.parseInt(process.env.UPDATED_WITHIN_DAYS ?? '', 10);
+            const windowDays = Number.isFinite(days) && days > 0 ? days : 7;
+
+            const params = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              per_page: 100,
+            };
+
+            // 0 (or a non-numeric value) means "no limit"; anything else is
+            // handed to the API as `since` so the window is applied server
+            // side rather than after pagination.
+            if (!(Number.isFinite(days) && days === 0)) {
+              params.since = new Date(Date.now() - windowDays * 86400000).toISOString();
+              core.info(`Considering issues updated since ${params.since}`);
+            } else {
+              core.info('No time limit applied; considering all issues.');
+            }
 
             try {
               const issues = await github.paginate(
                 github.rest.issues.listForRepo,
-                {
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  state: 'all',
-                  per_page: 100,
-                }
+                params
               );
 
               // Filter issues without type labels
