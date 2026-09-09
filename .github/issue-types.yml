@@ -1,5 +1,9 @@
-# Org-wide Issue Types
-# Used by the unified labeling agent and workflow to set the 'Type' field and/or add a companion label
+# 🔒 LOCKED — Org-wide Issue Types
+# ⚠️  This file is FINAL and manually curated by @ashley. Do NOT edit without explicit approval.
+#
+# Used by the unified labeling agent and workflow to set the 'Type' field and/or add a companion label.
+#
+# TO REQUEST CHANGES: Open a GitHub issue with [ISSUE-TYPE-UPDATE-REQUEST] in the title and describe the change needed.
 
 issue_types:
   - name: Task

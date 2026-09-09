@@ -1,6 +1,10 @@
-# Org-wide Canonical Labels (Issues, PRs, Discussions)
+# 🔒 LOCKED — Org-wide Canonical Labels (Issues, PRs, Discussions)
+# ⚠️  This file is FINAL and manually curated by @ashley. Do NOT edit without explicit approval.
+#
 # All labeling, status, type, and standardization is handled by the unified labeling agent and workflow.
 # This file is the single source of truth for all automation and label configuration.
+#
+# TO REQUEST CHANGES: Open a GitHub issue with [LABEL-UPDATE-REQUEST] in the title and describe the change needed.
 
 # --- Status ---
 
