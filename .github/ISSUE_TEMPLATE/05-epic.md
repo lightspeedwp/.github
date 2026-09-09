@@ -1,7 +1,7 @@
 ---
 name: "🎯 Epic"
 about: "Template for Epic issues"
-title: "epic: {scope}"
+title: "epic: {scope} - {short description}"
 labels: ["type:epic", "status:needs-triage", "priority:important", "area:core", "meta:needs-changelog"]
 recommended_branch: "epic/"
 file_type: issue-template
