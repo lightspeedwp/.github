@@ -160,7 +160,7 @@
   color: 9F3734
   description: "Security issue"
 
-- name: type:compatibility
+- name: type:compat
   color: 8D4821
   description: "Compatibility"
 

@@ -2,7 +2,7 @@
 name: "🔄 Compatibility"
 about: "Template for Compatibility issues"
 title: "compat: {scope} - {short description}"
-labels: ["type:compatibility", "status:needs-triage", "priority:normal", "area:compatibility", "meta:needs-changelog"]
+labels: ["type:compat", "status:needs-triage", "priority:normal", "area:compatibility", "meta:needs-changelog"]
 recommended_branch: "compat/"
 file_type: issue-template
 ---
