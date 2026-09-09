@@ -45,7 +45,7 @@
   ],
   "engines": {
     "node": ">=24.0.0",
-    "npm": ">=10.0.0"
+    "npm": ">=11.0.0"
   },
   "type": "module",
   "main": "index.js",
@@ -138,17 +138,17 @@
     "@actions/github": "9.1.1",
     "@babel/core": "8.0.1",
     "@babel/plugin-syntax-import-meta": "7.10.4",
-    "@babel/plugin-transform-class-properties": "7.24.7",
-    "@babel/plugin-transform-object-rest-spread": "7.24.7",
-    "@babel/plugin-transform-runtime": "7.24.6",
+    "@babel/plugin-transform-class-properties": "8.0.1",
+    "@babel/plugin-transform-object-rest-spread": "8.0.1",
+    "@babel/plugin-transform-runtime": "8.0.1",
     "@babel/preset-env": "8.0.2",
-    "@babel/preset-react": "7.24.6",
+    "@babel/preset-react": "8.0.1",
     "@babel/preset-typescript": "8.0.1",
     "@babel/runtime": "^7.29.7",
     "@eslint/js": "^10.0.1",
     "@github/markdownlint-github": "^0.8.3",
     "@jest/pattern": "30.5.0",
-    "@mermaid-js/mermaid-cli": "11.16.0",
+    "@mermaid-js/mermaid-cli": "11.17.0",
     "@stoplight/spectral-cli": "^6.16.3",
     "@stoplight/spectral-core": "^1.23.1",
     "@stoplight/spectral-functions": "^1.10.2",
@@ -160,10 +160,10 @@
     "ajv-cli": "5.0.0",
     "ajv-formats": "^3.0.1",
     "all-contributors-cli": "6.26.1",
-    "babel-jest": "30.5.0",
+    "babel-jest": "30.5.1",
     "bats": "^1.8.0",
     "dotenv": "^16.4.5",
-    "eslint": "^10.9.1",
+    "eslint": "^10.10.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "glob": "10.5.0",
@@ -172,7 +172,7 @@
     "jest": "30.2.0",
     "jest-environment-jsdom": "^30.5.0",
     "js-yaml": "^5.4.1",
-    "lint-staged": "^17.4.1",
+    "lint-staged": "^17.5.0",
     "markdownlint": "0.41.1",
     "markdownlint-cli2": "0.23.2",
     "markdownlint-cli2-formatter-pretty": "^0.0.6",
@@ -183,11 +183,12 @@
     "npm-run-all": "^4.1.5",
     "octokit": "5.0.5",
     "prettier": "^3.9.6",
-    "puppeteer": "^25.9.0",
+    "puppeteer": "^25.10.0",
     "ts-jest": "29.4.12",
     "typescript": "^5.0.0",
     "typescript-eslint": "8.68.0",
-    "yaml": "2.9.0"
+    "yaml": "2.9.0",
+    "minimatch": "^10.2.6"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -206,9 +207,10 @@
   },
   "overrides": {
     "fast-json-patch": "3.1.1",
-    "tmp": "0.2.4",
+    "tmp": "^0.2.6",
     "@babel/plugin-syntax-import-meta": "7.10.4",
     "@babel/preset-env": "8.0.2",
-    "@babel/preset-typescript": "8.0.1"
+    "@babel/preset-typescript": "8.0.1",
+    "undici": "^6.28.0"
   }
 }

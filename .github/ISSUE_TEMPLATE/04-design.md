@@ -1,8 +1,8 @@
 ---
 name: "🎨 Design"
 about: "Template for Design issues"
-title: "design: {scope}"
-labels: ["type:design", "status:needs-triage", "priority:normal", "area:design", "meta:needs-review"]
+title: "design: {scope} - {short description}"
+labels: ["type:design", "status:needs-triage", "priority:normal", "area:core"]
 recommended_branch: "design/"
 file_type: issue-template
 ---
@@ -10,6 +10,33 @@ file_type: issue-template
 <!--
 Thank you for proposing a Design issue!
 Fill in the sections below for design clarity and automation.
+-->
+
+## Design Summary
+
+<!--
+Briefly describe the problem or opportunity.
+What outcome or user benefit does this design deliver?
+-->
+
+## Linked Stories/Tasks/PRs/Design Files / Related Epics
+
+<!--
+List or link related stories, features, tasks, or sub-issues.
+Use GitHub issue numbers (e.g., #12, #13).
+
+Related issues: {related_issues}
+Child issues: {child_issues}
+Related pull requests: {related_pull_requests}
+Related design files: {related_design_files}
+Related epics: {related_epics}
+
+-->
+
+## Milestones & Timeline
+
+<!--
+Key dates, releases, or phases for this design. Include any relevant deadlines or milestones.
 -->
 
 ## Design Summary
@@ -43,6 +70,9 @@ Use checkboxes for each.
 - [ ] Documentation/changelog updated
 - [ ] PR uses correct branch prefix (design/)
 - [ ] Stakeholder/maintainer reviewed
+- [ ] PR description updated with relevant details
+- [ ] Changelog entry prepared for PR (if applicable)
+- [ ] Labels/types match org standards
 
 ## Dependencies
 
@@ -70,6 +100,7 @@ Add links, screenshots, references, or other design docs.
 - [ ] Artefact/objective listed
 - [ ] Accessibility criteria mapped
 - [ ] Dependencies mapped
+- [ ] Estimate added (if applicable)
 
 ## Definition of Done (DoD)
 
@@ -77,5 +108,9 @@ Add links, screenshots, references, or other design docs.
 - [ ] Documentation/changelog updated
 - [ ] Design reviewed and approved
 - [ ] PR uses correct branch prefix (design/)
+- [ ] Branch deleted after merge
+- [ ] Documentation/changelog updated if needed
+- [ ] Linked issue(s) updated with latest status and closed after merge,
+- [ ] The related epic should not be closed, instead updated with a comment to reflect the closed issue
 
 ---

@@ -9,7 +9,8 @@ on:
   issues:
     types: [opened, edited, reopened, closed]
   discussion:
-    types: [created, edited, answered, reopened]
+    # Discussions have no `reopened` activity type.
+    types: [created, edited, answered, labeled, unlabeled]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -53,7 +54,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
@@ -129,7 +130,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
 
@@ -302,7 +303,13 @@ jobs:
   # Job 4: Enforce Labeling as Required Status Check (PRs only)
   labeling-check:
     name: Labeling Governance Check (Required)
-    if: github.event_name == 'pull_request'
+    # This job reads needs.standard-labeling.result but declared no `needs:`,
+    # so the property resolved against an empty object. `always()` keeps the
+    # required check reporting even when standard-labeling is skipped (draft
+    # PRs, [skip labeling], bot actors), which is what the result comparison
+    # below is there to distinguish.
+    needs: standard-labeling
+    if: always() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -353,10 +360,13 @@ jobs:
 
       - name: Create status check
         uses: actions/github-script@v9
+        env:
+          LABELING_RESULT: ${{ needs.standard-labeling.result }}
         with:
           script: |
             const status = '${{ steps.check.outputs.status }}';
             const validationStatus = '${{ steps.validate.outputs.validation_status }}';
+            const labelingResult = process.env.LABELING_RESULT;
 
             let conclusion = status;
             let summary = 'This PR has been labelled according to governance rules.';
@@ -366,6 +376,12 @@ jobs:
               conclusion = 'failure';
               summary = 'This PR has no labels. At least one label is required.';
               detailedText = '## PR Labels Required\n\nThis PR must have at least one label before it can be merged.\n\n**Required Label Categories:**\n- `type:*` (feature, bug, chore, etc.)\n- `area:*` (ci, docs, security, etc.)\n- `priority:*` (critical, important, normal)\n- `meta:*` (needs-changelog, no-changelog, etc.)\n\n## How to Fix\n\n1. Add at least one label from the required categories above\n2. Labels are typically auto-applied based on:\n   - Branch prefix (e.g., `feat/`, `fix/`, `chore/`)\n   - File changes (e.g., documentation files, CI files)\n   - PR title and description content\n3. If auto-labeling didn\'t work, [manually add a label](https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}/labels)\n4. The labeling check will run again automatically';
+            } else if (labelingResult === 'failure') {
+              // A failed labeling job must not report a green required check,
+              // even when the PR happens to carry acceptable labels already.
+              conclusion = 'failure';
+              summary = 'The labeling job failed, so label governance could not be confirmed.';
+              detailedText = '## Labeling Job Failed\n\nThe `Standard Labeling, Status, and Type Assignment` job did not complete successfully, so its result cannot be trusted.\n\nReview that job\'s logs, then re-run the workflow.';
             } else if (validationStatus === 'invalid_labels_only') {
               conclusion = 'failure';
               summary = 'This PR has labels but none from the required categories.';
@@ -453,11 +469,21 @@ jobs:
 
             core.setOutput('status', conclusion);
 
+      # needs.standard-labeling.result is part of the condition, not just the
+      # message: if the labeling job fails while the PR happens to carry valid
+      # labels, this step would otherwise be skipped and the required check
+      # would report success over a failed run.
       - name: Enforce labeling requirement
-        if: steps.check.outputs.status == 'failure' || steps.validate.outputs.validation_status != 'valid'
+        if: |
+          needs.standard-labeling.result == 'failure' ||
+          steps.check.outputs.status == 'failure' ||
+          steps.validate.outputs.validation_status != 'valid'
         run: |
           VALIDATION_STATUS="${{ steps.validate.outputs.validation_status }}"
-          if [[ "${{ needs.standard-labeling.result }}" != "success" ]]; then
+          # Only a genuine failure of the labeling job is reported as such.
+          # `skipped` is a legitimate outcome (draft PR, [skip labeling], bot
+          # actor) and must not be conflated with a broken run.
+          if [[ "${{ needs.standard-labeling.result }}" == "failure" ]]; then
             echo "::error::Labeling governance workflow failed. Review logs for details."
             exit 1
           elif [[ "$VALIDATION_STATUS" == "no_labels" ]]; then

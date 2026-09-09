@@ -2,14 +2,14 @@
 file_type: pr-template
 name: "Accessibility"
 about: "Implement accessibility improvements or fix accessibility issues (WCAG compliance)"
-title: "a11y: {scope}"
-labels: ["type:a11y", "status:needs-review", "priority:high", "area:a11y", "meta:needs-changelog"]
+title: "a11y: {scope} - {short description}"
+labels: ["type:a11y", "status:needs-review", "priority:important", "area:a11y", "meta:needs-changelog"]
 recommended_issue_type: "type:a11y"
 ---
 
 # Accessibility Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Linked issues

@@ -167,6 +167,45 @@ npm run validate:branch-name -- --branch <your-branch>
 
 ---
 
+## 🔒 Locked Configuration Files (CRITICAL)
+
+The following files are **FINAL and manually curated**. Do NOT edit these without explicit approval from @ashley:
+
+| File | Purpose | Reason for Lock | Change Process |
+|------|---------|-----------------|-----------------|
+| `.github/labels.yml` | Canonical label definitions (158 labels across 8 families) | Backbone of labeling automation, metrics, and workflows | Open `[LABEL-UPDATE-REQUEST]` issue |
+| `.github/issue-types.yml` | Org-wide issue type definitions (24 types) | Used by GitHub native issue types and AI agent routing | Open `[ISSUE-TYPE-UPDATE-REQUEST]` issue |
+| `.github/ISSUE_TEMPLATE/*.md` | 26 issue templates with frontmatter & routing | Uncontrolled changes break template selection and automation | Open `[TEMPLATE-UPDATE-REQUEST]` issue |
+| `.github/PULL_REQUEST_TEMPLATE/*.md` | 19 PR templates with branch prefix routing | PR template assignment depends on branch naming prefixes | Open `[TEMPLATE-UPDATE-REQUEST]` issue |
+
+**Why These Are Locked:**
+1. **Label synchronization**: Changes must sync across `.github/labels.yml`, GitHub org settings, automation workflows, and AI agent rules
+2. **Template routing**: PR templates route by branch prefix; issue templates route by issue type. Breaking routing cascades across all workflows
+3. **Automation dependencies**: 15+ GitHub Actions workflows, scripts, and AI agents depend on these configs
+4. **Data integrity**: Changes affect 300+ existing issues and PRs; improper changes can corrupt label history
+
+**Process for Requesting Changes:**
+1. Open a GitHub issue with the appropriate tag:
+   - `[LABEL-UPDATE-REQUEST]` — To add, modify, or remove labels
+   - `[ISSUE-TYPE-UPDATE-REQUEST]` — To add, modify, or remove issue types
+   - `[TEMPLATE-UPDATE-REQUEST]` — To add, modify, or remove templates
+2. Describe:
+   - The specific change needed
+   - Why it's needed (business case, issue link, user feedback)
+   - Any dependent systems it affects (workflows, agents, scripts)
+   - Test plan for validation
+3. Link to the following projects for context:
+   - [issue-and-pr-template-improvements](./.github/projects/active/issue-and-pr-template-improvements/)
+   - [openspec-labels-automation](./.github/projects/active/openspec-labels-automation/)
+4. Wait for explicit approval from @ashley before implementing any changes
+
+**Last Updated:**
+- **Labels:** 2026-09-09 (158 labels, 8 families, OpenSpec phases included)
+- **Issue Types:** 2026-09-09 (24 types aligned with GitHub native types)
+- **Templates:** 2026-09-09 (26 issue, 19 PR templates with standardized frontmatter)
+
+---
+
 ## Label Creation Governance (CRITICAL)
 
 When your code creates issues via `gh issue create` or GitHub API:

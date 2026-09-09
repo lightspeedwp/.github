@@ -183,6 +183,31 @@ npm run validate:frontmatter
 - **No `references` frontmatter field:** Use inline links or footer sections instead.
 - **Instruction files:** Follow the pattern in `.github/instructions/instructions.instructions.md`—frontmatter + role declaration + Overview + General Rules + Detailed Guidance + Examples + Validation + References.
 
+## 🔒 Configuration Files — LOCKED (CRITICAL)
+
+The following files are **FINAL and manually curated by @ashley**. Do NOT edit these without explicit approval:
+
+| File | Purpose | Status | Change Request |
+|------|---------|--------|-----------------|
+| `.github/labels.yml` | Canonical label definitions (158 labels) | 🔒 LOCKED | Open issue: `[LABEL-UPDATE-REQUEST]` |
+| `.github/issue-types.yml` | Org-wide issue type definitions (24 types) | 🔒 LOCKED | Open issue: `[ISSUE-TYPE-UPDATE-REQUEST]` |
+| `.github/ISSUE_TEMPLATE/*.md` | Issue templates (26 templates) | 🔒 LOCKED | Open issue: `[TEMPLATE-UPDATE-REQUEST]` |
+| `.github/PULL_REQUEST_TEMPLATE/*.md` | PR templates (19 templates) | 🔒 LOCKED | Open issue: `[TEMPLATE-UPDATE-REQUEST]` |
+
+**Why these are locked:**
+- Labels, issue types, and templates are the backbone of org-wide automation, labeling, and metrics
+- Uncontrolled changes break PR template routing, GitHub Actions workflows, and AI agent decision trees
+- Each change requires careful validation, testing, and coordination across dependent systems
+
+**How to request a change:**
+1. Open a new GitHub issue on this repository
+2. Use the appropriate tag: `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]`, or `[TEMPLATE-UPDATE-REQUEST]`
+3. Describe the specific change needed and why
+4. Link to any dependent projects, workflows, or agents that would be affected
+5. Wait for @ashley's explicit approval before implementing any changes
+
+---
+
 ## Label Creation Rules (CRITICAL)
 
 When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL labels MUST be from the canonical set in `.github/labels.yml` with their required family prefix**. Never apply bare labels without prefixes.

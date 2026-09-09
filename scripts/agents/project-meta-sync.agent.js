@@ -10,8 +10,13 @@
  * @see ../../agents/project-meta-sync.agent.md
  */
 
-const { getOctokit } = require("@actions/github"); // if running in Actions context
-const core = require("@actions/core"); // to get inputs/secrets
+// package.json declares "type": "module", so this .js file is ESM and require()
+// is not defined in it at all. @actions/github v9 is ESM-only besides, so a
+// require of it would fail even from CommonJS.
+import { readFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
+import { getOctokit } from "@actions/github";
+import core from "@actions/core";
 
 async function run() {
   try {
@@ -41,7 +46,9 @@ async function run() {
     if (!eventPath) {
       throw new Error("No GitHub event context found");
     }
-    const event = require(eventPath);
+    // require() of a JSON path is not available in ESM, and would have cached
+    // the payload across calls in CommonJS anyway.
+    const event = JSON.parse(readFileSync(eventPath, "utf8"));
     // Determine if this is issue or PR and get relevant info
     const isPR = !!event.pull_request;
     const isIssue = !!event.issue; // note: in PR events, event.issue may not exist
@@ -198,7 +205,9 @@ async function run() {
         );
         return;
       }
-      let fvInputs = {};
+      // No initialiser: both branches below assign before it is read, and
+      // every path that does not assign returns first.
+      let fvInputs;
       if (field.dataType === "SINGLE_SELECT") {
         // need option ID
         const optId = findOptionId(fieldName, fieldValue);
@@ -277,8 +286,13 @@ async function run() {
   }
 }
 
-if (require.main === module) {
+// The ESM equivalent of `require.main === module`: only run when this file is
+// the process entry point, not when it is imported.
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   run();
 }
 
-module.exports = run;
+export default run;

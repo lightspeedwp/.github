@@ -3,13 +3,13 @@ file_type: pr-template
 name: "Documentation"
 about: "Documentation updates (READMEs, guides, contributor docs)"
 title: "docs: {scope}"
-labels: ["type:documentation", "status:needs-review", "priority:normal", "area:documentation"]
+labels: ["type:documentation", "status:needs-review", "priority:minor", "area:documentation", "meta:no-changelog"]
 recommended_issue_type: "type:documentation"
 ---
 
 # Documentation Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues
