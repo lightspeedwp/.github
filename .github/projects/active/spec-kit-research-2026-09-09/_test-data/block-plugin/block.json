@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "test-block/sample-block",
+  "title": "Sample Test Block",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "A sample block for testing Spec Kit and OpenSpec compatibility",
+  "example": {
+    "attributes": {
+      "message": "Hello World"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["left", "center", "right"],
+    "color": {
+      "background": true,
+      "text": true
+    }
+  },
+  "attributes": {
+    "message": {
+      "type": "string",
+      "default": "Hello, World!"
+    },
+    "alignment": {
+      "type": "string",
+      "default": "left",
+      "enum": ["left", "center", "right"]
+    }
+  },
+  "textDomain": "test-block",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css"
+}

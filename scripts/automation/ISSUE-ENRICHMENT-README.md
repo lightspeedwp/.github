@@ -65,6 +65,7 @@ node scripts/automation/enhance-issue-completeness.js --auto-owner --limit=20
 **Purpose**: Analyze and report on issue completeness across all dimensions.
 
 **Features**:
+
 - Detect missing DoR, DoD, Owner, Acceptance Criteria sections
 - Calculate completeness score (0-100%) per issue
 - Generate JSON or CSV reports
@@ -72,6 +73,7 @@ node scripts/automation/enhance-issue-completeness.js --auto-owner --limit=20
 - Identify patterns and trends
 
 **Usage**:
+
 ```bash
 node audit-issue-completeness.js [options]
 
@@ -83,6 +85,7 @@ Options:
 ```
 
 **Examples**:
+
 ```bash
 # All issues with missing DoR
 node audit-issue-completeness.js --label="status:needs-more-info" \
@@ -97,6 +100,7 @@ node audit-issue-completeness.js --limit=100 --output=reports/sample-audit.json
 ```
 
 **Output Format (JSON)**:
+
 ```json
 {
   "summary": {
@@ -132,6 +136,7 @@ node audit-issue-completeness.js --limit=100 --output=reports/sample-audit.json
 ```
 
 **Output Format (CSV)**:
+
 ```
 Issue #,Title,Type,Status,Area,Assignee,Completeness %,Missing DoR,Missing DoD,Missing Owner,Missing AC,Missing Sections
 2833,"Phase 4: Enhancement Implementation",type:epic,status:needs-more-info,area:core,unassigned,25,Yes,No,Yes,Yes,"Definition of Ready, Owner, Acceptance Criteria"
@@ -144,6 +149,7 @@ Issue #,Title,Type,Status,Area,Assignee,Completeness %,Missing DoR,Missing DoD,M
 **Purpose**: Automatically add missing Definition of Ready, Definition of Done, Owner, and Acceptance Criteria sections to issues.
 
 **Features**:
+
 - Detect missing sections per issue
 - Generate type-specific templates
 - Preserve existing content
@@ -152,6 +158,7 @@ Issue #,Title,Type,Status,Area,Assignee,Completeness %,Missing DoR,Missing DoD,M
 - Support for dry-run, interactive, and auto modes
 
 **Usage**:
+
 ```bash
 node enhance-issue-completeness.js [options]
 
@@ -165,6 +172,7 @@ Options:
 ```
 
 **Examples**:
+
 ```bash
 # Preview first 10 issues
 node enhance-issue-completeness.js --dry-run
@@ -183,6 +191,7 @@ node enhance-issue-completeness.js --dry-run --limit=5
 ```
 
 **Dry Run Output**:
+
 ```
 🚀 Enhanced Issue Completeness Script
 
@@ -204,6 +213,7 @@ node enhance-issue-completeness.js --dry-run --limit=5
 ```
 
 **Live Run Output**:
+
 ```
 ✅ #2833 - Enhanced (epic) - Added: Definition of Ready, Owner, Acceptance Criteria
 ✅ #2832 - Enhanced (feature) - Added: Definition of Ready, Owner
@@ -213,24 +223,28 @@ node enhance-issue-completeness.js --dry-run --limit=5
 **Templates Added** (Type-Specific):
 
 **Feature**:
+
 - Definition of Ready (7 checkboxes)
 - Owner / Assignee section
 - Acceptance Criteria checklist
 - Definition of Done (9 checkboxes)
 
 **Bug**:
+
 - Definition of Ready (6 checkboxes)
 - Owner / Assignee (with severity)
 - Acceptance Criteria (4 specific items)
 - Definition of Done (7 checkboxes)
 
 **Epic**:
+
 - Definition of Ready (6 checkboxes)
 - Epic Owner / Sponsor
 - Success Criteria (3 items)
 - Definition of Done (6 checkboxes)
 
 **Default** (for other types):
+
 - Definition of Ready (4 checkboxes)
 - Owner / Assignee
 - Acceptance Criteria (2 placeholder items)
@@ -243,6 +257,7 @@ node enhance-issue-completeness.js --dry-run --limit=5
 **Purpose**: Add Definition of Ready and Definition of Done sections to issues (original script, still supported).
 
 **Usage**:
+
 ```bash
 node add-issue-template-sections.js [options]
 
@@ -354,6 +369,7 @@ fi
 - **REST API (write)**: 5,000 points/hour
 
 **Mitigation**:
+
 - Use pagination with `--limit` for large batches
 - Spread bulk operations over multiple days
 - Monitor rate limit headers
@@ -429,11 +445,13 @@ node audit-issue-completeness.js --label="status:needs-more-info"
 **Symptom**: Script completes but issue not updated
 
 **Causes**:
+
 - Issue was closed or deleted between fetch and update
 - GitHub API rate limit hit during update
 - Token lacks write permissions
 
 **Fix**:
+
 ```bash
 # Verify token permissions
 curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user
@@ -450,11 +468,13 @@ node enhance-issue-completeness.js --issue=2833
 **Symptom**: Issue enriched but `status:needs-more-info` label remains
 
 **Causes**:
+
 - Label is in read-only workflow
 - Token lacks label write permission
 - Label name is different (typo?)
 
 **Fix**:
+
 ```bash
 # Manual label removal
 gh issue edit 2833 --remove-label "status:needs-more-info"
@@ -470,10 +490,12 @@ curl -X DELETE \
 **Symptom**: `GitHub API rate limit exceeded`
 
 **Causes**:
+
 - Processing too many issues too quickly
 - Other automation running simultaneously
 
 **Fix**:
+
 ```bash
 # Wait for rate limit reset (1 hour)
 # Or process fewer issues
@@ -531,6 +553,7 @@ GitHub Issue Created/Updated
 ### Key Metrics to Track
 
 1. **Completeness Trend**
+
    ```bash
    # Track over time
    node audit-issue-completeness.js --output=reports/audit-$(date +%Y-%m-%d).json
@@ -538,18 +561,21 @@ GitHub Issue Created/Updated
    ```
 
 2. **Issues Needing DoR**
+
    ```bash
    # Should decrease as enrichment runs
    node audit-issue-completeness.js | grep "Missing DoR"
    ```
 
 3. **Label Removal Rate**
+
    ```bash
    # Issues with status:needs-more-info should decrease
    node audit-issue-completeness.js --label="status:needs-more-info"
    ```
 
 4. **By-Type Completeness**
+
    ```bash
    node audit-issue-completeness.js --output=reports/by-type.json | jq .summary.issues_by_type
    ```
