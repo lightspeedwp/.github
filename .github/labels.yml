@@ -176,7 +176,7 @@
   color: 9198A1
   description: "Dependency update or management"
 
-- name: type:documentation
+- name: type:docs
   color: 9198A1
   description: "Documentation"
 

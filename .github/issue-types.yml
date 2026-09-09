@@ -76,7 +76,7 @@ issue_types:
 
   - name: Documentation
     color: 9198A1
-    label: type:documentation
+    label: type:docs
 
   - name: Research
     color: 9198A1

@@ -2,7 +2,7 @@
 name: "📚 Documentation"
 about: "Template for Documentation issues"
 title: "docs: {scope} - {short description}"
-labels: ["type:documentation", "status:needs-triage", "priority:minor", "area:docs", "meta:no-changelog"]
+labels: ["type:docs", "status:needs-triage", "priority:minor", "area:core", "meta:no-changelog"]
 recommended_branch: "docs/"
 file_type: issue-template
 ---
@@ -59,7 +59,6 @@ Include details such as clarity, accuracy, completeness, accessibility, code exa
 -->
 
 - [ ] Documentation is clear, accurate, and up-to-date
-- [ ] Follows [WordPress documentation standards](https://developer.wordpress.org/coding-standards/inline-documentation/)
 - [ ] Includes code examples/screenshots if applicable
 - [ ] Documentation is accessible and easy to find
 - [ ] Changelog entry prepared for PR if user-facing update
