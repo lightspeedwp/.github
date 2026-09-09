@@ -1,0 +1,154 @@
+name: Issues • Automation (Audit & Enhance Completeness)
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Action to run"
+        required: true
+        default: "audit"
+        type: choice
+        options:
+          - audit
+          - enhance
+          - audit-and-enhance
+      label:
+        description: "Filter by label (e.g., status:needs-more-info)"
+        required: false
+        type: string
+        default: "status:needs-more-info"
+      limit:
+        description: "Limit number of issues to process"
+        required: false
+        type: string
+        default: "10"
+      dry_run:
+        description: "Dry run for enhance (preview changes without applying)"
+        required: false
+        type: boolean
+        default: true
+  schedule:
+    # Run audit every day at 2 AM UTC
+    - cron: "0 2 * * *"
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: read
+
+jobs:
+  issues-automation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create GitHub App installation token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.LS_APP_ID }}
+          private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
+
+      - name: Run audit (all open issues needing more info)
+        if: |
+          github.event_name == 'schedule' ||
+          github.event.inputs.action == 'audit' ||
+          github.event.inputs.action == 'audit-and-enhance'
+        id: audit
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+
+          LABEL="${{ github.event.inputs.label || 'status:needs-more-info' }}"
+          TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+          OUTPUT_FILE="audit-report-${TIMESTAMP}.json"
+
+          echo "Running audit for label: $LABEL"
+          node scripts/automation/audit-issue-completeness.js \
+            --label="$LABEL" \
+            --output="$OUTPUT_FILE"
+
+          echo "audit_report=${OUTPUT_FILE}" >> "$GITHUB_OUTPUT"
+
+          # Display summary
+          if [ -f "$OUTPUT_FILE" ]; then
+            echo "Audit report generated: $OUTPUT_FILE"
+            echo "Summary:"
+            cat "$OUTPUT_FILE" | jq '.summary'
+          fi
+
+      - name: Run enhance (apply missing sections)
+        if: |
+          github.event.inputs.action == 'enhance' ||
+          github.event.inputs.action == 'audit-and-enhance'
+        id: enhance
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+
+          LABEL="${{ github.event.inputs.label || 'status:needs-more-info' }}"
+          LIMIT="${{ github.event.inputs.limit || '10' }}"
+          DRY_RUN="${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}"
+
+          echo "Running enhance for label: $LABEL (limit: $LIMIT, dry-run: ${DRY_RUN:-false})"
+
+          node scripts/automation/enhance-issue-completeness.js \
+            --label="$LABEL" \
+            --limit="$LIMIT" \
+            $DRY_RUN
+
+          echo "enhance_completed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push changes
+        if: |
+          github.event.inputs.action == 'enhance' ||
+          (github.event.inputs.action == 'audit-and-enhance' &&
+           steps.enhance.outputs.enhance_completed == 'true')
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check if there are any changes
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          # Stage and commit changes
+          git add -A || true
+          git commit -m "chore: update issue completeness via automation" || true
+          git push origin develop
+
+      - name: Create summary
+        if: always()
+        run: |
+          echo "## Issues Automation Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Action:** ${{ github.event.inputs.action || 'audit (scheduled)' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Label:** ${{ github.event.inputs.label || 'status:needs-more-info' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Dry Run:** ${{ github.event.inputs.dry_run || 'N/A' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -f "${{ steps.audit.outputs.audit_report }}" ]; then
+            echo "### Audit Results" >> "$GITHUB_STEP_SUMMARY"
+            cat "${{ steps.audit.outputs.audit_report }}" | jq '.summary' >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || echo "See audit report for details" >> "$GITHUB_STEP_SUMMARY"
+          fi
