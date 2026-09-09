@@ -12,11 +12,29 @@ Thank you for suggesting a feature!
 Please fill in as much of the template below as you can.
 -->
 
-## Summary
+## Feature Summary
 
 <!--
 Briefly describe the problem or opportunity.
 What outcome or user benefit does this feature deliver?
+-->
+
+## Linked Stories/Tasks
+
+<!--
+List or link related stories, features, tasks, or sub-issues.
+Use GitHub issue numbers (e.g., #12, #13).
+
+Related epic: {epic_issue}
+Related issues: {related_issues}
+Related pull requests: {related_pull_requests}
+
+-->
+
+## Milestones & Timeline
+
+<!--
+Key dates, releases, or phases for this epic.
 -->
 
 ## Proposed Solution
@@ -24,6 +42,24 @@ What outcome or user benefit does this feature deliver?
 <!--
 Describe the feature you'd like to see.
 Include examples, user stories, or references to similar features in other plugins/themes.
+-->
+
+## Linked Stories/Tasks
+
+<!--
+List or link related stories, features, tasks, or sub-issues.
+Use GitHub issue numbers (e.g., #12, #13).
+
+Related epic: {related_epic}
+Related issues: {related_issues}
+Related pull requests: {related_pull_requests}
+
+-->
+
+## Milestones & Timeline
+
+<!--
+Key dates, releases, or phases for this feature. Include any relevant deadlines or milestones.
 -->
 
 ## Acceptance Criteria
@@ -36,6 +72,9 @@ List requirements for completion (Given/When/Then, testable outcomes, accessibil
 - [ ] Documentation/changelog updated
 - [ ] Tests added/updated
 - [ ] PR uses correct branch prefix (feat/)
+- [ ] Labels/types match org standards
+- [ ] PR description updated with relevant details
+- [ ] Changelog entry prepared for PR (if applicable)
 - [ ] Labels/types match org standards
 
 ## Designs / References
@@ -78,13 +117,18 @@ Use correct branch prefix (feat/) for any PR.
 ## Definition of Done (DoD)
 
 - [ ] All acceptance criteria met
+- [ ] Feature implemented and tested
 - [ ] Tests added/updated; CI green
 - [ ] Accessibility: WCAG 2.2 AA compliance verified (semantic HTML, keyboard support, colour contrast)
 - [ ] Security: input validated, output escaped, no [OWASP Top 10](https://owasp.org/www-project-top-ten/) vulnerabilities
 - [ ] Performance: no measurable regression introduced
-- [ ] Docs/changelog updated
+- [ ] Documentation/changelog updated if needed
 - [ ] Feature toggles/rollout considered
 - [ ] QA verified/UAT approved (if applicable)
 - [ ] Release notes prepared; monitoring/alerts set
+- [ ] Branch prefix is correct (feat/)
+- [ ] Branch deleted after merge
+- [ ] Linked issue(s) updated with latest status and closed after merge,
+- [ ] The related epic should not be closed, instead updated with a comment to reflect the closed issue
 
 ---

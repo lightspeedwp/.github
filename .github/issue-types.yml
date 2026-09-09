@@ -5,105 +5,99 @@ issue_types:
   - name: Task
     color: 4393F8
     label: type:task
+
   - name: Bug
     color: 9F3734
     label: type:bug
+
   - name: Feature
     color: 3FB950
     label: type:feature
+
   - name: Design
     color: AB7DF8
     label: type:design
+
   - name: Epic
     color: AB7DF8
     label: type:epic
-  - name: Story
-    color: 4393F8
-    label: type:story
-  - name: Improvement
-    color: 9198A1
-    label: type:improve
-  - name: Code Refactor
-    color: 9198A1
-    label: type:refactor
-  - name: Build & CI
-    color: 4393F8
-    label: type:build
-  - name: Automation
-    color: 4393F8
-    label: type:automation
-  - name: Test Coverage
-    color: D29922
-    label: type:test
-  - name: Performance
-    color: D29922
-    label: type:performance
-  - name: A11y
-    color: DB61A2
-    label: type:a11y
-  - name: Security
-    color: 9F3734
-    label: type:security
-  - name: Compatibility
-    color: 8D4821
-    label: type:compatibility
-  - name: Integration
-    color: 8D4821
-    label: type:integration
-  - name: Release
-    color: 3FB950
-    label: type:release
-  - name: Maintenance
-    color: 9198A1
-    label: type:maintenance
-  - name: Documentation
-    color: 9198A1
-    label: type:documentation
-  - name: Research
-    color: 9198A1
-    label: type:research
-  - name: Chore
-    color: 9198A1
-    label: type:chore
-  - name: Audit
-    color: 9198A1
-    label: type:audit
-  - name: Code Review
-    color: 4393F8
-    label: type:review
-  - name: AI Ops
-    color: 4393F8
-    label: type:ai-ops
-  - name: Content Modelling
-    color: AB7DF8
-    label: type:content-modelling
+
   - name: Question
     color: 4393F8
     label: type:question
-  - name: UX Feedback
-    color: AB7DF8
-    label: type:ux-feedback
-  - name: Help
-    color: 4393F8
-    label: type:help
-  - name: Support
-    color: 4393F8
-    label: type:support
-  - name: UI
+
+  - name: Improvement
     color: 3FB950
-    label: type:ui
-  - name: Enhancement
-    color: 3FB950
-    label: type:enhancement
+    label: type:improvement
+
+  - name: Chore
+    color: 9198A1
+    label: type:chore
+
   - name: CI
     color: 4393F8
     label: type:ci
-  - name: Dependency
+
+  - name: Automation
+    color: 4393F8
+    label: type:automation
+
+  - name: Test Coverage
+    color: D29922
+    label: type:test
+
+  - name: Performance
+    color: D29922
+    label: type:performance
+
+  - name: Accessibility
+    color: DB61A2
+    label: type:a11y
+
+  - name: Security
+    color: 9F3734
+    label: type:security
+
+  - name: Compatibility
+    color: 8D4821
+    label: type:compatibility
+
+  - name: Refactor
+    color: 9198A1
+    label: type:refactor
+
+  - name: Release
+    color: 3FB950
+    label: type:release
+
+  - name: Dependency Update
     color: 8D4821
     label: type:dependency
-  - name: Investigation
+
+  - name: Documentation
     color: 9198A1
-    label: type:investigation
-  - name: QA
-    color: D29922
-    label: type:qa
+    label: type:documentation
+
+  - name: Research
+    color: 9198A1
+    label: type:research
+
+  - name: Audit
+    color: 9198A1
+    label: type:audit
+
+  - name: Review
+    color: 4393F8
+    label: type:review
+
+  - name: AI Ops
+    color: 4393F8
+    label: type:aiops
+
+  - name: Content Modelling
+    color: AB7DF8
+    label: type:content-modelling
+
+  - name: Build
+    color: 4393F8
+    label: type:build

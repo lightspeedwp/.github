@@ -2,7 +2,7 @@
 name: "🧪 Testing/Coverage"
 about: "Template for Testing/Coverage issues"
 title: "test: {scope} - {short description}"
-labels: ["type:test", "status:needs-triage", "priority:normal", "area:testing", "meta:needs-review"]
+labels: ["type:test", "status:needs-triage", "priority:normal", "area:core", "meta:needs-changelog"]
 recommended_branch: "test/"
 file_type: issue-template
 ---
@@ -12,11 +12,28 @@ Thank you for proposing or updating automated tests!
 Please complete all sections for review and automation.
 -->
 
-## Summary
+## Testing / Coverage Summary
 
 <!--
 Describe the purpose, scope, and workflow/feature/bug this test covers.
 Specify if it's unit, integration, or other.
+-->
+
+## Linked Stories/Tasks/PRs/Epic
+
+<!--
+List or link related stories, features, tasks, sub-issues or pull requests.
+Use GitHub issue numbers (e.g., #12, #13).
+
+Related epic: {related_epic}
+Related issues: {related_issues}
+Related pull requests: {related_pull_requests}
+-->
+
+## Milestones & Timeline
+
+<!--
+Key dates, releases, or phases for this testing/coverage issue. Include any relevant deadlines or milestones.
 -->
 
 ## Action
@@ -53,7 +70,9 @@ Define where and how this test will be used.
 - [ ] Test has been run and passes as expected
 - [ ] Changelog entry prepared for PR if user-facing
 - [ ] PR uses correct branch prefix (test/)
-- [ ] Approved by at least one maintainer
+- [ ] PR description updated with relevant details
+- [ ] Changelog entry prepared for PR (if applicable)
+- [ ] Labels/types match org standards
 
 ---
 
@@ -71,6 +90,8 @@ Define where and how this test will be used.
 - [ ] Test passes all required scenarios and environments
 - [ ] Documentation updated (if needed)
 - [ ] PR uses correct branch prefix (test/)
-- [ ] Approved by at least one maintainer
+- [ ] Branch deleted after merge
+- [ ] Linked issue(s) updated with latest status and closed after merge,
+- [ ] The related epic should not be closed, instead updated with a comment to reflect the closed issue
 
 ---

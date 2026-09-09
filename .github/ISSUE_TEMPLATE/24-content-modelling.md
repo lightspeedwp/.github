@@ -1,8 +1,8 @@
 ---
 name: "📝 Content Modelling"
 about: "Template for Content Modelling issues"
-title: "design: {scope} - {short description}"
-labels: ["type:design", "status:needs-triage", "priority:normal", "area:content", "meta:no-changelog"]
+title: "content-model: {scope} - {short description}"
+labels: ["type:content-model", "status:needs-triage", "priority:normal", "area:core", "meta:no-changelog"]
 recommended_branch: "design/"
 file_type: issue-template
 ---
@@ -10,6 +10,24 @@ file_type: issue-template
 ## Content Modelling Summary
 
 <!-- Describe the content model, CPT, taxonomy, or structural change. -->
+
+## Linked Stories/Tasks/PRs/Epic
+
+<!--
+List or link related stories, features, tasks, or sub-issues.
+Use GitHub issue numbers (e.g., #12, #13).
+
+Related epic: {related_epic}
+Related issues: {related_issues}
+Related pull requests: {related_pull_requests}
+
+-->
+
+## Milestones & Timeline
+
+<!--
+Key dates, releases, or phases for this content modelling. Include any relevant deadlines or milestones.
+-->
 
 ## Models / Taxonomies
 
@@ -25,6 +43,10 @@ file_type: issue-template
 - [ ] Models/taxonomies mapped
 - [ ] Docs/specs attached
 - [ ] Stakeholder/maintainer reviewed
+- [ ] PR uses correct branch prefix (docs/)
+- [ ] PR description updated with relevant details
+- [ ] Changelog entry prepared for PR (if applicable)
+- [ ] Labels/types match org standards
 
 ## Additional Context
 
@@ -44,5 +66,10 @@ file_type: issue-template
 - [ ] All acceptance criteria met
 - [ ] Structure/model tested and verified
 - [ ] Documentation updated
+- [ ] PR uses correct branch prefix (docs/)
+- [ ] PR uses the correct PR template based on `type:content-modelling` PR label or linked issue type or linked issue `type:content-modelling` label
+- [ ] Branch deleted after merge
+- [ ] Linked issue(s) updated with latest status and closed after merge,
+- [ ] The related epic should not be closed, instead updated with a comment to reflect the closed issue
 
 ---

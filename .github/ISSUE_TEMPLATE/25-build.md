@@ -1,41 +1,42 @@
 ---
-name: "🤖 Automation"
-about: "Template for Automation issues"
-title: "automation: {scope} - {short description}"
-labels: ["type:automation", "status:needs-triage", "priority:normal", "area:core", "meta:needs-changelog"]
-recommended_branch: "automation/"
+name: "🏗️ Build"
+about: "Template for Build issues"
+title: "build: {scope} - {short description}"
+labels: ["type:build", "status:needs-triage", "priority:normal", "area:core", "meta:needs-changelog"]
+recommended_branch: "build/"
 file_type: issue-template
 ---
 
-## Automation Summary
+## Build Summary
 
-<!-- Describe the automation, script, or bot (purpose, scope, outcome). -->
+<!-- Briefly describe the build change, problem, or improvement. -->
 
 ## Linked Stories/Tasks/PRs/Epic
 
 <!--
-List or link related stories, features, tasks, sub-issues or pull requests.
+List or link related stories, features, tasks, or sub-issues.
 Use GitHub issue numbers (e.g., #12, #13).
 
 Related epic: {related_epic}
 Related issues: {related_issues}
 Related pull requests: {related_pull_requests}
+
 -->
 
 ## Milestones & Timeline
 
 <!--
-Key dates, releases, or phases for this automation issue. Include any relevant deadlines or milestones,.
+Key dates, releases, or phases for this improvement. Include any relevant deadlines or milestones.
 -->
 
 ## Steps / Checklist
 
-<!-- List key steps, tasks, or requirements for the automation change. -->
+<!-- List key steps, tasks, or requirements for the build    change. -->
 
 - [ ] Task is clearly defined and actionable
-- [ ] Automation goal and scope described
+- [ ] Automation/scripts referenced if applicable
 - [ ] Documentation/changelog updated
-- [ ] PR uses correct branch prefix (automation/)
+- [ ] PR uses correct branch prefix (build/)
 - [ ] PR description updated with relevant details
 - [ ] Changelog entry prepared for PR (if applicable)
 - [ ] Labels/types match org standards
@@ -44,10 +45,10 @@ Key dates, releases, or phases for this automation issue. Include any relevant d
 
 <!-- List requirements for completion and verification. Use checkboxes. -->
 
-- [ ] Automation implemented and tested
-- [ ] Documentation updated
-- [ ] No regressions or negative impact
-- [ ] PR uses correct branch prefix (automation/)
+- [ ] Solution implemented and documented
+- [ ] Build passes and is stable
+- [ ] No regressions in build/deploy processes
+- [ ] Branch prefix is correct (build)
 
 ## Additional Context
 
@@ -57,18 +58,18 @@ Key dates, releases, or phases for this automation issue. Include any relevant d
 
 ## Definition of Ready (DoR)
 
-- [ ] Automation goal/scope defined
+- [ ] Build goal and scope defined
 - [ ] Checklist prepared
 - [ ] Estimate added
 
 ## Definition of Done (DoD)
 
 - [ ] Issue is fixed and tested
-- [ ] All checklist and acceptance criteria completed
-- [ ] Documentation/changelog updated if needed
+- [ ] All build checklist and acceptance criteria completed
+- [ ] Documentation/changelog updated
 - [ ] Approved by at least one maintainer
-- [ ] Branch deleted/merged
-- [ ] PR uses correct branch prefix (automation/)
+- [ ] PR uses correct branch prefix (build/)
+- [ ] PR uses the correct PR template based on `type:build` PR label or linked issue type or linked issue `type:build` label
 - [ ] Branch deleted after merge
 - [ ] Linked issue(s) updated with latest status and closed after merge,
 - [ ] The related epic should not be closed, instead updated with a comment to reflect the closed issue

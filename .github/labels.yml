@@ -124,29 +124,29 @@
   color: AB7DF8
   description: "Large multi-scope initiative"
 
-- name: type:story
+- name: type:question
   color: 4393F8
-  description: "User story"
+  description: "Question or enquiry"
 
-- name: type:improve
+- name: type:improvement
   color: 9198A1
   description: "Improvement to existing behaviour/UX"
 
-- name: type:refactor
+- name: type:chore
   color: 9198A1
-  description: "Refactor or internal change"
+  description: "Routine task or maintenance update"
 
-- name: type:build
+- name: type:ci
   color: 4393F8
-  description: "Build & CI"
+  description: "CI"
 
 - name: type:automation
   color: 4393F8
-  description: "Automation"
+  description: "Automation tasks or scripts"
 
 - name: type:test
   color: D29922
-  description: "Testing/coverage"
+  description: "Test coverage"
 
 - name: type:performance
   color: D29922
@@ -164,17 +164,17 @@
   color: 8D4821
   description: "Compatibility"
 
-- name: type:integration
-  color: 8D4821
-  description: "[DEPRECATED] Use `area:integration` instead; consolidated into area taxonomy"
+- name: type:refactor
+  color: 9198A1
+  description: "Refactor or internal change"
 
 - name: type:release
   color: 3FB950
   description: "Release"
 
-- name: type:maintenance
+- name: type:dependency
   color: 9198A1
-  description: "Maintenance"
+  description: "Dependency update or management"
 
 - name: type:documentation
   color: 9198A1
@@ -184,23 +184,15 @@
   color: 9198A1
   description: "Research / investigation"
 
-- name: type:chore
-  color: 9198A1
-  description: "Chore / small hygiene change"
-
 - name: type:audit
   color: 9198A1
   description: "Audit"
 
-- name: type:qa
-  color: D29922
-  description: "Quality assurance"
-
 - name: type:review
-  color: 4393F8
+  color: D29922
   description: "Code or design review task"
 
-- name: type:ai-ops
+- name: type:aiops
   color: 4393F8
   description: "AI Ops"
 
@@ -208,41 +200,9 @@
   color: AB7DF8
   description: "Content Modelling"
 
-- name: type:question
+- name: type:build
   color: 4393F8
-  description: "Question or enquiry"
-
-- name: type:ux-feedback
-  color: AB7DF8
-  description: "User experience feedback"
-
-- name: type:help
-  color: 4393F8
-  description: "Help or support request"
-
-- name: type:support
-  color: 4393F8
-  description: "Support or assistance needed"
-
-- name: type:ui
-  color: 3FB950
-  description: "User interface work"
-
-- name: type:enhancement
-  color: 3FB950
-  description: "Enhancement or improvement"
-
-- name: type:ci
-  color: 4393F8
-  description: "CI/CD and continuous integration"
-
-- name: type:dependency
-  color: 8D4821
-  description: "Dependency update or management"
-
-- name: type:investigation
-  color: 9198A1
-  description: "Investigation or research task"
+  description: "Build tasks or processes"
 
 # --- Meta / housekeeping ---
 
@@ -413,6 +373,22 @@
 - name: area:ai
   color: 0F448A
   description: "AI operations and AI-related work"
+
+- name: area:agents
+  color: 0F448A
+  description: "AI agents and agent-related work"
+
+- name: area:skills
+  color: 0F448A
+  description: "AI skills and skill-related work"
+
+- name: area:instructions
+  color: 0F448A
+  description: "AI instructions and instruction-related work"
+
+- name: area:prompts
+  color: 0F448A
+  description: "AI prompts and prompt-related work"
 
 - name: area:playwright
   color: 4D1A93

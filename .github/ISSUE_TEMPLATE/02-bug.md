@@ -80,6 +80,24 @@ Add any other context, screenshots, code snippets, or references to related issu
 Use correct branch prefix (fix/) for any related PR.
 -->
 
+## Linked Stories/Tasks/PRs
+
+<!--
+List or link related stories, features, tasks, or sub-issues.
+Use GitHub issue numbers (e.g., #12, #13).
+
+Related epic: {related_epic}
+Related issues: {related_issues}
+Related pull requests: {related_pull_requests}
+
+-->
+
+## Milestones & Timeline
+
+<!--
+Key dates, releases, or phases for this bug. Include any relevant deadlines or milestones.
+-->
+
 ---
 
 ## Definition of Ready (DoR)
@@ -91,18 +109,20 @@ Use correct branch prefix (fix/) for any related PR.
 - [ ] Linked to existing issues/PRs (if any)
 - [ ] Estimate added (if relevant)
 - [ ] Ready for triage
+- [ ] Estimate added (if applicable)
 
 ## Definition of Done (DoD)
 
+- [ ] Issue is fixed and tested
 - [ ] Bug confirmed and reproducible
 - [ ] Fix implemented and tested (all supported browsers/devices)
-- [ ] Follows [WordPress coding standards](https://github.com/WordPress/wpcs-docs/)
 - [ ] Documentation updated (if needed)
 - [ ] Changelog entry prepared for PR (CHANGELOG.md)
 - [ ] QA performed
 - [ ] Accessibility: no WCAG 2.2 AA regressions (semantic HTML, keyboard support, colour contrast)
-- [ ] Security: no XSS, SQL injection, or other [OWASP Top 10](https://owasp.org/www-project-top-ten/) vulnerabilities introduced
 - [ ] Performance: no adverse impact introduced
-- [ ] Linked issue closed
+- [ ] Branch prefix is correct (fix/)
+- [ ] Branch deleted after merge
+- [ ] Linked issue updated with latest status and closed after merge
 
 ---
