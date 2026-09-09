@@ -1,8 +1,8 @@
 ---
 name: "🤖 AI Ops"
 about: "Template for AI Ops issues"
-title: "automation: {scope}"
-labels: ["type:automation", "status:needs-triage", "priority:normal", "area:aiops", "meta:ai-augmented"]
+title: "automation: {scope} - {short description}"
+labels: ["type:automation", "status:needs-triage", "priority:normal", "area:aiops", "meta:needs-review"]
 recommended_branch: "aiops/"
 file_type: issue-template
 ---

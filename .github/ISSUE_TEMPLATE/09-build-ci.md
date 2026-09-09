@@ -1,8 +1,8 @@
 ---
 name: "🏗️ Build/CI"
 about: "Template for Build/CI issues"
-title: "build: {scope}"
-labels: ["type:build", "status:needs-triage", "priority:normal", "area:ci", "meta:infrastructure"]
+title: "build: {scope} - {short description}"
+labels: ["type:build", "status:needs-triage", "priority:normal", "area:ci", "meta:needs-review"]
 recommended_branch: "ci/"
 file_type: issue-template
 ---

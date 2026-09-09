@@ -1,8 +1,8 @@
 ---
 name: "🛠️ Maintenance"
 about: "Template for Maintenance issues"
-title: "maintain: {scope}"
-labels: ["type:maintenance", "status:needs-triage", "priority:normal", "area:ops", "meta:maintenance"]
+title: "maintain: {scope} - {short description}"
+labels: ["type:maintenance", "status:needs-triage", "priority:normal", "area:ops", "meta:needs-review"]
 recommended_branch: "chore/"
 file_type: issue-template
 ---

@@ -1,8 +1,8 @@
 ---
 name: "📚 Documentation"
 about: "Template for Documentation issues"
-title: "docs: {scope}"
-labels: ["type:documentation", "status:needs-triage", "priority:normal", "area:docs", "meta:content"]
+title: "docs: {scope} - {short description}"
+labels: ["type:documentation", "status:needs-triage", "priority:minor", "area:docs", "meta:no-changelog"]
 recommended_branch: "docs/"
 file_type: issue-template
 ---

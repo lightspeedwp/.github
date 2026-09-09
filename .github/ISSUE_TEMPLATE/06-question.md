@@ -1,8 +1,8 @@
 ---
 name: "❓ Question"
 about: "Ask a question or request help"
-title: "type:question: {scope}"
-labels: ["type:question", "status:needs-triage", "priority:normal", "area:core"]
+title: "type:question: {scope} - {short description}"
+labels: ["type:question", "status:needs-triage", "priority:normal", "area:no-changelog"]
 recommended_branch: "task/"
 file_type: issue-template
 ---

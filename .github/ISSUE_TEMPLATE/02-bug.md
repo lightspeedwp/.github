@@ -1,8 +1,8 @@
 ---
 name: "🐛 Bug report"
 about: "Report a bug to help us improve this WordPress project"
-title: "bug: {scope}"
-labels: ["type:bug", "status:needs-triage", "priority:normal", "area:core", "meta:needs-triage"]
+title: "bug: {scope} - {short description}"
+labels: ["type:bug", "status:needs-triage", "priority:important", "area:core", "meta:needs-changelog"]
 recommended_branch: "fix/"
 file_type: issue-template
 ---

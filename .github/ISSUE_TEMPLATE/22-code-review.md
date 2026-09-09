@@ -1,8 +1,8 @@
 ---
 name: "👀 Code Review"
 about: "Template for Code Review issues"
-title: "refactor: {scope}"
-labels: ["type:refactor", "status:needs-triage", "priority:normal", "area:code", "meta:code-quality"]
+title: "refactor: {scope} - {short description}"
+labels: ["type:refactor", "status:needs-triage", "priority:normal", "area:code", "meta:needs-changelog"]
 recommended_branch: "refactor/"
 file_type: issue-template
 ---

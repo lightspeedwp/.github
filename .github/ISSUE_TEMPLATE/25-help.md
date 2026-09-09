@@ -1,8 +1,8 @@
 ---
 name: "❓ Help"
 about: "Template for Help issues"
-title: "question: {scope}"
-labels: ["type:question", "status:needs-triage", "priority:normal", "area:support", "meta:user-support"]
+title: "question: {scope} - {short description}"
+labels: ["type:question", "status:needs-triage", "priority:normal", "area:support", "meta:no-changelog"]
 recommended_branch: "support/"
 file_type: issue-template
 ---

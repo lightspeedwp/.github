@@ -1,8 +1,8 @@
 ---
 name: "⚡ Performance"
 about: "Template for Performance issues"
-title: "perf: {scope}"
-labels: ["type:performance", "status:needs-triage", "priority:high", "area:performance", "meta:optimization"]
+title: "perf: {scope} - {short description}"
+labels: ["type:performance", "status:needs-triage", "priority:important", "area:optimisation", "meta:needs-changelog"]
 recommended_branch: "perf/"
 file_type: issue-template
 ---

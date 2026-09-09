@@ -1,8 +1,8 @@
 ---
 name: "🔬 Research"
 about: "Template for Research issues"
-title: "research: {scope}"
-labels: ["type:research", "status:needs-triage", "priority:normal", "area:research", "meta:investigation"]
+title: "research: {scope} - {short description}"
+labels: ["type:research", "status:needs-triage", "priority:normal", "area:research", "meta:no-changelog"]
 recommended_branch: "research/"
 file_type: issue-template
 ---

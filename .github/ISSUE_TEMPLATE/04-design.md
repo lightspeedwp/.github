@@ -1,7 +1,7 @@
 ---
 name: "🎨 Design"
 about: "Template for Design issues"
-title: "design: {scope}"
+title: "design: {scope} - {short description}"
 labels: ["type:design", "status:needs-triage", "priority:normal", "area:design", "meta:needs-review"]
 recommended_branch: "design/"
 file_type: issue-template

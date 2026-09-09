@@ -1,8 +1,8 @@
 ---
 name: "🔧 Chore"
 about: "Template for Chore issues"
-title: "chore: {scope}"
-labels: ["type:chore", "status:needs-triage", "priority:low", "area:ops", "meta:maintenance"]
+title: "chore: {scope} - {short description}"
+labels: ["type:chore", "status:needs-triage", "priority:minor", "area:ops", "meta:needs-review"]
 recommended_branch: "chore/"
 file_type: issue-template
 ---

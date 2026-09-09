@@ -1,8 +1,8 @@
 ---
 name: "🔗 Integration Issue"
 about: "Template for Integration Issue issues"
-title: "integration: {scope}"
-labels: ["type:integration", "status:needs-triage", "priority:normal", "area:integration", "meta:external-dependency"]
+title: "integration: {scope} - {short description}"
+labels: ["type:integration", "status:needs-triage", "priority:normal", "area:integration", "meta:needs-changelog"]
 recommended_branch: "integration/"
 file_type: issue-template
 ---

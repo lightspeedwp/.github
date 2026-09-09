@@ -2,14 +2,14 @@
 file_type: pr-template
 name: "Bug Fix"
 about: "Fix a defect or regression"
-title: "fix: {scope}"
-labels: ["type:bug", "status:needs-review", "priority:normal", "area:core", "meta:needs-changelog"]
+title: "fix: {scope} - {short description}"
+labels: ["type:bug", "status:needs-review", "priority:important", "area:core", "meta:needs-changelog"]
 recommended_issue_type: "type:bug"
 ---
 
 # Bugfix Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues
