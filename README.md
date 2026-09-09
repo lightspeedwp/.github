@@ -106,7 +106,7 @@ graph TB
 
   classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a,stroke-width:2px
   classDef gov fill:#d9f2ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
-  classDef ai fill:#f3e8ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
+  classDef ai fill:#f3e8ff,stroke:#6b21a8,color:#0f172a,stroke-width:2px
   classDef resource fill:#d1fae5,stroke:#0f172a,color:#0f172a,stroke-width:2px
   classDef sub fill:#fef3c7,stroke:#92400e,color:#0f172a,stroke-width:1px
 
@@ -174,7 +174,7 @@ flowchart LR
   I --> J["🌐 Org-wide Standards"]
 
   classDef files fill:#d9f2ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
-  classDef process fill:#f3e8ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
+  classDef process fill:#f3e8ff,stroke:#6b21a8,color:#0f172a,stroke-width:2px
   classDef outcome fill:#d1fae5,stroke:#0f172a,color:#0f172a,stroke-width:2px
 
   class A,B,D,F files
@@ -301,7 +301,7 @@ flowchart TD
   classDef change fill:#e2e8f0,stroke:#0f172a,color:#0f172a
   classDef validation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
   classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
-  classDef deploy fill:#f3e8ff,stroke:#0f172a,color:#0f172a
+  classDef deploy fill:#f3e8ff,stroke:#6b21a8,color:#0f172a
   classDef decision fill:#fef3c7,stroke:#92400e,color:#0f172a
 
   class A change
@@ -375,7 +375,7 @@ flowchart LR
   classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
   classDef tool fill:#d9f2ff,stroke:#0f172a,color:#0f172a
   classDef gate fill:#fef3c7,stroke:#92400e,color:#0f172a
-  classDef result fill:#ede9fe,stroke:#0f172a,color:#0f172a
+  classDef result fill:#ede9fe,stroke:#5b21b6,color:#0f172a
 
   class A,C,D test
   class B,E tool
