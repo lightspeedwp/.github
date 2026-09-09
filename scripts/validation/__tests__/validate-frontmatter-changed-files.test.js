@@ -23,9 +23,6 @@ describe("FileDiscovery.findChangedFiles", () => {
       "/repo",
     );
 
-    expect(files).toEqual([
-      "/repo/.github/agents/test.md",
-      "/repo/README.md",
-    ]);
+    expect(files).toEqual(["/repo/.github/agents/test.md", "/repo/README.md"]);
   });
 });
