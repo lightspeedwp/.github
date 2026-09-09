@@ -28,7 +28,7 @@ issue_types:
 
   - name: Improvement
     color: 3FB950
-    label: type:improvement
+    label: type:improve
 
   - name: Chore
     color: 9198A1
@@ -60,7 +60,7 @@ issue_types:
 
   - name: Compatibility
     color: 8D4821
-    label: type:compatibility
+    label: type:compat
 
   - name: Refactor
     color: 9198A1
@@ -96,7 +96,7 @@ issue_types:
 
   - name: Content Modelling
     color: AB7DF8
-    label: type:content-modelling
+    label: type:content-model
 
   - name: Build
     color: 4393F8

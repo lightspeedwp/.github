@@ -128,7 +128,7 @@
   color: 4393F8
   description: "Question or enquiry"
 
-- name: type:improvement
+- name: type:improve
   color: 9198A1
   description: "Improvement to existing behaviour/UX"
 
