@@ -1,50 +1,51 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# PRD Agent Consolidation Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Single Source of Truth (NON-NEGOTIABLE)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Every skill MUST exist in exactly one location under `agents/prd-agent/skills/`. No duplicate skill names across folders. When forked versions exist, their unique content MUST be union-merged before one folder is deleted. This eliminates maintenance burden, prevents version drift, and ensures all documentation is automatically current.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Loadable Agent Definitions (NON-NEGOTIABLE)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+Claude and Copilot agent definitions (`claude/agent.md`, `copilot/agent.md`) MUST contain valid YAML frontmatter (name, description, tools, model/mcp-servers) and be copy-paste-able into consuming repositories without modification. Definitions MUST load as valid agents in their respective platforms on first use.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Accurate Documentation
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+README.md, AGENT.md, and instructions/AGENTS.md MUST describe the actual skill inventory on disk. Zero dangling links. Zero drift between documented skill count and filesystem skill count. Documentation is the contract with consumers; it MUST never lie.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Content Preservation
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+All unique content from forked skills (hermes/ folder, factory-planner distinctions, divergent reference files) MUST be reconciled into one version. Nothing is deleted without explicit audit. Forked `support-transition-rules.md` divergences are merged, not picked. `qa-planner` is promoted from hermes/, not abandoned.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Clean, Maintainable Codebase
+
+Export artifacts, sample/demo data, and legacy cruft (Codex cache dumps, fictional memory banks) MUST be removed. The folder structure reflects intentional decisions, not historical accidents. Every folder, file, and script has a clear, documented purpose.
+
+## Success Criteria
+
+- **SC-001**: Exactly 28 canonical skills in `agents/prd-agent/skills/` (no duplicates, no hermes/ folder).
+- **SC-002**: Claude Code loads `claude/agent.md` as valid subagent without modification.
+- **SC-003**: Copilot loads `copilot/agent.md` as valid custom agent without modification.
+- **SC-004**: All 4 forked skills fully reconciled with zero content loss.
+- **SC-005**: `agents/prd-factory-planner-agent/` folder deleted.
+- **SC-006**: Documentation (README, AGENT.md, AGENTS.md) is 100% current; zero dangling links.
+- **SC-007**: Fate of 10-skill generic tier explicitly documented (kept or retired).
+
+## Development Workflow
+
+1. **Audit Phase**: Identify duplicates, forked content, and unique material via reconciliation reports.
+2. **Consolidation Phase**: Merge forked skills, union content, reconcile divergences.
+3. **Documentation Phase**: Rewrite all docs from scratch, then validate against filesystem.
+4. **Cleanup Phase**: Remove cruft, delete source folders, verify no workflows reference deleted paths.
+5. **Validation Phase**: Run acceptance scenarios; confirm all success criteria met.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+**Constitution Status**: Active. All PRs to this spec MUST verify compliance with these principles.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Amendment Process**: Material changes to principles require user approval and explicit ratification. Non-substantive clarifications (wording, examples) may be updated and noted in amendment date.
+
+**Compliance Verification**: Before Phase 3 is marked complete, all 7 success criteria MUST be independently verified by reading filesystem, loading agent definitions in target platforms, and spot-checking documentation against disk.
+
+**Version**: 1.0.0 | **Ratified**: 2026-09-10 | **Last Amended**: 2026-09-10
