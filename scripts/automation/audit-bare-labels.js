@@ -117,7 +117,15 @@ function getCommonBareLabels() {
   ];
 }
 
-// Map bare labels to canonical prefixed labels
+/**
+ * Map common bare label names to canonical prefixed labels.
+ *
+ * Labels without an explicit mapping are matched against `canonicalLabels` and
+ * omitted when no match is found.
+ *
+ * @param {string[]} canonicalLabels - Available canonical label names
+ * @returns {Record<string, string>} Bare label names keyed to canonical names
+ */
 function createBareToCanonicalMapping(canonicalLabels) {
   const bareLabels = getCommonBareLabels();
   const mapping = {};

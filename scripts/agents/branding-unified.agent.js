@@ -38,7 +38,10 @@ function getProjectRoot() {
 // ============================================================================
 
 /**
- * Load branding configuration from YAML
+ * Load the repository's branding configuration from YAML.
+ *
+ * @returns {*} Parsed branding configuration
+ * @throws {Error} If the configuration is missing, unreadable, or invalid YAML
  */
 function loadBrandingConfig() {
   const projectRoot = getProjectRoot();
@@ -82,9 +85,11 @@ function _loadFrontmatterSchema() {
 // ============================================================================
 
 /**
- * Parse YAML frontmatter from markdown content
+ * Parse YAML frontmatter from markdown content.
+ *
  * @param {string} content — File content
- * @returns {Object} {frontmatter, body, raw_frontmatter}
+ * @returns {{frontmatter: *, body: string, raw_frontmatter: (string|null)}} Parsed frontmatter, document body, and unparsed frontmatter
+ * @throws {Error} If the frontmatter contains invalid YAML
  */
 function parseFrontmatter(content) {
   const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/m;

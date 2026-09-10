@@ -72,7 +72,10 @@ function findMarkdownFiles(rootDir = PROJECT_ROOT) {
 }
 
 /**
- * Load branding configuration
+ * Load the repository's branding configuration from YAML.
+ *
+ * @returns {*} Parsed branding configuration
+ * @throws {Error} If the configuration cannot be read or parsed
  */
 function loadBrandingConfig() {
   const configPath = path.join(PROJECT_ROOT, "config/footers.config.yaml");
