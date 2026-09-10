@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-/* global process, console, __dirname */
 
 /**
  * Metrics Reporting Orchestrator

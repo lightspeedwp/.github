@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* global console, process */
-
 const fs = require("fs");
 const path = require("path");
 // @actions/github v9 is ESM-only; see ./octokit.cjs for why this is not a

@@ -64,7 +64,9 @@ function exec(cmd, dryRun = false, allowError = false) {
       console.warn(`Command failed (allowed): ${cmd}\n${error.message}`);
       return "";
     }
-    throw new Error(`Command failed: ${cmd}\n${error.message}`);
+    throw new Error(`Command failed: ${cmd}\n${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -109,7 +111,7 @@ function getMergedPRs(fromTag, toTag = "HEAD") {
     `Fetching merged PRs from ${fromTag || "start"} to ${toTag || "HEAD"}...`,
   );
 
-  let gitLog = "";
+  let gitLog;
   if (fromTag) {
     gitLog = exec(
       `git log ${fromTag}..${toTag} --merges --format="%H|%s|%an|%ae"`,

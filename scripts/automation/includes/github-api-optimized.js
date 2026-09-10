@@ -1,5 +1,3 @@
-/* global fetch */
-
 /**
  * Optimized GitHub API client with caching, batching, and retry logic.
  * Designed as a drop-in replacement for https.request patterns.

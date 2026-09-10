@@ -7,6 +7,19 @@ on:
   # - any future step that executes repository code must preserve this trust boundary
   pull_request_target:
     types: [opened, edited, reopened, synchronize, ready_for_review]
+  # `validate-pr-template` is a required status check on develop, and branch
+  # protection applies to direct pushes as well as pull requests. While this
+  # workflow triggered only on pull requests, the check could never report on a
+  # pushed commit, so every push to develop was rejected with
+  #
+  #   GH006: Required status check "validate-pr-template" is expected.
+  #
+  # That blocked all eleven workflows that commit back to develop - metrics
+  # snapshots, badge and changelog updates, label governance. Running on push
+  # lets the check report. There is no pull request body to inspect on a push,
+  # so the job records that and passes; pull request behaviour is unchanged.
+  push:
+    branches: [develop]
 
 permissions:
   contents: read
@@ -28,6 +41,15 @@ jobs:
 
             const marker = '<!-- template-enforcement -->';
             const pr = context.payload.pull_request;
+
+            // On a push there is no pull request to inspect. The job still has
+            // to run so the required status check reports on the commit, but
+            // there is nothing to validate, so it succeeds.
+            if (!pr) {
+              core.info(`No pull request in a ${context.eventName} event; nothing to validate.`);
+              return;
+            }
+
             const author = pr.user?.login || '';
             const isDependabot = author === 'dependabot[bot]' || author === 'app/dependabot';
             const isImgbot = author === 'imgbot[bot]' || author === 'app/imgbot';

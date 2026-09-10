@@ -77,7 +77,7 @@ function findMarkdownFiles(rootDir = PROJECT_ROOT) {
 function loadBrandingConfig() {
   const configPath = path.join(PROJECT_ROOT, "config/footers.config.yaml");
   const content = fs.readFileSync(configPath, "utf-8");
-  return load(content);
+  return yaml.load(content);
 }
 
 /**

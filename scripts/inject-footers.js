@@ -115,7 +115,7 @@ const injectionState = {
 function loadConfig(configPath, configName) {
   try {
     const content = fs.readFileSync(configPath, "utf8");
-    const config = load(content);
+    const config = yaml.load(content);
     console.log(`✅ Loaded ${configName}`);
     return config;
   } catch (err) {
@@ -157,7 +157,7 @@ function extractFrontmatter(content) {
   if (!match) return null;
 
   try {
-    return load(match[1]);
+    return yaml.load(match[1]);
   } catch (_e) {
     return null;
   }

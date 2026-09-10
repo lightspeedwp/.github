@@ -69,7 +69,7 @@ function loadExistingSchema() {
   }
 
   const content = fs.readFileSync(SCHEMA_PATH, "utf-8");
-  return load(content);
+  return yaml.load(content);
 }
 
 /**

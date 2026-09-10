@@ -66,7 +66,7 @@ function validateFooterSchema() {
     const schema = JSON.parse(schemaContent);
 
     const configContent = fs.readFileSync(CONFIG.quirkyFootersPath, "utf8");
-    const config = load(configContent);
+    const config = yaml.load(configContent);
 
     const ajv = new Ajv();
     addFormats(ajv);

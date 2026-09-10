@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* global console, process */
-
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");

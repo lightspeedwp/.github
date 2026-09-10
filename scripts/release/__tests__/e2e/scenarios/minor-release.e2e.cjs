@@ -26,7 +26,7 @@ async function runMinorReleaseScenario() {
       branch: releaseBranch,
       fileContent: {
         VERSION: "1.1.0",
-        CHANGELOG.md: content => content.includes("[1.1.0]"),
+        "CHANGELOG.md": content => content.includes("[1.1.0]"),
       },
     });
 

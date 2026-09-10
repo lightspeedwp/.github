@@ -1,5 +1,5 @@
 {
-  "name": "audit-label-coverage-skill",
+  "name": "@lightspeedwp/audit-label-coverage",
   "version": "1.0.0",
   "description": "Audit and report on GitHub issue/PR label coverage with actionable recommendations",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "governance"
   ],
   "author": "LightSpeed Automation Team",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "jest": "^29.0.0"
   },
@@ -30,5 +30,10 @@
       "index.js",
       "!**/*.test.js"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightspeedwp/.github.git",
+    "directory": "skills/audit-label-coverage"
   }
 }

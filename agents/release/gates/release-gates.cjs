@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* global console, process */
-
 /**
  * Phase 5A Release Agent — 7-Layer Safety Gates
  *

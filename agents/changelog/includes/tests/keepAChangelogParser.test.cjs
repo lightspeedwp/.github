@@ -7,8 +7,6 @@
  * @related-files keepAChangelogParser.cjs, changelogValidator.cjs
  */
 
-/* global __dirname */
-
 const { describe, it, before, after } = require('node:test');
 const { strict: assert } = require('node:assert');
 const fs = require('node:fs');
