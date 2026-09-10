@@ -1,4 +1,0 @@
-interface:
-  display_name: "LS Project Memory"
-  short_description: "Maintain durable LightSpeed project state, decisions, and open loops."
-  default_prompt: "Use $lightspeed-project-memory-manager to manage durable LightSpeed project memory with facts, assumptions, decisions, and approval-aware updates."

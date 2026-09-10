@@ -1,148 +1,76 @@
 ---
-name: lightspeed-prd-task-pack-exporter
-description: create consolidated downloadable project packs for lightspeed figma design system to wordpress block theme, block plugin, woocommerce, publishing, tourism and hybrid-theme projects. use when the user has prds, research notes, figma-to-wordpress technical briefs, task breakdowns, github issue drafts, implementation plans, qa plans, launch-routing notes or project memory files and needs them organised into a clean markdown folder structure, zipped handoff pack, google-doc-ready index, source notes, review checklist or client/internal delivery archive.
+name: lightspeed-project-pack-exporter
+description: Use when a LightSpeed project needs a clean markdown project pack, delivery archive, PRD-task handoff pack, review pack, or ZIP-ready export of planning artefacts and source notes.
 ---
 
-# LightSpeed PRD Task Pack Exporter
+# LS Project Pack Exporter
 
 ## Purpose
 
-Create a clean, handoff-ready Markdown project pack from PRD, technical brief, task planning, GitHub issue draft, QA, implementation and memory-bank outputs.
+Export PRD, intake, research, estimate, task, QA, approval, status, release, decision, assumption, and evidence artefacts into a clean local markdown project pack. This skill should package what exists clearly and mark what is missing rather than inventing artefacts.
 
-Use this skill after one or more of these workflows has produced outputs:
+## Shared LightSpeed lifecycle contract
 
-- `lightspeed-project-researcher`
-- `lightspeed-prd-generator`
-- `lightspeed-figma-wordpress-technical-brief`
-- `lightspeed-task-breakdown-planner`
-- `lightspeed-github-issue-drafter`
-- `lightspeed-implementation-plan-generator`
-- `lightspeed-prd-task-reviewer`
-- `lightspeed-project-memory-manager`
-- `lightspeed-launch-task-router`
+Use the current user request as the highest-priority source. Then use current conversation context, attached files, existing project-state records, existing skill files, references, templates, examples, and memory defaults in that order.
 
-## Core rule
+Do not rewrite source artefacts unless explicitly asked. Warn before packaging sensitive data.
 
-Do not invent missing project evidence. If a section is incomplete, create a placeholder file with:
+## Request shapes
 
-- status
-- missing inputs
-- suggested owner
-- recommended next step
+Use this skill for requests like:
 
-## Inputs to accept
+- "Create a markdown handoff pack for this project."
+- "Assemble the planning artefacts into a clean export structure."
+- "Build a project archive with source notes and a review checklist."
 
-Accept any combination of:
-
-- PRD
-- discovery/research summary
-- Figma/design-system notes
-- technical brief
-- token, template, block or pattern maps
-- task breakdown
-- dependency map
-- implementation waves
-- GitHub issue drafts
-- launch QA plan
-- readiness review
-- project memory files
-- source notes
-- client-facing summary
-- internal LightSpeed notes
+Success means producing a clear folder structure, an index, source notes, validation status, and next action guidance for any missing pieces.
 
 ## Workflow
 
-1. Identify available outputs and missing sections.
-2. Choose the right pack type: quick pack, full project pack, implementation handoff pack, launch pack or review pack.
-3. Create a numbered folder structure.
-4. Preserve client-facing and internal LightSpeed notes separately.
-5. Add README and file index.
-6. Add source notes, assumptions, risks and open questions.
-7. Add review checklist and next-step routing.
-8. If creating files, package as a single zip.
+1. Read `references/export-structure.md`, `references/file-naming.md`, and `references/source-notes-rules.md`.
+2. Inventory available artefacts and separate missing artefacts.
+3. Build the proposed folder structure.
+4. Use `templates/pack-index.md`, `templates/source-notes.md`, `templates/review-checklist.md`, and `templates/project-pack-readme.md`.
+5. If a build script is present, use or describe dry-run validation rather than implying an opaque export step.
 
-## Default full pack structure
+## Output contract
 
-Use this structure unless the user provides another:
+Return:
 
-```text
-project-slug-prd-task-pack/
-├── README.md
-├── 00-index/
-│   ├── file-index.md
-│   ├── source-inventory.md
-│   └── pack-status.md
-├── 01-discovery/
-│   ├── research-summary.md
-│   ├── evidence-reviewed.md
-│   ├── assumptions.md
-│   └── open-questions.md
-├── 02-prd/
-│   ├── prd.md
-│   ├── client-facing-summary.md
-│   └── internal-lightSpeed-notes.md
-├── 03-technical-brief/
-│   ├── figma-to-wordpress-technical-brief.md
-│   ├── theme-json-token-map.md
-│   ├── template-pattern-map.md
-│   ├── component-block-map.md
-│   └── block-plugin-requirements.md
-├── 04-task-plan/
-│   ├── epic-map.md
-│   ├── task-breakdown.md
-│   ├── dependency-map.md
-│   ├── implementation-waves.md
-│   └── acceptance-test-map.md
-├── 05-github-issue-drafts/
-│   ├── issue-index.md
-│   └── issues/
-├── 06-implementation-plan/
-│   ├── implementation-plan.md
-│   ├── branch-pr-strategy.md
-│   ├── workstream-plan.md
-│   └── risk-register.md
-├── 07-qa-and-launch/
-│   ├── launch-qa-plan.md
-│   ├── specialist-skill-routing.md
-│   ├── launch-gates.md
-│   └── go-no-go-summary.md
-├── 08-memory-bank/
-│   ├── projectbrief.md
-│   ├── productContext.md
-│   ├── systemPatterns.md
-│   ├── techContext.md
-│   ├── activeContext.md
-│   ├── progress.md
-│   └── tasks/_index.md
-└── 09-review/
-    ├── readiness-review.md
-    ├── reviewer-checklist.md
-    └── next-actions.md
-```
+1. proposed folder structure
+2. included artefacts
+3. missing artefacts
+4. generated index
+5. source notes
+6. review checklist
+7. validation status
+8. next action
 
-## Required README sections
+## Boundaries
 
-Every pack README should include:
+Do not:
 
-- Project name
-- Pack purpose
-- Build type
-- Source links
-- Files included
-- How to use the pack
-- Recommended next step
-- Approval gates
-- Known gaps
+- rewrite source artefacts unless explicitly asked
+- invent missing artefacts
+- package sensitive data without warning
+- replace PRD review
+- assume cloud storage or connector access
 
-## Quality rules
+## Supporting Files
 
-- Use UK English.
-- Keep Markdown clean and copy-paste friendly.
-- Prefer tables for registers and indexes.
-- Keep client-facing notes separate from internal LightSpeed notes.
-- Mark incomplete files clearly as `Draft`, `Needs Review`, `Evidence Pending`, `Blocked` or `Approved`.
-- Do not create GitHub issues automatically.
-- Do not write or modify production code.
+- `references/export-structure.md` — pack layout rules.
+- `references/file-naming.md` — naming rules.
+- `references/source-notes-rules.md` — source-note guidance.
+- `references/cross-skill-routing.md` — downstream routing rules.
+- `templates/pack-index.md` — index structure.
+- `templates/source-notes.md` — source notes structure.
+- `templates/review-checklist.md` — review checklist structure.
+- `templates/project-pack-readme.md` — pack readme structure.
+- `schemas/project-pack.schema.json` — pack shape.
+- `scripts/build_project_pack.py` — optional deterministic builder or dry-run helper.
+- `tests/fixtures/sample-pack/` — sample pack fixture.
+- `examples/project-pack-example.md` — sample export.
+- `tests/fixtures/project-pack-cases.md` — manual validation cases.
 
 ---
 

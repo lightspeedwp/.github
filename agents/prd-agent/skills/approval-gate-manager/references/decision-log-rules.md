@@ -1,4 +1,4 @@
-# Decision Log Rules
+# Decision log rules
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
@@ -76,21 +76,7 @@
 [![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
 <!-- BADGES-END -->
 
-Capture decisions in a way that survives handoff.
-
-Each decision should include:
-
-- Decision ID
-- Decision summary
-- Context
-- Options considered
-- Final decision
-- Owner
-- Date
-- Impact
-- Follow-up actions
-
-Do not bury open questions in prose. Put unresolved items in an open decision table.
+Record the decision, decision context, required follow-up, and any conditions or expiry assumptions.
 
 ---
 
