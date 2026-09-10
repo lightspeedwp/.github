@@ -80,7 +80,7 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 - **FR-007**: Delete `agents/prd-factory-planner-agent/` in full once FR-001, FR-002, FR-004, and FR-006 are complete — confirmed zero remaining unique content.
 - **FR-008**: Clean up `agents/prd-agent/agent/`'s own remaining export cruft regardless of FR-007: sample client memory banks under `other/memory/` (confirmed fictional, routine cleanup) and raw MCP plugin-cache dumps under `configuration/plugins/`.
 - **FR-009**: Rewrite `claude/agent.md` and `copilot/agent.md` with real, client-loadable YAML frontmatter — name, description, tools, and model for Claude; name, description, tools, and mcp-servers for Copilot — so each can be copied unmodified into a consuming repository's `.claude/agents/` or `.github/agents/` — FOLDER_STRUCTURE_PLAN.md §1.6/§2.2/§2.3.
-- **FR-010**: Resolve `agents/mode-prd.agent.md`'s fate: retire it in favour of the corrected `agents/prd-agent/copilot/agent.md` as the single Copilot source of truth, after confirming no external workflow still points at `mode-prd.agent.md` directly (also tracked as Phase 7, issue #1899).
+- **FR-010**: Resolve `agents/mode-prd.agent.md`'s fate: retire it in favour of the corrected `agents/prd-agent/copilot/agent.md` as the single Copilot source of truth, after confirming no external workflow still points at `mode-prd.agent.md` directly. **Status: Phase 7 (OUT OF SCOPE for Phase 3 consolidation; tracked separately under issue #1899).** Phase 3 implementation completes FR-001 through FR-009 only.
 
 ### Key Entities
 
@@ -99,7 +99,27 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 - **SC-004**: All 4 forked skills identified in the audit (`approval-gate-manager`, `project-memory-manager`, `release-handoff-generator`, `qa-planner`) have their unique content fully accounted for — merged, reconciled, or promoted — with none lost.
 - **SC-005**: `agents/prd-factory-planner-agent/` no longer exists as a folder once the change is complete.
 - **SC-006**: `README.md`, `AGENT.md`, and `instructions/AGENTS.md`'s skill-routing section exactly match what exists on disk, with zero dangling links and zero drift when spot-checked.
-- **SC-007**: The fate of the 10-skill generic/thin tier is explicitly documented as a decision (kept or retired), not left ambiguous.
+- **SC-007**: The fate of the 10-skill generic/thin tier is explicitly documented as a decision (kept or retired), not left ambiguous, within Phase 3 deliverables.
+
+## Implementation Strategy & Stacked PR Approach
+
+This spec uses a **stacked PR strategy** to allow independent Phase 3, Phase 4, and Phase 5 implementations to proceed in parallel, with staged merges into `develop`:
+
+**Merge Gate & Conflict Resolution:**
+- PR #2866 (Phase 3): Skill consolidation, folder merges, README/AGENT.md rewrites. Target branch: `develop`. Merge gate: All tasks T001-T042 complete and CI green.
+- PR #2867 (Phase 4): Agent definition frontmatter (Claude/Copilot). Depends on: Phase 3 PR #2866 merged. Merge strategy: Rebase onto latest `develop` (post-Phase-3 merge) to resolve any conflicts in agent folder structure.
+- PR #2868 (Phase 5): Documentation updates and instructions rewrite. Depends on: Phase 4 PR #2867 merged. Merge strategy: Same rebase-and-resolve approach.
+- Conflict resolution: When a stacked PR's target branch changes (e.g., after a preceding PR merges), rebase onto the new base and re-run CI before requesting review.
+- Post-merge cleanup: After each PR merges, the subsequent PR author(s) are responsible for pulling the updated base and rebasing their work.
+
+**Specification Scope Clarity:**
+This feature specification defines WHAT must be consolidated (scope), WHY (user value), and HOW IT IS TESTED (acceptance criteria). It does NOT define:
+- Git workflow or stacking strategy details (those belong in project documentation, not the spec)
+- CI/CD pipeline behavior or label governance (those are repository infrastructure, not feature scope)
+- Branch naming conventions or PR template routing (those are covered in CLAUDE.md, not per-feature specs)
+- Detailed implementation steps or code structure (those belong in plan.md and tasks.md)
+
+---
 
 ## Assumptions
 
@@ -107,4 +127,7 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 - No external workflow or automation directly references `agents/prd-factory-planner-agent/` or `agents/mode-prd.agent.md` by path; this will be verified before either is deleted/retired (FR-007, FR-010).
 - The OpenAI/Codex agent definition (`agents/prd-agent/openai/`) is out of scope for the "loadable frontmatter" requirement (FR-009), since OpenAI/Codex does not use the same frontmatter-based loading model as Claude/Copilot — its existing `tools.json` config is retained as-is.
 - The `templates/` vs. per-skill `assets/` question raised in the original `FOLDER_STRUCTURE_PLAN.md` audit is **not** part of the finalized Phase 3 deliverable list and is therefore out of scope for this spec — it may resurface as a separate follow-on if needed.
-- This spec covers Phase 3 (Structural Consolidation) only. Creating the formal OpenSpec change proposal that tracks execution (`FOLDER_STRUCTURE_PLAN.md` §6, `PLANNING.md` Phase 3's final deliverable) is explicitly deferred until this scope is agreed and is out of scope for this spec/plan cycle.
+- This spec covers Phase 3 (Structural Consolidation) only. Phase 3 implementation completes FR-001 through FR-009 (9 functional requirements); FR-010 (mode-prd.agent.md retirement) extends into Phase 7 and is tracked separately under issue #1899.
+- Phase 6 (Polish & Validation) tasks including T049 ("collect 30-day metrics") are provisional and subject to schedule adjustment — the 15-day Phase 6 window may be extended or metrics collection deferred to post-consolidation tracking, pending stakeholder approval.
+- Telemetry collection for agent usage metrics (referenced in T049) requires: (1) implementation via executable code, not Markdown deliverables; (2) documented data minimization strategy; (3) retention policy; (4) documented access controls — these will be specified in a follow-on telemetry architecture document before T049 execution.
+- Creating the formal OpenSpec change proposal that tracks execution (`FOLDER_STRUCTURE_PLAN.md` §6, `PLANNING.md` Phase 3's final deliverable) is explicitly deferred until this scope is agreed and is out of scope for this spec/plan cycle.

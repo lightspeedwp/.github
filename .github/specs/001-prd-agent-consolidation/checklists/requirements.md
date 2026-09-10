@@ -32,5 +32,7 @@
 
 ## Notes
 
-- The two previously-open decisions (near-duplicate skill pairs, `mode-prd.agent.md` fate) have both been resolved into concrete, in-scope requirements: FR-003 (10-skill generic-tier fate — a documented decision task, not a spec blocker) and FR-010 (`mode-prd.agent.md` retirement, pending an external-reference check). No clarification markers remain — spec is ready for `/speckit-plan`.
-- All 10 functional requirements map 1:1 to `PLANNING.md`'s finalized Phase 3 deliverable checklist so the spec and the tracked project checklist cannot silently drift apart.
+- The two previously-open decisions (near-duplicate skill pairs, `mode-prd.agent.md` fate) have been resolved: FR-003 (10-skill generic-tier fate — documented decision in Phase 3) and FR-010 (`mode-prd.agent.md` retirement — deferred to Phase 7, tracked separately under issue #1899). No clarification markers remain.
+- Phase 3 implementation covers FR-001 through FR-009 (9 functional requirements). FR-010 is explicitly out of scope for Phase 3 but is documented in this spec for reference.
+- Specification scope excludes implementation strategy, git workflows, CI/CD pipelines, and repository infrastructure details — those are covered in project documentation and CLAUDE.md, not in the feature specification itself.
+- All 9 Phase-3 functional requirements map 1:1 to `PLANNING.md`'s finalized Phase 3 deliverable checklist so the spec and the tracked project checklist cannot silently drift apart.
