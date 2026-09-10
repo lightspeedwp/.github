@@ -43,8 +43,8 @@ Phase 2 focuses on remediating ~100 existing issues and PRs with bare labels (un
 ### ✅ Completed (2026-08-30 — 2026-09-02)
 
 #### Step 1: Framework Implementation
-- ✅ Audit script created: `audit-bare-labels.js`
-- ✅ Query script created: `query-bare-labels.js`
+- ✅ Audit script created: `scripts/automation/audit-bare-labels.js`
+- ✅ Query script created: `scripts/automation/query-bare-labels.js`
 - ✅ Workflow created: `.github/workflows/remediate-bare-labels.yml`
 - ✅ Mapping file: `.github/reports/label-remediation/bare-label-mapping.json` (77 labels)
 - ✅ Plan documentation: `.github/reports/label-remediation/PHASE2_PLAN.md`
@@ -243,8 +243,8 @@ Complete mapping: `.github/reports/label-remediation/bare-label-mapping.json`
 - **docs/LABELING.md** — Practical labeling guide
 
 ### Implementation Files
-- **audit-bare-labels.js** — Generates bare→canonical mapping
-- **query-bare-labels.js** — Queries GitHub API
+- **scripts/automation/audit-bare-labels.js** — Generates bare→canonical mapping
+- **scripts/automation/query-bare-labels.js** — Queries GitHub API
 - **remediate-bare-labels.yml** — Main workflow
 - **bare-label-mapping.json** — Mapping reference
 - **PHASE2_PLAN.md** — Detailed execution plan

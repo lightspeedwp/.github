@@ -52,14 +52,14 @@ Phase 2 of the label prefix governance initiative focuses on remediating ~100 ex
 
 ### Step 1: Audit & Mapping (✅ Complete)
 
-- Generated `audit-bare-labels.js` script
+- Generated `scripts/automation/audit-bare-labels.js` script
 - Created comprehensive bare→canonical mapping (77 labels)
 - Output: `.github/reports/label-remediation/bare-label-mapping.json`
 
 ### Step 2: Query & Discovery
 
-- Use `query-bare-labels.js` to identify actual bare labels in use
-- Execute: `GITHUB_TOKEN=... node query-bare-labels.js`
+- Use `scripts/automation/query-bare-labels.js` to identify actual bare labels in use
+- Execute: `GITHUB_TOKEN=... node scripts/automation/query-bare-labels.js`
 - Output: `.github/reports/label-remediation/bare-labels-found.json`
 
 ### Step 3: Remediation Workflow
@@ -196,8 +196,8 @@ gh workflow run remediate-bare-labels.yml -f dry_run=false
 
 | File | Purpose |
 |---|---|
-| `audit-bare-labels.js` | Generates bare→canonical mapping |
-| `query-bare-labels.js` | Queries GitHub API for bare labels in use |
+| `scripts/automation/audit-bare-labels.js` | Generates bare→canonical mapping |
+| `scripts/automation/query-bare-labels.js` | Queries GitHub API for bare labels in use |
 | `.github/workflows/remediate-bare-labels.yml` | Workflow for bulk remediation |
 | `.github/reports/label-remediation/bare-label-mapping.json` | Mapping output |
 | `.github/reports/label-remediation/bare-labels-found.json` | Query results |

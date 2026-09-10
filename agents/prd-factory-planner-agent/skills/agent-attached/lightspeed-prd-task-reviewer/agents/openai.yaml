@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed PRD Task Reviewer
-  short_description: Reviews PRDs, technical briefs, tasks and GitHub issue drafts before implementation.
-  icon: ../assets/icon.svg
-  color: '#0F172A'
