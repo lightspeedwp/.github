@@ -1,81 +1,176 @@
 ---
 file_type: documentation
-title: "PRD Agent Export"
-description: "README for agents/prd-agent/README.md."
+title: PRD Agent
+description: Comprehensive product planning and PRD generation assistant
 status: active
 stability: stable
-domain: governance
-last_updated: "2026-08-19"
+domain: product-management
+last_updated: "2026-09-10"
 ---
 
-# PRD Agent Export
+# PRD Agent
 
-[![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+Expert product planning assistant for creating comprehensive Product Requirement Documents, feature specifications, strategic roadmaps, and implementation timelines.
 
-<!-- BADGES-START -->
-[![awesome-github-site](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/awesome-github-site.yml)
-[![changelog-auto-update](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-auto-update.yml)
-[![changelog-validate](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validate.yml)
-[![checklist-finalisation](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checklist-finalisation.yml)
-[![checks](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/checks.yml)
-[![dependabot-security-label](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/dependabot-security-label.yml)
-[![flaky-test-detection](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/flaky-test-detection.yml)
-[![issue-close-label-hygiene](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-close-label-hygiene.yml)
-[![issue-create-enhanced](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-enhanced.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-create-enhanced.yml)
-[![issues](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issues.yml)
-[![labeling](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling.yml)
-[![linting](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linting.yml)
-[![main-branch-guard](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/main-branch-guard.yml)
-[![meta](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/meta.yml)
-[![metadata-governance](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metadata-governance.yml)
-[![metrics-summary](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics-summary.yml)
-[![metrics](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/metrics.yml)
-[![planner](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/planner.yml)
-[![project-archival](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-archival.yml)
-[![project-meta-sync](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-meta-sync.yml)
-[![readme-audit](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-audit.yml)
-[![readme-regen](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-regen.yml)
-[![readme-update](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/readme-update.yml)
-[![release](https://github.com/lightspeedwp/.github/actions/workflows/release.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release.yml)
-[![reporting](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting.yml)
-[![reviewer](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reviewer.yml)
-[![template-enforcement](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/template-enforcement.yml)
-[![testing](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/testing.yml)
-[![validate-mermaid-pr](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-mermaid-pr.yml)
-[![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
-<!-- BADGES-END -->
+## Overview
 
-This archive contains the accessible, file-backed agent instructions, builder-attached files, safe local configuration metadata, current memory/project-context files, and readable installed skill folders found in this environment.
+The PRD Agent consolidates product planning expertise into one unified tool, combining:
 
-It intentionally excludes hidden platform instructions, developer/runtime messages, authentication tokens, API keys, OAuth credentials, connector credential stores, and any resource not exposed as a readable file.
+- **PRD Creation** — Write structured, complete product requirement documents
+- **Feature Planning** — Break down requirements into features, user stories, acceptance criteria
+- **Timeline & Roadmap** — Create realistic release schedules and product roadmaps
+- **Risk Assessment** — Identify blockers, dependencies, and mitigation strategies
+- **Stakeholder Alignment** — Facilitate requirements gathering, approvals, and communication
 
-## Summary
+## Quick Start
 
-- Agent name: PRD Agent
-- Created UTC: 2026-07-14T11:48:53.844306+00:00
-- Skills discovered: 45
-- Fully exported skills: 45
-- Partially exported skills: 0
-- Metadata-only skills: 0
-- Redactions made: 0
+### For Claude Users
 
-## Contents
+Copy `claude/agent.md` into your repository's `.claude/agents/` directory:
 
-- `agent/` - workspace agent instructions, builder-attached files, safe configuration metadata, assets, and memory/project-context files.
-- `skills/` - readable skill directories, grouped by source type.
-- `manifests/` - file inventory, skill inventory, inaccessible-resource notes, and redaction log.
-- `checksums.sha256` - SHA-256 checksums for exported files.
+```bash
+cp agents/prd-agent/claude/agent.md /path/to/your/repo/.claude/agents/prd-agent.md
+```
 
-## Validation Notes
+Then start Claude Code and use the PRD Agent as a subagent.
 
-The export was validated by checking that copied files exist, comparing every readable skill folder listing with its exported listing, confirming every discovered skill appears in both `skills.md` and `skills.csv`, and generating SHA-256 checksums. See `manifests/validation-summary.md` for details
+### For GitHub Copilot Users
+
+Copy `copilot/agent.md` into your repository's `.github/agents/` directory:
+
+```bash
+cp agents/prd-agent/copilot/agent.md /path/to/your/repo/.github/agents/prd-agent.md
+```
+
+Then use GitHub Copilot Chat to invoke the PRD Agent as a custom agent.
+
+## Capabilities
+
+### Core PRD & Documentation
+
+- Executive summaries and vision statements
+- Requirements documentation (functional and non-functional)
+- Success metrics, KPIs, and acceptance criteria
+- Constraints, assumptions, and dependencies
+- Risk identification and mitigation strategies
+
+### Feature Planning & Prioritization
+
+- Feature breakdown and decomposition
+- Impact/effort prioritization matrices
+- User story generation with acceptance criteria
+- Edge case and failure mode analysis
+- Dependency mapping
+
+### Timeline & Roadmap Planning
+
+- Release planning and milestone definition
+- Sprint planning and iteration coordination
+- Realistic effort estimation with contingency
+- Resource and capacity planning
+- Critical path analysis
+- Risk timeline projection
+
+### Stakeholder Alignment
+
+- Requirements gathering and validation
+- Approval workflow management
+- Change management documentation
+- Communication templates and templates
+- Feedback incorporation and iteration
+
+## Skills (28 total)
+
+The PRD Agent includes 28 specialized skills organized by capability:
+
+### PRD & Document Generation
+- **prd-writer** — Primary PRD creation and documentation
+- **prd-task-reviewer** — Specification review and feedback
+- **markdown-content-validator** — Document quality validation
+
+### Planning & Strategy
+- **implementation-plan-generator** — Detailed implementation roadmaps
+- **delivery-planner** — Sprint and delivery scheduling
+- **estimation-planner** — Effort and timeline estimation
+- **acceptance-test-planner** — QA planning and test case generation
+
+### Project Intake & Discovery
+- **project-intake** — Initial project scoping and discovery
+- **project-researcher** — Research and competitive analysis
+- **lightspeed-intake-onboarding** — LightSpeed-specific onboarding flows
+- **intake-routing** — Project intake routing and triage
+
+### Requirements & Change Management
+- **change-request-router** — Change request evaluation and routing
+- **requirements-traceability-mapper** — Requirements traceability and mapping
+- **validation-support** — Validation planning and execution
+
+### Project Management
+- **prd-agent-orchestrator** — Agent coordination and routing
+- **project-status-reporter** — Status reporting and communication
+- **project-memory-manager** — Project state and context management
+- **memory-management** — General memory and knowledge management
+
+### Quality & Release
+- **qa-findings-router** — QA findings triage and routing
+- **qa-planner** — QA planning and test strategy
+- **release-handoff-generator** — Release documentation and handoff
+- **approval-gate-manager** — Approval workflows and decision logging
+
+### Integration & Output
+- **github-issue-drafter** — GitHub issue creation and formatting
+- **launch-task-router** — Launch planning and task routing
+- **prd-task-pack-exporter** — Project export and packaging
+- **figma-wordpress-technical-brief** — Design and technical specification
+- **wordpress-plugin-packaging-review** — WordPress-specific delivery review
+
+## Integration Points
+
+The PRD Agent integrates with real, plugin-backed services:
+
+- **Linear** — Issue and project creation, timeline synchronization
+- **GitHub** — Repository and issue integration, PR workflows
+- **Google Workspace** — Document collaboration and stakeholder review
+
+## Provider Support
+
+| Provider | Status | Configuration |
+|----------|--------|---|
+| Claude | ✅ Active | `claude/agent.md` |
+| Copilot | ✅ Active | `copilot/agent.md` |
+| OpenAI | ✅ Active | `openai/agent.md` |
+
+## Structure
+
+```
+agents/prd-agent/
+├── README.md              # This file
+├── AGENT.md              # Agent metadata and capabilities
+├── CHANGELOG.md          # Version history
+├── claude/
+│   └── agent.md          # Claude Code configuration
+├── copilot/
+│   └── agent.md          # GitHub Copilot configuration
+├── openai/
+│   └── agent.md          # OpenAI configuration
+├── instructions/
+│   └── AGENTS.md         # Skill routing and integration guide
+└── skills/               # 28 specialized skills
+    ├── prd-writer/
+    ├── prd-task-reviewer/
+    └── ... (28 total)
+```
+
+## Related Documentation
+
+- **Full Agent Details:** See [AGENT.md](./AGENT.md) for capabilities, tags, and metadata
+- **Skill Integration:** See [instructions/AGENTS.md](./instructions/AGENTS.md) for detailed skill routing
+- **Version History:** See [CHANGELOG.md](./CHANGELOG.md) for updates and changes
+
+## Support & Contributions
+
+For issues, feature requests, or contributions, please refer to this repository's contribution guidelines.
 
 ---
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-## Contributing
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+*Product planning excellence, delivered with precision and care.*

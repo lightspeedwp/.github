@@ -51,6 +51,8 @@ capabilities:
   - sprint-coordination
   - risk-assessment
   - stakeholder-alignment
+  - resource-allocation
+  - scope-definition
 ---
 
 ## Branch Naming
@@ -143,6 +145,14 @@ This agent represents the consolidation of two focused agents into one comprehen
 | Claude | ✅ Active | Full multi-tool capability |
 | Copilot | ✅ Active | GitHub integration for projects |
 | OpenAI | ✅ Active | API-based planning workflows |
+
+## Integration Points
+
+This agent integrates with real, plugin-backed services for extended functionality:
+
+- **Linear** — Issue and project creation, timeline synchronization
+- **GitHub** — Repository and issue integration, PR workflows
+- **Google Workspace** — Document collaboration and stakeholder review
 
 ## Related Resources
 
