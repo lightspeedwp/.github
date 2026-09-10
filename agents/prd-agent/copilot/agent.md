@@ -1,3 +1,10 @@
+---
+name: prd-agent
+description: Product planning agent for creating PRDs, feature specifications, and strategic roadmaps with GitHub integration
+tools: ["github", "linear"]
+mcp-servers: ["github", "linear"]
+---
+
 # PRD Agent — GitHub Copilot Configuration
 
 <!-- BADGES-START -->
