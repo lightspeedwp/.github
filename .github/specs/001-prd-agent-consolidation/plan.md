@@ -37,10 +37,10 @@ This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation pro
 - `feat/prd-agent-phase4-validation` (benchmarks, changelog, final validation)
 
 **Success Criteria** (SC-401 to SC-404):
-- ✅ Prompt enhancement documented in CHANGELOG.md with version bump
-- ✅ Memory registry entries updated and validated (zero 404 errors)
-- ✅ Test case success rate documented (baseline vs. improved delta ≥5%)
-- ✅ All prompt files validated with zero syntax/loading errors
+- [ ] Prompt enhancement documented in CHANGELOG.md with version bump
+- [ ] Memory registry entries updated and validated (zero 404 errors)
+- [ ] Test case success rate documented (baseline vs. improved delta ≥15%)
+- [ ] All prompt files validated with zero syntax/loading errors
 
 ---
 
@@ -57,19 +57,19 @@ This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation pro
 - `feat/prd-agent-phase5-quality-metrics` (results analysis, bug triage, documentation)
 
 **Success Criteria** (SC-501 to SC-504):
-- ✅ Test suite exists with ≥90% skill capability coverage
-- ✅ Test pass rate ≥95% across all three providers (Claude, Copilot, OpenAI)
-- ✅ All known bugs documented and triaged (none critical to release)
-- ✅ Test results and metrics published in project documentation
+- [ ] Test suite exists with ≥90% skill capability coverage
+- [ ] Test pass rate ≥95% across all three providers (Claude, Copilot, OpenAI)
+- [ ] All known bugs documented and triaged (none critical to release)
+- [ ] Test results and metrics published in project documentation
 
 ---
 
 ### Phase 6: Rollout & Adoption
 
-**Duration**: Weeks 6-8 (15 business days)  
+**Duration**: Weeks 6-12 (20 business days for rollout + 30 days adoption observation)  
 **Owner**: Ash Shaw (Product & Adoption)  
 **Blocked By**: Phase 5 testing complete + ≥95% pass rate  
-**Deliverables**: Rollout comms, adoption tracking dashboard, feedback collection
+**Deliverables**: Rollout comms, adoption tracking dashboard, feedback collection, 30-day adoption metrics
 
 **Stacked PR Stack**:
 - `feat/prd-agent-phase6-rollout-comms` (docs, guides, FAQ)
@@ -77,10 +77,10 @@ This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation pro
 - `feat/prd-agent-phase6-feedback-collection` (survey, analysis, iteration backlog)
 
 **Success Criteria** (SC-601 to SC-604):
-- ✅ Rollout communication delivered to all teams
-- ✅ At least 5 teams actively using consolidated agent after 30 days
-- ✅ User satisfaction score ≥4.0/5.0 (surveyed sample)
-- ✅ No critical blockers or regressions vs. Phase 3 baseline
+- [ ] Rollout communication delivered to all teams
+- [ ] At least 5 teams actively using consolidated agent after 30 days
+- [ ] User satisfaction score ≥4.0/5.0 (surveyed sample)
+- [ ] No critical blockers or regressions vs. Phase 3 baseline
 
 ---
 
@@ -213,6 +213,7 @@ Critical Path Duration: 8-12 weeks
 | Team adoption slow (<5 teams) | Medium | Plan briefings early; offer live support |
 | Stacked PR merge conflict | Low | Test full stack; merge all together |
 | Resource constraint | Medium | Cross-train backup; document procedures |
+| Spec-based agent sync drift | Low | Monthly sync review; drift detection tool |
 
 ---
 
