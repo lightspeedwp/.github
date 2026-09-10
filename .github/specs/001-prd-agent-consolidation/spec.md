@@ -232,6 +232,39 @@ As a codebase maintainer, I want to decide the fate of the older spec-based PRD 
 - **Portable Version**: Canonical agent in `agents/prd-agent/` (root level, works across all LightSpeedWP repos).
 - **Spec-Based Version**: GitHub-specific agent in `agents/mode-prd.agent.md` (.github control plane, Copilot-native).
 
+## Stacked PR Strategy & Branch Naming
+
+Phases 4-7 will be delivered using **stacked PRs** following GitHub's stacked PR workflow to enable parallel review, early feedback, and safe rollback per phase.
+
+### Branch Naming Convention
+
+Branch names follow the pattern `{type}/{base}-phase{N}-{description}` to make phase dependencies explicit:
+
+| Phase | Base Branch | Stack Branches | Purpose |
+|-------|------------|-----------------|---------|
+| 3 | `feat/prd-agent` (✅ merged) | N/A | Structural consolidation foundation |
+| 4 | `feat/prd-agent` | `feat/prd-agent-phase4-prompt-enhancement`<br/>`feat/prd-agent-phase4-memory-registry`<br/>`feat/prd-agent-phase4-validation` | Prompt enhancement, testing, validation |
+| 5 | Phase 4 merge commit | `feat/prd-agent-phase5-test-suite`<br/>`feat/prd-agent-phase5-provider-testing`<br/>`feat/prd-agent-phase5-quality-metrics` | Comprehensive testing across providers |
+| 6 | Phase 5 merge commit | `feat/prd-agent-phase6-rollout-comms`<br/>`feat/prd-agent-phase6-adoption-tracking`<br/>`feat/prd-agent-phase6-feedback-collection` | Team communication, adoption, feedback |
+| 7 | Phase 6 merge commit | `feat/prd-agent-phase7-{archive\|sync}-decision` | Archive or sync spec-based agent (conditional) |
+
+### Stacked PR Workflow
+
+1. **Base Preparation**: Phase 4 PRs stack on Phase 3's merged commit (`feat/prd-agent`)
+2. **Phase Isolation**: Each phase's PRs are independent; if one must revert, lower phases remain unaffected
+3. **Review Gates**: Each PR reviewed in order; can be approved before next PR in stack is ready
+4. **Merge Strategy**: Phase PRs merge to main branch only after all PRs in that phase pass CI and review
+5. **Dependency Clarity**: Branch names make the phase hierarchy explicit; prevents accidental out-of-order merges
+
+### Risk Mitigation
+
+- **Accidental Rebase**: Branch naming makes phase order explicit; reduces risk of rebasing wrong PR
+- **Merge Conflicts**: Stacked PRs tested with full chain; conflicts discovered early
+- **Rollback Safety**: If Phase 4 PR fails late, can revert Phase 4 without affecting Phase 3
+- **CI Efficiency**: Stack PRs test the full chain at once; fail fast on lowest issue
+
+---
+
 ## Assumptions
 
 - Phase 3 (Structural Consolidation) completion is the prerequisite for all subsequent phases.
@@ -239,6 +272,7 @@ As a codebase maintainer, I want to decide the fate of the older spec-based PRD 
 - Team feedback from Phase 6 is collected via surveys and usage metrics (exact collection method TBD at Phase 6).
 - The sample/demo project-memory data was confirmed non-client and cleaned as part of Phase 3.
 - OpenAI agent definition (`agents/prd-agent/openai/`) is retained as-is; frontmatter loadability requirement applies only to Claude/Copilot.
+- **Stacked PR Strategy**: Phases 4-7 will be delivered as stacked PRs per the branch naming convention above. Each phase blocks the next; no phase PR merges until that phase is complete and all PRs in the stack pass CI/review.
 
 ## Project References
 
