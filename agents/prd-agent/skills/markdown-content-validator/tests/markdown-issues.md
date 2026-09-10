@@ -1,21 +1,19 @@
 ---
 file_type: documentation
-title: Markdown Issues Example
+title: Markdown Issues
 status: draft
 type: guide
 version: 1.0.1
 ---
-# Markdown Issues Example
 
-## Overview
+# Markdown Issues
 
-#### Skipped heading level
+#### Jumped heading
 
-- first bullet
-- second bullet
+##
 
-```
+See [broken](missing
 
 ---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

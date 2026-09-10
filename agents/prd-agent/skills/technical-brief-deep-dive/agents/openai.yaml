@@ -1,4 +1,0 @@
-interface:
-  display_name: "Technical Brief Deep Dive"
-  short_description: "Builds detailed technical briefs from validated planning inputs"
-  default_prompt: "Use $technical-brief-deep-dive to produce a deeper technical brief from validated planning inputs."

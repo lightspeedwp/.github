@@ -1,15 +1,16 @@
 ---
 file_type: documentation
-title: Invalid Version Example
+title: Invalid Version
 status: draft
 type: guide
-version: "1.0"
+version: 1.0
 ---
-# Invalid Version Example
+
+# Invalid Version
 
 ## Overview
 
-This file should fail version validation.
+This file should fail SemVer validation.
 
 ---
 

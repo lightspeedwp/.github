@@ -76,33 +76,94 @@
 [![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
 <!-- BADGES-END -->
 
-## Goal
+Use `frontmatter.schema.yaml` to control validation without changing the script.
 
-Keep project-specific frontmatter rules in the schema file instead of hard-coding them into the script.
+## What can be customised
 
-## Safe customisations
+- required fields
+- optional properties
+- enum values
+- string patterns
+- date checks
+- property count limits
+- unknown-field behaviour
+- per-file-type overrides
+- suggested defaults used in fix suggestions
 
-You may extend the schema by:
+## Suggested defaults
 
-- adding new optional properties
-- tightening string lengths or enum values
-- adding array item constraints
-- adjusting `minProperties` or `maxProperties`
-- adding required fields when the project truly depends on them
+Use `suggestedDefaults` when you want the validator to generate more helpful repair suggestions.
 
-## Avoid
+```yaml
+suggestedDefaults:
+  title: Example
+  status: draft
+  type: guide
+  version: 1.0.0
+  owner: LightSpeed
+```
 
-Avoid changing the script just to support project-specific metadata rules. Prefer updating `references/frontmatter.schema.yaml` or passing a stronger compatible schema.
+Property-level `default` values are also supported.
 
-## Recommendation
+## Example: tighten statuses and document types
 
-If a project already has a stronger schema, reuse it when it remains compatible with the core requirements for:
+```yaml
+properties:
+  status:
+    type: string
+    enum:
+      - draft
+      - review
+      - approved
+      - archived
+  type:
+    type: string
+    enum:
+      - guide
+      - reference
+      - checklist
+```
 
-- top-of-file YAML frontmatter
-- required `version`
-- valid SemVer format
-- deterministic schema validation
+## Example: merge file-type property overrides
+
+```yaml
+properties:
+  tags:
+    type: array
+    maxItems: 20
+    items:
+      type: string
+
+fileTypeOverrides:
+  ".php":
+    properties:
+      tags:
+        maxItems: 10
+```
+
+Nested `properties` overrides are merged instead of replacing the whole `properties` block.
+
+## Example: stricter document pack with required SemVer
+
+```yaml
+required:
+  - title
+  - type
+  - status
+  - version
+
+properties:
+  version:
+    type: string
+    pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+```
+
+## Guidance
+
+- keep metadata rules in the schema, not in the validator code
+- use per-file-type overrides only when different file classes really need different rules
+- use `--fail-on-empty` when an empty scan should fail CI instead of only surfacing a warning
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

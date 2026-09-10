@@ -1,4 +1,4 @@
-# Markdown Content Validator
+# Content File Validator
 
 [![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 
@@ -35,15 +35,30 @@
 [![validate-pr-template](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-pr-template.yml)
 <!-- BADGES-END -->
 
-Reusable skill package for validating markdown files, YAML frontmatter, and SemVer versioning.
+Merged validator skill for Markdown quality, YAML frontmatter schema compliance, required SemVer version fields, and optional version increment checks.
 
-Run:
+## Package contents
+
+- `SKILL.md`
+- `agents/openai.yaml`
+- `scripts/validate_content_files.py`
+- `references/frontmatter.schema.yaml`
+- `references/markdown-validation-rules.md`
+- `references/semver-versioning-rules.md`
+- `references/schema-customisation.md`
+- `references/example-validation-report.md`
+- `tests/`
+- `requirements.txt`
+
+## Suggested CLI
 
 ```bash
-python scripts/validate_markdown_content.py \
-  --target tests \
+python scripts/validate_content_files.py \
+  --target files \
   --schema references/frontmatter.schema.yaml \
-  --report markdown-content-validation-report.md
+  --report content-validation-report.md \
+  --enforce-version-increment \
+  --base-ref main
 ```
 
 ---

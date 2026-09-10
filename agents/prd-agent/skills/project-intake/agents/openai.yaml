@@ -1,4 +1,5 @@
 interface:
-  display_name: "LS Project Intake"
-  short_description: "Turn messy project inputs into a structured LightSpeed intake."
-  default_prompt: "Use $lightspeed-project-intake to normalise scattered project evidence into a usable intake record."
+  display_name: LightSpeed Project Intake Router
+  short_description: Structure project inputs and route Figma-to-WordPress work into PRD/task workflows.
+  icon: ../assets/icon.svg
+  accent_color: "#1e73be"

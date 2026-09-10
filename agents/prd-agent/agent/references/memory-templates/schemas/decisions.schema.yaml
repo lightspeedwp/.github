@@ -1,9 +1,0 @@
-title: decisions
-required:
-  - records
-properties:
-  records:
-    type: array
-    items:
-      type: object
-      required: [decision, status, updated_at]
