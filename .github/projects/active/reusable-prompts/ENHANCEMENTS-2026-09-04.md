@@ -56,7 +56,7 @@ This document captures optional enhancements and follow-up work discovered durin
 **Assigned To:** Next session or team  
 **Dependency:** None  
 **Related Files:**
-- `ISSUE_UPDATES_GUIDE.md` (529 lines, commit 5091afc1)
+- `docs/ISSUE_UPDATES_GUIDE.md` (529 lines, commit 5091afc1)
 - `.github/labels.yml` (canonical label definitions)
 - `.github/ISSUE_TEMPLATE/23-ai-ops.md` (AI Ops issue template)
 
@@ -67,7 +67,7 @@ This document captures optional enhancements and follow-up work discovered durin
   - `area:automation`
   - `area:docs`
   - `status:ready-for-use`
-- [ ] Issue descriptions replaced with comprehensive bodies (from ISSUE_UPDATES_GUIDE.md)
+- [ ] Issue descriptions replaced with comprehensive bodies (from docs/ISSUE_UPDATES_GUIDE.md)
 - [ ] Verification checklist completed for all 9 issues
 - [ ] Issues discoverable via GitHub issue search with `type:ai-ops` filter
 
@@ -284,7 +284,7 @@ The following Phase 2 issues are already defined in `openspec.json` and recommen
 - **Prompts Index:** `prompts/PROMPTS-V1-INDEX.md`
 - **Active Project:** `.github/projects/active/reusable-prompts-setup.md`
 - **OpenSpec:** `.github/projects/active/reusable-prompts/openspec.json`
-- **Issue Updates Guide:** `ISSUE_UPDATES_GUIDE.md`
+- **Issue Updates Guide:** `docs/ISSUE_UPDATES_GUIDE.md`
 - **PR #2802:** https://github.com/lightspeedwp/.github/pull/2802 (merged)
 - **Tracking Issues:** #2803-#2811 (Phase 1), #2812-#2816 (Phase 2 proposed)
 

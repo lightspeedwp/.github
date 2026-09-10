@@ -211,7 +211,7 @@ These prompts integrate with existing workflows:
 ## References
 
 - **Prompts Index:** [prompts/PROMPTS-V1-INDEX.md](../../prompts/PROMPTS-V1-INDEX.md)
-- **Issue Updates Guide:** [ISSUE_UPDATES_GUIDE.md](../../ISSUE_UPDATES_GUIDE.md)
+- **Issue Updates Guide:** [docs/ISSUE_UPDATES_GUIDE.md](../../docs/ISSUE_UPDATES_GUIDE.md)
 - **PR #2802:** [https://github.com/lightspeedwp/.github/pull/2802](https://github.com/lightspeedwp/.github/pull/2802)
 - **Branch:** `feat/reusable-prompts-setup-i42h20` (merged to develop)
 - **Repository Boundaries:** [CLAUDE.md](../../CLAUDE.md#repository-boundaries)

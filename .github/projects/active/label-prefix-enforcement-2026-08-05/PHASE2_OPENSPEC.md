@@ -58,7 +58,7 @@ Phase 2 of the label prefix governance initiative focuses on remediating ~100 ex
 
 **Deliverables**:
 
-- Audit script: `audit-bare-labels.js`
+- Audit script: `scripts/automation/audit-bare-labels.js`
 - Mapping output: `.github/projects/active/label-prefix-enforcement-2026-08-05/bare-label-mapping.json`
 - Mapping reference: `PHASE2_PLAN.md` (tables 113-194)
 
@@ -80,12 +80,12 @@ Phase 2 of the label prefix governance initiative focuses on remediating ~100 ex
 **Implementation**:
 
 ```bash
-GITHUB_TOKEN=<token> node query-bare-labels.js
+GITHUB_TOKEN=<token> node scripts/automation/query-bare-labels.js
 ```
 
 **Deliverables**:
 
-- Query script: `query-bare-labels.js`
+- Query script: `scripts/automation/query-bare-labels.js`
 - Discovery results: JSON report with findings
 
 **Status**: ⏳ Not Started

@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed Change Request Router
-  short_description: Triage scope changes, impact, approvals and task updates for LightSpeed WordPress projects.
-  icon: assets/icon.svg
-  accent_color: '#663399'

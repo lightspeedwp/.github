@@ -73,10 +73,6 @@ This directory contains all active projects, initiatives, and work in progress f
    - Phase 3 complete, production deployed
    - Milestone allocation system live
 
-7. **prd-combined-agent** (✅ COMPLETED | 100%)
-   - Combined PRD agent implementation and documentation
-   - Phase 2 Batch 2 complete
-
 8. **release-agentic-workflows-2026-08-11** (✅ Phase 5A Complete | 100%)
    - MVP complete and merged
    - Agentic release workflows operational
@@ -307,6 +303,10 @@ This directory contains all active projects, initiatives, and work in progress f
 3. **prd-agent-prompt-improvements-2026-08** (🟡 Phase 2 | 50%)
    - Phase 1 complete, Phase 2 testing in progress
    - Prompt improvements underway
+
+3b. **prd-combined-agent** (🟡 Phase 3 Drafted | 60%) — *moved from Complete Projects 2026-09-10*
+   - Phase 2 Batch 2 (catalogue merge) complete; a 2026-09-10 audit found the underlying `agents/prd-agent/` and `agents/prd-factory-planner-agent/` folders were never actually consolidated
+   - Phase 3 structural consolidation plan drafted — see project's `FOLDER_STRUCTURE_PLAN.md`
 
 4. **reviewer-agent-v2-2026-08** (🟡 Phase 1 Planning | 30%)
    - Planning & specification in progress
