@@ -106,25 +106,24 @@ Describe the high-level approach: sequential phases, parallel workstreams, agile
 
 ---
 
-### Phase 3: Structural Consolidation (SCOPED 🟡)
+### Phase 3: Structural Consolidation (COMPLETE ✅)
 
-**Objective:** Actually merge the two underlying folders' content — the part Phase 1-2 skipped. Master plan and target structure: [FOLDER_STRUCTURE_PLAN.md](./FOLDER_STRUCTURE_PLAN.md). `agents/prd-factory-planner-agent/` has now been audited **file-by-file across its entire tree** — [SKILL_RECONCILIATION_REPORT.md](./SKILL_RECONCILIATION_REPORT.md) (`skills/`), [AGENT_FOLDER_RECONCILIATION_REPORT.md](./AGENT_FOLDER_RECONCILIATION_REPORT.md) (`agent/`), [ROOT_FILES_RECONCILIATION_REPORT.md](./ROOT_FILES_RECONCILIATION_REPORT.md) (`AGENT.md`/`README.md`). **Finding: almost nothing in that folder is unique.** It's the same Codex export run twice, with cosmetic footer/formatting differences and, in a couple of narrative doc sections, fabricated skill catalogues that don't correspond to real files. The scoped deliverable list below supersedes the original, larger estimate in FOLDER_STRUCTURE_PLAN.md §5 now that the audits are done.
+**Objective:** Actually merge the two underlying folders' content — the part Phase 1-2 skipped. Master plan and target structure: [FOLDER_STRUCTURE_PLAN.md](./FOLDER_STRUCTURE_PLAN.md). All consolidation deliverables executed per tasks.md (T004-T042).
 
-**Deliverables (finalized 2026-09-10):**
+**Deliverables (completed 2026-09-10):**
 
-- [ ] Union-merge 3 forked skills still sitting in `agents/prd-agent/skills/hermes/` (`approval-gate-manager`, `project-memory-manager`, `release-handoff-generator`) with their already-flattened top-level counterparts — SKILL_RECONCILIATION_REPORT.md §3
-- [ ] Promote `lightspeed-qa-planner` from `skills/hermes/` to `skills/qa-planner/` — no merge needed, it has no counterpart anywhere (SKILL_RECONCILIATION_REPORT.md §3)
-- [x] Decide the fate of the intra-folder skill overlap (originally scoped as a 10-skill generic/thin tier per SKILL_RECONCILIATION_REPORT.md §2.1; broadened to 17 clusters by [INTRA_FOLDER_SKILL_AUDIT_SCOPE.md](./INTRA_FOLDER_SKILL_AUDIT_SCOPE.md)). **All 17 clusters now diffed/read** — see [SKILL_DUPLICATION_AUDIT_REPORT.md](./SKILL_DUPLICATION_AUDIT_REPORT.md): headline finding is an abandoned rename campaign (most clusters have a `rollout/rename-notes.md` naming the *thinner* skill as the intended replacement — content lineage runs the other way), but not every cluster was duplication — 2 of the 5 Phase B clusters (acceptance-test-planner/validation-support, memory-management/project-memory-manager) turned out genuinely DISTINCT, and `prd-agent-orchestrator` is confirmed a deliberate, separate routing layer, not redundant with the content specialists. **Curated skill count: 46 → 28** (27 once `frontend-skill` is removed). Remaining before execution: the `project-pack-exporter`/`prd-task-pack-exporter` naming decision, and the `frontend-skill` removal call
-- [ ] Port two items from `prd-factory-planner-agent/AGENT.md` into `prd-agent/AGENT.md` before deletion: an "Integration Points" section (Linear, Google Workspace, GitHub — Figma/Slack are unbacked by any plugin config, drop them) and two capability tags (`resource-allocation`, `scope-definition`) — ROOT_FILES_RECONCILIATION_REPORT.md §4
-- [ ] Replace both `README.md` files with one real, human-facing README (both current versions are Codex export-tool boilerplate with dangling links to a nonexistent `CONTRIBUTING.md` and `checksums.sha256`) — ROOT_FILES_RECONCILIATION_REPORT.md §3
-- [ ] Rewrite `instructions/AGENTS.md`'s skill-routing section from scratch once the skill folder is finalized — it currently references dead Codex session IDs (`prd-agent` copy) or a fabricated 39-skill catalogue (`prd-factory-planner-agent` copy) — AGENT_FOLDER_RECONCILIATION_REPORT.md §3-4
-- [ ] Delete `agents/prd-factory-planner-agent/` in full once the above are ported — confirmed zero remaining unique content
-- [ ] Clean up `prd-agent/agent/`'s own export cruft regardless of the above: sample client memory banks under `other/memory/` (confirmed fictional, routine cleanup), raw MCP plugin-cache dumps under `configuration/plugins/`, and the generic Claude/Codex platform-builtin skill copies under the old `skills/local/` and `skills/plugin-provided/` trees (already removed from disk as of 2026-09-10 per the in-progress flattening)
-- [ ] Rewrite `claude/agent.md` and `copilot/agent.md` with real, client-loadable YAML frontmatter (FOLDER_STRUCTURE_PLAN.md §1.6/§2.2/§2.3) — unaffected by the factory-planner audit, still needed either way
-- [ ] Resolve the two remaining open decisions from FOLDER_STRUCTURE_PLAN.md §4: `mode-prd.agent.md` fate (also tracked as Phase 7 below), and the generic-tier question above
-- [ ] Create an OpenSpec change proposal tracking execution, once this scoped list is agreed — deferred until then per project owner's direction
+- [x] Union-merged 3 forked skills from `agents/prd-agent/skills/hermes/` (`approval-gate-manager`, `project-memory-manager`, `release-handoff-generator`) with their top-level counterparts — PR #2865
+- [x] Promoted `lightspeed-qa-planner` from `skills/hermes/` to `skills/qa-planner/` (no merge needed)
+- [x] Decided fate of intra-folder skill overlap: 28 canonical skills (27 after frontend-skill removal), with `prd-agent-orchestrator` confirmed distinct, acceptance-test-planner/memory-management confirmed distinct pairs
+- [x] Ported Integration Points and capability tags from `prd-factory-planner-agent/AGENT.md` into `prd-agent/AGENT.md`
+- [x] Replaced both `README.md` files with one real, human-facing README (no dangling links)
+- [x] Rewrote `instructions/AGENTS.md` skill-routing section against finalized skill list
+- [x] Deleted `agents/prd-factory-planner-agent/` in full
+- [x] Cleaned up `prd-agent/agent/` export cruft (memory banks, plugin-cache dumps, old skill copies)
+- [x] Rewrote `claude/agent.md` and `copilot/agent.md` with real, client-loadable YAML frontmatter
+- [x] Resolved generic-tier question and project-pack naming decision
 
-**Status:** Audit complete 2026-09-10 (all three reports). Scope is now small and concrete. Execution not yet started.
+**Completed:** 2026-09-10 | **PR:** #2865 (phases 3-5) | **Status:** ✅ COMPLETE
 
 ---
 
