@@ -1,3 +1,12 @@
+---
+file_type: documentation
+title: Markdown Content Validator
+description: Quality validation for Markdown files, YAML frontmatter schema compliance, and semantic versioning checks
+status: active
+domain: validation
+last_updated: "2026-09-10"
+---
+
 # Content File Validator
 
 [![License: GPL v3 or later](https://img.shields.io/badge/License-GPL%20v3%20or%20later-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
