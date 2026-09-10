@@ -1,4 +1,4 @@
-# Support Transition Rules
+# Support transition rules
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
@@ -76,21 +76,8 @@
 [![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
 <!-- BADGES-END -->
 
-Support transition notes should cover:
-
-- support owner or team
-- project context
-- repo/theme/plugin names
-- known fragile areas
-- monitoring requirements
-- recurring maintenance needs
-- SLA expectations if known
-- escalation path
-- unresolved bugs or accepted risks
-- documentation location
-
-Do not invent SLAs. If absent, mark SLA as pending confirmation.
+Support notes should include known issues, monitoring expectations, escalation cues, and any immediate post-launch watch items.
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

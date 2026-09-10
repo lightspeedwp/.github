@@ -1,5 +1,4 @@
 interface:
-  display_name: LightSpeed Implementation Plan Generator
-  short_description: Create developer-ready implementation plans for Figma-to-WordPress projects.
-  icon: ../assets/icon.svg
-  accent_color: "#2563eb"
+  display_name: "Implementation Planning"
+  short_description: "Maps PRDs into technical briefs, plans, and handoffs"
+  default_prompt: "Use $implementation-planning to turn a validated plan into technical and implementation guidance."

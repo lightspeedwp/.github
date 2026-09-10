@@ -76,34 +76,34 @@
 [![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
 <!-- BADGES-END -->
 
-## Required format
+Every validated document must include a `version` field in `MAJOR.MINOR.PATCH` form.
 
-Every validated file must contain:
+## Increment rules
 
-```yaml
-version: "MAJOR.MINOR.PATCH"
-```
+- increment **MAJOR** for incompatible or breaking structural changes
+- increment **MINOR** for backward-compatible additions
+- increment **PATCH** for backward-compatible fixes, typo fixes, clarifications, or small corrections
 
-## Documentation interpretation
+## Validator behaviour
 
-Use these defaults for documentation and template files:
+The validator can reliably detect when:
 
-- **MAJOR**: removed sections, renamed required fields, incompatible template changes, changed expected usage, or any structural change that would break downstream consumers.
-- **MINOR**: new sections, new optional fields, new supported use cases, backward-compatible additions, or expanded examples that do not break existing usage.
-- **PATCH**: typo fixes, formatting fixes, clarifications, metadata corrections, small wording changes, or other non-breaking maintenance edits.
+- a file changed and its version did not change
+- a version field is missing
+- a version value is not valid SemVer
 
-## Version increment checking
+The validator cannot safely infer the exact intended increment type from every diff.
 
-When Git history or a base reference is available:
+When the file changed and the version changed, but the increment type cannot be confirmed from the available evidence alone, treat that as a warning for human confirmation rather than an automatic failure.
 
-1. detect whether the file changed against the base reference
-2. compare the previous and current `version` values
-3. warn if the content changed without a version increment
+## Review guidance
 
-If no previous version is available, warn with:
+When the increment type is ambiguous, ask the user whether the change should be treated as:
 
-`Version increment could not be verified because no previous version was available.`
+- breaking or structurally incompatible
+- additive but backward-compatible
+- a small correction or clarification
 
 ---
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

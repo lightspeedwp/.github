@@ -1,96 +1,129 @@
 ---
-name: lightspeed-project-intake
-description: Use when a LightSpeed project starts from rough notes, client briefs, links, docs, tracker comments, email excerpts, QA notes, or other scattered source material and needs a clean intake record before PRD, research, estimate, or delivery work.
+name: lightspeed-project-intake-router
+description: structure rough project briefs, figma links, github repos, live or staging urls, client notes and discovery inputs into a lightspeed prd/task kickoff pack for figma design system to wordpress block theme, block plugin, woocommerce, publishing, tourism and hybrid-theme projects. use when the user needs intake questions, project classification, source inventory, missing inputs, approval gates, estimation preference, specialist skill routing or a kickoff-ready brief before research, prd creation or task planning.
 ---
 
-# LS Project Intake
+# LightSpeed Project Intake Router
 
 ## Purpose
 
-Turn messy LightSpeed project inputs into a clean intake summary, source inventory, evidence register, confirmed facts, assumptions, exclusions, open questions, and an initial project-state recommendation.
+Turn early, messy or partial project inputs into a structured kickoff pack that can feed LightSpeed PRD, research, technical brief, task planning, GitHub issue drafting, memory and launch QA workflows.
 
-This skill is for normalisation and readiness, not for full PRD drafting or estimation.
+Use this skill before `lightspeed-project-researcher`, `lightspeed-prd-generator`, `lightspeed-figma-wordpress-technical-brief` or `lightspeed-prd-task-manager` when the project context is incomplete, mixed across notes, or needs routing.
 
-## Shared LightSpeed lifecycle contract
+## Core rule
 
-Use the current user request as the highest-priority source. Then use current conversation context, attached files, existing project-state records, existing skill files, references, templates, examples, and memory defaults in that order.
+Do not write the final PRD or task plan in this skill. Produce a clear intake summary, missing information list, source inventory, recommended workflow route and next prompts.
 
-Do not invent facts, approval status, deadlines, estimates, or commitments. Mark assumptions explicitly and keep evidence labels visible: confirmed, inferred, assumed, missing.
+## Inputs to accept
 
-When project state should change, recommend an update rather than silently rewriting durable memory unless the user explicitly asks.
+Accept any combination of:
 
-## Request shapes
-
-Use this skill for requests like:
-
-- "Here are the notes, links, screenshots, and repo. Can you turn this into a proper project intake?"
-- "We have client comments, QA notes, and a few docs — what do we actually know?"
-- "Normalise this scattered project evidence before we start writing the PRD."
-
-Success means producing a structured intake record that is usable by downstream research, PRD, estimation, or routing work.
+- client brief
+- discovery notes
+- Figma design system URL
+- Figma page/frame URL
+- Figma Make prototype URL
+- screenshots or exports
+- live site URL
+- staging/dev site URL
+- GitHub repo links
+- GitHub issue links
+- existing content pack
+- audit notes
+- Asana notes
+- client emails or meeting notes
+- launch/readiness notes
 
 ## Workflow
 
-1. Read `references/intake-rules.md` for normalisation behaviour.
-2. Read `references/evidence-quality.md` and `references/source-priority.md` before treating any source as confirmed.
-3. Build a source inventory:
-   - approved source material
-   - weak or stale material
-   - excluded or unapproved sources
-4. Convert the evidence into:
-   - intake summary
-   - confirmed facts
-   - inferred assumptions
-   - missing evidence
-   - open questions
-5. Use `templates/project-intake-record.md`, `templates/evidence-register.md`, and `templates/open-questions.md` to keep the shape consistent.
-6. Recommend the next skill based on the strongest unresolved need:
-   - research when source review is still needed
-   - PRD writing when requirements are ready enough
-   - estimation only when scope is materially stable
-   - lifecycle routing when the next step is still ambiguous
-7. If project-state implications are clear, recommend an initial project-state update without silently saving it.
+1. Identify the project type and build type.
+2. Extract known facts from the supplied inputs.
+3. Build a source inventory.
+4. Classify inputs by evidence maturity.
+5. Ask only the highest-value missing questions.
+6. Define the likely output route.
+7. Recommend specialist skills to run next.
+8. Produce a kickoff pack in Markdown.
+9. Include client-facing summary and internal LightSpeed notes.
+10. Stop before creating final PRD, issues or implementation plan unless the user explicitly asks to proceed.
 
-## Output contract
+## Project type detection
 
-Return:
+Classify projects as one or more of:
 
-1. intake summary
-2. source inventory
-3. confirmed facts
-4. inferred assumptions
-5. excluded or unapproved sources
-6. missing evidence
-7. smallest useful follow-up questions
-8. recommended next skill
-9. initial project-state update recommendation
+- WordPress block theme
+- WordPress block theme plus custom block plugin
+- existing classic or hybrid theme conversion
+- WooCommerce block theme
+- publishing/content-heavy platform
+- tourism/tour operator platform
+- AI readiness/governance website
+- migration/redesign
+- lead-generation/professional-services site
+- internal LightSpeed product/plugin project
 
-## Boundaries
+## Required output sections
 
-Do not:
+For every intake output include:
 
-- write the full PRD
-- estimate effort
-- produce implementation tasks
-- generate launch QA plans
-- treat unapproved evidence as approved
-- store durable defaults without explicit approval
+- Value, risk and next step
+- Project snapshot
+- Build type classification
+- Known inputs and sources
+- Evidence maturity table
+- Missing information
+- Clarifying questions
+- Assumptions and risks
+- Recommended workflow route
+- Specialist skill routing
+- Suggested output pack
+- Approval gates
+- Client-facing summary
+- Internal LightSpeed notes
 
-## Supporting Files
+## Routing rules
 
-- `references/intake-rules.md` — intake workflow and evidence handling.
-- `references/evidence-quality.md` — confidence checks for weak or mixed inputs.
-- `references/source-priority.md` — source ranking rules.
-- `references/cross-skill-routing.md` — when to hand off downstream.
-- `templates/project-intake-record.md` — main intake structure.
-- `templates/evidence-register.md` — source-by-source evidence log.
-- `templates/open-questions.md` — gap-focused follow-up questions.
-- `schemas/project-intake.schema.json` — intake payload shape.
-- `schemas/evidence-register.schema.json` — evidence register shape.
-- `schemas/project-state.schema.json` — shared project-state structure.
-- `examples/intake-before-after.md` — example transformation.
-- `tests/fixtures/intake-cases.md` — manual validation cases.
+Route to:
+
+- `lightspeed-project-researcher` when evidence needs review before PRD.
+- `lightspeed-prd-generator` when the user needs a PRD only.
+- `lightspeed-figma-wordpress-technical-brief` when Figma-to-WordPress architecture needs definition.
+- `lightspeed-task-breakdown-planner` when PRD/technical brief are approved and tasks are needed.
+- `lightspeed-github-issue-drafter` when tasks need GitHub-ready issue drafts.
+- `lightspeed-project-memory-manager` when a handoff/memory bank is needed.
+- `lightspeed-launch-qa-planner` when launch QA scope needs planning.
+- `lightspeed-prd-task-manager` when the user wants the full combined pack.
+
+## Evidence status labels
+
+Use:
+
+- Confirmed
+- Supplied but unreviewed
+- Draft
+- Needs Review
+- Evidence Required
+- Missing
+- Not Applicable
+- Blocker
+
+## Estimation preference
+
+Ask the user which estimation model to use when planning tasks later:
+
+- no estimates
+- T-shirt size
+- hours
+- sprint fit
+- complexity/risk only
+
+If the user is unsure, default to complexity/risk for internal planning and hours for client-facing proposals.
+
+## Output stance
+
+Use UK English. Keep outputs practical, structured and ready to paste into Google Docs, GitHub or a Markdown project pack. Avoid over-specifying implementation before the PRD and technical brief are approved.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*

@@ -1,7 +1,0 @@
-interface:
-  display_name: content-file-validator
-  short_description: Validate content files and required versioning
-  default_prompt:
-    Use $content-file-validator to validate Markdown quality, YAML frontmatter
-    schema compliance, required SemVer version fields, and version increment checks
-    in one consolidated report.

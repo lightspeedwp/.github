@@ -1,5 +1,0 @@
-interface:
-  display_name: LightSpeed Project Memory Manager
-  short_description: Create and maintain project memory banks for LightSpeed Figma-to-WordPress projects.
-  icon: ../assets/icon.svg
-  accent_color: "#2563EB"

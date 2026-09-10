@@ -1,3 +1,10 @@
+---
+name: prd-agent
+description: Expert product planning assistant for creating PRDs, feature specifications, roadmaps, and strategic product plans
+tools: ["all"]
+model: sonnet
+---
+
 # PRD Agent — Claude Configuration
 
 <!-- BADGES-START -->

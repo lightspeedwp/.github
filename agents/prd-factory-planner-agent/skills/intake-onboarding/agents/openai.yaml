@@ -1,4 +1,0 @@
-interface:
-  display_name: "LightSpeed Intake Onboarding"
-  short_description: "Collect and remember intake defaults for planning work."
-  default_prompt: "Use $lightspeed-intake-onboarding to collect reusable intake defaults, store them in Memory, and continue the planning request."

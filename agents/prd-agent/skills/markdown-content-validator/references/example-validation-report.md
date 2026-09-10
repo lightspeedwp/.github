@@ -1,4 +1,4 @@
-# Markdown Content Validation Report
+# Content File Validation Report
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
@@ -83,12 +83,10 @@
 | Files scanned | 4 |
 | Passed | 1 |
 | Failed | 3 |
-| Warnings | 5 |
-| Markdown issues | 4 |
-| Frontmatter issues | 3 |
-| Missing version | 1 |
-| Invalid version format | 1 |
-| Changed without version increment | 1 |
+| Warnings | 1 |
+| Markdown issues | 2 |
+| Frontmatter issues | 2 |
+| Version issues | 2 |
 
 ## Failed Files
 
@@ -97,7 +95,7 @@
 **Issues:**
 
 - Missing required frontmatter field: `version`
-- Line 12: heading level jumps from `h2` to `h4`
+- Heading level jumps from `h2` to `h4`
 
 **Suggested fix:**
 
@@ -106,7 +104,7 @@
 title: Example
 status: draft
 type: guide
-version: "1.0.0"
+version: 1.0.0
 
 ---
 

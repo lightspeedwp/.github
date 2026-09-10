@@ -76,50 +76,41 @@
 [![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
 <!-- BADGES-END -->
 
-## Purpose
+Use these rules for the combined content validator.
 
-These rules define the practical markdown checks that the validator should enforce or report.
+## Core checks
 
-## Blocking errors
+- exactly one H1 for document-style Markdown
+- no heading level jumps such as H2 to H4
+- no empty headings like `##` with no title
+- no repeated headings when they appear accidental or duplicated
+- no malformed inline links like `[text](missing`
+- warn on local relative links that point to missing files when the target can be checked safely
 
-Treat these as failures by default:
+## Interpretation
 
-- missing YAML frontmatter at the top of the file
-- malformed or unclosed frontmatter
-- invalid YAML frontmatter
-- heading level jumps that make document structure unclear
-- unclosed code fences
-- missing required schema fields
-- invalid field values that violate the schema
-- invalid SemVer format in `version`
+### Blocking failures
 
-## Warnings
+Treat these as failures when they materially break document structure:
 
-Treat these as warnings unless the project explicitly tightens them:
+- missing or invalid frontmatter in a document that requires it
+- empty H1
+- heading level jumps that make section hierarchy invalid
+- malformed Markdown links
 
-- duplicate headings
-- malformed external links
-- inconsistent bullet markers within the same list block
-- empty code fences
-- possible invalid table formatting
-- missing final newline
-- unverifiable or unchanged versions when version increment checking is enabled
+### Warnings
 
-## Style suggestions
+Treat these as warnings unless the user requested strict enforcement:
 
-Treat these as optional improvements:
+- repeated headings that may be intentional in different sections
+- local links that cannot be checked safely from the current root
+- minor style inconsistencies that do not break structure
 
-- repeated blank lines
-- trailing whitespace
-- excessively long headings
-- internal links that cannot be verified automatically
-- title patterns that are inconsistent with the rest of the project
+## Boundaries
 
-## Project adaptation guidance
-
-Keep the validator practical. Do not force every style preference into a hard failure.
-
-If the project already has documented markdown rules, adapt the warning and suggestion thresholds before introducing stricter blocking rules.
+- do not enforce one house style for prose wording
+- do not rewrite content automatically unless the user explicitly asks for fixes
+- do not assume every non-Markdown extension should receive full heading validation
 
 ---
 

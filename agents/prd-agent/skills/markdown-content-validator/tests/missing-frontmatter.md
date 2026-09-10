@@ -76,8 +76,8 @@
 [![validate-project-linking](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-project-linking.yml)
 <!-- BADGES-END -->
 
-This file should fail because it does not begin with YAML frontmatter.
+This file should fail because the frontmatter block is missing.
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
