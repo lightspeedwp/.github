@@ -1,8 +1,8 @@
 ---
 name: "⚡ Performance"
 about: "Template for Performance issues"
-title: "perf: {scope}"
-labels: ["type:performance", "status:needs-triage", "priority:high", "area:performance", "meta:optimization"]
+title: "perf: {scope} - {short description}"
+labels: ["type:performance", "status:needs-triage", "priority:important", "area:core", "meta:needs-changelog"]
 recommended_branch: "perf/"
 file_type: issue-template
 ---
@@ -10,6 +10,29 @@ file_type: issue-template
 <!--
 Thank you for reporting a performance issue!
 Please fill in as much of the template below as you can.
+-->
+
+## Performance Optimisation Summary
+
+<!--
+Provide a brief summary of the performance issue, including its impact and context.
+-->
+
+## Linked Stories/Tasks/PRs/Epic
+
+<!--
+List or link related stories, features, tasks, sub-issues or pull requests.
+Use GitHub issue numbers (e.g., #12, #13).
+
+Related epic: {related_epic}
+Related issues: {related_issues}
+Related pull requests: {related_pull_requests}
+-->
+
+## Milestones & Timeline
+
+<!--
+Key dates, releases, or phases for this performance issue. Include any relevant deadlines or milestones.
 -->
 
 ## Describe the performance issue
@@ -68,6 +91,9 @@ Include benchmarks, tests, documentation, changelog, etc.
 - [ ] Documentation updated if needed
 - [ ] Changelog entry prepared for PR if resolved
 - [ ] PR uses correct branch prefix (perf/)
+- [ ] PR description updated with relevant details
+- [ ] Changelog entry prepared for PR (if applicable)
+- [ ] Labels/types match org standards
 - [ ] Automated performance tests added/updated if relevant
 
 ## Additional Context
@@ -103,6 +129,9 @@ Checklist items to ensure the fix/update is complete and actionable.
 - [ ] Documentation updated (if needed)
 - [ ] Automated performance tests added/updated (if relevant)
 - [ ] PR uses correct branch prefix (perf/)
+- [ ] Branch deleted after merge
 - [ ] No adverse impact on other functionality
+- [ ] Linked issue(s) updated with latest status and closed after merge,
+- [ ] The related epic should not be closed, instead updated with a comment to reflect the closed issue
 
 ---

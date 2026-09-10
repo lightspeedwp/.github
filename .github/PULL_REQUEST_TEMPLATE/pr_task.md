@@ -2,14 +2,14 @@
 file_type: pr-template
 name: "Task"
 about: "Complete a well-scoped unit of work"
-title: "chore: {scope}"
-labels: ["type:task", "status:needs-review", "priority:normal", "area:core"]
+title: "chore: {scope} - {short description}"
+labels: ["type:task", "status:needs-review", "priority:normal", "area:core", "meta:needs-review"]
 recommended_issue_type: "type:task"
 ---
 
 # Task Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Linked issues

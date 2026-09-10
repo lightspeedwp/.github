@@ -2,14 +2,14 @@
 file_type: pr-template
 name: "Design"
 about: "Design system updates, component improvements, or visual changes"
-title: "design: {scope}"
+title: "design: {scope} - {short description}"
 labels: ["type:design", "status:needs-review", "priority:normal", "area:design-system", "meta:needs-changelog"]
 recommended_issue_type: "type:design"
 ---
 
 # Design Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Linked issues

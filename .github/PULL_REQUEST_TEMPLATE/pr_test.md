@@ -2,14 +2,14 @@
 file_type: pr-template
 name: "Test"
 about: "Add or update tests, test infrastructure, or testing framework"
-title: "test: {scope}"
-labels: ["type:test", "status:needs-review", "priority:normal", "area:testing"]
+title: "test: {scope} - {short description}"
+labels: ["type:test", "status:needs-review", "priority:normal", "area:testing", "meta:needs-review"]
 recommended_issue_type: "type:test"
 ---
 
 # Test Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Linked issues

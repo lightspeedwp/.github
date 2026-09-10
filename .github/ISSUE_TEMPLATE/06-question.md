@@ -1,7 +1,7 @@
 ---
 name: "❓ Question"
 about: "Ask a question or request help"
-title: "type:question: {scope}"
+title: "type:question: {scope} - {short description}"
 labels: ["type:question", "status:needs-triage", "priority:normal", "area:core"]
 recommended_branch: "task/"
 file_type: issue-template
@@ -11,6 +11,13 @@ file_type: issue-template
 Thank you for your question! This template is for general questions, help requests, or support needs.
 If your issue is a bug report or a feature/enhancement request, please use the appropriate template instead.
 Please provide as much detail as possible to help us assist you efficiently.
+-->
+
+## Summary
+
+<!--
+Briefly describe the problem or opportunity.
+What outcome or user benefit does this question or issue deliver?
 -->
 
 ## Question / Issue Description
@@ -51,6 +58,7 @@ Link to related docs, issues, or similar questions if applicable.
 - [ ] Question or issue clearly described
 - [ ] Steps taken provided
 - [ ] Context/environment info attached (if applicable)
+- [ ] Estimate added (if applicable)
 
 ## Definition of Done (DoD)
 
@@ -58,5 +66,7 @@ Link to related docs, issues, or similar questions if applicable.
 - [ ] Routed to correct template if it's actually a bug or feature request
 - [ ] Use a maintainer-saved reply when applicable
 - [ ] Documentation or help resources referenced (if needed)
+- [ ] Linked issue(s) updated with latest status and closed after merge,
+- [ ] The related epic should not be closed, instead updated with a comment to reflect the closed issue
 
 ---

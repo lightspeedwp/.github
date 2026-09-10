@@ -2,14 +2,14 @@
 file_type: pr-template
 name: "Audit"
 about: "Conduct review, assessment, or compliance audit"
-title: "audit: {scope}"
-labels: ["type:audit", "status:needs-review", "priority:normal", "area:release", "meta:needs-changelog"]
+title: "audit: {scope} - {short description}"
+labels: ["type:audit", "status:needs-review", "priority:normal", "area:release", "meta:no-changelog"]
 recommended_issue_type: "type:audit"
 ---
 
 # Audit Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Linked issues

@@ -2,14 +2,14 @@
 file_type: pr-template
 name: "Security"
 about: "Address security vulnerability or implement security hardening"
-title: "security: {scope}"
+title: "security: {scope} - {short description}"
 labels: ["type:security", "status:needs-review", "priority:critical", "area:security", "meta:needs-changelog"]
 recommended_issue_type: "type:security"
 ---
 
 # Security Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Security Advisory
