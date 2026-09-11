@@ -149,7 +149,7 @@ jobs:
 
           PROJECT_URL="${{ env.PROJECT_URL }}"
           ITEM_ID="${{ steps.addp.outputs.itemId }}"
-          FIELD_KEYS="${{ steps.derive.outputs.status }},Priority,Type"
+          FIELD_KEYS="Status,Priority,Type"
           FIELD_VALUES="${{ steps.derive.outputs.status }},${{ steps.derive.outputs.priority }},${{ steps.derive.outputs.type }}"
 
           # Extract project number from URL
