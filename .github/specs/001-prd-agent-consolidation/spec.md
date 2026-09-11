@@ -8,7 +8,7 @@
 
 **Status**: Phase 3 ✅ COMPLETE | Phases 4-7 PENDING
 
-**Phase 3 Completion**: PR #2865 merged 2026-09-10. All 10 functional requirements (FR-001 through FR-010) and 7 success criteria (SC-001 through SC-007) verified and merged.
+**Phase 3 Completion**: PR #2865 merged 2026-09-10. Nine of the 10 functional requirements (FR-001 through FR-009) and 7 success criteria (SC-001 through SC-007) verified and merged. FR-010 deferred to Phase 7.
 
 **Phases 4-7 Overview**: Prompt enhancement, testing, rollout, and optional spec-based agent sync/archive.
 
@@ -74,7 +74,7 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 - ✅ **SC-001**: `agents/prd-agent/skills/` contains exactly 28 canonical skills with zero duplicate skill names and no `skills/hermes/` folder
 - ✅ **SC-002**: Claude Code loads `agents/prd-agent/claude/agent.md` as valid subagent without modification
 - ✅ **SC-003**: Copilot loads `agents/prd-agent/copilot/agent.md` as valid custom agent without modification
-- ✅ **SC-004**: All 4 forked skills fully reconciled with zero content loss
+- ✅ **SC-004**: All 4 forked skills (`approval-gate-manager`, `project-memory-manager`, `release-handoff-generator`, `qa-planner`) fully reconciled with zero content loss
 - ✅ **SC-005**: `agents/prd-factory-planner-agent/` folder deleted
 - ✅ **SC-006**: `README.md`, `AGENT.md`, and `instructions/AGENTS.md` exactly match filesystem; zero dangling links
 - ✅ **SC-007**: Fate of 10-skill generic tier explicitly documented
