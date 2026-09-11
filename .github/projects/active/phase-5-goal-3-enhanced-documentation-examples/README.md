@@ -204,6 +204,17 @@ Following repository conventions:
 - **Examples:** Include both simple and complex cases
 - **Accessibility:** Clear headings, semantic structure, sufficient context
 
+## Related Issues
+
+Phase 5 Goal 3 is part of the larger Phase 5 project. Key related issues:
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| [#2637](https://github.com/lightspeedwp/.github/issues/2637) | Phase 5 Goal 3: Enhanced Documentation & Examples | 🔄 In Progress |
+| [#2635](https://github.com/lightspeedwp/.github/issues/2635) | Phase 5 Goal 1: Comprehensive Validation Test Suite | ✅ Complete |
+| [#2636](https://github.com/lightspeedwp/.github/issues/2636) | Phase 5 Goal 2: Agent Specification Generator CLI | ✅ Complete |
+| [#2638](https://github.com/lightspeedwp/.github/issues/2638) | Phase 5 Goal 4: Operational Monitoring & Debugging | ✅ Complete |
+
 ## Next Steps
 
 1. Create agent examples with detailed annotations
