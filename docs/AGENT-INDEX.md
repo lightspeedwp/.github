@@ -44,7 +44,7 @@ unknown
 | [Demonstrate Understanding](../.github/agents/mode-demonstrate-understanding.agent.md) | ✅ Active | v1.1 | `agent`, `mode`, `understanding`, `review`, `mentoring` |
 | [metrics-reporting-orchestrator](../plugins/lightspeed-metrics-and-reporting/agents/metrics-reporting-orchestrator.agent.md) | ✅ Active | v0.1.1 | — |
 | [playwright-testing](../plugins/lightspeed-playwright-testing/agents/playwright-testing.agent.md) | ✅ Active | 2.0.1 | `playwright`, `testing`, `woocommerce`, `multi-provider` |
-| [Product Requirements Document Generator](../.github/agents/mode-prd.agent.md) | ✅ Active | v1.0 | — |
+| [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) | ✅ Active | v1.0 | — |
 | [project-spec-orchestrator](../plugins/lightspeed-wordpress-planning/agents/project-spec-orchestrator.agent.md) | ✅ Active | 1.0.0 | — |
 | [qa-orchestrator](../plugins/lightspeed-quality-assurance/agents/qa-orchestrator.agent.md) | ✅ Active | v0.1.1 | — |
 | [release-ops-orchestrator](../plugins/lightspeed-release-ops/agents/release-ops-orchestrator.agent.md) | ✅ Active | v0.1.1 | — |
@@ -126,7 +126,7 @@ Operational modes and frameworks
 | Agent | Status | Version | Tags |
 | --- | --- | --- | --- |
 | [Demonstrate Understanding](../agents/mode-demonstrate-understanding.agent.md) | ✅ Active | v1.0 | — |
-| [Product Requirements Document Generator](../agents/mode-prd.agent.md) | ✅ Active | v1.0 | — |
+| [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) | ✅ Active | v1.0 | — |
 | [Technical Content Evaluator](../agents/mode-document-reviewer.agent.md) | ✅ Active | v1.0 | — |
 | [Thinking Mode](../agents/mode-thinking.agent.md) | ✅ Active | v2.0 | — |
 
@@ -304,8 +304,8 @@ support
 | [PR Creation Agent](../agents/pr-creation.agent.md) | ⚡ automation | ✅ active | v1.0.0 | 2026-08-29 |
 | [PRD Agent](../agents/prd.agent.md) | 📋 planning | ✅ active | v2.0.1 | 2026-08-21 |
 | [PRD Factory & Planner Agent](../agents/prd-factory-planner.agent.md) | 📦 product-management | ✅ active | v2.0.1 | 2026-08-21 |
-| [Product Requirements Document Generator](../agents/mode-prd.agent.md) | 🎯 mode | ✅ active | v1.0 | 2026-08-29 |
-| [Product Requirements Document Generator](../.github/agents/mode-prd.agent.md) | 📦 unknown | ✅ active | v1.0 | 2026-06-01 |
+| [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) | 🎯 mode | ✅ active | v1.0 | 2026-08-29 |
+| [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) | 📦 unknown | ✅ active | v1.0 | 2026-06-01 |
 | [Project Meta Sync](../agents/project-meta-sync.agent.md) | ⚡ automation | ✅ active | v1.0 | 2025-11-24 |
 | [Project Meta Sync Agent](../.github/agents/project-meta-sync.agent.md) | ⚡ automation | ✅ active | v2.0 | 2026-08-12 |
 | [project-spec-orchestrator](../plugins/lightspeed-wordpress-planning/agents/project-spec-orchestrator.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
@@ -394,8 +394,8 @@ support
 - [metrics-reporting-orchestrator](../plugins/lightspeed-metrics-and-reporting/agents/metrics-reporting-orchestrator.agent.md) — Coordinates repository metrics collection, aggregation, and report publication workflows.
 - [Planner Agent](../.github/agents/task-planner.agent.md) — Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work.
 - [playwright-testing](../plugins/lightspeed-playwright-testing/agents/playwright-testing.agent.md) — Packaged Playwright Testing Agent for the lightspeed-playwright-testing plugin. Canonical multi-provider spec lives in agents/playwright-testing-agent/.
-- [Product Requirements Document Generator](../agents/mode-prd.agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
-- [Product Requirements Document Generator](../.github/agents/mode-prd.agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
+- [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
+- [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
 - [Project Meta Sync](../agents/project-meta-sync.agent.md) — Syncs GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names, automating project management and triage workflows.
 - [Project Meta Sync Agent](../.github/agents/project-meta-sync.agent.md) — Active metadata governance orchestrator. Guides issue/PR labeling, GitHub Project field synchronization, and release metadata validation across workflows, scripts, and helper automation.
 - [project-spec-orchestrator](../plugins/lightspeed-wordpress-planning/agents/project-spec-orchestrator.agent.md) — Orchestrates PRD-to-plan workflows for WordPress delivery with explicit acceptance criteria and implementation sequencing.
@@ -1293,7 +1293,7 @@ support
 - [Planner](../agents/task-planner.agent.md) — Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work.
 - [Planner Agent](../.github/agents/task-planner.agent.md) — Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work.
 - [PR Creation Agent](../agents/pr-creation.agent.md) — Portable PR creation agent with configuration-driven workflows for GitHub pull request automation.
-- [Product Requirements Document Generator](../agents/mode-prd.agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
+- [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
 - [Proposal Desk Agent](../agents/proposal-desk.agent.md) — Proposal and quote generation tool for scope definition, client communication, and billing management.
 - [Reporting](../agents/reporting.agent.md) — Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation.
 - [Reporting Agent](../.github/agents/reporting.agent.md) — Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation.
@@ -1339,7 +1339,7 @@ support
 - [Demonstrate Understanding](../.github/agents/mode-demonstrate-understanding.agent.md) — Validate user understanding of code, design patterns, and implementation details through guided questioning.
 - [metrics-reporting-orchestrator](../plugins/lightspeed-metrics-and-reporting/agents/metrics-reporting-orchestrator.agent.md) — Coordinates repository metrics collection, aggregation, and report publication workflows.
 - [playwright-testing](../plugins/lightspeed-playwright-testing/agents/playwright-testing.agent.md) — Packaged Playwright Testing Agent for the lightspeed-playwright-testing plugin. Canonical multi-provider spec lives in agents/playwright-testing-agent/.
-- [Product Requirements Document Generator](../.github/agents/mode-prd.agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
+- [Product Requirements Document Generator](../agents/prd-agent/copilot/agent.md) — Generate a comprehensive Product Requirements Document (PRD) in Markdown, detailing user stories, acceptance criteria, technical considerations, and metrics. Optionally create GitHub issues upon user confirmation.
 - [project-spec-orchestrator](../plugins/lightspeed-wordpress-planning/agents/project-spec-orchestrator.agent.md) — Orchestrates PRD-to-plan workflows for WordPress delivery with explicit acceptance criteria and implementation sequencing.
 - [qa-orchestrator](../plugins/lightspeed-quality-assurance/agents/qa-orchestrator.agent.md) — Coordinates validation plans, quality gates, and regression checks across delivery phases.
 - [release-ops-orchestrator](../plugins/lightspeed-release-ops/agents/release-ops-orchestrator.agent.md) — Coordinates release readiness validation, changelog checks, and deployment handoff tasks.
