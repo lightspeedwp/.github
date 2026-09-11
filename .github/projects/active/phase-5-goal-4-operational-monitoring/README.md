@@ -272,7 +272,7 @@ During Phase 5 Goal 4 implementation, pre-existing CI/CD infrastructure issues w
 2. 🔄 CI Infrastructure Hardening ([Issue #2760](https://github.com/lightspeedwp/.github/issues/2760))
 3. ⏳ Optional Enhancements (see [TASKS.md](./TASKS.md))
 
-## Related GitHub Issues
+## Related Issues
 
 ### Project Tracking & Supplementary Work
 - **#2698** — [Phase 5 Goal 4: Operational Monitoring & Debugging — Complete](https://github.com/lightspeedwp/.github/issues/2698) — Main completion issue with full documentation links
