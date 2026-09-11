@@ -13,6 +13,7 @@
 This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation project, building on the completed structural foundation (Phase 3). All four remaining phases will be delivered using **stacked PRs** to enable parallel review, early feedback loops, and phase-isolated rollback capability.
 
 **Key Milestones**:
+
 - **Phase 4** (Weeks 1-2): Prompt enhancement and memory registry updates
 - **Phase 5** (Weeks 3-5): Comprehensive testing across all providers
 - **Phase 6** (Weeks 6-8): Organization-wide rollout and adoption tracking
@@ -32,11 +33,13 @@ This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation pro
 **Deliverables**: Enhanced prompt, updated memory registry, benchmark metrics
 
 **Stacked PR Stack**:
+
 - `feat/prd-agent-phase4-prompt-enhancement` (prompt + tests)
 - `feat/prd-agent-phase4-memory-registry` (registry updates)
 - `feat/prd-agent-phase4-validation` (benchmarks, changelog, final validation)
 
 **Success Criteria** (SC-401 to SC-404):
+
 - [ ] Prompt enhancement documented in CHANGELOG.md with version bump
 - [ ] Memory registry entries updated and validated (zero 404 errors)
 - [ ] Test case success rate documented (baseline vs. improved delta ≥15%)
@@ -52,11 +55,13 @@ This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation pro
 **Deliverables**: Comprehensive test suite, provider validation reports, bug triage
 
 **Stacked PR Stack**:
+
 - `feat/prd-agent-phase5-test-suite` (test framework + suite)
 - `feat/prd-agent-phase5-provider-testing` (execution harness + provider tests)
 - `feat/prd-agent-phase5-quality-metrics` (results analysis, bug triage, documentation)
 
 **Success Criteria** (SC-501 to SC-504):
+
 - [ ] Test suite exists with ≥90% skill capability coverage
 - [ ] Test pass rate ≥95% across all three providers (Claude, Copilot, OpenAI)
 - [ ] All known bugs documented and triaged (none critical to release)
@@ -72,11 +77,13 @@ This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation pro
 **Deliverables**: Rollout comms, adoption tracking dashboard, feedback collection, 30-day adoption metrics
 
 **Stacked PR Stack**:
+
 - `feat/prd-agent-phase6-rollout-comms` (docs, guides, FAQ)
 - `feat/prd-agent-phase6-adoption-tracking` (metrics setup, dashboards)
 - `feat/prd-agent-phase6-feedback-collection` (survey, analysis, iteration backlog)
 
 **Success Criteria** (SC-601 to SC-604):
+
 - [ ] Rollout communication delivered to all teams
 - [ ] At least 5 teams actively using consolidated agent after 30 days
 - [ ] User satisfaction score ≥4.0/5.0 (surveyed sample)
@@ -92,10 +99,12 @@ This plan outlines the delivery of Phases 4-7 of the PRD Agent Consolidation pro
 **Deliverables**: Archive or sync spec-based agent decision
 
 **Stacked PR Stack** (conditional):
+
 - `feat/prd-agent-phase7-archive-decision` (if archiving) OR
 - `feat/prd-agent-phase7-sync-decision` (if syncing)
 
 **Success Criteria** (SC-701 to SC-704):
+
 - ✅ Decision documented and ratified by stakeholders
 - ✅ All affected workflows and references updated
 - ✅ `agents/mode-prd.agent.md` fate resolved (archived or synced)
@@ -179,18 +188,21 @@ Critical Path Duration: 8-12 weeks
 ## Success Validation Checkpoints
 
 ### Phase 4 Gate (End of Week 2)
+
 - ✅ Enhanced prompt loads in Claude Code and Copilot
 - ✅ Benchmark metrics documented (baseline vs. improved)
 - ✅ Memory registry entries resolve without errors
 - ✅ All Phase 4 PRs merged
 
 ### Phase 5 Gate (End of Week 5)
+
 - ✅ Test suite covers ≥90% of skill capabilities
 - ✅ Test pass rate ≥95% across all three providers
 - ✅ No critical bugs blocking release
 - ✅ All Phase 5 PRs merged
 
 ### Phase 6 Gate (End of Week 8)
+
 - ✅ Rollout communication delivered to all teams
 - ✅ ≥5 teams actively using consolidated agent
 - ✅ User satisfaction score ≥4.0/5.0
@@ -198,6 +210,7 @@ Critical Path Duration: 8-12 weeks
 - ✅ All Phase 6 PRs merged
 
 ### Phase 7 Gate (End of Week 12, conditional)
+
 - ✅ Spec-based agent archived or synced as decided
 - ✅ All references updated
 - ✅ Decision documented for maintainers
@@ -246,4 +259,3 @@ Total Duration: 8-12 weeks (fixed timeline for Phases 4-6; Phase 7 conditional)
 2. **Phase 4 Kickoff** → Set up PR infrastructure; begin work
 3. **Weekly Check-ins** → Track against timeline; escalate blockers
 4. **Phase Gate Reviews** → Formal sign-offs at end of each phase
-

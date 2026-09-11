@@ -49,6 +49,7 @@
 **User Story**: US4 - Enhanced PRD agent with improved prompt architecture (Priority: P1)
 
 **Stacked PR Stack**:
+
 1. `feat/prd-agent-phase4-prompt-enhancement` (prompt + tests)
 2. `feat/prd-agent-phase4-memory-registry` (registry updates)
 3. `feat/prd-agent-phase4-validation` (benchmarks, changelog, final validation)
@@ -96,6 +97,7 @@
 **User Story**: US5 - Comprehensive PRD agent testing and validation (Priority: P1)
 
 **Stacked PR Stack**:
+
 1. `feat/prd-agent-phase5-test-suite` (test framework + suite)
 2. `feat/prd-agent-phase5-provider-testing` (execution harness + provider tests)
 3. `feat/prd-agent-phase5-quality-metrics` (results analysis, bug triage, documentation)
@@ -144,6 +146,7 @@
 **User Story**: US6 - Organization-wide PRD agent rollout and team adoption (Priority: P1)
 
 **Stacked PR Stack**:
+
 1. `feat/prd-agent-phase6-rollout-comms` (docs, guides, FAQ)
 2. `feat/prd-agent-phase6-adoption-tracking` (metrics setup, dashboards)
 3. `feat/prd-agent-phase6-feedback-collection` (survey, analysis, iteration backlog)
@@ -192,6 +195,7 @@
 **User Story**: US7 - Archive or sync the spec-based PRD agent (Priority: P3, Optional)
 
 **Stacked PR Stack** (conditional; execute only if Phase 6 decision calls for Phase 7):
+
 - `feat/prd-agent-phase7-archive-decision` (if archiving) **OR**
 - `feat/prd-agent-phase7-sync-decision` (if syncing)
 
@@ -258,12 +262,14 @@ Total Duration: 8-12 weeks (Phases 4-6 fixed; Phase 7 conditional)
 ### Stacked PR Merge Policy (All-or-Nothing)
 
 Each phase's stacked PR stack:
+
 1. All PRs in stack opened with explicit sequencing
 2. All PRs reviewed and approved
 3. **All PRs merged together in single operation** (no partial merges)
 4. If any PR fails CI/review, entire stack blocks until resolved
 
 Example Phase 4:
+
 - `feat/prd-agent-phase4-prompt-enhancement` → `feat/prd-agent-phase4-memory-registry` → `feat/prd-agent-phase4-validation`
 - All three approved → merge all three together → base branch updated
 - Only then can Phase 5 stack begin
@@ -359,6 +365,7 @@ Executes only if Phase 6 gate passed and decision made (archive or sync):
 4. **Phase 7** → Conditional archive/sync decision (optional) ✅
 
 Each phase adds value independently:
+
 - After Phase 4: Team has improved agent architecture
 - After Phase 5: Team has confidence in quality across providers
 - After Phase 6: Organization actively using; adoption validated
