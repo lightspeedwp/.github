@@ -19,16 +19,18 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ---
 
-## Phase 1: Setup (Decisions & Prep)
+## Phase 1: Setup (Decisions & Retroactive Validation)
 
-**Purpose**: Resolve the three open decisions that block downstream tasks (spec.md SC-007, plan.md research.md D2), and confirm starting state.
+**Status Update (2026-09-11)**: Phase 3 consolidation (60+ cluster merge tasks) has already been completed via PR #2865 (merged 2026-09-10). Current state: 28 consolidated skills, hermes/ removed, prd-factory-planner-agent deleted.
 
-- [ ] T001 Confirm `agents/prd-agent/` and `agents/prd-factory-planner-agent/` match the state audited in `SKILL_DUPLICATION_AUDIT_REPORT.md` (no drift since 2026-09-10) — spot-check `find agents/prd-agent/skills -maxdepth 1 -type d | wc -l` returns 45 (+ `hermes/`)
-- [ ] T002 **Decision**: pick the surviving directory name for Cluster 8 (`agents/prd-agent/skills/project-pack-exporter/` vs `agents/prd-agent/skills/prd-task-pack-exporter/`) — content merges into whichever name is chosen either way (see SKILL_DUPLICATION_AUDIT_REPORT.md Cluster 8); record the decision in DECISIONS_LOG.md before T024-T025 run
-- [ ] T003 **Decision**: confirm `agents/prd-agent/skills/frontend-skill/` should be removed (confirmed out-of-scope content per SKILL_DUPLICATION_AUDIT_REPORT.md §5/INTRA_FOLDER_SKILL_AUDIT_SCOPE.md §5); **clarify whether frontend-skill is part of the "10-skill generic tier" (spec line 90) or a separate removal** — this determines the scope of T004 below
-- [ ] T004 **Decision (SC-007 blocker)**: Per spec.md SC-007 and plan.md research.md D2 flagging, enumerate and decide the fate of the "10-skill generic/thin tier" (as defined by spec line 90: exactly 2 files per skill — `SKILL.md` + `agents/openai.yaml`). Tasks: **(1)** List all skills in `agents/prd-agent/skills/` matching the 2-file structure; **(2)** Confirm whether frontend-skill (T003) is part of this list or separate; **(3)** Decide: **KEEP** as deliberate generic-routing layer, or **RETIRE** (delete/archive)? Record decision, rationale, and final list in `DECISIONS_LOG.md` with maintainer sign-off before Phase 3 cluster work begins.
+**Purpose**: Validate that the consolidation work completed in PR #2865 satisfied the three Phase 1 decisions (T002-T004), and record those decisions retroactively in DECISIONS_LOG.md.
 
-**Checkpoint**: All three decisions (T002, T003, T004) recorded in `DECISIONS_LOG.md` with maintainer sign-off — user story work can begin.
+- [x] T001 **Verified (2026-09-11)**: Current state matches consolidation completion — 28 skills, hermes/ removed, prd-factory deleted. Baseline audit was accurate.
+- [ ] T002 **Decision Retroactive**: Validate which name survived for Cluster 8 export skill (check: `prd-task-pack-exporter` exists in current skills) — record decision and rationale in DECISIONS_LOG.md
+- [ ] T003 **Decision Retroactive**: Confirm frontend-skill removal status (check: frontend-skill not in current 28-skill list) — record decision and rationale in DECISIONS_LOG.md
+- [ ] T004 **Decision Retroactive**: Enumerate 2-file "generic tier" skills from current 28-skill list and record fate decision (KEEP/RETIRE) in DECISIONS_LOG.md with sign-off
+
+**Checkpoint**: All three decisions (T002, T003, T004) recorded in DECISIONS_LOG.md with retroactive validation and maintainer sign-off — Phase 4 (external registry updates) can begin.
 
 ---
 
