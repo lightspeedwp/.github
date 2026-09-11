@@ -1,9 +1,4 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json
-
-# Branch-type-specific review context is maintained externally in docs/BRANCHING_STRATEGY.md
-# section 5.3 ("Branch-Type Review Context"), which maps branch types to review focus areas.
-# CodeRabbit reviews are guided by this reference table for targeted, actionable feedback.
-
 reviews:
   # === Review Workflow Settings ===
   request_changes_workflow: true # Require workflow for requesting changes
@@ -31,117 +26,17 @@ reviews:
       - "fix/*"
       - "update/*"
 
-  # === Path Priority System (CRITICAL: DO NOT SKIP) ===
-  # This system ensures deterministic path pattern matching with explicit priority/specificity ordering.
-  # When a file matches multiple patterns, the pattern with the HIGHEST priority number applies.
-  #
-  # Priority Scale (1-100):
-  # - 90-100: EXACT paths (specific files, exact directory structures)
-  #   Example: "agents/agent.md" or "agents/*.agent.js"
-  #   Use for: Critical files requiring precise guidance, agent-specific rules
-  #
-  # - 70-89: SPECIFIC directories (technology-specific folders with clear purpose)
-  #   Example: "agents/**", "**/.github/workflows/*.yml", "**/e2e/**"
-  #   Use for: Infrastructure, testing, automation with specialized requirements
-  #
-  # - 50-69: TYPE-in-DIR patterns (language/type-specific patterns in broader directories)
-  #   Example: "**/*.{js,ts}", "**/scripts/**/*.sh", "**/*.md"
-  #   Use for: Language-specific guidance, test files, documentation
-  #
-  # - 1-49: GENERAL patterns (broad file types, fallback guidance)
-  #   Example: "**/*", "docs/**", "src/**"
-  #   Use for: Catch-all rules, generic guidance, project-wide standards
-  #
-  # Priority Resolution Algorithm:
-  # 1. Match file path against all patterns
-  # 2. Select pattern(s) with highest priority score
-  # 3. If tie, use first-defined pattern (order-dependent fallback)
-  # 4. Apply instructions from selected pattern
-  #
-  # Example: File "agents/labeling.agent.js"
-  # - Matches: "agents/**.agent.js" (priority 95), "**/*.js" (priority 60)
-  # - Selected: "agents/**.agent.js" (higher priority)
-  # - Outcome: Agent-specific JS guidance applied, not generic JS guidance
-  #
   # === Path-Specific Review Instructions ===
-  # Organized by priority (descending): critical infrastructure → automation → language-specific → general
   path_instructions:
-    # === PRIORITY 95: AGENT IMPLEMENTATION FILES (Exact agent-type patterns) ===
-    # Agent implementations require strict code quality, testing, and documentation standards
-    - path: "agents/*.agent.js"
-      instructions: |
-        Review all JavaScript agent files:
-          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
-          - Require comprehensive JSDoc for all functions/classes.
-          - Must have a corresponding Jest test file with:
-            - Coverage for all agent capabilities and error paths.
-            - Mocks for external dependencies.
-            - Tests for edge cases and failure scenarios.
-            - Linting and type-checking enabled.
-          - Ensure agent is referenced in the agent index and spec.
-
-    - path: "agents/*.agent.sh"
-      instructions: |
-        Review all shell agent files:
-          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
-          - Require inline comments for all functions/logic.
-          - Must have a corresponding Bats test file with:
-            - Tests for all script functions and error conditions.
-            - Checks for POSIX compliance and portability.
-            - Usage of shellcheck for linting.
-          - Ensure agent is referenced in the agent index and spec.
-
-    - path: "agents/*.agent.py"
-      instructions: |
-        Review all Python agent files:
-          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
-          - Require docstrings for all classes/functions.
-          - Must have a corresponding pytest file with:
-            - Coverage for all agent logic, including error handling.
-            - Use of fixtures/mocks for isolation.
-            - Tests for both success and failure cases.
-            - Type hints and linting (e.g., mypy, flake8).
-          - Ensure agent is referenced in the agent index and spec.
-
-    # === PRIORITY 93: AGENT SPECIFICATION FILES (Exact agent documentation) ===
-    # Agent specs and indexes define architecture and capabilities
-    - path: "agents/*.agent.md"
-      instructions: |
-        Review all agent specification files:
-          - Each agent spec must include: purpose, inputs/outputs, dependencies, configuration, security, error handling, and logging practices.
-          - Reference to related implementation and test files.
-          - Example usage and troubleshooting tips.
-          - Ensure the spec is up to date and referenced from the agent index.
-
-    - path: "agents/AGENTS.md"
-      instructions: |
-        Review the main agents index file:
-          - Ensure this file lists and describes all agent specs, implementations, and test files in agents/.
-          - Confirm each agent is listed with language, description, and test coverage status.
-          - Validate cross-references to related workflows, prompts, and documentation.
-          - Ensure the file is up to date and easy to navigate.
-
-    - path: "agents/agent.md"
-      instructions: |
-        Review the agent architecture and integration file:
-          - Ensure this file documents agent architecture, capabilities, and integration points.
-          - Validate that all agent files (*.agent.js, *.agent.py, *.agent.sh) are referenced and described.
-          - Confirm agent lifecycle, error handling, and security practices are documented.
-          - Require a section on agent test strategy (unit, integration, workflow).
-          - Ensure YAML files are referenced in agent indexes or documentation.
-          - Validate header of *.sh, *.js, *.py files start with a shebang.
-          - Confirm agent documentation is clear and up-to-date.
-
-    # === PRIORITY 90: AGENT & PROMPT DIRECTORIES (Broad agent infrastructure) ===
+    # 0. AI Assets (General)
     - path: ".github/prompts/**"
       instructions: |
         Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
-
-    - path: "agents/**"
+    - path: ".github/agents/**"
       instructions: |
         Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
 
-    # === PRIORITY 88: CRITICAL CONFIGURATION FILES (Custom instructions) ===
+    # 1. Copilot & AI Files
     - path: ".github/custom-instructions.md"
       instructions: |
         Review custom-instructions.md:
@@ -151,7 +46,90 @@ reviews:
           - Confirm references to prompts.md, agent.md, AGENTS.md, and all **/.github/instructions/*.instructions.md files.
           - Check for up-to-date cross-references and clear documentation of Copilot usage.
 
-    # === PRIORITY 85: WORKFLOW & TEMPLATE FILES (Critical automation) ===
+    - path: "**/.github/prompts/prompts.md"
+      instructions: |
+        - Ensure the file documents prompt conventions and usage patterns.
+        - Review the prompts index file:
+        - Ensure a dynamic index reference to all *.prompt.md files exists.
+        - Validate YAML frontmatter and update date/version fields.
+        - Confirm all prompt files are discoverable from this index.
+
+    - path: "**/.github/prompts/*.md"
+      instructions: |
+        Review all prompt files:
+          - Check for clear instructions, examples, and checklist sections.
+          - Ensure prompt files are concise and actionable.
+          - Review all prompt files (*.prompt.md):
+          - Ensure each file is a valid prompt with correct YAML frontmatter.
+          - Confirm the file is referenced in the prompts index.
+          - Validate structure, naming, and documentation.
+
+    # 3. Project configuration and automation
+    - path: "**/package.json"
+      instructions: |
+        Review package.json for WordPress block theme project:
+          - Ensure dependencies are focused on WordPress theme/plugin development.
+          - Check for security vulnerabilities and outdated packages.
+          - Ensure scripts are documented and have clear, descriptive names.
+          - Check for presence of postinstall, prepublish, and prepare scripts if needed.
+          - Validate repository, bugs, and homepage fields for open source projects.
+          - Validate semantic versioning and proper version pinning.
+          - Confirm devDependencies vs dependencies separation.
+          - Check for unnecessary or duplicate dependencies.
+          - Ensure scripts follow org standards (lint, test, build, format, env, etc.).
+          - Confirm presence of npm scripts for linting, formatting, testing, and CI.
+          - Validate package metadata (name, version, description, author, license).
+
+    - path: "**/composer.json"
+      instructions: |
+        Review composer.json for WordPress development:
+          - Confirm scripts section is present and used for automation where appropriate.
+          - Ensure stability flags (minimum-stability, prefer-stable) are set as needed.
+          - Check for extra section for WordPress plugin/theme metadata if relevant.
+          - Ensure PHP dependencies are WordPress compatible and up-to-date.
+          - Check for security best practices in package selection.
+          - Verify autoloading configuration and PSR-4 compliance.
+          - Ensure compatibility with WordPress coding standards tools (PHPCS, PHPStan).
+          - Check for appropriate development dependencies and version constraints.
+          - Validate package metadata (name, description, type, license, authors).
+
+    # 4. Source code and scripts
+    - path: "**/*.{js,ts}"
+      instructions: |
+        Review JavaScript/TypeScript for WordPress block theme:
+          - Ensure code is linted and follows project style guides.
+          - Validate use of ES modules or CommonJS as appropriate.
+          - Check for dead code, unused variables, and clear function naming.
+          - Ensure minimal JavaScript usage, following block theme best practices.
+          - Verify scripts enhance, not replace, native WordPress functionality.
+          - Check for proper script enqueueing in functions.php or block.json.
+          - Validate accessibility and performance optimizations.
+          - Ensure compatibility with WordPress script loading patterns.
+          - Confirm event handling, DOM manipulation, and editor/frontend compatibility.
+          - Check for code comments, modularity, and maintainability.
+          - Ensure tests are isolated and do not depend on external state.
+          - Check for descriptive test names and clear test structure.
+
+    - path: "**/e2e/*.{ts,js}"
+      instructions: |
+        Review Jest tests for agents and blocks:
+          - Ensure tests cover accessibility and Full Site Editing (FSE) functionality.
+          - Check for reliable, non-flaky tests and clear assertions.
+          - Confirm test coverage for critical user flows and edge cases.
+          - Validate use of test fixtures, mocks, and snapshot testing where appropriate.
+
+    - path: "**/scripts/**/*.sh"
+      instructions: |
+        Review shell scripts for automation:
+          - Check for POSIX compliance and portability.
+          - Validate use of comments and usage/help output in scripts.
+          - Ensure functions are modular, reusable, and well-documented.
+          - Validate error handling, input validation, and exit codes.
+          - Confirm scripts are tested and used consistently across the project.
+          - Check for code style, maintainability, and security best practices.
+          - Ensure use of `set -euo pipefail` and shebang at the top.
+
+    # 5. Workflow and automation files
     - path: "**/.github/workflows/*.yml"
       instructions: |
         Review .github workflows for CI/CD:
@@ -165,6 +143,87 @@ reviews:
           - Check for agent capabilities, tool integration, and test coverage.
           - Ensure agent files reference org-wide standards and indexes.
           - Ensure workflows run markdownlint, test jobs, and security checks as required.
+
+    # 6. Agent and meta files
+    - path: ".github/agents/AGENTS.md"
+      instructions: |
+        Review the main agents index file:
+          - Ensure this file lists and describes all agent specs, implementations, and test files in .github/agents/.
+          - Confirm each agent is listed with language, description, and test coverage status.
+          - Validate cross-references to related workflows, prompts, and documentation.
+          - Ensure the file is up to date and easy to navigate.
+
+    - path: ".github/agents/agent.md"
+      instructions: |
+        Review the agent architecture and integration file:
+          - Ensure this file documents agent architecture, capabilities, and integration points.
+          - Validate that all agent files (*.agent.js, *.agent.py, *.agent.sh) are referenced and described.
+          - Confirm agent lifecycle, error handling, and security practices are documented.
+          - Require a section on agent test strategy (unit, integration, workflow).
+          - Ensure YAML files are referenced in agent indexes or documentation.
+          - Validate header of *.sh, *.js, *.py files start with a shebang.
+          - Confirm agent documentation is clear and up-to-date.
+
+    - path: ".github/agents/*.agent.md"
+      instructions: |
+        Review all agent specification files:
+          - Each agent spec must include: purpose, inputs/outputs, dependencies, configuration, security, error handling, and logging practices.
+          - Reference to related implementation and test files.
+          - Example usage and troubleshooting tips.
+          - Ensure the spec is up to date and referenced from the agent index.
+
+    - path: ".github/agents/*.agent.js"
+      instructions: |
+        Review all JavaScript agent files:
+          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
+          - Require comprehensive JSDoc for all functions/classes.
+          - Must have a corresponding Jest test file with:
+            - Coverage for all agent capabilities and error paths.
+            - Mocks for external dependencies.
+            - Tests for edge cases and failure scenarios.
+            - Linting and type-checking enabled.
+          - Ensure agent is referenced in the agent index and spec.
+
+    - path: ".github/agents/*.agent.sh"
+      instructions: |
+        Review all shell agent files:
+          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
+          - Require inline comments for all functions/logic.
+          - Must have a corresponding Bats test file with:
+            - Tests for all script functions and error conditions.
+            - Checks for POSIX compliance and portability.
+            - Usage of shellcheck for linting.
+          - Ensure agent is referenced in the agent index and spec.
+
+    - path: ".github/agents/*.agent.py"
+      instructions: |
+        Review all Python agent files:
+          - Must start with a valid shebang and detailed header (purpose, usage, author, date).
+          - Require docstrings for all classes/functions.
+          - Must have a corresponding pytest file with:
+            - Coverage for all agent logic, including error handling.
+            - Use of fixtures/mocks for isolation.
+            - Tests for both success and failure cases.
+            - Type hints and linting (e.g., mypy, flake8).
+          - Ensure agent is referenced in the agent index and spec.
+
+    # 7. Tests folders
+
+    - path: "**/tests/*.*"
+      instructions: |
+        Review all test files:
+          - Ensure valid syntax, logical structure, and clear instructions for users.
+          - All test files must:
+            - Start with a valid shebang (if applicable).
+            - Contain a detailed header (purpose, author, date, related files).
+            - Use clear, descriptive test names and logical structure.
+            - Include both positive and negative test cases.
+            - Reference the agent or feature under test.
+            - Be discoverable from the main agent/test index.
+            - Be linted and pass all style checks.
+          - Ensure all tests have comprehensive inline documentation.
+
+    # 8. Templates, prompts, and saved replies
 
     - path: "**/.github/ISSUE_TEMPLATE/*.md"
       instructions: |
@@ -213,102 +272,7 @@ reviews:
           - Check for clarity, brevity, and usefulness of each reply.
           - Ensure replies are referenced from the saved replies index and are up to date with current project processes.
 
-    # === PRIORITY 80: TEST FILES (Critical quality gates) ===
-    - path: "**/e2e/*.{ts,js}"
-      instructions: |
-        Review Jest tests for agents and blocks:
-          - Ensure tests cover accessibility and Full Site Editing (FSE) functionality.
-          - Check for reliable, non-flaky tests and clear assertions.
-          - Confirm test coverage for critical user flows and edge cases.
-          - Validate use of test fixtures, mocks, and snapshot testing where appropriate.
-
-    - path: "**/tests/*.*"
-      instructions: |
-        Review all test files:
-          - Ensure valid syntax, logical structure, and clear instructions for users.
-          - All test files must:
-            - Start with a valid shebang (if applicable).
-            - Contain a detailed header (purpose, author, date, related files).
-            - Use clear, descriptive test names and logical structure.
-            - Include both positive and negative test cases.
-            - Reference the agent or feature under test.
-            - Be discoverable from the main agent/test index.
-            - Be linted and pass all style checks.
-          - Ensure all tests have comprehensive inline documentation.
-
-    # === PRIORITY 75: PROMPT DOCUMENTATION (Prompt conventions & files) ===
-    - path: "**/.github/prompts/prompts.md"
-      instructions: |
-        Review the prompts index file:
-          - Ensure the file documents prompt conventions and usage patterns.
-          - Ensure a dynamic index reference to all *.prompt.md files exists.
-          - Validate YAML frontmatter and update date/version fields.
-          - Confirm all prompt files are discoverable from this index.
-
-    - path: "**/.github/prompts/*.md"
-      instructions: |
-        Review all prompt files:
-          - Check for clear instructions, examples, and checklist sections.
-          - Ensure prompt files are concise and actionable.
-          - Ensure each file is a valid prompt with correct YAML frontmatter.
-          - Confirm the file is referenced in the prompts index.
-          - Validate structure, naming, and documentation.
-
-    # === PRIORITY 65: LANGUAGE/BUILD CONFIGURATION (Package managers) ===
-    - path: "**/package.json"
-      instructions: |
-        Review package.json files:
-          - Ensure dependencies are appropriate for project type.
-          - Check for security vulnerabilities and outdated packages.
-          - Ensure scripts are documented and have clear, descriptive names.
-          - Check for presence of postinstall, prepublish, and prepare scripts if needed.
-          - Validate repository, bugs, and homepage fields for open source projects.
-          - Validate semantic versioning and proper version pinning.
-          - Confirm devDependencies vs dependencies separation.
-          - Check for unnecessary or duplicate dependencies.
-          - Ensure scripts follow org standards (lint, test, build, format, env, etc.).
-          - Confirm presence of npm scripts for linting, formatting, testing, and CI.
-          - Validate package metadata (name, version, description, author, license).
-
-    - path: "**/composer.json"
-      instructions: |
-        Review composer.json files:
-          - Confirm scripts section is present and used for automation where appropriate.
-          - Ensure stability flags (minimum-stability, prefer-stable) are set as needed.
-          - Check for extra section for project metadata if relevant.
-          - Ensure PHP dependencies are compatible and up-to-date.
-          - Check for security best practices in package selection.
-          - Verify autoloading configuration and PSR standards compliance.
-          - Ensure compatibility with coding standards tools (PHPCS, PHPStan).
-          - Check for appropriate development dependencies and version constraints.
-          - Validate package metadata (name, description, type, license, authors).
-
-    # === PRIORITY 60: LANGUAGE-SPECIFIC SOURCE CODE (JS/TS, Shell scripts) ===
-    - path: "**/*.{js,ts}"
-      instructions: |
-        Review JavaScript/TypeScript source code:
-          - Ensure code is linted and follows project style guides.
-          - Validate use of ES modules or CommonJS as appropriate.
-          - Check for dead code, unused variables, and clear function naming.
-          - Verify scripts enhance, not replace, native functionality.
-          - Validate accessibility and performance optimizations.
-          - Confirm event handling, DOM manipulation compatibility.
-          - Check for code comments, modularity, and maintainability.
-          - Ensure tests are isolated and do not depend on external state.
-          - Check for descriptive test names and clear test structure.
-
-    - path: "**/scripts/**/*.sh"
-      instructions: |
-        Review shell scripts for automation:
-          - Check for POSIX compliance and portability.
-          - Validate use of comments and usage/help output in scripts.
-          - Ensure functions are modular, reusable, and well-documented.
-          - Validate error handling, input validation, and exit codes.
-          - Confirm scripts are tested and used consistently across the project.
-          - Check for code style, maintainability, and security best practices.
-          - Ensure use of `set -euo pipefail` and shebang at the top.
-
-    # === PRIORITY 45: GENERAL DOCUMENTATION (Fallback for all docs) ===
+    # 9. Documentation Folders
     - path: "**/docs/*.*/*.md"
       instructions: |
         Review all documentation files:

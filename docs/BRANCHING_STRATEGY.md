@@ -325,6 +325,31 @@ Branch prefixes drive both **Issue Type** labels and **Project Type** field assi
 - **Two-way mapping** ensures consistency: issue type decides branch prefix, branch prefix decides PR template and default labels
 - **Default type is `type:task`** — when in doubt about issue type or branch prefix, use task
 
+### 5.3 Branch-Type Review Context
+
+CodeRabbit reviews are guided by branch type to ensure feedback is contextually relevant. The following reference table maps each branch type to its primary review focus areas and critical checks:
+
+| Branch Type | Review Focus Areas | Critical Checks |
+|---|---|---|
+| `feat/` | Completeness, UX/API design, backwards compatibility | Acceptance criteria met; no breaking changes; accessibility (WCAG 2.2 AA) verified |
+| `fix/` | Root cause, regression prevention, edge cases | Root cause addressed (not symptom); regression test added; edge cases considered |
+| `hotfix/` | Critical impact, rollback readiness, security | Impact classified; rollback plan documented; security implications evaluated |
+| `release/` | Versioning, changelog, deployment checklist | Version bump correct; changelog updated; deployment checklist complete |
+| `refactor/` | Maintainability, no behaviour change, test coverage | No functional changes; test coverage maintained; code clarity improved |
+| `chore/` | Dependencies, housekeeping, automation | Dependencies correctly updated; no side effects; automation rules verified |
+| `task/` | Epic/project scope, breakdown clarity, dependencies | Scope clearly defined; dependencies identified; subtasks aligned |
+| `docs/` or `doc/` | Clarity, structure, navigation, WCAG AA compliance | Content accurate and complete; structure logical; all links functional; accessibility verified |
+| `test/` | Test coverage, isolation, reproducibility | Tests isolated from external state; reproducible; coverage adequate |
+| `perf/` | Benchmarks, metrics, scalability, trade-offs | Benchmarks documented; metrics baseline established; scalability implications noted |
+| `ci/` | Job definition, secret handling, status checks | Secrets properly managed; required status checks enforced; job structure correct |
+| `security/` | Vulnerability severity, disclosure, mitigation | Vulnerability properly classified; fix prevents exploitation; no security debt introduced |
+| `design/` | Design consistency, component reusability, accessibility | Consistent with design system; reusable patterns; accessibility standards met |
+| `a11y/` | WCAG 2.2 AA compliance, keyboard support, contrast | All WCAG 2.2 AA criteria met; keyboard navigation functional; colour contrast sufficient |
+| `ops/` | Infrastructure, deployment safety, monitoring | Infrastructure changes safe; monitoring configured; rollback procedure documented |
+| `build/`, `deps/`, `api/`, `schema/`, `migrate/` | Type-specific review guidance applies (as per feature branch context) | Validated for integration impact and compatibility |
+
+**Usage:** When reviewing a PR, CodeRabbit applies the review focus areas and critical checks relevant to the branch type, ensuring feedback is targeted and actionable across all repositories.
+
 ---
 
 ## 6. Merge Discipline
