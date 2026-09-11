@@ -232,36 +232,48 @@ As a codebase maintainer, I want to decide the fate of the older spec-based PRD 
 - **Portable Version**: Canonical agent in `agents/prd-agent/` (root level, works across all LightSpeedWP repos).
 - **Spec-Based Version**: GitHub-specific agent in `agents/mode-prd.agent.md` (.github control plane, Copilot-native).
 
-## Stacked PR Strategy & Branch Naming
+## PR Delivery Strategy: Normal-by-Default, Stacked-by-Dependency
 
-Phases 4-7 will be delivered using **stacked PRs** following GitHub's stacked PR workflow to enable parallel review, early feedback, and safe rollback per phase.
+Phases 4-7 are delivered as **independently mergeable PRs against `develop` by default**. A PR is only stacked on another unmerged PR when it has a genuine implementation dependency — it would not be correct, reviewable, or independently useful if the PR beneath it did not exist. This mirrors how `lightspeedwp/tour-operator` already uses PRs in practice: most work (CI fixes, dependency bumps, isolated features) ships as normal PRs against `develop`, and stacks are reserved for sequential, code-dependent work such as a corrected-query fix that a caching layer is built on top of.
 
-### Branch Naming Convention
+**Decision gate** (applied per proposed PR, not per phase):
 
-Branch names follow the pattern `{type}/{base}-phase{N}-{description}` to make phase dependencies explicit:
+```
+Would this PR still be correct, reviewable, and independently
+useful if the PR "beneath" it did not exist / were not yet merged?
 
-| Phase | Base Branch | Stack Branches | Purpose |
-|-------|------------|-----------------|---------|
-| 3 | `feat/prd-agent` (✅ merged) | N/A | Structural consolidation foundation |
-| 4 | `feat/prd-agent` | `feat/prd-agent-phase4-prompt-enhancement`<br/>`feat/prd-agent-phase4-memory-registry`<br/>`feat/prd-agent-phase4-validation` | Prompt enhancement, testing, validation |
-| 5 | Phase 4 merge commit | `feat/prd-agent-phase5-test-suite`<br/>`feat/prd-agent-phase5-provider-testing`<br/>`feat/prd-agent-phase5-quality-metrics` | Comprehensive testing across providers |
-| 6 | Phase 5 merge commit | `feat/prd-agent-phase6-rollout-comms`<br/>`feat/prd-agent-phase6-adoption-tracking`<br/>`feat/prd-agent-phase6-feedback-collection` | Team communication, adoption, feedback |
-| 7 | Phase 6 merge commit | `feat/prd-agent-phase7-{archive\|sync}-decision` | Archive or sync spec-based agent (conditional) |
+        YES                              NO
+         |                                |
+    Normal PR against develop     Does it genuinely depend on an
+                                   unmerged PR's code (not just
+                                   planning/sequencing convenience)?
+                                              |
+                                            YES
+                                              |
+                                   Stacked PR, targeting that PR's
+                                   branch (not develop)
+```
 
-### Stacked PR Workflow
+**Escape rule**: a hotfix, security fix, or independently deployable bug fix discovered while work is stacked must be split out into its own normal PR against `develop` rather than waiting behind the stack. (`tour-operator` PR #1371 split a fatal-error fix out of a four-deep stack for exactly this reason.)
 
-1. **Base Preparation**: Phase 4 PRs stack on Phase 3's merged commit (`feat/prd-agent`)
-2. **Phase Isolation**: Each phase's PRs are independent; if one must revert, lower phases remain unaffected
-3. **Review Gates**: Each PR reviewed in order; can be approved before next PR in stack is ready
-4. **Merge Strategy**: Phase PRs merge to main branch only after all PRs in that phase pass CI and review
-5. **Dependency Clarity**: Branch names make the phase hierarchy explicit; prevents accidental out-of-order merges
+**Stack depth cap**: prefer 2-4 PRs per stack. A proposal that needs 5+ genuinely dependent PRs should first be reconsidered — split the independent parts into sibling PRs against `develop`, and stack only the parts with a real code dependency.
+
+### GitHub's Native Stacked PR Mechanics (verified against current GitHub docs, public preview as of 2026-07-30)
+
+These are the actual mechanics — used only for the subset of PRs that meet the decision gate above:
+
+- **Base branch topology**: the bottom PR targets `develop` (the stack's trunk); every PR above it targets the branch of the PR directly below it — not `develop` and not each other's shared parent. Three PRs that all target `develop` are three normal PRs, not a GitHub-recognised stack.
+- **Merging is bottom-up and contiguous, not a single atomic operation**: GitHub lets you merge "any number of pull requests at once, as long as they form a contiguous group starting from the lowest unmerged pull request" — you cannot merge a mid-stack PR in isolation, and merging is not one all-or-nothing action across the whole stack.
+- **Upper PRs auto-retarget**: once a lower PR merges, GitHub automatically rebases and retargets the PRs above it onto the new base — no manual rebase needed, but each retarget can trigger fresh CI runs on every PR above the merge point.
+- **CI cost is per-layer, not amortised**: checks configured to run on the default branch run for every PR in the stack, not just the bottom one, and a cascading rebase reruns them. Budget for this when deciding whether a stack is worth it versus parallel normal PRs.
+- **Constraints**: all branches in a stack must be in the same repository (no cross-fork stacks); auto-merge is not supported on stacked PRs; merge queues are supported and stack-aware (ejecting one PR ejects everything above it in the queue).
 
 ### Risk Mitigation
 
-- **Accidental Rebase**: Branch naming makes phase order explicit; reduces risk of rebasing wrong PR
-- **Merge Conflicts**: Stacked PRs tested with full chain; conflicts discovered early
-- **Rollback Safety**: If Phase 4 PR fails late, can revert Phase 4 without affecting Phase 3
-- **CI Efficiency**: Stack PRs test the full chain at once; fail fast on lowest issue
+- **Unjustified stacking**: every stacked relationship must name the specific unmerged code it depends on in the PR description; if none is named, the PR targets `develop` directly.
+- **Merge Conflicts**: for PRs that are genuinely stacked, the full chain is tested together so conflicts surface early.
+- **Rollback Safety**: normal PRs revert independently; a stacked PR reverts along with everything above it in its own stack, which is itself a reason to keep stacks shallow.
+- **CI Efficiency**: prefer parallel normal PRs over a stack when the work is independent — a stack multiplies CI runs (initial + one per retarget) for no dependency benefit.
 
 ---
 
@@ -272,7 +284,7 @@ Branch names follow the pattern `{type}/{base}-phase{N}-{description}` to make p
 - Team feedback from Phase 6 is collected via surveys and usage metrics (exact collection method TBD at Phase 6).
 - The sample/demo project-memory data was confirmed non-client and cleaned as part of Phase 3.
 - OpenAI agent definition (`agents/prd-agent/openai/`) is retained as-is; frontmatter loadability requirement applies only to Claude/Copilot.
-- **Stacked PR Strategy**: Phases 4-7 will be delivered as stacked PRs per the branch naming convention above. Each phase blocks the next; no phase PR merges until that phase is complete and all PRs in the stack pass CI/review.
+- **PR Delivery Strategy**: Phases 4-7 default to independently mergeable PRs against `develop`; a PR is only stacked on another when the decision gate above confirms a genuine code dependency, per the PR Delivery Strategy section above.
 
 ## Project References
 

@@ -14,7 +14,7 @@
 - [x] Resource allocation clear (Ash Shaw primary owner; supporting roles defined)
 - [x] All dependencies documented (blocking relationships between phases)
 - [x] Critical path identified (Phase 4 → Phase 5 → Phase 6 → Phase 7)
-- [x] Stacked PR strategy documented (branch naming, review process, merge gates)
+- [x] PR delivery strategy documented (normal-by-default, stacked-by-dependency; branch naming, review process)
 - [x] Risk mitigation plan included (risk register with 6 identified risks + mitigations)
 
 ---
@@ -28,14 +28,19 @@
 
 ---
 
-## Stacked PR Strategy
+## PR Delivery Strategy
 
-- [x] Branch naming convention documented (explicit phase hierarchy)
-- [x] PR sequencing and review process defined (stack levels, merge gates)
+- [x] Decision gate defined: each proposed PR is tested against "would this still be correct, reviewable, and independently useful if the PR beneath it did not exist?" before choosing normal vs. stacked
+- [x] Every proposed stacked relationship names the specific unmerged code it depends on (not just planning/sequencing convenience) — none in this plan are stacked unconditionally; Phase 4/5 validation and provider-testing PRs stack only if their dependency is still unmerged when they start
+- [x] Independent work targets `develop` directly rather than being folded into a stack (Phase 6's three PRs; Phase 4's prompt-enhancement and memory-registry PRs)
+- [x] Escape rule stated: a hotfix, security fix, or independently deployable bug fix found mid-stack is split into its own normal PR rather than blocked behind it
+- [x] Stack depth capped at 2-4 PRs; none of the proposed stacks in this plan exceed 3
+- [x] Branch naming convention documented (phase-scoped, independent of whether a PR ends up normal or stacked)
+- [x] PR sequencing and review process defined (each PR merges on its own once it passes; only genuinely stacked PRs wait on the one beneath them)
 - [x] Parallel work strategy explained (Phase N+1 prep while Phase N in review)
-- [x] CI/CD integration specified (full stack testing; fail-fast on any PR failure)
-- [x] Risk mitigation for stacked PRs (merge conflicts, out-of-order merges, drift)
-- [x] Merge strategy documented (all-or-nothing; merge all PRs in stack together)
+- [x] CI/CD cost of stacking acknowledged (a stacked PR's checks rerun on every retarget triggered by a merge below it — this is a real tradeoff against parallel normal PRs, not just a review-ordering choice)
+- [x] Risk mitigation for the genuinely-stacked subset (merge conflicts, out-of-order merges, drift)
+- [x] Merge mechanics match GitHub's actual behaviour: bottom-up and contiguous, never a single cross-stack atomic operation; a merged lower PR auto-retargets the PRs above it
 
 ---
 
@@ -55,7 +60,7 @@
 ### Phase 4 Gate (End of Week 2)
 - [x] Clear validation criteria (prompt loads, benchmarks documented, registry validated)
 - [x] Sign-off identified (Ash Shaw + Stakeholder Review)
-- [x] Blockers to Phase 5 clear (all Phase 4 PRs must merge)
+- [x] Blockers to Phase 5 clear (Phase 4's PRs must merge — independently, as each is approved)
 
 ### Phase 5 Gate (End of Week 5)
 - [x] Clear validation criteria (test coverage ≥90%, pass rate ≥95%, bugs triaged)
@@ -90,7 +95,7 @@
 | Prompt regression | ✅ Yes | Benchmark testing | Revert if needed |
 | Critical bugs late | ✅ Yes | Early testing | Delay Phase 6 |
 | Slow adoption | ✅ Yes | Briefings + FAQ | Extend Phase 6 |
-| Merge conflicts | ✅ Yes | Stack testing | Revert stack |
+| Merge conflicts | ✅ Yes | Full-chain testing for genuinely stacked PRs | Revert the affected stack, not unrelated PRs |
 | Resource unavailable | ✅ Yes | Cross-train backup | Delay phase |
 | Spec-based sync drift | ✅ Yes | Monthly sync review | Drift detection tool |
 
@@ -100,7 +105,7 @@
 
 - [x] Phase 3 remains stable (no regressions)
 - [x] Team capacity: 1 FT owner + supporting resources
-- [x] CI/CD ready for stacked PR testing
+- [x] CI/CD ready for both independent PR testing and, where genuinely stacked, full-chain testing with retarget reruns
 - [x] Stakeholder review on 2-3 day turnaround
 - [x] Phase 7 conditional on Phase 6 metrics
 - [x] All assumptions documented in plan
@@ -113,7 +118,7 @@
 - [x] Quality checklist completed (this file)
 - [x] No open [TODO] items in plan
 - [x] Branch naming strategy documented
-- [x] Stacked PR workflow fully specified
+- [x] PR delivery strategy fully specified (decision gate, escape rule, depth cap, verified GitHub mechanics)
 - [x] Risk register and mitigations included
 - [x] Ready for `/speckit-tasks`
 
@@ -125,10 +130,10 @@
 
 **Readiness Summary**:
 - All phases clearly scoped with timeline, resources, and success criteria
-- Stacked PR strategy fully documented with branch naming, review process, and risk mitigation
+- PR delivery strategy fully documented: normal-by-default, stacked only where a decision gate confirms a genuine dependency, with branch naming, review process, and risk mitigation
 - Phase gates with sign-offs prevent premature advancement
 - Contingency plans for identified risks
 - Ready to break down into individual tasks for Phase 4 kickoff
 
-**Next Action**: Run `/speckit-tasks` to create detailed task lists for each phase and stacked PR
+**Next Action**: Run `/speckit-tasks` to create detailed task lists for each phase's PRs
 
