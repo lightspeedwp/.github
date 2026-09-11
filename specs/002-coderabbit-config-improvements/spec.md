@@ -21,9 +21,9 @@ As a CodeRabbit AI reviewer examining changes to any project file, I need clear,
 **Acceptance Scenarios**:
 
 1. **Given** a PR modifying `.github/workflows/*.yml`, **When** CodeRabbit reviews it, **Then** feedback includes checks from "Review .github workflows for CI/CD" instruction block
-2. **Given** a PR modifying `**/*.{js,ts}`, **When** CodeRabbit reviews it, **Then** feedback covers accessibility, performance, and WordPress compatibility per JavaScript/TypeScript instructions
+2. **Given** a PR modifying code files in the repository, **When** CodeRabbit reviews it, **Then** feedback covers accessibility, performance, and code quality per the configuration's language-appropriate instructions
 3. **Given** a PR modifying security-related files, **When** CodeRabbit reviews it, **Then** security-specific guidance is prominently featured
-4. **Given** a PR from `feat/*` branch with PHP changes, **When** CodeRabbit reviews it, **Then** feedback includes feature-context-specific guidance (new functionality review)
+4. **Given** a PR from `feat/*` branch with code changes, **When** CodeRabbit reviews it, **Then** feedback includes feature-context-specific guidance (new functionality review)
 
 ---
 

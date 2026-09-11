@@ -20,11 +20,11 @@
 
 **Purpose**: Project initialization and config audit baseline
 
-- [ ] T001 Run configuration audit per research.md findings: identify current 20 path patterns, 80% coverage baseline, gap analysis in `.github/coderabbit.yml`
+- [ ] T001 Run configuration audit per research.md findings: identify current 20 path patterns, 80% coverage baseline, gap analysis in `.coderabbit.yml`
 - [ ] T002 [P] Extract all 30+ branch types from `.github/CLAUDE.md` and create reference table mapping each type to priority review context
 - [ ] T003 [P] Extract all file types from repository scan and cross-reference against current path_instructions for gap analysis
 - [ ] T004 [P] Audit technology diversity impact: identify WordPress, Node/TypeScript, infrastructure, and MCP project patterns across organisation repos
-- [ ] T005 Create backup of current `.github/coderabbit.yml` (commit with message: "backup: pre-optimization config")
+- [ ] T005 Create backup of current `.coderabbit.yml` (commit with message: "backup: pre-optimization config")
 - [ ] T006 Document configuration inheritance model understanding per CodeRabbit central configuration docs
 
 ---
@@ -35,7 +35,7 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T007 Create path priority ordering system: document priority ranges (90-100 exact, 70-89 specific dir, 50-69 type in dir, 1-49 general) with 10+ examples in `.github/coderabbit.yml` comments
+- [ ] T007 Create path priority ordering system: document priority ranges (90-100 exact, 70-89 specific dir, 50-69 type in dir, 1-49 general) with 10+ examples in `.coderabbit.yml` comments
 - [ ] T008 [P] Design branch-context structure for `.coderabbit.yml` schema: decide on parameterization approach supporting all 30+ branch types per FR-006 and FR-013
 - [ ] T009 [P] Create technology-agnosticism constraint validation checklist: ensure no framework-specific guidance (no "use PHP hooks", no "TypeScript async/await", no "Terraform modules") - applies universally across WordPress, Node, infrastructure, MCP
 - [ ] T010 Define instruction block structure with 3+ review focus areas per contract/path-instruction-schema.md (intro line, Focus Area 1/2/3, additional context, UK English)
@@ -60,7 +60,7 @@
 - [ ] T016 [P] [US1] Add review focus areas to PHP/general script instructions: security practices, code quality, maintainability, no WordPress-specific guidance
 - [ ] T017 [P] [US1] Add review focus areas to workflow/CI instructions: job definition, secret handling, status checks per FR-003
 - [ ] T018 [P] [US1] Add review focus areas to documentation instructions: clarity, structure, navigation, links per WCAG 2.2 AA
-- [ ] T019 [US1] Document instruction block examples showing technology-agnostic patterns in `.github/coderabbit.yml` comments
+- [ ] T019 [US1] Document instruction block examples showing technology-agnostic patterns in `.coderabbit.yml` comments
 - [ ] T020 [US1] Create cross-reference comments in config showing which instruction applies to which file pattern (enables quick navigation)
 - [ ] T021 [US1] Add explicit constraint notes in each block: "no implementation details", "apply across all project types", "focus on universal principles"
 - [ ] T022 [US1] Validate all enhanced blocks follow consistent structure, UK English, and avoid vague adjectives ("fast" → specific metrics, "clean" → specific criteria) per SC-008
@@ -165,7 +165,7 @@
 - [ ] T050 [P] [US5] Standardise bullet structure and indentation: all blocks use same markdown format, emphasis patterns, link styles
 - [ ] T051 [P] [US5] Convert all vague adjectives to measurable criteria: "efficient" → specific time/space complexity, "robust" → specific error handling scenarios, "clear" → specific documentation requirements
 - [ ] T052 [P] [US5] Standardise references and links: use consistent markdown link format, consistent reference to WCAG/WordPress standards/CLAUDE.md
-- [ ] T053 [US5] Create style guide comment block in `.github/coderabbit.yml` documenting instruction block structure template (intro, focus areas, criteria, context) with 2-3 examples
+- [ ] T053 [US5] Create style guide comment block in `.coderabbit.yml` documenting instruction block structure template (intro, focus areas, criteria, context) with 2-3 examples
 - [ ] T054 [US5] Audit all 30+ blocks for UK English consistency: colour (not color), optimise (not optimize), accessible (not accessable), behaviour (not behavior)
 - [ ] T055 [US5] Commit consistency improvements: "refactor(coderabbit): standardise instruction block structure, terminology, and formatting across all blocks"
 
@@ -194,7 +194,7 @@
 
 **Purpose**: Ensure pattern priority rules are clear and correctly implemented
 
-- [ ] T060 [P] Document pattern priority rules extensively in `.github/coderabbit.yml`:
+- [ ] T060 [P] Document pattern priority rules extensively in `.coderabbit.yml`:
   - Explain 90-100 (exact paths), 70-89 (specific directories), 50-69 (file types in directories), 1-49 (general patterns)
   - Show concrete examples: `**/*.md` (priority 30) vs `.github/workflows/*.yml` (priority 90)
   - Document that first matching pattern wins (no cascading)
@@ -261,7 +261,7 @@
 
 **Purpose**: Final improvements, documentation, and deployment preparation
 
-- [ ] T088 [P] Create comprehensive comments in `.github/coderabbit.yml` at config root:
+- [ ] T088 [P] Create comprehensive comments in `.coderabbit.yml` at config root:
   - Central configuration deployment scope (organisation-wide)
   - Technology-agnosticism constraint
   - Pattern priority rules
@@ -271,10 +271,10 @@
 - [ ] T089 [P] Update `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` with latest findings, examples, and quarterly audit checklist
 - [ ] T090 [P] Create `.github/docs/CODERABBIT_CONFIG_GUIDE.md` for developers: "How to understand CodeRabbit review guidance" (explain path patterns, branch context, priority rules, where to find relevant instruction)
 - [ ] T091 [P] Add inline links in CLAUDE.md referencing `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` for maintainers
-- [ ] T092 Review entire `.github/coderabbit.yml` for readability: no TODO markers, clear formatting, comments guide understanding
+- [ ] T092 Review entire `.coderabbit.yml` for readability: no TODO markers, clear formatting, comments guide understanding
 - [ ] T093 Final code review of config: verify all requirements met, all user stories complete, all acceptance scenarios passing
 - [ ] T094 Commit polish: "docs(coderabbit): add comprehensive configuration guide and documentation"
-- [ ] T095 Create PR for `.github/coderabbit.yml` changes with detailed description referencing all 5 user stories and success criteria
+- [ ] T095 Create PR for `.coderabbit.yml` changes with detailed description referencing all 5 user stories and success criteria
 - [ ] T096 Merge PR after approval: CodeRabbit configuration optimization complete, deployed organisation-wide via central configuration
 
 **Checkpoint**: Configuration complete, documented, validated, and deployed.

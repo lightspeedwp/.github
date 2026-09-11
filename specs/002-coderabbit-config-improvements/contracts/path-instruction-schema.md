@@ -81,13 +81,13 @@ PathInstruction:
         - "Focus Area 3": Specific criterion or checklist item
         - "Additional context": References, links, examples
       example: |
-        Review TypeScript/JavaScript for code quality:
-          - **Code Style & Linting**: Ensure code follows ESLint configuration,
-            no unused variables, clear function naming.
-          - **Performance**: Validate minimal DOM manipulation, efficient loops,
-            no N² algorithms.
-          - **Accessibility**: Confirm ARIA labels, keyboard navigation, 
-            sufficient color contrast (WCAG 2.2 AA).
+        Review code for quality and accessibility:
+          - **Code Style & Clarity**: Ensure consistent code style, no unused variables,
+            clear and descriptive naming conventions.
+          - **Performance**: Validate efficient algorithms, avoid unnecessary operations,
+            confirm scalability with data size.
+          - **Accessibility**: Confirm all interactive elements support keyboard access,
+            sufficient color contrast (WCAG 2.2 AA), proper semantic structure.
 
     branch_context:
       type: object
