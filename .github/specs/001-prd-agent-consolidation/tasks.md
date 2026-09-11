@@ -26,9 +26,9 @@ description: "Task list for PRD Agent Folder Consolidation"
 **Purpose**: Validate that the consolidation work completed in PR #2865 satisfied the three Phase 1 decisions (T002-T004), and record those decisions retroactively in DECISIONS_LOG.md.
 
 - [x] T001 **Verified (2026-09-11)**: Current state matches consolidation completion — 28 skills, hermes/ removed, prd-factory deleted. Baseline audit was accurate.
-- [ ] T002 **Decision Retroactive**: Validate which name survived for Cluster 8 export skill (check: `prd-task-pack-exporter` exists in current skills) — record decision and rationale in DECISIONS_LOG.md
-- [ ] T003 **Decision Retroactive**: Confirm frontend-skill removal status (check: frontend-skill not in current 28-skill list) — record decision and rationale in DECISIONS_LOG.md
-- [ ] T004 **Decision Retroactive**: Enumerate 2-file "generic tier" skills from current 28-skill list and record fate decision (KEEP/RETIRE) in DECISIONS_LOG.md with sign-off
+- [x] T002 **Decision Retroactive**: Validate which name survived for Cluster 8 export skill (check: `prd-task-pack-exporter` exists in current skills) — record decision and rationale in DECISIONS_LOG.md
+- [x] T003 **Decision Retroactive**: Confirm frontend-skill removal status (check: frontend-skill not in current 28-skill list) — record decision and rationale in DECISIONS_LOG.md
+- [x] T004 **Decision Retroactive**: Enumerate 2-file "generic tier" skills from current 28-skill list and record fate decision (KEEP/RETIRE) in DECISIONS_LOG.md with sign-off
 
 **Checkpoint**: All three decisions (T002, T003, T004) recorded in DECISIONS_LOG.md with retroactive validation and maintainer sign-off — Phase 4 (external registry updates) can begin.
 
@@ -274,7 +274,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 - [ ] T060 [Phase 4] Rewrite `agents/prd-agent/claude/agent.md` and `agents/prd-agent/copilot/agent.md` prompt instructions with improved context management, better skill routing logic, and enhanced memory registry integration per FR-412
 - [ ] T061 [Phase 4] Verify mode-prd.agent.md memory registry entry (`workflows/memory/registry/memory-registry.yaml` entry `agent:mode-prd`) is correctly configured and no orphaned references remain per FR-413 (Partial — T046 completed registry update; verify companion files status)
 - [ ] T062 [Phase 4] Evaluate enhanced prompt against benchmark test cases; document baseline metrics, post-enhancement metrics, and success rate improvement per FR-414 (target ≥15% per spec.md US4/AC1)
-- [ ] T063 [Phase 4] Update `agents/prd-agent/CHANGELOG.md` with Phase 4 completion, v2.2.0 improvements, and test case results per FR-415 (Partial — CHANGELOG exists; update with Phase 4 section)
+- [x] T063 [Phase 4] Update `agents/prd-agent/CHANGELOG.md` with Phase 4 completion, v2.2.0 improvements, and test case results per FR-415 (Partial — CHANGELOG exists; update with Phase 4 section)
 
 **Checkpoint**: All Phase 4 FRs documented in code/changelog; prompt enhancement validated against test cases; memory registry audit completed.
 

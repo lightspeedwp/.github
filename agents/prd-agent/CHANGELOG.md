@@ -4,6 +4,53 @@ All notable changes to the PRD Agent are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] — 2026-09-11
+
+### Changed
+
+- **System Prompt Enhancement**: Comprehensive rewrite of Claude and Copilot agent prompts with explicit 28-skill architecture documentation
+- **Skill Routing Logic**: Detailed decision trees for multi-skill workflows (project entry → PRD → planning → quality → approval → launch/closure)
+- **Provider Optimization**: Distinct prompt tuning for Claude Code (linear/planning focus) and GitHub Copilot (GitHub-centric workflows)
+- **Capability Clarity**: Updated capability matrices mapping workflow stages to primary/validation/integration skills
+- **Cross-Skill Context**: Enhanced documentation of cross-skill routing patterns and context passing mechanisms
+
+### Added
+
+- **PROMPT_ENHANCEMENT_ANALYSIS.md**: Baseline analysis documenting Phase 3 consolidation state and Phase 4 enhancement opportunities
+- **TEST_CASES_BASELINE.md**: 14 comprehensive test cases across 4 categories (PRD Generation Quality, Multi-Skill Orchestration, GitHub Integration, Skill Inventory Accuracy) for measuring post-enhancement improvement (target ≥15% per spec.md US4/AC1)
+- **Claude Agent Prompt**: Complete system prompt with 28-skill inventory, 5-cluster organization (Drafting, Planning, Quality, Coordination, Integration), decision trees for common workflows, integration points (GitHub/Linear/Google Workspace), and key guardrails
+- **Copilot Agent Prompt**: GitHub-optimized system prompt with GitHub-centric skill clusters, issue management workflows, project coordination patterns, and Copilot-specific tips
+- **Common Workflows**: Documented 3 high-frequency workflows for Claude and 4 GitHub-integrated workflows for Copilot
+- **Example Scenarios**: Three detailed multi-skill workflow examples per provider
+
+### Technical Details
+
+**Specification**: Feature Specification [001-prd-agent-consolidation](../.github/specs/001-prd-agent-consolidation/spec.md) — Phases 4-5
+
+**Phase 4 Deliverables** (this release):
+- FR-414: Prompt Enhancement per spec.md US4 with system prompt rewrite for both Claude and Copilot configurations
+- FR-415: Memory Registry verification (agent:mode-prd entry correct, no orphaned paths)
+- FR-416: Test case baseline creation (14 test cases for Phase 5 validation)
+- Enhancement Focus Areas:
+  1. Context Management: Explicit 28-skill inventory mapping to PRD workflows
+  2. Skill Routing: Comprehensive decision trees for multi-skill orchestration
+  3. Memory Registry: Cross-skill context passing and decision tracking
+  4. Provider Optimization: Claude/Copilot/OpenAI-specific capability emphasis
+
+**Baseline Methodology**:
+- Phase 5 (Testing): Execute 14-case test suite against current enhanced prompt; document metrics
+- Improvement Calculation: Post-enhancement metrics vs. baseline; target ≥15% aggregate improvement
+- Success Criteria: All 14 test cases pass with ≥90% quality scores (category-specific targets per TEST_CASES_BASELINE.md)
+
+**Pending** (Phase 5):
+- FR-500: Test Suite Execution (collect post-enhancement metrics)
+- FR-501: Quality Validation & Analysis
+- FR-502: Results Documentation in CHANGELOG
+
+**Deferred** (Phases 6-7):
+- Phase 6: Rollout & Adoption (communication, metrics, FAQ)
+- Phase 7: Optional Sync/Archive (decision memo, governance updates)
+
 ## [2.1.0] — 2026-09-10
 
 ### Changed
