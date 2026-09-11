@@ -15,7 +15,7 @@
 - [x] All dependencies documented (blocking relationships between phases)
 - [x] Critical path identified (Phase 4 → Phase 5 → Phase 6 → Phase 7)
 - [x] PR delivery strategy documented (normal-by-default, stacked-by-dependency; branch naming, review process)
-- [x] Risk mitigation plan included (risk register with 6 identified risks + mitigations)
+- [x] Risk mitigation plan included (risk register with 5 identified risks + mitigations)
 
 ---
 
