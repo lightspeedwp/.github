@@ -8,10 +8,10 @@
 
 ## Summary
 
-Restructure and expand the `.coderabbit.yml` configuration file in the organisation control plane (`.github` repository) to provide comprehensive, technology-agnostic review instructions for 95%+ of file types. These improvements will be deployed **organisation-wide** via CodeRabbit's central configuration feature, standardising code review quality across all repositories in the organisation. Implementation follows explicit path pattern priority/specificity ordering (specific patterns override general patterns), with external audit guide for coverage verification. Branch-type-specific review guidance is documented externally in human governance reference files, not as CodeRabbit automation features.
+Restructure and expand the `.coderabbit.yml` configuration file in the organisation control plane (`.github` repository) to provide comprehensive, technology-agnostic review instructions for 95%+ of file types. These improvements will be deployed **organisation-wide** via CodeRabbit's central configuration feature, standardising code review quality across all repositories in the organisation. Implementation follows explicit path pattern priority/specificity ordering (specific patterns override general patterns), with external audit guide for coverage verification. Branch-type-specific review guidance is documented externally in `docs/BRANCHING_STRATEGY.md` (section 5.3 "Branch-Type Review Context"), not as CodeRabbit automation features.
 
 **Key Outcomes**:
-- External documentation of top 15-20 branch types review context for developer reference (feat/, fix/, security/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, docs/)
+- Branch-type review context documented in `docs/BRANCHING_STRATEGY.md` section 5.3 for top 15-20 branch types (feat/, fix/, security/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, docs/)
 - Path patterns follow explicit priority/specificity rules (clear documentation)
 - 95%+ file type coverage with 3+ specific review focus areas per instruction block
 - External `CODERABBIT_COVERAGE_AUDIT.md` guide for maintainers

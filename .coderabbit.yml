@@ -1,67 +1,8 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json
 
-# === BRANCH CONTEXT CONFIGURATION (T008) ===
-# Maps branch patterns to branch-type-specific review guidance.
-# When CodeRabbit reviews a PR, it identifies the branch type and applies corresponding
-# context to all path_instructions guidance, making reviews more targeted and relevant.
-#
-# Priority: Top 15-20 branch types by organizational usage frequency.
-# Coverage: ~80% of actual branch usage patterns across the organization.
-#
-# Branch Type → Review Focus Mapping:
-# - feat/*     → Completeness, UX/API design, backwards compatibility
-# - fix/*      → Root cause, regression prevention, edge cases
-# - hotfix/*   → Critical impact, rollback readiness, security
-# - release/*  → Versioning, changelog, deployment checklist
-# - refactor/* → Maintainability, no behavior change, test coverage
-# - chore/*    → Dependencies, housekeeping, automation
-# - task/*     → Epic/project scope, breakdown clarity, dependencies
-# - docs/*     → Clarity, structure, navigation, WCAG AA compliance
-# - test/*     → Test coverage, isolation, reproducibility
-# - perf/*     → Benchmarks, metrics, scalability, trade-offs
-# - ci/*       → Job definition, secret handling, status checks
-# - security/* → Vulnerability severity, disclosure, mitigation
-# - design/*   → Design consistency, component reusability, a11y
-# - a11y/*     → WCAG 2.2 AA compliance, keyboard support, contrast
-# - ops/*      → Infrastructure, deployment safety, monitoring
-# - Additional 5+: build/, deps/, api/, schema/, migrate/
-#
-# YAML Schema (reserved for future use):
-# branch_context:
-#   - pattern: "feat/*"
-#     name: "Feature Development"
-#     focus_areas:
-#       - "Feature completeness and user acceptance criteria"
-#       - "API/UX design and backwards compatibility"
-#       - "Performance and accessibility implications"
-#     critical_checks:
-#       - "Acceptance criteria met"
-#       - "No breaking changes to existing APIs"
-#       - "Accessibility (WCAG 2.2 AA) verified"
-#   - pattern: "fix/*"
-#     name: "Bug Fix"
-#     focus_areas:
-#       - "Root cause identification"
-#       - "Regression prevention"
-#       - "Edge case handling"
-#     critical_checks:
-#       - "Fix addresses root cause (not symptom)"
-#       - "Regression test added"
-#       - "Edge cases considered"
-#   - pattern: "security/*"
-#     name: "Security Fix"
-#     focus_areas:
-#       - "Vulnerability severity assessment"
-#       - "Disclosure timeline and mitigation"
-#       - "Security best practices"
-#     critical_checks:
-#       - "Vulnerability properly classified"
-#       - "Fix prevents exploitation"
-#       - "No security debt introduced"
-#   # ... Additional branch types continue below
-#
-# Status: SCHEMA DESIGNED (not yet integrated into CodeRabbit config)
-# Next: Implement branch pattern detection and context injection into path_instructions (T009-T010)
+# Branch-type-specific review context is maintained externally in docs/BRANCHING_STRATEGY.md
+# section 5.3 ("Branch-Type Review Context"), which maps branch types to review focus areas.
+# CodeRabbit reviews are guided by this reference table for targeted, actionable feedback.
 
 reviews:
   # === Review Workflow Settings ===
