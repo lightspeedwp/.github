@@ -43,7 +43,7 @@
 
 - [x] Phase 4 (10 days) — Reasonable for prompt enhancement + memory registry
 - [x] Phase 5 (15 days) — Reasonable for test suite + multi-provider execution + analysis
-- [x] Phase 6 (15 days) — Reasonable for rollout, 30-day adoption tracking, feedback
+- [x] Phase 6 (15 days rollout + 30-day observation) — Reasonable; start adoption metrics in Phase 6 week 1, complete full 30-day analysis in early Phase 7
 - [x] Phase 7 (5-15 days conditional) — Reasonable for archive (6 days) or sync (12 days)
 - [x] Buffer included for contingencies (no aggressive back-to-back scheduling)
 - [x] Resource constraints considered (1 full-time owner; supporting roles assumed available)
