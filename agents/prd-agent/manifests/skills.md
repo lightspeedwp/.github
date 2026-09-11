@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-09-11 (Phase 6 validation)  
 **Total Skills:** 28 curated, canonical skills  
-**Status:** Consolidated and deduplicated per [SKILL_DUPLICATION_AUDIT_REPORT.md](../../.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md)
+**Status:** Consolidated and deduplicated per [SKILL_DUPLICATION_AUDIT_REPORT.md](../../../.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md)
 
 ---
 
@@ -51,7 +51,7 @@ All skills are located in `agents/prd-agent/skills/` with real, loadable `SKILL.
 - **Merged clusters:** 12 (Phases A+B) reduced to single canonical skills
 - **Promoted skills:** 1 (`qa-planner` from hermes, no merge needed)
 - **Deleted duplicate/subsumed skills:** 15 (fully subsumed by surviving cluster members)
-- **Confirmed distinct pairs:** 2 (`acceptance-test-planner`/`validation-support`, `memory-management`/`project-memory-manager`)
+- **Confirmed distinct pairs:** 2 (`acceptance-test-planner`/`validation-support`; `memory-management`/`project-memory-manager`)
 - **Confirmed distinct, kept separate:** 1 (`estimation-planner` from `delivery-planner`, `prd-agent-orchestrator` from `prd-task-manager`)
 
 **Final state:** 28 canonical, deduplicated skills
@@ -61,8 +61,8 @@ All skills are located in `agents/prd-agent/skills/` with real, loadable `SKILL.
 ## Skill References
 
 For detailed content merging and cluster verdicts, see:
-- [SKILL_DUPLICATION_AUDIT_REPORT.md](../../.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md) — All 17 clusters diffed/read, Phase A + Phase B
-- [SKILL_RECONCILIATION_REPORT.md](../../.github/projects/active/prd-combined-agent/SKILL_RECONCILIATION_REPORT.md) — Cross-folder consolidation audit
+- [SKILL_DUPLICATION_AUDIT_REPORT.md](../../../.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md) — All 17 clusters diffed/read, Phase A + Phase B
+- [SKILL_RECONCILIATION_REPORT.md](../../../.github/projects/active/prd-combined-agent/SKILL_RECONCILIATION_REPORT.md) — Cross-folder consolidation audit
 
 ---
 
@@ -76,7 +76,7 @@ For detailed content merging and cluster verdicts, see:
 - [x] SC-006: Docs match disk inventory, zero dangling links
 - [x] SC-007: Generic-tier fate documented (distinct skills kept; overlapping skills merged)
 
-**Phase 6 Status:** ✅ COMPLETE (2026-09-11)
+**Phase 6 Status:** 🔴 BLOCKED — Awaiting PR #2867 (Phase 4 frontmatter definitions) merge and validation that `agents/mode-prd.agent.md` removal is complete on develop before full manifest validation can proceed. Manifest-only checks (SC-001, SC-006) are isolated and can be validated independently.
 
 ---
 

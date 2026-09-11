@@ -73,7 +73,7 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 
 - **FR-001**: Union-merge the 3 forked skills still in `agents/prd-agent/skills/hermes/` (`approval-gate-manager`, `project-memory-manager`, `release-handoff-generator`) with their already-flattened top-level counterparts, reconciling the two divergent versions of `support-transition-rules.md` rather than picking one — SKILL_RECONCILIATION_REPORT.md §3.
 - **FR-002**: Promote `lightspeed-qa-planner` from `skills/hermes/` to `skills/qa-planner/` — a move, not a merge, since it has no counterpart anywhere — SKILL_RECONCILIATION_REPORT.md §3.
-- **FR-003**: Resolve the intra-folder skill overlap per cluster verdict in SKILL_DUPLICATION_AUDIT_REPORT.md — **all 17 clusters diffed/read**, each with a concrete keep/merge/delete/distinct decision and a "content to port before deleting" list (e.g. merge `prd-writer`+`prd-generator`, keep `prd-task-reviewer` over `prd-reviewer`/`review-qa`, keep `qa-findings-router` over `qa-triage`, keep `delivery-planner` over `task-breakdown-planner`, retire `prd-task-manager`, keep both `acceptance-test-planner`/`validation-support` and both `memory-management`/`project-memory-manager` as genuinely distinct, keep `prd-agent-orchestrator` as a deliberate separate routing layer — full table in the report). One naming decision remains open (`project-pack-exporter` vs. `prd-task-pack-exporter` — content merges either way, but the surviving directory name needs a maintainer call).
+- **FR-003**: Resolve the intra-folder skill overlap per cluster verdict in SKILL_DUPLICATION_AUDIT_REPORT.md — **all 17 clusters diffed/read**, each with a concrete keep/merge/delete/distinct decision and a "content to port before deleting" list (e.g. merge `prd-writer`+`prd-generator`, keep `prd-task-reviewer` over `prd-reviewer`/`review-qa`, keep `qa-findings-router` over `qa-triage`, keep `delivery-planner` over `task-breakdown-planner`, retire `prd-task-manager`, keep both `acceptance-test-planner`/`validation-support` and both `memory-management`/`project-memory-manager` as genuinely distinct, keep `prd-agent-orchestrator` as a deliberate separate routing layer — full table in the report). Cluster 8 naming decision: `prd-task-pack-exporter` chosen as canonical skill name (merged from `project-pack-exporter`; decision recorded as T002).
 - **FR-004**: Port two items from `prd-factory-planner-agent/AGENT.md` into `prd-agent/AGENT.md` before that folder is deleted: an "Integration Points" section listing only the real, plugin-backed integrations (Linear, Google Workspace, GitHub — explicitly excluding Figma/Slack, which are unbacked by any plugin config), and two capability tags (`resource-allocation`, `scope-definition`) — ROOT_FILES_RECONCILIATION_REPORT.md §4.
 - **FR-005**: Replace both existing `README.md` files with one real, human-facing `README.md` — both current versions are Codex export-tool boilerplate with dangling links to a nonexistent `CONTRIBUTING.md` and `checksums.sha256` — ROOT_FILES_RECONCILIATION_REPORT.md §3.
 - **FR-006**: Rewrite `instructions/AGENTS.md`'s skill-routing section from scratch once the skill folder is finalized, replacing references to dead Codex session IDs (current `prd-agent` copy) and a fabricated 39-skill catalogue (current `prd-factory-planner-agent` copy) — AGENT_FOLDER_RECONCILIATION_REPORT.md §3-4.
@@ -113,11 +113,11 @@ This spec uses a **stacked PR strategy** to allow independent Phase 3, Phase 4, 
 - Post-merge cleanup: After each PR merges, the subsequent PR author(s) are responsible for pulling the updated base and rebasing their work.
 
 **Specification Scope Clarity:**
-This feature specification defines WHAT must be consolidated (scope), WHY (user value), and HOW IT IS TESTED (acceptance criteria). It does NOT define:
-- Git workflow or stacking strategy details (those belong in project documentation, not the spec)
-- CI/CD pipeline behavior or label governance (those are repository infrastructure, not feature scope)
-- Branch naming conventions or PR template routing (those are covered in CLAUDE.md, not per-feature specs)
-- Detailed implementation steps or code structure (those belong in plan.md and tasks.md)
+This feature specification defines WHAT must be consolidated (scope), WHY (user value), HOW IT IS TESTED (acceptance criteria), and HOW IT IS DELIVERED (stacked PR strategy with merge gates and conflict resolution for Phases 3-5). It does NOT define:
+- Detailed implementation steps or code structure for each functional requirement (those belong in tasks.md)
+- CI/CD pipeline behavior beyond PR merge gates (those are repository infrastructure, not feature scope)
+- Branch naming conventions or PR template routing mechanics (those are covered in CLAUDE.md, not per-feature specs)
+- Repository-wide labeling governance (that is managed separately in label update requests and LABEL_STRATEGY.md)
 
 ---
 

@@ -123,7 +123,7 @@ Describe the high-level approach: sequential phases, parallel workstreams, agile
 - [x] Rewrote `claude/agent.md` and `copilot/agent.md` with real, client-loadable YAML frontmatter
 - [x] Resolved generic-tier question and project-pack naming decision
 
-**Completed:** 2026-09-10 | **PR:** #2865 (phases 3-5) | **Status:** ✅ COMPLETE
+**Completed:** 2026-09-10 | **PR:** #2866 (Phase 3 Structural Consolidation) | **Status:** ✅ COMPLETE
 
 ---
 
