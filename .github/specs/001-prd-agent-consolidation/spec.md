@@ -93,7 +93,7 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 
 ### Measurable Outcomes
 
-- **SC-001**: `agents/prd-agent/skills/` contains exactly one copy of each skill, with zero duplicate skill names and no `skills/hermes/` folder remaining. Target: **28 skills** (27 once `frontend-skill` is removed), down from the 46 baseline (45 top-level + `qa-planner` promoted from `skills/hermes/`) — see SKILL_DUPLICATION_AUDIT_REPORT.md for the full per-cluster count.
+- **SC-001**: `agents/prd-agent/skills/` contains exactly one copy of each skill, with zero duplicate skill names and no `skills/hermes/` folder remaining. **Achieved: 28 skills** (consolidated from 46 baseline: 45 top-level + 1 `qa-planner` promoted from `skills/hermes/`; 17 duplicate/overlapping clusters resolved; `frontend-skill` and all hermes/ content removed) — see SKILL_DUPLICATION_AUDIT_REPORT.md for the full per-cluster count.
 - **SC-002**: A Claude Code session loads `agents/prd-agent/claude/agent.md` as a valid subagent definition without any modification to the file.
 - **SC-003**: A Copilot session loads `agents/prd-agent/copilot/agent.md` as a valid custom agent definition without any modification to the file.
 - **SC-004**: All 4 forked skills identified in the audit (`approval-gate-manager`, `project-memory-manager`, `release-handoff-generator`, `qa-planner`) have their unique content fully accounted for — merged, reconciled, or promoted — with none lost.

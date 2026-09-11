@@ -289,7 +289,7 @@ Accessibility (T2.4):
 | Phase 1-2 (catalogue merge) complete | 2026-07-23 | - | ✅ Done |
 | Phase 4 (prompt v2.1) complete | 2026-08-12 | - | ✅ Done |
 | Phase 3 audit (3 reconciliation reports) complete | 2026-09-10 | - | ✅ Done |
-| Phase 3 execution (scoped deliverables above) | TBD | Phase 3 audit | ⏳ Not started |
+| Phase 3 execution (scoped deliverables above) | 2026-09-10 | Phase 3 audit | ✅ Complete (PR #2865) |
 | Phase 5-6 (prompt testing & rollout) | TBD | Phase 4 | 🟡 Ready, see #1896/#1897 |
 | Phase 7 (optional spec sync decision) | TBD | Phase 6 feedback | 🔵 Pending, see #1899 |
 
@@ -352,7 +352,7 @@ No dedicated master epic exists for this project. Phase 1-2 (catalogue merge) wa
 | Phase | Issue | Type | Status | Notes |
 |-------|-------|------|--------|-------|
 | Phase 1-2 | PR [#1139](https://github.com/lightspeedwp/.github/pull/1139), [#1196](https://github.com/lightspeedwp/.github/pull/1196) | PR | ✅ Merged | Catalogue-level merge |
-| Phase 3 | — | — | 🟡 Scoped, no issue yet | See FOLDER_STRUCTURE_PLAN.md + 3 reconciliation reports |
+| Phase 3 | PR [#2865](https://github.com/lightspeedwp/.github/pull/2865) | PR | ✅ Merged | Structural consolidation complete |
 | Phase 5 | [#1896](https://github.com/lightspeedwp/.github/issues/1896) | task | 🟡 In Progress | Prompt testing & validation |
 | Phase 6 | [#1897](https://github.com/lightspeedwp/.github/issues/1897) | task | 🟢 Ready | Team rollout & documentation |
 | Phase 7 | [#1899](https://github.com/lightspeedwp/.github/issues/1899) | task | 🔵 Pending | Optional spec-based agent sync |
