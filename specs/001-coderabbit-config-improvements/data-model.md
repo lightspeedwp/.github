@@ -1,10 +1,12 @@
 # Phase 1 Design: CodeRabbit Configuration Data Model
 
-**Date**: 2026-09-11 | **Status**: Complete
+**Date**: 2026-09-11 | **Status**: Complete | **Scope**: Organisation-wide central configuration
 
 ## Overview
 
-This document defines the data structures and relationships within the improved `.coderabbit.yml` configuration, including entities, attributes, validation rules, and state transitions.
+This document defines the data structures and relationships within the improved `.coderabbit.yml` configuration in the organisation control plane (`.github` repository), including entities, attributes, validation rules, and state transitions.
+
+**Critical Context**: This configuration file is deployed **organisation-wide** via CodeRabbit's central configuration feature, applying review rules to all repositories in the organisation that consume the central configuration. Instructions must therefore be technology-agnostic and compatible across diverse project types (WordPress plugins, PHP libraries, TypeScript packages, CLI tools, etc.).
 
 ---
 
