@@ -11,7 +11,7 @@
 Restructure and expand the `.coderabbit.yml` configuration file in the organisation control plane (`.github` repository) to provide comprehensive, branch-type-specific review instructions for all 30+ branch types and 95%+ of file types. These improvements will be deployed **organisation-wide** via CodeRabbit's central configuration feature, standardising code review quality across all repositories in the organisation. Implementation follows explicit path pattern priority/specificity ordering (specific patterns override general patterns), with external audit guide for coverage verification.
 
 **Key Outcomes**:
-- All 30+ branch types get customized review context (feat/, fix/, security/, perf/, etc.) — **applied across the entire organisation**
+- Top 15-20 branch types get customized review context (feat/, fix/, security/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, docs/, and 5+ additional high-frequency types) — **applied across the entire organisation**
 - Path patterns follow explicit priority/specificity rules (clear documentation)
 - 95%+ file type coverage with 3+ specific review focus areas per instruction block
 - External `CODERABBIT_COVERAGE_AUDIT.md` guide for maintainers
@@ -54,8 +54,8 @@ Restructure and expand the `.coderabbit.yml` configuration file in the organisat
 - MUST NOT break or interfere with repo-specific CodeRabbit overrides (repos may define additional local rules)
 
 **Scale/Scope** (Organisation-Wide):
-- 30+ branch types requiring context-aware review instructions (apply across all repos)
-- 95%+ file type coverage for common organisation patterns (baseline: ~50 current file types/paths)
+- Top 15-20 branch types requiring context-aware review instructions (apply across all repos, covers ~80% of actual branch usage)
+- 95%+ file type coverage for common organisation patterns (baseline: ~50 current file types/paths, target: 47-50 types)
 - ~15-20 new instruction blocks to add (covering emerging file types)
 - ~30-40 existing instruction blocks to enhance (with 3+ focus areas each)
 - **Impact**: Applied to all repositories in the organisation consuming central configuration

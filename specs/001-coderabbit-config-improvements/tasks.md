@@ -40,7 +40,7 @@
 - [ ] T009 [P] Create technology-agnosticism constraint validation checklist: ensure no framework-specific guidance (no "use PHP hooks", no "TypeScript async/await", no "Terraform modules") - applies universally across WordPress, Node, infrastructure, MCP
 - [ ] T010 Define instruction block structure with 3+ review focus areas per contract/path-instruction-schema.md (intro line, Focus Area 1/2/3, additional context, UK English)
 - [ ] T011 [P] Reorganise existing 20 path patterns by priority/specificity per data-model.md priority resolution algorithm (exact paths first, then nested dirs, then file types, then general)
-- [ ] T012 Create mapping of all 30+ branch types to adapted review context: security/ → auth/access/secrets, perf/ → benchmarks/metrics, a11y/ → WCAG, docs/ → clarity/structure, etc.
+- [ ] T012 Create mapping of top 15-20 branch types (by usage frequency) to adapted review context: security/ → auth/access/secrets, perf/ → benchmarks/metrics, a11y/ → WCAG, docs/ → clarity/structure, feat/, fix/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ci/, ops/, etc.
 - [ ] T013 [P] Cross-reference `.github/labels.yml` with current config documentation to verify label references are accurate (LOCKED - no modifications)
 
 **Checkpoint**: Foundation ready - user story implementation can begin
@@ -110,19 +110,19 @@
 
 ### Implementation for User Story 3
 
-- [ ] T031 [P] [US3] Add branch_context to 15 high-value instruction blocks supporting major branch types per FR-006, FR-013, SC-011:
+- [ ] T031 [P] [US3] Add branch_context to 10-15 high-value instruction blocks supporting top branch types (feat/, fix/, security/, perf/, a11y/, ci/, hotfix/, docs/, refactor/, task/, release/, etc.) per FR-006, FR-013:
   - `**/*.php` → context for security/, perf/, refactor/
   - `**/*.{js,ts}` → context for feat/, perf/, a11y/
   - `**/.github/workflows/*.yml` → context for ci/, security/, ops/
-  - `**/.github/agents/**` → context for security/, ops/
-  - `.coderabbit.yml` → context for config/, audit/
+  - `**/.github/agents/**` → context for security/
+  - `.coderabbit.yml` → context for config/
   - `**/*.md` (documentation) → context for docs/, a11y/
-  - `**/tests/**` → context for test/, perf/, qa/
+  - `**/tests/**` → context for test/, perf/
 - [ ] T032 [P] [US3] Create branch_context values for security/ branch type: emphasise authentication, access control, secrets handling, threat model per FR-003
 - [ ] T033 [P] [US3] Create branch_context values for perf/ branch type: emphasise benchmarking, performance metrics, efficiency trade-offs per SC-011
 - [ ] T034 [P] [US3] Create branch_context values for a11y/ branch type: emphasise WCAG 2.2 AA, keyboard navigation, contrast, semantics per FR-005
 - [ ] T035 [P] [US3] Create branch_context values for docs/ branch type: emphasise clarity, structure, completeness, navigation per acceptance scenario
-- [ ] T036 [P] [US3] Create branch_context values for 11 additional high-value branch types (feat/, fix/, refactor/, test/, ci/, hotfix/, release/, design/, task/, ops/, audit/) per SC-011 usage frequency
+- [ ] T036 [P] [US3] Create branch_context values for 5-10 additional branch types (feat/, fix/, refactor/, test/, release/, design/, task/) for comprehensive coverage of top 15-20 by usage frequency per SC-011
 - [ ] T037 [US3] Test branch-context logic: manually verify that feat/ branch gets feature-specific guidance, security/ gets security-specific guidance, etc.
 - [ ] T038 [US3] Document branch-type mapping in config comments showing which branches get which context guidance
 - [ ] T039 [US3] Commit branch context implementation: "feat(coderabbit): add branch-type-specific review context for 15+ branch types"
