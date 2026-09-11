@@ -49,7 +49,7 @@ description: "Task list for PRD Agent Folder Consolidation"
 - [ ] T004 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-approval-gate-manager/references/` into `agents/prd-agent/skills/approval-gate-manager/references/`, reconciling any same-named files with different content
 - [ ] T005 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-project-memory-manager/references/` into `agents/prd-agent/skills/project-memory-manager/references/`, reconciling any same-named files with different content
 - [ ] T006 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-release-handoff-generator/references/` into `agents/prd-agent/skills/release-handoff-generator/references/`, specifically reconciling the two divergent versions of `support-transition-rules.md` (not a straight union — content differs, per SKILL_RECONCILIATION_REPORT.md §3)
-- [ ] T007 [P] [US1] Move `agents/prd-agent/skills/hermes/lightspeed-qa-planner/` to `agents/prd-agent/skills/qa-planner/` (no merge — no counterpart exists anywhere)
+- [ ] T007 [US1] Move `agents/prd-agent/skills/hermes/lightspeed-qa-planner/` to `agents/prd-agent/skills/qa-planner/` (no merge — no counterpart exists anywhere)
 - [ ] T008 [US1] Delete `agents/prd-agent/skills/hermes/` once T004-T007 are complete and verified
 
 ### Cluster 1 — PRD drafting (COMPLEMENTARY merge + duplicate delete)
