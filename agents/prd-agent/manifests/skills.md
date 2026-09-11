@@ -48,7 +48,7 @@ All skills are located in `agents/prd-agent/skills/` with real, loadable `SKILL.
 **Starting state:** 45 top-level skills + 4 hermes-specific skills = 49 skills (plus ~20+ vendored platform/plugin copies removed during Phase 3 cleanup)
 
 **Consolidation results:**
-- **Merged clusters:** 12 (Phases A+B) reduced to single canonical skills
+- **Merged clusters:** 14 (Phases A+B) reduced to single canonical skills
 - **Promoted skills:** 1 (`qa-planner` from hermes, no merge needed)
 - **Deleted duplicate/subsumed skills:** 15 (fully subsumed by surviving cluster members)
 - **Confirmed distinct pairs:** 2 (`acceptance-test-planner`/`validation-support`, `memory-management`/`project-memory-manager`)
