@@ -100,7 +100,7 @@ issue_types:
 
   - name: Content Modelling
     color: AB7DF8
-    label: type:content-model
+    label: type:content-modelling
 
   - name: Build
     color: 4393F8

@@ -43,7 +43,7 @@ project_field_mappings:
     # Critical Types (No Collapsing)
     type:bug: Bug
     type:feature: Feature
-    type:documentation: Documentation
+    type:docs: Documentation
     type:task: Task
     type:release: Release
 
@@ -62,12 +62,12 @@ project_field_mappings:
     # Automation & Infrastructure Group
     type:automation: Automation
     type:test: Automation
-    type:ai-ops: Automation
+    type:aiops: Automation
     type:build: Automation
 
     # Integration & Dependencies Group
     type:integration: Integration
-    type:compatibility: Integration
+    type:compat: Integration
 
     # Analysis & Exploration Group
     type:research: Research
