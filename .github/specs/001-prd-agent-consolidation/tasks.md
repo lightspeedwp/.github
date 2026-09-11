@@ -21,13 +21,14 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ## Phase 1: Setup (Decisions & Prep)
 
-**Purpose**: Resolve the two open decisions that block downstream tasks, and confirm starting state.
+**Purpose**: Resolve the three open decisions that block downstream tasks (spec.md SC-007, plan.md research.md D2), and confirm starting state.
 
 - [ ] T001 Confirm `agents/prd-agent/` and `agents/prd-factory-planner-agent/` match the state audited in `SKILL_DUPLICATION_AUDIT_REPORT.md` (no drift since 2026-09-10) — spot-check `find agents/prd-agent/skills -maxdepth 1 -type d | wc -l` returns 45 (+ `hermes/`)
-- [ ] T002 **Decision**: pick the surviving directory name for Cluster 8 (`agents/prd-agent/skills/project-pack-exporter/` vs `agents/prd-agent/skills/prd-task-pack-exporter/`) — content merges into whichever name is chosen either way (see SKILL_DUPLICATION_AUDIT_REPORT.md Cluster 8); record the decision in this file before T024-T025 run
-- [ ] T003 **Decision**: confirm `agents/prd-agent/skills/frontend-skill/` should be removed (confirmed out-of-scope content per SKILL_DUPLICATION_AUDIT_REPORT.md §5/INTRA_FOLDER_SKILL_AUDIT_SCOPE.md §5) before T042 runs
+- [ ] T002 **Decision**: pick the surviving directory name for Cluster 8 (`agents/prd-agent/skills/project-pack-exporter/` vs `agents/prd-agent/skills/prd-task-pack-exporter/`) — content merges into whichever name is chosen either way (see SKILL_DUPLICATION_AUDIT_REPORT.md Cluster 8); record the decision in DECISIONS_LOG.md before T024-T025 run
+- [ ] T003 **Decision**: confirm `agents/prd-agent/skills/frontend-skill/` should be removed (confirmed out-of-scope content per SKILL_DUPLICATION_AUDIT_REPORT.md §5/INTRA_FOLDER_SKILL_AUDIT_SCOPE.md §5); **clarify whether frontend-skill is part of the "10-skill generic tier" (spec line 90) or a separate removal** — this determines the scope of T004 below
+- [ ] T004 **Decision (SC-007 blocker)**: Per spec.md SC-007 and plan.md research.md D2 flagging, enumerate and decide the fate of the "10-skill generic/thin tier" (as defined by spec line 90: exactly 2 files per skill — `SKILL.md` + `agents/openai.yaml`). Tasks: **(1)** List all skills in `agents/prd-agent/skills/` matching the 2-file structure; **(2)** Confirm whether frontend-skill (T003) is part of this list or separate; **(3)** Decide: **KEEP** as deliberate generic-routing layer, or **RETIRE** (delete/archive)? Record decision, rationale, and final list in `DECISIONS_LOG.md` with maintainer sign-off before Phase 3 cluster work begins.
 
-**Checkpoint**: Both decisions recorded — user story work can begin.
+**Checkpoint**: All three decisions (T002, T003, T004) recorded in `DECISIONS_LOG.md` with maintainer sign-off — user story work can begin.
 
 ---
 
@@ -130,7 +131,9 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ### Cross-folder cleanup (FR-007, FR-008)
 
-- [ ] T038 [US1] Confirm zero remaining unique content in `agents/prd-factory-planner-agent/` (T004-T037 have migrated everything the reconciliation reports identified), then delete `agents/prd-factory-planner-agent/` in full
+- [ ] T005 [US1] (A5 blocker — must run **before T038**) Search entire repo for all references to `agents/prd-factory-planner-agent/` (spec.md Edge Case §4: "What happens to other project documents or automation that link to...paths after the folder is deleted?"). **Command**: `grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --include='*.yaml' --include='*.json' --include='*.js' --include='*.ts' --include='*.sh' | grep -v node_modules | grep -v '.git/'`. Review all matches (expect 5-10). For each reference: **(1)** determine if it's automation, documentation, or config; **(2)** update the reference to point at the new location (e.g., `agents/prd-agent/`) or remove it if no longer applicable; **(3)** verify the update works (e.g., run workflows/config that depend on it, or update tests); **(4)** record all findings + updates in `DECISIONS_LOG.md`. **Do not proceed to T038 until all references are resolved and tested.**
+
+- [ ] T038 [US1] Confirm zero remaining unique content in `agents/prd-factory-planner-agent/` (T004-T037 have migrated everything the reconciliation reports identified) **and all external references (T005) are resolved**, then delete `agents/prd-factory-planner-agent/` in full
 - [ ] T039 [P] [US1] Delete sample client memory banks under `agents/prd-agent/agent/other/memory/` (confirmed fictional/demo data, routine cleanup — no special handling needed per spec.md Assumptions)
 - [ ] T040 [P] [US1] Delete raw MCP plugin-cache dumps under `agents/prd-agent/agent/configuration/plugins/`
 - [ ] T041 [US1] Confirm the old `agents/prd-agent/skills/local/` and `agents/prd-agent/skills/plugin-provided/` platform-builtin skill copies are already removed (per PLANNING.md Phase 3 deliverable list — "already removed from disk as of 2026-09-10") — no action if confirmed gone
@@ -179,13 +182,14 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-**Purpose**: Final validation across all three user stories.
+**Purpose**: Final validation across all three user stories and compliance check against SC-001 target.
 
 - [ ] T053 Update `manifests/skills.md` (if present) to reflect the real post-consolidation inventory
 - [ ] T054 Run all of `quickstart.md`'s validation commands end to end (SC-001 through SC-007 plus the registry check) and record results
 - [ ] T055 Run `npm run validate:frontmatter` and `npm run lint:md` per this repo's `CLAUDE.md` on every touched file
 - [ ] T056 Update `.github/projects/active/prd-combined-agent/PLANNING.md` Phase 3's deliverable checklist to check off completed items and update status from "SCOPED 🟡" to reflect actual completion state
-- [ ] T057 Update `.github/specs/001-prd-agent-consolidation/spec.md` SC-001 with the final, actual skill count once T004-T042 are all complete (target was 28/27 — confirm against reality)
+- [ ] T057 (A3 validation) **SC-001 Count Compliance Check**: Once T004-T042 are complete, validate that the final consolidated skill count **exactly matches SC-001 target**. **Command**: `find agents/prd-agent/skills -mindepth 1 -maxdepth 1 -type d | wc -l`. Expected output: **28** (if T003 frontend-skill removal ran) or **29** (if T003 was skipped). Record actual count in `DECISIONS_LOG.md`. **If actual count ≠ expected target:** DO NOT silently update spec.md to excuse the drift. Instead: **(1)** Investigate why (missing merge? wrong deletion?); **(2)** Document root cause in `DECISIONS_LOG.md`; **(3)** Fix the underlying issue (re-run T004-T042 or extend scope); **(4)** Re-validate. Only update spec.md SC-001 count **after** confirming actual count matches target or reviewing the delta with maintainer.
+- [ ] T058 Update `.github/specs/001-prd-agent-consolidation/spec.md` SC-001 with the final, actual skill count from T057 (record both the target and actual, e.g., "Target: 28 skills; Actual: 28 ✓" or "Target: 28; Actual: 26 — see DECISIONS_LOG.md for analysis")
 
 ---
 
