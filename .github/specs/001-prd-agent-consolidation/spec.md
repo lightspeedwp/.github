@@ -8,7 +8,7 @@
 
 **Status**: Phase 3 ✅ COMPLETE | Phases 4-7 PENDING
 
-**Phase 3 Completion**: PR #2865 merged 2026-09-10. All 10 functional requirements (FR-001 through FR-010) and 7 success criteria (SC-001 through SC-007) verified and merged.
+**Phase 3 Completion**: PR #2865 merged 2026-09-10. Nine of the ten functional requirements (FR-001 through FR-009) and 7 success criteria (SC-001 through SC-007) verified and merged. FR-010 (Spec-Based Agent Sync/Archive) deferred to Phase 7.
 
 **Phases 4-7 Overview**: Prompt enhancement, testing, rollout, and optional spec-based agent sync/archive.
 
