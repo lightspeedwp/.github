@@ -2,7 +2,7 @@
 
 **Branch**: `feat/coderabbit-config-optimization` | **Date**: 2026-09-11 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `specs/001-coderabbit-config-improvements/spec.md`
+**Input**: Feature specification from `specs/002-coderabbit-config-improvements/spec.md`
 
 **Status**: READY FOR IMPLEMENTATION
 
@@ -145,7 +145,7 @@ Restructure and expand the `.coderabbit.yml` configuration file in the organisat
 ### Documentation (this feature)
 
 ```text
-specs/001-coderabbit-config-improvements/
+specs/002-coderabbit-config-improvements/
 ├── spec.md                           # ✅ Complete - Feature specification
 ├── plan.md                           # ← This file (planning output)
 ├── research.md                       # Phase 0 output (audit + analysis)

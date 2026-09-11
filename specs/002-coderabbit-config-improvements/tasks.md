@@ -1,6 +1,6 @@
 # Tasks: CodeRabbit Configuration Optimization
 
-**Input**: Design documents from `specs/001-coderabbit-config-improvements/`
+**Input**: Design documents from `specs/002-coderabbit-config-improvements/`
 
 **Prerequisites**: plan.md (org-wide scope, technology diversity), spec.md (5 user stories P1-P3), research.md (audit findings), data-model.md (config structure), contracts/ (schemas), quickstart.md (11 validation scenarios)
 

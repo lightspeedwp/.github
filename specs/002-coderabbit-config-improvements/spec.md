@@ -1,6 +1,6 @@
 # Feature Specification: CodeRabbit Configuration Optimization
 
-**Feature Branch**: `001-coderabbit-config-improvements`
+**Feature Branch**: `feat/coderabbit-config-optimization`
 
 **Created**: 2026-09-11
 
