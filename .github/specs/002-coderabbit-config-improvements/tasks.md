@@ -419,6 +419,21 @@ After MVP (US1) deployed:
 
 ---
 
+## Phase 14: Convergence
+
+**Purpose**: Close gaps between specification and current implementation. Execute post-implementation review and add missing file type coverage.
+
+- [ ] T097 [US4] Add instruction block for `.specify/spec.md` in `.coderabbit.yml` per FR-007, T040: path = ".specify/spec.md", priority = 95, with 3+ focus areas: specification completeness (requirements clarity, user stories structure), acceptance criteria testability (measurable outcomes, edge cases), success criteria alignment with deliverables
+- [ ] T098 [US4] Add instruction block for `.specify/plan.md` in `.coderabbit.yml` per FR-007, T041: path = ".specify/plan.md", priority = 95, with 3+ focus areas: planning rigor (architecture decisions documented, technical constraints clear), phase decomposition (logical breakdown, dependencies identified), decision rationale (trade-offs explained, risks acknowledged)
+- [ ] T099 [US4] Add instruction block for `.specify/tasks.md` in `.coderabbit.yml` per FR-007, T042: path = ".specify/tasks.md", priority = 95, with 3+ focus areas: task specificity (file paths included, acceptance criteria clear), independence and parallelism (no hidden dependencies, [P] markers accurate), phase organization (logical grouping, checkpoint validation)
+- [ ] T100 [US4] Add instruction block for `workflows/*.md` in `.coderabbit.yml` per FR-008, T043: path = "workflows/*.md", priority = 75, with 3+ focus areas: workflow structure (phases defined, agent task descriptions clear), validation scenarios (end-to-end testing coverage), agent documentation (capability descriptions, error handling guidance)
+- [ ] T101 [US4] Add instruction block for `plugins/*/SKILL.md` in `.coderabbit.yml` per FR-008, T044: path = "plugins/*/SKILL.md", priority = 75, with 3+ focus areas: plugin documentation completeness (purpose, usage examples, configuration options), usability guidelines (accessibility, clarity for end-users), skill metadata (versioning, dependencies, compatibility)
+- [ ] T102 [US2] Create `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` per FR-015, T024, SC-013: external audit guide with: step-by-step checklist for verifying coverage completeness, process for identifying gaps vs actual repository file types, maintenance guidelines for quarterly audits, examples of common coverage gaps, coverage statistics (current % coverage, target 95%)
+
+**Checkpoint**: Configuration complete with full file type coverage and audit guide. All 5 user stories satisfied.
+
+---
+
 ## Notes
 
 - [P] tasks = can run in parallel (different files, no blocking dependencies)
