@@ -28,54 +28,52 @@ Phase 1 is the setup phase that unblocks all downstream work. Three decisions mu
 
 ---
 
-## T001: Confirm Starting State (30 min)
+## T001: Confirm Starting State (5 min) — UPDATED
 
-**Goal**: Verify the current state of `agents/prd-agent/` matches the audit baseline.
+**Status**: Phase 3 consolidation already complete (PR #2865 merged 2026-09-10)
 
-**Why**: The remediation patches assume the audit baseline is current (2026-09-10). If someone has added/removed skills since then, tasks will drift.
+**Current State (Verified 2026-09-11)**:
+- Skill count: 28 consolidated skills (down from 46-skill baseline)
+- hermes/ folder: Already removed (T004-T007 complete)
+- prd-factory-planner-agent: Already deleted (T042 complete)
+- mode-prd.agent.md: Still exists (T045-T047 pending)
 
-### Step 1: Run baseline check
+**Implication**: The Phase 3 implementation work (60+ cluster merge tasks) has already been executed in PR #2865. Phase 1 decisions (T002-T004) need to be validated retroactively based on current state.
+
+### Current 28-Skill Inventory
+
+acceptance-test-planner, approval-gate-manager, change-request-router, delivery-planner, estimation-planner, evidence-locker, figma-wordpress-technical-brief, github-issue-drafter, implementation-plan-generator, intake-routing, launch-task-router, lightspeed-intake-onboarding, markdown-content-validator, memory-management, prd-agent-orchestrator, prd-task-pack-exporter, prd-task-reviewer, prd-writer, project-intake, project-memory-manager, project-researcher, project-status-reporter, qa-findings-router, qa-planner, release-handoff-generator, requirements-traceability-mapper, validation-support, wordpress-plugin-packaging-review
+
+### Step 1: Verify current state
 
 ```bash
-# Current skill count (should be 45 + hermes/ = 46 total)
-find agents/prd-agent/skills -maxdepth 1 -type d ! -name skills | wc -l
+# Confirm current skill count
+find agents/prd-agent/skills -maxdepth 1 -type d ! -name skills | wc -l  # Should return 28
 
-# Verify hermes/ exists
-test -d agents/prd-agent/skills/hermes && echo "✓ hermes/ exists" || echo "✗ hermes/ missing"
-
-# Verify prd-factory-planner-agent exists (to be deleted)
-test -d agents/prd-factory-planner-agent && echo "✓ prd-factory-planner-agent exists" || echo "✗ missing (already deleted?)"
-
-# Verify mode-prd.agent.md exists (to be retired)
-test -f agents/mode-prd.agent.md && echo "✓ mode-prd.agent.md exists" || echo "✗ missing"
+# Confirm consolidation is complete
+test -d agents/prd-agent/skills/hermes && echo "✗ hermes/ still exists" || echo "✓ hermes/ removed"
+test -d agents/prd-factory-planner-agent && echo "✗ prd-factory still exists" || echo "✓ prd-factory deleted"
+test -f agents/mode-prd.agent.md && echo "✓ mode-prd.agent.md exists (pending retirement)" || echo "✗ missing"
 ```
 
-### Step 2: Expected output
-
-```
-46                           # 45 top-level + 1 in hermes
-✓ hermes/ exists
-✓ prd-factory-planner-agent exists
-✓ mode-prd.agent.md exists
-```
-
-### Step 3: Record in DECISIONS_LOG.md
+### Step 2: Record in DECISIONS_LOG.md
 
 ```markdown
-### T001: Starting State Verification
+### T001: Current State Verification (Phase 3 Post-Completion)
 
-**Command Executed**: find agents/prd-agent/skills -maxdepth 1 -type d ! -name skills | wc -l
+**Verified**: 2026-09-11 — Consolidation already complete via PR #2865
 
 **Results**:
-- Skill count: 45 (top-level)
-- hermes/ status: [EXISTS / MISSING]
-- prd-factory-planner-agent: [EXISTS / DELETED]
-- mode-prd.agent.md: [EXISTS / MISSING]
+- Current skill count: 28 (consolidated from 46)
+- hermes/ status: REMOVED (T004-T007 complete)
+- prd-factory-planner-agent: DELETED (T042 complete)
+- mode-prd.agent.md: EXISTS (retirement pending in T045-T047)
+- Baseline matches: YES — consolidation successful
 
-**Drift Detection**: [NO DRIFT / DRIFT FOUND: describe]
+**Implication**: T002-T004 decisions need retroactive validation against achieved state.
 
-**Sign-off**: @ashley, Date: YYYY-MM-DD
-**Status**: [PROCEED / HOLD - investigate drift first]
+**Sign-off**: @ashley, Date: 2026-09-11
+**Status**: PROCEED — Update T002-T004 decision records
 ```
 
 ### Step 4: Decision
