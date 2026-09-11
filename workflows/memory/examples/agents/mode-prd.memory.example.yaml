@@ -34,7 +34,7 @@
         "value":
           {
             "repo": "lightspeedwp/.github",
-            "path": "agents/mode-prd.agent.md",
+            "path": "agents/prd-agent/copilot/agent.md",
           },
         "status": "confirmed",
         "confidence": 0.92,
