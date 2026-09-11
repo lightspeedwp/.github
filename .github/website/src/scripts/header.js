@@ -1,4 +1,3 @@
-/* global window, document, IntersectionObserver, CustomEvent, localStorage, navigator */
 /* header.js — burger, drawer, dropdowns, scroll-shrink */
 
 document.addEventListener("DOMContentLoaded", () => {

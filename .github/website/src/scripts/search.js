@@ -1,4 +1,3 @@
-/* global window, document, requestAnimationFrame */
 /* search.js — Search palette controller */
 
 import { rankSearchItems, getSearchTokens } from "./search-utils.js";
