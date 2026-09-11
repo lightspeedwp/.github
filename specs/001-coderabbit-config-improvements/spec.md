@@ -108,13 +108,14 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **FR-003**: Security-critical file types MUST have prominent security review guidance (authentication, secrets handling, access control)
 - **FR-004**: Performance-related file types MUST include performance review criteria where applicable
 - **FR-005**: Accessibility-related file types MUST reference WCAG 2.2 AA standards per organizational requirement
-- **FR-006**: Configuration MUST cover all branch types defined in CLAUDE.md (feat/, fix/, hotfix/, release/, refactor/, chore/, task/, docs/, test/, perf/, ci/, build/, deps/, security/, design/, a11y/, ux/, i18n/, ops/, proto/, ds/, api/, schema/, telemetry/, content/, seo/, config/, migrate/, qa/, uat/, audit/, codex/, revert/, research/)
+- **FR-006**: Configuration MUST provide branch-type-specific review instructions for ALL 30+ branch types defined in CLAUDE.md (feat/, fix/, hotfix/, release/, refactor/, chore/, task/, docs/, test/, perf/, ci/, build/, deps/, security/, design/, a11y/, ux/, i18n/, ops/, proto/, ds/, api/, schema/, telemetry/, content/, seo/, config/, migrate/, qa/, uat/, audit/, codex/, revert/, research/) - enabling context-aware feedback adapted to the nature of each change category
 - **FR-007**: SpecKit-related files (`.specify/spec.md`, `.specify/plan.md`, `.specify/tasks.md`) MUST have dedicated review instructions
 - **FR-008**: Workflow and plugin files MUST have review instructions
 - **FR-009**: Configuration MUST be internally consistent (terminology, structure, formatting)
 - **FR-010**: Instructions MUST avoid duplication with content in AGENTS.md, CLAUDE.md, or other centralized documentation
 - **FR-011**: Label automation workflow documentation MUST be reviewed for accuracy against `.github/labels.yml` reality
 - **FR-012**: PR and issue template standards documented in config MUST match actual templates in `.github/PULL_REQUEST_TEMPLATE/` and `.github/ISSUE_TEMPLATE/`
+- **FR-013**: Review instructions MUST be contextualized by branch type - each of the 30+ branch types MUST have adapted guidance that reflects the specific review priorities for that change category (e.g., security-focused for security/, performance-focused for perf/, etc.)
 
 ### Key Entities
 
@@ -138,6 +139,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **SC-008**: Instruction consistency MUST be validated: terminology standardized, structure uniform across all blocks (measurable through analysis tool)
 - **SC-009**: CodeRabbit reviews using the updated config MUST cite relevant specific guidance from path_instructions for at least 85% of reviews (measured by review audit)
 - **SC-010**: Maintainability MUST improve: adding a new file type instruction should take <5 minutes and not require edits to multiple sections
+- **SC-011**: Branch-type-specific guidance MUST be present for at least the top 15 branch types by usage frequency (security/, feat/, fix/, docs/, perf/, a11y/, refactor/, chore/, test/, ci/, hotfix/, release/, design/, task/, ops/) verified through review
 
 ## Assumptions
 
@@ -150,9 +152,15 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **Organization Standards**: Configuration assumes adherence to UK English, WordPress Coding Standards, WCAG 2.2 AA accessibility, as defined in CLAUDE.md and AGENTS.md
 - **No Duplication**: Improvements will avoid duplicating guidance already documented in AGENTS.md (global AI rules), CLAUDE.md (repo instructions), and `.github/instructions/*.instructions.md` (specific guidance files)
 - **Maintainability Over Completeness**: When faced with a choice between comprehensive coverage and maintainability, maintainability wins. Instructions should be clear and actionable, not exhaustive encyclopedic lists.
+- **Branch-Specific Reviews**: Review instructions will differentiate by branch type for ALL 30+ branch types (feat/, fix/, security/, docs/, perf/, etc.), enabling context-aware feedback tailored to the nature of each change.
+
+## Clarifications
+
+### Session 2026-09-11
+
+- Q: Should review instructions adapt based on branch type (feat/, fix/, security/, etc.)? → A: Yes, for all 30+ branch types defined in CLAUDE.md - comprehensive branch-specific review context.
 
 ## Clarifications Needed
 
-- [NEEDS CLARIFICATION: Should review instructions differentiate by branch type (feat/ vs fix/ vs security/)? If yes, how granular (all 30 types or key subsets)?]
 - [NEEDS CLARIFICATION: For files matching multiple path patterns, should instructions cascade (apply all) or use single best match? Should priority be explicit in config?]
 - [NEEDS CLARIFICATION: Should the updated config include a "review coverage audit checklist" as a reference tool for maintainers, or keep this external?]
