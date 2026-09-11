@@ -244,7 +244,12 @@ module.exports = [
   // Browser-based JavaScript files (website scripts)
   {
     // scripts/dashboard is a browser bundle too, not a Node script.
-    files: ["website/src/scripts/**/*.js", "scripts/dashboard/**/*.js"],
+    // The .github/-prefixed path covers this repo's own nested copy of the website.
+    files: [
+      "website/src/scripts/**/*.js",
+      ".github/website/src/scripts/**/*.js",
+      "scripts/dashboard/**/*.js",
+    ],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2024,
