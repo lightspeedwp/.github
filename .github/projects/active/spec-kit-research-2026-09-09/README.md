@@ -277,6 +277,16 @@ Spec Kit slightly better for team training (4/5 vs 3/5) due to excellent documen
 
 ---
 
+## Related Issues
+
+| Issue | Title | Status |
+|-------|-------|--------|
+| [LS-3718](https://linear.app/lightspeedwp/issue/LS-3718) | Research GitHub: Evaluate Spec Kit Against OpenSpec | ✅ Complete |
+| [#2399](https://github.com/lightspeedwp/.github/issues/2399) | OpenSpec Audit & Governance | Reference |
+| [#2854](https://github.com/lightspeedwp/.github/pull/2854) | PR: Spec Kit Research & Integration | ✅ Merged |
+
+---
+
 ## Files & References
 
 ### Research Documents
