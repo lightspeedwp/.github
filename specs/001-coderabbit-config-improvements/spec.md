@@ -93,11 +93,10 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 
 ### Edge Cases
 
-- What happens when a file matches multiple path patterns? (e.g., `tests/*.spec.js` matches both JavaScript and test instructions)
-- How are instructions prioritized when a file could belong to multiple categories?
-- Should generic patterns (e.g., `**/*.md`) be merged with specific patterns or kept separate?
-- What about files in nested `.github/` directories in sub-repositories?
-- How should instructions evolve without breaking existing workflows?
+- When a file matches multiple path patterns, more specific patterns override general ones (e.g., `**/e2e/*.spec.js` takes priority over `**/*.js`)
+- Generic patterns (e.g., `**/*.md`) serve as fallback instructions for files not matching specific patterns
+- Files in nested `.github/` directories in sub-repositories follow the same pattern priority rules
+- Instructions must evolve without breaking existing review workflows - additions/clarifications only, no breaking changes
 
 ## Requirements *(mandatory)*
 
@@ -116,6 +115,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **FR-011**: Label automation workflow documentation MUST be reviewed for accuracy against `.github/labels.yml` reality
 - **FR-012**: PR and issue template standards documented in config MUST match actual templates in `.github/PULL_REQUEST_TEMPLATE/` and `.github/ISSUE_TEMPLATE/`
 - **FR-013**: Review instructions MUST be contextualized by branch type - each of the 30+ branch types MUST have adapted guidance that reflects the specific review priorities for that change category (e.g., security-focused for security/, performance-focused for perf/, etc.)
+- **FR-014**: Path pattern matching MUST follow explicit priority/specificity order - when files match multiple patterns, more specific patterns override general patterns (e.g., `**/e2e/*.js` before `**/*.js`). Pattern priority MUST be documented in config.
 
 ### Key Entities
 
@@ -140,6 +140,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **SC-009**: CodeRabbit reviews using the updated config MUST cite relevant specific guidance from path_instructions for at least 85% of reviews (measured by review audit)
 - **SC-010**: Maintainability MUST improve: adding a new file type instruction should take <5 minutes and not require edits to multiple sections
 - **SC-011**: Branch-type-specific guidance MUST be present for at least the top 15 branch types by usage frequency (security/, feat/, fix/, docs/, perf/, a11y/, refactor/, chore/, test/, ci/, hotfix/, release/, design/, task/, ops/) verified through review
+- **SC-012**: Path pattern priority MUST be clearly documented - specificity order rules documented in comments, and priority conflicts resolved in favor of more specific patterns with zero ambiguity
 
 ## Assumptions
 
@@ -159,8 +160,8 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 ### Session 2026-09-11
 
 - Q: Should review instructions adapt based on branch type (feat/, fix/, security/, etc.)? → A: Yes, for all 30+ branch types defined in CLAUDE.md - comprehensive branch-specific review context.
+- Q: When files match multiple path patterns, should instructions cascade or use priority order? → A: Explicit priority/specificity order - more specific patterns override general ones (e.g., `**/e2e/*.js` before `**/*.js`).
 
 ## Clarifications Needed
 
-- [NEEDS CLARIFICATION: For files matching multiple path patterns, should instructions cascade (apply all) or use single best match? Should priority be explicit in config?]
 - [NEEDS CLARIFICATION: Should the updated config include a "review coverage audit checklist" as a reference tool for maintainers, or keep this external?]
