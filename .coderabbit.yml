@@ -282,6 +282,222 @@ reviews:
           - Confirm that documentation is up to date, accurate, and references related files or processes.
           - Ensure accessibility (e.g., heading hierarchy, alt text for images, no ambiguous language).
 
+    # 10. Python Files & Scripts
+    - path: "**/*.py"
+      instructions: |
+        Review Python source and script files:
+          - Ensure code follows PEP 8 style guide and project conventions.
+          - Check for proper docstrings and inline comments for complex logic.
+          - Validate type hints and run mypy/pytype checks.
+          - Verify imports are organized and unused imports removed.
+          - Check for security best practices (input validation, no hardcoded secrets).
+          - Ensure error handling is comprehensive and meaningful.
+          - Validate test coverage and pytest compliance.
+          - Check for logging and debugging output (avoid print statements in production).
+
+    - path: "**/requirements.txt"
+      instructions: |
+        Review Python dependency manifest:
+          - Ensure pinned versions for reproducible installs.
+          - Check for security vulnerabilities in dependencies.
+          - Validate package naming and version constraints.
+          - Ensure only necessary packages are listed (no unused dependencies).
+          - For production, prefer using requirements files over setup.py alone.
+
+    - path: "**/setup.py"
+      instructions: |
+        Review Python package setup file:
+          - Validate package metadata (name, version, description, author, license).
+          - Ensure dependencies are declared correctly and versions are appropriate.
+          - Check for proper entry points and script registration.
+          - Validate classifiers for Python version compatibility.
+          - Ensure setup is compatible with modern setuptools and pip standards.
+
+    - path: "**/pyproject.toml"
+      instructions: |
+        Review Python project configuration:
+          - Validate build system and tool configuration (poetry, setuptools, flit).
+          - Check project metadata completeness and accuracy.
+          - Ensure dependency specifications are correct and consistent.
+          - Validate tool configurations (black, flake8, mypy, pytest, etc.).
+          - Confirm Python version compatibility and constraints.
+
+    # 11. Configuration Files
+    - path: "**/*.toml"
+      instructions: |
+        Review TOML configuration files:
+          - Ensure valid TOML syntax and formatting.
+          - Check for consistency with project standards.
+          - Validate all required sections are present and correct.
+          - Ensure configuration keys match expected schema.
+          - Check for security implications (no hardcoded secrets).
+
+    - path: "**/*.yaml"
+      instructions: |
+        Review YAML configuration files:
+          - Ensure valid YAML syntax with proper indentation and structure.
+          - Check for consistency with project standards and conventions.
+          - Validate required fields and proper nesting.
+          - Ensure configuration matches application expectations.
+          - Check for security implications (no secrets or sensitive data).
+
+    - path: "**/*.xml"
+      instructions: |
+        Review XML configuration and data files:
+          - Ensure valid XML syntax and well-formed structure.
+          - Validate against any defined DTD or schema.
+          - Check for proper namespace declarations if used.
+          - Ensure special characters are properly escaped.
+          - Check for clarity and maintainability of structure.
+
+    # 12. Stylesheets
+    - path: "**/*.css"
+      instructions: |
+        Review CSS stylesheets:
+          - Ensure code is linted and follows project style guides (Prettier/Stylelint).
+          - Check for proper CSS organization and modularity.
+          - Validate browser compatibility and vendor prefixes.
+          - Ensure performance optimizations (minimal specificity, no unused styles).
+          - Check for accessibility (sufficient color contrast, focus states).
+          - Validate CSS custom properties (variables) are well-documented.
+          - Ensure dark mode and theme support where applicable.
+
+    - path: "**/*.scss"
+      instructions: |
+        Review SCSS stylesheets:
+          - Ensure valid SCSS syntax and proper nesting.
+          - Check for Sass best practices (mixins, variables, functions).
+          - Validate proper use of extends, mixins, and variables.
+          - Ensure compilation output produces valid CSS.
+          - Check for performance optimizations and unnecessary nesting.
+          - Validate accessibility and responsive design practices.
+          - Ensure color contrast and theme support.
+
+    - path: "**/*.sass"
+      instructions: |
+        Review Sass stylesheets:
+          - Ensure valid Sass syntax without parentheses/semicolons.
+          - Check for proper variable and mixin usage.
+          - Validate indentation and nesting structure.
+          - Ensure compilation produces clean, performant CSS.
+          - Check accessibility and browser compatibility.
+
+    # 13. JavaScript Module Variants
+    - path: "**/*.mjs"
+      instructions: |
+        Review ES module files (.mjs):
+          - Ensure code is linted and follows project style guides.
+          - Validate proper ES module syntax (import/export).
+          - Check for compatibility with Node.js and browser environments.
+          - Ensure consistent module resolution and paths.
+          - Verify no mixed CommonJS/ES module patterns.
+          - Check for proper async/await usage and error handling.
+
+    - path: "**/*.cjs"
+      instructions: |
+        Review CommonJS module files (.cjs):
+          - Ensure code is linted and follows project style guides.
+          - Validate proper CommonJS syntax (require/module.exports).
+          - Check for compatibility with Node.js versions in use.
+          - Ensure consistent module patterns across codebase.
+          - Verify no mixed ES module/CommonJS patterns.
+          - Check for proper error handling and security practices.
+
+    # 14. Component & Template Files
+    - path: "**/*.astro"
+      instructions: |
+        Review Astro component files:
+          - Ensure valid Astro syntax and component structure.
+          - Check for proper prop typing and validation.
+          - Validate accessibility of rendered HTML output.
+          - Ensure performance optimizations (partial hydration, islands).
+          - Check for proper use of Astro layouts and components.
+          - Validate island directives and client-side interactivity.
+          - Check for SEO best practices (title, meta tags, structured data).
+
+    - path: "**/*.mdx"
+      instructions: |
+        Review MDX files (Markdown with JSX):
+          - Ensure valid markdown syntax and JSX component usage.
+          - Check for proper component imports and prop passing.
+          - Validate accessibility of interactive components.
+          - Ensure consistent formatting with project markdown style.
+          - Check for frontmatter completeness and accuracy.
+          - Validate code blocks and syntax highlighting.
+          - Check for clarity and usefulness for intended audience.
+
+    - path: "**/*.html"
+      instructions: |
+        Review HTML files:
+          - Ensure valid HTML5 syntax and semantic markup.
+          - Check for accessibility (ARIA labels, alt text, heading hierarchy).
+          - Validate proper meta tags and SEO optimization.
+          - Ensure responsive design and mobile compatibility.
+          - Check for security (no XSS vulnerabilities, proper escaping).
+          - Validate proper use of forms, inputs, and validation.
+          - Check for performance optimization (defer scripts, lazy load images).
+
+    # 15. Data & Structured Files
+    - path: "**/*.csv"
+      instructions: |
+        Review CSV data files:
+          - Ensure proper CSV formatting and escaping.
+          - Validate consistent column structure and headers.
+          - Check for data integrity and validity.
+          - Ensure no sensitive or private data is committed.
+          - Validate character encoding (UTF-8 preferred).
+          - Check for proper line endings and formatting.
+
+    - path: "**/*.json"
+      instructions: |
+        Review JSON data and configuration files:
+          - Ensure valid JSON syntax (no trailing commas, proper quoting).
+          - Check for consistency with JSON Schema if defined.
+          - Validate all required fields are present and correct.
+          - Ensure proper formatting and indentation.
+          - Check for security (no hardcoded secrets or credentials).
+          - Validate performance impact (avoid very large JSON files).
+          - Ensure compatibility with schema versioning if versioned.
+
+    # 16. Other Configuration & Meta Files
+    - path: "**/.editorconfig"
+      instructions: |
+        Review EditorConfig files:
+          - Ensure valid EditorConfig syntax and format.
+          - Check for consistency with project style guides.
+          - Validate supported file extensions are covered.
+          - Ensure indent style and size match project standards.
+          - Check for end-of-line and charset consistency.
+
+    - path: "**/.env*"
+      instructions: |
+        Review environment files (DO NOT COMMIT):
+          - ⚠️ WARNING: .env files should NEVER be committed to version control.
+          - Check that sensitive data is properly excluded via .gitignore.
+          - Document required environment variables in example files (.env.example).
+          - Ensure .env files are listed in .gitignore with patterns.
+          - Validate example file includes all required variables with safe defaults.
+
+    - path: "**/.gitignore"
+      instructions: |
+        Review .gitignore files:
+          - Ensure all generated, temporary, and sensitive files are ignored.
+          - Check for unnecessary broad patterns that exclude needed files.
+          - Validate project-specific ignore rules are present.
+          - Check for consistency across similar project types.
+          - Ensure node_modules, build artifacts, and .env files are ignored.
+
+    - path: "**/Makefile"
+      instructions: |
+        Review Makefile automation:
+          - Ensure proper Makefile syntax and valid targets.
+          - Check for clear target names and descriptions.
+          - Validate recipes use tabs (not spaces) for indentation.
+          - Ensure .PHONY declarations for non-file targets.
+          - Check for proper error handling and exit codes.
+          - Validate scripts are portable across Unix-like systems.
+          - Ensure documentation of available targets.
+
 # === GitHub Labels Reference ===
 # This section documents the canonical labeling system for all PRs and issues.
 # Labels are automatically applied by the labeling workflow based on branch patterns and file changes.
