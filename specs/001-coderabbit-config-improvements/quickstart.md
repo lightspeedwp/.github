@@ -213,6 +213,29 @@ Before marking implementation complete, test all scenarios below.
 
 ---
 
+### Scenario 11: Cross-Technology Stack Compatibility
+
+**Test Case**: Instructions apply consistently across diverse project types (WordPress, Node.js, Infrastructure, MCP)
+
+**Setup**:
+1. Create PRs modifying files in at least 3 different repository types:
+   - **WordPress project**: Create PR in a block plugin or block theme repo
+   - **Node.js/TypeScript project**: Create PR in `ls-flow` or an MCP server repo
+   - **Infrastructure project**: Create PR in `lightspeed-hosting-infra` (infrastructure-as-code changes)
+2. All PRs should be from the same branch type (e.g., `feat/` for all three)
+3. For each PR, trigger CodeRabbit review
+
+**Expected Outcome**:
+- All three PRs receive CodeRabbit reviews
+- Branch-type context is applied consistently (feat/ guidance is relevant to all three project types)
+- File-type guidance does NOT contain technology-specific recommendations (e.g., no "use WordPress hooks" in PHP files, no "use async/await" in TypeScript files)
+- Security, performance, accessibility, and quality guidance applies universally
+- No instruction blocks reference specific frameworks, languages, or project types
+
+**Validation**: ✅ Instructions are technology-agnostic and apply consistently across all project types
+
+---
+
 ## Test Execution Steps
 
 ### For Each Scenario:
@@ -235,7 +258,8 @@ Before marking implementation complete, test all scenarios below.
 | 8 | Create 5 PRs + wait | 15 min setup + 20 min reviews |
 | 9 | Timed audit guide test | 20-30 min |
 | 10 | Documentation review | 10-15 min |
-| **Total** | | **2-2.5 hours** |
+| 11 | Cross-tech PR creation + review | 20 min setup + 15 min reviews (3 repos) |
+| **Total** | | **2.5-3 hours** |
 
 ---
 
@@ -253,8 +277,9 @@ Before marking implementation complete, test all scenarios below.
 | 8 | Branch type guidance | 5 branch types show distinct context |
 | 9 | Audit guide | Usable in <15 min without additional context |
 | 10 | Priority docs | Pattern priority clearly explained in config |
+| 11 | Cross-tech compatibility | Instructions apply consistently across WordPress, Node.js, and infrastructure projects; no framework-specific guidance |
 
-**Result**: ✅ PASS when 9/10+ validation points succeed
+**Result**: ✅ PASS when 10/11+ validation points succeed
 
 ---
 

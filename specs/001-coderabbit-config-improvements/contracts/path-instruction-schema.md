@@ -8,6 +8,23 @@ Defines the required structure, fields, and validation rules for each path instr
 
 ---
 
+## Critical Constraint: Technology-Agnosticism
+
+**This schema is for organisation-wide central configuration.** Instructions MUST be completely technology-agnostic and apply across diverse project types:
+
+- ✅ **Allowed**: "Code quality", "security practices", "performance", "accessibility", "testing coverage", "documentation"
+- ❌ **NOT allowed**: "PHP function naming", "TypeScript types", "React components", "Terraform modules", "WordPress actions", "Node.js middleware"
+
+Instructions should reference **universal principles** that apply to all code:
+- Security: authentication, authorization, secrets, injection prevention
+- Performance: algorithmic efficiency, resource usage, caching strategies
+- Quality: readability, maintainability, testing, documentation
+- Accessibility: WCAG compliance, semantic markup, keyboard navigation
+
+Examples must use generic patterns, not framework-specific ones. Branch context guidance (security/, perf/, a11y/) must be universally applicable across WordPress, Node.js, infrastructure, and MCP projects.
+
+---
+
 ## Schema Definition (YAML/JSON)
 
 ```yaml

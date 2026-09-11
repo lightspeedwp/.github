@@ -100,6 +100,46 @@ Restructure and expand the `.coderabbit.yml` configuration file in the organisat
 - 95%+ file type coverage ensures no critical file types are missed across the organisation
 - External audit guide enables maintainers to identify and fix gaps proactively
 
+## Technology Stack Diversity
+
+**Critical Discovery**: The organisation spans multiple distinct technology stacks and project types:
+
+**1. WordPress Ecosystem** (majority of projects)
+- WordPress block themes
+- WordPress block plugins
+- PHP-based projects following WordPress Coding Standards
+
+**2. Timesheet Management System** (ls-flow)
+- `ls-flow` core system
+- `ls-flow-zendesk-extension` integration
+- `ls-flow-zendesk-app` application
+- Likely Node.js/TypeScript stack
+
+**3. Hosting & Infrastructure** (ops-focused)
+- `lightspeed-hosting-infra` — infrastructure-as-code (likely Terraform/Kubernetes)
+- `grounded-docs-infra` — documentation infrastructure
+- DevOps/operations configuration
+
+**4. Custom MCP Servers** (AI/automation integration)
+- `playwright-mcp` — browser automation MCP
+- `pagespeed-mcp` — performance analysis MCP
+- `zendesk-mcp` — Zendesk integration MCP
+- `lightspeed-pagespeed-mcp` — PageSpeed MCP
+- `lsx-mcp-ui` — UI/UX MCP
+- TypeScript/Node.js with MCP-specific patterns
+
+**Impact on Path Instructions**:
+- Instructions MUST be completely technology-agnostic (no PHP-specific, no Node-specific, no Terraform-specific guidance)
+- Review focus must be on universal principles: code quality, security, performance, accessibility, testing
+- File type patterns must accommodate diverse file structures (PHP projects, Node modules, IaC configs, TypeScript, etc.)
+- Examples in instruction blocks should reference generic patterns, not specific frameworks
+- Branch context guidance must translate across all project types (security/ branch guidance applies equally to WordPress plugins and MCP servers)
+
+**Testing Strategy Impact**:
+- Validation scenarios must test across at least one repo from each category
+- Example: WordPress plugin (feat/ PR), infrastructure change (ops/ PR), MCP project (feat/ PR with TypeScript)
+- Ensures instructions work consistently across diverse tech stacks
+
 ## Project Structure
 
 ### Documentation (this feature)
