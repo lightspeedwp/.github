@@ -147,6 +147,17 @@ All phases have been created as GitHub issues for tracking and execution:
 - **Phase 5:** ~20 min (documentation)
 - **Total:** ~2 hours (excluding review/approval time)
 
+## Related Issues
+
+| Issue | Status | Description |
+|-------|--------|-------------|
+| [#2771](https://github.com/lightspeedwp/.github/issues/2771) | ⏳ Ready | Phase 1: Delete 17 Duplicate Issue Templates & Renumber |
+| [#2772](https://github.com/lightspeedwp/.github/issues/2772) | 🔒 Blocked | Phase 2: Standardize Frontmatter & Fix YAML Syntax |
+| [#2773](https://github.com/lightspeedwp/.github/issues/2773) | 🔒 Blocked | Phase 3: Correct PR Template Title Patterns |
+| [#2774](https://github.com/lightspeedwp/.github/issues/2774) | 🔒 Blocked | Phase 4: Validate All Templates & Test Routing |
+| [#2775](https://github.com/lightspeedwp/.github/issues/2775) | 🔒 Blocked | Phase 5: Create Issue Type Allocator Skill |
+| [#2776](https://github.com/lightspeedwp/.github/issues/2776) | ⏳ In Progress | [TRACKING] Issue & PR Template Improvements |
+
 ## Next Steps
 
 1. Review findings in this project's documentation

@@ -230,43 +230,27 @@ Phase 3 succeeds when:
 
 ---
 
-## 📋 Active Issues
+## Related Issues
 
-(To be created — see AUDIT-FINDINGS.md for issue descriptions)
+### Epic & Phase Tracking
 
-### Phase 1 Planning Issues
-- [ ] #2681 — **[EPIC]** PR Finalisation Workflow Modernization
-- [ ] #2682 — **[PHASE 1]** Planning & Testing
-  - Review audit findings
-  - Validate agent/skill integrations
-  - Test on sample PRs
+| Issue | Title | Phase | Status |
+|-------|-------|-------|--------|
+| [#2681](https://github.com/lightspeedwp/.github/issues/2681) | **[EPIC]** PR Finalisation Workflow Modernization | Epic | 📋 Planning |
+| [#2682](https://github.com/lightspeedwp/.github/issues/2682) | **[PHASE 1]** Planning & Testing | Phase 1 | ⏳ Ready |
+| [#2683](https://github.com/lightspeedwp/.github/issues/2683) | **[PHASE 2]** Rename pr-creation-agent → pr-agent | Phase 2 | 🔒 Queued |
+| [#2684](https://github.com/lightspeedwp/.github/issues/2684) | **[PHASE 2]** Move issue-agent to agents/ root | Phase 2 | 🔒 Queued |
+| [#2685](https://github.com/lightspeedwp/.github/issues/2685) | **[PHASE 3]** Integrate Changelog Agent into workflows | Phase 3 | 🔒 Queued |
+| [#2686](https://github.com/lightspeedwp/.github/issues/2686) | **[PHASE 3]** Integrate Label Audit into PR finalization | Phase 3 | 🔒 Queued |
+| [#2687](https://github.com/lightspeedwp/.github/issues/2687) | **[PHASE 3]** Integrate Issue Agent into lifecycle | Phase 3 | 🔒 Queued |
+| [#2688](https://github.com/lightspeedwp/.github/issues/2688) | **[PHASE 3]** End-to-end testing on real PRs | Phase 3 | 🔒 Queued |
+| [#2689](https://github.com/lightspeedwp/.github/issues/2689) | **[PHASE 4]** Build Issue Agent Phase 2 skills (2-7) | Phase 4 | 📋 Future |
+| [#2690](https://github.com/lightspeedwp/.github/issues/2690) | **[PHASE 4]** Create CI Error Diagnosis Skill | Phase 4 | 📋 Future |
+| [#2691](https://github.com/lightspeedwp/.github/issues/2691) | **[PHASE 4]** Add scheduled label coverage audit | Phase 4 | 📋 Future |
 
-### Phase 2 Agent Reorganization Issues
-- [ ] #2683 — **[PHASE 2]** Rename pr-creation-agent → pr-agent
-  - Update ~50 files
-  - Test CI
-  - Update references
-- [ ] #2684 — **[PHASE 2]** Move issue-agent to agents/ root
-  - Update ~30 files
-  - Test CI
-  - Update references
+### Active Issues Description
 
-### Phase 3 Workflow Integration Issues
-- [ ] #2685 — **[PHASE 3]** Integrate Changelog Agent into workflows
-  - PR validation workflow
-  - Release workflow
-- [ ] #2686 — **[PHASE 3]** Integrate Label Audit into PR finalization
-  - Update prompt
-  - Test recommendations
-- [ ] #2687 — **[PHASE 3]** Integrate Issue Agent into lifecycle
-  - STEP 7 implementation
-  - STEP 12 implementation
-- [ ] #2688 — **[PHASE 3]** End-to-end testing on real PRs
-
-### Phase 4 Future Enhancement Issues
-- [ ] #2689 — **[PHASE 4]** Build Issue Agent Phase 2 skills (2-7)
-- [ ] #2690 — **[PHASE 4]** Create CI Error Diagnosis Skill
-- [ ] #2691 — **[PHASE 4]** Add scheduled label coverage audit
+*See issue tracker for full details. This project's [AUDIT-FINDINGS.md](./AUDIT-FINDINGS.md) contains comprehensive descriptions and recommendations for Phase 1.*
 
 ---
 
