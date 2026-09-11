@@ -144,7 +144,7 @@ PathInstruction:
         - referenced patterns must exist in config
       example:
         - "**/.github/actions/**"
-        - ".github/agents/**"
+        - "agents/**"
 
     validation_rules:
       type: array

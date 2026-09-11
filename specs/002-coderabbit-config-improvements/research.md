@@ -22,7 +22,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 
 **Sections**:
 - `reviews` (settings): 8 configuration items
-- `path_instructions` (review guidance): 20 path pattern blocks
+- `path_instructions` (review guidance): 24 path pattern blocks
 - Labels reference (documentation): 145 lines
 - PR/issue templates documentation: 80 lines
 
@@ -30,18 +30,18 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 
 | Category | Patterns Covered | Count | Status |
 |----------|------------------|-------|--------|
-| General AI/prompts | `.github/prompts/**`, `.github/agents/**` | 2 | ✅ |
+| General AI/prompts | `.github/prompts/**`, `agents/**` | 2 | ✅ |
 | Copilot/AI files | `.github/custom-instructions.md`, `**/.github/prompts/*` | 2 | ✅ |
 | Package management | `**/package.json`, `**/composer.json` | 2 | ✅ |
 | JavaScript/TypeScript | `**/*.{js,ts}`, `**/e2e/*.{ts,js}` | 2 | ✅ |
 | Shell scripts | `**/scripts/**/*.sh` | 1 | ✅ |
 | Workflows | `**/.github/workflows/*.yml` | 1 | ✅ |
-| Agents/meta | `.github/agents/**`, `.github/agents/*.agent.{js,sh,py}` | 3 | ✅ |
+| Agents/meta | `agents/**`, `agents/*.agent.{js,sh,py}` | 3 | ✅ |
 | Tests | `**/tests/*.*` | 1 | ✅ |
 | Templates/saved replies | `**/.github/ISSUE_TEMPLATE/*.md`, `**/.github/PULL_REQUEST_TEMPLATE/*.md`, etc. | 3 | ✅ |
 | Documentation | `**/docs/*.*/*.md` | 1 | ✅ |
 
-**Total current patterns**: 20 (though some overlap)
+**Total current patterns**: 24 (though some overlap)
 
 **Coverage gaps identified**:
 - ❌ `.specify/spec.md`, `.specify/plan.md`, `.specify/tasks.md` (SpecKit files - 3 new)
@@ -62,7 +62,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 
 ```
 1. .github/prompts/**                          (very specific)
-2. .github/agents/**                           (very specific)
+2. agents/**                           (very specific)
 3. .github/custom-instructions.md              (exact match)
 4. **/.github/prompts/prompts.md               (specific)
 5. **/.github/prompts/*.md                     (specific)
@@ -72,12 +72,12 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 9. **/e2e/*.{ts,js}                            (specific - should override #8)
 10. **/scripts/**/*.sh                         (specific)
 11. **/.github/workflows/*.yml                 (specific)
-12. .github/agents/AGENTS.md                   (exact match)
-13. .github/agents/agent.md                    (exact match)
-14. .github/agents/*.agent.md                  (specific)
-15. .github/agents/*.agent.js                  (specific)
-16. .github/agents/*.agent.sh                  (specific)
-17. .github/agents/*.agent.py                  (specific)
+12. agents/AGENTS.md                   (exact match)
+13. agents/agent.md                    (exact match)
+14. agents/*.agent.md                  (specific)
+15. agents/*.agent.js                  (specific)
+16. agents/*.agent.sh                  (specific)
+17. agents/*.agent.py                  (specific)
 18. **/tests/*.*                               (specific)
 19. **/.github/ISSUE_TEMPLATE/*.md             (specific)
 20. **/.github/PULL_REQUEST_TEMPLATE/*.md      (specific)

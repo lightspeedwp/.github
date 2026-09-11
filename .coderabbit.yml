@@ -37,11 +37,11 @@ reviews:
   #
   # Priority Scale (1-100):
   # - 90-100: EXACT paths (specific files, exact directory structures)
-  #   Example: ".github/agents/agent.md" or ".github/agents/*.agent.js"
+  #   Example: "agents/agent.md" or "agents/*.agent.js"
   #   Use for: Critical files requiring precise guidance, agent-specific rules
   #
   # - 70-89: SPECIFIC directories (technology-specific folders with clear purpose)
-  #   Example: ".github/agents/**", "**/.github/workflows/*.yml", "**/e2e/**"
+  #   Example: "agents/**", "**/.github/workflows/*.yml", "**/e2e/**"
   #   Use for: Infrastructure, testing, automation with specialized requirements
   #
   # - 50-69: TYPE-in-DIR patterns (language/type-specific patterns in broader directories)
@@ -58,9 +58,9 @@ reviews:
   # 3. If tie, use first-defined pattern (order-dependent fallback)
   # 4. Apply instructions from selected pattern
   #
-  # Example: File ".github/agents/labeling.agent.js"
-  # - Matches: ".github/agents/**.agent.js" (priority 95), "**/*.js" (priority 60)
-  # - Selected: ".github/agents/**.agent.js" (higher priority)
+  # Example: File "agents/labeling.agent.js"
+  # - Matches: "agents/**.agent.js" (priority 95), "**/*.js" (priority 60)
+  # - Selected: "agents/**.agent.js" (higher priority)
   # - Outcome: Agent-specific JS guidance applied, not generic JS guidance
   #
   # === Path-Specific Review Instructions ===
@@ -68,7 +68,7 @@ reviews:
   path_instructions:
     # === PRIORITY 95: AGENT IMPLEMENTATION FILES (Exact agent-type patterns) ===
     # Agent implementations require strict code quality, testing, and documentation standards
-    - path: ".github/agents/*.agent.js"
+    - path: "agents/*.agent.js"
       instructions: |
         Review all JavaScript agent files:
           - Must start with a valid shebang and detailed header (purpose, usage, author, date).
@@ -80,7 +80,7 @@ reviews:
             - Linting and type-checking enabled.
           - Ensure agent is referenced in the agent index and spec.
 
-    - path: ".github/agents/*.agent.sh"
+    - path: "agents/*.agent.sh"
       instructions: |
         Review all shell agent files:
           - Must start with a valid shebang and detailed header (purpose, usage, author, date).
@@ -91,7 +91,7 @@ reviews:
             - Usage of shellcheck for linting.
           - Ensure agent is referenced in the agent index and spec.
 
-    - path: ".github/agents/*.agent.py"
+    - path: "agents/*.agent.py"
       instructions: |
         Review all Python agent files:
           - Must start with a valid shebang and detailed header (purpose, usage, author, date).
@@ -105,7 +105,7 @@ reviews:
 
     # === PRIORITY 93: AGENT SPECIFICATION FILES (Exact agent documentation) ===
     # Agent specs and indexes define architecture and capabilities
-    - path: ".github/agents/*.agent.md"
+    - path: "agents/*.agent.md"
       instructions: |
         Review all agent specification files:
           - Each agent spec must include: purpose, inputs/outputs, dependencies, configuration, security, error handling, and logging practices.
@@ -113,15 +113,15 @@ reviews:
           - Example usage and troubleshooting tips.
           - Ensure the spec is up to date and referenced from the agent index.
 
-    - path: ".github/agents/AGENTS.md"
+    - path: "agents/AGENTS.md"
       instructions: |
         Review the main agents index file:
-          - Ensure this file lists and describes all agent specs, implementations, and test files in .github/agents/.
+          - Ensure this file lists and describes all agent specs, implementations, and test files in agents/.
           - Confirm each agent is listed with language, description, and test coverage status.
           - Validate cross-references to related workflows, prompts, and documentation.
           - Ensure the file is up to date and easy to navigate.
 
-    - path: ".github/agents/agent.md"
+    - path: "agents/agent.md"
       instructions: |
         Review the agent architecture and integration file:
           - Ensure this file documents agent architecture, capabilities, and integration points.
@@ -137,7 +137,7 @@ reviews:
       instructions: |
         Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
 
-    - path: ".github/agents/**"
+    - path: "agents/**"
       instructions: |
         Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
 

@@ -357,7 +357,7 @@ Phase 1 completion unblocks **Phase 2: Foundational Work** (T007-T013).
    - Impact: Labels not applied to PRs/issues (affects automation, not production code)
    - Fix: Review script logs, validate YAML configs, check API token scope
 
-**CodeRabbit PR #2872**: Auto-merge enabled. These CI failures do not block merge.
+**CodeRabbit PR #2872**: `labeling-governance.yml` defines `Labeling Governance Check (Required)` as a required status check. The Unified Labeling failure blocks merge until this check passes.
 
 ---
 

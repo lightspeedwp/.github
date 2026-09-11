@@ -114,7 +114,7 @@
   - `**/*.php` → context for security/, perf/, refactor/
   - `**/*.{js,ts}` → context for feat/, perf/, a11y/
   - `**/.github/workflows/*.yml` → context for ci/, security/, ops/
-  - `**/.github/agents/**` → context for security/
+  - `**/agents/**` → context for security/
   - `.coderabbit.yml` → context for config/
   - `**/*.md` (documentation) → context for docs/, a11y/
   - `**/tests/**` → context for test/, perf/

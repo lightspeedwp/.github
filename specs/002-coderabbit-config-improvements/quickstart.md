@@ -20,7 +20,7 @@ Before marking implementation complete, test all scenarios below.
 
 **Setup**:
 1. Create branch: `git checkout -b security/authentication-validation`
-2. Modify file: `.github/agents/security-check.agent.php` (add authentication validation logic)
+2. Modify file: `agents/security-check.agent.php` (add authentication validation logic)
 3. Create PR with this branch
 
 **Expected Outcome**:
@@ -50,9 +50,9 @@ Before marking implementation complete, test all scenarios below.
 **Expected Outcome**:
 - CodeRabbit uses guidance from `**/e2e/*.ts` (highest priority)
 - Review includes e2e-specific guidance:
-  - Browser/environment setup
-  - Full Site Editing (FSE) functionality
-  - Reliability & flakiness concerns
+  - Deterministic setup and environment isolation
+  - Test reliability and flakiness control
+  - Proper test cleanup and state management
 - Does NOT use generic TypeScript guidance as primary focus
 
 **Validation**: ✅ Highest-priority pattern used; no ambiguity or cascading
@@ -104,7 +104,7 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Run coverage audit against repository
 
 **Setup**:
-1. List all file types in repository: `find . -type f -name ".*" | sort | uniq`
+1. List all file types in repository: `find . -type f -not -path './.git/*' | sort -u`
 2. Cross-reference against `.coderabbit.yml` path_instructions
 
 **Expected Outcome**:
