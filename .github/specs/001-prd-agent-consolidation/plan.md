@@ -109,6 +109,39 @@ agents/
 
 **Structure Decision**: Single target folder (`agents/prd-agent/`), matching `FOLDER_STRUCTURE_PLAN.md` §3's already-agreed target structure. No new top-level directories are introduced by this feature; `agents/prd-factory-planner-agent/` is removed and `workflows/memory/registry/` gets one entry updated (research.md D1), not restructured.
 
+## Stacked-PR Merge Strategy
+
+The 3 PRs (#2866, #2867, #2868) are interdependent and must merge in sequence to maintain a working state. Use this procedure to avoid conflicts:
+
+### Merge Procedure (Step-by-Step)
+
+1. **Merge Level 1 PR #2866 to develop:**
+   - Verify all checks pass (CI green, reviews approved)
+   - Use "Squash and merge" (creates single commit on develop)
+   - Record merge commit hash for reference
+
+2. **Rebase Level 2 PR #2867 onto Level 1 merge:**
+   - Local: `git fetch origin develop && git rebase origin/develop feat/phase-4-tasks` (or current branch name)
+   - This brings Level 2's commits on top of Level 1's merge
+   - Push: `git push -f origin feat/phase-4-tasks` (force is OK—only local rebased)
+   - GitHub auto-updates PR #2867 to show latest develop as base
+
+3. **Merge Level 2 PR #2867 to develop:**
+   - Re-run CI (should pass; rebased onto green Level 1)
+   - Use "Squash and merge" → new commit on develop
+
+4. **Repeat for Level 3 PR #2868:**
+   - Rebase: `git fetch origin develop && git rebase origin/develop feat/phase-6-validation`
+   - Push: `git push -f origin feat/phase-6-validation`
+   - Merge to develop when all checks pass
+
+### Why This Approach
+
+- Level 2 needs Level 1's changes (dependency relationship)
+- Rebase keeps commits clean and avoids merge commits
+- Squash-and-merge into develop keeps main branch history linear
+- Sequential process prevents conflicts and maintains traceability
+
 ## Complexity Tracking
 
 *No Constitution Check violations — this section is intentionally empty.*
