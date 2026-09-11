@@ -38,11 +38,11 @@ Archive directory structure must be created before moving workflows. These tasks
 
 ---
 
-- [ ] T001 Create `.github/workflows/archived/2026-09-11/` directory structure with 8 category subdirectories
-- [ ] T002 Create `.github/workflows/archived/2026-09-11/README.md` with archive navigation and purpose documentation
-- [ ] T003 Create `.github/workflows/archived/2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md` template for workflow inventory
-- [ ] T004 Create `.github/workflows/archived/INDEX.md` for multi-year archive tracking and index
-- [ ] T005 Create `.github/workflows/archived/2026-09-11/RESTORE.md` with restoration procedures and rollback criteria
+- [x] T001 Create `.github/workflows/archived/2026-09-11/` directory structure with 8 category subdirectories
+- [x] T002 Create `.github/workflows/archived/2026-09-11/README.md` with archive navigation and purpose documentation
+- [x] T003 Create `.github/workflows/archived/2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md` template for workflow inventory
+- [x] T004 Create `.github/workflows/archived/INDEX.md` for multi-year archive tracking and index
+- [x] T005 Create `.github/workflows/archived/2026-09-11/RESTORE.md` with restoration procedures and rollback criteria
 
 ---
 
