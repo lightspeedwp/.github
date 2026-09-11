@@ -17,7 +17,7 @@
       "agents/metrics.agent.md",
       "agents/mode-demonstrate-understanding.agent.md",
       "agents/mode-document-reviewer.agent.md",
-      "agents/mode-prd.agent.md",
+      "agents/prd-agent/copilot/agent.md",
       "agents/mode-thinking.agent.md",
       "agents/project-meta-sync.agent.md",
       "agents/prompt-engineer.agent.md",

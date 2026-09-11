@@ -82,7 +82,7 @@
       {
         "asset_id": "agent:mode-prd",
         "asset_type": "agent",
-        "source_path": "agents/mode-prd.agent.md",
+        "source_path": "agents/prd-agent/copilot/agent.md",
         "profile_path": "workflows/memory/profiles/agents/mode-prd.memory-profile.yaml",
         "example_path": "workflows/memory/examples/agents/mode-prd.memory.example.yaml",
       },
