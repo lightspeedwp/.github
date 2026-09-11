@@ -85,6 +85,14 @@ class MilestoneDistributor {
     }
   }
 
+  /**
+   * Fetch and cache repository milestones from v1.1 through v1.6.
+   *
+   * Initializes an empty distribution bucket for each matching milestone.
+   *
+   * @returns {Promise<Record<string, Object>>} Matching milestones keyed by title
+   * @throws {Error} If milestones cannot be fetched
+   */
   async findMilestones() {
     try {
       this.verbose_log("Fetching all milestones...");
@@ -120,6 +128,14 @@ class MilestoneDistributor {
     }
   }
 
+  /**
+   * Fetch open issues that have no milestone.
+   *
+   * Applies the configured result limit and updates the found-issue count.
+   *
+   * @returns {Promise<Array<Object>>} Unallocated issues
+   * @throws {Error} If issues cannot be fetched
+   */
   async fetchUnallocatedIssues() {
     try {
       this.verbose_log("Fetching unallocated issues...");
@@ -199,6 +215,13 @@ Example format:
     }
   }
 
+  /**
+   * Submit an issue-grouping prompt to the Claude Messages API.
+   *
+   * @param {string} prompt - Prompt requesting a JSON category mapping
+   * @returns {Promise<Object>} JSON object extracted from the first response content block
+   * @throws {Error} If the request fails or the response has no valid JSON object
+   */
   async callClaudeAPI(prompt) {
     try {
       const response = await fetch("https://api.anthropic.com/v1/messages", {
