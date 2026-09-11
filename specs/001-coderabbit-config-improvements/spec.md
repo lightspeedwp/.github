@@ -116,6 +116,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **FR-012**: PR and issue template standards documented in config MUST match actual templates in `.github/PULL_REQUEST_TEMPLATE/` and `.github/ISSUE_TEMPLATE/`
 - **FR-013**: Review instructions MUST be contextualized by branch type - each of the 30+ branch types MUST have adapted guidance that reflects the specific review priorities for that change category (e.g., security-focused for security/, performance-focused for perf/, etc.)
 - **FR-014**: Path pattern matching MUST follow explicit priority/specificity order - when files match multiple patterns, more specific patterns override general patterns (e.g., `**/e2e/*.js` before `**/*.js`). Pattern priority MUST be documented in config.
+- **FR-015**: Documentation MUST include an external "CodeRabbit Configuration Audit Guide" (separate from `.coderabbit.yml`) that helps maintainers verify review coverage completeness and identify gaps.
 
 ### Key Entities
 
@@ -141,6 +142,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **SC-010**: Maintainability MUST improve: adding a new file type instruction should take <5 minutes and not require edits to multiple sections
 - **SC-011**: Branch-type-specific guidance MUST be present for at least the top 15 branch types by usage frequency (security/, feat/, fix/, docs/, perf/, a11y/, refactor/, chore/, test/, ci/, hotfix/, release/, design/, task/, ops/) verified through review
 - **SC-012**: Path pattern priority MUST be clearly documented - specificity order rules documented in comments, and priority conflicts resolved in favor of more specific patterns with zero ambiguity
+- **SC-013**: External audit guide MUST be created at `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` with step-by-step instructions for maintainers to verify config completeness and identify under-reviewed file types
 
 ## Assumptions
 
@@ -161,7 +163,4 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 
 - Q: Should review instructions adapt based on branch type (feat/, fix/, security/, etc.)? → A: Yes, for all 30+ branch types defined in CLAUDE.md - comprehensive branch-specific review context.
 - Q: When files match multiple path patterns, should instructions cascade or use priority order? → A: Explicit priority/specificity order - more specific patterns override general ones (e.g., `**/e2e/*.js` before `**/*.js`).
-
-## Clarifications Needed
-
-- [NEEDS CLARIFICATION: Should the updated config include a "review coverage audit checklist" as a reference tool for maintainers, or keep this external?]
+- Q: Should config include a "review coverage audit checklist" or keep this external? → A: External reference guide - document audit approach in project documentation, maintainers reference as needed. Keeps config focused on review instructions.
