@@ -8,7 +8,11 @@
 
 ## Summary
 
-Consolidate `agents/prd-agent/` and `agents/prd-factory-planner-agent/` into one canonical, spec-aligned `agents/prd-agent/` folder: merge the 3 forked skills sitting in a leftover `skills/hermes/` folder, promote the 1 unflattened skill, decide the fate of an overlapping-skill tier, port missing `AGENT.md` content, replace both boilerplate `README.md` files with one real one, rewrite the dead-link-riddled `instructions/AGENTS.md` skill-routing section, delete `agents/prd-factory-planner-agent/` entirely, clean up remaining export cruft, and rewrite `claude/agent.md`/`copilot/agent.md` with real, provider-loadable frontmatter. Phase 0 research (research.md) found the scope is slightly larger than the spec assumed in two places: `agents/mode-prd.agent.md` (FR-010) is a tracked asset in a memory registry, not a standalone file, and the "10-skill generic tier" (FR-003) undercounts a broader intra-folder naming-generation problem — both are flagged for `/speckit-tasks` rather than silently resolved here.
+Consolidate `agents/prd-agent/` and `agents/prd-factory-planner-agent/` into one canonical, spec-aligned `agents/prd-agent/` folder: merge the 3 forked skills sitting in a leftover `skills/hermes/` folder, promote the 1 unflattened skill, decide the fate of an overlapping-skill tier, port missing `AGENT.md` content, replace both boilerplate `README.md` files with one real one, rewrite the dead-link-riddled `instructions/AGENTS.md` skill-routing section, delete `agents/prd-factory-planner-agent/` entirely, clean up remaining export cruft, and rewrite `claude/agent.md`/`copilot/agent.md` with real, provider-loadable frontmatter. Phase 0 research (research.md) found the scope is slightly larger than the spec assumed in two places:
+- **D1 (Registry Dependency)**: `agents/mode-prd.agent.md` (FR-010) is a tracked asset in workflows/memory/registry, not just a standalone file → addressed in tasks.md Phase 4 (T045-T047)
+- **D2 (Generic Tier Scope Gap)**: The "10-skill generic tier" (FR-003, spec line 90) fate is flagged as an edge case but lacked an explicit decision gate → addressed in tasks.md Phase 1 (new T004 decision task)
+
+Both are now explicitly flagged in tasks.md as mandatory Phase 1/4 decisions blocking downstream work.
 
 ## Technical Context
 
@@ -30,7 +34,7 @@ This feature is a content/file reorganisation within an existing repository, not
 
 **Constraints**: Must not touch any file in this repository's locked-configuration list (`CLAUDE.md` — `.github/labels.yml`, `.github/issue-types.yml`, `ISSUE_TEMPLATE/*`, `PULL_REQUEST_TEMPLATE/*`); must not add a `references` frontmatter field to any instruction file; must preserve git history where reasonable (prefer `git mv` over delete-and-recreate for content that survives unchanged); all work continues on the existing `feat/prd-agent` branch (already validated against this repo's branch-naming rule) — no new branch is created by this feature
 
-**Scale/Scope**: One target folder (`agents/prd-agent/`), one folder to delete (`agents/prd-factory-planner-agent/`), ~43-46 skill directories (exact curated count pending the FR-003 re-audit research.md recommends), 2 provider agent definitions (Claude, Copilot; OpenAI out of scope), 3 root docs (`AGENT.md`, `README.md`, `instructions/AGENTS.md`), 1 external memory-registry entry with 2 companion files
+**Scale/Scope**: One target folder (`agents/prd-agent/`), one folder to delete (`agents/prd-factory-planner-agent/`), **46 skill directories baseline** (45 top-level + 1 promoted from hermes/) down to 28 (or 27 after frontend-skill removal per spec.md SC-001), 2 provider agent definitions (Claude, Copilot; OpenAI out of scope), 3 root docs (`AGENT.md`, `README.md`, `instructions/AGENTS.md`), 1 external memory-registry entry with 2 companion files
 
 ## Constitution Check
 
