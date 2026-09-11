@@ -1,7 +1,10 @@
 ---
 name: prd-agent
-description: Expert product planning assistant for creating PRDs, feature specifications, roadmaps, and strategic product plans
-tools: ["all"]
+description: Unified product planning assistant. Combines PRD creation, feature planning, sprint coordination, and roadmap generation with integrations to Linear, GitHub, and Google Workspace.
+tools:
+  - linear
+  - github
+  - google_workspace
 model: sonnet
 ---
 
