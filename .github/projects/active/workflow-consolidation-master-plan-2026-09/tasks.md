@@ -175,21 +175,21 @@ Create consolidation mapping and archive documentation. These tasks document the
 
 ---
 
-- [ ] T076 Create `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` with table header: Old Workflow | New Workflow (Phase 2) | Category | Status | Notes
-- [ ] T077 Add all 9 labeling workflows with mappings to `labeling-unified.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T078 Add all 12 validation workflows with mappings to `validation-unified.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T079 Add all 8 documentation workflows with mappings to `documentation.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T080 Add all 10 issue-management workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T081 Add all 7 PR-management workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T082 Add all 8 testing workflows with mappings to `testing-unified.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T083 Add all 8 CI/CD workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T084 Add all 8 utilities workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
-- [ ] T085 Add all 14 core workflows to WORKFLOW_CONSOLIDATION_MAPPING.md with status "Active (Phase 1+)"
-- [ ] T086 Populate `.github/workflows/archived/2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md` with complete workflow inventory by category
-- [ ] T087 Add restoration instructions and examples to `.github/workflows/archived/2026-09-11/RESTORE.md`
-- [ ] T088 Create category-specific README files in each subdirectory (labeling/, validation/, documentation/, etc.) in `.github/workflows/archived/2026-09-11/`
-- [ ] T089 Test restore procedure: verify `git show refactor/workflow-consolidation-and-archiving:.github/workflows/archived/2026-09-11/labeling/labeling.yml > test-restore.yml` works
-- [ ] T090 Verify all 62 archived workflows are accessible and unchanged after move
+- [x] T076 Create `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` with table header: Old Workflow | New Workflow (Phase 2) | Category | Status | Notes
+- [x] T077 Add all 9 labeling workflows with mappings to `labeling-unified.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T078 Add all 12 validation workflows with mappings to `validation-unified.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T079 Add all 8 documentation workflows with mappings to `documentation.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T080 Add all 10 issue-management workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T081 Add all 7 PR-management workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T082 Add all 8 testing workflows with mappings to `testing-unified.yml` in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T083 Add all 8 CI/CD workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T084 Add all 8 utilities workflows with mappings to appropriate consolidated workflows in WORKFLOW_CONSOLIDATION_MAPPING.md
+- [x] T085 Add all 14 core workflows to WORKFLOW_CONSOLIDATION_MAPPING.md with status "Active (Phase 1+)"
+- [x] T086 Populate `.github/workflows/archived/2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md` with complete workflow inventory by category
+- [x] T087 Add restoration instructions and examples to `.github/workflows/archived/2026-09-11/RESTORE.md`
+- [x] T088 Create category-specific README files in each subdirectory (labeling/, validation/, documentation/, etc.) in `.github/workflows/archived/2026-09-11/`
+- [x] T089 Test restore procedure: verify `git show refactor/workflow-consolidation-and-archiving:.github/workflows/archived/2026-09-11/labeling/labeling.yml > test-restore.yml` works
+- [x] T090 Verify all 62 archived workflows are accessible and unchanged after move
 
 ---
 
