@@ -165,4 +165,14 @@ The following skills were evaluated and determined to be distinct and non-redund
 
 ---
 
+## Reference Links
+
+[Unreleased]: https://github.com/lightspeedwp/.github/compare/v2.2.0...develop
+[2.2.0]: https://github.com/lightspeedwp/.github/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/lightspeedwp/.github/compare/v2.0.1...v2.1.0
+[2.0.1]: https://github.com/lightspeedwp/.github/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/lightspeedwp/.github/releases/tag/v2.0.0
+
+---
+
 *Consolidation completed with precision and care. Single source of truth achieved.*
