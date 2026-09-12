@@ -1,0 +1,14 @@
+name: Project Management
+on:
+  issues:
+    types: [opened, closed]
+  pull_request:
+    types: [closed, opened]
+  workflow_dispatch:
+
+jobs:
+  manage_project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Project coordination
+        run: echo "Project management - Phase 2 core workflow"
