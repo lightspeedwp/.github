@@ -308,6 +308,56 @@ reviews:
           - Check for code style, maintainability, and security best practices.
           - Ensure use of `set -euo pipefail` and shebang at the top.
 
+    # === PRIORITY 75: WORKFLOW & PLUGIN DOCUMENTATION (Agentic workflows and plugins) ===
+    - path: "workflows/*.md"
+      instructions: |
+        Review agentic workflow documentation:
+          - Ensure workflow structure is clear: phases defined, agent task descriptions explicit.
+          - Verify validation scenarios are comprehensive for end-to-end testing.
+          - Check that agent capabilities are documented with usage examples.
+          - Validate error handling and recovery guidance is present.
+          - Ensure UK English terminology and consistency across all workflow descriptions.
+
+    - path: "plugins/*/SKILL.md"
+      instructions: |
+        Review plugin skill documentation:
+          - Ensure plugin purpose, usage, and configuration options are clearly documented.
+          - Check for usability guidelines that make the skill accessible to end-users.
+          - Verify skill metadata (versioning, dependencies, compatibility) is complete.
+          - Validate that code examples and integration scenarios are provided.
+          - Ensure accessibility guidelines are followed throughout the documentation.
+
+    # === PRIORITY 95: SPECKIT DOCUMENTATION (Specification and planning files) ===
+    - path: ".specify/spec.md"
+      instructions: |
+        Review specification document quality:
+          - Verify specification completeness: user stories, requirements, success criteria all clearly defined.
+          - Check that functional requirements (FR-###) and success criteria (SC-###) are testable and measurable.
+          - Ensure acceptance scenarios are explicit and independent.
+          - Validate that edge cases and constraints are documented.
+          - Confirm no implementation details leak into the specification.
+          - Check for UK English terminology, WCAG 2.2 AA accessibility, and technology-agnostic guidance.
+
+    - path: ".specify/plan.md"
+      instructions: |
+        Review implementation plan quality:
+          - Verify planning rigor: architecture decisions documented, technical constraints clear.
+          - Check that phases are logically structured with clear dependencies.
+          - Ensure phase decomposition breaks work into manageable, parallel-friendly chunks.
+          - Validate that decision rationale explains trade-offs and risks.
+          - Confirm technical context (stack, scope, constraints) is comprehensive.
+          - Verify cross-repository applicability is considered for organisation-wide features.
+
+    - path: ".specify/tasks.md"
+      instructions: |
+        Review task specification quality:
+          - Verify task specificity: each task has clear description, file paths, acceptance criteria.
+          - Check that parallel markers [P] are accurate and dependencies are identified.
+          - Ensure phase organization is logical with clear checkpoints.
+          - Validate that task descriptions are actionable and unambiguous.
+          - Confirm task interdependencies are documented correctly.
+          - Check that task IDs are sequential and unique (T###).
+
     # === PRIORITY 45: GENERAL DOCUMENTATION (Fallback for all docs) ===
     - path: "**/docs/*.*/*.md"
       instructions: |

@@ -1,0 +1,14 @@
+name: Branch Management
+on:
+  create:
+  delete:
+
+permissions:
+  contents: read
+
+jobs:
+  manage_branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Branch lifecycle and protection
+        run: echo "Branch management - Phase 2 core workflow"
