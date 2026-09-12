@@ -214,18 +214,18 @@ Update main automation documentation and create GitHub epic + sub-issues for tra
 
 ---
 
-- [ ] T091 Update `.github/docs/AUTOMATION.md` to reflect new 14-workflow architecture with consolidated workflow list
-- [ ] T092 Add link to WORKFLOW_CONSOLIDATION_MAPPING.md in AUTOMATION.md
-- [ ] T093 Add "Workflow Consolidation Timeline" section to AUTOMATION.md with Phase 1, 2, 3 dates
-- [ ] T094 Add "Consolidation Project" section to AUTOMATION.md linking to master plan documents
-- [ ] T095 Create GitHub epic issue: `[Epic] Workflow Consolidation Initiative 2026-Q4` with type:epic label, area:automation label, effort estimate, and related project links
-- [ ] T096 Create sub-issue #1: `refactor: Phase 1 - Backup & Archive Workflows` with type:refactor label, area:automation, related to epic
-- [ ] T097 Create sub-issue #2: `refactor: Phase 1 - Create Consolidation Mapping` with type:refactor label, area:documentation, related to epic
-- [ ] T098 Create sub-issue #3: `refactor: Phase 1 - Archive Documentation & Restore Procedures` with type:refactor label, area:documentation, related to epic
-- [ ] T099 Create sub-issue #4: `refactor: Phase 1 - Update Main Automation Docs` with type:refactor label, area:documentation, related to epic
-- [ ] T100 Create sub-issue #5: `refactor: Phase 1 - Create GitHub Epic + Planning` with type:refactor label, area:project-management, related to epic
-- [ ] T101 Add all 6 issues (1 epic + 5 sub-issues) to `Workflow Consolidation Initiative 2026-Q4` project board
-- [ ] T102 Link epic to `.github/projects/active/workflow-consolidation-master-plan-2026-09/` in issue description
+- [x] T091 Update `.github/docs/AUTOMATION.md` to reflect new 14-workflow architecture with consolidated workflow list
+- [x] T092 Add link to WORKFLOW_CONSOLIDATION_MAPPING.md in AUTOMATION.md
+- [x] T093 Add "Workflow Consolidation Timeline" section to AUTOMATION.md with Phase 1, 2, 3 dates
+- [x] T094 Add "Consolidation Project" section to AUTOMATION.md linking to master plan documents
+- [x] T095 Create GitHub epic issue: `[Epic] Workflow Consolidation Initiative 2026-Q4` with type:epic label, area:automation label, effort estimate, and related project links
+- [x] T096 Create sub-issue #1: `refactor: Phase 1 - Backup & Archive Workflows` with type:refactor label, area:automation, related to epic
+- [x] T097 Create sub-issue #2: `refactor: Phase 1 - Create Consolidation Mapping` with type:refactor label, area:documentation, related to epic
+- [x] T098 Create sub-issue #3: `refactor: Phase 1 - Archive Documentation & Restore Procedures` with type:refactor label, area:documentation, related to epic
+- [x] T099 Create sub-issue #4: `refactor: Phase 1 - Update Main Automation Docs` with type:refactor label, area:documentation, related to epic
+- [x] T100 Create sub-issue #5: `refactor: Phase 1 - Create GitHub Epic + Planning` with type:refactor label, area:automation, related to epic
+- [x] T101 Add all 6 issues (1 epic + 5 sub-issues) to `Workflow Consolidation Initiative 2026-Q4` project board
+- [x] T102 Link epic to `.github/projects/active/workflow-consolidation-master-plan-2026-09/` in issue description
 
 ---
 
