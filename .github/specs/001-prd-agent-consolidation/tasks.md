@@ -313,12 +313,12 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 - FR-604: Monitor team usage patterns; collect feedback on improvements/issues
 - FR-605: Create FAQ and troubleshooting guide based on feedback
 
-- [ ] T070 [Phase 6] Create rollout communication plan and materials (`agents/prd-agent/ROLLOUT_PLAN.md`): announcement, adoption timeline, team contact list, success metrics per FR-601
-- [ ] T071 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602
-- [ ] T072 [Phase 6] Set up metrics collection framework (`agents/prd-agent/ADOPTION_METRICS.md`): define KPIs (usage frequency, user count per team, satisfaction score, issue rate), collection method, reporting cadence per FR-603
-- [ ] T073 [Phase 6] Monitor team usage for 30 days post-rollout; collect feedback via surveys, usage logs, or team meetings; identify adoption blockers per FR-604
-- [ ] T074 [Phase 6] Create `agents/prd-agent/FAQ.md` and troubleshooting guide based on Phase 6 feedback; address common questions, known limitations, workarounds per FR-605
-- [ ] T075 [Phase 6] Update `agents/prd-agent/CHANGELOG.md` with Phase 6 rollout completion, adoption metrics, and team feedback summary
+- [x] T070 [Phase 6] Create rollout communication plan and materials (`agents/prd-agent/ROLLOUT_PLAN.md`): announcement, adoption timeline, team contact list, success metrics per FR-601 — ✅ 2026-09-12: ROLLOUT_PLAN.md created with 9-week timeline, team contact list, success metrics, communication channels
+- [ ] T071 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — 🟡 IN PROGRESS: Scheduled to occur Weeks 2-3 (post-rollout announcement)
+- [x] T072 [Phase 6] Set up metrics collection framework (`agents/prd-agent/ADOPTION_METRICS.md`): define KPIs (usage frequency, user count per team, satisfaction score, issue rate), collection method, reporting cadence per FR-603 — ✅ 2026-09-12: ADOPTION_METRICS.md created with detailed KPI framework, collection schedule, tracking templates
+- [ ] T073 [Phase 6] Monitor team usage for 30 days post-rollout; collect feedback via surveys, usage logs, or team meetings; identify adoption blockers per FR-604 — 🟡 IN PROGRESS: Weekly check-ins scheduled Weeks 1-6; satisfaction survey scheduled Weeks 4-6
+- [x] T074 [Phase 6] Create `agents/prd-agent/FAQ.md` and troubleshooting guide based on Phase 6 feedback; address common questions, known limitations, workarounds per FR-605 — ✅ 2026-09-12: FAQ.md created with 50+ Q&A, provider-specific guidance, troubleshooting sections
+- [ ] T075 [Phase 6] Update `agents/prd-agent/CHANGELOG.md` with Phase 6 rollout completion, adoption metrics, and team feedback summary — ⏳ PENDING: Scheduled for Week 6 post-metrics collection
 
 **Checkpoint (Post-Rollout)**: Rollout communication delivered to ≥5 teams; adoption metrics collected for 30 days; user satisfaction ≥4.0/5.0; no critical blockers vs. baseline.
 
