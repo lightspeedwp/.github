@@ -4,7 +4,7 @@ All notable changes to the PRD Agent are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.2.0] — 2026-09-11
+## [2.2.0] - 2026-09-11
 
 ### Changed
 
@@ -52,7 +52,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Phase 6: Rollout & Adoption (communication, metrics, FAQ)
 - Phase 7: Optional Sync/Archive (decision memo, governance updates)
 
-## [2.1.0] — 2026-09-10
+## [2.1.0] - 2026-09-10
 
 ### Changed
 
@@ -138,14 +138,14 @@ The following skills were evaluated and determined to be distinct and non-redund
 **Pending** (Phase 4):
 - FR-010: Resolve agents/mode-prd.agent.md memory registry entry
 
-## [2.0.1] — 2026-08-21
+## [2.0.1] - 2026-08-21
 
 ### Changed
 
 - Updated agent metadata and descriptions
 - Improved provider support documentation
 
-## [2.0.0] — 2026-07-14
+## [2.0.0] - 2026-07-14
 
 ### Added
 
