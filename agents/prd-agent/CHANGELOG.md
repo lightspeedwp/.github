@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Pending
+### Added
 
 - Phase 5: Test Suite Execution and Validation (in progress)
 - Phase 6: Rollout & Adoption (planned)
