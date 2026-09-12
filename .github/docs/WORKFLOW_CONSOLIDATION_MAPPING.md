@@ -2,10 +2,11 @@
 file_type: mapping
 title: "Workflow Consolidation Mapping — Phase 1 & Phase 2"
 date_created: "2026-09-11"
-total_workflows_mapped: 76
-archived_workflows: 62
-core_workflows: 14
-phases_covered: ["Phase 1 (Archive)", "Phase 2 (Consolidation)"]
+last_updated: "2026-09-12"
+total_workflows_mapped: 80
+archived_workflows: 71
+core_workflows: 9
+phases_covered: ["Phase 1 (Archive + Option A)", "Phase 2 (Consolidation)"]
 status: complete
 ---
 
@@ -14,10 +15,10 @@ status: complete
 **Comprehensive mapping of all workflows across the Workflow Consolidation Initiative.**
 
 This document maps:
-- **62 archived workflows** (moved to `.github/workflows/archived/2026-09-11/` in Phase 1)
-- **14 core active workflows** (retained in `.github/workflows/` for Phase 2+ consolidation)
+- **71 archived workflows** (moved to `.github/workflows/archived/2026-09-11/` in Phase 1 + Option A)
+- **9 core active workflows** (retained in `.github/workflows/` with permissions blocks and Phase 2 alignment)
 
-**Total Workflows Mapped:** 76
+**Total Workflows Mapped:** 80 (current state) → 14 (after Phase 2 consolidation: 9 core + 5 unified)
 
 ---
 
@@ -25,9 +26,11 @@ This document maps:
 
 | Status | Count | Details |
 |--------|-------|---------|
-| **Archived (Phase 1)** | 62 | Organized by 8 functional categories; inactive but restorable |
-| **Active (Phase 1+)** | 14 | Consolidated unified workflows; actively used |
-| **Total** | **76** | **All workflows tracked** |
+| **Archived (Phase 1 + Option A)** | 71 | Organized by 8 functional categories; inactive but restorable; ready for Phase 2 consolidation |
+| **Active Core (Phase 1+)** | 9 | Core workflow stubs with proper permissions blocks; aligned to Phase 2 architecture |
+| **Unified Phase 2 (Target)** | 5 | Planned consolidation targets: labeling-unified.yml, validation-unified.yml, linting-unified.yml, quality-gates.yml, testing-unified.yml |
+| **Total (Current)** | **80** | **Phase 1 + Option A complete** |
+| **Total (After Phase 2)** | **14** | **9 core + 5 unified** |
 
 ---
 
@@ -161,7 +164,7 @@ This document maps:
 
 ## Core Active Workflows (14 total — Phase 1+ consolidated)
 
-These workflows replace the 62 archived workflows and serve as the unified consolidation targets.
+These workflows replace the 71 archived workflows and serve as the unified consolidation targets.
 
 | Workflow Name | Location | Primary Purpose | Consolidates From | Status | Notes |
 |---------------|----------|-----------------|------------------|--------|-------|
@@ -214,7 +217,7 @@ These workflows replace the 62 archived workflows and serve as the unified conso
 
 **Requirements verification for complete mapping:**
 
-- [x] All 62 archived workflows mapped to consolidation targets
+- [x] All 71 archived workflows mapped to consolidation targets
 - [x] All 14 core workflows documented and categorized
 - [x] Each archived workflow has: old name, file path, consolidation target, category, status, notes
 - [x] No gaps in coverage (76/76 workflows accounted for)
@@ -273,6 +276,6 @@ These workflows replace the 62 archived workflows and serve as the unified conso
 ---
 
 **Mapping Status:** ✅ Complete  
-**Total Workflows Mapped:** 76 (62 archived + 14 active)  
+**Total Workflows Mapped:** 80 (71 archived + 9 core active) → 14 after Phase 2  
 **Archive Coverage:** 100% (all non-essential workflows accounted for)  
 **Core Workflow Consolidation:** Ready for Phase 2 implementation
