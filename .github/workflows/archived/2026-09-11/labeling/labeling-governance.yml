@@ -46,9 +46,7 @@ jobs:
       && !contains(github.event.head_commit.message, '[skip labeling]')
       && github.actor != 'github-actions[bot]'
       && github.event.action != 'closed'
-      && github.event.number != 2867
-      && github.event.number != 2866
-      && github.event.number != 2893
+      && !contains(github.event.pull_request.labels.*.name, 'meta:skip-labeling')
 
     steps:
       - name: Checkout code
@@ -312,7 +310,7 @@ jobs:
     # PRs, [skip labeling], bot actors), which is what the result comparison
     # below is there to distinguish.
     needs: standard-labeling
-    if: always() && github.event_name == 'pull_request' && github.event.number != 2867 && github.event.number != 2866 && github.event.number != 2893
+    if: always() && github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'meta:skip-labeling')
     runs-on: ubuntu-latest
     permissions:
       checks: write

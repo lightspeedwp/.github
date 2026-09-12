@@ -1,0 +1,245 @@
+{
+  "metadata": {
+    "version": "2.2.0",
+    "baselinePhase": "Phase 4 (2026-09-11)",
+    "testFramework": "14 test cases across 4 categories",
+    "totalTestCases": 14,
+    "provider": "claude|copilot|openai"
+  },
+  "category1_prd_generation": {
+    "TC-101": {
+      "id": "TC-101",
+      "name": "Basic PRD Structure Compliance",
+      "input": "Feature requirement for user authentication system",
+      "expectedOutput": "Complete PRD with sections: Overview, User Stories, Acceptance Criteria, Success Metrics, Release Notes",
+      "successMetric": "All required sections present and properly formatted",
+      "target": "100% section compliance",
+      "weights": {
+        "structure": 0.4,
+        "completeness": 0.3,
+        "formatting": 0.3
+      }
+    },
+    "TC-102": {
+      "id": "TC-102",
+      "name": "Feature Requirements Extraction",
+      "input": "Vague business requirement: Improve user login experience",
+      "expectedOutput": "Structured feature breakdown with user stories, acceptance criteria, technical requirements",
+      "successMetric": "≥5 distinct user stories, ≥15 acceptance criteria",
+      "target": "90%+ stories correctly identified",
+      "weights": {
+        "userStories": 0.5,
+        "acceptanceCriteria": 0.5
+      }
+    },
+    "TC-103": {
+      "id": "TC-103",
+      "name": "Schema & Format Compliance",
+      "input": "Random PRD structure from raw requirements",
+      "expectedOutput": "PRD conforming to JSON schema (if applicable) and Markdown format standards",
+      "successMetric": "Zero schema validation errors, passes npm run validate:frontmatter",
+      "target": "100% compliance",
+      "weights": {
+        "schema": 0.6,
+        "markdown": 0.4
+      }
+    },
+    "TC-104": {
+      "id": "TC-104",
+      "name": "Cross-Skill Routing Clarity",
+      "input": "Complex feature requiring multiple skills (PRD → Review → Planning → Delivery)",
+      "expectedOutput": "Explicit skill routing instructions, clear decision tree for next steps",
+      "successMetric": "Agent correctly identifies ≥3 related skills and routing sequence",
+      "target": "95%+ routing accuracy",
+      "weights": {
+        "skillIdentification": 0.4,
+        "sequencing": 0.6
+      }
+    },
+    "TC-105": {
+      "id": "TC-105",
+      "name": "Memory Context Preservation",
+      "input": "Multi-turn conversation: PRD created → reviewed → planned",
+      "expectedOutput": "Consistent requirements across turns; decisions tracked in memory",
+      "successMetric": "Zero context loss between turns; all decisions documented",
+      "target": "100% context preservation",
+      "weights": {
+        "contextContinuity": 0.5,
+        "decisionTracking": 0.5
+      }
+    }
+  },
+  "category2_multi_skill_orchestration": {
+    "TC-201": {
+      "id": "TC-201",
+      "name": "Skill Sequence Accuracy",
+      "input": "Plan a sprint for Q4 feature launch",
+      "expectedOutput": "Correct sequence: project-intake → delivery-planner → estimation-planner → github-issue-drafter",
+      "successMetric": "Correct skill order, no duplicate invocations",
+      "target": "90%+ accuracy",
+      "weights": {
+        "correctSequence": 0.7,
+        "noDuplicates": 0.3
+      }
+    },
+    "TC-202": {
+      "id": "TC-202",
+      "name": "Skill Handoff Quality",
+      "input": "PRD created by prd-writer, then passed to delivery-planner",
+      "expectedOutput": "Smooth context passing; no re-explanation required; delivery plan builds on PRD",
+      "successMetric": "Continuity score (0-100), target ≥85",
+      "target": "≥90 continuity score",
+      "weights": {
+        "contextPassing": 0.5,
+        "outputQuality": 0.5
+      }
+    },
+    "TC-203": {
+      "id": "TC-203",
+      "name": "Skill Integration Edge Cases",
+      "input": "Request at skill boundary (design vs PRD, PRD vs technical spec)",
+      "expectedOutput": "Agent recognizes boundary, explains limitation or recommends appropriate skill",
+      "successMetric": "Graceful handling, user satisfaction ≥4/5",
+      "target": "90%+ graceful handling",
+      "weights": {
+        "boundaryRecognition": 0.4,
+        "userSatisfaction": 0.6
+      }
+    },
+    "TC-204": {
+      "id": "TC-204",
+      "name": "Cross-Skill Conflict Resolution",
+      "input": "Conflicting info from two skill outputs (timeline from estimation vs delivery plan)",
+      "expectedOutput": "Agent identifies conflict, reconciles or flags for review",
+      "successMetric": "Conflict identified and resolution documented",
+      "target": "95%+ detection rate",
+      "weights": {
+        "conflictDetection": 0.6,
+        "resolution": 0.4
+      }
+    }
+  },
+  "category3_github_integration": {
+    "TC-301": {
+      "id": "TC-301",
+      "name": "GitHub Issue Creation from PRD",
+      "input": "PRD with requirements, user stories, acceptance criteria",
+      "expectedOutput": "Well-formatted GitHub issues with labels, checklists, links",
+      "successMetric": "≥1 issue created, properly labeled, checklist matches acceptance criteria",
+      "target": "100% creation success",
+      "weights": {
+        "issueCreation": 0.4,
+        "formatting": 0.3,
+        "checklist": 0.3
+      }
+    },
+    "TC-302": {
+      "id": "TC-302",
+      "name": "GitHub Milestone & Project Linking",
+      "input": "Feature PRD for release sprint",
+      "expectedOutput": "GitHub issues linked to correct milestone and project",
+      "successMetric": "Issues appear in project board with correct milestone",
+      "target": "100% linking success",
+      "weights": {
+        "milestoneLink": 0.5,
+        "projectLink": 0.5
+      }
+    },
+    "TC-303": {
+      "id": "TC-303",
+      "name": "PR Review & Approval Workflow",
+      "input": "PRD submitted for review via GitHub PR",
+      "expectedOutput": "Structured review comments, approval gates managed",
+      "successMetric": "Review captures ≥5 valid feedback items, approvals tracked",
+      "target": "≥90% feedback quality",
+      "weights": {
+        "reviewQuality": 0.6,
+        "approvalTracking": 0.4
+      }
+    }
+  },
+  "category4_skill_inventory_accuracy": {
+    "TC-401": {
+      "id": "TC-401",
+      "name": "Canonical Skill Name Resolution",
+      "input": "Agent asked to create a PRD using consolidated skill set",
+      "expectedOutput": "Explicit reference to 28 canonical skills, no deleted skill names",
+      "successMetric": "Zero references to non-existent skills (prd-generator, prd-reviewer, etc.)",
+      "target": "100% canonical accuracy",
+      "weights": {
+        "noDeletedSkills": 1.0
+      }
+    },
+    "TC-402": {
+      "id": "TC-402",
+      "name": "Skill Capability Matrix Usage",
+      "input": "Complex workflow spanning multiple skill categories",
+      "expectedOutput": "Agent correctly maps requirements to skill clusters (Drafting, Planning, Quality, etc.)",
+      "successMetric": "Correct cluster assignment, proper skill ordering",
+      "target": "≥95% mapping accuracy",
+      "weights": {
+        "clusterMapping": 0.5,
+        "skillOrdering": 0.5
+      }
+    }
+  },
+  "skillInventory": {
+    "canonical28Skills": [
+      "acceptance-test-planner",
+      "approval-gate-manager",
+      "change-request-router",
+      "delivery-planner",
+      "estimation-planner",
+      "evidence-locker",
+      "figma-wordpress-technical-brief",
+      "github-issue-drafter",
+      "implementation-plan-generator",
+      "intake-routing",
+      "launch-task-router",
+      "lightspeed-intake-onboarding",
+      "markdown-content-validator",
+      "memory-management",
+      "project-intake",
+      "project-memory-manager",
+      "project-researcher",
+      "prd-agent-orchestrator",
+      "prd-task-pack-exporter",
+      "prd-task-reviewer",
+      "prd-writer",
+      "project-status-reporter",
+      "qa-findings-router",
+      "qa-planner",
+      "release-handoff-generator",
+      "requirements-traceability-mapper",
+      "validation-support",
+      "wordpress-plugin-packaging-review"
+    ],
+    "total": 28
+  },
+  "baselineMetrics": {
+    "PRDGenerationQuality": {
+      "target": "100% section compliance",
+      "baseline": "PRE-enhancement test pending Phase 5",
+      "postEnhancementTarget": "100% section compliance"
+    },
+    "MultiSkillOrchestration": {
+      "target": "90%+ accuracy",
+      "baseline": "PRE-enhancement test pending Phase 5",
+      "postEnhancementTarget": "95%+ accuracy"
+    },
+    "GitHubIntegration": {
+      "target": "100% success",
+      "baseline": "PRE-enhancement test pending Phase 5",
+      "postEnhancementTarget": "100% success"
+    },
+    "SkillInventoryAccuracy": {
+      "target": "100% canonical accuracy",
+      "baseline": "PRE-enhancement test pending Phase 5",
+      "postEnhancementTarget": "100% canonical accuracy"
+    },
+    "overallSuccessCriteria": {
+      "targetImprovement": "≥15% per spec.md US4/AC1",
+      "minimumPassRate": "90%+ across all test categories"
+    }
+  }
+}

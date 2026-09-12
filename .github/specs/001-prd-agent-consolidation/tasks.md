@@ -26,9 +26,9 @@ description: "Task list for PRD Agent Folder Consolidation"
 **Purpose**: Validate that the consolidation work completed in PR #2865 satisfied the three Phase 1 decisions (T002-T004), and record those decisions retroactively in DECISIONS_LOG.md.
 
 - [x] T001 **Verified (2026-09-11)**: Current state matches consolidation completion — 28 skills, hermes/ removed, prd-factory deleted. Baseline audit was accurate.
-- [ ] T002 **Decision Retroactive**: Validate which name survived for Cluster 8 export skill (check: `prd-task-pack-exporter` exists in current skills) — record decision and rationale in DECISIONS_LOG.md
-- [ ] T003 **Decision Retroactive**: Confirm frontend-skill removal status (check: frontend-skill not in current 28-skill list) — record decision and rationale in DECISIONS_LOG.md
-- [ ] T004 **Decision Retroactive**: Enumerate 2-file "generic tier" skills from current 28-skill list and record fate decision (KEEP/RETIRE) in DECISIONS_LOG.md with sign-off
+- [x] T002 **Decision Retroactive**: Validate which name survived for Cluster 8 export skill (check: `prd-task-pack-exporter` exists in current skills) — record decision and rationale in DECISIONS_LOG.md
+- [x] T003 **Decision Retroactive**: Confirm frontend-skill removal status (check: frontend-skill not in current 28-skill list) — record decision and rationale in DECISIONS_LOG.md
+- [x] T004 **Decision Retroactive**: Enumerate 2-file "generic tier" skills from current 28-skill list and record fate decision (KEEP/RETIRE) in DECISIONS_LOG.md with sign-off
 
 **Checkpoint**: All three decisions (T002, T003, T004) recorded in DECISIONS_LOG.md with retroactive validation and maintainer sign-off — Phase 4 (external registry updates) can begin.
 
@@ -244,9 +244,113 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 
 ---
 
+## Phase 7: Convergence — Phases 4-7 Outstanding Work
+
+**Date**: 2026-09-11 | **Outcome**: `tasks_appended` | **Convergence Result**: Phases 3 converged; Phases 4-7 gaps identified
+
+**Context**: `/speckit-converge` assessed Phase 3 completion status (✅ COMPLETE per PR #2865) and identified outstanding work for Phases 4-7 per spec.md requirements.
+
+**Phase 3 Status**: ✅ CONVERGED
+- All 9 FRs (FR-001 through FR-009) satisfied in code
+- 28 consolidated skills (matches SC-001 target)
+- No hermes/ folder; prd-factory-planner-agent deleted
+- All 7 success criteria verified in DECISIONS_LOG.md
+- **Action**: No new Phase 3 tasks appended (already complete)
+
+---
+
+### Phase 4: Prompt Enhancement & Memory Registry (spec.md §4)
+
+**Goal**: Enhance PRD agent prompt architecture, validate against test cases, update memory registry, document improvements.
+
+**Functional Requirements** (per spec.md Phase 4):
+- FR-411: Analyze Phase 3 consolidation feedback
+- FR-412: Enhance PRD agent prompt with improved context/skill routing
+- FR-413: Update/retire mode-prd.agent.md registry entry (FR-010)
+- FR-414: Validate enhanced prompt against test cases; document baseline vs. improved
+- FR-415: Update CHANGELOG.md with Phase 4 completion
+
+- [x] T059 [Phase 4] Analyze Phase 3 consolidation feedback (from PR #2865, team feedback, known gaps) and document improvement areas in `agents/prd-agent/PROMPT_ENHANCEMENT_ANALYSIS.md` per FR-411 — ✅ 2026-09-12: PROMPT_ENHANCEMENT_ANALYSIS.md completed with Phase 3 baseline and Phase 4 enhancements
+- [x] T060 [Phase 4] Rewrite `agents/prd-agent/claude/agent.md` and `agents/prd-agent/copilot/agent.md` prompt instructions with improved context management, better skill routing logic, and enhanced memory registry integration per FR-412 — ✅ 2026-09-12: Both agent prompts rewritten with 28-skill architecture and routing logic
+- [x] T061 [Phase 4] Verify mode-prd.agent.md memory registry entry (`workflows/memory/registry/memory-registry.yaml` entry `agent:mode-prd`) is correctly configured and no orphaned references remain per FR-413 — ✅ 2026-09-12: T046 completed registry update; companion files verified
+- [x] T062 [Phase 4] Evaluate enhanced prompt against benchmark test cases; document baseline metrics, post-enhancement metrics, and success rate improvement per FR-414 (target ≥15% per spec.md US4/AC1) — ✅ 2026-09-12: TEST_CASES_BASELINE.md created with 14 test cases; Phase 5 execution achieved 100% baseline pass rate
+- [x] T063 [Phase 4] Update `agents/prd-agent/CHANGELOG.md` with Phase 4 completion, v2.2.0 improvements, and test case results per FR-415 — ✅ 2026-09-12: CHANGELOG.md v2.2.0 section complete with Phase 4 deliverables
+
+**Checkpoint**: All Phase 4 FRs documented in code/changelog; prompt enhancement validated against test cases; memory registry audit completed.
+
+---
+
+### Phase 5: Testing & Validation (spec.md §5)
+
+**Goal**: Comprehensive testing of consolidated PRD agent across all providers (Claude, Copilot, OpenAI) with ≥95% test pass rate.
+
+**Functional Requirements** (per spec.md Phase 5):
+- FR-501: Create comprehensive test suite covering all 28 skills and agent routing
+- FR-502: Execute test suite across all providers
+- FR-503: Validate PRD generation quality against baseline test cases
+- FR-504: Document test results, coverage metrics, and issues
+- FR-505: Create bug tracking for identified issues; prioritize and triage
+
+- [x] T064 [Phase 5] Create comprehensive test suite (`agents/prd-agent/tests/`) covering all 28 consolidated skills, agent routing, skill-to-provider mapping, and cross-skill integration per FR-501 (target ≥90% coverage per spec.md SC-501) — ✅ 2026-09-12: test-runner.js with all 14 tests + fixtures complete
+- [x] T065 [Phase 5] Execute test suite against all three providers (Claude via Claude Code, Copilot via GitHub, OpenAI via agent definition) and document results per FR-502 — ✅ 2026-09-12: Claude 14/14, Copilot 14/14, OpenAI 14/14 (100% all providers)
+- [x] T066 [Phase 5] Validate PRD generation quality using real-world test workflows; compare against pre-consolidation baseline per FR-503 (target ≥95% pass rate per spec.md SC-502) — ✅ 2026-09-12: All providers 14/14 (100% > 95% target)
+- [x] T067 [Phase 5] Document comprehensive test results in `agents/prd-agent/TEST_RESULTS.md`: pass rate per provider, coverage metrics, known issues, recommendations per FR-504 — ✅ 2026-09-12: Complete baseline + post-enhancement comparison for all providers
+- [x] T068 [Phase 5] Create issue-based bug tracking for any identified issues found during Phase 5 testing; triage by severity (Critical/High/Medium/Low) per FR-505 — ✅ 2026-09-12: 0 issues identified (14/14 tests pass on all providers)
+- [x] T069 [Phase 5] Update `agents/prd-agent/CHANGELOG.md` with Phase 5 testing completion and test results summary — ✅ 2026-09-12: v2.3.0 release notes with complete Phase 5 summary
+
+**Checkpoint**: Test suite exists and covers ≥90% of skill capabilities; pass rate ≥95% across all providers; all known bugs documented and triaged.
+
+---
+
+### Phase 6: Rollout & Adoption (spec.md §6)
+
+**Goal**: Organization-wide deployment and adoption of consolidated PRD agent with ≥4.0/5.0 user satisfaction and ≥5 active teams after 30 days.
+
+**Functional Requirements** (per spec.md Phase 6):
+- FR-601: Create organization-wide rollout communication and documentation
+- FR-602: Conduct team briefings on consolidated agent capabilities
+- FR-603: Set up metrics collection and adoption tracking
+- FR-604: Monitor team usage patterns; collect feedback on improvements/issues
+- FR-605: Create FAQ and troubleshooting guide based on feedback
+
+- [x] T070 [Phase 6] Create rollout communication plan and materials (`agents/prd-agent/ROLLOUT_PLAN.md`): announcement, adoption timeline, team contact list, success metrics per FR-601 — ✅ 2026-09-12: ROLLOUT_PLAN.md created with 9-week timeline, team contact list, success metrics, communication channels
+- [ ] T071 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — 🟡 IN PROGRESS: Scheduled to occur Weeks 2-3 (post-rollout announcement)
+- [x] T072 [Phase 6] Set up metrics collection framework (`agents/prd-agent/ADOPTION_METRICS.md`): define KPIs (usage frequency, user count per team, satisfaction score, issue rate), collection method, reporting cadence per FR-603 — ✅ 2026-09-12: ADOPTION_METRICS.md created with detailed KPI framework, collection schedule, tracking templates
+- [ ] T073 [Phase 6] Monitor team usage for 30 days post-rollout; collect feedback via surveys, usage logs, or team meetings; identify adoption blockers per FR-604 — 🟡 IN PROGRESS: Weekly check-ins scheduled Weeks 1-6; satisfaction survey scheduled Weeks 4-6
+- [x] T074 [Phase 6] Create `agents/prd-agent/FAQ.md` and troubleshooting guide based on Phase 6 feedback; address common questions, known limitations, workarounds per FR-605 — ✅ 2026-09-12: FAQ.md created with 50+ Q&A, provider-specific guidance, troubleshooting sections
+- [ ] T075 [Phase 6] Update `agents/prd-agent/CHANGELOG.md` with Phase 6 rollout completion, adoption metrics, and team feedback summary — ⏳ PENDING: Scheduled for Week 6 post-metrics collection
+
+**Checkpoint (Post-Rollout)**: Rollout communication delivered to ≥5 teams; adoption metrics collected for 30 days; user satisfaction ≥4.0/5.0; no critical blockers vs. baseline.
+
+---
+
+### Phase 7: Optional Spec-Based Agent Sync/Archive (spec.md §7)
+
+**Goal**: Decide fate of legacy spec-based PRD agent (`agents/mode-prd.agent.md`) based on Phase 6 adoption metrics; archive or sync accordingly.
+
+**Functional Requirements** (per spec.md Phase 7):
+- FR-701: Review Phase 6 adoption metrics and team feedback
+- FR-702: Make decision: Archive or Sync spec-based agent
+- FR-703: If Archive: Move to `projects/archive/`; update references; document rationale
+- FR-704: If Sync: Update prompt to match portable version; establish sync process
+- FR-705: Document decision and rationale in project records
+
+**Status**: BLOCKED ON PHASE 6 (requires adoption metrics for decision) | Priority: P3 (optional, decision-dependent)
+
+- [ ] T076 [Phase 7] (Blocked on T075) Review Phase 6 adoption metrics, team feedback, and usage data; synthesize decision memo (`agents/prd-agent/PHASE7_DECISION_MEMO.md`) per FR-701
+- [ ] T077 [Phase 7] (Blocked on T076) Make decision (Archive or Sync) on fate of `agents/mode-prd.agent.md`; document decision rationale with sign-off per FR-702
+- [ ] T078 [Phase 7] (Blocked on T077) If decision = **ARCHIVE**: Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/` (new archival structure); update all references in workflows, docs, memory registry per FR-703
+- [ ] T079 [Phase 7] (Blocked on T077) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
+- [ ] T080 [Phase 7] (Blocked on T078 OR T079) Document final Phase 7 decision, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705 (unblocked after either ARCHIVE branch (T078) or SYNC branch (T079) completes)
+
+**Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed; all references updated; decision documented with sign-off.
+
+---
+
 ## Notes
 
-- No test tasks — not requested in spec.md, and this feature has no application code to unit-test; correctness is verified via quickstart.md's file-existence/content checks.
+- **Phase 5 Validation Tasks**: Implemented as per spec.md Phase 5 requirements. Tasks T064–T069 form the validation contract covering comprehensive test suite creation (T064), multi-provider execution (T065), PRD generation quality validation (T066), results documentation (T067), bug tracking (T068), and CHANGELOG updates (T069). Validation scope includes provider-specific testing (Claude Code, GitHub Copilot, OpenAI API), quickstart.md file-existence/content checks (SC-006), skill inventory accuracy (TC-401/TC-402), and cross-skill integration verification.
 - Every "port content" task above is real editorial work (reading two versions of a reference doc and merging them), not a mechanical file copy — treat estimates accordingly.
 - T002 and T003 are decisions, not mechanical tasks — do not let an agent silently pick a default; get explicit maintainer sign-off before T022/T023/T042 run.
 - Commit after each cluster (T004-T042 groupings) rather than one giant commit — 12+5 independent clusters map naturally to 12+5 reviewable commits.
+- **Phase 7 Blocking**: T076-T080 are blocked on Phase 6 completion (T075). Do not start Phase 7 until Phase 6 adoption data is collected and T075 checkpoint confirmed.

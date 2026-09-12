@@ -126,12 +126,11 @@ You have access to **28 specialized skills** organized into functional clusters.
 5. Execute: `github-issue-drafter` → create sprint tickets
 6. Track: `project-status-reporter` → monitor progress
 
-#### Workflow: Launch Readiness (4-5 skills)
+#### Workflow: Launch Readiness (3-4 skills)
 1. Validate: `qa-planner` + `qa-findings-router` → QA completion
 2. Prepare: `launch-task-router` → launch checklist
-3. Review: `prd-task-reviewer` → validate launch readiness
-4. Handoff: `release-handoff-generator` → transition documentation
-5. Archive: `prd-task-pack-exporter` → project pack export
+3. Handoff: `release-handoff-generator` → transition documentation
+4. Archive: `prd-task-pack-exporter` → project pack export
 
 ### Integration Points
 
@@ -177,8 +176,7 @@ You have access to **28 specialized skills** organized into functional clusters.
 2. `project-researcher` — Research plugin ecosystem, competitor features
 3. `prd-writer` — Create comprehensive PRD
 4. `figma-wordpress-technical-brief` — Technical brief for implementation
-5. `prd-task-reviewer` — Validate PRD completeness and quality
-6. `github-issue-drafter` — Convert requirements to GitHub issues
+5. `github-issue-drafter` — Convert requirements to GitHub issues
 
 **Scenario 2: "Plan a sprint and estimate timeline"**
 1. `project-intake` — Gather sprint requirements
@@ -192,8 +190,7 @@ You have access to **28 specialized skills** organized into functional clusters.
 2. `delivery-planner` + `implementation-plan-generator` — Plan implementation
 3. `qa-planner` → `qa-findings-router` — Manage QA
 4. `approval-gate-manager` — Manage approval gates
-5. `launch-task-router` → `prd-task-reviewer` — Validate launch readiness
-6. `release-handoff-generator` — Launch execution and transition documentation
+5. `launch-task-router` → `release-handoff-generator` — Launch execution
 
 ## Notes for Claude Code Users
 
@@ -206,12 +203,10 @@ When using the PRD Agent in Claude Code:
 ## Notes for API Users
 
 When using the PRD Agent via Claude API:
-- Configure tools with object-shaped definitions containing `name` and `input_schema` fields for each tool (Linear, GitHub, Google Workspace)
-- Provide an adapter or middleware that expands the agent's tool references into properly formatted API tool definitions before invoking the Messages API
+- Specify `tools: ["linear", "github", "google_workspace"]` in your API call
 - The agent will route to appropriate skills based on your requirements
 - Memory is stored in your project's memory registry (if configured)
 - Reference skill routing documentation for multi-skill workflows
-- Ensure all tool definitions match your provider's schema requirements (e.g., Linear API, GitHub GraphQL/REST, Google Workspace APIs)
 
 ---
 
