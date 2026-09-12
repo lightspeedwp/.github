@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Provider Optimization**: Distinct prompt tuning for Claude Code (linear/planning focus) and GitHub Copilot (GitHub-centric workflows)
 - **Capability Clarity**: Updated capability matrices mapping workflow stages to primary/validation/integration skills
 - **Cross-Skill Context**: Enhanced documentation of cross-skill routing patterns and context passing mechanisms
+- **Phase 4 Deliverables**: FR-412 (Prompt Enhancement), FR-413 (Memory Registry verification), FR-414 (Test case baseline), FR-415 (CHANGELOG update)
 
 ### Added
 
@@ -23,35 +24,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Common Workflows**: Documented 3 high-frequency workflows for Claude and 4 GitHub-integrated workflows for Copilot
 - **Example Scenarios**: Three detailed multi-skill workflow examples per provider
 
-### Technical Details
-
-**Specification**: Feature Specification [001-prd-agent-consolidation](../../.github/specs/001-prd-agent-consolidation/spec.md) — Phases 4-5
-
-**Phase 4 Deliverables** (this release):
-- FR-412: Prompt Enhancement per spec.md US4 with system prompt rewrite for both Claude and Copilot configurations
-- FR-413: Memory Registry verification (agent:mode-prd entry correct, no orphaned paths)
-- FR-414: Test case baseline creation (14 test cases for Phase 5 validation)
-- FR-415: CHANGELOG update with Phase 4 completion summary
-- Enhancement Focus Areas:
-  1. Context Management: Explicit 28-skill inventory mapping to PRD workflows
-  2. Skill Routing: Comprehensive decision trees for multi-skill orchestration
-  3. Memory Registry: Cross-skill context passing and decision tracking
-  4. Provider Optimization: Claude/Copilot/OpenAI-specific capability emphasis
-
-**Baseline Methodology**:
-- Phase 5 (Testing): Execute 14-case test suite against current enhanced prompt; document metrics
-- Improvement Calculation: Post-enhancement metrics vs. baseline; target ≥15% aggregate improvement
-- Success Criteria: All 14 test cases pass with ≥90% quality scores (category-specific targets per TEST_CASES_BASELINE.md)
-
-**Pending** (Phase 5):
-- FR-500: Test Suite Execution (collect post-enhancement metrics)
-- FR-501: Quality Validation & Analysis
-- FR-502: Results Documentation in CHANGELOG
-
-**Deferred** (Phases 6-7):
-- Phase 6: Rollout & Adoption (communication, metrics, FAQ)
-- Phase 7: Optional Sync/Archive (decision memo, governance updates)
-
 ## [2.1.0] - 2026-09-10
 
 ### Changed
@@ -61,6 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Documentation**: Replaced boilerplate README with real, human-facing documentation
 - **Agent definitions**: Rewrote `claude/agent.md` and `copilot/agent.md` with real, loadable YAML frontmatter
 - **Skill routing**: Rewrote `instructions/AGENTS.md` with complete skill routing guide
+- **Phase 3 Deliverables**: Union-merged forked skills (FR-001), promoted qa-planner (FR-002), resolved 17 skill clusters (FR-003), ported Integration Points (FR-004), replaced README.md (FR-005), rewrote AGENTS.md (FR-006), deleted prd-factory-planner-agent folder (FR-007), cleaned legacy exports (FR-008), rewrote agent definitions (FR-009)
 
 ### Added
 
@@ -74,12 +47,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Duplicate skills**: Removed 17+ duplicate skill folders that were identical between consolidated sources
 - **Forked skills**: Merged 4 forked skills (approval-gate-manager, project-memory-manager, release-handoff-generator, qa-planner)
 - **Legacy exports**: Cleaned up export cruft from `agent/` directory (sample memory banks, plugin cache dumps)
-- **Deleted skills**:
-  - `frontend-skill` — No longer part of standard PRD workflow
-  - `issue-drafting` — Fully subsumed by `github-issue-drafter`
-  - `launch-handoff-support` — Fully subsumed by `launch-task-router`
-  - `technical-brief-deep-dive` — Functionality consolidated into other skills
-  - And 13 other redundant skills per consolidation audit
+- **Deleted skills**: frontend-skill, issue-drafting, launch-handoff-support, technical-brief-deep-dive, and 13 other redundant skills per consolidation audit
 
 ### Fixed
 
@@ -87,56 +55,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **claude/agent.md**: Added proper YAML frontmatter (name, description, tools, model) for Claude Code loadability
 - **copilot/agent.md**: Added proper YAML frontmatter (name, description, tools, mcp-servers) for GitHub Copilot loadability
 - **AGENT.md**: Updated Integration Points to list only real, plugin-backed services (Linear, GitHub, Google Workspace; excluded Figma/Slack)
-
-### Consolidated Skills
-
-The following skills were merged or promoted:
-
-| Target Skill | Source Skills Merged | Notes |
-|---|---|---|
-| **prd-writer** | prd-generator, prd-generation | Primary PRD creation skill |
-| **prd-task-reviewer** | prd-reviewer, review-qa | PRD review and feedback |
-| **change-request-router** | change-control | Change management routing |
-| **implementation-plan-generator** | implementation-planning | Implementation planning |
-| **qa-findings-router** | qa-triage | QA findings triage |
-| **prd-task-pack-exporter** | project-pack-exporter | Project export and packaging |
-| **project-intake** | project-intake-router | Project intake routing |
-| **project-researcher** | project-research | Project research and analysis |
-| **evidence-locker** | evidence-locking | Evidence management |
-| **markdown-content-validator** | content-file-validator | Document validation |
-| **delivery-planner** | task-breakdown-planner | Delivery and timeline planning |
-| **approval-gate-manager** | Merged with hermes version | Added gate management references |
-| **project-memory-manager** | Merged with hermes version | Unified memory management |
-| **release-handoff-generator** | Merged with hermes version | Support transition rules reconciled |
-| **qa-planner** | Promoted from hermes/lightspeed-qa-planner | Distinct QA planning skill |
-
-### Distinct Skills (No Consolidation)
-
-The following skills were evaluated and determined to be distinct and non-redundant:
-
-- **prd-agent-orchestrator** — Meta-router for multi-step workflows
-- **acceptance-test-planner** — Specific testing and acceptance focus
-- **validation-support** — General validation support
-- **memory-management** — General memory and knowledge management
-- **project-status-reporter** — Status reporting focus
-
-### Technical Details
-
-**Specification**: Feature Specification [001-prd-agent-consolidation](../.github/specs/001-prd-agent-consolidation/spec.md)
-
-**Phase 3 Deliverables** (this release):
-- FR-001: Union-merged forked skills with content reconciliation
-- FR-002: Promoted qa-planner from hermes folder
-- FR-003: Resolved 17 skill clusters with merge/delete/distinct decisions
-- FR-004: Ported Integration Points and capability tags
-- FR-005: Replaced README.md with real documentation
-- FR-006: Rewrote instructions/AGENTS.md skill-routing
-- FR-007: Deleted prd-factory-planner-agent folder
-- FR-008: Cleaned up legacy export cruft
-- FR-009: Rewrote agent definitions with real frontmatter
-
-**Pending** (Phase 4):
-- FR-010: Resolve agents/mode-prd.agent.md memory registry entry
 
 ## [2.0.1] - 2026-08-21
 
