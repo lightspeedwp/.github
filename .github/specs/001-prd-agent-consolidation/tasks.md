@@ -291,7 +291,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 - FR-504: Document test results, coverage metrics, and issues
 - FR-505: Create bug tracking for identified issues; prioritize and triage
 
-- [ ] T064 [Phase 5] Create comprehensive test suite (`agents/prd-agent/tests/`) covering all 28 consolidated skills, agent routing, skill-to-provider mapping, and cross-skill integration per FR-501 (target ≥90% coverage per spec.md SC-501)
+- [x] T064 [Phase 5] Create comprehensive test suite (`agents/prd-agent/tests/`) covering all 28 consolidated skills, agent routing, skill-to-provider mapping, and cross-skill integration per FR-501 (target ≥90% coverage per spec.md SC-501)
 - [ ] T065 [Phase 5] Execute test suite against all three providers (Claude via Claude Code, Copilot via GitHub, OpenAI via agent definition) and document results per FR-502
 - [ ] T066 [Phase 5] Validate PRD generation quality using real-world test workflows; compare against pre-consolidation baseline per FR-503 (target ≥95% pass rate per spec.md SC-502)
 - [ ] T067 [Phase 5] Document comprehensive test results in `agents/prd-agent/TEST_RESULTS.md`: pass rate per provider, coverage metrics, known issues, recommendations per FR-504
