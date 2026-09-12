@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Technical Details
 
-**Specification**: Feature Specification [001-prd-agent-consolidation](../.github/specs/001-prd-agent-consolidation/spec.md) — Phase 5
+**Specification**: Feature Specification [001-prd-agent-consolidation](../../.github/specs/001-prd-agent-consolidation/spec.md) — Phase 5
 
 **Phase 5 Deliverables** (this release):
 - FR-501: Comprehensive test suite creation (14 test cases, ≥90% skill coverage per SC-501)
@@ -72,12 +72,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Technical Details
 
-**Specification**: Feature Specification [001-prd-agent-consolidation](../.github/specs/001-prd-agent-consolidation/spec.md) — Phases 4-5
+**Specification**: Feature Specification [001-prd-agent-consolidation](../../.github/specs/001-prd-agent-consolidation/spec.md) — Phases 4-5
 
 **Phase 4 Deliverables** (this release):
-- FR-414: Prompt Enhancement per spec.md US4 with system prompt rewrite for both Claude and Copilot configurations
-- FR-415: Memory Registry verification (agent:mode-prd entry correct, no orphaned paths)
-- FR-416: Test case baseline creation (14 test cases for Phase 5 validation)
+- FR-412: Prompt Enhancement per spec.md US4 with system prompt rewrite for both Claude and Copilot configurations
+- FR-413: Memory Registry verification (agent:mode-prd entry correct, no orphaned paths)
+- FR-414: Test case baseline creation (14 test cases for Phase 5 validation)
+- FR-415: CHANGELOG update with Phase 4 completion summary
 - Enhancement Focus Areas:
   1. Context Management: Explicit 28-skill inventory mapping to PRD workflows
   2. Skill Routing: Comprehensive decision trees for multi-skill orchestration

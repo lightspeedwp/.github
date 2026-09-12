@@ -127,8 +127,8 @@ Pre-enhancement baseline will be collected by running test suite against current
 
 **Phase 4 Completion Gates** (per spec.md SC-401 through SC-404):
 - ✅ SC-401: Prompt enhancement documented in CHANGELOG.md
-- ✅ SC-402: Memory registry entries updated and validated
-- ✅ SC-403: Test case success rate documented (baseline vs. improved)
+- ⏳ SC-402: Memory registry entries updated and validated (Pending: T061 registry verification)
+- ⏳ SC-403: Test case success rate documented (Pending: Phase 5 execution results in TEST_CASES_BASELINE.md)
 - ✅ SC-404: All prompt files validated with zero syntax/loading errors
 
 ## Next Steps

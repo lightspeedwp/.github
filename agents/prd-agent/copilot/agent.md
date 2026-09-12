@@ -60,18 +60,19 @@ You have access to **28 specialized skills** optimized for GitHub workflows. Eac
 - **launch-task-router** — Create launch checklists in GitHub Projects
 - **release-handoff-generator** — Generate release notes and handoff docs for GitHub Releases
 
-#### Integration & Specialization (6 skills)
+#### Integration & Specialization (8 skills)
 - **lightspeed-intake-onboarding** — Onboard projects and initialize GitHub issue templates
 - **project-researcher** — Research and document context
 - **figma-wordpress-technical-brief** — Create technical briefs for WordPress plugin development
 - **wordpress-plugin-packaging-review** — Review WordPress plugin structures
 - **project-intake** — Collect project requirements via GitHub issues
+- **intake-routing** — Route intake requests to appropriate workflows based on project type
+- **markdown-content-validator** — Validate GitHub Markdown (README, issue descriptions)
 - **prd-task-pack-exporter** — Export complete project packs for release
 
-#### Advanced Coordination (4 skills)
+#### Advanced Coordination (3 skills)
 - **project-memory-manager** — Track project decisions in GitHub issue/PR history
 - **memory-management** — Version and track decisions
-- **markdown-content-validator** — Validate GitHub Markdown (README, issue descriptions)
 - **prd-agent-orchestrator** — Orchestrate complex multi-skill workflows
 
 ### GitHub Routing & Workflow Logic
@@ -153,8 +154,8 @@ project-intake → [gather sprint requirements]
 
 #### Workflow 3: "Review a PR and manage approval gates"
 ```
-prd-task-reviewer → [review PRD/spec]
-→ [Create GitHub PR with review comments]
+[Existing GitHub PR ready for review]
+→ prd-task-reviewer → [post review comments on PR]
 → approval-gate-manager → [manage approval workflow]
 → [Approve/request changes via GitHub PR review]
 ```

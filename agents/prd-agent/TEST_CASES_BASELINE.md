@@ -80,6 +80,7 @@
 - **Input**: PRD with requirements, user stories, acceptance criteria
 - **Expected Output**: Well-formatted GitHub issues with labels, checklists, links
 - **Success Metric**: ≥1 issue created, properly labeled, checklist matches acceptance criteria
+- **Test Environment**: Isolated sandbox repository (test-prd-agent-sandbox/) with dedicated project board, milestone, and test PR for repeatable execution. Test cleanup rules: Delete created issues after each test run or mark as archived (idempotent). Preserve retest logs for audit trail.
 - **Baseline**: PRE-enhancement test pending Phase 5
 - **Post-Enhancement Target**: 100% creation success
 
@@ -117,34 +118,63 @@
 
 ### Pre-Enhancement Collection (Phase 5)
 
-1. **Run test suite** against current agent prompt (before any Phase 4 enhancements are applied)
-2. **Document baseline metrics** for each test case (success rate, quality score)
-3. **Record baseline time** (sprint/date when baseline was collected)
-4. **Capture sample outputs** for comparison
+1. **Freeze prompt revision**: Use a checked-in snapshot of the pre-Phase-4 agent prompt (commit hash documented in TEST_CASES_BASELINE.md)
+2. **Run test suite** against frozen prompt revision
+3. **Document baseline metrics** for each test case (success rate, quality score)
+4. **Record baseline time** (sprint/date when baseline was collected)
+5. **Capture sample outputs** for comparison and audit trail
 
 ### Post-Enhancement Collection (Phase 5)
 
-1. **Apply Phase 4 enhancements** to agent prompt
-2. **Re-run identical test suite** with enhanced prompt
+1. **Apply Phase 4 enhancements** to agent prompt (commit hash documented)
+2. **Re-run identical test suite** with enhanced prompt against same test data
 3. **Compare post-enhancement metrics** against baseline
 4. **Calculate improvement percentage** per test case
-5. **Aggregate overall improvement** (target ≥15%)
+5. **Aggregate overall improvement** with documented calculation and weighting methodology (target ≥15%)
+6. **Document normalization and weighting** across all metric types (see Reproducible Scoring Contract below)
+
+## Reproducible Scoring Contract
+
+To ensure consistent evaluation across Phase 5 testing:
+
+1. **Normalization**: Map all metric types (success rate %, quality score 0-5, detection rate %) to 0-100 scale
+2. **Weighting**: Define weighting for each test category:
+   - Category 1 (PRD Generation): 40% weight (core capability)
+   - Category 2 (Multi-Skill Orchestration): 30% weight (complexity measure)
+   - Category 3 (GitHub Integration): 20% weight (platform-specific)
+   - Category 4 (Skill Inventory): 10% weight (governance compliance)
+3. **Aggregation Formula**: Document exact calculation for overall improvement percentage
+4. **Manual Scoring Rubric**: Define evaluation criteria for subjective quality metrics (see below)
+5. **Evaluator Procedure**: Specify how baseline and post-enhancement evaluation are conducted (same evaluator, blind comparison, etc.)
+
+### Manual Scoring Rubric
+
+**Feedback Quality Assessment** (TC-303):
+- 5 = All feedback items are specific, actionable, and directly address PRD gaps
+- 4 = Most feedback (≥80%) is specific and actionable
+- 3 = Balanced mix of specific and generic feedback (≥50% specific)
+- 2 = Mostly generic feedback with some specific items
+- 1 = Generic or unhelpful feedback
 
 ## Success Criteria for Phase 4 (FR-414)
 
-- ✅ **Baseline metrics collected** for all 14 test cases
-- ✅ **Post-enhancement metrics collected** for all 14 test cases
-- ✅ **Improvement documented** per test case
-- ✅ **Overall improvement ≥15%** (aggregate across all metrics)
-- ✅ **Results documented** in CHANGELOG.md
+- ⏳ **Baseline metrics collected** for all 14 test cases (Pending Phase 5 execution)
+- ⏳ **Post-enhancement metrics collected** for all 14 test cases (Pending Phase 5 execution)
+- ⏳ **Improvement documented** per test case (Pending Phase 5 completion)
+- ⏳ **Overall improvement ≥15%** (Pending Phase 5 results aggregation)
+- ⏳ **Results documented** in CHANGELOG.md (Pending Phase 5 analysis)
 
 ## Test Execution Environment
 
 - **Claude Model**: Sonnet (as per agent definition)
 - **Copilot Model**: GPT-4 (as per GitHub Copilot default)
 - **OpenAI Model**: GPT-4 (if Phase 5 extends to OpenAI)
-- **Test Data**: Real PRD examples from LightSpeed projects
-- **Measurement**: Automated + manual scoring
+- **Test Data**: Approved synthetic or public fixtures by default (see fixtures/ directory for 14 test PRD templates). If real LightSpeed PRDs are used for test validation, they must be:
+  1. Explicitly documented with redaction strategy (anonymize customer/project names)
+  2. Accompanied by provider data-handling requirements signed-off by data owner
+  3. Marked with `[REAL_DATA]` tag in TEST_RESULTS.md for audit trail
+  4. Subject to quarterly review for retention necessity
+- **Measurement**: Automated (where testable) + manual scoring per Reproducible Scoring Contract above
 
 ## Notes
 
