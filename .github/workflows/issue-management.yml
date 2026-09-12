@@ -1,0 +1,14 @@
+name: Issue Management
+on:
+  issues:
+    types: [opened, edited, labeled, closed, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  manage_issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Issue lifecycle automation
+        run: echo "Issue management - Phase 2 core workflow"

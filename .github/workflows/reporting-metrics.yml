@@ -1,0 +1,15 @@
+name: Reporting & Metrics
+on:
+  schedule:
+    - cron: '0 8 * * MON'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report_metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect and report metrics
+        run: echo "Reporting & metrics - Phase 2 core workflow"
