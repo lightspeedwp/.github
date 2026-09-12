@@ -39,6 +39,24 @@ All documentation, code comments, configuration, and guidance MUST use:
 
 **Rationale**: The organisation operates globally with accessibility-conscious users. Standards must be consistent and auditable.
 
+### VII. Specification Quality Standards (Non-Negotiable)
+All project specifications MUST be validated against 8 quality dimensions before implementation begins: Completeness (all requirements present), Clarity (specific, unambiguous, vague terms quantified), Consistency (requirements aligned, no conflicts), Measurability (objective acceptance criteria), Scenario Coverage (all user flows addressed), Edge Cases (boundary conditions defined), Dependencies (assumptions documented), and Ambiguities (unclear areas surfaced for resolution). Specifications using the Requirements Quality Checklist framework MUST pass all quality dimensions before receiving stakeholder approval. No implementation work begins on specifications with unresolved gaps or ambiguities.
+
+**Rationale**: Specifications with gaps, ambiguities, or inconsistencies cascade as rework, misalignment, and failed implementations. Validating requirements quality upfront prevents waste and ensures team alignment. The Requirements Quality Checklist framework provides objective, repeatable validation.
+
+### VIII. Branch Strategy Compliance & Automated Enforcement (Non-Negotiable)
+All branches MUST follow pattern `{type}/{scope}-{title}` with one of 24 authorized types (feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, audit, codex, research, revert). FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute and non-negotiable. PR template routing MUST be automatic (no manual template selection). Auto-labeling MUST apply consistent, prefixed labels from canonical label set. CI validation gates MUST block non-compliant branches before merge. Compliance tracking MUST show ≥95% adherence across all active branches.
+
+**Rationale**: Branch naming is the foundation for PR template routing, GitHub Actions workflows, labeling, and metrics. Standardized naming enables automation, prevents template misrouting, and provides traceability. Enforcement prevents manual workarounds and ensures 100% consistency.
+
+### IX. Requirements-Driven Quality & Changelog Compliance (Non-Negotiable)
+Changelog entries and project requirements MUST meet defined quality standards before release: entries ≤250 characters (user-focused, no implementation details), 100% linked to PRs/issues, entries pass automated compliance gates. Requirements MUST be audited for length, clarity, and completeness before merge. Automated enforcement gates in CI MUST validate all submissions; violations MUST block PRs with clear, actionable feedback. Compliance metrics MUST be tracked continuously and maintained ≥95% post-implementation.
+
+**Rationale**: Long, verbose entries obscure user-facing value; implementation details clutter documentation. Automated enforcement prevents degradation and ensures maintainability at scale.
+
+### X. Automated Validation & Metrics-Driven Governance (Non-Negotiable)
+All governance decisions MUST be supported by continuous metrics: specification quality scores, branch naming compliance %, changelog entry compliance %, requirement validation gate pass rates. Metrics dashboards MUST update at minimum daily. Automated validation workflows MUST run on every PR and track violations. Compliance trends over 30+ days MUST inform process improvements. No governance decision MUST rely on manual audits when automated monitoring is feasible; manual audits are used only to verify automated systems' accuracy.
+
 ## Configuration Governance
 
 ### LOCKED Files (Manual Curation Required)
@@ -121,6 +139,64 @@ All significant features follow the SpecKit workflow:
 
 All PRs and reviews MUST verify constitution compliance. Complexity must be justified against these principles.
 
+## Specification Project Governance
+
+Three foundational specification projects anchor LightSpeed's governance framework. Their maintenance, updates, and evolution are governed by the following procedures:
+
+### Active Specification Projects
+
+| Project | Location | Governance Authority | Amendment Process |
+|---------|----------|----------------------|-------------------|
+| **Changelog Quality Audit (Phase 5)** | `specs/003-changelog-quality-audit/` | Maintainer review, stakeholder approval | Quality checklist MUST pass before changes; changes MUST go through `/speckit-specify`, `/speckit-clarify`, `/speckit-plan` workflow |
+| **Branch Naming & PR Strategy** | `specs/004-branch-naming-strategy/` | Team lead + GitHub admin review | Type additions/removals MUST have impact analysis on 24-type system; changes require cross-repo validation |
+| **Requirements Quality Checklist Framework** | `specs/005-requirements-quality-checklist/` | Specification authors + peer reviewers | Framework enhancements MUST maintain 8-dimension structure; domain-specific customizations follow template pattern |
+
+### Specification Amendment Procedures
+
+**When specifications require updates:**
+
+1. **Initiate via issue**: Open issue tagged `[SPEC-UPDATE-REQUEST]` with:
+   - Which specification is affected (003/004/005)
+   - What change is proposed and why
+   - Impact analysis (affected projects, teams, automation)
+   - Proposed update plan (new sections, principle changes, additions)
+
+2. **Specification-first workflow**: Use SpecKit commands:
+   - `/speckit-clarify` — Resolve ambiguities in proposed changes
+   - `/speckit-specify` — Formalize updated specification
+   - `/speckit-checklist` — Validate quality dimensions unchanged/improved
+   - `/speckit-plan` — Plan implementation of specification changes
+
+3. **Quality validation**: Updated specification MUST pass requirements quality checklist (all 8 dimensions) before approval
+
+4. **Approval gates**:
+   - **Changelog Audit changes** → Changelog maintainers + @ashley
+   - **Branch Strategy changes** → GitHub admins + team leads + @ashley
+   - **Quality Checklist changes** → Specification authors + @ashley
+
+5. **Rollout plan**: All specification changes MUST include:
+   - Backward compatibility assessment (old practices coexist or migrate?)
+   - Team communication plan (docs, training, Q&A)
+   - Compliance tracking (metrics updated to reflect new requirements)
+   - Migration deadline (if old practices retire)
+
+### Specification Review Cadence
+
+- **Monthly**: Review compliance metrics for all three specifications (adherence %, violations, trends)
+- **Quarterly**: Assess specification effectiveness (are success criteria still being met?)
+- **Annually**: Full specification audit (still relevant? Tech changes? Process improvements?)
+- **Ad-hoc**: Critical changes (security, breaking changes, severe compliance failures)
+
+### Specification Compliance Tracking
+
+Each specification project includes a `checklists/` directory with:
+- `requirements.md` — Quality validation checklist (Completeness, Clarity, Consistency, etc.)
+- Compliance dashboard (updated daily) showing:
+  - Specification adoption rate
+  - Violations detected by CI
+  - Trend data (improving/declining compliance)
+  - Team adherence by individual/repo
+
 ---
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-11
+**Version**: 1.1.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-12
