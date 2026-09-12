@@ -13,8 +13,7 @@
  * - Category 4: Skill Inventory Accuracy (2 tests)
  */
 
-import fs from 'fs';
-import path from 'path';
+// No external dependencies required for test-runner mock framework
 
 const TEST_CONFIG = {
   provider: process.argv.includes('--provider')
@@ -83,9 +82,8 @@ function tc101BasicPRDStructure() {
  */
 function tc102FeatureRequirementsExtraction() {
   const testId = 'TC-102';
-  const input = 'Improve user login experience';
 
-  // Mock requirements extraction
+  // Mock requirements extraction for: "Improve user login experience"
   const extracted = {
     userStories: [
       'US1: Display password strength indicator',
