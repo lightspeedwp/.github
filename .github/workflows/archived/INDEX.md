@@ -64,7 +64,7 @@ Phase 1 + Option A of the Workflow Consolidation Initiative to reduce 76 active 
 ### Related Documentation
 
 - **[Archive README](./2026-09-11/README.md)** — Archive overview and navigation
-- **[Workflow Manifest](./2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md)** — Complete inventory of 62 workflows
+- **[Workflow Manifest](./2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md)** — Complete inventory of 71 workflows (Phase 1 + Option A)
 - **[Restoration Procedures](./2026-09-11/RESTORE.md)** — How to restore workflows
 - **[Consolidation Mapping](../docs/WORKFLOW_CONSOLIDATION_MAPPING.md)** — Old workflow → New consolidated workflow mapping
 
@@ -77,7 +77,7 @@ Phase 1 + Option A of the Workflow Consolidation Initiative to reduce 76 active 
 
 | Phase | Period | Work | Status |
 |-------|--------|------|--------|
-| **Phase 1** | Sep 16-30 | Archive 62 workflows, create mapping, document procedures | 📋 Planning |
+| **Phase 1 + Option A** | Sep 11-12 | Archive 71 workflows, create 9 core stubs, reconcile inventory | ✅ Complete |
 | **Phase 2** | Oct 1-15 | Build 14 core consolidated workflows | ⏳ Planned |
 | **Phase 3** | Oct 16-22 | Testing, validation, production merge | ⏳ Planned |
 
@@ -95,7 +95,7 @@ git checkout refactor/workflow-consolidation-and-archiving -- .github/workflows/
 **Detailed procedures:** See [RESTORE.md](./2026-09-11/RESTORE.md)
 
 **Rollback Timeline:**
-- Estimated time to restore all 62 workflows: < 30 minutes
+- Estimated time to restore all 71 workflows: < 30 minutes
 - Estimated time to restore individual workflow: < 5 minutes
 - Retention period: 2 weeks (Sep 11 - Sep 25, 2026)
 
