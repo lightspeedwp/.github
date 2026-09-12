@@ -1,12 +1,14 @@
 # Governance Specifications Requirements Quality Checklist
 
-**Purpose:** Unit tests for requirements writing—validates the quality, clarity, and completeness of specifications across Changelog Quality Audit (Phase 5) and Branch Naming & PR Strategy projects.
+**Purpose:** Unit tests for requirements writing—author's self-check before team review. Validates the quality, clarity, consistency, measurability, and completeness of specifications across Changelog Quality Audit (Phase 5) and Branch Naming & PR Strategy projects.
 
 **Created:** 2026-09-12  
 **Last Updated:** 2026-09-12  
 **Scope:** PR #2904, PR #2905, and all supporting documents
+**Review Level:** Author pre-review (self-check before peer/stakeholder review)
+**Dimensions Covered:** Completeness, Clarity, Consistency, Measurability, Scenarios, Edge Cases, Dependencies, Ambiguities
 
-**Ownership Note:** Checkboxes `[x]` indicate reviewer confirmation that the requirements-quality criterion is satisfied. This does NOT mean implementation work is complete. This is a requirements-quality review artifact for stakeholder approval before Phase execution.
+**Ownership Note:** Checkboxes `[x]` indicate the author's confirmation that the requirements-quality criterion is satisfied. Items marked `[x]` mean "I've validated this aspect of the requirements." This does NOT mean implementation work is complete. This is an author self-review checklist to ensure specifications are ready for team/stakeholder review.
 
 ---
 
@@ -162,14 +164,17 @@
 
 ## Notes
 
-**Stakeholder Gate Checklist:** This checklist is designed for executive/leadership approval before Phase execution begins. Items marked `[x]` represent reviewer confirmation that requirements are complete, clear, consistent, and measurable enough to proceed with implementation.
+**Author Pre-Review Checklist:** This checklist is designed for authors to self-validate before submitting specifications for team/stakeholder review. Items marked `[x]` represent your confirmation that this aspect of requirements quality is satisfied.
 
-**Gap Markers:** Items marked `[Gap]` indicate missing requirements that should be documented before approval. Consider prioritizing these for pre-Phase clarification.
+**Gap Markers:** Items marked `[Gap]` indicate missing requirements you should document before sending to reviewers. Use these as a reminder to strengthen specifications.
 
-**Parallelization Signals:** Both projects (Changelog Audit Phase 5 and Branch/PR Strategy Phase 2) can run in parallel if dependencies and resource allocation are clarified (see CHK079, CHK080, CHK088).
+**Ambiguity Markers:** Items marked `[Ambiguity]` indicate areas where requirements clarity could be improved. Consider addressing these in documentation updates or notes to reviewers.
 
-**Next Steps:**
-1. Reviewers complete checklist (mark `[x]` only when satisfied)
-2. Address all `[Gap]` items before approval
-3. Resolve all `[Ambiguity]` items with explicit documentation
-4. Use resolved checklist as project approval gate
+**Parallelization Signals:** Both projects (Changelog Audit Phase 5 and Branch/PR Strategy Phase 2) can run in parallel if dependencies and resource allocation are clarified (see CHK079, CHK080, CHK088). Document this in project dependencies if parallel execution is intended.
+
+**Author Workflow:**
+1. **Before sending to team:** Complete this checklist as a self-check
+2. **Address high-priority gaps:** Focus on items marked `[Gap]` and `[Ambiguity]`—these are likely to surface in peer review
+3. **Document resolutions:** For items you mark `[x]`, be ready to explain how requirements satisfy the quality criterion
+4. **Include checklist with PR:** Share this checklist completion status with reviewers to show diligence
+5. **Track feedback:** Use reviewer feedback on this checklist to refine your requirements-writing process
