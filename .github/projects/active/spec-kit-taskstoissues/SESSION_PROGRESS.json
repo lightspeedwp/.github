@@ -1,0 +1,12 @@
+{
+  "total_created": 105,
+  "total_issues": 209,
+  "completion_pct": 50,
+  "remaining_count": 104,
+  "session_progress": {
+    "pre_session": 25,
+    "this_session_created": 80,
+    "this_session_failed": 104
+  },
+  "rate_limit_reset": "In approximately 60-90 minutes"
+}
