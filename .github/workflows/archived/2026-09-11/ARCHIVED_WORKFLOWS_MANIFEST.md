@@ -26,17 +26,17 @@ status: complete
 | Validation | 11 | ✅ Archived | Branch names, PR templates, changelog, checks |
 | Documentation | 8 | ✅ Archived | README, badges, docs maintenance |
 | Issue Management | 11 | ✅ Archived | Issue creation, automation, triage, remediation |
-| PR Management | 8 | ✅ Archived | PR validation, linking, changelog automation |
-| Testing | 2 | ✅ Archived | E2E tests, testing framework |
+| PR Management | 8 | ✅ Archived | PR validation, linking, automation |
+| Testing | 2 | ✅ Archived | E2E tests, testing orchestration |
 | CI/CD | 2 | ✅ Archived | Release orchestration, branch cleanup |
-| Utilities | 18 | ✅ Archived | Meta, agents, monitoring, documentation, project, reporting |
+| Utilities | 18 | ✅ Archived | Meta, security, metrics, monitoring, project, reporting |
 | **TOTAL** | **71** | **✅ COMPLETE** | **All non-essential workflows (Phase 1 + Option A)** |
 
 ---
 
 ## Detailed Workflow Inventory
 
-### Labeling (9 workflows)
+### Labeling (11 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
@@ -49,8 +49,10 @@ status: complete
 | Validate Issue Labels | `labeling/validate-issue-labels.yml` | `labeling-unified.yml` | ✅ Archived | Ensure label prefix compliance |
 | Label Audit Report | `labeling/label-audit-report.yml` | `labeling-unified.yml` | ✅ Archived | Audit label usage and compliance |
 | OpenSpec Sync Labels | `labeling/openspec-sync-labels.yml` | `labeling-unified.yml` | ✅ Archived | Sync OpenSpec label definitions |
+| Manage Blocking Status Labels | `labeling/manage-blocking-status-labels.yml` | `labeling-unified.yml` | ✅ Archived | Manage blocking status labels |
+| OpenSpec Validate Labels | `labeling/openspec-validate-labels.yml` | `labeling-unified.yml` | ✅ Archived | Validate OpenSpec labels |
 
-### Validation (12 workflows)
+### Validation (11 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
@@ -59,18 +61,18 @@ status: complete
 | Changelog Safety Audit | `validation/changelog-safety-audit.yml` | `validation-unified.yml` | ✅ Archived | Ensure changelog completeness |
 | Validate DoR/DoD Sections | `validation/validate-dor-dod-sections.yml` | `validation-unified.yml` | ✅ Archived | Definition of Ready/Done validation |
 | Docs Validation | `validation/docs-validation.yml` | `validation-unified.yml` | ✅ Archived | Documentation completeness checks |
-| Linting | `validation/linting.yml` | `linting-unified.yml` | ✅ Archived | Code quality linting (merged) |
-| Markdown Audit CI Optimization | `validation/markdown-audit-ci-optimization.yml` | `linting-unified.yml` | ✅ Archived | Markdown validation + performance |
+| Linting | `validation/linting.yml` | `linting-unified.yml` | ✅ Archived | Code quality linting |
 | Workflow Validation | `validation/workflow-validation.yml` | `validation-unified.yml` | ✅ Archived | GitHub Actions workflow syntax |
 | Validate Blocking Issue Before Close | `validation/validate-blocking-issue-before-close.yml` | `validation-unified.yml` | ✅ Archived | Ensure blocking issues resolved |
 | Validate Blocking Status Before Close | `validation/validate-blocking-status-before-close.yml` | `validation-unified.yml` | ✅ Archived | Ensure blocking statuses resolved |
 | Validate Project Linking | `validation/validate-project-linking.yml` | `validation-unified.yml` | ✅ Archived | Ensure issues/PRs linked to projects |
-| Checks (Validation Portions) | `validation/checks.yml` | `validation-unified.yml` | ✅ Archived | Multi-check orchestration |
+| Checks | `validation/checks.yml` | `validation-unified.yml` | ✅ Archived | Multi-check orchestration |
 
 ### Documentation (8 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
+| Documentation | `documentation/documentation.yml` | `documentation.yml` | ✅ Archived | Main documentation orchestration |
 | Docs Maintenance | `documentation/docs-maintenance.yml` | `documentation.yml` | ✅ Archived | Documentation upkeep tasks |
 | Badges README Status | `documentation/badges-readme-status.yml` | `documentation.yml` | ✅ Archived | Update README status badges |
 | Badges Documentation Update | `documentation/badges-documentation-update.yml` | `documentation.yml` | ✅ Archived | Update doc badges |
@@ -78,9 +80,8 @@ status: complete
 | Badges Health Check | `documentation/badges-health-check.yml` | `documentation.yml` | ✅ Archived | Health status badges |
 | Badges Workflow Audit | `documentation/badges-workflow-audit.yml` | `documentation.yml` | ✅ Archived | Audit badge status |
 | Awesome GitHub Site | `documentation/awesome-github-site.yml` | `documentation.yml` | ✅ Archived | GitHub site generation |
-| Documentation Workflow | `documentation/documentation-workflow.yml` | `documentation.yml` | ✅ Archived | Main docs generation workflow |
 
-### Issue Management (10 workflows)
+### Issue Management (11 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
@@ -94,46 +95,36 @@ status: complete
 | Normalize Titles | `issue-management/normalize-titles.yml` | `issue-management.yml` | ✅ Archived | Normalize issue titles |
 | Meta Agent Validation | `issue-management/meta-agent-validation.yml` | `issue-management.yml` | ✅ Archived | Validate meta tags |
 | Metadata Governance | `issue-management/metadata-governance.yml` | `events-issue-pr-metadata.yml` | ✅ Archived | Governance metadata management |
+| Milestone Distribution | `issue-management/milestone-distribution.yml` | `issue-management.yml` | ✅ Archived | Milestone distribution automation |
 
-### PR Management (7 workflows)
+### PR Management (8 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
 | Enforce PR Issue Linking | `pr-management/enforce-pr-issue-linking.yml` | `pr-workflow.yml` | ✅ Archived | Require PR-issue links |
 | Allocate PR Issue to Milestone | `pr-management/allocate-pr-issue-to-milestone.yml` | `pr-workflow.yml` | ✅ Archived | Auto-assign milestones |
+| Changelog | `pr-management/changelog.yml` | `changelog-management.yml` | ✅ Archived | Changelog automation |
 | PR Template Validation | `pr-management/pr-template-validation.yml` | `validation-unified.yml` | ✅ Archived | Validate PR template usage |
 | PR Validation | `pr-management/pr-validation.yml` | `pr-workflow.yml` | ✅ Archived | PR validation rules |
 | PR Template Resolver | `pr-management/pr-template-resolver.yml` | `pr-workflow.yml` | ✅ Archived | Route PR templates |
 | Planner | `pr-management/planner.yml` | `pr-workflow.yml` | ✅ Archived | PR planning automation |
 | Reviewer | `pr-management/reviewer.yml` | `pr-workflow.yml` | ✅ Archived | Reviewer assignment |
 
-### Testing (8 workflows)
+### Testing (2 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
 | Testing | `testing/testing.yml` | `testing-unified.yml` | ✅ Archived | Main test orchestration |
 | Release E2E Tests | `testing/release-e2e-tests.yml` | `testing-unified.yml` | ✅ Archived | End-to-end release tests |
-| Checks (Test Portions) | `testing/checks.yml` | `testing-unified.yml` | ✅ Archived | Test check orchestration |
-| Test Runner | `testing/test-runner.yml` | `testing-unified.yml` | ✅ Archived | Main test runner |
-| Integration Tests | `testing/integration-tests.yml` | `testing-unified.yml` | ✅ Archived | Integration test suite |
-| Unit Tests | `testing/unit-tests.yml` | `testing-unified.yml` | ✅ Archived | Unit test suite |
-| E2E Tests | `testing/e2e-tests.yml` | `testing-unified.yml` | ✅ Archived | End-to-end test suite |
-| Test Coverage | `testing/test-coverage.yml` | `testing-unified.yml` | ✅ Archived | Coverage reporting |
 
-### CI/CD (8 workflows)
+### CI/CD (2 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
-| Build | `ci-cd/build.yml` | `ci-cd-pipeline.yml` | ✅ Archived | Build orchestration |
 | Cleanup Branches | `ci-cd/cleanup-branches.yml` | `branch-management.yml` | ✅ Archived | Automated branch cleanup |
-| Branch Cleanup | `ci-cd/branch-cleanup.yml` | `branch-management.yml` | ✅ Archived | Branch maintenance |
-| Deploy | `ci-cd/deploy.yml` | `ci-cd-pipeline.yml` | ✅ Archived | Deployment automation |
-| CI Pipeline | `ci-cd/ci-pipeline.yml` | `ci-cd-pipeline.yml` | ✅ Archived | CI pipeline orchestration |
-| Artifacts Cleanup | `ci-cd/artifacts-cleanup.yml` | `ci-cd-pipeline.yml` | ✅ Archived | Artifact retention |
-| Cache Maintenance | `ci-cd/cache-maintenance.yml` | `ci-cd-pipeline.yml` | ✅ Archived | Cache management |
-| Release Trigger | `ci-cd/release-trigger.yml` | `release-orchestration.yml` | ✅ Archived | Release automation |
+| Release Trigger | `ci-cd/release.yml` | `release-orchestration.yml` | ✅ Archived | Release automation |
 
-### Utilities (8 workflows)
+### Utilities (18 workflows)
 
 | Workflow | File Path | Consolidated Into | Status | Notes |
 |----------|-----------|-------------------|--------|-------|
@@ -143,8 +134,18 @@ status: complete
 | GitLeaks Reusable | `utilities/gitleaks-reusable.yml` | `quality-gates.yml` | ✅ Archived | Reusable secret scanning |
 | Actions Minute Savings Watch | `utilities/actions-minute-savings-watch.yml` | `reporting-metrics.yml` | ✅ Archived | GitHub Actions metrics |
 | Agent Spec Validation | `utilities/agent-spec-validation.yml` | `quality-gates.yml` | ✅ Archived | Spec validation |
-| OpenSpec Validation | `utilities/openspec-validation.yml` | `quality-gates.yml` | ✅ Archived | OpenSpec compliance |
 | Main Branch Guard | `utilities/main-branch-guard.yml` | `branch-management.yml` | ✅ Archived | Production branch protection |
+| OpenSpec Progress Phase | `utilities/documentation/openspec-progress-phase.yml` | (documentation utility) | ✅ Archived | OpenSpec progress tracking |
+| OpenSpec Report Progression | `utilities/documentation/openspec-report-progression.yml` | (documentation utility) | ✅ Archived | OpenSpec progress reporting |
+| Metrics Collection | `utilities/monitoring/metrics-collection.yml` | `reporting-metrics.yml` | ✅ Archived | GitHub Actions metrics collection |
+| Metrics Reporting | `utilities/monitoring/metrics-reporting.yml` | `reporting-metrics.yml` | ✅ Archived | Metrics reporting |
+| Metrics | `utilities/monitoring/metrics.yml` | `reporting-metrics.yml` | ✅ Archived | Metrics orchestration |
+| Project Archival | `utilities/project/project-archival.yml` | `project-management.yml` | ✅ Archived | Project archival automation |
+| Project Field Sync | `utilities/project/project-field-sync.yml` | `project-management.yml` | ✅ Archived | Project field synchronization |
+| Project Maintenance Nightly | `utilities/project/project-maintenance-nightly.yml` | `project-management.yml` | ✅ Archived | Project nightly maintenance |
+| Project Maintenance On-Demand | `utilities/project/project-maintenance-on-demand.yml` | `project-management.yml` | ✅ Archived | Project on-demand maintenance |
+| Project Meta Sync | `utilities/project/project-meta-sync.yml` | `project-management.yml` | ✅ Archived | Project metadata synchronization |
+| Reporting | `utilities/reporting/reporting.yml` | `reporting-metrics.yml` | ✅ Archived | Reporting orchestration |
 
 ---
 
