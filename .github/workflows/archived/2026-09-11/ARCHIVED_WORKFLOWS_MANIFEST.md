@@ -2,7 +2,8 @@
 file_type: manifest
 title: "Archived Workflows Manifest"
 date_archived: "2026-09-11"
-total_workflows: 62
+last_updated: "2026-09-12"
+total_workflows: 71
 categories: 8
 status: complete
 ---
@@ -10,7 +11,8 @@ status: complete
 # Archived Workflows Manifest
 
 **Archive Date:** Sep 11, 2026  
-**Total Workflows Archived:** 62  
+**Last Updated:** Sep 12, 2026 (Option A reconciliation)  
+**Total Workflows Archived:** 71  
 **Categories:** 8  
 **Archive Location:** `.github/workflows/archived/2026-09-11/`
 
@@ -20,15 +22,15 @@ status: complete
 
 | Category | Count | Status | Details |
 |----------|-------|--------|---------|
-| Labeling | 9 | ✅ Archived | Auto-label, issue type, governance |
-| Validation | 12 | ✅ Archived | Branch names, PR templates, changelog |
+| Labeling | 11 | ✅ Archived | Auto-label, issue type, governance, validation |
+| Validation | 11 | ✅ Archived | Branch names, PR templates, changelog, checks |
 | Documentation | 8 | ✅ Archived | README, badges, docs maintenance |
-| Issue Management | 10 | ✅ Archived | Issue creation, automation, triage |
-| PR Management | 7 | ✅ Archived | PR validation, linking, Mergify |
-| Testing | 8 | ✅ Archived | Unit, integration, e2e, coverage |
-| CI/CD | 8 | ✅ Archived | Build, deploy, cleanup, branches |
-| Utilities | 8 | ✅ Archived | Meta, secrets, metrics, agents |
-| **TOTAL** | **62** | **✅ COMPLETE** | **All non-essential workflows** |
+| Issue Management | 11 | ✅ Archived | Issue creation, automation, triage, remediation |
+| PR Management | 8 | ✅ Archived | PR validation, linking, changelog automation |
+| Testing | 2 | ✅ Archived | E2E tests, testing framework |
+| CI/CD | 2 | ✅ Archived | Release orchestration, branch cleanup |
+| Utilities | 18 | ✅ Archived | Meta, agents, monitoring, documentation, project, reporting |
+| **TOTAL** | **71** | **✅ COMPLETE** | **All non-essential workflows (Phase 1 + Option A)** |
 
 ---
 
