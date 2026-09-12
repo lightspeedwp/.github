@@ -1,309 +1,125 @@
-# Specification: Changelog Quality Audit & Phase 5 Implementation
+# Feature Specification: Changelog Quality Audit
 
-<!-- BADGES-START -->
-![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
-![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
-![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
-![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
-![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
-![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
-![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
-![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
-[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
-[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
-[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
-[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
-[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
-[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
-[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
-[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
-[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
-<!-- BADGES-END -->
+**Feature Branch**: `claude/changelog-quality-audit-phase-3-2x807l`
 
-**Feature Name:** Changelog Quality Audit and Phase 5 Hardening  
-**Short ID:** 003-changelog-quality-audit  
-**Status:** Specification  
-**Created:** 2026-09-12  
-**Version:** 1.0  
+**Created**: 2026-09-12
+
+**Status**: Draft
+
+**Input**: Build comprehensive changelog quality audit and validation system for LightSpeed .github organisation with 6 functional requirements, 9 success criteria, automated validation rules, and 83 implementation tasks across 7 phases
+
+## User Scenarios & Testing *(mandatory)*
+
+### User Story 1 - Changelog Entry Authors Get Real-time Quality Validation (Priority: P1)
+
+As a developer writing a changelog entry for a new feature or fix, I need to know immediately if my entry meets quality standards (no implementation details, proper formatting, auto-linked references), so that I can fix issues before committing and maintain consistent changelog quality across the entire organisation.
+
+**Why this priority**: This is the core value of the audit system. Preventing low-quality entries from being committed in the first place is more efficient than detecting and fixing them later. This directly impacts changelog accuracy and usefulness for all consumers.
+
+**Independent Test**: Can be tested by submitting changelog entries with various quality issues (implementation details, missing links, bad formatting) and verifying that validation catches each issue with actionable feedback.
+
+**Acceptance Scenarios**:
+
+1. **Given** a changelog entry contains implementation details (code patterns, API names), **When** validated, **Then** validation fails with specific guidance on what to remove
+2. **Given** a changelog entry references a PR/issue number, **When** validated, **Then** validation automatically links it and verifies the link is correct
+3. **Given** a changelog entry has proper format and no implementation details, **When** validated, **Then** validation passes and entry can be committed
+4. **Given** a changelog entry is missing required fields, **When** validated, **Then** validation reports which fields are missing
 
 ---
 
-## Overview
+### User Story 2 - Release Managers Can Verify Changelog Readiness Before Release (Priority: P1)
 
-**What:** A comprehensive quality audit of the organization's changelog and a strategic 7-week implementation roadmap (Phase 5) to improve entry quality, enforce standards, automate linking, and establish metrics-driven compliance.
+As a release manager preparing to cut a release, I need to run a comprehensive audit on all changelog entries for that release, verify they meet quality standards, and get a detailed report on any issues, so that the release notes are accurate, professional, and free of implementation details.
 
-**Why:** Current changelog entries average 1,200 characters (5-10x over guidelines), contain implementation details, and lack automated enforcement. This threatens maintainability, discoverability, and team communication.
+**Why this priority**: Release notes are critical external communications. A bad changelog reflects poorly on the organisation and creates support burden. Pre-release validation prevents this and builds confidence in release quality.
 
-**Who:** Changelog maintainers, CI/CD engineers, team leadership, release managers.
+**Independent Test**: Can be tested by running the audit tool on a release branch and verifying it identifies all quality issues and generates a compliance report.
 
-**Outcome:** Changelog entries meet quality standards (250 char max, user-focused, linked to PRs/issues), automated enforcement gates prevent violations, and compliance metrics drive continuous improvement.
+**Acceptance Scenarios**:
 
----
-
-## User Scenarios & Acceptance
-
-### Scenario 1: Maintainer Reviews Changelog Entry
-
-**Actor:** Changelog maintainer  
-**Goal:** Quickly assess whether a changelog entry meets quality standards  
-**Flow:**
-
-1. Maintainer opens CHANGELOG.md
-2. Maintainer reviews an entry from [Unreleased] section
-3. Entry displays length indicator and compliance status
-4. Maintainer can see: character count, presence of PR link, implementation detail detection
-5. Maintainer acts: refactor oversized entries or approve compliant ones
-
-**Acceptance:** Maintainer can assess compliance in <30 seconds per entry without manual counting.
-
-### Scenario 2: Developer Submits PR with Changelog Entry
-
-**Actor:** Developer  
-**Goal:** Merge PR without changelog validation failures  
-**Flow:**
-
-1. Developer creates PR with changelog entry
-2. CI validation gate runs (7-layer validation system)
-3. Entry is checked for: length, format, PR link, implementation details
-4. If compliant: CI passes, PR proceeds
-5. If non-compliant: CI fails with specific actionable feedback
-
-**Acceptance:** Developers receive clear, actionable failure messages; 95%+ of entries pass on first submission after Phase 5.
-
-### Scenario 3: Release Manager Generates Release Notes
-
-**Actor:** Release manager  
-**Goal:** Produce polished release notes from changelog entries  
-**Flow:**
-
-1. Release manager triggers release workflow
-2. Workflow auto-generates release notes from CHANGELOG.md
-3. All entries are consistently formatted, properly linked, and verified
-4. Release notes can be exported to GitHub Releases without manual editing
-5. Release notes include metrics (entries count, compliance %, quality score)
-
-**Acceptance:** Release notes require <5 minutes of manual review before publishing; 100% of PR links are valid.
-
-### Scenario 4: Leadership Reviews Changelog Metrics
-
-**Actor:** Leadership/stakeholder  
-**Goal:** Understand changelog quality trends and compliance status  
-**Flow:**
-
-1. Stakeholder opens metrics dashboard
-2. Dashboard displays: compliance %, entry length distribution, implementation detail detection rate
-3. Stakeholder can drill down to specific entries or time periods
-4. Stakeholder sees trend: compliance improvement over 7 weeks
-5. Stakeholder approves next phase of automation
-
-**Acceptance:** Dashboard updates daily; metrics are accurate within 1% of manual audit.
+1. **Given** a release contains 50 changelog entries with varying quality, **When** audit runs, **Then** it generates a report showing compliance percentage and lists each failing entry with specific issues
+2. **Given** an entry was previously failing but has been fixed, **When** audit re-runs, **Then** it shows the entry as now passing and updates overall compliance score
+3. **Given** all entries pass validation, **When** audit completes, **Then** it generates a compliance certificate that release managers can reference
 
 ---
 
-## Functional Requirements
+### User Story 3 - Changelog Consumers (Users, Support) Get Accurate, Actionable Release Notes (Priority: P1)
 
-### FR-1: Entry Quality Assessment
+As a user or support agent reading release notes on the website or in documentation, I need changelog entries to be clear, professional, and focused on what changed from my perspective (not implementation details), with proper links to related issues/PRs for context, so that I can understand what's new and where to get more information.
 
-- **Requirement:** System must measure and report on entry compliance against quality standards
-- **Standards enforced:**
-  - Maximum length: 250 characters (user-facing summary, no internal details)
-  - Presence: PR link (GitHub URL format)
-  - Content: No implementation details (no code snippets, framework names, API internals)
-  - Format: Consistent punctuation and tense
-- **Assessment output:** Pass/fail status per entry, specific violation list
-- **Testable:** Validator script must flag entries exceeding 250 chars; script must identify implementation keywords (e.g., "refactored", "fixed", "added logic", "updated database")
+**Why this priority**: The entire purpose of the changelog is to communicate changes to end users. If entries are technical jargon or implementation details, they fail the core mission. This impacts user satisfaction and support efficiency.
 
-### FR-2: Automated Enforcement Gates
+**Independent Test**: Can be tested by having non-technical stakeholders read release notes and verify they understand what changed and why it matters to them.
 
-- **Requirement:** CI/CD validation gates must block PRs with non-compliant changelog entries
-- **Gate behavior:**
-  - Triggers on any PR targeting `develop` or `main` if CHANGELOG.md is modified
-  - Validates all [Unreleased] entries (both existing and new)
-  - Provides pass/fail verdict and specific failure reasons
-  - Does NOT block PRs from branches lacking changelog entries (configuration option)
-- **Testable:** CI must reject PR with 300-char entry; CI must approve PR with 250-char compliant entry
+**Acceptance Scenarios**:
 
-### FR-3: Auto-Linking Automation
-
-- **Requirement:** System must automatically detect and link PR/issue references in changelog entries
-- **Detection logic:**
-  - Identify PR references: `#NNNN` format → auto-generate GitHub URL
-  - Identify issue references: `issues/#NNNN` or bare issue numbers
-  - Validate links (verify URL returns 200 OK)
-  - Preserve user-provided links (don't override manual URLs)
-- **Fallback:** If auto-link fails, flag entry for manual review
-- **Testable:** Entry with PR reference `#1234` auto-links to `https://github.com/lightspeedwp/.github/pull/1234`
-
-### FR-4: Metrics & Reporting
-
-- **Requirement:** System must provide real-time compliance metrics and historical trends
-- **Metrics captured:**
-  - Compliance %: (compliant entries / total entries) × 100
-  - Length distribution: buckets (0-100, 100-250, 250-500, 500+)
-  - Implementation detail rate: % of entries containing flagged keywords
-  - PR link coverage: % of entries with valid links
-- **Reporting:** Daily automated report; accessible dashboard with 90-day history
-- **Testable:** Metrics dashboard must match manual count within 1%
-
-### FR-5: Workflow Consolidation
-
-- **Requirement:** Existing changelog validation workflows must be consolidated into a single, maintainable system
-- **Consolidation scope:**
-  - Merge 5+ separate validation scripts into unified pipeline
-  - Establish single source of truth for validation rules
-  - Remove redundant checks and conflicting rule sets
-- **Migration:** Existing workflows remain functional during transition; no service interruption
-- **Testable:** All existing validation behavior preserved; new single pipeline passes 100% of previous tests
-
-### FR-6: Team Training & Documentation
-
-- **Requirement:** Team must be trained on new standards, processes, and tools
-- **Training deliverables:**
-  - Developer quick-start guide (1 page, "how to write compliant entries")
-  - Maintainer process guide (validation gate overview, troubleshooting)
-  - Release manager workflow documentation
-- **Training delivery:** Live Q&A session (targeted 90%+ attendance); recorded session available
-- **Testable:** Post-training assessment shows 85%+ understanding of compliance standards
+1. **Given** release notes are published, **When** non-technical user reads them, **Then** they understand what changed without needing to read code or implementation details
+2. **Given** a changelog entry mentions a related issue or PR, **When** user clicks the link, **Then** they can access additional context
+3. **Given** entries cover multiple categories (features, fixes, breaking changes), **When** user reads them, **Then** each category is clearly separated and prioritized
 
 ---
 
-## Success Criteria
+### User Story 4 - Data Scientists & Product Managers Can Analyze Changelog Trends (Priority: P2)
 
-1. **Quality Compliance:** 95%+ of changelog entries meet all quality standards (length, format, content, links)
-2. **Zero Implementation Details:** 0 entries detected with implementation jargon or internal details
-3. **Automated Linking:** 100% of PR references auto-linked with 99.9% link accuracy
-4. **CI Enforcement:** 100% of non-compliant entries blocked by CI validation gate; no false positives
-5. **Metrics Accuracy:** Dashboard metrics within 1% of manual audit results
-6. **Workflow Consolidation:** Single unified validation system; 100% feature parity with legacy workflows
-7. **Team Adoption:** 90%+ team attendance in training; 85%+ post-assessment pass rate
-8. **Timeline:** All phases complete within 7 weeks (58-73 hours); no phase overruns
-9. **Sustainability:** Metrics maintained above 95% compliance for 30+ days post-Phase 5
+As a data analyst or product manager, I need to extract and analyze changelog data (what types of changes, how frequently, which components affected), so that I can make informed decisions about product strategy and prioritization.
 
----
+**Why this priority**: Enables data-driven decision making and provides valuable business intelligence. Valuable but less critical than ensuring quality itself.
 
-## Key Entities
+**Independent Test**: Can be tested by querying the validation metrics database and generating reports on changelog trends.
 
-### Entry
+**Acceptance Scenarios**:
 
-- **Definition:** A single changelog record under [Unreleased] or a version heading
-- **Properties:**
-  - Text content (max 250 chars)
-  - PR link (URL)
-  - Issue links (URLs)
-  - Category (feature/fix/breaking/infrastructure)
-  - Compliance status (pass/fail)
-  - Last modified date
-  - Author (PR author)
-- **Lifecycle:** Created → Reviewed → Validated → Released
-
-### Validation Rule
-
-- **Definition:** A single quality criterion enforced during validation
-- **Examples:**
-  - "Entry must not exceed 250 characters"
-  - "Entry must contain PR link"
-  - "Entry must not contain implementation keywords"
-- **Properties:** Rule ID, description, severity (error/warning), auto-fixable (yes/no)
-
-### Compliance Report
-
-- **Definition:** Summary of validation results for a batch of entries
-- **Properties:** Timestamp, entries checked, pass count, fail count, compliance %, violations list
+1. **Given** changelog data has been collected over time, **When** I query for trend analysis, **Then** I can see what types of changes are most common
+2. **Given** changelog entries are properly categorized, **When** I filter by category, **Then** I can see the distribution of features vs fixes vs improvements
 
 ---
+
+### Edge Cases
+
+- What happens when a changelog entry references a PR/issue that doesn't exist or is private?
+- How does the system handle changelog entries for abandoned or reverted features?
+- What validation rules apply to pre-release versions vs stable releases?
+- How are changelog entries validated across multiple branches and release tracks?
+
+## Requirements *(mandatory)*
+
+### Functional Requirements
+
+- **FR-1**: System MUST validate each changelog entry against a comprehensive ruleset covering formatting, structure, terminology, and content quality, and MUST report all validation failures with specific, actionable guidance for remediation
+- **FR-2**: System MUST automatically detect and link all PR/issue references in changelog entries, verify links are correct, and report any broken or missing links
+- **FR-3**: System MUST detect and reject changelog entries containing implementation details (code patterns, API names, internal terminology), technical jargon, or framework-specific references, with clear explanations of what constitutes "implementation details"
+- **FR-4**: System MUST collect and persist validation metrics (compliance rates, most common issues, entry quality scores) to enable trend analysis and reporting over time
+- **FR-5**: System MUST provide a comprehensive audit command for release managers to validate all entries for a given release, generate compliance reports, and identify entries requiring remediation before release
+- **FR-6**: System MUST integrate with CI/CD pipelines to automatically validate changelog entries on pull requests and block merging of non-compliant entries unless explicitly overridden by release managers
+
+### Key Entities
+
+- **ChangelogEntry**: Represents a single changelog entry with metadata (version, category, date, content, status, validation results). Attributes include: ID, version, category (feature/fix/improvement/breaking-change), title, description, PR references, issue references, validation_score, compliance_status, created_date, modified_date
+- **ValidationRule**: Defines a specific quality check or requirement (e.g., "entry must have a category", "entry must not contain 'API'", "entry must reference a PR"). Attributes include: ID, name, description, rule_type (format/content/reference/structure), severity (error/warning), pattern (regex or logic), remediation_guidance, enabled
+- **MetricsSnapshot**: Time-series record of changelog quality metrics for trending and analysis. Attributes include: ID, snapshot_date, total_entries, compliant_entries, compliance_percentage, most_common_violations, average_quality_score, entries_by_category
+- **ValidationReport**: Summary document generated after running a comprehensive audit (e.g., for a release). Attributes include: ID, report_date, scope (release/branch/date-range), total_entries_audited, passed_count, failed_count, compliance_percentage, issues_by_category, remediation_recommendations, generated_by
+
+## Success Criteria *(mandatory)*
+
+### Measurable Outcomes
+
+- **SC-1**: At least 95% of all changelog entries in the main release track achieve "compliant" status according to the validation ruleset
+- **SC-2**: Automated linking achieves 100% accuracy for valid PR and issue references (all valid references are linked, no false positive links)
+- **SC-3**: Zero changelog entries in release notes contain implementation details, code samples, or internal technical jargon when audited by automated validation
+- **SC-4**: Validation feedback is specific and actionable—each validation failure includes the exact issue location and step-by-step remediation guidance
+- **SC-5**: Release managers can audit all changelog entries for a release in under 5 minutes using automated tooling and receive a comprehensive compliance report
+- **SC-6**: CI/CD integration blocks non-compliant changelog entries from merging without explicit override, with 99.9% detection accuracy
+- **SC-7**: Metrics collection runs daily with 100% uptime, providing accurate trend data for analysis and reporting
+- **SC-8**: All validation rules are documented and understandable to non-technical contributors without requiring developer support
+- **SC-9**: System supports versioning of validation rules, allowing rule updates without retroactively invalidating historical entries
 
 ## Assumptions
 
-1. **GitHub API reliability:** GitHub API returns PR/issue data reliably; fallback to manual review if API fails
-2. **Entry ownership:** All changelog entries can be attributed to the PR that introduced them
-3. **PR link format:** All PRs are linkable via GitHub URL format (#NNNN or full URL)
-4. **Team capacity:** One FTE available for weeks 1-2 (refactoring); 0.5 FTE ongoing for validation gate maintenance
-5. **No breaking changes:** Phase 5 improvements must not invalidate existing changelog entries
-6. **Backwards compatibility:** Old (non-compliant) entries coexist with new (compliant) entries during transition
-7. **Automation feasibility:** GitHub Actions can execute 7-layer validation system within CI time limits
-
----
-
-## Constraints & Risks
-
-### Constraint: Timeline
-
-- Phase 5 must complete within 7 weeks (58-73 hours total)
-- Each phase has 2-week window maximum; phases can overlap for parallelization
-
-### Constraint: No Breaking Changes
-
-- Existing changelog must remain valid (no destructive refactoring of old entries)
-- New rules apply only to [Unreleased] entries (grandfather clause for released versions)
-
-### Risk: High Volume of Non-Compliant Entries
-
-- Mitigation: Automated tooling to help refactor entries (semi-automatic length reduction, keyword detection)
-- Fallback: If 60+ entries non-compliant, split refactoring across weeks 1-3
-
-### Risk: GitHub API Rate Limiting
-
-- Mitigation: Batch link validation; cache results for 24 hours
-- Fallback: Degrade to manual link verification if API unavailable
-
----
-
-## Non-Functional Requirements
-
-### Performance
-
-- Validation checks must complete in <10 seconds per PR
-- Metrics dashboard must load in <2 seconds
-- Changelog rendering must not slow down project operations
-
-### Reliability
-
-- Validation system must maintain 99.9% uptime
-- False negative rate (missed violations) must be <1%
-- False positive rate (incorrect rejections) must be 0%
-
-### Scalability
-
-- System must handle 200+ entries in [Unreleased] section
-- System must support 50+ concurrent CI validation runs
-- Metrics dashboard must retain 90+ days of historical data
-
-### Maintainability
-
-- Validation rules stored in single, version-controlled source file
-- New rules can be added without code changes (configuration-driven)
-- Validation system must have <50 lines of logic per rule
-
----
-
-## Related Projects & Dependencies
-
-**Related:** Label Governance Audit (2026-08-05) — coordinates with labeling rules for categorization  
-**Depends on:** Phase 4 deliverables (PR-to-changelog linking, maintainer review checklist)  
-**Epic:** #1271 — Changelog Automation Hardening
-
----
-
-## Out of Scope
-
-- Retroactive refactoring of released changelog versions (versions with tags)
-- Integration with external changelog tools (changelog.com, release notes generators)
-- Auto-generation of changelog entries from PR titles (separate initiative)
-- Non-English changelog support (i18n delayed to future phase)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+- Existing changelog format and structure will be used as the baseline; major reformatting is out of scope for Phase 1
+- PR and issue references are stable and won't be deleted/archived after linking (within a reasonable time window)
+- The .github repository has persistent storage available for metrics snapshots and validation reports
+- CI/CD infrastructure (GitHub Actions) can execute validation checks and report results to PRs
+- Release managers have permissions to override validation blocks when necessary (e.g., for urgent hotfixes)
+- Changelog entries are written in English; multi-language support is out of scope for v1
+- Validation rules focus on consistency and user clarity; they do not attempt to verify factual accuracy of claims made in entries (that remains a human review responsibility)
+- The system integrates with existing LightSpeed labeling and issue-tracking systems but doesn't require changes to those systems
