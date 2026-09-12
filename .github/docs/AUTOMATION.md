@@ -19,7 +19,8 @@ This document describes the 14 unified workflows that serve as the backbone of t
 ## Overview
 
 **Phase 1 (Sep 2026):** Backup & Archive Initiative
-- Archived 62 non-essential workflows
+- Archived 71 non-essential workflows (Phase 1 + Option A)
+- Created 9 core workflow stubs aligned to Phase 2 architecture
 - Preserved full git history and restoration capability
 - Prepared foundation for Phase 2 consolidation
 
@@ -72,10 +73,11 @@ The following 14 workflows provide all automation capabilities across the organi
 | Date | Milestone | Task |
 |------|-----------|------|
 | Sep 11 | Archive infrastructure created | Created 8 category subdirectories in `.github/workflows/archived/2026-09-11/` |
-| Sep 11-12 | 62 workflows archived | Moved all non-essential workflows to archive with full git history |
-| Sep 12 | Consolidation mapping created | Documented all 62→14 workflow mappings in `WORKFLOW_CONSOLIDATION_MAPPING.md` |
-| Sep 12-30 | Documentation & procedures | Created RESTORE.md, manifest, archive index |
-| Sep 16-30 | Phase 1 validation & review | PR review and merge to develop |
+| Sep 11-12 | 62 workflows archived (Phase 1) | Moved initial non-essential workflows to archive with full git history |
+| Sep 12 | Option A reconciliation | Archived 9 additional workflows; created 9 core stubs; restored documentation.yml (total: 71 archived) |
+| Sep 12 | Consolidation mapping updated | Documented all 71→14 workflow mappings and inventory reconciliation |
+| Sep 12-30 | Documentation & procedures | Updated RESTORE.md, manifest, archive index with final counts |
+| Sep 16-30 | Phase 1 validation & review | PR #2902 review and merge to develop |
 
 ### Phase 2: Consolidation Implementation (Oct 1-31, 2026)
 
@@ -164,7 +166,7 @@ The following 14 workflows provide all automation capabilities across the organi
 ## Key Metrics
 
 ### Before Consolidation (Phase 1 Start)
-- **Total workflows:** 76 (62 non-essential + 14 core)
+- **Total workflows:** 80 (71 archived + 9 core active) → 14 total after Phase 2 (9 core + 5 unified)
 - **Check gates per PR:** 15-20+ checks
 - **Duplicate code:** ~500 lines
 - **Maintenance overhead:** 76 workflows to monitor/update
@@ -183,7 +185,7 @@ The following 14 workflows provide all automation capabilities across the organi
 ## Archive Information
 
 ### Archive Location
-`.github/workflows/archived/2026-09-11/` — All 62 archived workflows organized by 8 functional categories
+`.github/workflows/archived/2026-09-11/` — All 71 archived workflows organized by 8 functional categories
 
 ### Categories
 1. **Labeling** (9 workflows) — Label automation and governance
@@ -270,7 +272,7 @@ The following 14 workflows provide all automation capabilities across the organi
 | File | Purpose |
 |------|---------|
 | `.github/workflows/` | Active workflow directory (14 core workflows) |
-| `.github/workflows/archived/2026-09-11/` | Archive directory (62 workflows) |
+| `.github/workflows/archived/2026-09-11/` | Archive directory (71 workflows organized in 8 categories) |
 | `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` | Complete 76-workflow mapping |
 | `.github/docs/AUTOMATION.md` | This file — architecture documentation |
 | `.github/workflows/archived/2026-09-11/README.md` | Archive README with structure |
