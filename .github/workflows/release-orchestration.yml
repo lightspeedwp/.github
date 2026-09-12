@@ -4,6 +4,9 @@ on:
     types: [published, created, edited, released, prereleased]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   orchestrate_release:
     runs-on: ubuntu-latest

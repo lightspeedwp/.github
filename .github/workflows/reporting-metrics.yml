@@ -4,6 +4,9 @@ on:
     - cron: '0 8 * * MON'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   report_metrics:
     runs-on: ubuntu-latest
