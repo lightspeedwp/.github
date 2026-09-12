@@ -61,97 +61,97 @@ All 62 non-essential workflows must be moved to their category subdirectories. T
 
 ### Labeling Workflows (9 total)
 
-- [ ] T006 [P] Move labeling.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T007 [P] Move labeling-governance.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T008 [P] Move issue-labeling-automation.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T009 [P] Move meta-labels-sync.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T010 [P] Move batch-label-prs.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T011 [P] Move remediate-bare-labels.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T012 [P] Move validate-issue-labels.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T013 [P] Move label-audit-report.yml to `.github/workflows/archived/2026-09-11/labeling/`
-- [ ] T014 [P] Move openspec-sync-labels.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T006 [P] Move labeling.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T007 [P] Move labeling-governance.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T008 [P] Move issue-labeling-automation.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T009 [P] Move meta-labels-sync.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T010 [P] Move batch-label-prs.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T011 [P] Move remediate-bare-labels.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T012 [P] Move validate-issue-labels.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T013 [P] Move label-audit-report.yml to `.github/workflows/archived/2026-09-11/labeling/`
+- [x] T014 [P] Move openspec-sync-labels.yml to `.github/workflows/archived/2026-09-11/labeling/`
 
 ### Validation Workflows (12 total)
 
-- [ ] T015 [P] Move branch-name-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T016 [P] Move pr-template-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T017 [P] Move changelog-safety-audit.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T018 [P] Move validate-dor-dod-sections.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T019 [P] Move docs-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T020 [P] Move linting.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T021 [P] Move markdown-audit-ci-optimization.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T022 [P] Move workflow-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T023 [P] Move validate-blocking-issue-before-close.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T024 [P] Move validate-blocking-status-before-close.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T025 [P] Move validate-project-linking.yml to `.github/workflows/archived/2026-09-11/validation/`
-- [ ] T026 [P] Move checks.yml (validation portions) to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T015 [P] Move branch-name-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T016 [P] Move pr-template-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T017 [P] Move changelog-safety-audit.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T018 [P] Move validate-dor-dod-sections.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T019 [P] Move docs-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T020 [P] Move linting.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T021 [P] Move markdown-audit-ci-optimization.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T022 [P] Move workflow-validation.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T023 [P] Move validate-blocking-issue-before-close.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T024 [P] Move validate-blocking-status-before-close.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T025 [P] Move validate-project-linking.yml to `.github/workflows/archived/2026-09-11/validation/`
+- [x] T026 [P] Move checks.yml (validation portions) to `.github/workflows/archived/2026-09-11/validation/`
 
 ### Documentation Workflows (8 total)
 
-- [ ] T027 [P] Move docs-maintenance.yml to `.github/workflows/archived/2026-09-11/documentation/`
-- [ ] T028 [P] Move badges-readme-status.yml to `.github/workflows/archived/2026-09-11/documentation/`
-- [ ] T029 [P] Move badges-documentation-update.yml to `.github/workflows/archived/2026-09-11/documentation/`
-- [ ] T030 [P] Move badges-verification.yml to `.github/workflows/archived/2026-09-11/documentation/`
-- [ ] T031 [P] Move badges-health-check.yml to `.github/workflows/archived/2026-09-11/documentation/`
-- [ ] T032 [P] Move badges-workflow-audit.yml to `.github/workflows/archived/2026-09-11/documentation/`
-- [ ] T033 [P] Move awesome-github-site.yml to `.github/workflows/archived/2026-09-11/documentation/`
-- [ ] T034 [P] Move documentation-workflow.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T027 [P] Move docs-maintenance.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T028 [P] Move badges-readme-status.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T029 [P] Move badges-documentation-update.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T030 [P] Move badges-verification.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T031 [P] Move badges-health-check.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T032 [P] Move badges-workflow-audit.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T033 [P] Move awesome-github-site.yml to `.github/workflows/archived/2026-09-11/documentation/`
+- [x] T034 [P] Move documentation-workflow.yml to `.github/workflows/archived/2026-09-11/documentation/`
 
 ### Issue Management Workflows (10 total)
 
-- [ ] T035 [P] Move issue-management-orchestration.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T036 [P] Move issue-create-enhanced.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T037 [P] Move issue-audit-remediation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T038 [P] Move issue-compliance.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T039 [P] Move issue-remediation-automation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T040 [P] Move issues.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T041 [P] Move issues-automation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T042 [P] Move normalize-titles.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T043 [P] Move meta-agent-validation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
-- [ ] T044 [P] Move metadata-governance.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T035 [P] Move issue-management-orchestration.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T036 [P] Move issue-create-enhanced.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T037 [P] Move issue-audit-remediation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T038 [P] Move issue-compliance.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T039 [P] Move issue-remediation-automation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T040 [P] Move issues.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T041 [P] Move issues-automation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T042 [P] Move normalize-titles.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T043 [P] Move meta-agent-validation.yml to `.github/workflows/archived/2026-09-11/issue-management/`
+- [x] T044 [P] Move metadata-governance.yml to `.github/workflows/archived/2026-09-11/issue-management/`
 
 ### PR Management Workflows (7 total)
 
-- [ ] T045 [P] Move enforce-pr-issue-linking.yml to `.github/workflows/archived/2026-09-11/pr-management/`
-- [ ] T046 [P] Move allocate-pr-issue-to-milestone.yml to `.github/workflows/archived/2026-09-11/pr-management/`
-- [ ] T047 [P] Move pr-template-validation.yml to `.github/workflows/archived/2026-09-11/pr-management/`
-- [ ] T048 [P] Move pr-validation.yml to `.github/workflows/archived/2026-09-11/pr-management/`
-- [ ] T049 [P] Move pr-template-resolver.yml to `.github/workflows/archived/2026-09-11/pr-management/`
-- [ ] T050 [P] Move planner.yml to `.github/workflows/archived/2026-09-11/pr-management/`
-- [ ] T051 [P] Move reviewer.yml to `.github/workflows/archived/2026-09-11/pr-management/`
+- [x] T045 [P] Move enforce-pr-issue-linking.yml to `.github/workflows/archived/2026-09-11/pr-management/`
+- [x] T046 [P] Move allocate-pr-issue-to-milestone.yml to `.github/workflows/archived/2026-09-11/pr-management/`
+- [x] T047 [P] Move pr-template-validation.yml to `.github/workflows/archived/2026-09-11/pr-management/`
+- [x] T048 [P] Move pr-validation.yml to `.github/workflows/archived/2026-09-11/pr-management/`
+- [x] T049 [P] Move pr-template-resolver.yml to `.github/workflows/archived/2026-09-11/pr-management/`
+- [x] T050 [P] Move planner.yml to `.github/workflows/archived/2026-09-11/pr-management/`
+- [x] T051 [P] Move reviewer.yml to `.github/workflows/archived/2026-09-11/pr-management/`
 
 ### Testing Workflows (8 total)
 
-- [ ] T052 [P] Move testing.yml to `.github/workflows/archived/2026-09-11/testing/`
-- [ ] T053 [P] Move release-e2e-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
-- [ ] T054 [P] Move checks.yml (test portions) to `.github/workflows/archived/2026-09-11/testing/`
-- [ ] T055 [P] Move test-runner.yml to `.github/workflows/archived/2026-09-11/testing/`
-- [ ] T056 [P] Move integration-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
-- [ ] T057 [P] Move unit-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
-- [ ] T058 [P] Move e2e-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
-- [ ] T059 [P] Move test-coverage.yml to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T052 [P] Move testing.yml to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T053 [P] Move release-e2e-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T054 [P] Move checks.yml (test portions) to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T055 [P] Move test-runner.yml to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T056 [P] Move integration-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T057 [P] Move unit-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T058 [P] Move e2e-tests.yml to `.github/workflows/archived/2026-09-11/testing/`
+- [x] T059 [P] Move test-coverage.yml to `.github/workflows/archived/2026-09-11/testing/`
 
 ### CI/CD Workflows (8 total)
 
-- [ ] T060 [P] Move build.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
-- [ ] T061 [P] Move cleanup-branches.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
-- [ ] T062 [P] Move branch-cleanup.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
-- [ ] T063 [P] Move deploy.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
-- [ ] T064 [P] Move ci-pipeline.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
-- [ ] T065 [P] Move artifacts-cleanup.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
-- [ ] T066 [P] Move cache-maintenance.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
-- [ ] T067 [P] Move release-trigger.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T060 [P] Move build.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T061 [P] Move cleanup-branches.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T062 [P] Move branch-cleanup.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T063 [P] Move deploy.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T064 [P] Move ci-pipeline.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T065 [P] Move artifacts-cleanup.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T066 [P] Move cache-maintenance.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
+- [x] T067 [P] Move release-trigger.yml to `.github/workflows/archived/2026-09-11/ci-cd/`
 
 ### Utilities Workflows (8 total)
 
-- [ ] T068 [P] Move meta.yml to `.github/workflows/archived/2026-09-11/utilities/`
-- [ ] T069 [P] Move gitleaks.yml to `.github/workflows/archived/2026-09-11/utilities/`
-- [ ] T070 [P] Move gitleaks-update.yml to `.github/workflows/archived/2026-09-11/utilities/`
-- [ ] T071 [P] Move gitleaks-reusable.yml to `.github/workflows/archived/2026-09-11/utilities/`
-- [ ] T072 [P] Move actions-minute-savings-watch.yml to `.github/workflows/archived/2026-09-11/utilities/`
-- [ ] T073 [P] Move agent-spec-validation.yml to `.github/workflows/archived/2026-09-11/utilities/`
-- [ ] T074 [P] Move openspec-validation.yml to `.github/workflows/archived/2026-09-11/utilities/`
-- [ ] T075 [P] Move main-branch-guard.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T068 [P] Move meta.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T069 [P] Move gitleaks.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T070 [P] Move gitleaks-update.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T071 [P] Move gitleaks-reusable.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T072 [P] Move actions-minute-savings-watch.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T073 [P] Move agent-spec-validation.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T074 [P] Move openspec-validation.yml to `.github/workflows/archived/2026-09-11/utilities/`
+- [x] T075 [P] Move main-branch-guard.yml to `.github/workflows/archived/2026-09-11/utilities/`
 
 ---
 
