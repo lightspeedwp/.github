@@ -1,483 +1,505 @@
-# Contract: Metrics API Interface
+# Contract: Metrics API
 
-<!-- BADGES-START -->
-![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
-![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
-![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
-![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
-![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
-![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
-![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
-![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
-[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
-[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
-[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
-[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
-[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
-[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
-[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
-[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
-[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
-<!-- BADGES-END -->
-
-**Phase**: Phase 1 (Design & Contracts)  
-**Version**: 1.0  
-**Audience**: Metrics dashboard developers; CI/CD engineers; reporting tools
-
----
+**Status**: Phase 1 Design
+**Version**: 1.0
+**Date**: 2026-09-13
 
 ## Overview
 
-The Metrics API provides read/write access to changelog compliance metrics and historical trend data. It's the contract between the validation engine (writer) and the metrics dashboard (reader).
+The Metrics API provides queryable access to changelog quality metrics for trending analysis, compliance reporting, and business intelligence. This contract defines the interface for collecting, storing, and retrieving metrics data.
 
 ---
 
-## Data Format
+## Data Collection API
 
-### MetricsSnapshot Structure
+### Snapshot Collection
 
+**Endpoint** (CLI): `changelog-validator metrics snapshot`
+
+**Trigger**: Daily via GitHub Actions scheduled workflow (00:00 UTC)
+
+**Input**:
+- Scope: `full_repo` (all entries in repository)
+- Rule version: Current active rule set
+
+**Process**:
+1. Query all changelog entries
+2. Apply current validation ruleset
+3. Aggregate results into MetricsSnapshot
+4. Commit JSON to `.github/reports/changelog-metrics/YYYYMMDD.json`
+5. Return snapshot object
+
+**Output**:
 ```json
 {
-  "snapshot_id": "2026-09-12T00:00:00Z",
-  "timestamp": "2026-09-12T00:00:00Z",
-  "snapshot_period": "daily",
-  
+  "id": "metrics_20260913",
+  "snapshot_date": "2026-09-13T00:00:00Z",
   "summary": {
-    "total_entries": 185,
-    "compliant_entries": 176,
-    "non_compliant_entries": 6,
-    "review_required_entries": 3,
-    "compliance_percent": 95.1
+    "total_entries": 247,
+    "compliant_entries": 235,
+    "compliance_percentage": 95.14
   },
-  
-  "distribution": {
-    "by_length": {
-      "0_to_100": 12,
-      "100_to_250": 164,
-      "250_to_500": 8,
-      "500_plus": 1
-    },
-    "by_severity": {
-      "critical_violations": 8,
-      "high_violations": 4,
-      "medium_violations": 2,
-      "low_violations": 0
-    }
-  },
-  
-  "quality_metrics": {
-    "impl_detail_rate": 3.2,
-    "pr_link_coverage": 98.9,
-    "format_compliance": 99.5,
-    "avg_length_chars": 187
-  },
-  
-  "violations_by_rule": {
-    "CHK_MAX_LENGTH": 1,
-    "CHK_NO_IMPL_DETAILS": 6,
-    "CHK_HAS_PR_LINK": 2,
-    "CHK_FORMAT_MARKDOWN": 0,
-    "CHK_LINK_VALIDITY": 0
-  },
-  
-  "trend": {
-    "vs_previous_snapshot": {
-      "compliance_delta_percent": 2.1,
-      "entries_added": 8,
-      "entries_refactored": 3
-    },
-    "vs_7_day_average": {
-      "compliance_delta_percent": 1.8
-    },
-    "vs_30_day_average": {
-      "compliance_delta_percent": 5.3
-    }
-  },
-  
-  "metadata": {
-    "changelog_file": "CHANGELOG.md",
-    "changelog_format": "keep-a-changelog-1.1.0",
-    "validation_rule_count": 8,
-    "last_entry_date": "2026-09-12",
-    "last_entry_version": "[Unreleased]"
-  }
-}
-```
-
----
-
-## API Endpoints
-
-### 1. Write Metrics Snapshot
-
-**Endpoint**: `POST .github/reports/changelog-metrics/record`
-
-**Purpose**: Record compliance metrics at a point in time
-
-**Request**:
-
-```javascript
-{
-  snapshot: MetricsSnapshot,      // Full snapshot structure
-  metadata: {
-    triggered_by: string,          // "scheduled" | "pr_validation" | "manual_audit"
-    pr_number?: number,            // If triggered by PR validation
-    workflow_run_id?: string,      // GitHub Actions run ID
-    duration_ms: number            // Validation duration
-  }
-}
-```
-
-**Response**:
-
-```javascript
-{
-  success: boolean,
-  snapshot_id: string,
-  timestamp: string,
-  message: string,
-  file_path: string  // Path to stored JSON file
-}
-```
-
-**Error Cases**:
-
-- Invalid snapshot structure → 400 Bad Request
-- Duplicate snapshot_id → 409 Conflict (idempotent; return existing)
-- File system error → 500 Internal Server Error
-- Storage quota exceeded → 507 Insufficient Storage
-
-**Implementation**:
-
-- Store to `.github/reports/changelog-metrics/history/{YYYY}/{MM}/{DD}/{snapshot_id}.json`
-- Keep latest snapshot at `.github/reports/changelog-metrics/latest.json` (symlink or copy)
-- Maintain rolling 90-day window (delete snapshots older than 90 days daily)
-
----
-
-### 2. Query Metrics (Date Range)
-
-**Endpoint**: `GET .github/reports/changelog-metrics/query`
-
-**Purpose**: Retrieve metrics for a date range for trend analysis
-
-**Query Parameters**:
-
-- `start_date`: ISO 8601 date (e.g., `2026-08-13`) — default: 90 days ago
-- `end_date`: ISO 8601 date (e.g., `2026-09-12`) — default: today
-- `period`: `daily` | `weekly` | `monthly` — default: `daily`
-- `fields`: comma-separated list of snapshot fields to return (default: all)
-
-**Response**:
-
-```javascript
-{
-  success: boolean,
-  snapshots: MetricsSnapshot[],    // Ordered by timestamp
-  date_range: {
-    start: string,
-    end: string
-  },
-  period: string,
-  summary: {
-    count: number,
-    earliest_compliance: number,
-    latest_compliance: number,
-    trend: "improving" | "stable" | "declining"
-  }
-}
-```
-
-**Example Request**:
-
-```
-GET /reports/changelog-metrics/query?start_date=2026-08-13&end_date=2026-09-12&period=daily
-```
-
-**Example Response**:
-
-```json
-{
-  "success": true,
-  "snapshots": [
-    { "snapshot_id": "2026-08-13T00:00:00Z", "compliance_percent": 82.5, ... },
-    { "snapshot_id": "2026-08-14T00:00:00Z", "compliance_percent": 83.1, ... },
-    ...
-    { "snapshot_id": "2026-09-12T00:00:00Z", "compliance_percent": 95.1, ... }
-  ],
-  "summary": {
-    "count": 31,
-    "earliest_compliance": 82.5,
-    "latest_compliance": 95.1,
-    "trend": "improving"
-  }
-}
-```
-
----
-
-### 3. Get Latest Metrics
-
-**Endpoint**: `GET .github/reports/changelog-metrics/latest`
-
-**Purpose**: Quickly fetch current compliance status (used by dashboard)
-
-**Response**:
-
-```javascript
-{
-  success: boolean,
-  snapshot: MetricsSnapshot,
-  age_seconds: number,          // Seconds since snapshot was recorded
-  is_stale: boolean             // true if >24 hours old
-}
-```
-
----
-
-### 4. Dashboard Data (Aggregated)
-
-**Endpoint**: `GET .github/reports/changelog-metrics/dashboard`
-
-**Purpose**: Fetch pre-aggregated data for dashboard visualization
-
-**Query Parameters**:
-
-- `days`: number of days to include (default: 30)
-- `include_tables`: boolean (include raw violation tables; default: false)
-
-**Response**:
-
-```javascript
-{
-  summary: {
-    current_compliance: number,
-    target_compliance: number,      // 95% goal
-    entries_total: number,
-    entries_compliant: number,
-    entries_non_compliant: number,
-    last_updated: ISO 8601
-  },
-  
-  trends: [
-    {
-      date: string,
-      compliance_percent: number,
-      entries_added: number,
-      entries_refactored: number
-    }
-  ],
-  
-  violations_summary: {
-    total_violations: number,
-    by_rule: [
-      { rule: "CHK_MAX_LENGTH", count: 1, percent: 12.5 },
-      { rule: "CHK_NO_IMPL_DETAILS", count: 6, percent: 75 },
-      { rule: "CHK_LINK_VALIDITY", count: 1, percent: 12.5 }
+  "violations": {
+    "most_common": [
+      { "rule_id": "R010", "count": 3 },
+      { "rule_id": "R009", "count": 8 }
     ]
   },
-  
-  length_distribution: [
-    { range: "0-100", count: 12, percent: 6.5 },
-    { range: "100-250", count: 164, percent: 88.6 },
-    { range: "250-500", count: 8, percent: 4.3 },
-    { range: "500+", count: 1, percent: 0.5 }
-  ],
-  
-  status_badge: {
-    text: "95.1% Compliant",
-    color: "green",  // green/yellow/red
-    url: "https://img.shields.io/badge/changelog-95.1%25-green"
+  "metadata": {
+    "rule_version": "1.0",
+    "generation_timestamp": "2026-09-13T00:00:30Z"
   }
 }
 ```
 
----
+**Error Handling**:
+- If any entry validation fails: log error, continue with others, note partial results
+- If storage fails: return error with option to retry
+- If GitHub API unavailable: skip reference validation, complete with content checks only
 
-## Dashboard Requirements
-
-### Display Components
-
-1. **Compliance Gauge** (current snapshot)
-   - Large number: `95.1%`
-   - Visual gauge: 0-100% scale, color-coded (red <80%, yellow 80-94%, green 95-100%)
-   - Goal line: 95% target
-
-2. **Compliance Trend** (30-day line chart)
-   - X-axis: Date (daily)
-   - Y-axis: Compliance % (0-100%)
-   - Line: Historical trend showing improvement over time
-   - Goal line: 95% target (horizontal reference)
-
-3. **Violations Breakdown** (pie chart)
-   - By rule: CHK_MAX_LENGTH, CHK_NO_IMPL_DETAILS, etc.
-   - Show % distribution of violations
-
-4. **Length Distribution** (histogram)
-   - Buckets: 0-100, 100-250, 250-500, 500+
-   - Show distribution of entry lengths
-   - Highlight entries >250 in red
-
-5. **Top Violations** (table)
-   - Rule, Count, % of Total
-   - Actionable information for maintainers
-
-6. **Status Badge**
-   - Embed-ready Shields.io badge: `![Changelog Status](https://img.shields.io/badge/changelog-95.1%25-green)`
+**Idempotency**: Daily snapshot replaces previous day's snapshot (not cumulative)
 
 ---
 
-## Update Schedule
+### Release Audit API
 
-### Automatic Updates
+**Endpoint** (CLI): `changelog-validator audit --release <version>`
 
-- **Daily Metrics**: Calculated every day at 00:00 UTC
-- **Trigger**: GitHub Actions scheduled workflow (`changelog-metrics-update.yml`)
-- **Duration**: Must complete within 1 hour
-- **Retention**: Keep 90-day rolling window (delete older snapshots daily)
+**Input**:
+- Release version (e.g., "v1.2.0")
+- Optional: Rule version override (defaults to latest)
+- Optional: Include/exclude pre-release entries
 
-### Event-Triggered Updates
+**Process**:
+1. Query all entries for specified version
+2. Apply validation ruleset
+3. Generate ValidationReport
+4. Save report to `.github/reports/release-audits/v<VERSION>.json`
+5. Generate Markdown summary
 
-- **PR Validation**: When CHANGELOG.md is modified in a PR, calculate and store ValidationReport metrics
-- **Manual Audit**: When maintainer runs manual `npm run audit:changelog`
-
----
-
-## Storage Location & Format
-
-### File Structure
-
-```
-.github/reports/changelog-metrics/
-├── history/
-│   ├── 2026/
-│   │   ├── 08/
-│   │   │   ├── 13/
-│   │   │   │   ├── 2026-08-13T00:00:00Z.json
-│   │   │   │   └── 2026-08-13T12:00:00Z.json
-│   │   │   └── 14/
-│   │   │       └── 2026-08-14T00:00:00Z.json
-│   │   └── 09/
-│   │       ├── 11/
-│   │       │   └── 2026-09-11T00:00:00Z.json
-│   │       └── 12/
-│   │           └── 2026-09-12T00:00:00Z.json
-├── latest.json              # Symlink to most recent snapshot
-├── 90-day-average.json      # Pre-calculated rolling average
-└── README.md                # Data dictionary and access guide
-```
-
-### JSON Schema
-
-Every snapshot file must validate against this schema:
-
+**Output**:
 ```json
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": ["snapshot_id", "timestamp", "summary", "distribution"],
-  "properties": {
-    "snapshot_id": { "type": "string", "format": "date-time" },
-    "timestamp": { "type": "string", "format": "date-time" },
-    "snapshot_period": { "enum": ["daily", "weekly", "monthly"] },
-    "summary": {
-      "type": "object",
-      "required": ["total_entries", "compliant_entries", "compliance_percent"],
-      "properties": {
-        "compliance_percent": { "type": "number", "minimum": 0, "maximum": 100 }
-      }
+  "id": "report_v1_2_0_20260913",
+  "report_date": "2026-09-13T10:30:00Z",
+  "scope": {
+    "type": "release",
+    "value": "v1.2.0",
+    "entry_count": 45
+  },
+  "summary": {
+    "total_entries_audited": 45,
+    "passed_count": 42,
+    "failed_count": 1,
+    "compliance_percentage": 93.33,
+    "compliance_status": "CONDITIONAL_PASS"
+  },
+  "failing_entries": [
+    {
+      "title": "Fixed webhook API response",
+      "issues": [
+        {
+          "rule_id": "R001",
+          "message": "Contains 'API' (code reference detected)"
+        }
+      ]
     }
+  ]
+}
+```
+
+**Markdown Output** (auto-generated):
+```markdown
+# Release Audit Report: v1.2.0
+
+**Compliance**: 93.33% (42/45 entries passed)
+
+## Summary
+- Total entries: 45
+- Passing: 42 ✓
+- Failing: 1 ✗
+- Status: **CONDITIONAL_PASS** (can proceed with remediation or override)
+
+## Failing Entries
+1. **Fixed webhook API response**
+   - Issue: Contains 'API' (code reference detected)
+   - Fix: Replace 'API' with user-facing language
+
+## Recommendations
+- Fix 1 failing entry (5 min fix)
+- All other 42 entries pass
+```
+
+---
+
+## Metrics Query API
+
+### Get Daily Snapshot
+
+**Endpoint** (CLI): `changelog-validator metrics get --date YYYY-MM-DD`
+
+**Input**:
+- Date: ISO 8601 date string
+- Optional: Full details (boolean)
+
+**Output**:
+```json
+{
+  "id": "metrics_20260913",
+  "snapshot_date": "2026-09-13T00:00:00Z",
+  "summary": { ... },
+  "violations": { ... },
+  "trends": {
+    "compliance_trend_7_days": [95.1, 94.8, 95.3, ...],
+    "compliance_trend_30_days": [89.5, 90.2, ...]
+  }
+}
+```
+
+**Error Handling**:
+- If date not found: return 404 with list of available dates
+- If date in future: return error
+
+---
+
+### Get Trend Data
+
+**Endpoint** (CLI): `changelog-validator metrics trend --days 30`
+
+**Input**:
+- Days: Number of days to look back (default 30, max 365)
+- Optional: Metrics filter (compliance|violations|velocity)
+
+**Output**:
+```json
+{
+  "period": "2026-08-14 to 2026-09-13",
+  "days": 30,
+  "metrics": [
+    {
+      "date": "2026-08-14",
+      "compliance_percentage": 92.1,
+      "total_entries": 210,
+      "compliant_entries": 193
+    },
+    ...
+  ],
+  "summary": {
+    "average_compliance": 93.5,
+    "max_compliance": 95.2,
+    "min_compliance": 89.1,
+    "trend_direction": "improving",
+    "trend_change": "+2.1%"
   }
 }
 ```
 
 ---
 
-## Contract: Guaranteed Behaviors
+### Export to CSV
 
-✅ **Metrics API MUST**:
+**Endpoint** (CLI): `changelog-validator metrics export --format csv --output report.csv`
 
-- Guarantee idempotent writes (same snapshot_id, same result)
-- Maintain data consistency across concurrent reads/writes
-- Preserve historical data (no retroactive changes)
-- Complete daily recalculation within 1 hour
-- Support 90-day rolling window queries
-- Return consistent trend calculations
+**Input**:
+- Format: `csv` or `json`
+- Days: Number of days (default 30)
+- Output file path
 
-✅ **Dashboard MUST**:
+**Process**:
+1. Query trend data for specified period
+2. Transform to CSV format (headers: Date, Compliance%, Total, Compliant, Violations)
+3. Write to file
+4. Return file path and record count
 
-- Refresh every 5 minutes (pull latest snapshot)
-- Display "Last updated: {timestamp}" with auto-refresh indicator
-- Support mobile viewport (responsive design)
-- Cache data locally (reduce API calls)
-- Provide shareable links (with embedded snapshot date)
+**CSV Output**:
+```csv
+Date,Compliance%,Total Entries,Compliant,Warnings,Failures,Most Common Violation
+2026-08-14,92.1,210,193,8,9,R010_valid_pr_reference
+2026-08-15,92.4,213,196,7,10,R010_valid_pr_reference
+2026-08-16,93.0,217,202,8,7,R009_has_pr_reference
+...
+```
 
-❌ **API MUST NOT**:
+---
 
-- Delete or modify snapshots (write-once, read-many)
-- Recalculate historical data retroactively
-- Expose raw entry content (privacy)
-- Allow dashboard to filter/hide violations (transparency)
+## Storage Format
+
+### Daily Snapshot File
+
+**Location**: `.github/reports/changelog-metrics/YYYYMMDD.json`
+
+**Example Path**: `.github/reports/changelog-metrics/20260913.json`
+
+**File Lifecycle**:
+- Created: Daily at 00:00 UTC
+- Updated: Never (one file per day)
+- Archived: 365 days history kept
+- Deleted: Beyond 1 year (optional cleanup)
+
+**Git Storage**:
+- All snapshots committed to git
+- Immutable history in git log
+- No overwriting or force-push
+- Queries can span git history if needed
+
+---
+
+### Release Audit Report File
+
+**Location**: `.github/reports/release-audits/v<VERSION>.json`
+
+**Example Path**: `.github/reports/release-audits/v1.2.0.json`
+
+**File Lifecycle**:
+- Created: On-demand when `audit --release` runs
+- Updated: Each time audit re-runs (append version suffix: v1.2.0_20260913_1430.json)
+- Archived: All versions kept for audit trail
+- Immutable: Never modified, only new files created
+
+---
+
+## Query Performance
+
+| Query Type | Target | Notes |
+|-----------|--------|-------|
+| Single day snapshot | <10ms | File read only |
+| Trend (30 days) | <100ms | Multiple file reads |
+| Export CSV (1 year) | <1s | Full history scan |
+| Release audit | <2 min | Includes GitHub API calls |
+
+---
+
+## Aggregation & Summarization
+
+### Compliance Percentage Calculation
+
+```
+compliance_percentage = (compliant_entries / total_entries) * 100
+
+where:
+- compliant_entries: entries with validation_score >= 90 and no error-severity failures
+- total_entries: all entries in scope
+```
+
+### Most Common Violations
+
+**Algorithm**:
+1. Collect all rule failures from all entries
+2. Count frequency of each rule ID
+3. Sort by frequency (descending)
+4. Return top 5
+
+**Example Output**:
+```json
+"most_common": [
+  {
+    "rule_id": "R010",
+    "rule_name": "valid_pr_reference",
+    "count": 3,
+    "percentage": 1.2
+  },
+  {
+    "rule_id": "R009",
+    "rule_name": "has_pr_reference",
+    "count": 8,
+    "percentage": 3.2
+  }
+]
+```
+
+### Trend Direction
+
+**Algorithm**:
+1. Calculate compliance_percentage for each day
+2. Fit linear regression to last 30 days
+3. Return slope + direction
+
+**Output**:
+- `improving`: positive slope
+- `stable`: slope near zero
+- `degrading`: negative slope
 
 ---
 
 ## Error Handling
 
-### Common Error Responses
+### Partial Failures
 
-**400 Bad Request**: Invalid query parameters or malformed snapshot
+**Scenario**: 3 of 250 entries fail validation during snapshot
 
+**Handling**:
+1. Validate all entries that can be validated
+2. Log errors for failed entries
+3. Return snapshot with success count and error list
+4. Mark snapshot as "partial" in metadata
+
+**Output**:
 ```json
 {
-  "success": false,
-  "error": "bad_request",
-  "message": "Invalid date format. Use ISO 8601 (YYYY-MM-DD).",
-  "field": "start_date"
+  "metadata": {
+    "status": "partial",
+    "errors": [
+      {
+        "entry_id": "entry_001",
+        "error": "YAML parse error"
+      }
+    ],
+    "success_count": 247,
+    "error_count": 3
+  }
 }
 ```
 
-**409 Conflict**: Duplicate snapshot_id (idempotent response)
+### File System Errors
 
-```json
-{
-  "success": true,
-  "message": "Snapshot already exists (idempotent)",
-  "snapshot_id": "2026-09-12T00:00:00Z"
-}
+**Scenario**: Cannot write to `.github/reports/changelog-metrics/`
+
+**Handling**:
+1. Check directory permissions
+2. Attempt to create directory if missing
+3. Return error with recovery options
+4. Do not fail snapshot, store in-memory buffer
+5. Retry on next run
+
+---
+
+## Retention Policy
+
+**Daily Snapshots**:
+- Keep: 1 year of daily snapshots (365 files)
+- Delete: Snapshots older than 1 year (optional cleanup task)
+- Archive: Optional: compress snapshots older than 90 days
+
+**Release Audits**:
+- Keep: All release audits indefinitely
+- Rationale: Audit trail for compliance/certification
+
+**Total Storage**:
+- Daily snapshots: ~365 KB/year (1KB per file)
+- Release audits: ~500 KB/year (assumes ~50 releases, 10KB each)
+- **Total**: ~1 MB per year
+
+---
+
+## Access Control
+
+**Who can collect metrics**:
+- Automated: GitHub Actions workflow (scheduled)
+- Manual: Any contributor (CI/CD machine or local)
+
+**Who can query metrics**:
+- Public read: All metrics readable from git
+- Private queries: None (all metrics in public repo)
+
+**Who can override/modify**:
+- None: Metrics are immutable (new commits only)
+- Corrections: Create new snapshot with corrections, link both
+
+---
+
+## Integration Examples
+
+### GitHub Actions Workflow
+
+```yaml
+name: Collect Changelog Metrics
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at 00:00 UTC
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          npm install
+          npx changelog-validator metrics snapshot
+      - run: |
+          git config user.name "changelog-bot"
+          git config user.email "changelog@lightspeedwp.agency"
+          git add .github/reports/changelog-metrics/
+          git commit -m "chore: daily changelog metrics snapshot" || true
+          git push
 ```
 
-**500 Internal Server Error**: File system or processing failure
+### BI Tool Integration
 
-```json
-{
-  "success": false,
-  "error": "internal_error",
-  "message": "Failed to write metrics snapshot",
-  "request_id": "req_2026-09-12_abc123"
-}
+```bash
+# Export last 90 days to CSV for external BI tool
+changelog-validator metrics export \
+  --format csv \
+  --days 90 \
+  --output changelog-metrics.csv
+
+# Upload to data warehouse
+aws s3 cp changelog-metrics.csv s3://data-warehouse/changelog/
+```
+
+### Compliance Monitoring
+
+```bash
+# Check daily compliance doesn't drop below 90%
+compliance=$(changelog-validator metrics get --date $(date +%Y-%m-%d) | jq '.summary.compliance_percentage')
+
+if (( $(echo "$compliance < 90" | bc -l) )); then
+  echo "WARNING: Compliance dropped below 90%: $compliance%"
+  exit 1
+fi
 ```
 
 ---
 
-## Phase 1 Complete
+## Testing Strategy
 
-Metrics API contract defined. Implements write (record), read (query/latest), and dashboard interfaces.
+### Unit Tests
 
-**Next**: quickstart.md (validation workflow end-to-end guide)
+```javascript
+// Test metrics aggregation
+test('compliance_percentage calculated correctly', () => {
+  const snapshot = {
+    total_entries: 100,
+    compliant_entries: 95
+  };
+  const result = calculateCompliancePercentage(snapshot);
+  assert.equal(result, 95.0);
+});
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+// Test trend calculation
+test('trend direction determined correctly', () => {
+  const trend = calculateTrendDirection([92, 93, 94, 95, 96]);
+  assert.equal(trend, 'improving');
+});
+```
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+### Integration Tests
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+```javascript
+// Test full metrics collection
+test('daily metrics snapshot collected and stored', async () => {
+  const snapshot = await collectMetrics();
+  assert.equal(snapshot.summary.total_entries, 247);
+  
+  const file = await fs.readFile(snapshot.file_path);
+  assert(file.length > 0);
+});
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+// Test query API
+test('trend data retrieved correctly', async () => {
+  const trend = await queryTrend({ days: 30 });
+  assert.equal(trend.metrics.length, 30);
+  assert(trend.summary.average_compliance > 0);
+});
+```
+
+---
+
+## Summary
+
+The Metrics API is:
+- **Autonomous**: Automatic daily collection via scheduled workflow
+- **Queryable**: Multiple query options for analysis
+- **Exportable**: CSV export for BI tool integration
+- **Immutable**: All data git-committed for audit trail
+- **Low-overhead**: <1MB per year storage
+- **Extensible**: New metrics can be added to schema

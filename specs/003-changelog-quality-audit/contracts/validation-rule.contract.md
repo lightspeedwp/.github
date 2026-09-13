@@ -1,376 +1,507 @@
-# Contract: Validation Rule Interface
+# Contract: Validation Rule Engine
 
-<!-- BADGES-START -->
-![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
-![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
-![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
-![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
-![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
-![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
-![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
-![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
-[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
-[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
-[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
-[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
-[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
-[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
-[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
-[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
-[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
-<!-- BADGES-END -->
-
-**Phase**: Phase 1 (Design & Contracts)  
-**Version**: 1.0  
-**Audience**: Developers implementing validation rules; rule maintainers
-
----
+**Status**: Phase 1 Design
+**Version**: 1.0
+**Date**: 2026-09-13
 
 ## Overview
 
-A Validation Rule is the reusable contract between the validation engine and individual quality checks. Each rule must implement this interface to integrate with the CI/CD validation gate.
+The Validation Rule Engine is the core component that evaluates changelog entries against a comprehensive ruleset. This contract defines the interface, inputs, outputs, and error handling for the validation system.
 
 ---
 
 ## Interface Definition
 
-### Rule Metadata
+### Input Contract
 
-Every validation rule must declare its identity and purpose:
+**Type**: ChangelogEntry (YAML/JSON)
 
-```javascript
-{
-  rule_id: string,           // Unique identifier (e.g., "CHK_MAX_LENGTH")
-  rule_name: string,         // Human-readable name (e.g., "Maximum entry length")
-  description: string,       // What the rule checks (one sentence)
-  dimension: string,         // "completeness" | "clarity" | "consistency" | "measurability"
-  severity: string,          // "critical" | "high" | "medium" | "low"
-  applies_to: string,        // "entry_content" | "entry_metadata" | "changelog_structure"
-  error_message: string,     // User-facing message when rule fails (template with {{placeholders}})
-  examples: {
-    pass: string[],          // 2-3 examples that pass this rule
-    fail: string[]           // 2-3 examples that fail this rule
-  }
-}
-```
+**Required Fields**:
+- `title` (string): Entry title
+- `description` (string): Entry description
+- `category` (string): One of feature|fix|improvement|breaking-change|security|performance
+- `date` (string): ISO 8601 date
+- `pr_references` (array, optional): List of PR numbers
+- `issue_references` (array, optional): List of issue numbers
 
-### Validation Function Signature
+**Optional Fields**:
+- `version` (string): Semantic version
+- `components` (array): Affected components
+- `author` (string): Entry author
 
-Each rule must implement a synchronous validation function:
-
-```javascript
-/**
- * Evaluate a changelog entry against this rule
- * 
- * @param {ChangelogEntry} entry - The entry to validate
- * @param {object} context - Runtime context (previous entries, config, etc.)
- * @returns {ValidationResult}
- */
-async function validate(entry: ChangelogEntry, context: ValidationContext): Promise<ValidationResult> {
-  // Implementation
-}
-
-interface ChangelogEntry {
-  id: string
-  content: string
-  line_number: number
-  version_section: string
-  pr_number?: number
-  issue_numbers: number[]
-}
-
-interface ValidationContext {
-  all_entries: ChangelogEntry[]
-  changelog_format: string    // "keep-a-changelog-1.1.0"
-  config: object              // Rule-specific configuration
-  github_api_client?: object  // For rules that need GitHub validation
-}
-
-interface ValidationResult {
-  passed: boolean
-  rule_id: string
-  error_message?: string      // Rendered error_message with placeholders filled
-  details?: {
-    actual_value?: any        // Actual measured value (e.g., "285 characters")
-    expected_value?: any      // Expected value (e.g., "≤250 characters")
-    suggestion?: string       // How to fix (e.g., "Remove implementation details")
-  }
-  severity?: string           // Can override rule's default severity for this instance
-}
+**Example Input**:
+```yaml
+title: "Changelog Quality Audit System"
+description: "Automated validation of changelog entries to ensure quality and clarity"
+category: "feature"
+date: "2026-09-12"
+pr_references: [2906]
+issue_references: [1234]
 ```
 
 ---
 
-## Built-In Rules
+### Output Contract
 
-### Rule: CHK_MAX_LENGTH (Critical)
+**Type**: ValidationResult (JSON)
 
-**Validation**: Entry content ≤ 250 characters
-
-```javascript
+**Structure**:
+```json
 {
-  rule_id: "CHK_MAX_LENGTH",
-  rule_name: "Maximum entry length",
-  description: "Changelog entries must not exceed 250 characters",
-  dimension: "clarity",
-  severity: "critical",
-  applies_to: "entry_content",
-  error_message: "Entry exceeds 250 character limit ({{actual}} chars). Keep summaries brief and user-focused.",
-  examples: {
-    pass: [
-      "Added support for dark mode in dashboard",
-      "Fixed bug preventing file uploads on Safari",
-      "Performance improvement: 40% faster query execution"
-    ],
-    fail: [
-      "Refactored the authentication layer to use OAuth2 provider integration with support for multi-factor authentication, revoked API tokens, and implemented session management across multiple browser tabs with persistent storage in browser local cache to ensure seamless user experience across device restarts and network interruptions",
-      "Updated the database migration system to support rollback capabilities, added comprehensive logging for debugging schema changes, integrated with CI/CD pipelines for automated schema validation, and implemented version tracking to support zero-downtime deployments across production infrastructure"
-    ]
-  }
-}
-```
-
-### Rule: CHK_NO_IMPL_DETAILS (Critical)
-
-**Validation**: Entry content contains no banned implementation keywords
-
-```javascript
-{
-  rule_id: "CHK_NO_IMPL_DETAILS",
-  rule_name: "No implementation details",
-  description: "Entries must be user-focused, not implementation-focused",
-  dimension: "clarity",
-  severity: "critical",
-  applies_to: "entry_content",
-  error_message: "Entry contains implementation jargon: '{{keywords}}'. Focus on user-facing changes, not internal details.",
-  config: {
-    banned_keywords: [
-      "refactored", "optimised", "optimized", "patched",
-      "implemented", "deployed", "migrated", "restructured", "reorganised", "reorganized",
-      "logic", "algorithm", "framework", "component", "module", "hook", "middleware",
-      "REST API", "GraphQL", "database", "query", "cache", "transaction"
-    ],
-    context_keywords: [  // Flagged for review, not automatic fail
-      "WordPress", "React", "Vue", "Django", "Node.js"
-    ]
+  "entry_id": "entry_20260912_1",
+  "timestamp": "2026-09-12T14:35:00Z",
+  
+  "overall": {
+    "status": "passing",
+    "compliance_score": 95,
+    "message": "Entry passed validation"
   },
-  examples: {
-    pass: [
-      "Improved user authentication flow",
-      "Dashboard now loads 50% faster",
-      "Added ability to export reports as PDF"
-    ],
-    fail: [
-      "Refactored the authentication component to use OAuth2 middleware",
-      "Optimised database queries for 3x faster pagination",
-      "Implemented new caching layer with Redis integration"
-    ]
+  
+  "rule_results": [
+    {
+      "rule_id": "R001",
+      "rule_name": "no_implementation_details",
+      "severity": "error",
+      "status": "passing",
+      "message": null,
+      "remediation_guidance": null
+    },
+    {
+      "rule_id": "R002",
+      "rule_name": "has_category",
+      "severity": "error",
+      "status": "passing",
+      "message": null,
+      "remediation_guidance": null
+    },
+    {
+      "rule_id": "R009",
+      "rule_name": "has_pr_reference",
+      "severity": "warning",
+      "status": "passing",
+      "message": "PR reference found: #2906",
+      "remediation_guidance": null
+    }
+  ],
+  
+  "summary": {
+    "total_rules_evaluated": 20,
+    "passed_count": 18,
+    "warning_count": 2,
+    "failed_count": 0,
+    "compliance_status": "passing",
+    "estimated_remediation_time_minutes": 0
   }
 }
 ```
 
-### Rule: CHK_HAS_PR_LINK (Critical)
+**Status Values**:
+- `passing`: Rule requirement met
+- `warning`: Rule failed but not blocking (warning severity)
+- `failing`: Rule failed and blocking (error severity)
 
-**Validation**: Entry references at least one GitHub PR or issue number
-
-```javascript
-{
-  rule_id: "CHK_HAS_PR_LINK",
-  rule_name: "PR or issue link present",
-  description: "Entries must reference the PR or issue they address",
-  dimension: "completeness",
-  severity: "critical",
-  applies_to: "entry_content",
-  error_message: "Entry does not reference a PR or issue. Add '#1234' to link to the GitHub PR.",
-  examples: {
-    pass: [
-      "Fixed authentication bug (#1234)",
-      "Added dark mode support (fixes #5678)",
-      "Performance improvement: 40% faster queries (#2904)"
-    ],
-    fail: [
-      "Fixed authentication bug",
-      "Added dark mode support",
-      "Performance improvement: 40% faster queries"
-    ]
-  }
-}
-```
-
-### Rule: CHK_FORMAT_MARKDOWN (High)
-
-**Validation**: Entry is valid markdown; contains no raw HTML
-
-```javascript
-{
-  rule_id: "CHK_FORMAT_MARKDOWN",
-  rule_name: "Valid markdown format",
-  description: "Entry must follow markdown syntax; no raw HTML",
-  dimension: "consistency",
-  severity: "high",
-  applies_to: "entry_content",
-  error_message: "Entry contains invalid markdown or raw HTML. Use standard markdown only.",
-  examples: {
-    pass: [
-      "Added support for **bold** and _italic_ text",
-      "Link format: [text](url)",
-      "Lists: - item 1, - item 2"
-    ],
-    fail: [
-      "Added support for <b>bold</b> text",
-      "Raw HTML: <div class='alert'>Warning</div>"
-    ]
-  }
-}
-```
-
-### Rule: CHK_LINK_VALIDITY (High)
-
-**Validation**: All GitHub links resolve successfully
-
-```javascript
-{
-  rule_id: "CHK_LINK_VALIDITY",
-  rule_name: "All links are valid",
-  description: "PR and issue links must resolve to valid GitHub resources",
-  dimension: "measurability",
-  severity: "high",
-  applies_to: "entry_content",
-  error_message: "Link does not resolve: {{link}} (status {{status}}). Verify PR/issue number is correct.",
-  requires_github_api: true,
-  retry_strategy: "exponential_backoff",  // 2s, 4s, 8s, then fail
-  examples: {
-    pass: [
-      "Fixed bug (#2904) - links to valid PR",
-      "Feature request (#5678) - links to valid issue"
-    ],
-    fail: [
-      "Fixed bug (#99999) - PR number does not exist",
-      "Feature from (#1234) - issue was deleted"
-    ]
-  }
-}
-```
+**Compliance Status**:
+- `passing`: Score ≥90, no error-severity failures
+- `warning`: Score 75-89, has warning-severity failures
+- `failing`: Score <75, has error-severity failures
 
 ---
 
-## Validation Execution Model
+### Failure Output Contract
 
-1. **Load Rules**: Engine loads all rule definitions from `.github/scripts/validation-rules/`
-2. **Order by Severity**: Execute critical rules first, then high, medium, low
-3. **Fail Fast**: If any critical rule fails, stop evaluation and report
-4. **Collect Failures**: If critical rules pass, collect all high/medium/low failures
-5. **Generate Report**: Produce ValidationReport with all results
+**Type**: ValidationError (JSON)
 
----
-
-## Rule Registration
-
-To add a new rule, create a file in `.github/scripts/validation-rules/`:
-
-**File**: `.github/scripts/validation-rules/{rule_id}.js`
-
-```javascript
-module.exports = {
-  metadata: {
-    rule_id: "CHK_CUSTOM",
-    rule_name: "Custom rule",
-    description: "...",
-    dimension: "...",
-    severity: "...",
-    applies_to: "entry_content",
-    error_message: "...",
-    examples: { pass: [], fail: [] }
+**When rule application fails**:
+```json
+{
+  "status": "error",
+  "error_code": "RULE_APPLICATION_ERROR",
+  "rule_id": "R010",
+  "rule_name": "valid_pr_reference",
+  "message": "GitHub API error: rate limit exceeded",
+  "details": {
+    "api_error": "GitHub API 429: Too Many Requests",
+    "retry_after_seconds": 3600
   },
+  "fallback_behavior": "rule_skipped",
+  "note": "Entry validation continued with other rules"
+}
+```
 
-  validate: async function(entry, context) {
-    // Implementation
-    return {
-      passed: true,
-      rule_id: "CHK_CUSTOM",
-      error_message: null,
-      details: {}
+**Error Codes**:
+- `RULE_APPLICATION_ERROR`: Rule failed to execute (e.g., GitHub API error)
+- `INVALID_INPUT`: Input doesn't match schema
+- `TIMEOUT`: Rule evaluation exceeded time limit
+- `INTERNAL_ERROR`: Unexpected error in validator
+
+**Fallback Behavior**:
+- `rule_skipped`: Error rule skipped, validation continues
+- `entry_skipped`: Entry skipped due to fatal error (rare)
+- `validation_aborted`: Validation stopped, retry required
+
+---
+
+## Execution Flow
+
+### Single Entry Validation
+
+```
+Input: ChangelogEntry YAML
+  ↓
+1. Schema Validation
+   - Verify required fields present
+   - Check field types and formats
+   - Return early if invalid
+  ↓
+2. Format Rules (R006, R015)
+   - Check YAML/Markdown syntax
+   - Validate date format
+   - Early exit if syntax invalid
+  ↓
+3. Structure Rules (R002, R003, R004, R020)
+   - Verify category valid
+   - Check title/description present
+   - Non-blocking on failure
+  ↓
+4. Reference Rules (R009, R010)
+   - Extract PR/issue references
+   - Optionally validate via GitHub API
+   - Cacheable (1-hour TTL)
+  ↓
+5. Content Rules (R001, R005, R007, R008, R012, R013, R014, R018, R019)
+   - Run semantic checks
+   - Pattern matching on text
+   - Regex-based analysis
+  ↓
+6. Calculation
+   - Calculate compliance score
+   - Determine status (passing/warning/failing)
+   - Compile remediation guidance
+  ↓
+Output: ValidationResult JSON
+```
+
+**Execution Time Budget**:
+- Format/Structure rules: <10ms
+- Reference rules: 50-500ms (with GitHub API calls)
+- Content rules: 20-50ms (regex evaluation)
+- **Total per entry**: <100ms average (without API), <1000ms max
+
+---
+
+## Rule Application Patterns
+
+### Pattern-Based Rules (Regex)
+
+**Rule R001: no_implementation_details**
+
+**Input**: Entry description
+**Logic**: Apply regex patterns to detect code references
+**Output**: Matching patterns with context
+
+```javascript
+// Pseudocode
+patterns = [
+  /\b(API|REST|GraphQL|endpoint|method|class|function)\b/gi,
+  /\b(async|await|promise|callback)\b/gi,
+  /\b(backend|frontend|middleware|service mesh)\b/gi
+]
+
+matches = []
+for (pattern of patterns) {
+  if (description.match(pattern)) {
+    matches.push({
+      pattern: pattern,
+      matches: description.match(pattern),
+      context: getContext(description, match)
+    })
+  }
+}
+
+if (matches.length > 0) {
+  return {
+    status: "failing",
+    message: `Contains ${matches.length} implementation detail(s): ${matches.join(', ')}`,
+    remediation: "Remove technical terms, focus on user benefit"
+  }
+}
+return { status: "passing" }
+```
+
+### Schema Validation Rules (Structure)
+
+**Rule R002: has_category**
+
+**Input**: Entry object
+**Logic**: Check required field exists and is valid value
+**Output**: Pass/fail with field value
+
+```javascript
+// Pseudocode
+const validCategories = ["feature", "fix", "improvement", "breaking-change", "security", "performance"];
+const category = entry.category;
+
+if (!category) {
+  return {
+    status: "failing",
+    message: "Category not specified",
+    remediation: "Add 'category: feature' (or other valid value)"
+  };
+}
+
+if (!validCategories.includes(category)) {
+  return {
+    status: "failing",
+    message: `Invalid category '${category}'. Must be one of: ${validCategories.join(', ')}`,
+    remediation: `Change to valid category: ${validCategories.join(', ')}`
+  };
+}
+
+return { status: "passing" };
+```
+
+### Reference Validation Rules (GitHub API)
+
+**Rule R010: valid_pr_reference**
+
+**Input**: Entry with pr_references array
+**Logic**: Verify each PR exists on GitHub via API
+**Output**: Pass/fail with reference validation
+
+```javascript
+// Pseudocode
+const prRefs = entry.pr_references || [];
+
+if (prRefs.length === 0) {
+  return { status: "passing", message: "No PR references to validate" };
+}
+
+const results = [];
+for (const prNumber of prRefs) {
+  const cached = prCache.get(prNumber);
+  if (cached) {
+    results.push(cached);
+    continue;
+  }
+  
+  try {
+    const pr = await github.getPullRequest(owner, repo, prNumber);
+    const result = {
+      pr_number: prNumber,
+      status: "valid",
+      url: pr.html_url,
+      title: pr.title
+    };
+    prCache.set(prNumber, result, ttl: 3600000); // 1 hour
+    results.push(result);
+  } catch (error) {
+    if (error.status === 404) {
+      results.push({ pr_number: prNumber, status: "not_found" });
+    } else {
+      throw error; // API error, rethrow for error handling
     }
   }
 }
-```
 
-Rules are auto-discovered on workflow execution.
+const failedRefs = results.filter(r => r.status !== "valid");
+if (failedRefs.length > 0) {
+  return {
+    status: "failing",
+    message: `${failedRefs.length} PR reference(s) not found: ${failedRefs.map(r => '#' + r.pr_number).join(', ')}`,
+    remediation: "Verify PR numbers are correct and accessible"
+  };
+}
+
+return { status: "passing", message: `All ${results.length} PR reference(s) verified` };
+```
 
 ---
 
-## Rule Configuration
+## Error Handling
 
-Global rule configuration (`.github/config/changelog-validation.yml`):
+### GitHub API Rate Limits
+
+**Scenario**: Rate limit exceeded during reference validation
+
+**Handling**:
+1. Detect 429 response from GitHub API
+2. Return error with `retry_after_seconds`
+3. Skip R010 validation rule (doesn't block)
+4. Log warning
+5. Continue with other rules
+
+**Output**:
+```json
+{
+  "status": "error",
+  "rule_id": "R010",
+  "error_code": "RATE_LIMIT_EXCEEDED",
+  "message": "GitHub API rate limit exceeded (429). Retry after 3600 seconds.",
+  "fallback_behavior": "rule_skipped",
+  "note": "Reference validation skipped due to API limit"
+}
+```
+
+### Network Timeouts
+
+**Scenario**: GitHub API timeout during PR validation
+
+**Handling**:
+1. Set 5-second timeout for each API call
+2. On timeout, mark as API error (not entry error)
+3. Fallback: assume reference is valid (graceful degradation)
+4. Log error for monitoring
+
+**Output**:
+```json
+{
+  "status": "error",
+  "rule_id": "R010",
+  "error_code": "TIMEOUT",
+  "message": "GitHub API request timeout after 5 seconds",
+  "fallback_behavior": "assume_valid",
+  "note": "PR reference assumed valid; please retry validation later"
+}
+```
+
+### Malformed Input
+
+**Scenario**: Entry missing required fields
+
+**Handling**:
+1. Check schema before any rule execution
+2. Return validation error immediately
+3. Don't attempt rule application
+4. Guide user on required fields
+
+**Output**:
+```json
+{
+  "status": "error",
+  "error_code": "INVALID_INPUT",
+  "message": "Entry missing required field: 'description'",
+  "details": {
+    "missing_fields": ["description"],
+    "required_fields": ["title", "description", "category", "date"]
+  },
+  "remediation": "Add 'description' field to entry"
+}
+```
+
+---
+
+## Performance Requirements
+
+| Operation | Target | Acceptable | Failure |
+|-----------|--------|-----------|---------|
+| Single entry validation (no API) | <50ms | <100ms | >500ms |
+| Reference validation (with API) | <500ms | <1000ms | >3000ms |
+| Full audit (100 entries) | <5min | <10min | >20min |
+| Rule initialization | <100ms | <500ms | >1000ms |
+
+**Optimization**:
+- Cache GitHub API responses (1 hour TTL)
+- Lazy-load GitHub client only if R009/R010 needed
+- Parallel regex evaluation where possible
+- Pre-compile regex patterns at startup
+
+---
+
+## Testing Requirements
+
+### Unit Tests
+
+```javascript
+// Test pattern matching
+test('R001 detects API keyword', () => {
+  const entry = { description: 'Fixed webhook API response' };
+  const result = validateRule('R001', entry);
+  assert.equal(result.status, 'failing');
+});
+
+// Test schema validation
+test('R002 rejects missing category', () => {
+  const entry = { title: 'Fix', description: 'Something' };
+  const result = validateRule('R002', entry);
+  assert.equal(result.status, 'failing');
+});
+
+// Test GitHub API integration
+test('R010 validates real PR reference', async () => {
+  const entry = { pr_references: [2906] };
+  const result = await validateRule('R010', entry);
+  assert.equal(result.status, 'passing');
+});
+
+// Test caching
+test('R010 caches PR reference', async () => {
+  const entry = { pr_references: [2906] };
+  const result1 = await validateRule('R010', entry);
+  const result2 = await validateRule('R010', entry);
+  assert(cache.getCallCount() < 2); // Only 1 API call
+});
+```
+
+### Integration Tests
+
+```javascript
+// Test full validation flow
+test('Full validation flow on sample entry', async () => {
+  const entry = YAML.parse(fs.readFileSync('sample.yml'));
+  const result = await validateEntry(entry);
+  assert.equal(result.overall.status, 'passing');
+  assert.equal(result.summary.failed_count, 0);
+});
+
+// Test error handling
+test('Graceful degradation on GitHub API error', async () => {
+  mockGitHubAPI.mockError(429);
+  const result = await validateEntry(entryWithPR);
+  assert.equal(result.overall.status, 'passing');
+  // R010 skipped, other rules passed
+});
+```
+
+---
+
+## Extensibility
+
+### Adding New Rules
+
+**Process**:
+1. Define rule in `.github/changelog-rules.yml`
+2. Assign ID (R021, R022, etc.)
+3. Implement rule logic in validator
+4. Add unit tests
+5. Increment rule version (1.0 → 1.1)
+6. Existing entries stay on v1.0, new entries use v1.1
+
+**Example**: Add R021 for changelog entry length limit
 
 ```yaml
-validation:
-  rules:
-    CHK_MAX_LENGTH:
-      enabled: true
-      max_length: 250
-    CHK_NO_IMPL_DETAILS:
-      enabled: true
-      banned_keywords: [...]
-    CHK_LINK_VALIDITY:
-      enabled: true
-      retry_attempts: 3
-      timeout_ms: 5000
-  
-  enforcement:
-    blocking: true              # Fail CI if any critical rule fails
-    review_required_severity: "high"  # Require review if high+ severity
-    auto_comment_on_pr: true
+id: "R021"
+name: "max_length"
+version: "1.1"
+rule_type: "structure"
+severity: "warning"
+description: "Entry description should not exceed 500 characters"
+remediation_guidance: "Shorten description; move detailed context to PR/issue"
 ```
 
----
+### Rule Versioning
 
-## Contract: Guaranteed Behaviors
-
-✅ **Every rule MUST**:
-
-- Have unique `rule_id`
-- Implement synchronous `validate()` function
-- Return `ValidationResult` with `passed` boolean
-- Provide user-facing `error_message` with actionable feedback
-- Include pass/fail examples for testing
-- Complete validation in <1 second per entry
-
-✅ **Every rule MUST document**:
-
-- What dimension it validates (8-dimension framework)
-- Its severity (critical/high/medium/low)
-- Why this rule matters (user focus vs. internal details)
-
-❌ **Rules MUST NOT**:
-
-- Modify entry content (validation only; refactoring is separate)
-- Create external side effects
-- Cache results across validation runs
-- Make unretried HTTP requests
-- Depend on other rules' results
+- Major change (breaking semantics): new version (1.0 → 2.0)
+- Non-breaking addition: patch version (1.0 → 1.1)
+- Each entry tracks `validation_rule_version`
+- Backward compatibility maintained automatically
 
 ---
 
-## Phase 1 Complete
+## Summary
 
-Validation rule interface contract defined. Rules can be extended by adding new files to `.github/scripts/validation-rules/`.
-
-**Next**: Metrics API contract and quickstart.md
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+The Validation Rule Engine is:
+- **Fast**: <100ms per entry
+- **Reliable**: Graceful error handling, no cascading failures
+- **Extensible**: New rules added without breaking existing entries
+- **User-Friendly**: Clear remediation guidance for every issue
+- **Auditable**: All validation results logged and versioned
