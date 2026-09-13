@@ -37,8 +37,8 @@
 - [x] All 24 authorized types are specified with examples
 - [x] Forbidden prefixes documented with rationale (claude/, copilot/, openai/)
 - [x] Pattern rules clear and testable (`{type}/{scope}-{title}`)
-- [x] Type-to-template mapping documented (24 types, 19 templates)
-- [x] Type-to-label mapping documented (uses canonical label set)
+- [x] Type-to-template mapping documented (24 types, 9 templates)
+- [x] Type-to-label mapping documented (all 24 types with canonical labels)
 - [x] Scope naming rules explicit (kebab-case, no underscores/spaces)
 - [x] Title requirements defined (brief, action-oriented, ≥3 chars)
 
