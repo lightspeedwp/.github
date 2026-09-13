@@ -1,0 +1,29 @@
+{
+  "total_created": 209,
+  "total_issues": 209,
+  "completion_pct": 100,
+  "remaining_count": 0,
+  "session_progress": {
+    "pre_session": 25,
+    "batch_2_previous": 80,
+    "batch_3_this_session": 84,
+    "batch_missing_spec004": 20,
+    "total_this_session": 104
+  },
+  "status": "COMPLETE",
+  "github_issue_range": "#2907-#3115",
+  "by_specification": {
+    "spec_003": {
+      "tasks": 83,
+      "github_issues": "#2907-#2989"
+    },
+    "spec_004": {
+      "tasks": 64,
+      "github_issues": "#2990-#3115"
+    },
+    "spec_005": {
+      "tasks": 62,
+      "github_issues": "#3034-#3095"
+    }
+  }
+}
