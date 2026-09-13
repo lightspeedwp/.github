@@ -125,7 +125,7 @@ interface ValidationResult {
   error_message: "Entry contains implementation jargon: '{{keywords}}'. Focus on user-facing changes, not internal details.",
   config: {
     banned_keywords: [
-      "refactored", "optimised", "optimized", "fixed", "updated", "patched",
+      "refactored", "optimised", "optimized", "patched",
       "implemented", "deployed", "migrated", "restructured", "reorganised", "reorganized",
       "logic", "algorithm", "framework", "component", "module", "hook", "middleware",
       "REST API", "GraphQL", "database", "query", "cache", "transaction"

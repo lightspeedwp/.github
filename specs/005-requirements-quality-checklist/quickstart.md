@@ -80,8 +80,8 @@ Author fixes identified gaps/ambiguities in spec.md, then re-checks checklist it
 ### Step 5: Include Checklist with PR
 
 Author includes completed checklist in PR submission:
-- Checklist shows: 38/40 items passed ✅
-- 2 gaps identified and fixed
+- Checklist shows: 40/40 items passed ✅
+- All gaps identified and resolved
 - 0 ambiguities remain
 - Ready for peer review
 
@@ -94,8 +94,8 @@ Author includes completed checklist in PR submission:
 Peer reviewer opens PR and sees:
 ```
 Checklist Status:
-✅ 38/40 items passed
-⚠️ 2 gaps identified and resolved
+✅ 40/40 items passed
+✅ All gaps resolved
 ✅ No remaining ambiguities
 ```
 

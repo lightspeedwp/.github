@@ -135,8 +135,13 @@ git push origin feat/user-auth --force-with-lease
 Before pushing, verify your branch name:
 
 ```bash
-# Pattern check
-[[ "$BRANCH_NAME" =~ ^(feat|fix|docs|security|etc)/[a-z0-9-]+-[a-z0-9-]+$ ]] && echo "✅ Valid" || echo "❌ Invalid"
+# Type validation (against all 24 authorized types)
+TYPE=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
+VALID_TYPES="feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|audit|codex|research|revert"
+[[ "$TYPE" =~ ^($VALID_TYPES)$ ]] && echo "✅ Type valid" || echo "❌ Type invalid"
+
+# Scope and title validation
+[[ "$BRANCH_NAME" =~ ^[a-z0-9]+/[a-z0-9]([a-z0-9-]*[a-z0-9])?-[a-z0-9-]+$ ]] && echo "✅ Scope/title valid" || echo "❌ Scope/title invalid"
 
 # Forbidden prefix check
 [[ ! "$BRANCH_NAME" =~ ^(claude|copilot|openai)/ ]] && echo "✅ No forbidden prefixes" || echo "❌ Forbidden"

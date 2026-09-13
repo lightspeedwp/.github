@@ -262,17 +262,17 @@
 
 - **Phase 1 (Setup)**: 7 tasks
 - **Phase 2 (Foundational)**: 6 tasks (3 blocking)
-- **Phase 3 (US1 - FR-1)**: 10 tasks (5 tests, 5 implementation)
-- **Phase 4 (US2 - FR-2)**: 5 tasks (3 tests, 2 workflows/tools)
-- **Phase 5 (US3 - FR-3)**: 4 tasks (3 tests, 1 workflow)
-- **Phase 6 (US4 - FR-4)**: 5 tasks (3 tests, 2 tools/docs)
-- **Phase 7 (US5 - FR-5)**: 6 tasks (3 tests, 3 implementation)
+- **Phase 3 (US1 - FR-1)**: 11 tasks (5 tests, 6 implementation)
+- **Phase 4 (US2 - FR-2)**: 8 tasks (3 tests, 5 workflows/tools)
+- **Phase 5 (US3 - FR-3)**: 7 tasks (3 tests, 4 workflow)
+- **Phase 6 (US4 - FR-4)**: 8 tasks (3 tests, 5 tools/docs)
+- **Phase 7 (US5 - FR-5)**: 9 tasks (3 tests, 6 implementation)
 - **Phase 8 (Polish)**: 8 tasks
 
-**TOTAL: 51 tasks**
+**TOTAL: 64 tasks**
 
-**Parallelizable**: ~28 tasks marked [P]  
-**MVP Scope**: Phases 1-2-3 = 23 tasks (1.5 weeks for 1 FTE)  
+**Parallelizable**: 39 tasks marked [P]  
+**MVP Scope**: Phases 1-2-3 = 24 tasks (1.5 weeks for 1 FTE)  
 **Full Timeline**: 6 weeks, 48-62 hours (parallel team capable)
 
 ---
