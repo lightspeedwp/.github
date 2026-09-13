@@ -347,10 +347,30 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 
 ---
 
+## Convergence Tasks (Phase 5-7 Gap Closure)
+
+**Goal**: Close identified gaps in Phase 5-7 planning and execution before team briefings and adoption monitoring begin.
+
+**Appended Convergence Tasks** (per `/speckit-converge` findings on 2026-09-13):
+
+- [x] T081 [Convergence] Create Phase 5 v2.3.0 CHANGELOG entry in `agents/prd-agent/CHANGELOG.md` documenting test results (100% pass rate: Claude 14/14, Copilot 14/14, OpenAI 14/14) and Phase 5 completion per FR-415 — ✅ 2026-09-13: v2.3.0 entry created with complete Phase 5 summary, test results by provider, and deliverable mappings
+
+- [x] T082 [Convergence] Create `agents/prd-agent/PHASE6_EXECUTION_LOG.md` with dated weekly check-in tracker for T071/T073 execution and feedback collection (Weeks 1-6 observations, team briefing confirmations, usage metrics check-ins) — ✅ 2026-09-13: Execution log created with 6-week check-in template, KPI tracking fields, Phase 7 decision preparation sections
+
+- [x] T083 [Convergence] Quantify Phase 6 "actively using" success criterion in `agents/prd-agent/ADOPTION_METRICS.md` per SC-602 (target ≥5 teams after 30 days): define frequency threshold (e.g., ≥1 PRD generation per team per week), metric type (agent invocation count, skill routing events, workflow triggers), and collection method — ✅ 2026-09-13: "Actively Using" definition quantified with ≥1 PRD/team/week threshold, metric types (invocation count, skill routing events, workflow triggers), and validation cross-reference method
+
+- [x] T084 [Convergence] Document Phase 7 decision criteria matrix in new `agents/prd-agent/PHASE7_DECISION_CRITERIA.md`: Archive if <5 teams OR <4.0 satisfaction; Sync if ≥5 teams AND ≥4.0; defer if inconclusive; include rationale and sign-off lane per FR-702 — ✅ 2026-09-13: Decision criteria matrix created with 3 execution paths (ARCHIVE, SYNC, DEFER), prerequisite checks, action steps, sign-off template, and timeline
+
+- [x] T085 [Convergence] Pre-create CHANGELOG.md v2.4.0 placeholder in `agents/prd-agent/CHANGELOG.md` with Phase 6 Changed/Added/Fixed section headers and [WIP] markers, ready for Week 6 data entry per T075 (versioning: v2.3.0 = Phase 5, v2.4.0 = Phase 6) — ✅ 2026-09-13: v2.4.0 placeholder created with [WIP] status markers, Changed/Added/Fixed sections, adoption metrics template, and FR-601-605 deliverable checklist
+
+**Checkpoint (Post-Convergence)**: Phase 5-7 documentation gaps closed; execution tracking formalized; success criteria quantified; decision framework pre-defined.
+
+---
+
 ## Notes
 
 - **Phase 5 Validation Tasks**: Implemented as per spec.md Phase 5 requirements. Tasks T064–T069 form the validation contract covering comprehensive test suite creation (T064), multi-provider execution (T065), PRD generation quality validation (T066), results documentation (T067), bug tracking (T068), and CHANGELOG updates (T069). Validation scope includes provider-specific testing (Claude Code, GitHub Copilot, OpenAI API), quickstart.md file-existence/content checks (SC-006), skill inventory accuracy (TC-401/TC-402), and cross-skill integration verification.
 - Every "port content" task above is real editorial work (reading two versions of a reference doc and merging them), not a mechanical file copy — treat estimates accordingly.
 - T002 and T003 are decisions, not mechanical tasks — do not let an agent silently pick a default; get explicit maintainer sign-off before T022/T023/T042 run.
 - Commit after each cluster (T004-T042 groupings) rather than one giant commit — 12+5 independent clusters map naturally to 12+5 reviewable commits.
-- **Phase 7 Blocking**: T076-T080 are blocked on Phase 6 completion (T075). Do not start Phase 7 until Phase 6 adoption data is collected and T075 checkpoint confirmed.
+- **Phase 7 Blocking**: T076-T080 are blocked on Phase 6 completion (T075). Convergence tasks T081-T085 must complete BEFORE Phase 6 execution (T071/T073) begins to establish execution tracking, success criteria quantification, and decision framework. Do not start Phase 7 until Phase 6 adoption data is collected and T075 checkpoint confirmed.

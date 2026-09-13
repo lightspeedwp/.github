@@ -38,10 +38,24 @@ This document defines the Key Performance Indicators (KPIs), collection methods,
 - Confirmed by visible usage (PRDs generated, agent invocations logged)
 - Status: `Adopted` (active integration), `Evaluating` (pilot phase), `Not Yet Started` (on roadmap)
 
+**"Actively Using" Definition** (Quantitative Threshold for SC-602):
+- **Frequency Threshold**: ≥1 PRD generation event per team per week (7-day rolling window)
+- **Metric Type**: Agent invocation count, measured by:
+  - Skill routing events (tracked in agent logs)
+  - Workflow trigger events (from GitHub Actions / CLI invocation records)
+  - Session-initiated PRD generations (counted by agent session completion)
+- **Qualification**: A team is considered "actively using" if it meets BOTH conditions:
+  1. Team has integrated agent into workflow (agent loaded in repo, referenced in team processes)
+  2. Team achieves ≥1 PRD generation per week (averaging across the 30-day period; short weeks <1 PRD allowed if compensated in following week)
+
 **Collection Method**: 
-- Weekly Slack check-in with team leads: "Is your team actively using the consolidated PRD agent? How many workflows run this week?"
-- Manual verification: Check agent invocation logs (if available from provider APIs)
-- Success markers: Team has loaded agent into repo, run ≥2 workflows, reported initial feedback
+- Weekly Slack check-in with team leads: "Is your team actively using the consolidated PRD agent? How many PRDs did you generate this week?"
+- Agent invocation log review: Extract weekly invocation counts from skill routing events
+- Validation: Cross-reference team lead survey responses with logged invocations to confirm adoption status
+- Success markers: 
+  - Team has loaded agent into repo (initial setup)
+  - Team has run ≥1 PRD generation workflow per week (sustained engagement)
+  - Team has provided feedback or reported issues (active participation)
 
 **Reporting Cadence**: Weekly (Fridays)
 
