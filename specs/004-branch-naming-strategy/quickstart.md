@@ -141,7 +141,7 @@ VALID_TYPES="feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build
 [[ "$TYPE" =~ ^($VALID_TYPES)$ ]] && echo "✅ Type valid" || echo "❌ Type invalid"
 
 # Scope and title validation
-[[ "$BRANCH_NAME" =~ ^[a-z0-9]+/[a-z0-9]([a-z0-9-]*[a-z0-9])?-[a-z0-9-]+$ ]] && echo "✅ Scope/title valid" || echo "❌ Scope/title invalid"
+[[ "$BRANCH_NAME" =~ ^[a-z0-9]+/[a-z0-9][a-z0-9-]{0,48}[a-z0-9]-[a-z0-9][a-z0-9-]+[a-z0-9]$ ]] && echo "✅ Scope/title valid" || echo "❌ Scope/title invalid"
 
 # Forbidden prefix check
 [[ ! "$BRANCH_NAME" =~ ^(claude|copilot|openai)/ ]] && echo "✅ No forbidden prefixes" || echo "❌ Forbidden"

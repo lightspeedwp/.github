@@ -62,7 +62,7 @@
 ### Implementation for User Story 1
 
 - [ ] T019 [P] [US1] Implement CHK_MAX_LENGTH rule at `.github/validation/changelog/lib/rules/chk-max-length.js` (flag entries > 250 chars, provide violation detail)
-- [ ] T020 [P] [US1] Implement CHK_NO_IMPL_DETAILS rule at `.github/validation/changelog/lib/rules/chk-no-impl-details.js` (detect banned keywords: "refactored", "fixed", "added logic", "updated database", etc. from data-model.md)
+- [ ] T020 [P] [US1] Implement CHK_NO_IMPL_DETAILS rule at `.github/validation/changelog/lib/rules/chk-no-impl-details.js` (detect banned keywords: "refactored", "optimised", "patched", "implemented", "deployed", "migrated", "restructured", "logic", "algorithm", "framework", "component", "module", "hook", "middleware", "REST API", "GraphQL", "database", "query", "cache", "transaction" from validation-rule.contract.md)
 - [ ] T021 [P] [US1] Implement CHK_HAS_PR_LINK rule at `.github/validation/changelog/lib/rules/chk-has-pr-link.js` (validate PR reference #NNNN format)
 - [ ] T022 [P] [US1] Implement CHK_FORMAT_MARKDOWN rule at `.github/validation/changelog/lib/rules/chk-format-markdown.js` (verify consistent punctuation/tense)
 - [ ] T023 [US1] Integrate all rules into compliance-checker (T011), return pass/fail + violation list for each entry
