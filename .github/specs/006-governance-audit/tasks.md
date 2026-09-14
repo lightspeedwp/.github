@@ -4,7 +4,7 @@
 
 **Prerequisites**: plan.md ✓, spec.md ✓, data-model.md ✓, contracts/ ✓, quickstart.md ✓
 
-**Total Tasks**: 48 | **Setup**: 3 | **Foundational**: 4 | **P1 Audit**: 14 | **P2 Validation**: 12 | **P3 Remediation**: 11 | **Polish**: 4
+**Total Tasks**: 51 | **Setup**: 3 | **Foundational**: 4 | **P1 Audit**: 13 | **P2 Validation**: 12 | **P3 Remediation**: 11 | **Integration**: 3 | **Polish**: 5
 
 **Organization**: Tasks grouped by user story for independent implementation and testing
 

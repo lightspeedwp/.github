@@ -31,7 +31,7 @@ All instruction files, review guidance, and standards MUST apply universally acr
 
 ### V. Branch Naming Strategy is Non-Negotiable (CRITICAL)
 
-The branch naming pattern `{type}/{scope}-{title}` with the 30+ defined types (feat/, fix/, security/, perf/, a11y/, docs/, etc.) is authoritative and MUST be enforced. FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute. Branch name determines PR template assignment, GitHub Actions routing, labeling, and metrics. Invalid branches break downstream automation.
+The branch naming pattern `{type}/{scope}-{title}` with one of 38 authorised types (feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, revert, research, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, aiops, automation, epic) is authoritative and MUST be enforced. FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute. Branch name determines PR template assignment, GitHub Actions routing, labeling, and metrics. Invalid branches break downstream automation.
 
 **Rationale**: Branch naming is the foundation for PR template routing, GitHub Actions workflows, and validation checks. A single incorrect branch name cascades as template failures, workflow skips, and manual rework. Enforcement prevents this waste.
 
