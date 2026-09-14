@@ -10,7 +10,7 @@ set -e
 REPO="lightspeedwp/.github"
 DRY_RUN=false
 BATCH_SIZE=10
-DELAY=0.5  # Seconds between API calls (respect rate limits)
+DELAY=0.5  # Seconds paused between batches of BATCH_SIZE API calls (respect rate limits)
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
