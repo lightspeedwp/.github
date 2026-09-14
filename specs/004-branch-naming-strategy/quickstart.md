@@ -18,7 +18,7 @@ Examples:
 ❌ my_feature                           (WRONG: missing type/)
 ```
 
-### 24 Authorized Types
+### 34 Authorized Types
 
 | Type | Purpose | Example |
 |------|---------|---------|
@@ -135,9 +135,9 @@ git push origin feat/user-auth --force-with-lease
 Before pushing, verify your branch name:
 
 ```bash
-# Type validation (against all 24 authorized types)
+# Type validation (against all 34 authorized types)
 TYPE=$(echo "$BRANCH_NAME" | cut -d'/' -f1)
-VALID_TYPES="feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|audit|codex|research|revert"
+VALID_TYPES="feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|revert|research"
 [[ "$TYPE" =~ ^($VALID_TYPES)$ ]] && echo "✅ Type valid" || echo "❌ Type invalid"
 
 # Scope and title validation
