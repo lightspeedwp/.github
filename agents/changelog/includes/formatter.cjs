@@ -3,8 +3,6 @@
  * Formats validation results for human-readable and machine-readable output
  */
 
-const logger = require('./logger.cjs');
-
 class Formatter {
   /**
    * Format validation result for human-readable output

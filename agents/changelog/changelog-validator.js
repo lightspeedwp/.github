@@ -9,7 +9,6 @@ const fs = require('fs');
 const path = require('path');
 const validator = require('./includes/changelogValidator.cjs');
 const formatter = require('./includes/formatter.cjs');
-const logger = require('./includes/logger.cjs');
 
 const RULES_FILE = path.join(__dirname, '../../.github/changelog-rules.yml');
 
