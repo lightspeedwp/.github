@@ -189,8 +189,7 @@ class PatternEngine {
         ? pattern.regex
         : new RegExp(pattern.regex.source, (pattern.regex.flags || '') + 'g');
 
-      let match;
-      while ((match = regex.exec(text)) !== null) {
+      while (regex.exec(text) !== null) {
         count++;
       }
     }

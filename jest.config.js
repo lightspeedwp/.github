@@ -1,6 +1,5 @@
 module.exports = {
   testEnvironment: 'node',
-  collectCoverage: true,
   collectCoverageFrom: [
     'agents/changelog/includes/**/*.cjs',
     '!agents/changelog/includes/**/*.test.cjs',
