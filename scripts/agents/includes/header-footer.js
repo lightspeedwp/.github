@@ -28,7 +28,7 @@ function loadFooterConfig() {
 const DEFAULT_FOOTERS = [
   "_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)",
   "_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
-  "_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)",
+  "*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*",
   "_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)",
   "_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_",
 ];
@@ -101,7 +101,7 @@ function getRandomFooter(category = "default", seed = null) {
 const FOOTER_PATTERNS = [
   "_Maintained with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
   "_Built by 🧱[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
+  "\\*?Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
   "_This page brought to you by[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
   "_Docs signed by 🤖[\\s\\S]*?",
   "Made with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
@@ -127,8 +127,22 @@ const FOOTER_PATTERNS = [
  * @returns {RegExp}
  */
 function buildFooterRegex() {
-  // Join all patterns with alternation and anchor to end of file/line
-  const pattern = `(${FOOTER_PATTERNS.join("|")})$/m`;
+  // Join all patterns with alternation, anchored to the end of the whole
+  // file and required to *start* its own line (right after "\n", or at
+  // the very start of the file). Both anchors matter:
+  //  - No "m" flag on the trailing $: a multiline end-of-file anchor
+  //    would match end-of-line for every line, letting a footer phrase
+  //    merely mentioned mid-body (as prose, not as a real footer) match
+  //    all the way to EOF via the patterns' own permissive `[\s\S]*?`
+  //    and get "replaced" in place -- wiping it out instead of leaving
+  //    it alone and appending a separate new footer.
+  //  - The explicit (?:^|\n) start guard rules out a phrase embedded
+  //    mid-sentence (e.g. "This note mentions Have questions? ..."),
+  //    which doesn't begin its own line, from matching at all.
+  // The original source baked "$/m" into the pattern as literal text
+  // (matching the literal characters "$", "/", "m"), which happened to
+  // never match at all rather than over-matching.
+  const pattern = `(^|\\n)(?:${FOOTER_PATTERNS.join("|")})$`;
   return new RegExp(pattern);
 }
 
@@ -158,7 +172,13 @@ function ensureFooter(file, options = {}) {
   const nextFooter = getRandomFooter(category, seed);
 
   if (FOOTER_REGEX.test(content)) {
-    content = content.replace(FOOTER_REGEX, nextFooter);
+    // Replace only the matched footer text itself, preserving whichever
+    // boundary (start-of-file "" or the preceding "\n") the regex
+    // captured as its first group.
+    content = content.replace(
+      FOOTER_REGEX,
+      (_match, boundary) => boundary + nextFooter,
+    );
     fs.writeFileSync(file, content);
     return true;
   }
