@@ -38,26 +38,40 @@ jobs:
           BRANCH_NAME="${{ github.head_ref }}"
           echo "Processing branch: $BRANCH_NAME"
 
-          ROUTING_OUTPUT=$(node scripts/pr-template-router.js "$BRANCH_NAME" 2>&1)
+          # Run routing script and suppress debug output, capture only JSON
+          ROUTING_JSON=$(node scripts/pr-template-router.js "$BRANCH_NAME" 2>&1 | tail -1)
           EXIT_CODE=$?
 
-          echo "$ROUTING_OUTPUT"
+          echo "Routing JSON output:"
+          echo "$ROUTING_JSON"
 
           if [ $EXIT_CODE -ne 0 ]; then
-            echo "Error: Template routing failed"
+            echo "Error: Template routing script failed with exit code $EXIT_CODE"
+            exit 1
+          fi
+
+          # Validate JSON is valid
+          if ! echo "$ROUTING_JSON" | jq empty 2>/dev/null; then
+            echo "Error: Invalid JSON output from routing script"
             exit 1
           fi
 
           # Parse JSON output and set outputs
-          BRANCH_TYPE=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.branch_type // empty')
-          TEMPLATE=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.template // empty')
-          ALL_LABELS=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.all_labels | join(",") // empty')
-          SCOPE=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.scope // empty')
+          BRANCH_TYPE=$(echo "$ROUTING_JSON" | jq -r '.branch_type // empty')
+          TEMPLATE=$(echo "$ROUTING_JSON" | jq -r '.template // empty')
+          ALL_LABELS=$(echo "$ROUTING_JSON" | jq -r '.all_labels | join(",") // empty')
+          SCOPE=$(echo "$ROUTING_JSON" | jq -r '.scope // empty')
 
           if [ -z "$BRANCH_TYPE" ] || [ -z "$TEMPLATE" ]; then
-            echo "Error: Failed to parse routing output"
+            echo "Error: Failed to extract routing data"
             exit 1
           fi
+
+          echo "Extracted routing data:"
+          echo "  Branch Type: $BRANCH_TYPE"
+          echo "  Template: $TEMPLATE"
+          echo "  Labels: $ALL_LABELS"
+          echo "  Scope: $SCOPE"
 
           echo "branch_type=$BRANCH_TYPE" >> $GITHUB_OUTPUT
           echo "template=$TEMPLATE" >> $GITHUB_OUTPUT
