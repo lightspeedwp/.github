@@ -7,10 +7,12 @@
     ".": "./changelog.agent.js"
   },
   "scripts": {
-    "test": "node --test includes/tests/**/*.test.cjs",
-    "test:unit": "node --test includes/tests/*.test.cjs",
-    "test:integration": "node --test includes/tests/integration.test.cjs",
-    "lint": "eslint ."
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=tests/unit",
+    "test:integration": "jest --testPathPattern=tests/integration",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "validate:branch-name": "node ../../.validate-branch-name.js"
   },
   "keywords": [
     "changelog",
@@ -18,7 +20,8 @@
     "validation",
     "formatting",
     "release",
-    "portable"
+    "portable",
+    "quality-audit"
   ],
   "author": "LightSpeed Team",
   "repository": {
@@ -27,6 +30,13 @@
     "directory": "agents/changelog"
   },
   "license": "GPL-3.0-or-later",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@octokit/rest": "^20.0.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.0"
+  }
 }

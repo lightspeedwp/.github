@@ -1,0 +1,51 @@
+# LOCKED FILE - Changelog Validation Rules
+#
+# Changes to this file require explicit approval from @ashley
+# See: CLAUDE.md section "Configuration Files — LOCKED (CRITICAL)"
+#
+# This file defines all validation rules for changelog entries.
+# Rules are versioned separately from entries to enable non-breaking evolution.
+#
+# Schema:
+#   id: R001-R999 (unique rule identifier)
+#   name: snake_case rule name
+#   version: semantic version (1.0, 1.1, 2.0, etc.)
+#   enabled: boolean
+#   rule_type: format|content|reference|structure
+#   severity: error (blocking) | warning (non-blocking)
+#   priority: 1-99 (execution order)
+#   description: what the rule checks
+#   patterns: array of regex patterns with context
+#   remediation_guidance: how to fix violations
+
+metadata:
+  version: '1.0'
+  total_rules: 20
+  created_date: '2026-09-14'
+  modified_date: '2026-09-14'
+  modified_by: 'system'
+  governance: 'LOCKED'
+
+# Phase 2 implementation will populate all 20 rules:
+# R001: no_implementation_details (content | error)
+# R002: has_category (structure | error)
+# R003: has_title (structure | error)
+# R004: has_description (structure | error)
+# R005: clear_language (content | warning)
+# R006: proper_formatting (format | error)
+# R007: no_backticks (content | error)
+# R008: no_internal_terminology (content | error)
+# R009: has_pr_reference (reference | warning)
+# R010: valid_pr_reference (reference | error)
+# R011: meaningful_description (content | warning)
+# R012: user_focused (content | warning)
+# R013: no_emoji (content | warning)
+# R014: consistent_tense (content | warning)
+# R015: proper_dates (format | error)
+# R016: no_todos (content | error)
+# R017: appropriate_length (content | warning)
+# R018: no_personal_pronouns (content | warning)
+# R019: no_marketing_hype (content | warning)
+# R020: valid_category (structure | error)
+
+rules: []

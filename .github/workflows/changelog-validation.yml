@@ -1,0 +1,36 @@
+name: Changelog Quality Validation
+
+# Workflow will be configured to trigger on pull_request and specific file paths
+# This is a scaffold - full implementation in Phase 7
+
+on:
+  pull_request:
+    paths:
+      - 'CHANGELOG.yml'
+      - 'CHANGELOG.md'
+
+jobs:
+  validate-changelog:
+    runs-on: ubuntu-latest
+    # TODO: Implement validation step that:
+    # 1. Detects changed changelog entries
+    # 2. Runs changelog validator
+    # 3. Posts PR comment with results
+    # 4. Sets status check pass/fail
+    # Implementation deferred to Phase 7 (CI/CD Integration)
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci --prefix agents/changelog
+
+      # TODO: Validate changelog entries
+      # run: npm run validate:changelog
+
+      # TODO: Post results as PR comment
+      # TODO: Set status check

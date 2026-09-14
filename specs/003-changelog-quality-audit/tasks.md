@@ -16,18 +16,18 @@
 
 **Checkpoint**: Project ready for validation engine implementation
 
-- [ ] T001 Create project structure per implementation plan: `agents/changelog/includes/`, `agents/changelog/tests/unit/`, `agents/changelog/tests/integration/`
-- [ ] T002 Initialize Node.js project with dependencies: `package.json` with Octokit, Jest, YAML parser, regex libraries
-- [ ] T003 [P] Configure ESLint and Prettier for code style: `.eslintrc.js`, `.prettierrc` at repo root
-- [ ] T004 [P] Create Jest test configuration: `jest.config.js` with coverage reporting
-- [ ] T005 [P] Setup npm scripts in `package.json`: test, lint, format, validate:branch-name
-- [ ] T006 Create base logger module in `agents/changelog/includes/logger.cjs` with error/warning/info levels
-- [ ] T007 [P] Create error handling framework in `agents/changelog/includes/errors.cjs` with custom error types
-- [ ] T008 [P] Create configuration module in `agents/changelog/includes/config.cjs` for rule versions and paths
-- [ ] T009 Create utility module in `agents/changelog/includes/utils.cjs` with common helper functions
-- [ ] T010 [P] Setup GitHub Actions workflow structure: `.github/workflows/changelog-validation.yml` (scaffold only)
-- [ ] T011 Create documentation structure: `docs/CHANGELOG_QUALITY_AUDIT.md` (outline only), `docs/CHANGELOG_RULES.md` (outline only)
-- [ ] T012 [P] Create `.github/changelog-rules.yml` LOCKED file with schema definition and metadata (rules content follows in Phase 2)
+- [x] T001 Create project structure per implementation plan: `agents/changelog/includes/`, `agents/changelog/tests/unit/`, `agents/changelog/tests/integration/`
+- [x] T002 Initialize Node.js project with dependencies: `package.json` with Octokit, Jest, YAML parser, regex libraries
+- [x] T003 [P] Configure ESLint and Prettier for code style: `.eslintrc.js`, `.prettierrc` at repo root
+- [x] T004 [P] Create Jest test configuration: `jest.config.js` with coverage reporting
+- [x] T005 [P] Setup npm scripts in `package.json`: test, lint, format, validate:branch-name
+- [x] T006 Create base logger module in `agents/changelog/includes/logger.cjs` with error/warning/info levels
+- [x] T007 [P] Create error handling framework in `agents/changelog/includes/errors.cjs` with custom error types
+- [x] T008 [P] Create configuration module in `agents/changelog/includes/config.cjs` for rule versions and paths
+- [x] T009 Create utility module in `agents/changelog/includes/utils.cjs` with common helper functions
+- [x] T010 [P] Setup GitHub Actions workflow structure: `.github/workflows/changelog-validation.yml` (scaffold only)
+- [x] T011 Create documentation structure: `docs/CHANGELOG_QUALITY_AUDIT.md` (outline only), `docs/CHANGELOG_RULES.md` (outline only)
+- [x] T012 [P] Create `.github/changelog-rules.yml` LOCKED file with schema definition and metadata (rules content follows in Phase 2)
 
 ---
 
