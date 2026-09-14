@@ -3,8 +3,6 @@
  * Handles PR/issue reference validation with caching and graceful degradation
  */
 
-const https = require("https");
-
 // In-memory cache for API results
 // Structure: { key: { data, timestamp } }
 const cache = {};
@@ -248,7 +246,6 @@ function clearCache() {
  */
 function getCacheStats() {
   const keys = Object.keys(cache);
-  const now = Date.now();
   const validEntries = keys.filter((k) => isCacheValid(k));
 
   return {

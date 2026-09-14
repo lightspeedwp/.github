@@ -12,7 +12,6 @@
 function extractPRReferences(text) {
   if (!text) return [];
 
-  const prPattern = /(?:PR|pull request|pull\s+request)?\s*#?(\d+)/gi;
   const matches = [];
   let match;
 

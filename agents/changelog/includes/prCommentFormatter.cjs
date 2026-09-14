@@ -14,7 +14,6 @@ function formatPRComment(validationResult = {}) {
     failed = 0,
     warnings = 0,
     entries = [],
-    summary = "",
   } = validationResult;
 
   const total = passed + failed + warnings;

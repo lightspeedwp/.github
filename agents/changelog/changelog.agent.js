@@ -455,7 +455,6 @@ async function collectMetricsSnapshot(changelogPath, options = {}) {
 async function exportMetricsToCSV(metricsDir, options = {}) {
   const metricsBuilder = require("./includes/metricsSnapshotBuilder.cjs");
   const fs = require("fs");
-  const path = require("path");
 
   const { days = 30, outputPath = "metrics_export.csv" } = options;
 
@@ -661,7 +660,6 @@ async function exportReleaseNotes(changelogPath, version, options = {}) {
  */
 async function queryMetricsTrend(options = {}) {
   const fs = require("fs");
-  const path = require("path");
   const metricsBuilder = require("./includes/metricsSnapshotBuilder.cjs");
   const trendCalc = require("./includes/trendCalculator.cjs");
 

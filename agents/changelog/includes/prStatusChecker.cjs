@@ -236,16 +236,6 @@ function validatePRChanges(owner, repo, prNumber, prData) {
  * @returns {string} Check run ID
  */
 function createStatusCheck(checkData) {
-  const {
-    owner,
-    repo,
-    sha,
-    status,
-    description,
-    context,
-    target_url,
-  } = checkData;
-
   // In production, this would call GitHub API
   // github.rest.checks.create() or github.rest.repos.createCommitStatus()
 
