@@ -174,11 +174,18 @@ function ensureFooter(file, options = {}) {
   if (FOOTER_REGEX.test(content)) {
     // Replace only the matched footer text itself, preserving whichever
     // boundary (start-of-file "" or the preceding "\n") the regex
-    // captured as its first group.
+    // captured as its first group. The match itself can extend all the
+    // way to end-of-string (no "m" flag), swallowing a trailing newline
+    // if the file had one -- restore it so files that end with '\n'
+    // still do after the footer is replaced.
+    const hadTrailingNewline = content.endsWith("\n");
     content = content.replace(
       FOOTER_REGEX,
       (_match, boundary) => boundary + nextFooter,
     );
+    if (hadTrailingNewline && !content.endsWith("\n")) {
+      content += "\n";
+    }
     fs.writeFileSync(file, content);
     return true;
   }

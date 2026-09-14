@@ -287,7 +287,17 @@ class RemediationChecklistGenerator {
       });
 
       return data;
-    } catch {
+    } catch (error) {
+      // Distinguishing a real API failure from the two legitimate no-op
+      // cases above (compliant issue, checklist already posted) matters
+      // for anyone operating this: a silent catch here would make a
+      // rate-limited or 403'd run look identical to "nothing needed
+      // doing". The return value stays null either way (existing
+      // callers rely on that), but the failure itself is not swallowed.
+      console.error(
+        `Failed to post remediation checklist for issue #${issue?.number}:`,
+        error.message,
+      );
       return null;
     }
   }
