@@ -114,7 +114,8 @@ Phase 5 establishes a comprehensive test suite covering all 28 consolidated skil
 ### Test Execution
 
 ```bash
-# Run full test suite (all providers, all categories) — from repo root
+# Run the full test suite for Claude (all categories) — from repo root
+# Re-run with --provider copilot / --provider openai for the other providers
 node agents/prd-agent/tests/test-runner.js --provider claude --suite all
 
 # Run by category

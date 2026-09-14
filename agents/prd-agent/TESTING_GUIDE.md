@@ -379,7 +379,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json
+      - run: node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/claude-all-tests.json
       - uses: actions/upload-artifact@v3
         with:
           name: test-results
