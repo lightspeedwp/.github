@@ -14,6 +14,7 @@
 
 - Q: Should the system continue supporting the old `/specs/` location as a fallback, or remove it entirely? → A: Remove entirely during migration (clean cutover, aligns with Constitution Principle III).
 - Q: Should `specs_directory` be optional (with default `.github/specs`) or required? → A: Optional with default `.github/specs` (backward compatible, safe defaults for existing configs).
+- Q: If migration encounters an error (permission denied, disk full, partial failure), should the system automatically rollback, use incremental/resumable approach, or require manual intervention? → A: Automatic rollback on any error with clear error reporting (safest approach, restores original state on failure).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -69,6 +70,7 @@ Existing specs in the root `specs/` directory should be migrated to `.github/spe
 - Migration conflict resolution: If specs exist in both `/specs/` and `.github/specs/`, prioritize `.github/specs/` (assumes users have already begun manual migration)
 - What if speckit configuration files reference the old location? (Update all configuration references)
 - Post-migration: Old `/specs/` directory MUST be removed or archived to enforce clean cutover (per Clarification Q1)
+- Migration error handling: If migration encounters permission errors, disk full, or partial failures, automatically rollback changes and restore original state with clear error reporting (per Clarification Q3)
 
 ## Requirements *(mandatory)*
 
@@ -82,6 +84,7 @@ Existing specs in the root `specs/` directory should be migrated to `.github/spe
 - **FR-006**: The `.specify/feature.json` context file MUST correctly reference features in the new `.github/specs/` location
 - **FR-007**: Documentation in `.specify/` must reference `.github/specs/` as the canonical specs location
 - **FR-008**: Post-migration, the old `/specs/` directory MUST be removed or archived to prevent confusion and enforce the new location as authoritative
+- **FR-009**: Migration process MUST implement automatic rollback on any error (permission denied, disk full, partial failure) with clear error reporting; no specs should be moved to `.github/specs/` if the complete migration cannot succeed
 
 ### Key Entities
 
