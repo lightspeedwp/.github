@@ -167,3 +167,6 @@ return { width: slide.width, height: slide.height, nodeId: node.id };
 
 _Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
 [Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

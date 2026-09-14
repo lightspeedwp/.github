@@ -28,3 +28,6 @@ current prompt so it aligns with proven best practices.
 
 _Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
 [Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

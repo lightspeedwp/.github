@@ -48,3 +48,5 @@
 - Red: "The project is blocked until the following issues are resolved."
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

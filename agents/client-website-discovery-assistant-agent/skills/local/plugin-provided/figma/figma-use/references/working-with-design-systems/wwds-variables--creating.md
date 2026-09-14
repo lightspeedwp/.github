@@ -43,3 +43,6 @@ Keep in mind that systems might also require you to handle text and effect style
 
 _Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
 [Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

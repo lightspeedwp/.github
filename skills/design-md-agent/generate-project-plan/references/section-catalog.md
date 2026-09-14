@@ -234,3 +234,5 @@ Use these as **defaults** — the user can pick alternative shapes during Step 4
 When suggesting a section in the Step 2 cards, include **which PRD facts or tech-context items** justify it (e.g. "suggesting `dependencies` because tech-context has services: a, b, c").
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

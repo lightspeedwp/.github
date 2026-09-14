@@ -72,3 +72,5 @@ Other documents may use DrawingML shapes or background images.
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

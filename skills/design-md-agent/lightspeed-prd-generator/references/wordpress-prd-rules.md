@@ -43,3 +43,5 @@ PRDs for LightSpeed WordPress projects should consider:
 Do not prescribe unnecessary custom code when native WordPress blocks, patterns, theme.json or block supports can solve the requirement.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

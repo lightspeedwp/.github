@@ -90,3 +90,6 @@ Use this guidance when the user asks to refresh, update, replace, or repair a ch
 
 _Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
 [Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

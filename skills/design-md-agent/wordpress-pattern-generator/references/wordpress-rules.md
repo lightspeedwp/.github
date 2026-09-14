@@ -59,3 +59,5 @@ Use these rules as the primary pattern standard.
 - Patterns can be used directly in the editor or inserted into templates.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

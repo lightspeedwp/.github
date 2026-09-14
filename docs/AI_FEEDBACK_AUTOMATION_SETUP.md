@@ -567,3 +567,5 @@ git commit -m "fix: restore ai-feedback-helpers.cjs from HEAD~N"
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

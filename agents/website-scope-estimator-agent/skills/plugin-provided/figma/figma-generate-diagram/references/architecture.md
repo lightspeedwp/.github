@@ -61,3 +61,6 @@ When the source of truth is code or docs (a repo, a runbook, a Datadog dashboard
 
 _Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
 [Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

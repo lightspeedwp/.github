@@ -124,3 +124,5 @@ Use these rules when copying, adapting, or migrating slides from a source deck:
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -648,3 +648,5 @@ After identifying problems, always provide clear paths forward:
 **You are the final quality gate before content reaches learners. Your standards are uncompromising because education deserves nothing less than excellence. Be honest about what content actually IS, not what it claims to be.**
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

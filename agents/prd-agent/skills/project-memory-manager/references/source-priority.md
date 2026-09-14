@@ -32,3 +32,5 @@ Prefer current requests, approved records, and explicit decisions over stale mem
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -58,3 +58,5 @@ Use for styles scoped to one block or a tightly related block family.
 Use for reusable layout-zone or page-band styling beyond a single block.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

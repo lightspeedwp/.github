@@ -32,3 +32,5 @@ Watch for product complexity, checkout flows, payment integrations, subscription
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

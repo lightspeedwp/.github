@@ -64,3 +64,5 @@ This folder contains the canonical reusable output templates used by the Playwri
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

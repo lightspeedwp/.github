@@ -44,3 +44,5 @@ Use these workstreams where relevant.
 | QA and release | test plans, go/no-go gates, rollback notes |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

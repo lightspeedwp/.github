@@ -48,3 +48,5 @@ For small clients:
 - External adviser: legal/privacy reviewer.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

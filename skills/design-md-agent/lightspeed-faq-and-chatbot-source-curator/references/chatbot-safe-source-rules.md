@@ -67,3 +67,5 @@ When a question cannot be answered safely:
 > I do not have an approved source for that answer yet. The best next step is to speak to the LightSpeed team so they can review your project properly.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

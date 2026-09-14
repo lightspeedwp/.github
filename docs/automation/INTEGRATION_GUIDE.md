@@ -876,3 +876,5 @@ jobs:
 **Version**: 1.0
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

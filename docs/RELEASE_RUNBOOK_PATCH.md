@@ -416,3 +416,5 @@ Patch release is successful when:
 **Last Updated:** 2026-08-22
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

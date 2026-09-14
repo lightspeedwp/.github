@@ -94,3 +94,5 @@ Documentation & Collaboration: `list_documents`, `get_document`, `search_documen
 - Performance: Remember Linear API rate limits; batch bulk operations, use specific filters, or cache frequent queries.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

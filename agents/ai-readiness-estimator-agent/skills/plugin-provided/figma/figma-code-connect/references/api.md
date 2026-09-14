@@ -996,3 +996,5 @@ export default {
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

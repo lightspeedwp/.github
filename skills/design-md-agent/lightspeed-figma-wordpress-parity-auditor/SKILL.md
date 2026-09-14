@@ -118,3 +118,5 @@ Use references as needed:
 Use asset templates when the user asks for tables, reports or downloadable outputs.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

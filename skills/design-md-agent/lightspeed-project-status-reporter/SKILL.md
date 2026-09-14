@@ -103,3 +103,5 @@ Use these references as needed:
 Keep reports brief enough to be read, but specific enough to drive action. Prefer clear owners, dates, decisions and next steps over generic progress language.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -529,3 +529,5 @@ After updating each issue, verify:
 **Active Project:** `.github/projects/active/reusable-prompts-setup.md`
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

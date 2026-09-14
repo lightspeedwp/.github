@@ -76,3 +76,5 @@ Use these line items when turning AI readiness outputs into proposal notes.
 | Chatbot Improvement Cycle | Review transcripts, failures and new intents. | Updated tests, sources and prompt rules. |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

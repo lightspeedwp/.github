@@ -47,3 +47,5 @@ Do not prescribe unnecessary custom code when native WordPress blocks, patterns,
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

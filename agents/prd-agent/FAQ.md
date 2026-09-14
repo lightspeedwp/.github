@@ -170,6 +170,7 @@ See [Troubleshooting: Agent Won't Load](#agent-wont-load).
 - Better error handling (consolidated skills route more intelligently)
 
 **Skill Routing Mappings** (verify these continue working):
+
 - `prd_create` → consolidated PRD creation skill
 - `prd_validate` → consolidated PRD validation skill
 - `sprint_planner` → consolidated sprint planning skill
@@ -611,6 +612,9 @@ All documents are located in `agents/prd-agent/` folder.
 ---
 
 **Still have questions?** Open a GitHub issue or post in `#product-planning` Slack. We're here to help! 🚀
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -130,6 +130,7 @@ The consolidated PRD Agent (v2.3.0) is production-ready and extensively tested a
 **Deliverable**: Comprehensive metrics report; Phase 6 success/failure assessment
 
 **Timeline clarification**:
+
 - **Weeks 1-3**: Announcement, team briefings, and initial adoption support
 - **Weeks 4-6**: Active adoption period (primary rollout window)
 - **Weeks 4-9**: Extended metrics collection period (6 weeks post-rollout launch per `ADOPTION_METRICS.md`; collection period ending Week 9)
@@ -276,5 +277,7 @@ This rollout plan reaches a natural checkpoint at week 6 (after metrics collecti
 ---
 
 *This rollout plan is a living document. Updates will be made as Phase 6 progresses and feedback is collected from team briefings and adoption monitoring.*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

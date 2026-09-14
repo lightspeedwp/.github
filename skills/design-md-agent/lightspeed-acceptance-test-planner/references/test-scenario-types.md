@@ -42,3 +42,5 @@ Use these types as needed:
 | Governance | Claims, policy pages and approval gates are satisfied |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

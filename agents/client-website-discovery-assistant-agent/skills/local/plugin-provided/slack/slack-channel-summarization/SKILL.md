@@ -71,3 +71,5 @@ Use this skill to summarize activity from one Slack channel, using a requested t
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

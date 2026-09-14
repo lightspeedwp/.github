@@ -46,3 +46,5 @@ Open:
 - Parity diffs can be noisy if the PDF contains randomized rendering (rare). If diffs are tiny, spot-check visually.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

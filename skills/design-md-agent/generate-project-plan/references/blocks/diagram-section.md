@@ -276,3 +276,5 @@ Continue to the next diagram.
 - [ ] Return `section.id` + `diag.id` (or `errorText.id`) in `mutatedNodeIds`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
