@@ -38,12 +38,20 @@ jobs:
           BRANCH_NAME="${{ github.head_ref }}"
           echo "Routing PR from branch: $BRANCH_NAME"
 
-          # Run routing script - outputs JSON only
-          ROUTING_JSON=$(node scripts/pr-template-router.js "$BRANCH_NAME" 2>&1)
+          # Run routing script - separate stdout and stderr
+          ROUTING_JSON=$(node scripts/pr-template-router.js "$BRANCH_NAME" 2>/dev/null)
           EXIT_CODE=$?
 
           if [ $EXIT_CODE -ne 0 ]; then
-            echo "❌ Routing failed: $ROUTING_JSON"
+            echo "❌ Routing failed with exit code $EXIT_CODE"
+            node scripts/pr-template-router.js "$BRANCH_NAME" 2>&1
+            exit 1
+          fi
+
+          # Validate JSON
+          if ! echo "$ROUTING_JSON" | jq empty 2>/dev/null; then
+            echo "❌ Invalid JSON output from routing script"
+            echo "Output was: $ROUTING_JSON"
             exit 1
           fi
 
