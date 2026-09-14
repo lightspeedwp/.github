@@ -106,10 +106,15 @@ function addedLinesFromDiff(diffText) {
       // "\ No newline at end of file" — diff metadata, not a content line.
       continue;
     }
-    if (line.startsWith("+") && !line.startsWith("+++")) {
+    // The "+++ b/file" / "--- a/file" header lines occur only before the
+    // first "@@" hunk marker, already excluded by the currentNewLine === null
+    // check above — so a content line here that happens to start with "++"
+    // or "--" (its own text, prefixed by the diff's own +/-) is genuine
+    // content, not a header, and must not be special-cased away.
+    if (line.startsWith("+")) {
       added.add(currentNewLine);
       currentNewLine += 1;
-    } else if (!line.startsWith("-") && !line.startsWith("---")) {
+    } else if (!line.startsWith("-")) {
       currentNewLine += 1;
     }
   }
