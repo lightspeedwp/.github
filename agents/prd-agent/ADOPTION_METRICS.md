@@ -64,13 +64,13 @@ A team is considered "actively using" the consolidated PRD agent if it meets ALL
 
 **Example Tracking Table**:
 
-| Team | Week 1 | Week 2 | Week 3 | Week 4 | Week 5 | Week 6 | Status |
-|------|--------|--------|--------|--------|--------|--------|--------|
-| Product Planning | Evaluating | Active | Active | Active | Active | Active | ✅ ADOPTED |
-| Backend Eng | On Roadmap | Evaluating | Active | Active | Active | Active | ✅ ADOPTED |
-| Design & UX | Evaluating | Evaluating | Evaluating | Active | Active | Active | ✅ ADOPTED |
-| Marketing | On Roadmap | On Roadmap | Evaluating | Evaluating | Active | Active | 🟡 ADOPTING |
-| Tech Writing | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | 🔴 NOT YET |
+| Team | Week 1 | Week 2 | Week 3 | Week 4 | Week 5 | Week 6 | Status | Weeks Active |
+|------|--------|--------|--------|--------|--------|--------|--------|--------------|
+| Product Planning | Evaluating | Active | Active | Active | Active | Active | ✅ ADOPTED | 5/6 |
+| Backend Eng | On Roadmap | Evaluating | Active | Active | Active | Active | ✅ ADOPTED | 4/6 |
+| Design & UX | Evaluating | Evaluating | Evaluating | Active | Active | Active | 🟡 ADOPTING | 3/6 |
+| Marketing | On Roadmap | On Roadmap | Evaluating | Evaluating | Active | Active | 🟡 ADOPTING | 2/6 |
+| Tech Writing | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | 🔴 NOT YET | 0/6 |
 
 ---
 
