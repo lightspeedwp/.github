@@ -1,0 +1,233 @@
+{
+  "total_type_labels": 25,
+  "all_present_in_canonical": true,
+  "all_colors_match": false,
+  "verification_results": [
+    {
+      "type": "Task",
+      "label": "type:task",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "4393F8",
+      "actual_color": "4393F8",
+      "status": "OK"
+    },
+    {
+      "type": "Bug",
+      "label": "type:bug",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "9F3734",
+      "actual_color": "9F3734",
+      "status": "OK"
+    },
+    {
+      "type": "Feature",
+      "label": "type:feature",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "3FB950",
+      "actual_color": "3FB950",
+      "status": "OK"
+    },
+    {
+      "type": "Design",
+      "label": "type:design",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "AB7DF8",
+      "actual_color": "AB7DF8",
+      "status": "OK"
+    },
+    {
+      "type": "Epic",
+      "label": "type:epic",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "AB7DF8",
+      "actual_color": "AB7DF8",
+      "status": "OK"
+    },
+    {
+      "type": "Question",
+      "label": "type:question",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "4393F8",
+      "actual_color": "4393F8",
+      "status": "OK"
+    },
+    {
+      "type": "Improvement",
+      "label": "type:improve",
+      "in_canonical": true,
+      "color_match": false,
+      "expected_color": "3FB950",
+      "actual_color": "9198A1",
+      "status": "COLOR_MISMATCH"
+    },
+    {
+      "type": "Chore",
+      "label": "type:chore",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "9198A1",
+      "actual_color": "9198A1",
+      "status": "OK"
+    },
+    {
+      "type": "CI",
+      "label": "type:ci",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "4393F8",
+      "actual_color": "4393F8",
+      "status": "OK"
+    },
+    {
+      "type": "Automation",
+      "label": "type:automation",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "4393F8",
+      "actual_color": "4393F8",
+      "status": "OK"
+    },
+    {
+      "type": "Test Coverage",
+      "label": "type:test",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "D29922",
+      "actual_color": "D29922",
+      "status": "OK"
+    },
+    {
+      "type": "Performance",
+      "label": "type:performance",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "D29922",
+      "actual_color": "D29922",
+      "status": "OK"
+    },
+    {
+      "type": "Accessibility",
+      "label": "type:a11y",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "DB61A2",
+      "actual_color": "DB61A2",
+      "status": "OK"
+    },
+    {
+      "type": "Security",
+      "label": "type:security",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "9F3734",
+      "actual_color": "9F3734",
+      "status": "OK"
+    },
+    {
+      "type": "Compatibility",
+      "label": "type:compat",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "8D4821",
+      "actual_color": "8D4821",
+      "status": "OK"
+    },
+    {
+      "type": "Refactor",
+      "label": "type:refactor",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "9198A1",
+      "actual_color": "9198A1",
+      "status": "OK"
+    },
+    {
+      "type": "Release",
+      "label": "type:release",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "3FB950",
+      "actual_color": "3FB950",
+      "status": "OK"
+    },
+    {
+      "type": "Dependency Update",
+      "label": "type:dependency",
+      "in_canonical": true,
+      "color_match": false,
+      "expected_color": "8D4821",
+      "actual_color": "9198A1",
+      "status": "COLOR_MISMATCH"
+    },
+    {
+      "type": "Documentation",
+      "label": "type:docs",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "9198A1",
+      "actual_color": "9198A1",
+      "status": "OK"
+    },
+    {
+      "type": "Research",
+      "label": "type:research",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "9198A1",
+      "actual_color": "9198A1",
+      "status": "OK"
+    },
+    {
+      "type": "Audit",
+      "label": "type:audit",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "9198A1",
+      "actual_color": "9198A1",
+      "status": "OK"
+    },
+    {
+      "type": "Review",
+      "label": "type:review",
+      "in_canonical": true,
+      "color_match": false,
+      "expected_color": "4393F8",
+      "actual_color": "D29922",
+      "status": "COLOR_MISMATCH"
+    },
+    {
+      "type": "AI Ops",
+      "label": "type:aiops",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "4393F8",
+      "actual_color": "4393F8",
+      "status": "OK"
+    },
+    {
+      "type": "Content Modelling",
+      "label": "type:content-modelling",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "AB7DF8",
+      "actual_color": "AB7DF8",
+      "status": "OK"
+    },
+    {
+      "type": "Build",
+      "label": "type:build",
+      "in_canonical": true,
+      "color_match": true,
+      "expected_color": "4393F8",
+      "actual_color": "4393F8",
+      "status": "OK"
+    }
+  ],
+  "status": "ISSUES_FOUND"
+}
