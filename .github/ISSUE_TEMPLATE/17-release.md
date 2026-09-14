@@ -2,7 +2,7 @@
 name: "🚀 Release"
 about: "Template for Release issues"
 title: "release: {scope} - {short description}"
-labels: ["type:release", "status:needs-planning", "priority:critical", "area:core", "meta:needs-changelog"]
+labels: ["type:release", "status:planning", "priority:critical", "area:core", "meta:needs-changelog"]
 recommended_branch: "release/"
 file_type: issue-template
 ---
