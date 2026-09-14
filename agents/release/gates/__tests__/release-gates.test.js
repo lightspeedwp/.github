@@ -290,7 +290,12 @@ describe("GATE 4: Tag Uniqueness", () => {
   });
 
   test("Should fail when tag already exists", () => {
-    execSync("git tag v1.0.0");
+    // Explicit -m avoids depending on the invoking environment's global
+    // git config: with tag.gpgsign=true (common on developer machines,
+    // e.g. for commit/tag signing), a bare `git tag <name>` creates an
+    // annotated tag and opens $EDITOR for a message, which hangs/fails
+    // under a non-interactive test runner.
+    execSync('git tag -m "test tag" v1.0.0');
     const gates = new ReleaseGates();
     gates.gate4TagUniqueness();
     expect(gates.results.gate4_tag_unique.passed).toBe(false);

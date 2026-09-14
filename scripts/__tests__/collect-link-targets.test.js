@@ -2,24 +2,50 @@
  * Tests for collect-link-targets.js
  * Validates markdown file collection with URL detection
  */
-import { execFileSync } from "child_process";
-import fs from "fs";
 import { jest } from "@jest/globals";
 
 // Mock modules
 jest.mock("child_process");
 jest.mock("fs");
 
+// collect-link-targets.js is a top-level script (side effects + process.exit()
+// at import time, not exported functions), so exercising it for real means
+// forcing a fresh module instance per test. jest.resetModules() is the
+// robust way to do that, but it also re-instantiates the mocked
+// "child_process"/"fs" modules -- so this helper re-requires them AFTER
+// the reset and returns the fresh instances, rather than relying on a
+// static top-of-file import that would go stale after the first reset.
+function runScript({ onExecFileSync, onReadFileSync } = {}) {
+  jest.resetModules();
+  const { execFileSync } = require("child_process");
+  const fs = require("fs");
+
+  if (onExecFileSync) {
+    execFileSync.mockImplementation(onExecFileSync);
+  }
+  fs.readFileSync.mockImplementation(
+    onReadFileSync || (() => "no urls in this fixture"),
+  );
+
+  jest.spyOn(process, "exit").mockImplementation(() => {});
+  jest.spyOn(console, "log").mockImplementation(() => {});
+  jest.spyOn(console, "error").mockImplementation(() => {});
+
+  require("../collect-link-targets.js");
+
+  return { execFileSync, readFileSync: fs.readFileSync };
+}
+
 describe("collect-link-targets", () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
-    jest.clearAllMocks();
     process.env = { ...originalEnv };
   });
 
   afterEach(() => {
     process.env = originalEnv;
+    jest.restoreAllMocks();
   });
 
   describe("early exit conditions", () => {
@@ -28,8 +54,14 @@ describe("collect-link-targets", () => {
       process.env.BASE_SHA = "abc123";
       process.env.HEAD_SHA = "def456";
 
-      // Dynamic import to allow env setup
-      delete require.cache[require.resolve("../collect-link-targets.js")];
+      // process.exit is mocked as a no-op (it must not actually kill the
+      // Jest worker), so control flow continues past this early return in
+      // the test the same way it would not in production; only the
+      // early-return's own side effects are asserted here.
+      runScript();
+
+      expect(console.log).toHaveBeenCalledWith("files=");
+      expect(process.exit).toHaveBeenCalledWith(0);
     });
 
     it("should exit 0 when no markdown files changed", () => {
@@ -37,7 +69,10 @@ describe("collect-link-targets", () => {
       process.env.BASE_SHA = "abc123";
       process.env.HEAD_SHA = "def456";
 
-      execFileSync.mockReturnValueOnce(Buffer.from(""));
+      runScript({ onExecFileSync: () => Buffer.from("") });
+
+      expect(console.log).toHaveBeenCalledWith("files=");
+      expect(process.exit).toHaveBeenCalledWith(0);
     });
   });
 
@@ -51,21 +86,36 @@ describe("collect-link-targets", () => {
     it("should filter out archived instruction files", () => {
       const changedFiles =
         ".github/instructions/.archive/old.md\ndocs/guide.md\n";
-      execFileSync.mockReturnValueOnce(Buffer.from(changedFiles));
+
+      const { execFileSync } = runScript({
+        onExecFileSync: () => Buffer.from(changedFiles),
+      });
 
       expect(execFileSync).toHaveBeenCalledWith(
         "git",
         expect.arrayContaining(["diff", "--name-only"]),
       );
+      expect(console.log).toHaveBeenCalledWith(
+        expect.stringContaining("files="),
+      );
+      expect(console.log).not.toHaveBeenCalledWith(
+        expect.stringContaining(".github/instructions/.archive/old.md"),
+      );
     });
 
     it("should filter out report files", () => {
       const changedFiles = ".github/reports/metrics.md\ndocs/guide.md\n";
-      execFileSync.mockReturnValueOnce(Buffer.from(changedFiles));
+
+      const { execFileSync } = runScript({
+        onExecFileSync: () => Buffer.from(changedFiles),
+      });
 
       expect(execFileSync).toHaveBeenCalledWith(
         "git",
         expect.arrayContaining(["diff"]),
+      );
+      expect(console.log).not.toHaveBeenCalledWith(
+        expect.stringContaining(".github/reports/metrics.md"),
       );
     });
   });
@@ -142,23 +192,33 @@ describe("collect-link-targets", () => {
     });
 
     it("should handle git diff failures gracefully", () => {
-      execFileSync.mockImplementationOnce(() => {
-        throw new Error("git not found");
+      runScript({
+        onExecFileSync: () => {
+          throw new Error("git not found");
+        },
       });
 
-      expect(() => {
-        execFileSync("git", ["diff"]);
-      }).toThrow();
+      expect(console.error).toHaveBeenCalledWith(
+        "Failed to get changed files:",
+        "git not found",
+      );
+      expect(process.exit).toHaveBeenCalledWith(1);
     });
 
     it("should handle missing files gracefully", () => {
-      fs.readFileSync.mockImplementationOnce(() => {
-        throw new Error("ENOENT");
+      // A file disappearing between `git diff` and readFileSync (e.g.
+      // deleted in the same PR) must not crash the whole script -- it
+      // should just be skipped from the URL-detection pass.
+      const { execFileSync } = runScript({
+        onExecFileSync: () => Buffer.from("missing.md\n"),
+        onReadFileSync: () => {
+          throw new Error("ENOENT");
+        },
       });
 
-      expect(() => {
-        fs.readFileSync("missing.md", "utf8");
-      }).toThrow();
+      expect(execFileSync).toHaveBeenCalled();
+      expect(console.log).toHaveBeenCalledWith("files=");
+      expect(process.exit).not.toHaveBeenCalledWith(1);
     });
   });
 
