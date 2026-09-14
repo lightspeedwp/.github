@@ -137,6 +137,7 @@ As a **reader**, I need all references and links in governance files to point to
 - **SC-006**: Governance files reduced by 15–25% in duplicate content while maintaining 100% of unique information and guidance
 - **SC-007**: Cross-references between CLAUDE.md and AGENTS.md use consistent anchor format; a reader can quickly find related content in the "other" file
 - **SC-008**: All consolidated instruction files referenced in AGENTS.md verified to contain claimed consolidations (e.g., if file claims "consolidated 4 files," all 4 topics are present)
+- **SC-009**: GOVERNANCE_CHANGELOG.md created documenting all refactoring changes with dates and impact summary for downstream repos
 
 ## Clarifications
 
@@ -146,6 +147,7 @@ As a **reader**, I need all references and links in governance files to point to
 - Q2: What is explicitly OUT of scope for this audit? → A: All protected layers are out of scope—do NOT modify locked files (labels.yml, issue-types.yml, templates), instruction folder structure, or constitution.md; audit focuses only on CLAUDE.md and AGENTS.md
 - Q3: How to handle concurrent edits during multi-day refactoring? → A: Accept conflicts and rebase regularly; feature branch rebases onto develop as changes occur, conflicts resolved incrementally
 - Q4: Audit completeness requirement—100% or sampling acceptable? → A: 100% completeness with tool assistance; use automated tools (diff, grep, similarity analysis) to guarantee reliable detection of all duplicates and bad references
+- Q5: Post-refactor governance change tracking strategy? → A: Changelog file approach; add GOVERNANCE_CHANGELOG.md documenting all changes with dates and impact for transparency to downstream repos
 
 ## Assumptions
 
