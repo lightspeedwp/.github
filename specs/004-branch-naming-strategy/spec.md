@@ -100,6 +100,14 @@ The organization's existing PR template routing system (which depends on branch 
 - How does the system handle very long scope/title strings (e.g., 200 characters)? → Define and enforce reasonable length limits
 - What happens if a PR is opened from a branch renamed after creation? → Validation runs against current branch name, not commit history
 
+## Clarifications
+
+### Session 2026-09-14
+
+- Q: How should the system auto-detect and apply area labels (e.g., `area:api` vs `area:docs`)? → A: Use keyword matching against a canonical keyword-to-area mapping (e.g., "api", "endpoint" → `area:api`). Scan scope/title; apply most-specific match if multiple keywords found.
+- Q: What mechanism triggers branch rename detection and metadata update? → A: Reactive detection via GitHub Actions `push` event. When a commit already associated with a PR appears on a different branch name, GitHub Actions detects the rename and updates PR metadata (template, labels) for the new branch name.
+- Q: When automated label application runs, what happens if PR already has manually-applied labels? → A: Merge and deduplicate. Add system-determined labels only if not already present. Preserve existing manually-applied labels. Allows developer customization while ensuring type labels are always present.
+
 ## Requirements
 
 ### Functional Requirements
@@ -120,11 +128,12 @@ The organization's existing PR template routing system (which depends on branch 
   - `security` → `pr_security.md`
   - etc. (complete mapping in contracts/branch-naming.contract.md)
 
-- **FR-005**: System MUST map each branch type to canonical prefixed labels (from `.github/labels.yml`):
-  - `feat` → `type:feature`
-  - `fix` → `type:bug`
-  - `security` → `type:security`, suggest `priority:critical`
-  - etc. (complete mapping in contracts/branch-naming.contract.md)
+- **FR-005**: System MUST map each branch type to canonical prefixed labels (from `.github/labels.yml`) and auto-detect area labels:
+  - Type labels: `feat` → `type:feature`, `fix` → `type:bug`, `security` → `type:security`, etc.
+  - Default labels: Apply type labels always; suggest priority labels (e.g., `priority:critical` for security)
+  - Area labels: Auto-detect via keyword matching (e.g., keywords "api", "endpoint" in scope/title → `area:api`; "docs", "guide" → `area:docs`)
+  - Label application strategy: Merge and deduplicate. Apply system-determined labels only if not already present; preserve existing manually-applied labels
+  - Complete mapping in contracts/branch-naming.contract.md
 
 - **FR-006**: System MUST validate branches before push using:
   - Local commit hook (`.git/hooks/pre-push` or equivalent) for immediate feedback
@@ -149,7 +158,10 @@ The organization's existing PR template routing system (which depends on branch 
   - PR template routing success rate
   - Time to remediate invalid branches
 
-- **FR-010**: System MUST detect branch renames and update associated metadata (PR template, labels) when a branch is renamed after PR creation
+- **FR-010**: System MUST detect branch renames and update associated metadata (PR template, labels) when a branch is renamed after PR creation:
+  - Detection mechanism: GitHub Actions `push` event monitors all branches. When a commit already associated with an open PR appears on a different branch name, the system detects the rename
+  - Metadata update: Re-identify branch type from new branch name; route to appropriate PR template; re-apply labels based on new branch type
+  - Timing: Updates triggered within seconds of push (GitHub Actions event latency)
 
 ### Key Entities
 
@@ -166,8 +178,9 @@ The organization's existing PR template routing system (which depends on branch 
   - `purpose`: Human-readable purpose (e.g., "New feature")
   - `example`: Example branch name (e.g., `feat/user-preferences-panel`)
   - `pr_template`: Associated PR template file (e.g., `pr_feature.md`)
-  - `default_labels`: Default labels to apply (e.g., `type:feature`)
-  - `area_detection`: Rules for auto-detecting area label (e.g., `api`, `docs`, `ui`)
+  - `default_labels`: Default labels to always apply (e.g., `type:feature`)
+  - `suggested_labels`: Optional labels to suggest (e.g., `priority:critical` for security type)
+  - `area_keywords`: List of keywords to scan in scope/title for area auto-detection (e.g., ["api", "endpoint", "rest"] → `area:api`)
 
 - **ComplianceMetrics**: Tracking data for branch naming compliance
   - `date`: Metric collection date
