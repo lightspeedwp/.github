@@ -131,6 +131,22 @@ A technical lead on Project A needs to verify that a specification from Project 
 - **No real-time collaboration**: Checklist is asynchronous (author completes it, sends results to reviewer); real-time collaborative review is out of scope for MVP
 - **Dependencies**: Assumes specifications follow a standard structure (user stories, functional requirements, success criteria, assumptions) as defined in CLAUDE.md specification standards
 
+## Clarifications
+
+### Session 2026-09-14
+
+- Q: When a reviewer and author disagree on whether a checklist item passes, what mechanism resolves the disagreement? → A: Escalation to stakeholder/product owner for final decision. Ensures disputes are resolved by business authority, maintaining stakeholder credibility and ownership.
+
+### Conflict Resolution (Updated in Edge Cases)
+
+When disagreements occur on checklist item pass/fail status:
+1. Author and reviewer document their positions with evidence (quoted spec text, dimension rationale)
+2. If consensus cannot be reached after one discussion round, escalate to stakeholder/product owner
+3. Stakeholder/product owner reviews both positions and makes final determination
+4. Resolution is documented in ChecklistResult with notes on the disagreement and decision rationale
+
+This ensures that ambiguous or subjective items are resolved by business authority rather than technical consensus, protecting stakeholder sign-off credibility.
+
 ## References
 
 - Constitution: `.specify/memory/constitution.md` — Specification-First Process principle
