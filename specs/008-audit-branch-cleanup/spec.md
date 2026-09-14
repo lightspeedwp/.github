@@ -13,6 +13,7 @@
 ### Session 2026-09-14
 
 - Q: When a branch is merged to `develop` but not yet merged to `main`, should it be considered safe for deletion? → A: Yes, if merged to ANY base branch (develop or main), consider for deletion. Most permissive state wins; branches are eligible once integrated anywhere.
+- Q: Which commit should determine branch author for bot detection? → A: Use the first commit author on the branch. This most reliably identifies bot-initiated branches; bots typically create initial commits. Avoids adding GitHub API dependency for PR author lookup.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -156,7 +157,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - Merged status is determined by checking if a commit exists in the merge-base history of `develop` or `main` (standard git merge detection)
 - 30 days is a reasonable inactivity threshold; teams can customise via `--inactiveDays` parameter
 - Protected branches are those explicitly configured in GitHub repository settings or hardcoded as `main`, `develop`, `production`
-- Branch authors are resolvable through git commit authorship; bot branches follow naming patterns (dependabot/*, renovate/*, etc.)
+- Branch authors are resolvable through git commit authorship of the first commit on the branch; bot detection uses first commit author (most reliable signal). Bot branches typically created by automation follow naming patterns (dependabot/*, renovate/*, etc.)
 - Repository has sufficient permissions to list all branches and open PRs (standard repository access)
 - GitHub CLI (`gh`) is available in execution environment for PR querying (alternative: use GitHub API)
 - Dry-run is the safe default; users must explicitly opt-in to destructive deletions
