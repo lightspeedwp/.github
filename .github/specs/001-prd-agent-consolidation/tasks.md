@@ -318,11 +318,11 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 - FR-605: Create FAQ and troubleshooting guide based on feedback
 
 - [x] T072 [Phase 6] Create rollout communication plan and materials (`agents/prd-agent/ROLLOUT_PLAN.md`): announcement, adoption timeline, team contact list, success metrics per FR-601 — ✅ 2026-09-12: ROLLOUT_PLAN.md created with 9-week timeline, team contact list, success metrics, communication channels
-- [ ] T073 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — 🟡 IN PROGRESS: Scheduled to occur Weeks 2-3 (post-rollout announcement)
+- [ ] T073 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — 🟡 IN PROGRESS: Scheduled to occur Weeks 2-3 (post-rollout announcement); execution template created (PHASE6_TEAM_BRIEFING_SCHEDULE.md)
 - [x] T074 [Phase 6] Set up metrics collection framework (`agents/prd-agent/ADOPTION_METRICS.md`): define KPIs (usage frequency, user count per team, satisfaction score, issue rate), collection method, reporting cadence per FR-603 — ✅ 2026-09-12: ADOPTION_METRICS.md created with detailed KPI framework, collection schedule, tracking templates
-- [ ] T075 [Phase 6] Monitor team usage and feedback through the full 42-day window per FR-604 — 🟡 IN PROGRESS:
-  - [ ] T075a Record the 30-day interim checkpoint from deduplicated completed-PRD logs, surveys, and team meetings; identify blockers and corrective actions without making the final SC-602 decision
-  - [ ] T075b Complete the 42-day final evaluation using all 6 weeks of deduplicated completed-PRD data, satisfaction results, and blocker evidence; publish the final SC-602/SC-603/SC-604 result
+- [ ] T075 [Phase 6] Monitor team usage and feedback through the full 42-day window per FR-604 — 🟡 IN PROGRESS (execution templates created):
+  - [ ] T075a Record the 30-day interim checkpoint from deduplicated completed-PRD logs, surveys, and team meetings; identify blockers and corrective actions without making the final SC-602 decision (template: PHASE6_MONITORING_TEMPLATE.md)
+  - [ ] T075b Complete the 42-day final evaluation using all 6 weeks of deduplicated completed-PRD data, satisfaction results, and blocker evidence; publish the final SC-602/SC-603/SC-604 result (template: PHASE6_MONITORING_TEMPLATE.md)
 - [x] T076 [Phase 6] Create `agents/prd-agent/FAQ.md` and troubleshooting guide based on Phase 6 feedback; address common questions, known limitations, workarounds per FR-605 — ✅ 2026-09-12: FAQ.md created with 50+ Q&A, provider-specific guidance, troubleshooting sections
 - [ ] T077 [Phase 6] (Blocked on T075b) Update `agents/prd-agent/CHANGELOG.md` with the final 42-day Phase 6 adoption result, metrics, and team feedback summary — ⏳ PENDING: Scheduled after Week 6 metrics collection
 
@@ -344,12 +344,12 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 
 **Status**: BLOCKED ON PHASE 6 (requires adoption metrics for decision) | Priority: P3 (optional, decision-dependent)
 
-- [ ] T078 [Phase 7] (Blocked on T077) Review the final Phase 6 adoption metrics, team feedback, and usage data; synthesize decision memo (`agents/prd-agent/PHASE7_DECISION_MEMO.md`) per FR-701
-- [ ] T079 [Phase 7] (Blocked on T078) Make the Archive, Sync, or Defer decision for `agents/mode-prd.agent.md`; document rationale with sign-off per FR-702
-- [ ] T080 [Phase 7] (Blocked on T079) If decision = **ARCHIVE**: Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/` (new archival structure); update all references in workflows, docs, memory registry per FR-703
-- [ ] T081-Sync [Phase 7] (Blocked on T079) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
-- [ ] T081-Defer [Phase 7] (Blocked on T079) If decision = **DEFER**: Record the rationale, next review date, measurable re-evaluation triggers, and linked follow-up issue in `agents/prd-agent/PHASE7_DECISION.md` per FR-702/FR-705
-- [ ] T082 [Phase 7] (Blocked on T080 OR T081-Sync OR T081-Defer) Document the final Phase 7 outcome, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705; complete after the applicable ARCHIVE, SYNC, or DEFER branch
+- [ ] T078 [Phase 7] (Blocked on T077) Review the final Phase 6 adoption metrics, team feedback, and usage data; synthesize decision memo (`agents/prd-agent/PHASE7_DECISION_MEMO.md`) per FR-701 (template: PHASE7_DECISION_FRAMEWORK.md)
+- [ ] T079 [Phase 7] (Blocked on T078) Make the Archive, Sync, or Defer decision for `agents/mode-prd.agent.md`; document rationale with sign-off per FR-702 (framework: PHASE7_DECISION_FRAMEWORK.md)
+- [ ] T080 [Phase 7] (Blocked on T079) If decision = **ARCHIVE**: Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/` (new archival structure); update all references in workflows, docs, memory registry per FR-703 (execution template: PHASE7_DECISION_FRAMEWORK.md)
+- [ ] T081-Sync [Phase 7] (Blocked on T079) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704 (sync process: PHASE7_DECISION_FRAMEWORK.md)
+- [ ] T081-Defer [Phase 7] (Blocked on T079) If decision = **DEFER**: Record the rationale, next review date, measurable re-evaluation triggers, and linked follow-up issue in `agents/prd-agent/PHASE7_DECISION.md` per FR-702/FR-705 (deferral framework: PHASE7_DECISION_FRAMEWORK.md)
+- [ ] T082 [Phase 7] (Blocked on T080 OR T081-Sync OR T081-Defer) Document the final Phase 7 outcome, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705; complete after the applicable ARCHIVE, SYNC, or DEFER branch (execution template: PHASE7_DECISION_FRAMEWORK.md)
 
 **Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed, or DEFER documented in `agents/prd-agent/PHASE7_DECISION.md` with rationale, re-evaluation criteria, next review date, and a linked follow-up issue; all references updated where applicable; decision documented with sign-off.
 
