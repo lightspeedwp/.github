@@ -62,9 +62,11 @@ jobs:
 
           # For debugging
           echo "Branch: $BRANCH_NAME"
+          echo "Validation Result: $VALIDATION_RESULT"
           echo "Valid: $VALID"
           echo "Errors: $ERRORS"
           echo "Suggested: $SUGGESTED"
+          echo "Exit code from validation script: $?"
 
       - name: Collect validation metrics
         if: always()
