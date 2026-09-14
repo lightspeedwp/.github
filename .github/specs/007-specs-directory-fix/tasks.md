@@ -28,9 +28,9 @@ description: "Task list for fixing specs directory configuration"
 
 **Expected Outcome**: .github/specs/ directory created and ready to receive specs
 
-- [ ] T001 Create `.github/specs/` directory if it doesn't exist
-- [ ] T002 Verify `.github/` directory structure and permissions
-- [ ] T003 Backup existing `/specs/` directory contents for safe migration
+- [x] T001 Create `.github/specs/` directory if it doesn't exist
+- [x] T002 Verify `.github/` directory structure and permissions
+- [x] T003 Backup existing `/specs/` directory contents for safe migration
 
 ---
 
@@ -40,13 +40,13 @@ description: "Task list for fixing specs directory configuration"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete. Speckit scripts must have access to the specs directory configuration before they can be modified to use it.
 
-- [ ] T004 Add `specs_directory` field to `.specify/init-options.json` with value `.github/specs` in `.specify/init-options.json`
-- [ ] T005 Create helper function `read_specs_directory()` in `.specify/scripts/bash/common.sh` to read `specs_directory` from config with fallback default `.github/specs`
-- [ ] T006 Validate JSON schema: `.specify/init-options.json` must parse correctly with new field
-- [ ] T007 Verify common.sh is sourced correctly by create-new-feature.sh and other speckit scripts
-- [ ] T008 Document the `specs_directory` field purpose, default, validation rules, and valid examples in `.github/specs/007-specs-directory-fix/contracts/init-options-schema.md`
+- [x] T004 Add `specs_directory` field to `.specify/init-options.json` with value `.github/specs` in `.specify/init-options.json`
+- [x] T005 Create helper function `read_specs_directory()` in `.specify/scripts/bash/common.sh` to read `specs_directory` from config with fallback default `.github/specs`
+- [x] T006 Validate JSON schema: `.specify/init-options.json` must parse correctly with new field
+- [x] T007 Verify common.sh is sourced correctly by create-new-feature.sh and other speckit scripts
+- [x] T008 Document the `specs_directory` field purpose, default, validation rules, and valid examples in `.github/specs/007-specs-directory-fix/contracts/init-options-schema.md`
 
-**Checkpoint**: Configuration infrastructure ready — scripts can now read specs_directory from config
+**Checkpoint**: Configuration infrastructure ready — scripts can now read specs_directory from config ✅
 
 ---
 
@@ -60,16 +60,16 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for User Story 1
 
-- [ ] T009 [P] [US1] Update `create-new-feature.sh` line 200 to call `read_specs_directory()` helper instead of hardcoding `SPECS_DIR="$REPO_ROOT/specs"` in `.specify/scripts/bash/create-new-feature.sh`
-- [ ] T010 [US1] Verify `create-new-feature.sh` correctly assigns: `SPECS_DIR="$REPO_ROOT/$(read_specs_directory)"` with proper error handling if config read fails in `.specify/scripts/bash/create-new-feature.sh`
-- [ ] T011 [US1] Test `/speckit-specify --dry-run "add user authentication"` outputs SPEC_FILE path under `.github/specs/` in `.specify/scripts/bash/create-new-feature.sh`
-- [ ] T012 [US1] Verify feature numbering continues sequentially (004, 005, 006...) when specs are created in new location in `.specify/scripts/bash/create-new-feature.sh`
-- [ ] T013 [P] [US1] Update `setup-plan.sh` to use configured specs_directory when resolving FEATURE_DIR in `.specify/scripts/bash/setup-plan.sh`
-- [ ] T014 [P] [US1] Update `setup-tasks.sh` to use configured specs_directory when resolving FEATURE_DIR in `.specify/scripts/bash/setup-tasks.sh`
-- [ ] T015 [US1] Test `/speckit-plan` resolves spec location correctly from `.github/specs/` (requires T009-T010 complete) in `.specify/scripts/bash/setup-plan.sh`
-- [ ] T016 [US1] Test `/speckit-tasks` resolves spec location correctly from `.github/specs/` (requires T009-T010 complete) in `.specify/scripts/bash/setup-tasks.sh`
+- [x] T009 [P] [US1] Update `create-new-feature.sh` line 200 to call `read_specs_directory()` helper instead of hardcoding `SPECS_DIR="$REPO_ROOT/specs"` in `.specify/scripts/bash/create-new-feature.sh`
+- [x] T010 [US1] Verify `create-new-feature.sh` correctly assigns: `SPECS_DIR="$REPO_ROOT/$(read_specs_directory)"` with proper error handling if config read fails in `.specify/scripts/bash/create-new-feature.sh`
+- [x] T011 [US1] Test `/speckit-specify --dry-run "add user authentication"` outputs SPEC_FILE path under `.github/specs/` in `.specify/scripts/bash/create-new-feature.sh`
+- [x] T012 [US1] Verify feature numbering continues sequentially (004, 005, 006...) when specs are created in new location in `.specify/scripts/bash/create-new-feature.sh`
+- [x] T013 [P] [US1] Update `setup-plan.sh` to use configured specs_directory when resolving FEATURE_DIR in `.specify/scripts/bash/setup-plan.sh`
+- [x] T014 [P] [US1] Update `setup-tasks.sh` to use configured specs_directory when resolving FEATURE_DIR in `.specify/scripts/bash/setup-tasks.sh`
+- [x] T015 [US1] Test `/speckit-plan` resolves spec location correctly from `.github/specs/` (requires T009-T010 complete) in `.specify/scripts/bash/setup-plan.sh`
+- [x] T016 [US1] Test `/speckit-tasks` resolves spec location correctly from `.github/specs/` (requires T009-T010 complete) in `.specify/scripts/bash/setup-tasks.sh`
 
-**Checkpoint**: Developer workflow fixed — new specs created in `.github/specs/`, all speckit commands resolve paths correctly
+**Checkpoint**: Developer workflow fixed — new specs created in `.github/specs/`, all speckit commands resolve paths correctly ✅
 
 ---
 
@@ -83,14 +83,14 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Update CLAUDE.md Repository Boundaries section to add row: `| Specification files (features, plans, etc.) |`.github/specs/`|` in `./CLAUDE.md`
-- [ ] T018 [P] [US2] Add reference to specs location in CLAUDE.md "Related Files" section linking to `.specify/README.md` or similar in `./CLAUDE.md`
-- [ ] T019 [US2] Verify no other CLAUDE.md sections conflict with or contradict the new specs location in `./CLAUDE.md`
-- [ ] T020 [P] [US2] Update `.specify/` documentation or README (if exists) to reference `.github/specs` as canonical location in `.specify/README.md` or inline comments
-- [ ] T021 [US2] Verify `specs_directory` is documented with valid examples in `.github/specs/007-specs-directory-fix/contracts/init-options-schema.md` without adding comments to `.specify/init-options.json`
-- [ ] T022 [US2] Add comment to `create-new-feature.sh` explaining that specs_directory is configurable and defaults to `.github/specs` in `.specify/scripts/bash/create-new-feature.sh`
+- [x] T017 [US2] Update CLAUDE.md Repository Boundaries section to add row: `| Specification files (features, plans, etc.) |`.github/specs/`|` in `./CLAUDE.md`
+- [x] T018 [P] [US2] Add reference to specs location in CLAUDE.md "Related Files" section linking to `.specify/README.md` or similar in `./CLAUDE.md`
+- [x] T019 [US2] Verify no other CLAUDE.md sections conflict with or contradict the new specs location in `./CLAUDE.md`
+- [x] T020 [P] [US2] Update `.specify/` documentation or README (if exists) to reference `.github/specs` as canonical location in `.specify/README.md` or inline comments
+- [x] T021 [US2] Verify `specs_directory` is documented with valid examples in `.github/specs/007-specs-directory-fix/contracts/init-options-schema.md` without adding comments to `.specify/init-options.json`
+- [x] T022 [US2] Add comment to `create-new-feature.sh` explaining that specs_directory is configurable and defaults to `.github/specs` in `.specify/scripts/bash/create-new-feature.sh`
 
-**Checkpoint**: Documentation aligned — CLAUDE.md and code comments clearly document `.github/specs` as canonical location
+**Checkpoint**: Documentation aligned — CLAUDE.md and code comments clearly document `.github/specs` as canonical location ✅
 
 ---
 
@@ -104,14 +104,14 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for User Story 3
 
-- [ ] T023 [US3] Inventory and recursively compare the complete `specs/` and `.github/specs/` trees, including hidden entries, before migration; record every matching destination path as a potential conflict
-- [ ] T024 [US3] Resolve every conflicting file or directory explicitly, then copy all source entries to `.github/specs/` without allowing unresolved destination content to be overwritten
-- [ ] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
-- [ ] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
-- [ ] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
-- [ ] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/007-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
+- [x] T023 [US3] Inventory and recursively compare the complete `specs/` and `.github/specs/` trees, including hidden entries, before migration; record every matching destination path as a potential conflict
+- [x] T024 [US3] Resolve every conflicting file or directory explicitly, then copy all source entries to `.github/specs/` without allowing unresolved destination content to be overwritten
+- [x] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
+- [x] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
+- [x] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
+- [x] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/007-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
 
-**Checkpoint**: All specs migrated — zero specs in root `specs/`, all specs in `.github/specs/`, all downstream workflows functional
+**Checkpoint**: All specs migrated — zero specs in root `specs/`, all specs in `.github/specs/`, all downstream workflows functional ✅ (Already complete - all specs were already in correct location)
 
 ---
 
@@ -121,14 +121,14 @@ description: "Task list for fixing specs directory configuration"
 
 **Dependency**: All user stories complete (US1, US2, US3)
 
-- [ ] T029 [P] Run full test suite: Verify create-new-feature.sh dry-run creates specs in correct location via `.specify/scripts/bash/create-new-feature.sh --json --dry-run "test migration verification"`
-- [ ] T030 [P] Verify all speckit integration scripts (setup-plan.sh, setup-tasks.sh, check-prerequisites.sh) correctly resolve specs directory from config in `.specify/scripts/bash/`
-- [ ] T031 Code review: Ensure all hardcoded `/specs` or `$REPO_ROOT/specs` paths have been replaced with config-driven logic via grep search for "SPECS_DIR" in `.specify/scripts/bash/`
-- [ ] T032 [P] Security check: Verify `read_specs_directory()` function validates input (no parent directory traversal, no special characters) in `.specify/scripts/bash/common.sh`
-- [ ] T033 Update any project-specific `.specify/` documentation or wiki entries that reference old specs location via docs/ or inline comments
-- [ ] T034 Commit final changes with message explaining completion of all three user stories in git
-- [ ] T035 [P] Final validation: Run /speckit-specify, /speckit-plan, /speckit-tasks on a new feature to verify entire workflow uses .github/specs/ in bash/shell
-- [ ] T036 Verify no residual references to root-level `specs/` directory in CI/CD workflows, GitHub Actions, or automation scripts via grep in `.github/workflows/`
+- [x] T029 [P] Run full test suite: Verify create-new-feature.sh dry-run creates specs in correct location via `.specify/scripts/bash/create-new-feature.sh --json --dry-run "test migration verification"`
+- [x] T030 [P] Verify all speckit integration scripts (setup-plan.sh, setup-tasks.sh, check-prerequisites.sh) correctly resolve specs directory from config in `.specify/scripts/bash/`
+- [x] T031 Code review: Ensure all hardcoded `/specs` or `$REPO_ROOT/specs` paths have been replaced with config-driven logic via grep search for "SPECS_DIR" in `.specify/scripts/bash/`
+- [x] T032 [P] Security check: Verify `read_specs_directory()` function validates input (no parent directory traversal, no special characters) in `.specify/scripts/bash/common.sh`
+- [x] T033 Update any project-specific `.specify/` documentation or wiki entries that reference old specs location via docs/ or inline comments
+- [x] T034 Commit final changes with message explaining completion of all three user stories in git
+- [x] T035 [P] Final validation: Run /speckit-specify, /speckit-plan, /speckit-tasks on a new feature to verify entire workflow uses .github/specs/ in bash/shell
+- [x] T036 Verify no residual references to root-level `specs/` directory in CI/CD workflows, GitHub Actions, or automation scripts via grep in `.github/workflows/`
 
 ---
 
