@@ -36,9 +36,9 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ### Path 1: ARCHIVE (Legacy Agent)
 
-**Condition**: `(Active Teams < 5) OR (Satisfaction Score < 4.0)`
+**Condition**: `[(Active Teams < 5) OR (Satisfaction Score < 4.0)] AND (Critical Blockers == 0)`
 
-**Interpretation**: Adoption is below target OR user satisfaction is insufficient. The legacy agent is not needed as a fallback.
+**Interpretation**: Adoption is below target OR user satisfaction is insufficient, AND there are no unresolved critical issues. The legacy agent is not needed as a fallback.
 
 **Rationale**:
 - Consolidated agent did not achieve adoption threshold (≥5 teams) → consolidation not recommended for all teams
@@ -101,9 +101,9 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ### Path 3: DEFER (Inconclusive Data)
 
-**Condition**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Unresolved Critical Blockers)`
+**Condition**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Critical Blockers > 0) OR [(Active Teams < 5 OR Satisfaction Score < 4.0) AND (Critical Blockers > 0)]`
 
-**Interpretation**: Metrics are mixed or inconclusive (adoption good but satisfaction low, or vice versa; OR critical blockers exist that make decision premature). Defer decision pending further investigation.
+**Interpretation**: Metrics are mixed or inconclusive (adoption good but satisfaction low, or vice versa), OR critical blockers exist that make decision premature. Unresolved critical blockers take precedence over Archive/Sync decisions. Defer decision pending further investigation.
 
 **Rationale**:
 - Mixed signals indicate the consolidated agent needs refinement before deciding legacy agent fate

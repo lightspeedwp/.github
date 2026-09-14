@@ -201,9 +201,9 @@
 - Critical issues: ____ (vs. SC-604 target: 0)
 
 **Decision Matrix** (per PHASE7_DECISION_CRITERIA.md):
-- [ ] Archive: <5 teams OR <4.0 satisfaction (move `agents/mode-prd.agent.md` to archive)
-- [ ] Sync: ≥5 teams AND ≥4.0 satisfaction (update `agents/mode-prd.agent.md` prompt to match portable version)
-- [ ] Defer: Inconclusive data (defer decision to future assessment)
+- [ ] Archive: (<5 teams OR <4.0 satisfaction) AND 0 critical blockers (move `agents/mode-prd.agent.md` to archive)
+- [ ] Sync: ≥5 teams AND ≥4.0 satisfaction AND 0 critical blockers (update `agents/mode-prd.agent.md` prompt to match portable version)
+- [ ] Defer: Inconclusive data OR unresolved critical blockers (defer decision to future assessment)
 
 **Rationale**: ____
 

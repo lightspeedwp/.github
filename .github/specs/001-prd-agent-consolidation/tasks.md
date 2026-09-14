@@ -338,10 +338,11 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Status**: BLOCKED ON PHASE 6 (requires adoption metrics for decision) | Priority: P3 (optional, decision-dependent)
 
 - [ ] T076 [Phase 7] (Blocked on T075) Review Phase 6 adoption metrics, team feedback, and usage data; synthesize decision memo (`agents/prd-agent/PHASE7_DECISION_MEMO.md`) per FR-701
-- [ ] T077 [Phase 7] (Blocked on T076) Make decision (Archive or Sync) on fate of `agents/mode-prd.agent.md`; document decision rationale with sign-off per FR-702
+- [ ] T077 [Phase 7] (Blocked on T076) Make decision (Archive, Sync, or Defer) on fate of `agents/mode-prd.agent.md`; document decision rationale with sign-off per FR-702; route to T078/T079/T080-Defer per decision matrix
 - [ ] T078 [Phase 7] (Blocked on T077) If decision = **ARCHIVE**: Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/` (new archival structure); update all references in workflows, docs, memory registry per FR-703
 - [ ] T079 [Phase 7] (Blocked on T077) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
-- [ ] T080 [Phase 7] (Blocked on T078 OR T079) Document final Phase 7 decision, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705 (unblocked after either ARCHIVE branch (T078) or SYNC branch (T079) completes)
+- [ ] T080 [Phase 7] (Blocked on T078 OR T079 OR T080-Defer) Document final Phase 7 decision, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705 (unblocked after ARCHIVE (T078), SYNC (T079), or DEFER (T080-Defer) path completes)
+- [ ] T080-Defer [Phase 7] (Blocked on T077) **If decision = DEFER**: Document decision rationale, re-assessment criteria, timeline, and action items in `agents/prd-agent/PHASE7_DECISION.md`; create follow-up issue `[PHASE-7-DEFER]` with due date per FR-702
 
 **Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed; all references updated; decision documented with sign-off.
 
