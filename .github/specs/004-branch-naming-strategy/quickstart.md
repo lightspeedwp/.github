@@ -18,25 +18,35 @@ Examples:
 ❌ my_feature                           (WRONG: missing type/)
 ```
 
-### 34 Authorized Types
+### 38 Authorized Types (Constitution Section VIII)
 
-| Type | Purpose | Example |
-|------|---------|---------|
-| `feat` | New feature | `feat/dark-mode-support` |
-| `fix` | Bug fix | `fix/auth-timeout-mobile` |
-| `hotfix` | Urgent production fix | `hotfix/critical-security-patch` |
-| `security` | Security vulnerability | `security/xss-vulnerability` |
-| `perf` | Performance improvement | `perf/query-optimization` |
-| `refactor` | Code refactoring | `refactor/api-response-structure` |
-| `test` | Tests/test infrastructure | `test/integration-tests` |
-| `docs` | Documentation | `docs/branching-guide` |
-| `ci` | CI/CD pipelines | `ci/github-actions-workflow` |
-| `chore`, `task`, `build`, `deps`, etc. | Maintenance tasks | See [spec.md](spec.md) |
+**Feature Types**: `feat`, `task`, `epic`
+**Bugfix Types**: `fix`, `hotfix`, `revert`
+**Quality Types**: `refactor`, `chore`, `audit`, `test`, `qa`, `uat`
+**Documentation**: `doc`, `docs`, `content`, `seo`
+**Infrastructure**: `ci`, `build`, `ops`, `automation`
+**Design**: `design`, `ds`, `a11y`, `ux`
+**Technical**: `api`, `schema`, `config`, `migrate`, `telemetry`
+**Dependencies**: `deps`
+**Speciality**: `security`, `perf`, `proto`, `research`, `codex`, `aiops`, `i18n`, `release`
+
+See [contracts/branch-naming.contract.md](contracts/branch-naming.contract.md) for complete mapping.
 
 ### Forbidden Prefixes (ABSOLUTE)
 - ❌ `claude/` — Reserved for Claude Code internal sessions
 - ❌ `copilot/` — Reserved for GitHub Copilot
 - ❌ `openai/` — Reserved for OpenAI integration
+
+### Branch Exemptions (No Validation Required)
+
+The following branches bypass naming pattern validation:
+
+| Branch | Reason |
+|--------|--------|
+| `main` | Production release branch |
+| `develop` | Development integration branch |
+| `dependabot/*` | Automated dependency updates (Dependabot) |
+| `renovate/*` | Automated dependency updates (Renovate) |
 
 ---
 
