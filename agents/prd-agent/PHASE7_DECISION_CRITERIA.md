@@ -34,11 +34,34 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ## Decision Matrix
 
+### Prerequisite Gate: Completeness & Conclusiveness Check
+
+**DEFER evaluation runs first, before ARCHIVE or SYNC assessment.**
+
+Before proceeding to ARCHIVE or SYNC decision paths, verify that all three Phase 6 metrics are **complete and conclusive**:
+
+- **Complete**: All three KPIs (Active Teams, Satisfaction Score, Critical Blockers) have final measured values recorded by T075 and verified by T077
+- **Conclusive**: Each metric value is unambiguous and actionable (e.g., not "estimated", "pending additional data", or "inconclusive")
+
+**If any metric is incomplete or inconclusive at the T078 review gate:**
+
+- **Decision**: Select **DEFER** (Path 3) immediately
+- **Rationale**: Do not proceed to ARCHIVE or SYNC until all data is final (per CHK020/CHK021 audit requirements)
+- **Next Steps**: Follow DEFER path actions; schedule Phase 7 re-assessment with explicit data-completeness targets
+
+**If all metrics are complete and conclusive:**
+
+- Proceed to ARCHIVE (Path 1) or SYNC (Path 2) evaluation below
+
+---
+
 ### Path 1: ARCHIVE (Legacy Agent)
+
+**Evaluated Only If**: All metrics are complete and conclusive (prerequisite gate passes)
 
 **Condition**: `(Active Teams < 5) AND (Satisfaction Score < 4.0) AND (Critical Blockers == 0)`
 
-**Interpretation**: Adoption and user satisfaction are both below target, and there are no unresolved critical issues. The legacy agent is not needed as a fallback.
+**Interpretation**: All metrics are complete and conclusive. Adoption and user satisfaction are both below target, and there are no unresolved critical issues. The legacy agent is not needed as a fallback.
 
 **Rationale**:
 
@@ -68,9 +91,11 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ### Path 2: SYNC (Portable & Legacy Agent in Sync)
 
+**Evaluated Only If**: All metrics are complete and conclusive (prerequisite gate passes)
+
 **Condition**: `(Active Teams >= 5) AND (Satisfaction Score >= 4.0) AND (Critical Blockers == 0)`
 
-**Interpretation**: Adoption is successful, users are satisfied, and there are no critical issues. The legacy agent should be kept in sync with the portable version.
+**Interpretation**: All metrics are complete and conclusive. Adoption is successful, users are satisfied, and there are no critical issues. The legacy agent should be kept in sync with the portable version.
 
 **Rationale**:
 
@@ -106,9 +131,19 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ### Path 3: DEFER (Inconclusive Data)
 
-**Condition**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Critical Blockers > 0) OR [(Active Teams < 5 OR Satisfaction Score < 4.0) AND (Critical Blockers > 0)]`
+**Evaluated First**: DEFER check runs as prerequisite gate before ARCHIVE or SYNC assessment
 
-**Interpretation**: Metrics are mixed or inconclusive (adoption good but satisfaction low, or vice versa), OR critical blockers exist that make decision premature. Unresolved critical blockers take precedence over Archive/Sync decisions. Defer decision pending further investigation.
+**Gate Condition (Completeness/Conclusiveness)**: `(Any metric is incomplete OR inconclusive)`
+
+**Content Condition (Mixed Metrics)**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Critical Blockers > 0)`
+
+**When DEFER Applies**:
+
+1. **Data incompleteness**: Any of the three metrics (Active Teams, Satisfaction Score, Critical Blockers) lacks final measured values or is ambiguous
+2. **Mixed signals**: All metrics are complete, but adoption is good while satisfaction is low (or vice versa), indicating the consolidated agent needs refinement
+3. **Critical blockers present**: Unresolved critical issues take precedence; decision is deferred until they are resolved
+
+**Interpretation**: Metrics are incomplete, inconclusive, or mixed (adoption good but satisfaction low, or vice versa). Critical blockers take precedence over ARCHIVE/SYNC decisions. Defer decision pending further investigation and metric completion/improvement.
 
 **Rationale**:
 
@@ -145,21 +180,27 @@ This document defines the decision criteria, success thresholds, and execution r
 ### Before Applying Decision Matrix (T077-T078 Prerequisites)
 
 1. **Collect Final Phase 6 Metrics** (T077 Task — per PHASE6_EXECUTION_LOG.md Week 6):
-   - [ ] Final active team count: ____ (target: ≥5)
-   - [ ] Average satisfaction score: ____ / 5.0 (target: ≥4.0)
-   - [ ] Critical blocker count: ____ (target: 0)
+   - [ ] Final active team count: ____ (target: ≥5) — **Mark COMPLETE or INCONCLUSIVE**
+   - [ ] Average satisfaction score: ____ / 5.0 (target: ≥4.0) — **Mark COMPLETE or INCONCLUSIVE**
+   - [ ] Critical blocker count: ____ (target: 0) — **Mark COMPLETE or INCONCLUSIVE**
 
-2. **Review Phase 6 Adoption Data** (T078 Task):
+2. **Verify Metric Completeness & Conclusiveness** (T078 Task — gate check):
+   - [ ] Are ALL three metrics marked COMPLETE with final values?
+   - [ ] Are all values unambiguous and actionable (not estimated, pending, or inconclusive)?
+   - **If NO to either**: Select DEFER path immediately; document as incomplete metric issue
+   - **If YES to both**: Proceed to review and synthesis steps below
+
+3. **Review Phase 6 Adoption Data** (T078 Task — after completeness verified):
    - [ ] Read PHASE6_EXECUTION_LOG.md Week 6 summary
    - [ ] Review ADOPTION_METRICS.md final KPI results
    - [ ] Analyze user feedback from satisfaction survey
    - [ ] Compile decision memo: `agents/prd-agent/PHASE7_DECISION_MEMO.md`
 
-3. **Synthesize Decision Memo** (T078 Task):
+4. **Synthesize Decision Memo** (T078 Task):
    - What worked well in Phase 6?
    - What challenges did teams encounter?
    - How does consolidated agent compare to pre-consolidation baseline?
-   - Recommendation: ARCHIVE / SYNC / DEFER?
+   - Recommendation: ARCHIVE / SYNC / DEFER? (primary gate: are metrics complete/conclusive?)
 
 ### After Decision Application (T079-T082 Execution)
 
