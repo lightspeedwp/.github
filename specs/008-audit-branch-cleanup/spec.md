@@ -14,6 +14,7 @@
 
 - Q: When a branch is merged to `develop` but not yet merged to `main`, should it be considered safe for deletion? → A: Yes, if merged to ANY base branch (develop or main), consider for deletion. Most permissive state wins; branches are eligible once integrated anywhere.
 - Q: Which commit should determine branch author for bot detection? → A: Use the first commit author on the branch. This most reliably identifies bot-initiated branches; bots typically create initial commits. Avoids adding GitHub API dependency for PR author lookup.
+- Q: What approval process for automated deletion (US2 & US5)? → A: Draft PR for batch approval. Script creates draft PR showing all deletion candidates; human reviews diff, approves, and merges to execute. Provides audit trail, requires human gate, aligns with standard GitHub workflows.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -96,8 +97,8 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 **Acceptance Scenarios**:
 
 1. **Given** a scheduled workflow trigger (e.g., first Monday of each month), **When** it fires, **Then** it runs the branch audit and uploads a report
-2. **Given** branches requiring discussion, **When** the workflow completes, **Then** it can optionally create a GitHub issue summarising DISCUSS branches with links for team review
-3. **Given** deletion candidates, **When** workflow completes, **Then** it can optionally create a draft PR that deletes merged branches (requiring approval before merge)
+2. **Given** branches requiring discussion, **When** the workflow completes, **Then** it creates a GitHub issue summarising DISCUSS branches with links for team review
+3. **Given** deletion candidates meeting all safety criteria, **When** workflow completes, **Then** it creates a draft PR listing all safe-to-delete branches; PR requires human review and approval before merge executes deletions
 
 ---
 
@@ -122,8 +123,8 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - **FR-007**: System MUST support custom exclusion patterns (regex-based) to preserve branches matching user-defined rules
 - **FR-008**: System MUST generate audit reports in both Markdown (human-readable) and JSON (machine-readable) formats
 - **FR-009**: System MUST include detailed metadata in reports: branch name, type, author, last commit date, merge status, associated PR (if any)
-- **FR-010**: System MUST safely delete selected branches with no data loss risk (verify merge before deletion, handle git errors gracefully)
-- **FR-011**: System MUST support dry-run mode (preview deletions without executing) as the default safe behaviour
+- **FR-010**: System MUST safely delete selected branches with no data loss risk (verify merge before deletion, handle git errors gracefully). Deletion via draft PR requiring human approval: script generates PR with deletion candidates listed; PR must be approved and merged to execute deletions.
+- **FR-011**: System MUST support dry-run mode (preview deletions without executing) as the default safe behaviour for the cleanup script; draft PR workflow provides batch approval gate before any execution
 - **FR-012**: System MUST provide clear documentation on audit results, deletion criteria, and manual review process for edge cases
 - **FR-013**: Cleanup scripts MUST be maintained in `scripts/cleanup-branches.js` with clear usage examples and option reference
 - **FR-014**: Cleanup documentation MUST be current in `docs/BRANCH_CLEANUP.md` with all command examples, troubleshooting, and decision matrices
@@ -149,7 +150,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - **SC-004**: Audit report generated in <5 seconds for repositories with 500+ branches (performance acceptable for automation)
 - **SC-005**: Documentation and code examples are current and tested (all example commands execute successfully without errors)
 - **SC-006**: Team confidence in cleanup process increases through clear DISCUSS categorisation (all edge cases flagged for review, zero surprise deletions)
-- **SC-007**: Cleanup workflow successfully runs on schedule and produces artefacts without manual intervention
+- **SC-007**: Cleanup workflow successfully runs on schedule and produces artefacts (audit report, draft PR for deletion candidates). Deletion execution requires human approval via draft PR merge (not fully automated)
 - **SC-008**: Naming validation enforces all 30+ defined branch types and correctly rejects 3 forbidden prefixes
 
 ## Assumptions
