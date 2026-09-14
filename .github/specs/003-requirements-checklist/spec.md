@@ -99,6 +99,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 - **FR-007**: System MUST enable integration with specification workflows (e.g., as a pre-commit check, as an automated PR review gate, as an async stakeholder sign-off tool)
 - **FR-008**: System MUST track checklist results over time (e.g., which dimensions improved across iterations, which specs had the most rework cycles); templates are versioned to support re-running historical specs against current checklists for improvement measurement
 - **FR-009**: System MUST enforce access control on checklist results: results are tied to reviewer identity, and access is role-based (author, reviewer, stakeholder). Optional audit logging tracks who accessed/modified results per deployment requirements.
+- **FR-010**: System MUST provide graceful error handling: when a specification is malformed or checklist is incomplete, continue validation on valid sections, flag errors prominently, provide partial results, and summarize which dimensions could not be fully evaluated. Do not fail silently or stop execution.
 
 ### Key Entities
 
