@@ -58,15 +58,30 @@ jobs:
           BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
           echo "🔍 Validating: $BRANCH_NAME"
 
-          # Run validation with exit code check
-          npm run validate:branch-name -- --branch "$BRANCH_NAME" --json
+          # Create temporary files for output
+          TEMP_STDOUT=$(mktemp)
+          TEMP_STDERR=$(mktemp)
+
+          # Run validation, capturing both stdout and stderr
+          npm run validate:branch-name -- --branch "$BRANCH_NAME" --json > "$TEMP_STDOUT" 2> "$TEMP_STDERR"
           EXIT_CODE=$?
 
-          if [ $EXIT_CODE -eq 0 ]; then
-            echo "valid=true" >> $GITHUB_OUTPUT
-          else
-            echo "valid=false" >> $GITHUB_OUTPUT
+          # Display outputs for debugging
+          echo "--- STDOUT ---"
+          cat "$TEMP_STDOUT"
+          echo "--- STDERR ---"
+          cat "$TEMP_STDERR"
+          echo "--- EXIT CODE: $EXIT_CODE ---"
+
+          # Parse JSON output if available
+          if [ -s "$TEMP_STDOUT" ]; then
+            VALID=$(grep -o '"valid":[^,}]*' "$TEMP_STDOUT" | cut -d':' -f2 | tr -d ' ')
+            echo "Parsed valid: $VALID"
+            echo "valid=$VALID" >> $GITHUB_OUTPUT
           fi
+
+          # Clean up
+          rm -f "$TEMP_STDOUT" "$TEMP_STDERR"
 
           exit $EXIT_CODE
 
