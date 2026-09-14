@@ -66,6 +66,44 @@ jobs:
           echo "Errors: $ERRORS"
           echo "Suggested: $SUGGESTED"
 
+      - name: Collect validation metrics
+        if: always()
+        run: |
+          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
+          VALID="${{ steps.validate.outputs.valid }}"
+          ERRORS="${{ steps.validate.outputs.errors }}"
+          TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
+          # Create metrics JSON
+          METRICS="{
+            \"timestamp\": \"$TIMESTAMP\",
+            \"branch_name\": \"$BRANCH_NAME\",
+            \"valid\": $VALID,
+            \"errors\": \"$ERRORS\",
+            \"actor\": \"$GITHUB_ACTOR\",
+            \"event\": \"$GITHUB_EVENT_NAME\",
+            \"ref\": \"$GITHUB_REF\",
+            \"sha\": \"$GITHUB_SHA\"
+          }"
+
+          # Create metrics directory
+          mkdir -p validation-metrics
+
+          # Write metric to file with timestamp
+          FILENAME="validation-metrics/$(date +'%Y%m%d-%H%M%S')-$GITHUB_RUN_ID.json"
+          echo "$METRICS" > "$FILENAME"
+
+          echo "Metrics collected: $FILENAME"
+          cat "$FILENAME"
+
+      - name: Upload metrics artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-validation-metrics
+          path: validation-metrics/
+          retention-days: 30
+
       - name: Set job status based on validation
         if: always()
         run: |
