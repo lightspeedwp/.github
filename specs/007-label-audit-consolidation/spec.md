@@ -128,7 +128,7 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 - **SC-001**: Audit report identifies all missing labels (those in GitHub but not in canonical file) with 100% accuracy
 - **SC-002**: Audit report identifies all label mismatches (different names/colors between files) with 100% accuracy
 - **SC-003**: All 25 type labels from `issue-types.yml` are verified as present and correct in canonical file with no changes recommended
-- **SC-004**: Audit report provides clear recommendations for consolidating 5-10 duplicate/overlapping labels (if duplicates exist)
+- **SC-004**: Audit report identifies ALL duplicate/overlapping labels across families, ranked by consolidation impact and usage frequency
 - **SC-005**: All 11 archived workflows are analyzed with documented findings (purpose, issues, recommendations) for each
 - **SC-006**: Audit identifies 0 (zero) discrepancies between canonical `labels.yml` and its documented purpose as "single source of truth"
 - **SC-007**: Audit creates a prioritized roadmap for label family expansion, cleanup, and workflow restoration
@@ -159,3 +159,9 @@ This specification results in a **comprehensive audit report** documenting:
 6. Documented evidence for all findings (with file/line references)
 
 The audit itself makes no changes to the production label configuration. It serves as the foundation for a future consolidation and workflow restoration task.
+
+## Clarifications
+
+### Session 2026-09-14
+
+- Q: Should the audit identify and consolidate exactly 5-10 duplicate labels, or is that range just an estimate? → A: Find ALL possible duplicate/overlapping labels and report them ranked by consolidation impact. This gives the governance team complete visibility rather than artificially limiting analysis.

@@ -51,7 +51,9 @@
 
 ### Clarification Notes
 
-None. All requirements are sufficiently detailed and unambiguous.
+**Post-specification clarification (2026-09-14)**: SC-004 updated to clarify that ALL duplicate/overlapping labels should be identified and ranked by impact, rather than limiting to 5-10. This improves governance team visibility and decision-making without changing the core audit scope.
+
+**Status**: ✅ Clarification integrated into spec. All requirements remain sufficiently detailed and unambiguous.
 
 ### Assumptions Clarity
 
