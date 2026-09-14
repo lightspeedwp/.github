@@ -160,7 +160,7 @@ See [Troubleshooting: Agent Won't Load](#agent-wont-load).
 
 ### Do I need to update my existing workflows?
 
-**Short Answer**: Not necessarily. If you're already using the pre-consolidation PRD agent, the consolidated version is backward-compatible with the same workflow patterns.
+**Short Answer**: Most workflows continue without changes, but verify skill-routing mappings for custom identifiers.
 
 **Changes to Expect**:
 
@@ -169,7 +169,13 @@ See [Troubleshooting: Agent Won't Load](#agent-wont-load).
 - Improved response quality (100% test coverage means higher reliability)
 - Better error handling (consolidated skills route more intelligently)
 
-**No Migration Required**: Existing PRD workflows will continue to work. The consolidated agent is a drop-in replacement with better quality and maintenance.
+**Skill Routing Mappings** (verify these continue working):
+
+- `prd_create` → consolidated PRD creation skill
+- `prd_validate` → consolidated PRD validation skill
+- `sprint_planner` → consolidated sprint planning skill
+
+**Migration Guidance**: If your workflows reference these identifiers explicitly, the consolidated agent preserves these mappings. If you use the agent through high-level workflows without explicit skill calls, no changes needed. Review your workflow integration points if you have custom orchestration.
 
 ---
 
@@ -606,6 +612,21 @@ All documents are located in `agents/prd-agent/` folder.
 ---
 
 **Still have questions?** Open a GitHub issue or post in `#product-planning` Slack. We're here to help! 🚀
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

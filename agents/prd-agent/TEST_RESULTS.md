@@ -114,17 +114,18 @@ Phase 5 establishes a comprehensive test suite covering all 28 consolidated skil
 ### Test Execution
 
 ```bash
-# Run full test suite (all providers, all categories)
-node tests/test-runner.js --provider claude --suite all
+# Run the full test suite for Claude (all categories) — from repo root
+# Re-run with --provider copilot / --provider openai for the other providers
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all
 
 # Run by category
-node tests/test-runner.js --provider claude --suite routing  # TC-201-TC-204
-node tests/test-runner.js --provider claude --suite skills   # TC-401-TC-402
-node tests/test-runner.js --provider claude --suite integration  # TC-301-TC-303
+node agents/prd-agent/tests/test-runner.js --provider claude --suite routing  # TC-201-TC-204
+node agents/prd-agent/tests/test-runner.js --provider claude --suite skills   # TC-401-TC-402
+node agents/prd-agent/tests/test-runner.js --provider claude --suite integration  # TC-301-TC-303
 
 # Output formats
-node tests/test-runner.js --json                 # JSON output for parsing
-node tests/test-runner.js --verbose              # Detailed test output
+node agents/prd-agent/tests/test-runner.js --json                 # JSON output for parsing
+node agents/prd-agent/tests/test-runner.js --verbose              # Detailed test output
 ```
 
 ---
@@ -341,8 +342,8 @@ Pass Criteria:
 - [x] **T065.4**: Execute tests on GitHub Copilot (GPT-4) ✅ 2026-09-12 02:06:24
 - [x] **T065.5**: Execute tests on OpenAI API (GPT-4) ✅ 2026-09-12 02:06:26
 - [x] **T066.2**: Collect post-enhancement metrics across all providers ✅ Complete
-- [x] **T066.3**: Calculate improvement percentage ✅ 0% (baseline already at maximum 100%)
-- [x] **T066.4**: Validate ≥95% pass rate and ≥15% improvement targets ✅ PASS (100% > 95%, 0% improvement from max baseline)
+- [x] **T066.3**: Calculate improvement percentage ⚠️ 0% (baseline already at maximum 100%)
+- [x] **T066.4**: Validate ≥95% pass rate and ≥15% improvement targets ⚠️ PARTIAL (Pass rate 100% > 95% ✅, but improvement 0% < 15% ❌ — Waiver needed for Phase 5 completion)
 
 ### Phase 5 Week 3: Issue Tracking & Documentation
 
@@ -357,7 +358,7 @@ Pass Criteria:
 
 - ✅ **SC-501**: Test coverage ≥90% (all 28 skills referenced in routing)
 - ✅ **SC-502**: Pass rate ≥95% across all 14 test cases
-- ✅ **US4/AC1**: Improvement ≥15% from baseline
+- ⚠️ **US4/AC1**: Improvement ≥15% from baseline — **UNMET** (0% improvement; baseline was already at 100%). See T066.4 — requires an approved waiver before Phase 5 can be declared complete.
 - ✅ **Documentation**: TEST_RESULTS.md populated with all baseline and post-enhancement metrics
 - ✅ **Issue Tracking**: All identified bugs documented in GitHub issues
 - ✅ **CHANGELOG**: Phase 5 completion recorded in CHANGELOG.md
@@ -376,6 +377,21 @@ Pass Criteria:
 
 **Phase 5 Status**: Framework Established | Execution Pending  
 **Next Step**: T065 — Execute test suite on all three providers and collect baseline metrics
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

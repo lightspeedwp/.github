@@ -197,7 +197,9 @@ REPO_ROOT=$(get_repo_root) || exit 1
 
 cd "$REPO_ROOT"
 
-SPECS_DIR="$REPO_ROOT/specs"
+# Resolve specs directory from configuration (.specify/init-options.json) with fallback to .github/specs
+# This allows customization of spec location while maintaining consistency across all speckit commands
+SPECS_DIR="$REPO_ROOT/$(read_specs_directory "$REPO_ROOT")"
 if [ "$DRY_RUN" != true ]; then
     mkdir -p "$SPECS_DIR"
 fi
