@@ -16,7 +16,8 @@
     "test:validate": "jest --testPathPattern=entryValidation",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "validate:branch-name": "node ../../.validate-branch-name.js"
+    "validate:branch-name": "node ../../.validate-branch-name.js",
+    "validate:changelog": "node changelog-validator.js validate --json"
   },
   "keywords": [
     "changelog",
