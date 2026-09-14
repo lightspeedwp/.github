@@ -1,0 +1,147 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Branch Audit Report",
+  "description": "Machine-readable output of branch audit with categorisation metadata",
+  "type": "object",
+  "required": ["timestamp", "repository", "summary", "categories"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 timestamp of audit execution"
+    },
+    "repository": {
+      "type": "string",
+      "description": "Repository identifier (owner/repo)"
+    },
+    "branch_count": {
+      "type": "integer",
+      "description": "Total number of branches audited"
+    },
+    "summary": {
+      "type": "object",
+      "required": ["keep_count", "delete_count", "discuss_count"],
+      "properties": {
+        "keep_count": {
+          "type": "integer",
+          "description": "Number of branches to keep"
+        },
+        "delete_count": {
+          "type": "integer",
+          "description": "Number of branches safe to delete"
+        },
+        "discuss_count": {
+          "type": "integer",
+          "description": "Number of branches requiring discussion"
+        }
+      }
+    },
+    "categories": {
+      "type": "object",
+      "required": ["keep", "delete", "discuss"],
+      "properties": {
+        "keep": {
+          "type": "object",
+          "description": "Branches to preserve",
+          "properties": {
+            "protected": {
+              "type": "array",
+              "description": "Protected branches (main, develop, etc.)",
+              "items": {
+                "type": "object",
+                "required": ["name", "reason"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "reason": { "type": "string", "enum": ["protected_branch"] }
+                }
+              }
+            },
+            "active_pr": {
+              "type": "array",
+              "description": "Branches with open pull requests",
+              "items": {
+                "type": "object",
+                "required": ["name", "pr_number"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "pr_number": { "type": "integer" },
+                  "pr_status": { "type": "string", "enum": ["open", "draft"] }
+                }
+              }
+            },
+            "recent": {
+              "type": "array",
+              "description": "Recently active branches (<30 days)",
+              "items": {
+                "type": "object",
+                "required": ["name", "age_days"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "age_days": { "type": "integer" },
+                  "last_commit_date": { "type": "string", "format": "date-time" }
+                }
+              }
+            },
+            "excluded": {
+              "type": "array",
+              "description": "Branches matching exclusion patterns",
+              "items": {
+                "type": "object",
+                "required": ["name", "pattern"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "pattern": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "type": "array",
+          "description": "Branches safe to delete (merged, stale, no PR)",
+          "items": {
+            "type": "object",
+            "required": ["name", "merge_status", "age_days"],
+            "properties": {
+              "name": { "type": "string" },
+              "type": { "type": "string", "description": "Branch prefix (feat, fix, etc.)" },
+              "merge_status": { "type": "string", "enum": ["merged_to_develop", "merged_to_main"] },
+              "age_days": { "type": "integer" },
+              "last_commit_date": { "type": "string", "format": "date-time" },
+              "merge_commit_sha": { "type": "string" },
+              "author": { "type": "string" }
+            }
+          }
+        },
+        "discuss": {
+          "type": "array",
+          "description": "Branches requiring manual review",
+          "items": {
+            "type": "object",
+            "required": ["name", "reason"],
+            "properties": {
+              "name": { "type": "string" },
+              "type": { "type": "string" },
+              "reason": {
+                "type": "string",
+                "enum": ["naming_violation", "unmerged_stale", "orphaned", "excluded_policy", "unclear_status"]
+              },
+              "age_days": { "type": "integer" },
+              "merge_status": { "type": "string" },
+              "recommendation": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "description": "Audit execution metadata",
+      "properties": {
+        "runner_environment": { "type": "string" },
+        "script_version": { "type": "string" },
+        "parameters": { "type": "object" }
+      }
+    }
+  }
+}

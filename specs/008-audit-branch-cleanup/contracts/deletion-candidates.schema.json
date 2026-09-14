@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deletion Candidates List",
+  "description": "Filtered list of branches verified safe to delete (all safety checks passed)",
+  "type": "object",
+  "required": ["timestamp", "repository", "candidates"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO8601 timestamp of candidate generation"
+    },
+    "repository": {
+      "type": "string",
+      "description": "Repository identifier (owner/repo)"
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total_candidates": { "type": "integer" },
+        "verified_safe": { "type": "integer" },
+        "verification_failed": { "type": "integer" },
+        "estimated_storage_freed_mb": { "type": "number" }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "description": "Branches safe to delete",
+      "items": {
+        "type": "object",
+        "required": ["name", "merge_status", "age_days", "verification_passed"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full branch name"
+          },
+          "type": {
+            "type": "string",
+            "description": "Branch prefix (feat, fix, docs, etc.)"
+          },
+          "merge_status": {
+            "type": "string",
+            "enum": ["merged_to_develop", "merged_to_main"],
+            "description": "Which base branch contains this merge"
+          },
+          "merge_commit_sha": {
+            "type": "string",
+            "description": "SHA of merge commit for reference"
+          },
+          "merge_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When branch was merged"
+          },
+          "age_days": {
+            "type": "integer",
+            "description": "Days since last commit"
+          },
+          "last_commit_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of last commit on branch"
+          },
+          "author": {
+            "type": "string",
+            "description": "Author of last commit"
+          },
+          "verification_passed": {
+            "type": "boolean",
+            "description": "All safety checks completed successfully"
+          },
+          "verification_checks": {
+            "type": "object",
+            "properties": {
+              "branch_exists": { "type": "boolean" },
+              "is_merged": { "type": "boolean" },
+              "no_open_pr": { "type": "boolean" },
+              "not_protected": { "type": "boolean" },
+              "valid_name": { "type": "boolean" },
+              "meets_age_threshold": { "type": "boolean" },
+              "not_excluded": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "description": "Deletion verification execution metadata",
+      "properties": {
+        "inactivity_threshold_days": { "type": "integer" },
+        "protected_branches": { "type": "array", "items": { "type": "string" } },
+        "exclusion_patterns": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
