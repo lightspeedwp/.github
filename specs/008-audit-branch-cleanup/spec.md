@@ -8,6 +8,12 @@
 
 **Input**: Audit and refactor the GitHub branch cleanup script, documentation, prompts, workflows, and related agents/skills. Currently 300+ branches in `.github` repo (too many). Need to identify safe-to-delete branches, branches needing discussion, and improve cleanup automation.
 
+## Clarifications
+
+### Session 2026-09-14
+
+- Q: When a branch is merged to `develop` but not yet merged to `main`, should it be considered safe for deletion? → A: Yes, if merged to ANY base branch (develop or main), consider for deletion. Most permissive state wins; branches are eligible once integrated anywhere.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Audit Current Branch State (Priority: P1)
@@ -97,7 +103,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 ### Edge Cases
 
 - What happens when a branch is deleted between audit and cleanup execution? (Script should handle gracefully with "already deleted" message)
-- How are branches with mixed merge states handled (merged to `develop` but not `main`)? (Should respect most permissive state — if merged anywhere, consider for deletion)
+- How are branches with mixed merge states handled (merged to `develop` but not `main`)? (Resolved via Clarification: if merged anywhere, consider for deletion. Most permissive state wins — branch is eligible once integrated to ANY base)
 - What about branches created immediately after audit started that are already merged? (They won't be in audit, but that's acceptable — next audit will capture)
 - How are branches in protected branch patterns handled when they're legitimately stale? (Never delete, document in report as "protected pattern")
 - What if repository has custom branch exclusion rules? (Script should support configurable exclude patterns)
@@ -107,7 +113,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 ### Functional Requirements
 
 - **FR-001**: System MUST audit all branches in repository and categorise each as KEEP, DELETE, or DISCUSS with supporting metadata
-- **FR-002**: System MUST identify branches fully merged to `develop` or `main` by examining merge status through git history
+- **FR-002**: System MUST identify branches fully merged to ANY base branch (`develop` or `main`) by examining merge status through git history; a branch is considered merged if its commit appears in the merge-base history of either base branch
 - **FR-003**: System MUST preserve all protected branches (`main`, `develop`, `production`) and never consider them for deletion
 - **FR-004**: System MUST identify branches with open pull requests and preserve them with clear reasoning
 - **FR-005**: System MUST apply inactivity threshold (default 30 days) to determine staleness based on last commit timestamp
