@@ -39,3 +39,6 @@ Return:
 
 - Do not mix spacing or shadow values into radius output.
 - Do not invent intermediate radius sizes.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

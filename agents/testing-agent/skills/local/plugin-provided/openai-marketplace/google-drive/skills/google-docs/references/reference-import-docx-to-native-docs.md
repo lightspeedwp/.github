@@ -69,3 +69,5 @@ Do not cite the local `.docx` path in the final answer after a successful native
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -34,3 +34,5 @@ Create GitHub Issues for the implementation plan at `${file}`.
 - Title: Phase name from implementation plan
 - Description: Phase details, requirements, and context
 - Labels: Appropriate for issue type (feature/chore)
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

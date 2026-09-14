@@ -92,3 +92,6 @@ Even though you created a local `.xlsx`, do not cite the local path in the final
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

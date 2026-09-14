@@ -100,3 +100,6 @@ When a gap belongs to another skill, recommend the relevant skill:
 ## Output stance
 
 Use UK English. Keep feedback direct, practical and implementation-focused. Separate client-facing concerns from internal LightSpeed delivery concerns.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

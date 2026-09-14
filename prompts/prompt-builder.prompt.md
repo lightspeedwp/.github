@@ -160,3 +160,5 @@ tools: ["[appropriate tools based on functionality]"]
 model: "[only if specific model required]"
 ---
 ```
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

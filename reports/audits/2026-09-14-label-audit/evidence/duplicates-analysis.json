@@ -1,0 +1,170 @@
+{
+  "total_duplicates_identified": 73,
+  "by_impact": {
+    "HIGH": 0,
+    "MEDIUM": 28,
+    "LOW": 45
+  },
+  "duplicates_ranked_by_impact": [
+    {
+      "family": "lang",
+      "label1": "lang:js",
+      "label2": "lang:json",
+      "name_similarity": 0.875,
+      "description_similarity": 0.3,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-design",
+      "label2": "status:needs-testing",
+      "name_similarity": 0.872,
+      "description_similarity": 0.37,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "meta",
+      "label1": "meta:needs-changelog",
+      "label2": "meta:no-changelog",
+      "name_similarity": 0.865,
+      "description_similarity": 0.483,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-design",
+      "label2": "status:needs-dev",
+      "name_similarity": 0.857,
+      "description_similarity": 0.571,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-dev",
+      "label2": "status:needs-review",
+      "name_similarity": 0.857,
+      "description_similarity": 0.436,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "area",
+      "label1": "area:ci",
+      "label2": "area:ai",
+      "name_similarity": 0.857,
+      "description_similarity": 0.364,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-qa",
+      "label2": "status:needs-audit",
+      "name_similarity": 0.848,
+      "description_similarity": 0.206,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "release",
+      "label1": "release:minor",
+      "label2": "release:major",
+      "name_similarity": 0.846,
+      "description_similarity": 0.846,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-design",
+      "label2": "status:needs-design-review",
+      "name_similarity": 0.844,
+      "description_similarity": 0.791,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-design-review",
+      "label2": "status:needs-review",
+      "name_similarity": 0.844,
+      "description_similarity": 0.857,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-triage",
+      "label2": "status:needs-review",
+      "name_similarity": 0.842,
+      "description_similarity": 0.312,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "area",
+      "label1": "area:tests",
+      "label2": "area:jest",
+      "name_similarity": 0.842,
+      "description_similarity": 0.214,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-dev",
+      "label2": "status:needs-qa",
+      "name_similarity": 0.839,
+      "description_similarity": 0.164,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "comp",
+      "label1": "comp:settings",
+      "label2": "comp:post-settings",
+      "name_similarity": 0.839,
+      "description_similarity": 0.455,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "meta",
+      "label1": "meta:no-issue-activity",
+      "label2": "meta:no-pr-activity",
+      "name_similarity": 0.829,
+      "description_similarity": 0.844,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "priority",
+      "label1": "priority:normal",
+      "label2": "priority:minor",
+      "name_similarity": 0.828,
+      "description_similarity": 0.465,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "openspec",
+      "label1": "openspec:implementation-pending",
+      "label2": "openspec:implementation-complete",
+      "name_similarity": 0.825,
+      "description_similarity": 0.657,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-triage",
+      "label2": "status:needs-qa",
+      "name_similarity": 0.824,
+      "description_similarity": 0.211,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-dev",
+      "label2": "status:needs-audit",
+      "name_similarity": 0.824,
+      "description_similarity": 0.364,
+      "consolidation_impact": "MEDIUM"
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-triage",
+      "label2": "status:needs-testing",
+      "name_similarity": 0.821,
+      "description_similarity": 0.356,
+      "consolidation_impact": "MEDIUM"
+    }
+  ]
+}

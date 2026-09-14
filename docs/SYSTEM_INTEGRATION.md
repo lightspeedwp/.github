@@ -655,3 +655,5 @@ GitHub rate limits:
 **Last Updated:** September 3, 2026  
 **Status:** Published  
 **Related Issue:** [#2647](https://github.com/lightspeedwp/.github/issues/2647)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -114,3 +114,5 @@ Recommend specialist skills when needed:
 ## Quality standard
 
 Use UK English. Be practical, specific and developer-friendly. Prioritise maintainable WordPress architecture, block-first editing, accessibility, performance, minimal dependency load and clear handoff notes.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

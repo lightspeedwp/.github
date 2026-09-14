@@ -33,3 +33,6 @@ Thank you for helping us build better WordPress solutions!
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -82,3 +82,5 @@ Recommended validation hooks are documented in [hooks/README.md](./hooks/README.
 ## Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

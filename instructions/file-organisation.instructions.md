@@ -233,3 +233,6 @@ references to use the UK English spelling:
 - [instructions.instructions.md](instructions.instructions.md)
 - [readme.instructions.md](readme.instructions.md)
 - [reporting.instructions.md](reporting.instructions.md)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

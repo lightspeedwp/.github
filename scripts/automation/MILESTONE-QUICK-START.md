@@ -132,3 +132,6 @@ Analyzes unallocated issues and spreads them across **v1.1 to v1.6**
 2. Try `--dry-run` first to see what would happen
 3. Check GitHub token permissions: Settings → Developer Settings → Personal access tokens
 4. Review full docs in `MILESTONE-MANAGEMENT-README.md`
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

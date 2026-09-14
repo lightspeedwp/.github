@@ -16,3 +16,6 @@ I do not want to give you an ETA before it has been confirmed, as that would ris
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

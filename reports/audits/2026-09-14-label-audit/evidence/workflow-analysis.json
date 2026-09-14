@@ -1,0 +1,211 @@
+{
+  "total_archived_labeling_workflows": 11,
+  "location": ".github/workflows/archived/2026-09-11/labeling",
+  "workflows": [
+    {
+      "filename": "batch-label-prs.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/batch-label-prs.yml",
+      "name": "Batch Label PRs",
+      "purpose": "Batch label multiple PRs",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "jobs"
+      ],
+      "recommendation": "RETIRE_IF_OBSOLETE",
+      "estimated_restoration_effort": "LOW"
+    },
+    {
+      "filename": "issue-labeling-automation.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/issue-labeling-automation.yml",
+      "name": "Issue Labeling Automation",
+      "purpose": "Automatic issue labeling on creation",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "jobs"
+      ],
+      "recommendation": "RETIRE_IF_OBSOLETE",
+      "estimated_restoration_effort": "LOW"
+    },
+    {
+      "filename": "label-audit-report.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/label-audit-report.yml",
+      "name": "Label Audit Report",
+      "purpose": "Audit and report on label state",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "recommendation": "RETIRE_IF_OBSOLETE",
+      "estimated_restoration_effort": "LOW"
+    },
+    {
+      "filename": "labeling-governance.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml",
+      "name": "Labeling \u2022 Unified Governance (PRs, Issues, Discussions & Cleanup)",
+      "purpose": "Enforce labeling governance rules",
+      "labels_referenced": [
+        "head:develop",
+        "meta:dependabot-security",
+        "meta:skip-labeling",
+        "status:in-progress",
+        "status:needs-review",
+        "status:needs-triage"
+      ],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "concurrency",
+        "env",
+        "jobs"
+      ],
+      "recommendation": "INVESTIGATE",
+      "estimated_restoration_effort": "HIGH"
+    },
+    {
+      "filename": "labeling.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/labeling.yml",
+      "name": "Labeling \u2022 Discussions, Issues & PRs (Unified)",
+      "purpose": "Unknown purpose",
+      "labels_referenced": [
+        "head:develop",
+        "meta:skip-labeling"
+      ],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "concurrency",
+        "env",
+        "jobs"
+      ],
+      "recommendation": "INVESTIGATE",
+      "estimated_restoration_effort": "MEDIUM"
+    },
+    {
+      "filename": "manage-blocking-status-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml",
+      "name": "Manage Blocking Status Labels",
+      "purpose": "Manage blocking status labels",
+      "labels_referenced": [
+        "status:blocked"
+      ],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "recommendation": "INVESTIGATE",
+      "estimated_restoration_effort": "MEDIUM"
+    },
+    {
+      "filename": "meta-labels-sync.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/meta-labels-sync.yml",
+      "name": "Meta Labels Sync",
+      "purpose": "Synchronize meta labels",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "recommendation": "RETIRE_IF_OBSOLETE",
+      "estimated_restoration_effort": "LOW"
+    },
+    {
+      "filename": "openspec-sync-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/openspec-sync-labels.yml",
+      "name": "OpenSpec Sync Labels",
+      "purpose": "Sync OpenSpec labels",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "recommendation": "RETIRE_IF_OBSOLETE",
+      "estimated_restoration_effort": "LOW"
+    },
+    {
+      "filename": "openspec-validate-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/openspec-validate-labels.yml",
+      "name": "OpenSpec Validate Labels",
+      "purpose": "Validate OpenSpec labels",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "recommendation": "RETIRE_IF_OBSOLETE",
+      "estimated_restoration_effort": "LOW"
+    },
+    {
+      "filename": "remediate-bare-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml",
+      "name": "Remediate Bare Labels (Phase 2)",
+      "purpose": "Convert bare labels to prefixed",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "recommendation": "RETIRE_IF_OBSOLETE",
+      "estimated_restoration_effort": "LOW"
+    },
+    {
+      "filename": "validate-issue-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml",
+      "name": "Issue Label Validation",
+      "purpose": "Validate issue labels",
+      "labels_referenced": [
+        "area:ci",
+        "area:docs",
+        "area:labels",
+        "area:security",
+        "meta:blocked",
+        "meta:duplicate",
+        "meta:needs-changelog",
+        "priority:critical",
+        "priority:high",
+        "priority:low",
+        "priority:normal",
+        "status:done",
+        "status:in-progress",
+        "status:needs-triage",
+        "type:bug",
+        "type:documentation",
+        "type:feature",
+        "type:task"
+      ],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "recommendation": "INVESTIGATE",
+      "estimated_restoration_effort": "HIGH"
+    }
+  ],
+  "restoration_summary": {
+    "investigate": 4,
+    "retire_if_obsolete": 7,
+    "high_effort": 2,
+    "medium_effort": 2,
+    "low_effort": 7
+  }
+}

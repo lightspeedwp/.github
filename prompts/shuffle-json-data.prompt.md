@@ -47,3 +47,5 @@ description: "Shuffle repetitive JSON objects safely by validating schema consis
 tools: ["edit/editFiles", "runInTerminal", "pylanceRunCodeSnippet"]
 ---
 ```
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

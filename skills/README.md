@@ -37,3 +37,6 @@ LightSpeed capability.
 | `lightspeed-label-governance` | Labeling docs and reports | GPL-3.0 | Internal standards aligned | P0 | `lightspeed-github-ops` |
 | `lightspeed-block-theme-quality` | Block theme QA ideas | GPL-3.0 | Needs curation | P1 | `lightspeed-wordpress-block-theme` |
 | `lightspeed-block-plugin-quality` | Block plugin QA ideas | GPL-3.0 | Needs curation | P1 | `lightspeed-wordpress-block-plugin` |
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

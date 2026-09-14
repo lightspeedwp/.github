@@ -112,3 +112,6 @@ review = shape.text.get("Review")
 review.bold = True
 review.color = "accent2"
 ```
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

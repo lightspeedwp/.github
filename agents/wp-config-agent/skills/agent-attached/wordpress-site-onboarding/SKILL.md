@@ -58,3 +58,6 @@ Do not summarize onboarding for its own sake. Confirm only the defaults that mat
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
