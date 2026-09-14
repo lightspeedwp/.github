@@ -1,0 +1,180 @@
+{
+  "total_count": 57,
+  "governance_protected_labels": [
+    {
+      "name": "type:bug"
+    },
+    {
+      "name": "type:feature"
+    },
+    {
+      "name": "type:documentation"
+    },
+    {
+      "name": "type:task"
+    },
+    {
+      "name": "type:release"
+    },
+    {
+      "name": "type:design"
+    },
+    {
+      "name": "type:chore"
+    },
+    {
+      "name": "type:refactor"
+    },
+    {
+      "name": "type:maintenance"
+    },
+    {
+      "name": "type:automation"
+    },
+    {
+      "name": "type:test"
+    },
+    {
+      "name": "type:ai-ops"
+    },
+    {
+      "name": "type:build"
+    },
+    {
+      "name": "type:ci"
+    },
+    {
+      "name": "type:dependency"
+    },
+    {
+      "name": "type:compatibility"
+    },
+    {
+      "name": "type:research"
+    },
+    {
+      "name": "type:investigation"
+    },
+    {
+      "name": "type:security"
+    },
+    {
+      "name": "type:performance"
+    },
+    {
+      "name": "type:audit"
+    },
+    {
+      "name": "type:epic"
+    },
+    {
+      "name": "type:question"
+    },
+    {
+      "name": "type:support"
+    },
+    {
+      "name": "type:content-modelling"
+    },
+    {
+      "name": "type:story"
+    },
+    {
+      "name": "type:review"
+    },
+    {
+      "name": "type:a11y"
+    },
+    {
+      "name": "type:improve"
+    },
+    {
+      "name": "type:enhancement"
+    },
+    {
+      "name": "type:help"
+    },
+    {
+      "name": "area:ci"
+    },
+    {
+      "name": "area:dependencies"
+    },
+    {
+      "name": "area:labels"
+    },
+    {
+      "name": "area:security"
+    },
+    {
+      "name": "area:a11y"
+    },
+    {
+      "name": "area:documentation"
+    },
+    {
+      "name": "area:tests"
+    },
+    {
+      "name": "area:scripts"
+    },
+    {
+      "name": "area:assets"
+    },
+    {
+      "name": "area:woocommerce"
+    },
+    {
+      "name": "area:block-editor"
+    },
+    {
+      "name": "area:theme"
+    },
+    {
+      "name": "area:testing"
+    },
+    {
+      "name": "area:performance"
+    },
+    {
+      "name": "area:playwright"
+    },
+    {
+      "name": "area:jest"
+    },
+    {
+      "name": "area:phpunit"
+    },
+    {
+      "name": "area:pagespeed"
+    },
+    {
+      "name": "lang:php"
+    },
+    {
+      "name": "lang:js"
+    },
+    {
+      "name": "lang:css"
+    },
+    {
+      "name": "lang:md"
+    },
+    {
+      "name": "lang:json"
+    },
+    {
+      "name": "lang:yaml"
+    },
+    {
+      "name": "meta:duplicate"
+    },
+    {
+      "name": "meta:dependabot-security"
+    }
+  ],
+  "version": 1,
+  "last_updated": "2026-05-27",
+  "destructive_cleanup_enabled": false,
+  "note": "Labels that must never be deleted per governance policy"
+}

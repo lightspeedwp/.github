@@ -34,6 +34,7 @@ Examples:
 | `refactor` | Code refactoring | `refactor/api-response-structure` |
 | `chore` | Maintenance, no code changes | `chore/dependency-updates` |
 | `task` | Scoped unit of work (often project/epic-bound) | `task/authentication-refactor` |
+| `doc` | Single documentation change | `doc/readme-typo-fix` |
 | `docs` | Documentation | `docs/branching-strategy-guide` |
 | `test` | Tests, test infrastructure | `test/integration-test-suite` |
 | `perf` | Performance improvements | `perf/query-optimization` |
@@ -41,6 +42,8 @@ Examples:
 | `build` | Build system, package changes | `build/webpack-config-update` |
 | `deps` | Dependency updates | `deps/upgrade-npm-packages` |
 | `security` | Security fixes | `security/xss-vulnerability-fix` |
+| `revert` | Revert previous commit | `revert/pr-2345-bad-merge` |
+| `research` | Research, investigation | `research/performance-benchmarks` |
 | `design` | Design system, UI | `design/button-component-update` |
 | `a11y` | Accessibility | `a11y/wcag-compliance-audit` |
 | `ux` | User experience | `ux/form-validation-feedback` |
@@ -59,8 +62,9 @@ Examples:
 | `uat` | User acceptance testing | `uat/staging-validation-suite` |
 | `audit` | Audit, compliance, review | `audit/security-code-review` |
 | `codex` | Code generation, AI-assisted | `codex/auto-documentation-tool` |
-| `revert` | Revert previous commit | `revert/pr-2345-bad-merge` |
-| `research` | Research, investigation | `research/performance-benchmarks` |
+| `aiops` | AI operations | `aiops/model-monitoring-update` |
+| `automation` | Workflow automation | `automation/issue-routing-update` |
+| `epic` | Multi-part initiative | `epic/platform-modernisation` |
 
 ### FORBIDDEN Prefixes
 
@@ -241,6 +245,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | Asset Type | Belongs In |
 | --- | --- |
 | GitHub-native governance (templates, labels, workflows) | `.github/` |
+| Specification files (features, plans, research) | `.github/specs/` |
 | Repo-local Copilot/agent instructions | `.github/instructions/` or `.github/custom-instructions.md` |
 | Reports, audits, metrics | `.github/reports/{category}/` |
 | Active project artefacts | `.github/projects/active/{slug}/` |
@@ -261,7 +266,21 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [docs/WORKFLOWS.md](./docs/WORKFLOWS.md) — workflow organisation and distribution strategy
+- [.github/specs/](./.github/specs/) — feature specifications and implementation planning
+- [.specify/](./specify/) — speckit configuration for feature specification workflow
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
 - [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
 - [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -48,103 +48,103 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ### Hermes fork merge (FR-001, FR-002 — SKILL_RECONCILIATION_REPORT.md §3)
 
-- [ ] T004 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-approval-gate-manager/references/` into `agents/prd-agent/skills/approval-gate-manager/references/`, reconciling any same-named files with different content
-- [ ] T005 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-project-memory-manager/references/` into `agents/prd-agent/skills/project-memory-manager/references/`, reconciling any same-named files with different content
-- [ ] T006 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-release-handoff-generator/references/` into `agents/prd-agent/skills/release-handoff-generator/references/`, specifically reconciling the two divergent versions of `support-transition-rules.md` (not a straight union — content differs, per SKILL_RECONCILIATION_REPORT.md §3)
-- [ ] T007 [US1] Move `agents/prd-agent/skills/hermes/lightspeed-qa-planner/` to `agents/prd-agent/skills/qa-planner/` (no merge — no counterpart exists anywhere)
-- [ ] T008 [US1] Delete `agents/prd-agent/skills/hermes/` once T004-T007 are complete and verified
+- [ ] T005 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-approval-gate-manager/references/` into `agents/prd-agent/skills/approval-gate-manager/references/`, reconciling any same-named files with different content
+- [ ] T006 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-project-memory-manager/references/` into `agents/prd-agent/skills/project-memory-manager/references/`, reconciling any same-named files with different content
+- [ ] T007 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-release-handoff-generator/references/` into `agents/prd-agent/skills/release-handoff-generator/references/`, specifically reconciling the two divergent versions of `support-transition-rules.md` (not a straight union — content differs, per SKILL_RECONCILIATION_REPORT.md §3)
+- [ ] T008 [US1] Move `agents/prd-agent/skills/hermes/lightspeed-qa-planner/` to `agents/prd-agent/skills/qa-planner/` (no merge — no counterpart exists anywhere)
+- [ ] T009 [US1] Delete `agents/prd-agent/skills/hermes/` once T005-T008 are complete and verified
 
 ### Cluster 1 — PRD drafting (COMPLEMENTARY merge + duplicate delete)
 
-- [ ] T009 [P] [US1] Merge `agents/prd-agent/skills/prd-generator/`'s WordPress/Figma rules, project-type variants, approval gates, acceptance-criteria formats, and 7 asset templates into `agents/prd-agent/skills/prd-writer/`
-- [ ] T010 [US1] Merge `agents/prd-agent/skills/prd-writer/`'s (pre-T009) JSON schemas, delta/update mode templates, and cross-skill routing into the same merged skill (depends on T009 touching the same target folder)
-- [ ] T011 [US1] Delete `agents/prd-agent/skills/prd-generator/` and `agents/prd-agent/skills/prd-generation/` once T009-T010 are verified complete (both fully subsumed, no unique content per audit report Cluster 1)
+- [ ] T010 [P] [US1] Merge `agents/prd-agent/skills/prd-generator/`'s WordPress/Figma rules, project-type variants, approval gates, acceptance-criteria formats, and 7 asset templates into `agents/prd-agent/skills/prd-writer/`
+- [ ] T011 [US1] Merge `agents/prd-agent/skills/prd-writer/`'s (pre-T010) JSON schemas, delta/update mode templates, and cross-skill routing into the same merged skill (depends on T010 touching the same target folder)
+- [ ] T012 [US1] Delete `agents/prd-agent/skills/prd-generator/` and `agents/prd-agent/skills/prd-generation/` once T010-T011 are verified complete (both fully subsumed, no unique content per audit report Cluster 1)
 
 ### Cluster 2 — PRD/artefact review (duplicate delete, port 2 items)
 
-- [ ] T012 [P] [US1] Port `references/cross-skill-routing.md` and `schemas/review-report.schema.json` from `agents/prd-agent/skills/prd-reviewer/` into `agents/prd-agent/skills/prd-task-reviewer/`
-- [ ] T013 [US1] Delete `agents/prd-agent/skills/prd-reviewer/` and `agents/prd-agent/skills/review-qa/` once T012 is verified complete
+- [ ] T013 [P] [US1] Port `references/cross-skill-routing.md` and `schemas/review-report.schema.json` from `agents/prd-agent/skills/prd-reviewer/` into `agents/prd-agent/skills/prd-task-reviewer/`
+- [ ] T014 [US1] Delete `agents/prd-agent/skills/prd-reviewer/` and `agents/prd-agent/skills/review-qa/` once T013 is verified complete
 
 ### Cluster 3 — Change management (duplicate delete, port 3 items)
 
-- [ ] T014 [P] [US1] Port `schemas/change-request.schema.json`, `schemas/prd-delta.schema.json`, the `prd-delta.md` template concept, and `tests/fixtures/change-cases.md` from `agents/prd-agent/skills/change-control/` into `agents/prd-agent/skills/change-request-router/`
-- [ ] T015 [US1] Delete `agents/prd-agent/skills/change-control/` once T014 is verified complete
+- [ ] T015 [P] [US1] Port `schemas/change-request.schema.json`, `schemas/prd-delta.schema.json`, the `prd-delta.md` template concept, and `tests/fixtures/change-cases.md` from `agents/prd-agent/skills/change-control/` into `agents/prd-agent/skills/change-request-router/`
+- [ ] T016 [US1] Delete `agents/prd-agent/skills/change-control/` once T015 is verified complete
 
 ### Cluster 4 — Implementation planning (duplicate delete, port 2 items)
 
-- [ ] T016 [P] [US1] Port the "estimation-basis" output type and the "don't estimate from a weak source" / "discovery vs. implementation effort" quality-bar lines from `agents/prd-agent/skills/implementation-planning/` into `agents/prd-agent/skills/implementation-plan-generator/`
-- [ ] T017 [US1] Delete `agents/prd-agent/skills/implementation-planning/` once T016 is verified complete
+- [ ] T017 [P] [US1] Port the "estimation-basis" output type and the "don't estimate from a weak source" / "discovery vs. implementation effort" quality-bar lines from `agents/prd-agent/skills/implementation-planning/` into `agents/prd-agent/skills/implementation-plan-generator/`
+- [ ] T018 [US1] Delete `agents/prd-agent/skills/implementation-planning/` once T017 is verified complete
 
 ### Cluster 5 — Issue drafting (duplicate delete, nothing to port)
 
-- [ ] T018 [P] [US1] Delete `agents/prd-agent/skills/issue-drafting/` (fully subsumed by `agents/prd-agent/skills/github-issue-drafter/`, per audit report Cluster 5 — nothing load-bearing to port)
+- [ ] T019 [P] [US1] Delete `agents/prd-agent/skills/issue-drafting/` (fully subsumed by `agents/prd-agent/skills/github-issue-drafter/`, per audit report Cluster 5 — nothing load-bearing to port)
 
 ### Cluster 6 — Launch readiness (duplicate delete, nothing to port)
 
-- [ ] T019 [P] [US1] Delete `agents/prd-agent/skills/launch-handoff-support/` (fully subsumed by `agents/prd-agent/skills/launch-task-router/`, per audit report Cluster 6 — `agents/prd-agent/skills/release-handoff-generator/` confirmed distinct, not part of this cluster, no action)
+- [ ] T020 [P] [US1] Delete `agents/prd-agent/skills/launch-handoff-support/` (fully subsumed by `agents/prd-agent/skills/launch-task-router/`, per audit report Cluster 6 — `agents/prd-agent/skills/release-handoff-generator/` confirmed distinct, not part of this cluster, no action)
 
 ### Cluster 7 — QA triage (duplicate delete, port 3 items)
 
-- [ ] T020 [P] [US1] Port `schemas/qa-finding.schema.json`, `schemas/retest-plan.schema.json`, `tests/fixtures/qa-finding-cases.md`, and the 4 additional routing targets from `references/cross-skill-routing.md` (`lightspeed-qa-planner`, `lightspeed-change-control`, `lightspeed-approval-gate-manager`, `lightspeed-delivery-planner`) from `agents/prd-agent/skills/qa-triage/` into `agents/prd-agent/skills/qa-findings-router/`
-- [ ] T021 [US1] Delete `agents/prd-agent/skills/qa-triage/` once T020 is verified complete
+- [ ] T021 [P] [US1] Port `schemas/qa-finding.schema.json`, `schemas/retest-plan.schema.json`, `tests/fixtures/qa-finding-cases.md`, and the 4 additional routing targets from `references/cross-skill-routing.md` (`lightspeed-qa-planner`, `lightspeed-change-control`, `lightspeed-approval-gate-manager`, `lightspeed-delivery-planner`) from `agents/prd-agent/skills/qa-triage/` into `agents/prd-agent/skills/qa-findings-router/`
+- [ ] T022 [US1] Delete `agents/prd-agent/skills/qa-triage/` once T021 is verified complete
 
 ### Cluster 8 — Project pack export (naming decision + content merge)
 
-- [ ] T022 [US1] (depends on T002) Port `agents/prd-agent/skills/prd-task-pack-exporter/`'s full content — the 9-directory default pack structure, `pack-workflow.md`, `source-classification.md`, `pack-quality-checklist.md`, `file-naming-rules.md`, 5 asset templates, `icon.svg` — into whichever directory T002 selected as the surviving name
-- [ ] T023 [US1] Delete the non-surviving directory of the pair (`agents/prd-agent/skills/project-pack-exporter/` or `agents/prd-agent/skills/prd-task-pack-exporter/`, per T002's decision) once T022 is verified complete
+- [ ] T023 [US1] (depends on T002) Port `agents/prd-agent/skills/prd-task-pack-exporter/`'s full content — the 9-directory default pack structure, `pack-workflow.md`, `source-classification.md`, `pack-quality-checklist.md`, `file-naming-rules.md`, 5 asset templates, `icon.svg` — into whichever directory T002 selected as the surviving name
+- [ ] T024 [US1] Delete the non-surviving directory of the pair (`agents/prd-agent/skills/project-pack-exporter/` or `agents/prd-agent/skills/prd-task-pack-exporter/`, per T002's decision) once T023 is verified complete
 
 ### Cluster 9 — Intake structuring (COMPLEMENTARY merge + duplicate delete)
 
-- [ ] T024 [P] [US1] Merge `agents/prd-agent/skills/project-intake-router/`'s WordPress build-type classification, approval-gates checklist, 14-skill routing table, and 5 asset templates into `agents/prd-agent/skills/project-intake/`
-- [ ] T025 [US1] Delete `agents/prd-agent/skills/project-intake-router/` and `agents/prd-agent/skills/intake-routing/` once T024 is verified complete (`agents/prd-agent/skills/lightspeed-intake-onboarding/` confirmed distinct — session/Memory bootstrapping, not intake structuring — no action)
+- [ ] T025 [P] [US1] Merge `agents/prd-agent/skills/project-intake-router/`'s WordPress build-type classification, approval-gates checklist, 14-skill routing table, and 5 asset templates into `agents/prd-agent/skills/project-intake/`
+- [ ] T026 [US1] Delete `agents/prd-agent/skills/project-intake-router/` and `agents/prd-agent/skills/intake-routing/` once T025 is verified complete (`agents/prd-agent/skills/lightspeed-intake-onboarding/` confirmed distinct — session/Memory bootstrapping, not intake structuring — no action)
 
 ### Cluster 10 — Research (COMPLEMENTARY merge)
 
-- [ ] T026 [P] [US1] Merge `agents/prd-agent/skills/project-research/`'s JSON schemas, test fixtures, and worked example into `agents/prd-agent/skills/project-researcher/` (base structure), reconciling the two divergent sets of routed sibling-skill names in each skill's `cross-skill-routing.md`/`prd-handoff.md`
-- [ ] T027 [US1] Delete `agents/prd-agent/skills/project-research/` once T026 is verified complete
+- [ ] T027 [P] [US1] Merge `agents/prd-agent/skills/project-research/`'s JSON schemas, test fixtures, and worked example into `agents/prd-agent/skills/project-researcher/` (base structure), reconciling the two divergent sets of routed sibling-skill names in each skill's `cross-skill-routing.md`/`prd-handoff.md`
+- [ ] T028 [US1] Delete `agents/prd-agent/skills/project-research/` once T027 is verified complete
 
 ### Cluster 11 — Evidence discipline (duplicate delete, port 2 items)
 
-- [ ] T028 [P] [US1] Port the "contradiction"/"weak or stale evidence" claim categories and the "confidence level"/"recommended next evidence step" output sections from `agents/prd-agent/skills/evidence-locking/` into `agents/prd-agent/skills/evidence-locker/`
-- [ ] T029 [US1] Delete `agents/prd-agent/skills/evidence-locking/` once T028 is verified complete
+- [ ] T029 [P] [US1] Port the "contradiction"/"weak or stale evidence" claim categories and the "confidence level"/"recommended next evidence step" output sections from `agents/prd-agent/skills/evidence-locking/` into `agents/prd-agent/skills/evidence-locker/`
+- [ ] T030 [US1] Delete `agents/prd-agent/skills/evidence-locking/` once T029 is verified complete
 
 ### Cluster 12 — Markdown/frontmatter validation (duplicate delete, optional port)
 
-- [ ] T030 [P] [US1] Port `agents/prd-agent/skills/content-file-validator/`'s broader extension list, `fileTypeOverrides`, `suggestedDefaults`, and `--fail-on-empty` flag into `agents/prd-agent/skills/markdown-content-validator/`'s schema/script, if still wanted
-- [ ] T031 [US1] Delete `agents/prd-agent/skills/content-file-validator/` once T030 is resolved; also delete the stray generated artifact `agents/prd-agent/skills/markdown-content-validator/tests/markdown-content-validation-report.md` (not a real fixture, per audit report Cluster 12)
+- [ ] T031 [P] [US1] Port `agents/prd-agent/skills/content-file-validator/`'s broader extension list, `fileTypeOverrides`, `suggestedDefaults`, and `--fail-on-empty` flag into `agents/prd-agent/skills/markdown-content-validator/`'s schema/script, if still wanted
+- [ ] T032 [US1] Delete `agents/prd-agent/skills/content-file-validator/` once T031 is resolved; also delete the stray generated artifact `agents/prd-agent/skills/markdown-content-validator/tests/markdown-content-validation-report.md` (not a real fixture, per audit report Cluster 12)
 
 ### Cluster 14 — Technical brief (duplicate delete, nothing to port)
 
-- [ ] T032 [P] [US1] Delete `agents/prd-agent/skills/technical-brief-deep-dive/` (fully subsumed by `agents/prd-agent/skills/figma-wordpress-technical-brief/`, orphaned from every routing table in the codebase, per audit report Cluster 14)
+- [ ] T033 [P] [US1] Delete `agents/prd-agent/skills/technical-brief-deep-dive/` (fully subsumed by `agents/prd-agent/skills/figma-wordpress-technical-brief/`, orphaned from every routing table in the codebase, per audit report Cluster 14)
 
 ### Cluster 16 — Task breakdown vs. delivery planning (duplicate delete, port 7 items)
 
-- [ ] T033 [P] [US1] Port `references/wordpress-task-rules.md`, `references/workstream-model.md`, `references/dependency-and-wave-planning.md`, `references/qa-mapping.md`, `references/acceptance-criteria.md`, `references/issue-draft-rules.md`, and `assets/icon.svg` from `agents/prd-agent/skills/task-breakdown-planner/` into `agents/prd-agent/skills/delivery-planner/`
-- [ ] T034 [US1] Delete `agents/prd-agent/skills/task-breakdown-planner/` once T033 is verified complete (`agents/prd-agent/skills/estimation-planner/` confirmed distinct — correctly boundary-fenced from both — no action)
+- [ ] T034 [P] [US1] Port `references/wordpress-task-rules.md`, `references/workstream-model.md`, `references/dependency-and-wave-planning.md`, `references/qa-mapping.md`, `references/acceptance-criteria.md`, `references/issue-draft-rules.md`, and `assets/icon.svg` from `agents/prd-agent/skills/task-breakdown-planner/` into `agents/prd-agent/skills/delivery-planner/`
+- [ ] T035 [US1] Delete `agents/prd-agent/skills/task-breakdown-planner/` once T034 is verified complete (`agents/prd-agent/skills/estimation-planner/` confirmed distinct — correctly boundary-fenced from both — no action)
 
 ### Cluster 17 — Orchestration (retire redundant mega-skill)
 
-- [ ] T035 [P] [US1] Evaluate porting `agents/prd-agent/skills/prd-task-manager/`'s "full project pack" single-command bundling mode (`assets/full-project-pack-structure.md`) into whichever skill survives Cluster 8 (T022) — this is the only capability not already covered elsewhere; skip if not wanted
-- [ ] T036 [US1] Delete `agents/prd-agent/skills/prd-task-manager/` once T035 is resolved (`agents/prd-agent/skills/prd-agent-orchestrator/` confirmed deliberate and distinct — its own `rollout/migration-notes.md` states the routing split was intentional — no action)
+- [ ] T036 [P] [US1] Evaluate porting `agents/prd-agent/skills/prd-task-manager/`'s "full project pack" single-command bundling mode (`assets/full-project-pack-structure.md`) into whichever skill survives Cluster 8 (T023) — this is the only capability not already covered elsewhere; skip if not wanted
+- [ ] T037 [US1] Delete `agents/prd-agent/skills/prd-task-manager/` once T036 is resolved (`agents/prd-agent/skills/prd-agent-orchestrator/` confirmed deliberate and distinct — its own `rollout/migration-notes.md` states the routing split was intentional — no action)
 
 ### Clusters 13 & 15 — confirmed distinct, no action
 
-- [ ] T037 [US1] Record in `.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md` (already done) that `acceptance-test-planner`/`validation-support` (Cluster 13) and `memory-management`/`project-memory-manager` (Cluster 15) require no merge — verification-only, no file changes
+- [ ] T038 [US1] Record in `.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md` (already done) that `acceptance-test-planner`/`validation-support` (Cluster 13) and `memory-management`/`project-memory-manager` (Cluster 15) require no merge — verification-only, no file changes
 
 ### Cross-folder cleanup (FR-007, FR-008)
 
-- [ ] T005 [US1] (A5 blocker — must run **before T038**) Search entire repo for all references to `agents/prd-factory-planner-agent/` (spec.md Edge Case §4: "What happens to other project documents or automation that link to...paths after the folder is deleted?"). **Command**: `grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --include='*.yaml' --include='*.json' --include='*.js' --include='*.ts' --include='*.sh' | grep -v node_modules | grep -v '.git/'`. Review all matches (expect 5-10). For each reference: **(1)** determine if it's automation, documentation, or config; **(2)** update the reference to point at the new location (e.g., `agents/prd-agent/`) or remove it if no longer applicable; **(3)** verify the update works (e.g., run workflows/config that depend on it, or update tests); **(4)** record all findings + updates in `DECISIONS_LOG.md`. **Do not proceed to T038 until all references are resolved and tested.**
+- [ ] T039 [US1] (A5 blocker — must run **before T040**) Search entire repo for all references to `agents/prd-factory-planner-agent/` (spec.md Edge Case §4: "What happens to other project documents or automation that link to...paths after the folder is deleted?"). **Command**: `grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --include='*.yaml' --include='*.json' --include='*.js' --include='*.ts' --include='*.sh' | grep -v node_modules | grep -v '.git/'`. Review all matches (expect 5-10). For each reference: **(1)** determine if it's automation, documentation, or config; **(2)** update the reference to point at the new location (e.g., `agents/prd-agent/`) or remove it if no longer applicable; **(3)** verify the update works (e.g., run workflows/config that depend on it, or update tests); **(4)** record all findings + updates in `DECISIONS_LOG.md`. **Do not proceed to T040 until all references are resolved and tested.**
 
-- [ ] T038 [US1] Confirm zero remaining unique content in `agents/prd-factory-planner-agent/` (T004-T037 have migrated everything the reconciliation reports identified) **and all external references (T005) are resolved**, then delete `agents/prd-factory-planner-agent/` in full
-- [ ] T039 [P] [US1] Delete sample client memory banks under `agents/prd-agent/agent/other/memory/` (confirmed fictional/demo data, routine cleanup — no special handling needed per spec.md Assumptions)
-- [ ] T040 [P] [US1] Delete raw MCP plugin-cache dumps under `agents/prd-agent/agent/configuration/plugins/`
-- [ ] T041 [US1] Confirm the old `agents/prd-agent/skills/local/` and `agents/prd-agent/skills/plugin-provided/` platform-builtin skill copies are already removed (per PLANNING.md Phase 3 deliverable list — "already removed from disk as of 2026-09-10") — no action if confirmed gone
+- [ ] T040 [US1] Confirm zero remaining unique content in `agents/prd-factory-planner-agent/` (T005-T038 have migrated everything the reconciliation reports identified) **and all external references (T039) are resolved**, then delete `agents/prd-factory-planner-agent/` in full
+- [ ] T041 [P] [US1] Delete sample client memory banks under `agents/prd-agent/agent/other/memory/` (confirmed fictional/demo data, routine cleanup — no special handling needed per spec.md Assumptions)
+- [ ] T042 [P] [US1] Delete raw MCP plugin-cache dumps under `agents/prd-agent/agent/configuration/plugins/`
+- [ ] T043 [US1] Confirm the old `agents/prd-agent/skills/local/` and `agents/prd-agent/skills/plugin-provided/` platform-builtin skill copies are already removed (per PLANNING.md Phase 3 deliverable list — "already removed from disk as of 2026-09-10") — no action if confirmed gone
 
 ### `frontend-skill` removal (scope doc §5)
 
-- [ ] T042 [US1] (depends on T003) Delete `agents/prd-agent/skills/frontend-skill/` (confirmed unrelated to PRD/planning work)
+- [x] T044 [US1] Verify `agents/prd-agent/skills/frontend-skill/` is absent following the T003 removal decision — ✅ already satisfied by PR #2865
 
-**Checkpoint**: `agents/prd-agent/skills/` now has one copy of each of the ~28 curated skills (27 once T042 runs), no `hermes/` folder, `agents/prd-factory-planner-agent/` is gone. Run quickstart.md's SC-001, SC-004, SC-005 checks to confirm.
+**Checkpoint**: `agents/prd-agent/skills/` contains exactly 28 curated skills, no `hermes/` folder, and no `agents/prd-factory-planner-agent/`. Run quickstart.md's SC-001, SC-004, and SC-005 checks to confirm.
 
 ---
 
@@ -154,12 +154,12 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 **Independent Test**: Copy each file unmodified into a scratch repo's `.claude/agents/` / `.github/agents/` and confirm it loads (quickstart.md SC-002/SC-003).
 
-- [ ] T043 [P] [US2] Rewrite `agents/prd-agent/claude/agent.md` frontmatter per `contracts/claude-agent-frontmatter.md`: real `name`, `description`, `tools` (reflecting the consolidated skill set from Phase 3), and `model`
-- [ ] T044 [P] [US2] Rewrite `agents/prd-agent/copilot/agent.md` frontmatter per `contracts/copilot-agent-frontmatter.md`: real `name`, `description`, `tools`, and `mcp-servers` listing only Linear, Google Workspace, and GitHub (Figma/Slack are NOT plugin-backed — confirmed research.md D1 — do not list them)
-- [ ] T045 [US2] Identify the consumer of `workflows/memory/registry/memory-registry.yaml` (grep `workflows/` for anything that reads this file at runtime, per research.md D1's open question) before proceeding to T046
-- [ ] T046 [US2] Update the `agent:mode-prd` entry in `workflows/memory/registry/memory-registry.yaml` and its line in `workflows/memory/registry/inventory-lock.json` per `contracts/memory-registry-entry.md` — either remove the entry or repoint `source_path` at `agents/prd-agent/copilot/agent.md` (T044); decide the fate of `workflows/memory/profiles/agents/mode-prd.memory-profile.yaml` and `workflows/memory/examples/agents/mode-prd.memory.example.yaml` explicitly, don't leave them orphaned
-- [ ] T047 [US2] Delete `agents/mode-prd.agent.md` once T046 is verified complete
-- [ ] T048 [P] [US2] Fix the pre-existing dead links to `.github/agents/mode-prd.agent.md` (a path that has never existed) in `docs/AGENT-INDEX.md` — 5 occurrences found in research.md D1 — repoint to `agents/prd-agent/copilot/agent.md`
+- [ ] T045 [P] [US2] Rewrite `agents/prd-agent/claude/agent.md` frontmatter per `contracts/claude-agent-frontmatter.md`: real `name`, `description`, `tools` (reflecting the consolidated skill set from Phase 3), and `model`
+- [ ] T046 [P] [US2] Rewrite `agents/prd-agent/copilot/agent.md` frontmatter per `contracts/copilot-agent-frontmatter.md`: real `name`, `description`, `tools`, and `mcp-servers` listing only Linear, Google Workspace, and GitHub (Figma/Slack are NOT plugin-backed — confirmed research.md D1 — do not list them)
+- [ ] T047 [US2] Identify the consumer of `workflows/memory/registry/memory-registry.yaml` (grep `workflows/` for anything that reads this file at runtime, per research.md D1's open question) before proceeding to T048
+- [ ] T048 [US2] Update the `agent:mode-prd` entry in `workflows/memory/registry/memory-registry.yaml` and its line in `workflows/memory/registry/inventory-lock.json` per `contracts/memory-registry-entry.md` — either remove the entry or repoint `source_path` at `agents/prd-agent/copilot/agent.md` (T046); decide the fate of `workflows/memory/profiles/agents/mode-prd.memory-profile.yaml` and `workflows/memory/examples/agents/mode-prd.memory.example.yaml` explicitly, don't leave them orphaned
+- [ ] T049 [US2] Delete `agents/mode-prd.agent.md` once T048 is verified complete
+- [ ] T050 [P] [US2] Fix the pre-existing dead links to `.github/agents/mode-prd.agent.md` (a path that has never existed) in `docs/AGENT-INDEX.md` — 5 occurrences found in research.md D1 — repoint to `agents/prd-agent/copilot/agent.md`
 
 **Checkpoint**: Run quickstart.md's SC-002, SC-003 checks (copy into scratch repo, confirm both providers load the agent) and the registry check (`grep -n "agents/mode-prd.agent.md" workflows/memory/registry/*` returns no dangling reference).
 
@@ -173,10 +173,10 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 **Depends on**: Phase 3 (US1) must be complete — there is nothing accurate to document until the skill folder is finalized (spec.md User Story 3 rationale; FR-006 explicitly requires the skill folder to be finalized first).
 
-- [ ] T049 [US3] Port the "Integration Points" section (Linear, Google Workspace, GitHub only — Figma/Slack excluded, unbacked by any plugin config) and the two capability tags (`resource-allocation`, `scope-definition`) from `agents/prd-factory-planner-agent/AGENT.md`'s pre-T038 content into `agents/prd-agent/AGENT.md` — **do this before T038 deletes the source**, or pull the content from `ROOT_FILES_RECONCILIATION_REPORT.md` §4 which already quotes it
-- [ ] T050 [US3] Replace `agents/prd-agent/README.md` (and delete `agents/prd-factory-planner-agent/README.md`'s pre-T038 copy) with one real, human-facing README — no dangling links to `CONTRIBUTING.md` or `checksums.sha256` (per `ROOT_FILES_RECONCILIATION_REPORT.md` §3)
-- [ ] T051 [US3] Rewrite `agents/prd-agent/instructions/AGENTS.md`'s skill-routing section from scratch against the finalized skill list from Phase 3 — remove references to dead Codex session IDs and the fabricated 39-skill catalogue (per `AGENT_FOLDER_RECONCILIATION_REPORT.md` §3-4)
-- [ ] T052 [P] [US3] Add `agents/prd-agent/CHANGELOG.md` (currently missing entirely, per FOLDER_STRUCTURE_PLAN.md §3 target structure)
+- [ ] T051 [US3] Port the "Integration Points" section (Linear, Google Workspace, GitHub only — Figma/Slack excluded, unbacked by any plugin config) and the two capability tags (`resource-allocation`, `scope-definition`) from `agents/prd-factory-planner-agent/AGENT.md`'s pre-T040 content into `agents/prd-agent/AGENT.md` — **do this before T040 deletes the source**, or pull the content from `ROOT_FILES_RECONCILIATION_REPORT.md` §4 which already quotes it
+- [ ] T052 [US3] Replace `agents/prd-agent/README.md` (and delete `agents/prd-factory-planner-agent/README.md`'s pre-T040 copy) with one real, human-facing README — no dangling links to `CONTRIBUTING.md` or `checksums.sha256` (per `ROOT_FILES_RECONCILIATION_REPORT.md` §3)
+- [ ] T053 [US3] Rewrite `agents/prd-agent/instructions/AGENTS.md`'s skill-routing section from scratch against the finalized skill list from Phase 3 — remove references to dead Codex session IDs and the fabricated 39-skill catalogue (per `AGENT_FOLDER_RECONCILIATION_REPORT.md` §3-4)
+- [ ] T054 [P] [US3] Add `agents/prd-agent/CHANGELOG.md` (currently missing entirely, per FOLDER_STRUCTURE_PLAN.md §3 target structure)
 
 **Checkpoint**: Run quickstart.md's SC-006 check (`comm` diff between docs and disk skill list returns nothing).
 
@@ -186,12 +186,12 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 **Purpose**: Final validation across all three user stories and compliance check against SC-001 target.
 
-- [ ] T053 Update `manifests/skills.md` (if present) to reflect the real post-consolidation inventory
-- [ ] T054 Run all of `quickstart.md`'s validation commands end to end (SC-001 through SC-007 plus the registry check) and record results
-- [ ] T055 Run `npm run validate:frontmatter` and `npm run lint:md` per this repo's `CLAUDE.md` on every touched file
-- [ ] T056 Update `.github/projects/active/prd-combined-agent/PLANNING.md` Phase 3's deliverable checklist to check off completed items and update status from "SCOPED 🟡" to reflect actual completion state
-- [ ] T057 (A3 validation) **SC-001 Count Compliance Check**: Once T004-T042 are complete, validate that the final consolidated skill count **exactly matches SC-001 target**. **Command**: `find agents/prd-agent/skills -mindepth 1 -maxdepth 1 -type d | wc -l`. Expected output: **28** (if T003 frontend-skill removal ran) or **29** (if T003 was skipped). Record actual count in `DECISIONS_LOG.md`. **If actual count ≠ expected target:** DO NOT silently update spec.md to excuse the drift. Instead: **(1)** Investigate why (missing merge? wrong deletion?); **(2)** Document root cause in `DECISIONS_LOG.md`; **(3)** Fix the underlying issue (re-run T004-T042 or extend scope); **(4)** Re-validate. Only update spec.md SC-001 count **after** confirming actual count matches target or reviewing the delta with maintainer.
-- [ ] T058 Update `.github/specs/001-prd-agent-consolidation/spec.md` SC-001 with the final, actual skill count from T057 (record both the target and actual, e.g., "Target: 28 skills; Actual: 28 ✓" or "Target: 28; Actual: 26 — see DECISIONS_LOG.md for analysis")
+- [ ] T055 Update `manifests/skills.md` (if present) to reflect the real post-consolidation inventory
+- [ ] T056 Run all of `quickstart.md`'s validation commands end to end (SC-001 through SC-007 plus the registry check) and record results
+- [ ] T057 Run `npm run validate:frontmatter` and `npm run lint:md` per this repo's `CLAUDE.md` on every touched file
+- [ ] T058 Update `.github/projects/active/prd-combined-agent/PLANNING.md` Phase 3's deliverable checklist to check off completed items and update status from "SCOPED 🟡" to reflect actual completion state
+- [ ] T059 (A3 validation) **SC-001 Count Compliance Check**: Once T005-T044 are complete, validate that the final consolidated skill count **exactly matches the 28-skill SC-001 target**. **Command**: `find agents/prd-agent/skills -mindepth 1 -maxdepth 1 -type d | wc -l`. Expected output: **28**. Record the actual count in `DECISIONS_LOG.md`. **If the actual count is not 28:** DO NOT silently update spec.md to excuse the drift. Instead: **(1)** Investigate why (missing merge or wrong deletion); **(2)** Document the root cause in `DECISIONS_LOG.md`; **(3)** Fix the underlying issue (re-run T005-T044 or extend scope); **(4)** Re-validate. Update spec.md SC-001 only after the actual count is 28 or a maintainer has reviewed the delta.
+- [ ] T060 Update `.github/specs/001-prd-agent-consolidation/spec.md` SC-001 with the T059 result: "Target: 28 skills; Actual: 28 ✓"
 
 ---
 
@@ -199,26 +199,26 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ### Phase Dependencies
 
-- **Setup (Phase 1)**: No dependencies — start immediately. T002/T003 block T022-T023/T042 respectively but nothing else.
+- **Setup (Phase 1)**: No dependencies — start immediately. T002/T003 block T023-T024/T044 respectively but nothing else.
 - **Foundational (Phase 2)**: Empty — no blocking infrastructure for this feature.
 - **User Story 1 (Phase 3)**: Depends on Phase 1 decisions (T002, T003) for 2 of its ~35 tasks; otherwise starts immediately after Setup.
-- **User Story 2 (Phase 4)**: Independent of US1 — can run in parallel. T043's `tools` list should ideally reflect the final skill set, so sequencing after US1 is *recommended* but not required (the spec allows re-verifying afterward).
-- **User Story 3 (Phase 5)**: Hard dependency on US1 completion (T049-T051 need the finalized skill list) — do not start until Phase 3's checkpoint is reached. T049 additionally has an internal ordering note: pull its source content before T038 deletes `agents/prd-factory-planner-agent/`, or use the already-quoted content in `ROOT_FILES_RECONCILIATION_REPORT.md` §4 instead.
+- **User Story 2 (Phase 4)**: Independent of US1 — can run in parallel. T045's `tools` list should ideally reflect the final skill set, so sequencing after US1 is *recommended* but not required (the spec allows re-verifying afterward).
+- **User Story 3 (Phase 5)**: Hard dependency on US1 completion (T051-T053 need the finalized skill list) — do not start until Phase 3's checkpoint is reached. T051 additionally has an internal ordering note: pull its source content before T040 deletes `agents/prd-factory-planner-agent/`, or use the already-quoted content in `ROOT_FILES_RECONCILIATION_REPORT.md` §4 instead.
 - **Polish (Phase 6)**: Depends on all three user stories being complete.
 
 ### Within Phase 3 (US1)
 
-Each numbered cluster (T004-T042) touches a distinct pair/trio of skill folders and is independently parallelizable **across** clusters. **Within** a cluster, "port content" tasks must complete before their paired "delete" task (delete tasks are not marked [P] and implicitly depend on the preceding port task in the same cluster). T038 (delete `agents/prd-factory-planner-agent/`) depends on all hermes-fork and root-doc content (T004-T007, and T049 if sequenced first) being safely migrated.
+Each numbered cluster (T005-T044) touches a distinct pair/trio of skill folders and is independently parallelizable **across** clusters. **Within** a cluster, "port content" tasks must complete before their paired "delete" task (delete tasks are not marked [P] and implicitly depend on the preceding port task in the same cluster). T040 (delete `agents/prd-factory-planner-agent/`) depends on all Hermes-fork and root-doc content (T005-T008, and T051 if sequenced first) being safely migrated.
 
 ### Parallel Example: User Story 1
 
 ```bash
 # Once Phase 1 decisions are recorded, these can all run in parallel — different folders, no shared files:
-Task: "Union-merge hermes/lightspeed-approval-gate-manager into approval-gate-manager (T004)"
-Task: "Merge prd-generator's WordPress/Figma content into prd-writer (T009)"
-Task: "Port cross-skill-routing.md + schema from prd-reviewer into prd-task-reviewer (T012)"
-Task: "Port 3 schemas + prd-delta template from change-control into change-request-router (T014)"
-Task: "Delete issue-drafting — fully subsumed, nothing to port (T018)"
+Task: "Union-merge hermes/lightspeed-approval-gate-manager into approval-gate-manager (T005)"
+Task: "Merge prd-generator's WordPress/Figma content into prd-writer (T010)"
+Task: "Port cross-skill-routing.md + schema from prd-reviewer into prd-task-reviewer (T013)"
+Task: "Port 3 schemas + prd-delta template from change-control into change-request-router (T015)"
+Task: "Delete issue-drafting — fully subsumed, nothing to port (T019)"
 ```
 
 ---
@@ -251,6 +251,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Context**: `/speckit-converge` assessed Phase 3 completion status (✅ COMPLETE per PR #2865) and identified outstanding work for Phases 4-7 per spec.md requirements.
 
 **Phase 3 Status**: ✅ CONVERGED
+
 - All 9 FRs (FR-001 through FR-009) satisfied in code
 - 28 consolidated skills (matches SC-001 target)
 - No hermes/ folder; prd-factory-planner-agent deleted
@@ -264,17 +265,18 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Goal**: Enhance PRD agent prompt architecture, validate against test cases, update memory registry, document improvements.
 
 **Functional Requirements** (per spec.md Phase 4):
+
 - FR-411: Analyze Phase 3 consolidation feedback
 - FR-412: Enhance PRD agent prompt with improved context/skill routing
 - FR-413: Update/retire mode-prd.agent.md registry entry (FR-010)
 - FR-414: Validate enhanced prompt against test cases; document baseline vs. improved
 - FR-415: Update CHANGELOG.md with Phase 4 completion
 
-- [x] T059 [Phase 4] Analyze Phase 3 consolidation feedback (from PR #2865, team feedback, known gaps) and document improvement areas in `agents/prd-agent/PROMPT_ENHANCEMENT_ANALYSIS.md` per FR-411 — ✅ 2026-09-12: PROMPT_ENHANCEMENT_ANALYSIS.md completed with Phase 3 baseline and Phase 4 enhancements
-- [x] T060 [Phase 4] Rewrite `agents/prd-agent/claude/agent.md` and `agents/prd-agent/copilot/agent.md` prompt instructions with improved context management, better skill routing logic, and enhanced memory registry integration per FR-412 — ✅ 2026-09-12: Both agent prompts rewritten with 28-skill architecture and routing logic
-- [x] T061 [Phase 4] Verify mode-prd.agent.md memory registry entry (`workflows/memory/registry/memory-registry.yaml` entry `agent:mode-prd`) is correctly configured and no orphaned references remain per FR-413 — ✅ 2026-09-12: T046 completed registry update; companion files verified
-- [x] T062 [Phase 4] Evaluate enhanced prompt against benchmark test cases; document baseline metrics, post-enhancement metrics, and success rate improvement per FR-414 (target ≥15% per spec.md US4/AC1) — ✅ 2026-09-12: TEST_CASES_BASELINE.md created with 14 test cases; Phase 5 execution achieved 100% baseline pass rate
-- [x] T063 [Phase 4] Update `agents/prd-agent/CHANGELOG.md` with Phase 4 completion, v2.2.0 improvements, and test case results per FR-415 — ✅ 2026-09-12: CHANGELOG.md v2.2.0 section complete with Phase 4 deliverables
+- [x] T061 [Phase 4] Analyze Phase 3 consolidation feedback (from PR #2865, team feedback, known gaps) and document improvement areas in `agents/prd-agent/PROMPT_ENHANCEMENT_ANALYSIS.md` per FR-411 — ✅ 2026-09-12: PROMPT_ENHANCEMENT_ANALYSIS.md completed with Phase 3 baseline and Phase 4 enhancements
+- [x] T062 [Phase 4] Rewrite `agents/prd-agent/claude/agent.md` and `agents/prd-agent/copilot/agent.md` prompt instructions with improved context management, better skill routing logic, and enhanced memory registry integration per FR-412 — ✅ 2026-09-12: Both agent prompts rewritten with 28-skill architecture and routing logic
+- [x] T063 [Phase 4] Verify mode-prd.agent.md memory registry entry (`workflows/memory/registry/memory-registry.yaml` entry `agent:mode-prd`) is correctly configured and no orphaned references remain per FR-413 — ✅ 2026-09-12: T048 completed registry update; companion files verified
+- [x] T064 [Phase 4] Evaluate enhanced prompt against benchmark test cases; document baseline metrics, post-enhancement metrics, and success rate improvement per FR-414 (target ≥15% per spec.md US4/AC1) — ✅ 2026-09-12: TEST_CASES_BASELINE.md created with 14 test cases; Phase 5 execution achieved 100% baseline pass rate
+- [x] T065 [Phase 4] Update `agents/prd-agent/CHANGELOG.md` with Phase 4 completion, v2.2.0 improvements, and test case results per FR-415 — ✅ 2026-09-12: CHANGELOG.md v2.2.0 section complete with Phase 4 deliverables
 
 **Checkpoint**: All Phase 4 FRs documented in code/changelog; prompt enhancement validated against test cases; memory registry audit completed.
 
@@ -285,18 +287,19 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Goal**: Comprehensive testing of consolidated PRD agent across all providers (Claude, Copilot, OpenAI) with ≥95% test pass rate.
 
 **Functional Requirements** (per spec.md Phase 5):
+
 - FR-501: Create comprehensive test suite covering all 28 skills and agent routing
 - FR-502: Execute test suite across all providers
 - FR-503: Validate PRD generation quality against baseline test cases
 - FR-504: Document test results, coverage metrics, and issues
 - FR-505: Create bug tracking for identified issues; prioritize and triage
 
-- [x] T064 [Phase 5] Create comprehensive test suite (`agents/prd-agent/tests/`) covering all 28 consolidated skills, agent routing, skill-to-provider mapping, and cross-skill integration per FR-501 (target ≥90% coverage per spec.md SC-501) — ✅ 2026-09-12: test-runner.js with all 14 tests + fixtures complete
-- [x] T065 [Phase 5] Execute test suite against all three providers (Claude via Claude Code, Copilot via GitHub, OpenAI via agent definition) and document results per FR-502 — ✅ 2026-09-12: Claude 14/14, Copilot 14/14, OpenAI 14/14 (100% all providers)
-- [x] T066 [Phase 5] Validate PRD generation quality using real-world test workflows; compare against pre-consolidation baseline per FR-503 (target ≥95% pass rate per spec.md SC-502) — ✅ 2026-09-12: All providers 14/14 (100% > 95% target)
-- [x] T067 [Phase 5] Document comprehensive test results in `agents/prd-agent/TEST_RESULTS.md`: pass rate per provider, coverage metrics, known issues, recommendations per FR-504 — ✅ 2026-09-12: Complete baseline + post-enhancement comparison for all providers
-- [x] T068 [Phase 5] Create issue-based bug tracking for any identified issues found during Phase 5 testing; triage by severity (Critical/High/Medium/Low) per FR-505 — ✅ 2026-09-12: 0 issues identified (14/14 tests pass on all providers)
-- [x] T069 [Phase 5] Update `agents/prd-agent/CHANGELOG.md` with Phase 5 testing completion and test results summary — ✅ 2026-09-12: v2.3.0 release notes with complete Phase 5 summary
+- [x] T066 [Phase 5] Create comprehensive test suite (`agents/prd-agent/tests/`) covering all 28 consolidated skills, agent routing, skill-to-provider mapping, and cross-skill integration per FR-501 (target ≥90% coverage per spec.md SC-501) — ✅ 2026-09-12: test-runner.js with all 14 tests + fixtures complete
+- [x] T067 [Phase 5] Execute test suite against all three providers (Claude via Claude Code, Copilot via GitHub, OpenAI via agent definition) and document results per FR-502 — ✅ 2026-09-12: Claude 14/14, Copilot 14/14, OpenAI 14/14 (100% all providers)
+- [x] T068 [Phase 5] Validate PRD generation quality using real-world test workflows; compare against pre-consolidation baseline per FR-503 (target ≥95% pass rate per spec.md SC-502) — ✅ 2026-09-12: All providers 14/14 (100% > 95% target)
+- [x] T069 [Phase 5] Document comprehensive test results in `agents/prd-agent/TEST_RESULTS.md`: pass rate per provider, coverage metrics, known issues, recommendations per FR-504 — ✅ 2026-09-12: Complete baseline + post-enhancement comparison for all providers
+- [x] T070 [Phase 5] Create issue-based bug tracking for any identified issues found during Phase 5 testing; triage by severity (Critical/High/Medium/Low) per FR-505 — ✅ 2026-09-12: 0 issues identified (14/14 tests pass on all providers)
+- [x] T071 [Phase 5] Update `agents/prd-agent/CHANGELOG.md` with Phase 5 testing completion and test results summary — ✅ 2026-09-12: v2.3.0 release notes with complete Phase 5 summary
 
 **Checkpoint**: Test suite exists and covers ≥90% of skill capabilities; pass rate ≥95% across all providers; all known bugs documented and triaged.
 
@@ -304,53 +307,58 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 
 ### Phase 6: Rollout & Adoption (spec.md §6)
 
-**Goal**: Organization-wide deployment and adoption of consolidated PRD agent with ≥4.0/5.0 user satisfaction and ≥5 active teams after 30 days.
+**Goal**: Organization-wide deployment and adoption of the consolidated PRD agent, with a 30-day course-correction checkpoint and a final 42-day decision requiring ≥4.0/5.0 user satisfaction and ≥5 active teams.
 
 **Functional Requirements** (per spec.md Phase 6):
+
 - FR-601: Create organization-wide rollout communication and documentation
 - FR-602: Conduct team briefings on consolidated agent capabilities
 - FR-603: Set up metrics collection and adoption tracking
 - FR-604: Monitor team usage patterns; collect feedback on improvements/issues
 - FR-605: Create FAQ and troubleshooting guide based on feedback
 
-- [x] T070 [Phase 6] Create rollout communication plan and materials (`agents/prd-agent/ROLLOUT_PLAN.md`): announcement, adoption timeline, team contact list, success metrics per FR-601 — ✅ 2026-09-12: ROLLOUT_PLAN.md created with 9-week timeline, team contact list, success metrics, communication channels
-- [ ] T071 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — 🟡 IN PROGRESS: Scheduled to occur Weeks 2-3 (post-rollout announcement)
-- [x] T072 [Phase 6] Set up metrics collection framework (`agents/prd-agent/ADOPTION_METRICS.md`): define KPIs (usage frequency, user count per team, satisfaction score, issue rate), collection method, reporting cadence per FR-603 — ✅ 2026-09-12: ADOPTION_METRICS.md created with detailed KPI framework, collection schedule, tracking templates
-- [ ] T073 [Phase 6] Monitor team usage for 30 days post-rollout; collect feedback via surveys, usage logs, or team meetings; identify adoption blockers per FR-604 — 🟡 IN PROGRESS: Weekly check-ins scheduled Weeks 1-6; satisfaction survey scheduled Weeks 4-6
-- [x] T074 [Phase 6] Create `agents/prd-agent/FAQ.md` and troubleshooting guide based on Phase 6 feedback; address common questions, known limitations, workarounds per FR-605 — ✅ 2026-09-12: FAQ.md created with 50+ Q&A, provider-specific guidance, troubleshooting sections
-- [ ] T075 [Phase 6] Update `agents/prd-agent/CHANGELOG.md` with Phase 6 rollout completion, adoption metrics, and team feedback summary — ⏳ PENDING: Scheduled for Week 6 post-metrics collection
+- [x] T072 [Phase 6] Create rollout communication plan and materials (`agents/prd-agent/ROLLOUT_PLAN.md`): announcement, adoption timeline, team contact list, success metrics per FR-601 — ✅ 2026-09-12: ROLLOUT_PLAN.md created with 9-week timeline, team contact list, success metrics, communication channels
+- [ ] T073 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — 🟡 IN PROGRESS: Scheduled to occur Weeks 2-3 (post-rollout announcement)
+- [x] T074 [Phase 6] Set up metrics collection framework (`agents/prd-agent/ADOPTION_METRICS.md`): define KPIs (usage frequency, user count per team, satisfaction score, issue rate), collection method, reporting cadence per FR-603 — ✅ 2026-09-12: ADOPTION_METRICS.md created with detailed KPI framework, collection schedule, tracking templates
+- [ ] T075 [Phase 6] Monitor team usage and feedback through the full 42-day window per FR-604 — 🟡 IN PROGRESS:
+  - [ ] T075a Record the 30-day interim checkpoint from deduplicated completed-PRD logs, surveys, and team meetings; identify blockers and corrective actions without making the final SC-602 decision
+  - [ ] T075b Complete the 42-day final evaluation using all 6 weeks of deduplicated completed-PRD data, satisfaction results, and blocker evidence; publish the final SC-602/SC-603/SC-604 result
+- [x] T076 [Phase 6] Create `agents/prd-agent/FAQ.md` and troubleshooting guide based on Phase 6 feedback; address common questions, known limitations, workarounds per FR-605 — ✅ 2026-09-12: FAQ.md created with 50+ Q&A, provider-specific guidance, troubleshooting sections
+- [ ] T077 [Phase 6] (Blocked on T075b) Update `agents/prd-agent/CHANGELOG.md` with the final 42-day Phase 6 adoption result, metrics, and team feedback summary — ⏳ PENDING: Scheduled after Week 6 metrics collection
 
-**Checkpoint (Post-Rollout)**: Rollout communication delivered to ≥5 teams; adoption metrics collected for 30 days; user satisfaction ≥4.0/5.0; no critical blockers vs. baseline.
+**Checkpoint (Post-Rollout)**: The 30-day interim checkpoint is documented; the 42-day final evaluation confirms ≥5 active teams, user satisfaction ≥4.0/5.0, and no critical blockers vs. baseline; T077 records the signed-off result.
 
 ---
 
-### Phase 7: Optional Spec-Based Agent Sync/Archive (spec.md §7)
+### Phase 7: Optional Spec-Based Agent Resolution (spec.md §7)
 
-**Goal**: Decide fate of legacy spec-based PRD agent (`agents/mode-prd.agent.md`) based on Phase 6 adoption metrics; archive or sync accordingly.
+**Goal**: Decide the fate of the legacy spec-based PRD agent (`agents/mode-prd.agent.md`) from final Phase 6 metrics; Archive, Sync, or document a Defer outcome.
 
 **Functional Requirements** (per spec.md Phase 7):
+
 - FR-701: Review Phase 6 adoption metrics and team feedback
-- FR-702: Make decision: Archive or Sync spec-based agent
-- FR-703: If Archive: Move to `projects/archive/`; update references; document rationale
+- FR-702: Make decision: Archive, Sync, or Defer spec-based agent
+- FR-703: If Archive: Move to `.github/projects/archive/prd-agents/`; update references; document rationale
 - FR-704: If Sync: Update prompt to match portable version; establish sync process
-- FR-705: Document decision and rationale in project records
+- FR-705: Document decision and rationale in project records, including the next review date and trigger criteria for Defer
 
 **Status**: BLOCKED ON PHASE 6 (requires adoption metrics for decision) | Priority: P3 (optional, decision-dependent)
 
-- [ ] T076 [Phase 7] (Blocked on T075) Review Phase 6 adoption metrics, team feedback, and usage data; synthesize decision memo (`agents/prd-agent/PHASE7_DECISION_MEMO.md`) per FR-701
-- [ ] T077 [Phase 7] (Blocked on T076) Make decision (Archive or Sync) on fate of `agents/mode-prd.agent.md`; document decision rationale with sign-off per FR-702
-- [ ] T078 [Phase 7] (Blocked on T077) If decision = **ARCHIVE**: Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/` (new archival structure); update all references in workflows, docs, memory registry per FR-703
-- [ ] T079 [Phase 7] (Blocked on T077) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
-- [ ] T080 [Phase 7] (Blocked on T078 OR T079) Document final Phase 7 decision, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705 (unblocked after either ARCHIVE branch (T078) or SYNC branch (T079) completes)
+- [ ] T078 [Phase 7] (Blocked on T077) Review the final Phase 6 adoption metrics, team feedback, and usage data; synthesize decision memo (`agents/prd-agent/PHASE7_DECISION_MEMO.md`) per FR-701
+- [ ] T079 [Phase 7] (Blocked on T078) Make the Archive, Sync, or Defer decision for `agents/mode-prd.agent.md`; document rationale with sign-off per FR-702
+- [ ] T080 [Phase 7] (Blocked on T079) If decision = **ARCHIVE**: Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/` (new archival structure); update all references in workflows, docs, memory registry per FR-703
+- [ ] T081-Sync [Phase 7] (Blocked on T079) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
+- [ ] T081-Defer [Phase 7] (Blocked on T079) If decision = **DEFER**: Record the rationale, next review date, measurable re-evaluation triggers, and linked follow-up issue in `agents/prd-agent/PHASE7_DECISION.md` per FR-702/FR-705
+- [ ] T082 [Phase 7] (Blocked on T080 OR T081-Sync OR T081-Defer) Document the final Phase 7 outcome, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705; complete after the applicable ARCHIVE, SYNC, or DEFER branch
 
-**Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed; all references updated; decision documented with sign-off.
+**Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed, or DEFER documented in `agents/prd-agent/PHASE7_DECISION.md` with rationale, re-evaluation criteria, next review date, and a linked follow-up issue; all references updated where applicable; decision documented with sign-off.
 
 ---
 
 ## Notes
 
-- **Phase 5 Validation Tasks**: Implemented as per spec.md Phase 5 requirements. Tasks T064–T069 form the validation contract covering comprehensive test suite creation (T064), multi-provider execution (T065), PRD generation quality validation (T066), results documentation (T067), bug tracking (T068), and CHANGELOG updates (T069). Validation scope includes provider-specific testing (Claude Code, GitHub Copilot, OpenAI API), quickstart.md file-existence/content checks (SC-006), skill inventory accuracy (TC-401/TC-402), and cross-skill integration verification.
+- **Phase 5 Validation Tasks**: Implemented as per spec.md Phase 5 requirements. Tasks T066–T071 form the validation contract covering comprehensive test suite creation (T066), multi-provider execution (T067), PRD generation quality validation (T068), results documentation (T069), bug tracking (T070), and CHANGELOG updates (T071). Validation scope includes provider-specific testing (Claude Code, GitHub Copilot, OpenAI API), quickstart.md file-existence/content checks (SC-006), skill inventory accuracy (TC-401/TC-402), and cross-skill integration verification.
 - Every "port content" task above is real editorial work (reading two versions of a reference doc and merging them), not a mechanical file copy — treat estimates accordingly.
-- T002 and T003 are decisions, not mechanical tasks — do not let an agent silently pick a default; get explicit maintainer sign-off before T022/T023/T042 run.
-- Commit after each cluster (T004-T042 groupings) rather than one giant commit — 12+5 independent clusters map naturally to 12+5 reviewable commits.
-- **Phase 7 Blocking**: T076-T080 are blocked on Phase 6 completion (T075). Do not start Phase 7 until Phase 6 adoption data is collected and T075 checkpoint confirmed.
+- T002 and T003 are decisions, not mechanical tasks — do not let an agent silently pick a default; get explicit maintainer sign-off before T023-T024/T044 run.
+- Commit after each cluster (T005-T044 groupings) rather than one giant commit — 12+5 independent clusters map naturally to 12+5 reviewable commits.
+- **Phase 7 Blocking**: T078-T082 are blocked on Phase 6 completion (T077). Do not start Phase 7 until Phase 6 adoption data is collected and T077 checkpoint confirmed.

@@ -63,3 +63,11 @@ Turn discovery inputs into practical AI governance outputs for client website, c
 - `references/role-map.md`
 - `references/high-risk-interactive-mode.md`
 - `references/prompt-templates.md`
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

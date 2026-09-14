@@ -435,6 +435,7 @@ All LightSpeed repositories should inherit standards, labels, workflows, and tem
 ### Quick Start for New Repos
 
 1. **Copy issue/PR templates:**
+
    ```bash
    cp -r .github/ISSUE_TEMPLATE /path/to/your/repo/.github/
    cp .github/PULL_REQUEST_TEMPLATE/*.md /path/to/your/repo/.github/PULL_REQUEST_TEMPLATE/
@@ -442,6 +443,7 @@ All LightSpeed repositories should inherit standards, labels, workflows, and tem
 
 2. **Sync labels workflow:**
    Create `.github/workflows/label-sync.yml` in your repo:
+
    ```yaml
    name: Label Sync
    on:
@@ -456,6 +458,7 @@ All LightSpeed repositories should inherit standards, labels, workflows, and tem
 
 3. **Auto-labeling workflow:**
    Create `.github/workflows/labeling.yml` in your repo:
+
    ```yaml
    name: Auto-Labeling
    on:
@@ -535,3 +538,15 @@ We welcome contributions! Please:
 **🚀 Built by LightSpeedWP with ☕, open source, and automation spirit!**
 
 *This repository is managed by the LightSpeed team. All organisational automation, governance, and documentation updates are maintained here.*
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

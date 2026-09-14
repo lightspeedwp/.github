@@ -238,3 +238,15 @@ For maintainers and reviewers, reference these [Saved Replies](../.github/SAVED_
 - [Frontmatter Schema](../.schemas/frontmatter.schema.json)
 - [Frontmatter Schema Guide](../docs/FRONTMATTER_SCHEMA.md)
 - [Saved Replies](../.github/SAVED_REPLIES/pull-requests/)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

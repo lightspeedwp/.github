@@ -45,6 +45,7 @@ The consolidated PRD Agent is a unified, production-ready tool for product requi
 5. **Consistent Behavior**: No version drift or hidden duplicate skills causing unexpected behavior.
 
 **Migration Path**: Copy the appropriate agent definition to your repository:
+
 - Claude Code users: Copy `agents/prd-agent/claude/agent.md`
 - Copilot users: Copy `agents/prd-agent/copilot/agent.md`
 - OpenAI API users: Use `agents/prd-agent/openai/agent.md`
@@ -58,12 +59,14 @@ See [Installation & Setup](#installation--setup) for step-by-step instructions.
 The agent combines skills from five functional clusters:
 
 **1. Drafting & Requirements** (4 skills)
+
 - `prd-writer` — Core PRD document creation
 - `acceptance-test-planner` — Acceptance criteria and testing
 - `project-intake` — Project scoping and intake structuring
 - `project-researcher` — Research and context gathering
 
 **2. Planning & Strategy** (6 skills)
+
 - `implementation-plan-generator` — Technical implementation roadmaps
 - `delivery-planner` — Timeline and task breakdown
 - `project-status-reporter` — Status reporting and metrics
@@ -72,6 +75,7 @@ The agent combines skills from five functional clusters:
 - `prd-agent-orchestrator` — Multi-step workflow routing
 
 **3. Quality & Validation** (5 skills)
+
 - `prd-task-reviewer` — PRD quality review and feedback
 - `qa-findings-router` — QA issue routing and triage
 - `validation-support` — General validation and verification
@@ -79,6 +83,7 @@ The agent combines skills from five functional clusters:
 - `evidence-locker` — Evidence and artifact management
 
 **4. Coordination & Execution** (5 skills)
+
 - `change-request-router` — Change management and routing
 - `launch-task-router` — Launch readiness and handoff
 - `release-handoff-generator` — Release coordination
@@ -86,6 +91,7 @@ The agent combines skills from five functional clusters:
 - `prd-task-pack-exporter` — Project export and packaging
 
 **5. Integration & Specialization** (8 skills)
+
 - `github-issue-drafter` — GitHub issue integration
 - `github-pr-workflow-guide` — Pull request workflows
 - `github-release-notes-generator` — Release note automation
@@ -107,10 +113,12 @@ For detailed information on each skill, see `instructions/AGENTS.md`.
 
 1. Clone or download the `agents/prd-agent/` folder from the LightSpeed `.github` repository
 2. Copy `agents/prd-agent/claude/agent.md` into your repository's `.claude/agents/` directory:
+
    ```bash
    mkdir -p .claude/agents
    cp agents/prd-agent/claude/agent.md .claude/agents/prd-agent.md
    ```
+
 3. Restart Claude Code (if running)
 4. In Claude Code, select "PRD Agent" from the agent dropdown menu
 5. Start using the agent with your PRD workflows
@@ -120,10 +128,12 @@ For detailed information on each skill, see `instructions/AGENTS.md`.
 #### GitHub Copilot Users
 
 1. Copy `agents/prd-agent/copilot/agent.md` into your repository's `.github/agents/` directory:
+
    ```bash
    mkdir -p .github/agents
    cp agents/prd-agent/copilot/agent.md .github/agents/prd-agent.md
    ```
+
 2. Commit and push the change
 3. In GitHub Copilot settings, refresh the custom agents list
 4. Select "PRD Agent" from the available custom agents
@@ -150,15 +160,22 @@ See [Troubleshooting: Agent Won't Load](#agent-wont-load).
 
 ### Do I need to update my existing workflows?
 
-**Short Answer**: Not necessarily. If you're already using the pre-consolidation PRD agent, the consolidated version is backward-compatible with the same workflow patterns.
+**Short Answer**: Most workflows continue without changes, but verify skill-routing mappings for custom identifiers.
 
 **Changes to Expect**:
+
 - Identical skill capabilities (28 consolidated skills provide all previous functionality)
 - Same agent interface (Claude Code, Copilot, OpenAI remain unchanged)
 - Improved response quality (100% test coverage means higher reliability)
 - Better error handling (consolidated skills route more intelligently)
 
-**No Migration Required**: Existing PRD workflows will continue to work. The consolidated agent is a drop-in replacement with better quality and maintenance.
+**Skill Routing Mappings** (verify these continue working):
+
+- `prd_create` → consolidated PRD creation skill
+- `prd_validate` → consolidated PRD validation skill
+- `sprint_planner` → consolidated sprint planning skill
+
+**Migration Guidance**: If your workflows reference these identifiers explicitly, the consolidated agent preserves these mappings. If you use the agent through high-level workflows without explicit skill calls, no changes needed. Review your workflow integration points if you have custom orchestration.
 
 ---
 
@@ -169,26 +186,31 @@ See [Troubleshooting: Agent Won't Load](#agent-wont-load).
 The consolidated agent supports the full PRD lifecycle:
 
 **1. PRD Creation**
+
 - Draft new PRDs from project scope and requirements
 - Generate acceptance criteria and testing strategies
 - Create implementation roadmaps and timelines
 
 **2. PRD Review & Quality**
+
 - Review PRDs for clarity, completeness, and feasibility
 - Identify gaps and suggest improvements
 - Validate against quality standards
 
 **3. Change Management**
+
 - Route and manage PRD changes and updates
 - Track change history and impact analysis
 - Update related workflows (timelines, implementation plans)
 
 **4. Coordination & Handoff**
+
 - Generate launch readiness checklists
 - Create release notes and deployment guides
 - Manage team approval gates and sign-offs
 
 **5. Integration & Reporting**
+
 - Export projects as packaged deliverables
 - Generate status reports and metrics
 - Integrate with GitHub, Linear, Google Workspace
@@ -224,11 +246,13 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 **Typical Duration**: 3-10 minutes depending on project complexity and amount of research required.
 
 **Factors**:
+
 - **Project Complexity**: Simple projects (feature tweaks) = 3-5 min. Complex projects (new platform) = 10-20 min.
 - **Input Quality**: Well-scoped requirements = faster. Vague or incomplete input = slower (agent may ask clarifying questions).
 - **Research Needed**: Projects requiring external research (competitor analysis, technical specs) = longer.
 
 **Optimization Tips**:
+
 1. Provide clear, detailed project scope upfront
 2. Include acceptance criteria or user stories if available
 3. Specify any constraints (timeline, technical limitations, dependencies)
@@ -241,12 +265,14 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 ### Should I use Claude Code or Copilot for PRD work?
 
 **Claude Code** (Recommended for PRD Work)
+
 - ✅ Better at long-form content generation (PRDs are typically 1000+ words)
 - ✅ Stronger context management (handles complex project scopes)
 - ✅ Preferred for deep PRD work (design, validation, iteration)
 - ✅ Direct integration: Copy agent file, use immediately
 
 **GitHub Copilot**
+
 - ✅ Better integration with GitHub workflows (issues, PRs, discussions)
 - ✅ Lighter weight: Good for quick PRD sketches or outlines
 - ✅ Seamless in GitHub web UI
@@ -259,11 +285,13 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 ### Can I use the agent with other tools (Linear, Jira, Asana)?
 
 **Native Integrations** (via skills):
+
 - ✅ **GitHub**: Issue creation, PR workflows, release notes, milestones
 - ✅ **Linear**: Issue creation, project linking, status updates
 - ✅ **Google Workspace**: Doc sharing, calendar integration, meeting notes
 
 **Indirect Support** (via manual export):
+
 - ⚠️ **Jira**: Export PRD as JSON/YAML, import manually into Jira
 - ⚠️ **Asana**: Export PRD as structured data, import as Asana tasks
 - ⚠️ **Slack**: Export PRD, share in Slack (no direct bot integration)
@@ -275,12 +303,14 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 ### What's the difference between the consolidated agent and the spec-based agent (mode-prd.agent.md)?
 
 **Consolidated Agent** (`agents/prd-agent/`)
+
 - ✅ Portable: Works in any LightSpeedWP repository
 - ✅ Well-tested: 100% test pass rate, 3 providers
 - ✅ Actively maintained: Phase 6+ updates
 - ✅ Recommended: Use this going forward
 
 **Spec-Based Agent** (`agents/mode-prd.agent.md` in .github control plane)
+
 - ⚠️ GitHub-specific: Only works in `.github` repository
 - ⚠️ Legacy: May become archived after Phase 7 decision
 - ❌ Not recommended for new projects
@@ -296,6 +326,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 **Problem**: Agent file copied, but Claude Code/Copilot doesn't recognize it.
 
 **Diagnosis**:
+
 1. Check file location:
    - Claude Code: `.claude/agents/prd-agent.md` ✅
    - Copilot: `.github/agents/prd-agent.md` ✅
@@ -310,6 +341,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
    - In VS Code: Reload window (`Ctrl+Shift+P` → "Reload Window")
 
 **Solution Steps**:
+
 1. Verify file location and YAML syntax
 2. Restart IDE
 3. Check provider logs (Claude Code: `.claude/logs/`; Copilot: Extension output panel)
@@ -322,6 +354,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 **Problem**: Agent loads, but responses are off-topic or incomplete.
 
 **Diagnosis**:
+
 1. Check your request clarity:
    - Vague: "Write a PRD" → Too open-ended
    - Clear: "Write a PRD for a user preferences panel (3-5 pages, includes acceptance criteria)"
@@ -336,6 +369,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
    - OpenAI API: Depends on your model (use gpt-4-turbo or newer)
 
 **Solution Steps**:
+
 1. Provide clear, detailed project scope
 2. Update to v2.3.0 if using older version
 3. Try Claude Code if using Copilot (rule out provider limitation)
@@ -348,6 +382,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 **Problem**: Agent takes >10 minutes to generate a PRD.
 
 **Diagnosis**:
+
 1. Check request complexity:
    - Complex projects (enterprise platform, lots of research needed) = slower
    - Simple projects (feature tweak) = should be <5 min
@@ -362,6 +397,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
    - Should terminate after 2-3 clarification rounds
 
 **Solution Steps**:
+
 1. Provide complete input upfront (reduce clarification rounds)
 2. Break large projects into smaller PRDs (1 skill area per PRD)
 3. Check provider status/docs for known slowdowns
@@ -374,6 +410,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 **Problem**: Agent routes to wrong skill (e.g., asks for PRD when you asked for review).
 
 **Diagnosis**:
+
 1. Check request clarity:
    - Request should explicitly mention the task type (draft, review, plan, etc.)
    - Example: "Review this PRD for clarity" vs. ambiguous "Improve this PRD"
@@ -387,6 +424,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
    - Example: "Write and review this PRD" → Single step preferred
 
 **Solution Steps**:
+
 1. Rephrase request to be clearer about task type
 2. Break multi-step requests into separate agent invocations
 3. Explicitly mention skill name if known (e.g., "Use the prd-task-reviewer skill to review this")
@@ -399,6 +437,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 **Problem**: Agent outputs JSON when you asked for Markdown, or format doesn't match your needs.
 
 **Diagnosis**:
+
 1. Check output request:
    - Did you specify format? ("as markdown", "as JSON", "as a table")
    - Agent defaults to markdown for PRDs, JSON for data exports
@@ -408,6 +447,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
    - Try requesting specific section instead of full output
 
 **Solution Steps**:
+
 1. Specify output format explicitly: "Output this as [format]"
 2. Request smaller chunks if truncation suspected
 3. Copy/paste output and share in issue if format corrupted
@@ -419,6 +459,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 **Problem**: Agent claims a skill is unavailable, but you see it in documentation.
 
 **Diagnosis**:
+
 1. Check skill name spelling:
    - Skill names use hyphens, not underscores (e.g., `prd-writer`, not `prd_writer`)
    - Check `instructions/AGENTS.md` for exact names
@@ -431,6 +472,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
    - Some skills may be provider-specific (e.g., GitHub integration only in Copilot)
 
 **Solution Steps**:
+
 1. Verify skill name spelling against `instructions/AGENTS.md`
 2. Update to v2.3.0 if using older version
 3. Try a different provider if skill unavailable
@@ -441,6 +483,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
 ### I Found a Bug
 
 **How to Report**:
+
 1. Document the issue:
    - What you asked the agent to do
    - What it should have done (expected behavior)
@@ -457,6 +500,7 @@ The agent's orchestrator skill (prd-agent-orchestrator) automatically routes req
    - Contact Ash Shaw for urgent escalation
 
 **Examples of What to Include**:
+
 ```
 Title: PRD writer skill truncates long acceptance criteria
 
@@ -479,16 +523,19 @@ Output: [paste the generated PRD - redact sensitive data]
 ### How do I report issues or request improvements?
 
 **For Bugs or Critical Issues**:
+
 - Slack: `#product-planning` channel or DM Ash Shaw
 - GitHub: Open issue with label `[ROLLOUT-FEEDBACK]` + severity label
 
 **For Feature Requests**:
+
 - GitHub: Open issue with label `[FEATURE-REQUEST]`
 - Include: What feature, why needed, example use case
 
 **For Questions or Help**:
+
 - Slack: Ask in `#product-planning`
-- Email: Contact Ash Shaw (ash@lightspeedwp.agency)
+- Email: Contact Ash Shaw (<ash@lightspeedwp.agency>)
 - This FAQ: Check if your question is covered above
 
 ---
@@ -513,17 +560,19 @@ All documents are located in `agents/prd-agent/` folder.
 **Yes!** The consolidated PRD agent is maintained and improved based on team feedback.
 
 **How to Contribute**:
+
 1. Report issues or feature requests (see above)
 2. Suggest improvements for skill routing or documentation
 3. Share success stories or use cases (helps with adoption)
 4. Participate in Phase 6 feedback (surveys, team briefings)
 
 **Process**:
+
 - Feature requests → Evaluated for Phase 6+ roadmap
 - Bug reports → Triaged by severity; critical bugs fixed immediately
 - Documentation improvements → Accepted via PR to agents/prd-agent/
 
-**Contact**: Ash Shaw (ash@lightspeedwp.agency) or open GitHub issue
+**Contact**: Ash Shaw (<ash@lightspeedwp.agency>) or open GitHub issue
 
 ---
 
@@ -563,3 +612,15 @@ All documents are located in `agents/prd-agent/` folder.
 ---
 
 **Still have questions?** Open a GitHub issue or post in `#product-planning` Slack. We're here to help! 🚀
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
