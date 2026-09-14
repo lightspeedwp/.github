@@ -1,0 +1,157 @@
+name: 'Validation Check'
+description: 'Create or update GitHub check run with validation results'
+
+inputs:
+  check-name:
+    description: 'Name of the check (e.g., "Branch Validation", "PR Template Validation")'
+    required: true
+  status:
+    description: 'Check status: queued, in_progress, or completed'
+    required: true
+  conclusion:
+    description: 'Check conclusion: success, failure, neutral, cancelled, skipped, timed_out'
+    required: false
+  details-url:
+    description: 'URL to details page (optional)'
+    required: false
+  summary:
+    description: 'Short summary of check result'
+    required: true
+  text:
+    description: 'Detailed text output (markdown supported)'
+    required: false
+  annotations:
+    description: 'JSON array of annotations (errors/warnings)'
+    required: false
+
+outputs:
+  check-id:
+    description: 'GitHub check run ID'
+    value: ${{ steps.create-check.outputs.check-id }}
+  status:
+    description: 'Check status'
+    value: ${{ steps.create-check.outputs.status }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate inputs
+      id: validate
+      shell: bash
+      run: |
+        STATUS="${{ inputs.status }}"
+        CONCLUSION="${{ inputs.conclusion }}"
+
+        # Validate status
+        if ! echo "$STATUS" | grep -qE "^(queued|in_progress|completed)$"; then
+          echo "ERROR: Invalid status '$STATUS'. Must be one of: queued, in_progress, completed" >&2
+          exit 1
+        fi
+
+        # Validate conclusion (only required if status is completed)
+        if [[ "$STATUS" == "completed" ]]; then
+          if ! echo "$CONCLUSION" | grep -qE "^(success|failure|neutral|cancelled|skipped|timed_out)$"; then
+            echo "ERROR: Invalid conclusion '$CONCLUSION'. Must be one of: success, failure, neutral, cancelled, skipped, timed_out" >&2
+            exit 1
+          fi
+        fi
+
+        echo "status=$STATUS" >> $GITHUB_OUTPUT
+        echo "conclusion=$CONCLUSION" >> $GITHUB_OUTPUT
+
+    - name: Create or update check run
+      id: create-check
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+      run: |
+        CHECK_NAME="${{ inputs.check-name }}"
+        STATUS="${{ steps.validate.outputs.status }}"
+        CONCLUSION="${{ steps.validate.outputs.conclusion }}"
+        DETAILS_URL="${{ inputs.details-url }}"
+        SUMMARY="${{ inputs.summary }}"
+        TEXT="${{ inputs.text }}"
+        ANNOTATIONS="${{ inputs.annotations }}"
+        COMMIT_SHA="${{ github.sha }}"
+
+        echo "Creating check run: $CHECK_NAME"
+
+        # Build check run JSON payload
+        CHECK_JSON=$(jq -n \
+          --arg name "$CHECK_NAME" \
+          --arg status "$STATUS" \
+          --arg conclusion "$CONCLUSION" \
+          --arg summary "$SUMMARY" \
+          --arg text "$TEXT" \
+          --arg head_sha "$COMMIT_SHA" \
+          '{
+            name: $name,
+            head_sha: $head_sha,
+            status: $status,
+            conclusion: (if $conclusion != "" then $conclusion else null end),
+            output: {
+              title: $name,
+              summary: $summary,
+              text: (if $text != "" then $text else null end)
+            }
+          }')
+
+        # Check if a check run with this name already exists
+        EXISTING_CHECK=$(gh api graphql -f query='
+          query($repo:String!, $owner:String!, $name:String!, $sha:String!) {
+            repository(owner:$owner, name:$repo) {
+              commit(oid:$sha) {
+                checkSuites(first:10) {
+                  nodes {
+                    checkRuns(first:10) {
+                      nodes {
+                        name
+                        id
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ' -f owner="${GH_REPO%/*}" -f repo="${GH_REPO##*/}" -f name="$CHECK_NAME" -f sha="$COMMIT_SHA" 2>/dev/null || echo '{}')
+
+        # For this simplified version, we'll use the REST API to create checks
+        CHECK_ID=$(gh api \
+          repos/$GH_REPO/check-runs \
+          -f name="$CHECK_NAME" \
+          -f head_sha="$COMMIT_SHA" \
+          -f status="$STATUS" \
+          $(if [[ "$STATUS" == "completed" ]]; then echo "-f conclusion=$CONCLUSION"; fi) \
+          -f "output[title]=$CHECK_NAME" \
+          -f "output[summary]=$SUMMARY" \
+          $(if [[ -n "$TEXT" ]]; then echo "-f \"output[text]=$TEXT\""; fi) \
+          2>/dev/null | jq -r '.id // empty')
+
+        if [[ -z "$CHECK_ID" ]]; then
+          echo "ERROR: Failed to create check run" >&2
+          exit 1
+        fi
+
+        echo "✓ Check run created with ID: $CHECK_ID"
+        echo "check-id=$CHECK_ID" >> $GITHUB_OUTPUT
+        echo "status=$STATUS" >> $GITHUB_OUTPUT
+
+    - name: Add annotations
+      if: ${{ inputs.annotations != '' }}
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        CHECK_ID: ${{ steps.create-check.outputs.check-id }}
+      run: |
+        ANNOTATIONS="${{ inputs.annotations }}"
+
+        if [[ -z "$ANNOTATIONS" ]]; then
+          exit 0
+        fi
+
+        echo "Adding annotations to check run..."
+        # Parse and add annotations (implementation depends on annotation format)
+        # This is a placeholder for annotation support
+        echo "Annotations support pending full implementation"

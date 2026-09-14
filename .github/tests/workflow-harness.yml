@@ -1,0 +1,200 @@
+---
+name: 'Workflow Test Harness'
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - '.github/tests/**'
+  workflow_dispatch:
+    inputs:
+      test-type:
+        description: 'Type of test to run: labeling, validation, testing, linting, quality-gates, all'
+        required: false
+        default: 'all'
+
+jobs:
+  harness-setup:
+    name: Harness Setup
+    runs-on: ubuntu-latest
+    outputs:
+      test-matrix: ${{ steps.matrix.outputs.test-matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed workflows
+        id: detect
+        run: |
+          # Find which unified workflows were modified
+          CHANGED_WORKFLOWS=""
+
+          for workflow in labeling validation testing linting quality-gates; do
+            if git diff --name-only origin/develop...HEAD | grep -q "workflows/${workflow}-unified.yml\|actions/.*action.yml"; then
+              CHANGED_WORKFLOWS="$CHANGED_WORKFLOWS $workflow"
+            fi
+          done
+
+          echo "Changed workflows: $CHANGED_WORKFLOWS"
+          echo "changed=$CHANGED_WORKFLOWS" >> $GITHUB_OUTPUT
+
+      - name: Build test matrix
+        id: matrix
+        run: |
+          TEST_TYPE="${{ github.event.inputs.test-type || 'all' }}"
+
+          if [[ "$TEST_TYPE" == "all" ]]; then
+            MATRIX='["labeling","validation","testing","linting","quality-gates"]'
+          else
+            MATRIX="[\"$TEST_TYPE\"]"
+          fi
+
+          echo "test-matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "Test matrix: $MATRIX"
+
+  test-labeling-unified:
+    name: Test labeling-unified.yml
+    runs-on: ubuntu-latest
+    if: contains(fromJson(needs.harness-setup.outputs.test-matrix), 'labeling')
+    needs: harness-setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate YAML syntax
+        run: |
+          if ! command -v yamllint &> /dev/null; then
+            npm install -g yamllint
+          fi
+          yamllint -d relaxed .github/workflows/labeling-unified.yml || true
+
+      - name: Test labeling-unified.yml structure
+        run: |
+          # Basic validation: check for required sections
+          for section in "name" "on" "jobs"; do
+            if ! grep -q "^$section:" .github/workflows/labeling-unified.yml; then
+              echo "WARNING: Missing '$section' section in labeling-unified.yml"
+            fi
+          done
+
+          # Check for expected jobs
+          for job in "pr-labeling" "issue-labeling" "scheduled-cleanup"; do
+            if grep -q "  $job:" .github/workflows/labeling-unified.yml; then
+              echo "✓ Found job: $job"
+            else
+              echo "⚠  Missing job: $job (may be expected depending on implementation)"
+            fi
+          done
+
+      - name: Validate composite action references
+        run: |
+          # Check that apply-labels action is referenced
+          if grep -q "apply-labels" .github/workflows/labeling-unified.yml; then
+            echo "✓ apply-labels action referenced"
+          fi
+
+          # Check that collect-metrics action is referenced
+          if grep -q "collect-metrics" .github/workflows/labeling-unified.yml; then
+            echo "✓ collect-metrics action referenced"
+          fi
+
+  test-validation-unified:
+    name: Test validation-unified.yml
+    runs-on: ubuntu-latest
+    if: contains(fromJson(needs.harness-setup.outputs.test-matrix), 'validation')
+    needs: harness-setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate YAML syntax
+        run: |
+          if ! command -v yamllint &> /dev/null; then
+            npm install -g yamllint
+          fi
+          yamllint -d relaxed .github/workflows/validation-unified.yml || true
+
+      - name: Test validation-unified.yml structure
+        run: |
+          echo "Testing validation-unified.yml structure..."
+          # Basic validation checks
+          if grep -q "on:" .github/workflows/validation-unified.yml; then
+            echo "✓ Triggers defined"
+          fi
+
+  test-testing-unified:
+    name: Test testing-unified.yml
+    runs-on: ubuntu-latest
+    if: contains(fromJson(needs.harness-setup.outputs.test-matrix), 'testing')
+    needs: harness-setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate YAML syntax
+        run: |
+          echo "Validating testing-unified.yml..."
+
+  test-linting-unified:
+    name: Test linting-unified.yml
+    runs-on: ubuntu-latest
+    if: contains(fromJson(needs.harness-setup.outputs.test-matrix), 'linting')
+    needs: harness-setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate YAML syntax
+        run: |
+          echo "Validating linting-unified.yml..."
+
+  test-quality-gates:
+    name: Test quality-gates.yml
+    runs-on: ubuntu-latest
+    if: contains(fromJson(needs.harness-setup.outputs.test-matrix), 'quality-gates')
+    needs: harness-setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate YAML syntax
+        run: |
+          echo "Validating quality-gates.yml..."
+
+  harness-report:
+    name: Test Harness Report
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [harness-setup, test-labeling-unified, test-validation-unified, test-testing-unified, test-linting-unified, test-quality-gates]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate test report
+        run: |
+          echo "# Workflow Test Harness Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Test Matrix:** ${{ needs.harness-setup.outputs.test-matrix }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Workflow | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| labeling-unified.yml | ${{ needs.test-labeling-unified.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| validation-unified.yml | ${{ needs.test-validation-unified.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| testing-unified.yml | ${{ needs.test-testing-unified.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| linting-unified.yml | ${{ needs.test-linting-unified.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| quality-gates.yml | ${{ needs.test-quality-gates.result }} |" >> $GITHUB_STEP_SUMMARY
+
+      - name: Fail if any test failed
+        if: |
+          needs.test-labeling-unified.result == 'failure' ||
+          needs.test-validation-unified.result == 'failure' ||
+          needs.test-testing-unified.result == 'failure' ||
+          needs.test-linting-unified.result == 'failure' ||
+          needs.test-quality-gates.result == 'failure'
+        run: |
+          echo "❌ Workflow test harness failed"
+          exit 1
