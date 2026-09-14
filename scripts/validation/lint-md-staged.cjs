@@ -41,16 +41,21 @@ const configPath = path.join(__dirname, "../../.markdownlint.config.cjs");
 const baseConfig = require(configPath) || {};
 const ignorePaths = baseConfig.ignorePaths || [];
 
+// Resolve once, and run every git/fs operation against it — lint-staged (and
+// a developer running it manually) may invoke this from any cwd, but
+// ignorePaths and the repo's other tooling all assume repo-root-relative
+// paths.
+const repoRoot = execFileSync("git", ["rev-parse", "--show-toplevel"], {
+  encoding: "utf8",
+}).trim();
+
 function isIgnored(file) {
   return ignorePaths.some((pattern) => minimatch(file, pattern, { dot: true }));
 }
 
-// lint-staged invokes this script with absolute paths, but ignorePaths (from
-// .markdownlintignore) and this repo's other tooling all assume paths
-// relative to the repo root — match on that, not the raw argv.
 const files = process.argv
   .slice(2)
-  .map((file) => path.relative(process.cwd(), file))
+  .map((file) => path.relative(repoRoot, path.resolve(process.cwd(), file)))
   .filter((file) => {
     if (isIgnored(file)) {
       console.log(`⏭️  Skipped (ignored): ${file}`);
@@ -62,6 +67,10 @@ const files = process.argv
 if (files.length === 0) {
   console.log("No staged Markdown files to lint.");
   process.exit(0);
+}
+
+function absPath(file) {
+  return path.join(repoRoot, file);
 }
 
 // Parses a unified diff into hunks of { oldStart, oldCount, newStart, newCount }.
@@ -116,11 +125,26 @@ function diffAgainstHead(file) {
     return execFileSync(
       "git",
       ["diff", "--cached", "--unified=0", "--no-color", "HEAD", "--", file],
-      { encoding: "utf8" },
+      { encoding: "utf8", cwd: repoRoot },
     );
   } catch {
     // No HEAD yet (root commit).
     return null;
+  }
+}
+
+// Reads the file's staged (index) content — what --cached diffed against
+// HEAD — rather than the working tree, which can carry additional unstaged
+// edits that would otherwise shift line numbers out from under that diff.
+function indexContent(file) {
+  try {
+    return execFileSync("git", ["show", `:${file}`], {
+      encoding: "utf8",
+      cwd: repoRoot,
+    });
+  } catch {
+    // Not in the index yet (e.g. no HEAD/root commit) — fall back to disk.
+    return fs.readFileSync(absPath(file), "utf8");
   }
 }
 
@@ -162,27 +186,30 @@ function mapLinesForward(oldLines, hunks) {
 async function lintFile(file) {
   const { lint } = await import("markdownlint/promise");
   const result = await lint({
-    files: [file],
+    files: [absPath(file)],
     config: { default: true, ...(baseConfig.rules || {}) },
   });
-  return result[file] || [];
+  return result[absPath(file)] || [];
 }
 
 async function main() {
   let blocking = false;
 
-  // Snapshot content and the HEAD diff *before* --fix mutates anything —
-  // this is the source of truth for what the commit actually touches.
+  // Snapshot the staged (index) content and the HEAD diff *before* --fix
+  // mutates the working tree — this is the source of truth for what the
+  // commit actually touches, independent of any unstaged edits sitting
+  // alongside it on disk.
   const preFixState = new Map();
   for (const file of files) {
     preFixState.set(file, {
-      content: fs.readFileSync(file, "utf8"),
+      content: indexContent(file),
       headDiff: diffAgainstHead(file),
     });
   }
 
   const fixResult = spawnSync("npx", ["markdownlint-cli2", "--fix", ...files], {
     stdio: "inherit",
+    cwd: repoRoot,
   });
   if (fixResult.error) {
     console.error(
@@ -207,7 +234,7 @@ async function main() {
       added = null; // no HEAD yet — treat everything as added.
     } else {
       const preFixAdded = headDiff ? addedLinesFromDiff(headDiff) : new Set();
-      const postFixContent = fs.readFileSync(file, "utf8");
+      const postFixContent = fs.readFileSync(absPath(file), "utf8");
 
       if (preFixAdded.size === 0 || postFixContent === preFixContent) {
         added = preFixAdded;
@@ -221,7 +248,14 @@ async function main() {
         try {
           const diffProc = spawnSync(
             "git",
-            ["diff", "--no-index", "--unified=0", "--no-color", tmpFile, file],
+            [
+              "diff",
+              "--no-index",
+              "--unified=0",
+              "--no-color",
+              tmpFile,
+              absPath(file),
+            ],
             { encoding: "utf8" },
           );
           if (diffProc.error) {
