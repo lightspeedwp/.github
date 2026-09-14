@@ -280,6 +280,29 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(defer).toMatch(/Unresolved critical blockers take precedence/i);
     });
 
+    test("ensures decision paths are mutually exclusive", () => {
+      const matrix = extractSection(phase7Criteria, /## Decision Matrix/, /## Execution Steps/);
+
+      // SYNC requires ALL conditions: teams ≥5, satisfaction ≥4.0, blockers == 0
+      expect(matrix).toContain("Active Teams >= 5");
+      expect(matrix).toContain("Satisfaction Score >= 4.0");
+      expect(matrix).toContain("(Active Teams >= 5) AND (Satisfaction Score >= 4.0)");
+
+      // ARCHIVE requires: (teams < 5 OR satisfaction < 4.0) AND blockers == 0
+      expect(matrix).toContain("(Active Teams < 5) OR (Satisfaction Score < 4.0)");
+      expect(matrix).toContain("AND (Critical Blockers == 0)");
+
+      // DEFER catches all other cases including any critical blockers
+      expect(matrix).toContain("Mixed signals");
+      expect(matrix).toContain("unresolved critical blockers");
+
+      // Verify no path can be selected when Critical Blockers > 0
+      const archivePath = extractSection(matrix, /### Path 1: ARCHIVE/, /---/);
+      const syncPath = extractSection(matrix, /### Path 2: SYNC/, /---/);
+      expect(archivePath).toContain("Critical Blockers == 0");
+      expect(syncPath).toContain("Critical Blockers == 0");
+    });
+
     test("defines actionable outputs for the negative DEFER path", () => {
       const defer = extractSection(
         phase7Criteria,
