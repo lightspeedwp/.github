@@ -13,8 +13,9 @@ class Formatter {
     if (!result) return 'No result to format';
 
     const lines = [];
-    const status = result.summary?.status || 'unknown';
-    const score = result.complianceScore || 0;
+    const validation = result.validation || result;
+    const status = validation.complianceStatus || 'unknown';
+    const score = validation.complianceScore || 0;
 
     // Header with status badge
     const statusBadge = this.getStatusBadge(status);
@@ -23,21 +24,21 @@ class Formatter {
     lines.push('');
 
     // Summary section
-    if (result.summary) {
+    if (validation.summary) {
       lines.push('📊 Summary:');
-      lines.push(`  Passed: ${result.summary.passed || 0} rules`);
-      lines.push(`  Failed: ${result.summary.failed || 0} rules`);
-      lines.push(`  Warnings: ${result.summary.warnings || 0} issues`);
-      lines.push(`  Errors: ${result.summary.errors || 0} issues`);
+      lines.push(`  Passed: ${validation.summary.passed || 0} rules`);
+      lines.push(`  Failed: ${validation.summary.failed || 0} rules`);
+      lines.push(`  Warnings: ${validation.summary.warnings || 0} issues`);
+      lines.push(`  Errors: ${validation.summary.errors || 0} issues`);
       lines.push('');
     }
 
     // Issues section
-    if (result.summary?.issues && result.summary.issues.length > 0) {
+    if (validation.summary?.issues && validation.summary.issues.length > 0) {
       lines.push('⚠️  Issues Found:');
       lines.push('');
 
-      result.summary.issues.forEach((issue, idx) => {
+      validation.summary.issues.forEach((issue, idx) => {
         lines.push(`${idx + 1}. [${issue.severity.toUpperCase()}] ${issue.ruleName}`);
         lines.push(`   Rule: ${issue.ruleId}`);
         lines.push(`   Issue: ${issue.message}`);
@@ -57,8 +58,8 @@ class Formatter {
     }
 
     // Passing rules (summary only)
-    if (result.summary?.passed && result.summary.passed > 0) {
-      lines.push(`✓ ${result.summary.passed} rule(s) passed validation`);
+    if (validation.summary?.passed && validation.summary.passed > 0) {
+      lines.push(`✓ ${validation.summary.passed} rule(s) passed validation`);
       lines.push('');
     }
 
@@ -107,12 +108,13 @@ class Formatter {
    * @returns {string} Status explanation
    */
   formatComplianceStatus(result) {
-    const status = result.summary?.status || 'unknown';
-    const breakdown = result.summary || {};
+    const validation = result.validation || result;
+    const status = validation.complianceStatus || 'unknown';
+    const breakdown = validation.summary || {};
 
     const lines = [];
     lines.push(`Compliance: ${status.toUpperCase()}`);
-    lines.push(`Score: ${result.complianceScore || 0}/100`);
+    lines.push(`Score: ${validation.complianceScore || 0}/100`);
 
     if (breakdown.errors > 0) {
       lines.push(`⚠ ${breakdown.errors} blocking error(s)`);
@@ -143,13 +145,14 @@ class Formatter {
    */
   formatCompact(result) {
     const lines = [];
-    const statusBadge = this.getStatusBadge(result.summary?.status || 'unknown');
-    const score = this.formatScore(result.complianceScore || 0);
+    const validation = result.validation || result;
+    const statusBadge = this.getStatusBadge(validation.complianceStatus || 'unknown');
+    const score = this.formatScore(validation.complianceScore || 0);
 
     lines.push(`${statusBadge} Score: ${score}`);
 
-    if (result.summary?.issues && result.summary.issues.length > 0) {
-      lines.push(`Issues: ${result.summary.failed || result.summary.issues.length}`);
+    if (validation.summary?.issues && validation.summary.issues.length > 0) {
+      lines.push(`Issues: ${validation.summary.failed || validation.summary.issues.length}`);
     }
 
     return lines.join(' | ');
@@ -163,7 +166,8 @@ class Formatter {
    */
   formatForGitHub(result, context = {}) {
     const lines = [];
-    const statusBadge = this.getStatusBadge(result.summary?.status || 'unknown');
+    const validation = result.validation || result;
+    const statusBadge = this.getStatusBadge(validation.complianceStatus || 'unknown');
 
     lines.push(`## ${statusBadge} Entry Validation Result`);
     lines.push('');
@@ -177,15 +181,15 @@ class Formatter {
     }
 
     // Score
-    lines.push(`**Compliance Score:** ${result.complianceScore || 0}/100`);
+    lines.push(`**Compliance Score:** ${validation.complianceScore || 0}/100`);
     lines.push('');
 
     // Issues
-    if (result.summary?.issues && result.summary.issues.length > 0) {
+    if (validation.summary?.issues && validation.summary.issues.length > 0) {
       lines.push('### Issues Found');
       lines.push('');
 
-      result.summary.issues.forEach(issue => {
+      validation.summary.issues.forEach(issue => {
         const icon = issue.severity === 'error' ? '❌' : '⚠️';
         lines.push(`${icon} **${issue.ruleName}** (\`${issue.ruleId}\`)`);
         lines.push(`${issue.message}`);
@@ -199,7 +203,7 @@ class Formatter {
     }
 
     // Success message
-    if (result.summary?.status === 'passing') {
+    if (validation.complianceStatus === 'passing') {
       lines.push('✓ All quality checks passed!');
     }
 

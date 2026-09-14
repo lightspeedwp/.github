@@ -40,15 +40,16 @@ describe('Entry Validation Workflow Integration', () => {
       const validationResult = validator.validate(parsedEntry, RULES_FILE);
 
       // 4. Check result structure
-      expect(validationResult).toHaveProperty('complianceScore');
-      expect(validationResult).toHaveProperty('summary');
-      expect(validationResult.summary).toHaveProperty('status');
-      expect(validationResult.summary).toHaveProperty('passed');
-      expect(validationResult.summary).toHaveProperty('failed');
+      expect(validationResult).toHaveProperty('validation');
+      expect(validationResult.validation).toHaveProperty('complianceScore');
+      expect(validationResult.validation).toHaveProperty('complianceStatus');
+      expect(validationResult.validation).toHaveProperty('summary');
+      expect(validationResult.validation.summary).toHaveProperty('passed');
+      expect(validationResult.validation.summary).toHaveProperty('failed');
 
       // 5. Verify passing result
-      expect(validationResult.summary.status).toBe('passing');
-      expect(validationResult.complianceScore).toBeGreaterThanOrEqual(90);
+      expect(validationResult.validation.complianceStatus).toBe('passing');
+      expect(validationResult.validation.complianceScore).toBeGreaterThanOrEqual(90);
 
       // 6. Format output
       const formattedOutput = formatter.formatValidationResult(validationResult);
@@ -69,14 +70,14 @@ describe('Entry Validation Workflow Integration', () => {
       const validationResult = validator.validate(entry, RULES_FILE);
 
       // Verify it failed
-      expect(validationResult.summary.status).toBe('failing');
-      expect(validationResult.summary.failed).toBeGreaterThan(0);
-      expect(validationResult.summary.errors).toBeGreaterThan(0);
+      expect(validationResult.validation.complianceStatus).toBe('failing');
+      expect(validationResult.validation.summary.failed).toBeGreaterThan(0);
+      expect(validationResult.validation.summary.errors).toBeGreaterThan(0);
 
       // Check for specific issues
-      const issues = validationResult.summary.issues;
-      expect(issues.some(i => i.rule_id === 'R002')).toBe(true); // Missing category
-      expect(issues.some(i => i.rule_id === 'R001')).toBe(true); // Has code keywords
+      const issues = validationResult.validation.summary.issues;
+      expect(issues.some(i => i.ruleId === 'R002')).toBe(true); // Missing category
+      expect(issues.some(i => i.ruleId === 'R001')).toBe(true); // Has code keywords
     });
 
     test('should identify warning-level issues', () => {
@@ -89,7 +90,7 @@ describe('Entry Validation Workflow Integration', () => {
       const validationResult = validator.validate(entry, RULES_FILE);
 
       // Should have warnings but not full fail
-      const warnings = validationResult.summary.issues.filter(i => i.severity === 'warning');
+      const warnings = validationResult.validation.summary.issues.filter(i => i.severity === 'warning');
       expect(warnings.length).toBeGreaterThan(0);
     });
   });
@@ -122,8 +123,8 @@ describe('Entry Validation Workflow Integration', () => {
       const jsonOutput = JSON.stringify(validationResult);
 
       const parsed = JSON.parse(jsonOutput);
-      expect(parsed).toHaveProperty('complianceScore');
       expect(parsed).toHaveProperty('validation');
+      expect(parsed.validation).toHaveProperty('complianceScore');
     });
 
     test('should format result for GitHub comment', () => {
@@ -156,7 +157,7 @@ describe('Entry Validation Workflow Integration', () => {
       };
 
       const validationResult = validator.validate(entry, RULES_FILE);
-      expect(validationResult.summary.failed).toBeGreaterThan(0);
+      expect(validationResult.validation.summary.failed).toBeGreaterThan(0);
     });
 
     test('should handle entry with null values', () => {
@@ -167,7 +168,7 @@ describe('Entry Validation Workflow Integration', () => {
       };
 
       const validationResult = validator.validate(entry, RULES_FILE);
-      expect(validationResult.summary.failed).toBeGreaterThan(0);
+      expect(validationResult.validation.summary.failed).toBeGreaterThan(0);
     });
 
     test('should handle entry with extra fields', () => {
@@ -181,7 +182,8 @@ describe('Entry Validation Workflow Integration', () => {
       };
 
       const validationResult = validator.validate(entry, RULES_FILE);
-      expect(validationResult).toHaveProperty('complianceScore');
+      expect(validationResult).toHaveProperty('validation');
+      expect(validationResult.validation).toHaveProperty('complianceScore');
       // Extra fields should not cause validation errors
     });
 
@@ -194,8 +196,9 @@ describe('Entry Validation Workflow Integration', () => {
       };
 
       const validationResult = validator.validate(entry, RULES_FILE);
-      expect(validationResult).toHaveProperty('complianceScore');
-      expect(validationResult.summary).toHaveProperty('status');
+      expect(validationResult).toHaveProperty('validation');
+      expect(validationResult.validation).toHaveProperty('complianceScore');
+      expect(validationResult.validation).toHaveProperty('complianceStatus');
     });
   });
 
@@ -218,9 +221,10 @@ describe('Entry Validation Workflow Integration', () => {
         }
       });
 
-      expect(validationResult).toHaveProperty('complianceScore');
+      expect(validationResult).toHaveProperty('validation');
+      expect(validationResult.validation).toHaveProperty('complianceScore');
       // Validate that extra fields don't break anything
-      expect(validationResult.summary.status).toBeDefined();
+      expect(validationResult.validation.complianceStatus).toBeDefined();
     });
 
     test('should track validation timestamp', () => {
@@ -245,7 +249,7 @@ describe('Entry Validation Workflow Integration', () => {
       };
 
       const validationResult = validator.validate(entry, RULES_FILE);
-      expect(validationResult.complianceScore).toBeGreaterThanOrEqual(90);
+      expect(validationResult.validation.complianceScore).toBeGreaterThanOrEqual(90);
     });
 
     test('should penalize errors more than warnings', () => {
@@ -266,7 +270,7 @@ describe('Entry Validation Workflow Integration', () => {
       const warningResult = validator.validate(warningEntry, RULES_FILE);
       const errorResult = validator.validate(errorEntry, RULES_FILE);
 
-      expect(errorResult.complianceScore).toBeLessThan(warningResult.complianceScore);
+      expect(errorResult.validation.complianceScore).toBeLessThan(warningResult.validation.complianceScore);
     });
   });
 });
