@@ -539,3 +539,6 @@ For advanced patterns (multi-level nested components, `findConnectedInstances` f
 
 - [api.md](references/api.md) — Full Code Connect API reference
 - [advanced-patterns.md](references/advanced-patterns.md) — Advanced nesting, metadata props, and descendant patterns
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

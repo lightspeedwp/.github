@@ -71,3 +71,6 @@ Analyze time tracking data, project profitability, team productivity, and budget
 ---
 
 *Generated during Phase 2 Agent Specification Audit*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

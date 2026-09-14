@@ -25,3 +25,6 @@ current prompt so it aligns with proven best practices.
    organization to match the successful patterns you have observed.
 2. Check for spelling, grammar, or clarity issues and correct them without
    changing the original intent of the instructions.
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

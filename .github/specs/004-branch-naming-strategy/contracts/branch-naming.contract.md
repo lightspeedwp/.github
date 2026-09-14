@@ -5,12 +5,12 @@
 ## Validation Rules
 
 ### Rule: ValidType
-Branch type must be one of 24 authorized values (lowercase):
+Branch type must be one of 38 authorized values (lowercase), as defined in Constitution Section VIII:
 
 **Authorized Types**:
-`feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `audit`, `codex`, `research`, `revert`
+`feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `doc`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`, `aiops`, `automation`, `epic`
 
-**Validation**: `type =~ /^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|audit|codex|research|revert)$/`
+**Validation**: `type =~ /^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)$/`
 
 ### Rule: NoForbiddenPrefixes
 Branch must NOT start with forbidden prefixes:
@@ -31,21 +31,31 @@ Title must be ≥3 characters:
 
 ## Type-to-Template Mapping
 
-| Type | Template | Category |
-|------|----------|----------|
-| `feat`, `task` | `pr_feature.md` | Feature |
-| `fix`, `hotfix` | `pr_bugfix.md` | Maintenance |
+Canonical routing (17 PR templates for 38 branch types):
+
+| Types | Template | Category |
+|-------|----------|----------|
+| `feat`, `task`, `epic` | `pr_feature.md` | Feature |
+| `fix`, `hotfix` | `pr_bug.md` | Maintenance |
 | `security` | `pr_security.md` | Security |
-| `docs`, `refactor`, `chore` | `pr_maintenance.md` | Maintenance |
-| `perf`, `build`, `ci`, `deps` | `pr_technical.md` | Technical |
-| `design`, `a11y`, `ux` | `pr_ux.md` | UX |
-| `test`, `proto`, `audit`, `research`, `codex`, `revert` | `pr_testing.md` | QA |
+| `refactor`, `chore` | `pr_refactor.md` | Code Quality |
+| `doc`, `docs`, `content`, `seo` | `pr_docs.md` | Documentation |
+| `test`, `qa`, `uat` | `pr_test.md` | Testing |
+| `ci`, `build`, `automation` | `pr_ci.md` | CI/CD |
+| `deps`, `migrate` | `pr_dep_update.md` | Dependencies |
+| `audit` | `pr_audit.md` | Audit |
+| `design`, `ds`, `a11y`, `ux` | `pr_design.md` | Design |
 | `release` | `pr_release.md` | Release |
-| `i18n`, `ops` | `pr_devops.md` | DevOps |
+| `proto`, `research`, `codex` | `pr_test.md` | Experimentation |
+| `api`, `schema`, `telemetry`, `config` | `pr_ci.md` | Technical |
+| `ops`, `i18n` | `pr_a11y.md` | Operations |
+| `perf` | `pr_refactor.md` | Performance |
+| `revert` | `pr_bug.md` | Maintenance |
+| `aiops` | `pr_aiops.md` | AI Operations |
 
 ## Type-to-Labels Mapping
 
-Canonical labels automatically applied based on branch type:
+Canonical labels (from `.github/labels.yml`) automatically applied based on branch type:
 
 | Type | Labels |
 |------|--------|
@@ -56,6 +66,7 @@ Canonical labels automatically applied based on branch type:
 | `refactor` | `type:refactor`, `area:code-quality` |
 | `chore` | `type:chore` |
 | `task` | `type:task` |
+| `doc` | `type:documentation`, `area:docs` |
 | `docs` | `type:documentation`, `area:docs` |
 | `test` | `type:test`, `area:testing` |
 | `perf` | `area:performance`, `type:enhancement` |
@@ -68,14 +79,45 @@ Canonical labels automatically applied based on branch type:
 | `ux` | `type:ux`, `area:ux` |
 | `i18n` | `type:i18n`, `area:internationalization` |
 | `ops` | `type:ops`, `area:operations` |
-| `proto` | `type:prototype` |
+| `proto` | `type:prototype`, `area:experimentation` |
 | `audit` | `type:audit`, `area:quality` |
 | `codex` | `type:codex`, `area:automation` |
-| `research` | `type:research` |
+| `research` | `type:research`, `area:experimentation` |
 | `revert` | `type:revert` |
+| `ds` | `type:design`, `area:design-system` |
+| `api` | `area:api`, `type:feature` |
+| `schema` | `area:data-model`, `type:enhancement` |
+| `telemetry` | `area:monitoring`, `type:enhancement` |
+| `content` | `type:documentation`, `area:content` |
+| `seo` | `type:seo`, `area:content` |
+| `config` | `area:configuration`, `type:chore` |
+| `migrate` | `area:database`, `type:task` |
+| `qa` | `type:qa`, `area:testing` |
+| `uat` | `type:uat`, `area:testing` |
+| `aiops` | `type:aiops`, `area:automation` |
+| `automation` | `area:automation`, `type:feature` |
+| `epic` | `type:epic`, `area:core` |
+
+---
+
+## Branch Exemptions
+
+The following branches are **explicitly exempt** from branch naming pattern validation:
+
+| Branch | Reason |
+|--------|--------|
+| `main` | Production release branch — naming rules do not apply |
+| `develop` | Integration branch for development — naming rules do not apply |
+| `dependabot/*` | Automated dependency updates — handled by Dependabot, not subject to naming validation |
+| `renovate/*` | Automated dependency updates (Renovate) — handled by bot, not subject to naming validation |
+
+**Validation Logic**: Before checking branch type, exempt patterns:
+1. Exact match: `main`, `develop`
+2. Prefix match: `dependabot/*`, `renovate/*`
+3. If exempted, skip all validation rules; proceed to PR creation with default template (`pr_feature.md`)
 
 ---
 
 ## Phase 1 Complete
 
-Branch naming contract defined with 24 types, validation rules, and routing configuration.
+Branch naming contract defined with 38 authorized types, validation rules, template routing, label auto-assignment, and branch exemptions.

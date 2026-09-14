@@ -41,3 +41,6 @@ Install steps for each provider are in [`../INSTALL.md`](../INSTALL.md).
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

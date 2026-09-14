@@ -116,3 +116,5 @@ Use references as needed:
 - `references/issue-severity-model.md`
 
 Use asset templates when the user asks for tables, reports or downloadable outputs.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

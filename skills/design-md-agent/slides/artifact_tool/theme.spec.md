@@ -61,3 +61,5 @@ shape.line.style = "solid"
 shape.line.width = 1
 shape.line.fill = "tx1"
 ```
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

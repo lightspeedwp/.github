@@ -96,3 +96,6 @@ Look for existing sections with these patterns:
 - Sort files alphabetically by default
 - Handle special characters in filenames
 - Validate all generated markdown syntax
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

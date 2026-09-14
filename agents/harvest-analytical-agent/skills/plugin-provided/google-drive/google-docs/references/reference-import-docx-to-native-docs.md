@@ -69,3 +69,6 @@ Do not cite the local `.docx` path in the final answer after a successful native
 ---
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

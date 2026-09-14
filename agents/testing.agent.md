@@ -160,3 +160,6 @@ The agent uses these npm scripts:
 - [Coding Standards](../.github/instructions/coding-standards.instructions.md)
 - [Jest Configuration](../../jest.config.js)
 - [Playwright Configuration](../../playwright.config.js)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

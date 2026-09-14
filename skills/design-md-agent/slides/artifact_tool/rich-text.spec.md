@@ -160,3 +160,6 @@ selection = shape.text.select_run_ranges([
 selection.bold = True
 selection.color = "#FF6600"
 ```
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

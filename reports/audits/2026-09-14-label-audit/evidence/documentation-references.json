@@ -1,0 +1,118 @@
+{
+  "total_files": 18,
+  "documentation_files": [
+    {
+      "filename": "ISSUE_MAINTENANCE_SCRIPTS.md",
+      "path": "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+      "size": 11418,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "ISSUE_PR_TITLE_GOVERNANCE.md",
+      "path": "docs/ISSUE_PR_TITLE_GOVERNANCE.md",
+      "size": 11475,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "ISSUE_UPDATES_GUIDE.md",
+      "path": "docs/ISSUE_UPDATES_GUIDE.md",
+      "size": 13243,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "ISSUE_MANAGEMENT_QUICKSTART.md",
+      "path": "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+      "size": 9011,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "ISSUE_TRIAGE.md",
+      "path": "docs/ISSUE_TRIAGE.md",
+      "size": 16752,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "LABEL_COLOR_STRATEGY.md",
+      "path": "docs/LABEL_COLOR_STRATEGY.md",
+      "size": 17375,
+      "type": "LABEL_"
+    },
+    {
+      "filename": "LABEL_INVENTORY.md",
+      "path": "docs/LABEL_INVENTORY.md",
+      "size": 15634,
+      "type": "LABEL_"
+    },
+    {
+      "filename": "ISSUE_TRIAGE_LABELING.md",
+      "path": "docs/ISSUE_TRIAGE_LABELING.md",
+      "size": 15698,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "PR_TEMPLATE_VALIDATION.md",
+      "path": "docs/PR_TEMPLATE_VALIDATION.md",
+      "size": 15238,
+      "type": "PR_"
+    },
+    {
+      "filename": "ISSUE_FIELDS.md",
+      "path": "docs/ISSUE_FIELDS.md",
+      "size": 17673,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "PR_LABELS.md",
+      "path": "docs/PR_LABELS.md",
+      "size": 6985,
+      "type": "PR_"
+    },
+    {
+      "filename": "ISSUE_TYPES.md",
+      "path": "docs/ISSUE_TYPES.md",
+      "size": 10766,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "ISSUE_TRIAGE_AUTOMATION.md",
+      "path": "docs/ISSUE_TRIAGE_AUTOMATION.md",
+      "size": 22260,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "LABEL_STRATEGY.md",
+      "path": "docs/LABEL_STRATEGY.md",
+      "size": 15346,
+      "type": "LABEL_"
+    },
+    {
+      "filename": "LABEL_MANAGEMENT_CLI.md",
+      "path": "docs/LABEL_MANAGEMENT_CLI.md",
+      "size": 9869,
+      "type": "LABEL_"
+    },
+    {
+      "filename": "ISSUE_LABELS.md",
+      "path": "docs/ISSUE_LABELS.md",
+      "size": 5927,
+      "type": "ISSUE_"
+    },
+    {
+      "filename": "PR_CREATION_PROCESS.md",
+      "path": "docs/PR_CREATION_PROCESS.md",
+      "size": 7511,
+      "type": "PR_"
+    },
+    {
+      "filename": "ISSUE_CREATION_GUIDE.md",
+      "path": "docs/ISSUE_CREATION_GUIDE.md",
+      "size": 5479,
+      "type": "ISSUE_"
+    }
+  ],
+  "files_by_type": {
+    "LABEL_": 4,
+    "ISSUE_": 11,
+    "PR_": 3
+  }
+}

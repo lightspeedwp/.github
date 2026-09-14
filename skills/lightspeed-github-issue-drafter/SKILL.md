@@ -7,3 +7,6 @@ description: create github-ready markdown issue drafts for lightspeed figma desi
 ---
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

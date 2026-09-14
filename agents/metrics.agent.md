@@ -121,3 +121,5 @@ Automate collection and reporting of issue/PR/project metrics.
 
 - Metrics report (markdown/CSV).
 - Run logs.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -77,3 +77,6 @@ The following instruction files provide detailed standards for agent development
 
 > For up-to-date standards, always start with the main indexes above.
 > For new agent work, fork an existing template and document its purpose in this directory.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

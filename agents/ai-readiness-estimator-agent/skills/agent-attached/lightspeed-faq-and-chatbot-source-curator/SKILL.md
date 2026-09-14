@@ -114,3 +114,6 @@ Use UK English. Keep answers clear, practical and concise. Avoid hype, unsupport
 ---
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

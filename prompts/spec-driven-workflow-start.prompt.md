@@ -34,3 +34,6 @@ Your goal is to start a new Spec-Driven Workflow project for `${input:ProjectNam
 
 - Use UK English and keep language explicit and unambiguous.
 - Reference `.github/instructions/spec-driven-workflow.instructions.md` and `.github/instructions/file-organisation.instructions.md` for compliance.
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
