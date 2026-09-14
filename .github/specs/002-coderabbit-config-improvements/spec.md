@@ -157,6 +157,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **No Duplication**: Improvements will avoid duplicating guidance already documented in AGENTS.md (global AI rules), CLAUDE.md (repo instructions), and `.github/instructions/*.instructions.md` (specific guidance files)
 - **Maintainability Over Completeness**: When faced with a choice between comprehensive coverage and maintainability, maintainability wins. Instructions should be clear and actionable, not exhaustive encyclopedic lists.
 - **Branch-Specific Reviews**: Review instructions will differentiate by branch type for the top 15-20 branch types by organizational usage frequency (feat/, fix/, security/, docs/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, and additional high-frequency types), enabling context-aware feedback tailored to the nature of each change.
+- **Precedence Rules**: When a file matches multiple patterns and branch context applies, path pattern priority (from FR-014) takes precedence as the primary mechanism. Branch context provides supplementary emphasis on relevant focus areas within the path-specific guidance.
 
 ## Clarifications
 
@@ -171,3 +172,4 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 
 - Q: What specific guidance patterns constitute "technology-agnostic" instructions? → A: Guidance addressing universal principles (security, performance, accessibility, correctness) without assuming language, framework, project type, or library. Allowed: "Ensure error handling is comprehensive"; Not allowed: "Use async/await" or "WordPress hooks". Applies to FR-006 and SC-011 validation.
 - Q: When a file doesn't match any specific path pattern, should CodeRabbit apply a generic catch-all? → A: Yes, add catch-all pattern (e.g., `**/*`) with universal guidance (readability, error handling, security basics) as fallback. Ensures 100% coverage while allowing specific patterns to override for high-priority files.
+- Q: When file matches multiple patterns AND branch context applies, which takes precedence? → A: Path pattern priority wins; branch context provides supplementary emphasis. Keeps FR-014 specificity rule as primary mechanism while branch context augments relevant focus areas.
