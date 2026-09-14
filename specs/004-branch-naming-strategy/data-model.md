@@ -5,6 +5,7 @@
 ## Core Entities
 
 ### BranchName
+
 ```json
 {
   "full_name": "feat/payment-processing-timeout",
@@ -17,12 +18,14 @@
 ```
 
 **Validation Rules**:
-- Type must be from authorized list (24 types)
+
+- Type must be from the canonical authorised list (38 types)
 - Scope must be kebab-case (no underscores, spaces)
 - Title ≥3 characters
 - No forbidden prefixes: `claude/`, `copilot/`, `openai/`
 
 ### BranchType
+
 ```json
 {
   "type": "feat",
@@ -35,13 +38,16 @@
 ```
 
 ### PRTemplate
+
 Routes based on branch type:
+
 - `feat/` → `pr_feature.md`
 - `fix/` → `pr_bugfix.md`
 - `security/` → `pr_security.md`
 - etc.
 
 ### ComplianceMetrics
+
 ```json
 {
   "date": "2026-09-12",

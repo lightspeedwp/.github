@@ -105,7 +105,7 @@ When creating any new script:
 
 **All branches MUST follow this pattern:** `{type}/{scope}-{title}`
 
-This is enforced globally across all LightSpeed projects. See [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) for complete details, 34 allowed type values, examples, and why this matters.
+This is enforced globally across all LightSpeed projects. See [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) for complete details, 38 allowed type values, examples, and why this matters.
 
 ### Quick Reference
 
@@ -138,7 +138,7 @@ npm run validate:branch-name -- --branch <your-branch>
 
 ### Full Reference
 
-- **Complete guidance:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (34 types, examples, consequences)
+- **Complete guidance:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (38 types, examples, consequences)
 - **Detailed rules:** [.github/instructions/branch-naming.instructions.md](.github/instructions/branch-naming.instructions.md)
 - **Strategy doc:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
 - **Copilot-specific:** [.github/custom-instructions.md](.github/custom-instructions.md)
@@ -179,12 +179,14 @@ The following files are **FINAL and manually curated**. Do NOT edit these withou
 | `.github/PULL_REQUEST_TEMPLATE/*.md` | 19 PR templates with branch prefix routing | PR template assignment depends on branch naming prefixes | Open `[TEMPLATE-UPDATE-REQUEST]` issue |
 
 **Why These Are Locked:**
+
 1. **Label synchronization**: Changes must sync across `.github/labels.yml`, GitHub org settings, automation workflows, and AI agent rules
 2. **Template routing**: PR templates route by branch prefix; issue templates route by issue type. Breaking routing cascades across all workflows
 3. **Automation dependencies**: 15+ GitHub Actions workflows, scripts, and AI agents depend on these configs
 4. **Data integrity**: Changes affect 300+ existing issues and PRs; improper changes can corrupt label history
 
 **Process for Requesting Changes:**
+
 1. Open a GitHub issue with the appropriate tag:
    - `[LABEL-UPDATE-REQUEST]` — To add, modify, or remove labels
    - `[ISSUE-TYPE-UPDATE-REQUEST]` — To add, modify, or remove issue types
@@ -200,6 +202,7 @@ The following files are **FINAL and manually curated**. Do NOT edit these withou
 4. Wait for explicit approval from @ashley before implementing any changes
 
 **Last Updated:**
+
 - **Labels:** 2026-09-09 (158 labels, 8 families, OpenSpec phases included)
 - **Issue Types:** 2026-09-09 (24 types aligned with GitHub native types)
 - **Templates:** 2026-09-09 (26 issue, 19 PR templates with standardized frontmatter)

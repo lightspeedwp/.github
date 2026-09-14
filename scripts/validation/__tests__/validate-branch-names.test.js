@@ -3,54 +3,23 @@
  *
  * Validates branch naming against repository conventions:
  * - Pattern: {type}/{scope}-{title}
- * - Allowed types: 34 predefined prefixes
+ * - Allowed types: 38 predefined prefixes
  * - Forbidden prefixes: claude/, copilot/, openai/
  *
  * Tests cover:
- * - Valid branch names with all 34 allowed types
+ * - Valid branch names with all 38 allowed types
  * - Forbidden prefixes rejection
  * - Invalid format detection
  * - Edge cases (empty, special chars, etc.)
  */
 
-describe("Branch Name Validation", () => {
-  // All 34 allowed type values
-  const allowedTypes = [
-    "feat",
-    "fix",
-    "hotfix",
-    "release",
-    "refactor",
-    "chore",
-    "docs",
-    "test",
-    "perf",
-    "ci",
-    "build",
-    "deps",
-    "security",
-    "design",
-    "a11y",
-    "ux",
-    "i18n",
-    "ops",
-    "proto",
-    "ds",
-    "api",
-    "schema",
-    "telemetry",
-    "content",
-    "seo",
-    "config",
-    "migrate",
-    "qa",
-    "uat",
-    "audit",
-    "codex",
-    "revert",
-    "research",
-  ];
+const fs = require("fs");
+const path = require("path");
+const {
+  ALLOWED_PREFIXES: allowedTypes,
+} = require("../validate-branch-name.js");
 
+describe("Branch Name Validation", () => {
   // Forbidden prefixes
   const forbiddenPrefixes = ["claude", "copilot", "openai"];
 
@@ -85,7 +54,7 @@ describe("Branch Name Validation", () => {
   }
 
   describe("Allowed Types", () => {
-    it("should accept all 34 allowed type values", () => {
+    it("should accept all 38 allowed type values", () => {
       for (const type of allowedTypes) {
         const branchName = `${type}/test-branch`;
         const result = validateBranchName(branchName);
@@ -290,9 +259,9 @@ describe("Branch Name Validation", () => {
   });
 
   describe("Type Coverage", () => {
-    it("should validate all 34 allowed types", () => {
+    it("should validate all 38 allowed types", () => {
       const types = allowedTypes;
-      expect(types.length).toBe(33); // Verify we have 33 types (codex might be optional)
+      expect(types).toHaveLength(38);
 
       for (const type of types) {
         const result = validateBranchName(`${type}/test-name`);
@@ -380,42 +349,19 @@ describe("Branch Name Validation", () => {
       );
     });
 
-    it("should validate all 34 types from CLAUDE.md", () => {
+    it("should validate all 38 types from CLAUDE.md", () => {
+      const claudeMd = fs.readFileSync(
+        path.resolve(__dirname, "../../../CLAUDE.md"),
+        "utf8",
+      );
+      const branchTypeSection = claudeMd
+        .split("### Allowed Type Values (Use Exactly)")[1]
+        .split("### FORBIDDEN Prefixes")[0];
       const claudeMdTypes = [
-        "feat",
-        "fix",
-        "hotfix",
-        "release",
-        "refactor",
-        "chore",
-        "docs",
-        "test",
-        "perf",
-        "ci",
-        "build",
-        "deps",
-        "security",
-        "design",
-        "a11y",
-        "ux",
-        "i18n",
-        "ops",
-        "proto",
-        "ds",
-        "api",
-        "schema",
-        "telemetry",
-        "content",
-        "seo",
-        "config",
-        "migrate",
-        "qa",
-        "uat",
-        "audit",
-        "codex",
-        "revert",
-        "research",
-      ];
+        ...branchTypeSection.matchAll(/^\| `([a-z0-9]+)`/gm),
+      ].map((match) => match[1]);
+
+      expect(claudeMdTypes).toEqual(allowedTypes);
 
       for (const type of claudeMdTypes) {
         const result = validateBranchName(`${type}/test-branch`);
