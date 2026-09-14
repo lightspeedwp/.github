@@ -29,8 +29,11 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefix agents/changelog
 
-      # TODO: Validate changelog entries
-      # run: npm run validate:changelog
+      - name: Validate changelog entries
+        id: validate
+        run: npm run test:integration --prefix agents/changelog
+        continue-on-error: true
 
-      # TODO: Post results as PR comment
-      # TODO: Set status check
+      - name: Set status check
+        if: steps.validate.outcome == 'failure'
+        run: exit 1

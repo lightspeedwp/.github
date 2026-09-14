@@ -19,4 +19,6 @@ module.exports = {
   ],
   moduleFileExtensions: ['js', 'cjs', 'json'],
   testTimeout: 10000,
+  collectCoverage: process.env.COVERAGE === 'true',
+  coverageReporters: ['text', 'lcov'],
 };

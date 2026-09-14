@@ -44,4 +44,6 @@ class Logger {
   }
 }
 
-module.exports = { Logger, LOG_LEVELS };
+module.exports = new Logger();
+module.exports.Logger = Logger;
+module.exports.LOG_LEVELS = LOG_LEVELS;

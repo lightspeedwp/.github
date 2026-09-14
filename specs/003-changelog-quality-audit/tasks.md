@@ -39,18 +39,18 @@
 
 **Checkpoint**: Core validation engine ready, all 20 rules defined, test framework validated
 
-- [ ] T013 Implement rule loader in `agents/changelog/includes/ruleLoader.cjs`: parse `.github/changelog-rules.yml`, validate schema, cache rules
-- [ ] T014 [P] Implement pattern matching engine in `agents/changelog/includes/patternEngine.cjs`: compile regex patterns, apply to text, return matches with context
-- [ ] T015 [P] Create validation result builder in `agents/changelog/includes/validationResultBuilder.cjs`: build ValidationResult JSON with rule results, scores, summaries
-- [ ] T016 Implement compliance score calculator in `agents/changelog/includes/scoreCalculator.cjs`: score = 100, -25 per error, -5 per warning, determine status (passing/warning/failing)
-- [ ] T017 Populate `.github/changelog-rules.yml` with all 20 rules: R001-R020 with id, name, type, severity, patterns, remediation_guidance, enabled (use data-model.md as source)
-- [ ] T018 Implement base validator in `agents/changelog/includes/changelogValidator.cjs`: orchestrate rule application, execute validation layers (format → structure → content → reference)
-- [ ] T019 [P] Create unit test suite `agents/changelog/tests/unit/patternEngine.test.js`: test regex patterns for R001, R007, R008, R013, R018, R019
-- [ ] T020 [P] Create unit test suite `agents/changelog/tests/unit/scoreCalculator.test.js`: test score calculation with various error/warning combinations
-- [ ] T021 [P] Create unit test suite `agents/changelog/tests/unit/ruleLoader.test.js`: test YAML parsing, rule validation, caching
-- [ ] T022 Create integration test `agents/changelog/tests/integration/validator.test.js`: full validation flow on sample entries with known issues
-- [ ] T023 [P] Add GitHub Actions workflow trigger configuration in `.github/workflows/changelog-validation.yml`: on: [pull_request] with changelog file detection
-- [ ] T024 Create validation rule documentation in `docs/CHANGELOG_RULES.md`: list all 20 rules with severity, examples, remediation guidance
+- [x] T013 Implement rule loader in `agents/changelog/includes/ruleLoader.cjs`: parse `.github/changelog-rules.yml`, validate schema, cache rules
+- [x] T014 [P] Implement pattern matching engine in `agents/changelog/includes/patternEngine.cjs`: compile regex patterns, apply to text, return matches with context
+- [x] T015 [P] Create validation result builder in `agents/changelog/includes/validationResultBuilder.cjs`: build ValidationResult JSON with rule results, scores, summaries
+- [x] T016 Implement compliance score calculator in `agents/changelog/includes/scoreCalculator.cjs`: score = 100, -25 per error, -5 per warning, determine status (passing/warning/failing)
+- [x] T017 Populate `.github/changelog-rules.yml` with all 20 rules: R001-R020 with id, name, type, severity, patterns, remediation_guidance, enabled (use data-model.md as source)
+- [x] T018 Implement base validator in `agents/changelog/includes/changelogValidator.cjs`: orchestrate rule application, execute validation layers (format → structure → content → reference)
+- [x] T019 [P] Create unit test suite `agents/changelog/tests/unit/patternEngine.test.js`: test regex patterns for R001, R007, R008, R013, R018, R019
+- [x] T020 [P] Create unit test suite `agents/changelog/tests/unit/scoreCalculator.test.js`: test score calculation with various error/warning combinations
+- [x] T021 [P] Create unit test suite `agents/changelog/tests/unit/ruleLoader.test.js`: test YAML parsing, rule validation, caching
+- [x] T022 Create integration test `agents/changelog/tests/integration/validator.test.js`: full validation flow on sample entries with known issues
+- [x] T023 [P] Add GitHub Actions workflow trigger configuration in `.github/workflows/changelog-validation.yml`: on: [pull_request] with changelog file detection
+- [x] T024 Create validation rule documentation in `docs/CHANGELOG_RULES.md`: list all 20 rules with severity, examples, remediation guidance
 
 ---
 
