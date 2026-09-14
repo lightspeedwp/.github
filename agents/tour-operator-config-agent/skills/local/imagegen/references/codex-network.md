@@ -77,3 +77,6 @@ Enabling network and reducing approvals lowers friction, but increases risk if y
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

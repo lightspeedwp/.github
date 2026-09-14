@@ -15,3 +15,6 @@ Create a presentation using the built-in Codex Grid template. Read `../../assets
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

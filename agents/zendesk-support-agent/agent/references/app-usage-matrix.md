@@ -108,3 +108,6 @@ Zendesk is the primary system of record for this agent. Every other attached app
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

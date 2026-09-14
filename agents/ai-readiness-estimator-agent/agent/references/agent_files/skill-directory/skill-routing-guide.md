@@ -389,3 +389,6 @@ If a request does not clearly fit one skill, do not guess. Ask one narrow clarif
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

@@ -77,3 +77,5 @@ python scripts/docx_table_to_csv.py /mnt/data/input.docx --table_index 0 --out /
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
