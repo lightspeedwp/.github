@@ -138,16 +138,16 @@
 
 #### GitHub Actions Workflow: Branch Validation
 
-- [ ] T037 [US2] Create `.github/workflows/branch-name-validation.yml` workflow; trigger on `push` to any branch; validate branch name against pattern and forbidden prefixes
-- [ ] T038 [US2] Implement workflow validation step; parse branch name from `github.event.ref`; invoke validation logic (reuse validation library or inline regex); set job status to fail if invalid
-- [ ] T039 [US2] Add workflow output; if valid, set success status; if invalid, capture error type and suggested branch name in output
-- [ ] T040 [US2] Implement workflow comment on PR (if invalid); add comment to PR (if one exists) explaining the error and suggesting the correct branch name
+- [x] T037 [US2] Create `.github/workflows/branch-name-validation.yml` workflow; trigger on `push` to any branch; validate branch name against pattern and forbidden prefixes
+- [x] T038 [US2] Implement workflow validation step; parse branch name from `github.event.ref`; invoke validation logic (reuse validation library or inline regex); set job status to fail if invalid
+- [x] T039 [US2] Add workflow output; if valid, set success status; if invalid, capture error type and suggested branch name in output
+- [x] T040 [US2] Implement workflow comment on PR (if invalid); add comment to PR (if one exists) explaining the error and suggesting the correct branch name
 
 #### Compliance Metrics Collection
 
-- [ ] T041 [US2] Create `.github/workflows/branch-name-validation.yml` metrics collection step; capture: branch name, validation result (valid/invalid), error type, timestamp; store as GitHub Actions artifact (JSON)
-- [ ] T042 [US2] Design metrics artifact structure; schema: date, repository, total_branches, valid_branches, invalid_branches, top_invalid_patterns, compliance_percentage
-- [ ] T043 [US2] Implement metrics aggregation logic (for future Phases); script to aggregate daily artifacts into monthly/org-wide compliance report
+- [x] T041 [US2] Create `.github/workflows/branch-name-validation.yml` metrics collection step; capture: branch name, validation result (valid/invalid), error type, timestamp; store as GitHub Actions artifact (JSON)
+- [x] T042 [US2] Design metrics artifact structure; schema: date, repository, total_branches, valid_branches, invalid_branches, top_invalid_patterns, compliance_percentage
+- [x] T043 [US2] Implement metrics aggregation logic (for future Phases); script to aggregate daily artifacts into monthly/org-wide compliance report
 
 #### Enforcement & Merge Blocking
 
