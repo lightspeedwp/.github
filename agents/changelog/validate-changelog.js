@@ -16,5 +16,6 @@ const result = {
   warnings: 0
 };
 
-console.log(JSON.stringify(result));
+// Format with spaces after colons to match workflow grep patterns
+console.log(JSON.stringify(result).replace(/:/g, ': '));
 process.exit(0);
