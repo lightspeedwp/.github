@@ -115,3 +115,6 @@ superseded_by: ""
 - **REF-002**: [External documentation]
 - **REF-003**: [Standards or frameworks referenced]
 ```
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

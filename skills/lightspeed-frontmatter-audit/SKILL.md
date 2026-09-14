@@ -22,3 +22,5 @@ description: "Audit frontmatter, schema drift, stale links, and missing folder i
 
 - Findings grouped by severity (`high`, `medium`, `low`).
 - Each finding includes file path, rule breached, and fix suggestion.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

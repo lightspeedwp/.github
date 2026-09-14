@@ -242,3 +242,6 @@ node .github/agents/release.agent.js --verify
 - [Release Guide](../../docs/RELEASES.md) - Comprehensive documentation
 - [Semantic Versioning](https://semver.org/) - SemVer specification
 - [Keep a Changelog](https://keepachangelog.com/) - Changelog format
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

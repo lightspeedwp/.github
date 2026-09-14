@@ -72,3 +72,5 @@ The PR description should use real Markdown prose and cover:
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

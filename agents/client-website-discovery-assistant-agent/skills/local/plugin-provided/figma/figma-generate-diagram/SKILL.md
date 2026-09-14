@@ -118,3 +118,6 @@ Ask the user which they prefer the first time you iterate — "regenerate over t
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

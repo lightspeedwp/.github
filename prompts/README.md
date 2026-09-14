@@ -362,3 +362,6 @@ To add or improve prompts:
 - [Comprehensive Prompt Index](./PROMPTS-V1-INDEX.md)
 - [Migration Report](./.github/reports/prompt-migration-2026-09-04.md)
 - [PR #2778](https://github.com/lightspeedwp/.github/pull/2778)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

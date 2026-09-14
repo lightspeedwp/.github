@@ -39,3 +39,5 @@ Return:
 
 - Do not treat color variables as shadows.
 - Do not silently merge distinct shadow presets.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

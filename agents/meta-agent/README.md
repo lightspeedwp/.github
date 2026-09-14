@@ -386,3 +386,6 @@ For questions or issues, refer to the related GitHub issues:
 ## Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

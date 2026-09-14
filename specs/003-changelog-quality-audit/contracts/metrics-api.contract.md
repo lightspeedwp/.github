@@ -1,5 +1,30 @@
 # Contract: Metrics API Interface
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Phase**: Phase 1 (Design & Contracts)  
 **Version**: 1.0  
 **Audience**: Metrics dashboard developers; CI/CD engineers; reporting tools
@@ -95,6 +120,7 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 **Purpose**: Record compliance metrics at a point in time
 
 **Request**:
+
 ```javascript
 {
   snapshot: MetricsSnapshot,      // Full snapshot structure
@@ -108,6 +134,7 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 ```
 
 **Response**:
+
 ```javascript
 {
   success: boolean,
@@ -119,12 +146,14 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 ```
 
 **Error Cases**:
+
 - Invalid snapshot structure → 400 Bad Request
 - Duplicate snapshot_id → 409 Conflict (idempotent; return existing)
 - File system error → 500 Internal Server Error
 - Storage quota exceeded → 507 Insufficient Storage
 
 **Implementation**:
+
 - Store to `.github/reports/changelog-metrics/history/{YYYY}/{MM}/{DD}/{snapshot_id}.json`
 - Keep latest snapshot at `.github/reports/changelog-metrics/latest.json` (symlink or copy)
 - Maintain rolling 90-day window (delete snapshots older than 90 days daily)
@@ -138,12 +167,14 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 **Purpose**: Retrieve metrics for a date range for trend analysis
 
 **Query Parameters**:
+
 - `start_date`: ISO 8601 date (e.g., `2026-08-13`) — default: 90 days ago
 - `end_date`: ISO 8601 date (e.g., `2026-09-12`) — default: today
 - `period`: `daily` | `weekly` | `monthly` — default: `daily`
 - `fields`: comma-separated list of snapshot fields to return (default: all)
 
 **Response**:
+
 ```javascript
 {
   success: boolean,
@@ -163,11 +194,13 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 ```
 
 **Example Request**:
+
 ```
 GET /reports/changelog-metrics/query?start_date=2026-08-13&end_date=2026-09-12&period=daily
 ```
 
 **Example Response**:
+
 ```json
 {
   "success": true,
@@ -195,6 +228,7 @@ GET /reports/changelog-metrics/query?start_date=2026-08-13&end_date=2026-09-12&p
 **Purpose**: Quickly fetch current compliance status (used by dashboard)
 
 **Response**:
+
 ```javascript
 {
   success: boolean,
@@ -213,10 +247,12 @@ GET /reports/changelog-metrics/query?start_date=2026-08-13&end_date=2026-09-12&p
 **Purpose**: Fetch pre-aggregated data for dashboard visualization
 
 **Query Parameters**:
+
 - `days`: number of days to include (default: 30)
 - `include_tables`: boolean (include raw violation tables; default: false)
 
 **Response**:
+
 ```javascript
 {
   summary: {
@@ -365,6 +401,7 @@ Every snapshot file must validate against this schema:
 ## Contract: Guaranteed Behaviors
 
 ✅ **Metrics API MUST**:
+
 - Guarantee idempotent writes (same snapshot_id, same result)
 - Maintain data consistency across concurrent reads/writes
 - Preserve historical data (no retroactive changes)
@@ -373,6 +410,7 @@ Every snapshot file must validate against this schema:
 - Return consistent trend calculations
 
 ✅ **Dashboard MUST**:
+
 - Refresh every 5 minutes (pull latest snapshot)
 - Display "Last updated: {timestamp}" with auto-refresh indicator
 - Support mobile viewport (responsive design)
@@ -380,6 +418,7 @@ Every snapshot file must validate against this schema:
 - Provide shareable links (with embedded snapshot date)
 
 ❌ **API MUST NOT**:
+
 - Delete or modify snapshots (write-once, read-many)
 - Recalculate historical data retroactively
 - Expose raw entry content (privacy)
@@ -392,6 +431,7 @@ Every snapshot file must validate against this schema:
 ### Common Error Responses
 
 **400 Bad Request**: Invalid query parameters or malformed snapshot
+
 ```json
 {
   "success": false,
@@ -402,6 +442,7 @@ Every snapshot file must validate against this schema:
 ```
 
 **409 Conflict**: Duplicate snapshot_id (idempotent response)
+
 ```json
 {
   "success": true,
@@ -411,6 +452,7 @@ Every snapshot file must validate against this schema:
 ```
 
 **500 Internal Server Error**: File system or processing failure
+
 ```json
 {
   "success": false,
@@ -427,3 +469,6 @@ Every snapshot file must validate against this schema:
 Metrics API contract defined. Implements write (record), read (query/latest), and dashboard interfaces.
 
 **Next**: quickstart.md (validation workflow end-to-end guide)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

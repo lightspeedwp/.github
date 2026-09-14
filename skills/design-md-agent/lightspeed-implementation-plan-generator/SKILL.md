@@ -127,3 +127,6 @@ Use these references as needed:
 ## Quality bar
 
 A good implementation plan should let the team start work without re-reading every source document, while still linking back to decisions, tasks and acceptance criteria.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

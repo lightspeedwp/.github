@@ -34,11 +34,13 @@ This document defines the Key Performance Indicators (KPIs), collection methods,
 **Target**: ≥5 teams
 
 **Measurement**:
+
 - Tracked via team lead check-in responses (weekly)
 - Confirmed by visible usage (PRDs generated, agent invocations logged)
 - Status: `Adopted` (active integration), `Evaluating` (pilot phase), `Not Yet Started` (on roadmap)
 
-**Collection Method**: 
+**Collection Method**:
+
 - Weekly Slack check-in with team leads: "Is your team actively using the consolidated PRD agent? How many workflows run this week?"
 - Manual verification: Check agent invocation logs (if available from provider APIs)
 - Success markers: Team has loaded agent into repo, run ≥2 workflows, reported initial feedback
@@ -64,11 +66,13 @@ This document defines the Key Performance Indicators (KPIs), collection methods,
 **Target**: ≥4.0/5.0
 
 **Measurement**:
+
 - Survey question: "On a scale of 1-5, how satisfied are you with the consolidated PRD agent?"
 - Secondary questions: "What worked well?" / "What could be improved?" / "Would you recommend?"
 - Sample size: Minimum 10 respondents (1-2 per active team)
 
 **Collection Method**:
+
 - Online survey (Google Forms or similar) distributed at week 4
 - Distributed to: Active team members identified during adoption monitoring
 - Deadline: Week 5 (1-week response window)
@@ -99,6 +103,7 @@ PRD Agent Consolidation — User Feedback Survey
 ```
 
 **Analysis & Reporting**:
+
 - Calculate average satisfaction score (Q1)
 - Thematic analysis: Group Q2, Q3, Q6 responses by theme (performance, ease of use, documentation, integration, etc.)
 - Report: "User Satisfaction Report — Week 4-6 Survey Results"
@@ -112,17 +117,20 @@ PRD Agent Consolidation — User Feedback Survey
 **Target**: Zero critical blockers
 
 **Severity Levels**:
+
 - 🔴 **Critical**: Blocks all usage; data loss; security risk; prevents agent from loading
 - 🟠 **High**: Significantly limits functionality; requires workaround; impacts multiple teams
 - 🟡 **Medium**: Impacts specific workflows; workaround available; isolated to 1-2 teams
 - 🟢 **Low**: Minor inconvenience; cosmetic; documentation clarification needed
 
 **Measurement**:
+
 - Issues reported via Slack, email, or GitHub Issues tagged `[ROLLOUT-FEEDBACK]`
 - Surveyed issues: Q6 (blockers) in user survey
 - Severity assessment: By reporter (team lead) and Ash Shaw (consolidation owner)
 
 **Collection Method**:
+
 - Slack channel monitoring: `#product-planning` and direct messages
 - GitHub Issues: Tag `[ROLLOUT-FEEDBACK]` + severity label (`critical`, `high`, `medium`, `low`)
 - Weekly review: Compile and prioritize reported issues every Friday
@@ -148,6 +156,7 @@ PRD Agent Consolidation — User Feedback Survey
 **Target**: ≥2 runs/team/week (indicates active, repeated usage)
 
 **Measurement**:
+
 - Reported in weekly check-in: "How many PRD workflows did your team run this week?"
 - Alternative: Agent telemetry logs (if provider APIs expose usage data)
 
@@ -173,11 +182,13 @@ PRD Agent Consolidation — User Feedback Survey
 **Target**: ≥50% of questions answered by FAQ (reduces direct support burden)
 
 **Measurement**:
+
 - Count: Questions resolved via FAQ.md self-service
 - Count: Questions requiring direct support (Slack DM, email)
 - Calculate: FAQ effectiveness ratio = Self-service / (Self-service + Direct support)
 
 **Collection Method**:
+
 - Manual tracking: When providing direct support, note if FAQ already covered the question
 - Slack channel: Monitor `#product-planning` for FAQ-answerable questions
 
@@ -192,6 +203,7 @@ PRD Agent Consolidation — User Feedback Survey
 **Target**: No negative trend vs. baseline
 
 **Measurement**:
+
 - Baseline (pre-consolidation): If available from historical data, compare adoption speed and satisfaction
 - New baseline (consolidation): Week 1-2 adoption patterns
 - Regression assessment: Are teams adopting faster, slower, or at same pace as previous agent versions?
@@ -256,12 +268,14 @@ PRD Agent Consolidation — User Feedback Survey
 ### Reporting
 
 **Week 2, 4, 6 Status Updates** (Posted to `#product-planning` Slack):
+
 - Brief summary of adoption metrics
 - Highlight early wins and adoption trends
 - Call-out any blockers requiring escalation
 - Invite continued feedback
 
 **Week 6 Final Report** (Phase 6 Checkpoint):
+
 - Comprehensive metrics summary
 - Success criteria verification (SC-602, 603, 604)
 - Recommendation: Proceed to Phase 7? Extend adoption? Halt rollout?
@@ -305,19 +319,22 @@ PRD Agent Consolidation — User Feedback Survey
 
 ## Phase 6 Success Criteria Verification
 
-### At Week 6 Checkpoint:
+### At Week 6 Checkpoint
 
 **SC-602: Active Teams** ✅
+
 - [ ] Verify ≥5 teams actively using agent
 - [ ] Evidence: Weekly check-in responses + usage frequency ≥2 runs/week
 - [ ] Status: PASS / CONDITIONAL / FAIL
 
 **SC-603: User Satisfaction** ✅
+
 - [ ] Verify average satisfaction score ≥4.0/5.0
 - [ ] Evidence: User survey results (minimum 10 respondents)
 - [ ] Status: PASS / CONDITIONAL / FAIL
 
 **SC-604: No Critical Blockers** ✅
+
 - [ ] Verify zero critical issues (`🔴` severity)
 - [ ] Evidence: GitHub issue tracker + survey Q6 responses
 - [ ] Status: PASS / CONDITIONAL / FAIL
@@ -325,16 +342,19 @@ PRD Agent Consolidation — User Feedback Survey
 ### Phase 6 Outcome Scenarios
 
 **SCENARIO A: All Success Criteria Met (PASS)**
+
 - ✅ ≥5 teams active, satisfaction ≥4.0/5.0, zero critical blockers
 - **Decision**: Proceed to Phase 7 (Archive/Sync decision)
 - **Next**: Start T076 (Phase 7 decision memo)
 
 **SCENARIO B: Partial Success (CONDITIONAL)**
+
 - ⚠️ Example: 4 teams active (target ≥5), satisfaction 3.8/5.0 (target ≥4.0), one high issue with workaround
 - **Decision**: Extend adoption period by 2-3 weeks; address blockers; re-assess at week 9
 - **Next**: Implement fixes; re-survey at week 9; make Phase 7 decision then
 
 **SCENARIO C: Failure (FAIL)**
+
 - 🔴 <3 teams active, satisfaction <3.5/5.0, or critical blockers blocking usage
 - **Decision**: Halt rollout; investigate root causes; determine if consolidation is viable
 - **Next**: Post-mortem; consider rollback to pre-consolidation version or Phase 5 testing improvements
@@ -346,17 +366,20 @@ PRD Agent Consolidation — User Feedback Survey
 This is the first formal rollout of the consolidated PRD Agent. Metrics collected in Phase 6 establish the baseline for future improvements and comparisons.
 
 **Pre-Consolidation Context**:
+
 - Multiple agent versions (45+ skills across separate folders)
 - Unclear which version to use; duplicated content caused confusion
 - Adoption metrics not formally tracked
 
 **Consolidation Improvement Expected**:
+
 - Cleaner documentation and single source of truth
 - Faster onboarding due to unified agent definition
 - Better test coverage → confidence in quality
 - Faster adoption expected vs. pre-consolidation confusion state
 
 **Post-Phase 6 Baseline** (for Phase 6+N future comparisons):
+
 - Will be documented in `PHASE6_METRICS_REPORT.md`
 - To be referenced in future rollout efforts for the PRD Agent or related tools
 
@@ -382,3 +405,5 @@ This is the first formal rollout of the consolidated PRD Agent. Metrics collecte
 ---
 
 *This metrics framework is live as of Phase 6 Week 1. Updates and tracker files will be created as the rollout progresses.*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

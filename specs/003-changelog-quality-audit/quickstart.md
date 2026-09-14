@@ -1,5 +1,30 @@
 # Quickstart: Changelog Validation Workflow
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Phase**: Phase 1 (Design & Contracts)  
 **Created**: 2026-09-12  
 **Audience**: Developers; maintainers; QA engineers
@@ -15,6 +40,7 @@ This guide demonstrates the changelog validation workflow end-to-end, from entry
 ## Scenario 1: Developer Submits Compliant Changelog Entry
 
 ### Prerequisites
+
 - Git repository cloned locally
 - `develop` branch checked out
 - Feature branch created following naming convention: `feat/your-feature-name`
@@ -39,6 +65,7 @@ Edit `CHANGELOG.md` under `[Unreleased]` section:
 ```
 
 **Entry Validation Checklist**:
+
 - ✅ Under `[Unreleased]` section
 - ✅ Grouped by category (Added/Fixed/Improved/Removed/Security/Deprecated)
 - ✅ User-focused language ("Added dark mode" not "Refactored authentication component")
@@ -49,6 +76,7 @@ Edit `CHANGELOG.md` under `[Unreleased]` section:
 - ✅ Punctuated consistently
 
 **Character Count**:
+
 - "Added dark mode toggle in user settings (#2904)" = 52 chars ✅ (well under 250)
 - "Fixed authentication timeout on mobile browsers (#2905)" = 57 chars ✅
 - "Dashboard now loads 40% faster (#2903)" = 39 chars ✅
@@ -214,6 +242,7 @@ git push origin feat/dark-mode-toggle --force-with-lease
 ```
 
 **Analysis**:
+
 - Character count: 95 chars ✅ (under 250)
 - But contains: "Refactored", "middleware", "OAuth2 providers", "API" → implementation jargon
 
@@ -245,6 +274,7 @@ git push origin feat/dark-mode-toggle --force-with-lease
 ```
 
 **Validation**:
+
 - User-focused: ✅ Describes benefit to user
 - No implementation keywords: ✅ No "refactored", "middleware", "API"
 - Has PR link: ✅ References #2904
@@ -364,6 +394,7 @@ Open: `.github/reports/changelog-metrics/dashboard.html` (or hosted URL)
 ```
 
 **Interpretation**:
+
 - ✅ 95.1% compliance achieved (goal is 95%)
 - ✅ Trend shows improvement over 30 days (81.2% → 95.1%)
 - ⚠️ CHK_NO_IMPL_DETAILS remains top violation (6 occurrences)
@@ -394,6 +425,7 @@ Entry 3: "Updated database migration system to support rollback (#2903)"
 **Step 3: Maintainer action**
 
 Maintainer can:
+
 1. Edit entries to make them compliant
 2. Create follow-up issues for team discussion
 3. Export report for leadership review
@@ -406,6 +438,7 @@ Maintainer can:
 Use this checklist before submitting a changelog entry:
 
 ### Entry Quality
+
 - [ ] Starts with action verb (Added, Fixed, Improved, Removed, Changed, Deprecated, Secured)
 - [ ] Describes user-facing benefit, not implementation
 - [ ] ≤250 characters (counting punctuation and spaces)
@@ -415,11 +448,13 @@ Use this checklist before submitting a changelog entry:
 - [ ] Consistent punctuation (period at end or consistent without)
 
 ### Validation
+
 - [ ] CI check `changelog-validate` passes (all 8 rules)
 - [ ] No automated PR comments with validation failures
 - [ ] Maintainer approval (if review_required status)
 
 ### Pre-Submission Test
+
 ```bash
 # Run local validation before pushing (requires Phase 5 implementation)
 npm run validate:changelog -- CHANGELOG.md
@@ -478,6 +513,7 @@ gh pr view 2904  # If this fails, number is wrong
 ## Phase 1 Complete
 
 Quickstart validation workflow guide defined. Covers:
+
 - Compliant entry submission (happy path)
 - Common validation failures (too long, impl. details, missing links)
 - Dashboard usage and trend interpretation
@@ -490,9 +526,11 @@ Quickstart validation workflow guide defined. Covers:
 ## Quick Reference
 
 ### Banned Implementation Keywords
+
 `refactored`, `optimised`, `optimized`, `fixed`, `updated`, `patched`, `implemented`, `deployed`, `migrated`, `restructured`, `logic`, `algorithm`, `framework`, `component`, `middleware`, `REST API`, `GraphQL`, `database`, `query`, `cache`
 
 ### PR Link Format
+
 ```markdown
 (#1234)                    # Simple PR reference
 - Feature description (#1234)   # Within entry
@@ -501,6 +539,7 @@ Quickstart validation workflow guide defined. Covers:
 ```
 
 ### Compliant Entry Examples
+
 ```markdown
 - Added dark mode toggle in user settings (#2904)
 - Fixed authentication timeout on mobile browsers (#2905)
@@ -510,6 +549,7 @@ Quickstart validation workflow guide defined. Covers:
 ```
 
 ### Non-Compliant Entry Examples (and why)
+
 ```markdown
 ❌ "Refactored authentication component to use OAuth2 middleware" 
    → Too long (79 chars) + impl. details ("OAuth2", "middleware")
@@ -520,3 +560,6 @@ Quickstart validation workflow guide defined. Covers:
 ❌ "Implemented new caching layer with Redis integration for improved performance"
    → Too long (83 chars) + impl. details ("Redis", "caching")
 ```
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

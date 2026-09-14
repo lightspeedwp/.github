@@ -85,3 +85,6 @@ If your follow-up `use_figma` script assumes at least one slide exists (e.g. to 
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

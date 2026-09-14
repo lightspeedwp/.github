@@ -308,3 +308,6 @@ graph TD
 5. **Cross-Reference**: Link instead of repeat information
 
 Focus on creating a specification that serves as both documentation and a template for workflow updates.
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

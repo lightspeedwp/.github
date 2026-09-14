@@ -244,3 +244,6 @@ graph LR
     style D fill:#f57f17,color:#000
     style E fill:#00695c,color:#fff
 ```
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

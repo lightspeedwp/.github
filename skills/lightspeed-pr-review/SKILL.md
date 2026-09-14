@@ -22,3 +22,5 @@ description: "Review pull requests against LightSpeed standards with evidence ch
 ## Output format
 
 - `Severity` (P0-P3), `Finding`, `Evidence`, `Suggested fix`.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

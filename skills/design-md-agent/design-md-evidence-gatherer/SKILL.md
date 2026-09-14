@@ -137,3 +137,5 @@ Use this structure unless the user explicitly asks for another format:
 - "Create a repo-ready DESIGN.md from this project's Figma file, GitHub repo, and brand docs."
 - "Audit our current DESIGN.md against Figma variables and theme.json, then show me what is outdated or unsafe for AI agents."
 - "Map the Figma token system into WordPress theme.json presets and CSS variables, and list any implementation gaps."
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

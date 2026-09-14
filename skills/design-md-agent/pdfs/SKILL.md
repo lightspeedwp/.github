@@ -150,3 +150,5 @@ Quick map:
 - Verify in at least **one** renderer (`pdfium` or `pdftoppm`). For tricky forms, verify in **two**.
 - Remove intermediate artifacts from the deliverable folder (keep only final PDF(s)).
 - Avoid Unicode dashes that some renderers mishandle; prefer ASCII `-`.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
