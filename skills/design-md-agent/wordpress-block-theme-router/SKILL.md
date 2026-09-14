@@ -265,3 +265,6 @@ Expected behaviour:
 - `references/wordpress-rules.md`
 - `references/output-templates.md`
 - `references/qa-rubric.md`
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

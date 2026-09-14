@@ -166,3 +166,6 @@ Execute these steps IN ORDER for the active project(s) related to this chat:
 **Use When:** Completed work session that relates to an active project  
 **Output:** Updated project documentation, GitHub issues, merged commits to develop  
 **Dependencies:** `npm`, `git`, GitHub API access
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

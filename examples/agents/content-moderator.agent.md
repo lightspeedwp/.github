@@ -260,3 +260,6 @@ For questions about this agent specification:
 2. Review [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for common issues
 3. See [MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md) if upgrading from previous versions
 4. Open an issue with the `type:documentation` label for specification improvements
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

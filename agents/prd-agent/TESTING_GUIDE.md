@@ -1,5 +1,30 @@
 # PRD Agent Testing Guide
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Purpose**: Execute comprehensive test suite for Phase 5 validation across all providers  
 **Framework**: 14 test cases across 4 categories  
 **Target**: ≥95% pass rate per spec.md SC-502  
@@ -54,30 +79,35 @@ node agents/prd-agent/tests/test-runner.js --provider claude --suite routing --v
 Tests whether the agent correctly generates structured PRD documents with all required sections.
 
 **TC-101: Basic PRD Structure**
+
 - Input: "Feature requirement for user authentication system"
 - Expected: PRD with Overview, User Stories, Acceptance Criteria, Success Metrics, Release Notes
 - Success: All sections present and non-empty
 - Command: `node tests/test-runner.js --suite all --verbose` (shows TC-101 result)
 
 **TC-102: Feature Extraction**
+
 - Input: "Improve user login experience"
 - Expected: ≥5 user stories, ≥15 acceptance criteria
 - Success: Requirement parsing accuracy
 - Metric: Story count, criteria count
 
 **TC-103: Schema Compliance**
+
 - Input: Random PRD requirements
 - Expected: JSON schema compliance, Markdown formatting
 - Success: Zero validation errors
 - Validation: `npm run validate:frontmatter`
 
 **TC-104: Cross-Skill Routing**
+
 - Input: Complex multi-skill workflow
 - Expected: Correct skill sequence (3+ skills)
 - Success: ≥3 skills identified in correct order
 - Example: project-researcher → prd-writer → acceptance-test-planner → prd-task-reviewer
 
 **TC-105: Memory Context**
+
 - Input: Multi-turn conversation (PRD → Review → Planning)
 - Expected: Context preserved across turns
 - Success: Zero context loss, decisions tracked
@@ -88,24 +118,28 @@ Tests whether the agent correctly generates structured PRD documents with all re
 Tests skill-to-skill handoffs and orchestration accuracy.
 
 **TC-201: Skill Sequence**
+
 - Input: "Plan a sprint for Q4 launch"
 - Expected: project-intake → delivery-planner → estimation-planner → github-issue-drafter
 - Success: Correct order, no duplicates
 - Target: 90%+ accuracy
 
 **TC-202: Handoff Quality**
+
 - Input: PRD from prd-writer → delivery-planner
 - Expected: Smooth context passing, no re-explanation
 - Success: Continuity score ≥85
 - Target: ≥90 continuity
 
 **TC-203: Edge Cases**
+
 - Input: Request at skill boundary (design vs PRD)
 - Expected: Graceful handling, clear error message
 - Success: User satisfaction ≥4/5
 - Target: 90%+ graceful handling
 
 **TC-204: Conflict Resolution**
+
 - Input: Conflicting outputs (timeline vs plan)
 - Expected: Conflict detected and documented
 - Success: Resolution proposed
@@ -116,18 +150,21 @@ Tests skill-to-skill handoffs and orchestration accuracy.
 Tests GitHub-specific workflows (issue creation, linking, PR reviews).
 
 **TC-301: Issue Creation**
+
 - Input: PRD with requirements
 - Expected: GitHub issue with labels, checklists, links
 - Success: ≥1 issue, proper labels, checklist matches criteria
 - Target: 100% creation success
 
 **TC-302: Milestone/Project Linking**
+
 - Input: Feature PRD for release
 - Expected: Issues linked to milestone and project
 - Success: Appears in project board
 - Target: 100% linking success
 
 **TC-303: PR Review Workflow**
+
 - Input: PRD submitted via GitHub PR
 - Expected: Structured review, approval tracking
 - Success: ≥5 valid feedback items
@@ -138,12 +175,14 @@ Tests GitHub-specific workflows (issue creation, linking, PR reviews).
 Tests canonical skill references and skill clustering.
 
 **TC-401: Canonical Names**
+
 - Input: Agent asked to create PRD
 - Expected: References to 28 canonical skills only
 - Success: Zero references to deleted skills (prd-generator, prd-reviewer, etc.)
 - Target: 100% canonical accuracy
 
 **TC-402: Capability Matrix**
+
 - Input: Complex workflow spanning multiple categories
 - Expected: Correct skill cluster mapping (Drafting, Planning, Quality, etc.)
 - Success: Correct assignments and skill ordering
@@ -166,6 +205,7 @@ node tests/test-runner.js --provider claude --suite routing
 ```
 
 **Setup Requirements**:
+
 - Node.js 16+ installed
 - Access to `agents/prd-agent/` directory
 - Test fixtures in `tests/fixtures/`
@@ -175,12 +215,14 @@ node tests/test-runner.js --provider claude --suite routing
 Tests GitHub-integrated workflows and Copilot-specific optimizations.
 
 **Manual Testing Process** (Copilot integration not yet automated):
+
 1. Open Copilot in GitHub Code Spaces or IDE
 2. Load `agents/prd-agent/copilot/agent.md` as custom agent
 3. Run test scenarios manually
 4. Record results in TEST_RESULTS.md
 
 **Test Scenarios for Copilot**:
+
 - Create GitHub issue from feature requirement (TC-301)
 - Link issue to milestone and project (TC-302)
 - Submit PR for review and track approval (TC-303)
@@ -190,6 +232,7 @@ Tests GitHub-integrated workflows and Copilot-specific optimizations.
 Tests API-based agent invocation and compatibility.
 
 **Manual Testing Process** (OpenAI API integration pending):
+
 1. Load agent prompt from `agents/prd-agent/claude/agent.md`
 2. Call OpenAI API with test scenarios
 3. Parse responses
@@ -242,6 +285,7 @@ cat results/claude-all-tests.json | jq '.passed, .failed, .byCategory'
 ### Success Criteria
 
 **Phase 5 Completion Requires**:
+
 - ✅ All 14 test cases executed
 - ✅ Pass rate ≥95% (13+ tests passing)
 - ✅ Coverage ≥90% (all 28 skills referenced)
@@ -349,16 +393,19 @@ jobs:
 ### Test Failures
 
 **TC-101 Fails: "Missing sections"**
+
 - Check: Agent prompt includes all required PRD sections
 - Fix: Verify claude/agent.md System Prompt includes PRD section examples
 - Reference: agents/prd-agent/claude/agent.md lines ~20-50
 
 **TC-301 Fails: "GitHub issue creation"**
+
 - Check: GitHub API access and authentication
 - Fix: Verify MCP tools available or manual test workaround
 - Reference: TESTING_GUIDE.md "GitHub Integration" section
 
 **TC-401 Fails: "Non-canonical skill names"**
+
 - Check: Agent prompt lists only 28 canonical skills
 - Fix: Search agent.md for deleted skill names and remove
 - Reference: agents/prd-agent/TEST_CASES_BASELINE.md for canonical list
@@ -366,12 +413,15 @@ jobs:
 ### Execution Issues
 
 **"node: command not found"**
+
 - Fix: Install Node.js 16+: `brew install node` (macOS) or `apt install nodejs` (Linux)
 
 **"Cannot find module"**
+
 - Fix: Run from repo root: `cd /home/user/.github && node tests/test-runner.js`
 
 **Permission denied**
+
 - Fix: Add execute permission: `chmod +x tests/test-runner.js`
 
 ---
@@ -412,3 +462,6 @@ jobs:
 **Last Updated**: 2026-09-12  
 **Status**: Framework Complete | Execution Pending  
 **Next Milestone**: Phase 5 Week 1 Baseline Collection
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

@@ -138,3 +138,5 @@ status: "draft"
 tags: [Optional: List of relevant tags or categories, e.g., `feature`, `upgrade`, `chore`, `architecture`, `migration`, `bug` etc]
 ---
 ```
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

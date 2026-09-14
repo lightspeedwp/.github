@@ -38,3 +38,6 @@ See the [hooks registry](../../../hooks/hook-registry.json) for status and trigg
 ## Contributing
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

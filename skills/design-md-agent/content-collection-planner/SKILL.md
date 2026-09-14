@@ -61,3 +61,6 @@ Use:
 - `references/content-gap-report-template.md`
 - `references/client-email-template.md`
 - `references/folder-structure.md`
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

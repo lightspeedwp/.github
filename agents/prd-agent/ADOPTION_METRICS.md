@@ -186,8 +186,13 @@ PRD Agent Consolidation — User Feedback Survey
 
 **Measurement**:
 
+<<<<<<< HEAD
 - Reported in weekly check-in: "How many PRDs did your team complete this week?"
 - Confirmed from the same deduplicated completion log used for SC-602
+=======
+- Reported in weekly check-in: "How many PRD workflows did your team run this week?"
+- Alternative: Agent telemetry logs (if provider APIs expose usage data)
+>>>>>>> origin/develop
 
 **Example Trend**:
 
@@ -436,3 +441,5 @@ This is the first formal rollout of the consolidated PRD Agent. Metrics collecte
 ---
 
 *This metrics framework is live as of Phase 6 Week 1. Updates and tracker files will be created as the rollout progresses.*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

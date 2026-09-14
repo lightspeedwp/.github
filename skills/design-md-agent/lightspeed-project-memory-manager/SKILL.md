@@ -152,3 +152,6 @@ Every memory pack should state:
 - key assumptions
 - next recommended update
 - whether the pack is safe to use for a fresh chat handoff
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -56,3 +56,6 @@ Then provide your code for documentation.
 
 - [WordPress PHP Documentation Standards](https://github.com/WordPress/wpcs-docs/blob/master/inline-documentation-standards/php.md)
 - [WordPress JavaScript Documentation Standards](https://github.com/WordPress/wpcs-docs/blob/master/inline-documentation-standards/javascript.md)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

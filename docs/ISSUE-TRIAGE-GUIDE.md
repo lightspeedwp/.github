@@ -337,3 +337,6 @@ Milestone: Version-specific milestone
 - [AGENTS.md](../AGENTS.md) — Full AI operations guidelines
 - [Coding Standards](./instructions/coding-standards.instructions.md)
 - [File Organisation](./instructions/file-organisation.instructions.md)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

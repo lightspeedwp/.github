@@ -74,3 +74,5 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [docs/RELEASE_PROCESS.md](../docs/RELEASE_PROCESS.md) — Detailed release process
 - [Semantic Versioning](https://semver.org/)
 - [Keep a Changelog](https://keepachangelog.com/)
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

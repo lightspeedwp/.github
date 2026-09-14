@@ -463,3 +463,5 @@ graph LR
     style D fill:#f57f17,color:#000
     style E fill:#00695c,color:#fff
 ```
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
