@@ -128,9 +128,10 @@ read_feature_json_feature_directory() {
     return 0
 }
 
-# Read specs_directory from .specify/init-options.json with fallback to default.
-# Returns the configured specs directory path or the default '.github/specs' if not set.
-# Always returns 0 to prevent aborting under set -e.
+# Print the configured feature-spec directory.
+# Accepts an optional repository root; otherwise resolves it with get_repo_root.
+# Prints specs_directory from .specify/init-options.json when a nonempty value
+# can be read, or '.github/specs' otherwise. Always returns 0.
 read_specs_directory() {
     local repo_root="${1:-$(get_repo_root)}" || return 1
     local init_json="$repo_root/.specify/init-options.json"
