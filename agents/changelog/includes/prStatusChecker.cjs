@@ -248,7 +248,7 @@ function createStatusCheck(checkData) {
  * @returns {Object} Result
  */
 function updateStatusCheckOverride(options = {}) {
-  const { owner, repo, prNumber, overrideId, user } = options;
+  const { overrideId } = options;
 
   // In production, this would call GitHub API to update the status check
 
