@@ -29,14 +29,14 @@ This document defines the Key Performance Indicators (KPIs), collection methods,
 
 #### 1. **Team Adoption Rate** (SC-602)
 
-**Definition**: Number of teams actively using the consolidated PRD agent within 30 days of rollout announcement.
+**Definition**: Number of teams actively using the consolidated PRD agent within 30 days of rollout announcement. Active usage is defined as ≥1 PRD generation per team per rolling 7-day window, maintained for ≥4 of the 6 weeks post-rollout.
 
 **Target**: ≥5 teams
 
 **Measurement**:
 - Tracked via team lead check-in responses (weekly)
-- Confirmed by visible usage (PRDs generated, agent invocations logged)
-- Status: `Adopted` (active integration), `Evaluating` (pilot phase), `Not Yet Started` (on roadmap)
+- Confirmed by visible usage (≥1 PRD generated per team in rolling 7-day window per check-in)
+- Status: `Adopted` (≥1 run/week for ≥4 weeks), `Evaluating` (pilot phase, <4 weeks consistent), `Not Yet Started` (on roadmap)
 
 **Collection Method**: 
 - Weekly Slack check-in with team leads: "Is your team actively using the consolidated PRD agent? How many workflows run this week?"
