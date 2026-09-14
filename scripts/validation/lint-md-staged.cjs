@@ -300,7 +300,9 @@ async function main() {
     process.exit(1);
   }
 
-  const violationsByFile = parseViolations(fixResult.stderr || "");
+  const violationsByFile = parseViolations(
+    (fixResult.stderr || "") + (fixResult.stdout || ""),
+  );
 
   for (const file of files) {
     const {
