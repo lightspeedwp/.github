@@ -16,7 +16,7 @@ setup() {
 #!/usr/bin/env bash
 printf '%s\n' "$*" >> "$GH_CALL_LOG"
 
-if [[ "${3:-}" == "${MOCK_GH_FAIL_ISSUE:-}" ]]; then
+if [[ ",${MOCK_GH_FAIL_ISSUES:-}," == *",${3:-},"* ]]; then
   exit 1
 fi
 EOF_GH
@@ -34,7 +34,7 @@ run_bulk_labeler() {
     PATH="$MOCK_BIN:$PATH" \
     GH_CALL_LOG="$GH_CALL_LOG" \
     SLEEP_CALL_LOG="$SLEEP_CALL_LOG" \
-    MOCK_GH_FAIL_ISSUE="${MOCK_GH_FAIL_ISSUE:-}" \
+    MOCK_GH_FAIL_ISSUES="${MOCK_GH_FAIL_ISSUES:-}" \
     bash "$SCRIPT" "$@"
 }
 
@@ -92,7 +92,7 @@ script_label_rows() {
 }
 
 @test "a failed GitHub update is counted while later issues continue processing" {
-  MOCK_GH_FAIL_ISSUE=3135
+  MOCK_GH_FAIL_ISSUES=3135
   run_bulk_labeler --batch 100
 
   [ "$status" -eq 1 ]
@@ -101,6 +101,17 @@ script_label_rows() {
   [[ "$output" == *"Successful: 79"* ]]
   [[ "$output" == *"Failed: 1"* ]]
   [[ "$output" == *"1 issues failed to label"* ]]
+}
+
+@test "multiple GitHub failures are counted independently without stopping the batch" {
+  MOCK_GH_FAIL_ISSUES=3134,3175,3217
+  run_bulk_labeler --batch 100
+
+  [ "$status" -eq 1 ]
+  [ "$(wc -l < "$GH_CALL_LOG")" -eq 80 ]
+  [[ "$output" == *"Successful: 77"* ]]
+  [[ "$output" == *"Failed: 3"* ]]
+  [[ "$output" == *"3 issues failed to label"* ]]
 }
 
 @test "batch boundaries report progress and apply the configured delay" {
@@ -113,6 +124,25 @@ script_label_rows() {
   [ "${#sleeps[@]}" -eq 2 ]
   [ "${sleeps[0]}" = "0.5" ]
   [ "${sleeps[1]}" = "0.5" ]
+}
+
+@test "a partial final batch does not add an extra rate-limit delay" {
+  run_bulk_labeler --dry-run --batch 30
+
+  [ "$status" -eq 0 ]
+  mapfile -t sleeps < "$SLEEP_CALL_LOG"
+  [ "${#sleeps[@]}" -eq 2 ]
+  [[ "$output" == *"Processed 30 issues"* ]]
+  [[ "$output" == *"Processed 60 issues"* ]]
+  [[ "$output" != *"Processed 80 issues"* ]]
+}
+
+@test "a batch larger than the matrix completes without throttling" {
+  run_bulk_labeler --dry-run --batch 81
+
+  [ "$status" -eq 0 ]
+  [ ! -s "$SLEEP_CALL_LOG" ]
+  [[ "$output" == *"Successful: 80"* ]]
 }
 
 @test "unknown options fail before any GitHub update" {

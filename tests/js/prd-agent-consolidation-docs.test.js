@@ -30,6 +30,9 @@ const phase6Log = readRepoFile("agents/prd-agent/PHASE6_EXECUTION_LOG.md");
 const phase7Criteria = readRepoFile(
   "agents/prd-agent/PHASE7_DECISION_CRITERIA.md",
 );
+const requirementsAudit = readRepoFile(
+  ".github/specs/001-prd-agent-consolidation/checklists/requirements-audit.md",
+);
 
 describe("PRD agent consolidation convergence documentation", () => {
   describe("task plan", () => {
@@ -40,7 +43,25 @@ describe("PRD agent consolidation convergence documentation", () => {
       );
       const expectedIds = Array.from(
         { length: 40 },
-        (_, index) => `T${String(index + 9).padStart(3, "0")}`,
+        (_, index) => `T${String(index + 5).padStart(3, "0")}`,
+      );
+
+      expect(taskIds).toEqual(expectedIds);
+      expect(new Set(taskIds).size).toBe(taskIds.length);
+    });
+
+    test("keeps the appended Phase 4-7 task IDs contiguous and unique", () => {
+      const convergence = extractSection(
+        tasks,
+        /^## Phase 7: Convergence/m,
+        /^## Notes/m,
+      );
+      const taskIds = [
+        ...convergence.matchAll(/^- \[[ xX]\] (T\d{3})\b/gm),
+      ].map((match) => match[1]);
+      const expectedIds = Array.from(
+        { length: 22 },
+        (_, index) => `T${String(index + 61).padStart(3, "0")}`,
       );
 
       expect(taskIds).toEqual(expectedIds);
@@ -48,32 +69,26 @@ describe("PRD agent consolidation convergence documentation", () => {
     });
 
     test.each([
-      ["T081", "CHANGELOG.md", "FR-415"],
-      ["T082", "PHASE6_EXECUTION_LOG.md", "T071/T073"],
-      ["T083", "ADOPTION_METRICS.md", "SC-602"],
-      ["T084", "PHASE7_DECISION_CRITERIA.md", "FR-702"],
-      ["T085", "CHANGELOG.md", "T075"],
-    ])(
-      "marks convergence task %s complete with its contract",
-      (id, file, ref) => {
-        const taskLine = tasks
-          .split("\n")
-          .find((line) => new RegExp(`^- \\[x\\] ${id}\\b`).test(line));
+      ["T061", "PROMPT_ENHANCEMENT_ANALYSIS.md", "FR-411"],
+      ["T066", "agents/prd-agent/tests/", "FR-501"],
+      ["T072", "ROLLOUT_PLAN.md", "FR-601"],
+    ])("marks completed task %s with its deliverable", (id, file, ref) => {
+      const taskLine = tasks
+        .split("\n")
+        .find((line) => new RegExp(`^- \\[x\\] ${id}\\b`).test(line));
 
-        expect(taskLine).toBeDefined();
-        expect(taskLine).toContain(file);
-        expect(taskLine).toContain(ref);
-        expect(taskLine).toMatch(/✅ 2026-09-13:/);
-      },
-    );
+      expect(taskLine).toBeDefined();
+      expect(taskLine).toContain(file);
+      expect(taskLine).toContain(ref);
+      expect(taskLine).toMatch(/✅ 2026-09-12:/);
+    });
 
     test("keeps Phase 7 work blocked behind the Phase 6 completion gate", () => {
-      expect(tasks).toMatch(/T076 .*\(Blocked on T075\)/);
-      expect(tasks).toMatch(/T077 .*\(Blocked on T076\)/);
       expect(tasks).toMatch(/T078 .*\(Blocked on T077\)/);
-      expect(tasks).toMatch(/T079 .*\(Blocked on T077\)/);
-      expect(tasks).toMatch(/T080 .*\(Blocked on T078 OR T079 OR T080-Defer\)/);
-      expect(tasks).toMatch(/T080-Defer .*\(Blocked on T077\)/);
+      expect(tasks).toMatch(/T079 .*\(Blocked on T078\)/);
+      expect(tasks).toMatch(/T080 .*\(Blocked on T079\)/);
+      expect(tasks).toMatch(/T081 .*\(Blocked on T079\)/);
+      expect(tasks).toMatch(/T082 .*\(Blocked on T080 OR T081\)/);
     });
 
     test("gives every Phase 7 branch and closure task a distinct identifier", () => {
@@ -86,25 +101,22 @@ describe("PRD agent consolidation convergence documentation", () => {
         ...phase7.matchAll(/^- \[[ xX]\] (T\d{3}(?:-[A-Za-z]+)?)\b/gm),
       ].map((match) => match[1]);
 
-      expect(taskIds).toEqual([
-        "T076",
-        "T077",
-        "T078",
-        "T079",
-        "T080",
-        "T080-Defer",
-      ]);
+      expect(taskIds).toEqual(["T078", "T079", "T080", "T081", "T082"]);
       expect(new Set(taskIds).size).toBe(taskIds.length);
+    });
+
+    test("tracks an execution task for the documented DEFER decision", () => {
+      expect(tasks).toMatch(
+        /^- \[ \] T\d{3}(?:-[A-Za-z]+)? .*If decision = \*\*DEFER\*\*/m,
+      );
     });
   });
 
   describe("SC-602 adoption contract", () => {
     test("uses the same sustained weekly threshold in the spec and KPI definition", () => {
-      const rollingWindow = "≥1 PRD generation per rolling 7-day window";
-      const sustainedWindow = "sustained for ≥4 of 6 weeks";
-
-      expect(spec).toContain(rollingWindow);
-      expect(spec).toContain(sustainedWindow);
+      expect(spec).toMatch(
+        /≥1 PRD generation per team per rolling 7-day window, maintained for ≥4 of 6 weeks/,
+      );
       expect(adoptionMetrics).toMatch(
         /≥1 PRD generation(?: event)? per rolling 7-day window/,
       );
@@ -143,13 +155,15 @@ describe("PRD agent consolidation convergence documentation", () => {
 
     test("keeps Phase 4 registry work separate from the Phase 7 fate decision", () => {
       const phase4 = extractSection(spec, /^## Phase 4:/m, /^## Phase 5:/m);
+      const phase7 = extractSection(spec, /^## Phase 7:/m, /^## Key Entities/m);
 
       expect(phase4).toMatch(
         /FR-413.*Update `agents\/mode-prd\.agent\.md` memory registry entry/,
       );
-      expect(phase4).toMatch(
-        /FR-701.*Execute Phase 7 decision on archival\/deprecation/,
-      );
+      expect(phase7).toMatch(/FR-701.*Review Phase 6 adoption metrics/);
+      expect(phase7).toMatch(/FR-702.*Make decision: Archive, Sync, or Defer/);
+      expect(phase4).not.toMatch(/FR-701/);
+      expect(phase7).not.toMatch(/FR-413/);
     });
   });
 
@@ -280,28 +294,31 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(defer).toMatch(/Unresolved critical blockers take precedence/i);
     });
 
-    test("ensures decision paths are mutually exclusive", () => {
-      const matrix = extractSection(phase7Criteria, /## Decision Matrix/, /## Execution Steps/);
+    test.each([
+      [{ teams: 4, satisfaction: 3.9, blockers: 0 }, "ARCHIVE"],
+      [{ teams: 5, satisfaction: 4.0, blockers: 0 }, "SYNC"],
+      [{ teams: 5, satisfaction: 3.9, blockers: 0 }, "DEFER"],
+      [{ teams: 4, satisfaction: 4.0, blockers: 0 }, "DEFER"],
+      [{ teams: 5, satisfaction: 4.0, blockers: 1 }, "DEFER"],
+      [{ teams: 4, satisfaction: 3.9, blockers: 1 }, "DEFER"],
+    ])(
+      "maps threshold boundary %j to exactly one %s path",
+      ({ teams, satisfaction, blockers }, expectedPath) => {
+        const matchingPaths = {
+          ARCHIVE: (teams < 5 || satisfaction < 4.0) && blockers === 0,
+          SYNC: teams >= 5 && satisfaction >= 4.0 && blockers === 0,
+          DEFER:
+            blockers > 0 ||
+            (teams >= 5 && satisfaction < 4.0) ||
+            (teams < 5 && satisfaction >= 4.0),
+        };
+        const selectedPaths = Object.entries(matchingPaths)
+          .filter(([, matches]) => matches)
+          .map(([pathName]) => pathName);
 
-      // SYNC requires ALL conditions: teams ≥5, satisfaction ≥4.0, blockers == 0
-      expect(matrix).toContain("Active Teams >= 5");
-      expect(matrix).toContain("Satisfaction Score >= 4.0");
-      expect(matrix).toContain("(Active Teams >= 5) AND (Satisfaction Score >= 4.0)");
-
-      // ARCHIVE requires: (teams < 5 OR satisfaction < 4.0) AND blockers == 0
-      expect(matrix).toContain("(Active Teams < 5) OR (Satisfaction Score < 4.0)");
-      expect(matrix).toContain("AND (Critical Blockers == 0)");
-
-      // DEFER catches all other cases including any critical blockers
-      expect(matrix).toContain("Mixed signals");
-      expect(matrix).toContain("unresolved critical blockers");
-
-      // Verify no path can be selected when Critical Blockers > 0
-      const archivePath = extractSection(matrix, /### Path 1: ARCHIVE/, /---/);
-      const syncPath = extractSection(matrix, /### Path 2: SYNC/, /---/);
-      expect(archivePath).toContain("Critical Blockers == 0");
-      expect(syncPath).toContain("Critical Blockers == 0");
-    });
+        expect(selectedPaths).toEqual([expectedPath]);
+      },
+    );
 
     test("defines actionable outputs for the negative DEFER path", () => {
       const defer = extractSection(
@@ -313,7 +330,49 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(defer).toContain("Re-assessment criteria defined");
       expect(defer).toMatch(/follow-up issue created with due date/i);
       expect(defer).toContain("agents/prd-agent/PHASE7_DECISION.md");
-      expect(tasks).toContain("`[PHASE-7-DEFER]`");
+    });
+  });
+
+  describe("requirements quality audit", () => {
+    const checklistItems = [
+      ...requirementsAudit.matchAll(
+        /^- \[([ xX])\] CHK(\d{3}) - (.+) \[([^\]]+)\]$/gm,
+      ),
+    ];
+
+    test("defines a unique contiguous set of 56 traceable checks", () => {
+      const ids = checklistItems.map((item) => item[2]);
+      const expectedIds = Array.from({ length: 56 }, (_, index) =>
+        String(index + 1).padStart(3, "0"),
+      );
+
+      expect(ids).toEqual(expectedIds);
+      expect(new Set(ids).size).toBe(ids.length);
+      checklistItems.forEach((item) => {
+        expect(item[3]).not.toHaveLength(0);
+        expect(item[4]).toMatch(
+          /Spec|ADOPTION_METRICS|PHASE7_DECISION_CRITERIA|Traceability|Cross-document/,
+        );
+      });
+    });
+
+    test("calculates the 90 percent release threshold without rounding down", () => {
+      const requiredPasses = Math.ceil(checklistItems.length * 0.9);
+
+      expect(checklistItems).toHaveLength(56);
+      expect(requiredPasses).toBe(51);
+      expect(requirementsAudit).toContain(
+        `**Formal Release Gate Threshold**: ≥90% of items marked \`[x]\` (${requiredPasses}+ items)`,
+      );
+    });
+
+    test("does not equate quality-review checkboxes with implementation status", () => {
+      expect(requirementsAudit).toContain(
+        "`[x]` does NOT mean implementation work is complete",
+      );
+      expect(requirementsAudit).toContain(
+        "Implementation status is tracked separately in tasks.md and GitHub issues.",
+      );
     });
   });
 
