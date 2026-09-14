@@ -129,14 +129,14 @@
 
 ### Implementation for User Story 3
 
-- [ ] T047 [P] [US3] Implement GitHub API integration scaffold in `agents/changelog/includes/githubClient.cjs`: initialize Octokit, setup caching (1-hour TTL), error handling
-- [ ] T048 [US3] Implement PR/issue link validation: `validatePRReference(prNumber)` in `agents/changelog/includes/githubClient.cjs` - verify PR exists, cache result for 1 hour
+- [x] T047 [P] [US3] Implement GitHub API integration scaffold in `agents/changelog/includes/githubClient.cjs`: initialize Octokit, setup caching (1-hour TTL), error handling
+- [x] T048 [US3] Implement PR/issue link validation: `validatePRReference(prNumber)` in `agents/changelog/includes/githubClient.cjs` - verify PR exists, cache result for 1 hour
 - [ ] T049 [P] [US3] Update validator with GitHub API validation for R010: validate each PR reference via GitHub API with graceful degradation if API unavailable
-- [ ] T050 [P] [US3] Implement reference linker in `agents/changelog/includes/referenceLinker.cjs`: extract PR/issue numbers, build URLs, enrich entries with valid links
-- [ ] T051 [US3] Create release notes generator in `agents/changelog/includes/releaseNotesGenerator.cjs`: format entries for external consumption, organize by category, include PR/issue links
-- [ ] T052 [P] [US3] Implement export format: `changelog-validator export --release <version> --format markdown` generates release notes as Markdown
-- [ ] T053 [P] [US3] Create integration test `agents/changelog/tests/integration/githubIntegration.test.js`: mock GitHub API, test PR validation, error handling
-- [ ] T054 [US3] Implement feature flag for strict validation: pre-release entries don't require valid PR links; release entries do (configure in config.cjs)
+- [x] T050 [P] [US3] Implement reference linker in `agents/changelog/includes/referenceLinker.cjs`: extract PR/issue numbers, build URLs, enrich entries with valid links
+- [x] T051 [US3] Create release notes generator in `agents/changelog/includes/releaseNotesGenerator.cjs`: format entries for external consumption, organize by category, include PR/issue links
+- [x] T052 [P] [US3] Implement export format: `changelog-validator export --release <version> --format markdown` generates release notes as Markdown
+- [x] T053 [P] [US3] Create integration test `agents/changelog/tests/integration/githubIntegration.test.js`: mock GitHub API, test PR validation, error handling
+- [x] T054 [US3] Implement feature flag for strict validation: pre-release entries don't require valid PR links; release entries do (configure in config.cjs)
 - [ ] T055 [P] [US3] Create user-facing documentation in `docs/CHANGELOG_QUALITY_AUDIT.md` section: what consumers can expect, how entries are validated, link structure
 
 **Checkpoint**: User Story 3 independently testable - release notes can be generated, reviewed, and published with confidence

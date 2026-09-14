@@ -389,10 +389,140 @@ async function auditRelease(changelogPath, version, options = {}) {
   return result;
 }
 
+/**
+ * Export release notes in specified format
+ * @param {string} changelogPath - Path to changelog file
+ * @param {string} version - Version to export (e.g. "1.2.0")
+ * @param {Object} options - { format: 'markdown'|'html'|'plaintext', includeLinks }
+ * @returns {Promise<Object>} Export result with formatted content
+ */
+async function exportReleaseNotes(changelogPath, version, options = {}) {
+  const releaseNotesGen = require("./includes/releaseNotesGenerator.cjs");
+  const referenceLinker = require("./includes/referenceLinker.cjs");
+
+  const { format = "markdown", includeLinks = true } = options;
+
+  const result = {
+    success: false,
+    error: null,
+    format,
+    version,
+    content: null,
+    status: "pending",
+    message: "",
+  };
+
+  try {
+    // Parse changelog
+    const parsed = parser.parseChangelog(changelogPath);
+
+    // Get entries for this version
+    if (!parsed.releases || !parsed.releases[version]) {
+      result.error = `No entries found for version ${version}`;
+      result.status = "failed";
+      result.message = `Version ${version} not found in changelog`;
+      return result;
+    }
+
+    const releaseEntries = parsed.releases[version];
+    const entries = [];
+
+    // Build entry objects
+    for (const section of releaseEntries) {
+      const { category, items } = section;
+
+      for (const itemText of items) {
+        const entry = {
+          text: itemText,
+          category: category,
+          pr_links: [],
+          issue_links: [],
+        };
+
+        // Extract and enrich links if requested
+        if (includeLinks) {
+          const prs = referenceLinker.extractPRReferences(itemText);
+          const issues = referenceLinker.extractIssueReferences(itemText);
+
+          for (const pr of prs) {
+            entry.pr_links.push({
+              number: pr,
+              url: referenceLinker.buildPRUrl("lightspeedwp", "ls-flow", pr),
+              valid: true,
+            });
+          }
+
+          for (const issue of issues) {
+            entry.issue_links.push({
+              number: issue,
+              url: referenceLinker.buildIssueUrl(
+                "lightspeedwp",
+                "ls-flow",
+                issue,
+              ),
+              valid: true,
+            });
+          }
+
+          entry.linked_text = itemText;
+        } else {
+          entry.linked_text = itemText;
+        }
+
+        entries.push(entry);
+      }
+    }
+
+    // Generate release notes in requested format
+    let content;
+    const releaseDate = parsed.dates[version] || new Date().toISOString().split("T")[0];
+
+    switch (format.toLowerCase()) {
+      case "html":
+        content = releaseNotesGen.generateHTMLReleaseNotes(
+          version,
+          releaseDate,
+          entries,
+        );
+        break;
+      case "plaintext":
+      case "plain":
+      case "text":
+        content = releaseNotesGen.generatePlainTextReleaseNotes(
+          version,
+          releaseDate,
+          entries,
+        );
+        break;
+      case "markdown":
+      case "md":
+      default:
+        content = releaseNotesGen.generateMarkdownReleaseNotes(
+          version,
+          releaseDate,
+          entries,
+        );
+        break;
+    }
+
+    result.success = true;
+    result.content = content;
+    result.status = "success";
+    result.message = `Exported ${entries.length} entries as ${format} release notes`;
+  } catch (error) {
+    result.error = error.message;
+    result.status = "failed";
+    result.message = `Export failed: ${error.message}`;
+  }
+
+  return result;
+}
+
 module.exports = {
   validateEntry,
   validateChangelog,
   processChangelog,
   addEntry,
   auditRelease,
+  exportReleaseNotes,
 };

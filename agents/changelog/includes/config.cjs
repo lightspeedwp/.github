@@ -1,53 +1,104 @@
 /**
- * Configuration module for changelog validation system
- * Manages rule versions, paths, and feature flags
+ * Changelog Validator Configuration
+ * Feature flags and settings for validation behavior
  */
 
-const path = require('path');
+module.exports = {
+  // GitHub API Configuration
+  github: {
+    // Enable/disable GitHub API integration for PR/issue validation
+    enabled: true,
+    // Cache TTL in milliseconds (1 hour)
+    cacheTTL: 60 * 60 * 1000,
+    // Graceful degradation: if API unavailable, treat as valid
+    gracefulDegradation: true,
+  },
 
-const config = {
-  // Rule versioning
-  RULE_VERSION: '1.0',
-  RULES_FILE: path.join(__dirname, '../../.github/changelog-rules.yml'),
+  // Validation Rules Configuration
+  validation: {
+    // Pre-release entries don't require valid PR links
+    // Release entries must have valid PR/issue links
+    strictForRelease: true,
 
-  // Validation categories
-  VALID_CATEGORIES: [
-    'feature',
-    'fix',
-    'improvement',
-    'breaking-change',
-    'security',
-    'performance',
-  ],
+    // Determine if entry is for pre-release or final release
+    // Can be overridden per-entry with meta field
+    releaseMode: "auto", // auto | prerelease | release
 
-  // Storage paths
-  METRICS_DIR: path.join(__dirname, '../../.github/reports/changelog-metrics'),
-  AUDIT_REPORTS_DIR: path.join(__dirname, '../../.github/reports/release-audits'),
+    // Rules to enable/disable globally
+    rules: {
+      R001: true, // no_implementation_details
+      R002: true, // has_category
+      R003: true, // has_title
+      R004: true, // has_description
+      R005: true, // reasonable_length
+      R006: true, // no_excessive_punctuation
+      R007: true, // proper_capitalization
+      R008: true, // consistent_tense
+      R009: true, // link_format_valid
+      R010: true, // valid_pr_reference (uses GitHub API when enabled)
+      R011: true, // no_internal_jargon
+      R012: true, // no_code_samples
+      R013: true, // no_database_details
+      R014: true, // clear_user_benefit
+      R015: true, // valid_date_format
+      R016: true, // category_valid
+      R017: true, // no_typos_common
+      R018: true, // no_excessive_length
+      R019: true, // entry_complete
+      R020: true, // valid_category
+    },
+  },
 
-  // GitHub API
-  GITHUB_API_CACHE_TTL_MS: 3600000, // 1 hour
-  GITHUB_API_TIMEOUT_MS: 5000,
-  GITHUB_API_RATE_LIMIT_RETRY_DELAY_MS: 60000,
+  // Repository Configuration
+  repository: {
+    // Default owner for GitHub API calls
+    owner: "lightspeedwp",
+    // Default repo for GitHub API calls
+    repo: ".github",
+  },
 
-  // Performance targets
-  SINGLE_ENTRY_VALIDATION_TARGET_MS: 100,
-  FULL_AUDIT_TARGET_MS: 300000, // 5 minutes
+  // Output Configuration
+  output: {
+    // Verbosity level: quiet | normal | verbose
+    verbosity: "normal",
+    // Include remediation guidance in output
+    includeRemediationGuidance: true,
+    // Include score details
+    includeScoreDetails: true,
+  },
 
-  // Feature flags
-  REQUIRE_PR_REFERENCES_FOR_RELEASE: true,
-  ALLOW_PR_REFERENCE_FOR_PRERELEASE: false,
-  VALIDATE_PR_LINKS_VIA_GITHUB_API: true,
-  GRACEFUL_DEGRADATION_ON_API_ERROR: true,
+  // Feature Flags
+  features: {
+    // Enable/disable changelog entry validation
+    validateEntries: true,
+    // Enable/disable changelog structure validation
+    validateStructure: true,
+    // Enable/disable GitHub API integration
+    githubIntegration: true,
+    // Enable/disable metrics collection
+    metricsCollection: true,
+    // Enable/disable report generation
+    reportGeneration: true,
+    // Enable/disable Markdown release notes export
+    releaseNotesExport: true,
+  },
 
-  // Score calculation
-  SCORE_BASE: 100,
-  SCORE_ERROR_PENALTY: 25,
-  SCORE_WARNING_PENALTY: 5,
-  COMPLIANCE_PASS_THRESHOLD: 90,
-  COMPLIANCE_WARNING_THRESHOLD: 75,
+  // Compliance Thresholds
+  compliance: {
+    // Minimum compliance percentage for "PASS" status
+    passingThreshold: 100, // 100%
+    // Minimum compliance percentage for "CONDITIONAL_PASS" status
+    conditionalPassThreshold: 90, // >=90%
+    // Below conditionalPassThreshold is "FAIL"
+  },
 
-  // Logging
-  LOG_LEVEL: process.env.LOG_LEVEL || 'INFO',
+  // Scoring Configuration
+  scoring: {
+    // Points deducted per error
+    errorPenalty: 25,
+    // Points deducted per warning
+    warningPenalty: 5,
+    // Base score (starts at this)
+    baseScore: 100,
+  },
 };
-
-module.exports = config;
