@@ -144,6 +144,7 @@ As a **reader**, I need all references and links in governance files to point to
 
 - Q1: Recovery strategy if refactoring breaks downstream systems? → A: Phased rollout approach—test refactoring on feature branch first, validate against dependent repos before merge to develop to catch issues early
 - Q2: What is explicitly OUT of scope for this audit? → A: All protected layers are out of scope—do NOT modify locked files (labels.yml, issue-types.yml, templates), instruction folder structure, or constitution.md; audit focuses only on CLAUDE.md and AGENTS.md
+- Q3: How to handle concurrent edits during multi-day refactoring? → A: Accept conflicts and rebase regularly; feature branch rebases onto develop as changes occur, conflicts resolved incrementally
 
 ## Assumptions
 
