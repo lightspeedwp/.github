@@ -24,24 +24,23 @@ The decision to Archive, Sync, or Defer is determined by Phase 6 final adoption 
 Phase 6 Adoption Metrics (from T075b)
          |
          v
-   SC-602/SC-603/SC-604 Met?
+ARCHIVE gate met?
+(SC-602/603/604 met, adoption stable or improving,
+ portable version fully adopted, legacy version not needed)
     /                    \
-   YES                    NO
+  YES                    NO
    |                      |
    v                      v
-≥5 Teams Active?     Inconclusive?
-   |                      |
-  YES  —→ ARCHIVE         YES —→ DEFER
-         (Portable        (Document re-eval
-          version         triggers & next
-          fully           review date)
-          adopted)
-         
-         OR
-         
-         SYNC
-         (Keep both in sync
-          long-term)
+ARCHIVE              SYNC needed?
+                     (both versions remain in use or
+                      required customisations must remain)
+                         /                 \
+                       YES                 NO
+                        |                   |
+                        v                   v
+                      SYNC                DEFER
+                  (Keep both aligned)  (Document re-evaluation
+                                        triggers and next review date)
 ```
 
 ---
@@ -51,12 +50,14 @@ Phase 6 Adoption Metrics (from T075b)
 ### ARCHIVE Decision
 
 **Conditions** (all must be true):
+
 - ✅ SC-602: ≥5 teams with ≥4-of-6-week activity threshold met
 - ✅ SC-603: User satisfaction ≥4.0/5.0
 - ✅ SC-604: Zero critical blockers vs. baseline
 - ✅ Adoption trend: Stable or improving week-over-week
 
 **Outcome**:
+
 1. Move `agents/mode-prd.agent.md` → `.github/projects/archive/prd-agents/` (T080)
 2. Update memory registry: remove or redirect `agent:mode-prd` entry
 3. Update all references in workflows, docs, AGENT-INDEX.md
@@ -70,17 +71,20 @@ Phase 6 Adoption Metrics (from T075b)
 ### SYNC Decision
 
 **Conditions** (at least one true):
+
 - Both portable and spec-based versions are actively used by different teams
 - Spec-based version has customizations that teams depend on
 - Consolidation is not yet complete across the entire organization
 
 **Outcome**:
+
 1. Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md` (T081-Sync)
 2. Establish sync trigger: whenever portable version is updated, sync spec-based version
 3. Document sync process in `PHASE7_DECISION.md`
 4. Set up automation or manual review process to keep them aligned
 
 **Sync Process**:
+
 - **Trigger**: Merge to `agents/prd-agent/copilot/agent.md` on `develop` branch
 - **Action**: Create PR to update `agents/mode-prd.agent.md` with same changes
 - **Review**: Maintainer reviews and merges PR
@@ -94,19 +98,22 @@ Phase 6 Adoption Metrics (from T075b)
 ### DEFER Decision
 
 **Conditions** (at least one true):
+
 - Adoption metrics are inconclusive (3-4 teams active, borderline satisfaction)
 - A critical blocker affects adoption potential
 - External factors (holidays, release freeze) have skewed data
 - Re-evaluation criteria are more appropriate than immediate archive/sync decision
 
 **Outcome**:
+
 1. Document rationale, blockers, and re-evaluation criteria in `PHASE7_DECISION.md` (T081-Defer)
-2. Set specific next review date (e.g., "Q1 2026" or "3 months from now")
+2. Set specific next review date (e.g., "Q1 2027" or "3 months from now")
 3. Define trigger criteria for re-evaluation (e.g., "≥10 teams active" or "critical blocker resolved")
 4. Create linked GitHub issue to track follow-up
 5. Keep `agents/mode-prd.agent.md` in current state (no archive, no sync required immediately)
 
 **Re-Evaluation Triggers** (examples):
+
 - Adoption reaches ≥7 teams (signal of strong market pull)
 - Critical blocker resolved and adoption retested
 - Next scheduled review date reached (e.g., 3 months)
@@ -280,10 +287,10 @@ Phase 6 Adoption Metrics (from T075b)
 **Phase 7 Completion Date**: 2026-11-02
 
 **All Tasks Completed**:
-- [x] T078: Synthesize decision memo
-- [x] T079: Make Archive/Sync/Defer decision
-- [x] T080/T081-Sync/T081-Defer: Execute decision branch
-- [x] T082: Document final outcome
+- [ ] T078: Synthesize decision memo
+- [ ] T079: Make Archive/Sync/Defer decision
+- [ ] T080/T081-Sync/T081-Defer: Execute decision branch
+- [ ] T082: Document final outcome
 
 **Next Phase**: [Post-Phase-7 actions, e.g., "Monitor sync process", "Track re-evaluation triggers"]
 
@@ -326,4 +333,3 @@ After decision is made, verify execution:
 **Owner**: Ash Shaw  
 **Last Updated**: 2026-09-14  
 **Status**: Ready for Phase 6 completion → Phase 7 execution
-

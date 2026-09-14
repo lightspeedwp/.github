@@ -318,15 +318,15 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 - FR-605: Create FAQ and troubleshooting guide based on feedback
 
 - [x] T072 [Phase 6] Create rollout communication plan and materials (`agents/prd-agent/ROLLOUT_PLAN.md`): announcement, adoption timeline, team contact list, success metrics per FR-601 — ✅ 2026-09-12: ROLLOUT_PLAN.md created with 9-week timeline, team contact list, success metrics, communication channels
-- [x] T073 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — ✅ 2026-09-14: Execution template complete (PHASE6_TEAM_BRIEFING_SCHEDULE.md); ready for Weeks 2-3 rollout execution
+- [ ] T073 [Phase 6] Schedule and conduct team briefings (minimum 5 teams per spec.md US6/AC1) on consolidated agent capabilities, benefits over pre-consolidation version, and integration steps per FR-602 — 🟡 IN PROGRESS: Execution template complete (PHASE6_TEAM_BRIEFING_SCHEDULE.md); briefings remain open until attendance and outcomes are recorded
 - [x] T074 [Phase 6] Set up metrics collection framework (`agents/prd-agent/ADOPTION_METRICS.md`): define KPIs (usage frequency, user count per team, satisfaction score, issue rate), collection method, reporting cadence per FR-603 — ✅ 2026-09-12: ADOPTION_METRICS.md created with detailed KPI framework, collection schedule, tracking templates
-- [x] T075 [Phase 6] Monitor team usage and feedback through the full 42-day window per FR-604 — ✅ 2026-09-14: Execution templates complete (PHASE6_MONITORING_TEMPLATE.md + PHASE6_WEEKLY_STATUS_TEMPLATE.md + PHASE6_BLOCKER_RESOLUTION_PLAYBOOK.md); ready for 6-week monitoring execution:
-  - [ ] T075a Record the 30-day interim checkpoint from deduplicated completed-PRD logs, surveys, and team meetings; identify blockers and corrective actions without making the final SC-602 decision (template: PHASE6_MONITORING_TEMPLATE.md) — scheduled Week 3 (2026-09-24)
+- [ ] T075 [Phase 6] Monitor team usage and feedback through the full 42-day window per FR-604 — 🟡 IN PROGRESS: Execution templates complete (PHASE6_MONITORING_TEMPLATE.md + PHASE6_WEEKLY_STATUS_TEMPLATE.md + PHASE6_BLOCKER_RESOLUTION_PLAYBOOK.md); monitoring remains open through 2026-10-24:
+  - [ ] T075a Record the 30-day interim checkpoint from deduplicated completed-PRD logs, surveys, and team meetings; identify blockers and corrective actions without making the final SC-602 decision (template: PHASE6_MONITORING_TEMPLATE.md) — scheduled day 30 (2026-10-12)
   - [ ] T075b Complete the 42-day final evaluation using all 6 weeks of deduplicated completed-PRD data, satisfaction results, and blocker evidence; publish the final SC-602/SC-603/SC-604 result (template: PHASE6_MONITORING_TEMPLATE.md) — scheduled Week 6 (2026-10-24)
 - [x] T076 [Phase 6] Create `agents/prd-agent/FAQ.md` and troubleshooting guide based on Phase 6 feedback; address common questions, known limitations, workarounds per FR-605 — ✅ 2026-09-12: FAQ.md created with 50+ Q&A, provider-specific guidance, troubleshooting sections
 - [ ] T077 [Phase 6] (Blocked on T075b) Update `agents/prd-agent/CHANGELOG.md` with the final 42-day Phase 6 adoption result, metrics, and team feedback summary — ⏳ PENDING: Scheduled after Week 6 metrics collection
 
-**Checkpoint (Post-Rollout)**: The 30-day interim checkpoint is documented; the 42-day final evaluation confirms ≥5 active teams, user satisfaction ≥4.0/5.0, and no critical blockers vs. baseline; T077 records the signed-off result.
+**Checkpoint (Post-Rollout Exit Gate)**: Complete T075a after 30 days of evidence; complete T075b only after all six seven-day buckets are closed and the final evaluation records the team count, survey median, and blocker result; then T077 records the signed-off result and unblocks Phase 7.
 
 ---
 

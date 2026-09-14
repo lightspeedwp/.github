@@ -11,7 +11,8 @@ owner: Ash Shaw
 **Task**: Monitor team usage and feedback through the full 42-day window per FR-604
 
 **Structure**:
-- **T075a**: 30-day interim checkpoint (due 2026-09-24)
+
+- **T075a**: 30-day interim checkpoint (due 2026-10-12)
 - **T075b**: 42-day final evaluation (due 2026-10-24)
 
 **Status**: 🟡 IN PROGRESS | **Timeline**: Through 2026-10-24
@@ -21,14 +22,16 @@ owner: Ash Shaw
 ## Overview
 
 This template tracks:
+
 1. **Weekly PRD generation logs** (deduplicated by team)
 2. **User satisfaction surveys** (30-day interim + 42-day final)
 3. **Team lead interviews** (sample of active users)
 4. **Blocker identification and corrective actions**
 
 Success criteria (per spec.md US6/AC2-4):
+
 - ≥5 teams with ≥1 PRD/week for ≥4 of 6 weeks (with grace period per spec.md Q4)
-- User satisfaction ≥4.0/5.0 (Likert scale, n≥20)
+- Final survey median satisfaction ≥4.0/5.0 (Likert scale, n≥20)
 - Zero critical blockers vs. baseline
 
 ---
@@ -39,7 +42,9 @@ Success criteria (per spec.md US6/AC2-4):
 
 **Collection Schedule**: Monday of each week (retrospective for prior week)
 
-### Week 1 (2026-09-10–2026-09-16)
+**Authoritative Collection Period**: 2026-09-13 through 2026-10-24, inclusive (42 days). The six non-overlapping seven-day buckets below are the denominator for activity classification; assign each completed generation to exactly one bucket by its completion timestamp.
+
+### Week 1 (2026-09-13–2026-09-19)
 
 | Team | PRDs Generated | Users Active | Notes | Status |
 |------|---------------|--------------|-------|--------|
@@ -54,7 +59,7 @@ Success criteria (per spec.md US6/AC2-4):
 
 ---
 
-### Week 2 (2026-09-17–2026-09-23)
+### Week 2 (2026-09-20–2026-09-26)
 
 | Team | PRDs Generated | Users Active | Notes | Status |
 |------|---------------|--------------|-------|--------|
@@ -69,7 +74,7 @@ Success criteria (per spec.md US6/AC2-4):
 
 ---
 
-### Week 3 (2026-09-24–2026-09-30) — 30-Day Interim Checkpoint
+### Week 3 (2026-09-27–2026-10-03)
 
 | Team | PRDs Generated | Users Active | Notes | Status |
 |------|---------------|--------------|-------|--------|
@@ -80,11 +85,11 @@ Success criteria (per spec.md US6/AC2-4):
 | QA/Testing Team | TBD | TBD | Post-briefing activity | ✅ OR 🟡 |
 | Operations | TBD | TBD | | ✅ OR 🟡 |
 
-**Week 3 Checkpoint**: Interim evaluation per T075a
+**Week 3 Status**: Continue weekly monitoring
 
 ---
 
-### Week 4 (2026-10-01–2026-10-07) — Mid-Point Check-In
+### Week 4 (2026-10-04–2026-10-10) — Mid-Point Check-In
 
 | Team | PRDs Generated | Users Active | Notes | Status |
 |------|---------------|--------------|-------|--------|
@@ -99,22 +104,37 @@ Success criteria (per spec.md US6/AC2-4):
 
 ---
 
-### Weeks 5-6 (2026-10-08–2026-10-24) — Final Evaluation Window
+### Week 5 (2026-10-11–2026-10-17) — Day-30 Interim Checkpoint
 
-| Team | Week 5 PRDs | Week 6 PRDs | 6-Week Total | 4+ Weeks Active? | Final Status |
-|------|-----------|-----------|-------------|------------------|--------------|
-| Product Team A | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
-| Product Team B | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
-| Engineering Planning | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
-| Design Team | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
-| QA/Testing Team | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
-| Operations | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
+| Team | PRDs Generated | Users Active | Notes | Status |
+|------|---------------|--------------|-------|--------|
+| Product Team A | TBD | TBD | | ✅ OR 🟡 |
+| Product Team B | TBD | TBD | | ✅ OR 🟡 |
+| Engineering Planning | TBD | TBD | | ✅ OR 🟡 |
+| Design Team | TBD | TBD | | ✅ OR 🟡 |
+| QA/Testing Team | TBD | TBD | | ✅ OR 🟡 |
+| Operations | TBD | TBD | | ✅ OR 🟡 |
+
+**Day-30 Checkpoint (2026-10-12)**: Interim evaluation per T075a; do not make the final SC-602/SC-603 decision.
+
+---
+
+### Week 6 (2026-10-18–2026-10-24) — Final Evaluation Window
+
+| Team | Week 6 PRDs | 6-Week Total | 4+ Weeks Active? | Final Status |
+|------|-------------|--------------|------------------|--------------|
+| Product Team A | TBD | TBD | TBD | ✅ OR 🔴 |
+| Product Team B | TBD | TBD | TBD | ✅ OR 🔴 |
+| Engineering Planning | TBD | TBD | TBD | ✅ OR 🔴 |
+| Design Team | TBD | TBD | TBD | ✅ OR 🔴 |
+| QA/Testing Team | TBD | TBD | TBD | ✅ OR 🔴 |
+| Operations | TBD | TBD | TBD | ✅ OR 🔴 |
 
 **Final Evaluation (2026-10-24)**: Complete per T075b
 
 ---
 
-## 30-Day Interim Checkpoint (T075a) — Due 2026-09-24
+## 30-Day Interim Checkpoint (T075a) — Due 2026-10-12
 
 ### Interim Report Template
 
@@ -123,8 +143,8 @@ Success criteria (per spec.md US6/AC2-4):
 ```markdown
 # Phase 6: 30-Day Interim Checkpoint Report
 
-**Date**: 2026-09-24  
-**Reporting Period**: 2026-09-10 to 2026-09-23 (Weeks 1-3)
+**Date**: 2026-10-12
+**Reporting Period**: 2026-09-13 to 2026-10-12, inclusive (days 1-30; Week 5 remains open through 2026-10-17)
 
 ## Executive Summary
 
@@ -175,7 +195,7 @@ Success criteria (per spec.md US6/AC2-4):
 ## Sign-Off
 
 **Prepared By**: Ash Shaw  
-**Date**: 2026-09-24  
+**Date**: 2026-10-12
 **Status**: ✅ INTERIM CHECKPOINT COMPLETED
 ```
 
@@ -191,7 +211,7 @@ Success criteria (per spec.md US6/AC2-4):
 # Phase 6: 42-Day Final Evaluation Report
 
 **Date**: 2026-10-24  
-**Reporting Period**: 2026-09-10 to 2026-10-24 (Weeks 1-6, full 42-day window)
+**Reporting Period**: 2026-09-13 to 2026-10-24, inclusive (six non-overlapping seven-day buckets; 42 days total)
 
 ## Executive Summary
 
@@ -203,7 +223,7 @@ Success criteria (per spec.md US6/AC2-4):
 |--------|------------------|--------|--------|
 | **Team Count** | ≥5 teams active | [X] of 6 | ✅/🔴 |
 | **Activity Threshold** | ≥4 of 6 weeks, ≥1 PRD/week per team | [Analysis] | ✅/🔴 |
-| **User Satisfaction** | ≥4.0/5.0 (Likert, n≥20) | [X.X]/5.0 (n=[X]) | ✅/🔴 |
+| **User Satisfaction** | Survey median ≥4.0/5.0 (Likert, n≥20) | [X.X]/5.0 median (n=[X]) | ✅/🔴 |
 | **Critical Blockers** | 0 vs. baseline | [X] critical blockers | ✅/🔴 |
 
 **Overall Result**: [✅ MEETS SUCCESS CRITERIA / 🔴 DOES NOT MEET / 🟡 INCONCLUSIVE]
@@ -252,7 +272,7 @@ Success criteria (per spec.md US6/AC2-4):
 
 ## Survey Templates
 
-### 30-Day Interim Survey (to be sent 2026-09-24)
+### 30-Day Interim Survey (to be sent 2026-10-12)
 
 ```
 Thank you for using the consolidated PRD agent during the first month of rollout!
@@ -326,22 +346,26 @@ Please take 3 minutes to share your final feedback.
 ## Monitoring Cadence
 
 **Weekly (Every Monday)**:
+
 - [ ] Update weekly tracking table with PRD generation counts
 - [ ] Monitor Slack #prd-agent-rollout for blockers and questions
 - [ ] Log any integration friction or support requests
 
-**Week 3 (2026-09-24) — Interim Checkpoint**:
+**Day 30 (2026-10-12, during Week 5) — Interim Checkpoint**:
+
 - [ ] Complete 30-day survey distribution and analysis
 - [ ] Synthesize blocker feedback from T073 team briefings
 - [ ] Create PHASE6_INTERIM_REPORT.md per template above
 - [ ] Identify corrective actions for Weeks 4-6
 
-**Week 4 (2026-10-01) — Mid-Point Check-In**:
+**Week 4 (2026-10-04) — Mid-Point Check-In**:
+
 - [ ] Review interim report with team leads
 - [ ] Confirm corrective actions are in progress
 - [ ] Adjust monitoring priorities if needed
 
 **Week 6 (2026-10-24) — Final Evaluation**:
+
 - [ ] Compile 6-week deduplicated PRD logs
 - [ ] Distribute 42-day final satisfaction survey
 - [ ] Conduct team lead interviews (sample of 5+ teams)
@@ -352,5 +376,4 @@ Please take 3 minutes to share your final feedback.
 
 **Owner**: Ash Shaw  
 **Last Updated**: 2026-09-14  
-**Data Entry Schedule**: Weekly Monday; checkpoints at Weeks 3 & 6
-
+**Data Entry Schedule**: Weekly Monday; checkpoints at day 30 (during Week 5) and the end of Week 6

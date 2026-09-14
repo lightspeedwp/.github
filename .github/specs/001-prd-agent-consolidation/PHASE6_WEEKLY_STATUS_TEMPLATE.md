@@ -30,7 +30,7 @@ owner: Ash Shaw
 [1-2 sentences summarizing week's progress, key metric change, and status]
 
 **Example**:
-> Week 2 rollout completed 4 team briefings with 12 total attendees. 3 teams have generated their first PRDs (2 Phase 3 PRDs, 1 Phase 4 PRD); interim satisfaction is 4.2/5.0. One moderate blocker identified (Copilot configuration conflict); resolution in progress.
+> Week 2 rollout completed 3 team briefings with 6 total attendees. 2 teams generated 3 PRDs; interim satisfaction is 4.2/5.0. One moderate blocker identified (Copilot configuration conflict); resolution in progress.
 
 ---
 
@@ -47,18 +47,18 @@ owner: Ash Shaw
 | QA/Testing Team | 2026-09-20 | 0 | 0 | ⏳ PENDING | Briefing scheduled this week |
 | Operations | TBD | 0 | 0 | ⏳ PENDING | Brief scheduled next week |
 
-**Summary**: 2/6 teams actively generating PRDs; 4/6 briefed or scheduled; on pace for ≥5 teams by Week 3
+**Summary**: 2/6 teams actively generating PRDs; 5/6 briefed or scheduled; on pace for ≥5 teams by Week 3
 
 ### Usage Trend (Week-over-Week)
 
 | Metric | Week 1 | Week 2 | Week 3* | Trend | Target |
 |--------|--------|--------|---------|-------|--------|
-| **Total PRDs Generated** | 3 | 5 | TBD | ↗ +67% | ≥24 by Week 6 |
-| **Active Teams** | 2 | 3 | TBD | ↗ +50% | ≥5 by Week 3 |
-| **Total Users Engaged** | 5 | 7 | TBD | ↗ +40% | ≥20 by Week 6 |
-| **Avg Satisfaction** | 4.1/5.0 | 4.2/5.0 | TBD | → +0.1 | ≥4.0/5.0 final |
+| **Total PRDs Generated** | 3 | 3 | TBD | → 0% | ≥24 by Week 6 |
+| **Active Teams** | 2 | 2 | TBD | → 0% | ≥5 by Week 3 |
+| **Total Users Engaged** | 5 | 6 | TBD | ↗ +20% | ≥20 by Week 6 |
+| **Avg Satisfaction** | 4.1/5.0 | 4.2/5.0 | TBD | → +0.1 | Final median ≥4.0/5.0 |
 
-**Trajectory**: Early growth suggests healthy adoption momentum. Need ≥2 more active teams by Week 3 to hit ≥5 target.
+**Trajectory**: Early growth suggests healthy adoption momentum. Need ≥3 more active teams by Week 3 to hit ≥5 target.
 
 ---
 
@@ -104,28 +104,34 @@ owner: Ash Shaw
 ### Positive Feedback
 
 ✅ **Quality Improvement**
+
 - "PRD structure is cleaner than pre-consolidation version"
 - "Skill routing feels more intuitive"
 
 ✅ **Ease of Setup**
+
 - "Integration steps are straightforward"
 - "Demo environment made setup faster"
 
 ✅ **Support Experience**
+
 - "Quick responses in #prd-agent-rollout channel"
 - "FAQ covered my specific scenario"
 
 ### Friction Points
 
 ⚠️ **Learning Curve**
+
 - "Took a few PRDs to understand new output format"
 - **Action**: Include TEST_CASES_BASELINE.md examples in next briefing materials
 
 ⚠️ **Integration Complexity**
+
 - "Copilot configuration felt clunky" (Design Team)
 - **Action**: Create pre-configured template folder for next teams
 
 ⚠️ **Skill Discoverability**
+
 - "Not sure if all 28 skills are actually accessible" (Engineering Planning)
 - **Action**: Create "Skill Cheat Sheet" visual guide
 
@@ -134,10 +140,12 @@ owner: Ash Shaw
 ## FAQ Updates (This Week)
 
 **New Sections Added**:
+
 - [ ] Section 3.2: "Copilot Configuration Conflicts" (from B001 resolution)
 - [ ] Section 4.1: "Understanding the New Output Format" (from feedback)
 
 **Sections Pending Update**:
+
 - [ ] Expand "Skill Routing" section with trigger-word examples (for Week 3)
 
 ---
@@ -176,7 +184,7 @@ owner: Ash Shaw
 |-----------|--------|---------|-------------------|---------------|--------|
 | **Team Count** | ≥5 teams | 2 active | 4-5 (on pace) | 5 | 🟡 ON TRACK |
 | **Activity Threshold** | ≥4 of 6 weeks, ≥1 PRD/week | Early stage | TBD | ≥24 PRDs | 🟡 ON TRACK |
-| **User Satisfaction** | ≥4.0/5.0 | 4.2/5.0 avg | 4.1/5.0 | 4.0/5.0 | ✅ ON TRACK |
+| **User Satisfaction** | Final median ≥4.0/5.0 | 4.2/5.0 avg (interim) | 4.1/5.0 avg | Median ≥4.0/5.0 | ✅ ON TRACK |
 | **Critical Blockers** | 0 | 0 | 0 (expected) | 0 | ✅ ON TRACK |
 
 **Overall Progress**: 🟢 ON TRACK (no red metrics; early adoption momentum positive)
@@ -186,10 +194,12 @@ owner: Ash Shaw
 ## Key Decisions / Questions for Leadership
 
 **For Product Lead**:
+
 - Should we offer advanced training for Product Teams A & B (they're requesting feature exploration)?
 - Any bandwidth to escalate QA/Testing Team briefing earlier (they're blocked on IT setup)?
 
 **For Org Leadership**:
+
 - Q: Should we communicate Phase 6 adoption metrics in org-wide standup? (Recommend: Yes, highlight positive momentum)
 - Q: Should we offer Phase 7 sneak peek to engaged teams? (Recommend: No, wait until Week 5 to avoid confusion)
 
@@ -201,30 +211,32 @@ owner: Ash Shaw
 2. **[ ] Expand FAQ** with Skill Cheat Sheet and Copilot examples
 3. **[ ] Follow-up with Engineering Planning team** (enable setup; clarify questions)
 4. **[ ] Monitor adoption metrics** (target: 4-5 active teams by end of week)
-5. **[ ] Prepare for interim checkpoint** (Week 3: collect 30-day data)
+5. **[ ] Prepare for interim checkpoint** (day 30: collect evidence through 2026-10-12)
 
 ---
 
 ## Appendix: Raw Data
 
 **PRD Generation Log** (for reference):
+
 ```
 Week 1:
 - Product Team A: 2 PRDs generated (2026-09-14, 2026-09-15)
 - Product Team B: 1 PRD generated (2026-09-16)
 
 Week 2:
-- Product Team A: 2 PRDs generated (2026-09-18, 2026-09-19)
-- Product Team B: 1 PRD generated (2026-09-20)
+- Product Team A: 2 PRDs generated (2026-09-21, 2026-09-22)
+- Product Team B: 1 PRD generated (2026-09-23)
 ```
 
 **Survey Responses** (aggregated):
+
 ```
 Satisfaction Scores:
 - Product Team A: 4.5, 4.3, 4.5 (avg 4.43/5.0)
 - Product Team B: 4.0, 4.0 (avg 4.0/5.0)
 - Engineering Planning: 3.8 (avg 3.8/5.0)
-- Overall: 4.2/5.0 (n=5 respondents)
+- Overall: 4.2/5.0 (n=6 respondents)
 
 Common Questions:
 - "How do I integrate with [provider]?" (n=3)
@@ -238,7 +250,7 @@ Common Questions:
 
 **Prepared By**: Ash Shaw  
 **Report Date**: 2026-09-[Date]  
-**Status**: ✅ COMPLETE
+**Status**: [DRAFT / IN REVIEW / FINAL]
 
 **Next Report Due**: 2026-09-[Next Monday]
 
@@ -250,4 +262,3 @@ Common Questions:
 - [ ] QA Lead
 - [ ] Org Leadership
 - [ ] Archive in `.github/specs/001-prd-agent-consolidation/reports/` folder
-

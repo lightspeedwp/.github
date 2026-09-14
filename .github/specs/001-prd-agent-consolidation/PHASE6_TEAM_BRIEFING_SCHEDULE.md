@@ -20,13 +20,15 @@ owner: Ash Shaw
 
 **Duration**: 30-45 minutes per team  
 **Format**: Synchronous video briefing + Q&A  
-**Materials**: 
+**Materials**:
+
 - Briefing slides (consolidated capabilities overview)
 - Demo environment access (sandbox agent instance)
 - Integration guide (provider-specific: Claude Code, GitHub Copilot, OpenAI)
 - FAQ reference (`agents/prd-agent/FAQ.md`)
 
 **Success Criteria** (per spec.md US6/AC1):
+
 - ✅ Minimum 5 teams have scheduled and attended briefings
 - ✅ Each team receives provider-specific integration guidance
 - ✅ Q&A session captures blockers and questions for T075a interim checkpoint
@@ -67,7 +69,7 @@ owner: Ash Shaw
 - [ ] Integration: Provider-specific setup for attendees (10 min)
   - Claude Code: Copy `agents/prd-agent/claude/agent.md` to `.claude/agents/`
   - Copilot: Copy `agents/prd-agent/copilot/agent.md` to `.github/agents/`
-  - OpenAI: Use agent definition from `agents/prd-agent/openai/`
+  - OpenAI: Load `agents/prd-agent/openai/agent.md` with `agents/prd-agent/openai/tools.json`
 - [ ] Q&A: Open forum for questions, blockers, integration friction (10-15 min)
 - [ ] Feedback: Brief satisfaction survey (2-3 questions)
 - [ ] Next Steps: Point to FAQ, support channel, scheduled check-ins
@@ -111,7 +113,7 @@ Slide 4: The 28 Consolidated Skills
 Slide 5: Provider Support
 - Claude Code: Load via `.claude/agents/prd-agent/claude/agent.md`
 - GitHub Copilot: Load via `.github/agents/prd-agent/copilot/agent.md`
-- OpenAI: Load via agent definition (coming soon)
+- OpenAI: Load `agents/prd-agent/openai/agent.md` with the available, valid `agents/prd-agent/openai/tools.json` function definitions
 
 Slide 6: Live Demo
 - Demo the consolidated agent generating a PRD for a sample project
@@ -125,7 +127,7 @@ Slide 7: Integration Steps
 Slide 8: Metrics & Success
 - Target: ≥5 teams actively using the agent
 - 42-day evaluation window (through 2026-10-24)
-- Success criteria: ≥4.0/5.0 satisfaction, no critical blockers
+- Success criteria: final survey median ≥4.0/5.0, no critical blockers
 
 Slide 9: Support & Next Steps
 - Slack channel: #prd-agent-rollout (monitor for questions)
@@ -175,12 +177,11 @@ Slide 10: Questions?
 - **2026-09-15**: Finalize team contacts and confirm attendance (Ash Shaw)
 - **2026-09-16**: Send calendar invites and demo credentials to all teams
 - **2026-09-17–2026-09-21**: Conduct 6 team briefings (one per team)
-- **2026-09-24**: Summarize blocker feedback and satisfaction scores for T075a interim checkpoint
-- **2026-10-01**: Mid-point check-in with teams (Week 4 metrics review)
+- **2026-10-04**: Mid-point check-in with teams (Week 4 metrics review)
+- **2026-10-12**: Summarize blocker feedback and satisfaction scores for the T075a day-30 interim checkpoint
 
 ---
 
 **Owner**: Ash Shaw  
 **Last Updated**: 2026-09-14  
 **Next Update**: After first briefing (2026-09-17)
-

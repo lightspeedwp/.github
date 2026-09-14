@@ -17,58 +17,77 @@ status: In Progress
 
 ## Executive Summary
 
-This roadmap tracks the final delivery of the PRD Agent Consolidation feature across Phases 6 (Rollout & Adoption) and Phase 7 (Spec-Based Agent Resolution). Phase 6 is currently in progress (30-day interim checkpoint completed, awaiting 42-day final evaluation on ~2026-10-24). Phase 7 is blocked until Phase 6 metrics are finalized.
+This roadmap tracks the final delivery of the PRD Agent Consolidation feature across Phases 6 (Rollout & Adoption) and Phase 7 (Spec-Based Agent Resolution). Phase 6 remains in progress: team briefings and monitoring are under way, the 30-day interim checkpoint is due 2026-10-12, and the 42-day final evaluation is due 2026-10-24. Phase 7 remains blocked until T075b is supported by the full collection window and T077 records the signed-off result.
 
 ---
 
 ## Phase 6: Rollout & Adoption Status
 
-**Overall Status**: 🟡 IN PROGRESS (4 of 6 deliverables complete)
+**Overall Status**: 🟡 IN PROGRESS (3 of 6 deliverables complete)
 
 | Task | Req | Description | Status | Due | Evidence |
 |------|-----|-------------|--------|-----|----------|
 | T072 | FR-601 | Create rollout communication plan | ✅ COMPLETE | 2026-09-12 | `agents/prd-agent/ROLLOUT_PLAN.md` |
 | T073 | FR-602 | Conduct team briefings (≥5 teams) | 🟡 IN PROGRESS | 2026-09-21 | Scheduled Weeks 2-3; briefing slides ready |
 | T074 | FR-603 | Set up metrics collection framework | ✅ COMPLETE | 2026-09-12 | `agents/prd-agent/ADOPTION_METRICS.md` |
-| T075a | FR-604 | 30-day interim checkpoint | ✅ COMPLETE | 2026-09-24 | Interim metrics collected; blockers identified |
-| T075b | FR-604 | 42-day final evaluation | 🟡 IN PROGRESS | 2026-10-24 | Collection window ongoing; final data due Week 6 |
+| T075a | FR-604 | 30-day interim checkpoint | ⏳ PENDING | 2026-10-12 | Requires the first 30 inclusive days of evidence |
+| T075b | FR-604 | 42-day final evaluation | ⏳ PENDING | 2026-10-24 | Requires all six completed evaluation buckets |
 | T076 | FR-605 | Create FAQ & troubleshooting guide | ✅ COMPLETE | 2026-09-12 | `agents/prd-agent/FAQ.md` |
 | T077 | FR-415 | Update CHANGELOG with final Phase 6 result | ⏳ BLOCKED | 2026-10-26 | Blocked on T075b completion |
 
 **Success Criteria (Phase 6)**:
+
 - [ ] SC-601: Rollout communication delivered to all teams ✅ (ROLLOUT_PLAN.md published)
 - [ ] SC-602: ≥5 teams actively using agent at 42-day mark (target adoption: ≥4 of 6 weeks consistent activity per team)
-- [ ] SC-603: User satisfaction ≥4.0/5.0 (Likert scale, surveyed sample)
+- [ ] SC-603: Survey median satisfaction ≥4.0/5.0 (Likert scale, surveyed sample)
 - [ ] SC-604: No critical blockers or regressions vs. baseline
 
-### Checkpoint: 30-Day Interim (2026-09-24) ✅
+### Checkpoint: 30-Day Interim (2026-10-12) ⏳
 
-**Status**: COMPLETED  
-**Finding**: Interim checkpoint recorded; 3 teams confirmed adopting; 2 teams encountering integration friction (addressed in T076 FAQ expansion)
+**Status**: PENDING
+**Purpose**: Record course-correction evidence after days 1-30 without making the final SC-602/SC-603 decision.
 
-**Data Collected**:
-- Completed PRD generations: 8 (Teams A, B, C)
-- User satisfaction (interim): 4.2/5.0 (n=12)
-- Blockers identified: Integration with existing workflows (2 teams); documentation gaps (1 team)
-- Corrective actions: FAQ expanded; Slack support channel activated; follow-up training scheduled
+**Evidence Required**:
+
+- Deduplicated completed PRD generations through 2026-10-12
+- Interim weekly-average satisfaction trend and sample size
+- Blockers, corrective actions, and team briefing feedback
 
 ### Checkpoint: 42-Day Final Evaluation (2026-10-24) ⏳
 
 **Target Date**: 2026-10-24 (Week 6 post-rollout)  
-**Status**: IN PROGRESS (currently Week 4)  
+**Status**: PENDING while weekly collection continues
 **Data Collection Method**:
+
 - Deduplicated completed-PRD logs (6-week window)
 - Anonymous survey (sent to ≥20 active users)
 - Team lead interviews (5+ teams)
 
+**Authoritative 42-Day Collection Period**: 2026-09-13 through 2026-10-24, inclusive.
+
+| Evaluation Bucket | Inclusive Start | Inclusive End |
+|-------------------|-----------------|---------------|
+| Week 1 | 2026-09-13 | 2026-09-19 |
+| Week 2 | 2026-09-20 | 2026-09-26 |
+| Week 3 | 2026-09-27 | 2026-10-03 |
+| Week 4 | 2026-10-04 | 2026-10-10 |
+| Week 5 | 2026-10-11 | 2026-10-17 |
+| Week 6 | 2026-10-18 | 2026-10-24 |
+
+Each completed generation is assigned to exactly one non-overlapping bucket by completion timestamp. These six buckets are the denominator for the ≥4-of-6 activity test.
+
 **Evaluation Criteria** (per spec.md SC-602):
+
 - ≥5 teams with ≥1 uniquely identified PRD generation per rolling 7-day window for ≥4 of 6 post-rollout weeks
 - Grace period: short weeks with <1 PRD count allowed if next week shows ≥1 PRD (per spec.md Clarification Q4)
 
 **Success Threshold**:
-- Team adoption: ≥5 teams above threshold → ✅ PROCEED TO PHASE 7
-- User satisfaction: ≥4.0/5.0 (median Likert) → ✅ PROCEED TO PHASE 7
-- Critical blockers: 0 → ✅ PROCEED TO PHASE 7
+
+- Team adoption: ≥5 teams above threshold
+- User satisfaction: final 42-day survey median ≥4.0/5.0
+- Critical blockers: 0
+
+Meeting these thresholds supports T075b; Phase 7 remains blocked until T077 records the signed-off Phase 6 result.
 
 ---
 
@@ -82,10 +101,11 @@ This roadmap tracks the final delivery of the PRD Agent Consolidation feature ac
 | T079 | FR-702 | Make Archive/Sync/Defer decision | ⏳ BLOCKED | 2026-10-30 | T078 |
 | T080 | FR-703 | If ARCHIVE: Move agent; update refs | ⏳ BLOCKED | 2026-11-02 | T079 |
 | T081-Sync | FR-704 | If SYNC: Update prompt; establish sync | ⏳ BLOCKED | 2026-11-02 | T079 |
-| T081-Defer | FR-702 | If DEFER: Document rationale & triggers | ⏳ BLOCKED | 2026-11-02 | T079 |
+| T081-Defer | FR-702, FR-705 | If DEFER: Document rationale & triggers | ⏳ BLOCKED | 2026-11-02 | T079 |
 | T082 | FR-705 | Document final decision & sign-off | ⏳ BLOCKED | 2026-11-02 | T080/T081-Sync/T081-Defer |
 
 **Success Criteria (Phase 7)**:
+
 - [ ] SC-701: Decision documented and ratified
 - [ ] SC-702: All affected workflows and references updated
 - [ ] SC-703: `agents/mode-prd.agent.md` fate resolved (Archive, Sync, or documented Defer)
@@ -129,7 +149,14 @@ This roadmap tracks the final delivery of the PRD Agent Consolidation feature ac
   - Monitor Slack/support channel for integration questions
   - Schedule team lead check-ins mid-week (Week 4) to catch blockers early
 
-### Week of 2026-10-21–2026-10-24 (Week 6 of Rollout)
+### 2026-10-12 (Day-30 Interim Checkpoint, during Week 5)
+
+- [ ] **T075a Completion**: Record the day-30 course-correction checkpoint
+  - Analyse deduplicated completed-PRD evidence through 2026-10-12
+  - Report the interim weekly-average satisfaction trend and blocker actions
+  - Keep the final SC-602/SC-603 decision pending until T075b
+
+### Week of 2026-10-18–2026-10-24 (Week 6 of Rollout)
 
 - [ ] **T075b Completion**: Finalize 42-day evaluation
   - Compile deduplicated PRD generation logs (6-week window)
@@ -139,7 +166,7 @@ This roadmap tracks the final delivery of the PRD Agent Consolidation feature ac
   - Document findings in `agents/prd-agent/FINAL_ADOPTION_REPORT.md`
 
 - [ ] **T077 Unblock**: Update CHANGELOG with final Phase 6 result
-  - Record final adoption metrics (team count, satisfaction score, blocker summary)
+  - Record final adoption metrics (team count, survey median, blocker summary)
   - Confirm pass/fail against each success criterion
   - Create link to `agents/prd-agent/FINAL_ADOPTION_REPORT.md`
 
@@ -181,7 +208,7 @@ This roadmap tracks the final delivery of the PRD Agent Consolidation feature ac
 
 | Risk | Likelihood | Impact | Mitigation |
 |------|-----------|--------|-----------|
-| Adoption metrics don't reach ≥5 teams by Week 6 | Medium | Blocks Phase 7 archive decision | Interim checkpoint (Week 3) enables course correction; T073 team briefings prioritize early enablement |
+| Adoption metrics don't reach ≥5 teams by Week 6 | Medium | Blocks Phase 7 archive decision | Day-30 interim checkpoint enables course correction; T073 team briefings prioritise early enablement |
 | User satisfaction <4.0/5.0 due to integration friction | Medium | May require prompt enhancement or documentation escalation | T076 FAQ addresses known blockers; T075a interim checkpoint enables mid-course corrections |
 | Reference breakage from Phase 7 archive/sync | Low | Breaks downstream workflows if refs not updated | T080 explicitly includes reference audit and update; T082 sign-off gates completion |
 | Deferred Phase 7 decision lacks clear re-evaluation trigger | Low | Could become stalled work | T081-Defer explicitly documents re-evaluation criteria and next review date; linked follow-up issue ensures visibility |
@@ -190,12 +217,14 @@ This roadmap tracks the final delivery of the PRD Agent Consolidation feature ac
 
 ## Success Criteria for Branch Completion
 
-✅ **Phase 6 Complete**:
+**Phase 6 Completion Gate**:
+
 - [ ] T073: Team briefings conducted (≥5 teams confirmed attended)
 - [ ] T075b: 42-day evaluation finalized and documented in `FINAL_ADOPTION_REPORT.md`
 - [ ] T077: CHANGELOG updated with final Phase 6 result; success criteria confirmed
 
-✅ **Phase 7 Initiated** (or Complete, if deferred):
+**Phase 7 Completion Gate**:
+
 - [ ] T078-T082: Decision memo written; Archive/Sync/Defer executed (or DEFER documented with re-evaluation criteria)
 - [ ] `agents/prd-agent/PHASE7_DECISION.md` completed with rationale and sign-off
 
@@ -212,4 +241,3 @@ This roadmap tracks the final delivery of the PRD Agent Consolidation feature ac
 
 **Last Updated**: 2026-09-14  
 **Next Review**: Weekly (Phase 6 in-progress); Post-Phase-6-completion for Phase 7 sync
-
