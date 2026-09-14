@@ -13,9 +13,10 @@
 // untouched legacy violations elsewhere in the same file.
 //
 // Flow per file:
-//   1. Skip files matched by the same ignorePaths the CLI2 config applies,
-//      since the markdownlint library API (used below for line numbers)
-//      does not honour them itself.
+//   1. Skip files matched by ignorePaths as a cheap pre-filter (cli2 applies
+//      its own, fully-resolved ignore/config rules regardless — see below —
+//      so an under-filter here just costs an extra invocation, never
+//      correctness).
 //   2. Record which lines are staged/added, by diffing the index against
 //      HEAD — not the working tree, which can carry unstaged edits too.
 //   3. Snapshot three states: the index, the pre-fix working tree (index
@@ -27,8 +28,18 @@
 //      is never misattributed to the fix (or vice versa) — two adjacent
 //      single-line changes, one staged and one not, can otherwise land in
 //      the same diff hunk.
-//   4. Re-lint the post-fix file with the markdownlint library directly to
-//      get violations with line numbers.
+//   4. Parse the remaining violations straight out of that same --fix run's
+//      own output, rather than re-deriving "the config" and re-linting with
+//      the markdownlint library directly. This repo carries three
+//      overlapping markdownlint config files (.markdownlint.config.cjs,
+//      .markdownlint-cli2.cjs, .markdownlint.jsonc — the last of which cli2
+//      also auto-discovers and merges in, per-directory, on top of the
+//      cli2-level config); reconstructing "the effective config" by hand
+//      reliably drifted from what --fix itself actually applied (e.g. an
+//      allowed_elements list for MD033 that disagreed with the live one).
+//      Asking cli2 to report on the very file it just fixed sidesteps that
+//      entirely — there is exactly one source of truth for what still
+//      violates the repo's real, resolved rules.
 //   5. Only fail if a remaining violation lands on a mapped added/changed
 //      line. Pre-existing violations on untouched lines are reported but do
 //      not block the commit — matching the changed-files CI policy.
@@ -215,13 +226,32 @@ function hunksBetween(oldContent, newContent, baseName) {
   }
 }
 
-async function lintFile(file) {
-  const { lint } = await import("markdownlint/promise");
-  const result = await lint({
-    files: [absPath(file)],
-    config: { default: true, ...(baseConfig.rules || {}) },
-  });
-  return result[absPath(file)] || [];
+// markdownlint-cli2's pretty formatter reports each remaining (unfixable, or
+// not-yet-fixed) violation on stderr as e.g.:
+//   docs/scratch-test/sample.md:7 MD001/heading-increment Heading levels ...
+//   docs/scratch-test/probe4.md:5:1 MD033/no-inline-html Inline HTML ...
+// Path is relative to cwd (repoRoot, since --fix runs with cwd: repoRoot).
+const VIOLATION_LINE = /^(.+?):(\d+)(?::\d+)? (MD\d+)\/(\S+) (.+)$/;
+
+// Groups cli2's own reported violations by file, keyed the same way `files`
+// is (repo-root-relative). This is the actual, fully-resolved rule set —
+// see the flow comment above for why that can't be safely reconstructed by
+// hand.
+function parseViolations(stderrText) {
+  const byFile = new Map();
+  for (const line of stderrText.split("\n")) {
+    const m = line.match(VIOLATION_LINE);
+    if (!m) continue;
+    const [, file, lineNumber, ruleId, ruleName, description] = m;
+    if (!byFile.has(file)) byFile.set(file, []);
+    byFile.get(file).push({
+      lineNumber: parseInt(lineNumber, 10),
+      ruleId,
+      ruleName,
+      description,
+    });
+  }
+  return byFile;
 }
 
 async function main() {
@@ -247,9 +277,13 @@ async function main() {
   }
 
   const fixResult = spawnSync("npx", ["markdownlint-cli2", "--fix", ...files], {
-    stdio: "inherit",
+    encoding: "utf8",
     cwd: repoRoot,
   });
+  // Mirror what stdio: "inherit" used to show, now that output is captured
+  // for parsing rather than streamed directly.
+  if (fixResult.stdout) process.stdout.write(fixResult.stdout);
+  if (fixResult.stderr) process.stderr.write(fixResult.stderr);
   if (fixResult.error) {
     console.error(
       `Failed to run markdownlint-cli2 --fix: ${fixResult.error.message}`,
@@ -265,6 +299,8 @@ async function main() {
     );
     process.exit(1);
   }
+
+  const violationsByFile = parseViolations(fixResult.stderr || "");
 
   for (const file of files) {
     const {
@@ -301,13 +337,13 @@ async function main() {
       }
     }
 
-    const violations = await lintFile(file);
+    const violations = violationsByFile.get(file) || [];
 
     for (const violation of violations) {
       const onAddedLine = added === null || added.has(violation.lineNumber);
       const label = onAddedLine ? "❌" : "⚠️ pre-existing (not blocking)";
       console.log(
-        `${label} ${file}:${violation.lineNumber} ${violation.ruleNames[0]} ${violation.ruleDescription}`,
+        `${label} ${file}:${violation.lineNumber} ${violation.ruleId} ${violation.description}`,
       );
       if (onAddedLine) blocking = true;
     }
