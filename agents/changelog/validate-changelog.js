@@ -10,9 +10,6 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-// Check if --json flag is passed
-const jsonFlag = process.argv.includes('--json');
-
 // Look for changelog files
 const repoRoot = path.join(__dirname, '../../..');
 const changelogMd = path.join(repoRoot, 'CHANGELOG.md');
@@ -43,7 +40,17 @@ if (!changelogFile) {
 const args = ['changelog-validator.js', 'validate', '--entry', changelogFile, '--json'];
 const result = spawnSync('node', args, {
   cwd: __dirname,
-  stdio: 'inherit'
+  encoding: 'utf8'
 });
+
+// Output the validator result to stdout
+if (result.stdout) {
+  console.log(result.stdout);
+}
+
+// If there was an error, output it
+if (result.stderr) {
+  console.error(result.stderr);
+}
 
 process.exit(result.status || 0);
