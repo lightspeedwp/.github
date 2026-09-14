@@ -23,12 +23,23 @@ describe("Frontmatter Validation", () => {
     expect(issueTemplateSchema.required).not.toContain("description");
   });
 
+  // Scanning 10,000+ files takes ~4s standalone but can run considerably
+  // longer under full-suite parallel worker contention; the default 5000ms
+  // jest timeout is too tight for that.
   it("should validate all markdown files and report errors for invalid frontmatter", () => {
     // Run the validation script and capture output
     const scriptPath = path.join(__dirname, "../validate-frontmatter.js");
     let output;
     try {
-      output = execSync(`node ${scriptPath}`, { encoding: "utf8" });
+      // The CLI logs a verbose per-file block for every markdown file in
+      // the repo (10,000+ files) before its final summary; the default
+      // execSync maxBuffer (1MB) truncates that well before the process
+      // exits, so err.stdout ends up empty/cut short and the assertions
+      // below never see the summary lines they're checking for.
+      output = execSync(`node ${scriptPath}`, {
+        encoding: "utf8",
+        maxBuffer: 50 * 1024 * 1024,
+      });
     } catch (err) {
       output = err.stdout || err.message;
     }
@@ -36,5 +47,5 @@ describe("Frontmatter Validation", () => {
     expect(output).toMatch(/Validation log written to:/);
     // Optionally, check for summary or error lines
     expect(output).toMatch(/Validation complete|Validation log written to:/);
-  });
+  }, 30000);
 });
