@@ -101,7 +101,7 @@ function getRandomFooter(category = "default", seed = null) {
 const FOOTER_PATTERNS = [
   "_Maintained with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
   "_Built by 🧱[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "\\*?Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
+  "[*_]?Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
   "_This page brought to you by[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
   "_Docs signed by 🤖[\\s\\S]*?",
   "Made with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",

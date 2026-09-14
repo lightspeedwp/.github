@@ -265,14 +265,24 @@ class RemediationChecklistGenerator {
     }
 
     try {
-      const { data: comments } = await this.github.rest.issues.listComments({
-        owner: this.owner,
-        repo: this.repo,
-        issue_number: issue.number,
-      });
+      // Paginate: an issue can have far more than one page of comments, and
+      // an existing checklist posted long ago would otherwise be missed,
+      // causing a duplicate post. Match the exact marker
+      // generateRemediationComment() itself emits, not the loosely similar
+      // "Remediation Checklist" heading text (which duplicate-detection in
+      // postRemediationChecklists below has always used correctly).
+      const comments = await this.github.paginate(
+        this.github.rest.issues.listComments,
+        {
+          owner: this.owner,
+          repo: this.repo,
+          issue_number: issue.number,
+          per_page: 100,
+        },
+      );
 
       const existingChecklist = (comments || []).find((c) =>
-        c.body?.includes("Remediation Checklist"),
+        c.body?.includes("<!-- remediation-checklist -->"),
       );
 
       if (existingChecklist) {

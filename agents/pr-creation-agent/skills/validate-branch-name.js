@@ -119,6 +119,23 @@ export async function validateBranchName(input) {
 
   const [, type, slug] = match;
 
+  // Reject a malformed type segment (leading/trailing/doubled hyphen, e.g.
+  // "-feat" or "fe--at") as a format error before checking it against the
+  // allowlist -- every real entry in ALLOWED_TYPES is hyphen-free, so a
+  // malformed type would always fail that check too, but with the
+  // misleading "type not allowed" message rather than naming the actual
+  // problem.
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(type)) {
+    return {
+      valid: false,
+      errors: [
+        `Branch type "${type}" is not a valid format: must not start or end with a hyphen or contain empty segments`,
+        "branch-slug-invalid",
+      ],
+      type,
+    };
+  }
+
   if (!allowedTypes.includes(type)) {
     return {
       valid: false,

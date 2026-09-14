@@ -36,6 +36,12 @@ describe("RemediationChecklistGenerator", () => {
           listComments: jest.fn().mockResolvedValue({ data: [] }),
         },
       },
+      // Real Octokit's paginate() calls the endpoint function and
+      // aggregates `.data` across pages; for these single-page fixtures
+      // it's equivalent to just unwrapping `.data`.
+      paginate: jest.fn((endpoint, params) =>
+        endpoint(params).then((response) => response.data),
+      ),
     };
 
     generator = new RemediationChecklistGenerator(
@@ -270,11 +276,13 @@ describe("RemediationChecklistGenerator", () => {
       const issue = sampleIssues.complianceScenarios.missingBoth;
       const analysis = generator.analyzeCompliance(issue);
 
-      // Mock existing checklist comment
+      // Mock existing checklist comment, using the actual marker
+      // generateRemediationComment() emits (see that method's first line),
+      // not just loosely similar heading text.
       mockGithub.rest.issues.listComments.mockResolvedValueOnce({
         data: [
           {
-            body: "Remediation Checklist",
+            body: "<!-- remediation-checklist -->\n## 📋 Remediation Checklist",
             author_association: "NONE",
           },
         ],
@@ -283,6 +291,7 @@ describe("RemediationChecklistGenerator", () => {
       const result = await generator.postChecklistComment(issue, analysis);
 
       // Should not create comment if already exists
+      expect(result).toBeNull();
       if (result === null || result === undefined) {
         expect(mockGithub.rest.issues.createComment).not.toHaveBeenCalled();
       }
