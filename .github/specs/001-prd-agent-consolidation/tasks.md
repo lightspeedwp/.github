@@ -208,13 +208,13 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ### Within Phase 3 (US1)
 
-Each numbered cluster (T004-T042) touches a distinct pair/trio of skill folders and is independently parallelizable **across** clusters. **Within** a cluster, "port content" tasks must complete before their paired "delete" task (delete tasks are not marked [P] and implicitly depend on the preceding port task in the same cluster). T038 (delete `agents/prd-factory-planner-agent/`) depends on all hermes-fork and root-doc content (T004-T007, and T049 if sequenced first) being safely migrated.
+Each numbered cluster (T005-T044) touches a distinct pair/trio of skill folders and is independently parallelizable **across** clusters. **Within** a cluster, "port content" tasks must complete before their paired "delete" task (delete tasks are not marked [P] and implicitly depend on the preceding port task in the same cluster). T038 (delete `agents/prd-factory-planner-agent/`) depends on all hermes-fork and root-doc content (T005-T008, and T049 if sequenced first) being safely migrated.
 
 ### Parallel Example: User Story 1
 
 ```bash
 # Once Phase 1 decisions are recorded, these can all run in parallel — different folders, no shared files:
-Task: "Union-merge hermes/lightspeed-approval-gate-manager into approval-gate-manager (T004)"
+Task: "Union-merge hermes/lightspeed-approval-gate-manager into approval-gate-manager (T005)"
 Task: "Merge prd-generator's WordPress/Figma content into prd-writer (T009)"
 Task: "Port cross-skill-routing.md + schema from prd-reviewer into prd-task-reviewer (T012)"
 Task: "Port 3 schemas + prd-delta template from change-control into change-request-router (T014)"
