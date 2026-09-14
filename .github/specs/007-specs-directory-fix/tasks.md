@@ -4,7 +4,7 @@ description: "Task list for fixing specs directory configuration"
 
 # Tasks: Fix Specs Directory Configuration
 
-**Input**: Design documents from `.github/specs/006-specs-directory-fix/`
+**Input**: Design documents from `.github/specs/007-specs-directory-fix/`
 
 **Prerequisites**: plan.md ✅, spec.md ✅, research.md ✅, data-model.md ✅, contracts/ ✅, quickstart.md ✅
 
@@ -44,7 +44,7 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T005 Create helper function `read_specs_directory()` in `.specify/scripts/bash/common.sh` to read `specs_directory` from config with fallback default `.github/specs`
 - [ ] T006 Validate JSON schema: `.specify/init-options.json` must parse correctly with new field
 - [ ] T007 Verify common.sh is sourced correctly by create-new-feature.sh and other speckit scripts
-- [ ] T008 Document the `specs_directory` field purpose, default, validation rules, and valid examples in `.github/specs/006-specs-directory-fix/contracts/init-options-schema.md`
+- [ ] T008 Document the `specs_directory` field purpose, default, validation rules, and valid examples in `.github/specs/007-specs-directory-fix/contracts/init-options-schema.md`
 
 **Checkpoint**: Configuration infrastructure ready — scripts can now read specs_directory from config
 
@@ -87,7 +87,7 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T018 [P] [US2] Add reference to specs location in CLAUDE.md "Related Files" section linking to `.specify/README.md` or similar in `./CLAUDE.md`
 - [ ] T019 [US2] Verify no other CLAUDE.md sections conflict with or contradict the new specs location in `./CLAUDE.md`
 - [ ] T020 [P] [US2] Update `.specify/` documentation or README (if exists) to reference `.github/specs` as canonical location in `.specify/README.md` or inline comments
-- [ ] T021 [US2] Verify `specs_directory` is documented with valid examples in `.github/specs/006-specs-directory-fix/contracts/init-options-schema.md` without adding comments to `.specify/init-options.json`
+- [ ] T021 [US2] Verify `specs_directory` is documented with valid examples in `.github/specs/007-specs-directory-fix/contracts/init-options-schema.md` without adding comments to `.specify/init-options.json`
 - [ ] T022 [US2] Add comment to `create-new-feature.sh` explaining that specs_directory is configurable and defaults to `.github/specs` in `.specify/scripts/bash/create-new-feature.sh`
 
 **Checkpoint**: Documentation aligned — CLAUDE.md and code comments clearly document `.github/specs` as canonical location
@@ -109,7 +109,7 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
 - [ ] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
 - [ ] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
-- [ ] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/006-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
+- [ ] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/007-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
 
 **Checkpoint**: All specs migrated — zero specs in root `specs/`, all specs in `.github/specs/`, all downstream workflows functional
 

@@ -2,7 +2,7 @@
 
 **Branch**: `fix/specs-directory-configuration` | **Date**: 2026-09-14 | **Spec**: [./spec.md](./spec.md)
 
-**Input**: Feature specification from `.github/specs/006-specs-directory-fix/spec.md`
+**Input**: Feature specification from `.github/specs/007-specs-directory-fix/spec.md`
 
 ## Summary
 
@@ -67,7 +67,7 @@ Correct the speckit configuration to place all feature specifications under `.gi
 ### Documentation (this feature)
 
 ```text
-.github/specs/006-specs-directory-fix/
+.github/specs/007-specs-directory-fix/
 ├── spec.md              # Feature specification
 ├── plan.md              # This file (implementation plan)
 ├── research.md          # Phase 0 output (clarification & decision rationale)
@@ -82,7 +82,7 @@ Correct the speckit configuration to place all feature specifications under `.gi
 ```text
 .github/
 ├── specs/               # MOVED: Feature specifications (destination)
-│   └── 006-specs-directory-fix/
+│   └── 007-specs-directory-fix/
 │       └── [spec artifacts above]
 ├── CLAUDE.md            # UPDATE: Repository Boundaries section
 ├── instructions/        # MODIFIED if needed: reference updated specs location

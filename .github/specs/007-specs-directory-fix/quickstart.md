@@ -119,7 +119,7 @@ fi
 ```
 Specs in .github/specs/:
 .github/specs/002-coderabbit-config-improvements/
-.github/specs/006-specs-directory-fix/
+.github/specs/007-specs-directory-fix/
 Total specs found: 2
 ✅ No legacy specs in root specs/ directory
 ✅ Migrated spec found: 002-coderabbit-config-improvements
@@ -255,8 +255,8 @@ cd /home/user/.github
 
 ```bash
 # Verify setup-plan.sh can find existing spec
-export SPECIFY_FEATURE="006-specs-directory-fix"
-export SPECIFY_FEATURE_DIRECTORY=".github/specs/006-specs-directory-fix"
+export SPECIFY_FEATURE="007-specs-directory-fix"
+export SPECIFY_FEATURE_DIRECTORY=".github/specs/007-specs-directory-fix"
 echo "Testing plan setup with existing spec: $SPECIFY_FEATURE..."
 
 if [ -f "$SPECIFY_FEATURE_DIRECTORY/spec.md" ]; then
@@ -284,7 +284,7 @@ fi
 **Expected Output**:
 
 ```
-Testing plan setup with existing spec: 006-specs-directory-fix...
+Testing plan setup with existing spec: 007-specs-directory-fix...
 ✅ Spec file found at configured location
 ✅ Plan file exists at configured location
 ✅ Research file exists

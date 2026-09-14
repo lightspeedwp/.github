@@ -57,7 +57,7 @@ repository-root/
 │   │   ├── spec.md
 │   │   ├── plan.md
 │   │   └── ...
-│   └── 006-specs-directory-fix/
+│   └── 007-specs-directory-fix/
 │       ├── spec.md
 │       ├── plan.md
 │       └── ...
@@ -75,7 +75,7 @@ repository-root/
 │   │   │   ├── spec.md
 │   │   │   ├── plan.md
 │   │   │   └── ...
-│   │   └── 006-specs-directory-fix/
+│   │   └── 007-specs-directory-fix/
 │   │       ├── spec.md
 │   │       ├── plan.md
 │   │       └── ...
