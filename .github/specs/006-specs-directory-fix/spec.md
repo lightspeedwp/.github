@@ -13,6 +13,7 @@
 ### Session 2026-09-14
 
 - Q: Should the system continue supporting the old `/specs/` location as a fallback, or remove it entirely? → A: Remove entirely during migration (clean cutover, aligns with Constitution Principle III).
+- Q: Should `specs_directory` be optional (with default `.github/specs`) or required? → A: Optional with default `.github/specs` (backward compatible, safe defaults for existing configs).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -74,7 +75,7 @@ Existing specs in the root `specs/` directory should be migrated to `.github/spe
 ### Functional Requirements
 
 - **FR-001**: `.specify/scripts/bash/create-new-feature.sh` MUST create feature directories under `.github/specs/` instead of the repository root `specs/`
-- **FR-002**: `.specify/init-options.json` MUST include `specs_directory` configuration field to document and enforce the correct specs location
+- **FR-002**: `.specify/init-options.json` MAY include an optional `specs_directory` configuration field; if absent, MUST default to `.github/specs/`
 - **FR-003**: CLAUDE.md MUST explicitly document that specification files belong in `.github/specs/` in the Repository Boundaries section
 - **FR-004**: All speckit scripts (create-new-feature.sh, setup-plan.sh, etc.) MUST resolve the specs directory from `.specify/init-options.json` configuration
 - **FR-005**: Existing specs in `/specs/` MUST be migrated to `.github/specs/` with directory structure preserved
