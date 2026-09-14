@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
+
 // Lints staged Markdown files, but only fails the commit on violations that
 // fall on lines the commit actually touches.
 //
@@ -13,52 +13,74 @@
 // untouched legacy violations elsewhere in the same file.
 //
 // Flow per file:
-//   1. Auto-fix what markdownlint-cli2 can fix in place (as before).
-//   2. Diff the (now fixed) working copy against HEAD to find added/changed
-//      line numbers.
-//   3. Re-lint with the markdownlint library directly to get violations with
-//      line numbers.
-//   4. Only fail if a remaining violation lands on an added/changed line.
-//      Pre-existing violations on untouched lines are reported but do not
-//      block the commit — matching the changed-files CI policy.
+//   1. Skip files matched by the same ignorePaths the CLI2 config applies,
+//      since the markdownlint library API (used below for line numbers)
+//      does not honour them itself.
+//   2. Record which lines are added/changed *before* auto-fixing, by diffing
+//      the pre-fix content against HEAD.
+//   3. Auto-fix what markdownlint-cli2 can fix in place (as before).
+//   4. Map the pre-fix added-line numbers onto the post-fix file by diffing
+//      pre-fix content against post-fix content. A fix that only reformats
+//      an already-added line still resolves to "added"; a fix that touches
+//      an untouched legacy line is never seeded into this set, so it can't
+//      leak in as a false "added" line.
+//   5. Re-lint the post-fix file with the markdownlint library directly to
+//      get violations with line numbers.
+//   6. Only fail if a remaining violation lands on a mapped added/changed
+//      line. Pre-existing violations on untouched lines are reported but do
+//      not block the commit — matching the changed-files CI policy.
 
 const { spawnSync, execFileSync } = require("child_process");
+const fs = require("fs");
+const os = require("os");
 const path = require("path");
+const { minimatch } = require("minimatch");
 
-const files = process.argv.slice(2);
+const configPath = path.join(__dirname, "../../.markdownlint.config.cjs");
+
+const baseConfig = require(configPath) || {};
+const ignorePaths = baseConfig.ignorePaths || [];
+
+function isIgnored(file) {
+  return ignorePaths.some((pattern) => minimatch(file, pattern, { dot: true }));
+}
+
+const files = process.argv.slice(2).filter((file) => {
+  if (isIgnored(file)) {
+    console.log(`⏭️  Skipped (ignored): ${file}`);
+    return false;
+  }
+  return true;
+});
 
 if (files.length === 0) {
   console.log("No staged Markdown files to lint.");
   process.exit(0);
 }
 
-const fixResult = spawnSync("npx", ["markdownlint-cli2", "--fix", ...files], {
-  stdio: "inherit",
-});
-if (fixResult.error) {
-  console.error(`Failed to run markdownlint-cli2 --fix: ${fixResult.error.message}`);
-  process.exit(1);
+// Parses a unified diff into hunks of { oldStart, oldCount, newStart, newCount }.
+function parseHunks(diffText) {
+  const hunks = [];
+  for (const line of diffText.split("\n")) {
+    const m = line.match(/^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/);
+    if (m) {
+      hunks.push({
+        oldStart: parseInt(m[1], 10),
+        oldCount: m[2] === undefined ? 1 : parseInt(m[2], 10),
+        newStart: parseInt(m[3], 10),
+        newCount: m[4] === undefined ? 1 : parseInt(m[4], 10),
+      });
+    }
+  }
+  return hunks;
 }
 
-function addedLineNumbers(file) {
-  let diff;
-  try {
-    diff = execFileSync(
-      "git",
-      ["diff", "--unified=0", "--no-color", "HEAD", "--", file],
-      { encoding: "utf8" },
-    );
-  } catch {
-    // No HEAD yet (root commit) — treat every line as added so nothing is
-    // silently skipped.
-    return null;
-  }
-
-  if (!diff) return new Set();
-
+// Given a unified diff (old -> new), returns the set of new-side line
+// numbers introduced or modified by it.
+function addedLinesFromDiff(diffText) {
   const added = new Set();
   let currentNewLine = null;
-  for (const line of diff.split("\n")) {
+  for (const line of diffText.split("\n")) {
     const hunk = line.match(/^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/);
     if (hunk) {
       currentNewLine = parseInt(hunk[1], 10);
@@ -79,11 +101,48 @@ function addedLineNumbers(file) {
   return added;
 }
 
+function diffAgainstHead(file) {
+  try {
+    return execFileSync(
+      "git",
+      ["diff", "--unified=0", "--no-color", "HEAD", "--", file],
+      { encoding: "utf8" },
+    );
+  } catch {
+    // No HEAD yet (root commit).
+    return null;
+  }
+}
+
+// Maps a set of old-side line numbers onto their new-side equivalents using
+// diff hunks between the old and new content. A line inside a hunk's old
+// range has no 1:1 mapping (the fix rewrote that exact line) — in that case
+// the whole corresponding new range is included instead, since the fix
+// touched content the caller already identified as added.
+function mapLinesForward(oldLines, hunks) {
+  const mapped = new Set();
+  for (const oldLine of oldLines) {
+    let shift = 0;
+    let mappedInsideHunk = false;
+    for (const h of hunks) {
+      if (oldLine < h.oldStart) break;
+      const oldEnd = h.oldStart + h.oldCount;
+      if (h.oldCount > 0 && oldLine < oldEnd) {
+        for (let n = h.newStart; n < h.newStart + h.newCount; n += 1) {
+          mapped.add(n);
+        }
+        mappedInsideHunk = true;
+        break;
+      }
+      shift += h.newCount - h.oldCount;
+    }
+    if (!mappedInsideHunk) mapped.add(oldLine + shift);
+  }
+  return mapped;
+}
+
 async function lintFile(file) {
   const { lint } = await import("markdownlint/promise");
-  const configPath = path.join(__dirname, "../../.markdownlint.config.cjs");
-  // eslint-disable-next-line global-require
-  const baseConfig = require(configPath) || {};
   const result = await lint({
     files: [file],
     config: { default: true, ...(baseConfig.rules || {}) },
@@ -94,8 +153,65 @@ async function lintFile(file) {
 async function main() {
   let blocking = false;
 
+  // Snapshot content and the HEAD diff *before* --fix mutates anything —
+  // this is the source of truth for what the commit actually touches.
+  const preFixState = new Map();
   for (const file of files) {
-    const added = addedLineNumbers(file);
+    preFixState.set(file, {
+      content: fs.readFileSync(file, "utf8"),
+      headDiff: diffAgainstHead(file),
+    });
+  }
+
+  const fixResult = spawnSync("npx", ["markdownlint-cli2", "--fix", ...files], {
+    stdio: "inherit",
+  });
+  if (fixResult.error) {
+    console.error(
+      `Failed to run markdownlint-cli2 --fix: ${fixResult.error.message}`,
+    );
+    process.exit(1);
+  }
+
+  for (const file of files) {
+    const { content: preFixContent, headDiff } = preFixState.get(file);
+    let added;
+    if (headDiff === null) {
+      added = null; // no HEAD yet — treat everything as added.
+    } else {
+      const preFixAdded = headDiff ? addedLinesFromDiff(headDiff) : new Set();
+      const postFixContent = fs.readFileSync(file, "utf8");
+
+      if (preFixAdded.size === 0 || postFixContent === preFixContent) {
+        added = preFixAdded;
+      } else {
+        const tmpDir = fs.mkdtempSync(
+          path.join(os.tmpdir(), "lint-md-staged-"),
+        );
+        const tmpFile = path.join(tmpDir, path.basename(file));
+        fs.writeFileSync(tmpFile, preFixContent);
+        let fixDiffText;
+        try {
+          const diffProc = spawnSync(
+            "git",
+            ["diff", "--no-index", "--unified=0", "--no-color", tmpFile, file],
+            { encoding: "utf8" },
+          );
+          if (diffProc.error) {
+            console.error(
+              `Failed to compute fix diff for ${file}: ${diffProc.error.message}`,
+            );
+            process.exit(1);
+          }
+          fixDiffText = diffProc.stdout || "";
+        } finally {
+          fs.rmSync(tmpDir, { recursive: true, force: true });
+        }
+        const fixHunks = parseHunks(fixDiffText);
+        added = mapLinesForward(preFixAdded, fixHunks);
+      }
+    }
+
     const violations = await lintFile(file);
 
     for (const violation of violations) {
