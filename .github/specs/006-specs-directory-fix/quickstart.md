@@ -6,6 +6,7 @@
 ## Overview
 
 This guide provides runnable steps to verify that:
+
 1. Configuration is correctly set
 2. Specs are created in the right location
 3. Speckit commands resolve paths correctly
@@ -27,11 +28,13 @@ This guide provides runnable steps to verify that:
 **Prerequisites**: None
 
 **Setup Commands**:
+
 ```bash
 cd /home/user/.github
 ```
 
 **Test Commands**:
+
 ```bash
 # Verify config file exists
 test -f .specify/init-options.json && echo "✅ Config file exists" || echo "❌ Config file missing"
@@ -56,6 +59,7 @@ fi
 ```
 
 **Expected Output**:
+
 ```
 ✅ Config file exists
 specs_directory value: .github/specs
@@ -64,6 +68,7 @@ specs_directory value: .github/specs
 ```
 
 **Acceptance Criteria**:
+
 - Config file is valid JSON
 - `specs_directory` field equals `.github/specs`
 - Directory is accessible and writable
@@ -77,11 +82,13 @@ specs_directory value: .github/specs
 **Prerequisites**: Scenario 1 passed, migration completed
 
 **Setup Commands**:
+
 ```bash
 cd /home/user/.github
 ```
 
 **Test Commands**:
+
 ```bash
 # List all specs in .github/specs/
 echo "Specs in .github/specs/:"
@@ -108,16 +115,18 @@ fi
 ```
 
 **Expected Output**:
+
 ```
 Specs in .github/specs/:
 .github/specs/002-coderabbit-config-improvements/
-.github/specs/003-specs-directory-fix/
+.github/specs/006-specs-directory-fix/
 Total specs found: 2
 ✅ No legacy specs in root specs/ directory
 ✅ Migrated spec found: 002-coderabbit-config-improvements
 ```
 
 **Acceptance Criteria**:
+
 - All specs located in `.github/specs/` subdirectories
 - No specs remaining in legacy `specs/` location
 - Existing spec content preserved (can read spec.md)
@@ -131,11 +140,13 @@ Total specs found: 2
 **Prerequisites**: Scenarios 1-2 passed
 
 **Setup Commands**:
+
 ```bash
 cd /home/user/.github
 ```
 
 **Test Commands**:
+
 ```bash
 # Create a test feature spec (dry-run to avoid actual creation)
 TEST_OUTPUT=$(.specify/scripts/bash/create-new-feature.sh --json --dry-run "test validation scenario")
@@ -157,6 +168,7 @@ fi
 ```
 
 **Expected Output**:
+
 ```
 Dry-run output:
 {
@@ -171,6 +183,7 @@ Expected spec file path: /home/user/.github/.github/specs/004-test-validation-sc
 ```
 
 **Acceptance Criteria**:
+
 - Dry-run succeeds without errors
 - SPEC_FILE path includes `.github/specs/` directory
 - Feature numbering continues sequentially (004 after 003)
@@ -184,11 +197,13 @@ Expected spec file path: /home/user/.github/.github/specs/004-test-validation-sc
 **Prerequisites**: All previous scenarios passed
 
 **Setup Commands**:
+
 ```bash
 cd /home/user/.github
 ```
 
 **Test Commands**:
+
 ```bash
 # Check CLAUDE.md for specs location reference
 if grep -q "\.github/specs" CLAUDE.md; then
@@ -208,6 +223,7 @@ fi
 ```
 
 **Expected Output**:
+
 ```
 ✅ CLAUDE.md references .github/specs
 Context:
@@ -216,6 +232,7 @@ Context:
 ```
 
 **Acceptance Criteria**:
+
 - CLAUDE.md includes `.github/specs` in Repository Boundaries
 - Section clearly documents specs location
 - Documentation is accurate and current
@@ -229,16 +246,18 @@ Context:
 **Prerequisites**: All previous scenarios passed
 
 **Setup Commands**:
+
 ```bash
 cd /home/user/.github
 ```
 
 **Test Commands**:
+
 ```bash
 # Verify setup-plan.sh can find existing spec
-echo "Testing plan setup with existing spec..."
-export SPECIFY_FEATURE="003-specs-directory-fix"
-export SPECIFY_FEATURE_DIRECTORY=".github/specs/003-specs-directory-fix"
+export SPECIFY_FEATURE="006-specs-directory-fix"
+export SPECIFY_FEATURE_DIRECTORY=".github/specs/006-specs-directory-fix"
+echo "Testing plan setup with existing spec: $SPECIFY_FEATURE..."
 
 if [ -f "$SPECIFY_FEATURE_DIRECTORY/spec.md" ]; then
   echo "✅ Spec file found at configured location"
@@ -263,14 +282,16 @@ fi
 ```
 
 **Expected Output**:
+
 ```
-Testing plan setup with existing spec...
+Testing plan setup with existing spec: 006-specs-directory-fix...
 ✅ Spec file found at configured location
 ✅ Plan file exists at configured location
 ✅ Research file exists
 ```
 
 **Acceptance Criteria**:
+
 - Spec file resolvable from configured location
 - Downstream speckit commands (plan, tasks) can find specs
 - Feature context properly preserved
@@ -321,6 +342,7 @@ echo "=== ALL VALIDATION TESTS PASSED ✅ ==="
 ### Problem: jq not found
 
 **Solution**:
+
 ```bash
 # Install jq
 brew install jq          # macOS
@@ -330,6 +352,7 @@ sudo apt-get install jq  # Linux
 ### Problem: Config file not found
 
 **Solution**:
+
 ```bash
 # Verify you're in repository root
 pwd  # should be /home/user/.github
@@ -341,15 +364,46 @@ ls -la .specify/
 ### Problem: Specs still in old location
 
 **Solution**:
+
 ```bash
 # Verify migration completed
 ls -la .github/specs/
 ls -la specs/  # should be empty or not exist
 
 # If specs remain, run migration manually
-mkdir -p .github/specs
-cp -r specs/* .github/specs/ 2>/dev/null || true
-rm -rf specs/
+if ! mkdir -p .github/specs; then
+  echo "Migration failed: could not create .github/specs" >&2
+  exit 1
+fi
+
+# Refuse to overwrite any existing destination entry; resolve conflicts first.
+while IFS= read -r -d '' source_entry; do
+  relative_entry="${source_entry#specs/}"
+  if [[ -e ".github/specs/$relative_entry" || -L ".github/specs/$relative_entry" ]]; then
+    echo "Migration failed: resolve conflicting entry .github/specs/$relative_entry" >&2
+    exit 1
+  fi
+done < <(find specs -mindepth 1 -maxdepth 1 -print0)
+
+# specs/. includes hidden entries; archive mode preserves the complete tree.
+if ! cp -a specs/. .github/specs/; then
+  echo "Migration failed: could not copy specs/ to .github/specs/" >&2
+  exit 1
+fi
+
+# Verify every copied entry recursively before removing the source tree.
+while IFS= read -r -d '' source_entry; do
+  relative_entry="${source_entry#specs/}"
+  if ! diff -qr "$source_entry" ".github/specs/$relative_entry"; then
+    echo "Migration failed: copied content differs for $relative_entry" >&2
+    exit 1
+  fi
+done < <(find specs -mindepth 1 -maxdepth 1 -print0)
+
+if ! rm -rf specs/; then
+  echo "Migration failed: verified copy retained, but specs/ could not be removed" >&2
+  exit 1
+fi
 ```
 
 ## Success Criteria Summary

@@ -262,7 +262,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [docs/WORKFLOWS.md](./docs/WORKFLOWS.md) — workflow organisation and distribution strategy
-- [.github/specs/](./specs/) — feature specifications and implementation planning
+- [.github/specs/](./.github/specs/) — feature specifications and implementation planning
 - [.specify/](./specify/) — speckit configuration for feature specification workflow
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
 - [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards

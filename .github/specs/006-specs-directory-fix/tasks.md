@@ -13,6 +13,7 @@ description: "Task list for fixing specs directory configuration"
 **Platform**: Linux (bash), cross-platform compatible
 
 **Key Files to Modify**:
+
 - `.specify/init-options.json` — Add specs_directory configuration
 - `.specify/scripts/bash/create-new-feature.sh` — Read config, use configured path
 - `.specify/scripts/bash/common.sh` — Add helper function to read config
@@ -43,7 +44,7 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T005 Create helper function `read_specs_directory()` in `.specify/scripts/bash/common.sh` to read `specs_directory` from config with fallback default `.github/specs`
 - [ ] T006 Validate JSON schema: `.specify/init-options.json` must parse correctly with new field
 - [ ] T007 Verify common.sh is sourced correctly by create-new-feature.sh and other speckit scripts
-- [ ] T008 Document configuration change: Add comment in `.specify/init-options.json` explaining `specs_directory` field purpose and valid values
+- [ ] T008 Document the `specs_directory` field purpose, default, validation rules, and valid examples in `.github/specs/006-specs-directory-fix/contracts/init-options-schema.md`
 
 **Checkpoint**: Configuration infrastructure ready — scripts can now read specs_directory from config
 
@@ -82,11 +83,11 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Update CLAUDE.md Repository Boundaries section to add row: `| Specification files (features, plans, etc.) | `.github/specs/` |` in `./CLAUDE.md`
+- [ ] T017 [US2] Update CLAUDE.md Repository Boundaries section to add row: `| Specification files (features, plans, etc.) |`.github/specs/`|` in `./CLAUDE.md`
 - [ ] T018 [P] [US2] Add reference to specs location in CLAUDE.md "Related Files" section linking to `.specify/README.md` or similar in `./CLAUDE.md`
 - [ ] T019 [US2] Verify no other CLAUDE.md sections conflict with or contradict the new specs location in `./CLAUDE.md`
 - [ ] T020 [P] [US2] Update `.specify/` documentation or README (if exists) to reference `.github/specs` as canonical location in `.specify/README.md` or inline comments
-- [ ] T021 [US2] Verify `specs_directory` field is documented in `.specify/init-options.json` comments with examples in `.specify/init-options.json`
+- [ ] T021 [US2] Verify `specs_directory` is documented with valid examples in `.github/specs/006-specs-directory-fix/contracts/init-options-schema.md` without adding comments to `.specify/init-options.json`
 - [ ] T022 [US2] Add comment to `create-new-feature.sh` explaining that specs_directory is configurable and defaults to `.github/specs` in `.specify/scripts/bash/create-new-feature.sh`
 
 **Checkpoint**: Documentation aligned — CLAUDE.md and code comments clearly document `.github/specs` as canonical location
@@ -103,10 +104,10 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for User Story 3
 
-- [ ] T023 [US3] Migrate `specs/002-coderabbit-config-improvements/` to `.github/specs/002-coderabbit-config-improvements/` preserving all files and directory structure via `cp -r specs/002-coderabbit-config-improvements .github/specs/`
-- [ ] T024 [US3] Verify migration completeness: count files before and after, confirm all spec.md, plan.md, research.md, data-model.md, contracts/, quickstart.md files present in new location
-- [ ] T025 [US3] Update `.specify/feature.json` to reference `.github/specs/002-coderabbit-config-improvements` if this file is version-controlled, or document that it's in .gitignore and auto-populated in `.specify/feature.json`
-- [ ] T026 [US3] Remove empty `/specs/` directory tree (or verify it's empty if keeping for backward compat) via `rm -rf specs/` after migration verification
+- [ ] T023 [US3] Inventory and recursively compare the complete `specs/` and `.github/specs/` trees, including hidden entries, before migration; record every matching destination path as a potential conflict
+- [ ] T024 [US3] Resolve every conflicting file or directory explicitly, then copy all source entries to `.github/specs/` without allowing unresolved destination content to be overwritten
+- [ ] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
+- [ ] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
 - [ ] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
 - [ ] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/006-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
 
@@ -163,46 +164,57 @@ description: "Task list for fixing specs directory configuration"
 ### Within User Story Dependencies
 
 **US1 Task Dependencies**:
+
 - T009-T010 (update create-new-feature.sh) before T011-T012 (test it)
 - T009-T010 before T013-T014 (update other scripts)
 - T013-T014 before T015-T016 (test plan/tasks)
 
 **US2 Task Dependencies**:
+
 - T017 (main doc update) before T018-T022 (supporting docs)
 
 **US3 Task Dependencies**:
-- T023 (migrate files) before T024 (verify)
-- T024 (verify migration) before T025-T026 (clean up)
+
+- T023 (inventory and compare trees) before T024 (resolve conflicts and copy)
+- T024 (copy content) before T025 (verify migration)
+- T025 (verify migration) before T026 (clean up)
 - T023-T026 (migration complete) before T027-T028 (verify workflow still works)
 
 ### Parallel Opportunities
 
 **Within Setup (Phase 1)**:
+
 - All tasks sequential (directory must exist before other operations)
 
 **Within Foundational (Phase 2)**:
+
 - T005 (create helper) can run with T006 (validate JSON) - different files
 - T004 (add config field) should complete before T006
 
 **Within US1 (Phase 3)** - Once Foundational done:
+
 - T009-T010 (update create-new-feature.sh) in sequence
 - T013-T014 (update other scripts) can run in parallel with T009-T010 (different files)
 - T011-T012 (test) after T009-T010 complete
 
 **Within US2 (Phase 4)** - Once Foundational done:
+
 - T017 (CLAUDE.md) sequentially first
 - T018-T022 (other docs) can run in parallel (different files)
 
 **US1 & US2 in Parallel**:
+
 - Once Foundational (T004-T008) complete
 - Developer A: Work on US1 (T009-T016)
 - Developer B: Work on US2 (T017-T022)
 - Both can proceed independently
 
 **US3 Sequence** (must wait for US1):
+
 - After US1 complete, migrate (T023-T028) sequentially
 
 **Polish & Testing (Phase 6)**:
+
 - T029-T032 can run in parallel (different files, different scripts)
 - T033 (docs) can run in parallel with code testing
 - T034 (commit) must wait for all code changes
@@ -215,18 +227,22 @@ description: "Task list for fixing specs directory configuration"
 ### Timeline with 2 developers
 
 **Day 1**:
+
 - Developer A + B: Complete Phase 1 Setup together (T001-T003)
 - Developer A + B: Complete Phase 2 Foundational together (T004-T008)
 
 **Day 2** (Both working in parallel):
+
 - Developer A: User Story 1 (T009-T016) — Update and test spec creation workflow
 - Developer B: User Story 2 (T017-T022) — Update documentation and governance
 
 **Day 3**:
+
 - Developer A (or A+B together): Verify US1 complete and working
 - Developer A + B: User Story 3 (T023-T028) — Migrate existing specs
 
 **Day 4**:
+
 - Developer A + B: Polish & Validation (T029-T036) — Final testing and verification
 - Developer A: Commit and push final changes
 
@@ -255,8 +271,8 @@ description: "Task list for fixing specs directory configuration"
 
 - **Backup before migration** (T003): Preserve original specs in case of issues
 - **Test dry-run first** (T011): Confirm script changes work before actual spec creation
-- **Incremental migration** (T023): Only migrating one existing spec (002-coderabbit), safe to rollback
-- **Verify after migration** (T024-T025): 100% content preservation before cleanup
+- **Conflict-safe migration** (T023-T024): Inventory both trees and resolve conflicts before copying
+- **Verify after migration** (T025): Confirm 100% content preservation before cleanup
 - **Final validation** (T028, T035): Confirm all workflows still functional after changes
 
 ---
@@ -264,12 +280,14 @@ description: "Task list for fixing specs directory configuration"
 ## Format Reference
 
 **Checklist Format**:
+
 - ✅ `- [ ] [TaskID] [P?] [Story?] Description with file path`
   - [P]: Parallelizable (can run simultaneously with other [P] tasks in same phase)
   - [Story]: User story label (US1, US2, US3) — only for user story phase tasks
   - File path: Exact location of file being modified
 
 **Execution Markers**:
+
 - [P] = Parallelizable within phase
 - [US1] / [US2] / [US3] = User story assignment
 
