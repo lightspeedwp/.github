@@ -17,7 +17,8 @@
 ### Session 2026-09-14
 
 - Q1: Should Phase 6 adoption metrics be evaluated after 30 days or a full 42-day (6-week) period? → A: **Option C** — Both: 30-day checkpoint + 42-day final decision. Phase 6 includes a 30-day early-stage checkpoint for course correction and a 42-day final evaluation for Phase 7 gate-keeping. The 30-day checkpoint enables interim feedback; the 42-day result gates Phase 7 decision-making (both required per SC-602).
-- Q2: Should Phase 7 decision execution task be renamed to avoid confusion with Phase 4's registry-update requirement, or use phase qualifiers? → A: **Option A** — Phase-based numbering: Phase 7 decision execution renamed to **FR-702** (reserves FR-701 for Phase 6 metrics result that feeds Phase 7). Keeps IDs unique and traceably distinct across phases (Phase 4 uses 4xx, Phase 7 uses 7xx).
+- Q2: Should Phase 7 decision execution task be renamed to avoid confusion with Phase 4's registry-update requirement, or use phase qualifiers? → A: **Option A** — Phase-based numbering: Phase 7 decision execution uses FR-701–705 range, distinct from Phase 4's FR-413. Keeps IDs unique and traceably distinct across phases (Phase 4 uses 4xx, Phase 7 uses 7xx).
+- Q3: Should Phase 7 decision gate accept DEFER path or require binary choice (Archive/Sync)? → A: **Option B** — Allow DEFER with documented rationale and re-evaluation criteria. If adoption metrics are inconclusive at 6 weeks, DEFER is recorded with next review date and threshold triggers, avoiding forced binary choice under uncertainty.
 
 ## Phase 3: Structural Consolidation ✅ COMPLETE
 
@@ -209,19 +210,20 @@ As a codebase maintainer, I want to decide the fate of the older spec-based PRD 
 
 **Acceptance Scenarios**:
 
-1. **Given** adoption metrics from Phase 6, **When** decision is made (archive or sync), **Then** all affected workflows are updated to reflect the choice.
+1. **Given** adoption metrics from Phase 6, **When** decision is made (archive, sync, or defer), **Then** all affected workflows are updated to reflect the choice and rationale is documented.
 2. **Given** the decision to archive, **When** executed, **Then** `agents/mode-prd.agent.md` is moved to `projects/archive/` and all references updated.
 3. **Given** the decision to sync, **When** executed, **Then** spec-based agent prompt is updated to match portable version and kept in sync moving forward.
+4. **Given** metrics are inconclusive at 6 weeks, **When** DEFER decision is made, **Then** next review date, re-evaluation trigger criteria (e.g., ≥10 teams active), and blocking reasons are documented in project records.
 
 ---
 
 ### Functional Requirements (Phase 7)
 
 - **FR-701**: Review Phase 6 adoption metrics and team feedback
-- **FR-702**: Make decision: Archive or Sync spec-based agent (`agents/mode-prd.agent.md`)
+- **FR-702**: Make decision: Archive, Sync, or Defer spec-based agent (`agents/mode-prd.agent.md`); if Defer, document rationale and next review criteria
 - **FR-703**: If Archive: Move to `projects/archive/`; update all references; document archival rationale
 - **FR-704**: If Sync: Update prompt to match portable version; establish sync process for future updates
-- **FR-705**: Document the decision and rationale in project records
+- **FR-705**: Document the decision and rationale in project records (including DEFER trigger criteria if decision is DEFER)
 
 ### Success Criteria (Phase 7)
 
