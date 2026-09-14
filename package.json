@@ -111,6 +111,8 @@
     "validate:report:html": "node scripts/generate-validation-report.js --format html --output .github/reports/validation-report.html",
     "validate:debug": "node scripts/validate-with-debug.js",
     "audit:secrets": "node scripts/audit-secrets-compliance.js",
+    "audit:branches": "node scripts/cleanup-branches.js",
+    "audit:branches:json": "node scripts/cleanup-branches.js --json",
     "analyze:performance": "node scripts/analyze-workflow-performance.js",
     "health:check": "node scripts/health-check.js",
     "health:report": "node scripts/health-check.js --output .github/reports/health-report.json",
