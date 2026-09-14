@@ -37,6 +37,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify installation
+        run: |
+          echo "Node version:"
+          node --version
+          echo "npm version:"
+          npm --version
+          echo "npm validate:branch-name script:"
+          npm run validate:branch-name -- --help | head -20
+
       - name: Extract branch name
         id: extract-branch
         run: |
