@@ -32,6 +32,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Diagnose environment
+        run: |
+          echo "Node version: $(node --version)"
+          echo "npm version: $(npm --version)"
+          echo "GitHub context branch (head_ref): ${{ github.head_ref }}"
+          echo "Current directory: $(pwd)"
+          echo "Files in scripts/: $(ls -la scripts/pr-template-router.js 2>&1)"
+
       - name: Route PR template and labels
         id: route
         run: |
