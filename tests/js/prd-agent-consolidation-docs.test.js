@@ -249,7 +249,7 @@ describe("PRD agent consolidation convergence documentation", () => {
   describe("Phase 7 decision matrix", () => {
     test("documents every decision path and its execution requirement", () => {
       expect(phase7Criteria).toContain(
-        "**Condition**: `[(Active Teams < 5) OR (Satisfaction Score < 4.0)] AND (Critical Blockers == 0)`",
+        "**Condition**: `(Active Teams < 5) AND (Satisfaction Score < 4.0) AND (Critical Blockers == 0)`",
       );
       expect(phase7Criteria).toContain(
         "**Condition**: `(Active Teams >= 5) AND (Satisfaction Score >= 4.0) AND (Critical Blockers == 0)`",
@@ -305,7 +305,7 @@ describe("PRD agent consolidation convergence documentation", () => {
       "maps threshold boundary %j to exactly one %s path",
       ({ teams, satisfaction, blockers }, expectedPath) => {
         const matchingPaths = {
-          ARCHIVE: (teams < 5 || satisfaction < 4.0) && blockers === 0,
+          ARCHIVE: teams < 5 && satisfaction < 4.0 && blockers === 0,
           SYNC: teams >= 5 && satisfaction >= 4.0 && blockers === 0,
           DEFER:
             blockers > 0 ||

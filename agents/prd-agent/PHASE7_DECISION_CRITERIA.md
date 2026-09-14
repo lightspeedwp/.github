@@ -36,17 +36,18 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ### Path 1: ARCHIVE (Legacy Agent)
 
-**Condition**: `[(Active Teams < 5) OR (Satisfaction Score < 4.0)] AND (Critical Blockers == 0)`
+**Condition**: `(Active Teams < 5) AND (Satisfaction Score < 4.0) AND (Critical Blockers == 0)`
 
-**Interpretation**: Adoption is below target OR user satisfaction is insufficient, AND there are no unresolved critical issues. The legacy agent is not needed as a fallback.
+**Interpretation**: Adoption and user satisfaction are both below target, and there are no unresolved critical issues. The legacy agent is not needed as a fallback.
 
 **Rationale**:
-- Consolidated agent did not achieve adoption threshold (≥5 teams) → consolidation not recommended for all teams
-- OR user satisfaction insufficient (≥4.0 not met) → consolidated agent requires further refinement
+
+- Consolidated agent did not achieve the adoption threshold (≥5 teams) and user satisfaction is insufficient (≥4.0 not met)
 - Legacy agent provides no strategic value if consolidated version is underperforming
 - Archiving reduces maintenance burden and avoids confusion between two agent versions
 
 **Actions (FR-703)**:
+
 1. Create `.github/projects/archive/prd-agents/` directory structure (if not exists)
 2. Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/mode-prd.agent-archived-2026-09-xx.md`
 3. Update `workflows/memory/registry/memory-registry.yaml`: Change `agent:mode-prd` entry status to `archived`
@@ -57,6 +58,7 @@ This document defines the decision criteria, success thresholds, and execution r
 5. Document archival decision in `agents/prd-agent/PHASE7_DECISION.md` with sign-off
 
 **Phase 7 Deliverables** (T078):
+
 - Archived copy of legacy agent in `.github/projects/archive/prd-agents/`
 - Updated memory registry entry (`agent:mode-prd` status = `archived`)
 - Updated references in workflows, docs, and skill routing instructions
@@ -71,12 +73,14 @@ This document defines the decision criteria, success thresholds, and execution r
 **Interpretation**: Adoption is successful, users are satisfied, and there are no critical issues. The legacy agent should be kept in sync with the portable version.
 
 **Rationale**:
+
 - Consolidated agent successfully adopted by ≥5 teams with high satisfaction (≥4.0/5.0)
 - Consolidated agent is stable (zero critical blockers)
 - Legacy agent (`agents/mode-prd.agent.md`) serves as an additional distribution channel or reference implementation
 - Syncing ensures both versions provide consistent capabilities and messaging
 
 **Actions (FR-704)**:
+
 1. Compare `agents/prd-agent/copilot/agent.md` (portable version) with `agents/mode-prd.agent.md` (legacy version)
 2. Update `agents/mode-prd.agent.md` prompt to match portable version's:
    - System prompt architecture (28-skill inventory, 5-cluster organization)
@@ -92,6 +96,7 @@ This document defines the decision criteria, success thresholds, and execution r
 5. Update memory registry: Confirm `agent:mode-prd` entry references portable version as source of truth
 
 **Phase 7 Deliverables** (T079):
+
 - Updated `agents/mode-prd.agent.md` prompt matching portable version
 - Sync trigger defined and documented
 - Sync process documentation
@@ -106,6 +111,7 @@ This document defines the decision criteria, success thresholds, and execution r
 **Interpretation**: Metrics are mixed or inconclusive (adoption good but satisfaction low, or vice versa), OR critical blockers exist that make decision premature. Unresolved critical blockers take precedence over Archive/Sync decisions. Defer decision pending further investigation.
 
 **Rationale**:
+
 - Mixed signals indicate the consolidated agent needs refinement before deciding legacy agent fate
 - Critical blockers must be resolved before committing to either ARCHIVE or SYNC path
 - Deferring provides time to:
@@ -114,8 +120,9 @@ This document defines the decision criteria, success thresholds, and execution r
   3. Resolve critical issues and re-assess
 
 **Actions**:
+
 1. Document decision rationale: "Decision deferred due to [specific reason: mixed metrics / unresolved blockers]"
-2. Schedule Phase 7 re-assessment: 
+2. Schedule Phase 7 re-assessment:
    - Define follow-up data collection period (e.g., "2 weeks of additional usage monitoring")
    - Name responsible party for re-assessment
    - Set specific metric improvement targets (e.g., "adoption 5+ teams AND satisfaction ≥4.0 AND 0 critical blockers")
@@ -126,6 +133,7 @@ This document defines the decision criteria, success thresholds, and execution r
    - Action items to enable future decision
 
 **Phase 7 Deliverables** (Deferred):
+
 - Decision rationale and deferral timeline documented
 - Re-assessment criteria defined
 - Follow-up issue created with due date
@@ -155,13 +163,13 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ### After Decision Gate (T077 Sign-Off)
 
-4. **Apply Decision Matrix** (this document, T077):
+1. **Apply Decision Matrix** (this document, T077):
    - [ ] Verify all Phase 6 metrics are final and documented
    - [ ] Map metrics to decision path (ARCHIVE / SYNC / DEFER)
    - [ ] Document decision rationale with evidence
    - [ ] Obtain sign-off from stakeholder (per sign-off lane below)
 
-5. **Execute Chosen Path** (T078 or T079, T080):
+2. **Execute Chosen Path** (T078 or T079, T080):
    - [ ] Follow path-specific actions above (ARCHIVE / SYNC / DEFER)
    - [ ] Create or update Phase 7 deliverable files
    - [ ] Document final decision in `agents/prd-agent/PHASE7_DECISION.md`
