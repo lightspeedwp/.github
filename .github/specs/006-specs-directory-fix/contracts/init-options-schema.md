@@ -68,7 +68,7 @@ The `.specify/init-options.json` file is the authoritative configuration source 
       "type": "string",
       "description": "Directory path for feature specifications",
       "default": ".github/specs",
-      "pattern": "^(?!\\.\\.)[a-zA-Z0-9._/\\-]+$",
+      "pattern": "^(?!/)(?!(?:.*\\/)?(?:\\.|\\.\\.)(?:\\/|$))[a-zA-Z0-9._-]+(?:\\/[a-zA-Z0-9._-]+)*$",
       "examples": [".github/specs", "specs", "docs/specs"]
     }
   },
@@ -87,6 +87,7 @@ The `.specify/init-options.json` file is the authoritative configuration source 
 **Default**: `.github/specs`
 
 **Validation**:
+
 - ✅ Must be a valid relative path
 - ✅ Must not reference parent directories (`..`)
 - ✅ Must not start with `/` (not absolute)
@@ -105,6 +106,8 @@ The `.specify/init-options.json` file is the authoritative configuration source 
 | `/specs` | ❌ | Absolute path not allowed |
 | `../specs` | ❌ | Parent reference not allowed |
 | `specs/../other` | ❌ | Parent segment not allowed |
+| `specs/./other` | ❌ | Current-directory segment not allowed |
+| `specs/../../other` | ❌ | Parent segments not allowed |
 | `specs with spaces` | ❌ | Spaces not allowed |
 
 ## Usage
@@ -112,25 +115,60 @@ The `.specify/init-options.json` file is the authoritative configuration source 
 ### Reading Configuration (Shell Script)
 
 ```bash
-# Load configuration from init-options.json
-CONFIG_FILE="$REPO_ROOT/.specify/init-options.json"
+read_specs_directory() {
+  local config_file="$REPO_ROOT/.specify/init-options.json"
+  local configured_specs_dir
 
-# Extract specs_directory with default fallback
-SPECS_DIR=$(jq -r '.specs_directory // ".github/specs"' "$CONFIG_FILE")
+  # A missing configuration file is the only read failure that uses the fallback.
+  if [[ ! -e "$config_file" ]]; then
+    printf '%s\n' ".github/specs"
+    return 0
+  fi
 
-# Validate before use
-if [[ ! "$SPECS_DIR" =~ ^[a-zA-Z0-9._/\-]+$ ]]; then
-  echo "Error: Invalid specs_directory in config" >&2
-  exit 1
-fi
+  # Invalid JSON and non-string values are configuration errors, not defaults.
+  if ! configured_specs_dir=$(jq -er '
+    if has("specs_directory") then
+      if (.specs_directory | type) == "string" then
+        .specs_directory
+      else
+        error("specs_directory must be a string")
+      end
+    else # The optional field receives its schema default when omitted.
+      ".github/specs"
+    end
+  ' "$config_file"); then
+    echo "Error: Invalid configuration in $config_file" >&2
+    return 1
+  fi
 
-# Create path relative to repo root
-FEATURE_DIR="$REPO_ROOT/$SPECS_DIR/$BRANCH_NAME"
+  # Validate the repository-relative value before joining it to REPO_ROOT.
+  if [[ "$configured_specs_dir" = /* ||
+        ! "$configured_specs_dir" =~ ^[a-zA-Z0-9._-]+(/[a-zA-Z0-9._-]+)*$ ]]; then
+    echo "Error: Invalid specs_directory in $config_file" >&2
+    return 1
+  fi
+
+  case "/$configured_specs_dir/" in
+    */./*|*/../*)
+      echo "Error: Invalid specs_directory in $config_file: '.' and '..' path segments are not allowed" >&2
+      return 1
+      ;;
+  esac
+
+  printf '%s\n' "$configured_specs_dir"
+}
+
+configured_specs_dir=$(read_specs_directory) || exit 1
+
+# Construct paths only after read_specs_directory has validated the value.
+SPECS_DIR="$REPO_ROOT/$configured_specs_dir"
+FEATURE_DIR="$SPECS_DIR/$BRANCH_NAME"
 ```
 
 ### Example Configuration
 
 **Minimal** (uses defaults):
+
 ```json
 {
   "speckit_version": "1.0.7.dev0"
@@ -138,6 +176,7 @@ FEATURE_DIR="$REPO_ROOT/$SPECS_DIR/$BRANCH_NAME"
 ```
 
 **Standard** (recommended):
+
 ```json
 {
   "ai": "claude",
@@ -152,6 +191,7 @@ FEATURE_DIR="$REPO_ROOT/$SPECS_DIR/$BRANCH_NAME"
 ```
 
 **Custom** (alternative location):
+
 ```json
 {
   "ai": "claude",
@@ -170,12 +210,14 @@ FEATURE_DIR="$REPO_ROOT/$SPECS_DIR/$BRANCH_NAME"
 ### Specify Tooling Scripts
 
 **Expected Behavior**:
+
 - Read `specs_directory` from `.specify/init-options.json`
 - Apply default `.github/specs` if field is absent
 - Create feature directories under the configured location
 - Resolve feature paths relative to `$REPO_ROOT`
 
 **Error Handling**:
+
 - If config file missing: Fall back to default
 - If JSON invalid: Report error with file path and exit
 - If specs_directory invalid: Report validation error and exit
@@ -183,11 +225,13 @@ FEATURE_DIR="$REPO_ROOT/$SPECS_DIR/$BRANCH_NAME"
 ### External Consumers (GitHub Actions, CI/CD)
 
 **Expected Behavior**:
+
 - Can read `.specify/init-options.json` to discover specs location
 - Should use `jq` or equivalent to extract `specs_directory` field
 - Should apply default if field absent
 
 **Example** (GitHub Actions):
+
 ```yaml
 - name: Discover specs directory
   id: specs-dir
@@ -205,13 +249,15 @@ FEATURE_DIR="$REPO_ROOT/$SPECS_DIR/$BRANCH_NAME"
 | Scenario | Before Fix | After Fix |
 |----------|-----------|-----------|
 | New repo with no specs | Create specs in `/specs` | Create specs in `.github/specs` (default) |
-| Existing repo with field absent | Use hardcoded `/specs` | Use configured default `.github/specs` |
+| Existing repo with field absent and root-level specs | Use hardcoded `/specs` | Must migrate first or set `specs_directory` to `"specs"` before using the updated tooling |
 | Existing repo with field set | N/A (field didn't exist) | Use specified value |
 
 **Migration Strategy**:
-- Old repos must add `specs_directory` explicitly if changing from `/specs` default
+
+- Repositories with root-level `specs/` content must migrate that content to `.github/specs/` before relying on the new default
+- Repositories that are not yet migrated must set `specs_directory` to `"specs"` so existing features remain discoverable
+- After migration, remove the legacy override or set `specs_directory` to `".github/specs"`
 - New repos get correct default
-- Tooling handles both cases gracefully
 
 ## Testing
 
@@ -229,13 +275,15 @@ FEATURE_DIR="$REPO_ROOT/$SPECS_DIR/$BRANCH_NAME"
    - ✅ Paths with subdirectories
    - ✅ Default value applied
    - ❌ Absolute paths (start with `/`)
-   - ❌ Parent references (`..`)
+   - ❌ Current-directory or parent references (`.` or `..` path segments)
    - ❌ Invalid characters
 
 3. **Script Integration**
    - ✅ Scripts read and respect specs_directory
    - ✅ Feature creation works with configured path
-   - ✅ Backward compat: missing field uses default
+   - ✅ Missing config file uses default
+   - ❌ Invalid JSON reports the config file path and exits
+   - ❌ Invalid specs_directory reports the config file path and exits
 
 ## Version History
 

@@ -14,15 +14,15 @@
 
 Developer uses `/speckit-specify` to create a new feature specification. Currently, specs are incorrectly written to the repository root (`/specs/`), breaking repository structure conventions.
 
-**Why this priority**: This is the core problem—spec creation must place files in the correct directory (`.github/specs/`) to maintain repository organization and comply with CLAUDE.md guidelines.
+**Why this priority**: This is the core problem—spec creation must place files in the configured specs directory (defaulting to `.github/specs/`) to maintain repository organization and comply with CLAUDE.md guidelines.
 
-**Independent Test**: Can be fully tested by running `/speckit-specify` and verifying that generated specs are in `.github/specs/` directory structure.
+**Independent Test**: Can be fully tested by running `/speckit-specify` and verifying that generated specs are in the configured `specs_directory`, including alternatives such as `specs` or `docs/specs`.
 
 **Acceptance Scenarios**:
 
-1. **Given** a developer runs `/speckit-specify "add user authentication"`, **When** the command completes, **Then** the spec should be created in `.github/specs/` with proper directory structure
-2. **Given** multiple specs exist, **When** listing specs, **Then** all should be consistently located under `.github/specs/`
-3. **Given** downstream speckit commands like `/speckit-plan`, **When** they resolve spec locations, **Then** they should correctly locate specs in `.github/specs/`
+1. **Given** `specs_directory` is not specified and a developer runs `/speckit-specify "add user authentication"`, **When** the command completes, **Then** the spec should be created in the default `.github/specs/` directory structure
+2. **Given** `specs_directory` is set to a valid relative path such as `specs` or `docs/specs`, **When** a developer creates a feature, **Then** the spec should be created under that configured directory
+3. **Given** multiple specs exist in the configured directory, **When** downstream speckit commands like `/speckit-plan` resolve spec locations, **Then** they should correctly locate those specs
 
 ---
 
@@ -66,7 +66,7 @@ Existing specs in the root `specs/` directory should be migrated to `.github/spe
 
 ### Functional Requirements
 
-- **FR-001**: `.specify/scripts/bash/create-new-feature.sh` MUST create feature directories under `.github/specs/` instead of the repository root `specs/`
+- **FR-001**: `.specify/scripts/bash/create-new-feature.sh` MUST create feature directories under the configured `specs_directory`, using `.github/specs` when the setting is unspecified and respecting valid alternatives such as `specs` or `docs/specs`
 - **FR-002**: `.specify/init-options.json` MUST include `specs_directory` configuration field to document and enforce the correct specs location
 - **FR-003**: CLAUDE.md MUST explicitly document that specification files belong in `.github/specs/` in the Repository Boundaries section
 - **FR-004**: All speckit scripts (create-new-feature.sh, setup-plan.sh, etc.) MUST resolve the specs directory from `.specify/init-options.json` configuration
@@ -84,8 +84,8 @@ Existing specs in the root `specs/` directory should be migrated to `.github/spe
 
 ### Measurable Outcomes
 
-- **SC-001**: 100% of new specs created with `/speckit-specify` are placed in `.github/specs/` directory
-- **SC-002**: All speckit commands (`/speckit-plan`, `/speckit-clarify`, etc.) correctly resolve spec locations from `.github/specs/`
+- **SC-001**: 100% of new specs created with `/speckit-specify` are placed in the configured `specs_directory` (default `.github/specs`)
+- **SC-002**: All speckit commands (`/speckit-plan`, `/speckit-clarify`, etc.) correctly resolve spec locations from the configured `specs_directory`
 - **SC-003**: CLAUDE.md Repository Boundaries section explicitly documents spec file location
 - **SC-004**: Zero specs exist in the root-level `/specs/` directory after migration
 - **SC-005**: Existing specs in `/specs/` are successfully migrated to `.github/specs/` with 100% content preservation

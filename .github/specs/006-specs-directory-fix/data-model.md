@@ -31,8 +31,8 @@
 
 - **Type**: String (directory path)
 - **Required**: No (defaults to `.github/specs` if omitted)
-- **Format**: Repository-relative path (no leading `/`, use `.` for relative)
-- **Valid Values**: 
+- **Format**: Repository-relative path (no leading `/`; no `.` or `..` path segments)
+- **Valid Values**:
   - `.github/specs` (recommended)
   - `specs` (legacy, not recommended)
   - Any valid relative path
@@ -41,7 +41,7 @@
   - Must not reference parent directories (`..`)
   - Should be under version control (not in `.gitignore`)
 - **Usage**: Read by `.specify/scripts/bash/create-new-feature.sh` and other spec management scripts
-- **State Transitions**: 
+- **State Transitions**:
   - Unset → Use default `.github/specs`
   - Set to value → Use specified directory
   - Change during project lifecycle → Requires migration of existing specs
@@ -57,7 +57,7 @@ repository-root/
 │   │   ├── spec.md
 │   │   ├── plan.md
 │   │   └── ...
-│   └── 003-specs-directory-fix/
+│   └── 006-specs-directory-fix/
 │       ├── spec.md
 │       ├── plan.md
 │       └── ...
@@ -75,7 +75,7 @@ repository-root/
 │   │   │   ├── spec.md
 │   │   │   ├── plan.md
 │   │   │   └── ...
-│   │   └── 003-specs-directory-fix/
+│   │   └── 006-specs-directory-fix/
 │   │       ├── spec.md
 │   │       ├── plan.md
 │   │       └── ...
@@ -94,12 +94,14 @@ repository-root/
 ## Relationships & Dependencies
 
 ### Dependencies
+
 - `.specify/init-options.json` ← Configuration source
 - `.specify/scripts/bash/common.sh` ← Helper functions
 - `.specify/scripts/bash/create-new-feature.sh` ← Script that reads config
 - CLAUDE.md ← Documentation of intent
 
 ### Dependents
+
 - `/speckit-specify` skill ← Uses create-new-feature.sh
 - `/speckit-plan` skill ← References spec location
 - `/speckit-tasks` skill ← Resolves spec paths
@@ -108,8 +110,8 @@ repository-root/
 ## Validation Rules
 
 1. **Path Validation**
-   - Must resolve to accessible directory
-   - Must have write permissions
+   - A missing destination is valid when it can be created on first use in an accessible, writable parent location
+   - An existing destination must be accessible and writable
    - Must not contain invalid characters
 
 2. **Specification Integrity**
