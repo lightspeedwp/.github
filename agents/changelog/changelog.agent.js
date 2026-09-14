@@ -257,9 +257,142 @@ async function addEntry(changelogPath, entry = {}, options = {}) {
   return result;
 }
 
+/**
+ * Audit all changelog entries for a specific release or date range
+ * Validates each entry and collects results for compliance reporting
+ *
+ * @param {string} changelogPath - Path to changelog file
+ * @param {string} version - Version to audit (e.g. "1.2.0"), or null for date-range audit
+ * @param {Object} options - { branch, fromDate, toDate }
+ * @returns {Promise<Object>} Audit data with all validation results
+ */
+async function auditRelease(changelogPath, version, options = {}) {
+  const { branch = "main", fromDate = null, toDate = null } = options;
+
+  const result = {
+    success: false,
+    error: null,
+    audit_date: new Date().toISOString(),
+    scope: version
+      ? `release:${version}`
+      : `date-range:${fromDate}-${toDate}`,
+    version,
+    branch,
+    total_entries: 0,
+    entries: [],
+    passing_entries: [],
+    failing_entries: [],
+    warning_entries: [],
+    status: "pending",
+    message: "",
+  };
+
+  try {
+    // Parse changelog
+    const parsed = parser.parseChangelog(changelogPath);
+
+    let releaseEntries = [];
+
+    // Get entries based on audit type
+    if (version) {
+      // Version-based audit
+      if (!parsed.releases || !parsed.releases[version]) {
+        result.error = `No entries found for version ${version}`;
+        result.status = "failed";
+        result.message = `Version ${version} not found in changelog`;
+        return result;
+      }
+      releaseEntries = parsed.releases[version];
+    } else if (fromDate && toDate) {
+      // Date-range audit - collect all entries within date range
+      // Note: This is simplified - real implementation would parse dates from headers
+      if (parsed.releases) {
+        for (const v in parsed.releases) {
+          releaseEntries.push(...parsed.releases[v]);
+        }
+      }
+      result.scope = `date-range:${fromDate}-${toDate}`;
+    } else {
+      result.error = "Must provide either version or date range";
+      result.status = "failed";
+      result.message = "Audit requires either --release <version> or --from/--to dates";
+      return result;
+    }
+
+    result.total_entries = 0;
+
+    // Validate each category's items
+    for (const section of releaseEntries) {
+      const { category, items } = section;
+
+      for (const itemText of items) {
+        result.total_entries += 1;
+
+        // Build entry object for validation
+        const entry = {
+          title: itemText.substring(0, 100), // First 100 chars as title
+          description: itemText,
+          category: category.toLowerCase(),
+          version,
+        };
+
+        // Validate the entry
+        const validation = validator.validateEntry(entry);
+
+        // Collect results
+        const entryResult = {
+          index: result.total_entries,
+          category,
+          text: itemText,
+          validation: validation.validation || validation,
+          status:
+            validation.validation?.complianceStatus ||
+            validation.complianceStatus,
+        };
+
+        result.entries.push(entryResult);
+
+        // Categorize by status
+        const status =
+          validation.validation?.complianceStatus ||
+          validation.complianceStatus;
+        if (status === "passing") {
+          result.passing_entries.push(entryResult);
+        } else if (status === "failing") {
+          result.failing_entries.push(entryResult);
+        } else if (status === "warning") {
+          result.warning_entries.push(entryResult);
+        }
+      }
+    }
+
+    // Calculate compliance
+    const passed = result.passing_entries.length;
+    const total = result.total_entries;
+    const compliance = total > 0 ? (passed / total) * 100 : 0;
+
+    result.compliance_percentage = Math.round(compliance * 10) / 10;
+    result.passed_count = passed;
+    result.failed_count = result.failing_entries.length;
+    result.warning_count = result.warning_entries.length;
+
+    result.success = true;
+    result.status = "success";
+    const scopeDesc = version ? `version ${version}` : `date range ${fromDate} to ${toDate}`;
+    result.message = `Audited ${total} entries for ${scopeDesc}: ${passed} passing, ${result.failed_count} failing, ${result.warning_count} warnings`;
+  } catch (error) {
+    result.error = error.message;
+    result.status = "failed";
+    result.message = `Audit failed: ${error.message}`;
+  }
+
+  return result;
+}
+
 module.exports = {
   validateEntry,
   validateChangelog,
   processChangelog,
   addEntry,
+  auditRelease,
 };

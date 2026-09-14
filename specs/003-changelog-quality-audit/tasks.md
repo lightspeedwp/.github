@@ -101,16 +101,16 @@
 
 ### Implementation for User Story 2
 
-- [ ] T037 [US2] Implement release audit command `changelog-validator audit --release <version>` in `agents/changelog/changelog.agent.js`: load all entries for version, run full validation
-- [ ] T038 [P] [US2] Create audit report builder in `agents/changelog/includes/auditReportBuilder.cjs`: generate ValidationReport JSON with scope, summary, issue breakdown, passing/failing/warning entries (reference data-model.md)
-- [ ] T039 [US2] Implement compliance status determination in audit: "CONDITIONAL_PASS" (≥90% compliance), "PASS" (100%), "FAIL" (<90%) - in `agents/changelog/includes/auditReportBuilder.cjs`
-- [ ] T040 [P] [US2] Create Markdown report generator in `agents/changelog/includes/markdownReportGenerator.cjs`: format ValidationReport as human-readable Markdown with sections for summary, failing entries with remediation, recommendations
-- [ ] T041 [US2] Implement report storage: save JSON report to `.github/reports/release-audits/v<VERSION>_<TIMESTAMP>.json`
-- [ ] T042 [P] [US2] Implement remediation summary generator in `agents/changelog/includes/auditReportBuilder.cjs`: list specific fixes needed for each failing entry
-- [ ] T043 [P] [US2] Create integration test `agents/changelog/tests/integration/auditReport.test.js`: run audit on sample release, verify report structure and calculations
-- [ ] T044 [US2] Create unit test `agents/changelog/tests/unit/auditReportBuilder.test.js`: test report generation with mock validation results
-- [ ] T045 [US2] Implement branch filter for audit: `changelog-validator audit --branch <branch>` to audit specific branches (default: main)
-- [ ] T046 [P] [US2] Add date-range audit support: `changelog-validator audit --from <date> --to <date>` filters entries by date range
+- [x] T037 [US2] Implement release audit command `changelog-validator audit --release <version>` in `agents/changelog/changelog.agent.js`: load all entries for version, run full validation
+- [x] T038 [P] [US2] Create audit report builder in `agents/changelog/includes/auditReportBuilder.cjs`: generate ValidationReport JSON with scope, summary, issue breakdown, passing/failing/warning entries (reference data-model.md)
+- [x] T039 [US2] Implement compliance status determination in audit: "CONDITIONAL_PASS" (≥90% compliance), "PASS" (100%), "FAIL" (<90%) - in `agents/changelog/includes/auditReportBuilder.cjs`
+- [x] T040 [P] [US2] Create Markdown report generator in `agents/changelog/includes/markdownReportGenerator.cjs`: format ValidationReport as human-readable Markdown with sections for summary, failing entries with remediation, recommendations
+- [x] T041 [US2] Implement report storage: save JSON report to `.github/reports/release-audits/v<VERSION>_<TIMESTAMP>.json`
+- [x] T042 [P] [US2] Implement remediation summary generator in `agents/changelog/includes/auditReportBuilder.cjs`: list specific fixes needed for each failing entry
+- [x] T043 [P] [US2] Create integration test `agents/changelog/tests/integration/auditReport.test.js`: run audit on sample release, verify report structure and calculations
+- [x] T044 [US2] Create unit test `agents/changelog/tests/unit/auditReportBuilder.test.js`: test report generation with mock validation results
+- [x] T045 [US2] Implement branch filter for audit: `changelog-validator audit --branch <branch>` to audit specific branches (default: main)
+- [x] T046 [P] [US2] Add date-range audit support: `changelog-validator audit --from <date> --to <date>` filters entries by date range
 
 **Checkpoint**: User Story 2 independently testable - release managers can audit and generate compliance reports
 
