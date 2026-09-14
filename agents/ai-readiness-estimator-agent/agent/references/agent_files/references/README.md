@@ -54,3 +54,5 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

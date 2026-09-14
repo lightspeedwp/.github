@@ -219,3 +219,5 @@ ruleShape.line = { style: "dashed", fill: "#94a3b8", width: 1 };
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
