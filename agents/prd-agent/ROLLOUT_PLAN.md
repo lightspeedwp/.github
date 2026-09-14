@@ -10,7 +10,7 @@ phases:
   - week: "Weeks 4-6"
     milestone: "active_adoption"
     status: "pending"
-  - week: "Week 6-9"
+  - week: "Weeks 4-9"
     milestone: "metrics_collection"
     status: "pending"
 ---
@@ -125,9 +125,16 @@ The consolidated PRD Agent (v2.3.0) is production-ready and extensively tested a
 
 ---
 
-### Week 6+: Metrics Collection & Feedback
+### Weeks 4-9: Metrics Collection & Feedback (6-week collection period)
 
 **Deliverable**: Comprehensive metrics report; Phase 6 success/failure assessment
+
+**Timeline clarification**:
+
+- **Weeks 1-3**: Announcement, team briefings, and initial adoption support
+- **Weeks 4-6**: Active adoption period (primary rollout window)
+- **Weeks 4-9**: Extended metrics collection period (6 weeks post-rollout launch per `ADOPTION_METRICS.md`; collection period ending Week 9)
+- **Weeks 7-9**: Extended feedback and stabilization, final metrics compilation
 
 **Actions**:
 
@@ -143,12 +150,15 @@ The consolidated PRD Agent (v2.3.0) is production-ready and extensively tested a
   - Issues reported: [critical/high/medium/low breakdown]
   - Adoption blockers: [identified and prioritized]
 
-- [ ] Phase 6 checkpoint:
+- [ ] Phase 6 checkpoint (end of Week 6):
   - ✅ All acceptance scenarios met? (US6/AC1-3)
   - ✅ All success criteria met? (SC-601-604)
   - ⚠️ Any regressions vs. baseline?
 
-- [ ] Document results in `ADOPTION_METRICS.md` for Phase 7 decision-making
+- [ ] Extended metrics collection (Weeks 7-9):
+  - Weekly team check-ins continue through Week 9 to ensure sustained adoption
+  - Collection of final metrics for `ADOPTION_METRICS.md` (6-week period ending Week 9 per SC-602-604)
+  - Document results for Phase 7 decision-making
 
 **Owner**: Ash Shaw
 
@@ -267,5 +277,15 @@ This rollout plan reaches a natural checkpoint at week 6 (after metrics collecti
 ---
 
 *This rollout plan is a living document. Updates will be made as Phase 6 progresses and feedback is collected from team briefings and adoption monitoring.*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

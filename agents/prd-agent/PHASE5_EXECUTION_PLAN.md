@@ -126,18 +126,19 @@
 # Load real project PRD examples
 # Expected: 10+ representative PRDs from .github/specs/ or similar
 
-# Verify test runner executes
-node tests/test-runner.js --provider claude --suite all --verbose
+# Verify test runner executes (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --verbose
 ```
 
 **Day 3-4: Baseline Execution**
 
 ```bash
-# Create baseline snapshot of Phase 3 agent
-cp agents/prd-agent/claude/agent.md agents/prd-agent/claude/agent.baseline.md
+# Retrieve frozen pre-Phase-4 baseline (use pinned git revision)
+# Replace <PRE_PHASE4_REF> with the commit/tag for pre-Phase-4 agent
+git show <PRE_PHASE4_REF>:agents/prd-agent/claude/agent.md > agents/prd-agent/claude/agent.baseline.md
 
-# Execute all 14 test cases against Phase 3 prompt
-node tests/test-runner.js --provider claude --suite all --json > results/phase3-baseline.json
+# Execute all 14 test cases against frozen Phase 3 prompt (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/phase3-baseline.json
 
 # Record baseline metrics (manually populate TEST_RESULTS.md)
 # Expected result: X% pass rate (baseline for comparison)
@@ -147,10 +148,10 @@ node tests/test-runner.js --provider claude --suite all --json > results/phase3-
 
 ```bash
 # Verify all 14 tests executed
-cat results/phase3-baseline.json | jq '.totalTests'  # Should be 14
+cat agents/prd-agent/results/phase3-baseline.json | jq '.totalTests'  # Should be 14
 
 # Check test coverage per category
-cat results/phase3-baseline.json | jq '.byCategory'
+cat agents/prd-agent/results/phase3-baseline.json | jq '.byCategory'
 
 # Document baseline results in TEST_RESULTS.md
 ```
@@ -190,13 +191,13 @@ cat results/phase3-baseline.json | jq '.byCategory'
 **Day 1-2: Claude Code Testing (Phase 4 Enhanced)**
 
 ```bash
-# Execute tests against Phase 4 enhanced agent.md
-node tests/test-runner.js --provider claude --suite all --json > results/phase4-claude-enhanced.json
+# Execute tests against Phase 4 enhanced agent.md (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/phase4-claude-enhanced.json
 
 # Calculate improvement
 node -e "
-const baseline = JSON.parse(require('fs').readFileSync('results/phase3-baseline.json'));
-const enhanced = JSON.parse(require('fs').readFileSync('results/phase4-claude-enhanced.json'));
+const baseline = JSON.parse(require('fs').readFileSync('agents/prd-agent/results/phase3-baseline.json'));
+const enhanced = JSON.parse(require('fs').readFileSync('agents/prd-agent/results/phase4-claude-enhanced.json'));
 const improvement = ((enhanced.passed - baseline.passed) / baseline.passed) * 100;
 console.log('Baseline:', baseline.passed, '/', baseline.totalTests);
 console.log('Enhanced:', enhanced.passed, '/', enhanced.totalTests);
@@ -241,13 +242,13 @@ Test scenarios via GitHub IDE:
 **Day 5-6: Results Analysis**
 
 ```bash
-# Compare all provider results
-cat results/phase4-*.json | jq '.passed / .totalTests * 100'
+# Compare all provider results (from repo root)
+cat agents/prd-agent/results/phase4-*.json | jq '.passed / .totalTests * 100'
 
 # Compile results into TEST_RESULTS.md
 # - Baseline vs Enhanced comparison per test
 # - Pass rate by provider
-- Pass rate by category
+# - Pass rate by category
 # - Overall improvement percentage
 ```
 
@@ -496,6 +497,21 @@ For each issue:
 **Status**: Plan Complete, Execution Pending  
 **Last Updated**: 2026-09-12  
 **Phase Duration**: 3 weeks (2026-09-12 to 2026-09-26 — Target Completion)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)

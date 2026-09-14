@@ -128,6 +128,48 @@ read_feature_json_feature_directory() {
     return 0
 }
 
+# Print the configured feature-spec directory.
+# Accepts an optional repository root; otherwise resolves it with get_repo_root.
+# Prints specs_directory from .specify/init-options.json when a nonempty value
+# can be read, or '.github/specs' otherwise. Always returns 0.
+read_specs_directory() {
+    local repo_root="${1:-$(get_repo_root)}" || return 1
+    local init_json="$repo_root/.specify/init-options.json"
+    local default_specs_dir=".github/specs"
+
+    [[ ! -f "$init_json" ]] && { printf '%s' "$default_specs_dir"; return 0; }
+
+    local specs_dir=''
+    # Try jq first (most reliable)
+    if command -v jq >/dev/null 2>&1; then
+        if ! specs_dir=$(jq -r '.specs_directory // empty' "$init_json" 2>/dev/null); then
+            specs_dir=''
+        fi
+    fi
+
+    # Fall back to python3 if jq unavailable or empty
+    if [[ -z "$specs_dir" ]] && command -v python3 >/dev/null 2>&1; then
+        if ! specs_dir=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); v=d.get('specs_directory'); print(v if v else '')" "$init_json" 2>/dev/null); then
+            specs_dir=''
+        fi
+    fi
+
+    # Last-resort grep/sed fallback
+    if [[ -z "$specs_dir" ]]; then
+        specs_dir=$( { grep -E '"specs_directory"[[:space:]]*:' "$init_json" 2>/dev/null || true; } \
+            | head -n 1 \
+            | sed -E 's/^[^:]*:[[:space:]]*"([^"]*)".*$/\1/' )
+    fi
+
+    # Return configured value or default
+    if [[ -n "$specs_dir" ]]; then
+        printf '%s' "$specs_dir"
+    else
+        printf '%s' "$default_specs_dir"
+    fi
+    return 0
+}
+
 # Persist a feature_directory value to .specify/feature.json.
 # Writes only when the file is missing or the value differs from what's stored.
 # Accepts the raw (possibly relative) path — callers should pass the original

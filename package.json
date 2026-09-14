@@ -125,6 +125,7 @@
     "test:index-generator": "node .github/scripts/__tests__/generate-agent-index.test.js",
     "test:create-agent-spec": "node .github/scripts/__tests__/create-agent-spec.test.js",
     "test:pre-commit": "bash hooks/__tests__/pre-commit-agent-spec-validation.test.sh",
+    "test:prd-agent": "node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json",
     "test:phase-5": "bash .github/scripts/__tests__/run-all-tests.sh",
     "test": "npm run test:js && npm run test:phase-5",
     "contributors:add": "all-contributors add",
@@ -137,13 +138,12 @@
     "@actions/core": "1.11.1",
     "@actions/github": "9.1.1",
     "@babel/core": "8.0.5",
-    "@babel/plugin-syntax-import-meta": "7.10.4",
     "@babel/plugin-transform-class-properties": "8.0.1",
-    "@babel/plugin-transform-object-rest-spread": "7.29.7",
+    "@babel/plugin-transform-object-rest-spread": "8.0.1",
     "@babel/plugin-transform-runtime": "8.0.1",
     "@babel/preset-env": "8.0.5",
     "@babel/preset-react": "8.0.1",
-    "@babel/preset-typescript": "7.29.7",
+    "@babel/preset-typescript": "8.0.1",
     "@babel/runtime": "^8.0.5",
     "@eslint/js": "^10.0.1",
     "@github/markdownlint-github": "^0.8.3",
@@ -207,9 +207,8 @@
   "overrides": {
     "fast-json-patch": "3.1.1",
     "tmp": "^0.2.6",
-    "@babel/plugin-syntax-import-meta": "7.10.4",
     "@babel/preset-env": "8.0.5",
-    "@babel/preset-typescript": "7.29.7",
+    "@babel/preset-typescript": "8.0.1",
     "undici": "^6.28.0"
   }
 }
