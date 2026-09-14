@@ -78,11 +78,6 @@ const files = process.argv
     return true;
   });
 
-if (files.length === 0) {
-  console.log("No staged Markdown files to lint.");
-  process.exit(0);
-}
-
 function absPath(file) {
   return path.join(repoRoot, file);
 }
@@ -255,6 +250,11 @@ function parseViolations(stderrText) {
 }
 
 async function main() {
+  if (files.length === 0) {
+    console.log("No staged Markdown files to lint.");
+    return;
+  }
+
   let blocking = false;
 
   // Snapshot three states before --fix mutates the working tree:
@@ -288,7 +288,8 @@ async function main() {
     console.error(
       `Failed to run markdownlint-cli2 --fix: ${fixResult.error.message}`,
     );
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
   // Exit 0 = clean, 1 = violations remain after fixing — both are normal,
   // expected outcomes we still need to line-scope below. Anything else
@@ -297,7 +298,8 @@ async function main() {
     console.error(
       `markdownlint-cli2 --fix exited with unexpected status ${fixResult.status}`,
     );
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
 
   const violationsByFile = parseViolations(
@@ -355,13 +357,14 @@ async function main() {
     console.error(
       "\nMarkdown lint violations on changed lines must be fixed before committing.",
     );
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
 
-  process.exit(0);
+  process.exitCode = 0;
 }
 
 main().catch((err) => {
   console.error(err);
-  process.exit(1);
+  process.exitCode = 1;
 });
