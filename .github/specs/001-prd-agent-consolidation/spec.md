@@ -12,6 +12,14 @@
 
 **Phases 4-7 Overview**: Prompt enhancement, testing, rollout, and optional spec-based agent sync/archive.
 
+## Clarifications
+
+### Session 2026-09-14
+
+- Q: Should Phase 6 adoption metrics be evaluated after 30 days or a full 42-day (6-week) period? → A: 30-day evaluation window (Option A)
+
+**Impact**: SC-602 adoption decision gate triggers after 30 days of rollout communication, enabling faster Phase 7 decision-making. Adoption frequency threshold (≥1 PRD/team/week) is measured across the available 4-6 weeks within the rollout period, not deferred to a full 42-day window.
+
 ## Phase 3: Structural Consolidation ✅ COMPLETE
 
 ### User Scenarios & Testing *(mandatory)*
@@ -169,7 +177,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 
 **Acceptance Scenarios**:
 
-1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent (per SC-602 quantitative definition: ≥1 PRD generation per rolling 7-day window, sustained for ≥4 of 6 weeks).
+1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent (per SC-602 quantitative definition: ≥1 PRD generation per rolling 7-day window, sustained for ≥4 of the available weeks within the first 30 days). This 30-day checkpoint triggers Phase 7 decision-making.
 2. **Given** team adoption metrics, **When** collected after 30 days, **Then** user satisfaction score ≥4.0/5.0 and no critical blockers reported.
 3. **Given** the consolidated agent deployed, **When** compared to pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
 
@@ -186,7 +194,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 ### Success Criteria (Phase 6)
 
 - **SC-601**: Rollout communication delivered to all teams
-- **SC-602**: At least 5 teams actively using consolidated agent after 30 days
+- **SC-602**: At least 5 teams actively using consolidated agent after 30 days (≥1 PRD generation per rolling 7-day window, sustained for ≥4 of the available weeks in the first 30 days; this metric gates Phase 7 decision-making)
 - **SC-603**: User satisfaction score ≥4.0/5.0 (surveyed sample of users)
 - **SC-604**: No critical blockers or regressions reported vs. baseline
 
