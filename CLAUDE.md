@@ -151,6 +151,56 @@ git checkout -B {type}/{scope}-{title} origin/develop
 
 This ensures your branch includes all latest development work and integrates cleanly without merge conflicts from diverged histories.
 
+## Specification-First Workflow (SpecKit)
+
+**All feature work follows the specification-first process:**
+
+1. **Create branch** (using correct naming convention above)
+2. **Write specification** (using SpecKit process) documenting user needs and acceptance criteria
+3. **Create draft PR** (when ready for review; not automatic, under your control)
+4. **Request review** from team/stakeholders
+5. **Merge to develop** when approved
+
+### When to Create Draft PR
+
+Create a draft PR when:
+- ✅ Specification is complete and clarified
+- ✅ Implementation plan is solid (you understand the approach)
+- ✅ You're ready for feedback or blocked on decisions
+- ✅ Work is substantial enough to benefit from collaborative input
+
+Do **NOT** create PR automatically after creating a branch. Work in your branch first, plan your approach, then create the PR when ready.
+
+### Specification Process (Recommended)
+
+For features, audits, and significant changes:
+
+1. Run: `npm run speckit:specify` (creates `/specs/{slug}/spec.md`)
+2. Complete spec with: User stories, Requirements, Success Criteria, Assumptions
+3. Run: `npm run speckit:clarify` (resolve ambiguities with Q&A)
+4. Run: `npm run speckit:plan` (generate implementation plan and research)
+5. Run: `npm run speckit:tasks` (decompose into actionable tasks)
+6. Implement tasks, then create draft PR when ready
+
+### Quick Reference
+
+| Phase | Tool | Output | Your Role |
+|-------|------|--------|-----------|
+| 1. Plan | `npm run speckit:specify` | spec.md | Define requirements |
+| 2. Clarify | `npm run speckit:clarify` | Updated spec with Q&A | Answer ambiguity questions |
+| 3. Design | `npm run speckit:plan` | plan.md, research.md | Approve technical approach |
+| 4. Decompose | `npm run speckit:tasks` | tasks.md (96–196 items) | Review task breakdown |
+| 5. Implement | Your tools | Branch with commits | Do the work |
+| 6. PR Review | gh / GitHub UI | Draft PR, review, merge | Collaborate with team |
+
+### For Small Changes
+
+Not all work needs a spec. Use your judgment:
+
+- **Needs spec**: New features, governance changes, architectural decisions, multi-day tasks
+- **Skip spec**: Small bug fixes, one-line documentation updates, routine maintenance
+- **Borderline**: Ask yourself: "Would this benefit from written clarification before starting?" If yes, write a spec.
+
 ## Development Commands
 
 ```bash
