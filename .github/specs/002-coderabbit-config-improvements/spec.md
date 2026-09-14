@@ -94,6 +94,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 ### Edge Cases
 
 - When a file matches multiple path patterns, more specific patterns override general ones (e.g., `**/e2e/*.spec.js` takes priority over `**/*.js`)
+- Files not matching any specific pattern receive guidance from catch-all pattern (e.g., `**/*`) with universal quality principles (code readability, error handling, security basics)
 - Generic patterns (e.g., `**/*.md`) serve as fallback instructions for files not matching specific patterns
 - Files in nested `.github/` directories in sub-repositories follow the same pattern priority rules
 - Instructions must evolve without breaking existing review workflows - additions/clarifications only, no breaking changes
@@ -169,3 +170,4 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 ### Session 2026-09-14
 
 - Q: What specific guidance patterns constitute "technology-agnostic" instructions? → A: Guidance addressing universal principles (security, performance, accessibility, correctness) without assuming language, framework, project type, or library. Allowed: "Ensure error handling is comprehensive"; Not allowed: "Use async/await" or "WordPress hooks". Applies to FR-006 and SC-011 validation.
+- Q: When a file doesn't match any specific path pattern, should CodeRabbit apply a generic catch-all? → A: Yes, add catch-all pattern (e.g., `**/*`) with universal guidance (readability, error handling, security basics) as fallback. Ensures 100% coverage while allowing specific patterns to override for high-priority files.
