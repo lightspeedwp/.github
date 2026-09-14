@@ -90,3 +90,15 @@ npm test -- scripts/metrics/integrations/__tests__/agent-integration-examples.te
 ```
 
 This suite includes 46 tests for payload shape, defaults, option handling, and downstream mapping.
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

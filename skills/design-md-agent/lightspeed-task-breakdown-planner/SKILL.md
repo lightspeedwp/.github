@@ -149,3 +149,11 @@ Use these references as needed:
 ## Output format
 
 Use Markdown. For project packs, create numbered files and an index. Keep issue drafts copy-pasteable into GitHub.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

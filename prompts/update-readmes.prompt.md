@@ -46,3 +46,15 @@ Regenerate or update README files to align with `readme.instructions.md`, use di
 - `.github/instructions/readme.instructions.md`
 - `.github/instructions/mermaid.instructions.md`
 - `.github/instructions/file-organisation.instructions.md`
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

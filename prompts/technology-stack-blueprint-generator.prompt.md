@@ -259,3 +259,11 @@ Format the output as ${OUTPUT_FORMAT} and categorize technologies by ${CATEGORIZ
 
 Save the output as 'Technology_Stack_Blueprint.${OUTPUT_FORMAT == "Markdown" ? "md" : OUTPUT_FORMAT.toLowerCase()}'
 "
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

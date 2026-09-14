@@ -71,7 +71,7 @@ graph TD
 ## Test Files
 
 - **`__tests__/validate-frontmatter.test.js`** — Test suite for frontmatter validation
-- **`__tests__/validate-branch-names.test.js`** — Jest test suite for branch name validation (34 allowed types, forbidden prefix rejection, format validation)
+- **`__tests__/validate-branch-names.test.js`** — Jest test suite for branch name validation (38 allowed types, forbidden prefix rejection, format validation)
 - **`validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
 
 ## Features
@@ -211,6 +211,18 @@ All validation scripts provide robust error handling and log errors to the conso
 - [Mermaid Diagrams](../../.github/instructions/mermaid-diagrams.instructions.md)
 - [YAML Documentation](../../docs/YAML.md)
 - [Test Coverage Reports](../../coverage/README.md)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

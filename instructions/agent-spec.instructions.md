@@ -147,3 +147,15 @@ metadata:
 - [documentation-formats.instructions.md](documentation-formats.instructions.md)
 - [quality-assurance.instructions.md](quality-assurance.instructions.md)
 - [SECURITY.md](../SECURITY.md)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

@@ -548,3 +548,15 @@ These changes will reduce manual work, catch errors earlier, and improve PR qual
 **Audit Completed:** 2026-09-04
 **Status:** Ready for Implementation
 **Next Step:** Schedule migration planning session with team
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

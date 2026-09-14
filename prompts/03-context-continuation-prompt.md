@@ -402,3 +402,15 @@ Generate this as a **complete markdown document** ready to paste into a new chat
 **Use When:** Context approaching limit, need to resume work in new chat  
 **Output:** Ready-to-paste continuation prompt (markdown)  
 **Dependencies:** Access to current chat, PR numbers, branch names
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

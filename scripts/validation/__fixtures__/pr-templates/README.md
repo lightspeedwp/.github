@@ -42,3 +42,15 @@ This fixture pack supports validation of PR template enforcement logic.
 1. Load fixture body into local validator or workflow test harness.
 2. Assert pass/fail expectations for linked issues, changelog, and checklist blocks.
 3. Use invalid fixtures to verify error messaging and failure status behaviour.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

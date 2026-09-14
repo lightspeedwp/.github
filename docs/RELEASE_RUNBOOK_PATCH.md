@@ -414,3 +414,11 @@ Patch release is successful when:
 **Related Epic:** #2296  
 **Runbook Version:** v1.0  
 **Last Updated:** 2026-08-22
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

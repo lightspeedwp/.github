@@ -1,5 +1,30 @@
 # Branch Type Priority Mapping Reference
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Status**: T012 - Phase 2 Foundational  
 **Purpose**: Document the top 15-20 branch types with priority levels and review context  
 **Scope**: Organization-wide CodeRabbit configuration  
@@ -10,6 +35,7 @@
 ## Executive Summary
 
 This document maps each of the top 15-20 branch types to:
+
 1. **Usage frequency** (estimated % of organizational branch usage)
 2. **Review priority** (how critical/urgent is review for this type)
 3. **Review focus areas** (what reviewers should prioritize)
@@ -24,6 +50,7 @@ This document maps each of the top 15-20 branch types to:
 These branch types require **highest priority review** due to production impact or risk.
 
 #### 🔴 hotfix/* — Critical Production Fix
+
 - **Frequency**: 2-3% (low frequency, high impact)
 - **Review Priority**: CRITICAL
 - **Review Focus Areas**:
@@ -36,6 +63,7 @@ These branch types require **highest priority review** due to production impact 
 - **Labels Applied**: `priority:critical`, `type:bug`
 
 #### 🔴 security/* — Security Fix
+
 - **Frequency**: 1-2% (critical)
 - **Review Priority**: CRITICAL
 - **Review Focus Areas**:
@@ -48,6 +76,7 @@ These branch types require **highest priority review** due to production impact 
 - **Labels Applied**: `priority:critical`, `type:security`
 
 #### 🔴 release/* — Release Management
+
 - **Frequency**: 5-8% (regular, high-stakes)
 - **Review Priority**: CRITICAL
 - **Review Focus Areas**:
@@ -66,6 +95,7 @@ These branch types require **highest priority review** due to production impact 
 These branch types are **common, with significant code impact**.
 
 #### 🟡 feat/* — Feature Development
+
 - **Frequency**: 30-35% (very common)
 - **Review Priority**: HIGH
 - **Review Focus Areas**:
@@ -77,6 +107,7 @@ These branch types are **common, with significant code impact**.
 - **Labels Applied**: `type:feature`, `priority:normal`
 
 #### 🟡 fix/* — Bug Fix
+
 - **Frequency**: 20-25% (very common)
 - **Review Priority**: HIGH
 - **Review Focus Areas**:
@@ -88,6 +119,7 @@ These branch types are **common, with significant code impact**.
 - **Labels Applied**: `type:bug`, `priority:normal`
 
 #### 🟡 refactor/* — Code Refactoring
+
 - **Frequency**: 8-12% (regular)
 - **Review Priority**: HIGH
 - **Review Focus Areas**:
@@ -99,6 +131,7 @@ These branch types are **common, with significant code impact**.
 - **Labels Applied**: `type:refactor`, `priority:normal`
 
 #### 🟡 perf/* — Performance Optimization
+
 - **Frequency**: 3-5% (regular)
 - **Review Priority**: HIGH
 - **Review Focus Areas**:
@@ -110,6 +143,7 @@ These branch types are **common, with significant code impact**.
 - **Labels Applied**: `type:performance`, `priority:normal`
 
 #### 🟡 ci/* — CI/CD & Automation
+
 - **Frequency**: 3-5% (regular)
 - **Review Priority**: HIGH
 - **Review Focus Areas**:
@@ -127,6 +161,7 @@ These branch types are **common, with significant code impact**.
 These branch types are **important but often less frequently reviewed**.
 
 #### 🟢 task/* — Scoped Unit of Work
+
 - **Frequency**: 5-10% (regular)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -138,6 +173,7 @@ These branch types are **important but often less frequently reviewed**.
 - **Labels Applied**: `type:task`, `priority:normal`
 
 #### 🟢 design/* — Design System & UI
+
 - **Frequency**: 3-5% (regular)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -149,6 +185,7 @@ These branch types are **important but often less frequently reviewed**.
 - **Labels Applied**: `type:design`, `priority:normal`
 
 #### 🟢 a11y/* — Accessibility Improvements
+
 - **Frequency**: 2-4% (regular)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -160,6 +197,7 @@ These branch types are **important but often less frequently reviewed**.
 - **Labels Applied**: `type:a11y`, `priority:normal`
 
 #### 🟢 docs/* — Documentation
+
 - **Frequency**: 5-8% (regular)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -171,6 +209,7 @@ These branch types are **important but often less frequently reviewed**.
 - **Labels Applied**: `type:docs`, `priority:normal`
 
 #### 🟢 test/* — Test Coverage & Infrastructure
+
 - **Frequency**: 3-5% (regular)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -182,6 +221,7 @@ These branch types are **important but often less frequently reviewed**.
 - **Labels Applied**: `type:test`, `priority:normal`
 
 #### 🟢 ops/* — Operations & Infrastructure
+
 - **Frequency**: 2-4% (regular)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -199,6 +239,7 @@ These branch types are **important but often less frequently reviewed**.
 These branch types are **important but less frequent**.
 
 #### 🔵 chore/* — Maintenance & Housekeeping
+
 - **Frequency**: 5-8% (regular)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -210,6 +251,7 @@ These branch types are **important but less frequent**.
 - **Labels Applied**: `type:chore`, `priority:normal`
 
 #### 🔵 build/* — Build System
+
 - **Frequency**: 2-3% (occasional)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -221,6 +263,7 @@ These branch types are **important but less frequent**.
 - **Labels Applied**: `type:build`, `priority:normal`
 
 #### 🔵 deps/* — Dependency Updates
+
 - **Frequency**: 3-5% (regular, often automated)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -232,6 +275,7 @@ These branch types are **important but less frequent**.
 - **Labels Applied**: `type:dependency`, `priority:normal`
 
 #### 🔵 api/* — API Changes
+
 - **Frequency**: 2-4% (occasional)
 - **Review Priority**: MEDIUM
 - **Review Focus Areas**:
@@ -243,6 +287,7 @@ These branch types are **important but less frequent**.
 - **Labels Applied**: `area:api`, `priority:normal`
 
 #### 🔵 schema/* — Data Schema Changes
+
 - **Frequency**: 1-3% (occasional)
 - **Review Priority**: HIGH (critical for data integrity)
 - **Review Focus Areas**:
@@ -254,6 +299,7 @@ These branch types are **important but less frequent**.
 - **Labels Applied**: `area:schema`, `priority:high`
 
 #### 🔵 migrate/* — Data Migrations
+
 - **Frequency**: 1-3% (occasional)
 - **Review Priority**: HIGH (critical for data integrity)
 - **Review Focus Areas**:
@@ -299,6 +345,7 @@ branch_context:
 ### PR Template Selection
 
 Branch type automatically selects corresponding PR template:
+
 - `feat/*` → `pr_feature.md`
 - `fix/*` → `pr_bug.md`
 - `hotfix/*` → `pr_hotfix.md`
@@ -307,6 +354,7 @@ Branch type automatically selects corresponding PR template:
 ### Label Automation
 
 Branch type triggers automatic labels:
+
 - `feat/*` → `type:feature`
 - `fix/*` → `type:bug`
 - `security/*` → `priority:critical`
@@ -326,3 +374,15 @@ Branch type triggers automatic labels:
 **Created**: 2026-09-11  
 **Status**: T012 Complete  
 **Coverage**: Top 20 branch types (~96% of organizational usage)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

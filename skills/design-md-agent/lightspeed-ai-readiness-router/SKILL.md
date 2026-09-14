@@ -53,3 +53,11 @@ Outputs should be Markdown-first and easy to paste into Google Docs. If asked fo
 - `references/workflow-router.md`
 - `references/client-project-pack-outputs.md`
 - `references/proposal-line-items.md`
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

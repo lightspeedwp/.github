@@ -32,6 +32,8 @@ const results = {
   passed: 0,
   failed: 0,
   skipped: 0,
+  fixtureType: 'mock',
+  note: 'Mock fixture validation — no agent prompts loaded or API calls made. Each test validates hardcoded sample data. For actual provider execution (Phase 5 completion), extend test-runner.js to invoke configured provider with agent prompt.',
   byCategory: {},
   startTime: Date.now(),
   endTime: null,
@@ -684,7 +686,6 @@ function executeTest(testFn) {
 
     results.tests.push({
       ...result,
-      provider: TEST_CONFIG.provider,
       suite: TEST_CONFIG.suite,
       timestamp: new Date().toISOString()
     });
@@ -714,9 +715,10 @@ function printResults() {
   }
 
   console.log('\n='.repeat(70));
-  console.log('PRD Agent Test Suite Results');
+  console.log('PRD Agent Test Suite Results (Mock Fixture Validation)');
   console.log('='.repeat(70));
-  console.log(`Provider: ${TEST_CONFIG.provider}`);
+  console.log('Note: This is mock fixture validation, not actual provider execution.');
+  console.log('No agent prompts are loaded or API calls made.');
   console.log(`Suite: ${TEST_CONFIG.suite}`);
   console.log(`\nOverall: ${results.passed}/${results.totalTests} passed`);
   console.log(`Pass Rate: ${((results.passed / results.totalTests) * 100).toFixed(1)}%`);

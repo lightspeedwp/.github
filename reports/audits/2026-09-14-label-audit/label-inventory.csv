@@ -1,0 +1,163 @@
+Label Name,Family,Color,Description,In Type Labels,In Governance Policy,In Documentation,Status
+status:needs-planning,status,BFD4F2,Awaiting planning / scoping,False,False,True,Standard
+status:needs-triage,status,BFD4F2,Needs triage,False,False,True,Standard
+status:ready,status,0E8A16,Groomed and ready to start,False,False,True,Standard
+status:in-progress,status,1D76DB,Work in progress,False,False,True,Standard
+status:on-hold,status,F9D0C4,Work on hold,False,False,True,Standard
+status:needs-design,status,C5DEF5,Awaiting design input,False,False,True,Standard
+status:needs-design-review,status,D4C5F9,Awaiting design review,False,False,True,Standard
+status:needs-figma-update,status,C5DEF5,Existing Figma design needs updating,False,False,True,Standard
+status:needs-dev,status,C5DEF5,Awaiting engineering implementation,False,False,True,Standard
+status:needs-review,status,BFD4F2,Awaiting code review,False,False,True,Standard
+status:needs-qa,status,FBCA04,Quality assurance required,False,False,True,Standard
+status:needs-testing,status,FEF2C0,Testing needed (manual/automated),False,False,True,Standard
+status:needs-documentation,status,BFD4F2,Needs documentation update,False,False,True,Standard
+status:in-discussion,status,BFD4F2,Needs alignment/decision,False,False,True,Standard
+status:needs-more-info,status,BFD4F2,Missing details to proceed,False,False,True,Standard
+status:blocked,status,E99695,Blocked by dependency,False,False,True,Standard
+status:duplicate,status,E99695,Duplicate of another issue,False,False,True,Standard
+status:wontfix,status,E1E4E8,Not planned to address,False,False,True,Standard
+status:done,status,0E8A16,Completed,False,False,True,Standard
+status:needs-audit,status,7E6007,Audit needed (security/compliance/quality),False,False,True,Standard
+priority:critical,priority,B60205,Production/launch-blocking,False,False,True,Standard
+priority:important,priority,D93F0B,Must-do high priority,False,False,True,Standard
+priority:normal,priority,0052CC,Default priority,False,False,True,Standard
+priority:minor,priority,C2E0C6,Low priority / nice to have,False,False,True,Standard
+type:task,type,4393F8,Task or to-do,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:bug,type,9F3734,Bug or defect,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:feature,type,3FB950,Feature or enhancement,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:design,type,AB7DF8,Design work,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:epic,type,AB7DF8,Large multi-scope initiative,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:question,type,4393F8,Question or enquiry,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:improve,type,9198A1,Improvement to existing behaviour/UX,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:chore,type,9198A1,Routine task or maintenance update,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:ci,type,4393F8,CI,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:automation,type,4393F8,Automation tasks or scripts,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:test,type,D29922,Test coverage,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:performance,type,D29922,Performance improvement,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:a11y,type,DB61A2,Accessibility,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:security,type,9F3734,Security issue,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:compat,type,8D4821,Compatibility,True,False,False,IMMUTABLE_TYPE; UNDOCUMENTED
+type:refactor,type,9198A1,Refactor or internal change,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:release,type,3FB950,Release,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:dependency,type,9198A1,Dependency update or management,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:docs,type,9198A1,Documentation,True,False,True,IMMUTABLE_TYPE
+type:research,type,9198A1,Research / investigation,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:audit,type,9198A1,Audit,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:review,type,D29922,Code or design review task,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:aiops,type,4393F8,AI Ops,True,False,False,IMMUTABLE_TYPE; UNDOCUMENTED
+type:content-modelling,type,AB7DF8,Content Modelling,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+type:build,type,4393F8,Build tasks or processes,True,True,True,IMMUTABLE_TYPE; GOVERNANCE_PROTECTED
+meta:needs-changelog,meta,E1E4E8,Requires a changelog entry before merge,False,False,True,Standard
+meta:no-changelog,meta,E1E4E8,No changelog needed,False,False,True,Standard
+meta:has-pr,meta,E1E4E8,Issue has an open linked PR,False,False,True,Standard
+meta:no-issue-activity,meta,E1E4E8,No recent issue activity,False,False,True,Standard
+meta:no-pr-activity,meta,E1E4E8,No recent PR activity,False,False,True,Standard
+meta:stale,meta,9198A1,Marked as stale for review,False,False,True,Standard
+release:patch,release,3FB950,Patch release,False,False,True,Standard
+release:minor,release,58A6FF,Minor release,False,False,True,Standard
+release:major,release,F85149,Major release,False,False,True,Standard
+release:hotfix,release,D29922,Urgent hotfix outside normal cadence,False,False,True,Standard
+area:core,area,C5DEF5,Core / shared infrastructure,False,False,True,Standard
+area:block-editor,area,C5DEF5,Block editor,False,True,True,GOVERNANCE_PROTECTED
+area:theme,area,C5DEF5,Theme & styles,False,True,True,GOVERNANCE_PROTECTED
+area:documentation,area,C5DEF5,Docs & guides,False,True,True,GOVERNANCE_PROTECTED
+area:tests,area,D4C5F9,Test suites & harnesses,False,True,True,GOVERNANCE_PROTECTED
+area:scripts,area,C5DEF5,Scripts & tooling,False,True,True,GOVERNANCE_PROTECTED
+area:assets,area,C5DEF5,"Assets (images, fonts, static files)",False,True,True,GOVERNANCE_PROTECTED
+area:woocommerce,area,D4C5F9,WooCommerce,False,True,True,GOVERNANCE_PROTECTED
+area:content,area,C5DEF5,Content and copy,False,False,True,Standard
+area:design-system,area,C5DEF5,Design system and tokens,False,False,True,Standard
+area:navigation,area,C5DEF5,Navigation & menus,False,False,True,Standard
+area:forms,area,C5DEF5,Forms and form flows,False,False,True,Standard
+area:plugins,area,C5DEF5,Plugin configuration / logic,False,False,True,Standard
+area:search,area,C5DEF5,Search and filtering,False,False,True,Standard
+area:seo,area,C2E0C6,"Technical SEO (meta, schema, sitemaps)",False,False,True,Standard
+area:analytics,area,C2E0C6,Analytics & tracking,False,False,True,Standard
+area:infrastructure,area,006B75,Infrastructure / hosting / platform,False,False,True,Standard
+area:i18n,area,C5DEF5,Internationalisation,False,False,True,Standard
+area:ci,area,BFD4F2,Build and CI pipelines,False,True,True,GOVERNANCE_PROTECTED
+area:deployment,area,006B75,Deploy/release operations,False,False,True,Standard
+area:dependencies,area,F9D0C4,Composer/npm dependency work,False,True,True,GOVERNANCE_PROTECTED
+area:integration,area,D93F0B,3rd-party integrations / ecosystem,False,False,True,Standard
+area:automation,area,0F448A,Automation and scripting,False,False,True,Standard
+area:testing,area,4D1A93,Testing and QA,False,True,True,GOVERNANCE_PROTECTED
+area:performance,area,7E6007,Performance optimization,False,True,True,GOVERNANCE_PROTECTED
+area:a11y,area,4D1A93,Accessibility (WCAG compliance),False,True,True,GOVERNANCE_PROTECTED
+area:security,area,810E18,Security concerns and fixes,False,True,True,GOVERNANCE_PROTECTED
+area:compatibility,area,883D07,Compatibility issues,False,False,True,Standard
+area:release,area,1D7232,Release management,False,False,True,Standard
+area:maintenance,area,4E575F,Maintenance and housekeeping,False,False,True,Standard
+area:ai,area,0F448A,AI operations and AI-related work,False,False,True,Standard
+area:agents,area,0F448A,AI agents and agent-related work,False,False,False,UNDOCUMENTED
+area:skills,area,0F448A,AI skills and skill-related work,False,False,False,UNDOCUMENTED
+area:instructions,area,0F448A,AI instructions and instruction-related work,False,False,False,UNDOCUMENTED
+area:prompts,area,0F448A,AI prompts and prompt-related work,False,False,False,UNDOCUMENTED
+area:playwright,area,4D1A93,Playwright testing and E2E automation,False,True,False,GOVERNANCE_PROTECTED; UNDOCUMENTED
+area:jest,area,4D1A93,Jest unit and integration testing,False,True,False,GOVERNANCE_PROTECTED; UNDOCUMENTED
+area:phpunit,area,4D1A93,PHPUnit testing framework,False,True,False,GOVERNANCE_PROTECTED; UNDOCUMENTED
+area:pagespeed,area,7E6007,"PageSpeed Insights, performance monitoring, and metrics",False,True,False,GOVERNANCE_PROTECTED; UNDOCUMENTED
+comp:block-editor,comp,C5DEF5,Block/site editor work,False,False,True,Standard
+comp:block-inserter,comp,C5DEF5,Inserter UI/behaviour,False,False,True,Standard
+comp:block-variations,comp,C5DEF5,Block variations,False,False,True,Standard
+comp:block-supports,comp,C5DEF5,Block supports,False,False,True,Standard
+comp:block-locking,comp,C5DEF5,Block locking,False,False,True,Standard
+comp:block-bindings,comp,C5DEF5,Block bindings,False,False,True,Standard
+comp:block-templates,comp,C5DEF5,Block templates / template editor,False,False,True,Standard
+comp:block-patterns,comp,C5DEF5,Patterns library/registration,False,False,True,Standard
+comp:template-parts,comp,C5DEF5,Template parts (header/footer/loops),False,False,True,Standard
+comp:block-json,comp,C5DEF5,Block metadata (block.json),False,False,True,Standard
+comp:theme-json,comp,C5DEF5,"Tokens, presets, settings (theme.json)",False,False,True,Standard
+comp:wp-admin,comp,C5DEF5,WP Admin screens,False,False,True,Standard
+comp:settings,comp,C5DEF5,Global/settings UX,False,False,True,Standard
+comp:post-settings,comp,C5DEF5,Post editor settings panel,False,False,True,Standard
+comp:style-variations,comp,C5DEF5,JSON style variations,False,False,True,Standard
+comp:block-styles,comp,C5DEF5,Block styles registered via JSON,False,False,True,Standard
+comp:color-palette,comp,C5DEF5,Palette tokens and usage,False,False,True,Standard
+comp:typography,comp,C5DEF5,Type scale and typography tokens,False,False,True,Standard
+comp:section-styles,comp,C5DEF5,Section/background styles,False,False,True,Standard
+comp:spacing,comp,C5DEF5,Spacing tokens and layout gaps,False,False,True,Standard
+lang:php,lang,C5DEF5,PHP,False,True,True,GOVERNANCE_PROTECTED
+lang:js,lang,C5DEF5,JavaScript/TypeScript,False,True,True,GOVERNANCE_PROTECTED
+lang:css,lang,C5DEF5,Stylesheets (CSS/Sass/etc.),False,True,True,GOVERNANCE_PROTECTED
+lang:html,lang,C5DEF5,Markup (HTML),False,False,True,Standard
+lang:md,lang,C5DEF5,Markdown content/docs,False,True,True,GOVERNANCE_PROTECTED
+lang:json,lang,C5DEF5,JSON config/content,False,True,True,GOVERNANCE_PROTECTED
+lang:yaml,lang,C5DEF5,YAML config,False,True,True,GOVERNANCE_PROTECTED
+env:prototype,env,E1E4E8,Prototype/sandbox,False,False,True,Standard
+env:staging,env,BFD4F2,Staging/UAT,False,False,True,Standard
+env:live,env,0E8A16,Live/production,False,False,True,Standard
+compat:wordpress,compat,D93F0B,WordPress core/Gutenberg compatibility,False,False,True,Standard
+compat:php,compat,D93F0B,PHP version compatibility,False,False,True,Standard
+compat:woocommerce,compat,D93F0B,WooCommerce versions,False,False,True,Standard
+compat:gutenberg,compat,D93F0B,Gutenberg package compatibility,False,False,True,Standard
+compat:rtl,compat,D93F0B,RTL languages support,False,False,True,Standard
+compat:multisite,compat,F9D0C4,Multisite/network considerations,False,False,True,Standard
+cpt:posts,cpt,C5DEF5,WordPress Posts,False,False,True,Standard
+cpt:pages,cpt,C5DEF5,WordPress Pages,False,False,True,Standard
+ai-ops:instructions,ai-ops,0052CC,AI instruction docs,False,False,False,UNDOCUMENTED
+ai-ops:chat-modes,ai-ops,0052CC,Prompt sets / chat modes,False,False,False,UNDOCUMENTED
+ai-ops:agents,ai-ops,0052CC,AI agent definitions,False,False,False,UNDOCUMENTED
+ai-ops:prompts,ai-ops,0052CC,Reusable prompts,False,False,False,UNDOCUMENTED
+ai-ops:datasets,ai-ops,BFD4F2,Training/evaluation datasets,False,False,False,UNDOCUMENTED
+ai-ops:evaluations,ai-ops,BFD4F2,Evaluation results,False,False,False,UNDOCUMENTED
+ai-ops:tools,ai-ops,BFD4F2,Tool/plugin manifests,False,False,False,UNDOCUMENTED
+contrib:good-first-issue,contrib,D4C5F9,Good for new contributors,False,False,True,Standard
+contrib:help-wanted,contrib,C2E0C6,Help wanted,False,False,True,Standard
+contrib:discussion,contrib,C2E0C6,Contributor/community discussion,False,False,True,Standard
+discussion:announcement,discussion,FBCA04,Official announcements,False,False,True,Standard
+discussion:showcase,discussion,0E8A16,Show & Tell,False,False,True,Standard
+discussion:community,discussion,6f42c1,Community/general,False,False,True,Standard
+discussion:feedback,discussion,1d76db,Feedback/suggestions,False,False,True,Standard
+discussion:support,discussion,d73a4a,Support/troubleshooting,False,False,True,Standard
+discussion:sponsorship,discussion,f9d0c4,Sponsorship/funding,False,False,True,Standard
+discussion:partnership,discussion,bfd4f2,Partnership/collaboration,False,False,True,Standard
+openspec:discovery,openspec,FBCA04,Openspec discovery phase - component identified and audited,False,False,False,UNDOCUMENTED
+openspec:planning,openspec,FF6600,Openspec planning phase - improvement plan documented,False,False,False,UNDOCUMENTED
+openspec:specification-in-progress,openspec,FF6600,Openspec in-progress phase - component being actively worked on,False,False,False,UNDOCUMENTED
+openspec:specification-complete,openspec,FF6600,Openspec specification complete - component specification finalized,False,False,False,UNDOCUMENTED
+openspec:implementation-pending,openspec,0052CC,Openspec implementation pending - component awaiting being built/improved,False,False,False,UNDOCUMENTED
+openspec:implementation-in-progress,openspec,0052CC,Openspec implementation phase - component actively being built/improved,False,False,False,UNDOCUMENTED
+openspec:status-testing,openspec,9B00CC,Openspec testing phase - component being tested and validated,False,False,False,UNDOCUMENTED
+openspec:status-production,openspec,28A745,Openspec production - component complete and production-ready,False,False,False,UNDOCUMENTED
+openspec:implementation-complete,openspec,6F42C1,Openspec implementation complete - component no longer active,False,False,False,UNDOCUMENTED

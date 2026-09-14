@@ -154,3 +154,15 @@ Every documentation file should start with YAML frontmatter including:
 - [readme.instructions.md](./readme.instructions.md)
 - [a11y.instructions.md](./a11y.instructions.md)
 - [documentation-formats.instructions.md](./documentation-formats.instructions.md)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

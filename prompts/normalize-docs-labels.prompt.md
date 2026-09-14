@@ -239,3 +239,15 @@ At the end of your run you should have:
    - Any remaining TODOs or ambiguous cases for human review.
 
 ---
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

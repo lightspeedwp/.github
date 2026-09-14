@@ -115,3 +115,11 @@ For each meaningful finding, include:
 - "Use $wordpress-theme-validation to validate this theme.json and its style variations against the approved Figma variables and DESIGN.md."
 - "Use $wordpress-theme-validation to find block-style drift and unverifiable values in this block theme."
 - "Use $wordpress-theme-validation to inspect theme-utils conventions and tell me whether the generated theme surfaces still match the design system."
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

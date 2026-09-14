@@ -1,5 +1,30 @@
 # Phase 5: Testing & Validation — Comprehensive Execution Plan
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Phase**: 5 (Testing & Validation)  
 **Duration**: 3 weeks  
 **Goal**: Comprehensive testing of consolidated PRD agent across all providers  
@@ -69,6 +94,7 @@
 | **wordpress-plugin-packaging-review** | TC-102 (requirements), TC-402 (clustering) | PRD Gen, Inventory | Specialization |
 
 **Coverage Summary**:
+
 - ✅ All 28 skills referenced in test routing paths
 - ✅ 14 test cases provide direct or indirect coverage
 - ✅ Target ≥90% coverage per spec.md SC-501
@@ -100,18 +126,19 @@
 # Load real project PRD examples
 # Expected: 10+ representative PRDs from .github/specs/ or similar
 
-# Verify test runner executes
-node tests/test-runner.js --provider claude --suite all --verbose
+# Verify test runner executes (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --verbose
 ```
 
 **Day 3-4: Baseline Execution**
 
 ```bash
-# Create baseline snapshot of Phase 3 agent
-cp agents/prd-agent/claude/agent.md agents/prd-agent/claude/agent.baseline.md
+# Retrieve frozen pre-Phase-4 baseline (use pinned git revision)
+# Replace <PRE_PHASE4_REF> with the commit/tag for pre-Phase-4 agent
+git show <PRE_PHASE4_REF>:agents/prd-agent/claude/agent.md > agents/prd-agent/claude/agent.baseline.md
 
-# Execute all 14 test cases against Phase 3 prompt
-node tests/test-runner.js --provider claude --suite all --json > results/phase3-baseline.json
+# Execute all 14 test cases against frozen Phase 3 prompt (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/phase3-baseline.json
 
 # Record baseline metrics (manually populate TEST_RESULTS.md)
 # Expected result: X% pass rate (baseline for comparison)
@@ -121,7 +148,7 @@ node tests/test-runner.js --provider claude --suite all --json > results/phase3-
 
 ```bash
 # Verify all 14 tests executed
-cat results/phase3-baseline.json | jq '.totalTests'  # Should be 14
+cat agents/prd-agent/results/phase3-baseline.json | jq '.totalTests'  # Should be 14
 
 # Check test coverage per category
 cat results/phase3-baseline.json | jq '.byCategory'
@@ -379,6 +406,7 @@ For each issue:
 **Probability**: Medium  
 **Impact**: Phase 5 completion delayed into Week 4  
 **Mitigation**:
+
 - Parallelize provider testing (Claude + Copilot simultaneously)
 - Use existing Phase 4 results if Copilot manual testing is too time-consuming
 - Document partial results and complete OpenAI testing in Phase 5.5
@@ -388,6 +416,7 @@ For each issue:
 **Probability**: Low (Phase 4 enhancements were comprehensive)  
 **Impact**: Improvement target may be harder to achieve  
 **Mitigation**:
+
 - Investigate root cause (agent prompt, test case issues, framework bugs)
 - Document findings in TEST_RESULTS.md
 - Consider whether baseline should be reset
@@ -397,6 +426,7 @@ For each issue:
 **Probability**: Low (Phase 4 validation was thorough)  
 **Impact**: Phase 5 may not be "complete" until issues resolved  
 **Mitigation**:
+
 - Document issues clearly for Phase 5.5 or Phase 6
 - Separate "Testing Complete" from "Issues Resolved"
 - Continue Phase 6 rollout prep in parallel if most issues are [MEDIUM] or [LOW]
@@ -407,12 +437,14 @@ For each issue:
 
 **Current Status**: Phase 4 PR #2894 blocked by governance issues (milestone, template validation)
 
-**Impact on Phase 5**: 
+**Impact on Phase 5**:
+
 - Phase 5 can proceed independently (testing work doesn't require Phase 4 PR merged)
 - Phase 5 uses Phase 4 enhanced prompts (already in code)
 - Phase 5 results feed back into Phase 4 PR comment once PR is resolved
 
 **Timeline**:
+
 - Phase 4 PR merge: TBD (awaiting milestone assignment, template fixes)
 - Phase 5 execution: Starting now (Week 1 of 3)
 - Phase 5 completion: 2026-09-26 (regardless of Phase 4 PR status)
@@ -465,3 +497,15 @@ For each issue:
 **Status**: Plan Complete, Execution Pending  
 **Last Updated**: 2026-09-12  
 **Phase Duration**: 3 weeks (2026-09-12 to 2026-09-26 — Target Completion)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

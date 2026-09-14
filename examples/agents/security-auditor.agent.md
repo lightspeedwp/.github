@@ -311,3 +311,15 @@ For technical implementation, see [SKILL.md](agents/security-auditor/SKILL.md)
 For usage and configuration, see [README.md](agents/security-auditor/README.md)  
 For troubleshooting, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)  
 For compliance framework details, see [API_REFERENCE.md](docs/API_REFERENCE.md)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -108,3 +108,11 @@ Use these references as needed:
 ## Quality standard
 
 Outputs should be practical, evidence-led and ready to paste into a project pack, GitHub issue review, Google Doc or launch QA handoff. Keep wording direct, UK English and LightSpeed-specific.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

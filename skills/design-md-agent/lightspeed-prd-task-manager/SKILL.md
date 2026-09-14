@@ -218,3 +218,11 @@ Use these references as needed:
 - `references/memory-bank.md` for project memory files.
 - `references/qa-and-launch-routing.md` for launch and specialist skill routing.
 - `references/wordpress-standards.md` for WordPress delivery standards.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -41,3 +41,11 @@ Return:
 - Do not mix radius or typography values into spacing.
 - Do not invent missing steps unless the user explicitly asks for interpolation.
 - Keep the result focused on spacing-token extraction.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
