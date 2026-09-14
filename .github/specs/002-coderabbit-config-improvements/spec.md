@@ -107,7 +107,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **FR-003**: Security-critical file types MUST have prominent security review guidance (authentication, secrets handling, access control)
 - **FR-004**: Performance-related file types MUST include performance review criteria where applicable
 - **FR-005**: Accessibility-related file types MUST reference WCAG 2.2 AA standards per organizational requirement
-- **FR-006**: Configuration MUST provide branch-type-specific review instructions for the top 15-20 branch types by organizational usage frequency (feat/, fix/, hotfix/, release/, refactor/, chore/, task/, docs/, test/, perf/, ci/, security/, design/, a11y/, ops/, and 5-10 additional high-frequency types) - enabling context-aware feedback adapted to the nature of each change category
+- **FR-006**: Configuration MUST provide branch-type-specific review instructions for the top 15-20 branch types by organizational usage frequency (feat/, fix/, hotfix/, release/, refactor/, chore/, task/, docs/, test/, perf/, ci/, security/, design/, a11y/, ops/, and 5-10 additional high-frequency types) - enabling context-aware feedback adapted to the nature of each change category. Guidance MUST be technology-agnostic: address universal principles (security, performance, accessibility, correctness) without assuming specific languages, frameworks, project types, or libraries
 - **FR-007**: SpecKit-related files (`.specify/spec.md`, `.specify/plan.md`, `.specify/tasks.md`) MUST have dedicated review instructions
 - **FR-008**: Workflow and plugin files MUST have review instructions
 - **FR-009**: Configuration MUST be internally consistent (terminology, structure, formatting)
@@ -165,3 +165,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - Q: When files match multiple path patterns, should instructions cascade or use priority order? → A: Explicit priority/specificity order - more specific patterns override general ones (e.g., `**/e2e/*.js` before `**/*.js`).
 - Q: Should config include a "review coverage audit checklist" or keep this external? → A: External reference guide - document audit approach in project documentation, maintainers reference as needed. Keeps config focused on review instructions.
 - Q: Should branch-type-specific guidance cover all 30+ types or focus on high-frequency types? → A: Top 15-20 by usage frequency (Option A) - delivers 80% value with cleaner maintainability, avoids comprehensive but fragile coverage of rarely-used branch types (security/, proto/, codex/, etc.).
+
+### Session 2026-09-14
+
+- Q: What specific guidance patterns constitute "technology-agnostic" instructions? → A: Guidance addressing universal principles (security, performance, accessibility, correctness) without assuming language, framework, project type, or library. Allowed: "Ensure error handling is comprehensive"; Not allowed: "Use async/await" or "WordPress hooks". Applies to FR-006 and SC-011 validation.
