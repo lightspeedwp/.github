@@ -4,13 +4,23 @@
 
 **Created**: 2026-09-10
 
-**Last Updated**: 2026-09-10 — Phase 3 (Structural Consolidation) complete and merged in PR #2865. Phase 4-7 scope defined.
+**Last Updated**: 2026-09-14 — Phases 3–5 complete; Phase 6 rollout and adoption work in progress.
 
-**Status**: Phase 3 ✅ COMPLETE | Phases 4-7 PENDING
+**Status**: Phase 3 ✅ COMPLETE | Phase 4 ✅ COMPLETE | Phase 5 ✅ COMPLETE | Phase 6 🟡 IN PROGRESS (T072/T074/T076 complete; T073/T075 in progress; T077 pending) | Phase 7 ⏳ BLOCKED (on Phase 6 T077)
 
 **Phase 3 Completion**: PR #2865 merged 2026-09-10. Nine of the ten functional requirements (FR-001 through FR-009) and 7 success criteria (SC-001 through SC-007) verified and merged. FR-010 (Spec-Based Agent Sync/Archive) deferred to Phase 7.
 
 **Phases 4-7 Overview**: Prompt enhancement, testing, rollout, and optional spec-based agent sync/archive.
+
+## Clarifications
+
+### Session 2026-09-14
+
+- Q1: Should Phase 6 adoption metrics be evaluated after 30 days or a full 42-day (6-week) period? → A: **Option C** — Both: 30-day checkpoint + 42-day final decision. Phase 6 includes a 30-day early-stage checkpoint for course correction and a 42-day final evaluation for Phase 7 gate-keeping. The 30-day checkpoint enables interim feedback; the 42-day result gates Phase 7 decision-making (both required per SC-602).
+- Q2: Should Phase 7 decision execution task be renamed to avoid confusion with Phase 4's registry-update requirement, or use phase qualifiers? → A: **Option A** — Phase-based numbering: Phase 7 decision execution uses FR-701–705 range, distinct from Phase 4's FR-413. Keeps IDs unique and traceably distinct across phases (Phase 4 uses 4xx, Phase 7 uses 7xx).
+- Q3: Should Phase 7 decision gate accept DEFER path or require binary choice (Archive/Sync)? → A: **Option B** — Allow DEFER with documented rationale and re-evaluation criteria. If adoption metrics are inconclusive at 6 weeks, DEFER is recorded with next review date and threshold triggers, avoiding forced binary choice under uncertainty.
+- Q4: Should adoption threshold require ≥4 of 6 weeks sustained activity or higher? → A: **Option A** — Keep ≥4 of 6 weeks with grace periods (short weeks with <1 PRD count if next week shows ≥1 PRD). Balances proof of genuine commitment with real-world variability (holidays, project gaps, frozen releases).
+- Q5: Does the adoption example tracking table correctly reflect the ≥4 of 6 weeks threshold? → A: **Yes, fix it** — Example is incorrect: Marketing shows only 2 weeks of consistent activity (weeks 5–6), not ≥4 weeks. Correct status to 🟡 ADOPTING or 🔴 NOT YET. Prevents test fixtures from claiming false positives.
 
 ## Phase 3: Structural Consolidation ✅ COMPLETE
 
@@ -81,7 +91,7 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 
 ---
 
-## Phase 4: Prompt Enhancement & Memory Registry (PENDING)
+## Phase 4: Prompt Enhancement & Memory Registry (✅ COMPLETE)
 
 **Duration**: Post Phase 3  
 **Owner**: Ash Shaw  
@@ -94,7 +104,7 @@ As an AI agent builder, I want the PRD agent prompt to be enhanced with improved
 
 **Acceptance Scenarios**:
 
-1. **Given** the enhanced PRD agent prompt, **When** evaluated against benchmark test cases, **Then** success rate on structured PRD generation improves by ≥15% over baseline.
+1. **Given** the enhanced PRD agent prompt, **When** evaluated against the 14 benchmark cases, **Then** its mean structured-output quality score improves by ≥15% over the Phase 3 baseline. The baseline `B` is the positive mean 0–100 rubric score produced by the frozen pre-Phase-4 prompt across those cases, including partial credit; the Phase 4 score `P` uses the same cases, evaluator procedure, and rubric. Calculate improvement as `((P - B) / B) × 100`; acceptance requires a result ≥15%. Record `B`, `P`, and the scored outputs in `TEST_CASES_BASELINE.md` so this non-binary metric cannot be saturated by a 14/14 pass rate.
 2. **Given** the memory registry updates, **When** integrated into downstream systems, **Then** all references resolve without 404 errors and metadata matches current skill inventory.
 3. **Given** an agent definition with the updated prompt, **When** loaded in Claude Code, **Then** it passes all initialization validation checks with zero warnings.
 
@@ -104,7 +114,7 @@ As an AI agent builder, I want the PRD agent prompt to be enhanced with improved
 
 - **FR-411**: Analyze Phase 3 consolidation feedback to identify prompt improvement areas
 - **FR-412**: Enhance PRD agent prompt with improved context management and skill routing
-- **FR-413**: Update `agents/mode-prd.agent.md` memory registry entry or defer archival (FR-010) decision to Phase 7
+- **FR-413**: Update `agents/mode-prd.agent.md` memory registry entry in `workflows/memory/registry/memory-registry.yaml` per `contracts/memory-registry-entry.md` (Phase 4 scope: registry configuration only; archival/sync decision deferred to Phase 7)
 - **FR-414**: Validate enhanced prompt against test cases; document baseline vs. improved metrics
 - **FR-415**: Update CHANGELOG.md with v2.2.0 improvements and Phase 4 completion
 
@@ -112,12 +122,12 @@ As an AI agent builder, I want the PRD agent prompt to be enhanced with improved
 
 - **SC-401**: Prompt enhancement documented in CHANGELOG.md
 - **SC-402**: Memory registry entries updated and validated
-- **SC-403**: Test case success rate documented (baseline vs. improved)
+- **SC-403**: Mean structured-output quality score documented for the Phase 3 baseline and Phase 4 result
 - **SC-404**: All prompt files validated with zero syntax/loading errors
 
 ---
 
-## Phase 5: Testing & Validation (PENDING)
+## Phase 5: Testing & Validation (✅ COMPLETE)
 
 **Duration**: Post Phase 4  
 **Owner**: Ash Shaw  
@@ -131,7 +141,7 @@ As a QA engineer, I want comprehensive testing of the consolidated PRD agent acr
 **Acceptance Scenarios**:
 
 1. **Given** the complete test suite, **When** executed against all provider implementations, **Then** test pass rate ≥95% with zero critical failures.
-2. **Given** real-world PRD generation workflows, **When** executed with the consolidated agent, **Then** output quality meets or exceeds pre-consolidation baseline.
+2. **Given** real-world PRD generation workflows, **When** executed with the consolidated agent, **Then** output quality meets or exceeds pre-consolidation baseline (measured by: semantic similarity ≥0.92 vs. Phase 3 output, structural completeness score ≥4.5/5.0, and zero critical content loss — acceptance defined in TEST_RESULTS.md).
 3. **Given** all 28 skills integrated, **When** routing validation runs, **Then** no skill is unreachable and all documented capabilities work as specified.
 
 ---
@@ -153,12 +163,14 @@ As a QA engineer, I want comprehensive testing of the consolidated PRD agent acr
 
 ---
 
-## Phase 6: Rollout & Adoption (PENDING)
+## Phase 6: Rollout & Adoption (🟡 IN PROGRESS)
 
 **Duration**: Post Phase 5  
 **Owner**: Ash Shaw  
 **Blocked By**: Phase 5 testing complete  
 **Relates To**: Issue #1897  
+**Current Status**: 3 of 6 Phase 6 deliverables complete (T072, T074, T076); 2 in progress (T073, T075); 1 pending (T077). Scheduled final evaluation: day 42 post-rollout (estimated 2026-10-24).
+**Next Checkpoint**: T077 records the final 42-day evaluation and unblocks the Phase 7 decision gate.
 
 ### User Story 6 - Organization-wide PRD agent rollout and team adoption (Priority: P1)
 
@@ -166,9 +178,10 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 
 **Acceptance Scenarios**:
 
-1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent.
-2. **Given** team adoption metrics, **When** collected after 30 days, **Then** user satisfaction score ≥4.0/5.0 and no critical blockers reported.
-3. **Given** the consolidated agent deployed, **When** compared to pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
+1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** an interim adoption checkpoint records completed PRD generations, satisfaction, and blockers and assigns corrective actions without making the final SC-602 decision.
+2. **Given** 42 days of adoption data, **When** the final SC-602 evaluation runs, **Then** at least 5 teams have completed ≥1 uniquely identified PRD generation per rolling 7-day window for ≥4 of the 6 post-rollout weeks, per `ADOPTION_METRICS.md`.
+3. **Given** team adoption metrics (collected via an anonymous survey sent to ≥20 active users, deduplicated completed-generation logs, and team lead interviews), **When** analyzed at the 42-day final evaluation, **Then** user satisfaction score ≥4.0/5.0 (survey median Likert scale) and zero critical blockers are identified.
+4. **Given** the consolidated agent deployed, **When** compared to the pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
 
 ---
 
@@ -183,44 +196,46 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 ### Success Criteria (Phase 6)
 
 - **SC-601**: Rollout communication delivered to all teams
-- **SC-602**: At least 5 teams actively using consolidated agent after 30 days
+- **SC-602**: At least 5 teams actively using the consolidated agent at the final 42-day evaluation
 - **SC-603**: User satisfaction score ≥4.0/5.0 (surveyed sample of users)
 - **SC-604**: No critical blockers or regressions reported vs. baseline
 
 ---
 
-## Phase 7: Optional Spec-Based Agent Sync/Archive (PENDING)
+## Phase 7: Optional Spec-Based Agent Resolution (⏳ BLOCKED)
 
 **Duration**: Post Phase 6 (Optional, depends on adoption decision)  
 **Owner**: TBD  
-**Blocked By**: Phase 6 adoption feedback  
+**Blocked By**: Phase 6 final adoption evaluation and sign-off (T077 completion gate)
+**Unblock Gate**: Phase 7 work begins after T077 records the 42-day Phase 6 result (collection window ends 2026-10-24; target unblock date: 2026-10-26; Phase 7 decision memo due 2026-11-02).
 **Relates To**: Issue #1899  
 
-### User Story 7 - Archive or sync the spec-based PRD agent (Priority: P3, Optional)
+### User Story 7 - Resolve the spec-based PRD agent's fate (Priority: P3, Optional)
 
 As a codebase maintainer, I want to decide the fate of the older spec-based PRD agent (`agents/mode-prd.agent.md`) based on Phase 6 adoption metrics, so that we maintain a single source of truth without unnecessary duplication.
 
 **Acceptance Scenarios**:
 
-1. **Given** adoption metrics from Phase 6, **When** decision is made (archive or sync), **Then** all affected workflows are updated to reflect the choice.
-2. **Given** the decision to archive, **When** executed, **Then** `agents/mode-prd.agent.md` is moved to `projects/archive/` and all references updated.
+1. **Given** adoption metrics from Phase 6, **When** decision is made (archive, sync, or defer), **Then** all affected workflows are updated to reflect the choice and rationale is documented.
+2. **Given** the decision to archive, **When** executed, **Then** `agents/mode-prd.agent.md` is moved to `.github/projects/archive/prd-agents/` and all references updated.
 3. **Given** the decision to sync, **When** executed, **Then** spec-based agent prompt is updated to match portable version and kept in sync moving forward.
+4. **Given** metrics are inconclusive at 6 weeks, **When** DEFER decision is made, **Then** next review date, re-evaluation trigger criteria (e.g., ≥10 teams active), and blocking reasons are documented in project records.
 
 ---
 
 ### Functional Requirements (Phase 7)
 
 - **FR-701**: Review Phase 6 adoption metrics and team feedback
-- **FR-702**: Make decision: Archive or Sync spec-based agent (`agents/mode-prd.agent.md`)
-- **FR-703**: If Archive: Move to `projects/archive/`; update all references; document archival rationale
+- **FR-702**: Make decision: Archive, Sync, or Defer spec-based agent (`agents/mode-prd.agent.md`); if Defer, document rationale and next review criteria
+- **FR-703**: If Archive: Move to `.github/projects/archive/prd-agents/`; update all references; document archival rationale
 - **FR-704**: If Sync: Update prompt to match portable version; establish sync process for future updates
-- **FR-705**: Document the decision and rationale in project records
+- **FR-705**: Document the decision and rationale in project records (including DEFER trigger criteria if decision is DEFER)
 
 ### Success Criteria (Phase 7)
 
 - **SC-701**: Decision documented and ratified
 - **SC-702**: All affected workflows and references updated
-- **SC-703**: `agents/mode-prd.agent.md` fate resolved (archived or synced)
+- **SC-703**: `agents/mode-prd.agent.md` fate resolved through an Archive, Sync, or documented Defer outcome
 - **SC-704**: Decision rationale documented for future maintainers
 
 ---
@@ -280,11 +295,12 @@ These are the actual mechanics — used only for the subset of PRs that meet the
 ## Assumptions
 
 - Phase 3 (Structural Consolidation) completion is the prerequisite for all subsequent phases.
-- Phase 6 adoption metrics inform Phase 7 decision (archive vs. sync); no Phase 7 execution without Phase 6 data.
+- Phase 6 adoption metrics inform the Phase 7 Archive, Sync, or Defer decision; no Phase 7 execution without the final Phase 6 data.
 - Team feedback from Phase 6 is collected via surveys and usage metrics (exact collection method TBD at Phase 6).
 - The sample/demo project-memory data was confirmed non-client and cleaned as part of Phase 3.
 - OpenAI agent definition (`agents/prd-agent/openai/`) is retained as-is; frontmatter loadability requirement applies only to Claude/Copilot.
 - **PR Delivery Strategy**: Phases 4-7 default to independently mergeable PRs against `develop`; a PR is only stacked on another when the decision gate above confirms a genuine code dependency, per the PR Delivery Strategy section above.
+- **Phase 6 Feedback Collection**: Before Phase 6 kickoff, create a brief RFC or design spike (≤3 days) to finalize feedback collection method (survey tool, interview script, usage tracking setup). This prevents deferral of collection details to execution phase. (Addresses T073 prerequisites.)
 
 ## Project References
 

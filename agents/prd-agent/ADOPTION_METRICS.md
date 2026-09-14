@@ -17,7 +17,7 @@ This document defines the Key Performance Indicators (KPIs), collection methods,
 
 | Criterion | Target | Collection Method | Success Threshold |
 |-----------|--------|-------------------|-------------------|
-| **SC-602**: Active Teams | ≥5 teams | Weekly team lead check-in; usage logs | ≥5 teams using agent |
+| **SC-602**: Active Teams | ≥5 teams | Deduplicated completed-generation log; weekly team lead check-in | ≥5 teams using agent |
 | **SC-603**: User Satisfaction | ≥4.0/5.0 | Post-adoption survey (week 4-6) | Average score ≥4.0/5.0 |
 | **SC-604**: No Critical Blockers | Zero regressions | Issue tracking; team feedback | Zero critical issues reported |
 
@@ -29,33 +29,60 @@ This document defines the Key Performance Indicators (KPIs), collection methods,
 
 #### 1. **Team Adoption Rate** (SC-602)
 
-**Definition**: Number of teams actively using the consolidated PRD agent within 30 days of rollout announcement.
+**Definition**: Number of teams actively using the consolidated PRD agent at the final 42-day evaluation. Active usage is defined as ≥1 completed PRD generation per team per rolling 7-day window, maintained for ≥4 of the 6 weeks post-rollout. Each generation is counted once using its stable generation ID or, when none exists, its stable session ID.
 
 **Target**: ≥5 teams
 
 **Measurement**:
 
-- Tracked via team lead check-in responses (weekly)
-- Confirmed by visible usage (PRDs generated, agent invocations logged)
-- Status: `Adopted` (active integration), `Evaluating` (pilot phase), `Not Yet Started` (on roadmap)
+- Tracked via a weekly log of completed PRD generations, deduplicated by generation or session ID
+- Confirmed by team lead check-in responses and completion evidence (≥1 unique completed PRD per team in the applicable rolling 7-day window)
+- Status: `Adopted` (≥1 completed PRD/week for ≥4 weeks), `Evaluating` (pilot phase, <4 weeks consistent), `Not Yet Started` (on roadmap)
+
+**"Actively Using" Definition** (Quantitative Threshold for SC-602):
+
+A team is considered "actively using" the consolidated PRD agent if it meets ALL of the following:
+
+1. Team has integrated agent into workflow (agent loaded in repo, referenced in team processes)
+2. Team achieves ≥1 uniquely identified, completed PRD generation per rolling 7-day window; started, abandoned, routing-only, and trigger-only events do not count
+3. Team sustains this threshold for ≥4 of the 6 weeks in the adoption measurement period (weeks 1-6 post-rollout)
+4. For a short calendar week affected by a holiday or project gap, evaluate the rolling 7-day window ending in the following week; the week counts only when that window contains a uniquely identified, completed PRD generation
+
+**Metric Type**: Deduplicated completed PRD generation count, measured by:
+
+- A completion event carrying a stable `generation_id`, or a stable `session_id` when no generation ID is available
+- One count per identifier, even if the same generation emits multiple completion, retry, skill-routing, or workflow-trigger events
+- Skill-routing and workflow-trigger events only as corroborating signals; they never count towards the threshold without a completed PRD generation
 
 **Collection Method**:
 
-- Weekly Slack check-in with team leads: "Is your team actively using the consolidated PRD agent? How many workflows run this week?"
-- Manual verification: Check agent invocation logs (if available from provider APIs)
-- Success markers: Team has loaded agent into repo, run ≥2 workflows, reported initial feedback
+- Weekly Slack check-in with team leads: "How many PRDs did your team complete this week, and which generation or session IDs identify them?"
+- Completion log review: extract completed PRD events, select `generation_id` or fallback `session_id`, deduplicate by that identifier, and assign each unique completion to one team and one reporting week from its completion timestamp
+- Validation: cross-reference team lead responses with the deduplicated completion log; use skill-routing and workflow-trigger events only to corroborate disputed records
+- Success markers:
+  - Team has loaded agent into repo (initial setup)
+  - Team has ≥1 uniquely identified completed PRD generation in the applicable rolling 7-day window (sustained engagement)
+  - Team has provided feedback or reported issues (active participation)
 
 **Reporting Cadence**: Weekly (Fridays)
 
+**SC-602 Completion Log Template**:
+
+| Team | Completed At (UTC) | Generation ID | Session ID (fallback only) | Counted Identifier | Completion Evidence | Counted Once? |
+|------|--------------------|---------------|----------------------------|--------------------|---------------------|---------------|
+| Product Planning | 2026-09-18T14:00:00Z | `gen-example-001` | — | `gen-example-001` | Final PRD artefact recorded | Yes |
+
+Use synthetic identifiers in examples. In the live tracker, reject rows without completion evidence or a stable identifier, and collapse duplicate rows sharing the counted identifier before calculating weekly team status.
+
 **Example Tracking Table**:
 
-| Team | Week 1 | Week 2 | Week 3 | Week 4 | Week 5 | Week 6 | Status |
-|------|--------|--------|--------|--------|--------|--------|--------|
-| Product Planning | Evaluating | Active | Active | Active | Active | Active | ✅ ADOPTED |
-| Backend Eng | On Roadmap | Evaluating | Active | Active | Active | Active | ✅ ADOPTED |
-| Design & UX | Evaluating | Evaluating | Evaluating | Active | Active | Active | ✅ ADOPTED |
-| Marketing | On Roadmap | On Roadmap | Evaluating | Evaluating | Active | Active | 🟡 ADOPTING |
-| Tech Writing | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | 🔴 NOT YET |
+| Team | Week 1 | Week 2 | Week 3 | Week 4 | Week 5 | Week 6 | Status | Weeks Active |
+|------|--------|--------|--------|--------|--------|--------|--------|--------------|
+| Product Planning | Evaluating | Active | Active | Active | Active | Active | ✅ ADOPTED | 5/6 |
+| Backend Eng | On Roadmap | Evaluating | Active | Active | Active | Active | ✅ ADOPTED | 4/6 |
+| Design & UX | Evaluating | Evaluating | Evaluating | Active | Active | Active | 🟡 ADOPTING | 3/6 |
+| Marketing | On Roadmap | On Roadmap | Evaluating | Evaluating | Active | Active | 🟡 ADOPTING | 2/6 |
+| Tech Writing | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | Evaluating | 🔴 NOT YET | 0/6 |
 
 ---
 
@@ -149,16 +176,25 @@ PRD Agent Consolidation — User Feedback Survey
 
 ### Secondary KPIs (Context & Trend Analysis)
 
-#### 4. **Usage Frequency** (Trend Indicator)
+#### 4. **Usage Frequency** (Trend Indicator — Not a Qualification Requirement)
 
-**Definition**: Average number of agent invocations per team per week.
+**Definition**: Average number of uniquely identified, completed PRD generations per team per week. This is a trend indicator and does not override SC-602's adoption qualification.
 
-**Target**: ≥2 runs/team/week (indicates active, repeated usage)
+**Target**: ≥2 completed PRDs/team/week (indicates strong, repeated usage)
+
+**Note**: SC-602 uses the lower ≥1 threshold for adoption qualification. The ≥2 target here tracks usage intensity for teams that exceed the baseline requirement, providing insight into engagement depth rather than qualification status.
 
 **Measurement**:
 
+<<<<<<< HEAD
+
+- Reported in weekly check-in: "How many PRDs did your team complete this week?"
+- Confirmed from the same deduplicated completion log used for SC-602
+=======
 - Reported in weekly check-in: "How many PRD workflows did your team run this week?"
 - Alternative: Agent telemetry logs (if provider APIs expose usage data)
+
+>>>>>>> origin/develop
 
 **Example Trend**:
 
@@ -217,7 +253,7 @@ PRD Agent Consolidation — User Feedback Survey
 ### Weekly Cadence (Every Friday)
 
 - **Task**: Send Slack message to team leads
-  - `@team-lead: Quick adoption check-in — how many PRD workflows did your team run this week? Any blockers? Status: Evaluating / Adopting / Adopted`
+  - `@team-lead: Quick adoption check-in — how many PRDs did your team complete this week, and what generation/session IDs identify them? Any blockers? Status: Evaluating / Adopting / Adopted`
   - Record responses in ADOPTION_METRICS_TRACKER.md
   
 - **Owner**: Ash Shaw
@@ -233,15 +269,28 @@ PRD Agent Consolidation — User Feedback Survey
 - **Owner**: Ash Shaw
 - **Duration**: 15 min setup + 30 min analysis
 
-### Week 6: Metrics Compilation & Phase 6 Checkpoint
+### Week 6: Interim Metrics Compilation & Phase 6 Checkpoint (Provisional)
 
-- **Task**: Aggregate all metrics into Phase 6 Checkpoint Report
+- **Task**: Aggregate all metrics into Phase 6 Interim Checkpoint Report
   - Verify all KPIs against success criteria (SC-602, SC-603, SC-604)
+  - Deduplicate completed PRD generations by stable generation or fallback session ID before calculating active weeks
   - Identify adoption trends and blockers
-  - Recommend proceed to Phase 7 or extend adoption period
+  - Recommend action items for Weeks 7-9 adoption support
+  - **NOTE**: This checkpoint is INTERIM only. Final Phase 7 decision gate occurs at Week 9 (42-day evaluation).
   
 - **Owner**: Ash Shaw
 - **Duration**: 1-2 hours (compilation, analysis, documentation)
+
+### Week 9: Final Metrics Verification & Phase 7 Decision Gate (T079)
+
+- **Task**: Re-verify all metrics against success criteria for final Phase 7 decision
+  - Repeat SC-602, SC-603, SC-604 verification using Week 9 final data
+  - Compare Week 6 interim vs. Week 9 final to assess trend direction
+  - Finalize Phase 7 decision (ARCHIVE / SYNC / DEFER) based on Week 9 values
+  - Document decision rationale and obtain sign-off
+  
+- **Owner**: Ash Shaw + Product Lead
+- **Duration**: 2-3 hours (final metrics review, decision documentation, sign-off)
 
 ---
 
@@ -250,7 +299,8 @@ PRD Agent Consolidation — User Feedback Survey
 ### Tracking Files
 
 1. **ADOPTION_METRICS_TRACKER.md** (Weekly Updates)
-   - Live tracking table: team adoption status, usage frequency, issues reported
+   - Live tracking table: completed-generation identifiers and timestamps, team adoption status, usage frequency, and issues reported
+   - Count only completion rows after deduplication; routing and trigger records may be attached as corroborating evidence
    - Updated every Friday with responses from team lead check-in
    - Location: `agents/prd-agent/ADOPTION_METRICS_TRACKER.md` (to be created during Week 1)
 
@@ -274,12 +324,20 @@ PRD Agent Consolidation — User Feedback Survey
 - Call-out any blockers requiring escalation
 - Invite continued feedback
 
-**Week 6 Final Report** (Phase 6 Checkpoint):
+**Week 6 Interim Report** (Phase 6 Checkpoint — Provisional):
 
-- Comprehensive metrics summary
-- Success criteria verification (SC-602, 603, 604)
-- Recommendation: Proceed to Phase 7? Extend adoption? Halt rollout?
-- Documentation: `PHASE6_METRICS_REPORT.md` (final deliverable for Phase 6)
+- Comprehensive interim metrics summary
+- Success criteria verification (SC-602, 603, 604) based on Week 6 data
+- Identify action items for adoption support (Weeks 7-9)
+- NOTE: This checkpoint is NOT the Phase 7 decision gate; final decision occurs at Week 9
+- Documentation: `PHASE6_INTERIM_METRICS_REPORT.md` (deliverable for T077-T078)
+
+**Week 9 Final Report** (Phase 7 Decision Gate):
+
+- Final metrics verification based on full 42-day data
+- Phase 7 decision outcome: ARCHIVE / SYNC / DEFER with rationale
+- Comparison of Week 6 vs. Week 9 trends
+- Documentation: `PHASE7_DECISION.md` (final deliverable for T079)
 
 ---
 
@@ -319,12 +377,14 @@ PRD Agent Consolidation — User Feedback Survey
 
 ## Phase 6 Success Criteria Verification
 
-### At Week 6 Checkpoint
+### At Week 6 Interim Checkpoint (Provisional)
+
+**Note**: This interim verification informs Week 7-9 adoption support priorities. Final Phase 7 decision gate uses Week 9 metrics (see Week 9 Final Report section).
 
 **SC-602: Active Teams** ✅
 
 - [ ] Verify ≥5 teams actively using agent
-- [ ] Evidence: Weekly check-in responses + usage frequency ≥2 runs/week
+- [ ] Evidence: Weekly check-in responses + deduplicated completed-generation log showing ≥1 unique completion in ≥4 of 6 rolling weekly windows per qualifying team
 - [ ] Status: PASS / CONDITIONAL / FAIL
 
 **SC-603: User Satisfaction** ✅
@@ -341,23 +401,32 @@ PRD Agent Consolidation — User Feedback Survey
 
 ### Phase 6 Outcome Scenarios
 
-**SCENARIO A: All Success Criteria Met (PASS)**
+**IMPORTANT: Week 6 Checkpoint is INTERIM Only**
+
+The Week 6 checkpoint report (created during T077-T078) provides interim visibility into adoption progress. However, the actual Phase 7 decision gate occurs at **Week 9 (42-day evaluation)**, where metrics are final and irreversible commitments (ARCHIVE/SYNC/DEFER) are made (T079). Week 6 data informs prioritization of action items before the Week 9 gate, but is not itself the decision trigger.
+
+---
+
+**SCENARIO A: All Success Criteria Met (PASS) at Week 6**
 
 - ✅ ≥5 teams active, satisfaction ≥4.0/5.0, zero critical blockers
-- **Decision**: Proceed to Phase 7 (Archive/Sync decision)
-- **Next**: Start T076 (Phase 7 decision memo)
+- **Week 6 Decision**: Proceed toward Phase 7 decision gate; monitor metrics through Week 9
+- **Action Items**: Continue adoption support; finalize Phase 7 decision criteria (T078)
+- **Week 9 Gate (T079)**: If metrics hold or improve, apply SYNC or ARCHIVE decision; otherwise DEFER pending Week 9 reassessment
 
-**SCENARIO B: Partial Success (CONDITIONAL)**
+**SCENARIO B: Partial Success (CONDITIONAL) at Week 6**
 
 - ⚠️ Example: 4 teams active (target ≥5), satisfaction 3.8/5.0 (target ≥4.0), one high issue with workaround
-- **Decision**: Extend adoption period by 2-3 weeks; address blockers; re-assess at week 9
-- **Next**: Implement fixes; re-survey at week 9; make Phase 7 decision then
+- **Week 6 Decision**: Provisional (not triggering Phase 7 yet); extend adoption support through Week 9
+- **Action Items**: Implement blockers fixes; address satisfaction gaps; intensify adoption outreach
+- **Week 9 Gate (T079)**: Reassess all metrics; decide ARCHIVE/SYNC/DEFER based on Week 9 final values
 
-**SCENARIO C: Failure (FAIL)**
+**SCENARIO C: Failure (FAIL) at Week 6**
 
 - 🔴 <3 teams active, satisfaction <3.5/5.0, or critical blockers blocking usage
-- **Decision**: Halt rollout; investigate root causes; determine if consolidation is viable
-- **Next**: Post-mortem; consider rollback to pre-consolidation version or Phase 5 testing improvements
+- **Week 6 Decision**: Critical escalation required; may need rollback or Phase 5 improvements
+- **Action Items**: Post-mortem analysis; root cause investigation; determine viability of consolidation approach
+- **Week 9 Gate (T079)**: If improvements made, reassess; otherwise escalate rollback recommendation; defer Phase 7 decision indefinitely
 
 ---
 
