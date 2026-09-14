@@ -6,7 +6,7 @@
 
 **Last Updated**: 2026-09-10 — Phase 3 (Structural Consolidation) complete and merged in PR #2865. Phase 4-7 scope defined.
 
-**Status**: Phase 3 ✅ COMPLETE | Phases 4-7 PENDING
+**Status**: Phase 3 ✅ COMPLETE | Phase 4 ✅ COMPLETE | Phase 5 ✅ COMPLETE | Phase 6 🟡 IN PROGRESS | Phase 7 ⏳ BLOCKED (on Phase 6 T075)
 
 **Phase 3 Completion**: PR #2865 merged 2026-09-10. Nine of the ten functional requirements (FR-001 through FR-009) and 7 success criteria (SC-001 through SC-007) verified and merged. FR-010 (Spec-Based Agent Sync/Archive) deferred to Phase 7.
 
@@ -104,7 +104,7 @@ As an AI agent builder, I want the PRD agent prompt to be enhanced with improved
 
 **Acceptance Scenarios**:
 
-1. **Given** the enhanced PRD agent prompt, **When** evaluated against benchmark test cases, **Then** success rate on structured PRD generation improves by ≥15% over baseline.
+1. **Given** the enhanced PRD agent prompt, **When** evaluated against benchmark test cases, **Then** success rate on structured PRD generation improves by ≥15% over Phase 3 baseline (Phase 3 baseline: 14/14 tests pass on all providers per TEST_CASES_BASELINE.md; Phase 4 target: ≥15% improvement in test coverage or correctness metrics — see PROMPT_ENHANCEMENT_ANALYSIS.md for baseline definition).
 2. **Given** the memory registry updates, **When** integrated into downstream systems, **Then** all references resolve without 404 errors and metadata matches current skill inventory.
 3. **Given** an agent definition with the updated prompt, **When** loaded in Claude Code, **Then** it passes all initialization validation checks with zero warnings.
 
@@ -141,7 +141,7 @@ As a QA engineer, I want comprehensive testing of the consolidated PRD agent acr
 **Acceptance Scenarios**:
 
 1. **Given** the complete test suite, **When** executed against all provider implementations, **Then** test pass rate ≥95% with zero critical failures.
-2. **Given** real-world PRD generation workflows, **When** executed with the consolidated agent, **Then** output quality meets or exceeds pre-consolidation baseline.
+2. **Given** real-world PRD generation workflows, **When** executed with the consolidated agent, **Then** output quality meets or exceeds pre-consolidation baseline (measured by: semantic similarity ≥0.92 vs. Phase 3 output, structural completeness score ≥4.5/5.0, and zero critical content loss — acceptance defined in TEST_RESULTS.md).
 3. **Given** all 28 skills integrated, **When** routing validation runs, **Then** no skill is unreachable and all documented capabilities work as specified.
 
 ---
@@ -163,12 +163,14 @@ As a QA engineer, I want comprehensive testing of the consolidated PRD agent acr
 
 ---
 
-## Phase 6: Rollout & Adoption (PENDING)
+## Phase 6: Rollout & Adoption (🟡 IN PROGRESS)
 
 **Duration**: Post Phase 5  
 **Owner**: Ash Shaw  
 **Blocked By**: Phase 5 testing complete  
 **Relates To**: Issue #1897  
+**Current Status**: 3 of 6 Phase 6 deliverables complete (T070, T072, T074); 3 in progress (T071, T073, T075). Scheduled completion: Week 6 post-rollout announcement (estimated 2026-10-14).  
+**Next Checkpoint**: T075 completion unblocks Phase 7 decision gate.  
 
 ### User Story 6 - Organization-wide PRD agent rollout and team adoption (Priority: P1)
 
@@ -177,7 +179,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 **Acceptance Scenarios**:
 
 1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent (active usage: ≥1 PRD generation per team per rolling 7-day window, maintained for ≥4 of 6 weeks post-rollout, per ADOPTION_METRICS.md SC-602).
-2. **Given** team adoption metrics, **When** collected after 30 days, **Then** user satisfaction score ≥4.0/5.0 and no critical blockers reported.
+2. **Given** team adoption metrics (collected via: anonymous survey sent to ≥20 active users; usage logs tracked in ADOPTION_METRICS.md; team lead interviews for blockers), **When** analyzed after 30 days, **Then** user satisfaction score ≥4.0/5.0 (survey median Likert scale) and zero critical blockers identified in team interviews.
 3. **Given** the consolidated agent deployed, **When** compared to pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
 
 ---
@@ -199,11 +201,12 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 
 ---
 
-## Phase 7: Optional Spec-Based Agent Sync/Archive (PENDING)
+## Phase 7: Optional Spec-Based Agent Sync/Archive (⏳ BLOCKED)
 
 **Duration**: Post Phase 6 (Optional, depends on adoption decision)  
 **Owner**: TBD  
-**Blocked By**: Phase 6 adoption feedback  
+**Blocked By**: Phase 6 adoption feedback (T075 completion gate)  
+**Unblock Gate**: Phase 7 work begins after T075 completion and Phase 6 metrics review (target unblock date: 2026-10-21; Phase 7 decision memo due 2026-10-28).  
 **Relates To**: Issue #1899  
 
 ### User Story 7 - Archive or sync the spec-based PRD agent (Priority: P3, Optional)
@@ -296,6 +299,7 @@ These are the actual mechanics — used only for the subset of PRs that meet the
 - The sample/demo project-memory data was confirmed non-client and cleaned as part of Phase 3.
 - OpenAI agent definition (`agents/prd-agent/openai/`) is retained as-is; frontmatter loadability requirement applies only to Claude/Copilot.
 - **PR Delivery Strategy**: Phases 4-7 default to independently mergeable PRs against `develop`; a PR is only stacked on another when the decision gate above confirms a genuine code dependency, per the PR Delivery Strategy section above.
+- **Phase 6 Feedback Collection**: Before Phase 6 kickoff, create a brief RFC or design spike (≤3 days) to finalize feedback collection method (survey tool, interview script, usage tracking setup). This prevents deferral of collection details to execution phase. (Addresses T073 prerequisites.)
 
 ## Project References
 
