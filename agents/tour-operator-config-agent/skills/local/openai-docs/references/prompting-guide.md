@@ -246,3 +246,6 @@ Role: [1-2 sentences defining the model's function, context, and job]
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

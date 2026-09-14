@@ -113,3 +113,6 @@ Use UK English. Keep outputs practical, structured and suitable for Google Docs,
 ---
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -318,3 +318,6 @@ When using this skill to scaffold code, produce output in this order unless the 
 - `references/upstream-example-workflow.md` for choosing between official examples, ext-apps examples, and the local fallback scaffold
 - `references/window-openai-patterns.md` for ChatGPT-specific extensions, wrapper API translation, and React helper patterns
 - `scripts/scaffold_node_ext_apps.mjs` for a minimal Node + `@modelcontextprotocol/ext-apps` fallback starter scaffold
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -86,3 +86,5 @@ description: concise trigger-focused description explaining what the skill creat
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -130,3 +130,6 @@ Recipe Library Page
 
 - **Feature PRD:** [The content of the Feature PRD markdown file]
 ```
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

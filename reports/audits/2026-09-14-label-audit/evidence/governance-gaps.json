@@ -1,0 +1,111 @@
+{
+  "total_gaps": 12,
+  "gap_labels": [
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:documentation",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:maintenance",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:ai-ops",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:compatibility",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:investigation",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:support",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:story",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:enhancement",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:help",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "area:labels",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "area"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "meta:duplicate",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "meta"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "meta:dependabot-security",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "meta"
+    }
+  ],
+  "analysis": {
+    "missing_labels": [
+      "type:documentation",
+      "type:maintenance",
+      "type:ai-ops",
+      "type:compatibility",
+      "type:investigation",
+      "type:support",
+      "type:story",
+      "type:enhancement",
+      "type:help",
+      "area:labels",
+      "meta:duplicate",
+      "meta:dependabot-security"
+    ],
+    "potential_reasons": [
+      "Label was retired and removed from canonical",
+      "Label exists in policy but never added to canonical",
+      "Labeling convention changed and old label not migrated"
+    ]
+  },
+  "potential_naming_mismatches": []
+}

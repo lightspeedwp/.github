@@ -634,3 +634,6 @@ Before this prompt is production-ready, complete:
 **Last Updated:** 2026-09-04
 **Status:** Draft (Ready for Integration Testing)
 **Maintainer:** Ashley Shaw & Automation Team
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

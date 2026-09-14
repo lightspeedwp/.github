@@ -110,3 +110,5 @@ Use these assets as templates when generating downloadable artefacts:
 - `assets/redirect-status-table-template.md`
 - `assets/404-risk-list-template.md`
 - `assets/launch-day-checklist-template.md`
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

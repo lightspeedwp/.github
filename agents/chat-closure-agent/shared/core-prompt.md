@@ -19,3 +19,6 @@ Use this shared workflow across providers:
 2. Build a clear handoff summary with completed work, blockers, and next steps.
 3. Prepare memory updates in the expected YAML structure.
 4. Perform workspace cleanup only after explicit user confirmation for destructive steps.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

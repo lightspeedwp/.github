@@ -36,12 +36,14 @@ You have access to **28 specialized skills** optimized for GitHub workflows. Eac
 **Skill Clusters** (GitHub workflow perspective):
 
 #### GitHub Issue Management (4 skills)
+
 - **github-issue-drafter** — Create well-structured GitHub issues from PRD requirements with proper labels, projects, and milestone linking
 - **change-request-router** — Route and track change requests as GitHub issues
 - **approval-gate-manager** — Manage approval gates via GitHub issue/PR workflows
 - **prd-task-reviewer** — Peer review PRDs using GitHub pull requests
 
 #### Planning & Project Coordination (5 skills)
+
 - **prd-writer** — Create PRDs as GitHub issue descriptions or documents
 - **delivery-planner** — Create delivery plans that map to GitHub Projects
 - **estimation-planner** — Estimate effort and track in GitHub issues
@@ -49,11 +51,13 @@ You have access to **28 specialized skills** optimized for GitHub workflows. Eac
 - **implementation-plan-generator** — Create technical implementation plans
 
 #### Requirements & Acceptance (3 skills)
+
 - **acceptance-test-planner** — Define acceptance criteria in GitHub issue checklists
 - **requirements-traceability-mapper** — Track requirements through GitHub to PRs and commits
 - **evidence-locker** — Document justification in GitHub wikis or linked documents
 
 #### Quality & Launch (5 skills)
+
 - **qa-planner** — Create QA test plans and link to GitHub test automation
 - **qa-findings-router** — Route QA findings to GitHub issues
 - **validation-support** — Validate deliverables via GitHub PR reviews
@@ -61,6 +65,7 @@ You have access to **28 specialized skills** optimized for GitHub workflows. Eac
 - **release-handoff-generator** — Generate release notes and handoff docs for GitHub Releases
 
 #### Integration & Specialization (8 skills)
+
 - **lightspeed-intake-onboarding** — Onboard projects and initialize GitHub issue templates
 - **project-researcher** — Research and document context
 - **figma-wordpress-technical-brief** — Create technical briefs for WordPress plugin development
@@ -71,6 +76,7 @@ You have access to **28 specialized skills** optimized for GitHub workflows. Eac
 - **prd-task-pack-exporter** — Export complete project packs for release
 
 #### Advanced Coordination (3 skills)
+
 - **project-memory-manager** — Track project decisions in GitHub issue/PR history
 - **memory-management** — Version and track decisions
 - **prd-agent-orchestrator** — Orchestrate complex multi-skill workflows
@@ -119,6 +125,7 @@ You have access to **28 specialized skills** optimized for GitHub workflows. Eac
 When using the PRD Agent with Copilot:
 
 **Recommended GitHub Labels** (from LightSpeed .github):
+
 - `type:feature` — New feature requirement
 - `type:bug` — Bug or defect
 - `type:task` — Implementation task
@@ -128,6 +135,7 @@ When using the PRD Agent with Copilot:
 - `status:done` — Complete
 
 **Project Integration**:
+
 - Create issues with proper `project:` labels
 - Link to GitHub Project board for visibility
 - Use GitHub milestones for release planning
@@ -136,6 +144,7 @@ When using the PRD Agent with Copilot:
 ### Example Workflows
 
 #### Workflow 1: "Create a GitHub issue from a feature requirement"
+
 ```
 prd-writer → [document feature]
 → acceptance-test-planner → [define acceptance criteria]
@@ -144,6 +153,7 @@ prd-writer → [document feature]
 ```
 
 #### Workflow 2: "Plan a sprint and create sprint issues"
+
 ```
 project-intake → [gather sprint requirements]
 → delivery-planner → [break down into tasks]
@@ -153,6 +163,7 @@ project-intake → [gather sprint requirements]
 ```
 
 #### Workflow 3: "Review a PR and manage approval gates"
+
 ```
 [Existing GitHub PR ready for review]
 → prd-task-reviewer → [post review comments on PR]
@@ -161,6 +172,7 @@ project-intake → [gather sprint requirements]
 ```
 
 #### Workflow 4: "Create a release with PRD, issues, and GitHub Release"
+
 ```
 prd-writer → [feature PRD]
 → github-issue-drafter → [create linked issues]
@@ -172,24 +184,28 @@ prd-writer → [feature PRD]
 ### GitHub Integration Features
 
 **Issue Creation**:
+
 - Automatically link to projects
 - Add milestone (for release planning)
 - Apply team labels
 - Set assignee and due date
 
 **PR Review**:
+
 - Review PRDs as GitHub PRs
 - Comment with feedback
 - Link to related issues
 - Request changes with structured feedback
 
 **Project Boards**:
+
 - Create project-specific views of work
 - Organize by status (To Do, In Progress, Done)
 - Estimate effort per item
 - Track progress toward milestones
 
 **Releases**:
+
 - Create GitHub Release notes
 - Reference merged PRs and closed issues
 - Tag commits for release versions
@@ -224,6 +240,7 @@ prd-writer → [feature PRD]
 ## Notes for GitHub Copilot Users
 
 When using the PRD Agent in GitHub Copilot:
+
 - Copilot can access your GitHub issues, projects, and pull requests in real time
 - Ask the agent to "create a GitHub issue for...", "plan a sprint in GitHub Projects", or "review this PR"
 - The agent will create properly labeled, linked issues ready for your team
@@ -232,6 +249,7 @@ When using the PRD Agent in GitHub Copilot:
 ## Notes for GitHub Code Spaces Users
 
 In GitHub Code Spaces:
+
 - The PRD Agent can create issues and PRs directly from your development environment
 - Reference your repository context for project-specific planning
 - Create issues that link to your feature branches
@@ -244,3 +262,6 @@ In GitHub Code Spaces:
 **Skill Inventory**: 28 canonical skills  
 **Provider Support**: GitHub Copilot (Custom Agent), GitHub Code Spaces  
 **Memory Registry**: `agent:mode-prd` (primary agent entry, copilot-native)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
