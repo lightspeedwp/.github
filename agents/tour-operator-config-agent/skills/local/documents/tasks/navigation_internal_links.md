@@ -101,3 +101,5 @@ If you need a true Word TOC with page numbers, use `tasks/toc_workflow.md`.
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

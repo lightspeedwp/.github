@@ -62,3 +62,5 @@ Use this as a lightweight Gravity Forms pattern for consent-based newsletter cap
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
