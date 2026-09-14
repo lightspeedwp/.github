@@ -33,7 +33,7 @@ describe("RemediationChecklistGenerator", () => {
       rest: {
         issues: {
           createComment: jest.fn().mockResolvedValue({ data: { id: 12345 } }),
-          getComments: jest.fn().mockResolvedValue({ data: [] }),
+          listComments: jest.fn().mockResolvedValue({ data: [] }),
         },
       },
     };
@@ -258,7 +258,7 @@ describe("RemediationChecklistGenerator", () => {
       const issue = sampleIssues.complianceScenarios.missingBoth;
       const analysis = generator.analyzeCompliance(issue);
 
-      mockGithub.rest.issues.getComments.mockResolvedValueOnce({ data: [] });
+      mockGithub.rest.issues.listComments.mockResolvedValueOnce({ data: [] });
 
       const result = await generator.postChecklistComment(issue, analysis);
 
@@ -271,7 +271,7 @@ describe("RemediationChecklistGenerator", () => {
       const analysis = generator.analyzeCompliance(issue);
 
       // Mock existing checklist comment
-      mockGithub.rest.issues.getComments.mockResolvedValueOnce({
+      mockGithub.rest.issues.listComments.mockResolvedValueOnce({
         data: [
           {
             body: "Remediation Checklist",
@@ -319,7 +319,7 @@ describe("RemediationChecklistGenerator", () => {
       };
       const analysis = generator.analyzeCompliance(issue);
 
-      mockGithub.rest.issues.getComments.mockResolvedValueOnce({ data: [] });
+      mockGithub.rest.issues.listComments.mockResolvedValueOnce({ data: [] });
 
       await generator.postChecklistComment(issue, analysis);
 

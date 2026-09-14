@@ -99,6 +99,11 @@ export async function validateBranchName(input) {
         "Branch name does not match required format: must be lowercase",
         "branch-slug-invalid",
       );
+    } else if ((branchName.match(/\//g) || []).length > 1) {
+      errors.push(
+        "Branch name does not match required format: only one forward slash is allowed, separating type from {scope}-{short-title}",
+        "branch-slug-invalid",
+      );
     } else {
       errors.push(
         "Branch name does not match required format: use only lowercase letters, digits and hyphens",

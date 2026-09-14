@@ -265,7 +265,7 @@ class RemediationChecklistGenerator {
     }
 
     try {
-      const { data: comments } = await this.github.rest.issues.getComments({
+      const { data: comments } = await this.github.rest.issues.listComments({
         owner: this.owner,
         repo: this.repo,
         issue_number: issue.number,
