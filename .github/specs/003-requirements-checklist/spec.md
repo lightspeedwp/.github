@@ -97,14 +97,15 @@ A technical lead on Project A needs to verify that a specification from Project 
 - **FR-005**: System MUST provide reference examples and clarification guidance for ambiguous checklist items (e.g., "What counts as 'measurable'?" with examples of good vs. poor criteria)
 - **FR-006**: System MUST support extension of the base checklist with project-specific quality rules (e.g., "All security specs MUST address [specific threat model]") without modifying the core framework
 - **FR-007**: System MUST enable integration with specification workflows (e.g., as a pre-commit check, as an automated PR review gate, as an async stakeholder sign-off tool)
-- **FR-008**: System MUST track checklist results over time (e.g., which dimensions improved across iterations, which specs had the most rework cycles)
+- **FR-008**: System MUST track checklist results over time (e.g., which dimensions improved across iterations, which specs had the most rework cycles); templates are versioned to support re-running historical specs against current checklists for improvement measurement
+- **FR-009**: System MUST enforce access control on checklist results: results are tied to reviewer identity, and access is role-based (author, reviewer, stakeholder). Optional audit logging tracks who accessed/modified results per deployment requirements.
 
 ### Key Entities
 
-- **ChecklistTemplate**: Defines a named checklist variant (Author Pre-Review, Peer Review, Stakeholder Gate, Cross-Project Integration) with audience, time estimate, and set of checklist items
+- **ChecklistTemplate**: Defines a named checklist variant (Author Pre-Review, Peer Review, Stakeholder Gate, Cross-Project Integration) with audience, time estimate, and set of checklist items. Templates are versioned (e.g., author-pre-review@1.0, author-pre-review@1.1) to support tracking improvements over time; old results can optionally be re-run against new versions.
 - **ChecklistItem**: Individual quality checkpoint with dimension assignment, audience applicability, pass criteria, and reference examples
 - **ChecklistDimension**: One of the 8 quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with definition and success threshold
-- **ChecklistResult**: Output from running a checklist on a specification, including dimension scores, item-level pass/fail, findings, and recommendations
+- **ChecklistResult**: Output from running a checklist on a specification, including dimension scores, item-level pass/fail, findings, recommendations, template version used, and timestamp for historical tracking
 - **SpecificationReference**: Metadata linking a result to a specification (path, version, author) for tracking and trend analysis
 
 ## Success Criteria *(mandatory)*
@@ -136,6 +137,8 @@ A technical lead on Project A needs to verify that a specification from Project 
 ### Session 2026-09-14
 
 - Q: When a reviewer and author disagree on whether a checklist item passes, what mechanism resolves the disagreement? → A: Escalation to stakeholder/product owner for final decision. Ensures disputes are resolved by business authority, maintaining stakeholder credibility and ownership.
+- Q: When checklist templates or quality dimensions are updated, how should the system handle previous results? → A: Versioned templates with re-run capability. Allows teams to measure improvement over time consistently while supporting evolution of the checklist framework.
+- Q: What security and privacy requirements apply to specifications and checklist results? → A: Access-controlled with optional audit logging. Results tied to reviewer identity; role-based access control (author/reviewer/stakeholder); optional audit logging per deployment (supports both internal-only and cross-project scenarios).
 
 ### Conflict Resolution (Updated in Edge Cases)
 
