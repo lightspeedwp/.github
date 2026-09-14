@@ -435,3 +435,7 @@ If you have questions about implementing this pattern:
 **Last Updated**: 2026-09-04  
 **Maintained By**: Claude (AI Agent)  
 **Related Issue**: #2800
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

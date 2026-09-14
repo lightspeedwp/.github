@@ -229,3 +229,7 @@ slide.auto_layout(
 ```
 
 (working example in [./examples/auto_layout_header_footer_layout.py](./examples/auto_layout_header_footer_layout.py))
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

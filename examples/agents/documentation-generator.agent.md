@@ -287,3 +287,9 @@ Supports custom templates for:
 For technical implementation details, see [SKILL.md](agents/documentation-generator/SKILL.md)  
 For usage examples and templates, see [README.md](agents/documentation-generator/README.md)  
 For troubleshooting and common issues, see [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

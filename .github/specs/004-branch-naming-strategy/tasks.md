@@ -10,8 +10,9 @@
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (US1-US5)
-- 24 authorized branch types with pattern `{type}/{scope}-{title}`
+- 38 authorized branch types (from Constitution Section VIII) with pattern `{type}/{scope}-{title}`
 - Forbidden prefixes: `claude/`, `copilot/`, `openai/`
+- Branch exemptions: `main`, `develop`, `dependabot/*`, `renovate/*`
 
 ---
 
@@ -20,12 +21,12 @@
 **Purpose**: Project initialization and branch validation framework
 
 - [ ] T001 Create branch validation framework directory at `.github/branch-validation/`
-- [ ] T002 Create branch type definitions at `.github/branch-validation/branch-types.json` (24 authorized types from contracts)
-- [ ] T003 [P] Create branch regex patterns at `.github/branch-validation/patterns.json` (pattern, forbidden, template-mapping for each type)
-- [ ] T004 [P] Create type-to-template mapping at `.github/branch-validation/template-mapping.json` (each type maps to 1 PR template from 19 templates)
-- [ ] T005 [P] Create type-to-labels mapping at `.github/branch-validation/label-mapping.json` (each type auto-applies canonical prefixed labels)
+- [ ] T002 Create branch type definitions at `.github/branch-validation/branch-types.json` (38 authorized types from Constitution Section VIII)
+- [ ] T003 [P] Create branch regex patterns at `.github/branch-validation/patterns.json` (regex patterns and forbidden prefixes for each type; NO template mapping—see T004)
+- [ ] T004 [P] Create canonical template routing map at `.github/branch-validation/template-mapping.json` (SINGLE SOURCE OF TRUTH: 38 types → 17 PR templates, from contracts/branch-naming.contract.md)
+- [ ] T005 [P] Create type-to-labels mapping at `.github/branch-validation/label-mapping.json` (38 types → canonical prefixed labels from `.github/labels.yml`, from contracts/branch-naming.contract.md)
 - [ ] T006 Initialize Node.js project for validators at `.github/branch-validation/package.json`
-- [ ] T007 Create Git pre-push hook template at `.github/branch-validation/hooks/pre-push-template.sh`
+- [ ] T007 Create Git pre-push hook template at `.github/branch-validation/hooks/pre-push-template.sh` (include branch exemptions: main, develop, dependabot/*, renovate/*)
 
 ---
 
@@ -48,13 +49,13 @@
 
 ## Phase 3: User Story 1 - Branch Name Validation (FR-1) [P1]
 
-**Goal**: System validates branch names match pattern `{type}/{scope}-{title}` with 24 authorized types, 0 forbidden prefixes
+**Goal**: System validates branch names match pattern `{type}/{scope}-{title}` with 38 authorized types (Constitution Section VIII), 0 forbidden prefixes, with documented branch exemptions
 
-**Independent Test**: Validator rejects `claude/feature` (forbidden); accepts `feat/user-auth` (valid)
+**Independent Test**: Validator rejects `claude/feature` (forbidden); accepts `feat/user-auth` (valid); exempts `main` and `develop` branches
 
 ### Tests for User Story 1 (TDD)
 
-- [ ] T014 [P] [US1] Unit test for type validation at `.github/branch-validation/test/unit/test-type-validation.js` (accept all 24 types, reject others)
+- [ ] T014 [P] [US1] Unit test for type validation at `.github/branch-validation/test/unit/test-type-validation.js` (accept all 38 authorized types, reject others)
 - [ ] T015 [P] [US1] Unit test for forbidden prefix detection at `.github/branch-validation/test/unit/test-forbidden-prefixes.js` (reject claude/, copilot/, openai/)
 - [ ] T016 [P] [US1] Unit test for pattern matching at `.github/branch-validation/test/unit/test-pattern-matching.js` ({type}/{scope}-{title} format)
 - [ ] T017 [P] [US1] Unit test for scope validation at `.github/branch-validation/test/unit/test-scope-validation.js` (scope must be kebab-case, non-empty)

@@ -99,3 +99,9 @@ Standard pipeline order: **lint → unit → e2e → build → release** (tag/ch
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [GitHub Actions Tutorials](https://docs.github.com/en/actions/tutorials)
 - [Create an Example Workflow](https://docs.github.com/en/actions/tutorials/create-an-example-workflow)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

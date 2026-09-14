@@ -67,3 +67,9 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [project-meta-sync.agent.md](../agents/project-meta-sync.agent.md) — Agent specification
 - [labels.yml](../.github/labels.yml) — Canonical label definitions
 - [GitHub Projects V2 API](https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

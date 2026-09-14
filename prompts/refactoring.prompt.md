@@ -182,3 +182,7 @@ Refactoring is complete when:
 - [Dependencies on other work or changes]
 - [Knowledge required or domain experts to consult]
 - [Estimated effort and timeline]
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -51,3 +51,9 @@ Return:
 - Do not emit raw Figma metadata unless it helps explain a mapping issue.
 - Do not guess missing colors.
 - Keep output focused on `settings.color.palette`.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

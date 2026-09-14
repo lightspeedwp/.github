@@ -64,3 +64,9 @@ Stay platform-neutral by default. Include AI Engine / Meow Apps notes when the u
 - `references/launch-gates.md`
 - `references/test-scripts.md`
 - `references/privacy-log-retention.md`
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

@@ -32,3 +32,9 @@ Create GitHub Pull Request for the specification at `${workspaceFolder}/.github/
 - Clear title/PULL_REQUEST_TEMPLATE.md identifying the specification
 - Fill enough information into PULL_REQUEST_TEMPLATE.md
 - Verify against existing pull requests before creation
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

@@ -14,3 +14,9 @@ last_updated: "2026-08-29"
 
 Use `../shared/core-prompt.md` as the provider-agnostic source of behaviour.
 This file exists to declare the OpenAI provider implementation for multi-provider validation.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

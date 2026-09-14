@@ -95,3 +95,7 @@ Use UK English. Keep outputs practical, direct and non-alarmist. Separate public
 For legal, privacy, accessibility, compliance, data protection, regulated-sector, chatbot logging or policy-adjacent claims, include this note:
 
 > This output supports operational review and publication planning. It is not legal advice. Legal, privacy and regulatory requirements should be confirmed with a qualified adviser before publication.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

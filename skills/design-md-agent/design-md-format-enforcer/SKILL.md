@@ -134,3 +134,9 @@ If the source material is too incomplete to fully populate a section, keep the s
 - "Standardize the formatting of the current DESIGN.md and make the validation report match it."
 - "Rewrite this source map into the expected structure without changing the underlying findings."
 - "Create all three design-system docs in a consistent format for agent and human review."
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

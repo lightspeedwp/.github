@@ -11,3 +11,9 @@ Design a small, single‑purpose AI agent for the given task. In your response:
 3. Describe guardrails and safety checks the agent must follow.
 4. Outline unit and scenario tests that should be implemented to validate the agent’s behaviour under both normal and error conditions.
 5. Provide a high‑level CI plan to run these tests automatically.
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

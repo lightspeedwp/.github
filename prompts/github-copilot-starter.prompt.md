@@ -416,3 +416,9 @@ jobs:
 - ✅ Simple linting (if standard)
 - ✅ Basic test running
 - ✅ Standard build commands
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -41,3 +41,9 @@ Create GitHub Issues for unimplemented requirements in the specification at `${f
 - Search codebase for related code patterns
 - Check related specification files in `/spec/` directory
 - Verify requirement isn't partially implemented
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

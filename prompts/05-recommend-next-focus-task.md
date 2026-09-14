@@ -420,3 +420,9 @@ EOF
 **Use When:** Finished one task, unsure what to work on next  
 **Output:** Ranked task recommendations (top 3), prioritization report, active projects audit  
 **Dependencies:** GitHub access, ability to read issue/PR details, git access
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

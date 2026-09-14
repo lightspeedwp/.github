@@ -457,3 +457,9 @@ Expected: Version bumped, changelog updated, released
 **Last Updated**: 2026-09-03 by Claude (AI)
 **Status**: Active
 **Maintainer**: Issue Type Allocator Working Group
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -132,3 +132,7 @@ When this skill is used, the validation output should usually include:
 - "Validate this DESIGN.md package for evidence quality, accessibility coverage, and WordPress mapping safety."
 - "Run a standards check on DESIGN.md, the source map, and the validation report before I hand this to a coding agent."
 - "Audit whether these docs meet our design-system documentation and compliance bar."
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

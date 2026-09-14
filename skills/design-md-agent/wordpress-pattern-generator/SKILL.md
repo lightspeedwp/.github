@@ -226,3 +226,9 @@ Expected behaviour:
 - `references/wordpress-rules.md`
 - `references/output-templates.md`
 - `references/qa-rubric.md`
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

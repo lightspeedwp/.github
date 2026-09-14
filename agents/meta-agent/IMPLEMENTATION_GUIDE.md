@@ -605,3 +605,9 @@ After setup, see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for common issues an
 ---
 
 *Meta Agent v2.0 — Making frontmatter validation simple & reliable* 🚀
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

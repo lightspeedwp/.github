@@ -86,3 +86,9 @@ created_date: '2026-08-29'
 
 **Instructions**:
 When activated, analyze code changes for lint errors/warnings, summarize findings, and recommend fixes. Output a checklist for remediation and highlight any blocking issues for CI/CD.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

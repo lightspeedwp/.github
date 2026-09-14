@@ -105,3 +105,9 @@ Keep reports brief enough to be read, but specific enough to drive action. Prefe
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

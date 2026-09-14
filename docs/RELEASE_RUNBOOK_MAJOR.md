@@ -783,3 +783,9 @@ Major release is successful when:
 **Related Epic:** #2296  
 **Runbook Version:** v1.0  
 **Last Updated:** 2026-08-22
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
