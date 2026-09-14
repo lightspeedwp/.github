@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Portable changelog management agent with Keep a Changelog support",
   "main": "changelog.agent.js",
+  "bin": {
+    "changelog-validator": "./changelog-validator.js"
+  },
   "exports": {
     ".": "./changelog.agent.js"
   },
@@ -10,6 +13,7 @@
     "test": "jest",
     "test:unit": "jest --testPathPattern=tests/unit",
     "test:integration": "jest --testPathPattern=tests/integration",
+    "test:validate": "jest --testPathPattern=entryValidation",
     "lint": "eslint .",
     "format": "prettier --write .",
     "validate:branch-name": "node ../../.validate-branch-name.js"
