@@ -105,3 +105,6 @@ The agent is ready for deployment when:
 ## Additional Notes
 
 [Any project-specific context, exceptions, or important information for this agent]
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)

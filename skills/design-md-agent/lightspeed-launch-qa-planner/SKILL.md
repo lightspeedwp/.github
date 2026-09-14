@@ -109,3 +109,6 @@ Use these references as needed:
 ## Output standard
 
 Use UK English. Keep outputs practical, structured and suitable for Google Docs, GitHub issues or Asana tasks. Separate launch blockers from follow-up improvements. Include owners when known; otherwise add `Owner: TBD`.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -96,3 +96,5 @@ Use this prompt when requesting code implementation, scaffolding, or generation 
 - [Any special considerations or caveats]
 - [Integration points with other modules]
 - [Known limitations or future improvements]
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

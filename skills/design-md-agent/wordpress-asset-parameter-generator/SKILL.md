@@ -256,3 +256,6 @@ Expected behaviour:
 - `references/wordpress-rules.md`
 - `references/output-templates.md`
 - `references/qa-rubric.md`
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

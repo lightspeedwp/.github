@@ -84,40 +84,47 @@ Then use GitHub Copilot Chat to invoke the PRD Agent as a custom agent.
 The PRD Agent includes 28 specialized skills organized by capability:
 
 ### PRD & Document Generation
+
 - **prd-writer** — Primary PRD creation and documentation
 - **prd-task-reviewer** — Specification review and feedback
 - **markdown-content-validator** — Document quality validation
 
 ### Planning & Strategy
+
 - **implementation-plan-generator** — Detailed implementation roadmaps
 - **delivery-planner** — Sprint and delivery scheduling
 - **estimation-planner** — Effort and timeline estimation
 - **acceptance-test-planner** — QA planning and test case generation
 
 ### Project Intake & Discovery
+
 - **project-intake** — Initial project scoping and discovery
 - **project-researcher** — Research and competitive analysis
 - **lightspeed-intake-onboarding** — LightSpeed-specific onboarding flows
 - **intake-routing** — Project intake routing and triage
 
 ### Requirements & Change Management
+
 - **change-request-router** — Change request evaluation and routing
 - **requirements-traceability-mapper** — Requirements traceability and mapping
 - **validation-support** — Validation planning and execution
 
 ### Project Management
+
 - **prd-agent-orchestrator** — Agent coordination and routing
 - **project-status-reporter** — Status reporting and communication
 - **project-memory-manager** — Project state and context management
 - **memory-management** — General memory and knowledge management
 
 ### Quality & Release
+
 - **qa-findings-router** — QA findings triage and routing
 - **qa-planner** — QA planning and test strategy
 - **release-handoff-generator** — Release documentation and handoff
 - **approval-gate-manager** — Approval workflows and decision logging
 
 ### Integration & Output
+
 - **github-issue-drafter** — GitHub issue creation and formatting
 - **launch-task-router** — Launch planning and task routing
 - **prd-task-pack-exporter** — Project export and packaging
@@ -174,3 +181,5 @@ For issues, feature requests, or contributions, please refer to this repository'
 ---
 
 *Product planning excellence, delivered with precision and care.*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

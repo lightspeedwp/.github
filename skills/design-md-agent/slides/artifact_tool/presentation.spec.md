@@ -197,3 +197,6 @@ title.text.font_size = 48
 ```
 
 (working example in [./examples/presentation_edit.py](./examples/presentation_edit.py))
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -288,3 +288,6 @@ For recent governance changes and file relocations, see [GOVERNANCE_REVISION_LOG
 ---
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

@@ -1,5 +1,30 @@
 # Instruction Block Structure Standard
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Purpose**: Define the consistent structure and quality standard for all CodeRabbit instruction blocks  
 **Status**: T010 - Phase 2 Foundational  
 **Scope**: All `path_instructions` in `.coderabbit.yml`  
@@ -21,6 +46,7 @@ Every CodeRabbit instruction block follows a consistent structure:
 ```
 
 **Key Requirements:**
+
 - 1 header line (category + brief description)
 - 3+ focus areas (universal principles, not technology-specific)
 - 3-5 specific checks per focus area
@@ -38,6 +64,7 @@ Format: `{File Type/Path}: {Brief Category Description}`
 **Purpose**: Immediately identify what type of file or path this block addresses
 
 **Examples:**
+
 - ✅ "Review JavaScript/TypeScript source code:"
 - ✅ "Review shell scripts for automation:"
 - ✅ "Review package manifests:"
@@ -48,6 +75,7 @@ Format: `{File Type/Path}: {Brief Category Description}`
 ### Lines 2+: Focus Areas
 
 Format:
+
 ```
   - {Focus Area Name}: {Category Description}
     - {Specific Check 1}
@@ -58,6 +86,7 @@ Format:
 **Purpose**: Organize review guidance by thematic areas, making review priorities clear
 
 **Requirements:**
+
 - **Minimum 3 focus areas** per instruction block
 - **Each focus area addresses a universal principle** (code quality, security, performance, accessibility, testing, maintainability)
 - **Each focus area has 3-5 specific, testable checks**
@@ -104,6 +133,7 @@ Format:
 ```
 
 **Analysis:**
+
 - ✅ Header clearly identifies file type (shell scripts)
 - ✅ 3 focus areas (POSIX, Error Handling, Code Quality)
 - ✅ 3 checks per focus area
@@ -133,6 +163,7 @@ Format:
 ```
 
 **Analysis:**
+
 - ✅ Header identifies file type (package manifests)
 - ✅ 3 focus areas (Dependencies, Scripts, Metadata)
 - ✅ 3-4 checks per focus area
@@ -162,6 +193,7 @@ Format:
 ```
 
 **Analysis:**
+
 - ✅ Header identifies file type (test files)
 - ✅ 3 focus areas (Coverage, Isolation, Clarity)
 - ✅ 3-4 checks per focus area
@@ -238,11 +270,13 @@ Format:
 Current configuration has ~24 blocks. Some need enhancement to meet 3+ focus area standard:
 
 **Blocks Needing Enhancement** (audited T009):
+
 1. `**/*.{js,ts}` — Expand from 1 focus area → 3+ (Code Quality, Testing, Performance)
 2. `**/package.json` — Expand from 1 focus area → 3 (Dependencies, Scripts, Metadata)
 3. `**/composer.json` — Expand from 1 focus area → 3 (Dependencies, Config, Testing)
 
 **Blocks That Meet Standard:**
+
 - `**/scripts/**/*.sh` ✅ 3 focus areas
 - `**/.github/workflows/*.yml` ✅ 3 focus areas
 - `**/tests/*.*` ✅ 3+ focus areas
@@ -284,6 +318,7 @@ When adding a new instruction block for uncovered file types, use this template:
 ```
 
 **Checklist for New Blocks:**
+
 - [ ] Path pattern follows priority system (T007)
 - [ ] 3+ focus areas (minimum)
 - [ ] 3-5 checks per focus area
@@ -369,3 +404,6 @@ When reviewing changes to `.coderabbit.yml`, verify each instruction block:
 **Created**: 2026-09-11  
 **Status**: T010 Complete  
 **Applies To**: All 24+ existing blocks + 15-20+ new blocks (Phase 3+)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

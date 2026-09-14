@@ -138,3 +138,6 @@ The final prompt you output should adhere to the following structure below. Do n
 
 [optional: edge cases, details, and an area to call or repeat out specific important considerations]
 [NOTE: you must start with a `<reasoning>` section. the immediate next token you produce should be `<reasoning>`]
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

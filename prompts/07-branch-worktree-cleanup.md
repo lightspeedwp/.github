@@ -426,3 +426,6 @@ After cleanup, the closure agent can finalize session state:
 **Use When:** Session complete, local repo has accumulated many branches  
 **Output:** Cleaned local branches, removed stale worktrees, cleanup report  
 **Dependencies:** `git`, GitHub CLI (`gh`), access to local branches
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
