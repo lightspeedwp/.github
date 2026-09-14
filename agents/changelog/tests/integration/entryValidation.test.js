@@ -123,8 +123,7 @@ describe('Entry Validation Workflow Integration', () => {
 
       const parsed = JSON.parse(jsonOutput);
       expect(parsed).toHaveProperty('complianceScore');
-      expect(parsed).toHaveProperty('summary');
-      expect(parsed).toHaveProperty('validation_details');
+      expect(parsed).toHaveProperty('validation');
     });
 
     test('should format result for GitHub comment', () => {
@@ -232,8 +231,8 @@ describe('Entry Validation Workflow Integration', () => {
       };
 
       const validationResult = validator.validate(entry, RULES_FILE);
-      expect(validationResult.validation_details).toBeDefined();
-      expect(Array.isArray(validationResult.validation_details)).toBe(true);
+      expect(validationResult.validation).toBeDefined();
+      expect(Array.isArray(validationResult.validation.ruleResults)).toBe(true);
     });
   });
 
