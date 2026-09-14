@@ -48,8 +48,8 @@ jobs:
         run: |
           BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
 
-          # Run validation CLI with JSON output
-          VALIDATION_RESULT=$(node scripts/validation/validate-branch-name.js --branch "$BRANCH_NAME" --json 2>&1 || true)
+          # Run validation CLI with JSON output (use npm run for proper environment setup)
+          VALIDATION_RESULT=$(npm run validate:branch-name -- --branch "$BRANCH_NAME" --json 2>&1 || true)
 
           # Parse JSON result
           VALID=$(echo "$VALIDATION_RESULT" | jq -r '.valid' 2>/dev/null || echo "false")
