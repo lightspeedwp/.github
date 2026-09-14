@@ -4,6 +4,27 @@
 **Phase**: Phase 0 (Research & Clarification)  
 **Status**: Complete
 
+## Clarifications Resolved (Session 2026-09-14)
+
+### Q1: Backward Compatibility Strategy → **Clean Cutover (Remove Old Location)**
+- Decision: Remove `/specs/` directory entirely post-migration
+- Rationale: Aligns with Constitution Principle III (Clear Asset Boundaries)
+- Impact: Migration must be atomic; no fallback support
+
+### Q2: Configuration Field Requirement → **Optional with Default `.github/specs`**
+- Decision: `specs_directory` field is optional in `.specify/init-options.json`
+- Default: `.github/specs` if field absent or file missing
+- Rationale: Backward compatible, safe defaults, future flexibility
+- Impact: Configuration reading must support all three scenarios (configured, missing field, missing file)
+
+### Q3: Migration Error Handling → **Automatic Rollback**
+- Decision: Automatic rollback on any error (permission denied, disk full, partial failure)
+- Clear error reporting with troubleshooting guidance
+- Rationale: Prevents inconsistent state; safest approach for operators
+- Impact: Adds FR-009 functional requirement for rollback capability
+
+---
+
 ## Problem Analysis
 
 ### Current State
