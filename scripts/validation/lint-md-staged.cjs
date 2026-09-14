@@ -109,9 +109,13 @@ function addedLinesFromDiff(diffText) {
 
 function diffAgainstHead(file) {
   try {
+    // --cached: compare the index (what will actually be committed) against
+    // HEAD, not the working tree. A file can carry unstaged edits alongside
+    // staged ones (partial `git add -p` commits); those unstaged lines are
+    // not part of this commit and must not count as "added".
     return execFileSync(
       "git",
-      ["diff", "--unified=0", "--no-color", "HEAD", "--", file],
+      ["diff", "--cached", "--unified=0", "--no-color", "HEAD", "--", file],
       { encoding: "utf8" },
     );
   } catch {
@@ -131,9 +135,17 @@ function mapLinesForward(oldLines, hunks) {
     let shift = 0;
     let mappedInsideHunk = false;
     for (const h of hunks) {
+      if (h.oldCount === 0) {
+        // Pure insertion after old line h.oldStart (e.g. "@@ -5,0 +6,2 @@").
+        // h.oldStart itself is untouched old content and must not receive
+        // this hunk's shift; only lines strictly after it do.
+        if (oldLine <= h.oldStart) break;
+        shift += h.newCount;
+        continue;
+      }
       if (oldLine < h.oldStart) break;
       const oldEnd = h.oldStart + h.oldCount;
-      if (h.oldCount > 0 && oldLine < oldEnd) {
+      if (oldLine < oldEnd) {
         for (let n = h.newStart; n < h.newStart + h.newCount; n += 1) {
           mapped.add(n);
         }
