@@ -187,11 +187,13 @@ PRD Agent Consolidation — User Feedback Survey
 **Measurement**:
 
 <<<<<<< HEAD
+
 - Reported in weekly check-in: "How many PRDs did your team complete this week?"
 - Confirmed from the same deduplicated completion log used for SC-602
 =======
 - Reported in weekly check-in: "How many PRD workflows did your team run this week?"
 - Alternative: Agent telemetry logs (if provider APIs expose usage data)
+
 >>>>>>> origin/develop
 
 **Example Trend**:
@@ -267,16 +269,28 @@ PRD Agent Consolidation — User Feedback Survey
 - **Owner**: Ash Shaw
 - **Duration**: 15 min setup + 30 min analysis
 
-### Week 6: Metrics Compilation & Phase 6 Checkpoint
+### Week 6: Interim Metrics Compilation & Phase 6 Checkpoint (Provisional)
 
-- **Task**: Aggregate all metrics into Phase 6 Checkpoint Report
+- **Task**: Aggregate all metrics into Phase 6 Interim Checkpoint Report
   - Verify all KPIs against success criteria (SC-602, SC-603, SC-604)
   - Deduplicate completed PRD generations by stable generation or fallback session ID before calculating active weeks
   - Identify adoption trends and blockers
-  - Recommend proceed to Phase 7 or extend adoption period
+  - Recommend action items for Weeks 7-9 adoption support
+  - **NOTE**: This checkpoint is INTERIM only. Final Phase 7 decision gate occurs at Week 9 (42-day evaluation).
   
 - **Owner**: Ash Shaw
 - **Duration**: 1-2 hours (compilation, analysis, documentation)
+
+### Week 9: Final Metrics Verification & Phase 7 Decision Gate (T079)
+
+- **Task**: Re-verify all metrics against success criteria for final Phase 7 decision
+  - Repeat SC-602, SC-603, SC-604 verification using Week 9 final data
+  - Compare Week 6 interim vs. Week 9 final to assess trend direction
+  - Finalize Phase 7 decision (ARCHIVE / SYNC / DEFER) based on Week 9 values
+  - Document decision rationale and obtain sign-off
+  
+- **Owner**: Ash Shaw + Product Lead
+- **Duration**: 2-3 hours (final metrics review, decision documentation, sign-off)
 
 ---
 
@@ -310,12 +324,20 @@ PRD Agent Consolidation — User Feedback Survey
 - Call-out any blockers requiring escalation
 - Invite continued feedback
 
-**Week 6 Final Report** (Phase 6 Checkpoint):
+**Week 6 Interim Report** (Phase 6 Checkpoint — Provisional):
 
-- Comprehensive metrics summary
-- Success criteria verification (SC-602, 603, 604)
-- Recommendation: Proceed to Phase 7? Extend adoption? Halt rollout?
-- Documentation: `PHASE6_METRICS_REPORT.md` (final deliverable for Phase 6)
+- Comprehensive interim metrics summary
+- Success criteria verification (SC-602, 603, 604) based on Week 6 data
+- Identify action items for adoption support (Weeks 7-9)
+- NOTE: This checkpoint is NOT the Phase 7 decision gate; final decision occurs at Week 9
+- Documentation: `PHASE6_INTERIM_METRICS_REPORT.md` (deliverable for T077-T078)
+
+**Week 9 Final Report** (Phase 7 Decision Gate):
+
+- Final metrics verification based on full 42-day data
+- Phase 7 decision outcome: ARCHIVE / SYNC / DEFER with rationale
+- Comparison of Week 6 vs. Week 9 trends
+- Documentation: `PHASE7_DECISION.md` (final deliverable for T079)
 
 ---
 
@@ -355,7 +377,9 @@ PRD Agent Consolidation — User Feedback Survey
 
 ## Phase 6 Success Criteria Verification
 
-### At Week 6 Checkpoint
+### At Week 6 Interim Checkpoint (Provisional)
+
+**Note**: This interim verification informs Week 7-9 adoption support priorities. Final Phase 7 decision gate uses Week 9 metrics (see Week 9 Final Report section).
 
 **SC-602: Active Teams** ✅
 
@@ -377,23 +401,32 @@ PRD Agent Consolidation — User Feedback Survey
 
 ### Phase 6 Outcome Scenarios
 
-**SCENARIO A: All Success Criteria Met (PASS)**
+**IMPORTANT: Week 6 Checkpoint is INTERIM Only**
+
+The Week 6 checkpoint report (created during T077-T078) provides interim visibility into adoption progress. However, the actual Phase 7 decision gate occurs at **Week 9 (42-day evaluation)**, where metrics are final and irreversible commitments (ARCHIVE/SYNC/DEFER) are made (T079). Week 6 data informs prioritization of action items before the Week 9 gate, but is not itself the decision trigger.
+
+---
+
+**SCENARIO A: All Success Criteria Met (PASS) at Week 6**
 
 - ✅ ≥5 teams active, satisfaction ≥4.0/5.0, zero critical blockers
-- **Decision**: Proceed to Phase 7 (Archive/Sync decision)
-- **Next**: Complete T077, then start T078 (Phase 7 decision memo)
+- **Week 6 Decision**: Proceed toward Phase 7 decision gate; monitor metrics through Week 9
+- **Action Items**: Continue adoption support; finalize Phase 7 decision criteria (T078)
+- **Week 9 Gate (T079)**: If metrics hold or improve, apply SYNC or ARCHIVE decision; otherwise DEFER pending Week 9 reassessment
 
-**SCENARIO B: Partial Success (CONDITIONAL)**
+**SCENARIO B: Partial Success (CONDITIONAL) at Week 6**
 
 - ⚠️ Example: 4 teams active (target ≥5), satisfaction 3.8/5.0 (target ≥4.0), one high issue with workaround
-- **Decision**: Extend adoption period by 2-3 weeks; address blockers; re-assess at week 9
-- **Next**: Implement fixes; re-survey at week 9; make Phase 7 decision then
+- **Week 6 Decision**: Provisional (not triggering Phase 7 yet); extend adoption support through Week 9
+- **Action Items**: Implement blockers fixes; address satisfaction gaps; intensify adoption outreach
+- **Week 9 Gate (T079)**: Reassess all metrics; decide ARCHIVE/SYNC/DEFER based on Week 9 final values
 
-**SCENARIO C: Failure (FAIL)**
+**SCENARIO C: Failure (FAIL) at Week 6**
 
 - 🔴 <3 teams active, satisfaction <3.5/5.0, or critical blockers blocking usage
-- **Decision**: Halt rollout; investigate root causes; determine if consolidation is viable
-- **Next**: Post-mortem; consider rollback to pre-consolidation version or Phase 5 testing improvements
+- **Week 6 Decision**: Critical escalation required; may need rollback or Phase 5 improvements
+- **Action Items**: Post-mortem analysis; root cause investigation; determine viability of consolidation approach
+- **Week 9 Gate (T079)**: If improvements made, reassess; otherwise escalate rollback recommendation; defer Phase 7 decision indefinitely
 
 ---
 

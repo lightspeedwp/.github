@@ -347,9 +347,9 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 - [ ] T078 [Phase 7] (Blocked on T077) Review the final Phase 6 adoption metrics, team feedback, and usage data; synthesize decision memo (`agents/prd-agent/PHASE7_DECISION_MEMO.md`) per FR-701
 - [ ] T079 [Phase 7] (Blocked on T078) Make the Archive, Sync, or Defer decision for `agents/mode-prd.agent.md`; document rationale with sign-off per FR-702
 - [ ] T080 [Phase 7] (Blocked on T079) If decision = **ARCHIVE**: Move `agents/mode-prd.agent.md` to `.github/projects/archive/prd-agents/` (new archival structure); update all references in workflows, docs, memory registry per FR-703
-- [ ] T081a [Phase 7] (Blocked on T079) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
-- [ ] T081b [Phase 7] (Blocked on T079) If decision = **DEFER**: Record the rationale, next review date, measurable re-evaluation triggers, and linked follow-up issue in `agents/prd-agent/PHASE7_DECISION.md` per FR-702/FR-705
-- [ ] T082 [Phase 7] (Blocked on T080 OR T081a OR T081b) Document the final Phase 7 outcome, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705; complete after the applicable ARCHIVE, SYNC, or DEFER branch
+- [ ] T081-Sync [Phase 7] (Blocked on T079) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
+- [ ] T081-Defer [Phase 7] (Blocked on T079) If decision = **DEFER**: Record the rationale, next review date, measurable re-evaluation triggers, and linked follow-up issue in `agents/prd-agent/PHASE7_DECISION.md` per FR-702/FR-705
+- [ ] T082 [Phase 7] (Blocked on T080 OR T081-Sync OR T081-Defer) Document the final Phase 7 outcome, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705; complete after the applicable ARCHIVE, SYNC, or DEFER branch
 
 **Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed, or DEFER documented in `agents/prd-agent/PHASE7_DECISION.md` with rationale, re-evaluation criteria, next review date, and a linked follow-up issue; all references updated where applicable; decision documented with sign-off.
 

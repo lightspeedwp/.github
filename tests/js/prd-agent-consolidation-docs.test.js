@@ -87,8 +87,10 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(tasks).toMatch(/T078 .*\(Blocked on T077\)/);
       expect(tasks).toMatch(/T079 .*\(Blocked on T078\)/);
       expect(tasks).toMatch(/T080 .*\(Blocked on T079\)/);
-      expect(tasks).toMatch(/T081 .*\(Blocked on T079\)/);
-      expect(tasks).toMatch(/T082 .*\(Blocked on T080 OR T081\)/);
+      expect(tasks).toMatch(/T081-(?:Sync|Defer) .*\(Blocked on T079\)/);
+      expect(tasks).toMatch(
+        /T082 .*\(Blocked on T080 OR T081-Sync OR T081-Defer\)/,
+      );
     });
 
     test("gives every Phase 7 branch and closure task a distinct identifier", () => {
@@ -101,7 +103,14 @@ describe("PRD agent consolidation convergence documentation", () => {
         ...phase7.matchAll(/^- \[[ xX]\] (T\d{3}(?:-[A-Za-z]+)?)\b/gm),
       ].map((match) => match[1]);
 
-      expect(taskIds).toEqual(["T078", "T079", "T080", "T081", "T082"]);
+      expect(taskIds).toEqual([
+        "T078",
+        "T079",
+        "T080",
+        "T081-Sync",
+        "T081-Defer",
+        "T082",
+      ]);
       expect(new Set(taskIds).size).toBe(taskIds.length);
     });
 

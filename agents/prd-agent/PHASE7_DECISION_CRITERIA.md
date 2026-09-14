@@ -4,7 +4,7 @@
 **Phase**: Phase 7 (Decision Framework)
 **Subject**: Determine fate of `agents/mode-prd.agent.md` based on Phase 6 adoption metrics
 **Date Created**: 2026-09-13
-**Decision Gate**: Apply after Phase 6 Week 6 metrics collection (per tasks.md T077)
+**Decision Gate**: Apply after Phase 6 metrics collection and T077 completion (per tasks.md T078-T079)
 
 ---
 
@@ -57,7 +57,7 @@ This document defines the decision criteria, success thresholds, and execution r
    - Update skill routing instructions (→ remove `mode-prd` from active agent list)
 5. Document archival decision in `agents/prd-agent/PHASE7_DECISION.md` with sign-off
 
-**Phase 7 Deliverables** (T078):
+**Phase 7 Deliverables** (T080):
 
 - Archived copy of legacy agent in `.github/projects/archive/prd-agents/`
 - Updated memory registry entry (`agent:mode-prd` status = `archived`)
@@ -95,7 +95,7 @@ This document defines the decision criteria, success thresholds, and execution r
 4. Document sync process in `agents/prd-agent/SYNC_PROCESS.md` (new file)
 5. Update memory registry: Confirm `agent:mode-prd` entry references portable version as source of truth
 
-**Phase 7 Deliverables** (T079):
+**Phase 7 Deliverables** (T081-Sync):
 
 - Updated `agents/mode-prd.agent.md` prompt matching portable version
 - Sync trigger defined and documented
@@ -132,7 +132,7 @@ This document defines the decision criteria, success thresholds, and execution r
    - Re-assessment criteria and date
    - Action items to enable future decision
 
-**Phase 7 Deliverables** (Deferred):
+**Phase 7 Deliverables** (T081-Defer):
 
 - Decision rationale and deferral timeline documented
 - Re-assessment criteria defined
@@ -142,37 +142,37 @@ This document defines the decision criteria, success thresholds, and execution r
 
 ## Execution Steps (All Paths)
 
-### Before Applying Decision Matrix (T076 Prerequisite)
+### Before Applying Decision Matrix (T077-T078 Prerequisites)
 
-1. **Collect Final Phase 6 Metrics** (per PHASE6_EXECUTION_LOG.md Week 6):
+1. **Collect Final Phase 6 Metrics** (T077 Task — per PHASE6_EXECUTION_LOG.md Week 6):
    - [ ] Final active team count: ____ (target: ≥5)
    - [ ] Average satisfaction score: ____ / 5.0 (target: ≥4.0)
    - [ ] Critical blocker count: ____ (target: 0)
 
-2. **Review Phase 6 Adoption Data** (T076 Task):
+2. **Review Phase 6 Adoption Data** (T078 Task):
    - [ ] Read PHASE6_EXECUTION_LOG.md Week 6 summary
    - [ ] Review ADOPTION_METRICS.md final KPI results
    - [ ] Analyze user feedback from satisfaction survey
    - [ ] Compile decision memo: `agents/prd-agent/PHASE7_DECISION_MEMO.md`
 
-3. **Synthesize Decision Memo** (T076):
+3. **Synthesize Decision Memo** (T078 Task):
    - What worked well in Phase 6?
    - What challenges did teams encounter?
    - How does consolidated agent compare to pre-consolidation baseline?
    - Recommendation: ARCHIVE / SYNC / DEFER?
 
-### After Decision Gate (T077 Sign-Off)
+### After Decision Application (T079-T082 Execution)
 
-1. **Apply Decision Matrix** (this document, T077):
+1. **Apply Decision Matrix** (T079 Sign-Off Task):
    - [ ] Verify all Phase 6 metrics are final and documented
    - [ ] Map metrics to decision path (ARCHIVE / SYNC / DEFER)
    - [ ] Document decision rationale with evidence
    - [ ] Obtain sign-off from stakeholder (per sign-off lane below)
 
-2. **Execute Chosen Path** (T078 or T079, T080):
+2. **Execute Chosen Path** (T080 or T081-Sync or T081-Defer, followed by T082):
    - [ ] Follow path-specific actions above (ARCHIVE / SYNC / DEFER)
    - [ ] Create or update Phase 7 deliverable files
-   - [ ] Document final decision in `agents/prd-agent/PHASE7_DECISION.md`
+   - [ ] Document final decision in `agents/prd-agent/PHASE7_DECISION.md` (T082)
 
 ---
 
@@ -205,22 +205,24 @@ This document defines the decision criteria, success thresholds, and execution r
 
 | Task | Owner | Due Date | Dependency |
 |------|-------|----------|-----------|
-| T076: Review metrics & synthesize decision memo | (TBD) | Week 6 completion | Phase 6 end (T075) |
-| T077: Apply decision matrix & obtain sign-off | Product Lead | Week 6 +1 day | T076 complete |
-| T078: ARCHIVE execution (if Path 1) | (TBD) | Week 7 | T077 sign-off |
-| T079: SYNC execution (if Path 2) | (TBD) | Week 7 | T077 sign-off |
-| T080: Document final decision & close Phase 7 | (TBD) | Week 8 | T078 or T079 complete |
+| T077: Record Phase 6 final metrics & results | (TBD) | Week 6 +1 day | Phase 6 end (T075) |
+| T078: Review metrics & synthesize decision memo | (TBD) | Week 6 +2 days | T077 complete |
+| T079: Apply decision matrix & obtain sign-off | Product Lead | Week 6 +3 days | T078 complete |
+| T080: ARCHIVE execution (if Path 1 selected) | (TBD) | Week 7 | T079 sign-off |
+| T081-Sync: SYNC execution (if Path 2 selected) | (TBD) | Week 7 | T079 sign-off |
+| T081-Defer: DEFER execution (if Path 3 selected) | (TBD) | Week 7 | T079 sign-off |
+| T082: Document final decision & close Phase 7 | (TBD) | Week 8 | T080 or T081-Sync or T081-Defer complete |
 
 ---
 
 ## References
 
 - **Phase 6 Metrics**: `agents/prd-agent/ADOPTION_METRICS.md`, `agents/prd-agent/PHASE6_EXECUTION_LOG.md`
-- **Phase 7 Tasks**: `.github/specs/001-prd-agent-consolidation/tasks.md` (T076-T080)
+- **Phase 7 Tasks**: `.github/specs/001-prd-agent-consolidation/tasks.md` (T077-T082)
 - **Agent Definitions**: `agents/prd-agent/copilot/agent.md` (portable), `agents/mode-prd.agent.md` (legacy)
 - **Memory Registry**: `workflows/memory/registry/memory-registry.yaml`
 - **Archive Destination**: `.github/projects/archive/prd-agents/`
 
 ---
 
-*Decision criteria matrix created: 2026-09-13 | To be applied: Week 6 post-rollout (2026-10-27) | Final decision documented: Phase 7 T077*
+*Decision criteria matrix created: 2026-09-13 | To be applied: Week 6 post-rollout (2026-10-27) | Final decision documented: Phase 7 T079*
