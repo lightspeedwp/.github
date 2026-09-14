@@ -403,4 +403,4 @@ With multiple developers, once Foundational complete:
 
 **Identified Gaps**:
 
-- [ ] T128 Create `docs/CODERABBIT_ADD_PATTERN.md` quick-reference guide for adding new instruction blocks in <5 minutes per SC-010. Include: template for new path entry, step-by-step instructions, validation checklist, example of adding a new file type pattern, reference to priority system and pattern conflict resolution
+- [x] T128 Create `docs/CODERABBIT_ADD_PATTERN.md` quick-reference guide for adding new instruction blocks in <5 minutes per SC-010. Include: template for new path entry, step-by-step instructions, validation checklist, example of adding a new file type pattern, reference to priority system and pattern conflict resolution
