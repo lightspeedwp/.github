@@ -124,6 +124,7 @@ export async function validateBranchName(input) {
       valid: false,
       errors: [
         `Branch type "${type}" is not allowed. Allowed types: ${allowedTypes.join(", ")}`,
+        "branch-type-invalid",
       ],
       type,
     };
@@ -144,8 +145,17 @@ export async function validateBranchName(input) {
   const scope = slug.slice(0, hyphenIndex);
   const shortTitle = slug.slice(hyphenIndex + 1);
 
+  // A valid segment is lowercase/digit runs joined by single hyphens --
+  // no leading/trailing hyphen and no doubled hyphen (which would mean an
+  // empty component, e.g. "a--b" -> scope "a", title "-b").
+  const segmentPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
   if (!scope) {
     errors.push("Scope must not be empty");
+  } else if (!segmentPattern.test(scope)) {
+    errors.push(
+      "Scope must not start or end with a hyphen or contain empty segments",
+    );
   } else if (scope.length > MAX_LENGTH) {
     errors.push(`Scope must be ${MAX_LENGTH} characters or fewer`);
   } else if (scope.length > WARN_LENGTH) {
@@ -156,6 +166,10 @@ export async function validateBranchName(input) {
 
   if (!shortTitle) {
     errors.push("Short title must not be empty");
+  } else if (!segmentPattern.test(shortTitle)) {
+    errors.push(
+      "Short title must not start or end with a hyphen or contain empty segments",
+    );
   } else if (shortTitle.length > MAX_LENGTH) {
     errors.push(`Short title must be ${MAX_LENGTH} characters or fewer`);
   } else if (shortTitle.length > WARN_LENGTH) {
