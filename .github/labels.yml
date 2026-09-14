@@ -84,6 +84,13 @@
   color: 0E8A16
   description: "Completed"
 
+- name: status:completed
+  color: ededed
+  description: ""
+  # Overlaps status:done in meaning; kept as a separate declaration because
+  # it is already applied to real issues (e.g. bulk-label-issues.sh) and a
+  # rename would require re-labeling those issues, not just this file.
+
 - name: status:needs-audit
   color: 7E6007
   description: "Audit needed (security/compliance/quality)"
@@ -105,6 +112,17 @@
 - name: priority:minor
   color: C2E0C6
   description: "Low priority / nice to have"
+
+- name: priority:high
+  color: ededed
+  description: ""
+  # Overlaps priority:important; kept as a separate declaration for the same
+  # reason as status:completed above — already applied to real issues.
+
+- name: priority:low
+  color: ededed
+  description: ""
+  # Overlaps priority:minor; see priority:high above.
 
 # --- Types (Issue Types) ---
 
@@ -151,6 +169,10 @@
 - name: type:test
   color: D29922
   description: "Test coverage"
+
+- name: type:decision
+  color: BFD4F2
+  description: "Decision record"
 
 - name: type:performance
   color: D29922
@@ -257,6 +279,18 @@
 - name: area:core
   color: C5DEF5
   description: "Core / shared infrastructure"
+
+- name: area:governance
+  color: ededed
+  description: ""
+
+- name: area:qa
+  color: C5DEF5
+  description: "QA & testing (task-level)"
+
+- name: area:operations
+  color: C5DEF5
+  description: "Operations & infra (task-level)"
 
 - name: area:block-editor
   color: C5DEF5
