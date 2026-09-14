@@ -25,6 +25,7 @@ const tasks = readRepoFile(
 );
 const adoptionMetrics = readRepoFile("agents/prd-agent/ADOPTION_METRICS.md");
 const changelog = readRepoFile("agents/prd-agent/CHANGELOG.md");
+const rootChangelog = readRepoFile("CHANGELOG.md");
 const phase6Log = readRepoFile("agents/prd-agent/PHASE6_EXECUTION_LOG.md");
 const phase7Criteria = readRepoFile(
   "agents/prd-agent/PHASE7_DECISION_CRITERIA.md",
@@ -32,20 +33,18 @@ const phase7Criteria = readRepoFile(
 
 describe("PRD agent consolidation convergence documentation", () => {
   describe("task plan", () => {
-    test("assigns a unique ID to every task definition", () => {
-      const taskIds = [...tasks.matchAll(/^- \[[ xX]\] (T\d{3})\b/gm)].map(
+    test("assigns the renumbered Phase 3 tasks a contiguous ID range", () => {
+      const phase3 = extractSection(tasks, /^## Phase 3:/m, /^## Phase 4:/m);
+      const taskIds = [...phase3.matchAll(/^- \[[ xX]\] (T\d{3})\b/gm)].map(
         (match) => match[1],
       );
-      const counts = taskIds.reduce(
-        (result, taskId) => result.set(taskId, (result.get(taskId) ?? 0) + 1),
-        new Map(),
+      const expectedIds = Array.from(
+        { length: 40 },
+        (_, index) => `T${String(index + 9).padStart(3, "0")}`,
       );
-      const duplicates = [...counts]
-        .filter(([, count]) => count > 1)
-        .map(([taskId]) => taskId);
 
-      expect(taskIds.length).toBeGreaterThan(0);
-      expect(duplicates).toEqual([]);
+      expect(taskIds).toEqual(expectedIds);
+      expect(new Set(taskIds).size).toBe(taskIds.length);
     });
 
     test.each([
@@ -73,7 +72,29 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(tasks).toMatch(/T077 .*\(Blocked on T076\)/);
       expect(tasks).toMatch(/T078 .*\(Blocked on T077\)/);
       expect(tasks).toMatch(/T079 .*\(Blocked on T077\)/);
-      expect(tasks).toMatch(/T080 .*\(Blocked on T078 OR T079\)/);
+      expect(tasks).toMatch(/T080 .*\(Blocked on T078 OR T079 OR T080-Defer\)/);
+      expect(tasks).toMatch(/T080-Defer .*\(Blocked on T077\)/);
+    });
+
+    test("gives every Phase 7 branch and closure task a distinct identifier", () => {
+      const phase7 = extractSection(
+        tasks,
+        /^### Phase 7: Optional Spec-Based Agent Sync\/Archive/m,
+        /^## Convergence Tasks/m,
+      );
+      const taskIds = [
+        ...phase7.matchAll(/^- \[[ xX]\] (T\d{3}(?:-[A-Za-z]+)?)\b/gm),
+      ].map((match) => match[1]);
+
+      expect(taskIds).toEqual([
+        "T076",
+        "T077",
+        "T078",
+        "T079",
+        "T080",
+        "T080-Defer",
+      ]);
+      expect(new Set(taskIds).size).toBe(taskIds.length);
     });
   });
 
@@ -105,6 +126,18 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(adoptionMetrics).toContain("Workflow trigger events");
       expect(adoptionMetrics).toMatch(
         /Cross-reference team lead survey responses with logged invocations/,
+      );
+    });
+
+    test("requires sustained use while preserving the documented short-week grace", () => {
+      expect(adoptionMetrics).toMatch(
+        /meets ALL of the following:[\s\S]*integrated agent into workflow/,
+      );
+      expect(adoptionMetrics).toMatch(
+        /sustains this threshold[\s\S]*≥4 of the 6 weeks/,
+      );
+      expect(adoptionMetrics).toMatch(
+        /Short weeks with <1 PRD may count[\s\S]*following week shows ≥1 PRD/,
       );
     });
 
@@ -185,18 +218,30 @@ describe("PRD agent consolidation convergence documentation", () => {
         /Critical issues: ____ \(vs\. SC-604 target: 0\)/,
       );
     });
+
+    test("keeps critical-blocker precedence consistent in the hand-off matrix", () => {
+      expect(phase6Log).toMatch(
+        /Archive: \(<5 teams OR <4\.0 satisfaction\) AND 0 critical blockers/,
+      );
+      expect(phase6Log).toMatch(
+        /Sync: ≥5 teams AND ≥4\.0 satisfaction AND 0 critical blockers/,
+      );
+      expect(phase6Log).toMatch(
+        /Defer: Inconclusive data OR unresolved critical blockers/,
+      );
+    });
   });
 
   describe("Phase 7 decision matrix", () => {
     test("documents every decision path and its execution requirement", () => {
       expect(phase7Criteria).toContain(
-        "**Condition**: `(Active Teams < 5) OR (Satisfaction Score < 4.0)`",
+        "**Condition**: `[(Active Teams < 5) OR (Satisfaction Score < 4.0)] AND (Critical Blockers == 0)`",
       );
       expect(phase7Criteria).toContain(
         "**Condition**: `(Active Teams >= 5) AND (Satisfaction Score >= 4.0) AND (Critical Blockers == 0)`",
       );
       expect(phase7Criteria).toContain(
-        "**Condition**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Unresolved Critical Blockers)`",
+        "**Condition**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Critical Blockers > 0) OR [(Active Teams < 5 OR Satisfaction Score < 4.0) AND (Critical Blockers > 0)]`",
       );
       expect(phase7Criteria).toMatch(
         /### Path 1: ARCHIVE[\s\S]*\*\*Actions \(FR-703\)\*\*/,
@@ -212,28 +257,41 @@ describe("PRD agent consolidation convergence documentation", () => {
       );
     });
 
-    test.each([
-      { teams: 4, satisfaction: 3.9, blockers: 0 },
-      { teams: 4, satisfaction: 4.0, blockers: 0 },
-      { teams: 5, satisfaction: 3.9, blockers: 0 },
-      { teams: 5, satisfaction: 4.0, blockers: 0 },
-      { teams: 5, satisfaction: 4.0, blockers: 1 },
-    ])(
-      "assigns exactly one path at the decision boundaries: %o",
-      ({ teams, satisfaction, blockers }) => {
-        const matchingPaths = [
-          teams < 5 || satisfaction < 4.0 ? "ARCHIVE" : null,
-          teams >= 5 && satisfaction >= 4.0 && blockers === 0 ? "SYNC" : null,
-          (teams >= 5 && satisfaction < 4.0) ||
-          (teams < 5 && satisfaction >= 4.0) ||
-          blockers > 0
-            ? "DEFER"
-            : null,
-        ].filter(Boolean);
+    test("guards both terminal paths against unresolved critical blockers", () => {
+      const archive = extractSection(
+        phase7Criteria,
+        /^### Path 1: ARCHIVE/m,
+        /^---$/m,
+      );
+      const sync = extractSection(
+        phase7Criteria,
+        /^### Path 2: SYNC/m,
+        /^---$/m,
+      );
+      const defer = extractSection(
+        phase7Criteria,
+        /^### Path 3: DEFER/m,
+        /^---$/m,
+      );
 
-        expect(matchingPaths).toHaveLength(1);
-      },
-    );
+      expect(archive).toMatch(/Critical Blockers == 0/);
+      expect(sync).toMatch(/Critical Blockers == 0/);
+      expect(defer).toMatch(/Critical Blockers > 0/);
+      expect(defer).toMatch(/Unresolved critical blockers take precedence/i);
+    });
+
+    test("defines actionable outputs for the negative DEFER path", () => {
+      const defer = extractSection(
+        phase7Criteria,
+        /^### Path 3: DEFER/m,
+        /^---$/m,
+      );
+
+      expect(defer).toContain("Re-assessment criteria defined");
+      expect(defer).toMatch(/follow-up issue created with due date/i);
+      expect(defer).toContain("agents/prd-agent/PHASE7_DECISION.md");
+      expect(tasks).toContain("`[PHASE-7-DEFER]`");
+    });
   });
 
   describe("release history", () => {
@@ -305,6 +363,38 @@ describe("PRD agent consolidation convergence documentation", () => {
       }
       for (const criterion of ["SC-601", "SC-602", "SC-603", "SC-604"]) {
         expect(phase6Release).toContain(criterion);
+        expect(phase6Release).toMatch(
+          new RegExp(`^- \\[ \\] ${criterion}:`, "m"),
+        );
+      }
+    });
+
+    test("records the blocker-precedence regression fix in the root changelog", () => {
+      const unreleased = extractSection(
+        rootChangelog,
+        /^## \[Unreleased\]/m,
+        /^## \[/m,
+      );
+
+      expect(unreleased).toContain(
+        "PRD Agent Consolidation — Phase 7 Decision Logic Consistency",
+      );
+      expect(unreleased).toContain("Critical Blockers == 0");
+      expect(unreleased).toContain("T080-Defer");
+    });
+
+    test("references only Phase 6 artefacts that exist in the repository", () => {
+      for (const file of [
+        "ROLLOUT_PLAN.md",
+        "ADOPTION_METRICS.md",
+        "FAQ.md",
+        "PHASE6_EXECUTION_LOG.md",
+        "PHASE7_DECISION_CRITERIA.md",
+      ]) {
+        expect(changelog).toContain(`**${file}**`);
+        expect(
+          fs.existsSync(path.join(repoRoot, "agents/prd-agent", file)),
+        ).toBe(true);
       }
     });
   });
