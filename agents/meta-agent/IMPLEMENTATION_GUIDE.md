@@ -620,3 +620,6 @@ After setup, see [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for common issues an
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

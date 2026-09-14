@@ -62,3 +62,5 @@ Treat missing keyboard access, invisible focus, inaccessible navigation, unlabel
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
