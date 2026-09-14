@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChecklistTemplate",
+  "description": "Named checklist variant configured for a specific audience",
+  "type": "object",
+  "required": ["id", "name", "description", "audience", "time_estimate_minutes", "dimensions"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z-]+$",
+      "description": "Unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Context and purpose"
+    },
+    "audience": {
+      "type": "string",
+      "enum": ["author", "peer", "stakeholder", "integration"],
+      "description": "Target audience type"
+    },
+    "time_estimate_minutes": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Expected completion time in minutes"
+    },
+    "language_tone": {
+      "type": "string",
+      "description": "Guidance on language style (e.g. 'non-technical')"
+    },
+    "intro_message": {
+      "type": "string",
+      "description": "Welcome message shown to user"
+    },
+    "success_message": {
+      "type": "string",
+      "description": "Message shown when checklist passes"
+    },
+    "dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["dimension_id", "items"],
+        "properties": {
+          "dimension_id": {
+            "type": "string",
+            "pattern": "^[a-z-]+$"
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z-0-9]+$"
+            },
+            "description": "List of ChecklistItem IDs to include"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Dimensions and items to include in this template"
+    },
+    "item_order": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z-0-9]+$"
+      },
+      "description": "Recommended order of item presentation"
+    }
+  },
+  "additionalProperties": false
+}
