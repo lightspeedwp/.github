@@ -132,7 +132,7 @@ Slide 8: Metrics & Success
 Slide 9: Support & Next Steps
 - Slack channel: #prd-agent-rollout (monitor for questions)
 - FAQ: `agents/prd-agent/FAQ.md`
-- Scheduled check-in: Week 4 (2026-10-01)
+- Scheduled check-in: Week 4 (2026-10-04)
 - Final evaluation: Week 6 (2026-10-24)
 
 Slide 10: Questions?
