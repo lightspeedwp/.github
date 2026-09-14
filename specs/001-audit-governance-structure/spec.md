@@ -138,6 +138,12 @@ As a **reader**, I need all references and links in governance files to point to
 - **SC-007**: Cross-references between CLAUDE.md and AGENTS.md use consistent anchor format; a reader can quickly find related content in the "other" file
 - **SC-008**: All consolidated instruction files referenced in AGENTS.md verified to contain claimed consolidations (e.g., if file claims "consolidated 4 files," all 4 topics are present)
 
+## Clarifications
+
+### Session 2026-09-14
+
+- Q1: Recovery strategy if refactoring breaks downstream systems? → A: Phased rollout approach—test refactoring on feature branch first, validate against dependent repos before merge to develop to catch issues early
+
 ## Assumptions
 
 - **Assumption**: CLAUDE.md and AGENTS.md are authoritative governance files that supersede project-specific instruction files (per constitution)
@@ -148,3 +154,4 @@ As a **reader**, I need all references and links in governance files to point to
 - **Assumption**: Duplicates and bad references are unintentional technical debt, not deliberate (e.g., for backward compatibility reasons)
 - **Assumption**: All referenced instruction files in `instructions/` folder exist and are discoverable; if missing, they represent incomplete migration
 - **Assumption**: The target audience for governance files includes: AI agents, AI clients (Claude Code), human contributors, and GitHub Actions workflows
+- **Assumption**: Refactoring will be tested on feature branch, validated against dependent repos, and approved by @ashley before merging to develop (phased rollout approach)
