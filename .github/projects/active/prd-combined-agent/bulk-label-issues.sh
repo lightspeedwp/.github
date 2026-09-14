@@ -133,7 +133,6 @@ declare -A ISSUES=(
 
 SUCCESS=0
 FAILED=0
-SKIPPED=0
 BATCH_COUNT=0
 
 echo "Processing ${#ISSUES[@]} issues in batches of $BATCH_SIZE..."
@@ -148,13 +147,13 @@ for ISSUE in $(echo "${!ISSUES[@]}" | tr ' ' '\n' | sort -n); do
     ((++SUCCESS))
   else
     echo -n "Issue #$ISSUE: "
-    if gh issue edit "$ISSUE" \
+    if GH_ERROR=$(gh issue edit "$ISSUE" \
       --add-label "$LABELS" \
-      --repo "$REPO" 2>/dev/null; then
+      --repo "$REPO" 2>&1); then
       echo "✅ labeled"
       ((++SUCCESS))
     else
-      echo "❌ failed"
+      echo "❌ failed: $GH_ERROR"
       ((++FAILED))
     fi
   fi
@@ -172,7 +171,6 @@ echo "Summary:"
 echo "  Total Issues: ${#ISSUES[@]}"
 echo "  ✅ Successful: $SUCCESS"
 echo "  ❌ Failed: $FAILED"
-echo "  ⏭️  Skipped: $SKIPPED"
 echo "=================================================="
 
 if [ $FAILED -eq 0 ]; then
