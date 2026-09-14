@@ -104,9 +104,12 @@ As an AI agent builder, I want the PRD agent prompt to be enhanced with improved
 
 - **FR-411**: Analyze Phase 3 consolidation feedback to identify prompt improvement areas
 - **FR-412**: Enhance PRD agent prompt with improved context management and skill routing
-- **FR-413**: Update `agents/mode-prd.agent.md` memory registry entry or defer archival (FR-010) decision to Phase 7
+- **FR-413**: Update `agents/mode-prd.agent.md` memory registry entry to reflect consolidation (remove prd-factory-planner references, refresh skill index)
 - **FR-414**: Validate enhanced prompt against test cases; document baseline vs. improved metrics
 - **FR-415**: Update CHANGELOG.md with v2.2.0 improvements and Phase 4 completion
+
+**Phase 7 Responsibility** (Deferred Decision):
+- **FR-701**: Execute Phase 7 decision on archival/deprecation of `agents/mode-prd.agent.md` per `PHASE7_DECISION_CRITERIA.md` decision matrix (ARCHIVE/SYNC/DEFER paths)
 
 ### Success Criteria (Phase 4)
 
@@ -166,7 +169,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 
 **Acceptance Scenarios**:
 
-1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent.
+1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent (per SC-602 quantitative definition: ≥1 PRD generation per rolling 7-day window, sustained for ≥4 of 6 weeks).
 2. **Given** team adoption metrics, **When** collected after 30 days, **Then** user satisfaction score ≥4.0/5.0 and no critical blockers reported.
 3. **Given** the consolidated agent deployed, **When** compared to pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
 
