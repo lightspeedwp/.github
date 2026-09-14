@@ -182,9 +182,9 @@
 
 #### Configuration Tasks
 
-- [ ] T049 [P] Create `.github/branch-types.yml` configuration file; define mapping: 24 types → PR template files (e.g., `feat` → `pr_feature.md`)
-- [ ] T050 [P] Create `.github/branch-labels.yml` configuration file; define mapping: 24 types → default labels (e.g., `feat` → `["type:feature"]`); include area detection keywords
-- [ ] T051 [US3] Validate branch-types.yml against `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all referenced templates exist
+- [x] T049 [P] Create `.github/branch-types.yml` configuration file; define mapping: 24 types → PR template files (e.g., `feat` → `pr_feature.md`)
+- [x] T050 [P] Create `.github/branch-labels.yml` configuration file; define mapping: 24 types → default labels (e.g., `feat` → `["type:feature"]`); include area detection keywords
+- [x] T051 [US3] Validate branch-types.yml against `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all referenced templates exist
 
 #### GitHub Actions Workflow: Template Routing
 
