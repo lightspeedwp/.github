@@ -17,7 +17,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "validate:branch-name": "node ../../.validate-branch-name.js",
-    "validate:changelog": "node changelog-validator.js validate --json"
+    "validate:changelog": "node validate-changelog.js"
   },
   "keywords": [
     "changelog",
