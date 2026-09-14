@@ -17,7 +17,6 @@ function loadConfig(filePath) {
     const content = fs.readFileSync(filePath, "utf8");
     return yamlLoad(content);
   } catch (error) {
-    console.error(`Error loading config ${filePath}:`, error.message);
     return null;
   }
 }
@@ -101,62 +100,48 @@ function getAreaLabels(scope, labelsConfig) {
 }
 
 /**
- * Main routing function
+ * Main routing function - returns routing data object
  */
 function routePR(branchName) {
-  console.log(`Processing branch: ${branchName}`);
-
   // Load configurations
   const typesConfig = loadConfig(".github/branch-types.yml");
   const labelsConfig = loadConfig(".github/branch-labels.yml");
 
   if (!typesConfig) {
-    console.error("Failed to load branch-types.yml");
-    process.exit(1);
+    throw new Error("Failed to load branch-types.yml");
   }
 
   if (!labelsConfig) {
-    console.error("Failed to load branch-labels.yml");
-    process.exit(1);
+    throw new Error("Failed to load branch-labels.yml");
   }
 
   // Extract branch type
   const branchType = extractBranchType(branchName);
   if (!branchType) {
-    console.error(`Could not extract branch type from: ${branchName}`);
-    process.exit(1);
+    throw new Error(`Could not extract branch type from: ${branchName}`);
   }
 
   // Get template
   const template = getTemplate(branchType, typesConfig);
-  console.log(`Template: ${template}`);
 
   // Get default labels
   const defaultLabels = getLabels(branchType, labelsConfig);
-  console.log(`Default labels: ${defaultLabels.join(", ")}`);
 
   // Get area labels from scope
   const scope = extractScope(branchName);
   const areaLabels = getAreaLabels(scope, labelsConfig);
-  if (areaLabels.length > 0) {
-    console.log(`Area labels detected: ${areaLabels.join(", ")}`);
-  }
 
   // Combine all labels
   const allLabels = [...new Set([...defaultLabels, ...areaLabels])];
-  console.log(`All labels: ${allLabels.join(", ")}`);
 
-  // Output as JSON for GitHub Actions
-  console.log(
-    JSON.stringify({
-      branch_type: branchType,
-      template: template,
-      default_labels: defaultLabels,
-      area_labels: areaLabels,
-      all_labels: allLabels,
-      scope: scope,
-    }),
-  );
+  return {
+    branch_type: branchType,
+    template: template,
+    default_labels: defaultLabels,
+    area_labels: areaLabels,
+    all_labels: allLabels,
+    scope: scope,
+  };
 }
 
 // Get branch name from command line or environment
@@ -169,4 +154,11 @@ if (!branchName) {
   process.exit(1);
 }
 
-routePR(branchName);
+try {
+  const result = routePR(branchName);
+  // Only output the JSON - no debug messages
+  console.log(JSON.stringify(result));
+} catch (error) {
+  console.error(`Error: ${error.message}`);
+  process.exit(1);
+}
