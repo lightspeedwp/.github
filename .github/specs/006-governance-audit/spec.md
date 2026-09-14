@@ -94,7 +94,7 @@ Maintainers need clear, prioritized remediation plans that explain:
 - **FR-004**: Audit MUST detect and report duplicate labels (same meaning under different names) and near-duplicates (similar names that may indicate accidental duplication)
 - **FR-005**: Audit MUST validate PR template routing logic: each branch prefix (from branch naming strategy: `feat/`, `fix/`, `audit/`, etc.) MUST map to exactly one PR template and the mapping MUST be documented
 - **FR-006**: Audit MUST verify that all issue types in `.github/issue-types.yml` are used in at least one active issue template
-- **FR-007**: Audit MUST check template content for consistency with constitutional principles (UK English spelling, WCAG 2.2 AA guidance, no implementation-specific language)
+- **FR-007**: Audit MUST check template content for consistency with constitutional principles: UK English spelling (Constitution VI), WCAG 2.2 AA accessibility guidance (Constitution VI), and absence of implementation-specific language (Constitution IV)
 - **FR-008**: Audit MUST generate compliance report showing: files audited, total rules checked, pass/fail count, compliance percentage, violations discovered with file locations and line numbers
 - **FR-009**: Validation system MUST check YAML syntax and required field presence before any semantic validation
 - **FR-010**: Validation system MUST prevent commits that violate established governance rules (pre-commit hook or CI gate)
