@@ -1,0 +1,452 @@
+{
+  "total_policy_labels": 57,
+  "labels_in_canonical": 45,
+  "labels_missing_from_canonical": 12,
+  "potential_naming_mismatches": [],
+  "detailed_findings": [
+    {
+      "finding_type": "present",
+      "policy_label": "type:bug",
+      "canonical_label": "type:bug",
+      "status": "MATCH",
+      "family": "",
+      "color": "9F3734"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:feature",
+      "canonical_label": "type:feature",
+      "status": "MATCH",
+      "family": "",
+      "color": "3FB950"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:documentation",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:task",
+      "canonical_label": "type:task",
+      "status": "MATCH",
+      "family": "",
+      "color": "4393F8"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:release",
+      "canonical_label": "type:release",
+      "status": "MATCH",
+      "family": "",
+      "color": "3FB950"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:design",
+      "canonical_label": "type:design",
+      "status": "MATCH",
+      "family": "",
+      "color": "AB7DF8"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:chore",
+      "canonical_label": "type:chore",
+      "status": "MATCH",
+      "family": "",
+      "color": "9198A1"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:refactor",
+      "canonical_label": "type:refactor",
+      "status": "MATCH",
+      "family": "",
+      "color": "9198A1"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:maintenance",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:automation",
+      "canonical_label": "type:automation",
+      "status": "MATCH",
+      "family": "",
+      "color": "4393F8"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:test",
+      "canonical_label": "type:test",
+      "status": "MATCH",
+      "family": "",
+      "color": "D29922"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:ai-ops",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:build",
+      "canonical_label": "type:build",
+      "status": "MATCH",
+      "family": "",
+      "color": "4393F8"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:ci",
+      "canonical_label": "type:ci",
+      "status": "MATCH",
+      "family": "",
+      "color": "4393F8"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:dependency",
+      "canonical_label": "type:dependency",
+      "status": "MATCH",
+      "family": "",
+      "color": "9198A1"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:compatibility",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:research",
+      "canonical_label": "type:research",
+      "status": "MATCH",
+      "family": "",
+      "color": "9198A1"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:investigation",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:security",
+      "canonical_label": "type:security",
+      "status": "MATCH",
+      "family": "",
+      "color": "9F3734"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:performance",
+      "canonical_label": "type:performance",
+      "status": "MATCH",
+      "family": "",
+      "color": "D29922"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:audit",
+      "canonical_label": "type:audit",
+      "status": "MATCH",
+      "family": "",
+      "color": "9198A1"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:epic",
+      "canonical_label": "type:epic",
+      "status": "MATCH",
+      "family": "",
+      "color": "AB7DF8"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:question",
+      "canonical_label": "type:question",
+      "status": "MATCH",
+      "family": "",
+      "color": "4393F8"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:support",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:content-modelling",
+      "canonical_label": "type:content-modelling",
+      "status": "MATCH",
+      "family": "",
+      "color": "AB7DF8"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:story",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:review",
+      "canonical_label": "type:review",
+      "status": "MATCH",
+      "family": "",
+      "color": "D29922"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:a11y",
+      "canonical_label": "type:a11y",
+      "status": "MATCH",
+      "family": "",
+      "color": "DB61A2"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "type:improve",
+      "canonical_label": "type:improve",
+      "status": "MATCH",
+      "family": "",
+      "color": "9198A1"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:enhancement",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "type:help",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "type"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:ci",
+      "canonical_label": "area:ci",
+      "status": "MATCH",
+      "family": "",
+      "color": "BFD4F2"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:dependencies",
+      "canonical_label": "area:dependencies",
+      "status": "MATCH",
+      "family": "",
+      "color": "F9D0C4"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "area:labels",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "area"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:security",
+      "canonical_label": "area:security",
+      "status": "MATCH",
+      "family": "",
+      "color": "810E18"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:a11y",
+      "canonical_label": "area:a11y",
+      "status": "MATCH",
+      "family": "",
+      "color": "4D1A93"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:documentation",
+      "canonical_label": "area:documentation",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:tests",
+      "canonical_label": "area:tests",
+      "status": "MATCH",
+      "family": "",
+      "color": "D4C5F9"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:scripts",
+      "canonical_label": "area:scripts",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:assets",
+      "canonical_label": "area:assets",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:woocommerce",
+      "canonical_label": "area:woocommerce",
+      "status": "MATCH",
+      "family": "",
+      "color": "D4C5F9"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:block-editor",
+      "canonical_label": "area:block-editor",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:theme",
+      "canonical_label": "area:theme",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:testing",
+      "canonical_label": "area:testing",
+      "status": "MATCH",
+      "family": "",
+      "color": "4D1A93"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:performance",
+      "canonical_label": "area:performance",
+      "status": "MATCH",
+      "family": "",
+      "color": "7E6007"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:playwright",
+      "canonical_label": "area:playwright",
+      "status": "MATCH",
+      "family": "",
+      "color": "4D1A93"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:jest",
+      "canonical_label": "area:jest",
+      "status": "MATCH",
+      "family": "",
+      "color": "4D1A93"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:phpunit",
+      "canonical_label": "area:phpunit",
+      "status": "MATCH",
+      "family": "",
+      "color": "4D1A93"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "area:pagespeed",
+      "canonical_label": "area:pagespeed",
+      "status": "MATCH",
+      "family": "",
+      "color": "7E6007"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "lang:php",
+      "canonical_label": "lang:php",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "lang:js",
+      "canonical_label": "lang:js",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "lang:css",
+      "canonical_label": "lang:css",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "lang:md",
+      "canonical_label": "lang:md",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "lang:json",
+      "canonical_label": "lang:json",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "present",
+      "policy_label": "lang:yaml",
+      "canonical_label": "lang:yaml",
+      "status": "MATCH",
+      "family": "",
+      "color": "C5DEF5"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "meta:duplicate",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "meta"
+    },
+    {
+      "finding_type": "missing_from_canonical",
+      "policy_label": "meta:dependabot-security",
+      "canonical_label": null,
+      "status": "NOT FOUND IN CANONICAL",
+      "family": "meta"
+    }
+  ]
+}
