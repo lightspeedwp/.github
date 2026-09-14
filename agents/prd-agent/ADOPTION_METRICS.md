@@ -176,11 +176,13 @@ PRD Agent Consolidation — User Feedback Survey
 
 ### Secondary KPIs (Context & Trend Analysis)
 
-#### 4. **Usage Frequency** (Trend Indicator)
+#### 4. **Usage Frequency** (Trend Indicator — Not a Qualification Requirement)
 
-**Definition**: Average number of uniquely identified, completed PRD generations per team per week.
+**Definition**: Average number of uniquely identified, completed PRD generations per team per week. This is a trend indicator and does not override SC-602's adoption qualification.
 
-**Target**: ≥2 completed PRDs/team/week (indicates active, repeated usage)
+**Target**: ≥2 completed PRDs/team/week (indicates strong, repeated usage)
+
+**Note**: SC-602 uses the lower ≥1 threshold for adoption qualification. The ≥2 target here tracks usage intensity for teams that exceed the baseline requirement, providing insight into engagement depth rather than qualification status.
 
 **Measurement**:
 

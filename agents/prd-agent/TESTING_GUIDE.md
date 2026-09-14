@@ -12,8 +12,8 @@
 ### Run Full Test Suite
 
 ```bash
-# Execute all tests on Claude (Sonnet 5)
-node tests/test-runner.js --provider claude --suite all
+# Execute all tests on Claude (Sonnet 5) from repository root
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all
 
 # Output: Text results with pass/fail status per test
 # Exit code: 0 (all passed), 1 (failures)
@@ -23,26 +23,26 @@ node tests/test-runner.js --provider claude --suite all
 
 ```bash
 # Multi-skill routing tests (TC-201-TC-204)
-node tests/test-runner.js --provider claude --suite routing
+node agents/prd-agent/tests/test-runner.js --provider claude --suite routing
 
 # Skill inventory tests (TC-401-TC-402)
-node tests/test-runner.js --provider claude --suite skills
+node agents/prd-agent/tests/test-runner.js --provider claude --suite skills
 
 # GitHub integration tests (TC-301-TC-303)
-node tests/test-runner.js --provider claude --suite integration
+node agents/prd-agent/tests/test-runner.js --provider claude --suite integration
 ```
 
 ### Output Formats
 
 ```bash
 # JSON output for parsing/CI integration
-node tests/test-runner.js --provider claude --suite all --json > results.json
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results.json
 
 # Verbose output with detailed messages
-node tests/test-runner.js --provider claude --suite all --verbose
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --verbose
 
 # Combine options
-node tests/test-runner.js --provider claude --suite routing --verbose --json
+node agents/prd-agent/tests/test-runner.js --provider claude --suite routing --verbose --json
 ```
 
 ---
@@ -257,11 +257,12 @@ cat results/claude-all-tests.json | jq '.passed, .failed, .byCategory'
 Execute tests against Phase 3 agent prompt (before Phase 4 rewrite):
 
 ```bash
-# Clone Phase 3 agent prompt for baseline testing
-cp agents/prd-agent/claude/agent.md agents/prd-agent/claude/agent.baseline.md
+# Retrieve frozen pre-Phase-4 baseline from git (use pinned revision)
+# Replace <PRE_PHASE4_REF> with the commit/tag for pre-Phase-4 agent
+git show <PRE_PHASE4_REF>:agents/prd-agent/claude/agent.md > agents/prd-agent/claude/agent.baseline.md
 
-# Execute tests (results become baseline)
-node tests/test-runner.js --provider claude --suite all --json > results/baseline.json
+# Execute tests against baseline (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/baseline.json
 
 # Record baseline metrics in TEST_RESULTS.md
 ```
