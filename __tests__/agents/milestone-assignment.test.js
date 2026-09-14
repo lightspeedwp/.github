@@ -12,11 +12,12 @@
 
 import { MilestoneAssignmentAgent } from "../../scripts/agents/includes/milestone-assignment.js";
 import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { join } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// `__dirname` here is Jest's ambient CommonJS-wrapper global, not a native
+// ESM binding: import.meta.url has no CJS equivalent, so using it would
+// leave this file un-transformable to CommonJS and break under plain jest
+// (no --experimental-vm-modules), which is how the root suite runs it.
 const sampleIssues = JSON.parse(
   readFileSync(join(__dirname, "../fixtures/sample-issues.json"), "utf8"),
 );

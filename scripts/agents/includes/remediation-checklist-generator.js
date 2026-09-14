@@ -22,13 +22,26 @@ class RemediationChecklistGenerator {
    * Analyze issue for template compliance gaps
    */
   analyzeCompliance(issue) {
+    if (!issue) {
+      return {
+        issueNumber: undefined,
+        title: undefined,
+        type: "unknown",
+        hasDoR: false,
+        hasDoD: false,
+        missingDoR: true,
+        missingDoD: true,
+        isNonCompliant: true,
+      };
+    }
+
     const body = (issue.body || "").toLowerCase();
     const labels = (issue.labels || []).map((l) =>
       typeof l === "string" ? l : l.name,
     );
 
-    const hasDoR = /definition of ready \(dor\)/i.test(body);
-    const hasDoD = /definition of done \(dod\)/i.test(body);
+    const hasDoR = /definition of ready(\s*\(dor\))?/i.test(body);
+    const hasDoD = /definition of done(\s*\(dod\))?/i.test(body);
 
     return {
       issueNumber: issue.number,
@@ -125,7 +138,7 @@ class RemediationChecklistGenerator {
       ],
       "type:bug": [
         "- [ ] Root cause identified and documented",
-        "- [ ] Fix implemented and tested",
+        "- [ ] Fixed and verified with a passing test",
         "- [ ] Regression test added",
         "- [ ] Release notes updated",
       ],
@@ -194,6 +207,8 @@ class RemediationChecklistGenerator {
       "<!-- remediation-checklist -->",
       "## 📋 Remediation Checklist",
       "",
+      `**Issue type:** ${compliance.type || "unknown"}`,
+      "",
     ];
 
     // Missing sections
@@ -237,6 +252,44 @@ class RemediationChecklistGenerator {
     );
 
     return parts.join("\n");
+  }
+
+  /**
+   * Post (or skip) a single remediation checklist comment for one issue.
+   * Returns the created comment data, or null if nothing was posted
+   * (compliant issue, an existing checklist comment, or an API failure).
+   */
+  async postChecklistComment(issue, analysis) {
+    if (!analysis || !analysis.isNonCompliant) {
+      return null;
+    }
+
+    try {
+      const { data: comments } = await this.github.rest.issues.getComments({
+        owner: this.owner,
+        repo: this.repo,
+        issue_number: issue.number,
+      });
+
+      const existingChecklist = (comments || []).find((c) =>
+        c.body?.includes("Remediation Checklist"),
+      );
+
+      if (existingChecklist) {
+        return null;
+      }
+
+      const { data } = await this.github.rest.issues.createComment({
+        owner: this.owner,
+        repo: this.repo,
+        issue_number: issue.number,
+        body: this.generateRemediationComment(analysis),
+      });
+
+      return data;
+    } catch {
+      return null;
+    }
   }
 
   /**

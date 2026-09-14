@@ -172,8 +172,7 @@ class MilestoneAssignmentAgent {
       candidates.sort((a, b) => b.confidence - a.confidence);
       const selected = candidates[0];
       return {
-        milestoneNumber: selected.milestone.number,
-        milestoneTitle: selected.milestone.title,
+        milestone: selected.milestone,
         confidence: selected.confidence,
         reason: selected.reason,
         alternatives: candidates.slice(1).map((c) => ({
@@ -252,7 +251,7 @@ class MilestoneAssignmentAgent {
           results.push({
             issueNumber: issue.number,
             status: "dry-run-success",
-            milestone: assignment.milestoneTitle,
+            milestone: assignment.milestone.title,
             confidence: assignment.confidence,
             reason: assignment.reason,
           });
@@ -261,13 +260,13 @@ class MilestoneAssignmentAgent {
             owner: this.owner,
             repo: this.repo,
             issue_number: issue.number,
-            milestone: assignment.milestoneNumber,
+            milestone: assignment.milestone.number,
           });
 
           results.push({
             issueNumber: issue.number,
             status: "assigned",
-            milestone: assignment.milestoneTitle,
+            milestone: assignment.milestone.title,
             confidence: assignment.confidence,
             reason: assignment.reason,
           });
