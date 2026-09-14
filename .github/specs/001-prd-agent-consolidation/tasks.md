@@ -251,6 +251,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Context**: `/speckit-converge` assessed Phase 3 completion status (✅ COMPLETE per PR #2865) and identified outstanding work for Phases 4-7 per spec.md requirements.
 
 **Phase 3 Status**: ✅ CONVERGED
+
 - All 9 FRs (FR-001 through FR-009) satisfied in code
 - 28 consolidated skills (matches SC-001 target)
 - No hermes/ folder; prd-factory-planner-agent deleted
@@ -264,6 +265,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Goal**: Enhance PRD agent prompt architecture, validate against test cases, update memory registry, document improvements.
 
 **Functional Requirements** (per spec.md Phase 4):
+
 - FR-411: Analyze Phase 3 consolidation feedback
 - FR-412: Enhance PRD agent prompt with improved context/skill routing
 - FR-413: Update/retire mode-prd.agent.md registry entry (FR-010)
@@ -285,6 +287,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Goal**: Comprehensive testing of consolidated PRD agent across all providers (Claude, Copilot, OpenAI) with ≥95% test pass rate.
 
 **Functional Requirements** (per spec.md Phase 5):
+
 - FR-501: Create comprehensive test suite covering all 28 skills and agent routing
 - FR-502: Execute test suite across all providers
 - FR-503: Validate PRD generation quality against baseline test cases
@@ -307,6 +310,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Goal**: Organization-wide deployment and adoption of consolidated PRD agent with ≥4.0/5.0 user satisfaction and ≥5 active teams after 30 days.
 
 **Functional Requirements** (per spec.md Phase 6):
+
 - FR-601: Create organization-wide rollout communication and documentation
 - FR-602: Conduct team briefings on consolidated agent capabilities
 - FR-603: Set up metrics collection and adoption tracking
@@ -329,6 +333,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 **Goal**: Decide fate of legacy spec-based PRD agent (`agents/mode-prd.agent.md`) based on Phase 6 adoption metrics; archive or sync accordingly.
 
 **Functional Requirements** (per spec.md Phase 7):
+
 - FR-701: Review Phase 6 adoption metrics and team feedback
 - FR-702: Make decision: Archive or Sync spec-based agent
 - FR-703: If Archive: Move to `projects/archive/`; update references; document rationale
@@ -343,7 +348,7 @@ With multiple people: one person/agent per cluster in Phase 3 (12+5 independent 
 - [ ] T081 [Phase 7] (Blocked on T079) If decision = **SYNC**: Update `agents/mode-prd.agent.md` prompt to match `agents/prd-agent/copilot/agent.md`; establish sync trigger (e.g., post-merge to `agents/prd-agent/`) per FR-704
 - [ ] T082 [Phase 7] (Blocked on T080 OR T081) Document final Phase 7 decision, rationale, execution status, and maintainer sign-off in `agents/prd-agent/PHASE7_DECISION.md` per FR-705 (unblocked after either ARCHIVE branch (T080) or SYNC branch (T081) completes)
 
-**Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed; all references updated; decision documented with sign-off.
+**Checkpoint (Post-Phase 6)**: Decision memo reviewed; Archive or Sync executed, or DEFER documented in `agents/prd-agent/PHASE7_DECISION.md` with rationale, re-evaluation criteria, next review date, and a linked follow-up issue; all references updated where applicable; decision documented with sign-off.
 
 ---
 
