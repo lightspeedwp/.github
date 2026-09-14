@@ -30,7 +30,7 @@ description: "Task list for PRD Agent Folder Consolidation"
 - [x] T003 **Decision Retroactive**: Confirm frontend-skill removal status (check: frontend-skill not in current 28-skill list) — record decision and rationale in DECISIONS_LOG.md
 - [x] T004 **Decision Retroactive**: Enumerate 2-file "generic tier" skills from current 28-skill list and record fate decision (KEEP/RETIRE) in DECISIONS_LOG.md with sign-off
 
-**Checkpoint**: All three decisions (T002, T003, T004) recorded in DECISIONS_LOG.md with retroactive validation and maintainer sign-off — Phase 4 (external registry updates) can begin.
+**Checkpoint**: All three decisions (T002, T003, T004) recorded in DECISIONS_LOG.md with retroactive validation and maintainer sign-off — Phase 3 cluster tasks begin (T009 onwards); Phase 4 (external registry updates) can begin after Phase 3 completes.
 
 ---
 
@@ -48,103 +48,103 @@ description: "Task list for PRD Agent Folder Consolidation"
 
 ### Hermes fork merge (FR-001, FR-002 — SKILL_RECONCILIATION_REPORT.md §3)
 
-- [ ] T004 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-approval-gate-manager/references/` into `agents/prd-agent/skills/approval-gate-manager/references/`, reconciling any same-named files with different content
-- [ ] T005 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-project-memory-manager/references/` into `agents/prd-agent/skills/project-memory-manager/references/`, reconciling any same-named files with different content
-- [ ] T006 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-release-handoff-generator/references/` into `agents/prd-agent/skills/release-handoff-generator/references/`, specifically reconciling the two divergent versions of `support-transition-rules.md` (not a straight union — content differs, per SKILL_RECONCILIATION_REPORT.md §3)
-- [ ] T007 [US1] Move `agents/prd-agent/skills/hermes/lightspeed-qa-planner/` to `agents/prd-agent/skills/qa-planner/` (no merge — no counterpart exists anywhere)
-- [ ] T008 [US1] Delete `agents/prd-agent/skills/hermes/` once T004-T007 are complete and verified
+- [ ] T009 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-approval-gate-manager/references/` into `agents/prd-agent/skills/approval-gate-manager/references/`, reconciling any same-named files with different content
+- [ ] T010 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-project-memory-manager/references/` into `agents/prd-agent/skills/project-memory-manager/references/`, reconciling any same-named files with different content
+- [ ] T011 [P] [US1] Union-merge `agents/prd-agent/skills/hermes/lightspeed-release-handoff-generator/references/` into `agents/prd-agent/skills/release-handoff-generator/references/`, specifically reconciling the two divergent versions of `support-transition-rules.md` (not a straight union — content differs, per SKILL_RECONCILIATION_REPORT.md §3)
+- [ ] T012 [US1] Move `agents/prd-agent/skills/hermes/lightspeed-qa-planner/` to `agents/prd-agent/skills/qa-planner/` (no merge — no counterpart exists anywhere)
+- [ ] T013 [US1] Delete `agents/prd-agent/skills/hermes/` once T009-T012 are complete and verified
 
 ### Cluster 1 — PRD drafting (COMPLEMENTARY merge + duplicate delete)
 
-- [ ] T009 [P] [US1] Merge `agents/prd-agent/skills/prd-generator/`'s WordPress/Figma rules, project-type variants, approval gates, acceptance-criteria formats, and 7 asset templates into `agents/prd-agent/skills/prd-writer/`
-- [ ] T010 [US1] Merge `agents/prd-agent/skills/prd-writer/`'s (pre-T009) JSON schemas, delta/update mode templates, and cross-skill routing into the same merged skill (depends on T009 touching the same target folder)
-- [ ] T011 [US1] Delete `agents/prd-agent/skills/prd-generator/` and `agents/prd-agent/skills/prd-generation/` once T009-T010 are verified complete (both fully subsumed, no unique content per audit report Cluster 1)
+- [ ] T014 [P] [US1] Merge `agents/prd-agent/skills/prd-generator/`'s WordPress/Figma rules, project-type variants, approval gates, acceptance-criteria formats, and 7 asset templates into `agents/prd-agent/skills/prd-writer/`
+- [ ] T015 [US1] Merge `agents/prd-agent/skills/prd-writer/`'s (pre-T014) JSON schemas, delta/update mode templates, and cross-skill routing into the same merged skill (depends on T014 touching the same target folder)
+- [ ] T016 [US1] Delete `agents/prd-agent/skills/prd-generator/` and `agents/prd-agent/skills/prd-generation/` once T014-T015 are verified complete (both fully subsumed, no unique content per audit report Cluster 1)
 
 ### Cluster 2 — PRD/artefact review (duplicate delete, port 2 items)
 
-- [ ] T012 [P] [US1] Port `references/cross-skill-routing.md` and `schemas/review-report.schema.json` from `agents/prd-agent/skills/prd-reviewer/` into `agents/prd-agent/skills/prd-task-reviewer/`
-- [ ] T013 [US1] Delete `agents/prd-agent/skills/prd-reviewer/` and `agents/prd-agent/skills/review-qa/` once T012 is verified complete
+- [ ] T017 [P] [US1] Port `references/cross-skill-routing.md` and `schemas/review-report.schema.json` from `agents/prd-agent/skills/prd-reviewer/` into `agents/prd-agent/skills/prd-task-reviewer/`
+- [ ] T018 [US1] Delete `agents/prd-agent/skills/prd-reviewer/` and `agents/prd-agent/skills/review-qa/` once T017 is verified complete
 
 ### Cluster 3 — Change management (duplicate delete, port 3 items)
 
-- [ ] T014 [P] [US1] Port `schemas/change-request.schema.json`, `schemas/prd-delta.schema.json`, the `prd-delta.md` template concept, and `tests/fixtures/change-cases.md` from `agents/prd-agent/skills/change-control/` into `agents/prd-agent/skills/change-request-router/`
-- [ ] T015 [US1] Delete `agents/prd-agent/skills/change-control/` once T014 is verified complete
+- [ ] T019 [P] [US1] Port `schemas/change-request.schema.json`, `schemas/prd-delta.schema.json`, the `prd-delta.md` template concept, and `tests/fixtures/change-cases.md` from `agents/prd-agent/skills/change-control/` into `agents/prd-agent/skills/change-request-router/`
+- [ ] T020 [US1] Delete `agents/prd-agent/skills/change-control/` once T019 is verified complete
 
 ### Cluster 4 — Implementation planning (duplicate delete, port 2 items)
 
-- [ ] T016 [P] [US1] Port the "estimation-basis" output type and the "don't estimate from a weak source" / "discovery vs. implementation effort" quality-bar lines from `agents/prd-agent/skills/implementation-planning/` into `agents/prd-agent/skills/implementation-plan-generator/`
-- [ ] T017 [US1] Delete `agents/prd-agent/skills/implementation-planning/` once T016 is verified complete
+- [ ] T021 [P] [US1] Port the "estimation-basis" output type and the "don't estimate from a weak source" / "discovery vs. implementation effort" quality-bar lines from `agents/prd-agent/skills/implementation-planning/` into `agents/prd-agent/skills/implementation-plan-generator/`
+- [ ] T022 [US1] Delete `agents/prd-agent/skills/implementation-planning/` once T021 is verified complete
 
 ### Cluster 5 — Issue drafting (duplicate delete, nothing to port)
 
-- [ ] T018 [P] [US1] Delete `agents/prd-agent/skills/issue-drafting/` (fully subsumed by `agents/prd-agent/skills/github-issue-drafter/`, per audit report Cluster 5 — nothing load-bearing to port)
+- [ ] T023 [P] [US1] Delete `agents/prd-agent/skills/issue-drafting/` (fully subsumed by `agents/prd-agent/skills/github-issue-drafter/`, per audit report Cluster 5 — nothing load-bearing to port)
 
 ### Cluster 6 — Launch readiness (duplicate delete, nothing to port)
 
-- [ ] T019 [P] [US1] Delete `agents/prd-agent/skills/launch-handoff-support/` (fully subsumed by `agents/prd-agent/skills/launch-task-router/`, per audit report Cluster 6 — `agents/prd-agent/skills/release-handoff-generator/` confirmed distinct, not part of this cluster, no action)
+- [ ] T024 [P] [US1] Delete `agents/prd-agent/skills/launch-handoff-support/` (fully subsumed by `agents/prd-agent/skills/launch-task-router/`, per audit report Cluster 6 — `agents/prd-agent/skills/release-handoff-generator/` confirmed distinct, not part of this cluster, no action)
 
 ### Cluster 7 — QA triage (duplicate delete, port 3 items)
 
-- [ ] T020 [P] [US1] Port `schemas/qa-finding.schema.json`, `schemas/retest-plan.schema.json`, `tests/fixtures/qa-finding-cases.md`, and the 4 additional routing targets from `references/cross-skill-routing.md` (`lightspeed-qa-planner`, `lightspeed-change-control`, `lightspeed-approval-gate-manager`, `lightspeed-delivery-planner`) from `agents/prd-agent/skills/qa-triage/` into `agents/prd-agent/skills/qa-findings-router/`
-- [ ] T021 [US1] Delete `agents/prd-agent/skills/qa-triage/` once T020 is verified complete
+- [ ] T025 [P] [US1] Port `schemas/qa-finding.schema.json`, `schemas/retest-plan.schema.json`, `tests/fixtures/qa-finding-cases.md`, and the 4 additional routing targets from `references/cross-skill-routing.md` (`lightspeed-qa-planner`, `lightspeed-change-control`, `lightspeed-approval-gate-manager`, `lightspeed-delivery-planner`) from `agents/prd-agent/skills/qa-triage/` into `agents/prd-agent/skills/qa-findings-router/`
+- [ ] T026 [US1] Delete `agents/prd-agent/skills/qa-triage/` once T025 is verified complete
 
 ### Cluster 8 — Project pack export (naming decision + content merge)
 
-- [ ] T022 [US1] (depends on T002) Port `agents/prd-agent/skills/prd-task-pack-exporter/`'s full content — the 9-directory default pack structure, `pack-workflow.md`, `source-classification.md`, `pack-quality-checklist.md`, `file-naming-rules.md`, 5 asset templates, `icon.svg` — into whichever directory T002 selected as the surviving name
-- [ ] T023 [US1] Delete the non-surviving directory of the pair (`agents/prd-agent/skills/project-pack-exporter/` or `agents/prd-agent/skills/prd-task-pack-exporter/`, per T002's decision) once T022 is verified complete
+- [ ] T027 [US1] (depends on T002) Port `agents/prd-agent/skills/prd-task-pack-exporter/`'s full content — the 9-directory default pack structure, `pack-workflow.md`, `source-classification.md`, `pack-quality-checklist.md`, `file-naming-rules.md`, 5 asset templates, `icon.svg` — into whichever directory T002 selected as the surviving name
+- [ ] T028 [US1] Delete the non-surviving directory of the pair (`agents/prd-agent/skills/project-pack-exporter/` or `agents/prd-agent/skills/prd-task-pack-exporter/`, per T002's decision) once T027 is verified complete
 
 ### Cluster 9 — Intake structuring (COMPLEMENTARY merge + duplicate delete)
 
-- [ ] T024 [P] [US1] Merge `agents/prd-agent/skills/project-intake-router/`'s WordPress build-type classification, approval-gates checklist, 14-skill routing table, and 5 asset templates into `agents/prd-agent/skills/project-intake/`
-- [ ] T025 [US1] Delete `agents/prd-agent/skills/project-intake-router/` and `agents/prd-agent/skills/intake-routing/` once T024 is verified complete (`agents/prd-agent/skills/lightspeed-intake-onboarding/` confirmed distinct — session/Memory bootstrapping, not intake structuring — no action)
+- [ ] T029 [P] [US1] Merge `agents/prd-agent/skills/project-intake-router/`'s WordPress build-type classification, approval-gates checklist, 14-skill routing table, and 5 asset templates into `agents/prd-agent/skills/project-intake/`
+- [ ] T030 [US1] Delete `agents/prd-agent/skills/project-intake-router/` and `agents/prd-agent/skills/intake-routing/` once T029 is verified complete (`agents/prd-agent/skills/lightspeed-intake-onboarding/` confirmed distinct — session/Memory bootstrapping, not intake structuring — no action)
 
 ### Cluster 10 — Research (COMPLEMENTARY merge)
 
-- [ ] T026 [P] [US1] Merge `agents/prd-agent/skills/project-research/`'s JSON schemas, test fixtures, and worked example into `agents/prd-agent/skills/project-researcher/` (base structure), reconciling the two divergent sets of routed sibling-skill names in each skill's `cross-skill-routing.md`/`prd-handoff.md`
-- [ ] T027 [US1] Delete `agents/prd-agent/skills/project-research/` once T026 is verified complete
+- [ ] T031 [P] [US1] Merge `agents/prd-agent/skills/project-research/`'s JSON schemas, test fixtures, and worked example into `agents/prd-agent/skills/project-researcher/` (base structure), reconciling the two divergent sets of routed sibling-skill names in each skill's `cross-skill-routing.md`/`prd-handoff.md`
+- [ ] T032 [US1] Delete `agents/prd-agent/skills/project-research/` once T031 is verified complete
 
 ### Cluster 11 — Evidence discipline (duplicate delete, port 2 items)
 
-- [ ] T028 [P] [US1] Port the "contradiction"/"weak or stale evidence" claim categories and the "confidence level"/"recommended next evidence step" output sections from `agents/prd-agent/skills/evidence-locking/` into `agents/prd-agent/skills/evidence-locker/`
-- [ ] T029 [US1] Delete `agents/prd-agent/skills/evidence-locking/` once T028 is verified complete
+- [ ] T033 [P] [US1] Port the "contradiction"/"weak or stale evidence" claim categories and the "confidence level"/"recommended next evidence step" output sections from `agents/prd-agent/skills/evidence-locking/` into `agents/prd-agent/skills/evidence-locker/`
+- [ ] T034 [US1] Delete `agents/prd-agent/skills/evidence-locking/` once T033 is verified complete
 
 ### Cluster 12 — Markdown/frontmatter validation (duplicate delete, optional port)
 
-- [ ] T030 [P] [US1] Port `agents/prd-agent/skills/content-file-validator/`'s broader extension list, `fileTypeOverrides`, `suggestedDefaults`, and `--fail-on-empty` flag into `agents/prd-agent/skills/markdown-content-validator/`'s schema/script, if still wanted
-- [ ] T031 [US1] Delete `agents/prd-agent/skills/content-file-validator/` once T030 is resolved; also delete the stray generated artifact `agents/prd-agent/skills/markdown-content-validator/tests/markdown-content-validation-report.md` (not a real fixture, per audit report Cluster 12)
+- [ ] T035 [P] [US1] Port `agents/prd-agent/skills/content-file-validator/`'s broader extension list, `fileTypeOverrides`, `suggestedDefaults`, and `--fail-on-empty` flag into `agents/prd-agent/skills/markdown-content-validator/`'s schema/script, if still wanted
+- [ ] T036 [US1] Delete `agents/prd-agent/skills/content-file-validator/` once T035 is resolved; also delete the stray generated artifact `agents/prd-agent/skills/markdown-content-validator/tests/markdown-content-validation-report.md` (not a real fixture, per audit report Cluster 12)
 
 ### Cluster 14 — Technical brief (duplicate delete, nothing to port)
 
-- [ ] T032 [P] [US1] Delete `agents/prd-agent/skills/technical-brief-deep-dive/` (fully subsumed by `agents/prd-agent/skills/figma-wordpress-technical-brief/`, orphaned from every routing table in the codebase, per audit report Cluster 14)
+- [ ] T037 [P] [US1] Delete `agents/prd-agent/skills/technical-brief-deep-dive/` (fully subsumed by `agents/prd-agent/skills/figma-wordpress-technical-brief/`, orphaned from every routing table in the codebase, per audit report Cluster 14)
 
 ### Cluster 16 — Task breakdown vs. delivery planning (duplicate delete, port 7 items)
 
-- [ ] T033 [P] [US1] Port `references/wordpress-task-rules.md`, `references/workstream-model.md`, `references/dependency-and-wave-planning.md`, `references/qa-mapping.md`, `references/acceptance-criteria.md`, `references/issue-draft-rules.md`, and `assets/icon.svg` from `agents/prd-agent/skills/task-breakdown-planner/` into `agents/prd-agent/skills/delivery-planner/`
-- [ ] T034 [US1] Delete `agents/prd-agent/skills/task-breakdown-planner/` once T033 is verified complete (`agents/prd-agent/skills/estimation-planner/` confirmed distinct — correctly boundary-fenced from both — no action)
+- [ ] T038 [P] [US1] Port `references/wordpress-task-rules.md`, `references/workstream-model.md`, `references/dependency-and-wave-planning.md`, `references/qa-mapping.md`, `references/acceptance-criteria.md`, `references/issue-draft-rules.md`, and `assets/icon.svg` from `agents/prd-agent/skills/task-breakdown-planner/` into `agents/prd-agent/skills/delivery-planner/`
+- [ ] T039 [US1] Delete `agents/prd-agent/skills/task-breakdown-planner/` once T038 is verified complete (`agents/prd-agent/skills/estimation-planner/` confirmed distinct — correctly boundary-fenced from both — no action)
 
 ### Cluster 17 — Orchestration (retire redundant mega-skill)
 
-- [ ] T035 [P] [US1] Evaluate porting `agents/prd-agent/skills/prd-task-manager/`'s "full project pack" single-command bundling mode (`assets/full-project-pack-structure.md`) into whichever skill survives Cluster 8 (T022) — this is the only capability not already covered elsewhere; skip if not wanted
-- [ ] T036 [US1] Delete `agents/prd-agent/skills/prd-task-manager/` once T035 is resolved (`agents/prd-agent/skills/prd-agent-orchestrator/` confirmed deliberate and distinct — its own `rollout/migration-notes.md` states the routing split was intentional — no action)
+- [ ] T040 [P] [US1] Evaluate porting `agents/prd-agent/skills/prd-task-manager/`'s "full project pack" single-command bundling mode (`assets/full-project-pack-structure.md`) into whichever skill survives Cluster 8 (T027) — this is the only capability not already covered elsewhere; skip if not wanted
+- [ ] T041 [US1] Delete `agents/prd-agent/skills/prd-task-manager/` once T040 is resolved (`agents/prd-agent/skills/prd-agent-orchestrator/` confirmed deliberate and distinct — its own `rollout/migration-notes.md` states the routing split was intentional — no action)
 
 ### Clusters 13 & 15 — confirmed distinct, no action
 
-- [ ] T037 [US1] Record in `.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md` (already done) that `acceptance-test-planner`/`validation-support` (Cluster 13) and `memory-management`/`project-memory-manager` (Cluster 15) require no merge — verification-only, no file changes
+- [ ] T042 [US1] Record in `.github/projects/active/prd-combined-agent/SKILL_DUPLICATION_AUDIT_REPORT.md` (already done) that `acceptance-test-planner`/`validation-support` (Cluster 13) and `memory-management`/`project-memory-manager` (Cluster 15) require no merge — verification-only, no file changes
 
 ### Cross-folder cleanup (FR-007, FR-008)
 
-- [ ] T005 [US1] (A5 blocker — must run **before T038**) Search entire repo for all references to `agents/prd-factory-planner-agent/` (spec.md Edge Case §4: "What happens to other project documents or automation that link to...paths after the folder is deleted?"). **Command**: `grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --include='*.yaml' --include='*.json' --include='*.js' --include='*.ts' --include='*.sh' | grep -v node_modules | grep -v '.git/'`. Review all matches (expect 5-10). For each reference: **(1)** determine if it's automation, documentation, or config; **(2)** update the reference to point at the new location (e.g., `agents/prd-agent/`) or remove it if no longer applicable; **(3)** verify the update works (e.g., run workflows/config that depend on it, or update tests); **(4)** record all findings + updates in `DECISIONS_LOG.md`. **Do not proceed to T038 until all references are resolved and tested.**
+- [ ] T043 [US1] (A5 blocker — must run **before T044**) Search entire repo for all references to `agents/prd-factory-planner-agent/` (spec.md Edge Case §4: "What happens to other project documents or automation that link to...paths after the folder is deleted?"). **Command**: `grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --include='*.yaml' --include='*.json' --include='*.js' --include='*.ts' --include='*.sh' | grep -v node_modules | grep -v '.git/'`. Review all matches (expect 5-10). For each reference: **(1)** determine if it's automation, documentation, or config; **(2)** update the reference to point at the new location (e.g., `agents/prd-agent/`) or remove it if no longer applicable; **(3)** verify the update works (e.g., run workflows/config that depend on it, or update tests); **(4)** record all findings + updates in `DECISIONS_LOG.md`. **Do not proceed to T044 until all references are resolved and tested.**
 
-- [ ] T038 [US1] Confirm zero remaining unique content in `agents/prd-factory-planner-agent/` (T004-T037 have migrated everything the reconciliation reports identified) **and all external references (T005) are resolved**, then delete `agents/prd-factory-planner-agent/` in full
-- [ ] T039 [P] [US1] Delete sample client memory banks under `agents/prd-agent/agent/other/memory/` (confirmed fictional/demo data, routine cleanup — no special handling needed per spec.md Assumptions)
-- [ ] T040 [P] [US1] Delete raw MCP plugin-cache dumps under `agents/prd-agent/agent/configuration/plugins/`
-- [ ] T041 [US1] Confirm the old `agents/prd-agent/skills/local/` and `agents/prd-agent/skills/plugin-provided/` platform-builtin skill copies are already removed (per PLANNING.md Phase 3 deliverable list — "already removed from disk as of 2026-09-10") — no action if confirmed gone
+- [ ] T044 [US1] Confirm zero remaining unique content in `agents/prd-factory-planner-agent/` (T009-T042 have migrated everything the reconciliation reports identified) **and all external references (T043) are resolved**, then delete `agents/prd-factory-planner-agent/` in full
+- [ ] T045 [P] [US1] Delete sample client memory banks under `agents/prd-agent/agent/other/memory/` (confirmed fictional/demo data, routine cleanup — no special handling needed per spec.md Assumptions)
+- [ ] T046 [P] [US1] Delete raw MCP plugin-cache dumps under `agents/prd-agent/agent/configuration/plugins/`
+- [ ] T047 [US1] Confirm the old `agents/prd-agent/skills/local/` and `agents/prd-agent/skills/plugin-provided/` platform-builtin skill copies are already removed (per PLANNING.md Phase 3 deliverable list — "already removed from disk as of 2026-09-10") — no action if confirmed gone
 
 ### `frontend-skill` removal (scope doc §5)
 
-- [ ] T042 [US1] (depends on T003) Delete `agents/prd-agent/skills/frontend-skill/` (confirmed unrelated to PRD/planning work)
+- [ ] T048 [US1] (depends on T003) Delete `agents/prd-agent/skills/frontend-skill/` (confirmed unrelated to PRD/planning work)
 
-**Checkpoint**: `agents/prd-agent/skills/` now has one copy of each of the ~28 curated skills (27 once T042 runs), no `hermes/` folder, `agents/prd-factory-planner-agent/` is gone. Run quickstart.md's SC-001, SC-004, SC-005 checks to confirm.
+**Checkpoint**: `agents/prd-agent/skills/` now has one copy of each of the ~28 curated skills (27 once T048 runs), no `hermes/` folder, `agents/prd-factory-planner-agent/` is gone. Run quickstart.md's SC-001, SC-004, SC-005 checks to confirm.
 
 ---
 
