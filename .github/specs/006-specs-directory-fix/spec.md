@@ -8,6 +8,12 @@
 
 **Input**: User description: "Fix specs directory configuration to use .github/specs instead of root specs folder"
 
+## Clarifications
+
+### Session 2026-09-14
+
+- Q: Should the system continue supporting the old `/specs/` location as a fallback, or remove it entirely? → A: Remove entirely during migration (clean cutover, aligns with Constitution Principle III).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Developer Creates Feature Spec (Priority: P1)
@@ -59,8 +65,9 @@ Existing specs in the root `specs/` directory should be migrated to `.github/spe
 ### Edge Cases
 
 - What happens if `.github/specs/` doesn't exist yet? (Create it)
-- How does the system handle if specs already exist in both locations? (Migrate with conflict detection)
+- Migration conflict resolution: If specs exist in both `/specs/` and `.github/specs/`, prioritize `.github/specs/` (assumes users have already begun manual migration)
 - What if speckit configuration files reference the old location? (Update all configuration references)
+- Post-migration: Old `/specs/` directory MUST be removed or archived to enforce clean cutover (per Clarification Q1)
 
 ## Requirements *(mandatory)*
 
@@ -73,6 +80,7 @@ Existing specs in the root `specs/` directory should be migrated to `.github/spe
 - **FR-005**: Existing specs in `/specs/` MUST be migrated to `.github/specs/` with directory structure preserved
 - **FR-006**: The `.specify/feature.json` context file MUST correctly reference features in the new `.github/specs/` location
 - **FR-007**: Documentation in `.specify/` must reference `.github/specs/` as the canonical specs location
+- **FR-008**: Post-migration, the old `/specs/` directory MUST be removed or archived to prevent confusion and enforce the new location as authoritative
 
 ### Key Entities
 
