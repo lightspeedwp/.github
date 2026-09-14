@@ -215,6 +215,14 @@ function hunksBetween(oldContent, newContent, baseName) {
     if (diffProc.error) {
       throw new Error(`Failed to compute diff: ${diffProc.error.message}`);
     }
+    // git diff --no-index: 0 = identical, 1 = differences found (the normal,
+    // expected case here). Anything else is a real failure — signal or a
+    // status of 2+ — and parsing its output would be incorrect/partial.
+    if (diffProc.signal || (diffProc.status !== 0 && diffProc.status !== 1)) {
+      throw new Error(
+        `git diff --no-index failed: ${diffProc.stderr || `status ${diffProc.status}`}`,
+      );
+    }
     return parseHunks(diffProc.stdout || "");
   } finally {
     fs.rmSync(tmpDir, { recursive: true, force: true });
