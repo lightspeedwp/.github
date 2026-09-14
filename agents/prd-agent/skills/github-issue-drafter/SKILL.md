@@ -132,3 +132,6 @@ Write issues so a developer, designer, QA reviewer and project lead can understa
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -547,3 +547,6 @@ graph LR
 **Use When:** Need to create/update README for agents/, skills/, workflows/, instructions/, scripts/, or sub-folders  
 **Output:** Well-structured README with frontmatter, sections, optional Mermaid diagrams  
 **Dependencies:** Markdown knowledge, Mermaid (for diagrams), npm (for linting)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

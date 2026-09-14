@@ -65,3 +65,5 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [quality-assurance.instructions.md](./quality-assurance.instructions.md) — QA requirements
 - [task-planner.agent.md](../agents/task-planner.agent.md) — Agent specification
 - [GitHub Branch Protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches)
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

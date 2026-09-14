@@ -269,3 +269,6 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 - [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
 - [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

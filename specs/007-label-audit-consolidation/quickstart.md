@@ -1,5 +1,30 @@
 # Label Audit Quickstart: Validation & Testing Guide
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Purpose**: Verify audit completeness and validate findings before implementation  
 **Audience**: GitHub administrators, automation engineers, governance teams
 
@@ -54,7 +79,8 @@ grep "^- name:" .github/labels.yml | wc -l
 # All labels in GitHub should appear in audit inventory OR be flagged as "ORPHAN"
 ```
 
-**Pass Condition**: 
+**Pass Condition**:
+
 - ✅ GitHub API label count matches canonical file count
 - ✅ Every label in GitHub appears in audit inventory
 - ✅ No unexpected orphan labels (unless flagged in audit findings)
@@ -100,6 +126,7 @@ comm -23 <(grep "^- name: type:" .github/labels.yml | sed 's/.*: //' | sed 's/ *
 ```
 
 **Pass Condition**:
+
 - ✅ Exactly 25 type labels in canonical file
 - ✅ Exactly 25 type labels in issue-types.yml
 - ✅ All 25 names match between files
@@ -140,6 +167,7 @@ comm -13 /tmp/policy-labels.txt /tmp/canonical-labels.txt
 ```
 
 **Pass Condition**:
+
 - ✅ All governance-protected labels are either:
   - Present in canonical file with matching name, OR
   - Documented in audit as intentional gap/duplicate
@@ -176,6 +204,7 @@ grep -o "type:[a-z-]*\|status:[a-z-]*\|area:[a-z-]*" \
 ```
 
 **Pass Condition**:
+
 - ✅ All 11 archived workflows analyzed
 - ✅ Labels referenced in each workflow are identified
 - ✅ Workflow purpose documented in audit report
@@ -215,6 +244,7 @@ grep -i "status" docs/ISSUE_LABELS.md
 ```
 
 **Pass Condition**:
+
 - ✅ Documentation mentions all major label families
 - ✅ Label counts in docs align with canonical file (or are clearly documented as snapshots from specific date)
 - ✅ No major label families are completely missing from documentation
@@ -287,6 +317,7 @@ jq '.families | keys' .github/reports/audits/2026-09-14-label-audit/label-invent
 ```
 
 **Pass Condition**:
+
 - ✅ All required audit files present in output directory
 - ✅ CSV file well-formed with correct column headers
 - ✅ JSON files valid and parseable
@@ -319,6 +350,7 @@ grep -A 20 "F-001" .github/reports/audits/2026-09-14-label-audit/007-audit-repor
 ```
 
 **Pass Condition**:
+
 - ✅ Every finding has ≥1 evidence source
 - ✅ Evidence includes file path + line number
 - ✅ Evidence includes exact text or clear quote from source
@@ -348,6 +380,7 @@ sed -n '/^## Recommendations/,/^## [^R]/p' \
 ```
 
 **Pass Condition**:
+
 - ✅ Each recommendation has specific action ("Update X in Y to change Z")
 - ✅ File paths and line numbers are correct and verifiable
 - ✅ Effort estimates are realistic
@@ -374,6 +407,7 @@ sed -n '/^## Recommendations/,/^## [^R]/p' \
 ### Overall Audit Success
 
 ✅ **AUDIT PASSED** when:
+
 - All 8 tests above pass
 - No critical findings left unresolved
 - No high-priority recommendations without implementation plan
@@ -403,3 +437,6 @@ Once audit validation is complete:
 ---
 
 **Validation Run Timestamp**: To be filled in when audit validation is executed
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

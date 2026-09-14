@@ -267,3 +267,6 @@ Guidance:
 - [file-organisation.instructions.md](file-organisation.instructions.md)
 - [reports/README.md](../.github/reports/README.md) — directory map and examples
 - [reporting.agent.md](../agents/reporting.agent.md) — conversation flow and guardrails
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

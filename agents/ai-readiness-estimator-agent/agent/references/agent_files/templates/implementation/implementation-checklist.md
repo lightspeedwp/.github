@@ -92,3 +92,6 @@ Select the sections relevant to your project and mark each item as complete.
 ---
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

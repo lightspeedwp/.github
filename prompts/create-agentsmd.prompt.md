@@ -46,3 +46,5 @@ description: "Prompt for generating an AGENTS.md file for a repository"
 mode: "agent"
 ---
 ```
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

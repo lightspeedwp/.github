@@ -703,3 +703,6 @@ coverage/
 - [README Best Practices](https://www.makeareadme.com/)
 - [Open Source Guides](https://opensource.guide/)
 - [Conventional Commits](https://www.conventionalcommits.org/)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

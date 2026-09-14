@@ -46,3 +46,6 @@ If neither the connector nor `gh` can resolve the PR cleanly, tell the user whet
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

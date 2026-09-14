@@ -272,3 +272,5 @@ This usually means you're using different validators. The repository uses:
 ---
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

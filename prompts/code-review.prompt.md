@@ -43,3 +43,6 @@ Describe exactly what needs to be produced and where outputs should be stored.
 ```markdown
 Given a diff, return ✅/⚠️ summary, inline comments (file:line) focusing on standards, a11y, security, performance, with concrete fixes.
 ```
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

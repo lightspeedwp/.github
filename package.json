@@ -125,6 +125,7 @@
     "test:index-generator": "node .github/scripts/__tests__/generate-agent-index.test.js",
     "test:create-agent-spec": "node .github/scripts/__tests__/create-agent-spec.test.js",
     "test:pre-commit": "bash hooks/__tests__/pre-commit-agent-spec-validation.test.sh",
+    "test:prd-agent": "node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json",
     "test:phase-5": "bash .github/scripts/__tests__/run-all-tests.sh",
     "test": "npm run test:js && npm run test:phase-5",
     "contributors:add": "all-contributors add",

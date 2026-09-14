@@ -179,3 +179,6 @@ When closing the task, report:
 - `Blocked` or `Follow-up`: only if the finding could not be fully resolved
 
 Keep the report tied to the single finding. Avoid screen-wide summaries unless the user asks for them.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

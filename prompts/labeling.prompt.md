@@ -89,3 +89,6 @@ When asked to apply labels, ensure you:
 - [Labeling Instructions](../instructions/labeling.instructions.md) - Complete documentation
 - [GitHub Actions Labeler](https://github.com/actions/labeler) - Actions integration
 - [Label Strategy](../../docs/LABEL_STRATEGY.md) - Organization philosophy
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

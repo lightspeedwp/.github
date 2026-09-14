@@ -71,3 +71,6 @@ Act like a lead product designer or principal UX reviewer, not a taste critic.
 ---
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

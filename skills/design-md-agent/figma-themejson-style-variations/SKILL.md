@@ -42,3 +42,6 @@ Return:
 - Do not restate the entire base theme for every variation.
 - Focus on deltas.
 - Do not invent variation names when the design does not support them.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

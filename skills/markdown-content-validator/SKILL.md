@@ -7,3 +7,6 @@ description: validate markdown and documentation files for formatting quality, h
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
