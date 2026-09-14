@@ -26,3 +26,5 @@ run safer checks before or after agent actions.
 | `hooks/README.md` | This ownership index. |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

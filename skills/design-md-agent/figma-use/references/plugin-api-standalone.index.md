@@ -490,3 +490,5 @@ Video                   VersionHistoryResult    FindAllCriteria
 | `ScreenshotOptions` | `{ scale?: number, contentsOnly?: boolean }` |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

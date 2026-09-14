@@ -86,3 +86,5 @@ For each page, ask for:
 - SEO title and description if known
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

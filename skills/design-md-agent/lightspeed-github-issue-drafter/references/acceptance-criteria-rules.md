@@ -69,3 +69,5 @@ Use for dev tasks:
 - theme.json tokens are used instead of hard-coded values where possible.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

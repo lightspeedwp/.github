@@ -57,3 +57,5 @@ Check whether Figma design-system intent is implemented correctly in WordPress.
 - frontend screenshots at desktop, tablet and mobile
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

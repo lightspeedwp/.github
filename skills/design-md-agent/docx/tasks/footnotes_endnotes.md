@@ -89,3 +89,5 @@ python render_docx.py with_fn.docx --output_dir out_fn
 - For high-stakes deliverables, verify in Microsoft Word in addition to LO rendering.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

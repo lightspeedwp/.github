@@ -56,3 +56,5 @@ This folder explains how the agent should use the attached control documents bef
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -45,3 +45,5 @@ Score each validation output from 1 to 5 against these checks.
 - findings include a concrete fix or a concrete unanswered question
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

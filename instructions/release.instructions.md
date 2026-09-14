@@ -76,3 +76,5 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [Keep a Changelog](https://keepachangelog.com/)
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

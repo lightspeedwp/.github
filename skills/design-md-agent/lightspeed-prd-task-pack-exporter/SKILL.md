@@ -145,3 +145,5 @@ Every pack README should include:
 - Do not write or modify production code.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

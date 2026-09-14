@@ -54,3 +54,5 @@ A finding may have more than one owner, but every issue needs one accountable ow
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

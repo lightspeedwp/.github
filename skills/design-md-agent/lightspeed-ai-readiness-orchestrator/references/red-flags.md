@@ -81,3 +81,5 @@ When a red flag is detected:
 5. Avoid speculative or overconfident recommendations.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

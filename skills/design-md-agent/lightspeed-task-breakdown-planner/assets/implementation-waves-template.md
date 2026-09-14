@@ -38,3 +38,5 @@
 ## Wave 5 - Launch and post-launch iteration
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

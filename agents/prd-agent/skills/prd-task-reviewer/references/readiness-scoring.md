@@ -49,3 +49,5 @@ Score each area from 0 to 10.
 *Maintained by the 🤖 LightSpeedWP Automation Team*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

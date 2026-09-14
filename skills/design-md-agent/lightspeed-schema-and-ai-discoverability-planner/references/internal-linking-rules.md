@@ -59,3 +59,5 @@ Avoid vague anchors such as:
 - this page
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

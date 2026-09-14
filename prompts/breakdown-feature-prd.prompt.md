@@ -61,3 +61,5 @@ The output should be a complete PRD in Markdown format, saved to `/docs/ways-of-
 - **Target Users:** [Optional: Any initial thoughts on who this is for]
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -104,3 +104,5 @@ Do not prefer the local scaffold just because it is available. It is the fallbac
 - If the user already has an app, adapt their code directly instead of importing a new example.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -78,3 +78,5 @@ Prefer the GitHub app from this plugin for those flows because it provides struc
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

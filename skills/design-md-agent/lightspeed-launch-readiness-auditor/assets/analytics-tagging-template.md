@@ -31,3 +31,5 @@
 | form_submit | Lead form submission | GA4/GTM | Test submission | Pending |  |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -111,3 +111,5 @@ Automate the application of documentation metadata to Markdown files (front matt
 - Preserve user-generated content in READMEs while updating metadata
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

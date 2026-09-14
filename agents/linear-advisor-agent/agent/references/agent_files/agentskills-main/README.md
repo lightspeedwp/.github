@@ -53,3 +53,5 @@ Code in this repository is licensed under [Apache 2.0](LICENSE). Documentation i
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

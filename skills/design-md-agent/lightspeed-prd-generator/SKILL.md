@@ -119,3 +119,5 @@ Use these references as needed:
 A good PRD should be specific enough that another skill can create a technical brief and task breakdown from it without re-discovering the whole project.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

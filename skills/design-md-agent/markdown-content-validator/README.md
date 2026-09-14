@@ -45,3 +45,5 @@ python scripts/validate_markdown_content.py \
 Add `--enforce-version-increment --base-ref main` when you want changed-file version checks.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

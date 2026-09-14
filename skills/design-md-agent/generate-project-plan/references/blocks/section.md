@@ -96,3 +96,5 @@ Same as above but:
 - See [blocks/diagram-section.md](diagram-section.md) for the reparent flow.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

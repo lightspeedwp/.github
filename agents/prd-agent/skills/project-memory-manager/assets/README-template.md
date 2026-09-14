@@ -56,3 +56,5 @@ This memory bank summarises the current project context, decisions, technical di
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

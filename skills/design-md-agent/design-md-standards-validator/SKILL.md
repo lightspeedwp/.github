@@ -134,3 +134,5 @@ When this skill is used, the validation output should usually include:
 - "Audit whether these docs meet our design-system documentation and compliance bar."
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

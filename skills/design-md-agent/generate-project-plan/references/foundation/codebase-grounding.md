@@ -117,3 +117,5 @@ The grounding phase produces a structured object consumed by interview + content
 - The skill never writes to or edits any file it reads as part of grounding.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
