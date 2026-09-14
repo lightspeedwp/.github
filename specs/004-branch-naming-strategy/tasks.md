@@ -51,20 +51,20 @@
 
 ### Design Completion Tasks (Artifact Generation)
 
-- [ ] T007 Finalize BranchName entity definition; confirm 15 fields, validation rules, computed properties; review against data-model.md
-- [ ] T008 Finalize BranchType entity definition; ensure all 24 types mapped to PR templates and labels; confirm area detection keywords
-- [ ] T009 Finalize ComplianceMetrics entity definition; design aggregation strategy and trend analysis approach
-- [ ] T010 [P] Audit `.github/labels.yml` canonical set; verify all labels in data-model.md exist; document canonical prefix rules in contracts/branch-naming.contract.md
-- [ ] T011 [P] Audit `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all 19 PR template files exist; verify routing mapping covers all 24 types; document in contracts/branch-naming.contract.md
-- [ ] T012 [P] Design area label detection algorithm; extract keywords for each area (api, docs, ui, ci, security, database, testing); update contracts/branch-naming.contract.md with keyword mappings
-- [ ] T013 Design error message system; create message templates for 6 error cases (invalid_type, forbidden_prefix, malformed_scope, malformed_title, empty_scope, empty_title) with examples; document in contracts/branch-naming.contract.md
+- [x] T007 Finalize BranchName entity definition; confirm 15 fields, validation rules, computed properties; review against data-model.md
+- [x] T008 Finalize BranchType entity definition; ensure all 24 types mapped to PR templates and labels; confirm area detection keywords
+- [x] T009 Finalize ComplianceMetrics entity definition; design aggregation strategy and trend analysis approach
+- [x] T010 [P] Audit `.github/labels.yml` canonical set; verify all labels in data-model.md exist; document canonical prefix rules in contracts/branch-naming.contract.md
+- [x] T011 [P] Audit `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all 19 PR template files exist; verify routing mapping covers all 24 types; document in contracts/branch-naming.contract.md
+- [x] T012 [P] Design area label detection algorithm; extract keywords for each area (api, docs, ui, ci, security, database, testing); update contracts/branch-naming.contract.md with keyword mappings
+- [x] T013 Design error message system; create message templates for 6 error cases (invalid_type, forbidden_prefix, malformed_scope, malformed_title, empty_scope, empty_title) with examples; document in contracts/branch-naming.contract.md
 
 ### Validation Runbook Tasks
 
-- [ ] T014 [P] Create quickstart.md Section 1: Setup instructions for hook installation and verification
-- [ ] T015 [P] Create quickstart.md Section 2-9: Nine validation test scenarios (valid branches, invalid types, forbidden prefixes, malformed scope/title, full workflow, hook bypass, exit codes, JSON output)
-- [ ] T016 Create quickstart.md Section 10: PR template routing verification checklist
-- [ ] T017 [P] Create quickstart.md Section 11: Troubleshooting guide (5+ common issues with solutions)
+- [x] T014 [P] Create quickstart.md Section 1: Setup instructions for hook installation and verification
+- [x] T015 [P] Create quickstart.md Section 2-9: Nine validation test scenarios (valid branches, invalid types, forbidden prefixes, malformed scope/title, full workflow, hook bypass, exit codes, JSON output)
+- [x] T016 Create quickstart.md Section 10: PR template routing verification checklist
+- [x] T017 [P] Create quickstart.md Section 11: Troubleshooting guide (5+ common issues with solutions)
 
 **Checkpoint**: data-model.md, contracts/, quickstart.md validated and ready for implementation; all design decisions documented
 
@@ -151,8 +151,8 @@
 
 #### Enforcement & Merge Blocking
 
-- [ ] T044 [US2] Create `.github/workflows/branch-name-validation.yml` merge blocking rule (optional, configurable); set workflow status check to required for merge; prevents merging from invalid branches
-- [ ] T045 [US2] Document enforcement policy; explain that enforcement is opt-in per repo (pull-request-rule configuration); show how to enable/disable
+- [x] T044 [US2] Create `.github/workflows/branch-name-validation.yml` merge blocking rule (optional, configurable); set workflow status check to required for merge; prevents merging from invalid branches
+- [x] T045 [US2] Document enforcement policy; explain that enforcement is opt-in per repo (pull-request-rule configuration); show how to enable/disable
 
 #### Integration Tests (Remote Enforcement)
 
