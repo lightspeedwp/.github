@@ -4,7 +4,7 @@
  * Validate branch names against the LightSpeed branching strategy.
  *
  * Enforces the pattern: {type}/{scope}-{short-title}
- * - type: one of 35 allowed prefixes (feat, fix, chore, task, etc.)
+ * - type: one of 38 allowed prefixes (feat, fix, chore, task, etc.)
  * - scope: lowercase, kebab-case (hyphens only, no underscores)
  * - title: lowercase, kebab-case
  *

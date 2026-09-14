@@ -5,6 +5,7 @@
 ## Core Entities
 
 ### BranchName
+
 ```json
 {
   "full_name": "feat/payment-processing-timeout",
@@ -16,13 +17,15 @@
 }
 ```
 
-**Validation Rules** (per Constitution Section VIII):
-- Type must be from 38 authorized types (feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, revert, research, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, aiops, automation, epic)
-- Scope must be kebab-case (no underscores, spaces), 2-50 characters
+**Validation Rules**:
+
+- Type must be from the canonical authorised list (38 types)
+- Scope must be kebab-case (no underscores, spaces)
 - Title ≥3 characters
 - No forbidden prefixes: `claude/`, `copilot/`, `openai/`
 
 ### BranchType
+
 ```json
 {
   "type": "feat",
@@ -35,15 +38,16 @@
 ```
 
 ### PRTemplate
-Routes based on branch type (canonical mappings from 17 templates):
-- `feat/`, `task/`, `epic/` → `pr_feature.md`
-- `fix/`, `hotfix/`, `revert/` → `pr_bug.md`
+
+Routes based on branch type:
+
+- `feat/` → `pr_feature.md`
+- `fix/` → `pr_bugfix.md`
 - `security/` → `pr_security.md`
-- `doc/`, `docs/`, `content/`, `seo/` → `pr_docs.md`
-- `design/`, `ds/`, `a11y/`, `ux/` → `pr_design.md`
-- Full mappings in contracts/branch-naming.contract.md
+- etc.
 
 ### ComplianceMetrics
+
 ```json
 {
   "date": "2026-09-12",
