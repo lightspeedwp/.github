@@ -54,35 +54,42 @@ jobs:
 
       - name: Validate branch name
         id: validate
+        timeout-minutes: 2
         run: |
           BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
           echo "🔍 Validating: $BRANCH_NAME"
 
-          # Create temporary files for output
-          TEMP_STDOUT=$(mktemp)
-          TEMP_STDERR=$(mktemp)
-
-          # Run validation, capturing both stdout and stderr
-          npm run validate:branch-name -- --branch "$BRANCH_NAME" --json > "$TEMP_STDOUT" 2> "$TEMP_STDERR"
+          # Run validation directly with timeout and capture output
+          set +e
+          OUTPUT=$(timeout 30s node scripts/validation/validate-branch-name.js --branch "$BRANCH_NAME" --json 2>&1)
           EXIT_CODE=$?
+          set -e
 
-          # Display outputs for debugging
-          echo "--- STDOUT ---"
-          cat "$TEMP_STDOUT"
-          echo "--- STDERR ---"
-          cat "$TEMP_STDERR"
-          echo "--- EXIT CODE: $EXIT_CODE ---"
+          echo "--- Validation Output ---"
+          echo "$OUTPUT"
+          echo "--- Exit Code: $EXIT_CODE ---"
 
-          # Parse JSON output if available
-          if [ -s "$TEMP_STDOUT" ]; then
-            VALID=$(grep -o '"valid":[^,}]*' "$TEMP_STDOUT" | cut -d':' -f2 | tr -d ' ')
-            echo "Parsed valid: $VALID"
+          # Use jq to extract valid field if jq is available and output looks like JSON
+          if command -v jq &> /dev/null && echo "$OUTPUT" | jq empty &> /dev/null 2>&1; then
+            echo "Using jq to parse JSON"
+            VALID=$(echo "$OUTPUT" | jq -r '.valid')
+            ERRORS=$(echo "$OUTPUT" | jq -r '.errors | join(", ")')
+            SUGGESTED=$(echo "$OUTPUT" | jq -r '.suggested_name // empty')
+
             echo "valid=$VALID" >> $GITHUB_OUTPUT
+            [ -n "$ERRORS" ] && echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+            [ -n "$SUGGESTED" ] && echo "suggested_name=$SUGGESTED" >> $GITHUB_OUTPUT
+          else
+            # Fallback: simple string matching
+            echo "Using fallback parsing"
+            if echo "$OUTPUT" | grep -q '"valid": true'; then
+              echo "valid=true" >> $GITHUB_OUTPUT
+            else
+              echo "valid=false" >> $GITHUB_OUTPUT
+            fi
           fi
 
-          # Clean up
-          rm -f "$TEMP_STDOUT" "$TEMP_STDERR"
-
+          # Exit with the validation script's exit code
           exit $EXIT_CODE
 
       - name: Collect validation metrics
