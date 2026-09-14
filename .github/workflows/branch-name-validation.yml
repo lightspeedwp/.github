@@ -1,0 +1,115 @@
+name: Branch Name Validation
+
+on:
+  push:
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  validate-branch-name:
+    name: Validate branch name
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    outputs:
+      valid: ${{ steps.validate.outputs.valid }}
+      errors: ${{ steps.validate.outputs.errors }}
+      suggested_name: ${{ steps.validate.outputs.suggested_name }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Extract and validate branch name
+        id: validate
+        run: |
+          # Extract branch name from github.event.ref
+          # For push events, github.event.ref is refs/heads/branch-name
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+          # Run validation CLI with JSON output
+          VALIDATION_RESULT=$(node scripts/validation/validate-branch-name.js --branch "$BRANCH_NAME" --json 2>&1 || true)
+
+          # Parse JSON result
+          VALID=$(echo "$VALIDATION_RESULT" | jq -r '.valid' 2>/dev/null || echo "false")
+          ERRORS=$(echo "$VALIDATION_RESULT" | jq -r '.errors | join(", ")' 2>/dev/null || echo "validation_error")
+          SUGGESTED=$(echo "$VALIDATION_RESULT" | jq -r '.suggested_name // empty' 2>/dev/null || echo "")
+
+          echo "valid=$VALID" >> $GITHUB_OUTPUT
+          echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+          echo "suggested_name=$SUGGESTED" >> $GITHUB_OUTPUT
+
+          # For debugging
+          echo "Branch: $BRANCH_NAME"
+          echo "Valid: $VALID"
+          echo "Errors: $ERRORS"
+          echo "Suggested: $SUGGESTED"
+
+      - name: Report validation result
+        if: always()
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          VALID="${{ steps.validate.outputs.valid }}"
+          ERRORS="${{ steps.validate.outputs.errors }}"
+          SUGGESTED="${{ steps.validate.outputs.suggested_name }}"
+
+          if [ "$VALID" = "true" ]; then
+            echo "✅ Branch name '$BRANCH_NAME' is valid"
+            exit 0
+          else
+            echo "❌ Branch name '$BRANCH_NAME' is invalid"
+            echo "Errors: $ERRORS"
+            if [ -n "$SUGGESTED" ]; then
+              echo "Did you mean: $SUGGESTED?"
+            fi
+            exit 1
+          fi
+
+      - name: Comment on PR (if invalid)
+        if: failure() && github.event_name == 'push' && contains(github.event.ref, 'refs/pull')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branchName = '${{ steps.validate.outputs.branch_name }}';
+            const errors = '${{ steps.validate.outputs.errors }}';
+            const suggested = '${{ steps.validate.outputs.suggested_name }}';
+
+            const message = `❌ **Invalid branch name: \`${branchName}\`**
+
+            **Error:** ${errors}
+            ${suggested ? `**Suggestion:** Did you mean \`${suggested}\`?` : ''}
+
+            **Pattern:** \`{type}/{scope}-{title}\`
+
+            **Allowed types (24):** feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, audit, codex, revert, research
+
+            **Forbidden prefixes:** claude/, copilot/, openai/
+
+            For more information, see [Branch Naming Strategy](./docs/BRANCHING_STRATEGY.md).`;
+
+            // Only comment if this is a PR
+            if (context.payload.pull_request) {
+              github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: message
+              });
+            }
