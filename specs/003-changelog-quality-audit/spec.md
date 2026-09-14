@@ -81,16 +81,28 @@ As a data analyst or product manager, I need to extract and analyze changelog da
 - What validation rules apply to pre-release versions vs stable releases?
 - How are changelog entries validated across multiple branches and release tracks?
 
+---
+
+## Clarifications
+
+### Session 2026-09-14
+
+- Q: When a changelog entry references a PR or issue that no longer exists or is inaccessible, should validation treat this as a blocking error, a warning, or should it allow the entry to pass? → A: Broken or inaccessible references are treated as **blocking errors** (validation fails until resolved or removed).
+- Q: Which roles should be permitted to override CI/CD validation blocks, and what justification is required? → A: **Release managers** can override with required written justification (stored in PR comment/commit message) for audit trail and operational flexibility.
+- Q: When validation rules are updated or disabled, should historical entries be re-evaluated or retain original validation status? → A: Retain **original validation status per entry**; new/updated rules apply only to future entries to maintain historical compliance score stability.
+
+---
+
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
 - **FR-1**: System MUST validate each changelog entry against a comprehensive ruleset covering formatting, structure, terminology, and content quality, and MUST report all validation failures with specific, actionable guidance for remediation
-- **FR-2**: System MUST automatically detect and link all PR/issue references in changelog entries, verify links are correct, and report any broken or missing links
+- **FR-2**: System MUST automatically detect and link all PR/issue references in changelog entries, verify links are correct, and report any broken or missing links as **blocking validation errors** (entry cannot be committed unless references are corrected or removed)
 - **FR-3**: System MUST detect and reject changelog entries containing implementation details (code patterns, API names, internal terminology), technical jargon, or framework-specific references, with clear explanations of what constitutes "implementation details"
-- **FR-4**: System MUST collect and persist validation metrics (compliance rates, most common issues, entry quality scores) to enable trend analysis and reporting over time
+- **FR-4**: System MUST collect and persist validation metrics (compliance rates, most common issues, entry quality scores) to enable trend analysis and reporting over time. Metrics MUST preserve historical validation status for each entry (rule changes apply only to new/future entries, not retroactively)
 - **FR-5**: System MUST provide a comprehensive audit command for release managers to validate all entries for a given release, generate compliance reports, and identify entries requiring remediation before release
-- **FR-6**: System MUST integrate with CI/CD pipelines to automatically validate changelog entries on pull requests and block merging of non-compliant entries unless explicitly overridden by release managers
+- **FR-6**: System MUST integrate with CI/CD pipelines to automatically validate changelog entries on pull requests and block merging of non-compliant entries unless explicitly overridden by release managers with required written justification (audit trail recorded in PR comment or commit message)
 
 ### Key Entities
 
