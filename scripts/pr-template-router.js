@@ -5,9 +5,9 @@
  * Resolves branch type to PR template and labels based on configuration files
  */
 
-const fs = require("fs");
-const path = require("path");
-const yaml = require("js-yaml");
+import fs from "fs";
+import path from "path";
+import { load as yamlLoad } from "js-yaml";
 
 /**
  * Load YAML configuration file
@@ -15,7 +15,7 @@ const yaml = require("js-yaml");
 function loadConfig(filePath) {
   try {
     const content = fs.readFileSync(filePath, "utf8");
-    return yaml.load(content);
+    return yamlLoad(content);
   } catch (error) {
     console.error(`Error loading config ${filePath}:`, error.message);
     return null;
