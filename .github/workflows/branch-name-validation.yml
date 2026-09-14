@@ -125,12 +125,18 @@ jobs:
         if: always()
         run: |
           VALID="${{ steps.validate.outputs.valid }}"
+          echo "DEBUG: VALID output = '$VALID'"
+          echo "DEBUG: Outputs available:"
+          echo "  branch_name = ${{ steps.extract-branch.outputs.branch_name }}"
+          echo "  valid = ${{ steps.validate.outputs.valid }}"
+          echo "  errors = ${{ steps.validate.outputs.errors }}"
+          echo "  suggested_name = ${{ steps.validate.outputs.suggested_name }}"
 
           if [ "$VALID" = "true" ]; then
             echo "✅ Branch name validation passed"
             exit 0
           else
-            echo "❌ Branch name validation failed"
+            echo "❌ Branch name validation failed (VALID='$VALID')"
             exit 1
           fi
 
