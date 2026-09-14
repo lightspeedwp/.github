@@ -113,3 +113,5 @@ The `--hyperlink-first` helper is pragmatic: it replaces the first paragraph wit
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -49,3 +49,5 @@ The renderer is a **narrow subset** of full Mermaid sequence — read §5 carefu
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

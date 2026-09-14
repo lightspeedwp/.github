@@ -74,3 +74,5 @@ See `scripts/docx_ooxml_patch.py` (`--add-comment`). It:
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

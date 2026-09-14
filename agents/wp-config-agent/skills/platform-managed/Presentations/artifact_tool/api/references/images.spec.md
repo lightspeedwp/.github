@@ -279,3 +279,5 @@ image.crop = { left: 0.08, top: 0.02, right: 0.18, bottom: 0.06 };
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

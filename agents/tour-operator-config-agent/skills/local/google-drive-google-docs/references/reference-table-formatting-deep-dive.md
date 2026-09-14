@@ -131,3 +131,5 @@ If a check requires regex over escaped HTML, prefer `includes(...)`, parsing the
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

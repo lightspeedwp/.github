@@ -345,3 +345,5 @@ Vertical flowchart. Green Yes / Red No pills on connector paths. Distinct fills 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

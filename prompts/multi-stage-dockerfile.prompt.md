@@ -49,3 +49,5 @@ Your goal is to help me create efficient multi-stage Dockerfiles that follow bes
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

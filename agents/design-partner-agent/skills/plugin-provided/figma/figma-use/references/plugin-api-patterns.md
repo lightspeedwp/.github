@@ -607,3 +607,5 @@ figma.viewport.scrollAndZoomIntoView([frame1, frame2]);
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

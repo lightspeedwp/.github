@@ -95,3 +95,5 @@ The current templates also use `{{design_brand_ux}}` and `{{seo_analytics_market
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

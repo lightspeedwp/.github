@@ -166,3 +166,5 @@ For copy/paste prompt specs (examples only), see `references/sample-prompts.md`.
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
