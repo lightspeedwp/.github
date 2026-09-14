@@ -89,3 +89,5 @@ After a refresh, update `docs/changelog.md`, `docs/maintenance-guide.md`, and an
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
