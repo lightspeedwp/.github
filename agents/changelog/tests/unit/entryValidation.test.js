@@ -55,7 +55,7 @@ describe('Entry Validation - Individual Rules', () => {
 
       const result = validator.validate(entry, RULES_FILE);
       const r002 = result.validation.ruleResults?.find(r => r.ruleId === 'R002');
-      expect(expect(r002?.status).toBe('passing')).toBe('passed');
+      expect(r002?.status).toBe('passed');
     });
   });
 
@@ -80,7 +80,7 @@ describe('Entry Validation - Individual Rules', () => {
 
       const result = validator.validate(entry, RULES_FILE);
       const r003 = result.validation.ruleResults?.find(r => r.ruleId === 'R003');
-      expect(expect(r003?.status).toBe('passing')).toBe('passed');
+      expect(r003?.status).toBe('passed');
     });
   });
 
@@ -107,7 +107,7 @@ describe('Entry Validation - Individual Rules', () => {
 
       const result = validator.validate(entry, RULES_FILE);
       const r006 = result.validation.ruleResults?.find(r => r.ruleId === 'R006');
-      expect(expect(r006?.status).toBe('passing')).toBe('passed');
+      expect(r006?.status).toBe('passed');
     });
 
     test('should fail for null or invalid input', () => {
@@ -139,7 +139,7 @@ describe('Entry Validation - Individual Rules', () => {
 
       const result = validator.validate(entry, RULES_FILE);
       const r007 = result.validation.ruleResults?.find(r => r.ruleId === 'R007');
-      expect(expect(r007?.status).toBe('passing')).toBe('passed');
+      expect(r007?.status).toBe('passed');
     });
   });
 
@@ -165,7 +165,7 @@ describe('Entry Validation - Individual Rules', () => {
 
       const result = validator.validate(entry, RULES_FILE);
       const r011 = result.validation.ruleResults?.find(r => r.ruleId === 'R011');
-      expect(expect(r011?.status).toBe('passing')).toBe('passed');
+      expect(r011?.status).toBe('passed');
     });
   });
 
@@ -180,7 +180,7 @@ describe('Entry Validation - Individual Rules', () => {
 
       const result = validator.validate(entry, RULES_FILE);
       const r015 = result.validation.ruleResults?.find(r => r.ruleId === 'R015');
-      expect(expect(r015?.status).toBe('passing')).toBe('passed');
+      expect(r015?.status).toBe('passed');
     });
 
     test('should fail with incorrect date format', () => {
@@ -210,7 +210,7 @@ describe('Entry Validation - Individual Rules', () => {
 
         const result = validator.validate(entry, RULES_FILE);
         const r020 = result.validation.ruleResults?.find(r => r.ruleId === 'R020');
-        expect(expect(r020?.status).toBe('passing')).toBe('passed');
+        expect(r020?.status).toBe('passed');
       });
     });
 
