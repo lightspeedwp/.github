@@ -89,7 +89,7 @@
 
 - [ ] T028 [P] [US2] Implement template resolver at `.github/branch-validation/lib/template-resolver.js` (given branch type, return correct PR template filename)
 - [ ] T029 [P] [US2] Implement PR body body injector at `.github/branch-validation/lib/pr-body-injector.js` (read template, inject into PR description)
-- [ ] T030 [US2] Create GitHub Actions workflow at `.github/workflows/branch-routing.yml` (triggers on PR creation, detects branch type, assigns template)
+- [x] T030 [US2] Create GitHub Actions workflow at `.github/workflows/pr-template-routing.yml` (triggers on PR creation, detects branch type, assigns template and labels)
 - [ ] T031 [P] [US2] Implement fallback handler at `.github/branch-validation/lib/fallback-handler.js` (if branch name invalid, use default template + add warning comment)
 - [ ] T032 [US2] Create template cleanup tool at `.github/branch-validation/bin/cleanup-duplicate-templates.js` (remove duplicate PR templates, consolidate into single canonical set)
 
@@ -220,11 +220,13 @@
 ## Parallel Example: 2-Developer Team
 
 **Developer A (Weeks 1-3)**:
+
 - Phase 1: Setup (T001-T007)
 - Phase 2: Foundational (T008-T013, all [P] tasks in parallel)
 - Phase 3: US1 Branch Validation (T014-T024)
 
 **Developer B (Weeks 1-6)**:
+
 - Phase 1: Parallel with Dev A on setup
 - Phase 2: Parallel with Dev A (T010, T011, T012, T013)
 - Phases 4-5: US2/US3 PR Routing & Labels while Dev A works Phase 3
@@ -280,6 +282,7 @@
 ## Success Metrics
 
 At completion of Phase 8:
+
 - ✅ 100% of branch names validated (FR-1)
 - ✅ 100% of PRs receive correct template (FR-2)
 - ✅ 100% of PRs auto-labeled correctly (FR-3)
@@ -287,4 +290,3 @@ At completion of Phase 8:
 - ✅ Daily metrics show compliance, violations by type (FR-5)
 - ✅ All phases completed within 6 weeks (48-62 hours)
 - ✅ 24-type system adopted org-wide (50+ repos)
-
