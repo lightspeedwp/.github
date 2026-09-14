@@ -10,7 +10,7 @@
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (US1-US5)
-- 38 authorised branch types with pattern `{type}/{scope}-{title}`
+- 24 authorized branch types with pattern `{type}/{scope}-{title}`
 - Forbidden prefixes: `claude/`, `copilot/`, `openai/`
 
 ---
@@ -20,9 +20,9 @@
 **Purpose**: Project initialization and branch validation framework
 
 - [ ] T001 Create branch validation framework directory at `.github/branch-validation/`
-- [ ] T002 Create branch type definitions at `.github/branch-validation/branch-types.json` (38 authorised types from contracts)
+- [ ] T002 Create branch type definitions at `.github/branch-validation/branch-types.json` (24 authorized types from contracts)
 - [ ] T003 [P] Create branch regex patterns at `.github/branch-validation/patterns.json` (pattern, forbidden, template-mapping for each type)
-- [ ] T004 [P] Create type-to-template mapping at `.github/branch-validation/template-mapping.json` (each type maps to 1 PR template from 17 routed templates)
+- [ ] T004 [P] Create type-to-template mapping at `.github/branch-validation/template-mapping.json` (each type maps to 1 PR template from 19 templates)
 - [ ] T005 [P] Create type-to-labels mapping at `.github/branch-validation/label-mapping.json` (each type auto-applies canonical prefixed labels)
 - [ ] T006 Initialize Node.js project for validators at `.github/branch-validation/package.json`
 - [ ] T007 Create Git pre-push hook template at `.github/branch-validation/hooks/pre-push-template.sh`
@@ -48,13 +48,13 @@
 
 ## Phase 3: User Story 1 - Branch Name Validation (FR-1) [P1]
 
-**Goal**: System validates branch names match pattern `{type}/{scope}-{title}` with 38 authorised types, 0 forbidden prefixes
+**Goal**: System validates branch names match pattern `{type}/{scope}-{title}` with 24 authorized types, 0 forbidden prefixes
 
 **Independent Test**: Validator rejects `claude/feature` (forbidden); accepts `feat/user-auth` (valid)
 
 ### Tests for User Story 1 (TDD)
 
-- [ ] T014 [P] [US1] Unit test for type validation at `.github/branch-validation/test/unit/test-type-validation.js` (accept all 38 types, reject others)
+- [ ] T014 [P] [US1] Unit test for type validation at `.github/branch-validation/test/unit/test-type-validation.js` (accept all 24 types, reject others)
 - [ ] T015 [P] [US1] Unit test for forbidden prefix detection at `.github/branch-validation/test/unit/test-forbidden-prefixes.js` (reject claude/, copilot/, openai/)
 - [ ] T016 [P] [US1] Unit test for pattern matching at `.github/branch-validation/test/unit/test-pattern-matching.js` ({type}/{scope}-{title} format)
 - [ ] T017 [P] [US1] Unit test for scope validation at `.github/branch-validation/test/unit/test-scope-validation.js` (scope must be kebab-case, non-empty)
@@ -62,7 +62,7 @@
 
 ### Implementation for User Story 1
 
-- [ ] T019 [P] [US1] Implement type validator at `.github/branch-validation/lib/validators/type-validator.js` (check against 38 authorised types from branch-types.json)
+- [ ] T019 [P] [US1] Implement type validator at `.github/branch-validation/lib/validators/type-validator.js` (check against 24 authorized types from branch-types.json)
 - [ ] T020 [P] [US1] Implement forbidden prefix checker at `.github/branch-validation/lib/validators/forbidden-checker.js` (reject claude/, copilot/, openai/ absolutely)
 - [ ] T021 [P] [US1] Implement pattern validator at `.github/branch-validation/lib/validators/pattern-validator.js` ({type}/{scope}-{title} with regex for each type)
 - [ ] T022 [P] [US1] Implement scope validator at `.github/branch-validation/lib/validators/scope-validator.js` (kebab-case, 2-50 chars, no special chars)
@@ -177,7 +177,7 @@
 - [ ] T058 [P] Create architecture documentation at `.github/branch-validation/ARCHITECTURE.md` (system design, module responsibilities, data flows)
 - [ ] T059 [P] Create troubleshooting guide at `.github/branch-validation/docs/TROUBLESHOOTING.md` (common validation failures, solutions)
 - [ ] T060 [P] Create deployment runbook at `.github/branch-validation/docs/DEPLOYMENT.md` (enable across 50+ repos, organization-wide rollout)
-- [ ] T061 [P] Create type reference guide at `.github/branch-validation/docs/BRANCH_TYPES.md` (all 38 types, when to use each, examples)
+- [ ] T061 [P] Create type reference guide at `.github/branch-validation/docs/BRANCH_TYPES.md` (all 24 types, when to use each, examples)
 - [ ] T062 Run quickstart.md validation scenarios at `.github/specs/004-branch-naming-strategy/quickstart.md` (confirm all scenarios work end-to-end)
 - [ ] T063 Integrate with CLAUDE.md branching rules at `.github/CLAUDE.md` (update documentation to link to validation system)
 - [ ] T064 Performance benchmarking at `.github/branch-validation/test/performance/bench.js` (confirm <500ms validation, <50ms per PR routing)
@@ -220,13 +220,11 @@
 ## Parallel Example: 2-Developer Team
 
 **Developer A (Weeks 1-3)**:
-
 - Phase 1: Setup (T001-T007)
 - Phase 2: Foundational (T008-T013, all [P] tasks in parallel)
 - Phase 3: US1 Branch Validation (T014-T024)
 
 **Developer B (Weeks 1-6)**:
-
 - Phase 1: Parallel with Dev A on setup
 - Phase 2: Parallel with Dev A (T010, T011, T012, T013)
 - Phases 4-5: US2/US3 PR Routing & Labels while Dev A works Phase 3
@@ -282,11 +280,11 @@
 ## Success Metrics
 
 At completion of Phase 8:
-
 - ✅ 100% of branch names validated (FR-1)
 - ✅ 100% of PRs receive correct template (FR-2)
 - ✅ 100% of PRs auto-labeled correctly (FR-3)
 - ✅ Pre-push validation prevents invalid branches (FR-4)
 - ✅ Daily metrics show compliance, violations by type (FR-5)
 - ✅ All phases completed within 6 weeks (48-62 hours)
-- ✅ 38-type system adopted org-wide (50+ repos)
+- ✅ 24-type system adopted org-wide (50+ repos)
+

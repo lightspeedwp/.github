@@ -8,7 +8,7 @@
 
 ## Summary
 
-Formalize GitHub branch naming with 38 authorised types and `{type}/{scope}-{title}` pattern. Implement automated PR template routing by branch prefix, auto-labelling based on type, pre-push validation, and compliance metrics. Target: 95%+ compliance, 100% correct template routing, zero forbidden prefixes.
+Formalize GitHub branch naming with 24 authorized types and `{type}/{scope}-{title}` pattern. Implement automated PR template routing by branch prefix, auto-labeling based on type, pre-push validation, and compliance metrics. Target: 95%+ compliance, 100% correct template routing, zero forbidden prefixes.
 
 ## Technical Context
 
@@ -27,13 +27,12 @@ Formalize GitHub branch naming with 38 authorised types and `{type}/{scope}-{tit
 **Performance Goals**: Branch validation <500ms; PR template routing <2s; metrics recalc <5min daily
 
 **Constraints**:
-
-- Support 38 types without manual intervention
+- Support 24 types without manual intervention
 - Validation must not slow developer workflow
 - Forbidden prefixes (`claude/`, `copilot/`, `openai/`) non-negotiable
 - Existing workflows remain functional
 
-**Scale/Scope**: 50+ repos; 200+ developers; 38 branch types; 6 phases; 58-73 hours
+**Scale/Scope**: 50+ repos; 200+ developers; 24 branch types; 6 phases; 58-73 hours
 
 ## Constitution Check
 
