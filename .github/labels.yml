@@ -86,7 +86,7 @@
 
 - name: status:completed
   color: ededed
-  description: null
+  description: ""
   # Overlaps status:done in meaning; kept as a separate declaration because
   # it is already applied to real issues (e.g. bulk-label-issues.sh) and a
   # rename would require re-labeling those issues, not just this file.
@@ -115,13 +115,13 @@
 
 - name: priority:high
   color: ededed
-  description: null
+  description: ""
   # Overlaps priority:important; kept as a separate declaration for the same
   # reason as status:completed above — already applied to real issues.
 
 - name: priority:low
   color: ededed
-  description: null
+  description: ""
   # Overlaps priority:minor; see priority:high above.
 
 # --- Types (Issue Types) ---
@@ -282,7 +282,7 @@
 
 - name: area:governance
   color: ededed
-  description: null
+  description: ""
 
 - name: area:qa
   color: C5DEF5
