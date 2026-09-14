@@ -20,6 +20,7 @@ DEFAULT_EXCLUDE = [".git/*", "node_modules/*", ".venv/*", "venv/*", "dist/*", "b
 
 @dataclass
 class FileIssue:
+    """Individual validation issue found in a file."""
     level: str
     message: str
     suggestion: Optional[str] = None
@@ -27,6 +28,7 @@ class FileIssue:
 
 @dataclass
 class FileResult:
+    """Container for validation results of a single file."""
     path: str
     passed: bool = True
     errors: List[FileIssue] = field(default_factory=list)
@@ -35,6 +37,7 @@ class FileResult:
     frontmatter: Dict[str, Any] = field(default_factory=dict)
 
     def add(self, level: str, message: str, suggestion: Optional[str] = None):
+        """Add a validation issue to the appropriate category."""
         issue = FileIssue(level=level, message=message, suggestion=suggestion)
         if level == "error":
             self.errors.append(issue)
@@ -46,14 +49,17 @@ class FileResult:
 
 
 class YamlLiteError(Exception):
+    """Exception raised for YAML parsing errors."""
     pass
 
 
 class YamlLiteParser:
+    """Lightweight YAML parser for frontmatter extraction."""
     def __init__(self, text: str):
         self.lines = text.splitlines()
 
     def parse(self) -> Any:
+        """Parse YAML-like content into Python objects."""
         entries = self._preprocess()
         if not entries:
             return {}
@@ -158,6 +164,7 @@ def parse_yaml_lite(text: str) -> Any:
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments for the Markdown validator."""
     parser = argparse.ArgumentParser(description="Validate markdown files, YAML frontmatter, and SemVer metadata.")
     parser.add_argument("--target", required=True)
     parser.add_argument("--schema", required=True)
@@ -170,6 +177,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def load_schema(schema_path: Path) -> Dict[str, Any]:
+    """Load validation schema from YAML file."""
     if not schema_path.exists():
         raise FileNotFoundError(f"Schema file not found: {schema_path}")
     content = schema_path.read_text(encoding="utf-8")
@@ -180,6 +188,7 @@ def load_schema(schema_path: Path) -> Dict[str, Any]:
 
 
 def should_include(path: Path, includes: List[str], excludes: List[str], root: Path) -> bool:
+    """Check if a file path matches include/exclude patterns."""
     rel = path.relative_to(root).as_posix()
     if any(fnmatch.fnmatch(rel, pattern) for pattern in excludes):
         return False
@@ -187,6 +196,7 @@ def should_include(path: Path, includes: List[str], excludes: List[str], root: P
 
 
 def discover_files(target: Path, includes: List[str], excludes: List[str]) -> List[Path]:
+    """Discover files matching include/exclude patterns."""
     if target.is_file():
         return [target]
     matches = []
@@ -197,6 +207,7 @@ def discover_files(target: Path, includes: List[str], excludes: List[str]) -> Li
 
 
 def parse_frontmatter(text: str, result: FileResult) -> Tuple[Optional[Dict[str, Any]], str]:
+    """Parse YAML frontmatter from file content, recording issues in result."""
     if text.startswith("\ufeff"):
         result.add("error", "BOM marker detected before frontmatter.")
         return None, text
@@ -221,6 +232,7 @@ def parse_frontmatter(text: str, result: FileResult) -> Tuple[Optional[Dict[str,
 
 
 def validate_value(field: str, value: Any, rules: Dict[str, Any], result: FileResult):
+    """Validate a single frontmatter field value against schema rules."""
     expected_type = rules.get("type")
     if expected_type == "string":
         if not isinstance(value, str):
@@ -259,6 +271,7 @@ def validate_value(field: str, value: Any, rules: Dict[str, Any], result: FileRe
 
 
 def validate_schema(frontmatter: Dict[str, Any], schema: Dict[str, Any], result: FileResult):
+    """Validate frontmatter against JSON schema rules."""
     required = schema.get("required", [])
     properties = schema.get("properties", {})
 
@@ -290,6 +303,7 @@ def validate_schema(frontmatter: Dict[str, Any], schema: Dict[str, Any], result:
 
 
 def validate_markdown(body: str, result: FileResult):
+    """Validate Markdown content structure and formatting."""
     lines = body.splitlines()
     last_heading_level = 0
     seen_headings = set()
@@ -361,6 +375,7 @@ def validate_markdown(body: str, result: FileResult):
 
 
 def file_from_ref(base_ref: str, path: Path, repo_root: Path) -> Optional[str]:
+    """Retrieve file content from a git reference."""
     rel = path.relative_to(repo_root).as_posix()
     completed = subprocess.run(["git", "show", f"{base_ref}:{rel}"], cwd=repo_root, capture_output=True, text=True)
     if completed.returncode != 0:
@@ -369,6 +384,7 @@ def file_from_ref(base_ref: str, path: Path, repo_root: Path) -> Optional[str]:
 
 
 def check_version_increment(path: Path, current_frontmatter: Dict[str, Any], result: FileResult, base_ref: Optional[str], repo_root: Path):
+    """Verify that file version was incremented when content changed."""
     if not base_ref:
         result.add("warning", "Version increment could not be verified because no previous version was available.")
         return
@@ -388,6 +404,7 @@ def check_version_increment(path: Path, current_frontmatter: Dict[str, Any], res
 
 
 def make_report(results: List[FileResult], report_path: Path):
+    """Generate and write a validation report file."""
     files_scanned = len(results)
     passed = sum(1 for item in results if item.passed and not item.warnings)
     failed = files_scanned - passed
@@ -463,6 +480,7 @@ def make_report(results: List[FileResult], report_path: Path):
 
 
 def main() -> int:
+    """Main entry point for Markdown validation tool."""
     args = parse_args()
     target = Path(args.target).resolve()
     schema_path = Path(args.schema).resolve()

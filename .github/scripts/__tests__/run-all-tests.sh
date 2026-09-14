@@ -104,6 +104,10 @@ run_test_suite \
   "Agent Spec Generator CLI Tests" \
   "$SCRIPT_DIR/create-agent-spec.test.js"
 
+run_test_suite \
+  "PRD Agent Test Suite (Mock Fixture Validation)" \
+  "$REPO_ROOT/agents/prd-agent/tests/test-runner.js"
+
 # Summary
 echo ""
 echo "${BLUE}════════════════════════════════════════════════════════════════════${NC}"

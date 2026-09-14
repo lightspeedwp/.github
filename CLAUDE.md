@@ -245,6 +245,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | Asset Type | Belongs In |
 | --- | --- |
 | GitHub-native governance (templates, labels, workflows) | `.github/` |
+| Specification files (features, plans, research) | `.github/specs/` |
 | Repo-local Copilot/agent instructions | `.github/instructions/` or `.github/custom-instructions.md` |
 | Reports, audits, metrics | `.github/reports/{category}/` |
 | Active project artefacts | `.github/projects/active/{slug}/` |
@@ -265,10 +266,27 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [docs/WORKFLOWS.md](./docs/WORKFLOWS.md) — workflow organisation and distribution strategy
+- [.github/specs/](./.github/specs/) — feature specifications and implementation planning
+- [.specify/](./specify/) — speckit configuration for feature specification workflow
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
 - [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
 - [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

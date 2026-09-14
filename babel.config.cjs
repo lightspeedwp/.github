@@ -13,7 +13,9 @@ module.exports = {
         '@babel/plugin-transform-class-properties',
         '@babel/plugin-transform-object-rest-spread',
         '@babel/plugin-transform-runtime',
-        '@babel/plugin-syntax-import-meta',
+        // import.meta parsing is native to Babel's parser since 7.8 and has
+        // no @babel/plugin-syntax-import-meta release for Babel 8; the
+        // plugin was a no-op even before removal.
     ],
     ignore: process.env.BABEL_IGNORE
         ? process.env.BABEL_IGNORE.split(',')
