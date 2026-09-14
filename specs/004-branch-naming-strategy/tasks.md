@@ -202,10 +202,10 @@
 
 #### Testing & Validation
 
-- [ ] T060 [P] [US3] Create integration test: Create PR from `feat/user-auth-improvements`; verify template (`pr_feature.md`) applied; verify labels (`type:feature`) applied
-- [ ] T061 [P] [US3] Create integration test: Create PR from `security/sql-injection-fix`; verify template (`pr_security.md`) applied; verify labels (`type:security, priority:critical`) applied
-- [ ] T062 [P] [US3] Create integration test: Create PR from branch with area keywords (e.g., `feat/api-endpoint`); verify area label (`area:api`) auto-detected and applied
-- [ ] T063 [P] [US3] Test all 24 types; create 24 sample branches, create PRs from each, verify correct template + labels for every type
+- [x] T060 [P] [US3] Create integration test: Create PR from `feat/user-auth-improvements`; verify template (`pr_feature.md`) applied; verify labels (`type:feature`) applied
+- [x] T061 [P] [US3] Create integration test: Create PR from `security/sql-injection-fix`; verify template (`pr_security.md`) applied; verify labels (`type:security, priority:critical`) applied
+- [x] T062 [P] [US3] Create integration test: Create PR from branch with area keywords (e.g., `feat/api-endpoint`); verify area label (`area:api`) auto-detected and applied
+- [x] T063 [P] [US3] Test all 24 types; create 24 sample branches, create PRs from each, verify correct template + labels for every type
 
 **Checkpoint: US3 Complete** — PR template routing works perfectly; all labels applied from canonical set; area detection works; 100% accuracy across 24 types
 
