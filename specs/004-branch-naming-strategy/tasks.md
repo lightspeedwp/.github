@@ -227,24 +227,24 @@
 
 #### Documentation Tasks
 
-- [ ] T064 Create `docs/BRANCHING_STRATEGY.md` main guide; include 24 type definitions with purpose, example, and recommendation for each; organized for quick lookup
-- [ ] T065 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Pattern explanation (`{type}/{scope}-{title}`), examples for each component, common mistakes
-- [ ] T066 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Scope/title naming rules (lowercase, hyphens, no underscores, no special chars); provide do's and don'ts
-- [ ] T067 [P] Add section to `docs/BRANCHING_STRATEGY.md`: When to use each type; decision tree for choosing correct type (e.g., "Is it a new feature?" → feat, "Is it a bug fix?" → fix)
-- [ ] T068 Update `CLAUDE.md` with link to branching strategy guide; add quick reference table of 24 types; note forbidden prefixes
-- [ ] T069 Create branching strategy one-pager (PDF or Markdown); print-friendly version for team distribution
+- [x] T064 Create `docs/BRANCHING_STRATEGY.md` main guide; include 24 type definitions with purpose, example, and recommendation for each; organized for quick lookup
+- [x] T065 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Pattern explanation (`{type}/{scope}-{title}`), examples for each component, common mistakes
+- [x] T066 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Scope/title naming rules (lowercase, hyphens, no underscores, no special chars); provide do's and don'ts
+- [x] T067 [P] Add section to `docs/BRANCHING_STRATEGY.md`: When to use each type; decision tree for choosing correct type (e.g., "Is it a new feature?" → feat, "Is it a bug fix?" → fix)
+- [x] T068 Update `CLAUDE.md` with link to branching strategy guide; add quick reference table of 24 types; note forbidden prefixes
+- [x] T069 Create branching strategy one-pager (PDF or Markdown); print-friendly version for team distribution
 
 #### Training Materials
 
-- [ ] T070 [P] Create training slides (or doc) for team leads; explain branch naming rationale, benefits (template routing, label automation), enforcement mechanism
-- [ ] T071 [P] Create FAQ document addressing common questions: "What's the difference between task and feat?", "Can I use proto for any experimental work?", etc.
+- [x] T070 [P] Create training slides (or doc) for team leads; explain branch naming rationale, benefits (template routing, label automation), enforcement mechanism
+- [x] T071 [P] Create FAQ document addressing common questions: "What's the difference between task and feat?", "Can I use proto for any experimental work?", etc.
 - [ ] T072 Create training video script (optional); 2-3 minute walkthrough of branch creation workflow with validation feedback
 
 #### Communication & Rollout
 
 - [ ] T073 [P] Draft announcement for team leads and developers; explain branch naming policy, enforcement timeline, support contact
 - [ ] T074 Prepare Slack/chat bot integration (optional); bot responds to "How do I name branches?" with link to guide and quick examples
-- [ ] T075 Create support runbook for team leads; common issues, debugging steps, escalation path
+- [x] T075 Create support runbook for team leads; common issues, debugging steps, escalation path
 
 **Checkpoint: US4 Complete** — Documentation comprehensive, developers empowered to choose correct type, adoption baseline established
 
