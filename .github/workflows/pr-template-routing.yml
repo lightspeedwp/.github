@@ -1,0 +1,147 @@
+name: PR Template & Label Routing
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  route-pr-template-and-labels:
+    name: Route PR template and apply labels
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Route PR template and labels
+        id: route
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          echo "Processing branch: $BRANCH_NAME"
+
+          ROUTING_OUTPUT=$(node scripts/pr-template-router.js "$BRANCH_NAME" 2>&1)
+          EXIT_CODE=$?
+
+          echo "$ROUTING_OUTPUT"
+
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Error: Template routing failed"
+            exit 1
+          fi
+
+          # Parse JSON output and set outputs
+          BRANCH_TYPE=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.branch_type // empty')
+          TEMPLATE=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.template // empty')
+          ALL_LABELS=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.all_labels | join(",") // empty')
+          SCOPE=$(echo "$ROUTING_OUTPUT" | tail -1 | jq -r '.scope // empty')
+
+          if [ -z "$BRANCH_TYPE" ] || [ -z "$TEMPLATE" ]; then
+            echo "Error: Failed to parse routing output"
+            exit 1
+          fi
+
+          echo "branch_type=$BRANCH_TYPE" >> $GITHUB_OUTPUT
+          echo "template=$TEMPLATE" >> $GITHUB_OUTPUT
+          echo "labels=$ALL_LABELS" >> $GITHUB_OUTPUT
+          echo "scope=$SCOPE" >> $GITHUB_OUTPUT
+
+      - name: Verify template exists
+        id: verify-template
+        run: |
+          TEMPLATE_FILE=".github/PULL_REQUEST_TEMPLATE/${{ steps.route.outputs.template }}.md"
+          if [ -f "$TEMPLATE_FILE" ]; then
+            echo "✓ Template found: $TEMPLATE_FILE"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "⚠ Template not found: $TEMPLATE_FILE"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Apply labels to PR
+        if: steps.verify-template.outputs.exists == 'true' && steps.route.outputs.labels != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = '${{ steps.route.outputs.labels }}'.split(',').map(l => l.trim()).filter(l => l);
+
+            if (labels.length > 0) {
+              console.log(`Adding labels: ${labels.join(', ')}`);
+
+              try {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  labels: labels
+                });
+                console.log('Labels applied successfully');
+              } catch (error) {
+                console.warn(`Warning: Could not apply labels: ${error.message}`);
+              }
+            } else {
+              console.log('No labels to apply');
+            }
+
+      - name: Add PR comment with routing info
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branchType = '${{ steps.route.outputs.branch_type }}';
+            const template = '${{ steps.route.outputs.template }}';
+            const labels = '${{ steps.route.outputs.labels }}' || 'none';
+            const scope = '${{ steps.route.outputs.scope }}';
+
+            const labelDisplay = labels === 'none' ? '_none_' : labels;
+            const lines = [
+              '## PR Template Routing',
+              '',
+              `**Branch Type:** \`${branchType}\``,
+              `**Scope:** \`${scope}\``,
+              `**Template:** \`${template}.md\``,
+              `**Labels Applied:** ${labelDisplay}`,
+              '',
+              'This PR was automatically routed based on the branch naming strategy.'
+            ];
+
+            const comment = lines.join('\n');
+
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: comment
+              });
+            } catch (error) {
+              console.warn(`Could not post comment: ${error.message}`);
+            }
+
+      - name: Report routing status
+        if: always()
+        run: |
+          echo "=== PR Template Routing Summary ==="
+          echo "Branch Type: ${{ steps.route.outputs.branch_type }}"
+          echo "Scope: ${{ steps.route.outputs.scope }}"
+          echo "PR Template: ${{ steps.route.outputs.template }}"
+          echo "Labels: ${{ steps.route.outputs.labels }}"
+          echo "Template Exists: ${{ steps.verify-template.outputs.exists }}"
