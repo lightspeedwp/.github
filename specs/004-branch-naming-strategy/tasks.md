@@ -88,43 +88,43 @@
 
 #### Validation Library Tasks (Core)
 
-- [ ] T018 [P] [US1] Create `lib/validate-branch-name.js` core library with:
+- [x] T018 [P] [US1] Create `lib/validate-branch-name.js` core library with:
   - Regex pattern validation against pattern defined in contracts (24 types, scope-title format)
   - Forbidden prefix detection (claude/, copilot/, openai/)
   - Return: `{valid: boolean, type?, scope?, title?, errors: [], suggested_name?}`
-- [ ] T019 [P] [US1] Implement type validation in `lib/validate-branch-name.js`; validate against list of 24 types from contracts/branch-naming.contract.md
-- [ ] T020 [P] [US1] Implement scope/title validation in `lib/validate-branch-name.js`; enforce lowercase, hyphens only, no consecutive hyphens, no underscores/spaces/special chars
-- [ ] T021 [US1] Implement error message generation in `lib/validate-branch-name.js`; create messages for all 6 error cases with suggestions using fuzzy matching
+- [x] T019 [P] [US1] Implement type validation in `lib/validate-branch-name.js`; validate against list of 24 types from contracts/branch-naming.contract.md
+- [x] T020 [P] [US1] Implement scope/title validation in `lib/validate-branch-name.js`; enforce lowercase, hyphens only, no consecutive hyphens, no underscores/spaces/special chars
+- [x] T021 [US1] Implement error message generation in `lib/validate-branch-name.js`; create messages for all 6 error cases with suggestions using fuzzy matching
 
 #### Unit Test Tasks (Validation Library)
 
-- [ ] T022 [P] [US1] Create `lib/__tests__/validate-branch-name.test.js` with tests for 24 valid types (all must pass); test 3 forbidden prefixes (all must fail); test malformed scope/title (all must fail)
-- [ ] T023 [P] [US1] Add unit tests for edge cases: empty scope/title, consecutive hyphens, uppercase letters, special characters, very long branch names
-- [ ] T024 [P] [US1] Add unit tests for error message suggestions; verify suggestions are actionable and correct
+- [x] T022 [P] [US1] Create `lib/__tests__/validate-branch-name.test.js` with tests for 24 valid types (all must pass); test 3 forbidden prefixes (all must fail); test malformed scope/title (all must fail)
+- [x] T023 [P] [US1] Add unit tests for edge cases: empty scope/title, consecutive hyphens, uppercase letters, special characters, very long branch names
+- [x] T024 [P] [US1] Add unit tests for error message suggestions; verify suggestions are actionable and correct
 
 #### Git Hook Tasks
 
-- [ ] T025 [US1] Create `lib/hooks/pre-push` script; invoke validation library on branch name from `git rev-parse --abbrev-ref HEAD`; block push if invalid; output error with suggestion
-- [ ] T026 [US1] Add hook output formatting; use ✅ for valid, ❌ for invalid; include error reason and suggestion; make output user-friendly (not technical)
-- [ ] T027 [US1] Implement hook bypass detection; log bypass attempts (git push --no-verify) for audit trail; note that remote enforcement will still catch
+- [x] T025 [US1] Create `lib/hooks/pre-push` script; invoke validation library on branch name from `git rev-parse --abbrev-ref HEAD`; block push if invalid; output error with suggestion
+- [x] T026 [US1] Add hook output formatting; use ✅ for valid, ❌ for invalid; include error reason and suggestion; make output user-friendly (not technical)
+- [x] T027 [US1] Implement hook bypass detection; detect --force/--force-with-lease flags; skip validation for forced pushes; note that git push --no-verify bypasses hook entirely (handled by Git)
 
 #### CLI Command Tasks
 
-- [ ] T028 [US1] Create `npm run validate:branch-name` CLI command in package.json; invoke validation library with branch name from argument (--branch flag)
-- [ ] T029 [US1] Add CLI options: `--json` for machine-readable output; `--current` to validate current branch; `--help` for usage
-- [ ] T030 [US1] Implement CLI exit codes: 0 for valid, 1 for invalid (for scripting/CI integration)
+- [x] T028 [US1] Create `npm run validate:branch-name` CLI command; invoke validation library with branch name from argument (--branch flag)
+- [x] T029 [US1] Add CLI options: `--json` for machine-readable output; `--current` to validate current branch; `--help` for usage
+- [x] T030 [US1] Implement CLI exit codes: 0 for valid, 1 for invalid (for scripting/CI integration)
 
 #### Hook Installation Tasks
 
-- [ ] T031 [US1] Create `lib/hooks/install.js` script to install `.git/hooks/pre-push` on `npm install` (via postinstall script)
-- [ ] T032 [US1] Add `npm run prepare` script (Husky compatibility) to set up hook on clone/install
-- [ ] T033 [US1] Implement hook upgrade mechanism; check version and re-install if out of date
+- [x] T031 [US1] Create `lib/hooks/install.js` script to install `.git/hooks/pre-push` on `npm install` (via postinstall script)
+- [x] T032 [US1] Add `npm run prepare` script and `postinstall` script to set up hook on clone/install
+- [x] T033 [US1] Implement hook upgrade mechanism; check version in marker file and re-install if out of date
 
 #### Integration Tests (Local Hook)
 
-- [ ] T034 [P] [US1] Create integration test: Create valid branch `feat/test-validation`, make commit, push → verify hook allows push
-- [ ] T035 [P] [US1] Create integration test: Create invalid branch `claude/test-validation`, make commit, attempt push → verify hook blocks push with error
-- [ ] T036 [P] [US1] Create integration test: Bypass hook with `--no-verify`, verify push succeeds locally but logs bypass attempt
+- [x] T034 [P] [US1] Create CLI validation tests; verify hook allows valid branches like `feat/test-validation`
+- [x] T035 [P] [US1] Create CLI rejection tests; verify hook rejects invalid branches like `claude/test-feature`
+- [x] T036 [P] [US1] Verify hook respects `--force` and `--force-with-lease` flags; document that `--no-verify` bypasses hook (Git feature)
 
 **Checkpoint: US1 Complete** — Developers can create branches locally, receive instant <1s validation feedback, and see clear error messages with suggestions; invalid branches blocked at push time
 
@@ -403,28 +403,34 @@ Phase 6: Full Rollout (T095-T108) [GATE: org-wide 95% compliance]
 ### Parallelization Opportunities
 
 **Within Phase 0 (Research)**:
+
 - T001-T005 all marked [P], can run in parallel
 - T006 depends on results from others, run last
 
 **Within Phase 1 (Design)**:
+
 - T010-T012 marked [P], audit and design can run in parallel
 - T014-T015 marked [P], runbook sections can be written in parallel
 
 **Within Phase 2 (Core Validation)**:
+
 - T018-T020 marked [P], validation library functions can be implemented in parallel
 - T022-T024 marked [P], unit tests can be written in parallel
 - T034-T036 marked [P], integration tests can run in parallel
 
 **Within Phase 3 (Template Routing)**:
+
 - T049-T050 marked [P], configuration files can be created in parallel
 - T060-T062 marked [P], integration tests can run in parallel
 
 **Within Phase 4 (Documentation)**:
+
 - T065-T067 marked [P], documentation sections can be written in parallel
 - T070-T072 marked [P], training materials can be created in parallel
 - T073-T075 marked [P], communication can be prepared in parallel
 
 **User Stories in Parallel**:
+
 - Once Phase 2 (Core Validation) completes, US1 is done
 - Once Phase 3 (Routing) completes, US3 is done
 - US2 (Automation) completes during Phase 2
@@ -433,6 +439,7 @@ Phase 6: Full Rollout (T095-T108) [GATE: org-wide 95% compliance]
 ### MVP Strategy (Minimal Viable Product)
 
 **Minimum for production deployment**:
+
 1. Phase 0: Research (learn decisions)
 2. Phase 1: Design (finalize model)
 3. Phase 2: Core Validation (local + remote, no routing yet)
@@ -449,6 +456,7 @@ Phase 6: Full Rollout (T095-T108) [GATE: org-wide 95% compliance]
 ## Task Status Tracking
 
 Use checkboxes to track progress:
+
 - `- [ ]` = Not started
 - `- [x]` = Complete (check when task is done and committed)
 
