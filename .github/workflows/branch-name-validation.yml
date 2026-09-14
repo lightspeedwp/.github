@@ -56,22 +56,19 @@ jobs:
         id: validate
         run: |
           BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
-          echo "🔍 Validating branch: $BRANCH_NAME"
+          echo "🔍 Validating: $BRANCH_NAME"
 
-          # Simple approach: use npm script exit code directly
-          if npm run validate:branch-name -- --branch "$BRANCH_NAME" --json > /tmp/result.json 2>&1; then
-            echo "✅ Validation passed"
+          # Run validation with exit code check
+          npm run validate:branch-name -- --branch "$BRANCH_NAME" --json
+          EXIT_CODE=$?
+
+          if [ $EXIT_CODE -eq 0 ]; then
             echo "valid=true" >> $GITHUB_OUTPUT
-            echo "errors=" >> $GITHUB_OUTPUT
-            echo "suggested_name=" >> $GITHUB_OUTPUT
           else
-            echo "❌ Validation failed"
-            cat /tmp/result.json
             echo "valid=false" >> $GITHUB_OUTPUT
-            echo "errors=Invalid branch name" >> $GITHUB_OUTPUT
-            SUGGESTED=$(jq -r '.suggested_name // ""' /tmp/result.json 2>/dev/null || echo "")
-            echo "suggested_name=$SUGGESTED" >> $GITHUB_OUTPUT
           fi
+
+          exit $EXIT_CODE
 
       - name: Collect validation metrics
         if: always()
