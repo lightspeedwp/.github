@@ -16,17 +16,20 @@
 //   1. Skip files matched by the same ignorePaths the CLI2 config applies,
 //      since the markdownlint library API (used below for line numbers)
 //      does not honour them itself.
-//   2. Record which lines are added/changed *before* auto-fixing, by diffing
-//      the pre-fix content against HEAD.
-//   3. Auto-fix what markdownlint-cli2 can fix in place (as before).
-//   4. Map the pre-fix added-line numbers onto the post-fix file by diffing
-//      pre-fix content against post-fix content. A fix that only reformats
-//      an already-added line still resolves to "added"; a fix that touches
-//      an untouched legacy line is never seeded into this set, so it can't
-//      leak in as a false "added" line.
-//   5. Re-lint the post-fix file with the markdownlint library directly to
+//   2. Record which lines are staged/added, by diffing the index against
+//      HEAD — not the working tree, which can carry unstaged edits too.
+//   3. Snapshot three states: the index, the pre-fix working tree (index
+//      content plus any unstaged edits already on disk), and — after
+//      --fix runs — the post-fix working tree. Map the staged-added lines
+//      forward through each transition in turn (index -> pre-fix working
+//      tree, then pre-fix -> post-fix working tree) rather than diffing
+//      index straight to post-fix, so a shift caused by an unstaged edit
+//      is never misattributed to the fix (or vice versa) — two adjacent
+//      single-line changes, one staged and one not, can otherwise land in
+//      the same diff hunk.
+//   4. Re-lint the post-fix file with the markdownlint library directly to
 //      get violations with line numbers.
-//   6. Only fail if a remaining violation lands on a mapped added/changed
+//   5. Only fail if a remaining violation lands on a mapped added/changed
 //      line. Pre-existing violations on untouched lines are reported but do
 //      not block the commit — matching the changed-files CI policy.
 
@@ -188,6 +191,30 @@ function mapLinesForward(oldLines, hunks) {
   return mapped;
 }
 
+// Computes the diff hunks between two in-memory content strings, via a pair
+// of throwaway temp files. Returns [] when they're identical.
+function hunksBetween(oldContent, newContent, baseName) {
+  if (oldContent === newContent) return [];
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "lint-md-staged-"));
+  const oldFile = path.join(tmpDir, `old-${baseName}`);
+  const newFile = path.join(tmpDir, `new-${baseName}`);
+  fs.writeFileSync(oldFile, oldContent);
+  fs.writeFileSync(newFile, newContent);
+  try {
+    const diffProc = spawnSync(
+      "git",
+      ["diff", "--no-index", "--unified=0", "--no-color", oldFile, newFile],
+      { encoding: "utf8" },
+    );
+    if (diffProc.error) {
+      throw new Error(`Failed to compute diff: ${diffProc.error.message}`);
+    }
+    return parseHunks(diffProc.stdout || "");
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+}
+
 async function lintFile(file) {
   const { lint } = await import("markdownlint/promise");
   const result = await lint({
@@ -200,14 +227,21 @@ async function lintFile(file) {
 async function main() {
   let blocking = false;
 
-  // Snapshot the staged (index) content and the HEAD diff *before* --fix
-  // mutates the working tree — this is the source of truth for what the
-  // commit actually touches, independent of any unstaged edits sitting
-  // alongside it on disk.
+  // Snapshot three states before --fix mutates the working tree:
+  //   - the index (what will actually be committed)
+  //   - the pre-fix working tree (index content plus any unstaged edits
+  //     sitting alongside it on disk — a normal `git add -p` outcome)
+  //   - (after --fix runs, below) the post-fix working tree
+  // Reconciling all three, rather than diffing index straight to post-fix,
+  // keeps unstaged edits from being misattributed as part of the fix: two
+  // adjacent single-line changes — one staged, one not — can land in the
+  // same diff hunk, and treating that hunk as "the fix" would pull the
+  // unstaged line into the blocking set.
   const preFixState = new Map();
   for (const file of files) {
     preFixState.set(file, {
-      content: indexContent(file),
+      indexContent: indexContent(file),
+      preFixWorkingContent: fs.readFileSync(absPath(file), "utf8"),
       headDiff: diffAgainstHead(file),
     });
   }
@@ -233,48 +267,37 @@ async function main() {
   }
 
   for (const file of files) {
-    const { content: preFixContent, headDiff } = preFixState.get(file);
+    const {
+      indexContent: idxContent,
+      preFixWorkingContent,
+      headDiff,
+    } = preFixState.get(file);
     let added;
     if (headDiff === null) {
       added = null; // no HEAD yet — treat everything as added.
     } else {
       const preFixAdded = headDiff ? addedLinesFromDiff(headDiff) : new Set();
-      const postFixContent = fs.readFileSync(absPath(file), "utf8");
 
-      if (preFixAdded.size === 0 || postFixContent === preFixContent) {
+      if (preFixAdded.size === 0) {
         added = preFixAdded;
       } else {
-        const tmpDir = fs.mkdtempSync(
-          path.join(os.tmpdir(), "lint-md-staged-"),
+        const baseName = path.basename(file);
+
+        // Stage 1: index -> pre-fix working tree. Any shift here is
+        // attributed to unstaged edits, not to the fix.
+        const throughUnstaged = mapLinesForward(
+          preFixAdded,
+          hunksBetween(idxContent, preFixWorkingContent, baseName),
         );
-        const tmpFile = path.join(tmpDir, path.basename(file));
-        fs.writeFileSync(tmpFile, preFixContent);
-        let fixDiffText;
-        try {
-          const diffProc = spawnSync(
-            "git",
-            [
-              "diff",
-              "--no-index",
-              "--unified=0",
-              "--no-color",
-              tmpFile,
-              absPath(file),
-            ],
-            { encoding: "utf8" },
-          );
-          if (diffProc.error) {
-            console.error(
-              `Failed to compute fix diff for ${file}: ${diffProc.error.message}`,
-            );
-            process.exit(1);
-          }
-          fixDiffText = diffProc.stdout || "";
-        } finally {
-          fs.rmSync(tmpDir, { recursive: true, force: true });
-        }
-        const fixHunks = parseHunks(fixDiffText);
-        added = mapLinesForward(preFixAdded, fixHunks);
+
+        // Stage 2: pre-fix working tree -> post-fix working tree. This is
+        // purely the fix's own changes now, since both sides already
+        // include the same unstaged edits.
+        const postFixContent = fs.readFileSync(absPath(file), "utf8");
+        added = mapLinesForward(
+          throughUnstaged,
+          hunksBetween(preFixWorkingContent, postFixContent, baseName),
+        );
       }
     }
 
