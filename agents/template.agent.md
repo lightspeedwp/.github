@@ -108,3 +108,9 @@ Specify observability expectations:
 Maintain a simple audit trail of spec changes:
 
 - Version, date, and a short note (for example `v1.1 - Updated guardrails; clarified rollback behaviour`).
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

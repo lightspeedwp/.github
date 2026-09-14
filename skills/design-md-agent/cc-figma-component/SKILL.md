@@ -469,3 +469,9 @@ If there are no notes, create the frame anyway with the text "No issues — all 
 - **Figma plugin sandbox — `eval` is blocked** — use `new Function(code)()` as the workaround when dynamic code execution is required. This is the only reliable pattern for assembling and running chunked plugin scripts in the Figma environment.
 
 - **Icon slot visibility** — the icon placeholder frame must be hidden by default (`visible: false`) and wired to a BOOLEAN component property (`iconStart`) via `componentPropertyReferences` with type `visible`. Never leave the icon slot always-visible — it will appear as an empty box on every variant that doesn't use an icon.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

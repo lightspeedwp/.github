@@ -1,0 +1,26 @@
+{
+  "audit_date": "2026-09-14",
+  "statistics": {
+    "total_labels": 162,
+    "label_families": 15,
+    "type_labels_immutable": 25,
+    "governance_protected_labels": 57,
+    "documented_labels": 17,
+    "documentation_gaps": 17,
+    "potential_duplicates": 73,
+    "archived_workflows": 11
+  },
+  "key_findings": {
+    "governance_label_gaps": 12,
+    "type_label_color_mismatches": 3,
+    "medium_consolidation_candidates": 28,
+    "workflows_to_investigate": 4
+  },
+  "phases_complete": {
+    "phase_1_setup": true,
+    "phase_2_extraction": true,
+    "phase_3_analysis": true,
+    "phase_4_workflow_analysis": true,
+    "phase_5_integration": "in_progress"
+  }
+}

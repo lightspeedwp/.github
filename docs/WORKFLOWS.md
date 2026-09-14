@@ -224,3 +224,9 @@ If you're migrating a workflow:
 - [CLAUDE.md](./CLAUDE.md) — Repository structure and conventions
 - [GitHub: Reusing workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
 - [GitHub: Workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

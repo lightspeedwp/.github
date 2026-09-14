@@ -367,3 +367,9 @@ If CI shows RED but it's NOT caused by this PR:
 **Use When:** PR is ready to finalize, needs label audit, template update, or merge  
 **Output:** Merged PR, updated labels, closed/linked issue, clean CI  
 **Dependencies:** GitHub access, git, `develop` branch permissions
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

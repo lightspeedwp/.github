@@ -89,3 +89,9 @@ Stop and request human review before creating instructions that would allow the 
 - Produce legal, security, pricing, compliance, health, financial, or customer-sensitive claims without an approved source.
 - Access systems or data sources the user has not explicitly authorised.
 - Store, expose, or infer sensitive personal data without a clear purpose and permission.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

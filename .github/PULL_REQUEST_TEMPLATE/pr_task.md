@@ -58,6 +58,16 @@ How was this tested?
 - [ ] Related issues linked above
 - [ ] Changelog entry added
 
+## Definition of Done (DoD)
+
+- [ ] Task completed and documented
+- [ ] Changelog entry prepared for PR
+- [ ] PR uses correct branch prefix (task/)
+- [ ] Documentation/changelog updated if needed
+- [ ] Branch deleted after merge
+- [ ] Linked issue(s) updated with latest status and closed after merge
+- [ ] Related epic updated with comment reflecting closed issues
+
 ---
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)

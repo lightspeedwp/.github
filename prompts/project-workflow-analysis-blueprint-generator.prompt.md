@@ -319,3 +319,9 @@ Based on the documented workflows, provide specific guidance for implementing ne
 **Conclusion:**
 Conclude with a summary of the most important patterns that should be followed when
 implementing new features to maintain consistency with the codebase."
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

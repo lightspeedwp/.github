@@ -112,3 +112,9 @@ Use these references as needed:
 ## Quality standard
 
 Outputs should be implementation-ready for a WordPress launch team, but must remain honest about evidence, validation status and search/AI uncertainty.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

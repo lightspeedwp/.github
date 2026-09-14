@@ -136,3 +136,9 @@ Exit codes:
 - `0` when all checks pass
 - `1` when validation failures are found
 - `2` for configuration or runtime errors
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

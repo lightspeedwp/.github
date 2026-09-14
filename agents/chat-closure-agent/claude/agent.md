@@ -14,3 +14,9 @@ last_updated: "2026-08-29"
 
 Use `../shared/core-prompt.md` as the provider-agnostic source of behaviour.
 For Claude-specific prompting details, refer to `./prompt.md`.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

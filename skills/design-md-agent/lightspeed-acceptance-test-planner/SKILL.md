@@ -138,3 +138,9 @@ Use these references as needed:
 ## Output style
 
 Use UK English. Keep outputs practical, structured and ready for GitHub, Google Docs or a launch QA pack. Separate client-facing summaries from internal LightSpeed notes.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

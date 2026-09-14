@@ -34,6 +34,7 @@ MALFORMED_LINK_HINT_RE = re.compile(r"\[[^\]]+\]\([^)]*$")
 
 @dataclass
 class FileResult:
+    """Container for validation results of a single content file."""
     path: str
     passed: bool = False
     markdown_issues: list[str] = field(default_factory=list)
@@ -48,6 +49,7 @@ class FileResult:
 
 
 def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments for the validator."""
     parser = argparse.ArgumentParser(description="Validate content files for Markdown quality, frontmatter compliance, and SemVer rules.")
     parser.add_argument("--target", required=True)
     parser.add_argument("--schema", required=True)
@@ -61,6 +63,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def load_yaml_file(path: Path) -> Any:
+    """Load and parse a YAML file safely."""
     if yaml is None:
         raise RuntimeError("Missing dependency: PyYAML. Install requirements.txt before running the validator.")
     try:
@@ -115,6 +118,7 @@ def default_include_patterns() -> list[str]:
 
 
 def collect_files(target: Path, includes: list[str], excludes: list[str]) -> list[Path]:
+    """Recursively collect files matching include/exclude patterns."""
     results = []
     for path in target.rglob("*"):
         if not path.is_file():
@@ -128,6 +132,7 @@ def collect_files(target: Path, includes: list[str], excludes: list[str]) -> lis
 
 
 def split_frontmatter(text: str) -> tuple[str | None, str | None, list[str]]:
+    """Extract YAML frontmatter and body from content, returning tuple of (frontmatter, body, issues)."""
     issues: list[str] = []
     if yaml is None:
         return None, None, ["Missing dependency: PyYAML. Install requirements.txt before running the validator."]
@@ -151,6 +156,7 @@ def split_frontmatter(text: str) -> tuple[str | None, str | None, list[str]]:
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, Any] | None, str | None, list[str]]:
+    """Parse YAML frontmatter from content, returning tuple of (frontmatter_dict, body, issues)."""
     yaml_block, body, issues = split_frontmatter(text)
     if issues:
         return None, body, issues
@@ -194,6 +200,7 @@ def build_suggested_fix(data: dict[str, Any] | None, required_fields: list[str],
 
 
 def validate_markdown_structure(path: Path, body: str, root: Path) -> tuple[list[str], list[str]]:
+    """Validate Markdown structure including headings, links, and formatting."""
     issues: list[str] = []
     warnings: list[str] = []
     headings: list[tuple[int, str]] = []
@@ -304,6 +311,7 @@ def validate_version_increment(current_path: Path, target_root: Path, current_fr
 
 
 def validate_file(path: Path, root: Path, raw_schema: dict[str, Any], enforce_version_increment: bool, base_ref: str | None) -> FileResult:
+    """Validate a single file against frontmatter schema and Markdown structure rules."""
     result = FileResult(path=relative_posix(path, root))
     try:
         text = path.read_text(encoding="utf-8")
@@ -356,6 +364,7 @@ def validate_file(path: Path, root: Path, raw_schema: dict[str, Any], enforce_ve
 
 
 def render_report(results: list[FileResult], includes: list[str], excludes: list[str], empty_scan_warning: str | None) -> str:
+    """Generate a comprehensive Markdown validation report from results."""
     files_scanned = len(results)
     passed = sum(1 for r in results if r.passed)
     failed = sum(1 for r in results if not r.passed)
@@ -427,6 +436,7 @@ def render_report(results: list[FileResult], includes: list[str], excludes: list
 
 
 def main() -> int:
+    """Main entry point for the content validation tool."""
     args = parse_args()
     target = Path(args.target).resolve()
     schema_path = Path(args.schema).resolve()

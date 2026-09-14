@@ -1,5 +1,30 @@
 # PRD Agent Test Cases & Baseline Metrics
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Phase**: 4 (Prompt Enhancement & Memory Registry)  
 **Date**: 2026-09-11  
 **Purpose**: Establish baseline metrics pre-enhancement for Phase 5 testing comparison  
@@ -10,6 +35,7 @@
 ### Category 1: PRD Generation Quality (5 test cases)
 
 **TC-101: Basic PRD Structure Compliance**
+
 - **Input**: Feature requirement for "user authentication system"
 - **Expected Output**: Complete PRD with sections: Overview, User Stories, Acceptance Criteria, Success Metrics, Release Notes
 - **Success Metric**: All required sections present and properly formatted
@@ -17,6 +43,7 @@
 - **Post-Enhancement Target**: 100% section compliance
 
 **TC-102: Feature Requirements Extraction**
+
 - **Input**: Vague business requirement: "Improve user login experience"
 - **Expected Output**: Structured feature breakdown with user stories, acceptance criteria, technical requirements
 - **Success Metric**: ≥5 distinct user stories, ≥15 acceptance criteria
@@ -24,6 +51,7 @@
 - **Post-Enhancement Target**: 90%+ stories correctly identified
 
 **TC-103: Schema & Format Compliance**
+
 - **Input**: Random PRD structure from raw requirements
 - **Expected Output**: PRD conforming to JSON schema (if applicable) and Markdown format standards
 - **Success Metric**: Zero schema validation errors, passes `npm run validate:frontmatter`
@@ -31,6 +59,7 @@
 - **Post-Enhancement Target**: 100% compliance
 
 **TC-104: Cross-Skill Routing Clarity**
+
 - **Input**: Complex feature requiring multiple skills (e.g., "Feature PRD → Review → Planning → Delivery")
 - **Expected Output**: Explicit skill routing instructions, clear decision tree for next steps
 - **Success Metric**: Agent correctly identifies ≥3 related skills and routing sequence
@@ -38,6 +67,7 @@
 - **Post-Enhancement Target**: 95%+ routing accuracy
 
 **TC-105: Memory Context Preservation**
+
 - **Input**: Multi-turn conversation where PRD is created, then reviewed, then planned
 - **Expected Output**: Consistent requirements across turns; decisions tracked in memory
 - **Success Metric**: Zero context loss between turns; all decisions documented
@@ -47,6 +77,7 @@
 ### Category 2: Multi-Skill Orchestration (4 test cases)
 
 **TC-201: Skill Sequence Accuracy**
+
 - **Input**: "Plan a sprint for Q4 feature launch"
 - **Expected Output**: Correct sequence: project-intake → delivery-planner → estimation-planner → github-issue-drafter
 - **Success Metric**: Correct skill order, no duplicate invocations
@@ -54,6 +85,7 @@
 - **Post-Enhancement Target**: 90%+ accuracy
 
 **TC-202: Skill Handoff Quality**
+
 - **Input**: PRD created by prd-writer, then passed to delivery-planner
 - **Expected Output**: Smooth context passing; no re-explanation required; delivery plan builds on PRD
 - **Success Metric**: Continuity score (0-100), target ≥85
@@ -61,6 +93,7 @@
 - **Post-Enhancement Target**: ≥90 continuity score
 
 **TC-203: Skill Integration Edge Cases**
+
 - **Input**: Request at skill boundary (e.g., design vs. PRD, PRD vs. technical spec)
 - **Expected Output**: Agent recognizes boundary, explains limitation or recommends appropriate skill
 - **Success Metric**: Graceful handling, user satisfaction ≥4/5
@@ -68,6 +101,7 @@
 - **Post-Enhancement Target**: 90%+ graceful handling
 
 **TC-204: Cross-Skill Conflict Resolution**
+
 - **Input**: Conflicting information from two different skill outputs (e.g., timeline from estimation vs. delivery plan)
 - **Expected Output**: Agent identifies conflict, reconciles or flags for review
 - **Success Metric**: Conflict identified and resolution documented
@@ -77,6 +111,7 @@
 ### Category 3: GitHub Integration (3 test cases)
 
 **TC-301: GitHub Issue Creation from PRD**
+
 - **Input**: PRD with requirements, user stories, acceptance criteria
 - **Expected Output**: Well-formatted GitHub issues with labels, checklists, links
 - **Success Metric**: ≥1 issue created, properly labeled, checklist matches acceptance criteria
@@ -85,6 +120,7 @@
 - **Post-Enhancement Target**: 100% creation success
 
 **TC-302: GitHub Milestone & Project Linking**
+
 - **Input**: Feature PRD for release sprint
 - **Expected Output**: GitHub issues linked to correct milestone and project
 - **Success Metric**: Issues appear in project board with correct milestone
@@ -92,6 +128,7 @@
 - **Post-Enhancement Target**: 100% linking success
 
 **TC-303: PR Review & Approval Workflow**
+
 - **Input**: PRD submitted for review via GitHub PR
 - **Expected Output**: Structured review comments, approval gates managed
 - **Success Metric**: Review captures ≥5 valid feedback items, approvals tracked
@@ -101,6 +138,7 @@
 ### Category 4: Skill Inventory Accuracy (2 test cases)
 
 **TC-401: Canonical Skill Name Resolution**
+
 - **Input**: Agent asked to "create a PRD using the consolidated skill set"
 - **Expected Output**: Explicit reference to 28 canonical skills, no deleted skill names
 - **Success Metric**: Zero references to non-existent skills (prd-generator, prd-reviewer, etc.)
@@ -108,6 +146,7 @@
 - **Post-Enhancement Target**: 100% canonical accuracy
 
 **TC-402: Skill Capability Matrix Usage**
+
 - **Input**: Complex workflow spanning multiple skill categories
 - **Expected Output**: Agent correctly maps requirements to skill clusters (Drafting, Planning, Quality, etc.)
 - **Success Metric**: Correct cluster assignment, proper skill ordering
@@ -150,6 +189,7 @@ To ensure consistent evaluation across Phase 5 testing:
 ### Manual Scoring Rubric
 
 **Feedback Quality Assessment** (TC-303):
+
 - 5 = All feedback items are specific, actionable, and directly address PRD gaps
 - 4 = Most feedback (≥80%) is specific and actionable
 - 3 = Balanced mix of specific and generic feedback (≥50% specific)
@@ -185,3 +225,9 @@ To ensure consistent evaluation across Phase 5 testing:
 ---
 
 **Next Step**: Phase 5 will execute full test suite with baseline + post-enhancement comparison
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)

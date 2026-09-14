@@ -305,3 +305,9 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 ---
 
 *🧭 Your compass through the documentation landscape*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

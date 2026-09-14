@@ -712,3 +712,9 @@ Library: /websites/github_en_copilot
 **Model Data Current As Of**: October 2025
 **Deprecation Deadline**: 2025-10-23 for o3, o4-mini, Claude Sonnet 3.7 variants, Gemini 2.0 Flash
 ```
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

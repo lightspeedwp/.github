@@ -1,0 +1,162 @@
+{
+  "total_archived_workflows": 11,
+  "location": ".github/workflows/archived/2026-09-11/labeling",
+  "workflows": [
+    {
+      "filename": "batch-label-prs.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/batch-label-prs.yml",
+      "name": "Batch Label PRs",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "jobs"
+      ],
+      "raw_content_lines": 68
+    },
+    {
+      "filename": "issue-labeling-automation.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/issue-labeling-automation.yml",
+      "name": "Issue Labeling Automation",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "jobs"
+      ],
+      "raw_content_lines": 166
+    },
+    {
+      "filename": "label-audit-report.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/label-audit-report.yml",
+      "name": "Label Audit Report",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "raw_content_lines": 111
+    },
+    {
+      "filename": "labeling-governance.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml",
+      "name": "Labeling \u2022 Unified Governance (PRs, Issues, Discussions & Cleanup)",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "concurrency",
+        "env",
+        "jobs"
+      ],
+      "raw_content_lines": 499
+    },
+    {
+      "filename": "labeling.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/labeling.yml",
+      "name": "Labeling \u2022 Discussions, Issues & PRs (Unified)",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "concurrency",
+        "env",
+        "jobs"
+      ],
+      "raw_content_lines": 124
+    },
+    {
+      "filename": "manage-blocking-status-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml",
+      "name": "Manage Blocking Status Labels",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "raw_content_lines": 124
+    },
+    {
+      "filename": "meta-labels-sync.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/meta-labels-sync.yml",
+      "name": "Meta Labels Sync",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "raw_content_lines": 112
+    },
+    {
+      "filename": "openspec-sync-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/openspec-sync-labels.yml",
+      "name": "OpenSpec Sync Labels",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "raw_content_lines": 55
+    },
+    {
+      "filename": "openspec-validate-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/openspec-validate-labels.yml",
+      "name": "OpenSpec Validate Labels",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "raw_content_lines": 72
+    },
+    {
+      "filename": "remediate-bare-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml",
+      "name": "Remediate Bare Labels (Phase 2)",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "raw_content_lines": 240
+    },
+    {
+      "filename": "validate-issue-labels.yml",
+      "path": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml",
+      "name": "Issue Label Validation",
+      "purpose": "",
+      "labels_referenced": [],
+      "triggers": [
+        "name",
+        true,
+        "permissions",
+        "jobs"
+      ],
+      "raw_content_lines": 121
+    }
+  ]
+}

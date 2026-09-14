@@ -119,3 +119,9 @@ The documentation is complete when:
 - [Key concepts that must be explained clearly]
 - [Common mistakes to avoid]
 - [Sections that need extra detail or examples]
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

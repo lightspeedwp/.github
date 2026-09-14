@@ -235,3 +235,9 @@ See [docs/frontmatter/issue-templates.md](../docs/frontmatter/issue-templates.md
 - [Issue Types](../.github/issue-types.yml)
 - [Workflows](../docs/WORKFLOWS.md)
 - [Automated Labeling](../scripts/agents/labeling.agent.js)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

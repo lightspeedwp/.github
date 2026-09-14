@@ -401,3 +401,7 @@ If allocation becomes unbalanced:
 **Use When:** Planning release cycle, allocating issues to milestones  
 **Output:** Milestone allocations, utilization charts, allocation report  
 **Dependencies:** GitHub access, ability to read issue details, team capacity estimates
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

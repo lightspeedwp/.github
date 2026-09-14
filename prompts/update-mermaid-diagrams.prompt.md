@@ -72,3 +72,9 @@ Regenerate or add Mermaid diagrams with proper styling, accessibility (WCAG AA),
 - Diagrams sized reasonably (~15 nodes; split if larger).
 - Context + alt description in prose; labelled nodes/edges; WCAG AA-compliant colours; `accTitle`/`accDescr` set; nearby summary/alternative when needed.
 - Clear summary of changes and any follow-up actions.
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
