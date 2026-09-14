@@ -1,8 +1,8 @@
 # GitHub Issue Labeling & Templating Plan
-## PRD Agent Consolidation (Issues #3134–#3216)
+## PRD Agent Consolidation (Issues #3134–#3217)
 
 **Date**: 2026-09-14  
-**Issues**: #3134–#3216 (82 total)  
+**Issues**: 80 mapped issues from #3134–#3217
 **Spec**: `.github/specs/001-prd-agent-consolidation/`  
 **Tasks**: T001–T080 (per tasks.md)
 
@@ -11,7 +11,7 @@
 ## Issue Labeling Matrix
 
 ### Legend
-- **Issue#**: GitHub issue number (#3134–#3216)
+- **Issue#**: GitHub issue number (#3134–#3217)
 - **TaskID**: Task ID from tasks.md (T001–T080)
 - **Type**: type:label to apply (type:task, type:test, type:docs, type:decision)
 - **Phase**: Which phase the task belongs to
@@ -126,7 +126,7 @@
 
 ---
 
-## Phase 7: Phase 4-7 Convergence (Issues #3196–#3215 / Tasks T059–T080) — IN PROGRESS
+## Phase 7: Phase 4-7 Convergence (Issues #3196–#3217 / Tasks T059–T080) — IN PROGRESS
 
 ### Phase 4: Prompt Enhancement (T059–T063)
 
@@ -135,7 +135,7 @@
 | 3196 | T059 | type:task | status:completed | priority:critical | spec:001, task:T059, type:task, status:completed, priority:critical, area:agents | Feature Implementation |
 | 3197 | T060 | type:task | status:completed | priority:critical | spec:001, task:T060, type:task, status:completed, priority:critical, area:agents | Feature Implementation |
 | 3198 | T061 | type:task | status:completed | priority:critical | spec:001, task:T061, type:task, status:completed, priority:critical, area:agents | Investigation |
-| 3199 | T062 | type:task | status:completed | priority:critical | spec:001, task:T062, type:test, status:completed, priority:critical, area:qa | Validation |
+| 3199 | T062 | type:test | status:completed | priority:critical | spec:001, task:T062, type:test, status:completed, priority:critical, area:qa | Validation |
 | 3200 | T063 | type:docs | status:completed | priority:high | spec:001, task:T063, type:docs, status:completed, priority:high, area:docs | Documentation |
 
 ### Phase 5: Testing & Validation (T064–T069)
@@ -174,11 +174,11 @@
 
 ## Summary Stats
 
-- **Total Issues**: 84 (T001–T080 = 80 tasks + 4 additional) 
-- **Completed**: 58 (Phase 1–5, T001–T058)
-- **In Progress**: 6 (Phase 6 partial, T071, T073, T075)
+- **Total Issues**: 80 (T001–T080)
+- **Completed**: 72 (T001–T070, T072, T074)
+- **In Progress**: 3 (T071, T073, T075)
 - **Blocked**: 5 (Phase 7, T076–T080)
-- **Pending**: 15 (remaining issues not yet mapped or TBD)
+- **Pending**: 0
 
 ---
 
@@ -238,4 +238,3 @@ gh issue list \
 - **Tasks**: `.github/specs/001-prd-agent-consolidation/tasks.md`
 - **Labels**: `.github/labels.yml`
 - **Templates**: `.github/ISSUE_TEMPLATE/`
-

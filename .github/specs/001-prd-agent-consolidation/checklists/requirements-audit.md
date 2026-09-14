@@ -53,11 +53,11 @@ The `/speckit-implement` command reads this checklist's state but does not modif
 - [ ] CHK015 - Are the three decision paths (Archive, Sync, Defer) defined with explicit, mutually exclusive conditions? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md; Completeness, Spec §Clarifications Q3]
 - [ ] CHK016 - Is the DEFER path allowed and documented as an explicit Phase 7 outcome? [Completeness, Spec §Clarifications Q3; Acceptance Scenario 4]
 - [ ] CHK017 - If DEFER is selected, are re-evaluation trigger criteria and next review date documented? [Completeness, Spec §Acceptance Scenario 4]
-- [ ] CHK018 - Are the Archive conditions clearly defined (when active teams <5 OR satisfaction <4.0 AND blockers ==0)? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md Path 1]
+- [ ] CHK018 - Are the Archive conditions clearly defined as complete, conclusive data with zero critical blockers AND both quantitative thresholds missed (active teams <5 AND satisfaction <4.0)? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md Path 1]
 - [ ] CHK019 - Are the Sync conditions clearly defined (when active teams ≥5 AND satisfaction ≥4.0 AND blockers ==0)? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md Path 2]
-- [ ] CHK020 - Are the Defer conditions clearly defined (mixed metrics OR critical blockers)? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md Path 3]
-- [ ] CHK021 - Is there an explicit ordering or precedence rule for when multiple conditions partially match? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md or test-runner.js; Ambiguity if missing]
-- [ ] CHK022 - Can a neutral third party apply the decision matrix and arrive at exactly one path (Archive, Sync, or Defer) for any given metric combination? [Measurability, Spec §PHASE7_DECISION_CRITERIA.md]
+- [ ] CHK020 - Are the Defer conditions clearly defined as any critical blocker, incomplete or inconclusive data, or conclusive results where exactly one quantitative threshold is met? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md Path 3]
+- [ ] CHK021 - Is precedence explicit: Defer first for critical blockers or incomplete/inconclusive data; otherwise Sync when both thresholds pass, Archive when both fail, and Defer when exactly one passes? [Clarity, Spec §PHASE7_DECISION_CRITERIA.md or test-runner.js]
+- [ ] CHK022 - Can a neutral third party apply that precedence and map every valid metric combination to exactly one path: Archive, Sync, or Defer? [Measurability, Spec §PHASE7_DECISION_CRITERIA.md]
 
 ---
 
@@ -138,7 +138,7 @@ The `/speckit-implement` command reads this checklist's state but does not modif
 ## Quality Gate Summary
 
 **Total Items**: 56  
-**Formal Release Gate Threshold**: ≥90% of items marked `[x]` (50+ items)  
+**Formal Release Gate Threshold**: ≥90% of items marked `[x]` (51+ items)
 **Traceability Minimum**: ≥80% of items with Spec references  
 **Ambiguity Threshold**: ≤5 items marked with `[Ambiguity]` or `[Gap]` should be escalated
 

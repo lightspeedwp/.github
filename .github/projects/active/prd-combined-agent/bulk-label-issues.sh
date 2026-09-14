@@ -20,7 +20,15 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     --batch)
-      BATCH_SIZE="$2"
+      if [[ $# -lt 2 || -z "${2:-}" ]]; then
+        echo "Option error: --batch requires a positive integer argument." >&2
+        exit 2
+      fi
+      if [[ ! "$2" =~ ^[0-9]+$ || "$2" =~ ^0+$ ]]; then
+        echo "Option error: --batch must be a positive integer; received '$2'." >&2
+        exit 2
+      fi
+      BATCH_SIZE=$((10#$2))
       shift 2
       ;;
     *)
@@ -137,17 +145,17 @@ for ISSUE in $(echo "${!ISSUES[@]}" | tr ' ' '\n' | sort -n); do
 
   if [ "$DRY_RUN" = true ]; then
     echo "[DRY-RUN] Issue #$ISSUE: add-label $LABELS"
-    ((SUCCESS++))
+    ((++SUCCESS))
   else
     echo -n "Issue #$ISSUE: "
     if gh issue edit "$ISSUE" \
       --add-label "$LABELS" \
       --repo "$REPO" 2>/dev/null; then
       echo "✅ labeled"
-      ((SUCCESS++))
+      ((++SUCCESS))
     else
       echo "❌ failed"
-      ((FAILED++))
+      ((++FAILED))
     fi
   fi
 

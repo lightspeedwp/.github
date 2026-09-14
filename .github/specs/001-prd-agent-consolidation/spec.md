@@ -4,9 +4,9 @@
 
 **Created**: 2026-09-10
 
-**Last Updated**: 2026-09-10 — Phase 3 (Structural Consolidation) complete and merged in PR #2865. Phase 4-7 scope defined.
+**Last Updated**: 2026-09-14 — Phases 3–5 complete; Phase 6 rollout and adoption work in progress.
 
-**Status**: Phase 3 ✅ COMPLETE | Phase 4 ✅ COMPLETE | Phase 5 ✅ COMPLETE | Phase 6 🟡 IN PROGRESS | Phase 7 ⏳ BLOCKED (on Phase 6 T075)
+**Status**: Phase 3 ✅ COMPLETE | Phase 4 ✅ COMPLETE | Phase 5 ✅ COMPLETE | Phase 6 🟡 IN PROGRESS (T072/T074/T076 complete; T073/T075 in progress; T077 pending) | Phase 7 ⏳ BLOCKED (on Phase 6 T077)
 
 **Phase 3 Completion**: PR #2865 merged 2026-09-10. Nine of the ten functional requirements (FR-001 through FR-009) and 7 success criteria (SC-001 through SC-007) verified and merged. FR-010 (Spec-Based Agent Sync/Archive) deferred to Phase 7.
 
@@ -91,7 +91,7 @@ As a contributor evaluating the PRD agent, I want `README.md`, `AGENT.md`, and `
 
 ---
 
-## Phase 4: Prompt Enhancement & Memory Registry (PENDING)
+## Phase 4: Prompt Enhancement & Memory Registry (✅ COMPLETE)
 
 **Duration**: Post Phase 3  
 **Owner**: Ash Shaw  
@@ -104,7 +104,7 @@ As an AI agent builder, I want the PRD agent prompt to be enhanced with improved
 
 **Acceptance Scenarios**:
 
-1. **Given** the enhanced PRD agent prompt, **When** evaluated against benchmark test cases, **Then** success rate on structured PRD generation improves by ≥15% over Phase 3 baseline (Phase 3 baseline: 14/14 tests pass on all providers per TEST_CASES_BASELINE.md; Phase 4 target: ≥15% improvement in test coverage or correctness metrics — see PROMPT_ENHANCEMENT_ANALYSIS.md for baseline definition).
+1. **Given** the enhanced PRD agent prompt, **When** evaluated against the 14 benchmark cases, **Then** its mean structured-output quality score improves by ≥15% over the Phase 3 baseline. The baseline `B` is the positive mean 0–100 rubric score produced by the frozen pre-Phase-4 prompt across those cases, including partial credit; the Phase 4 score `P` uses the same cases, evaluator procedure, and rubric. Calculate improvement as `((P - B) / B) × 100`; acceptance requires a result ≥15%. Record `B`, `P`, and the scored outputs in `TEST_CASES_BASELINE.md` so this non-binary metric cannot be saturated by a 14/14 pass rate.
 2. **Given** the memory registry updates, **When** integrated into downstream systems, **Then** all references resolve without 404 errors and metadata matches current skill inventory.
 3. **Given** an agent definition with the updated prompt, **When** loaded in Claude Code, **Then** it passes all initialization validation checks with zero warnings.
 
@@ -122,12 +122,12 @@ As an AI agent builder, I want the PRD agent prompt to be enhanced with improved
 
 - **SC-401**: Prompt enhancement documented in CHANGELOG.md
 - **SC-402**: Memory registry entries updated and validated
-- **SC-403**: Test case success rate documented (baseline vs. improved)
+- **SC-403**: Mean structured-output quality score documented for the Phase 3 baseline and Phase 4 result
 - **SC-404**: All prompt files validated with zero syntax/loading errors
 
 ---
 
-## Phase 5: Testing & Validation (PENDING)
+## Phase 5: Testing & Validation (✅ COMPLETE)
 
 **Duration**: Post Phase 4  
 **Owner**: Ash Shaw  
@@ -169,8 +169,8 @@ As a QA engineer, I want comprehensive testing of the consolidated PRD agent acr
 **Owner**: Ash Shaw  
 **Blocked By**: Phase 5 testing complete  
 **Relates To**: Issue #1897  
-**Current Status**: 3 of 6 Phase 6 deliverables complete (T070, T072, T074); 3 in progress (T071, T073, T075). Scheduled completion: Week 6 post-rollout announcement (estimated 2026-10-14).  
-**Next Checkpoint**: T075 completion unblocks Phase 7 decision gate.  
+**Current Status**: 3 of 6 Phase 6 deliverables complete (T072, T074, T076); 2 in progress (T073, T075); 1 pending (T077). Scheduled final evaluation: day 42 post-rollout (estimated 2026-10-24).
+**Next Checkpoint**: T077 records the final 42-day evaluation and unblocks the Phase 7 decision gate.
 
 ### User Story 6 - Organization-wide PRD agent rollout and team adoption (Priority: P1)
 
@@ -178,9 +178,10 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 
 **Acceptance Scenarios**:
 
-1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent (active usage: ≥1 PRD generation per team per rolling 7-day window, maintained for ≥4 of 6 weeks post-rollout, per ADOPTION_METRICS.md SC-602).
-2. **Given** team adoption metrics (collected via: anonymous survey sent to ≥20 active users; usage logs tracked in ADOPTION_METRICS.md; team lead interviews for blockers), **When** analyzed after 30 days, **Then** user satisfaction score ≥4.0/5.0 (survey median Likert scale) and zero critical blockers identified in team interviews.
-3. **Given** the consolidated agent deployed, **When** compared to pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
+1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** an interim adoption checkpoint records completed PRD generations, satisfaction, and blockers and assigns corrective actions without making the final SC-602 decision.
+2. **Given** 42 days of adoption data, **When** the final SC-602 evaluation runs, **Then** at least 5 teams have completed ≥1 uniquely identified PRD generation per rolling 7-day window for ≥4 of the 6 post-rollout weeks, per `ADOPTION_METRICS.md`.
+3. **Given** team adoption metrics (collected via an anonymous survey sent to ≥20 active users, deduplicated completed-generation logs, and team lead interviews), **When** analyzed at the 42-day final evaluation, **Then** user satisfaction score ≥4.0/5.0 (survey median Likert scale) and zero critical blockers are identified.
+4. **Given** the consolidated agent deployed, **When** compared to the pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
 
 ---
 
@@ -195,28 +196,28 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 ### Success Criteria (Phase 6)
 
 - **SC-601**: Rollout communication delivered to all teams
-- **SC-602**: At least 5 teams actively using consolidated agent after 30 days
+- **SC-602**: At least 5 teams actively using the consolidated agent at the final 42-day evaluation
 - **SC-603**: User satisfaction score ≥4.0/5.0 (surveyed sample of users)
 - **SC-604**: No critical blockers or regressions reported vs. baseline
 
 ---
 
-## Phase 7: Optional Spec-Based Agent Sync/Archive (⏳ BLOCKED)
+## Phase 7: Optional Spec-Based Agent Resolution (⏳ BLOCKED)
 
 **Duration**: Post Phase 6 (Optional, depends on adoption decision)  
 **Owner**: TBD  
-**Blocked By**: Phase 6 adoption feedback (T075 completion gate)  
-**Unblock Gate**: Phase 7 work begins after T075 completion and Phase 6 metrics review (target unblock date: 2026-10-21; Phase 7 decision memo due 2026-10-28).  
+**Blocked By**: Phase 6 final adoption evaluation and sign-off (T077 completion gate)
+**Unblock Gate**: Phase 7 work begins after T077 records the 42-day Phase 6 result (collection window ends 2026-10-24; target unblock date: 2026-10-26; Phase 7 decision memo due 2026-11-02).
 **Relates To**: Issue #1899  
 
-### User Story 7 - Archive or sync the spec-based PRD agent (Priority: P3, Optional)
+### User Story 7 - Resolve the spec-based PRD agent's fate (Priority: P3, Optional)
 
 As a codebase maintainer, I want to decide the fate of the older spec-based PRD agent (`agents/mode-prd.agent.md`) based on Phase 6 adoption metrics, so that we maintain a single source of truth without unnecessary duplication.
 
 **Acceptance Scenarios**:
 
 1. **Given** adoption metrics from Phase 6, **When** decision is made (archive, sync, or defer), **Then** all affected workflows are updated to reflect the choice and rationale is documented.
-2. **Given** the decision to archive, **When** executed, **Then** `agents/mode-prd.agent.md` is moved to `projects/archive/` and all references updated.
+2. **Given** the decision to archive, **When** executed, **Then** `agents/mode-prd.agent.md` is moved to `.github/projects/archive/prd-agents/` and all references updated.
 3. **Given** the decision to sync, **When** executed, **Then** spec-based agent prompt is updated to match portable version and kept in sync moving forward.
 4. **Given** metrics are inconclusive at 6 weeks, **When** DEFER decision is made, **Then** next review date, re-evaluation trigger criteria (e.g., ≥10 teams active), and blocking reasons are documented in project records.
 
@@ -226,7 +227,7 @@ As a codebase maintainer, I want to decide the fate of the older spec-based PRD 
 
 - **FR-701**: Review Phase 6 adoption metrics and team feedback
 - **FR-702**: Make decision: Archive, Sync, or Defer spec-based agent (`agents/mode-prd.agent.md`); if Defer, document rationale and next review criteria
-- **FR-703**: If Archive: Move to `projects/archive/`; update all references; document archival rationale
+- **FR-703**: If Archive: Move to `.github/projects/archive/prd-agents/`; update all references; document archival rationale
 - **FR-704**: If Sync: Update prompt to match portable version; establish sync process for future updates
 - **FR-705**: Document the decision and rationale in project records (including DEFER trigger criteria if decision is DEFER)
 
@@ -234,7 +235,7 @@ As a codebase maintainer, I want to decide the fate of the older spec-based PRD 
 
 - **SC-701**: Decision documented and ratified
 - **SC-702**: All affected workflows and references updated
-- **SC-703**: `agents/mode-prd.agent.md` fate resolved (archived or synced)
+- **SC-703**: `agents/mode-prd.agent.md` fate resolved through an Archive, Sync, or documented Defer outcome
 - **SC-704**: Decision rationale documented for future maintainers
 
 ---
@@ -294,7 +295,7 @@ These are the actual mechanics — used only for the subset of PRs that meet the
 ## Assumptions
 
 - Phase 3 (Structural Consolidation) completion is the prerequisite for all subsequent phases.
-- Phase 6 adoption metrics inform Phase 7 decision (archive vs. sync); no Phase 7 execution without Phase 6 data.
+- Phase 6 adoption metrics inform the Phase 7 Archive, Sync, or Defer decision; no Phase 7 execution without the final Phase 6 data.
 - Team feedback from Phase 6 is collected via surveys and usage metrics (exact collection method TBD at Phase 6).
 - The sample/demo project-memory data was confirmed non-client and cleaned as part of Phase 3.
 - OpenAI agent definition (`agents/prd-agent/openai/`) is retained as-is; frontmatter loadability requirement applies only to Claude/Copilot.
