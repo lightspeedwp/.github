@@ -45,13 +45,19 @@ function isIgnored(file) {
   return ignorePaths.some((pattern) => minimatch(file, pattern, { dot: true }));
 }
 
-const files = process.argv.slice(2).filter((file) => {
-  if (isIgnored(file)) {
-    console.log(`⏭️  Skipped (ignored): ${file}`);
-    return false;
-  }
-  return true;
-});
+// lint-staged invokes this script with absolute paths, but ignorePaths (from
+// .markdownlintignore) and this repo's other tooling all assume paths
+// relative to the repo root — match on that, not the raw argv.
+const files = process.argv
+  .slice(2)
+  .map((file) => path.relative(process.cwd(), file))
+  .filter((file) => {
+    if (isIgnored(file)) {
+      console.log(`⏭️  Skipped (ignored): ${file}`);
+      return false;
+    }
+    return true;
+  });
 
 if (files.length === 0) {
   console.log("No staged Markdown files to lint.");
@@ -169,6 +175,15 @@ async function main() {
   if (fixResult.error) {
     console.error(
       `Failed to run markdownlint-cli2 --fix: ${fixResult.error.message}`,
+    );
+    process.exit(1);
+  }
+  // Exit 0 = clean, 1 = violations remain after fixing — both are normal,
+  // expected outcomes we still need to line-scope below. Anything else
+  // (config load failure, crash, signal) means --fix didn't run as intended.
+  if (fixResult.status !== 0 && fixResult.status !== 1) {
+    console.error(
+      `markdownlint-cli2 --fix exited with unexpected status ${fixResult.status}`,
     );
     process.exit(1);
   }
