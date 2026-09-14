@@ -38,8 +38,14 @@ module.exports = {
   },
   "*.{md,mdx}": (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
+    // Uses scripts/validation/lint-md-staged.cjs rather than a raw
+    // `markdownlint-cli2 --fix` call: the repo carries a backlog of
+    // pre-existing markdownlint violations (see lint-md-changed.cjs), and
+    // linting a whole staged file blocks commits on backlog it didn't
+    // introduce. The staged-diff script only fails on violations that land
+    // on lines the commit actually touches.
     return included.length
-      ? [`markdownlint-cli2 --fix ${quoteAll(included)}`]
+      ? [`node scripts/validation/lint-md-staged.cjs ${quoteAll(included)}`]
       : [];
   },
   "*.json": ["prettier --write"],
