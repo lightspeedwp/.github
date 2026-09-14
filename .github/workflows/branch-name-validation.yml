@@ -58,30 +58,20 @@ jobs:
           BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
           echo "🔍 Validating branch: $BRANCH_NAME"
 
-          # Run validation CLI directly and capture exit code
-          npm run validate:branch-name -- --branch "$BRANCH_NAME" --json > /tmp/validation-result.json 2>&1
-          VALIDATION_EXIT_CODE=$?
-
-          echo "Exit code: $VALIDATION_EXIT_CODE"
-          echo "Result file:"
-          cat /tmp/validation-result.json
-
-          # Parse JSON result if validation succeeded
-          if [ $VALIDATION_EXIT_CODE -eq 0 ]; then
-            VALID="true"
-            ERRORS=""
-            SUGGESTED=$(jq -r '.suggested_name // ""' /tmp/validation-result.json 2>/dev/null || echo "")
+          # Simple approach: use npm script exit code directly
+          if npm run validate:branch-name -- --branch "$BRANCH_NAME" --json > /tmp/result.json 2>&1; then
+            echo "✅ Validation passed"
+            echo "valid=true" >> $GITHUB_OUTPUT
+            echo "errors=" >> $GITHUB_OUTPUT
+            echo "suggested_name=" >> $GITHUB_OUTPUT
           else
-            VALID="false"
-            ERRORS=$(jq -r '.errors | join(", ") // "validation_failed"' /tmp/validation-result.json 2>/dev/null || echo "validation_failed")
-            SUGGESTED=$(jq -r '.suggested_name // ""' /tmp/validation-result.json 2>/dev/null || echo "")
+            echo "❌ Validation failed"
+            cat /tmp/result.json
+            echo "valid=false" >> $GITHUB_OUTPUT
+            echo "errors=Invalid branch name" >> $GITHUB_OUTPUT
+            SUGGESTED=$(jq -r '.suggested_name // ""' /tmp/result.json 2>/dev/null || echo "")
+            echo "suggested_name=$SUGGESTED" >> $GITHUB_OUTPUT
           fi
-
-          echo "valid=$VALID" >> $GITHUB_OUTPUT
-          echo "errors=$ERRORS" >> $GITHUB_OUTPUT
-          echo "suggested_name=$SUGGESTED" >> $GITHUB_OUTPUT
-
-          echo "Final values: valid=$VALID, errors=$ERRORS, suggested=$SUGGESTED"
 
       - name: Collect validation metrics
         if: always()
