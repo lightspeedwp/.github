@@ -12,6 +12,13 @@
 
 **Phases 4-7 Overview**: Prompt enhancement, testing, rollout, and optional spec-based agent sync/archive.
 
+## Clarifications
+
+### Session 2026-09-14
+
+- Q1: Should Phase 6 adoption metrics be evaluated after 30 days or a full 42-day (6-week) period? → A: **Option C** — Both: 30-day checkpoint + 42-day final decision. Phase 6 includes a 30-day early-stage checkpoint for course correction and a 42-day final evaluation for Phase 7 gate-keeping. The 30-day checkpoint enables interim feedback; the 42-day result gates Phase 7 decision-making (both required per SC-602).
+- Q2: Should Phase 7 decision execution task be renamed to avoid confusion with Phase 4's registry-update requirement, or use phase qualifiers? → A: **Option A** — Phase-based numbering: Phase 7 decision execution renamed to **FR-702** (reserves FR-701 for Phase 6 metrics result that feeds Phase 7). Keeps IDs unique and traceably distinct across phases (Phase 4 uses 4xx, Phase 7 uses 7xx).
+
 ## Phase 3: Structural Consolidation ✅ COMPLETE
 
 ### User Scenarios & Testing *(mandatory)*
