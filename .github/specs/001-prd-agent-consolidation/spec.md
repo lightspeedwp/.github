@@ -16,9 +16,9 @@
 
 ### Session 2026-09-14
 
-- Q: Should Phase 6 adoption metrics be evaluated after 30 days or a full 42-day (6-week) period? → A: 30-day evaluation window (Option A)
+- Q: Should Phase 6 adoption metrics be evaluated after 30 days or a full 42-day (6-week) period? → A: Both: 30-day checkpoint + 42-day final decision (Option C)
 
-**Impact**: SC-602 adoption decision gate triggers after 30 days of rollout communication, enabling faster Phase 7 decision-making. Adoption frequency threshold (≥1 PRD/team/week) is measured across the available 4-6 weeks within the rollout period, not deferred to a full 42-day window.
+**Impact**: Phase 6 includes both a 30-day checkpoint for early-stage assessment and a full 42-day (6-week) final evaluation for Phase 7 decision-making. The 30-day checkpoint enables early course correction and stakeholder updates; the 42-day final evaluation ensures robust metrics across all 6 weeks (with adoption frequency sustained for ≥4 of 6 weeks). SC-602 final gate uses the 42-day result; interim checkpoints reference the 30-day data.
 
 ## Phase 3: Structural Consolidation ✅ COMPLETE
 
@@ -177,7 +177,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 
 **Acceptance Scenarios**:
 
-1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent (per SC-602 quantitative definition: ≥1 PRD generation per rolling 7-day window, sustained for ≥4 of the available weeks within the first 30 days). This 30-day checkpoint triggers Phase 7 decision-making.
+1. **Given** rollout communication to all teams, **When** 30 days have passed, **Then** at least 5 teams have actively used the consolidated agent (30-day checkpoint, per SC-602 quantitative definition: ≥1 PRD generation per rolling 7-day window, measured across the first 4 weeks). **When** 42 days have passed (6 weeks), **Then** adoption is confirmed sustained (≥4 of 6 weeks qualify) and this final result gates Phase 7 decision-making.
 2. **Given** team adoption metrics, **When** collected after 30 days, **Then** user satisfaction score ≥4.0/5.0 and no critical blockers reported.
 3. **Given** the consolidated agent deployed, **When** compared to pre-consolidation baseline, **Then** adoption metrics show no regression in usage or satisfaction.
 
@@ -194,7 +194,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 ### Success Criteria (Phase 6)
 
 - **SC-601**: Rollout communication delivered to all teams
-- **SC-602**: At least 5 teams actively using consolidated agent after 30 days (≥1 PRD generation per rolling 7-day window, sustained for ≥4 of the available weeks in the first 30 days; this metric gates Phase 7 decision-making)
+- **SC-602**: At least 5 teams actively using consolidated agent (30-day checkpoint confirmed after 4 weeks; 42-day final evaluation after 6 weeks confirms sustained usage ≥4 of 6 weeks; final 42-day result gates Phase 7 decision-making per PHASE7_DECISION_CRITERIA.md)
 - **SC-603**: User satisfaction score ≥4.0/5.0 (surveyed sample of users)
 - **SC-604**: No critical blockers or regressions reported vs. baseline
 
