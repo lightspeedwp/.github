@@ -33,6 +33,7 @@ node scripts/cleanup-branches.js --dryRun=true --reportFormat=markdown
 ### Expected Output
 
 1. **Console output** summarising counts:
+
    ```
    Audit Report: Branch Cleanup Analysis
    Generated: 2026-09-14T12:30:00Z
@@ -120,6 +121,7 @@ Merged to develop or main, >30 days old, no open PR, valid name
 **Expected**: Categorised as KEEP with reason "protected_branch"
 
 **Verify**:
+
 ```bash
 # Check main is never in delete list
 grep -c "^- main$" .github/reports/stale-branches-*.md  # Should return 0
@@ -131,6 +133,7 @@ grep -c "^- main$" .github/reports/stale-branches-*.md  # Should return 0
 **Expected**: Categorised as KEEP with reason "active_pr"
 
 **Verify**:
+
 ```bash
 # Check branch with open PR is in KEEP section
 grep -A 20 "Active PRs" .github/reports/stale-branches-*.md | grep "feat/new-feature"
@@ -142,6 +145,7 @@ grep -A 20 "Active PRs" .github/reports/stale-branches-*.md | grep "feat/new-fea
 **Expected**: Categorised as DELETE
 
 **Verify**:
+
 ```bash
 # Check branch is in DELETE section
 grep -A 300 "Delete Category" .github/reports/stale-branches-*.md | grep "fix/old-bug"
@@ -153,6 +157,7 @@ grep -A 300 "Delete Category" .github/reports/stale-branches-*.md | grep "fix/ol
 **Expected**: Categorised as DISCUSS with reason "naming_violation"
 
 **Verify**:
+
 ```bash
 # Check branch is flagged as naming violation
 grep -A 100 "Discuss Category" .github/reports/stale-branches-*.md | grep "claude/experimental"
@@ -165,6 +170,7 @@ grep "naming_violation" .github/reports/stale-branches-*.md | grep "claude/exper
 **Expected**: Categorised as DISCUSS with reason "unmerged_stale"
 
 **Verify**:
+
 ```bash
 # Check branch is flagged as unmerged_stale
 grep "unmerged_stale" .github/reports/stale-branches-*.md | grep "proto/cache-redesign"
@@ -353,6 +359,7 @@ jq '.categories.delete[0]' /tmp/audit-report.json
 ```
 
 Refer to:
+
 - `contracts/audit-report.schema.json` — Markdown/JSON report format
 - `contracts/deletion-candidates.schema.json` — Deletion candidates list format
 
@@ -364,6 +371,7 @@ Refer to:
 
 **Cause**: `gh` not authenticated  
 **Solution**:
+
 ```bash
 gh auth login
 # Re-run audit
@@ -373,6 +381,7 @@ gh auth login
 
 **Cause**: Network latency fetching PRs, or large repository  
 **Solution**:
+
 - Run locally first (faster than CI)
 - Check GitHub CLI performance: `gh pr list --repo owner/repo | wc -l`
 
@@ -380,6 +389,7 @@ gh auth login
 
 **Cause**: Likely edge case in decision tree  
 **Solution**:
+
 - Check if branch is protected
 - Check if branch has open PR: `gh pr list --head {branch}`
 - Check merge status: `git merge-base --is-ancestor {branch} develop`

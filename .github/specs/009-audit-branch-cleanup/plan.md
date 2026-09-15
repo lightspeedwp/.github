@@ -20,7 +20,8 @@ Primary technical approach: Enhance `scripts/cleanup-branches.js` to perform saf
 
 **Language/Version**: JavaScript (Node.js 22) — existing cleanup scripts are JS
 
-**Primary Dependencies**: 
+**Primary Dependencies**:
+
 - GitHub CLI (`gh`) — for querying open PRs
 - git — for merge history analysis
 - Node.js standard library (fs, path, child_process)
@@ -35,12 +36,14 @@ Primary technical approach: Enhance `scripts/cleanup-branches.js` to perform saf
 
 **Performance Goals**: Audit report generation <5 seconds for repositories with 500+ branches (SC-004)
 
-**Constraints**: 
+**Constraints**:
+
 - Safe by default (dry-run mode)
 - Zero accidental data loss (100% merge verification before deletion)
 - Support custom exclusion patterns and thresholds
 
-**Scale/Scope**: 
+**Scale/Scope**:
+
 - Current repository: 300+ branches → target <50 active
 - .github repository is the source of truth for multiple downstream repositories
 
@@ -108,6 +111,7 @@ agents/
 ```
 
 **Structure Decision**: Maintenance automation project. No new top-level directories needed. Changes are:
+
 1. **Enhancement** of existing `scripts/cleanup-branches.js` (safe, isolated)
 2. **New workflow** in `.github/workflows/` for scheduled audits
 3. **Documentation updates** in `docs/` for consistency and cross-referencing
@@ -120,6 +124,7 @@ agents/
 **Output**: `research.md`
 
 Design decisions resolved:
+
 - Merge detection via `git merge-base`
 - PR detection via `gh pr list` filtering
 - Categorisation logic: multi-gate decision tree
@@ -134,12 +139,14 @@ No remaining open questions.
 ### Phase 1: Design Complete ✅
 
 **Outputs**:
+
 1. `data-model.md` — Entity definitions and categorisation logic
 2. `contracts/audit-report.schema.json` — Audit report format (JSON schema)
 3. `contracts/deletion-candidates.schema.json` — Deletion candidates format (JSON schema)
 4. `quickstart.md` — Validation guide with 7 runnable scenarios
 
 **Key Design Decisions**:
+
 - Branch entity with 11 core attributes + 1 computed status property
 - BranchAuditReport structure with categories: KEEP/DELETE/DISCUSS
 - Decision tree with 8 gates for unambiguous categorisation
@@ -150,6 +157,7 @@ No remaining open questions.
 ### Constitution Re-Check (Post-Design)
 
 ✅ All design decisions align with constitutional principles:
+
 - Specification-first ✅
 - Portable assets ✅
 - Technology-agnostic ✅

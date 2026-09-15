@@ -89,7 +89,10 @@
       "description": "Deletion verification execution metadata",
       "properties": {
         "inactivity_threshold_days": { "type": "integer" },
-        "protected_branches": { "type": "array", "items": { "type": "string" } },
+        "protected_branches": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
         "exclusion_patterns": { "type": "array", "items": { "type": "string" } }
       }
     }

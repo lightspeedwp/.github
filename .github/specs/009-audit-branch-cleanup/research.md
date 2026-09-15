@@ -12,19 +12,22 @@
 
 **Decision**: Use `git merge-base` + commit history analysis
 
-**Rationale**: 
+**Rationale**:
+
 - Standard git approach used by merge-conflict detection
 - Handles rebase and merge-commit workflows correctly
 - Available in all git environments without external tools
 - Existing `scripts/cleanup-branches.js` already implements this via `execSync('git merge-base --is-ancestor ...')`
 
 **Implementation Details**:
+
 - For each candidate branch, check: `git merge-base --is-ancestor {branch} develop`
 - If true: branch is fully merged to develop → safe to delete
 - Also check against `main` for consistency (respects most permissive state)
 - Handles edge case of branches merged to develop but not main
 
 **Alternatives Considered**:
+
 - GitHub API `GET /repos/{owner}/{repo}/branches/{branch}` has `merged` field but only for PRs
 - Direct commit log parsing (more fragile, subject to history rewrites)
 
@@ -37,18 +40,21 @@
 **Decision**: Use GitHub CLI (`gh pr list`) with branch filtering
 
 **Rationale**:
+
 - Existing `scripts/cleanup-branches.js` already uses `gh pr list --state open`
 - Filters by `headRefName` to match branch names
 - Authoritative source (GitHub-hosted state)
 - Fast execution even with large PR counts
 
 **Implementation Details**:
+
 ```bash
 gh pr list --state open --json number,headRefName --repo owner/repo \
   | jq '.[] | select(.headRefName == "branch-name")'
 ```
 
 **Alternatives Considered**:
+
 - GitHub REST API directly (slower for large result sets)
 - Local git reflog parsing (misses closed PRs, unreliable)
 - Webhooks (overkill for maintenance script)
@@ -62,6 +68,7 @@ gh pr list --state open --json number,headRefName --repo owner/repo \
 **Decision**: Multi-gate decision tree with early exits
 
 **Rationale**:
+
 - Spec defines clear categorisation criteria (FR-001)
 - Gates are ordered by safety (never delete protected, always preserve open PRs)
 - DISCUSS category captures ambiguous cases for human review
@@ -86,6 +93,7 @@ ELSE
 ```
 
 **Alternatives Considered**:
+
 - Simpler 2-category (KEEP/DELETE) — too aggressive, no DISCUSS for edge cases
 - Single-pass evaluation — risk of deleting protected branches
 
@@ -98,22 +106,26 @@ ELSE
 **Decision**: Dual-format output — Markdown (human) + JSON (machine)
 
 **Rationale**:
+
 - Markdown: Human-readable summary, category breakdowns, actionable recommendations
 - JSON: Machine-parseable for automation, GitHub Actions artifact ingestion, issue/PR generation
 - Supports both manual review (developer reads .md) and automation (CI parses .json)
 - Existing script already supports both via `--reportFormat` option
 
 **Markdown Format**:
+
 - Summary section (counts by category)
 - Tables for each category (KEEP, DELETE, DISCUSS)
 - Columns: branch name, type, age, merge status, last commit, author, associated PR
 
 **JSON Format**:
+
 - Nested structure: `{ timestamp, summary, branches: [] }`
 - Each branch: `{ name, type, status, category, age_days, merged_to, last_commit_date, author, pr_number }`
 - Machine-parseable for follow-up automation
 
 **Alternatives Considered**:
+
 - CSV (too flat for nested data)
 - HTML (harder to version control and diff)
 - YAML (reasonable but less standardised for reports)
@@ -127,6 +139,7 @@ ELSE
 **Decision**: Multi-layer safety approach
 
 **Rationale**:
+
 - Spec requires 100% merge verification before deletion (FR-010)
 - Dry-run mode is the default (FR-011)
 - Aligns with project governance (never skip safety checks)
@@ -134,6 +147,7 @@ ELSE
 **Implementation Safeguards**:
 
 1. **Pre-deletion verification** (executed before each deletion):
+
    ```
    - Verify branch exists on remote
    - Verify branch is fully merged to develop or main
@@ -158,6 +172,7 @@ ELSE
    - Document recovery process in troubleshooting guide
 
 **Alternatives Considered**:
+
 - Interactive confirmation for each branch (too slow for 100+ branches)
 - Undo log (overkill for maintenance script)
 
@@ -170,17 +185,20 @@ ELSE
 **Decision**: <5 seconds for 500+ branches (SC-004)
 
 **Rationale**:
+
 - Modern developer machines and CI runners achieve this with optimised queries
 - Existing script already meets this for typical repositories
 - Allows integration into CI workflows without timeout issues
 
 **Optimisation Strategy**:
+
 - Batch PR queries (single `gh pr list` call, not per-branch)
 - Cache merge-base results if running multiple times
 - Parallelise git operations where safe (multiple branch checks)
 - Avoid N+1 API calls (batch queries over single-item loops)
 
 **Measurement**:
+
 - Profile script with `time node scripts/cleanup-branches.js --reportFormat=json`
 - Compare before/after refactoring
 - Validate against .github repository (300+ branches)
@@ -194,16 +212,19 @@ ELSE
 **Decision**: Centralise validation rules, reference from cleanup script
 
 **Rationale**:
+
 - Spec requires alignment with CLAUDE.md branch naming (FR-015)
 - Current `scripts/validation/validate-branch-name.js` is the authoritative validator
 - Cleanup script should use same validation, not duplicate logic
 
 **Implementation**:
+
 - Cleanup script imports validation module: `const { validateBranchName } = require('./validation/validate-branch-name.js')`
 - Any branch failing validation → flagged in DISCUSS category with reason "naming violation"
 - Keeps validation logic centralised, avoids duplication
 
 **Alternatives Considered**:
+
 - Duplicate validation in cleanup script (maintenance burden, inconsistency risk)
 - External validation service (overkill, adds latency)
 
@@ -216,6 +237,7 @@ ELSE
 **Decision**: Regex-based `--excludePatterns` option (already in script)
 
 **Rationale**:
+
 - Different repositories may have project-specific exclusion needs
 - Regex is flexible and well-known
 - Existing script already supports this via CLI option (FR-007)
@@ -225,11 +247,13 @@ ELSE
   - Preserve WIP branches: `wip/.*`
 
 **Implementation**:
+
 ```bash
 node scripts/cleanup-branches.js --excludePatterns="release/.*|hotfix/.*|proto/.*|research/.*"
 ```
 
 **Alternatives Considered**:
+
 - Configuration file (adds complexity, file management)
 - GitHub branch protection rules (read-only, doesn't inform cleanup)
 

@@ -78,7 +78,10 @@
                 "properties": {
                   "name": { "type": "string" },
                   "age_days": { "type": "integer" },
-                  "last_commit_date": { "type": "string", "format": "date-time" }
+                  "last_commit_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
                 }
               }
             },
@@ -104,8 +107,14 @@
             "required": ["name", "merge_status", "age_days"],
             "properties": {
               "name": { "type": "string" },
-              "type": { "type": "string", "description": "Branch prefix (feat, fix, etc.)" },
-              "merge_status": { "type": "string", "enum": ["merged_to_develop", "merged_to_main"] },
+              "type": {
+                "type": "string",
+                "description": "Branch prefix (feat, fix, etc.)"
+              },
+              "merge_status": {
+                "type": "string",
+                "enum": ["merged_to_develop", "merged_to_main"]
+              },
               "age_days": { "type": "integer" },
               "last_commit_date": { "type": "string", "format": "date-time" },
               "merge_commit_sha": { "type": "string" },
@@ -124,7 +133,13 @@
               "type": { "type": "string" },
               "reason": {
                 "type": "string",
-                "enum": ["naming_violation", "unmerged_stale", "orphaned", "excluded_policy", "unclear_status"]
+                "enum": [
+                  "naming_violation",
+                  "unmerged_stale",
+                  "orphaned",
+                  "excluded_policy",
+                  "unclear_status"
+                ]
               },
               "age_days": { "type": "integer" },
               "merge_status": { "type": "string" },

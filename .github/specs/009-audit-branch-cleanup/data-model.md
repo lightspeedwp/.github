@@ -11,6 +11,7 @@
 Represents a single git branch in the repository with metadata for audit categorisation.
 
 **Attributes**:
+
 - `name` (string, required): Full branch name including prefix (e.g., `feat/user-auth`, `main`)
 - `type` (string, required): Branch prefix/type (e.g., `feat`, `fix`, `docs`, `main`)
 - `scope` (string, optional): Scope identifier from branch name (e.g., `user-auth` from `feat/user-auth`)
@@ -24,6 +25,7 @@ Represents a single git branch in the repository with metadata for audit categor
 - `excluded` (boolean): True if branch matches exclusion patterns
 
 **Computed Properties**:
+
 ```
 status = calculate_status(merge_status, open_pr, is_protected, age_days, naming_valid, excluded)
   → One of: KEEP, DELETE, DISCUSS
@@ -34,6 +36,7 @@ status = calculate_status(merge_status, open_pr, is_protected, age_days, naming_
 Structured audit output categorising branches and providing decision metadata.
 
 **Structure**:
+
 ```json
 {
   "timestamp": "2026-09-14T12:00:00Z",
@@ -96,6 +99,7 @@ Structured audit output categorising branches and providing decision metadata.
 A branch that meets all safety criteria for deletion (subset of DELETE category).
 
 **Safety Criteria** (all must be true):
+
 1. ✅ Fully merged to `develop` or `main`
 2. ✅ Not in protected set
 3. ✅ No open pull request
@@ -104,6 +108,7 @@ A branch that meets all safety criteria for deletion (subset of DELETE category)
 6. ✅ Not in exclusion patterns
 
 **Attributes**:
+
 - `name` (string): Branch name
 - `merge_commit_sha` (string): Merge commit hash for reference
 - `merge_date` (ISO8601): When branch was merged
@@ -143,6 +148,7 @@ ELSE:
 ### Reason Codes
 
 **KEEP Reasons**:
+
 - `protected_branch` — Branch in protected set
 - `active_pr` — Branch has open pull request
 - `active_development` — Recently changed
@@ -150,9 +156,11 @@ ELSE:
 - `unmerged_recent` — Unmerged but <30 days old
 
 **DELETE Reasons**:
+
 - `merged_stale` — Merged to develop/main AND ≥30 days old
 
 **DISCUSS Reasons**:
+
 - `naming_violation` — Branch name matches forbidden prefix
 - `unmerged_stale` — Unmerged AND ≥60 days old
 - `orphaned` — No PR history, unclear purpose
@@ -235,6 +243,7 @@ Created → Active Development
 Metadata about an audit run (populated during script execution).
 
 **Attributes**:
+
 - `timestamp` (ISO8601): When audit was executed
 - `repository` (string): Repository audited (e.g., `lightspeedwp/.github`)
 - `runner_environment` (string): Execution environment (e.g., `GitHub Actions`, `local CI`)
