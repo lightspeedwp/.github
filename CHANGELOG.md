@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Dependabot Scope Fix** — Added /website npm scanning and area:dependencies labels to dependabot.yml; added on develop in #1059 but never back-ported. ([PR #3316](https://github.com/lightspeedwp/.github/pull/3316))
+- **Remaining Dependabot Alerts** — Added npm scanning for 3 more unscanned lockfiles; overrode transitive lodash-es to a patched version. ([PR #3335](https://github.com/lightspeedwp/.github/pull/3335))
 - **Lint Debt (#3322)** — 268 of 271 lint errors were vendored skill assets ESLint was never told to ignore; excluded them and fixed a stray installed-file mutation. Real errors now 0. ([PR #3337](https://github.com/lightspeedwp/.github/pull/3337))
 - **Markdownlint Ignore Never Wired Up** — .markdownlintignore was dead documentation, never actually read by markdownlint-cli2; wired it in and added 2 missing vendored-skill patterns. ([PR #3337](https://github.com/lightspeedwp/.github/pull/3337))
 
