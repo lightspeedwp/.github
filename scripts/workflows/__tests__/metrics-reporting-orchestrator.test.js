@@ -2,74 +2,72 @@
  * Metrics Reporting Orchestrator Tests
  */
 
-const fs = require("fs");
+const fs = require('fs');
 
 // Mock process.exit to prevent Jest from exiting
 const originalExit = process.exit;
 process.exit = jest.fn();
 
 // Mock the external dependencies before importing MetricsReportingOrchestrator
-jest.mock("../../metrics/metrics-storage.cjs", () => ({
+jest.mock('../../metrics/metrics-storage.cjs', () => ({
   MetricsStorage: jest.fn().mockImplementation(() => ({
     getLatestMetrics: jest.fn().mockResolvedValue({
-      repository: "test/repo",
+      repository: 'test/repo',
       stats: { stargazers_count: 100 },
       timestamp: new Date().toISOString(),
     }),
   })),
 }));
 
-jest.mock("../../metrics/metrics-reporter", () => ({
+jest.mock('../../metrics/metrics-reporter', () => ({
   MetricsReporter: jest.fn().mockImplementation(() => ({
     generateReport: jest.fn().mockResolvedValue({
-      path: ".github/reports/metrics/test-report.md",
-      summary: "Test report generated successfully",
+      path: '.github/reports/metrics/test-report.md',
+      summary: 'Test report generated successfully',
     }),
   })),
 }));
 
-jest.mock("../../metrics/trend-analyzer.cjs", () => ({
+jest.mock('../../metrics/trend-analyzer.cjs', () => ({
   TrendAnalyzer: jest.fn().mockImplementation(() => ({
     analyzeTrends: jest.fn().mockResolvedValue({
-      trend: "increasing",
+      trend: 'increasing',
       changePercentage: 10.5,
     }),
   })),
 }));
 
-jest.mock("../../metrics/anomaly-detector.cjs", () => ({
+jest.mock('../../metrics/anomaly-detector.cjs', () => ({
   AnomalyDetector: jest.fn().mockImplementation(() => ({
     detectAnomalies: jest.fn().mockResolvedValue([]),
   })),
 }));
 
-jest.mock("../../telemetry/telemetry-client.js", () => ({
+jest.mock('../../telemetry/telemetry-client.js', () => ({
   createTelemetryClient: jest.fn().mockReturnValue({
     emit: jest.fn(),
   }),
 }));
 
-jest.mock("../../telemetry/event-schemas.js", () => ({
+jest.mock('../../telemetry/event-schemas.js', () => ({
   EVENT_SCHEMAS: {
-    "metrics.report.generated": {
-      description: "Metrics report successfully generated and saved",
+    'metrics.report.generated': {
+      description: 'Metrics report successfully generated and saved',
       safe: {
-        required: ["reportType", "period", "metricsIncluded"],
-        optional: ["trendsIncluded", "anomaliesIncluded", "generationDuration"],
+        required: ['reportType', 'period', 'metricsIncluded'],
+        optional: ['trendsIncluded', 'anomaliesIncluded', 'generationDuration'],
       },
       restricted: {
-        required: ["repository"],
-        optional: ["reportPath", "fileSize"],
+        required: ['repository'],
+        optional: ['reportPath', 'fileSize'],
       },
     },
   },
 }));
 
-const {
-  MetricsReportingOrchestrator,
-} = require("../metrics-reporting-orchestrator.cjs");
+const { MetricsReportingOrchestrator } = require('../metrics-reporting-orchestrator.cjs');
 
-describe("MetricsReportingOrchestrator", () => {
+describe('MetricsReportingOrchestrator', () => {
   let orchestrator;
 
   afterAll(() => {
@@ -87,8 +85,8 @@ describe("MetricsReportingOrchestrator", () => {
     jest.restoreAllMocks();
   });
 
-  describe("Constructor", () => {
-    it("should initialize with correct dependencies", () => {
+  describe('Constructor', () => {
+    it('should initialize with correct dependencies', () => {
       expect(orchestrator).toBeInstanceOf(MetricsReportingOrchestrator);
       expect(orchestrator.storage).toBeDefined();
       expect(orchestrator.trendAnalyzer).toBeDefined();
@@ -97,177 +95,182 @@ describe("MetricsReportingOrchestrator", () => {
       expect(orchestrator.reports).toEqual([]);
     });
 
-    it("should initialize telemetry client", () => {
+    it('should initialize telemetry client', () => {
       expect(orchestrator.telemetry).toBeDefined();
       expect(orchestrator.telemetry.emit).toBeDefined();
     });
   });
 
-  describe("generateReports", () => {
-    it("should generate reports successfully", async () => {
-      const repositories = [{ owner: "test", repo: "repo" }];
-      const mockReport = "### Summary\n### Metrics";
-      const reportPath = ".github/reports/metrics/test-report.md";
+  describe('generateReports', () => {
+    it('should generate reports successfully', async () => {
+      const repositories = [{ owner: 'test', repo: 'repo' }];
+      const mockReport = '### Summary\n### Metrics';
+      const reportPath = '.github/reports/metrics/test-report.md';
 
       orchestrator.reporter.generateReport.mockResolvedValue(mockReport);
-      jest.spyOn(orchestrator, "saveReport").mockReturnValue(reportPath);
-      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
+      jest.spyOn(orchestrator, 'saveReport').mockReturnValue(reportPath);
+      jest.spyOn(fs, 'statSync').mockReturnValue({ size: 123 });
 
       await orchestrator.generateReports(repositories);
 
       expect(orchestrator.reporter.generateReport).toHaveBeenCalled();
       expect(orchestrator.reports).toHaveLength(1);
       expect(orchestrator.reports[0]).toEqual(
-        expect.objectContaining({ repository: "test/repo", status: "success" }),
+        expect.objectContaining({ repository: 'test/repo', status: 'success' })
       );
     });
 
-    it("should emit telemetry event on successful report generation", async () => {
-      const repositories = [{ owner: "test", repo: "repo" }];
-      const mockReport = "### Summary\n### Metrics";
-      const reportPath = ".github/reports/metrics/weekly-report.md";
+    it('should emit telemetry event on successful report generation', async () => {
+      const repositories = [{ owner: 'test', repo: 'repo' }];
+      const mockReport = '### Summary\n### Metrics';
+      const reportPath = '.github/reports/metrics/weekly-report.md';
 
       orchestrator.reporter.generateReport.mockResolvedValue(mockReport);
-      jest.spyOn(orchestrator, "saveReport").mockReturnValue(reportPath);
-      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
+      jest.spyOn(orchestrator, 'saveReport').mockReturnValue(reportPath);
+      jest.spyOn(fs, 'statSync').mockReturnValue({ size: 123 });
 
       await orchestrator.generateReports(repositories);
 
       expect(orchestrator.telemetry.emit).toHaveBeenCalledWith(
-        "metrics.report.generated",
+        'metrics.report.generated',
         expect.objectContaining({
           safe: expect.objectContaining({
-            reportType: "metrics-report",
-            period: "weekly",
+            reportType: 'metrics-report',
+            period: 'weekly',
             metricsIncluded: 2,
           }),
           restricted: expect.objectContaining({
-            repository: "test/repo",
+            repository: 'test/repo',
             reportPath,
             fileSize: 123,
           }),
-        }),
+        })
       );
     });
 
-    it("should handle errors gracefully", async () => {
-      const repositories = [{ owner: "test", repo: "repo" }];
-      const error = new Error("Report generation failed");
+    it('should handle errors gracefully', async () => {
+      const repositories = [{ owner: 'test', repo: 'repo' }];
+      const error = new Error('Report generation failed');
       orchestrator.reporter.generateReport.mockRejectedValue(error);
 
-      await expect(
-        orchestrator.generateReports(repositories),
-      ).resolves.toHaveLength(1);
+      await expect(orchestrator.generateReports(repositories)).resolves.toHaveLength(1);
 
       expect(orchestrator.reports[0]).toEqual(
         expect.objectContaining({
-          repository: "test/repo",
-          status: "error",
-          error: "Report generation failed",
-        }),
+          repository: 'test/repo',
+          status: 'error',
+          error: 'Report generation failed',
+        })
       );
     });
 
-    it("should track multiple reports", async () => {
+    it('should track multiple reports', async () => {
       const repositories = [
-        { owner: "test", repo: "repo-one" },
-        { owner: "test", repo: "repo-two" },
+        { owner: 'test', repo: 'repo-one' },
+        { owner: 'test', repo: 'repo-two' },
       ];
 
       orchestrator.reporter.generateReport
-        .mockResolvedValueOnce("### Report 1")
-        .mockResolvedValueOnce("### Report 2");
+        .mockResolvedValueOnce('### Report 1')
+        .mockResolvedValueOnce('### Report 2');
       jest
-        .spyOn(orchestrator, "saveReport")
-        .mockReturnValueOnce("report1.md")
-        .mockReturnValueOnce("report2.md");
-      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
+        .spyOn(orchestrator, 'saveReport')
+        .mockReturnValueOnce('report1.md')
+        .mockReturnValueOnce('report2.md');
+      jest.spyOn(fs, 'statSync').mockReturnValue({ size: 123 });
 
       await orchestrator.generateReports(repositories);
 
       expect(orchestrator.reports).toHaveLength(2);
       expect(orchestrator.reports.map((report) => report.reportPath)).toEqual([
-        "report1.md",
-        "report2.md",
+        'report1.md',
+        'report2.md',
       ]);
-      expect(
-        orchestrator.reports.every((report) => report.status === "success"),
-      ).toBe(true);
+      expect(orchestrator.reports.every((report) => report.status === 'success')).toBe(true);
     });
   });
 
-  describe("Telemetry Integration", () => {
-    it("should use correct event schema", () => {
-      const { EVENT_SCHEMAS } = require("../../telemetry/event-schemas.js");
+  describe('saveReport', () => {
+    it('serializes structured report data before writing it', () => {
+      const report = {
+        path: '.github/reports/metrics/test-report.md',
+        summary: 'Test report generated successfully',
+      };
+      const writeSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
 
-      expect(EVENT_SCHEMAS["metrics.report.generated"]).toBeDefined();
-      expect(EVENT_SCHEMAS["metrics.report.generated"].safe.required).toContain(
-        "reportType",
+      orchestrator.saveReport('test/repo', report, 'weekly');
+
+      expect(writeSpy).toHaveBeenCalledWith(
+        expect.stringContaining('report-test-repo-weekly-'),
+        JSON.stringify(report, null, 2)
       );
-      expect(
-        EVENT_SCHEMAS["metrics.report.generated"].restricted.required,
-      ).toContain("repository");
+    });
+  });
+
+  describe('Telemetry Integration', () => {
+    it('should use correct event schema', () => {
+      const { EVENT_SCHEMAS } = require('../../telemetry/event-schemas.js');
+
+      expect(EVENT_SCHEMAS['metrics.report.generated']).toBeDefined();
+      expect(EVENT_SCHEMAS['metrics.report.generated'].safe.required).toContain('reportType');
+      expect(EVENT_SCHEMAS['metrics.report.generated'].restricted.required).toContain('repository');
     });
 
-    it("should not throw if telemetry fails", async () => {
-      const repositories = [{ owner: "test", repo: "repo" }];
+    it('should not throw if telemetry fails', async () => {
+      const repositories = [{ owner: 'test', repo: 'repo' }];
 
       orchestrator.telemetry.emit.mockImplementation(() => {
-        throw new Error("Telemetry error");
+        throw new Error('Telemetry error');
       });
 
-      orchestrator.reporter.generateReport.mockResolvedValue("### Test");
-      jest.spyOn(orchestrator, "saveReport").mockReturnValue("test-report.md");
-      jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
+      orchestrator.reporter.generateReport.mockResolvedValue('### Test');
+      jest.spyOn(orchestrator, 'saveReport').mockReturnValue('test-report.md');
+      jest.spyOn(fs, 'statSync').mockReturnValue({ size: 123 });
 
       // Telemetry failures are logged as non-fatal (see the console.warn in
       // generateReports()) and must not affect the report's own outcome.
-      await expect(
-        orchestrator.generateReports(repositories),
-      ).resolves.toHaveLength(1);
-      expect(orchestrator.reports[0].status).toBe("success");
+      await expect(orchestrator.generateReports(repositories)).resolves.toHaveLength(1);
+      expect(orchestrator.reports[0].status).toBe('success');
     });
   });
 
-  describe("Error Handling", () => {
-    it("should handle save errors", async () => {
-      const repositories = [{ owner: "test", repo: "repo" }];
+  describe('Error Handling', () => {
+    it('should handle save errors', async () => {
+      const repositories = [{ owner: 'test', repo: 'repo' }];
 
-      orchestrator.reporter.generateReport.mockResolvedValue("### Test");
-      jest.spyOn(orchestrator, "saveReport").mockImplementation(() => {
-        throw new Error("Storage error");
+      orchestrator.reporter.generateReport.mockResolvedValue('### Test');
+      jest.spyOn(orchestrator, 'saveReport').mockImplementation(() => {
+        throw new Error('Storage error');
       });
 
       await orchestrator.generateReports(repositories);
 
       expect(orchestrator.reports[0]).toEqual(
         expect.objectContaining({
-          repository: "test/repo",
-          status: "error",
-          error: "Storage error",
-        }),
+          repository: 'test/repo',
+          status: 'error',
+          error: 'Storage error',
+        })
       );
     });
 
-    it("should handle reporter errors", async () => {
-      const repositories = [{ owner: "test", repo: "repo" }];
+    it('should handle reporter errors', async () => {
+      const repositories = [{ owner: 'test', repo: 'repo' }];
 
-      orchestrator.reporter.generateReport.mockRejectedValue(
-        new Error("Reporter error"),
-      );
+      orchestrator.reporter.generateReport.mockRejectedValue(new Error('Reporter error'));
 
       await orchestrator.generateReports(repositories);
 
       expect(orchestrator.reports[0]).toEqual(
         expect.objectContaining({
-          status: "error",
-          error: "Reporter error",
-        }),
+          status: 'error',
+          error: 'Reporter error',
+        })
       );
     });
 
-    it("should handle invalid report data", async () => {
-      const repositories = [{ owner: "test", repo: "repo" }];
+    it('should handle invalid report data', async () => {
+      const repositories = [{ owner: 'test', repo: 'repo' }];
 
       orchestrator.reporter.generateReport.mockResolvedValue(null);
 

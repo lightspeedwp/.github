@@ -108,7 +108,7 @@ Branch '{your-branch}' matches the repository branching strategy.
 
 ### More Information
 
-- **Full rules:** [.github/instructions/branch-naming.instructions.md](./.github/instructions/branch-naming.instructions.md)
+- **Full rules:** [instructions/branch-naming.instructions.md](./instructions/branch-naming.instructions.md)
 - **Strategy guide:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md)
 - **PR creation process:** [docs/PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md)
 - **Copilot-specific rules:** [.github/custom-instructions.md](./.github/custom-instructions.md)
@@ -154,6 +154,60 @@ git checkout -B {type}/{scope}-{title} origin/develop
 ```
 
 This ensures your branch includes all latest development work and integrates cleanly without merge conflicts from diverged histories.
+
+## Specification-First Workflow (SpecKit)
+
+**All feature work follows the specification-first process:**
+
+1. **Create branch** (using correct naming convention above)
+2. **Write specification** (using SpecKit process) documenting user needs and acceptance criteria
+3. **Create draft PR** (when ready for review; not automatic, under your control)
+4. **Request review** from team/stakeholders
+5. **Merge to develop** when approved
+
+### When to Create Draft PR
+
+Create a draft PR when:
+- ✅ Specification is complete and clarified
+- ✅ Implementation plan is solid (you understand the approach)
+- ✅ You're ready for feedback or blocked on decisions
+- ✅ Work is substantial enough to benefit from collaborative input
+
+Do **NOT** create PR automatically after creating a branch. Work in your branch first, plan your approach, then create the PR when ready.
+
+### Specification Process (Recommended)
+
+SpecKit runs as agent skills in `.claude/skills/`, not as npm scripts. Invoke each
+skill by name (for example `/speckit-specify` in Claude Code). Artefacts are written
+to `.github/specs/{feature-slug}/`.
+
+For features, audits, and significant changes:
+
+1. Run the `speckit-specify` skill (creates `.github/specs/{feature-slug}/spec.md`)
+2. Complete spec with: User stories, Requirements, Success Criteria, Assumptions
+3. Run the `speckit-clarify` skill (resolve ambiguities with Q&A)
+4. Run the `speckit-plan` skill (generate implementation plan and research)
+5. Run the `speckit-tasks` skill (decompose into actionable tasks)
+6. Implement tasks, then create draft PR when ready
+
+### Quick Reference
+
+| Phase | Skill | Output | Your Role |
+|-------|-------|--------|-----------|
+| 1. Plan | `speckit-specify` | spec.md | Define requirements |
+| 2. Clarify | `speckit-clarify` | Updated spec with Q&A | Answer ambiguity questions |
+| 3. Design | `speckit-plan` | plan.md, research.md | Approve technical approach |
+| 4. Decompose | `speckit-tasks` | tasks.md | Review task breakdown |
+| 5. Implement | Your tools | Branch with commits | Do the work |
+| 6. PR Review | gh / GitHub UI | Draft PR, review, merge | Collaborate with team |
+
+### For Small Changes
+
+Not all work needs a spec. Use your judgment:
+
+- **Needs spec**: New features, governance changes, architectural decisions, multi-day tasks
+- **Skip spec**: Small bug fixes, one-line documentation updates, routine maintenance
+- **Borderline**: Ask yourself: "Would this benefit from written clarification before starting?" If yes, write a spec.
 
 ## Development Commands
 
@@ -267,9 +321,9 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [docs/WORKFLOWS.md](./docs/WORKFLOWS.md) — workflow organisation and distribution strategy
 - [.github/specs/](./.github/specs/) — feature specifications and implementation planning
-- [.specify/](./specify/) — speckit configuration for feature specification workflow
+- [.specify/](./.specify/) — speckit configuration for feature specification workflow
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
-- [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
+- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
 - [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure
 

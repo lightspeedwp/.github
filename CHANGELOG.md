@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-09-14"
+last_updated: "2026-09-15"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **CodeRabbit Configuration Optimization — Validation & Documentation Completion** — Formalized completion of CodeRabbit config optimization feature with comprehensive validation and audit guide. Deliverables: (1) **Configuration Validation** — All 50 instruction blocks verified for SC-002 compliance (3+ focus areas each); tech-agnosticism scan completed with framework-specific term removal; priority system (90-100 exact, 70-89 specific, 50-69 type, 1-49 general) documented and validated; catch-all pattern for universal coverage confirmed. (2) **Coverage Audit Guide** (`docs/CODERABBIT_COVERAGE_AUDIT.md`) — 10-step methodology for maintainers enabling ongoing coverage verification, gap identification, and remediation planning (SC-013). (3) **Success Criteria Validation** — 12/13 criteria passing (SC-001 through SC-012 confirmed; SC-009 deferred for runtime verification); user stories US1-US5 with complete deliverables validated. (4) **Tech-Agnosticism Remediation** — Removed framework/language-specific prescriptions from instruction blocks while maintaining universal principles (security, performance, accessibility, correctness). (5) **Zero Breaking Changes** — All improvements backwards-compatible; existing CodeRabbit workflows across organisation unaffected. See [CodeRabbit Configuration Optimization Spec](.github/specs/002-coderabbit-config-improvements/spec.md) and [PR #3304](https://github.com/lightspeedwp/.github/pull/3304).
 
 ### Added

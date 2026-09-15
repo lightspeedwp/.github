@@ -26,7 +26,8 @@ Comprehensive quality audit of changelog entries with 7-week Phase 5 implementat
 
 **Performance Goals**: Changelog validation <10 seconds per PR; metrics dashboard response <2 seconds; daily metrics recalculation complete within 1 hour
 
-**Constraints**: 
+**Constraints**:
+
 - Must not break existing workflows during Phase 4-to-5 transition
 - 99.9% uptime for validation gates (SLA)
 - All validation rules must be maintainable in single source of truth
@@ -92,6 +93,7 @@ specs/003-changelog-quality-audit/
 ```
 
 **Structure Decision**: Distributed implementation model:
+
 - Core validation logic in `.github/scripts/` (reusable, version-controlled)
 - Workflows in `.github/workflows/` (execution layer)
 - Metrics storage in `.github/reports/changelog-metrics/` (dashboard data)

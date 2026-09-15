@@ -23,9 +23,11 @@
 ## User Scenarios & Acceptance
 
 ### Scenario 1: Maintainer Reviews Changelog Entry
+
 **Actor:** Changelog maintainer  
 **Goal:** Quickly assess whether a changelog entry meets quality standards  
 **Flow:**
+
 1. Maintainer opens CHANGELOG.md
 2. Maintainer reviews an entry from [Unreleased] section
 3. Entry displays length indicator and compliance status
@@ -35,9 +37,11 @@
 **Acceptance:** Maintainer can assess compliance in <30 seconds per entry without manual counting.
 
 ### Scenario 2: Developer Submits PR with Changelog Entry
+
 **Actor:** Developer  
 **Goal:** Merge PR without changelog validation failures  
 **Flow:**
+
 1. Developer creates PR with changelog entry
 2. CI validation gate runs (7-layer validation system)
 3. Entry is checked for: length, format, PR link, implementation details
@@ -47,9 +51,11 @@
 **Acceptance:** Developers receive clear, actionable failure messages; 95%+ of entries pass on first submission after Phase 5.
 
 ### Scenario 3: Release Manager Generates Release Notes
+
 **Actor:** Release manager  
 **Goal:** Produce polished release notes from changelog entries  
 **Flow:**
+
 1. Release manager triggers release workflow
 2. Workflow auto-generates release notes from CHANGELOG.md
 3. All entries are consistently formatted, properly linked, and verified
@@ -59,9 +65,11 @@
 **Acceptance:** Release notes require <5 minutes of manual review before publishing; 100% of PR links are valid.
 
 ### Scenario 4: Leadership Reviews Changelog Metrics
+
 **Actor:** Leadership/stakeholder  
 **Goal:** Understand changelog quality trends and compliance status  
 **Flow:**
+
 1. Stakeholder opens metrics dashboard
 2. Dashboard displays: compliance %, entry length distribution, implementation detail detection rate
 3. Stakeholder can drill down to specific entries or time periods
@@ -75,6 +83,7 @@
 ## Functional Requirements
 
 ### FR-1: Entry Quality Assessment
+
 - **Requirement:** System must measure and report on entry compliance against quality standards
 - **Standards enforced:**
   - Maximum length: 250 characters (user-facing summary, no internal details)
@@ -85,6 +94,7 @@
 - **Testable:** Validator script must flag entries exceeding 250 chars; script must identify implementation keywords (e.g., "refactored", "fixed", "added logic", "updated database")
 
 ### FR-2: Automated Enforcement Gates
+
 - **Requirement:** CI/CD validation gates must block PRs with non-compliant changelog entries
 - **Gate behavior:**
   - Triggers on any PR targeting `develop` or `main` if CHANGELOG.md is modified
@@ -94,6 +104,7 @@
 - **Testable:** CI must reject PR with 300-char entry; CI must approve PR with 250-char compliant entry
 
 ### FR-3: Auto-Linking Automation
+
 - **Requirement:** System must automatically detect and link PR/issue references in changelog entries
 - **Detection logic:**
   - Identify PR references: `#NNNN` format → auto-generate GitHub URL
@@ -104,6 +115,7 @@
 - **Testable:** Entry with PR reference `#1234` auto-links to `https://github.com/lightspeedwp/.github/pull/1234`
 
 ### FR-4: Metrics & Reporting
+
 - **Requirement:** System must provide real-time compliance metrics and historical trends
 - **Metrics captured:**
   - Compliance %: (compliant entries / total entries) × 100
@@ -114,6 +126,7 @@
 - **Testable:** Metrics dashboard must match manual count within 1%
 
 ### FR-5: Workflow Consolidation
+
 - **Requirement:** Existing changelog validation workflows must be consolidated into a single, maintainable system
 - **Consolidation scope:**
   - Merge 5+ separate validation scripts into unified pipeline
@@ -123,6 +136,7 @@
 - **Testable:** All existing validation behavior preserved; new single pipeline passes 100% of previous tests
 
 ### FR-6: Team Training & Documentation
+
 - **Requirement:** Team must be trained on new standards, processes, and tools
 - **Training deliverables:**
   - Developer quick-start guide (1 page, "how to write compliant entries")
@@ -150,8 +164,9 @@
 ## Key Entities
 
 ### Entry
+
 - **Definition:** A single changelog record under [Unreleased] or a version heading
-- **Properties:** 
+- **Properties:**
   - Text content (max 250 chars)
   - PR link (URL)
   - Issue links (URLs)
@@ -162,6 +177,7 @@
 - **Lifecycle:** Created → Reviewed → Validated → Released
 
 ### Validation Rule
+
 - **Definition:** A single quality criterion enforced during validation
 - **Examples:**
   - "Entry must not exceed 250 characters"
@@ -170,6 +186,7 @@
 - **Properties:** Rule ID, description, severity (error/warning), auto-fixable (yes/no)
 
 ### Compliance Report
+
 - **Definition:** Summary of validation results for a batch of entries
 - **Properties:** Timestamp, entries checked, pass count, fail count, compliance %, violations list
 
@@ -190,18 +207,22 @@
 ## Constraints & Risks
 
 ### Constraint: Timeline
+
 - Phase 5 must complete within 7 weeks (58-73 hours total)
 - Each phase has 2-week window maximum; phases can overlap for parallelization
 
 ### Constraint: No Breaking Changes
+
 - Existing changelog must remain valid (no destructive refactoring of old entries)
 - New rules apply only to [Unreleased] entries (grandfather clause for released versions)
 
 ### Risk: High Volume of Non-Compliant Entries
+
 - Mitigation: Automated tooling to help refactor entries (semi-automatic length reduction, keyword detection)
 - Fallback: If 60+ entries non-compliant, split refactoring across weeks 1-3
 
 ### Risk: GitHub API Rate Limiting
+
 - Mitigation: Batch link validation; cache results for 24 hours
 - Fallback: Degrade to manual link verification if API unavailable
 
@@ -210,21 +231,25 @@
 ## Non-Functional Requirements
 
 ### Performance
+
 - Validation checks must complete in <10 seconds per PR
 - Metrics dashboard must load in <2 seconds
 - Changelog rendering must not slow down project operations
 
 ### Reliability
+
 - Validation system must maintain 99.9% uptime
 - False negative rate (missed violations) must be <1%
 - False positive rate (incorrect rejections) must be 0%
 
 ### Scalability
+
 - System must handle 200+ entries in [Unreleased] section
 - System must support 50+ concurrent CI validation runs
 - Metrics dashboard must retain 90+ days of historical data
 
 ### Maintainability
+
 - Validation rules stored in single, version-controlled source file
 - New rules can be added without code changes (configuration-driven)
 - Validation system must have <50 lines of logic per rule
@@ -245,4 +270,3 @@
 - Integration with external changelog tools (changelog.com, release notes generators)
 - Auto-generation of changelog entries from PR titles (separate initiative)
 - Non-English changelog support (i18n delayed to future phase)
-

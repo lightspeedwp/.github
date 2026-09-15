@@ -39,6 +39,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 **Base Branch:** `develop` (standard development integration branch per project workflow)
 
 **Protection Rules:**
+
 - All commits must pass CI before merge
 - PR requires explicit approval (see Approval Gates below)
 - Hard requirements (performance target, CI passes) must be met before merge is allowed
@@ -67,12 +68,14 @@ Both validation-unified.yml (US2) and testing-unified.yml (US3) can commit to th
 ### Approval Gates
 
 **Hard Requirements (Merge Blockers):**
+
 1. ✅ All 5 unified workflows passing CI for ≥3 consecutive runs on feature branch
 2. ✅ GitHub Actions minutes ≤2,125/month (≥15% reduction from baseline ~2,500/month)
 3. ✅ Error isolation validated (single workflow failure does not cascade)
 4. ✅ All acceptance criteria met per Success Criteria section
 
 **Approval Process:**
+
 - PR created as draft when feature branch is pushed
 - PR marked ready-for-review only after all 7 phases complete
 - Explicit approval required from code reviewer (acknowledges hard requirements met)
@@ -85,6 +88,7 @@ Both validation-unified.yml (US2) and testing-unified.yml (US3) can commit to th
 **Method:** Merge commit (preserves all phase commits)
 
 **Expected Merge Commit:**
+
 ```
 Merge branch 'refactor/workflow-consolidation-phase-2' into develop
 
@@ -114,6 +118,7 @@ GitHub Actions minutes: X → Y (Z% reduction, target ≤15%)
 5. **No rebase:** Avoid `git rebase develop` to preserve phase commit history
 
 **Example:**
+
 ```bash
 git fetch origin develop
 git merge origin/develop
@@ -125,15 +130,18 @@ git push origin refactor/workflow-consolidation-phase-2
 ### Rollback Strategy
 
 **During Feature Branch Development:**
+
 - If a phase fails hard requirements, that phase is reworked on the same branch (no branch deletion)
 - If entire feature must be abandoned, feature branch is deleted and develop remains unaffected
 
 **After Merge to Develop:**
+
 - All archived Phase 1 workflows preserved in `.github/workflows/archived/2026-09-11/`
 - Rollback procedure documented in `PHASE2_ROLLBACK.md`
 - Rollback is callable within 15 minutes: restore archived workflow files, disable unified workflows
 
 **Post-Production (if needed):**
+
 - Revert merge commit: `git revert -m 1 <merge-commit-sha>`
 - Restore archived workflows to active directory
 - Deploy hotfix to production
@@ -141,6 +149,7 @@ git push origin refactor/workflow-consolidation-phase-2
 ### Branch Cleanup
 
 **After Merge:**
+
 - Feature branch is deleted from remote once PR is merged
 - Local branch can be deleted with `git branch -d refactor/workflow-consolidation-phase-2`
 

@@ -28,6 +28,7 @@ Represents one of 8 quality dimensions that structure the checklist.
 | `items` | array[ChecklistItem] | Yes | Checklist items in this dimension |
 
 **Validation Rules**:
+
 - `id` MUST be lowercase, hyphen-separated (regex: `^[a-z-]+$`)
 - `name` MUST be unique within a checklist
 - `success_threshold` MUST be 0-100
@@ -73,6 +74,7 @@ Represents an individual quality checkpoint within a dimension.
 | `score_scale` | enum | No | Scoring method: `binary` (yes/no) or `scale` (0-3). Default: `binary` |
 
 **Validation Rules**:
+
 - `id` MUST be unique within a checklist
 - `question` MUST be answerable by reviewing the specification
 - `pass_criteria` MUST be specific enough to avoid ambiguity
@@ -118,6 +120,7 @@ Represents a named checklist variant configured for a specific audience and work
 | `success_message` | string | No | Message shown when checklist passes |
 
 **Validation Rules**:
+
 - `id` MUST be lowercase, hyphen-separated
 - `audience` MUST be one of: `author`, `peer`, `stakeholder`, `integration`
 - `dimensions` MUST include at least one dimension
@@ -171,6 +174,7 @@ Represents the output of running a checklist against a specification.
 | `metadata` | object | No | Additional context (e.g., reviewer name, review round number, integration source) |
 
 **Validation Rules**:
+
 - `overall_score` MUST be 0-100
 - Each dimension_score MUST be 0-100
 - `findings` MUST include at least one item per failed dimension
@@ -263,6 +267,7 @@ Represents metadata linking a ChecklistResult to its source specification.
 | `last_modified` | ISO8601 | No | Last modification time of the spec file |
 
 **Validation Rules**:
+
 - `spec_path` MUST point to a valid spec file
 - `repository` if provided, MUST be a valid GitHub repository path
 

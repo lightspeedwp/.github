@@ -9,6 +9,7 @@
 ## Summary
 
 Consolidate `agents/prd-agent/` and `agents/prd-factory-planner-agent/` into one canonical, spec-aligned `agents/prd-agent/` folder: merge the 3 forked skills sitting in a leftover `skills/hermes/` folder, promote the 1 unflattened skill, decide the fate of an overlapping-skill tier, port missing `AGENT.md` content, replace both boilerplate `README.md` files with one real one, rewrite the dead-link-riddled `instructions/AGENTS.md` skill-routing section, delete `agents/prd-factory-planner-agent/` entirely, clean up remaining export cruft, and rewrite `claude/agent.md`/`copilot/agent.md` with real, provider-loadable frontmatter. Phase 0 research (research.md) found the scope is slightly larger than the spec assumed in two places:
+
 - **D1 (Registry Dependency)**: `agents/mode-prd.agent.md` (FR-010) is a tracked asset in workflows/memory/registry, not just a standalone file → addressed in tasks.md Phase 4 (T045-T047)
 - **D2 (Generic Tier Scope Gap)**: The "10-skill generic tier" (FR-003, spec line 90) fate is flagged as an edge case but lacked an explicit decision gate → addressed in tasks.md Phase 1 (new T004 decision task)
 

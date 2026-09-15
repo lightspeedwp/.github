@@ -162,7 +162,7 @@
   - Instead of "Inconsistent terminology" → "Unclear scope boundaries may cause rework"
   - Instead of "Vague success criteria" → "Unmeasurable goals risk misalignment with business objectives"
 - [ ] T057 [US3] Implement findings filter in `packages/requirements-checklist/src/lib/checklist-engine.ts`: For stakeholder audience, suppress dimension scores for non-critical dimensions (Clarity, Consistency, Measurability) in output; only show pass/fail and high-level findings
-- [ ] T058 [US3] Add intro and success messages to `packages/requirements-checklist/src/lib/templates/stakeholder-gate.yaml`: 
+- [ ] T058 [US3] Add intro and success messages to `packages/requirements-checklist/src/lib/templates/stakeholder-gate.yaml`:
   - Intro: "This checklist helps you validate business requirements are clear and ready for implementation. Expect ~15 minutes."
   - Success: "All critical business requirements are documented and clear. You can confidently hand off to implementation."
 - [ ] T059 [US3] Create unit tests for business-language filtering in `tests/unit/business-language.test.ts`: Verify technical terms are filtered, business-impact phrasing is used, recommendations are actionable for non-technical reader
@@ -255,15 +255,18 @@
 ### Parallel Opportunities
 
 **Setup Phase (Phases 1-2)**:
+
 - All T002-T004 tasks can run in parallel (separate files)
 - All T011-T036 dimension files can be implemented in parallel (independent modules)
 
 **User Story Implementation** (after Foundational):
+
 - US1, US2, US3 can start simultaneously (P1 priorities, no inter-story dependencies)
 - Each user story's dimension implementations can run in parallel with other stories
 - US4 can start immediately after Foundational (doesn't depend on US1-3)
 
 **Example Parallel Execution for User Story 1**:
+
 ```
 Team A: T029 (Completeness dimension)
 Team B: T030 (Clarity dimension)  
@@ -273,6 +276,7 @@ All run in parallel → integrate at T037 (template)
 ```
 
 **Example Parallel Execution for All User Stories**:
+
 ```
 After Foundational complete:
 Developer 1: US1 (T026-T040) — Author Pre-Review
@@ -309,6 +313,7 @@ Developer 4: US4 (T061-T069) — Cross-Project Integration
 ### Parallel Team Strategy
 
 With 4 developers:
+
 1. **Developer 1**: Phases 1-2 (Setup + Foundational) — Blocking work, starts immediately
 2. **Developers 2-4 (wait for Foundational)**: Once D1 finishes Phase 2:
    - D2: Phase 3 (US1 - Author Pre-Review)
@@ -360,6 +365,7 @@ With 4 developers:
 Total Tasks: **85** (including tests, core implementation, and polish)
 
 Task Breakdown by Phase:
+
 - Phase 1 (Setup): 9 tasks
 - Phase 2 (Foundational): 16 tasks  
 - Phase 3 (US1 - Author Pre-Review): 15 tasks
@@ -369,6 +375,7 @@ Task Breakdown by Phase:
 - Phase 7 (Polish): 16 tasks
 
 Parallel Opportunities:
+
 - Setup phase: 8 parallelizable tasks
 - Foundational phase: 10 parallelizable dimension implementations
 - All 4 user stories can proceed independently after Foundational

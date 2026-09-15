@@ -308,6 +308,7 @@ validation:
 ## Contract: Guaranteed Behaviors
 
 ✅ **Every rule MUST**:
+
 - Have unique `rule_id`
 - Implement synchronous `validate()` function
 - Return `ValidationResult` with `passed` boolean
@@ -316,11 +317,13 @@ validation:
 - Complete validation in <1 second per entry
 
 ✅ **Every rule MUST document**:
+
 - What dimension it validates (8-dimension framework)
 - Its severity (critical/high/medium/low)
 - Why this rule matters (user focus vs. internal details)
 
 ❌ **Rules MUST NOT**:
+
 - Modify entry content (validation only; refactoring is separate)
 - Create external side effects
 - Cache results across validation runs

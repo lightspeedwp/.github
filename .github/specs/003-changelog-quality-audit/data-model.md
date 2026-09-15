@@ -13,6 +13,7 @@
 Represents a single entry in CHANGELOG.md under the [Unreleased] section.
 
 **Fields**:
+
 - `id` (string): Unique identifier derived from line number in CHANGELOG.md (e.g., `entry_00042`)
 - `content` (string): Full entry text (raw markdown)
 - `line_number` (integer): Position in CHANGELOG.md for error reporting
@@ -26,6 +27,7 @@ Represents a single entry in CHANGELOG.md under the [Unreleased] section.
 - `auto_links` (object): `{ pr_url: string, issue_urls: string[] }`
 
 **Validation Rules**:
+
 - `content` length must be ≤250 characters
 - `content` must not contain implementation keywords (see research.md)
 - `content` must reference at least one PR or issue
@@ -33,6 +35,7 @@ Represents a single entry in CHANGELOG.md under the [Unreleased] section.
 - `version_section` must be valid Semver or `[Unreleased]`
 
 **State Transitions**:
+
 ```
 initial (created) 
   → validated (passes all rules) 
@@ -52,6 +55,7 @@ initial (created)
 Represents a single quality validation criterion applied to changelog entries.
 
 **Fields**:
+
 - `rule_id` (string): Unique identifier (e.g., `CHK_MAX_LENGTH`, `CHK_NO_IMPL_DETAILS`)
 - `rule_name` (string): Human-readable name (e.g., "Maximum entry length")
 - `description` (string): What the rule checks
@@ -81,6 +85,7 @@ Represents a single quality validation criterion applied to changelog entries.
 Represents compliance metrics captured at a point in time.
 
 **Fields**:
+
 - `snapshot_id` (string): Unique identifier (e.g., `2026-09-12T00:00:00Z`)
 - `timestamp` (ISO 8601): When metrics were captured
 - `snapshot_period` (string): `daily` | `weekly` | `monthly` (for trend analysis)
@@ -88,6 +93,7 @@ Represents compliance metrics captured at a point in time.
 - `compliant_entries` (integer): Count passing all rules
 - `compliance_percent` (number): `(compliant_entries / total_entries) * 100`
 - `length_distribution` (object):
+
   ```json
   {
     "0_to_100": integer,
@@ -96,12 +102,14 @@ Represents compliance metrics captured at a point in time.
     "500_plus": integer
   }
   ```
+
 - `impl_detail_rate` (number): % of entries flagged with implementation details
 - `pr_link_coverage` (number): % of entries with valid PR links
 - `issues_found` (object): `{ rule_id: count, ... }` (violations by rule)
 - `trend_vs_previous` (object): `{ compliance_delta: number, entries_added: integer, entries_refactored: integer }`
 
 **Data Model**:
+
 ```json
 {
   "snapshot_id": "2026-09-12T00:00:00Z",
@@ -138,6 +146,7 @@ Represents compliance metrics captured at a point in time.
 Generated when changelog is validated (e.g., on PR submission).
 
 **Fields**:
+
 - `report_id` (string): Unique identifier (e.g., `validation_2026-09-12_pr2904`)
 - `timestamp` (ISO 8601): When validation ran
 - `trigger` (string): `pr_submission` | `scheduled_audit` | `manual`
@@ -145,6 +154,7 @@ Generated when changelog is validated (e.g., on PR submission).
 - `branch` (string): Git branch being validated
 - `entries_validated` (ChangelogEntry[]): Array of validated entries
 - `summary` (object):
+
   ```json
   {
     "total_entries": integer,
@@ -154,6 +164,7 @@ Generated when changelog is validated (e.g., on PR submission).
     "pass_rate": number
   }
   ```
+
 - `failed_entries` (array): Details on each failure
 - `recommendation` (enum): `merge` | `review` | `request_changes`
 - `ci_gate_result` (enum): `pass` | `fail` | `warning`
@@ -257,12 +268,14 @@ All Rules Pass?
 ## Constraints & Assumptions
 
 **Constraints**:
+
 - Maximum entry count per snapshot: 500 (soft cap for performance)
 - Metrics recalculation must complete in <1 minute
 - JSON history files must stay <10MB (implement rolling retention)
 - API calls must respect GitHub rate limits (5k/hour)
 
 **Assumptions**:
+
 - CHANGELOG.md format remains consistent (Keep a Changelog 1.1.0)
 - GitHub API remains available (99.95% SLA)
 - Git repository history is immutable (no force pushes to CHANGELOG.md)

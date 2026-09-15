@@ -114,7 +114,7 @@
 ### Implementation for User Story 3
 
 - [ ] T039 [P] [US3] Implement PR reference detection at `.github/validation/changelog/lib/link-detector.js` (regex to find #NNNN and issue/#NNNN patterns)
-- [ ] T040 [P] [US3] Implement link generator at `.github/validation/changelog/lib/link-generator.js` (format GitHub URLs: https://github.com/lightspeedwp/.github/pull/NNNN)
+- [ ] T040 [P] [US3] Implement link generator at `.github/validation/changelog/lib/link-generator.js` (format GitHub URLs: <https://github.com/lightspeedwp/.github/pull/NNNN>)
 - [ ] T041 [P] [US3] Implement link validator at `.github/validation/changelog/lib/link-validator.js` (fetch GitHub API, verify link returns 200, cache results 24 hours)
 - [ ] T042 [US3] Implement conflict resolver at `.github/validation/changelog/lib/link-conflict-resolver.js` (preserve user-provided links, don't override manual URLs)
 - [ ] T043 [US3] Implement fallback handler at `.github/validation/changelog/lib/link-fallback.js` (if GitHub API fails, flag entry for manual review instead of blocking)
@@ -251,6 +251,7 @@
 ### Parallel Opportunities
 
 **Within Phase 2**: All [P] tasks (T010, T011, T012, T013) can run in parallel
+
 - Compliance checker (T010)
 - Metrics aggregator (T011)
 - Test fixtures (T012)
@@ -271,12 +272,14 @@
 ## Parallel Example: 2-Developer Team
 
 **Developer A (Weeks 1-3)**:
+
 - Phase 1: Setup (T001-T007)
 - Phase 2: Foundational (T008-T013, all [P] tasks in parallel)
 - Phase 3: US1 Entry Quality (T014-T025)
 - **After week 3**: Prepare Phase 4 deliverables
 
 **Developer B (Weeks 1-7)**:
+
 - Phase 1: Parallel with Dev A on setup (T005-T007 assigned to B)
 - Phase 2: Parallel with Dev A (T010, T011, T012, T013)
 - Phases 4-5: US2/US3 Auto-Linking while Dev A works Phase 3
@@ -336,6 +339,7 @@
 ## Success Metrics
 
 At completion of Phase 9:
+
 - ✅ 95%+ changelog entries meet quality standards (FR-1)
 - ✅ 0 entries with implementation details (FR-1)
 - ✅ 100% of PR references auto-linked (FR-3)
@@ -344,4 +348,3 @@ At completion of Phase 9:
 - ✅ Single unified validation system (FR-5)
 - ✅ 90%+ team training attendance, 85%+ post-assessment (FR-6)
 - ✅ All phases completed within 7 weeks (58-73 hours)
-

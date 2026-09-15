@@ -5,6 +5,7 @@
 ## Core Entities
 
 ### ChecklistItem
+
 ```json
 {
   "item_id": "CHK001",
@@ -18,6 +19,7 @@
 ```
 
 ### Checklist
+
 ```json
 {
   "checklist_id": "003-changelog-quality-audit",
@@ -32,6 +34,7 @@
 ```
 
 ### ChecklistResult
+
 ```json
 {
   "result_id": "review_2026-09-12",
