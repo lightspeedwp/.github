@@ -146,4 +146,3 @@ Use these standards for substantive Zendesk-first deliverables unless the user e
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

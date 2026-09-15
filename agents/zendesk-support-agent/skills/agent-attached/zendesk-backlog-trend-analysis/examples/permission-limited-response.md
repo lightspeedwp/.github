@@ -66,4 +66,3 @@ I cannot produce an evidence-backed backlog report from Zendesk in this environm
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

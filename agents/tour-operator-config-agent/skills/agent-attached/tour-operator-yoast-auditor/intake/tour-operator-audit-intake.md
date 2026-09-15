@@ -71,4 +71,3 @@ Use this when tours, destinations, accommodation, travel styles, specials, revie
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

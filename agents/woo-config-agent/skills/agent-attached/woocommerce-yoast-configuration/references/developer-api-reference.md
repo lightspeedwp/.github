@@ -92,4 +92,3 @@ Use this file for developer handoffs, customisations, and code review. Do not in
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

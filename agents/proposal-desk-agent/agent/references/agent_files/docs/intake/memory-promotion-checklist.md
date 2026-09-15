@@ -62,4 +62,3 @@ Do not promote values that are inferred, speculative, high-risk, approval-sensit
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

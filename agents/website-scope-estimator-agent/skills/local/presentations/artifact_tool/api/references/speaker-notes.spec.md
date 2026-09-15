@@ -88,3 +88,5 @@ slide.speakerNotes.append("\nFollow-up: confirm launch date with PM.");
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

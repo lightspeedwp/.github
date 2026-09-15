@@ -302,4 +302,3 @@ Do not cite internal previews, contact sheets, layout JSON, source notes, scratc
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

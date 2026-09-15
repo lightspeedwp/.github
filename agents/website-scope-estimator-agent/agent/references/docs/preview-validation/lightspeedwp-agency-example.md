@@ -82,3 +82,5 @@ Use LightSpeedWP.Agency as the test project. Review the live site, prototype sit
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

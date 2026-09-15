@@ -67,4 +67,3 @@ When to read: before direct connector range reads, cell reads, or `search_spread
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

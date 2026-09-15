@@ -125,4 +125,3 @@ ComponentSet node to verify all 120 children exist with correct names, sizes, an
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

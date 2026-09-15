@@ -112,4 +112,3 @@ python render_docx.py a11y_fixed.docx --output_dir out_a11y
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
