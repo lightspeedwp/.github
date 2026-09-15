@@ -19,12 +19,37 @@
  */
 require("dotenv").config();
 
+const fs = require("fs");
+const path = require("path");
+
 /**
  * Configuration constants with environment variable overrides
  */
 const lineLength = parseInt(process.env.MARKDOWNLINT_LINE_LENGTH) || 120;
 const strictMode = process.env.MARKDOWNLINT_STRICT === "true";
 const ignoreGenerated = process.env.MARKDOWNLINT_IGNORE_GENERATED !== "false";
+
+/**
+ * Load ignore patterns from .markdownlintignore.
+ *
+ * Returns no additional patterns when the file cannot be read, leaving the
+ * configured default ignore paths active.
+ *
+ * @returns {string[]} Trimmed glob patterns, excluding comments and blank lines.
+ */
+function loadMarkdownlintIgnore() {
+  const ignoreFilePath = path.join(__dirname, ".markdownlintignore");
+  try {
+    return fs
+      .readFileSync(ignoreFilePath, "utf8")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#"));
+  } catch (error) {
+    console.warn(`Could not load ${ignoreFilePath}, using defaults`);
+    return [];
+  }
+}
 
 /**
  * Markdownlint Configuration Object
@@ -51,6 +76,8 @@ module.exports = {
     ...(ignoreGenerated
       ? ["**/CHANGELOG.md", "**/ALL-CONTRIBUTORS.md", "docs/api/**/*.md"]
       : []),
+    // Canonical hand-maintained ignore list
+    ...loadMarkdownlintIgnore(),
   ],
 
   /**

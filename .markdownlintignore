@@ -54,6 +54,8 @@ wceu-2026/**/*.md
 **/platform-managed/**
 **/directory-installed/**
 **/agentskills-main/**
+**/skills/local/**
+**/skills/agent-attached/**
 **/tests/markdown-issues.md
 
 # Reports and metrics outputs
