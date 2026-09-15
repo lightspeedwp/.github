@@ -53,6 +53,7 @@ All project specifications MUST be validated against 8 quality dimensions before
 **Rationale**: Specifications with gaps, ambiguities, or inconsistencies cascade as rework, misalignment, and failed implementations. Validating requirements quality upfront prevents waste and ensures team alignment. The Requirements Quality Checklist framework provides objective, repeatable validation.
 
 ### VIII. Branch Strategy Compliance & Automated Enforcement (Non-Negotiable)
+
 All branches MUST follow pattern `{type}/{scope}-{title}` with one of 38 authorized types (feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, revert, research, automation, epic, aiops, a11y, build). FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute and non-negotiable. PR template routing MUST be automatic by branch prefix according to the canonical routing map in `.github/PULL_REQUEST_TEMPLATE/config.yml`. Auto-labeling MUST apply consistent, prefixed labels from canonical label set. CI validation gates MUST block non-compliant branches before merge. Compliance tracking MUST show ≥95% adherence across all active branches.
 
 **Rationale**: Branch naming is the foundation for PR template routing, GitHub Actions workflows, labeling, and metrics. Standardized naming enables automation, prevents template misrouting, and provides traceability. Enforcement prevents manual workarounds and ensures 100% consistency.
@@ -188,6 +189,7 @@ When a PR uses a forbidden prefix (e.g., `claude/my-feature`), the `pr-template-
 **Compliance gates**: Pre-commit hooks validate branch names before push. CI gates validate on PR creation. Invalid branches cannot merge until renamed and PR recreated with correct prefix.
 
 **Metric tracking**: Compliance dashboards MUST report:
+
 - % of branches using correct prefix (goal: ≥95%)
 - % of PRs using correct template (goal: 100%)
 - Fallback routing usage (goal: 0%; indicates branch naming violations)
@@ -228,6 +230,7 @@ All significant features follow the SpecKit workflow:
 **Rationale**: Specification-first prevents rework, enables parallel task execution, and ensures traceability from requirements to code.
 
 ### Code Review & Quality Gates
+
 - **Branch naming validation**: Pre-commit hook enforces `{type}/{scope}-{title}` pattern against 38 authorized types; FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are rejected immediately
 - **PR template routing**: Automatic template selection by branch prefix according to canonical mapping in `.github/PULL_REQUEST_TEMPLATE/config.yml` (see Branch Type to PR Template Routing section); fallback routing via linked issue for invalid prefixes
 - **Issue type routing**: Automatic template selection by issue type; all issues MUST use canonical type from `.github/issue-types.yml` (see Issue Type to Template Mapping section)
@@ -268,9 +271,9 @@ Three foundational specification projects anchor LightSpeed's governance framewo
 
 | Project | Location | Governance Authority | Amendment Process |
 |---------|----------|----------------------|-------------------|
-| **Changelog Quality Audit (Phase 5)** | `specs/003-changelog-quality-audit/` | Maintainer review, stakeholder approval | Quality checklist MUST pass before changes; changes MUST go through `/speckit-specify`, `/speckit-clarify`, `/speckit-plan` workflow |
-| **Branch Naming & PR Strategy** | `specs/004-branch-naming-strategy/` | Team lead + GitHub admin review | Type additions/removals MUST have impact analysis on 38-type system; changes require cross-repo validation |
-| **Requirements Quality Checklist Framework** | `specs/005-requirements-quality-checklist/` | Specification authors + peer reviewers | Framework enhancements MUST maintain 8-dimension structure; domain-specific customizations follow template pattern |
+| **Changelog Quality Audit (Phase 5)** | `.github/specs/003-changelog-quality-audit/` | Maintainer review, stakeholder approval | Quality checklist MUST pass before changes; changes MUST go through `/speckit-specify`, `/speckit-clarify`, `/speckit-plan` workflow |
+| **Branch Naming & PR Strategy** | `.github/specs/004-branch-naming-strategy/` | Team lead + GitHub admin review | Type additions/removals MUST have impact analysis on 38-type system; changes require cross-repo validation |
+| **Requirements Quality Checklist Framework** | `.github/specs/005-requirements-quality-checklist/` | Specification authors + peer reviewers | Framework enhancements MUST maintain 8-dimension structure; domain-specific customizations follow template pattern |
 
 ### Specification Amendment Procedures
 
