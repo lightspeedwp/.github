@@ -1,6 +1,6 @@
 # Tasks: Requirements Quality Checklist Framework
 
-**Input**: Design documents from `/specs/010-requirements-checklist/`
+**Input**: Design documents from `.github/specs/010-requirements-checklist/`
 
 **Prerequisites**: plan.md (technical context), spec.md (4 user stories), data-model.md (5 entities), contracts/ (5 JSON schemas), quickstart.md (4 validation scenarios)
 
