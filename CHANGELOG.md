@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Dependabot Scope Fix** — Restored /website npm scanning and area:dependencies labels in dependabot.yml, dropped by a main->develop sync; needed for Mergify auto-merge. ([PR #3315](https://github.com/lightspeedwp/.github/pull/3315))
-- **Branch Validation Metrics Aggregator** — Fixed gawk constant-folding a literal 0/0 at compile time regardless of the guarding if; passed values via awk -v instead. Also moved to Node LTS via .nvmrc. ([PR TBD]())
+- **Branch Validation Metrics Aggregator** — Fixed gawk constant-folding 0/0 at compile time; pass counters via awk -v. Also moved to Node LTS via .nvmrc. ([PR #3320](https://github.com/lightspeedwp/.github/pull/3320))
 
 ### Removed
 
