@@ -15,31 +15,57 @@ tags:
   - portable
 ---
 
-# Changelog Agent
+# Changelog Quality Audit Agent
 
-Portable, enterprise-grade agent for managing changelogs using the Keep a Changelog 1.1.0 standard.
+Enterprise-grade changelog quality validation, metrics collection, and release management system with GitHub integration.
 
 ## Overview
 
-The Changelog Agent provides:
+The Changelog Quality Audit Agent provides:
 
-1. **Two-gate validation system** — Entry validation (on PR) and structure validation (at release)
-2. **Automatic formatting** — Enforce em-dashes, character limits, capitalization
-3. **Keep a Changelog parsing** — Read, modify, and write Keep a Changelog format
-4. **Entry management** — Add, validate, and format changelog entries
-5. **Release processing** — Convert [Unreleased] to release versions with dates
+1. **Multi-layer validation** — Entry validation (Gate 1) and release audit (Gate 2) with 20 compliance rules
+2. **Real-time PR feedback** — GitHub Actions integration with auto-posted validation comments
+3. **Release audits** — Comprehensive compliance reports with remediation guidance
+4. **Metrics collection** — Daily snapshots with trend analysis and velocity metrics
+5. **Release notes generation** — Professional release notes in Markdown, HTML, or plain text
+6. **GitHub integration** — PR/issue link validation, status checks, override mechanism for release managers
+7. **Status checks & approval workflow** — Block merges on validation failure, require release manager approval
 
-Validates against Keep a Changelog 1.1.0 specification for consistency and professionalism.
+Validates against 20 custom rules (R001-R020) for consistency, professionalism, and user-focused clarity.
 
-## Related Files & Integration
+## Quick Start
 
-This portable agent integrates with LightSpeed's changelog ecosystem:
+### Validate entry locally
 
-- **Spec Agent:** [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md) — Primary GitHub-native specification and integration point
-- **Schema:** [`schemas/changelog.schema.json`](../../schemas/changelog.schema.json) — Validation schema for Keep a Changelog 1.1.0 compliance
-- **Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
-- **Documentation:** [`docs/CHANGELOG_AUTOMATION.md`](../../docs/CHANGELOG_AUTOMATION.md) — Complete guide to changelog automation and contributor workflow
-- **Contributor Checklist:** [`docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md`](../../docs/CHANGELOG_CONTRIBUTOR_CHECKLIST.md) — Pre-submission validation checklist
+```bash
+cd agents/changelog
+npm run validate:changelog -- --entry my-entry.md
+```
+
+### Generate release notes
+
+```bash
+npm run validate:export -- --release 1.2.0 --format markdown
+```
+
+### Collect metrics
+
+```bash
+npm run validate:metrics snapshot
+```
+
+### Query trends
+
+```bash
+npm run validate:metrics trend -- --days 30
+```
+
+## Documentation
+
+- **[Changelog Quality Audit Guide](../../docs/CHANGELOG_QUALITY_AUDIT.md)** — Full user guide with examples and troubleshooting
+- **[Validation Rules Reference](../../docs/CHANGELOG_RULES.md)** — All 20 rules with examples and remediation guidance
+- **[Metrics Archival Strategy](../../docs/CHANGELOG_METRICS_ARCHIVAL.md)** — Retention policy, trend analysis, historical exports
+- **[Specification](../../specs/003-changelog-quality-audit/)** — Architecture, data model, and quickstart scenarios
 
 ## Architecture
 
