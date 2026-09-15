@@ -77,4 +77,3 @@ A plugin's button rendered as `.wp-element-button` inherits your theme.json butt
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

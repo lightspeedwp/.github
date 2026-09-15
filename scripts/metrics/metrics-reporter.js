@@ -244,6 +244,12 @@ class MetricsReporter {
       score += Math.min((metrics.contributors.active / 10) * 20, 20);
     }
 
+    // Clamp the positive contributions before applying the anomaly
+    // penalty: closure/merge/activity scores can sum past 100 on their
+    // own (e.g. 50 base + 25 + 25 + 20), which would otherwise absorb the
+    // penalty entirely under the final clamp and make anomalies invisible.
+    score = Math.min(100, score);
+
     // Stability (30% weight) - based on anomaly count
     const anomalyPenalty = (trends.anomalyCount || 0) * 5;
     score -= Math.min(anomalyPenalty, 30);

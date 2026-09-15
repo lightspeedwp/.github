@@ -139,4 +139,3 @@ Do not send the workflow backward to audit unless new evidence actually requires
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

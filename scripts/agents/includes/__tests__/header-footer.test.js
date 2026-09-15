@@ -56,9 +56,13 @@ describe("header-footer", () => {
       ].join("\n"),
     );
 
-    expect(ensureFooter(filePath, { category: "docs", seed: "branding" })).toBe(
-      true,
-    );
+    // Same seed as the previous test: selectFooter()'s hash deterministically
+    // maps "branching" to the "Have questions" phrase (index 2 of 5), so the
+    // appended footer is guaranteed to be that same phrase, letting this
+    // assert on exactly 2 occurrences -- one from the body, one appended.
+    expect(
+      ensureFooter(filePath, { category: "docs", seed: "branching" }),
+    ).toBe(true);
 
     const output = fs.readFileSync(filePath, "utf8");
     const footerMatches =

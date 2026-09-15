@@ -97,7 +97,7 @@ const SCRIPT_REGISTRY = {
     },
   },
   "validate-staging": {
-    script: "staging-validation.js",
+    script: "staging-validation-cli.js",
     description: "Validate staging environment setup",
     category: "validation",
     priority: "high",

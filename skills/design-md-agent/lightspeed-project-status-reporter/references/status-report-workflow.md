@@ -67,4 +67,3 @@ If progress evidence is missing, mark the workstream as `Status unknown` or `Nee
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

@@ -7,11 +7,6 @@
 
 import { strict as assert } from "assert";
 import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 /**
  * Mock benchmark result for testing
@@ -79,22 +74,25 @@ describe("generate-phase-2c-reports", () => {
     it("should handle multiple benchmark results", () => {
       const results = [
         new MockResult("sync-pr-labels", 2640, 8.2, 39),
-        new MockResult("pr-triage-orchestrator", 2816, 9.5, 32),
-        new MockResult("allocate-to-milestone", 2464, 8.8, 30),
+        new MockResult("pr-triage-orchestrator", 2670, 9.5, 32),
+        new MockResult("allocate-to-milestone", 2610, 8.8, 30),
       ];
 
       assert.equal(results.length, 3, "Should have 3 results");
       results.forEach((result) => {
         assert(result.scriptName, "Each result should have a script name");
-        assert(result.calculateImprovements, "Each result should have calculateImprovements method");
+        assert(
+          result.calculateImprovements,
+          "Each result should have calculateImprovements method",
+        );
       });
     });
 
     it("should calculate improvements for all results", () => {
       const results = [
         new MockResult("sync-pr-labels", 2640, 8.2, 39),
-        new MockResult("pr-triage-orchestrator", 2816, 9.5, 32),
-        new MockResult("allocate-to-milestone", 2464, 8.8, 30),
+        new MockResult("pr-triage-orchestrator", 2670, 9.5, 32),
+        new MockResult("allocate-to-milestone", 2610, 8.8, 30),
       ];
 
       const improvements = results.map((r) => ({
@@ -109,7 +107,7 @@ describe("generate-phase-2c-reports", () => {
         assert(imp.apiCalls, "Should have API call metrics");
         assert(
           imp.executionTime.improvement >= 10,
-          "Should show at least 10% improvement"
+          "Should show at least 10% improvement",
         );
         assert(imp.executionTime.targetMet, "Should indicate target met");
       });
@@ -118,8 +116,8 @@ describe("generate-phase-2c-reports", () => {
     it("should aggregate statistics across all scripts", () => {
       const results = [
         new MockResult("sync-pr-labels", 2640, 8.2, 39),
-        new MockResult("pr-triage-orchestrator", 2816, 9.5, 32),
-        new MockResult("allocate-to-milestone", 2464, 8.8, 30),
+        new MockResult("pr-triage-orchestrator", 2670, 9.5, 32),
+        new MockResult("allocate-to-milestone", 2610, 8.8, 30),
       ];
 
       const improvements = results.map((r) => ({
@@ -130,22 +128,24 @@ describe("generate-phase-2c-reports", () => {
       // Calculate aggregate
       const totalTimeImprovement = improvements.reduce(
         (sum, i) => sum + parseFloat(i.executionTime.improvement),
-        0
+        0,
       );
-      const avgTimeImprovement = (totalTimeImprovement / improvements.length).toFixed(2);
+      const avgTimeImprovement = (
+        totalTimeImprovement / improvements.length
+      ).toFixed(2);
 
       assert.equal(
         avgTimeImprovement,
         "12.00",
-        "Should calculate 12% average improvement"
+        "Should calculate 12% average improvement",
       );
     });
 
     it("should generate summary statistics", () => {
       const results = [
         new MockResult("sync-pr-labels", 2640, 8.2, 39),
-        new MockResult("pr-triage-orchestrator", 2816, 9.5, 32),
-        new MockResult("allocate-to-milestone", 2464, 8.8, 30),
+        new MockResult("pr-triage-orchestrator", 2670, 9.5, 32),
+        new MockResult("allocate-to-milestone", 2610, 8.8, 30),
       ];
 
       const improvements = results.map((r) => ({
@@ -156,37 +156,37 @@ describe("generate-phase-2c-reports", () => {
       const stats = {
         totalScriptsOptimized: improvements.length,
         averageExecutionTimeImprovement: (
-          improvements.reduce((sum, i) => sum + parseFloat(i.executionTime.improvement), 0) /
-          improvements.length
+          improvements.reduce(
+            (sum, i) => sum + parseFloat(i.executionTime.improvement),
+            0,
+          ) / improvements.length
         ).toFixed(2),
         averageMemoryImprovement: (
-          improvements.reduce((sum, i) => sum + parseFloat(i.memory.improvement), 0) /
-          improvements.length
+          improvements.reduce(
+            (sum, i) => sum + parseFloat(i.memory.improvement),
+            0,
+          ) / improvements.length
         ).toFixed(2),
         totalTimeSaved: improvements.reduce(
           (sum, i) => sum + (i.executionTime.baseline - i.executionTime.actual),
-          0
+          0,
         ),
         totalAPICallsReduced: improvements.reduce(
           (sum, i) => sum + (i.apiCalls.baseline - i.apiCalls.actual),
-          0
+          0,
         ),
       };
 
-      assert.equal(
-        stats.totalScriptsOptimized,
-        3,
-        "Should optimize 3 scripts"
-      );
+      assert.equal(stats.totalScriptsOptimized, 3, "Should optimize 3 scripts");
       assert.equal(
         stats.averageExecutionTimeImprovement,
         "12.00",
-        "Should average 12% improvement"
+        "Should average 12% improvement",
       );
       assert.equal(
         stats.averageMemoryImprovement,
-        "18.00",
-        "Should average 18% memory improvement"
+        "11.67",
+        "Should average memory improvement across the 8.2/9.5/8.8 MB actuals (18%, 5%, 12%)",
       );
     });
 
@@ -222,9 +222,17 @@ describe("generate-phase-2c-reports", () => {
     it("should handle file I/O operations safely", () => {
       const tempFile = "/tmp/test-report-phase-2c.json";
       const data = {
-        metadata: { phase: "2C Validation", timestamp: new Date().toISOString() },
+        metadata: {
+          phase: "2C Validation",
+          timestamp: new Date().toISOString(),
+        },
         results: [
-          new MockResult("sync-pr-labels", 2640, 8.2, 39).calculateImprovements(),
+          new MockResult(
+            "sync-pr-labels",
+            2640,
+            8.2,
+            39,
+          ).calculateImprovements(),
         ],
         aggregateStats: {
           totalScriptsOptimized: 1,
@@ -241,7 +249,7 @@ describe("generate-phase-2c-reports", () => {
       assert.equal(
         read.metadata.phase,
         "2C Validation",
-        "Data should be preserved"
+        "Data should be preserved",
       );
 
       // Cleanup

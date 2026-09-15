@@ -86,4 +86,3 @@ If you are generating a complex report, LaTeX is often the most predictable way 
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

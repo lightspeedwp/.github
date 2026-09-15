@@ -66,8 +66,8 @@ project_field_mappings:
     type:build: Automation
 
     # Integration & Dependencies Group
-    type:integration: Integration
-    type:compat: Integration
+    type:integration: Compatibility
+    type:compat: Compatibility
 
     # Analysis & Exploration Group
     type:research: Research
@@ -88,7 +88,7 @@ project_field_mappings:
     type:enhancement: Feature
     type:ci: Automation
     type:qa: Automation
-    type:dependency: Integration
+    type:dependency: Dependency Update
     type:investigation: Research
 
 organization_issue_fields:

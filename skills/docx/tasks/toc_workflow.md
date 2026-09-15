@@ -113,4 +113,3 @@ Tip: run `scripts/heading_audit.py` if you suspect heading-style issues.
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

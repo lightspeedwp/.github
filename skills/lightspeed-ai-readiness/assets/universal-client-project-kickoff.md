@@ -89,4 +89,3 @@ Use UK English. Keep the tone practical, professional and non-alarmist. Prioriti
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

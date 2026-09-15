@@ -352,4 +352,3 @@ When a request calls for a questionnaire-aware intake audit, summarise:
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
