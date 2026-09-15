@@ -68,10 +68,11 @@ references:
 ❌ .github/scripts/           - DO NOT CREATE - Reserved for GitHub governance only
 ```
 
-### The ONLY Exceptions
+### The ONLY Exception
 
-- `.github/website/src/scripts/` - Website browser-specific JavaScript that runs client-side
 - `.github/agentic-workflows/` - Agent specifications for repository governance automation
+
+Website browser-specific JavaScript belongs in `website/src/scripts/` (the site's own source tree), not under `.github/`.
 
 ### Why This Matters
 
@@ -86,7 +87,7 @@ When creating any new script:
 
 1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
 2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
-3. **Known exceptions**: `.github/website/src/scripts/` (browser), `.github/agentic-workflows/` (repo governance agents)
+3. **Known exception**: `.github/agentic-workflows/` (repo governance agents)
 4. **Never use `.github/scripts/`** - This directory should not exist for new work
 5. **Update imports**: Ensure all imports use correct paths from `scripts/`
 
@@ -99,7 +100,7 @@ When creating any new script:
 | A metrics collector | `scripts/metrics/` | ~~`.github/scripts/metrics/`~~ |
 | A release validator | `scripts/release/` | ~~`.github/scripts/release/`~~ |
 | A workflow orchestrator | `scripts/workflows/` | ~~`.github/scripts/workflows/`~~ |
-| Website JS (browser) | `.github/website/src/scripts/` | ✅ Exception - correct location |
+| Website JS (browser) | `website/src/scripts/` | ~~`.github/website/src/scripts/`~~ |
 
 ## Branch Naming Governance (CRITICAL) — Non-Negotiable
 

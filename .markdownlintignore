@@ -23,7 +23,6 @@ workflows/**/*.md
 .github/operations/**/*.md
 .github/metrics/*.md
 .github/prompts/*.md
-.github/website/*.md
 .github/workflows/*.md
 .schemas/*.md
 scripts/metrics/**/*.md

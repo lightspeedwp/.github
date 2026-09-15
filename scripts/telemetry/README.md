@@ -346,7 +346,7 @@ Test coverage targets 100% for scripts, including the telemetry client.
 | `.github/agentic-workflows/release.agent.js` | 3 | Release validation workflow |
 | `scripts/workflows/metrics-collection-orchestrator.cjs` | 3 | Metrics collection across repositories |
 | `scripts/workflows/metrics-reporting-orchestrator.cjs` | 1 | Metrics report generation |
-| `.github/website/src/scripts/theme-toggle.js` | 2 | Website theme toggle (browser) |
+| `website/src/scripts/theme-toggle.js` | 0 (not yet instrumented) | Website theme toggle (browser) — prior instrumentation targeted a deleted duplicate at `.github/website/`, not the real site |
 
 ## Troubleshooting
 

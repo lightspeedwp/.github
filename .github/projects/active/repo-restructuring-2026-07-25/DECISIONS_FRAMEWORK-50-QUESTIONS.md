@@ -2141,6 +2141,8 @@ config/                           # Portable configs
 
 ### **Q26: Website folder — `.github/website/` and reconfigure workflows?** {#q26:-website-folder-—-.github/website/-and-reconfigure-workflows?}
 
+**SUPERSEDED (2026-09-15):** This recommendation was partially actioned (a `.github/website/` copy was created) but never completed — workflows, README, and the old `website/` were never updated/removed as planned. The two copies diverged; `website/` remained the actual deployed site and the one all dependency/lint/CI tooling targets. `.github/website/` was removed as a stale duplicate ([PR #3319](https://github.com/lightspeedwp/.github/pull/3319)). `website/` is canonical going forward; do not action this recommendation.
+
 **My answer:** **Yes, move to `.github/website/`, reconfigure workflows.**
 
 **Reasoning:**
