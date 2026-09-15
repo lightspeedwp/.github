@@ -1,7 +1,7 @@
 # Phase 1: Governance Data Model & Concepts
 
-**Date**: 2026-09-14  
-**Status**: Phase 1 output  
+**Date**: 2026-09-14
+**Status**: Phase 1 output
 **Output**: Governance concepts, entities, and relationships
 
 ---
@@ -97,20 +97,21 @@
 **Attributes**:
 
 - **Pattern**: `{type}/{scope}-{title}` (required format)
-- **Type**: Enumerated set of 34 approved values (feat, fix, audit, etc.)
+- **Type**: Enumerated set of 38 approved values, exported by `scripts/validation/validate-branch-name.cjs` (the single source of truth)
 - **Forbidden Prefixes**: `claude/`, `copilot/`, `openai/` (MUST NOT be used)
 - **Rationale**: Branch name determines PR template, automation routing, labeling consistency
 - **Enforcement**: Pre-commit hook + branch validation workflow
 - **Impact**: Incorrect names break PR routing, workflow assignment, and metrics
 
-**Valid Types**:
+**Valid Types** (38 total):
 
 - Basic: feat, fix, hotfix, release, refactor, chore, task
-- Documentation: docs, test, proto
+- Documentation: doc, docs, test, proto
 - Performance/Quality: perf, ci, build, deps, security
 - Specialized: design, a11y, ux, i18n, ops, ds, api, schema
 - Content/Operations: telemetry, content, seo, config, migrate, qa, uat
 - Governance: audit, codex, revert, research
+- Planning/Automation: aiops, automation, epic
 
 **Validation Rules**:
 
@@ -231,27 +232,27 @@ graph TD
     INSTR["instructions/\n(Portable reusable<br/>guidance)"]
     LOCKED["Locked Files<br/>(labels, templates,<br/>issue types)"]
     BRANCHES["Branch Naming<br/>Convention"]
-    
+
     CONST -->|"Supersedes"| CLAUDE
     CONST -->|"Supersedes"| AGENTS
     CONST -->|"Supersedes"| CUSTOM
     CONST -->|"Supersedes"| INSTR
     CONST -->|"Supersedes"| LOCKED
-    
+
     CLAUDE -->|"References"| BRANCHES
     CLAUDE -->|"References"| INSTR
     CLAUDE -->|"References"| LOCKED
-    
+
     AGENTS -->|"References"| BRANCHES
     AGENTS -->|"References"| INSTR
     AGENTS -->|"Mirrors"| CLAUDE
-    
+
     CUSTOM -->|"Extends"| CLAUDE
     CUSTOM -->|"Extends"| AGENTS
-    
+
     BRANCHES -->|"Determines"| LOCKED
     BRANCHES -->|"Enforced by"| CI["CI/CD<br/>Workflows"]
-    
+
     style CONST fill:#ff6b6b
     style CLAUDE fill:#4ecdc4
     style AGENTS fill:#4ecdc4
@@ -330,13 +331,13 @@ graph TD
 **Test Steps**:
 
 1. Review CLAUDE.md branch naming section for clarity
-2. Verify all 34 allowed types are documented with examples
+2. Verify all 38 allowed types are documented with examples
 3. Confirm forbidden prefixes are clearly marked and explained
 4. Check that existing branches in repository comply or are documented as violations
 
 **Acceptance Criteria**:
 
-- ✅ 34 branch types clearly documented with examples
+- ✅ 38 branch types clearly documented with examples
 - ✅ Forbidden prefixes highlighted with explanation
 - ✅ Validation command provided and working
 - ✅ Violations (if found) documented with remediation plan
@@ -365,10 +366,10 @@ graph TD
 
 ## Concepts Ready for Implementation
 
-✅ Governance entities clearly defined (7 primary entities)  
-✅ Relationships documented (governance hierarchy established)  
-✅ Validation scenarios specified (5 concrete test scenarios)  
-✅ Success criteria measurable (100% reference validation, zero duplicates, etc.)  
-✅ Data model aligns with constitution principles  
+✅ Governance entities clearly defined (7 primary entities)
+✅ Relationships documented (governance hierarchy established)
+✅ Validation scenarios specified (5 concrete test scenarios)
+✅ Success criteria measurable (100% reference validation, zero duplicates, etc.)
+✅ Data model aligns with constitution principles
 
 **Ready for Phase 2**: Task decomposition with `/speckit-tasks`

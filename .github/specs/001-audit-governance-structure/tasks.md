@@ -109,7 +109,7 @@
 
 **Goal**: Ensure branch naming guidance is consistent, complete, and aligned across all governance documents
 
-**Independent Test**: Verify no conflicting branch naming guidance exists; all 34 branch types documented; forbidden prefixes clearly marked
+**Independent Test**: Verify no conflicting branch naming guidance exists; all 38 branch types documented; forbidden prefixes clearly marked
 
 ### US2 Branch Naming Audit Tasks
 
@@ -117,7 +117,7 @@
 - [ ] T047 [P] [US2] Extract all branch naming guidance from AGENTS.md (lines 104-145)
 - [ ] T048 [P] [US2] Extract branch naming guidance from `.github/instructions/branch-naming.instructions.md` if it exists
 - [ ] T049 [US2] Compare branch naming sections across all files; identify contradictions or inconsistencies
-- [ ] T050 [US2] Document all 34 allowed branch types from CLAUDE.md with examples
+- [ ] T050 [US2] Document all 38 allowed branch types from CLAUDE.md with examples
 - [ ] T051 [US2] Verify all forbidden prefixes are clearly documented with explanation: `claude/`, `copilot/`, `openai/`
 - [ ] T052 [P] [US2] Create document showing forbidden prefixes with rationale for each
 - [ ] T053 [P] [US2] List all examples in CLAUDE.md branch naming section; verify none use forbidden prefixes
@@ -369,7 +369,7 @@
 
 ### Follow-Up & Monitoring
 
-- [ ] T193 Verify branch naming validation works for all 34 allowed types post-merge
+- [ ] T193 Verify branch naming validation works for all 38 allowed types post-merge
 - [ ] T194 Verify documentation links are working across .github/.specify/ tree
 - [ ] T195 Monitor for any downstream issues in consuming repositories after merge
 - [ ] T196 Document any unexpected issues post-merge and create follow-up tasks if needed

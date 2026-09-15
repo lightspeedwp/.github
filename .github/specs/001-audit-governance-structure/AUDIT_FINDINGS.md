@@ -90,7 +90,7 @@ This document captures the initial audit findings that informed the specificatio
 **Strengths**:
 
 - Clear forbidden prefixes section (claude/, copilot/, openai/)
-- Comprehensive table of 34 allowed types
+- Comprehensive table of 38 allowed types
 - Specific examples of correct and incorrect usage
 - Clear explanation of WHY incorrect names matter
 - Validation command provided

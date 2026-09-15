@@ -40,7 +40,7 @@ Before refactoring begins, establish the current state as a baseline:
 
 - [ ] Note any branches using forbidden prefixes (current count: 3)
 - [ ] Verify current branch naming section is in CLAUDE.md
-- [ ] Confirm 34 branch types are documented
+- [ ] Confirm 38 branch types are documented
 
 ---
 
@@ -199,7 +199,7 @@ grep "^| \`" CLAUDE.md | wc -l
 echo "Branch types in AGENTS.md:"
 grep "^| \`" AGENTS.md | wc -l
 
-# Both should reference same 34 types (or AGENTS.md should have summary only)
+# Both should reference same 38 types (or AGENTS.md should have summary only)
 
 # 2. Search for potentially framework-specific guidance
 echo "Checking for WordPress-specific guidance in AGENTS.md:"
@@ -289,7 +289,7 @@ Constitution Alignment: Yes
 **Manual Review**:
 
 - [ ] Read CLAUDE.md § "Branch Naming — CRITICAL"
-- [ ] Count documented branch types (should be 34)
+- [ ] Count documented branch types (should be 38)
 - [ ] Verify all types have examples
 - [ ] Confirm forbidden prefixes are prominently marked
 - [ ] Check that rationale explains WHY incorrect names matter
@@ -319,12 +319,12 @@ npm run validate:branch-name -- --branch claude/governance-refactor
 # 3. Count documented types
 grep "^| \`" CLAUDE.md | wc -l
 
-# Expected: 34 (or thereabouts)
+# Expected: 38 (must match scripts/validation/validate-branch-name.cjs)
 ```
 
 **Acceptance Criteria**:
 
-- ✅ 34+ branch types documented with examples
+- ✅ 38 branch types documented with examples
 - ✅ Forbidden prefixes clearly marked with explanation
 - ✅ Validation command works and rejects forbidden prefixes
 - ✅ Rationale explains impact of incorrect names
@@ -334,7 +334,7 @@ grep "^| \`" CLAUDE.md | wc -l
 
 ```
 Validation 5 Status: PASS ✅
-Branch Types Documented: 34
+Branch Types Documented: 38
 Forbidden Prefixes Clear: Yes
 Validation Script Works: Yes
 Rules Prevent Mistakes: Yes
