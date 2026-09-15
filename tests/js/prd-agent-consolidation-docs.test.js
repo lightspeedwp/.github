@@ -56,13 +56,23 @@ describe("PRD agent consolidation convergence documentation", () => {
         /^## Phase 7: Convergence/m,
         /^## Notes/m,
       );
+      // Capture the optional -Sync/-Defer branch suffix: T081 forks into
+      // T081-Sync and T081-Defer rather than repeating as a bare T081, so a
+      // numeric-only capture collapses both into what looks like a
+      // duplicate ID (the same class of gap already handled for
+      // T080-Defer, and for T081 itself elsewhere in this file).
       const taskIds = [
-        ...convergence.matchAll(/^- \[[ xX]\] (T\d{3})\b/gm),
+        ...convergence.matchAll(/^- \[[ xX]\] (T\d{3}(?:-\w+)?)\b/gm),
       ].map((match) => match[1]);
-      const expectedIds = Array.from(
-        { length: 22 },
-        (_, index) => `T${String(index + 61).padStart(3, "0")}`,
-      );
+      const expectedIds = [
+        ...Array.from(
+          { length: 20 },
+          (_, index) => `T${String(index + 61).padStart(3, "0")}`,
+        ),
+        "T081-Sync",
+        "T081-Defer",
+        "T082",
+      ];
 
       expect(taskIds).toEqual(expectedIds);
       expect(new Set(taskIds).size).toBe(taskIds.length);
@@ -96,8 +106,8 @@ describe("PRD agent consolidation convergence documentation", () => {
     test("gives every Phase 7 branch and closure task a distinct identifier", () => {
       const phase7 = extractSection(
         tasks,
-        /^### Phase 7: Optional Spec-Based Agent Sync\/Archive/m,
-        /^## Convergence Tasks/m,
+        /^### Phase 7: Optional Spec-Based Agent Resolution/m,
+        /^## Notes/m,
       );
       const taskIds = [
         ...phase7.matchAll(/^- \[[ xX]\] (T\d{3}(?:-[A-Za-z]+)?)\b/gm),
@@ -124,10 +134,10 @@ describe("PRD agent consolidation convergence documentation", () => {
   describe("SC-602 adoption contract", () => {
     test("uses the same sustained weekly threshold in the spec and KPI definition", () => {
       expect(spec).toMatch(
-        /≥1 PRD generation per team per rolling 7-day window, maintained for ≥4 of 6 weeks/,
+        /≥1 uniquely identified PRD generation per rolling 7-day window for ≥4 of the 6 post-rollout weeks/,
       );
       expect(adoptionMetrics).toMatch(
-        /≥1 PRD generation(?: event)? per rolling 7-day window/,
+        /≥1 uniquely identified, completed PRD generation per rolling 7-day window/,
       );
       expect(adoptionMetrics).toMatch(/≥4 of the 6 weeks/);
     });
@@ -141,12 +151,12 @@ describe("PRD agent consolidation convergence documentation", () => {
 
     test("defines observable signals and a cross-check for active usage", () => {
       expect(adoptionMetrics).toMatch(
-        /\*\*Metric Type\*\*: Agent invocation count/,
+        /\*\*Metric Type\*\*: Deduplicated completed PRD generation count/,
       );
-      expect(adoptionMetrics).toContain("Skill routing events");
-      expect(adoptionMetrics).toContain("Workflow trigger events");
+      expect(adoptionMetrics).toMatch(/skill-routing/i);
+      expect(adoptionMetrics).toMatch(/workflow-trigger/i);
       expect(adoptionMetrics).toMatch(
-        /Cross-reference team lead survey responses with logged invocations/,
+        /cross-reference team lead responses with the deduplicated completion log/i,
       );
     });
 
@@ -158,7 +168,7 @@ describe("PRD agent consolidation convergence documentation", () => {
         /sustains this threshold[\s\S]*≥4 of the 6 weeks/,
       );
       expect(adoptionMetrics).toMatch(
-        /Short weeks with <1 PRD may count[\s\S]*following week shows ≥1 PRD/,
+        /short calendar week affected by a holiday or project gap[\s\S]*the week counts only when that window contains a uniquely identified, completed PRD generation/,
       );
     });
 
@@ -263,8 +273,14 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(phase7Criteria).toContain(
         "**Condition**: `(Active Teams >= 5) AND (Satisfaction Score >= 4.0) AND (Critical Blockers == 0)`",
       );
+      // DEFER is now a two-stage gate evaluated before ARCHIVE/SYNC: a
+      // completeness/conclusiveness check, then a mixed-metrics content
+      // check — rather than one flat OR-condition.
       expect(phase7Criteria).toContain(
-        "**Condition**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Critical Blockers > 0) OR [(Active Teams < 5 OR Satisfaction Score < 4.0) AND (Critical Blockers > 0)]`",
+        "**Gate Condition (Completeness/Conclusiveness)**: `(Any metric is incomplete OR inconclusive)`",
+      );
+      expect(phase7Criteria).toContain(
+        "**Content Condition (Mixed Metrics)**: `(Active Teams >= 5 AND Satisfaction Score < 4.0) OR (Active Teams < 5 AND Satisfaction Score >= 4.0) OR (Critical Blockers > 0)`",
       );
       expect(phase7Criteria).toMatch(
         /### Path 1: ARCHIVE[\s\S]*\*\*Actions \(FR-703\)\*\*/,
@@ -300,7 +316,7 @@ describe("PRD agent consolidation convergence documentation", () => {
       expect(archive).toMatch(/Critical Blockers == 0/);
       expect(sync).toMatch(/Critical Blockers == 0/);
       expect(defer).toMatch(/Critical Blockers > 0/);
-      expect(defer).toMatch(/Unresolved critical blockers take precedence/i);
+      expect(defer).toMatch(/Unresolved critical issues take precedence/i);
     });
 
     test.each([

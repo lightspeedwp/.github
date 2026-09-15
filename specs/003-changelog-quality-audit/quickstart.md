@@ -541,3 +541,6 @@ If all 5 scenarios pass, the implementation meets the specification requirements
 ---
 
 **Ready to generate tasks?** Run `/speckit-tasks` to break down the 7-week implementation plan into granular tasks.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -59,7 +59,16 @@ console.log("Workflow Integration Tests");
 console.log("════════════════════════════════════════════════════════════");
 console.log("");
 
-const WORKFLOW_PATH = "./.github/workflows/agent-spec-validation.yml";
+// agent-spec-validation.yml was archived on 2026-09-11 to
+// .github/workflows/archived/2026-09-11/utilities/ per
+// ARCHIVED_WORKFLOWS_MANIFEST.md, which claims its duties moved to a
+// `quality-gates.yml` workflow. That workflow does not exist anywhere in
+// the repo (active or archived), so agent-spec validation currently runs
+// nowhere in CI. This test still validates the archived definition's
+// structure so it stays restorable; see the flagged follow-up for the
+// missing consolidation target.
+const WORKFLOW_PATH =
+  "./.github/workflows/archived/2026-09-11/utilities/agent-spec-validation.yml";
 const FIXTURES_DIR = "./.github/scripts/__tests__/fixtures";
 
 // Test 1: Workflow file exists

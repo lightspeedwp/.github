@@ -135,3 +135,6 @@ As a data analyst or product manager, I need to extract and analyze changelog da
 - Changelog entries are written in English; multi-language support is out of scope for v1
 - Validation rules focus on consistency and user clarity; they do not attempt to verify factual accuracy of claims made in entries (that remains a human review responsibility)
 - The system integrates with existing LightSpeed labeling and issue-tracking systems but doesn't require changes to those systems
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

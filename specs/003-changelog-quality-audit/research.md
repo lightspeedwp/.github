@@ -282,3 +282,6 @@ What does a compliance report contain? How do release managers use it?
 ⏭️ **Phase 1**: Create data-model.md, validation-rule.contract.md, metrics-api.contract.md, quickstart.md
 
 ⏭️ **Phase 2**: Run `/speckit-tasks` to generate 83 implementation tasks
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

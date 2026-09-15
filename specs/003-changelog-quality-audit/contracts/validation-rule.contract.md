@@ -505,3 +505,6 @@ The Validation Rule Engine is:
 - **Extensible**: New rules added without breaking existing entries
 - **User-Friendly**: Clear remediation guidance for every issue
 - **Auditable**: All validation results logged and versioned
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

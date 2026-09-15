@@ -325,3 +325,6 @@ Phase 7: CI/CD & Polish
 - Performance targets: Single entry <100ms, full audit <5min, CI/CD check <2min
 - Rule versioning enables non-breaking rule evolution (new rules don't invalidate historical entries)
 - Graceful degradation: GitHub API failures don't block local development
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -503,3 +503,6 @@ The Metrics API is:
 - **Immutable**: All data git-committed for audit trail
 - **Low-overhead**: <1MB per year storage
 - **Extensible**: New metrics can be added to schema
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

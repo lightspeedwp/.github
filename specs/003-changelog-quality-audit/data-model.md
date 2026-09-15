@@ -536,3 +536,6 @@ compliance_status =
 - Status: FAILING
 
 This weighting prioritizes error rules while allowing warnings to still contribute to remediation guidance.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

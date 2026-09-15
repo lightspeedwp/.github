@@ -83,7 +83,7 @@ Tests whether the agent correctly generates structured PRD documents with all re
 - Input: "Feature requirement for user authentication system"
 - Expected: PRD with Overview, User Stories, Acceptance Criteria, Success Metrics, Release Notes
 - Success: All sections present and non-empty
-- Command: `node tests/test-runner.js --suite all --verbose` (shows TC-101 result)
+- Command: `node agents/prd-agent/tests/test-runner.js --suite all --verbose` (from repo root; shows TC-101 result)
 
 **TC-102: Feature Extraction**
 
@@ -197,11 +197,11 @@ Tests canonical skill references and skill clustering.
 Recommended for baseline testing and validation.
 
 ```bash
-# Full test suite
-node tests/test-runner.js --provider claude --suite all --verbose
+# Full test suite (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --verbose
 
 # Single category
-node tests/test-runner.js --provider claude --suite routing
+node agents/prd-agent/tests/test-runner.js --provider claude --suite routing
 ```
 
 **Setup Requirements**:
@@ -245,14 +245,14 @@ Tests API-based agent invocation and compatibility.
 ### Running Tests & Capturing Results
 
 ```bash
-# Generate JSON results
-node tests/test-runner.js --provider claude --suite all --json > results/claude-all-tests.json
+# Generate JSON results (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/claude-all-tests.json
 
 # Generate formatted report
-node tests/test-runner.js --provider claude --suite all --verbose | tee results/claude-report.txt
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --verbose | tee agents/prd-agent/results/claude-report.txt
 
 # Parse results programmatically
-cat results/claude-all-tests.json | jq '.passed, .failed, .byCategory'
+cat agents/prd-agent/results/claude-all-tests.json | jq '.passed, .failed, .byCategory'
 ```
 
 ### Result JSON Structure
@@ -316,21 +316,21 @@ node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json 
 Execute tests against Phase 4 enhanced prompt:
 
 ```bash
-# Ensure current agent.md is Phase 4 enhanced version
-node tests/test-runner.js --provider claude --suite all --json > results/post-enhancement.json
+# Ensure current agent.md is Phase 4 enhanced version (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/post-enhancement.json
 
 # Compare results
-cat results/post-enhancement.json | jq '.passed / .totalTests * 100'
+cat agents/prd-agent/results/post-enhancement.json | jq '.passed / .totalTests * 100'
 ```
 
 ### Step 3: Calculate Improvement
 
 ```bash
 # Baseline pass rate
-cat results/baseline.json | jq '.passed / .totalTests * 100'  # e.g., 80%
+cat agents/prd-agent/results/baseline.json | jq '.passed / .totalTests * 100'  # e.g., 80%
 
 # Post-enhancement pass rate
-cat results/post-enhancement.json | jq '.passed / .totalTests * 100'  # e.g., 95%
+cat agents/prd-agent/results/post-enhancement.json | jq '.passed / .totalTests * 100'  # e.g., 95%
 
 # Improvement percentage
 # (95 - 80) / 80 * 100 = 18.75% improvement ✅ (exceeds 15% target)
@@ -379,11 +379,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - run: node tests/test-runner.js --provider claude --suite all --json
+      - run: node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/claude-all-tests.json
       - uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: results/*.json
+          path: agents/prd-agent/results/*.json
 ```
 
 ---
@@ -418,11 +418,11 @@ jobs:
 
 **"Cannot find module"**
 
-- Fix: Run from repo root: `cd /home/user/.github && node tests/test-runner.js`
+- Fix: Run from repo root: `cd /home/user/.github && node agents/prd-agent/tests/test-runner.js`
 
 **Permission denied**
 
-- Fix: Add execute permission: `chmod +x tests/test-runner.js`
+- Fix: Add execute permission: `chmod +x agents/prd-agent/tests/test-runner.js`
 
 ---
 
@@ -474,3 +474,8 @@ jobs:
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
