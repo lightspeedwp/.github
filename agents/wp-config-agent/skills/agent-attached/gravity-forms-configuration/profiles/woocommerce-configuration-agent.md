@@ -72,3 +72,5 @@ Checkout rebuild, tax/shipping/subscriptions, order fulfilment, payment gateway 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
