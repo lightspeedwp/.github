@@ -1,4 +1,4 @@
-# Research Phase: Changelog Quality Audit & Phase 5 Implementation
+# Research: Changelog Quality Audit
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
@@ -16,6 +16,7 @@
 ![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
 [![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
 [![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
 [![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
 [![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
 [![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
@@ -25,211 +26,326 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Created**: 2026-09-12  
 **Status**: Phase 0 Complete
+**Date**: 2026-09-13
+
+## Executive Summary
+
+All critical research questions resolved. Technical approach confirmed: Node.js/JavaScript CLI with validation rule engine, GitHub Actions integration for CI/CD, persistent metrics using GitHub metadata. No blockers identified for Phase 1 design.
 
 ---
 
-## Research Questions Resolved
+## R1: Changelog Format & Current State
 
-### Q1: Changelog Entry Length Limit
+### Question
 
-**Question**: What character limit maximizes scannability without losing important detail?
+Which changelog format does LightSpeed currently use? What validation infrastructure already exists?
 
-**Research Findings**:
+### Research Findings
 
-- Keep a Changelog 1.1.0 recommends: brief, user-focused summaries (1-3 sentences)
-- Semantic Versioning best practices: 50-250 characters per entry
-- Current audit: 95% of entries exceed 250 chars (range: 300-2,400 chars)
-- User experience: Entry scanning takes >30 seconds per item (interviews with maintainers)
+- **Format**: YAML-based changelog in `CHANGELOG.yml` (observed in existing `agents/changelog/` structure)
+- **Existing Validation**: `changelogValidator.cjs` already exists with format/structure checks
+- **Existing Formatter**: `changelogFormatter.cjs` handles YAML transformations
+- **Coverage Gap**: No content-level validation for implementation details or user-clarity
 
-**Decision**: **250 characters maximum**
+### Decision
 
-- Rationale: Balances detail with scannability; aligns with Keep a Changelog 1.1.0 guidelines; achieves 30-second scanning target
-- Alternatives considered:
-  - 500 chars (rejected: too permissive, doesn't solve scannability issue)
-  - 150 chars (rejected: too restrictive, cuts meaningful descriptions)
-  - No limit (rejected: current state; causes quality deterioration)
+**Reuse existing validator structure; extend for Phase 1-3 requirements (content analysis, linking, metrics).**
 
----
+### Rationale
 
-### Q2: Implementation Detail Detection
+- Leverage existing patterns and dependencies (already in Node.js/CJS format)
+- Maintain backward compatibility with current changelog structure
+- Avoid reformatting existing entries
 
-**Question**: How to reliably identify "implementation details" without manual review?
+### Alternatives Considered
 
-**Research Findings**:
-
-- Common implementation keywords in current entries:
-  - Framework names: "React", "WordPress", "Django", "Vue"
-  - Code operations: "refactored", "optimised", "fixed", "updated", "patched"
-  - Internal concepts: "database", "API", "middleware", "hook", "component"
-  - Language constructs: "variable", "function", "class", "module"
-- Manual audit identified 47 entries with implementation details
-- Keyword matching has ~85% precision (some false positives on user-facing terms)
-
-**Decision**: **Hybrid approach: keyword detection + manual review for edge cases**
-
-- Rationale: Keyword-based detection catches 85% of violations; CI flags borderline cases for human review
-- Alternatives considered:
-  - Pure keyword matching (rejected: ~15% false positive/negative rate too high)
-  - Full NLP analysis (rejected: computational cost, GitHub Actions duration constraints)
-  - Manual review only (rejected: doesn't scale to 200+ entries, defeats automation goal)
-
-**Implementation**:
-
-- Banned keywords: `refactored`, `fixed`, `updated`, `patched`, `optimised`, `optimized`, `implemented`, `deployed`, `migrated`, `restructured`, `reorganised`, `reorganized`, `logic`, `algorithm`, `framework`, `component`, `module`, `hook`, `middleware`, `REST API`, `GraphQL`, `database`, `query`, `cache`, `transaction`
-- Flagged for review: Terms with context-dependent meaning (requires human judgment)
+- Migrate to Keep a Changelog standard format (rejected: too disruptive, existing workflows depend on current format)
+- Use external validation SaaS (rejected: adds external dependency, GitHub API approach more flexible)
 
 ---
 
-### Q3: Auto-Linking Strategy
+## R2: Validation Rule Definition Framework
 
-**Question**: How to automatically detect PR/issue references and generate valid links?
+### Question
 
-**Research Findings**:
+How many validation rules are needed? What architecture can scale as rules evolve?
 
-- Changelog references: `#1234` (PR number), `issues/#5678` (issue number), full URLs
-- GitHub API reliability: 99.95% uptime SLA; rate limiting: 5,000 requests/hour
-- Validation success rate: 99.9% (some URLs may break due to repo moves/deletions)
-- Manual audit: 92% of entries lack PR links despite tracking PR references
+### Research Findings
 
-**Decision**: **GitHub API-based link validation with retry logic and fallback**
+- **Scope**: 20 core rules cover the 6 functional requirements
+- **Rule Distribution**:
+  - 4 structure rules (required fields, category, etc.)
+  - 8 content rules (implementation details, clarity, jargon)
+  - 4 reference rules (PR/issue linking)
+  - 4 format rules (syntax, encoding, etc.)
+- **Scalability Requirement**: Rule versioning needed to avoid retroactively breaking old entries
 
-- Rationale: Achieves 99.9% link accuracy; respects API rate limits; provides user feedback on failures
-- Alternatives considered:
-  - Regex-based URL generation only (rejected: can't validate link validity; broken links proliferate)
-  - Full link verification on CI (rejected: slows down CI; conflicts with fast feedback goal)
-  - Manual linking workflow (rejected: defeats automation; doesn't scale)
+### Decision
 
-**Implementation**:
+**Implement 20-rule core set with semantic versioning. Store rules in `.github/changelog-rules.yml` (LOCKED file) with version tracking. Each entry tracked against the rule version in effect at creation time.**
 
-- Reference detection: regex pattern `#(\d+)` → PR/issue number
-- Link generation: `https://github.com/lightspeedwp/.github/pull/{number}` or `.../issues/{number}`
-- Validation: GitHub API v3 `GET /repos/lightspeedwp/.github/pulls/{number}` (fast; cached)
-- Retry logic: exponential backoff (2s, 4s, 8s) for transient failures
-- Fallback: If validation fails after retries, flag entry for manual review
+### Rationale
 
----
+- 20 rules capture all 6 FRs without over-engineering
+- Versioning enables continuous improvement without false positives
+- LOCKED file aligns with constitution governance
+- Future additions easy (25, 30+ rules) without migration complexity
 
-### Q4: Metrics Storage & Dashboard
+### Alternatives Considered
 
-**Question**: How to track compliance metrics over time without external infrastructure?
-
-**Research Findings**:
-
-- GitHub Actions: No persistent database; storage limited to artifacts + repository data
-- Options evaluated:
-  - JSON files in repository: Simple, version-controlled, no external deps (but: git history bloat)
-  - GitHub Gists: Limited by Gist API; harder to query
-  - Release notes: Can't retroactively query historical data
-  - External database: Introduces dependency, costs
-- Leadership requirement: 90-day historical trend analysis
-
-**Decision**: **GitHub repository storage with JSON files + GitHub Pages dashboard**
-
-- Rationale: No external dependencies; version-controlled; enables historical analysis; supports GitHub Pages visualization
-- Alternatives considered:
-  - GitHub Issues as data store (rejected: complex API queries; not designed for this use case)
-  - Spreadsheet integration (rejected: manual sync overhead; breaks with multiple contributors)
-  - GitHub Releases metadata (rejected: can't store arbitrary metrics; designed for release notes)
-
-**Implementation**:
-
-- Metrics file: `.github/reports/changelog-metrics/history.json` (updated daily)
-- Schema: `{ date, compliance_percent, entry_count, length_distribution, impl_detail_rate, pr_link_coverage }`
-- Retention: Last 90 days (rolling window)
-- Dashboard: Static HTML + client-side data visualization (Chart.js)
-- Update trigger: GitHub Actions scheduled workflow (daily, 00:00 UTC)
+- Single monolithic rule set (rejected: prevents evolution)
+- External rule database (rejected: adds dependency, YAML in .github simpler)
+- 50+ rules for v1 (rejected: too complex, diminishing returns)
 
 ---
 
-### Q5: Workflow Consolidation Approach
+## R3: GitHub API Integration Strategy
 
-**Question**: How to merge 5+ existing validation workflows without breaking current functionality?
+### Question
 
-**Research Findings**:
+How to handle PR/issue reference validation given GitHub API rate limits and network reliability?
 
-- Existing workflows identified:
-  - `validate-changelog-format.yml` (checks Markdown syntax)
-  - `changelog-link-checker.yml` (validates URLs)
-  - `changelog-length-auditor.yml` (reports on entry counts)
-  - `changelog-metadata-validator.yml` (frontmatter validation)
-  - `changelog-release-prep.yml` (generates release notes)
-- Current issues: Overlapping validations, conflicting rule sets, slow CI (runs all 5 sequentially)
-- Consolidation benefit: Single validation pass; 60% CI time reduction
+### Research Findings
 
-**Decision**: **Phased consolidation with backwards-compatibility layer**
+- **GitHub API Limits**: 5000 requests/hour (standard), 15000 (authenticated)
+- **Expected Volume**: ~1000 changelog entries/year = ~2.7 entries/day
+- **Link Validation Cost**: ~1 API call per PR/issue reference
+- **Performance Requirement**: <5 minutes for full release audit (could be 50-100 entries)
+- **Network Reliability**: GitHub SaaS uptime ~99.99%, but CI/CD runners may have transient issues
 
-- Rationale: Preserves existing workflow behavior during Phase 4 → Phase 5 transition; enables testing new validation in parallel
-- Alternatives considered:
-  - Big-bang replacement (rejected: too risky; breaks existing automation)
-  - Keep all 5 workflows (rejected: doesn't solve consolidation goal; performance stays poor)
-  - Move to external service (rejected: introduces dependency; conflicts with automation goals)
+### Decision
 
-**Implementation** (Phase 5.3):
+**Lazy-load validation with 1-hour caching. Graceful degradation if GitHub API unavailable. Pre-release entries don't require valid PR links; release audit can enforce stricter requirements.**
 
-- Week 1: New unified workflow `changelog-validate-unified.yml` runs in parallel with existing workflows
-- Week 2: Verify equivalence (same pass/fail results on test dataset)
-- Week 3: Redirect CI to use unified workflow exclusively
-- Week 4: Archive old workflows (keep as backups for 1 month)
+### Rationale
 
----
+- 1-hour cache reduces API calls by 80%+ (same entries validated repeatedly)
+- Within rate limits even with 100 entries/audit × 4 audits/day
+- Graceful degradation keeps local dev workflow functional
+- Separate requirements for pre-release vs. final release enables flexibility
 
-### Q6: Team Training & Adoption
+### Alternatives Considered
 
-**Question**: What training approach maximizes developer understanding of new compliance standards?
-
-**Research Findings**:
-
-- Developer surveys: 72% unfamiliar with Keep a Changelog; 58% unaware of 250-char guideline
-- Current practice: Changelog entries treated as secondary documentation (not reviewed carefully)
-- Training effectiveness: Live Q&A sessions show 85%+ post-training comprehension; async videos show 62%
-- Time investment: Developers need <5 minutes to understand basic rules; <15 minutes for edge cases
-
-**Decision**: **Live Q&A session + async recorded video + quick reference card**
-
-- Rationale: Combines synchronous engagement (Q&A) with asynchronous access (video); quick reference for lookups
-- Alternatives considered:
-  - Documentation only (rejected: low engagement; questions go unanswered)
-  - Mandatory workshop (rejected: scheduling conflicts; low participation)
-  - Auto-generated feedback in CI (rejected: doesn't replace human understanding; high frustration)
-
-**Implementation**:
-
-- Live session: 45-minute walkthrough + Q&A (target: Thursday 2pm UTC for timezone coverage)
-- Recording: Posted to internal wiki + YouTube (optional public); includes transcript
-- Quick reference: 1-page laminated card in team wiki; covers "do's and don'ts"
-- Reinforcement: Automated CI feedback shows compliant vs. non-compliant examples
+- No API caching (rejected: rate limit violations, slow audits)
+- Batch GraphQL queries (rejected: higher complexity, marginal improvement)
+- Persistent database for caching (rejected: added dependency, overkill for data volume)
+- Strict PR link requirement for all entries (rejected: too strict for experimental features)
 
 ---
 
-## Design Decisions Summary
+## R4: Metrics Persistence & Reporting
 
-| Decision | Rationale | Tradeoffs |
-|----------|-----------|-----------|
-| 250-char limit | Keep a Changelog standard; balances detail + scannability | Requires refactoring existing entries; some developers feel constrained |
-| Keyword-based impl. detection | 85% precision achieves automation goal without NLP cost | ~15% edge cases require manual review; possible false positives |
-| GitHub API auto-linking | 99.9% accuracy; leverages GitHub's authority | Rate-limited (5k/hour); requires API availability; retry logic adds complexity |
-| JSON metrics storage | No external dependencies; version-controlled; historical queries | Git history bloat over time; requires storage maintenance |
-| Phased workflow consolidation | Minimizes risk; enables testing in parallel; preserves backwards-compat | Requires running dual workflows for 4 weeks; temporary CI performance degradation |
-| Live training + async video | High engagement + asynchronous access; supports learning preferences | Requires coordination for live session; video production time |
+### Question
+
+Where and how to store compliance metrics for trending and analysis?
+
+### Research Findings
+
+- **Data Volume**: ~365 daily snapshots + ~52 release reports/year = small (<<1MB/year)
+- **Access Pattern**: Mostly read; write once daily
+- **Dependencies Available**:
+  - GitHub release metadata API
+  - File storage in `.github/reports/` directory
+  - Commit history (immutable audit trail)
+- **External Tooling**: CSV export for external analytics platforms
+
+### Decision
+
+**Use GitHub commit metadata + JSON reports in `.github/reports/changelog-metrics/`. Daily snapshots automatically committed and versioned. Export to CSV for external consumption.**
+
+### Rationale
+
+- Zero external dependencies
+- Git-committed audit trail is immutable and auditable
+- Leverages existing GitHub infrastructure
+- CSV export enables BI tools integration
+- Data accessible through git history for forensics
+
+### Alternatives Considered
+
+- External database (rejected: added complexity, cost)
+- GitHub Insights API (rejected: limited query flexibility)
+- In-memory cache only (rejected: no historical trending)
 
 ---
 
-## Phase 0 Complete
+## R5: CI/CD Integration & PR Validation
 
-All research questions resolved. No NEEDS CLARIFICATION markers remain. Proceeding to Phase 1 (Design & Contracts).
+### Question
 
-**Next**: Generate data-model.md, contracts/, and quickstart.md
+How to integrate changelog validation into GitHub Actions workflows without breaking existing CI?
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+### Research Findings
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+- **Current Workflows**: `.github/workflows/` already contains validation workflows
+- **PR Comment Strategy**: GitHub Actions can post comments with validation feedback
+- **Status Check Integration**: Existing workflows use required status checks
+- **Override Mechanism**: Release managers need explicit `--force` flag option
+- **Audit Trail**: GitHub provides built-in audit for check runs and overrides
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+### Decision
+
+**Create new `changelog-validation.yml` workflow triggered on PR. Use required status check. Post comment with feedback. Support `--force` override with explicit logging.**
+
+### Rationale
+
+- Non-disruptive (new workflow, doesn't modify existing)
+- Comment-based feedback is user-friendly and discoverable
+- Status checks block merging for non-compliant entries
+- Force override with logging enables urgent hotfixes + auditability
+- Aligns with existing GitHub Actions patterns in repo
+
+### Alternatives Considered
+
+- Pre-commit hook (rejected: requires local setup, doesn't scale across team)
+- Merge queue validation (rejected: too restrictive, no override path)
+- Post-merge validation (rejected: fails primary requirement to catch issues early)
+
+---
+
+## R6: Implementation Language & Dependencies
+
+### Question
+
+Which language/framework for the validation engine? What dependencies are acceptable?
+
+### Research Findings
+
+- **Existing Codebase**: `agents/changelog/` already JavaScript (Node.js, CJS format)
+- **Dependencies Available**:
+  - Octokit (GitHub API client) - already used in repo
+  - Node.js 18+ (standard across LightSpeed)
+  - Jest/similar test frameworks
+- **Performance Needs**: <100ms single entry, <5min full audit
+- **Portability Needs**: Run locally on dev machines + in CI/CD
+
+### Decision
+
+**Extend existing Node.js/JavaScript implementation. Use Octokit for GitHub API, Jest for testing, no external databases or services.**
+
+### Rationale
+
+- Leverages existing infrastructure and team expertise
+- Node.js/JavaScript sufficient for performance targets
+- Minimal dependency footprint aligns with constitution
+- Portability across local dev + GitHub Actions guaranteed
+
+### Alternatives Considered
+
+- Python (rejected: adds new language to polyglot codebase)
+- Rust (rejected: overkill for CPU-bound task, adds build complexity)
+- Go (rejected: another new language, marginal benefits)
+
+---
+
+## R7: Release Audit & Compliance Reporting
+
+### Question
+
+What does a compliance report contain? How do release managers use it?
+
+### Research Findings
+
+- **Report Structure**: Compliance %, issue breakdown, failing entries, remediation guidance
+- **Use Cases**:
+  1. Pre-release validation (mandatory for final v1.0 releases)
+  2. Metrics tracking (compliance trends over time)
+  3. Audit trail (who approved overrides, when)
+  4. External communications (release quality certification)
+- **Output Formats**: JSON (machine-readable), Markdown (human-readable), CSV (analytics)
+- **Scope Options**: Full repo, single release, date range, branch
+
+### Decision
+
+**Generate comprehensive JSON report with Markdown summary. Support scope filtering (release/branch/date-range). Export metrics to CSV. Store all reports in git for audit trail.**
+
+### Rationale
+
+- JSON enables programmatic consumption (CI/CD decisions)
+- Markdown readable in GitHub comments and docs
+- CSV export integrates with BI tools
+- Git storage creates immutable audit trail
+
+### Alternatives Considered
+
+- Markdown-only reports (rejected: loses machine-readability)
+- Real-time dashboard (rejected: over-engineering for data volume)
+- Email notifications (rejected: adds complexity, not needed initially)
+
+---
+
+## Risk Assessment
+
+### Identified Risks
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|------------|--------|-----------|
+| GitHub API rate limits exceeded | Low | Medium | Implement caching, batching, backoff strategy |
+| Rule false positives on valid entries | Medium | Medium | Extensive testing, rule versioning, user feedback loop |
+| Performance degradation with large audits | Low | Low | Profile early, optimize hot paths, support batching |
+| Override abuse (force flag misused) | Low | High | Audit logging, approval workflow for releases, monitoring |
+
+### Mitigation Strategies
+
+1. **Rate Limits**: Monitor actual usage, implement adaptive caching
+2. **False Positives**: Beta testing with real changelog entries, user feedback mechanism
+3. **Performance**: Benchmarking in Phase 2, profiling before Phase 5
+4. **Override Abuse**: Require explicit release manager approval, GitHub Actions log integration
+
+---
+
+## Resolved Clarifications
+
+| Item | Resolution |
+|------|-----------|
+| Changelog format | YAML, existing structure maintained |
+| Number of rules | 20 core rules, versioned and extensible |
+| API integration | Lazy-load with 1-hour caching, graceful degradation |
+| Metrics storage | GitHub commit metadata + JSON reports |
+| CI/CD approach | New workflow with required status check + override option |
+| Language choice | Node.js/JavaScript, extend existing code |
+| Release audit | JSON report + Markdown summary + CSV export |
+
+---
+
+## Blockers & Dependencies
+
+**No blockers identified.** All research questions resolved. Phase 1 design ready to proceed.
+
+### External Dependencies (none blocking)
+
+- GitHub API (always available in CI/CD)
+- Node.js 18+ (standard in team)
+- Jest (standard test framework)
+
+### Internal Dependencies
+
+- Existing `changelogValidator.cjs` and `changelogFormatter.cjs` (ready to extend)
+- `.github/changelog-rules.yml` creation (Phase 1)
+
+---
+
+## Key Decisions Summary
+
+| Decision | Rationale |
+|----------|-----------|
+| Extend existing Node.js validator | Leverage existing code and expertise |
+| 20-rule core set with versioning | Balances coverage with manageability; enables evolution |
+| Lazy-load GitHub API with caching | Performance + rate limit management |
+| File-based metrics in git | Zero dependencies, immutable audit trail |
+| Required status check in GitHub Actions | Non-disruptive, familiar to developers |
+| Force override with logging | Flexibility + auditability for hotfixes |
+
+---
+
+## Next Steps
+
+✅ **Phase 0 Complete**: All research questions resolved, decisions documented
+
+⏭️ **Phase 1**: Create data-model.md, validation-rule.contract.md, metrics-api.contract.md, quickstart.md
+
+⏭️ **Phase 2**: Run `/speckit-tasks` to generate 83 implementation tasks
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

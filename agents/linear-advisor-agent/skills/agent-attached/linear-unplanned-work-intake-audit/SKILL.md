@@ -115,4 +115,3 @@ A concise audit with the current-state map, the main intake risks, and a recomme
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

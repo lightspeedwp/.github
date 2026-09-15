@@ -18,7 +18,7 @@ const yaml = require("js-yaml");
 const Ajv = require("ajv");
 const addFormats = require("ajv-formats");
 const glob = require("glob");
-const minimatch = require("minimatch");
+const { minimatch } = require("minimatch");
 
 // Configuration
 const CONFIG = {

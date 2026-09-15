@@ -11,9 +11,10 @@
  * @returns {Object} Result with success flag and PR data
  */
 
-export async function orchestratePrCreation(input = {}) {
+export async function orchestratePrCreation(rawInput) {
+  const input = rawInput && typeof rawInput === "object" ? rawInput : {};
   const {
-    pr = {},
+    pr,
     aiFeedback = [],
     triggerWorkflow = false,
     createFeedbackResponse = false,

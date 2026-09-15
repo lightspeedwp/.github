@@ -7,7 +7,6 @@
 
 import { describe, it, expect, beforeAll, afterAll } from "@jest/globals";
 import path from "path";
-import { fileURLToPath } from "url";
 import fs from "fs";
 import {
   runBenchmarks,
@@ -20,7 +19,10 @@ import {
   generateMarkdownReport,
 } from "./metrics-dashboard.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// `__dirname` here is Jest's ambient CommonJS-wrapper global, not a native
+// ESM binding: import.meta.url has no CJS equivalent, so using it would
+// leave this file un-transformable to CommonJS and break under plain jest
+// (no --experimental-vm-modules), which is how the root suite runs it.
 // Derive REPO_ROOT from __dirname: scripts/automation/__tests__/performance -> repo root
 const REPO_ROOT = path.resolve(path.join(__dirname, "../../../../"));
 
@@ -47,7 +49,11 @@ describe("Phase 2B Performance Validation", () => {
     expect({
       existedBefore: beforeStats !== null,
       existsAfter: afterStats !== null,
-      sameModificationTime: beforeStats?.mtime === afterStats?.mtime,
+      // fs stat's `mtime` is a fresh Date object on every call, so `===`
+      // always compares references (never equal, even for the same
+      // unchanged file); compare the underlying timestamp instead.
+      sameModificationTime:
+        beforeStats?.mtime.getTime() === afterStats?.mtime.getTime(),
     }).toEqual({
       existedBefore: beforeStats !== null,
       existsAfter: afterStats !== null,

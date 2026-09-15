@@ -73,7 +73,12 @@ class MilestoneAssignmentAgent {
 
     // Already assigned
     if (issue.milestone) {
-      return issue.milestone.number;
+      return {
+        milestone: issue.milestone,
+        confidence: 1,
+        reason: "already-assigned",
+        alternatives: [],
+      };
     }
 
     // Load milestones if not already loaded
@@ -141,6 +146,7 @@ class MilestoneAssignmentAgent {
     // Rule 5: High-priority issues -> current/next milestone
     if (
       labels.includes("priority:urgent") ||
+      labels.includes("priority:critical") ||
       labels.includes("priority:high")
     ) {
       const currentMilestone = this.findCurrentMilestone();
@@ -172,8 +178,7 @@ class MilestoneAssignmentAgent {
       candidates.sort((a, b) => b.confidence - a.confidence);
       const selected = candidates[0];
       return {
-        milestoneNumber: selected.milestone.number,
-        milestoneTitle: selected.milestone.title,
+        milestone: selected.milestone,
         confidence: selected.confidence,
         reason: selected.reason,
         alternatives: candidates.slice(1).map((c) => ({
@@ -191,9 +196,13 @@ class MilestoneAssignmentAgent {
    */
   findCurrentMilestone() {
     return this.milestones.find((m) => {
-      const dueDate = new Date(m.due_on || "");
-      const now = new Date();
-      return !m.closed_at && dueDate > now;
+      if (m.closed_at) return false;
+      // A milestone with no due date at all is not overdue -- `due_on` is
+      // optional on GitHub milestones, and excluding every undated one
+      // meant an open milestone could never be "current" unless someone
+      // had set a due date, which most don't.
+      if (!m.due_on) return true;
+      return new Date(m.due_on) > new Date();
     });
   }
 
@@ -252,7 +261,7 @@ class MilestoneAssignmentAgent {
           results.push({
             issueNumber: issue.number,
             status: "dry-run-success",
-            milestone: assignment.milestoneTitle,
+            milestone: assignment.milestone.title,
             confidence: assignment.confidence,
             reason: assignment.reason,
           });
@@ -261,13 +270,13 @@ class MilestoneAssignmentAgent {
             owner: this.owner,
             repo: this.repo,
             issue_number: issue.number,
-            milestone: assignment.milestoneNumber,
+            milestone: assignment.milestone.number,
           });
 
           results.push({
             issueNumber: issue.number,
             status: "assigned",
-            milestone: assignment.milestoneTitle,
+            milestone: assignment.milestone.title,
             confidence: assignment.confidence,
             reason: assignment.reason,
           });

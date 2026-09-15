@@ -1,0 +1,313 @@
+# LOCKED FILE - Changelog Validation Rules
+#
+# Changes to this file require explicit approval from @ashley
+# See: CLAUDE.md section "Configuration Files — LOCKED (CRITICAL)"
+#
+# This file defines all validation rules for changelog entries.
+# Rules are versioned separately from entries to enable non-breaking evolution.
+#
+# Schema:
+#   id: R001-R999 (unique rule identifier)
+#   name: snake_case rule name
+#   version: semantic version (1.0, 1.1, 2.0, etc.)
+#   enabled: boolean
+#   rule_type: format|content|reference|structure
+#   severity: error (blocking) | warning (non-blocking)
+#   priority: 1-99 (execution order)
+#   description: what the rule checks
+#   patterns: array of regex patterns with context
+#   remediation_guidance: how to fix violations
+
+metadata:
+  version: '1.0'
+  total_rules: 20
+  created_date: '2026-09-14'
+  modified_date: '2026-09-14'
+  modified_by: 'system'
+  governance: 'LOCKED'
+
+rules:
+  - id: R001
+    name: no_implementation_details
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: error
+    priority: 10
+    description: Reject entries containing code patterns, API names, framework references
+    patterns:
+      - regex: '\b(?:function|const|let|var|return|import|export|class|interface)\b'
+        description: Code keywords
+      - regex: '\b(?:npm|yarn|pnpm|pip|gem|cargo|maven)\b'
+        description: Package manager names
+      - regex: '\.[a-zA-Z_]\w*\('
+        description: Method/function calls
+      - regex: '`[^`]+`|\$\{[^}]+\}'
+        description: Code expressions
+    remediation_guidance: Remove code examples, API references, and technical implementation details
+
+  - id: R002
+    name: has_category
+    version: '1.0'
+    enabled: true
+    rule_type: structure
+    severity: error
+    priority: 15
+    description: Entry must specify a category field
+    patterns:
+      - regex: '^category:'
+        flags: 'm'
+        description: Category field presence
+    remediation_guidance: Add category field with one of the valid categories
+
+  - id: R003
+    name: has_title
+    version: '1.0'
+    enabled: true
+    rule_type: structure
+    severity: error
+    priority: 16
+    description: Entry must have a descriptive title field
+    patterns:
+      - regex: '^title:'
+        flags: 'm'
+        description: Title field presence
+    remediation_guidance: Add title field with a clear one-line summary
+
+  - id: R004
+    name: has_description
+    version: '1.0'
+    enabled: true
+    rule_type: structure
+    severity: error
+    priority: 17
+    description: Entry must have a user-facing description field
+    patterns:
+      - regex: '^description:'
+        flags: 'm'
+        description: Description field presence
+    remediation_guidance: Add description field explaining the change in user-friendly language
+
+  - id: R005
+    name: clear_language
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 20
+    description: Avoid jargon; use simple, active voice
+    patterns:
+      - regex: '\b(?:refactor|optimize|improve|enhance|augment|leverage|synergize|paradigm|architecture|algorithm)\b'
+        flags: 'i'
+        description: Complex jargon terms
+      - regex: 'was\s+\w+(?:ed|en)\b'
+        description: Passive voice constructions
+    remediation_guidance: Replace jargon with plain language and use active voice
+
+  - id: R006
+    name: proper_formatting
+    version: '1.0'
+    enabled: true
+    rule_type: format
+    severity: error
+    priority: 5
+    description: Entry must have valid YAML/Markdown syntax
+    patterns:
+      - regex: '^[a-zA-Z_][a-zA-Z0-9_]*:\s*'
+        flags: 'm'
+        description: Valid YAML key format
+    remediation_guidance: Ensure entry is valid YAML with correct indentation and syntax
+
+  - id: R007
+    name: no_backticks
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: error
+    priority: 12
+    description: No code blocks or inline code (backticks)
+    patterns:
+      - regex: '`[^`]*`'
+        description: Inline code with backticks
+      - regex: '```[\s\S]*?```'
+        description: Code blocks with triple backticks
+    remediation_guidance: Remove code examples and backticks from entry
+
+  - id: R008
+    name: no_internal_terminology
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: error
+    priority: 11
+    description: No internal project terms or acronyms that end users won't understand
+    patterns:
+      - regex: '\b(?:CRUD|ORM|API|HTTP|REST|GraphQL|JSON|XML|SQL|NoSQL)\b'
+        description: Technical acronyms
+      - regex: '\b(?:repo|codebase|backlog|sprint|epic|story)\b'
+        flags: 'i'
+        description: Internal project terminology
+    remediation_guidance: Replace technical terms with end-user-friendly language
+
+  - id: R009
+    name: has_pr_reference
+    version: '1.0'
+    enabled: true
+    rule_type: reference
+    severity: warning
+    priority: 25
+    description: Entry should reference a PR or issue for traceability
+    patterns:
+      - regex: '#\d+'
+        description: PR or issue number reference
+    remediation_guidance: Add reference to PR or issue for better traceability
+
+  - id: R010
+    name: valid_pr_reference
+    version: '1.0'
+    enabled: true
+    rule_type: reference
+    severity: error
+    priority: 26
+    description: PR references must exist and be accessible on GitHub
+    patterns:
+      - regex: '#(\d+)'
+        description: Extract PR or issue numbers
+    remediation_guidance: Verify PR or issue numbers reference existing pull requests
+
+  - id: R011
+    name: meaningful_description
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 21
+    description: Description should be substantive (minimum 20 characters)
+    patterns:
+      - regex: '.{20,}'
+        description: Minimum length check
+    remediation_guidance: Expand description with meaningful detail about the change
+
+  - id: R012
+    name: user_focused
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 22
+    description: Describe user benefit, not implementation details
+    patterns:
+      - regex: '\b(?:fixed|improved performance|refactored)\b'
+        flags: 'i'
+        description: Implementation-focused language
+    remediation_guidance: Focus on user benefit, not technical implementation
+
+  - id: R013
+    name: no_emoji
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 23
+    description: Avoid emoji in formal changelog entries
+    patterns:
+      - regex: '[🀀-🿿]'
+        description: Emoji detection
+    remediation_guidance: Remove all emoji from changelog entry
+
+  - id: R014
+    name: consistent_tense
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 24
+    description: Use consistent past or present tense throughout
+    patterns:
+      - regex: '(?:is now|has been|will be)\s+\w+'
+        description: Present or future tense markers
+      - regex: '(?:was|were|had been)\s+\w+'
+        description: Past tense markers
+    remediation_guidance: Use consistent tense throughout the entry
+
+  - id: R015
+    name: proper_dates
+    version: '1.0'
+    enabled: true
+    rule_type: format
+    severity: error
+    priority: 8
+    description: Dates must be ISO 8601 format (YYYY-MM-DD)
+    patterns:
+      - regex: '^\d{4}-\d{2}-\d{2}$'
+        description: ISO 8601 date format
+    remediation_guidance: Format all dates as ISO 8601, for example 2026-09-14
+
+  - id: R016
+    name: no_todos
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: error
+    priority: 9
+    description: No TODO or FIXME comments in final changelog entries
+    patterns:
+      - regex: '\b(?:TODO|FIXME|XXX|HACK|NOTE)\b'
+        flags: 'i'
+        description: Unresolved placeholder comments
+    remediation_guidance: Remove all TODO, FIXME, and similar comments
+
+  - id: R017
+    name: appropriate_length
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 27
+    description: Description should be 1-3 sentences
+    patterns:
+      - regex: '\.(?:\s|$)'
+        description: Sentence period markers
+    remediation_guidance: Keep description concise with 1-3 sentences
+
+  - id: R018
+    name: no_personal_pronouns
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 28
+    description: Avoid first and second person pronouns
+    patterns:
+      - regex: '\b(?:I|we|you|me|us|our|your)\b'
+        flags: 'i'
+        description: First or second person pronouns
+    remediation_guidance: Remove personal pronouns and use passive or third-person voice
+
+  - id: R019
+    name: no_marketing_hype
+    version: '1.0'
+    enabled: true
+    rule_type: content
+    severity: warning
+    priority: 29
+    description: Avoid superlatives and marketing language
+    patterns:
+      - regex: '\b(?:amazing|revolutionary|groundbreaking|incredible|fantastic|awesome|best)\b'
+        flags: 'i'
+        description: Superlatives and marketing terms
+    remediation_guidance: Use neutral factual language without superlatives
+
+  - id: R020
+    name: valid_category
+    version: '1.0'
+    enabled: true
+    rule_type: structure
+    severity: error
+    priority: 18
+    description: Category must be in the allowed list
+    patterns:
+      - regex: '^\s*(?:feature|fix|improvement|breaking-change|security|performance)\s*$'
+        flags: 'mi'
+        description: Valid category values
+    remediation_guidance: Use one of the six valid categories for changelog entries

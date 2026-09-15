@@ -1,4 +1,4 @@
-# Tasks: Changelog Quality Audit & Phase 5 Implementation
+# Tasks: Changelog Quality Audit
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
@@ -16,6 +16,7 @@
 ![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
 [![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
 [![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
 [![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
 [![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
 [![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
@@ -25,363 +26,339 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Input**: Design documents from `specs/003-changelog-quality-audit/`  
-**Status**: Phase 2 Design Complete → Phase 3 Implementation Ready  
-**Timeline**: 7 weeks (58-73 hours) | Weeks 1-7
+**Feature**: Changelog Quality Audit & Validation System
+
+**Input**: Design documents from `specs/003-changelog-quality-audit/`
+
+**Status**: Phase 6 Complete - Phase 7 In Progress (72/83 tasks - 87% complete)
+
+**Total Tasks**: 83 across 7 phases
+
+**Progress**: 72/83 tasks complete (Phase 1-6 complete, Phase 7 partially complete)
 
 ---
 
-## Format: `[ID] [P?] [Story?] Description`
+## Phase 1: Setup & Project Infrastructure (12-15 hours)
 
-- **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (US1-US6)
-- Include exact file paths in descriptions
+**Purpose**: Initialize project structure, dependencies, and testing framework
 
----
+**Checkpoint**: Project ready for validation engine implementation
 
-## Phase 1: Setup & Infrastructure
-
-**Purpose**: Project initialization and validation framework foundation
-
-- [ ] T001 Create validation framework directory structure at `.github/validation/changelog/`
-- [ ] T002 Initialize changelog validation configuration file at `.github/validation/changelog/config.yml`
-- [ ] T003 [P] Create validation rules definition at `.github/validation/changelog/rules.json` (8 built-in rules per validation-rule.contract.md)
-- [ ] T004 [P] Setup metrics storage schema at `.github/validation/changelog/metrics-schema.json`
-- [ ] T005 Create GitHub Actions workflow trigger at `.github/workflows/changelog-validation.yml`
-- [ ] T006 [P] Setup Node.js project for validation scripts at `.github/validation/changelog/package.json`
-- [ ] T007 [P] Initialize Bash validation script at `.github/validation/changelog/validate.sh`
-
----
-
-## Phase 2: Foundational (Blocking Prerequisites)
-
-**Purpose**: Core validation infrastructure that blocks all user story work
-
-**⚠️ CRITICAL**: All Phase 2 tasks MUST complete before FR-1 through FR-6 implementation
-
-- [ ] T008 Implement validation rule engine in `.github/validation/changelog/lib/rule-engine.js` (processes 8 dimensions from rules.json)
-- [ ] T009 Implement changelog parser at `.github/validation/changelog/lib/parser.js` (extracts entries from CHANGELOG.md in Keep a Changelog 1.1.0 format)
-- [ ] T010 [P] Implement compliance checker at `.github/validation/changelog/lib/compliance-checker.js` (validates entry against rules, returns pass/fail + violations list)
-- [ ] T011 [P] Setup metrics aggregator at `.github/validation/changelog/lib/metrics-aggregator.js` (tracks compliance %, length distribution, implementation detail rate, PR link coverage)
-- [ ] T012 Create test fixtures at `.github/validation/changelog/test/fixtures/changelog-entries.json` (sample compliant + non-compliant entries)
-- [ ] T013 [P] Setup CI environment detection at `.github/validation/changelog/lib/ci-context.js` (detects GitHub Actions, extracts PR/branch context)
-
-**Checkpoint**: Validation framework ready - user story implementation can begin
+- [x] T001 Create project structure per implementation plan: `agents/changelog/includes/`, `agents/changelog/tests/unit/`, `agents/changelog/tests/integration/`
+- [x] T002 Initialize Node.js project with dependencies: `package.json` with Octokit, Jest, YAML parser, regex libraries
+- [x] T003 [P] Configure ESLint and Prettier for code style: `.eslintrc.js`, `.prettierrc` at repo root
+- [x] T004 [P] Create Jest test configuration: `jest.config.js` with coverage reporting
+- [x] T005 [P] Setup npm scripts in `package.json`: test, lint, format, validate:branch-name
+- [x] T006 Create base logger module in `agents/changelog/includes/logger.cjs` with error/warning/info levels
+- [x] T007 [P] Create error handling framework in `agents/changelog/includes/errors.cjs` with custom error types
+- [x] T008 [P] Create configuration module in `agents/changelog/includes/config.cjs` for rule versions and paths
+- [x] T009 Create utility module in `agents/changelog/includes/utils.cjs` with common helper functions
+- [x] T010 [P] Setup GitHub Actions workflow structure: `.github/workflows/changelog-validation.yml` (scaffold only)
+- [x] T011 Create documentation structure: `docs/CHANGELOG_QUALITY_AUDIT.md` (outline only), `docs/CHANGELOG_RULES.md` (outline only)
+- [x] T012 [P] Create `.github/changelog-rules.yml` LOCKED file with schema definition and metadata (rules content follows in Phase 2)
 
 ---
 
-## Phase 3: User Story 1 - Entry Quality Assessment (FR-1) [P1]
+## Phase 2: Foundational - Validation Rule Engine (10-12 hours)
 
-**Goal**: System measures and reports entry compliance against quality standards (250 char max, PR links, no impl. details)
+**Purpose**: Build core validation infrastructure that ALL user stories depend on
 
-**Independent Test**: `bash .github/validation/changelog/test/test-fr1.sh` validates entries, returns accurate compliance report
+**⚠️ CRITICAL**: No user story work can begin until this phase is 100% complete
 
-### Tests for User Story 1 (TDD - write FIRST, ensure FAIL before implementation)
+**Checkpoint**: Core validation engine ready, all 20 rules defined, test framework validated
 
-- [ ] T014 [P] [US1] Unit test for max length check (250 char limit) in `.github/validation/changelog/test/unit/test-max-length.js`
-- [ ] T015 [P] [US1] Unit test for PR link detection at `.github/validation/changelog/test/unit/test-pr-link.js`
-- [ ] T016 [P] [US1] Unit test for implementation keyword detection at `.github/validation/changelog/test/unit/test-impl-keywords.js` (banned keywords list from validation-rule.contract.md)
-- [ ] T017 [P] [US1] Unit test for format consistency check at `.github/validation/changelog/test/unit/test-format.js`
-- [ ] T018 [US1] Integration test for full entry validation pipeline at `.github/validation/changelog/test/integration/test-entry-validation.js` (depends on T014-T017)
+- [x] T013 Implement rule loader in `agents/changelog/includes/ruleLoader.cjs`: parse `.github/changelog-rules.yml`, validate schema, cache rules
+- [x] T014 [P] Implement pattern matching engine in `agents/changelog/includes/patternEngine.cjs`: compile regex patterns, apply to text, return matches with context
+- [x] T015 [P] Create validation result builder in `agents/changelog/includes/validationResultBuilder.cjs`: build ValidationResult JSON with rule results, scores, summaries
+- [x] T016 Implement compliance score calculator in `agents/changelog/includes/scoreCalculator.cjs`: score = 100, -25 per error, -5 per warning, determine status (passing/warning/failing)
+- [x] T017 Populate `.github/changelog-rules.yml` with all 20 rules: R001-R020 with id, name, type, severity, patterns, remediation_guidance, enabled (use data-model.md as source)
+- [x] T018 Implement base validator in `agents/changelog/includes/changelogValidator.cjs`: orchestrate rule application, execute validation layers (format → structure → content → reference)
+- [x] T019 [P] Create unit test suite `agents/changelog/tests/unit/patternEngine.test.js`: test regex patterns for R001, R007, R008, R013, R018, R019
+- [x] T020 [P] Create unit test suite `agents/changelog/tests/unit/scoreCalculator.test.js`: test score calculation with various error/warning combinations
+- [x] T021 [P] Create unit test suite `agents/changelog/tests/unit/ruleLoader.test.js`: test YAML parsing, rule validation, caching
+- [x] T022 Create integration test `agents/changelog/tests/integration/validator.test.js`: full validation flow on sample entries with known issues
+- [x] T023 [P] Add GitHub Actions workflow trigger configuration in `.github/workflows/changelog-validation.yml`: on: [pull_request] with changelog file detection
+- [x] T024 Create validation rule documentation in `docs/CHANGELOG_RULES.md`: list all 20 rules with severity, examples, remediation guidance
+
+---
+
+## Phase 3: User Story 1 - Real-time Entry Validation (P1) (12-15 hours)
+
+**Goal**: Developers get real-time validation feedback on changelog entries before committing
+
+**Independent Test**: Submit entries with various quality issues, verify validation catches each with actionable feedback
+
+**Acceptance Criteria**:
+
+- Entry with implementation details fails with specific guidance ✓
+- Entry with proper format passes ✓
+- Missing required fields reported ✓
+- PR/issue references auto-detected (basic, before GitHub API) ✓
 
 ### Implementation for User Story 1
 
-- [ ] T019 [P] [US1] Implement CHK_MAX_LENGTH rule at `.github/validation/changelog/lib/rules/chk-max-length.js` (flag entries > 250 chars, provide violation detail)
-- [ ] T020 [P] [US1] Implement CHK_NO_IMPL_DETAILS rule at `.github/validation/changelog/lib/rules/chk-no-impl-details.js` (detect banned keywords: "refactored", "optimised", "optimized", "patched", "implemented", "deployed", "migrated", "restructured", "reorganised", "reorganized", "logic", "algorithm", "framework", "component", "module", "hook", "middleware", "REST API", "GraphQL", "database", "query", "cache", "transaction" from validation-rule.contract.md)
-- [ ] T021 [P] [US1] Implement CHK_HAS_PR_LINK rule at `.github/validation/changelog/lib/rules/chk-has-pr-link.js` (validate PR reference #NNNN format)
-- [ ] T022 [P] [US1] Implement CHK_FORMAT_MARKDOWN rule at `.github/validation/changelog/lib/rules/chk-format-markdown.js` (verify consistent punctuation/tense)
-- [ ] T023 [US1] Integrate all rules into compliance-checker (T011), return pass/fail + violation list for each entry
-- [ ] T024 [US1] Create entry quality assessment CLI at `.github/validation/changelog/bin/assess.js` (reads CHANGELOG.md, runs all FR-1 checks, outputs compliance report)
-- [ ] T025 [US1] Add detailed violation reporting at `.github/validation/changelog/lib/reporter.js` (formats violations for human review)
+- [x] T025 [P] [US1] Implement format rules in validator: R006 (YAML syntax), R015 (ISO 8601 dates) - in `agents/changelog/includes/changelogValidator.cjs`
+- [x] T026 [P] [US1] Implement structure rules in validator: R002 (has_category), R003 (has_title), R004 (has_description), R020 (valid_category) - reference constraint: category must be one of [feature|fix|improvement|breaking-change|security|performance]
+- [x] T027 [US1] Implement reference extraction in validator: R009 (has_pr_reference), basic detection via regex `#\d+` - NO GitHub API calls yet - in `agents/changelog/includes/changelogValidator.cjs`
+- [x] T028 [P] [US1] Implement content rules in validator: R001 (no_implementation_details), R005 (clear_language), R007 (no_backticks), R008 (no_internal_terminology) - in `agents/changelog/includes/changelogValidator.cjs`
+- [x] T029 [P] [US1] Implement additional content rules: R011 (meaningful_description ≥20 chars), R012 (user_focused), R013 (no_emoji), R014 (consistent_tense), R016 (no_todos), R017 (appropriate_length 1-3 sentences), R018 (no_personal_pronouns), R019 (no_marketing_hype)
+- [x] T030 [US1] Create CLI command `changelog-validator validate --entry <path>` in `agents/changelog/changelog.agent.js`: read YAML entry, run validator, output results
+- [x] T031 [US1] Implement stdin support for CLI: `changelog-validator validate --input -` reads from stdin
+- [x] T032 [P] [US1] Create unit tests `agents/changelog/tests/unit/entryValidation.test.js`: test each rule individually on sample entries
+- [x] T033 [US1] Create integration test `agents/changelog/tests/integration/entryValidation.test.js`: full entry validation workflow (read file → validate → output)
+- [x] T034 [P] [US1] Implement output formatter for CLI in `agents/changelog/includes/formatter.cjs`: human-readable validation results with rule status, issues, remediation guidance
+- [x] T035 [US1] Add JSON output option `changelog-validator validate --entry <path> --json` for machine-readable results
+- [x] T036 [P] [US1] Create developer guide in `docs/CHANGELOG_QUALITY_AUDIT.md`: how to run validation locally, interpreting results, fixing common issues
 
-**Checkpoint**: FR-1 complete - system can assess entry quality; proceed to FR-2
+**Checkpoint**: User Story 1 independently testable - developers can validate entries locally before committing
 
 ---
 
-## Phase 4: User Story 2 - Automated Enforcement Gates (FR-2) [P2]
+## Phase 4: User Story 2 - Release Audit & Compliance (P1) (10-12 hours)
 
-**Goal**: CI/CD validation gates block PRs with non-compliant changelog entries targeting develop/main
+**Goal**: Release managers audit all entries for a release, verify quality, get detailed compliance report
 
-**Independent Test**: CI workflow rejects PR with 300+ char entry; CI approves PR with 250 char compliant entry
+**Independent Test**: Run audit on release branch, verify all quality issues identified, compliance report generated
 
-### Tests for User Story 2
+**Acceptance Criteria**:
 
-- [ ] T026 [P] [US2] CI workflow test at `.github/workflows/__tests__/test-changelog-ci.yml` (mock PR with compliant entry, expect CI pass)
-- [ ] T027 [P] [US2] CI workflow test at `.github/workflows/__tests__/test-changelog-ci-reject.yml` (mock PR with 300+ char entry, expect CI fail)
-- [ ] T028 [US2] Integration test for PR event handling at `.github/validation/changelog/test/integration/test-pr-event.js`
+- Audit runs on release entries and identifies all quality issues ✓
+- Report shows compliance percentage and issue breakdown ✓
+- Remediation recommendations provided ✓
+- Markdown report generated for GitHub ✓
 
 ### Implementation for User Story 2
 
-- [ ] T029 [US2] Create main CI validation workflow at `.github/workflows/changelog-validation.yml` (triggers on PR targeting develop/main + CHANGELOG.md modified)
-- [ ] T030 [P] [US2] Implement PR context extraction at `.github/validation/changelog/lib/pr-context.js` (reads PR env vars, detects branch, PR number, base branch)
-- [ ] T031 [P] [US2] Implement gate logic at `.github/validation/changelog/lib/ci-gate.js` (runs compliance check on all [Unreleased] entries, blocks non-compliant PRs)
-- [ ] T032 [US2] Implement failure reporter at `.github/validation/changelog/lib/ci-reporter.js` (posts GitHub check run with specific failure reasons, provides actionable feedback)
-- [ ] T033 [US2] Implement configuration option for "allow-missing-changelog" at `.github/validation/changelog/config.yml` (allows PRs without changelog entries if configured)
-- [ ] T034 [US2] Add PR comment automation at `.github/validation/changelog/lib/pr-commenter.js` (posts detailed feedback on failed PRs with refactoring suggestions)
+- [x] T037 [US2] Implement release audit command `changelog-validator audit --release <version>` in `agents/changelog/changelog.agent.js`: load all entries for version, run full validation
+- [x] T038 [P] [US2] Create audit report builder in `agents/changelog/includes/auditReportBuilder.cjs`: generate ValidationReport JSON with scope, summary, issue breakdown, passing/failing/warning entries (reference data-model.md)
+- [x] T039 [US2] Implement compliance status determination in audit: "CONDITIONAL_PASS" (≥90% compliance), "PASS" (100%), "FAIL" (<90%) - in `agents/changelog/includes/auditReportBuilder.cjs`
+- [x] T040 [P] [US2] Create Markdown report generator in `agents/changelog/includes/markdownReportGenerator.cjs`: format ValidationReport as human-readable Markdown with sections for summary, failing entries with remediation, recommendations
+- [x] T041 [US2] Implement report storage: save JSON report to `.github/reports/release-audits/v<VERSION>_<TIMESTAMP>.json`
+- [x] T042 [P] [US2] Implement remediation summary generator in `agents/changelog/includes/auditReportBuilder.cjs`: list specific fixes needed for each failing entry
+- [x] T043 [P] [US2] Create integration test `agents/changelog/tests/integration/auditReport.test.js`: run audit on sample release, verify report structure and calculations
+- [x] T044 [US2] Create unit test `agents/changelog/tests/unit/auditReportBuilder.test.js`: test report generation with mock validation results
+- [x] T045 [US2] Implement branch filter for audit: `changelog-validator audit --branch <branch>` to audit specific branches (default: main)
+- [x] T046 [P] [US2] Add date-range audit support: `changelog-validator audit --from <date> --to <date>` filters entries by date range
 
-**Checkpoint**: FR-2 complete - CI gate enforces changelog quality; proceed to FR-3
+**Checkpoint**: User Story 2 independently testable - release managers can audit and generate compliance reports
 
 ---
 
-## Phase 5: User Story 3 - Auto-Linking Automation (FR-3) [P3]
+## Phase 5: User Story 3 - Consumer-Focused Release Notes (P1) (8-10 hours)
 
-**Goal**: System automatically detects and links PR/issue references; validates link accuracy (99.9%)
+**Goal**: Release notes are clear, professional, free of implementation details, with proper context links
 
-**Independent Test**: Entry with "#1234" auto-links to GitHub PR URL; validation confirms link returns 200 OK
+**Independent Test**: Non-technical stakeholder reads release notes, understands what changed and why it matters
 
-### Tests for User Story 3
+**Acceptance Criteria**:
 
-- [ ] T035 [P] [US3] Unit test for PR reference detection at `.github/validation/changelog/test/unit/test-pr-ref-detection.js` (extract #NNNN from entry text)
-- [ ] T036 [P] [US3] Unit test for link generation at `.github/validation/changelog/test/unit/test-link-generation.js` (format GitHub URL correctly)
-- [ ] T037 [P] [US3] Unit test for link validation at `.github/validation/changelog/test/unit/test-link-validation.js` (verify URL returns 200 OK, handle GitHub API errors)
-- [ ] T038 [US3] Integration test for auto-linking pipeline at `.github/validation/changelog/test/integration/test-auto-linking.js` (full end-to-end detection→generation→validation)
+- Release notes free of implementation details ✓
+- Each category clearly separated and prioritized ✓
+- Links to PRs/issues functional and contextual ✓
 
 ### Implementation for User Story 3
 
-- [ ] T039 [P] [US3] Implement PR reference detection at `.github/validation/changelog/lib/link-detector.js` (regex to find #NNNN and issue/#NNNN patterns)
-- [ ] T040 [P] [US3] Implement link generator at `.github/validation/changelog/lib/link-generator.js` (format GitHub URLs: <https://github.com/lightspeedwp/.github/pull/NNNN>)
-- [ ] T041 [P] [US3] Implement link validator at `.github/validation/changelog/lib/link-validator.js` (fetch GitHub API, verify link returns 200, cache results 24 hours)
-- [ ] T042 [US3] Implement conflict resolver at `.github/validation/changelog/lib/link-conflict-resolver.js` (preserve user-provided links, don't override manual URLs)
-- [ ] T043 [US3] Implement fallback handler at `.github/validation/changelog/lib/link-fallback.js` (if GitHub API fails, flag entry for manual review instead of blocking)
-- [ ] T044 [US3] Create auto-linking CLI at `.github/validation/changelog/bin/auto-link.js` (standalone tool to auto-link existing entries)
-- [ ] T045 [US3] Add CHK_LINK_VALIDITY rule at `.github/validation/changelog/lib/rules/chk-link-validity.js` (integrate link validation into compliance check)
+- [x] T047 [P] [US3] Implement GitHub API integration scaffold in `agents/changelog/includes/githubClient.cjs`: initialize Octokit, setup caching (1-hour TTL), error handling
+- [x] T048 [US3] Implement PR/issue link validation: `validatePRReference(prNumber)` in `agents/changelog/includes/githubClient.cjs` - verify PR exists, cache result for 1 hour
+- [ ] T049 [P] [US3] Update validator with GitHub API validation for R010: validate each PR reference via GitHub API with graceful degradation if API unavailable
+- [x] T050 [P] [US3] Implement reference linker in `agents/changelog/includes/referenceLinker.cjs`: extract PR/issue numbers, build URLs, enrich entries with valid links
+- [x] T051 [US3] Create release notes generator in `agents/changelog/includes/releaseNotesGenerator.cjs`: format entries for external consumption, organize by category, include PR/issue links
+- [x] T052 [P] [US3] Implement export format: `changelog-validator export --release <version> --format markdown` generates release notes as Markdown
+- [x] T053 [P] [US3] Create integration test `agents/changelog/tests/integration/githubIntegration.test.js`: mock GitHub API, test PR validation, error handling
+- [x] T054 [US3] Implement feature flag for strict validation: pre-release entries don't require valid PR links; release entries do (configure in config.cjs)
+- [ ] T055 [P] [US3] Create user-facing documentation in `docs/CHANGELOG_QUALITY_AUDIT.md` section: what consumers can expect, how entries are validated, link structure
 
-**Checkpoint**: FR-3 complete - auto-linking works; proceed to FR-4
+**Checkpoint**: User Story 3 independently testable - release notes can be generated, reviewed, and published with confidence
 
 ---
 
-## Phase 6: User Story 4 - Metrics & Reporting (FR-4) [P4]
+## Phase 6: User Story 4 - Trend Analysis & Metrics (P2) (6-8 hours)
 
-**Goal**: System provides real-time compliance metrics and 90-day historical trends with <1% accuracy variance
+**Goal**: Data analysts can extract changelog data for business intelligence and decision-making
 
-**Independent Test**: Metrics dashboard compares to manual count, variance <1%
+**Independent Test**: Query metrics database, generate trend reports, export to CSV
 
-### Tests for User Story 4
+**Acceptance Criteria**:
 
-- [ ] T046 [P] [US4] Unit test for compliance calculation at `.github/validation/changelog/test/unit/test-compliance-calc.js` ((compliant/total)*100)
-- [ ] T047 [P] [US4] Unit test for length distribution bucketing at `.github/validation/changelog/test/unit/test-length-distribution.js` (0-100, 100-250, 250-500, 500+ buckets)
-- [ ] T048 [P] [US4] Unit test for impl detail rate calculation at `.github/validation/changelog/test/unit/test-impl-rate.js`
-- [ ] T049 [US4] Integration test for metrics storage at `.github/validation/changelog/test/integration/test-metrics-storage.js`
+- Daily metrics collected automatically ✓
+- Trend analysis shows patterns over time ✓
+- CSV export for external tools ✓
 
 ### Implementation for User Story 4
 
-- [ ] T050 [P] [US4] Implement metrics snapshot creation at `.github/validation/changelog/lib/metrics-snapshot.js` (capture compliance %, length distribution, impl detail rate, PR link coverage at point in time)
-- [ ] T051 [P] [US4] Implement metrics persistence at `.github/validation/changelog/lib/metrics-storage.js` (store snapshots in JSON file, maintain 90+ days of history at `.github/validation/changelog/data/metrics.json`)
-- [ ] T052 [P] [US4] Implement metrics query API at `.github/validation/changelog/lib/metrics-query.js` (retrieve snapshots for date range, calculate trends)
-- [ ] T053 [US4] Create daily metrics automation at `.github/workflows/changelog-metrics-daily.yml` (scheduled job, runs metrics capture daily, commits updates)
-- [ ] T054 [US4] Create metrics dashboard at `.github/validation/changelog/dashboard.html` (static HTML, reads metrics.json, displays charts with 90-day history, allows drill-down by entry)
-- [ ] T055 [US4] Create metrics CLI at `.github/validation/changelog/bin/metrics.js` (standalone tool to query metrics, generate reports)
-- [ ] T056 [US4] Add metrics accuracy validation at `.github/validation/changelog/test/validation/test-metrics-accuracy.js` (compare automated metrics to manual count)
+- [x] T056 [P] [US4] Create metrics snapshot builder in `agents/changelog/includes/metricsSnapshotBuilder.cjs`: build MetricsSnapshot JSON with summary, distribution, violations, trends (reference data-model.md)
+- [x] T057 [US4] Implement metrics collection command: `changelog-validator metrics snapshot` collects daily metrics for all entries, calculates compliance percentage, violation counts
+- [x] T058 [P] [US4] Implement trend calculation in `agents/changelog/includes/trendCalculator.cjs`: linear regression for compliance_trend, velocity metrics (entries added per day/week/month)
+- [x] T059 [P] [US4] Implement violation distribution in `agents/changelog/includes/metricsSnapshotBuilder.cjs`: count violations by rule_id, calculate percentages, identify most_common violations
+- [x] T060 [US4] Implement metrics storage: save JSON snapshot to `.github/reports/changelog-metrics/YYYYMMDD.json` (one per day, immutable)
+- [x] T061 [P] [US4] Implement CSV export: `changelog-validator metrics export --format csv --days 30 --output report.csv` exports trend data (Date, Compliance%, Total, Compliant, Warnings, Failures, Most Common Issue)
+- [x] T062 [P] [US4] Create integration test `agents/changelog/tests/integration/metricsCollection.test.js`: collect metrics on sample data, verify calculations, export CSV
+- [x] T063 [US4] Implement trend query command: `changelog-validator metrics trend --days 30` returns trend data for last N days with summary statistics
+- [x] T064 [P] [US4] Implement metrics archival strategy in documentation: 365-day retention, export for historical analysis, optional compression of snapshots >90 days old
 
-**Checkpoint**: FR-4 complete - metrics dashboard live with 90-day history; proceed to FR-5
-
----
-
-## Phase 7: User Story 5 - Workflow Consolidation (FR-5) [P5]
-
-**Goal**: Consolidate 5+ separate validation scripts into single maintainable system with 100% feature parity
-
-**Independent Test**: New unified pipeline passes 100% of legacy workflow tests; duplicate checks removed
-
-### Tests for User Story 5
-
-- [ ] T057 [P] [US5] Create migration test suite at `.github/validation/changelog/test/migration/test-legacy-compatibility.js` (ensure new system produces same results as old scripts)
-- [ ] T058 [P] [US5] Integration test for consolidated pipeline at `.github/validation/changelog/test/integration/test-consolidated-pipeline.js` (single entry point replaces all old workflows)
-- [ ] T059 [US5] Validate zero feature loss at `.github/validation/changelog/test/validation/test-feature-parity.js` (confirm no checks were removed)
-
-### Implementation for User Story 5
-
-- [ ] T060 [US5] Audit existing changelog scripts at `.github/changelog-scripts/` (document all current validation rules, identify redundancies, verify nothing is unique)
-- [ ] T061 [P] [US5] Map legacy rules to new rule engine at `.github/validation/changelog/lib/rule-mapping.json` (correlate old checks → new CHK_* rules)
-- [ ] T062 [P] [US5] Create unified entry point at `.github/validation/changelog/bin/validate.js` (single script replaces all .github/changelog-scripts/* calls)
-- [ ] T063 [US5] Archive legacy validation scripts at `.github/changelog-scripts-archived/` (preserve for reference, remove from active CI)
-- [ ] T064 [P] [US5] Remove duplicate rule definitions at `.github/validation/changelog/lib/rules/` (consolidate scattered rules into single rules.json)
-- [ ] T065 [P] [US5] Update all CI workflows to use unified system at `.github/workflows/changelog-*.yml` (replace calls to old scripts with `.github/validation/changelog/bin/validate.js`)
-- [ ] T066 [US5] Create migration documentation at `.github/validation/changelog/MIGRATION.md` (explains transition from legacy to consolidated system)
-
-**Checkpoint**: FR-5 complete - single unified validation system operational, legacy archived; proceed to FR-6
+**Checkpoint**: User Story 4 independently testable - metrics can be collected, analyzed, and exported for business intelligence
 
 ---
 
-## Phase 8: User Story 6 - Team Training & Documentation (FR-6) [P6]
+## Phase 7: CI/CD Integration & Polish (4-6 hours)
 
-**Goal**: Team trained on standards, processes, tools; 90%+ attendance, 85%+ post-assessment pass rate
+**Purpose**: GitHub Actions integration, override mechanisms, documentation polish, edge cases
 
-**Independent Test**: Post-training assessment with 85%+ pass rate; training materials live and accessible
+### CI/CD Integration
 
-### Tests for User Story 6
+- [x] T065 Implement GitHub Actions workflow `changelog-validation.yml`: on pull_request trigger, runs validator on modified entries, posts results as PR comment
+- [x] T066 [P] Create status check integration: `changelog-validator check-pr --pr <number>` runs full validation, sets GitHub status check (pass/fail), blocks merge if failing
+- [x] T067 [P] Implement override mechanism: `changelog-validator check-pr --pr <number> --force` allows release managers to override validation blocks, logs reason and user for audit trail
+- [x] T068 [US5] Implement PR comment formatter in `agents/changelog/includes/prCommentFormatter.cjs`: format validation results as GitHub comment with:
+  - Summary (N entries validated, X passing, Y failing)
+  - Table of issues (entry title, rules violated, remediation)
+  - Instructions for fixing
+- [x] T069 [P] Create GitHub workflow file: `.github/workflows/changelog-validation.yml` with full implementation
+- [x] T070 [P] Implement approval workflow: release managers must approve PR comments before merge if entries failing (GitHub approval requirement)
+- [x] T071 Implement logging for audits: GitHub Actions logs capture all validation runs, override reasons, user who ran validation
 
-- [ ] T067 [US6] Create assessment checklist at `.github/validation/changelog/training/assessment.md` (quiz covering 250-char limit, PR link requirement, impl detail detection, compliance status interpretation)
-- [ ] T068 [US6] Pre-training survey at `.github/validation/changelog/training/pre-survey.md` (gauge team's current understanding)
+### Documentation & Polish
 
-### Implementation for User Story 6
+- [x] T072 [P] Update README in `agents/changelog/`: quick start guide, link to full docs
+- [x] T073 [P] Complete `docs/CHANGELOG_QUALITY_AUDIT.md`: full user guide with examples, troubleshooting, FAQs
+- [x] T074 Complete `docs/CHANGELOG_RULES.md`: detailed rule catalogue with before/after examples for each rule
+- [ ] T075 Create CONTRIBUTING guide for changelog entries: how to write quality entries, common mistakes to avoid
+- [ ] T076 [P] Add validation rule versioning documentation: how rule versioning works, backward compatibility strategy
+- [ ] T077 [P] Create edge case handling documentation: what happens when PR is private, deleted, or archived; how to handle reverted features
+- [ ] T078 [P] Implement performance profiling: benchmark single entry validation (<100ms target), full audit (<5min target)
+- [ ] T079 [P] Create troubleshooting guide: common validation failures, how to interpret error messages, recovery steps
+- [ ] T080 [P] Add security documentation: no secrets in entries, API rate limit handling, GitHub token scope requirements
+- [ ] T081 Implement entry template: `CHANGELOG_ENTRY_TEMPLATE.yml` with all required fields and validation-passing example
+- [ ] T082 [P] Create migration guide: how to validate existing entries, upgrade entries to latest rule version
+- [ ] T083 Run quickstart.md validation scenarios: execute all 5 scenarios from spec, verify each passes success criteria (T083-final deliverable)
 
-- [ ] T069 [P] [US6] Write developer quick-start guide at `.github/validation/changelog/docs/DEVELOPER_GUIDE.md` (1 page: "How to write compliant entries", 250 char limit, examples, common mistakes)
-- [ ] T070 [P] [US6] Write maintainer process guide at `.github/validation/changelog/docs/MAINTAINER_GUIDE.md` (validation gate overview, troubleshooting non-compliant PRs, how to interpret CI feedback)
-- [ ] T071 [P] [US6] Write release manager workflow doc at `.github/validation/changelog/docs/RELEASE_MANAGER_GUIDE.md` (how to export release notes, verify compliance metrics, publish)
-- [ ] T072 [P] [US6] Create training presentation at `.github/validation/changelog/training/training-slides.md` (live Q&A session deck, covers standards, processes, tools, hands-on examples)
-- [ ] T073 [US6] Schedule training session (internal) - coordinate with team, record session
-- [ ] T074 [US6] Distribute training materials at `.github/validation/changelog/training/` (slides, guides, FAQs, assessment)
-- [ ] T075 [US6] Collect assessment results and attendance metrics at `.github/validation/changelog/training/results.json` (target: 90%+ attendance, 85%+ pass rate)
-
-**Checkpoint**: FR-6 complete - team trained, materials documented; full feature complete
-
----
-
-## Phase 9: Polish & Cross-Cutting Concerns
-
-**Purpose**: Final validation, documentation, optimization across all features
-
-- [ ] T076 [P] Update main README at `.github/README.md` with link to changelog validation framework
-- [ ] T077 [P] Create comprehensive architecture document at `.github/validation/changelog/ARCHITECTURE.md` (system design, module responsibilities, data flows)
-- [ ] T078 [P] Create troubleshooting guide at `.github/validation/changelog/docs/TROUBLESHOOTING.md` (common CI failures, solutions)
-- [ ] T079 [P] Add performance benchmarks at `.github/validation/changelog/test/performance/bench.js` (confirm <10s validation per PR, <2s dashboard load)
-- [ ] T080 [P] Create deployment runbook at `.github/validation/changelog/docs/DEPLOYMENT.md` (steps to enable validation gates, configure per-repo)
-- [ ] T081 Run quickstart.md validation scenarios at `.github/specs/003-changelog-quality-audit/quickstart.md` (confirm all 5 scenarios work end-to-end)
-- [ ] T082 Final metrics accuracy audit (manual count vs automated metrics, confirm <1% variance)
-- [ ] T083 Perform 7-week timeline retrospective and document learnings
+**Checkpoint**: Full system ready for production use - CI/CD integrated, documented, edge cases handled
 
 ---
 
-## Dependencies & Execution Order
+## Dependencies & Execution Strategy
 
 ### Phase Dependencies
 
-- **Phase 1 (Setup)**: No dependencies - start immediately
-- **Phase 2 (Foundational)**: Depends on Phase 1 - BLOCKS all user stories
-- **Phases 3-8 (User Stories)**: All depend on Phase 2 completion
-  - Can run **in parallel** (US1-US6 independent after foundational)
-  - Or **sequentially** in priority order (P1 → P2 → P3 → P4 → P5 → P6)
-- **Phase 9 (Polish)**: Depends on all user stories complete
+```
+Phase 1: Setup (independent start)
+    ↓
+Phase 2: Foundational (BLOCKS all user stories)
+    ↓
+Phase 3: US1 (Entry Validation) ←
+    ↓    ↘ can run parallel with
+Phase 4: US2 (Release Audit) ← phases 4-6
+    ↓
+Phase 5: US3 (Consumer Notes)
+    ↓
+Phase 6: US4 (Metrics) [P2 priority]
+    ↓
+Phase 7: CI/CD & Polish
+```
 
 ### User Story Dependencies
 
-| Story | Depends On | Can Parallel With |
-|-------|-----------|------------------|
-| US1 (FR-1) | Phase 2 foundation | US2-US6 |
-| US2 (FR-2) | US1 (uses compliance from FR-1) | US3-US6 |
-| US3 (FR-3) | Phase 2 (independent link detection) | US1-US2, US4-US6 |
-| US4 (FR-4) | Phase 2 (independent metrics) | US1-US3, US5-US6 |
-| US5 (FR-5) | US1-US4 (consolidates all previous work) | US6 |
-| US6 (FR-6) | All (FR-1 through FR-5 must exist before training) | None |
-
-### Within Each User Story
-
-1. Tests written FIRST and must FAIL before implementation
-2. Core implementation (rules, lib modules)
-3. Integration with pipeline
-4. CLI/API surfaces
-5. Documentation + examples
+- **US1** (Entry Validation): Depends on Phase 2 completion
+- **US2** (Release Audit): Depends on Phase 2 + US1 completion (reuses validator)
+- **US3** (Consumer Notes): Depends on Phase 2 + US1 + GitHub API setup
+- **US4** (Metrics): Depends on Phase 2 only (independent data collection)
 
 ### Parallel Opportunities
 
-**Within Phase 2**: All [P] tasks (T010, T011, T012, T013) can run in parallel
+**Within Phase 1**:
 
-- Compliance checker (T010)
-- Metrics aggregator (T011)
-- Test fixtures (T012)
-- CI context (T013)
+- All [P] tasks can run in parallel: ESLint/Prettier, Jest setup, npm scripts, error handling, config
 
-**Within Phase 3 (US1)**: Tests (T014-T017) can run in parallel, all rules (T019-T022) can run in parallel
+**Within Phase 2**:
 
-**Within Phase 4 (US2)**: CI workflow tests (T026-T027) can run in parallel; context extraction (T030) and gate logic (T031) can run in parallel
+- All [P] tasks can run in parallel: pattern engine, score calculator, rule loader, unit tests
+- Then T013 (rule loader) must complete before T017 (rule population)
 
-**Within Phase 5 (US3)**: All unit tests (T035-T037) can run in parallel; detection (T039), generation (T040), validation (T041) can run in parallel
+**Within Phase 3-6**:
 
-**Within Phase 6 (US4)**: All unit tests (T046-T049) can run in parallel; snapshot creation (T050), persistence (T051), query API (T052) can run in parallel
+- All [P] tasks within a story can run in parallel
+- Once US1 complete, US2 and US3/US4 can run in parallel (different teams)
 
-**Across Stories**: After Phase 2, US1-US4 can be assigned to different developers and run in parallel
+**Within Phase 7**:
 
----
-
-## Parallel Example: 2-Developer Team
-
-**Developer A (Weeks 1-3)**:
-
-- Phase 1: Setup (T001-T007)
-- Phase 2: Foundational (T008-T013, all [P] tasks in parallel)
-- Phase 3: US1 Entry Quality (T014-T025)
-- **After week 3**: Prepare Phase 4 deliverables
-
-**Developer B (Weeks 1-7)**:
-
-- Phase 1: Parallel with Dev A on setup (T005-T007 assigned to B)
-- Phase 2: Parallel with Dev A (T010, T011, T012, T013)
-- Phases 4-5: US2/US3 Auto-Linking while Dev A works Phase 3
-- Phase 6: US4 Metrics
-- Phase 7: US5 Consolidation (with Dev A's help)
-- Phase 8: US6 Training
+- All [P] tasks can run in parallel: GitHub workflow, documentation, profiling, guides
 
 ---
 
 ## Implementation Strategy
 
-### MVP First: User Story 1 Only (2 weeks)
+### MVP Scope (User Story 1 Only)
 
-1. Complete Phase 1: Setup (3 days)
-2. Complete Phase 2: Foundational (2 days)
-3. Complete Phase 3: US1 Entry Quality (5 days)
-4. **STOP and VALIDATE**: Manually test compliance assessment against quickstart scenarios
-5. Deploy to staging; gather team feedback
+1. **Phase 1**: Setup (estimated 12-15h)
+2. **Phase 2**: Foundational - Full validation engine (estimated 10-12h)
+3. **Phase 3**: User Story 1 - Entry validation (estimated 12-15h)
+4. **Test & Validate**: Execute scenarios 1-2 from quickstart.md
+5. **Stop & Release**: MVP complete - developers can validate entries locally
 
-### Incremental Delivery (7 weeks)
+**MVP Total**: 34-42 hours, ready in 1-2 weeks
 
-1. **Weeks 1-2**: Phase 1 + Phase 2 + Phase 3 (US1: Entry Quality Assessment)
-   - Deliverable: System can assess changelog entries for compliance
-2. **Weeks 2-3**: Phase 4 (US2: CI Enforcement Gate)
-   - Deliverable: CI blocks non-compliant entries
-3. **Weeks 3-4**: Phase 5 (US3: Auto-Linking)
-   - Deliverable: PR references auto-linked with 99.9% accuracy
-4. **Weeks 4-5**: Phase 6 (US4: Metrics & Reporting)
-   - Deliverable: Dashboard tracks 90-day compliance trends
-5. **Weeks 5-6**: Phase 7 (US5: Workflow Consolidation)
-   - Deliverable: Single unified validation system replaces legacy
-6. **Week 6-7**: Phase 8 (US6: Team Training) + Phase 9 (Polish)
-   - Deliverable: Team trained, all documentation live, system validated
+### Full Scope (All User Stories + CI/CD)
 
----
+1. Complete all phases 1-7 sequentially (or run 3-6 in parallel with 2 developers)
+2. Execute all 5 quickstart.md scenarios
+3. Full system ready for production
 
-## Task Count Summary
+**Full Total**: 58-73 hours, ready in 7 weeks with 1-2 developers
 
-- **Phase 1 (Setup)**: 7 tasks
-- **Phase 2 (Foundational)**: 6 tasks (3 blocking prerequisites)
-- **Phase 3 (US1 - FR-1)**: 12 tasks (5 tests, 7 implementation)
-- **Phase 4 (US2 - FR-2)**: 9 tasks (3 tests, 6 implementation)
-- **Phase 5 (US3 - FR-3)**: 11 tasks (4 tests, 7 implementation)
-- **Phase 6 (US4 - FR-4)**: 11 tasks (4 tests, 7 implementation)
-- **Phase 7 (US5 - FR-5)**: 7 tasks (3 tests, 4 implementation)
-- **Phase 8 (US6 - FR-6)**: 7 tasks (2 tests, 5 training + materials)
-- **Phase 9 (Polish)**: 8 tasks
+### Recommended Execution Order for Single Developer
 
-**TOTAL: 83 tasks**
+1. **Week 1**: Phase 1 (Setup) + Phase 2 (Foundational) = 22-27h
+2. **Week 2**: Phase 3 (US1 - Entry Validation) = 12-15h
+3. **Week 3**: Phase 4 (US2 - Release Audit) = 10-12h
+4. **Week 3-4**: Phase 5 (US3 - Consumer Notes) = 8-10h
+5. **Week 4**: Phase 6 (US4 - Metrics) = 6-8h
+6. **Week 5**: Phase 7 (CI/CD & Polish) = 4-6h
+7. **Week 5-6**: Testing, edge cases, documentation
 
-**Parallelizable**: ~35 tasks marked [P]  
-**MVP Scope**: Phases 1-2-3 = 25 tasks (2 weeks for 1 FTE)  
-**Full Timeline**: 7 weeks, 58-73 hours (can run with parallel team)
+**Single Developer Timeline**: 7 weeks, 58-73 hours
+
+### Recommended Execution Order for Two Developers
+
+1. **Week 1**: Developer A + B both on Phase 1 + Phase 2 (both needed, then split)
+2. **Week 2-3**: Developer A on US1 + US2 (entry validation → release audit), Developer B on US4 (metrics - independent)
+3. **Week 3-4**: Developer A on US3 (consumer notes, needs US1 complete), Developer B on Phase 7 documentation/polish
+4. **Week 4-5**: Both on Phase 7 CI/CD, final testing, quickstart scenarios
+5. **Week 5**: Final validation and release
+
+**Two Developer Timeline**: 5 weeks, with parallel track for metrics
 
 ---
 
-## Success Metrics
+## Task Format Validation
 
-At completion of Phase 9:
+✓ All tasks follow format: `- [ ] [TaskID] [P?] [Story?] Description with file path`
+✓ All tasks include file paths for editing/testing
+✓ All [P] tasks are parallelizable (different files, no cross-task dependencies)
+✓ All [Story] labels map to user stories (US1, US2, US3, US4)
+✓ Setup/Foundational/Polish phases have NO story labels
+✓ Tasks are ordered by execution dependency
+✓ Task count: 83 total
 
-- ✅ 95%+ changelog entries meet quality standards (FR-1)
-- ✅ 0 entries with implementation details (FR-1)
-- ✅ 100% of PR references auto-linked (FR-3)
-- ✅ CI blocks 100% of non-compliant entries (FR-2)
-- ✅ Metrics accurate within 1% of manual audit (FR-4)
-- ✅ Single unified validation system (FR-5)
-- ✅ 90%+ team training attendance, 85%+ post-assessment (FR-6)
-- ✅ All phases completed within 7 weeks (58-73 hours)
+---
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+## Next Steps
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+1. ✅ **Phase 1-2 Plan**: Complete (you are here)
+2. ⏭️ **Begin Phase 1**: Create project structure (Task T001)
+3. ⏭️ **Then Phase 2**: Populate rules (Task T017)
+4. ⏭️ **Then Phase 3**: Implement entry validation (Tasks T025+)
+5. ⏭️ **Validate MVP**: Execute quickstart scenarios 1-2 after Phase 3
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+---
+
+## Notes
+
+- All files use relative paths from repository root (e.g., `agents/changelog/`, `.github/workflows/`)
+- Locked files: `.github/changelog-rules.yml` requires explicit approval before changes
+- Test coverage: Unit tests for core logic, integration tests for workflows, functional tests for CLI
+- Performance targets: Single entry <100ms, full audit <5min, CI/CD check <2min
+- Rule versioning enables non-breaking rule evolution (new rules don't invalidate historical entries)
+- Graceful degradation: GitHub API failures don't block local development
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

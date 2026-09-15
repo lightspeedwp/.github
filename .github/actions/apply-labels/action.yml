@@ -1,0 +1,136 @@
+name: 'Apply Labels'
+description: 'Apply labels to PR or issue with validation and error handling'
+
+inputs:
+  labels:
+    description: 'Comma-separated list of labels to apply (must be prefixed, e.g., type:bug, priority:high)'
+    required: true
+  pr-number:
+    description: 'Pull request number (required if issue-number not set)'
+    required: false
+  issue-number:
+    description: 'Issue number (required if pr-number not set)'
+    required: false
+  github-token:
+    description: 'GitHub token for API calls (defaults to github.token)'
+    required: false
+    default: ${{ github.token }}
+
+outputs:
+  applied-labels:
+    description: 'JSON array of successfully applied labels'
+    value: ${{ steps.apply.outputs.applied-labels }}
+  failed-labels:
+    description: 'JSON array of labels that failed to apply'
+    value: ${{ steps.apply.outputs.failed-labels }}
+  total-applied:
+    description: 'Total number of successfully applied labels'
+    value: ${{ steps.apply.outputs.total-applied }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate inputs
+      id: validate
+      shell: bash
+      run: |
+        # Validate that either pr-number or issue-number is provided
+        PR_NUM="${{ inputs.pr-number }}"
+        ISSUE_NUM="${{ inputs.issue-number }}"
+
+        if [[ -z "$PR_NUM" && -z "$ISSUE_NUM" ]]; then
+          echo "ERROR: Either pr-number or issue-number must be provided" >&2
+          exit 1
+        fi
+
+        # Validate labels are provided
+        LABELS="${{ inputs.labels }}"
+        if [[ -z "$LABELS" ]]; then
+          echo "ERROR: labels input is required" >&2
+          exit 1
+        fi
+
+        # Check label format (must be prefixed: type:, priority:, status:, area:, meta:)
+        echo "Validating label format..."
+        VALID_PREFIXES="type:|priority:|status:|area:|meta:"
+        for label in $(echo "$LABELS" | tr ',' '\n'); do
+          label=$(echo "$label" | xargs)  # trim whitespace
+          if ! echo "$label" | grep -qE "^($VALID_PREFIXES)"; then
+            echo "WARNING: Label '$label' does not match required prefix pattern (type:, priority:, status:, area:, meta:)"
+          fi
+        done
+
+        echo "pr-number=$PR_NUM" >> $GITHUB_OUTPUT
+        echo "issue-number=$ISSUE_NUM" >> $GITHUB_OUTPUT
+        echo "labels=$LABELS" >> $GITHUB_OUTPUT
+
+    - name: Apply labels
+      id: apply
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+      run: |
+        PR_NUM="${{ steps.validate.outputs.pr-number }}"
+        ISSUE_NUM="${{ steps.validate.outputs.issue-number }}"
+        LABELS="${{ steps.validate.outputs.labels }}"
+
+        APPLIED_LABELS=()
+        FAILED_LABELS=()
+
+        # Determine target (PR or issue)
+        if [[ -n "$PR_NUM" ]]; then
+          TARGET_TYPE="pull"
+          TARGET_NUM="$PR_NUM"
+        else
+          TARGET_TYPE="issue"
+          TARGET_NUM="$ISSUE_NUM"
+        fi
+
+        echo "Applying labels to $TARGET_TYPE #$TARGET_NUM in $GITHUB_REPOSITORY..."
+
+        # Apply each label
+        for label in $(echo "$LABELS" | tr ',' '\n'); do
+          label=$(echo "$label" | xargs)  # trim whitespace
+
+          if [[ -z "$label" ]]; then
+            continue
+          fi
+
+          # Use GitHub CLI to add label
+          if gh $TARGET_TYPE view "$TARGET_NUM" --repo "$GITHUB_REPOSITORY" \
+               --json labels --template '{{range .labels}}{{.name}},{{end}}' \
+               | grep -q "^$label$\|,$label,\|,$label$"; then
+            echo "  ℹ  Label '$label' already applied (skipping duplicate)"
+            APPLIED_LABELS+=("$label")
+          else
+            if gh $TARGET_TYPE edit "$TARGET_NUM" --add-label "$label" --repo "$GITHUB_REPOSITORY" 2>/dev/null; then
+              echo "  ✓ Applied label: $label"
+              APPLIED_LABELS+=("$label")
+            else
+              echo "  ✗ Failed to apply label: $label"
+              FAILED_LABELS+=("$label")
+            fi
+          fi
+        done
+
+        # Output results as JSON
+        printf 'applied-labels=[' >> $GITHUB_OUTPUT
+        for label in "${APPLIED_LABELS[@]}"; do
+          printf '"%s",' "$label" >> $GITHUB_OUTPUT
+        done
+        printf ']\n' >> $GITHUB_OUTPUT
+
+        printf 'failed-labels=[' >> $GITHUB_OUTPUT
+        for label in "${FAILED_LABELS[@]}"; do
+          printf '"%s",' "$label" >> $GITHUB_OUTPUT
+        done
+        printf ']\n' >> $GITHUB_OUTPUT
+
+        echo "total-applied=${#APPLIED_LABELS[@]}" >> $GITHUB_OUTPUT
+
+        # Exit with error if any labels failed
+        if [[ ${#FAILED_LABELS[@]} -gt 0 ]]; then
+          echo "WARNING: ${#FAILED_LABELS[@]} label(s) failed to apply" >&2
+          exit 0  # Don't fail the job, just warn
+        fi

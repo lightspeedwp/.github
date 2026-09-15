@@ -258,7 +258,7 @@ describe("Metrics Agent Phase 2 - Integration Tests", () => {
       };
 
       // Validation function
-      const isValid = (m) => m.repository && m.timestamp;
+      const isValid = (m) => Boolean(m.repository && m.timestamp);
 
       expect(isValid(validMetrics)).toBe(true);
       expect(isValid(invalidMetrics)).toBe(false);
