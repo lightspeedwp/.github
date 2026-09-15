@@ -316,6 +316,6 @@ queued → in_progress → completed (with conclusion)
 
 ## Related Documents
 
-- [plan.md](../specs/003-workflow-consolidation-phase-2/plan.md) — Implementation plan
+- [plan.md](../specs/011-workflow-consolidation-phase-2/plan.md) — Implementation plan
 - [PERFORMANCE_TARGETS.md](./PERFORMANCE_TARGETS.md) — Minutes budgets
 - [WORKFLOW_CONSOLIDATION_MAPPING.md](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Workflow mapping

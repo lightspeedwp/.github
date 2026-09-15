@@ -229,4 +229,4 @@ See [PHASE2_ROLLBACK.md](./PHASE2_ROLLBACK.md) for full rollback procedure.
 - [PERFORMANCE_TARGETS.md](./PERFORMANCE_TARGETS.md) — Minute budgets per workflow
 - [COMPOSITE_ACTIONS.md](./COMPOSITE_ACTIONS.md) — Reusable action contracts
 - [PHASE2_ROLLBACK.md](./PHASE2_ROLLBACK.md) — Rollback procedure
-- [plan.md](../specs/003-workflow-consolidation-phase-2/plan.md) — Implementation plan
+- [plan.md](../specs/011-workflow-consolidation-phase-2/plan.md) — Implementation plan
