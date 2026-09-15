@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Dependabot Scope Fix** — Added /website npm scanning and area:dependencies labels to dependabot.yml; added on develop in #1059 but never back-ported. ([PR #3316](https://github.com/lightspeedwp/.github/pull/3316))
-- **Lint Debt (#3322)** — 268 of 271 lint errors were vendored skill assets ESLint was never told to ignore; excluded them and fixed a stray installed-file mutation. Real errors now 0. ([PR TBD]())
+- **Lint Debt (#3322)** — 268 of 271 lint errors were vendored skill assets ESLint was never told to ignore; excluded them and fixed a stray installed-file mutation. Real errors now 0. ([PR #3337](https://github.com/lightspeedwp/.github/pull/3337))
 
 ### Removed
 
