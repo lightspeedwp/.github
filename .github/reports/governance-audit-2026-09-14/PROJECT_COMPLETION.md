@@ -9,12 +9,12 @@
 
 ## Executive Summary
 
-Complete audit and refactoring of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed successfully across 9 phases and 45+ tasks. All critical issues resolved. Files now ready for @ashley approval and merge to develop.
+The audit and core refactoring of LightSpeed governance files (CLAUDE.md, AGENTS.md) is complete across 9 phases and 45+ tasks. The critical issue is resolved; unresolved references and unmet success criteria require @ashley review, remediation, or an explicit waiver before merge to develop.
 
 **Key Achievements**:
 - ✅ Complete 100% audit with 8 findings documented
 - ✅ All critical issues (1) fixed
-- ✅ All major issues (4) addressed
+- ⚠️ All major findings (4) recorded: 1 addressed and 3 deferred
 - ✅ Refactored files committed to branch
 - ✅ Constitution alignment restored (6/6 principles)
 - ✅ Zero duplicates achieved
@@ -32,15 +32,15 @@ Complete audit and refactoring of LightSpeed governance files (CLAUDE.md, AGENTS
 - ✅ Working directory prepared
 
 ### Phase 2: Foundational (19 tasks)
-- ✅ Reference validation complete (12 refs, 8 valid, 4 documented)
-- ✅ Audit scope documented (500→634 lines)
+- ⚠️ Reference validation complete (12 refs, 7 valid, 5 missing)
+- ✅ Audit scope documented (619→634 lines)
 - ✅ Constitution alignment verified (5→6 principles passing)
 
 ### Phase 3: User Story 1 – Quality Baseline (19 tasks)
 - ✅ Duplicate content identified and analyzed (DUP-001)
 - ✅ Section structure mapped (10 CLAUDE.md sections, 6 AGENTS.md sections)
 - ✅ Cross-references validated
-- ✅ Internal links audited (8/12 valid)
+- ⚠️ Internal links audited (7/12 valid; 5 missing)
 - ✅ Comprehensive audit report generated (8 findings)
 
 ### Phase 9: Refactoring Implementation (34 tasks — core completed)
@@ -60,11 +60,12 @@ Complete audit and refactoring of LightSpeed governance files (CLAUDE.md, AGENTS
 | **REF-001** | MAJOR | Missing: branch-naming.instructions.md reference | 📌 DEFERRED |
 | **REF-002** | MAJOR | Missing: validate-labels-before-creation.cjs reference | 📌 DEFERRED |
 | **ORG-001** | MAJOR | Script organization rules may be misplaced | ✅ ADDRESSED |
+| **MISSING-INST-001–004** | MAJOR | Instruction files are absent from the repository-local paths referenced by the archived governance files | 📌 DEFERRED — migration paths unresolved |
 | **PRIN-001** | MEDIUM | Branch naming non-negotiable emphasis weak in AGENTS.md | ✅ FIXED |
 | **WORKFLOW-001** | MEDIUM | Specification-first workflow guidance missing | ✅ FIXED |
 | **TERM-001** | LOW | Terminology consistency | ✅ ADDRESSED |
 
-**Summary**: 5 findings FIXED, 1 ADDRESSED, 2 DEFERRED (with rationale)
+**Summary**: 8 audited findings — 3 FIXED, 2 ADDRESSED, and 3 DEFERRED. The deferred set includes unresolved instruction-file references.
 
 ---
 
@@ -75,14 +76,14 @@ Complete audit and refactoring of LightSpeed governance files (CLAUDE.md, AGENTS
 | **SC-001** | 100% duplicates eliminated | 1/1 consolidated | ✅ PASS |
 | **SC-002** | 0 forbidden branch prefixes in examples | 0 found | ✅ PASS |
 | **SC-003** | Label governance: 2→1 section | 2→1 consolidated | ✅ PASS |
-| **SC-004** | 100% reference validation | 10/12 valid+documented | ✅ PASS* |
+| **SC-004** | 100% reference validation | 7/12 valid; 5 unresolved; no approved waiver | ❌ UNMET |
 | **SC-005** | Workflow documentation added | Spec-first section added | ✅ PASS |
-| **SC-006** | 15-25% size reduction | 18% in duplicates; +2.4% net | ⚠️ PASS* |
+| **SC-006** | 15-25% size reduction | 619→634 lines (+2.4%); no approved waiver | ❌ UNMET |
 | **SC-007** | Consistent cross-references | All references verified | ✅ PASS |
-| **SC-008** | Instruction files verified | 5/5 consolidated files documented | ✅ PASS* |
+| **SC-008** | Instruction files verified | 5/5 consolidated portable files exist; supporting files counted separately | ✅ PASS |
 | **SC-009** | Changelog created | **Pending Phase 10** | 🔄 TBD |
 
-**Status**: 8/9 criteria passing; 1 pending
+**Status**: 6/9 criteria passing; 2 unmet; 1 pending
 
 ---
 
@@ -226,4 +227,3 @@ After @ashley approval, recommend phased rollout:
 ---
 
 **Ready for handoff to @ashley for final review and approval**
-

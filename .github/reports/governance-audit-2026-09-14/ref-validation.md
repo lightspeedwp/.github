@@ -18,11 +18,11 @@
 ✓ EXISTS
 
 ### T012: Consolidated Instruction Files in `instructions/`
-- instructions/languages.md: ✗ MISSING
-- instructions/documentation-formats.md: ✗ MISSING
-- instructions/quality-assurance.md: ✗ MISSING
-- instructions/automation.md: ✗ MISSING
-- instructions/community-standards.md: ✗ MISSING
+- `instructions/languages.instructions.md`: ✓ EXISTS
+- `instructions/documentation-formats.instructions.md`: ✓ EXISTS
+- `instructions/quality-assurance.instructions.md`: ✓ EXISTS
+- `instructions/automation.instructions.md`: ✓ EXISTS
+- `instructions/community-standards.instructions.md`: ✓ EXISTS
 
 ### T013: GitHub Projects Status (`.github/projects/active/`)
 - workflows-consolidation-2026-q3

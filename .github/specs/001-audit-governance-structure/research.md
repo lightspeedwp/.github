@@ -142,12 +142,12 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 **Finding ID**: `VER-001`  
 **Severity**: MAJOR (blocking completion)  
 **File**: Multiple  
-**Status**: Pending
+**Status**: Pending — T008–T014 have not been completed
 
 **Verification Tasks from AUDIT_FINDINGS.md**:
 
-1. [ ] Does `.github/instructions/branch-naming.instructions.md` exist?
-   - **Action**: If yes, verify relationship to CLAUDE.md branch naming section; if no, update CLAUDE.md line 107 reference
+1. [ ] Does the repository-local `.github/instructions/branch-naming.instructions.md` exist?
+   - **Action**: Resolve this exact `.github/instructions/` reference. A top-level `instructions/branch-naming.instructions.md` file counts only as a documented migration destination, not as the referenced file.
    - **Impact**: Relates to FR-010, reference validation
 
 2. [ ] Do `docs/BRANCHING_STRATEGY.md` and `docs/PR_CREATION_PROCESS.md` exist?
@@ -158,8 +158,8 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
    - **Action**: If yes, verify status; if no, document migration plan
    - **Impact**: AGENTS.md line 18, migration debt
 
-4. [ ] Are 5 consolidated instruction files in `instructions/` folder?
-   - **Action**: Verify files exist: languages.instructions.md, documentation-formats.instructions.md, quality-assurance.instructions.md, automation.instructions.md, community-standards.instructions.md
+4. [ ] Are the 5 consolidated portable instruction files in the top-level `instructions/` folder?
+   - **Action**: Verify `languages.instructions.md`, `documentation-formats.instructions.md`, `quality-assurance.instructions.md`, `automation.instructions.md`, and `community-standards.instructions.md`. Do not include supporting files such as `coding-standards.instructions.md`, `file-organisation.instructions.md`, `linting.instructions.md`, or `instructions.instructions.md` in the count.
    - **Impact**: AGENTS.md lines 160–166 claims consolidation; verify all topics present
 
 5. [ ] Are GitHub projects referenced (`.github/projects/active/`) current?
@@ -248,7 +248,7 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 
 1. ✅ **Duplicate consolidation** (DUP-001) — Must consolidate "Label Creation Governance" sections
 2. ✅ **File organization** (ORG-001) — Move script rules to appropriate location
-3. ✅ **Reference validation** (VER-001) — Complete 7 verification tasks
+3. ⏳ **Reference validation** (VER-001) — Planned work; T008–T014 remain pending
 
 ### Confidence Levels
 

@@ -4,7 +4,7 @@
 
 **Status**: Phase 2 - Task Decomposition Complete
 
-**Total Tasks**: 96 tasks organized by user story and phase
+**Total Tasks**: 196 tasks organized by user story and phase
 
 **Output**: Actionable task list with file paths, acceptance criteria, and dependencies for governance audit and refactoring
 
@@ -43,13 +43,13 @@
 
 ### VER-001: Reference Validation (7 verification tasks from research.md)
 
-- [ ] T008 [US6] Verify if `.github/instructions/branch-naming.instructions.md` exists; document path or missing status in audit log
+- [ ] T008 [US6] Validate the repository-local reference `.github/instructions/branch-naming.instructions.md` in `.github/instructions/`; if only top-level `instructions/branch-naming.instructions.md` exists, record it as a migration rather than a successful exact-path check
 - [ ] T009 [US6] Verify if `docs/BRANCHING_STRATEGY.md` exists; document path or missing status in audit log
 - [ ] T010 [US6] Verify if `docs/PR_CREATION_PROCESS.md` exists; document path or missing status in audit log
 - [ ] T011 [US6] Verify if `.github/prompts/prompts.md` exists; document migration status if legacy pending
-- [ ] T012 [US6] Verify if 5 consolidated instruction files exist in `instructions/`: languages, documentation-formats, quality-assurance, automation, community-standards
+- [ ] T012 [US6] Verify the five consolidated portable files in top-level `instructions/`: `languages.instructions.md`, `documentation-formats.instructions.md`, `quality-assurance.instructions.md`, `automation.instructions.md`, and `community-standards.instructions.md`; report supporting instruction files separately
 - [ ] T013 [US6] Verify if GitHub projects in `.github/projects/active/` are current or archived; document status
-- [ ] T014 [US6] Verify if `.github/scripts/validation/validate-labels-before-creation.cjs` exists; update audit log
+- [ ] T014 [US6] Validate the AGENTS.md script reference at `.github/scripts/validation/validate-labels-before-creation.cjs` against `.github/scripts/validation/`; record any replacement outside that directory as a migration
 
 ### Audit Scope Definition
 
@@ -281,8 +281,8 @@
 
 - [ ] T143 [P] Spell-check refactored CLAUDE.md and AGENTS.md (UK English)
 - [ ] T144 [P] Link-check refactored files: verify all internal anchors work
-- [ ] T145 [P] Verify refactored CLAUDE.md has zero duplicate sections (grep -c "^## " CLAUDE.md | sort -u)
-- [ ] T146 [P] Verify refactored AGENTS.md has zero duplicate sections (grep -c "^## " AGENTS.md | sort -u)
+- [ ] T145 [P] Verify refactored CLAUDE.md has zero duplicate level-two section names; `sed -n 's/^## //p' CLAUDE.md | sort | uniq -d` must produce no repeated values
+- [ ] T146 [P] Verify refactored AGENTS.md has zero duplicate level-two section names; `sed -n 's/^## //p' AGENTS.md | sort | uniq -d` must produce no repeated values
 - [ ] T147 [P] Verify all examples use valid branch types, never use forbidden prefixes
 - [ ] T148 Verify refactored files maintain ~85-87% of original content (15-25% reduction as per SC-006)
 - [ ] T149 Run validation script from quickstart.md Scenario 1 (Reference Integrity)
@@ -362,7 +362,7 @@
 - [ ] T186 [P] Create draft PR with refactored CLAUDE.md and AGENTS.md (when @ashley signals ready)
 - [ ] T187 [P] Create draft PR with audit documentation and reports
 - [ ] T188 Add link to REFACTORING_SUMMARY.md in PR description
-- [ ] T189 Tag PR with governance, audit, refactoring labels
+- [ ] T189 Validate and apply the canonical family-prefixed labels `area:governance`, `type:audit`, and `type:refactor` from `.github/labels.yml`; never apply bare `governance`, `audit`, or `refactoring` labels
 - [ ] T190 Await CI checks and code review
 - [ ] T191 Address any review feedback from @ashley
 - [ ] T192 Merge PR to develop when approved

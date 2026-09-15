@@ -5,13 +5,13 @@
 ## Baseline State (T015)
 
 ### File Metrics
-- **CLAUDE.md**: 162 lines, 13 KB
-- **AGENTS.md**: 338 lines, 18 KB
-- **Total**: 500 lines, 31 KB
+- **CLAUDE.md**: 267 lines (authoritative archived baseline)
+- **AGENTS.md**: 352 lines (authoritative archived baseline)
+- **Total**: 619 lines
 
 ### Line Range Summary
-- CLAUDE.md: 1-162
-- AGENTS.md: 1-338
+- CLAUDE.md: 1-267
+- AGENTS.md: 1-352
 
 ---
 
@@ -41,10 +41,14 @@
 ## Reference Extraction (T017-T019)
 
 ### File Path References in CLAUDE.md (T017)
-Found 0 references in CLAUDE.md
+The path-aware Markdown scan found 9 unique local targets in the archived CLAUDE.md: 7 exist at their referenced paths and 2 resolve to documented top-level migrations. No target remains unclassified.
 
 ### File Path References in AGENTS.md (T017)
-Found 0 references in AGENTS.md
+The same scan found 23 unique local targets in the archived AGENTS.md: 20 exist at their referenced paths, 1 resolves to a documented top-level migration, and 2 are missing (`.github/PULL_REQUEST_TEMPLATE.md` and `MIGRATION_GUIDE.md`).
+
+### Combined Reference Result
+
+After de-duplicating targets shared by both files, the scan found 29 unique local paths: 25 existing, 2 migrated, and 2 missing. Results are recorded per source, original reference, status, and resolved path by the quickstart reference scan.
 
 ### Cross-File References (T019)
 

@@ -21,7 +21,7 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 - `.specify/memory/constitution.md` (principle reference)
 - Existing governance branches (15 discovered, potential consolidation targets)
 
-**Storage**: Git repository; all artifacts stored as markdown/YAML files in `.github/` directory
+**Storage**: Git repository; feature and audit artefacts live under `.github/`, portable instructions live in top-level `instructions/`, and repository-local instructions live in `.github/instructions/`
 
 **Testing**:
 
@@ -140,11 +140,11 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 
 ### Phase 2: Task Decomposition
 
-**Goal**: Break down refactoring work into 96 concrete tasks with file paths, acceptance criteria, and dependencies.
+**Goal**: Break down refactoring work into 196 concrete tasks with file paths, acceptance criteria, and dependencies.
 
 **Deliverables**:
 
-- `tasks.md` — 96-task breakdown grouped by phase (audit, consolidation, refactoring, validation)
+- `tasks.md` — 196-task breakdown grouped by phase (audit, consolidation, refactoring, validation, approval, and follow-up)
 
 **Output Acceptance Criteria** (per `/speckit-tasks` command):
 
@@ -170,24 +170,32 @@ specs/001-audit-governance-structure/
 ├── AUDIT_FINDINGS.md    # Initial audit summary
 ├── checklists/
 │   └── requirements.md  # Quality validation checklist
-└── tasks.md             # Phase 2 output - 96-task decomposition (/speckit-tasks)
+└── tasks.md             # Phase 2 output - 196-task decomposition (/speckit-tasks)
 ```
 
-### Governance Files (targets of audit and refactoring)
+### Instruction Contracts and Governance Files
 
 ```text
+instructions/              # Portable, reusable instructions (VALIDATION TARGET)
+├── languages.instructions.md              # Consolidated 1/5
+├── documentation-formats.instructions.md  # Consolidated 2/5
+├── quality-assurance.instructions.md       # Consolidated 3/5
+├── automation.instructions.md              # Consolidated 4/5
+├── community-standards.instructions.md     # Consolidated 5/5
+├── coding-standards.instructions.md        # Supporting; not consolidated count
+├── file-organisation.instructions.md       # Supporting; not consolidated count
+├── branch-naming.instructions.md           # Supporting; not consolidated count
+├── linting.instructions.md                 # Supporting; not consolidated count
+└── instructions.instructions.md            # Supporting authoring contract
+
 .github/
 ├── CLAUDE.md            # Claude-specific project instructions (REFACTOR TARGET)
 ├── AGENTS.md            # Global AI rules and coding standards (REFACTOR TARGET)
-├── instructions/        # Portable instruction files (VALIDATION TARGET)
+├── instructions/        # Repository-local instructions (VALIDATION TARGET)
+│   ├── branch-naming.instructions.md
 │   ├── coding-standards.instructions.md
 │   ├── file-organisation.instructions.md
-│   ├── quality-assurance.instructions.md
-│   ├── languages.instructions.md
-│   ├── documentation-formats.instructions.md
-│   ├── automation.instructions.md
-│   ├── community-standards.instructions.md
-│   └── instructions.instructions.md
+│   └── plugin-structure.instructions.md
 ├── custom-instructions.md  # Copilot-specific rules (VALIDATION TARGET)
 ├── labels.yml           # Label definitions (LOCKED - audit only)
 ├── issue-types.yml      # Issue type definitions (LOCKED - audit only)

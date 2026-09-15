@@ -138,19 +138,19 @@ Two references are documented as pending but not blocking refactoring completion
 ✅ **PASS** — Reduced from 2 duplicate sections to 1 authoritative section
 
 ### SC-004: References Validated
-⚠️ **PASS WITH NOTES** — 10/12 references valid or documented; 2 documented as pending
+❌ **UNMET** — 7/12 references are valid and 5 remain unresolved; @ashley approval is pending and no waiver is recorded
 
 ### SC-005: Workflow Documentation Added
 ✅ **PASS** — Specification-first workflow documented with entry/exit criteria for each phase
 
 ### SC-006: 15-25% Size Reduction
-⚠️ **MODIFIED** — Achieved 18% reduction in duplicated content; net +2.4% due to workflow addition (justified by content necessity)
+❌ **UNMET** — The authoritative 619-line baseline increased to 634 lines (+2.4%); @ashley approval is pending and no waiver is recorded
 
 ### SC-007: Consistent Cross-References
 ✅ **PASS** — All cross-references use consistent format and anchor clearly
 
 ### SC-008: Instruction Files Verified
-⚠️ **PASS WITH NOTES** — Consolidated instruction files documented; missing files acknowledged
+✅ **PASS** — All five consolidated portable files exist in top-level `instructions/`; supporting and repository-local instruction files are assessed separately
 
 ### SC-009: Changelog Created
 🔄 **IN PROGRESS** — To be completed in Phase 10 Polish & Validation
@@ -165,6 +165,7 @@ Two references are documented as pending but not blocking refactoring completion
 | **REF-001** (Major) | 📌 DEFERRED | Reference documented; file pending |
 | **REF-002** (Major) | 📌 DEFERRED | Reference kept; migration documented |
 | **ORG-001** (Major) | ✅ ADDRESSED | Clarity improved; structure reviewed |
+| **MISSING-INST-001–004** (Major) | 📌 DEFERRED | Repository-local instruction references remain unresolved |
 | **PRIN-001** (Medium) | ✅ FIXED | Branch naming emphasis strengthened |
 | **WORKFLOW-001** (Medium) | ✅ FIXED | Workflow documentation added |
 | **TERM-001** (Low) | ✅ ADDRESSED | Terminology reviewed and consistent |

@@ -120,38 +120,53 @@
 
 ---
 
-#### 5. **Instruction File**
+#### 5. **Portable Instruction File**
 
-**Definition**: Portable, reusable guidance document that applies universally across organization's diverse tech stacks.
+**Definition**: Reusable, technology-agnostic guidance stored in the repository's top-level `instructions/` directory and suitable for use by other repositories.
 
-**Attributes**:
+**Consolidated files (exactly 5)**:
 
-- **Location**: `instructions/` (top-level, not `.github/`)
-- **Scope**: Technology-agnostic (applies to PHP, JS, Terraform, etc.)
-- **Portability**: Can be copied to other repositories
-- **Maintenance**: Centralized; kept consistent across repos
-- **Relationship to Governance Files**: Governance files reference but do not duplicate instruction files
-- **Consolidation**: Multiple files consolidated into 5 index files (languages, documentation-formats, quality-assurance, automation, community-standards)
+- `instructions/languages.instructions.md`
+- `instructions/documentation-formats.instructions.md`
+- `instructions/quality-assurance.instructions.md`
+- `instructions/automation.instructions.md`
+- `instructions/community-standards.instructions.md`
 
-**Types**:
+**Supporting files (not part of the consolidated-file count)**:
 
-- `instructions/coding-standards.instructions.md` — Unified standards
-- `instructions/file-organisation.instructions.md` — File placement rules
-- `instructions/quality-assurance.instructions.md` — Testing pyramid, coverage
-- `instructions/languages.instructions.md` — JS/TS, JSON, YAML, linting
-- `instructions/documentation-formats.instructions.md` — Markdown, frontmatter, Mermaid
-- `instructions/automation.instructions.md` — Agents, labeling, release, metrics
-- `instructions/community-standards.instructions.md` — Files, naming, README, replies
+- `instructions/coding-standards.instructions.md`
+- `instructions/file-organisation.instructions.md`
+- `instructions/branch-naming.instructions.md`
+- `instructions/linting.instructions.md`
+- `instructions/instructions.instructions.md`
 
 **Validation Rules**:
 
-- Never duplicated in governance files (CLAUDE.md, AGENTS.md)
-- Technology-agnostic (no framework-specific guidance)
-- Frontmatter structure follows pattern in `instructions/instructions.instructions.md`
+- Validate a portable reference against the exact top-level `instructions/` path.
+- Never count supporting files among the five consolidated files.
+- Keep the guidance technology-agnostic and do not duplicate it in CLAUDE.md or AGENTS.md.
+- Follow the frontmatter contract in `instructions/instructions.instructions.md`.
+
+#### 6. **Repository-Local Instruction File**
+
+**Definition**: Guidance whose contract is specific to this repository and whose canonical location is `.github/instructions/`.
+
+**Audited reference inventory**:
+
+- `.github/instructions/branch-naming.instructions.md`
+- `.github/instructions/coding-standards.instructions.md`
+- `.github/instructions/file-organisation.instructions.md`
+- `.github/instructions/plugin-structure.instructions.md`
+
+**Validation Rules**:
+
+- Resolve each reference within `.github/instructions/`; a same-named top-level portable file does not satisfy the repository-local reference.
+- Record an explicit migration destination when a repository-local reference is intentionally replaced by a portable file.
+- Keep repository-specific assumptions out of the top-level portable contract.
 
 ---
 
-#### 6. **Governance Conflict**
+#### 7. **Governance Conflict**
 
 **Definition**: Contradiction, ambiguity, or inconsistency between governance files that causes confusion or automation failures.
 

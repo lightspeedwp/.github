@@ -45,7 +45,8 @@ Complete audit of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed a
 - **Resolution**: Consolidate repository organization guidance in CLAUDE.md
 
 **MISSING-INST-001–004**: Instruction files referenced but missing
-- **Files**: `coding-standards.instructions.md`, `file-organisation.instructions.md`, `plugin-structure.instructions.md`, 5 consolidation files in `instructions/`
+- **Files**: Four repository-local paths under `.github/instructions/`: `branch-naming.instructions.md`, `coding-standards.instructions.md`, `file-organisation.instructions.md`, and `plugin-structure.instructions.md`
+- **Portable inventory**: The five consolidated top-level `instructions/*.instructions.md` files are a separate contract and are verified independently by T012
 - **Impact**: Broken documentation chain
 - **Resolution**: Create files, update references, or establish migration path
 
@@ -80,10 +81,10 @@ Complete audit of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed a
 | **MAJOR** | 4 |
 | **MEDIUM** | 2 |
 | **LOW** | 1 |
-| **Current size** | 500 lines (CLAUDE.md 162, AGENTS.md 338) |
-| **Target size** | 425–450 lines (15–25% reduction) |
-| **Valid references** | 8/12 (67%) |
-| **Broken references** | 4 (33%) |
+| **Authoritative pre-refactoring baseline** | 619 lines (CLAUDE.md 267, AGENTS.md 352) |
+| **Target size** | 464–526 lines (15–25% reduction from 619) |
+| **Valid references** | 7/12 (58%) |
+| **Broken references** | 5/12 (42%) |
 | **Duplicate sections** | 1 (CRITICAL) |
 | **Constitution violations** | 1 (Principle III) |
 
@@ -106,9 +107,9 @@ After refactoring, verify:
 - ✓ **SC-001**: Zero duplicate sections (DUP-001 consolidated)
 - ✓ **SC-002**: Branch naming examples use only allowed prefixes
 - ✓ **SC-003**: Label governance consolidated to 1 section
-- ✓ **SC-004**: All references valid or documented
+- ✗ **SC-004**: Unmet — 7/12 references valid and 5 unresolved; no approved waiver recorded
 - ✓ **SC-005**: Workflow documentation added
-- ✓ **SC-006**: 15–25% size reduction achieved
+- ✗ **SC-006**: Unmet — 619→634 lines is a 15-line (2.4%) increase; no approved waiver recorded
 - ✓ **SC-007**: Cross-references use consistent anchor format
 - ✓ **SC-008**: Instruction files verified
 - ✓ **SC-009**: Changelog created

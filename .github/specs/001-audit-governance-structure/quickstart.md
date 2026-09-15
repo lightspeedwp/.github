@@ -55,19 +55,51 @@ After refactoring tasks complete, run these validation scenarios:
 **Steps**:
 
 ```bash
-# 1. Extract file references from refactored CLAUDE.md
-grep -E "^\[.*\]\(\.?/?.*\.md\)" CLAUDE.md | tee /tmp/claude-refs.txt
+# Set REFERENCE_SOURCE_ROOT to the archived originals directory for a baseline scan.
+repo_root=$(git rev-parse --show-toplevel)
+reference_source_root=${REFERENCE_SOURCE_ROOT:-$repo_root}
+reference_report=${REFERENCE_REPORT:-$repo_root/.github/reports/governance-audit-2026-09-14/reference-scan.tsv}
+printf 'source\treference\tstatus\tresolved_path\n' > "$reference_report"
 
-# 2. Extract file references from refactored AGENTS.md
-grep -E "^\[.*\]\(\.?/?.*\.md\)" AGENTS.md | tee /tmp/agents-refs.txt
+for source in CLAUDE.md AGENTS.md; do
+  perl -ne 'while (/\[[^]]+\]\(([^)]+)\)/g) { print "$1\n" }' \
+    "$reference_source_root/$source" |
+  while IFS= read -r reference; do
+    case "$reference" in
+      \#*|http://*|https://*|mailto:*) continue ;;
+    esac
 
-# 3. Verify each file exists or is documented as migrated
-# For each reference, verify:
-#   - File exists in repository, OR
-#   - Clear documentation explains migration/reason for removal
+    target=${reference%%#*}
+    target=${target%%\?*}
+    target=${target#./}
+    migrated_path=
+    case "$target" in
+      .github/instructions/branch-naming.instructions.md)
+        migrated_path=instructions/branch-naming.instructions.md ;;
+      .github/instructions/coding-standards.instructions.md)
+        migrated_path=instructions/coding-standards.instructions.md ;;
+    esac
 
-# 4. Check that documentation links work
-git status  # All files should be in repository
+    if [ -e "$repo_root/$target" ]; then
+      status=EXISTS
+      resolved_path=$target
+    elif [ -n "$migrated_path" ] && [ -e "$repo_root/$migrated_path" ]; then
+      status=MIGRATED
+      resolved_path=$migrated_path
+    else
+      status=MISSING
+      resolved_path=
+    fi
+
+    printf '%s\t%s\t%s\t%s\n' \
+      "$source" "$target" "$status" "$resolved_path" >> "$reference_report"
+  done
+done
+
+sed -n '1p' "$reference_report"
+tail -n +2 "$reference_report" | sort -t $'\t' -k1,1 -k2,2
+awk -F '\t' 'NR > 1 { count[$3]++ } END { for (status in count) print status, count[status] }' \
+  "$reference_report" | sort
 ```
 
 **Acceptance Criteria**:
@@ -121,6 +153,8 @@ grep -n "scripts/" AGENTS.md
 - [ ] Verify all guidance from original sections is present
 - [ ] Confirm no content loss
 - [ ] Verify section references are clear and unambiguous
+- [ ] Verify the five consolidated portable files resolve in top-level `instructions/` and count supporting instruction files separately
+- [ ] Verify repository-local references resolve in `.github/instructions/`; a top-level counterpart must be recorded as a migration, not an exact-path match
 
 **Acceptance Criteria**:
 
@@ -363,6 +397,8 @@ If any validation scenario fails:
 ## Next Steps After Validation
 
 ✅ Phase 1 complete: data-model.md + quickstart.md created  
-➡️ Phase 2 next: Run `/speckit-tasks` to decompose into 96 concrete tasks  
-➡️ Phase 3 follow: Execute implementation tasks  
-➡️ Final step: @ashley reviews and merges refactored governance files
+✅ Phase 2 complete: `/speckit-tasks` produced 196 concrete tasks (T001–T196)
+
+➡️ Phase 3 onward: Execute the 196-task phase hand-off in dependency order
+
+➡️ Final step (T181–T196): @ashley review, integration, and post-merge follow-up

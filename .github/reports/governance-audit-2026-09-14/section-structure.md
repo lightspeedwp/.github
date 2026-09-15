@@ -32,25 +32,27 @@
 ## AGENTS.md Section Outline (T033)
 
 ```
-1. Header (lines 1-5)
-2. Section 1: AI Development Guidelines (lines 7-50)
-   - Content curation principles
-   - AI system prompt structure
-3. Section 2: Script Organization & Governance (lines 52-102)
+1. Header and Global AI Rules (lines 1-34)
+2. Agent Directory (lines 36-40)
+3. Agent Test Status (lines 42-50)
+4. Repository Scripts Organisation (lines 52-102)
    - Script categorization
    - File placement rules
-4. Section 3: Prompt File Organization (lines 104-207)
-   - Prompt structure and templates
-5. Section 4: Label Creation Governance v1 (lines 209-252)
+5. Branch Naming Governance (lines 104-146)
+6. Contribution Guidelines & Indexes (lines 148-168)
+7. Locked Configuration Files (lines 170-207)
+8. Label Creation Governance v1 (lines 209-253)
    - CRITICAL section (DUPLICATE)
-6. Section 5: AI Agent Configuration (lines 254-283)
-   - Agent setup patterns
-7. Section 6: Label Creation Governance v2 (lines 285-338)
+9. PR Templates (lines 255-261)
+10. Core Index Instructions (lines 263-270)
+11. Cross-References & Discoverability (lines 272-283)
+12. Label Creation Governance v2 (lines 285-338)
    - CRITICAL section (DUPLICATE)
+13. References (lines 340-352)
 ```
 
-**Total Sections**: 6 major sections (with 1 duplicate)  
-**Focus**: AI system governance, script organization, label management
+**Total Sections**: 12 level-two sections, including 1 duplicated topic, plus the document heading
+**Focus**: Agent governance, script and branch rules, contribution guidance, locked configuration, indexes, and label management
 
 ---
 
@@ -95,8 +97,12 @@
 - 3 Markdown links to .github sections
 - 2 references to scripts (one missing: validate-labels-before-creation.cjs)
 
-### Broken Link Count: 1
-- `.github/scripts/validation/validate-labels-before-creation.cjs` (referenced in AGENTS.md, missing from repo)
+### Broken Link Count: 5
+- `.github/instructions/branch-naming.instructions.md` (referenced by both governance files)
+- `.github/instructions/coding-standards.instructions.md` (referenced by CLAUDE.md)
+- `.github/instructions/file-organisation.instructions.md` (referenced by CLAUDE.md)
+- `.github/instructions/plugin-structure.instructions.md` (referenced by CLAUDE.md)
+- `.github/scripts/validation/validate-labels-before-creation.cjs` (referenced by AGENTS.md)
 
 ---
 
@@ -105,6 +111,5 @@
 - **Section Clarity**: Good separation of concerns between files
 - **Cross-Reference Quality**: Appropriate and minimal (2 files should reference each other lightly)
 - **Duplicate Impact**: One section duplicated, causing maintenance debt
-- **Missing References**: One validation script referenced but not in expected location
+- **Missing References**: Five references point to paths missing from the audited snapshot
 - **Reorganization Benefit**: Moving script organization rules to CLAUDE.md or instructions/ would clarify ownership
-

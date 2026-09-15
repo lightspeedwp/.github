@@ -119,8 +119,8 @@ Before creating any issue or PR programmatically:
 - Overlap: ~80% content identical
 
 ### Content Differences
-- Occurrence 1 focuses on: Governance principles, conflict resolution
-- Occurrence 2 includes: Example labels, implementation patterns
+- Occurrence 1 covers issue creation, the required label-family prefixes, examples, and a validation checklist with a script reference.
+- Occurrence 2 expands the scope to issue and PR creation, adds broader label-family guidance, requires canonical-case validation, and links to canonical labels, label documentation, and the audit issue.
 
 ### Consolidation Approach (T031)
 
@@ -133,7 +133,7 @@ Before creating any issue or PR programmatically:
 **Placement**: Keep in AGENTS.md as primary source (label governance is AI agent domain)  
 **Cross-reference**: Add reference from CLAUDE.md if label creation mentioned
 
-**Result**: 100 lines reduced to ~80 lines with zero content loss
+**Projected result**: Consolidation is expected to reduce approximately 100 lines to approximately 80 while retaining the unique guidance. The reduction and content-retention claims remain unverified until T068–T075 are complete.
 
 ---
 

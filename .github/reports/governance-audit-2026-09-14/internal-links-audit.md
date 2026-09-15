@@ -17,7 +17,7 @@
 8. `./.github/instructions/plugin-structure.instructions.md` (line 108) — **✗ MISSING**
 9. `./AGENTS.md` (line 252) — **✓ EXISTS**
 
-**Link Status**: 6/9 verified (67% valid); 3 missing
+**Link Status**: 5/9 verified (56% valid); 4 missing
 
 ---
 
@@ -84,8 +84,8 @@
    - Current split makes repository boundaries ambiguous
    - Resolution: Consider moving to CLAUDE.md Repository Boundaries section
 
-4. **MISSING-INST-001 through 004**: Four instruction files referenced but missing
-   - `coding-standards.instructions.md`, `file-organisation.instructions.md`, `plugin-structure.instructions.md`, 5 consolidation files
+4. **MISSING-INST-001 through 004**: Four repository-local instruction paths referenced by CLAUDE.md but missing in the audited snapshot
+   - `branch-naming.instructions.md`, `coding-standards.instructions.md`, `file-organisation.instructions.md`, `plugin-structure.instructions.md` under `.github/instructions/`
    - Resolution: Audit whether these should exist or update references
 
 #### MEDIUM (Could Improve)
@@ -119,8 +119,8 @@
 ## Data-Driven Metrics
 
 - **Total References**: 12
-- **Valid References**: 8 (67%)
-- **Broken/Missing**: 4 (33%)
+- **Valid References**: 7 (58%)
+- **Broken/Missing**: 5 (42%)
 - **Duplicate Sections**: 1 (44 + 54 lines = 98 lines that could be 80)
 - **Potential Size Reduction**: 15-20% through consolidation
 - **Content Overlap**: ~80% (Label Creation Governance sections)
@@ -132,13 +132,12 @@
 **Status**: BASELINE AUDIT COMPLETE
 
 ✓ All duplicates identified (1 critical)  
-✓ All broken references documented (4 major)  
+✓ All broken references documented (5 missing references grouped into the major findings)
 ✓ All misplaced sections flagged (1 candidate)  
-✓ Reference validation complete (8/12 valid)  
+✓ Reference validation complete (7/12 valid; 5 missing)
 ✓ Constitution alignment verified (5/6 principles)  
 
 **Next Steps**: 
 1. Execute User Story 2-6 tasks for consolidation, reorganization, and workflow documentation
 2. Implement all findings from this audit report
 3. Generate refactored governance files with zero duplicates and 100% reference validity
-
