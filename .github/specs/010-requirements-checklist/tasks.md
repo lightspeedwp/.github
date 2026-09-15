@@ -1,6 +1,6 @@
 # Tasks: Requirements Quality Checklist Framework
 
-**Input**: Design documents from `/specs/003-requirements-checklist/`
+**Input**: Design documents from `/specs/010-requirements-checklist/`
 
 **Prerequisites**: plan.md (technical context), spec.md (4 user stories), data-model.md (5 entities), contracts/ (5 JSON schemas), quickstart.md (4 validation scenarios)
 
@@ -30,7 +30,7 @@
 - [ ] T006 [P] Create Jest configuration in `packages/requirements-checklist/jest.config.js` with TypeScript support
 - [ ] T007 Create README.md in `packages/requirements-checklist/` with project overview and usage examples
 - [ ] T008 Setup directory structure: `src/lib/`, `src/cli/`, `tests/unit/`, `tests/integration/`, `tests/contract/`
-- [ ] T009 [P] Copy JSON schemas from `.github/specs/003-requirements-checklist/contracts/` to `packages/requirements-checklist/schemas/`
+- [ ] T009 [P] Copy JSON schemas from `.github/specs/010-requirements-checklist/contracts/` to `packages/requirements-checklist/schemas/`
 
 **Checkpoint**: Project structure ready - proceed to Foundational phase
 
@@ -104,7 +104,7 @@
 - [ ] T036 [P] [US1] Implement ambiguities checks in `packages/requirements-checklist/src/lib/dimensions/ambiguities.ts`: Detect ambiguous pronouns, unclear antecedents, "may/should/could" without clarification, conditional requirements without clear triggers
 - [ ] T037 [US1] Add author-specific language to `packages/requirements-checklist/src/lib/templates/author-pre-review.yaml`: Frame all questions as self-reflection ("Have you...", "Can you..."); include guidance tips per dimension; add intro message ("You're about to self-review...") and success message
 - [ ] T038 [US1] Implement CLI wrapper in `packages/requirements-checklist/src/cli/index.ts` supporting: `run --spec <path> --template author-pre-review → output JSON or human-readable report to stdout`
-- [ ] T039 [US1] Create example test spec in `.github/specs/003-requirements-checklist/examples/spec-with-quality-gaps.md` with intentional issues (vague language, missing scenarios, etc.) for validation scenario testing
+- [ ] T039 [US1] Create example test spec in `.github/specs/010-requirements-checklist/examples/spec-with-quality-gaps.md` with intentional issues (vague language, missing scenarios, etc.) for validation scenario testing
 - [ ] T040 [US1] Add logging to `packages/requirements-checklist/src/lib/checklist-engine.ts`: Log start time, spec file info, template name, each dimension's start/completion time, final score
 
 **Checkpoint**: Author Pre-Review is fully functional and independently testable. Proceed to US2.
@@ -211,10 +211,10 @@
   - Scenario 2: Two reviewers show 80%+ inter-rater reliability
   - Scenario 3: Stakeholder completes in <15 min with business language output
   - Scenario 4: Technical lead identifies integration issues with context
-- [ ] T076 [Polish] Validate all 5 JSON schemas in `packages/requirements-checklist/schemas/` (link to `.github/specs/003-requirements-checklist/contracts/`): Run contract tests, verify schemas accept valid inputs, reject invalid
+- [ ] T076 [Polish] Validate all 5 JSON schemas in `packages/requirements-checklist/schemas/` (link to `.github/specs/010-requirements-checklist/contracts/`): Run contract tests, verify schemas accept valid inputs, reject invalid
 - [ ] T077 [P] [Polish] Add unit tests for error cases in `tests/unit/error-handling.test.ts`: Invalid spec file, missing template, schema validation failure, malformed YAML
 - [ ] T078 [P] [Polish] Add performance tests in `tests/performance/performance.test.ts`: Verify <5 second execution on 50+ page spec, measure memory usage, validate no memory leaks on repeated runs
-- [ ] T079 [P] [Polish] Create example specs in `.github/specs/003-requirements-checklist/examples/`:
+- [ ] T079 [P] [Polish] Create example specs in `.github/specs/010-requirements-checklist/examples/`:
   - `good-spec.md` — Example of high-quality spec (scores 90+)
   - `spec-with-gaps.md` — Example with intentional quality issues (used in Scenario 2)
   - `spec-scope-issues.md` — Example with missing scope/dependencies (used in Scenario 3)

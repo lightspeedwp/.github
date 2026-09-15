@@ -1,6 +1,6 @@
 # Feature Specification: Requirements Quality Checklist Framework
 
-**Feature Branch**: `003-requirements-checklist`
+**Feature Branch**: `010-requirements-checklist`
 
 **Created**: 2026-09-13
 

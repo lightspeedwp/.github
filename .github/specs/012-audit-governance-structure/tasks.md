@@ -1,6 +1,6 @@
 # Tasks: Governance Files Audit & Refactor
 
-**Input**: Specification from `/specs/001-audit-governance-structure/spec.md`
+**Input**: Specification from `/specs/012-audit-governance-structure/spec.md`
 
 **Status**: Phase 2 - Task Decomposition Complete
 
@@ -29,9 +29,9 @@
 - [ ] T002 [P] Create backup copies of current CLAUDE.md and AGENTS.md in `.github/reports/governance-audit-2026-09-14/originals/`
 - [ ] T003 [P] Initialize audit log file at `.github/reports/governance-audit-2026-09-14/audit-log.md` with timestamp and scope
 - [ ] T004 [P] Create working directory for consolidated content at `.github/reports/governance-audit-2026-09-14/working/`
-- [ ] T005 Verify all research.md findings are documented and accessible at `specs/001-audit-governance-structure/research.md`
-- [ ] T006 Verify all data-model.md entities are accessible at `specs/001-audit-governance-structure/data-model.md`
-- [ ] T007 Verify validation checklist from quickstart.md at `specs/001-audit-governance-structure/quickstart.md`
+- [ ] T005 Verify all research.md findings are documented and accessible at `specs/012-audit-governance-structure/research.md`
+- [ ] T006 Verify all data-model.md entities are accessible at `specs/012-audit-governance-structure/data-model.md`
+- [ ] T007 Verify validation checklist from quickstart.md at `specs/012-audit-governance-structure/quickstart.md`
 
 **Checkpoint**: Baseline established, audit environment ready, original files backed up
 
@@ -355,7 +355,7 @@
 - [ ] T182 @ashley reviews audit findings and consolidation approach
 - [ ] T183 @ashley verifies all constitution principles respected
 - [ ] T184 @ashley approves changes and signs off
-- [ ] T185 Update spec status to "Complete" in specs/001-audit-governance-structure/spec.md
+- [ ] T185 Update spec status to "Complete" in specs/012-audit-governance-structure/spec.md
 
 ### Integration Tasks
 

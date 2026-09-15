@@ -1,8 +1,8 @@
 # Implementation Plan: Governance Files Audit & Refactor
 
-**Branch**: `audit/governance-files-refactor` | **Date**: 2026-09-14 | **Spec**: [specs/001-audit-governance-structure/spec.md](./spec.md)
+**Branch**: `audit/governance-files-refactor` | **Date**: 2026-09-14 | **Spec**: [specs/012-audit-governance-structure/spec.md](./spec.md)
 
-**Input**: Feature specification from `/specs/001-audit-governance-structure/spec.md`
+**Input**: Feature specification from `/specs/012-audit-governance-structure/spec.md`
 
 **Note**: This implementation plan defines the technical design, architecture, and validation approach for auditing and refactoring CLAUDE.md and AGENTS.md governance files.
 
@@ -161,7 +161,7 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 ### Documentation (this feature)
 
 ```text
-specs/001-audit-governance-structure/
+specs/012-audit-governance-structure/
 ├── spec.md              # Feature specification (6 stories, 10 FR, 8 SC)
 ├── plan.md              # This file - implementation plan (/speckit-plan output)
 ├── research.md          # Phase 0 output - audit findings & research

@@ -1,8 +1,8 @@
 # Implementation Plan: Requirements Quality Checklist Framework
 
-**Branch**: `003-requirements-checklist` | **Date**: 2026-09-13 | **Spec**: [spec.md](spec.md)
+**Branch**: `010-requirements-checklist` | **Date**: 2026-09-13 | **Spec**: [spec.md](spec.md)
 
-**Input**: Feature specification from `.github/specs/003-requirements-checklist/spec.md`
+**Input**: Feature specification from `.github/specs/010-requirements-checklist/spec.md`
 
 **Note**: This document is the output of `/speckit-plan` command and describes the technical design, data model, contracts, and validation approach.
 
@@ -73,7 +73,7 @@ A portable, format-agnostic framework for validating specification quality acros
 ### Documentation (this feature)
 
 ```text
-.github/specs/003-requirements-checklist/
+.github/specs/010-requirements-checklist/
 ├── spec.md                  # Feature specification (PHASE 0 COMPLETE)
 ├── plan.md                  # This file — implementation plan (PHASE 1 CURRENT)
 ├── research.md              # Phase 0 output — research findings (PHASE 1)
