@@ -98,28 +98,36 @@ function getRandomFooter(category = "default", seed = null) {
  * Regex pattern to match existing footers
  */
 // List of footer patterns to match (add or update as needed)
+// Each pattern's body is deliberately bounded to a single line ([^\n]*,
+// not [\s\S]*?): footer phrases are always one line, optionally followed
+// by exactly one link line. An earlier version used [\s\S]*? here, which
+// can match across newlines -- combined with the outer buildFooterRegex()
+// anchoring on end-of-string, that let a footer phrase merely quoted or
+// re-used mid-document (matching only because it starts a line) expand
+// all the way to the true end of the file, and ensureFooter()'s replace
+// path would then delete every real line of content after it.
 const FOOTER_PATTERNS = [
-  "_Maintained with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Built by 🧱[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "[*_]?Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_This page brought to you by[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Docs signed by 🤖[\\s\\S]*?",
-  "Made with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "Questions\\?[\\s\\S]*?",
-  "Prefer a guided[\\s\\S]*?",
-  "Clarity first[\\s\\S]*?",
-  "Improvements welcome[\\s\\S]*?",
-  "Copy, adapt[\\s\\S]*?",
-  "Tweak the variables[\\s\\S]*?",
-  "Your feedback shapes[\\s\\S]*?",
-  "Reuse beats[\\s\\S]*?",
-  "Keep prompts[\\s\\S]*?",
-  "Use responsibly[\\s\\S]*?",
-  "Keep tone[\\s\\S]*?",
-  "Update when[\\s\\S]*?",
-  "Link policies[\\s\\S]*?",
-  "Thanks for helping[\\s\\S]*?",
-  "Need help\\?[\\s\\S]*?",
+  "_Maintained with ❤️[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?",
+  "_Built by 🧱[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?",
+  "[*_]?Have questions\\?[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?",
+  "_This page brought to you by[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?",
+  "_Docs signed by 🤖[^\\n]*",
+  "Made with ❤️[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?",
+  "Questions\\?[^\\n]*",
+  "Prefer a guided[^\\n]*",
+  "Clarity first[^\\n]*",
+  "Improvements welcome[^\\n]*",
+  "Copy, adapt[^\\n]*",
+  "Tweak the variables[^\\n]*",
+  "Your feedback shapes[^\\n]*",
+  "Reuse beats[^\\n]*",
+  "Keep prompts[^\\n]*",
+  "Use responsibly[^\\n]*",
+  "Keep tone[^\\n]*",
+  "Update when[^\\n]*",
+  "Link policies[^\\n]*",
+  "Thanks for helping[^\\n]*",
+  "Need help\\?[^\\n]*",
 ];
 
 /**
@@ -142,7 +150,15 @@ function buildFooterRegex() {
   // The original source baked "$/m" into the pattern as literal text
   // (matching the literal characters "$", "/", "m"), which happened to
   // never match at all rather than over-matching.
-  const pattern = `(^|\\n)(?:${FOOTER_PATTERNS.join("|")})$`;
+  //
+  // A trailing "\n?" before the final anchor tolerates the single
+  // trailing newline ensureFooter()'s own append path always writes
+  // (`nextFooter + "\n"`) -- without it, a footer this function itself
+  // previously wrote could never be found and replaced on a later call
+  // (the match would end one character before the file's true end), so
+  // ensureFooter() was not idempotent: calling it twice appended two
+  // footers instead of replacing the first.
+  const pattern = `(^|\\n)(?:${FOOTER_PATTERNS.join("|")})\\n?$`;
   return new RegExp(pattern);
 }
 
