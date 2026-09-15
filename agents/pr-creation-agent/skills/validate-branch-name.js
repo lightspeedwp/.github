@@ -85,8 +85,9 @@ export async function validateBranchName(input) {
     }
   }
 
-  // Format: {type}/{scope}-{short-title}, lowercase letters/digits/hyphens only
-  const match = branchName.match(/^([a-z0-9-]+)\/([a-z0-9-]+)$/);
+  // Format: {type}/{scope}-{short-title}, lowercase letters/digits/hyphens,
+  // plus dots (needed for version-style slugs like "release/v1.0.0").
+  const match = branchName.match(/^([a-z0-9-]+)\/([a-z0-9.-]+)$/);
 
   if (!match) {
     if (!branchName.includes("/")) {
@@ -106,7 +107,7 @@ export async function validateBranchName(input) {
       );
     } else {
       errors.push(
-        "Branch name does not match required format: use only lowercase letters, digits and hyphens",
+        "Branch name does not match required format: use only lowercase letters, digits, hyphens and dots",
         "branch-slug-invalid",
       );
     }
@@ -147,9 +148,34 @@ export async function validateBranchName(input) {
     };
   }
 
+  // Release branches name a bare version (e.g. "release/v1.0.0"), which
+  // has no {scope}-{short-title} split at all -- documented as the
+  // canonical release branch format, so it's accepted as a version-only
+  // slug rather than forced through the general two-part convention.
+  const isReleaseVersionSlug =
+    type === "release" && !slug.includes("-") && /^v?\d+(?:\.\d+)*$/.test(slug);
+
+  if (isReleaseVersionSlug) {
+    return {
+      valid: true,
+      errors: [],
+      warnings,
+      branchName,
+      type,
+      scope: slug,
+      shortTitle: null,
+      metadata: {
+        format: "valid",
+        length: branchName.length,
+        partsCount: 2,
+      },
+    };
+  }
+
   if (!slug.includes("-")) {
     errors.push(
       "Missing hyphen separating scope from short title (expected {scope}-{short-title})",
+      "branch-slug-invalid",
     );
     return {
       valid: false,
