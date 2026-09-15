@@ -527,23 +527,27 @@ describe("Security", () => {
 // ============================================================================
 
 describe("Error Handling", () => {
-  test("Should provide meaningful error messages", () => {
+  beforeEach(() => {
     setupTestRepo();
+  });
+
+  afterEach(() => {
+    process.chdir(ORIGINAL_CWD);
+  });
+
+  test("Should provide meaningful error messages", () => {
     execSync("git checkout -b main");
     const gates = new ReleaseGates();
     gates.gate1Preflight();
     const details = gates.results.gate1_preflight.details.join("\n");
     expect(details).toMatch(/not on develop/i);
-    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should suggest fixes", () => {
-    setupTestRepo();
     fs.unlinkSync("VERSION");
     const gates = new ReleaseGates();
     gates.runAllGates();
     const log = gates.getResults();
     expect(log.passed).toBe(false);
-    process.chdir(ORIGINAL_CWD);
   });
 });
