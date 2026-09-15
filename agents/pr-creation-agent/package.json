@@ -30,7 +30,7 @@
     "directory": "agents/pr-creation-agent"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.23.0",
+    "@babel/preset-env": "^8.0.5",
     "@jest/globals": "^30.4.1",
     "@types/node": "^20.0.0",
     "babel-jest": "^29.7.0",
