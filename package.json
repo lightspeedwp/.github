@@ -210,6 +210,8 @@
     "tmp": "^0.2.6",
     "@babel/preset-env": "8.0.5",
     "@babel/preset-typescript": "8.0.1",
-    "undici": "^6.28.0"
+    "undici": "^6.28.0",
+    "smol-toml": "^1.8.0",
+    "lodash-es": "^4.18.1"
   }
 }
