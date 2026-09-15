@@ -23,7 +23,7 @@ const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
 
-const AGENTS_DIR = path.join(__dirname, "../../../.github/agents");
+const AGENTS_DIR = path.join(__dirname, "../../../agents");
 
 // Canonical permission scopes allowed by the agent frontmatter schema
 // (schemas/frontmatter.schema.json, "Agent Specification" branch).

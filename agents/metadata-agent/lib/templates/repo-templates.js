@@ -36,6 +36,7 @@ function buildFrontmatter(title, description, category, date, repoName) {
     `tags: ["${category}", "automated-report", "${repoName}"]`,
     "---",
     "",
+    "",
   ].join("\n");
 }
 

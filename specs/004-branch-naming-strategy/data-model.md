@@ -254,3 +254,6 @@ Compliance metrics track branches in each state to understand lifecycle impact.
   - Optionally synced to Google Sheets for dashboarding
   - Retention policy: 30/90/365 days (TBD in research phase)
   - Queryable for trends and org-wide reporting
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

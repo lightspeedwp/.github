@@ -30,7 +30,13 @@ function validateFrontmatter(filePath, schema) {
 
   try {
     const yaml = require("js-yaml");
-    const frontmatter = yaml.load(frontmatterMatch[1]) || {};
+    // js-yaml throws YAMLException("expected a document, but the input is
+    // empty") for an empty/whitespace-only string rather than returning
+    // undefined, so an empty frontmatter block ("---\n\n---") must be
+    // special-cased before calling load() -- otherwise it's misreported
+    // as a YAML parsing error instead of a valid, field-less frontmatter.
+    const raw = frontmatterMatch[1];
+    const frontmatter = raw.trim() === "" ? {} : yaml.load(raw) || {};
 
     const errors = [];
     const warnings = [];

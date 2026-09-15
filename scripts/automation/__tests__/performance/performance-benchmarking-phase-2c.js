@@ -18,9 +18,11 @@
 
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// `__dirname` here is Jest's ambient CommonJS-wrapper global, not a native
+// ESM binding: import.meta.url has no CJS equivalent, so using it would
+// leave this file un-transformable to CommonJS and break under plain jest
+// (no --experimental-vm-modules), which is how the root suite runs it.
 const REPO_ROOT = path.join(__dirname, "../../../..");
 
 /**
@@ -451,16 +453,6 @@ export async function runBenchmarks(scripts = null) {
   console.log(`💾 Results saved to: ${resultsPath}\n`);
 
   return results;
-}
-
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const args = process.argv.slice(2);
-  const script = args.includes("--script")
-    ? args[args.indexOf("--script") + 1]
-    : null;
-
-  runBenchmarks(script ? [script] : null).catch(console.error);
 }
 
 export {

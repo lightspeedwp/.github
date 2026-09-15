@@ -471,3 +471,6 @@ git push origin --delete claude/wrong-name
 - Monitor compliance metrics dashboard (URL TBD)
 - Update [contracts/branch-naming.contract.md](./contracts/branch-naming.contract.md) if type/label mappings change
 - Re-run full test suite quarterly to catch regressions
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

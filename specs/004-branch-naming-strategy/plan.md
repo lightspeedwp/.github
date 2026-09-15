@@ -232,3 +232,6 @@ No Constitution violations requiring justification. Implementation respects all 
 **Phase 0**: Run `/speckit-tasks` to generate the 51-task breakdown with dependencies, parallelization markers [P], and time estimates.
 
 **Then Phases 1-6**: Run `/speckit-implement` to execute tasks and build the validation system end-to-end, with progress tracking and validation gates at each phase completion.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

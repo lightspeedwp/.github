@@ -16,14 +16,14 @@
 // No external dependencies required for test-runner mock framework
 
 const TEST_CONFIG = {
-  provider: process.argv.includes('--provider')
-    ? process.argv[process.argv.indexOf('--provider') + 1]
-    : 'claude',
-  suite: process.argv.includes('--suite')
-    ? process.argv[process.argv.indexOf('--suite') + 1]
-    : 'all',
-  verbose: process.argv.includes('--verbose'),
-  outputFormat: process.argv.includes('--json') ? 'json' : 'text'
+  provider: process.argv.includes("--provider")
+    ? process.argv[process.argv.indexOf("--provider") + 1]
+    : "claude",
+  suite: process.argv.includes("--suite")
+    ? process.argv[process.argv.indexOf("--suite") + 1]
+    : "all",
+  verbose: process.argv.includes("--verbose"),
+  outputFormat: process.argv.includes("--json") ? "json" : "text",
 };
 
 // Test results tracker
@@ -32,12 +32,16 @@ const results = {
   passed: 0,
   failed: 0,
   skipped: 0,
-  fixtureType: 'mock',
-  note: 'Mock fixture validation — no agent prompts loaded or API calls made. Each test validates hardcoded sample data. For actual provider execution (Phase 5 completion), extend test-runner.js to invoke configured provider with agent prompt.',
+  fixtureType: "mock",
+  note: "Mock fixture validation — no agent prompts loaded or API calls made. Each test validates hardcoded sample data. For actual provider execution (Phase 5 completion), extend test-runner.js to invoke configured provider with agent prompt.",
+  // Recorded once at the run level: this is what --provider was invoked
+  // with, not a claim that each test actually exercised that provider —
+  // every test validates the same hardcoded fixture regardless of it.
+  requestedProvider: TEST_CONFIG.provider,
   byCategory: {},
   startTime: Date.now(),
   endTime: null,
-  tests: []
+  tests: [],
 };
 
 /**
@@ -45,36 +49,44 @@ const results = {
  * Validates that generated PRD contains all required sections
  */
 function tc101BasicPRDStructure() {
-  const testId = 'TC-101';
+  const testId = "TC-101";
   const requiredSections = [
-    'Overview',
-    'User Stories',
-    'Acceptance Criteria',
-    'Success Metrics',
-    'Release Notes'
+    "Overview",
+    "User Stories",
+    "Acceptance Criteria",
+    "Success Metrics",
+    "Release Notes",
   ];
 
   // Mock PRD output for testing
   const mockPRD = {
-    Overview: 'User authentication system with OAuth2 and JWT support',
-    'User Stories': ['US1: User registration', 'US2: User login', 'US3: Password reset'],
-    'Acceptance Criteria': ['Users can register', 'Users can login', 'Password reset works'],
-    'Success Metrics': ['95% successful auth rate', '<100ms login time'],
-    'Release Notes': 'Initial authentication feature release'
+    Overview: "User authentication system with OAuth2 and JWT support",
+    "User Stories": [
+      "US1: User registration",
+      "US2: User login",
+      "US3: Password reset",
+    ],
+    "Acceptance Criteria": [
+      "Users can register",
+      "Users can login",
+      "Password reset works",
+    ],
+    "Success Metrics": ["95% successful auth rate", "<100ms login time"],
+    "Release Notes": "Initial authentication feature release",
   };
 
-  const passed = requiredSections.every(section =>
-    mockPRD.hasOwnProperty(section) && mockPRD[section]
+  const passed = requiredSections.every(
+    (section) => Object.hasOwn(mockPRD, section) && mockPRD[section],
   );
 
   return {
     testId,
-    category: 'PRD Generation Quality',
-    name: 'Basic PRD Structure Compliance',
+    category: "PRD Generation Quality",
+    name: "Basic PRD Structure Compliance",
     passed,
     message: passed
       ? `All ${requiredSections.length} required sections present`
-      : `Missing sections: ${requiredSections.filter(s => !mockPRD[s]).join(', ')}`
+      : `Missing sections: ${requiredSections.filter((s) => !mockPRD[s]).join(", ")}`,
   };
 }
 
@@ -83,52 +95,54 @@ function tc101BasicPRDStructure() {
  * Validates requirement parsing into user stories and acceptance criteria
  */
 function tc102FeatureRequirementsExtraction() {
-  const testId = 'TC-102';
+  const testId = "TC-102";
 
   // Mock requirements extraction for: "Improve user login experience"
   const extracted = {
     userStories: [
-      'US1: Display password strength indicator',
-      'US2: Support biometric authentication',
-      'US3: Remember device option',
-      'US4: Social login integration',
-      'US5: Session timeout management'
+      "US1: Display password strength indicator",
+      "US2: Support biometric authentication",
+      "US3: Remember device option",
+      "US4: Social login integration",
+      "US5: Session timeout management",
     ],
     acceptanceCriteria: [
-      'Password validation shows in real-time',
-      'Biometric login works on supported devices',
-      'Device memory lasts 30 days',
-      'Social login supports Google, GitHub, Microsoft',
-      'Sessions expire after 24h of inactivity',
-      'User can manually logout',
-      'Login page loads in <1s',
-      'Mobile-responsive design',
-      'Accessible keyboard navigation',
-      'WCAG 2.2 AA compliance',
-      'Error messages are clear',
-      'Password reset email arrives <5min',
-      'Rate limiting prevents brute force',
-      'Failed attempts locked after 5 tries',
-      'Two-factor authentication available'
-    ]
+      "Password validation shows in real-time",
+      "Biometric login works on supported devices",
+      "Device memory lasts 30 days",
+      "Social login supports Google, GitHub, Microsoft",
+      "Sessions expire after 24h of inactivity",
+      "User can manually logout",
+      "Login page loads in <1s",
+      "Mobile-responsive design",
+      "Accessible keyboard navigation",
+      "WCAG 2.2 AA compliance",
+      "Error messages are clear",
+      "Password reset email arrives <5min",
+      "Rate limiting prevents brute force",
+      "Failed attempts locked after 5 tries",
+      "Two-factor authentication available",
+    ],
   };
 
-  const meetsTarget = extracted.userStories.length >= 5 && extracted.acceptanceCriteria.length >= 15;
+  const meetsTarget =
+    extracted.userStories.length >= 5 &&
+    extracted.acceptanceCriteria.length >= 15;
 
   return {
     testId,
-    category: 'PRD Generation Quality',
-    name: 'Feature Requirements Extraction',
+    category: "PRD Generation Quality",
+    name: "Feature Requirements Extraction",
     passed: meetsTarget,
     metrics: {
       userStories: extracted.userStories.length,
       acceptanceCriteria: extracted.acceptanceCriteria.length,
       targetUserStories: 5,
-      targetAcceptanceCriteria: 15
+      targetAcceptanceCriteria: 15,
     },
     message: meetsTarget
       ? `Extracted ${extracted.userStories.length} user stories and ${extracted.acceptanceCriteria.length} acceptance criteria`
-      : `Below target thresholds`
+      : `Below target thresholds`,
   };
 }
 
@@ -137,28 +151,28 @@ function tc102FeatureRequirementsExtraction() {
  * Validates agent identifies correct skill sequence
  */
 function tc104CrossSkillRoutingClarity() {
-  const testId = 'TC-104';
+  const testId = "TC-104";
 
   // Expected routing for a complex PRD workflow
   const expectedRoute = [
-    'project-researcher',
-    'prd-writer',
-    'acceptance-test-planner',
-    'prd-task-reviewer'
+    "project-researcher",
+    "prd-writer",
+    "acceptance-test-planner",
+    "prd-task-reviewer",
   ];
 
   // Mock agent routing output
   const agentRoute = [
-    'project-researcher',
-    'prd-writer',
-    'acceptance-test-planner',
-    'prd-task-reviewer',
-    'github-issue-drafter'
+    "project-researcher",
+    "prd-writer",
+    "acceptance-test-planner",
+    "prd-task-reviewer",
+    "github-issue-drafter",
   ];
 
   // Check that expected skills appear in order
   let lastIndex = -1;
-  const routeMatches = expectedRoute.every(skill => {
+  const routeMatches = expectedRoute.every((skill) => {
     const index = agentRoute.indexOf(skill);
     if (index > lastIndex) {
       lastIndex = index;
@@ -172,18 +186,18 @@ function tc104CrossSkillRoutingClarity() {
 
   return {
     testId,
-    category: 'Multi-Skill Orchestration',
-    name: 'Cross-Skill Routing Clarity',
+    category: "Multi-Skill Orchestration",
+    name: "Cross-Skill Routing Clarity",
     passed,
     metrics: {
       identifiedSkills: agentRoute.length,
       targetSkills: 3,
-      routeCorrect: routeMatches
+      routeCorrect: routeMatches,
     },
     routing: agentRoute,
     message: passed
       ? `Correctly identified ${agentRoute.length} skills in proper sequence`
-      : `Routing validation failed`
+      : `Routing validation failed`,
   };
 }
 
@@ -192,39 +206,41 @@ function tc104CrossSkillRoutingClarity() {
  * Validates PRD conforms to JSON schema and Markdown format standards
  */
 function tc103SchemaFormatCompliance() {
-  const testId = 'TC-103';
+  const testId = "TC-103";
 
   // Mock PRD with schema validation
   const mockPRD = {
     metadata: {
-      title: 'User Authentication System',
-      version: '1.0.0',
-      date: '2026-09-12'
+      title: "User Authentication System",
+      version: "1.0.0",
+      date: "2026-09-12",
     },
     sections: {
-      overview: 'Comprehensive authentication system',
-      userStories: ['US1', 'US2', 'US3'],
-      acceptanceCriteria: ['AC1', 'AC2', 'AC3']
-    }
+      overview: "Comprehensive authentication system",
+      userStories: ["US1", "US2", "US3"],
+      acceptanceCriteria: ["AC1", "AC2", "AC3"],
+    },
   };
 
   const hasMetadata = Boolean(mockPRD.metadata && mockPRD.metadata.title);
   const hasSections = Boolean(mockPRD.sections);
-  const isValidJSON = typeof mockPRD === 'object';
+  const isValidJSON = typeof mockPRD === "object";
 
   const passed = hasMetadata && hasSections && isValidJSON;
 
   return {
     testId,
-    category: 'PRD Generation Quality',
-    name: 'Schema & Format Compliance',
+    category: "PRD Generation Quality",
+    name: "Schema & Format Compliance",
     passed,
     metrics: {
       schemaCompliant: isValidJSON,
       hasMetadata,
-      hasSections
+      hasSections,
     },
-    message: passed ? 'Schema and format compliance verified' : 'Schema validation failed'
+    message: passed
+      ? "Schema and format compliance verified"
+      : "Schema validation failed",
   };
 }
 
@@ -233,33 +249,37 @@ function tc103SchemaFormatCompliance() {
  * Validates context preservation across multi-turn conversations
  */
 function tc105MemoryContextPreservation() {
-  const testId = 'TC-105';
+  const testId = "TC-105";
 
   // Mock multi-turn conversation context
   const turnHistory = [
-    { turn: 1, action: 'Create PRD', decision: 'OAuth2 chosen' },
-    { turn: 2, action: 'Review PRD', decision: 'Approved with feedback' },
-    { turn: 3, action: 'Plan Implementation', decision: 'Frontend and Backend split' }
+    { turn: 1, action: "Create PRD", decision: "OAuth2 chosen" },
+    { turn: 2, action: "Review PRD", decision: "Approved with feedback" },
+    {
+      turn: 3,
+      action: "Plan Implementation",
+      decision: "Frontend and Backend split",
+    },
   ];
 
   const contextLost = turnHistory.length < 3;
-  const decisionsTracked = turnHistory.every(t => t.decision);
+  const decisionsTracked = turnHistory.every((t) => t.decision);
 
   const passed = !contextLost && decisionsTracked;
 
   return {
     testId,
-    category: 'PRD Generation Quality',
-    name: 'Memory Context Preservation',
+    category: "PRD Generation Quality",
+    name: "Memory Context Preservation",
     passed,
     metrics: {
       turnCount: turnHistory.length,
       contextContinuity: 100,
-      decisionsTracked: turnHistory.filter(t => t.decision).length
+      decisionsTracked: turnHistory.filter((t) => t.decision).length,
     },
     message: passed
       ? `Context preserved across ${turnHistory.length} turns, ${turnHistory.length} decisions tracked`
-      : 'Context preservation failed'
+      : "Context preservation failed",
   };
 }
 
@@ -268,29 +288,40 @@ function tc105MemoryContextPreservation() {
  * Validates correct skill sequence execution
  */
 function tc201SkillSequenceAccuracy() {
-  const testId = 'TC-201';
+  const testId = "TC-201";
 
-  const expectedSequence = ['project-intake', 'delivery-planner', 'estimation-planner', 'github-issue-drafter'];
-  const actualSequence = ['project-intake', 'delivery-planner', 'estimation-planner', 'github-issue-drafter'];
+  const expectedSequence = [
+    "project-intake",
+    "delivery-planner",
+    "estimation-planner",
+    "github-issue-drafter",
+  ];
+  const actualSequence = [
+    "project-intake",
+    "delivery-planner",
+    "estimation-planner",
+    "github-issue-drafter",
+  ];
 
-  const sequenceMatches = JSON.stringify(expectedSequence) === JSON.stringify(actualSequence);
+  const sequenceMatches =
+    JSON.stringify(expectedSequence) === JSON.stringify(actualSequence);
   const noDuplicates = new Set(actualSequence).size === actualSequence.length;
 
   const passed = sequenceMatches && noDuplicates;
 
   return {
     testId,
-    category: 'Multi-Skill Orchestration',
-    name: 'Skill Sequence Accuracy',
+    category: "Multi-Skill Orchestration",
+    name: "Skill Sequence Accuracy",
     passed,
     metrics: {
       sequenceCorrect: sequenceMatches,
       duplicateFree: noDuplicates,
-      skillCount: actualSequence.length
+      skillCount: actualSequence.length,
     },
     message: passed
       ? `Skill sequence verified with ${actualSequence.length} unique skills in correct order`
-      : 'Skill sequence validation failed'
+      : "Skill sequence validation failed",
   };
 }
 
@@ -299,35 +330,36 @@ function tc201SkillSequenceAccuracy() {
  * Validates smooth context passing between skills
  */
 function tc202SkillHandoffQuality() {
-  const testId = 'TC-202';
+  const testId = "TC-202";
 
   // Mock handoff with continuity score
   const handoffQuality = {
     contextPreserved: true,
     noReExplanation: true,
-    outputQuality: 'high',
-    continuityScore: 92
+    outputQuality: "high",
+    continuityScore: 92,
   };
 
   const targetScore = 85;
-  const passed = handoffQuality.continuityScore >= targetScore &&
-                 handoffQuality.contextPreserved &&
-                 handoffQuality.noReExplanation;
+  const passed =
+    handoffQuality.continuityScore >= targetScore &&
+    handoffQuality.contextPreserved &&
+    handoffQuality.noReExplanation;
 
   return {
     testId,
-    category: 'Multi-Skill Orchestration',
-    name: 'Skill Handoff Quality',
+    category: "Multi-Skill Orchestration",
+    name: "Skill Handoff Quality",
     passed,
     metrics: {
       continuityScore: handoffQuality.continuityScore,
       targetScore,
       contextPreserved: handoffQuality.contextPreserved,
-      outputQuality: handoffQuality.outputQuality
+      outputQuality: handoffQuality.outputQuality,
     },
     message: passed
       ? `Handoff quality verified with continuity score ${handoffQuality.continuityScore}`
-      : 'Handoff quality below target'
+      : "Handoff quality below target",
   };
 }
 
@@ -336,32 +368,33 @@ function tc202SkillHandoffQuality() {
  * Validates graceful handling of skill boundaries
  */
 function tc203SkillIntegrationEdgeCases() {
-  const testId = 'TC-203';
+  const testId = "TC-203";
 
   // Mock edge case handling
   const edgeCaseHandling = {
     boundaryRecognized: true,
     gracefulError: true,
     userSatisfaction: 4.5,
-    targetSatisfaction: 4.0
+    targetSatisfaction: 4.0,
   };
 
-  const passed = edgeCaseHandling.boundaryRecognized &&
-                 edgeCaseHandling.userSatisfaction >= edgeCaseHandling.targetSatisfaction;
+  const passed =
+    edgeCaseHandling.boundaryRecognized &&
+    edgeCaseHandling.userSatisfaction >= edgeCaseHandling.targetSatisfaction;
 
   return {
     testId,
-    category: 'Multi-Skill Orchestration',
-    name: 'Skill Integration Edge Cases',
+    category: "Multi-Skill Orchestration",
+    name: "Skill Integration Edge Cases",
     passed,
     metrics: {
       boundaryRecognized: edgeCaseHandling.boundaryRecognized,
       gracefulHandling: edgeCaseHandling.gracefulError,
-      userSatisfaction: edgeCaseHandling.userSatisfaction
+      userSatisfaction: edgeCaseHandling.userSatisfaction,
     },
     message: passed
       ? `Edge cases handled gracefully with ${edgeCaseHandling.userSatisfaction}/5 satisfaction`
-      : 'Edge case handling failed'
+      : "Edge case handling failed",
   };
 }
 
@@ -370,33 +403,33 @@ function tc203SkillIntegrationEdgeCases() {
  * Validates conflict detection and resolution
  */
 function tc204ConflictResolution() {
-  const testId = 'TC-204';
+  const testId = "TC-204";
 
   // Mock conflict scenario
   const conflictAnalysis = {
     conflictDetected: true,
-    conflictType: 'timeline-mismatch',
+    conflictType: "timeline-mismatch",
     resolutionProposed: true,
-    resolutionQuality: 'high'
+    resolutionQuality: "high",
   };
 
-  const passed = conflictAnalysis.conflictDetected &&
-                 conflictAnalysis.resolutionProposed;
+  const passed =
+    conflictAnalysis.conflictDetected && conflictAnalysis.resolutionProposed;
 
   return {
     testId,
-    category: 'Multi-Skill Orchestration',
-    name: 'Cross-Skill Conflict Resolution',
+    category: "Multi-Skill Orchestration",
+    name: "Cross-Skill Conflict Resolution",
     passed,
     metrics: {
       conflictDetected: conflictAnalysis.conflictDetected,
       conflictType: conflictAnalysis.conflictType,
       resolutionProposed: conflictAnalysis.resolutionProposed,
-      detectionRate: 95
+      detectionRate: 95,
     },
     message: passed
       ? `Conflict detected (${conflictAnalysis.conflictType}) and resolution proposed`
-      : 'Conflict resolution validation failed'
+      : "Conflict resolution validation failed",
   };
 }
 
@@ -405,20 +438,20 @@ function tc204ConflictResolution() {
  * Validates GitHub issue generation from PRD requirements
  */
 function tc301GitHubIssueCreation() {
-  const testId = 'TC-301';
+  const testId = "TC-301";
 
   // Mock generated GitHub issue
   const issue = {
-    title: 'Feature: User Authentication System',
-    labels: ['type:feature', 'status:in-progress', 'area:auth'],
+    title: "Feature: User Authentication System",
+    labels: ["type:feature", "status:in-progress", "area:auth"],
     checklist: [
-      '[ ] OAuth2 implementation',
-      '[ ] JWT token refresh',
-      '[ ] Password reset flow',
-      '[ ] Biometric auth',
-      '[ ] Session management'
+      "[ ] OAuth2 implementation",
+      "[ ] JWT token refresh",
+      "[ ] Password reset flow",
+      "[ ] Biometric auth",
+      "[ ] Session management",
     ],
-    body: 'This issue tracks implementation of user authentication...'
+    body: "This issue tracks implementation of user authentication...",
   };
 
   const hasTitle = Boolean(issue.title);
@@ -430,18 +463,18 @@ function tc301GitHubIssueCreation() {
 
   return {
     testId,
-    category: 'GitHub Integration',
-    name: 'GitHub Issue Creation from PRD',
+    category: "GitHub Integration",
+    name: "GitHub Issue Creation from PRD",
     passed,
     metrics: {
       hasTitle,
       hasLabels: issue.labels?.length || 0,
       checklistItems: issue.checklist?.length || 0,
-      hasDescription: hasBody
+      hasDescription: hasBody,
     },
     message: passed
       ? `GitHub issue created with ${issue.labels.length} labels and ${issue.checklist.length} checklist items`
-      : `Missing required issue components`
+      : `Missing required issue components`,
   };
 }
 
@@ -450,14 +483,14 @@ function tc301GitHubIssueCreation() {
  * Validates GitHub issues are linked to milestone and project
  */
 function tc302MilestoneProjectLinking() {
-  const testId = 'TC-302';
+  const testId = "TC-302";
 
   // Mock GitHub issue with milestone and project linking
   const issueLink = {
-    title: 'Feature: User Authentication System',
-    milestone: 'Sprint-Q4-2026',
-    projectBoard: 'PRD-Agent-Development',
-    linkedSuccessfully: true
+    title: "Feature: User Authentication System",
+    milestone: "Sprint-Q4-2026",
+    projectBoard: "PRD-Agent-Development",
+    linkedSuccessfully: true,
   };
 
   const hasMilestone = Boolean(issueLink.milestone);
@@ -467,17 +500,17 @@ function tc302MilestoneProjectLinking() {
 
   return {
     testId,
-    category: 'GitHub Integration',
-    name: 'GitHub Milestone & Project Linking',
+    category: "GitHub Integration",
+    name: "GitHub Milestone & Project Linking",
     passed,
     metrics: {
       milestoneLinked: hasMilestone,
       projectLinked: hasProjectLink,
-      linkingSuccess: issueLink.linkedSuccessfully
+      linkingSuccess: issueLink.linkedSuccessfully,
     },
     message: passed
       ? `Issue linked to milestone "${issueLink.milestone}" and project "${issueLink.projectBoard}"`
-      : 'Milestone/project linking failed'
+      : "Milestone/project linking failed",
   };
 }
 
@@ -486,40 +519,41 @@ function tc302MilestoneProjectLinking() {
  * Validates structured PR review and approval tracking
  */
 function tc303PRReviewApprovalWorkflow() {
-  const testId = 'TC-303';
+  const testId = "TC-303";
 
   // Mock PR review feedback
   const prReview = {
     feedbackItems: [
-      { id: 1, type: 'suggestion', quality: 'high' },
-      { id: 2, type: 'question', quality: 'high' },
-      { id: 3, type: 'requirement', quality: 'high' },
-      { id: 4, type: 'optimization', quality: 'high' },
-      { id: 5, type: 'documentation', quality: 'high' }
+      { id: 1, type: "suggestion", quality: "high" },
+      { id: 2, type: "question", quality: "high" },
+      { id: 3, type: "requirement", quality: "high" },
+      { id: 4, type: "optimization", quality: "high" },
+      { id: 5, type: "documentation", quality: "high" },
     ],
     approvalsTracked: true,
-    reviewQuality: 92
+    reviewQuality: 92,
   };
 
   const minFeedbackItems = 5;
-  const passed = prReview.feedbackItems.length >= minFeedbackItems &&
-                 prReview.approvalsTracked &&
-                 prReview.reviewQuality >= 90;
+  const passed =
+    prReview.feedbackItems.length >= minFeedbackItems &&
+    prReview.approvalsTracked &&
+    prReview.reviewQuality >= 90;
 
   return {
     testId,
-    category: 'GitHub Integration',
-    name: 'PR Review & Approval Workflow',
+    category: "GitHub Integration",
+    name: "PR Review & Approval Workflow",
     passed,
     metrics: {
       feedbackItems: prReview.feedbackItems.length,
       minRequired: minFeedbackItems,
       approvalsTracked: prReview.approvalsTracked,
-      reviewQuality: prReview.reviewQuality
+      reviewQuality: prReview.reviewQuality,
     },
     message: passed
       ? `PR review captured ${prReview.feedbackItems.length} feedback items with ${prReview.reviewQuality}% quality`
-      : 'PR review validation failed'
+      : "PR review validation failed",
   };
 }
 
@@ -528,58 +562,58 @@ function tc303PRReviewApprovalWorkflow() {
  * Validates no references to deleted/non-canonical skills
  */
 function tc401CanonicalSkillNameResolution() {
-  const testId = 'TC-401';
+  const testId = "TC-401";
 
   // 28 canonical skills (post-consolidation)
   const canonicalSkills = [
-    'acceptance-test-planner',
-    'approval-gate-manager',
-    'change-request-router',
-    'delivery-planner',
-    'estimation-planner',
-    'evidence-locker',
-    'figma-wordpress-technical-brief',
-    'github-issue-drafter',
-    'implementation-plan-generator',
-    'intake-routing',
-    'launch-task-router',
-    'lightspeed-intake-onboarding',
-    'markdown-content-validator',
-    'memory-management',
-    'project-intake',
-    'project-memory-manager',
-    'project-researcher',
-    'prd-agent-orchestrator',
-    'prd-task-pack-exporter',
-    'prd-task-reviewer',
-    'prd-writer',
-    'project-status-reporter',
-    'qa-findings-router',
-    'qa-planner',
-    'release-handoff-generator',
-    'requirements-traceability-mapper',
-    'validation-support',
-    'wordpress-plugin-packaging-review'
+    "acceptance-test-planner",
+    "approval-gate-manager",
+    "change-request-router",
+    "delivery-planner",
+    "estimation-planner",
+    "evidence-locker",
+    "figma-wordpress-technical-brief",
+    "github-issue-drafter",
+    "implementation-plan-generator",
+    "intake-routing",
+    "launch-task-router",
+    "lightspeed-intake-onboarding",
+    "markdown-content-validator",
+    "memory-management",
+    "project-intake",
+    "project-memory-manager",
+    "project-researcher",
+    "prd-agent-orchestrator",
+    "prd-task-pack-exporter",
+    "prd-task-reviewer",
+    "prd-writer",
+    "project-status-reporter",
+    "qa-findings-router",
+    "qa-planner",
+    "release-handoff-generator",
+    "requirements-traceability-mapper",
+    "validation-support",
+    "wordpress-plugin-packaging-review",
   ];
 
   // Deleted skills that should NOT appear
   const deletedSkills = [
-    'prd-generator',
-    'prd-reviewer',
-    'prd-factory-planner-agent',
-    'frontend-skill',
-    'change-control',
-    'implementation-planning',
-    'issue-drafting',
-    'qa-triage',
-    'review-qa'
+    "prd-generator",
+    "prd-reviewer",
+    "prd-factory-planner-agent",
+    "frontend-skill",
+    "change-control",
+    "implementation-planning",
+    "issue-drafting",
+    "qa-triage",
+    "review-qa",
   ];
 
   // Mock agent prompt text (sample)
-  const agentPrompt = `Available skills: ${canonicalSkills.slice(0, 5).join(', ')}...`;
+  const agentPrompt = `Available skills: ${canonicalSkills.slice(0, 5).join(", ")}...`;
 
-  const noDeletedSkillsReferenced = !deletedSkills.some(skill =>
-    agentPrompt.toLowerCase().includes(skill.toLowerCase())
+  const noDeletedSkillsReferenced = !deletedSkills.some((skill) =>
+    agentPrompt.toLowerCase().includes(skill.toLowerCase()),
   );
 
   const allCanonicalDocumented = true; // Simplified for test runner
@@ -588,17 +622,17 @@ function tc401CanonicalSkillNameResolution() {
 
   return {
     testId,
-    category: 'Skill Inventory Accuracy',
-    name: 'Canonical Skill Name Resolution',
+    category: "Skill Inventory Accuracy",
+    name: "Canonical Skill Name Resolution",
     passed,
     metrics: {
       canonicalSkillCount: canonicalSkills.length,
       noDeletedReferences: noDeletedSkillsReferenced,
-      canonicalDocumented: allCanonicalDocumented
+      canonicalDocumented: allCanonicalDocumented,
     },
     message: passed
       ? `All ${canonicalSkills.length} canonical skills verified, no deleted skill references found`
-      : `Canonical skill validation failed`
+      : `Canonical skill validation failed`,
   };
 }
 
@@ -607,56 +641,58 @@ function tc401CanonicalSkillNameResolution() {
  * Validates correct skill cluster mapping and ordering
  */
 function tc402SkillCapabilityMatrixUsage() {
-  const testId = 'TC-402';
+  const testId = "TC-402";
 
   // Skill cluster mapping
   const skillClusters = {
-    'Drafting & Requirements': [
-      'prd-writer',
-      'acceptance-test-planner',
-      'requirements-traceability-mapper'
+    "Drafting & Requirements": [
+      "prd-writer",
+      "acceptance-test-planner",
+      "requirements-traceability-mapper",
     ],
-    'Planning & Strategy': [
-      'delivery-planner',
-      'estimation-planner',
-      'implementation-plan-generator'
+    "Planning & Strategy": [
+      "delivery-planner",
+      "estimation-planner",
+      "implementation-plan-generator",
     ],
-    'Quality & Validation': [
-      'prd-task-reviewer',
-      'qa-planner',
-      'validation-support'
+    "Quality & Validation": [
+      "prd-task-reviewer",
+      "qa-planner",
+      "validation-support",
     ],
-    'Coordination & Execution': [
-      'github-issue-drafter',
-      'approval-gate-manager',
-      'launch-task-router'
+    "Coordination & Execution": [
+      "github-issue-drafter",
+      "approval-gate-manager",
+      "launch-task-router",
     ],
-    'Integration & Specialization': [
-      'project-intake',
-      'memory-management',
-      'lightspeed-intake-onboarding'
-    ]
+    "Integration & Specialization": [
+      "project-intake",
+      "memory-management",
+      "lightspeed-intake-onboarding",
+    ],
   };
 
   const mappingCorrect = Object.keys(skillClusters).length === 5;
-  const skillOrderingCorrect = Object.values(skillClusters).every(cluster => cluster.length >= 3);
+  const skillOrderingCorrect = Object.values(skillClusters).every(
+    (cluster) => cluster.length >= 3,
+  );
 
   const passed = mappingCorrect && skillOrderingCorrect;
 
   return {
     testId,
-    category: 'Skill Inventory Accuracy',
-    name: 'Skill Capability Matrix Usage',
+    category: "Skill Inventory Accuracy",
+    name: "Skill Capability Matrix Usage",
     passed,
     metrics: {
       clusterCount: Object.keys(skillClusters).length,
       targetClusters: 5,
       skillOrdering: skillOrderingCorrect,
-      mappingAccuracy: 95
+      mappingAccuracy: 95,
     },
     message: passed
       ? `Skill clusters mapped correctly (${Object.keys(skillClusters).length} clusters, 95% accuracy)`
-      : 'Skill capability matrix mapping failed'
+      : "Skill capability matrix mapping failed",
   };
 }
 
@@ -687,7 +723,7 @@ function executeTest(testFn) {
     results.tests.push({
       ...result,
       suite: TEST_CONFIG.suite,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     return result;
@@ -698,7 +734,7 @@ function executeTest(testFn) {
     return {
       testId: testFn.name,
       passed: false,
-      error: error.message
+      error: error.message,
     };
   }
 }
@@ -707,48 +743,55 @@ function executeTest(testFn) {
  * Print test results
  */
 function printResults() {
-  if (TEST_CONFIG.outputFormat === 'json') {
+  if (TEST_CONFIG.outputFormat === "json") {
     results.endTime = Date.now();
     results.duration = (results.endTime - results.startTime) / 1000;
     console.log(JSON.stringify(results, null, 2));
     return;
   }
 
-  console.log('\n='.repeat(70));
-  console.log('PRD Agent Test Suite Results (Mock Fixture Validation)');
-  console.log('='.repeat(70));
-  console.log('Note: This is mock fixture validation, not actual provider execution.');
-  console.log('No agent prompts are loaded or API calls made.');
+  console.log("\n=".repeat(70));
+  console.log("PRD Agent Test Suite Results (Mock Fixture Validation)");
+  console.log("=".repeat(70));
+  console.log(
+    "Note: This is mock fixture validation, not actual provider execution.",
+  );
+  console.log("No agent prompts are loaded or API calls made.");
   console.log(`Suite: ${TEST_CONFIG.suite}`);
   console.log(`\nOverall: ${results.passed}/${results.totalTests} passed`);
-  console.log(`Pass Rate: ${((results.passed / results.totalTests) * 100).toFixed(1)}%`);
+  console.log(
+    `Pass Rate: ${((results.passed / results.totalTests) * 100).toFixed(1)}%`,
+  );
 
-  console.log('\nResults by Category:');
+  console.log("\nResults by Category:");
   Object.entries(results.byCategory).forEach(([category, stats]) => {
     const passRate = ((stats.passed / stats.total) * 100).toFixed(1);
     console.log(`  ${category}: ${stats.passed}/${stats.total} (${passRate}%)`);
   });
 
-  console.log('\nDetailed Results:');
-  results.tests.forEach(test => {
-    const status = test.passed ? '✓' : '✗';
+  console.log("\nDetailed Results:");
+  results.tests.forEach((test) => {
+    const status = test.passed ? "✓" : "✗";
     console.log(`  ${status} ${test.testId}: ${test.name}`);
     if (TEST_CONFIG.verbose && test.message) {
       console.log(`    ${test.message}`);
     }
   });
 
-  console.log('\n' + '='.repeat(70));
+  console.log("\n" + "=".repeat(70));
 }
 
 /**
  * Main test execution
  */
 function main() {
-  console.log('Starting PRD Agent Test Suite...\n');
+  // stderr, not stdout: --json redirects stdout to a file (per TESTING_GUIDE.md
+  // and PHASE5_EXECUTION_PLAN.md), and this banner must never land inside that
+  // JSON payload.
+  console.error("Starting PRD Agent Test Suite...\n");
 
   // Execute test cases based on suite selection
-  if (TEST_CONFIG.suite === 'all' || TEST_CONFIG.suite === 'generation') {
+  if (TEST_CONFIG.suite === "all" || TEST_CONFIG.suite === "generation") {
     executeTest(tc101BasicPRDStructure);
     executeTest(tc102FeatureRequirementsExtraction);
     executeTest(tc103SchemaFormatCompliance);
@@ -756,20 +799,20 @@ function main() {
     executeTest(tc105MemoryContextPreservation);
   }
 
-  if (TEST_CONFIG.suite === 'all' || TEST_CONFIG.suite === 'routing') {
+  if (TEST_CONFIG.suite === "all" || TEST_CONFIG.suite === "routing") {
     executeTest(tc201SkillSequenceAccuracy);
     executeTest(tc202SkillHandoffQuality);
     executeTest(tc203SkillIntegrationEdgeCases);
     executeTest(tc204ConflictResolution);
   }
 
-  if (TEST_CONFIG.suite === 'all' || TEST_CONFIG.suite === 'integration') {
+  if (TEST_CONFIG.suite === "all" || TEST_CONFIG.suite === "integration") {
     executeTest(tc301GitHubIssueCreation);
     executeTest(tc302MilestoneProjectLinking);
     executeTest(tc303PRReviewApprovalWorkflow);
   }
 
-  if (TEST_CONFIG.suite === 'all' || TEST_CONFIG.suite === 'skills') {
+  if (TEST_CONFIG.suite === "all" || TEST_CONFIG.suite === "skills") {
     executeTest(tc401CanonicalSkillNameResolution);
     executeTest(tc402SkillCapabilityMatrixUsage);
   }

@@ -475,3 +475,6 @@ Mark all tasks as complete to finish implementation. Each task represents one co
 - Use research.md to record decisions as they're made
 - Update compliance metrics weekly during rollout phases
 - Engage team leads early for buy-in and support
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

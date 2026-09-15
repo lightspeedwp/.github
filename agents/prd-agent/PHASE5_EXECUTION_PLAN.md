@@ -151,7 +151,7 @@ node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json 
 cat agents/prd-agent/results/phase3-baseline.json | jq '.totalTests'  # Should be 14
 
 # Check test coverage per category
-cat results/phase3-baseline.json | jq '.byCategory'
+cat agents/prd-agent/results/phase3-baseline.json | jq '.byCategory'
 
 # Document baseline results in TEST_RESULTS.md
 ```
@@ -191,13 +191,13 @@ cat results/phase3-baseline.json | jq '.byCategory'
 **Day 1-2: Claude Code Testing (Phase 4 Enhanced)**
 
 ```bash
-# Execute tests against Phase 4 enhanced agent.md
-node tests/test-runner.js --provider claude --suite all --json > results/phase4-claude-enhanced.json
+# Execute tests against Phase 4 enhanced agent.md (from repo root)
+node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json > agents/prd-agent/results/phase4-claude-enhanced.json
 
 # Calculate improvement
 node -e "
-const baseline = JSON.parse(require('fs').readFileSync('results/phase3-baseline.json'));
-const enhanced = JSON.parse(require('fs').readFileSync('results/phase4-claude-enhanced.json'));
+const baseline = JSON.parse(require('fs').readFileSync('agents/prd-agent/results/phase3-baseline.json'));
+const enhanced = JSON.parse(require('fs').readFileSync('agents/prd-agent/results/phase4-claude-enhanced.json'));
 const improvement = ((enhanced.passed - baseline.passed) / baseline.passed) * 100;
 console.log('Baseline:', baseline.passed, '/', baseline.totalTests);
 console.log('Enhanced:', enhanced.passed, '/', enhanced.totalTests);
@@ -242,13 +242,13 @@ Test scenarios via GitHub IDE:
 **Day 5-6: Results Analysis**
 
 ```bash
-# Compare all provider results
-cat results/phase4-*.json | jq '.passed / .totalTests * 100'
+# Compare all provider results (from repo root)
+cat agents/prd-agent/results/phase4-*.json | jq '.passed / .totalTests * 100'
 
 # Compile results into TEST_RESULTS.md
 # - Baseline vs Enhanced comparison per test
 # - Pass rate by provider
-- Pass rate by category
+# - Pass rate by category
 # - Overall improvement percentage
 ```
 
@@ -503,3 +503,14 @@ For each issue:
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

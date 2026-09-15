@@ -11,12 +11,7 @@
  * - Lazy-loading of validation tasks
  * - Streaming result output to reduce memory footprint
  *
- * Usage:
- *   node staging-validation.js --task audit [--count 100]
- *   node staging-validation.js --task performance [--duration 5m]
- *   node staging-validation.js --task errors [--scenario rate-limit]
- *   node staging-validation.js --task report [--format json]
- *   node staging-validation.js --all [--verbose]
+ * CLI usage: see staging-validation-cli.js in this directory.
  */
 
 import fs from "fs";
@@ -492,12 +487,5 @@ export {
   validateReportGeneration,
   validateDataIntegrity,
   runAllTasks,
+  main,
 };
-
-// Run main when executed directly (ESM-safe check)
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    console.error("Fatal error:", error);
-    process.exit(1);
-  });
-}

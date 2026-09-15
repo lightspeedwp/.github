@@ -53,8 +53,7 @@ All project specifications MUST be validated against 8 quality dimensions before
 **Rationale**: Specifications with gaps, ambiguities, or inconsistencies cascade as rework, misalignment, and failed implementations. Validating requirements quality upfront prevents waste and ensures team alignment. The Requirements Quality Checklist framework provides objective, repeatable validation.
 
 ### VIII. Branch Strategy Compliance & Automated Enforcement (Non-Negotiable)
-
-All branches MUST follow pattern `{type}/{scope}-{title}` with one of 38 authorised types (feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, revert, research, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, aiops, automation, epic). FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute and non-negotiable. PR template routing MUST be automatic (no manual template selection). Auto-labeling MUST apply consistent, prefixed labels from canonical label set. CI validation gates MUST block non-compliant branches before merge. Compliance tracking MUST show ≥95% adherence across all active branches.
+All branches MUST follow pattern `{type}/{scope}-{title}` with one of 38 authorized types (feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, revert, research, automation, epic, aiops, a11y, build). FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute and non-negotiable. PR template routing MUST be automatic by branch prefix according to the canonical routing map in `.github/PULL_REQUEST_TEMPLATE/config.yml`. Auto-labeling MUST apply consistent, prefixed labels from canonical label set. CI validation gates MUST block non-compliant branches before merge. Compliance tracking MUST show ≥95% adherence across all active branches.
 
 **Rationale**: Branch naming is the foundation for PR template routing, GitHub Actions workflows, labeling, and metrics. Standardized naming enables automation, prevents template misrouting, and provides traceability. Enforcement prevents manual workarounds and ensures 100% consistency.
 
@@ -92,6 +91,108 @@ All governance decisions MUST be supported by continuous metrics: specification 
 - `.github/workflows/*.yml` — GitHub Actions workflows (review via standard PR process)
 - `.github/instructions/*.md` — Guidance files (review via standard PR process, no duplication with AGENTS.md)
 
+## Issue Type and Template Routing
+
+### Issue Type to Template Mapping
+
+GitHub issue creation is routed by issue type. Each canonical issue type in `.github/issue-types.yml` corresponds to exactly one issue template in `.github/ISSUE_TEMPLATE/`. Creators MUST select the appropriate issue type, which automatically loads the corresponding template. Manual template selection is NOT supported.
+
+| Issue Type | Template File | Label | Purpose |
+|------------|---------------|-------|---------|
+| Task | 01-task.md | type:task | Scoped work units, no execution impediment |
+| Bug | 02-bug.md | type:bug | Defect reports; expected vs. actual behaviour |
+| Feature | 03-feature.md | type:feature | New capability, user-facing enhancement |
+| Design | 04-design.md | type:design | Design system, UI/UX, visual assets |
+| Epic | 05-epic.md | type:epic | Large initiative spanning multiple features |
+| Question | 06-question.md | type:question | Support inquiry, clarification needed |
+| Improvement | 07-improvement.md | type:improve | Enhancement to existing feature |
+| Chore | 08-chore.md | type:chore | Maintenance, no user-facing changes |
+| CI | 09-ci.md | type:ci | CI/CD pipeline, automation, GitHub Actions |
+| Automation | 10-automation.md | type:automation | Workflow automation, task scheduling |
+| Test Coverage | 11-test.md | type:test | Testing, test infrastructure, coverage |
+| Performance | 12-performance.md | type:performance | Speed, efficiency, resource optimization |
+| Accessibility | 13-a11y.md | type:a11y | WCAG compliance, semantic HTML, keyboard support |
+| Security | 14-security.md | type:security | Vulnerability, secure coding, threat response |
+| Compatibility | 15-compatibility.md | type:compat | Version compatibility, deprecation, migration |
+| Refactor | 16-refactor.md | type:refactor | Code structure, maintainability, debt reduction |
+| Release | 17-release.md | type:release | Release planning, versioning, changelog |
+| Dependency Update | 18-dep-update.md | type:dependency | Dependency upgrade, version bump |
+| Documentation | 19-docs.md | type:docs | User documentation, guides, examples |
+| Research | 20-research.md | type:research | Investigation, proof-of-concept, exploration |
+| Audit | 21-audit.md | type:audit | Code audit, compliance review, quality check |
+| Review | 22-review.md | type:review | Process review, retrospective, feedback |
+| AI Ops | 23-aiops.md | type:aiops | AI-assisted operations, automation agents |
+| Content Modelling | 24-content-modelling.md | (no standard label) | Content structure, schema design |
+| Build | 25-build.md | (no standard label) | Build tooling, compilation, bundling |
+
+**Enforcement**: All public issues MUST use exactly one type from the canonical set. Issues without a valid type MUST be closed or reassigned with a supportive comment. Issue creation forms enforce type selection; `type:*` labels are applied automatically by issue routing workflows.
+
+### Branch Type to PR Template Routing
+
+Pull request templates are automatically routed by branch prefix according to the canonical mapping in `.github/PULL_REQUEST_TEMPLATE/config.yml`. The map below defines the binding between branch type and PR template. No manual template selection is permitted; the GitHub Action `pr-template-resolver.yml` enforces routing.
+
+#### Allowed Branch Types (38 Types)
+
+| Branch Type | PR Template | Linked Principle | Notes |
+|-------------|-------------|-----------------|-------|
+| `feat/` | pr_feature.md | VIII | New feature or user-facing capability |
+| `fix/` | pr_bug.md | VIII | Bug fix or defect resolution |
+| `hotfix/` | pr_hotfix.md | VIII | Urgent production fix; requires fast-track review |
+| `refactor/` | pr_refactor.md | VIII | Code structure, maintainability |
+| `chore/` | pr_chore.md | VIII | Maintenance, build tooling, no user impact |
+| `docs/` | pr_docs.md | VIII | Documentation, guides, comments |
+| `task/` | pr_task.md | VIII | Scoped unit of work (often issue-bound) |
+| `test/` | pr_chore.md | VIII | Test infrastructure, coverage improvements |
+| `perf/` | pr_feature.md | VIII | Performance optimisation; user-facing benefit |
+| `ci/` | pr_ci.md | VIII | GitHub Actions, CI/CD pipelines |
+| `build/` | pr_ci.md | VIII | Build system, compilation, bundling |
+| `automation/` | pr_ci.md | VIII | Workflow automation, task scheduling |
+| `deps/` | pr_dep_update.md | VIII | Dependency updates, version bumps |
+| `security/` | pr_bug.md | VIII | Vulnerability fix; treated as urgent bug |
+| `design/` | pr_feature.md | VIII | Design system, UI, visual assets |
+| `a11y/` | pr_feature.md | VIII | Accessibility (WCAG 2.2 AA compliance) |
+| `ux/` | pr_feature.md | VIII | User experience improvements |
+| `i18n/` | pr_feature.md | VIII | Internationalization, translation, locales |
+| `ops/` | pr_chore.md | VIII | Operations, deployment, infrastructure |
+| `proto/` | pr_feature.md | VIII | Prototype, experimental, proof-of-concept |
+| `ds/` | pr_feature.md | VIII | Design system component library |
+| `api/` | pr_feature.md | VIII | API changes, endpoint versioning |
+| `schema/` | pr_feature.md | VIII | Data schema, model changes |
+| `telemetry/` | pr_feature.md | VIII | Analytics, monitoring, event tracking |
+| `content/` | pr_docs.md | VIII | Content changes, blog, copy |
+| `seo/` | pr_docs.md | VIII | SEO optimisation, meta tags |
+| `config/` | pr_chore.md | VIII | Configuration files, environment setup |
+| `migrate/` | pr_chore.md | VIII | Data/schema migration scripts |
+| `qa/` | pr_chore.md | VIII | QA processes, test automation |
+| `uat/` | pr_chore.md | VIII | User acceptance testing, staging validation |
+| `audit/` | pr_feature.md | VIII | Audit, compliance review, code review |
+| `codex/` | pr_docs.md | VIII | Code generation, AI-assisted development |
+| `revert/` | pr_chore.md | VIII | Revert previous commit/PR |
+| `research/` | pr_feature.md | VIII | Research, investigation, exploration |
+| `release/` | pr_release.md | VIII | Release branch, version tag, changelog |
+| `epic/` | pr_epic.md | VIII | Epic-level work spanning multiple features |
+| `aiops/` | pr_aiops.md | VIII | AI-assisted operations, agent automation |
+
+#### FORBIDDEN Branch Prefixes (Non-Negotiable)
+
+These prefixes are NEVER allowed and trigger validation failures:
+
+| Prefix | Reason | Fallback |
+|--------|--------|----------|
+| `claude/` | Reserved for Claude Code internal sessions | Resolved via linked issue type |
+| `copilot/` | Reserved for GitHub Copilot integration | Resolved via linked issue type |
+| `openai/` | Reserved for OpenAI integration | Resolved via linked issue type |
+
+When a PR uses a forbidden prefix (e.g., `claude/my-feature`), the `pr-template-resolver.yml` workflow applies fallback routing: it queries the linked issue, extracts the issue type (from issue type field, `type:*` label, or PR description), and maps the type to the correct template. **This fallback routing is a temporary measure only; the branch MUST be corrected to the proper prefix before merge.**
+
+**Compliance gates**: Pre-commit hooks validate branch names before push. CI gates validate on PR creation. Invalid branches cannot merge until renamed and PR recreated with correct prefix.
+
+**Metric tracking**: Compliance dashboards MUST report:
+- % of branches using correct prefix (goal: ≥95%)
+- % of PRs using correct template (goal: 100%)
+- Fallback routing usage (goal: 0%; indicates branch naming violations)
+- Template mismatch incidents (goal: 0%)
+
 ## Asset Organization
 
 ### Portable Reusable Assets (Top-Level Folders)
@@ -127,11 +228,11 @@ All significant features follow the SpecKit workflow:
 **Rationale**: Specification-first prevents rework, enables parallel task execution, and ensures traceability from requirements to code.
 
 ### Code Review & Quality Gates
-
-- **Branch naming validation**: Pre-commit hook enforces `{type}/{scope}-{title}` pattern
-- **PR template routing**: Automatic template selection by branch prefix
+- **Branch naming validation**: Pre-commit hook enforces `{type}/{scope}-{title}` pattern against 38 authorized types; FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are rejected immediately
+- **PR template routing**: Automatic template selection by branch prefix according to canonical mapping in `.github/PULL_REQUEST_TEMPLATE/config.yml` (see Branch Type to PR Template Routing section); fallback routing via linked issue for invalid prefixes
+- **Issue type routing**: Automatic template selection by issue type; all issues MUST use canonical type from `.github/issue-types.yml` (see Issue Type to Template Mapping section)
 - **CodeRabbit review**: Central configuration applies organisation-wide; repo-specific overrides allowed
-- **Label consistency**: Only prefixed labels from `.github/labels.yml` allowed
+- **Label consistency**: Only prefixed labels from `.github/labels.yml` allowed; labels MUST match branch type and issue type
 - **Changelog required**: Keep a Changelog format for user-facing changes
 
 ## Governance & Amendment
@@ -218,6 +319,19 @@ Each specification project includes a `checklists/` directory with:
   - Trend data (improving/declining compliance)
   - Team adherence by individual/repo
 
+<!-- SYNC IMPACT REPORT
+Version: 1.1.0 → 1.2.0 (MINOR bump)
+Changes:
+  - Added: "Issue Type and Template Routing" section with issue-type-to-template mapping (24 types)
+  - Added: "Branch Type to PR Template Routing" section with branch-prefix-to-template mapping (38 allowed types, 3 forbidden)
+  - Updated: Principle VIII branch type count from 34 to 38 (added automation, epic, aiops)
+  - Updated: Code Review & Quality Gates section with references to new routing sections
+  - Enhanced: Branch naming enforcement documentation with fallback routing explanation
+  - Clarified: Forbidden prefix handling and fallback behavior
+
+Rationale: MINOR bump (new governance sections) for explicit governance documentation of issue and branch routing mappings.
+-->
+
 ---
 
-**Version**: 1.1.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-12
+**Version**: 1.2.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-14

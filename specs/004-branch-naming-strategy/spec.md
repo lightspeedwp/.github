@@ -240,3 +240,6 @@ The organization's existing PR template routing system (which depends on branch 
   - GitHub Actions (remote enforcement, PR template routing, label application)
   - CLI tools (npm scripts, validation command)
   - Agent/AI systems (AI agents use the pattern to auto-suggest correct branch names)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
