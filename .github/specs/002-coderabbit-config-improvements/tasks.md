@@ -4,7 +4,7 @@ description: "Implementation task list for CodeRabbit Configuration Optimization
 
 # Tasks: CodeRabbit Configuration Optimization
 
-**Input**: Design documents from `specs/002-coderabbit-config-improvements/`
+**Input**: Design documents from `.github/specs/002-coderabbit-config-improvements/`
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/, quickstart.md
 

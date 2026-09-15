@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version-file: '.nvmrc'
           cache: 'npm'
           cache-dependency-path: 'agents/changelog/package-lock.json'
 
@@ -134,9 +134,11 @@ jobs:
       - name: Post PR comment
         if: steps.changed-files.outputs.any_changed == 'true'
         uses: actions/github-script@v7
+        env:
+          COMMENT_BODY: ${{ steps.comment.outputs.body }}
         with:
           script: |
-            const body = `${{ steps.comment.outputs.body }}`;
+            const body = process.env.COMMENT_BODY;
 
             // Find existing validation comment
             const { data: comments } = await github.rest.issues.listComments({

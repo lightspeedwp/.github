@@ -19,11 +19,13 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Create PR from `security/*` branch modifying PHP files
 
 **Setup**:
+
 1. Create branch: `git checkout -b security/authentication-validation`
 2. Modify file: `agents/security-check.agent.php` (add authentication validation logic)
 3. Create PR with this branch
 
 **Expected Outcome**:
+
 - CodeRabbit review includes security-specific guidance
 - Review emphasizes:
   - Authentication mechanisms
@@ -41,6 +43,7 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: File matching multiple patterns uses highest-priority match
 
 **Setup**:
+
 1. Modify file: `tests/e2e/auth.spec.ts`
 2. This file matches multiple patterns:
    - `**/*.ts` (general TypeScript, priority 40)
@@ -48,6 +51,7 @@ Before marking implementation complete, test all scenarios below.
    - `**/tests/*.*` (general tests, priority 50)
 
 **Expected Outcome**:
+
 - CodeRabbit uses guidance from `**/e2e/*.ts` (highest priority)
 - Review includes e2e-specific guidance:
   - Deterministic setup and environment isolation
@@ -64,10 +68,12 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Create PR modifying SpecKit specification files
 
 **Setup**:
-1. Modify file: `specs/001-feature/spec.md`
+
+1. Modify file: `.github/specs/001-feature/spec.md`
 2. Make changes to Requirements section
 
 **Expected Outcome**:
+
 - CodeRabbit review includes SpecKit-specific guidance
 - Review focuses on:
   - Specification completeness
@@ -84,10 +90,12 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Create PR modifying workflow documentation
 
 **Setup**:
+
 1. Modify file: `workflows/governance-audit-workflow.md` (agentic workflow doc)
 2. Update workflow steps and phase descriptions
 
 **Expected Outcome**:
+
 - CodeRabbit review includes workflow-specific guidance
 - Review focuses on:
   - Workflow structure and clarity
@@ -104,10 +112,12 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Run coverage audit against repository
 
 **Setup**:
+
 1. List all file types in repository: `find . -type f -not -path './.git/*' | sort -u`
 2. Cross-reference against `.coderabbit.yml` path_instructions
 
 **Expected Outcome**:
+
 - At least 95% of file types have explicit instructions
 - Identified gaps: <5% of repository files
 - External audit guide (`CODERABBIT_COVERAGE_AUDIT.md`) available for maintainers
@@ -121,10 +131,12 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Verify all instruction blocks meet quality standards
 
 **Setup**:
+
 1. Extract all instruction blocks from `.coderabbit.yml`
 2. Check each block for minimum requirements
 
 **Expected Outcome**:
+
 - Each block has 3+ specific review focus areas
 - No vague adjectives (e.g., "clean", "efficient") without metrics
 - Each block references relevant documentation (CLAUDE.md, AGENTS.md, standards)
@@ -140,10 +152,12 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Existing PRs continue to work without behavior change
 
 **Setup**:
+
 1. Identify 5 recent merged PRs
 2. Re-run CodeRabbit review on them using new config
 
 **Expected Outcome**:
+
 - CodeRabbit review produces similar feedback (same focus areas)
 - New branch-context guidance is additive, not disruptive
 - No changes to review severity or tone for existing path patterns
@@ -160,11 +174,13 @@ Before marking implementation complete, test all scenarios below.
 **Branches to Test**: `feat/`, `fix/`, `security/`, `perf/`, `a11y/`
 
 **Setup**:
+
 1. Create PR from each branch type
 2. Modify a common file type (e.g., `**/*.php`) in each PR
 3. Compare reviews across branches
 
 **Expected Outcome**:
+
 - `feat/` PR: Focus on new functionality, design, scope
 - `fix/` PR: Focus on bug reproduction, regression testing
 - `security/` PR: Focus on security properties, threat model
@@ -180,11 +196,13 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: New maintainer uses audit guide to verify config completeness
 
 **Setup**:
+
 1. Provide `CODERABBIT_COVERAGE_AUDIT.md` to team member
 2. Ask them to identify coverage gaps without additional context
 3. Measure time to completion
 
 **Expected Outcome**:
+
 - Audit guide provides clear, step-by-step instructions
 - Maintainer can identify coverage gaps in <15 minutes
 - Guide is self-contained (minimal reference to other docs needed)
@@ -199,11 +217,13 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Verify pattern priority is clearly documented
 
 **Setup**:
+
 1. Review `.coderabbit.yml` for pattern priority documentation
 2. Read config comments explaining priority scheme
 3. Try to manually predict which pattern will apply to various files
 
 **Expected Outcome**:
+
 - Pattern priority rules are documented in config comments
 - Specificity levels are clearly explained
 - Examples show which patterns match various files
@@ -218,6 +238,7 @@ Before marking implementation complete, test all scenarios below.
 **Test Case**: Instructions apply consistently across diverse project types (WordPress, Node.js, Infrastructure, MCP)
 
 **Setup**:
+
 1. Create PRs modifying files in at least 3 different repository types:
    - **WordPress project**: Create PR in a block plugin or block theme repo
    - **Node.js/TypeScript project**: Create PR in `ls-flow` or an MCP server repo
@@ -226,6 +247,7 @@ Before marking implementation complete, test all scenarios below.
 3. For each PR, trigger CodeRabbit review
 
 **Expected Outcome**:
+
 - All three PRs receive CodeRabbit reviews
 - Branch-type context is applied consistently (feat/ guidance is relevant to all three project types)
 - File-type guidance does NOT contain technology-specific recommendations (e.g., no "use WordPress hooks" in PHP files, no "use async/await" in TypeScript files)
@@ -238,7 +260,7 @@ Before marking implementation complete, test all scenarios below.
 
 ## Test Execution Steps
 
-### For Each Scenario:
+### For Each Scenario
 
 1. **Setup**: Follow the setup instructions exactly
 2. **Execute**: Trigger CodeRabbit review (create PR, request review, or re-run)
