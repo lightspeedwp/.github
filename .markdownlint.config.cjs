@@ -30,13 +30,12 @@ const strictMode = process.env.MARKDOWNLINT_STRICT === "true";
 const ignoreGenerated = process.env.MARKDOWNLINT_IGNORE_GENERATED !== "false";
 
 /**
- * Load ignore patterns from .markdownlintignore
+ * Load ignore patterns from .markdownlintignore.
  *
- * .markdownlintignore is the canonical, hand-maintained ignore list (see its
- * own header comment); this parses it into ignorePaths since markdownlint-cli2
- * has no native support for auto-discovering that file itself.
+ * Returns no additional patterns when the file cannot be read, leaving the
+ * configured default ignore paths active.
  *
- * @returns {string[]} Glob patterns, comments and blank lines stripped
+ * @returns {string[]} Trimmed glob patterns, excluding comments and blank lines.
  */
 function loadMarkdownlintIgnore() {
   const ignoreFilePath = path.join(__dirname, ".markdownlintignore");
