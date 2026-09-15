@@ -18,11 +18,16 @@ import {
   saveResults,
   BASELINE_METRICS,
   OPTIMIZATION_TARGET_MIN,
-  OPTIMIZATION_TARGET_MAX,
 } from "./performance-benchmarking-phase-2c.js";
 
 describe("Phase 2C Optimization Validation", () => {
   let results;
+
+  beforeEach(() => {
+    results = Object.keys(BASELINE_METRICS).map((scriptName) =>
+      createMockBenchmark(scriptName),
+    );
+  });
 
   it("Test 1: baseline metrics are complete for all scripts", () => {
     const requiredScripts = [
@@ -52,20 +57,17 @@ describe("Phase 2C Optimization Validation", () => {
   });
 
   it("Test 2: mock benchmarks generate valid results", () => {
-    const scripts = Object.keys(BASELINE_METRICS);
-    results = [];
-
-    for (const scriptName of scripts) {
-      const result = createMockBenchmark(scriptName);
-      results.push(result);
-
+    results.forEach((result) => {
       assert(
         typeof result.executionTime === "number" && result.executionTime > 0,
-        `${scriptName} execution time must be a positive number`,
+        `${result.scriptName} execution time must be a positive number`,
       );
-      assert(result.memory, `${scriptName} must have memory metrics`);
-      assert(result.apiCalls, `${scriptName} must have API call metrics`);
-    }
+      assert(result.memory, `${result.scriptName} must have memory metrics`);
+      assert(
+        result.apiCalls,
+        `${result.scriptName} must have API call metrics`,
+      );
+    });
   });
 
   it("Test 3: performance targets are met", () => {

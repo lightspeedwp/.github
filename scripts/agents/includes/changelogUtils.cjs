@@ -16,7 +16,6 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 const fs = require("fs");
-const path = require("path");
 
 /**
  * Parse a Keep a Changelog formatted CHANGELOG.md file
@@ -34,7 +33,6 @@ function parseChangelog(changelogPath) {
   // Match release headers: ## [version] - date, or the dateless
   // ## [Unreleased] header Keep a Changelog uses before a release is cut.
   const releaseRegex = /^##\s+\[([^\]]+)\](?:\s*-\s*(.+))?$/gm;
-  const sectionRegex = /^###\s+(.+)$/gm;
 
   let match;
   const releasePositions = [];

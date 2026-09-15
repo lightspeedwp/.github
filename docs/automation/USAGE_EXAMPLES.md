@@ -448,7 +448,7 @@ node scripts/automation/bulk-issue-metadata-updater.js \
 
 ---
 
-### staging-validation.js
+### staging-validation-cli.js
 
 **Purpose**: Validate staging/release readiness
 

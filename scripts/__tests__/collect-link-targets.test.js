@@ -27,11 +27,30 @@ function runScript({ onExecFileSync, onReadFileSync } = {}) {
     onReadFileSync || (() => "no urls in this fixture"),
   );
 
-  jest.spyOn(process, "exit").mockImplementation(() => {});
+  // process.exit must actually halt execution the way it does in
+  // production -- a no-op mock instead lets the script keep running past
+  // an early exit() into code that should never execute, which can mask
+  // real bugs there while still passing (the mock is only ever asserted
+  // on with toHaveBeenCalledWith, not on what happens after). Recording
+  // the exit code and then throwing a shared sentinel reproduces real
+  // termination semantics; the sentinel is caught below so the test
+  // itself doesn't fail, and each exit-path test still asserts the
+  // recorded code via the mock's own call history.
+  const exitSentinel = new Error("process.exit sentinel");
+  jest.spyOn(process, "exit").mockImplementation((code) => {
+    exitSentinel.code = code;
+    throw exitSentinel;
+  });
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
 
-  require("../collect-link-targets.js");
+  try {
+    require("../collect-link-targets.js");
+  } catch (error) {
+    if (error !== exitSentinel) {
+      throw error;
+    }
+  }
 
   return { execFileSync, readFileSync: fs.readFileSync };
 }

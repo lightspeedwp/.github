@@ -127,7 +127,12 @@ describe("MilestoneAssignmentAgent", () => {
         milestone: { number: 2, title: "v1.5" },
       };
       const result = await agent.assignMilestone(issue);
-      expect(result).toBe(2); // Returns existing milestone number
+      // Returns the same assignment shape as every other branch (milestone
+      // object, confidence, reason, alternatives), not a bare number --
+      // bulkAssignMilestones() reads assignment.milestone.number/.title.
+      expect(result.milestone.number).toBe(2);
+      expect(result.milestone.title).toBe("v1.5");
+      expect(result.reason).toBe("already-assigned");
     });
   });
 

@@ -51,7 +51,9 @@ const WARN_LENGTH = 30;
 
 export async function validateBranchName(input) {
   const { branchName, config } = input;
-  const allowedTypes = config?.allowed_types ?? DEFAULT_ALLOWED_TYPES;
+  const allowedTypes = Array.isArray(config?.allowed_types)
+    ? config.allowed_types
+    : DEFAULT_ALLOWED_TYPES;
 
   if (branchName === "" || branchName === null || branchName === undefined) {
     return {
@@ -156,6 +158,17 @@ export async function validateBranchName(input) {
     type === "release" && !slug.includes("-") && /^v?\d+(?:\.\d+)*$/.test(slug);
 
   if (isReleaseVersionSlug) {
+    if (branchName.length > 150) {
+      return {
+        valid: false,
+        errors: [
+          "Branch name must be 150 characters or fewer",
+          "name-too-long",
+        ],
+        type,
+      };
+    }
+
     return {
       valid: true,
       errors: [],
