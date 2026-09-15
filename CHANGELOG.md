@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Dependabot Scope Fix** — Added /website npm scanning and area:dependencies labels to dependabot.yml; added on develop in #1059 but never back-ported. ([PR #3316](https://github.com/lightspeedwp/.github/pull/3316))
-- **Remaining Dependabot Alerts** — Added npm scanning for 3 more unscanned lockfiles; overrode transitive lodash-es to a patched version. ([PR TBD]())
+- **Remaining Dependabot Alerts** — Added npm scanning for 3 more unscanned lockfiles; overrode transitive lodash-es to a patched version. ([PR #3335](https://github.com/lightspeedwp/.github/pull/3335))
 
 ### Removed
 
