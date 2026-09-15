@@ -255,9 +255,14 @@ async function main() {
   process.exit(0);
 }
 
-main().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exit(1);
-});
+// Only run as a CLI entry point — this file is also `require()`d directly
+// by its own test suite, which must not trigger a real collection run or
+// call process.exit() (that would kill the whole Jest process).
+if (require.main === module) {
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exit(1);
+  });
+}
 
 module.exports = { MetricsCollectionOrchestrator };
