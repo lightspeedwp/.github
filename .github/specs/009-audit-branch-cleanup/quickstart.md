@@ -355,7 +355,7 @@ jq '.categories.delete[0]' /tmp/audit-report.json
   run: |
     npx --yes ajv-cli validate \
       -s .github/specs/009-audit-branch-cleanup/contracts/audit-report.schema.json \
-      -d .github/reports/audit-*.json
+      -d .github/reports/stale-branches-*.json
 ```
 
 Refer to:
