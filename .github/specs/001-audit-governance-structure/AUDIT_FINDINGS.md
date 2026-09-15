@@ -11,15 +11,18 @@ This document captures the initial audit findings that informed the specificatio
 **Issue**: Identical section appears twice with nearly identical content, examples, and validation checklists.
 
 **Sections Affected**:
+
 - First: "Label Creation Governance (CRITICAL)" starting at line 209
 - Second: Repeated verbatim starting at line 285 under "Label Creation Governance (CRITICAL)"
 
 **Content Differences**:
+
 - Line 251 references `.github/scripts/validation/validate-labels-before-creation.cjs` (first occurrence)
 - Line 336 references issue #1592 with different wording (second occurrence)
 - Both have nearly identical examples and validation checklists
 
-**Impact**: 
+**Impact**:
+
 - Maintenance burden (updates must happen twice or become inconsistent)
 - Reader confusion (unclear which is authoritative)
 - Violates constitution principle: "Clear Asset Boundaries (No Duplication)"
@@ -35,11 +38,13 @@ This document captures the initial audit findings that informed the specificatio
 **Issue**: Detailed rules about script file locations (`scripts/` vs `.github/scripts/`) are in AGENTS.md (AI rules file) rather than in instruction files or CLAUDE.md (governance files).
 
 **Why This Is Problematic**:
+
 - AGENTS.md is about AI agent rules, not repository structure rules
 - This content belongs in `instructions/file-organisation.instructions.md` or as a subsection of governance files
 - Creates confusion about scope: is this an AI rule or a repository rule?
 
 **Affected Content**:
+
 - Lines 54–102: Detailed organization rules with examples and quick reference table
 - References to correct locations: `scripts/automation/`, `scripts/metrics/`, etc.
 
@@ -62,6 +67,7 @@ This document captures the initial audit findings that informed the specificatio
 ### ⚠️ MODERATE: Inconsistent Guidance Structure
 
 **Issue**: AGENTS.md mixes different types of content:
+
 1. Global AI rules (UK English, minimal solutions, WordPress standards)
 2. Repository-specific script organization rules
 3. Branch naming governance (repeated with some detail difference from CLAUDE.md)
@@ -82,6 +88,7 @@ This document captures the initial audit findings that informed the specificatio
 **Section**: "⚠️ Branch Naming — CRITICAL (Read First)" (lines 14–111)
 
 **Strengths**:
+
 - Clear forbidden prefixes section (claude/, copilot/, openai/)
 - Comprehensive table of 34 allowed types
 - Specific examples of correct and incorrect usage
@@ -95,6 +102,7 @@ This document captures the initial audit findings that informed the specificatio
 ### ⚠️ MODERATE: Cross-Reference to Possibly Non-Existent Files
 
 **References** (lines 105–110):
+
 - `.github/instructions/branch-naming.instructions.md` — verify existence
 - `docs/BRANCHING_STRATEGY.md` — verify existence
 - `docs/PR_CREATION_PROCESS.md` — verify existence
@@ -106,6 +114,7 @@ This document captures the initial audit findings that informed the specificatio
 ### ⚠️ MODERATE: Missing Specification-First Workflow Guidance
 
 **Issue**: CLAUDE.md describes branch naming, git workflow, development commands, conventions, and locked files, but does NOT explain:
+
 - When to create a spec (branch → spec → PR workflow)
 - How spec-first process integrates with GitHub workflows
 - When specs should be committed vs. PRs created
@@ -134,6 +143,7 @@ This document captures the initial audit findings that informed the specificatio
 ### ⚠️ MODERATE: Constitutional Constraints Not Clearly Prioritized
 
 **Issue**: Both CLAUDE.md and AGENTS.md reference governance principles, but don't clearly distinguish:
+
 - **Constitution Level**: Non-negotiable principles (from `.specify/memory/constitution.md`)
 - **Implementation Level**: Details that can evolve
 

@@ -24,6 +24,7 @@ The Requirements Quality Checklist Framework is "unit tests for English". Checkl
 ### Step 1: Complete Specification Draft
 
 Author finishes spec.md with all sections:
+
 - Overview
 - User Scenarios
 - Functional Requirements (FR-1, FR-2, etc.)
@@ -58,16 +59,19 @@ Author opens `specs/{NNN}-{feature}/checklists/requirements.md`
 Author reviews each item against their spec:
 
 **Item 1**: "Are all necessary requirements documented?"
+
 - Author checks their spec
 - Finds: Overview ✅, Scenarios ✅, Requirements ✅, Success Criteria ✅, Entities ✅
 - Result: `[x]` ✅ (Completeness dimension)
 
 **Item 2**: "Are error handling requirements defined?"
+
 - Author checks their spec
 - Result: `[Gap]` — Error handling missing from Functional Requirements
 - Action: Add FR to spec: "FR-5: System must return clear error messages for invalid input"
 
 **Item 3**: "Are accessibility requirements specified?"
+
 - Author checks their spec
 - Finds: Mentioned in overview but no specific requirements
 - Result: `[Ambiguity]` — Unclear whether WCAG 2.2 AA is required
@@ -80,6 +84,7 @@ Author fixes identified gaps/ambiguities in spec.md, then re-checks checklist it
 ### Step 5: Include Checklist with PR
 
 Author includes completed checklist in PR submission:
+
 - Checklist shows: 40/40 items passed ✅
 - All gaps identified and resolved
 - 0 ambiguities remain
@@ -92,6 +97,7 @@ Author includes completed checklist in PR submission:
 ### Step 1: Receive PR with Completed Checklist
 
 Peer reviewer opens PR and sees:
+
 ```
 Checklist Status:
 ✅ 40/40 items passed
@@ -102,11 +108,13 @@ Checklist Status:
 ### Step 2: Review Checklist + Spec
 
 Reviewer opens checklist and spec together:
+
 - Verify author's `[x]` marks are justified
 - Look for unchecked or `[Gap]`/`[Ambiguity]` items
 - Identify additional gaps/inconsistencies
 
 **Example Item Review**:
+
 ```markdown
 ## Clarity
 
@@ -144,6 +152,7 @@ If reviewer finds issues, they add comments to checklist:
 ### Step 1: Receive Completed Checklist
 
 Stakeholder reviews:
+
 - Checklist completion status
 - Dimension coverage
 - Gaps/ambiguities resolved
@@ -151,6 +160,7 @@ Stakeholder reviews:
 ### Step 2: Make Go/No-Go Decision
 
 Stakeholder asks:
+
 - ✅ Are all critical items checked? → YES
 - ✅ Have all gaps been addressed? → YES
 - ✅ Are ambiguities resolved? → YES
@@ -176,6 +186,7 @@ Two related specs (Changelog Audit + Branch Naming) need dependency verification
 ### Step 2: Verify Alignment
 
 Reviewer checks:
+
 - Changelog Phase 5 depends on Branch Strategy Phase 2? (Timeline alignment)
 - Both specs use same validation framework? (Consistency)
 - No conflicting assumptions? (Dependencies)

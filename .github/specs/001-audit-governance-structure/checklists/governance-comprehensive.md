@@ -180,12 +180,14 @@
 **Cross-Reference**: See also `checklists/requirements.md` (built-in spec-quality checklist auto-maintained by /speckit-specify and /speckit-clarify).
 
 **Validation Scope**: This checklist does NOT test:
+
 - ❌ Whether readers will understand the governance files (subjective/UX)
 - ❌ Whether AI clients will follow the guidance (implementation-dependent)
 - ❌ Whether locked configuration files are correctly updated (out of scope per spec)
 - ❌ Whether dependent repositories have been notified (post-approval concern)
 
 **Validation Scope**: This checklist DOES test:
+
 - ✅ Whether requirements are completely written and unambiguous
 - ✅ Whether references are documented/verified
 - ✅ Whether governance is clearly communicated and justified

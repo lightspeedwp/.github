@@ -27,6 +27,7 @@ Build requirements quality validation framework ("unit tests for English"). Deve
 **Performance Goals**: Checklist generation <5 minutes; reviewer <1 min per item; author <30 min for 40 items
 
 **Constraints**:
+
 - Must be usable in plain markdown (no special tools)
 - Templates must support custom domain items
 - Checklists must remain human-readable (not auto-generated)
@@ -65,6 +66,7 @@ This is a documentation/framework feature with no source code deliverable. All a
 
 ios/ or android/
 └── [platform-specific structure: feature modules, UI flows, platform tests]
+
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real

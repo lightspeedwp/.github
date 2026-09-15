@@ -202,11 +202,13 @@
 ## Parallel Example: 2-Developer Team
 
 **Developer A (Weeks 1-2)**:
+
 - Phase 1: Setup (T001-T006)
 - Phase 2: Foundational (T007-T012, all [P] tasks in parallel)
 - Phase 3: US1 Base Template (T013-T026, all dimension content in parallel)
 
 **Developer B (Weeks 1-5)**:
+
 - Phase 1: Parallel with Dev A on setup
 - Phase 2: Parallel with Dev A (T009, T010, T012)
 - Phase 4: US2 Domain Variants (Weeks 2-3, all 4 variants in parallel)
@@ -262,6 +264,7 @@
 ## Success Metrics
 
 At completion of Phase 7:
+
 - ✅ Base template with 40-50 items, 8 dimensions (FR-1)
 - ✅ 4 domain variants: UX, API, Security, Performance (FR-2)
 - ✅ Multi-audience guidance: author, peer, stakeholder, integration (FR-3)
@@ -270,4 +273,3 @@ At completion of Phase 7:
 - ✅ Team trained on requirements-quality concepts
 - ✅ Framework adopted for all three foundational specifications (003, 004, 005)
 - ✅ All phases completed within 5 weeks (35-50 hours)
-

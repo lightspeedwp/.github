@@ -28,16 +28,19 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 **Locations**: Lines 209–252 (first) and lines 285–338 (second)
 
 **Current State**:
+
 - Identical section appears twice with nearly identical content
 - Both sections include examples and validation checklists
 - Minor differences: line 251 references `.github/scripts/validation/validate-labels-before-creation.cjs`; line 336 references issue #1592
 
 **Decision**: Consolidate to single authoritative section
+
 - **Rationale**: Violates Constitution Principle III (Clear Asset Boundaries, No Duplication); creates maintenance burden; confuses readers about which is authoritative
 - **Approach**: Keep first occurrence (lines 209–252), remove second occurrence; retain all unique information from both
 - **Implementation**: Task will merge both sections and remove duplicate
 
-**Verification**: 
+**Verification**:
+
 - ✅ Text comparison confirms near-identity (diff generated)
 - ✅ Example code identical between both occurrences
 - ✅ Validation checklist items match
@@ -54,16 +57,19 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 **Location**: Lines 52–102 ("Repository Scripts Organisation (CRITICAL)")
 
 **Current State**:
+
 - Detailed rules about script file locations (`scripts/` vs `.github/scripts/`)
 - Includes correct locations, exceptions, quick reference table
 - This content is about repository structure, not AI rules
 
 **Decision**: Move to CLAUDE.md or instruction files
+
 - **Rationale**: AGENTS.md is for "Global AI Rules, Coding Standards"; repository structure belongs in governance docs (CLAUDE.md). Creates confusion about scope (is this an AI rule or a repo rule?). Constitution Principle IV requires technology-agnostic guidance; specific script locations are implementation details
 - **Approach**: Move section to CLAUDE.md under "Repository Boundaries" or to `instructions/file-organisation.instructions.md`
 - **Implementation**: Tasks will extract this section from AGENTS.md and integrate into CLAUDE.md with clear context
 
 **Verification**:
+
 - ✅ Content verified as repository organization rules, not AI governance
 - ✅ Examples use repository structure (scripts/, .github/) not AI concepts
 
@@ -76,21 +82,25 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 **Finding ID**: `DUPL-002`  
 **Severity**: MAJOR  
 **File**: Both CLAUDE.md and AGENTS.md  
-**Locations**: 
+**Locations**:
+
 - CLAUDE.md lines 14–111 (comprehensive, 97 lines)
 - AGENTS.md lines 104–145 (summary with reference to CLAUDE.md)
 
 **Current State**:
+
 - Significant overlap; AGENTS.md says "see CLAUDE.md for complete details" but repeats key content
 - Both describe forbidden prefixes, allowed types, examples, impact
 
 **Decision**: Clarify which file is authoritative
+
 - **Rationale**: CLAUDE.md is the primary source (project-specific). AGENTS.md should provide quick reference only, or consolidate completely
 - **Approach**: Option A) Keep CLAUDE.md as authoritative, reduce AGENTS.md to brief summary with clear link; Option B) Consolidate entirely into CLAUDE.md and remove from AGENTS.md
 - **Recommendation**: Option A (brief summary + link) because AGENTS.md serves AI agents who need quick lookup
 - **Implementation**: Tasks will determine best approach during refactoring phase
 
 **Verification**:
+
 - ✅ Content overlap confirmed (keyword analysis)
 - ✅ Both describe identical set of allowed types
 - ✅ CLAUDE.md provides more detail
@@ -107,10 +117,12 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 **Location**: Line 18
 
 **Current State**:
+
 - References `.github/prompts/prompts.md` as "Legacy prompt index pending skills/cookbook migration"
 - Indicates migration incomplete or outdated
 
 **Decision**: Update or document migration status
+
 - **Rationale**: Broken references undermine trust in governance files; users waste time searching for missing documents
 - **Verification Tasks** (from AUDIT_FINDINGS.md):
   - [ ] Does `.github/prompts/prompts.md` exist?
@@ -175,16 +187,19 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 **File**: Both CLAUDE.md and AGENTS.md  
 
 **Current State**:
+
 - Both files reference governance principles but don't clearly distinguish:
   - Constitution-level constraints (non-negotiable)
   - Implementation-level details (can evolve)
 
 **Decision**: Add framing to clearly indicate constitution authority
+
 - **Rationale**: Constitution Principle V (Branch Naming is Non-Negotiable) should be emphasized; helps readers understand which rules are flexible vs. fixed
 - **Approach**: Add explicit note at top of CLAUDE.md and AGENTS.md linking to constitution; mark constitution-level rules with special formatting
 - **Implementation**: Tasks will add framing sections and update key sections with constitution alignment notes
 
 **Verification**:
+
 - ✅ Constitution clearly defines 6 non-negotiable principles
 - ✅ CLAUDE.md/AGENTS.md should explicitly reference these
 
@@ -201,11 +216,13 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 **Current State**: 15 governance-related branches discovered:
 
 **Alignment with Spec**:
+
 - ✓ One branch violates branch naming rules (the exact problem spec is meant to fix): branches with `claude/` and `copilot/` prefixes demonstrate governance enforcement failures
 - ✓ Multiple branches working on branch naming, labels, templates indicate fragmented efforts
 - ✓ Provides concrete evidence of why governance consolidation is needed
 
 **Branches Identified**:
+
 | Branch | Status | Note |
 |--------|--------|------|
 | `audit/governance-audit-implementation` | Existing | Possible consolidation target |
@@ -217,6 +234,7 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 | `copilot/phase-42-consolidate-issue-close-governance` | ❌ VIOLATES | Uses forbidden `copilot/` prefix |
 
 **Decision**: Document consolidation opportunities; reference existing work
+
 - **Rationale**: Prevents duplication; clarifies scope and relationships
 - **Implementation**: Tasks will document relationships and consolidation opportunities; verify that forbidden-prefix branches are consolidated or closed
 
@@ -227,6 +245,7 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 ## Research Conclusions & Recommendations
 
 ### Critical Path Items
+
 1. ✅ **Duplicate consolidation** (DUP-001) — Must consolidate "Label Creation Governance" sections
 2. ✅ **File organization** (ORG-001) — Move script rules to appropriate location
 3. ✅ **Reference validation** (VER-001) — Complete 7 verification tasks

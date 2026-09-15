@@ -14,7 +14,8 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 
 **Language/Version**: Markdown (documentation), YAML (configuration)
 
-**Primary Dependencies**: 
+**Primary Dependencies**:
+
 - CLAUDE.md (current governance file)
 - AGENTS.md (current governance file)
 - `.specify/memory/constitution.md` (principle reference)
@@ -22,7 +23,8 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 
 **Storage**: Git repository; all artifacts stored as markdown/YAML files in `.github/` directory
 
-**Testing**: 
+**Testing**:
+
 - Manual review of refactored files against quality criteria
 - Automated validation: reference checking (file path verification), duplicate detection (text similarity)
 - Cross-file consistency validation (no conflicting guidance)
@@ -34,14 +36,16 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 
 **Performance Goals**: Clarity and discoverability (reader can find any governance topic in <2 minutes of navigation)
 
-**Constraints**: 
+**Constraints**:
+
 - No breaking changes to existing functionality (existing PRs/branches must remain valid)
 - @ashley must approve all refactored governance changes (Constitution Principle II)
 - Cannot modify LOCKED files (`.github/labels.yml`, `.github/issue-types.yml`, templates) — audit only
 - All references must point to valid files in repository (no broken links)
 - UK English spelling and accessibility standards maintained (Constitution Principle VI)
 
-**Scale/Scope**: 
+**Scale/Scope**:
+
 - ~1000 lines across 2 main files (CLAUDE.md ~270 lines, AGENTS.md ~350 lines)
 - ~500 lines of refactored/consolidated content
 - 15 governance-related branches to reference/consolidate
@@ -54,30 +58,36 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 ### Principle Alignment Verification
 
 **Principle I: Organisation-Wide Governance Authority** ✅
+
 - Spec treats CLAUDE.md/AGENTS.md as authoritative source
 - Audit ensures consistency across governance files (no contradictions)
 - Plan addresses how refactored files maintain this authority
 
 **Principle II: Curated Assets with Locked Governance** ✅
+
 - Plan respects that labels, issue-types, templates are LOCKED
 - Audit task is to document and validate, not modify these files
 - Requires @ashley approval for any changes to governance files
 
 **Principle III: Clear Asset Boundaries (No Duplication)** 🎯 **PRIMARY GOAL**
+
 - Spec identifies duplicate sections (Label Creation Governance appears twice in AGENTS.md)
 - Plan will consolidate duplicates to single source of truth
 - Audit verifies portable assets belong in top-level folders, not `.github/`
 
 **Principle IV: Technology-Agnostic Guidance** ✅
+
 - Audit checks that CLAUDE.md/AGENTS.md guidance applies universally
 - Plan ensures refactored content remains technology-agnostic (not WordPress-specific, language-specific, etc.)
 
 **Principle V: Branch Naming Strategy is Non-Negotiable** 🎯 **PRIMARY CONSTRAINT**
+
 - Spec fixes the exact issue: `claude/` prefix in AI tool behavior violates branch naming rules
 - Three existing branches found using forbidden prefixes (concrete evidence of problem)
 - Audit verifies branch naming guidance is consistent, clear, actionable
 
 **Principle VI: UK English, Accessibility, Security Standards** ✅
+
 - Refactored content will use UK English spelling
 - All governance files are accessibility-compatible (semantic markdown)
 - Security guidance remains consistent (validate input, escape output, no secrets)
@@ -87,6 +97,7 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 ✅ **GATE PASS**: Feature spec aligns with all 6 constitution principles. No conflicts identified.
 
 ⚠️ **Risk Mitigation Required**:
+
 - Existing branches with forbidden prefixes demonstrate the problem vividly
 - Refactored files must make branch naming so clear that mistakes become impossible
 - User @ashley confirmed as approval authority; no escalation needed
@@ -100,9 +111,11 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 **Goal**: Consolidate all audit findings from AUDIT_FINDINGS.md into comprehensive research document with resolved clarifications and decision documentation.
 
 **Deliverables**:
+
 - `research.md` — Detailed audit findings, verification results, and decision rationale
 
 **Output Acceptance Criteria**:
+
 - ✅ All initial audit findings documented
 - ✅ Verification status for 7 verification tasks documented
 - ✅ Decision rationale for each consolidation/fix documented
@@ -114,11 +127,13 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 **Goal**: Define the governance data model, contracts, and validation process for the refactored files.
 
 **Deliverables**:
+
 - `data-model.md` — Governance concepts, entities, relationships
 - `quickstart.md` — Validation process and acceptance criteria
 - No separate contracts/ directory (governance files aren't APIs)
 
 **Output Acceptance Criteria**:
+
 - ✅ Governance concepts clearly defined (spec vs. plan vs. tasks, locked vs. changeable, etc.)
 - ✅ Validation scenarios described (how to test that refactoring was successful)
 - ✅ Runnable checklist for verifying refactored files meet success criteria
@@ -128,9 +143,11 @@ Audit CLAUDE.md and AGENTS.md to identify and resolve duplicate content, bad ref
 **Goal**: Break down refactoring work into 96 concrete tasks with file paths, acceptance criteria, and dependencies.
 
 **Deliverables**:
+
 - `tasks.md` — 96-task breakdown grouped by phase (audit, consolidation, refactoring, validation)
 
 **Output Acceptance Criteria** (per `/speckit-tasks` command):
+
 - ✅ Each task has unique ID, description, acceptance criteria
 - ✅ File paths are absolute or repository-relative with clear scope
 - ✅ Dependencies documented where ordering matters
@@ -205,6 +222,7 @@ Branches with violations (examples of the problem):
   ✗ claude/pr-workflow-governance-7zni64 (FORBIDDEN PREFIX)
   ✗ copilot/phase-42-consolidate-issue-close-governance (FORBIDDEN PREFIX)
 ```
+
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real

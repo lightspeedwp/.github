@@ -95,6 +95,7 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 **Purpose**: Record compliance metrics at a point in time
 
 **Request**:
+
 ```javascript
 {
   snapshot: MetricsSnapshot,      // Full snapshot structure
@@ -108,6 +109,7 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 ```
 
 **Response**:
+
 ```javascript
 {
   success: boolean,
@@ -119,12 +121,14 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 ```
 
 **Error Cases**:
+
 - Invalid snapshot structure → 400 Bad Request
 - Duplicate snapshot_id → 409 Conflict (idempotent; return existing)
 - File system error → 500 Internal Server Error
 - Storage quota exceeded → 507 Insufficient Storage
 
 **Implementation**:
+
 - Store to `.github/reports/changelog-metrics/history/{YYYY}/{MM}/{DD}/{snapshot_id}.json`
 - Keep latest snapshot at `.github/reports/changelog-metrics/latest.json` (symlink or copy)
 - Maintain rolling 90-day window (delete snapshots older than 90 days daily)
@@ -138,12 +142,14 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 **Purpose**: Retrieve metrics for a date range for trend analysis
 
 **Query Parameters**:
+
 - `start_date`: ISO 8601 date (e.g., `2026-08-13`) — default: 90 days ago
 - `end_date`: ISO 8601 date (e.g., `2026-09-12`) — default: today
 - `period`: `daily` | `weekly` | `monthly` — default: `daily`
 - `fields`: comma-separated list of snapshot fields to return (default: all)
 
 **Response**:
+
 ```javascript
 {
   success: boolean,
@@ -163,11 +169,13 @@ The Metrics API provides read/write access to changelog compliance metrics and h
 ```
 
 **Example Request**:
+
 ```
 GET /reports/changelog-metrics/query?start_date=2026-08-13&end_date=2026-09-12&period=daily
 ```
 
 **Example Response**:
+
 ```json
 {
   "success": true,
@@ -195,6 +203,7 @@ GET /reports/changelog-metrics/query?start_date=2026-08-13&end_date=2026-09-12&p
 **Purpose**: Quickly fetch current compliance status (used by dashboard)
 
 **Response**:
+
 ```javascript
 {
   success: boolean,
@@ -213,10 +222,12 @@ GET /reports/changelog-metrics/query?start_date=2026-08-13&end_date=2026-09-12&p
 **Purpose**: Fetch pre-aggregated data for dashboard visualization
 
 **Query Parameters**:
+
 - `days`: number of days to include (default: 30)
 - `include_tables`: boolean (include raw violation tables; default: false)
 
 **Response**:
+
 ```javascript
 {
   summary: {
@@ -365,6 +376,7 @@ Every snapshot file must validate against this schema:
 ## Contract: Guaranteed Behaviors
 
 ✅ **Metrics API MUST**:
+
 - Guarantee idempotent writes (same snapshot_id, same result)
 - Maintain data consistency across concurrent reads/writes
 - Preserve historical data (no retroactive changes)
@@ -373,6 +385,7 @@ Every snapshot file must validate against this schema:
 - Return consistent trend calculations
 
 ✅ **Dashboard MUST**:
+
 - Refresh every 5 minutes (pull latest snapshot)
 - Display "Last updated: {timestamp}" with auto-refresh indicator
 - Support mobile viewport (responsive design)
@@ -380,6 +393,7 @@ Every snapshot file must validate against this schema:
 - Provide shareable links (with embedded snapshot date)
 
 ❌ **API MUST NOT**:
+
 - Delete or modify snapshots (write-once, read-many)
 - Recalculate historical data retroactively
 - Expose raw entry content (privacy)
@@ -392,6 +406,7 @@ Every snapshot file must validate against this schema:
 ### Common Error Responses
 
 **400 Bad Request**: Invalid query parameters or malformed snapshot
+
 ```json
 {
   "success": false,
@@ -402,6 +417,7 @@ Every snapshot file must validate against this schema:
 ```
 
 **409 Conflict**: Duplicate snapshot_id (idempotent response)
+
 ```json
 {
   "success": true,
@@ -411,6 +427,7 @@ Every snapshot file must validate against this schema:
 ```
 
 **500 Internal Server Error**: File system or processing failure
+
 ```json
 {
   "success": false,

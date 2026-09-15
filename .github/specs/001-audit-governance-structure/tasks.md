@@ -250,9 +250,9 @@
 
 ### Refactoring Core Tasks (Applies to Multiple US)
 
-- [ ] T120 [P] [US1][US2][US3][US4] Update CLAUDE.md with all audit findings applied
-- [ ] T121 [P] [US1][US2][US3][US4] Update AGENTS.md with all audit findings applied
-- [ ] T122 [US1][US2][US3][US4][US5] Remove duplicate "Label Creation Governance" section from AGENTS.md
+- [ ] T120 [P] [US1] [US2] [US3] [US4] Update CLAUDE.md with all audit findings applied
+- [ ] T121 [P] [US1] [US2] [US3] [US4] Update AGENTS.md with all audit findings applied
+- [ ] T122 [US1] [US2] [US3] [US4] [US5] Remove duplicate "Label Creation Governance" section from AGENTS.md
 - [ ] T123 [US2] Emphasize forbidden prefixes in CLAUDE.md branch naming section with prominent warning
 - [ ] T124 [US2] Update all branch naming examples to use valid types only (no claude/, copilot/, openai/)
 - [ ] T125 [US4] Reorganize CLAUDE.md sections into logical flow per T087
@@ -401,24 +401,31 @@ Phase 11: Closure & Approval (@ashley sign-off)
 ### Parallel Opportunities
 
 **Setup Phase (T001-T007)**: All marked [P] can run in parallel
+
 - Multiple verification tasks (T008-T026) can verify different files simultaneously
 
 **User Story 1 (T027-T045)**: Audit tasks marked [P] can run in parallel
+
 - Multiple diff/extraction tasks can analyze different sections simultaneously
 
 **User Story 2 (T046-T060)**: Branch naming review marked [P] can run in parallel
+
 - Multiple branch type extraction tasks can document different sections simultaneously
 
 **User Story 4 (T076-T089)**: Organization planning marked [P] can run in parallel
+
 - TOC creation and section mapping can happen simultaneously across files
 
 **User Story 5 (T090-T106)**: Workflow documentation marked [P] can run in parallel
+
 - Phase documentation can be written independently per phase
 
 **User Story 6 (T107-T119)**: Reference validation marked [P] can run in parallel
+
 - Different reference groups can be validated simultaneously
 
 **Quality Assurance (T143-T148)**: All marked [P] can run in parallel
+
 - Spell check, link check, and format validation can run simultaneously
 
 ### Critical Path (Minimum Sequential Tasks)
@@ -437,7 +444,8 @@ If working with single person or limited parallel execution:
 10. T154-T177 (Phase 10 Validation)
 11. T178-T196 (Phase 11 Closure)
 
-**Estimated Duration**: 
+**Estimated Duration**:
+
 - Sequential: ~20-25 work hours
 - With parallelization: ~8-10 work hours
 

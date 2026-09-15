@@ -19,21 +19,25 @@ Before refactoring begins, establish the current state as a baseline:
 ### ✅ Baseline Checklist
 
 **Duplication Baseline**:
+
 - [ ] Confirm "Label Creation Governance" section exists at AGENTS.md lines 209–252
 - [ ] Confirm duplicate exists at AGENTS.md lines 285–338
 - [ ] Note: After refactoring, only one section should remain
 
 **Reference Baseline**:
+
 - [ ] Document current list of broken/outdated references (see research.md VER-001)
 - [ ] Record file paths that don't exist
 - [ ] List references marked as "legacy" or "pending migration"
 
 **Conflict Baseline**:
+
 - [ ] Note current scope issues (e.g., script org rules in AGENTS.md)
 - [ ] Record terminology inconsistencies across files
 - [ ] List contradictory guidance (if any)
 
 **Branch Naming Baseline**:
+
 - [ ] Note any branches using forbidden prefixes (current count: 3)
 - [ ] Verify current branch naming section is in CLAUDE.md
 - [ ] Confirm 34 branch types are documented
@@ -67,12 +71,14 @@ git status  # All files should be in repository
 ```
 
 **Acceptance Criteria**:
+
 - ✅ No broken links in governance files
 - ✅ Every file reference resolves to valid repository path
 - ✅ Migrations documented with rationale
 - ✅ External links (if any) documented as non-repository references
 
 **Pass/Fail Signature**:
+
 ```
 Validation 1 Status: PASS ✅
 Broken References: 0
@@ -110,18 +116,21 @@ grep -n "scripts/" AGENTS.md
 ```
 
 **Manual Review**:
+
 - [ ] Read consolidated "Label Creation Governance" section (single occurrence)
 - [ ] Verify all guidance from original sections is present
 - [ ] Confirm no content loss
 - [ ] Verify section references are clear and unambiguous
 
 **Acceptance Criteria**:
+
 - ✅ "Label Creation Governance" appears exactly 1 time in AGENTS.md
 - ✅ Script organization rules removed from AGENTS.md (moved to CLAUDE.md or instructions/)
 - ✅ All unique content from duplicates is preserved
 - ✅ Cross-file duplication eliminated or minimized (CLAUDE.md vs. AGENTS.md)
 
 **Pass/Fail Signature**:
+
 ```
 Validation 2 Status: PASS ✅
 Duplicate Sections Found: 0
@@ -135,6 +144,7 @@ Content Consolidation: 100% retention
 **Goal**: No contradictory or conflicting guidance; clear authority hierarchy.
 
 **Manual Review**:
+
 - [ ] Read all branch naming guidance in CLAUDE.md
 - [ ] Read all branch naming guidance in AGENTS.md
 - [ ] Verify guidance aligns (same rules, no conflicts)
@@ -161,6 +171,7 @@ grep -i "wordpress" AGENTS.md | head -5
 ```
 
 **Acceptance Criteria**:
+
 - ✅ No contradictory guidance across files
 - ✅ Clear authority hierarchy established (constitution > governance > instructions)
 - ✅ Branch naming guidance is consistent
@@ -168,6 +179,7 @@ grep -i "wordpress" AGENTS.md | head -5
 - ✅ Terminology consistent across files (same concept always named same way)
 
 **Pass/Fail Signature**:
+
 ```
 Validation 3 Status: PASS ✅
 Contradictions Found: 0
@@ -182,6 +194,7 @@ Technology-Agnostic: Yes
 **Goal**: Governance files clearly document the spec-first workflow (branch → spec → draft PR → review → merge).
 
 **Manual Review**:
+
 - [ ] Read CLAUDE.md section on Git Workflow
 - [ ] Verify workflow phases are documented:
   - Phase 0: Create branch from develop following naming convention
@@ -213,6 +226,7 @@ grep -n "create PR\|draft PR\|gh pr create" CLAUDE.md
 ```
 
 **Acceptance Criteria**:
+
 - ✅ Specification-first workflow clearly documented
 - ✅ Phase boundaries clear (when to branch, when to spec, when to PR)
 - ✅ User controls when to create draft PR (not automatic)
@@ -220,6 +234,7 @@ grep -n "create PR\|draft PR\|gh pr create" CLAUDE.md
 - ✅ Success criteria for each phase are defined
 
 **Pass/Fail Signature**:
+
 ```
 Validation 4 Status: PASS ✅
 Workflow Phases Documented: 5/5
@@ -234,6 +249,7 @@ Constitution Alignment: Yes
 **Goal**: Branch naming rules are clear, actionable, enforceable, and prevent violations.
 
 **Manual Review**:
+
 - [ ] Read CLAUDE.md § "Branch Naming — CRITICAL"
 - [ ] Count documented branch types (should be 34)
 - [ ] Verify all types have examples
@@ -242,6 +258,7 @@ Constitution Alignment: Yes
 - [ ] Verify validation command is provided
 
 **Examples to Verify**:
+
 - [ ] ✅ `audit/governance-files-refactor` is valid (audit type)
 - [ ] ✅ `feat/user-authentication` is valid (feat type)
 - [ ] ❌ `claude/governance-refactor` is forbidden (claude prefix)
@@ -268,6 +285,7 @@ grep "^| \`" CLAUDE.md | wc -l
 ```
 
 **Acceptance Criteria**:
+
 - ✅ 34+ branch types documented with examples
 - ✅ Forbidden prefixes clearly marked with explanation
 - ✅ Validation command works and rejects forbidden prefixes
@@ -275,6 +293,7 @@ grep "^| \`" CLAUDE.md | wc -l
 - ✅ Rules are clear enough that mistakes become unlikely
 
 **Pass/Fail Signature**:
+
 ```
 Validation 5 Status: PASS ✅
 Branch Types Documented: 34
@@ -288,6 +307,7 @@ Rules Prevent Mistakes: Yes
 ## Overall Acceptance Checklist
 
 ### Pre-Refactoring Baseline ✅
+
 - [ ] Baseline state documented
 - [ ] Current issues identified
 - [ ] Metrics recorded
@@ -305,6 +325,7 @@ Rules Prevent Mistakes: Yes
 ### Final Approval Gate
 
 ✅ **REFACTORING COMPLETE** when:
+
 - All 5 validation scenarios PASS
 - Zero broken references remain
 - Zero duplicate sections remain
