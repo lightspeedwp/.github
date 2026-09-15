@@ -311,4 +311,3 @@ Use this file to answer feature-by-feature questions. It is a routing and QA ref
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

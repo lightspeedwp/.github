@@ -139,4 +139,3 @@ Use these rules when copying, adapting, or migrating slides from a source deck:
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

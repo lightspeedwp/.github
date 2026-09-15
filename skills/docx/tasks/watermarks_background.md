@@ -87,4 +87,3 @@ Other documents may use DrawingML shapes or background images.
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

@@ -96,4 +96,3 @@ python scripts/render_and_diff.py fixtures/watermark_fixture.docx no_watermark.d
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

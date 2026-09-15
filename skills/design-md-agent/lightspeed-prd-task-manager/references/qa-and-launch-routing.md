@@ -73,4 +73,3 @@ The PRD Task Manager should create a planning-level QA section and then route sp
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

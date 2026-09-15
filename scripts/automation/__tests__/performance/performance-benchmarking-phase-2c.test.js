@@ -14,7 +14,7 @@ import {
   BASELINE_METRICS,
   OPTIMIZATION_TARGET_MIN,
   OPTIMIZATION_TARGET_MAX,
-} from "./performance-benchmarking-phase-2c.mjs";
+} from "./performance-benchmarking-phase-2c.js";
 
 describe("performance-benchmarking-phase-2c", () => {
   describe("BASELINE_METRICS constant", () => {
@@ -70,8 +70,11 @@ describe("performance-benchmarking-phase-2c", () => {
         assert(result, `Should create result for ${scriptName}`);
         assert.equal(result.scriptName, scriptName);
         assert(result.baseline, "Should have baseline");
-        assert(result.actual, "Should have actual");
-        assert(result.cacheHitRate, "Should have cacheHitRate");
+        assert(result.executionTime, "Should have executionTime");
+        assert(
+          result.apiCalls.cacheHitRate !== undefined,
+          "Should have cacheHitRate",
+        );
       });
     });
 
@@ -301,9 +304,15 @@ describe("performance-benchmarking-phase-2c", () => {
         const saved = JSON.parse(fs.readFileSync(tempPath, "utf-8"));
 
         saved.results.forEach((result) => {
+          // BenchmarkResult.toJSON() folds baseline values into
+          // improvements.<metric>.baseline rather than a top-level
+          // "baseline" field -- check the shape it actually serializes.
           assert(result.scriptName, "Should have script name");
-          assert(result.baseline, "Should have baseline");
-          assert(result.actual, "Should have actual");
+          assert(result.executionTime, "Should have executionTime");
+          assert(
+            result.improvements?.executionTime?.baseline,
+            "Should have baseline via improvements",
+          );
         });
       } finally {
         if (fs.existsSync(tempPath)) {

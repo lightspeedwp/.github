@@ -84,4 +84,3 @@ Turn discovery inputs into practical AI governance outputs for client website, c
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

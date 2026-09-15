@@ -126,4 +126,3 @@ Hi [name or team], I need a decision on **[topic]** for **[project]**.
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

@@ -66,4 +66,3 @@ Use client-safe wording focused on clarity, crawlability, indexation and search 
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

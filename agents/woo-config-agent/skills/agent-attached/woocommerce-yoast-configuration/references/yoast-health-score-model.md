@@ -134,4 +134,3 @@ In those cases, provide a qualitative status and smallest next evidence request.
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

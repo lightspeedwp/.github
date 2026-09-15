@@ -527,4 +527,3 @@ For details on how linting is enforced before commits, see [HUSKY_PRECOMMITS.md]
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

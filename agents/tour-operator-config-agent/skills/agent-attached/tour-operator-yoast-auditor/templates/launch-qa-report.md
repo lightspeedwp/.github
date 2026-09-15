@@ -88,4 +88,3 @@ These recommendations are based on the reviewed evidence. They are intended to r
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

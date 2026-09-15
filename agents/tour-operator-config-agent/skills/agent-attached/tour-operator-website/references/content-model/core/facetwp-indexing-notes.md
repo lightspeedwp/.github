@@ -105,4 +105,3 @@ Use this as filter-indexing behaviour only. It does not make `price` or `duratio
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

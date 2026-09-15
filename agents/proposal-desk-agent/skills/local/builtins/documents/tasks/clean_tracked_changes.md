@@ -103,4 +103,3 @@ Open all `out_accept/page-*.png` at 100% zoom:
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

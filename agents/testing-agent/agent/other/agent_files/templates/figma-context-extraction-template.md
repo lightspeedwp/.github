@@ -87,4 +87,3 @@ Ensure design evidence is translated into testable context, not treated as the o
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

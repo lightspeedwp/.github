@@ -71,4 +71,3 @@ Recommend a company FAQ page plus selected page-level FAQs. Deduplicate repeated
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

@@ -88,4 +88,3 @@ Do not store live customer issue details, one-off ticket findings, or temporary 
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

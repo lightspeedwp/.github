@@ -99,3 +99,5 @@ python scripts/content_controls.py /mnt/data/template_sdt.docx list --json
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
