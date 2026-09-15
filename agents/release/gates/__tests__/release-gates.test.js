@@ -21,6 +21,13 @@ const ReleaseGates = require("../release-gates.cjs");
 
 // Test fixtures and utilities
 const TMP_DIR = path.join(os.tmpdir(), "release-gates-test");
+// Jest reuses one worker process across multiple test files. Resetting to
+// "/" (filesystem root) instead of the real starting directory leaves the
+// cwd there for whichever test file runs next in that worker, breaking any
+// test that resolves a relative path (e.g. metrics-collection-orchestrator's
+// default ".github/reports/metrics" storage dir, which then hits EACCES
+// trying to mkdir under /).
+const ORIGINAL_CWD = process.cwd();
 
 function setupTestRepo() {
   if (fs.existsSync(TMP_DIR)) {
@@ -33,6 +40,11 @@ function setupTestRepo() {
   execSync("git init");
   execSync('git config user.email "test@example.com"');
   execSync('git config user.name "Test User"');
+  // Force plain, unsigned commits/tags for this throwaway repo, regardless
+  // of the developer's global git config (e.g. tag.gpgsign=true forces
+  // annotated tags, which then require a message and block on $EDITOR).
+  execSync("git config commit.gpgsign false");
+  execSync("git config tag.gpgsign false");
 
   // Create initial VERSION file
   fs.writeFileSync("VERSION", "1.0.0", "utf-8");
@@ -75,7 +87,7 @@ describe("GATE 1: Pre-flight Checks", () => {
   });
 
   afterEach(() => {
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should pass with valid pre-flight state", () => {
@@ -132,7 +144,7 @@ describe("GATE 2: Agentic Reasoning Score", () => {
   });
 
   afterEach(() => {
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should pass with valid changelog (score >= 0.80)", () => {
@@ -213,7 +225,7 @@ describe("GATE 3: Version Consistency", () => {
   });
 
   afterEach(() => {
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should pass with valid semver (X.Y.Z)", () => {
@@ -280,7 +292,7 @@ describe("GATE 4: Tag Uniqueness", () => {
   });
 
   afterEach(() => {
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should pass when tag does not exist", () => {
@@ -290,7 +302,7 @@ describe("GATE 4: Tag Uniqueness", () => {
   });
 
   test("Should fail when tag already exists", () => {
-    execSync("git tag v1.0.0");
+    execSync("git tag --no-sign v1.0.0");
     const gates = new ReleaseGates();
     gates.gate4TagUniqueness();
     expect(gates.results.gate4_tag_unique.passed).toBe(false);
@@ -311,6 +323,10 @@ describe("GATE 4: Tag Uniqueness", () => {
 describe("GATE 5: Authorization", () => {
   beforeEach(() => {
     setupTestRepo();
+  });
+
+  afterEach(() => {
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should pass for authorized actors", () => {
@@ -354,7 +370,7 @@ describe("GATE 6: Integrity Filter", () => {
   });
 
   afterEach(() => {
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should pass when gitleaks not available", () => {
@@ -372,6 +388,10 @@ describe("GATE 6: Integrity Filter", () => {
 describe("GATE 7: Approval Enforcement", () => {
   beforeEach(() => {
     setupTestRepo();
+  });
+
+  afterEach(() => {
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should auto-approve patch releases", () => {
@@ -414,7 +434,7 @@ describe("All Gates Integration", () => {
   });
 
   afterEach(() => {
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should pass all gates for valid patch release", () => {
@@ -514,7 +534,7 @@ describe("Error Handling", () => {
     gates.gate1Preflight();
     const details = gates.results.gate1_preflight.details.join("\n");
     expect(details).toMatch(/not on develop/i);
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 
   test("Should suggest fixes", () => {
@@ -524,6 +544,6 @@ describe("Error Handling", () => {
     gates.runAllGates();
     const log = gates.getResults();
     expect(log.passed).toBe(false);
-    process.chdir("/");
+    process.chdir(ORIGINAL_CWD);
   });
 });
