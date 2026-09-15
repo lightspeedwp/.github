@@ -77,3 +77,5 @@ Outputs should be Markdown-first and easy to paste into Google Docs. If asked fo
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
