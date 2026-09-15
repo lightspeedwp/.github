@@ -1,5 +1,31 @@
 # Contract: Validation Rule Engine
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Status**: Phase 1 Design
 **Version**: 1.0
 **Date**: 2026-09-13
@@ -17,6 +43,7 @@ The Validation Rule Engine is the core component that evaluates changelog entrie
 **Type**: ChangelogEntry (YAML/JSON)
 
 **Required Fields**:
+
 - `title` (string): Entry title
 - `description` (string): Entry description
 - `category` (string): One of feature|fix|improvement|breaking-change|security|performance
@@ -25,11 +52,13 @@ The Validation Rule Engine is the core component that evaluates changelog entrie
 - `issue_references` (array, optional): List of issue numbers
 
 **Optional Fields**:
+
 - `version` (string): Semantic version
 - `components` (array): Affected components
 - `author` (string): Entry author
 
 **Example Input**:
+
 ```yaml
 title: "Changelog Quality Audit System"
 description: "Automated validation of changelog entries to ensure quality and clarity"
@@ -46,6 +75,7 @@ issue_references: [1234]
 **Type**: ValidationResult (JSON)
 
 **Structure**:
+
 ```json
 {
   "entry_id": "entry_20260912_1",
@@ -96,11 +126,13 @@ issue_references: [1234]
 ```
 
 **Status Values**:
+
 - `passing`: Rule requirement met
 - `warning`: Rule failed but not blocking (warning severity)
 - `failing`: Rule failed and blocking (error severity)
 
 **Compliance Status**:
+
 - `passing`: Score ≥90, no error-severity failures
 - `warning`: Score 75-89, has warning-severity failures
 - `failing`: Score <75, has error-severity failures
@@ -112,6 +144,7 @@ issue_references: [1234]
 **Type**: ValidationError (JSON)
 
 **When rule application fails**:
+
 ```json
 {
   "status": "error",
@@ -129,12 +162,14 @@ issue_references: [1234]
 ```
 
 **Error Codes**:
+
 - `RULE_APPLICATION_ERROR`: Rule failed to execute (e.g., GitHub API error)
 - `INVALID_INPUT`: Input doesn't match schema
 - `TIMEOUT`: Rule evaluation exceeded time limit
 - `INTERNAL_ERROR`: Unexpected error in validator
 
 **Fallback Behavior**:
+
 - `rule_skipped`: Error rule skipped, validation continues
 - `entry_skipped`: Entry skipped due to fatal error (rare)
 - `validation_aborted`: Validation stopped, retry required
@@ -182,6 +217,7 @@ Output: ValidationResult JSON
 ```
 
 **Execution Time Budget**:
+
 - Format/Structure rules: <10ms
 - Reference rules: 50-500ms (with GitHub API calls)
 - Content rules: 20-50ms (regex evaluation)
@@ -324,6 +360,7 @@ return { status: "passing", message: `All ${results.length} PR reference(s) veri
 **Scenario**: Rate limit exceeded during reference validation
 
 **Handling**:
+
 1. Detect 429 response from GitHub API
 2. Return error with `retry_after_seconds`
 3. Skip R010 validation rule (doesn't block)
@@ -331,6 +368,7 @@ return { status: "passing", message: `All ${results.length} PR reference(s) veri
 5. Continue with other rules
 
 **Output**:
+
 ```json
 {
   "status": "error",
@@ -347,12 +385,14 @@ return { status: "passing", message: `All ${results.length} PR reference(s) veri
 **Scenario**: GitHub API timeout during PR validation
 
 **Handling**:
+
 1. Set 5-second timeout for each API call
 2. On timeout, mark as API error (not entry error)
 3. Fallback: assume reference is valid (graceful degradation)
 4. Log error for monitoring
 
 **Output**:
+
 ```json
 {
   "status": "error",
@@ -369,12 +409,14 @@ return { status: "passing", message: `All ${results.length} PR reference(s) veri
 **Scenario**: Entry missing required fields
 
 **Handling**:
+
 1. Check schema before any rule execution
 2. Return validation error immediately
 3. Don't attempt rule application
 4. Guide user on required fields
 
 **Output**:
+
 ```json
 {
   "status": "error",
@@ -400,6 +442,7 @@ return { status: "passing", message: `All ${results.length} PR reference(s) veri
 | Rule initialization | <100ms | <500ms | >1000ms |
 
 **Optimization**:
+
 - Cache GitHub API responses (1 hour TTL)
 - Lazy-load GitHub client only if R009/R010 needed
 - Parallel regex evaluation where possible
@@ -469,6 +512,7 @@ test('Graceful degradation on GitHub API error', async () => {
 ### Adding New Rules
 
 **Process**:
+
 1. Define rule in `.github/changelog-rules.yml`
 2. Assign ID (R021, R022, etc.)
 3. Implement rule logic in validator
@@ -500,11 +544,18 @@ remediation_guidance: "Shorten description; move detailed context to PR/issue"
 ## Summary
 
 The Validation Rule Engine is:
+
 - **Fast**: <100ms per entry
 - **Reliable**: Graceful error handling, no cascading failures
 - **Extensible**: New rules added without breaking existing entries
 - **User-Friendly**: Clear remediation guidance for every issue
 - **Auditable**: All validation results logged and versioned
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -1,5 +1,31 @@
 # Tasks: Changelog Quality Audit
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Feature**: Changelog Quality Audit & Validation System
 
 **Input**: Design documents from `specs/003-changelog-quality-audit/`
@@ -63,6 +89,7 @@
 **Independent Test**: Submit entries with various quality issues, verify validation catches each with actionable feedback
 
 **Acceptance Criteria**:
+
 - Entry with implementation details fails with specific guidance ✓
 - Entry with proper format passes ✓
 - Missing required fields reported ✓
@@ -94,6 +121,7 @@
 **Independent Test**: Run audit on release branch, verify all quality issues identified, compliance report generated
 
 **Acceptance Criteria**:
+
 - Audit runs on release entries and identifies all quality issues ✓
 - Report shows compliance percentage and issue breakdown ✓
 - Remediation recommendations provided ✓
@@ -123,6 +151,7 @@
 **Independent Test**: Non-technical stakeholder reads release notes, understands what changed and why it matters
 
 **Acceptance Criteria**:
+
 - Release notes free of implementation details ✓
 - Each category clearly separated and prioritized ✓
 - Links to PRs/issues functional and contextual ✓
@@ -150,6 +179,7 @@
 **Independent Test**: Query metrics database, generate trend reports, export to CSV
 
 **Acceptance Criteria**:
+
 - Daily metrics collected automatically ✓
 - Trend analysis shows patterns over time ✓
 - CSV export for external tools ✓
@@ -180,9 +210,9 @@
 - [x] T066 [P] Create status check integration: `changelog-validator check-pr --pr <number>` runs full validation, sets GitHub status check (pass/fail), blocks merge if failing
 - [x] T067 [P] Implement override mechanism: `changelog-validator check-pr --pr <number> --force` allows release managers to override validation blocks, logs reason and user for audit trail
 - [x] T068 [US5] Implement PR comment formatter in `agents/changelog/includes/prCommentFormatter.cjs`: format validation results as GitHub comment with:
-    - Summary (N entries validated, X passing, Y failing)
-    - Table of issues (entry title, rules violated, remediation)
-    - Instructions for fixing
+  - Summary (N entries validated, X passing, Y failing)
+  - Table of issues (entry title, rules violated, remediation)
+  - Instructions for fixing
 - [x] T069 [P] Create GitHub workflow file: `.github/workflows/changelog-validation.yml` with full implementation
 - [x] T070 [P] Implement approval workflow: release managers must approve PR comments before merge if entries failing (GitHub approval requirement)
 - [x] T071 Implement logging for audits: GitHub Actions logs capture all validation runs, override reasons, user who ran validation
@@ -236,17 +266,21 @@ Phase 7: CI/CD & Polish
 ### Parallel Opportunities
 
 **Within Phase 1**:
+
 - All [P] tasks can run in parallel: ESLint/Prettier, Jest setup, npm scripts, error handling, config
 
 **Within Phase 2**:
+
 - All [P] tasks can run in parallel: pattern engine, score calculator, rule loader, unit tests
 - Then T013 (rule loader) must complete before T017 (rule population)
 
 **Within Phase 3-6**:
+
 - All [P] tasks within a story can run in parallel
 - Once US1 complete, US2 and US3/US4 can run in parallel (different teams)
 
 **Within Phase 7**:
+
 - All [P] tasks can run in parallel: GitHub workflow, documentation, profiling, guides
 
 ---
@@ -325,6 +359,12 @@ Phase 7: CI/CD & Polish
 - Performance targets: Single entry <100ms, full audit <5min, CI/CD check <2min
 - Rule versioning enables non-breaking rule evolution (new rules don't invalidate historical entries)
 - Graceful degradation: GitHub API failures don't block local development
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

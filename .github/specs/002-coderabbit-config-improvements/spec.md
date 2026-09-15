@@ -94,6 +94,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 ### Edge Cases
 
 - When a file matches multiple path patterns, more specific patterns override general ones (e.g., `**/e2e/*.spec.js` takes priority over `**/*.js`)
+- Files not matching any specific pattern receive guidance from catch-all pattern (e.g., `**/*`) with universal quality principles (code readability, error handling, security basics)
 - Generic patterns (e.g., `**/*.md`) serve as fallback instructions for files not matching specific patterns
 - Files in nested `.github/` directories in sub-repositories follow the same pattern priority rules
 - Instructions must evolve without breaking existing review workflows - additions/clarifications only, no breaking changes
@@ -107,7 +108,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **FR-003**: Security-critical file types MUST have prominent security review guidance (authentication, secrets handling, access control)
 - **FR-004**: Performance-related file types MUST include performance review criteria where applicable
 - **FR-005**: Accessibility-related file types MUST reference WCAG 2.2 AA standards per organizational requirement
-- **FR-006**: Configuration MUST provide branch-type-specific review instructions for the top 15-20 branch types by organizational usage frequency (feat/, fix/, hotfix/, release/, refactor/, chore/, task/, docs/, test/, perf/, ci/, security/, design/, a11y/, ops/, and 5-10 additional high-frequency types) - enabling context-aware feedback adapted to the nature of each change category
+- **FR-006**: Configuration MUST provide branch-type-specific review instructions for the top 15-20 branch types by organizational usage frequency (feat/, fix/, hotfix/, release/, refactor/, chore/, task/, docs/, test/, perf/, ci/, security/, design/, a11y/, ops/, and 5-10 additional high-frequency types) - enabling context-aware feedback adapted to the nature of each change category. Guidance MUST be technology-agnostic: address universal principles (security, performance, accessibility, correctness) without assuming specific languages, frameworks, project types, or libraries
 - **FR-007**: SpecKit-related files (`.specify/spec.md`, `.specify/plan.md`, `.specify/tasks.md`) MUST have dedicated review instructions
 - **FR-008**: Workflow and plugin files MUST have review instructions
 - **FR-009**: Configuration MUST be internally consistent (terminology, structure, formatting)
@@ -156,6 +157,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **No Duplication**: Improvements will avoid duplicating guidance already documented in AGENTS.md (global AI rules), CLAUDE.md (repo instructions), and `.github/instructions/*.instructions.md` (specific guidance files)
 - **Maintainability Over Completeness**: When faced with a choice between comprehensive coverage and maintainability, maintainability wins. Instructions should be clear and actionable, not exhaustive encyclopedic lists.
 - **Branch-Specific Reviews**: Review instructions will differentiate by branch type for the top 15-20 branch types by organizational usage frequency (feat/, fix/, security/, docs/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, and additional high-frequency types), enabling context-aware feedback tailored to the nature of each change.
+- **Precedence Rules**: When a file matches multiple patterns and branch context applies, path pattern priority (from FR-014) takes precedence as the primary mechanism. Branch context provides supplementary emphasis on relevant focus areas within the path-specific guidance.
 
 ## Clarifications
 
@@ -165,3 +167,9 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - Q: When files match multiple path patterns, should instructions cascade or use priority order? → A: Explicit priority/specificity order - more specific patterns override general ones (e.g., `**/e2e/*.js` before `**/*.js`).
 - Q: Should config include a "review coverage audit checklist" or keep this external? → A: External reference guide - document audit approach in project documentation, maintainers reference as needed. Keeps config focused on review instructions.
 - Q: Should branch-type-specific guidance cover all 30+ types or focus on high-frequency types? → A: Top 15-20 by usage frequency (Option A) - delivers 80% value with cleaner maintainability, avoids comprehensive but fragile coverage of rarely-used branch types (security/, proto/, codex/, etc.).
+
+### Session 2026-09-14
+
+- Q: What specific guidance patterns constitute "technology-agnostic" instructions? → A: Guidance addressing universal principles (security, performance, accessibility, correctness) without assuming language, framework, project type, or library. Allowed: "Ensure error handling is comprehensive"; Not allowed: "Use async/await" or "WordPress hooks". Applies to FR-006 and SC-011 validation.
+- Q: When a file doesn't match any specific path pattern, should CodeRabbit apply a generic catch-all? → A: Yes, add catch-all pattern (e.g., `**/*`) with universal guidance (readability, error handling, security basics) as fallback. Ensures 100% coverage while allowing specific patterns to override for high-priority files.
+- Q: When file matches multiple patterns AND branch context applies, which takes precedence? → A: Path pattern priority wins; branch context provides supplementary emphasis. Keeps FR-014 specificity rule as primary mechanism while branch context augments relevant focus areas.

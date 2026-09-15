@@ -1,5 +1,31 @@
 # Changelog Quality Audit System
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Status**: Phase 6 Complete - Metrics Collection & Trend Analysis | Phase 7 In Progress - CI/CD Integration
 
 Enterprise-grade changelog quality validation, metrics collection, release auditing, and professional release notes generation with full GitHub Actions integration.
@@ -36,19 +62,19 @@ The Changelog Quality Audit system is an enterprise-grade multi-layer validation
    - Local CLI validation with 20 quality rules
    - Support for stdin/file input
    - JSON output for CI/CD integration
-   
+
 2. **Story 2: Release Audit & Compliance (P1)** — Release managers audit all entries for a release and verify quality
    - Full changelog validation with compliance scoring
    - Detailed compliance reports with issue breakdown
    - Remediation guidance for each failing entry
    - Markdown report generation for GitHub
-   
+
 3. **Story 3: Consumer-Focused Release Notes (P1)** — Release notes are clear, professional, free of implementation details
    - Automatic reference link extraction and validation
    - Multi-format export (Markdown, HTML, plain text)
    - Category-based organization with proper prioritization
    - Feature flags for strict validation on release entries
-   
+
 4. **Story 4: Trend Analysis & Metrics (P2)** — Data analysts extract changelog data for business intelligence
    - Daily metrics snapshots with compliance percentage
    - Linear regression trend analysis
@@ -60,6 +86,7 @@ The Changelog Quality Audit system is an enterprise-grade multi-layer validation
 ### Quality Standards
 
 All entries are validated against 20 rules (R001-R020) ensuring:
+
 - **Clear language** — No code, imports, or technical implementation details (R001)
 - **Proper structure** — Required fields with validation (R002-R005, R020)
 - **Consistent formatting** — No markdown, backticks, or special characters (R007, R013, R016)
@@ -90,6 +117,7 @@ changelog-validator validate --entry entry.yaml
 ```
 
 Expected passing output:
+
 ```
 ✓ [PASS] Validation Result
 Score: 95/100 | Status: PASSING
@@ -214,11 +242,13 @@ changelog-validator validate [OPTIONS]
 ```
 
 **Options:**
+
 - `--entry <path>` — YAML entry file path
 - `--input -` — Read from stdin
 - `--json` — JSON output (default: human-readable)
 
 **Exit codes:**
+
 - `0` — Passed validation
 - `1` — Validation errors/warnings
 - `2` — Fatal error
@@ -438,12 +468,14 @@ npm ci
 ### Entry Examples
 
 ❌ **Poor**
+
 ```yaml
 title: Fixed const parsing issue
 description: Updated const handler = require("express") for bug fix
 ```
 
 ✓ **Good**
+
 ```yaml
 title: Fixed authentication timeout
 description: Users are no longer unexpectedly logged out during active sessions. Session expiration now correctly respects the configured timeout period.
@@ -454,6 +486,7 @@ description: Users are no longer unexpectedly logged out during active sessions.
 **Q: Can I validate entries programmatically?**
 
 A: Yes, import the validator module and call `validate()`:
+
 ```javascript
 const result = validator.validate(entry, rulesFile);
 ```
@@ -472,7 +505,8 @@ A: Yes, use the `--json` flag and exit codes in GitHub Actions or other CI syste
 
 ---
 
-**Implementation Status**: 
+**Implementation Status**:
+
 - ✓ Phase 1: Project structure
 - ✓ Phase 2: Core validation engine
 - ✓ Phase 3: Entry validation CLI & formatter
@@ -480,3 +514,9 @@ A: Yes, use the `--json` flag and exit codes in GitHub Actions or other CI syste
 - ⏳ Phase 5: Consumer release notes
 - ⏳ Phase 6: Metrics & analytics
 - ⏳ Phase 7: CI/CD integration & polish
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
