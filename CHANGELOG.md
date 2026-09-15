@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- **Stale Website Duplicate** — Removed .github/website/, a dead duplicate created by a prior AI edit; corrected AGENTS.md/instructions that had wrongly documented it as the canonical location. ([PR TBD]())
+- **Stale Website Duplicate** — Removed .github/website/, a dead duplicate; corrected AGENTS.md/instructions that had wrongly documented it as canonical. ([PR #3319](https://github.com/lightspeedwp/.github/pull/3319))
 
 ### Changed
 
