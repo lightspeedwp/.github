@@ -123,8 +123,8 @@ Merged to develop or main, >30 days old, no open PR, valid name
 **Verify**:
 
 ```bash
-# Check main is never in delete list
-grep -c "^- main$" .github/reports/stale-branches-*.md  # Should return 0
+# Check main is never in the Delete Category section
+sed -n '/^### Delete Category/,/^### Discuss Category/p' .github/reports/stale-branches-*.md | grep -c "^- main$\|| main |"  # Should return 0
 ```
 
 ### Test Case 2b: Branch with Open PR Preserved
@@ -273,11 +273,11 @@ node scripts/cleanup-branches.js \
 ### Verify
 
 ```bash
-# Check that dependabot branches are not in DELETE section
-grep -c "dependabot/" .github/reports/stale-branches-*.md | awk '{if ($1 > 0) print "✅ Dependabot branches preserved"}'
+# Check that dependabot branches are not in the Delete Category section
+sed -n '/^### Delete Category/,/^### Discuss Category/p' .github/reports/stale-branches-*.md | grep -c "dependabot/" | awk '{if ($1 == 0) print "✅ Dependabot branches excluded from DELETE"}'
 
-# Check they appear in KEEP section if recent, or DISCUSS if excluded policy
-grep -A 50 "Excluded Pattern" .github/reports/stale-branches-*.md | grep "dependabot/" && echo "✅ Found in Excluded section"
+# Check they appear in KEEP or DISCUSS section instead
+sed -n '/^### Keep Category/,/^### Delete Category/p;/^### Discuss Category/,$p' .github/reports/stale-branches-*.md | grep "dependabot/" && echo "✅ Found in KEEP or DISCUSS section"
 ```
 
 ---
@@ -353,9 +353,9 @@ jq '.categories.delete[0]' /tmp/audit-report.json
 # In CI workflow, after audit runs:
 - name: Validate Audit Report Schema
   run: |
-    jq 'input_filename as $f | . | ' \
-      .github/specs/009-audit-branch-cleanup/contracts/audit-report.schema.json \
-      .github/reports/audit-*.json
+    npx --yes ajv-cli validate \
+      -s .github/specs/009-audit-branch-cleanup/contracts/audit-report.schema.json \
+      -d .github/reports/audit-*.json
 ```
 
 Refer to:
@@ -401,8 +401,9 @@ gh auth login
 
 1. **Dry-run on target repository** — Run scenarios 1–3 above
 2. **Team review** — Share audit report, discuss DISCUSS category branches
-3. **Safe deletion** — After approval, run with `--dryRun=false` to delete
-4. **Automation** — Deploy workflow to `.github/workflows/branch-audit.yml` for scheduled audits
+3. **Draft PR + approval** — Open a draft PR listing verified deletion candidates (`contracts/deletion-candidates.schema.json`) for human review; this is the standard path to deletion
+4. **Safe deletion** — Only after the draft PR is approved, run with `--dryRun=false` to execute the approved deletions. Direct live-mode execution outside the draft-PR flow is restricted to release managers and MUST be logged.
+5. **Automation** — Deploy workflow to `.github/workflows/branch-audit.yml` for scheduled audits
 
 ## Reference
 

@@ -17,7 +17,7 @@ Represents a single git branch in the repository with metadata for audit categor
 - `scope` (string, optional): Scope identifier from branch name (e.g., `user-auth` from `feat/user-auth`)
 - `last_commit_date` (ISO8601 datetime): Timestamp of latest commit on branch
 - `age_days` (integer): Days since last commit (calculated: today - last_commit_date)
-- `author` (string): Author of latest commit on branch
+- `author` (string): Author of the **first** commit on the branch (used for bot detection per spec clarification — most reliable signal for bot-initiated branches)
 - `merge_status` (enum): One of `merged_to_develop`, `merged_to_main`, `unmerged`, `detached`
 - `open_pr` (integer or null): Associated PR number if open, null otherwise
 - `is_protected` (boolean): True if branch is in protected set (main, develop, release/*, hotfix/*)
@@ -103,7 +103,7 @@ A branch that meets all safety criteria for deletion (subset of DELETE category)
 1. ✅ Fully merged to `develop` or `main`
 2. ✅ Not in protected set
 3. ✅ No open pull request
-4. ✅ Age > threshold (default 30 days)
+4. ✅ Age >= threshold (default 30 days)
 5. ✅ Valid branch name (not FORBIDDEN prefix)
 6. ✅ Not in exclusion patterns
 
@@ -113,7 +113,8 @@ A branch that meets all safety criteria for deletion (subset of DELETE category)
 - `merge_commit_sha` (string): Merge commit hash for reference
 - `merge_date` (ISO8601): When branch was merged
 - `age_days` (integer): Days since last commit
-- `verification_passed` (boolean): All safety checks passed
+- `verification_passed` (boolean): True only if all seven `verification_checks` keys are true; a failed check MUST be reported (never silently coerced to `true`)
+- `verification_checks` (object, required): All seven boolean checks (`branch_exists`, `is_merged`, `no_open_pr`, `not_protected`, `valid_name`, `meets_age_threshold`, `not_excluded`) — see `contracts/deletion-candidates.schema.json`
 
 ---
 
@@ -130,13 +131,13 @@ ELSE IF open_pr is not null:
   Category = KEEP (reason: "active PR #{open_pr}")
 ELSE IF excluded:
   Category = KEEP or DISCUSS (reason: "matches exclusion pattern")
+ELSE IF NOT naming_valid:
+  Category = DISCUSS (reason: "naming_violation")
 ELSE IF merge_status == unmerged:
   IF age_days >= 60:
     Category = DISCUSS (reason: "unmerged_stale")
   ELSE:
     Category = KEEP (reason: "unmerged, recent")
-ELSE IF NOT naming_valid:
-  Category = DISCUSS (reason: "naming_violation")
 ELSE IF age_days < 30:
   Category = KEEP (reason: "recent")
 ELSE IF merge_status == merged_to_develop OR merge_status == merged_to_main:

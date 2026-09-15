@@ -28,7 +28,7 @@
       "description": "Branches safe to delete",
       "items": {
         "type": "object",
-        "required": ["name", "merge_status", "age_days", "verification_passed"],
+        "required": ["name", "merge_status", "age_days", "verification_passed", "verification_checks"],
         "properties": {
           "name": {
             "type": "string",
@@ -71,6 +71,15 @@
           },
           "verification_checks": {
             "type": "object",
+            "required": [
+              "branch_exists",
+              "is_merged",
+              "no_open_pr",
+              "not_protected",
+              "valid_name",
+              "meets_age_threshold",
+              "not_excluded"
+            ],
             "properties": {
               "branch_exists": { "type": "boolean" },
               "is_merged": { "type": "boolean" },
@@ -79,7 +88,8 @@
               "valid_name": { "type": "boolean" },
               "meets_age_threshold": { "type": "boolean" },
               "not_excluded": { "type": "boolean" }
-            }
+            },
+            "additionalProperties": false
           }
         }
       }

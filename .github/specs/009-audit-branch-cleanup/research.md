@@ -120,8 +120,8 @@ ELSE
 
 **JSON Format**:
 
-- Nested structure: `{ timestamp, summary, branches: [] }`
-- Each branch: `{ name, type, status, category, age_days, merged_to, last_commit_date, author, pr_number }`
+- Structure matches `contracts/audit-report.schema.json`: `{ timestamp, repository, branch_count, summary: { keep_count, delete_count, discuss_count }, categories: { keep, delete, discuss } }`
+- `categories.keep`/`delete`/`discuss` group branches by reason (e.g. `categories.keep.protected`, `categories.delete[]`), each entry carrying the relevant subset of `{ name, type, age_days, merged_to, last_commit_date, author, pr_number, reason }`
 - Machine-parseable for follow-up automation
 
 **Alternatives Considered**:

@@ -15,9 +15,9 @@ description: "Implementation task list for branch cleanup audit and refactoring"
 - contracts/ (✅ Complete)
 - quickstart.md (✅ Complete)
 
-**Total Task Count**: 48 implementation tasks across 8 phases
+**Total Task Count**: 56 implementation tasks across 8 phases
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story. Tests are NOT included in this task list (test development is optional per specification).
+**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story. Unit tests are included (T041) and required to pass in Phase 8 validation (T050); additional exploratory testing beyond the listed test tasks is optional per specification.
 
 ## Format: `[ID] [P?] [Story?] Description`
 
@@ -99,7 +99,7 @@ description: "Implementation task list for branch cleanup audit and refactoring"
 - [ ] T027 [US2] Implement JSON formatting in scripts/lib/report-formatter.js: formatDeletionCandidatesJSON(candidates, summary) producing machine-readable JSON matching deletion-candidates.schema.json with all required fields: timestamp, repository, candidates array with verification details, summary (total_candidates, verified_safe, verification_failed, estimated_storage_freed_mb), execution metadata
 - [ ] T028 [US2] Add generateDeletionCandidatesList(options) command to scripts/cleanup-branches.js that generates deletion candidates independently of audit (users can focus on safe-to-delete list)
 - [ ] T029 [US2] Add --verificationReportPath option to output detailed verification results showing which safety checks passed/failed for each candidate
-- [ ] T030 [US2] Create scripts/lib/branch-deleter.js implementing safeBranchDeletion(candidates, dryRun) function that: (1) if dryRun=true: preview deletions with detailed list, (2) if dryRun=false: execute git branch -d for each candidate with error handling for "already deleted" scenario (T99 edge case), (3) return deletion_report with success/failure count
+- [ ] T030 [US2] Create scripts/lib/branch-deleter.js implementing safeBranchDeletion(candidates, dryRun) function that: (1) if dryRun=true: preview deletions with detailed list, (2) if dryRun=false: execute deleteRemoteBranch(candidate) (`git push origin --delete {branch}`) for each candidate as the primary deletion target, with `git branch -d` for the local ref treated as optional cleanup only, with error handling for "already deleted" scenario (T99 edge case), (3) return deletion_report with success/failure count
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently. Audit script identifies candidates, deletion command produces verified safe list.
 
@@ -140,7 +140,7 @@ description: "Implementation task list for branch cleanup audit and refactoring"
 - [ ] T042 [US4] Refactor prompts/07-branch-worktree-cleanup.md to align with new audit/cleanup workflow, update cleanup examples, reference new audit reports and DISCUSS categories
 - [ ] T043 [US4] [P] Update agents/chat-closure-agent/ references to branch cleanup (search for "branch" or "cleanup" in AGENT.md/README.md, update any cleanup workflow references to use new audit structure)
 - [ ] T044 [US4] Add comprehensive code comments to scripts/cleanup-branches.js explaining: 8-gate categorisation logic, safety verification steps, dry-run vs. live deletion modes, performance optimisations (merge-base caching, batched gh CLI queries)
-- [ ] T045 [US4] Ensure all documentation uses UK English spelling and conventions (colour → color warnings, optimise, organisation, behaviour, etc.) (FR-014 requirement)
+- [ ] T045 [US4] Ensure all documentation uses UK English spelling and conventions (color → colour, optimize → optimise, organization → organisation, behavior → behaviour, etc.) (FR-014 requirement)
 
 **Checkpoint**: All cleanup infrastructure is harmonised, current, and well-documented for team adoption.
 
@@ -154,8 +154,8 @@ description: "Implementation task list for branch cleanup audit and refactoring"
 
 ### Implementation for User Story 5
 
-- [ ] T046 [US5] Create .github/workflows/branch-audit.yml GitHub Actions workflow with: trigger events (schedule: "0 9 ** 1" = first business day, manual workflow_dispatch), inputs (--dryRun default true, --inactiveDays default 30, --excludePatterns, --createIssue default false)
-- [ ] T047 [US5] [P] Implement workflow job: checkout repository (actions/checkout), setup Node.js (actions/setup-node with node-version-file: '.nvmrc'), run audit command (npm run audit:branches -- $OPTS), upload report artifact (actions/upload-artifact with path: .github/reports/stale-branches-*.md/.json)
+- [ ] T046 [US5] Create .github/workflows/branch-audit.yml GitHub Actions workflow with: trigger events (schedule: "0 9 * * 1" = every Monday 09:00 UTC; gate the "first business day" condition in workflow code if a stricter rule is needed, since cron cannot express it directly, manual workflow_dispatch), inputs (--dryRun default true, --inactiveDays default 30, --excludePatterns, --createIssue default false)
+- [ ] T047 [US5] [P] Implement workflow job: checkout repository (actions/checkout), setup Node.js (actions/setup-node with node-version-file: '.nvmrc'), run audit command (npm run audit:branches -- $OPTS), upload report artifact (actions/upload-artifact with separate path entries for `.github/reports/stale-branches-*.md` and `.github/reports/stale-branches-*.json` — not the invalid `*.md/.json` glob)
 - [ ] T048 [US5] Add optional workflow step: if --createIssue is enabled, parse DISCUSS candidates from JSON report and invoke scripts/lib/issue-generator.js (T036) to create summarising GitHub issue with team review link
 
 **Checkpoint**: Workflow is deployed and ready for scheduled/manual execution. Audit reports generated automatically without human intervention.
@@ -322,5 +322,5 @@ With 5 team members:
 - Each user story is independently completable, testable, and deployable
 - File paths are exact to enable immediate implementation
 - Stop at any checkpoint to validate story independently
-- All 48 tasks are immediately actionable by an engineer with Node.js and git knowledge
+- All 56 tasks are immediately actionable by an engineer with Node.js and git knowledge
 - Constraints: Safe by default (dry-run), zero accidental deletions, <5 second performance
