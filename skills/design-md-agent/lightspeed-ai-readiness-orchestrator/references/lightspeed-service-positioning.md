@@ -118,3 +118,5 @@ Recommend the smallest useful next step first. Avoid over-engineering. Emphasise
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

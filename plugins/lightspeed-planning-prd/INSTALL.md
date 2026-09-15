@@ -353,3 +353,5 @@ A: Claude and Copilot update automatically. For OpenAI, recreate the assistant w
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
