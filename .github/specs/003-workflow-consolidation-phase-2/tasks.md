@@ -26,6 +26,7 @@ phases: 7
 
 **Goal:** Establish baseline metrics, verify Phase 1 archive integrity, prepare feature branch  
 **Independent Test Criteria:**
+
 - [ ] Phase 1 archived workflows all present at `.github/workflows/archived/2026-09-11/`
 - [ ] GitHub Actions minutes baseline measured for last 30 days (recorded in documentation)
 - [ ] Feature branch created with clean git history
@@ -46,6 +47,7 @@ phases: 7
 **Goal:** Build shared composite actions, testing framework, and consolidation utilities  
 **Blocking:** All user stories depend on Phase 2 completion  
 **Independent Test Criteria:**
+
 - [ ] All composite actions callable and passing validation
 - [ ] Workflow test harness operational and testable
 - [ ] Consolidation mapping complete and referenced by all 5 workflows
@@ -70,6 +72,7 @@ phases: 7
 **User Story:** Consolidate 9 archived labeling workflows into single unified labeling engine  
 **Archived Workflows:** Label assignment, PR labeling, issue labeling, auto-labeling, label sync, bulk labeling, scheduled labeling, label cleanup, label metrics  
 **Independent Test Criteria:**
+
 - [ ] labeling-unified.yml triggers on PR open/edit, issue open/edit, and scheduled events
 - [ ] All label application rules from 9 archived workflows execute without duplicate label application
 - [ ] Labels applied match `.github/labels.yml` taxonomy with required prefixes (type:, status:, priority:, area:, meta:)
@@ -101,6 +104,7 @@ phases: 7
 
 **Archived Workflows:** Branch validation, PR template validation, changelog validation, commit validation, filename validation, path validation, secret scanning, configuration validation, spec validation, schema validation, naming validation, metadata validation  
 **Independent Test Criteria:**
+
 - [ ] validation-unified.yml triggers on PR open/edit, push, and pull_request_target
 - [ ] All 12 validation rules execute in parallel where possible
 - [ ] Failed validations post PR comments with remediation steps
@@ -125,6 +129,7 @@ phases: 7
 
 **Archived Workflows:** Unit test orchestration, integration test orchestration, E2E test orchestration, test result aggregation, coverage reporting, artifact collection, test artifact cleanup, test performance metrics  
 **Independent Test Criteria:**
+
 - [ ] testing-unified.yml triggers on push, pull_request, and schedule
 - [ ] All test suites (unit, integration, E2E) run in parallel, all pass with coverage ≥80%
 - [ ] Test results and coverage reports uploaded to artifacts
@@ -153,6 +158,7 @@ phases: 7
 **Archived Workflows:** JavaScript/TypeScript linting, Markdown linting  
 **Dependencies:** Depends on validation patterns from Phase 4 (US2)  
 **Independent Test Criteria:**
+
 - [ ] linting-unified.yml triggers on push and pull_request
 - [ ] All linting rules execute with shared ESLint/Prettier config
 - [ ] Linting failures post PR comments with auto-fix suggestions
@@ -178,6 +184,7 @@ phases: 7
 **Utilities:** SAST scanning, dependency scanning, license compliance, code quality metrics, security policy enforcement  
 **Dependencies:** Depends on all prior workflows (US1-US4)  
 **Independent Test Criteria:**
+
 - [ ] quality-gates.yml triggers on push, pull_request, and schedule
 - [ ] All security scans execute and report findings to PR comments
 - [ ] No new vulnerabilities introduced; existing vulnerabilities tracked
@@ -205,6 +212,7 @@ phases: 7
 
 **Goal:** Integration testing, performance validation, production deployment preparation  
 **Success Criteria:**
+
 - [ ] All 5 unified workflows passing CI for ≥3 consecutive runs
 - [ ] GitHub Actions minutes reduced by ≥15% (≤2,125/month)
 - [ ] Zero cascading failures between workflows
@@ -252,7 +260,8 @@ Phase 7 (Integration & Cutover)
 ### Parallel Execution Paths
 
 **Path A (MVP - Linear):** T001→T005 → T006→T014 → T015→T024 → Complete  
-**Path B (Full):** 
+**Path B (Full):**
+
 - Main: T001→T005 → T006→T014 → T015→T024
 - Parallel (after T014): T025→T036 + T037→T047
 - Sequential: T048→T056 → T057→T068 → T069→T078

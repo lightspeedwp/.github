@@ -17,11 +17,13 @@ description: "Decision log for PRD Agent Folder Consolidation Phase 1, 3, and 6"
 **Question**: Which directory survives for Cluster 8 project pack export skill — `project-pack-exporter/` or `prd-task-pack-exporter/`?
 
 **Decision**: ✅ **VERIFIED COMPLETE**
+
 - [x] Keep `prd-task-pack-exporter/` as the canonical skill folder (delete `project-pack-exporter/`)
 
 **Rationale**: Phase 3 consolidation work (PR #2865) selected `prd-task-pack-exporter/` as the surviving name. Current inventory confirms only `prd-task-pack-exporter/` exists in `agents/prd-agent/skills/`.
 
-**Sign-off**: 
+**Sign-off**:
+
 - Verified by: Claude (retroactive validation of completed work)
 - Date: 2026-09-11
 - Status: Consolidation already complete — `project-pack-exporter/` deleted, `prd-task-pack-exporter/` retained
@@ -36,11 +38,13 @@ description: "Decision log for PRD Agent Folder Consolidation Phase 1, 3, and 6"
 **Finding**: Per SKILL_DUPLICATION_AUDIT_REPORT.md §5 and INTRA_FOLDER_SKILL_AUDIT_SCOPE.md §5, `frontend-skill` is unrelated to PRD/planning work and should be removed.
 
 **Decision**: ✅ **VERIFIED COMPLETE**
+
 - [x] **CONFIRMED**: `frontend-skill/` removed in Phase 3 consolidation (**frontend-skill was out of scope**)
 
 **Note on Generic Tier**: `frontend-skill` was a separate removal (not part of the 2-file generic tier). Generic tier fate decided in T004.
 
 **Sign-off**:
+
 - Verified by: Claude (retroactive validation of completed work)
 - Date: 2026-09-11
 - Status: Consolidation already complete — `frontend-skill/` deleted
@@ -56,7 +60,8 @@ description: "Decision log for PRD Agent Folder Consolidation Phase 1, 3, and 6"
 
 Audit of current state: All 28 consolidated skills now have **single-file structure** (only `SKILL.md` at top level, no `agents/openai.yaml` sibling files).
 
-**Skills Identified as 2-file Generic Tier**: 
+**Skills Identified as 2-file Generic Tier**:
+
 - ✅ **NONE** — No skills match the 2-file structure in current consolidation state
 - `frontend-skill` is NOT in this list (was removed as separate out-of-scope skill per T003)
 
@@ -65,6 +70,7 @@ Audit of current state: All 28 consolidated skills now have **single-file struct
 **Step 2: Decide the Fate**
 
 **Decision**: ✅ **VERIFIED COMPLETE — GENERIC TIER RETIRED (CONSOLIDATED)**
+
 - [x] **RETIRED**: The generic tier 2-file structure was superseded by consolidated multi-provider architecture. All identified 2-file generic skills have been consolidated into single-file SKILL.md format with external provider configs. Generic tier no longer exists as a separate tier.
 
 **Rationale**: Phase 3 consolidation (PR #2865) unified the PRD agent system from a multi-folder, multi-tier structure into one canonical `agents/prd-agent/` with 28 skills, all using consistent `SKILL.md` frontmatter and provider-specific routing stored at the agent (not skill) level.
@@ -72,6 +78,7 @@ Audit of current state: All 28 consolidated skills now have **single-file struct
 **Content Migration Status**: No orphaned content — all load-bearing skill logic was retained and consolidated into the unified structure.
 
 **Sign-off**:
+
 - Verified by: Claude (retroactive validation of completed work)
 - Date: 2026-09-11
 - Status: Consolidation already complete — generic 2-file tier eliminated by design
@@ -86,6 +93,7 @@ Audit of current state: All 28 consolidated skills now have **single-file struct
 **Question**: Per spec.md Edge Case §4, are there external project documents, automation, or config that reference `agents/prd-factory-planner-agent/` by path?
 
 **Command Executed**:
+
 ```bash
 grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --include='*.yaml' --include='*.json' --include='*.js' --include='*.ts' --include='*.sh' | grep -v node_modules | grep -v '.git/' | grep -v '.github/projects'
 ```
@@ -102,12 +110,14 @@ grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --inclu
 
 **Total References**: ~1829 mentions found (mostly in historical project records); **2 active references requiring updates** (agents/README.md, agents/prd-factory-planner.agent.md)
 
-**Blocker Analysis**: 
+**Blocker Analysis**:
+
 - ❌ Folder `agents/prd-factory-planner-agent/` has been **ALREADY DELETED** in Phase 3 consolidation
 - ✅ Broken references are in documentation/definitions pointing to deleted folder — these are **post-consolidation cleanup tasks** (Phase 4/6 scope, not Phase 1 blockers)
 - ✅ **No active automation** depends on the deleted folder path
 
 **Sign-off**:
+
 - Verified by: Claude (retroactive validation)
 - Date: 2026-09-11
 - **Approval to confirm deletion** of `agents/prd-factory-planner-agent/`: ✅ **APPROVED — ALREADY COMPLETE**
@@ -122,6 +132,7 @@ grep -r 'prd-factory-planner-agent' . --include='*.md' --include='*.yml' --inclu
 **Question**: Does the final consolidated skill count exactly match SC-001's target (28 or 27)?
 
 **Command Executed**:
+
 ```bash
 find agents/prd-agent/skills -mindepth 1 -maxdepth 1 -type d | wc -l
 ```
@@ -139,6 +150,7 @@ acceptance-test-planner, approval-gate-manager, change-request-router, delivery-
 **Root Cause Analysis**: Not needed — count matches specification exactly.
 
 **Status**:
+
 - ✅ All cluster merges completed successfully (Clusters 1-10)
 - ✅ Hermes/ folder removed (T008)
 - ✅ prd-factory-planner-agent/ folder deleted
@@ -147,6 +159,7 @@ acceptance-test-planner, approval-gate-manager, change-request-router, delivery-
 - ✅ Final count: **28 skills** (matches SC-001 target)
 
 **Sign-off**:
+
 - Validated by: Claude (retroactive validation of completed work)
 - Date: 2026-09-11
 - **Status**: ✅ **COMPLIANT — SPECIFICATION TARGET ACHIEVED**
@@ -164,6 +177,7 @@ acceptance-test-planner, approval-gate-manager, change-request-router, delivery-
 - [x] **T057**: Final skill count ✅ **VERIFIED** — exactly 28 skills (matches SC-001 target)
 
 **Overall Status**: ✅ **PHASE 1-6 RETROACTIVE VALIDATION COMPLETE**
+
 - All decisions have been verified as completed in Phase 3 consolidation work (PR #2865, merged 2026-09-10)
 - No blockers remain; Phase 4 external registry updates (FR-010) ready to proceed
 - Post-consolidation cleanup (broken doc references) logged for Phase 4 implementation

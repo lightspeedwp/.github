@@ -1,0 +1,309 @@
+{
+  "scenario": "minor-release",
+  "startTime": "2026-09-15T05:40:19.638Z",
+  "steps": [
+    {
+      "timestamp": "2026-09-15T05:40:19.638Z",
+      "level": "info",
+      "message": "=== Scenario 2: Minor Release (v1.0.0 → v1.1.0) ==="
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.639Z",
+      "level": "info",
+      "message": "Creating test repository at: /tmp/release-e2e-test-repo/scenario-minor-release-1789450819638"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.660Z",
+      "level": "debug",
+      "message": "Executed: git init"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.745Z",
+      "level": "debug",
+      "message": "Executed: git config user.email \"test@lightspeedwp.agency\""
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.757Z",
+      "level": "debug",
+      "message": "Executed: git config user.name \"Test Bot\""
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.757Z",
+      "level": "info",
+      "message": "Created fixture: README.md"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.758Z",
+      "level": "info",
+      "message": "Created fixture: VERSION"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.758Z",
+      "level": "info",
+      "message": "Created fixture: .gitignore"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.758Z",
+      "level": "info",
+      "message": "Created fixture: CHANGELOG.md"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.758Z",
+      "level": "info",
+      "message": "Created fixture: package.json"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.774Z",
+      "level": "debug",
+      "message": "Executed: git add ."
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.797Z",
+      "level": "debug",
+      "message": "Executed: git commit -m \"initial: Setup test repository\""
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.810Z",
+      "level": "debug",
+      "message": "Executed: git tag -a v1.0.0 -m \"Release v1.0.0\""
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.855Z",
+      "level": "debug",
+      "message": "Executed: git checkout -b develop"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.855Z",
+      "level": "info",
+      "message": "Test repository created successfully"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.855Z",
+      "level": "info",
+      "message": "Verifying repository state"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.866Z",
+      "level": "debug",
+      "message": "Executed: git rev-parse --abbrev-ref HEAD"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.877Z",
+      "level": "debug",
+      "message": "Executed: git tag"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.877Z",
+      "level": "info",
+      "message": "Repository state verification passed"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.877Z",
+      "level": "info",
+      "message": "Phase 1: Creating release PR with minor version bump"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.877Z",
+      "level": "info",
+      "message": "Creating release PR for 1.1.0 (scope: minor)"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.892Z",
+      "level": "debug",
+      "message": "Executed: git checkout -b release/v1.1.0"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.893Z",
+      "level": "info",
+      "message": "Version bumped: 1.0.0 → 1.1.0"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.893Z",
+      "level": "info",
+      "message": "Changelog updated for version 1.1.0"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.907Z",
+      "level": "debug",
+      "message": "Executed: git add ."
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.931Z",
+      "level": "debug",
+      "message": "Executed: git commit -m \"chore: Release v1.1.0\""
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.931Z",
+      "level": "info",
+      "message": "Release branch created: release/v1.1.0"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.931Z",
+      "level": "info",
+      "message": "Verifying repository state"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.943Z",
+      "level": "debug",
+      "message": "Executed: git rev-parse --abbrev-ref HEAD"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.943Z",
+      "level": "info",
+      "message": "Repository state verification passed"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.943Z",
+      "level": "info",
+      "message": "Merging release/v1.1.0 → develop"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.960Z",
+      "level": "debug",
+      "message": "Executed: git checkout develop"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.976Z",
+      "level": "debug",
+      "message": "Executed: git merge --squash release/v1.1.0"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.000Z",
+      "level": "debug",
+      "message": "Executed: git commit -m \"chore: Merge release PR\""
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.000Z",
+      "level": "info",
+      "message": "PR merged successfully"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.000Z",
+      "level": "info",
+      "message": "Verifying repository state"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.012Z",
+      "level": "debug",
+      "message": "Executed: git rev-parse --abbrev-ref HEAD"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.012Z",
+      "level": "info",
+      "message": "Repository state verification passed"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.012Z",
+      "level": "info",
+      "message": "Phase 2: Running safety gates validation"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.012Z",
+      "level": "info",
+      "message": "GATE: preFlight → ✅"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "GATE: agenticScore → ✅"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "GATE: versionConsistency → ✅"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "GATE: tagUniqueness → ✅"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "GATE: authorization → ✅"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "GATE: integrityFilter → ✅"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "GATE: approvalEnforcement → MANUAL_APPROVAL_REQUIRED"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "Simulating maintainer approval..."
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "APPROVAL: Manual approval received from maintainer"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.029Z",
+      "level": "debug",
+      "message": "Executed: git checkout develop"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.041Z",
+      "level": "debug",
+      "message": "Executed: git checkout -b release/v1.1.0-main"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.041Z",
+      "level": "info",
+      "message": "Creating annotated tag: v1.1.0"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.062Z",
+      "level": "debug",
+      "message": "Executed: git checkout main || git checkout -b main"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.074Z",
+      "level": "debug",
+      "message": "Executed: git merge develop"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.086Z",
+      "level": "debug",
+      "message": "Executed: git tag -a v1.1.0 -m \"Release v1.1.0\""
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.086Z",
+      "level": "info",
+      "message": "Tag created: v1.1.0"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.087Z",
+      "level": "info",
+      "message": "Verifying repository state"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.098Z",
+      "level": "debug",
+      "message": "Executed: git rev-parse --abbrev-ref HEAD"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.111Z",
+      "level": "debug",
+      "message": "Executed: git tag"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.111Z",
+      "level": "info",
+      "message": "Repository state verification passed"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.111Z",
+      "level": "info",
+      "message": "=== Scenario 2 PASSED ==="
+    }
+  ],
+  "passed": true,
+  "errors": [],
+  "endTime": "2026-09-15T05:40:20.111Z"
+}

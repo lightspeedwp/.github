@@ -10,7 +10,8 @@
 
 A portable, format-agnostic framework for validating specification quality across 8 dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with 4 audience-specific variants (author pre-review, peer review, stakeholder gate, cross-project integration).
 
-**Primary requirements**: 
+**Primary requirements**:
+
 - Provide structured checklist with 40+ items covering 8 quality dimensions
 - Support 4 audience variants with tailored language and time estimates (15–45 min)
 - Generate results document with dimension scores, pass/fail status, and specific findings
@@ -21,7 +22,8 @@ A portable, format-agnostic framework for validating specification quality acros
 
 **Language/Version**: JavaScript/TypeScript (Node.js 18+) — aligns with LightSpeed .github ecosystem (SpecKit, MCP servers, tooling)
 
-**Primary Dependencies**: 
+**Primary Dependencies**:
+
 - `yaml` — Parse specification YAML/frontmatter
 - `marked` — Parse Markdown specifications
 - `json-schema-validator` — Validate checklist results against schema
@@ -37,13 +39,15 @@ A portable, format-agnostic framework for validating specification quality acros
 
 **Performance Goals**: Checklist execution <5 seconds for 50+ items on any spec file size (spec SC-006)
 
-**Constraints**: 
+**Constraints**:
+
 - Zero hardcoded dependencies on specific project structure (portable across repos)
 - Offline-capable (no external API calls)
 - Low memory footprint (<50MB)
 - Support markdown, YAML, and JSON spec formats
 
-**Scale/Scope**: 
+**Scale/Scope**:
+
 - Support specs ranging 5–100+ pages (very large specs may require decomposition)
 - 4 audience variants with 25–50 items each (100+ total checklist items in library)
 - Extensible to project-specific rules without core modification
@@ -137,6 +141,7 @@ packages/requirements-checklist/          # Main package
 ✅ No duplication of central guidance
 
 **Design complexity justified**:
+
 - 8 dimensions necessary to cover observable quality gaps (per spec)
 - 4 audience variants required to serve distinct workflows (author, peer, stakeholder, integration)
 - Template-based approach allows project-specific extensions without core modification (Principle III: Clear Asset Boundaries)
