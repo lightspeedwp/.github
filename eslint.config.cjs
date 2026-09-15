@@ -43,7 +43,12 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "docs/mustache-repo-templates/**", // Template files
       "scripts/utility/__tests__/**", // Test files
       "scripts/utility/__fixtures__/**", // Test fixtures
-      "skills/design-md-agent/figma-use/references/plugin-api-standalone.d.ts", // Imported Figma API typings
+      "**/skills/plugin-provided/**", // Vendored skill assets installed from plugins
+      "**/skills/platform-managed/**", // Vendored skill assets managed by the platform
+      "**/skills/directory-installed/**", // Vendored skill assets installed from a directory/marketplace
+      "**/skills/agent-attached/**", // Vendored skill assets attached to an agent
+      "**/skills/local/**", // Vendored skill assets installed locally (may nest plugin-provided/etc. further)
+      "**/plugin-api-standalone.d.ts", // Vendored Figma plugin API typings, wherever they're copied
     ];
 
 /**
