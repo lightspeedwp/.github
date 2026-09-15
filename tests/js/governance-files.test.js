@@ -28,6 +28,11 @@ function extractShellLabels(codeBlock) {
 const agents = readRepoFile('AGENTS.md');
 const claude = readRepoFile('CLAUDE.md');
 const changelog = readRepoFile('GOVERNANCE_CHANGELOG.md');
+const canonicalLabels = new Set(
+  [...readRepoFile('.github/labels.yml').matchAll(/^- name:\s*["']?([^\n"']+)["']?$/gm)].map(
+    ([, label]) => label.trim()
+  )
+);
 
 describe('governance file refactor', () => {
   describe('label creation governance', () => {
@@ -66,9 +71,27 @@ describe('governance file refactor', () => {
       expect(incorrectLabels.every((label) => !label.includes(':'))).toBe(true);
     });
 
-    test('points to existing canonical data and validation files', () => {
+    test('uses canonical labels in the positive example and rejects its bare counterparts', () => {
+      const correctExample = labelSection.match(/# ✅ CORRECT[\s\S]*?(?=# ❌ INCORRECT)/)?.[0];
+      const incorrectExample = labelSection.match(/# ❌ INCORRECT[\s\S]*?```/)?.[0];
+
+      expect(correctExample).toBeDefined();
+      expect(incorrectExample).toBeDefined();
+
+      for (const label of extractShellLabels(correctExample)) {
+        expect(canonicalLabels).toContain(label);
+      }
+
+      for (const label of extractShellLabels(incorrectExample)) {
+        expect(canonicalLabels).not.toContain(label);
+      }
+    });
+
+    test('points to existing canonical data, guidance, and validation files', () => {
       for (const relativePath of [
         '.github/labels.yml',
+        'docs/LABEL_STRATEGY.md',
+        'docs/LABELING.md',
         'scripts/validation/validate-labels-before-creation.cjs',
       ]) {
         expect(labelSection).toContain(relativePath);
@@ -121,6 +144,38 @@ describe('governance file refactor', () => {
       expect(workflow).toMatch(/Implementation plan is solid/);
     });
 
+    test('keeps every documented draft-PR readiness gate', () => {
+      const draftPrSection = extractSection(workflow, /^### When to Create Draft PR$/m, /^### /m);
+      const readinessGates = [...draftPrSection.matchAll(/^- ✅ (.+)$/gm)].map(([, gate]) => gate);
+
+      expect(readinessGates).toEqual([
+        'Specification is complete and clarified',
+        'Implementation plan is solid (you understand the approach)',
+        "You're ready for feedback or blocked on decisions",
+        'Work is substantial enough to benefit from collaborative input',
+      ]);
+    });
+
+    test('keeps the quick-reference phases aligned with the prescribed process', () => {
+      const quickReference = extractSection(workflow, /^### Quick Reference$/m, /^### /m);
+      const rows = [...quickReference.matchAll(/^\| (\d+)\. ([^|]+?) \| ([^|]+?) \|/gm)].map(
+        ([, order, phase, tool]) => ({
+          order: Number(order),
+          phase: phase.trim(),
+          tool: tool.replaceAll('`', '').trim(),
+        })
+      );
+
+      expect(rows).toEqual([
+        { order: 1, phase: 'Plan', tool: 'npm run speckit:specify' },
+        { order: 2, phase: 'Clarify', tool: 'npm run speckit:clarify' },
+        { order: 3, phase: 'Design', tool: 'npm run speckit:plan' },
+        { order: 4, phase: 'Decompose', tool: 'npm run speckit:tasks' },
+        { order: 5, phase: 'Implement', tool: 'Your tools' },
+        { order: 6, phase: 'PR Review', tool: 'gh / GitHub UI' },
+      ]);
+    });
+
     test('preserves the small-change boundary', () => {
       const smallChanges = extractSection(workflow, /^### For Small Changes$/m, /^## /m);
 
@@ -138,6 +193,28 @@ describe('governance file refactor', () => {
     ])('records the %s governance change', (reference, change) => {
       expect(changelog).toContain(reference);
       expect(changelog).toContain(change);
+    });
+  });
+
+  describe('canonical specification storage', () => {
+    test.each([
+      '003-changelog-quality-audit',
+      '005-requirements-quality-checklist',
+      '008-label-audit-consolidation',
+    ])('keeps %s under .github/specs with its core artefacts', (specification) => {
+      const canonicalDirectory = path.join(repoRoot, '.github/specs', specification);
+
+      expect(fs.existsSync(path.join(repoRoot, 'specs', specification))).toBe(false);
+      expect(fs.existsSync(path.join(canonicalDirectory, 'spec.md'))).toBe(true);
+      expect(fs.existsSync(path.join(canonicalDirectory, 'plan.md'))).toBe(true);
+      expect(fs.existsSync(path.join(canonicalDirectory, 'tasks.md'))).toBe(true);
+    });
+
+    test('does not leave the superseded label-audit specification number behind', () => {
+      expect(
+        fs.existsSync(path.join(repoRoot, '.github/specs/007-label-audit-consolidation'))
+      ).toBe(false);
+      expect(fs.existsSync(path.join(repoRoot, 'specs/007-label-audit-consolidation'))).toBe(false);
     });
   });
 });
