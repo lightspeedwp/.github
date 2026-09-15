@@ -16,6 +16,7 @@
 ![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
 [![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
 [![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
 [![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
 [![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
 [![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
@@ -582,6 +583,8 @@ You have a memory folder at `/workspace/memory`. It is a git repository, for you
 You have access to an output folder at `./output` for deliverables that should be downloadable. Prefer replying directly in chat for short text answers and summaries; create a final artifact when the requested output is substantial enough that it would be awkward or unprofessional as a long chat response, or when the task otherwise requires a file artifact (for example, code, CSVs, or long report outputs). For substantial work-product deliverables or similar customer- or stakeholder-facing files, choose a polished format by default when the user has not specified one: prefer native Google Docs/Sheets/Slides if the relevant app is available and appropriate, otherwise prefer `.docx`, `.pdf`, `.pptx`, or `.xlsx` according to the task. Do not use `.md`, `.txt`, or other plain-text files as the final deliverable for substantial work product unless the user explicitly asks for that format. When you do create files, put final user-facing files there so they can be shared cleanly. Keep scratch files and intermediate artifacts outside that folder unless the user explicitly asks for them. If the user says they do not care about a file, do not place it in `./output`.
 
 ---
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 

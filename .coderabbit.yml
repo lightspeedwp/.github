@@ -135,11 +135,21 @@ reviews:
     # === PRIORITY 90: AGENT & PROMPT DIRECTORIES (Broad agent infrastructure) ===
     - path: ".github/prompts/**"
       instructions: |
-        Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
+        Review all CodeRabbit and agent prompt files:
+          - Ensure prompts are clearly structured, role-focused, and actionable.
+          - Verify all instructions are technology-agnostic (no framework/language specifics).
+          - Confirm prompts reference authoritative sources (CLAUDE.md, AGENTS.md, standards docs).
+          - Check that examples provided are universal and applicable across diverse project types.
+          - Validate consistency of terminology and tone across related prompt files.
 
     - path: "agents/**"
       instructions: |
-        Prefer concise, actionable reviews. Respect documented style precedence. Link suggested fixes.
+        Review all agent files (fallback for agent-specific paths):
+          - Verify code quality, testing coverage, and error handling patterns.
+          - Ensure agent specifications document purpose, inputs, outputs, dependencies, and error conditions.
+          - Confirm agent implementations follow coding standards: documentation, linting, type safety.
+          - Check that test files exist and cover both success and failure scenarios.
+          - Validate cross-references between specs, implementations, and test files are up-to-date.
 
     # === PRIORITY 88: CRITICAL CONFIGURATION FILES (Custom instructions) ===
     - path: ".github/custom-instructions.md"
@@ -288,11 +298,11 @@ reviews:
       instructions: |
         Review JavaScript/TypeScript source code:
           - Ensure code is linted and follows project style guides.
-          - Validate use of ES modules or CommonJS as appropriate.
+          - Validate module syntax is consistent and appropriate for the project.
           - Check for dead code, unused variables, and clear function naming.
-          - Verify scripts enhance, not replace, native functionality.
+          - Verify code enhances functionality without unnecessary complexity.
           - Validate accessibility and performance optimizations.
-          - Confirm event handling, DOM manipulation compatibility.
+          - Ensure DOM and runtime compatibility with project targets.
           - Check for code comments, modularity, and maintainability.
           - Ensure tests are isolated and do not depend on external state.
           - Check for descriptive test names and clear test structure.
@@ -471,41 +481,41 @@ reviews:
     # 13. JavaScript Module Variants
     - path: "**/*.mjs"
       instructions: |
-        Review ES module files (.mjs):
+        Review module files (.mjs):
           - Ensure code is linted and follows project style guides.
-          - Validate proper ES module syntax (import/export).
-          - Check for compatibility with Node.js and browser environments.
-          - Ensure consistent module resolution and paths.
-          - Verify no mixed CommonJS/ES module patterns.
-          - Check for proper async/await usage and error handling.
+          - Validate module syntax is correct and consistent.
+          - Check for compatibility with target environments (Node.js, browsers).
+          - Ensure consistent module resolution and import paths.
+          - Verify no conflicting module patterns within the file.
+          - Check for proper asynchronous operation handling and error handling.
 
     - path: "**/*.cjs"
       instructions: |
-        Review CommonJS module files (.cjs):
+        Review module files (.cjs):
           - Ensure code is linted and follows project style guides.
-          - Validate proper CommonJS syntax (require/module.exports).
-          - Check for compatibility with Node.js versions in use.
+          - Validate module syntax is correct and consistent with project patterns.
+          - Check for compatibility with target Node.js versions.
           - Ensure consistent module patterns across codebase.
-          - Verify no mixed ES module/CommonJS patterns.
+          - Verify module patterns are unified (not conflicting with other module variants).
           - Check for proper error handling and security practices.
 
     # 14. Component & Template Files
     - path: "**/*.astro"
       instructions: |
-        Review Astro component files:
-          - Ensure valid Astro syntax and component structure.
+        Review component template files (.astro):
+          - Ensure valid syntax and component structure.
           - Check for proper prop typing and validation.
           - Validate accessibility of rendered HTML output.
-          - Ensure performance optimizations (partial hydration, islands).
-          - Check for proper use of Astro layouts and components.
-          - Validate island directives and client-side interactivity.
-          - Check for SEO best practices (title, meta tags, structured data).
+          - Ensure performance optimizations are applied.
+          - Check for proper component and layout usage and reusability.
+          - Validate client-side interactivity patterns.
+          - Check for SEO best practices (metadata, structured data).
 
     - path: "**/*.mdx"
       instructions: |
-        Review MDX files (Markdown with JSX):
-          - Ensure valid markdown syntax and JSX component usage.
-          - Check for proper component imports and prop passing.
+        Review MDX files (Markdown with component integration):
+          - Ensure valid markdown syntax and component usage.
+          - Check for proper component imports and configuration.
           - Validate accessibility of interactive components.
           - Ensure consistent formatting with project markdown style.
           - Check for frontmatter completeness and accuracy.
