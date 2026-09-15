@@ -30,7 +30,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version-file: ".nvmrc"
 
       - name: Aggregate metrics
         run: |
@@ -65,7 +65,7 @@ jobs:
             fi
           done
 
-          PASS_RATE=$(awk "BEGIN {if ($TOTAL_VALIDATIONS == 0) print \"0.0\"; else printf \"%.1f\", ($VALID_COUNT / $TOTAL_VALIDATIONS) * 100}")
+          PASS_RATE=$(awk -v total="$TOTAL_VALIDATIONS" -v valid="$VALID_COUNT" 'BEGIN {if (total == 0) print "0.0"; else printf "%.1f", (valid / total) * 100}')
 
           # Write summary as JSON
           cat > .github/reports/branch-validation/metrics-summary.json <<'SUMMARY'
