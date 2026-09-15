@@ -22,13 +22,26 @@ class RemediationChecklistGenerator {
    * Analyze issue for template compliance gaps
    */
   analyzeCompliance(issue) {
+    if (!issue) {
+      return {
+        issueNumber: undefined,
+        title: undefined,
+        type: "unknown",
+        hasDoR: false,
+        hasDoD: false,
+        missingDoR: true,
+        missingDoD: true,
+        isNonCompliant: true,
+      };
+    }
+
     const body = (issue.body || "").toLowerCase();
     const labels = (issue.labels || []).map((l) =>
       typeof l === "string" ? l : l.name,
     );
 
-    const hasDoR = /definition of ready \(dor\)/i.test(body);
-    const hasDoD = /definition of done \(dod\)/i.test(body);
+    const hasDoR = /definition of ready(\s*\(dor\))?/i.test(body);
+    const hasDoD = /definition of done(\s*\(dod\))?/i.test(body);
 
     return {
       issueNumber: issue.number,
@@ -125,7 +138,7 @@ class RemediationChecklistGenerator {
       ],
       "type:bug": [
         "- [ ] Root cause identified and documented",
-        "- [ ] Fix implemented and tested",
+        "- [ ] Fixed and verified with a passing test",
         "- [ ] Regression test added",
         "- [ ] Release notes updated",
       ],
@@ -194,6 +207,8 @@ class RemediationChecklistGenerator {
       "<!-- remediation-checklist -->",
       "## 📋 Remediation Checklist",
       "",
+      `**Issue type:** ${compliance.type || "unknown"}`,
+      "",
     ];
 
     // Missing sections
@@ -237,6 +252,77 @@ class RemediationChecklistGenerator {
     );
 
     return parts.join("\n");
+  }
+
+  /**
+   * Post (or skip) a single remediation checklist comment for one issue.
+   * Returns the created comment data, or null if nothing was posted
+   * (compliant issue, an existing checklist comment, or an API failure).
+   */
+  async postChecklistComment(issue, analysis) {
+    if (!analysis || !analysis.isNonCompliant) {
+      return null;
+    }
+
+    try {
+      // Paginate: an issue can have far more than one page of comments, and
+      // an existing checklist posted long ago would otherwise be missed,
+      // causing a duplicate post. Match the exact marker
+      // generateRemediationComment() itself emits, not the loosely similar
+      // "Remediation Checklist" heading text (which duplicate-detection in
+      // postRemediationChecklists below has always used correctly).
+      const comments = await this.github.paginate(
+        this.github.rest.issues.listComments,
+        {
+          owner: this.owner,
+          repo: this.repo,
+          issue_number: issue.number,
+          per_page: 100,
+        },
+      );
+
+      const existingChecklist = (comments || []).find((c) =>
+        c.body?.includes("<!-- remediation-checklist -->"),
+      );
+      const checklistComment = this.generateRemediationComment(analysis);
+
+      if (existingChecklist) {
+        // Refresh a stale checklist instead of leaving it as-is: the
+        // compliance state (missing DoR/DoD, issue type) can change
+        // between runs, and postRemediationChecklists() below already
+        // keeps its checklist current the same way -- this method
+        // diverging from that would silently leave an outdated
+        // checklist on the issue forever.
+        const { data } = await this.github.rest.issues.updateComment({
+          owner: this.owner,
+          repo: this.repo,
+          comment_id: existingChecklist.id,
+          body: checklistComment,
+        });
+        return data;
+      }
+
+      const { data } = await this.github.rest.issues.createComment({
+        owner: this.owner,
+        repo: this.repo,
+        issue_number: issue.number,
+        body: checklistComment,
+      });
+
+      return data;
+    } catch (error) {
+      // Distinguishing a real API failure from the two legitimate no-op
+      // cases above (compliant issue, checklist already posted) matters
+      // for anyone operating this: a silent catch here would make a
+      // rate-limited or 403'd run look identical to "nothing needed
+      // doing". The return value stays null either way (existing
+      // callers rely on that), but the failure itself is not swallowed.
+      console.error(
+        `Failed to post remediation checklist for issue #${issue?.number}:`,
+        error.message,
+      );
+      return null;
+    }
   }
 
   /**

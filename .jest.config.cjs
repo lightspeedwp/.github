@@ -70,5 +70,13 @@ module.exports = {
         '<rootDir>/.netlify/',
         '<rootDir>/.storybook/',
         '<rootDir>/docs/mustache-repo-templates/',
+        // Standalone CLI validation scripts, not Jest suites: each defines
+        // its own test()/assert helpers and calls process.exit() directly,
+        // which crashes the Jest worker instead of reporting a failure.
+        // They already run via dedicated `npm run test:*` scripts.
+        '<rootDir>/.github/scripts/__tests__/create-agent-spec.test.js',
+        '<rootDir>/.github/scripts/__tests__/generate-agent-index.test.js',
+        '<rootDir>/.github/scripts/__tests__/validate-agent-specs.test.js',
+        '<rootDir>/.github/scripts/__tests__/workflow-integration.test.js',
     ],
 };

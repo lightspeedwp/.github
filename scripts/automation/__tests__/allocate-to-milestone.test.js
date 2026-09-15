@@ -4,7 +4,11 @@
  * @module scripts/automation/__tests__/allocate-to-milestone.test.js
  */
 
-const { describe, it, expect, beforeEach, jest } = require("@jest/globals");
+// `jest` is intentionally not destructured here: babel-plugin-jest-hoist
+// hoists the jest.mock() call below above this require and re-declares
+// `jest`, which collides with an explicit destructure of the same name.
+// The `jest` global is always available in the test environment.
+const { describe, it, expect, beforeEach } = require("@jest/globals");
 
 // Mock Octokit before importing the allocate-to-milestone module
 jest.mock("octokit", () => ({

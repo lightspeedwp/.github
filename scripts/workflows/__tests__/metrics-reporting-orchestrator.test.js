@@ -220,11 +220,12 @@ describe("MetricsReportingOrchestrator", () => {
       jest.spyOn(orchestrator, "saveReport").mockReturnValue("test-report.md");
       jest.spyOn(fs, "statSync").mockReturnValue({ size: 123 });
 
-      // Telemetry failures are recorded, never propagated to the caller
+      // Telemetry failures are logged as non-fatal (see the console.warn in
+      // generateReports()) and must not affect the report's own outcome.
       await expect(
         orchestrator.generateReports(repositories),
       ).resolves.toHaveLength(1);
-      expect(orchestrator.reports[0].status).toBe("error");
+      expect(orchestrator.reports[0].status).toBe("success");
     });
   });
 

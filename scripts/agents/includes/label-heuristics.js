@@ -31,10 +31,12 @@ function suggestLabelsFromContent(item, aliasMap) {
     "type:refactor": [
       /\b(refactor|restructure|reorganize|cleanup|optimize|improve|simplify|modernize)\b/i,
     ],
-    "priority:high": [
+    "priority:critical": [
       /\b(urgent|critical|high priority|asap|blocking|production|live|customer|client)\b/i,
     ],
-    "priority:low": [/\b(low priority|nice to have|minor|cosmetic|polish)\b/i],
+    "priority:minor": [
+      /\b(low priority|nice to have|minor|cosmetic|polish)\b/i,
+    ],
     "area:security": [
       /\b(security|vulnerability|exploit|attack|auth|authentication|permission|access|credential|token|password)\b/i,
     ],
