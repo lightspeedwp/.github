@@ -37,7 +37,7 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "@octokit/rest": "^22.0.1",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^5.4.1"
   },
   "devDependencies": {
     "eslint": "^10.10.0",
