@@ -88,4 +88,3 @@ Act like a lead product designer or principal UX reviewer, not a taste critic.
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

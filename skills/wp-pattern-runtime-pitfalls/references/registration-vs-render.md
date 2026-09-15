@@ -72,4 +72,3 @@ Test the pattern on **more than one** post/term. A value that's actually still b
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

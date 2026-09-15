@@ -13,11 +13,12 @@
 
 import { RemediationChecklistGenerator } from "../../scripts/agents/includes/remediation-checklist-generator.js";
 import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { join } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// `__dirname` here is Jest's ambient CommonJS-wrapper global, not a native
+// ESM binding: import.meta.url has no CJS equivalent, so using it would
+// leave this file un-transformable to CommonJS and break under plain jest
+// (no --experimental-vm-modules), which is how the root suite runs it.
 const sampleIssues = JSON.parse(
   readFileSync(join(__dirname, "../fixtures/sample-issues.json"), "utf8"),
 );
@@ -32,9 +33,16 @@ describe("RemediationChecklistGenerator", () => {
       rest: {
         issues: {
           createComment: jest.fn().mockResolvedValue({ data: { id: 12345 } }),
-          getComments: jest.fn().mockResolvedValue({ data: [] }),
+          updateComment: jest.fn().mockResolvedValue({ data: { id: 12345 } }),
+          listComments: jest.fn().mockResolvedValue({ data: [] }),
         },
       },
+      // Real Octokit's paginate() calls the endpoint function and
+      // aggregates `.data` across pages; for these single-page fixtures
+      // it's equivalent to just unwrapping `.data`.
+      paginate: jest.fn((endpoint, params) =>
+        endpoint(params).then((response) => response.data),
+      ),
     };
 
     generator = new RemediationChecklistGenerator(
@@ -257,7 +265,7 @@ describe("RemediationChecklistGenerator", () => {
       const issue = sampleIssues.complianceScenarios.missingBoth;
       const analysis = generator.analyzeCompliance(issue);
 
-      mockGithub.rest.issues.getComments.mockResolvedValueOnce({ data: [] });
+      mockGithub.rest.issues.listComments.mockResolvedValueOnce({ data: [] });
 
       const result = await generator.postChecklistComment(issue, analysis);
 
@@ -265,15 +273,18 @@ describe("RemediationChecklistGenerator", () => {
       expect(result).toBeDefined();
     });
 
-    test("should not post duplicate checklist comment", async () => {
+    test("should update, not duplicate, an existing checklist comment", async () => {
       const issue = sampleIssues.complianceScenarios.missingBoth;
       const analysis = generator.analyzeCompliance(issue);
 
-      // Mock existing checklist comment
-      mockGithub.rest.issues.getComments.mockResolvedValueOnce({
+      // Mock existing checklist comment, using the actual marker
+      // generateRemediationComment() emits (see that method's first line),
+      // not just loosely similar heading text.
+      mockGithub.rest.issues.listComments.mockResolvedValueOnce({
         data: [
           {
-            body: "Remediation Checklist",
+            id: 999,
+            body: "<!-- remediation-checklist -->\n## 📋 Remediation Checklist",
             author_association: "NONE",
           },
         ],
@@ -281,10 +292,16 @@ describe("RemediationChecklistGenerator", () => {
 
       const result = await generator.postChecklistComment(issue, analysis);
 
-      // Should not create comment if already exists
-      if (result === null || result === undefined) {
-        expect(mockGithub.rest.issues.createComment).not.toHaveBeenCalled();
-      }
+      // A stale checklist should be refreshed in place, not left as-is.
+      expect(mockGithub.rest.issues.createComment).not.toHaveBeenCalled();
+      expect(mockGithub.rest.issues.updateComment).toHaveBeenCalledWith(
+        expect.objectContaining({
+          owner: "test-owner",
+          repo: "test-repo",
+          comment_id: 999,
+        }),
+      );
+      expect(result).toBeDefined();
     });
 
     test("should skip comment for compliant issue", async () => {
@@ -318,7 +335,7 @@ describe("RemediationChecklistGenerator", () => {
       };
       const analysis = generator.analyzeCompliance(issue);
 
-      mockGithub.rest.issues.getComments.mockResolvedValueOnce({ data: [] });
+      mockGithub.rest.issues.listComments.mockResolvedValueOnce({ data: [] });
 
       await generator.postChecklistComment(issue, analysis);
 

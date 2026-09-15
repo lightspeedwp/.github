@@ -67,4 +67,3 @@ Route GF-AUD-001 to `gravity-forms-configuration`. Keep GF-AUD-002 as a limitati
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

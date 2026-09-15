@@ -129,9 +129,31 @@ describe("MetricsStorage", () => {
 
   describe("deleteOldEntries", () => {
     test("removes entries older than cutoff", () => {
+      // saveMetrics() itself prunes anything older than 90 days relative to
+      // the timestamp being saved (see "preserves last 90 days of data"
+      // above), so calling it twice can never leave two entries 91 days
+      // apart for deleteOldEntries() to independently prune -- the second
+      // save would already drop the first. Write the history file directly
+      // to set up the scenario deleteOldEntries() is actually meant to
+      // handle: entries that pre-date it, e.g. from before a cutoff change.
       const ninetyOneDaysAgo = Date.now() - 91 * 24 * 60 * 60 * 1000;
-      storage.saveMetrics("cleanup-test/repo", testMetrics, ninetyOneDaysAgo);
-      storage.saveMetrics("cleanup-test/repo", testMetrics, Date.now());
+      const filePath = storage.getStoragePath("cleanup-test/repo");
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify([
+          {
+            timestamp: ninetyOneDaysAgo,
+            date: new Date(ninetyOneDaysAgo).toISOString(),
+            metrics: testMetrics,
+          },
+          {
+            timestamp: Date.now(),
+            date: new Date().toISOString(),
+            metrics: testMetrics,
+          },
+        ]),
+        "utf-8",
+      );
 
       const historyBefore = storage.loadMetrics("cleanup-test/repo");
       const deleted = storage.deleteOldEntries("cleanup-test/repo", 90);

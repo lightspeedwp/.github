@@ -154,4 +154,3 @@ Every gap between sibling blocks inside a section is **24px**. No exceptions. Us
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

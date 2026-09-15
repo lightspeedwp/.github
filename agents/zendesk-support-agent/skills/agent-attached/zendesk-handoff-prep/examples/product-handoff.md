@@ -78,4 +78,3 @@ Product input requested for ZD-10002. Customer expected archived listings to rem
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

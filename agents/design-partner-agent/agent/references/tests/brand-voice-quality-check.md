@@ -74,4 +74,3 @@ Use this checklist when reviewing copy critique, UX writing, or brand-sensitive 
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

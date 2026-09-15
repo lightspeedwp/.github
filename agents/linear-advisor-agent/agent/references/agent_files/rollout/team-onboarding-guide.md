@@ -135,4 +135,3 @@ The pilot is working if teammates can use the agent to get faster, clearer, more
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

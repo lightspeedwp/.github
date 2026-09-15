@@ -336,4 +336,3 @@ All LightSpeed open-source projects are licensed under the GNU General Public Li
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

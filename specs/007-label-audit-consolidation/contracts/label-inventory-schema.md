@@ -282,4 +282,3 @@ cut -d, -f11 label-inventory.csv | tail -n +2 | sort | uniq -c
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

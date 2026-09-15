@@ -55,4 +55,3 @@ Reply goal: Explain the limitation clearly and offer the safest workaround.
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

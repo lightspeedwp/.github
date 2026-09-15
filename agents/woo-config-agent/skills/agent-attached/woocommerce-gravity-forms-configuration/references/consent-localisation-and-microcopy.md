@@ -123,4 +123,3 @@ Route away when the primary task is a full privacy policy, terms page, legal rev
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

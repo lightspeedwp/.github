@@ -85,7 +85,12 @@ describe("TrendAnalyzer", () => {
           pull_requests: { total: 50 },
           contributors: { active: 10 },
         },
-        now - 30 * dayMs,
+        // getMetricsSince() recomputes "N days ago" from Date.now() at call
+        // time, which is a few ms after `now` was captured above -- an
+        // entry saved at exactly `now - 30 * dayMs` can fall just outside
+        // that freshly-computed cutoff and get silently excluded. Leave a
+        // day of margin so the real boundary comparison isn't a timing race.
+        now - 29 * dayMs,
       );
       storage.saveMetrics(
         "growth/repo",

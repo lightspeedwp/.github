@@ -104,4 +104,3 @@ This template's wrapper is mandatory: frontmatter must open and close correctly,
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

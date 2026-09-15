@@ -88,4 +88,3 @@ Use this file as the human-readable checklist for schema and structure validatio
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

@@ -483,4 +483,3 @@ For more information, see [BADGES_GOVERNANCE.md](BADGES_GOVERNANCE.md) and [BADG
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)

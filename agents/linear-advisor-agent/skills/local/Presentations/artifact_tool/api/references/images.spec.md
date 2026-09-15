@@ -292,4 +292,3 @@ image.crop = { left: 0.08, top: 0.02, right: 0.18, bottom: 0.06 };
 [Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
