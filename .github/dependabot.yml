@@ -28,6 +28,42 @@ updates:
   open-pull-requests-limit: 99
   labels:
     - area:dependencies
+- package-ecosystem: npm
+  directory: "/agents/changelog"
+  schedule:
+    interval: daily
+    time: "03:00"
+    timezone: Africa/Johannesburg
+  open-pull-requests-limit: 99
+  labels:
+    - area:dependencies
+- package-ecosystem: npm
+  directory: "/agents/pr-creation-agent"
+  schedule:
+    interval: daily
+    time: "03:00"
+    timezone: Africa/Johannesburg
+  open-pull-requests-limit: 99
+  labels:
+    - area:dependencies
+- package-ecosystem: npm
+  directory: "/skills/design-md-agent/pdfs/js"
+  schedule:
+    interval: daily
+    time: "03:00"
+    timezone: Africa/Johannesburg
+  open-pull-requests-limit: 99
+  labels:
+    - area:dependencies
+- package-ecosystem: npm
+  directory: "/skills/pdfs/js"
+  schedule:
+    interval: daily
+    time: "03:00"
+    timezone: Africa/Johannesburg
+  open-pull-requests-limit: 99
+  labels:
+    - area:dependencies
 - package-ecosystem: composer
   directory: "/"
   schedule:
