@@ -4,7 +4,7 @@ description: "Implementation task list for branch cleanup audit and refactoring"
 
 # Tasks: Branch Cleanup Audit & Refactoring Infrastructure
 
-**Input**: Specification and design from `/specs/008-audit-branch-cleanup/`
+**Input**: Specification and design from `.github/specs/009-audit-branch-cleanup/`
 
 **Prerequisites**:
 

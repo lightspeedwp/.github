@@ -29,9 +29,9 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Branch**: `audit/github-label-audit` | **Date**: 2026-09-14 | **Spec**: [007-label-audit-consolidation/spec.md](spec.md)
+**Branch**: `audit/github-label-audit` | **Date**: 2026-09-14 | **Spec**: [008-label-audit-consolidation/spec.md](spec.md)
 
-**Input**: Feature specification from `.github/specs/007-label-audit-consolidation/spec.md`
+**Input**: Feature specification from `.github/specs/008-label-audit-consolidation/spec.md`
 
 ## Summary
 
@@ -121,7 +121,7 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 ### Documentation (this audit feature)
 
 ```text
-specs/007-label-audit-consolidation/
+.github/specs/008-label-audit-consolidation/
 ├── spec.md                              # Specification document
 ├── plan.md                              # This file (implementation plan)
 ├── research.md                          # Phase 0: Research findings & unknowns resolved
@@ -155,7 +155,7 @@ specs/007-label-audit-consolidation/
 
 **Structure Decision**:
 
-- **Documentation**: All specification, planning, and design artifacts reside in `.github/specs/007-label-audit-consolidation/` (per SpecKit convention)
+- **Documentation**: All specification, planning, and design artifacts reside in `.github/specs/008-label-audit-consolidation/` (per SpecKit convention)
 - **Audit Output**: Final audit reports and findings stored in `.github/reports/audits/2026-09-14-label-audit/` (per repository governance for audit artifacts)
 - **No source code development**: This is an audit/analysis task; deliverables are configuration reconciliation reports and recommendations
 

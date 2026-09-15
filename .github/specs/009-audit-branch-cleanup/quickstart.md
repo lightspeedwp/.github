@@ -354,7 +354,7 @@ jq '.categories.delete[0]' /tmp/audit-report.json
 - name: Validate Audit Report Schema
   run: |
     jq 'input_filename as $f | . | ' \
-      specs/008-audit-branch-cleanup/contracts/audit-report.schema.json \
+      .github/specs/009-audit-branch-cleanup/contracts/audit-report.schema.json \
       .github/reports/audit-*.json
 ```
 

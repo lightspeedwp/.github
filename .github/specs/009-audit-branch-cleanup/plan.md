@@ -1,8 +1,8 @@
 # Implementation Plan: Audit and Refactor Branch Cleanup Infrastructure
 
-**Branch**: `task/branch-cleanup-refactor` | **Date**: 2026-09-14 | **Spec**: [.github/specs/008-audit-branch-cleanup/spec.md](spec.md)
+**Branch**: `task/branch-cleanup-refactor` | **Date**: 2026-09-14 | **Spec**: [.github/specs/009-audit-branch-cleanup/spec.md](spec.md)
 
-**Input**: Feature specification from `.github/specs/008-audit-branch-cleanup/spec.md`
+**Input**: Feature specification from `.github/specs/009-audit-branch-cleanup/spec.md`
 
 **Note**: This template is filled in by the `/speckit-plan` command; its definition describes the execution workflow.
 
@@ -69,7 +69,7 @@ Primary technical approach: Enhance `scripts/cleanup-branches.js` to perform saf
 ### Documentation (this feature)
 
 ```text
-specs/008-audit-branch-cleanup/
+.github/specs/009-audit-branch-cleanup/
 ├── spec.md              # Feature specification (user stories, requirements)
 ├── plan.md              # This file (implementation plan)
 ├── research.md          # Phase 0 output (research findings, design decisions)
