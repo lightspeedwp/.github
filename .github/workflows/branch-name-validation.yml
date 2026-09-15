@@ -1,0 +1,196 @@
+name: Branch Name Validation
+
+on:
+  push:
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  validate-branch-name:
+    name: Validate branch name
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    outputs:
+      branch_name: ${{ steps.extract-branch.outputs.branch_name }}
+      valid: ${{ steps.validate.outputs.valid }}
+      errors: ${{ steps.validate.outputs.errors }}
+      suggested_name: ${{ steps.validate.outputs.suggested_name }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify installation
+        run: |
+          echo "Node version:"
+          node --version
+          echo "npm version:"
+          npm --version
+          echo "npm validate:branch-name script:"
+          npm run validate:branch-name -- --help | head -20
+
+      - name: Extract branch name
+        id: extract-branch
+        run: |
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Validate branch name
+        id: validate
+        timeout-minutes: 2
+        run: |
+          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
+          echo "🔍 Validating: $BRANCH_NAME"
+
+          # Run validation directly with timeout and capture output
+          set +e
+          OUTPUT=$(timeout 30s node scripts/validation/validate-branch-name.js --branch "$BRANCH_NAME" --json 2>&1)
+          EXIT_CODE=$?
+          set -e
+
+          echo "--- Validation Output ---"
+          echo "$OUTPUT"
+          echo "--- Exit Code: $EXIT_CODE ---"
+
+          # Use jq to extract valid field if jq is available and output looks like JSON
+          if command -v jq &> /dev/null && echo "$OUTPUT" | jq empty &> /dev/null 2>&1; then
+            echo "Using jq to parse JSON"
+            VALID=$(echo "$OUTPUT" | jq -r '.valid')
+            ERRORS=$(echo "$OUTPUT" | jq -r '.errors | join(", ")')
+            SUGGESTED=$(echo "$OUTPUT" | jq -r '.suggested_name // empty')
+
+            echo "valid=$VALID" >> $GITHUB_OUTPUT
+            [ -n "$ERRORS" ] && echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+            [ -n "$SUGGESTED" ] && echo "suggested_name=$SUGGESTED" >> $GITHUB_OUTPUT
+          else
+            # Fallback: simple string matching
+            echo "Using fallback parsing"
+            if echo "$OUTPUT" | grep -q '"valid": true'; then
+              echo "valid=true" >> $GITHUB_OUTPUT
+            else
+              echo "valid=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+          # Exit with the validation script's exit code
+          exit $EXIT_CODE
+
+      - name: Collect validation metrics
+        if: always()
+        run: |
+          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
+          VALID="${{ steps.validate.outputs.valid }}"
+          ERRORS="${{ steps.validate.outputs.errors }}"
+          TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+
+          # Create metrics JSON
+          METRICS="{
+            \"timestamp\": \"$TIMESTAMP\",
+            \"branch_name\": \"$BRANCH_NAME\",
+            \"valid\": $VALID,
+            \"errors\": \"$ERRORS\",
+            \"actor\": \"$GITHUB_ACTOR\",
+            \"event\": \"$GITHUB_EVENT_NAME\",
+            \"ref\": \"$GITHUB_REF\",
+            \"sha\": \"$GITHUB_SHA\"
+          }"
+
+          # Create metrics directory
+          mkdir -p validation-metrics
+
+          # Write metric to file with timestamp
+          FILENAME="validation-metrics/$(date +'%Y%m%d-%H%M%S')-$GITHUB_RUN_ID.json"
+          echo "$METRICS" > "$FILENAME"
+
+          echo "Metrics collected: $FILENAME"
+          cat "$FILENAME"
+
+      - name: Upload metrics artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-validation-metrics
+          path: validation-metrics/
+          retention-days: 30
+
+      - name: Set job status based on validation
+        if: always()
+        run: |
+          VALID="${{ steps.validate.outputs.valid }}"
+          echo "DEBUG: VALID output = '$VALID'"
+          echo "DEBUG: Outputs available:"
+          echo "  branch_name = ${{ steps.extract-branch.outputs.branch_name }}"
+          echo "  valid = ${{ steps.validate.outputs.valid }}"
+          echo "  errors = ${{ steps.validate.outputs.errors }}"
+          echo "  suggested_name = ${{ steps.validate.outputs.suggested_name }}"
+
+          if [ "$VALID" = "true" ]; then
+            echo "✅ Branch name validation passed"
+            exit 0
+          else
+            echo "❌ Branch name validation failed (VALID='$VALID')"
+            exit 1
+          fi
+
+  report-validation-failure:
+    name: Report validation failure
+    needs: validate-branch-name
+    if: failure() && needs.validate-branch-name.outputs.valid == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Comment on PR with validation error
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branchName = process.env.BRANCH_NAME;
+            const errors = process.env.ERRORS;
+            const suggested = process.env.SUGGESTED;
+
+            const message = [
+              `❌ **Invalid branch name: \`${branchName}\`**`,
+              '',
+              `**Error:** ${errors}`,
+              suggested ? `**Suggestion:** Did you mean \`${suggested}\`?` : '',
+              '',
+              '**Pattern:** `{type}/{scope}-{title}`',
+              '',
+              '**Allowed types (24):** feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, audit, codex, revert, research',
+              '',
+              '**Forbidden prefixes:** claude/, copilot/, openai/',
+              '',
+              'For more information, see [Branch Naming Strategy](./docs/BRANCHING_STRATEGY.md).'
+            ].filter(line => line !== '').join('\n');
+
+            // Only comment if this is a PR
+            if (context.payload.pull_request) {
+              github.rest.issues.createComment({
+                issue_number: context.payload.pull_request.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: message
+              });
+            }
+        env:
+          BRANCH_NAME: ${{ needs.validate-branch-name.outputs.branch_name }}
+          ERRORS: ${{ needs.validate-branch-name.outputs.errors }}
+          SUGGESTED: ${{ needs.validate-branch-name.outputs.suggested_name }}

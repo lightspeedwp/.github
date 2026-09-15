@@ -1,0 +1,124 @@
+name: Branch Validation Metrics Aggregator
+
+on:
+  workflow_run:
+    workflows: [Branch Name Validation]
+    types: [completed]
+  schedule:
+    - cron: "0 * * * *"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  aggregate-metrics:
+    name: Aggregate validation metrics
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download recent metrics artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: metrics-artifacts
+          pattern: branch-validation-metrics
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Aggregate metrics
+        run: |
+          mkdir -p .github/reports/branch-validation
+          TOTAL_VALIDATIONS=0
+          FAILED_VALIDATIONS=0
+          VALID_COUNT=0
+          FORBIDDEN_PREFIX_COUNT=0
+          INVALID_TYPE_COUNT=0
+          MALFORMED_COUNT=0
+
+          # Process all metric files (find all .json files in metrics artifacts)
+          for file in $(find metrics-artifacts -name "*.json" 2>/dev/null); do
+            if [ -f "$file" ]; then
+              TOTAL_VALIDATIONS=$((TOTAL_VALIDATIONS + 1))
+              VALID=$(jq -r '.valid' "$file" 2>/dev/null || echo "false")
+              if [ "$VALID" = "true" ]; then
+                VALID_COUNT=$((VALID_COUNT + 1))
+              else
+                FAILED_VALIDATIONS=$((FAILED_VALIDATIONS + 1))
+                ERRORS=$(jq -r '.errors' "$file" 2>/dev/null || echo "")
+                if echo "$ERRORS" | grep -q "forbidden_prefix"; then
+                  FORBIDDEN_PREFIX_COUNT=$((FORBIDDEN_PREFIX_COUNT + 1))
+                fi
+                if echo "$ERRORS" | grep -q "invalid_type"; then
+                  INVALID_TYPE_COUNT=$((INVALID_TYPE_COUNT + 1))
+                fi
+                if echo "$ERRORS" | grep -q "malformed"; then
+                  MALFORMED_COUNT=$((MALFORMED_COUNT + 1))
+                fi
+              fi
+            fi
+          done
+
+          PASS_RATE=$(awk "BEGIN {if ($TOTAL_VALIDATIONS == 0) print \"0.0\"; else printf \"%.1f\", ($VALID_COUNT / $TOTAL_VALIDATIONS) * 100}")
+
+          # Write summary as JSON
+          cat > .github/reports/branch-validation/metrics-summary.json <<'SUMMARY'
+          {
+            "timestamp": "TIMESTAMP",
+            "total_validations": TOTAL,
+            "valid_count": VALID,
+            "failed_validations": FAILED,
+            "pass_rate_percent": PASS_RATE,
+            "error_breakdown": {
+              "forbidden_prefix": FORBIDDEN,
+              "invalid_type": INVALID,
+              "malformed_format": MALFORMED
+            }
+          }
+          SUMMARY
+
+          # Use sed to replace placeholders
+          sed -i "s/TIMESTAMP/$(date -u +'%Y-%m-%dT%H:%M:%SZ')/g" .github/reports/branch-validation/metrics-summary.json
+          sed -i "s/TOTAL/$TOTAL_VALIDATIONS/g" .github/reports/branch-validation/metrics-summary.json
+          sed -i "s/VALID/$VALID_COUNT/g" .github/reports/branch-validation/metrics-summary.json
+          sed -i "s/FAILED/$FAILED_VALIDATIONS/g" .github/reports/branch-validation/metrics-summary.json
+          sed -i "s/PASS_RATE/$PASS_RATE/g" .github/reports/branch-validation/metrics-summary.json
+          sed -i "s/FORBIDDEN/$FORBIDDEN_PREFIX_COUNT/g" .github/reports/branch-validation/metrics-summary.json
+          sed -i "s/INVALID/$INVALID_TYPE_COUNT/g" .github/reports/branch-validation/metrics-summary.json
+          sed -i "s/MALFORMED/$MALFORMED_COUNT/g" .github/reports/branch-validation/metrics-summary.json
+
+          # Display summary
+          echo "📊 Branch Validation Metrics"
+          echo "============================"
+          echo "Total Validations: $TOTAL_VALIDATIONS"
+          echo "Valid Branches: $VALID_COUNT"
+          echo "Failed Validations: $FAILED_VALIDATIONS"
+          echo "Pass Rate: $PASS_RATE%"
+          echo "Error Breakdown:"
+          echo "  - Forbidden Prefix: $FORBIDDEN_PREFIX_COUNT"
+          echo "  - Invalid Type: $INVALID_TYPE_COUNT"
+          echo "  - Malformed Format: $MALFORMED_COUNT"
+
+      - name: Commit metrics
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          if git diff --quiet .github/reports/branch-validation/metrics-summary.json 2>/dev/null || [ ! -f .github/reports/branch-validation/metrics-summary.json ]; then
+            git add .github/reports/branch-validation/metrics-summary.json 2>/dev/null || true
+            git commit -m "chore: Update branch validation metrics" || true
+            git push || true
+          fi
+
+      - name: Upload aggregated metrics
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-validation-metrics-summary
+          path: .github/reports/branch-validation/metrics-summary.json
+          retention-days: 90
