@@ -125,22 +125,28 @@ describe('governance file refactor', () => {
       ]);
     });
 
-    test('covers each SpecKit preparation command before implementation', () => {
+    test('covers each SpecKit preparation skill before implementation', () => {
       const specificationProcess = extractSection(
         workflow,
         /^### Specification Process \(Recommended\)$/m,
         /^### /m
       );
-      const commands = [...specificationProcess.matchAll(/`(npm run speckit:[a-z]+)`/g)].map(
-        ([, command]) => command
+      const skills = [...specificationProcess.matchAll(/`(speckit-[a-z]+)`/g)].map(
+        ([, skill]) => skill
       );
 
-      expect(commands).toEqual([
-        'npm run speckit:specify',
-        'npm run speckit:clarify',
-        'npm run speckit:plan',
-        'npm run speckit:tasks',
+      expect(skills).toEqual([
+        'speckit-specify',
+        'speckit-clarify',
+        'speckit-plan',
+        'speckit-tasks',
       ]);
+
+      for (const skill of skills) {
+        expect(fs.existsSync(path.join(repoRoot, '.claude', 'skills', skill, 'SKILL.md'))).toBe(
+          true
+        );
+      }
     });
 
     test('does not make draft PR creation automatic', () => {
@@ -172,10 +178,10 @@ describe('governance file refactor', () => {
       );
 
       expect(rows).toEqual([
-        { order: 1, phase: 'Plan', tool: 'npm run speckit:specify' },
-        { order: 2, phase: 'Clarify', tool: 'npm run speckit:clarify' },
-        { order: 3, phase: 'Design', tool: 'npm run speckit:plan' },
-        { order: 4, phase: 'Decompose', tool: 'npm run speckit:tasks' },
+        { order: 1, phase: 'Plan', tool: 'speckit-specify' },
+        { order: 2, phase: 'Clarify', tool: 'speckit-clarify' },
+        { order: 3, phase: 'Design', tool: 'speckit-plan' },
+        { order: 4, phase: 'Decompose', tool: 'speckit-tasks' },
         { order: 5, phase: 'Implement', tool: 'Your tools' },
         { order: 6, phase: 'PR Review', tool: 'gh / GitHub UI' },
       ]);

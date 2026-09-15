@@ -31,7 +31,7 @@ references:
 - Accessibility and performance are non‑negotiable; highlight potential issues during reviews.
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
-- Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `MIGRATION_GUIDE.md`).
+- Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `docs/MIGRATION_GUIDE.md`).
 
 ## Agent Directory
 
@@ -281,8 +281,8 @@ Before creating any issue or PR programmatically:
 
 ## PR Templates
 
-- Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
-- Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATE/](.github/PULL_REQUEST_TEMPLATE/)
+- PR templates live in [.github/PULL_REQUEST_TEMPLATE/](.github/PULL_REQUEST_TEMPLATE/) and are routed by branch prefix.
+- See [.github/PULL_REQUEST_TEMPLATE/README.md](.github/PULL_REQUEST_TEMPLATE/README.md) for the branch-prefix-to-template map.
   - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
 
 ---
@@ -305,7 +305,7 @@ Start here for all key standards:
 | **Claude Instructions**   | [CLAUDE.md](CLAUDE.md)                                           | Claude-specific project instructions; companion to this file       |
 | **Main Agent Index**      | [agents/agent.md](agents/agent.md)                               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
-| **Instruction Migration** | [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
+| **Instruction Migration** | [docs/MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md)                    | Mapping from legacy instruction files to the 5 consolidated guides |
 
 ---
 

@@ -1,8 +1,8 @@
 # Governance Files Changelog
 
-**Version**: 1.1  
-**Date**: 2026-09-14  
-**Branch**: `audit/governance-files-refactor`  
+**Version**: 1.1
+**Date**: 2026-09-14
+**Branch**: `audit/governance-files-refactor`
 **Status**: Ready for review and approval
 
 ---
@@ -11,9 +11,9 @@
 
 This changelog documents all refactoring changes to governance files (CLAUDE.md, AGENTS.md) completed during the Governance Files Audit & Refactor project (2026-09-14).
 
-**Total Changes**: 6 major refactorings across 2 files  
-**Commits**: 6 commits to `audit/governance-files-refactor` branch  
-**Lines Reduced**: 98 → 80 in duplicated "Label Creation Governance" section (18% reduction)  
+**Total Changes**: 6 major refactorings across 2 files
+**Commits**: 6 commits to `audit/governance-files-refactor` branch
+**Lines Reduced**: 98 → 80 in duplicated "Label Creation Governance" section (18% reduction)
 **New Content Added**: Specification-first workflow guidance (CLAUDE.md §Specification-First Workflow)
 
 ---
@@ -22,10 +22,10 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 
 ### Addition: Specification-First Workflow Guidance Section
 
-**Location**: New section after "Git Workflow" section  
-**Lines Added**: 50 lines  
-**Rationale**: Addresses User Story 5 requirement—establish clear workflow guidance for branch → spec → draft PR → review → merge process with explicit control over PR creation timing  
-**Impact**: Users now have step-by-step guidance on SpecKit workflow phases with clear entry/exit criteria and decision points  
+**Location**: New section after "Git Workflow" section
+**Lines Added**: 50 lines
+**Rationale**: Addresses User Story 5 requirement—establish clear workflow guidance for branch → spec → draft PR → review → merge process with explicit control over PR creation timing
+**Impact**: Users now have step-by-step guidance on SpecKit workflow phases with clear entry/exit criteria and decision points
 
 **Content Added**:
 
@@ -44,10 +44,10 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 
 ### Emphasis: Branch Naming Section Strengthened
 
-**Location**: Section 1: "⚠️ Branch Naming — CRITICAL (Read First)"  
-**Changes**: Rewritten with emphasis on non-negotiable nature  
-**Rationale**: Addresses User Story 2 requirement—ensure branch naming is consistently enforced and warnings are clear  
-**Impact**: Users receive clearer warnings about forbidden prefixes and cascading failure consequences  
+**Location**: Section 1: "⚠️ Branch Naming — CRITICAL (Read First)"
+**Changes**: Rewritten with emphasis on non-negotiable nature
+**Rationale**: Addresses User Story 2 requirement—ensure branch naming is consistently enforced and warnings are clear
+**Impact**: Users receive clearer warnings about forbidden prefixes and cascading failure consequences
 
 **Content Improvements**:
 
@@ -68,12 +68,12 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 
 ### Consolidation: Duplicate "Label Creation Governance" Section Eliminated
 
-**Location**: Single consolidated section (original lines 209-252 and 285-338 merged)  
-**Lines Before**: 98 lines (2 identical sections)  
-**Lines After**: 80 lines (1 authoritative section)  
-**Reduction**: 18% (duplicate content removed, unique content preserved)  
-**Rationale**: Addresses User Story 3 requirement and Constitution Principle III (no duplication)  
-**Impact**: Single source of truth for label governance; reduced maintenance burden; eliminated confusion about which version is authoritative  
+**Location**: Single consolidated section (original lines 209-252 and 285-338 merged)
+**Lines Before**: 98 lines (2 identical sections)
+**Lines After**: 80 lines (1 authoritative section)
+**Reduction**: 18% (duplicate content removed, unique content preserved)
+**Rationale**: Addresses User Story 3 requirement and Constitution Principle III (no duplication)
+**Impact**: Single source of truth for label governance; reduced maintenance burden; eliminated confusion about which version is authoritative
 
 **Content Preserved**:
 
@@ -93,10 +93,10 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 
 ### Emphasis: Branch Naming Section Strengthened (Aligned with CLAUDE.md)
 
-**Location**: Section 3: "Branch Naming Governance (CRITICAL) — Non-Negotiable"  
-**Changes**: Rewritten with emphasis matching CLAUDE.md  
-**Rationale**: Addresses PRIN-001 finding—strengthen emphasis on Constitution Principle V (branch naming non-negotiable)  
-**Impact**: Consistent messaging across both files; users receive reinforced guidance about critical nature of branch naming  
+**Location**: Section 3: "Branch Naming Governance (CRITICAL) — Non-Negotiable"
+**Changes**: Rewritten with emphasis matching CLAUDE.md
+**Rationale**: Addresses PRIN-001 finding—strengthen emphasis on Constitution Principle V (branch naming non-negotiable)
+**Impact**: Consistent messaging across both files; users receive reinforced guidance about critical nature of branch naming
 
 **Content Improvements**:
 
@@ -127,10 +127,17 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 - ✅ `docs/LABEL_STRATEGY.md` — Label taxonomy (verified)
 - ✅ `docs/LABELING.md` — Labeling guide (verified)
 
-**Files Documented as Missing/Legacy**:
+**Broken References Repaired (path corrections, not missing files)**:
 
-- ⏳ `.github/instructions/branch-naming.instructions.md` — Referenced but missing (documented in REF-001)
-- ⏳ `.github/scripts/validation/validate-labels-before-creation.cjs` — Referenced but missing (documented in REF-002)
+- ✅ `.github/instructions/branch-naming.instructions.md` → `instructions/branch-naming.instructions.md` (REF-001, CLAUDE.md)
+- ✅ `.github/instructions/coding-standards.instructions.md` → `instructions/coding-standards.instructions.md` (CLAUDE.md)
+- ✅ `MIGRATION_GUIDE.md` → `docs/MIGRATION_GUIDE.md` (AGENTS.md, two occurrences)
+- ✅ `.github/scripts/validation/validate-labels-before-creation.cjs` → `scripts/validation/validate-labels-before-creation.cjs` (REF-002, AGENTS.md)
+- ✅ `./specify/` → `./.specify/` (CLAUDE.md)
+- ✅ `.github/PULL_REQUEST_TEMPLATE.md` — file does not exist; AGENTS.md now points to the templates directory and its branch-prefix routing README
+
+**Files Documented as Legacy**:
+
 - ⏳ `.github/prompts/prompts.md` — Marked as "legacy pending migration" (documented in audit reports)
 
 **Supporting Instruction Files Referenced**:
@@ -146,7 +153,7 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 - `instructions/automation.instructions.md` — Referenced as consolidated guidance (8 files)
 - `instructions/community-standards.instructions.md` — Referenced as consolidated guidance (4 files)
 
-**Reference Status**: 7 valid references verified; 5 references unresolved; consolidated portable instruction files tracked separately
+**Reference Status**: All relative links in `CLAUDE.md` and `AGENTS.md` now resolve to existing paths (automated link check passes); `.github/prompts/prompts.md` remains tracked as legacy pending migration.
 
 ---
 
@@ -292,14 +299,14 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 
 ## Approval Sign-Off
 
-**Refactoring Status**: Complete and ready for review  
-**Quality Assurance**: All success criteria passing  
-**Constitution Compliance**: All 6 principles aligned  
-**Impact Assessment**: Low risk; no breaking changes  
+**Refactoring Status**: Complete and ready for review
+**Quality Assurance**: All success criteria passing
+**Constitution Compliance**: All 6 principles aligned
+**Impact Assessment**: Low risk; no breaking changes
 
-**Prepared By**: Claude Haiku 4.5  
-**Date**: 2026-09-14  
-**Branch**: audit/governance-files-refactor  
+**Prepared By**: Claude Haiku 4.5
+**Date**: 2026-09-14
+**Branch**: audit/governance-files-refactor
 **Ready For**: @ashley approval and Phase 11 (PR creation to develop)
 
 ---
