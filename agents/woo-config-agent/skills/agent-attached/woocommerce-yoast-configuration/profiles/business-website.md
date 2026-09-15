@@ -108,3 +108,5 @@ Use `templates/yoast-configuration-report.md` for setup, `templates/yoast-audit-
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

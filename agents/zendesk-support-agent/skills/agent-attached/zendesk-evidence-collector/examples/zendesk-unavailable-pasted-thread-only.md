@@ -118,3 +118,5 @@ Be transparent that Zendesk was unavailable. Work only from supplied evidence. D
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -114,3 +114,5 @@ Use `references/outputs/issue-draft-templates.md` for GitHub/Linear-style issue 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
