@@ -75,3 +75,5 @@ python /home/oai/skills/pdfs/scripts/render_pdf.py normalized.pdf --out_dir /mnt
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

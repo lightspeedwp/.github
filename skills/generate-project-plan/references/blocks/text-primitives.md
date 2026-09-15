@@ -165,3 +165,5 @@ Every gap between sibling blocks inside a section is **24px**. No exceptions. Us
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -78,3 +78,5 @@ Use this file when Gravity Forms supports WooCommerce product enquiry, quote req
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

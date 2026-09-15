@@ -8,6 +8,7 @@ date_created: "2026-09-14"
 **Purpose:** Validate Phase 2 implementation by running end-to-end scenarios that prove each unified workflow functions correctly.
 
 **Prerequisites:**
+
 - Feature branch: `refactor/workflow-consolidation-phase-2` (checked out)
 - Phase 1 archive verified: `.github/workflows/archived/2026-09-11/` (all 71 workflows present)
 - GitHub Actions enabled on repository
@@ -20,19 +21,24 @@ date_created: "2026-09-14"
 **Scenario:** Establish current GitHub Actions minute baseline
 
 **Steps:**
+
 1. Run metrics baseline script:
+
    ```bash
    .github/scripts/measure-actions-minutes.sh --baseline --output BASELINE_METRICS.md
    ```
+
 2. Record output in `BASELINE_METRICS.md`
 3. Verify output contains: current 30-day total, daily average, per-workflow breakdown
 
 **Expected Outcome:**
+
 - Baseline recorded: ~2,500 GitHub Actions minutes/month
 - Script output validates current metric collection works
 - Baseline saved for comparison post-Phase 2
 
 **Validation Tests:**
+
 - [ ] Script executes without errors
 - [ ] Metrics output shows >0 minutes
 - [ ] Output shows per-workflow breakdown (at least 5 categories)
@@ -49,16 +55,19 @@ date_created: "2026-09-14"
 ### Test Composite Actions
 
 1. **Test apply-labels composite action:**
+
    ```bash
    gh workflow run validate-composite-actions.yml \
      --ref refactor/workflow-consolidation-phase-2 \
      -f action=apply-labels \
      -f labels='["type:bug","priority:high"]'
    ```
+
 2. Verify workflow completes without error
 3. Check composite action output contains applied labels
 
-2. **Test validate-check composite action:**
+4. **Test validate-check composite action:**
+
    ```bash
    gh workflow run validate-composite-actions.yml \
      --ref refactor/workflow-consolidation-phase-2 \
@@ -66,29 +75,35 @@ date_created: "2026-09-14"
      -f check_name="test-validation" \
      -f check_status="success"
    ```
-3. Verify check status reported correctly
 
-3. **Test aggregate-tests composite action:**
+5. Verify check status reported correctly
+
+6. **Test aggregate-tests composite action:**
+
    ```bash
    gh workflow run validate-composite-actions.yml \
      --ref refactor/workflow-consolidation-phase-2 \
      -f action=aggregate-tests \
      -f test_results='{"total": 10, "passed": 10}'
    ```
-4. Verify test aggregation calculates correctly
 
-4. **Test collect-metrics composite action:**
+7. Verify test aggregation calculates correctly
+
+8. **Test collect-metrics composite action:**
+
    ```bash
    gh workflow run validate-composite-actions.yml \
      --ref refactor/workflow-consolidation-phase-2 \
      -f action=collect-metrics \
      -f workflow_name="labeling-unified"
    ```
-5. Verify metrics collection reports minutes consumed
+
+9. Verify metrics collection reports minutes consumed
 
 ### Test Workflow Harness
 
 1. Create test PR on feature branch:
+
    ```bash
    git checkout -b test/phase2-workflow-harness
    echo "Test content" > TEST_HARNESS.md
@@ -101,6 +116,7 @@ date_created: "2026-09-14"
    ```
 
 2. Trigger workflow test harness:
+
    ```bash
    gh workflow run workflow-harness.yml \
      --ref refactor/workflow-consolidation-phase-2 \
@@ -110,11 +126,13 @@ date_created: "2026-09-14"
 3. Wait for workflow completion (should be <2 minutes)
 
 **Expected Outcome:**
+
 - All 4 composite actions callable and functional
 - Workflow test harness triggers on PR event without error
 - Metrics reported per workflow type
 
 **Validation Tests:**
+
 - [ ] apply-labels: Labels applied correctly
 - [ ] validate-check: Check status reported to GitHub
 - [ ] aggregate-tests: Test counts aggregated correctly
@@ -130,6 +148,7 @@ date_created: "2026-09-14"
 **Test 1: PR Labeling**
 
 1. Create test PR with feature branch pattern:
+
    ```bash
    git checkout -b feat/test-labeling-workflow
    echo "# Test PR for labeling validation" > PR_TEST.md
@@ -144,12 +163,14 @@ date_created: "2026-09-14"
 2. Wait for labeling-unified.yml to trigger (should auto-trigger on PR open)
 
 3. Verify labels applied:
+
    ```bash
    gh pr view test-labeling-workflow \
      --json labels --template '{{.labels}}'
    ```
 
 **Expected Labels:**
+
 - `type:feature` (mapped from feat/ branch prefix)
 - `area:ci` (or appropriate area based on file changes)
 - `status:needs-triage` (initial status)
@@ -157,6 +178,7 @@ date_created: "2026-09-14"
 **Test 2: Issue Labeling**
 
 1. Create test issue:
+
    ```bash
    gh issue create --title "test: Validate issue labeling" \
      --body "Validates labeling-unified.yml applies correct labels on issue creation" \
@@ -166,6 +188,7 @@ date_created: "2026-09-14"
 2. Wait for labeling workflow to trigger
 
 3. Verify labels applied:
+
    ```bash
    gh issue view test-validate-issue-labeling --json labels
    ```
@@ -173,6 +196,7 @@ date_created: "2026-09-14"
 **Test 3: Scheduled Label Cleanup**
 
 1. Verify scheduled cleanup job is configured in labeling-unified.yml:
+
    ```bash
    grep -A 5 "on.schedule" .github/workflows/labeling-unified.yml
    ```
@@ -182,6 +206,7 @@ date_created: "2026-09-14"
 **Test 4: Metrics Reporting**
 
 1. Check labeling-unified.yml workflow metrics:
+
    ```bash
    gh workflow view labeling-unified.yml --json jobRuns
    ```
@@ -192,12 +217,14 @@ date_created: "2026-09-14"
    - GitHub Actions minutes consumed
 
 **Expected Outcome:**
+
 - labeling-unified.yml triggers on PR/issue creation
 - Correct labels applied per `.github/labels.yml` taxonomy
 - Scheduled cleanup configured
 - Metrics reported successfully
 
 **Validation Tests:**
+
 - [ ] PR created → labeling-unified.yml triggered within 30 seconds
 - [ ] PR labels include type: + area: prefixed labels
 - [ ] Issue created → labeling-unified.yml triggered
@@ -214,6 +241,7 @@ date_created: "2026-09-14"
 **Test 1: Branch Naming Validation**
 
 1. Create PR with INVALID branch name (should fail validation):
+
    ```bash
    git checkout -b claude/invalid-branch-name  # INVALID!
    echo "Test" > invalid.md
@@ -228,6 +256,7 @@ date_created: "2026-09-14"
 2. Wait for validation-unified.yml to run
 
 3. Verify validation fails and PR comment posted:
+
    ```bash
    gh pr view invalid-branch --json comments
    ```
@@ -235,6 +264,7 @@ date_created: "2026-09-14"
 4. Expected comment: "Branch name does not match pattern {type}/{scope}-{title}"
 
 5. Create PR with VALID branch name:
+
    ```bash
    git checkout -b fix/test-branch-naming-validation
    echo "Test" > valid.md
@@ -251,6 +281,7 @@ date_created: "2026-09-14"
 **Test 2: PR Template Validation**
 
 1. Create PR without following template format:
+
    ```bash
    gh pr create --title "test: Missing PR template fields" \
      --body "This is incomplete PR description without template" \
@@ -260,6 +291,7 @@ date_created: "2026-09-14"
 2. Verify validation fails with comment pointing to template
 
 3. Create PR following template format:
+
    ```bash
    gh pr create --title "test: Valid PR template" \
      --body "## Summary
@@ -276,6 +308,7 @@ date_created: "2026-09-14"
 **Test 3: Changelog Validation**
 
 1. Create PR modifying code WITHOUT changelog entry:
+
    ```bash
    git checkout -b test/changelog-validation
    echo "// Code change" > src/test.js
@@ -290,6 +323,7 @@ date_created: "2026-09-14"
 2. Verify validation fails: "PR modifies code but no CHANGELOG.md entry found"
 
 3. Update PR to include changelog:
+
    ```bash
    echo "## [Unreleased]
    - Added test validation" >> CHANGELOG.md
@@ -301,6 +335,7 @@ date_created: "2026-09-14"
 4. Verify validation now passes
 
 **Expected Outcome:**
+
 - Branch naming validation enforces `{type}/{scope}-{title}` format
 - Invalid branches (claude/, copilot/, openai/) rejected with comment
 - PR template validation checks required fields
@@ -308,6 +343,7 @@ date_created: "2026-09-14"
 - Validation failures post PR comments with remediation steps
 
 **Validation Tests:**
+
 - [ ] Invalid branch name → validation fails with comment
 - [ ] Valid branch name → validation passes
 - [ ] Missing PR template fields → validation fails
@@ -324,6 +360,7 @@ date_created: "2026-09-14"
 **Test 1: Unit Test Execution**
 
 1. Create test PR with passing tests:
+
    ```bash
    git checkout -b test/unit-tests-passing
    echo "// Unit test" > src/__tests__/test.js
@@ -335,6 +372,7 @@ date_created: "2026-09-14"
 2. Wait for testing-unified.yml to trigger (on push/PR)
 
 3. Verify unit tests run and pass:
+
    ```bash
    gh workflow view testing-unified.yml --json jobRuns
    ```
@@ -342,6 +380,7 @@ date_created: "2026-09-14"
 **Test 2: Integration Test Execution**
 
 1. Create PR that includes integration tests:
+
    ```bash
    git checkout -b test/integration-tests
    echo "// Integration test" > tests/integration/test.js
@@ -355,6 +394,7 @@ date_created: "2026-09-14"
 **Test 3: Coverage Reporting**
 
 1. Verify coverage artifact generated:
+
    ```bash
    gh run view <run-id> --json artifacts
    ```
@@ -364,6 +404,7 @@ date_created: "2026-09-14"
 **Test 4: Coverage Failure**
 
 1. Create test PR with low coverage (<80%):
+
    ```bash
    git checkout -b test/low-coverage
    echo "// Uncovered code" > src/new-feature.js
@@ -375,12 +416,14 @@ date_created: "2026-09-14"
 2. Verify testing-unified.yml fails: "Coverage 65% < 80% minimum"
 
 **Expected Outcome:**
+
 - Unit, integration, and E2E tests run in parallel
 - Coverage ≥80% enforced
 - Test artifacts generated and uploaded
 - Coverage failures block PR merge
 
 **Validation Tests:**
+
 - [ ] Unit tests trigger on push/PR
 - [ ] Integration tests run in parallel
 - [ ] Coverage ≥80% passes
@@ -396,6 +439,7 @@ date_created: "2026-09-14"
 **Full Integration Test PR:**
 
 1. Create comprehensive test PR that touches all areas:
+
    ```bash
    git checkout -b test/phase2-full-integration
    
@@ -424,6 +468,7 @@ date_created: "2026-09-14"
    ```
 
 2. Create PR:
+
    ```bash
    gh pr create --title "test: Phase 2 full integration" \
      --body "## Summary
@@ -441,11 +486,13 @@ date_created: "2026-09-14"
 3. Wait for all workflows to complete (should be <5 minutes total)
 
 4. Verify all 5 workflows passed:
+
    ```bash
    gh pr view test-phase2-full-integration --json statusCheckRollup
    ```
 
 **Expected Status Checks:**
+
 - ✅ labeling-unified
 - ✅ validation-unified
 - ✅ testing-unified
@@ -453,12 +500,14 @@ date_created: "2026-09-14"
 - ✅ quality-gates
 
 **Expected Outcome:**
+
 - All 5 unified workflows trigger on single PR event
 - No cascading failures (if one fails, others not blocked)
 - PR can merge only when all pass
 - Metrics show ~2,125 minutes/month (≤15% reduction from baseline 2,500)
 
 **Validation Tests:**
+
 - [ ] All 5 workflows trigger within 30 seconds
 - [ ] All 5 workflows complete <5 minutes total
 - [ ] No cascading failures
@@ -474,6 +523,7 @@ date_created: "2026-09-14"
 **Steps:**
 
 1. Run integration tests 3 times on feature branch:
+
    ```bash
    for i in {1..3}; do
      gh pr create --title "test: Performance validation run $i" \
@@ -485,17 +535,20 @@ date_created: "2026-09-14"
    ```
 
 2. Collect metrics after each run:
+
    ```bash
    .github/scripts/measure-actions-minutes.sh --current --output CURRENT_METRICS.md
    ```
 
 3. Calculate reduction:
+
    ```bash
    # Formula: (Baseline - Current) / Baseline × 100
    # Example: (2500 - 2100) / 2500 × 100 = 16% reduction ✅
    ```
 
 4. Verify ≥15% reduction achieved:
+
    ```bash
    echo "Baseline: 2,500 minutes/month"
    echo "Current: 2,100 minutes/month"
@@ -503,11 +556,13 @@ date_created: "2026-09-14"
    ```
 
 **Expected Outcome:**
+
 - 3 consecutive integration test runs completed
 - GitHub Actions minutes reduced ≥15% (baseline 2,500 → target ≤2,125/month)
 - Performance target met (hard requirement for Phase 2 merge)
 
 **Validation Tests:**
+
 - [ ] Run 1 metrics collected: X minutes
 - [ ] Run 2 metrics collected: Y minutes
 - [ ] Run 3 metrics collected: Z minutes
@@ -522,11 +577,13 @@ date_created: "2026-09-14"
 **Steps:**
 
 1. Before rollback, verify Phase 2 workflows functional:
+
    ```bash
    gh workflow view labeling-unified.yml --json jobRuns | head -5
    ```
 
 2. Simulate rollback:
+
    ```bash
    # Temporarily disable Phase 2 workflows
    git stash  # Stash Phase 2 changes
@@ -534,6 +591,7 @@ date_created: "2026-09-14"
    ```
 
 3. Trigger archived workflows:
+
    ```bash
    git checkout develop
    git checkout -b test/rollback-validation
@@ -544,23 +602,27 @@ date_created: "2026-09-14"
    ```
 
 4. Verify archived workflows still function:
+
    ```bash
    gh pr view rollback-validation --json statusCheckRollup
    ```
 
 5. Restore Phase 2:
+
    ```bash
    git stash pop
    git push origin test/rollback-validation
    ```
 
 **Expected Outcome:**
+
 - Rollback to Phase 1 workflows succeeds
 - Archived workflows trigger and function correctly
 - Recovery time <15 minutes
 - No data loss or state corruption
 
 **Validation Tests:**
+
 - [ ] Phase 2 workflows disabled successfully
 - [ ] Phase 1 archived workflows trigger on PR
 - [ ] Archived workflows complete without error
@@ -571,6 +633,7 @@ date_created: "2026-09-14"
 ## Summary Validation Checklist
 
 **MVP (Phase 1-3):**
+
 - [ ] Baseline metrics recorded (~2,500 minutes/month)
 - [ ] 4 composite actions functional
 - [ ] Workflow test harness triggers on PR
@@ -580,6 +643,7 @@ date_created: "2026-09-14"
 - [ ] ≥3 consecutive CI passes
 
 **Full Phase 2 (Phase 1-7):**
+
 - [ ] All Phase 3 checks passed
 - [ ] validation-unified.yml passes 12 validation rules
 - [ ] testing-unified.yml achieves ≥80% coverage
@@ -592,6 +656,7 @@ date_created: "2026-09-14"
 - [ ] 3 consecutive integration test runs passed
 
 **Go-Live Criteria (All above + Production):**
+
 - [ ] Phase 2 merged to main branch
 - [ ] Monitoring active (alert on failures)
 - [ ] Operations team trained

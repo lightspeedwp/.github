@@ -82,3 +82,5 @@ Mark visual/keyboard/contrast conclusions as `Not assessed` or `Low confidence` 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -33,6 +33,7 @@ Phase 1 is the setup phase that unblocks all downstream work. Three decisions mu
 **Status**: Phase 3 consolidation already complete (PR #2865 merged 2026-09-10)
 
 **Current State (Verified 2026-09-11)**:
+
 - Skill count: 28 consolidated skills (down from 46-skill baseline)
 - hermes/ folder: Already removed (T004-T007 complete)
 - prd-factory-planner-agent: Already deleted (T042 complete)
@@ -92,10 +93,12 @@ test -f agents/mode-prd.agent.md && echo "✓ mode-prd.agent.md exists (pending 
 ### Step 1: Understand the choice
 
 **Option A: Keep `project-pack-exporter/`**
+
 - **Rationale**: Name is shorter, matches naming convention in other clusters (e.g., `prd-writer`, not `prd-content-writer`)
 - **Delete**: `prd-task-pack-exporter/`
 
 **Option B: Keep `prd-task-pack-exporter/`**
+
 - **Rationale**: Name is more explicit (exports task packs, not generic project packs); aligns with "prd-" prefix used elsewhere
 - **Delete**: `project-pack-exporter/`
 
@@ -108,6 +111,7 @@ grep -A 20 "Cluster 8" .github/projects/active/prd-combined-agent/SKILL_DUPLICAT
 ```
 
 Expected findings:
+
 - Both folders have identical content (byte-for-byte matching after footer lines)
 - No unique content in either folder
 - 9-directory default pack structure is identical in both
@@ -294,17 +298,20 @@ ls -la agents/prd-agent/skills/frontend-skill/
 ### Step 4: Understand the choice
 
 **Option A: KEEP the generic tier**
+
 - **Rationale**: "The generic tier is a deliberate routing layer. Users can request generic work (no specific skill), and the generic skill routes to specialists."
 - **Action**: Keep all 10 skills, maintain their 2-file structure and agents/openai.yaml configs
 - **Impact on SC-001**: Final count = 28 skills (27 if T003 frontend-skill removal)
 
 **Option B: RETIRE the generic tier**
+
 - **Rationale**: "The generic tier is superseded by specialist skills. Generic skills duplicate logic and add confusion. All work should explicitly request a specialist skill."
 - **Action**: Delete all 10 generic-tier skills; audit for any unique content that must be ported first
 - **Impact on SC-001**: Final count = 18-19 skills (not 28 — BREAKS SC-001 target)
 - **Warning**: This would require spec.md SC-001 to be updated from 28 to a new target
 
 **Option C: HYBRID**
+
 - **Action**: Keep some specialist generic skills (e.g., generic approval-gate), retire others
 - **Impact**: Requires explicit list of which to keep and which to retire
 
@@ -355,6 +362,7 @@ ls -la agents/prd-agent/skills/frontend-skill/
 ### Step 6: Coordinate with T003 decision
 
 If `frontend-skill` is part of the generic tier:
+
 - **If T003 = CONFIRM removal AND T004 = RETIRE**: frontend-skill is deleted once
 - **If T003 = CONFIRM removal AND T004 = KEEP**: frontend-skill is handled separately (removed as out-of-scope)
 - **If T003 = RECONSIDER AND T004 = RETIRE**: frontend-skill stays (RECONSIDER overrides)

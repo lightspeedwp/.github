@@ -30,8 +30,6 @@ async function runMajorReleaseScenario() {
       },
     });
 
-    harness.mergeReleasePR(releaseBranch, "develop");
-
     harness.log("Phase 2: Running safety gates validation");
     const gates = {
       preFlight: true,
@@ -55,6 +53,8 @@ async function runMajorReleaseScenario() {
     harness.log("Simulating dual maintainer approvals...");
     harness.log("APPROVAL 1: Approved by maintainer-1");
     harness.log("APPROVAL 2: Approved by maintainer-2");
+
+    harness.mergeReleasePR(releaseBranch, "develop");
 
     harness.execInRepo("git checkout develop");
     harness.execInRepo("git checkout -b release/v2.0.0-main");

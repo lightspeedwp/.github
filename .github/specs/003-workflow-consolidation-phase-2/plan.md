@@ -81,12 +81,14 @@ Phase 2 consolidates 71 archived GitHub Actions workflows into 5 unified consoli
 ### Dependencies & Integration Points
 
 **Upstream (Depend on Phase 2):**
+
 - PR creation workflows (use labeling-unified.yml)
 - CI/CD validation (use validation-unified.yml)
 - Release pipelines (use testing-unified.yml)
 - Metrics dashboards (consume performance data from unified workflows)
 
 **Downstream (Phase 2 Depends On):**
+
 - Phase 1 archived workflows (reference for behavior mapping)
 - `.github/labels.yml` (label taxonomy for labeling-unified.yml)
 - `.github/ISSUE_TEMPLATE/*.md` (PR template routing for validation-unified.yml)
@@ -125,6 +127,7 @@ Phase 2 consolidates 71 archived GitHub Actions workflows into 5 unified consoli
    - Document architecture
 
 **MVP Acceptance Criteria:**
+
 - ✅ labeling-unified.yml functional and passing CI ≥3 times
 - ✅ No regression vs archived labeling workflows
 - ✅ Metrics show GitHub Actions minutes reduction (even if minimal)
@@ -135,16 +138,16 @@ Phase 2 consolidates 71 archived GitHub Actions workflows into 5 unified consoli
 
 **Goal:** Complete all 5 unified workflows
 
-4. **US2 & US3 Parallel (Week 4):**
+1. **US2 & US3 Parallel (Week 4):**
    - validation-unified.yml (12 workflows)
    - testing-unified.yml (8 workflows)
    - These can develop simultaneously
 
-5. **US4 & US5 Sequential (Week 5):**
+2. **US4 & US5 Sequential (Week 5):**
    - linting-unified.yml (2 workflows)
    - quality-gates.yml (5 utilities)
 
-6. **Integration & Cutover (Days 31+):**
+3. **Integration & Cutover (Days 31+):**
    - Integration testing across all 5 workflows
    - Performance validation (≥15% reduction)
    - Production deployment readiness
@@ -153,12 +156,14 @@ Phase 2 consolidates 71 archived GitHub Actions workflows into 5 unified consoli
 
 **Path A (MVP):** Days 1-7 (setup → foundational → labeling only)
 **Path B (Full):** Days 1-21 + integration
+
 - Weeks 1-2: Setup + Foundational + US1 (sequential)
 - Week 3: US2 & US3 (parallel after foundational)
 - Week 4: US4 + US5 (sequential)
 - Days 26+: Integration & Production
 
 **Critical Dependencies:**
+
 ```
 Setup (T001-T005)
     ↓
@@ -180,6 +185,7 @@ Integration (T069-T078)
 ### Phase 1: Setup & Baseline (T001-T005)
 
 **Deliverables:**
+
 - ✅ Phase 1 archive integrity verification
 - ✅ GitHub Actions minutes baseline (current: ~2,500/month)
 - ✅ Metrics tracking script (measure-actions-minutes.sh)
@@ -187,6 +193,7 @@ Integration (T069-T078)
 - ✅ Consolidation mapping frame (71 workflows → 5 unified)
 
 **Acceptance Criteria:**
+
 - Archive: All 71 workflows present with valid checksums
 - Baseline: Metrics recorded for last 30 days
 - Scripts: Metrics collection automated and testable
@@ -195,6 +202,7 @@ Integration (T069-T078)
 ### Phase 2: Foundational Infrastructure (T006-T014)
 
 **Deliverables:**
+
 - ✅ 4 Composite actions (apply-labels, validate-check, aggregate-tests, collect-metrics)
 - ✅ Workflow test harness (trigger-on-PR testing)
 - ✅ Error isolation validation framework
@@ -202,6 +210,7 @@ Integration (T069-T078)
 - ✅ Per-workflow GitHub Actions minute budgets
 
 **Acceptance Criteria:**
+
 - Composite actions: Callable, idempotent, error-handling validated
 - Test harness: Can trigger all 5 unified workflows on PR event
 - Error isolation: Single workflow type failure tested and validated
@@ -214,11 +223,13 @@ Integration (T069-T078)
 **Deliverable:** `.github/workflows/labeling-unified.yml`
 
 **Jobs:**
+
 1. **PR Labeling Job:** Trigger on `pull_request`, apply labels per PR metadata
 2. **Issue Labeling Job:** Trigger on `issues`, apply labels per issue type
 3. **Scheduled Cleanup Job:** Trigger on schedule, remove stale labels, update metrics
 
 **Acceptance Criteria:**
+
 - ✅ All 9 labeling workflows consolidated into single YAML
 - ✅ PR/Issue labeling logic matches archived workflow behavior
 - ✅ Labels applied follow `.github/labels.yml` taxonomy with required prefixes
@@ -228,6 +239,7 @@ Integration (T069-T078)
 - ✅ Rollback to Phase 1 labeling workflows succeeds
 
 **Tests:**
+
 - [ ] T022a: Trigger labeling-unified.yml via PR creation, verify labels applied
 - [ ] T022b: Verify no duplicate label application (9 archived patterns deduplicated)
 - [ ] T022c: Verify label prefixes match taxonomy (type:, status:, priority:, area:, meta:)
@@ -243,6 +255,7 @@ Integration (T069-T078)
 **Deliverable:** `.github/workflows/validation-unified.yml`
 
 **Jobs (Parallel):**
+
 1. **Branch Naming Validation:** Check `{type}/{scope}-{title}` format
 2. **PR Template Validation:** Verify correct template routed, fields populated
 3. **Changelog Validation:** Require CHANGELOG.md entry for non-docs PRs
@@ -250,6 +263,7 @@ Integration (T069-T078)
 5. **Secret Scanning:** Run GitHub secret scanning, report findings
 
 **Acceptance Criteria:**
+
 - ✅ All 12 validation workflows consolidated
 - ✅ Branch naming validation rejects invalid prefixes (claude/, copilot/, openai/)
 - ✅ Failed validations post PR comments with remediation steps
@@ -263,12 +277,14 @@ Integration (T069-T078)
 **Deliverable:** `.github/workflows/testing-unified.yml`
 
 **Jobs (Parallel):**
+
 1. **Unit Tests:** Run npm test (or language-appropriate), coverage ≥80%
 2. **Integration Tests:** Run integration test suite
 3. **E2E Tests:** Run E2E tests on staging
 4. **Coverage Aggregation:** Merge coverage reports, calculate total
 
 **Acceptance Criteria:**
+
 - ✅ All 8 testing workflows consolidated
 - ✅ Unit + Integration + E2E tests run in parallel
 - ✅ Coverage ≥80% enforced (fail if below)
@@ -283,10 +299,12 @@ Integration (T069-T078)
 **Deliverable:** `.github/workflows/linting-unified.yml`
 
 **Jobs (Parallel):**
+
 1. **JS/TS Linting:** ESLint on shared config from `.github/eslint.config.js`
 2. **Markdown Linting:** markdownlint on config from `.markdownlintrc`
 
 **Acceptance Criteria:**
+
 - ✅ Both linting workflows consolidated
 - ✅ ESLint and Markdown linting rules deduplicated
 - ✅ Linting failures post PR comments with auto-fix suggestions
@@ -300,6 +318,7 @@ Integration (T069-T078)
 **Deliverable:** `.github/workflows/quality-gates.yml`
 
 **Jobs (Parallel):**
+
 1. **SAST Scanning:** CodeQL analysis, fail on critical findings
 2. **Dependency Scanning:** npm audit, check for known vulnerabilities
 3. **License Compliance:** Check against allowlist at `.github/config/LICENSE_ALLOWLIST.json`
@@ -307,6 +326,7 @@ Integration (T069-T078)
 5. **Security Policy:** Validate SECURITY.md exists, required security headers
 
 **Acceptance Criteria:**
+
 - ✅ All 5 utilities consolidated
 - ✅ Security scans execute with findings reported to PR
 - ✅ License compliance enforced; prohibited licenses rejected
@@ -318,6 +338,7 @@ Integration (T069-T078)
 ### Phase 7: Integration & Production Cutover (T069-T078)
 
 **Deliverables:**
+
 - ✅ Integration test suite (all 5 workflows triggered on single PR)
 - ✅ Performance validation (≥15% reduction: baseline 2,500 → target 2,125/month)
 - ✅ Error isolation validation (single workflow failure doesn't cascade)
@@ -327,6 +348,7 @@ Integration (T069-T078)
 - ✅ Production deployment checklist
 
 **Acceptance Criteria:**
+
 - ✅ 3 consecutive integration test cycles pass
 - ✅ GitHub Actions minutes reduced ≥15% (≤2,125/month)
 - ✅ Zero cascading failures between workflows

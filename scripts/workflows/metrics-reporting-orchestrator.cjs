@@ -121,7 +121,9 @@ class MetricsReportingOrchestrator {
     const reportFileName = `report-${repository.replace("/", "-")}-${period}-${dateString}.md`;
     const reportPath = path.join(reportDir, reportFileName);
 
-    fs.writeFileSync(reportPath, report);
+    const serializedReport =
+      typeof report === "string" ? report : JSON.stringify(report, null, 2);
+    fs.writeFileSync(reportPath, serializedReport);
     return reportPath;
   }
 
@@ -205,9 +207,11 @@ async function main() {
   process.exit(0);
 }
 
-main().catch((error) => {
-  console.error("Fatal error:", error);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error("Fatal error:", error);
+    process.exit(1);
+  });
+}
 
 module.exports = { MetricsReportingOrchestrator };
