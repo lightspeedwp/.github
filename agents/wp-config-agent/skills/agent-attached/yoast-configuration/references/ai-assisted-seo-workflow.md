@@ -135,3 +135,5 @@ Refresh this workflow when Yoast SEO AI Plus packaging changes, Yoast AI feature
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

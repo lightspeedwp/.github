@@ -96,3 +96,5 @@ python scripts/render_and_diff.py fixtures/watermark_fixture.docx no_watermark.d
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

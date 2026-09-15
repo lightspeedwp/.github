@@ -1,5 +1,31 @@
 # CodeRabbit Configuration: Quick Reference for Adding New Patterns
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Purpose**: Enable rapid addition of new file type instruction blocks to `.coderabbit.yml` in under 5 minutes  
 **Target Users**: Repository maintainers, configuration stewards  
 **Scope**: This guide covers adding a single new path pattern and its review instructions
@@ -16,6 +42,7 @@ Add a new pattern to `.coderabbit.yml` when:
 - An existing pattern is too broad and needs refinement with a more specific subset
 
 **Do NOT add** if:
+
 - The file type is already covered by an existing pattern (check coverage first)
 - The guidance would duplicate existing content in AGENTS.md, CLAUDE.md, or `.github/instructions/`
 
@@ -34,6 +61,7 @@ Add a new pattern to `.coderabbit.yml` when:
 ```
 
 **Key Structure**:
+
 - `path`: A glob pattern matching the files (e.g., `agents/*.agent.js`, `**/*.md`, `workflows/*.yml`)
 - `instructions`: Plain text with bullet points describing review priorities
 
@@ -66,6 +94,7 @@ Add a new pattern to `.coderabbit.yml` when:
    - If this is a broad fallback → priority 1–49
 
 **Example**: Adding guidance for plugin PHP files in `plugins/` directory.
+
 - Path: `plugins/**/*.php`
 - Existing patterns: `**/*.php` (priority 60)
 - Decision: Assign priority 80 (more specific than general PHP guidance)
@@ -79,6 +108,7 @@ Write 3–5 bullet points describing what CodeRabbit should check for **this spe
 - Keep bullets concise and testable
 
 **Template to follow:**
+
 ```
 Review {file type description}:
   - Check for {specific thing CodeRabbit should verify}
@@ -88,6 +118,7 @@ Review {file type description}:
 ```
 
 **Example for plugins/**/*.php**:
+
 ```
 Review WordPress plugin PHP files:
   - Check for proper namespacing and no globals pollution
@@ -106,6 +137,7 @@ Review WordPress plugin PHP files:
 5. Place your new pattern **within that priority group**, maintaining descending order within the group
 
 **Priority Groups** (look for comments like `=== PRIORITY 80: ...`):
+
 - Lines ~69–200: Priority 95–90 (exact paths)
 - Lines ~200–400: Priority 80–70 (specific directories)
 - Lines ~400–600: Priority 60–50 (type-in-dir)
@@ -146,12 +178,14 @@ Checklist before committing:
 
 **Goal**: Add specific guidance for `plugins/**/*.php` files.
 
-### My Decisions:
+### My Decisions
+
 - **Pattern**: `plugins/**/*.php`
 - **Priority**: 85 (more specific than `**/*.php`)
 - **Focus Areas**: WordPress standards, security (escaping/validation), database safety
 
-### My Pattern Block:
+### My Pattern Block
+
 ```yaml
     - path: "plugins/**/*.php"
       instructions: |
@@ -163,7 +197,8 @@ Checklist before committing:
           - Confirm adherence to WordPress Coding Standards for readability and maintainability
 ```
 
-### Insertion in .coderabbit.yml:
+### Insertion in .coderabbit.yml
+
 1. Find line ~72 (start of PRIORITY 70–89 group)
 2. Look for existing patterns at priority 80–89
 3. Insert in descending priority order (if none exist at 85, put it before priority 80 patterns)
@@ -176,6 +211,7 @@ Checklist before committing:
 **After adding your pattern**, verify it works:
 
 1. **File Matching**: Does your glob pattern match intended files?
+
    ```bash
    cd /path/to/repo
    ls | grep -E "your_pattern"  # Roughly test the pattern
@@ -186,12 +222,14 @@ Checklist before committing:
    - Ensure your pattern is more/less specific as intended
 
 3. **YAML Syntax**: Verify the file is still valid YAML
+
    ```bash
    yamllint .coderabbit.yml  # If yamllint available
    # OR manually check: proper indentation, no syntax errors
    ```
 
 4. **Documentation**: If you added a high-priority (85+) pattern, add a brief comment above it:
+
    ```yaml
    # === PRIORITY 85: PLUGIN PHP FILES ===
    # Plugin-specific PHP review guidance for WordPress ecosystem
@@ -255,16 +293,19 @@ Save this and use before adding any pattern:
 ## Help & Escalation
 
 **Pattern not working?**
+
 - Check glob syntax with `ls` locally: `ls | grep "your-pattern"`
 - Verify priority range in context of existing patterns
 - Ensure no typos in path
 
 **Unclear which priority to use?**
+
 - See Priority Assignment Quick Guide above
 - Compare with similar existing patterns
 - Ask: "How specific is this pattern?" (exact → 95, specific → 85, type → 60, general → 1)
 
 **Need to remove or update an existing pattern?**
+
 - Do NOT modify without checking dependencies (other patterns, workflows)
 - Document the change in commit message and/or `CHANGELOG.md`
 - Verify backward compatibility (existing patterns still work as before)
@@ -273,3 +314,6 @@ Save this and use before adding any pattern:
 
 **Last Updated**: 2026-09-14  
 **See Also**: `.coderabbit.yml` (full configuration), `CODERABBIT_COVERAGE_AUDIT.md` (coverage verification), `BRANCHING_STRATEGY.md` § 5.3 (branch-type context)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

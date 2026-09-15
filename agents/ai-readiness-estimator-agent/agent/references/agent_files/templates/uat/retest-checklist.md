@@ -61,3 +61,5 @@ Use this checklist after fixing a pilot-testing issue for the LightSpeed AI Read
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
