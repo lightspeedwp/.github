@@ -12,9 +12,9 @@
 The audit and core refactoring of LightSpeed governance files (CLAUDE.md, AGENTS.md) is complete across 9 phases and 45+ tasks. The critical issue is resolved; unresolved references and unmet success criteria require @ashley review, remediation, or an explicit waiver before merge to develop.
 
 **Key Achievements**:
-- ✅ Complete 100% audit with 8 findings documented
+- ✅ Complete 100% audit with 7 independent findings documented
 - ✅ All critical issues (1) fixed
-- ⚠️ All major findings (4) recorded: 1 addressed and 3 deferred
+- ⚠️ All major findings (3) recorded: 1 addressed and 2 deferred
 - ✅ Refactored files committed to branch
 - ✅ Constitution alignment restored (6/6 principles)
 - ✅ Zero duplicates achieved
@@ -41,7 +41,7 @@ The audit and core refactoring of LightSpeed governance files (CLAUDE.md, AGENTS
 - ✅ Section structure mapped (10 CLAUDE.md sections, 6 AGENTS.md sections)
 - ✅ Cross-references validated
 - ⚠️ Internal links audited (7/12 valid; 5 missing)
-- ✅ Comprehensive audit report generated (8 findings)
+- ✅ Comprehensive audit report generated (7 independent findings)
 
 ### Phase 9: Refactoring Implementation (34 tasks — core completed)
 - ✅ **DUP-001**: Label Creation Governance consolidated (98→80 lines)
@@ -57,7 +57,6 @@ The audit and core refactoring of LightSpeed governance files (CLAUDE.md, AGENTS
 | ID | Severity | Finding | Status |
 |----|----------|---------|--------|
 | **DUP-001** | CRITICAL | Label Creation Governance duplicated (2 occurrences) | ✅ FIXED |
-| **REF-001** | MAJOR | Missing: branch-naming.instructions.md reference | 📌 DEFERRED |
 | **REF-002** | MAJOR | Missing: validate-labels-before-creation.cjs reference | 📌 DEFERRED |
 | **ORG-001** | MAJOR | Script organization rules may be misplaced | ✅ ADDRESSED |
 | **MISSING-INST-001–004** | MAJOR | Instruction files are absent from the repository-local paths referenced by the archived governance files | 📌 DEFERRED — migration paths unresolved |
@@ -65,7 +64,7 @@ The audit and core refactoring of LightSpeed governance files (CLAUDE.md, AGENTS
 | **WORKFLOW-001** | MEDIUM | Specification-first workflow guidance missing | ✅ FIXED |
 | **TERM-001** | LOW | Terminology consistency | ✅ ADDRESSED |
 
-**Summary**: 8 audited findings — 3 FIXED, 2 ADDRESSED, and 3 DEFERRED. The deferred set includes unresolved instruction-file references.
+**Summary**: 7 independent audited findings — 3 FIXED, 2 ADDRESSED, and 2 DEFERRED. The branch-naming path is represented only by MISSING-INST-001.
 
 ---
 
@@ -81,9 +80,9 @@ The audit and core refactoring of LightSpeed governance files (CLAUDE.md, AGENTS
 | **SC-006** | 15-25% size reduction | 619→634 lines (+2.4%); no approved waiver | ❌ UNMET |
 | **SC-007** | Consistent cross-references | All references verified | ✅ PASS |
 | **SC-008** | Instruction files verified | 5/5 consolidated portable files exist; supporting files counted separately | ✅ PASS |
-| **SC-009** | Changelog created | **Pending Phase 10** | 🔄 TBD |
+| **SC-009** | Changelog created | `GOVERNANCE_CHANGELOG.md` exists and is recorded in the approval summary | ✅ PASS |
 
-**Status**: 6/9 criteria passing; 2 unmet; 1 pending
+**Status**: 7/9 criteria passing; 2 unmet
 
 ---
 
@@ -145,7 +144,7 @@ All commits contain comprehensive commit messages with task IDs and rationale.
 ### Phase 10: Polish & Validation (PENDING)
 - [ ] Line-by-line review of refactored files
 - [ ] Final QA checks
-- [ ] Generate GOVERNANCE_CHANGELOG.md (SC-009)
+- [x] Generate GOVERNANCE_CHANGELOG.md (SC-009)
 - [ ] Verify success criteria 100% complete
 
 ### Phase 11: Approval & Merge (PENDING)
@@ -164,24 +163,24 @@ All commits contain comprehensive commit messages with task IDs and rationale.
 2. ✓ Approve consolidation of Label Creation Governance
 3. ✓ Approve workflow documentation approach
 4. ✓ Confirm branch naming emphasis appropriate
-5. ✓ Sign off on deferred items (REF-001, REF-002)
+5. ✓ Sign off on deferred items (REF-002, MISSING-INST-001–004)
 6. ✓ Approve final changelog
 
 ---
 
-## Deferred Items (Not Blocking Merge)
+## Deferred Items (Require Remediation or Waiver)
 
-Two reference issues documented and deferred (not blocking):
+Two independent reference findings are documented and deferred. They keep SC-004 unmet and block merge unless remediated or explicitly waived:
 
-1. **REF-001**: `.github/instructions/branch-naming.instructions.md`
-   - **Status**: Referenced in CLAUDE.md but file missing
-   - **Plan**: Document migration path; create file in future sprint
-   - **Impact**: Low — reference links to existing documentation
-
-2. **REF-002**: `.github/scripts/validation/validate-labels-before-creation.cjs`
+1. **REF-002**: `.github/scripts/validation/validate-labels-before-creation.cjs`
    - **Status**: Referenced in AGENTS.md but file missing
-   - **Plan**: Document current validation approach; create script in future sprint
+   - **Plan**: Migrate the reference to `scripts/validation/validate-labels-before-creation.cjs` and classify `.github/scripts/` as legacy
    - **Impact**: Low — validation functionality implied
+
+2. **MISSING-INST-001–004**: `.github/instructions/{branch-naming,coding-standards,file-organisation,plugin-structure}.instructions.md`
+   - **Status**: The four repository-local paths were missing in the audited snapshot; the branch-naming path is represented only by MISSING-INST-001
+   - **Plan**: For each reference, confirm whether the repository-local contract remains required; migrate portable guidance to the matching top-level `instructions/` file and create or retain `.github/instructions/` files only for repository-specific guidance
+   - **Impact**: Low — existing top-level or current repository-local guidance provides migration targets, but archived references require explicit reconciliation
 
 ---
 

@@ -109,6 +109,7 @@
 - Documentation: docs, test, proto
 - Performance/Quality: perf, ci, build, deps, security
 - Specialized: design, a11y, ux, i18n, ops, ds, api, schema
+- Content/Operations: telemetry, content, seo, config, migrate, qa, uat
 - Governance: audit, codex, revert, research
 
 **Validation Rules**:

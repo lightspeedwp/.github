@@ -30,14 +30,6 @@ async function runMinorReleaseScenario() {
       },
     });
 
-    harness.mergeReleasePR(releaseBranch, "develop");
-    harness.verifyRepositoryState({
-      branch: "develop",
-      fileContent: {
-        VERSION: "1.1.0",
-      },
-    });
-
     harness.log("Phase 2: Running safety gates validation");
     const gates = {
       preFlight: true,
@@ -56,6 +48,14 @@ async function runMinorReleaseScenario() {
 
     harness.log("Simulating maintainer approval...");
     harness.log("APPROVAL: Manual approval received from maintainer");
+
+    harness.mergeReleasePR(releaseBranch, "develop");
+    harness.verifyRepositoryState({
+      branch: "develop",
+      fileContent: {
+        VERSION: "1.1.0",
+      },
+    });
 
     harness.execInRepo("git checkout develop");
     harness.execInRepo("git checkout -b release/v1.1.0-main");

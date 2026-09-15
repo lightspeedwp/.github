@@ -175,11 +175,6 @@
     {
       "timestamp": "2026-09-15T05:40:20.000Z",
       "level": "info",
-      "message": "PR merged successfully"
-    },
-    {
-      "timestamp": "2026-09-15T05:40:20.000Z",
-      "level": "info",
       "message": "Verifying repository state"
     },
     {
@@ -241,6 +236,11 @@
       "timestamp": "2026-09-15T05:40:20.013Z",
       "level": "info",
       "message": "APPROVAL: Manual approval received from maintainer"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:20.013Z",
+      "level": "info",
+      "message": "PR merged successfully"
     },
     {
       "timestamp": "2026-09-15T05:40:20.029Z",

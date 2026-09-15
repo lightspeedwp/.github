@@ -175,11 +175,6 @@
     {
       "timestamp": "2026-09-15T05:40:19.972Z",
       "level": "info",
-      "message": "PR merged successfully"
-    },
-    {
-      "timestamp": "2026-09-15T05:40:19.972Z",
-      "level": "info",
       "message": "Phase 2: Running safety gates validation"
     },
     {
@@ -246,6 +241,11 @@
       "timestamp": "2026-09-15T05:40:19.974Z",
       "level": "info",
       "message": "APPROVAL 2: Approved by maintainer-2"
+    },
+    {
+      "timestamp": "2026-09-15T05:40:19.974Z",
+      "level": "info",
+      "message": "PR merged successfully"
     },
     {
       "timestamp": "2026-09-15T05:40:19.988Z",

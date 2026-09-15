@@ -21,7 +21,7 @@ The Governance Files Audit & Refactor project has been completed and is ready fo
 
 **Risk Assessment**: **LOW operational risk; MODERATE communication and adoption impact** — Runtime behaviour and automation are unchanged, but CLAUDE.md introduces a normative specification-first contributor process with required specification, clarification, planning, task, implementation, and pre-merge review stages
 
-**Time to Merge**: Ready immediately after approval
+**Time to Merge**: Ready only after SC-004 and SC-006 are remediated or explicitly waived and the remaining approval gates are complete
 
 ---
 
@@ -29,14 +29,14 @@ The Governance Files Audit & Refactor project has been completed and is ready fo
 
 ### Phase 9: Refactoring Implementation (COMPLETE ✅)
 
-All 8 audit findings were applied to governance files:
+All 7 independent audit findings were assessed and applied or deferred:
 
 | Finding | Severity | Resolution | Impact |
 |---------|----------|-----------|--------|
 | DUP-001: Duplicate "Label Creation Governance" | CRITICAL | Consolidated into 1 section | 18% reduction (98→80 lines) |
-| REF-001: Missing branch-naming.instructions.md | MAJOR | Documented as pending | Tracked in audit reports |
 | REF-002: Missing validation script | MAJOR | Documented as missing | Tracked in audit reports |
 | ORG-001: Script org rules misplaced | MAJOR | Kept in AGENTS.md with clarification | Noted for future guidance consolidation |
+| MISSING-INST-001–004: Missing repository-local instruction paths | MAJOR | Documented as pending migration | Tracked in audit reports; includes the branch-naming path |
 | WORKFLOW-001: Missing workflow guidance | MEDIUM | Added to CLAUDE.md (50 lines) | New §Specification-First Workflow |
 | PRIN-001: Branch naming emphasis weak | MEDIUM | Strengthened in both files | Added ⚠️, consequences, validation requirement |
 | TERM-001: Terminology inconsistency | LOW | Standardized during refactoring | Consistent UK English throughout |
@@ -60,7 +60,7 @@ All 8 audit findings were applied to governance files:
 
 | Criterion | Measurement | Target | Actual | Status |
 |-----------|------------|--------|--------|--------|
-| SC-001 | Audit completeness | 100% findings identified | 8/8 findings identified and categorized | ✅ |
+| SC-001 | Audit completeness | 100% findings identified | 7/7 independent findings identified and categorised | ✅ |
 | SC-002 | No forbidden prefixes in examples | 0 claude/copilot/openai | 0 (verified all 34 examples) | ✅ |
 | SC-003 | Duplicate consolidation | 2 sections → 1 | Consolidated DUP-001 | ✅ |
 | SC-004 | Reference validation | 100% existing or documented | 7 valid + 5 unresolved; no approved waiver | ❌ |
@@ -168,9 +168,11 @@ All changes are:
 - Locked configuration files (`.github/labels.yml`, `.github/issue-types.yml`, templates)
 
 ### Files Documented as Missing/Legacy ⏳
-- `.github/instructions/branch-naming.instructions.md` — Missing (REF-001)
-- `.github/scripts/validation/validate-labels-before-creation.cjs` — Missing (REF-002)
-- `.github/prompts/prompts.md` — Marked as "legacy pending migration"
+- `.github/instructions/branch-naming.instructions.md` — Missing in the audited snapshot (MISSING-INST-001)
+- `.github/instructions/coding-standards.instructions.md` — Missing in the audited snapshot (MISSING-INST-002)
+- `.github/instructions/file-organisation.instructions.md` — Missing in the audited snapshot (MISSING-INST-003)
+- `.github/instructions/plugin-structure.instructions.md` — Missing in the audited snapshot (MISSING-INST-004)
+- `.github/scripts/validation/validate-labels-before-creation.cjs` — Legacy path missing in the audited snapshot; migrate to `scripts/validation/validate-labels-before-creation.cjs` (REF-002)
 
 **Status**: These missing references are documented in audit reports. Governance files note they are pending/legacy. No breaking impact—just tracking needed guidance consolidation.
 
@@ -178,20 +180,21 @@ All changes are:
 
 ## Recommendation for Approval
 
-**Recommend: APPROVE for merge to develop**
+**Recommend: CONDITIONAL APPROVAL for merge to develop**
 
 Rationale:
 1. ⚠️ Seven of nine success criteria passing; SC-004 and SC-006 require remediation or an explicit waiver
 2. ✅ All 6 Constitution principles aligned
 3. ✅ No breaking changes identified
 4. ✅ Specification quality validated (28/28 checklist items)
-5. ✅ Audit findings addressed (8/8)
+5. ✅ Independent audit findings assessed (7/7)
 6. ✅ Low risk, high value (consolidation, clarification, new guidance)
-7. ✅ Ready for immediate merge
+7. ⚠️ Merge remains blocked until SC-004 and SC-006 are remediated or each has an explicit approved waiver
 
 **Approval Gates**:
 - [ ] Review comprehensive checklist Dimension B (24 items)
 - [ ] Confirm constitution alignment (already 6/6)
+- [ ] Remediate SC-004 and SC-006 or record explicit approved waivers for both unmet criteria
 - [ ] Approve changes and sign off
 - [ ] Authorize merge to develop
 
@@ -237,7 +240,7 @@ Rationale:
 
 **Project**: Governance Files Audit & Refactor  
 **Specification**: Complete and validated (28/28 spec quality items passing)  
-**Implementation**: Complete and committed (all 8 findings addressed)  
+**Implementation**: Complete and committed (all 7 independent findings assessed)
 **Quality Assurance**: 7/9 success criteria passing; SC-004 and SC-006 unmet; 6/6 Constitution principles aligned
 
 **Status**: ✅ **READY FOR @ashley APPROVAL**

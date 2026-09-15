@@ -131,8 +131,12 @@ Documented Migrations: [COUNT]
 echo "Searching for 'Label Creation Governance' occurrences..."
 grep -n "## Label Creation Governance" AGENTS.md
 
-# Expected output: 0 or 1 occurrence (only one should remain)
-# If 2+ occurrences found, validation FAILS
+# Exactly one authoritative section must remain; zero or multiple occurrences fail
+occurrences=$(grep -c "^## Label Creation Governance" AGENTS.md || true)
+if [ "$occurrences" -ne 1 ]; then
+  echo "Validation FAILED: expected exactly 1 section, found $occurrences"
+  exit 1
+fi
 
 # 2. Verify consolidation retained all unique information
 # Check that consolidated section includes:

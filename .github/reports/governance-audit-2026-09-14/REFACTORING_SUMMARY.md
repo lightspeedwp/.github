@@ -95,7 +95,7 @@ The refactored files now contain all unique information from both versions (zero
 | Reference | Status | Action |
 |-----------|--------|--------|
 | `.github/instructions/branch-naming.instructions.md` | Missing | Reference kept; file documented as pending creation |
-| `.github/scripts/validation/validate-labels-before-creation.cjs` | Missing | Reference kept; documented as validation reference |
+| `.github/scripts/validation/validate-labels-before-creation.cjs` | Legacy path missing in audited snapshot | Migrate reference to `scripts/validation/validate-labels-before-creation.cjs` |
 | `CLAUDE.md` ↔ `AGENTS.md` | Valid | Cross-references verified and appropriate |
 | `.github/labels.yml` | Valid | ✅ Exists |
 | `docs/BRANCHING_STRATEGY.md` | Valid | ✅ Exists |
@@ -103,9 +103,12 @@ The refactored files now contain all unique information from both versions (zero
 
 ### Broken References (Deferred)
 
-Two references are documented as pending but not blocking refactoring completion:
-- `.github/instructions/branch-naming.instructions.md` (referenced but missing)
-- `.github/scripts/validation/validate-labels-before-creation.cjs` (referenced but missing)
+Five references are documented as pending migration or creation but not blocking refactoring completion:
+- `.github/instructions/branch-naming.instructions.md` (missing in the audited snapshot; MISSING-INST-001)
+- `.github/instructions/coding-standards.instructions.md` (missing in the audited snapshot; MISSING-INST-002)
+- `.github/instructions/file-organisation.instructions.md` (missing in the audited snapshot; MISSING-INST-003)
+- `.github/instructions/plugin-structure.instructions.md` (missing in the audited snapshot; MISSING-INST-004)
+- `.github/scripts/validation/validate-labels-before-creation.cjs` (legacy path; migrate to `scripts/validation/validate-labels-before-creation.cjs`; REF-002)
 
 **Action**: These files are documented as pending migration/creation. References remain for future implementation.
 
@@ -153,7 +156,7 @@ Two references are documented as pending but not blocking refactoring completion
 ✅ **PASS** — All five consolidated portable files exist in top-level `instructions/`; supporting and repository-local instruction files are assessed separately
 
 ### SC-009: Changelog Created
-🔄 **IN PROGRESS** — To be completed in Phase 10 Polish & Validation
+✅ **PASS** — `GOVERNANCE_CHANGELOG.md` exists and is recorded in the approval summary
 
 ---
 
@@ -162,10 +165,9 @@ Two references are documented as pending but not blocking refactoring completion
 | Finding | Status | Resolution |
 |---------|--------|-----------|
 | **DUP-001** (Critical) | ✅ FIXED | Consolidated to single section |
-| **REF-001** (Major) | 📌 DEFERRED | Reference documented; file pending |
 | **REF-002** (Major) | 📌 DEFERRED | Reference kept; migration documented |
 | **ORG-001** (Major) | ✅ ADDRESSED | Clarity improved; structure reviewed |
-| **MISSING-INST-001–004** (Major) | 📌 DEFERRED | Repository-local instruction references remain unresolved |
+| **MISSING-INST-001–004** (Major) | 📌 DEFERRED | Repository-local instruction references remain unresolved; the branch-naming path is represented only by MISSING-INST-001 |
 | **PRIN-001** (Medium) | ✅ FIXED | Branch naming emphasis strengthened |
 | **WORKFLOW-001** (Medium) | ✅ FIXED | Workflow documentation added |
 | **TERM-001** (Low) | ✅ ADDRESSED | Terminology reviewed and consistent |

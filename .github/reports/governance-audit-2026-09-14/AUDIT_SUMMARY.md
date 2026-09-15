@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Complete audit of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed across 26 tasks (T001–T026). Audit identified 8 actionable findings across 4 severity levels, with 1 critical constitutional violation requiring immediate remediation.
+Complete audit of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed across 26 tasks (T001–T026). Audit identified 7 independent actionable findings across 4 severity levels, with 1 critical constitutional violation requiring immediate remediation.
 
 **Key Finding**: One critical duplicate section in AGENTS.md violates Constitution Principle III (no duplication). All other findings are resolvable through refactoring.
 
@@ -26,12 +26,7 @@ Complete audit of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed a
 - **Priority**: MUST fix before any merge to develop
 - **Resolution**: Consolidate into single authoritative section with merged content from both versions
 
-### MAJOR (4 Findings)
-
-**REF-001**: Missing reference file `.github/instructions/branch-naming.instructions.md`
-- **Referenced**: CLAUDE.md line 104
-- **Impact**: Broken documentation link
-- **Resolution**: Create file or update reference to existing documentation
+### MAJOR (3 Findings)
 
 **REF-002**: Missing validation script `.github/scripts/validation/validate-labels-before-creation.cjs`
 - **Referenced**: AGENTS.md line 237
@@ -46,6 +41,7 @@ Complete audit of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed a
 
 **MISSING-INST-001–004**: Instruction files referenced but missing
 - **Files**: Four repository-local paths under `.github/instructions/`: `branch-naming.instructions.md`, `coding-standards.instructions.md`, `file-organisation.instructions.md`, and `plugin-structure.instructions.md`
+- **Finding identity**: `MISSING-INST-001` is the sole finding for the missing branch-naming path and is not counted separately under another ID
 - **Portable inventory**: The five consolidated top-level `instructions/*.instructions.md` files are a separate contract and are verified independently by T012
 - **Impact**: Broken documentation chain
 - **Resolution**: Create files, update references, or establish migration path
@@ -76,9 +72,9 @@ Complete audit of LightSpeed governance files (CLAUDE.md, AGENTS.md) completed a
 
 | Metric | Value |
 |--------|-------|
-| **Total findings** | 8 |
+| **Total findings** | 7 independent findings |
 | **CRITICAL** | 1 (DUP-001) |
-| **MAJOR** | 4 |
+| **MAJOR** | 3 |
 | **MEDIUM** | 2 |
 | **LOW** | 1 |
 | **Authoritative pre-refactoring baseline** | 619 lines (CLAUDE.md 267, AGENTS.md 352) |
@@ -141,7 +137,7 @@ After refactoring, verify:
 ## Next Steps
 
 1. Begin Phase 9 Refactoring Implementation (34 tasks)
-2. Apply all 8 findings to CLAUDE.md and AGENTS.md
+2. Apply all 7 independent findings to CLAUDE.md and AGENTS.md
 3. Run Phase 10 validation checks
 4. Obtain @ashley approval
 5. Create draft PR for merge to develop

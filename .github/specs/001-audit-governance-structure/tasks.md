@@ -49,7 +49,7 @@
 - [ ] T011 [US6] Verify if `.github/prompts/prompts.md` exists; document migration status if legacy pending
 - [ ] T012 [US6] Verify the five consolidated portable files in top-level `instructions/`: `languages.instructions.md`, `documentation-formats.instructions.md`, `quality-assurance.instructions.md`, `automation.instructions.md`, and `community-standards.instructions.md`; report supporting instruction files separately
 - [ ] T013 [US6] Verify if GitHub projects in `.github/projects/active/` are current or archived; document status
-- [ ] T014 [US6] Validate the AGENTS.md script reference at `.github/scripts/validation/validate-labels-before-creation.cjs` against `.github/scripts/validation/`; record any replacement outside that directory as a migration
+- [ ] T014 [US6] Validate the AGENTS.md script reference against `scripts/validation/validate-labels-before-creation.cjs`; classify any `.github/scripts/validation/` reference as legacy and record the required migration to the root `scripts/validation/` directory
 
 ### Audit Scope Definition
 
@@ -236,7 +236,7 @@
 - [ ] T114 [US6] Verify all 5 consolidated instruction files exist and contain expected topics
 - [ ] T115 [US6] If any consolidated instruction files are missing, document which topics were not consolidated
 - [ ] T116 [US6] Verify GitHub projects in `.github/projects/active/` exist and update any archived project references
-- [ ] T117 [US6] Update `.github/scripts/validation/validate-labels-before-creation.cjs` reference if script path has changed
+- [ ] T117 [US6] Migrate the legacy `.github/scripts/validation/validate-labels-before-creation.cjs` reference to `scripts/validation/validate-labels-before-creation.cjs`
 - [ ] T118 [US6] Create reference validation report documenting: total references checked, valid, broken, migrated
 - [ ] T119 [US6] Add validation check to governance files: "Last validated: [DATE]"
 
@@ -284,7 +284,7 @@
 - [ ] T145 [P] Verify refactored CLAUDE.md has zero duplicate level-two section names; `sed -n 's/^## //p' CLAUDE.md | sort | uniq -d` must produce no repeated values
 - [ ] T146 [P] Verify refactored AGENTS.md has zero duplicate level-two section names; `sed -n 's/^## //p' AGENTS.md | sort | uniq -d` must produce no repeated values
 - [ ] T147 [P] Verify all examples use valid branch types, never use forbidden prefixes
-- [ ] T148 Verify refactored files maintain ~85-87% of original content (15-25% reduction as per SC-006)
+- [ ] T148 Verify SC-006 against total governance-file line count: retain 75–85% of the 619-line baseline (464–526 lines, a 15–25% reduction) while preserving 100% of unique guidance; record the delivered 634 lines as unmet unless an explicit waiver is approved
 - [ ] T149 Run validation script from quickstart.md Scenario 1 (Reference Integrity)
 - [ ] T150 Run validation script from quickstart.md Scenario 2 (Duplication Elimination)
 - [ ] T151 Run validation script from quickstart.md Scenario 3 (Consistency & Conflict Resolution)
@@ -469,7 +469,7 @@ If working with single person or limited parallel execution:
 | SC-003: One authoritative "Label Creation Governance" | T061-T075, T150 |
 | SC-004: 100% reference validation | T107-T119, T149 |
 | SC-005: Workflow section with criteria | T090-T106, T152 |
-| SC-006: 15-25% content reduction | T148, T156 |
+| SC-006: Total line count reduced 15–25% from 619 to 464–526 while retaining all unique guidance, or explicit waiver approved | T148, T156 |
 | SC-007: Consistent cross-references | T085-T089, T151 |
 | SC-008: Consolidated instruction files verified | T012, T114-T115 |
 
@@ -513,7 +513,7 @@ With 3-person team:
 - Tasks marked [P] can be executed in parallel but sequence shown assumes single-person execution
 - Each phase checkpoint should be validated before proceeding to next phase
 - @ashley approval is required before merge (T181-T185)
-- Refactored files must maintain 100% of unique information (15-25% reduction means removing only duplicates/redundancy)
+- Refactored files must maintain 100% of unique information; SC-006 measures a 15–25% reduction in total line count (75–85% retention), and the delivered 634-line result remains unmet without an explicit waiver
 - All tasks follow quickstart.md validation criteria for acceptance
 
 ---

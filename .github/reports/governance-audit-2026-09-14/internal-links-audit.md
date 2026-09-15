@@ -72,20 +72,17 @@
    - Resolution: Consolidate to single section with merged content
 
 #### MAJOR (Should Fix)
-1. **REF-001**: Broken reference to `.github/instructions/branch-naming.instructions.md`
-   - Referenced in CLAUDE.md line 104 but file missing
-   - Resolution: Create file or update reference
-
-2. **REF-002**: Missing validation script `.github/scripts/validation/validate-labels-before-creation.cjs`
+1. **REF-002**: Missing validation script `.github/scripts/validation/validate-labels-before-creation.cjs`
    - Referenced in AGENTS.md but missing from repo
-   - Resolution: Create script or document migration
+   - Resolution: Migrate the reference to `scripts/validation/validate-labels-before-creation.cjs`; treat `.github/scripts/` as legacy
 
-3. **ORG-001**: Script Organization rules (AGENTS.md 52-102) may belong in CLAUDE.md
+2. **ORG-001**: Script Organization rules (AGENTS.md 52-102) may belong in CLAUDE.md
    - Current split makes repository boundaries ambiguous
    - Resolution: Consider moving to CLAUDE.md Repository Boundaries section
 
-4. **MISSING-INST-001 through 004**: Four repository-local instruction paths referenced by CLAUDE.md but missing in the audited snapshot
+3. **MISSING-INST-001 through 004**: Four repository-local instruction paths referenced by CLAUDE.md but missing in the audited snapshot
    - `branch-naming.instructions.md`, `coding-standards.instructions.md`, `file-organisation.instructions.md`, `plugin-structure.instructions.md` under `.github/instructions/`
+   - `MISSING-INST-001` is the sole finding for the branch-naming path and is not counted separately under another ID
    - Resolution: Audit whether these should exist or update references
 
 #### MEDIUM (Could Improve)
@@ -109,10 +106,10 @@
 | Severity | Count | Topics |
 |----------|-------|--------|
 | CRITICAL | 1 | Duplicates |
-| MAJOR | 4 | Broken references, missing scripts, org ambiguity |
+| MAJOR | 3 | Broken references, missing scripts, org ambiguity |
 | MEDIUM | 2 | Workflow documentation, principle emphasis |
 | LOW | 1 | Terminology consistency |
-| **TOTAL** | **8** | Actionable findings |
+| **TOTAL** | **7** | Independent actionable findings |
 
 ---
 

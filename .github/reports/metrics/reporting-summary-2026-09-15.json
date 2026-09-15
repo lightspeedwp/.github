@@ -1,18 +1,19 @@
 {
-  "timestamp": "2026-09-15T05:40:18.776Z",
+  "timestamp": "2026-09-15T07:49:36.679Z",
   "execution": {
     "repositories": {
       "total": 1,
-      "successful": 0,
-      "failed": 1
+      "successful": 1,
+      "failed": 0
     }
   },
   "reports": [
     {
       "repository": "lightspeedwp/.github",
-      "status": "error",
-      "error": "The \"data\" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Object",
-      "timestamp": "2026-09-15T05:40:18.776Z"
+      "status": "success",
+      "reportPath": ".github/reports/metrics/report-lightspeedwp-.github-weekly-2026-09-15.md",
+      "period": "weekly",
+      "timestamp": "2026-09-15T07:49:36.679Z"
     }
   ]
 }

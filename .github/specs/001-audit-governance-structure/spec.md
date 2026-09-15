@@ -134,7 +134,7 @@ As a **reader**, I need all references and links in governance files to point to
 - **SC-003**: AGENTS.md reduced from 2 duplicate "Label Creation Governance" sections to 1 authoritative section with no content loss
 - **SC-004**: All file path references validated; 100% of referenced files either exist in repository or have documented migration status
 - **SC-005**: New workflow section added to governance files clearly explaining spec-first process with entry/exit criteria for each phase
-- **SC-006**: Governance files reduced by 15–25% in duplicate content while maintaining 100% of unique information and guidance
+- **SC-006**: Combined governance-file line count is reduced by 15–25% from the 619-line baseline to 464–526 lines while maintaining 100% of unique information and guidance, or an explicit waiver is approved
 - **SC-007**: Cross-references between CLAUDE.md and AGENTS.md use consistent anchor format; a reader can quickly find related content in the "other" file
 - **SC-008**: All consolidated instruction files referenced in AGENTS.md verified to contain claimed consolidations (e.g., if file claims "consolidated 4 files," all 4 topics are present)
 - **SC-009**: GOVERNANCE_CHANGELOG.md created documenting all refactoring changes with dates and impact summary for downstream repos

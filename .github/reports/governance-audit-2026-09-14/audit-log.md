@@ -79,7 +79,7 @@ This audit covers:
 
 - **DUP-001 (CRITICAL)**: "Label Creation Governance" section appears twice in AGENTS.md (lines 209-252 and 285-338)
 - **ORG-001 (MAJOR)**: Script organization rules in AGENTS.md may belong in CLAUDE.md or instructions
-- **REF-001 (MAJOR)**: `.github/prompts/prompts.md` marked as legacy, pending migration
+- **LEGACY-PROMPT-001 (NOTE)**: `.github/prompts/prompts.md` migration status recorded separately from actionable findings
 - **BRANCH-001 (MEDIUM)**: 15 governance branches found; 3 may use forbidden prefixes
 - **CONST-001 (MODERATE)**: Constitutional constraints need clearer prioritization
 

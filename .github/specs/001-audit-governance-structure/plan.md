@@ -188,9 +188,10 @@ instructions/              # Portable, reusable instructions (VALIDATION TARGET)
 ├── linting.instructions.md                 # Supporting; not consolidated count
 └── instructions.instructions.md            # Supporting authoring contract
 
+CLAUDE.md                 # Root Claude-specific project instructions (REFACTOR TARGET)
+AGENTS.md                 # Root global AI rules and coding standards (REFACTOR TARGET)
+
 .github/
-├── CLAUDE.md            # Claude-specific project instructions (REFACTOR TARGET)
-├── AGENTS.md            # Global AI rules and coding standards (REFACTOR TARGET)
 ├── instructions/        # Repository-local instructions (VALIDATION TARGET)
 │   ├── branch-naming.instructions.md
 │   ├── coding-standards.instructions.md
