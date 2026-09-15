@@ -110,6 +110,7 @@ When creating any new script:
 ### The Rule (Absolute)
 
 ✅ **MUST use**:
+
 - `feat/governance-audit-implementation`
 - `fix/pr-template-routing-bug`
 - `docs/branching-strategy-guide`
@@ -117,6 +118,7 @@ When creating any new script:
 - `refactor/api-response-structure`
 
 ❌ **NEVER use** (FORBIDDEN prefixes):
+
 - `claude/something` — Reserved for Claude Code internal sessions
 - `copilot/something` — Reserved for GitHub Copilot integration
 - `openai/something` — Reserved for OpenAI integration
@@ -140,16 +142,18 @@ npm run validate:branch-name -- --branch <your-branch>
 ```
 
 **Expected output:**
+
 ```
 Branch '{your-branch}' matches the repository branching strategy.
 ```
 
 If validation fails, rename your branch before pushing.
 
-### Complete Reference & 34 Allowed Types
+### Complete Reference & 38 Allowed Types
 
-- **Authority:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (primary source, 34 types, full consequences, examples)
-- **Detailed rules:** [.github/instructions/branch-naming.instructions.md](.github/instructions/branch-naming.instructions.md)
+- **Authority:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (primary source, 38 types, full consequences, examples)
+- **Canonical list:** [scripts/validation/validate-branch-name.cjs](scripts/validation/validate-branch-name.cjs) — the validator is the single source of truth for the 38 authorised types
+- **Detailed rules:** [instructions/branch-naming.instructions.md](instructions/branch-naming.instructions.md)
 - **Strategy guide:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
 - **Copilot notes:** [.github/custom-instructions.md](.github/custom-instructions.md)
 
@@ -271,7 +275,7 @@ Before creating any issue or PR programmatically:
 - **Label taxonomy**: `docs/LABEL_STRATEGY.md`
 - **Labeling guide**: `docs/LABELING.md`
 - **Governance audit**: [Issue #1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Enforcement
-- **Validation script**: `.github/scripts/validation/validate-labels-before-creation.cjs`
+- **Validation script**: `scripts/validation/validate-labels-before-creation.cjs`
 
 ---
 
