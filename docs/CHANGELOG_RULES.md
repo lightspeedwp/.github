@@ -1,5 +1,31 @@
 # Changelog Validation Rules Catalogue
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Status**: Phase 1 - Outline (rules implemented in Phase 2)
 
 Reference guide for all 20 validation rules in the Changelog Quality Audit system.
@@ -48,6 +74,7 @@ Reference guide for all 20 validation rules in the Changelog Quality Audit syste
 ### Valid Categories
 
 Entries must specify one of:
+
 - `feature` - New functionality
 - `fix` - Bug fix
 - `improvement` - Enhancement to existing feature
@@ -60,9 +87,11 @@ Entries must specify one of:
 ### Format Rules (R006, R015)
 
 #### R006: proper_formatting (error)
+
 **Purpose**: Ensure entries are valid YAML/Markdown syntax
 
 **Failing Example**:
+
 ```
 category: feature
 title: Missing colon on next line
@@ -70,6 +99,7 @@ description This breaks YAML parsing
 ```
 
 **Passing Example**:
+
 ```yaml
 category: feature
 title: Add export feature
@@ -79,6 +109,7 @@ description: Users can export data in CSV format.
 **Remediation**: Check for correct YAML indentation, missing colons after keys, unclosed strings, and valid syntax.
 
 #### R015: proper_dates (error)
+
 **Purpose**: Dates must follow ISO 8601 format (YYYY-MM-DD)
 
 **Failing Example**: `date: 09/14/2026` or `date: September 14, 2026`
@@ -92,15 +123,18 @@ description: Users can export data in CSV format.
 ### Structure Rules (R002, R003, R004, R020)
 
 #### R002: has_category (error)
+
 **Purpose**: Every entry must specify a category
 
 **Failing Example**:
+
 ```yaml
 title: Fix login issue
 description: Fixed authentication timeout.
 ```
 
 **Passing Example**:
+
 ```yaml
 category: fix
 title: Fix login issue
@@ -110,15 +144,18 @@ description: Fixed authentication timeout.
 **Remediation**: Add `category:` field with one of: feature, fix, improvement, breaking-change, security, performance.
 
 #### R003: has_title (error)
+
 **Purpose**: Every entry must have a descriptive one-line title
 
 **Failing Example**:
+
 ```yaml
 category: feature
 description: This is the description of the change.
 ```
 
 **Passing Example**:
+
 ```yaml
 category: feature
 title: Add user export functionality
@@ -128,15 +165,18 @@ description: This is the description of the change.
 **Remediation**: Add `title:` field with a clear, concise description of what changed (typically 3-8 words).
 
 #### R004: has_description (error)
+
 **Purpose**: Every entry must have a user-facing description
 
 **Failing Example**:
+
 ```yaml
 category: fix
 title: Fixed issue
 ```
 
 **Passing Example**:
+
 ```yaml
 category: fix
 title: Fixed login timeout issue
@@ -146,6 +186,7 @@ description: Increased session timeout from 15 to 30 minutes, preventing users f
 **Remediation**: Add `description:` field with a 1-3 sentence explanation of what changed and why users should care.
 
 #### R020: valid_category (error)
+
 **Purpose**: Category must be from the allowed list
 
 **Failing Example**: `category: bugfix` (should be `fix`)
@@ -159,9 +200,11 @@ description: Increased session timeout from 15 to 30 minutes, preventing users f
 ### Content Rules (R001, R005, R007, R008, R011, R012, R013, R014, R016, R017, R018, R019)
 
 #### R001: no_implementation_details (error)
+
 **Purpose**: Reject code patterns, API names, framework-specific references
 
 **Failing Example**:
+
 ```
 title: Updated parseJSON function
 description: Refactored parseJSON() in api/response.js to use new regex pattern /\d+/g.
@@ -169,6 +212,7 @@ Updated the REST endpoint handler to use async/await instead of promises.
 ```
 
 **Passing Example**:
+
 ```
 title: Improved API response handling
 description: API responses now handle edge cases more reliably. Users will experience fewer errors when working with large datasets.
@@ -177,6 +221,7 @@ description: API responses now handle edge cases more reliably. Users will exper
 **Remediation**: Remove code examples, method names, file paths, and technical implementation details. Focus on user impact.
 
 #### R005: clear_language (warning)
+
 **Purpose**: Avoid jargon and use simple, active voice
 
 **Failing Example**: "Refactored the architecture to optimize performance via algorithmic paradigm enhancement."
@@ -186,14 +231,17 @@ description: API responses now handle edge cases more reliably. Users will exper
 **Remediation**: Replace technical terms with plain language. Use active voice (X now does Y) instead of passive (Y is now done by X).
 
 #### R007: no_backticks (error)
+
 **Purpose**: No inline code or code blocks with backticks
 
 **Failing Example**:
+
 ```
 description: Fixed bug in `checkValue()` function. Users can now use `export()` command.
 ```
 
 **Passing Example**:
+
 ```
 description: Fixed a validation bug. Users can now export their data in multiple formats.
 ```
@@ -201,6 +249,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Remove all backticks. Describe functionality in plain language without showing code.
 
 #### R008: no_internal_terminology (error)
+
 **Purpose**: No internal project terms or technical acronyms
 
 **Failing Example**: "Improved the ORM layer. CRUD operations now use the new GraphQL API schema."
@@ -210,6 +259,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Replace internal terms with end-user language that non-technical people understand.
 
 #### R011: meaningful_description (warning)
+
 **Purpose**: Description must be at least 20 characters
 
 **Failing Example**: "Fixed bug."
@@ -219,6 +269,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Expand description with more detail about what changed and why it matters.
 
 #### R012: user_focused (warning)
+
 **Purpose**: Describe user benefit, not implementation
 
 **Failing Example**: "Refactored the query builder and optimized database indices."
@@ -228,6 +279,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Focus on what users will notice and benefit from, not how you built it.
 
 #### R013: no_emoji (warning)
+
 **Purpose**: Avoid emoji in formal changelog
 
 **Failing Example**: "Added export feature 🎉 so users can ✨ export their data 📊"
@@ -237,6 +289,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Remove all emoji from the entry.
 
 #### R014: consistent_tense (warning)
+
 **Purpose**: Use consistent past or present tense
 
 **Failing Example**: "Fixed bugs. Users can now export data. We have improved performance."
@@ -246,6 +299,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Choose either past tense (Fixed, Added) or present perfect (is now, has been) and use consistently.
 
 #### R016: no_todos (error)
+
 **Purpose**: No TODO or FIXME comments in final entries
 
 **Failing Example**: "Fixed issue. TODO: add more details. FIXME: test thoroughly."
@@ -255,6 +309,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Remove all TODO, FIXME, XXX, HACK comments. Entries must be complete and ready for release.
 
 #### R017: appropriate_length (warning)
+
 **Purpose**: Description should be 1-3 sentences
 
 **Failing Example**: "Fixed this. Fixed that. Fixed another thing. And another. And one more."
@@ -264,6 +319,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Keep description concise (1-3 sentences). Split into multiple entries if needed.
 
 #### R018: no_personal_pronouns (warning)
+
 **Purpose**: Avoid I, we, you; use passive/third person
 
 **Failing Example**: "We've improved performance so you can export faster. I fixed the bug."
@@ -273,6 +329,7 @@ description: Fixed a validation bug. Users can now export their data in multiple
 **Remediation**: Remove pronouns. Use passive voice or refer to the feature/user in third person.
 
 #### R019: no_marketing_hype (warning)
+
 **Purpose**: Avoid superlatives and marketing language
 
 **Failing Example**: "Amazing new feature! Revolutionary export functionality. The best performance upgrade ever!"
@@ -286,9 +343,11 @@ description: Fixed a validation bug. Users can now export their data in multiple
 ### Reference Rules (R009, R010)
 
 #### R009: has_pr_reference (warning)
+
 **Purpose**: Should reference PR or issue for traceability
 
 **Failing Example**:
+
 ```yaml
 category: fix
 title: Fixed login issue
@@ -296,6 +355,7 @@ description: Fixed authentication timeout problem.
 ```
 
 **Passing Example**:
+
 ```yaml
 category: fix
 title: Fixed login issue
@@ -306,6 +366,7 @@ pr: '#1234'
 **Remediation**: Add reference to related PR or issue using format `#1234` or `pr: '#1234'` field.
 
 #### R010: valid_pr_reference (error)
+
 **Purpose**: PR references must exist and be accessible
 
 **Failing Example**: References to `#9999` (non-existent PR) or malformed references
@@ -318,11 +379,15 @@ pr: '#1234'
 
 ---
 
-**Implementation Status**: 
+**Implementation Status**:
+
 - ✓ Phase 2: Full rule descriptions with examples (this document)
 - ⏳ Phase 3+: Usage examples in release notes
 
-**Implementation Status**: 
+**Implementation Status**:
+
 - ✓ Phase 1: Rule catalogue (this outline)
 - ⏳ Phase 2: Full rule implementation
 - ⏳ Phase 3+: Usage examples in each phase
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
