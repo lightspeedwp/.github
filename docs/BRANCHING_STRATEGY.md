@@ -15,10 +15,14 @@
 ![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
 ![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
 [![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
 [![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
 [![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
 [![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
 [![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
 [![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
 [![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
 [![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
@@ -111,6 +115,55 @@ For all repos (client, product, infra, etc.), use:
 - `migrate/` — data/content migrations
 - `qa/` — test harnesses, UAT scaffolding
 - `uat/` — UAT-only changes or staging toggles
+
+### 3.4 Pattern Explanation
+
+The branch naming pattern is: `{type}/{scope}-{title}`
+
+**Component 1: Type** (lowercase, no spaces or underscores)
+
+- Indicates the **kind of work** being done
+- Choose from the 24 allowed types (see Section 9.5)
+- Separate from scope with a single forward slash `/`
+- Example: `feat`, `fix`, `docs`, `refactor`
+
+**Component 2: Scope & Title** (lowercase, hyphen-separated, no underscores or spaces)
+
+- **Scope**: Describes **what the work affects**
+- **Title**: Provides **context** or details about the change
+- Separate words with hyphens: `user-auth-system` (not `user_auth_system`)
+- Use 2-4 words for clarity and specificity
+- Examples: `user-authentication-system`, `api-endpoint-response`, `payment-validation-error`
+
+**Complete Examples:**
+
+- ✅ `feat/user-registration-flow` — type: `feat`, scope: `user`, title: `registration-flow`
+- ✅ `fix/infinite-loop-in-search` — type: `fix`, scope: `infinite-loop`, title: `in-search`
+- ✅ `docs/installation-guide` — type: `docs`, scope: `installation`, title: `guide`
+
+### 3.5 Scope & Title Naming Rules
+
+When creating the scope and title portion of your branch name:
+
+1. **Use lowercase** letters and numbers only
+2. **Use hyphens** to separate words (kebab-case)
+3. **Avoid underscores**, periods, dots, or any special characters
+4. **Avoid spaces** entirely — use hyphens instead
+5. **Be descriptive** — use 2-4 words minimum
+6. **Be specific** — clearly describe what's being changed
+7. **Use present tense** — `add-feature` not `added-feature`
+8. **Be consistent** — follow repo conventions if established
+
+**Good Examples:**
+
+| ✅ Good | ❌ Avoid | Why Better |
+|---------|---------|-----------|
+| `user-authentication-system` | `auth` | More descriptive |
+| `api-endpoint-response-format` | `api-fix` | Clearly states what's changed |
+| `payment-validation-error-message` | `bug-fix` | Identifies specific area |
+| `react-18-upgrade` | `upgrade` | Specifies which library |
+| `sql-injection-vulnerability-fix` | `security-fix` | Identifies specific vulnerability |
+| `add-dark-mode-theme-toggle` | `feature` | Specific feature name |
 
 ### 3.4 Examples
 
@@ -404,6 +457,309 @@ CodeRabbit reviews are guided by branch type to ensure feedback is contextually 
 
 - **What if a branch is incorrectly named?** CI will block the PR from merging; rename the branch and re-open the PR.
 - **How do I handle urgent fixes outside business hours?** Use `hotfix/`, notify the team via Slack/Teams, and ensure all protections are respected.
+
+---
+
+## 9.2 Decision Tree: Choosing the Right Type
+
+Use this flowchart to select the correct branch type for your work:
+
+```
+START
+  │
+  └─→ Is it a new capability or feature?
+      ├─ YES → Is it urgent/critical?
+      │        ├─ YES → hotfix
+      │        └─ NO  → feat
+      │
+      └─ NO → Is it a bug fix?
+              ├─ YES → Is it urgent/critical?
+              │        ├─ YES → hotfix
+              │        └─ NO  → fix
+              │
+              └─ NO → Is it just tidying up (no functional change)?
+                      ├─ YES → chore
+                      │
+                      └─ NO → What type of work is it?
+                              ├─ Refactoring/restructuring   → refactor
+                              ├─ Testing/tests               → test or qa
+                              ├─ Documentation               → docs or content
+                              ├─ Dependency updates          → deps
+                              ├─ Security work               → security
+                              ├─ Design/UI changes           → design or a11y or ux or ds
+                              ├─ Performance optimization    → perf
+                              ├─ CI/CD/Automation            → ci or build or ops
+                              ├─ Database/Schema changes     → schema or migrate
+                              ├─ API changes                 → api
+                              ├─ Large project/epic work     → task
+                              ├─ Experimental/prototype      → proto
+                              ├─ Code audits/reviews         → audit
+                              ├─ Research/investigation      → research
+                              └─ Other → Refer to type reference (Section 9.5)
+```
+
+**Quick Decision Guide:**
+
+| Question | Answer | Type |
+|----------|--------|------|
+| Is it new functionality? | Yes | `feat` |
+| Is it fixing a bug? | Yes | `fix` |
+| Is it urgent/critical? | Yes | `hotfix` |
+| Is it just maintenance? | Yes | `chore` |
+| Is it a large project? | Yes | `task` |
+| Is it refactoring? | Yes | `refactor` |
+| Is it tests? | Yes | `test` |
+| Is it documentation? | Yes | `docs` |
+| Is it dependency updates? | Yes | `deps` |
+| Is it security-related? | Yes | `security` |
+| Is it design/UI? | Yes | `design` |
+| Is it performance? | Yes | `perf` |
+| Is it CI/CD? | Yes | `ci` |
+| Still unsure? | Yes | See Section 9.5 reference |
+
+---
+
+## 9.5 Complete Type Reference Guide
+
+This section provides comprehensive details for each of the 24 allowed branch types, including purpose, when to use, template assignment, default labels, and examples.
+
+### **feat** — New Feature
+
+- **Purpose**: Add new functionality or capability
+- **When to Use**: New API endpoints, user features, components, enhancements, integrations
+- **Template**: `pr_feature.md` | **Labels**: `type:feature`
+- **Examples**: `feat/user-registration`, `feat/payment-integration`, `feat/dark-mode`
+
+### **fix** — Bug Fix
+
+- **Purpose**: Resolve defects and unexpected behaviour
+- **When to Use**: Fix incorrect functionality, user-reported bugs, validation issues
+- **Template**: `pr_bug.md` | **Labels**: `type:bug`
+- **Examples**: `fix/infinite-loop-search`, `fix/validation-error`, `fix/missing-translations`
+
+### **hotfix** — Urgent Production Fix
+
+- **Purpose**: Address critical production issues requiring immediate deployment
+- **When to Use**: Security vulnerabilities, data loss bugs, complete breakage, widespread impact
+- **Template**: `pr_hotfix.md` | **Labels**: `type:bug`, `priority:critical`
+- **Examples**: `hotfix/critical-security-patch`, `hotfix/database-failure`, `hotfix/auth-bypass`
+
+### **refactor** — Code Refactoring
+
+- **Purpose**: Improve code structure without changing behaviour
+- **When to Use**: Extract duplication, improve readability, simplify logic, reorganise modules
+- **Template**: `pr_refactor.md` | **Labels**: `type:refactor`
+- **Examples**: `refactor/api-response-structure`, `refactor/extract-helpers`, `refactor/simplify-workflow`
+
+### **chore** — Maintenance & Non-Code Changes
+
+- **Purpose**: Routine maintenance and cleanup tasks
+- **When to Use**: Minor dependency updates, remove debug code, repository maintenance, metadata updates
+- **Template**: `pr_chore.md` | **Labels**: `type:chore`
+- **Examples**: `chore/update-packages`, `chore/remove-debug`, `chore/clean-fixtures`
+
+### **task** — Scoped Unit of Work
+
+- **Purpose**: Discrete project-bound unit of work (often part of epic or initiative)
+- **When to Use**: Breaking down larger initiatives, architectural refactoring, major subsystem updates
+- **Template**: `pr_task.md` | **Labels**: `type:task`
+- **Examples**: `task/authentication-refactor`, `task/schema-migration`, `task/plugin-upgrade`
+
+### **test** — Test Infrastructure & Additions
+
+- **Purpose**: Add or improve tests (unit, integration, e2e)
+- **When to Use**: New test cases, improve coverage, testing infrastructure setup
+- **Template**: `pr_test.md` | **Labels**: `type:test`
+- **Examples**: `test/api-integration-tests`, `test/e2e-checkout`, `test/unit-validation`
+
+### **docs** — Documentation
+
+- **Purpose**: Add or update user-facing and developer documentation
+- **When to Use**: Write guides, create developer docs, update READMEs, write examples
+- **Template**: `pr_docs.md` | **Labels**: `type:docs`
+- **Examples**: `docs/installation-guide`, `docs/api-reference`, `docs/troubleshooting`
+
+### **perf** — Performance Improvements
+
+- **Purpose**: Optimize system performance (speed, efficiency, resources)
+- **When to Use**: Query optimization, reduce bundle size, improve load times, optimize caching
+- **Template**: `pr_feature.md` | **Labels**: `type:performance`
+- **Examples**: `perf/query-optimization`, `perf/bundle-reduction`, `perf/lazy-loading`
+
+### **ci** — CI/CD Pipelines & Automation
+
+- **Purpose**: Continuous Integration and deployment workflows
+- **When to Use**: Update GitHub Actions, add CI steps, automate testing/deployment
+- **Template**: `pr_ci.md` | **Labels**: `type:ci`, `area:ci`
+- **Examples**: `ci/github-actions-update`, `ci/automated-deployment`, `ci/test-matrix`
+
+### **build** — Build System & Package Changes
+
+- **Purpose**: Update build configuration, packaging, or bundling
+- **When to Use**: Update webpack, change build tools, modify build scripts
+- **Template**: `pr_ci.md` | **Labels**: `type:build`, `area:ci`
+- **Examples**: `build/webpack-update`, `build/vite-migration`, `build/npm-scripts`
+
+### **deps** — Dependency Updates
+
+- **Purpose**: Update or upgrade project dependencies
+- **When to Use**: Update npm packages, upgrade versions, security patches
+- **Template**: `pr_dep_update.md` | **Labels**: `type:dependency`, `area:dependencies`
+- **Examples**: `deps/upgrade-packages`, `deps/security-patch`, `deps/react-upgrade`
+
+### **security** — Security Fixes & Hardening
+
+- **Purpose**: Address security vulnerabilities and implement security measures
+- **When to Use**: Fix vulnerabilities, implement authentication, hardening, input validation
+- **Template**: `pr_security.md` | **Labels**: `type:security`, `priority:critical`
+- **Examples**: `security/xss-fix`, `security/csrf-implementation`, `security/sql-injection-fix`
+
+### **design** — Design System & UI Changes
+
+- **Purpose**: Update design system, components, styling, or visual elements
+- **When to Use**: Design system updates, component changes, styling improvements
+- **Template**: `pr_design.md` | **Labels**: `type:design`, `area:design-system`
+- **Examples**: `design/button-update`, `design/color-palette`, `design/form-component`
+
+### **a11y** — Accessibility Improvements
+
+- **Purpose**: Improve accessibility and WCAG compliance
+- **When to Use**: WCAG compliance, screen reader support, keyboard navigation, colour contrast
+- **Template**: `pr_a11y.md` | **Labels**: `type:a11y`, `area:a11y`
+- **Examples**: `a11y/wcag-audit`, `a11y/screen-reader`, `a11y/keyboard-navigation`
+
+### **ux** — User Experience Improvements
+
+- **Purpose**: Improve user experience, usability, and workflows
+- **When to Use**: UX improvements from feedback, usability enhancements, flow optimization
+- **Template**: `pr_design.md` | **Labels**: `type:design`, `area:design-system`
+- **Examples**: `ux/form-feedback`, `ux/checkout-optimization`, `ux/error-messaging`
+
+### **i18n** — Internationalization & Localization
+
+- **Purpose**: Add language support and internationalization features
+- **When to Use**: Add language translations, implement i18n framework, RTL support
+- **Template**: `pr_docs.md` | **Labels**: `type:docs`
+- **Examples**: `i18n/german-translation`, `i18n/arabic-rtl`, `i18n/french-update`
+
+### **ops** — Operations & Deployment
+
+- **Purpose**: Operational changes, infrastructure, database migrations
+- **When to Use**: Database migrations, server configuration, infrastructure setup
+- **Template**: `pr_ci.md` | **Labels**: `type:automation`, `area:infrastructure`
+- **Examples**: `ops/database-migration`, `ops/kubernetes-config`, `ops/monitoring-setup`
+
+### **release** — Release Branches
+
+- **Purpose**: Create release branches for version management
+- **When to Use**: Prepare release branches, release testing, version bumping
+- **Template**: `pr_release.md` | **Labels**: `type:release`
+- **Examples**: `release/v1.2.0`, `release/v2.0.0-beta`
+
+### **proto** — Prototype & Experimental
+
+- **Purpose**: Experimental work, prototypes, proof-of-concept
+- **When to Use**: Prototype features, experimental implementations, R&D work
+- **Template**: `pr_feature.md` | **Labels**: `type:feature`
+- **Examples**: `proto/caching-strategy`, `proto/ml-experiment`, `proto/database-approach`
+
+### **ds** — Design System
+
+- **Purpose**: Design system creation and maintenance
+- **When to Use**: Design system creation, design tokens, component documentation
+- **Template**: `pr_design.md` | **Labels**: `type:design`, `area:design-system`
+- **Examples**: `ds/component-library`, `ds/design-tokens`, `ds/design-system-docs`
+
+### **api** — API Changes & Endpoints
+
+- **Purpose**: Create or update API endpoints and contracts
+- **When to Use**: New REST endpoints, GraphQL changes, API versioning
+- **Template**: `pr_feature.md` | **Labels**: `area:api`
+- **Examples**: `api/rest-endpoint-versioning`, `api/graphql-schema`, `api/rate-limiting`
+
+### **schema** — Data Schema Changes
+
+- **Purpose**: Update data structures, database schema, or data models
+- **When to Use**: Database schema migrations, data model changes, field updates
+- **Template**: `pr_feature.md` | **Labels**: `area:integration`
+- **Examples**: `schema/user-model`, `schema/add-timestamps`, `schema/denormalization`
+
+### **telemetry** — Analytics & Monitoring
+
+- **Purpose**: Add or update analytics, monitoring, metrics, observability
+- **When to Use**: Event tracking, metrics, monitoring, analytics implementation
+- **Template**: `pr_feature.md` | **Labels**: `type:feature`
+- **Examples**: `telemetry/event-tracking`, `telemetry/metrics`, `telemetry/monitoring`
+
+### **content** — Content Changes
+
+- **Purpose**: Update website content, blog posts, marketing copy
+- **When to Use**: Blog updates, website copy, marketing materials, help centre articles
+- **Template**: `pr_feature.md` | **Labels**: `type:docs`
+- **Examples**: `content/blog-post`, `content/landing-page`, `content/faq-update`
+
+### **seo** — Search Engine Optimization
+
+- **Purpose**: Improve search engine visibility and SEO
+- **When to Use**: SEO optimizations, meta tags, structured data, search ranking
+- **Template**: `pr_feature.md` | **Labels**: `type:feature`
+- **Examples**: `seo/meta-tags`, `seo/structured-data`, `seo/sitemap`
+
+### **config** — Configuration Changes
+
+- **Purpose**: Update system or application configuration
+- **When to Use**: Configuration updates, environment variables, feature flags
+- **Template**: `pr_feature.md` | **Labels**: `type:feature`
+- **Examples**: `config/environment-variables`, `config/feature-flags`, `config/cache-config`
+
+### **migrate** — Data & Code Migrations
+
+- **Purpose**: Execute data migrations or code migrations
+- **When to Use**: Data migration scripts, code modernization, feature flag removal
+- **Template**: `pr_feature.md` | **Labels**: `area:integration`
+- **Examples**: `migrate/user-table`, `migrate/legacy-removal`, `migrate/database-restructure`
+
+### **qa** — Quality Assurance Processes
+
+- **Purpose**: QA process improvements and testing frameworks
+- **When to Use**: QA automation, test strategy, testing tools, quality metrics
+- **Template**: `pr_feature.md` | **Labels**: `type:test`
+- **Examples**: `qa/test-automation`, `qa/regression-tests`, `qa/quality-metrics`
+
+### **uat** — User Acceptance Testing
+
+- **Purpose**: User acceptance testing processes and validations
+- **When to Use**: UAT setup, validation scripts, acceptance criteria
+- **Template**: `pr_feature.md` | **Labels**: `type:test`
+- **Examples**: `uat/staging-validation`, `uat/acceptance-criteria`, `uat/smoke-tests`
+
+### **audit** — Code Review & Audit
+
+- **Purpose**: Conduct code audits, reviews, and compliance checks
+- **When to Use**: Security audits, compliance checks, code quality reviews
+- **Template**: `pr_audit.md` | **Labels**: `type:review`, `area:ci`
+- **Examples**: `audit/security-review`, `audit/gdpr-compliance`, `audit/code-quality`
+
+### **codex** — Code Generation & AI-Assisted Development
+
+- **Purpose**: Code generation, AI-assisted development, and automated coding
+- **When to Use**: Auto-generated code, AI-assisted work, code generation tooling
+- **Template**: `pr_aiops.md` | **Labels**: `type:aiops`, `area:ai`
+- **Examples**: `codex/auto-documentation`, `codex/ai-code-generation`, `codex/llm-refactoring`
+
+### **research** — Research & Investigation
+
+- **Purpose**: Research branches for investigation and learning
+- **When to Use**: Performance benchmarks, technology evaluation, proof of concept
+- **Template**: `pr_feature.md` | **Labels**: `type:research`
+- **Examples**: `research/performance-benchmarks`, `research/framework-evaluation`, `research/db-performance`
+
+### **revert** — Revert Previous Commit
+
+- **Purpose**: Revert a previous commit or merge
+- **When to Use**: Revert bad merge, undo problematic changes, emergency rollback
+- **Template**: `pr_hotfix.md` | **Labels**: `type:bug`, `priority:critical`
+- **Examples**: `revert/pr-2345`, `revert/broken-deployment`
 
 ---
 

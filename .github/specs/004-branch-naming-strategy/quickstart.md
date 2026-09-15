@@ -1,226 +1,493 @@
-# Quickstart: Branch Naming Validation
+# Branch Naming Strategy — Validation Quickstart & Runbook
 
-<!-- BADGES-START -->
-![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
-![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
-![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
-![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
-![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
-![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
-![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
-![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
-[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
-[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
-[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
-[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
-[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
-[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
-[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
-[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
-[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
-<!-- BADGES-END -->
+**Purpose**: Hands-on validation guide for developers to verify branch naming works end-to-end
 
-**Phase**: Phase 1 | **Created**: 2026-09-12
-
-## Quick Reference
-
-### Pattern
-
-```
-{type}/{scope}-{title}
-
-Examples:
-✅ feat/payment-processing-timeout      (feature type)
-✅ fix/auth-bug-mobile-safari           (bug fix)
-✅ docs/branching-strategy-guide        (documentation)
-✅ security/xss-vulnerability-fix       (security)
-❌ claude/my-feature                    (FORBIDDEN: claude/ prefix)
-❌ feature/my-change                    (WRONG: should be feat/)
-❌ my_feature                           (WRONG: missing type/)
-```
-
-### 38 Authorised Types
-
-| Type | Purpose | Example |
-|------|---------|---------|
-| `feat` | New feature | `feat/dark-mode-support` |
-| `fix` | Bug fix | `fix/auth-timeout-mobile` |
-| `hotfix` | Urgent production fix | `hotfix/critical-security-patch` |
-| `release` | Release | `release/v1.2.3` |
-| `refactor` | Code refactoring | `refactor/api-response-structure` |
-| `chore` | Repository maintenance | `chore/dependency-cleanup` |
-| `task` | Scoped unit of work | `task/authentication-refactor` |
-| `doc` | Single documentation change | `doc/readme-typo-fix` |
-| `docs` | Documentation | `docs/branching-guide` |
-| `test` | Tests/test infrastructure | `test/integration-tests` |
-| `perf` | Performance improvement | `perf/query-optimization` |
-| `ci` | CI/CD pipelines | `ci/github-actions-workflow` |
-| `build` | Build system changes | `build/webpack-config-update` |
-| `deps` | Dependency updates | `deps/upgrade-npm-packages` |
-| `security` | Security vulnerability | `security/xss-vulnerability` |
-| `revert` | Revert a previous change | `revert/pr-2345-bad-merge` |
-| `research` | Research or investigation | `research/performance-benchmarks` |
-| `design` | Product or visual design | `design/button-component-update` |
-| `a11y` | Accessibility | `a11y/wcag-compliance-audit` |
-| `ux` | User experience | `ux/form-validation-feedback` |
-| `i18n` | Internationalisation | `i18n/german-translation-pack` |
-| `ops` | Operations and deployment | `ops/database-migration-script` |
-| `proto` | Prototype or experiment | `proto/new-caching-strategy` |
-| `ds` | Design system | `ds/component-library-update` |
-| `api` | API changes | `api/rest-endpoint-versioning` |
-| `schema` | Data schema | `schema/user-model-changes` |
-| `telemetry` | Analytics and monitoring | `telemetry/event-tracking-setup` |
-| `content` | Content changes | `content/homepage-copy-update` |
-| `seo` | Search optimisation | `seo/meta-tag-improvements` |
-| `config` | Configuration | `config/environment-variables` |
-| `migrate` | Data or schema migration | `migrate/user-table-migration` |
-| `qa` | Quality assurance | `qa/test-automation-framework` |
-| `uat` | User acceptance testing | `uat/staging-validation-suite` |
-| `audit` | Audit or compliance review | `audit/security-code-review` |
-| `codex` | AI-assisted code work | `codex/auto-documentation-tool` |
-| `aiops` | AI operations | `aiops/model-monitoring-update` |
-| `automation` | Workflow automation | `automation/issue-routing-update` |
-| `epic` | Multi-part initiative | `epic/platform-modernisation` |
-
-### Forbidden Prefixes (ABSOLUTE)
-
-- ❌ `claude/` — Reserved for Claude Code internal sessions
-- ❌ `copilot/` — Reserved for GitHub Copilot
-- ❌ `openai/` — Reserved for OpenAI integration
+**Prerequisites**: Git 2.9+, Node.js 18+, npm 8+, cloned repository with branch naming validation installed
 
 ---
 
-## Validation Workflow
+## Setup: Install Local Validation Hook
 
-### Step 1: Create Branch
-
-```bash
-git checkout -b feat/payment-processing-timeout
-# Branch name: feat / payment-processing / timeout
-#              type / scope               / title
-```
-
-### Step 2: Push and Create PR
+### Step 1: Clone repository and install dependencies
 
 ```bash
-git push origin feat/payment-processing-timeout
-gh pr create --title "feat: payment timeout fix"
+git clone https://github.com/lightspeedwp/.github.git
+cd .github
+npm install
+# This runs `npm run prepare`, which installs the pre-push hook
 ```
 
-### Step 3: Validation Runs (Automatic)
-
-```
-✅ Branch naming validation
-   - Type: feat (authorized) ✅
-   - Scope: payment-processing (kebab-case) ✅
-   - No forbidden prefixes ✅
-   - Template: pr_feature.md (auto-routed) ✅
-   - Labels: type:feature, area:core (auto-applied) ✅
-
-✅ PR created with correct template
-✅ Ready to merge
-```
-
-### Step 4: Template Routes Automatically
-
-PR template `pr_feature.md` auto-applies based on `feat/` prefix.
-
----
-
-## Common Scenarios
-
-### Scenario: Invalid Branch Name
+### Step 2: Verify hook installation
 
 ```bash
-git checkout -b claude/my-feature
-git push origin claude/my-feature
+# Check that the hook file exists and is executable
+ls -la .git/hooks/pre-push
+
+# Should output:
+# -rwxr-xr-x ... .git/hooks/pre-push
+
+# View the hook script
+cat .git/hooks/pre-push
+# Should output the validation script
 ```
 
-**CI Output**:
-
-```
-❌ Branch naming validation FAILED
-
-Branch name: claude/my-feature
-Violation: Forbidden prefix 'claude/'
-Reason: Reserved for Claude Code internal sessions
-
-✏️ Suggested fix:
-   git branch -m feat/my-feature
-
-Resources:
-- Naming guide: docs/BRANCH_NAMING.md
-- Type list: https://repo.github.io/branch-types
-```
-
-**Fix**:
+### Step 3: Test hook with a dummy branch
 
 ```bash
-git branch -m feat/my-feature
-git push origin -u feat/my-feature
-```
+# Create a valid branch and verify hook passes
+git checkout -b feat/test-validation
+echo "test" >> README.md
+git add README.md
+git commit -m "test: validate branch naming"
+git push -u origin feat/test-validation
+# ✅ Hook validates branch name and allows push
 
-### Scenario: Wrong Type
-
-```bash
-git checkout -b feature/user-auth  # ❌ "feature" should be "feat"
-```
-
-**Fix**:
-
-```bash
-git branch -m feat/user-auth
-git push origin feat/user-auth --force-with-lease
+# Clean up
+git checkout main
+git branch -D feat/test-validation
+git push origin --delete feat/test-validation
 ```
 
 ---
 
-## Compliance Dashboard
+## Validation Tests
 
-**URL**: `.github/reports/branch-naming-metrics/`
+### Test 1: Valid Branch Names
 
-**Display**:
+Test that valid branches pass validation.
 
-- Current compliance: 95.2%
-- Violations this week: 3
-- Top violation: Invalid type format
-- Trend: Improving (+2.5% vs. last week)
+**Test Cases**:
+
+```bash
+npm run validate:branch-name -- --branch feat/user-auth-improvements
+# ✅ Output: Branch 'feat/user-auth-improvements' is valid
+
+npm run validate:branch-name -- --branch fix/authentication-timeout
+# ✅ Output: Branch 'fix/authentication-timeout' is valid
+
+npm run validate:branch-name -- --branch docs/branching-strategy-guide
+# ✅ Output: Branch 'docs/branching-strategy-guide' is valid
+
+npm run validate:branch-name -- --branch security/sql-injection-fix
+# ✅ Output: Branch 'security/sql-injection-fix' is valid
+
+npm run validate:branch-name -- --branch refactor/api-response-structure
+# ✅ Output: Branch 'refactor/api-response-structure' is valid
+
+npm run validate:branch-name -- --branch a11y/wcag-compliance-audit
+# ✅ Output: Branch 'a11y/wcag-compliance-audit' is valid
+
+npm run validate:branch-name -- --branch i18n/german-translation-pack
+# ✅ Output: Branch 'i18n/german-translation-pack' is valid
+```
+
+**Expected Result**: All branches marked as valid ✅
 
 ---
 
-## Quick Validation
+### Test 2: Invalid Type
 
-Before pushing, verify your branch name:
+Test that invalid branch types are rejected.
+
+**Test Cases**:
 
 ```bash
-# Reuse the canonical validator for type, format, forbidden-prefix, and release checks.
-# BRANCH_NAME may be release/v1.2.3, release/1.2.3, or a standard typed branch.
-BRANCH_NAME="${BRANCH_NAME:-$(git branch --show-current)}"
-node scripts/validation/validate-branch-name.cjs --branch "$BRANCH_NAME"
+npm run validate:branch-name -- --branch feature/user-auth
+# ❌ Output: Invalid type 'feature'. Use 'feat' instead.
+# Suggestion: Did you mean `feat/user-auth`?
+
+npm run validate:branch-name -- --branch bug/timeout-issue
+# ❌ Output: Invalid type 'bug'. Use 'fix' instead.
+# Suggestion: Did you mean `fix/timeout-issue`?
+
+npm run validate:branch-name -- --branch hotbug/critical-crash
+# ❌ Output: Invalid type 'hotbug'. Use 'hotfix' instead.
+# Suggestion: Did you mean `hotfix/critical-crash`?
+```
+
+**Expected Result**: All branches rejected with clear error and suggestion ❌
+
+---
+
+### Test 3: Forbidden Prefixes
+
+Test that reserved prefixes are blocked.
+
+**Test Cases**:
+
+```bash
+npm run validate:branch-name -- --branch claude/my-feature
+# ❌ Output:
+# Forbidden prefix 'claude/'.
+# Reserved for Claude Code internal sessions.
+# Pattern: {type}/{scope}-{title}
+# Example: feat/user-auth-improvements
+
+npm run validate:branch-name -- --branch copilot/fix-something
+# ❌ Output:
+# Forbidden prefix 'copilot/'.
+# Reserved for GitHub Copilot integration.
+# Pattern: {type}/{scope}-{title}
+# Example: feat/user-auth-improvements
+
+npm run validate:branch-name -- --branch openai/add-api
+# ❌ Output:
+# Forbidden prefix 'openai/'.
+# Reserved for OpenAI integration.
+# Pattern: {type}/{scope}-{title}
+# Example: feat/user-auth-improvements
+```
+
+**Expected Result**: All branches rejected with reservation explanation ❌
+
+---
+
+### Test 4: Malformed Scope/Title
+
+Test that scope/title formatting errors are caught.
+
+**Test Cases**:
+
+```bash
+# Underscores instead of hyphens
+npm run validate:branch-name -- --branch feat/user_auth
+# ❌ Output: Invalid scope 'user_auth'. Use hyphens, not underscores.
+# Suggestion: Did you mean `feat/user-auth`?
+
+# Empty scope
+npm run validate:branch-name -- --branch feat/-title
+# ❌ Output: Scope cannot be empty.
+# Example: feat/user-improvements
+
+# Uppercase letters
+npm run validate:branch-name -- --branch feat/User-Auth
+# ❌ Output: Scope must be lowercase.
+# Suggestion: Did you mean `feat/user-auth`?
+
+# Consecutive hyphens
+npm run validate:branch-name -- --branch feat/user--auth
+# ❌ Output: No consecutive hyphens allowed.
+# Suggestion: Did you mean `feat/user-auth`?
+
+# Special characters
+npm run validate:branch-name -- --branch feat/user@auth
+# ❌ Output: Scope contains invalid characters '@'.
+# Suggestion: Did you mean `feat/user-auth`?
+```
+
+**Expected Result**: All branches rejected with specific error and suggestion ❌
+
+---
+
+### Test 5: Create Branch, Commit, and Push
+
+Test the full flow: create a valid branch, commit code, and verify hook allows push.
+
+**Scenario**:
+
+```bash
+# Create a new feature branch
+git checkout -b feat/user-preferences-implementation
+# Hook will validate on push, so create some commits first
+
+# Make a change
+echo "// User preferences feature" >> lib/user-preferences.js
+git add lib/user-preferences.js
+git commit -m "feat: add user preferences module"
+
+# Push to remote
+git push -u origin feat/user-preferences-implementation
+
+# Expected output from git:
+# ...
+# ✅ Branch 'feat/user-preferences-implementation' is valid
+# remote: GitHub found 9 vulnerabilities...
+# To https://github.com/lightspeedwp/.github
+#  * [new branch] feat/user-preferences-implementation -> feat/user-preferences-implementation
+```
+
+**Verification on GitHub**:
+
+1. Go to `https://github.com/lightspeedwp/.github/tree/feat/user-preferences-implementation`
+2. Create a PR (click "Compare & pull request")
+3. Verify:
+   - PR description auto-populated with feature template (pr_feature.md)
+   - Labels auto-applied: `type:feature`, `area:user` (if detected)
+   - GitHub Actions workflow shows: ✅ `branch-name-validation` passed
+
+**Expected Result**: Push succeeds, PR created with correct template and labels ✅
+
+---
+
+### Test 6: Try to Push Invalid Branch (Pre-Push Hook Blocks)
+
+Test that the local hook prevents push of invalid branches.
+
+**Scenario**:
+
+```bash
+# Create an invalid branch
+git checkout -b claude/my-experiment
+
+# Make a commit
+echo "test" >> README.md
+git add README.md
+git commit -m "test: experiment"
+
+# Try to push (hook should block)
+git push -u origin claude/my-experiment
+
+# Expected output:
+# ❌ Branch validation failed
+# ❌ Forbidden prefix 'claude/'.
+# Reserved for Claude Code internal sessions.
+# Error: Pre-push hook rejected branch 'claude/my-experiment'
+# 
+# To bypass (not recommended):
+#   git push --no-verify
+# 
+# To fix: Rename branch with correct pattern:
+#   git branch -m feat/my-experiment
+#   git push -u origin feat/my-experiment
+```
+
+**Expected Result**: Push rejected by hook ❌; developer must fix branch name
+
+---
+
+### Test 7: Bypass Hook (With Remote Enforcement)
+
+Test that `--no-verify` bypass is blocked by remote GitHub Actions.
+
+**Scenario**:
+
+```bash
+# Create invalid branch
+git checkout -b feature/my-feature
+
+# Make commits
+echo "test" >> file.txt
+git add file.txt
+git commit -m "test"
+
+# Bypass local hook
+git push -u origin feature/my-feature --no-verify
+
+# Expected output:
+# To https://github.com/lightspeedwp/.github
+#  * [new branch] feature/my-feature -> feature/my-feature
+
+# But on GitHub:
+# 1. GitHub Actions workflow runs: branch-name-validation
+# 2. Workflow detects invalid type 'feature' (should be 'feat')
+# 3. Workflow adds comment to PR:
+#    "❌ Branch name validation failed: Invalid type 'feature'.
+#     Did you mean: feat/my-feature?"
+# 4. If merge blocking enabled: PR cannot merge until branch is fixed
+```
+
+**Expected Result**: Local bypass attempt is caught remotely; developer notified ❌
+
+---
+
+### Test 8: CLI Exit Codes (for CI/CD integration)
+
+Test that exit codes work correctly for scripted validation.
+
+**Test Cases**:
+
+```bash
+# Valid branch: exit 0
+npm run validate:branch-name -- --branch feat/auth
+echo $?
+# Output: 0
+
+# Invalid branch: exit 1
+npm run validate:branch-name -- --branch claude/auth
+echo $?
+# Output: 1
+
+# Test in a script
+if npm run validate:branch-name -- --branch feat/auth > /dev/null; then
+  echo "✅ Branch is valid"
+else
+  echo "❌ Branch is invalid"
+fi
+# Output: ✅ Branch is valid
+```
+
+**Expected Result**: Exit codes correct for scripting ✅
+
+---
+
+### Test 9: Machine-Readable JSON Output
+
+Test JSON output for programmatic parsing.
+
+**Test Case**:
+
+```bash
+npm run validate:branch-name -- --branch feat/user-auth --json
+
+# Output:
+# {
+#   "valid": true,
+#   "type": "feat",
+#   "scope": "user",
+#   "title": "auth",
+#   "pr_template": "pr_feature.md",
+#   "default_labels": ["type:feature"],
+#   "area_labels": ["area:auth"],
+#   "errors": []
+# }
+```
+
+**Test Case (invalid)**:
+
+```bash
+npm run validate:branch-name -- --branch claude/my-feature --json
+
+# Output:
+# {
+#   "valid": false,
+#   "type": null,
+#   "scope": null,
+#   "title": null,
+#   "pr_template": null,
+#   "default_labels": [],
+#   "area_labels": [],
+#   "errors": ["forbidden_prefix"],
+#   "suggested_name": "feat/my-feature"
+# }
+```
+
+**Expected Result**: JSON output parseable for automation ✅
+
+---
+
+## PR Template Routing Verification
+
+Once a PR is created from a valid branch, verify that the correct template and labels are applied.
+
+### Checklist
+
+- [ ] **Template Loaded**: PR description shows the correct template sections for the branch type
+  - `feat/...` → Feature checklist (description, testing, backwards compat, etc.)
+  - `fix/...` → Bug fix checklist (reproduction steps, root cause, fix description, etc.)
+  - `security/...` → Security checklist (threat model, CVSS, remediation steps, etc.)
+  - `docs/...` → Documentation checklist (link check, screenshots, examples, etc.)
+  - See [contracts/branch-naming.contract.md](./contracts/branch-naming.contract.md) for full list
+
+- [ ] **Labels Applied**: PR sidebar shows automatic labels
+  - `type:feature` for `feat` branches
+  - `type:bug` for `fix` branches
+  - `type:security, priority:critical` for `security` branches
+  - Area labels auto-detected (e.g., `area:api`, `area:docs`)
+  - See contract for complete mapping
+
+- [ ] **Workflow Status**: GitHub Actions tab shows checks passing
+  - ✅ `branch-name-validation` — Branch validated successfully
+  - ✅ `pr-template-routing` — Template and labels applied
+  - No ❌ failures
+
+---
+
+## Troubleshooting
+
+### Q: Hook not running on push
+
+**Symptoms**: `git push` succeeds even though branch name seems invalid
+
+**Solution**:
+
+```bash
+# Check if hook is executable
+ls -la .git/hooks/pre-push
+# Should show: -rwxr-xr-x (executable)
+
+# If not executable, fix it
+chmod +x .git/hooks/pre-push
+
+# Verify hook runs manually
+.git/hooks/pre-push origin feat/test-branch
+# Should output: ✅ Branch 'feat/test-branch' is valid
+```
+
+### Q: Hook bypassed with `--no-verify`
+
+**Symptoms**: Branch pushed despite being invalid (developer used `--no-verify`)
+
+**Solution**:
+
+```bash
+# 1. GitHub Actions workflow will still catch it on remote
+# 2. PR will show validation failure comment
+# 3. If merge blocking enabled, PR cannot merge
+# 4. Developer must:
+#    a. Fix branch name: git branch -m {new-name}
+#    b. Force-push corrected name: git push -f
+#    c. Create new PR from corrected branch
+```
+
+### Q: Invalid branch already pushed
+
+**Symptoms**: Branch with wrong name already on remote; need to fix it
+
+**Solution**:
+
+```bash
+# Create new branch with correct name
+git checkout -b feat/correct-name
+
+# (optional) Copy commits from old branch
+git cherry-pick old-branch~0..old-branch
+
+# Push new branch
+git push -u origin feat/correct-name
+
+# Delete old invalid branch
+git push origin --delete claude/wrong-name
+
+# Update PR to point to new branch (if PR exists)
+# OR close old PR and open new one from feat/correct-name
+```
+
+### Q: Area label not detected
+
+**Symptoms**: PR created but `area:*` label not applied
+
+**Solution**:
+
+```bash
+# Check branch scope against detection keywords
+# Example: branch feat/api-response
+# - Scope is 'api-response'
+# - Keywords: 'api' detected → area:api should be applied
+
+# If not applied:
+# 1. Check that labels.yml contains the area label
+# 2. Check branch-labels.yml has keyword mapping
+# 3. Manually add label if needed (temporary fix, report bug)
 ```
 
 ---
 
-## Phase 1 Complete
+## Next Steps
 
-Quickstart guide for branch naming validation and PR template routing.
+**All tests passing?** Your branch naming validation is working correctly! ✅
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+**Next**:
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+1. Share this quickstart with your team
+2. Encourage developers to run the validation tests locally
+3. Monitor GitHub Actions workflow logs for validation results
+4. Report any issues or edge cases to @ashley
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+**For Maintainers**:
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+- Monitor compliance metrics dashboard (URL TBD)
+- Update [contracts/branch-naming.contract.md](./contracts/branch-naming.contract.md) if type/label mappings change
+- Re-run full test suite quarterly to catch regressions
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

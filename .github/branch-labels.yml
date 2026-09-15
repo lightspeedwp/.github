@@ -1,0 +1,345 @@
+# Branch Type to Default Labels Mapping
+#
+# Single source of truth for automatic label application based on branch type.
+# This configuration is used by GitHub Actions workflows to apply labels to PRs
+# created from branches matching each type.
+#
+# Format: Each type has:
+#   - default_labels: Always applied (must exist in .github/labels.yml)
+#   - area_keywords: Used for scope-based area label detection
+#
+# Area Detection: If branch scope contains any of the keywords, the
+# corresponding area label is applied (e.g., scope: "api-auth" matches
+# both "api" and "security" keywords → applies area:api + area:security)
+#
+# Validation: All labels verified against canonical .github/labels.yml
+# Last verified: 2026-09-14
+
+branch_labels:
+  # Feature Types
+  feat:
+    default_labels:
+      - type:feature
+    area_keywords:
+      - api
+      - ui
+      - component
+      - backend
+      - frontend
+
+  task:
+    default_labels:
+      - type:task
+    area_keywords:
+      - api
+      - ui
+      - backend
+      - frontend
+
+  proto:
+    default_labels:
+      - type:feature
+    area_keywords:
+      - experimental
+
+  # Bug & Fix Types
+  fix:
+    default_labels:
+      - type:bug
+    area_keywords:
+      - api
+      - ui
+      - backend
+      - frontend
+
+  hotfix:
+    default_labels:
+      - type:bug
+      - priority:critical
+    area_keywords:
+      - api
+      - ui
+      - backend
+      - frontend
+
+  revert:
+    default_labels:
+      - type:chore
+    area_keywords: []
+
+  # Release
+  release:
+    default_labels:
+      - type:release
+    area_keywords: []
+
+  # Refactoring
+  refactor:
+    default_labels:
+      - type:refactor
+    area_keywords:
+      - api
+      - ui
+      - backend
+      - frontend
+
+  # Maintenance
+  chore:
+    default_labels:
+      - type:chore
+    area_keywords: []
+
+  # Documentation
+  docs:
+    default_labels:
+      - type:docs
+    area_keywords:
+      - documentation
+      - guide
+      - readme
+
+  i18n:
+    default_labels:
+      - type:docs
+    area_keywords:
+      - i18n
+      - translation
+
+  # Testing
+  test:
+    default_labels:
+      - type:test
+    area_keywords:
+      - testing
+      - coverage
+      - e2e
+
+  # Performance
+  perf:
+    default_labels:
+      - type:performance
+    area_keywords:
+      - performance
+      - optimization
+      - caching
+
+  # CI/CD & Build
+  ci:
+    default_labels:
+      - type:ci
+      - area:ci
+    area_keywords:
+      - workflow
+      - action
+      - lint
+
+  build:
+    default_labels:
+      - type:build
+      - area:ci
+    area_keywords:
+      - build
+      - webpack
+      - bundle
+
+  # Dependencies
+  deps:
+    default_labels:
+      - type:dependency
+      - area:dependencies
+    area_keywords: []
+
+  # Security
+  security:
+    default_labels:
+      - type:security
+      - priority:critical
+    area_keywords:
+      - security
+      - auth
+      - vulnerability
+      - xss
+      - csrf
+      - injection
+
+  # Design & UX
+  design:
+    default_labels:
+      - type:design
+      - area:design-system
+    area_keywords:
+      - design
+      - component
+      - button
+      - ui
+
+  ds:
+    default_labels:
+      - type:design
+      - area:design-system
+    area_keywords:
+      - design
+      - system
+
+  a11y:
+    default_labels:
+      - type:a11y
+      - area:a11y
+    area_keywords:
+      - a11y
+      - accessibility
+      - wcag
+
+  ux:
+    default_labels:
+      - type:design
+      - area:design-system
+    area_keywords:
+      - ux
+      - user-experience
+      - form
+
+  # Operations
+  ops:
+    default_labels:
+      - type:automation
+      - area:infrastructure
+    area_keywords:
+      - deployment
+      - infrastructure
+      - database
+      - migration
+
+  # Audit & Compliance
+  audit:
+    default_labels:
+      - type:review
+      - area:ci
+    area_keywords:
+      - audit
+      - review
+      - compliance
+
+  # AI & Code Generation
+  codex:
+    default_labels:
+      - type:aiops
+      - area:ai
+    area_keywords:
+      - ai
+      - generation
+      - automation
+
+  # Research
+  research:
+    default_labels:
+      - type:research
+    area_keywords:
+      - research
+      - investigation
+      - benchmark
+
+# Area Label Keywords Reference
+#
+# These keywords are matched against branch scope to auto-detect area labels.
+# Multiple keywords can match the same scope, applying all matching area labels.
+#
+# Example: branch scope "api-auth-security" matches:
+#   - "api" → area:api
+#   - "auth" → area:security
+#   - "security" → area:security
+# Result: area:api + area:security applied (deduplicated)
+#
+# Area Labels in Canonical Set (.github/labels.yml):
+area_keywords_reference:
+  api:
+    label: area:integration
+    keywords:
+      - api
+      - endpoint
+      - rest
+      - graphql
+      - route
+
+  auth:
+    label: area:security
+    keywords:
+      - auth
+      - security
+      - credentials
+      - oauth
+      - jwt
+      - password
+
+  database:
+    label: area:infrastructure
+    keywords:
+      - db
+      - database
+      - schema
+      - migration
+      - query
+
+  docs:
+    label: area:documentation
+    keywords:
+      - doc
+      - docs
+      - documentation
+      - guide
+      - readme
+
+  frontend:
+    label: area:scripts
+    keywords:
+      - ui
+      - component
+      - react
+      - html
+      - css
+      - frontend
+
+  backend:
+    label: area:core
+    keywords:
+      - server
+      - service
+      - middleware
+      - handler
+      - backend
+
+  testing:
+    label: area:testing
+    keywords:
+      - test
+      - spec
+      - mock
+      - fixture
+      - e2e
+
+  ci:
+    label: area:ci
+    keywords:
+      - ci
+      - workflow
+      - github-actions
+      - lint
+      - build
+
+  performance:
+    label: area:performance
+    keywords:
+      - perf
+      - performance
+      - optimization
+      - caching
+      - speed
+
+  security:
+    label: area:security
+    keywords:
+      - security
+      - vulnerability
+      - xss
+      - sql-injection
+      - csrf
