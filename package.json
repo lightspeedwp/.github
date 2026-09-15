@@ -44,8 +44,8 @@
     }
   ],
   "engines": {
-    "node": ">=24.0.0",
-    "npm": ">=11.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "type": "module",
   "main": "index.js",
@@ -64,7 +64,8 @@
     ".github/"
   ],
   "scripts": {
-    "prepare": "husky",
+    "prepare": "husky && node lib/hooks/install.js",
+    "postinstall": "node lib/hooks/install.js",
     "check": "npm run lint:all && npm run test",
     "lint:baseline": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern --format stylish > .github/reports/linting/eslint-baseline.txt || true",
     "lint:baseline:json": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline.json || true",

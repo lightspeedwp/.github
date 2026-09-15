@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+/**
+ * Git Pre-Push Hook for Branch Name Validation
+ * Validates the current branch name before allowing a push to remote
+ *
+ * Exit Codes:
+ *   0 = valid branch name (push allowed)
+ *   1 = invalid branch name (push blocked)
+ *   2 = hook execution error
+ */
+
+import { validateBranchName, formatErrorMessage } from '../validate-branch-name.js';
+import { execSync } from 'child_process';
+
+// Check if push is being forced (bypass validation)
+const args = process.argv.slice(2);
+const isForced = args.includes('--force') || args.includes('-f') || args.includes('--force-with-lease');
+
+if (isForced) {
+  console.log('⚠️  Skipping branch name validation (forced push detected)');
+  process.exit(0);
+}
+
+// Get the current branch name
+let branchName;
+try {
+  branchName = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
+} catch (error) {
+  console.error('❌ Error retrieving current branch name');
+  console.error(error.message);
+  process.exit(2);
+}
+
+// Skip validation for detached HEAD state
+if (branchName === 'HEAD') {
+  console.log('ℹ️  Skipping validation (detached HEAD state)');
+  process.exit(0);
+}
+
+// Validate the branch name
+const result = validateBranchName(branchName);
+
+if (result.valid) {
+  console.log(`✅ Branch '${branchName}' is valid`);
+  process.exit(0);
+} else {
+  console.log(formatErrorMessage(branchName, result));
+  console.log('\n💡 To bypass this check and push anyway, use: git push --force-with-lease');
+  process.exit(1);
+}
