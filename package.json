@@ -176,6 +176,8 @@
   },
   "overrides": {
     "fast-json-patch": "3.1.1",
-    "tmp": "0.2.4"
+    "tmp": "0.2.4",
+    "smol-toml": "^1.8.0",
+    "lodash-es": "^4.18.1"
   }
 }
