@@ -178,7 +178,7 @@ const WEBSITE_EVENTS = {
    * Emitted when theme is toggled
    *
    * Use case: Track theme preference changes and usage patterns
-   * Location: .github/website/src/scripts/theme-toggle.js
+   * Location: website/src/scripts/theme-toggle.js (not yet instrumented)
    */
   "website.theme.toggled": {
     description: "User toggled website theme",
@@ -196,7 +196,7 @@ const WEBSITE_EVENTS = {
    * Emitted when theme storage fails
    *
    * Use case: Track localStorage failures (private browsing, quota exceeded)
-   * Location: .github/website/src/scripts/theme-toggle.js
+   * Location: website/src/scripts/theme-toggle.js (not yet instrumented)
    */
   "website.theme.storage.failure": {
     description: "Failed to store theme preference in localStorage",

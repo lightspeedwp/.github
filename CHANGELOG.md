@@ -30,6 +30,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Dependabot Scope Fix** — Restored /website npm scanning and area:dependencies labels in dependabot.yml, dropped by a main->develop sync; needed for Mergify auto-merge. ([PR #3315](https://github.com/lightspeedwp/.github/pull/3315))
 
+### Removed
+
+- **Stale Website Duplicate** — Removed .github/website/, a dead duplicate created by a prior AI edit; corrected AGENTS.md/instructions that had wrongly documented it as the canonical location. ([PR TBD]())
+
 ### Changed
 
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
