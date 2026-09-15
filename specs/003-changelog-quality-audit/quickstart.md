@@ -1,5 +1,31 @@
 # Quickstart: Changelog Quality Audit Validation
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Status**: Phase 1 Design
 **Date**: 2026-09-13
 
@@ -16,11 +42,13 @@ These scenarios can be tested locally or in CI/CD environments to validate that 
 **Purpose**: Verify that developers can validate a single entry locally and get actionable feedback
 
 **Prerequisites**:
+
 - Changelog validator installed (`npm install`)
 - Sample changelog entry file
 - Node.js 18+
 
 **Setup**:
+
 ```bash
 # Create a test entry
 cat > /tmp/test-entry.yml << 'EOF'
@@ -36,12 +64,14 @@ EOF
 ```
 
 **Run**:
+
 ```bash
 cd /home/user/.github
 npx changelog-validator validate --file /tmp/test-entry.yml --verbose
 ```
 
 **Expected Output**:
+
 ```
 ✓ Validation Results for: test-entry.yml
 
@@ -69,6 +99,7 @@ Status: ✓ ENTRY READY FOR COMMIT
 ```
 
 **Success Criteria**:
+
 - ✓ Validator runs without errors
 - ✓ Entry validates as PASSING
 - ✓ Specific rule feedback provided
@@ -82,9 +113,11 @@ Status: ✓ ENTRY READY FOR COMMIT
 **Purpose**: Verify that the system catches implementation details and provides remediation guidance
 
 **Prerequisites**:
+
 - Same as Scenario 1
 
 **Setup**:
+
 ```bash
 cat > /tmp/bad-entry.yml << 'EOF'
 title: "Fixed webhook API response handling"
@@ -99,11 +132,13 @@ EOF
 ```
 
 **Run**:
+
 ```bash
 npx changelog-validator validate --file /tmp/bad-entry.yml --verbose
 ```
 
 **Expected Output**:
+
 ```
 ✗ Validation Results for: bad-entry.yml
 
@@ -148,6 +183,7 @@ Estimated remediation time: 5-10 minutes
 ```
 
 **Success Criteria**:
+
 - ✓ Validator detects all 4 API references
 - ✓ Validator detects all async/await patterns
 - ✓ Validator detects internal terminology (middleware)
@@ -162,22 +198,26 @@ Estimated remediation time: 5-10 minutes
 **Purpose**: Verify that release managers can audit all entries for a release and get a compliance report
 
 **Prerequisites**:
+
 - Changelog entries for v1.2.0 exist in CHANGELOG.yml
 - Release manager can run commands
 - GitHub API access configured
 
 **Setup**:
+
 ```bash
 # Verify entries exist for v1.2.0
 grep -A 2 "version: 1.2.0" /home/user/.github/CHANGELOG.yml | head -20
 ```
 
 **Run**:
+
 ```bash
 npx changelog-validator audit --release v1.2.0 --markdown
 ```
 
 **Expected Output** (console + file `.github/reports/release-audits/v1.2.0.json`):
+
 ```
 ═════════════════════════════════════════════════════════════
   Release Audit Report: v1.2.0
@@ -243,10 +283,12 @@ Next Steps:
 ```
 
 **Files Generated**:
+
 - `.github/reports/release-audits/v1.2.0.json` (machine-readable report)
 - `.github/reports/release-audits/v1.2.0.md` (human-readable Markdown)
 
 **Success Criteria**:
+
 - ✓ Audit completes in <5 minutes
 - ✓ Compliance report generated (93.33%)
 - ✓ All failing entries listed with specific issues
@@ -262,11 +304,13 @@ Next Steps:
 **Purpose**: Verify that PR validation works automatically and blocks non-compliant entries
 
 **Prerequisites**:
+
 - GitHub Actions workflow configured (`.github/workflows/changelog-validation.yml`)
 - Pull request with changelog entry changes
 - Permissions to post PR comments
 
 **Setup**:
+
 ```bash
 # Create test branch with non-compliant entry
 git checkout -b test/changelog-entry
@@ -293,6 +337,7 @@ gh pr create --title "Add changelog for v1.3.0" --body "Changelog entry for rele
 2. **Validator runs**: `npx changelog-validator check-pr --pr <number>`
 3. **Status check updated**: Red X (validation failed)
 4. **Comment posted on PR**:
+
 ```
 🔴 Changelog Validation Failed
 
@@ -317,20 +362,22 @@ Rewrite focusing on user benefit:
 **Action**: Fix the entry above and push again. Re-run: `[Re-run] button`
 ```
 
-5. **PR merge blocked**: Status check shows red, cannot merge
-6. **Developer fixes entry**:
+1. **PR merge blocked**: Status check shows red, cannot merge
+2. **Developer fixes entry**:
+
 ```bash
 git add CHANGELOG.yml
 git commit -m "fix: improve changelog entry clarity"
 git push
 ```
 
-7. **Workflow re-runs automatically**
-8. **Validation passes**: Green checkmark ✓
-9. **Comment updated** on PR: "✅ Changelog entry passes validation"
-10. **PR mergeable**: All required checks pass
+1. **Workflow re-runs automatically**
+2. **Validation passes**: Green checkmark ✓
+3. **Comment updated** on PR: "✅ Changelog entry passes validation"
+4. **PR mergeable**: All required checks pass
 
 **Success Criteria**:
+
 - ✓ Validator runs automatically on PR creation
 - ✓ Status check goes red for non-compliant entry
 - ✓ PR merge blocked (cannot merge without green)
@@ -338,6 +385,7 @@ git push
 - ✓ Comment updated when entry re-runs
 - ✓ Green check when entry is fixed
 - ✓ Release manager can force-override if needed:
+
   ```bash
   npx changelog-validator check-pr --pr <number> --force --reason "hotfix"
   ```
@@ -349,16 +397,19 @@ git push
 **Purpose**: Verify that daily metrics are collected and can be exported for analytics
 
 **Prerequisites**:
+
 - Daily metrics collection running for 7+ days (to have trend data)
 - Access to `.github/reports/changelog-metrics/` directory
 
 **Setup**:
+
 ```bash
 # Verify metrics files exist
 ls -lah .github/reports/changelog-metrics/ | tail -10
 ```
 
 **Run**:
+
 ```bash
 # Get today's snapshot
 npx changelog-validator metrics get --date $(date +%Y-%m-%d)
@@ -374,6 +425,7 @@ npx changelog-validator metrics export \
 ```
 
 **Expected Output** (metrics get):
+
 ```
 ═════════════════════════════════════════════════════════════
   Daily Metrics Snapshot: 2026-09-13
@@ -412,6 +464,7 @@ By Status:
 ```
 
 **Expected Output** (metrics trend):
+
 ```
 ═════════════════════════════════════════════════════════════
   7-Day Trend Analysis
@@ -441,6 +494,7 @@ Velocity:
 ```
 
 **CSV Export Output** (`/tmp/changelog-metrics.csv`):
+
 ```csv
 Date,Compliance%,Total,Compliant,Warnings,Failures,Most Common Issue
 2026-08-14,92.1,210,193,8,9,R010_valid_pr_reference
@@ -454,6 +508,7 @@ Date,Compliance%,Total,Compliant,Warnings,Failures,Most Common Issue
 ```
 
 **Success Criteria**:
+
 - ✓ Daily snapshots collected automatically
 - ✓ Metrics queryable by date
 - ✓ Trend data shows 7/30-day patterns
@@ -469,12 +524,14 @@ Date,Compliance%,Total,Compliant,Warnings,Failures,Most Common Issue
 Use this checklist to verify all scenarios pass:
 
 ### Scenario 1: Single Entry Validation
+
 - [ ] Validator CLI runs without errors
 - [ ] Well-written entry validates as PASSING
 - [ ] Score calculation correct
 - [ ] No false positives
 
 ### Scenario 2: Implementation Detail Detection
+
 - [ ] API/code references detected
 - [ ] Internal terminology detected (middleware, async/await)
 - [ ] Remediation guidance specific and actionable
@@ -482,6 +539,7 @@ Use this checklist to verify all scenarios pass:
 - [ ] Entry marked as FAILING
 
 ### Scenario 3: Release Audit
+
 - [ ] Audit completes in <5 minutes
 - [ ] Compliance percentage calculated
 - [ ] All failures listed with remediation
@@ -490,6 +548,7 @@ Use this checklist to verify all scenarios pass:
 - [ ] Release readiness status correct
 
 ### Scenario 4: GitHub Actions Integration
+
 - [ ] Workflow triggers on PR creation
 - [ ] Status check goes red for non-compliant entry
 - [ ] PR merge blocked
@@ -499,6 +558,7 @@ Use this checklist to verify all scenarios pass:
 - [ ] Force override works (optional)
 
 ### Scenario 5: Metrics & Analytics
+
 - [ ] Daily snapshots collected
 - [ ] Compliance percentage accurate
 - [ ] Most common violations identified
@@ -541,6 +601,9 @@ If all 5 scenarios pass, the implementation meets the specification requirements
 ---
 
 **Ready to generate tasks?** Run `/speckit-tasks` to break down the 7-week implementation plan into granular tasks.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
