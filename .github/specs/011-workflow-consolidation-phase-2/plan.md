@@ -378,7 +378,7 @@ Integration (T069-T078)
 |------|--------|---------------|
 | **Configuration Locked Files** | ✅ PASS | Phase 2 does not modify `.github/labels.yml`, issue types, or templates |
 | **Label Prefixes** | ✅ PASS | labeling-unified.yml enforces prefixed labels from taxonomy |
-| **Repository Boundaries** | ✅ PASS | All artifacts in `.github/` or `.github/specs/003-workflow-consolidation-phase-2/` |
+| **Repository Boundaries** | ✅ PASS | All artifacts in `.github/` or `.github/specs/011-workflow-consolidation-phase-2/` |
 | **Security Review** | ⏳ PENDING | Will be evaluated during Phase 7 production cutover |
 
 ---
@@ -444,9 +444,9 @@ Integration (T069-T078)
 
 ## Related Documents
 
-- **Specification:** `.github/specs/003-workflow-consolidation-phase-2/spec.md`
-- **Tasks:** `.github/specs/003-workflow-consolidation-phase-2/tasks.md`
-- **Data Model:** `.github/specs/003-workflow-consolidation-phase-2/data-model.md`
+- **Specification:** `.github/specs/011-workflow-consolidation-phase-2/spec.md`
+- **Tasks:** `.github/specs/011-workflow-consolidation-phase-2/tasks.md`
+- **Data Model:** `.github/specs/011-workflow-consolidation-phase-2/data-model.md`
 - **Branch Naming Rules:** `CLAUDE.md` § Branch Naming
 - **Label Taxonomy:** `.github/labels.yml`
 - **Phase 1 Reference:** `.github/workflows/archived/2026-09-11/`

@@ -292,7 +292,7 @@ This changelog documents all refactoring changes to governance files (CLAUDE.md,
 - CLAUDE.md (v1.0 - before refactoring)
 - AGENTS.md (v1.1 - before refactoring)
 
-**Requirements Checklists** (in `specs/001-audit-governance-structure/checklists/`):
+**Requirements Checklists** (in `specs/012-audit-governance-structure/checklists/`):
 
 - requirements.md — Built-in spec quality checklist (28/28 items passing)
 - governance-comprehensive.md — Multi-dimensional review checklist (80 items for review)

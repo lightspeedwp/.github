@@ -2,7 +2,7 @@
 
 **Date Started**: 2026-09-14  
 **Branch**: `audit/governance-files-refactor`  
-**Specification**: [specs/001-audit-governance-structure/spec.md](../../specs/001-audit-governance-structure/spec.md)
+**Specification**: [specs/012-audit-governance-structure/spec.md](../../specs/012-audit-governance-structure/spec.md)
 
 ## Scope
 

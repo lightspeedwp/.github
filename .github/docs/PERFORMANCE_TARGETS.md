@@ -194,8 +194,8 @@ gh api repos/{owner}/{repo}/actions/runs \
 - [COMPOSITE_ACTIONS.md](./COMPOSITE_ACTIONS.md) — Action contracts and specs
 - [CONSOLIDATION_MATRIX.md](./CONSOLIDATION_MATRIX.md) — Workflow mapping
 - [WORKFLOW_CONSOLIDATION_MAPPING.md](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Full details
-- [spec.md](../specs/003-workflow-consolidation-phase-2/spec.md) — Phase 2 spec
-- [plan.md](../specs/003-workflow-consolidation-phase-2/plan.md) — Implementation plan
+- [spec.md](../specs/011-workflow-consolidation-phase-2/spec.md) — Phase 2 spec
+- [plan.md](../specs/011-workflow-consolidation-phase-2/plan.md) — Implementation plan
 
 ---
 

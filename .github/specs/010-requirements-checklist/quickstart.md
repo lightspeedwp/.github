@@ -16,7 +16,7 @@ This document provides step-by-step guidance to validate the Requirements Qualit
 
 **Setup**:
 
-1. **Source**: Use the spec file itself (`.github/specs/003-requirements-checklist/spec.md`) as test target
+1. **Source**: Use the spec file itself (`.github/specs/010-requirements-checklist/spec.md`) as test target
 2. **Template**: Load `author-pre-review` checklist template
 3. **Environment**: Node.js runtime, checklist library installed
 
@@ -27,10 +27,10 @@ This document provides step-by-step guidance to validate the Requirements Qualit
 npm install @lightspeed/requirements-checklist
 
 const checklist = require('@lightspeed/requirements-checklist');
-const spec = readFile('.github/specs/003-requirements-checklist/spec.md');
+const spec = readFile('.github/specs/010-requirements-checklist/spec.md');
 
 const result = await checklist.run({
-  spec_path: '.github/specs/003-requirements-checklist/spec.md',
+  spec_path: '.github/specs/010-requirements-checklist/spec.md',
   template_id: 'author-pre-review',
   spec_content: spec
 });
