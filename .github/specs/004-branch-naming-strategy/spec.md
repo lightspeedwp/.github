@@ -1,5 +1,30 @@
 # Specification: Branch Naming & PR Strategy Formalization
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Feature Name:** GitHub Branch Naming & PR Strategy System  
 **Short ID:** 004-branch-naming-strategy  
 **Status:** Specification  
@@ -10,7 +35,7 @@
 
 ## Overview
 
-**What:** Formalize and automate GitHub branch naming conventions with 24 authorized types, implement automated PR template routing, establish labeling integration, and provide developer tooling and training.
+**What:** Formalize and automate GitHub branch naming conventions with 38 authorised types, implement automated PR template routing, establish labelling integration, and provide developer tooling and training.
 
 **Why:** Current branch naming lacks formal specification and enforcement. This causes: PR templates misrouted, naming violations accumulate, new developers unsure of rules, and CI/CD workflows can't rely on branch structure for decision-making.
 
@@ -23,9 +48,11 @@
 ## User Scenarios & Acceptance
 
 ### Scenario 1: New Developer Creates Feature Branch
+
 **Actor:** Junior developer  
 **Goal:** Create a branch that follows team conventions without manual research  
 **Flow:**
+
 1. Developer needs to start work on user authentication
 2. Developer checks quick-reference guide (1 page)
 3. Developer finds "feat" type is appropriate
@@ -36,9 +63,11 @@
 **Acceptance:** Developer completes branch creation in <2 minutes without asking for help; PR template is correct.
 
 ### Scenario 2: Developer Creates Invalid Branch
+
 **Actor:** Developer  
 **Goal:** Discover naming error quickly before investing in work  
 **Flow:**
+
 1. Developer accidentally creates: `git checkout -b claude/my-feature`
 2. Developer pushes to remote
 3. Validation script runs (pre-push hook or CI)
@@ -49,9 +78,11 @@
 **Acceptance:** Developer gets clear, actionable error message; fix takes <1 minute.
 
 ### Scenario 3: PR Opens Automatically Routes Template
+
 **Actor:** Any developer  
 **Goal:** PR is automatically assigned the correct template based on branch type  
 **Flow:**
+
 1. Developer pushes branch: `feat/payment-processing-timeout-fix`
 2. Developer creates PR on GitHub
 3. PR template routing workflow runs
@@ -62,9 +93,11 @@
 **Acceptance:** Template automatically applies without manual intervention; template matches branch type 100% of the time.
 
 ### Scenario 4: Auto-Labeling Based on Branch Type
+
 **Actor:** Automation  
 **Goal:** PR is automatically labeled based on branch naming convention  
 **Flow:**
+
 1. PR created from branch: `fix/pr-template-routing-bug`
 2. Auto-labeling workflow runs
 3. Workflow detects branch type: `fix` → applies labels: `type:bug`, `area:automation`
@@ -74,9 +107,11 @@
 **Acceptance:** Labels auto-applied within 10 seconds of PR creation; zero manual label assignment needed.
 
 ### Scenario 5: Leadership Reviews Compliance Metrics
+
 **Actor:** Team lead  
 **Goal:** Understand branch naming compliance across team  
 **Flow:**
+
 1. Lead opens compliance dashboard
 2. Dashboard shows: current compliance %, trend over past 6 weeks, violations by team member
 3. Lead can drill down: see specific invalid branches, see who needs coaching
@@ -89,8 +124,9 @@
 ## Functional Requirements
 
 ### FR-1: Branch Naming Pattern & Validation
+
 - **Pattern:** `{type}/{scope}-{title}` where:
-  - `type` is one of 24 authorized values (lowercase)
+  - `type` is one of 38 authorised values (lowercase)
   - `scope` is kebab-case, specific to the change
   - `title` is brief, action-oriented description
 - **Validation rules:**
@@ -101,18 +137,20 @@
   - No uppercase letters or special characters
 - **Testable:** Validator accepts `feat/user-auth-login-redesign`; rejects `claude/my-feature`, `Feature/my_work`, `feat/x`
 
-### FR-2: 24 Authorized Branch Types
-- **Types defined:** feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, audit, codex, research, revert
+### FR-2: 38 Authorised Branch Types
+
+- **Types defined:** feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, revert, research, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, aiops, automation, epic
 - **Each type includes:**
   - Clear purpose and use case
   - Example branches
   - Associated PR template
   - Auto-applied labels
-- **Testable:** Each of 24 types can be used to create a branch; routing works correctly for each
+- **Testable:** Each of 38 types can be used to create a branch; routing works correctly for each
 
 ### FR-3: PR Template Routing
+
 - **Requirement:** When a PR is created from a typed branch, the correct PR template automatically applies
-- **Mapping:** Each of 24 types maps to one of 19 PR templates (some types share templates)
+- **Mapping:** Each of 38 types maps to one of 17 routed PR templates (some types share templates)
 - **Routing logic:**
   - Extract branch type from branch name
   - Lookup template for that type
@@ -122,6 +160,7 @@
 - **Testable:** PR from `feat/xxx` gets `pr_feature.md`; PR from `fix/xxx` gets `pr_bugfix.md`
 
 ### FR-4: Auto-Labeling Workflow
+
 - **Requirement:** PRs are automatically labeled based on branch type
 - **Labels applied:** Each type has associated labels (e.g., `type:feat`, `status:needs-review`)
 - **Label source:** Must use canonical labels from `.github/labels.yml` (158 prefixed labels)
@@ -133,6 +172,7 @@
 - **Testable:** PR from `security/xss-fix` auto-receives `type:security`, `priority:critical` labels
 
 ### FR-5: Validation Enforcement
+
 - **Requirement:** Invalid branches are rejected before PR can be merged
 - **Enforcement point:** Pre-merge validation gate in CI/CD pipeline
 - **Validation behavior:**
@@ -143,6 +183,7 @@
 - **Testable:** PR from invalid branch type is blocked; error message is clear and actionable
 
 ### FR-6: Developer Tooling
+
 - **Requirement:** Developers have local validation script to check branch names before pushing
 - **Tooling includes:**
   - Pre-push git hook (optional, can be installed locally)
@@ -153,13 +194,14 @@
 - **Testable:** Local validation script rejects invalid names with clear feedback
 
 ### FR-7: Documentation & Training
+
 - **Requirement:** Team has clear documentation and training on branch naming rules
 - **Deliverables:**
   - BRANCH_AND_PR_STRATEGY.md: Complete specification (10+ sections)
   - QUICK_REFERENCE.md: Developer quick lookup (1-2 pages, type picker, examples)
   - Troubleshooting guide with decision trees
   - Live training session with recorded fallback
-- **Training scope:** All 24 types, pattern rules, common mistakes, troubleshooting, PR template routing
+- **Training scope:** All 38 types, pattern rules, common mistakes, troubleshooting, PR template routing
 - **Testable:** 90%+ team attendance; 85%+ post-training assessment pass rate
 
 ---
@@ -181,8 +223,9 @@
 ## Key Entities
 
 ### Branch Type
-- **Definition:** One of 24 authorized branch type identifiers
-- **Properties:** 
+
+- **Definition:** One of 38 authorised branch type identifiers
+- **Properties:**
   - Type ID (e.g., `feat`, `fix`)
   - Purpose/use case
   - Example branches
@@ -191,6 +234,7 @@
   - Special rules (if any)
 
 ### Branch Name
+
 - **Definition:** Git branch identifier following pattern `{type}/{scope}-{title}`
 - **Properties:**
   - Type (validated against authorized list)
@@ -201,6 +245,7 @@
   - Associated labels
 
 ### Validation Rule
+
 - **Definition:** A single pattern or naming criterion enforced by validation
 - **Examples:**
   - "Type must be from authorized list"
@@ -209,8 +254,9 @@
 - **Properties:** Rule ID, description, severity, validator script location
 
 ### Compliance Report
+
 - **Definition:** Audit of team branch naming compliance over time
-- **Properties:** 
+- **Properties:**
   - Date
   - Total branches checked
   - Compliant count
@@ -235,18 +281,22 @@
 ## Constraints & Risks
 
 ### Constraint: Forbidden Prefixes
+
 - `claude/`, `copilot/`, `openai/` are permanently reserved and cannot be used
 - Rationale: These prefixes are used for internal tooling and break PR template routing
 
 ### Constraint: No Type Invention
-- Developers cannot create custom types; only 24 authorized types allowed
+
+- Developers cannot create custom types; only 38 authorised types allowed
 - Rationale: Prevents type proliferation and ensures consistent routing/labeling
 
 ### Risk: Developer Resistance to New Rules
+
 - Mitigation: Provide clear rationale in documentation and training
 - Fallback: Make validation advisory (warnings) for first 2 weeks; switch to enforcement after training
 
 ### Risk: PR Template Routing Conflicts
+
 - Mitigation: Establish clear type-to-template mapping; test mapping with integration tests
 - Fallback: Manual template selection for edge cases
 
@@ -255,21 +305,25 @@
 ## Non-Functional Requirements
 
 ### Performance
+
 - Validation checks must complete in <500ms per branch
 - Auto-labeling workflow must complete in <30 seconds
 - Compliance dashboard must load in <2 seconds
 
 ### Reliability
+
 - Validation must have <1% false negative rate (missed violations)
 - Validation must have 0% false positive rate (incorrect rejections)
 - Auto-labeling must work for 99.9% of PRs
 
 ### Usability
+
 - Quick-reference guide must fit on 1 page
 - Error messages must be actionable and mention correct format
 - Local validation script must run without installation friction
 
 ### Maintainability
+
 - Type definitions stored in single configuration file (not scattered)
 - New types can be added by updating configuration only (no code changes)
 - Template routing rules in single mapping table
@@ -293,3 +347,23 @@
 - Renaming/migrating existing branches (backwards compatibility maintained)
 - Private/org-specific branch prefixes (all types public and documented)
 
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

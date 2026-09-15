@@ -1,6 +1,31 @@
 # Tasks: Branch Naming Strategy & Enforcement
 
-**Input**: Design documents from `specs/004-branch-naming-strategy/`  
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
+**Input**: Design documents from `.github/specs/004-branch-naming-strategy/`  
 **Status**: Phase 2 Design Complete → Phase 3 Implementation Ready  
 **Timeline**: 6 weeks (48-62 hours) | Weeks 1-6
 
@@ -10,9 +35,8 @@
 
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (US1-US5)
-- 38 authorized branch types (from Constitution Section VIII) with pattern `{type}/{scope}-{title}`
+- 38 authorised branch types with pattern `{type}/{scope}-{title}`
 - Forbidden prefixes: `claude/`, `copilot/`, `openai/`
-- Branch exemptions: `main`, `develop`, `dependabot/*`, `renovate/*`
 
 ---
 
@@ -21,12 +45,12 @@
 **Purpose**: Project initialization and branch validation framework
 
 - [ ] T001 Create branch validation framework directory at `.github/branch-validation/`
-- [ ] T002 Create branch type definitions at `.github/branch-validation/branch-types.json` (38 authorized types from Constitution Section VIII)
-- [ ] T003 [P] Create branch regex patterns at `.github/branch-validation/patterns.json` (regex patterns and forbidden prefixes for each type; NO template mapping—see T004)
-- [ ] T004 [P] Create canonical template routing map at `.github/branch-validation/template-mapping.json` (SINGLE SOURCE OF TRUTH: 38 types → 17 PR templates, from contracts/branch-naming.contract.md)
-- [ ] T005 [P] Create type-to-labels mapping at `.github/branch-validation/label-mapping.json` (38 types → canonical prefixed labels from `.github/labels.yml`, from contracts/branch-naming.contract.md)
+- [ ] T002 Create branch type definitions at `.github/branch-validation/branch-types.json` (38 authorised types from contracts)
+- [ ] T003 [P] Create branch regex patterns at `.github/branch-validation/patterns.json` (pattern, forbidden, template-mapping for each type)
+- [ ] T004 [P] Create type-to-template mapping at `.github/branch-validation/template-mapping.json` (each type maps to 1 PR template from 17 routed templates)
+- [ ] T005 [P] Create type-to-labels mapping at `.github/branch-validation/label-mapping.json` (each type auto-applies canonical prefixed labels)
 - [ ] T006 Initialize Node.js project for validators at `.github/branch-validation/package.json`
-- [ ] T007 Create Git pre-push hook template at `.github/branch-validation/hooks/pre-push-template.sh` (include branch exemptions: main, develop, dependabot/*, renovate/*)
+- [ ] T007 Create Git pre-push hook template at `.github/branch-validation/hooks/pre-push-template.sh`
 
 ---
 
@@ -49,13 +73,13 @@
 
 ## Phase 3: User Story 1 - Branch Name Validation (FR-1) [P1]
 
-**Goal**: System validates branch names match pattern `{type}/{scope}-{title}` with 38 authorized types (Constitution Section VIII), 0 forbidden prefixes, with documented branch exemptions
+**Goal**: System validates branch names match pattern `{type}/{scope}-{title}` with 38 authorised types, 0 forbidden prefixes
 
-**Independent Test**: Validator rejects `claude/feature` (forbidden); accepts `feat/user-auth` (valid); exempts `main` and `develop` branches
+**Independent Test**: Validator rejects `claude/feature` (forbidden); accepts `feat/user-auth` (valid)
 
 ### Tests for User Story 1 (TDD)
 
-- [ ] T014 [P] [US1] Unit test for type validation at `.github/branch-validation/test/unit/test-type-validation.js` (accept all 38 authorized types, reject others)
+- [ ] T014 [P] [US1] Unit test for type validation at `.github/branch-validation/test/unit/test-type-validation.js` (accept all 38 types, reject others)
 - [ ] T015 [P] [US1] Unit test for forbidden prefix detection at `.github/branch-validation/test/unit/test-forbidden-prefixes.js` (reject claude/, copilot/, openai/)
 - [ ] T016 [P] [US1] Unit test for pattern matching at `.github/branch-validation/test/unit/test-pattern-matching.js` ({type}/{scope}-{title} format)
 - [ ] T017 [P] [US1] Unit test for scope validation at `.github/branch-validation/test/unit/test-scope-validation.js` (scope must be kebab-case, non-empty)
@@ -63,7 +87,7 @@
 
 ### Implementation for User Story 1
 
-- [ ] T019 [P] [US1] Implement type validator at `.github/branch-validation/lib/validators/type-validator.js` (check against 24 authorized types from branch-types.json)
+- [ ] T019 [P] [US1] Implement type validator at `.github/branch-validation/lib/validators/type-validator.js` (check against 38 authorised types from branch-types.json)
 - [ ] T020 [P] [US1] Implement forbidden prefix checker at `.github/branch-validation/lib/validators/forbidden-checker.js` (reject claude/, copilot/, openai/ absolutely)
 - [ ] T021 [P] [US1] Implement pattern validator at `.github/branch-validation/lib/validators/pattern-validator.js` ({type}/{scope}-{title} with regex for each type)
 - [ ] T022 [P] [US1] Implement scope validator at `.github/branch-validation/lib/validators/scope-validator.js` (kebab-case, 2-50 chars, no special chars)
@@ -178,7 +202,7 @@
 - [ ] T058 [P] Create architecture documentation at `.github/branch-validation/ARCHITECTURE.md` (system design, module responsibilities, data flows)
 - [ ] T059 [P] Create troubleshooting guide at `.github/branch-validation/docs/TROUBLESHOOTING.md` (common validation failures, solutions)
 - [ ] T060 [P] Create deployment runbook at `.github/branch-validation/docs/DEPLOYMENT.md` (enable across 50+ repos, organization-wide rollout)
-- [ ] T061 [P] Create type reference guide at `.github/branch-validation/docs/BRANCH_TYPES.md` (all 24 types, when to use each, examples)
+- [ ] T061 [P] Create type reference guide at `.github/branch-validation/docs/BRANCH_TYPES.md` (all 38 types, when to use each, examples)
 - [ ] T062 Run quickstart.md validation scenarios at `.github/specs/004-branch-naming-strategy/quickstart.md` (confirm all scenarios work end-to-end)
 - [ ] T063 Integrate with CLAUDE.md branching rules at `.github/CLAUDE.md` (update documentation to link to validation system)
 - [ ] T064 Performance benchmarking at `.github/branch-validation/test/performance/bench.js` (confirm <500ms validation, <50ms per PR routing)
@@ -221,11 +245,13 @@
 ## Parallel Example: 2-Developer Team
 
 **Developer A (Weeks 1-3)**:
+
 - Phase 1: Setup (T001-T007)
 - Phase 2: Foundational (T008-T013, all [P] tasks in parallel)
 - Phase 3: US1 Branch Validation (T014-T024)
 
 **Developer B (Weeks 1-6)**:
+
 - Phase 1: Parallel with Dev A on setup
 - Phase 2: Parallel with Dev A (T010, T011, T012, T013)
 - Phases 4-5: US2/US3 PR Routing & Labels while Dev A works Phase 3
@@ -281,11 +307,32 @@
 ## Success Metrics
 
 At completion of Phase 8:
+
 - ✅ 100% of branch names validated (FR-1)
 - ✅ 100% of PRs receive correct template (FR-2)
 - ✅ 100% of PRs auto-labeled correctly (FR-3)
 - ✅ Pre-push validation prevents invalid branches (FR-4)
 - ✅ Daily metrics show compliance, violations by type (FR-5)
 - ✅ All phases completed within 6 weeks (48-62 hours)
-- ✅ 24-type system adopted org-wide (50+ repos)
+- ✅ 38-type system adopted org-wide (50+ repos)
 
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

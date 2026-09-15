@@ -25,7 +25,7 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Input**: Design documents from `specs/007-label-audit-consolidation/`
+**Input**: Design documents from `.github/specs/007-label-audit-consolidation/`
 
 **Prerequisites**: plan.md (implementation strategy), spec.md (3 user stories with priorities P1, P2, P3), data-model.md (audit entities), contracts/ (output schemas), research.md (data sources confirmed)
 

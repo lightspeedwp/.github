@@ -1,8 +1,8 @@
 # Implementation Plan: Audit and Refactor Branch Cleanup Infrastructure
 
-**Branch**: `task/branch-cleanup-refactor` | **Date**: 2026-09-14 | **Spec**: [specs/008-audit-branch-cleanup/spec.md](spec.md)
+**Branch**: `task/branch-cleanup-refactor` | **Date**: 2026-09-14 | **Spec**: [.github/specs/008-audit-branch-cleanup/spec.md](spec.md)
 
-**Input**: Feature specification from `specs/008-audit-branch-cleanup/spec.md`
+**Input**: Feature specification from `.github/specs/008-audit-branch-cleanup/spec.md`
 
 **Note**: This template is filled in by the `/speckit-plan` command; its definition describes the execution workflow.
 

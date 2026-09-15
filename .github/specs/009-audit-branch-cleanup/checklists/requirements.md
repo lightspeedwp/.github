@@ -2,7 +2,7 @@
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning  
 **Created**: 2026-09-14  
-**Feature**: [specs/008-audit-branch-cleanup/spec.md](../spec.md)
+**Feature**: [.github/specs/008-audit-branch-cleanup/spec.md](../spec.md)
 
 ## Content Quality
 

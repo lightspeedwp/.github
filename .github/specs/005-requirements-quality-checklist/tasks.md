@@ -1,6 +1,31 @@
 # Tasks: Requirements Quality Checklist Framework
 
-**Input**: Design documents from `specs/005-requirements-quality-checklist/`  
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
+**Input**: Design documents from `.github/specs/005-requirements-quality-checklist/`  
 **Status**: Phase 2 Design Complete → Phase 3 Implementation Ready  
 **Timeline**: 5 weeks (35-50 hours) | Weeks 1-5
 
@@ -159,7 +184,7 @@
 - [ ] T057 [P] Create dimension deep-dive guides at `.specify/templates/checklist-template/docs/DIMENSIONS.md` (explain each dimension, when items apply, common pitfalls)
 - [ ] T058 [P] Create best practices guide at `.specify/templates/checklist-template/docs/BEST_PRACTICES.md` (how to write requirements-quality items, avoid common mistakes)
 - [ ] T059 Create team training materials at `.specify/templates/checklist-template/training/` (slides, examples, assessment)
-- [ ] T060 Run quickstart.md validation scenarios at `.specify/specs/005-requirements-quality-checklist/quickstart.md` (confirm all 4 scenarios work)
+- [ ] T060 Run quickstart.md validation scenarios at `.github/specs/005-requirements-quality-checklist/quickstart.md` (confirm all 4 scenarios work)
 - [ ] T061 Integrate checklist framework into spec workflow documentation at `.github/CLAUDE.md` (reference checklist framework for spec quality)
 - [ ] T062 Create migration guide for specs that pre-date framework at `.specify/templates/checklist-template/docs/MIGRATION.md` (how to retroactively apply checklists to existing specs)
 
@@ -202,11 +227,13 @@
 ## Parallel Example: 2-Developer Team
 
 **Developer A (Weeks 1-2)**:
+
 - Phase 1: Setup (T001-T006)
 - Phase 2: Foundational (T007-T012, all [P] tasks in parallel)
 - Phase 3: US1 Base Template (T013-T026, all dimension content in parallel)
 
 **Developer B (Weeks 1-5)**:
+
 - Phase 1: Parallel with Dev A on setup
 - Phase 2: Parallel with Dev A (T009, T010, T012)
 - Phase 4: US2 Domain Variants (Weeks 2-3, all 4 variants in parallel)
@@ -262,6 +289,7 @@
 ## Success Metrics
 
 At completion of Phase 7:
+
 - ✅ Base template with 40-50 items, 8 dimensions (FR-1)
 - ✅ 4 domain variants: UX, API, Security, Performance (FR-2)
 - ✅ Multi-audience guidance: author, peer, stakeholder, integration (FR-3)
@@ -271,3 +299,16 @@ At completion of Phase 7:
 - ✅ Framework adopted for all three foundational specifications (003, 004, 005)
 - ✅ All phases completed within 5 weeks (35-50 hours)
 
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

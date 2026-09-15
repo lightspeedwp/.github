@@ -1,5 +1,30 @@
 # Data Model: Changelog Quality Audit
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+<!-- BADGES-END -->
+
 **Phase**: Phase 1 (Design & Contracts)  
 **Created**: 2026-09-12  
 **Status**: Design Complete
@@ -13,6 +38,7 @@
 Represents a single entry in CHANGELOG.md under the [Unreleased] section.
 
 **Fields**:
+
 - `id` (string): Unique identifier derived from line number in CHANGELOG.md (e.g., `entry_00042`)
 - `content` (string): Full entry text (raw markdown)
 - `line_number` (integer): Position in CHANGELOG.md for error reporting
@@ -26,6 +52,7 @@ Represents a single entry in CHANGELOG.md under the [Unreleased] section.
 - `auto_links` (object): `{ pr_url: string, issue_urls: string[] }`
 
 **Validation Rules**:
+
 - `content` length must be ≤250 characters
 - `content` must not contain implementation keywords (see research.md)
 - `content` must reference at least one PR or issue
@@ -33,6 +60,7 @@ Represents a single entry in CHANGELOG.md under the [Unreleased] section.
 - `version_section` must be valid Semver or `[Unreleased]`
 
 **State Transitions**:
+
 ```
 initial (created) 
   → validated (passes all rules) 
@@ -52,6 +80,7 @@ initial (created)
 Represents a single quality validation criterion applied to changelog entries.
 
 **Fields**:
+
 - `rule_id` (string): Unique identifier (e.g., `CHK_MAX_LENGTH`, `CHK_NO_IMPL_DETAILS`)
 - `rule_name` (string): Human-readable name (e.g., "Maximum entry length")
 - `description` (string): What the rule checks
@@ -81,6 +110,7 @@ Represents a single quality validation criterion applied to changelog entries.
 Represents compliance metrics captured at a point in time.
 
 **Fields**:
+
 - `snapshot_id` (string): Unique identifier (e.g., `2026-09-12T00:00:00Z`)
 - `timestamp` (ISO 8601): When metrics were captured
 - `snapshot_period` (string): `daily` | `weekly` | `monthly` (for trend analysis)
@@ -88,6 +118,7 @@ Represents compliance metrics captured at a point in time.
 - `compliant_entries` (integer): Count passing all rules
 - `compliance_percent` (number): `(compliant_entries / total_entries) * 100`
 - `length_distribution` (object):
+
   ```json
   {
     "0_to_100": integer,
@@ -96,12 +127,14 @@ Represents compliance metrics captured at a point in time.
     "500_plus": integer
   }
   ```
+
 - `impl_detail_rate` (number): % of entries flagged with implementation details
 - `pr_link_coverage` (number): % of entries with valid PR links
 - `issues_found` (object): `{ rule_id: count, ... }` (violations by rule)
 - `trend_vs_previous` (object): `{ compliance_delta: number, entries_added: integer, entries_refactored: integer }`
 
 **Data Model**:
+
 ```json
 {
   "snapshot_id": "2026-09-12T00:00:00Z",
@@ -138,6 +171,7 @@ Represents compliance metrics captured at a point in time.
 Generated when changelog is validated (e.g., on PR submission).
 
 **Fields**:
+
 - `report_id` (string): Unique identifier (e.g., `validation_2026-09-12_pr2904`)
 - `timestamp` (ISO 8601): When validation ran
 - `trigger` (string): `pr_submission` | `scheduled_audit` | `manual`
@@ -145,6 +179,7 @@ Generated when changelog is validated (e.g., on PR submission).
 - `branch` (string): Git branch being validated
 - `entries_validated` (ChangelogEntry[]): Array of validated entries
 - `summary` (object):
+
   ```json
   {
     "total_entries": integer,
@@ -154,6 +189,7 @@ Generated when changelog is validated (e.g., on PR submission).
     "pass_rate": number
   }
   ```
+
 - `failed_entries` (array): Details on each failure
 - `recommendation` (enum): `merge` | `review` | `request_changes`
 - `ci_gate_result` (enum): `pass` | `fail` | `warning`
@@ -257,12 +293,14 @@ All Rules Pass?
 ## Constraints & Assumptions
 
 **Constraints**:
+
 - Maximum entry count per snapshot: 500 (soft cap for performance)
 - Metrics recalculation must complete in <1 minute
 - JSON history files must stay <10MB (implement rolling retention)
 - API calls must respect GitHub rate limits (5k/hour)
 
 **Assumptions**:
+
 - CHANGELOG.md format remains consistent (Keep a Changelog 1.1.0)
 - GitHub API remains available (99.95% SLA)
 - Git repository history is immutable (no force pushes to CHANGELOG.md)
@@ -276,3 +314,24 @@ All Rules Pass?
 Data model defined with 4 core entities, validation rules, state transitions, and metrics schema. Ready for contract definition.
 
 **Next**: Generate contracts/ (validation rule contract, metrics API contract) and quickstart.md
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

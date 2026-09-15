@@ -27,7 +27,7 @@
 
 **Branch**: `audit/github-label-audit` | **Date**: 2026-09-14 | **Spec**: [007-label-audit-consolidation/spec.md](spec.md)
 
-**Input**: Feature specification from `specs/007-label-audit-consolidation/spec.md`
+**Input**: Feature specification from `.github/specs/007-label-audit-consolidation/spec.md`
 
 ## Summary
 
@@ -151,7 +151,7 @@ specs/007-label-audit-consolidation/
 
 **Structure Decision**:
 
-- **Documentation**: All specification, planning, and design artifacts reside in `specs/007-label-audit-consolidation/` (per SpecKit convention)
+- **Documentation**: All specification, planning, and design artifacts reside in `.github/specs/007-label-audit-consolidation/` (per SpecKit convention)
 - **Audit Output**: Final audit reports and findings stored in `.github/reports/audits/2026-09-14-label-audit/` (per repository governance for audit artifacts)
 - **No source code development**: This is an audit/analysis task; deliverables are configuration reconciliation reports and recommendations
 
