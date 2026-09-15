@@ -33,6 +33,7 @@ describe("RemediationChecklistGenerator", () => {
       rest: {
         issues: {
           createComment: jest.fn().mockResolvedValue({ data: { id: 12345 } }),
+          updateComment: jest.fn().mockResolvedValue({ data: { id: 12345 } }),
           listComments: jest.fn().mockResolvedValue({ data: [] }),
         },
       },
@@ -272,7 +273,7 @@ describe("RemediationChecklistGenerator", () => {
       expect(result).toBeDefined();
     });
 
-    test("should not post duplicate checklist comment", async () => {
+    test("should update, not duplicate, an existing checklist comment", async () => {
       const issue = sampleIssues.complianceScenarios.missingBoth;
       const analysis = generator.analyzeCompliance(issue);
 
@@ -282,6 +283,7 @@ describe("RemediationChecklistGenerator", () => {
       mockGithub.rest.issues.listComments.mockResolvedValueOnce({
         data: [
           {
+            id: 999,
             body: "<!-- remediation-checklist -->\n## 📋 Remediation Checklist",
             author_association: "NONE",
           },
@@ -290,11 +292,16 @@ describe("RemediationChecklistGenerator", () => {
 
       const result = await generator.postChecklistComment(issue, analysis);
 
-      // Should not create comment if already exists
-      expect(result).toBeNull();
-      if (result === null || result === undefined) {
-        expect(mockGithub.rest.issues.createComment).not.toHaveBeenCalled();
-      }
+      // A stale checklist should be refreshed in place, not left as-is.
+      expect(mockGithub.rest.issues.createComment).not.toHaveBeenCalled();
+      expect(mockGithub.rest.issues.updateComment).toHaveBeenCalledWith(
+        expect.objectContaining({
+          owner: "test-owner",
+          repo: "test-repo",
+          comment_id: 999,
+        }),
+      );
+      expect(result).toBeDefined();
     });
 
     test("should skip comment for compliant issue", async () => {

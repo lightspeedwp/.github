@@ -284,16 +284,29 @@ class RemediationChecklistGenerator {
       const existingChecklist = (comments || []).find((c) =>
         c.body?.includes("<!-- remediation-checklist -->"),
       );
+      const checklistComment = this.generateRemediationComment(analysis);
 
       if (existingChecklist) {
-        return null;
+        // Refresh a stale checklist instead of leaving it as-is: the
+        // compliance state (missing DoR/DoD, issue type) can change
+        // between runs, and postRemediationChecklists() below already
+        // keeps its checklist current the same way -- this method
+        // diverging from that would silently leave an outdated
+        // checklist on the issue forever.
+        const { data } = await this.github.rest.issues.updateComment({
+          owner: this.owner,
+          repo: this.repo,
+          comment_id: existingChecklist.id,
+          body: checklistComment,
+        });
+        return data;
       }
 
       const { data } = await this.github.rest.issues.createComment({
         owner: this.owner,
         repo: this.repo,
         issue_number: issue.number,
-        body: this.generateRemediationComment(analysis),
+        body: checklistComment,
       });
 
       return data;
