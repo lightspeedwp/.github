@@ -299,3 +299,5 @@ overlays, visual rebuilds, Python PPTX mutation, or direct OOXML mutation.
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
