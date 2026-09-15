@@ -455,7 +455,7 @@ node scripts/automation/bulk-issue-metadata-updater.js \
 #### Example 1: Validate Release Branch
 
 ```bash
-node scripts/automation/staging-validation.js \
+node scripts/automation/staging-validation-cli.js \
   --branch "release/v2.0" \
   --milestone "v2.0" \
   --report
@@ -466,7 +466,7 @@ node scripts/automation/staging-validation.js \
 #### Example 2: Strict Validation
 
 ```bash
-node scripts/automation/staging-validation.js \
+node scripts/automation/staging-validation-cli.js \
   --branch "staging" \
   --strict \
   --report
@@ -477,7 +477,7 @@ node scripts/automation/staging-validation.js \
 #### Example 3: Generate Validation Report
 
 ```bash
-node scripts/automation/staging-validation.js \
+node scripts/automation/staging-validation-cli.js \
   --milestone "v2.1" \
   --report \
   --output "./release-validation-2026-08-30.txt"
@@ -579,7 +579,7 @@ jobs:
       
       - name: Validate Staging
         run: |
-          node scripts/automation/staging-validation.js \
+          node scripts/automation/staging-validation-cli.js \
             --branch ${{ github.head_ref }} \
             --strict \
             --report
