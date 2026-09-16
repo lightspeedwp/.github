@@ -29,6 +29,11 @@ const TMP_DIR = path.join(os.tmpdir(), "release-gates-test");
 // trying to mkdir under /).
 const ORIGINAL_CWD = process.cwd();
 
+/**
+ * Create and enter a temporary Git repository for release-gate tests.
+ *
+ * @returns {void}
+ */
 function setupTestRepo() {
   if (fs.existsSync(TMP_DIR)) {
     fs.rmSync(TMP_DIR, { recursive: true, force: true });
