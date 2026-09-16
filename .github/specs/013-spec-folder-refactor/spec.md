@@ -85,7 +85,7 @@ As a structure auditor, I need to verify that the numbering sequence is truly se
 **Acceptance Scenarios**:
 
 1. **Given** 12 numbered spec directories, **When** I audit the numbering, **Then** I verify all numbers are sequential with no gaps (e.g., 001, 002, 003...012)
-2. **Given** [NEEDS CLARIFICATION: If gaps are discovered in the current sequence, should we renumber to close gaps or leave historical numbering intact?], **When** gaps are found, **Then** a remediation plan is documented
+2. **Given** the audit is complete, **When** any gaps are found, **Then** gaps are documented but current numbering is preserved (no renumbering executed; historical traceability maintained)
 3. **Given** the refactoring is complete, **When** new specs are created, **Then** the next number assigned is always the highest current number + 1 (e.g., if 013 exists, next is 014)
 
 ---
@@ -96,6 +96,14 @@ As a structure auditor, I need to verify that the numbering sequence is truly se
 - How should historical/archived specifications be handled in the numbering scheme? (Should they be preserved with legacy numbers or consolidated?)
 - What if a specification has been superseded by another? (Should both exist or should the old one be marked as deprecated?)
 - Can specification numbers be reused after a spec is archived? (No—maintain historical traceability)
+
+## Clarifications
+
+### Session 2026-09-16
+
+- Q: Should we preserve current numbers (001-012) exactly as-is, renumber any gaps, or start new specs at 013? → A: Keep current numbers unchanged (001-012) and start new specs at 013 going forward. Historical traceability preserved; no disruptive renumbering executed.
+
+---
 
 ## Requirements *(mandatory)*
 
@@ -112,7 +120,7 @@ As a structure auditor, I need to verify that the numbering sequence is truly se
 - **FR-009**: System MUST document maintenance procedures for adding new specifications (numbering scheme, naming convention, quality gates, catalog updates)
 - **FR-010**: System MUST document procedures for updating existing specifications (change process, approval gates, traceability)
 - **FR-011**: System MUST establish governance authority for specification changes (who can create, approve, merge specification updates)
-- **FR-012**: System MUST [NEEDS CLARIFICATION: Should the numbering scheme be preserved exactly as-is (001-012) or renumbered to remove any historical gaps, or should new specs start at 013?] ensure predictable numbering for future specifications
+- **FR-012**: System MUST ensure predictable numbering for future specifications (next spec number = highest current number + 1; e.g., if spec 013 exists, next is 014)
 
 ### Key Entities
 
@@ -140,7 +148,7 @@ As a structure auditor, I need to verify that the numbering sequence is truly se
 ## Assumptions
 
 - **Current State**: There are currently 12 specifications numbered 001-012 in `.github/specs/`, following sequential numbering with no gaps
-- **Numbering Scheme**: The sequential 3-digit numbering scheme (001, 002, 003...N) is the desired long-term pattern and should be preserved going forward
+- **Numbering Scheme**: The sequential 3-digit numbering scheme (001, 002, 003...N) is the desired long-term pattern. Current specifications (001-012) are preserved as-is with no renumbering; new specifications start at 013 and increment from highest current number + 1 (ensuring no gaps in future numbering)
 - **Scope**: Only specifications in `.github/specs/` are in scope; specifications in other locations (e.g., `.github/projects/active/openspec/`) are out of scope for this audit
 - **Quality Framework**: The 8-dimension quality framework (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) as defined in `.specify/memory/constitution.md` Principle VII is the authoritative standard for specification quality
 - **Catalog Maintenance**: The `CATALOG.md` will be maintained manually by governance team members; automation for auto-updates is out of scope for v1 (can be a future enhancement)

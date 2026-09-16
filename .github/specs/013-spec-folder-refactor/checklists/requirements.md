@@ -15,7 +15,7 @@
 
 ## Requirement Completeness
 
-- [x] 1 [NEEDS CLARIFICATION] marker remains (on specification numbering strategy)
+- [x] 0 [NEEDS CLARIFICATION] markers remain (numbering strategy clarified: keep 001-012, start new specs at 013)
 - [x] Requirements are testable and unambiguous (each FR can be verified through audit or testing)
 - [x] Success criteria are measurable (9 specific SC items with measurable outcomes)
 - [x] Success criteria are technology-agnostic (no implementation frameworks mentioned)
@@ -49,7 +49,7 @@
 - [x] Acceptance scenarios use Given-When-Then format
 - [x] Requirements are specific and testable
 - [x] No vague adjectives (e.g., "fast", "robust") without metrics
-- [x] One [NEEDS CLARIFICATION] marker for numbering strategy (legitimate ambiguity requiring stakeholder input)
+- [x] Clarification resolved: numbering strategy decided (preserve 001-012, start new specs at 013)
 
 ### Consistency
 
@@ -91,21 +91,21 @@
 
 ### Ambiguities
 
-- [x] One [NEEDS CLARIFICATION] marker flagged in FR-012 on numbering strategy
-- [x] Marker is critical (affects naming scheme going forward)
-- [x] Marker is legitimate (3 reasonable interpretations exist with different implications)
-- [x] All other requirements unambiguous
-- [x] Ready for `/speckit-clarify` phase with this one clarification
+- [x] Numbering strategy clarification resolved: preserve 001-012, start new specs at 013
+- [x] Clarification is critical (affects naming scheme going forward)
+- [x] Decision documented with rationale (maintains historical traceability, enables predictable future numbering)
+- [x] All requirements now unambiguous
+- [x] Ready for `/speckit-plan` phase with all clarifications resolved
 
 ## Notes
 
-- The one [NEEDS CLARIFICATION] marker on numbering strategy (FR-012) requires stakeholder input: Should current spec numbers 001-012 be preserved exactly, or should any historical gaps be closed? This decision affects maintenance procedures going forward.
+- Numbering strategy clarified in Session 2026-09-16: Current spec numbers (001-012) are preserved exactly as-is; new specifications will start at 013 and increment from highest current number + 1. This maintains historical traceability while enabling predictable future numbering.
 - All 12 existing specifications will be validated; this specification only performs audit and planning, not remediation. Remediation is out of scope for this project.
 - Catalog maintenance is assumed to be manual in v1; automation/syncing can be a future enhancement.
 - This specification is governance-scoped (applies to `.github/specs/` only); it does not affect portable reusable assets in top-level folders (agents/, skills/, workflows/).
 
 ## Status
 
-✅ **READY FOR NEXT PHASE** — Specification passes all 8 quality dimensions. One [NEEDS CLARIFICATION] marker requires stakeholder input (numbering strategy decision) before proceeding to planning phase.
+✅ **READY FOR PLANNING PHASE** — Specification passes all 8 quality dimensions. All clarifications resolved (numbering strategy: preserve 001-012, start new specs at 013).
 
-**Recommended Next Step**: Run `/speckit-clarify` to resolve the numbering strategy question, then proceed to `/speckit-plan` for technical design and audit methodology planning.
+**Recommended Next Step**: Run `/speckit-plan` for technical design and audit methodology planning.
