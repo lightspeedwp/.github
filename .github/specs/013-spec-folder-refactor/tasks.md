@@ -136,18 +136,18 @@
 
 ### Implementation for User Story 4
 
-- [ ] T042 [P] [US4] Create MAINTENANCE.md at `.github/specs/MAINTENANCE.md` using contract structure from MAINTENANCE.md.contract
-- [ ] T043 [P] [US4] Document numbering scheme section: current specs preserved (001-012), new specs start at 013, next = highest current + 1 (FR-012, from clarification)
-- [ ] T044 [P] [US4] Document "Creating a New Specification" procedure with step-by-step instructions: determine number, create directory, use SpecKit workflow, update CATALOG.md, approval gate (FR-009)
-- [ ] T045 [P] [US4] Document "Updating an Existing Specification" procedure: change request process, quality re-validation, catalog updates, approval gate (FR-010)
-- [ ] T046 [P] [US4] Document "Archiving a Specification" procedure: marking as archived, preserving in catalog, updating references, no number reuse (from edge cases)
-- [ ] T047 [P] [US4] Document "Catalog Maintenance" procedures: when to update (7 days after new spec), what fields to refresh, verification checklist
-- [ ] T048 [US4] Document "Quality Gate Enforcement" section: all 8 dimensions must pass, quality checklist requirement, failure actions, @ashley approval authority (FR-011)
-- [ ] T049 [US4] Document governance authority: @ashley is approval authority for spec creation/updates/archival (FR-011, from Constitution Principle I)
-- [ ] T050 [US4] Document SpecKit tools reference: `/speckit-specify`, `/speckit-clarify`, `/speckit-plan`, `/speckit-tasks` with brief descriptions
-- [ ] T051 [US4] Add command examples for audit and specification directory operations (bash commands for listing, counting, finding highest number)
-- [ ] T052 [US4] Write MAINTENANCE.md in plain English suitable for non-technical governance stakeholders (no jargon, step-by-step guidance)
-- [ ] T053 [US4] Add acceptance checklist to MAINTENANCE.md for common operations (new spec creation, updates, archival) so maintainers can verify compliance
+- [x] T042 [P] [US4] Create MAINTENANCE.md at `.github/specs/MAINTENANCE.md` using contract structure from MAINTENANCE.md.contract
+- [x] T043 [P] [US4] Document numbering scheme section: current specs preserved (001-012), new specs start at 013, next = highest current + 1 (FR-012, from clarification)
+- [x] T044 [P] [US4] Document "Creating a New Specification" procedure with step-by-step instructions: determine number, create directory, use SpecKit workflow, update CATALOG.md, approval gate (FR-009)
+- [x] T045 [P] [US4] Document "Updating an Existing Specification" procedure: change request process, quality re-validation, catalog updates, approval gate (FR-010)
+- [x] T046 [P] [US4] Document "Archiving a Specification" procedure: marking as archived, preserving in catalog, updating references, no number reuse (from edge cases)
+- [x] T047 [P] [US4] Document "Catalog Maintenance" procedures: when to update (7 days after new spec), what fields to refresh, verification checklist
+- [x] T048 [US4] Document "Quality Gate Enforcement" section: all 8 dimensions must pass, quality checklist requirement, failure actions, @ashley approval authority (FR-011)
+- [x] T049 [US4] Document governance authority: @ashley is approval authority for spec creation/updates/archival (FR-011, from Constitution Principle I)
+- [x] T050 [US4] Document SpecKit tools reference: `/speckit-specify`, `/speckit-clarify`, `/speckit-plan`, `/speckit-tasks` with brief descriptions
+- [x] T051 [US4] Add command examples for audit and specification directory operations (bash commands for listing, counting, finding highest number)
+- [x] T052 [US4] Write MAINTENANCE.md in plain English suitable for non-technical governance stakeholders (no jargon, step-by-step guidance)
+- [x] T053 [US4] Add acceptance checklist to MAINTENANCE.md for common operations (new spec creation, updates, archival) so maintainers can verify compliance
 
 **Acceptance Criteria** (SC-006):
 
@@ -168,12 +168,12 @@
 
 ### Implementation for User Story 5
 
-- [ ] T054 [US5] Run numbering audit: extract all directory numbers from `.github/specs/[0-9][0-9][0-9]-*/` (T006 should provide list)
-- [ ] T055 [US5] Build sequential check: verify 001, 002, 003, ..., 012 exist in order with no gaps or duplicates
-- [ ] T056 [US5] Document numbering audit results in `.github/specs/013-spec-folder-refactor/numbering-audit-report.txt`: current numbers, any gaps found (expected: none), verification of sequential pattern
-- [ ] T057 [US5] Verify clarification is properly documented: current specs 001-012 preserved as-is, new specs start at 013, next = highest current + 1 (per clarification in spec.md Session 2026-09-16)
-- [ ] T058 [US5] Document in MAINTENANCE.md that numbering strategy enables predictable future numbering (next spec = 014 after 013, etc.) (FR-012)
-- [ ] T059 [US5] Verify assumption met: no renumbering executed, historical traceability maintained (specs keep original numbers per acceptance scenario 2)
+- [x] T054 [US5] Run numbering audit: extract all directory numbers from `.github/specs/[0-9][0-9][0-9]-*/` (T006 should provide list)
+- [x] T055 [US5] Build sequential check: verify 001, 002, 003, ..., 012 exist in order with no gaps or duplicates
+- [x] T056 [US5] Document numbering audit results in `.github/specs/013-spec-folder-refactor/numbering-audit-report.txt`: current numbers, any gaps found (expected: none), verification of sequential pattern
+- [x] T057 [US5] Verify clarification is properly documented: current specs 001-012 preserved as-is, new specs start at 013, next = highest current + 1 (per clarification in spec.md Session 2026-09-16)
+- [x] T058 [US5] Document in MAINTENANCE.md that numbering strategy enables predictable future numbering (next spec = 014 after 013, etc.) (FR-012)
+- [x] T059 [US5] Verify assumption met: no renumbering executed, historical traceability maintained (specs keep original numbers per acceptance scenario 2)
 
 **Acceptance Criteria** (SC-002, SC-009):
 
@@ -190,19 +190,19 @@
 
 **Purpose**: Final validation, documentation, and integration of all deliverables
 
-- [ ] T060 [P] Add CATALOG.md link to README.md or repo overview (if applicable) for discoverability
-- [ ] T061 [P] Run quickstart.md validation scenarios (6 scenarios): verify all 5 user stories meet their acceptance criteria
-- [ ] T062 [US1] Scenario 1: Directory audit results match expected 100% compliance (SC-001, SC-002, SC-003)
-- [ ] T063 [US2] Scenario 2: CATALOG.md discovery working, <30 second locate time (SC-007)
-- [ ] T064 [US3] Scenario 3: Quality audit report complete, ≥95% accurate (SC-004, SC-005)
-- [ ] T065 [US4] Scenario 4: MAINTENANCE.md procedures clear and non-technical (SC-006)
-- [ ] T066 [US5] Scenario 5: Numbering strategy verified (sequential, no gaps, predictable future numbering) (SC-009)
-- [ ] T067 Scenario 6: End-to-end validation - all deliverables integrated and working together
-- [ ] T068 [P] Documentation review: ensure CATALOG.md and MAINTENANCE.md are current as of implementation date
-- [ ] T069 [P] Update CLAUDE.md to reference CATALOG.md for specification navigation (if not done in T023)
-- [ ] T070 Commit all audit reports, CATALOG.md, and MAINTENANCE.md to branch
-- [ ] T071 Create or update PR description with links to all deliverables (CATALOG.md, MAINTENANCE.md, audit-report.md)
-- [ ] T072 Final verification: all 9 success criteria met, all deliverables complete and validated
+- [x] T060 [P] Add CATALOG.md link to README.md or repo overview (if applicable) for discoverability
+- [x] T061 [P] Run quickstart.md validation scenarios (6 scenarios): verify all 5 user stories meet their acceptance criteria
+- [x] T062 [US1] Scenario 1: Directory audit results match expected 100% compliance (SC-001, SC-002, SC-003)
+- [x] T063 [US2] Scenario 2: CATALOG.md discovery working, <30 second locate time (SC-007)
+- [x] T064 [US3] Scenario 3: Quality audit report complete, ≥95% accurate (SC-004, SC-005)
+- [x] T065 [US4] Scenario 4: MAINTENANCE.md procedures clear and non-technical (SC-006)
+- [x] T066 [US5] Scenario 5: Numbering strategy verified (sequential, no gaps, predictable future numbering) (SC-009)
+- [x] T067 Scenario 6: End-to-end validation - all deliverables integrated and working together
+- [x] T068 [P] Documentation review: ensure CATALOG.md and MAINTENANCE.md are current as of implementation date
+- [x] T069 [P] Update CLAUDE.md to reference CATALOG.md for specification navigation (if not done in T023)
+- [x] T070 Commit all audit reports, CATALOG.md, and MAINTENANCE.md to branch
+- [x] T071 Create or update PR description with links to all deliverables (CATALOG.md, MAINTENANCE.md, audit-report.md)
+- [x] T072 Final verification: all 9 success criteria met, all deliverables complete and validated
 
 ---
 
