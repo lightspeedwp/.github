@@ -1,0 +1,109 @@
+# Contract: Specification Catalog (CATALOG.md)
+
+**Location**: `.github/specs/CATALOG.md`
+**Purpose**: Centralized, discoverable index of all specifications
+**Consumers**: Governance team, stakeholders, specification maintainers
+**Version**: 1.0
+
+## Interface Specification
+
+### File Format & Structure
+
+**Format**: GitHub Markdown (CommonMark)
+
+**Required Sections**:
+
+```markdown
+# Specification Catalog
+
+## Overview
+Brief statement of purpose (2-3 sentences)
+
+## Active Specifications
+
+| # | Title | Purpose | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
+| [number] | [title] | [purpose] | [status] | [date] | [link] |
+| ... |
+
+## Detailed Entries
+
+### [NNN] - [Title]
+[Specification summary: 2-3 sentences]
+- **Status**: [Draft/Active/Complete]
+- **Phase**: [Draft/Clarified/Planned/TasksGenerated/InProgress/Complete]
+- **Created**: [YYYY-MM-DD]
+- **Updated**: [YYYY-MM-DD]
+- **Link**: [./NNN-slug/spec.md](./NNN-slug/spec.md)
+
+### [NNN+1] - [Title]
+[Additional specs follow same pattern]
+
+## Archive
+
+Archived/deprecated specifications (if any)
+```
+
+### Content Rules
+
+**Index Table**:
+- One row per specification (001, 002, ..., 013+)
+- Sorted by specification number (ascending)
+- `#` column: 3-digit number (left-padded with zeros)
+- `Title` column: Full specification title
+- `Purpose` column: One-line purpose summary
+- `Status` column: Draft, Active, or Complete
+- `Created` column: ISO 8601 date (YYYY-MM-DD)
+- `Link` column: Markdown link to `./NNN-{slug}/spec.md`
+
+**Detailed Entries**:
+- One detailed entry per specification (same order as table)
+- Heading format: `### NNN - Title` (3-digit number + dash + title)
+- Summary: 2-3 plain-language sentences
+- Metadata fields: Status, Phase, Created, Updated, Link
+- Link must be relative (`./{number}-{slug}/spec.md`)
+
+### Data Freshness Requirements
+
+- **Link Validity**: All links must point to existing specification directories
+- **Status Accuracy**: Specification status in CATALOG.md must match Specification.status in spec.md
+- **Date Accuracy**: Created/Updated dates must be accurate to ±7 days
+- **Completeness**: 100% of specifications in `.github/specs/` must appear in CATALOG.md
+- **Update Frequency**: CATALOG.md must be updated within 7 days of any new specification creation (SC-008)
+
+### Usage Scenarios
+
+**User Story 1 - Discovery**: Governance team opens CATALOG.md and sees all 12+ specifications at a glance
+- ✅ Can scan index table to find desired specification
+- ✅ Can identify specification by number, title, or status
+- ✅ Can navigate to detailed entry for more information
+
+**User Story 2 - Navigation**: Team member needs to locate a specific specification
+- ✅ Uses Ctrl+F or browser search to find keyword/number
+- ✅ Locates detailed entry and clicks link
+- ✅ Navigates to specification directory in <30 seconds (SC-007)
+
+**User Story 3 - Status Tracking**: Manager wants to see which specs are in progress, complete, or draft
+- ✅ Scans Status column in index table
+- ✅ Identifies complete vs. active vs. draft specifications
+- ✅ Understands overall governance progress
+
+**User Story 4 - New Contributor Onboarding**: New team member wants to understand governance specifications
+- ✅ Opens CATALOG.md as entry point to governance system
+- ✅ Reads overview and discovers all active specifications
+- ✅ Picks a specification to read and understand structure
+
+---
+
+## Acceptance Criteria
+
+- ✅ CATALOG.md exists at `.github/specs/CATALOG.md`
+- ✅ All 12+ specifications appear in catalog with accurate metadata
+- ✅ All links are valid and point to correct spec directories
+- ✅ Catalog is linked from CLAUDE.md with clear navigation instructions
+- ✅ User can locate any specification in <30 seconds using catalog (SC-007)
+- ✅ Catalog is updated within 7 days of new specification creation (SC-008)
+
+---
+
+**Contract Version**: 1.0 | **Defined**: 2026-09-16 | **Author**: Claude Haiku 4.5
