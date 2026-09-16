@@ -1,0 +1,480 @@
+# Specification Maintenance Procedures
+
+**Purpose**: Establish clear, repeatable procedures for managing the specification catalog over time
+**Maintained By**: Governance Authority (@ashley)
+**Last Updated**: [DATE]
+
+---
+
+## Specification Numbering Scheme
+
+### Current Numbering Strategy
+
+- **Format**: 3-digit sequential numbers with lowercase hyphenated slugs
+- **Directory Pattern**: `.github/specs/{NNN}-{slug}/`
+- **Example**: `.github/specs/001-prd-agent-consolidation/`
+- **Current Range**: 001-012 (existing specifications preserved as-is)
+- **Future Numbering**: New specifications start at 013, then 014, 015, etc.
+- **Rule**: Next specification number = highest current number + 1
+
+### Historical Specifications
+
+- All existing specifications (001-012) are preserved with their original numbers
+- No renumbering of historical specs
+- Historical traceability maintained for audit trail and reference purposes
+
+### Why Sequential Numbering Matters
+
+Sequential numbering enables:
+- Predictable identification of new specifications
+- Automated assignment of next available number
+- Prevention of number conflicts or reuse
+- Historical traceability and audit capability
+
+---
+
+## Creating a New Specification
+
+### Prerequisites
+
+- Feature or initiative is approved by governance authority (@ashley)
+- Feature is significant enough to warrant formal specification (not a small bug fix)
+- SpecKit tools are available (`.claude/skills/speckit-*` commands)
+
+### Step-by-Step Procedure
+
+**Step 1: Determine Next Specification Number**
+
+Run the audit script to find the highest current spec number:
+
+```bash
+bash .specify/scripts/bash/audit-specs.sh
+```
+
+Look for output line showing highest sequential number. Next spec = highest + 1.
+
+Example:
+- Current specs: 001-012
+- Highest number: 012
+- Next spec number: 013
+
+**Step 2: Create Specification Using SpecKit**
+
+Run the `/speckit-specify` command with your feature description:
+
+```bash
+/speckit-specify {Feature Description}
+```
+
+SpecKit will:
+- Auto-generate next directory name (e.g., `013-your-feature-slug`)
+- Create `.github/specs/013-your-feature-slug/spec.md`
+- Write specification to the template
+
+**Step 3: Complete Specification**
+
+Fill in spec.md sections:
+- User Stories (with priorities)
+- Functional Requirements
+- Success Criteria
+- Assumptions
+- Edge Cases
+- Dependencies
+
+**Step 4: Clarify Ambiguities**
+
+Run `/speckit-clarify` to resolve any unclear requirements:
+
+```bash
+/speckit-clarify
+```
+
+Answer clarifying questions to resolve ambiguities before proceeding.
+
+**Step 5: Update CATALOG.md**
+
+Add new specification entry to `.github/specs/CATALOG.md`:
+
+| Number | Slug | Title | Purpose | Status | Created |
+|--------|------|-------|---------|--------|---------|
+| 013 | your-feature-slug | Your Feature Title | [One-line purpose] | Draft | [YYYY-MM-DD] |
+
+**Step 6: Submit for Approval**
+
+Request approval from governance authority (@ashley):
+- Create draft PR with spec in subject line (e.g., `[SPEC-013] Your Feature`)
+- Reference this procedure in PR description
+- Include link to spec.md in PR
+- Wait for governance approval before merging
+
+**Step 7: Merge to Develop**
+
+Once approved, merge the PR to develop branch. Update CATALOG.md status from Draft to Active.
+
+---
+
+## Updating an Existing Specification
+
+### When Specifications Need Updates
+
+- Clarification from user/stakeholder feedback
+- Scope change approved by governance authority
+- Bug found in requirements during implementation
+- Quality audit finding requiring remediation
+
+### Update Procedure
+
+**Step 1: Create Change Request**
+
+Document what needs to change:
+- Which section(s) of spec.md need updating
+- Why the change is needed
+- Proposed change text
+
+**Step 2: Run Specification Clarify (if needed)**
+
+If update resolves ambiguity:
+
+```bash
+/speckit-clarify
+```
+
+This will guide you through clarifying the specific section.
+
+**Step 3: Apply Changes**
+
+Directly edit the relevant spec.md section:
+- Preserve spec ID and section structure
+- Update section content with clarified/corrected text
+- Document change in Clarifications section with date
+
+**Step 4: Re-validate Quality**
+
+Run quality checklist on updated spec:
+
+```bash
+/speckit-checklist {domain}
+```
+
+Verify quality dimensions still pass after changes.
+
+**Step 5: Update Catalog Currency**
+
+Update "Last Updated" date in CATALOG.md entry:
+
+```
+| 005 | example-spec | Example Feature | Purpose text | Active | 2026-09-16 |
+```
+
+**Step 6: Submit for Approval**
+
+Create PR with update:
+- Link to original specification
+- Document what changed and why
+- Request governance review
+
+**Step 7: Merge Changes**
+
+After approval, merge to develop. CATALOG.md currency is now updated.
+
+---
+
+## Archiving a Specification
+
+### When to Archive
+
+- Specification is superseded by a newer version
+- Feature is cancelled or deprioritized
+- Technology/approach becomes obsolete
+- Specification is no longer used or referenced
+
+### Archive Procedure
+
+**Step 1: Mark as Archived**
+
+Update spec.md status section:
+
+```
+**Status**: Archived (as of [DATE])
+**Reason**: [Brief explanation]
+**Superseded By**: [Spec number if applicable]
+```
+
+**Step 2: Update Catalog**
+
+Change CATALOG.md status from Active to Archived:
+
+```
+| 007 | old-feature | Old Feature | Purpose | Archived | 2026-09-16 |
+```
+
+**Step 3: Preserve in Repository**
+
+- Keep spec directory and files (do NOT delete)
+- Maintain directory structure for historical reference
+- Ensure spec.md still accessible for audit trail
+
+**Step 4: Update References**
+
+If other specs or documentation reference the archived spec:
+- Update cross-references to note [Archived]
+- Link to superseding spec if applicable
+
+**Step 5: Submit for Approval**
+
+Create PR documenting the archival:
+- Explain why archived
+- Note any superseding specs
+- Request governance review
+
+**Step 6: Merge Changes**
+
+After approval, archived spec is officially marked in catalog and repository.
+
+### Important: No Number Reuse
+
+**Archived specification numbers CANNOT be reused.** If spec 007 is archived, future specs do not reuse 007. Continue numbering: 007 (archived), 008, 009, ..., 013 (next new).
+
+This preserves historical traceability and prevents confusion.
+
+---
+
+## Catalog Maintenance
+
+### Catalog Location
+
+Central catalog maintained at: `.github/specs/CATALOG.md`
+
+### Required Fields for Each Entry
+
+| Field | Description | Example |
+|-------|-------------|---------|
+| Number | 3-digit spec number | 001 |
+| Slug | Lowercase hyphenated identifier | prd-agent-consolidation |
+| Title | Human-readable specification title | PRD Agent Consolidation |
+| Purpose | One-line purpose statement | Consolidate multiple PRD agents into unified system |
+| Status | Draft / Active / Archived / Deprecated | Active |
+| Created | Date specification was created | 2026-01-15 |
+
+### Currency Requirements
+
+- Catalog must be updated within 7 days of creating a new specification
+- If new spec created on Sept 16, catalog must be updated by Sept 23
+- Verify "Last Updated" date in catalog metadata is within 7 days of current date
+
+### Catalog Update Checklist
+
+When updating CATALOG.md, verify:
+
+- [ ] All 12+ existing specifications appear in catalog
+- [ ] Entry number, slug, title match spec.md exactly
+- [ ] Status field is current (Active, Archived, etc.)
+- [ ] All links point to valid spec directories
+- [ ] No duplicate entries
+- [ ] Entries in sequential order (001, 002, 003...)
+- [ ] Last Updated date is within 7 days of any changes
+
+### Automated Catalog Validation
+
+Run catalog validation:
+
+```bash
+npm run validate:catalog
+```
+
+This checks:
+- All directories in `.github/specs/` appear in CATALOG.md
+- No broken links
+- Numbering is sequential
+- No duplicates
+
+---
+
+## Quality Gate Enforcement
+
+### The 8-Dimension Quality Framework
+
+Every specification must pass a quality assessment using these 8 dimensions:
+
+1. **Completeness**: All necessary requirements present; edge cases identified
+2. **Clarity**: Requirements specific and unambiguous; vague terms quantified
+3. **Consistency**: Requirements aligned without conflicts; terminology consistent
+4. **Measurability**: Acceptance criteria objective and testable
+5. **Scenario Coverage**: User flows and critical paths addressed
+6. **Edge Cases**: Boundary conditions defined; error handling documented
+7. **Dependencies**: Assumptions documented; external dependencies identified
+8. **Ambiguities**: No unclear areas; terminology defined
+
+### Quality Gate Rule
+
+**All 8 dimensions must PASS** before a specification is approved for implementation.
+
+If any dimension fails:
+1. Document specific gaps in quality audit report
+2. Prioritize gaps by severity (high/medium/low)
+3. Remediate gaps in spec.md
+4. Re-run quality checklist
+5. Re-submit for approval
+
+### Enforcement
+
+- Governance authority (@ashley) reviews quality assessment
+- Specifications with failing quality dimensions are NOT approved
+- "Good enough" is not acceptable — all 8 dimensions must pass
+- Quality gate is mandatory before merge to develop
+
+### Quality Audit Tool
+
+Run quality audit on any specification:
+
+```bash
+/speckit-specify {feature}  # Creates spec with quality checklist
+```
+
+Or audit an existing spec:
+
+```bash
+npm run audit:spec 001
+```
+
+Review findings and remediate any failing dimensions.
+
+---
+
+## Governance Authority
+
+### Who Makes Decisions?
+
+**Governance Authority**: @ashley
+
+@ashley has final authority on:
+- Approving new specifications
+- Approving specification updates
+- Approving archival/deprecation
+- Enforcing quality gates
+- Establishing procedures (via this document)
+
+### Escalation Procedure
+
+If governance authority (@ashley) is unavailable:
+
+1. Document the decision needed (new spec, update, archive)
+2. Prepare full context: spec.md, quality assessment, rationale
+3. Contact @ashley via:
+   - GitHub issue (tag @ashley with context)
+   - Direct message (if urgent, <4 hour response needed)
+   - Team meeting (if decision affects broader roadmap)
+4. Once decision received, proceed with procedure
+
+### Approval Timeline
+
+Standard approval timeline:
+- Standard requests: 3-5 business days for review and decision
+- Urgent requests: Contact @ashley directly for expedited review (within 24 hours if possible)
+
+---
+
+## SpecKit Tools Reference
+
+### Creating and Managing Specifications
+
+| Tool | Purpose | When to Use |
+|------|---------|------------|
+| `/speckit-specify` | Create new specification with template | Starting new feature work |
+| `/speckit-clarify` | Resolve ambiguities and clarifications | After initial spec draft, before planning |
+| `/speckit-plan` | Generate technical implementation plan | After spec is clarified and approved |
+| `/speckit-tasks` | Decompose feature into actionable tasks | After plan is complete; before implementation |
+
+### Example Workflow
+
+```bash
+# 1. Create new specification
+/speckit-specify "My new feature description"
+
+# 2. Clarify any ambiguous requirements
+/speckit-clarify
+
+# 3. Plan technical approach and architecture
+/speckit-plan
+
+# 4. Decompose into implementation tasks
+/speckit-tasks
+
+# 5. Implement tasks (developer responsibility)
+# 6. Submit PR for review when implementation complete
+```
+
+---
+
+## Common Operations Reference
+
+### List All Specifications
+
+```bash
+ls -1 .github/specs/ | grep '^[0-9][0-9][0-9]-'
+```
+
+### Find Highest Specification Number
+
+```bash
+bash .specify/scripts/bash/audit-specs.sh | grep "Sequential numbering"
+```
+
+### Count Specifications
+
+```bash
+ls -1d .github/specs/[0-9][0-9][0-9]-*/ | wc -l
+```
+
+### Validate Numbering
+
+```bash
+bash .specify/scripts/bash/audit-specs.sh
+```
+
+This will report:
+- Total specifications found
+- Naming compliance (✓ or ✗ for each)
+- Sequential numbering verification
+- spec.md presence check
+
+---
+
+## Maintenance Responsibilities Checklist
+
+### Monthly Tasks
+
+- [ ] Verify catalog currency: check "Last Updated" date is recent
+- [ ] Spot-check 1-2 random specs: confirm quality dimensions still valid
+- [ ] Review any archived specs: ensure they remain marked as archived
+
+### Quarterly Tasks
+
+- [ ] Run full audit: `bash .specify/scripts/bash/audit-specs.sh`
+- [ ] Validate all catalog entries against actual specifications
+- [ ] Document any patterns (common gaps, quality trends)
+- [ ] Report metrics to governance authority
+
+### After Adding New Spec (Always)
+
+- [ ] Update CATALOG.md within 7 days
+- [ ] Mark status as Active after approval
+- [ ] Verify numbering is sequential (no gaps)
+- [ ] Confirm quality checklist all items passing
+
+---
+
+## Questions & Support
+
+For questions about this procedure or the specification system:
+
+1. Check this document for the relevant section
+2. Review the specification in `.github/specs/013-spec-folder-refactor/spec.md` for detailed requirements
+3. Contact governance authority (@ashley) for decisions or clarifications
+4. Open GitHub issue for systemic concerns about the procedure
+
+---
+
+*Specification Maintenance Procedures v1.0*
+*Last Updated: 2026-09-16*
+*Maintained by: Governance Authority (@ashley)*

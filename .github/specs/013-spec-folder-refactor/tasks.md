@@ -27,12 +27,12 @@
 
 **⚠️ CRITICAL**: No user story audit/documentation can generate output until this phase is complete
 
-- [ ] T005 Document audit methodology in internal notes (8-dimension audit approach, per-spec analysis, gap identification)
+- [x] T005 Document audit methodology in internal notes (8-dimension audit approach, per-spec analysis, gap identification)
 - [ ] T006 List all 12 existing specifications by directory scan (001-012) to establish audit target list
-- [ ] T007 Create template for audit report structure (summary table, per-spec results, remediation priority)
-- [ ] T008 Establish quality dimension definitions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities)
-- [ ] T009 Create checklist for catalog entry validation (links valid, status accurate, dates consistent)
-- [ ] T010 [P] Create template for MAINTENANCE.md with section headings (Numbering Scheme, Create New Spec, Update Spec, Archive, Maintenance Procedures, Quality Gates, Governance Authority)
+- [x] T007 Create template for audit report structure (summary table, per-spec results, remediation priority)
+- [x] T008 Establish quality dimension definitions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities)
+- [x] T009 Create checklist for catalog entry validation (links valid, status accurate, dates consistent)
+- [x] T010 [P] Create template for MAINTENANCE.md with section headings (Numbering Scheme, Create New Spec, Update Spec, Archive, Maintenance Procedures, Quality Gates, Governance Authority)
 
 **Checkpoint**: Audit templates ready, specification list established, 8 dimensions documented - user story audits can now begin
 
@@ -46,12 +46,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] Implement audit function in `.specify/scripts/bash/audit-specs.sh` to scan `.github/specs/` for all numbered directories (pattern: `[0-9][0-9][0-9]-*`)
-- [ ] T012 [US1] Implement naming convention check function: verify each directory follows `{NNN}-{slug}` format (3-digit number, lowercase slug, hyphens)
-- [ ] T013 [US1] Implement spec.md presence check function: verify all directories contain `/spec.md` file (FR-001)
-- [ ] T014 [US1] Implement sequential numbering verification function: scan all directory numbers and verify 001-012 with no gaps (FR-002)
-- [ ] T015 [US1] Execute directory audit script and capture complete inventory output (all 12 specs, naming status, file presence, numbering status)
-- [ ] T016 [US1] Document audit results in `.github/specs/013-spec-folder-refactor/directory-audit-report.txt` (raw output from T015)
+- [x] T011 [US1] Implement audit function in `.specify/scripts/bash/audit-specs.sh` to scan `.github/specs/` for all numbered directories (pattern: `[0-9][0-9][0-9]-*`)
+- [x] T012 [US1] Implement naming convention check function: verify each directory follows `{NNN}-{slug}` format (3-digit number, lowercase slug, hyphens)
+- [x] T013 [US1] Implement spec.md presence check function: verify all directories contain `/spec.md` file (FR-001)
+- [x] T014 [US1] Implement sequential numbering verification function: scan all directory numbers and verify 001-012 with no gaps (FR-002)
+- [x] T015 [US1] Execute directory audit script and capture complete inventory output (all 12 specs, naming status, file presence, numbering status)
+- [x] T016 [US1] Document audit results in `.github/specs/013-spec-folder-refactor/directory-audit-report.txt` (raw output from T015)
 
 **Acceptance Criteria** (SC-001, SC-002):
 
@@ -71,14 +71,14 @@
 
 ### Implementation for User Story 2
 
-- [ ] T017 [P] [US2] Extract specification metadata (number, title, slug, status, created_date) for all 12 specs from directory names and spec.md files
-- [ ] T018 [P] [US2] Validate spec.md file presence for each of 12 specs (confirm all have spec.md, report any missing as audit findings)
-- [ ] T019 [US2] Create index table structure in `.github/specs/CATALOG.md` with columns: # | Title | Purpose | Status | Created | Link (per CATALOG.md.contract)
-- [ ] T020 [US2] Populate index table with all 12 specifications in number order (001-012) with valid Markdown links (./NNN-slug/spec.md)
-- [ ] T021 [US2] Create detailed entry section in CATALOG.md with `### NNN - Title` headings for all 12 specs (per CATALOG.md.contract)
-- [ ] T022 [US2] Populate detailed entries with 2-3 sentence summaries from each spec.md description field
-- [ ] T023 [US2] Add link to CATALOG.md from `.github/CLAUDE.md` with navigation instructions (so team discovers catalog)
-- [ ] T024 [US2] Verify all CATALOG.md links are valid and point to existing directories (using bash: for loop to test each link)
+- [x] T017 [P] [US2] Extract specification metadata (number, title, slug, status, created_date) for all 12 specs from directory names and spec.md files
+- [x] T018 [P] [US2] Validate spec.md file presence for each of 12 specs (confirm all have spec.md, report any missing as audit findings)
+- [x] T019 [US2] Create index table structure in `.github/specs/CATALOG.md` with columns: # | Title | Purpose | Status | Created | Link (per CATALOG.md.contract)
+- [x] T020 [US2] Populate index table with all 12 specifications in number order (001-012) with valid Markdown links (./NNN-slug/spec.md)
+- [x] T021 [US2] Create detailed entry section in CATALOG.md with `### NNN - Title` headings for all 12 specs (per CATALOG.md.contract)
+- [x] T022 [US2] Populate detailed entries with 2-3 sentence summaries from each spec.md description field
+- [x] T023 [US2] Add link to CATALOG.md from `.github/CLAUDE.md` with navigation instructions (so team discovers catalog)
+- [x] T024 [US2] Verify all CATALOG.md links are valid and point to existing directories (using bash: for loop to test each link)
 
 **Acceptance Criteria** (SC-003, SC-007):
 
@@ -99,23 +99,23 @@
 
 ### Implementation for User Story 3
 
-- [ ] T025 [P] [US3] Create audit report template file at `.github/specs/013-spec-folder-refactor/audit-report.md` with structure: Summary, Per-Specification Results, Remediation Plan
-- [ ] T026 [US3] Execute quality analysis for Spec 001: evaluate against 8 dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) - document PASS/FAIL + examples
-- [ ] T027 [US3] Execute quality analysis for Spec 002: same 8-dimension analysis
-- [ ] T028 [US3] Execute quality analysis for Spec 003: same 8-dimension analysis
-- [ ] T029 [US3] Execute quality analysis for Spec 004: same 8-dimension analysis
-- [ ] T030 [US3] Execute quality analysis for Spec 005: same 8-dimension analysis
-- [ ] T031 [US3] Execute quality analysis for Spec 006: same 8-dimension analysis
-- [ ] T032 [US3] Execute quality analysis for Spec 007: same 8-dimension analysis
-- [ ] T033 [US3] Execute quality analysis for Spec 008: same 8-dimension analysis
-- [ ] T034 [US3] Execute quality analysis for Spec 009: same 8-dimension analysis
-- [ ] T035 [US3] Execute quality analysis for Spec 010: same 8-dimension analysis
-- [ ] T036 [US3] Execute quality analysis for Spec 011: same 8-dimension analysis
-- [ ] T037 [US3] Execute quality analysis for Spec 012: same 8-dimension analysis
-- [ ] T038 [US3] [P] Create summary table in audit-report.md showing average quality score, number of PASS/FAIL results, most common gap dimension (FR-006)
-- [ ] T039 [US3] Create remediation plan section in audit-report.md: list all identified quality gaps with specific recommendations ordered by impact/effort (FR-008)
-- [ ] T040 [US3] For each remediation item: include spec number, dimension failed, gap description, suggested fix, estimated effort (FR-007, FR-008)
-- [ ] T041 [US3] Verify audit accuracy: spot-check 3 random specs' audit findings against actual spec.md content to confirm ≥95% accuracy (SC-004)
+- [x] T025 [P] [US3] Create audit report template file at `.github/specs/013-spec-folder-refactor/audit-report.md` with structure: Summary, Per-Specification Results, Remediation Plan
+- [x] T026 [US3] Execute quality analysis for Spec 001: evaluate against 8 dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) - document PASS/FAIL + examples
+- [x] T027 [US3] Execute quality analysis for Spec 002: same 8-dimension analysis
+- [x] T028 [US3] Execute quality analysis for Spec 003: same 8-dimension analysis
+- [x] T029 [US3] Execute quality analysis for Spec 004: same 8-dimension analysis
+- [x] T030 [US3] Execute quality analysis for Spec 005: same 8-dimension analysis
+- [x] T031 [US3] Execute quality analysis for Spec 006: same 8-dimension analysis
+- [x] T032 [US3] Execute quality analysis for Spec 007: same 8-dimension analysis
+- [x] T033 [US3] Execute quality analysis for Spec 008: same 8-dimension analysis
+- [x] T034 [US3] Execute quality analysis for Spec 009: same 8-dimension analysis
+- [x] T035 [US3] Execute quality analysis for Spec 010: same 8-dimension analysis
+- [x] T036 [US3] Execute quality analysis for Spec 011: same 8-dimension analysis
+- [x] T037 [US3] Execute quality analysis for Spec 012: same 8-dimension analysis
+- [x] T038 [US3] [P] Create summary table in audit-report.md showing average quality score, number of PASS/FAIL results, most common gap dimension (FR-006)
+- [x] T039 [US3] Create remediation plan section in audit-report.md: list all identified quality gaps with specific recommendations ordered by impact/effort (FR-008)
+- [x] T040 [US3] For each remediation item: include spec number, dimension failed, gap description, suggested fix, estimated effort (FR-007, FR-008)
+- [x] T041 [US3] Verify audit accuracy: spot-check 3 random specs' audit findings against actual spec.md content to confirm ≥95% accuracy (SC-004)
 
 **Acceptance Criteria** (SC-004, SC-005):
 
