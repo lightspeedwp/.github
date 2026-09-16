@@ -102,7 +102,7 @@ async function validateEntry(options) {
     }
 
     // Exit with appropriate code
-    process.exit(validationResult.summary.status === 'passing' ? 0 : 1);
+    process.exit(validationResult.validation.complianceStatus === 'passing' ? 0 : 1);
   } catch (error) {
     const result = {
       status: 'error',

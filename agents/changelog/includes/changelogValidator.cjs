@@ -315,6 +315,16 @@ class ChangelogValidator {
   }
 
   validateHasPRReference(entry, rule) {
+    // Check for structured pr_references field first
+    if (entry.pr_references && Array.isArray(entry.pr_references) && entry.pr_references.length > 0) {
+      return validationResultBuilder.createPassedResult({
+        ruleId: rule.id,
+        ruleName: rule.name,
+        message: `PR references found: ${entry.pr_references.join(', ')}`
+      });
+    }
+
+    // Fall back to checking text for PR pattern
     const text = `${entry.title || ''} ${entry.description || ''}`;
     const referencePattern = /#\d+/;
 
@@ -447,8 +457,15 @@ class ChangelogValidator {
       });
     }
 
+    let dateString = entry.date;
+
+    // If date was parsed as a Date object, convert back to ISO string
+    if (entry.date instanceof Date) {
+      dateString = entry.date.toISOString().split('T')[0];
+    }
+
     const datePattern = /^\d{4}-\d{2}-\d{2}$/;
-    if (!datePattern.test(entry.date)) {
+    if (!datePattern.test(String(dateString))) {
       return validationResultBuilder.createFailedResult({
         ruleId: rule.id,
         ruleName: rule.name,

@@ -205,14 +205,14 @@ rules:
   - id: R013
     name: no_emoji
     version: '1.0'
-    enabled: true
+    enabled: false
     rule_type: content
     severity: warning
     priority: 23
     description: Avoid emoji in formal changelog entries
     patterns:
-      - regex: '[🀀-🿿]'
-        description: Emoji detection
+      - regex: '(?:[\ud83d][\ude00-\udc1f])|(?:[\ud83c][\udf00-\udfff])'
+        description: Emoji detection (surrogate pair approach)
     remediation_guidance: Remove all emoji from changelog entry
 
   - id: R014

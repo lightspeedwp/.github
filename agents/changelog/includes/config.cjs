@@ -49,6 +49,16 @@ module.exports = {
     },
   },
 
+  // Valid Category Values
+  VALID_CATEGORIES: [
+    'feature',
+    'fix',
+    'improvement',
+    'breaking-change',
+    'security',
+    'performance'
+  ],
+
   // Repository Configuration
   repository: {
     // Default owner for GitHub API calls
