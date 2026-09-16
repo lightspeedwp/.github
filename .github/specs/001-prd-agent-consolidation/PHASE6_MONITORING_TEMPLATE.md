@@ -40,20 +40,31 @@ Success criteria (per spec.md US6/AC2-4):
 
 **Data Collection Method**: Deduplicated logs of completed PRD generations per team
 
+**Deduplication Rule** *(per ADOPTION_METRICS.md)*:
+
+- Atomic unit: **Team** (deduplicate by team identifier)
+- Count method: If a team has ≥1 uniquely identified PRD completion in a rolling 7-day bucket, that team counts as "active for that week"
+- Example: If Product Team A has 3 users each completing 1 PRD in Week 1, the team counts as "1 active team" (not 3)
+
 **Collection Schedule**: Monday of each week (retrospective for prior week)
 
 **Authoritative Collection Period**: 2026-09-13 through 2026-10-24, inclusive (42 days). The six non-overlapping seven-day buckets below are the denominator for activity classification; assign each completed generation to exactly one bucket by its completion timestamp.
 
+**Grace Period** *(per spec.md Q4 & ADOPTION_METRICS.md)*:
+
+- A week with 0 PRDs can count toward the ≥4-of-6-week threshold **if** the preceding or following week shows ≥1 PRD for that team
+- Document grace period application in the "Grace Period Applied?" column below (see Week table columns)
+
 ### Week 1 (2026-09-13–2026-09-19)
 
-| Team | PRDs Generated | Users Active | Notes | Status |
-|------|---------------|--------------|-------|--------|
-| Product Team A | 2 | 3 | Early adopter feedback positive | ✅ ACTIVE |
-| Product Team B | 1 | 2 | Initial setup phase | ⏳ ONBOARDING |
-| Engineering Planning | 0 | 0 | Briefing scheduled Week 2 | ⏳ PENDING |
-| Design Team | 0 | 0 | Briefing scheduled Week 2 | ⏳ PENDING |
-| QA/Testing Team | 0 | 0 | Briefing scheduled Week 2 | ⏳ PENDING |
-| Operations | 0 | 0 | Brief scheduled Week 3 | ⏳ PENDING |
+| Team | PRDs Generated | Users Active | Notes | Status | Grace Period Applied? |
+|------|---------------|--------------|-------|--------|----------------------|
+| Product Team A | 2 | 3 | Early adopter feedback positive | ✅ ACTIVE | — |
+| Product Team B | 1 | 2 | Initial setup phase | ⏳ ONBOARDING | — |
+| Engineering Planning | 0 | 0 | Briefing scheduled Week 2 | ⏳ PENDING | N/A (not yet active) |
+| Design Team | 0 | 0 | Briefing scheduled Week 2 | ⏳ PENDING | N/A (not yet active) |
+| QA/Testing Team | 0 | 0 | Briefing scheduled Week 2 | ⏳ PENDING | N/A (not yet active) |
+| Operations | 0 | 0 | Brief scheduled Week 3 | ⏳ PENDING | N/A (not yet active) |
 
 **Week 1 Status**: 2 of 6 teams active; 3 PRDs generated
 
@@ -61,14 +72,14 @@ Success criteria (per spec.md US6/AC2-4):
 
 ### Week 2 (2026-09-20–2026-09-26)
 
-| Team | PRDs Generated | Users Active | Notes | Status |
-|------|---------------|--------------|-------|--------|
-| Product Team A | 2 | 3 | Sustained activity | ✅ ACTIVE |
-| Product Team B | 1 | 2 | Continued setup | ✅ ACTIVE |
-| Engineering Planning | TBD | TBD | Post-briefing (Week 2) | ⏳ ONBOARDING |
-| Design Team | TBD | TBD | Post-briefing (Week 2) | ⏳ ONBOARDING |
-| QA/Testing Team | TBD | TBD | Post-briefing (Week 2) | ⏳ ONBOARDING |
-| Operations | 0 | 0 | Briefing scheduled Week 3 | ⏳ PENDING |
+| Team | PRDs Generated | Users Active | Notes | Status | Grace Period Applied? |
+|------|---------------|--------------|-------|--------|----------------------|
+| Product Team A | 2 | 3 | Sustained activity | ✅ ACTIVE | — |
+| Product Team B | 1 | 2 | Continued setup | ✅ ACTIVE | — |
+| Engineering Planning | TBD | TBD | Post-briefing (Week 2) | ⏳ ONBOARDING | TBD |
+| Design Team | TBD | TBD | Post-briefing (Week 2) | ⏳ ONBOARDING | TBD |
+| QA/Testing Team | TBD | TBD | Post-briefing (Week 2) | ⏳ ONBOARDING | TBD |
+| Operations | 0 | 0 | Briefing scheduled Week 3 | ⏳ PENDING | N/A (not yet active) |
 
 **Week 2 Status**: TBD (post-briefing data)
 
@@ -76,14 +87,14 @@ Success criteria (per spec.md US6/AC2-4):
 
 ### Week 3 (2026-09-27–2026-10-03)
 
-| Team | PRDs Generated | Users Active | Notes | Status |
-|------|---------------|--------------|-------|--------|
-| Product Team A | TBD | TBD | | ✅ OR 🟡 |
-| Product Team B | TBD | TBD | | ✅ OR 🟡 |
-| Engineering Planning | TBD | TBD | Post-briefing activity | ✅ OR 🟡 |
-| Design Team | TBD | TBD | Post-briefing activity | ✅ OR 🟡 |
-| QA/Testing Team | TBD | TBD | Post-briefing activity | ✅ OR 🟡 |
-| Operations | TBD | TBD | | ✅ OR 🟡 |
+| Team | PRDs Generated | Users Active | Notes | Status | Grace Period Applied? |
+|------|---------------|--------------|-------|--------|----------------------|
+| Product Team A | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Product Team B | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Engineering Planning | TBD | TBD | Post-briefing activity | ✅ OR 🟡 | TBD |
+| Design Team | TBD | TBD | Post-briefing activity | ✅ OR 🟡 | TBD |
+| QA/Testing Team | TBD | TBD | Post-briefing activity | ✅ OR 🟡 | TBD |
+| Operations | TBD | TBD | | ✅ OR 🟡 | TBD |
 
 **Week 3 Status**: Continue weekly monitoring
 
@@ -91,14 +102,14 @@ Success criteria (per spec.md US6/AC2-4):
 
 ### Week 4 (2026-10-04–2026-10-10) — Mid-Point Check-In
 
-| Team | PRDs Generated | Users Active | Notes | Status |
-|------|---------------|--------------|-------|--------|
-| Product Team A | TBD | TBD | | ✅ OR 🟡 |
-| Product Team B | TBD | TBD | | ✅ OR 🟡 |
-| Engineering Planning | TBD | TBD | | ✅ OR 🟡 |
-| Design Team | TBD | TBD | | ✅ OR 🟡 |
-| QA/Testing Team | TBD | TBD | | ✅ OR 🟡 |
-| Operations | TBD | TBD | | ✅ OR 🟡 |
+| Team | PRDs Generated | Users Active | Notes | Status | Grace Period Applied? |
+|------|---------------|--------------|-------|--------|----------------------|
+| Product Team A | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Product Team B | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Engineering Planning | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Design Team | TBD | TBD | | ✅ OR 🟡 | TBD |
+| QA/Testing Team | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Operations | TBD | TBD | | ✅ OR 🟡 | TBD |
 
 **Week 4 Status**: Mid-point review; corrective actions if needed
 
@@ -106,14 +117,14 @@ Success criteria (per spec.md US6/AC2-4):
 
 ### Week 5 (2026-10-11–2026-10-17) — Day-30 Interim Checkpoint
 
-| Team | PRDs Generated | Users Active | Notes | Status |
-|------|---------------|--------------|-------|--------|
-| Product Team A | TBD | TBD | | ✅ OR 🟡 |
-| Product Team B | TBD | TBD | | ✅ OR 🟡 |
-| Engineering Planning | TBD | TBD | | ✅ OR 🟡 |
-| Design Team | TBD | TBD | | ✅ OR 🟡 |
-| QA/Testing Team | TBD | TBD | | ✅ OR 🟡 |
-| Operations | TBD | TBD | | ✅ OR 🟡 |
+| Team | PRDs Generated | Users Active | Notes | Status | Grace Period Applied? |
+|------|---------------|--------------|-------|--------|----------------------|
+| Product Team A | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Product Team B | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Engineering Planning | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Design Team | TBD | TBD | | ✅ OR 🟡 | TBD |
+| QA/Testing Team | TBD | TBD | | ✅ OR 🟡 | TBD |
+| Operations | TBD | TBD | | ✅ OR 🟡 | TBD |
 
 **Day-30 Checkpoint (2026-10-12)**: Interim evaluation per T075a; do not make the final SC-602/SC-603 decision.
 
@@ -121,14 +132,14 @@ Success criteria (per spec.md US6/AC2-4):
 
 ### Week 6 (2026-10-18–2026-10-24) — Final Evaluation Window
 
-| Team | Week 6 PRDs | 6-Week Total | 4+ Weeks Active? | Final Status |
-|------|-------------|--------------|------------------|--------------|
-| Product Team A | TBD | TBD | TBD | ✅ OR 🔴 |
-| Product Team B | TBD | TBD | TBD | ✅ OR 🔴 |
-| Engineering Planning | TBD | TBD | TBD | ✅ OR 🔴 |
-| Design Team | TBD | TBD | TBD | ✅ OR 🔴 |
-| QA/Testing Team | TBD | TBD | TBD | ✅ OR 🔴 |
-| Operations | TBD | TBD | TBD | ✅ OR 🔴 |
+| Team | Week 6 PRDs | 6-Week Total | 4+ Weeks Active? | Grace Period Applied? | Final Status |
+|------|-------------|--------------|------------------|----------------------|--------------|
+| Product Team A | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
+| Product Team B | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
+| Engineering Planning | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
+| Design Team | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
+| QA/Testing Team | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
+| Operations | TBD | TBD | TBD | TBD | ✅ OR 🔴 |
 
 **Final Evaluation (2026-10-24)**: Complete per T075b
 
@@ -145,6 +156,8 @@ Success criteria (per spec.md US6/AC2-4):
 
 **Date**: 2026-10-12
 **Reporting Period**: 2026-09-13 to 2026-10-12, inclusive (days 1-30; Week 5 remains open through 2026-10-17)
+
+⚠️ **IMPORTANT NOTE**: This is a course-correction checkpoint only. Do **NOT** recommend Archive, Sync, or Defer. List blockers and corrective actions only. The final Archive/Sync/Defer recommendation comes at day 42 (T075b, FINAL_ADOPTION_REPORT.md). If you find yourself wanting to recommend a path forward, that is a sign the data should inform the day-42 final evaluation instead.
 
 ## Executive Summary
 
@@ -272,6 +285,12 @@ Success criteria (per spec.md US6/AC2-4):
 
 ## Survey Templates
 
+**Survey Scope Note** *(clarified per A3 finding)*:
+
+- **30-Day Interim Survey** focuses on interim adoption status and early friction; serves as a course-correction checkpoint for blocking issues during weeks 4-6.
+- **42-Day Final Survey** includes comparative questions ("Better than pre-consolidation?") to measure overall adoption success and net sentiment change; serves as the final decision gate for Phase 7.
+- The surveys are intentionally different because the 30-day checkpoint is tactical (fix blockers) while the 42-day final is strategic (decide Archive/Sync/Defer).
+
 ### 30-Day Interim Survey (to be sent 2026-10-12)
 
 ```
@@ -340,6 +359,15 @@ Please take 3 minutes to share your final feedback.
 6. Any other feedback?
    [Open text]
 ```
+
+**Survey Sample Size Note** *(clarified per A6 finding)*:
+
+- Target final survey sample: **n≥20 respondents** (per SC-603)
+- If active teams have fewer than 4 users per team on average, expand sample to:
+  - Include past users who tried the agent during the 6-week period but are no longer active
+  - Include adjacent teams who provided support or feedback (e.g., QA, support teams)
+  - Aim to reach minimum n≥20 for statistical validity of median Likert calculation
+- Document actual sample size and method in FINAL_ADOPTION_REPORT.md
 
 ---
 
