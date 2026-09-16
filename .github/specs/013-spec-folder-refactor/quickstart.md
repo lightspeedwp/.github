@@ -44,7 +44,7 @@ git checkout develop
 3. **Verify spec.md exists in all**
    - For each directory: `test -f {dir}/spec.md && echo "EXISTS" || echo "MISSING"`
    - Expected: All 12+ directories contain spec.md file
-   - Result: ✅ 100% of directories have spec.md (SC-003)
+   - Result: ✅ 100% of directories have spec.md
 
 4. **Verify sequential numbering**
    - Extract all numbers: `ls -d [0-9][0-9][0-9]-*/ | sed 's/.*\///' | cut -d- -f1 | sort -n`
@@ -93,7 +93,7 @@ ls -l .github/specs/CATALOG.md
    - Check 3 random links in catalog (e.g., spec 001, 007, 013)
    - Click/navigate to links: Expected to land in correct spec directory
    - Verify: spec.md file exists and is readable
-   - Result: ✅ 100% of links valid (SC-003)
+   - Result: ✅ 100% of links valid
 
 4. **Verify catalog discoverability**
    - Scenario: New team member opens repository

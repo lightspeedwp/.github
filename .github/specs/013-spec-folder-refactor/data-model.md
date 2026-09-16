@@ -200,9 +200,24 @@ Draft → Clarified → Planned → TasksGenerated → InProgress → Complete
   line_reference: "FR-012, line 123",
   quote: "System MUST ensure predictable numbering",
   gap_description: "What makes this a gap",
-  remediation: "How to fix it"
+  remediation: "How to fix it",
+  owner: "ashley" | "team-lead" | "contributor-name",
+  effort_estimate: "1 hour" | "2 hours" | "half-day" | "1 day" | "2 days" | "unknown"
 }
 ```
+
+**Gap Field Definitions**:
+
+| Field | Type | Required | Example | Constraints |
+|-------|------|----------|---------|-------------|
+| `dimension` | String | Yes | "Clarity" | One of 8 quality dimensions |
+| `severity` | Enum | Yes | "high" | Values: high, medium, low |
+| `line_reference` | String | Yes | "FR-012, line 123" | Points to spec location requiring fix |
+| `quote` | String | Yes | "System MUST ensure predictable numbering" | Actual text from spec |
+| `gap_description` | String | Yes | "Requirement lacks quantification" | Why this is a gap |
+| `remediation` | String | Yes | "Add specific numeric targets" | How to fix it |
+| `owner` | String | Yes | "ashley" | Governance authority or team member responsible |
+| `effort_estimate` | Enum | Yes | "2 hours" | Estimated effort to remediate (values: 1 hour, 2 hours, half-day, 1 day, 2 days, unknown) |
 
 **Relationships**:
 

@@ -243,16 +243,16 @@ Every specification must pass all 8 quality dimensions before it can be used as 
 
 ```bash
 # List all specification directories
-ls -d /home/user/.github/.github/specs/[0-9][0-9][0-9]-*/
+ls -d .github/specs/[0-9][0-9][0-9]-*/
 
 # Count existing specifications
-ls -d /home/user/.github/.github/specs/[0-9][0-9][0-9]-*/ | wc -l
+ls -d .github/specs/[0-9][0-9][0-9]-*/ | wc -l
 
 # Find highest number
-ls -d /home/user/.github/.github/specs/[0-9][0-9][0-9]-*/ | sed 's/.*\///' | cut -d- -f1 | sort -n | tail -1
+ls -d .github/specs/[0-9][0-9][0-9]-*/ | sed 's/.*\///' | cut -d- -f1 | sort -n | tail -1
 
 # Verify spec.md exists in all directories
-for dir in /home/user/.github/.github/specs/[0-9][0-9][0-9]-*/; do [ ! -f "$dir/spec.md" ] && echo "Missing: $dir"; done
+for dir in .github/specs/[0-9][0-9][0-9]-*/; do [ ! -f "$dir/spec.md" ] && echo "Missing: $dir"; done
 ```
 
 ---

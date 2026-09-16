@@ -26,7 +26,7 @@ audit_scan_directories() {
   for dir in "$SPECS_DIR"/[0-9][0-9][0-9]-*/; do
     if [ -d "$dir" ]; then
       dirs+=("$dir")
-      ((count++))
+      ((++count))
     fi
   done
 
@@ -123,19 +123,19 @@ generate_inventory_report() {
   # Scan and report on each directory
   for dir in "$SPECS_DIR"/[0-9][0-9][0-9]-*/; do
     if [ -d "$dir" ]; then
-      ((total_dirs++))
+      ((++total_dirs))
       local basename=$(basename "$dir")
 
       echo "Directory: $basename"
 
       # Check naming
       if verify_naming_convention "$dir"; then
-        ((naming_pass++))
+        ((++naming_pass))
       fi
 
       # Check spec.md
       if verify_spec_file "$dir"; then
-        ((spec_file_pass++))
+        ((++spec_file_pass))
       fi
 
       echo ""
