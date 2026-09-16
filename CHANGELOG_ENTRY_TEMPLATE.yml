@@ -1,0 +1,28 @@
+# Changelog Entry Template
+# Copy this file and fill in the fields below to create a new changelog entry
+# Run validation: npm run validate:changelog -- --entry your-entry.yml
+
+# Required: User-facing title summarizing the change (1-100 characters)
+# Focus on user benefit, not implementation
+# Bad: "Refactored webhook service API"
+# Good: "Webhooks now retry automatically"
+title: "Change your title here"
+
+# Required: Detailed description of what changed for users (20-500 characters)
+# Should be 1-3 sentences, user-focused, no code examples
+description: |
+  Describe what changed for end users.
+  Keep it clear and concise.
+  Avoid technical details and implementation specifics.
+
+# Required: Category of the change
+# One of: feature, fix, improvement, breaking-change, security, performance
+category: feature
+
+# Required: Release date (YYYY-MM-DD format)
+date: 2026-09-14
+
+# Optional: PR/issue references for traceability
+# Include the numbers that link to GitHub issues/PRs
+# Example: pr_references: [1234, 5678]
+pr_references: [0000]
