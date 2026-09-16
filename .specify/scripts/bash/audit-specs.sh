@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 # Audit Functions
 # ============================================================================
 
-# Scan all numbered spec directories
+# Print the count and paths of spec directories with three-digit prefixes.
 audit_scan_directories() {
   echo "📋 Scanning directories in $SPECS_DIR..."
 
@@ -34,7 +34,8 @@ audit_scan_directories() {
   printf '%s\n' "${dirs[@]}"
 }
 
-# Verify naming convention: {NNN}-{slug} format
+# Print whether a directory basename follows the {NNN}-{lowercase-slug} format.
+# Return 0 when it does and 1 otherwise.
 verify_naming_convention() {
   local dir="$1"
   local basename=$(basename "$dir")
@@ -49,7 +50,8 @@ verify_naming_convention() {
   fi
 }
 
-# Verify spec.md presence
+# Print whether the given directory contains a regular spec.md file.
+# Return 0 when it does and 1 otherwise.
 verify_spec_file() {
   local dir="$1"
   local spec_file="$dir/spec.md"
@@ -63,14 +65,15 @@ verify_spec_file() {
   fi
 }
 
-# Extract directory number
+# Print the first three characters of the given directory's basename.
 extract_number() {
   local dir="$1"
   local basename=$(basename "$dir")
   echo "${basename:0:3}"
 }
 
-# Verify sequential numbering
+# Check that spec directory prefixes form a contiguous sequence starting at 001.
+# Print the result and return 1 when the sequence is not contiguous.
 verify_sequential_numbering() {
   echo ""
   echo "🔢 Verifying sequential numbering..."
@@ -109,7 +112,7 @@ verify_sequential_numbering() {
   fi
 }
 
-# Generate complete inventory report
+# Print per-directory checks and aggregate naming and spec.md pass counts.
 generate_inventory_report() {
   echo ""
   echo "📊 Complete Inventory Report"
@@ -154,6 +157,7 @@ generate_inventory_report() {
 # Main
 # ============================================================================
 
+# Run the directory scan, numbering check, and inventory report in sequence.
 main() {
   echo "🔍 SpecKit Folder Structure Audit"
   echo "=================================="
