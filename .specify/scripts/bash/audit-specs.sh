@@ -4,13 +4,14 @@
 
 set -euo pipefail
 
-SPECS_DIR=".github/specs"
-
-# Color output for readability
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# Resolve SPECS_DIR from repo root
+SCRIPT_DIR="$(CDPATH="" cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Try to find the repo root using .specify directory
+if [ -d "$SCRIPT_DIR/../../.specify" ]; then
+  SPECS_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)/.github/specs"
+else
+  SPECS_DIR=".github/specs"
+fi
 
 # ============================================================================
 # Audit Functions
@@ -39,7 +40,8 @@ audit_scan_directories() {
 # Return 0 when it does and 1 otherwise.
 verify_naming_convention() {
   local dir="$1"
-  local basename=$(basename "$dir")
+  local basename
+  basename=$(basename "$dir")
 
   # Check pattern: 3 digits, dash, lowercase alphanumeric/hyphens
   if [[ $basename =~ ^[0-9]{3}-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
@@ -69,7 +71,8 @@ verify_spec_file() {
 # Print the first three characters of the given directory's basename.
 extract_number() {
   local dir="$1"
-  local basename=$(basename "$dir")
+  local basename
+  basename=$(basename "$dir")
   echo "${basename:0:3}"
 }
 
@@ -83,22 +86,31 @@ verify_sequential_numbering() {
 
   for dir in "$SPECS_DIR"/[0-9][0-9][0-9]-*/; do
     if [ -d "$dir" ]; then
-      local num=$(extract_number "$dir")
+      local num
+      num=$(extract_number "$dir")
       numbers+=("$num")
     fi
   done
 
-  # Sort numbers
-  IFS=$'\n' sorted=($(sort <<<"${numbers[*]}"))
-  unset IFS
+  # Check for empty inventory
+  if [ ${#numbers[@]} -eq 0 ]; then
+    echo "❌ No specification directories found"
+    return 1
+  fi
 
-  # Check for gaps
+  # Sort numbers
+  mapfile -t sorted < <(printf '%s\n' "${numbers[@]}" | sort)
+
+  # Check for gaps and duplicates
   local has_gaps=0
   local expected=1
 
   for num in "${sorted[@]}"; do
     local num_int=$((10#$num))  # Convert to integer
-    if [ $num_int -ne $expected ]; then
+    if [ $num_int -lt $expected ]; then
+      echo "❌ Duplicate number: $num_int"
+      has_gaps=1
+    elif [ $num_int -ne $expected ]; then
       echo "❌ Gap detected: expected $expected but found $num_int"
       has_gaps=1
     fi
@@ -114,6 +126,7 @@ verify_sequential_numbering() {
 }
 
 # Print per-directory checks and aggregate naming and spec.md pass counts.
+# Return 1 if checks fail.
 generate_inventory_report() {
   echo ""
   echo "📊 Complete Inventory Report"
@@ -128,7 +141,8 @@ generate_inventory_report() {
   for dir in "$SPECS_DIR"/*/; do
     if [ -d "$dir" ]; then
       ((++total_dirs))
-      local basename=$(basename "$dir")
+      local basename
+      basename=$(basename "$dir")
 
       echo "Directory: $basename"
 
@@ -152,6 +166,12 @@ generate_inventory_report() {
   echo "Total directories: $total_dirs"
   echo "Naming compliance: $naming_pass/$total_dirs"
   echo "spec.md present: $spec_file_pass/$total_dirs"
+
+  # Return 1 if checks failed
+  if [ "$naming_pass" -ne "$total_dirs" ] || [ "$spec_file_pass" -ne "$total_dirs" ]; then
+    return 1
+  fi
+  return 0
 }
 
 # ============================================================================
@@ -164,10 +184,14 @@ main() {
   echo "=================================="
   echo ""
 
-  # Run scans
+  # Run scans and collect exit codes
+  local rc=0
+
   audit_scan_directories
-  verify_sequential_numbering
-  generate_inventory_report
+  verify_sequential_numbering || rc=1
+  generate_inventory_report || rc=1
+
+  return $rc
 }
 
 # Run main function
