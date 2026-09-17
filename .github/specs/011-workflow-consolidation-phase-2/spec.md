@@ -33,6 +33,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 - Q: What is the actual hard requirement for GitHub Actions minutes reduction — is it minimum ≥15% reduction or a target range of 15–20%? → A: Hard minimum: ≥15% reduction required (≤2,125/month baseline from ~2,500). If achieved <15%, PR cannot merge. Anything ≥15% passes merge gate; 15–20% range was aspirational but not enforced.
 - Q: When labeling-unified.yml fails on a PR, what should happen operationally to other workflows? → A: Isolated failure model: labeling-unified fails → PR status check shows only "labeling" as failed; validation, testing, linting, quality-gates remain unaffected (pass/fail independently). Dependent systems receive last-known-good label state or use fallback logic. No cascade to other workflows.
 - Q: What specific test coverage targets should Phase 2 require — line coverage %, branch coverage %, or functional coverage only? → A: Hybrid coverage: Composite actions (apply-labels, validate-check, aggregate-tests, collect-metrics) require ≥80% line coverage (reusable, shared logic). Unified workflows require 100% functional coverage (all critical paths, primary/error/edge cases); line % not enforced for workflows.
+- Q: Should Phase 2 scope explicitly address footer insertion logic and badge validation? → A: Defer to Phase 2.1 (immediate follow-up). Phase 2 excludes footer/badge logic; document as "Phase 2.1 Consolidation Enhancements" with separate issue. Keeps Phase 2 focused on workflow consolidation, reduces timeline risk, faster Phase 2 delivery.
 
 ## Branch Strategy
 
@@ -198,3 +199,13 @@ git push origin refactor/workflow-consolidation-phase-2
 - **High:** GitHub Actions minutes baseline must be measured before and after consolidation
 - **Medium:** Performance optimization under concurrent load; no performance regression allowed
 - **Medium:** Composite actions reused; coupling with Phase 1 architecture must be explicit
+
+## Phase 2.1: Consolidation Enhancements (Follow-up Scope)
+
+**Deferred to immediate follow-up after Phase 2 merge:**
+
+- Footer insertion de-duplication logic (prevent duplicate footers in PR descriptions)
+- Badge validation and application rules (workflow status badges, coverage badges)
+- Mergify dependabot merge frequency configuration (daily/hourly automation)
+
+These are related but distinct from core workflow consolidation. Phase 2.1 will be scoped as separate feature branch after Phase 2 ships. Tracked in separate GitHub issue: `[FEATURE-REQUEST] Phase 2.1: Footer & Badge Management`
