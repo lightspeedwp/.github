@@ -5,7 +5,7 @@ setup() {
   AUDIT_SCRIPT="$REPO_ROOT/.specify/scripts/bash/audit-specs.sh"
   TEST_REPO="$BATS_TEST_TMPDIR/repository"
 
-  mkdir -p "$TEST_REPO/.github/specs"
+  mkdir -p "$TEST_REPO/.specify" "$TEST_REPO/.github/specs"
 }
 
 create_spec() {

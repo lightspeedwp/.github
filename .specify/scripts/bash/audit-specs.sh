@@ -20,8 +20,12 @@ find_repo_root() {
   return 1
 }
 
+# Prefer the repo that contains the current directory; fall back to the repo
+# that contains this script so the audit works from any cwd.
 SPECS_DIR=".github/specs"
 if repo_root=$(find_repo_root); then
+  SPECS_DIR="$repo_root/.github/specs"
+elif repo_root=$(find_repo_root "$(dirname "${BASH_SOURCE[0]}")"); then
   SPECS_DIR="$repo_root/.github/specs"
 fi
 
