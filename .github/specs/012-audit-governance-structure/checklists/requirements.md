@@ -64,4 +64,14 @@ All checklist items pass. Specification is complete, unambiguous, and ready for 
 
 Added SC-009 for changelog requirement based on Q5 clarification.
 
-**Validation Status**: ✅ APPROVED FOR IMPLEMENTATION (17/17 items passing; clarifications integrated)
+**Clarifications Completed** (2026-09-17): Additional 5 clarifications on implementation approach:
+
+- Q1: Duplicate content consolidation threshold (≥70% text overlap = consolidate; use union of both versions' content)
+- Q2: Reference validation scope (all categories: broken files, outdated paths, unimplemented consolidations, line-number mismatches)
+- Q3: Audit report format (structured markdown at `AUDIT_REPORT.md` in spec directory for version control and easy linking)
+- Q4: Audit/refactoring phasing (separate phases: Phase 1 audit findings for review, Phase 2 implements refactoring based on approved findings)
+- Q5: Constitution conflict handling (flag all conflicts in AUDIT_REPORT.md with evidence; classify and let @ashley decide per-case)
+
+Added Implementation Approach section documenting two-phase strategy. Updated Edge Cases with resolutions for all 4 edge case scenarios.
+
+**Validation Status**: ✅ APPROVED FOR PLANNING (17/17 items passing; 10 new clarifications integrated; implementation approach documented)
