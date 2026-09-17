@@ -70,7 +70,7 @@ owner: Ash Shaw
 **Criterion**: ≥5 teams with ≥1 PRD generation per rolling 7-day window for ≥4 of the 6 post-rollout weeks (with grace period per spec.md clarifications Q4).
 
 **Data Source**: Deduplicated completed-PRD logs  
-**Collection Method**: Weekly Monday snapshot of prior 7 days, covering 6 non-overlapping buckets (2026-09-13 through 2026-10-24)
+**Collection Method**: Weekly Monday snapshot of prior 7 days, covering 6 non-overlapping buckets (2026-09-16 through 2026-10-29)
 
 **Deduplication Rule**: *(clarified per finding A8)*
 
@@ -93,7 +93,7 @@ owner: Ash Shaw
 
 **Criterion**: Final survey median Likert score ≥4.0/5.0, with sample size n≥20.
 
-**Data Source**: Final user satisfaction survey (distributed 2026-10-24)  
+**Data Source**: Final user satisfaction survey (distributed 2026-10-29)  
 **Collection Method**: Anonymous Likert-scale survey distributed to all active users (target ≥20 respondents)
 
 **Survey Question** (primary):
@@ -191,7 +191,7 @@ Collected every Monday, covering prior 7-day rolling window:
 - **Interim Satisfaction**: Results from 30-day survey (target n≥10, median ≥3.0)
 - **Blockers Identified**: Count and description of blockers surfaced in team briefings and early usage
 
-### 42-Day Final Metrics (T075b, due 2026-10-24)
+### 42-Day Final Metrics (T075b, due 2026-10-29)
 
 - **Final Active Teams**: Teams meeting ≥4-of-6-week threshold (SC-602)
 - **Final PRD Count**: Sum across all 6 weeks (6-week total)
@@ -208,7 +208,7 @@ Collected every Monday, covering prior 7-day rolling window:
 | 2026-09-13 | Phase 6 rollout begins; baseline establishment begins (Tasks A–C) | Ash Shaw | Baseline results in this file |
 | 2026-09-20 | Week 2 metrics collection | Ash Shaw | PHASE6_MONITORING_TEMPLATE.md updated |
 | 2026-10-12 | **30-Day Interim Checkpoint (T075a)** | Ash Shaw | PHASE6_INTERIM_REPORT.md |
-| 2026-10-24 | **42-Day Final Evaluation (T075b)** | Ash Shaw | FINAL_ADOPTION_REPORT.md |
+| 2026-10-29 | **42-Day Final Evaluation (T075b)** | Ash Shaw | FINAL_ADOPTION_REPORT.md |
 | 2026-10-28 | Phase 7 decision memo synthesis (T078) | Ash Shaw | PHASE7_DECISION_MEMO.md |
 | 2026-11-02 | Phase 7 final decision execution (T079–T082) | Ash Shaw | PHASE7_DECISION.md |
 
