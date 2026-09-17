@@ -17,15 +17,29 @@ scripts/report-changelog-action.sh
 scripts/summarize-native-type.sh
 '
 
+# collect_shell_files - Find all first-party shell scripts in scripts/ and .github/
+# Outputs sorted list of all .sh and .bash files, excluding archived project artifacts
 collect_shell_files() {
   find scripts .github -type f \( -name '*.sh' -o -name '*.bash' \) \
     -not -path '.github/projects/*' | sort
 }
 
+# is_baselined - Check if a script is on the baseline exemption list
+# Parameters:
+#   $1 - Script file path to check against baseline
+# Returns:
+#   0 when script is in BASELINE list
+#   1 when script is not in BASELINE list
 is_baselined() {
   printf '%s\n' "$BASELINE" | grep -Fxq -- "$1"
 }
 
+# has_strict_mode - Verify that a script contains proper strict-mode setup
+# Parameters:
+#   $1 - Script file path to check for strict mode
+# Returns:
+#   0 when script has set -euo pipefail or set -Eeuo pipefail
+#   1 when script lacks proper strict-mode setup
 has_strict_mode() {
   grep -q "^set -E\?euo pipefail" "$1"
 }

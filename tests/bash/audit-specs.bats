@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+# setup - Initialize test repository environment and audit script path
+# Sets up temporary directory structure for specification audit testing
 setup() {
   REPO_ROOT="$(CDPATH="" cd "$BATS_TEST_DIRNAME/../.." && pwd)"
   AUDIT_SCRIPT="$REPO_ROOT/.specify/scripts/bash/audit-specs.sh"
@@ -8,6 +10,9 @@ setup() {
   mkdir -p "$TEST_REPO/.specify" "$TEST_REPO/.github/specs"
 }
 
+# create_spec - Create a test specification directory with spec.md
+# Parameters:
+#   $1 - Specification directory name (e.g., "001-first-spec")
 create_spec() {
   local directory="$1"
 
@@ -15,6 +20,8 @@ create_spec() {
   printf '# Test specification\n' > "$TEST_REPO/.github/specs/$directory/spec.md"
 }
 
+# run_audit - Execute the audit script in the test repository
+# Runs the audit-specs.sh script with proper working directory setup
 run_audit() {
   run bash -c 'cd "$1" && bash "$2"' _ "$TEST_REPO" "$AUDIT_SCRIPT"
 }

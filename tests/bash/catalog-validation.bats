@@ -1,21 +1,30 @@
 #!/usr/bin/env bats
 
+# setup - Initialize test environment with catalog file path
+# Sets up REPO_ROOT and CATALOG_FILE variables for catalog validation tests
 setup() {
   REPO_ROOT="$(CDPATH="" cd "$BATS_TEST_DIRNAME/../.." && pwd)"
   CATALOG_FILE="$REPO_ROOT/.github/specs/CATALOG.md"
 }
 
-# Extract every relative specification link (./...) from the catalog.
+# extract_catalog_links - Extract all relative specification links from CATALOG.md
+# Outputs all markdown links in format ](./...) from the catalog
 extract_catalog_links() {
   grep -oE '\]\(\.\/[^)]+\)' "$CATALOG_FILE" | sed 's/\](\.\/\(.*\))/\1/' || true
 }
 
-# Extract only the links that appear in table rows. Prose may link elsewhere.
+# extract_table_links - Extract specification links only from CATALOG.md table rows
+# Outputs markdown links in format ](./...) that appear in pipe-delimited table rows
 extract_table_links() {
   grep -E '^\|' "$CATALOG_FILE" | grep -oE '\]\(\.\/[^)]+\)' | sed 's/\](\.\/\(.*\))/\1/' || true
 }
 
-# A link target is valid when the file or directory it names exists.
+# validate_link_target - Verify that a link target file or directory exists
+# Parameters:
+#   $1 - Relative target path to validate
+# Returns:
+#   0 when target file or directory exists
+#   1 when target does not exist
 validate_link_target() {
   local target="$1"
   [ -e "$REPO_ROOT/.github/specs/$target" ]
