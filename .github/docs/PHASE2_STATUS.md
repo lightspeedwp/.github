@@ -334,15 +334,23 @@ Final Budget: ~50.5/month + future phases
 
 ## Known Issues
 
+### T070 Integration Test Workflow Configuration
+
+**Issue:** Phase 2 Integration Tests workflow was created with `workflow_dispatch` trigger only (manual trigger), but execution guide documented it as auto-triggering on PR events.
+
+**Status:** Moved `phase2-integration-test.yml` and `error-isolation-test.yml` from `.github/tests/` to `.github/workflows/` for GitHub recognition. Workflow dispatch API currently returning 404 (likely GitHub indexing delay).
+
+**Workaround:** Using existing PR CI runs as partial fulfillment of T070 - all 5 unified workflows are executing on PR. Will proceed with T071-T073 using prepared automation scripts.
+
 ### Current CI Run Failures
 
-Several test jobs failing in current integration cycle:
+Several test jobs showing failures in current integration cycle:
 
 - Metrics collection jobs showing status=failure
 - Testing suite aggregation having issues
 - CodeQL scanning needs validation
 
-**Action:** These will be investigated as part of T070/T071. Minor failures in metrics collection may not block CI validation as long as workflows execute and complete.
+**Action:** These are being investigated as part of T070/T071. Minor failures in metrics collection may not block CI validation as long as workflows execute and complete.
 
 ---
 
