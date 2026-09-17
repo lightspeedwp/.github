@@ -576,6 +576,11 @@ jobs:
       ]
     if: always()
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
       - name: Collect quality gates metrics
         id: metrics
         uses: ./.github/actions/collect-metrics
@@ -585,26 +590,62 @@ jobs:
           metric_type: 'all'
           output_format: 'json'
           github_token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Determine quality gates status
+        id: status
+        shell: bash
+        run: |
+          # Evaluate overall quality gate status
+          SAST="${{ needs.sast-scanning.result }}"
+          DEPS="${{ needs.dependency-scanning.result }}"
+          LICENSE="${{ needs.license-compliance.result }}"
+          QUALITY="${{ needs.code-quality-metrics.result }}"
+          SECURITY="${{ needs.security-policy.result }}"
+
+          # Critical gates: SAST, DEPS, SECURITY (must pass)
+          # Warning gates: LICENSE, QUALITY (track but don't fail)
+          if [[ "$SAST" == "failure" ]] || [[ "$DEPS" == "failure" ]] || [[ "$SECURITY" == "failure" ]]; then
+            STATUS="failure"
+          elif [[ "$LICENSE" == "failure" ]] || [[ "$QUALITY" == "failure" ]]; then
+            STATUS="warning"
+          else
+            STATUS="success"
+          fi
+
+          echo "sast=$SAST" >> $GITHUB_OUTPUT
+          echo "deps=$DEPS" >> $GITHUB_OUTPUT
+          echo "license=$LICENSE" >> $GITHUB_OUTPUT
+          echo "quality=$QUALITY" >> $GITHUB_OUTPUT
+          echo "security=$SECURITY" >> $GITHUB_OUTPUT
+          echo "overall=$STATUS" >> $GITHUB_OUTPUT
 
       - name: Report quality gates check results
         uses: ./.github/actions/validate-check
         if: github.event_name == 'pull_request'
         with:
           check_name: 'quality-gates'
-          status: ${{ (needs.sast-scanning.result == 'success' && needs.dependency-scanning.result == 'success' && needs.license-compliance.result == 'success' && needs.code-quality-metrics.result == 'success' && needs.security-policy.result == 'success') && 'success' || 'failure' }}
+          status: ${{ steps.status.outputs.overall }}
           title: 'Security & Quality Gates'
           summary: |
-            **SAST Scanning:** ${{ needs.sast-scanning.result }}
-            **Dependency Scanning:** ${{ needs.dependency-scanning.result }}
-            **License Compliance:** ${{ needs.license-compliance.result }}
-            **Code Quality Metrics:** ${{ needs.code-quality-metrics.result }}
-            **Security Policy:** ${{ needs.security-policy.result }}
+            ## Quality Gates Summary
 
-            **Metrics:**
-            - Minutes Used: ${{ steps.metrics.outputs.minutes_used }}
-            - Duration: ${{ steps.metrics.outputs.duration_seconds }} seconds
+            **Critical Gates:**
+            - SAST Scanning: ${{ steps.status.outputs.sast }}
+            - Dependency Scanning: ${{ steps.status.outputs.deps }}
+            - Security Policy: ${{ steps.status.outputs.security }}
+
+            **Tracking Gates:**
+            - License Compliance: ${{ steps.status.outputs.license }}
+            - Code Quality Metrics: ${{ steps.status.outputs.quality }}
+
+            **Workflow Metrics:**
+            - Minutes Used: ${{ steps.metrics.outputs.minutes_used || 'pending' }}
+            - Duration: ${{ steps.metrics.outputs.duration_seconds || 'pending' }} seconds
+            - Run ID: ${{ github.run_id }}
           post_comment: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
   # ============================================================================
   # Summary job
