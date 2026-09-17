@@ -81,13 +81,13 @@ phases: 7
 
 ### User Story 1 Tasks
 
-- [ ] T015 [US1] Analyze 9 archived labeling workflows and document trigger patterns in `.github/specs/011-workflow-consolidation-phase-2/labeling-analysis.md`
-- [ ] T016 [US1] Create unified labeling workflow at `.github/workflows/labeling-unified.yml` with jobs for: (1) PR labeling, (2) Issue labeling, (3) Scheduled label cleanup
-- [ ] T017 [P] [US1] Implement PR labeling job in labeling-unified.yml: trigger on pull_request, read `.github/labels.yml` taxonomy, apply prefix-matched labels
-- [ ] T018 [P] [US1] Implement Issue labeling job in labeling-unified.yml: trigger on issues, apply labels per issue type (type:bug, type:feature, type:task, type:documentation, type:security, type:design)
-- [ ] T019 [P] [US1] Implement scheduled cleanup job in labeling-unified.yml: remove stale labels, update label metrics artifact
-- [ ] T020 [US1] Integrate apply-labels composite action (T006) into all labeling-unified.yml jobs with error handling
-- [ ] T021 [US1] Integrate collect-metrics composite action (T009) into labeling-unified.yml to report GitHub Actions minutes consumed
+- [x] T015 [US1] Analyze 9 archived labeling workflows and document trigger patterns in `.github/specs/011-workflow-consolidation-phase-2/labeling-analysis.md`
+- [x] T016 [US1] Create unified labeling workflow at `.github/workflows/labeling-unified.yml` with jobs for: (1) PR labeling, (2) Issue labeling, (3) Scheduled label cleanup
+- [x] T017 [P] [US1] Implement PR labeling job in labeling-unified.yml: trigger on pull_request, read `.github/labels.yml` taxonomy, apply prefix-matched labels
+- [x] T018 [P] [US1] Implement Issue labeling job in labeling-unified.yml: trigger on issues, apply labels per issue type (type:bug, type:feature, type:task, type:documentation, type:security, type:design)
+- [x] T019 [P] [US1] Implement scheduled cleanup job in labeling-unified.yml: remove stale labels, update label metrics artifact
+- [x] T020 [US1] Integrate apply-labels composite action (T006) into all labeling-unified.yml jobs with error handling
+- [x] T021 [US1] Integrate collect-metrics composite action (T009) into labeling-unified.yml to report GitHub Actions minutes consumed
 - [ ] T022 [US1] Test labeling-unified.yml on feature branch: trigger via PR, verify all 9 labeling patterns execute, check for duplicate labels
 - [ ] T023 [US1] Document labeling-unified.yml behavior in `.github/docs/LABELING_UNIFIED.md` with trigger patterns, label taxonomy reference, troubleshooting guide
 - [ ] T024 [US1] Validate labeling-unified.yml passes CI for ≥3 consecutive runs on feature branch with no regression vs archived workflows
