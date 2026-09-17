@@ -35,13 +35,13 @@ Automate GitHub pull request creation with configuration-driven workflows for co
 
 ## Core Responsibilities
 
-1. **Branch Validation** – Validate branch naming conventions
-2. **PR Template** – Use configured PR templates
-3. **PR Generation** – Create PRs with proper formatting
-4. **Workflow Automation** – Automate PR creation workflows
-5. **Configuration Management** – Use configuration-driven behavior
-6. **Validation** – Validate branch names and PR structure
-7. **Multi-provider Support** – Support Claude, Copilot, OpenAI
+1. **Branch Validation** – Validate branch naming conventions per [CLAUDE.md](../../CLAUDE.md#-branch-naming--critical-read-first)
+2. **PR Template** – Use configured PR templates routed by branch type
+3. **PR Generation** – Create PRs with proper formatting based on branch name
+4. **Workflow Automation** – Automate PR creation workflows with branch-aware routing
+5. **Configuration Management** – Use configuration-driven behavior per `.github/branch-types.yml`
+6. **Validation** – Validate branch names against 38 authorized types (Constitution Principle V)
+7. **Multi-provider Support** – Support Claude, Copilot, OpenAI agents
 
 ## Key Features
 
@@ -54,11 +54,25 @@ Automate GitHub pull request creation with configuration-driven workflows for co
 - Multi-provider support
 - Integration with GitHub workflows
 
+## Branch Naming Requirements
+
+**CRITICAL**: All branches MUST follow this pattern: `{type}/{scope}-{title}`
+
+- **Valid types (38 authorized)**: feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, revert, research, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, aiops, automation, epic
+- **FORBIDDEN prefixes**: `claude/`, `copilot/`, `openai/` (always rejected)
+- **Scope and title**: lowercase letters, numbers, hyphens only; no underscores, spaces, or consecutive hyphens
+
+**References**:
+
+- Branch naming strategy: [docs/BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md)
+- Validation script: [lib/validate-branch-name.js](../../lib/validate-branch-name.js)
+- Instructions: [instructions/branch-naming.instructions.md](../../instructions/branch-naming.instructions.md)
+
 ## Operating Modes
 
-**Create PR** - Generate new pull request
-**Validate** - Validate branch and PR structure
-**Template Mode** - Use preconfigured templates
+**Create PR** - Generate new pull request from valid branch name
+**Validate** - Validate branch and PR structure against 38 authorized types
+**Template Mode** - Use preconfigured templates routed by branch type prefix
 
 ## Implementation Reference
 
