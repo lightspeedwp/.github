@@ -49,12 +49,12 @@
 
 **Purpose**: Framework initialization and template scaffolding
 
-- [ ] T001 Create checklist framework directory at `.specify/templates/checklist-template/`
-- [ ] T002 Create base checklist template at `.specify/templates/checklist-template.md` (8 dimensions, ~50 items, markdown structure)
-- [ ] T003 [P] Create domain variant templates directory at `.specify/templates/checklist-variants/`
-- [ ] T004 [P] Create checklist JSON schema at `.specify/templates/checklist-schema.json` (item, dimension, status, traceability structure)
-- [ ] T005 Initialize Node.js tooling at `.specify/templates/checklist-tools/package.json` (for validators, generators)
-- [ ] T006 Create test fixtures at `.specify/templates/checklist-template/test/fixtures/` (sample complete, partial, failed checklists)
+- [x] T001 Create checklist framework directory at `.specify/templates/checklist-template/`
+- [x] T002 Create base checklist template at `.specify/templates/checklist-template.md` (8 dimensions, ~50 items, markdown structure)
+- [x] T003 [P] Create domain variant templates directory at `.specify/templates/checklist-variants/`
+- [x] T004 [P] Create checklist JSON schema at `.specify/templates/checklist-schema.json` (item, dimension, status, traceability structure)
+- [x] T005 Initialize Node.js tooling at `.specify/templates/checklist-tools/package.json` (for validators, generators)
+- [x] T006 Create test fixtures at `.specify/templates/checklist-template/test/fixtures/` (sample complete, partial, failed checklists)
 
 ---
 
@@ -64,13 +64,13 @@
 
 **⚠️ CRITICAL**: All Phase 2 tasks MUST complete before FR-1 through FR-4 implementation
 
-- [ ] T007 Implement checklist item validator at `.specify/templates/checklist-template/lib/item-validator.js` (validates item format: ID, dimension, question, references)
-- [ ] T008 Implement dimension classifier at `.specify/templates/checklist-template/lib/dimension-classifier.js` (maps items to 8 quality dimensions)
-- [ ] T009 [P] Implement checkbox state parser at `.specify/templates/checklist-template/lib/checkbox-parser.js` (parse [ ], [x], [Gap], [Ambiguity] states)
-- [ ] T010 [P] Implement completeness calculator at `.specify/templates/checklist-template/lib/completeness-calculator.js` (count items, track states, calculate completion %)
-- [ ] T011 Create test suite scaffolding at `.specify/templates/checklist-template/test/unit/` (test fixtures for each dimension)
-- [ ] T012 [P] Implement traceability linker at `.specify/templates/checklist-template/lib/traceability-linker.js` (extract [Spec §X.Y], [Gap], [Ambiguity] references)
-- [ ] T012b [P] Define gap/ambiguity marker syntax and formatting at `.specify/templates/checklist-template/MARKER_SYNTAX.md` (syntax: `[Gap: requirement-area]`, `[Ambiguity: unclear-aspect]`, `[Ambiguity-Critical: blocking-issue]`; include summary template for checklist footer: "Summary: Gaps: N, Ambiguities: M (of which N critical)")
+- [x] T007 Implement checklist item validator at `.specify/templates/checklist-template/lib/item-validator.js` (validates item format: ID, dimension, question, references)
+- [x] T008 Implement dimension classifier at `.specify/templates/checklist-template/lib/dimension-classifier.js` (maps items to 8 quality dimensions)
+- [x] T009 [P] Implement checkbox state parser at `.specify/templates/checklist-template/lib/checkbox-parser.js` (parse [ ], [x], [Gap], [Ambiguity] states)
+- [x] T010 [P] Implement completeness calculator at `.specify/templates/checklist-template/lib/completeness-calculator.js` (count items, track states, calculate completion %)
+- [x] T011 Create test suite scaffolding at `.specify/templates/checklist-template/test/unit/` (test fixtures for each dimension)
+- [x] T012 [P] Implement traceability linker at `.specify/templates/checklist-template/lib/traceability-linker.js` (extract [Spec §X.Y], [Gap], [Ambiguity] references)
+- [x] T012b [P] Define gap/ambiguity marker syntax and formatting at `.specify/templates/checklist-template/MARKER_SYNTAX.md` (syntax: `[Gap: requirement-area]`, `[Ambiguity: unclear-aspect]`, `[Ambiguity-Critical: blocking-issue]`; include summary template for checklist footer: "Summary: Gaps: N, Ambiguities: M (of which N critical)")
 
 **Checkpoint**: Framework ready - user story implementation can begin
 
@@ -84,23 +84,23 @@
 
 ### Tests for User Story 1 (TDD)
 
-- [ ] T013 [P] [US1] Unit test for dimension coverage at `.specify/templates/checklist-template/test/unit/test-dimension-coverage.js` (all 8 dimensions present in base template)
-- [ ] T014 [P] [US1] Unit test for item format validation at `.specify/templates/checklist-template/test/unit/test-item-format.js` (verify all items follow CHK### pattern)
-- [ ] T015 [P] [US1] Unit test for requirements-quality questions at `.specify/templates/checklist-template/test/unit/test-question-quality.js` (no implementation tests, all test requirements quality)
-- [ ] T016 [US1] Integration test for template completeness at `.specify/templates/checklist-template/test/integration/test-template-completeness.js` (generate from template, verify all items)
+- [x] T013 [P] [US1] Unit test for dimension coverage at `.specify/templates/checklist-template/test/unit/test-dimension-coverage.js` (all 8 dimensions present in base template)
+- [x] T014 [P] [US1] Unit test for item format validation at `.specify/templates/checklist-template/test/unit/test-item-format.js` (verify all items follow CHK### pattern)
+- [x] T015 [P] [US1] Unit test for requirements-quality questions at `.specify/templates/checklist-template/test/unit/test-question-quality.js` (no implementation tests, all test requirements quality)
+- [x] T016 [US1] Integration test for template completeness at `.specify/templates/checklist-template/test/integration/test-template-completeness.js` (generate from template, verify all items)
 
 ### Implementation for User Story 1
 
-- [ ] T017 [P] [US1] Create Completeness dimension items at `.specify/templates/checklist-template/content/completeness.md` (5-6 items: missing requirements, error handling, edge cases, non-functional requirements)
-- [ ] T018 [P] [US1] Create Clarity dimension items at `.specify/templates/checklist-template/content/clarity.md` (5-6 items: vague terms, measurable criteria, terminology consistency)
-- [ ] T019 [P] [US1] Create Consistency dimension items at `.specify/templates/checklist-template/content/consistency.md` (4-5 items: cross-section alignment, terminology drift, conflicting requirements)
-- [ ] T020 [P] [US1] Create Measurability dimension items at `.specify/templates/checklist-template/content/measurability.md` (4-5 items: testable criteria, objective verification, performance metrics)
-- [ ] T021 [P] [US1] Create Scenario Coverage dimension items at `.specify/templates/checklist-template/content/scenario-coverage.md` (5-6 items: user flows, error scenarios, concurrent interactions, edge cases)
-- [ ] T022 [P] [US1] Create Edge Cases dimension items at `.specify/templates/checklist-template/content/edge-cases.md` (5-6 items: boundary conditions, partial failures, recovery flows)
-- [ ] T023 [P] [US1] Create Dependencies dimension items at `.specify/templates/checklist-template/content/dependencies.md` (4-5 items: external APIs, assumptions, integration points)
-- [ ] T024 [P] [US1] Create Ambiguities dimension items at `.specify/templates/checklist-template/content/ambiguities.md` (5-6 items: unclear assumptions, unresolved areas, missing definitions)
-- [ ] T025 [US1] Assemble base template at `.specify/templates/checklist-template.md` (combine all dimensions, format, add metadata section)
-- [ ] T026 [US1] Create template documentation at `.specify/templates/checklist-template/GUIDE.md` (how to use template, understand dimensions, write good items)
+- [x] T017 [P] [US1] Create Completeness dimension items at `.specify/templates/checklist-template/content/completeness.md` (5-6 items: missing requirements, error handling, edge cases, non-functional requirements)
+- [x] T018 [P] [US1] Create Clarity dimension items at `.specify/templates/checklist-template/content/clarity.md` (5-6 items: vague terms, measurable criteria, terminology consistency)
+- [x] T019 [P] [US1] Create Consistency dimension items at `.specify/templates/checklist-template/content/consistency.md` (4-5 items: cross-section alignment, terminology drift, conflicting requirements)
+- [x] T020 [P] [US1] Create Measurability dimension items at `.specify/templates/checklist-template/content/measurability.md` (4-5 items: testable criteria, objective verification, performance metrics)
+- [x] T021 [P] [US1] Create Scenario Coverage dimension items at `.specify/templates/checklist-template/content/scenario-coverage.md` (5-6 items: user flows, error scenarios, concurrent interactions, edge cases)
+- [x] T022 [P] [US1] Create Edge Cases dimension items at `.specify/templates/checklist-template/content/edge-cases.md` (5-6 items: boundary conditions, partial failures, recovery flows)
+- [x] T023 [P] [US1] Create Dependencies dimension items at `.specify/templates/checklist-template/content/dependencies.md` (4-5 items: external APIs, assumptions, integration points)
+- [x] T024 [P] [US1] Create Ambiguities dimension items at `.specify/templates/checklist-template/content/ambiguities.md` (5-6 items: unclear assumptions, unresolved areas, missing definitions)
+- [x] T025 [US1] Assemble base template at `.specify/templates/checklist-template.md` (combine all dimensions, format, add metadata section)
+- [x] T026 [US1] Create template documentation at `.specify/templates/checklist-template/GUIDE.md` (how to use template, understand dimensions, write good items)
 
 **Checkpoint**: Base template complete with 40-50 items, 8 dimensions, quality validated; proceed to FR-2
 
@@ -121,11 +121,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T031 [P] [US2] Create UX Requirements Quality variant at `.specify/templates/checklist-variants/ux.md` (base template + 15-20 UX-specific items: visual hierarchy, interaction states, accessibility, responsive design, zero-state scenarios)
-- [ ] T032 [P] [US2] Create API Requirements Quality variant at `.specify/templates/checklist-variants/api.md` (base template + 15-20 API-specific items: endpoint specs, error formats, rate limiting, versioning, retry logic)
-- [ ] T033 [P] [US2] Create Security Requirements Quality variant at `.specify/templates/checklist-variants/security.md` (base template + 15-20 security-specific items: threat model, authentication, data protection, compliance, breach response)
-- [ ] T034 [P] [US2] Create Performance Requirements Quality variant at `.specify/templates/checklist-variants/performance.md` (base template + 15-20 perf-specific items: metrics, load scenarios, degradation, caching, optimization)
-- [ ] T035 [US2] Create variant documentation at `.specify/templates/checklist-variants/VARIANTS.md` (guide to choosing variant, how each adds domain focus)
+- [x] T031 [P] [US2] Create UX Requirements Quality variant at `.specify/templates/checklist-variants/ux.md` (base template + 15-20 UX-specific items: visual hierarchy, interaction states, accessibility, responsive design, zero-state scenarios)
+- [x] T032 [P] [US2] Create API Requirements Quality variant at `.specify/templates/checklist-variants/api.md` (base template + 15-20 API-specific items: endpoint specs, error formats, rate limiting, versioning, retry logic)
+- [x] T033 [P] [US2] Create Security Requirements Quality variant at `.specify/templates/checklist-variants/security.md` (base template + 15-20 security-specific items: threat model, authentication, data protection, compliance, breach response)
+- [x] T034 [P] [US2] Create Performance Requirements Quality variant at `.specify/templates/checklist-variants/performance.md` (base template + 15-20 perf-specific items: metrics, load scenarios, degradation, caching, optimization)
+- [x] T035 [US2] Create variant documentation at `.specify/templates/checklist-variants/VARIANTS.md` (guide to choosing variant, how each adds domain focus)
 
 **Checkpoint**: 4 domain variants complete; UX, API, Security, Performance coverage; proceed to FR-3
 
