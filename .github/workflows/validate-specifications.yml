@@ -79,7 +79,7 @@ jobs:
             [ -z "$link" ] && continue
             # Remove ]( from start and ) from end
             target="${link:2}"      # Remove ](
-            target="${target%\)}    # Remove )
+            target="${target%\)}"    # Remove )
 
             # Skip external links
             if [[ $target == http* ]]; then
