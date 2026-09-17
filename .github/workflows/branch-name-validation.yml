@@ -3,7 +3,7 @@ name: Branch Name Validation
 on:
   push:
     branches:
-      - "**"
+      - '**'
 
 permissions:
   contents: read
@@ -31,8 +31,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -174,7 +174,7 @@ jobs:
               '',
               '**Pattern:** `{type}/{scope}-{title}`',
               '',
-              '**Allowed types (24):** feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, audit, codex, revert, research',
+              '**Allowed types (38):** feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, revert, research, aiops, automation, epic',
               '',
               '**Forbidden prefixes:** claude/, copilot/, openai/',
               '',
