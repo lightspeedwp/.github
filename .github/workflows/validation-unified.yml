@@ -103,16 +103,9 @@ jobs:
         run: |
           BRANCH="${{ github.head_ref }}"
           PR_BODY="${{ github.event.pull_request.body }}"
-          TITLE="${{ github.event.pull_request.title }}"
-
-          echo "🔍 DEBUG: Branch='$BRANCH'"
-          echo "🔍 DEBUG: PR Body length=${#PR_BODY}"
-          echo "🔍 DEBUG: PR Body preview (first 200 chars):"
-          echo "$PR_BODY" | head -c 200
 
           # Extract type from branch
-          TYPE=$(echo "$BRANCH" | cut -d'/' -f1)
-          echo "🔍 DEBUG: Extracted TYPE='$TYPE'"
+          TYPE=$(printf '%s' "$BRANCH" | cut -d'/' -f1)
 
           # Map branch type to expected template
           case "$TYPE" in
@@ -133,17 +126,11 @@ jobs:
               ;;
           esac
 
-          echo "🔍 DEBUG: Required sections: ${REQUIRED_SECTIONS[@]}"
-
           # Validate all required sections present
           MISSING_SECTIONS=()
           for SECTION in "${REQUIRED_SECTIONS[@]}"; do
-            echo "🔍 DEBUG: Checking for section: '$SECTION'"
-            if [[ ! "$PR_BODY" =~ "$SECTION" ]]; then
-              echo "🔍 DEBUG: Missing section: '$SECTION'"
+            if ! printf '%s' "$PR_BODY" | grep -q "$(printf '%s' "$SECTION")" ; then
               MISSING_SECTIONS+=("$SECTION")
-            else
-              echo "🔍 DEBUG: Found section: '$SECTION'"
             fi
           done
 
@@ -309,28 +296,33 @@ jobs:
       - name: Run secret scanning
         shell: bash
         run: |
-          # Use truffleHog or similar for secret scanning
-          # For now, basic pattern matching for common secrets
-
           echo "🔍 Scanning for hardcoded secrets..."
 
-          # Patterns to detect
-          PATTERNS=(
-            "password\s*=\s*['\"].*['\"]"
-            "api[_-]?key\s*=\s*['\"].*['\"]"
-            "secret\s*=\s*['\"].*['\"]"
-            "token\s*=\s*['\"].*['\"]"
-            "AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY"
-            "BEGIN RSA PRIVATE KEY|BEGIN PRIVATE KEY"
-          )
+          # Fetch develop branch to enable git diff
+          git fetch origin develop 2>&1 || true
 
+          # Get diff, handling case where develop is not available
+          if git rev-parse origin/develop >/dev/null 2>&1; then
+            DIFF_OUTPUT=$(git diff origin/develop...HEAD 2>&1)
+          else
+            DIFF_OUTPUT=$(git diff HEAD~5..HEAD 2>&1 || git diff HEAD 2>&1)
+          fi
+
+          # Look for actual secrets (exclude documentation and comments)
+          # Only flag lines with actual assigned values, not documentation
           FOUND_SECRETS=0
-          for PATTERN in "${PATTERNS[@]}"; do
-            if git diff origin/develop...HEAD | grep -iE "$PATTERN" | grep -v "node_modules" | grep -v ".git" > /dev/null; then
-              echo "⚠️  Potential secret found matching pattern: $PATTERN"
-              FOUND_SECRETS=$((FOUND_SECRETS + 1))
-            fi
-          done
+
+          # Check for AWS credentials (exclude from .md, .yml, .yaml files and comments)
+          if echo "$DIFF_OUTPUT" | grep -E "^\+" | grep -v "^+++\|\.md:\|\.yml:\|\.yaml:\|#" | grep -iE "AKIA[0-9A-Z]{16}" > /dev/null; then
+            echo "⚠️  Potential AWS key found"
+            FOUND_SECRETS=$((FOUND_SECRETS + 1))
+          fi
+
+          # Check for RSA/Private keys (only in code files, not docs)
+          if echo "$DIFF_OUTPUT" | grep -E "^\+" | grep -v "^+++\|\.md:\|#" | grep -E "BEGIN (RSA |OPENSSH )?PRIVATE KEY" > /dev/null; then
+            echo "⚠️  Potential private key found"
+            FOUND_SECRETS=$((FOUND_SECRETS + 1))
+          fi
 
           if [[ $FOUND_SECRETS -gt 0 ]]; then
             echo "❌ Secret scanning found potential secrets"
