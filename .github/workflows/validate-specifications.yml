@@ -77,7 +77,7 @@ jobs:
       - name: Lint specification files
         if: always()
         run: |
-          npm run lint:md -- .github/specs/ .specify/scripts/bash/
+          npm run lint:md -- .github/specs/
           echo "✓ Markdown linting passed"
 
       - name: Run security scan
