@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Workflow Consolidation Phase 1-2 Implementation** — Completed first two implementation phases of unified workflow consolidation feature, establishing foundational infrastructure and preparing for Phase 3 (MVP: labeling-unified.yml). Phase 1 deliverables: baseline metrics (2,500 min/month), rollback procedure, metrics tracking script, and Phase 1 archive verification (71 workflows). Phase 2 deliverables: 4 composite actions (apply-labels, validate-check, aggregate-tests, collect-metrics) with full error handling and ≥80% test coverage; workflow test harness and error isolation validation framework; comprehensive documentation (performance targets, consolidation matrix, composite action contracts). All 14 Phase 1-2 tasks completed (T001-T014). Phase 3-7 ready for implementation (64 remaining tasks). See `.github/specs/011-workflow-consolidation-phase-2/` for specifications and task tracking.
+
 ### Fixed
 
 - **release-gates.test.js cwd Corruption (#3340 backport)** — Several `describe` blocks reset `cwd` via `process.chdir("/")` instead of the real starting directory. Jest reuses one worker process across multiple test files, so this left the cwd at filesystem root for whatever test file ran next in that worker, breaking any relative-path resolution downstream. Fixed by capturing and restoring the real original cwd; also added the `afterEach` reset that GATE 5/7 were missing entirely. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))
