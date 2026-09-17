@@ -242,8 +242,48 @@ The following files are **manually curated and locked**. Request changes via Git
 
 - [.github/ISSUE_TEMPLATE/](./.github/ISSUE_TEMPLATE/) – Issue templates
 - [.github/PULL_REQUEST_TEMPLATE/](./.github/PULL_REQUEST_TEMPLATE/) – PR templates
-- [.github/workflows/](./.github/workflows/) – GitHub Actions workflows
+- [.github/workflows/](./.github/workflows/) – GitHub Actions workflows (Phase 2 unified)
 - [docs/PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md) – PR workflow guide
+
+#### Phase 2: Unified Workflows (71 → 5 Consolidation)
+
+Phase 2 consolidates 71 archived workflows into 5 unified, maintainable workflows with parallel execution and comprehensive error handling:
+
+| Workflow | Purpose | Phases | Archived Count |
+|----------|---------|--------|-----------------|
+| [labeling-unified.yml](./.github/workflows/labeling-unified.yml) | Auto-labeling on PR/issue open/edit + scheduled cleanup | Phase 3 | 9 workflows |
+| [validation-unified.yml](./.github/workflows/validation-unified.yml) | Branch naming, PR templates, changelog, commits, secrets, configs | Phase 4 | 12 workflows |
+| [testing-unified.yml](./.github/workflows/testing-unified.yml) | Unit/integration/E2E tests + coverage aggregation with parallel execution | Phase 4 | 8 workflows |
+| [linting-unified.yml](./.github/workflows/linting-unified.yml) | JavaScript/TypeScript and Markdown linting with auto-fix suggestions | Phase 5 | 2 workflows |
+| [quality-gates.yml](./.github/workflows/quality-gates.yml) | SAST (CodeQL), dependency scanning, license compliance, code quality metrics, security policy | Phase 6 | 5 utilities |
+
+**Key Features:**
+
+- ✅ Parallel job execution (30-50% faster than sequential workflows)
+- ✅ Comprehensive error handling with `continue-on-error` per job
+- ✅ Composite actions for consistent reporting and metrics collection
+- ✅ Integrated security scanning (CodeQL, npm audit, gitleaks)
+- ✅ Performance target: ≤2,125 GitHub Actions minutes/month (≥15% reduction)
+
+**Documentation:**
+
+- [docs/WORKFLOW_CONSOLIDATION_MAPPING.md](./docs/WORKFLOW_CONSOLIDATION_MAPPING.md) – Full workflow mapping (71 → 5)
+- [.github/releases/PHASE2_RELEASE_NOTES.md](./.github/releases/PHASE2_RELEASE_NOTES.md) – Release summary and metrics
+- [docs/PHASE2_OPERATIONS_RUNBOOK.md](./docs/PHASE2_OPERATIONS_RUNBOOK.md) – Production operations guide and troubleshooting
+
+**Individual Workflow Documentation:**
+
+- [docs/LABELING_UNIFIED.md](./docs/LABELING_UNIFIED.md) – Label assignment rules and configuration
+- [docs/VALIDATION_UNIFIED.md](./docs/VALIDATION_UNIFIED.md) – Validation gates and failure remediation
+- [docs/TESTING_UNIFIED.md](./docs/TESTING_UNIFIED.md) – Test execution, coverage, and artifacts
+- [docs/LINTING_UNIFIED.md](./docs/LINTING_UNIFIED.md) – ESLint and Markdown linting configuration
+- [docs/QUALITY_GATES.md](./docs/QUALITY_GATES.md) – Security scanning and compliance checks
+
+**Integration Testing:**
+
+- [.github/tests/phase2-integration-test.yml](./.github/tests/phase2-integration-test.yml) – Validates all 5 workflows execute without cascading failures
+
+**Status:** MVP complete; CI validation in progress. See [Phase 2 Release Notes](./.github/releases/PHASE2_RELEASE_NOTES.md) for detailed metrics and known limitations.
 
 ### Portable Reusable Resources
 
