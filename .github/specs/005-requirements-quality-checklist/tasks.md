@@ -174,9 +174,9 @@
 - [x] T049 [P] [US4] Implement checklist generator at `.specify/templates/checklist-template/lib/generator.cjs` (load base template, apply domain variant if specified, sequence IDs, format as markdown)
 - [x] T050 [P] [US4] Implement custom item merger at `.specify/templates/checklist-template/lib/custom-merger.cjs` (user-provided items merged into generated checklist, no duplicates)
 - [x] T051 [P] [US4] Create checklist CLI at `.specify/templates/checklist-template/bin/generate-checklist.js` (command-line tool, accepts domain + audience + custom items, outputs checklist file)
-- [ ] T052 [US4] Implement /speckit-checklist skill integration at `.specify/skills/speckit-checklist/SKILL.md` (executes checklist generation as part of spec quality workflow)
+- [x] T052 [US4] Implement /speckit-checklist skill integration at `.claude/skills/speckit-checklist/SKILL.md` (executes checklist generation as part of spec quality workflow)
 - [x] T053 [P] [US4] Create checklist validator at `.specify/templates/checklist-template/lib/checklist-validator.cjs` (validate generated checklist: all dimensions present, all items follow pattern, no duplicates)
-- [ ] T054 [US4] Create generation documentation at `.specify/templates/checklist-template/docs/GENERATION.md` (how to generate checklists, pass custom items, integrate with workflows)
+- [x] T054 [US4] Create generation documentation at `.specify/templates/checklist-template/docs/GENERATION.md` (how to generate checklists, pass custom items, integrate with workflows)
 
 **Checkpoint**: Checklist generation complete, /speckit-checklist integrated; framework ready for use
 
