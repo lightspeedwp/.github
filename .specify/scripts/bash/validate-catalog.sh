@@ -4,29 +4,8 @@
 
 set -euo pipefail
 
-# find_repo_root - Locate repository root by searching for .specify directory
-find_repo_root() {
-  local dir="${1:-.}"
-  dir="$(cd "$dir" 2>/dev/null && pwd)" || return 1
-  local prev_dir=""
-  while [ "$dir" != "$prev_dir" ]; do
-    if [ -d "$dir/.specify" ]; then
-      echo "$dir"
-      return 0
-    fi
-    prev_dir="$dir"
-    dir="$(dirname "$dir")"
-  done
-  return 1
-}
-
-# Resolve CATALOG_PATH
+# CATALOG_PATH - Always use relative path from repo root
 CATALOG_PATH=".github/specs/CATALOG.md"
-if repo_root=$(find_repo_root); then
-  CATALOG_PATH="$repo_root/.github/specs/CATALOG.md"
-elif repo_root=$(find_repo_root "$(dirname "${BASH_SOURCE[0]}")"); then
-  CATALOG_PATH="$repo_root/.github/specs/CATALOG.md"
-fi
 
 # validate_catalog_exists - Verify CATALOG.md file exists
 validate_catalog_exists() {
@@ -60,11 +39,10 @@ validate_canonical_schema() {
 # validate_catalog_links - Verify all markdown links point to existing targets
 validate_catalog_links() {
   local broken_links=0
-  local temp_file="/tmp/catalog_links_$$.txt"
+  local catalog_dir=$(dirname "$CATALOG_PATH")
 
-  # Extract all markdown links in format ](./NNN-*/)
-  grep -oE '\]\(\./[0-9]{3}-[^)]+\)' "$CATALOG_PATH" > "$temp_file" || true
-
+  # Use process substitution with while loop to validate links
+  # Extract all markdown links in format ](./NNN-*/...
   while IFS= read -r link; do
     [ -z "$link" ] && continue
 
@@ -73,12 +51,9 @@ validate_catalog_links() {
     target="${target%\)}"         # Remove )
 
     # Skip external links
-    if [[ $target == http* ]]; then
-      continue
-    fi
+    [[ $target == http* ]] && continue
 
-    # Resolve path relative to CATALOG location
-    local catalog_dir=$(dirname "$CATALOG_PATH")
+    # Resolve full path
     local full_path="$catalog_dir/$target"
 
     # Check if target exists (file or directory)
@@ -86,9 +61,7 @@ validate_catalog_links() {
       echo "✗ Broken link: $link (target not found: $full_path)"
       ((++broken_links))
     fi
-  done < "$temp_file"
-
-  rm -f "$temp_file"
+  done < <(grep -oE '\]\(\./[0-9]{3}-[^)]+\)' "$CATALOG_PATH")
 
   if [ $broken_links -eq 0 ]; then
     echo "✓ All catalog links point to existing specifications"
