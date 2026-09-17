@@ -195,11 +195,11 @@ phases: 7
 
 - [x] T057 [US5] Analyze 5 utilities workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/quality-gates-analysis.md`
 - [x] T058 [US5] Create unified quality gates workflow at `.github/workflows/quality-gates.yml` with parallel jobs for: (1) SAST, (2) dependency scanning, (3) license compliance, (4) code quality metrics, (5) security policy
-- [ ] T059 [P] [US5] Implement SAST scanning job: run CodeQL analysis, report findings to PR comment, fail if critical findings detected
-- [ ] T060 [P] [US5] Implement dependency scanning job: run npm audit (or language-appropriate), check for known vulnerabilities, report to PR
-- [ ] T061 [P] [US5] Implement license compliance job: scan dependencies against license allowlist at `.github/config/LICENSE_ALLOWLIST.json`, reject prohibited licenses
-- [ ] T062 [P] [US5] Implement code quality metrics job: collect complexity metrics, maintainability index, technical debt estimate, report to artifacts
-- [ ] T063 [US5] Implement security policy enforcement job: validate SECURITY.md exists, check for required security headers in config files
+- [x] T059 [P] [US5] Implement SAST scanning job: run CodeQL analysis, report findings to PR comment, fail if critical findings detected
+- [x] T060 [P] [US5] Implement dependency scanning job: run npm audit (or language-appropriate), check for known vulnerabilities, report to PR
+- [x] T061 [P] [US5] Implement license compliance job: scan dependencies against license allowlist at `.github/config/LICENSE_ALLOWLIST.json`, reject prohibited licenses
+- [x] T062 [P] [US5] Implement code quality metrics job: collect complexity metrics, maintainability index, technical debt estimate, report to artifacts
+- [x] T063 [US5] Implement security policy enforcement job: validate SECURITY.md exists, check for required security headers in config files
 - [ ] T064 [US5] Integrate validate-check composite action (T007) into all security jobs with critical failure handling
 - [ ] T065 [US5] Integrate collect-metrics composite action (T009) into quality-gates.yml
 - [ ] T066 [US5] Test quality-gates.yml on feature branch: trigger via push, verify all 5 gates execute, test failure scenarios and PR comments
@@ -290,10 +290,10 @@ Use this section to track task progress:
 - [x] **Phase 4 US2:** T025-T035 (11/12 complete - T036 monitoring CI runs)
 - [x] **Phase 4 US3:** T037-T046 (10/11 complete - T047 monitoring CI runs)
 - [x] **Phase 5 US4:** T048-T056 (8/9 complete - T056 monitoring CI runs)
-- [ ] **Phase 6 US5:** T057-T068 (2/12 complete - T057-T058 done, T059-T068 pending)
+- [ ] **Phase 6 US5:** T057-T068 (7/12 complete - T057-T063 done, T064-T068 pending)
 - [ ] **Phase 7 Integration:** T069-T078 (0/10 complete)
 
-**Total Progress:** 55/78 tasks complete (71%)
+**Total Progress:** 60/78 tasks complete (77%)
 
 **Phase 4-5 Status:**
 
