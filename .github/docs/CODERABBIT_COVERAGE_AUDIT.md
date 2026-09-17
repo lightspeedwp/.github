@@ -2,15 +2,31 @@
 
 **Purpose**: Help maintainers verify that CodeRabbit review instructions cover all critical file types in the repository.
 
-**Last Updated**: 2026-09-12
+**Last Updated**: 2026-09-17
 
 **Target Audience**: Repository maintainers, DevOps, code review leads
 
 ---
 
-## Quick Start: Running a Coverage Audit
+## Overview
 
-### Step 1: Scan Repository File Types
+The `.coderabbit.yml` file contains path-based review instructions organized by file type and category. Coverage audits verify that:
+
+1. **File Type Inventory** (FR-015): All distinct file types in use are catalogued
+2. **Coverage Mapping** (FR-015): Each file type has explicit or catch-all instruction blocks
+3. **Gap Analysis** (FR-015): Missing file types are identified and prioritized
+4. **Priority Verification** (FR-015): Priorities within blocks are unique and follow specificity rules
+5. **Focus Area Validation** (FR-015): Each block has 3-4 distinct focus areas for substantive guidance
+
+---
+
+## Part 1: File Type Inventory Procedure
+
+**Objective**: Create a master list of all file types across the organisation repositories.
+
+### Steps
+
+1. **Scan Repository File Types**
 
 Run this command to list all file types currently in the repository:
 
@@ -19,25 +35,361 @@ find . -type f -not -path '*/\.*' -not -path '*/node_modules/*' -not -path '*/.g
   sed 's/.*\.//' | sort | uniq -c | sort -rn | head -30
 ```
 
-This will show you the top 30 most common file types by frequency.
+1. **Extract file paths and extensions** from multiple repository types:
+   - WordPress plugin repositories (PHP, JS, CSS, YAML, Markdown)
+   - Node.js/TypeScript repositories (TS, TSX, JS, JSON, YAML, Markdown)
+   - Infrastructure-as-code repositories (Terraform, YAML, Shell, Markdown)
+   - CLI tool repositories (Python/Go/Rust, config files, Markdown)
+   - MCP server repositories (TypeScript, JSON, Markdown)
+   - Documentation repositories (Markdown, YAML frontmatter)
 
-### Step 2: Cross-Reference Against CodeRabbit Config
+2. **Categorize by type**:
+   - Language source files (PHP, JavaScript, TypeScript, Python, etc.)
+   - Configuration files (YAML, JSON, TOML, .env*)
+   - Documentation (Markdown, reStructuredText)
+   - Build/CI/CD (Dockerfile, GitHub Actions, Terraform)
+   - Package/Dependency management (package.json, composer.json, requirements.txt)
+   - Spec/Template files (.specify/*, templates/*)
+   - Infrastructure (Kubernetes, Terraform, CloudFormation)
 
-Open `.coderabbit.yml` and review the `path_instructions` section. For each file type from Step 1:
+3. **Create master file type list** and document ownership per file type
 
-1. **Check if coverage exists**: Search `.coderabbit.yml` for a path pattern matching that file type
-2. **Record coverage status**:
-   - ✅ **Covered**: A specific instruction block exists (e.g., `**/*.md` for markdown)
-   - ⚠️ **Partially covered**: Pattern matches but review guidance is generic
+---
+
+## Part 2: Coverage Mapping Procedure
+
+**Objective**: Cross-reference each file type against `.coderabbit.yml` instruction blocks.
+
+### Steps
+
+1. **Extract instruction blocks from `.coderabbit.yml`**:
+
+   ```bash
+   grep -E '^\s+- path:' .coderabbit.yml | sed 's/.*path: //' | sed 's/ # priority:.*//' | sort
+   ```
+
+2. **Map file types to instruction blocks**:
+   - **Explicit coverage**: Dedicated instruction block (e.g., `src/**/*.php`)
+   - **Fallback coverage**: Category-level block (e.g., `**/*.php`)
+   - **Catch-all coverage**: Default `**/*` block with generic guidance
+   - Document specificity levels
+
+3. **Record coverage status** for each file type:
+   - ✅ **Covered**: Explicit or fallback instruction block exists
+   - ⚠️ **Partially covered**: Pattern matches but guidance is generic
    - ❌ **Not covered**: No matching pattern exists
 
-### Step 3: Identify Coverage Gaps
+4. **Flag coverage gaps**:
+   - Any file type with CATCH-ALL ONLY coverage
+   - File types with <3 focus areas
+   - High-priority file types (PHP, TypeScript, Documentation) with insufficient specificity
 
-File types NOT covered are candidates for new instruction blocks. Prioritize by:
+---
 
-1. **Frequency**: How often do contributors modify this file type?
-2. **Risk**: Are there security, performance, or accessibility implications?
-3. **Visibility**: Is this a user-facing or critical infrastructure file?
+## Part 3: Gap Analysis Procedure
+
+**Objective**: Identify missing file types and prioritize new instruction blocks.
+
+### Steps
+
+1. **Compare inventory vs coverage**:
+   - List all file types from Part 1 inventory
+   - Mark each as: Explicit, Fallback, Catch-All, or Uncovered
+   - Flag critical gaps
+
+2. **Assess impact of each gap**:
+   - **Critical**: File type appears in >30% of repos → HIGH priority
+   - **High**: File type appears in 10-30% of repos → MEDIUM priority
+   - **Medium**: File type appears in <10% of repos → LOW priority
+
+3. **Recommend priority order** for new instruction blocks
+
+4. **Estimate effort**: Each new explicit block takes ~1-2 hours (research + writing + testing)
+
+---
+
+## Part 4: Priority Verification Procedure
+
+**Objective**: Validate that priorities are unique and follow specificity rules.
+
+### Steps
+
+1. **Extract priorities from `.coderabbit.yml`**:
+
+   ```bash
+   grep -E '# priority:' .coderabbit.yml | sed 's/.*# priority: //' | sort -n
+   ```
+
+2. **Check for duplicates**:
+   - No two patterns should have identical priority at same specificity level
+   - Priorities should decrease with generality (higher number = more specific)
+
+3. **Verify specificity rules**:
+   - Explicit/specific patterns (e.g., `src/**/*.ts`) must have HIGHER priority than fallback patterns (e.g., `**/*.ts`)
+   - Fallback patterns must have HIGHER priority than catch-all
+   - Within same specificity level, no overlaps with identical priority
+
+4. **Document any conflicts** found and recommended fixes
+
+---
+
+## Part 5: Focus Area Validation Procedure
+
+**Objective**: Ensure each instruction block has 3-4 substantive focus areas.
+
+### Steps
+
+1. **Audit focus areas per block**:
+   - Count focus area lines (starting with `**` in markdown)
+   - Each focus area should have 2-3 checks beneath it
+
+2. **Count focus areas**:
+   - **Explicit blocks**: Target 3-4 focus areas
+   - **Fallback blocks**: Target 2-3 focus areas
+   - **Catch-all**: Acceptable at 2 areas
+
+3. **Flag blocks failing the standard**:
+   - Blocks with <2 focus areas
+   - Blocks with unclear or vague focus areas
+   - Blocks missing critical dimension (security, performance, accessibility)
+
+4. **Document exceptions** with rationale
+
+---
+
+## Part 6: Examples for Diverse Project Types
+
+### Example 1: WordPress Plugin Repository Audit
+
+```
+WordPress Plugin Project Structure:
+├── src/
+│   ├── Block/
+│   │   └── **/*.php
+│   ├── API/
+│   │   └── **/*.php
+│   └── Utility/
+│       └── **/*.php
+├── assets/
+│   ├── src/
+│   │   ├── **/*.ts
+│   │   ├── **/*.tsx
+│   │   └── **/*.scss
+├── tests/
+│   └── **/*.php
+└── .github/
+    └── workflows/
+        └── **/*.yml
+
+Coverage Status:
+✓ src/**/*.php → Explicit block (priority 10)
+✓ assets/src/**/*.ts → Explicit block (priority 8)
+⚠ assets/src/**/*.scss → Fallback block (priority 3)
+✓ tests/**/*.php → Fallback block (priority 5)
+✓ .github/workflows/** → Explicit block (priority 12)
+
+Gaps Identified:
+- SCSS files use fallback (generic CSS guidance) - consider explicit SCSS block for BEM/design system alignment
+- Tests use PHP fallback - consider explicit testing block
+
+Recommendation: MEDIUM priority (SCSS adds value; testing explicit guidance improves quality)
+```
+
+### Example 2: Node.js/TypeScript Repository Audit
+
+```
+Node.js Project Structure:
+├── src/
+│   ├── **/*.ts
+│   └── **/*.tsx
+├── tests/
+│   └── **/*.test.ts
+├── scripts/
+│   └── **/*.ts
+├── .github/
+│   └── workflows/
+│       └── **/*.yml
+└── docs/
+    └── **/*.md
+
+Coverage Status:
+✓ src/**/*.ts → Explicit block (priority 8)
+✓ src/**/*.tsx → Explicit block (priority 8)
+⚠ tests/**/*.test.ts → Fallback block (priority 4)
+⚠ scripts/**/*.ts → Fallback block (priority 4)
+✓ .github/workflows/** → Explicit block (priority 12)
+✓ docs/**/*.md → Explicit block (priority 2)
+
+Gaps Identified:
+- Test files use generic TypeScript guidance - would benefit from testing-specific focus areas
+- Scripts use generic TypeScript guidance - would benefit from CLI/automation focus areas
+
+Recommendation: HIGH priority (testing guidance improves test quality; script guidance improves reliability)
+```
+
+### Example 3: Infrastructure-as-Code Repository Audit
+
+```
+IaC Project Structure:
+├── terraform/
+│   ├── **/*.tf
+│   ├── modules/
+│   └── **/*.tf
+├── kubernetes/
+│   ├── manifests/
+│   │   └── **/*.yaml
+│   └── helm/
+│       └── **/*.yaml
+├── scripts/
+│   └── **/*.sh
+└── docs/
+    └── **/*.md
+
+Coverage Status:
+✓ terraform/**/*.tf → Fallback block (priority 4)
+✓ kubernetes/**/*.yaml → Fallback block (priority 3)
+✓ scripts/**/*.sh → Fallback block (priority 4)
+✓ docs/**/*.md → Explicit block (priority 2)
+
+Gaps Identified:
+- Terraform uses fallback only - would benefit from IaC-specific focus areas (state management, resource patterns, compliance)
+- Kubernetes YAML uses generic YAML guidance - would benefit from k8s-specific focus areas (security policies, resource limits, health checks)
+
+Recommendation: HIGH priority (IaC specificity improves configuration safety; k8s-specific guidance improves cluster reliability)
+```
+
+---
+
+## Part 7: Maintenance Schedule & Trigger Events
+
+### Quarterly Review (Scheduled)
+
+- **Frequency**: Once per quarter (end of Q1, Q2, Q3, Q4)
+- **Time**: Run full audit (Parts 1-5) taking ~4-6 hours
+- **Output**: Update `.github/docs/coverage_summary.txt` with current status
+- **Action**: File issue if gaps identified; assign priority for new blocks
+
+### Triggered Re-Audit (On Demand)
+
+#### When New Repository Type Added
+
+- Trigger: First repository of a new language/platform joins organisation (e.g., first Rust project, first Terraform repository)
+- Timeline: Run Part 1 (inventory) + Part 3 (gap analysis) within 2 weeks
+- Action: Add explicit blocks for critical new types within 1 month
+
+#### When File Type Frequency Changes
+
+- Trigger: A file type previously at <10% adoption rises to >30% of repos
+- Escalation: Move from LOW to HIGH priority in gap queue
+- Timeline: Add explicit block within 1 month
+
+#### When User Feedback Indicates Gap
+
+- Trigger: Code reviewer or maintainer reports "CodeRabbit guidance for X isn't relevant to our project"
+- Investigation: Run Part 3 (gap analysis) for that file type
+- Assessment: Determine if catch-all or fallback coverage is insufficient
+
+### Post-Deployment Checklist (Every Release)
+
+After expanding `.coderabbit.yml` with new blocks, verify:
+
+- [ ] All new blocks have 3-4 focus areas (Part 5)
+- [ ] No priority conflicts introduced (Part 4)
+- [ ] Coverage map reflects new blocks (Part 2)
+- [ ] Examples updated if project types affected (Part 6)
+- [ ] Test PR created and feedback verified against new guidance
+
+---
+
+## Part 8: Summary & Reporting
+
+### Coverage Report Template
+
+**File**: `coverage-report.txt` (generate after each audit)
+
+```
+CodeRabbit Configuration Coverage Report
+==========================================
+Generated: [TODAY'S DATE]
+Report Type: Quarterly Audit (or event-triggered)
+
+Coverage Statistics:
+- Total file types identified: [N]
+- Explicit instruction blocks: [N] ([%])
+- Fallback instruction blocks: [N] ([%])
+- Catch-all coverage only: [N] ([%])
+- Overall coverage: [%] ✓ (Target: ≥95%)
+
+File Types by Coverage Level:
+
+EXPLICIT ([N] types - [%]):
+- [List 5-10 examples]
+
+FALLBACK ([N] types - [%]):
+- [List 5-10 examples]
+
+CATCH-ALL ONLY ([N] types - [%]):
+- [List any types with only catch-all coverage]
+
+Priority Verification:
+✓ No duplicate priorities
+✓ Priorities align with specificity
+✓ No pattern overlaps at same priority level
+
+Focus Area Audit:
+✓ [X]% of explicit blocks have 3-4 areas
+✓ [X]% of fallback blocks have 2-3 areas
+✓ Catch-all block: [N] areas ✓ (acceptable)
+
+Critical Gaps:
+- [List any gaps identified]
+
+Recommendations:
+1. [Priority 1 recommendation]
+2. [Priority 2 recommendation]
+
+Next Audit: [DATE + 3 MONTHS]
+```
+
+### Coverage Summary Template
+
+**File**: `coverage_summary.txt` (quick reference)
+
+```
+CodeRabbit Coverage Summary (Quick Reference)
+==============================================
+Last Updated: [TODAY'S DATE]
+
+Coverage: [%] ([N] of [N] file types covered; target ≥95%) ✓
+
+Instruction Blocks: [N] total
+- Explicit blocks: [N] (tech/project-specific guidance)
+- Fallback blocks: [N] (category-level guidance)
+- Catch-all block: 1 (generic guidance)
+
+Focus Areas: [N] total across all blocks (avg [X.XX] per block)
+- Blocks with 4 areas: [N] ([%])
+- Blocks with 3 areas: [N] ([%])
+- Blocks with 2 areas: [N] ([%])
+
+Priority Distribution:
+- Priorities 10-15: [N] blocks (highest specificity)
+- Priorities 5-9: [N] blocks (high specificity)
+- Priorities 1-4: [N] blocks (category and catch-all)
+
+Validation Status:
+✓ No priority conflicts
+✓ No pattern overlaps
+✓ All blocks: 2-4 focus areas
+✓ Coverage ≥95%
+
+Emerging Types (Tracked):
+- [File type 1] → [Status: Covered/Gap]
+- [File type 2] → [Status: Covered/Gap]
+
+Action Items:
+- [Any outstanding items]
+```
 
 ---
 
