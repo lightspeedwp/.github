@@ -63,7 +63,7 @@ jobs:
 
           # Run validation and capture results
           node bin/validate.js \
-            --changelog-path ../../../../CHANGELOG.md \
+            --changelog-path ../../../CHANGELOG.md \
             --trigger pr_submission \
             --pr-number ${{ github.event.pull_request.number }} \
             --branch ${{ github.head_ref }} \
@@ -84,7 +84,7 @@ jobs:
             echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
 
             # Save full report for audit
-            cp validation-report.json ../../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
+            cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
 
             # Exit based on gate result
             if [ "$GATE_RESULT" == "pass" ]; then

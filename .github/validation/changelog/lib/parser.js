@@ -101,7 +101,7 @@ class ChangelogParser {
   }
 
   finializeEntry(entryData, entryId, lineStart) {
-    const { content, section, startLine } = entryData;
+    const { content, section } = entryData;
 
     const prMatches = content.match(/#(\d+)/g) || [];
     const issueMatches = content.match(/issues\/#(\d+)/g) || [];
