@@ -134,3 +134,5 @@ python-docx exposes `section.header.is_linked_to_previous` and `section.footer.i
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
