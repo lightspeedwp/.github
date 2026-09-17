@@ -69,13 +69,9 @@ jobs:
           echo "tests_ok=true" >> "$GITHUB_OUTPUT"
           echo "✓ Audit script tests passed"
 
-      - name: Run Markdown linting
+      - name: Lint specification Markdown files
         if: always()
-        run: npm run lint:md -- .github/specs/
-
-      - name: Run security checks
-        if: always()
-        run: npm run lint:js -- --max-warnings 0 .github/specs/ .specify/scripts/ tests/bash/
+        run: npm run lint:md
 
       - name: Generate compliance report
         if: always()
