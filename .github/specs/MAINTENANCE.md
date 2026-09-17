@@ -92,10 +92,11 @@ Each command generates required artefacts in `.github/specs/NNN-{slug}/`:
 
 Add entry to `.github/specs/CATALOG.md`:
 
-1. Add row to index table with: number, title, slug, purpose, status, created date, link
-2. Add detailed entry section with 2-3 sentence description (see CATALOG.md structure)
+1. Add row to index table with canonical columns: # | Title | Purpose | Status | Created | Link
+2. Add detailed entry section with status, phase, created/updated dates, and link fields (see CATALOG.md structure)
 3. Ensure entry appears in correct sequential position (001, 002, ..., 013, 014)
 4. Update "Last Updated" timestamp at top of CATALOG.md
+5. Use relative link format: `./NNN-{slug}/spec.md`
 
 #### 5. Approval Gate
 
@@ -302,10 +303,10 @@ When updating catalog entries, verify:
 
 ```
 1. Determine correct row position (maintain sequential order)
-2. Add row to index table: number | slug | title | purpose | status | created | link
-3. Add detailed entry section below with 2-3 sentence description
+2. Add row to index table with canonical columns: # | Title | Purpose | Status | Created | Link
+3. Add detailed entry section below with status, phase, created/updated dates, and relative link (./NNN-slug/spec.md)
 4. Update "Last Updated" date at top of CATALOG.md
-5. Verify all links are valid
+5. Verify all links are valid and use relative format
 6. Test link by navigating from CATALOG.md to spec directory
 ```
 
