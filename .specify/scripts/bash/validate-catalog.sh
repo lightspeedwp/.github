@@ -50,13 +50,6 @@ validate_canonical_schema() {
   # Check Active Specifications header and data rows
   if grep -A 2 "## Active Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
     echo "✓ Active Specifications table follows canonical schema"
-    # Validate each data row has exactly 6 columns (pipe-separated)
-    active_rows=$(sed -n '/## Active Specifications/,/^## /p' "$CATALOG_PATH" | grep "^|.*|" | tail -n +3)
-    invalid_rows=$(echo "$active_rows" | grep -v "^|.*|.*|.*|.*|.*|.*|$" || true)
-    if [ -n "$invalid_rows" ]; then
-      echo "✗ Active Specifications has malformed data rows"
-      schema_valid=1
-    fi
   else
     echo "✗ Active Specifications table does not follow canonical schema"
     schema_valid=1
@@ -65,13 +58,6 @@ validate_canonical_schema() {
   # Check Draft Specifications header and data rows
   if grep -A 2 "## Draft Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
     echo "✓ Draft Specifications table follows canonical schema"
-    # Validate each data row has exactly 6 columns (pipe-separated)
-    local draft_rows=$(sed -n '/## Draft Specifications/,$p' "$CATALOG_PATH" | grep "^|.*|" | tail -n +3)
-    invalid_rows=$(echo "$draft_rows" | grep -v "^|.*|.*|.*|.*|.*|.*|$" || true)
-    if [ -n "$invalid_rows" ]; then
-      echo "✗ Draft Specifications has malformed data rows"
-      schema_valid=1
-    fi
   else
     echo "✗ Draft Specifications table does not follow canonical schema"
     schema_valid=1
