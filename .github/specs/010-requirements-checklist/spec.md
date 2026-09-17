@@ -19,12 +19,13 @@ The framework addresses the gap between "I wrote requirements" and "these requir
 ### Session 2026-09-17
 
 - Q: How should each of the 8 quality dimensions be scored and measured? → A: Each dimension uses a weighted item-count approach: (passed items ÷ total applicable items) × 100%, with ≥75% threshold for dimension pass.
+- Q: Should checklist item counts be fixed targets or acceptable ranges? → A: Target ranges for each variant allow implementation flexibility while maintaining scope control (Author 45–55, Peer 45–55, Stakeholder 20–30, Integration 25–35).
 
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Author Pre-Review: Self-Validate Before Peer Review (Priority: P1)
 
-A requirements author completes a specification and wants to validate it before sending to peer review. They need a structured checklist they can run through in ~30 minutes that catches common quality gaps (ambiguous success criteria, missing acceptance scenarios, inconsistent terminology) so they can fix issues before the formal review cycle.
+A requirements author completes a specification and wants to validate it before sending to peer review. They need a structured checklist they can run through in 25–35 minutes that catches common quality gaps (ambiguous success criteria, missing acceptance scenarios, inconsistent terminology) so they can fix issues before the formal review cycle.
 
 **Why this priority**: Prevents peer reviewers from spending time on fixable gaps. Reduces review cycles and accelerates time-to-implementation. P1 because it's the entry point for all requirements into the quality process.
 
@@ -40,7 +41,7 @@ A requirements author completes a specification and wants to validate it before 
 
 ### User Story 2 - Peer Review Gate: Structured Review Coordination (Priority: P1)
 
-A peer reviewer receives a spec marked for review. Instead of ad-hoc comments, they follow a structured checklist that ensures consistent evaluation across 8 quality dimensions. The checklist provides both quantitative metrics (% completeness, coverage scores) and qualitative guidance (e.g., "Do success criteria link to measurable business outcomes?") so reviewers catch issues systematically in ~45 minutes.
+A peer reviewer receives a spec marked for review. Instead of ad-hoc comments, they follow a structured checklist that ensures consistent evaluation across 8 quality dimensions. The checklist provides both quantitative metrics (% completeness, coverage scores) and qualitative guidance (e.g., "Do success criteria link to measurable business outcomes?") so reviewers catch issues systematically in 40–50 minutes.
 
 **Why this priority**: Standardises review quality. Prevents reviewers from missing dimensions. Reduces review-to-rework cycles. P1 because it's the quality gate before stakeholder approval.
 
@@ -56,7 +57,7 @@ A peer reviewer receives a spec marked for review. Instead of ad-hoc comments, t
 
 ### User Story 3 - Stakeholder Gate: Business Alignment Validation (Priority: P1)
 
-A stakeholder or product manager needs to verify that a specification meets business requirements and is ready for commitment before handoff to implementation. They need a lightweight checklist (~15 minutes) that validates business-critical dimensions (completeness, scenario coverage, dependencies) without requiring technical depth. The checklist helps them identify scope creep, missing user journeys, or unresolved dependencies before signing off.
+A stakeholder or product manager needs to verify that a specification meets business requirements and is ready for commitment before handoff to implementation. They need a lightweight checklist (10–20 minutes) that validates business-critical dimensions (completeness, scenario coverage, dependencies) without requiring technical depth. The checklist helps them identify scope creep, missing user journeys, or unresolved dependencies before signing off.
 
 **Why this priority**: Prevents misalignment between business intent and implementation scope. Catches scope creep before it reaches code. P1 because stakeholder sign-off gates release.
 
@@ -72,7 +73,7 @@ A stakeholder or product manager needs to verify that a specification meets busi
 
 ### User Story 4 - Cross-Project Integration: Dependency Validation (Priority: P2)
 
-A technical lead on Project A needs to verify that a specification from Project B (which Project A depends on) meets Project A's requirements and won't create integration friction. They use a checklist focused on dependencies, interfaces, and cross-project contracts to validate alignment in ~20 minutes without needing full technical review. This prevents integration surprises and clarifies assumptions across project boundaries.
+A technical lead on Project A needs to verify that a specification from Project B (which Project A depends on) meets Project A's requirements and won't create integration friction. They use a checklist focused on dependencies, interfaces, and cross-project contracts to validate alignment in 15–25 minutes without needing full technical review. This prevents integration surprises and clarifies assumptions across project boundaries.
 
 **Why this priority**: Reduces integration rework and coordination overhead. P2 because it's used less frequently than author/peer/stakeholder reviews but is critical when cross-project dependencies exist.
 
@@ -98,7 +99,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 
 - **FR-001**: System MUST provide 8 distinct quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with clear definition and measurable checkpoints for each
 - **FR-002**: System MUST generate a base checklist with 40+ items covering the 8 dimensions, structured as testable yes/no or scoring questions
-- **FR-003**: System MUST support 4 audience-specific checklist variants (Author Pre-Review ~50 items, Peer Review ~50 items, Stakeholder Gate ~25 items, Cross-Project Integration ~30 items) with tailored language and focus per audience
+- **FR-003**: System MUST support 4 audience-specific checklist variants with target item ranges and tailored language per audience: Author Pre-Review (45–55 items), Peer Review (45–55 items), Stakeholder Gate (20–30 items), Cross-Project Integration (25–35 items)
 - **FR-004**: System MUST allow specifications to be run against a checklist and produce a results document with pass/fail status per dimension (calculated as: passed items ÷ total applicable items × 100%; dimension passes if ≥75%), dimension scores (0-100%), and specific findings by checklist item
 - **FR-005**: System MUST provide reference examples and clarification guidance for ambiguous checklist items (e.g., "What counts as 'measurable'?" with examples of good vs. poor criteria)
 - **FR-006**: System MUST support extension of the base checklist with project-specific quality rules (e.g., "All security specs MUST address [specific threat model]") without modifying the core framework
