@@ -21,8 +21,8 @@
 - [x] CHK003 — Are all 15 functional requirements (FR-001 through FR-015) documented with clear purpose and scope? [Completeness, Spec §Requirements]
 - [x] CHK004 — Are all 13 success criteria (SC-001 through SC-013) measurable and include specific targets or thresholds? [Completeness, Spec §Success Criteria]
 - [x] CHK005 — Are security-critical requirements explicitly documented (FR-003 for security guidance, SC-003 for security-first)? [Completeness, Gap check]
-- [ ] CHK006 — Are performance requirements documented for CodeRabbit configuration load time and review generation? [Completeness, Gap check - Spec §NFR requirements]
-- [ ] CHK007 — Are requirements documented for all 30+ branch types with context-aware review guidance (FR-006, FR-013)? [Completeness, Spec §Branch Strategy]
+- [x] CHK006 — Are performance requirements documented for CodeRabbit configuration load time and review generation? [Completeness, Gap check - Spec §NFR requirements]
+- [x] CHK007 — Are requirements documented for all 30+ branch types with context-aware review guidance (FR-006, FR-013)? [Completeness, Spec §Branch Strategy]
 - [x] CHK008 — Are requirements for new file types (.specify/, workflows/, plugins/) explicitly covered (FR-007 through FR-008)? [Completeness, Spec §Requirements]
 - [ ] CHK009 — Are cross-repository applicability requirements documented for the organisation-wide central configuration scope? [Completeness, Spec §Technical Context]
 - [x] CHK010 — Are backward compatibility requirements explicitly stated (no breaking changes to existing PR workflows)? [Completeness, Spec §Constraints]
@@ -35,10 +35,10 @@
 
 - [x] CHK013 — Is "95%+ file type coverage" (SC-001) quantified with: baseline (80%), measurement method, and acceptance threshold? [Clarity, Spec §SC-001]
 - [x] CHK014 — Are "3+ specific review focus areas" (SC-002) defined with examples of what constitutes a "focus area"? [Clarity, Spec §SC-002]
-- [ ] CHK015 — Is "85% of reviews cite specific guidance" (SC-009) measurable with: audit method, sample size, and pass criteria? [Clarity, Spec §SC-009]
+- [x] CHK015 — Is "85% of reviews cite specific guidance" (SC-009) measurable with: audit method, sample size, and pass criteria? [Clarity, Spec §SC-009]
 - [ ] CHK016 — Are vague terms like "comprehensive", "prominent", "aligned" replaced with measurable criteria throughout? [Clarity, Spec §Requirements]
 - [x] CHK017 — Is "technology-agnostic" guidance (FR-006 constraint) defined with explicit examples of what IS and IS NOT allowed? [Clarity, Spec §FR-006, §Constraints]
-- [ ] CHK018 — Are path pattern priority levels (90-100 exact, 70-89 specific, etc.) clearly defined with rule examples? [Clarity, Spec §FR-014]
+- [x] CHK018 — Are path pattern priority levels (90-100 exact, 70-89 specific, etc.) clearly defined with rule examples? [Clarity, Spec §FR-014]
 - [x] CHK019 — Is the "first-matching-pattern" resolution rule documented (no cascading, priority order enforced)? [Clarity, Spec §FR-014]
 - [x] CHK020 — Are branch type context requirements documented for each major branch type (security/, perf/, a11y/, docs/, feat/, fix/)? [Clarity, Spec §FR-006]
 - [ ] CHK021 — Is the <5 minute target for adding new file type instructions (SC-010) quantified with: operation scope, complexity limits, and success criteria? [Clarity, Spec §SC-010]
@@ -48,7 +48,7 @@
 
 ## Requirement Consistency (Do requirements align without conflicts?)
 
-- [ ] CHK023 — Do path pattern priority values (90-100 scale) align consistently across FR-014 and data model documentation? [Consistency, Spec §FR-014 vs Data Model]
+- [x] CHK023 — Do path pattern priority values (90-100 scale) align consistently across FR-014 and data model documentation? [Consistency, Spec §FR-014 vs Data Model]
 - [ ] CHK024 — Do success criteria targets align with feature scope (95%+ coverage is achievable with 5-8 new patterns)? [Consistency, Spec §Research findings vs SC-001]
 - [x] CHK025 — Are terminology conventions consistent throughout (e.g., "instruction block", "path pattern", "branch context")? [Consistency, Spec §entire document]
 - [x] CHK026 — Do user story priorities (P1–P3) align with task decomposition phase ordering (Phases 3-7 order)? [Consistency, Spec §User Stories vs Tasks]
@@ -78,7 +78,7 @@
 - [x] CHK040 — Is SC-003 (security guidance first) measurable: How to verify "dedicated security guidance appearing before generic guidance"? [Measurability, Spec §SC-003]
 - [x] CHK041 — Is SC-005 (zero discrepancies in docs-to-automation alignment) measurable: Define audit approach and sample scope? [Measurability, Spec §SC-005]
 - [x] CHK042 — Is SC-008 (instruction consistency validated) measurable: Define consistency criteria (terminology, structure, tone)? [Measurability, Spec §SC-008]
-- [ ] CHK043 — Is SC-009 (85% of reviews cite guidance) measurable: Sample size, audit method, confidence level? [Measurability, Spec §SC-009]
+- [x] CHK043 — Is SC-009 (85% of reviews cite guidance) measurable: Sample size, audit method, confidence level? [Measurability, Spec §SC-009]
 - [x] CHK044 — Is SC-011 (top 15 branch types covered) measurable: How determined which 15 are "top" (frequency, usage data)? [Measurability, Spec §SC-011]
 - [x] CHK045 — Is SC-012 (pattern priority clearly documented) measurable: Verification checklist for documentation completeness? [Measurability, Spec §SC-012]
 
@@ -88,12 +88,12 @@
 
 - [x] CHK046 — Are requirements documented for when a file matches multiple path patterns (pattern priority resolution, first-match wins)? [Coverage, Spec §Edge Cases §Pattern overlap]
 - [x] CHK047 — Are requirements specified for new file types not matching any existing pattern (fallback instruction block)? [Coverage, Gap check]
-- [ ] CHK048 — Are requirements for branch-type context when branch name doesn't match defined types (fallback behavior)? [Coverage, Gap check]
-- [ ] CHK049 — Are error/fallback requirements documented for CodeRabbit configuration errors or invalid overrides? [Coverage, Gap check]
+- [x] CHK048 — Are requirements for branch-type context when branch name doesn't match defined types (fallback behavior)? [Coverage, Gap check]
+- [x] CHK049 — Are error/fallback requirements documented for CodeRabbit configuration errors or invalid overrides? [Coverage, Gap check]
 - [x] CHK050 — Are backward compatibility requirements documented for migration from old → new config (no existing PR workflows break)? [Coverage, Spec §Constraints]
 - [ ] CHK051 — Are requirements documented for partial rollout/gradual adoption strategy? [Coverage, Gap check]
 - [x] CHK052 — Are requirements for handling repository-specific CodeRabbit overrides (not breaking central config) documented? [Coverage, Spec §Technical Context]
-- [ ] CHK053 — Are requirements for very large organisations (50+ repos) documented (scalability of central configuration)? [Coverage, Gap check]
+- [x] CHK053 — Are requirements for very large organisations (50+ repos) documented (scalability of central configuration)? [Coverage, Gap check]
 - [ ] CHK054 — Are requirements for configuration version management and deprecation documented (breaking change handling)? [Coverage, Gap check]
 
 ---
@@ -121,7 +121,7 @@
 ## Ambiguities & Conflicts (Are unclear or contradictory items identified and flagged?)
 
 - [x] CHK065 — Are there any [NEEDS CLARIFICATION] markers remaining in the specification? [Flag if any exist, Spec entire document]
-- [ ] CHK066 — Is the relationship between "path_instructions" (central config) and "branch_context" (per-instruction customisation) clearly defined (no ambiguity about which takes precedence)? [Ambiguity check]
+- [x] CHK066 — Is the relationship between "path_instructions" (central config) and "branch_context" (per-instruction customisation) clearly defined (no ambiguity about which takes precedence)? [Ambiguity check]
 - [x] CHK067 — Is the scope boundary clear between .coderabbit.yml improvements (this feature) and repo-specific overrides (not in scope)? [Ambiguity check, Spec §Scope]
 - [x] CHK068 — Is the "audit guide" requirement (SC-013) unambiguous: external file, not embedded in config? [Ambiguity check, Spec §SC-013]
 
