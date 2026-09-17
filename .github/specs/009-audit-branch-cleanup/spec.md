@@ -16,6 +16,10 @@
 - Q: Which commit should determine branch author for bot detection? → A: Use the first commit author on the branch. This most reliably identifies bot-initiated branches; bots typically create initial commits. Avoids adding GitHub API dependency for PR author lookup.
 - Q: What approval process for automated deletion (US2 & US5)? → A: Draft PR for batch approval. Script creates draft PR showing all deletion candidates; human reviews diff, approves, and merges to execute. Provides audit trail, requires human gate, aligns with standard GitHub workflows.
 
+### Session 2026-09-17
+
+- Q: Should working branch be renamed to match specification's designated branch `task/branch-cleanup-refactor`? → A: Yes. Align working branch to spec (rename from `chore/session-utmtu8` → `task/branch-cleanup-refactor`). Branch naming drives PR template routing, GitHub Actions workflows, and automation compliance. Spec takes precedence; working branch must align.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Audit Current Branch State (Priority: P1)
