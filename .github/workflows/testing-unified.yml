@@ -356,32 +356,165 @@ jobs:
         with:
           path: coverage-artifacts
 
+      - name: Checkout code (for coverage tools)
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Aggregate coverage reports
         shell: bash
         run: |
-          echo "Aggregating coverage reports..."
+          echo "🔄 Aggregating coverage reports from multiple test suites..."
 
-          # Find all coverage directories
-          find coverage-artifacts -name "coverage-summary.json" | while read file; do
-            echo "Found coverage: $file"
+          # Create output directory
+          mkdir -p aggregated-coverage
+
+          # Initialize coverage data
+          TOTAL_COVERAGE=0
+          COVERAGE_COUNT=0
+          ALL_COVERAGE_VALID=true
+
+          # Parse all coverage-summary.json files
+          for coverage_file in coverage-artifacts/*/coverage-summary.json; do
+            if [ -f "$coverage_file" ]; then
+              echo "📊 Processing: $coverage_file"
+
+              # Extract coverage metrics
+              LINES=$(grep -o '"lines":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+              BRANCHES=$(grep -o '"branches":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+              FUNCTIONS=$(grep -o '"functions":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+              STATEMENTS=$(grep -o '"statements":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+
+              if [ -z "$LINES" ]; then
+                echo "⚠️  Could not parse coverage from $coverage_file"
+                ALL_COVERAGE_VALID=false
+              else
+                echo "  Lines: ${LINES}%"
+                echo "  Branches: ${BRANCHES}%"
+                echo "  Functions: ${FUNCTIONS}%"
+                echo "  Statements: ${STATEMENTS}%"
+
+                # Add to running total
+                TOTAL_COVERAGE=$(echo "$TOTAL_COVERAGE + $LINES" | bc)
+                COVERAGE_COUNT=$((COVERAGE_COUNT + 1))
+              fi
+            fi
           done
 
-          echo "✅ Coverage aggregation complete"
+          # Calculate weighted average
+          if [ "$COVERAGE_COUNT" -gt 0 ]; then
+            AVERAGE_COVERAGE=$(echo "scale=2; $TOTAL_COVERAGE / $COVERAGE_COUNT" | bc)
+            echo ""
+            echo "📈 Aggregated Coverage Summary"
+            echo "=============================="
+            echo "Total test suites analyzed: $COVERAGE_COUNT"
+            echo "Average line coverage: ${AVERAGE_COVERAGE}%"
+            echo ""
+
+            # Validate against 80% threshold
+            THRESHOLD=80
+            if (( $(echo "$AVERAGE_COVERAGE >= $THRESHOLD" | bc -l) )); then
+              echo "✅ Coverage meets threshold (${AVERAGE_COVERAGE}% >= ${THRESHOLD}%)"
+            else
+              echo "❌ Coverage below threshold (${AVERAGE_COVERAGE}% < ${THRESHOLD}%)"
+              ALL_COVERAGE_VALID=false
+            fi
+          else
+            echo "⚠️  No valid coverage files found"
+            ALL_COVERAGE_VALID=false
+          fi
+
+          # Save aggregated summary
+          cat > aggregated-coverage/AGGREGATED_SUMMARY.txt << EOF
+          Coverage Aggregation Report
+          ============================
+          Generated: $(date)
+
+          Total Suites: $COVERAGE_COUNT
+          Average Coverage: ${AVERAGE_COVERAGE}%
+          Threshold: ${THRESHOLD}%
+          Status: $([ "$ALL_COVERAGE_VALID" = true ] && echo "✅ PASS" || echo "❌ FAIL")
+          EOF
+
+          # Exit with error if coverage is below threshold
+          if [ "$ALL_COVERAGE_VALID" = false ] && [ "$COVERAGE_COUNT" -gt 0 ]; then
+            (( $(echo "$AVERAGE_COVERAGE < $THRESHOLD" | bc -l) )) && exit 1
+          fi
+
+      - name: Generate aggregated coverage HTML report
+        shell: bash
+        run: |
+          # Copy all coverage reports to aggregated directory for easy viewing
+          echo "📄 Generating aggregated coverage report..."
+
+          cp -r coverage-artifacts/* aggregated-coverage/ 2>/dev/null || true
+
+          # Create index.html for easy navigation
+          cat > aggregated-coverage/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Aggregated Coverage Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #333; }
+              .summary { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }
+              .coverage-item { margin: 10px 0; }
+              a { color: #0066cc; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .pass { color: green; }
+              .fail { color: red; }
+            </style>
+          </head>
+          <body>
+            <h1>Aggregated Test Coverage Report</h1>
+            <div class="summary">
+              <p><strong>Report Generated:</strong> <span id="timestamp"></span></p>
+              <p><strong>Coverage Threshold:</strong> 80%</p>
+              <p>Coverage reports from all test suites are available below.</p>
+            </div>
+            <h2>Coverage Sources</h2>
+            <div class="coverage-item">
+              <p>View detailed coverage reports in each test suite directory:</p>
+              <ul>
+                <li><a href="coverage-unit-node-18/index.html">Unit Tests - Node 18</a></li>
+                <li><a href="coverage-unit-node-20/index.html">Unit Tests - Node 20</a></li>
+                <li><a href="AGGREGATED_SUMMARY.txt">Aggregation Summary</a></li>
+              </ul>
+            </div>
+            <script>
+              document.getElementById('timestamp').textContent = new Date().toLocaleString();
+            </script>
+          </body>
+          </html>
+          EOF
+
+          echo "✅ Coverage report generated"
 
       - name: Upload aggregated coverage
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: aggregated-coverage-report
-          path: coverage-artifacts/
-          retention-days: 7
+          path: aggregated-coverage/
+          retention-days: 30
 
       - name: Report coverage metrics
         shell: bash
         run: |
-          echo "Coverage metrics:"
-          echo "  Unit tests: Check artifact for details"
-          echo "  Integration tests: Check artifact for details"
+          if [ -f aggregated-coverage/AGGREGATED_SUMMARY.txt ]; then
+            echo "📊 Coverage Aggregation Summary:"
+            cat aggregated-coverage/AGGREGATED_SUMMARY.txt
+          else
+            echo "⚠️  Aggregated summary not generated"
+          fi
 
   # ============================================================================
   # Test metrics collection job
