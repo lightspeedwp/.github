@@ -38,9 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
 
-### Added
+  ### Added
 
 - **Requirements Quality Checklist Phase 4** — Added four domain-specific checklist variants (user experience, API, security, performance) extending the base checklist, plus a variants selection guide. (#3361)
+- **Requirements Quality Checklist Phase 5** — Added audience-specific guidance for authors, peer reviewers, stakeholder approvers and integration reviewers, plus an audience selection guide. (#3361)
 
 ### Fixed
 
