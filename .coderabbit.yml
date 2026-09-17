@@ -14,22 +14,22 @@ reviews:
 
   # === Path Filters (Exclude from Review) ===
   path_filters:
-    - "!build/**"
-    - "!node_modules/**"
-    - "!assets/css/*.map"
-    - "!logs/**"
-    - "!docs/drafts/**"
+    - '!build/**'
+    - '!node_modules/**'
+    - '!assets/css/*.map'
+    - '!logs/**'
+    - '!docs/drafts/**'
 
   # === Auto Review Settings ===
   auto_review:
     enabled: true
     drafts: false
     base_branches:
-      - "main"
-      - "develop"
-      - "feature/*"
-      - "fix/*"
-      - "update/*"
+      - 'main'
+      - 'develop'
+      - 'feature/*'
+      - 'fix/*'
+      - 'update/*'
 
   # === Path Priority System (CRITICAL: DO NOT SKIP) ===
   # This system ensures deterministic path pattern matching with explicit priority/specificity ordering.
@@ -68,7 +68,7 @@ reviews:
   path_instructions:
     # === PRIORITY 95: AGENT IMPLEMENTATION FILES (Exact agent-type patterns) ===
     # Agent implementations require strict code quality, testing, and documentation standards
-    - path: "agents/*.agent.js"
+    - path: 'agents/*.agent.js'
       instructions: |
         Review all JavaScript agent files:
           - Must start with a valid shebang and detailed header (purpose, usage, author, date).
@@ -80,7 +80,7 @@ reviews:
             - Linting and type-checking enabled.
           - Ensure agent is referenced in the agent index and spec.
 
-    - path: "agents/*.agent.sh"
+    - path: 'agents/*.agent.sh'
       instructions: |
         Review all shell agent files:
           - Must start with a valid shebang and detailed header (purpose, usage, author, date).
@@ -91,7 +91,7 @@ reviews:
             - Usage of shellcheck for linting.
           - Ensure agent is referenced in the agent index and spec.
 
-    - path: "agents/*.agent.py"
+    - path: 'agents/*.agent.py'
       instructions: |
         Review all Python agent files:
           - Must start with a valid shebang and detailed header (purpose, usage, author, date).
@@ -105,7 +105,7 @@ reviews:
 
     # === PRIORITY 93: AGENT SPECIFICATION FILES (Exact agent documentation) ===
     # Agent specs and indexes define architecture and capabilities
-    - path: "agents/*.agent.md"
+    - path: 'agents/*.agent.md'
       instructions: |
         Review all agent specification files:
           - Each agent spec must include: purpose, inputs/outputs, dependencies, configuration, security, error handling, and logging practices.
@@ -113,7 +113,7 @@ reviews:
           - Example usage and troubleshooting tips.
           - Ensure the spec is up to date and referenced from the agent index.
 
-    - path: "agents/AGENTS.md"
+    - path: 'agents/AGENTS.md'
       instructions: |
         Review the main agents index file:
           - Ensure this file lists and describes all agent specs, implementations, and test files in agents/.
@@ -121,7 +121,7 @@ reviews:
           - Validate cross-references to related workflows, prompts, and documentation.
           - Ensure the file is up to date and easy to navigate.
 
-    - path: "agents/agent.md"
+    - path: 'agents/agent.md'
       instructions: |
         Review the agent architecture and integration file:
           - Ensure this file documents agent architecture, capabilities, and integration points.
@@ -133,7 +133,7 @@ reviews:
           - Confirm agent documentation is clear and up-to-date.
 
     # === PRIORITY 90: AGENT & PROMPT DIRECTORIES (Broad agent infrastructure) ===
-    - path: ".github/prompts/**"
+    - path: '.github/prompts/**'
       instructions: |
         Review all CodeRabbit and agent prompt files:
           - Ensure prompts are clearly structured, role-focused, and actionable.
@@ -142,7 +142,7 @@ reviews:
           - Check that examples provided are universal and applicable across diverse project types.
           - Validate consistency of terminology and tone across related prompt files.
 
-    - path: "agents/**"
+    - path: 'agents/**'
       instructions: |
         Review all agent files (fallback for agent-specific paths):
           - Verify code quality, testing coverage, and error handling patterns.
@@ -152,7 +152,7 @@ reviews:
           - Validate cross-references between specs, implementations, and test files are up-to-date.
 
     # === PRIORITY 88: CRITICAL CONFIGURATION FILES (Custom instructions) ===
-    - path: ".github/custom-instructions.md"
+    - path: '.github/custom-instructions.md'
       instructions: |
         Review custom-instructions.md:
           - Ensure the file is easy to navigate and up to date with org standards.
@@ -162,7 +162,7 @@ reviews:
           - Check for up-to-date cross-references and clear documentation of Copilot usage.
 
     # === PRIORITY 85: WORKFLOW & TEMPLATE FILES (Critical automation) ===
-    - path: "**/.github/workflows/*.yml"
+    - path: '**/.github/workflows/*.yml'
       instructions: |
         Review .github workflows for CI/CD:
           - Check for use of reusable workflow templates and matrix strategies.
@@ -176,7 +176,7 @@ reviews:
           - Ensure agent files reference org-wide standards and indexes.
           - Ensure workflows run markdownlint, test jobs, and security checks as required.
 
-    - path: "**/.github/ISSUE_TEMPLATE/*.md"
+    - path: '**/.github/ISSUE_TEMPLATE/*.md'
       instructions: |
         Review all issue template files:
           - Ensure valid markdown syntax, logical structure, and clear, actionable instructions for users.
@@ -186,7 +186,7 @@ reviews:
           - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
           - Ensure accessibility (e.g., clear headings, no ambiguous language).
 
-    - path: "**/.github/PULL_REQUEST_TEMPLATE/*.md"
+    - path: '**/.github/PULL_REQUEST_TEMPLATE/*.md'
       instructions: |
         Review all pull request template files:
           - Ensure valid markdown syntax, logical structure, and clear, actionable instructions for contributors.
@@ -196,7 +196,7 @@ reviews:
           - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
           - Ensure accessibility (e.g., clear headings, no ambiguous language).
 
-    - path: "**/.github/DISCUSSION_TEMPLATE/*.yml"
+    - path: '**/.github/DISCUSSION_TEMPLATE/*.yml'
       instructions: |
         Review all discussion template YAML files:
           - Ensure valid YAML syntax, logical structure, and clear, actionable instructions for users.
@@ -206,7 +206,7 @@ reviews:
           - Confirm that templates are up to date with current project processes and reference related documentation where relevant.
           - Ensure accessibility (e.g., clear field names, no ambiguous language).
 
-    - path: "**/.github/SAVED_REPLIES.md"
+    - path: '**/.github/SAVED_REPLIES.md'
       instructions: |
         Review the saved replies index file:
           - Ensure the file links dynamically to all saved replies or lists all available saved reply files.
@@ -215,7 +215,7 @@ reviews:
           - Ensure the file provides guidance on how to use saved replies and when to use each one.
           - Confirm that replies are referenced from the index and are up to date with current project processes.
 
-    - path: "**/.github/SAVED_REPLIES/**/*.md"
+    - path: '**/.github/SAVED_REPLIES/**/*.md'
       instructions: |
         Review all saved replies:
           - Ensure all saved replies are valid *.md files, make sense for the project, and are actionable.
@@ -224,7 +224,7 @@ reviews:
           - Ensure replies are referenced from the saved replies index and are up to date with current project processes.
 
     # === PRIORITY 80: TEST FILES (Critical quality gates) ===
-    - path: "**/e2e/*.{ts,js}"
+    - path: '**/e2e/*.{ts,js}'
       instructions: |
         Review Jest tests for agents and blocks:
           - Ensure tests cover accessibility and Full Site Editing (FSE) functionality.
@@ -232,7 +232,7 @@ reviews:
           - Confirm test coverage for critical user flows and edge cases.
           - Validate use of test fixtures, mocks, and snapshot testing where appropriate.
 
-    - path: "**/tests/*.*"
+    - path: '**/tests/*.*'
       instructions: |
         Review all test files:
           - Ensure valid syntax, logical structure, and clear instructions for users.
@@ -247,7 +247,7 @@ reviews:
           - Ensure all tests have comprehensive inline documentation.
 
     # === PRIORITY 75: PROMPT DOCUMENTATION (Prompt conventions & files) ===
-    - path: "**/.github/prompts/prompts.md"
+    - path: '**/.github/prompts/prompts.md'
       instructions: |
         Review the prompts index file:
           - Ensure the file documents prompt conventions and usage patterns.
@@ -255,7 +255,7 @@ reviews:
           - Validate YAML frontmatter and update date/version fields.
           - Confirm all prompt files are discoverable from this index.
 
-    - path: "**/.github/prompts/*.md"
+    - path: '**/.github/prompts/*.md'
       instructions: |
         Review all prompt files:
           - Check for clear instructions, examples, and checklist sections.
@@ -265,7 +265,7 @@ reviews:
           - Validate structure, naming, and documentation.
 
     # === PRIORITY 65: LANGUAGE/BUILD CONFIGURATION (Package managers) ===
-    - path: "**/package.json"
+    - path: '**/package.json'
       instructions: |
         Review package.json files:
           - Ensure dependencies are appropriate for project type.
@@ -280,7 +280,7 @@ reviews:
           - Confirm presence of npm scripts for linting, formatting, testing, and CI.
           - Validate package metadata (name, version, description, author, license).
 
-    - path: "**/composer.json"
+    - path: '**/composer.json'
       instructions: |
         Review composer.json files:
           - Confirm scripts section is present and used for automation where appropriate.
@@ -294,7 +294,7 @@ reviews:
           - Validate package metadata (name, description, type, license, authors).
 
     # === PRIORITY 60: LANGUAGE-SPECIFIC SOURCE CODE (JS/TS, Shell scripts) ===
-    - path: "**/*.{js,ts}"
+    - path: '**/*.{js,ts}'
       instructions: |
         Review JavaScript/TypeScript source code:
           - Ensure code is linted and follows project style guides.
@@ -307,7 +307,7 @@ reviews:
           - Ensure tests are isolated and do not depend on external state.
           - Check for descriptive test names and clear test structure.
 
-    - path: "**/scripts/**/*.sh"
+    - path: '**/scripts/**/*.sh'
       instructions: |
         Review shell scripts for automation:
           - Check for POSIX compliance and portability.
@@ -319,7 +319,7 @@ reviews:
           - Ensure use of `set -euo pipefail` and shebang at the top.
 
     # === PRIORITY 75: WORKFLOW & PLUGIN DOCUMENTATION (Agentic workflows and plugins) ===
-    - path: "workflows/*.md"
+    - path: 'workflows/*.md'
       instructions: |
         Review agentic workflow documentation:
           - Ensure workflow structure is clear: phases defined, agent task descriptions explicit.
@@ -328,7 +328,7 @@ reviews:
           - Validate error handling and recovery guidance is present.
           - Ensure UK English terminology and consistency across all workflow descriptions.
 
-    - path: "plugins/*/SKILL.md"
+    - path: 'plugins/*/SKILL.md'
       instructions: |
         Review plugin skill documentation:
           - Ensure plugin purpose, usage, and configuration options are clearly documented.
@@ -338,7 +338,7 @@ reviews:
           - Ensure accessibility guidelines are followed throughout the documentation.
 
     # === PRIORITY 95: SPECKIT DOCUMENTATION (Specification and planning files) ===
-    - path: ".specify/spec.md"
+    - path: '.specify/spec.md'
       instructions: |
         Review specification document quality:
           - Verify specification completeness: user stories, requirements, success criteria all clearly defined.
@@ -348,7 +348,7 @@ reviews:
           - Confirm no implementation details leak into the specification.
           - Check for UK English terminology, WCAG 2.2 AA accessibility, and technology-agnostic guidance.
 
-    - path: ".specify/plan.md"
+    - path: '.specify/plan.md'
       instructions: |
         Review implementation plan quality:
           - Verify planning rigor: architecture decisions documented, technical constraints clear.
@@ -358,7 +358,7 @@ reviews:
           - Confirm technical context (stack, scope, constraints) is comprehensive.
           - Verify cross-repository applicability is considered for organisation-wide features.
 
-    - path: ".specify/tasks.md"
+    - path: '.specify/tasks.md'
       instructions: |
         Review task specification quality:
           - Verify task specificity: each task has clear description, file paths, acceptance criteria.
@@ -369,7 +369,7 @@ reviews:
           - Check that task IDs are sequential and unique (T###).
 
     # === PRIORITY 45: GENERAL DOCUMENTATION (Fallback for all docs) ===
-    - path: "**/docs/*.*/*.md"
+    - path: '**/docs/*.*/*.md'
       instructions: |
         Review all documentation files:
           - Ensure markdown is linted and formatted according to project style guides.
@@ -379,7 +379,7 @@ reviews:
           - Ensure accessibility (e.g., heading hierarchy, alt text for images, no ambiguous language).
 
     # 10. Python Files & Scripts
-    - path: "**/*.py"
+    - path: '**/*.py'
       instructions: |
         Review Python source and script files:
           - Ensure code follows PEP 8 style guide and project conventions.
@@ -391,7 +391,7 @@ reviews:
           - Validate test coverage and pytest compliance.
           - Check for logging and debugging output (avoid print statements in production).
 
-    - path: "**/requirements.txt"
+    - path: '**/requirements.txt'
       instructions: |
         Review Python dependency manifest:
           - Ensure pinned versions for reproducible installs.
@@ -400,7 +400,7 @@ reviews:
           - Ensure only necessary packages are listed (no unused dependencies).
           - For production, prefer using requirements files over setup.py alone.
 
-    - path: "**/setup.py"
+    - path: '**/setup.py'
       instructions: |
         Review Python package setup file:
           - Validate package metadata (name, version, description, author, license).
@@ -409,7 +409,7 @@ reviews:
           - Validate classifiers for Python version compatibility.
           - Ensure setup is compatible with modern setuptools and pip standards.
 
-    - path: "**/pyproject.toml"
+    - path: '**/pyproject.toml'
       instructions: |
         Review Python project configuration:
           - Validate build system and tool configuration (poetry, setuptools, flit).
@@ -419,7 +419,7 @@ reviews:
           - Confirm Python version compatibility and constraints.
 
     # 11. Configuration Files
-    - path: "**/*.toml"
+    - path: '**/*.toml'
       instructions: |
         Review TOML configuration files:
           - Ensure valid TOML syntax and formatting.
@@ -428,7 +428,7 @@ reviews:
           - Ensure configuration keys match expected schema.
           - Check for security implications (no hardcoded secrets).
 
-    - path: "**/*.yaml"
+    - path: '**/*.yaml'
       instructions: |
         Review YAML configuration files:
           - Ensure valid YAML syntax with proper indentation and structure.
@@ -437,7 +437,7 @@ reviews:
           - Ensure configuration matches application expectations.
           - Check for security implications (no secrets or sensitive data).
 
-    - path: "**/*.xml"
+    - path: '**/*.xml'
       instructions: |
         Review XML configuration and data files:
           - Ensure valid XML syntax and well-formed structure.
@@ -447,7 +447,7 @@ reviews:
           - Check for clarity and maintainability of structure.
 
     # 12. Stylesheets
-    - path: "**/*.css"
+    - path: '**/*.css'
       instructions: |
         Review CSS stylesheets:
           - Ensure code is linted and follows project style guides (Prettier/Stylelint).
@@ -458,7 +458,7 @@ reviews:
           - Validate CSS custom properties (variables) are well-documented.
           - Ensure dark mode and theme support where applicable.
 
-    - path: "**/*.scss"
+    - path: '**/*.scss'
       instructions: |
         Review SCSS stylesheets:
           - Ensure valid SCSS syntax and proper nesting.
@@ -469,7 +469,7 @@ reviews:
           - Validate accessibility and responsive design practices.
           - Ensure color contrast and theme support.
 
-    - path: "**/*.sass"
+    - path: '**/*.sass'
       instructions: |
         Review Sass stylesheets:
           - Ensure valid Sass syntax without parentheses/semicolons.
@@ -479,7 +479,7 @@ reviews:
           - Check accessibility and browser compatibility.
 
     # 13. JavaScript Module Variants
-    - path: "**/*.mjs"
+    - path: '**/*.mjs'
       instructions: |
         Review module files (.mjs):
           - Ensure code is linted and follows project style guides.
@@ -489,7 +489,7 @@ reviews:
           - Verify no conflicting module patterns within the file.
           - Check for proper asynchronous operation handling and error handling.
 
-    - path: "**/*.cjs"
+    - path: '**/*.cjs'
       instructions: |
         Review module files (.cjs):
           - Ensure code is linted and follows project style guides.
@@ -500,7 +500,7 @@ reviews:
           - Check for proper error handling and security practices.
 
     # 14. Component & Template Files
-    - path: "**/*.astro"
+    - path: '**/*.astro'
       instructions: |
         Review component template files (.astro):
           - Ensure valid syntax and component structure.
@@ -511,7 +511,7 @@ reviews:
           - Validate client-side interactivity patterns.
           - Check for SEO best practices (metadata, structured data).
 
-    - path: "**/*.mdx"
+    - path: '**/*.mdx'
       instructions: |
         Review MDX files (Markdown with component integration):
           - Ensure valid markdown syntax and component usage.
@@ -522,7 +522,7 @@ reviews:
           - Validate code blocks and syntax highlighting.
           - Check for clarity and usefulness for intended audience.
 
-    - path: "**/*.html"
+    - path: '**/*.html'
       instructions: |
         Review HTML files:
           - Ensure valid HTML5 syntax and semantic markup.
@@ -534,7 +534,7 @@ reviews:
           - Check for performance optimization (defer scripts, lazy load images).
 
     # 15. Data & Structured Files
-    - path: "**/*.csv"
+    - path: '**/*.csv'
       instructions: |
         Review CSV data files:
           - Ensure proper CSV formatting and escaping.
@@ -544,7 +544,7 @@ reviews:
           - Validate character encoding (UTF-8 preferred).
           - Check for proper line endings and formatting.
 
-    - path: "**/*.json"
+    - path: '**/*.json'
       instructions: |
         Review JSON data and configuration files:
           - Ensure valid JSON syntax (no trailing commas, proper quoting).
@@ -556,7 +556,7 @@ reviews:
           - Ensure compatibility with schema versioning if versioned.
 
     # 16. Other Configuration & Meta Files
-    - path: "**/.editorconfig"
+    - path: '**/.editorconfig'
       instructions: |
         Review EditorConfig files:
           - Ensure valid EditorConfig syntax and format.
@@ -565,7 +565,7 @@ reviews:
           - Ensure indent style and size match project standards.
           - Check for end-of-line and charset consistency.
 
-    - path: "**/.env*"
+    - path: '**/.env*'
       instructions: |
         Review environment files (DO NOT COMMIT):
           - ⚠️ WARNING: .env files should NEVER be committed to version control.
@@ -574,7 +574,7 @@ reviews:
           - Ensure .env files are listed in .gitignore with patterns.
           - Validate example file includes all required variables with safe defaults.
 
-    - path: "**/.gitignore"
+    - path: '**/.gitignore'
       instructions: |
         Review .gitignore files:
           - Ensure all generated, temporary, and sensitive files are ignored.
@@ -583,7 +583,7 @@ reviews:
           - Check for consistency across similar project types.
           - Ensure node_modules, build artifacts, and .env files are ignored.
 
-    - path: "**/Makefile"
+    - path: '**/Makefile'
       instructions: |
         Review Makefile automation:
           - Ensure proper Makefile syntax and valid targets.
@@ -750,5 +750,380 @@ reviews:
 # - Release categorisation (changelog generation, version bumping)
 # - Project board organisation and filtering
 # - Metrics and reporting (contribution types, area focus)
+
+# === PR GOVERNANCE AUTOMATION ===
+# Automated validation and enforcement of PR quality standards, governance compliance,
+# and Definition of Done (DoD) checklists. These rules are applied organisation-wide
+# to all PRs consuming this central configuration.
+#
+# Governance Rules Structure:
+# - template_validation: Ensures PR descriptions include required sections per branch type
+# - label_enforcement: Validates and suggests canonical labels with proper family prefixes
+# - dod_automation: Populates and tracks Definition of Done checklist items
+# - documentation_validation: Handles documentation linting failures with graceful fallbacks
+#
+# All governance rules respect Constitution Principle VIII (branch strategy enforcement)
+# and LOCKED configuration files (.github/labels.yml, .github/PULL_REQUEST_TEMPLATE/*.md)
+
+pr_governance:
+  # === TEMPLATE VALIDATION (FR-016, SC-014) ===
+  # Validates PR descriptions against branch-type-specific templates
+  # Required sections per branch type; flags incomplete or placeholder content
+  template_validation:
+    enabled: true
+    # Template sections required by branch type prefix
+    # Each section entity: name, required (bool), min_items, pattern (regex for validation)
+    branch_type_templates:
+      # Feature branches: feat/, design/, ds/, api/ require full governance
+      feat:
+        sections:
+          - name: 'Linked Issues'
+            required: true
+            pattern: "^(Closes|Fixes|Relates to) #\\d+"
+            description: 'Must reference at least one issue'
+          - name: 'Description'
+            required: true
+            min_chars: 50
+            pattern: '^(?!TODO|FIXME|placeholder)'
+            description: 'Clear, non-placeholder description (≥50 chars)'
+          - name: 'Changes Made'
+            required: true
+            min_items: 2
+            description: 'At least 2 distinct changes documented'
+          - name: 'Changelog Entry'
+            required: true
+            pattern: "^- \\[\\w+\\]"
+            description: 'Changelog entry per .github/CHANGELOG.md format'
+          - name: 'Acceptance Criteria'
+            required: true
+            min_items: 2
+            description: 'At least 2 measurable acceptance criteria'
+      design:
+        sections:
+          - name: 'Design Brief'
+            required: true
+            min_chars: 50
+            description: 'Clear design problem statement'
+          - name: 'Changes Made'
+            required: true
+            min_items: 1
+            description: 'Visual or UX changes documented'
+          - name: 'Linked Issues'
+            required: true
+            pattern: "^(Closes|Fixes|Relates to) #\\d+"
+            description: 'Design issue reference'
+          - name: 'Acceptance Criteria'
+            required: true
+            min_items: 2
+            description: 'Design acceptance criteria (visual, UX, accessibility)'
+      ds:
+        sections:
+          - name: 'Component Description'
+            required: true
+            min_chars: 50
+            description: 'Component purpose and usage'
+          - name: 'API/Props Documentation'
+            required: true
+            pattern: '^(Props|API|Interface)'
+            description: 'Interface or props documentation'
+          - name: 'Changes Made'
+            required: true
+            min_items: 1
+            description: 'Component changes listed'
+          - name: 'Linked Issues'
+            required: true
+            pattern: "^(Closes|Fixes|Relates to) #\\d+"
+            description: 'Design system issue reference'
+      api:
+        sections:
+          - name: 'API Changes'
+            required: true
+            pattern: '^(Endpoint|Method|Parameter)'
+            description: 'API modifications clearly listed'
+          - name: 'Backward Compatibility'
+            required: true
+            pattern: '^(Breaking|Non-breaking|Deprecated)'
+            description: 'Compatibility assessment required'
+          - name: 'Linked Issues'
+            required: true
+            pattern: "^(Closes|Fixes|Relates to) #\\d+"
+            description: 'API issue reference'
+          - name: 'Changelog Entry'
+            required: true
+            pattern: "^- \\[API\\]"
+            description: 'API changelog entry'
+      # Fix branches: fix/, hotfix/ require issue linkage + changelog
+      fix:
+        sections:
+          - name: 'Linked Issues'
+            required: true
+            pattern: "^(Closes|Fixes) #\\d+"
+            description: 'Must close at least one issue'
+          - name: 'Reproduction Steps'
+            required: true
+            min_items: 2
+            description: 'Steps to reproduce the bug (≥2 steps)'
+          - name: 'Solution Description'
+            required: true
+            min_chars: 50
+            description: 'Clear explanation of the fix'
+          - name: 'Changelog Entry'
+            required: true
+            pattern: "^- \\[BUG FIX\\]"
+            description: 'Changelog entry per .github/CHANGELOG.md format'
+      hotfix:
+        sections:
+          - name: 'Linked Issues'
+            required: true
+            pattern: "^(Closes|Fixes) #\\d+"
+            description: 'Must close critical issue'
+          - name: 'Issue Impact'
+            required: true
+            pattern: '^(Critical|High Impact)'
+            description: 'Severity/impact assessment'
+          - name: 'Solution Description'
+            required: true
+            min_chars: 50
+            description: 'Urgent fix explanation'
+          - name: 'Changelog Entry'
+            required: true
+            pattern: "^- \\[HOTFIX\\]"
+            description: 'Hotfix changelog entry'
+      # Docs, tests, refactor: lighter governance
+      docs:
+        sections:
+          - name: 'Documentation Changes'
+            required: true
+            min_items: 1
+            description: 'What documentation was changed'
+          - name: 'Linked Issues'
+            required: false
+            pattern: "^(Closes|Relates to) #\\d+"
+            description: 'Optional issue reference'
+
+      test:
+        sections:
+          - name: 'Test Coverage'
+            required: true
+            min_chars: 50
+            description: 'What test coverage was added/improved'
+          - name: 'Test Scenarios'
+            required: true
+            min_items: 2
+            description: 'Test scenarios documented (≥2)'
+
+      refactor:
+        sections:
+          - name: 'Refactoring Scope'
+            required: true
+            min_chars: 50
+            description: 'What is being refactored and why'
+          - name: 'Risk Assessment'
+            required: true
+            pattern: '^(Low|Medium|High) risk'
+            description: 'Refactoring risk level'
+          - name: 'Linked Issues'
+            required: false
+            pattern: "^(Relates to) #\\d+"
+            description: 'Optional issue reference'
+
+      # All other branch types: basic governance
+      default:
+        sections:
+          - name: 'Linked Issues'
+            required: false
+            pattern: "^(Closes|Fixes|Relates to) #\\d+"
+            description: 'Issue reference (optional)'
+          - name: 'Description'
+            required: true
+            min_chars: 30
+            description: 'Brief change description'
+
+    # Validation rules
+    validation:
+      check_placeholder_text: true # Flag sections with "TODO", "FIXME", "placeholder"
+      check_empty_sections: true # Flag empty or whitespace-only sections
+      check_linked_issues: true # Require at least one linked GitHub issue
+      check_changelog_for_user_changes: true # Require changelog entry for user-facing changes
+      placeholder_patterns:
+        - 'TODO'
+        - 'FIXME'
+        - 'placeholder'
+        - 'TBD'
+        - '[WIP]'
+        - '[DRAFT]'
+      severity: 'warn' # "warn" or "error" for governance violations
+
+  # === LABEL ENFORCEMENT (FR-017, SC-015) ===
+  # Validates applied labels follow canonical prefixes from .github/labels.yml
+  # Suggests missing labels based on branch type and changed files
+  label_enforcement:
+    enabled: true
+    # Canonical label families (from .github/labels.yml)
+    required_families:
+      - 'type:' # type:bug, type:feature, type:task, type:documentation, type:security, etc.
+      - 'status:' # status:needs-triage, status:in-progress, status:done, etc.
+
+    suggested_families:
+      - 'area:' # area:ci, area:docs, area:security, area:testing, etc.
+      - 'priority:' # priority:critical, priority:high, priority:normal, priority:low
+      - 'meta:' # meta:needs-changelog, meta:has-pr, meta:duplicate, etc.
+
+    # Branch-type to label mappings
+    branch_type_suggestions:
+      feat:
+        type: 'type:feature'
+        area_from_files: true # Infer area:* from changed files
+        priority: 'priority:normal'
+      fix:
+        type: 'type:bug'
+        area_from_files: true
+        priority: 'priority:normal'
+      hotfix:
+        type: 'type:bug'
+        priority: 'priority:critical'
+      docs:
+        type: 'type:documentation'
+        area: 'area:docs'
+      test:
+        type: 'type:test'
+        area_from_files: true
+      security:
+        type: 'type:security'
+        priority: 'priority:critical'
+      perf:
+        type: 'type:performance'
+        area_from_files: true
+      a11y:
+        type: 'type:a11y'
+        area: 'area:accessibility'
+      refactor:
+        type: 'type:refactor'
+        area_from_files: true
+
+    # Validation rules
+    validation:
+      check_canonical_prefixes: true # Verify labels use canonical family prefixes
+      check_required_families: true # Require at least one label from each required family
+      suggest_missing: true # Suggest labels based on branch type + files
+      severity: 'warn' # "warn" or "error" for governance violations
+
+  # === DEFINITION OF DONE (DoD) AUTOMATION (FR-018, SC-016) ===
+  # Populates PR descriptions with standardized DoD checklists
+  # Flags unchecked items; treats completion as implicit acceptance criteria
+  dod_automation:
+    enabled: true
+    # DoD templates by change type
+    checklist_templates:
+      feature:
+        title: 'Definition of Done: Feature'
+        items:
+          - 'Code is complete and tested'
+          - 'Tests pass (unit, integration, e2e)'
+          - 'PR description includes Linked Issues section'
+          - 'Changelog entry added (if user-facing)'
+          - 'Documentation updated (if needed)'
+          - 'Accessibility reviewed (WCAG 2.2 AA)'
+          - 'Code review approved'
+
+      bugfix:
+        title: 'Definition of Done: Bug Fix'
+        items:
+          - 'Root cause documented'
+          - 'Fix verified against reproduction steps'
+          - 'Tests added or updated'
+          - 'Regression tests added'
+          - 'Changelog entry added'
+          - 'Linked to issue'
+          - 'Code review approved'
+
+      refactor:
+        title: 'Definition of Done: Refactor'
+        items:
+          - 'Scope clearly defined'
+          - 'Tests pass (existing + new)'
+          - 'Risk assessment completed'
+          - 'Breaking changes documented'
+          - 'Linked to issue'
+          - 'Code review approved'
+
+      documentation:
+        title: 'Definition of Done: Documentation'
+        items:
+          - 'Content is accurate and complete'
+          - 'Links are valid'
+          - 'Examples run and produce expected output'
+          - 'Spelling and grammar reviewed'
+          - 'Markdown lints successfully'
+
+      security:
+        title: 'Definition of Done: Security Fix'
+        items:
+          - 'Vulnerability verified'
+          - 'Fix tested and verified'
+          - 'No regression in security posture'
+          - 'Security review completed'
+          - 'Changelog marked [SECURITY]'
+          - 'PR marked priority:critical'
+
+      default:
+        title: 'Definition of Done'
+        items:
+          - 'Code is complete'
+          - 'Tests pass'
+          - 'PR description is clear'
+          - 'Code review approved'
+
+    # Automation rules
+    automation:
+      auto_populate: true # Auto-insert DoD checklist from template
+      block_merge_unchecked: false # Don't block merge on unchecked items (informational)
+      severity: 'info' # "info", "warn", or "error"
+      placement: 'append' # "append" to end of PR description
+
+  # === DOCUMENTATION VALIDATION (FR-019, SC-017) ===
+  # Handles documentation linting failures gracefully
+  # Provides explicit rules for skip paths, fail vs. warn decisions, remediation commentary
+  documentation_validation:
+    enabled: true
+
+    # Linting rules
+    lint_rules:
+      markdown_lint: true # Enable Markdown linting
+      spelling_check: true # Enable spell checking
+      link_validation: true # Check for broken links
+
+    # Skip paths (don't lint these)
+    skip_paths:
+      - '**/*.md.bak'
+      - '**/drafts/**'
+      - '**/archived/**'
+      - 'docs/generated/**' # Auto-generated docs
+      - '.github/specs/**' # Specification files (reviewed separately)
+
+    # Failure handling
+    failure_handling:
+      # Severity levels: error (blocks merge), warn (visible but doesn't block), info
+      markdown_errors:
+        severity: 'warn'
+        suggestion: 'Fix markdown formatting issues (code blocks, lists, headings)'
+
+      spelling_errors:
+        severity: 'info'
+        suggestion: 'Consider spell-checking documentation'
+
+      broken_links:
+        severity: 'warn'
+        suggestion: 'Verify external links and internal references'
+
+      missing_alt_text:
+        severity: 'info'
+        suggestion: 'Add alt text to images for accessibility'
+
+    # Remediation commentary
+    remediation:
+      include_in_review: true # Include docs validation in code review
+      suggest_fixes: true # Provide actionable fix suggestions
+      link_to_guides: true # Link to documentation standards guide
 
 early_access: true
