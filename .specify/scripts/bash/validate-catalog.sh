@@ -32,8 +32,8 @@ validate_catalog_exists() {
 # validate_canonical_schema - Verify CATALOG.md contains canonical schema and table format
 # Parameters: None
 # Returns:
-#   0 when table header matches exact canonical schema format
-#   1 when table header does not match required canonical schema
+#   0 when table header and all data rows match exact canonical schema format
+#   1 when table header or data rows do not match required canonical schema
 # Output:
 #   Status messages confirming schema section presence and table format validation
 validate_canonical_schema() {
@@ -45,16 +45,33 @@ validate_canonical_schema() {
 
   # Verify table headers match exactly in both Active and Draft sections
   local schema_valid=0
+  local active_rows invalid_rows
 
+  # Check Active Specifications header and data rows
   if grep -A 2 "## Active Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
     echo "✓ Active Specifications table follows canonical schema"
+    # Validate each data row has exactly 6 columns (pipe-separated)
+    active_rows=$(sed -n '/## Active Specifications/,/^## /p' "$CATALOG_PATH" | grep "^|.*|" | tail -n +3)
+    invalid_rows=$(echo "$active_rows" | grep -v "^|.*|.*|.*|.*|.*|.*|$" || true)
+    if [ -n "$invalid_rows" ]; then
+      echo "✗ Active Specifications has malformed data rows"
+      schema_valid=1
+    fi
   else
     echo "✗ Active Specifications table does not follow canonical schema"
     schema_valid=1
   fi
 
+  # Check Draft Specifications header and data rows
   if grep -A 2 "## Draft Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
     echo "✓ Draft Specifications table follows canonical schema"
+    # Validate each data row has exactly 6 columns (pipe-separated)
+    local draft_rows=$(sed -n '/## Draft Specifications/,$p' "$CATALOG_PATH" | grep "^|.*|" | tail -n +3)
+    invalid_rows=$(echo "$draft_rows" | grep -v "^|.*|.*|.*|.*|.*|.*|$" || true)
+    if [ -n "$invalid_rows" ]; then
+      echo "✗ Draft Specifications has malformed data rows"
+      schema_valid=1
+    fi
   else
     echo "✗ Draft Specifications table does not follow canonical schema"
     schema_valid=1
@@ -75,7 +92,7 @@ validate_catalog_links() {
   local catalog_dir=$(dirname "$CATALOG_PATH")
 
   # Use process substitution with while loop to validate links
-  # Extract all markdown links in format ](./NNN-*/...
+  # Extract all markdown links in format ](./... (all local relative links)
   while IFS= read -r link; do
     [ -z "$link" ] && continue
 
@@ -94,7 +111,7 @@ validate_catalog_links() {
       echo "✗ Broken link: $link (target not found: $full_path)"
       ((++broken_links))
     fi
-  done < <(grep -oE '\]\(\./[0-9]{3}-[^)]+\)' "$CATALOG_PATH")
+  done < <(grep -oE '\]\(\./[^)]+\)' "$CATALOG_PATH")
 
   if [ $broken_links -eq 0 ]; then
     echo "✓ All catalog links point to existing specifications"

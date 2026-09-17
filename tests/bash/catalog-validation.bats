@@ -5,14 +5,14 @@ setup() {
   CATALOG_FILE="$REPO_ROOT/.github/specs/CATALOG.md"
 }
 
-# Extract every relative specification link (./NNN-...) from the catalog.
+# Extract every relative specification link (./...) from the catalog.
 extract_catalog_links() {
-  grep -oE '\]\(\.\/[0-9]{3}-[^)]+\)' "$CATALOG_FILE" | sed 's/\](\.\/\(.*\))/\1/' || true
+  grep -oE '\]\(\.\/[^)]+\)' "$CATALOG_FILE" | sed 's/\](\.\/\(.*\))/\1/' || true
 }
 
 # Extract only the links that appear in table rows. Prose may link elsewhere.
 extract_table_links() {
-  grep -E '^\|' "$CATALOG_FILE" | grep -oE '\]\(\.\/[0-9]{3}-[^)]+\)' | sed 's/\](\.\/\(.*\))/\1/' || true
+  grep -E '^\|' "$CATALOG_FILE" | grep -oE '\]\(\.\/[^)]+\)' | sed 's/\](\.\/\(.*\))/\1/' || true
 }
 
 # A link target is valid when the file or directory it names exists.
@@ -67,4 +67,46 @@ validate_link_target() {
   pipe_count=$(echo "$header" | grep -o '|' | wc -l)
 
   [ "$pipe_count" -eq 7 ]
+}
+
+@test "active specifications data rows have exactly 6 columns" {
+  local bad_rows=0
+  local active_section=$(sed -n '/## Active Specifications/,/^## /p' "$CATALOG_FILE")
+
+  # Skip header and separator rows, check each data row
+  while IFS= read -r row; do
+    # Skip empty lines, header line, and separator line
+    [ -z "$row" ] && continue
+    [[ $row =~ ^"| # | Slug" ]] && continue
+    [[ $row =~ ^"\|---|" ]] && continue
+
+    # Data rows must have exactly 6 pipes (7 columns)
+    if [[ $row =~ ^"| " ]]; then
+      local pipe_count=$(echo "$row" | grep -o '|' | wc -l)
+      [ "$pipe_count" -ne 7 ] && ((++bad_rows))
+    fi
+  done < <(echo "$active_section")
+
+  [ $bad_rows -eq 0 ]
+}
+
+@test "draft specifications data rows have exactly 6 columns" {
+  local bad_rows=0
+  local draft_section=$(sed -n '/## Draft Specifications/,$p' "$CATALOG_FILE")
+
+  # Skip header and separator rows, check each data row
+  while IFS= read -r row; do
+    # Skip empty lines, header line, and separator line
+    [ -z "$row" ] && continue
+    [[ $row =~ ^"| # | Slug" ]] && continue
+    [[ $row =~ ^"\|---|" ]] && continue
+
+    # Data rows must have exactly 6 pipes (7 columns)
+    if [[ $row =~ ^"| " ]]; then
+      local pipe_count=$(echo "$row" | grep -o '|' | wc -l)
+      [ "$pipe_count" -ne 7 ] && ((++bad_rows))
+    fi
+  done < <(echo "$draft_section")
+
+  [ $bad_rows -eq 0 ]
 }
