@@ -164,10 +164,10 @@
 
 ### Tests for User Story 4
 
-- [ ] T045 [P] [US4] Unit test for checklist generator at `.specify/templates/checklist-template/test/unit/test-generator.js` (template → checklist conversion preserves all items)
-- [ ] T046 [P] [US4] Unit test for custom item merging at `.specify/templates/checklist-template/test/unit/test-custom-merge.js` (base items + domain items combine without duplicates)
-- [ ] T047 [P] [US4] Unit test for ID sequencing at `.specify/templates/checklist-template/test/unit/test-id-sequencing.js` (CHK001, CHK002... sequential IDs)
-- [ ] T048 [US4] Integration test for full generation workflow at `.specify/templates/checklist-template/test/integration/test-generation-workflow.js`
+- [x] T045 [P] [US4] Unit test for checklist generator at `.specify/templates/checklist-template/test/unit/test-generator.js` (template → checklist conversion preserves all items)
+- [x] T046 [P] [US4] Unit test for custom item merging at `.specify/templates/checklist-template/test/unit/test-custom-merge.js` (base items + domain items combine without duplicates)
+- [x] T047 [P] [US4] Unit test for ID sequencing at `.specify/templates/checklist-template/test/unit/test-id-sequencing.js` (CHK001, CHK002... sequential IDs)
+- [x] T048 [US4] Integration test for full generation workflow at `.specify/templates/checklist-template/test/integration/test-generation-workflow.js`
 
 ### Implementation for User Story 4
 
