@@ -68,6 +68,37 @@ jobs:
             exit 1
           fi
 
+      - name: Validate catalog link targets
+        id: links
+        run: |
+          # Extract all markdown links from CATALOG.md and verify targets exist
+          broken_links=0
+          while IFS= read -r link; do
+            # Extract path from markdown link format [text](path)
+            if [[ $link =~ \]\(([^)]+)\) ]]; then
+              target="${BASH_REMATCH[1]}"
+              # Skip external links
+              if [[ $target == http* ]]; then
+                continue
+              fi
+              # Convert relative path to absolute (remove leading ./)
+              target_dir="${target%/spec.md}"
+              if [ ! -d ".github/specs/$target_dir" ]; then
+                echo "✗ Broken link: $link (target not found: .github/specs/$target_dir)"
+                ((++broken_links))
+              fi
+            fi
+          done < <(grep -oE '\]\(\./[0-9]{3}-[^)]+\)' .github/specs/CATALOG.md)
+
+          if [ $broken_links -eq 0 ]; then
+            echo "links_valid=true" >> "$GITHUB_OUTPUT"
+            echo "✓ All catalog links point to existing specifications"
+          else
+            echo "links_valid=false" >> "$GITHUB_OUTPUT"
+            echo "✗ Found $broken_links broken link(s) in CATALOG.md"
+            exit 1
+          fi
+
       - name: Validate MAINTENANCE.md references canonical schema
         id: maintenance
         run: |
@@ -104,6 +135,7 @@ jobs:
           ### Schema Compliance
           - Canonical schema documented: ${{ steps.schema.outputs.schema_documented }}
           - Schema validation: ${{ steps.schema.outputs.schema_valid }}
+          - Catalog link validation: ${{ steps.links.outputs.links_valid }}
           - MAINTENANCE.md compliant: ${{ steps.maintenance.outputs.maintenance_ok }}
 
           ### Metrics
@@ -112,6 +144,7 @@ jobs:
           | Catalog exists | ${{ steps.catalog.outputs.status == 'found' && '✅' || '❌' }} |
           | Schema documented | ${{ steps.schema.outputs.schema_documented == 'true' && '✅' || '⚠️' }} |
           | Schema valid | ${{ steps.schema.outputs.schema_valid == 'true' && '✅' || '❌' }} |
+          | Links valid | ${{ steps.links.outputs.links_valid == 'true' && '✅' || '❌' }} |
           | MAINTENANCE.md updated | ${{ steps.maintenance.outputs.maintenance_ok == 'true' && '✅' || '⚠️' }} |
 
           ### Principle X Compliance
