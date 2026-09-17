@@ -114,7 +114,7 @@ phases: 7
 
 - [x] T025 [P] [US2] Analyze 11 archived validation workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/validation-analysis.md`
 - [x] T026 [US2] Create unified validation workflow at `.github/workflows/validation-unified.yml` with parallel jobs for: (1) branch naming, (2) PR template, (3) changelog, (4) commits, (5) secrets
-- [ ] T027 [P] [US2] Implement branch naming validation job: check `{type}/{scope}-{title}` format per `.github/instructions/branch-naming.instructions.md`, post comment if invalid
+- [x] T027 [P] [US2] Implement branch naming validation job: check `{type}/{scope}-{title}` format per `.github/instructions/branch-naming.instructions.md`, post comment if invalid
 - [ ] T028 [P] [US2] Implement PR template validation job: verify correct template routed based on branch prefix, check template fields populated
 - [ ] T029 [P] [US2] Implement changelog validation job: require CHANGELOG.md entry for non-docs PRs, validate format
 - [ ] T030 [P] [US2] Implement commit message validation job: check commit messages for required footer format, validate conventional commits where applicable
