@@ -116,6 +116,9 @@ jobs:
             fix|hotfix|security)
               REQUIRED_SECTIONS=("## Summary" "## Problem" "## Solution" "## Testing" "## Checklist")
               ;;
+            refactor)
+              REQUIRED_SECTIONS=("## Summary" "## Approach" "## Verification" "## Changelog")
+              ;;
             docs|doc)
               REQUIRED_SECTIONS=("## Summary" "## Changes")
               ;;
