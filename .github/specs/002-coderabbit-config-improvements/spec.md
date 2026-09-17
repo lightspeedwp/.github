@@ -119,6 +119,13 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **FR-014**: Path pattern matching MUST follow explicit priority/specificity order - when files match multiple patterns, more specific patterns override general patterns (e.g., `**/e2e/*.js` before `**/*.js`). Pattern priority MUST be documented in config.
 - **FR-015**: Documentation MUST include an external "CodeRabbit Configuration Audit Guide" (separate from `.coderabbit.yml`) that helps maintainers verify review coverage completeness and identify gaps.
 
+### PR Governance Automation Requirements (Phase 1 Expansion)
+
+- **FR-016**: CodeRabbit MUST validate PR template correctness — checking that PR description includes all required sections per the branch-type-specific template (Linked Issues, Changelog, Checklist) and flag incomplete or placeholder-only PRs.
+- **FR-017**: CodeRabbit MUST enforce label family prefixes on all PRs — validating that applied labels follow canonical prefix structure (type:, meta:, status:, priority:, area:) and suggesting missing/incorrect labels from `.github/labels.yml` based on branch type and changed files.
+- **FR-018**: CodeRabbit MUST automate Definition of Done (DoD) checklist updates — populating PR description with standardized DoD checklist items based on change scope (feature, fix, docs, etc.) and flagging unchecked items as blocking review completion.
+- **FR-019**: CodeRabbit MUST handle documentation validation failures gracefully — applying appropriate commentary/warnings when documentation linting fails, with rules for (a) specific paths/file types that skip validation, (b) when to fail review vs. warn, (c) when to suggest workarounds based on failure type.
+
 ### Key Entities
 
 - **CodeRabbit Configuration**: The YAML structure defining review settings and path-specific instructions
@@ -144,6 +151,13 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **SC-011**: Branch-type-specific guidance MUST be present for at least the top 15 branch types by usage frequency (security/, feat/, fix/, docs/, perf/, a11y/, refactor/, chore/, test/, ci/, hotfix/, release/, design/, task/, ops/) verified through review
 - **SC-012**: Path pattern priority MUST be clearly documented - specificity order rules documented in comments, and priority conflicts resolved in favor of more specific patterns with zero ambiguity
 - **SC-013**: External audit guide MUST be created at `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` with step-by-step instructions for maintainers to verify config completeness and identify under-reviewed file types
+
+### PR Governance Success Criteria (Phase 1 Expansion)
+
+- **SC-014**: PR template validation MUST flag incomplete sections (Linked Issues missing, Changelog empty, Checklist unchecked) with specific guidance on required format per branch-type template; validation should pass ≥95% of well-formed PRs and catch ≥90% of malformed PRs.
+- **SC-015**: Label enforcement MUST apply canonical labels (type:, meta:, status:, priority:, area:) with zero false negatives on branch-type matching; suggest missing labels based on changed files and branch type with ≥85% accuracy.
+- **SC-016**: DoD checklist automation MUST populate PR descriptions with 5-8 standardized checklist items per change type (feature, fix, docs, etc.); maintainers report checklist is relevant and actionable for ≥90% of PRs.
+- **SC-017**: Documentation validation handling MUST have explicit rules for: (a) file paths/types skipped from validation (e.g., auto-generated docs, third-party docs), (b) when failures block review vs. warn, (c) actionable commentary linking to remediation steps; zero silent failures.
 
 ## Assumptions
 
@@ -173,3 +187,8 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - Q: What specific guidance patterns constitute "technology-agnostic" instructions? → A: Guidance addressing universal principles (security, performance, accessibility, correctness) without assuming language, framework, project type, or library. Allowed: "Ensure error handling is comprehensive"; Not allowed: "Use async/await" or "WordPress hooks". Applies to FR-006 and SC-011 validation.
 - Q: When a file doesn't match any specific path pattern, should CodeRabbit apply a generic catch-all? → A: Yes, add catch-all pattern (e.g., `**/*`) with universal guidance (readability, error handling, security basics) as fallback. Ensures 100% coverage while allowing specific patterns to override for high-priority files.
 - Q: When file matches multiple patterns AND branch context applies, which takes precedence? → A: Path pattern priority wins; branch context provides supplementary emphasis. Keeps FR-014 specificity rule as primary mechanism while branch context augments relevant focus areas.
+
+### Session 2026-09-17
+
+- Q: Should Phase 1 expand to include PR governance automation (PR template validation, label family enforcement, DoD checklist automation)? → A: **YES — Expand Phase 1** to include full PR governance scope alongside code review instructions. Delivers unified, cohesive feature covering both code review instructions AND PR governance automation. Adds FR-016 through FR-019; expands task scope to ~130-140 tasks; estimated effort 14-16 weeks unified delivery.
+- Q: Should I audit current `.coderabbit.yml` to identify commented sections to convert into active instructions? → A: **YES — Audit completed**. Found 150+ lines (597-752) of governance documentation currently undeclared as active CodeRabbit rules: PR description template standards, issue template standards, label automation workflow, validation rules. These must be converted to active FR/SC and integrated into task decomposition.
