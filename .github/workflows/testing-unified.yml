@@ -45,9 +45,6 @@ concurrency:
   group: testing-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  WORKFLOW_DISABLED: 'true' # Remove when Phase 4 implementation complete
-
 jobs:
   # ============================================================================
   # Setup job - determine which tests to run
@@ -56,7 +53,6 @@ jobs:
   test-context:
     name: Determine Test Context
     runs-on: ubuntu-latest
-    if: env.WORKFLOW_DISABLED != 'true'
     outputs:
       run-unit: ${{ steps.context.outputs.run-unit }}
       run-integration: ${{ steps.context.outputs.run-integration }}
