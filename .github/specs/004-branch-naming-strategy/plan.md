@@ -2,13 +2,13 @@
 
 **Branch**: `feat/branch-naming-strategy-phase-3` | **Date**: 2026-09-13 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from [spec.md](./spec.md) - 5 user stories, 10 functional requirements, 10 success criteria
+**Input**: Feature specification from [spec.md](./spec.md) - 5 user stories, 10 functional requirements, 10 success criteria (38 authorized branch types)
 
 **Timeline**: 6 weeks (48-62 hours) across 6 phases; deployed to 50+ LightSpeed repositories with 200+ developers
 
 ## Summary
 
-Deploy a distributed branch naming validation system that enforces the pattern `{type}/{scope}-{title}` across LightSpeed organization. The system validates branches locally (pre-push hook <1s feedback), enforces remotely (GitHub Actions), and automates PR template routing and label application based on branch type. Supports 24 authorized types, blocks 3 forbidden prefixes (claude/, copilot/, openai/), and scales to 50+ repositories without per-repo configuration.
+Deploy a distributed branch naming validation system that enforces the pattern `{type}/{scope}-{title}` across LightSpeed organization. The system validates branches locally (pre-push hook <1s feedback), enforces remotely (GitHub Actions), and automates PR template routing and label application based on branch type. Supports 38 authorized types, blocks 3 forbidden prefixes (claude/, copilot/, openai/), and scales to 50+ repositories without per-repo configuration.
 
 **Technical Approach**: Three-tier validation (local hook + remote workflow + CLI) with GitHub Actions automation for template/label routing. Node.js validation library with Husky hook integration. Single-source-of-truth configuration in YAML (`.github/branch-types.yml`, `.github/branch-labels.yml`). No modifications to existing locked files (`.github/labels.yml`, `.github/PULL_REQUEST_TEMPLATE/*.md`). Full backwards compatibility for existing repos and branches.
 
@@ -53,7 +53,7 @@ Deploy a distributed branch naming validation system that enforces the pattern `
 - 50+ repositories in LightSpeed organization
 - 200+ active developers
 - ~10,000-15,000 new branches per month (estimated)
-- 19 existing PR templates to integrate with
+- 19 existing PR templates to integrate with (mapped to 38 branch types)
 - 158 canonical labels in `.github/labels.yml` (read-only, not modified)
 
 ## Constitution Check
@@ -156,8 +156,8 @@ package.json                         # Scripts: validate:branch-name, prepare (h
 
 **Deliverables**:
 
-- `data-model.md` — BranchName, BranchType, ComplianceMetrics entities
-- `contracts/branch-naming.contract.md` — Type definitions, routing rules, validation rules
+- `data-model.md` — BranchName, BranchType, ComplianceMetrics entities (38 types)
+- `contracts/branch-naming.contract.md` — Type definitions (38 types), routing rules, validation rules
 - `quickstart.md` — Validation guide and runnable tests
 
 ### Phase 2: Core Validation & Enforcement (Weeks 2-3 — 20 hours)
@@ -177,8 +177,8 @@ package.json                         # Scripts: validate:branch-name, prepare (h
 
 **Deliverables**:
 
-- Configuration: `.github/branch-types.yml` (24 types → PR templates)
-- Configuration: `.github/branch-labels.yml` (24 types → default labels)
+- Configuration: `.github/branch-types.yml` (38 types → PR templates)
+- Configuration: `.github/branch-labels.yml` (38 types → default labels)
 - GitHub Actions workflow: `.github/workflows/pr-template-routing.yml`
 - Integration with 19 existing PR templates (audit + testing)
 - Label routing testing on 50+ sample PRs

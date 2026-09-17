@@ -4,11 +4,13 @@
 
 **Prerequisites**: plan.md (6-week timeline, tech stack), spec.md (5 user stories), research.md (research decisions), data-model.md (entities), contracts/branch-naming.contract.md (type mappings), quickstart.md (validation scenarios)
 
-**Scope**: 51 tasks across 6 phases (Research, Design, Core Validation, Routing, Integration, Rollout)
+**Scope**: 51+ tasks across 6 phases (Research, Design, Core Validation, Routing, Integration, Rollout) supporting 38 authorized branch types
 
 **Technology Stack**: Node.js, GitHub Actions, Husky, YAML configuration, npm scripts
 
 **Organization**: Tasks grouped by phase and user story to enable parallel execution and independent testing
+
+**Note**: Specification updated to align with Constitution Principle V (38 authorized types, not 24). All type mappings, regexes, and configurations must reflect complete 38-type set.
 
 ---
 
@@ -92,13 +94,13 @@
   - Regex pattern validation against pattern defined in contracts (24 types, scope-title format)
   - Forbidden prefix detection (claude/, copilot/, openai/)
   - Return: `{valid: boolean, type?, scope?, title?, errors: [], suggested_name?}`
-- [x] T019 [P] [US1] Implement type validation in `lib/validate-branch-name.js`; validate against list of 24 types from contracts/branch-naming.contract.md
+- [x] T019 [P] [US1] Implement type validation in `lib/validate-branch-name.js`; validate against list of 38 types from contracts/branch-naming.contract.md
 - [x] T020 [P] [US1] Implement scope/title validation in `lib/validate-branch-name.js`; enforce lowercase, hyphens only, no consecutive hyphens, no underscores/spaces/special chars
 - [x] T021 [US1] Implement error message generation in `lib/validate-branch-name.js`; create messages for all 6 error cases with suggestions using fuzzy matching
 
 #### Unit Test Tasks (Validation Library)
 
-- [x] T022 [P] [US1] Create `lib/__tests__/validate-branch-name.test.js` with tests for 24 valid types (all must pass); test 3 forbidden prefixes (all must fail); test malformed scope/title (all must fail)
+- [x] T022 [P] [US1] Create `lib/__tests__/validate-branch-name.test.js` with tests for 38 valid types (all must pass); test 3 forbidden prefixes (all must fail); test malformed scope/title (all must fail)
 - [x] T023 [P] [US1] Add unit tests for edge cases: empty scope/title, consecutive hyphens, uppercase letters, special characters, very long branch names
 - [x] T024 [P] [US1] Add unit tests for error message suggestions; verify suggestions are actionable and correct
 
@@ -182,9 +184,9 @@
 
 #### Configuration Tasks
 
-- [x] T049 [P] Create `.github/branch-types.yml` configuration file; define mapping: 24 types → PR template files (e.g., `feat` → `pr_feature.md`)
-- [x] T050 [P] Create `.github/branch-labels.yml` configuration file; define mapping: 24 types → default labels (e.g., `feat` → `["type:feature"]`); include area detection keywords
-- [x] T051 [US3] Validate branch-types.yml against `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all referenced templates exist
+- [x] T049 [P] Create `.github/branch-types.yml` configuration file; define mapping: 38 types → PR template files (e.g., `feat` → `pr_feature.md`)
+- [x] T050 [P] Create `.github/branch-labels.yml` configuration file; define mapping: 38 types → default labels (e.g., `feat` → `["type:feature"]`); include area detection keywords
+- [x] T051 [US3] Validate branch-types.yml against `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all 38 type mappings are correct and all referenced templates exist
 
 #### GitHub Actions Workflow: Template Routing
 
@@ -205,7 +207,7 @@
 - [x] T060 [P] [US3] Create integration test: Create PR from `feat/user-auth-improvements`; verify template (`pr_feature.md`) applied; verify labels (`type:feature`) applied
 - [x] T061 [P] [US3] Create integration test: Create PR from `security/sql-injection-fix`; verify template (`pr_security.md`) applied; verify labels (`type:security, priority:critical`) applied
 - [x] T062 [P] [US3] Create integration test: Create PR from branch with area keywords (e.g., `feat/api-endpoint`); verify area label (`area:api`) auto-detected and applied
-- [x] T063 [P] [US3] Test all 24 types; create 24 sample branches, create PRs from each, verify correct template + labels for every type
+- [x] T063 [P] [US3] Test all 38 types; create 38 sample branches, create PRs from each, verify correct template + labels for every type
 
 **Checkpoint: US3 Complete** — PR template routing works perfectly; all labels applied from canonical set; area detection works; 100% accuracy across 24 types
 
@@ -261,7 +263,7 @@
 - [ ] T076 [P] [US5] Integration test: Create feature PR; verify `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` loaded in PR description; verify all template sections present
 - [ ] T077 [P] [US5] Integration test: Create security PR; verify `pr_security.md` template loaded; verify security-specific sections (threat model, CVSS, remediation) present
 - [ ] T078 [P] [US5] Integration test: Create release PR; verify `pr_release.md` template loaded; verify release-specific sections (changelog, version bump) present
-- [ ] T079 [P] [US5] Test routing for all 19 distinct templates; verify 24 types map to correct templates with no conflicts
+- [ ] T079 [P] [US5] Test routing for all 19 distinct templates; verify 38 types map correctly to templates (multiple types may share a template) with no conflicts
 
 #### Workflow Conflict Testing
 
@@ -272,7 +274,7 @@
 #### Audit & Validation
 
 - [ ] T083 Audit existing `.github/PULL_REQUEST_TEMPLATE/` files; verify all 19 templates are compatible with new routing (no hard-coded assumptions about branch name format)
-- [ ] T084 [P] Create comprehensive test report: 24 types × 10 sample branches = 240 routing scenarios tested; document pass/fail rates, edge cases, recommendations
+- [ ] T084 [P] Create comprehensive test report: 38 types × 10 sample branches = 380 routing scenarios tested; document pass/fail rates, edge cases, recommendations
 
 **Checkpoint: US5 Complete** — PR template routing perfect; 100% routing accuracy; zero manual intervention; existing template system works as designed
 

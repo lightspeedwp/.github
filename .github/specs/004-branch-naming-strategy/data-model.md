@@ -15,7 +15,7 @@ Represents a Git branch with validation and routing metadata.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `full_name` | String | ✅ | Complete Git branch name (e.g., `feat/user-auth-improvements`) |
-| `type` | Enum (24 values) | ✅ | Branch type (e.g., `feat`, `fix`, `security`) |
+| `type` | Enum (38 values) | ✅ | Branch type (e.g., `feat`, `fix`, `security`) |
 | `scope` | String | ✅ | Feature domain (e.g., `user-auth`, `api-response`); lowercase alphanumeric + hyphens |
 | `title` | String | ✅ | Specific change within domain (e.g., `improvements`, `routing-bug`); lowercase alphanumeric + hyphens |
 | `is_valid` | Boolean | Computed | True if matches pattern and not forbidden prefix |
@@ -36,7 +36,7 @@ Represents a Git branch with validation and routing metadata.
 **Pattern Match** (Required):
 
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|audit|codex|revert|research)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
+^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|revert|research|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
 ```
 
 **Forbidden Prefixes** (Reject):
@@ -48,7 +48,7 @@ Represents a Git branch with validation and routing metadata.
 **Length Constraints**:
 
 - Full branch name: ≤255 characters (Git standard)
-- Type: exactly one of 24 values
+- Type: exactly one of 38 values
 - Scope: 1+ characters, recommended ≤50
 - Title: 1+ characters, recommended ≤50
 - Scope + title: recommended ≤80 combined
