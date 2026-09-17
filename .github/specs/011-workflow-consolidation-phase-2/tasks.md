@@ -193,8 +193,8 @@ phases: 7
 
 ### User Story 5 Tasks
 
-- [ ] T057 [US5] Analyze 5 utilities workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/quality-gates-analysis.md`
-- [ ] T058 [US5] Create unified quality gates workflow at `.github/workflows/quality-gates.yml` with parallel jobs for: (1) SAST, (2) dependency scanning, (3) license compliance, (4) code quality metrics, (5) security policy
+- [x] T057 [US5] Analyze 5 utilities workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/quality-gates-analysis.md`
+- [x] T058 [US5] Create unified quality gates workflow at `.github/workflows/quality-gates.yml` with parallel jobs for: (1) SAST, (2) dependency scanning, (3) license compliance, (4) code quality metrics, (5) security policy
 - [ ] T059 [P] [US5] Implement SAST scanning job: run CodeQL analysis, report findings to PR comment, fail if critical findings detected
 - [ ] T060 [P] [US5] Implement dependency scanning job: run npm audit (or language-appropriate), check for known vulnerabilities, report to PR
 - [ ] T061 [P] [US5] Implement license compliance job: scan dependencies against license allowlist at `.github/config/LICENSE_ALLOWLIST.json`, reject prohibited licenses
@@ -290,10 +290,10 @@ Use this section to track task progress:
 - [x] **Phase 4 US2:** T025-T035 (11/12 complete - T036 monitoring CI runs)
 - [x] **Phase 4 US3:** T037-T046 (10/11 complete - T047 monitoring CI runs)
 - [x] **Phase 5 US4:** T048-T056 (8/9 complete - T056 monitoring CI runs)
-- [ ] **Phase 6 US5:** T057-T068 (0/12 complete)
+- [ ] **Phase 6 US5:** T057-T068 (2/12 complete - T057-T058 done, T059-T068 pending)
 - [ ] **Phase 7 Integration:** T069-T078 (0/10 complete)
 
-**Total Progress:** 53/78 tasks complete (68%)
+**Total Progress:** 55/78 tasks complete (71%)
 
 **Phase 4-5 Status:**
 
