@@ -67,13 +67,13 @@
 
 **Goal**: Build centralized CATALOG.md listing all 12 specifications with metadata, status, and navigation links
 
-**Independent Test**: CATALOG.md exists at `.github/specs/CATALOG.md`, lists all 12 specs in index table with title/purpose/status/date, all links are valid and point to correct directories, usable in <30 seconds
+**Independent Test**: CATALOG.md exists at `.github/specs/CATALOG.md`, lists all 12 specs in index table with canonical schema (# | Slug | Title | Status | Created | Link), all links are valid and point to correct directories, usable in <30 seconds
 
 ### Implementation for User Story 2
 
 - [x] T017 [P] [US2] Extract specification metadata (number, title, slug, status, created_date) for all 12 specs from directory names and spec.md files
 - [x] T018 [P] [US2] Validate spec.md file presence for each of 12 specs (confirm all have spec.md, report any missing as audit findings)
-- [x] T019 [US2] Create index table structure in `.github/specs/CATALOG.md` with columns: # | Title | Purpose | Status | Created | Link (per CATALOG.md.contract)
+- [x] T019 [US2] Create index table structure in `.github/specs/CATALOG.md` with canonical columns: # | Slug | Title | Status | Created | Link (per CATALOG.md.contract)
 - [x] T020 [US2] Populate index table with all 12 specifications in number order (001-012) with valid Markdown links (./NNN-slug/spec.md)
 - [x] T021 [US2] Create detailed entry section in CATALOG.md with `### NNN - Title` headings for all 12 specs (per CATALOG.md.contract)
 - [x] T022 [US2] Populate detailed entries with 2-3 sentence summaries from each spec.md description field

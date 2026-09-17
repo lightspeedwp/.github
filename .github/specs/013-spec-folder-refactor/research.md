@@ -34,12 +34,12 @@ This document consolidates research findings for the SpecKit folder organization
 
 ## Active Specifications (001-013)
 
-| # | Title | Purpose | Status | Created | Link |
+| # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
 | 001 | ... | ... | Draft/Active/Complete | YYYY-MM-DD | [spec/link](#001) |
 | 002 | ... | ... | ... | ... | ... |
 ...
-| 013 | SpecKit Folder Organization | Audit & maintenance | Draft | 2026-09-16 | [spec/link](#013) |
+| 013 | spec-folder-refactor | SpecKit Folder Organization | Draft | 2026-09-16 | [spec/link](#013) |
 
 ## Detailed Entries
 

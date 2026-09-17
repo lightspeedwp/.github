@@ -13,7 +13,7 @@
 - [ ] All 12 existing specifications (001-012) have entries in CATALOG.md
 - [ ] Specification 013 has a catalog entry
 - [ ] Entry count in CATALOG.md matches file count in `.github/specs/`
-- [ ] Each entry includes required fields: number, title, purpose, status, created date
+- [ ] Each entry includes required canonical fields: number, slug, title, status, created date
 - [ ] Each entry includes link to spec directory (format: `./NNN-{slug}/spec.md`)
 
 ---
@@ -56,7 +56,7 @@
 ## Format Compliance
 
 - [ ] Catalog uses consistent table format (markdown table)
-- [ ] Index table has headers: # | Title | Purpose | Status | Created | Link
+- [ ] Index table has headers: # | Slug | Title | Status | Created | Link (canonical schema)
 - [ ] Detailed entries include: Status, Phase, Created, Updated, Link
 - [ ] All rows aligned and properly formatted
 - [ ] No manually entered inconsistencies (spelling, capitalization, formatting)
