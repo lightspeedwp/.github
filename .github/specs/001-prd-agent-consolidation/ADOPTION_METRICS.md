@@ -14,7 +14,7 @@ owner: Ash Shaw
 
 ## Pre-Consolidation Baseline
 
-**Definition**: The pre-consolidation baseline captures adoption metrics from the period **before Phase 6 rollout** (prior to 2026-09-13) when the PRD agent existed in unconsolidated form (separate portable and spec-based versions).
+**Definition**: The pre-consolidation baseline captures adoption metrics from the period **before Phase 6 rollout** (prior to 2026-09-17) when the PRD agent existed in unconsolidated form (separate portable and spec-based versions).
 
 ### Baseline Metrics
 
@@ -70,7 +70,7 @@ owner: Ash Shaw
 **Criterion**: ≥5 teams with ≥1 PRD generation per rolling 7-day window for ≥4 of the 6 post-rollout weeks (with grace period per spec.md clarifications Q4).
 
 **Data Source**: Deduplicated completed-PRD logs  
-**Collection Method**: Weekly Monday snapshot of prior 7 days, covering 6 non-overlapping buckets (2026-09-16 through 2026-10-29)
+**Collection Method**: Weekly Monday snapshot of prior 7 days, covering 6 non-overlapping buckets (2026-09-17 through 2026-10-29)
 
 **Deduplication Rule**: *(clarified per finding A8)*
 
@@ -205,7 +205,7 @@ Collected every Monday, covering prior 7-day rolling window:
 
 | Date | Event | Owner | Deliverable |
 |------|-------|-------|-------------|
-| 2026-09-13 | Phase 6 rollout begins; baseline establishment begins (Tasks A–C) | Ash Shaw | Baseline results in this file |
+| 2026-09-17 | Phase 6 rollout begins; baseline establishment begins (Tasks A–C) | Ash Shaw | Baseline results in this file |
 | 2026-09-20 | Week 2 metrics collection | Ash Shaw | PHASE6_MONITORING_TEMPLATE.md updated |
 | 2026-10-12 | **30-Day Interim Checkpoint (T075a)** | Ash Shaw | PHASE6_INTERIM_REPORT.md |
 | 2026-10-29 | **42-Day Final Evaluation (T075b)** | Ash Shaw | FINAL_ADOPTION_REPORT.md |

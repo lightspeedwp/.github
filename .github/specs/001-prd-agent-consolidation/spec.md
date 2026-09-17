@@ -24,7 +24,7 @@
 
 ### Session 2026-09-17
 
-- Q1: Should FR-605 documentation scope be limited to platform setup and FAQ, or expanded to include team workflow playbook? → A: **Expanded scope** — Comprehensive playbook covering platform setup (Claude Code, GitHub Copilot, VSCode, OpenAI), FAQ & troubleshooting, best practices, PRD creation workflow, estimation strategy for work breakdown, and integration guidance for downstream systems (Figma, Linear, Claude Code agents, etc.). Timeline unchanged (Phase 6 end date 2026-10-24); playbook delivery as part of Phase 6 final documentation.
+- Q1: Should FR-605 documentation scope be limited to platform setup and FAQ, or expanded to include team workflow playbook? → A: **Expanded scope** — Comprehensive playbook covering platform setup (Claude Code, GitHub Copilot, VSCode, OpenAI), FAQ & troubleshooting, best practices, PRD creation workflow, estimation strategy for work breakdown, and integration guidance for downstream systems (Figma, Linear, Claude Code agents, etc.). Timeline unchanged (Phase 6 end date 2026-10-29); playbook delivery as part of Phase 6 final documentation.
 
 ## Phase 3: Structural Consolidation ✅ COMPLETE
 
@@ -172,10 +172,10 @@ As a QA engineer, I want comprehensive testing of the consolidated PRD agent acr
 **Duration**: Post Phase 5  
 **Owner**: Ash Shaw  
 **Blocked By**: Phase 5 testing complete  
-**Rollout Date**: 2026-09-13 (Week 1 of monitoring begins; collection period: 2026-09-13 through 2026-10-24, 42 days)
+**Rollout Date**: 2026-09-17 (Week 1 of monitoring begins; collection period: 2026-09-17 through 2026-10-29, 42 days)
 **Relates To**: Issue #1897  
-**Current Status**: 3 of 6 Phase 6 deliverables complete (T072, T074, T076); 2 in progress (T073, T075); 1 pending (T077). Scheduled final evaluation: day 42 post-rollout (2026-10-24).
-**Next Checkpoint**: T075b completes the final 42-day evaluation (due 2026-10-24), unblocking Phase 7.
+**Current Status**: 3 of 6 Phase 6 deliverables complete (T072, T074, T076); 2 in progress (T073, T075); 1 pending (T077). Scheduled final evaluation: day 42 post-rollout (2026-10-29).
+**Next Checkpoint**: T075b completes the final 42-day evaluation (due 2026-10-29), unblocking Phase 7.
 
 ### User Story 6 - Organization-wide PRD agent rollout and team adoption (Priority: P1)
 
@@ -213,7 +213,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 **Duration**: Post Phase 6 (Optional, depends on adoption decision)  
 **Owner**: TBD  
 **Blocked By**: Phase 6 final adoption evaluation completion (T075b gate)
-**Unblock Gate**: Phase 7 work begins after T075b completes (2026-10-24; FINAL_ADOPTION_REPORT.md published). T077 (CHANGELOG update) is a post-completion documentation task and does not block Phase 7 start. Target Phase 7 decision memo: 2026-11-02.
+**Unblock Gate**: Phase 7 work begins after T075b completes (2026-10-29; FINAL_ADOPTION_REPORT.md published). T077 (CHANGELOG update) is a post-completion documentation task and does not block Phase 7 start. Target Phase 7 decision memo: 2026-11-02.
 **Relates To**: Issue #1899  
 
 ### User Story 7 - Resolve the spec-based PRD agent's fate (Priority: P3, Optional)
