@@ -222,14 +222,14 @@ phases: 7
 ### Integration & Validation Tasks
 
 - [x] T069 Create integration test suite at `.github/tests/phase2-integration-test.yml` triggering all 5 unified workflows on test PR
-- [ ] T070 [P] Run 3 consecutive integration test cycles on feature branch; record metrics and validate no regressions
+- [ ] T070 [P] Run 3 consecutive integration test cycles on feature branch; record metrics and validate no regressions (triggers via PR)
 - [ ] T071 Measure GitHub Actions minutes reduction: calculate (Phase 1 baseline - Phase 2 actual) / Phase 1 baseline; must be ≥15%
 - [ ] T072 Execute error isolation test (T011) validating single-workflow-type failure does not cascade to other workflows
 - [ ] T073 Test rollback procedure: revert `.github/workflows/` to Phase 1 archived, trigger workflows, validate all function correctly
-- [ ] T074 Update `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` with final consolidated patterns and archived workflow retirement notes
+- [x] T074 Update `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` with final consolidated patterns and archived workflow retirement notes
 - [x] T075 Create operations runbook at `.github/docs/PHASE2_OPERATIONS_RUNBOOK.md` with: workflow troubleshooting, common failure modes, recovery procedures, metrics dashboard link
 - [x] T076 Create Phase 2 release notes at `.github/releases/PHASE2_RELEASE_NOTES.md` documenting consolidation summary, metrics improvement, known limitations
-- [ ] T077 Update main README.md to reference Phase 2 unified workflows and link to `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md`
+- [x] T077 Update main README.md to reference Phase 2 unified workflows and link to `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md`
 - [ ] T078 Prepare Phase 2 PR for merge: ensure all 5 workflows pass CI ≥3 times, performance target met, documentation complete, rollback validated
 
 ---
@@ -291,9 +291,9 @@ Use this section to track task progress:
 - [x] **Phase 4 US3:** T037-T046 (10/11 complete - T047 monitoring CI runs)
 - [x] **Phase 5 US4:** T048-T056 (8/9 complete - T056 monitoring CI runs)
 - [ ] **Phase 6 US5:** T057-T068 (10/12 complete - T057-T067 done, T066/T068 testing)
-- [ ] **Phase 7 Integration:** T069-T078 (3/10 complete - T069/T075/T076 done, T070+ pending)
+- [ ] **Phase 7 Integration:** T069-T078 (5/10 complete - T069/T075/T076/T074/T077 done, T070-T073/T078 pending)
 
-**Total Progress:** 66/78 tasks complete (85%)
+**Total Progress:** 68/78 tasks complete (87%)
 
 **Phase 4-5 Status:**
 
