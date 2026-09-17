@@ -245,3 +245,5 @@ Route to `woocommerce-gravity-forms-configuration` for approved WooCommerce Grav
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
