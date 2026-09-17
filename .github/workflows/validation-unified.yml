@@ -318,43 +318,35 @@ jobs:
 
           # Get diff, handling case where develop is not available
           if git rev-parse origin/develop >/dev/null 2>&1; then
-            DIFF_OUTPUT=$(git diff origin/develop...HEAD 2>&1)
+            DIFF=$(git diff origin/develop...HEAD)
           else
-            DIFF_OUTPUT=$(git diff HEAD~5..HEAD 2>&1 || git diff HEAD 2>&1)
+            DIFF=$(git diff HEAD~5..HEAD 2>&1 || git diff HEAD)
           fi
 
-          echo "🔍 DEBUG: Diff output size: ${#DIFF_OUTPUT} bytes"
+          echo "🔍 DEBUG: Scanning diff ($(echo "$DIFF" | wc -l) lines)"
 
-          # Look for actual secrets (exclude documentation)
           FOUND_SECRETS=0
 
-          # Extract changed files (avoid .md, .yml, .yaml documentation files)
-          # Process diff to get only code file changes
-          CHANGED_FILES=$(echo "$DIFF_OUTPUT" | grep "^diff --git" | grep -v "\.md\|\.yml\|\.yaml" | awk '{print $4}')
-          echo "🔍 DEBUG: Changed code files: $(echo $CHANGED_FILES | wc -w) files"
+          # Check for AWS credentials (AKIA prefix followed by 16 alphanumeric chars)
+          # Only check added lines (starting with +), exclude file headers (+++)
+          if echo "$DIFF" | grep -E "^\+[^+].*AKIA[0-9A-Z]{16}" > /dev/null; then
+            echo "⚠️  Potential AWS key found"
+            FOUND_SECRETS=$((FOUND_SECRETS + 1))
+          fi
 
-          # For each changed file, get its diff
-          while read -r FILE; do
-            [[ -z "$FILE" ]] && continue
+          # Check for RSA/OpenSSH private key markers
+          if echo "$DIFF" | grep -E "^\+[^+]".*(BEGIN.*PRIVATE KEY|BEGIN RSA PRIVATE KEY|BEGIN OPENSSH PRIVATE KEY) > /dev/null; then
+            echo "⚠️  Potential private key block found"
+            FOUND_SECRETS=$((FOUND_SECRETS + 1))
+          fi
 
-            FILE_DIFF=$(echo "$DIFF_OUTPUT" | sed -n "/^diff --git.*$FILE/,/^diff --git/p" | head -n -1)
+          # Check for common password/token patterns (basic check)
+          if echo "$DIFF" | grep -E "^\+[^+]".*(password\s*[=:]\s*['\"]|token\s*[=:]\s*['\"]|secret\s*[=:]\s*['\"]|api.?key\s*[=:]\s*['\"])" | grep -v "example\|placeholder\|test\|mock" > /dev/null; then
+            echo "⚠️  Potential credential assignment found"
+            FOUND_SECRETS=$((FOUND_SECRETS + 1))
+          fi
 
-            # Check for AWS credentials (AKIA prefix followed by 16 alphanumeric chars)
-            if echo "$FILE_DIFF" | grep -E "^\+" | grep -v "^+++" | grep -iE "AKIA[0-9A-Z]{16}" > /dev/null; then
-              echo "⚠️  Potential AWS key found in $FILE"
-              FOUND_SECRETS=$((FOUND_SECRETS + 1))
-              continue
-            fi
-
-            # Check for RSA/Private keys (actual key blocks, not documentation)
-            if echo "$FILE_DIFF" | grep -E "^\+" | grep -v "^+++" | grep -E "BEGIN (RSA |OPENSSH )?PRIVATE KEY" > /dev/null; then
-              echo "⚠️  Potential private key found in $FILE"
-              FOUND_SECRETS=$((FOUND_SECRETS + 1))
-              continue
-            fi
-          done < <(echo "$CHANGED_FILES")
-
-          echo "🔍 DEBUG: Found $FOUND_SECRETS potential secrets"
+          echo "🔍 DEBUG: Found $FOUND_SECRETS potential secret patterns"
 
           if [[ $FOUND_SECRETS -gt 0 ]]; then
             echo "❌ Secret scanning found potential secrets"
