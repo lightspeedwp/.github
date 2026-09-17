@@ -79,3 +79,5 @@ Use this skill when a Tour Operator Configuration Agent needs Yoast SEO planning
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

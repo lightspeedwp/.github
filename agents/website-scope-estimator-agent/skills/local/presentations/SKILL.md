@@ -317,3 +317,5 @@ Do not cite internal previews, contact sheets, layout JSON, source notes, scratc
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
