@@ -3,11 +3,11 @@
  * T048: Integration test for full generation workflow
  */
 
-const { generateChecklist, applyVariant } = require('../../lib/generator');
-const { mergeCustomItems } = require('../../lib/custom-merger');
-const { sequenceIds, validateIdSequence } = require('../../lib/id-sequencer');
+const { generateChecklist, applyVariant } = require('../../lib/generator.cjs');
+const { mergeCustomItems } = require('../../lib/custom-merger.cjs');
+const { sequenceIds, validateIdSequence } = require('../../lib/id-sequencer.cjs');
 const { renderAudienceChecklist } = require('../../lib/audience-generator');
-const { checklistValidator } = require('../../lib/checklist-validator');
+const { checklistValidator } = require('../../lib/checklist-validator.cjs');
 
 describe('Full Checklist Generation Workflow', () => {
   describe('Base Checklist Generation', () => {

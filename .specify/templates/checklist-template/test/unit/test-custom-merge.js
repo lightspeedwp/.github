@@ -7,7 +7,7 @@ const {
   mergeCustomItems,
   deduplicateItems,
   validateCustomItems,
-} = require('../../lib/custom-merger');
+} = require('../../lib/custom-merger.cjs');
 
 describe('Custom Item Merging', () => {
   const baseChecklist = {
@@ -126,7 +126,6 @@ describe('Custom Item Merging', () => {
     });
 
     it('should remove duplicates across merged sets', () => {
-      const merged = [...baseChecklist.items, ...customItems];
       const duplicateInBoth = [
         { id: 'CHK-001-Completeness', question: 'Base version' },
         { id: 'CHK-001-Completeness', question: 'Custom version' },

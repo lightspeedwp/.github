@@ -3,7 +3,7 @@
  * T045: Unit test for checklist generator
  */
 
-const { generateChecklist, generateFromBase, applyVariant } = require('../../lib/generator');
+const { generateChecklist, generateFromBase, applyVariant } = require('../../lib/generator.cjs');
 
 describe('Checklist Generator', () => {
   const baseChecklist = {

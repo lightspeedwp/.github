@@ -3,7 +3,7 @@
  * T047: Unit test for ID sequencing
  */
 
-const { sequenceIds, validateIdSequence, getNextId } = require('../../lib/id-sequencer');
+const { sequenceIds, validateIdSequence, getNextId } = require('../../lib/id-sequencer.cjs');
 
 describe('ID Sequencing', () => {
   const itemsWithoutIds = [
