@@ -959,127 +959,317 @@ pr_governance:
   # Suggests missing labels based on branch type and changed files
   label_enforcement:
     enabled: true
-    # Canonical label families (from .github/labels.yml)
-    required_families:
-      - 'type:' # type:bug, type:feature, type:task, type:documentation, type:security, etc.
-      - 'status:' # status:needs-triage, status:in-progress, status:done, etc.
+    # Canonical label families (from .github/labels.yml: 158 labels, 6 families)
+    canonical_families:
+      - family: 'type'
+        prefix: 'type:'
+        required: true
+        examples:
+          [
+            'bug',
+            'feature',
+            'task',
+            'documentation',
+            'security',
+            'test',
+            'refactor',
+            'performance',
+            'a11y',
+          ]
+        description: 'Change type (required for every PR)'
 
-    suggested_families:
-      - 'area:' # area:ci, area:docs, area:security, area:testing, etc.
-      - 'priority:' # priority:critical, priority:high, priority:normal, priority:low
-      - 'meta:' # meta:needs-changelog, meta:has-pr, meta:duplicate, etc.
+      - family: 'status'
+        prefix: 'status:'
+        required: true
+        examples: ['needs-triage', 'in-progress', 'done', 'blocked', 'on-hold']
+        description: 'Current status (required for every PR)'
+
+      - family: 'priority'
+        prefix: 'priority:'
+        required: false
+        examples: ['critical', 'high', 'normal', 'low']
+        description: 'Priority level (suggested for feature/fix PRs)'
+
+      - family: 'area'
+        prefix: 'area:'
+        required: false
+        examples: ['ci', 'docs', 'security', 'testing', 'automation', 'accessibility']
+        description: 'Affected area/subsystem (inferred from files)'
+
+      - family: 'meta'
+        prefix: 'meta:'
+        required: false
+        examples: ['needs-changelog', 'has-pr', 'duplicate', 'wontfix', 'blocked']
+        description: 'Metadata labels (process flags)'
+
+      - family: 'language'
+        prefix: 'language:'
+        required: false
+        examples: ['php', 'javascript', 'typescript', 'python', 'bash', 'yaml']
+        description: 'Primary language (inferred from changed files)'
 
     # Branch-type to label mappings
     branch_type_suggestions:
       feat:
         type: 'type:feature'
-        area_from_files: true # Infer area:* from changed files
-        priority: 'priority:normal'
+        status: 'status:in-progress'
+        priority: 'priority:normal' # Can be overridden for priority:high/critical
+        area_from_files: true
+        language_from_files: true
+
       fix:
         type: 'type:bug'
-        area_from_files: true
+        status: 'status:in-progress'
         priority: 'priority:normal'
+        area_from_files: true
+        language_from_files: true
+
       hotfix:
         type: 'type:bug'
-        priority: 'priority:critical'
-      docs:
-        type: 'type:documentation'
-        area: 'area:docs'
-      test:
-        type: 'type:test'
+        status: 'status:in-progress'
+        priority: 'priority:critical' # Hotfixes are always critical
         area_from_files: true
+        language_from_files: true
+
       security:
         type: 'type:security'
-        priority: 'priority:critical'
+        status: 'status:in-progress'
+        priority: 'priority:critical' # Security fixes are always critical
+        meta: 'meta:security-review'
+        area_from_files: true
+
+      docs:
+        type: 'type:documentation'
+        status: 'status:in-progress'
+        area: 'area:docs'
+
+      test:
+        type: 'type:test'
+        status: 'status:in-progress'
+        area_from_files: true
+
       perf:
         type: 'type:performance'
+        status: 'status:in-progress'
+        priority: 'priority:high' # Performance work is usually high priority
         area_from_files: true
+
       a11y:
         type: 'type:a11y'
+        status: 'status:in-progress'
         area: 'area:accessibility'
+        priority: 'priority:high'
+
       refactor:
         type: 'type:refactor'
+        status: 'status:in-progress'
         area_from_files: true
+
+      ci:
+        type: 'type:ci'
+        status: 'status:in-progress'
+        area: 'area:ci'
+
+      chore:
+        type: 'type:chore'
+        status: 'status:done'
+        priority: 'priority:low'
+
+    # File path to area mapping (for auto-detection)
+    file_to_area_mapping:
+      '.github/workflows/**': 'area:ci'
+      '.github/scripts/**': 'area:ci'
+      'docs/**': 'area:docs'
+      'test/**': 'area:testing'
+      '**/*.test.*': 'area:testing'
+      '**/*.spec.*': 'area:testing'
+      'security/**': 'area:security'
+      'a11y/**': 'area:accessibility'
+      '**/*.md': 'area:docs'
+      'CHANGELOG*': 'area:docs'
+
+    # File path to language mapping
+    file_to_language_mapping:
+      '**/*.php': 'language:php'
+      '**/*.js': 'language:javascript'
+      '**/*.ts': 'language:typescript'
+      '**/*.tsx': 'language:typescript'
+      '**/*.py': 'language:python'
+      '**/*.sh': 'language:bash'
+      '**/*.yml': 'language:yaml'
+      '**/*.yaml': 'language:yaml'
+      'Dockerfile*': 'language:docker'
+      'docker-compose.yml': 'language:docker'
 
     # Validation rules
     validation:
       check_canonical_prefixes: true # Verify labels use canonical family prefixes
-      check_required_families: true # Require at least one label from each required family
+      check_required_families: true # Require type: AND status: on every PR
       suggest_missing: true # Suggest labels based on branch type + files
+      auto_apply_branch_suggestions: false # Don't auto-apply; only suggest to maintainer
       severity: 'warn' # "warn" or "error" for governance violations
 
   # === DEFINITION OF DONE (DoD) AUTOMATION (FR-018, SC-016) ===
   # Populates PR descriptions with standardized DoD checklists
-  # Flags unchecked items; treats completion as implicit acceptance criteria
+  # Scope detection based on branch type + type: label + changed files
+  # Entity structure: scope_detection rules, per-scope checklist templates
   dod_automation:
     enabled: true
-    # DoD templates by change type
+
+    # Scope detection rules (priority order)
+    scope_detection:
+      - pattern: 'type:security|branch:security/*'
+        scope: 'security'
+        description: 'Security fix or security-tagged PR'
+      - pattern: 'branch:hotfix/*'
+        scope: 'hotfix'
+        description: 'Hotfix branch'
+      - pattern: 'type:documentation|branch:docs/*|changed_files_match:^docs/.*\\.md'
+        scope: 'documentation'
+        description: 'Documentation changes'
+      - pattern: 'type:a11y|branch:a11y/*|changed_files_match:a11y|changed_files_match:accessibility'
+        scope: 'a11y'
+        description: 'Accessibility improvements'
+      - pattern: 'type:performance|branch:perf/*'
+        scope: 'performance'
+        description: 'Performance improvements'
+      - pattern: 'type:test|branch:test/*'
+        scope: 'testing'
+        description: 'Testing/test infrastructure'
+      - pattern: 'type:refactor|branch:refactor/*'
+        scope: 'refactor'
+        description: 'Code refactoring'
+      - pattern: 'type:bug|branch:fix/*'
+        scope: 'bugfix'
+        description: 'Bug fix'
+      - pattern: 'type:feature|branch:feat/*'
+        scope: 'feature'
+        description: 'Feature development'
+
+    # DoD templates by scope
     checklist_templates:
       feature:
         title: 'Definition of Done: Feature'
+        description: 'Checklist for new feature development'
         items:
-          - 'Code is complete and tested'
-          - 'Tests pass (unit, integration, e2e)'
-          - 'PR description includes Linked Issues section'
-          - 'Changelog entry added (if user-facing)'
-          - 'Documentation updated (if needed)'
-          - 'Accessibility reviewed (WCAG 2.2 AA)'
-          - 'Code review approved'
+          - 'Code is complete and follows coding standards'
+          - 'Unit tests written and passing (≥80% coverage)'
+          - 'Integration tests added (if applicable)'
+          - 'PR description includes Linked Issues and Changes Made sections'
+          - 'Changelog entry added per .github/CHANGELOG.md format'
+          - 'Documentation updated or created (if user-facing)'
+          - 'Accessibility reviewed per WCAG 2.2 AA standards'
+          - 'No breaking changes OR breaking changes clearly documented'
+          - 'Code review approved (at least 1 reviewer)'
 
       bugfix:
         title: 'Definition of Done: Bug Fix'
+        description: 'Checklist for bug fixes'
         items:
-          - 'Root cause documented'
-          - 'Fix verified against reproduction steps'
-          - 'Tests added or updated'
-          - 'Regression tests added'
+          - 'Root cause documented in PR description'
+          - 'Fix verified against original reproduction steps'
+          - 'Tests added (regression + fix verification)'
+          - 'Existing tests still passing'
           - 'Changelog entry added'
-          - 'Linked to issue'
-          - 'Code review approved'
+          - 'Linked to issue (Closes/Fixes #)'
+          - 'No new warnings or regressions introduced'
+          - 'Code review approved (at least 1 reviewer)'
 
       refactor:
         title: 'Definition of Done: Refactor'
+        description: 'Checklist for code refactoring'
         items:
-          - 'Scope clearly defined'
-          - 'Tests pass (existing + new)'
-          - 'Risk assessment completed'
-          - 'Breaking changes documented'
+          - 'Refactoring scope clearly defined in PR'
+          - 'All existing tests pass (no changes to test logic)'
+          - 'Risk assessment completed (Low/Medium/High)'
+          - 'Breaking changes documented (if any)'
+          - 'Performance impact assessed (if applicable)'
           - 'Linked to issue'
           - 'Code review approved'
+          - 'No new warnings or technical debt introduced'
 
       documentation:
         title: 'Definition of Done: Documentation'
+        description: 'Checklist for documentation updates'
         items:
           - 'Content is accurate and complete'
-          - 'Links are valid'
-          - 'Examples run and produce expected output'
-          - 'Spelling and grammar reviewed'
-          - 'Markdown lints successfully'
+          - 'Links are valid (internal and external)'
+          - 'Code examples run and produce expected output'
+          - 'Spelling and grammar checked'
+          - 'Markdown lints successfully (npm run lint:md)'
+          - 'Frontmatter is valid YAML'
+          - 'No placeholder or TODO content'
+          - 'Updated TOCs or indexes (if applicable)'
 
       security:
         title: 'Definition of Done: Security Fix'
+        description: 'Checklist for security vulnerabilities'
         items:
-          - 'Vulnerability verified'
-          - 'Fix tested and verified'
-          - 'No regression in security posture'
-          - 'Security review completed'
+          - 'Vulnerability verified and root cause identified'
+          - 'Fix tested and verified to resolve vulnerability'
+          - 'No regression in security posture or protections'
+          - 'Security review completed (security team approval)'
           - 'Changelog marked [SECURITY]'
           - 'PR marked priority:critical'
+          - 'All related test cases pass'
+          - 'No new security warnings introduced'
+
+      a11y:
+        title: 'Definition of Done: Accessibility'
+        description: 'Checklist for accessibility improvements'
+        items:
+          - 'Changes comply with WCAG 2.2 AA standards'
+          - 'Keyboard navigation tested and working'
+          - 'Screen reader compatibility verified'
+          - 'Color contrast meets AA standards'
+          - 'Focus indicators are visible'
+          - 'Alt text added for all images'
+          - 'Semantic HTML used'
+          - 'Tests added for accessibility features'
+
+      performance:
+        title: 'Definition of Done: Performance'
+        description: 'Checklist for performance improvements'
+        items:
+          - 'Performance metrics measured (before/after)'
+          - 'Improvement meets stated goal'
+          - 'No regression in other metrics'
+          - 'Load testing completed (if applicable)'
+          - 'Memory/resource usage assessed'
+          - 'Cacheing strategy documented (if applicable)'
+          - 'Tests added for performance regressions'
+
+      testing:
+        title: 'Definition of Done: Testing'
+        description: 'Checklist for test infrastructure/additions'
+        items:
+          - 'Test coverage increased (target ≥80%)'
+          - 'All tests passing (unit, integration, e2e)'
+          - 'Edge cases covered'
+          - 'Error paths tested'
+          - 'Mocks/fixtures documented'
+          - 'CI/CD integration verified'
+          - 'No flaky tests introduced'
 
       default:
         title: 'Definition of Done'
+        description: 'Standard checklist for all PRs'
         items:
-          - 'Code is complete'
-          - 'Tests pass'
-          - 'PR description is clear'
+          - 'Code is complete and functional'
+          - 'Tests pass (local + CI)'
+          - 'PR description is clear and complete'
+          - 'Linked to relevant issue(s)'
           - 'Code review approved'
+          - 'No merge conflicts'
 
     # Automation rules
     automation:
+      auto_detect_scope: true # Auto-detect scope from branch type + labels + files
       auto_populate: true # Auto-insert DoD checklist from template
       block_merge_unchecked: false # Don't block merge on unchecked items (informational)
       severity: 'info' # "info", "warn", or "error"
       placement: 'append' # "append" to end of PR description
+      refresh_on_push: false # Refresh checklist on new commits (keep user's checks)
 
   # === DOCUMENTATION VALIDATION (FR-019, SC-017) ===
   # Handles documentation linting failures gracefully
@@ -1087,43 +1277,120 @@ pr_governance:
   documentation_validation:
     enabled: true
 
-    # Linting rules
+    # Linting rules (which validators to enable)
     lint_rules:
-      markdown_lint: true # Enable Markdown linting
-      spelling_check: true # Enable spell checking
-      link_validation: true # Check for broken links
+      markdown_lint: true # Enable Markdown linting (markdownlint/remark)
+      spelling_check: true # Enable spell checking (cspell/aspell)
+      link_validation: true # Check for broken links (markdown-link-check)
+      frontmatter_validation: true # YAML frontmatter syntax
+      code_block_validation: true # Syntax highlighting + fenced code blocks
 
-    # Skip paths (don't lint these)
+    # Skip paths (don't lint these files)
     skip_paths:
       - '**/*.md.bak'
+      - '**/*.temp.md'
       - '**/drafts/**'
       - '**/archived/**'
-      - 'docs/generated/**' # Auto-generated docs
+      - '**/generated/**'
+      - 'docs/generated/**'
+      - '.github/tmp/**' # Temporary work files
       - '.github/specs/**' # Specification files (reviewed separately)
+      - 'node_modules/**'
+      - '.git/**'
+      - '**/node_modules/**'
 
-    # Failure handling
+    # Failure handling rules by error type
     failure_handling:
-      # Severity levels: error (blocks merge), warn (visible but doesn't block), info
-      markdown_errors:
+      markdown_syntax:
         severity: 'warn'
-        suggestion: 'Fix markdown formatting issues (code blocks, lists, headings)'
+        description: 'Markdown formatting issues (headings, lists, code blocks)'
+        suggestion: |
+          Fix markdown formatting:
+          - Use ### for level 3 headings (not #### unless appropriate)
+          - Ensure lists have consistent indentation (2 spaces)
+          - Wrap code blocks in triple backticks with language hint
+          - Check link syntax: [text](url) or [text][ref]
+        actionable: true
 
       spelling_errors:
         severity: 'info'
-        suggestion: 'Consider spell-checking documentation'
+        description: 'Spelling or grammar issues'
+        suggestion: |
+          Review spelling in documentation:
+          - UK English conventions (organisation, optimise, colour)
+          - Technical terms check (CodeRabbit, GitHub, etc.)
+          - Consistency across related docs
+        actionable: false
 
       broken_links:
         severity: 'warn'
-        suggestion: 'Verify external links and internal references'
+        description: 'Links to non-existent files or invalid URLs'
+        suggestion: |
+          Fix broken links:
+          - Verify file paths (use relative paths from doc location)
+          - Test external URLs (may be domain/DNS issues)
+          - Update anchors (check heading IDs match)
+        actionable: true
 
       missing_alt_text:
         severity: 'info'
-        suggestion: 'Add alt text to images for accessibility'
+        description: 'Images without alt text'
+        suggestion: |
+          Add alt text to all images:
+          ![alt text describing image](path/to/image.png)
+        actionable: true
 
-    # Remediation commentary
+      frontmatter_errors:
+        severity: 'warn'
+        description: 'YAML frontmatter syntax issues'
+        suggestion: |
+          Fix YAML frontmatter:
+          - Check quotes around values (if needed)
+          - Verify indentation (2 spaces)
+          - Validate against schema (see docs/DOCUMENTATION_STANDARDS.md)
+        actionable: true
+
+      code_block_errors:
+        severity: 'info'
+        description: 'Fenced code block issues (missing language, invalid syntax)'
+        suggestion: |
+          Check code blocks:
+          - Include language hint (```javascript, ```python, etc.)
+          - Ensure code examples are complete
+          - Test code snippets locally if possible
+        actionable: false
+
+    # Failure path mapping (which error types trigger which severity per path)
+    path_specific_rules:
+      '.github/docs/**':
+        link_validation: 'error'
+        markdown_syntax: 'warn'
+        spelling_errors: 'warn'
+
+      'docs/**':
+        link_validation: 'error'
+        markdown_syntax: 'warn'
+        spelling_errors: 'info'
+
+      'CODERABBIT_COVERAGE_AUDIT.md':
+        link_validation: 'error'
+        markdown_syntax: 'error'
+
+      '.github/specs/**':
+        link_validation: 'warn'
+        markdown_syntax: 'warn'
+
+      '.github/README.md':
+        spelling_errors: 'warn'
+        link_validation: 'error'
+
+    # Remediation strategy
     remediation:
       include_in_review: true # Include docs validation in code review
       suggest_fixes: true # Provide actionable fix suggestions
       link_to_guides: true # Link to documentation standards guide
+      show_examples: true # Include correct formatting examples
+      fail_fast: false # Don't fail immediately; collect all errors first
+      max_errors_per_type: 5 # Cap error count per type (prevent overwhelming output)
 
 early_access: true
