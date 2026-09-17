@@ -6,6 +6,7 @@ on:
       - '.github/specs/**'
       - '.github/workflows/validate-specifications.yml'
       - '.specify/scripts/bash/audit-specs.sh'
+      - '.specify/scripts/bash/validate-catalog.sh'
       - 'tests/bash/**'
   push:
     branches:
@@ -14,6 +15,7 @@ on:
       - '.github/specs/**'
       - '.github/workflows/validate-specifications.yml'
       - '.specify/scripts/bash/audit-specs.sh'
+      - '.specify/scripts/bash/validate-catalog.sh'
       - 'tests/bash/**'
 
 permissions:
@@ -33,86 +35,14 @@ jobs:
           set -o pipefail
           bash .specify/scripts/bash/audit-specs.sh 2>&1 | tee audit-output.txt
 
-      - name: Validate catalog exists
+      - name: Validate catalog structure
         id: catalog
         run: |
-          if [ -f ".github/specs/CATALOG.md" ]; then
-            echo "status=found" >> "$GITHUB_OUTPUT"
-            echo "✓ CATALOG.md exists"
-          else
-            echo "status=missing" >> "$GITHUB_OUTPUT"
-            echo "✗ CATALOG.md not found"
-            exit 1
-          fi
-
-      - name: Validate canonical schema in CATALOG.md
-        id: schema
-        run: |
-          # Check that CATALOG.md contains the canonical schema definition
-          if grep -q "Catalog Schema (Canonical)" .github/specs/CATALOG.md; then
-            echo "schema_documented=true" >> "$GITHUB_OUTPUT"
-            echo "✓ Canonical schema section found"
-          else
-            echo "schema_documented=false" >> "$GITHUB_OUTPUT"
-            echo "⚠ Canonical schema section not documented"
-          fi
-
-          # Verify canonical columns exist in active specifications table
-          # Look for the Active Specifications section and verify the header row matches exactly
-          if grep -A 2 "## Active Specifications" .github/specs/CATALOG.md | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
-            echo "schema_valid=true" >> "$GITHUB_OUTPUT"
-            echo "✓ Table follows canonical schema (# | Slug | Title | Status | Created | Link)"
-          else
-            echo "schema_valid=false" >> "$GITHUB_OUTPUT"
-            echo "✗ Table does not follow canonical schema"
-            exit 1
-          fi
-
-      - name: Validate catalog link targets
-        id: links
-        run: |
-          # Extract all markdown links from CATALOG.md and verify targets exist
-          broken_links=0
-          grep -oE '\]\(\./[0-9]{3}-[^)]+\)' .github/specs/CATALOG.md > /tmp/catalog_links.txt
-
-          while IFS= read -r link; do
-            [ -z "$link" ] && continue
-            # Remove ]( from start and ) from end
-            target="${link:2}"      # Remove ](
-            target="${target%\)}"    # Remove )
-
-            # Skip external links
-            if [[ $target == http* ]]; then
-              continue
-            fi
-
-            # Check if target exists (file or directory)
-            if [ ! -f ".github/specs/$target" ] && [ ! -d ".github/specs/$target" ]; then
-              echo "✗ Broken link: $link (target not found: .github/specs/$target)"
-              ((++broken_links))
-            fi
-          done < /tmp/catalog_links.txt
-
-          if [ $broken_links -eq 0 ]; then
-            echo "links_valid=true" >> "$GITHUB_OUTPUT"
-            echo "✓ All catalog links point to existing specifications"
-          else
-            echo "links_valid=false" >> "$GITHUB_OUTPUT"
-            echo "✗ Found $broken_links broken link(s) in CATALOG.md"
-            exit 1
-          fi
-
-      - name: Validate MAINTENANCE.md references canonical schema
-        id: maintenance
-        run: |
-          if grep -q "Canonical Schema" .github/specs/MAINTENANCE.md; then
-            echo "maintenance_ok=true" >> "$GITHUB_OUTPUT"
-            echo "✓ MAINTENANCE.md documents canonical schema"
-          else
-            echo "maintenance_ok=false" >> "$GITHUB_OUTPUT"
-            echo "✗ MAINTENANCE.md must document canonical schema"
-            exit 1
-          fi
+          bash .specify/scripts/bash/validate-catalog.sh
+          echo "status=found" >> "$GITHUB_OUTPUT"
+          echo "schema_valid=true" >> "$GITHUB_OUTPUT"
+          echo "links_valid=true" >> "$GITHUB_OUTPUT"
+          echo "maintenance_ok=true" >> "$GITHUB_OUTPUT"
 
       - name: Install Bats test framework
         uses: bats-core/bats-action@4.0.0
@@ -133,22 +63,20 @@ jobs:
 
           ### Directory Structure
           - Catalog file: ${{ steps.catalog.outputs.status }}
-          - Schema compliance: ${{ steps.schema.outputs.schema_valid }}
+          - Schema compliance: ${{ steps.catalog.outputs.schema_valid }}
 
           ### Schema Compliance
-          - Canonical schema documented: ${{ steps.schema.outputs.schema_documented }}
-          - Schema validation: ${{ steps.schema.outputs.schema_valid }}
-          - Catalog link validation: ${{ steps.links.outputs.links_valid }}
-          - MAINTENANCE.md compliant: ${{ steps.maintenance.outputs.maintenance_ok }}
+          - Canonical schema validation: ${{ steps.catalog.outputs.schema_valid }}
+          - Catalog link validation: ${{ steps.catalog.outputs.links_valid }}
+          - MAINTENANCE.md compliant: ${{ steps.catalog.outputs.maintenance_ok }}
 
           ### Metrics
           | Metric | Status |
           |--------|--------|
           | Catalog exists | ${{ steps.catalog.outputs.status == 'found' && '✅' || '❌' }} |
-          | Schema documented | ${{ steps.schema.outputs.schema_documented == 'true' && '✅' || '⚠️' }} |
-          | Schema valid | ${{ steps.schema.outputs.schema_valid == 'true' && '✅' || '❌' }} |
-          | Links valid | ${{ steps.links.outputs.links_valid == 'true' && '✅' || '❌' }} |
-          | MAINTENANCE.md updated | ${{ steps.maintenance.outputs.maintenance_ok == 'true' && '✅' || '⚠️' }} |
+          | Schema valid | ${{ steps.catalog.outputs.schema_valid == 'true' && '✅' || '❌' }} |
+          | Links valid | ${{ steps.catalog.outputs.links_valid == 'true' && '✅' || '❌' }} |
+          | MAINTENANCE.md updated | ${{ steps.catalog.outputs.maintenance_ok == 'true' && '✅' || '⚠️' }} |
 
           ### Principle X Compliance
           This workflow enforces **Principle X: Automated Validation & Metrics-Driven Governance** by:
