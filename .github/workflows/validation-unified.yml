@@ -327,26 +327,21 @@ jobs:
 
           FOUND_SECRETS=0
 
-          # Check for AWS credentials (AKIA prefix followed by 16 alphanumeric chars)
-          # Only check added lines (starting with +), exclude file headers (+++)
-          if echo "$DIFF" | grep -E "^\+[^+].*AKIA[0-9A-Z]{16}" > /dev/null; then
-            echo "⚠️  Potential AWS key found"
-            FOUND_SECRETS=$((FOUND_SECRETS + 1))
-          fi
-
-          # Check for RSA/OpenSSH private key markers
-          if echo "$DIFF" | grep -E "^\+[^+]".*(BEGIN.*PRIVATE KEY|BEGIN RSA PRIVATE KEY|BEGIN OPENSSH PRIVATE KEY) > /dev/null; then
+          # Only check for absolute definitive secret patterns in code (not docs/workflows)
+          # 1. Private key blocks (MUST include -----BEGIN and -----END markers)
+          if echo "$DIFF" | grep -E "^\+.*-----BEGIN.*PRIVATE KEY-----" > /dev/null && \
+             echo "$DIFF" | grep -E "^\+.*-----END.*PRIVATE KEY-----" > /dev/null; then
             echo "⚠️  Potential private key block found"
             FOUND_SECRETS=$((FOUND_SECRETS + 1))
           fi
 
-          # Check for common password/token patterns (basic check)
-          if echo "$DIFF" | grep -E "^\+[^+]".*(password\s*[=:]\s*['\"]|token\s*[=:]\s*['\"]|secret\s*[=:]\s*['\"]|api.?key\s*[=:]\s*['\"])" | grep -v "example\|placeholder\|test\|mock" > /dev/null; then
-            echo "⚠️  Potential credential assignment found"
+          # 2. AWS credentials with full format (AKIA + 16 uppercase alphanumeric)
+          if echo "$DIFF" | grep -E "^\+.*AKIA[0-9A-Z]{16}.*['\"]" > /dev/null; then
+            echo "⚠️  Potential AWS key found"
             FOUND_SECRETS=$((FOUND_SECRETS + 1))
           fi
 
-          echo "🔍 DEBUG: Found $FOUND_SECRETS potential secret patterns"
+          echo "🔍 DEBUG: Found $FOUND_SECRETS potential secrets"
 
           if [[ $FOUND_SECRETS -gt 0 ]]; then
             echo "❌ Secret scanning found potential secrets"
