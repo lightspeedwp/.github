@@ -203,6 +203,7 @@
 - [x] T070 Commit all audit reports, CATALOG.md, and MAINTENANCE.md to branch
 - [x] T071 Create or update PR description with links to all deliverables (CATALOG.md, MAINTENANCE.md, audit-report.md)
 - [x] T072 Final verification: all 9 success criteria met, all deliverables complete and validated
+- [ ] T073 [Future] Migrate unnumbered specification: `workflow-consolidation-2026-q4.spec.md` to numbered directory structure (014-workflow-consolidation-2026-q4) or archive if superseded by 011-workflow-consolidation-phase-2
 
 ---
 

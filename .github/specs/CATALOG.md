@@ -225,6 +225,16 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ---
 
+## Unnumbered / Legacy Specifications
+
+| Slug | Title | Status | Created | Link |
+|------|-------|--------|---------|------|
+| workflow-consolidation-2026-q4 | GitHub Workflows Consolidation 2026-Q4 | Planning | 2026-09-11 | [./workflow-consolidation-2026-q4.spec.md](./workflow-consolidation-2026-q4.spec.md) |
+
+**Note**: These specifications exist outside the numbered structure. See [013-spec-folder-refactor/tasks.md](./013-spec-folder-refactor/tasks.md) for migration plan.
+
+---
+
 ## How to Use This Catalog
 
 ### Finding a Specification (Target: <30 seconds)
