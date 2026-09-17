@@ -1,232 +1,169 @@
 ---
-title: "Consolidation Matrix - Archived to Unified Workflow Cross-Reference"
-created: "2026-09-14"
-phase: "Phase 2"
+title: "Phase 2 Consolidation Matrix Reference"
+date: "2026-09-17"
+version: "1.0"
 ---
 
-# Consolidation Matrix
+# Consolidation Matrix Reference
 
-Quick cross-reference matrix mapping all 71 archived workflows to their consolidated Phase 2 unified workflow locations.
+**Primary Reference:** See `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` for the complete consolidated workflow mapping (71 archived → 5 unified).
+
+This document provides a quick cross-reference matrix for workflow consolidation.
+
+## Workflow Families
+
+### Labeling (9 workflows → labeling-unified.yml)
+
+| # | Archived Workflow | Consolidation Status |
+|---|---|---|
+| 1 | auto-label-pull-requests | → labeling-unified (PR job) |
+| 2 | auto-label-issues | → labeling-unified (Issue job) |
+| 3 | assign-feature-labels | → labeling-unified (PR job) |
+| 4 | pr-label-sync | → labeling-unified (PR job) |
+| 5 | bulk-label-apply | → labeling-unified (Batch job) |
+| 6 | cleanup-stale-labels | → labeling-unified (Cleanup job) |
+| 7 | label-metrics-reporter | → labeling-unified (Metrics) |
+| 8 | scheduled-label-refresh | → labeling-unified (Cleanup job) |
+| 9 | label-taxonomy-sync | → labeling-unified (PR job) |
+
+**Phase:** Phase 3 (MVP)
+
+### Validation (12 workflows → validation-unified.yml)
+
+| # | Archived Workflow | Consolidation Status |
+|---|---|---|
+| 1 | validate-branch-name | → validation-unified (Branch job) |
+| 2 | validate-pr-template | → validation-unified (Template job) |
+| 3 | require-changelog | → validation-unified (Changelog job) |
+| 4 | validate-commit-messages | → validation-unified (Commits job) |
+| 5 | secret-scanning-check | → validation-unified (Secrets job) |
+| 6 | validate-filenames | → validation-unified (Config job) |
+| 7 | validate-paths | → validation-unified (Config job) |
+| 8 | validate-configs | → validation-unified (Config job) |
+| 9 | validate-spec-files | → validation-unified (Config job) |
+| 10 | validate-schemas | → validation-unified (Config job) |
+| 11 | naming-convention-check | → validation-unified (Config job) |
+| 12 | metadata-validation | → validation-unified (Config job) |
+
+**Phase:** Phase 4 (Parallel with US3)
+
+### Testing (8 workflows → testing-unified.yml)
+
+| # | Archived Workflow | Consolidation Status |
+|---|---|---|
+| 1 | unit-tests | → testing-unified (Unit job) |
+| 2 | integration-tests | → testing-unified (Integration job) |
+| 3 | e2e-tests | → testing-unified (E2E job) |
+| 4 | test-aggregation | → testing-unified (Coverage job) |
+| 5 | coverage-reporter | → testing-unified (Coverage job) |
+| 6 | artifact-collection | → testing-unified (per-job) |
+| 7 | artifact-cleanup | → testing-unified (Cleanup) |
+| 8 | test-metrics | → testing-unified (Metrics) |
+
+**Phase:** Phase 4 (Parallel with US2)
+
+### Linting (2 workflows → linting-unified.yml)
+
+| # | Archived Workflow | Consolidation Status |
+|---|---|---|
+| 1 | eslint-check | → linting-unified (JS/TS job) |
+| 2 | markdownlint-check | → linting-unified (Markdown job) |
+
+**Phase:** Phase 5
+
+### Quality & Security (5 workflows → quality-gates.yml)
+
+| # | Archived Workflow | Consolidation Status |
+|---|---|---|
+| 1 | codeql-analysis | → quality-gates (SAST job) |
+| 2 | dependency-check | → quality-gates (Dependencies job) |
+| 3 | license-compliance | → quality-gates (Licenses job) |
+| 4 | code-quality-metrics | → quality-gates (Metrics job) |
+| 5 | security-policy | → quality-gates (Policy job) |
+
+**Phase:** Phase 6
 
 ---
 
-## Matrix Summary
+## Cross-Reference: Archived Workflow → Unified Workflow
+
+Quick lookup: Find your archived workflow name, see where it moves.
+
+| Archived | Moves To | Job Name | Phase |
+|----------|----------|----------|-------|
+| auto-label-pull-requests | labeling-unified.yml | PR Labeling | Phase 3 |
+| auto-label-issues | labeling-unified.yml | Issue Labeling | Phase 3 |
+| assign-feature-labels | labeling-unified.yml | PR Labeling | Phase 3 |
+| pr-label-sync | labeling-unified.yml | PR Labeling | Phase 3 |
+| bulk-label-apply | labeling-unified.yml | Batch Labeling | Phase 3 |
+| cleanup-stale-labels | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
+| label-metrics-reporter | labeling-unified.yml | Metrics | Phase 3 |
+| scheduled-label-refresh | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
+| label-taxonomy-sync | labeling-unified.yml | PR Labeling | Phase 3 |
+| validate-branch-name | validation-unified.yml | Branch Naming | Phase 4 |
+| validate-pr-template | validation-unified.yml | PR Template | Phase 4 |
+| require-changelog | validation-unified.yml | Changelog | Phase 4 |
+| validate-commit-messages | validation-unified.yml | Commits | Phase 4 |
+| secret-scanning-check | validation-unified.yml | Secrets | Phase 4 |
+| validate-filenames | validation-unified.yml | Config/Spec | Phase 4 |
+| validate-paths | validation-unified.yml | Config/Spec | Phase 4 |
+| validate-configs | validation-unified.yml | Config/Spec | Phase 4 |
+| validate-spec-files | validation-unified.yml | Config/Spec | Phase 4 |
+| validate-schemas | validation-unified.yml | Config/Spec | Phase 4 |
+| naming-convention-check | validation-unified.yml | Config/Spec | Phase 4 |
+| metadata-validation | validation-unified.yml | Config/Spec | Phase 4 |
+| unit-tests | testing-unified.yml | Unit Tests | Phase 4 |
+| integration-tests | testing-unified.yml | Integration Tests | Phase 4 |
+| e2e-tests | testing-unified.yml | E2E Tests | Phase 4 |
+| test-aggregation | testing-unified.yml | Coverage | Phase 4 |
+| coverage-reporter | testing-unified.yml | Coverage | Phase 4 |
+| artifact-collection | testing-unified.yml | Test Jobs | Phase 4 |
+| artifact-cleanup | testing-unified.yml | Cleanup | Phase 4 |
+| test-metrics | testing-unified.yml | Metrics | Phase 4 |
+| eslint-check | linting-unified.yml | JS/TS Linting | Phase 5 |
+| markdownlint-check | linting-unified.yml | Markdown Linting | Phase 5 |
+| codeql-analysis | quality-gates.yml | SAST Scanning | Phase 6 |
+| dependency-check | quality-gates.yml | Dependency Scanning | Phase 6 |
+| license-compliance | quality-gates.yml | License Compliance | Phase 6 |
+| code-quality-metrics | quality-gates.yml | Code Quality | Phase 6 |
+| security-policy | quality-gates.yml | Security Policy | Phase 6 |
+
+---
+
+## Implementation Notes
+
+1. **Trigger Consolidation:** Multiple trigger events consolidated into single workflow with appropriate jobs
+2. **Job Parallelization:** Where possible, independent jobs run in parallel (testing: 120s vs 300s sequential)
+3. **Composite Actions:** Shared logic extracted into `apply-labels`, `validate-check`, `aggregate-tests`, `collect-metrics`
+4. **Error Isolation:** Single workflow failure does NOT cascade to other workflow types
+5. **Metrics:** All workflows report GitHub Actions minute usage via `collect-metrics` action
+
+---
+
+## Archive Location
+
+All 71 archived workflows preserved at:
 
 ```
-71 Archived Workflows → 5 Unified Workflows
-
-Labeling (9)       → labeling-unified.yml
-Validation (12)    → validation-unified.yml
-Testing (8)        → testing-unified.yml
-Linting (2)        → linting-unified.yml
-Quality Gates (5)  → quality-gates.yml
+.github/workflows/archived/2026-09-11/
+├── labeling/
+├── validation/
+├── testing/
+├── linting/
+├── ci-cd/
+├── pr-management/
+├── issue-management/
+├── documentation/
+└── utilities/
 ```
 
----
-
-## Labeling Matrix (9 archived → labeling-unified.yml)
-
-| # | Archived Workflow | Archive Path | Unified Location | Job/Step | Status |
-|---|------------------|--------------|------------------|----------|--------|
-| 1 | labeling.yml | `archived/labeling/` | labeling-unified.yml | PR Labeling | Phase 3 |
-| 2 | labeling-governance.yml | `archived/labeling/` | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
-| 3 | issue-labeling-automation.yml | `archived/labeling/` | labeling-unified.yml | Issue Labeling | Phase 3 |
-| 4 | meta-labels-sync.yml | `archived/labeling/` | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
-| 5 | batch-label-prs.yml | `archived/labeling/` | labeling-unified.yml | PR Labeling | Phase 3 |
-| 6 | remediate-bare-labels.yml | `archived/labeling/` | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
-| 7 | validate-issue-labels.yml | `archived/labeling/` | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
-| 8 | label-audit-report.yml | `archived/labeling/` | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
-| 9 | label-metrics.yml | `archived/labeling/` | labeling-unified.yml | Scheduled Cleanup | Phase 3 |
+**Rollback:** See `.github/docs/PHASE2_ROLLBACK.md` for restoration procedure.
 
 ---
 
-## Validation Matrix (12 archived → validation-unified.yml)
+## References
 
-| # | Archived Workflow | Archive Path | Unified Location | Job/Step | Status |
-|---|------------------|--------------|------------------|----------|--------|
-| 1 | validate-branch-name.yml | `archived/validation/` | validation-unified.yml | Branch Validation | Phase 4 |
-| 2 | validate-pr-template.yml | `archived/validation/` | validation-unified.yml | PR Template | Phase 4 |
-| 3 | validate-changelog.yml | `archived/validation/` | validation-unified.yml | Changelog Validation | Phase 4 |
-| 4 | validate-commit-messages.yml | `archived/validation/` | validation-unified.yml | Commit Validation | Phase 4 |
-| 5 | validate-file-sizes.yml | `archived/validation/` | validation-unified.yml | File Validation | Phase 4 |
-| 6 | validate-pr-title.yml | `archived/validation/` | validation-unified.yml | Title Validation | Phase 4 |
-| 7 | validate-description.yml | `archived/validation/` | validation-unified.yml | Description Validation | Phase 4 |
-| 8 | validate-codeowners.yml | `archived/validation/` | validation-unified.yml | CodeOwners Validation | Phase 4 |
-| 9 | validate-merge-conflicts.yml | `archived/validation/` | validation-unified.yml | Merge Conflict Detection | Phase 4 |
-| 10 | validate-automation.yml | `archived/validation/` | validation-unified.yml | Automation Check | Phase 4 |
-| 11 | validate-review-requirements.yml | `archived/validation/` | validation-unified.yml | Review Requirements | Phase 4 |
-| 12 | validate-ci-gate.yml | `archived/validation/` | validation-unified.yml | CI Gate | Phase 4 |
-
----
-
-## Testing Matrix (8 archived → testing-unified.yml)
-
-| # | Archived Workflow | Archive Path | Unified Location | Job/Step | Status |
-|---|------------------|--------------|------------------|----------|--------|
-| 1 | test-unit.yml | `archived/testing/` | testing-unified.yml | Unit Test Job | Phase 4 |
-| 2 | test-integration.yml | `archived/testing/` | testing-unified.yml | Integration Test Job | Phase 4 |
-| 3 | test-e2e.yml | `archived/testing/` | testing-unified.yml | E2E Test Job | Phase 4 |
-| 4 | test-coverage.yml | `archived/testing/` | testing-unified.yml | Coverage Job | Phase 4 |
-| 5 | test-artifact-upload.yml | `archived/testing/` | testing-unified.yml | Coverage Job | Phase 4 |
-| 6 | test-matrix-config.yml | `archived/testing/` | testing-unified.yml | Unit Test Job | Phase 4 |
-| 7 | test-performance.yml | `archived/testing/` | testing-unified.yml | Performance Job | Phase 4 |
-| 8 | test-aggregate-results.yml | `archived/testing/` | testing-unified.yml | Aggregation Job | Phase 4 |
-
----
-
-## Linting Matrix (2 archived → linting-unified.yml)
-
-| # | Archived Workflow | Archive Path | Unified Location | Job/Step | Status |
-|---|------------------|--------------|------------------|----------|--------|
-| 1 | lint-eslint.yml | `archived/linting/` | linting-unified.yml | ESLint Job | Phase 5 |
-| 2 | lint-prettier.yml | `archived/linting/` | linting-unified.yml | Prettier Job | Phase 5 |
-
----
-
-## Quality Gates Matrix (5 archived → quality-gates.yml)
-
-| # | Archived Workflow | Archive Path | Unified Location | Job/Step | Status |
-|---|------------------|--------------|------------------|----------|--------|
-| 1 | security-scan-secrets.yml | `archived/quality-gates/` | quality-gates.yml | Secret Scanning Job | Phase 6 |
-| 2 | security-sast.yml | `archived/quality-gates/` | quality-gates.yml | SAST Job | Phase 6 |
-| 3 | security-dependencies.yml | `archived/quality-gates/` | quality-gates.yml | Dependency Scan Job | Phase 6 |
-| 4 | quality-code-metrics.yml | `archived/quality-gates/` | quality-gates.yml | Code Quality Job | Phase 6 |
-| 5 | quality-audit-log.yml | `archived/quality-gates/` | quality-gates.yml | Audit Job | Phase 6 |
-
----
-
-## Quick Lookup
-
-### Find archived workflow consolidation location
-
-**Example:** Looking for where `labeling.yml` moved to?
-
-1. Find in matrix above: "labeling.yml" is in **Labeling Matrix** (row 1)
-2. Consolidated to: **labeling-unified.yml**
-3. Job/Step: **PR Labeling**
-4. Phase: **Phase 3**
-
----
-
-## Trigger Preservation
-
-### Triggers by Unified Workflow Type
-
-#### labeling-unified.yml
-- `pull_request` (open, edit, sync)
-- `issues` (open, edit)
-- `schedule` (cron events)
-- `workflow_dispatch` (manual trigger)
-
-#### validation-unified.yml
-- `pull_request` (open, edit, sync)
-- `schedule` (cron events)
-
-#### testing-unified.yml
-- `push` (to develop/main)
-- `pull_request` (open, edit, sync)
-- `schedule` (cron events)
-
-#### linting-unified.yml
-- `push` (to develop/main)
-- `pull_request` (open, edit, sync)
-
-#### quality-gates.yml
-- `push` (to develop/main)
-- `pull_request` (open, edit, sync)
-- `schedule` (cron events)
-
----
-
-## Job Dependency Graph
-
-### Phase 3 (Labeling)
-```
-labeling-unified.yml
-├── PR Labeling          (trigger: pull_request)
-├── Issue Labeling       (trigger: issues)
-└── Scheduled Cleanup    (trigger: schedule)
-```
-
-### Phase 4 (Validation & Testing parallel)
-```
-validation-unified.yml              testing-unified.yml
-├── Branch Validation                ├── Unit Tests
-├── PR Template Validation           ├── Integration Tests
-├── Changelog Validation             ├── E2E Tests (schedule)
-├── Commit Validation                ├── Performance Tests (schedule)
-├── File Validation                  ├── Coverage Reporting
-├── Title Validation                 └── Test Aggregation
-├── Description Validation
-├── CodeOwners Validation
-├── Merge Conflict Detection
-├── Automation Check
-├── Review Requirements
-└── CI Gate
-```
-
-### Phase 5 (Linting)
-```
-linting-unified.yml
-├── ESLint
-└── Prettier
-```
-
-### Phase 6 (Quality Gates)
-```
-quality-gates.yml
-├── Secret Scanning
-├── SAST Analysis
-├── Dependency Scanning
-├── Code Quality Metrics
-└── Audit Log
-```
-
----
-
-## Error Isolation Boundaries
-
-Each unified workflow operates independently:
-
-| Workflow | Failure Impact | Isolation Level |
-|----------|----------------|-----------------|
-| labeling-unified.yml | Labels not applied | PR/Issue level |
-| validation-unified.yml | Validation checks fail | PR level |
-| testing-unified.yml | Tests don't run | PR level |
-| linting-unified.yml | Code quality not checked | PR level |
-| quality-gates.yml | Security checks skipped | PR level |
-
-**Error Isolation:** Failure in one workflow type does NOT trigger cascading failures in other types.
-
----
-
-## Performance Budgets by Workflow Type
-
-See [PERFORMANCE_TARGETS.md](./PERFORMANCE_TARGETS.md) for detailed per-workflow minute budgets.
-
----
-
-## Rollback Reference
-
-To restore an archived workflow:
-
-```bash
-# Example: Restore archived labeling workflow
-cp .github/workflows/archived/2026-09-11/labeling/labeling.yml \
-   .github/workflows/labeling.yml
-
-# Disable consolidated workflow
-rm .github/workflows/labeling-unified.yml
-```
-
-See [PHASE2_ROLLBACK.md](./PHASE2_ROLLBACK.md) for full rollback procedure.
-
----
-
-## Related Documents
-
-- [WORKFLOW_CONSOLIDATION_MAPPING.md](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Full consolidation details
-- [PERFORMANCE_TARGETS.md](./PERFORMANCE_TARGETS.md) — Minute budgets per workflow
-- [COMPOSITE_ACTIONS.md](./COMPOSITE_ACTIONS.md) — Reusable action contracts
-- [PHASE2_ROLLBACK.md](./PHASE2_ROLLBACK.md) — Rollback procedure
-- [plan.md](../specs/011-workflow-consolidation-phase-2/plan.md) — Implementation plan
+- **Complete Mapping:** `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md`
+- **Data Model:** `.github/specs/011-workflow-consolidation-phase-2/data-model.md`
+- **Rollback Procedure:** `.github/docs/PHASE2_ROLLBACK.md`
+- **Baseline Metrics:** `.github/docs/BASELINE_METRICS.md`
