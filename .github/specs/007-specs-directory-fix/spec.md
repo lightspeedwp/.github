@@ -1,6 +1,6 @@
 # Feature Specification: Fix Specs Directory Configuration
 
-**Feature Branch**: `config/specs-directory-configuration`
+**Feature Branch**: `fix/specs-directory-structure`
 
 **Created**: 2026-09-14
 
