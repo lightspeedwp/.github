@@ -22,15 +22,15 @@
 
 **Checkpoint**: TypeScript, Jest, and basic project structure ready
 
-- [ ] T001 Create project directory structure in `packages/requirements-checklist/` per plan.md
-- [ ] T002 [P] Initialize `packages/requirements-checklist/package.json` with dependencies (yaml, marked, json-schema-validator, typescript, jest)
-- [ ] T003 [P] Configure `packages/requirements-checklist/tsconfig.json` with Node.js 18+ ES2020 target
-- [ ] T004 [P] Create `packages/requirements-checklist/.gitignore` with node_modules, dist, coverage
-- [ ] T005 Setup build script in `packages/requirements-checklist/package.json` (tsc → dist/)
-- [ ] T006 [P] Create Jest configuration in `packages/requirements-checklist/jest.config.js` with TypeScript support
-- [ ] T007 Create README.md in `packages/requirements-checklist/` with project overview and usage examples
-- [ ] T008 Setup directory structure: `src/lib/`, `src/cli/`, `tests/unit/`, `tests/integration/`, `tests/contract/`
-- [ ] T009 [P] Copy JSON schemas from `.github/specs/010-requirements-checklist/contracts/` to `packages/requirements-checklist/schemas/`
+- [x] T001 Create project directory structure in `packages/requirements-checklist/` per plan.md
+- [x] T002 [P] Initialize `packages/requirements-checklist/package.json` with dependencies (yaml, marked, json-schema-validator, typescript, jest)
+- [x] T003 [P] Configure `packages/requirements-checklist/tsconfig.json` with Node.js 18+ ES2020 target
+- [x] T004 [P] Create `packages/requirements-checklist/.gitignore` with node_modules, dist, coverage
+- [x] T005 Setup build script in `packages/requirements-checklist/package.json` (tsc → dist/)
+- [x] T006 [P] Create Jest configuration in `packages/requirements-checklist/jest.config.js` with TypeScript support
+- [x] T007 Create README.md in `packages/requirements-checklist/` with project overview and usage examples
+- [x] T008 Setup directory structure: `src/lib/`, `src/cli/`, `tests/unit/`, `tests/integration/`, `tests/contract/`
+- [x] T009 [P] Copy JSON schemas from `.github/specs/010-requirements-checklist/contracts/` to `packages/requirements-checklist/schemas/`
 
 **Checkpoint**: Project structure ready - proceed to Foundational phase
 
