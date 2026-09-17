@@ -105,8 +105,14 @@ jobs:
           PR_BODY="${{ github.event.pull_request.body }}"
           TITLE="${{ github.event.pull_request.title }}"
 
+          echo "🔍 DEBUG: Branch='$BRANCH'"
+          echo "🔍 DEBUG: PR Body length=${#PR_BODY}"
+          echo "🔍 DEBUG: PR Body preview (first 200 chars):"
+          echo "$PR_BODY" | head -c 200
+
           # Extract type from branch
           TYPE=$(echo "$BRANCH" | cut -d'/' -f1)
+          echo "🔍 DEBUG: Extracted TYPE='$TYPE'"
 
           # Map branch type to expected template
           case "$TYPE" in
@@ -127,11 +133,17 @@ jobs:
               ;;
           esac
 
+          echo "🔍 DEBUG: Required sections: ${REQUIRED_SECTIONS[@]}"
+
           # Validate all required sections present
           MISSING_SECTIONS=()
           for SECTION in "${REQUIRED_SECTIONS[@]}"; do
+            echo "🔍 DEBUG: Checking for section: '$SECTION'"
             if [[ ! "$PR_BODY" =~ "$SECTION" ]]; then
+              echo "🔍 DEBUG: Missing section: '$SECTION'"
               MISSING_SECTIONS+=("$SECTION")
+            else
+              echo "🔍 DEBUG: Found section: '$SECTION'"
             fi
           done
 
@@ -160,6 +172,7 @@ jobs:
         shell: bash
         run: |
           TITLE="${{ github.event.pull_request.title || '' }}"
+          echo "🔍 DEBUG: PR Title='$TITLE'"
 
           # Check if this is a docs-only or chore PR (exempt from changelog)
           if [[ "$TITLE" == *"docs:"* ]] || [[ "$TITLE" == *"doc:"* ]] || [[ "$TITLE" == *"chore:"* ]]; then
@@ -168,7 +181,11 @@ jobs:
           fi
 
           # Check if CHANGELOG.md was modified
-          if ! git diff --name-only origin/develop...HEAD | grep -q "CHANGELOG.md"; then
+          echo "🔍 DEBUG: Checking git diff for CHANGELOG.md changes..."
+          GIT_DIFF_OUTPUT=$(git diff --name-only origin/develop...HEAD 2>&1)
+          echo "🔍 DEBUG: Git diff output: $GIT_DIFF_OUTPUT"
+
+          if ! echo "$GIT_DIFF_OUTPUT" | grep -q "CHANGELOG.md"; then
             echo "❌ CHANGELOG.md was not modified"
             echo "Changelog entry required for all feature/fix/refactor/security PRs"
             echo ""
@@ -183,7 +200,11 @@ jobs:
 
           # Validate changelog format (Keep a Changelog)
           # Accept either [Unreleased] or [X.Y.Z] - YYYY-MM-DD format
-          if ! grep -E "^## \[(Unreleased|[0-9]+\.[0-9]+\.[0-9]+)\]" CHANGELOG.md | head -1 | grep -q .; then
+          echo "🔍 DEBUG: Validating CHANGELOG.md format..."
+          CHANGELOG_HEADER=$(grep -E "^## \[(Unreleased|[0-9]+\.[0-9]+\.[0-9]+)\]" CHANGELOG.md | head -1)
+          echo "🔍 DEBUG: Found changelog header: '$CHANGELOG_HEADER'"
+
+          if [[ -z "$CHANGELOG_HEADER" ]]; then
             echo "❌ CHANGELOG.md format invalid"
             echo "Expected: ## [Unreleased] or ## [X.Y.Z] - YYYY-MM-DD"
             exit 1
