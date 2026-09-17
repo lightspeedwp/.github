@@ -177,9 +177,9 @@ Audit governance files and refactor organizational structure for improved policy
 Audit and refactor the SpecKit folder organization (001-012 specifications) to establish quality standards, create centralized catalog, and implement governance procedures for specification management.
 
 - **Status**: Draft
-- **Phase**: Clarified
+- **Phase**: InProgress
 - **Created**: 2026-09-16
-- **Updated**: 2026-09-16
+- **Updated**: 2026-09-17
 - **Link**: [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md)
 
 ---
