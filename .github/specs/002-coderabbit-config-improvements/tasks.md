@@ -20,13 +20,13 @@
 
 **Purpose**: Initialise feature branch and establish working environment
 
-- [ ] T001 Verify branch exists: `config/coderabbit-review-governance`
-- [ ] T002 Verify design documents exist: spec.md, plan.md, research.md, data-model.md, contracts/, quickstart.md
-- [ ] T003 Create working directories: `.github/docs/`, `.github/tmp/`
-- [ ] T004 [P] Backup `.coderabbit.yml` to `.github/tmp/coderabbit.yml.backup`
-- [ ] T005 [P] Copy `.coderabbit.yml` to `.github/tmp/coderabbit.yml.current` for reference
+- [x] T001 Verify branch exists: `config/coderabbit-review-governance`
+- [x] T002 Verify design documents exist: spec.md, plan.md, research.md, data-model.md, contracts/, quickstart.md
+- [x] T003 Create working directories: `.github/docs/`, `.github/tmp/`
+- [x] T004 [P] Backup `.coderabbit.yml` to `.github/tmp/coderabbit.yml.backup`
+- [x] T005 [P] Copy `.coderabbit.yml` to `.github/tmp/coderabbit.yml.current` for reference
 
-**Checkpoint**: Working environment prepared
+**Checkpoint**: Working environment prepared ✅
 
 ---
 
