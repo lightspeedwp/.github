@@ -21,6 +21,7 @@ The framework addresses the gap between "I wrote requirements" and "these requir
 - Q: How should each of the 8 quality dimensions be scored and measured? → A: Each dimension uses a weighted item-count approach: (passed items ÷ total applicable items) × 100%, with ≥75% threshold for dimension pass.
 - Q: Should checklist item counts be fixed targets or acceptable ranges? → A: Target ranges for each variant allow implementation flexibility while maintaining scope control (Author 45–55, Peer 45–55, Stakeholder 20–30, Integration 25–35).
 - Q: How should users determine which variant to use, and can specs use multiple variants simultaneously? → A: Smart variant selection system recommends a variant based on spec metadata (author/peer/stakeholder/integration context) with user override capability; allows concurrent variants for multi-party review scenarios.
+- Q: When a reviewer or stakeholder disagrees on whether a checklist item passes, what's the resolution path? → A: Documented dissent approach: both scores recorded separately, results show both perspectives, final gate decision uses stricter score (most conservative), promoting transparency and preventing false consensus.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -92,7 +93,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 
 - What happens when a specification spans multiple complex domains (e.g., payment processing + analytics + compliance)? How does the checklist guide prioritisation of quality dimensions?
 - How does the checklist handle specifications with intentional flexibility or open requirements (e.g., "explore options for X" vs. defined requirements)?
-- What if a reviewer or stakeholder disagrees on whether a checklist item passes? Is there conflict resolution guidance or escalation?
+- **Disagreement on Item Pass/Fail**: When a reviewer and stakeholder disagree, both scores are recorded separately. Results show both perspectives without forcing consensus. Final gate decision (pass/fail) uses the stricter (more conservative) score. All dissenting viewpoints are documented in the results for audit and learning purposes.
 
 ## Requirements *(mandatory)*
 
@@ -101,7 +102,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 - **FR-001**: System MUST provide 8 distinct quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with clear definition and measurable checkpoints for each
 - **FR-002**: System MUST generate a base checklist with 40+ items covering the 8 dimensions, structured as testable yes/no or scoring questions
 - **FR-003**: System MUST support 4 audience-specific checklist variants with target item ranges and tailored language per audience: Author Pre-Review (45–55 items), Peer Review (45–55 items), Stakeholder Gate (20–30 items), Cross-Project Integration (25–35 items). System MUST recommend a variant based on spec metadata and workflow context, with user ability to override and run multiple variants concurrently
-- **FR-004**: System MUST allow specifications to be run against a checklist and produce a results document with pass/fail status per dimension (calculated as: passed items ÷ total applicable items × 100%; dimension passes if ≥75%), dimension scores (0-100%), and specific findings by checklist item
+- **FR-004**: System MUST allow specifications to be run against a checklist and produce a results document with pass/fail status per dimension (calculated as: passed items ÷ total applicable items × 100%; dimension passes if ≥75%), dimension scores (0-100%), and specific findings by checklist item. When multiple reviewers evaluate the same checklist, results MUST record individual scores separately and display the stricter (most conservative) score for gate decisions
 - **FR-005**: System MUST provide reference examples and clarification guidance for ambiguous checklist items (e.g., "What counts as 'measurable'?" with examples of good vs. poor criteria)
 - **FR-006**: System MUST support extension of the base checklist with project-specific quality rules (e.g., "All security specs MUST address [specific threat model]") without modifying the core framework
 - **FR-007**: System MUST enable integration with specification workflows (e.g., as a pre-commit check, as an automated PR review gate, as an async stakeholder sign-off tool)
