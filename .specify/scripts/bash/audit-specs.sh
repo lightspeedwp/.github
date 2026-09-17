@@ -4,13 +4,25 @@
 
 set -euo pipefail
 
-# Resolve SPECS_DIR from repo root
-SCRIPT_DIR="$(CDPATH="" cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Try to find the repo root using .specify directory
-if [ -d "$SCRIPT_DIR/../../.specify" ]; then
-  SPECS_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)/.github/specs"
-else
-  SPECS_DIR=".github/specs"
+# Resolve SPECS_DIR from repo root using find_specify_root or by looking for .specify
+find_repo_root() {
+  local dir="${1:-.}"
+  dir="$(cd "$dir" 2>/dev/null && pwd)" || return 1
+  local prev_dir=""
+  while [ "$dir" != "$prev_dir" ]; do
+    if [ -d "$dir/.specify" ]; then
+      echo "$dir"
+      return 0
+    fi
+    prev_dir="$dir"
+    dir="$(dirname "$dir")"
+  done
+  return 1
+}
+
+SPECS_DIR=".github/specs"
+if repo_root=$(find_repo_root); then
+  SPECS_DIR="$repo_root/.github/specs"
 fi
 
 # ============================================================================
@@ -188,8 +200,11 @@ main() {
   local rc=0
 
   audit_scan_directories
-  verify_sequential_numbering || rc=1
-  generate_inventory_report || rc=1
+  if verify_sequential_numbering; then
+    generate_inventory_report || rc=1
+  else
+    rc=1
+  fi
 
   return $rc
 }

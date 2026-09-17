@@ -66,7 +66,7 @@ run_audit() {
   run_audit
 
   [ "$status" -ne 0 ]
-  [[ "$output" == *"Gap detected: expected 2 but found 1"* ]]
+  [[ "$output" == *"❌ Duplicate number: 1"* ]]
 }
 
 @test "invalid slugs are included in the inventory but fail naming compliance" {
@@ -76,7 +76,7 @@ run_audit() {
 
   run_audit
 
-  [ "$status" -eq 0 ]
+  [ "$status" -ne 0 ]
   [[ "$output" == *"002-Uppercase-slug (invalid format)"* ]]
   [[ "$output" == *"003-trailing- (invalid format)"* ]]
   [[ "$output" == *"Naming compliance: 1/3"* ]]
@@ -88,7 +88,7 @@ run_audit() {
 
   run_audit
 
-  [ "$status" -eq 0 ]
+  [ "$status" -ne 0 ]
   [[ "$output" == *"Directory: 002-missing-file"* ]]
   [[ "$output" == *"spec.md MISSING"* ]]
   [[ "$output" == *"spec.md present: 1/2"* ]]
@@ -100,7 +100,7 @@ run_audit() {
 
   run_audit
 
-  [ "$status" -eq 0 ]
+  [ "$status" -ne 0 ]
   [[ "$output" == *"spec.md MISSING"* ]]
   [[ "$output" == *"spec.md present: 1/2"* ]]
 }
@@ -115,7 +115,7 @@ run_audit() {
 
   run_audit
 
-  [ "$status" -eq 0 ]
+  [ "$status" -ne 0 ]
   [[ "$output" == *"Found 5 specification directories"* ]]
   [[ "$output" == *"Total directories: 5"* ]]
   [[ "$output" == *"01-short-prefix"* ]]
@@ -149,7 +149,7 @@ run_audit() {
 
   run_audit
 
-  [ "$status" -eq 0 ]
+  [ "$status" -ne 0 ]
   [[ "$output" == *"✗ 002--leading-separator (invalid format)"* ]]
   [[ "$output" == *"✗ 003-double--separator (invalid format)"* ]]
   [[ "$output" == *"✗ 004-has_underscore (invalid format)"* ]]
@@ -161,7 +161,7 @@ run_audit() {
   run_audit
 
   [ "$status" -ne 0 ]
-  [[ "$output" == *"Found 0 specification directories"* ]]
+  [[ "$output" == *"❌ No specification directories found"* ]]
   [[ "$output" != *"Complete Inventory Report"* ]]
 }
 
@@ -182,7 +182,7 @@ run_audit() {
   run_audit
 
   [ "$status" -ne 0 ]
-  [[ "$output" == *"Gap detected: expected 1 but found 0"* ]]
+  [[ "$output" == *"❌ Duplicate number: 0"* ]]
 }
 
 @test "every numbering gap is reported" {
@@ -219,4 +219,18 @@ run_audit() {
   [[ "$output" == *"Total directories: 1"* ]]
   [[ "$output" != *"Directory: nested-directory"* ]]
   [[ "$output" != *"Directory: 002-file-entry"* ]]
+}
+
+@test "script works when run from a subdirectory" {
+  create_spec "001-first-spec"
+  create_spec "002-second-spec"
+  mkdir -p "$TEST_REPO/.specify"
+
+  # Run from .github subdirectory instead of repo root
+  run bash -c 'cd "$1/.github" && bash "$2"' _ "$TEST_REPO" "$AUDIT_SCRIPT"
+
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"Found 2 specification directories"* ]]
+  [[ "$output" == *"Sequential numbering verified: 001 to 002 with no gaps"* ]]
+  [[ "$output" == *"Total directories: 2"* ]]
 }
