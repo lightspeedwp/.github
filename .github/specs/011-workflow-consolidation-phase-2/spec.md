@@ -32,6 +32,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 
 - Q: What is the actual hard requirement for GitHub Actions minutes reduction — is it minimum ≥15% reduction or a target range of 15–20%? → A: Hard minimum: ≥15% reduction required (≤2,125/month baseline from ~2,500). If achieved <15%, PR cannot merge. Anything ≥15% passes merge gate; 15–20% range was aspirational but not enforced.
 - Q: When labeling-unified.yml fails on a PR, what should happen operationally to other workflows? → A: Isolated failure model: labeling-unified fails → PR status check shows only "labeling" as failed; validation, testing, linting, quality-gates remain unaffected (pass/fail independently). Dependent systems receive last-known-good label state or use fallback logic. No cascade to other workflows.
+- Q: What specific test coverage targets should Phase 2 require — line coverage %, branch coverage %, or functional coverage only? → A: Hybrid coverage: Composite actions (apply-labels, validate-check, aggregate-tests, collect-metrics) require ≥80% line coverage (reusable, shared logic). Unified workflows require 100% functional coverage (all critical paths, primary/error/edge cases); line % not enforced for workflows.
 
 ## Branch Strategy
 
@@ -174,9 +175,9 @@ git push origin refactor/workflow-consolidation-phase-2
 
 1. **Performance Target (Hard Requirement):** Achieve ≤15% reduction in GitHub Actions minutes (baseline: 2,500/month → target: ≤2,125/month)
 2. **All 5 Unified Workflows Passing CI:** GitHub Actions checks green on feature branch for ≥3 consecutive runs
-3. **Functional Coverage:** All critical workflow paths (labeling, validation, testing) execute successfully
-4. **Integration Coverage:** Each unified workflow correctly routes events to downstream systems
-5. **Scenario Coverage:** Primary flows, error cases, and edge cases all addressed in test suite
+3. **Functional Coverage (100%):** All critical workflow paths (labeling, validation, testing, linting, quality-gates) execute successfully; primary flows, error cases, and edge cases all addressed in test suite
+4. **Composite Action Line Coverage (≥80%):** Apply-labels, validate-check, aggregate-tests, and collect-metrics composite actions tested for ≥80% line coverage (reusable shared logic requires higher rigor)
+5. **Integration Coverage:** Each unified workflow correctly routes events to downstream systems
 6. **Rollback Capability:** Documented rollback procedure to Phase 1 archived versions; tested and validated
 7. **Error Isolation (Isolated Failure Model):** When one unified workflow fails (e.g., labeling-unified.yml), other workflows (validation, testing, linting, quality-gates) continue independently. PR status check reports only the failed workflow's status; others report pass/fail based on their own execution. Dependent systems use last-known-good state or fallback logic; no cascade to other workflows.
 8. **Complete Documentation:** Architecture guide, consolidation mapping, rollback procedure, operational runbook
