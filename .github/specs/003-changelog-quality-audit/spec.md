@@ -50,6 +50,7 @@
 ### Session 2026-09-17
 
 - Q: Where should changelog entry validation feedback be displayed to help maintainers assess compliance before release? → A: GitHub pull request check annotations (red/yellow badges in PR checks tab with detailed failure reasons).
+- Q: Which terms should be flagged as "implementation details" when they appear in changelog entries? → A: Only code-specific terms: function/method names, class names, REST API, GraphQL, database, query, cache, transaction, endpoint. Architectural verbs (refactored, optimised, deployed, etc.) are permitted as user-focused language.
 
 ---
 
@@ -122,10 +123,10 @@
 - **Standards enforced:**
   - Maximum length: 250 characters (user-facing summary, no internal details)
   - Presence: PR link (GitHub URL format)
-  - Content: No implementation details (no code snippets, framework names, API internals)
+  - Content: No code-specific implementation details (no code snippets, function/method names, class names, API internals like "REST API", "GraphQL", "database", "query", "cache", "transaction", "endpoint")
   - Format: Consistent punctuation and tense
 - **Assessment output:** Pass/fail status per entry, specific violation list
-- **Testable:** Validator script must flag entries exceeding 250 chars; script must identify implementation keywords (e.g., "refactored", "fixed", "added logic", "updated database")
+- **Testable:** Validator script must flag entries exceeding 250 chars; script must identify code-specific keywords (e.g., "function", "class", "database query", "REST API endpoint") but permit architectural verbs (e.g., "refactored", "optimised", "deployed")
 
 ### FR-2: Automated Enforcement Gates
 
@@ -185,7 +186,7 @@
 ## Success Criteria
 
 1. **Quality Compliance:** 95%+ of changelog entries meet all quality standards (length, format, content, links)
-2. **Zero Implementation Details:** 0 entries detected with implementation jargon or internal details
+2. **Zero Code-Specific Details:** 0 entries detected with code-specific jargon (function/method names, class names, REST API, GraphQL, database references, etc.); architectural verbs permitted
 3. **Automated Linking:** 100% of PR references auto-linked with 99.9% link accuracy
 4. **CI Enforcement:** 100% of non-compliant entries blocked by CI validation gate; no false positives
 5. **Metrics Accuracy:** Dashboard metrics within 1% of manual audit results
