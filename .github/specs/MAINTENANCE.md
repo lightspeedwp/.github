@@ -522,10 +522,10 @@ touch .github/specs/014-api-response-format/spec.md
 
 #### Step 4: Update CATALOG.md
 
-Add to index table (maintaining sequential position):
+Add to index table (maintaining sequential position) using the canonical schema:
 
 ```markdown
-| 014 | api-response-format | API Response Format Standardization | Define standard JSON response format for all APIs with consistent error handling, status codes, and pagination | Draft | 2026-09-17 | [spec/link](./014-api-response-format/spec.md) |
+| 014 | api-response-format | API Response Format Standardization | Draft | 2026-09-17 | [./014-api-response-format/spec.md](./014-api-response-format/spec.md) |
 ```
 
 Add detailed entry:

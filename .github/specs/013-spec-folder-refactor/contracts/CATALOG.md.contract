@@ -19,11 +19,24 @@
 ## Overview
 Brief statement of purpose (2-3 sentences)
 
+## Catalog Schema (Canonical)
+
+**Table Structure**: `| # | Slug | Title | Status | Created | Link |`
+
+This canonical schema is used for all specification index tables (Active, Draft, Archived).
+
 ## Active Specifications
 
-| # | Title | Purpose | Status | Created | Link |
-|---|-------|---------|--------|---------|------|
-| [number] | [title] | [purpose] | [status] | [date] | [link] |
+| # | Slug | Title | Status | Created | Link |
+|---|------|-------|--------|---------|------|
+| [number] | [slug] | [title] | [status] | [date] | [link] |
+| ... |
+
+## Draft Specifications
+
+| # | Slug | Title | Status | Created | Link |
+|---|------|-------|--------|---------|------|
+| [number] | [slug] | [title] | [status] | [date] | [link] |
 | ... |
 
 ## Detailed Entries
@@ -46,12 +59,16 @@ Archived/deprecated specifications (if any)
 
 ### Content Rules
 
-**Index Table**:
+**Canonical Index Table Schema**:
+- Format: `| # | Slug | Title | Status | Created | Link |` (exactly 6 columns in this order)
+- Used for all status-based tables: Active Specifications, Draft Specifications, Archived Specifications
 - One row per specification (001, 002, ..., 013+)
 - Sorted by specification number (ascending)
+
+**Column Definitions**:
 - `#` column: 3-digit number (left-padded with zeros)
+- `Slug` column: Directory slug derived from directory name (e.g., "spec-folder-refactor" from "013-spec-folder-refactor")
 - `Title` column: Full specification title
-- `Purpose` column: One-line purpose summary
 - `Status` column: One of `Draft`, `Active`, `Archived` (canonical enum)
 - `Created` column: ISO 8601 date (YYYY-MM-DD)
 - `Link` column: Markdown link to `./NNN-{slug}/spec.md`
