@@ -74,8 +74,8 @@ jobs:
           # Extract all markdown links from CATALOG.md and verify targets exist
           broken_links=0
           while IFS= read -r link; do
-            # Extract path from markdown link format [text](path)
-            if [[ $link =~ \]\(([^)]+)\) ]]; then
+            # Extract path from markdown link format ](path)
+            if [[ $link =~ ]\((.+)\) ]]; then
               target="${BASH_REMATCH[1]}"
               # Skip external links
               if [[ $target == http* ]]; then
