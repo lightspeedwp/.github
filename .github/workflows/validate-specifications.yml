@@ -6,12 +6,14 @@ on:
       - '.github/specs/**'
       - '.github/workflows/validate-specifications.yml'
       - '.specify/scripts/bash/audit-specs.sh'
+      - 'tests/bash/audit-specs.bats'
   push:
     branches:
       - develop
     paths:
       - '.github/specs/**'
       - '.specify/scripts/bash/audit-specs.sh'
+      - 'tests/bash/audit-specs.bats'
 
 permissions:
   contents: read
