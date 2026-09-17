@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Run specification audit
         id: audit
@@ -44,10 +46,12 @@ jobs:
           set -e
 
           if [ $exit_code -eq 0 ]; then
-            echo "status=found" >> "$GITHUB_OUTPUT"
-            echo "schema_valid=true" >> "$GITHUB_OUTPUT"
-            echo "links_valid=true" >> "$GITHUB_OUTPUT"
-            echo "maintenance_ok=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "status=found"
+              echo "schema_valid=true"
+              echo "links_valid=true"
+              echo "maintenance_ok=true"
+            } >> "$GITHUB_OUTPUT"
           else
             echo "Validation failed with exit code $exit_code" >&2
             exit 1

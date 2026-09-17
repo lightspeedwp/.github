@@ -5,16 +5,20 @@ setup() {
   CATALOG_FILE="$REPO_ROOT/.github/specs/CATALOG.md"
 }
 
-# Helper function to extract markdown links from catalog
+# Extract every relative specification link (./NNN-...) from the catalog.
 extract_catalog_links() {
   grep -oE '\]\(\.\/[0-9]{3}-[^)]+\)' "$CATALOG_FILE" | sed 's/\](\.\/\(.*\))/\1/' || true
 }
 
-# Helper function to validate a single link target
+# Extract only the links that appear in table rows. Prose may link elsewhere.
+extract_table_links() {
+  grep -E '^\|' "$CATALOG_FILE" | grep -oE '\]\(\.\/[0-9]{3}-[^)]+\)' | sed 's/\](\.\/\(.*\))/\1/' || true
+}
+
+# A link target is valid when the file or directory it names exists.
 validate_link_target() {
   local target="$1"
-  local target_dir="${target%/spec.md}"
-  [ -d "$REPO_ROOT/.github/specs/$target_dir" ]
+  [ -e "$REPO_ROOT/.github/specs/$target" ]
 }
 
 @test "catalog file exists" {
@@ -25,7 +29,7 @@ validate_link_target() {
   grep -q "Catalog Schema (Canonical)" "$CATALOG_FILE"
 }
 
-@test "all catalog links point to existing specification directories" {
+@test "all catalog links point to existing targets" {
   local broken_links=0
 
   while IFS= read -r link; do
@@ -39,7 +43,7 @@ validate_link_target() {
   [ $broken_links -eq 0 ]
 }
 
-@test "catalog links reference spec.md files" {
+@test "catalog table rows link to spec.md files" {
   local non_spec_links=0
 
   while IFS= read -r link; do
@@ -48,18 +52,19 @@ validate_link_target() {
       echo "Non-spec link: $link"
       ((++non_spec_links))
     fi
-  done < <(extract_catalog_links)
+  done < <(extract_table_links)
 
   [ $non_spec_links -eq 0 ]
 }
 
 @test "catalog entries have exactly 6 columns in canonical schema" {
-  # Extract the Active Specifications table header
-  local header=$(grep -A 1 "## Active Specifications" "$CATALOG_FILE" | tail -1)
+  # The table header is the first row after the heading; a blank line sits between them.
+  local header
+  header=$(grep -A 3 "## Active Specifications" "$CATALOG_FILE" | grep -m1 '^| #')
 
-  # Count columns by counting pipes (6 pipes = 6 columns)
-  local pipe_count=$(echo "$header" | grep -o '|' | wc -l)
+  # Count columns by counting pipes (6 columns = 7 pipes).
+  local pipe_count
+  pipe_count=$(echo "$header" | grep -o '|' | wc -l)
 
-  # 6 columns requires 7 pipes (leading | + 5 separators + trailing |)
   [ "$pipe_count" -eq 7 ]
 }
