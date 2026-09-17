@@ -51,6 +51,7 @@
 
 - Q: Where should changelog entry validation feedback be displayed to help maintainers assess compliance before release? → A: GitHub pull request check annotations (red/yellow badges in PR checks tab with detailed failure reasons).
 - Q: Which terms should be flagged as "implementation details" when they appear in changelog entries? → A: Only code-specific terms: function/method names, class names, REST API, GraphQL, database, query, cache, transaction, endpoint. Architectural verbs (refactored, optimised, deployed, etc.) are permitted as user-focused language.
+- Q: Should the release agent automatically validate and enforce changelog compliance before creating a release, or is changelog validation a separate manual step? → A: Automatic validation gate: release agent validates changelog compliance and blocks release if compliance < 95%.
 
 ---
 
@@ -181,6 +182,17 @@
 - **Training delivery:** Live Q&A session (targeted 90%+ attendance); recorded session available
 - **Testable:** Post-training assessment shows 85%+ understanding of compliance standards
 
+### FR-7: Release Agent Integration
+
+- **Requirement:** Release agent must validate changelog compliance as an automated prerequisite gate before release
+- **Integration scope:**
+  - Release workflow calls changelog validation before version bump
+  - Blocks release if compliance < 95%
+  - Provides clear feedback on validation failure with specific entry violations
+  - Allows release manager to override block with documented exception (if needed)
+- **Workflow:** Release manager triggers release → agent validates changelog → if compliant (≥95%), proceeds to version bump; if non-compliant (<95%), blocks with detailed failure report
+- **Testable:** Release with 94% compliant entries blocked with detailed violation list; release with 95%+ compliant entries proceeds
+
 ---
 
 ## Success Criteria
@@ -295,7 +307,8 @@
 ## Related Projects & Dependencies
 
 **Related:** Label Governance Audit (2026-08-05) — coordinates with labeling rules for categorization  
-**Depends on:** Phase 4 deliverables (PR-to-changelog linking, maintainer review checklist)  
+**Depends on:** Phase 4 deliverables (PR-to-changelog linking, maintainer review checklist); Release Agent Phase 2 (integration with changelog validation)  
+**Integrates with:** Release Agent (`agents/release/release.agent.js`) — release workflow validates changelog compliance as automated gate  
 **Epic:** #1271 — Changelog Automation Hardening
 
 ---
