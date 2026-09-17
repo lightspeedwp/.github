@@ -40,7 +40,11 @@ module.exports = {
         '<rootDir>/scripts/agents/includes/sync-version.js',
     ],
     moduleNameMapper: {
-        '^(\.{1,2}/.*)\.js$': '$1',
+        // Double backslashes: this key is a JS string, and JS silently
+        // drops a backslash before an unrecognised escape like \. — a
+        // single-escaped '\.js$' compiles to the regex .js$ (wildcard
+        // dot), which also matches .cjs/.mjs, not just literal .js.
+        '^(\\.{1,2}/.*)\\.js$': '$1',
     },
     moduleFileExtensions: ['js', 'ts', 'jsx', 'tsx', 'json'],
     coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
