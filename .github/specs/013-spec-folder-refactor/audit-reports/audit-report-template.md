@@ -12,11 +12,12 @@
 | Metric | Value |
 |--------|-------|
 | Total Specifications Audited | 12 |
-| Passing (6-8 dimensions) | [TBD] |
-| Partial (4-5 dimensions) | [TBD] |
-| Failing (0-3 dimensions) | [TBD] |
+| Approved (8/8 dimensions - mandatory gate) | [TBD] |
+| Passing (6-7 dimensions - methodology) | [TBD] |
+| Partial (5 dimensions - needs remediation) | [TBD] |
+| Below Threshold (<5 dimensions - unsuitable) | [TBD] |
 | Average Quality Score | [TBD]% |
-| Most Common Gap | [TBD] |
+| Overall Status | [TBD] |
 
 ---
 

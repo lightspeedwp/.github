@@ -186,9 +186,10 @@
 
 **Quality Score**: (Points Passing / 8) × 100 = X%
 
-- **Passing**: 6-8 dimensions (75%+)
-- **Partial**: 4-5 dimensions (50-74%)
-- **Failing**: 0-3 dimensions (<50%)
+- **Approved**: 8/8 dimensions (100% - mandatory quality gate)
+- **Passing**: 6-7 dimensions (75-87.5% - methodology threshold)
+- **Partial**: 5 dimensions (62.5% - requires remediation)
+- **Below Threshold**: 0-4 dimensions (<62.5% - unsuitable for use)
 
 ---
 
