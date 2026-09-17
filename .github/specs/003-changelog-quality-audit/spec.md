@@ -51,7 +51,8 @@
 
 - Q: Where should changelog entry validation feedback be displayed to help maintainers assess compliance before release? → A: GitHub pull request check annotations (red/yellow badges in PR checks tab with detailed failure reasons).
 - Q: Which terms should be flagged as "implementation details" when they appear in changelog entries? → A: Only code-specific terms: function/method names, class names, REST API, GraphQL, database, query, cache, transaction, endpoint. Architectural verbs (refactored, optimised, deployed, etc.) are permitted as user-focused language.
-- Q: Should the release agent automatically validate and enforce changelog compliance before creating a release, or is changelog validation a separate manual step? → A: Automatic validation gate: release agent validates changelog compliance and blocks release if compliance < 95%.
+- Q: Should the release agent automatically validate and enforce changelog compliance before creating a release? → A: Automatic validation gate: release agent validates changelog compliance and blocks release if compliance < 95%.
+- Q: If a PR referenced in a changelog entry is deleted, should validation fail, warn, or pass? → A: Warn (non-blocking): deleted PRs flagged for manual review, but release can proceed if needed.
 
 ---
 
@@ -273,6 +274,35 @@
 
 - Mitigation: Batch link validation; cache results for 24 hours
 - Fallback: Degrade to manual link verification if API unavailable
+
+---
+
+## Edge Cases & Failure Handling
+
+### Deleted PR References
+
+- **Scenario:** Changelog entry references PR #1234, but PR is subsequently deleted
+- **Behavior:** Validation flags as warning (non-blocking); appears in validation report for release manager review
+- **Release impact:** Release proceeds even with deleted PR warning; release manager must acknowledge and document reason
+- **Recovery:** Release notes can still reference the PR number; link will be dead but change is documented
+
+### Concurrent CHANGELOG.md Edits
+
+- **Scenario:** Multiple contributors edit CHANGELOG.md simultaneously
+- **Behavior:** Git merge conflict resolution handles via standard workflow; validation re-runs after merge
+- **Release impact:** Release blocked until conflict resolved and entries re-validated post-merge
+
+### GitHub API Unavailability
+
+- **Scenario:** GitHub API is down during release workflow
+- **Behavior:** Link validation degrades to local format check only (validates PR format, skips link verification)
+- **Release impact:** Release proceeds with reduced validation (format checks pass); link verification deferred to post-release audit
+
+### Entry with Multiple Issue Links
+
+- **Scenario:** Changelog entry references multiple issues (#123, #456, #789)
+- **Behavior:** All issue links validated independently; warnings/errors per link status
+- **Release impact:** Entry passes if all required links are valid; optional issue links can be dead (warning only)
 
 ---
 
