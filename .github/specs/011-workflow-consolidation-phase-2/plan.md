@@ -458,8 +458,12 @@ Integration (T069-T078)
 ## Related Documents
 
 - **Specification:** `.github/specs/011-workflow-consolidation-phase-2/spec.md`
+- **Implementation Plan:** `.github/specs/011-workflow-consolidation-phase-2/plan.md` (this document)
 - **Tasks:** `.github/specs/011-workflow-consolidation-phase-2/tasks.md`
 - **Data Model:** `.github/specs/011-workflow-consolidation-phase-2/data-model.md`
+- **Workflow Contracts:** `.github/specs/011-workflow-consolidation-phase-2/contracts/workflow-interfaces.md`
+- **Composite Action Contracts:** `.github/specs/011-workflow-consolidation-phase-2/contracts/composite-action-contracts.md`
+- **Quickstart & Validation:** `.github/specs/011-workflow-consolidation-phase-2/quickstart.md`
 - **Branch Naming Rules:** `CLAUDE.md` § Branch Naming
 - **Label Taxonomy:** `.github/labels.yml`
 - **Phase 1 Reference:** `.github/workflows/archived/2026-09-11/`
