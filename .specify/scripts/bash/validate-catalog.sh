@@ -43,14 +43,24 @@ validate_canonical_schema() {
     echo "⚠ Canonical schema section not documented"
   fi
 
-  # Verify table header matches exactly
+  # Verify table headers match exactly in both Active and Draft sections
+  local schema_valid=0
+
   if grep -A 2 "## Active Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
-    echo "✓ Table follows canonical schema"
-    return 0
+    echo "✓ Active Specifications table follows canonical schema"
   else
-    echo "✗ Table does not follow canonical schema"
-    return 1
+    echo "✗ Active Specifications table does not follow canonical schema"
+    schema_valid=1
   fi
+
+  if grep -A 2 "## Draft Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
+    echo "✓ Draft Specifications table follows canonical schema"
+  else
+    echo "✗ Draft Specifications table does not follow canonical schema"
+    schema_valid=1
+  fi
+
+  return $schema_valid
 }
 
 # validate_catalog_links - Verify all markdown links in CATALOG.md point to existing targets

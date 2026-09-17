@@ -525,6 +525,8 @@ touch .github/specs/014-api-response-format/spec.md
 Add to index table (maintaining sequential position) using the canonical schema:
 
 ```markdown
+| # | Slug | Title | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
 | 014 | api-response-format | API Response Format Standardization | Draft | 2026-09-17 | [./014-api-response-format/spec.md](./014-api-response-format/spec.md) |
 ```
 

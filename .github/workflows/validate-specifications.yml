@@ -22,9 +22,29 @@ permissions:
   contents: read
 
 jobs:
+  test:
+    name: Audit Script Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install Bats test framework
+        uses: bats-core/bats-action@4.0.0
+
+      - name: Run audit script test suite
+        id: tests
+        run: |
+          bats tests/bash
+          echo "tests_ok=true" >> "$GITHUB_OUTPUT"
+          echo "✓ Audit script tests passed"
+
   validate:
     name: Specification Validation
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -36,6 +56,11 @@ jobs:
         run: |
           set -o pipefail
           bash .specify/scripts/bash/audit-specs.sh 2>&1 | tee audit-output.txt
+          audit_exit=${PIPESTATUS[0]}
+          if [ $audit_exit -ne 0 ]; then
+            echo "Specification audit failed with exit code $audit_exit" >&2
+            exit $audit_exit
+          fi
 
       - name: Validate catalog structure
         id: catalog
@@ -56,16 +81,6 @@ jobs:
             echo "Validation failed with exit code $exit_code" >&2
             exit 1
           fi
-
-      - name: Install Bats test framework
-        uses: bats-core/bats-action@4.0.0
-
-      - name: Run audit script test suite
-        id: tests
-        run: |
-          bats tests/bash
-          echo "tests_ok=true" >> "$GITHUB_OUTPUT"
-          echo "✓ Audit script tests passed"
 
       - name: Generate compliance report
         if: always()
