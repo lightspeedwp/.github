@@ -388,13 +388,53 @@ jobs:
           echo "  Integration tests: Check artifact for details"
 
   # ============================================================================
+  # Test metrics collection job
+  # ============================================================================
+
+  testing-metrics:
+    name: Testing Metrics Collection
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, coverage-aggregation]
+    if: always()
+    steps:
+      - name: Aggregate test results
+        id: aggregate
+        uses: ./.github/actions/aggregate-tests
+        with:
+          test_results_path: 'test-results/'
+          coverage_path: 'coverage/'
+          output_format: 'json'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Collect testing workflow metrics
+        id: metrics
+        uses: ./.github/actions/collect-metrics
+        with:
+          workflow_name: 'testing-unified'
+          workflow_run_id: 'current'
+          metric_type: 'all'
+          output_format: 'json'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload testing metrics
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: testing-metrics
+          path: |
+            test-results/
+            coverage/
+            metrics/
+          retention-days: 30
+
+  # ============================================================================
   # Artifact cleanup job
   # ============================================================================
 
   artifact-cleanup:
     name: Artifact Cleanup
     runs-on: ubuntu-latest
-    needs: [coverage-aggregation, e2e-tests]
+    needs: [coverage-aggregation, e2e-tests, testing-metrics]
     if: always()
     steps:
       - name: Clean up old test artifacts
@@ -410,7 +450,7 @@ jobs:
   test-summary:
     name: Test Summary
     runs-on: ubuntu-latest
-    needs: [unit-tests, integration-tests, e2e-tests, coverage-aggregation]
+    needs: [unit-tests, integration-tests, e2e-tests, coverage-aggregation, testing-metrics]
     if: always()
     steps:
       - name: Report test results
@@ -421,6 +461,7 @@ jobs:
           echo "Integration tests: ${{ needs.integration-tests.result }}"
           echo "E2E tests: ${{ needs.e2e-tests.result }}"
           echo "Coverage aggregation: ${{ needs.coverage-aggregation.result }}"
+          echo "Metrics collection: ${{ needs.testing-metrics.result }}"
 
           # Fail if any critical test failed
           if [[ "${{ needs.unit-tests.result }}" == "failure" ]] || [[ "${{ needs.integration-tests.result }}" == "failure" ]]; then
