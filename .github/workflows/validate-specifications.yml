@@ -12,8 +12,9 @@ on:
       - develop
     paths:
       - '.github/specs/**'
-      - 'tests/bash/**'
+      - '.github/workflows/validate-specifications.yml'
       - '.specify/scripts/bash/audit-specs.sh'
+      - 'tests/bash/**'
 
 permissions:
   contents: read
@@ -75,7 +76,8 @@ jobs:
             echo "✓ MAINTENANCE.md documents canonical schema"
           else
             echo "maintenance_ok=false" >> "$GITHUB_OUTPUT"
-            echo "⚠ MAINTENANCE.md should document canonical schema"
+            echo "✗ MAINTENANCE.md must document canonical schema"
+            exit 1
           fi
 
       - name: Install Bats test framework
