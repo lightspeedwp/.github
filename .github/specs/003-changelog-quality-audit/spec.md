@@ -53,6 +53,7 @@
 - Q: Which terms should be flagged as "implementation details" when they appear in changelog entries? → A: Only code-specific terms: function/method names, class names, REST API, GraphQL, database, query, cache, transaction, endpoint. Architectural verbs (refactored, optimised, deployed, etc.) are permitted as user-focused language.
 - Q: Should the release agent automatically validate and enforce changelog compliance before creating a release? → A: Automatic validation gate: release agent validates changelog compliance and blocks release if compliance < 95%.
 - Q: If a PR referenced in a changelog entry is deleted, should validation fail, warn, or pass? → A: Warn (non-blocking): deleted PRs flagged for manual review, but release can proceed if needed.
+- Q: Where do the 5+ existing validation scripts live and what do they check? → A: Scripts live in `.github/workflows/` and `scripts/validation/`; consolidation covers: (1) changelog file existence, (2) [Unreleased] section structure validation, (3) entry format/list validation, (4) PR link detection, (5) length checks.
 
 ---
 
@@ -167,11 +168,12 @@
 
 - **Requirement:** Existing changelog validation workflows must be consolidated into a single, maintainable system
 - **Consolidation scope:**
-  - Merge 5+ separate validation scripts into unified pipeline
-  - Establish single source of truth for validation rules
+  - Merge 5+ separate validation scripts from `.github/workflows/` and `scripts/validation/` into unified pipeline
+  - Existing checks being consolidated: (1) changelog file existence, (2) [Unreleased] section structure, (3) entry format/list, (4) PR link detection, (5) length validation
+  - Establish single source of truth for validation rules (configuration-driven, not hardcoded)
   - Remove redundant checks and conflicting rule sets
 - **Migration:** Existing workflows remain functional during transition; no service interruption
-- **Testable:** All existing validation behavior preserved; new single pipeline passes 100% of previous tests
+- **Testable:** All existing validation behavior preserved; new unified pipeline passes 100% of previous checks; no false positives/negatives introduced
 
 ### FR-6: Team Training & Documentation
 
