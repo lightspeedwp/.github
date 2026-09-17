@@ -66,6 +66,92 @@ reviews:
   # === Path-Specific Review Instructions ===
   # Organized by priority (descending): critical infrastructure → automation → language-specific → general
   path_instructions:
+    # === PRIORITY 95: SPECIFICATION & PLANNING FILES (Exact specification patterns) ===
+    # SpecKit specification files are foundational planning artefacts requiring strictest quality standards
+    - path: '.specify/spec.md'
+      instructions: |
+        Review specification files (feature specifications):
+
+        **Focus Area 1: Specification Completeness**
+          - Check: User stories defined with clear acceptance criteria (FR-001 mapping check)
+          - Check: Assumptions and constraints explicitly documented
+          - Check: Success criteria measurable and testable
+          - Check: Risk assessment included for high-complexity features
+
+        **Focus Area 2: Requirement Clarity & Precision**
+          - Check: Terms defined (no ambiguous language like "fast", "simple", "appropriate")
+          - Check: Examples provided for complex requirements
+          - Check: Edge cases and error conditions explicitly addressed
+          - Check: Constraints quantified (performance targets, budget limits, etc.)
+
+        **Focus Area 3: Cross-Functional Coverage**
+          - Check: Security implications assessed (vulnerability vectors, data handling)
+          - Check: Accessibility requirements included (WCAG 2.2 AA per Constitution Principle VI)
+          - Check: Performance constraints documented (if applicable)
+          - Check: Testing strategy outlined (unit/integration/e2e scope)
+
+        **Focus Area 4: Quality Standards**
+          - Check: Specification version tracked (date, author, status)
+          - Check: Dependencies on other specs/projects documented
+          - Check: Rationale provided for key design decisions
+          - Check: No placeholder content ("[NEEDS CLARIFICATION]" sections resolved)
+
+    - path: '.specify/plan.md'
+      instructions: |
+        Review implementation plans:
+
+        **Focus Area 1: Technical Architecture & Design**
+          - Check: Technical approach justified (trade-offs considered, alternatives evaluated)
+          - Check: Component interactions clearly mapped
+          - Check: Technology choices aligned with org standards (CLAUDE.md, AGENTS.md)
+          - Check: Known technical risks identified and mitigation strategies outlined
+
+        **Focus Area 2: Implementation Roadmap**
+          - Check: Phases clearly defined with dependencies
+          - Check: Effort estimates realistic and justified
+          - Check: Blockers and prerequisites identified upfront
+          - Check: Testing strategy integr into phases (not deferred)
+
+        **Focus Area 3: Governance & Standards Alignment**
+          - Check: Constitution principles addressed (all 10 from constitution.md)
+          - Check: Coding standards referenced (WordPress CS, ESLint, accessibility)
+          - Check: Configuration/LOCKED file handling documented
+          - Check: Backwards compatibility implications assessed
+
+        **Focus Area 4: Research & Discovery**
+          - Check: Phase 0 research findings documented (external dependencies, best practices)
+          - Check: Technology decisions supported by research
+          - Check: Integration points with existing systems validated
+          - Check: Performance/scalability implications explored
+
+    - path: '.specify/tasks.md'
+      instructions: |
+        Review task decomposition and implementation checklists:
+
+        **Focus Area 1: Task Completeness & Specificity**
+          - Check: Tasks are atomic (independently testable, ~1-2 day effort each)
+          - Check: Each task has exact file paths (no "TBD" or "TBF")
+          - Check: Acceptance criteria are measurable and testable
+          - Check: Dependencies clearly marked (prevents wasted effort on blocked tasks)
+
+        **Focus Area 2: Task Organization & Sequencing**
+          - Check: Setup phase (infrastructure) completes before feature phases
+          - Check: Foundational tasks block feature tasks (dependency order correct)
+          - Check: Parallel opportunities identified ([P] markers on independent tasks)
+          - Check: Testing/validation tasks integrated (not batched at end)
+
+        **Focus Area 3: Coverage Against Specification**
+          - Check: Each user story from spec.md has dedicated task phase
+          - Check: Non-functional requirements (security, perf, a11y) have explicit tasks
+          - Check: All acceptance criteria mapped to test/validation tasks
+          - Check: No ambiguous or missing coverage
+
+        **Focus Area 4: Execution Readiness**
+          - Check: Task descriptions are actionable without additional context
+          - Check: Code changes are scoped to specific files (no vague "update X")
+          - Check: Config/data constraints documented inline (min length, required fields, etc.)
+          - Check: No dead-weight tasks (cleanup, documentation, refactoring unrelated to feature)
+
     # === PRIORITY 95: AGENT IMPLEMENTATION FILES (Exact agent-type patterns) ===
     # Agent implementations require strict code quality, testing, and documentation standards
     - path: 'agents/*.agent.js'
@@ -132,6 +218,63 @@ reviews:
           - Validate header of *.sh, *.js, *.py files start with a shebang.
           - Confirm agent documentation is clear and up-to-date.
 
+    # === PRIORITY 90: GITHUB WORKFLOWS & CI/CD (Automation infrastructure) ===
+    - path: '.github/workflows/*.yml'
+      instructions: |
+        Review GitHub Actions workflow files:
+
+        **Focus Area 1: Workflow Logic & Error Handling**
+          - Check: Conditional logic is clear (if statements explicit, not nested)
+          - Check: Error handling present (failure modes documented, appropriate exit codes)
+          - Check: Timeouts set on long-running jobs (prevent hung workflows)
+          - Check: Secrets handled safely (never logged, passed as env vars only)
+
+        **Focus Area 2: Trigger Configuration & Scope**
+          - Check: Triggers are appropriate (branch filtering correct, events precise)
+          - Check: Run conditions documented (why this job, when does it run)
+          - Check: Matrix jobs avoid excessive combinations (cost/time optimization)
+          - Check: Permissions are minimal (least-privilege per step)
+
+        **Focus Area 3: Integration with Organization Standards**
+          - Check: Branch naming strategy respected (feat/, fix/, hotfix/ prefixes validated)
+          - Check: Label automation aligned with .github/labels.yml (158 canonical labels)
+          - Check: PR template routing logic correct (if changing PR templates)
+          - Check: CodeRabbit integration hooks present (centralconig pull, validation)
+
+        **Focus Area 4: Maintainability & Clarity**
+          - Check: Job names are descriptive ("lint-python" not "step-5")
+          - Check: Step names explain purpose (not just action names)
+          - Check: Reusable composite actions used (don't duplicate workflow logic)
+          - Check: Documentation present (why this job exists, what it gates)
+
+    - path: '.github/scripts/**'
+      instructions: |
+        Review GitHub Actions helper scripts:
+
+        **Focus Area 1: Script Safety & Reliability**
+          - Check: Shebang present and correct (#! /bin/bash, #! /usr/bin/env python3)
+          - Check: Error handling (set -e or equivalent, trap on error)
+          - Check: Input validation (check argument count, file existence)
+          - Check: No hardcoded secrets (all passed as env vars or arguments)
+
+        **Focus Area 2: Script-Specific Standards**
+          - Check: Shell scripts: POSIX compliance, no bash-isms (for portability)
+          - Check: Python scripts: type hints, docstrings for functions
+          - Check: All scripts: meaningful exit codes (0 success, non-zero failure)
+          - Check: Logging/output clear and helpful (not verbose spam)
+
+        **Focus Area 3: Integration with Workflows**
+          - Check: Called from workflow with explicit error handling (|| exit 1)
+          - Check: Arguments/parameters clearly documented in script header
+          - Check: Output structured (exit code + stdout/stderr separation)
+          - Check: Dependencies documented (Python libs, shell tools required)
+
+        **Focus Area 4: Testability & Maintenance**
+          - Check: Functions extracted (not one monolithic script)
+          - Check: Mock/test mode available (if applicable)
+          - Check: Version pinning for external tools
+          - Check: Comments explain non-obvious logic
+
     # === PRIORITY 90: AGENT & PROMPT DIRECTORIES (Broad agent infrastructure) ===
     - path: '.github/prompts/**'
       instructions: |
@@ -141,6 +284,119 @@ reviews:
           - Confirm prompts reference authoritative sources (CLAUDE.md, AGENTS.md, standards docs).
           - Check that examples provided are universal and applicable across diverse project types.
           - Validate consistency of terminology and tone across related prompt files.
+
+    # === PRIORITY 87-85: GITHUB TEMPLATES & CONFIGURATION ===
+    - path: '.github/ISSUE_TEMPLATE/*.md'
+      instructions: |
+        Review issue templates:
+
+        **Focus Area 1: Template Structure & Usability**
+          - Check: Template has clear role (when does user choose this type)
+          - Check: Frontmatter/metadata correct (issue type, labels, assignees)
+          - Check: Section order logical (what user should fill first)
+          - Check: Placeholder text is helpful (not confusing or overwhelming)
+
+        **Focus Area 2: Content Quality & Completeness**
+          - Check: No placeholder sections marked [NEEDS EDIT] or [TODO]
+          - Check: Examples provided for complex fields
+          - Check: Required vs optional fields clearly marked
+          - Check: Markdown formatting correct (headers, lists, code blocks)
+
+        **Focus Area 3: Label & Classification**
+          - Check: Labels referenced use canonical family prefixes (type:, status:, area:, priority:)
+          - Check: Issue type correctly mapped (.github/issue-types.yml compatibility)
+          - Check: Labels avoid bare labels (all use "prefix:" format)
+          - Check: Description explains when/why each label applies
+
+        **Focus Area 4: Governance & Integration**
+          - Check: Template routing logic documented (when this template is shown)
+          - Check: Acceptance criteria/definition clear (what does "done" mean for this issue type)
+          - Check: Related templates cross-referenced (if user in wrong template)
+          - Check: Links to relevant documentation/policies (BRANCHING_STRATEGY, LABELING)
+
+    - path: '.github/PULL_REQUEST_TEMPLATE/*.md'
+      instructions: |
+        Review PR templates:
+
+        **Focus Area 1: Template Alignment with Branch Strategy**
+          - Check: Branch type routing logic present (feat/ vs fix/ vs docs/ branches handled)
+          - Check: Template shows correct sections for branch type
+          - Check: Linked Issues section mapped to branch requirements
+          - Check: Changelog section guidance matches .github/CHANGELOG.md format
+
+        **Focus Area 2: Governance & Validation Points**
+          - Check: Linked Issues section enforces issue reference (required for governance)
+          - Check: Checklist items map to DoD (Definition of Done) criteria
+          - Check: Label suggestions provided per branch type
+          - Check: Documentation validation guidance included
+
+        **Focus Area 3: User Guidance & Clarity**
+          - Check: Placeholder text is concrete (not "describe your changes")
+          - Check: Examples provided for complex sections
+          - Check: Required vs optional clearly marked
+          - Check: Help text explains "why" not just "what"
+
+        **Focus Area 4: Integration with Automation**
+          - Check: CodeRabbit hooks documented (pr_governance validation sections)
+          - Check: Changelog entry format matches linting requirements
+          - Check: Label family prefix examples align with .github/labels.yml
+          - Check: No hardcoded issue types (reference .github/issue-types.yml)
+
+    - path: '.github/labels.yml'
+      instructions: |
+        Review label definition file:
+
+        **Focus Area 1: Label Taxonomy & Consistency**
+          - Check: All labels use family prefix (type:, status:, priority:, area:, meta:, language:)
+          - Check: No duplicate labels (name consistency within family)
+          - Check: Label names follow convention (lowercase, hyphens not underscores)
+          - Check: Family prefixes align with label_enforcement rules (coderabbit.yml)
+
+        **Focus Area 2: Label Metadata & Descriptions**
+          - Check: Each label has clear description (what does this label mean)
+          - Check: Color coding consistent within family (visual grouping)
+          - Check: No orphaned labels (all referenced in workflows, templates, or automation)
+          - Check: Deprecation/retirement process documented (if removing labels)
+
+        **Focus Area 3: Coverage Across Use Cases**
+          - Check: Type family covers all issue/PR types (bug, feature, docs, test, etc.)
+          - Check: Status family covers workflow stages (needs-triage → done)
+          - Check: Priority/area families complete (covers all org projects)
+          - Check: Meta family sufficient (dependencies, blocking flags, etc.)
+
+        **Focus Area 4: Governance Alignment**
+          - Check: Labels align with branch-type-to-label routing (CLAUDE.md)
+          - Check: Labels support DoD checklist automation (documentation, testing, review)
+          - Check: Security and accessibility labels present (type:security, area:accessibility)
+          - Check: LOCKED status respected (file is curated, not auto-generated)
+
+    - path: '.github/issue-types.yml'
+      instructions: |
+        Review issue type definitions:
+
+        **Focus Area 1: Issue Type Structure**
+          - Check: Each type has clear purpose and use case
+          - Check: Type names align with issue template filenames
+          - Check: Description explains when user should choose this type
+          - Check: No redundant or overlapping types
+
+        **Focus Area 2: Template & Label Mapping**
+          - Check: Maps to corresponding issue template (.github/ISSUE_TEMPLATE/*.md)
+          - Check: Default labels use family prefixes (type:, status:, etc.)
+          - Check: Suggested labels cover type-specific concerns
+          - Check: LOCKED status respected (governance curated file)
+
+        **Focus Area 3: Workflow Integration**
+          - Check: Automation workflows reference these types
+          - Check: Routing logic documented (which type → which labels/workflows)
+          - Check: No types without automation (all have processing rules)
+          - Check: Consistency across repos (if org-wide issue types)
+
+        **Focus Area 4: User Experience**
+          - Check: Type names are clear and non-technical (for non-dev users)
+          - Check: Help text explains difference from similar types
+          - Check: Required fields per type documented
+          - Check: Examples provided for complex issue types
 
     - path: 'agents/**'
       instructions: |
