@@ -382,6 +382,52 @@ jobs:
   # Summary job
   # ============================================================================
 
+  validation-metrics:
+    name: Validation Metrics Collection
+    runs-on: ubuntu-latest
+    needs:
+      [
+        branch-validation,
+        pr-template-validation,
+        changelog-validation,
+        commit-validation,
+        workflow-validation,
+        secret-scanning,
+      ]
+    if: always()
+    steps:
+      - name: Collect validation workflow metrics
+        id: metrics
+        uses: ./.github/actions/collect-metrics
+        with:
+          workflow_name: 'validation-unified'
+          workflow_run_id: 'current'
+          metric_type: 'all'
+          output_format: 'json'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Report validation check results
+        uses: ./.github/actions/validate-check
+        if: github.event_name == 'pull_request'
+        with:
+          check_name: 'validation-unified'
+          status: ${{ (needs.branch-validation.result == 'success' && needs.pr-template-validation.result == 'success' && needs.changelog-validation.result == 'success' && needs.commit-validation.result == 'success' && needs.workflow-validation.result == 'success' && needs.secret-scanning.result == 'success') && 'success' || 'failure' }}
+          title: 'Validation Checks'
+          summary: |
+            **Branch Validation:** ${{ needs.branch-validation.result }}
+            **PR Template Validation:** ${{ needs.pr-template-validation.result }}
+            **Changelog Validation:** ${{ needs.changelog-validation.result }}
+            **Commit Validation:** ${{ needs.commit-validation.result }}
+            **Workflow Validation:** ${{ needs.workflow-validation.result }}
+            **Secret Scanning:** ${{ needs.secret-scanning.result }}
+
+            **Metrics:**
+            - Minutes Used: ${{ steps.metrics.outputs.minutes_used }}
+            - Duration: ${{ steps.metrics.outputs.duration_seconds }} seconds
+          details: '[]'
+          post_comment: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
   validation-summary:
     name: Validation Summary
     runs-on: ubuntu-latest
@@ -396,6 +442,7 @@ jobs:
         issue-dor-validation,
         issue-project-validation,
         scheduled-docs-validation,
+        validation-metrics,
       ]
     if: always()
     steps:
@@ -409,3 +456,4 @@ jobs:
           echo "Commit validation: ${{ needs.commit-validation.result }}"
           echo "Workflow validation: ${{ needs.workflow-validation.result }}"
           echo "Secret scanning: ${{ needs.secret-scanning.result }}"
+          echo "Metrics collection: ${{ needs.validation-metrics.result }}"
