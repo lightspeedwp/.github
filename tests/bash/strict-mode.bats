@@ -27,7 +27,12 @@ is_baselined() {
 }
 
 has_strict_mode() {
-  grep -Eq '^set -E?euo pipefail( .*)?$' "$1"
+  # Check for top-level set -euo pipefail before any function definitions
+  awk '
+    /^[[:space:]]*(function[[:space:]]+)?[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)/ { found_func = 1 }
+    !found_func && /^set -E?euo pipefail/ { exit 0 }
+    END { exit 1 }
+  ' "$1"
 }
 
 @test "first-party shell scripts use strict mode" {
