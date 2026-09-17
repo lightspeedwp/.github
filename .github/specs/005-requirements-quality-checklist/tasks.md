@@ -33,9 +33,15 @@
 
 ## Format: `[ID] [P?] [Story?] Description`
 
+- **[ID]**: Task identifier (T001, T002, etc.)
 - **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (US1-US4)
-- 8 quality dimensions: Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities
+- **[Story]**: Which user story this task belongs to (US1-US4):
+  - **US1** = FR-1 (Base Checklist Template with 8 dimensions, 40–50 items)
+  - **US2** = FR-2 (Domain Customization & Variants: UX, API, Security, Performance)
+  - **US3** = FR-3 (Multi-Audience Support: author, peer, stakeholder, integration guidance)
+  - **US4** = FR-4 (Tooling & /speckit-checklist Integration: automated generation)
+  - *Note: 4 user scenarios (author pre-review, peer review, stakeholder, integration) are USE CASES showing who uses the framework; user stories are CAPABILITIES mapping to FRs 1-4*
+- **8 quality dimensions**: Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities
 
 ---
 
@@ -64,6 +70,7 @@
 - [ ] T010 [P] Implement completeness calculator at `.specify/templates/checklist-template/lib/completeness-calculator.js` (count items, track states, calculate completion %)
 - [ ] T011 Create test suite scaffolding at `.specify/templates/checklist-template/test/unit/` (test fixtures for each dimension)
 - [ ] T012 [P] Implement traceability linker at `.specify/templates/checklist-template/lib/traceability-linker.js` (extract [Spec §X.Y], [Gap], [Ambiguity] references)
+- [ ] T012b [P] Define gap/ambiguity marker syntax and formatting at `.specify/templates/checklist-template/MARKER_SYNTAX.md` (syntax: `[Gap: requirement-area]`, `[Ambiguity: unclear-aspect]`, `[Ambiguity-Critical: blocking-issue]`; include summary template for checklist footer: "Summary: Gaps: N, Ambiguities: M (of which N critical)")
 
 **Checkpoint**: Framework ready - user story implementation can begin
 
@@ -177,7 +184,7 @@
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-**Purpose**: Final validation, documentation, training, and integration
+**Purpose**: Final validation, documentation, training, adoption metrics, and integration
 
 - [ ] T055 [P] Create comprehensive README at `.specify/templates/checklist-template/README.md` (framework overview, quick-start, examples)
 - [ ] T056 [P] Create architecture documentation at `.specify/templates/checklist-template/ARCHITECTURE.md` (framework design, 8 dimensions rationale, module responsibilities)
@@ -187,6 +194,8 @@
 - [ ] T060 Run quickstart.md validation scenarios at `.github/specs/005-requirements-quality-checklist/quickstart.md` (confirm all 4 scenarios work)
 - [ ] T061 Integrate checklist framework into spec workflow documentation at `.github/CLAUDE.md` (reference checklist framework for spec quality)
 - [ ] T062 Create migration guide for specs that pre-date framework at `.specify/templates/checklist-template/docs/MIGRATION.md` (how to retroactively apply checklists to existing specs)
+- [ ] T063 [US3] Create usability test suite at `.specify/templates/checklist-template/test/usability/` (timed walkthroughs: author with 40-item checklist <30 min target, stakeholder with summary <15 min target, reviewer with 45-min target; measure time per item, total completion, identify bottlenecks)
+- [ ] T064 Create requirements-quality compliance dashboard at `.github/reports/requirements-quality-compliance/dashboard.md` (daily updates showing: adoption % [target ≥90%], specification coverage %, dimension compliance %, gap/ambiguity counts by project, trend data over 30+ days; automated metrics via GitHub Actions label automation)
 
 ---
 
@@ -271,18 +280,18 @@
 ## Task Count Summary
 
 - **Phase 1 (Setup)**: 6 tasks
-- **Phase 2 (Foundational)**: 6 tasks (3 blocking)
+- **Phase 2 (Foundational)**: 7 tasks (3 blocking) [+1: T012b marker syntax]
 - **Phase 3 (US1 - FR-1)**: 14 tasks (4 tests, 8 dimension content, 2 assembly/docs)
 - **Phase 4 (US2 - FR-2)**: 9 tasks (4 tests, 4 variants, 1 doc)
 - **Phase 5 (US3 - FR-3)**: 9 tasks (3 tests, 4 audience guidance, 2 implementation)
 - **Phase 6 (US4 - FR-4)**: 10 tasks (4 tests, 3 implementation, 1 skill integration, 1 doc)
-- **Phase 7 (Polish)**: 8 tasks
+- **Phase 7 (Polish)**: 10 tasks [+2: T063 usability testing, T064 metrics dashboard]
 
-**TOTAL: 62 tasks**
+**TOTAL: 65 tasks** (62 original + 3 new)
 
-**Parallelizable**: 42 tasks marked [P]  
-**MVP Scope**: Phases 1-2-3 = 26 tasks (1.5 weeks for 1 FTE, or 1 week for 2 FTE in parallel)  
-**Full Timeline**: 5 weeks, 35-50 hours (parallel team capable)
+**Parallelizable**: 42 tasks marked [P] (+ 3 new, mostly sequential)  
+**MVP Scope**: Phases 1-2-3 = 27 tasks (1.5 weeks for 1 FTE, or 1 week for 2 FTE in parallel)  
+**Full Timeline**: 5 weeks, 35-50 hours + usability/metrics work (parallel team capable; add 1-2 days for T063-T064)
 
 ---
 
@@ -290,13 +299,17 @@
 
 At completion of Phase 7:
 
-- ✅ Base template with 40-50 items, 8 dimensions (FR-1)
-- ✅ 4 domain variants: UX, API, Security, Performance (FR-2)
-- ✅ Multi-audience guidance: author, peer, stakeholder, integration (FR-3)
-- ✅ Automated checklist generation <2 minutes (FR-4)
-- ✅ 95%+ gap detection across specs
-- ✅ Team trained on requirements-quality concepts
-- ✅ Framework adopted for all three foundational specifications (003, 004, 005)
-- ✅ All phases completed within 5 weeks (35-50 hours)
+- ✅ Base template with 40-50 items, 8 dimensions (FR-1) — T017–T026
+- ✅ 4 domain variants: UX, API, Security, Performance (FR-2) — T031–T035
+- ✅ Multi-audience guidance: author, peer, stakeholder, integration (FR-3) — T039–T044
+- ✅ Automated checklist generation <5 minutes (FR-4) — T049–T052
+- ✅ Gap/ambiguity marker syntax defined and tested — T012b
+- ✅ 95%+ gap detection across test specification set (validated via T063 usability testing)
+- ✅ Author efficiency: <30 minutes for 40-item checklist (validated via T063 timed walkthrough)
+- ✅ Stakeholder clarity: <15 minutes to assess readiness using checklist (validated via T063)
+- ✅ Team trained on requirements-quality concepts — T059
+- ✅ Framework adopted for all three foundational specifications (003, 004, 005) — tracked via T064 compliance dashboard
+- ✅ Compliance dashboard live with daily updates (adoption %, coverage %, trends) — T064
+- ✅ All phases completed within 5 weeks + 1-2 days usability/metrics work (35-50 hours + T063-T064)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
