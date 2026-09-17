@@ -6,16 +6,14 @@ on:
       - '.github/specs/**'
       - '.github/workflows/validate-specifications.yml'
       - '.specify/scripts/bash/audit-specs.sh'
-      - 'tests/bash/audit-specs.bats'
+      - 'tests/bash/**'
   push:
     branches:
       - develop
     paths:
       - '.github/specs/**'
-      - 'tests/bash/audit-specs.bats'
+      - 'tests/bash/**'
       - '.specify/scripts/bash/audit-specs.sh'
-      - 'tests/bash/audit-specs.bats'
-      - 'tests/bash/audit-specs.bats'
 
 permissions:
   contents: read
@@ -86,7 +84,7 @@ jobs:
       - name: Run audit script test suite
         id: tests
         run: |
-          bats tests/bash/audit-specs.bats
+          bats tests/bash
           echo "tests_ok=true" >> "$GITHUB_OUTPUT"
           echo "✓ Audit script tests passed"
 
