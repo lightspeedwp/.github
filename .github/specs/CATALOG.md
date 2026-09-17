@@ -1,5 +1,7 @@
 # Specification Catalog
 
+**Last Updated**: 2026-09-17 | **Maintained by**: Governance Authority (@ashley)
+
 ## Overview
 
 Centralized index of all LightSpeed governance specifications. This catalog provides governance teams, stakeholders, and specification maintainers with a complete overview of specification status, purpose, and location. Use this document as the primary entry point for specification discovery.
@@ -22,6 +24,13 @@ Centralized index of all LightSpeed governance specifications. This catalog prov
 | 010 | Requirements Quality Checklist | Validate requirements completeness and measurability | Active | 2026-04-01 | [./010-requirements-checklist/spec.md](./010-requirements-checklist/spec.md) |
 | 011 | Workflow Consolidation Phase 2 | Reduce duplication in GitHub Actions workflows | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
 | 012 | Governance Files Audit & Refactor | Improve policy compliance and maintainability | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
+
+---
+
+## Draft Specifications
+
+| # | Title | Purpose | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
 | 013 | SpecKit Folder Organization Refactoring | Audit specs structure and establish quality governance | Draft | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
 
 ---
@@ -186,7 +195,7 @@ Audit and refactor the SpecKit folder organization (001-012 specifications) to e
 
 ## Archive
 
-Currently no archived or deprecated specifications. All numbered specifications (001-013) remain active or in progress.
+Currently no archived or deprecated specifications. All numbered specifications remain in one of three states: Draft (pending approval), Active (approved and in use), or Archived (superseded or cancelled).
 
 ---
 
@@ -243,7 +252,3 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 For audit results, see [013-spec-folder-refactor/audit-reports/](./013-spec-folder-refactor/audit-reports/).
 
 **Maintenance**: See [MAINTENANCE.md](./MAINTENANCE.md) for procedures for creating, updating, archiving, and validating specifications.
-
----
-
-*Specification Catalog v1.0 | Last Updated: 2026-09-16 | Maintained by Governance Authority (@ashley)*

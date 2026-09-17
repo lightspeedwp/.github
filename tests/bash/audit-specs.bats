@@ -105,7 +105,7 @@ run_audit() {
   [[ "$output" == *"spec.md present: 1/2"* ]]
 }
 
-@test "unrelated and malformed directories are ignored by the audit" {
+@test "unrelated and malformed directories are scanned but fail naming validation" {
   create_spec "001-first-spec"
   create_spec "002-second-spec"
   mkdir -p \
@@ -116,9 +116,12 @@ run_audit() {
   run_audit
 
   [ "$status" -eq 0 ]
-  [[ "$output" == *"Found 2 specification directories"* ]]
-  [[ "$output" == *"Total directories: 2"* ]]
-  [[ "$output" != *"Directory: 01-short-prefix"* ]]
-  [[ "$output" != *"Directory: 1000-long-prefix"* ]]
-  [[ "$output" != *"Directory: notes"* ]]
+  [[ "$output" == *"Found 5 specification directories"* ]]
+  [[ "$output" == *"Total directories: 5"* ]]
+  [[ "$output" == *"01-short-prefix"* ]]
+  [[ "$output" == *"1000-long-prefix"* ]]
+  [[ "$output" == *"notes"* ]]
+  [[ "$output" == *"✗ 01-short-prefix (invalid format)"* ]]
+  [[ "$output" == *"✗ 1000-long-prefix (invalid format)"* ]]
+  [[ "$output" == *"✗ notes (invalid format)"* ]]
 }

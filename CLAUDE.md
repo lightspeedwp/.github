@@ -213,8 +213,8 @@ Not all work needs a spec. Use your judgment:
 
 Browse all active governance specifications in the centralized catalog:
 
-- **[Specification Catalog](./specs/CATALOG.md)** — Complete index of all 13+ specifications with status, description, and direct links
-- **[Maintenance Procedures](./specs/MAINTENANCE.md)** — How to create, update, and archive specifications following the numbering scheme
+- **[Specification Catalog](./.github/specs/CATALOG.md)** — Complete index of all 13+ specifications with status, description, and direct links
+- **[Maintenance Procedures](./.github/specs/MAINTENANCE.md)** — How to create, update, and archive specifications following the numbering scheme
 
 The catalog provides quick navigation to any specification in <30 seconds. Use it as your starting point for understanding governance requirements and historical context.
 

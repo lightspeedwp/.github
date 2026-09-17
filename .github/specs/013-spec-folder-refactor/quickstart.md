@@ -135,7 +135,7 @@ ls -l .github/specs/013-spec-folder-refactor/audit-reports/audit-report.md
 **Test Steps**:
 
 1. **Verify audit report exists**
-   - File: `013-spec-folder-refactor/audit-report.md`
+   - File: `013-spec-folder-refactor/audit-reports/audit-report.md`
    - Expected: Comprehensive audit report exists
    - Result: ✅ Audit report found
 
@@ -339,16 +339,16 @@ ls -l .github/specs/013-spec-folder-refactor/audit-report.md
    - Result: ✅ Specification-first workflow integrated (SC-009)
 
 3. **Verify compliance metrics**
-   - 100% of specifications follow naming convention (SC-001)
-   - Numbering fully sequential with zero gaps (SC-002)
-   - CATALOG.md exists and linked from CLAUDE.md (SC-003)
-   - Quality audit complete with >95% accuracy (SC-004)
-   - Remediation plan actionable with ≥90% coverage (SC-005)
-   - Maintenance procedures documented and non-technical (SC-006)
-   - Specifications discoverable in <30 seconds (SC-007)
-   - Catalog updated within 7 days of new spec (SC-008)
-   - Future specifications follow documented procedures (SC-009)
-   - Result: ✅ All success criteria met
+   - 100% of specifications follow naming convention (SC-001) ✅
+   - Numbering fully sequential with zero gaps (SC-002) ✅
+   - CATALOG.md exists and linked from CLAUDE.md (SC-003) ✅
+   - Quality audit complete with >95% accuracy (SC-004) ✅
+   - Remediation plan actionable with ≥90% coverage (SC-005) ✅
+   - Maintenance procedures documented and non-technical (SC-006) ✅
+   - Specifications discoverable in <30 seconds (SC-007) ✅
+   - Catalog updated within 7 days of new spec (SC-008) ✅
+   - Future specifications follow documented procedures (SC-009) ⏳ PENDING—requires creation and validation of spec 014+
+   - Result: ✅ 8 of 9 success criteria met; SC-009 pending until next specification created
 
 **Expected Outcome**:
 
