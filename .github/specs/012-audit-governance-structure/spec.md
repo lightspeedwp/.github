@@ -8,6 +8,15 @@
 
 **Input**: User description: "Audit CLAUDE.md and AGENTS.md governance files to fix branch naming configuration issues, improve structure, establish proper AI client workflow (branch → spec → draft PR → review → merge), and resolve duplicates and bad references."
 
+## Implementation Approach
+
+This work is structured in two distinct phases:
+
+- **Phase 1 – Audit & Analysis**: Identify all duplicates, bad references, and structural issues; deliver findings in AUDIT_REPORT.md for review and approval by @ashley
+- **Phase 2 – Refactoring & Implementation**: Based on approved audit findings, implement fixes to CLAUDE.md and AGENTS.md; delivered in follow-up PR
+
+This two-phase approach allows stakeholder review and critique of findings before any changes are made to the governance files, reducing risk of unwanted modifications.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Governance Files Quality Baseline (Priority: P1)
@@ -154,6 +163,7 @@ As a **reader**, I need all references and links in governance files to point to
 - Q1: How to treat near-identical sections (e.g., "Label Creation Governance" appearing twice)? → A: Merge all sections with ≥70% text overlap into one; use union of both versions' content to preserve unique information from each occurrence
 - Q2: What categories of "bad references" to validate? → A: Validate all categories—broken/missing files, outdated paths, unimplemented consolidation claims, and line-number mismatches—for comprehensive reference validation
 - Q3: Audit report format and delivery mechanism? → A: Structured markdown report at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md` for version control, easy linking, and integration with spec artifacts
+- Q4: Audit and refactoring in same PR or separate phases? → A: Separate phases—Phase 1 audit findings only (AUDIT_REPORT.md for review/approval by @ashley), Phase 2 implements refactoring based on approved findings; allows critique before changes
 
 ## Assumptions
 
