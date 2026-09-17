@@ -28,6 +28,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 - Q: How should parallel phases (US2 & US3) be coordinated on a single branch? → A: Both US2 and US3 can commit to the feature branch in parallel; CI tests both workflows together without file-level conflicts.
 - Q: How to handle upstream changes during the 7-phase development cycle? → A: Merge develop into feature branch when critical upstream changes occur; avoid rebasing to preserve phase commit history.
 - Q: What is the minimum acceptable test coverage requirement for Phase 2 workflows and referenced scripts? → A: Functional + integration coverage ≥80% of critical workflow paths tested (labeling, validation, testing triggers), plus ≥80% line coverage for all scripts referenced by workflows. "Passing CI" = all tests green + no workflow syntax errors.
+- Q: Should Phase 2 include mergify scheduling, footer fixes, and badge validation or treat them as separate initiatives? → A: Include all three as Phase 2 deliverables (Option C). Expand Phase 2 scope to cover workflow consolidation, operational enhancements (mergify, footers), and governance (badge validation rules).
 
 ## Branch Strategy
 
@@ -156,13 +157,29 @@ git push origin refactor/workflow-consolidation-phase-2
 
 **Rationale:** Single feature branch simplifies management; no need to maintain multiple per-phase branches post-merge.
 
-## Deliverables
+## Scope Definition
+
+### In Scope (Phase 2)
+
+**Core Deliverables:**
 
 1. **labeling-unified.yml** — Unified labeling engine (9 archived workflows)
 2. **validation-unified.yml** — Unified validation gate (12 archived workflows)
 3. **linting-unified.yml** — Unified code quality linting (2 archived workflows)
 4. **quality-gates.yml** — Unified security and quality gates (5 utilities)
 5. **testing-unified.yml** — Unified test orchestration (8 archived workflows)
+
+**Operational Enhancements (Phase 2 Expansion):**
+6. **Mergify dependabot scheduling** — Configure mergify to merge dependabot PRs daily or every 2 days (vs current weekly)
+7. **Footer duplication fix** — Debug and fix footer insertion duplication in workflows/automation
+8. **Badge validation rules** — Define badge taxonomy, validation rules, and mapping to GitHub Actions workflows
+
+### Out of Scope (Post-Phase 2)
+
+- PR/issue template restructuring (locked per CLAUDE.md)
+- Label taxonomy changes (locked per CLAUDE.md)
+- GitHub Actions minute budget increases (hard requirement: ≤15% reduction maintained)
+- Workflow architecture redesign (if performance target not met, defer vs redesign)
 
 ## Success Criteria
 
