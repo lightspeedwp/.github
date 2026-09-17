@@ -95,57 +95,57 @@
 
 #### SpecKit Files (Priority 95)
 
-- [ ] T039 [US1] Create instruction block for `.specify/spec.md` (priority 95): specification completeness review (FR-007, SC-007)
-- [ ] T040 [US1] Create instruction block for `.specify/plan.md` (priority 95): implementation plan review (FR-007, SC-007)
-- [ ] T041 [US1] Create instruction block for `.specify/tasks.md` (priority 95): task decomposition review (FR-007, SC-007)
+- [x] T039 [US1] Create instruction block for `.specify/spec.md` (priority 95): specification completeness review (FR-007, SC-007)
+- [x] T040 [US1] Create instruction block for `.specify/plan.md` (priority 95): implementation plan review (FR-007, SC-007)
+- [x] T041 [US1] Create instruction block for `.specify/tasks.md` (priority 95): task decomposition review (FR-007, SC-007)
 
 #### GitHub Workflows & CI/CD (Priority 90)
 
-- [ ] T042 [US1] Create instruction block for `.github/workflows/*.yml` (priority 90): GitHub Actions review (FR-001)
-- [ ] T043 [US1] Create instruction block for `.github/scripts/` (priority 88): automation script review (FR-001)
+- [x] T042 [US1] Create instruction block for `.github/workflows/*.yml` (priority 90): GitHub Actions review (FR-001)
+- [x] T043 [US1] Create instruction block for `.github/scripts/` (priority 88): automation script review (FR-001)
 
 #### GitHub Templates & Configuration (Priority 85-90)
 
-- [ ] T044 [US1] Create instruction block for `.github/ISSUE_TEMPLATE/` (priority 87): issue template review (FR-001, FR-012)
-- [ ] T045 [US1] Create instruction block for `.github/PULL_REQUEST_TEMPLATE/` (priority 87): PR template review (FR-001, FR-012)
-- [ ] T046 [US1] Create instruction block for `.github/labels.yml` (priority 85): label definition review (FR-001, FR-011)
-- [ ] T047 [US1] Create instruction block for `.github/issue-types.yml` (priority 85): issue type definition review (FR-001)
+- [x] T044 [US1] Create instruction block for `.github/ISSUE_TEMPLATE/` (priority 87): issue template review (FR-001, FR-012)
+- [x] T045 [US1] Create instruction block for `.github/PULL_REQUEST_TEMPLATE/` (priority 87): PR template review (FR-001, FR-012)
+- [x] T046 [US1] Create instruction block for `.github/labels.yml` (priority 85): label definition review (FR-001, FR-011)
+- [x] T047 [US1] Create instruction block for `.github/issue-types.yml` (priority 85): issue type definition review (FR-001)
 
 #### Documentation Files (Priority 80)
 
-- [ ] T048 [US1] Create instruction block for `docs/BRANCHING_STRATEGY.md` (priority 82): branching strategy review (FR-006, FR-013)
-- [ ] T049 [US1] Create instruction block for `docs/LABELING.md` (priority 80): labeling strategy review (FR-001)
-- [ ] T050 [US1] Create instruction block for `docs/*.md` (priority 70): general documentation review (FR-001)
+- [x] T048 [US1] Create instruction block for `docs/BRANCHING_STRATEGY.md` (priority 82): branching strategy review (FR-006, FR-013)
+- [x] T049 [US1] Create instruction block for `docs/LABELING.md` (priority 80): labeling strategy review (FR-001)
+- [x] T050 [US1] Create instruction block for `docs/*.md` (priority 70): general documentation review (FR-001)
 
 #### Code & Type Definition Files (Priority 50-70)
 
-- [ ] T051 [US1] Create instruction block for `agents/` (priority 65): agent specification review (FR-001, FR-010)
-- [ ] T052 [US1] Create instruction block for `instructions/` (priority 65): instruction file review (FR-001, FR-010)
-- [ ] T053 [US1] Create instruction block for `skills/*/SKILL.md` (priority 63): skill documentation review (FR-008, SC-007)
-- [ ] T054 [US1] Create instruction block for `workflows/` (priority 62): agentic workflow review (FR-008)
-- [ ] T055 [US1] Create instruction block for `**/*.md` (priority 55): markdown documentation review (FR-001, SC-002)
-- [ ] T056 [US1] Create instruction block for `**/*.{js,ts,tsx}` (priority 50): TypeScript/JavaScript review (FR-001)
-- [ ] T057 [US1] Create instruction block for `**/*.{py}` (priority 50): Python code review (FR-001)
-- [ ] T058 [US1] Create instruction block for `**/*.{php}` (priority 50): PHP code review (FR-001, FR-006)
-- [ ] T059 [US1] Create instruction block for `**/test/**`, `**/*.test.*` (priority 60): test code review (FR-001)
-- [ ] T060 [US1] Create instruction block for `.github/tmp/`, `**/*.generated.*` (priority 40): generated/temporary file review (FR-001)
-- [ ] T061 [US1] Create instruction block for `**/*` (priority 10): universal file review guidance (FR-001, SC-002)
+- [x] T051 [US1] Create instruction block for `agents/` (priority 65): agent specification review (FR-001, FR-010)
+- [x] T052 [US1] Create instruction block for `instructions/` (priority 65): instruction file review (FR-001, FR-010)
+- [x] T053 [US1] Create instruction block for `skills/*/SKILL.md` (priority 63): skill documentation review (FR-008, SC-007)
+- [x] T054 [US1] Create instruction block for `workflows/` (priority 62): agentic workflow review (FR-008)
+- [x] T055 [US1] Create instruction block for `**/*.md` (priority 55): markdown documentation review (FR-001, SC-002)
+- [x] T056 [US1] Create instruction block for `**/*.{js,ts,tsx}` (priority 50): TypeScript/JavaScript review (FR-001)
+- [x] T057 [US1] Create instruction block for `**/*.{py}` (priority 50): Python code review (FR-001)
+- [x] T058 [US1] Create instruction block for `**/*.{php}` (priority 50): PHP code review (FR-001, FR-006)
+- [x] T059 [US1] Create instruction block for `**/test/**`, `**/*.test.*` (priority 60): test code review (FR-001)
+- [x] T060 [US1] Create instruction block for `.github/tmp/`, `**/*.generated.*` (priority 40): generated/temporary file review (FR-001)
+- [x] T061 [US1] Create instruction block for `**/*` (priority 10): universal file review guidance (FR-001, SC-002)
 
 ### Code Review Instructions - Enhancement (All Blocks)
 
-- [ ] T062 [P] [US1] Review all blocks T039-T061: ensure 3-4 distinct focus areas per SC-002
-- [ ] T063 [P] [US1] Review all blocks: ensure 2-3 specific, actionable checks per focus area
-- [ ] T064 [P] [US1] Review all blocks: verify technology-agnostic language (FR-006)
-- [ ] T065 [P] [US1] Review all blocks: validate markdown structure, formatting, references
-- [ ] T066 [US1] Verify security-critical files have prominent security guidance (FR-003, SC-003)
-- [ ] T067 [US1] Verify performance-related files reference performance criteria (FR-004)
-- [ ] T068 [US1] Verify accessibility-related files reference WCAG 2.2 AA (FR-005)
+- [x] T062 [P] [US1] Review all blocks T039-T061: ensure 3-4 distinct focus areas per SC-002
+- [x] T063 [P] [US1] Review all blocks: ensure 2-3 specific, actionable checks per focus area
+- [x] T064 [P] [US1] Review all blocks: verify technology-agnostic language (FR-006)
+- [x] T065 [P] [US1] Review all blocks: validate markdown structure, formatting, references
+- [x] T066 [US1] Verify security-critical files have prominent security guidance (FR-003, SC-003)
+- [x] T067 [US1] Verify performance-related files reference performance criteria (FR-004)
+- [x] T068 [US1] Verify accessibility-related files reference WCAG 2.2 AA (FR-005)
 
 ### Coverage Validation for US1
 
-- [ ] T069 [US1] Count instruction blocks: target 47-50 per SC-001
-- [ ] T070 [US1] Verify coverage meets ≥95% per SC-001
-- [ ] T071 [US1] Document any gaps from audit (T014) - mark for future phases
+- [x] T069 [US1] Count instruction blocks: target 47-50 per SC-001
+- [x] T070 [US1] Verify coverage meets ≥95% per SC-001
+- [x] T071 [US1] Document any gaps from audit (T014) - mark for future phases
 
 **Checkpoint**: US1 complete - 47-50 instruction blocks with 3-4 focus areas each, technology-agnostic guidance
 
