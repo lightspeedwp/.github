@@ -3,9 +3,11 @@ name: Changelog Quality Validation
 on:
   pull_request:
     paths:
-      - 'CHANGELOG.yml'
       - 'CHANGELOG.md'
-      - 'agents/changelog/**'
+      - '.github/validation/changelog/**'
+    branches:
+      - develop
+      - main
 
 permissions:
   contents: read
@@ -30,28 +32,29 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'agents/changelog/package-lock.json'
+          cache-dependency-path: '.github/validation/changelog/package.json'
 
       - name: Install dependencies
-        run: npm ci --prefix agents/changelog
+        run: |
+          cd .github/validation/changelog
+          npm ci
 
       - name: Detect changed files
         id: changed-files
         uses: tj-actions/changed-files@v46
         with:
           files: |
-            CHANGELOG.yml
             CHANGELOG.md
 
       - name: Validate changelog entries
         id: validate
         run: |
-          cd agents/changelog
+          cd .github/validation/changelog
 
           if [ "${{ steps.changed-files.outputs.any_changed }}" == "false" ]; then
-            echo "passed=true" >> $GITHUB_OUTPUT
+            echo "passed=0" >> $GITHUB_OUTPUT
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=No changelog files modified in this PR" >> $GITHUB_OUTPUT
@@ -59,24 +62,46 @@ jobs:
           fi
 
           # Run validation and capture results
-          RESULT=$(npm run validate:changelog -- --json 2>&1 || true)
+          node bin/validate.js \
+            --changelog-path ../../../CHANGELOG.md \
+            --trigger pr_submission \
+            --pr-number ${{ github.event.pull_request.number }} \
+            --branch ${{ github.head_ref }} \
+            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
-          # Extract counts
-          PASSED=$(echo "$RESULT" | grep -o '"passed": *[0-9]*' | head -1 | grep -o '[0-9]*' || echo "0")
-          FAILED=$(echo "$RESULT" | grep -o '"failed": *[0-9]*' | head -1 | grep -o '[0-9]*' || echo "0")
-          WARNINGS=$(echo "$RESULT" | grep -o '"warnings": *[0-9]*' | head -1 | grep -o '[0-9]*' || echo "0")
+          # Parse report
+          if [ -f validation-report.json ]; then
+            PASSED=$(jq '.summary.passed' validation-report.json 2>/dev/null || echo "0")
+            FAILED=$(jq '.summary.failed' validation-report.json 2>/dev/null || echo "0")
+            RESULT=$(jq -r '.recommendation' validation-report.json 2>/dev/null || echo "UNKNOWN")
+            GATE_RESULT=$(jq -r '.ci_gate_result' validation-report.json 2>/dev/null || echo "UNKNOWN")
 
-          echo "passed=$PASSED" >> $GITHUB_OUTPUT
-          echo "failed=$FAILED" >> $GITHUB_OUTPUT
-          echo "warnings=$WARNINGS" >> $GITHUB_OUTPUT
+            echo "passed=$PASSED" >> $GITHUB_OUTPUT
+            echo "failed=$FAILED" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "result=$RESULT" >> $GITHUB_OUTPUT
+            echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
 
-          # Determine if validation passed
-          if [ "$FAILED" -gt 0 ]; then
-            echo "result=FAILED" >> $GITHUB_OUTPUT
-            exit 1
+            # Save full report for audit
+            cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
+
+            # Exit based on gate result
+            if [ "$GATE_RESULT" == "pass" ]; then
+              exit 0
+            elif [ "$GATE_RESULT" == "warning" ]; then
+              exit 0
+            else
+              exit 1
+            fi
           else
-            echo "result=PASSED" >> $GITHUB_OUTPUT
-            exit 0
+            echo "passed=0" >> $GITHUB_OUTPUT
+            echo "failed=0" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "result=ERROR" >> $GITHUB_OUTPUT
+            echo "gate_result=UNKNOWN" >> $GITHUB_OUTPUT
+            [ -f validation-stderr.log ] && cat validation-stderr.log
+            exit 1
           fi
         continue-on-error: true
 
@@ -119,11 +144,11 @@ jobs:
           echo "" >> /tmp/comment.md
           echo "Run locally:" >> /tmp/comment.md
           echo "\`\`\`bash" >> /tmp/comment.md
-          echo "cd agents/changelog" >> /tmp/comment.md
-          echo "npm run validate:changelog" >> /tmp/comment.md
+          echo "cd .github/validation/changelog" >> /tmp/comment.md
+          echo "node bin/validate.js --changelog-path CHANGELOG.md" >> /tmp/comment.md
           echo "\`\`\`" >> /tmp/comment.md
           echo "" >> /tmp/comment.md
-          echo "See [Changelog Quality Audit](../docs/CHANGELOG_QUALITY_AUDIT.md) for details." >> /tmp/comment.md
+          echo "See [Changelog Quality Audit](.github/validation/changelog/docs/DEVELOPER_GUIDE.md) for details." >> /tmp/comment.md
 
           # Save comment content
           COMMENT_BODY=$(cat /tmp/comment.md)

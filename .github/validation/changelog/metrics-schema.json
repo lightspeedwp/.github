@@ -1,0 +1,151 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Changelog Metrics Snapshot",
+  "description": "Schema for changelog compliance metrics captured at a point in time",
+  "type": "object",
+  "required": [
+    "snapshot_id",
+    "timestamp",
+    "snapshot_period",
+    "total_entries",
+    "compliant_entries",
+    "compliance_percent",
+    "length_distribution",
+    "impl_detail_rate",
+    "pr_link_coverage",
+    "issues_found",
+    "trend_vs_previous"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "description": "Unique identifier for this snapshot (ISO 8601 timestamp format)",
+      "example": "2026-09-17T00:00:00Z"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When metrics were captured (ISO 8601)"
+    },
+    "snapshot_period": {
+      "type": "string",
+      "enum": ["daily", "weekly", "monthly"],
+      "description": "Frequency of metric capture"
+    },
+    "total_entries": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total count of entries in [Unreleased] section"
+    },
+    "compliant_entries": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Count of entries passing all validation rules"
+    },
+    "compliance_percent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "(compliant_entries / total_entries) * 100"
+    },
+    "length_distribution": {
+      "type": "object",
+      "description": "Distribution of entry lengths across buckets",
+      "required": ["0_to_100", "100_to_250", "250_to_500", "500_plus"],
+      "properties": {
+        "0_to_100": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Entries 0-100 characters"
+        },
+        "100_to_250": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Entries 100-250 characters (target zone)"
+        },
+        "250_to_500": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Entries 250-500 characters (exceeds limit)"
+        },
+        "500_plus": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Entries 500+ characters (far exceeds limit)"
+        }
+      }
+    },
+    "impl_detail_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage of entries flagged with implementation details"
+    },
+    "pr_link_coverage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage of entries with valid PR/issue links"
+    },
+    "issues_found": {
+      "type": "object",
+      "description": "Violation counts grouped by rule ID",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "example": {
+        "CHK_MAX_LENGTH": 2,
+        "CHK_NO_IMPL_DETAILS": 5,
+        "CHK_HAS_PR_LINK": 1
+      }
+    },
+    "trend_vs_previous": {
+      "type": "object",
+      "description": "Change metrics compared to previous snapshot",
+      "required": ["compliance_delta", "entries_added", "entries_refactored"],
+      "properties": {
+        "compliance_delta": {
+          "type": "number",
+          "description": "Change in compliance percentage (can be negative)"
+        },
+        "entries_added": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "New entries added since last snapshot"
+        },
+        "entries_refactored": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Entries modified to fix compliance issues"
+        }
+      }
+    }
+  },
+  "example": {
+    "snapshot_id": "2026-09-17T00:00:00Z",
+    "timestamp": "2026-09-17T00:00:00Z",
+    "snapshot_period": "daily",
+    "total_entries": 185,
+    "compliant_entries": 176,
+    "compliance_percent": 95.1,
+    "length_distribution": {
+      "0_to_100": 12,
+      "100_to_250": 164,
+      "250_to_500": 8,
+      "500_plus": 1
+    },
+    "impl_detail_rate": 3.2,
+    "pr_link_coverage": 98.9,
+    "issues_found": {
+      "CHK_MAX_LENGTH": 1,
+      "CHK_NO_IMPL_DETAILS": 6,
+      "CHK_HAS_PR_LINK": 2
+    },
+    "trend_vs_previous": {
+      "compliance_delta": 2.1,
+      "entries_added": 8,
+      "entries_refactored": 3
+    }
+  }
+}
