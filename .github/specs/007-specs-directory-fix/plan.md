@@ -1,6 +1,6 @@
 # Implementation Plan: Fix Specs Directory Configuration
 
-**Branch**: `fix/specs-directory-configuration` | **Date**: 2026-09-14 | **Spec**: [./spec.md](./spec.md)
+**Branch**: `fix/specs-directory-structure` | **Date**: 2026-09-14 | **Spec**: [./spec.md](./spec.md)
 
 **Input**: Feature specification from `.github/specs/007-specs-directory-fix/spec.md`
 
