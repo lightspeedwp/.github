@@ -152,12 +152,14 @@ status: complete
 ## Archive Statistics
 
 ### By Category
+
 - **Total Categories:** 8
 - **Workflows per category:** 7-12 workflows
 - **Largest category:** Validation (12 workflows)
 - **Smallest category:** Labeling (9 workflows)
 
 ### By Consolidation Target
+
 - **Unified labeling:** 9 workflows → 1
 - **Unified validation:** 12 workflows → 1
 - **Unified testing:** 8 workflows → 1
@@ -165,6 +167,7 @@ status: complete
 - **Distributed across others:** 31 workflows → 10 consolidated workflows
 
 ### Estimated Impact
+
 - **Code deduplication:** ~500 lines of duplicate code eliminated
 - **Maintenance burden:** Reduced by 82% (76 workflows → 14)
 - **Check gates:** Reduced from 15-20+ per PR to 1 unified gate
@@ -178,11 +181,13 @@ status: complete
 ### Quick Restore Commands
 
 **Restore single workflow:**
+
 ```bash
 git show refactor/workflow-consolidation-and-archiving:.github/workflows/archived/2026-09-11/labeling/labeling.yml > .github/workflows/labeling.yml
 ```
 
 **Restore entire archive:**
+
 ```bash
 git checkout refactor/workflow-consolidation-and-archiving -- .github/workflows/archived/2026-09-11/
 ```

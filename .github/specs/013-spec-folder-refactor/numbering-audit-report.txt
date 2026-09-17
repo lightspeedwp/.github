@@ -88,16 +88,19 @@ NUMBERING STRATEGY CLARIFICATION
 Per session 2026-09-16 clarification (spec.md §Clarifications):
 
 Numbering Strategy Decision:
+
 - PRESERVE current specs (001-012) exactly as-is
 - START new specs at 013 (not at highest+1 in range)
 - FUTURE numbering rule: next = highest current + 1
 
 Implementation:
+
 - Current highest: 013 (our audit spec)
 - Next specification: 014
 - Subsequent: 015, 016, 017, etc.
 
 Rationale:
+
 - Maintains historical traceability (no renumbering of existing specs)
 - Enables predictable future numbering (mechanical assignment)
 - Preserves chronological ordering (new specs get incrementally higher numbers)
@@ -151,6 +154,7 @@ Pass/Fail: PASS
 Remediation Required: NONE
 
 Acceptance Criteria Status:
+
 - SC-002: PASS - Sequential numbering fully verified
 - SC-009: PENDING - Requires creation of subsequent specification (014+) to validate
 

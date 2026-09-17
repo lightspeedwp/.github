@@ -60,12 +60,14 @@ Archived/deprecated specifications (if any)
 ### Content Rules
 
 **Canonical Index Table Schema**:
+
 - Format: `| # | Slug | Title | Status | Created | Link |` (exactly 6 columns in this order)
 - Used for all status-based tables: Active Specifications, Draft Specifications, Archived Specifications
 - One row per specification (001, 002, ..., 013+)
 - Sorted by specification number (ascending)
 
 **Column Definitions**:
+
 - `#` column: 3-digit number (left-padded with zeros)
 - `Slug` column: Directory slug derived from directory name (e.g., "spec-folder-refactor" from "013-spec-folder-refactor")
 - `Title` column: Full specification title
@@ -74,6 +76,7 @@ Archived/deprecated specifications (if any)
 - `Link` column: Markdown link to `./NNN-{slug}/spec.md`
 
 **Detailed Entries**:
+
 - One detailed entry per specification (same order as table)
 - Heading format: `### NNN - Title` (3-digit number + dash + title)
 - Summary: 2-3 plain-language sentences
@@ -91,21 +94,25 @@ Archived/deprecated specifications (if any)
 ### Usage Scenarios
 
 **User Story 1 - Discovery**: Governance team opens CATALOG.md and sees all 12+ specifications at a glance
+
 - ✅ Can scan index table to find desired specification
 - ✅ Can identify specification by number, title, or status
 - ✅ Can navigate to detailed entry for more information
 
 **User Story 2 - Navigation**: Team member needs to locate a specific specification
+
 - ✅ Uses Ctrl+F or browser search to find keyword/number
 - ✅ Locates detailed entry and clicks link
 - ✅ Navigates to specification directory in <30 seconds (SC-007)
 
 **User Story 3 - Status Tracking**: Manager wants to see which specs are in progress, complete, or draft
+
 - ✅ Scans Status column in index table
 - ✅ Identifies complete vs. active vs. draft specifications
 - ✅ Understands overall governance progress
 
 **User Story 4 - New Contributor Onboarding**: New team member wants to understand governance specifications
+
 - ✅ Opens CATALOG.md as entry point to governance system
 - ✅ Reads overview and discovers all active specifications
 - ✅ Picks a specification to read and understand structure

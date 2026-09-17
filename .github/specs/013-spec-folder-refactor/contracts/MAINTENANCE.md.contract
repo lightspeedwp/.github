@@ -50,21 +50,22 @@
    touch .github/specs/NNN-{slug}/spec.md
    mkdir -p .github/specs/NNN-{slug}/checklists
    ```
-   - NNN = 3-digit number (zero-padded: 001, 002, ..., 013)
-   - {slug} = lowercase, hyphens, no spaces/special-chars
 
-3. **Use SpecKit workflow**
+- NNN = 3-digit number (zero-padded: 001, 002, ..., 013)
+- {slug} = lowercase, hyphens, no spaces/special-chars
+
+1. **Use SpecKit workflow**
    - Run `/speckit-specify` with feature description
    - Complete `/speckit-clarify` to resolve ambiguities
    - Complete `/speckit-plan` to design technical approach
    - Complete `/speckit-tasks` to decompose into implementation tasks
 
-4. **Update CATALOG.md**
+2. **Update CATALOG.md**
    - Add row to index table with new number, title, purpose, status, date
    - Add detailed entry section below (see CATALOG.md contract)
    - Update date to creation date
 
-5. **Approval gate**
+3. **Approval gate**
    - New specification requires review by @ashley (governance authority)
    - Specification must pass all 8 quality dimensions (Constitution Principle VII)
    - Quality checklist in `checklists/requirements.md` must show all items passing
@@ -85,6 +86,7 @@
 ## Updating an Existing Specification
 
 ### When to Update
+
 - Clarification needed from stakeholders
 - Ambiguity discovered during planning/implementation
 - Scope change required
@@ -131,6 +133,7 @@
 ## Archiving a Specification
 
 ### When to Archive
+
 - Specification is obsolete or superseded
 - Specification requires complete rewrite
 - Specification scope is no longer relevant
@@ -166,6 +169,7 @@
 ## Maintaining CATALOG.md
 
 ### Update Frequency
+
 - **Automatic**: Within 7 days of any new specification creation (SC-008)
 - **Triggered**: Any time specification status changes (Draft → Clarified, Active → Complete, etc.)
 - **Manual check**: Monthly review to ensure all entries are current
@@ -200,10 +204,12 @@ Every specification must pass all 8 quality dimensions before it can be used as 
 8. **Ambiguities** — No unresolved NEEDS CLARIFICATION markers
 
 ### Quality Checklist Location
+
 - File: `.github/specs/NNN-{slug}/checklists/requirements.md`
 - All items must be checked ([ ] → [x]) before approval
 
 ### Failure Action
+
 - If quality checklist has unchecked items → Specification blocked from approval
 - Specification author must fix gaps, re-run `/speckit-clarify` if needed
 - @ashley reviews updated quality checklist before final approval
@@ -215,6 +221,7 @@ Every specification must pass all 8 quality dimensions before it can be used as 
 **Specification Approval Authority**: @ashley (organisation owner)
 
 **Decisions Requiring @ashley Approval**:
+
 - ✅ New specification creation
 - ✅ Significant specification updates
 - ✅ Specification archival/deprecation
@@ -222,6 +229,7 @@ Every specification must pass all 8 quality dimensions before it can be used as 
 - ✅ Quality gate exceptions (rare; requires documented justification)
 
 **Self-Service Decisions** (no approval needed):
+
 - ✅ Minor clarifications or wording fixes
 - ✅ CATALOG.md entry updates (status, dates) for existing specs
 - ✅ Bug fixes or corrections to implementation tasks

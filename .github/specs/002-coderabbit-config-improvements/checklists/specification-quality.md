@@ -135,4 +135,3 @@
 - Reference sections by full path when citing spec (e.g., [Spec §User Stories] means spec.md §User Stories)
 - Use `[Gap]` marker when identifying missing requirements; use `[Ambiguity]` for unclear items; use `[Consistency]` for conflicts
 - `/speckit-implement` reads checklist state and uses it as a validation gate; authors do not modify markers
-
