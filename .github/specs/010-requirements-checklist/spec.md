@@ -22,6 +22,7 @@ The framework addresses the gap between "I wrote requirements" and "these requir
 - Q: Should checklist item counts be fixed targets or acceptable ranges? → A: Target ranges for each variant allow implementation flexibility while maintaining scope control (Author 45–55, Peer 45–55, Stakeholder 20–30, Integration 25–35).
 - Q: How should users determine which variant to use, and can specs use multiple variants simultaneously? → A: Smart variant selection system recommends a variant based on spec metadata (author/peer/stakeholder/integration context) with user override capability; allows concurrent variants for multi-party review scenarios.
 - Q: When a reviewer or stakeholder disagrees on whether a checklist item passes, what's the resolution path? → A: Documented dissent approach: both scores recorded separately, results show both perspectives, final gate decision uses stricter score (most conservative), promoting transparency and preventing false consensus.
+- Q: Which integration patterns are required for MVP launch? → A: PR review gate only for MVP (aligns with P1 peer workflow, provides immediate GitHub value). Pre-commit check and async stakeholder sign-off deferred to post-launch roadmap phases.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -105,7 +106,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 - **FR-004**: System MUST allow specifications to be run against a checklist and produce a results document with pass/fail status per dimension (calculated as: passed items ÷ total applicable items × 100%; dimension passes if ≥75%), dimension scores (0-100%), and specific findings by checklist item. When multiple reviewers evaluate the same checklist, results MUST record individual scores separately and display the stricter (most conservative) score for gate decisions
 - **FR-005**: System MUST provide reference examples and clarification guidance for ambiguous checklist items (e.g., "What counts as 'measurable'?" with examples of good vs. poor criteria)
 - **FR-006**: System MUST support extension of the base checklist with project-specific quality rules (e.g., "All security specs MUST address [specific threat model]") without modifying the core framework
-- **FR-007**: System MUST enable integration with specification workflows (e.g., as a pre-commit check, as an automated PR review gate, as an async stakeholder sign-off tool)
+- **FR-007** (MVP): System MUST enable integration with GitHub PR review workflows as an automated PR gate for peer review (MVP scope). Future integrations (pre-commit check, async stakeholder sign-off tool) are deferred to post-launch roadmap
 - **FR-008**: System MUST track checklist results over time (e.g., which dimensions improved across iterations, which specs had the most rework cycles)
 
 ### Key Entities
@@ -138,6 +139,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 - **Baseline comparison**: Success metrics assume a control baseline of specs written without the checklist framework; internal pilot will establish baseline before full rollout
 - **Scalability**: Checklist is designed for specifications ranging from 5-page features to 50-page systems; very large architectural specs (100+ pages) may require decomposition into sub-specs
 - **No real-time collaboration**: Checklist is asynchronous (author completes it, sends results to reviewer); real-time collaborative review is out of scope for MVP
+- **MVP scope**: PR review gate integration only. Pre-commit check integration and async stakeholder sign-off tool are post-launch roadmap items. Framework core and manual usage available in MVP
 - **Dependencies**: Assumes specifications follow a standard structure (user stories, functional requirements, success criteria, assumptions) as defined in CLAUDE.md specification standards
 
 ## References
