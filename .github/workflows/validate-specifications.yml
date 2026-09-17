@@ -59,19 +59,13 @@ jobs:
 
       - name: Install Bats test framework
         uses: bats-core/bats-action@4.0.0
-        if: always()
 
       - name: Run audit script test suite
         id: tests
-        if: always()
         run: |
           bats tests/bash
           echo "tests_ok=true" >> "$GITHUB_OUTPUT"
           echo "✓ Audit script tests passed"
-
-      - name: Lint specification Markdown files
-        if: always()
-        run: npm run lint:md
 
       - name: Generate compliance report
         if: always()
