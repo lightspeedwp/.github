@@ -63,30 +63,44 @@ jobs:
 
           # Run validation and capture results
           node bin/validate.js \
-            --changelog-path CHANGELOG.md \
+            --changelog-path ../../../../CHANGELOG.md \
             --trigger pr_submission \
             --pr-number ${{ github.event.pull_request.number }} \
             --branch ${{ github.head_ref }} \
             --github-token ${{ secrets.GITHUB_TOKEN }} \
-            --output json > validation-report.json || true
+            --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
           # Parse report
           if [ -f validation-report.json ]; then
-            PASSED=$(jq '.summary.passed' validation-report.json || echo "0")
-            FAILED=$(jq '.summary.failed' validation-report.json || echo "0")
-            RESULT=$(jq -r '.recommendation' validation-report.json || echo "UNKNOWN")
+            PASSED=$(jq '.summary.passed' validation-report.json 2>/dev/null || echo "0")
+            FAILED=$(jq '.summary.failed' validation-report.json 2>/dev/null || echo "0")
+            RESULT=$(jq -r '.recommendation' validation-report.json 2>/dev/null || echo "UNKNOWN")
+            GATE_RESULT=$(jq -r '.ci_gate_result' validation-report.json 2>/dev/null || echo "UNKNOWN")
 
             echo "passed=$PASSED" >> $GITHUB_OUTPUT
             echo "failed=$FAILED" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=$RESULT" >> $GITHUB_OUTPUT
+            echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
 
-            [ "$FAILED" -eq 0 ] && exit 0 || exit 1
+            # Save full report for audit
+            cp validation-report.json ../../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
+
+            # Exit based on gate result
+            if [ "$GATE_RESULT" == "pass" ]; then
+              exit 0
+            elif [ "$GATE_RESULT" == "warning" ]; then
+              exit 0
+            else
+              exit 1
+            fi
           else
             echo "passed=0" >> $GITHUB_OUTPUT
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=ERROR" >> $GITHUB_OUTPUT
+            echo "gate_result=UNKNOWN" >> $GITHUB_OUTPUT
+            [ -f validation-stderr.log ] && cat validation-stderr.log
             exit 1
           fi
         continue-on-error: true
