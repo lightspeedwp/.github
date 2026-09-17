@@ -8,30 +8,45 @@ Centralized index of all LightSpeed governance specifications. This catalog prov
 
 ---
 
+## Catalog Schema (Canonical)
+
+**Table Structure**: `| # | Slug | Title | Status | Created | Link |`
+
+This canonical schema is used in:
+
+- Index tables in this document
+- MAINTENANCE.md entry specifications
+- MAINTENANCE.md.template examples
+- quickstart.md validation scenarios
+
+All specification catalog entries MUST follow this exact column order and naming.
+
+---
+
 ## Active Specifications
 
-| # | Title | Purpose | Status | Created | Link |
+| # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
-| 001 | PRD Agent Consolidation | Consolidate multiple PRD agents into unified system | Active | 2026-01-15 | [./001-prd-agent-consolidation/spec.md](./001-prd-agent-consolidation/spec.md) |
-| 002 | CodeRabbit Configuration Optimization | Optimize CodeRabbit configuration for GitHub integration | Active | 2026-01-20 | [./002-coderabbit-config-improvements/spec.md](./002-coderabbit-config-improvements/spec.md) |
-| 003 | Changelog Quality Audit & Phase 5 | Audit changelog quality and standardize procedures | Active | 2026-02-01 | [./003-changelog-quality-audit/spec.md](./003-changelog-quality-audit/spec.md) |
-| 004 | Branch Naming Strategy & Enforcement | Establish and enforce consistent branch naming | Active | 2026-02-10 | [./004-branch-naming-strategy/spec.md](./004-branch-naming-strategy/spec.md) |
-| 005 | Requirements Quality Checklist Framework | Validate specification completeness and clarity | Active | 2026-02-15 | [./005-requirements-quality-checklist/spec.md](./005-requirements-quality-checklist/spec.md) |
-| 006 | Governance Audit Implementation | Evaluate compliance with organizational policies | Active | 2026-03-01 | [./006-governance-audit/spec.md](./006-governance-audit/spec.md) |
-| 007 | Fix Specs Directory Configuration | Enable proper discovery of specification files | Active | 2026-03-05 | [./007-specs-directory-fix/spec.md](./007-specs-directory-fix/spec.md) |
-| 008 | GitHub Label Audit & Consolidation | Consolidate redundant labels into unified taxonomy | Active | 2026-03-15 | [./008-label-audit-consolidation/spec.md](./008-label-audit-consolidation/spec.md) |
-| 009 | Audit and Refactor Branch Cleanup | Improve branch cleanup procedures and efficiency | Active | 2026-03-20 | [./009-audit-branch-cleanup/spec.md](./009-audit-branch-cleanup/spec.md) |
-| 010 | Requirements Quality Checklist | Validate requirements completeness and measurability | Active | 2026-04-01 | [./010-requirements-checklist/spec.md](./010-requirements-checklist/spec.md) |
-| 011 | Workflow Consolidation Phase 2 | Reduce duplication in GitHub Actions workflows | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
-| 012 | Governance Files Audit & Refactor | Improve policy compliance and maintainability | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
+| 001 | prd-agent-consolidation | PRD Agent Consolidation | Active | 2026-01-15 | [./001-prd-agent-consolidation/spec.md](./001-prd-agent-consolidation/spec.md) |
+| 002 | coderabbit-config-improvements | CodeRabbit Configuration Optimization | Active | 2026-01-20 | [./002-coderabbit-config-improvements/spec.md](./002-coderabbit-config-improvements/spec.md) |
+| 003 | changelog-quality-audit | Changelog Quality Audit & Phase 5 | Active | 2026-02-01 | [./003-changelog-quality-audit/spec.md](./003-changelog-quality-audit/spec.md) |
+| 004 | branch-naming-strategy | Branch Naming Strategy & Enforcement | Active | 2026-02-10 | [./004-branch-naming-strategy/spec.md](./004-branch-naming-strategy/spec.md) |
+| 005 | requirements-quality-checklist | Requirements Quality Checklist Framework | Active | 2026-02-15 | [./005-requirements-quality-checklist/spec.md](./005-requirements-quality-checklist/spec.md) |
+| 006 | governance-audit | Governance Audit Implementation | Active | 2026-03-01 | [./006-governance-audit/spec.md](./006-governance-audit/spec.md) |
+| 007 | specs-directory-fix | Fix Specs Directory Configuration | Active | 2026-03-05 | [./007-specs-directory-fix/spec.md](./007-specs-directory-fix/spec.md) |
+| 008 | label-audit-consolidation | GitHub Label Audit & Consolidation | Active | 2026-03-15 | [./008-label-audit-consolidation/spec.md](./008-label-audit-consolidation/spec.md) |
+| 009 | audit-branch-cleanup | Audit and Refactor Branch Cleanup | Active | 2026-03-20 | [./009-audit-branch-cleanup/spec.md](./009-audit-branch-cleanup/spec.md) |
+| 010 | requirements-checklist | Requirements Quality Checklist | Active | 2026-04-01 | [./010-requirements-checklist/spec.md](./010-requirements-checklist/spec.md) |
+| 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
+| 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
 
 ---
 
 ## Draft Specifications
 
-| # | Title | Purpose | Status | Created | Link |
+| # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
-| 013 | SpecKit Folder Organization Refactoring | Audit specs structure and establish quality governance | Draft | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
+| 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Draft | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
 
 ---
 

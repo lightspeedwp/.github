@@ -90,13 +90,16 @@ Each command generates required artefacts in `.github/specs/NNN-{slug}/`:
 
 #### 4. Update CATALOG.md
 
-Add entry to `.github/specs/CATALOG.md`:
+Add entry to `.github/specs/CATALOG.md` using the canonical catalog schema:
 
-1. Add row to index table with canonical columns: # | Title | Purpose | Status | Created | Link
-2. Add detailed entry section with status, phase, created/updated dates, and link fields (see CATALOG.md structure)
-3. Ensure entry appears in correct sequential position (001, 002, ..., 013, 014)
-4. Update "Last Updated" timestamp at top of CATALOG.md
-5. Use relative link format: `./NNN-{slug}/spec.md`
+**Canonical Schema**: `| # | Slug | Title | Status | Created | Link |`
+
+1. Add row to index table with EXACT canonical columns (in this order): # | Slug | Title | Status | Created | Link
+2. Use Slug value matching directory name (e.g., `spec-folder-refactor` for `013-spec-folder-refactor`)
+3. Add detailed entry section with status, phase, created/updated dates, and link fields (see CATALOG.md structure)
+4. Ensure entry appears in correct sequential position (001, 002, ..., 013, 014)
+5. Update "Last Updated" timestamp at top of CATALOG.md
+6. Use relative link format: `./NNN-{slug}/spec.md`
 
 #### 5. Approval Gate
 

@@ -93,11 +93,13 @@ Answer clarifying questions to resolve ambiguities before proceeding.
 
 **Step 5: Update CATALOG.md**
 
-Add new specification entry to `.github/specs/CATALOG.md`:
+Add new specification entry to `.github/specs/CATALOG.md` using the canonical schema:
 
-| # | Title | Purpose | Status | Created | Link |
+**Canonical Schema**: `| # | Slug | Title | Status | Created | Link |`
+
+| # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
-| 013 | Your Feature Title | [One-line purpose] | Draft | [YYYY-MM-DD] | [./013-your-feature-slug/spec.md](./013-your-feature-slug/spec.md) |
+| 013 | your-feature-slug | Your Feature Title | Draft | 2026-09-17 | [./013-your-feature-slug/spec.md](./013-your-feature-slug/spec.md) |
 
 **Step 6: Submit for Approval**
 

@@ -85,9 +85,9 @@ ls -l .github/specs/CATALOG.md
 2. **Verify index table structure**
    - Open `.github/specs/CATALOG.md` in text editor
    - Locate "Specification Catalog" heading
-   - Verify index table with columns: #, Title, Purpose, Status, Created, Link
-   - Expected: All 12+ specifications in table, sorted by number
-   - Result: ✅ Index table complete and well-organized
+   - Verify index table with CANONICAL columns: #, Slug, Title, Status, Created, Link (in this exact order)
+   - Expected: All 12+ specifications in table, sorted by number, Slug column present with directory-slug values
+   - Result: ✅ Index table complete and well-organized with canonical schema
 
 3. **Verify specification links**
    - Check 3 random links in catalog (e.g., spec 001, 007, 013)
