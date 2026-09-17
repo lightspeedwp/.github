@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch Validation Metrics Aggregator Modernisation** — Moved the aggregator to Node 24 actions with run-scoped artifact downloads and a fixed metrics commit condition. ([PR #3377](https://github.com/lightspeedwp/.github/pull/3377))
 - **Branch Validator `config` Type** — Added the documented `config` type to the authorised validator list. (#3304)
 
+- **Specs Directory Structure Compliance** — Feature specifications now resolve to the configuration-driven `.github/specs/` location instead of root-level `specs/`. ([PR #3360](https://github.com/lightspeedwp/.github/pull/3360))
 - **Test Runner Working Directory Fixed** — Fixed shared worker state leaking the filesystem root into later test files. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))
 
 - **Dependabot Scope Fix** — Restored /website npm scanning and area:dependencies labels in dependabot.yml, dropped by a main->develop sync; needed for Mergify auto-merge. ([PR #3315](https://github.com/lightspeedwp/.github/pull/3315))
@@ -65,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Validation Audit Specification Added** — Added the quality audit specification with duplicate detection. (#3348)
 
+- **Specs Directory Fix Scripts & Docs** — Updated speckit scripts to resolve the specs directory from configuration with backward-compatible defaults. ([PR #3360](https://github.com/lightspeedwp/.github/pull/3360))
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
 
