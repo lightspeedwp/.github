@@ -115,14 +115,14 @@ phases: 7
 - [x] T025 [P] [US2] Analyze 11 archived validation workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/validation-analysis.md`
 - [x] T026 [US2] Create unified validation workflow at `.github/workflows/validation-unified.yml` with parallel jobs for: (1) branch naming, (2) PR template, (3) changelog, (4) commits, (5) secrets
 - [x] T027 [P] [US2] Implement branch naming validation job: check `{type}/{scope}-{title}` format per `.github/instructions/branch-naming.instructions.md`, post comment if invalid
-- [ ] T028 [P] [US2] Implement PR template validation job: verify correct template routed based on branch prefix, check template fields populated
-- [ ] T029 [P] [US2] Implement changelog validation job: require CHANGELOG.md entry for non-docs PRs, validate format
-- [ ] T030 [P] [US2] Implement commit message validation job: check commit messages for required footer format, validate conventional commits where applicable
-- [ ] T031 [P] [US2] Implement secret scanning job: run GitHub secret scanning, report findings to PR comment with remediation guide
-- [ ] T032 [US2] Integrate validate-check composite action (T007) into all validation jobs with check status reporting
-- [ ] T033 [US2] Integrate collect-metrics composite action (T009) into validation-unified.yml
+- [x] T028 [P] [US2] Implement PR template validation job: verify correct template routed based on branch prefix, check template fields populated
+- [x] T029 [P] [US2] Implement changelog validation job: require CHANGELOG.md entry for non-docs PRs, validate format
+- [x] T030 [P] [US2] Implement commit message validation job: check commit messages for required footer format, validate conventional commits where applicable
+- [x] T031 [P] [US2] Implement secret scanning job: run GitHub secret scanning, report findings to PR comment with remediation guide
+- [x] T032 [US2] Integrate validate-check composite action (T007) into all validation jobs with check status reporting
+- [x] T033 [US2] Integrate collect-metrics composite action (T009) into validation-unified.yml
 - [ ] T034 [US2] Test validation-unified.yml on feature branch: trigger via PR, verify all 12 validations execute, test error handling and PR comments
-- [ ] T035 [US2] Document validation-unified.yml in `.github/docs/VALIDATION_UNIFIED.md` with validation rules reference, remediation guides per rule
+- [x] T035 [US2] Document validation-unified.yml in `.github/docs/VALIDATION_UNIFIED.md` with validation rules reference, remediation guides per rule
 - [ ] T036 [US2] Validate validation-unified.yml passes CI for ≥3 consecutive runs on feature branch
 
 ### US3 — testing-unified.yml
@@ -140,14 +140,14 @@ phases: 7
 
 - [x] T037 [P] [US3] Analyze 2 archived testing workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/testing-analysis.md`
 - [x] T038 [US3] Create unified testing workflow at `.github/workflows/testing-unified.yml` with parallel jobs for: (1) unit tests, (2) integration tests, (3) E2E tests, (4) coverage aggregation
-- [ ] T039 [P] [US3] Implement unit test job: run npm test (or language-appropriate test command), upload coverage to artifacts, report to metrics
-- [ ] T040 [P] [US3] Implement integration test job: run integration test suite, upload results to artifacts, validate ≥80% coverage
-- [ ] T041 [P] [US3] Implement E2E test job: run E2E test suite on staging environment, upload results, report failures to PR comment
+- [x] T039 [P] [US3] Implement unit test job: run npm test (or language-appropriate test command), upload coverage to artifacts, report to metrics
+- [x] T040 [P] [US3] Implement integration test job: run integration test suite, upload results to artifacts, validate ≥80% coverage
+- [x] T041 [P] [US3] Implement E2E test job: run E2E test suite on staging environment, upload results, report failures to PR comment
 - [ ] T042 [US3] Implement coverage aggregation job: merge coverage reports from all test jobs, calculate total coverage, fail if <80%
-- [ ] T043 [US3] Integrate aggregate-tests composite action (T008) into all test jobs
-- [ ] T044 [US3] Integrate collect-metrics composite action (T009) into testing-unified.yml
+- [x] T043 [US3] Integrate aggregate-tests composite action (T008) into all test jobs
+- [x] T044 [US3] Integrate collect-metrics composite action (T009) into testing-unified.yml
 - [ ] T045 [US3] Test testing-unified.yml on feature branch: trigger via push, verify all test suites execute in parallel, check artifacts uploaded
-- [ ] T046 [US3] Document testing-unified.yml in `.github/docs/TESTING_UNIFIED.md` with test suite reference, coverage requirements, artifact storage
+- [x] T046 [US3] Document testing-unified.yml in `.github/docs/TESTING_UNIFIED.md` with test suite reference, coverage requirements, artifact storage
 - [ ] T047 [US3] Validate testing-unified.yml passes CI for ≥3 consecutive runs on feature branch with stable coverage
 
 ---
