@@ -33,7 +33,7 @@ GitHub Copilot allows custom agents to be defined in your `.github/agents/` dire
 The PRD agent spec-based definition is stored in:
 
 ```
-agents/mode-prd.agent.md
+agents/prd-agent/copilot/agent.md
 ```
 
 **Repository**: <https://github.com/lightspeedwp/.github>  
@@ -52,12 +52,12 @@ This is the Copilot-native version of the agent, optimised for GitHub's control 
 2. **Copy the agent file**:
 
    ```bash
-   curl -s https://raw.githubusercontent.com/lightspeedwp/.github/develop/agents/mode-prd.agent.md \
+   curl -s https://raw.githubusercontent.com/lightspeedwp/.github/develop/agents/prd-agent/copilot/agent.md \
      -o .github/agents/prd-agent.md
    ```
 
    Or, **manually copy-paste**:
-   - Open [`agents/mode-prd.agent.md`](https://github.com/lightspeedwp/.github/blob/develop/agents/mode-prd.agent.md) in the .github repository
+   - Open [`agents/prd-agent/copilot/agent.md`](https://github.com/lightspeedwp/.github/blob/develop/agents/prd-agent/copilot/agent.md) in the .github repository
    - Copy the entire file contents
    - Create `.github/agents/prd-agent.md` in your `.github` repository and paste
 
@@ -118,7 +118,7 @@ To update to the latest version:
 
 ```bash
 # Download latest version
-curl -s https://raw.githubusercontent.com/lightspeedwp/.github/develop/agents/mode-prd.agent.md \
+curl -s https://raw.githubusercontent.com/lightspeedwp/.github/develop/agents/prd-agent/copilot/agent.md \
   -o .github/agents/prd-agent.md
 
 # Review changes and commit
