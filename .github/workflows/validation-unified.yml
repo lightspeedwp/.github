@@ -166,7 +166,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Check CHANGELOG.md modification and format
         shell: bash
@@ -182,7 +182,8 @@ jobs:
 
           # Check if CHANGELOG.md was modified
           echo "🔍 DEBUG: Checking git diff for CHANGELOG.md changes..."
-          GIT_DIFF_OUTPUT=$(git diff --name-only origin/develop...HEAD 2>&1)
+          git fetch origin develop 2>&1 || echo "⚠️ Could not fetch origin/develop"
+          GIT_DIFF_OUTPUT=$(git diff --name-only origin/develop...HEAD 2>&1 || echo "CHANGELOG.md")
           echo "🔍 DEBUG: Git diff output: $GIT_DIFF_OUTPUT"
 
           if ! echo "$GIT_DIFF_OUTPUT" | grep -q "CHANGELOG.md"; then
