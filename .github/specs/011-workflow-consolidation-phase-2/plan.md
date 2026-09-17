@@ -1,8 +1,9 @@
 ---
 title: "Phase 2 Implementation Plan"
 date_created: "2026-09-14"
-last_updated: "2026-09-14"
+last_updated: "2026-09-17"
 status: "active"
+clarifications_session: "2026-09-17"
 ---
 
 # Phase 2 Implementation Plan
@@ -10,6 +11,18 @@ status: "active"
 ## Executive Summary
 
 Phase 2 consolidates 71 archived GitHub Actions workflows into 5 unified consolidated workflows, reducing maintenance burden by 82% and GitHub Actions minutes by ≥15% (hard requirement: ≤2,125/month). Implementation follows a 7-phase approach with MVP completion in 3 weeks, full delivery in 4 weeks.
+
+## Clarifications Session (2026-09-17)
+
+**Resolved ambiguities from specification analysis:**
+
+| Clarification | Resolution |
+|---------------|-----------|
+| **Performance Target** | Hard minimum ≥15% reduction required (≤2,125/month baseline from ~2,500). If <15% achieved, PR cannot merge. |
+| **Error Isolation** | Isolated failure model: When one unified workflow fails (e.g., labeling-unified.yml), other workflows (validation, testing, linting, quality-gates) continue independently. PR status check reports only failed workflow. No cascade to other workflows. |
+| **Test Coverage** | Hybrid approach: Composite actions ≥80% line coverage (reusable shared logic); unified workflows 100% functional coverage (all critical paths, primary/error/edge cases). Line % not enforced for workflows. |
+| **Footer/Badge Scope** | Deferred to Phase 2.1 (immediate follow-up). Phase 2 excludes footer de-duplication and badge validation logic. Keeps Phase 2 focused on workflow consolidation. |
+| **Mergify Frequency** | Dependabot merge frequency: every 2 days (48-hour batching). To be implemented in Phase 2.1. |
 
 ---
 
@@ -33,7 +46,7 @@ Phase 2 consolidates 71 archived GitHub Actions workflows into 5 unified consoli
 3. **Parallelization:** Jobs within unified workflows run concurrently where no dependencies exist
 4. **Traceability:** Consolidation mapping document links each archived workflow → new consolidated location
 5. **Backward Compatibility:** All archived workflow behavior preserved; no observable changes to dependent systems
-6. **Error Isolation:** Single workflow type failure (e.g., labeling fails) does not cascade to other workflows
+6. **Error Isolation (Isolated Failure Model):** When one workflow type fails (e.g., labeling-unified.yml), other workflows continue independently. PR status check reports only the failed workflow; others report pass/fail based on their own execution. Dependent systems use last-known-good state or fallback logic. No cascade between workflows.
 
 ### File Structure
 
@@ -211,7 +224,7 @@ Integration (T069-T078)
 
 **Acceptance Criteria:**
 
-- Composite actions: Callable, idempotent, error-handling validated
+- Composite actions: Callable, idempotent, error-handling validated, ≥80% line coverage
 - Test harness: Can trigger all 5 unified workflows on PR event
 - Error isolation: Single workflow type failure tested and validated
 - Documentation: All composite actions documented with input/output specs
@@ -287,10 +300,10 @@ Integration (T069-T078)
 
 - ✅ All 8 testing workflows consolidated
 - ✅ Unit + Integration + E2E tests run in parallel
-- ✅ Coverage ≥80% enforced (fail if below)
+- ✅ 100% functional coverage (all critical paths, primary/error/edge cases)
 - ✅ Test results and coverage uploaded to artifacts
-- ✅ Metrics reported: test execution time, coverage %, failures, GitHub Actions minutes
-- ✅ CI passes ≥3 consecutive times with stable coverage
+- ✅ Metrics reported: test execution time, coverage results, failures, GitHub Actions minutes
+- ✅ CI passes ≥3 consecutive times with stable results
 - ✅ Rollback to Phase 1 testing workflows succeeds
 
 ### Phase 5: US4 — linting-unified.yml (T048-T056)
