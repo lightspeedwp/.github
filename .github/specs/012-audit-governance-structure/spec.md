@@ -129,7 +129,7 @@ As a **reader**, I need all references and links in governance files to point to
 
 ### Measurable Outcomes
 
-- **SC-001**: Audit report identifies and categorizes ALL duplicate sections, bad references, and structural issues in CLAUDE.md and AGENTS.md (must be 100% complete, not sampling)
+- **SC-001**: Audit report identifies and categorizes ALL duplicate sections, bad references, and structural issues in CLAUDE.md and AGENTS.md (must be 100% complete, not sampling); delivered as structured markdown at `AUDIT_REPORT.md` in spec directory with clear sections, line-number references, and remediation guidance
 - **SC-002**: Refactored CLAUDE.md contains zero forbidden branch prefixes in examples and guidance; all examples use correct prefixes (audit, feat, fix, etc.)
 - **SC-003**: AGENTS.md reduced from 2 duplicate "Label Creation Governance" sections to 1 authoritative section with no content loss
 - **SC-004**: All file path references validated; 100% of referenced files either exist in repository or have documented migration status
@@ -153,6 +153,7 @@ As a **reader**, I need all references and links in governance files to point to
 
 - Q1: How to treat near-identical sections (e.g., "Label Creation Governance" appearing twice)? → A: Merge all sections with ≥70% text overlap into one; use union of both versions' content to preserve unique information from each occurrence
 - Q2: What categories of "bad references" to validate? → A: Validate all categories—broken/missing files, outdated paths, unimplemented consolidation claims, and line-number mismatches—for comprehensive reference validation
+- Q3: Audit report format and delivery mechanism? → A: Structured markdown report at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md` for version control, easy linking, and integration with spec artifacts
 
 ## Assumptions
 
