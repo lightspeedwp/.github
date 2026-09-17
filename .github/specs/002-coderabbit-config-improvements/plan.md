@@ -1,33 +1,60 @@
 # Implementation Plan: CodeRabbit Configuration Optimization
 
-**Branch**: `config/coderabbit-review-governance` | **Date**: 2026-09-11 | **Spec**: [spec.md](./spec.md)
+**Branch**: `config/coderabbit-review-governance` | **Date**: 2026-09-11 (Updated: 2026-09-17) | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `.github/specs/002-coderabbit-config-improvements/spec.md`
 
-**Status**: READY FOR IMPLEMENTATION
+**Status**: READY FOR IMPLEMENTATION (Scope Expanded 2026-09-17)
 
 ## Summary
 
-Restructure and expand the `.coderabbit.yml` configuration file in the organisation control plane (`.github` repository) to provide comprehensive, technology-agnostic review instructions for 95%+ of file types. These improvements will be deployed **organisation-wide** via CodeRabbit's central configuration feature, standardising code review quality across all repositories in the organisation. Implementation follows explicit path pattern priority/specificity ordering (specific patterns override general patterns), with external audit guide for coverage verification. Branch-type-specific review guidance is documented externally in `docs/BRANCHING_STRATEGY.md` (section 5.3 "Branch-Type Review Context"), not as CodeRabbit automation features.
+Restructure and expand the `.coderabbit.yml` configuration file in the organisation control plane (`.github` repository) to provide comprehensive, technology-agnostic review instructions for 95%+ of file types, **PLUS** automated PR governance automation (template validation, label family enforcement, DoD checklist automation). These improvements will be deployed **organisation-wide** via CodeRabbit's central configuration feature, standardising code review quality AND governance consistency across all repositories in the organisation. Implementation follows explicit path pattern priority/specificity ordering (specific patterns override general patterns), with external audit guide for coverage verification. Branch-type-specific review guidance is documented externally in `docs/BRANCHING_STRATEGY.md` (section 5.3 "Branch-Type Review Context"), not as CodeRabbit automation features.
 
-**Key Outcomes**:
+**Key Outcomes** (Unified Phase 1 Delivery):
 
-- Branch-type review context documented in `docs/BRANCHING_STRATEGY.md` section 5.3 for top 15-20 branch types (feat/, fix/, security/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, docs/)
-- Path patterns follow explicit priority/specificity rules (clear documentation)
-- 95%+ file type coverage with 3+ specific review focus areas per instruction block
-- External `CODERABBIT_COVERAGE_AUDIT.md` guide for maintainers
-- Zero breaking changes to existing CodeRabbit workflows across organisation repos
-- Unified code review standards across all repositories via central configuration
+- **Code Review Instructions**: Branch-type review context documented in `docs/BRANCHING_STRATEGY.md` section 5.3 for top 15-20 branch types (feat/, fix/, security/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, docs/)
+- **PR Governance Automation**: PR template validation (Linked Issues, Changelog, Checklist sections), label family enforcement (type:, meta:, status:, priority:, area: prefixes), DoD checklist automation (5-8 items per change scope), documentation validation failure handling
+- **Path Patterns**: Explicit priority/specificity rules (clear documentation)
+- **File Type Coverage**: 95%+ file type coverage with 3+ specific review focus areas per instruction block
+- **External Audit Guide**: `CODERABBIT_COVERAGE_AUDIT.md` guide for maintainers
+- **Zero Breaking Changes**: All improvements additive to existing CodeRabbit workflows across organisation repos
+- **Unified Standards**: Code review + governance standards across all repositories via central configuration
+
+**Scope Change** (2026-09-17):
+
+- Session 2026-09-17 Clarification Q1: Expand Phase 1 to include PR governance automation (template validation, label enforcement, DoD checklist)
+- Session 2026-09-17 Clarification Q2: Audit `.coderabbit.yml` lines 597-752 (150+ lines of governance documentation converted to active FR/SC)
+- **Impact**: Effort estimate increases from 8-10 weeks (code review only) to 14-16 weeks (unified delivery); task count increases from ~45 to ~130-140 tasks
 
 ## Technical Context
 
-**Project Type**: Configuration/Tooling (YAML configuration file for CodeRabbit central configuration)
+**Project Type**: Configuration/Tooling (YAML configuration file for CodeRabbit central configuration + PR governance automation)
 
-**Primary Asset**: `.coderabbit.yml` (443 lines → expanded to ~800-1000 lines with all improvements) — **Central configuration file that applies organisation-wide**
+**Primary Assets**:
 
-**Storage**: YAML format (in version control at `.coderabbit.yml` in the organisation control plane repository)
+1. `.coderabbit.yml` (443 lines → expanded to ~1000-1200 lines with code review + PR governance improvements) — **Central configuration file that applies organisation-wide**
+2. `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` (NEW) — External audit guide for coverage verification
+3. `docs/BRANCHING_STRATEGY.md` (section 5.3 update) — Branch-type review context documentation
 
-**Scope**: Changes to this file apply **to all repositories in the organisation** that consume the central CodeRabbit configuration (see CodeRabbit central configuration docs)
+**Storage**: YAML format (in version control at `.coderabbit.yml` in the organisation control plane repository); Markdown documentation in `.github/docs/`
+
+**Scope**: Changes to `.coderabbit.yml` apply **to all repositories in the organisation** that consume the central CodeRabbit configuration. PR governance automation additions include template validation rules, label enforcement mappings, and DoD checklist schemas - all declarative in YAML, no code changes required.
+
+**PR Governance Scope** (Phase 1 Expansion):
+
+- **PR Template Validation** (FR-016, SC-014): CodeRabbit checks PR descriptions for required sections per branch-type template (Linked Issues, Changelog, Checklist); flags incomplete/placeholder sections
+- **Label Enforcement** (FR-017, SC-015): CodeRabbit validates applied labels follow canonical prefixes (type:, meta:, status:, priority:, area:); suggests missing labels based on branch type and changed files
+- **DoD Checklist Automation** (FR-018, SC-016): CodeRabbit populates PR descriptions with standardized DoD checklist (5-8 items per change type: feature, fix, docs, etc.); flags unchecked items
+- **Documentation Validation** (FR-019, SC-017): CodeRabbit handles linting failures gracefully with explicit rules for skip paths, fail vs. warn decisions, and actionable remediation commentary
+
+**Governance Audit Findings** (2026-09-17):
+
+- Identified 150+ lines (597-752) of current `.coderabbit.yml` containing undeclared governance documentation
+- Lines 597-646: GitHub Labels Reference (status, type, priority, area, language labels)
+- Lines 647-678: PR Description Template Standards (required sections, validation rules, branch-type routing)
+- Lines 679-739: Issue Description Template Standards (type-to-template mapping, validation rules)
+- Lines 740-752: Label Automation Workflow documentation (routing by branch and file changes)
+- **Action**: Convert documented governance patterns into active FR/SC and YAML schema entries
 
 **Testing**:
 
@@ -70,26 +97,31 @@ Restructure and expand the `.coderabbit.yml` configuration file in the organisat
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-**No constitution file defined** for this project repository (`.specify/memory/constitution.md` is a template placeholder). Scope and constraints are derived from organizational standards in CLAUDE.md and AGENTS.md:
+**Constitution file**: `.specify/memory/constitution.md` (LightSpeed .github Control Plane Constitution v1.2.0, ratified 2026-09-11, last amended 2026-09-14)
 
-✅ **Organizational Standards Alignment**:
+✅ **Principle I - Organisation-Wide Governance Authority**: This `.coderabbit.yml` is an authoritative source for organisation-wide code review and governance standards applied via central configuration to 50+ consuming repositories. ✅ **Aligned**
 
-- UK English terminology
-- WordPress Coding Standards adherence
-- WCAG 2.2 AA accessibility requirements
-- No duplication with centralized documentation
+✅ **Principle II - Curated Assets with Locked Governance**: Configuration respects LOCKED status of `.github/labels.yml` (158 labels), `.github/issue-types.yml` (24 types), PR/issue templates. PR governance automation validates but does not modify LOCKED files. ✅ **Aligned**
 
-✅ **Backward Compatibility**:
+✅ **Principle III - Clear Asset Boundaries**: Code review instructions and PR governance rules stay in `.coderabbit.yml` (GitHub-centric). Branch-type review context documented in `docs/BRANCHING_STRATEGY.md` (portable). No duplication with AGENTS.md (global AI rules) or CLAUDE.md (repo instructions). ✅ **Aligned**
 
-- No breaking changes to CodeRabbit workflow
-- Additive improvements only
+✅ **Principle IV - Technology-Agnostic Guidance**: Review instructions address universal principles (security, performance, accessibility, correctness) without assuming languages, frameworks, or project types. Covers WordPress plugins, Node.js/TypeScript systems, infrastructure-as-code, MCP servers uniformly. ✅ **Aligned**
 
-✅ **Governance**:
+✅ **Principle V - Branch Naming Strategy Non-Negotiable**: Configuration aligns with 38 authorized branch types and 3 FORBIDDEN prefixes (claude/, copilot/, openai/). PR template validation and label enforcement respect branch naming as routing foundation. ✅ **Aligned**
 
-- Respects LOCKED status of labels.yml, issue-types.yml, templates
-- Aligns with branch naming strategy (feat/, fix/, security/, perf/, a11y/, etc.)
+✅ **Principle VI - UK English, Accessibility, Security**: All documentation uses UK English (optimise, colour, organisation). Accessibility and security standards embedded in review instructions. ✅ **Aligned**
 
-**Gate Status**: ✅ PASS - No violations or justifications needed.
+✅ **Principle VII - Specification Quality Standards**: Feature specification passes all 8 quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities). Clarifications document scope expansion and governance audit findings. ✅ **Aligned**
+
+✅ **Principle VIII - Branch Strategy Compliance & Automated Enforcement**: PR governance automation enforces branch-type compliance, validates PR template routing per branch prefix, applies canonical labels with family prefixes. ✅ **Aligned**
+
+✅ **Principle IX - Requirements-Driven Quality**: Configuration requires high-quality PR descriptions (per FR-016, SC-014) and changelog entries (linked in DoD automation). ✅ **Aligned**
+
+✅ **Principle X - Automated Validation & Metrics**: PR governance automation provides continuous validation of template compliance, label enforcement, and DoD checklist completion. ✅ **Aligned**
+
+**Constitution Violations**: None identified.
+
+**Gate Status**: ✅ PASS - All 10 principles aligned. No violations or justifications needed.
 
 ## Organisation-Wide Impact
 
@@ -242,18 +274,35 @@ No new source code directories required. All changes are configuration and docum
 
 **Deliverable**: `tasks.md` (via `/speckit-tasks` command)
 
-**Estimated**: 15-20 implementation tasks covering:
+**Estimated**: ~130-140 implementation tasks covering unified Phase 1 delivery of code review instructions + PR governance automation:
 
-- Config audit & analysis
-- Branch-type-specific sections (all 30+ types)
-- Path pattern reorganization with priority rules
-- Instruction enhancement (existing blocks → 3+ focus areas)
-- New file type coverage (5-8 new patterns)
+**Code Review Instructions** (~60-70 tasks):
+
+- Config audit & analysis of existing instruction blocks
+- Branch-type-specific sections (top 15-20 types with context-aware guidance)
+- Path pattern reorganization with explicit priority/specificity rules
+- Instruction enhancement (existing blocks → 3+ focus areas each per SC-002)
+- New file type coverage (emerging types: .specify/, workflows/, plugins/)
 - Audit guide creation (`CODERABBIT_COVERAGE_AUDIT.md`)
-- **Cross-repository validation** (test in ≥3 different repo types to ensure org-wide compatibility)
-- **Migration testing** (verify zero breaking changes in existing CodeRabbit workflows)
-- Testing & validation (per quickstart scenarios + org-wide validation)
+
+**PR Governance Automation** (~50-60 tasks):
+
+- PR template validation rules (FR-016 → SC-014): required sections per branch type, format validation, placeholder detection
+- Label enforcement mapping (FR-017 → SC-015): canonical prefix validation (type:, meta:, status:, priority:, area:), suggestion engine, branch-to-label routing
+- DoD checklist automation (FR-018 → SC-016): per-scope checklist templates (feature, fix, docs, etc.), population logic, completion blocking rules
+- Documentation validation handling (FR-019 → SC-017): skip-path rules, fail vs. warn decision logic, remediation commentary generation
+
+**Testing & Validation** (~10-20 tasks):
+
+- Cross-repository validation (test in ≥3 different repo types: WordPress plugin, Node.js/TypeScript project, infrastructure-as-code)
+- Migration testing (verify zero breaking changes in existing CodeRabbit workflows)
+- CodeRabbit review quality audit (sample PRs across multiple repos verify branch-type context applied org-wide)
+- PR governance automation audit (template validation, label enforcement, DoD accuracy across test repos)
+- Performance testing (config load time <100ms, review parsing efficiency)
+- Org-wide rollout validation (all consuming repos accept config without errors)
+
+**Effort Estimate**: 14-16 weeks unified Phase 1 delivery (code review instructions + PR governance automation fully integrated, tested, and deployed)
 
 ## Complexity Tracking
 
-> **No complexity justifications needed** - all decisions align with organizational standards and do not introduce violations.
+> **No complexity justifications needed** - all decisions align with organizational standards (Constitution v1.2.0 Principles I-X) and do not introduce violations.
