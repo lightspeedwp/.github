@@ -1,0 +1,59 @@
+# Changelog Validation Configuration
+# Framework: Keep a Changelog 1.1.0 format enforcement
+# Phase: 5 Implementation
+
+validation:
+  enabled: true
+  block_on_failure: true
+  allow_missing_changelog: false
+  report_format: github-check
+
+changelog:
+  path: CHANGELOG.md
+  version_section: '[Unreleased]'
+  max_entry_length: 250
+  require_pr_link: true
+
+rules:
+  enabled:
+    - CHK_MAX_LENGTH
+    - CHK_NO_IMPL_DETAILS
+    - CHK_HAS_PR_LINK
+    - CHK_FORMAT_MARKDOWN
+    - CHK_CONSISTENT_TENSE
+    - CHK_NO_ABBREVIATIONS
+    - CHK_UNIQUE_CONTENT
+    - CHK_LINK_VALIDITY
+
+github:
+  owner: lightspeedwp
+  repo: '.github'
+  api_rate_limit: 5000
+  api_timeout: 30
+  link_cache_ttl: 86400
+
+metrics:
+  enabled: true
+  retention_days: 90
+  storage_path: '.github/validation/changelog/data/metrics.json'
+  daily_update: true
+  update_time: '00:00'
+
+ci:
+  triggers:
+    - pr_to_develop
+    - pr_to_main
+  skip_branches:
+    - main
+    - develop
+
+reporting:
+  pr_comment: true
+  github_check: true
+  console: true
+  verbosity: info
+
+performance:
+  max_validation_time_seconds: 10
+  max_dashboard_load_ms: 2000
+  metrics_calculation_timeout: 3600

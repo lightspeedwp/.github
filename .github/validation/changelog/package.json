@@ -1,0 +1,51 @@
+{
+  "name": "@lightspeedwp/changelog-validation",
+  "version": "1.0.0",
+  "description": "Changelog quality validation framework for Keep a Changelog 1.1.0 format",
+  "type": "module",
+  "main": "lib/index.js",
+  "bin": {
+    "validate": "bin/validate.js",
+    "auto-link": "bin/auto-link.js",
+    "metrics": "bin/metrics.js",
+    "assess": "bin/assess.js"
+  },
+  "scripts": {
+    "validate": "node bin/validate.js",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' node --test 'test/**/*.test.js'",
+    "test:unit": "NODE_OPTIONS='--experimental-vm-modules' node --test 'test/unit/**/*.test.js'",
+    "test:integration": "NODE_OPTIONS='--experimental-vm-modules' node --test 'test/integration/**/*.test.js'",
+    "test:coverage": "node --experimental-vm-modules node_modules/.bin/c8 --reporter text --reporter html node --test 'test/**/*.test.js'",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:changelog": "node bin/validate.js --changelog-path CHANGELOG.md"
+  },
+  "keywords": [
+    "changelog",
+    "keep-a-changelog",
+    "validation",
+    "quality",
+    "ci-cd",
+    "github-actions"
+  ],
+  "author": "LightSpeedWP",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "c8": "^8.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": ".github/validation/changelog"
+  }
+}
