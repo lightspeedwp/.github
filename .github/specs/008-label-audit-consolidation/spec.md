@@ -35,7 +35,7 @@
 
 **Status**: Draft
 
-**Input**: Comprehensive audit of GitHub label taxonomy across `.github` repository, including analysis of canonical labels, issue types, governance policy, documentation, and archived labeling workflows.
+**Input**: Comprehensive audit of GitHub label taxonomy across `.github` repository, including analysis of canonical labels (169 total), issue types (25 mappings, 26 canonical labels), governance policy, documentation, and archived labeling workflows.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -47,8 +47,8 @@ As a GitHub governance administrator, I need to understand which labels exist in
 
 **Independent Test**: Audit can be fully completed by comparing:
 
-1. Current canonical `labels.yml` (147 labels across 15 families)
-2. `issue-types.yml` (25 type labels with mappings)
+1. Current canonical `labels.yml` (169 labels across 15+ families)
+2. `issue-types.yml` (25 type mappings; note: 26 type labels in canonical, including type:decision)
 3. `label-governance-policy.yml` (never-delete list)
 4. All documentation files (`LABEL_*.md`, `ISSUE_*.md`, `PR_*.md`)
 5. Archived workflow definitions
@@ -123,8 +123,8 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 
 ### Functional Requirements
 
-- **FR-001**: System MUST identify and catalog all labels currently defined in the canonical `labels.yml` file, organized by family, with counts and descriptions
-- **FR-002**: System MUST extract all type labels from `issue-types.yml` and verify each has a corresponding entry in `labels.yml` with matching name and color
+- **FR-001**: System MUST identify and catalog all labels currently defined in the canonical `labels.yml` file (169 labels), organized by family, with counts and descriptions
+- **FR-002**: System MUST extract all 25 type mappings from `issue-types.yml` and verify each has a corresponding entry in `labels.yml` with matching name and color. NOTE: Canonical `labels.yml` contains 26 type:* labels; identify type labels in canonical that lack issue-types.yml mappings
 - **FR-003**: System MUST compare canonical labels against the `label-governance-policy.yml` never-delete list and identify:
   - Labels in the policy that don't exist in canonical file
   - Labels with name mismatches between files (e.g., `type:documentation` vs `type:docs`)
@@ -148,7 +148,7 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 
 - **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, openspec (and any others discovered during audit)
 - **Type Labels**: 25 labels that map to GitHub issue types (immutable - defined in `issue-types.yml`)
-- **Canonical Labels**: The 147 labels currently defined in `.github/labels.yml`
+- **Canonical Labels**: The 169 labels currently defined in `.github/labels.yml`
 - **Governance Policy**: The never-delete label list and related rules in `label-governance-policy.yml`
 - **Archived Workflows**: 11 workflow files that were disabled due to non-functional status
 - **Documentation**: All files describing label taxonomy and labeling strategy
@@ -158,19 +158,19 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 
 ### Measurable Outcomes
 
-- **SC-001**: Audit report identifies all missing labels (those in GitHub but not in canonical file) with 100% accuracy
+- **SC-001**: Audit report identifies all missing labels (those in GitHub but not in canonical file with 169 labels) with 100% accuracy
 - **SC-002**: Audit report identifies all label mismatches (different names/colors between files) with 100% accuracy
-- **SC-003**: All 25 type labels from `issue-types.yml` are verified as present and correct in canonical file with no changes recommended
+- **SC-003**: All 25 type mappings from `issue-types.yml` are verified as present and correct in canonical file. Canonical file contains 26 type labels; identify which type label (type:decision) lacks issue-types.yml mapping and assess if this is intentional governance gap
 - **SC-004**: Audit report identifies ALL duplicate/overlapping labels across families, ranked by consolidation impact and usage frequency
 - **SC-005**: All 11 archived workflows are analyzed with documented findings (purpose, issues, recommendations) for each
-- **SC-006**: Audit identifies 0 (zero) discrepancies between canonical `labels.yml` and its documented purpose as "single source of truth"
+- **SC-006**: Audit identifies all discrepancies between canonical `labels.yml` (169 labels) and its documented purpose as "single source of truth", including type label mapping gaps
 - **SC-007**: Audit creates a prioritized roadmap for label family expansion, cleanup, and workflow restoration
 - **SC-008**: All audit findings can be traced to specific files/sections (quotable evidence)
 
 ## Assumptions
 
-- The canonical `labels.yml` file is considered final and the baseline for this audit (no recommendations to change existing labels unless duplicates are identified)
-- The 25 type labels in `issue-types.yml` are immutable and must not be changed as part of this audit
+- The canonical `labels.yml` file is considered final and the baseline for this audit (169 labels total; no recommendations to change existing labels unless duplicates are identified)
+- The 25 type mappings in `issue-types.yml` are immutable and must not be changed as part of this audit. NOTE: Canonical file has 26 type labels; governance gap with type:decision (not mapped in issue-types.yml) is audit finding, not change target
 - The `label-governance-policy.yml` never-delete list contains labels that may not be in the canonical file, and this is intentional (represents labels that must be preserved for historical or compatibility reasons)
 - Archived workflows were disabled due to conflicts, performance issues, or obsolescence rather than planned retirement
 - GitHub API has labels currently assigned to issues/PRs that represent the true system state of labels in use

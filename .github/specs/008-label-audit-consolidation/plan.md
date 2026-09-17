@@ -29,7 +29,7 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Branch**: `audit/github-label-audit` | **Date**: 2026-09-14 | **Spec**: [008-label-audit-consolidation/spec.md](spec.md)
+**Branch**: `audit/label-consolidation` | **Date**: 2026-09-14 | **Spec**: [008-label-audit-consolidation/spec.md](spec.md)
 
 **Input**: Feature specification from `.github/specs/008-label-audit-consolidation/spec.md`
 
@@ -66,8 +66,8 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 
 **Data Sources**:
 
-- `.github/labels.yml` (canonical, 147 labels, 15 families)
-- `.github/issue-types.yml` (25 type labels, immutable)
+- `.github/labels.yml` (canonical, 169 labels, 15+ families)
+- `.github/issue-types.yml` (25 type mappings; canonical has 26 type labels including type:decision)
 - `.github/label-governance-policy.yml` (never-delete policy)
 - `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md` (18+ doc files)
 - `.github/workflows/archived/2026-09-11/labeling/` (11 archived workflows)
@@ -90,8 +90,8 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 
 **Scale/Scope**:
 
-- ~147 labels across 15 families in canonical file
-- ~25 type labels (immutable)
+- 169 labels across 15+ families in canonical file
+- 26 type labels in canonical (25 with issue-types.yml mappings; type:decision unmapped)
 - ~43 labels in governance never-delete policy
 - 11 archived workflows to analyze
 - 18+ documentation files to review
