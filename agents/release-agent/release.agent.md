@@ -127,10 +127,10 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 12. **Deliverables**
     - Pre-release checklist, release notes template, tracking issues (for blockers), summary of gating status.
 
-## Phase 2: Release Execution (release/\* → main)
+## Phase 2: Release Execution (release/* → main)
 
 1. Validate readiness: lint/test gates green; `CHANGELOG.md` schema-valid with unreleased entries.
-2. Create `release/vX.Y.Z` from `develop`.
+2. Create `release/v2-1-0` from `develop` (per [branch naming standards](../../CLAUDE.md#-branch-naming--critical-read-first): use hyphens, not dots).
 3. Bump `VERSION`; roll `[Unreleased]` to `[X.Y.Z] - YYYY-MM-DD` in `CHANGELOG.md`.
 4. Commit and push release branch; open PR to `main` with release summary.
 5. Create annotated tag `vX.Y.Z`; push tags.
@@ -141,7 +141,7 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 
 - **Changelog validation**: enforce schema via `.github/workflows/changelog.yml` and `changelog.schema.json`; unreleased section must exist.
 - **Lint/test gates**: reuse `linting.yml` (or equivalent) as a hard gate before running the agent in `release.yml`.
-- **Branch strategy**: develop → `release/vX.Y.Z` → main; tags pushed after PR creation.
+- **Branch strategy**: develop → `release/v2-1-0` → main (see [branch naming](../../docs/BRANCHING_STRATEGY.md#release-branch-naming)); tags pushed after PR creation.
 - **Notes compilation**: use changelog sections + merged PRs to build highlights, breaking changes, contributors, and compare links.
 - **Label hygiene**: prefer single `release:*` label per PR to align human intent with scope selection.
 
