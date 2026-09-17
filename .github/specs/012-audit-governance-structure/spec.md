@@ -106,7 +106,7 @@ As a **reader**, I need all references and links in governance files to point to
 ### Functional Requirements
 
 - **FR-001**: Governance audit MUST identify all duplicate content sections across CLAUDE.md and AGENTS.md with specific line number references; sections with ≥70% text overlap MUST be consolidated into single authoritative version preserving unique content from both
-- **FR-002**: Audit MUST validate all file path references against actual repository structure and report broken or outdated links
+- **FR-002**: Audit MUST validate all file path references against actual repository structure and report: (1) broken/missing files, (2) outdated paths, (3) unimplemented consolidation claims, and (4) line-number mismatches
 - **FR-003**: Audit MUST identify conflicting guidance about branch naming, label creation, script organization, and AI rules that exists in multiple files
 - **FR-004**: Audit MUST map relationships between CLAUDE.md, AGENTS.md, constitution, instruction files, and dependent systems (workflows, agents, scripts)
 - **FR-005**: Refactored CLAUDE.md MUST contain clear, actionable branch naming guidance aligned with constitution, with no forbidden prefixes created by default AI tools
@@ -152,6 +152,7 @@ As a **reader**, I need all references and links in governance files to point to
 ### Session 2026-09-17
 
 - Q1: How to treat near-identical sections (e.g., "Label Creation Governance" appearing twice)? → A: Merge all sections with ≥70% text overlap into one; use union of both versions' content to preserve unique information from each occurrence
+- Q2: What categories of "bad references" to validate? → A: Validate all categories—broken/missing files, outdated paths, unimplemented consolidation claims, and line-number mismatches—for comprehensive reference validation
 
 ## Assumptions
 
