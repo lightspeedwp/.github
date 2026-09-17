@@ -1,6 +1,6 @@
 # Implementation Plan: CodeRabbit Configuration Optimization
 
-**Branch**: `feat/coderabbit-config-optimization` | **Date**: 2026-09-11 | **Spec**: [spec.md](./spec.md)
+**Branch**: `config/coderabbit-review-governance` | **Date**: 2026-09-11 | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `.github/specs/002-coderabbit-config-improvements/spec.md`
 

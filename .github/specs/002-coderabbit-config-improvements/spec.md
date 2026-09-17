@@ -1,6 +1,6 @@
 # Feature Specification: CodeRabbit Configuration Optimization
 
-**Feature Branch**: `feat/coderabbit-config-optimization`
+**Feature Branch**: `config/coderabbit-review-governance`
 
 **Created**: 2026-09-11
 
