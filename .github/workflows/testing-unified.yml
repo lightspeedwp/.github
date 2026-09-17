@@ -126,6 +126,37 @@ jobs:
         run: npm test -- --coverage
         continue-on-error: true
 
+      - name: Validate coverage threshold
+        shell: bash
+        run: |
+          if [ ! -f coverage/coverage-summary.json ]; then
+            echo "⚠️  Coverage summary not found"
+            exit 0
+          fi
+
+          # Extract coverage percentages
+          LINES_COVERAGE=$(grep -o '"lines":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+          BRANCHES_COVERAGE=$(grep -o '"branches":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+          FUNCTIONS_COVERAGE=$(grep -o '"functions":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+          STATEMENTS_COVERAGE=$(grep -o '"statements":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+
+          MIN_COVERAGE=80
+
+          echo "Coverage Report (Node ${{ matrix.node-version }}):"
+          echo "  Lines:      ${LINES_COVERAGE}% (target: ${MIN_COVERAGE}%)"
+          echo "  Branches:   ${BRANCHES_COVERAGE}%"
+          echo "  Functions:  ${FUNCTIONS_COVERAGE}%"
+          echo "  Statements: ${STATEMENTS_COVERAGE}%"
+
+          if [ -z "$LINES_COVERAGE" ] || [ "$LINES_COVERAGE" -lt "$MIN_COVERAGE" ]; then
+            echo ""
+            echo "❌ Coverage below threshold (${LINES_COVERAGE}% < ${MIN_COVERAGE}%)"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Unit test coverage threshold met (${LINES_COVERAGE}%)"
+
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
         if: always()
@@ -133,14 +164,6 @@ jobs:
           name: coverage-unit-node-${{ matrix.node-version }}
           path: coverage/
           retention-days: 7
-
-      - name: Report coverage
-        shell: bash
-        run: |
-          if [ -f coverage/coverage-summary.json ]; then
-            COVERAGE=$(grep -o '"lines":[^}]*' coverage/coverage-summary.json | grep -o '[0-9.]*' | head -1)
-            echo "✅ Unit test coverage: ${COVERAGE}%"
-          fi
 
   # ============================================================================
   # Integration tests job
@@ -167,8 +190,50 @@ jobs:
         run: npm ci
 
       - name: Run integration tests
-        run: npm run test:integration
+        run: npm run test:integration 2>&1 | tee integration-test.log
         continue-on-error: true
+
+      - name: Validate integration test results
+        shell: bash
+        run: |
+          # Check if test results file exists
+          if [ -f test-results/integration-summary.json ]; then
+            TOTAL=$(jq '.total' test-results/integration-summary.json || echo "0")
+            PASSED=$(jq '.passed' test-results/integration-summary.json || echo "0")
+            FAILED=$(jq '.failed' test-results/integration-summary.json || echo "0")
+
+            PASS_RATE=0
+            if [ "$TOTAL" -gt 0 ]; then
+              PASS_RATE=$((PASSED * 100 / TOTAL))
+            fi
+
+            echo "Integration Test Results:"
+            echo "  Total:  $TOTAL"
+            echo "  Passed: $PASSED"
+            echo "  Failed: $FAILED"
+            echo "  Pass Rate: ${PASS_RATE}%"
+
+            if [ "$FAILED" -gt 0 ]; then
+              echo ""
+              echo "❌ Integration tests failed (${FAILED} failures)"
+              exit 1
+            else
+              echo ""
+              echo "✅ Integration tests passed"
+            fi
+          else
+            echo "⚠️  Integration test results file not found"
+            echo "Checking log file for test summary..."
+
+            if grep -q "FAIL" integration-test.log; then
+              echo "❌ Integration tests appear to have failed"
+              exit 1
+            elif grep -q "PASS\|passed\|ok" integration-test.log; then
+              echo "✅ Integration tests appear to have passed"
+            else
+              echo "⚠️  Could not determine integration test status"
+            fi
+          fi
 
       - name: Upload integration test results
         uses: actions/upload-artifact@v4
@@ -178,10 +243,13 @@ jobs:
           path: test-results/
           retention-days: 7
 
-      - name: Report results
-        shell: bash
-        run: |
-          echo "✅ Integration tests completed"
+      - name: Upload integration test logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-logs
+          path: integration-test.log
+          retention-days: 7
 
   # ============================================================================
   # E2E tests job (release branches only)
@@ -211,9 +279,55 @@ jobs:
       - name: Run E2E tests
         shell: bash
         run: |
-          echo "ℹ️  E2E tests would run against staging environment"
-          echo "Placeholder for E2E test execution"
+          echo "🧪 Running E2E tests against staging environment..."
+
+          # Create output directory
+          mkdir -p e2e-results
+
+          # Run E2E test suite (assuming Playwright or similar)
+          if [ -f "package.json" ] && grep -q "test:e2e" package.json; then
+            npm run test:e2e -- --reporter=json --outputFile=e2e-results/report.json 2>&1 | tee e2e-test.log || true
+          else
+            echo "⚠️  E2E test script not found in package.json"
+            echo "Skipping E2E tests"
+            exit 0
+          fi
         continue-on-error: true
+
+      - name: Validate E2E test results
+        if: always()
+        shell: bash
+        run: |
+          if [ ! -f e2e-results/report.json ]; then
+            echo "⚠️  E2E test report not generated"
+            exit 0
+          fi
+
+          # Parse test results
+          TOTAL=$(jq '.stats.tests // 0' e2e-results/report.json)
+          PASSED=$(jq '.stats.passes // 0' e2e-results/report.json)
+          FAILED=$(jq '.stats.failures // 0' e2e-results/report.json)
+          DURATION=$(jq '.stats.duration // 0' e2e-results/report.json)
+
+          echo "E2E Test Results:"
+          echo "  Total:    $TOTAL"
+          echo "  Passed:   $PASSED"
+          echo "  Failed:   $FAILED"
+          echo "  Duration: ${DURATION}ms"
+
+          if [ "$FAILED" -gt 0 ]; then
+            echo ""
+            echo "❌ E2E tests failed (${FAILED} failures)"
+            # Don't fail the workflow for E2E on non-release branches
+            if [[ "${{ github.ref }}" != "refs/heads/release/"* ]]; then
+              echo "ℹ️  E2E failures allowed on non-release branches"
+              exit 0
+            fi
+            exit 1
+          else
+            echo ""
+            echo "✅ E2E tests passed"
+          fi
 
       - name: Upload E2E results
         uses: actions/upload-artifact@v4
@@ -222,6 +336,14 @@ jobs:
           name: e2e-test-results
           path: e2e-results/
           retention-days: 30
+
+      - name: Upload E2E screenshots on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-screenshots
+          path: e2e-results/screenshots/
+          retention-days: 7
 
   # ============================================================================
   # Coverage aggregation job
