@@ -34,6 +34,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 - Q: When labeling-unified.yml fails on a PR, what should happen operationally to other workflows? → A: Isolated failure model: labeling-unified fails → PR status check shows only "labeling" as failed; validation, testing, linting, quality-gates remain unaffected (pass/fail independently). Dependent systems receive last-known-good label state or use fallback logic. No cascade to other workflows.
 - Q: What specific test coverage targets should Phase 2 require — line coverage %, branch coverage %, or functional coverage only? → A: Hybrid coverage: Composite actions (apply-labels, validate-check, aggregate-tests, collect-metrics) require ≥80% line coverage (reusable, shared logic). Unified workflows require 100% functional coverage (all critical paths, primary/error/edge cases); line % not enforced for workflows.
 - Q: Should Phase 2 scope explicitly address footer insertion logic and badge validation? → A: Defer to Phase 2.1 (immediate follow-up). Phase 2 excludes footer/badge logic; document as "Phase 2.1 Consolidation Enhancements" with separate issue. Keeps Phase 2 focused on workflow consolidation, reduces timeline risk, faster Phase 2 delivery.
+- Q: For Mergify dependabot automation frequency, what merge schedule should Phase 2 document? → A: Every 2 days (48-hour batching). Balances security velocity with churn reduction; faster than weekly (addresses user concern), not as noisy as daily. To be implemented in Phase 2.1.
 
 ## Branch Strategy
 
@@ -206,6 +207,6 @@ git push origin refactor/workflow-consolidation-phase-2
 
 - Footer insertion de-duplication logic (prevent duplicate footers in PR descriptions)
 - Badge validation and application rules (workflow status badges, coverage badges)
-- Mergify dependabot merge frequency configuration (daily/hourly automation)
+- Mergify dependabot merge frequency configuration (every 2 days; batch dependabot PRs at 48-hour intervals)
 
-These are related but distinct from core workflow consolidation. Phase 2.1 will be scoped as separate feature branch after Phase 2 ships. Tracked in separate GitHub issue: `[FEATURE-REQUEST] Phase 2.1: Footer & Badge Management`
+These are related but distinct from core workflow consolidation. Phase 2.1 will be scoped as separate feature branch after Phase 2 ships. Tracked in separate GitHub issue: `[FEATURE-REQUEST] Phase 2.1: Footer, Badge & Mergify Management`
