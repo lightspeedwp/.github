@@ -105,7 +105,7 @@ As a **reader**, I need all references and links in governance files to point to
 
 ### Functional Requirements
 
-- **FR-001**: Governance audit MUST identify all duplicate content sections across CLAUDE.md and AGENTS.md with specific line number references
+- **FR-001**: Governance audit MUST identify all duplicate content sections across CLAUDE.md and AGENTS.md with specific line number references; sections with ≥70% text overlap MUST be consolidated into single authoritative version preserving unique content from both
 - **FR-002**: Audit MUST validate all file path references against actual repository structure and report broken or outdated links
 - **FR-003**: Audit MUST identify conflicting guidance about branch naming, label creation, script organization, and AI rules that exists in multiple files
 - **FR-004**: Audit MUST map relationships between CLAUDE.md, AGENTS.md, constitution, instruction files, and dependent systems (workflows, agents, scripts)
@@ -148,6 +148,10 @@ As a **reader**, I need all references and links in governance files to point to
 - Q3: How to handle concurrent edits during multi-day refactoring? → A: Accept conflicts and rebase regularly; feature branch rebases onto develop as changes occur, conflicts resolved incrementally
 - Q4: Audit completeness requirement—100% or sampling acceptable? → A: 100% completeness with tool assistance; use automated tools (diff, grep, similarity analysis) to guarantee reliable detection of all duplicates and bad references
 - Q5: Post-refactor governance change tracking strategy? → A: Changelog file approach; add GOVERNANCE_CHANGELOG.md documenting all changes with dates and impact for transparency to downstream repos
+
+### Session 2026-09-17
+
+- Q1: How to treat near-identical sections (e.g., "Label Creation Governance" appearing twice)? → A: Merge all sections with ≥70% text overlap into one; use union of both versions' content to preserve unique information from each occurrence
 
 ## Assumptions
 
