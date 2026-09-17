@@ -1,176 +1,353 @@
 ---
 title: "Phase 2 Rollback Procedure"
-created: "2026-09-14"
+date_created: "2026-09-17"
+version: "1.0"
 ---
 
 # Phase 2 Rollback Procedure
 
 ## Overview
-This document provides the step-by-step procedure to safely rollback Phase 2 (Unified Workflows) to Phase 1 (Archived Workflows) with zero data loss and automated recovery.
 
-**Target Recovery Time:** ≤15 minutes  
-**Data Loss Risk:** None (no state mutations during Phase 2 execution)
+This document describes the complete rollback procedure for Phase 2 Workflow Consolidation. If unified workflows fail to meet success criteria or cause unacceptable degradation, this procedure restores the repository to the pre-Phase 2 state using archived workflows.
+
+**Estimated Rollback Time:** 15-30 minutes  
+**Risk Level:** Low (archived workflows verified and tested)  
+**Recovery Point:** 2026-09-11 (Phase 1 archive date)
 
 ---
 
-## Pre-Rollback Checklist
+## Prerequisites
 
-Before initiating rollback, verify:
-- [ ] Identify specific failure reason (workflow error, performance regression, or behavioral mismatch)
-- [ ] Confirm issue is reproducible and affects production
-- [ ] Capture failing workflow logs for post-mortem analysis
-- [ ] Notify team of rollback initiation
+- **Access Level:** Repository admin or workflow administrator role
+- **GitHub Token:** Personal access token with `workflow` and `repo` scopes
+- **Git Knowledge:** Basic git operations (branch, checkout, push)
+- **Backup Verified:** `.github/workflows/archived/2026-09-11/` directory intact with 71 workflows
+
+### Pre-Rollback Checklist
+
+- [ ] Phase 2 unified workflows have been running for ≥1 hour to capture reliable metrics
+- [ ] Metrics comparison prepared (Phase 1 baseline vs. Phase 2 actual)
+- [ ] All PR workflows marked as draft (if applicable)
+- [ ] Stakeholders notified of rollback (via #engineering channel)
+- [ ] Git branch clean (no uncommitted changes)
 
 ---
 
 ## Rollback Steps
 
-### Step 1: Disable Phase 2 Unified Workflows
-```bash
-# In repository root
+### Step 1: Stop Active Unified Workflows
 
-# Disable all 5 unified workflows (Phase 2)
-for workflow in \
-  .github/workflows/labeling-unified.yml \
-  .github/workflows/validation-unified.yml \
-  .github/workflows/testing-unified.yml \
-  .github/workflows/linting-unified.yml \
-  .github/workflows/quality-gates.yml
-do
-    # Add 'enabled: false' to workflow top level (or delete file)
-    echo "Disabling $workflow..."
-done
+**Duration:** 5 minutes
+
+Disable all Phase 2 unified workflows to prevent cascading failures during rollback:
+
+```bash
+# Navigate to repository root
+cd /path/to/.github
+
+# Disable unified workflows
+git checkout develop
+git pull origin develop
+
+# Mark unified workflows as disabled (add 'if: false' to top-level job)
+sed -i 's/^jobs:/on:\n  workflow_dispatch: {}\njobs:/g' .github/workflows/labeling-unified.yml
+sed -i 's/^jobs:/on:\n  workflow_dispatch: {}\njobs:/g' .github/workflows/validation-unified.yml
+# ... repeat for all 5 unified workflows
+
+# Commit the disable action (do NOT push yet)
+git add .github/workflows/*.yml
+git commit -m "chore: disable phase2 workflows for rollback [ROLLBACK-IN-PROGRESS]"
 ```
 
-### Step 2: Enable Phase 1 Archived Workflows
+### Step 2: Restore Archived Workflows
+
+**Duration:** 5-10 minutes
+
+Copy archived workflows back to active workflows directory:
+
 ```bash
-# Copy archived workflows back to active location
-mkdir -p .github/workflows/
+# List archived workflow structure
+ls -R .github/workflows/archived/2026-09-11/
 
-# Restore all archived workflows from Phase 1 archive
-cp -r .github/workflows/archived/2026-09-11/* .github/workflows/
+# Copy all archived workflows back to active directory
+# Preserve subdirectory structure where applicable
+cp -r .github/workflows/archived/2026-09-11/labeling/* .github/workflows/
+cp -r .github/workflows/archived/2026-09-11/validation/* .github/workflows/
+cp -r .github/workflows/archived/2026-09-11/testing/* .github/workflows/
+cp -r .github/workflows/archived/2026-09-11/pr-management/* .github/workflows/
+cp -r .github/workflows/archived/2026-09-11/issue-management/* .github/workflows/
+cp -r .github/workflows/archived/2026-09-11/ci-cd/* .github/workflows/
+cp -r .github/workflows/archived/2026-09-11/documentation/* .github/workflows/
+cp -r .github/workflows/archived/2026-09-11/utilities/* .github/workflows/
 
-# Verify all 71 workflows are present
-find .github/workflows -name "*.yml" -o -name "*.yaml" | grep -v archived | wc -l
+# Verify all 71 workflows restored
+find .github/workflows -maxdepth 1 -name "*.yml" -o -name "*.yaml" | wc -l
 # Expected output: 71
+
+# Remove any remaining unified workflow files
+rm -f .github/workflows/labeling-unified.yml
+rm -f .github/workflows/validation-unified.yml
+rm -f .github/workflows/testing-unified.yml
+rm -f .github/workflows/linting-unified.yml
+rm -f .github/workflows/quality-gates.yml
 ```
 
-### Step 3: Verify Workflow Restoration
-```bash
-# List restored workflows
-ls -la .github/workflows/ | grep -E "\.ya?ml$" | wc -l
+### Step 3: Verify Workflow Integrity
 
-# Validate YAML syntax
-for workflow in .github/workflows/*.yml .github/workflows/*.yaml; do
-    if ! grep -q "^name:" "$workflow"; then
-        echo "WARNING: $workflow missing 'name' field"
-    fi
+**Duration:** 5 minutes
+
+Validate that all archived workflows are syntactically correct:
+
+```bash
+# Check for YAML syntax errors in all workflows
+for workflow in .github/workflows/*.yml; do
+  echo "Checking $workflow..."
+  if ! yq eval '.' "$workflow" > /dev/null 2>&1; then
+    echo "ERROR: Syntax error in $workflow"
+    exit 1
+  fi
 done
+
+echo "✓ All workflows are syntactically valid"
+
+# Verify workflow triggers are enabled (no disabled jobs)
+grep -l "if: false" .github/workflows/*.yml | wc -l
+# Expected output: 0 (no disabled workflows)
 ```
 
-### Step 4: Commit Rollback
+### Step 4: Commit and Push Rollback
+
+**Duration:** 5 minutes
+
+Commit the rollback changes and push to develop:
+
 ```bash
-# Stage rollback changes
+# Stage all workflow changes
 git add .github/workflows/
-git add .github/docs/PHASE2_ROLLBACK.md
 
-# Commit with clear message
-git commit -m "rollback: restore Phase 1 archived workflows after Phase 2 failure
+# Commit with clear rollback message
+git commit -m "chore: rollback to phase1 archived workflows
 
-Rollback reason: [INSERT SPECIFIC FAILURE REASON]
-Failing workflow(s): [INSERT WORKFLOW NAMES]
-Error logs: [INSERT REFERENCE TO LOGS]
+This commit restores all 71 pre-Phase 2 archived workflows to active status.
+Reason for rollback: [document reason here]
 
-This commit restores all 71 Phase 1 archived workflows and disables Phase 2 unified workflows.
-All workflow behavior returns to pre-Phase-2 state.
-No data loss."
+Rolled back files:
+- Removed: labeling-unified.yml, validation-unified.yml, testing-unified.yml, linting-unified.yml, quality-gates.yml
+- Restored: 71 archived workflows from .github/workflows/archived/2026-09-11/
 
-# Tag rollback event for audit trail
-git tag -a "rollback/phase2-$(date +%Y%m%d-%H%M%S)" -m "Phase 2 rollback event"
+Verification:
+- All 71 workflows present: ✓
+- All workflows syntactically valid: ✓
+- No disabled jobs: ✓
+
+Baseline metrics: See .github/docs/BASELINE_METRICS.md
+Rollback procedure: See .github/docs/PHASE2_ROLLBACK.md
+
+[ROLLBACK-COMPLETE]"
+
+# Push to develop branch
+git push origin develop
+
+# Verify push successful
+git log --oneline -1
 ```
 
-### Step 5: Trigger Workflow Validation
+### Step 5: Trigger Validation Run
+
+**Duration:** 10 minutes
+
+Trigger archived workflows to validate they execute correctly:
+
 ```bash
-# Create test PR or push to feature branch to validate restored workflows execute
-git push origin refactor/workflow-consolidation-phase-2
+# Create a test PR to trigger workflows
+git checkout -b test/rollback-validation origin/develop
+echo "# Rollback Validation PR" >> README.md
+git add README.md
+git commit -m "test: trigger workflow validation after rollback"
+git push origin test/rollback-validation
 
-# Monitor GitHub Actions tab to verify:
-# ✓ All 71 archived workflows trigger correctly
-# ✓ No duplicate runs (ensure Phase 2 workflows are truly disabled)
-# ✓ Results match pre-Phase-2 behavior
+# Monitor GitHub Actions dashboard for workflow execution
+# Expected: All workflows trigger and complete successfully
+# Timeline: ~10 minutes for all workflows to run
+
+# Once validation complete, close test PR (do NOT merge)
+# Go to: https://github.com/lightspeedwp/.github/pulls
+# Find "test/rollback-validation" PR → Click "Close pull request"
 ```
 
-### Step 6: Notify Stakeholders
-- Document failure reason and logs
-- Schedule post-mortem analysis
-- Update Phase 2 plan with findings
-- Adjust timeline and success criteria if necessary
+### Step 6: Verify Production State
+
+**Duration:** 5 minutes
+
+Confirm all archived workflows are active and functioning:
+
+```bash
+# Check workflow files in production (develop branch)
+git log --oneline -2 origin/develop
+# Should show rollback commit as HEAD
+
+# Verify .github/workflows/ contains only archived workflows
+ls -lh .github/workflows/ | grep -E "\.yml|\.yaml" | wc -l
+# Expected: 71 files
+
+# Confirm Phase 2 unified workflows removed
+ls -la .github/workflows/labeling-unified.yml 2>/dev/null && echo "ERROR: unified workflows still present" || echo "✓ Unified workflows removed"
+
+# Check metrics directory (Phase 2 data preserved for analysis)
+ls -lah .github/metrics/ 2>/dev/null | head -5
+```
 
 ---
 
-## Rollback Validation Checklist
+## Rollback Verification Checklist
 
-After rollback, confirm:
-- [ ] All 71 Phase 1 archived workflows present in `.github/workflows/`
-- [ ] Phase 2 unified workflows disabled or removed
-- [ ] Next PR/issue triggers all expected labeling workflows (archived versions)
-- [ ] No duplicate labels applied (confirming Phase 2 workflows are off)
-- [ ] Validation workflows execute correctly on branch names
-- [ ] Test workflows run correctly on push/PR
-- [ ] No new errors in workflow logs
+After completing all steps, verify:
 
----
-
-## Emergency Contacts
-
-- **Workflow Owner:** @ashley
-- **On-Call:** [TBD — escalation contact]
-- **Incident Channel:** #workflow-incidents (Slack)
+- [ ] All 71 archived workflows present in `.github/workflows/`
+- [ ] All 5 unified workflows removed (labeling, validation, testing, linting, quality-gates)
+- [ ] Test PR triggered and all workflows executed successfully
+- [ ] GitHub Actions dashboard shows workflows running with archived names
+- [ ] No error messages in workflow logs
+- [ ] PR/issue labeling working correctly (via test PR event)
+- [ ] Performance metrics within Phase 1 baseline range
 
 ---
 
-## Post-Rollback Recovery Plan
+## Post-Rollback Actions
 
-1. **Analysis Phase (1-2 hours)**
-   - Review failing workflow logs
-   - Identify root cause (configuration, logic, resource constraints)
-   - Document findings in incident report
+### 1. Notify Stakeholders
 
-2. **Fix Phase (TBD)**
-   - Adjust Phase 2 implementation based on findings
-   - Add new tests to prevent regression
-   - Re-run `/speckit-plan` if architecture changes needed
+```bash
+# Post to #engineering channel
+echo "🔄 Phase 2 rollback complete
+- All 71 archived workflows restored
+- Unified workflows disabled
+- Validation run: ✓ PASSED
+- Next steps: RCA and remediation planning"
+```
 
-3. **Re-Deploy Phase (TBD)**
-   - Recreate feature branch from updated plan
-   - Rerun Phase 1-2 validation
-   - Proceed with Phase 3 (labeling-unified.yml) when confidence restored
+### 2. Capture Failure Analysis
+
+Document why Phase 2 was rolled back:
+
+```bash
+cat > .github/reports/active/PHASE2_ROLLBACK_RCA_$(date +%Y%m%d).md << 'ANALYSIS'
+# Phase 2 Rollback Root Cause Analysis
+
+**Rollback Date:** [DATE]
+**Affected Duration:** [START] to [END]
+**Reason:** [Document failure mode and impact]
+
+## Failure Analysis
+
+### Symptoms
+- [Describe observed issues]
+
+### Root Cause
+- [Document technical root cause]
+
+### Impact
+- [Document metric degradation or failures]
+
+### Resolution
+- [Document fix or improvement needed]
+
+## Recommendations
+
+1. [Remediation step 1]
+2. [Remediation step 2]
+3. [Re-validation plan]
+
+## Re-Deployment Plan
+
+[Document when/how Phase 2 will be redeployed after fixes]
+ANALYSIS
+
+git add .github/reports/active/PHASE2_ROLLBACK_RCA_*.md
+git commit -m "docs: phase2 rollback root cause analysis"
+git push origin develop
+```
+
+### 3. Archive Phase 2 Metrics
+
+Preserve Phase 2 measurements for post-mortem:
+
+```bash
+# Copy metrics to archive
+cp -r .github/metrics .github/metrics_phase2_rollback_$(date +%Y%m%d_%H%M%S)
+
+# Commit archive
+git add .github/metrics_phase2_*
+git commit -m "chore: archive phase2 metrics for analysis"
+git push origin develop
+```
 
 ---
 
-## Technical Details
+## Recovery from Rollback
 
-### What Phase 2 Rollback Does NOT Affect
-- Issue/PR data (no mutations during workflow execution)
-- Label definitions (`.github/labels.yml` unchanged)
-- Issue templates or PR templates
-- Secret configurations
-- GitHub organization settings
+### Option 1: Analyze and Re-Deploy (Recommended)
 
-### What Gets Restored
-- All 71 archived workflow files at `.github/workflows/archived/2026-09-11/`
-- Original trigger patterns (pull_request, issues, push, schedule)
-- Original job definitions and step logic
-- Composite action dependencies (if any)
+1. Document root cause (see Post-Rollback Actions above)
+2. Implement fix on feature branch
+3. Re-test unified workflows locally
+4. Redeploy Phase 2 with fixes
 
-### Limitations
-- Rollback is **not** automatic — requires manual execution
-- In-flight workflow runs (at rollback time) will complete under Phase 2 logic
-- Label cleanup jobs from Phase 2 may need manual review if partially executed
+### Option 2: Extend Phase 1
+
+If Phase 2 requires significant rework:
+
+1. Continue with archived workflows as stable baseline
+2. Plan Phase 2.1 with additional time for problem resolution
+3. Schedule re-evaluation milestone (e.g., 2 weeks)
 
 ---
 
-## Related Documents
-- [WORKFLOW_CONSOLIDATION_MAPPING.md](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Lists 71→5 mapping
-- [PHASE2_OPERATIONS_RUNBOOK.md](./PHASE2_OPERATIONS_RUNBOOK.md) — Day-2 operations guide
-- [spec.md](../specs/011-workflow-consolidation-phase-2/spec.md) — Phase 2 specification
+## Rollback Procedure Validation
+
+**Testing Schedule:**
+
+- [ ] Dry-run rollback during Phase 1 (before Phase 2 deployment)
+- [ ] Full rollback test on feature branch
+- [ ] Production rollback only as last resort (after ≥3 consecutive CI failures)
+
+**Dry-Run Commands** (for Phase 1 testing):
+
+```bash
+# Create isolated test branch
+git checkout -b test/phase2-rollback-dryrun origin/develop
+
+# Simulate Phase 2 deployment (create dummy unified workflows)
+echo "# Phase 2 test workflows - to be removed" > .github/workflows/test-phase2-*.yml
+
+# Run through rollback steps 1-4 above
+
+# Verify archived workflows restore correctly
+# Then reset branch
+git checkout develop
+git branch -D test/phase2-rollback-dryrun
+```
+
+---
+
+## Support & Escalation
+
+**Rollback Issues:**
+
+- Workflow syntax errors → Check YAML format, use `yq` validator
+- File copy failures → Verify archive directory permissions, use `sudo` if needed
+- Git push conflicts → Pull latest, resolve conflicts, retry push
+- Workflows not triggering → Clear Actions cache, verify webhook configuration
+
+**Escalation Path:**
+
+1. Check GitHub Status page for incidents: <https://www.githubstatus.com>
+2. Review workflow error logs in Actions tab
+3. Post in #engineering with error details
+4. Contact @ashley for administrator access if needed
+
+---
+
+**Last Updated:** 2026-09-17  
+**Validated By:** [To be completed during rollback drill]  
+**Next Rollback Drill:** [Scheduled for 2026-09-25 or post-Phase-2-deployment]

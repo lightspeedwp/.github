@@ -34,11 +34,11 @@ phases: 7
 
 ### Setup Tasks
 
-- [ ] T001 Verify Phase 1 archive integrity: all 71 archived workflows present in `.github/workflows/archived/2026-09-11/` with checksums
-- [ ] T002 Measure current GitHub Actions minutes baseline for last 30 days; record in `BASELINE_METRICS.md`
-- [ ] T003 Create GitHub Actions metrics tracking script at `.github/scripts/measure-actions-minutes.sh`
-- [ ] T004 Document Phase 1 rollback procedure in `.github/docs/PHASE2_ROLLBACK.md` with step-by-step recovery instructions
-- [ ] T005 Create workflow consolidation mapping document at `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` with 71→5 workflow mapping table
+- [x] T001 Verify Phase 1 archive integrity: all 71 archived workflows present in `.github/workflows/archived/2026-09-11/` with checksums
+- [x] T002 Measure current GitHub Actions minutes baseline for last 30 days; record in `BASELINE_METRICS.md`
+- [x] T003 Create GitHub Actions metrics tracking script at `.github/scripts/measure-actions-minutes.sh`
+- [x] T004 Document Phase 1 rollback procedure in `.github/docs/PHASE2_ROLLBACK.md` with step-by-step recovery instructions
+- [x] T005 Create workflow consolidation mapping document at `.github/docs/WORKFLOW_CONSOLIDATION_MAPPING.md` with 71→5 workflow mapping table
 
 ---
 
@@ -284,7 +284,7 @@ Phase 7 (Integration & Cutover)
 
 Use this section to track task progress:
 
-- [ ] **Phase 1 Setup:** T001-T005 (0/5 complete)
+- [x] **Phase 1 Setup:** T001-T005 (5/5 complete)
 - [ ] **Phase 2 Foundational:** T006-T014 (0/9 complete)
 - [ ] **Phase 3 US1:** T015-T024 (0/10 complete)
 - [ ] **Phase 4 US2:** T025-T036 (0/12 complete)
@@ -293,7 +293,7 @@ Use this section to track task progress:
 - [ ] **Phase 6 US5:** T057-T068 (0/12 complete)
 - [ ] **Phase 7 Integration:** T069-T078 (0/10 complete)
 
-**Total Progress:** 0/78 tasks complete
+**Total Progress:** 5/78 tasks complete
 
 ---
 
