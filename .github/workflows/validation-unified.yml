@@ -387,37 +387,34 @@ jobs:
       ]
     if: always()
     steps:
-      - name: Collect validation workflow metrics
-        id: metrics
-        uses: ./.github/actions/collect-metrics
-        with:
-          workflow_name: 'validation-unified'
-          workflow_run_id: 'current'
-          metric_type: 'all'
-          output_format: 'json'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Report validation check summary
+        shell: bash
+        run: |
+          echo "## Validation Check Summary"
+          echo ""
+          echo "| Check | Status |"
+          echo "|-------|--------|"
+          echo "| Branch Validation | ${{ needs.branch-validation.result }} |"
+          echo "| PR Template Validation | ${{ needs.pr-template-validation.result }} |"
+          echo "| Changelog Validation | ${{ needs.changelog-validation.result }} |"
+          echo "| Commit Validation | ${{ needs.commit-validation.result }} |"
+          echo "| Workflow Validation | ${{ needs.workflow-validation.result }} |"
+          echo "| Secret Scanning | ${{ needs.secret-scanning.result }} |"
+          echo ""
 
-      - name: Report validation check results
-        uses: ./.github/actions/validate-check
-        if: github.event_name == 'pull_request'
-        with:
-          check_name: 'validation-unified'
-          status: ${{ (needs.branch-validation.result == 'success' && needs.pr-template-validation.result == 'success' && needs.changelog-validation.result == 'success' && needs.commit-validation.result == 'success' && needs.workflow-validation.result == 'success' && needs.secret-scanning.result == 'success') && 'success' || 'failure' }}
-          title: 'Validation Checks'
-          summary: |
-            **Branch Validation:** ${{ needs.branch-validation.result }}
-            **PR Template Validation:** ${{ needs.pr-template-validation.result }}
-            **Changelog Validation:** ${{ needs.changelog-validation.result }}
-            **Commit Validation:** ${{ needs.commit-validation.result }}
-            **Workflow Validation:** ${{ needs.workflow-validation.result }}
-            **Secret Scanning:** ${{ needs.secret-scanning.result }}
-
-            **Metrics:**
-            - Minutes Used: ${{ steps.metrics.outputs.minutes_used }}
-            - Duration: ${{ steps.metrics.outputs.duration_seconds }} seconds
-          details: '[]'
-          post_comment: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Check if all validations passed
+          if [[ "${{ needs.branch-validation.result }}" == "success" && \
+                "${{ needs.pr-template-validation.result }}" == "success" && \
+                "${{ needs.changelog-validation.result }}" == "success" && \
+                "${{ needs.commit-validation.result }}" == "success" && \
+                "${{ needs.workflow-validation.result }}" == "success" && \
+                "${{ needs.secret-scanning.result }}" == "success" ]]; then
+            echo "✅ All validation checks passed"
+            exit 0
+          else
+            echo "❌ One or more validation checks failed"
+            exit 1
+          fi
 
   validation-summary:
     name: Validation Summary
