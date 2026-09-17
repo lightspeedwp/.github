@@ -1,5 +1,8 @@
 name: Validation Unified • PR & Issue Checks
 
+# TEMPORARILY DISABLED - Phase 4 skeleton workflow under development
+# Remove this condition when implementation is complete (T026-T036)
+
 on:
   pull_request:
     branches: [develop]
@@ -38,6 +41,9 @@ concurrency:
   group: validation-${{ github.event_name }}-${{ github.event.number || github.ref }}
   cancel-in-progress: false
 
+env:
+  WORKFLOW_DISABLED: 'true' # Remove when Phase 4 implementation complete
+
 jobs:
   # ============================================================================
   # PR-triggered validation jobs
@@ -47,8 +53,9 @@ jobs:
     name: Validate Branch Name
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'pull_request' ||
-      (github.event_name == 'workflow_dispatch' && contains(fromJSON('["all","branch-only"]'), inputs.scope))
+      env.WORKFLOW_DISABLED != 'true' &&
+      (github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && contains(fromJSON('["all","branch-only"]'), inputs.scope)))
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
