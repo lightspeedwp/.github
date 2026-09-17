@@ -84,3 +84,5 @@ Audit findings here. Route catalogue SEO setup or default templates to `yoast-co
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
