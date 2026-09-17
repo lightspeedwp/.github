@@ -81,15 +81,17 @@
 
 ### PR Governance Automation Foundation
 
-- [x] T030 Create pr_governance section in `.coderabbit.yml` with structure (FR-016 through FR-019)
-- [x] T031 [P] Define template_validation entity: enabled, rules array with section/required/min_items/pattern (SC-014)
-- [x] T032 [P] Define label_enforcement entity: families object with type/status/priority/area/meta (SC-015)
-- [x] T033 [P] Define dod_automation entity: scope_detection, templates for feature/bugfix/docs (SC-016)
-- [x] T034 [P] Define doc_validation entity: skip_paths, failure_rules per type (SC-017)
-- [x] T035 Implement template_validation rules: Linked Issues, Changelog, Checklist per actual templates
-- [x] T036 Implement label_enforcement rules: validate prefixes (type:, meta:, status:, priority:, area:)
-- [x] T037 Implement dod_automation templates: feature, bugfix, docs, hotfix, refactor, perf, security scopes
-- [x] T038 Implement doc_validation rules: skip .github/tmp/**, **/node_modules/**,**.generated.md
+**STATUS UPDATE (2026-09-17)**: PR governance rules moved to external documentation (`.github/docs/PR_GOVERNANCE.md`) because CodeRabbit v2 schema does NOT support `pr_governance` as a top-level YAML key. Rules are fully documented and ready for implementation via GitHub Actions workflows or CI/CD automation.
+
+- [x] T030 Document pr_governance spec in `.github/docs/PR_GOVERNANCE.md`: 4 components (FR-016 through FR-019)
+- [x] T031 [P] Document template_validation rules: branch-type-specific sections, validation patterns, severity levels (SC-014)
+- [x] T032 [P] Document label_enforcement rules: 6 canonical families, branch-to-label mappings, auto-detection logic (SC-015)
+- [x] T033 [P] Document dod_automation rules: scope detection, templates for feature/bugfix/docs/hotfix/refactor/perf/security (SC-016)
+- [x] T034 [P] Document doc_validation rules: linting rules, skip_paths, failure handling, remediation strategy (SC-017)
+- [x] T035 Create `.github/docs/PR_GOVERNANCE.md`: PR Template Validation section with all branch types
+- [x] T036 Create `.github/docs/PR_GOVERNANCE.md`: Label Enforcement section with canonical families and mappings
+- [x] T037 Create `.github/docs/PR_GOVERNANCE.md`: DoD Automation section with 9 scope templates (500+ lines comprehensive)
+- [x] T038 Create `.github/docs/PR_GOVERNANCE.md`: Documentation Validation section with linting rules and remediation
 
 ### Code Review Instructions - Path Patterns (35+ blocks)
 
@@ -268,7 +270,9 @@
 
 ## Phase 8: PR Governance Automation Rules Implementation
 
-**Purpose**: Implement FR-016 through FR-019 (template validation, label enforcement, DoD, doc validation)
+**Purpose**: Implement FR-016 through FR-019 (template validation, label enforcement, DoD, doc validation) via GitHub Actions workflows/CI
+
+**NOTE**: Governance rules documented in `.github/docs/PR_GOVERNANCE.md` (T030-T038). This phase focuses on implementing these rules via GitHub Actions workflows or other CI/CD automation. Future CodeRabbit versions with native governance support can integrate these rules directly into `.coderabbit.yml`.
 
 ### PR Template Validation (FR-016, SC-014)
 
