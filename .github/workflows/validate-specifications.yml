@@ -12,7 +12,9 @@ on:
       - develop
     paths:
       - '.github/specs/**'
+      - 'tests/bash/audit-specs.bats'
       - '.specify/scripts/bash/audit-specs.sh'
+      - 'tests/bash/audit-specs.bats'
       - 'tests/bash/audit-specs.bats'
 
 permissions:
