@@ -45,6 +45,14 @@
 
 ---
 
+## Clarifications
+
+### Session 2026-09-17
+
+- Q: Where should changelog entry validation feedback be displayed to help maintainers assess compliance before release? → A: GitHub pull request check annotations (red/yellow badges in PR checks tab with detailed failure reasons).
+
+---
+
 ## User Scenarios & Acceptance
 
 ### Scenario 1: Maintainer Reviews Changelog Entry
@@ -68,12 +76,13 @@
 **Flow:**
 
 1. Developer creates PR with changelog entry
-2. CI validation gate runs (7-layer validation system)
-3. Entry is checked for: length, format, PR link, implementation details
-4. If compliant: CI passes, PR proceeds
-5. If non-compliant: CI fails with specific actionable feedback
+2. CI validation gate runs automatically
+3. Entry is checked for: length (≤250 chars), format, PR link presence, implementation details
+4. Validation result appears as **GitHub PR check annotation** (red/yellow badge in PR checks tab)
+5. If compliant: Check passes (green), PR proceeds; if non-compliant: Check fails (red) with specific, actionable error messages
+6. Developer reads failure details directly in PR checks tab and refactors entry locally
 
-**Acceptance:** Developers receive clear, actionable failure messages; 95%+ of entries pass on first submission after Phase 5.
+**Acceptance:** Developers receive clear, actionable failure messages in PR UI; 95%+ of entries pass on first submission after Phase 5.
 
 ### Scenario 3: Release Manager Generates Release Notes
 
@@ -120,13 +129,14 @@
 
 ### FR-2: Automated Enforcement Gates
 
-- **Requirement:** CI/CD validation gates must block PRs with non-compliant changelog entries
+- **Requirement:** CI/CD validation gates must block PRs with non-compliant changelog entries and display results as GitHub PR check annotations
 - **Gate behavior:**
   - Triggers on any PR targeting `develop` or `main` if CHANGELOG.md is modified
-  - Validates all [Unreleased] entries (both existing and new)
-  - Provides pass/fail verdict and specific failure reasons
+  - Validates all [Unreleased] entries (both existing and new) against all quality standards
+  - **Output format:** GitHub PR check (red/yellow badge) with detailed violation list per entry
+  - Provides clear, actionable failure reasons (character count, missing links, detected keywords)
   - Does NOT block PRs from branches lacking changelog entries (configuration option)
-- **Testable:** CI must reject PR with 300-char entry; CI must approve PR with 250-char compliant entry
+- **Testable:** PR with 300-char entry displays red check with "ENTRY_TOO_LONG" violation; PR with 250-char compliant entry displays green check
 
 ### FR-3: Auto-Linking Automation
 
