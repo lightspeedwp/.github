@@ -14,6 +14,12 @@ The Requirements Quality Checklist Framework is a structured set of quality gate
 
 The framework addresses the gap between "I wrote requirements" and "these requirements are ready to build"—reducing rework, preventing scope creep, and improving team alignment.
 
+## Clarifications
+
+### Session 2026-09-17
+
+- Q: How should each of the 8 quality dimensions be scored and measured? → A: Each dimension uses a weighted item-count approach: (passed items ÷ total applicable items) × 100%, with ≥75% threshold for dimension pass.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Author Pre-Review: Self-Validate Before Peer Review (Priority: P1)
@@ -93,7 +99,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 - **FR-001**: System MUST provide 8 distinct quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with clear definition and measurable checkpoints for each
 - **FR-002**: System MUST generate a base checklist with 40+ items covering the 8 dimensions, structured as testable yes/no or scoring questions
 - **FR-003**: System MUST support 4 audience-specific checklist variants (Author Pre-Review ~50 items, Peer Review ~50 items, Stakeholder Gate ~25 items, Cross-Project Integration ~30 items) with tailored language and focus per audience
-- **FR-004**: System MUST allow specifications to be run against a checklist and produce a results document with pass/fail status per dimension, dimension scores (0-100%), and specific findings by checklist item
+- **FR-004**: System MUST allow specifications to be run against a checklist and produce a results document with pass/fail status per dimension (calculated as: passed items ÷ total applicable items × 100%; dimension passes if ≥75%), dimension scores (0-100%), and specific findings by checklist item
 - **FR-005**: System MUST provide reference examples and clarification guidance for ambiguous checklist items (e.g., "What counts as 'measurable'?" with examples of good vs. poor criteria)
 - **FR-006**: System MUST support extension of the base checklist with project-specific quality rules (e.g., "All security specs MUST address [specific threat model]") without modifying the core framework
 - **FR-007**: System MUST enable integration with specification workflows (e.g., as a pre-commit check, as an automated PR review gate, as an async stakeholder sign-off tool)
@@ -103,7 +109,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 
 - **ChecklistTemplate**: Defines a named checklist variant (Author Pre-Review, Peer Review, Stakeholder Gate, Cross-Project Integration) with audience, time estimate, and set of checklist items
 - **ChecklistItem**: Individual quality checkpoint with dimension assignment, audience applicability, pass criteria, and reference examples
-- **ChecklistDimension**: One of the 8 quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with definition and success threshold
+- **ChecklistDimension**: One of the 8 quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with definition, success threshold (≥75% of applicable items must pass), and related checklist items
 - **ChecklistResult**: Output from running a checklist on a specification, including dimension scores, item-level pass/fail, findings, and recommendations
 - **SpecificationReference**: Metadata linking a result to a specification (path, version, author) for tracking and trend analysis
 
