@@ -27,6 +27,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 - Q: When should the PR be approved — after each phase or after all phases complete? → A: Single approval after all 7 phases complete and hard requirements verified (≥15% reduction, all 5 workflows passing CI ≥3 times).
 - Q: How should parallel phases (US2 & US3) be coordinated on a single branch? → A: Both US2 and US3 can commit to the feature branch in parallel; CI tests both workflows together without file-level conflicts.
 - Q: How to handle upstream changes during the 7-phase development cycle? → A: Merge develop into feature branch when critical upstream changes occur; avoid rebasing to preserve phase commit history.
+- Q: What is the minimum acceptable test coverage requirement for Phase 2 workflows and referenced scripts? → A: Functional + integration coverage ≥80% of critical workflow paths tested (labeling, validation, testing triggers), plus ≥80% line coverage for all scripts referenced by workflows. "Passing CI" = all tests green + no workflow syntax errors.
 
 ## Branch Strategy
 
@@ -168,7 +169,7 @@ git push origin refactor/workflow-consolidation-phase-2
 ### Measurable Outcomes
 
 1. **Performance Target (Hard Requirement):** Achieve ≤15% reduction in GitHub Actions minutes (baseline: 2,500/month → target: ≤2,125/month)
-2. **All 5 Unified Workflows Passing CI:** GitHub Actions checks green on feature branch for ≥3 consecutive runs
+2. **All 5 Unified Workflows Passing CI:** GitHub Actions checks green on feature branch for ≥3 consecutive runs; includes ≥80% functional + integration test coverage of critical paths (labeling, validation, testing triggers) and ≥80% line coverage for all referenced scripts
 3. **Functional Coverage:** All critical workflow paths (labeling, validation, testing) execute successfully
 4. **Integration Coverage:** Each unified workflow correctly routes events to downstream systems
 5. **Scenario Coverage:** Primary flows, error cases, and edge cases all addressed in test suite
