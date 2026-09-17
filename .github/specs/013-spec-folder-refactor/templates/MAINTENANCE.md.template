@@ -172,7 +172,7 @@ Verify quality dimensions still pass after changes.
 Update "Last Updated" date in CATALOG.md entry:
 
 ```
-| 005 | example-spec | Example Feature | Purpose text | Active | 2026-09-16 |
+| 005 | example-spec | Example Feature | Active | 2026-09-16 | ./.github/specs/005-example-spec/spec.md |
 ```
 
 **Step 6: Submit for Approval**
