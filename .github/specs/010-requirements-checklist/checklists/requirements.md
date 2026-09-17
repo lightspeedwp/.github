@@ -144,3 +144,15 @@ This specification is ready for:
 - Edge cases identified and documented
 - Scope boundaries clear and realistic
 - Framework design aligns with LightSpeed `.github` repository constitution (Specification-First Process)
+
+## Clarifications Applied (2026-09-17)
+
+**Session completed**: 5 critical ambiguities resolved via `/speckit-clarify`:
+
+1. **Dimension Scoring**: Weighted item-count approach (passed ÷ total × 100%), ≥75% threshold
+2. **Item Count Ranges**: Target ranges per variant (Author 45–55, Peer 45–55, Stakeholder 20–30, Integration 25–35)
+3. **Variant Selection**: Smart system recommendation with user override; concurrent variants allowed
+4. **Conflict Resolution**: Documented dissent approach; both scores recorded, stricter score used for gate decision
+5. **MVP Scope**: PR review gate integration only; pre-commit and async stakeholder sign-off deferred to post-launch
+
+**Impact**: All clarifications make requirements MORE concrete, unambiguous, and testable. No checklist items negatively impacted; all remain passing. Specification enhanced for planning phase readiness.
