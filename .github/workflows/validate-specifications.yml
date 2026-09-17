@@ -81,14 +81,19 @@ jobs:
               if [[ $target == http* ]]; then
                 continue
               fi
-              # Convert relative path to absolute (remove leading ./)
-              target_dir="${target%/spec.md}"
-              if [ ! -d ".github/specs/$target_dir" ]; then
-                echo "✗ Broken link: $link (target not found: .github/specs/$target_dir)"
+              # Normalize path (remove leading ./)
+              normalized="${target#./}"
+
+              # Check if target exists (file or directory)
+              if [ -f ".github/specs/$normalized" ] || [ -d ".github/specs/$normalized" ]; then
+                # Target exists - valid link
+                :
+              else
+                echo "✗ Broken link: $link (target not found: .github/specs/$normalized)"
                 ((++broken_links))
               fi
             fi
-          done < <(grep -oE '\]\(\./[0-9]{3}-[^)]+\)' .github/specs/CATALOG.md)
+          done < <(grep -oE '\]\(\./[0-9]{3}-[^)]+[/]?[^)]*\)' .github/specs/CATALOG.md)
 
           if [ $broken_links -eq 0 ]; then
             echo "links_valid=true" >> "$GITHUB_OUTPUT"
