@@ -11,7 +11,7 @@ status: "planning"
 
 ## Overview
 
-Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows, eliminating duplicate code and reducing GitHub Actions minutes by 15-20% (hard requirement: ≤15% reduction minimum).
+Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows, eliminating duplicate code and reducing GitHub Actions minutes by a hard minimum of ≥15% (baseline: ~2,500 minutes/month → target: ≤2,125/month).
 
 ## Clarifications
 
@@ -27,6 +27,10 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 - Q: When should the PR be approved — after each phase or after all phases complete? → A: Single approval after all 7 phases complete and hard requirements verified (≥15% reduction, all 5 workflows passing CI ≥3 times).
 - Q: How should parallel phases (US2 & US3) be coordinated on a single branch? → A: Both US2 and US3 can commit to the feature branch in parallel; CI tests both workflows together without file-level conflicts.
 - Q: How to handle upstream changes during the 7-phase development cycle? → A: Merge develop into feature branch when critical upstream changes occur; avoid rebasing to preserve phase commit history.
+
+### Session 2026-09-17
+
+- Q: What is the actual hard requirement for GitHub Actions minutes reduction — is it minimum ≥15% reduction or a target range of 15–20%? → A: Hard minimum: ≥15% reduction required (≤2,125/month baseline from ~2,500). If achieved <15%, PR cannot merge. Anything ≥15% passes merge gate; 15–20% range was aspirational but not enforced.
 
 ## Branch Strategy
 
