@@ -139,18 +139,18 @@
 
 ### Tests for User Story 3
 
-- [ ] T036 [P] [US3] Unit test for audience context detection at `.specify/templates/checklist-template/test/unit/test-audience-detection.js` (identify intended audience from workflow context)
-- [ ] T037 [P] [US3] Unit test for guidance rendering at `.specify/templates/checklist-template/test/unit/test-guidance-rendering.js` (audience-specific instructions render correctly)
-- [ ] T038 [US3] Integration test for multi-audience support at `.specify/templates/checklist-template/test/integration/test-multi-audience.js`
+- [x] T036 [P] [US3] Unit test for audience context detection at `.specify/templates/checklist-template/test/unit/test-audience-detection.js` (identify intended audience from workflow context)
+- [x] T037 [P] [US3] Unit test for guidance rendering at `.specify/templates/checklist-template/test/unit/test-guidance-rendering.js` (audience-specific instructions render correctly)
+- [x] T038 [US3] Integration test for multi-audience support at `.specify/templates/checklist-template/test/integration/test-multi-audience.js`
 
 ### Implementation for User Story 3
 
-- [ ] T039 [P] [US3] Create author pre-review guidance at `.specify/templates/checklist-template/content/audience-author.md` (30-min self-check, identify gaps before peer review, update spec based on findings)
-- [ ] T040 [P] [US3] Create peer reviewer guidance at `.specify/templates/checklist-template/content/audience-peer.md` (45-min review, use checklist to prioritize feedback, verify gaps, update checklist with findings)
-- [ ] T041 [P] [US3] Create stakeholder guidance at `.specify/templates/checklist-template/content/audience-stakeholder.md` (15-min gate decision, "Are all critical items checked?", approve or request clarifications)
-- [ ] T042 [P] [US3] Create integration reviewer guidance at `.specify/templates/checklist-template/content/audience-integration.md` (dependency verification, cross-project alignment, parallel work capability assessment)
-- [ ] T043 [US3] Implement audience-aware checklist generator at `.specify/templates/checklist-template/lib/audience-generator.js` (accepts audience param, generates checklist with audience-specific guidance)
-- [ ] T044 [US3] Create audience selection guide at `.specify/templates/checklist-template/AUDIENCE_GUIDE.md` (when to use each audience context, how to structure workflow)
+- [x] T039 [P] [US3] Create author pre-review guidance at `.specify/templates/checklist-template/content/audience-author.md` (30-min self-check, identify gaps before peer review, update spec based on findings)
+- [x] T040 [P] [US3] Create peer reviewer guidance at `.specify/templates/checklist-template/content/audience-peer.md` (45-min review, use checklist to prioritize feedback, verify gaps, update checklist with findings)
+- [x] T041 [P] [US3] Create stakeholder guidance at `.specify/templates/checklist-template/content/audience-stakeholder.md` (15-min gate decision, "Are all critical items checked?", approve or request clarifications)
+- [x] T042 [P] [US3] Create integration reviewer guidance at `.specify/templates/checklist-template/content/audience-integration.md` (dependency verification, cross-project alignment, parallel work capability assessment)
+- [x] T043 [US3] Implement audience-aware checklist generator at `.specify/templates/checklist-template/lib/audience-generator.js` (accepts audience param, generates checklist with audience-specific guidance)
+- [x] T044 [US3] Create audience selection guide at `.specify/templates/checklist-template/AUDIENCE_GUIDE.md` (when to use each audience context, how to structure workflow)
 
 **Checkpoint**: Multi-audience support complete; guidance contextual; proceed to FR-4
 
