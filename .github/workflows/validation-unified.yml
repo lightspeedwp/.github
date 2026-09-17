@@ -104,8 +104,18 @@ jobs:
           BRANCH="${{ github.head_ref }}"
           PR_BODY="${{ github.event.pull_request.body }}"
 
+          echo "🔍 DEBUG: Branch='$BRANCH'"
+          echo "🔍 DEBUG: PR Body length=${#PR_BODY}"
+
+          # Check if PR body is empty
+          if [[ -z "$PR_BODY" ]]; then
+            echo "❌ PR body is empty"
+            exit 1
+          fi
+
           # Extract type from branch
           TYPE=$(printf '%s' "$BRANCH" | cut -d'/' -f1)
+          echo "🔍 DEBUG: Detected type='$TYPE'"
 
           # Map branch type to expected template
           case "$TYPE" in
@@ -126,11 +136,16 @@ jobs:
               ;;
           esac
 
+          echo "🔍 DEBUG: Required sections: ${REQUIRED_SECTIONS[*]}"
+
           # Validate all required sections present
           MISSING_SECTIONS=()
           for SECTION in "${REQUIRED_SECTIONS[@]}"; do
-            if ! printf '%s' "$PR_BODY" | grep -q "$(printf '%s' "$SECTION")" ; then
+            if ! echo "$PR_BODY" | grep -F "$SECTION" > /dev/null; then
+              echo "🔍 DEBUG: Missing section: '$SECTION'"
               MISSING_SECTIONS+=("$SECTION")
+            else
+              echo "🔍 DEBUG: Found section: '$SECTION'"
             fi
           done
 
@@ -308,21 +323,38 @@ jobs:
             DIFF_OUTPUT=$(git diff HEAD~5..HEAD 2>&1 || git diff HEAD 2>&1)
           fi
 
-          # Look for actual secrets (exclude documentation and comments)
-          # Only flag lines with actual assigned values, not documentation
+          echo "🔍 DEBUG: Diff output size: ${#DIFF_OUTPUT} bytes"
+
+          # Look for actual secrets (exclude documentation)
           FOUND_SECRETS=0
 
-          # Check for AWS credentials (exclude from .md, .yml, .yaml files and comments)
-          if echo "$DIFF_OUTPUT" | grep -E "^\+" | grep -v "^+++\|\.md:\|\.yml:\|\.yaml:\|#" | grep -iE "AKIA[0-9A-Z]{16}" > /dev/null; then
-            echo "⚠️  Potential AWS key found"
-            FOUND_SECRETS=$((FOUND_SECRETS + 1))
-          fi
+          # Extract changed files (avoid .md, .yml, .yaml documentation files)
+          # Process diff to get only code file changes
+          CHANGED_FILES=$(echo "$DIFF_OUTPUT" | grep "^diff --git" | grep -v "\.md\|\.yml\|\.yaml" | awk '{print $4}')
+          echo "🔍 DEBUG: Changed code files: $(echo $CHANGED_FILES | wc -w) files"
 
-          # Check for RSA/Private keys (only in code files, not docs)
-          if echo "$DIFF_OUTPUT" | grep -E "^\+" | grep -v "^+++\|\.md:\|#" | grep -E "BEGIN (RSA |OPENSSH )?PRIVATE KEY" > /dev/null; then
-            echo "⚠️  Potential private key found"
-            FOUND_SECRETS=$((FOUND_SECRETS + 1))
-          fi
+          # For each changed file, get its diff
+          while read -r FILE; do
+            [[ -z "$FILE" ]] && continue
+
+            FILE_DIFF=$(echo "$DIFF_OUTPUT" | sed -n "/^diff --git.*$FILE/,/^diff --git/p" | head -n -1)
+
+            # Check for AWS credentials (AKIA prefix followed by 16 alphanumeric chars)
+            if echo "$FILE_DIFF" | grep -E "^\+" | grep -v "^+++" | grep -iE "AKIA[0-9A-Z]{16}" > /dev/null; then
+              echo "⚠️  Potential AWS key found in $FILE"
+              FOUND_SECRETS=$((FOUND_SECRETS + 1))
+              continue
+            fi
+
+            # Check for RSA/Private keys (actual key blocks, not documentation)
+            if echo "$FILE_DIFF" | grep -E "^\+" | grep -v "^+++" | grep -E "BEGIN (RSA |OPENSSH )?PRIVATE KEY" > /dev/null; then
+              echo "⚠️  Potential private key found in $FILE"
+              FOUND_SECRETS=$((FOUND_SECRETS + 1))
+              continue
+            fi
+          done < <(echo "$CHANGED_FILES")
+
+          echo "🔍 DEBUG: Found $FOUND_SECRETS potential secrets"
 
           if [[ $FOUND_SECRETS -gt 0 ]]; then
             echo "❌ Secret scanning found potential secrets"
