@@ -80,21 +80,31 @@ For each specification (001-012):
 5. **Score the specification**:
    - Count passing dimensions (0-8)
    - Calculate percentage: (passing / 8) × 100
-   - Classify: 75%+ = Passing, 50-74% = Partial, <50% = Failing
+   - Classify by gate + methodology:
+     - **Approved** (8/8 = 100%): Mandatory quality gate; specification approved for production use
+     - **Passing** (6-7/8 = 75-87.5%): Methodology gate; ready for implementation with minor fixes
+     - **Partial** (5/8 = 62.5%): Significant gaps; remediation required before use
+     - **Below Threshold** (<5/8 = <62.5%): Unsuitable for implementation
 
 ---
 
 ## Quality Thresholds
 
-**Passing Specification**: 6-8 dimensions (75%+)
+**Approved Specification**: 8/8 dimensions (100% - MANDATORY GATE)
 
-- Specification is ready for implementation with minor fixes expected during planning phase
+- All quality dimensions pass; specification approved for production use without remediation
+- Meets Constitution Principle VII mandatory quality gate
 
-**Partial Specification**: 4-5 dimensions (50-74%)
+**Passing Specification**: 6-7 dimensions (75-87.5% - METHODOLOGY)
+
+- Specification is ready for implementation; minor fixes expected during planning phase
+- Above methodology threshold but below mandatory approval gate
+
+**Partial Specification**: 5 dimensions (62.5%)
 
 - Specification has significant gaps; remediation required before implementation can begin
 
-**Failing Specification**: 0-3 dimensions (<50%)
+**Below Threshold**: 0-4 dimensions (<62.5%)
 
 - Specification needs substantial rework; unsuitable for implementation in current state
 

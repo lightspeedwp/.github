@@ -14,10 +14,10 @@
 
 **Purpose**: Establish foundation for audit tasks (setup scripts, utility functions, directories)
 
-- [ ] T001 Create audit utility script at `.specify/scripts/bash/audit-specs.sh` for scanning `.github/specs/` directory structure
-- [ ] T002 Create data export functions for specification metadata (number, slug, status, title) as input to catalog generation
-- [ ] T003 [P] Create directory for audit reports at `.github/specs/audit-reports/` (or inline in feature directory)
-- [ ] T004 [P] Create template for audit result formatting (pass/fail per dimension per spec)
+- [x] T001 Create audit utility script at `.specify/scripts/bash/audit-specs.sh` for scanning `.github/specs/` directory structure
+- [x] T002 Create data export functions for specification metadata (number, slug, status, title) as input to catalog generation
+- [x] T003 [P] Create directory for audit reports at `.github/specs/audit-reports/` (or inline in feature directory)
+- [x] T004 [P] Create template for audit result formatting (pass/fail per dimension per spec)
 
 ---
 
@@ -28,7 +28,7 @@
 **⚠️ CRITICAL**: No user story audit/documentation can generate output until this phase is complete
 
 - [x] T005 Document audit methodology in internal notes (8-dimension audit approach, per-spec analysis, gap identification)
-- [ ] T006 List all 12 existing specifications by directory scan (001-012) to establish audit target list
+- [x] T006 List all 12 existing specifications by directory scan (001-012) to establish audit target list
 - [x] T007 Create template for audit report structure (summary table, per-spec results, remediation priority)
 - [x] T008 Establish quality dimension definitions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities)
 - [x] T009 Create checklist for catalog entry validation (links valid, status accurate, dates consistent)

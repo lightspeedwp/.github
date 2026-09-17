@@ -13,15 +13,15 @@
 - [ ] All 12 existing specifications (001-012) have entries in CATALOG.md
 - [ ] Specification 013 has a catalog entry
 - [ ] Entry count in CATALOG.md matches file count in `.github/specs/`
-- [ ] Each entry includes required fields: number, slug, title, purpose, status, created date
-- [ ] Each entry includes link to spec directory (format: `specs/{NNN}-{slug}/`)
+- [ ] Each entry includes required fields: number, title, purpose, status, created date
+- [ ] Each entry includes link to spec directory (format: `./NNN-{slug}/spec.md`)
 
 ---
 
 ## Link Validity
 
 - [ ] All directory links in catalog point to existing spec directories
-- [ ] Links follow format: `specs/{NNN}-{slug}/` (relative path)
+- [ ] Links follow format: `./NNN-{slug}/spec.md` (relative path, markdown link)
 - [ ] No broken or malformed links
 - [ ] Can navigate from catalog entry to actual spec.md file (via link)
 
@@ -29,10 +29,10 @@
 
 ## Data Accuracy
 
-- [ ] Spec number in catalog matches directory name (e.g., catalog says 001 for `specs/001-*`)
-- [ ] Spec slug in catalog matches directory slug (e.g., catalog says `prd-agent-consolidation` for `specs/001-prd-agent-consolidation/`)
+- [ ] Spec number in catalog matches directory name (e.g., catalog says 001 for `.github/specs/001-*`)
 - [ ] Spec title in catalog matches spec.md title
-- [ ] Status field is current (Active, Draft, Archived, Deprecated)
+- [ ] Purpose summary in catalog is accurate and concise
+- [ ] Status field is current (Draft, Active, or Complete)
 - [ ] Created date is accurate (matches spec creation date if documented)
 
 ---
@@ -56,7 +56,8 @@
 ## Format Compliance
 
 - [ ] Catalog uses consistent table format (markdown table)
-- [ ] Table has headers: Number, Slug, Title, Purpose, Status, Created
+- [ ] Index table has headers: # | Title | Purpose | Status | Created | Link
+- [ ] Detailed entries include: Status, Phase, Created, Updated, Link
 - [ ] All rows aligned and properly formatted
 - [ ] No manually entered inconsistencies (spelling, capitalization, formatting)
 
