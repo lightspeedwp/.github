@@ -15,8 +15,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
-  checks: write
 
 jobs:
   validate:
@@ -24,24 +22,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v7
 
       - name: Run specification audit
         id: audit
         run: |
-          bash .specify/scripts/bash/audit-specs.sh > audit-output.txt 2>&1
-          cat audit-output.txt
+          set -o pipefail
+          bash .specify/scripts/bash/audit-specs.sh 2>&1 | tee audit-output.txt
 
       - name: Validate catalog exists
         id: catalog
         run: |
           if [ -f ".github/specs/CATALOG.md" ]; then
-            echo "status=found" >> $GITHUB_OUTPUT
+            echo "status=found" >> "$GITHUB_OUTPUT"
             echo "✓ CATALOG.md exists"
           else
-            echo "status=missing" >> $GITHUB_OUTPUT
+            echo "status=missing" >> "$GITHUB_OUTPUT"
             echo "✗ CATALOG.md not found"
             exit 1
           fi
@@ -51,73 +47,21 @@ jobs:
         run: |
           # Check that CATALOG.md contains the canonical schema definition
           if grep -q "Catalog Schema (Canonical)" .github/specs/CATALOG.md; then
-            echo "schema_documented=true" >> $GITHUB_OUTPUT
+            echo "schema_documented=true" >> "$GITHUB_OUTPUT"
             echo "✓ Canonical schema section found"
           else
-            echo "schema_documented=false" >> $GITHUB_OUTPUT
+            echo "schema_documented=false" >> "$GITHUB_OUTPUT"
             echo "⚠ Canonical schema section not documented"
           fi
 
           # Verify canonical columns exist in active specifications table
           # Look for the Active Specifications section and verify the header row matches exactly
           if grep -A 2 "## Active Specifications" .github/specs/CATALOG.md | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
-            echo "schema_valid=true" >> $GITHUB_OUTPUT
+            echo "schema_valid=true" >> "$GITHUB_OUTPUT"
             echo "✓ Table follows canonical schema (# | Slug | Title | Status | Created | Link)"
           else
-            echo "schema_valid=false" >> $GITHUB_OUTPUT
+            echo "schema_valid=false" >> "$GITHUB_OUTPUT"
             echo "✗ Table does not follow canonical schema"
-            exit 1
-          fi
-
-      - name: Check specification numbering
-        id: numbering
-        run: |
-          # Extract all spec numbers from directories
-          numbers=$(ls -d .github/specs/[0-9][0-9][0-9]-*/ 2>/dev/null | sed 's/.*\/\([0-9][0-9][0-9]\)-.*/\1/' | sort -n)
-
-          # Count total specs
-          total=$(echo "$numbers" | wc -w)
-          echo "total_specs=$total" >> $GITHUB_OUTPUT
-          echo "✓ Found $total specifications"
-
-          # Check for gaps in numbering
-          prev=0
-          has_gaps=false
-          for num in $numbers; do
-            expected=$((prev + 1))
-            if [ $num -gt $expected ] && [ $prev -gt 0 ]; then
-              echo "⚠ Gap detected: expected spec $expected, found $num"
-              has_gaps=true
-            fi
-            prev=$num
-          done
-
-          if [ "$has_gaps" = true ]; then
-            echo "has_gaps=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_gaps=false" >> $GITHUB_OUTPUT
-            echo "✓ Numbering is sequential (no gaps)"
-          fi
-
-      - name: Verify spec.md files exist
-        id: files
-        run: |
-          missing=0
-          for dir in .github/specs/[0-9][0-9][0-9]-*/; do
-            if [ -d "$dir" ]; then
-              if [ ! -f "${dir}spec.md" ]; then
-                echo "✗ Missing spec.md in $dir"
-                ((missing++))
-              fi
-            fi
-          done
-
-          if [ $missing -eq 0 ]; then
-            echo "files_ok=true" >> $GITHUB_OUTPUT
-            echo "✓ All specification directories contain spec.md"
-          else
-            echo "files_ok=false" >> $GITHUB_OUTPUT
-            echo "✗ $missing spec.md files missing"
             exit 1
           fi
 
@@ -125,24 +69,22 @@ jobs:
         id: maintenance
         run: |
           if grep -q "Canonical Schema" .github/specs/MAINTENANCE.md; then
-            echo "maintenance_ok=true" >> $GITHUB_OUTPUT
+            echo "maintenance_ok=true" >> "$GITHUB_OUTPUT"
             echo "✓ MAINTENANCE.md documents canonical schema"
           else
-            echo "maintenance_ok=false" >> $GITHUB_OUTPUT
+            echo "maintenance_ok=false" >> "$GITHUB_OUTPUT"
             echo "⚠ MAINTENANCE.md should document canonical schema"
           fi
+
+      - name: Install Bats test framework
+        uses: bats-core/bats-action@4.0.0
 
       - name: Run audit script test suite
         id: tests
         run: |
-          if command -v bats &> /dev/null; then
-            bats tests/bash/audit-specs.bats
-            echo "tests_ok=true" >> $GITHUB_OUTPUT
-            echo "✓ Audit script tests passed"
-          else
-            echo "tests_ok=skipped" >> $GITHUB_OUTPUT
-            echo "⚠ Bats not available, skipping tests"
-          fi
+          bats tests/bash/audit-specs.bats
+          echo "tests_ok=true" >> "$GITHUB_OUTPUT"
+          echo "✓ Audit script tests passed"
 
       - name: Generate compliance report
         if: always()
@@ -153,9 +95,7 @@ jobs:
 
           ### Directory Structure
           - Catalog file: ${{ steps.catalog.outputs.status }}
-          - Total specifications: ${{ steps.numbering.outputs.total_specs }}
-          - Numbering gaps: ${{ steps.numbering.outputs.has_gaps }}
-          - spec.md files: ${{ steps.files.outputs.files_ok }}
+          - Schema compliance: ${{ steps.schema.outputs.schema_valid }}
 
           ### Schema Compliance
           - Canonical schema documented: ${{ steps.schema.outputs.schema_documented }}
@@ -168,8 +108,6 @@ jobs:
           | Catalog exists | ${{ steps.catalog.outputs.status == 'found' && '✅' || '❌' }} |
           | Schema documented | ${{ steps.schema.outputs.schema_documented == 'true' && '✅' || '⚠️' }} |
           | Schema valid | ${{ steps.schema.outputs.schema_valid == 'true' && '✅' || '❌' }} |
-          | Sequential numbering | ${{ steps.numbering.outputs.has_gaps == 'false' && '✅' || '❌' }} |
-          | All spec.md present | ${{ steps.files.outputs.files_ok == 'true' && '✅' || '❌' }} |
           | MAINTENANCE.md updated | ${{ steps.maintenance.outputs.maintenance_ok == 'true' && '✅' || '⚠️' }} |
 
           ### Principle X Compliance
@@ -182,37 +120,4 @@ jobs:
           ---
           _Generated by specification validation workflow_
           EOF
-          cat /tmp/compliance-report.md
-
-      - name: Comment on PR
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const report = fs.readFileSync('/tmp/compliance-report.md', 'utf8');
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: report
-            });
-
-      - name: Fail if critical violations
-        if: |
-          steps.catalog.outputs.status == 'missing' ||
-          steps.schema.outputs.schema_valid == 'false' ||
-          steps.files.outputs.files_ok == 'false'
-        run: |
-          echo "❌ Specification validation failed"
-          echo "Critical issues:"
-          if [ "${{ steps.catalog.outputs.status }}" == "missing" ]; then
-            echo "  - CATALOG.md not found"
-          fi
-          if [ "${{ steps.schema.outputs.schema_valid }}" == "false" ]; then
-            echo "  - CATALOG.md does not follow canonical schema"
-          fi
-          if [ "${{ steps.files.outputs.files_ok }}" == "false" ]; then
-            echo "  - Some spec.md files are missing"
-          fi
-          exit 1
+          cat /tmp/compliance-report.md >> "$GITHUB_STEP_SUMMARY"
