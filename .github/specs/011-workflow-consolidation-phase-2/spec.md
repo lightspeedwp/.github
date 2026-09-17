@@ -30,6 +30,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 - Q: What is the minimum acceptable test coverage requirement for Phase 2 workflows and referenced scripts? → A: Functional + integration coverage ≥80% of critical workflow paths tested (labeling, validation, testing triggers), plus ≥80% line coverage for all scripts referenced by workflows. "Passing CI" = all tests green + no workflow syntax errors.
 - Q: Should Phase 2 include mergify scheduling, footer fixes, and badge validation or treat them as separate initiatives? → A: Include all three as Phase 2 deliverables (Option C). Expand Phase 2 scope to cover workflow consolidation, operational enhancements (mergify, footers), and governance (badge validation rules).
 - Q: Which system is affected by footer duplication? → A: Footer duplication in `.md files` (specs and generated documentation). Root cause: idempotent footer insertion missing during spec generation or update cycles. Fix: Add footer deduplication logic to prevent multiple attribution lines in regenerated specs.
+- Q: What type of badges require validation in Phase 2? → A: GitHub Actions status badges in README showing build/test/deploy status. Validation rules: badges must link to correct unified workflow runs and display accurate status (passing/failing). Rules must sync with Phase 2 workflow consolidation (5 unified workflows → max 5 status badges).
 
 ## Branch Strategy
 
