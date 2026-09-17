@@ -22,6 +22,10 @@
 - Q4: Should adoption threshold require ≥4 of 6 weeks sustained activity or higher? → A: **Option A** — Keep ≥4 of 6 weeks with grace periods (short weeks with <1 PRD count if next week shows ≥1 PRD). Balances proof of genuine commitment with real-world variability (holidays, project gaps, frozen releases).
 - Q5: Does the adoption example tracking table correctly reflect the ≥4 of 6 weeks threshold? → A: **Yes, fix it** — Example is incorrect: Marketing shows only 2 weeks of consistent activity (weeks 5–6), not ≥4 weeks. Correct status to 🟡 ADOPTING or 🔴 NOT YET. Prevents test fixtures from claiming false positives.
 
+### Session 2026-09-17
+
+- Q1: Should FR-605 documentation scope be limited to platform setup and FAQ, or expanded to include team workflow playbook? → A: **Expanded scope** — Comprehensive playbook covering platform setup (Claude Code, GitHub Copilot, VSCode, OpenAI), FAQ & troubleshooting, best practices, PRD creation workflow, estimation strategy for work breakdown, and integration guidance for downstream systems (Figma, Linear, Claude Code agents, etc.). Timeline unchanged (Phase 6 end date 2026-10-24); playbook delivery as part of Phase 6 final documentation.
+
 ## Phase 3: Structural Consolidation ✅ COMPLETE
 
 ### User Scenarios & Testing *(mandatory)*
@@ -192,7 +196,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 - **FR-602**: Conduct team briefings on consolidated agent capabilities and benefits
 - **FR-603**: Set up metrics collection and adoption tracking
 - **FR-604**: Monitor team usage patterns; collect feedback on improvements and issues; track blockers using PHASE6_BLOCKER_RESOLUTION_PLAYBOOK.md
-- **FR-605**: Create FAQ and troubleshooting guide based on team feedback
+- **FR-605**: Create comprehensive PRD agent playbook in `/docs/agents/prd-agent/` covering: (1) platform setup guides (Claude Code, GitHub Copilot, VSCode, OpenAI Codex), (2) FAQ & troubleshooting, (3) PRD creation best practices, (4) step-by-step workflow process, (5) estimation strategy for structured PRD breakdown, (6) integration guide for downstream systems (Figma, Linear, Claude Code agents, etc.). Playbook enables teams to effectively create, update, and use PRDs in their workflows beyond initial agent setup.
 
 ### Success Criteria (Phase 6)
 
@@ -200,6 +204,7 @@ As a product manager, I want the consolidated PRD agent to be deployed and activ
 - **SC-602**: At least 5 teams actively using the consolidated agent at the final 42-day evaluation
 - **SC-603**: User satisfaction score ≥4.0/5.0 (surveyed sample of users)
 - **SC-604**: No critical blockers or regressions reported vs. baseline
+- **SC-605**: Comprehensive PRD agent playbook published in `/docs/agents/prd-agent/` with complete coverage of setup guides, best practices, workflow, estimation strategy, and downstream system integration (all six components per FR-605)
 
 ---
 
