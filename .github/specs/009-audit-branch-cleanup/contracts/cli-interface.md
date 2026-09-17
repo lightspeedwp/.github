@@ -61,6 +61,7 @@ node scripts/cleanup-branches.js [options]
 ### Verbose Mode
 
 Additional debug output:
+
 - Branch processing details
 - Git command outputs
 - GitHub API queries
@@ -95,6 +96,7 @@ Additional debug output:
 ## Report Generation
 
 Reports are written to `{reportDir}/branch-cleanup-{timestamp}.{format}` where:
+
 - `timestamp` format: ISO8601 (e.g., `2026-09-16T14-30-45`)
 - `format` extension: `.md` (Markdown) or `.json` (JSON)
 

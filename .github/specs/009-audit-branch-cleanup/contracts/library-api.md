@@ -122,6 +122,7 @@ export function formatAge(ageInDays: number): string
 ```
 
 **Output Examples**:
+
 - `"< 1 day"` (ageInDays < 1)
 - `"3 days"` (ageInDays = 3)
 - `"2 weeks"` (ageInDays = 14)
@@ -143,12 +144,14 @@ export function validateBranchName(branch: string): {
 ```
 
 **Validation Steps** (in order):
+
 1. Check forbidden prefixes (`claude/`, `copilot/`, `openai/`)
 2. Verify pattern `{type}/{scope}-{title}` (exactly 2 parts separated by `/`)
 3. Verify type is in ALLOWED_BRANCH_TYPES set
 4. Verify scope-title format (contains hyphen, not starting/ending with hyphen)
 
 **Return on Failure**:
+
 ```javascript
 {
   valid: false,
@@ -157,6 +160,7 @@ export function validateBranchName(branch: string): {
 ```
 
 **Return on Success**:
+
 ```javascript
 {
   valid: true
@@ -216,6 +220,7 @@ export function buildExclusionRegex(userPatterns?: string): RegExp
 ```
 
 **Combines**:
+
 1. Default patterns: `release/.*`, `hotfix/.*`
 2. User patterns (pipe or comma-separated)
 3. Returns single RegExp `(pattern1|pattern2|...)`
@@ -287,11 +292,13 @@ export const REASON_CODES = {
 ## Error Handling Policy
 
 **Graceful Degradation**: All functions should fail gracefully rather than throw:
+
 - Missing git/gh commands: Log warning, continue with conservative assumptions
 - Invalid input: Log error, use default or skip processing
 - API timeouts: Log warning, use fallback (e.g., assume no open PRs)
 
 **Logging Levels**:
+
 - Error: Fatal conditions (invalid args, git not found)
 - Warning: Recoverable issues (API error, invalid regex)
 - Info: Informational (branch processed, threshold met)
