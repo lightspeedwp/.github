@@ -31,6 +31,7 @@ Phase 2 consolidates 71 archived workflows into 5 unified consolidated workflows
 ### Session 2026-09-17
 
 - Q: What is the actual hard requirement for GitHub Actions minutes reduction — is it minimum ≥15% reduction or a target range of 15–20%? → A: Hard minimum: ≥15% reduction required (≤2,125/month baseline from ~2,500). If achieved <15%, PR cannot merge. Anything ≥15% passes merge gate; 15–20% range was aspirational but not enforced.
+- Q: When labeling-unified.yml fails on a PR, what should happen operationally to other workflows? → A: Isolated failure model: labeling-unified fails → PR status check shows only "labeling" as failed; validation, testing, linting, quality-gates remain unaffected (pass/fail independently). Dependent systems receive last-known-good label state or use fallback logic. No cascade to other workflows.
 
 ## Branch Strategy
 
@@ -177,7 +178,7 @@ git push origin refactor/workflow-consolidation-phase-2
 4. **Integration Coverage:** Each unified workflow correctly routes events to downstream systems
 5. **Scenario Coverage:** Primary flows, error cases, and edge cases all addressed in test suite
 6. **Rollback Capability:** Documented rollback procedure to Phase 1 archived versions; tested and validated
-7. **Error Isolation:** Single workflow type failure does not cascade to other automation
+7. **Error Isolation (Isolated Failure Model):** When one unified workflow fails (e.g., labeling-unified.yml), other workflows (validation, testing, linting, quality-gates) continue independently. PR status check reports only the failed workflow's status; others report pass/fail based on their own execution. Dependent systems use last-known-good state or fallback logic; no cascade to other workflows.
 8. **Complete Documentation:** Architecture guide, consolidation mapping, rollback procedure, operational runbook
 
 ## Timeline
