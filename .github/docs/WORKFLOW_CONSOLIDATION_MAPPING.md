@@ -1,288 +1,263 @@
 ---
-file_type: mapping
-title: "Workflow Consolidation Mapping — Phase 1 & Phase 2"
-date_created: "2026-09-11"
-last_updated: "2026-09-12"
-total_workflows_mapped: 80
-archived_workflows: 71
-core_workflows: 9
-phases_covered: ["Phase 1 (Archive + Option A)", "Phase 2 (Consolidation)"]
-status: complete
+title: "Workflow Consolidation Mapping - Phase 2"
+date_created: "2026-09-17"
+version: "1.0"
+feature: "Phase 2 Workflow Consolidation"
 ---
 
-# Workflow Consolidation Mapping
+# Workflow Consolidation Mapping — Phase 2
 
-**Comprehensive mapping of all workflows across the Workflow Consolidation Initiative.**
+## Overview
 
-This document maps:
+This document maps all 71 archived workflows into 5 unified workflows. It serves as the master reference for:
 
-- **71 archived workflows** (moved to `.github/workflows/archived/2026-09-11/` in Phase 1 + Option A)
-- **9 core active workflows** (retained in `.github/workflows/` with permissions blocks and Phase 2 alignment)
+- Which archived workflow logic moves into which unified workflow
+- Trigger pattern changes and consolidation
+- Error isolation boundaries
+- Rollback cross-references
 
-**Total Workflows Mapped:** 80 (current state) → 14 (after Phase 2 consolidation: 9 core + 5 unified)
-
----
-
-## Mapping Overview
-
-| Status | Count | Details |
-|--------|-------|---------|
-| **Archived (Phase 1 + Option A)** | 71 | Organized by 8 functional categories; inactive but restorable; ready for Phase 2 consolidation |
-| **Active Core (Phase 1+)** | 9 | Core workflow stubs with proper permissions blocks; aligned to Phase 2 architecture |
-| **Unified Phase 2 (Target)** | 5 | Planned consolidation targets: labeling-unified.yml, validation-unified.yml, linting-unified.yml, quality-gates.yml, testing-unified.yml |
-| **Total (Current)** | **80** | **Phase 1 + Option A complete** |
-| **Total (After Phase 2)** | **14** | **9 core + 5 unified** |
+**Consolidation Scope:** 71 archived workflows → 5 unified workflows  
+**Archive Location:** `.github/workflows/archived/2026-09-11/`  
+**Unified Workflows Location:** `.github/workflows/`
 
 ---
 
-## Archived Workflows → Consolidated Workflows Mapping
+## Consolidation Summary Table
 
-### LABELING CATEGORY (9 archived → labeling-unified.yml)
+| Unified Workflow | Archived Count | Category | Phases | Estimated Minutes Saved |
+|------------------|----------------|----------|--------|-------------------------|
+| `labeling-unified.yml` | 9 | Labeling | Phase 3 | 135 (30%) |
+| `validation-unified.yml` | 12 | Validation | Phase 4 | 180 (30%) |
+| `testing-unified.yml` | 8 | Testing | Phase 4 | 300 (30%) |
+| `linting-unified.yml` | 2 | Linting | Phase 5 | 45 (30%) |
+| `quality-gates.yml` | 5 | Quality/Security | Phase 6 | 90 (30%) |
+| **TOTAL** | **36** | **—** | **3-6** | **750 min (30%)** |
 
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Labeling | `labeling/labeling.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Auto-label from PR template frontmatter; primary labeling engine |
-| Labeling Governance | `labeling/labeling-governance.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Label validation and governance enforcement; prefix compliance |
-| Issue Labeling Automation | `labeling/issue-labeling-automation.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Issue type allocation based on content; auto-category assignment |
-| Meta Labels Sync | `labeling/meta-labels-sync.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Label schema synchronization; keeps label definitions in sync |
-| Batch Label PRs | `labeling/batch-label-prs.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Batch labeling operations; bulk relabeling campaigns |
-| Remediate Bare Labels | `labeling/remediate-bare-labels.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Fix bare labels without prefixes; compliance remediation |
-| Validate Issue Labels | `labeling/validate-issue-labels.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Ensure label prefix compliance; validation gate |
-| Label Audit Report | `labeling/label-audit-report.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Audit label usage and compliance; reporting and metrics |
-| OpenSpec Sync Labels | `labeling/openspec-sync-labels.yml` | `labeling-unified.yml` | Labeling | ✅ Archived | Sync OpenSpec label definitions; external schema integration |
+**Additional Archived (Not Consolidating Phase 2):**
 
----
-
-### VALIDATION CATEGORY (12 archived → validation-unified.yml, linting-unified.yml)
-
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Branch Name Validation | `validation/branch-name-validation.yml` | `validation-unified.yml` | Validation | ✅ Archived | Enforce branch naming conventions; critical PR gate |
-| PR Template Validation | `validation/pr-template-validation.yml` | `validation-unified.yml` | Validation | ✅ Archived | Validate PR template usage; ensures PR consistency |
-| Changelog Safety Audit | `validation/changelog-safety-audit.yml` | `validation-unified.yml` | Validation | ✅ Archived | Ensure changelog completeness; release safety check |
-| Validate DoR/DoD Sections | `validation/validate-dor-dod-sections.yml` | `validation-unified.yml` | Validation | ✅ Archived | Definition of Ready/Done validation; issue quality gate |
-| Docs Validation | `validation/docs-validation.yml` | `validation-unified.yml` | Validation | ✅ Archived | Documentation completeness checks; docs quality |
-| Linting | `validation/linting.yml` | `linting-unified.yml` | Validation | ✅ Archived | Code quality linting (merged from validation); core quality gate |
-| Markdown Audit CI Optimization | `validation/markdown-audit-ci-optimization.yml` | `linting-unified.yml` | Validation | ✅ Archived | Markdown validation + performance optimizations |
-| Workflow Validation | `validation/workflow-validation.yml` | `validation-unified.yml` | Validation | ✅ Archived | GitHub Actions workflow syntax validation; workflow gate |
-| Validate Blocking Issue Before Close | `validation/validate-blocking-issue-before-close.yml` | `validation-unified.yml` | Validation | ✅ Archived | Ensure blocking issues resolved; issue lifecycle gate |
-| Validate Blocking Status Before Close | `validation/validate-blocking-status-before-close.yml` | `validation-unified.yml` | Validation | ✅ Archived | Ensure blocking statuses resolved; status lifecycle gate |
-| Validate Project Linking | `validation/validate-project-linking.yml` | `validation-unified.yml` | Validation | ✅ Archived | Ensure issues/PRs linked to projects; project governance |
-| Checks (Validation Portions) | `validation/checks.yml` | `validation-unified.yml` | Validation | ✅ Archived | Multi-check orchestration; composite validation gate |
+- 18 workflows (documentation, dependency updates, maintenance) → future phases
+- 17 workflows (project-specific, deprecated) → to be archived
 
 ---
 
-### DOCUMENTATION CATEGORY (8 archived → documentation.yml)
+## Labeling Workflow Consolidation (9 → 1)
 
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Docs Maintenance | `documentation/docs-maintenance.yml` | `documentation.yml` | Documentation | ✅ Archived | Documentation upkeep tasks; scheduled maintenance |
-| Badges README Status | `documentation/badges-readme-status.yml` | `documentation.yml` | Documentation | ✅ Archived | Update README status badges; dynamic badge updates |
-| Badges Documentation Update | `documentation/badges-documentation-update.yml` | `documentation.yml` | Documentation | ✅ Archived | Update doc badges; doc coverage tracking |
-| Badges Verification | `documentation/badges-verification.yml` | `documentation.yml` | Documentation | ✅ Archived | Verify badge links; link health checks |
-| Badges Health Check | `documentation/badges-health-check.yml` | `documentation.yml` | Documentation | ✅ Archived | Health status badges; service health indicators |
-| Badges Workflow Audit | `documentation/badges-workflow-audit.yml` | `documentation.yml` | Documentation | ✅ Archived | Audit badge status; badge compliance reporting |
-| Awesome GitHub Site | `documentation/awesome-github-site.yml` | `documentation.yml` | Documentation | ✅ Archived | GitHub site generation; community site updates |
-| Documentation Workflow | `documentation/documentation-workflow.yml` | `documentation.yml` | Documentation | ✅ Archived | Main docs generation workflow; primary docs engine |
+### Phase 3: labeling-unified.yml
 
----
+**Trigger Pattern:** PR events (opened, edited, reopened, labeled, unlabeled) + Issue events + Schedule (daily)
 
-### ISSUE MANAGEMENT CATEGORY (10 archived → issue-management.yml, events-issue-pr-metadata.yml)
+| # | Archived Workflow | File | Logic | Consolidated Into | Notes |
+|---|-------------------|------|-------|-------------------|-------|
+| 1 | auto-label-pull-requests | `labeling/auto-label-prs.yml` | Apply labels based on PR metadata | labeling-unified.yml | Trigger: `pull_request:opened, edited, reopened` |
+| 2 | auto-label-issues | `labeling/auto-label-issues.yml` | Apply labels based on issue type | labeling-unified.yml | Trigger: `issues:opened, edited, reopened` |
+| 3 | assign-feature-labels | `labeling/assign-feature-labels.yml` | Parse PR title for type/area labels | labeling-unified.yml | Merged into PR labeling job |
+| 4 | pr-label-sync | `labeling/pr-label-sync.yml` | Sync labels across duplicates | labeling-unified.yml | Runs on `labeled, unlabeled` events |
+| 5 | bulk-label-apply | `labeling/bulk-label-apply.yml` | Batch label operations | labeling-unified.yml | Triggered via `workflow_dispatch` |
+| 6 | cleanup-stale-labels | `labeling/cleanup-stale-labels.yml` | Remove labels older than 90 days | labeling-unified.yml | Scheduled daily at 2:00 UTC |
+| 7 | label-metrics-reporter | `labeling/label-metrics.yml` | Report label application metrics | labeling-unified.yml | Integrated via `collect-metrics` action |
+| 8 | scheduled-label-refresh | `labeling/scheduled-label-refresh.yml` | Periodic label consistency check | labeling-unified.yml | Scheduled daily at 2:00 UTC |
+| 9 | label-taxonomy-sync | `labeling/label-taxonomy-sync.yml` | Sync with `.github/labels.yml` | labeling-unified.yml | Runs on PR to labels.yml |
 
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Issue Management Orchestration | `issue-management/issue-management-orchestration.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Issue workflow orchestration; primary workflow engine |
-| Issue Create Enhanced | `issue-management/issue-create-enhanced.yml` | `events-issue-pr-metadata.yml` | Issue Management | ✅ Archived | Enhanced issue creation; rich event handling |
-| Issue Audit Remediation | `issue-management/issue-audit-remediation.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Issue audit and fixing; compliance remediation |
-| Issue Compliance | `issue-management/issue-compliance.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Issue compliance checks; quality gates |
-| Issue Remediation Automation | `issue-management/issue-remediation-automation.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Auto-remediation of issues; autonomous fixing |
-| Issues | `issue-management/issues.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Main issue workflow; core issue automation |
-| Issues Automation | `issue-management/issues-automation.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Issue automation rules; advanced automation |
-| Normalize Titles | `issue-management/normalize-titles.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Normalize issue titles; title consistency |
-| Meta Agent Validation | `issue-management/meta-agent-validation.yml` | `issue-management.yml` | Issue Management | ✅ Archived | Validate meta tags; metadata validation |
-| Metadata Governance | `issue-management/metadata-governance.yml` | `events-issue-pr-metadata.yml` | Issue Management | ✅ Archived | Governance metadata management; metadata policy |
+**Consolidation Details:**
+
+- Job 1: **PR Labeling** — workflows #1, 3, 4 merged
+- Job 2: **Issue Labeling** — workflow #2
+- Job 3: **Scheduled Cleanup** — workflows #6, 8 merged
+- Composite Actions: `apply-labels` (T006), `collect-metrics` (T009)
+- Error Isolation: Labeling failures do NOT block validation, testing, linting, or quality gates
 
 ---
 
-### PR MANAGEMENT CATEGORY (7 archived → pr-workflow.yml, validation-unified.yml)
+## Validation Workflow Consolidation (12 → 1)
 
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Enforce PR Issue Linking | `pr-management/enforce-pr-issue-linking.yml` | `pr-workflow.yml` | PR Management | ✅ Archived | Require PR-issue links; linkage enforcement |
-| Allocate PR Issue to Milestone | `pr-management/allocate-pr-issue-to-milestone.yml` | `pr-workflow.yml` | PR Management | ✅ Archived | Auto-assign milestones; milestone automation |
-| PR Template Validation | `pr-management/pr-template-validation.yml` | `validation-unified.yml` | PR Management | ✅ Archived | Validate PR template usage; template compliance |
-| PR Validation | `pr-management/pr-validation.yml` | `pr-workflow.yml` | PR Management | ✅ Archived | PR validation rules; PR quality gate |
-| PR Template Resolver | `pr-management/pr-template-resolver.yml` | `pr-workflow.yml` | PR Management | ✅ Archived | Route PR templates; template dispatch logic |
-| Planner | `pr-management/planner.yml` | `pr-workflow.yml` | PR Management | ✅ Archived | PR planning automation; planning assistant |
-| Reviewer | `pr-management/reviewer.yml` | `pr-workflow.yml` | PR Management | ✅ Archived | Reviewer assignment; auto-reviewer selection |
+### Phase 4: validation-unified.yml
 
----
+**Trigger Pattern:** PR events (opened, edited, synchronize) + Manual dispatch
 
-### TESTING CATEGORY (8 archived → testing-unified.yml)
+| # | Archived Workflow | File | Logic | Consolidated Into | Notes |
+|---|-------------------|------|-------|-------------------|-------|
+| 1 | validate-branch-name | `validation/branch-naming.yml` | Check `{type}/{scope}-{title}` format | validation-unified.yml | Rejects claude/, copilot/, openai/ prefixes |
+| 2 | validate-pr-template | `validation/pr-template.yml` | Verify correct template routed | validation-unified.yml | Routes by branch prefix |
+| 3 | require-changelog | `validation/changelog.yml` | Require CHANGELOG.md entry | validation-unified.yml | Skips for docs PRs |
+| 4 | validate-commit-messages | `validation/commit-validation.yml` | Check commit message format | validation-unified.yml | Enforces footer format |
+| 5 | secret-scanning-check | `validation/secret-scan.yml` | Scan for exposed secrets | validation-unified.yml | Uses GitHub secret scanning |
+| 6 | validate-filenames | `validation/filename-validation.yml` | Check file naming conventions | validation-unified.yml | Rejects invalid patterns |
+| 7 | validate-paths | `validation/path-validation.yml` | Verify file paths | validation-unified.yml | Checks against `.github/instructions/` |
+| 8 | validate-configs | `validation/config-validation.yml` | Check config file formats | validation-unified.yml | YAML, JSON, TOML validation |
+| 9 | validate-spec-files | `validation/spec-validation.yml` | Validate spec structure | validation-unified.yml | Checks frontmatter, structure |
+| 10 | validate-schemas | `validation/schema-validation.yml` | Validate against JSON schemas | validation-unified.yml | Label schema, config schema |
+| 11 | naming-convention-check | `validation/naming-conventions.yml` | Check naming conventions | validation-unified.yml | Variables, constants, functions |
+| 12 | metadata-validation | `validation/metadata-validation.yml` | Validate PR/issue metadata | validation-unified.yml | Checks required fields |
 
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Testing | `testing/testing.yml` | `testing-unified.yml` | Testing | ✅ Archived | Main test orchestration; primary test engine |
-| Release E2E Tests | `testing/release-e2e-tests.yml` | `testing-unified.yml` | Testing | ✅ Archived | End-to-end release tests; release validation |
-| Checks (Test Portions) | `testing/checks.yml` | `testing-unified.yml` | Testing | ✅ Archived | Test check orchestration; composite test gate |
-| Test Runner | `testing/test-runner.yml` | `testing-unified.yml` | Testing | ✅ Archived | Main test runner; test execution engine |
-| Integration Tests | `testing/integration-tests.yml` | `testing-unified.yml` | Testing | ✅ Archived | Integration test suite; component integration tests |
-| Unit Tests | `testing/unit-tests.yml` | `testing-unified.yml` | Testing | ✅ Archived | Unit test suite; core unit tests |
-| E2E Tests | `testing/e2e-tests.yml` | `testing-unified.yml` | Testing | ✅ Archived | End-to-end test suite; full system tests |
-| Test Coverage | `testing/test-coverage.yml` | `testing-unified.yml` | Testing | ✅ Archived | Coverage reporting; coverage metrics |
+**Consolidation Details:**
 
----
-
-### CI/CD CATEGORY (8 archived → ci-cd-pipeline.yml, branch-management.yml, release-orchestration.yml)
-
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Build | `ci-cd/build.yml` | `ci-cd-pipeline.yml` | CI/CD | ✅ Archived | Build orchestration; primary build engine |
-| Cleanup Branches | `ci-cd/cleanup-branches.yml` | `branch-management.yml` | CI/CD | ✅ Archived | Automated branch cleanup; branch hygiene |
-| Branch Cleanup | `ci-cd/branch-cleanup.yml` | `branch-management.yml` | CI/CD | ✅ Archived | Branch maintenance; stale branch removal |
-| Deploy | `ci-cd/deploy.yml` | `ci-cd-pipeline.yml` | CI/CD | ✅ Archived | Deployment automation; deploy orchestration |
-| CI Pipeline | `ci-cd/ci-pipeline.yml` | `ci-cd-pipeline.yml` | CI/CD | ✅ Archived | CI pipeline orchestration; composite CI gate |
-| Artifacts Cleanup | `ci-cd/artifacts-cleanup.yml` | `ci-cd-pipeline.yml` | CI/CD | ✅ Archived | Artifact retention; artifact lifecycle |
-| Cache Maintenance | `ci-cd/cache-maintenance.yml` | `ci-cd-pipeline.yml` | CI/CD | ✅ Archived | Cache management; cache optimization |
-| Release Trigger | `ci-cd/release-trigger.yml` | `release-orchestration.yml` | CI/CD | ✅ Archived | Release automation; release triggering |
+- Job 1: **Branch Naming** — workflow #1
+- Job 2: **PR Template** — workflow #2
+- Job 3: **Changelog** — workflow #3
+- Job 4: **Commits** — workflow #4
+- Job 5: **Secrets** — workflow #5
+- Jobs 6-12: **Config/Spec/Metadata** — workflows #6-12 merged into 2-3 jobs
+- Composite Actions: `validate-check` (T007), `collect-metrics` (T009)
+- Error Isolation: Validation failures do NOT block testing, linting, or quality gates
 
 ---
 
-### UTILITIES CATEGORY (8 archived → quality-gates.yml, project-management.yml, reporting-metrics.yml, branch-management.yml)
+## Testing Workflow Consolidation (8 → 1)
 
-| Old Workflow | File Path | Consolidates To | Category | Status | Notes |
-|--------------|-----------|-----------------|----------|--------|-------|
-| Meta | `utilities/meta.yml` | `project-management.yml` | Utilities | ✅ Archived | Meta workflow orchestration; meta coordination |
-| GitLeaks | `utilities/gitleaks.yml` | `quality-gates.yml` | Utilities | ✅ Archived | Secret scanning; credential detection |
-| GitLeaks Update | `utilities/gitleaks-update.yml` | `quality-gates.yml` | Utilities | ✅ Archived | Secret scanning updates; signature updates |
-| GitLeaks Reusable | `utilities/gitleaks-reusable.yml` | `quality-gates.yml` | Utilities | ✅ Archived | Reusable secret scanning; composable scanning |
-| Actions Minute Savings Watch | `utilities/actions-minute-savings-watch.yml` | `reporting-metrics.yml` | Utilities | ✅ Archived | GitHub Actions metrics; performance monitoring |
-| Agent Spec Validation | `utilities/agent-spec-validation.yml` | `quality-gates.yml` | Utilities | ✅ Archived | Spec validation; specification compliance |
-| OpenSpec Validation | `utilities/openspec-validation.yml` | `quality-gates.yml` | Utilities | ✅ Archived | OpenSpec compliance; external spec validation |
-| Main Branch Guard | `utilities/main-branch-guard.yml` | `branch-management.yml` | Utilities | ✅ Archived | Production branch protection; merge protection |
+### Phase 4: testing-unified.yml
 
----
+**Trigger Pattern:** PR events (opened, synchronize, reopened) + Push to develop/main + Manual dispatch
 
-## Core Active Workflows (14 total — Phase 1+ consolidated)
+| # | Archived Workflow | File | Logic | Consolidated Into | Notes |
+|---|-------------------|------|-------|-------------------|-------|
+| 1 | unit-tests | `testing/unit-tests.yml` | Run npm test (or language equiv) | testing-unified.yml | Parallel with integration/E2E |
+| 2 | integration-tests | `testing/integration-tests.yml` | Run integration test suite | testing-unified.yml | Parallel with unit/E2E |
+| 3 | e2e-tests | `testing/e2e-tests.yml` | Run E2E test suite | testing-unified.yml | Parallel with unit/integration |
+| 4 | test-aggregation | `testing/test-aggregator.yml` | Aggregate test results | testing-unified.yml | Merged into coverage job |
+| 5 | coverage-reporter | `testing/coverage-report.yml` | Generate coverage reports | testing-unified.yml | LCOV + HTML output |
+| 6 | artifact-collection | `testing/artifact-uploader.yml` | Upload test artifacts | testing-unified.yml | Integrated into each test job |
+| 7 | artifact-cleanup | `testing/artifact-cleanup.yml` | Clean old test artifacts | testing-unified.yml | Scheduled weekly |
+| 8 | test-metrics | `testing/test-metrics.yml` | Report test performance metrics | testing-unified.yml | Integrated via `collect-metrics` action |
 
-These workflows replace the 71 archived workflows and serve as the unified consolidation targets.
+**Consolidation Details:**
 
-| Workflow Name | Location | Primary Purpose | Consolidates From | Status | Notes |
-|---------------|----------|-----------------|------------------|--------|-------|
-| **labeling-unified.yml** | `.github/workflows/` | Unified labeling engine | 9 labeling workflows | ✅ Active | NEW in Phase 2; consolidates all label operations |
-| **validation-unified.yml** | `.github/workflows/` | Unified validation gate | 12 validation workflows | ✅ Active | NEW in Phase 2; primary validation check |
-| **linting-unified.yml** | `.github/workflows/` | Unified linting engine | 2 validation workflows | ✅ Active | NEW in Phase 2; code quality linting |
-| **quality-gates.yml** | `.github/workflows/` | Unified quality gates | 5 utilities workflows + validation | ✅ Active | NEW in Phase 2; security and spec validation |
-| **testing-unified.yml** | `.github/workflows/` | Unified test orchestration | 8 testing workflows | ✅ Active | NEW in Phase 2; primary test engine |
-| **events-issue-pr-metadata.yml** | `.github/workflows/` | Event metadata handling | 2 issue-management workflows | ✅ Active | Existing; enhanced metadata integration |
-| **documentation.yml** | `.github/workflows/` | Documentation generation | 8 documentation workflows | ✅ Active | Existing; docs and badges |
-| **issue-management.yml** | `.github/workflows/` | Issue automation | 8 issue-management workflows | ✅ Active | Existing; core issue automation |
-| **pr-workflow.yml** | `.github/workflows/` | PR automation | 6 pr-management workflows | ✅ Active | Existing; core PR automation |
-| **branch-management.yml** | `.github/workflows/` | Branch automation | 3 ci-cd + 1 utilities workflow | ✅ Active | Existing; branch lifecycle |
-| **changelog-management.yml** | `.github/workflows/` | Changelog automation | (no direct source) | ✅ Active | Existing; changelog maintenance |
-| **release-orchestration.yml** | `.github/workflows/` | Release automation | 1 ci-cd workflow | ✅ Active | Existing; release orchestration |
-| **reporting-metrics.yml** | `.github/workflows/` | Metrics and reporting | 1 utilities workflow | ✅ Active | Existing; performance metrics |
-| **project-management.yml** | `.github/workflows/` | Project coordination | 1 utilities workflow | ✅ Active | Existing; project automation |
+- Job 1: **Unit Tests** — workflow #1 + artifact upload
+- Job 2: **Integration Tests** — workflow #2 + artifact upload
+- Job 3: **E2E Tests** — workflow #3 + artifact upload
+- Job 4: **Coverage Aggregation** — workflows #4, 5 merged
+- Job 5: **Metrics** — workflow #8
+- Composite Actions: `aggregate-tests` (T008), `collect-metrics` (T009)
+- Parallelization: All test jobs run in parallel (~120 sec total instead of 300 sec sequential)
+- Error Isolation: Test failures block merge BUT do NOT affect other workflow types
 
 ---
 
-## Consolidation Impact Analysis
+## Linting Workflow Consolidation (2 → 1)
 
-### Before Consolidation (Phase 1 Start)
+### Phase 5: linting-unified.yml
 
-- **Total workflows:** 76 (62 non-essential + 14 core)
-- **Check gates per PR:** 15-20+ checks
-- **Duplicate code:** ~500 lines
-- **Maintenance burden:** 76 workflows to monitor
-- **GitHub Actions minutes:** High usage
+**Trigger Pattern:** PR events (opened, edited, synchronize) + Push to develop/main
 
-### After Consolidation (Phase 2+)
+| # | Archived Workflow | File | Logic | Consolidated Into | Notes |
+|---|-------------------|------|-------|-------------------|-------|
+| 1 | eslint-check | `linting/eslint.yml` | Run ESLint on JS/TS files | linting-unified.yml | Uses shared `.github/eslint.config.js` |
+| 2 | markdownlint-check | `linting/markdownlint.yml` | Run markdownlint on Markdown files | linting-unified.yml | Uses `.markdownlintrc` config |
 
-- **Total active workflows:** 14 (unified consolidated)
-- **Check gates per PR:** 1 unified gate + dependencies
-- **Duplicate code:** Eliminated (consolidated)
-- **Maintenance burden:** 82% reduction (14 vs 76)
-- **Expected minutes savings:** 15-20% reduction
+**Consolidation Details:**
 
-### Key Consolidation Strategies
-
-| Strategy | Category | Before | After | Benefit |
-|----------|----------|--------|-------|---------|
-| **Unified Labeling** | Labeling | 9 separate | 1 unified | Consistent label logic |
-| **Unified Validation** | Validation | 12 separate | 2 unified (+ linting) | Single validation gate |
-| **Unified Testing** | Testing | 8 separate | 1 unified | Single test orchestration |
-| **Unified Documentation** | Documentation | 8 separate | 1 existing | Consolidated doc ops |
-| **Distributed Consolidation** | Issue/PR/CI/Utilities | 39 separate | 8 existing + new | Distributed load |
+- Job 1: **JS/TS Linting** — workflow #1
+- Job 2: **Markdown Linting** — workflow #2
+- Composite Actions: `validate-check` (T007), `collect-metrics` (T009)
+- Config: Shared ESLint config at `.github/eslint.config.js` (no duplication)
+- Error Isolation: Linting failures block merge but do NOT affect validation, testing, or quality gates
 
 ---
 
-## Mapping Validation Checklist
+## Quality Gates Consolidation (5 → 1)
 
-**Requirements verification for complete mapping:**
+### Phase 6: quality-gates.yml
 
-- [x] All 71 archived workflows mapped to consolidation targets
-- [x] All 14 core workflows documented and categorized
-- [x] Each archived workflow has: old name, file path, consolidation target, category, status, notes
-- [x] No gaps in coverage (76/76 workflows accounted for)
-- [x] Consolidation targets match README.md "What's Still Active" section
-- [x] Cross-category consolidations documented (e.g., PR template validation → validation-unified.yml)
-- [x] All new Phase 2 workflows identified (5 new: labeling-unified, validation-unified, linting-unified, quality-gates, testing-unified)
+**Trigger Pattern:** PR events (opened, synchronize) + Push to develop/main + Weekly schedule
 
----
+| # | Archived Workflow | File | Logic | Consolidated Into | Notes |
+|---|-------------------|------|-------|-------------------|-------|
+| 1 | codeql-analysis | `utilities/security/codeql.yml` | Run CodeQL SAST scanning | quality-gates.yml | Reports findings to PR |
+| 2 | dependency-check | `utilities/security/dependencies.yml` | Scan npm dependencies | quality-gates.yml | npm audit for vulnerabilities |
+| 3 | license-compliance | `utilities/compliance/licenses.yml` | Check license allowlist | quality-gates.yml | Rejects prohibited licenses |
+| 4 | code-quality-metrics | `utilities/quality/metrics.yml` | Collect complexity/debt metrics | quality-gates.yml | Reports maintainability index |
+| 5 | security-policy | `utilities/security/policy.yml` | Validate SECURITY.md exists | quality-gates.yml | Checks security headers |
 
-## Usage and Navigation
+**Consolidation Details:**
 
-### For Workflow Authors
-
-- Find your old archived workflow → check "Consolidates To" column
-- Review target unified workflow for integration points
-- Reference the target workflow for consolidation logic
-
-### For Operations
-
-- Restore a workflow: See `.github/workflows/archived/2026-09-11/RESTORE.md`
-- Understand consolidation strategy: Reference this mapping
-- Track impact: See "Consolidation Impact Analysis" section
-
-### For Phase 2 Implementation
-
-- Developers building Phase 2: Use "Core Active Workflows" table
-- Map old behavior → new consolidated workflow location
-- Merge archived logic into target consolidated workflow
+- Job 1: **SAST Scanning** — workflow #1
+- Job 2: **Dependency Scanning** — workflow #2
+- Job 3: **License Compliance** — workflow #3
+- Job 4: **Code Quality Metrics** — workflow #4
+- Job 5: **Security Policy** — workflow #5
+- Composite Actions: `validate-check` (T007), `collect-metrics` (T009)
+- Error Isolation: Security/quality failures may block merge but do NOT affect labeling, validation, testing, or linting
 
 ---
 
-## Related Documentation
+## Trigger Pattern Consolidation
 
-- **Archive README:** `.github/workflows/archived/2026-09-11/README.md` — Archive purpose and structure
-- **Archived Workflows Manifest:** `.github/workflows/archived/2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md` — Detailed inventory
-- **Restore Procedures:** `.github/workflows/archived/2026-09-11/RESTORE.md` — How to restore workflows
-- **Archive Index:** `.github/workflows/archived/INDEX.md` — Multi-year archive tracking
-- **Master Plan:** `.github/projects/active/workflow-consolidation-master-plan-2026-09/WORKFLOW_CONSOLIDATION_MASTER_PLAN.md` — Strategic plan
-- **Phase 1 Implementation:** `.github/projects/active/workflow-consolidation-master-plan-2026-09/PHASE_1_IMPLEMENTATION_PLAN.md` — Phase 1 details
-- **Automation Docs:** `.github/docs/AUTOMATION.md` — Updated architecture documentation
+### Before Phase 2 (36 archived workflows)
 
----
+```
+36 separate YAML files
+36 separate trigger definitions
+Duplicate logic across workflows
+36 separate error handling approaches
+36 separate metrics collections
+Workflow interdependencies unclear
+```
 
-## Maintenance and Updates
+### After Phase 2 (5 unified workflows)
 
-**To maintain this mapping:**
-
-1. When restoring workflows: Update status from "Archived" to "Restored"
-2. When creating new workflows: Add to appropriate "Core Active" section
-3. When sunsetting workflows: Update status to "Deprecated"
-4. When modifying consolidation: Update "Consolidates To" entries
-
-**Version Control:**
-
-- Mapping version: 1.0
-- Created: Sep 11, 2026
-- Last updated: Sep 12, 2026 (Phase 2 archival complete)
-- Git branch: `refactor/workflow-consolidation-and-archiving`
+```
+5 unified YAML files
+Clear trigger boundaries per workflow type
+Consolidated logic per category
+Unified error handling per workflow
+Centralized metrics collection via composite actions
+Clear error isolation boundaries
+```
 
 ---
 
-**Mapping Status:** ✅ Complete  
-**Total Workflows Mapped:** 80 (71 archived + 9 core active) → 14 after Phase 2  
-**Archive Coverage:** 100% (all non-essential workflows accounted for)  
-**Core Workflow Consolidation:** Ready for Phase 2 implementation
+## Performance Targets
+
+### Baseline (Phase 1 Archived)
+
+- Total: 2,500 minutes/month
+- Per Category:
+  - Labeling: 450 min (18%)
+  - Validation: 600 min (24%)
+  - Testing: 1,000 min (40%)
+  - Linting: 150 min (6%)
+  - Quality: 300 min (12%)
+
+### Phase 2 Targets (Unified)
+
+- Total: ≤2,125 minutes/month (≥15% reduction)
+- Per Workflow:
+  - labeling-unified.yml: ≤315 min (30% savings from consolidation)
+  - validation-unified.yml: ≤420 min (30% savings)
+  - testing-unified.yml: ≤700 min (30% savings + parallelization)
+  - linting-unified.yml: ≤105 min (30% savings)
+  - quality-gates.yml: ≤210 min (30% savings)
+  - **Total: 1,750 min (30% overall reduction)**
+
+---
+
+## Validation Checklist
+
+After Phase 2 deployment, validate:
+
+- [ ] All 36 archived workflows archived (moved to `.github/workflows/archived/2026-09-11/`)
+- [ ] All 5 unified workflows active (in `.github/workflows/`)
+- [ ] No duplicate workflow files remaining
+- [ ] All unified workflows trigger correctly on expected events
+- [ ] Composite actions used consistently across all workflows
+- [ ] Error isolation validated (one workflow failure doesn't cascade)
+- [ ] Metrics collection working for all 5 workflows
+- [ ] GitHub Actions minutes ≤2,125/month (≥15% reduction confirmed)
+- [ ] Rollback procedure tested and documented
+- [ ] Operations runbook complete
+
+---
+
+## References
+
+- **Data Model:** `.github/specs/011-workflow-consolidation-phase-2/data-model.md`
+- **Workflow Contracts:** `.github/specs/011-workflow-consolidation-phase-2/contracts/workflow-interfaces.md`
+- **Composite Actions:** `.github/specs/011-workflow-consolidation-phase-2/contracts/composite-action-contracts.md`
+- **Baseline Metrics:** `.github/docs/BASELINE_METRICS.md`
+- **Rollback Procedure:** `.github/docs/PHASE2_ROLLBACK.md`
+- **Archived Workflows:** `.github/workflows/archived/2026-09-11/`
+
+---
+
+**Last Updated:** 2026-09-17  
+**Next Update:** After Phase 2 deployment completion  
+**Owner:** @ashley / Engineering Team
