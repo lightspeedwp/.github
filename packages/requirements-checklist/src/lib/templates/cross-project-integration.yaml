@@ -1,0 +1,181 @@
+name: cross-project-integration
+audience: Technical leads
+time_estimate_minutes: 20
+description: Integration and architecture review for cross-project compatibility and system design
+
+items:
+  - id: XPROJ-001
+    dimension: Dependencies
+    question: Are all service dependencies documented?
+    description: What services must this feature integrate with? What are the coupling points?
+    audience: [peer]
+    pass_criteria: All service dependencies listed with integration method (REST, gRPC, events, etc.)
+    suggestion: Create service dependency diagram showing integration points
+    reference_examples:
+      - 'Integrates with User service (REST API)'
+      - 'Subscribes to PaymentProcessed events from Billing service'
+
+  - id: XPROJ-002
+    dimension: Dependencies
+    question: Are data contracts defined for integrations?
+    description: What data is exchanged between systems? Are schemas version-stable?
+    audience: [peer]
+    pass_criteria: Data contracts, schemas, or API contracts documented for each integration
+    suggestion: Define OpenAPI specs or protobuf schemas for all integrations
+    reference_examples:
+      - 'User service API contract: /users/{id} returns {id, email, status}'
+      - 'PaymentProcessed event schema v1: {paymentId, userId, amount, timestamp}'
+
+  - id: XPROJ-003
+    dimension: Completeness
+    question: Are versioning and backward compatibility strategies clear?
+    description: How will we handle API evolution? Breaking change strategy?
+    audience: [peer]
+    pass_criteria: API versioning strategy and backward compatibility approach documented
+    suggestion: Document semantic versioning approach and deprecation policy
+    reference_examples:
+      - 'API versioning: URL path (/v1/, /v2/)'
+      - 'Deprecation: 6-month notice before breaking changes'
+
+  - id: XPROJ-004
+    dimension: Completeness
+    question: Are deployment and rollout strategies documented?
+    description: How will this be deployed safely with other services? Rollback plan?
+    audience: [peer]
+    pass_criteria: Deployment strategy, rollout plan, and rollback procedure documented
+    suggestion: Add deployment architecture section with safe rollout plan
+    reference_examples:
+      - 'Canary deployment: 5% → 25% → 100%'
+      - 'Rollback: Revert feature flag + database schema if needed'
+
+  - id: XPROJ-005
+    dimension: Measurability
+    question: Are performance impact metrics defined?
+    description: How will this feature impact latency, throughput, and resource usage in dependent services?
+    audience: [peer]
+    pass_criteria: Performance impact on dependent services estimated and acceptable
+    suggestion: Benchmark impact on critical path; define acceptable latency increase
+    reference_examples:
+      - 'Export feature adds < 5ms to user service latency'
+      - 'Database query resource impact < 2% additional CPU'
+
+  - id: XPROJ-006
+    dimension: Consistency
+    question: Are logging and monitoring standards consistent?
+    description: How will this feature emit logs and metrics? Consistent with platform standards?
+    audience: [peer]
+    pass_criteria: Logging format, metric naming, and alert thresholds align with platform standards
+    suggestion: Document metrics/logs emitted and their formats (aligned with platform tooling)
+    reference_examples:
+      - 'Logs: JSON format with request_id, user_id, duration_ms'
+      - 'Metrics: prometheus format, prefixed with feature_export_'
+
+  - id: XPROJ-007
+    dimension: Completeness
+    question: Are error handling and circuit breaker strategies documented?
+    description: How does the system gracefully degrade if a dependency fails?
+    audience: [peer]
+    pass_criteria: Error scenarios, timeouts, retries, and circuit breaker behavior documented
+    suggestion: Define failure modes and graceful degradation strategy for each dependency
+    reference_examples:
+      - 'User service timeout (> 2s): Return cached user data with warning'
+      - 'Stripe unavailable: Queue payment processing with retry'
+
+  - id: XPROJ-008
+    dimension: Edge Cases
+    question: Are race conditions and concurrent execution scenarios documented?
+    description: What happens under high concurrency? Duplicate request handling?
+    audience: [peer]
+    pass_criteria: Concurrency hazards identified and mitigation strategies documented
+    suggestion: Document idempotency keys, optimistic locking, or distributed locks where needed
+    reference_examples:
+      - 'Duplicate export requests: Use request deduplication (idempotency key)'
+      - 'Concurrent updates: Last-write-wins or conflict resolution strategy'
+
+  - id: XPROJ-009
+    dimension: Consistency
+    question: Are transaction and consistency guarantees clear?
+    description: Are operations atomic? What's the consistency model (ACID, eventual, etc.)?
+    audience: [peer]
+    pass_criteria: Transaction boundaries and consistency guarantees documented
+    suggestion: Define transaction scope, consistency model (ACID/BASE), and reconciliation strategy
+    reference_examples:
+      - 'Export operation is atomic: Generate CSV or fail completely'
+      - 'Consistency model: Eventual (CSV may be generated with data up to 1 minute old)'
+
+  - id: XPROJ-010
+    dimension: Dependencies
+    question: Are external API/SaaS dependencies documented?
+    description: Does this integrate with third-party services? SLAs? Costs?
+    audience: [peer]
+    pass_criteria: External services documented with SLAs, rate limits, costs, and fallback strategies
+    suggestion: List external integrations with SLAs and cost implications
+    reference_examples:
+      - 'Stripe payment (critical, 99.99% SLA, $0.029 per transaction)'
+      - 'SendGrid email (optional, graceful degradation, $0.0001 per email)'
+
+  - id: XPROJ-011
+    dimension: Completeness
+    question: Are database migrations and schema changes documented?
+    description: Does this require schema changes? Migration strategy?
+    audience: [peer]
+    pass_criteria: Database changes, migration strategy, and rollback plan documented
+    suggestion: Document schema changes with zero-downtime migration approach
+    reference_examples:
+      - "Add 'export_count' column (nullable, default 0) to users table"
+      - 'Migration: Deploy code → Backfill column → Make NOT NULL'
+
+  - id: XPROJ-012
+    dimension: Completeness
+    question: Are cache invalidation strategies documented?
+    description: If this modifies cached data, how is the cache invalidated?
+    audience: [peer]
+    pass_criteria: Cache invalidation strategy documented for all modified datasets
+    suggestion: Document cache key strategy and invalidation events
+    reference_examples:
+      - 'On export: Invalidate user cache key (cache key: user:{user_id})'
+      - 'TTL-based: User cache expires after 1 hour'
+
+  - id: XPROJ-013
+    dimension: Ambiguities
+    question: Are system integration points with unclear timing resolved?
+    description: Are there any TBD dependencies or unresolved integration questions?
+    audience: [peer]
+    pass_criteria: All integration points resolved or explicitly marked as blocked/TBD
+    suggestion: Work with dependent teams to resolve integration questions
+    reference_examples:
+      - '[RESOLVED] Agreed with User service team on API contract'
+      - '[TBD] Waiting for Platform team infrastructure upgrade decision'
+
+  - id: XPROJ-014
+    dimension: Measurability
+    question: Are SLO/SLA requirements for this feature documented?
+    description: What are the availability, latency, and durability requirements?
+    audience: [peer]
+    pass_criteria: SLOs defined for availability, latency percentiles, and error rates
+    suggestion: Define SLOs aligned with business criticality and customer expectations
+    reference_examples:
+      - 'Availability: 99.9% uptime (max 43 minutes/month downtime)'
+      - 'Latency: P99 < 500ms, P95 < 200ms'
+      - 'Error rate: < 0.1% (max 1 error per 1000 requests)'
+
+  - id: XPROJ-015
+    question: Are there architectural diagrams for complex integrations?
+    dimension: Completeness
+    description: For multi-service architectures, is the design visually documented?
+    audience: [peer]
+    pass_criteria: Architecture diagram shows data flow and service interactions
+    suggestion: Create architecture diagram (C4, sequence, or flow diagram) for complex integrations
+    reference_examples:
+      - 'Data flow: User → API → Export Service → Database → S3 → Email Service → User'
+
+  - id: XPROJ-016
+    dimension: Consistency
+    question: Are feature flags/configuration documented?
+    description: Are rollout controls, kill switches, or feature toggles documented?
+    audience: [peer]
+    pass_criteria: Feature flags, configuration options, and kill switch strategy documented
+    suggestion: Document feature flag schema and rollout configuration
+    reference_examples:
+      - 'Feature flag: export_enabled (boolean, default false)'
+      - 'Kill switch: export_max_records (limit, default 1M)'
