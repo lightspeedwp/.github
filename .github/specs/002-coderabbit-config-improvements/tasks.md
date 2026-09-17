@@ -81,15 +81,15 @@
 
 ### PR Governance Automation Foundation
 
-- [ ] T030 Create pr_governance section in `.coderabbit.yml` with structure (FR-016 through FR-019)
-- [ ] T031 [P] Define template_validation entity: enabled, rules array with section/required/min_items/pattern (SC-014)
-- [ ] T032 [P] Define label_enforcement entity: families object with type/status/priority/area/meta (SC-015)
-- [ ] T033 [P] Define dod_automation entity: scope_detection, templates for feature/bugfix/docs (SC-016)
-- [ ] T034 [P] Define doc_validation entity: skip_paths, failure_rules per type (SC-017)
-- [ ] T035 Implement template_validation rules: Linked Issues, Changelog, Checklist per actual templates
-- [ ] T036 Implement label_enforcement rules: validate prefixes (type:, meta:, status:, priority:, area:)
-- [ ] T037 Implement dod_automation templates: feature, bugfix, docs, hotfix, refactor, perf, security scopes
-- [ ] T038 Implement doc_validation rules: skip .github/tmp/**, **/node_modules/**,**.generated.md
+- [x] T030 Create pr_governance section in `.coderabbit.yml` with structure (FR-016 through FR-019)
+- [x] T031 [P] Define template_validation entity: enabled, rules array with section/required/min_items/pattern (SC-014)
+- [x] T032 [P] Define label_enforcement entity: families object with type/status/priority/area/meta (SC-015)
+- [x] T033 [P] Define dod_automation entity: scope_detection, templates for feature/bugfix/docs (SC-016)
+- [x] T034 [P] Define doc_validation entity: skip_paths, failure_rules per type (SC-017)
+- [x] T035 Implement template_validation rules: Linked Issues, Changelog, Checklist per actual templates
+- [x] T036 Implement label_enforcement rules: validate prefixes (type:, meta:, status:, priority:, area:)
+- [x] T037 Implement dod_automation templates: feature, bugfix, docs, hotfix, refactor, perf, security scopes
+- [x] T038 Implement doc_validation rules: skip .github/tmp/**, **/node_modules/**,**.generated.md
 
 ### Code Review Instructions - Path Patterns (35+ blocks)
 
