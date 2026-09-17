@@ -73,45 +73,32 @@ jobs:
         run: |
           # Extract all markdown links from CATALOG.md and verify targets exist
           broken_links=0
-          grep -oE '\]\(\./[0-9]{3}-[^)]+\)' .github/specs/CATALOG.md | while IFS= read -r link; do
-            # Extract path from markdown link format ](path)
-            if [[ $link =~ \]\(([^\)]+)\) ]]; then
-              target="${BASH_REMATCH[1]}"
-              # Skip external links
-              if [[ $target == http* ]]; then
-                continue
-              fi
-              # Normalize path (remove leading ./)
-              normalized="${target#./}"
+          grep -oE '\]\(\./[0-9]{3}-[^)]+\)' .github/specs/CATALOG.md > /tmp/catalog_links.txt
 
-              # Check if target exists (file or directory)
-              if [ ! -f ".github/specs/$normalized" ] && [ ! -d ".github/specs/$normalized" ]; then
-                echo "✗ Broken link: $link (target not found: .github/specs/$normalized)"
-                broken_links=$((broken_links + 1))
-              fi
+          while IFS= read -r link; do
+            [ -z "$link" ] && continue
+            # Remove ]( from start and ) from end
+            target="${link:2}"      # Remove ](
+            target="${target%\)}    # Remove )
+
+            # Skip external links
+            if [[ $target == http* ]]; then
+              continue
             fi
-          done
 
-          # Verify again with explicit test
-          broken_count=$(grep -oE '\]\(\./[0-9]{3}-[^)]+\)' .github/specs/CATALOG.md | while IFS= read -r link; do
-            if [[ $link =~ \]\(([^\)]+)\) ]]; then
-              target="${BASH_REMATCH[1]}"
-              if [[ $target == http* ]]; then
-                continue
-              fi
-              normalized="${target#./}"
-              if [ ! -f ".github/specs/$normalized" ] && [ ! -d ".github/specs/$normalized" ]; then
-                echo "broken"
-              fi
+            # Check if target exists (file or directory)
+            if [ ! -f ".github/specs/$target" ] && [ ! -d ".github/specs/$target" ]; then
+              echo "✗ Broken link: $link (target not found: .github/specs/$target)"
+              ((++broken_links))
             fi
-          done | wc -l)
+          done < /tmp/catalog_links.txt
 
-          if [ "$broken_count" -eq 0 ]; then
+          if [ $broken_links -eq 0 ]; then
             echo "links_valid=true" >> "$GITHUB_OUTPUT"
             echo "✓ All catalog links point to existing specifications"
           else
             echo "links_valid=false" >> "$GITHUB_OUTPUT"
-            echo "✗ Found $broken_count broken link(s) in CATALOG.md"
+            echo "✗ Found $broken_links broken link(s) in CATALOG.md"
             exit 1
           fi
 
