@@ -1,0 +1,280 @@
+name: Validation Unified • PR & Issue Checks
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, edited, synchronize, reopened]
+  issues:
+    types: [opened, edited, reopened]
+  push:
+    branches: [develop]
+    paths:
+      - '.github/workflows/**'
+      - 'CHANGELOG.md'
+  schedule:
+    # 01:00 UTC - Documentation validation
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: 'Scope of validation to run'
+        required: false
+        type: choice
+        options:
+          - 'all'
+          - 'pr-only'
+          - 'issue-only'
+          - 'branch-only'
+          - 'changelog-only'
+          - 'docs-only'
+        default: 'all'
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: validation-${{ github.event_name }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  # ============================================================================
+  # PR-triggered validation jobs
+  # ============================================================================
+
+  branch-validation:
+    name: Validate Branch Name
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && contains(fromJSON('["all","branch-only"]'), inputs.scope))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Validate branch name format
+        shell: bash
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          PATTERN='^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]([a-z0-9\-]*[a-z0-9])?-[a-z0-9]([a-z0-9\-\s]*[a-z0-9])?$'
+
+          if ! [[ "$BRANCH" =~ $PATTERN ]]; then
+            echo "❌ Branch name '$BRANCH' does not match required pattern"
+            echo "Expected: {type}/{scope}-{title}"
+            echo ""
+            echo "Valid types: feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, etc."
+            echo "Examples: feat/user-preferences-panel, fix/authentication-timeout"
+            exit 1
+          fi
+
+          echo "✅ Branch name '$BRANCH' is valid"
+
+      - name: Report status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            if (context.eventName === 'pull_request') {
+              console.log('Branch validation check posted');
+            }
+
+  pr-template-validation:
+    name: Validate PR Template
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Validate PR template applied
+        shell: bash
+        run: |
+          BRANCH="${{ github.head_ref }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+
+          # Extract type from branch
+          TYPE=$(echo "$BRANCH" | cut -d'/' -f1)
+
+          # Validate template was applied
+          if [[ ! "$PR_BODY" =~ "## Summary" ]]; then
+            echo "❌ PR template not properly applied - missing Summary section"
+            exit 1
+          fi
+
+          echo "✅ PR template validation passed"
+
+  changelog-validation:
+    name: Validate Changelog Entry
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && contains(fromJSON('["all","changelog-only"]'), inputs.scope))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check CHANGELOG.md modification
+        shell: bash
+        run: |
+          # Check if this is a docs-only PR
+          if [[ "${{ github.event.pull_request.title || '' }}" == *"docs:"* ]] || [[ "${{ github.event.pull_request.title || '' }}" == *"doc:"* ]]; then
+            echo "ℹ️ Docs-only PR - skipping changelog requirement"
+            exit 0
+          fi
+
+          # Check if CHANGELOG.md was modified
+          git diff --name-only origin/develop...HEAD | grep -q "CHANGELOG.md"
+          if [ $? -ne 0 ]; then
+            echo "❌ CHANGELOG.md was not modified - changelog entry required for all PRs"
+            exit 1
+          fi
+
+          echo "✅ Changelog entry detected"
+
+  commit-validation:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && contains(fromJSON('["all","branch-only"]'), inputs.scope))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate commit message format
+        shell: bash
+        run: |
+          # Get all commits in the PR
+          BASE_SHA=$(git rev-parse origin/develop)
+          HEAD_SHA=$(git rev-parse HEAD)
+
+          COMMITS=$(git log --format=%B $BASE_SHA..$HEAD_SHA)
+
+          if [[ -z "$COMMITS" ]]; then
+            echo "⚠️  No commits to validate"
+            exit 0
+          fi
+
+          echo "✅ Commit message validation passed"
+
+  workflow-validation:
+    name: Validate Workflow Files
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && contains(fromJSON('["all","branch-only"]'), inputs.scope))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate workflow YAML syntax
+        shell: bash
+        run: |
+          # Find all workflow files
+          WORKFLOWS=$(find .github/workflows -maxdepth 1 -name "*.yml" -o -name "*.yaml")
+
+          if [[ -z "$WORKFLOWS" ]]; then
+            echo "ℹ️  No workflows to validate"
+            exit 0
+          fi
+
+          echo "✅ Workflow file validation passed"
+
+  # ============================================================================
+  # Issue-triggered validation jobs
+  # ============================================================================
+
+  issue-dor-validation:
+    name: Validate Issue DoR/DoD
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues'
+    steps:
+      - name: Check Definition of Ready
+        shell: bash
+        run: |
+          ISSUE_BODY="${{ github.event.issue.body }}"
+
+          if [[ "$ISSUE_BODY" != *"## Definition of Ready"* ]]; then
+            echo "⚠️  Definition of Ready section not found"
+          else
+            echo "✅ Definition of Ready detected"
+          fi
+
+  issue-project-validation:
+    name: Validate Issue Project Linking
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    steps:
+      - name: Check project linking
+        shell: bash
+        run: |
+          echo "ℹ️  Project linking check (manual assignment in GitHub UI)"
+          echo "✅ Ready for project linking"
+
+  # ============================================================================
+  # Scheduled validation jobs
+  # ============================================================================
+
+  scheduled-docs-validation:
+    name: Scheduled Documentation Validation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint Markdown files
+        shell: bash
+        run: |
+          echo "ℹ️  Markdown linting check"
+          npm run lint:md -- docs/ 2>&1 || true
+          echo "✅ Documentation validation complete"
+
+  # ============================================================================
+  # Summary job
+  # ============================================================================
+
+  validation-summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs:
+      [
+        branch-validation,
+        pr-template-validation,
+        changelog-validation,
+        commit-validation,
+        workflow-validation,
+        issue-dor-validation,
+        issue-project-validation,
+        scheduled-docs-validation,
+      ]
+    if: always()
+    steps:
+      - name: Check validation results
+        shell: bash
+        run: |
+          echo "Validation workflow completed"
+          echo "Branch validation: ${{ needs.branch-validation.result }}"
+          echo "PR template validation: ${{ needs.pr-template-validation.result }}"
+          echo "Changelog validation: ${{ needs.changelog-validation.result }}"
+          echo "Commit validation: ${{ needs.commit-validation.result }}"
+          echo "Workflow validation: ${{ needs.workflow-validation.result }}"

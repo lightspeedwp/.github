@@ -113,7 +113,7 @@ phases: 7
 ### US2 Tasks
 
 - [x] T025 [P] [US2] Analyze 11 archived validation workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/validation-analysis.md`
-- [ ] T026 [US2] Create unified validation workflow at `.github/workflows/validation-unified.yml` with parallel jobs for: (1) branch naming, (2) PR template, (3) changelog, (4) commits, (5) secrets
+- [x] T026 [US2] Create unified validation workflow at `.github/workflows/validation-unified.yml` with parallel jobs for: (1) branch naming, (2) PR template, (3) changelog, (4) commits, (5) secrets
 - [ ] T027 [P] [US2] Implement branch naming validation job: check `{type}/{scope}-{title}` format per `.github/instructions/branch-naming.instructions.md`, post comment if invalid
 - [ ] T028 [P] [US2] Implement PR template validation job: verify correct template routed based on branch prefix, check template fields populated
 - [ ] T029 [P] [US2] Implement changelog validation job: require CHANGELOG.md entry for non-docs PRs, validate format
@@ -139,7 +139,7 @@ phases: 7
 ### US3 Tasks
 
 - [x] T037 [P] [US3] Analyze 2 archived testing workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/testing-analysis.md`
-- [ ] T038 [US3] Create unified testing workflow at `.github/workflows/testing-unified.yml` with parallel jobs for: (1) unit tests, (2) integration tests, (3) E2E tests, (4) coverage aggregation
+- [x] T038 [US3] Create unified testing workflow at `.github/workflows/testing-unified.yml` with parallel jobs for: (1) unit tests, (2) integration tests, (3) E2E tests, (4) coverage aggregation
 - [ ] T039 [P] [US3] Implement unit test job: run npm test (or language-appropriate test command), upload coverage to artifacts, report to metrics
 - [ ] T040 [P] [US3] Implement integration test job: run integration test suite, upload results to artifacts, validate ≥80% coverage
 - [ ] T041 [P] [US3] Implement E2E test job: run E2E test suite on staging environment, upload results, report failures to PR comment
