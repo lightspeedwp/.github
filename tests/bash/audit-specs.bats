@@ -55,7 +55,8 @@ run_audit() {
 
   [ "$status" -ne 0 ]
   [[ "$output" == *"Gap detected: expected 2 but found 3"* ]]
-  [[ "$output" != *"Complete Inventory Report"* ]]
+  [[ "$output" == *"Complete Inventory Report"* ]]
+  [[ "$output" == *"Total directories: 2"* ]]
 }
 
 @test "a reused numeric prefix is rejected as a duplicate" {
@@ -162,7 +163,7 @@ run_audit() {
 
   [ "$status" -ne 0 ]
   [[ "$output" == *"❌ No specification directories found"* ]]
-  [[ "$output" != *"Complete Inventory Report"* ]]
+  [[ "$output" == *"Total directories: 0"* ]]
 }
 
 @test "numbering must begin at 001" {

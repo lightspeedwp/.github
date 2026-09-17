@@ -203,12 +203,10 @@ main() {
   # Run scans and collect exit codes
   local rc=0
 
+  # Always run every check so one failure does not hide the others.
   audit_scan_directories
-  if verify_sequential_numbering; then
-    generate_inventory_report || rc=1
-  else
-    rc=1
-  fi
+  verify_sequential_numbering || rc=1
+  generate_inventory_report || rc=1
 
   return $rc
 }
