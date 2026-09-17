@@ -7,11 +7,9 @@
  * @module scripts/lib/exclusion-patterns
  */
 
-import { DEFAULT_EXCLUDE_PATTERN } from "./constants.js";
-
 const DEFAULT_EXCLUDE_PATTERN_OVERRIDE = /^(release\/|hotfix\/)/;
 
-export function buildExclusionRegex(userPatterns = "") {
+export function buildExclusionRegex(userPatterns = '') {
   const parts = [DEFAULT_EXCLUDE_PATTERN_OVERRIDE.source];
 
   if (userPatterns && userPatterns.trim()) {
@@ -23,13 +21,11 @@ export function buildExclusionRegex(userPatterns = "") {
     parts.push(...userParts);
   }
 
-  const source = `(${parts.join("|")})`;
+  const source = `(${parts.join('|')})`;
   try {
     return new RegExp(source);
   } catch (err) {
-    console.warn(
-      `⚠️  Invalid exclusion patterns regex: ${err.message}. Using defaults.`,
-    );
+    console.warn(`⚠️  Invalid exclusion patterns regex: ${err.message}. Using defaults.`);
     return DEFAULT_EXCLUDE_PATTERN_OVERRIDE;
   }
 }
