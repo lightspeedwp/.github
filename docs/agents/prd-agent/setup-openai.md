@@ -64,7 +64,7 @@ How you integrate depends on your setup:
 
 #### Option A: OpenAI Function Calling (Recommended)
 
-If you're using OpenAI's [function calling](https://platform.openai.com/docs/guides.function-calling) feature:
+If you're using OpenAI's [function calling](https://platform.openai.com/docs/guides/function-calling) feature:
 
 1. **Extract the agent's system prompt** from the configuration
 2. **Define function schemas** for any external tools the agent needs (e.g., saving PRDs to a database)
