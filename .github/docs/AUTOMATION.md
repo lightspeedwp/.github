@@ -19,12 +19,14 @@ This document describes the 14 unified workflows that serve as the backbone of t
 ## Overview
 
 **Phase 1 (Sep 2026):** Backup & Archive Initiative
+
 - Archived 71 non-essential workflows (Phase 1 + Option A)
 - Created 9 core workflow stubs aligned to Phase 2 architecture
 - Preserved full git history and restoration capability
 - Prepared foundation for Phase 2 consolidation
 
 **Phase 2 (Oct 2026+):** Consolidation Initiative
+
 - Unified 76 workflows → 14 core consolidated workflows
 - 82% reduction in workflow maintenance burden
 - Eliminated ~500 lines of duplicate code
@@ -147,6 +149,7 @@ The following 14 workflows provide all automation capabilities across the organi
 **Master Plan:** `.github/projects/active/workflow-consolidation-master-plan-2026-09/`
 
 **Related Documentation:**
+
 - [Consolidation Mapping](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Complete 76-workflow mapping
 - [Archive README](../.github/workflows/archived/2026-09-11/README.md) — Archive structure and purpose
 - [Restoration Guide](../.github/workflows/archived/2026-09-11/RESTORE.md) — How to restore workflows
@@ -155,6 +158,7 @@ The following 14 workflows provide all automation capabilities across the organi
 **Epic Issue:** [Epic] Workflow Consolidation Initiative 2026-Q4 (TBD)
 
 **Sub-Issues:**
+
 - refactor: Phase 1 - Backup & Archive Workflows (TBD)
 - refactor: Phase 1 - Create Consolidation Mapping (TBD)
 - refactor: Phase 1 - Archive Documentation & Restore Procedures (TBD)
@@ -166,6 +170,7 @@ The following 14 workflows provide all automation capabilities across the organi
 ## Key Metrics
 
 ### Before Consolidation (Phase 1 Start)
+
 - **Total workflows:** 80 (71 archived + 9 core active) → 14 total after Phase 2 (9 core + 5 unified)
 - **Check gates per PR:** 15-20+ checks
 - **Duplicate code:** ~500 lines
@@ -173,6 +178,7 @@ The following 14 workflows provide all automation capabilities across the organi
 - **GitHub Actions minutes:** Unoptimized baseline
 
 ### After Consolidation (Phase 2+)
+
 - **Total workflows:** 14 unified consolidated workflows
 - **Check gates per PR:** 1 unified gate + dependencies (80%+ reduction)
 - **Duplicate code:** Eliminated through consolidation
@@ -185,9 +191,11 @@ The following 14 workflows provide all automation capabilities across the organi
 ## Archive Information
 
 ### Archive Location
+
 `.github/workflows/archived/2026-09-11/` — All 71 archived workflows organized by 8 functional categories
 
 ### Categories
+
 1. **Labeling** (9 workflows) — Label automation and governance
 2. **Validation** (12 workflows) — Quality and compliance checks
 3. **Documentation** (8 workflows) — Docs generation and badges
@@ -198,6 +206,7 @@ The following 14 workflows provide all automation capabilities across the organi
 8. **Utilities** (8 workflows) — Metrics, security, and coordination
 
 ### Retention Policy
+
 - **Archive date:** Sep 11, 2026
 - **Retention period:** 2 weeks (Sep 11-25, 2026)
 - **Full git history:** Preserved permanently (can restore from git at any time)
@@ -208,6 +217,7 @@ The following 14 workflows provide all automation capabilities across the organi
 ## Workflow Dependencies & Execution Flow
 
 ### Critical Path
+
 1. `events-issue-pr-metadata.yml` — Initial event dispatch and enrichment
 2. `validation-unified.yml`, `linting-unified.yml` — Quality gates (parallel)
 3. `labeling-unified.yml`, `branch-management.yml` — Labeling and branch ops (parallel)
@@ -216,6 +226,7 @@ The following 14 workflows provide all automation capabilities across the organi
 6. `documentation.yml`, `reporting-metrics.yml` — Output generation (parallel)
 
 ### Parallel Execution Opportunities
+
 - All validation checks can run in parallel
 - Labeling and branch management are independent
 - Issue and PR workflows are independent
@@ -226,6 +237,7 @@ The following 14 workflows provide all automation capabilities across the organi
 ## Integration Points
 
 ### GitHub API Integration
+
 - Issue and PR creation via GitHub API
 - Label management
 - Branch protection and merge controls
@@ -233,12 +245,14 @@ The following 14 workflows provide all automation capabilities across the organi
 - Release creation and tagging
 
 ### External Services
+
 - GitHub Actions secret scanning (gitleaks)
 - OpenSpec schema validation
 - Build and deployment systems (CI/CD pipeline)
 - Metrics and monitoring services
 
 ### Reusable Workflows
+
 - All unified workflows can be called as reusable workflows
 - Support composite actions for code reuse
 - Enable calling workflows from other repos
@@ -248,18 +262,21 @@ The following 14 workflows provide all automation capabilities across the organi
 ## Maintenance & Operations
 
 ### Monitoring
+
 - GitHub Actions usage and cost tracking
 - Workflow failure rates and error logs
 - PR merge time and PR check completion time
 - Label accuracy and label compliance
 
 ### Updates
+
 - Security patches applied to gitleaks signatures
 - Node.js runtime version updates
 - GitHub Actions dependency updates
 - Workflow logic improvements and optimizations
 
 ### Troubleshooting
+
 1. Check individual workflow logs in GitHub Actions tab
 2. Consult specific workflow documentation
 3. Review Consolidation Mapping for old workflow info

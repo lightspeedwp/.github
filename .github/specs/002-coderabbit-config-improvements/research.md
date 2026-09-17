@@ -5,6 +5,7 @@
 ## Executive Summary
 
 Current `.coderabbit.yml` provides solid foundational review guidance across 20+ path patterns but lacks:
+
 1. **Branch-type-specific context** (all branches get identical instructions)
 2. **SpecKit/workflow/plugin file coverage** (3 emerging file categories)
 3. **Explicit pattern priority rules** (potential ambiguity with overlapping patterns)
@@ -21,6 +22,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 **File**: `.coderabbit.yml` (line count: 443)
 
 **Sections**:
+
 - `reviews` (settings): 8 configuration items
 - `path_instructions` (review guidance): 24 path pattern blocks
 - Labels reference (documentation): 145 lines
@@ -44,6 +46,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 **Total current patterns**: 24 (though some overlap)
 
 **Coverage gaps identified**:
+
 - ❌ `.specify/spec.md`, `.specify/plan.md`, `.specify/tasks.md` (SpecKit files - 3 new)
 - ❌ `workflows/*.md` (agentic workflow documentation - 1 new)
 - ❌ `plugins/*/SKILL.md` (plugin documentation - 1 new)
@@ -85,12 +88,14 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 ```
 
 **Priority Issues Found**:
+
 - **Pattern #8 (`**/*.{js,ts}`) is very general** and could match files that should use patterns #9, #14, #15
 - **No explicit ordering documented** - unclear whether order matters or if all matching patterns should apply
 - **Potential overlaps**: `**/e2e/*.{ts,js}` could match files also matching `**/*.{ts,js}`
 - **Missing precedence rules**: No documentation explaining how conflicts are resolved
 
 **Best Practice for CodeRabbit**: More specific patterns should override general patterns. Specificity ordering should be:
+
 1. Exact file paths > Nested directories > File types
 2. More path segments > Fewer path segments
 3. Within same specificity: first defined wins (or explicit precedence)
@@ -127,23 +132,27 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 ### CodeRabbit Configuration Best Practices
 
 **Finding 1: Path Pattern Specificity**
+
 - CodeRabbit processes `path_instructions` in order of definition
 - When a file matches multiple patterns, the **first matching pattern's instructions are used** (CodeRabbit does not cascade)
 - Therefore: **Order matters** - more specific patterns must be defined before general patterns
 - **Implication**: Current config order is problematic; patterns need reorganization
 
 **Finding 2: Branch Context Support**
+
 - CodeRabbit has no native "branch type" context variable
 - However, we can use **separate instruction sets per branch type pattern** or document branch awareness in instruction text
 - Alternative: Create parallel instruction blocks for high-priority branch types (security/, perf/, a11y/)
 - **Implication**: Implementation requires creative structuring; may document branch context in comments rather than parameterize
 
 **Finding 3: Instruction Composition**
+
 - CodeRabbit instructions are **monolithic** - each path pattern maps to a single instruction string
 - Multiple instructions don't cascade; they're not composable in the schema
 - **Implication**: All review focus areas for a file type must live in one instruction block; can use subheadings/bullets to organize
 
 **Finding 4: Label References**
+
 - CodeRabbit can cite organization labels but **cannot create new labels**
 - Existing label taxonomy in `.github/labels.yml` (frozen/LOCKED) is the source of truth
 - **Implication**: Config documentation can reference labels but cannot modify them; consistency audit required
@@ -159,6 +168,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 **Current Guidance**: None
 
 **Recommendation**: Add instruction block:
+
 ```yaml
 - path: ".specify/spec.md"
   instructions: |
@@ -189,6 +199,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 **Current State**: No documented rules for pattern matching precedence
 
 **Recommendation**: Add section in config:
+
 ```yaml
 # === Pattern Priority Rules ===
 # More specific patterns override general patterns.
@@ -211,6 +222,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 **Recommendation Options**:
 
 **Option A (Preferred)**: Add branch-specific comments within instruction blocks
+
 ```yaml
 - path: "**/*.php"
   instructions: |
@@ -221,6 +233,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 ```
 
 **Option B**: Create parallel blocks for security-critical branches
+
 ```yaml
 - path: "**/*.{php,js,ts}"
   instructions: "[general guidance]"
@@ -238,6 +251,7 @@ Current `.coderabbit.yml` provides solid foundational review guidance across 20+
 **Current State**: No guidance for maintainers on verifying coverage completeness
 
 **Recommendation**: Create `CODERABBIT_COVERAGE_AUDIT.md` with:
+
 - Checklist of file types to verify
 - Steps to audit coverage against repository
 - Script or process to identify uncovered files

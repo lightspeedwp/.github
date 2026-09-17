@@ -16,6 +16,7 @@ Defines the required structure, fields, and validation rules for each path instr
 - ❌ **NOT allowed**: "PHP function naming", "TypeScript types", "React components", "Terraform modules", "WordPress actions", "Node.js middleware"
 
 Instructions should reference **universal principles** that apply to all code:
+
 - Security: authentication, authorization, secrets, injection prevention
 - Performance: algorithmic efficiency, resource usage, caching strategies
 - Quality: readability, maintainability, testing, documentation

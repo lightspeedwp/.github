@@ -195,7 +195,7 @@ Verify all requirements link to acceptance criteria and vice versa.
 
 **Reviewer Sign-Off**: Checklist completed by: _________________ | Date: _________________
 
-**Action Items**: 
+**Action Items**:
 
 - [ ] All items reviewed
 - [ ] Critical gaps resolved (items CHK001-CHK009, CHK042)
