@@ -1,6 +1,6 @@
 # Feature Specification: CodeRabbit Configuration Optimization
 
-**Feature Branch**: `config/coderabbit-review-governance`
+**Feature Branch**: `feat/coderabbit-config-optimization`
 
 **Created**: 2026-09-11
 
@@ -93,11 +93,26 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 
 ### Edge Cases
 
+**Pattern Matching & Fallback**:
+
 - When a file matches multiple path patterns, more specific patterns override general ones (e.g., `**/e2e/*.spec.js` takes priority over `**/*.js`)
 - Files not matching any specific pattern receive guidance from catch-all pattern (e.g., `**/*`) with universal quality principles (code readability, error handling, security basics)
 - Generic patterns (e.g., `**/*.md`) serve as fallback instructions for files not matching specific patterns
 - Files in nested `.github/` directories in sub-repositories follow the same pattern priority rules
+
+**Branch Type Context Fallback**:
+
+- When a PR's branch type doesn't match defined branch-context patterns, CodeRabbit applies generic guidance from universal instruction blocks without silencing or skipping review
+
+**Configuration & Error Handling**:
+
+- Malformed `.coderabbit.yml` entries MUST NOT silently fail; CodeRabbit MUST report configuration errors clearly and gracefully with actionable remediation guidance
+- Invalid priority values or malformed pattern entries MUST NOT break existing review workflows; fallback to previous valid configuration
+
+**Backward Compatibility**:
+
 - Instructions must evolve without breaking existing review workflows - additions/clarifications only, no breaking changes
+- Repository-specific CodeRabbit overrides MUST NOT conflict with or disable central configuration guidance
 
 ## Requirements *(mandatory)*
 
@@ -146,11 +161,14 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **SC-006**: Configuration file MUST be structured for maintainability: logically grouped sections, clear comments, consistent formatting (evaluable through code review)
 - **SC-007**: New file types (`.specify/`, `workflows/`, `plugins/`) MUST be covered with review instructions
 - **SC-008**: Instruction consistency MUST be validated: terminology standardized, structure uniform across all blocks (measurable through analysis tool)
-- **SC-009**: CodeRabbit reviews using the updated config MUST cite relevant specific guidance from path_instructions for at least 85% of reviews (measured by review audit)
+- **SC-009**: CodeRabbit reviews using the updated config MUST cite relevant specific guidance from path_instructions for at least 85% of reviews (measured via monthly random sample audit of 50-100 PRs; citation rate tracking; minimum 85% of sampled reviews must include specific path instruction citations)
 - **SC-010**: Maintainability MUST improve: adding a new file type instruction should take <5 minutes and not require edits to multiple sections
-- **SC-011**: Branch-type-specific guidance MUST be present for at least the top 15 branch types by usage frequency (security/, feat/, fix/, docs/, perf/, a11y/, refactor/, chore/, test/, ci/, hotfix/, release/, design/, task/, ops/) verified through review
+- **SC-011**: Branch-type-specific guidance MUST be present for top 15-20 branch types by usage frequency (security/, feat/, fix/, docs/, perf/, a11y/, refactor/, chore/, test/, ci/, hotfix/, release/, design/, task/, ops/, audit, config, build, deps, revert) with full guidance; remaining 30+ types covered via basic fallback guidance (two-tier strategy per Session 2026-09-17 clarification)
 - **SC-012**: Path pattern priority MUST be clearly documented - specificity order rules documented in comments, and priority conflicts resolved in favor of more specific patterns with zero ambiguity
 - **SC-013**: External audit guide MUST be created at `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` with step-by-step instructions for maintainers to verify config completeness and identify under-reviewed file types
+- **SC-018**: Configuration load and initialization MUST complete in <500ms under normal conditions; configuration size MUST support at least 200 path patterns without performance degradation
+- **SC-019**: Central configuration MUST support multi-repository deployments across 50+ repositories without scaling bottlenecks; organization-wide deployment MUST not cause review latency >100ms vs. baseline
+- **SC-020**: Configuration validation MUST have zero silent failures; all malformed entries (invalid patterns, broken references, missing required fields) MUST trigger explicit error messages with remediation guidance
 
 ### PR Governance Success Criteria (Phase 1 Expansion)
 
@@ -171,7 +189,7 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - **No Duplication**: Improvements will avoid duplicating guidance already documented in AGENTS.md (global AI rules), CLAUDE.md (repo instructions), and `.github/instructions/*.instructions.md` (specific guidance files)
 - **Maintainability Over Completeness**: When faced with a choice between comprehensive coverage and maintainability, maintainability wins. Instructions should be clear and actionable, not exhaustive encyclopedic lists.
 - **Branch-Specific Reviews**: Review instructions will differentiate by branch type for the top 15-20 branch types by organizational usage frequency (feat/, fix/, security/, docs/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, and additional high-frequency types), enabling context-aware feedback tailored to the nature of each change.
-- **Precedence Rules**: When a file matches multiple patterns and branch context applies, path pattern priority (from FR-014) takes precedence as the primary mechanism. Branch context provides supplementary emphasis on relevant focus areas within the path-specific guidance.
+- **Precedence Rules**: When a file matches multiple patterns, path specificity (FR-014) determines instruction selection (more specific patterns override general patterns). When branch context also applies, branch type guidance augments the path-specific instruction by emphasizing relevant focus areas—branch context never overrides or replaces path-specific guidance. Example: For a `security/` branch modifying `**/*.js`, the `**/*.js` instruction block is primary; branch context highlights security-specific focus areas within that block.
 
 ## Clarifications
 
@@ -188,7 +206,15 @@ As a CodeRabbit configuration maintainer, I need consistent structure, tone, and
 - Q: When a file doesn't match any specific path pattern, should CodeRabbit apply a generic catch-all? → A: Yes, add catch-all pattern (e.g., `**/*`) with universal guidance (readability, error handling, security basics) as fallback. Ensures 100% coverage while allowing specific patterns to override for high-priority files.
 - Q: When file matches multiple patterns AND branch context applies, which takes precedence? → A: Path pattern priority wins; branch context provides supplementary emphasis. Keeps FR-014 specificity rule as primary mechanism while branch context augments relevant focus areas.
 
-### Session 2026-09-17
+### Session 2026-09-17 (Initial Scope & Governance)
 
 - Q: Should Phase 1 expand to include PR governance automation (PR template validation, label family enforcement, DoD checklist automation)? → A: **YES — Expand Phase 1** to include full PR governance scope alongside code review instructions. Delivers unified, cohesive feature covering both code review instructions AND PR governance automation. Adds FR-016 through FR-019; expands task scope to ~130-140 tasks; estimated effort 14-16 weeks unified delivery.
 - Q: Should I audit current `.coderabbit.yml` to identify commented sections to convert into active instructions? → A: **YES — Audit completed**. Found 150+ lines (597-752) of governance documentation currently undeclared as active CodeRabbit rules: PR description template standards, issue template standards, label automation workflow, validation rules. These must be converted to active FR/SC and integrated into task decomposition.
+
+### Session 2026-09-17 (Clarify Implementation Details)
+
+- Q: Should branch-type guidance cover 15-20 types or all 30+ types from CLAUDE.md? → A: **Two-tier strategy (Option C)**: Provide full guidance for top 15-20 branch types by usage frequency (feat/, fix/, security/, docs/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, audit, config, build, deps, revert); provide basic fallback guidance for remaining 30+ types. Balances comprehensive organization coverage with sustainable maintainability. Updates FR-006 and SC-011.
+- Q: What audit methodology should measure the 85% review citation requirement (SC-009)? → A: **Monthly random sample audit (Option A)**: Sample 50-100 PRs monthly; audit CodeRabbit comments for citations of specific path instruction blocks; measure citation rate and track trends. Balances statistical rigor with practical implementation without requiring instrumentation of CodeRabbit itself.
+- Q: When path patterns and branch context both apply, which takes precedence? → A: **Path specificity is primary (Option A)**: Path pattern priority (FR-014) is the primary mechanism; branch context provides supplementary emphasis on relevant focus areas within path-specific guidance. Clarified in Assumptions section and reinforced in FR-014.
+- Q: Should edge case requirements be defined now or deferred? → A: **Add high-level edge cases now (Option A)**: Define requirements for undefined branch type fallback, configuration error handling, and graceful degradation in Edge Cases section. Defer detailed implementation strategies (version management, gradual rollout, scalability limits) to Phase 1 planning.
+- Q: Should performance and scalability requirements be measurable now? → A: **Add measurable performance SCs now (Option A)**: Include 3-4 specific performance targets in Success Criteria (SC-018, SC-019, SC-020): config load time <500ms, support 200+ path patterns, handle multi-repository deployments, zero silent failures on malformed config. Enables performance validation during Phase 1.
