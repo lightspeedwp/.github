@@ -99,7 +99,7 @@
 
 ### Implementation for User Story 3
 
-- [x] T025 [P] [US3] Create audit report template file at `.github/specs/013-spec-folder-refactor/audit-report.md` with structure: Summary, Per-Specification Results, Remediation Plan
+- [x] T025 [P] [US3] Create audit report template file at `.github/specs/013-spec-folder-refactor/audit-reports/audit-report.md` with structure: Summary, Per-Specification Results, Remediation Plan
 - [x] T026 [US3] Execute quality analysis for Spec 001: evaluate against 8 dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) - document PASS/FAIL + examples
 - [x] T027 [US3] Execute quality analysis for Spec 002: same 8-dimension analysis
 - [x] T028 [US3] Execute quality analysis for Spec 003: same 8-dimension analysis

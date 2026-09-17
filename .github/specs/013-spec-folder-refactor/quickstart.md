@@ -129,7 +129,7 @@ ls -l .github/specs/CATALOG.md
 
 ```bash
 # Audit report should exist after implementation
-ls -l .github/specs/013-spec-folder-refactor/audit-report.md
+ls -l .github/specs/013-spec-folder-refactor/audit-reports/audit-report.md
 ```
 
 **Test Steps**:
@@ -333,9 +333,9 @@ ls -l .github/specs/013-spec-folder-refactor/audit-report.md
 
 2. **Verify workflow integration**
    - Specification can be created using `/speckit-specify` → `/speckit-clarify` → `/speckit-plan` → `/speckit-tasks` workflow
-   - New spec automatically numbered (next = highest + 1)
-   - New spec automatically discoverable in CATALOG.md
-   - New spec automatically audited for quality
+   - New spec numbered according to strategy (next = highest + 1)
+   - Catalog updated manually per MAINTENANCE.md procedures (SC-003)
+   - Quality audit performed manually using 8-dimension framework (SC-005)
    - Result: ✅ Specification-first workflow integrated (SC-009)
 
 3. **Verify compliance metrics**

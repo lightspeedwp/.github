@@ -274,19 +274,20 @@ When updating CATALOG.md, verify:
 - [ ] Entries in sequential order (001, 002, 003...)
 - [ ] Last Updated date is within 7 days of any changes
 
-### Automated Catalog Validation
+### Catalog Validation
 
-Run catalog validation:
+Verify catalog completeness using the validation checklist:
 
 ```bash
-npm run validate:catalog
+# Run directory audit to verify structure
+./.specify/scripts/bash/audit-specs.sh
 ```
 
-This checks:
+Then manually verify:
 - All directories in `.github/specs/` appear in CATALOG.md
-- No broken links
-- Numbering is sequential
-- No duplicates
+- No broken links in catalog
+- Numbering is sequential (001-013+)
+- No duplicate entries
 
 ---
 
@@ -331,13 +332,12 @@ Run quality audit on any specification:
 /speckit-specify {feature}  # Creates spec with quality checklist
 ```
 
-Or audit an existing spec:
+Or audit an existing spec manually:
 
-```bash
-npm run audit:spec 001
-```
-
-Review findings and remediate any failing dimensions.
+1. Open the spec file: `.github/specs/001-*/spec.md`
+2. Review against the 8-dimension quality framework (see [audit-methodology.md](./013-spec-folder-refactor/audit-reports/audit-methodology.md))
+3. Document findings in the audit report
+4. Remediate any failing dimensions before marking the spec as approved
 
 ---
 

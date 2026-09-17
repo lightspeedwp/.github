@@ -23,7 +23,8 @@ audit_scan_directories() {
   local count=0
   local dirs=()
 
-  for dir in "$SPECS_DIR"/[0-9][0-9][0-9]-*/; do
+  # Enumerate ALL immediate subdirectories (including malformed ones) for inventory and validation
+  for dir in "$SPECS_DIR"/*/; do
     if [ -d "$dir" ]; then
       dirs+=("$dir")
       ((++count))
