@@ -187,7 +187,7 @@ Represents the output of running a checklist against a specification.
   "id": "result-20260913-abc123",
   "created_at": "2026-09-13T14:30:00Z",
   "specification_reference": {
-    "spec_path": ".github/specs/003-requirements-checklist/spec.md",
+    "spec_path": ".github/specs/010-requirements-checklist/spec.md",
     "spec_version": "draft",
     "author": "ashley@lightspeedwp.agency"
   },
@@ -259,7 +259,7 @@ Represents metadata linking a ChecklistResult to its source specification.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `spec_path` | string | Yes | Relative path to spec file (e.g., `.github/specs/003-requirements-checklist/spec.md`) |
+| `spec_path` | string | Yes | Relative path to spec file (e.g., `.github/specs/010-requirements-checklist/spec.md`) |
 | `spec_version` | string | No | Version or branch name when result was captured (e.g., `draft`, `v1.0`, `main`) |
 | `title` | string | No | Spec title (from heading, for readability) |
 | `author` | string | No | Original spec author (from git blame or metadata) |
@@ -274,7 +274,7 @@ Represents metadata linking a ChecklistResult to its source specification.
 **Example**:
 
 ```yaml
-spec_path: ".github/specs/003-requirements-checklist/spec.md"
+spec_path: ".github/specs/010-requirements-checklist/spec.md"
 spec_version: "draft"
 title: "Requirements Quality Checklist Framework"
 author: "ashley@lightspeedwp.agency"

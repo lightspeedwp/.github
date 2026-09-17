@@ -173,4 +173,4 @@ After rollback, confirm:
 ## Related Documents
 - [WORKFLOW_CONSOLIDATION_MAPPING.md](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Lists 71→5 mapping
 - [PHASE2_OPERATIONS_RUNBOOK.md](./PHASE2_OPERATIONS_RUNBOOK.md) — Day-2 operations guide
-- [spec.md](../.github/specs/003-workflow-consolidation-phase-2/spec.md) — Phase 2 specification
+- [spec.md](../specs/011-workflow-consolidation-phase-2/spec.md) — Phase 2 specification

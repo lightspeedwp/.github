@@ -91,7 +91,7 @@ Built-in requirements checklist (checklists/requirements.md) fully passing—spe
 
 ### Review Checklist (Multi-Dimensional)
 
-File: `specs/001-audit-governance-structure/checklists/governance-comprehensive.md`
+File: `specs/012-audit-governance-structure/checklists/governance-comprehensive.md`
 
 The comprehensive 80-item checklist covers:
 - **Dimension A**: Specification quality (10 items) — ✅ already passing
@@ -150,7 +150,7 @@ All changes are:
 - **GOVERNANCE_CHANGELOG.md**: New file documenting all changes
 - **Audit Reports** (8 documents): `.github/reports/governance-audit-2026-09-14/`
 - **Backups** (originals before refactoring): `.github/reports/governance-audit-2026-09-14/originals/`
-- **Comprehensive Checklist** (80 items): `specs/001-audit-governance-structure/checklists/governance-comprehensive.md`
+- **Comprehensive Checklist** (80 items): `specs/012-audit-governance-structure/checklists/governance-comprehensive.md`
 
 ### Locked Files (No Changes)
 - `.github/labels.yml` ✅ (unchanged, 158 labels verified)
@@ -216,10 +216,10 @@ Rationale:
 5. Mark comprehensive checklist items as satisfied
 
 ### Thorough Review (30–45 minutes)
-1. Read full specification: `specs/001-audit-governance-structure/spec.md`
-2. Review before/after files: `specs/001-audit-governance-structure/data-model.md` (comparison)
+1. Read full specification: `specs/012-audit-governance-structure/spec.md`
+2. Review before/after files: `specs/012-audit-governance-structure/data-model.md` (comparison)
 3. Review audit summary: `.github/reports/governance-audit-2026-09-14/AUDIT_SUMMARY.md`
-4. Review comprehensive checklist: `specs/001-audit-governance-structure/checklists/governance-comprehensive.md`
+4. Review comprehensive checklist: `specs/012-audit-governance-structure/checklists/governance-comprehensive.md`
 5. Review CLAUDE.md and AGENTS.md carefully for clarity and accuracy
 
 ### Links to Key Documents
@@ -229,10 +229,10 @@ Rationale:
 | This Summary | Approval overview | `.github/reports/governance-audit-2026-09-14/ASHLEY_APPROVAL_SUMMARY.md` |
 | Changelog | All changes listed | `GOVERNANCE_CHANGELOG.md` |
 | Audit Summary | Findings and recommendations | `.github/reports/governance-audit-2026-09-14/AUDIT_SUMMARY.md` |
-| Comprehensive Checklist | 80-item requirements review | `specs/001-audit-governance-structure/checklists/governance-comprehensive.md` |
+| Comprehensive Checklist | 80-item requirements review | `specs/012-audit-governance-structure/checklists/governance-comprehensive.md` |
 | Refactored CLAUDE.md | Main governance file | `CLAUDE.md` |
 | Refactored AGENTS.md | Global AI rules | `AGENTS.md` |
-| Specification | Complete requirements | `specs/001-audit-governance-structure/spec.md` |
+| Specification | Complete requirements | `specs/012-audit-governance-structure/spec.md` |
 
 ---
 

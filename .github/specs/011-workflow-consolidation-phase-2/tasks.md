@@ -81,7 +81,7 @@ phases: 7
 
 ### User Story 1 Tasks
 
-- [ ] T015 [US1] Analyze 9 archived labeling workflows and document trigger patterns in `.github/specs/003-workflow-consolidation-phase-2/labeling-analysis.md`
+- [ ] T015 [US1] Analyze 9 archived labeling workflows and document trigger patterns in `.github/specs/011-workflow-consolidation-phase-2/labeling-analysis.md`
 - [ ] T016 [US1] Create unified labeling workflow at `.github/workflows/labeling-unified.yml` with jobs for: (1) PR labeling, (2) Issue labeling, (3) Scheduled label cleanup
 - [ ] T017 [P] [US1] Implement PR labeling job in labeling-unified.yml: trigger on pull_request, read `.github/labels.yml` taxonomy, apply prefix-matched labels
 - [ ] T018 [P] [US1] Implement Issue labeling job in labeling-unified.yml: trigger on issues, apply labels per issue type (type:bug, type:feature, type:task, type:documentation, type:security, type:design)
@@ -112,7 +112,7 @@ phases: 7
 
 ### US2 Tasks
 
-- [ ] T025 [P] [US2] Analyze 12 archived validation workflows and document patterns in `.github/specs/003-workflow-consolidation-phase-2/validation-analysis.md`
+- [ ] T025 [P] [US2] Analyze 12 archived validation workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/validation-analysis.md`
 - [ ] T026 [US2] Create unified validation workflow at `.github/workflows/validation-unified.yml` with parallel jobs for: (1) branch naming, (2) PR template, (3) changelog, (4) commits, (5) secrets
 - [ ] T027 [P] [US2] Implement branch naming validation job: check `{type}/{scope}-{title}` format per `.github/instructions/branch-naming.instructions.md`, post comment if invalid
 - [ ] T028 [P] [US2] Implement PR template validation job: verify correct template routed based on branch prefix, check template fields populated
@@ -138,7 +138,7 @@ phases: 7
 
 ### US3 Tasks
 
-- [ ] T037 [P] [US3] Analyze 8 archived testing workflows and document patterns in `.github/specs/003-workflow-consolidation-phase-2/testing-analysis.md`
+- [ ] T037 [P] [US3] Analyze 8 archived testing workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/testing-analysis.md`
 - [ ] T038 [US3] Create unified testing workflow at `.github/workflows/testing-unified.yml` with parallel jobs for: (1) unit tests, (2) integration tests, (3) E2E tests, (4) coverage aggregation
 - [ ] T039 [P] [US3] Implement unit test job: run npm test (or language-appropriate test command), upload coverage to artifacts, report to metrics
 - [ ] T040 [P] [US3] Implement integration test job: run integration test suite, upload results to artifacts, validate ≥80% coverage
@@ -166,7 +166,7 @@ phases: 7
 
 ### User Story 4 Tasks
 
-- [ ] T048 [US4] Analyze 2 archived linting workflows and document patterns in `.github/specs/003-workflow-consolidation-phase-2/linting-analysis.md`
+- [ ] T048 [US4] Analyze 2 archived linting workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/linting-analysis.md`
 - [ ] T049 [US4] Create unified linting workflow at `.github/workflows/linting-unified.yml` with parallel jobs for: (1) JS/TS linting, (2) Markdown linting
 - [ ] T050 [P] [US4] Implement JS/TS linting job: run ESLint with shared config from `.github/eslint.config.js`, report findings to PR comment
 - [ ] T051 [P] [US4] Implement Markdown linting job: run markdownlint with config from `.markdownlintrc`, check for style consistency
@@ -193,7 +193,7 @@ phases: 7
 
 ### User Story 5 Tasks
 
-- [ ] T057 [US5] Analyze 5 utilities workflows and document patterns in `.github/specs/003-workflow-consolidation-phase-2/quality-gates-analysis.md`
+- [ ] T057 [US5] Analyze 5 utilities workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/quality-gates-analysis.md`
 - [ ] T058 [US5] Create unified quality gates workflow at `.github/workflows/quality-gates.yml` with parallel jobs for: (1) SAST, (2) dependency scanning, (3) license compliance, (4) code quality metrics, (5) security policy
 - [ ] T059 [P] [US5] Implement SAST scanning job: run CodeQL analysis, report findings to PR comment, fail if critical findings detected
 - [ ] T060 [P] [US5] Implement dependency scanning job: run npm audit (or language-appropriate), check for known vulnerabilities, report to PR

@@ -4,11 +4,11 @@
 
 **Status**: Phase 1 Setup
 
-**Specification**: [specs/001-audit-governance-structure/spec.md](../../specs/001-audit-governance-structure/spec.md)
+**Specification**: [specs/012-audit-governance-structure/spec.md](../../../specs/012-audit-governance-structure/spec.md)
 
-**Plan**: [specs/001-audit-governance-structure/plan.md](../../specs/001-audit-governance-structure/plan.md)
+**Plan**: [specs/012-audit-governance-structure/plan.md](../../../specs/012-audit-governance-structure/plan.md)
 
-**Tasks**: [specs/001-audit-governance-structure/tasks.md](../../specs/001-audit-governance-structure/tasks.md)
+**Tasks**: [specs/012-audit-governance-structure/tasks.md](../../../specs/012-audit-governance-structure/tasks.md)
 
 ## Kanban Board Status
 
