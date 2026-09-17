@@ -88,9 +88,9 @@ phases: 7
 - [x] T019 [P] [US1] Implement scheduled cleanup job in labeling-unified.yml: remove stale labels, update label metrics artifact
 - [x] T020 [US1] Integrate apply-labels composite action (T006) into all labeling-unified.yml jobs with error handling
 - [x] T021 [US1] Integrate collect-metrics composite action (T009) into labeling-unified.yml to report GitHub Actions minutes consumed
-- [ ] T022 [US1] Test labeling-unified.yml on feature branch: trigger via PR, verify all 9 labeling patterns execute, check for duplicate labels
+- [x] T022 [US1] Test labeling-unified.yml on feature branch: trigger via PR, verify all 9 labeling patterns execute, check for duplicate labels
 - [x] T023 [US1] Document labeling-unified.yml behavior in `.github/docs/LABELING_UNIFIED.md` with trigger patterns, label taxonomy reference, troubleshooting guide
-- [ ] T024 [US1] Validate labeling-unified.yml passes CI for ≥3 consecutive runs on feature branch with no regression vs archived workflows
+- [x] T024 [US1] Validate labeling-unified.yml passes CI for ≥3 consecutive runs on feature branch with no regression vs archived workflows
 
 ---
 
