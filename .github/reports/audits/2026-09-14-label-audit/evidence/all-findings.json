@@ -1,0 +1,135 @@
+{
+  "summary": {
+    "total_canonical": 169,
+    "total_type_mappings": 25,
+    "total_canonical_type_labels": 26,
+    "total_policy_labels": 57,
+    "governance_gaps": 12,
+    "type_label_gaps": 1
+  },
+  "governance_gaps": [
+    {
+      "label": "meta:duplicate",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "area:labels",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:compatibility",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:support",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:ai-ops",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:enhancement",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:investigation",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:maintenance",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:documentation",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "meta:dependabot-security",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:help",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:story",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    }
+  ],
+  "type_label_gaps": ["type:decision"],
+  "all_findings": [
+    {
+      "label": "meta:duplicate",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "area:labels",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:compatibility",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:support",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:ai-ops",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:enhancement",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:investigation",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:maintenance",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:documentation",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "meta:dependabot-security",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:help",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:story",
+      "found_in": "governance_policy",
+      "finding_type": "missing_from_canonical"
+    }
+  ]
+}
