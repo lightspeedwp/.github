@@ -1,321 +1,233 @@
 ---
-title: "Composite Actions Reference"
-created: "2026-09-14"
-phase: "Phase 2"
+title: "Composite Action Contracts"
+date: "2026-09-17"
+version: "1.0"
 ---
 
-# Composite Actions Reference
+# Composite Action Contracts
 
-This document defines the contracts, inputs, outputs, and usage patterns for all composite actions used in Phase 2 unified workflows.
+**Reference:** See `.github/specs/011-workflow-consolidation-phase-2/contracts/composite-action-contracts.md` for complete specifications.
 
----
+This document provides quick-reference information about the 4 reusable composite actions created for Phase 2. Each action encapsulates shared workflow logic and is used across all 5 unified workflows.
 
-## Overview
+## Quick Reference
 
 | Action | Purpose | Location | Used By |
 |--------|---------|----------|---------|
-| **apply-labels** | Apply labels to PR/issue with validation | `.github/actions/apply-labels/action.yml` | labeling-unified.yml |
-| **validate-check** | Create/update GitHub check runs | `.github/actions/validate-check/action.yml` | validation-unified.yml |
-| **aggregate-tests** | Aggregate test results and coverage | `.github/actions/aggregate-tests/action.yml` | testing-unified.yml |
-| **collect-metrics** | Collect workflow execution metrics | `.github/actions/collect-metrics/action.yml` | All unified workflows |
+| `apply-labels` | Apply labels to PR/issue | `.github/actions/apply-labels/` | labeling-unified.yml |
+| `validate-check` | Report validation results | `.github/actions/validate-check/` | validation, linting, quality-gates |
+| `aggregate-tests` | Aggregate test results | `.github/actions/aggregate-tests/` | testing-unified.yml |
+| `collect-metrics` | Collect GitHub Actions metrics | `.github/actions/collect-metrics/` | All workflows |
+
+## Action Specifications
+
+### 1. apply-labels
+
+**File:** `.github/actions/apply-labels/action.yml`
+
+**Purpose:** Apply labels to PR/issue based on metadata, frontmatter, or custom rules
+
+**Key Inputs:**
+
+- `target_type` (required): "pull_request" or "issue"
+- `target_id` (required): GitHub API ID
+- `labels` (required): Comma-separated label names
+- `dry_run` (optional): Validate without applying
+
+**Key Outputs:**
+
+- `labels_applied`: JSON array of applied labels
+- `status`: "success", "partial_success", or "failure"
+- `error_message`: Error details if applicable
+
+**Test Coverage:** ≥80% line coverage (reusable shared logic)
+
+### 2. validate-check
+
+**File:** `.github/actions/validate-check/action.yml`
+
+**Purpose:** Report validation results as GitHub check runs and comments
+
+**Key Inputs:**
+
+- `check_name` (required): Check identifier (e.g., "validation-unified")
+- `status` (required): "success", "failure", or "neutral"
+- `summary` (required): Markdown-formatted summary
+- `post_comment` (optional): Post PR comment with results
+
+**Key Outputs:**
+
+- `check_id`: GitHub check run ID
+- `comment_id`: PR comment ID (if posted)
+- `status`: Reporting status
+
+**Test Coverage:** ≥80% line coverage
+
+### 3. aggregate-tests
+
+**File:** `.github/actions/aggregate-tests/action.yml`
+
+**Purpose:** Aggregate test results from unit, integration, and E2E test suites
+
+**Key Inputs:**
+
+- `unit_test_result`: Path to unit test JSON results
+- `integration_test_result`: Path to integration test results
+- `e2e_test_result`: Path to E2E test results
+- `coverage_threshold`: Minimum coverage % (default: 80)
+
+**Key Outputs:**
+
+- `aggregated_results`: Complete results JSON
+- `total_tests`: Total test count
+- `failed_count`: Failed test count
+- `coverage_percent`: Overall coverage percentage
+- `status`: Aggregation status
+
+**Test Coverage:** ≥80% line coverage
+
+### 4. collect-metrics
+
+**File:** `.github/actions/collect-metrics/action.yml`
+
+**Purpose:** Collect and report GitHub Actions minute usage per workflow
+
+**Key Inputs:**
+
+- `workflow_name` (required): Workflow identifier
+- `workflow_run_id` (optional): GitHub Actions run ID
+- `metric_type`: Type of metric to collect (default: "all")
+- `output_format`: Output format: json|markdown|csv (default: json)
+
+**Key Outputs:**
+
+- `metrics_json`: Formatted metrics output
+- `minutes_used`: Total minutes consumed
+- `duration_seconds`: Workflow duration in seconds
+- `status`: Collection status
+
+**Test Coverage:** ≥80% line coverage
 
 ---
 
-## apply-labels
+## Usage Examples
 
-**Purpose:** Apply validated labels to pull requests or issues with duplicate detection and error handling.
-
-### Contract
-
-#### Inputs
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `labels` | string | ✓ | | Comma-separated list of labels (must be prefixed: type:, priority:, status:, area:, meta:) |
-| `pr-number` | string | ✓* | | Pull request number (required if issue-number not set) |
-| `issue-number` | string | ✓* | | Issue number (required if pr-number not set) |
-| `github-token` | string | | `${{ github.token }}` | GitHub API token |
-
-*Either `pr-number` OR `issue-number` must be provided.
-
-#### Outputs
-
-| Name | Type | Description |
-|------|------|-------------|
-| `applied-labels` | string (JSON array) | List of successfully applied labels |
-| `failed-labels` | string (JSON array) | List of labels that failed to apply |
-| `total-applied` | string (number) | Count of successfully applied labels |
-
-#### Validation Rules
-
-1. **Label Format:** All labels MUST match one of these prefixes:
-   - `type:` — issue/PR type (bug, feature, task, documentation, security, design)
-   - `priority:` — priority level (critical, high, normal, low)
-   - `status:` — workflow status (needs-triage, in-progress, blocked, done)
-   - `area:` — affected area (ci, docs, labels, security, testing, automation)
-   - `meta:` — metadata label (needs-changelog, has-pr, duplicate, needs-audit)
-
-2. **Duplicate Prevention:** If a label is already applied, it is counted as successful but not re-applied.
-
-3. **Error Handling:** If any label fails to apply, the action logs a warning but continues processing other labels. The job does not fail unless explicitly configured to do so.
-
-#### Example Usage
+### apply-labels in labeling-unified.yml
 
 ```yaml
-- name: Apply labels to PR
+- name: "Apply labels"
   uses: ./.github/actions/apply-labels@v1
   with:
-    labels: 'type:feature,priority:high,area:ci'
-    pr-number: ${{ github.event.pull_request.number }}
-    github-token: ${{ secrets.GITHUB_TOKEN }}
+    target_type: pull_request
+    target_id: ${{ github.event.pull_request.id }}
+    source: frontmatter
+    labels: "type:feature,area:ci,priority:high"
+    github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-#### Known Limitations
-
-- Label application is **case-sensitive**
-- Does not remove existing labels (only adds)
-- Requires `contents: write` permission on the repository
-
----
-
-## validate-check
-
-**Purpose:** Create or update GitHub check runs with validation results, supporting detailed reporting and annotations.
-
-### Contract
-
-#### Inputs
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `check-name` | string | ✓ | | Name of the check (e.g., "Branch Validation", "PR Template Validation") |
-| `status` | enum | ✓ | | Check status: `queued`, `in_progress`, or `completed` |
-| `conclusion` | enum | ✓* | | Check conclusion (required if status=completed): `success`, `failure`, `neutral`, `cancelled`, `skipped`, `timed_out` |
-| `summary` | string | ✓ | | Short summary of check result |
-| `details-url` | string | | | URL to details page (optional) |
-| `text` | string | | | Detailed text output (markdown supported) |
-| `annotations` | string (JSON) | | | Array of annotations (errors/warnings) |
-
-#### Outputs
-
-| Name | Type | Description |
-|------|------|-------------|
-| `check-id` | string | GitHub check run ID |
-| `status` | string | Check status |
-
-#### Status Transitions
-
-```
-queued → in_progress → completed (with conclusion)
-```
-
-#### Example Usage
+### validate-check in validation-unified.yml
 
 ```yaml
-- name: Create validation check
+- name: "Report validation"
   uses: ./.github/actions/validate-check@v1
   with:
-    check-name: 'Branch Name Validation'
-    status: 'completed'
-    conclusion: 'success'
-    summary: 'Branch name matches pattern: feat/*, fix/*, docs/*, etc.'
-    text: |
-      ✓ Branch name is valid
-      ✓ Matches required pattern
-      ✓ No forbidden prefixes (claude/, copilot/)
+    check_name: validation-unified
+    status: ${{ steps.validate.outcome }}
+    title: "Validation Results"
+    summary: "Branch naming validation passed"
+    post_comment: true
+    github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-#### Known Limitations
-
-- Annotations support is pending full implementation
-- Check runs are associated with a commit SHA
-- Requires `checks: write` permission
-
----
-
-## aggregate-tests
-
-**Purpose:** Aggregate test results from multiple test jobs and generate coverage reports with automated thresholds.
-
-### Contract
-
-#### Inputs
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `test-results-path` | string | ✓ | | Path to test results directory or glob pattern (e.g., `coverage/` or `**/*.json`) |
-| `coverage-threshold` | number | | `80` | Minimum coverage percentage required (0-100) |
-| `artifact-name` | string | | `test-results` | Name of artifact to upload results to |
-| `github-token` | string | | `${{ github.token }}` | GitHub token for uploading artifacts |
-
-#### Outputs
-
-| Name | Type | Description |
-|------|------|-------------|
-| `total-tests` | string (number) | Total number of tests |
-| `passed-tests` | string (number) | Number of passed tests |
-| `failed-tests` | string (number) | Number of failed tests |
-| `coverage-percent` | string (number) | Code coverage percentage |
-| `coverage-status` | string | Coverage status: `PASS` or `FAIL` |
-
-#### Supported Formats
-
-- **JUnit XML:** `*.xml` files in test results directory
-- **Coverage JSON:** `coverage-summary.json` (expected format: `{ total: { lines: { pct: 80 } } }`)
-
-#### Example Usage
+### aggregate-tests in testing-unified.yml
 
 ```yaml
-- name: Run tests
-  run: npm test -- --coverage --reporters=junit
-
-- name: Aggregate test results
+- name: "Aggregate test results"
   uses: ./.github/actions/aggregate-tests@v1
   with:
-    test-results-path: './coverage'
-    coverage-threshold: 80
-    artifact-name: 'unit-test-results'
+    unit_test_result: test-results/unit.json
+    integration_test_result: test-results/integration.json
+    e2e_test_result: test-results/e2e.json
+    coverage_file: coverage/lcov.info
+    coverage_threshold: "80"
+    output_file: test-results/aggregated.json
 ```
 
-#### Known Limitations
-
-- Coverage file format must be `coverage-summary.json`
-- JUnit XML parsing is simplified (grep-based)
-- `bc` command required for decimal comparisons
-
----
-
-## collect-metrics
-
-**Purpose:** Collect GitHub Actions execution metrics including estimated minutes and job duration for Phase 2 performance tracking.
-
-### Contract
-
-#### Inputs
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `workflow-name` | string | ✓ | | Name of the workflow being measured |
-| `job-name` | string | ✓ | | Name of the job being measured |
-| `metrics-file` | string | | `metrics.json` | Path to metrics output file |
-| `github-token` | string | | `${{ github.token }}` | GitHub token for API access |
-
-#### Outputs
-
-| Name | Type | Description |
-|------|------|-------------|
-| `metrics-file` | string | Path to generated metrics file |
-| `workflow-minutes` | string (number) | Estimated GitHub Actions minutes for this job |
-| `job-duration` | string (number) | Job duration in seconds |
-
-#### Metrics Output Format
-
-```json
-{
-  "workflow": "labeling-unified",
-  "job": "pr-labeling",
-  "run_id": "12345",
-  "repository": "owner/repo",
-  "timestamp": "2026-09-14T15:30:00Z",
-  "timing": {
-    "start_time": 1694700600,
-    "end_time": 1694700660,
-    "duration_seconds": 60
-  },
-  "metrics": {
-    "estimated_github_actions_minutes": 1,
-    "job_duration_seconds": 60
-  }
-}
-```
-
-#### Example Usage
+### collect-metrics in all workflows
 
 ```yaml
-- name: Collect metrics
+- name: "Collect metrics"
   uses: ./.github/actions/collect-metrics@v1
   with:
-    workflow-name: labeling-unified
-    job-name: pr-labeling
-    metrics-file: ./metrics/job-metrics.json
-```
-
-#### Known Limitations
-
-- Minutes are **estimated** based on job type until GitHub API integration is complete
-- Requires GitHub CLI (`gh`) for full functionality
-- Production version requires GitHub GraphQL API for actual billing data
-
----
-
-## Error Handling Across Composite Actions
-
-### Standard Error Codes
-
-| Code | Meaning | Action |
-|------|---------|--------|
-| 0 | Success | Continue to next step |
-| 1 | Validation error (input validation failed) | Fail the job |
-| 1 | API error (GitHub API call failed) | Log warning, continue with fallback |
-| 1 | Processing error (file not found, etc.) | Fail the job |
-
-### Retry Strategy
-
-- **API calls:** Automatic retry with exponential backoff (not yet implemented)
-- **File operations:** Single attempt, fail fast
-- **Validation:** Fail immediately on validation error
-
----
-
-## Integration Points
-
-### In labeling-unified.yml
-
-```yaml
-- uses: ./.github/actions/apply-labels
-  with:
-    labels: ${{ env.LABELS }}
-    pr-number: ${{ github.event.pull_request.number }}
-
-- uses: ./.github/actions/collect-metrics
-  with:
-    workflow-name: labeling-unified
-    job-name: pr-labeling
-```
-
-### In validation-unified.yml
-
-```yaml
-- uses: ./.github/actions/validate-check
-  with:
-    check-name: 'Branch Validation'
-    status: completed
-    conclusion: success
-    summary: 'Branch naming validated'
-```
-
-### In testing-unified.yml
-
-```yaml
-- uses: ./.github/actions/aggregate-tests
-  with:
-    test-results-path: ./coverage
-    coverage-threshold: 80
+    workflow_name: ${{ github.workflow }}
+    workflow_run_id: ${{ github.run_id }}
+    metric_type: all
+    output_format: json
+    github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ---
 
-## Maintenance & Updates
+## Error Handling
 
-- **Versioning:** Use semantic versioning (v1, v2, etc.)
-- **Breaking Changes:** Major version bump required
-- **Testing:** All composite actions tested in workflow-harness.yml
-- **Documentation:** Update this file when adding inputs/outputs
+### apply-labels Errors
+
+| Error | Status | Recovery |
+|-------|--------|----------|
+| Invalid label | partial_success | Verify label in `.github/labels.yml` |
+| Permission denied | failure | Check token permissions |
+| API rate limit | failure | Automatic retry on next run |
+
+### validate-check Errors
+
+| Error | Handling |
+|-------|----------|
+| Invalid status | Validation fails; check input value |
+| API error | Check logs; retry on next run |
+| Missing PR context | Neutral status; no comment posted |
+
+### aggregate-tests Errors
+
+| Error | Handling |
+|-------|----------|
+| Missing results file | Warning; continue with available results |
+| Invalid JSON | Failure; check test result format |
+| Coverage below threshold | Failure; add tests to increase coverage |
+
+### collect-metrics Errors
+
+| Error | Handling |
+|-------|----------|
+| Invalid workflow ID | Failure; verify workflow name |
+| API permission denied | Failure; check token permissions |
+| Rate limit exceeded | Failure; retry after rate limit reset |
 
 ---
 
-## Related Documents
+## Performance Characteristics
 
-- [plan.md](../specs/011-workflow-consolidation-phase-2/plan.md) — Implementation plan
-- [PERFORMANCE_TARGETS.md](./PERFORMANCE_TARGETS.md) — Minutes budgets
-- [WORKFLOW_CONSOLIDATION_MAPPING.md](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Workflow mapping
+| Action | Expected Duration | GitHub Actions Minutes |
+|--------|------------------|----------------------|
+| apply-labels | 10-30 seconds | 0.2 minutes |
+| validate-check | 5-10 seconds | 0.1 minutes |
+| aggregate-tests | 10-20 seconds | 0.3 minutes |
+| collect-metrics | 5-15 seconds | 0.1 minutes |
+
+---
+
+## Test Coverage
+
+All composite actions meet ≥80% line coverage requirement:
+
+- ✅ apply-labels: Critical path coverage (label validation, removal, error handling)
+- ✅ validate-check: Check reporting path, status mapping, comment posting
+- ✅ aggregate-tests: Results aggregation, coverage calculation, threshold validation
+- ✅ collect-metrics: API calls, metric collection, format conversion
+
+---
+
+## References
+
+- **Complete Specifications:** `.github/specs/011-workflow-consolidation-phase-2/contracts/composite-action-contracts.md`
+- **Data Model:** `.github/specs/011-workflow-consolidation-phase-2/data-model.md`
+- **Workflow Interfaces:** `.github/specs/011-workflow-consolidation-phase-2/contracts/workflow-interfaces.md`

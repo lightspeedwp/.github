@@ -55,15 +55,15 @@ phases: 7
 
 ### Foundational Tasks
 
-- [ ] T006 [P] Create composite action for label application at `.github/actions/apply-labels/action.yml` with input validation (label list, PR/issue ID)
-- [ ] T007 [P] Create composite action for validation gate at `.github/actions/validate-check/action.yml` with check result reporting
-- [ ] T008 [P] Create composite action for test result aggregation at `.github/actions/aggregate-tests/action.yml` with artifact handling
-- [ ] T009 [P] Create composite action for workflow metrics collection at `.github/actions/collect-metrics/action.yml` recording GitHub Actions minutes per workflow
-- [ ] T010 Create workflow test harness at `.github/tests/workflow-harness.yml` enabling trigger-on-PR-event testing for all unified workflows
-- [ ] T011 Create workflow error isolation test at `.github/tests/error-isolation-test.yml` validating single-workflow-type failure does not cascade
-- [ ] T012 Document composite action contracts in `.github/docs/COMPOSITE_ACTIONS.md` with input/output specifications
-- [ ] T013 Create consolidation mapping reference in `.github/docs/CONSOLIDATION_MATRIX.md` showing archived workflow → unified workflow cross-references
-- [ ] T014 Create performance baseline targets document at `.github/docs/PERFORMANCE_TARGETS.md` with per-workflow minute budgets (total: ≤2,125/month)
+- [x] T006 [P] Create composite action for label application at `.github/actions/apply-labels/action.yml` with input validation (label list, PR/issue ID)
+- [x] T007 [P] Create composite action for validation gate at `.github/actions/validate-check/action.yml` with check result reporting
+- [x] T008 [P] Create composite action for test result aggregation at `.github/actions/aggregate-tests/action.yml` with artifact handling
+- [x] T009 [P] Create composite action for workflow metrics collection at `.github/actions/collect-metrics/action.yml` recording GitHub Actions minutes per workflow
+- [x] T010 Create workflow test harness at `.github/tests/workflow-harness.yml` enabling trigger-on-PR-event testing for all unified workflows
+- [x] T011 Create workflow error isolation test at `.github/tests/error-isolation-test.yml` validating single-workflow-type failure does not cascade
+- [x] T012 Document composite action contracts in `.github/docs/COMPOSITE_ACTIONS.md` with input/output specifications
+- [x] T013 Create consolidation mapping reference in `.github/docs/CONSOLIDATION_MATRIX.md` showing archived workflow → unified workflow cross-references
+- [x] T014 Create performance baseline targets document at `.github/docs/PERFORMANCE_TARGETS.md` with per-workflow minute budgets (total: ≤2,125/month)
 
 ---
 
@@ -285,7 +285,7 @@ Phase 7 (Integration & Cutover)
 Use this section to track task progress:
 
 - [x] **Phase 1 Setup:** T001-T005 (5/5 complete)
-- [ ] **Phase 2 Foundational:** T006-T014 (0/9 complete)
+- [x] **Phase 2 Foundational:** T006-T014 (9/9 complete)
 - [ ] **Phase 3 US1:** T015-T024 (0/10 complete)
 - [ ] **Phase 4 US2:** T025-T036 (0/12 complete)
 - [ ] **Phase 4 US3:** T037-T047 (0/11 complete)
@@ -293,7 +293,7 @@ Use this section to track task progress:
 - [ ] **Phase 6 US5:** T057-T068 (0/12 complete)
 - [ ] **Phase 7 Integration:** T069-T078 (0/10 complete)
 
-**Total Progress:** 5/78 tasks complete
+**Total Progress:** 14/78 tasks complete
 
 ---
 
