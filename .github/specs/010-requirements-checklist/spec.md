@@ -20,6 +20,7 @@ The framework addresses the gap between "I wrote requirements" and "these requir
 
 - Q: How should each of the 8 quality dimensions be scored and measured? → A: Each dimension uses a weighted item-count approach: (passed items ÷ total applicable items) × 100%, with ≥75% threshold for dimension pass.
 - Q: Should checklist item counts be fixed targets or acceptable ranges? → A: Target ranges for each variant allow implementation flexibility while maintaining scope control (Author 45–55, Peer 45–55, Stakeholder 20–30, Integration 25–35).
+- Q: How should users determine which variant to use, and can specs use multiple variants simultaneously? → A: Smart variant selection system recommends a variant based on spec metadata (author/peer/stakeholder/integration context) with user override capability; allows concurrent variants for multi-party review scenarios.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -99,7 +100,7 @@ A technical lead on Project A needs to verify that a specification from Project 
 
 - **FR-001**: System MUST provide 8 distinct quality dimensions (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities) with clear definition and measurable checkpoints for each
 - **FR-002**: System MUST generate a base checklist with 40+ items covering the 8 dimensions, structured as testable yes/no or scoring questions
-- **FR-003**: System MUST support 4 audience-specific checklist variants with target item ranges and tailored language per audience: Author Pre-Review (45–55 items), Peer Review (45–55 items), Stakeholder Gate (20–30 items), Cross-Project Integration (25–35 items)
+- **FR-003**: System MUST support 4 audience-specific checklist variants with target item ranges and tailored language per audience: Author Pre-Review (45–55 items), Peer Review (45–55 items), Stakeholder Gate (20–30 items), Cross-Project Integration (25–35 items). System MUST recommend a variant based on spec metadata and workflow context, with user ability to override and run multiple variants concurrently
 - **FR-004**: System MUST allow specifications to be run against a checklist and produce a results document with pass/fail status per dimension (calculated as: passed items ÷ total applicable items × 100%; dimension passes if ≥75%), dimension scores (0-100%), and specific findings by checklist item
 - **FR-005**: System MUST provide reference examples and clarification guidance for ambiguous checklist items (e.g., "What counts as 'measurable'?" with examples of good vs. poor criteria)
 - **FR-006**: System MUST support extension of the base checklist with project-specific quality rules (e.g., "All security specs MUST address [specific threat model]") without modifying the core framework
