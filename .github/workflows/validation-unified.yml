@@ -182,9 +182,10 @@ jobs:
           fi
 
           # Validate changelog format (Keep a Changelog)
-          if ! grep -E "^## \[[0-9]+\.[0-9]+\.[0-9]+\]" CHANGELOG.md | head -1 | grep -q .; then
+          # Accept either [Unreleased] or [X.Y.Z] - YYYY-MM-DD format
+          if ! grep -E "^## \[(Unreleased|[0-9]+\.[0-9]+\.[0-9]+)\]" CHANGELOG.md | head -1 | grep -q .; then
             echo "❌ CHANGELOG.md format invalid"
-            echo "Expected: ## [X.Y.Z] - YYYY-MM-DD"
+            echo "Expected: ## [Unreleased] or ## [X.Y.Z] - YYYY-MM-DD"
             exit 1
           fi
 
