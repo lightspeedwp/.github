@@ -8,6 +8,12 @@ set -euo pipefail
 CATALOG_PATH=".github/specs/CATALOG.md"
 
 # validate_catalog_exists - Verify CATALOG.md file exists
+# Parameters: None
+# Returns:
+#   0 when CATALOG.md file exists and is a regular file
+#   1 when CATALOG.md is missing or not found
+# Output:
+#   Status message confirming file existence or reporting it not found
 validate_catalog_exists() {
   if [ -f "$CATALOG_PATH" ]; then
     echo "✓ CATALOG.md exists"
@@ -18,7 +24,13 @@ validate_catalog_exists() {
   fi
 }
 
-# validate_canonical_schema - Verify CATALOG.md contains canonical schema
+# validate_canonical_schema - Verify CATALOG.md contains canonical schema and table format
+# Parameters: None
+# Returns:
+#   0 when table header matches exact canonical schema format
+#   1 when table header does not match required canonical schema
+# Output:
+#   Status messages confirming schema section presence and table format validation
 validate_canonical_schema() {
   if grep -q "Catalog Schema (Canonical)" "$CATALOG_PATH"; then
     echo "✓ Canonical schema section found"
@@ -36,7 +48,13 @@ validate_canonical_schema() {
   fi
 }
 
-# validate_catalog_links - Verify all markdown links point to existing targets
+# validate_catalog_links - Verify all markdown links in CATALOG.md point to existing targets
+# Parameters: None
+# Returns:
+#   0 when all extracted markdown links resolve to existing files or directories
+#   1 when one or more broken links are detected (targets not found)
+# Output:
+#   Status message for each broken link found with target path, summary of validation result
 validate_catalog_links() {
   local broken_links=0
   local catalog_dir=$(dirname "$CATALOG_PATH")
@@ -72,7 +90,13 @@ validate_catalog_links() {
   fi
 }
 
-# validate_maintenance_schema - Verify MAINTENANCE.md exists and documents schema
+# validate_maintenance_schema - Verify MAINTENANCE.md exists and documents canonical schema
+# Parameters: None
+# Returns:
+#   0 when MAINTENANCE.md exists and documents canonical schema, or file is optional
+#   1 when MAINTENANCE.md exists but does not document canonical schema
+# Output:
+#   Status message confirming maintenance documentation presence and schema compliance
 validate_maintenance_schema() {
   local maintenance_file="${CATALOG_PATH%/CATALOG.md}/MAINTENANCE.md"
 
@@ -90,7 +114,14 @@ validate_maintenance_schema() {
   fi
 }
 
-# main - Run all validation checks in sequence
+# main - Run all catalog validation checks in sequence
+# Parameters:
+#   $@ - Arguments passed through main function (currently unused)
+# Returns:
+#   0 when all validation checks pass
+#   1 when any validation check fails
+# Output:
+#   Complete catalog validation report with results of all checks
 main() {
   echo "📋 Catalog Validation"
   echo "===================="
