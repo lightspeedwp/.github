@@ -12,21 +12,21 @@
 | Metric | Value |
 |--------|-------|
 | Total Specifications Audited | 12 |
-| Approved (8/8 dimensions - mandatory gate) | 3 |
-| Passing (6-7 dimensions - methodology) | 8 |
-| Partial (5 dimensions - needs remediation) | 1 |
+| Passing (6-8 dimensions) | 11 |
+| Partial (4-5 dimensions) | 1 |
 | Average Quality Score | 7.0/8 (87.5%) |
 | Overall Status | ⚠ CONDITIONAL PASS - Remediation Required |
+| **Approved for Production Use (8/8 mandatory gate)** | **3 specs** (006, 009, 010) |
 
-**Conclusion**: The specification catalog demonstrates strong quality fundamentals. Three specifications (006, 009, 010) meet the mandatory 8/8 dimension quality gate and are approved for use. Eight specifications (001, 002, 004, 005, 007, 008, 012; 003 at 6/8) pass the methodology (6-8 dimensions) but require targeted remediation in clarity/consistency dimensions before approval. One specification (011 at 5/8) requires material remediation.
+**Conclusion**: The specification catalog demonstrates strong quality fundamentals. Eleven specifications (001-010, 012) pass the methodology with 6-8 dimensions, with three of these (006, 009, 010) meeting the mandatory 8/8 dimension quality gate for production use approval. Eight specifications (001-005, 007-008, 012) pass at 6-7 dimensions and require targeted remediation in clarity/consistency before approval. One specification (011 at 5/8) requires material remediation before it can be considered passing.
 
 ---
 
 ## Quality Results by Specification
 
-### Approved Specifications (3/12 - 25%)
+### Passing Specifications - Approved for Production Use (3/12 - 25%)
 
-Approved for production use (8/8 dimensions - mandatory quality gate):
+Meet mandatory 8/8 dimension quality gate (approved for production use):
 
 | # | Title | Score | Status |
 |---|-------|-------|--------|

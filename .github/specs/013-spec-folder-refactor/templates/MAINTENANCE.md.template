@@ -95,9 +95,9 @@ Answer clarifying questions to resolve ambiguities before proceeding.
 
 Add new specification entry to `.github/specs/CATALOG.md`:
 
-| Number | Slug | Title | Purpose | Status | Created |
-|--------|------|-------|---------|--------|---------|
-| 013 | your-feature-slug | Your Feature Title | [One-line purpose] | Draft | [YYYY-MM-DD] |
+| # | Title | Purpose | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
+| 013 | Your Feature Title | [One-line purpose] | Draft | [YYYY-MM-DD] | [./013-your-feature-slug/spec.md](./013-your-feature-slug/spec.md) |
 
 **Step 6: Submit for Approval**
 
