@@ -125,3 +125,98 @@ run_audit() {
   [[ "$output" == *"✗ 1000-long-prefix (invalid format)"* ]]
   [[ "$output" == *"✗ notes (invalid format)"* ]]
 }
+
+@test "single-component, numeric, and hyphenated lowercase slugs are valid" {
+  create_spec "001-a"
+  create_spec "002-version-2"
+  create_spec "003-123"
+
+  run_audit
+
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"✓ 001-a"* ]]
+  [[ "$output" == *"✓ 002-version-2"* ]]
+  [[ "$output" == *"✓ 003-123"* ]]
+  [[ "$output" == *"Naming compliance: 3/3"* ]]
+}
+
+@test "empty, repeated, spaced, and underscored slug segments are invalid" {
+  create_spec "001-valid-slug"
+  create_spec "002--leading-separator"
+  create_spec "003-double--separator"
+  create_spec "004-has_underscore"
+  create_spec "005-has space"
+
+  run_audit
+
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"✗ 002--leading-separator (invalid format)"* ]]
+  [[ "$output" == *"✗ 003-double--separator (invalid format)"* ]]
+  [[ "$output" == *"✗ 004-has_underscore (invalid format)"* ]]
+  [[ "$output" == *"✗ 005-has space (invalid format)"* ]]
+  [[ "$output" == *"Naming compliance: 1/5"* ]]
+}
+
+@test "an empty specification inventory is rejected" {
+  run_audit
+
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"Found 0 specification directories"* ]]
+  [[ "$output" != *"Complete Inventory Report"* ]]
+}
+
+@test "numbering must begin at 001" {
+  create_spec "002-second-spec"
+  create_spec "003-third-spec"
+
+  run_audit
+
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"Gap detected: expected 1 but found 2"* ]]
+}
+
+@test "zero is rejected as a specification number" {
+  create_spec "000-zero-spec"
+  create_spec "001-first-spec"
+
+  run_audit
+
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"Gap detected: expected 1 but found 0"* ]]
+}
+
+@test "every numbering gap is reported" {
+  create_spec "001-first-spec"
+  create_spec "003-third-spec"
+  create_spec "005-fifth-spec"
+
+  run_audit
+
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"Gap detected: expected 2 but found 3"* ]]
+  [[ "$output" == *"Gap detected: expected 4 but found 5"* ]]
+}
+
+@test "an empty regular spec.md satisfies the file-presence check" {
+  mkdir -p "$TEST_REPO/.github/specs/001-empty-spec"
+  : > "$TEST_REPO/.github/specs/001-empty-spec/spec.md"
+
+  run_audit
+
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"spec.md present: 1/1"* ]]
+}
+
+@test "root files and nested directories are excluded from the inventory" {
+  create_spec "001-first-spec"
+  mkdir -p "$TEST_REPO/.github/specs/001-first-spec/nested-directory"
+  printf '# Not a directory\n' > "$TEST_REPO/.github/specs/002-file-entry"
+
+  run_audit
+
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"Found 1 specification directories"* ]]
+  [[ "$output" == *"Total directories: 1"* ]]
+  [[ "$output" != *"Directory: nested-directory"* ]]
+  [[ "$output" != *"Directory: 002-file-entry"* ]]
+}
