@@ -2,11 +2,30 @@
 
 **Input**: Specification from `/specs/012-audit-governance-structure/spec.md`
 
-**Status**: Phase 2 - Task Decomposition Complete
+**Status**: Phase 2 - Task Decomposition Complete (Updated 2026-09-17 with clarification integration)
 
 **Total Tasks**: 196 tasks organized by user story and phase
 
 **Output**: Actionable task list with file paths, acceptance criteria, and dependencies for governance audit and refactoring
+
+---
+
+## Two-Phase Execution Approach
+
+Per 2026-09-17 clarification (Q4):
+
+- **Phase 1: Audit & Analysis** (Phases 1–8 of task list)
+  - Complete all investigation, verification, and finding documentation
+  - Consolidate findings into **AUDIT_REPORT.md** (structured markdown at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md`)
+  - Deliverable: Comprehensive audit report ready for @ashley review and approval
+  - **Gate**: @ashley reviews AUDIT_REPORT.md, approves findings before proceeding
+
+- **Phase 2: Refactoring & Implementation** (Phases 9–11 of task list)
+  - Based on approved audit findings, implement fixes to CLAUDE.md and AGENTS.md
+  - Apply consolidations, reference fixes, structure improvements
+  - Deliverable: Refactored governance files ready for PR and merge
+
+This two-phase approach allows stakeholder review and critique of findings before any changes are made to the governance files, reducing risk of unwanted modifications.
 
 ---
 
@@ -97,11 +116,11 @@
 - [ ] T040 [US1] Verify each internal link exists or is documented as migrated
 - [ ] T041 [P] [US1] List all sections in AGENTS.md that appear to belong in CLAUDE.md instead
 - [ ] T042 [P] [US1] List all sections in CLAUDE.md that appear to be duplicated or contradicted elsewhere
-- [ ] T043 [US1] Create comprehensive audit report documenting all findings
-- [ ] T044 [US1] Categorize findings by severity: CRITICAL, MAJOR, MEDIUM, LOW
-- [ ] T045 [US1] Document decision rationale for each finding and proposed resolution
+- [ ] T043 [US1] Create structured AUDIT_REPORT.md at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md` documenting all findings with: (1) Executive summary, (2) Finding categories (DUP-*, ORG-*, REF-*, CONST-*, VER-*), (3) Line-number references for each issue, (4) Remediation guidance per finding
+- [ ] T044 [US1] Categorize findings in AUDIT_REPORT.md by severity: CRITICAL (blocks automation), MAJOR (confuses readers), MEDIUM (technical debt), LOW (style)
+- [ ] T045 [US1] Document decision rationale for each finding in AUDIT_REPORT.md and proposed resolution approach
 
-**Checkpoint**: US1 Baseline audit complete with comprehensive report
+**Checkpoint**: US1 Baseline audit complete; AUDIT_REPORT.md ready for @ashley review
 
 ---
 
@@ -141,16 +160,16 @@
 
 ### US3 Consolidation Tasks
 
-- [ ] T061 [US3] Count occurrences of "Label Creation Governance" in AGENTS.md (should be 2 before consolidation)
+- [ ] T061 [US3] Count occurrences of "Label Creation Governance" in AGENTS.md (should be 2 before consolidation); per clarification Q1, sections with ≥70% text overlap must be consolidated
 - [ ] T062 [US3] Extract complete first occurrence of "Label Creation Governance" (lines 209-252)
 - [ ] T063 [US3] Extract complete second occurrence of "Label Creation Governance" (lines 285-338)
-- [ ] T064 [US3] Compare both versions line-by-line to identify unique and shared content
+- [ ] T064 [US3] Compare both versions line-by-line to identify unique and shared content; calculate text overlap percentage
 - [ ] T065 [US3] Document which unique examples/items appear only in first version
 - [ ] T066 [US3] Document which unique examples/items appear only in second version
 - [ ] T067 [P] [US3] Identify any differences in validation checklist between versions
 - [ ] T068 [P] [US3] Identify any differences in referenced scripts between versions (e.g., validate-labels-before-creation.cjs)
-- [ ] T069 [US3] Create consolidated "Label Creation Governance" section with all unique content
-- [ ] T070 [US3] Verify consolidated section includes: all examples, all validation items, all script references, traceability notes
+- [ ] T069 [US3] Create consolidated "Label Creation Governance" section using union approach (per Q1 clarification) with all unique content from both versions
+- [ ] T070 [US3] Verify consolidated section includes: all examples, all validation items, all script references, traceability noting original locations (lines 209-252 and 285-338)
 - [ ] T071 [US3] Update AGENTS.md to remove second occurrence of "Label Creation Governance"
 - [ ] T072 [US3] Verify consolidated section appears exactly 1 time in AGENTS.md
 - [ ] T073 [P] [US3] Search entire CLAUDE.md and AGENTS.md for other duplicate sections using similarity analysis
@@ -226,27 +245,48 @@
 
 ### US6 Reference Validation Tasks
 
-- [ ] T107 [P] [US6] Verify each reference from T017 (CLAUDE.md references) and document status
-- [ ] T108 [P] [US6] Verify each reference from T018 (AGENTS.md references) and document status
-- [ ] T109 [P] [US6] Update CLAUDE.md references to reflect actual file locations
-- [ ] T110 [P] [US6] Update AGENTS.md references to reflect actual file locations
-- [ ] T111 [US6] For each missing file, create entry in migration log documenting: original path, status, action taken
-- [ ] T112 [US6] If `.github/prompts/prompts.md` exists, document its content and relationship to governance
-- [ ] T113 [US6] If `.github/prompts/prompts.md` doesn't exist, update AGENTS.md line 18 reference appropriately
-- [ ] T114 [US6] Verify all 5 consolidated instruction files exist and contain expected topics
-- [ ] T115 [US6] If any consolidated instruction files are missing, document which topics were not consolidated
-- [ ] T116 [US6] Verify GitHub projects in `.github/projects/active/` exist and update any archived project references
-- [ ] T117 [US6] Migrate the legacy `.github/scripts/validation/validate-labels-before-creation.cjs` reference to `scripts/validation/validate-labels-before-creation.cjs`
-- [ ] T118 [US6] Create reference validation report documenting: total references checked, valid, broken, migrated
-- [ ] T119 [US6] Add validation check to governance files: "Last validated: [DATE]"
+Per Q2 clarification, validate all 4 categories: (1) broken/missing files, (2) outdated paths, (3) unimplemented consolidation claims, (4) line-number mismatches
+
+- [ ] T107 [P] [US6] Verify each reference from T017 (CLAUDE.md references) and document status against all 4 validation categories
+- [ ] T108 [P] [US6] Verify each reference from T018 (AGENTS.md references) and document status against all 4 validation categories
+- [ ] T109 [P] [US6] Update CLAUDE.md references to reflect actual file locations; for line-number references, use section anchors instead where possible
+- [ ] T110 [P] [US6] Update AGENTS.md references to reflect actual file locations; for line-number references, use section anchors instead where possible
+- [ ] T111 [US6] For each missing file, create entry in migration log documenting: original path, status (broken, migrated, consolidated), action taken
+- [ ] T112 [US6] If `.github/prompts/prompts.md` exists, document its content and relationship to governance (category 2: outdated path)
+- [ ] T113 [US6] If `.github/prompts/prompts.md` doesn't exist, update AGENTS.md line 18 reference appropriately (category 1: broken file)
+- [ ] T114 [US6] Verify all 5 consolidated instruction files exist and contain expected topics (category 3: unimplemented consolidation claims)
+- [ ] T115 [US6] If any consolidated instruction files are missing, document which topics were not consolidated (category 3)
+- [ ] T116 [US6] Verify GitHub projects in `.github/projects/active/` exist and update any archived project references (category 2: outdated paths)
+- [ ] T117 [US6] Migrate the legacy `.github/scripts/validation/validate-labels-before-creation.cjs` reference to `scripts/validation/validate-labels-before-creation.cjs` (category 2: outdated path)
+- [ ] T118 [US6] Create reference validation report documenting: total references checked, valid, broken (cat 1), outdated (cat 2), unimplemented (cat 3), line-mismatches (cat 4)
+- [ ] T119 [US6] Add validation check to governance files: "Last validated: [DATE]" with reference to AUDIT_REPORT.md validation section
 
 **Checkpoint**: US6 All references validated; no broken links remain; migration status documented
 
 ---
 
+## 🔐 APPROVAL GATE: @ashley Review & Approval
+
+**After completing Phase 8 Checkpoint (T119), STOP and request review:**
+
+1. @ashley reviews AUDIT_REPORT.md for accuracy and completeness
+2. @ashley reviews all audit findings and consolidation decisions
+3. @ashley approves/flags any conflicts per Q5 (constitution vs. practice conflicts classified and decision options provided)
+4. @ashley signals approval to proceed with Phase 9 (Refactoring)
+
+**Do NOT proceed with Phases 9–11 until @ashley has explicitly approved the audit findings.**
+
+This gate ensures all structural changes are reviewed and approved before implementation begins.
+
+---
+
 ## Phase 9: Refactoring Implementation (Multi-User Story)
 
-**Purpose**: Apply all audit findings and consolidations to refactored governance files
+**Purpose**: Apply all audit findings documented in AUDIT_REPORT.md and consolidations to refactored governance files
+
+**Prerequisites**: @ashley approval of AUDIT_REPORT.md findings (Approval Gate, above)
+
+**Reference**: All decisions and findings from AUDIT_REPORT.md guide the refactoring tasks below. Each task implements a specific finding or consolidation identified during audit phases.
 
 ### Refactoring Core Tasks (Applies to Multiple US)
 
