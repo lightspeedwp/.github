@@ -1,322 +1,437 @@
----
-description: "Implementation task list for CodeRabbit Configuration Optimization feature"
----
-
 # Tasks: CodeRabbit Configuration Optimization
 
-**Input**: Design documents from `.github/specs/002-coderabbit-config-improvements/`
+**Feature**: Code Review Instructions + PR Governance Automation (Unified Phase 1 Delivery)
 
-**Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/, quickstart.md
+**Input**: Specification and design documents from `/specs/002-coderabbit-config-improvements/`
 
-**Tests**: Test tasks are included where validation is explicitly requested in spec.md success criteria (SC-001 through SC-013)
+**Status**: Phase 2 Task Decomposition Complete
 
-**Organization**: Tasks are grouped by user story (US1–US5) to enable independent implementation and testing of each story.
+**Scope**: ~260 implementation tasks organized into:
 
-## Format: `- [ ] [TaskID] [P?] [Story] Description`
+- ~60-70 code review instruction tasks
+- ~50-60 PR governance automation tasks
+- ~80-90 testing, validation & polish tasks
 
-- **[P]**: Can run in parallel (different files, no dependencies)
-- **[Story]**: Which user story this task belongs to (US1, US2, US3, US4, US5)
-- Include exact file paths in descriptions
+**Effort Estimate**: 14-16 weeks unified delivery
 
 ---
 
-## Phase 1: Setup (Shared Infrastructure & Design)
+## Phase 1: Setup & Branch Preparation
 
-**Purpose**: Project initialization and foundation for all user stories
+**Purpose**: Initialise feature branch and establish working environment
 
-**Checkpoint**: Foundation complete - user story implementation can begin
+- [ ] T001 Verify branch exists: `config/coderabbit-review-governance`
+- [ ] T002 Verify design documents exist: spec.md, plan.md, research.md, data-model.md, contracts/, quickstart.md
+- [ ] T003 Create working directories: `.github/docs/`, `.github/tmp/`
+- [ ] T004 [P] Backup `.coderabbit.yml` to `.github/tmp/coderabbit.yml.backup`
+- [ ] T005 [P] Copy `.coderabbit.yml` to `.github/tmp/coderabbit.yml.current` for reference
 
-- [ ] T001 Audit current `.coderabbit.yml` structure, existing instruction blocks, and file type coverage per research.md findings
-- [ ] T002 Extract and document all 30+ branch types from `CLAUDE.md` branching strategy
-- [ ] T003 [P] Review CodeRabbit priority/specificity rules and path pattern matching behavior (research CodeRabbit documentation)
-- [ ] T004 [P] Verify organisation standards alignment (UK English, WordPress Coding Standards, WCAG 2.2 AA) from AGENTS.md and CLAUDE.md
-- [ ] T005 Map current path patterns to file types and identify coverage gaps (target: 95%+ coverage per SC-001)
-- [ ] T006 Load and parse `data-model.md` for instruction block schema, entity definitions, and priority rules
-- [ ] T007 [P] Load and parse `contracts/` for path-instruction-schema and branch-instruction-schema contracts
+**Checkpoint**: Working environment prepared
 
 ---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-**Purpose**: Core config structure that MUST be complete before ANY user story can be implemented
+**Purpose**: Core infrastructure that MUST be complete before user story implementation
 
-**⚠️ CRITICAL**: No user story work can begin until this phase is complete
+**⚠️ CRITICAL**: No instruction block work can begin until this phase is complete
 
-**Checkpoint**: Foundation ready - user story implementation can now begin in parallel
+### Configuration Audit & Analysis
 
-- [ ] T008 Create backup of current `.coderabbit.yml` (preserve original for backward compatibility testing)
-- [ ] T009 [P] Identify and document all current path patterns in `.coderabbit.yml` with their priorities (per FR-014)
-- [ ] T010 [P] Identify all new file type patterns needed (`.specify/`, `workflows/`, `plugins/`) per FR-007 and FR-008
-- [ ] T011 [P] Verify zero pattern overlap conflicts; document pattern specificity hierarchy (90-100 exact, 70-89 specific, 50-69 type, 1-49 general)
-- [ ] T012 Design branch-type context structure for all 30+ branch types (security/, feat/, fix/, perf/, a11y/, docs/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/, etc.)
-- [ ] T013 Document pattern priority resolution rules in `.coderabbit.yml` comments per SC-012
-- [ ] T014 [P] Create outline for new instruction blocks (identify exact files/paths for each new pattern)
-- [ ] T015 Verify backward compatibility plan: ensure existing 20+ path patterns retain semantically identical guidance
+- [ ] T006 Audit `.coderabbit.yml` lines 1-100: document structure, reviews section, existing path_instructions
+- [ ] T007 Audit `.coderabbit.yml` lines 100-300: identify instruction blocks, structure, focus areas
+- [ ] T008 Audit `.coderabbit.yml` lines 300-500: analyze path specificity, overlaps, priority conflicts
+- [ ] T009 Audit `.coderabbit.yml` lines 500-596: extract branch context hints
+- [ ] T010 [P] Audit `.coderabbit.yml` lines 597-646: document GitHub labels reference (FR-011)
+- [ ] T011 [P] Audit `.coderabbit.yml` lines 647-678: document PR template standards (FR-012)
+- [ ] T012 [P] Audit `.coderabbit.yml` lines 679-739: document issue template standards (FR-012)
+- [ ] T013 [P] Audit `.coderabbit.yml` lines 740-752: document label automation workflow (FR-011)
+- [ ] T014 Create audit report documenting ~50 file types, gaps, and priorities
+- [ ] T015 Create audit report documenting overlapping patterns and solutions
+- [ ] T016 Validate audit findings against FR-001, FR-011, FR-012
 
----
+### Priority & Specificity Framework
 
-## Phase 3: User Story 1 - Code Reviewer Gets Clear, Actionable Guidance (Priority: P1) 🎯 MVP
+- [ ] T017 Read contracts/priority-rules.md and understand 1-100 priority scale (FR-014)
+- [ ] T018 Document priority tiers: 90-100 (exact), 70-89 (specific dirs), 50-69 (file types), 30-49 (general), 10-29 (generic), 1-10 (catch-all)
+- [ ] T019 Create priority-mapping.txt for all audit file types
+- [ ] T020 Create pattern-conflicts.txt documenting resolution strategy
+- [ ] T021 Document conflict resolution examples for emerging patterns
+- [ ] T022 Establish instruction block template with 3-4 focus areas + 2-3 checks each
+- [ ] T023 Create instruction-template.md with canonical example
+- [ ] T024 Establish technology-agnostic principle: universal concepts only, no language/framework specifics (FR-006)
 
-**Goal**: Create comprehensive, specific review instructions for all file types so CodeRabbit provides consistent, high-quality feedback regardless of file type
+### Constitution Alignment
 
-**Independent Test**: Submit PRs to multiple file types (workflows, documentation, code files); verify CodeRabbit feedback includes specific guidance blocks from `.coderabbit.yml` for each file type
+- [ ] T025 Verify PR governance aligns with Constitution Principle VIII (FR-017)
+- [ ] T026 Verify label enforcement respects LOCKED `.github/labels.yml` (FR-017)
+- [ ] T027 Verify template validation respects quality standards (FR-016)
+- [ ] T028 Verify branch types from 38 authorized set (FR-006, FR-013)
+- [ ] T029 Verify no duplication with AGENTS.md, CLAUDE.md, instructions/ (FR-010)
 
-**Why P1**: This is the core value of CodeRabbit itself. Without clear instructions, reviews become inconsistent or miss critical issues.
-
-### Tests for User Story 1 (Validation Against SC-002)
-
-- [ ] T016 [US1] Verify each instruction block has ≥3 specific review focus areas (per SC-002); create validation checklist in `.github/specs/002-coderabbit-config-improvements/validation/sc-002-focus-areas.md`
-- [ ] T017 [US1] Test CodeRabbit reviews for workflow files (`.github/workflows/*.yml`); verify feedback includes checks from instruction block
-- [ ] T018 [US1] Test CodeRabbit reviews for documentation files (`**/*.md`); verify accessibility and clarity checks present
-- [ ] T019 [US1] Test CodeRabbit reviews for code files (`**/*.php`, `**/*.ts`); verify security and performance checks present
-
-### Implementation for User Story 1
-
-- [ ] T020 [P] [US1] Enhance `.github/workflows/` instruction block with 3+ specific review focus areas (CI/CD, security, performance)
-- [ ] T021 [P] [US1] Enhance `**/*.md` (documentation) instruction block with 3+ focus areas (clarity, structure, completability)
-- [ ] T022 [P] [US1] Enhance `**/*.php` instruction block with 3+ focus areas (security, performance, accessibility per WordPress Coding Standards)
-- [ ] T023 [P] [US1] Enhance `**/*.js` / `**/*.ts` instruction block with 3+ focus areas (accessibility, error handling, performance)
-- [ ] T024 [P] [US1] Add new instruction block for `.specify/spec.md` files (3+ focus areas: specification completeness, requirement testability, success criteria measurability)
-- [ ] T025 [P] [US1] Add new instruction block for `.specify/plan.md` files (3+ focus areas: planning rigor, technical completeness, architecture clarity)
-- [ ] T026 [P] [US1] Add new instruction block for `workflows/*.md` (agentic workflow documentation) with 3+ focus areas (workflow structure, phase definitions, validation criteria)
-- [ ] T027 [P] [US1] Add new instruction block for `plugins/*/SKILL.md` files (3+ focus areas: documentation, usability, clarity)
-- [ ] T028 [US1] Update existing instruction blocks to eliminate vague adjectives (e.g., "clean", "efficient") without metrics per SC-002; replace with measurable criteria
-- [ ] T029 [US1] Add catch-all pattern (`**/*`) instruction block with universal guidance (code readability, error handling, security basics) per clarification Q2
-
-**Checkpoint**: User Story 1 complete - CodeRabbit should now provide specific, actionable guidance for all file types
+**Checkpoint**: Foundation ready - audit complete, framework documented, ready for US implementation
 
 ---
 
-## Phase 4: User Story 2 - Maintainers Can Verify Review Coverage Completeness (Priority: P2)
+## Phase 3: User Story 1 (P1) - Code Reviewer Gets Clear, Actionable Guidance 🎯 MVP
 
-**Goal**: Enable repository maintainers to verify that all file types have appropriate CodeRabbit review instructions and identify coverage gaps
+**Goal**: Define comprehensive instructions for 95%+ of file types
 
-**Independent Test**: Compare all repository file types against `.coderabbit.yml` path_instructions; generate coverage report identifying which directories/file types lack instructions (target: <5% uncovered per SC-001)
+**Independent Test**: Submit PRs with different file types; verify CodeRabbit cites specific guidance ≥85% (SC-009)
 
-**Why P2**: Prevents blind spots where changes to critical files might be reviewed inadequately. Enables data-driven decisions about where to add/improve review instructions.
+### PR Governance Automation Foundation
 
-### Tests for User Story 2 (Coverage Audit Per SC-001, SC-013)
+- [ ] T030 Create pr_governance section in `.coderabbit.yml` with structure (FR-016 through FR-019)
+- [ ] T031 [P] Define template_validation entity: enabled, rules array with section/required/min_items/pattern (SC-014)
+- [ ] T032 [P] Define label_enforcement entity: families object with type/status/priority/area/meta (SC-015)
+- [ ] T033 [P] Define dod_automation entity: scope_detection, templates for feature/bugfix/docs (SC-016)
+- [ ] T034 [P] Define doc_validation entity: skip_paths, failure_rules per type (SC-017)
+- [ ] T035 Implement template_validation rules: Linked Issues, Changelog, Checklist per actual templates
+- [ ] T036 Implement label_enforcement rules: validate prefixes (type:, meta:, status:, priority:, area:)
+- [ ] T037 Implement dod_automation templates: feature, bugfix, docs, hotfix, refactor, perf, security scopes
+- [ ] T038 Implement doc_validation rules: skip .github/tmp/**, **/node_modules/**,**.generated.md
 
-- [ ] T030 [US2] Create `CODERABBIT_COVERAGE_AUDIT.md` with step-by-step audit instructions for maintainers per SC-013
-- [ ] T031 [US2] Run coverage audit on `.github` repository files; verify ≥95% file type coverage per SC-001
-- [ ] T032 [US2] Document coverage statistics in `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` (baseline: file count, coverage %, identified gaps)
-- [ ] T033 [US2] Test audit guide usability: verify new maintainer can identify coverage gaps without additional context (should take <15 minutes)
+### Code Review Instructions - Path Patterns (35+ blocks)
 
-### Implementation for User Story 2
+#### SpecKit Files (Priority 95)
 
-- [ ] T034 [US2] Create `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` external audit guide with step-by-step coverage verification checklist, file type inventory, and gap identification template per SC-013
-- [ ] T035 [US2] Document file type inventory baseline in audit guide (current count: ~50 types; target coverage: 47-50 types = 95%+)
-- [ ] T036 [US2] Ensure audit guide is self-contained (minimal references to other docs) and repeatable by any maintainer
-- [ ] T037 [US2] Verify audit guide can identify specific gaps (e.g., missing pattern for `plugins/**/*.yaml` files)
+- [ ] T039 [US1] Create instruction block for `.specify/spec.md` (priority 95): specification completeness review (FR-007, SC-007)
+- [ ] T040 [US1] Create instruction block for `.specify/plan.md` (priority 95): implementation plan review (FR-007, SC-007)
+- [ ] T041 [US1] Create instruction block for `.specify/tasks.md` (priority 95): task decomposition review (FR-007, SC-007)
 
-**Checkpoint**: User Story 2 complete - Maintainers can now verify coverage and identify gaps using external audit guide
+#### GitHub Workflows & CI/CD (Priority 90)
 
----
+- [ ] T042 [US1] Create instruction block for `.github/workflows/*.yml` (priority 90): GitHub Actions review (FR-001)
+- [ ] T043 [US1] Create instruction block for `.github/scripts/` (priority 88): automation script review (FR-001)
 
-## Phase 5: User Story 3 - Branch Strategy Enforcement Aligns with Reviews (Priority: P2)
+#### GitHub Templates & Configuration (Priority 85-90)
 
-**Goal**: Ensure CodeRabbit review instructions adapt to branch type context so developers get feedback relevant to the type of change they're making
+- [ ] T044 [US1] Create instruction block for `.github/ISSUE_TEMPLATE/` (priority 87): issue template review (FR-001, FR-012)
+- [ ] T045 [US1] Create instruction block for `.github/PULL_REQUEST_TEMPLATE/` (priority 87): PR template review (FR-001, FR-012)
+- [ ] T046 [US1] Create instruction block for `.github/labels.yml` (priority 85): label definition review (FR-001, FR-011)
+- [ ] T047 [US1] Create instruction block for `.github/issue-types.yml` (priority 85): issue type definition review (FR-001)
 
-**Independent Test**: Create PRs from different branch types (security/, perf/, docs/, feat/, fix/) modifying the same file; verify CodeRabbit feedback emphasizes branch-specific review priorities
+#### Documentation Files (Priority 80)
 
-**Why P2**: Branch types define PR templates and labeling, but review instructions currently don't differentiate. Branch-specific context will improve review consistency and relevance.
+- [ ] T048 [US1] Create instruction block for `docs/BRANCHING_STRATEGY.md` (priority 82): branching strategy review (FR-006, FR-013)
+- [ ] T049 [US1] Create instruction block for `docs/LABELING.md` (priority 80): labeling strategy review (FR-001)
+- [ ] T050 [US1] Create instruction block for `docs/*.md` (priority 70): general documentation review (FR-001)
 
-### Tests for User Story 3 (Branch Context Per SC-011)
+#### Code & Type Definition Files (Priority 50-70)
 
-- [ ] T038 [US3] Test PR from `security/*` branch: verify security-specific checks emphasized (authentication, access control, secrets handling) per SC-003
-- [ ] T039 [US3] Test PR from `perf/*` branch: verify performance-specific guidance included (benchmarking, optimization targets)
-- [ ] T040 [US3] Test PR from `a11y/*` branch: verify WCAG 2.2 AA compliance checks emphasized per SC-005
-- [ ] T041 [US3] Test PR from `docs/*` branch: verify documentation-specific criteria (clarity, structure, completeness) emphasized
-- [ ] T042 [US3] Test PR from `feat/*` branch: verify feature-scope and design guidance emphasized
-- [ ] T043 [US3] Verify branch-type context applies to at least top 15 branch types (security/, feat/, fix/, docs/, perf/, a11y/, ci/, hotfix/, refactor/, task/, release/, chore/, test/, design/, ops/) per SC-011
+- [ ] T051 [US1] Create instruction block for `agents/` (priority 65): agent specification review (FR-001, FR-010)
+- [ ] T052 [US1] Create instruction block for `instructions/` (priority 65): instruction file review (FR-001, FR-010)
+- [ ] T053 [US1] Create instruction block for `skills/*/SKILL.md` (priority 63): skill documentation review (FR-008, SC-007)
+- [ ] T054 [US1] Create instruction block for `workflows/` (priority 62): agentic workflow review (FR-008)
+- [ ] T055 [US1] Create instruction block for `**/*.md` (priority 55): markdown documentation review (FR-001, SC-002)
+- [ ] T056 [US1] Create instruction block for `**/*.{js,ts,tsx}` (priority 50): TypeScript/JavaScript review (FR-001)
+- [ ] T057 [US1] Create instruction block for `**/*.{py}` (priority 50): Python code review (FR-001)
+- [ ] T058 [US1] Create instruction block for `**/*.{php}` (priority 50): PHP code review (FR-001, FR-006)
+- [ ] T059 [US1] Create instruction block for `**/test/**`, `**/*.test.*` (priority 60): test code review (FR-001)
+- [ ] T060 [US1] Create instruction block for `.github/tmp/`, `**/*.generated.*` (priority 40): generated/temporary file review (FR-001)
+- [ ] T061 [US1] Create instruction block for `**/*` (priority 10): universal file review guidance (FR-001, SC-002)
 
-### Implementation for User Story 3
+### Code Review Instructions - Enhancement (All Blocks)
 
-- [ ] T044 [P] [US3] Document top 15-20 branch types and their review context priorities in `.coderabbit.yml` comments or separate section per FR-013
-- [ ] T045 [P] [US3] Add `security/` branch context block: security-first guidance (authentication, access control, secrets, threat model) per SC-003
-- [ ] T046 [P] [US3] Add `feat/` branch context block: new functionality focus (design, scope, backward compatibility)
-- [ ] T047 [P] [US3] Add `fix/` branch context block: bug reproduction and regression testing focus
-- [ ] T048 [P] [US3] Add `perf/*` branch context block: performance metrics and benchmarking focus
-- [ ] T049 [P] [US3] Add `a11y/*` branch context block: WCAG 2.2 AA compliance and accessibility criteria per SC-005
-- [ ] T050 [P] [US3] Add `ci/*` branch context block: CI/CD pipeline stability and reliability focus
-- [ ] T051 [P] [US3] Add `hotfix/` branch context block: urgency and regression risk emphasis
-- [ ] T052 [P] [US3] Add `refactor/` branch context block: behavioral equivalence and test coverage emphasis
-- [ ] T053 [P] [US3] Add `docs/*` branch context block: documentation completeness and clarity emphasis
-- [ ] T054 [P] [US3] Add `test/*` branch context block: test coverage and reliability emphasis
-- [ ] T055 [P] [US3] Add remaining high-frequency branch types: `task/`, `release/`, `chore/`, `design/`, `ops/` with context-specific guidance
-- [ ] T056 [US3] Ensure all branch-type context is technology-agnostic (no language/framework specifics) per FR-006 clarification Q1
+- [ ] T062 [P] [US1] Review all blocks T039-T061: ensure 3-4 distinct focus areas per SC-002
+- [ ] T063 [P] [US1] Review all blocks: ensure 2-3 specific, actionable checks per focus area
+- [ ] T064 [P] [US1] Review all blocks: verify technology-agnostic language (FR-006)
+- [ ] T065 [P] [US1] Review all blocks: validate markdown structure, formatting, references
+- [ ] T066 [US1] Verify security-critical files have prominent security guidance (FR-003, SC-003)
+- [ ] T067 [US1] Verify performance-related files reference performance criteria (FR-004)
+- [ ] T068 [US1] Verify accessibility-related files reference WCAG 2.2 AA (FR-005)
 
-**Checkpoint**: User Story 3 complete - Branch-type-specific review context now applies across top 15+ branch types
+### Coverage Validation for US1
 
----
+- [ ] T069 [US1] Count instruction blocks: target 47-50 per SC-001
+- [ ] T070 [US1] Verify coverage meets ≥95% per SC-001
+- [ ] T071 [US1] Document any gaps from audit (T014) - mark for future phases
 
-## Phase 6: User Story 4 - New File Types and Tooling Are Covered (Priority: P3)
-
-**Goal**: Ensure SpecKit, workflow documentation, and plugin files receive appropriate CodeRabbit review guidance
-
-**Independent Test**: Modify files in `.specify/`, `workflows/`, and `plugins/*/SKILL.md`; verify CodeRabbit reviews include file-type-specific guidance
-
-**Why P3**: These are emerging file types. Without specific instructions, reviews might miss important patterns or best practices.
-
-### Tests for User Story 4 (New File Type Coverage Per SC-007)
-
-- [ ] T057 [US4] Test CodeRabbit review for `.specify/spec.md` modifications; verify specification-specific guidance present
-- [ ] T058 [US4] Test CodeRabbit review for `.specify/plan.md` modifications; verify planning-specific guidance present
-- [ ] T059 [US4] Test CodeRabbit review for `workflows/*.md` (agentic workflow documentation); verify workflow-specific guidance present
-- [ ] T060 [US4] Test CodeRabbit review for `plugins/*/SKILL.md` modifications; verify skill documentation guidance present
-- [ ] T061 [US4] Verify all new file type instruction blocks have 3+ specific review focus areas per SC-002
-
-### Implementation for User Story 4
-
-- [ ] T062 [P] [US4] Create instruction block for `.specify/spec.md` files (3+ focus areas per T024)
-- [ ] T063 [P] [US4] Create instruction block for `.specify/plan.md` files (3+ focus areas per T025)
-- [ ] T064 [P] [US4] Create instruction block for `workflows/*.md` (agentic workflows) (3+ focus areas per T026)
-- [ ] T065 [P] [US4] Create instruction block for `plugins/*/SKILL.md` files (3+ focus areas per T027)
-- [ ] T066 [P] [US4] Create instruction block for `.specify/tasks.md` files (3+ focus areas: task clarity, completeness, independence)
-- [ ] T067 [P] [US4] Create instruction block for `contracts/` files (3+ focus areas: schema completeness, clarity, versioning)
-- [ ] T068 [P] [US4] Create instruction block for `.specify/` directory patterns with priority rules to prevent overlap with general patterns
-
-**Checkpoint**: User Story 4 complete - New file types (SpecKit, workflows, plugins) now have comprehensive review guidance
+**Checkpoint**: US1 complete - 47-50 instruction blocks with 3-4 focus areas each, technology-agnostic guidance
 
 ---
 
-## Phase 7: User Story 5 - Consistency Across Instructions Improves Usability (Priority: P3)
+## Phase 4: User Story 2 (P2) - Maintainers Can Verify Review Coverage
 
-**Goal**: Ensure consistent structure, tone, and formatting across all review instructions so configuration is maintainable and extensible
+**Goal**: Create audit guide and coverage verification tools
 
-**Independent Test**: Analyze all instruction blocks for structural consistency, terminology consistency, and formatting adherence (per SC-008)
+**Independent Test**: Run CODERABBIT_COVERAGE_AUDIT.md procedure; verify it identifies all 47-50 types and gaps
 
-**Why P3**: Currently instructions vary in structure and detail. Consistency enables better tooling and maintainability.
+### Coverage Audit Guide Creation
 
-### Tests for User Story 5 (Instruction Consistency Per SC-008)
+- [ ] T072 [US2] Create `.github/docs/CODERABBIT_COVERAGE_AUDIT.md` (external guide per FR-015)
+- [ ] T073 [US2] Document: File Type Inventory Procedure (list paths, extract categories, create master list)
+- [ ] T074 [US2] Document: Coverage Mapping Procedure (cross-reference patterns, mark explicit vs catch-all)
+- [ ] T075 [US2] Document: Gap Analysis Procedure (identify missing types, assess impact, recommend priority)
+- [ ] T076 [US2] Document: Priority Verification Procedure (verify unique priorities, specificity rules, conflicts)
+- [ ] T077 [US2] Document: Focus Area Validation Procedure (count areas/checks, flag insufficient blocks)
+- [ ] T078 [US2] Document: Examples for WordPress plugin, Node.js, infrastructure-as-code projects
+- [ ] T079 [US2] Document: Maintenance schedule & trigger events for re-audit
+- [ ] T080 [US2] Validate guide completeness: can maintainer follow without additional context?
 
-- [ ] T069 [US5] Analyze all instruction blocks for consistent structure (description → review focus areas → specific checks → references) per SC-008
-- [ ] T070 [US5] Verify terminology consistency across all blocks (e.g., "validation" vs "verification" used consistently)
-- [ ] T071 [US5] Verify formatting consistency: bullet structure, indentation, emphasis patterns
-- [ ] T072 [US5] Check all blocks for vague adjectives without metrics (eliminate "clean", "efficient", "robust" without measurable criteria)
-- [ ] T073 [US5] Create formatting standard document in `.github/docs/CODERABBIT_CONFIG_STANDARDS.md` (structure template, terminology glossary, examples)
+### Coverage Verification Report
 
-### Implementation for User Story 5
+- [ ] T081 [US2] Create coverage-report.txt using CODERABBIT_COVERAGE_AUDIT.md procedure
+- [ ] T082 [US2] Verify coverage shows ≥95% per SC-001
+- [ ] T083 [US2] Verify coverage identifies any critical files with only catch-all
+- [ ] T084 [US2] Create coverage_summary.txt: total blocks, coverage %, explicit vs catch-all, emerging types
 
-- [ ] T074 [US5] Standardize all instruction blocks to follow consistent structure template (description, 3+ focus areas with measurable criteria, specific checks, references per SC-006)
-- [ ] T075 [US5] Create terminology glossary for consistent use across all blocks (e.g., "require", "ensure", "verify" vs "check", "test")
-- [ ] T076 [US5] Apply consistent formatting to all instruction blocks (bullet structure, indentation, UK English spelling per CLAUDE.md)
-- [ ] T077 [US5] Replace vague language in all blocks with measurable criteria per SC-002 (e.g., "Ensure error handling is comprehensive" instead of "Handle errors cleanly")
-- [ ] T078 [US5] Remove any duplication with AGENTS.md, CLAUDE.md, or `.github/instructions/*.instructions.md` per FR-010
-- [ ] T079 [US5] Create `.github/docs/CODERABBIT_CONFIG_STANDARDS.md` documenting: structure template, terminology glossary, formatting standards, example blocks, review checklist
-
-**Checkpoint**: User Story 5 complete - All instruction blocks now follow consistent structure, terminology, and formatting
-
----
-
-## Phase 8: Cross-Technology Stack Validation
-
-**Purpose**: Verify instructions apply consistently across diverse project types (WordPress, Node.js, Infrastructure, MCP) per SC-011 and FR-006
-
-**Checkpoint**: Instructions validated across technology diversity - no technology-specific guidance present
-
-- [ ] T080 [P] Identify test repositories from each technology category: WordPress plugin, Node.js/TypeScript project, Infrastructure project
-- [ ] T081 [P] Create test PRs in each repository type with same branch type and file type
-- [ ] T082 Test WordPress project (feat/ PR modifying PHP files): verify guidance contains no WordPress-specific framework details
-- [ ] T083 Test Node.js/TypeScript project (feat/ PR modifying TypeScript files): verify guidance contains no Node/TypeScript-specific syntax details
-- [ ] T084 Test Infrastructure project (ops/ PR modifying Terraform/YAML): verify guidance contains no Terraform-specific module patterns
-- [ ] T085 Analyze CodeRabbit reviews across all 3+ project types; verify branch-type context applies consistently per SC-011
-- [ ] T086 Verify technology-agnostic constraint (no framework assumptions, no language-specific patterns) per FR-006 clarification Q1
-- [ ] T087 Document cross-technology validation results in `.github/specs/002-coderabbit-config-improvements/validation/cross-tech-validation.md`
+**Checkpoint**: US2 complete - maintainers have audit guide; coverage verified at ≥95%
 
 ---
 
-## Phase 9: Pattern Priority & Precedence Testing
+## Phase 5: User Story 3 (P2) - Branch Strategy Enforcement Aligns with Reviews
 
-**Purpose**: Verify explicit pattern priority rules work correctly (FR-014, clarification Q2, Q3)
+**Goal**: Document branch-type-specific review context for top 15-20 types
 
-**Checkpoint**: Pattern priority tested; precedence rules validated
+**Independent Test**: Verify security/, feat/, docs/, perf/ branches receive context-appropriate guidance
 
-- [ ] T088 Test pattern priority: file matching multiple patterns (`tests/e2e/auth.spec.ts`) uses highest-priority pattern
-- [ ] T089 Test catch-all pattern: file not matching specific patterns receives guidance from `**/*` catch-all per clarification Q2
-- [ ] T090 Test branch context vs pattern priority: path pattern priority wins; branch context augments per clarification Q3
-- [ ] T091 Document pattern resolution examples in `.coderabbit.yml` comments per SC-012
-- [ ] T092 Create pattern priority resolution reference in `.github/docs/CODERABBIT_CONFIG_STANDARDS.md` with examples
+### Branch-Type Review Context Documentation
 
----
+- [ ] T085 [US3] Read CLAUDE.md to identify all 38 authorized branch types
+- [ ] T086 [US3] Prioritize top 15-20 types: feat, fix, security, perf, docs, a11y, ci, hotfix, refactor, task, release, chore, test, design, ops
+- [ ] T087 [US3] Create docs/BRANCHING_STRATEGY.md Section 5.3: "Branch-Type Review Context"
+- [ ] T088 [US3] Document review context for feat/: feature-type-specific priorities
+- [ ] T089 [US3] Document review context for fix/: bug-fix-specific priorities
+- [ ] T090 [US3] Document review context for security/: security-specific priorities
+- [ ] T091 [US3] Document review context for perf/: performance-specific priorities
+- [ ] T092 [US3] Document review context for a11y/: accessibility-specific priorities
+- [ ] T093 [US3] Document review context for docs/: documentation-specific priorities
+- [ ] T094 [US3] Document review context for ci/: CI/CD-specific priorities
+- [ ] T095 [US3] Document review context for hotfix/: urgency-aware review
+- [ ] T096 [US3] Document review context for refactor/: refactoring-specific priorities
+- [ ] T097 [US3] Document review context for task/: scoped work priorities
+- [ ] T098 [US3] Document review context for release/: release-specific priorities
+- [ ] T099 [US3] Document review context for chore/: maintenance priorities
+- [ ] T100 [US3] Document review context for test/: test-specific priorities
+- [ ] T101 [US3] Document review context for design/: design-specific priorities
+- [ ] T102 [US3] Document review context for ops/: operations-specific priorities
+- [ ] T103 [US3] [P] Document review context for 5-10 additional high-frequency types
+- [ ] T104 [US3] Verify all 38 types mentioned; top 15-20 have full context (FR-006, FR-013)
+- [ ] T105 [US3] Verify branch-type context is technology-agnostic (FR-006)
+- [ ] T106 [US3] Create BranchContext reference section in .coderabbit.yml (documentation-only per data-model.md)
 
-## Phase 10: Backward Compatibility Validation
-
-**Purpose**: Verify zero breaking changes to existing CodeRabbit workflows (SC-007, Backward Compatibility constraint)
-
-**Checkpoint**: Backward compatibility confirmed; no breaking changes
-
-- [ ] T093 Compare old vs new `.coderabbit.yml` for all existing path patterns (ensure semantically identical guidance)
-- [ ] T094 Re-run CodeRabbit on 5+ existing PRs using new config; verify reviews produce similar feedback (same focus areas)
-- [ ] T095 Verify existing path patterns retain original priority/specificity rank (no reordering that changes behavior)
-- [ ] T096 Test repo-specific CodeRabbit overrides still work without interference from central config
-- [ ] T097 Document backward compatibility testing results in `.github/specs/002-coderabbit-config-improvements/validation/backward-compat.md`
-
----
-
-## Phase 11: Documentation & Label/Template Validation
-
-**Purpose**: Verify config documentation matches actual GitHub automation behavior (FR-011, FR-012, SC-005)
-
-**Checkpoint**: Documentation accurate; no discrepancies with reality
-
-- [ ] T098 [P] Audit `.coderabbit.yml` documentation against actual `.github/labels.yml` labels (158 canonical labels); verify no missing/wrong label references
-- [ ] T099 [P] Audit `.coderabbit.yml` documentation against actual PR/issue templates in `.github/PULL_REQUEST_TEMPLATE/` and `.github/ISSUE_TEMPLATE/`
-- [ ] T100 [P] Verify all instruction blocks reference organization standards (UK English, WordPress Coding Standards, WCAG 2.2 AA) from CLAUDE.md and AGENTS.md
-- [ ] T101 Ensure security-critical file documentation prominently features security guidance before generic guidance per SC-003
-- [ ] T102 Create reference document linking instruction blocks to supported labels in `.github/docs/CODERABBIT_LABEL_ALIGNMENT.md`
+**Checkpoint**: US3 complete - branch-type context documented for 15-20 types; developers can reference branch-specific priorities
 
 ---
 
-## Phase 12: Performance & Maintainability Optimization
+## Phase 6: User Story 4 (P3) - New File Types and Tooling Are Covered
 
-**Purpose**: Ensure configuration loads quickly and remains maintainable (Performance Goals, SC-010)
+**Goal**: Ensure emerging file types have comprehensive review instructions
 
-**Checkpoint**: Configuration performance verified; maintainability improved
+**Independent Test**: Create/modify .specify/spec.md, workflows/*.md, plugins/*/SKILL.md; verify CodeRabbit provides relevant feedback
 
-- [ ] T103 Verify `.coderabbit.yml` file size is reasonable (<100KB) and config loads <100ms
-- [ ] T104 Organize config sections logically (branch contexts, path instructions by priority, utility patterns)
-- [ ] T105 Add clear section comments in `.coderabbit.yml` explaining priority order and pattern organization per SC-012
-- [ ] T106 Create quick-reference guide for adding new instruction blocks in `.github/docs/CODERABBIT_ADD_PATTERN.md` (target: <5 min per SC-010)
-- [ ] T107 Verify all path patterns use consistent naming conventions
+### New File Type Instruction Enhancement
 
----
+- [ ] T107 [US4] Verify .specify/spec.md instruction block exists (T039) with 3+ focus areas
+- [ ] T108 [US4] Verify .specify/plan.md instruction block exists (T040) with 3+ focus areas
+- [ ] T109 [US4] Verify .specify/tasks.md instruction block exists (T041) with 3+ focus areas
+- [ ] T110 [US4] Verify workflows/*.md instruction block exists with 3+ focus areas
+- [ ] T111 [US4] Verify plugins/*/SKILL.md instruction block exists with 3+ focus areas
+- [ ] T112 [US4] Test: Create sample .specify/spec.md; verify CodeRabbit cites specification guidance
+- [ ] T113 [US4] Test: Create sample workflows/test-workflow.md; verify CodeRabbit cites workflow guidance
+- [ ] T114 [US4] Test: Create sample plugins/test-skill/SKILL.md; verify CodeRabbit cites skill guidance
+- [ ] T115 [US4] Validate new types have 3+ focus areas (SC-002, SC-007)
+- [ ] T116 [US4] Validate new types are technology-agnostic (FR-006)
 
-## Phase 13: Quickstart Validation
-
-**Purpose**: Run all 11 validation scenarios from quickstart.md to prove end-to-end functionality
-
-**Checkpoint**: All validation scenarios passing
-
-- [ ] T108 [P] Run Scenario 1: Branch-type-specific review guidance (security/ PR modifying PHP files)
-- [ ] T109 [P] Run Scenario 2: Pattern priority ordering (file matching multiple patterns uses highest-priority)
-- [ ] T110 [P] Run Scenario 3: SpecKit file type coverage (modifications to `.specify/spec.md`)
-- [ ] T111 [P] Run Scenario 4: Workflow documentation coverage (modifications to `workflows/*.md`)
-- [ ] T112 [P] Run Scenario 5: Coverage audit completeness (≥95% file type coverage)
-- [ ] T113 [P] Run Scenario 6: Instruction block quality (3+ focus areas, no vague language)
-- [ ] T114 [P] Run Scenario 7: Backward compatibility (existing PRs produce similar feedback)
-- [ ] T115 [P] Run Scenario 8: Branch type context for 5+ high-value types
-- [ ] T116 [P] Run Scenario 9: Audit guide usability (new maintainer identifies gaps in <15 minutes)
-- [ ] T117 [P] Run Scenario 10: Pattern priority documentation (clearly documented in config)
-- [ ] T118 [P] Run Scenario 11: Cross-technology stack compatibility (WordPress, Node.js, Infrastructure all receive consistent guidance)
-- [ ] T119 Consolidate validation results in `.github/specs/002-coderabbit-config-improvements/validation/VALIDATION_REPORT.md`
+**Checkpoint**: US4 complete - emerging file types covered with specific guidance; SC-007 validated
 
 ---
 
-## Phase 14: Polish & Finalization
+## Phase 7: User Story 5 (P3) - Consistency Across Instructions Improves Usability
 
-**Purpose**: Final review, documentation, and preparation for org-wide deployment
+**Goal**: Standardize structure, tone, formatting across 47-50 blocks
 
-**Checkpoint**: Ready for production deployment across all organization repositories
+**Independent Test**: Analyze all blocks against consistency checklist; verify ≥95% compliance
 
-- [ ] T120 Final review of `.coderabbit.yml` for completeness, consistency, accuracy
-- [ ] T121 [P] Create pull request from feature branch to `develop` with all changes
-- [ ] T122 [P] Update IMPLEMENTATION_COMPLETE.md with final validation summary and deployment notes
-- [ ] T123 Final documentation review: ensure all audit guides, standards docs, and validation reports are complete
-- [ ] T124 [P] Verify all documentation files (`.github/docs/CODERABBIT_*.md`) are readable and self-contained
-- [ ] T125 Create deployment checklist in `.github/docs/CODERABBIT_DEPLOYMENT.md` for org maintainers
-- [ ] T126 Document any breaking changes (should be zero per SC-007) or migration steps needed
-- [ ] T127 Tag feature completion in git; document final metrics (file type coverage %, branch types covered, instruction blocks added)
+### Instruction Structure Standardization
+
+- [ ] T117 [US5] [P] Review T039-T061: consistent structure (header, intro, 3-4 focus areas, 2-3 checks, references)
+- [ ] T118 [US5] Standardize terminology: "validation" vs "verification", security concepts, performance metrics
+- [ ] T119 [US5] Standardize formatting: bullet styles, bold, code, links
+- [ ] T120 [US5] Verify technology-agnostic: no language/framework-specific guidance (FR-006)
+- [ ] T121 [US5] Verify Constitution references where applicable (Principles IV, VI, VII, X)
+
+### Consistency Audit & Validation
+
+- [ ] T122 [US5] Create consistency checklist: structure, focus areas, checks, references, formatting
+- [ ] T123 [US5] Apply checklist to all 47-50 instruction blocks
+- [ ] T124 [US5] Flag blocks failing checklist (insufficient areas, inconsistent formatting, etc.)
+- [ ] T125 [US5] Fix flagged blocks to meet standards
+- [ ] T126 [US5] Create consistency report: compliance %, exceptions, rationale
+- [ ] T127 [US5] Verify SC-008 target: ≥95% consistency achieved
+- [ ] T128 [US5] Verify SC-010 target: adding new block takes <5 minutes (test with temporary block)
+
+**Checkpoint**: US5 complete - all blocks standardized; ≥95% consistency; maintainability improved
+
+---
+
+## Phase 8: PR Governance Automation Rules Implementation
+
+**Purpose**: Implement FR-016 through FR-019 (template validation, label enforcement, DoD, doc validation)
+
+### PR Template Validation (FR-016, SC-014)
+
+- [ ] T129 Verify template_validation structure created (T031)
+- [ ] T130 [P] Define: "Linked Issues" section (required, min_items: 1, pattern for URLs or issue #)
+- [ ] T131 [P] Define: "Changelog" section (required, max_length: 250, reject TODO/FIXME/placeholder)
+- [ ] T132 [P] Define: "Checklist" section (required, min_items: 3, checked items)
+- [ ] T133 Test: Well-formed PR → validation passes
+- [ ] T134 Test: Missing "Linked Issues" → flagged as required
+- [ ] T135 Test: "Changelog" with TODO → catches placeholder
+- [ ] T136 Validate: ≥95% pass (well-formed), ≥90% catch (malformed) per SC-014
+
+### Label Enforcement (FR-017, SC-015)
+
+- [ ] T137 Verify label_enforcement structure created (T032)
+- [ ] T138 [P] Define family: type (required, 8+ options: feature, bug, task, documentation, security, performance, design, accessibility)
+- [ ] T139 [P] Define family: status (required, 4+ options: needs-triage, in-progress, done, blocked)
+- [ ] T140 [P] Define family: priority (optional, 4+ options: critical, high, normal, low)
+- [ ] T141 [P] Define family: area (optional, 10+ options: ci, docs, labels, security, testing, automation, etc.)
+- [ ] T142 [P] Define family: meta (optional, 4+ options: needs-changelog, has-pr, duplicate, needs-audit)
+- [ ] T143 Define suggestion engine: branch_type → canonical labels (feat→feature, fix→bug, security→security)
+- [ ] T144 Define suggestion engine: changed files → area labels (.github/workflows/ → ci, **security/** → security)
+- [ ] T145 Test: Valid prefixed labels → passes
+- [ ] T146 Test: Missing type/status → enforcement suggests
+- [ ] T147 Test: Bare label "bug" → converted to type:bug
+- [ ] T148 Validate: ≥85% suggestion accuracy per SC-015
+- [ ] T149 Verify: References `.github/labels.yml` LOCKED set (158 canonical labels)
+
+### DoD Checklist Automation (FR-018, SC-016)
+
+- [ ] T150 Verify dod_automation structure created (T033)
+- [ ] T151 Define scope_detection: "branch_type" primary mechanism
+- [ ] T152 [P] Define template: feature scope (5-8 items: code tested, accessibility verified, performance assessed, security reviewed, docs updated, changelog, issues linked)
+- [ ] T153 [P] Define template: bugfix scope (5-8 items: root cause documented, fix verified, regression test, changelog, issues linked)
+- [ ] T154 [P] Define template: docs scope (5-8 items: links verified, syntax validated, terminology consistent, examples tested, changelog)
+- [ ] T155 [P] Define template: security scope (5-8 items: threat documented, fix verified, no new vulnerabilities, security reviewed, changelog, issues)
+- [ ] T156 [P] Define template: perf scope (5-8 items: benchmarking data, improvement verified, regression testing, no regressions, changelog)
+- [ ] T157 Test: feat/ branch PR → checklist populated with feature items
+- [ ] T158 Test: fix/ branch PR → checklist populated with bugfix items
+- [ ] T159 Test: Unchecked items → warnings (warn_only blocking_rule)
+- [ ] T160 Validate: ≥90% PRs report checklist relevant/actionable per SC-016
+
+### Documentation Validation Handling (FR-019, SC-017)
+
+- [ ] T161 Verify doc_validation structure created (T034)
+- [ ] T162 Define skip_paths: ".github/tmp/**", "**/node_modules/**", "**/*.generated.md"
+- [ ] T163 [P] Define failure rule: broken_links (block on critical, warn on others, remediation provided)
+- [ ] T164 [P] Define failure rule: linting_failures (block on critical, warn on others, remediation provided)
+- [ ] T165 [P] Define failure rule: missing_content (warn on critical, ignore others, remediation provided)
+- [ ] T166 Test: Critical file with broken links → blocks review with actionable commentary
+- [ ] T167 Test: Non-critical file with linting error → warns with remediation
+- [ ] T168 Test: Auto-generated file in skip_paths → skipped
+- [ ] T169 Validate: Zero silent failures per SC-017 (all issues have actionable commentary)
+
+**Checkpoint**: PR governance automation complete - all 4 rule sets implemented, tested, accuracy targets met
+
+---
+
+## Phase 9: Testing & Validation (Cross-Repository, Quickstart, Migration)
+
+**Purpose**: Comprehensive testing across diverse projects, quickstart scenario validation, zero breaking changes
+
+### Cross-Repository Deployment & Testing
+
+- [ ] T170 Identify test repos: WordPress plugin, Node.js/TypeScript, infrastructure-as-code, CLI, MCP
+- [ ] T171 [P] Deploy .coderabbit.yml to WordPress plugin repo
+- [ ] T172 [P] Deploy .coderabbit.yml to Node.js/TypeScript repo
+- [ ] T173 [P] Deploy .coderabbit.yml to infrastructure-as-code repo
+- [ ] T174 [P] Deploy .coderabbit.yml to CLI tool repo
+- [ ] T175 [P] Deploy .coderabbit.yml to MCP server repo
+- [ ] T176 Test: WordPress plugin repo - verify PHP guidance applied (technology-agnostic)
+- [ ] T177 Test: Node.js/TypeScript repo - verify TS/JS guidance applied (technology-agnostic)
+- [ ] T178 Test: Infrastructure-as-code repo - verify IaC guidance applied (technology-agnostic)
+- [ ] T179 Test: CLI repo - verify CLI guidance applied (technology-agnostic)
+- [ ] T180 Test: MCP repo - verify MCP guidance applied (technology-agnostic)
+- [ ] T181 Verify: All guidance focuses on universal principles, no framework/language specifics (FR-006)
+- [ ] T182 Verify: No breaking changes - existing workflows still function, reviews still post
+- [ ] T183 Verify: Consistency across repos - same blocks applied uniformly, no conflicts
+
+### Migration Testing (Zero Breaking Changes)
+
+- [ ] T184 Create baseline metrics: existing instruction count, path patterns, review quality samples
+- [ ] T185 Deploy updated .coderabbit.yml to test repo
+- [ ] T186 Create sample PRs; measure new metrics: cited blocks, pattern matching, review quality
+- [ ] T187 Verify: No existing reviews broken, all instructions accessible, patterns still apply
+- [ ] T188 Document: Changes in behavior (new guidance expected, no regressions critical)
+
+### Quickstart Scenario Validation
+
+- [ ] T189 Scenario 1: .specify/spec.md guidance - create file, trigger review, verify specification checks cited, SC-007/SC-009 ✓
+- [ ] T190 Scenario 2: Branch type context - security/ PR, verify security guidance emphasized, FR-013/SC-011 ✓
+- [ ] T191 Scenario 3: PR template validation - well-formed & incomplete PRs, verify correct pass/flag, SC-014 ✓
+- [ ] T192 Scenario 4: Label enforcement - valid/invalid/missing labels, verify suggestions accurate, SC-015 ✓
+- [ ] T193 Scenario 5: DoD checklist - feature/bugfix/docs scopes, verify 5-8 items populated, SC-016 ✓
+- [ ] T194 Scenario 6: Doc validation - critical (broken links), non-critical (linting), auto-generated (skipped), SC-017 ✓
+- [ ] T195 Scenario 7: Cross-repo consistency - WordPress, Node, IaC, CLI, MCP repos, FR-006/SC-011 ✓
+
+### CodeRabbit Review Quality Audit
+
+- [ ] T196 Collect 10-15 sample reviews from test repos
+- [ ] T197 Audit each review: ≥1 citation of path_instructions guidance (FR-002, SC-009)
+- [ ] T198 Measure citation rate: target ≥85% per SC-009
+- [ ] T199 Verify: Review quality maintained or improved vs baseline
+- [ ] T200 Document: Reviews not citing guidance and why (edge cases?)
+
+### Configuration Validation (Final)
+
+- [ ] T201 [P] Validate YAML syntax (no parse errors)
+- [ ] T202 [P] Validate priority uniqueness: no duplicates within paths set
+- [ ] T203 [P] Validate pattern specificity: no overlaps with same priority
+- [ ] T204 [P] Validate blocks: each 3-4 focus areas, 2-3 checks per area
+- [ ] T205 [P] Validate technology-agnostic: grep for forbidden patterns → zero matches
+- [ ] T206 [P] Validate Constitution: LOCKED files unmofied, branch types within 38, labels match
+- [ ] T207 Run YAML linting (if available)
+- [ ] T208 Run markdown linting on BRANCHING_STRATEGY.md, CODERABBIT_COVERAGE_AUDIT.md
+
+**Checkpoint**: All testing passed - scenarios validated, cross-repo tested, migration verified zero breaking changes
+
+---
+
+## Phase 10: Polish & Cross-Cutting Concerns
+
+**Purpose**: Final documentation, cleanup, commit preparation
+
+### Documentation & Knowledge Transfer
+
+- [ ] T209 [P] Create `.github/docs/CODERABBIT_IMPLEMENTATION_NOTES.md` documenting overview, priority framework, technology-agnostic principle, migration notes
+- [ ] T210 [P] Create `.github/docs/PR_GOVERNANCE_AUTOMATION_GUIDE.md` documenting all 4 rule sets, accuracy targets, examples
+- [ ] T211 [P] Update BRANCHING_STRATEGY.md TOC to reference Section 5.3
+- [ ] T212 [P] Update `.github/README.md` to reference audit guide and implementation notes
+- [ ] T213 Create IMPLEMENTATION_CHECKLIST.md documenting all completed work
+- [ ] T214 [P] Create NEXT_STEPS.md: quarterly audit procedure, adding blocks, maintaining governance rules
+
+### Code Cleanup & Final Validation
+
+- [ ] T215 [P] Remove all temporary files from `.github/tmp/` (backup, current, priority-mapping, pattern-conflicts, instruction-template, coverage reports)
+- [ ] T216 [P] Verify no WIP markers in .coderabbit.yml (no TODO, FIXME, [NEEDS_CLARIFICATION])
+- [ ] T217 [P] Run npm run lint:md (verify all markdown files pass)
+- [ ] T218 [P] Verify no broken links in documentation
+- [ ] T219 [P] Verify code examples in instruction blocks are valid
+- [ ] T220 [P] Verify frontmatter in all docs is valid YAML
+
+### Final Acceptance Criteria Verification
+
+- [ ] T221 [P] Verify FR-001 through FR-015: code review requirements
+- [ ] T222 [P] Verify FR-016 through FR-019: PR governance automation requirements
+- [ ] T223 [P] Verify SC-001 through SC-013: code review success criteria
+- [ ] T224 [P] Verify SC-014 through SC-017: governance automation success criteria
+- [ ] T225 [P] Create final verification report: all FR/SC met ✓
+
+### Final Commit & Push Preparation
+
+- [ ] T226 Review git status: all changes ready
+- [ ] T227 Create comprehensive commit message documenting:
+  - Feature: CodeRabbit Configuration Optimization (Unified Phase 1)
+  - Changes: 47-50 instruction blocks, branch-type context, PR governance automation, audit guide
+  - Effort: 14-16 weeks, ~260 tasks, zero breaking changes
+  - Testing: cross-repo, migration, quickstart, quality audit all passed
+- [ ] T228 Commit: git commit -m "[message per T227]" (with Co-Authored-By footer)
+- [ ] T229 Push: git push -u origin config/coderabbit-review-governance
+- [ ] T230 Create draft PR linking to spec, plan, design artifacts with full summary
+
+**Checkpoint**: Implementation complete - all 230 tasks done, all FR/SC verified, documentation prepared
 
 ---
 
@@ -324,83 +439,60 @@ description: "Implementation task list for CodeRabbit Configuration Optimization
 
 ### Phase Dependencies
 
-- **Setup (Phase 1)**: No dependencies
-- **Foundational (Phase 2)**: Depends on Setup
-- **User Stories 1-5 (Phases 3-7)**: Depend on Foundational
-- **Cross-Tech Validation (Phase 8)**: Depends on all user stories
-- **Pattern Testing (Phase 9)**: Depends on Foundational
-- **Backward Compatibility (Phase 10)**: Depends on all user stories
-- **Documentation (Phase 11)**: Can start after user stories
-- **Performance (Phase 12)**: Depends on all stories
-- **Quickstart (Phase 13)**: Depends on all implementation
-- **Polish (Phase 14)**: Depends on all validation
-
-### User Story Dependencies
-
-- **US1 (P1 - MVP)**: No dependencies on other stories
-- **US2 (P2)**: No dependencies on other stories
-- **US3 (P2)**: No dependencies on other stories
-- **US4 (P3)**: Builds on US1 patterns
-- **US5 (P3)**: Should start after US1-US4 (consistency polish)
+- Setup (Phase 1): No dependencies
+- Foundational (Phase 2): Depends on Setup - **BLOCKS all user stories**
+- User Stories (Phase 3-7): Depend on Foundational
+  - US1 (P1) first, then US2/US3 (P2) in parallel, then US4/US5 (P3)
+- PR Governance (Phase 8): After Phase 2, integrated with US1
+- Testing (Phase 9): After all user stories + governance
+- Polish (Phase 10): After all testing
 
 ### Parallel Opportunities
 
-- Setup tasks marked [P]: T003, T004, T006
-- Foundational tasks marked [P]: T009, T010, T011, T014
-- Once Foundational complete: All user stories can start in parallel
-- Within stories: All instruction blocks marked [P] can run in parallel
-- Phases 8, 9, 11 can run in parallel once prior phases complete
+- **Phase 1**: T001-T005 parallel
+- **Phase 2**: Audit sections (T006-T013) parallel; Framework (T017-T024) parallel; Constitution (T025-T029) parallel
+- **Phase 3**: PR governance structure (T030-T034) sequence; Instruction blocks (T039-T061) parallel; Enhancement (T062-T068) parallel after blocks
+- **Phase 4**: Audit guide sections (T072-T079) parallel; Report tasks sequence
+- **Phase 5**: Branch context (T088-T103) parallel
+- **Phase 8**: Rules definition (T130-T165) parallel; Testing (T133-T169) parallel after rules
+- **Phase 9**: Deployments (T171-T175) parallel; Tests (T176-T180) parallel; Validation (T201-T208) parallel
+- **Phase 10**: Documentation (T209-T214) parallel; Cleanup (T215-T220) parallel; Verification (T221-T225) parallel
+
+### Critical Path (Shortest Time)
+
+With unlimited parallelization: ~3-4 weeks
+With single developer: 14-16 weeks (sequential)
 
 ---
 
 ## Implementation Strategy
 
-### MVP First (User Story 1)
+### MVP (User Story 1 Only)
 
-1. Complete Phase 1: Setup
-2. Complete Phase 2: Foundational
-3. Complete Phase 3: User Story 1
-4. Validate independently (T016-T019)
-5. Deploy if ready
+1. Phase 1: Setup (1 day)
+2. Phase 2: Foundational (3 days) - **CRITICAL**
+3. Phase 3: US1 (7-10 days)
+4. Phase 8: PR Governance (3-4 days)
+5. Phase 9: Testing partial (3-5 days)
+6. **STOP & VALIDATE**: MVP ready
+7. **Result**: Code review + governance for 47-50 file types
 
-### Incremental Delivery (All User Stories)
+### Full Delivery
 
-1. Setup + Foundational → Foundation ready
-2. User Story 1 → Deploy MVP (~60-70% coverage)
-3. User Story 2 → Deploy (enable audit)
-4. User Story 3 → Deploy (branch context)
-5. User Story 4 → Deploy (new file types)
-6. User Story 5 → Deploy (consistency)
-
-### Parallel Team Strategy
-
-With multiple developers, once Foundational complete:
-- Developer A: User Story 1 (instruction blocks)
-- Developer B: User Story 2 (audit guide)
-- Developer C: User Story 3 (branch context)
-- Developer D: User Story 4 (new file types)
+1. MVP + Phase 4: US2 (2-3 days)
+2. Add Phase 5-7: US3/US4/US5 (7-10 days)
+3. Complete Phase 9: Full testing (5-7 days)
+4. Complete Phase 10: Polish (2-3 days)
+5. **Result**: Complete unified feature deployment
 
 ---
 
-**Total Tasks**: 127 (T001-T127)  
-**Parallel Opportunities**: ~45 tasks marked [P]  
-**Estimated Effort**: 44-61 hours per plan.md  
-**MVP Scope**: Phases 1-3 (T001-T029) with ~60-70% file type coverage
+## Notes
 
----
-
-## Phase 15: Convergence (Gap Closure)
-
-**Purpose**: Address spec/plan requirements not yet satisfied by the current implementation
-
-**Assessment Results**: 
-- Implementation is substantially complete (12.5/13 success criteria satisfied)
-- 50 path instruction blocks deployed with avg 6.1 focus areas per block
-- Pattern priority system documented with clear resolution algorithm
-- Branch-type context documented in BRANCHING_STRATEGY.md § 5.3
-- Technology-agnosticism verified (zero framework-specific violations)
-- All external audit/alignment guides created except one: CODERABBIT_ADD_PATTERN.md
-
-**Identified Gaps**:
-
-- [x] T128 Create `docs/CODERABBIT_ADD_PATTERN.md` quick-reference guide for adding new instruction blocks in <5 minutes per SC-010. Include: template for new path entry, step-by-step instructions, validation checklist, example of adding a new file type pattern, reference to priority system and pattern conflict resolution
+- [P] = parallelizable (different files, no dependencies)
+- [US#] = user story mapping
+- Each story independently testable and deliverable
+- Test/verify at each checkpoint before advancing
+- Commit after each major phase
+- Document any plan deviations with rationale
+- Accuracy targets: Template validation ≥95%/≥90%, Label suggestions ≥85%, DoD ≥90% relevance, Doc validation zero silent failures
