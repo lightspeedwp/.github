@@ -102,22 +102,48 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Validate PR template applied
+      - name: Validate PR template routing and structure
         shell: bash
         run: |
           BRANCH="${{ github.head_ref }}"
           PR_BODY="${{ github.event.pull_request.body }}"
+          TITLE="${{ github.event.pull_request.title }}"
 
           # Extract type from branch
           TYPE=$(echo "$BRANCH" | cut -d'/' -f1)
 
-          # Validate template was applied
-          if [[ ! "$PR_BODY" =~ "## Summary" ]]; then
-            echo "❌ PR template not properly applied - missing Summary section"
+          # Map branch type to expected template
+          case "$TYPE" in
+            feat)
+              REQUIRED_SECTIONS=("## Summary" "## Changes" "## Testing" "## Checklist")
+              ;;
+            fix|hotfix|security)
+              REQUIRED_SECTIONS=("## Summary" "## Problem" "## Solution" "## Testing" "## Checklist")
+              ;;
+            docs|doc)
+              REQUIRED_SECTIONS=("## Summary" "## Changes")
+              ;;
+            *)
+              REQUIRED_SECTIONS=("## Summary" "## Changes")
+              ;;
+          esac
+
+          # Validate all required sections present
+          MISSING_SECTIONS=()
+          for SECTION in "${REQUIRED_SECTIONS[@]}"; do
+            if [[ ! "$PR_BODY" =~ "$SECTION" ]]; then
+              MISSING_SECTIONS+=("$SECTION")
+            fi
+          done
+
+          if [[ ${#MISSING_SECTIONS[@]} -gt 0 ]]; then
+            echo "❌ PR template not properly applied"
+            echo "Expected for type '$TYPE': ${REQUIRED_SECTIONS[@]}"
+            echo "Missing sections: ${MISSING_SECTIONS[@]}"
             exit 1
           fi
 
-          echo "✅ PR template validation passed"
+          echo "✅ PR template validation passed (type: $TYPE)"
 
   changelog-validation:
     name: Validate Changelog Entry
@@ -131,23 +157,39 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Check CHANGELOG.md modification
+      - name: Check CHANGELOG.md modification and format
         shell: bash
         run: |
-          # Check if this is a docs-only PR
-          if [[ "${{ github.event.pull_request.title || '' }}" == *"docs:"* ]] || [[ "${{ github.event.pull_request.title || '' }}" == *"doc:"* ]]; then
-            echo "ℹ️ Docs-only PR - skipping changelog requirement"
+          TITLE="${{ github.event.pull_request.title || '' }}"
+
+          # Check if this is a docs-only or chore PR (exempt from changelog)
+          if [[ "$TITLE" == *"docs:"* ]] || [[ "$TITLE" == *"doc:"* ]] || [[ "$TITLE" == *"chore:"* ]]; then
+            echo "ℹ️ Docs-only/chore PR - skipping changelog requirement"
             exit 0
           fi
 
           # Check if CHANGELOG.md was modified
-          git diff --name-only origin/develop...HEAD | grep -q "CHANGELOG.md"
-          if [ $? -ne 0 ]; then
-            echo "❌ CHANGELOG.md was not modified - changelog entry required for all PRs"
+          if ! git diff --name-only origin/develop...HEAD | grep -q "CHANGELOG.md"; then
+            echo "❌ CHANGELOG.md was not modified"
+            echo "Changelog entry required for all feature/fix/refactor/security PRs"
+            echo ""
+            echo "Format must follow Keep a Changelog 1.1.0:"
+            echo "## [X.Y.Z] - YYYY-MM-DD"
+            echo "### Added"
+            echo "- New feature description"
+            echo "### Fixed"
+            echo "- Bug fix description"
             exit 1
           fi
 
-          echo "✅ Changelog entry detected"
+          # Validate changelog format (Keep a Changelog)
+          if ! grep -E "^## \[[0-9]+\.[0-9]+\.[0-9]+\]" CHANGELOG.md | head -1 | grep -q .; then
+            echo "❌ CHANGELOG.md format invalid"
+            echo "Expected: ## [X.Y.Z] - YYYY-MM-DD"
+            exit 1
+          fi
+
+          echo "✅ Changelog entry detected and format valid"
 
   commit-validation:
     name: Validate Commit Messages
@@ -168,11 +210,41 @@ jobs:
           BASE_SHA=$(git rev-parse origin/develop)
           HEAD_SHA=$(git rev-parse HEAD)
 
-          COMMITS=$(git log --format=%B $BASE_SHA..$HEAD_SHA)
-
-          if [[ -z "$COMMITS" ]]; then
-            echo "⚠️  No commits to validate"
+          # Check for commits
+          COMMIT_COUNT=$(git rev-list --count $BASE_SHA..$HEAD_SHA 2>/dev/null || echo "0")
+          if [[ "$COMMIT_COUNT" == "0" ]] || [[ "$COMMIT_COUNT" == "" ]]; then
+            echo "⚠️  No new commits to validate"
             exit 0
+          fi
+
+          # Validate each commit message
+          FAILED=0
+          while IFS= read -r COMMIT_HASH; do
+            COMMIT_MSG=$(git log -1 --format=%B "$COMMIT_HASH")
+            COMMIT_SUBJECT=$(git log -1 --format=%s "$COMMIT_HASH")
+
+            # Check if commit is squash/fixup (allow skipping validation)
+            if [[ "$COMMIT_SUBJECT" =~ ^(squash|fixup)! ]]; then
+              continue
+            fi
+
+            # Basic format check: should have meaningful subject
+            if [[ -z "$COMMIT_SUBJECT" ]] || [[ ${#COMMIT_SUBJECT} -lt 5 ]]; then
+              echo "❌ Commit $COMMIT_HASH: Subject too short or empty"
+              FAILED=1
+              continue
+            fi
+
+            # Check for conventional commit format (optional but recommended)
+            if ! [[ "$COMMIT_SUBJECT" =~ ^(feat|fix|docs|style|refactor|perf|test|chore|revert)(\(.+\))?:\ .{3,} ]]; then
+              echo "⚠️  Commit $COMMIT_HASH: Consider using conventional commit format"
+              echo "   Format: <type>(<scope>): <subject>"
+              echo "   Example: feat(auth): add login validation"
+            fi
+          done < <(git rev-list $BASE_SHA..$HEAD_SHA)
+
+          if [[ $FAILED -eq 1 ]]; then
+            exit 1
           fi
 
           echo "✅ Commit message validation passed"
@@ -199,6 +271,52 @@ jobs:
           fi
 
           echo "✅ Workflow file validation passed"
+
+  secret-scanning:
+    name: Scan for Secrets
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && contains(fromJSON('["all","pr-only"]'), inputs.scope))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run secret scanning
+        shell: bash
+        run: |
+          # Use truffleHog or similar for secret scanning
+          # For now, basic pattern matching for common secrets
+
+          echo "🔍 Scanning for hardcoded secrets..."
+
+          # Patterns to detect
+          PATTERNS=(
+            "password\s*=\s*['\"].*['\"]"
+            "api[_-]?key\s*=\s*['\"].*['\"]"
+            "secret\s*=\s*['\"].*['\"]"
+            "token\s*=\s*['\"].*['\"]"
+            "AWS_ACCESS_KEY_ID|AWS_SECRET_ACCESS_KEY"
+            "BEGIN RSA PRIVATE KEY|BEGIN PRIVATE KEY"
+          )
+
+          FOUND_SECRETS=0
+          for PATTERN in "${PATTERNS[@]}"; do
+            if git diff origin/develop...HEAD | grep -iE "$PATTERN" | grep -v "node_modules" | grep -v ".git" > /dev/null; then
+              echo "⚠️  Potential secret found matching pattern: $PATTERN"
+              FOUND_SECRETS=$((FOUND_SECRETS + 1))
+            fi
+          done
+
+          if [[ $FOUND_SECRETS -gt 0 ]]; then
+            echo "❌ Secret scanning found potential secrets"
+            echo "Please review changes for hardcoded credentials, tokens, or keys"
+            exit 1
+          fi
+
+          echo "✅ No secrets detected in diff"
 
   # ============================================================================
   # Issue-triggered validation jobs
@@ -274,6 +392,7 @@ jobs:
         changelog-validation,
         commit-validation,
         workflow-validation,
+        secret-scanning,
         issue-dor-validation,
         issue-project-validation,
         scheduled-docs-validation,
@@ -289,3 +408,4 @@ jobs:
           echo "Changelog validation: ${{ needs.changelog-validation.result }}"
           echo "Commit validation: ${{ needs.commit-validation.result }}"
           echo "Workflow validation: ${{ needs.workflow-validation.result }}"
+          echo "Secret scanning: ${{ needs.secret-scanning.result }}"
