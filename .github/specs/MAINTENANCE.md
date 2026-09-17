@@ -306,7 +306,7 @@ When updating catalog entries, verify:
 
 ```
 1. Determine correct row position (maintain sequential order)
-2. Add row to index table with canonical columns: # | Title | Purpose | Status | Created | Link
+2. Add row to index table with canonical columns: # | Slug | Title | Status | Created | Link
 3. Add detailed entry section below with status, phase, created/updated dates, and relative link (./NNN-slug/spec.md)
 4. Update "Last Updated" date at top of CATALOG.md
 5. Verify all links are valid and use relative format

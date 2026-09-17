@@ -5,11 +5,13 @@ on:
     paths:
       - '.github/specs/**'
       - '.github/workflows/validate-specifications.yml'
+      - '.specify/scripts/bash/audit-specs.sh'
   push:
     branches:
       - develop
     paths:
       - '.github/specs/**'
+      - '.specify/scripts/bash/audit-specs.sh'
 
 permissions:
   contents: read
@@ -29,7 +31,7 @@ jobs:
       - name: Run specification audit
         id: audit
         run: |
-          bash .specify/scripts/bash/audit-specs.sh > audit-output.txt 2>&1 || true
+          bash .specify/scripts/bash/audit-specs.sh > audit-output.txt 2>&1
           cat audit-output.txt
 
       - name: Validate catalog exists
@@ -57,7 +59,8 @@ jobs:
           fi
 
           # Verify canonical columns exist in active specifications table
-          if grep -q "^|.*Slug.*|.*Title.*|.*Status.*|.*Created.*|.*Link.*|$" .github/specs/CATALOG.md; then
+          # Look for the Active Specifications section and verify the header row matches exactly
+          if grep -A 2 "## Active Specifications" .github/specs/CATALOG.md | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
             echo "schema_valid=true" >> $GITHUB_OUTPUT
             echo "✓ Table follows canonical schema (# | Slug | Title | Status | Created | Link)"
           else
@@ -127,6 +130,18 @@ jobs:
           else
             echo "maintenance_ok=false" >> $GITHUB_OUTPUT
             echo "⚠ MAINTENANCE.md should document canonical schema"
+          fi
+
+      - name: Run audit script test suite
+        id: tests
+        run: |
+          if command -v bats &> /dev/null; then
+            bats tests/bash/audit-specs.bats
+            echo "tests_ok=true" >> $GITHUB_OUTPUT
+            echo "✓ Audit script tests passed"
+          else
+            echo "tests_ok=skipped" >> $GITHUB_OUTPUT
+            echo "⚠ Bats not available, skipping tests"
           fi
 
       - name: Generate compliance report
