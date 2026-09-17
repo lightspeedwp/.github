@@ -5,6 +5,12 @@
 set -euo pipefail
 
 # Resolve SPECS_DIR from repo root using find_specify_root or by looking for .specify
+# find_repo_root - Locate repository root by searching for .specify directory
+# Parameters:
+#   $1 - Starting directory (default: current directory)
+# Returns:
+#   0 on success with repo root path echoed
+#   1 if .specify directory not found in any parent directory
 find_repo_root() {
   local dir="${1:-.}"
   dir="$(cd "$dir" 2>/dev/null && pwd)" || return 1
@@ -33,7 +39,12 @@ fi
 # Audit Functions
 # ============================================================================
 
-# Print the count and paths of spec directories with three-digit prefixes.
+# audit_scan_directories - Print the count and paths of spec directories with three-digit prefixes.
+# Parameters: None
+# Returns:
+#   0 always succeeds
+# Output:
+#   Status message with count and list of all spec directory paths
 audit_scan_directories() {
   echo "📋 Scanning directories in $SPECS_DIR..."
 
@@ -52,8 +63,12 @@ audit_scan_directories() {
   printf '%s\n' "${dirs[@]}"
 }
 
-# Print whether a directory basename follows the {NNN}-{lowercase-slug} format.
-# Return 0 when it does and 1 otherwise.
+# verify_naming_convention - Print whether a directory basename follows the {NNN}-{lowercase-slug} format.
+# Parameters:
+#   $1 - Directory path to validate
+# Returns:
+#   0 when directory name matches pattern {NNN}-{lowercase-slug}
+#   1 when directory name does not match required format
 verify_naming_convention() {
   local dir="$1"
   local basename
@@ -69,8 +84,12 @@ verify_naming_convention() {
   fi
 }
 
-# Print whether the given directory contains a regular spec.md file.
-# Return 0 when it does and 1 otherwise.
+# verify_spec_file - Print whether the given directory contains a regular spec.md file.
+# Parameters:
+#   $1 - Directory path to check for spec.md
+# Returns:
+#   0 when spec.md file exists and is a regular file
+#   1 when spec.md is missing or not a regular file
 verify_spec_file() {
   local dir="$1"
   local spec_file="$dir/spec.md"
@@ -84,7 +103,13 @@ verify_spec_file() {
   fi
 }
 
-# Print the first three characters of the given directory's basename.
+# extract_number - Print the first three characters of the given directory's basename.
+# Parameters:
+#   $1 - Directory path to extract number from
+# Returns:
+#   0 always succeeds
+# Output:
+#   Three-digit specification number extracted from directory basename
 extract_number() {
   local dir="$1"
   local basename
@@ -92,8 +117,13 @@ extract_number() {
   echo "${basename:0:3}"
 }
 
-# Check that spec directory prefixes form a contiguous sequence starting at 001.
-# Print the result and return 1 when the sequence is not contiguous.
+# verify_sequential_numbering - Check that spec directory prefixes form a contiguous sequence starting at 001.
+# Parameters: None
+# Returns:
+#   0 when numbering is contiguous with no gaps or duplicates
+#   1 when gaps, duplicates, or empty inventory is detected
+# Output:
+#   Status messages for each validation check and overall result
 verify_sequential_numbering() {
   echo ""
   echo "🔢 Verifying sequential numbering..."
@@ -141,8 +171,13 @@ verify_sequential_numbering() {
   fi
 }
 
-# Print per-directory checks and aggregate naming and spec.md pass counts.
-# Return 1 if checks fail.
+# generate_inventory_report - Print per-directory checks and aggregate naming and spec.md pass counts.
+# Parameters: None
+# Returns:
+#   0 when all directories pass naming and spec.md checks
+#   1 if any directory fails naming or spec.md validation
+# Output:
+#   Per-directory validation results and summary table with pass counts
 generate_inventory_report() {
   echo ""
   echo "📊 Complete Inventory Report"
@@ -194,7 +229,14 @@ generate_inventory_report() {
 # Main
 # ============================================================================
 
-# Run the directory scan, numbering check, and inventory report in sequence.
+# main - Run the directory scan, numbering check, and inventory report in sequence.
+# Parameters:
+#   $@ - Arguments passed through to main function (currently unused)
+# Returns:
+#   0 when all audit checks pass
+#   1 when any audit check fails
+# Output:
+#   Complete audit report with header, directory scans, numbering verification, and inventory summary
 main() {
   echo "🔍 SpecKit Folder Structure Audit"
   echo "=================================="
