@@ -92,7 +92,7 @@ validate_link_target() {
 
 @test "draft specifications data rows have exactly 6 columns" {
   local bad_rows=0
-  local draft_section=$(sed -n '/## Draft Specifications/,$p' "$CATALOG_FILE")
+  local draft_section=$(sed -n '/## Draft Specifications/,/^## /p' "$CATALOG_FILE" | sed '$d')
 
   # Skip header and separator rows, check each data row
   while IFS= read -r row; do
