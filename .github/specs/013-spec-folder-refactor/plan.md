@@ -22,7 +22,7 @@ Audit the current `.github/specs/` folder organization (12 existing specificatio
 
 **Storage**: GitHub filesystem (`.github/specs/` directory tree); specification files are Markdown + YAML frontmatter
 
-**Testing**: Manual verification against acceptance criteria; no automated test framework (governance audit project)
+**Testing**: Manual verification against acceptance criteria; automated PR validation configured to run `.specify/scripts/bash/audit-specs.sh` and catalog-link validation on changes to `.github/specs/` files
 
 **Target Platform**: GitHub.com; applies to `.github` repository control plane
 
