@@ -112,7 +112,7 @@ phases: 7
 
 ### US2 Tasks
 
-- [ ] T025 [P] [US2] Analyze 12 archived validation workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/validation-analysis.md`
+- [x] T025 [P] [US2] Analyze 11 archived validation workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/validation-analysis.md`
 - [ ] T026 [US2] Create unified validation workflow at `.github/workflows/validation-unified.yml` with parallel jobs for: (1) branch naming, (2) PR template, (3) changelog, (4) commits, (5) secrets
 - [ ] T027 [P] [US2] Implement branch naming validation job: check `{type}/{scope}-{title}` format per `.github/instructions/branch-naming.instructions.md`, post comment if invalid
 - [ ] T028 [P] [US2] Implement PR template validation job: verify correct template routed based on branch prefix, check template fields populated
@@ -138,7 +138,7 @@ phases: 7
 
 ### US3 Tasks
 
-- [ ] T037 [P] [US3] Analyze 8 archived testing workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/testing-analysis.md`
+- [x] T037 [P] [US3] Analyze 2 archived testing workflows and document patterns in `.github/specs/011-workflow-consolidation-phase-2/testing-analysis.md`
 - [ ] T038 [US3] Create unified testing workflow at `.github/workflows/testing-unified.yml` with parallel jobs for: (1) unit tests, (2) integration tests, (3) E2E tests, (4) coverage aggregation
 - [ ] T039 [P] [US3] Implement unit test job: run npm test (or language-appropriate test command), upload coverage to artifacts, report to metrics
 - [ ] T040 [P] [US3] Implement integration test job: run integration test suite, upload results to artifacts, validate ≥80% coverage
