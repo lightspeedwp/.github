@@ -208,8 +208,8 @@ async function main() {
 
     // Determine gate result
     const passRate = parseFloat(validationResult.pass_rate);
-    let gateResult = 'pass';
-    let recommendation = 'approved';
+    let gateResult;
+    let recommendation;
 
     if (passRate === 100) {
       gateResult = 'pass';
