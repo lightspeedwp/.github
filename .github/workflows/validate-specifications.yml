@@ -38,11 +38,20 @@ jobs:
       - name: Validate catalog structure
         id: catalog
         run: |
+          set +e
           bash .specify/scripts/bash/validate-catalog.sh
-          echo "status=found" >> "$GITHUB_OUTPUT"
-          echo "schema_valid=true" >> "$GITHUB_OUTPUT"
-          echo "links_valid=true" >> "$GITHUB_OUTPUT"
-          echo "maintenance_ok=true" >> "$GITHUB_OUTPUT"
+          exit_code=$?
+          set -e
+
+          if [ $exit_code -eq 0 ]; then
+            echo "status=found" >> "$GITHUB_OUTPUT"
+            echo "schema_valid=true" >> "$GITHUB_OUTPUT"
+            echo "links_valid=true" >> "$GITHUB_OUTPUT"
+            echo "maintenance_ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Validation failed with exit code $exit_code" >&2
+            exit 1
+          fi
 
       - name: Install Bats test framework
         uses: bats-core/bats-action@4.0.0
