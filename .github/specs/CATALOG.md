@@ -221,9 +221,7 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 - **Draft**: New specification pending governance approval
 - **Active**: Approved and in use
-- **Complete**: Implementation finished; preserved for reference
-- **Archived**: No longer used; preserved for historical traceability
-- **Deprecated**: Superseded by newer specification
+- **Archived**: No longer used; superseded, cancelled, or deprecated; preserved for historical traceability
 
 ---
 
