@@ -249,12 +249,12 @@ Central catalog maintained at: `.github/specs/CATALOG.md`
 
 | Field | Description | Example |
 |-------|-------------|---------|
-| Number | 3-digit spec number | 001 |
-| Slug | Lowercase hyphenated identifier | prd-agent-consolidation |
+| # | 3-digit spec number | 001 |
 | Title | Human-readable specification title | PRD Agent Consolidation |
 | Purpose | One-line purpose statement | Consolidate multiple PRD agents into unified system |
-| Status | Draft / Active / Archived / Deprecated | Active |
+| Status | Draft, Active, or Archived (canonical enum) | Active |
 | Created | Date specification was created | 2026-01-15 |
+| Link | Relative markdown link to spec.md | [./001-prd-agent-consolidation/spec.md](./001-prd-agent-consolidation/spec.md) |
 
 ### Currency Requirements
 

@@ -110,7 +110,7 @@
 
 4. **Update CATALOG.md**
    - Update `Updated` date for affected entry
-   - Update status if changed (Draft → Clarified, etc.)
+   - Update status if changed (Draft → Active or Active → Archived)
 
 5. **Approval gate**
    - Changes require @ashley review (governance authority)

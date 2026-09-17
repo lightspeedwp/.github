@@ -52,7 +52,7 @@ Archived/deprecated specifications (if any)
 - `#` column: 3-digit number (left-padded with zeros)
 - `Title` column: Full specification title
 - `Purpose` column: One-line purpose summary
-- `Status` column: Draft, Active, or Complete
+- `Status` column: One of `Draft`, `Active`, `Archived` (canonical enum)
 - `Created` column: ISO 8601 date (YYYY-MM-DD)
 - `Link` column: Markdown link to `./NNN-{slug}/spec.md`
 

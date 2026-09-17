@@ -32,7 +32,7 @@
 - [ ] Spec number in catalog matches directory name (e.g., catalog says 001 for `.github/specs/001-*`)
 - [ ] Spec title in catalog matches spec.md title
 - [ ] Purpose summary in catalog is accurate and concise
-- [ ] Status field is current (Draft, Active, or Complete)
+- [ ] Status field uses canonical value (Draft, Active, or Archived only)
 - [ ] Created date is accurate (matches spec creation date if documented)
 
 ---
