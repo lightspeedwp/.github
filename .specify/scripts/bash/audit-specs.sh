@@ -124,8 +124,8 @@ generate_inventory_report() {
   local naming_pass=0
   local spec_file_pass=0
 
-  # Scan and report on each directory
-  for dir in "$SPECS_DIR"/[0-9][0-9][0-9]-*/; do
+  # Scan ALL immediate subdirectories (including malformed ones) for inventory and validation
+  for dir in "$SPECS_DIR"/*/; do
     if [ -d "$dir" ]; then
       ((++total_dirs))
       local basename=$(basename "$dir")
