@@ -4,6 +4,11 @@
 
 set -euo pipefail
 
+# Enable debug output for troubleshooting environment-specific issues
+if [ "${DEBUG:-}" = "1" ] || [ "${GITHUB_ACTIONS:-}" = "true" ]; then
+  set -x
+fi
+
 # CATALOG_PATH - Always use relative path from repo root
 CATALOG_PATH=".github/specs/CATALOG.md"
 
@@ -125,6 +130,9 @@ validate_maintenance_schema() {
 main() {
   echo "📋 Catalog Validation"
   echo "===================="
+  echo "Working directory: $(pwd)"
+  echo "CATALOG_PATH: $CATALOG_PATH"
+  [ -f "$CATALOG_PATH" ] && echo "CATALOG.md size: $(wc -c < "$CATALOG_PATH") bytes" || echo "CATALOG.md: NOT FOUND"
   echo ""
 
   local rc=0
@@ -146,6 +154,7 @@ main() {
   validate_maintenance_schema || rc=1
   echo ""
 
+  echo "Final result: rc=$rc"
   return $rc
 }
 
