@@ -45,6 +45,18 @@
 
 ---
 
+## Clarifications
+
+### Session 2026-09-17
+
+- Q: Where should changelog entry validation feedback be displayed to help maintainers assess compliance before release? → A: GitHub pull request check annotations (red/yellow badges in PR checks tab with detailed failure reasons).
+- Q: Which terms should be flagged as "implementation details" when they appear in changelog entries? → A: Only code-specific terms: function/method names, class names, REST API, GraphQL, database, query, cache, transaction, endpoint. Architectural verbs (refactored, optimised, deployed, etc.) are permitted as user-focused language.
+- Q: Should the release agent automatically validate and enforce changelog compliance before creating a release? → A: Automatic validation gate: release agent validates changelog compliance and blocks release if compliance < 95%.
+- Q: If a PR referenced in a changelog entry is deleted, should validation fail, warn, or pass? → A: Warn (non-blocking): deleted PRs flagged for manual review, but release can proceed if needed.
+- Q: Where do the 5+ existing validation scripts live and what do they check? → A: Scripts live in `.github/workflows/` and `scripts/validation/`; consolidation covers: (1) changelog file existence, (2) [Unreleased] section structure validation, (3) entry format/list validation, (4) PR link detection, (5) length checks.
+
+---
+
 ## User Scenarios & Acceptance
 
 ### Scenario 1: Maintainer Reviews Changelog Entry
@@ -68,12 +80,13 @@
 **Flow:**
 
 1. Developer creates PR with changelog entry
-2. CI validation gate runs (7-layer validation system)
-3. Entry is checked for: length, format, PR link, implementation details
-4. If compliant: CI passes, PR proceeds
-5. If non-compliant: CI fails with specific actionable feedback
+2. CI validation gate runs automatically
+3. Entry is checked for: length (≤250 chars), format, PR link presence, implementation details
+4. Validation result appears as **GitHub PR check annotation** (red/yellow badge in PR checks tab)
+5. If compliant: Check passes (green), PR proceeds; if non-compliant: Check fails (red) with specific, actionable error messages
+6. Developer reads failure details directly in PR checks tab and refactors entry locally
 
-**Acceptance:** Developers receive clear, actionable failure messages; 95%+ of entries pass on first submission after Phase 5.
+**Acceptance:** Developers receive clear, actionable failure messages in PR UI; 95%+ of entries pass on first submission after Phase 5.
 
 ### Scenario 3: Release Manager Generates Release Notes
 
@@ -113,20 +126,21 @@
 - **Standards enforced:**
   - Maximum length: 250 characters (user-facing summary, no internal details)
   - Presence: PR link (GitHub URL format)
-  - Content: No implementation details (no code snippets, framework names, API internals)
+  - Content: No code-specific implementation details (no code snippets, function/method names, class names, API internals like "REST API", "GraphQL", "database", "query", "cache", "transaction", "endpoint")
   - Format: Consistent punctuation and tense
 - **Assessment output:** Pass/fail status per entry, specific violation list
-- **Testable:** Validator script must flag entries exceeding 250 chars; script must identify implementation keywords (e.g., "refactored", "fixed", "added logic", "updated database")
+- **Testable:** Validator script must flag entries exceeding 250 chars; script must identify code-specific keywords (e.g., "function", "class", "database query", "REST API endpoint") but permit architectural verbs (e.g., "refactored", "optimised", "deployed")
 
 ### FR-2: Automated Enforcement Gates
 
-- **Requirement:** CI/CD validation gates must block PRs with non-compliant changelog entries
+- **Requirement:** CI/CD validation gates must block PRs with non-compliant changelog entries and display results as GitHub PR check annotations
 - **Gate behavior:**
   - Triggers on any PR targeting `develop` or `main` if CHANGELOG.md is modified
-  - Validates all [Unreleased] entries (both existing and new)
-  - Provides pass/fail verdict and specific failure reasons
+  - Validates all [Unreleased] entries (both existing and new) against all quality standards
+  - **Output format:** GitHub PR check (red/yellow badge) with detailed violation list per entry
+  - Provides clear, actionable failure reasons (character count, missing links, detected keywords)
   - Does NOT block PRs from branches lacking changelog entries (configuration option)
-- **Testable:** CI must reject PR with 300-char entry; CI must approve PR with 250-char compliant entry
+- **Testable:** PR with 300-char entry displays red check with "ENTRY_TOO_LONG" violation; PR with 250-char compliant entry displays green check
 
 ### FR-3: Auto-Linking Automation
 
@@ -154,11 +168,12 @@
 
 - **Requirement:** Existing changelog validation workflows must be consolidated into a single, maintainable system
 - **Consolidation scope:**
-  - Merge 5+ separate validation scripts into unified pipeline
-  - Establish single source of truth for validation rules
+  - Merge 5+ separate validation scripts from `.github/workflows/` and `scripts/validation/` into unified pipeline
+  - Existing checks being consolidated: (1) changelog file existence, (2) [Unreleased] section structure, (3) entry format/list, (4) PR link detection, (5) length validation
+  - Establish single source of truth for validation rules (configuration-driven, not hardcoded)
   - Remove redundant checks and conflicting rule sets
 - **Migration:** Existing workflows remain functional during transition; no service interruption
-- **Testable:** All existing validation behavior preserved; new single pipeline passes 100% of previous tests
+- **Testable:** All existing validation behavior preserved; new unified pipeline passes 100% of previous checks; no false positives/negatives introduced
 
 ### FR-6: Team Training & Documentation
 
@@ -170,12 +185,23 @@
 - **Training delivery:** Live Q&A session (targeted 90%+ attendance); recorded session available
 - **Testable:** Post-training assessment shows 85%+ understanding of compliance standards
 
+### FR-7: Release Agent Integration
+
+- **Requirement:** Release agent must validate changelog compliance as an automated prerequisite gate before release
+- **Integration scope:**
+  - Release workflow calls changelog validation before version bump
+  - Blocks release if compliance < 95%
+  - Provides clear feedback on validation failure with specific entry violations
+  - Allows release manager to override block with documented exception (if needed)
+- **Workflow:** Release manager triggers release → agent validates changelog → if compliant (≥95%), proceeds to version bump; if non-compliant (<95%), blocks with detailed failure report
+- **Testable:** Release with 94% compliant entries blocked with detailed violation list; release with 95%+ compliant entries proceeds
+
 ---
 
 ## Success Criteria
 
 1. **Quality Compliance:** 95%+ of changelog entries meet all quality standards (length, format, content, links)
-2. **Zero Implementation Details:** 0 entries detected with implementation jargon or internal details
+2. **Zero Code-Specific Details:** 0 entries detected with code-specific jargon (function/method names, class names, REST API, GraphQL, database references, etc.); architectural verbs permitted
 3. **Automated Linking:** 100% of PR references auto-linked with 99.9% link accuracy
 4. **CI Enforcement:** 100% of non-compliant entries blocked by CI validation gate; no false positives
 5. **Metrics Accuracy:** Dashboard metrics within 1% of manual audit results
@@ -253,6 +279,35 @@
 
 ---
 
+## Edge Cases & Failure Handling
+
+### Deleted PR References
+
+- **Scenario:** Changelog entry references PR #1234, but PR is subsequently deleted
+- **Behavior:** Validation flags as warning (non-blocking); appears in validation report for release manager review
+- **Release impact:** Release proceeds even with deleted PR warning; release manager must acknowledge and document reason
+- **Recovery:** Release notes can still reference the PR number; link will be dead but change is documented
+
+### Concurrent CHANGELOG.md Edits
+
+- **Scenario:** Multiple contributors edit CHANGELOG.md simultaneously
+- **Behavior:** Git merge conflict resolution handles via standard workflow; validation re-runs after merge
+- **Release impact:** Release blocked until conflict resolved and entries re-validated post-merge
+
+### GitHub API Unavailability
+
+- **Scenario:** GitHub API is down during release workflow
+- **Behavior:** Link validation degrades to local format check only (validates PR format, skips link verification)
+- **Release impact:** Release proceeds with reduced validation (format checks pass); link verification deferred to post-release audit
+
+### Entry with Multiple Issue Links
+
+- **Scenario:** Changelog entry references multiple issues (#123, #456, #789)
+- **Behavior:** All issue links validated independently; warnings/errors per link status
+- **Release impact:** Entry passes if all required links are valid; optional issue links can be dead (warning only)
+
+---
+
 ## Non-Functional Requirements
 
 ### Performance
@@ -284,7 +339,8 @@
 ## Related Projects & Dependencies
 
 **Related:** Label Governance Audit (2026-08-05) — coordinates with labeling rules for categorization  
-**Depends on:** Phase 4 deliverables (PR-to-changelog linking, maintainer review checklist)  
+**Depends on:** Phase 4 deliverables (PR-to-changelog linking, maintainer review checklist); Release Agent Phase 2 (integration with changelog validation)  
+**Integrates with:** Release Agent (`agents/release/release.agent.js`) — release workflow validates changelog compliance as automated gate  
 **Epic:** #1271 — Changelog Automation Hardening
 
 ---
