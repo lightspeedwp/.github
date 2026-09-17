@@ -220,7 +220,6 @@ The PRD Agent consolidates 28 purpose-built skills across the full planning life
 - Copilot Config: `copilot/agent.md` + `copilot/skills.yaml`
 - OpenAI Config: `openai/agent.md` + `openai/tools.json`
 - Plugin: `plugins/lightspeed-planning-prd/`
-- Cookbook: `cookbook/project-planning-and-prd-playbook.md`
 
 ---
 
