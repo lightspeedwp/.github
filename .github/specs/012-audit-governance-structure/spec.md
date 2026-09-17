@@ -106,9 +106,13 @@ As a **reader**, I need all references and links in governance files to point to
 ### Edge Cases
 
 - What happens if a referenced instruction file has been consolidated or moved but not updated in governance files?
+  - **Resolution**: Validate file existence comprehensively; flag all missing/moved references in AUDIT_REPORT.md with current vs. expected paths
 - How do we handle references to GitHub projects (`.github/projects/active/`) that may be archived or renamed?
+  - **Resolution**: Check project status; flag archived/renamed projects; document migration path if known
 - What if governance guidance conflicts with constitution principles but has been implemented in practice?
+  - **Resolution**: Flag all conflicts in AUDIT_REPORT.md with evidence; classify as "governance error" or "constitution exception"; let @ashley decide per-case
 - How do we validate that consolidated instruction files mentioned in AGENTS.md actually contain all the content they claim to consolidate?
+  - **Resolution**: For each consolidation claim, verify all referenced source files exist and contain expected sections; report completeness status in AUDIT_REPORT.md
 
 ## Requirements *(mandatory)*
 
@@ -164,6 +168,7 @@ As a **reader**, I need all references and links in governance files to point to
 - Q2: What categories of "bad references" to validate? → A: Validate all categories—broken/missing files, outdated paths, unimplemented consolidation claims, and line-number mismatches—for comprehensive reference validation
 - Q3: Audit report format and delivery mechanism? → A: Structured markdown report at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md` for version control, easy linking, and integration with spec artifacts
 - Q4: Audit and refactoring in same PR or separate phases? → A: Separate phases—Phase 1 audit findings only (AUDIT_REPORT.md for review/approval by @ashley), Phase 2 implements refactoring based on approved findings; allows critique before changes
+- Q5: How to handle conflicts between governance guidance and constitution? → A: Flag all conflicts in AUDIT_REPORT.md with evidence; classify each as either "governance error to fix" or "constitution exception to document"; let @ashley decide per-case during review
 
 ## Assumptions
 
