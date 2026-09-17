@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Workflow Consolidation Phase 1-2** — Completed baseline metrics, rollback procedure, 4 composite actions and test harness; 14 of 78 tasks done. (#3359)
+- **Workflow Consolidation Phase 3** — Implemented labeling-unified.yml consolidating 11 archived labeling workflows into one workflow with 9 jobs. (#3359)
 
 ### Fixed
 
