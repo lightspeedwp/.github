@@ -63,7 +63,7 @@ And delivering a reconciliation report showing:
 
 **Acceptance Scenarios**:
 
-1. **Given** the canonical `labels.yml` has 147 labels across 15 families, **When** we compare against governance policy never-delete list, **Then** we identify which labels in the policy don't exist in canonical file or have different names
+1. **Given** the canonical `labels.yml` has 169 labels across 15+ families, **When** we compare against governance policy never-delete list, **Then** we identify which labels in the policy don't exist in canonical file or have different names
 2. **Given** the `issue-types.yml` defines 25 type labels with specific mappings, **When** we cross-reference with labels.yml type family, **Then** we confirm all 25 type labels are present and identify any mismatches (e.g., `type:documentation` vs `type:docs`)
 3. **Given** documentation files (LABEL_*.md, ISSUE_*.md, PR_*.md) describe labeling strategy and taxonomy, **When** we audit these against canonical file, **Then** we identify what's documented but not implemented
 4. **Given** 11 archived workflows in `.github/workflows/archived/2026-09-11/labeling/`, **When** we analyze these workflows, **Then** we identify what labels they were trying to manage and why they were archived
