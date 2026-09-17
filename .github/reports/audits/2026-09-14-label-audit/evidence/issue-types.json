@@ -1,0 +1,31 @@
+{
+  "type_labels": [
+    "type:a11y",
+    "type:aiops",
+    "type:audit",
+    "type:automation",
+    "type:bug",
+    "type:build",
+    "type:chore",
+    "type:ci",
+    "type:compat",
+    "type:content-modelling",
+    "type:dependency",
+    "type:design",
+    "type:docs",
+    "type:epic",
+    "type:feature",
+    "type:improve",
+    "type:performance",
+    "type:question",
+    "type:refactor",
+    "type:release",
+    "type:research",
+    "type:review",
+    "type:security",
+    "type:task",
+    "type:test"
+  ],
+  "count": 25,
+  "note": "Extracted from issue_types.yml nested structure"
+}
