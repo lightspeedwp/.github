@@ -115,3 +115,9 @@ Capture the state of measurement before launch so post-launch performance can be
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

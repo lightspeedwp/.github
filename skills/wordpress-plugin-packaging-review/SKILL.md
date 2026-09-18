@@ -61,3 +61,9 @@ description: perform evidence-led WordPress plugin packaging reviews for agency,
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

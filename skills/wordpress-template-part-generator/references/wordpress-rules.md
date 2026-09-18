@@ -99,3 +99,7 @@ Use template-part insertion markup such as:
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
