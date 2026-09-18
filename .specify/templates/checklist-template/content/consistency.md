@@ -40,6 +40,8 @@ Create a conflict matrix documenting:
 - Mutually exclusive scenarios are clearly separated
 - Trade-offs are documented and approved
 
+**Spec Reference**: [Spec §FR-1] (Consistency dimension)
+
 ---
 
 ### CHK-014-Consistency
@@ -65,6 +67,8 @@ Document explicit reconciliation for each relationship:
 - Contradictions are identified and resolved
 - Precedence is clear (which requirement wins if conflict)
 - Compromises are documented with stakeholder approval
+
+**Spec Reference**: [Spec §FR-1] (Consistency dimension)
 
 ---
 
@@ -142,3 +146,5 @@ For each dependency document:
 - Circular dependencies are identified and resolved
 - Timing and sequencing constraints are explicit
 - Failure modes for each dependency are specified
+
+**Spec Reference**: [Spec §FR-1] (Consistency dimension)
