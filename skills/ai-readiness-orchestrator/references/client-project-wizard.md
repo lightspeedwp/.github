@@ -138,3 +138,6 @@ For a full project pack, create the standard 00 to 10 file sequence.
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

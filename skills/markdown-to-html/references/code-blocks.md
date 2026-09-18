@@ -104,3 +104,6 @@ You can also use code blocks to create diagrams in Markdown. GitHub supports Mer
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

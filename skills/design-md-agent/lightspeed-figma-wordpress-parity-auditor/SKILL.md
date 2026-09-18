@@ -160,3 +160,5 @@ Use asset templates when the user asks for tables, reports or downloadable outpu
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -114,3 +114,6 @@ The Linear inventory inspected on 2026-09-08 contained grouped, unprefixed label
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

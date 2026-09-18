@@ -97,3 +97,5 @@ When source media was adapted, a brief confirmation is enough if everything migr
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

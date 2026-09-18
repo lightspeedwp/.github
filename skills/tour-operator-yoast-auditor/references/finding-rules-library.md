@@ -75,3 +75,5 @@ Use these patterns to keep findings consistent.
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -73,3 +73,6 @@ description: Use when the user asks to create, update, audit, or validate a DESI
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

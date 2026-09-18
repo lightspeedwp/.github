@@ -72,3 +72,5 @@ Then run the Skill Creator packaging validator and confirm `skill.zip` can be op
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

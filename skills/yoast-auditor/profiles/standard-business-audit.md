@@ -56,3 +56,6 @@ Use client-safe wording focused on clarity, crawlability, indexation and search 
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

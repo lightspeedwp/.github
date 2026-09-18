@@ -60,3 +60,6 @@ Use for simple event interest or attendance registration where WooCommerce ticke
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -69,3 +69,6 @@ Route admin entries to the campaign owner. Include entry source and opt-in state
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

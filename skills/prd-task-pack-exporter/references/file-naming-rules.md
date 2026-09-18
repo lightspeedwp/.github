@@ -65,3 +65,6 @@ Avoid spaces, dates in filenames unless the user requests versioning, and vague 
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

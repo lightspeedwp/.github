@@ -110,3 +110,6 @@ To display a dollar sign as a character in the same line as a mathematical expre
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

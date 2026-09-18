@@ -59,3 +59,6 @@ Tell the user the dashboard is opening in their browser. The script outputs prog
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

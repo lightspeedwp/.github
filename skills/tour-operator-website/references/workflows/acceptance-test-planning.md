@@ -107,3 +107,5 @@ Use `references/outputs/output-contracts.md` for the acceptance test plan and QA
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

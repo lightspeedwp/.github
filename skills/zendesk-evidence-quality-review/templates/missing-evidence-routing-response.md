@@ -57,3 +57,6 @@ I should not review, polish, or approve the output yet because doing so would re
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
