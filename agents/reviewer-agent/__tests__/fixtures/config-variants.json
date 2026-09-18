@@ -1,0 +1,84 @@
+{
+  "variants": [
+    {
+      "name": "github-control-plane",
+      "repoType": "github",
+      "config": {
+        "excludedFiles": [".github/**", "node_modules/**"],
+        "excludedCategories": ["style"],
+        "autoResolvePatterns": ["TODO", "FIXME"],
+        "escalatePatterns": [
+          {"severity": "critical"},
+          {"category": "security"}
+        ]
+      }
+    },
+    {
+      "name": "wordpress-plugin",
+      "repoType": "wordpress-plugin",
+      "config": {
+        "excludedFiles": ["vendor/**", "languages/**"],
+        "excludedCategories": ["documentation"],
+        "autoResolvePatterns": ["WordPress deprecated"],
+        "escalatePatterns": [
+          {"severity": "critical"},
+          {"category": "security"},
+          {"category": "sanitization"}
+        ]
+      }
+    },
+    {
+      "name": "wordpress-theme",
+      "repoType": "wordpress-theme",
+      "config": {
+        "excludedFiles": ["assets/**", "vendor/**"],
+        "excludedCategories": ["performance", "documentation"],
+        "autoResolvePatterns": [],
+        "escalatePatterns": [
+          {"severity": "critical"},
+          {"category": "accessibility"}
+        ]
+      }
+    },
+    {
+      "name": "block-plugin",
+      "repoType": "wordpress-plugin",
+      "config": {
+        "excludedFiles": ["build/**", "node_modules/**"],
+        "excludedCategories": [],
+        "autoResolvePatterns": ["build artifacts"],
+        "escalatePatterns": [
+          {"severity": "critical"},
+          {"category": "security"},
+          {"category": "accessibility"}
+        ]
+      }
+    },
+    {
+      "name": "package",
+      "repoType": "github",
+      "config": {
+        "excludedFiles": ["dist/**", "coverage/**"],
+        "excludedCategories": [],
+        "autoResolvePatterns": ["auto-generated"],
+        "escalatePatterns": [
+          {"severity": "critical"},
+          {"severity": "major", "category": "security"}
+        ]
+      }
+    },
+    {
+      "name": "workflow-repo",
+      "repoType": "github",
+      "config": {
+        "excludedFiles": [],
+        "excludedCategories": [],
+        "autoResolvePatterns": [],
+        "escalatePatterns": [
+          {"severity": "critical"},
+          {"category": "ci-cd"}
+        ]
+      }
+    }
+  ]
+}

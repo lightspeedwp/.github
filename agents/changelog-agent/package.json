@@ -1,0 +1,47 @@
+{
+  "name": "@lightspeedwp/changelog-agent",
+  "version": "1.0.0",
+  "description": "Portable changelog management agent with Keep a Changelog support",
+  "main": "changelog.agent.js",
+  "bin": {
+    "changelog-validator": "./changelog-validator.js"
+  },
+  "exports": {
+    ".": "./changelog.agent.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=tests/unit",
+    "test:integration": "jest --testPathPattern=tests/integration",
+    "test:validate": "jest --testPathPattern=entryValidation",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "validate:branch-name": "node ../../.validate-branch-name.js",
+    "validate:changelog": "node validate-changelog.js"
+  },
+  "keywords": [
+    "changelog",
+    "keep-a-changelog",
+    "validation",
+    "formatting",
+    "release",
+    "portable",
+    "quality-audit"
+  ],
+  "author": "LightSpeed Team",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "agents/changelog"
+  },
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@octokit/rest": "^22.0.1",
+    "js-yaml": "^5.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^10.10.0",
+    "jest": "^30.5.1",
+    "prettier": "^3.0.0"
+  }
+}

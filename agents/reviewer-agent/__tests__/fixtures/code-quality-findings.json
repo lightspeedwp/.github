@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "severity": "high",
+      "title": "High Cyclomatic Complexity",
+      "file": "src/processors/main.js",
+      "line": 50,
+      "description": "Function has cyclomatic complexity of 18, should be < 10",
+      "suggestion": "Break function into smaller functions"
+    },
+    {
+      "severity": "high",
+      "title": "Code Duplication Detected",
+      "file": "src/validators/index.js",
+      "line": 120,
+      "description": "92% similarity with code in src/validators/legacy.js:80",
+      "suggestion": "Extract common validation logic into shared function"
+    },
+    {
+      "severity": "warning",
+      "title": "Missing Error Handling",
+      "file": "src/api/client.js",
+      "line": 25,
+      "description": "Promise chain without catch handler",
+      "suggestion": "Add .catch() or try-catch block"
+    },
+    {
+      "severity": "note",
+      "title": "Unused Variable",
+      "file": "src/utils/helpers.js",
+      "line": 10,
+      "description": "Variable 'tempData' is declared but never used",
+      "suggestion": "Remove unused variable or implement logic"
+    },
+    {
+      "severity": "info",
+      "title": "Code Convention Violation",
+      "file": "src/config/settings.js",
+      "line": 5,
+      "description": "Function name not following camelCase convention",
+      "suggestion": "Rename function to follow naming conventions"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "findings": [
+    {
+      "severity": "critical",
+      "title": "SQL Injection Vulnerability",
+      "file": "src/db/query.js",
+      "line": 42,
+      "description": "User input directly concatenated into SQL query without sanitization",
+      "suggestion": "Use parameterized queries or prepared statements"
+    },
+    {
+      "severity": "critical",
+      "title": "Hardcoded API Key",
+      "file": "config/auth.js",
+      "line": 15,
+      "description": "API key hardcoded in source code",
+      "suggestion": "Move to environment variables"
+    },
+    {
+      "severity": "major",
+      "title": "Missing CSRF Token Validation",
+      "file": "src/handlers/form.js",
+      "line": 108,
+      "description": "Form submission not validated for CSRF tokens",
+      "suggestion": "Add CSRF middleware"
+    },
+    {
+      "severity": "minor",
+      "title": "Insecure Random Number Generation",
+      "file": "src/utils/random.js",
+      "line": 5,
+      "description": "Math.random() is not cryptographically secure",
+      "suggestion": "Use crypto.getRandomBytes()"
+    },
+    {
+      "severity": "warning",
+      "title": "Deprecated API Usage",
+      "file": "src/legacy/old-api.js",
+      "line": 30,
+      "description": "Using deprecated method that will be removed in v2",
+      "suggestion": "Update to new API"
+    }
+  ]
+}
