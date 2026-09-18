@@ -6,6 +6,7 @@ created: "2026-09-14"
 # Phase 2 Rollback Procedure
 
 ## Overview
+
 This document provides the step-by-step procedure to safely rollback Phase 2 (Unified Workflows) to Phase 1 (Archived Workflows) with zero data loss and automated recovery.
 
 **Target Recovery Time:** ≤15 minutes  
@@ -16,6 +17,7 @@ This document provides the step-by-step procedure to safely rollback Phase 2 (Un
 ## Pre-Rollback Checklist
 
 Before initiating rollback, verify:
+
 - [ ] Identify specific failure reason (workflow error, performance regression, or behavioral mismatch)
 - [ ] Confirm issue is reproducible and affects production
 - [ ] Capture failing workflow logs for post-mortem analysis
@@ -26,6 +28,7 @@ Before initiating rollback, verify:
 ## Rollback Steps
 
 ### Step 1: Disable Phase 2 Unified Workflows
+
 ```bash
 # In repository root
 
@@ -43,6 +46,7 @@ done
 ```
 
 ### Step 2: Enable Phase 1 Archived Workflows
+
 ```bash
 # Copy archived workflows back to active location
 mkdir -p .github/workflows/
@@ -56,6 +60,7 @@ find .github/workflows -name "*.yml" -o -name "*.yaml" | grep -v archived | wc -
 ```
 
 ### Step 3: Verify Workflow Restoration
+
 ```bash
 # List restored workflows
 ls -la .github/workflows/ | grep -E "\.ya?ml$" | wc -l
@@ -69,6 +74,7 @@ done
 ```
 
 ### Step 4: Commit Rollback
+
 ```bash
 # Stage rollback changes
 git add .github/workflows/
@@ -90,6 +96,7 @@ git tag -a "rollback/phase2-$(date +%Y%m%d-%H%M%S)" -m "Phase 2 rollback event"
 ```
 
 ### Step 5: Trigger Workflow Validation
+
 ```bash
 # Create test PR or push to feature branch to validate restored workflows execute
 git push origin refactor/workflow-consolidation-phase-2
@@ -101,6 +108,7 @@ git push origin refactor/workflow-consolidation-phase-2
 ```
 
 ### Step 6: Notify Stakeholders
+
 - Document failure reason and logs
 - Schedule post-mortem analysis
 - Update Phase 2 plan with findings
@@ -111,6 +119,7 @@ git push origin refactor/workflow-consolidation-phase-2
 ## Rollback Validation Checklist
 
 After rollback, confirm:
+
 - [ ] All 71 Phase 1 archived workflows present in `.github/workflows/`
 - [ ] Phase 2 unified workflows disabled or removed
 - [ ] Next PR/issue triggers all expected labeling workflows (archived versions)
@@ -151,6 +160,7 @@ After rollback, confirm:
 ## Technical Details
 
 ### What Phase 2 Rollback Does NOT Affect
+
 - Issue/PR data (no mutations during workflow execution)
 - Label definitions (`.github/labels.yml` unchanged)
 - Issue templates or PR templates
@@ -158,12 +168,14 @@ After rollback, confirm:
 - GitHub organization settings
 
 ### What Gets Restored
+
 - All 71 archived workflow files at `.github/workflows/archived/2026-09-11/`
 - Original trigger patterns (pull_request, issues, push, schedule)
 - Original job definitions and step logic
 - Composite action dependencies (if any)
 
 ### Limitations
+
 - Rollback is **not** automatic — requires manual execution
 - In-flight workflow runs (at rollback time) will complete under Phase 2 logic
 - Label cleanup jobs from Phase 2 may need manual review if partially executed
@@ -171,6 +183,7 @@ After rollback, confirm:
 ---
 
 ## Related Documents
+
 - [WORKFLOW_CONSOLIDATION_MAPPING.md](./WORKFLOW_CONSOLIDATION_MAPPING.md) — Lists 71→5 mapping
 - [PHASE2_OPERATIONS_RUNBOOK.md](./PHASE2_OPERATIONS_RUNBOOK.md) — Day-2 operations guide
 - [spec.md](../specs/011-workflow-consolidation-phase-2/spec.md) — Phase 2 specification

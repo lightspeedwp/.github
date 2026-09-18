@@ -18,7 +18,8 @@ Implement a comprehensive governance audit system that systematically validates 
 
 **Language/Version**: Node.js 18+ (JavaScript/TypeScript) — chosen for scripting simplicity, YAML/JSON parsing libraries, and CI/CD integration
 
-**Primary Dependencies**: 
+**Primary Dependencies**:
+
 - `js-yaml` (YAML parsing and validation)
 - `ajv` (JSON Schema validation for governance contracts)
 - `chalk` (colored terminal output for reports)
@@ -32,17 +33,20 @@ Implement a comprehensive governance audit system that systematically validates 
 
 **Project Type**: CLI tool / governance automation framework (not a traditional application)
 
-**Performance Goals**: 
+**Performance Goals**:
+
 - Audit completion: <30 seconds for all LOCKED files in this repository
 - Validation: <2 seconds per file on pre-commit
 - Report generation: <5 seconds for full compliance report
 
-**Constraints**: 
+**Constraints**:
+
 - Must run in GitHub Actions with no external dependencies (no network calls to external services)
 - Must respect `.github/` file structure without modifications during audit
 - Audit must be read-only (never modifies governance files)
 
-**Scale/Scope**: 
+**Scale/Scope**:
+
 - ~160 labels across 5+ label families
 - ~24 issue types
 - ~26 issue templates + ~19 PR templates

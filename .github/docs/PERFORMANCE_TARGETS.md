@@ -145,6 +145,7 @@ gh api repos/{owner}/{repo}/actions/runs \
 ### Reporting
 
 **Monthly Performance Report Contents:**
+
 1. Total minutes consumed vs. budget
 2. Per-workflow breakdown
 3. Per-trigger breakdown (PRs, pushes, schedules)
@@ -160,6 +161,7 @@ gh api repos/{owner}/{repo}/actions/runs \
 **Triggers:** Phase 2 failing to achieve ≤2,125 minutes/month
 
 **Actions:**
+
 1. Analyze per-workflow breakdown (which workflows exceeded budget)
 2. Review most expensive jobs (testing, validation)
 3. Identify optimization opportunities:
@@ -206,4 +208,3 @@ gh api repos/{owner}/{repo}/actions/runs \
 | **Phase 2 Owner** | Measure baseline and final minutes | Pending |
 | **Performance Reviewer** | Validate calculations and methodology | Pending |
 | **Release Manager** | Approve Phase 2 merge if target met | Pending |
-

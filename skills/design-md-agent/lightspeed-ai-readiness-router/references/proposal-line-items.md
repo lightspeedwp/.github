@@ -27,6 +27,7 @@
 [![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
 [![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
 <!-- BADGES-END -->
 
 Use these line items when turning AI readiness outputs into proposal notes.
@@ -78,6 +79,10 @@ Use these line items when turning AI readiness outputs into proposal notes.
 | Monthly Governance Review | Review AI outputs, chatbot logs and source updates. | Monthly review notes and action list. |
 | Content Performance Review | Review analytics, search, FAQs and content gaps. | Monthly/quarterly improvement plan. |
 | Chatbot Improvement Cycle | Review transcripts, failures and new intents. | Updated tests, sources and prompt rules. |
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
