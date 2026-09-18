@@ -526,6 +526,11 @@ jobs:
     needs: [unit-tests, integration-tests, coverage-aggregation]
     if: always()
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
       - name: Aggregate test results
         id: aggregate
         uses: ./.github/actions/aggregate-tests
