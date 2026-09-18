@@ -132,6 +132,22 @@ read_feature_json_feature_directory() {
 # Accepts an optional repository root; otherwise resolves it with get_repo_root.
 # Prints specs_directory from .specify/init-options.json when a nonempty value
 # can be read, or '.github/specs' otherwise. Always returns 0.
+validate_specs_directory() {
+    local specs_dir="$1"
+
+    # Reject paths containing ".." or starting with "/"
+    if [[ "$specs_dir" == *".."* ]] || [[ "$specs_dir" == /* ]]; then
+        return 1
+    fi
+
+    # Reject "." alone (current directory escape attempt)
+    if [[ "$specs_dir" == "." ]]; then
+        return 1
+    fi
+
+    return 0
+}
+
 read_specs_directory() {
     local repo_root="${1:-$(get_repo_root)}" || return 1
     local init_json="$repo_root/.specify/init-options.json"
@@ -161,9 +177,13 @@ read_specs_directory() {
             | sed -E 's/^[^:]*:[[:space:]]*"([^"]*)".*$/\1/' )
     fi
 
-    # Return configured value or default
+    # Return configured value or default, validating first
     if [[ -n "$specs_dir" ]]; then
-        printf '%s' "$specs_dir"
+        if validate_specs_directory "$specs_dir"; then
+            printf '%s' "$specs_dir"
+        else
+            printf '%s' "$default_specs_dir"
+        fi
     else
         printf '%s' "$default_specs_dir"
     fi
