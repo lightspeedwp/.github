@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lsdev.biz/schemas/gravity-forms/payment-test-report.schema.json",
+  "title": "Payment Test Report",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "test_context",
+    "scenarios",
+    "entry_feed_review",
+    "communication_review",
+    "data_security_review",
+    "outcome",
+    "remaining_risks"
+  ],
+  "properties": {
+    "test_context": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "scenarios": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "entry_feed_review": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "communication_review": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "data_security_review": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "outcome": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "remaining_risks": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    }
+  }
+}

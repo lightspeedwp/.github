@@ -1,0 +1,4 @@
+interface:
+  display_name: "{{display_name}}"
+  short_description: "{{short_description}}"
+  brand_color: "#111827"

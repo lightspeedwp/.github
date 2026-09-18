@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Yoast bulk metadata change",
+  "type": "object",
+  "required": [
+    "item_id",
+    "entity",
+    "change_type",
+    "proposed_value",
+    "source_basis",
+    "risk_level",
+    "approval_status",
+    "implementation_route",
+    "qa_required"
+  ],
+  "properties": {
+    "item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entity": {
+      "type": "string",
+      "description": "URL, post ID, product SKU, taxonomy term, archive, or setting/template reference."
+    },
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "homepage",
+        "page",
+        "post",
+        "product",
+        "product_variation",
+        "taxonomy",
+        "archive",
+        "template",
+        "setting",
+        "other"
+      ]
+    },
+    "change_type": {
+      "type": "string",
+      "enum": [
+        "title",
+        "meta_description",
+        "social_title",
+        "social_description",
+        "social_image",
+        "canonical",
+        "meta_robots",
+        "schema",
+        "product_metadata",
+        "template",
+        "other"
+      ]
+    },
+    "current_value": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "proposed_value": {
+      "type": "string"
+    },
+    "source_basis": {
+      "type": "string",
+      "enum": [
+        "approved_source",
+        "client_copy",
+        "rendered_output",
+        "settings_export",
+        "ai_generated",
+        "inference",
+        "unknown"
+      ]
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "approval_owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "needs_source",
+        "needs_rewrite",
+        "needs_approval",
+        "approved_for_staging",
+        "implemented_unverified",
+        "verified_live",
+        "rejected"
+      ]
+    },
+    "implementation_route": {
+      "type": "string",
+      "enum": [
+        "wordpress_admin",
+        "yoast_settings",
+        "woocommerce_product_data",
+        "developer_change",
+        "migration_script",
+        "hosting_server",
+        "do_not_implement",
+        "unknown"
+      ]
+    },
+    "qa_required": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

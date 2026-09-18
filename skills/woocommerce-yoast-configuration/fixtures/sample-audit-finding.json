@@ -1,0 +1,16 @@
+{
+  "finding_id": "YOAST-AUD-001",
+  "area": "canonical",
+  "location": "Product detail template",
+  "observed_evidence": "User-provided rendered source example shows the canonical URL pointing to a filtered archive instead of the product URL.",
+  "expected_behaviour": "Canonical output should point to the preferred indexable URL for the product unless a documented customisation intentionally changes it.",
+  "impact": "May consolidate signals to the wrong URL and create duplicate-content confusion for product pages.",
+  "severity": "high",
+  "priority": "P1",
+  "confidence": "partial",
+  "owner_direction": "developer",
+  "recommended_action": "Check the rendered source across a sample of products, then inspect theme/plugin code for canonical filters before changing configuration.",
+  "qa_check": "After the fix, confirm canonical output on simple and variable products, product sitemap inclusion, and noindex/sitemap consistency.",
+  "evidence_state": "needs live verification",
+  "sources": []
+}

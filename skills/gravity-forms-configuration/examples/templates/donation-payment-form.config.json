@@ -1,0 +1,101 @@
+{
+  "form_name": "Donation Payment Form",
+  "purpose": "Collect a simple one-time donation through an approved payment gateway without creating a full ecommerce checkout.",
+  "audience": "Supporters and donors",
+  "source_template": "Custom payment/donation workflow",
+  "fields": [
+    {
+      "label": "Donation Amount",
+      "type": "product user-defined price",
+      "required": true,
+      "accessibility_notes": "Visible label; suggested amounts may be separate choices or instructions."
+    },
+    {
+      "label": "Total",
+      "type": "total",
+      "required": false,
+      "accessibility_notes": "Visible total before payment submission."
+    },
+    {
+      "label": "Name",
+      "type": "name",
+      "required": true,
+      "accessibility_notes": "Visible label and sub-labels."
+    },
+    {
+      "label": "Email",
+      "type": "email",
+      "required": true,
+      "accessibility_notes": "Visible label and email validation."
+    },
+    {
+      "label": "Donation Consent",
+      "type": "consent",
+      "required": true,
+      "accessibility_notes": "Clear consent label and description.",
+      "privacy_notes": "Do not imply tax deductibility or recurring payments unless approved."
+    }
+  ],
+  "field_settings": {
+    "pricing_review_required": true,
+    "minimum_amount": "confirm before launch",
+    "no_placeholder_only_fields": true
+  },
+  "conditional_logic": [
+    {
+      "rule": "Payment feed only runs when amount is valid and consent is checked."
+    }
+  ],
+  "confirmations": [
+    {
+      "name": "Donation received",
+      "type": "text",
+      "message": "Thank you for your support. Your payment receipt will be sent if the payment is successful."
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Donation admin notification",
+      "to": "finance@example.test",
+      "from": "noreply@example.test",
+      "reply_to": "{Email:4}",
+      "message": "Send limited donor/contact amount details after approved payment-notification timing is confirmed."
+    }
+  ],
+  "feeds": [
+    {
+      "name": "Stripe donation payment",
+      "addon": "Stripe Add-On",
+      "active": false,
+      "mode": "test first",
+      "condition": "Run only after amount and consent validation."
+    }
+  ],
+  "spam_settings": {
+    "honeypot": true,
+    "turnstile": "only if add-on and keys are confirmed"
+  },
+  "accessibility_settings": {
+    "visible_labels": true,
+    "clear_required_indicators": true,
+    "label_guidance": "No placeholder-only fields; Total is visible before submission."
+  },
+  "embedding_target": {
+    "page": "Donate",
+    "method": "gravity_forms_block"
+  },
+  "data_retention_notes": "Donation entries include personal/payment metadata. Review consent wording, receipt data, export/erase handling, retention, and gateway transaction ownership before launch.",
+  "test_data": {
+    "Donation Amount": "25.00",
+    "Name": "Test Donor",
+    "Email": "donor@example.test",
+    "Donation Consent": true
+  },
+  "required_addons": [
+    "Stripe Add-On or approved payment gateway add-on"
+  ],
+  "risks": [
+    "Payment feed, receipt wording, refund stance, gateway mode, SSL, and tax/deductibility claims require explicit approval before production."
+  ],
+  "approval_status": "draft"
+}
