@@ -68,6 +68,14 @@ jobs:
       - name: Install Bats test framework
         if: always()
         uses: bats-core/bats-action@4.0.0
+        with:
+          # Repository tests use plain bats only; skipping the unused
+          # libraries avoids their failing cache restores.
+          support-install: false
+          assert-install: false
+          detik-install: false
+          file-install: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run audit script test suite
         if: always()
