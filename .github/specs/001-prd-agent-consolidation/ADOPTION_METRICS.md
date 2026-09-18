@@ -184,7 +184,7 @@ Collected every Monday, covering prior 7-day rolling window:
 - **Blockers Open**: Count of open blockers by severity (Critical/High/Medium/Low)
 - **Grace Period Applied?**: Yes/No (for weeks with 0 PRDs but adjacent week recovery)
 
-### 30-Day Interim Metrics (T075a, due 2026-10-12)
+### 30-Day Interim Metrics (T075a, due 2026-10-17)
 
 - **Interim Team Count**: Teams with ≥1 PRD in any of first 4 weeks
 - **Interim PRD Total**: Sum of all PRDs weeks 1–4
@@ -206,8 +206,8 @@ Collected every Monday, covering prior 7-day rolling window:
 | Date | Event | Owner | Deliverable |
 |------|-------|-------|-------------|
 | 2026-09-17 | Phase 6 rollout begins; baseline establishment begins (Tasks A–C) | Ash Shaw | Baseline results in this file |
-| 2026-09-20 | Week 2 metrics collection | Ash Shaw | PHASE6_MONITORING_TEMPLATE.md updated |
-| 2026-10-12 | **30-Day Interim Checkpoint (T075a)** | Ash Shaw | PHASE6_INTERIM_REPORT.md |
+| 2026-09-24 | Week 2 metrics collection | Ash Shaw | PHASE6_MONITORING_TEMPLATE.md updated |
+| 2026-10-17 | **30-Day Interim Checkpoint (T075a)** | Ash Shaw | PHASE6_INTERIM_REPORT.md |
 | 2026-10-29 | **42-Day Final Evaluation (T075b)** | Ash Shaw | FINAL_ADOPTION_REPORT.md |
 | 2026-10-28 | Phase 7 decision memo synthesis (T078) | Ash Shaw | PHASE7_DECISION_MEMO.md |
 | 2026-11-02 | Phase 7 final decision execution (T079–T082) | Ash Shaw | PHASE7_DECISION.md |
