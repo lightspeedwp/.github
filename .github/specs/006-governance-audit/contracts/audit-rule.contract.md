@@ -152,17 +152,20 @@ An `AuditRule` encapsulates a single validation check that can be applied to gov
 ## Usage Guidelines
 
 **When to Create a Rule**:
+
 - A compliance requirement exists in the constitution
 - The requirement can be checked programmatically
 - The check applies consistently across governance files
 - The violation has measurable impact on downstream systems
 
 **Rule Ordering**:
+
 1. Apply format validation rules first (syntax, structure)
 2. Then apply semantic rules (naming, prefixes, duplicates)
 3. Finally apply relationship rules (references, routing)
 
 **Severity Guidelines**:
+
 - **critical**: Violating this breaks automation, routes PRs to wrong templates, or violates security constraints
 - **high**: Violating this causes inconsistency across repos or misaligns with governance
 - **medium**: Violating this is a quality/maintainability issue

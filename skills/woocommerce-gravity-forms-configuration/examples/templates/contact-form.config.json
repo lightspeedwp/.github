@@ -1,0 +1,88 @@
+{
+  "form_name": "Basic Contact Form",
+  "purpose": "Collect general enquiries from the website contact page.",
+  "audience": "Website visitors",
+  "source_template": "Gravity Forms Contact Form template",
+  "fields": [
+    {
+      "label": "Name",
+      "type": "name",
+      "required": true,
+      "description": "Your name.",
+      "accessibility_notes": "Visible label and sub-labels."
+    },
+    {
+      "label": "Email",
+      "type": "email",
+      "required": true,
+      "description": "We will use this to reply.",
+      "accessibility_notes": "Visible label; use email validation."
+    },
+    {
+      "label": "Phone",
+      "type": "phone",
+      "required": false,
+      "description": "Optional phone number.",
+      "accessibility_notes": "Visible label; optional state clear."
+    },
+    {
+      "label": "Message",
+      "type": "textarea",
+      "required": true,
+      "description": "Tell us how we can help.",
+      "accessibility_notes": "Visible label; sufficient textarea height."
+    },
+    {
+      "label": "Consent",
+      "type": "consent",
+      "required": true,
+      "description": "Consent to store and respond to this enquiry.",
+      "accessibility_notes": "Clear consent label and description."
+    }
+  ],
+  "field_settings": {
+    "no_placeholder_only_fields": true
+  },
+  "conditional_logic": [],
+  "confirmations": [
+    {
+      "name": "Default",
+      "type": "text",
+      "message": "Thanks for contacting us. We will respond as soon as possible."
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Admin notification",
+      "to": "site-owner@example.test",
+      "from": "noreply@example.test",
+      "reply_to": "{Email:2}",
+      "message": "Include name, email, phone, message, source URL, and entry link for admins."
+    }
+  ],
+  "feeds": [],
+  "spam_settings": {
+    "honeypot": true,
+    "turnstile": "only if add-on and keys are confirmed"
+  },
+  "accessibility_settings": {
+    "visible_labels": true,
+    "clear_required_indicators": true
+  },
+  "embedding_target": {
+    "page": "Contact",
+    "method": "gravity_forms_block"
+  },
+  "data_retention_notes": "Retain only as long as operationally required; review Personal Data settings. Consent record and wording must be reviewed for retention, export, and erase handling.",
+  "test_data": {
+    "Name": "Test User",
+    "Email": "test@example.test",
+    "Message": "This is a test enquiry.",
+    "Consent": true
+  },
+  "required_addons": [],
+  "risks": [
+    "Email deliverability depends on WordPress/server/SMTP configuration."
+  ],
+  "approval_status": "draft"
+}

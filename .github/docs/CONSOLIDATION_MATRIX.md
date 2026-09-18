@@ -113,25 +113,30 @@ Quality Gates (5)  → quality-gates.yml
 ### Triggers by Unified Workflow Type
 
 #### labeling-unified.yml
+
 - `pull_request` (open, edit, sync)
 - `issues` (open, edit)
 - `schedule` (cron events)
 - `workflow_dispatch` (manual trigger)
 
 #### validation-unified.yml
+
 - `pull_request` (open, edit, sync)
 - `schedule` (cron events)
 
 #### testing-unified.yml
+
 - `push` (to develop/main)
 - `pull_request` (open, edit, sync)
 - `schedule` (cron events)
 
 #### linting-unified.yml
+
 - `push` (to develop/main)
 - `pull_request` (open, edit, sync)
 
 #### quality-gates.yml
+
 - `push` (to develop/main)
 - `pull_request` (open, edit, sync)
 - `schedule` (cron events)
@@ -141,6 +146,7 @@ Quality Gates (5)  → quality-gates.yml
 ## Job Dependency Graph
 
 ### Phase 3 (Labeling)
+
 ```
 labeling-unified.yml
 ├── PR Labeling          (trigger: pull_request)
@@ -149,6 +155,7 @@ labeling-unified.yml
 ```
 
 ### Phase 4 (Validation & Testing parallel)
+
 ```
 validation-unified.yml              testing-unified.yml
 ├── Branch Validation                ├── Unit Tests
@@ -166,6 +173,7 @@ validation-unified.yml              testing-unified.yml
 ```
 
 ### Phase 5 (Linting)
+
 ```
 linting-unified.yml
 ├── ESLint
@@ -173,6 +181,7 @@ linting-unified.yml
 ```
 
 ### Phase 6 (Quality Gates)
+
 ```
 quality-gates.yml
 ├── Secret Scanning

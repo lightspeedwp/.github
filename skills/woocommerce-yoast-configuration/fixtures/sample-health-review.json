@@ -1,0 +1,22 @@
+{
+  "site": "example-client.test",
+  "review_date": "2026-07-03",
+  "review_type": "quarterly",
+  "evidence_level": "mixed",
+  "overall_status": "light_amber",
+  "configuration_health_score": 82,
+  "confidence": "medium",
+  "top_risks": [
+    "Product category archive evidence is current but product schema evidence is sampled only.",
+    "One accepted exception exists for product tag noindex handling."
+  ],
+  "changed_since_last_review": [
+    "Yoast plugin update completed with no observed change to homepage title, canonical, or robots output.",
+    "Two new product categories are included in the sitemap."
+  ],
+  "recommended_next_actions": [
+    "Run rendered-output QA on three priority product pages.",
+    "Confirm product tag archive decision remains approved."
+  ],
+  "deeper_audit_required": false
+}

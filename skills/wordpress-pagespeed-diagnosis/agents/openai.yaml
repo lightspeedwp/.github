@@ -1,0 +1,12 @@
+interface:
+  display_name: WordPress PageSpeed Diagnosis
+  short_description: Diagnose WordPress-specific PageSpeed causes and fixes.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

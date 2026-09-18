@@ -1,0 +1,5 @@
+interface:
+  display_name: Technical SEO Audit
+  short_description: Audit crawlability, indexation, metadata, and SEO launch risks
+  default_prompt: Use $technical-seo-audit to audit technical SEO risks, prioritise
+    issues, and produce a fix-ready SEO audit.

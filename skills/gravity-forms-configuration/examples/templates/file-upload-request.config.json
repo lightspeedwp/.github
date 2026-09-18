@@ -1,0 +1,102 @@
+{
+  "form_name": "Document upload request",
+  "purpose": "Collect a support or enquiry message with optional low-risk document attachment.",
+  "audience": "Existing customers or qualified leads",
+  "source_template": "Manual LightSpeed file upload pattern",
+  "fields": [
+    {
+      "id": 1,
+      "label": "Name",
+      "type": "name",
+      "required": true
+    },
+    {
+      "id": 2,
+      "label": "Email address",
+      "type": "email",
+      "required": true
+    },
+    {
+      "id": 3,
+      "label": "Request type",
+      "type": "select",
+      "required": true
+    },
+    {
+      "id": 4,
+      "label": "Message",
+      "type": "textarea",
+      "required": true
+    },
+    {
+      "id": 5,
+      "label": "Supporting document",
+      "type": "fileupload",
+      "required": false
+    },
+    {
+      "id": 6,
+      "label": "Privacy consent",
+      "type": "consent",
+      "required": true
+    }
+  ],
+  "field_settings": {
+    "allowed_extensions": [
+      "pdf",
+      "doc",
+      "docx",
+      "jpg",
+      "png"
+    ],
+    "max_file_size_mb": 5,
+    "labels": "visible"
+  },
+  "conditional_logic": [
+    {
+      "field": "Supporting document",
+      "rule": "show only for request types that genuinely need evidence"
+    }
+  ],
+  "confirmations": [
+    {
+      "name": "Default confirmation",
+      "type": "text",
+      "message": "Thanks. We have received your request and will review the document if it was attached."
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Admin notification",
+      "to": "support inbox",
+      "from": "domain-aligned address",
+      "reply_to": "{Email address:2}",
+      "attachments": "Do not attach files by default; link/review in entry if secure."
+    }
+  ],
+  "feeds": [],
+  "spam_settings": {
+    "honeypot": true,
+    "turnstile": "recommended if available",
+    "upload_abuse_review": "monitor rejected uploads and spam entries"
+  },
+  "accessibility_settings": {
+    "labels": "visible labels required",
+    "file_help_text": "state accepted file types and max size",
+    "errors": "explain file type and size failures"
+  },
+  "embedding_target": "Secure support/contact page using Gravity Forms block",
+  "data_retention_notes": "Confirm upload retention and deletion policy before launch. Do not collect identity documents unless secure handling is approved. Consent record and wording must be reviewed for retention, export, and erase handling.",
+  "test_data": {
+    "name": "Alex Example",
+    "email": "alex@example.test",
+    "request_type": "General support",
+    "message": "Please see attached test document.",
+    "file": "test.pdf"
+  },
+  "required_addons": [],
+  "risks": [
+    "File uploads are high-risk and require explicit extension, size, storage, notification, and retention approval"
+  ],
+  "approval_status": "needs approval"
+}

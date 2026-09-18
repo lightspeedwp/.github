@@ -1,0 +1,46 @@
+{
+  "version": "1.0.0",
+  "purpose": "anonymised router fixtures for zendesk-bug-report-package shared-agent routing",
+  "cases": [
+    {
+      "id": "bug-package-engineering-handoff",
+      "input": "Create a bug package from this Zendesk ticket for engineering.",
+      "expected_primary_skill": "zendesk-bug-report-package",
+      "expected_supporting_skill": "zendesk-evidence-collector if the ticket evidence has not been assembled yet",
+      "requires_zendesk_access": false,
+      "notes": "The requested deliverable is a support-safe defect package."
+    },
+    {
+      "id": "bug-shaped-thin-evidence",
+      "input": "Customer says the dashboard is broken again. Can you package this as a bug?",
+      "expected_primary_skill": "zendesk-bug-report-package",
+      "expected_supporting_skill": "zendesk-evidence-collector",
+      "requires_zendesk_access": false,
+      "notes": "The intent is bug packaging, but the package should mark not ready and request exact reproduction detail."
+    },
+    {
+      "id": "blocked-customer-escalation-dominates",
+      "input": "Customer is blocked and angry during launch; package this for immediate intervention.",
+      "expected_primary_skill": "zendesk-customer-escalation",
+      "expected_supporting_skill": "zendesk-bug-report-package if defect evidence is available",
+      "requires_zendesk_access": false,
+      "notes": "Urgent cross-functional intervention and relationship risk dominate pure defect packaging."
+    },
+    {
+      "id": "expected-behaviour-doc-gap",
+      "input": "Is this a product bug or expected behaviour according to the Help Center docs?",
+      "expected_primary_skill": "zendesk-help-center-grounding",
+      "expected_supporting_skill": "none",
+      "requires_zendesk_access": false,
+      "notes": "Documentation grounding should resolve expected behaviour before defect packaging."
+    },
+    {
+      "id": "review-existing-bug-package",
+      "input": "Review this bug package before I send it to engineering.",
+      "expected_primary_skill": "zendesk-evidence-quality-review",
+      "expected_supporting_skill": "none",
+      "requires_zendesk_access": false,
+      "notes": "An existing output needs QA rather than first-pass bug package creation."
+    }
+  ]
+}

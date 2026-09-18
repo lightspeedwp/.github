@@ -190,11 +190,13 @@
 **Foundational Phase**: All Foundational tasks marked [P] (T005, T006) can run in parallel
 
 **After Foundational completes**: All user stories (US1, US2, US3) can proceed in parallel by different team members:
+
 - Developer A: T008-T020 (User Story 1 - Audit)
 - Developer B: T021-T032 (User Story 2 - Validation)
 - Developer C: T033-T044 (User Story 3 - Remediation)
 
 **Within each user story**:
+
 - US1: T008-T011 validators can run in parallel
 - US2: T022-T025 validators can run in parallel
 - US3: T033-T041 mappers can run in parallel
@@ -231,10 +233,10 @@ Task: T012 Main audit entrypoint (depends on T008-T011 validators)
 
 ### Then Extend with User Stories 2 & 3
 
-7. **Phase 4: User Story 2** (T021-T032) — Add pre-commit validation
-8. **Phase 5: User Story 3** (T033-T044) — Add remediation planning
-9. **Phase 6: Integration** (T045-T047) — Complete workflow
-10. **Phase 7: Polish** (T048-T051) — Documentation, optimization
+1. **Phase 4: User Story 2** (T021-T032) — Add pre-commit validation
+2. **Phase 5: User Story 3** (T033-T044) — Add remediation planning
+3. **Phase 6: Integration** (T045-T047) — Complete workflow
+4. **Phase 7: Polish** (T048-T051) — Documentation, optimization
 
 ### Incremental Delivery (All Three Stories)
 
@@ -298,12 +300,14 @@ All tasks follow required format: `- [ ] [ID] [P?] [Story?] Description`
 ## Notes for Implementation
 
 **Task Scoping**:
+
 - Each task is specific enough for LLM to complete without additional context
 - File paths are exact (`.github/scripts/`, `.specify/scripts/bash/`, `docs/`)
 - Deliverables clearly defined
 - Acceptance criteria reference contract schema or requirement ID
 
 **Data Model Constraints** (from data-model.md):
+
 - Label prefixes MUST be one of: `type:`, `status:`, `priority:`, `area:`, `meta:`
 - Label names MUST be lowercase-hyphenated (no spaces)
 - Compliance percentage = (rules passed / total rules) * 100
@@ -312,12 +316,14 @@ All tasks follow required format: `- [ ] [ID] [P?] [Story?] Description`
 - Remediation IDs MUST follow format: `remediation-[YYYYMMDD]-[###]`
 
 **Constitutional Alignment** (from constitution.md):
+
 - Section V: Branch naming strategy (audit validates per spec)
 - Section VIII: Branch type to template mapping (validate routing per FR-005)
 - Section IX: Changelog compliance (audit checks ≤250 chars, 100% linked)
 - Section X: Automated validation & metrics-driven governance (audit generates daily metrics dashboard)
 
 **Performance Targets** (from spec.md success criteria):
+
 - SC-001: Audit <30 seconds (all LOCKED files)
 - SC-002: 100% label naming violations detected
 - SC-003: 95%+ duplicate/near-duplicate detection
