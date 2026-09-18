@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "title": "Memory Entry",
+  "type": "object",
+  "required": [
+    "entry",
+    "source",
+    "date_recorded",
+    "review_trigger",
+    "status"
+  ],
+  "properties": {
+    "entry": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "stale",
+        "retired",
+        "open",
+        "complete"
+      ]
+    }
+  }
+}

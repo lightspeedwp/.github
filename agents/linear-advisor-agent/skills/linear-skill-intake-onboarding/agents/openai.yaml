@@ -1,0 +1,14 @@
+interface:
+  display_name: Linear Skill Intake Onboarding
+  short_description: Collect missing reusable defaults for Linear and LightSpeed shared-team
+    skill creation, then route the original request to the most specific specialist
+    skill.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

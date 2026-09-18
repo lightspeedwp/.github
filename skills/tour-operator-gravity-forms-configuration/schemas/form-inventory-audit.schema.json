@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms Form Inventory Audit",
+  "type": "object",
+  "required": [
+    "site_url",
+    "environment",
+    "forms",
+    "summary",
+    "confidence"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "local",
+        "development",
+        "staging",
+        "production",
+        "unknown"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_forms",
+        "high_risk_count",
+        "owner_gaps",
+        "recommended_next_action"
+      ],
+      "properties": {
+        "total_forms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "production_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inactive_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "high_risk_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "owner_gaps": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "recommended_next_action": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "forms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "form_id",
+          "form_name",
+          "status",
+          "purpose",
+          "risk_level",
+          "recommended_action"
+        ],
+        "properties": {
+          "form_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "form_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "entry_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "unread_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "last_activity": {
+            "type": "string"
+          },
+          "embed_locations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "feeds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical",
+              "unknown"
+            ]
+          },
+          "recommended_action": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "maintenance_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

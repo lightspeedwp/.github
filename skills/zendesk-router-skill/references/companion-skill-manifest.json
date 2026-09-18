@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "purpose": "machine-readable companion-skill and shared-agent capability manifest for zendesk-router-skill",
+  "router_skill": "zendesk-router-skill",
+  "shared_agent_policy": {
+    "zendesk_connector_required_for_router": false,
+    "zendesk_connector_required_for_evidence_backed_downstream_work": true,
+    "fallback_when_connector_unavailable": "ask for the smallest useful pasted ticket, thread, customer, queue, or summary extract needed for the recommended workflow",
+    "personal_context_allowed": false,
+    "real_customer_data_allowed_in_examples": false
+  },
+  "output_contract": [
+    "Primary skill",
+    "Why this skill",
+    "Supporting skill",
+    "What input would help next"
+  ],
+  "skills": [
+    {
+      "name": "zendesk-triage-router",
+      "category": "triage",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_routing_required_for_live_ticket_triage",
+      "primary_when": "first-pass classification, severity, priority, queue/status guidance, owner/team recommendation, duplicate-risk assessment, or unclear support workflow direction",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "describe a first-pass triage workflow in plain language and request ticket evidence if live Zendesk access is unavailable"
+    },
+    {
+      "name": "zendesk-evidence-collector",
+      "category": "evidence",
+      "install_recommendation": "recommended",
+      "zendesk_access": "required_for_live_evidence_collection",
+      "primary_when": "weak, partial, or incomplete case evidence needs minimum reliable Zendesk evidence assembled",
+      "supporting_when": "the primary route is clear but the next workflow would fail without assembled evidence",
+      "fallback_when_unavailable": "ask for the ticket URL, ID, or pasted case thread and list the smallest evidence fields needed"
+    },
+    {
+      "name": "zendesk-case-readiness-check",
+      "category": "readiness",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_review_required_for_live_ticket_verification",
+      "primary_when": "checking whether evidence is sufficient for a reply, escalation, handoff, knowledge draft, or another concrete support deliverable",
+      "supporting_when": "a customer reply, escalation, handoff, or knowledge draft is requested but evidence appears thin or unverified",
+      "fallback_when_unavailable": "state that a readiness check is needed and request the current evidence summary plus intended deliverable"
+    },
+    {
+      "name": "zendesk-draft-response",
+      "category": "customer_reply",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_drafting_from_pasted_thread_required_for_live_ticket_context",
+      "primary_when": "customer-facing Zendesk or email support reply, follow-up, apology, delay note, limitation explanation, translation, localisation, or tone adjustment is requested",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "describe that a customer-facing reply draft should be prepared from confirmed facts and request the thread plus intended outcome"
+    },
+    {
+      "name": "zendesk-customer-escalation",
+      "category": "escalation",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_escalation_from_pasted_evidence_required_for_live_ticket_context",
+      "primary_when": "engineering, product, security, operations, leadership, or specialist intervention is needed",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "describe the escalation brief structure and request impact, evidence, attempted steps, blockers, exact ask, and urgency"
+    },
+    {
+      "name": "zendesk-handoff-prep",
+      "category": "handoff",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_handoff_from_pasted_evidence_required_for_live_ticket_context",
+      "primary_when": "internal support handoff to another specialist, shift, region, queue, or account owner is needed without a full escalation",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "describe the handoff fields and request current case summary, attempted steps, blockers, target owner, urgency, and risk"
+    },
+    {
+      "name": "zendesk-knowledge-candidate-review",
+      "category": "knowledge",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_review_from_pasted_case_required_for_help_centre_overlap_checks",
+      "primary_when": "deciding whether a case, workaround, known issue, repeated answer, or support pattern should become reusable documentation",
+      "supporting_when": "before zendesk-create-knowledge when documentation value is not yet proven",
+      "fallback_when_unavailable": "ask for the resolved case, workaround, repeated question, stability status, and intended public or internal audience"
+    },
+    {
+      "name": "zendesk-create-knowledge",
+      "category": "knowledge",
+      "install_recommendation": "recommended_when_documentation_creation_is_in_scope",
+      "zendesk_access": "optional_for_drafting_from_confirmed_notes_required_for_live_case_or_article_lookup",
+      "primary_when": "documentation-worthiness is already clear and the task is to draft, structure, or update a knowledge artefact",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "describe the knowledge draft workflow and request confirmed resolution, audience, scope, exclusions, and source evidence"
+    },
+    {
+      "name": "zendesk-duplicate-pattern-review",
+      "category": "duplicate_pattern",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_review_from_pasted_cases_required_for_live_ticket_comparison",
+      "primary_when": "tickets may be duplicates, related cases, repeated pain, recurring symptoms, or part of a broader incident-like support pattern",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "ask for the ticket IDs, URLs, or symptom summaries to compare and avoid claiming confirmed duplicates without evidence"
+    },
+    {
+      "name": "zendesk-backlog-trend-analysis",
+      "category": "reporting",
+      "install_recommendation": "recommended_for_queue_reporting_agents",
+      "zendesk_access": "required_for_live_backlog_reporting",
+      "primary_when": "queue health, ageing risk, recurring themes, SLA risk, daily or weekly digests, backlog reports, or support trend reporting is requested",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "ask for the queue export, date range, SLA fields, or pasted backlog summary needed for the report"
+    },
+    {
+      "name": "zendesk-customer-research",
+      "category": "customer_context",
+      "install_recommendation": "recommended_for_account_sensitive_support",
+      "zendesk_access": "required_for_live_customer_support_history",
+      "primary_when": "a support-facing customer/account brief is needed before replying, deciding next steps, evaluating risk, or understanding recent support activity",
+      "supporting_when": "none",
+      "fallback_when_unavailable": "ask for the customer/account name plus pasted recent support activity or ticket links"
+    },
+    {
+      "name": "zendesk-evidence-quality-review",
+      "category": "quality_review",
+      "install_recommendation": "recommended",
+      "zendesk_access": "optional_for_review_from_supplied_draft_required_for_live_source_verification",
+      "primary_when": "an existing draft, investigation summary, escalation note, handoff, trend report, or evidence-backed output needs QA or unsupported-claim detection",
+      "supporting_when": "when an existing draft or summary should be checked before use",
+      "fallback_when_unavailable": "ask for the draft and the source evidence it relies on; flag that live source verification is unavailable if Zendesk cannot be accessed"
+    }
+  ]
+}

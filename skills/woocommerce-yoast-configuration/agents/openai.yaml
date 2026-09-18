@@ -1,0 +1,15 @@
+interface:
+  display_name: WooCommerce Yoast Configuration
+  short_description: Configure, audit, research and QA Yoast SEO for WooCommerce and
+    WordPress ecommerce.
+  icon: 🔎
+  primary_color: '#a4286a'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
