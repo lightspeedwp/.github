@@ -69,12 +69,22 @@ runs:
         RUN_ID: ${{ inputs.workflow_run_id }}
       run: |
         set +e
+
+        echo "📊 Collecting metrics for: $WORKFLOW_NAME"
+
+        # Generate mock metrics (in production would call GitHub API)
         MINUTES_USED=$((RANDOM % 10))
         DURATION_SECONDS=$((MINUTES_USED * 60))
-        echo "📊 Collecting metrics for: $WORKFLOW_NAME"
-        echo "minutes_used=$MINUTES_USED" >> "$GITHUB_OUTPUT"
-        echo "duration_seconds=$DURATION_SECONDS" >> "$GITHUB_OUTPUT"
-        echo "status=success" >> "$GITHUB_OUTPUT"
+
+        # Set outputs safely
+        {
+          echo "minutes_used=$MINUTES_USED"
+          echo "duration_seconds=$DURATION_SECONDS"
+          echo "status=success"
+        } >> "$GITHUB_OUTPUT"
+
+        echo "✓ Metrics collected successfully"
+        exit 0
 
 branding:
   icon: 'bar-chart-2'
