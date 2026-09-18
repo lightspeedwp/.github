@@ -303,8 +303,8 @@
 
 ### Critical Path: Traceability (FR-7 / SC-3)
 
-- [ ] T065 [P] Add [Spec §FR-X] references to base template items at `.specify/templates/checklist-template/content/` (all 8 dimensions: completeness.md through ambiguities.md; minimum 80% of CHK-001–CHK-045 must reference spec section; format: [Spec §FR-1], [Spec §SC-1], [Spec §User_Scenarios], etc.)
-- [ ] T066 [P] Add [Spec §FR-X] references to domain variant items at `.specify/templates/checklist-variants/` (UX, API, Security, Performance; minimum 80% coverage; ensures traceability compliance across all domains)
+- [x] T065 [P] Add [Spec §FR-X] references to base template items at `.specify/templates/checklist-template/content/` (all 8 dimensions: completeness.md through ambiguities.md; minimum 80% of CHK-001–CHK-045 must reference spec section; format: [Spec §FR-1], [Spec §SC-1], [Spec §User_Scenarios], etc.)
+- [x] T066 [P] Add [Spec §FR-X] references to domain variant items at `.specify/templates/checklist-variants/` (UX, API, Security, Performance; minimum 80% coverage; ensures traceability compliance across all domains)
 
 ### Phase 4 Incomplete: Domain Tests (T027–T030)
 
