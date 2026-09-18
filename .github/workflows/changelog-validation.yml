@@ -50,6 +50,8 @@ jobs:
 
       - name: Validate changelog entries
         id: validate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd .github/validation/changelog
 
@@ -67,7 +69,7 @@ jobs:
             --trigger pr_submission \
             --pr-number "${{ github.event.pull_request.number }}" \
             --branch "${{ github.head_ref }}" \
-            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --github-token "$GITHUB_TOKEN" \
             --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
           # Parse report
