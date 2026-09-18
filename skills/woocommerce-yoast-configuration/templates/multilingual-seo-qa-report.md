@@ -1,0 +1,117 @@
+# Multilingual Yoast SEO QA report
+
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
+## Scope
+
+- Site:
+- Languages / locales reviewed:
+- URL architecture:
+- Translation plugin / multilingual layer:
+- Yoast product(s):
+- Evidence reviewed:
+- Access level:
+- Review date:
+
+## Executive summary
+
+| Area | Status | Confidence | Notes |
+|---|---|---|---|
+| Language relationships / hreflang | Pass / Partial / Fail / Not checked | High / Medium / Low |  |
+| Canonicals by locale | Pass / Partial / Fail / Not checked | High / Medium / Low |  |
+| Indexation and robots | Pass / Partial / Fail / Not checked | High / Medium / Low |  |
+| XML sitemaps | Pass / Partial / Fail / Not checked | High / Medium / Low |  |
+| Translated metadata | Pass / Partial / Fail / Not checked | High / Medium / Low |  |
+| Schema language consistency | Pass / Partial / Fail / Not checked | High / Medium / Low |  |
+| WooCommerce multilingual output | Pass / Partial / Fail / Not applicable | High / Medium / Low |  |
+
+## Representative URL sets reviewed
+
+| Default URL | Translated / regional URLs | Expected status | Observed status | Notes |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+## Findings
+
+| ID | Finding | Evidence | Severity | Owner | Recommended next action | QA required |
+|---|---|---|---|---|---|---|
+| M-001 |  |  | Critical / High / Medium / Low | SEO / WordPress admin / Developer / Client / Translation owner |  |  |
+
+## Hreflang and canonical checks
+
+- Reciprocal alternate links:
+- Self-canonical per language:
+- x-default handling:
+- Redirecting or noindex alternate URLs:
+- Conflicts between canonical, hreflang, robots, and sitemap inclusion:
+
+## Translated metadata checks
+
+| URL | Current title/meta state | Localisation issue | Approval state | Action |
+|---|---|---|---|---|
+|  |  |  | Draft / Approved / Blocked / Verified live |  |
+
+## Sitemap and archive checks
+
+- Sitemap language coverage:
+- Translated content types included:
+- Translated taxonomies included:
+- Fallback or incomplete translations exposed:
+- Archive duplication risks:
+
+## Schema checks
+
+- Page/entity language consistency:
+- Organisation/person/product data localisation:
+- Breadcrumb language consistency:
+- Product/ProductGroup and offer data where applicable:
+
+## Decisions required
+
+| Decision | Options | Recommended option | Approval owner | Evidence needed |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+## Next steps
+
+1.
+2.
+3.
+
+## Caveats
+
+- This report separates Yoast output from translation-plugin behaviour.
+- Hreflang and canonical recommendations require rendered-output or crawl evidence for final approval.
+- Metadata localisation should be approved by a language or market owner before implementation.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -1,0 +1,258 @@
+{
+  "modelVersion": "1.0.0",
+  "lastReviewed": "2026-07-03",
+  "scope": "FacetWP destination relationship sources confirmed from uploaded class-post-connections.php.",
+  "class": {
+    "name": "lsx\\integrations\\facetwp\\Post_Connections",
+    "sourceFile": "class-post-connections.php",
+    "hooks": [
+      "facetwp_indexer_row_data",
+      "facetwp_index_row",
+      "facetwp_facet_html",
+      "facetwp_facet_dropdown_show_counts"
+    ],
+    "settingsOption": "lsx-search-settings"
+  },
+  "relationshipFacetSources": [
+    {
+      "sourceKey": "cf/destination_to_accommodation",
+      "fieldKey": "destination_to_accommodation",
+      "likelyFacetValueType": "destination",
+      "likelyIndexedContentType": "accommodation",
+      "likelyFromToInterpretation": "destination values are used as FacetWP filter values for indexed accommodation content",
+      "ownershipBoundary": "core destination facet source for a confirmed core post type",
+      "facetwpIndexingBehaviour": {
+        "listedInDestinationFacetSources": true,
+        "customFieldArrayExpansion": "The generic _to_ custom-field branch expands array values, resolves facet display values via get_the_title(), and skips default indexing by inserting rows directly.",
+        "hierarchyAugmentation": "Confirmed for destination_to_tour and destination_to_accommodation only.",
+        "htmlRendering": "destination_facet_html routes this source to destination_facet_render() when the facet source matches the sources array.",
+        "fselectCountBehaviour": "Facet counts are disabled for fselect facets using this source."
+      },
+      "destinationHierarchyBehaviour": {
+        "countryRegionDepthWithoutContinentFilter": "When hierarchy augmentation runs, top-level destination values use depth 0 and child destinations use depth 1.",
+        "continentCountryRegionDepthWithContinentFilter": "When engine_search_continent_filter is enabled and hierarchy augmentation runs, continent rows are depth 0, top-level country destinations depth 1, and region/child destinations depth 2.",
+        "parentIdHandling": "Parent IDs are derived from wp_get_post_parent_id() for destination values; continent parent IDs are term IDs added when enable_search_continent_filter is enabled."
+      },
+      "continentFilteringBehaviour": {
+        "optionKeys": [
+          "engine_search_continent_filter",
+          "enable_search_continent_filter"
+        ],
+        "taxonomyUsed": "continent",
+        "behaviour": "When enabled for augmented sources, continent terms are added as additional facet rows and country destination rows receive parent_id values pointing to continent term IDs."
+      },
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed source key and indexing behaviour; inferred relationship direction from source name",
+      "unresolvedQuestions": [
+        "Confirm where the relationship field is registered and which post type stores the custom field value.",
+        "Confirm runtime FacetWP facet definitions and facet types.",
+        "Confirm whether the target entity is core-owned or extension-owned when it is not tour, destination or accommodation."
+      ]
+    },
+    {
+      "sourceKey": "cf/destination_to_tour",
+      "fieldKey": "destination_to_tour",
+      "likelyFacetValueType": "destination",
+      "likelyIndexedContentType": "tour",
+      "likelyFromToInterpretation": "destination values are used as FacetWP filter values for indexed tour content",
+      "ownershipBoundary": "core destination facet source for a confirmed core post type",
+      "facetwpIndexingBehaviour": {
+        "listedInDestinationFacetSources": true,
+        "customFieldArrayExpansion": "The generic _to_ custom-field branch expands array values, resolves facet display values via get_the_title(), and skips default indexing by inserting rows directly.",
+        "hierarchyAugmentation": "Confirmed for destination_to_tour and destination_to_accommodation only.",
+        "htmlRendering": "destination_facet_html routes this source to destination_facet_render() when the facet source matches the sources array.",
+        "fselectCountBehaviour": "Facet counts are disabled for fselect facets using this source."
+      },
+      "destinationHierarchyBehaviour": {
+        "countryRegionDepthWithoutContinentFilter": "When hierarchy augmentation runs, top-level destination values use depth 0 and child destinations use depth 1.",
+        "continentCountryRegionDepthWithContinentFilter": "When engine_search_continent_filter is enabled and hierarchy augmentation runs, continent rows are depth 0, top-level country destinations depth 1, and region/child destinations depth 2.",
+        "parentIdHandling": "Parent IDs are derived from wp_get_post_parent_id() for destination values; continent parent IDs are term IDs added when enable_search_continent_filter is enabled."
+      },
+      "continentFilteringBehaviour": {
+        "optionKeys": [
+          "engine_search_continent_filter",
+          "enable_search_continent_filter"
+        ],
+        "taxonomyUsed": "continent",
+        "behaviour": "When enabled for augmented sources, continent terms are added as additional facet rows and country destination rows receive parent_id values pointing to continent term IDs."
+      },
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed source key and indexing behaviour; inferred relationship direction from source name",
+      "unresolvedQuestions": [
+        "Confirm where the relationship field is registered and which post type stores the custom field value.",
+        "Confirm runtime FacetWP facet definitions and facet types.",
+        "Confirm whether the target entity is core-owned or extension-owned when it is not tour, destination or accommodation."
+      ]
+    },
+    {
+      "sourceKey": "cf/destination_to_special",
+      "fieldKey": "destination_to_special",
+      "likelyFacetValueType": "destination",
+      "likelyIndexedContentType": "special",
+      "likelyFromToInterpretation": "destination values are used as FacetWP filter values for indexed special content",
+      "ownershipBoundary": "extension-facing relationship/facet source; not proof of core-owned post type",
+      "facetwpIndexingBehaviour": {
+        "listedInDestinationFacetSources": true,
+        "customFieldArrayExpansion": "The generic _to_ custom-field branch expands array values, resolves facet display values via get_the_title(), and skips default indexing by inserting rows directly.",
+        "hierarchyAugmentation": "Not explicitly augmented in facetwp_index_row_data in uploaded source; destination facet renderer still lists this source, but depth/parent behaviour needs runtime verification.",
+        "htmlRendering": "destination_facet_html routes this source to destination_facet_render() when the facet source matches the sources array.",
+        "fselectCountBehaviour": "Facet counts are disabled for fselect facets using this source."
+      },
+      "destinationHierarchyBehaviour": {
+        "countryRegionDepthWithoutContinentFilter": "When hierarchy augmentation runs, top-level destination values use depth 0 and child destinations use depth 1.",
+        "continentCountryRegionDepthWithContinentFilter": "When engine_search_continent_filter is enabled and hierarchy augmentation runs, continent rows are depth 0, top-level country destinations depth 1, and region/child destinations depth 2.",
+        "parentIdHandling": "Parent IDs are derived from wp_get_post_parent_id() for destination values; continent parent IDs are term IDs added when enable_search_continent_filter is enabled."
+      },
+      "continentFilteringBehaviour": {
+        "optionKeys": [
+          "engine_search_continent_filter",
+          "enable_search_continent_filter"
+        ],
+        "taxonomyUsed": "continent",
+        "behaviour": "When enabled for augmented sources, continent terms are added as additional facet rows and country destination rows receive parent_id values pointing to continent term IDs."
+      },
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed source key and rendering hook; target entity ownership unresolved in uploaded files",
+      "unresolvedQuestions": [
+        "Confirm where the relationship field is registered and which post type stores the custom field value.",
+        "Confirm runtime FacetWP facet definitions and facet types.",
+        "Confirm whether the target entity is core-owned or extension-owned when it is not tour, destination or accommodation."
+      ]
+    },
+    {
+      "sourceKey": "cf/destination_to_activity",
+      "fieldKey": "destination_to_activity",
+      "likelyFacetValueType": "destination",
+      "likelyIndexedContentType": "activity",
+      "likelyFromToInterpretation": "destination values are used as FacetWP filter values for indexed activity content",
+      "ownershipBoundary": "extension-facing relationship/facet source; not proof of core-owned post type",
+      "facetwpIndexingBehaviour": {
+        "listedInDestinationFacetSources": true,
+        "customFieldArrayExpansion": "The generic _to_ custom-field branch expands array values, resolves facet display values via get_the_title(), and skips default indexing by inserting rows directly.",
+        "hierarchyAugmentation": "Not explicitly augmented in facetwp_index_row_data in uploaded source; destination facet renderer still lists this source, but depth/parent behaviour needs runtime verification.",
+        "htmlRendering": "destination_facet_html routes this source to destination_facet_render() when the facet source matches the sources array.",
+        "fselectCountBehaviour": "Facet counts are disabled for fselect facets using this source."
+      },
+      "destinationHierarchyBehaviour": {
+        "countryRegionDepthWithoutContinentFilter": "When hierarchy augmentation runs, top-level destination values use depth 0 and child destinations use depth 1.",
+        "continentCountryRegionDepthWithContinentFilter": "When engine_search_continent_filter is enabled and hierarchy augmentation runs, continent rows are depth 0, top-level country destinations depth 1, and region/child destinations depth 2.",
+        "parentIdHandling": "Parent IDs are derived from wp_get_post_parent_id() for destination values; continent parent IDs are term IDs added when enable_search_continent_filter is enabled."
+      },
+      "continentFilteringBehaviour": {
+        "optionKeys": [
+          "engine_search_continent_filter",
+          "enable_search_continent_filter"
+        ],
+        "taxonomyUsed": "continent",
+        "behaviour": "When enabled for augmented sources, continent terms are added as additional facet rows and country destination rows receive parent_id values pointing to continent term IDs."
+      },
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed source key and rendering hook; target entity ownership unresolved in uploaded files",
+      "unresolvedQuestions": [
+        "Confirm where the relationship field is registered and which post type stores the custom field value.",
+        "Confirm runtime FacetWP facet definitions and facet types.",
+        "Confirm whether the target entity is core-owned or extension-owned when it is not tour, destination or accommodation."
+      ]
+    },
+    {
+      "sourceKey": "cf/destination_to_review",
+      "fieldKey": "destination_to_review",
+      "likelyFacetValueType": "destination",
+      "likelyIndexedContentType": "review",
+      "likelyFromToInterpretation": "destination values are used as FacetWP filter values for indexed review content",
+      "ownershipBoundary": "extension-facing relationship/facet source; not proof of core-owned post type",
+      "facetwpIndexingBehaviour": {
+        "listedInDestinationFacetSources": true,
+        "customFieldArrayExpansion": "The generic _to_ custom-field branch expands array values, resolves facet display values via get_the_title(), and skips default indexing by inserting rows directly.",
+        "hierarchyAugmentation": "Not explicitly augmented in facetwp_index_row_data in uploaded source; destination facet renderer still lists this source, but depth/parent behaviour needs runtime verification.",
+        "htmlRendering": "destination_facet_html routes this source to destination_facet_render() when the facet source matches the sources array.",
+        "fselectCountBehaviour": "Facet counts are disabled for fselect facets using this source."
+      },
+      "destinationHierarchyBehaviour": {
+        "countryRegionDepthWithoutContinentFilter": "When hierarchy augmentation runs, top-level destination values use depth 0 and child destinations use depth 1.",
+        "continentCountryRegionDepthWithContinentFilter": "When engine_search_continent_filter is enabled and hierarchy augmentation runs, continent rows are depth 0, top-level country destinations depth 1, and region/child destinations depth 2.",
+        "parentIdHandling": "Parent IDs are derived from wp_get_post_parent_id() for destination values; continent parent IDs are term IDs added when enable_search_continent_filter is enabled."
+      },
+      "continentFilteringBehaviour": {
+        "optionKeys": [
+          "engine_search_continent_filter",
+          "enable_search_continent_filter"
+        ],
+        "taxonomyUsed": "continent",
+        "behaviour": "When enabled for augmented sources, continent terms are added as additional facet rows and country destination rows receive parent_id values pointing to continent term IDs."
+      },
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed source key and rendering hook; target entity ownership unresolved in uploaded files",
+      "unresolvedQuestions": [
+        "Confirm where the relationship field is registered and which post type stores the custom field value.",
+        "Confirm runtime FacetWP facet definitions and facet types.",
+        "Confirm whether the target entity is core-owned or extension-owned when it is not tour, destination or accommodation."
+      ]
+    },
+    {
+      "sourceKey": "cf/destination_to_vehicle",
+      "fieldKey": "destination_to_vehicle",
+      "likelyFacetValueType": "destination",
+      "likelyIndexedContentType": "vehicle",
+      "likelyFromToInterpretation": "destination values are used as FacetWP filter values for indexed vehicle content",
+      "ownershipBoundary": "extension-facing relationship/facet source; not proof of core-owned post type",
+      "facetwpIndexingBehaviour": {
+        "listedInDestinationFacetSources": true,
+        "customFieldArrayExpansion": "The generic _to_ custom-field branch expands array values, resolves facet display values via get_the_title(), and skips default indexing by inserting rows directly.",
+        "hierarchyAugmentation": "Not explicitly augmented in facetwp_index_row_data in uploaded source; destination facet renderer still lists this source, but depth/parent behaviour needs runtime verification.",
+        "htmlRendering": "destination_facet_html routes this source to destination_facet_render() when the facet source matches the sources array.",
+        "fselectCountBehaviour": "Facet counts are disabled for fselect facets using this source."
+      },
+      "destinationHierarchyBehaviour": {
+        "countryRegionDepthWithoutContinentFilter": "When hierarchy augmentation runs, top-level destination values use depth 0 and child destinations use depth 1.",
+        "continentCountryRegionDepthWithContinentFilter": "When engine_search_continent_filter is enabled and hierarchy augmentation runs, continent rows are depth 0, top-level country destinations depth 1, and region/child destinations depth 2.",
+        "parentIdHandling": "Parent IDs are derived from wp_get_post_parent_id() for destination values; continent parent IDs are term IDs added when enable_search_continent_filter is enabled."
+      },
+      "continentFilteringBehaviour": {
+        "optionKeys": [
+          "engine_search_continent_filter",
+          "enable_search_continent_filter"
+        ],
+        "taxonomyUsed": "continent",
+        "behaviour": "When enabled for augmented sources, continent terms are added as additional facet rows and country destination rows receive parent_id values pointing to continent term IDs."
+      },
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed source key and rendering hook; target entity ownership unresolved in uploaded files",
+      "unresolvedQuestions": [
+        "Confirm where the relationship field is registered and which post type stores the custom field value.",
+        "Confirm runtime FacetWP facet definitions and facet types.",
+        "Confirm whether the target entity is core-owned or extension-owned when it is not tour, destination or accommodation."
+      ]
+    }
+  ],
+  "globalRules": [
+    "Treat relationship/facet sources as evidence of FacetWP behaviour, not proof that every referenced entity is core-owned.",
+    "Only tour, destination and accommodation are confirmed core post types from the uploaded post type JSON files.",
+    "review, special, vehicle and activity remain extension-facing or unknown until their registration source is inspected."
+  ],
+  "facetFieldNormalisation": [
+    {
+      "sourceKey": "cf/price",
+      "behaviour": "strips non-numeric characters except dots, trims leading dots, and uses the cleaned value as the FacetWP facet value/display value",
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed from uploaded source code",
+      "safetyNote": "Use as FacetWP indexing behaviour only; do not treat the string price field as structured currency data without parsing rules."
+    },
+    {
+      "sourceKey": "cf/duration",
+      "behaviour": "strips non-numeric characters except spaces, splits on spaces, and uses the first token as the FacetWP facet value/display value",
+      "sourceFile": "class-post-connections.php",
+      "sourceConfidence": "confirmed from uploaded source code",
+      "safetyNote": "Use as FacetWP indexing behaviour only; do not treat the string duration field as a complete structured duration model."
+    }
+  ],
+  "renderingRules": {
+    "supportedFacetTypes": [
+      "checkboxes",
+      "fselect"
+    ],
+    "fselectCountBehaviour": "Facet counts are disabled for fselect facets using the listed destination relationship sources.",
+    "sourceFile": "class-post-connections.php",
+    "sourceConfidence": "confirmed from uploaded source code"
+  }
+}

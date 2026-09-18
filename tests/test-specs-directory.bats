@@ -4,6 +4,7 @@ setup() {
   PROJECT_ROOT="$(CDPATH="" cd "$BATS_TEST_DIRNAME/.." && pwd)"
   COMMON_SH="$PROJECT_ROOT/.specify/scripts/bash/common.sh"
   CREATE_FEATURE_SH="$PROJECT_ROOT/.specify/scripts/bash/create-new-feature.sh"
+  MIGRATE_SPECS_SH="$PROJECT_ROOT/.specify/scripts/bash/migrate-specs.sh"
   TEST_ROOT="$(mktemp -d)"
   TEST_REPO="$TEST_ROOT/project"
   mkdir -p "$TEST_REPO/.specify"
@@ -65,6 +66,18 @@ json_field() {
   done
 }
 
+@test "read_specs_directory validates configuration through the Python fallback" {
+  write_config '{"specs_directory":"docs/specifications"}'
+  mkdir -p "$TEST_ROOT/python-bin"
+  ln -s "$(command -v python3)" "$TEST_ROOT/python-bin/python3"
+
+  run env PATH="$TEST_ROOT/python-bin" /bin/bash -c \
+    'source "$1"; read_specs_directory "$2"' _ "$COMMON_SH" "$TEST_REPO"
+
+  [ "$status" -eq 0 ]
+  [ "$output" = "docs/specifications" ]
+}
+
 @test "read_specs_directory rejects malformed JSON instead of hiding configuration errors" {
   write_config '{"specs_directory":"docs/specs"'
 
@@ -101,6 +114,7 @@ json_field() {
     "specs/../other" \
     "specs/./other" \
     "specs//other" \
+    "specs/" \
     "specs with spaces" \
     "specs?draft"; do
     write_config "{\"specs_directory\":\"$invalid_path\"}"
@@ -178,4 +192,114 @@ json_field() {
 
   [ "$status" -ne 0 ]
   [ ! -e "$TEST_ROOT/outside-project" ]
+}
+
+@test "migration rejects a custom configured specs directory without changing either tree" {
+  write_config '{"specs_directory":"docs/specs"}'
+  mkdir -p "$TEST_REPO/specs" "$TEST_REPO/.github/specs"
+  printf '%s\n' 'source' > "$TEST_REPO/specs/source.txt"
+  printf '%s\n' 'target' > "$TEST_REPO/.github/specs/target.txt"
+
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$MIGRATE_SPECS_SH"
+
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"requires specs_directory to be '.github/specs'"* ]]
+  [ "$(< "$TEST_REPO/specs/source.txt")" = "source" ]
+  [ "$(< "$TEST_REPO/.github/specs/target.txt")" = "target" ]
+  [ ! -e "$TEST_REPO/.github/tmp" ]
+}
+
+@test "migration preserves files empty directories symlinks and existing target entries" {
+  write_config '{"specs_directory":".github/specs"}'
+  mkdir -p \
+    "$TEST_REPO/specs/nested/empty directory" \
+    "$TEST_REPO/.github/specs"
+  printf '%s\n' 'source content' > "$TEST_REPO/specs/nested/file with spaces.txt"
+  ln -s "nested/file with spaces.txt" "$TEST_REPO/specs/source-link"
+  printf '%s\n' 'existing target' > "$TEST_REPO/.github/specs/existing.txt"
+
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$MIGRATE_SPECS_SH"
+
+  [ "$status" -eq 0 ]
+  [ ! -e "$TEST_REPO/specs" ]
+  [ -d "$TEST_REPO/.github/specs/nested/empty directory" ]
+  [ "$(< "$TEST_REPO/.github/specs/nested/file with spaces.txt")" = "source content" ]
+  [ -L "$TEST_REPO/.github/specs/source-link" ]
+  [ "$(readlink "$TEST_REPO/.github/specs/source-link")" = "nested/file with spaces.txt" ]
+  [ "$(< "$TEST_REPO/.github/specs/existing.txt")" = "existing target" ]
+}
+
+@test "target backup failure stops before migration and preserves both trees" {
+  write_config '{"specs_directory":".github/specs"}'
+  mkdir -p \
+    "$TEST_REPO/specs" \
+    "$TEST_REPO/.github/specs" \
+    "$TEST_ROOT/bin"
+  printf '%s\n' 'source content' > "$TEST_REPO/specs/source.txt"
+  printf '%s\n' 'target content' > "$TEST_REPO/.github/specs/target.txt"
+
+  local real_cp
+  real_cp="$(command -v cp)"
+  printf '%s\n' \
+    '#!/usr/bin/env bash' \
+    'for argument in "$@"; do' \
+    '  if [[ "$argument" == "$MIGRATION_TARGET" ]]; then' \
+    '    exit 1' \
+    '  fi' \
+    'done' \
+    'exec "$REAL_CP" "$@"' > "$TEST_ROOT/bin/cp"
+  chmod +x "$TEST_ROOT/bin/cp"
+
+  run env \
+    PATH="$TEST_ROOT/bin:$PATH" \
+    REAL_CP="$real_cp" \
+    MIGRATION_TARGET="$TEST_REPO/.github/specs" \
+    SPECIFY_INIT_DIR="$TEST_REPO" \
+    bash "$MIGRATE_SPECS_SH"
+
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"Migration failed: Failed to create target backup"* ]]
+  [[ "$output" == *"stopped before source or target contents were changed"* ]]
+  [ "$(< "$TEST_REPO/specs/source.txt")" = "source content" ]
+  [ "$(< "$TEST_REPO/.github/specs/target.txt")" = "target content" ]
+  [ -d "$TEST_REPO/.github/tmp" ]
+}
+
+@test "migration failure restores both trees and exits nonzero" {
+  write_config '{"specs_directory":".github/specs"}'
+  mkdir -p \
+    "$TEST_REPO/specs/empty" \
+    "$TEST_REPO/.github/specs" \
+    "$TEST_ROOT/bin"
+  printf '%s\n' 'source content' > "$TEST_REPO/specs/fail-copy.txt"
+  printf '%s\n' 'target content' > "$TEST_REPO/.github/specs/target.txt"
+
+  local real_cp
+  real_cp="$(command -v cp)"
+  printf '%s\n' \
+    '#!/usr/bin/env bash' \
+    'last_argument="${!#}"' \
+    'for argument in "$@"; do' \
+    '  if [[ "$argument" == "$MIGRATION_SOURCE/"* && "$last_argument" == "$MIGRATION_TARGET/" ]]; then' \
+    '    exit 1' \
+    '  fi' \
+    'done' \
+    'exec "$REAL_CP" "$@"' > "$TEST_ROOT/bin/cp"
+  chmod +x "$TEST_ROOT/bin/cp"
+
+  run env \
+    PATH="$TEST_ROOT/bin:$PATH" \
+    REAL_CP="$real_cp" \
+    MIGRATION_SOURCE="$TEST_REPO/specs" \
+    MIGRATION_TARGET="$TEST_REPO/.github/specs" \
+    SPECIFY_INIT_DIR="$TEST_REPO" \
+    bash "$MIGRATE_SPECS_SH"
+
+  [ "$status" -ne 0 ]
+  [[ "$output" == *"Migration failed and rollback restored the original source and target state"* ]]
+  [ "$(< "$TEST_REPO/specs/fail-copy.txt")" = "source content" ]
+  [ -d "$TEST_REPO/specs/empty" ]
+  [ "$(< "$TEST_REPO/.github/specs/target.txt")" = "target content" ]
+  [ ! -e "$TEST_REPO/.github/specs/fail-copy.txt" ]
+  [ -d "$TEST_REPO/.github/tmp" ]
 }

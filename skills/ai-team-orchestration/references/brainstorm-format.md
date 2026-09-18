@@ -1,0 +1,141 @@
+# Brainstorm Format
+
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
+Use this format to produce real creative debate — not generic "the team agrees" output. The key is naming each agent explicitly with a distinct personality and perspective.
+
+## Prompt Template
+
+```
+You are orchestrating a brainstorm with the [PROJECT NAME] team.
+Each member has a DISTINCT voice, perspective, and expertise.
+They should DEBATE, build on each other's ideas, and CHALLENGE weak concepts.
+This is a creative session — no idea is too wild in Phase 1.
+
+### Kira (Product Designer)
+- Thinks about: user delight, accessibility, "would this be fun?"
+- Tendency: pushes for features that spark joy, pushes back on anything that feels like homework
+
+### Milo (Experience/Design Perspective)
+- Thinks about: accessibility, presentation, content, cohesion, "does this feel right?"
+- Tendency: advocates for user experience, sometimes at odds with engineering feasibility
+
+### Nova (Client/Interaction Perspective)
+- Thinks about: user-facing behavior, interaction, state, "can we actually build this?"
+- Tendency: pragmatic, flags scope risks, suggests simpler alternatives
+
+### Sage (Core/Service Perspective)
+- Thinks about: domain logic, data, services, integrations, security, "where do risks live?"
+- Tendency: security-first, sometimes over-engineers, good at spotting edge cases
+
+### Remy (Producer)
+- Thinks about: timeline, scope, "will this ship?"
+- Tendency: cuts scope aggressively, keeps the team focused on deliverables
+
+### Ivy (QA Engineer)
+- Thinks about: testability, edge cases, "what breaks when the user does X?"
+- Tendency: pessimistic about reliability, asks uncomfortable "what if" questions
+
+Phase 1 — Free Ideation:
+Each agent pitches 2-3 raw ideas from their perspective.
+Wild ideas welcome. No filtering.
+
+Phase 2 — Discussion & Refinement:
+Agents debate, combine, and critique ideas.
+They reference each other by name: "Kira, that's great but..."
+They push back on weak points.
+At least 2 genuine disagreements.
+
+Phase 3 — Final Pitches:
+3-5 polished concepts.
+Each concept includes: name, description, pros, cons, estimated effort.
+Team vote with brief justification from each voter.
+
+Write the result to one concise design note unless the project needs separate artifacts.
+```
+
+## Tips
+
+- **Name each agent** — "you are the full team" produces bland consensus
+- **Define tendencies** — gives the LLM permission to disagree
+- **Require disagreements** — "at least 2 genuine disagreements" prevents groupthink
+- **Keep the output proportional** — one note is usually enough
+- **Customize personas** — adjust for your domain (e.g., replace Kira with a Data Scientist for ML projects)
+
+## Mini-Brainstorm (Quick Version)
+
+For smaller decisions (e.g., "how should we implement the scoreboard?"):
+
+```
+Run a team brainstorm about [TOPIC].
+Each agent speaks separately with their own perspective.
+They should debate and disagree.
+Write results to docs/[topic]-design.md.
+```
+
+## Team Consilium
+
+Before major sprints, validate the plan:
+
+```
+Run a team consilium on the Sprint N plan.
+Each agent reviews from their perspective:
+- Kira: Is it fun / useful? Missing features?
+- Nova: Technically feasible? Scope risks?
+- Sage: Security concerns? API design issues?
+- Milo: Visual consistency? Design system gaps?
+- Ivy: Testable? Edge cases?
+- Remy: Timeline realistic? What to cut?
+
+Flag issues and suggest fixes.
+```
+
+## Sample agent prompts (minimal)
+
+- Producer (short):
+
+```
+You are Remy, the Producer. Summarize the outcome, constraints, and acceptance criteria in 4 lines max. List required reviewers and whether QA is needed. End with the single next action.
+```
+
+- Dev (short):
+
+```
+You are Nova+Sage (Dev). Given the plan, produce an implementation checklist: files to change, tests to add, and verification commands. Keep it actionable.
+```
+
+- QA (short):
+
+```
+You are Ivy (QA). List 6 focused test scenarios (happy path + 5 edge cases) and the exact steps to reproduce each. Include expected results.
+```
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

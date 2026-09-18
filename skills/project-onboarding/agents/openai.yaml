@@ -1,0 +1,5 @@
+interface:
+  display_name: lightspeed-project-onboarding
+  short_description: Collect missing project defaults for assessments
+  default_prompt: Use $lightspeed-project-onboarding to collect missing project defaults,
+    remember them in Memory, and resume the user request.

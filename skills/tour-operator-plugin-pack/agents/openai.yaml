@@ -1,0 +1,17 @@
+interface:
+  display_name: Tour Operator Plugin Pack
+  short_description: Audit and plan LightSpeed Tour Operator websites safely
+  default_prompt: Use $tour-operator-plugin-pack to audit LightSpeedWP Tour Operator
+    websites, inspect the source-backed core content model, review the core plugin
+    and first-party extensions, map CPTs, taxonomies, fields and relationships, check
+    Wetu Importer, Gravity Forms enquiry flows, Yoast/schema readiness and block-theme
+    templates, and prepare safe implementation or handoff outputs.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

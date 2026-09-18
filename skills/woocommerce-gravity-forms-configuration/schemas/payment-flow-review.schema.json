@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lsdev.biz/schemas/gravity-forms/payment-flow-review.schema.json",
+  "title": "Payment Flow Review",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "flow_type",
+    "target_form",
+    "environment",
+    "gateway_addon",
+    "confirmed_facts",
+    "payment_model",
+    "notifications_confirmations",
+    "risks",
+    "required_approvals",
+    "validation_plan",
+    "readiness",
+    "next_action"
+  ],
+  "properties": {
+    "flow_type": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "target_form": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "environment": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "gateway_addon": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "confirmed_facts": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "payment_model": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "notifications_confirmations": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "risks": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "required_approvals": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "validation_plan": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "readiness": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    },
+    "next_action": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "null"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+interface:
+  display_name: case-investigation
+  short_description: Investigate one support issue with evidence-backed diagnosis
+  default_prompt: Use $case-investigation to investigate a support issue, prove what
+    happened, and recommend the best next action.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
