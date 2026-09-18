@@ -94,10 +94,10 @@ EOF_BASE
   fi
 }
 
-@test "strict-mode parser rejects function name() with nested set command" {
+@test "strict-mode parser rejects name() with nested set command" {
   # Regression test: name() form should be detected and rejected when set is nested
   tmpfile=$(mktemp)
-  trap "rm -f $tmpfile" EXIT
+  trap 'rm -f "$tmpfile"' EXIT
   cat > "$tmpfile" <<'EOF'
 #!/bin/bash
 
@@ -116,7 +116,7 @@ EOF
 @test "strict-mode parser rejects function name with nested set command" {
   # Regression test: function name form should be detected and rejected when set is nested
   tmpfile=$(mktemp)
-  trap "rm -f $tmpfile" EXIT
+  trap 'rm -f "$tmpfile"' EXIT
   cat > "$tmpfile" <<'EOF'
 #!/bin/bash
 
@@ -132,10 +132,29 @@ EOF
   fi
 }
 
-@test "strict-mode parser accepts top-level set before function name() form" {
+@test "strict-mode parser rejects function name() with nested set command" {
+  # Regression test: function name() form should be detected and rejected when set is nested
+  tmpfile=$(mktemp)
+  trap 'rm -f "$tmpfile"' EXIT
+  cat > "$tmpfile" <<'EOF'
+#!/bin/bash
+
+function helper() {
+  set -euo pipefail
+  echo "nested strict mode"
+}
+
+helper
+EOF
+  if has_strict_mode "$tmpfile"; then
+    return 1  # Should fail because strict-mode is nested in function
+  fi
+}
+
+@test "strict-mode parser accepts top-level set before name() form" {
   # Regression test: top-level set should pass even with name() declarations after
   tmpfile=$(mktemp)
-  trap "rm -f $tmpfile" EXIT
+  trap 'rm -f "$tmpfile"' EXIT
   cat > "$tmpfile" <<'EOF'
 #!/bin/bash
 set -euo pipefail
@@ -154,12 +173,31 @@ EOF
 @test "strict-mode parser accepts top-level set before function name form" {
   # Regression test: top-level set should pass even with function name declarations after
   tmpfile=$(mktemp)
-  trap "rm -f $tmpfile" EXIT
+  trap 'rm -f "$tmpfile"' EXIT
   cat > "$tmpfile" <<'EOF'
 #!/bin/bash
 set -euo pipefail
 
 function helper {
+  echo "function body"
+}
+
+helper
+EOF
+  if ! has_strict_mode "$tmpfile"; then
+    return 1  # Should pass because strict-mode is at top-level
+  fi
+}
+
+@test "strict-mode parser accepts top-level set before function name() form" {
+  # Regression test: top-level set should pass even with function name() declarations after
+  tmpfile=$(mktemp)
+  trap 'rm -f "$tmpfile"' EXIT
+  cat > "$tmpfile" <<'EOF'
+#!/bin/bash
+set -euo pipefail
+
+function helper() {
   echo "function body"
 }
 
