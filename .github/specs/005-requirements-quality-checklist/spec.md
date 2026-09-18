@@ -265,7 +265,7 @@ Items in the Clarity dimension check whether vague terms are converted to measur
 
 - **Definition:** Single quality validation criterion
 - **Properties:**
-  - Item ID (CHK001, CHK002, etc.)
+  - Item ID (CHK-###-{dimension}, e.g. CHK-001-Completeness, CHK-002-Clarity)
   - Question text (requirement quality question)
   - Dimension (Completeness, Clarity, etc.)
   - Spec reference (§X.Y or [Gap])
