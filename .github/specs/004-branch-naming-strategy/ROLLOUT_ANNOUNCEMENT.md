@@ -56,7 +56,7 @@ Effective immediately, **all new branches in LightSpeed repositories must follow
 | `api`, `schema`, `ops`, `proto` | API, data, operations, prototype | `api/rest-endpoint-versioning` |
 | `research`, `audit`, `codex` | Investigation, compliance, AI-assisted | `research/performance-benchmarks` |
 | `aiops`, `automation`, `epic` | AI ops, workflow automation, epics | `automation/issue-routing` |
-| **+22 more** | See [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md) for full list | — |
+| **+14 more** | See [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md) for full list | — |
 
 ---
 
@@ -125,8 +125,8 @@ When you create a PR from a valid branch:
 ### Get Help
 
 - **❓ Questions?** Post in [#branch-naming Slack channel](https://slack.com/archives/lightspeed)
-- **📖 Full Guide:** Read [docs/BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md)
-- **🔗 CLAUDE.md:** [Branch Naming Rules](../../CLAUDE.md#-branch-naming--critical-read-first)
+- **📖 Full Guide:** Read [docs/BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md)
+- **🔗 CLAUDE.md:** [Branch Naming Rules](../../../CLAUDE.md#-branch-naming--critical-read-first)
 
 ### Examples by Scenario
 
@@ -176,7 +176,7 @@ git checkout -B docs/branching-strategy-guide origin/develop
 ## FAQ
 
 **Q: Do I have to memorize all 38 types?**
-A: No. Use the table above or run `npm run validate:branch-name -- --help` for quick reference. For detailed guidance on choosing the right type, see [BRANCHING_STRATEGY.md](../../docs/BRANCHING_STRATEGY.md).
+A: No. Use the table above or run `npm run validate:branch-name -- --help` for quick reference. For detailed guidance on choosing the right type, see [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 **Q: What if my existing branches don't follow the pattern?**
 A: Existing branches are grandfathered in. Only NEW branches must follow the pattern. Invalid existing branches continue to work, but new work should use valid names.

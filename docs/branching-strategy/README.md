@@ -135,7 +135,7 @@ Valid branch names automatically route to correct PR template:
 | Branch Prefix | PR Template | Auto-Applied Labels |
 |---------------|------------|-------------------|
 | `feat/` | pr_feature.md | `type:feature` |
-| `fix/` | pr_bugfix.md | `type:bug` |
+| `fix/` | pr_bug.md | `type:bug` |
 | `security/` | pr_security.md | `type:security`, `priority:critical` |
 | `docs/` | pr_docs.md | `type:documentation` |
 | `test/` | pr_test.md | `type:test` |
