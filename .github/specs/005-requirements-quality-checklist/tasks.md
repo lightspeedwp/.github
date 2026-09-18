@@ -287,8 +287,9 @@
 - **Phase 6 (US4 - FR-4)**: 10 tasks (4 tests, 3 implementation, 1 skill integration, 1 doc)
 - **Phase 7 (Polish)**: 10 tasks [+2: T063 usability testing, T064 metrics dashboard]
 - **Phase 8 (Convergence)**: 16 tasks (2 traceability, 4 tests, 10 documentation/validation)
+- **Phase 9 (Convergence Follow-Up)**: 3 tasks (2 schema/model consistency, 1 code quality)
 
-**TOTAL: 81 tasks** (65 original + 16 convergence)
+**TOTAL: 84 tasks** (65 original + 16 Phase 8 convergence + 3 Phase 9 convergence)
 
 **Parallelizable**: 42 tasks marked [P] (+ 3 new, mostly sequential)  
 **MVP Scope**: Phases 1-2-3 = 27 tasks (1.5 weeks for 1 FTE, or 1 week for 2 FTE in parallel)  
@@ -326,6 +327,24 @@
 - [ ] T080 Create requirements-quality compliance dashboard at `.github/reports/requirements-quality-compliance/dashboard.md` (daily updates: adoption % [target ≥90% of new specs include checklist], specification coverage %, dimension compliance %, gap/ambiguity counts by project, trend data over 30+ days; automated metrics via GitHub Actions label automation; tracks: frameworks applied, dimensions completed, gaps resolved, ambiguities clarified)
 
 **Checkpoint**: Convergence gaps resolved; Phase 7 deliverables complete; framework ready for adoption
+
+---
+
+## Phase 9: Convergence Follow-Up (Code Quality & Schema Alignment)
+
+**Purpose**: Address critical code quality issues and schema-implementation mismatches identified during integration review
+
+### Data Model & Schema Consistency (CRITICAL)
+
+- [ ] T081 Update outdated ID format example in spec.md at line 268 per FR-2 (contradicts) — Change "CHK001, CHK002" to "CHK-001-Completeness, CHK-002-Completeness" to match FR-2 specification and schema.json requirement `CHK-###-{dimension}` format; verify consistency across all spec references to item ID format
+
+- [ ] T082 Align schema-generator object shape per checklist-schema.json requirements (partial) — Schema requires `summary` field in generated checklist (checklist-schema.json lines 99–146), but generator.cjs returns only `{metadata, items}`. Define canonical object shape; update generator.cjs to produce summary with totalItems, checkedItems, uncheckedItems, completionPercent, gaps, ambiguities, status OR update schema to make summary optional and adjust consumers; validate via checklist-validator.cjs
+
+### Code Quality (MEDIUM)
+
+- [ ] T083 Add docstrings to reach 80% coverage threshold (partial) — Current coverage 64.10% < required 80%; add JSDoc/docstring to all exported functions and key internal functions in `.specify/templates/checklist-template/lib/*.js` files (generator.js, custom-merger.js, checklist-validator.js, audience-generator.js, etc.) to document purpose, parameters, and return types
+
+**Checkpoint**: Phase 9 critical issues resolved; framework ready for final review and integration
 
 ---
 
