@@ -58,6 +58,7 @@ jobs:
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=No changelog files modified in this PR" >> $GITHUB_OUTPUT
+            echo "report_created=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
@@ -82,6 +83,7 @@ jobs:
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=$RESULT" >> $GITHUB_OUTPUT
             echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
+            echo "report_created=true" >> $GITHUB_OUTPUT
 
             # Save full report for audit
             cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
@@ -100,10 +102,72 @@ jobs:
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=ERROR" >> $GITHUB_OUTPUT
             echo "gate_result=UNKNOWN" >> $GITHUB_OUTPUT
+            echo "report_created=false" >> $GITHUB_OUTPUT
             [ -f validation-stderr.log ] && cat validation-stderr.log
             exit 1
           fi
         continue-on-error: true
+
+      - name: Report validation via GitHub Check Run
+        id: check-run
+        if: steps.validate.outputs.report_created == 'true'
+        run: |
+          cd .github/validation/changelog
+
+          # Get the HEAD SHA from the PR or current commit
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          if [ -z "$HEAD_SHA" ]; then
+            HEAD_SHA="${{ github.sha }}"
+          fi
+
+          # Call the check run reporter
+          node bin/report-check-run.js \
+            --report-path validation-report.json \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --owner "${{ github.repository_owner }}" \
+            --repo "${{ github.event.repository.name }}" \
+            --sha "$HEAD_SHA" \
+            --pr-number "${{ github.event.pull_request.number }}" \
+            --verbose
+
+        continue-on-error: true
+
+      - name: Report skip for unchanged changelog
+        id: skip-check
+        if: steps.validate.outputs.report_created == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              const headSha = "${{ github.event.pull_request.head.sha }}" || "${{ github.sha }}";
+
+              core.info(`Creating neutral check run for SHA: ${headSha}`);
+
+              await github.rest.checks.create({
+                owner: "${{ github.repository_owner }}",
+                repo: "${{ github.event.repository.name }}",
+                name: "Changelog Validation",
+                head_sha: headSha,
+                status: "completed",
+                conclusion: "neutral",
+                output: {
+                  title: "No changelog changes detected",
+                  summary: "CHANGELOG.md was not modified in this PR. Validation skipped.",
+                }
+              });
+
+              core.info("Neutral check run created successfully");
+            } catch (error) {
+              core.warning(`Failed to create check run: ${error.message}`);
+            }
+        continue-on-error: true
+
+      - name: Validate status when changelog unchanged
+        if: steps.validate.outputs.report_created == 'false'
+        run: |
+          echo "✅ Changelog validation: No changes to validate"
+          exit 0
 
       - name: Format PR comment
         id: comment
