@@ -1,0 +1,3008 @@
+{
+  "timestamp": "2026-09-18T14:10:41.985Z",
+  "summary": {
+    "agentsAudited": 43,
+    "conformant": 0,
+    "nonConformant": 43,
+    "conformancePercentage": 0
+  },
+  "recommendations": [
+    {
+      "agent": "_template-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/_template-agent",
+      "status": "needs-remediation",
+      "componentCount": 0,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "description": "Agent-specific skills"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "action": "Create skills/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "adr-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/adr-generator",
+      "status": "needs-remediation",
+      "componentCount": 0,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "description": "Agent-specific skills"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "action": "Create skills/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "adr-generator-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/adr-generator-agent",
+      "status": "needs-remediation",
+      "componentCount": 4,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "ai-readiness-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/ai-readiness-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "ai-readiness-estimator-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/ai-readiness-estimator-agent",
+      "status": "needs-remediation",
+      "componentCount": 1,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "archived",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/archived",
+      "status": "needs-remediation",
+      "componentCount": 0,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "description": "Agent-specific skills"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "action": "Create skills/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "changelog-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/changelog-agent",
+      "status": "needs-remediation",
+      "componentCount": 5,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Package name should be \"agents-changelog-agent\", got \"@lightspeedwp/changelog-agent\""
+        },
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Must have \"type\": \"module\""
+        },
+        {
+          "component": "package.json",
+          "severity": "warning",
+          "message": "Missing engines.node specification"
+        }
+      ],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "type": "validation-error",
+          "count": 2,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Package name should be \"agents-changelog-agent\", got \"@lightspeedwp/changelog-agent\""
+            },
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Must have \"type\": \"module\""
+            }
+          ],
+          "action": "Fix validation errors before component is considered conformant",
+          "severity": "error"
+        },
+        {
+          "type": "validation-warning",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "warning",
+              "message": "Missing engines.node specification"
+            }
+          ],
+          "action": "Address warnings to improve conformance quality",
+          "severity": "warning"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "chat-closure-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/chat-closure-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "client-website-discovery-assistant-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/client-website-discovery-assistant-agent",
+      "status": "needs-remediation",
+      "componentCount": 1,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "content-strategy-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/content-strategy-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "design-partner-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/design-partner-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "discovery-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/discovery-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "document-reviewer-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/document-reviewer-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "estimator-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/estimator-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "harvest-analytical-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/harvest-analytical-agent",
+      "status": "needs-remediation",
+      "componentCount": 1,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "issue-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/issue-agent",
+      "status": "needs-remediation",
+      "componentCount": 4,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "labeling-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/labeling-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "linear-advisor-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/linear-advisor-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "linting-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/linting-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "metadata-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/metadata-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "metrics-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/metrics-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "pagespeed-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/pagespeed-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "pr-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/pr-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Package name should be \"agents-pr-agent\", got \"@lightspeedwp/pr-creation-agent\""
+        },
+        {
+          "component": "package.json",
+          "severity": "warning",
+          "message": "Missing engines.node specification"
+        }
+      ],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "type": "validation-error",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Package name should be \"agents-pr-agent\", got \"@lightspeedwp/pr-creation-agent\""
+            }
+          ],
+          "action": "Fix validation errors before component is considered conformant",
+          "severity": "error"
+        },
+        {
+          "type": "validation-warning",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "warning",
+              "message": "Missing engines.node specification"
+            }
+          ],
+          "action": "Address warnings to improve conformance quality",
+          "severity": "warning"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "pr-creation-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/pr-creation-agent",
+      "status": "needs-remediation",
+      "componentCount": 0,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "description": "Agent-specific skills"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "action": "Create skills/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "project-meta-sync-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/project-meta-sync-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "proposal-desk-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/proposal-desk-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "release-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/release-agent",
+      "status": "needs-remediation",
+      "componentCount": 4,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Package name should be \"agents-release-agent\", got \"@lightspeedwp/release-agent\""
+        },
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Must have \"type\": \"module\""
+        },
+        {
+          "component": "package.json",
+          "severity": "warning",
+          "message": "Missing engines.node specification"
+        }
+      ],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "type": "validation-error",
+          "count": 2,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Package name should be \"agents-release-agent\", got \"@lightspeedwp/release-agent\""
+            },
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Must have \"type\": \"module\""
+            }
+          ],
+          "action": "Fix validation errors before component is considered conformant",
+          "severity": "error"
+        },
+        {
+          "type": "validation-warning",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "warning",
+              "message": "Missing engines.node specification"
+            }
+          ],
+          "action": "Address warnings to improve conformance quality",
+          "severity": "warning"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "reporting-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/reporting-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "reports",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/reports",
+      "status": "needs-remediation",
+      "componentCount": 0,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "description": "Agent-specific skills"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "skills",
+          "type": "directory",
+          "action": "Create skills/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "reviewer-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/reviewer-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "task-planner-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/task-planner-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "task-researcher-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/task-researcher-agent",
+      "status": "needs-remediation",
+      "componentCount": 2,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "testing-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/testing-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "tour-operator-config-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/tour-operator-config-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "website-content-strategist-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/website-content-strategist-agent",
+      "status": "needs-remediation",
+      "componentCount": 1,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "website-scope-estimator-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/website-scope-estimator-agent",
+      "status": "needs-remediation",
+      "componentCount": 1,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "description": "Agent definition"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "description": "Documentation"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "AGENT.md",
+          "type": "file",
+          "action": "Create AGENT.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/AGENT.md"
+        },
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "README.md",
+          "type": "file",
+          "action": "Create README.md file in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements",
+          "template": ".github/templates/agent-structure-template/README.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "woo-config-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/woo-config-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "wordpress-release-utilities-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/wordpress-release-utilities-agent",
+      "status": "needs-remediation",
+      "componentCount": 4,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Package name should be \"agents-wordpress-release-utilities-agent\", got \"@lightspeedwp/wordpress\""
+        },
+        {
+          "component": "package.json",
+          "severity": "warning",
+          "message": "Missing lint script (recommended)"
+        }
+      ],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "type": "validation-error",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Package name should be \"agents-wordpress-release-utilities-agent\", got \"@lightspeedwp/wordpress\""
+            }
+          ],
+          "action": "Fix validation errors before component is considered conformant",
+          "severity": "error"
+        },
+        {
+          "type": "validation-warning",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "warning",
+              "message": "Missing lint script (recommended)"
+            }
+          ],
+          "action": "Address warnings to improve conformance quality",
+          "severity": "warning"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "wp-config-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/wp-config-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "zendesk-support-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/zendesk-support-agent",
+      "status": "needs-remediation",
+      "componentCount": 3,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "agent": "meta-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/meta-agent",
+      "status": "needs-remediation",
+      "componentCount": 5,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "tests",
+          "type": "directory",
+          "description": "Test suite"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Package name should be \"agents-meta-agent\", got \"@lightspeedwp/meta-agent\""
+        }
+      ],
+      "steps": [
+        {
+          "component": "tests",
+          "type": "directory",
+          "action": "Create tests/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "type": "validation-error",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Package name should be \"agents-meta-agent\", got \"@lightspeedwp/meta-agent\""
+            }
+          ],
+          "action": "Fix validation errors before component is considered conformant",
+          "severity": "error"
+        }
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "agent": "prd-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/prd-agent",
+      "status": "needs-remediation",
+      "componentCount": 5,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "package.json",
+          "type": "file",
+          "description": "Dependencies and scripts"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [],
+      "steps": [
+        {
+          "component": "package.json",
+          "type": "file",
+          "action": "Create package.json file in agent directory",
+          "reference": ".github/docs/PACKAGE_JSON_REQUIREMENTS.md",
+          "template": ".github/templates/agent-structure-template/package.json"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        }
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "agent": "prompt-engineer-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/prompt-engineer-agent",
+      "status": "needs-remediation",
+      "componentCount": 5,
+      "maxComponents": 7,
+      "missing": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "description": "Version history"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "description": "Configuration files"
+        }
+      ],
+      "issues": [
+        {
+          "component": "package.json",
+          "severity": "error",
+          "message": "Package name should be \"agents-prompt-engineer-agent\", got \"@lightspeedwp/prompt-engineer-agent\""
+        }
+      ],
+      "steps": [
+        {
+          "component": "CHANGELOG.md",
+          "type": "file",
+          "action": "Create CHANGELOG.md file in agent directory",
+          "reference": ".github/docs/CHANGELOG_FORMAT.md",
+          "template": ".github/templates/agent-structure-template/CHANGELOG.md"
+        },
+        {
+          "component": "config",
+          "type": "directory",
+          "action": "Create config/ directory in agent directory",
+          "reference": "See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements"
+        },
+        {
+          "type": "validation-error",
+          "count": 1,
+          "issues": [
+            {
+              "component": "package.json",
+              "severity": "error",
+              "message": "Package name should be \"agents-prompt-engineer-agent\", got \"@lightspeedwp/prompt-engineer-agent\""
+            }
+          ],
+          "action": "Fix validation errors before component is considered conformant",
+          "severity": "error"
+        }
+      ],
+      "estimatedEffort": "medium"
+    }
+  ]
+}
