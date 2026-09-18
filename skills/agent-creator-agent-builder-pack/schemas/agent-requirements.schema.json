@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "title": "Agent Requirements",
+  "type": "object",
+  "required": [
+    "verified_requirements",
+    "assumptions",
+    "agent_mission",
+    "scope_and_boundaries",
+    "inputs_and_trusted_context",
+    "related_shared_team_skills_and_routing",
+    "tools_and_permissions",
+    "output_requirements",
+    "quality_checklist",
+    "human_in_the_loop_and_escalations"
+  ],
+  "properties": {
+    "verified_requirements": {
+      "type": "array"
+    },
+    "assumptions": {
+      "type": "array"
+    }
+  }
+}

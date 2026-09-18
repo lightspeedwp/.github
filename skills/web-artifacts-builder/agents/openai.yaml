@@ -1,0 +1,15 @@
+interface:
+  display_name: web artifacts builder
+  short_description: Suite of tools for creating elaborate, multi-component claude.ai
+    HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui).
+    Use for complex artifacts requiring state management, routing, or shadcn/ui components
+    - not for simple single-file HTML/JSX artifacts.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chatbot Discovery Prioritiser"
+  short_description: "Prioritise the best next discovery questions for weak briefs"
+  default_prompt: "Use $chatbot-discovery-question-prioritiser to turn an incomplete chatbot brief into the smallest high-value discovery question set and evidence request list."

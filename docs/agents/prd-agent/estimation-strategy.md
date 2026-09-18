@@ -311,3 +311,5 @@ If you encounter any of these, the PRD is not ready for estimation:
 **Last Updated**: 2026-09-17  
 **Estimation Goal**: High-confidence effort forecasts that reduce schedule surprises  
 **Questions?** See [FAQ](./faq.md)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

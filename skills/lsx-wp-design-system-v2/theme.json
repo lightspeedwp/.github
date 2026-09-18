@@ -1,0 +1,261 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.8/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "base",
+          "name": "Base",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "contrast",
+          "name": "Contrast",
+          "color": "#111111"
+        },
+        {
+          "slug": "primary",
+          "name": "Primary",
+          "color": "#0A84FF"
+        },
+        {
+          "slug": "neutral-0",
+          "name": "Neutral 0",
+          "color": "#FFFFFF"
+        },
+        {
+          "slug": "neutral-100",
+          "name": "Neutral 100",
+          "color": "#F9FAFB"
+        },
+        {
+          "slug": "neutral-200",
+          "name": "Neutral 200",
+          "color": "#F3F4F6"
+        },
+        {
+          "slug": "neutral-300",
+          "name": "Neutral 300",
+          "color": "#E5E7EB"
+        },
+        {
+          "slug": "neutral-400",
+          "name": "Neutral 400",
+          "color": "#D1D5DB"
+        },
+        {
+          "slug": "neutral-500",
+          "name": "Neutral 500",
+          "color": "#9CA3AF"
+        },
+        {
+          "slug": "neutral-600",
+          "name": "Neutral 600",
+          "color": "#6B7280"
+        },
+        {
+          "slug": "neutral-700",
+          "name": "Neutral 700",
+          "color": "#4B5563"
+        },
+        {
+          "slug": "neutral-800",
+          "name": "Neutral 800",
+          "color": "#1F2937"
+        },
+        {
+          "slug": "neutral-900",
+          "name": "Neutral 900",
+          "color": "#111111"
+        },
+        {
+          "slug": "accent-100",
+          "name": "Accent 100",
+          "color": "#0A84FF"
+        },
+        {
+          "slug": "accent-200",
+          "name": "Accent 200",
+          "color": "#3399FF"
+        },
+        {
+          "slug": "accent-300",
+          "name": "Accent 300",
+          "color": "#66B2FF"
+        },
+        {
+          "slug": "accent-400",
+          "name": "Accent 400",
+          "color": "#99CCFF"
+        },
+        {
+          "slug": "accent-500",
+          "name": "Accent 500",
+          "color": "#CCE5FF"
+        },
+        {
+          "slug": "accent-600",
+          "name": "Accent 600",
+          "color": "#FF7A59"
+        },
+        {
+          "slug": "accent-700",
+          "name": "Accent 700",
+          "color": "#FF9B80"
+        },
+        {
+          "slug": "accent-800",
+          "name": "Accent 800",
+          "color": "#FFBCA6"
+        },
+        {
+          "slug": "accent-900",
+          "name": "Accent 900",
+          "color": "#FFDCD2"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontSizes": [
+        {
+          "slug": "font-size-100",
+          "name": "Tiny",
+          "size": "0.75rem"
+        },
+        {
+          "slug": "font-size-200",
+          "name": "Base",
+          "size": "1rem"
+        },
+        {
+          "slug": "font-size-300",
+          "name": "Small",
+          "size": "1.25rem"
+        },
+        {
+          "slug": "font-size-400",
+          "name": "Medium",
+          "size": "1.5rem"
+        },
+        {
+          "slug": "font-size-500",
+          "name": "Large",
+          "size": "2rem"
+        },
+        {
+          "slug": "font-size-600",
+          "name": "X-Large",
+          "size": "2.5rem"
+        },
+        {
+          "slug": "font-size-700",
+          "name": "Huge",
+          "size": "3rem"
+        },
+        {
+          "slug": "font-size-800",
+          "name": "Gigantic",
+          "size": "4rem"
+        },
+        {
+          "slug": "font-size-900",
+          "name": "Colossal",
+          "size": "5rem"
+        }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        {
+          "slug": "spacing-10",
+          "name": "10px",
+          "size": "0.625rem"
+        },
+        {
+          "slug": "spacing-20",
+          "name": "20px",
+          "size": "1.25rem"
+        },
+        {
+          "slug": "spacing-30",
+          "name": "30px",
+          "size": "1.875rem"
+        },
+        {
+          "slug": "spacing-40",
+          "name": "40px",
+          "size": "2.5rem"
+        },
+        {
+          "slug": "spacing-50",
+          "name": "50px",
+          "size": "3.125rem"
+        },
+        {
+          "slug": "spacing-60",
+          "name": "56px",
+          "size": "3.5rem"
+        },
+        {
+          "slug": "spacing-70",
+          "name": "60px",
+          "size": "3.75rem"
+        },
+        {
+          "slug": "spacing-80",
+          "name": "64px",
+          "size": "4rem"
+        },
+        {
+          "slug": "spacing-90",
+          "name": "72px",
+          "size": "4.5rem"
+        },
+        {
+          "slug": "spacing-100",
+          "name": "80px",
+          "size": "5rem"
+        }
+      ],
+      "units": [
+        "rem",
+        "px",
+        "%",
+        "vw"
+      ],
+      "margin": true,
+      "padding": true
+    },
+    "layout": {
+      "contentSize": "720px",
+      "wideSize": "1200px"
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var(--wp--preset--color--base)",
+      "text": "var(--wp--preset--color--contrast)"
+    },
+    "typography": {
+      "fontSize": "var(--wp--preset--font-size--font-size-200)",
+      "lineHeight": "1.6"
+    },
+    "elements": {
+      "link": {
+        "color": {
+          "text": "var(--wp--preset--color--primary)"
+        }
+      },
+      "heading": {
+        "typography": {
+          "lineHeight": "1.2"
+        }
+      }
+    }
+  }
+}

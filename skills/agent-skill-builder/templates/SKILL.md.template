@@ -1,0 +1,31 @@
+---
+name: {{skill_name}}
+description: {{skill_description}}
+---
+
+# {{display_name}}
+
+Use this skill to {{workflow_goal}}.
+
+## Core rules
+
+- Follow the current user request first.
+- Load references only when relevant.
+- Keep output grounded in available evidence.
+- Do not add optional folders unless they reduce drift or repeated work.
+
+## Workflow
+
+1. Confirm the target input and output.
+2. Select the appropriate workflow path.
+3. Use templates or references only as needed.
+4. Produce the requested output.
+5. Report assumptions, gaps, and validation status.
+
+## Reference loading
+
+- Use `references/{{primary_reference}}` when {{primary_reference_condition}}.
+
+## Output
+
+Return {{output_format}}.

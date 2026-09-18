@@ -241,3 +241,5 @@ completion_status: "pending"
 **Last Updated**: 2026-09-17  
 **Status**: Ready for execution (team leads to schedule)  
 **Owner**: Ash Shaw
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

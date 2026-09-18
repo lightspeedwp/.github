@@ -317,3 +317,6 @@ Typical PRDs are completed in 2–4 hours from start to team kickoff.
 **Last Updated**: 2026-09-17  
 **Typical Duration**: 2–4 hours per PRD  
 **Questions?** See [FAQ](./faq.md)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

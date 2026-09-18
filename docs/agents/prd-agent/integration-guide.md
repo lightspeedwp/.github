@@ -529,3 +529,6 @@ VALUES (
 **Last Updated**: 2026-09-17  
 **Integration Scope**: Figma, Linear, GitHub Issues, Claude Code, Slack, Custom  
 **Questions?** See [FAQ](./faq.md)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

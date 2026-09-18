@@ -352,3 +352,6 @@ response = client.chat.completions.create(
 **API Versions**: OpenAI Chat Completions API (gpt-3.5-turbo, gpt-4)  
 **Agent Version**: v2.1  
 **Questions?** Open an issue: [lightspeedwp/.github](https://github.com/lightspeedwp/.github/issues)
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

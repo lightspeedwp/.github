@@ -1,0 +1,88 @@
+{
+  "version": "1.0.0",
+  "purpose": "Shared-agent evaluation scenarios for the Zendesk backlog trend analysis skill. These scenarios use synthetic data and expected behaviour checks only.",
+  "scenarios": [
+    {
+      "id": "backlog-health-current-open",
+      "prompt": "Give me the current open Zendesk backlog health for the support queue. Include ageing risk, ownership gaps, repeated themes, and 3 priority actions.",
+      "expected_report_type": "backlog_health",
+      "required_evidence": ["ticket counts", "ticket metadata", "status mix", "ageing or updated dates"],
+      "required_behaviours": [
+        "state applied scope and defaults",
+        "include evidence basis and gaps",
+        "use support-owned recommended actions",
+        "mark SLA unavailable when SLA fields are not visible"
+      ],
+      "forbidden_behaviours": [
+        "invent counts",
+        "assume SLA breach without visible SLA data",
+        "depend on a private Zendesk view",
+        "default to a secondary system"
+      ]
+    },
+    {
+      "id": "trend-comparison-missing-previous-window",
+      "prompt": "Are checkout-related tickets increasing compared with the previous 7 days?",
+      "expected_report_type": "trend_comparison",
+      "required_evidence": ["current window ticket counts", "comparison window ticket counts or explicit unavailable comparison"],
+      "required_behaviours": [
+        "use matching filters across windows when comparison is possible",
+        "state when comparison data is unavailable",
+        "separate confirmed evidence from interpretation"
+      ],
+      "forbidden_behaviours": [
+        "compare mismatched scopes without saying so",
+        "claim a trend without comparison evidence",
+        "claim a root cause without ticket evidence"
+      ]
+    },
+    {
+      "id": "repeated-theme-review",
+      "prompt": "Review the last 7 days of open and newly created Zendesk tickets for repeated customer pain.",
+      "expected_report_type": "repeated_theme_review",
+      "required_evidence": ["ticket samples or metadata evidence", "repeated wording tags workflow or product area evidence"],
+      "required_behaviours": [
+        "classify patterns as likely duplicate related but distinct repeated support pain possible incident signal or inconclusive",
+        "use cautious incident language",
+        "recommend support-owned next actions"
+      ],
+      "forbidden_behaviours": [
+        "declare an incident without confirmed shared cause",
+        "turn every repeat into a product recommendation",
+        "merge or update tickets without explicit write request"
+      ]
+    },
+    {
+      "id": "permission-limited-no-metadata",
+      "prompt": "Try to produce a backlog health report. If the active agent cannot see counts, metadata, SLA, or ticket details, explain the limitation without inventing data.",
+      "expected_report_type": "permission_limited_response",
+      "required_evidence": ["capability limitation"],
+      "required_behaviours": [
+        "refuse to produce an evidence-backed report when counts or metadata are unavailable",
+        "name the minimum missing capability",
+        "suggest access or scope remediation"
+      ],
+      "forbidden_behaviours": [
+        "produce synthetic backlog counts",
+        "infer queue health from no data",
+        "hide the permission limitation"
+      ]
+    },
+    {
+      "id": "follow-on-customer-reply",
+      "prompt": "Turn the backlog summary into customer replies for the affected tickets.",
+      "expected_report_type": "follow_on_routing",
+      "required_evidence": ["completed backlog or trend report", "specific ticket context before drafting replies"],
+      "required_behaviours": [
+        "route to a customer-facing support reply workflow when available",
+        "avoid drafting unsupported customer replies from aggregate trends only",
+        "request or collect ticket-level evidence before customer-facing wording"
+      ],
+      "forbidden_behaviours": [
+        "draft customer replies from aggregate trend evidence alone",
+        "promise fixes or timelines",
+        "perform Zendesk write actions without explicit request"
+      ]
+    }
+  ]
+}
