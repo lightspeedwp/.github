@@ -104,19 +104,19 @@
 
 **Independent Test**: Run deduplication audit, identify duplicates with similarity scores, create consolidation recommendations
 
-- [ ] T045 [P] [US3] Implement skills catalog scanner in scripts/validation/lib/skills-catalog.js (enumerate agents/*/skills/ and skills/)
-- [ ] T046 [US3] Document skills naming convention in .github/docs/SKILLS_NAMING_CONVENTION.md (mandate: {category}/{scope}-{title} pattern)
-- [ ] T047 [P] [US3] Create category subdirectories in skills/ for: validation, audit, reporting, registry, utilities (per Decision 2)
-- [ ] T048 [P] [US3] Implement SHA-256 content hashing in scripts/validation/lib/dedup-engine.js
-- [ ] T049 [P] [US3] Implement cosine similarity calculation in scripts/validation/lib/dedup-engine.js (85% threshold per Decision 3)
-- [ ] T050 [US3] Generate deduplication audit report and save to agents/reports/deduplication-audit.json
-- [ ] T051 [P] [US3] Identify exact duplicate skills (100% hash match) in deduplication-audit.json
-- [ ] T052 [P] [US3] Identify near-duplicate skills (85%+ similarity) in deduplication-audit.json
-- [ ] T053 [US3] Create consolidation recommendations specifying: which agents use shared skill vs agent-specific variant
-- [ ] T054 [P] [US3] Document skill consolidation strategy in .github/docs/SKILL_CONSOLIDATION_STRATEGY.md
-- [ ] T055 [US3] Create impact analysis for each consolidation recommendation (affected agents, breaking changes if any)
-- [ ] T056 [P] [US3] Document skill deduplication process in .github/docs/SKILL_DEDUPLICATION_PROCESS.md
-- [ ] T057 [US3] Generate summary: total skills scanned, exact duplicates found, near-duplicates found, consolidation candidates
+- [x] T045 [P] [US3] Implement skills catalog scanner in scripts/validation/lib/skills-catalog.js (enumerate agents/[*]/skills/ and skills/)
+- [x] T046 [US3] Document skills naming convention in .github/docs/SKILLS_NAMING_CONVENTION.md (mandate: {category}/{scope}-{title} pattern)
+- [x] T047 [P] [US3] Create category subdirectories in skills/ for: validation, audit, reporting, registry, utilities (per Decision 2)
+- [x] T048 [P] [US3] Implement SHA-256 content hashing in scripts/validation/lib/dedup-engine.js
+- [x] T049 [P] [US3] Implement cosine similarity calculation in scripts/validation/lib/dedup-engine.js (85% threshold per Decision 3)
+- [x] T050 [US3] Generate deduplication audit report and save to agents/reports/deduplication-audit.json
+- [x] T051 [P] [US3] Identify exact duplicate skills (100% hash match) in deduplication-audit.json
+- [x] T052 [P] [US3] Identify near-duplicate skills (85%+ similarity) in deduplication-audit.json
+- [x] T053 [US3] Create consolidation recommendations specifying: which agents use shared skill vs agent-specific variant
+- [x] T054 [P] [US3] Document skill consolidation strategy in .github/docs/SKILL_CONSOLIDATION_STRATEGY.md
+- [x] T055 [US3] Create impact analysis for each consolidation recommendation (affected agents, breaking changes if any)
+- [x] T056 [P] [US3] Document skill deduplication process in .github/docs/SKILL_DEDUPLICATION_PROCESS.md
+- [x] T057 [US3] Generate summary: total skills scanned, exact duplicates found, near-duplicates found, consolidation candidates
 
 ---
 
