@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Governance Files Audit Phase 1: Complete** — Comprehensive audit of CLAUDE.md and AGENTS.md completed with 7 documented findings (1 CRITICAL duplicate, 5 MAJOR structural issues, 1 MEDIUM framing gap). Deliverable: AUDIT_REPORT.md in spec 012 directory with line-number references, remediation guidance, reference validation (12 refs checked: 7 valid, 5 broken), and Constitution alignment verification. Phase 1 audit work (119 tasks) complete; Phase 2 refactoring pending @ashley approval. ([PR #3368](https://github.com/lightspeedwp/.github/pull/3368))
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
 - **Branch Cleanup Audit** — Added spec for auditing and safely cleaning up 300+ stale branches, with KEEP/DELETE/DISCUSS categorisation and safety checks before deletion. ([PR #3128](https://github.com/lightspeedwp/.github/pull/3128))
