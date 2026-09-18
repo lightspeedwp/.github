@@ -249,6 +249,11 @@ jobs:
     needs: [lint-js, lint-md]
     if: always()
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
       - name: Determine linting status
         id: status
         shell: bash
