@@ -1,0 +1,9 @@
+interface:
+  display_name: "invalid broken reference"
+policy:
+  products:
+    - "chatgpt"
+    - "codex"
+    - "api"
+    - "atlas"
+  allow_implicit_invocation: true

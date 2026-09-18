@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chatbot Estimate Calibrator"
+  short_description: "Turn chatbot evidence into firmer proposal-ready estimates"
+  default_prompt: "Use $chatbot-estimate-calibrator to turn the gathered evidence into a firmer chatbot estimate with clear assumptions, exclusions, and commercial confidence."

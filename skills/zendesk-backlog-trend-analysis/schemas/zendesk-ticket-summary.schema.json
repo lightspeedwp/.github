@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zendesk Ticket Summary",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["ticket_id", "subject", "status", "priority", "created_at", "updated_at", "sla_status"],
+  "properties": {
+    "ticket_id": {"type": "string"},
+    "subject": {"type": "string"},
+    "status": {"type": "string", "enum": ["new", "open", "pending", "hold", "solved", "closed", "unknown"]},
+    "priority": {"type": "string", "enum": ["low", "normal", "high", "urgent", "unknown"]},
+    "created_at": {"type": "string"},
+    "updated_at": {"type": "string"},
+    "group": {"type": ["string", "null"]},
+    "assignee": {"type": ["string", "null"]},
+    "organisation": {"type": ["string", "null"]},
+    "brand": {"type": ["string", "null"]},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "channel": {"type": ["string", "null"]},
+    "form": {"type": ["string", "null"]},
+    "custom_fields": {"type": "object"},
+    "comment_count": {"type": ["integer", "null"], "minimum": 0},
+    "sla_status": {"type": "string", "enum": ["breached", "at_risk", "ok", "unavailable", "unknown"]},
+    "age_days": {"type": ["number", "null"], "minimum": 0},
+    "latest_customer_reply_at": {"type": ["string", "null"]},
+    "latest_agent_reply_at": {"type": ["string", "null"]},
+    "blocked_reason": {"type": ["string", "null"]},
+    "evidence_class": {"type": "string", "enum": ["confirmed", "interpretation", "missing"]}
+  }
+}

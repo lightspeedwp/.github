@@ -1,0 +1,14 @@
+interface:
+  display_name: Ticket Triage
+  short_description: Triage support issues for severity and routing
+  default_prompt: Use $ticket-triage to classify a support issue, assign severity,
+    and recommend the best next owner or team.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

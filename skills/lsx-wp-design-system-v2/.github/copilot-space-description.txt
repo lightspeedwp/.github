@@ -1,0 +1,1 @@
+A focused Copilot space to evolve the LSX Design System’s Figma variables and styles, align them with WordPress theme.json, and keep designers and developers in sync. Use it to propose, review, and validate token changes, generate mappings, update code, and record decisions across Figma and GitHub.                                                   
