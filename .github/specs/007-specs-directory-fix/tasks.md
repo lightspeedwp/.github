@@ -336,3 +336,28 @@ description: "Task list for fixing specs directory configuration"
 - No new code libraries or dependencies required — shell scripts, JSON, Markdown only
 - Backward compatibility: Old configs without `specs_directory` field default to `.github/specs`
 - All changes version-controlled (git) and reversible until final migration cleanup
+
+---
+
+## Phase 7: Convergence Validation (PR #3360 Follow-Up)
+
+**Purpose**: Validate Phase 1-5 implementation completeness and confirm all specifications are met
+
+**Status**: Implementation complete (Phases 1-5); Convergence tasks track deferred Phase 6 validation
+
+**Context**: PR #3360 merged with explicit notation: "Phase 6 Polish & Validation (T029-T036) — Deferred as follow-up work"
+
+### Validation Tasks for Phase 6 Completion
+
+- [ ] T037 [P] Run full integration test: `/speckit-specify --json --dry-run "phase-7-test-feature"` and verify output shows SPEC_FILE in `.github/specs/` (validate FR-001, SC-001) via `.specify/scripts/bash/create-new-feature.sh`
+- [ ] T038 [P] Verify all speckit commands with new specs: Run `/speckit-plan` and `/speckit-tasks` on 007-specs-directory-fix and confirm FEATURE_DIR resolves to `.github/specs/007-specs-directory-fix` (validate FR-004, SC-002) via `.specify/scripts/bash/setup-plan.sh` and `setup-tasks.sh`
+- [ ] T039 [P] Code review: Grep for hardcoded `/specs` paths in repository to confirm no legacy references remain (validate FR-008, SC-004) via `grep -r "^specs\/" .github/specs/` and `grep -r "root.*specs" .specify/scripts/bash/`
+- [ ] T040 [P] Security validation: Review `read_specs_directory()` function for path traversal vulnerability prevention (validate FR-009) via `.specify/scripts/bash/common.sh` lines 135-165; confirm regex/validation blocks `..` parent directory references
+- [ ] T041 Verify migration script rollback: Run `.specify/scripts/bash/migrate-specs.sh --dry-run --verbose` and confirm error handling paths are documented (validate FR-009 rollback mechanism) via `.specify/scripts/bash/migrate-specs.sh`
+- [ ] T042 Update CHANGELOG.md: Add entry under [Unreleased] → Fixed documenting "Specs Directory Fix" completion and migration to `.github/specs` (validate SC-006, governance compliance) via `CHANGELOG.md`
+- [ ] T043 [P] Final integration validation: Create new test feature spec with `/speckit-specify "integration-test-feature-phase7"`, verify `.github/specs/NNN-integration-test-feature-phase7/` created, run `/speckit-plan` and `/speckit-tasks` on it, confirm all downstream workflows work (validate all FRs, all SCs) via bash interactive testing
+- [ ] T044 Document Phase 6 completion: Update `.github/specs/007-specs-directory-fix/spec.md` Status from "Ready for Planning" to "Completed" and add completion date (validate completion status) via `spec.md`
+
+**Checkpoint**: All specifications, acceptance criteria, and functional requirements validated ✅
+
+---
