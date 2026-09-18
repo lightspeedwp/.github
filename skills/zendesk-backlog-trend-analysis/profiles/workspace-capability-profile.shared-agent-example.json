@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "environment_name": "shared-support-agent-redacted-example",
+  "zendesk_read_capabilities": {
+    "count_tickets": true,
+    "search_ticket_metadata": true,
+    "read_ticket_details": true,
+    "read_ticket_conversations": true,
+    "search_help_centre": true,
+    "read_help_centre_articles": true,
+    "read_csat_or_satisfaction": false
+  },
+  "filter_capabilities": {
+    "status": true,
+    "created_date": true,
+    "updated_date": true,
+    "priority": true,
+    "assignee": true,
+    "group": true,
+    "brand": true,
+    "organisation": true,
+    "tag": true,
+    "form": true,
+    "channel": true,
+    "text": true,
+    "custom_field": false
+  },
+  "visible_ticket_fields": [
+    "ticket_id",
+    "subject",
+    "status",
+    "priority",
+    "created_at",
+    "updated_at",
+    "group",
+    "assignee",
+    "brand",
+    "organisation",
+    "tags",
+    "channel",
+    "comment_count"
+  ],
+  "optional_data_visibility": {
+    "sla": "uncertain",
+    "csat": "not_visible",
+    "comment_count": "visible",
+    "custom_fields": "uncertain"
+  },
+  "write_actions_allowed_by_default": false,
+  "known_limitations": [
+    "CSAT data is not visible in this shared-agent profile.",
+    "Custom-field filters must be confirmed before use.",
+    "SLA visibility must be stated as uncertain unless confirmed during the active report run.",
+    "Ticket visibility may differ between teammates if Zendesk permissions differ."
+  ],
+  "last_reviewed": "2026-06-25"
+}

@@ -1,0 +1,15 @@
+interface:
+  display_name: Zendesk Customer Escalation
+  short_description: Draft Zendesk-first customer escalation briefs
+  default_prompt: Use $zendesk-customer-escalation to package a Zendesk support issue
+    into a structured escalation for engineering, product, security, leadership, or
+    specialist support.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,13 @@
+interface:
+  display_name: Self-Evolving Agent
+  short_description: Safely evolve skills, agents, prompts, and workflows through
+    evidence-backed proposals, evaluations, and changelogs.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

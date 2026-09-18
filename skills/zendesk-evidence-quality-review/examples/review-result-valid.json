@@ -1,0 +1,33 @@
+{
+  "verdict": "mostly_ready_with_fixes",
+  "output_type": "customer_reply",
+  "summary": "The reply is mostly ready, but it should narrow one unsupported status claim and make the next step clearer before sending.",
+  "issues": [
+    {
+      "category": "overstated_claim",
+      "severity": "medium",
+      "finding": "The draft says the issue has been resolved, but the supplied evidence only confirms that support reproduced the problem and opened an investigation.",
+      "recommended_fix": "Replace the resolution claim with a confirmed status update and a clear follow-up commitment that does not promise a fix date."
+    },
+    {
+      "category": "weak_next_step",
+      "severity": "low",
+      "finding": "The next step says the team will check this, but it does not explain what evidence or update the customer can expect next.",
+      "recommended_fix": "State that support will review the reproduction details and update the customer once there is a confirmed next step."
+    },
+    {
+      "category": "privacy_redaction_risk",
+      "severity": "low",
+      "finding": "The draft includes an unnecessary ticket ID in the customer-facing reply.",
+      "recommended_fix": "Remove the ticket ID from the customer-facing wording and keep it only in internal notes if needed."
+    }
+  ],
+  "checklist": {
+    "evidence_supports_main_claims": false,
+    "facts_and_interpretation_separated": true,
+    "next_steps_specific_and_owned": false,
+    "risk_or_escalation_gaps_remain": true,
+    "sensitive_data_minimised_for_audience": false,
+    "safe_to_share_as_is": false
+  }
+}

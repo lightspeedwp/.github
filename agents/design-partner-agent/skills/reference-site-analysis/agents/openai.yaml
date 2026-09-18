@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reference Site Analysis"
+  short_description: "Analyze website references for briefs and handoffs"
+  default_prompt: "Use $reference-site-analysis to inspect website references and extract structure, hierarchy, CTA patterns, trust signals, and UX cues for briefs and handoffs."

@@ -1,0 +1,188 @@
+{
+  "model_version": "1.0.0",
+  "last_reviewed": "2026-07-03",
+  "plugin": {
+    "name": "Tour Operator",
+    "slug": "tour-operator",
+    "type": "core",
+    "source_files": [
+      "class-post-connections.php"
+    ],
+    "integration": "FacetWP"
+  },
+  "relationship_facet_sources": [
+    {
+      "source_key": "cf/destination_to_accommodation",
+      "field_key": "destination_to_accommodation",
+      "likely_from_content_type": "destination",
+      "likely_to_content_type": "accommodation",
+      "boundary": "core-relationship-source",
+      "source_file": "class-post-connections.php",
+      "source_confidence": "confirmed source key; relationship ownership requires live/code confirmation",
+      "facetwp_indexing_behaviour": [
+        "Custom field sources containing _to_ are expanded so each referenced post ID can be indexed separately.",
+        "Facet display values are replaced with get_the_title() where a title exists.",
+        "Rows can be skipped through the lsx_to_facetwp_index_skip_row filter.",
+        "FacetWP default indexing is skipped after inserting expanded relationship rows."
+      ],
+      "destination_hierarchy_behaviour": [
+        "For destination_to_tour and destination_to_accommodation, the indexer adds parent_id and depth values based on the referenced destination hierarchy.",
+        "Without continent filtering, top-level destinations are depth 0 and child regions are depth 1.",
+        "With engine_search_continent_filter enabled, countries become depth 1 and regions become depth 2."
+      ],
+      "continent_filtering_behaviour": [
+        "When enable_search_continent_filter is enabled, continent terms are retrieved from the continent taxonomy and inserted as depth 0 rows for destination_to_tour and destination_to_accommodation.",
+        "Facet HTML can render checkboxes or fselect options with country/region CSS classes and depth-aware visibility."
+      ],
+      "unresolved_questions": [
+        "Confirm where destination_to_accommodation is created and stored.",
+        "Confirm whether accommodation is registered by core, extension, or site-specific code before documenting it as an entity."
+      ]
+    },
+    {
+      "source_key": "cf/destination_to_tour",
+      "field_key": "destination_to_tour",
+      "likely_from_content_type": "destination",
+      "likely_to_content_type": "tour",
+      "boundary": "core-relationship-source",
+      "source_file": "class-post-connections.php",
+      "source_confidence": "confirmed source key; relationship ownership requires live/code confirmation",
+      "facetwp_indexing_behaviour": [
+        "Custom field sources containing _to_ are expanded so each referenced post ID can be indexed separately.",
+        "Facet display values are replaced with get_the_title() where a title exists.",
+        "Rows can be skipped through the lsx_to_facetwp_index_skip_row filter.",
+        "FacetWP default indexing is skipped after inserting expanded relationship rows."
+      ],
+      "destination_hierarchy_behaviour": [
+        "For destination_to_tour and destination_to_accommodation, the indexer adds parent_id and depth values based on the referenced destination hierarchy.",
+        "Without continent filtering, top-level destinations are depth 0 and child regions are depth 1.",
+        "With engine_search_continent_filter enabled, countries become depth 1 and regions become depth 2."
+      ],
+      "continent_filtering_behaviour": [
+        "When enable_search_continent_filter is enabled, continent terms are retrieved from the continent taxonomy and inserted as depth 0 rows for destination_to_tour and destination_to_accommodation.",
+        "Facet HTML can render checkboxes or fselect options with country/region CSS classes and depth-aware visibility."
+      ],
+      "unresolved_questions": [
+        "Confirm where destination_to_tour is created and stored.",
+        "Confirm whether tour is registered by core, extension, or site-specific code before documenting it as an entity."
+      ]
+    },
+    {
+      "source_key": "cf/destination_to_special",
+      "field_key": "destination_to_special",
+      "likely_from_content_type": "destination",
+      "likely_to_content_type": "special",
+      "boundary": "extension-facing-source",
+      "source_file": "class-post-connections.php",
+      "source_confidence": "confirmed source key; relationship ownership requires live/code confirmation",
+      "facetwp_indexing_behaviour": [
+        "Custom field sources containing _to_ are expanded so each referenced post ID can be indexed separately.",
+        "Facet display values are replaced with get_the_title() where a title exists.",
+        "Rows can be skipped through the lsx_to_facetwp_index_skip_row filter.",
+        "FacetWP default indexing is skipped after inserting expanded relationship rows."
+      ],
+      "destination_hierarchy_behaviour": [
+        "The source is listed for destination facet rendering, but the special destination hierarchy indexing branch is only explicitly implemented for destination_to_tour and destination_to_accommodation."
+      ],
+      "continent_filtering_behaviour": [
+        "Facet rendering checks the shared sources list, but continent row injection is not explicitly implemented for this source in the inspected file."
+      ],
+      "unresolved_questions": [
+        "Confirm where destination_to_special is created and stored.",
+        "Confirm whether special is registered by core, extension, or site-specific code before documenting it as an entity."
+      ]
+    },
+    {
+      "source_key": "cf/destination_to_activity",
+      "field_key": "destination_to_activity",
+      "likely_from_content_type": "destination",
+      "likely_to_content_type": "activity",
+      "boundary": "unknown-or-extension-facing-source",
+      "source_file": "class-post-connections.php",
+      "source_confidence": "confirmed source key; relationship ownership requires live/code confirmation",
+      "facetwp_indexing_behaviour": [
+        "Custom field sources containing _to_ are expanded so each referenced post ID can be indexed separately.",
+        "Facet display values are replaced with get_the_title() where a title exists.",
+        "Rows can be skipped through the lsx_to_facetwp_index_skip_row filter.",
+        "FacetWP default indexing is skipped after inserting expanded relationship rows."
+      ],
+      "destination_hierarchy_behaviour": [
+        "The source is listed for destination facet rendering, but the special destination hierarchy indexing branch is only explicitly implemented for destination_to_tour and destination_to_accommodation."
+      ],
+      "continent_filtering_behaviour": [
+        "Facet rendering checks the shared sources list, but continent row injection is not explicitly implemented for this source in the inspected file."
+      ],
+      "unresolved_questions": [
+        "Confirm where destination_to_activity is created and stored.",
+        "Confirm whether activity is registered by core, extension, or site-specific code before documenting it as an entity."
+      ]
+    },
+    {
+      "source_key": "cf/destination_to_review",
+      "field_key": "destination_to_review",
+      "likely_from_content_type": "destination",
+      "likely_to_content_type": "review",
+      "boundary": "extension-facing-source",
+      "source_file": "class-post-connections.php",
+      "source_confidence": "confirmed source key; relationship ownership requires live/code confirmation",
+      "facetwp_indexing_behaviour": [
+        "Custom field sources containing _to_ are expanded so each referenced post ID can be indexed separately.",
+        "Facet display values are replaced with get_the_title() where a title exists.",
+        "Rows can be skipped through the lsx_to_facetwp_index_skip_row filter.",
+        "FacetWP default indexing is skipped after inserting expanded relationship rows."
+      ],
+      "destination_hierarchy_behaviour": [
+        "The source is listed for destination facet rendering, but the special destination hierarchy indexing branch is only explicitly implemented for destination_to_tour and destination_to_accommodation."
+      ],
+      "continent_filtering_behaviour": [
+        "Facet rendering checks the shared sources list, but continent row injection is not explicitly implemented for this source in the inspected file."
+      ],
+      "unresolved_questions": [
+        "Confirm where destination_to_review is created and stored.",
+        "Confirm whether review is registered by core, extension, or site-specific code before documenting it as an entity."
+      ]
+    },
+    {
+      "source_key": "cf/destination_to_vehicle",
+      "field_key": "destination_to_vehicle",
+      "likely_from_content_type": "destination",
+      "likely_to_content_type": "vehicle",
+      "boundary": "extension-facing-source",
+      "source_file": "class-post-connections.php",
+      "source_confidence": "confirmed source key; relationship ownership requires live/code confirmation",
+      "facetwp_indexing_behaviour": [
+        "Custom field sources containing _to_ are expanded so each referenced post ID can be indexed separately.",
+        "Facet display values are replaced with get_the_title() where a title exists.",
+        "Rows can be skipped through the lsx_to_facetwp_index_skip_row filter.",
+        "FacetWP default indexing is skipped after inserting expanded relationship rows."
+      ],
+      "destination_hierarchy_behaviour": [
+        "The source is listed for destination facet rendering, but the special destination hierarchy indexing branch is only explicitly implemented for destination_to_tour and destination_to_accommodation."
+      ],
+      "continent_filtering_behaviour": [
+        "Facet rendering checks the shared sources list, but continent row injection is not explicitly implemented for this source in the inspected file."
+      ],
+      "unresolved_questions": [
+        "Confirm where destination_to_vehicle is created and stored.",
+        "Confirm whether vehicle is registered by core, extension, or site-specific code before documenting it as an entity."
+      ]
+    }
+  ],
+  "additional_indexing_rules": [
+    {
+      "source_key": "cf/price",
+      "behaviour": "Non-numeric characters except dot are stripped before indexing price values.",
+      "source_file": "class-post-connections.php"
+    },
+    {
+      "source_key": "cf/duration",
+      "behaviour": "Non-numeric characters are stripped and the first numeric token is indexed as duration.",
+      "source_file": "class-post-connections.php"
+    }
+  ],
+  "boundary_rules": [
+    "Relationship/facet source keys are evidence that a relationship key is used by FacetWP indexing/rendering.",
+    "Relationship/facet source keys are not proof that each referenced post type is core-owned.",
+    "Extension-facing sources must remain extension-facing or unknown until post type registration is confirmed."
+  ]
+}

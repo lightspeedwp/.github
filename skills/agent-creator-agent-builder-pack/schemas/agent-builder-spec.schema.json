@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "title": "Agent Builder Spec",
+  "type": "object",
+  "required": [
+    "agent_name",
+    "agent_purpose",
+    "builder_goal",
+    "core_behaviour",
+    "scope",
+    "non_goals",
+    "inputs",
+    "trusted_sources",
+    "source_priority_order",
+    "memory_rules",
+    "validation_rules",
+    "tool_and_permission_assumptions",
+    "output_formats",
+    "routing_and_handoff_rules",
+    "human_approval_gates",
+    "failure_and_escalation_behaviour",
+    "required_references",
+    "required_templates",
+    "required_schemas",
+    "phased_build_instructions",
+    "acceptance_checklist"
+  ],
+  "properties": {
+    "agent_name": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "agent_purpose": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "builder_goal": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "core_behaviour": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "scope": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "non_goals": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "inputs": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "trusted_sources": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "source_priority_order": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "memory_rules": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "validation_rules": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "tool_and_permission_assumptions": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "output_formats": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "routing_and_handoff_rules": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "human_approval_gates": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "failure_and_escalation_behaviour": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "required_references": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "required_templates": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "required_schemas": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "phased_build_instructions": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "acceptance_checklist": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "title": "Decision Entry",
+  "type": "object",
+  "required": [
+    "decision",
+    "source",
+    "date_recorded",
+    "review_trigger",
+    "status"
+  ],
+  "properties": {
+    "decision": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "Active",
+        "Stale",
+        "Retired",
+        "Proposed"
+      ]
+    }
+  }
+}
