@@ -58,6 +58,7 @@ jobs:
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=No changelog files modified in this PR" >> $GITHUB_OUTPUT
+            echo "report_created=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
