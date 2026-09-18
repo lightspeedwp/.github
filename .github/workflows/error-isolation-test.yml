@@ -1,5 +1,4 @@
 name: 'Error Isolation Test'
-description: 'Validate that single workflow type failure does not cascade to other workflows'
 
 on:
   workflow_dispatch:
