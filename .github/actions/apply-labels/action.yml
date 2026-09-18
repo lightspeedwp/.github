@@ -40,6 +40,11 @@ inputs:
     required: true
     type: string
 
+  github_repository:
+    description: 'GitHub repository in owner/repo format'
+    required: true
+    type: string
+
 outputs:
   labels_applied:
     description: 'JSON array of labels successfully applied'
@@ -87,6 +92,7 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
+        GITHUB_REPOSITORY: ${{ inputs.github_repository }}
         TARGET_TYPE: ${{ inputs.target_type }}
         TARGET_ID: ${{ inputs.target_id }}
         LABELS_TO_ADD: ${{ inputs.labels }}
@@ -135,7 +141,7 @@ runs:
           RESPONSE=$(curl -s -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/issues/$TARGET_ID/labels" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$TARGET_ID/labels" \
             -d "$LABELS_JSON")
 
           # Check for API errors
@@ -162,7 +168,7 @@ runs:
                 curl -s -X DELETE \
                   -H "Authorization: token $GITHUB_TOKEN" \
                   -H "Accept: application/vnd.github.v3+json" \
-                  "https://api.github.com/repos/${{ github.repository }}/issues/$TARGET_ID/labels/$label" > /dev/null
+                  "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$TARGET_ID/labels/$label" > /dev/null
               fi
               echo "  ↻ Removed: $label"
             fi

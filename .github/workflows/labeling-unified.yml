@@ -133,6 +133,7 @@ jobs:
           remove_labels: ''
           dry_run: ${{ inputs.dry_run || 'false' }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repository: ${{ github.repository }}
 
       - name: Collect metrics
         uses: ./.github/actions/collect-metrics
@@ -212,6 +213,7 @@ jobs:
           remove_labels: ''
           dry_run: ${{ inputs.dry_run || 'false' }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repository: ${{ github.repository }}
 
       - name: Apply custom issue labels
         env:
