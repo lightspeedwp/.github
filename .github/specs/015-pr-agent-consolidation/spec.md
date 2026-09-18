@@ -1,0 +1,152 @@
+# Feature Specification: PR Agent Consolidation & Portability
+
+**Feature Branch**: `feature/pr-agent-consolidation-portability`
+
+**Created**: 2026-09-18
+
+**Status**: Draft
+
+**Input**: User description: "Consolidate agents/pr-agent/ and agents/pr-creation-agent/ into a single, portable pr-agent for the lightspeedwp/.github control-plane repo, per PR_Agent_Consolidation_Brief.md at the repo root. The brief reconciles four sources: (A) the org's consolidation requirements; (B) a fully spec-kit-planned, org-admin-validated reference implementation from lightspeedwp/ls-theme PR #53 (open, not merged, kept as a live reference), authoritative for BEHAVIOR; (C) a direct audit of what already exists in agents/pr-agent/ today; (D) six verified, concrete conflicts between B and C that must be resolved explicitly. Produce one feature spec split into phased user stories. Generalize every ls-theme-specific hardcoded value into configuration the portable agent can vary per repository. The agent must work first-class in lightspeedwp/.github and remain portable to other LightSpeedWP repositories."
+
+## Clarifications
+
+### Session 2026-09-18
+
+- Q: How should the per-repository values this agent needs (assignee, base-branch names, review-budget thresholds, approved prefix list) actually be supplied to it? → A: Assignee and base branch are resolved dynamically at runtime (assignee = whoever is invoking the agent; base branch = the repository's own actual default branch, `develop` vs `main`), not read from stored configuration. Review-budget thresholds, the stack-size limit, and the approved-prefix list are organisation-wide standard values (confirmed against LightSpeed's canonical "Pull Request & Code Review Workflow" document, which states the same ~15/~400 preferred, ~25/~800 hard-flag, and 5-PR-per-stack figures already validated in `ls-theme`) and ship as the agent's built-in defaults. An optional, checked-in per-repository config file (e.g. `.github/pr-agent.config.json`) exists only to override one of these defaults for a repository with a genuine, documented exception — it is not the primary mechanism.
+
+## User Scenarios & Testing *(mandatory)*
+
+### User Story 1 - One agent, correctly merged, with its known bugs fixed (Priority: P1)
+
+A maintainer working in `lightspeedwp/.github` needs exactly one PR-related agent directory to exist, with no duplicated or conflicting instructions between what used to be two overlapping agents, and with the agent's existing tested logic corrected where it's actually wrong relative to this repository's own canonical documentation — rather than left silently broken while the merge happens.
+
+**Why this priority**: Every other capability in this spec builds on top of the merged agent. Two overlapping agent directories, and a validator that already contradicts this repo's own branch-naming doc, are pre-existing problems that must not survive the consolidation unfixed.
+
+**Independent Test**: Can be fully tested by confirming `agents/pr-creation-agent/` no longer exists, `agents/pr-agent/AGENT.md` contains the union of both agents' instructions with no duplication, `agents/pr-agent/package.json` correctly names and paths itself, and `validate-branch-name.js`'s forbidden-prefix list matches `docs/BRANCHING_STRATEGY.md` exactly — independently of any other user story below.
+
+**Acceptance Scenarios**:
+
+1. **Given** `agents/pr-agent/` and `agents/pr-creation-agent/` both exist today, **When** the consolidation is complete, **Then** only `agents/pr-agent/` remains, and `agents/pr-creation-agent/pr-creation.agent.md`'s content has been folded into `agents/pr-agent/AGENT.md` with no duplicated or contradictory instructions.
+2. **Given** `agents/pr-agent/AGENT.md`'s frontmatter and "Implementation Reference" section currently point at the old `agents/pr-creation-agent/` path, **When** the consolidation is complete, **Then** every path reference in `AGENT.md` and `package.json` points at `agents/pr-agent/`'s own real files.
+3. **Given** `validate-branch-name.js` currently forbids `["claude", "bot", "automated"]`, **When** the fix is applied, **Then** it forbids exactly the prefixes this repository's own `docs/BRANCHING_STRATEGY.md` Section 4.1 documents (`claude/`, `copilot/`, `openai/`), sourced from that document rather than re-hardcoded a third time.
+4. **Given** `docs/BRANCHING_STRATEGY.md` Section 3 defines roughly 35 approved prefixes across three tiers, **When** the fix is applied, **Then** the agent's branch-validation logic recognises the full canonical list, not a narrower subset copied from any one downstream repository.
+
+---
+
+### User Story 2 - The agent's PR-creation behaviour matches what's already been validated in practice (Priority: P2)
+
+A contributor in any repository using this agent needs it to actually perform the full, validated PR-creation workflow — deriving PR content from the branch's own commits/diff, running pre-flight and self-review checks, applying labels/assignee/changelog-decision in one atomic action, handling stacked PRs and drafts correctly, and updating an existing PR in place rather than duplicating it — matching the behaviour already proven and org-admin-approved in `lightspeedwp/ls-theme` PR #53, not a thinner reimplementation of it.
+
+**Why this priority**: The consolidated agent is structurally correct after User Story 1, but structurally correct isn't the same as useful. This is the actual value the agent exists to deliver, validated once already; re-deriving it from scratch here would be strictly worse than carrying forward what's already proven.
+
+**Independent Test**: Can be fully tested by running the agent against a real branch with committed, pushed changes and confirming every behaviour specified in `PR_Agent_Consolidation_Brief.md` Source B9 (the `ls-theme` `SKILL.md`) is present: base-branch-by-type selection, review-budget flagging, the self-review gate (including the CodeRabbit/AI-review-findings check), template-verbatim-following with additive layering, exactly-one changelog-decision label, and the "warn, don't block" rule for missing Linear/Asana tooling.
+
+**Acceptance Scenarios**:
+
+1. **Given** a branch with committed, pushed changes and no existing open PR, **When** the agent runs, **Then** a PR is opened against the correct base branch (by branch type, not the repo default) with title/body derived from the branch's own commits/diff, an assignee, and exactly one changelog-decision label, all set in the same action.
+2. **Given** a branch whose diff exceeds the review-budget thresholds, **When** the agent runs, **Then** the PR body explicitly flags this and recommends a stacked PR set or a documented exception, matching the two-tier thresholds already validated in `ls-theme`.
+3. **Given** a branch that already has an open PR, **When** the agent runs again, **Then** the existing PR is updated in place — its body read first, only stale parts rewritten, and any missing labels/assignee/changelog-decision label backfilled — rather than a duplicate PR being created.
+4. **Given** a PR that is one layer of a stacked set, **When** it is opened, **Then** its body states its position, issue/epic, dependencies, and review scope, using a non-closing issue reference unless it is the layer that actually completes the work.
+5. **Given** a PR opened as a draft, **When** the agent runs, **Then** ready-for-review actions (CI confirmation, reviewer request, review-status label, work-item link) are skipped until the user explicitly asks for the PR to be marked ready.
+6. **Given** the agent is marking a PR ready for review and no Linear/Asana integration tool is available in the current session, **When** it reaches the work-item-linking step, **Then** it warns that this step needs doing manually and still completes the rest of the ready-for-review sequence successfully, rather than failing or silently skipping the notice.
+
+---
+
+### User Story 3 - The agent works the same way in any LightSpeedWP repository, not just this one (Priority: P3)
+
+A maintainer adding this agent to a different LightSpeedWP repository (a WordPress plugin, a block theme, or any other organisation repository) needs it to behave correctly there without modification — resolving its assignee and base branch dynamically from that repository's own state, applying the organisation's standard review-budget thresholds and prefix list by default, and using that repository's own real label set — rather than values that only make sense inside `lightspeedwp/.github` or inside `lightspeedwp/ls-theme`, the repository the validated reference behaviour in User Story 2 happened to be built in.
+
+**Why this priority**: Portability is a named, explicit goal of this consolidation (not an afterthought), but it only matters once the agent's core behaviour (User Story 2) already works correctly in one place. Building portability into behaviour that hasn't been validated yet would be premature generalization.
+
+**Independent Test**: Can be fully tested by installing/referencing the agent from a second, different LightSpeedWP repository and confirming it resolves its assignee and base branch dynamically from that repository's own state, applies the organisation-wide default thresholds and prefix list, and honours an optional per-repository override file where one exists — rather than using any value hardcoded for `ls-theme` or `.github` specifically.
+
+**Acceptance Scenarios**:
+
+1. **Given** the reference behaviour in User Story 2 was validated using a fixed assignee (`brandonmarshal`) specific to one contributor on one repository, **When** the agent is generalized, **Then** the assignee is resolved dynamically to whoever is actually invoking the agent, not hardcoded to any one person.
+2. **Given** the reference behaviour assumes `develop`/`main` as the two base branches, **When** the agent runs in a repository using different branch names for the same roles, **Then** it resolves the correct base branch by checking that repository's own actual default branch at runtime, not by assuming `develop`/`main` literally.
+3. **Given** the review-budget thresholds and stack-size limit are organisation-wide standard values (not `ls-theme`-specific), **When** the agent runs in any LightSpeedWP repository, **Then** it applies those same default values unless that repository provides an explicit override in its own optional config file.
+4. **Given** `docs/BRANCHING_STRATEGY.md` defines the organisation's full canonical prefix list, **When** the agent runs in any LightSpeedWP repository, **Then** it uses that same canonical list by default, honouring a documented, intentional override in a repository's own optional config file where one exists.
+
+---
+
+### User Story 4 - Every skill follows the Agent Skills specification, is tested, linted, and documented (Priority: P4)
+
+A contributor extending or auditing this agent needs each of its six skills to follow the Agent Skills specification structure (`SKILL.md` with real instructions, plus `scripts/`, `references/`, `assets/` as applicable), with its existing tests preserved and discoverable, markdown and JavaScript linting enforced, and the agent as a whole documented with a `README.md` and a maintained `CHANGELOG.md` that references this repository's own branching/PR/label/issue governance docs rather than duplicating their rules.
+
+**Why this priority**: This is polish and maintainability work on top of an already-correct, already-portable agent (User Stories 1-3). It matters for the agent's long-term health as the org's control-plane asset, but nothing else in this spec depends on it being done first.
+
+**Independent Test**: Can be fully tested by confirming every skill folder matches the Agent Skills specification shape, `npm test` and `npm run lint` both pass from `agents/pr-agent/`, and `README.md` correctly documents the agent's purpose, skills, and reuse story across repositories.
+
+**Acceptance Scenarios**:
+
+1. **Given** every skill's `SKILL.md` is currently an unfilled `template-skill` placeholder, **When** this work is complete, **Then** each contains real, skill-specific instructions describing what it does and when the agent should use it.
+2. **Given** the six skills' existing `.js` implementations and tests currently sit as flat siblings of their `SKILL.md`, **When** this work is complete, **Then** each skill's executable logic lives under its own `scripts/` directory with tests under `scripts/__tests__/`, with no loss of existing test coverage.
+3. **Given** this repository currently has root-level markdown and JavaScript lint configuration, **When** this work is complete, **Then** that linting demonstrably covers `agents/pr-agent/**` (verified, not assumed), catching a deliberately-introduced lint violation in a skill file.
+4. **Given** `agents/pr-agent/` currently has no `README.md` or `CHANGELOG.md`, **When** this work is complete, **Then** both exist, and the `README.md` references this repository's `docs/BRANCHING_*.md`, `docs/PR_*.md`, `docs/LABEL*.md`, and `docs/ISSUE*.md` documentation by pattern (understanding `*` as a wildcard matching any file, never as a literal filename) rather than duplicating their governance rules inline.
+
+### Edge Cases
+
+- What happens when a repository this agent is installed into has no `.github/PULL_REQUEST_TEMPLATE/config.yml` at all? The agent falls back to the standard description structure already validated in `ls-theme`'s `SKILL.md`, rather than failing.
+- What happens when a repository's real label set doesn't include a label a matched PR template's frontmatter suggests? The agent proceeds without inventing that label, exactly as validated in `ls-theme`.
+- What happens when the branch's own prefix doesn't appear in `docs/BRANCHING_STRATEGY.md` at all (as is currently true of `feature/`, the prefix of the very branch this brief was written on)? The mismatch is surfaced to the user as a flagged discrepancy rather than silently accepted or silently rejected — resolving which convention is correct is a maintainer decision outside this spec's scope.
+- What happens when a repository defines PR-template routing entries for branch prefixes whose template files don't actually exist on disk, or vice versa (as is currently true of `.github`'s own `config.yml`, which is missing routes for five existing template files: `pr_a11y.md`, `pr_audit.md`, `pr_design.md`, `pr_security.md`, `pr_test.md`)? The agent uses the routing table's `default_template` fallback for that prefix and does not fail, while this discrepancy itself is recorded as a known issue for a maintainer to resolve, not silently fixed by the agent inventing a routing decision.
+- What happens when this agent is asked to open a PR via a vague natural-language request rather than an explicit invocation? It confirms the intended branch and base with the user before creating or changing anything, exactly as validated in `ls-theme`'s invocation-guard behaviour.
+
+## Requirements *(mandatory)*
+
+### Functional Requirements
+
+- **FR-001**: Only `agents/pr-agent/` MUST exist as a PR-related agent directory after this work is complete; `agents/pr-creation-agent/` MUST be removed once its content is confirmed to be already covered by `AGENT.md` (verified: the two files differ only in their closing signature line).
+- **FR-002**: `agents/pr-agent/AGENT.md` MUST cover both PR creation and existing PR-agent responsibilities (handling PR-related issues and errors) as a single, non-duplicated instruction set, and every path reference within it (and within `agents/pr-agent/package.json`) MUST point at `agents/pr-agent/`'s own files, not the removed `agents/pr-creation-agent/` path.
+- **FR-003**: `agents/pr-agent/skills/validate-branch-name/validate-branch-name.js`'s forbidden-prefix list MUST match this repository's own `docs/BRANCHING_STRATEGY.md` Section 4.1 (`claude/`, `copilot/`, `openai/`) exactly, sourced from that document (directly or via a shared config derived from it) rather than hardcoded independently a third time.
+- **FR-004**: The agent's branch-prefix validation MUST recognise the full canonical prefix list defined in `docs/BRANCHING_STRATEGY.md` Section 3 (shared core, product-specific, and client-specific tiers), not a narrower subset specific to any one downstream repository.
+- **FR-005**: The agent MUST derive all pull request content (what changed, why, and any related ticket) from the branch's own commit history and diff, without relying on assumed prior-conversation context — matching `ls-theme` `SKILL.md` Step 1 exactly.
+- **FR-006**: The agent MUST determine the correct base branch by branch type, matching `ls-theme` `SKILL.md` Step 2.5, resolving the actual `develop`/`main`-equivalent branch names by checking the target repository's own state at runtime (e.g. its real default branch and existing branches) rather than assuming `develop`/`main` literally as fixed strings, with an optional per-repository config override for a genuine, documented exception.
+- **FR-007**: The agent MUST check for an already-open PR on the current branch before creating a new one, updating the existing one in place instead — preserving accurate existing content and backfilling only what's missing — matching `ls-theme` `SKILL.md`'s "Updating an existing PR" section.
+- **FR-008**: The agent MUST calculate review-budget size (files/lines meaningfully subject to review, excluding generated/compiled/lock/snapshot/translation content) and flag when it exceeds the organisation's preferred (~15 files/~400 lines) or hard-flag (~25 files/~800 lines) thresholds — both organisation-wide standard values per LightSpeed's canonical "Pull Request & Code Review Workflow" — shipped as the agent's built-in defaults, honouring an explicit override in a repository's own optional config file where one is documented.
+- **FR-009**: The agent MUST perform the self-review gate validated in `ls-theme` `SKILL.md` Step 2.10 before drafting a PR, including the CodeRabbit/AI-code-review-findings check where such automation is enabled in the target repository.
+- **FR-010**: Where a repository defines a PR-template routing configuration (e.g. `.github/PULL_REQUEST_TEMPLATE/config.yml`), the agent MUST use it to select and follow the matched template's own structure verbatim, layering in only the sections that structure lacks, and MUST NOT apply a template-suggested label absent from that repository's real label set.
+- **FR-011**: Where no PR-template configuration exists, the agent MUST fall back to the standard description structure validated in `ls-theme` `SKILL.md`'s "PR structure" section.
+- **FR-012**: The agent MUST set the assignee and all applicable labels — including exactly one changelog-decision indicator — as part of the same action that creates or updates the PR, never as a separate follow-up step, with the assignee resolved dynamically to whoever is actually invoking the agent (not read from any stored configuration, and not hardcoded to one person).
+- **FR-013**: The agent MUST add a changelog entry, linked back to the PR, only after the PR exists and only when the changelog-decision indicator requires one — matching `ls-theme` `SKILL.md`'s changelog section exactly.
+- **FR-014**: For a PR that is one layer of a stacked set, the agent MUST record its position, issue/epic, dependencies, and review scope, and MUST use a non-closing issue reference on every layer except the one that completes the work — matching `ls-theme` `SKILL.md`'s "Stack information" section.
+- **FR-015**: The agent MUST support opening a PR as a draft and MUST NOT perform ready-for-review actions while it remains a draft, matching `ls-theme` `SKILL.md`'s "Draft PRs" section.
+- **FR-016**: When marking a PR ready for review, the agent MUST confirm required checks, request a reviewer, apply the review-status indicator, and attempt to link the originating tracked work item — warning rather than failing when no linking tool is available — matching `ls-theme` `SKILL.md`'s "Marking Ready for Review" section and its 2026-09-17 clarification.
+- **FR-017**: Once a PR is under review, the agent's guidance MUST require a reply to every review thread rather than a silent fix, and MUST require a stacked-set defect to be fixed in its owning layer with layers above rebased afterward — matching `ls-theme` `SKILL.md`'s "Responding to feedback" section.
+- **FR-018**: The agent MUST be usable both via an explicit invocation and via a natural-language request describing the same intent; for the latter, it MUST confirm the intended branch and base with the user before creating or changing anything.
+- **FR-019**: The agent MUST never fabricate verification results, metrics, or checks that were not genuinely performed, and MUST never attribute a PR's description to anyone other than the branch's actual author.
+- **FR-020**: Every skill under `agents/pr-agent/skills/` MUST follow the Agent Skills specification structure — a `SKILL.md` with real, skill-specific instructions (not the current unfilled placeholder), plus `scripts/`, `references/`, and `assets/` as applicable to that skill — with existing tested `.js` logic and its Jest tests preserved under the restructured layout, not discarded.
+- **FR-021**: `agents/pr-agent/` MUST include markdown and JavaScript linting that demonstrably covers its own contents, a `package.json`/`package-lock.json` defining the tooling those require, a `README.md` documenting the agent per this repository's control-plane conventions, and a `CHANGELOG.md` recording meaningful changes to the agent going forward.
+- **FR-022**: `agents/pr-agent/`'s documentation MUST reference this repository's `docs/BRANCHING_*.md`, `docs/PR_*.md`, `docs/LABEL*.md`, and `docs/ISSUE*.md` documentation by wildcard pattern (treating `*` as matching any file, never as a literal filename) rather than duplicating their governance rules inline.
+- **FR-023**: No value that only makes sense for one specific repository MUST be hardcoded into any skill. Specifically: the assignee MUST be resolved dynamically from whoever is invoking the agent; the base branch MUST be resolved dynamically from the target repository's own actual state; review-budget thresholds, the stack-size limit, and the approved-prefix list MUST use the organisation-wide standard values as built-in defaults, each overridable only via an explicit, documented entry in that repository's own optional config file.
+
+### Key Entities
+
+- **Agent**: `agents/pr-agent/` — the single, consolidated PR agent. Has metadata (name, description, version, status), an `AGENT.md` instruction set, a `package.json`, a `README.md`, a `CHANGELOG.md`, and a `skills/` directory.
+- **Skill**: One of six existing capabilities (`route-pr-template`, `handle-pr-errors`, `validate-branch-name`, `orchestrate-pr-creation`, `validate-and-apply-labels`, `submit-pr`) — each with a `SKILL.md`, executable `.js` logic, and Jest tests, restructured to the Agent Skills specification shape without losing existing behaviour or coverage.
+- **Pull Request**: The reviewable unit the agent creates or updates — title, base branch, body, labels (including exactly one changelog-decision indicator), assignee, and draft/ready state — all derived per-repository rather than fixed.
+- **Repository Configuration**: An optional, checked-in config file (e.g. `.github/pr-agent.config.json`) a repository may provide to override the agent's organisation-wide default review-budget thresholds and/or approved-prefix list for a genuine, documented exception. Assignee and base branch are never sourced from this entity — both are resolved dynamically at runtime (assignee from the invoking user, base branch from the target repository's own actual state) and are absent when this file does not exist.
+- **PR Template Routing Configuration**: A repository's own `.github/PULL_REQUEST_TEMPLATE/config.yml`, when present — the branch-prefix-to-template routing table the agent must follow verbatim rather than substitute.
+- **Changelog Entry**: A user-facing record of a change, linked to its PR, added only after the PR exists and only when required by that PR's changelog-decision label.
+
+## Success Criteria *(mandatory)*
+
+### Measurable Outcomes
+
+- **SC-001**: Exactly one PR-related agent directory (`agents/pr-agent/`) exists in this repository, with zero duplicated or contradictory instructions between what used to be two agents.
+- **SC-002**: `validate-branch-name.js`'s forbidden-prefix list and recognised-prefix list match `docs/BRANCHING_STRATEGY.md` exactly, verified by direct comparison, not by assumption.
+- **SC-003**: 100% of the behaviours specified in `ls-theme` `SKILL.md` (Source B9) are present and demonstrable in the consolidated agent's skills — no behavioural regression from the validated reference.
+- **SC-004**: 100% of PRs the agent opens or updates carry an assignee and exactly one changelog-decision indicator — none left with zero or with both — with the assignee resolved dynamically to the invoking user, never a hardcoded name.
+- **SC-005**: The agent produces correct output when installed into a second LightSpeedWP repository with a different default branch and a different assignee (the person invoking it there) than `ls-theme`'s, without any code change to the skills themselves — and correctly applies an override when that second repository's optional config file sets a different review-budget threshold than the organisation-wide default.
+- **SC-006**: Every skill folder under `agents/pr-agent/skills/` matches the Agent Skills specification structure, and `npm test` from `agents/pr-agent/` passes with no reduction in existing test count from before the restructuring.
+- **SC-007**: `npm run lint` from `agents/pr-agent/` fails when a markdown or JavaScript lint violation is deliberately introduced into any file under that directory, confirming coverage rather than assuming it.
+- **SC-008**: `agents/pr-agent/README.md` and `CHANGELOG.md` exist and are current as of this feature's completion.
+
+## Assumptions
+
+- This specification is scoped solely to `agents/pr-agent/` (and the removal of `agents/pr-creation-agent/`). It does not cover any other agent in this repository's `agents/` directory, any org-wide agent registry, or any cross-agent skill deduplication effort — those are explicitly out of scope here, whenever and however they are separately addressed.
+- `lightspeedwp/ls-theme` PR #53 remains open and unmerged as a live reference throughout this work, rather than being merged into `ls-theme`'s own `develop`; this specification does not depend on that PR's disposition and carries forward its validated content independently of what ultimately happens to it.
+- The registry infrastructure, org-wide skill deduplication, and agentskills.io compliance audit described elsewhere in this repository's own planning are treated as out of scope for this specification — nothing here depends on that infrastructure existing, and nothing here attempts to build it.
+- The `docs/BRANCHING_STRATEGY.md` / `.github/PULL_REQUEST_TEMPLATE/config.yml` discrepancy (five existing template files with no routing entry) and the `feature/` branch-prefix discrepancy are both recorded as known issues for a maintainer decision, not resolved by this specification.
+- "Portable" (User Story 3) is scoped to dynamic resolution (assignee, base branch) plus organisation-wide defaults with an optional per-repository override file (review-budget thresholds, prefix list) — per the 2026-09-18 Clarification — rather than to supporting non-`gh`-CLI, non-Git-based version control or PR systems; the agent's dependency on `git` and the GitHub CLI (`gh`) is assumed to hold across every target repository.
+- Where this repository's own documentation is silent on a specific accessibility standard for PR review, this specification defers to whatever this repository's constitution already states, rather than introducing a new standard un-sourced from either the constitution or the brief's inlined sources.
