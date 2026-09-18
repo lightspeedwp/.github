@@ -27,6 +27,7 @@
 [![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
 [![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
 <!-- BADGES-END -->
 
 Always include relevant tool checks unless the user asks for a shorter report.
@@ -41,6 +42,9 @@ Always include relevant tool checks unless the user asks for a shorter report.
 | Security | SecurityHeaders.com and WordPress security scan | HTTPS, headers, plugin/theme risk and maintenance posture. | Outdated plugins, weak headers, missing backups. |
 | Analytics | GA4 and Microsoft Clarity | User journeys, drop-offs, form behaviour and content performance. | No measurement, untracked conversions, unclear user paths. |
 | Chatbot quality | Real FAQ test scripts and transcript review | Whether answers are grounded, useful, safe and escalated correctly. | Unsupported answers, overcollection, weak fallback. |
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

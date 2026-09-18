@@ -162,10 +162,10 @@ Tracking entity for branch naming compliance across repositories and time.
 | `forbidden_prefix_branches` | Number | Branches using reserved prefixes (`claude/`, `copilot/`, `openai/`) |
 | `compliance_percentage` | Number | Calculated: `(valid_branches / total_branches) * 100`, rounded to 1 decimal |
 | `type_distribution` | Map<String, Number> | Branches by type (e.g., `feat: 245, fix: 120, docs: 50, ...`) |
-| `top_invalid_patterns` | Array<Object> | Most common invalid patterns |
-| `top_invalid_patterns[].pattern` | String | Invalid pattern (e.g., `feature/...`, `claude/...`) |
-| `top_invalid_patterns[].count` | Number | How many branches use this pattern |
-| `top_invalid_patterns[].suggested_fix` | String | Suggested correct pattern |
+| `top_invalid_patterns` | `Array<Object>` | Most common invalid patterns |
+| `top_invalid_patterns[].pattern` | `String` | Invalid pattern (e.g., `feature/...`, `claude/...`) |
+| `top_invalid_patterns[].count` | `Number` | How many branches use this pattern |
+| `top_invalid_patterns[].suggested_fix` | `String` | Suggested correct pattern |
 | `prs_created_from_valid_branches` | Number | Count of PRs created from valid branches this period |
 | `pr_template_routing_success_rate` | Number | % of PRs that received correct template (from valid branches) |
 | `label_routing_success_rate` | Number | % of PRs that received all correct labels (from valid branches) |

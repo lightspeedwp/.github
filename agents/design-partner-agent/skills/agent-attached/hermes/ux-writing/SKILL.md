@@ -86,3 +86,5 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing voice, te
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

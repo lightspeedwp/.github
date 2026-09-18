@@ -275,11 +275,13 @@ An `AuditReport` is the primary output of the governance audit system. It docume
 Reports are generated in two complementary formats:
 
 ### JSON Format
+
 - **File**: `.github/reports/governance-audit-[DATE].json`
 - **Use**: Machine-readable; consumed by dashboards, CI/CD workflows, metrics collection
 - **Retention**: Keep last 90 days; summarize older data
 
 ### Markdown Format
+
 - **File**: `.github/reports/governance-audit-[DATE].md`
 - **Use**: Human-readable summary for team review; includes violation details, recommendations, and trend analysis
 - **Retention**: Keep last 30 days in full detail

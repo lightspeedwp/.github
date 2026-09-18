@@ -28,6 +28,7 @@ dependencies:
 ## Success Criteria
 
 ### Quantitative
+
 - [ ] Reduce workflow count from 76 to 14 (82% reduction)
 - [ ] All 76 original workflow features preserved in 14 new workflows
 - [ ] GitHub Actions minutes reduced by 15-20%
@@ -38,6 +39,7 @@ dependencies:
 - [ ] PR template labels auto-extracted from frontmatter
 
 ### Qualitative
+
 - [ ] Single unified check gate (no 15+ blockers per PR)
 - [ ] Clear documentation of consolidated workflows
 - [ ] Team confidence in CI/CD system
@@ -89,21 +91,22 @@ dependencies:
 
 ### Secondary Workflows (Build After Critical Path)
 
-6. **events-issue-pr-metadata.yml** — Issue/PR creation, metadata
-7. **changelog-management.yml** — Changelog validation & automation
-8. **pr-workflow.yml** — Issue linking, status tracking, Mergify
-9. **documentation.yml** — README generation, link validation
-10. **branch-management.yml** — Branch cleanup, stale branch detection
-11. **issue-management.yml** — Issue triage, automation, lifecycle
-12. **release-orchestration.yml** — Release agent with safety gates (agentic)
-13. **reporting-metrics.yml** — Metrics, reports, activity dashboards
-14. **project-management.yml** — Project field sync, milestone allocation
+1. **events-issue-pr-metadata.yml** — Issue/PR creation, metadata
+2. **changelog-management.yml** — Changelog validation & automation
+3. **pr-workflow.yml** — Issue linking, status tracking, Mergify
+4. **documentation.yml** — README generation, link validation
+5. **branch-management.yml** — Branch cleanup, stale branch detection
+6. **issue-management.yml** — Issue triage, automation, lifecycle
+7. **release-orchestration.yml** — Release agent with safety gates (agentic)
+8. **reporting-metrics.yml** — Metrics, reports, activity dashboards
+9. **project-management.yml** — Project field sync, milestone allocation
 
 ---
 
 ## Configuration Files (New/Updated)
 
 ### `.github/branch-exceptions.yml` (NEW)
+
 ```yaml
 exceptions:
   - pattern: "hotfix/.*"
@@ -113,12 +116,14 @@ exceptions:
 ```
 
 ### `.github/scripts/extract-pr-labels.js` (NEW)
+
 - Extract labels from PR template frontmatter
 - Validate against `.github/labels.yml`
 - Apply missing labels
 - Called by: `labeling-unified.yml`
 
 ### Workflow Schedule Staggering (UPDATED)
+
 | Workflow | Time | Frequency |
 |----------|------|-----------|
 | issue-management | 2:00 UTC | Daily |
@@ -134,6 +139,7 @@ exceptions:
 Directory: `.github/workflows/archived/2026-09-11/`
 
 ### By Category
+
 - **Labeling** (9): All variants consolidated to labeling-unified.yml
 - **Validation** (12): All variants consolidated to validation-unified.yml
 - **Documentation** (8): Consolidated to documentation.yml
@@ -149,6 +155,7 @@ Directory: `.github/workflows/archived/2026-09-11/`
 ## Implementation Phases
 
 ### Phase 1: Backup & Archive (Week 1-2, ~8-10 hours)
+
 - [ ] Backup all 62 non-essential workflows
 - [ ] Create `.github/workflows/archived/2026-09-11/`
 - [ ] Document consolidation mapping
@@ -158,6 +165,7 @@ Directory: `.github/workflows/archived/2026-09-11/`
 **Deliverable:** PR with archived workflows + mapping
 
 ### Phase 2: Build Consolidated Workflows (Week 3-5, ~45-55 hours)
+
 - [ ] labeling-unified.yml (6-8h) — CRITICAL PATH
 - [ ] validation-unified.yml (4-6h) — CRITICAL PATH
 - [ ] quality-gates.yml (3-4h) — CRITICAL PATH
@@ -176,6 +184,7 @@ Directory: `.github/workflows/archived/2026-09-11/`
 **Deliverable:** PR with 14 consolidated workflows, CI passing
 
 ### Phase 3: Testing & Validation (Week 6-7, ~10-15 hours)
+
 - [ ] Parallel execution testing (old vs. new workflows)
 - [ ] 10 test PRs (all types)
 - [ ] Performance benchmarking
@@ -274,6 +283,7 @@ on:
 ## Testing Strategy
 
 ### Pre-Production Validation (Phase 3)
+
 1. Parallel execution (old + new workflows simultaneously)
 2. 10 test PRs covering all issue types
 3. Performance benchmarking (GitHub Actions minutes)
@@ -281,6 +291,7 @@ on:
 5. Team review & approval
 
 ### Production Rollout
+
 1. Merge Phase 2 PR (consolidated workflows)
 2. Archive old workflows (still available if rollback needed)
 3. Monitor GitHub Actions metrics for 1 week
