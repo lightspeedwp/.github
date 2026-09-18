@@ -105,6 +105,30 @@ jobs:
           fi
         continue-on-error: true
 
+      - name: Report validation via GitHub Check Run
+        id: check-run
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          cd .github/validation/changelog
+
+          # Get the HEAD SHA from the PR or current commit
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          if [ -z "$HEAD_SHA" ]; then
+            HEAD_SHA="${{ github.sha }}"
+          fi
+
+          # Call the check run reporter
+          node bin/report-check-run.js \
+            --report-path validation-report.json \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --owner "${{ github.repository_owner }}" \
+            --repo "${{ github.event.repository.name }}" \
+            --sha "$HEAD_SHA" \
+            --pr-number "${{ github.event.pull_request.number }}" \
+            --verbose
+
+        continue-on-error: true
+
       - name: Format PR comment
         id: comment
         if: steps.changed-files.outputs.any_changed == 'true'
