@@ -338,7 +338,7 @@
 
 - [x] T081 Update outdated ID format example in spec.md at line 268 per FR-2 (contradicts) — Change "CHK001, CHK002" to "CHK-001-Completeness, CHK-002-Completeness" to match FR-2 specification and schema.json requirement `CHK-###-{dimension}` format; verify consistency across all spec references to item ID format
 
-- [ ] T082 Align schema-generator object shape per checklist-schema.json requirements (partial) — Schema requires `summary` field in generated checklist (checklist-schema.json lines 99–146), but generator.cjs returns only `{metadata, items}`. Define canonical object shape; update generator.cjs to produce summary with totalItems, checkedItems, uncheckedItems, completionPercent, gaps, ambiguities, status OR update schema to make summary optional and adjust consumers; validate via checklist-validator.cjs
+- [x] T082 Align schema-generator object shape per checklist-schema.json requirements (partial) — Schema requires `summary` field in generated checklist (checklist-schema.json lines 99–146), but generator.cjs returns only `{metadata, items}`. Define canonical object shape; update generator.cjs to produce summary with totalItems, checkedItems, uncheckedItems, completionPercent, gaps, ambiguities, status OR update schema to make summary optional and adjust consumers; validate via checklist-validator.cjs
 
 ### Code Quality (MEDIUM)
 

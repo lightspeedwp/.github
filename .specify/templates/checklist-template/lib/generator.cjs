@@ -40,17 +40,55 @@ const generateChecklist = (input = {}) => {
   const items = input.items || [];
   const metadata = input.metadata || {};
 
+  const normalizedItems = items.map(item => ({
+    ...item,
+    id: item.id || '',
+    question: item.question || '',
+    dimension: item.dimension || '',
+    guidance: item.guidance || '',
+    state: item.state || 'unchecked',
+  }));
+
+  // Calculate summary metrics
+  const checkedItems = normalizedItems.filter(item => item.state === 'checked' || item.state === '[x]').length;
+  const totalItems = normalizedItems.length;
+  const uncheckedItems = totalItems - checkedItems;
+  const completionPercent = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+
+  // Count gap/ambiguity markers in items
+  let gaps = 0;
+  let ambiguities = 0;
+  let criticalAmbiguities = 0;
+  normalizedItems.forEach(item => {
+    const text = `${item.question} ${item.guidance}`;
+    if (text.match(/\[Gap:/i)) gaps += 1;
+    if (text.match(/\[Ambiguity-Critical:/i)) criticalAmbiguities += 1;
+    else if (text.match(/\[Ambiguity:/i)) ambiguities += 1;
+  });
+
+  // Determine status based on critical ambiguities and completion
+  let status = 'in-progress';
+  if (criticalAmbiguities > 0) {
+    status = 'fail';
+  } else if (uncheckedItems === 0 && gaps === 0 && ambiguities === 0) {
+    status = 'pass';
+  }
+
   return {
-    items: items.map(item => ({
-      ...item,
-      id: item.id || '',
-      question: item.question || '',
-      dimension: item.dimension || '',
-      guidance: item.guidance || '',
-    })),
+    items: normalizedItems,
     metadata: {
       ...metadata,
       generatedAt: new Date(),
+    },
+    summary: {
+      totalItems,
+      checkedItems,
+      uncheckedItems,
+      completionPercent,
+      gaps,
+      ambiguities,
+      criticalAmbiguities,
+      status,
     },
   };
 };
@@ -65,11 +103,45 @@ const applyVariant = (base, variant) => {
   const baseItemIds = new Set(base.items.map(item => item.id));
   const newItems = variant.items.filter(item => !baseItemIds.has(item.id));
 
+  const mergedItems = [...base.items, ...newItems];
+  const checkedItems = mergedItems.filter(item => item.state === 'checked' || item.state === '[x]').length;
+  const totalItems = mergedItems.length;
+  const uncheckedItems = totalItems - checkedItems;
+  const completionPercent = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
+
+  // Count gap/ambiguity markers
+  let gaps = 0;
+  let ambiguities = 0;
+  let criticalAmbiguities = 0;
+  mergedItems.forEach(item => {
+    const text = `${item.question} ${item.guidance}`;
+    if (text.match(/\[Gap:/i)) gaps += 1;
+    if (text.match(/\[Ambiguity-Critical:/i)) criticalAmbiguities += 1;
+    else if (text.match(/\[Ambiguity:/i)) ambiguities += 1;
+  });
+
+  let status = 'in-progress';
+  if (criticalAmbiguities > 0) {
+    status = 'fail';
+  } else if (uncheckedItems === 0 && gaps === 0 && ambiguities === 0) {
+    status = 'pass';
+  }
+
   return {
-    items: [...base.items, ...newItems],
+    items: mergedItems,
     metadata: {
       ...base.metadata,
       ...variant.metadata,
+    },
+    summary: {
+      totalItems,
+      checkedItems,
+      uncheckedItems,
+      completionPercent,
+      gaps,
+      ambiguities,
+      criticalAmbiguities,
+      status,
     },
   };
 };
