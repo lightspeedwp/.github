@@ -118,7 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Consolidation Findings Resolved** — Carried forward open review findings against current develop. (#3116)
+- **Open Review Findings Carried Forward** — Carried forward open review findings against current develop. (#3116)
 
 - **Specs Location Enforced** — Made spec tooling resolve the configured specs directory. (#3120)
 
