@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Validation report",
+  "type": "object",
+  "required": [
+    "validator",
+    "status",
+    "errors",
+    "warnings",
+    "info",
+    "checked_files",
+    "skipped_files",
+    "summary"
+  ],
+  "properties": {
+    "validator": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "warn",
+        "fail"
+      ]
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "info": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "checked_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skipped_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "string"
+    }
+  }
+}

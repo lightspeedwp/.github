@@ -1,0 +1,100 @@
+# Example Scenarios
+
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
+Use this reference when trigger, routing, or output expectations are unclear. Pick the closest examples and adapt them to the artefact under review.
+
+## Positive triggers
+
+| User request | Correct route | Expected output |
+|---|---|---|
+| “What improvements can you make to this skill?” | Quick improvement audit | Baseline, opportunities, risk, recommended mutation; no file edits. |
+| “Proceed with your recommendations to improve this skill.” | Apply and archive | Local file updates, validation, changelog, packaged `skill.zip`. |
+| “Compare these two agent prompts.” | Evaluate mutation or variant comparison | Side-by-side verdict with evidence and regression checks. |
+| “Create a rollback note for this accepted change.” | Archive discipline | Changelog/archive entry with version, evidence, evaluation, rollback. |
+| “Turn this feedback log into mutation proposals.” | Evolution cycle | Normalised observations if useful, then bounded mutation candidates. |
+
+## Negative triggers
+
+| User request | Correct route | Why |
+|---|---|---|
+| “Create a brand new skill from this workflow.” | `skill-creator` primary | New skill creation and packaging rules belong there. |
+| “Validate this uploaded skill zip.” | `skill-creator` primary | Uploaded ZIP intake and packaging validation belong there. |
+| “Draft a reply to this customer.” | Domain drafting skill | This skill should not absorb customer-facing domain work. |
+| “Write the WordPress pattern from this design.” | WordPress/Figma specialist skill | Self-evolution only captures reusable lessons after the domain work. |
+| “Check this current law or product price.” | Web/research workflow | This skill does not replace current-source research. |
+
+## Edge cases
+
+| User request | Safe handling |
+|---|---|
+| “Improve yourself automatically every time you fail.” | Refuse autonomous self-modification; propose a human-approved proposal/evaluation loop. |
+| “Apply this mutation to the repo.” | Require explicit repo target and approval for connected edit; local package approval is not enough. |
+| “Publish this skill to the workspace.” | Require explicit publication approval after validation. |
+| “Add Slack, Gmail, Drive, and GitHub access.” | Treat as a permission change; require safety review and explicit approval. |
+| “Remember all failed outputs forever.” | Keep raw failures local unless the user explicitly approves durable memory and it is safe to store. |
+
+## Output examples
+
+### Quick audit result
+
+```markdown
+- Value: [highest-impact opportunity]
+- Risk: [main regression or safety risk]
+- Next step: [one bounded mutation]
+
+| Priority | Type | Target | Change | Risk | Evidence |
+|---:|---|---|---|---|---|
+| 1 | workflow | SKILL.md | Add quick audit path | Low | Confirmed |
+```
+
+### Approved application result
+
+```markdown
+- Value: Applied the approved local update set.
+- Risk: No connected systems were edited or published.
+- Next step: Review or upload the packaged `skill.zip`.
+
+Changed files: ...
+Validation: passed
+Rollback: restore previous package ...
+```
+
+## Common failure modes
+
+- Producing a broad rewrite when a small mutation would do.
+- Skipping archive and rollback notes after accepted changes.
+- Treating local packaging approval as publication approval.
+- Inventing benchmark metrics from subjective review.
+- Absorbing specialist domain work instead of routing to the correct skill.
+- Adding scripts without testing or documenting safe usage.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

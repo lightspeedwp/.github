@@ -1,0 +1,116 @@
+# Memory Routing Guide
+
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
+Use this guide to route durable information into the right Memory file.
+
+## File Selection Table
+
+| File | Save here when the item is... | Typical examples | Do not save here when the item is... |
+| --- | --- | --- | --- |
+| `user-preferences.md` | a reusable user-specific preference | preferred answer shape, preferred detail level, favored naming style, source preference | a workspace-wide rule that should apply beyond one user |
+| `todos.md` | ongoing work that should continue later | unfinished audit, pending follow-up, blocked next step, work to resume | a completed one-off task with no future continuation value |
+| `workspace-personalization.yaml` | a stable workspace-level default | default triage behavior, preferred issue-shaping structure, duplicate-handling default | a personal preference or one isolated exception |
+| `decisions-log.yaml` | an explicit durable decision with rationale | a naming rule, approval stance, routing policy, reuse convention | a raw preference without reasoning or scope |
+| `skill-routing-notes.yaml` | a repeatable rule about when to use or avoid a skill | no-skill cases, onboarding triggers, creator-vs-specialist routing | a one-time skill choice for a single request |
+| `source-of-truth-register.yaml` | a standing source precedence rule | Linear wins for taxonomy, GitHub only for implementation evidence | ad hoc source choice that only mattered once |
+| `assumptions-open-questions.yaml` | a still-open assumption that may affect later work | uncertain owner, unclear label policy, unresolved taxonomy question | a confirmed fact or a trivial uncertainty |
+| `canonical-taxonomy-cache.yaml` | a durable mapping or normalization pattern | raw-to-canonical label mapping, routing keyword pattern, naming pattern | a one-off label choice that should not generalize |
+
+## Decision Checklist
+
+Before saving anything, ask:
+
+1. Will this still help on a future Linear-focused run?
+2. Is it stable enough to be reused?
+3. Is it confirmed by the user, durable evidence, or an explicit standing convention?
+4. Does one Memory file clearly own this kind of information?
+5. Would saving it reduce future rework more than it increases Memory noise?
+
+If the answer to most of these is no, skip the save.
+
+## Priority Rules
+
+When an item could fit more than one file, use this priority order:
+
+1. `todos.md` for unfinished work that must be resumed
+2. `decisions-log.yaml` for explicit durable decisions with rationale
+3. `workspace-personalization.yaml` for workspace defaults
+4. `user-preferences.md` for personal defaults
+5. `canonical-taxonomy-cache.yaml` for recurring mappings
+6. `source-of-truth-register.yaml` for source precedence
+7. `skill-routing-notes.yaml` for skill choice rules
+8. `assumptions-open-questions.yaml` for unresolved items
+
+## Example Routing
+
+### Example 1
+
+Candidate item: "Use Engineering Enablement as the default routing team for CI workflow requests unless the request is clearly product-facing."
+
+Route to: `workspace-personalization.yaml`
+
+Why: this is a durable workspace triage default.
+
+### Example 2
+
+Candidate item: "Ash prefers concise bullet summaries with one recommended next step."
+
+Route to: `user-preferences.md`
+
+Why: this is a user-specific output preference.
+
+### Example 3
+
+Candidate item: "Pending follow-up: revisit duplicate-label cleanup after the next intake audit."
+
+Route to: `todos.md`
+
+Why: this is ongoing work to resume later.
+
+### Example 4
+
+Candidate item: "Treat Linear as the primary source for labels and issue taxonomy; only use Slack as supporting evidence."
+
+Route to: `source-of-truth-register.yaml`
+
+Why: this is a stable source precedence rule.
+
+### Example 5
+
+Candidate item: "If the request is mixed skill authoring plus packaging, prefer the creator skill instead of chaining specialists."
+
+Route to: `skill-routing-notes.yaml`
+
+Why: this is a repeatable skill-routing rule.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

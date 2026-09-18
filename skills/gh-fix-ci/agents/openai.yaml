@@ -3,13 +3,12 @@ interface:
   short_description: Debug failing GitHub Actions CI
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
-  default_prompt:
-    Inspect failing GitHub Actions checks in this repo, summarize root
+  default_prompt: Inspect failing GitHub Actions checks in this repo, summarize root
     cause, and propose a focused fix plan.
 policy:
   products:
-    - chatgpt
-    - codex
-    - api
-    - atlas
+  - chatgpt
+  - codex
+  - api
+  - atlas
   allow_implicit_invocation: true

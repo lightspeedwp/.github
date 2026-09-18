@@ -1,0 +1,630 @@
+[
+  {
+    "id": "DiscoverLandingPage",
+    "date": "2026-06",
+    "score": 90,
+    "failures": 1,
+    "warnings": 38,
+    "passes": 9,
+    "criteriaIds": [
+      "C-01",
+      "C-02",
+      "C-03",
+      "C-04",
+      "C-05",
+      "C-08",
+      "C-09",
+      "C-10",
+      "L-01",
+      "L-02",
+      "L-03",
+      "L-04",
+      "L-05",
+      "L-06",
+      "L-07",
+      "L-08",
+      "L-09",
+      "L-10",
+      "L-11",
+      "L-13",
+      "H-01",
+      "H-02",
+      "H-03",
+      "H-04",
+      "H-05",
+      "H-06",
+      "H-07",
+      "I-01",
+      "I-02",
+      "I-03",
+      "FM-04",
+      "FM-06",
+      "D-01",
+      "D-02",
+      "D-03",
+      "M-01",
+      "M-02",
+      "M-03",
+      "MB-01",
+      "MB-02",
+      "MB-03",
+      "CO-01",
+      "CO-02",
+      "CO-03",
+      "AR-01",
+      "AR-02",
+      "AR-03",
+      "AR-04"
+    ],
+    "skillVersions": {
+      "01-analyse-input": "1.4.0",
+      "02-build-criteria": "1.2.0",
+      "03-evaluate": "1.1.0",
+      "04-recommendations": "1.1.0",
+      "05-generate-report": "2.2.0"
+    },
+    "results": [
+      {
+        "id": "C-01",
+        "status": "Pass",
+        "finding": "#FAFAFA on surface-500 (#101018) = 18.14:1 — passes AA."
+      },
+      {
+        "id": "C-02",
+        "status": "Pass",
+        "finding": "#FAFAFA on surface-400 (#12121A) = 17.85:1 — passes large text AA."
+      },
+      {
+        "id": "C-03",
+        "status": "Pass",
+        "finding": "#080808 on cta-500 (#00FCFC) = 15.57:1 — passes AA."
+      },
+      {
+        "id": "C-04",
+        "status": "Warn",
+        "finding": "--wp--custom--color--border--card hex unverifiable from screenshot."
+      },
+      {
+        "id": "C-05",
+        "status": "Pass",
+        "finding": "accent-500 (#22C78A) on surface-500 (#101018) = 8.66:1 — passes AA."
+      },
+      {
+        "id": "C-08",
+        "status": "Warn",
+        "finding": "Focus ring implementation not confirmed in screenshot."
+      },
+      {
+        "id": "C-09",
+        "status": "Warn",
+        "finding": "Gradient heading mid-points unverifiable from screenshot."
+      },
+      {
+        "id": "C-10",
+        "status": "Warn",
+        "finding": "No status indicators visible to evaluate."
+      },
+      {
+        "id": "L-01",
+        "status": "Pass",
+        "finding": "ls-link-arrow uses arrow + underline beyond colour."
+      },
+      {
+        "id": "L-02",
+        "status": "Warn",
+        "finding": "Card-level CTAs may be ambiguous — verify in code."
+      },
+      {
+        "id": "L-03",
+        "status": "Warn",
+        "finding": ".ls-btn--arrow scaffolds aria-label='' — verify populated in templates."
+      },
+      {
+        "id": "L-04",
+        "status": "Warn",
+        "finding": ":focus-visible styles not confirmed from screenshot."
+      },
+      {
+        "id": "L-05",
+        "status": "Warn",
+        "finding": "Nav link touch target dimensions unverifiable from screenshot."
+      },
+      {
+        "id": "L-06",
+        "status": "Warn",
+        "finding": "target=_blank usage not determinable from screenshot."
+      },
+      {
+        "id": "L-07",
+        "status": "Warn",
+        "finding": "No skip link visible — verify in template source."
+      },
+      {
+        "id": "L-08",
+        "status": "Warn",
+        "finding": "Hover/active states not verifiable from static screenshot."
+      },
+      {
+        "id": "L-09",
+        "status": "Warn",
+        "finding": "Sticky header present — scroll-margin-top unverifiable."
+      },
+      {
+        "id": "L-10",
+        "status": "Warn",
+        "finding": "Enhanced focus not verifiable without live testing."
+      },
+      {
+        "id": "L-11",
+        "status": "Warn",
+        "finding": "Focus indicator dimensions not confirmed."
+      },
+      {
+        "id": "L-13",
+        "status": "Warn",
+        "finding": ".ls-btn--arrow size unverifiable from screenshot."
+      },
+      {
+        "id": "H-01",
+        "status": "Warn",
+        "finding": "Appears to be single H1 — verify in markup."
+      },
+      {
+        "id": "H-02",
+        "status": "Warn",
+        "finding": "Heading levels not verifiable from screenshot."
+      },
+      {
+        "id": "H-03",
+        "status": "Warn",
+        "finding": "Semantic heading elements not confirmed from screenshot."
+      },
+      {
+        "id": "H-04",
+        "status": "Warn",
+        "finding": "Landmark element types not verifiable from screenshot."
+      },
+      {
+        "id": "H-05",
+        "status": "Warn",
+        "finding": "Eyebrow label markup not confirmed — must be <p> not heading."
+      },
+      {
+        "id": "H-06",
+        "status": "Warn",
+        "finding": "<title> tag not visible in screenshot."
+      },
+      {
+        "id": "H-07",
+        "status": "Pass",
+        "finding": "FAQ in consistent lower-page location."
+      },
+      {
+        "id": "I-01",
+        "status": "Warn",
+        "finding": "No raster images visible; SVG alt text unverifiable."
+      },
+      {
+        "id": "I-02",
+        "status": "Warn",
+        "finding": "Decorative graphic alt attributes unverifiable."
+      },
+      {
+        "id": "I-03",
+        "status": "Warn",
+        "finding": ".ls-btn--arrow aria-label empty scaffold — verify populated."
+      },
+      {
+        "id": "FM-04",
+        "status": "Warn",
+        "finding": "Some CTAs may be ambiguous — verify all instances."
+      },
+      {
+        "id": "FM-06",
+        "status": "Warn",
+        "finding": "Vague CTA text needs contextual aria-label."
+      },
+      {
+        "id": "D-01",
+        "status": "Warn",
+        "finding": "FAQ trigger element type unverifiable from screenshot."
+      },
+      {
+        "id": "D-02",
+        "status": "Warn",
+        "finding": "aria-expanded implementation unverifiable from screenshot."
+      },
+      {
+        "id": "D-03",
+        "status": "Warn",
+        "finding": "Panel association markup unverifiable from screenshot."
+      },
+      {
+        "id": "M-01",
+        "status": "Fail",
+        "finding": "Glow blob (6s loop) and gradient heading animations auto-play with no pause control."
+      },
+      {
+        "id": "M-02",
+        "status": "Pass",
+        "finding": "DS motion tokens use smooth durations — no flashing patterns."
+      },
+      {
+        "id": "M-03",
+        "status": "Warn",
+        "finding": "prefers-reduced-motion implementation unverifiable from screenshot."
+      },
+      {
+        "id": "MB-01",
+        "status": "Warn",
+        "finding": "Reflow at 400% zoom requires live device testing."
+      },
+      {
+        "id": "MB-02",
+        "status": "Warn",
+        "finding": "Orientation lock not indicated but requires device verification."
+      },
+      {
+        "id": "MB-03",
+        "status": "Warn",
+        "finding": "Single-pointer operability unverifiable from screenshot."
+      },
+      {
+        "id": "CO-01",
+        "status": "Pass",
+        "finding": "Copy is professional and accessible — no excessive jargon."
+      },
+      {
+        "id": "CO-02",
+        "status": "Warn",
+        "finding": "Cross-page nav consistency not verifiable from single-page audit."
+      },
+      {
+        "id": "CO-03",
+        "status": "Pass",
+        "finding": "CTA button styles consistent throughout using DS component classes."
+      },
+      {
+        "id": "AR-01",
+        "status": "Warn",
+        "finding": "ARIA validity requires live accessibility tree inspection."
+      },
+      {
+        "id": "AR-02",
+        "status": "Warn",
+        "finding": "Redundant ARIA not verifiable from screenshot."
+      },
+      {
+        "id": "AR-03",
+        "status": "Warn",
+        "finding": ".ls-icon-shell aria-hidden status unverifiable from screenshot."
+      },
+      {
+        "id": "AR-04",
+        "status": "Warn",
+        "finding": "Multiple landmark differentiation requires markup inspection."
+      }
+    ]
+  },
+  {
+    "id": "DiscoverLandingPage",
+    "date": "2026-06-v2",
+    "score": 78,
+    "failures": 2,
+    "warnings": 39,
+    "passes": 7,
+    "criteriaIds": [
+      "C-01",
+      "C-02",
+      "C-03",
+      "C-04",
+      "C-05",
+      "C-08",
+      "C-09",
+      "C-10",
+      "L-01",
+      "L-02",
+      "L-03",
+      "L-04",
+      "L-05",
+      "L-06",
+      "L-07",
+      "L-08",
+      "L-09",
+      "L-10",
+      "L-11",
+      "L-13",
+      "H-01",
+      "H-02",
+      "H-03",
+      "H-04",
+      "H-05",
+      "H-06",
+      "H-07",
+      "I-01",
+      "I-02",
+      "I-03",
+      "FM-04",
+      "FM-06",
+      "D-01",
+      "D-02",
+      "D-03",
+      "M-01",
+      "M-02",
+      "M-03",
+      "MB-01",
+      "MB-02",
+      "MB-03",
+      "CO-01",
+      "CO-02",
+      "CO-03",
+      "AR-01",
+      "AR-02",
+      "AR-03",
+      "AR-04"
+    ],
+    "skillVersions": {
+      "01-analyse-input": "1.4.0",
+      "02-build-criteria": "1.2.0",
+      "03-evaluate": "1.1.0",
+      "04-recommendations": "1.1.0",
+      "05-generate-report": "2.2.0",
+      "06-reaudit": "1.0.0"
+    },
+    "comparison": {
+      "previousScore": 90,
+      "newScore": 78,
+      "delta": -12,
+      "improved": [],
+      "regressed": [
+        "C-05",
+        "C-03"
+      ],
+      "stillFailing": [
+        "M-01"
+      ]
+    },
+    "results": [
+      {
+        "id": "C-01",
+        "status": "Pass",
+        "finding": "#080808 on #FAFAFA = 19.19:1 and #FAFAFA on surface-500 = 18.14:1 — both pass."
+      },
+      {
+        "id": "C-02",
+        "status": "Pass",
+        "finding": "Heading text passes on both light and dark surfaces."
+      },
+      {
+        "id": "C-03",
+        "status": "Warn",
+        "finding": "brand-500 (#1E6AFF) on white = 4.41:1 — misses normal text AA by 0.09."
+      },
+      {
+        "id": "C-04",
+        "status": "Warn",
+        "finding": "Card border token unverifiable on new white surfaces."
+      },
+      {
+        "id": "C-05",
+        "status": "Fail",
+        "finding": "REGRESSION: accent-500 (#22C78A) on white (#FAFAFA) = 2.09:1 — fails all thresholds."
+      },
+      {
+        "id": "C-08",
+        "status": "Warn",
+        "finding": "Focus ring needs verification on both surface types."
+      },
+      {
+        "id": "C-09",
+        "status": "Warn",
+        "finding": "Gradient heading mid-points unverifiable on light and dark surfaces."
+      },
+      {
+        "id": "C-10",
+        "status": "Warn",
+        "finding": "No status indicators visible."
+      },
+      {
+        "id": "L-01",
+        "status": "Pass",
+        "finding": "Arrow + underline distinction maintained across both surface types."
+      },
+      {
+        "id": "L-02",
+        "status": "Warn",
+        "finding": "Some CTAs descriptive; verify no ambiguous instances in code."
+      },
+      {
+        "id": "L-03",
+        "status": "Warn",
+        "finding": ".ls-btn--arrow aria-label empty scaffold — verify populated."
+      },
+      {
+        "id": "L-04",
+        "status": "Warn",
+        "finding": ":focus-visible unconfirmed on light sections."
+      },
+      {
+        "id": "L-05",
+        "status": "Warn",
+        "finding": "Newsletter input and submit button now in scope — verify ≥ 44×44px."
+      },
+      {
+        "id": "L-06",
+        "status": "Warn",
+        "finding": "target=_blank usage not determinable."
+      },
+      {
+        "id": "L-07",
+        "status": "Warn",
+        "finding": "Skip link unconfirmed."
+      },
+      {
+        "id": "L-08",
+        "status": "Warn",
+        "finding": "Hover states on light surface buttons unverifiable."
+      },
+      {
+        "id": "L-09",
+        "status": "Warn",
+        "finding": "Sticky header present — scroll-margin-top unverifiable."
+      },
+      {
+        "id": "L-10",
+        "status": "Warn",
+        "finding": "Enhanced focus unverifiable without live testing."
+      },
+      {
+        "id": "L-11",
+        "status": "Warn",
+        "finding": "Focus indicator dimensions unconfirmed on light surfaces."
+      },
+      {
+        "id": "L-13",
+        "status": "Warn",
+        "finding": "Arrow button and newsletter submit dimensions unverifiable."
+      },
+      {
+        "id": "H-01",
+        "status": "Warn",
+        "finding": "Single H1 appears present — verify in updated markup."
+      },
+      {
+        "id": "H-02",
+        "status": "Warn",
+        "finding": "Additional sections added — verify heading hierarchy in updated DOM."
+      },
+      {
+        "id": "H-03",
+        "status": "Warn",
+        "finding": "New sections need semantic heading verification."
+      },
+      {
+        "id": "H-04",
+        "status": "Warn",
+        "finding": "Footer now substantial — verify <footer> landmark."
+      },
+      {
+        "id": "H-05",
+        "status": "Warn",
+        "finding": "More eyebrow labels on light sections — verify all use <p>."
+      },
+      {
+        "id": "H-06",
+        "status": "Warn",
+        "finding": "<title> unverifiable from screenshot."
+      },
+      {
+        "id": "H-07",
+        "status": "Pass",
+        "finding": "FAQ retained in consistent lower-page position."
+      },
+      {
+        "id": "I-01",
+        "status": "Warn",
+        "finding": "SVG alt text unverifiable."
+      },
+      {
+        "id": "I-02",
+        "status": "Warn",
+        "finding": "Decorative elements on light sections — verify aria-hidden."
+      },
+      {
+        "id": "I-03",
+        "status": "Warn",
+        "finding": ".ls-btn--arrow aria-label empty scaffold."
+      },
+      {
+        "id": "FM-04",
+        "status": "Warn",
+        "finding": "Key CTAs descriptive — verify no ambiguous fallbacks."
+      },
+      {
+        "id": "FM-06",
+        "status": "Warn",
+        "finding": "Newsletter submit button label unverifiable from screenshot."
+      },
+      {
+        "id": "D-01",
+        "status": "Warn",
+        "finding": "FAQ trigger element type unverifiable."
+      },
+      {
+        "id": "D-02",
+        "status": "Warn",
+        "finding": "aria-expanded unverifiable."
+      },
+      {
+        "id": "D-03",
+        "status": "Warn",
+        "finding": "Panel association unverifiable."
+      },
+      {
+        "id": "M-01",
+        "status": "Fail",
+        "finding": "STILL FAILING. Glow and gradient animations remain in dark sections with no pause control."
+      },
+      {
+        "id": "M-02",
+        "status": "Pass",
+        "finding": "DS motion tokens unchanged — no flashing patterns."
+      },
+      {
+        "id": "M-03",
+        "status": "Warn",
+        "finding": "prefers-reduced-motion unverifiable."
+      },
+      {
+        "id": "MB-01",
+        "status": "Warn",
+        "finding": "Two-column 'At a Glance' layout — verify reflow at 400% zoom."
+      },
+      {
+        "id": "MB-02",
+        "status": "Warn",
+        "finding": "Orientation lock unverifiable — verify on device."
+      },
+      {
+        "id": "MB-03",
+        "status": "Warn",
+        "finding": "Newsletter form operability unverifiable."
+      },
+      {
+        "id": "CO-01",
+        "status": "Pass",
+        "finding": "Updated copy remains clear and accessible."
+      },
+      {
+        "id": "CO-02",
+        "status": "Warn",
+        "finding": "Cross-page nav consistency unverifiable."
+      },
+      {
+        "id": "CO-03",
+        "status": "Pass",
+        "finding": "CTA styles consistently applied across light and dark sections."
+      },
+      {
+        "id": "AR-01",
+        "status": "Warn",
+        "finding": "ARIA validity requires axe scan on live updated page."
+      },
+      {
+        "id": "AR-02",
+        "status": "Warn",
+        "finding": "Redundant ARIA unverifiable."
+      },
+      {
+        "id": "AR-03",
+        "status": "Warn",
+        "finding": ".ls-icon-shell aria-hidden status on light sections unverifiable."
+      },
+      {
+        "id": "AR-04",
+        "status": "Warn",
+        "finding": "Footer nav now present — verify aria-label differentiation."
+      }
+    ]
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "model_version": "1.0.0",
+  "last_reviewed": "2026-07-03",
+  "plugin": {
+    "name": "Wetu Content Importer",
+    "slug": "wetu-importer",
+    "type": "integration",
+    "source_links": [
+      "https://github.com/lightspeedwp/wetu-importer",
+      "https://wordpress.org/plugins/lsx-importer-for-wetu/"
+    ],
+    "depends_on": [
+      "tour-operator"
+    ]
+  },
+  "integration_scope": {
+    "purpose": "Import or sync Wetu content into the Tour Operator content model.",
+    "treat_as": "sync-layer-unless-code-proves-owned-structures",
+    "mapped_post_types": [
+      "tour",
+      "destination",
+      "accommodation"
+    ],
+    "owned_content_structures": [
+      {
+        "structure": "unknown",
+        "confidence": "unknown"
+      }
+    ],
+    "non_owned_content_structures": [
+      "tour",
+      "destination",
+      "accommodation"
+    ]
+  },
+  "verification_checks": [
+    "Confirm Tour Operator core is installed and active.",
+    "Confirm Wetu Importer is installed, active and versioned.",
+    "Confirm Wetu settings without exposing credentials.",
+    "Confirm import target post types, mappings, source IDs, sync logs and manual override behaviour before running imports.",
+    "Verify imported images, itineraries and relationships after sync."
+  ],
+  "open_questions": [
+    "Confirm exact option keys and whether scheduled jobs, custom tables, logs or persistent Wetu source IDs exist.",
+    "Confirm conflict handling when Wetu data and manually edited WordPress data differ."
+  ]
+}

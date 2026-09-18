@@ -1,0 +1,321 @@
+# Schema reference
+
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
+Use this file for Yoast schema graph and schema piece work. Always distinguish Yoast schema output, Schema.org vocabulary validity, and Google rich-result eligibility.
+
+## Graph approach
+
+- Treat Yoast schema as a connected graph rather than isolated JSON-LD blobs.
+- Confirm site representation, content object type, breadcrumbs, images, author/entity data, and product data before changing schema.
+- Use Yoast developer schema documentation as the primary source for graph behaviour and extension points.
+- Use Schema.org for vocabulary and Google Search Central for Google-specific eligibility.
+
+## Schema aggregator and plugin-specific behaviour
+
+- Load schema aggregator docs for custom data pipelines or third-party integrations.
+- Load plugin schema docs for Yoast SEO, Yoast SEO Premium, WooCommerce SEO, Local SEO, and News SEO when comparing add-on behaviour.
+- Local SEO and News SEO are comparison references here unless the user explicitly includes them in scope.
+
+## AggregateOffer
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/aggregateoffer/>
+- **Plugin scope:** woocommerce; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Article
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/article/>
+- **Plugin scope:** free/premium; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Breadcrumb
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/breadcrumb/>
+- **Plugin scope:** free/premium/woocommerce; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Comment
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/comment/>
+- **Plugin scope:** free/premium; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Event
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/event/>
+- **Plugin scope:** plugin integration; verify; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## HowTo
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/howto/>
+- **Plugin scope:** free/premium blocks; verify current availability; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Image
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/image/>
+- **Plugin scope:** free/premium/woocommerce; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## LocalBusiness
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/localbusiness/>
+- **Plugin scope:** local seo comparison; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Offer
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/offer/>
+- **Plugin scope:** woocommerce; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Organization
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/organization/>
+- **Plugin scope:** free/premium; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Person
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/person/>
+- **Plugin scope:** free/premium; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## PostalAddress
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/postaladdress/>
+- **Plugin scope:** local seo comparison; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Product
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/product/>
+- **Plugin scope:** woocommerce; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## ProductGroup
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/productgroup/>
+- **Plugin scope:** woocommerce; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Question
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/question/>
+- **Plugin scope:** faq/howto; verify current rich-result caveat; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Recipe
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/recipe/>
+- **Plugin scope:** integration; verify; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Review
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/review/>
+- **Plugin scope:** woocommerce/reviews; verify; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## SearchAction
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/searchaction/>
+- **Plugin scope:** free/premium; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## Video
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/video/>
+- **Plugin scope:** video seo comparison; verify; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## WebPage
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/webpage/>
+- **Plugin scope:** free/premium/woocommerce; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+## WebSite
+
+- **Source URL:** <https://developer.yoast.com/features/schema/pieces/website/>
+- **Plugin scope:** free/premium; verify current output conditions.
+- **When Yoast outputs it:** needs source capture from the Yoast schema piece page and plugin-specific schema docs.
+- **Required inputs:** needs source capture; generally depends on WordPress object data, site representation, and add-on data where relevant.
+- **Optional inputs:** needs source capture; do not invent fields.
+- **Related WordPress or WooCommerce data:** map after scanning the source page and WooCommerce docs where relevant.
+- **Configuration dependency:** site representation, content type schema settings, product data, breadcrumbs, or plugin-specific add-ons as applicable.
+- **Customisation route:** use documented Yoast Schema API, graph pieces, or schema aggregator routes only after verification.
+- **QA method:** inspect JSON-LD graph, validate vocabulary with Schema.org, and validate Google eligibility with Google tools where relevant.
+- **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

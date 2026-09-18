@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lsdev.biz/schemas/gravity-forms/site-preflight.schema.json",
+  "title": "Gravity Forms Site Preflight",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "site_url",
+    "environment_type",
+    "wordpress_version",
+    "php_version",
+    "gravity_forms",
+    "rest_api_availability",
+    "current_user_capabilities",
+    "installed_addons",
+    "related_plugins",
+    "known_blockers",
+    "confidence_level",
+    "recommended_next_action"
+  ],
+  "properties": {
+    "site_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "environment_type": {
+      "type": "string",
+      "enum": [
+        "local",
+        "development",
+        "staging",
+        "production",
+        "unknown"
+      ]
+    },
+    "wordpress_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "php_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "multisite_status": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "current_theme": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "gravity_forms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "installed",
+        "active",
+        "version",
+        "licence_visibility"
+      ],
+      "properties": {
+        "installed": {
+          "type": "boolean"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "licence_visibility": {
+          "type": "string",
+          "enum": [
+            "visible-valid",
+            "visible-invalid",
+            "visible-expired",
+            "not-visible",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "rest_api_availability": {
+      "type": "string",
+      "enum": [
+        "available",
+        "disabled",
+        "not-visible",
+        "unknown"
+      ]
+    },
+    "current_user_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "installed_addons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "missing",
+              "unknown"
+            ]
+          },
+          "version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "licence_or_connection_visible": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "related_plugins": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "caching",
+              "performance",
+              "smtp-email",
+              "security",
+              "spam",
+              "woocommerce",
+              "crm",
+              "analytics",
+              "other"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "missing",
+              "unknown"
+            ]
+          },
+          "version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "caching_plugins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "smtp_email_plugins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "security_plugins": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "known_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence_level": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "recommended_next_action": {
+      "type": "string"
+    }
+  }
+}
