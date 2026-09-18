@@ -14,6 +14,8 @@ tags:
 
 # PRD Combined Agent – Implementation Notes
 
+**Scope note (2026-09-10):** this document records the **Phase 1-2 catalogue-level merge only** (2026-07-23). It predates the discovery that the underlying `agents/prd-agent/` and `agents/prd-factory-planner-agent/` folders were never actually consolidated. For the current Phase 3 structural-consolidation work, see [PLANNING.md — Phase 3](./PLANNING.md#phase-3-structural-consolidation-scoped-), [FOLDER_STRUCTURE_PLAN.md](./FOLDER_STRUCTURE_PLAN.md), and the three reconciliation reports ([skills](./SKILL_RECONCILIATION_REPORT.md), [agent/](./AGENT_FOLDER_RECONCILIATION_REPORT.md), [root files](./ROOT_FILES_RECONCILIATION_REPORT.md)).
+
 Consolidates two specialised planning agents into a unified multi-provider agent for comprehensive product planning.
 
 ## Merge Strategy

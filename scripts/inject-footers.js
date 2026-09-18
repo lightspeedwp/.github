@@ -112,10 +112,17 @@ const injectionState = {
 // UTILITY FUNCTIONS
 // ============================================================================
 
+/**
+ * Load a YAML configuration file or terminate the process on failure.
+ *
+ * @param {string} configPath - Path to the YAML file
+ * @param {string} configName - Human-readable name used in status messages
+ * @returns {*} Parsed configuration
+ */
 function loadConfig(configPath, configName) {
   try {
     const content = fs.readFileSync(configPath, "utf8");
-    const config = load(content);
+    const config = yaml.load(content);
     console.log(`✅ Loaded ${configName}`);
     return config;
   } catch (err) {
@@ -152,12 +159,18 @@ function inferCategory(filePath, frontmatter) {
   return "docs";
 }
 
+/**
+ * Parse an initial YAML frontmatter block from Markdown content.
+ *
+ * @param {string} content - Markdown content
+ * @returns {*|null} Parsed frontmatter, or `null` when absent or invalid
+ */
 function extractFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return null;
 
   try {
-    return load(match[1]);
+    return yaml.load(match[1]);
   } catch (_e) {
     return null;
   }

@@ -1,3 +1,6 @@
+const BackoffCalculator = require("../rate-limit/backoff-calculator");
+const { RATE_LIMIT_TYPES } = require("../rate-limit/rate-limit-types");
+
 /**
  * Exponential backoff retry strategy with jitter for GitHub API resilience.
  * Handles rate limit errors, network errors, and transient failures.
@@ -5,11 +8,17 @@
 
 class RetryStrategy {
   constructor(config = {}) {
-    this.maxRetries = config.maxRetries || 5;
+    this.maxRetries = config.maxRetries ?? 5;
     this.initialDelayMs = config.initialDelayMs ?? 1000;
     this.maxDelayMs = config.maxDelayMs ?? 60000;
-    this.backoffFactor = config.backoffFactor || 2;
-    this.jitterFactor = config.jitterFactor || 0.1;
+    this.backoffFactor = config.backoffFactor ?? 2;
+    this.jitterFactor = config.jitterFactor ?? 0.1;
+    this.backoffCalculator = new BackoffCalculator({
+      initialDelayMs: this.initialDelayMs,
+      maxDelayMs: this.maxDelayMs,
+      backoffFactor: this.backoffFactor,
+      jitterFactor: this.jitterFactor,
+    });
 
     // Error codes that should trigger retry
     this.retryableErrors = new Set([
@@ -62,22 +71,7 @@ class RetryStrategy {
    * @returns {number} Delay in milliseconds
    */
   calculateDelay(attemptNumber) {
-    if (attemptNumber < 0) {
-      throw new Error("Attempt number must be non-negative");
-    }
-
-    // Exponential backoff: initialDelay * (backoffFactor ^ attemptNumber)
-    let delay =
-      this.initialDelayMs * Math.pow(this.backoffFactor, attemptNumber);
-
-    // Cap at max delay
-    delay = Math.min(delay, this.maxDelayMs);
-
-    // Add jitter: delay * (1 ± jitterFactor * random)
-    const jitter = delay * this.jitterFactor * (Math.random() - 0.5) * 2;
-    delay = Math.round(delay + jitter);
-
-    return Math.max(0, delay);
+    return this.backoffCalculator.calculateDelay({ attemptNumber });
   }
 
   /**
@@ -86,25 +80,30 @@ class RetryStrategy {
    * @param {number} attemptNumber - Current attempt (0-indexed)
    * @returns {number} Delay in milliseconds
    */
-  getRetryDelay(error, attemptNumber) {
-    // Check for explicit Retry-After header
-    if (error.response?.headers?.["retry-after"]) {
-      const retryAfter = error.response.headers["retry-after"];
+  getRetryDelay(error, attemptNumber, context = {}) {
+    return this.backoffCalculator.calculateDelay({
+      attemptNumber,
+      error,
+      rateLimitType: context.rateLimitType || this._detectRateLimitType(error),
+      quotaRemainingPercent: context.quotaRemainingPercent ?? null,
+    });
+  }
 
-      // Retry-After can be seconds or HTTP-date
-      if (/^\d+$/.test(retryAfter)) {
-        return parseInt(retryAfter) * 1000;
-      }
+  _detectRateLimitType(error) {
+    const resourceHeader =
+      error?.response?.headers?.["x-ratelimit-resource"] ||
+      error?.rateLimitType;
+    const normalised = String(resourceHeader || "").toLowerCase();
 
-      // Parse HTTP-date
-      const retryDate = new Date(retryAfter);
-      if (!isNaN(retryDate)) {
-        return Math.max(0, retryDate - new Date());
-      }
+    if (normalised === RATE_LIMIT_TYPES.GRAPHQL) {
+      return RATE_LIMIT_TYPES.GRAPHQL;
     }
 
-    // Fall back to exponential backoff
-    return this.calculateDelay(attemptNumber);
+    if (normalised === RATE_LIMIT_TYPES.SEARCH) {
+      return RATE_LIMIT_TYPES.SEARCH;
+    }
+
+    return RATE_LIMIT_TYPES.CORE;
   }
 
   /**
@@ -200,6 +199,12 @@ class RetryStrategy {
       this.jitterFactor = config.jitterFactor;
 
     this.validate();
+    this.backoffCalculator = new BackoffCalculator({
+      initialDelayMs: this.initialDelayMs,
+      maxDelayMs: this.maxDelayMs,
+      backoffFactor: this.backoffFactor,
+      jitterFactor: this.jitterFactor,
+    });
   }
 }
 

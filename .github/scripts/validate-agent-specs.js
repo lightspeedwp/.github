@@ -40,7 +40,7 @@ function parseFrontmatter(content) {
   if (!match) return null;
   try {
     return YAML.load(match[1]);
-  } catch (e) {
+  } catch {
     return null;
   }
 }
@@ -94,7 +94,7 @@ function checkEntryPoints(implementationDir) {
 /**
  * Validate spec file frontmatter
  */
-function validateFrontmatter(frontmatter, specFile) {
+function validateFrontmatter(frontmatter) {
   const issues = [];
   const required = [
     "name",

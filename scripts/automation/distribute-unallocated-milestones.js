@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /**
  * distribute-unallocated-milestones.js
  *
@@ -34,6 +33,7 @@
  */
 
 import { Octokit } from "octokit";
+import fetch from "node-fetch";
 
 class MilestoneDistributor {
   constructor(options = {}) {
@@ -85,6 +85,14 @@ class MilestoneDistributor {
     }
   }
 
+  /**
+   * Fetch and cache repository milestones from v1.1 through v1.6.
+   *
+   * Initializes an empty distribution bucket for each matching milestone.
+   *
+   * @returns {Promise<Record<string, Object>>} Matching milestones keyed by title
+   * @throws {Error} If milestones cannot be fetched
+   */
   async findMilestones() {
     try {
       this.verbose_log("Fetching all milestones...");
@@ -114,10 +122,20 @@ class MilestoneDistributor {
 
       return targetMilestones;
     } catch (err) {
-      throw new Error(`Failed to fetch milestones: ${err.message}`);
+      throw new Error(`Failed to fetch milestones: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 
+  /**
+   * Fetch open issues that have no milestone.
+   *
+   * Applies the configured result limit and updates the found-issue count.
+   *
+   * @returns {Promise<Array<Object>>} Unallocated issues
+   * @throws {Error} If issues cannot be fetched
+   */
   async fetchUnallocatedIssues() {
     try {
       this.verbose_log("Fetching unallocated issues...");
@@ -142,7 +160,9 @@ class MilestoneDistributor {
 
       return issues;
     } catch (err) {
-      throw new Error(`Failed to fetch unallocated issues: ${err.message}`);
+      throw new Error(`Failed to fetch unallocated issues: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 
@@ -187,11 +207,21 @@ Example format:
         return this.analyzeIssuesLocally(issues);
       }
     } catch (err) {
-      this.log("warn", `AI analysis failed: ${err.message}, using local analysis`);
+      this.log(
+        "warn",
+        `AI analysis failed: ${err.message}, using local analysis`,
+      );
       return this.analyzeIssuesLocally(issues);
     }
   }
 
+  /**
+   * Submit an issue-grouping prompt to the Claude Messages API.
+   *
+   * @param {string} prompt - Prompt requesting a JSON category mapping
+   * @returns {Promise<Object>} JSON object extracted from the first response content block
+   * @throws {Error} If the request fails or the response has no valid JSON object
+   */
   async callClaudeAPI(prompt) {
     try {
       const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -214,9 +244,7 @@ Example format:
       });
 
       if (!response.ok) {
-        throw new Error(
-          `API error: ${response.status} ${response.statusText}`,
-        );
+        throw new Error(`API error: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
@@ -229,10 +257,14 @@ Example format:
       }
 
       const categories = JSON.parse(jsonMatch[0]);
-      this.verbose_log(`AI analysis produced ${Object.keys(categories).length} categories`);
+      this.verbose_log(
+        `AI analysis produced ${Object.keys(categories).length} categories`,
+      );
       return categories;
     } catch (err) {
-      throw new Error(`Failed to call Claude API: ${err.message}`);
+      throw new Error(`Failed to call Claude API: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 
@@ -250,7 +282,10 @@ Example format:
     };
 
     for (const issue of issues) {
-      const labels = issue.labels.map((l) => l.name).join(" ").toLowerCase();
+      const labels = issue.labels
+        .map((l) => l.name)
+        .join(" ")
+        .toLowerCase();
       const title = issue.title.toLowerCase();
 
       // Simple categorization by labels and keywords
@@ -306,7 +341,8 @@ Example format:
 
     // Round-robin distribution
     for (const [category, issues] of categoryEntries) {
-      const targetMilestone = milestoneArray[milestoneIndex % milestoneArray.length];
+      const targetMilestone =
+        milestoneArray[milestoneIndex % milestoneArray.length];
 
       if (!distribution[targetMilestone]) {
         distribution[targetMilestone] = [];
@@ -344,7 +380,10 @@ Example format:
         milestone: milestoneNumber,
       });
 
-      this.log("success", `Assigned issue #${issueNumber} to milestone #${milestoneNumber}`);
+      this.log(
+        "success",
+        `Assigned issue #${issueNumber} to milestone #${milestoneNumber}`,
+      );
       this.stats.distributed++;
       return { status: "assigned" };
     } catch (err) {
@@ -358,10 +397,7 @@ Example format:
 
   async distribute(issues) {
     try {
-      this.log(
-        "success",
-        "Starting intelligent milestone distribution...",
-      );
+      this.log("success", "Starting intelligent milestone distribution...");
 
       if (issues.length === 0) {
         this.log("skip", "No unallocated issues found");
@@ -370,7 +406,9 @@ Example format:
 
       // Step 1: Analyze and categorize issues
       const categories = await this.analyzeIssuesWithAI(issues);
-      this.verbose_log(`Issues categorized into ${Object.keys(categories).length} group(s)`);
+      this.verbose_log(
+        `Issues categorized into ${Object.keys(categories).length} group(s)`,
+      );
 
       // Step 2: Distribute categories across milestones
       const distribution = this.distributeToMilestones(categories);
@@ -381,7 +419,10 @@ Example format:
         distribution,
       )) {
         for (const issueNumber of issueNumbers) {
-          await this.assignIssueToMilestone(issueNumber, parseInt(milestoneNumber, 10));
+          await this.assignIssueToMilestone(
+            issueNumber,
+            parseInt(milestoneNumber, 10),
+          );
         }
       }
 
@@ -397,7 +438,7 @@ Example format:
     }
   }
 
-  logSummary(distribution) {
+  logSummary(_distribution) {
     const summary = [
       `Distribution complete.`,
       `Distributed: ${this.stats.distributed}`,

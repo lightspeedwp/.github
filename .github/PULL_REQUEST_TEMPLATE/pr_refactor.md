@@ -1,13 +1,15 @@
 ---
-name: "Refactor PR"
-about: "Internal code improvement; no external behaviour change"
-title: "refactor: {scope}"
-labels: ["status:needs-review"]
+file_type: pr-template
+name: "Refactor"
+about: "Refactor code for clarity or performance (no external behaviour change)"
+title: "refactor: {scope} - {short description}"
+labels: ["type:refactor", "status:needs-review", "priority:normal", "area:core",  "meta:needs-changelog"]
+recommended_issue_type: "type:refactor"
 ---
 
 # Refactor Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues

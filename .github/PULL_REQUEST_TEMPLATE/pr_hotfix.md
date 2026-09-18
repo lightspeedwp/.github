@@ -1,14 +1,15 @@
 ---
-name: "Hotfix PR"
-about: "Critical fixes for production issues"
-title: "fix: {short summary}"
-labels:
-  ["status:needs-review", "area:hotfix", "priority:critical", "release:hotfix"]
+file_type: pr-template
+name: "Hotfix"
+about: "Critical production fix (urgent, bypasses normal release cycle)"
+title: "hotfix: {scope} - {short description}"
+labels: ["type:release", "status:needs-review", "priority:critical", "area:core", "meta:needs-changelog"]
+recommended_issue_type: "type:release"
 ---
 
 # Hotfix Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/main/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Linked issues

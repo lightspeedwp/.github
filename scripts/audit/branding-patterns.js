@@ -41,13 +41,18 @@ function inferCategory(filePath) {
   return "root";
 }
 
-// Extract frontmatter from markdown
+/**
+ * Parse an initial YAML frontmatter block from Markdown content.
+ *
+ * @param {string} content - Markdown content
+ * @returns {*|null} Parsed frontmatter, or `null` when absent or invalid
+ */
 function extractFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n/);
   if (!match) return null;
 
   try {
-    return load(match[1]);
+    return yaml.load(match[1]);
   } catch (_e) {
     return null;
   }

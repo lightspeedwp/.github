@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Specification Monitoring Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon">🤖</span>
+          <h1>Agent Specification Monitoring</h1>
+        </div>
+        <div class="controls">
+          <input type="file" id="reportFile" accept=".json" placeholder="Load validation report" />
+          <button id="refreshBtn" class="btn btn-secondary">🔄 Refresh</button>
+          <button id="downloadBtn" class="btn btn-secondary">⬇️ Download</button>
+          <label class="theme-toggle">
+            <input type="checkbox" id="darkMode" />
+            <span>Dark Mode</span>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <!-- Status Overview -->
+    <section class="status-overview">
+      <div class="status-card" id="statusCard">
+        <div class="status-indicator" id="statusIndicator"></div>
+        <div class="status-content">
+          <h2 id="statusTitle">System Status</h2>
+          <p id="statusMessage">Load a validation report to view status</p>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value" id="totalAgents">-</div>
+          <div class="metric-label">Total Agents</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="passedAgents">-</div>
+          <div class="metric-label">Passed</div>
+        </div>
+        <div class="metric-card metric-errors">
+          <div class="metric-value" id="errorCount">-</div>
+          <div class="metric-label">Errors</div>
+        </div>
+        <div class="metric-card metric-warnings">
+          <div class="metric-value" id="warningCount">-</div>
+          <div class="metric-label">Warnings</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts -->
+    <section class="charts">
+      <div class="chart-container">
+        <h3>Validation Status Distribution</h3>
+        <canvas id="statusChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>Issues by Severity</h3>
+        <canvas id="severityChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Validation Results -->
+    <section class="results">
+      <div class="results-header">
+        <h2>Validation Results</h2>
+        <div class="filter-controls">
+          <input type="text" id="searchFilter" placeholder="Search agents..." />
+          <select id="statusFilter">
+            <option value="">All Status</option>
+            <option value="passed">Passed</option>
+            <option value="failed">Failed</option>
+          </select>
+          <select id="severityFilter">
+            <option value="">All Severity</option>
+            <option value="error">Errors</option>
+            <option value="warning">Warnings</option>
+            <option value="info">Info</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="results-list" id="resultsList">
+        <p class="placeholder">No data loaded. Load a validation report to view results.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p id="timestamp">Report timestamp: -</p>
+      <p>Agent Specification Monitoring Dashboard v1.0</p>
+    </footer>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

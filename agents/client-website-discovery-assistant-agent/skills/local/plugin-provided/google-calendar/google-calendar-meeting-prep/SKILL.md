@@ -30,3 +30,20 @@ Use this skill when the user wants a prep brief, not just the event details.
 ---
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

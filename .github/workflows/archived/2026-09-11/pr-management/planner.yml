@@ -1,0 +1,31 @@
+name: planner
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  planner:
+    runs-on: ubuntu-latest
+    # DISABLED: Planner agent implementation in progress
+    # See: agents/task-planner.agent.md and scripts/agents/planner.agent.js
+    if: false
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Planner
+        run: node scripts/agents/planner.agent.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

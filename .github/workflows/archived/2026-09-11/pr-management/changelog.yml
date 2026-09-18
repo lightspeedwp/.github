@@ -1,0 +1,33 @@
+name: changelog-validate
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches: [develop]
+    paths:
+      - "CHANGELOG.md"
+  # A workflow_call may not declare a secret whose name begins with GITHUB_.
+  # The reserved GITHUB_TOKEN is passed to a called workflow automatically, so
+  # declaring it here was both unnecessary and a workflow file error, which is
+  # why every run of this workflow failed before starting a single job.
+  # Nothing currently calls this workflow, but the trigger stays so it remains
+  # reusable.
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - name: Validate changelog schema
+        run: |
+          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md

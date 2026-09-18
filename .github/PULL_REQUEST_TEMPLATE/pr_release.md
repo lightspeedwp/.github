@@ -1,13 +1,15 @@
 ---
-name: "Release PR"
-about: "Release new features or enhancements"
-title: "release: {short summary}"
-labels: ["status:needs-review", "area:release", "release:patch"]
+file_type: pr-template
+name: "Release"
+about: "Prepare release (version bump, changelog aggregation, release notes)"
+title: "release: {scope} - {short description}"
+labels: ["type:release", "status:needs-review", "priority:critical", "area:release", "meta:needs-changelog"]
+recommended_issue_type: "type:release"
 ---
 
 # Release Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for contributor rules.
 
 ## Linked issues & merged PRs

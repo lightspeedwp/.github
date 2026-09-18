@@ -86,7 +86,7 @@ describe("Category A: Sequential Skill Execution", () => {
 
     expect(result.routed).toBe(false);
     expect(result.fallback).toBe(true);
-    expect(result.template).toBe("pull_request_template.md");
+    expect(result.template).toBe("pr_feature.md");
   });
 
   test("Test A4: Label Validation Fail → Error logged, PR still created", async () => {

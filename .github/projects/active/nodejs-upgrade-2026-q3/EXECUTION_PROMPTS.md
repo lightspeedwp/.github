@@ -2,6 +2,7 @@
 title: Node.js 22 Upgrade — Execution Prompts
 description: Ready-to-use prompts for each phase of the Node.js 20 → 22 upgrade
 version: 1.0.0
+status: Complete
 ---
 
 # Execution Prompts — Node.js 22 Upgrade
@@ -699,7 +700,6 @@ Template:
 ---
 title: Node.js 22 Upgrade — Completion Report
 date: [TODAY]
-status: Complete
 ---
 
 # Node.js 22 Upgrade — Completion Report

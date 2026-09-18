@@ -27,6 +27,7 @@ status: active
 - Added portable instruction files for PR and issue template usage.
 - Added the template-enforcement workflow and fixture pack.
 - Updated the repo governance docs to match the implemented routing model.
+- **[2026-09-02]** Standardized frontmatter across all 34 PR and issue templates with unified schema validation (PR #2625, commit eb89dc1a).
 
 ### Remaining
 

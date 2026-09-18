@@ -74,3 +74,8 @@ Use this log to capture each `/opsx:propose` attempt.
 - command: `closeout-docs`
 - outcome: success
 - notes: `Updated the project docs to reflect the implemented scope and split remote/admin checks into REMOTE_ADMIN_CHECKS.md.`
+
+- timestamp: 2026-09-02T20:38:00Z
+- command: `PR #2625 merge: Standardize PR and issue template frontmatter schema and structure`
+- outcome: success
+- notes: `Standardized frontmatter across all 34 templates (9 PR + 25 issue). Updated schema to require consistent fields: file_type, title, name, description, labels. All templates validated locally. PR merged to develop branch.`

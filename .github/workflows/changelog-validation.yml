@@ -1,0 +1,257 @@
+name: Changelog Quality Validation
+
+on:
+  pull_request:
+    paths:
+      - 'CHANGELOG.md'
+      - '.github/validation/changelog/**'
+    branches:
+      - develop
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  validate-changelog:
+    runs-on: ubuntu-latest
+    outputs:
+      validation-result: ${{ steps.validate.outputs.result }}
+      passed: ${{ steps.validate.outputs.passed }}
+      failed: ${{ steps.validate.outputs.failed }}
+      warnings: ${{ steps.validate.outputs.warnings }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '.github/validation/changelog/package.json'
+
+      - name: Install dependencies
+        run: |
+          cd .github/validation/changelog
+          npm ci
+
+      - name: Detect changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            CHANGELOG.md
+
+      - name: Validate changelog entries
+        id: validate
+        run: |
+          cd .github/validation/changelog
+
+          if [ "${{ steps.changed-files.outputs.any_changed }}" == "false" ]; then
+            echo "passed=0" >> $GITHUB_OUTPUT
+            echo "failed=0" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "result=No changelog files modified in this PR" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Run validation and capture results
+          node bin/validate.js \
+            --changelog-path ../../../CHANGELOG.md \
+            --trigger pr_submission \
+            --pr-number ${{ github.event.pull_request.number }} \
+            --branch ${{ github.head_ref }} \
+            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            --output json --metrics > validation-report.json 2>validation-stderr.log || true
+
+          # Parse report
+          if [ -f validation-report.json ]; then
+            PASSED=$(jq '.summary.passed' validation-report.json 2>/dev/null || echo "0")
+            FAILED=$(jq '.summary.failed' validation-report.json 2>/dev/null || echo "0")
+            RESULT=$(jq -r '.recommendation' validation-report.json 2>/dev/null || echo "UNKNOWN")
+            GATE_RESULT=$(jq -r '.ci_gate_result' validation-report.json 2>/dev/null || echo "UNKNOWN")
+
+            echo "passed=$PASSED" >> $GITHUB_OUTPUT
+            echo "failed=$FAILED" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "result=$RESULT" >> $GITHUB_OUTPUT
+            echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
+
+            # Save full report for audit
+            cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
+
+            # Exit based on gate result
+            if [ "$GATE_RESULT" == "pass" ]; then
+              exit 0
+            elif [ "$GATE_RESULT" == "warning" ]; then
+              exit 0
+            else
+              exit 1
+            fi
+          else
+            echo "passed=0" >> $GITHUB_OUTPUT
+            echo "failed=0" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "result=ERROR" >> $GITHUB_OUTPUT
+            echo "gate_result=UNKNOWN" >> $GITHUB_OUTPUT
+            [ -f validation-stderr.log ] && cat validation-stderr.log
+            exit 1
+          fi
+        continue-on-error: true
+
+      - name: Format PR comment
+        id: comment
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          PASSED=${{ steps.validate.outputs.passed }}
+          FAILED=${{ steps.validate.outputs.failed }}
+          WARNINGS=${{ steps.validate.outputs.warnings }}
+
+          # Build comment markdown
+          cat > /tmp/comment.md << 'EOF'
+          ## 📋 Changelog Quality Validation
+
+          ### Summary
+
+          | Metric | Count |
+          |--------|-------|
+          | ✅ Passing | $PASSED |
+          | ⚠️ Warnings | $WARNINGS |
+          | ❌ Failing | $FAILED |
+
+          ### Status
+
+          EOF
+
+          if [ "$FAILED" -gt 0 ]; then
+            echo "❌ **Validation FAILED** - Please fix the issues below before merging" >> /tmp/comment.md
+            echo "All changelog entries must pass validation to maintain quality standards." >> /tmp/comment.md
+          elif [ "$WARNINGS" -gt 0 ]; then
+            echo "⚠️ **Validation CONDITIONAL PASS** - $WARNINGS warning(s) detected" >> /tmp/comment.md
+            echo "Review the warnings and consider addressing them for better quality." >> /tmp/comment.md
+          else
+            echo "✅ **Validation PASSED** - All entries meet quality standards" >> /tmp/comment.md
+          fi
+
+          echo "" >> /tmp/comment.md
+          echo "### How to Fix" >> /tmp/comment.md
+          echo "" >> /tmp/comment.md
+          echo "Run locally:" >> /tmp/comment.md
+          echo "\`\`\`bash" >> /tmp/comment.md
+          echo "cd .github/validation/changelog" >> /tmp/comment.md
+          echo "node bin/validate.js --changelog-path CHANGELOG.md" >> /tmp/comment.md
+          echo "\`\`\`" >> /tmp/comment.md
+          echo "" >> /tmp/comment.md
+          echo "See [Changelog Quality Audit](.github/validation/changelog/docs/DEVELOPER_GUIDE.md) for details." >> /tmp/comment.md
+
+          # Save comment content
+          COMMENT_BODY=$(cat /tmp/comment.md)
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMENT_BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post PR comment
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/github-script@v7
+        env:
+          COMMENT_BODY: ${{ steps.comment.outputs.body }}
+        with:
+          script: |
+            const body = process.env.COMMENT_BODY;
+
+            // Find existing validation comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existingComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Changelog Quality Validation')
+            );
+
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: body,
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body,
+              });
+            }
+
+      - name: Request reviewer if validation failed
+        if: steps.validate.outputs.failed > 0 && steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.notice('Validation failed - release manager approval required before merge');
+
+      - name: Create audit log entry
+        if: always() && steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          mkdir -p .github/reports/validation-audits
+
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          DATE_STR=$(date +%Y%m%d)
+          FILENAME="${DATE_STR}_$(date +%s).json"
+          FILEPATH=".github/reports/validation-audits/$FILENAME"
+
+          cat > "$FILEPATH" << 'EOF'
+          {
+            "timestamp": "$TIMESTAMP",
+            "run_id": "${{ github.run_id }}",
+            "run_number": ${{ github.run_number }},
+            "pr_number": ${{ github.event.pull_request.number }},
+            "pr_title": "${{ github.event.pull_request.title }}",
+            "branch": "${{ github.ref }}",
+            "actor": "${{ github.actor }}",
+            "status": "${{ steps.validate.outputs.result || 'unknown' }}",
+            "validation": {
+              "passed": ${{ steps.validate.outputs.passed || 0 }},
+              "failed": ${{ steps.validate.outputs.failed || 0 }},
+              "warnings": ${{ steps.validate.outputs.warnings || 0 }}
+            },
+            "workflow_conclusion": "${{ job.status }}"
+          }
+          EOF
+
+          echo "✅ Audit log created: $FILEPATH"
+
+      - name: Set status check
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          if [ "${{ steps.validate.outputs.failed }}" -gt 0 ]; then
+            echo "❌ Changelog validation failed: ${{ steps.validate.outputs.failed }} errors"
+            exit 1
+          fi
+          echo "✅ Changelog validation passed"
+        continue-on-error: true
+
+      - name: Report validation results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const result = {
+              passed: ${{ steps.validate.outputs.passed || 0 }},
+              failed: ${{ steps.validate.outputs.failed || 0 }},
+              warnings: ${{ steps.validate.outputs.warnings || 0 }},
+              status: '${{ steps.validate.outputs.result }}'
+            };
+
+            core.notice(`Changelog Validation: ${result.passed} passed, ${result.failed} failed, ${result.warnings} warnings`);

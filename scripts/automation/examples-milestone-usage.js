@@ -318,7 +318,9 @@ for (const issue of unallocatedIssues) {
 console.log('Custom categories:', categories);
 */
 
-console.log("This file contains example patterns for using milestone management scripts.");
+console.log(
+  "This file contains example patterns for using milestone management scripts.",
+);
 console.log("See the commented code blocks for various usage scenarios.");
 console.log("");
 console.log("To use these patterns:");

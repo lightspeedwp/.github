@@ -23,6 +23,8 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import { createTelemetryClient } from "../../scripts/telemetry/telemetry-client.js";
+import { EVENT_SCHEMAS } from "../../scripts/telemetry/event-schemas.js";
 
 // ============================================================================
 // Configuration
@@ -68,6 +70,12 @@ class ReleaseAgent {
     this.workflowId = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     this.log = [];
     this.decisions = {};
+
+    // Initialize telemetry client
+    this.telemetry = createTelemetryClient({
+      eventSchemas: EVENT_SCHEMAS,
+    });
+    this.validationStartTime = null;
   }
 
   // ========================================================================
@@ -480,17 +488,63 @@ Respond with JSON:
       // Step 1: Initialize & Pre-flight
       await this.initialize();
 
+      // Emit: release.validation.started (after init to use actual version)
+      this.validationStartTime = Date.now();
+      this.telemetry.emit("release.validation.started", {
+        safe: {
+          component: "release-agent",
+          version: this.currentVersion,
+          trigger: this.dryRun ? "dry-run" : "manual",
+        },
+        restricted: {
+          repositoryName: this.getRepositoryName(),
+          changelogPath: CHANGELOG_FILE,
+          versionFile: VERSION_FILE,
+        },
+      });
+
       // Step 2: Agentic Reasoning
       await this.agenticReasoning();
 
       // Steps 3-9: Safety Gates
       const gatesPass = await this.runSafetyGates();
       if (!gatesPass) {
+        // Emit: release.gate.failure
+        this.telemetry.emit("release.gate.failure", {
+          safe: {
+            component: "release-agent",
+            gateName: "safety-gates",
+            failureReason: "One or more safety gates failed",
+            recoverable: false,
+          },
+          restricted: {
+            repositoryName: this.getRepositoryName(),
+            changelogPath: CHANGELOG_FILE,
+            errorDetails: "Safety gates validation failed",
+          },
+        });
         throw new Error("❌ One or more safety gates failed. Release aborted.");
       }
 
       // Step 10: Report & Cleanup
       await this.report();
+
+      // Emit: release.validation.completed
+      const validationDuration = Date.now() - this.validationStartTime;
+      this.telemetry.emit("release.validation.completed", {
+        safe: {
+          component: "release-agent",
+          version: this.nextVersion,
+          validationDuration,
+          gatesPassed: 7,
+          warningCount: 0,
+        },
+        restricted: {
+          repositoryName: this.getRepositoryName(),
+          changelogPath: CHANGELOG_FILE,
+          validationResults: JSON.stringify(this.decisions),
+        },
+      });
 
       console.log("\n✅ MVP Workflow Complete!\n");
       console.log("Next Steps:");
@@ -502,7 +556,41 @@ Respond with JSON:
     } catch (error) {
       console.error(`\n❌ Workflow Failed: ${error.message}\n`);
       this.addLog(`Error: ${error.message}`);
+
+      // Emit: release.gate.failure for unexpected errors
+      if (!error.message.includes("safety gates")) {
+        this.telemetry.emit("release.gate.failure", {
+          safe: {
+            component: "release-agent",
+            gateName: "execution",
+            failureReason: "Unexpected error during release",
+            recoverable: false,
+          },
+          restricted: {
+            repositoryName: this.getRepositoryName(),
+            errorDetails: error.message,
+            stackTrace: error.stack,
+          },
+        });
+      }
+
       throw error;
+    } finally {
+      // Flush telemetry data
+      await this.telemetry.flush();
+    }
+  }
+
+  getRepositoryName() {
+    try {
+      // Get repository name from git remote
+      const remote = execSync("git remote get-url origin", {
+        encoding: "utf-8",
+      }).trim();
+      const match = remote.match(/github\.com[:/](.+?)(?:\.git)?$/);
+      return match ? match[1] : "unknown/unknown";
+    } catch (_e) {
+      return "unknown/unknown";
     }
   }
 }

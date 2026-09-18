@@ -13,22 +13,23 @@ import { globSync } from "glob";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "../../");
 
-const MARKDOWN_FILES = globSync("**/*.{md,mdx}", {
-  cwd: ROOT,
-  ignore: [
-    "**/node_modules/**",
-    "**/.git/**",
-    "**/.claude/**",
-    "**/coverage/**",
-    "**/logs/**",
-    "**/.github/projects/**",
-    "**/plugin-provided/**",
-    "**/platform-managed/**",
-    "**/directory-installed/**",
-    "**/agentskills-main/**",
-  ],
-  dot: true,
-}).sort();
+const getMarkdownFiles = () =>
+  globSync("**/*.{md,mdx}", {
+    cwd: ROOT,
+    ignore: [
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/.claude/**",
+      "**/coverage/**",
+      "**/logs/**",
+      "**/.github/projects/**",
+      "**/plugin-provided/**",
+      "**/platform-managed/**",
+      "**/directory-installed/**",
+      "**/agentskills-main/**",
+    ],
+    dot: true,
+  }).sort();
 
 function extractMermaidDiagrams(content) {
   const diagrams = [];
@@ -163,6 +164,36 @@ function validateAccessibility(content) {
 }
 
 async function main() {
+  const args = process.argv.slice(2);
+  const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
+  const changedFilesListArg = args.find((a) =>
+    a.startsWith("--changed-files-list="),
+  );
+  const isVendorPath = (filePath) =>
+    /(^|\/)(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
+      filePath,
+    );
+  const targetFiles = (
+    changedFilesListArg
+      ? fs
+          .readFileSync(
+            changedFilesListArg.replace("--changed-files-list=", ""),
+            "utf8",
+          )
+          .split("\n")
+          .map((f) => f.trim())
+          .filter(Boolean)
+      : changedFilesArg
+        ? changedFilesArg
+            .replace("--changed-files=", "")
+            .split(",")
+            .map((f) => f.trim())
+            .filter(Boolean)
+        : getMarkdownFiles()
+  )
+    .filter((f) => /\.mdx?$/i.test(f))
+    .filter((f) => !isVendorPath(f));
+
   console.log("♿ Validating Mermaid diagram accessibility compliance...\n");
 
   const report = {
@@ -176,8 +207,8 @@ async function main() {
     "File,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Compliance Status",
   ];
 
-  for (const file of MARKDOWN_FILES) {
-    const filePath = path.join(ROOT, file);
+  for (const file of targetFiles) {
+    const filePath = path.isAbsolute(file) ? file : path.join(ROOT, file);
 
     if (!fs.existsSync(filePath)) {
       console.log(`⚠️  File not found: ${file}`);
@@ -310,7 +341,7 @@ stability: stable
 
 ## Files Analyzed
 
-${MARKDOWN_FILES.map((f) => `- ${f}`).join("\n")}
+${targetFiles.map((f) => `- ${f}`).join("\n")}
 
 ## Compliance Criteria
 

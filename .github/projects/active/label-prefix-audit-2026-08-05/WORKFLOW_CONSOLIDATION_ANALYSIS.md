@@ -40,7 +40,7 @@ tags:
 | Workflow | Trigger | Purpose | Status |
 |----------|---------|---------|--------|
 | `issues.yml` | Issue open/edit/reopen | Custom issue processing logic | Active |
-| `issue-create-from-template.yml` | Manual dispatch | Create issues from 24 canonical templates | Active |
+| `issue-create-enhanced.yml` | Manual dispatch | Create issues from 24 canonical templates | Active |
 | `issue-create-enhanced.yml` | Manual dispatch? | Enhanced issue creation (details unclear) | Active |
 | `issue-fields-backfill.yml` | Manual dispatch? | Backfill/sync issue field data | Active |
 | `issue-health-audit.yml` | Manual dispatch? | Audit and report issue health/status | Active |

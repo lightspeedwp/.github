@@ -128,7 +128,7 @@ These workflows serve unique purposes with no overlap:
 | 4.2 | template-enforcement.yml<br/>checklist-finalisation.yml<br/>validate-issue-dod-before-close.yml | issue-compliance.yml | Consolidation | 4-5h |
 | 4.3 | issue-fields-backfill.yml<br/>issue-project-field-sync.yml | project-field-sync.yml | Consolidation | 3-4h |
 | 4.4 | flaky-test-detection.yml | absorb into checks.yml | Absorption | 1-2h |
-| 4.5 | issue-create-from-template.yml | DELETE | Cleanup | 0.5h |
+| 4.5 | issue-create-enhanced.yml | DELETE | Cleanup | 0.5h |
 | 4.6 | issue-health-audit.yml<br/>issue-remediation-bulk.yml | issue-audit-remediation.yml | Consolidation | 3-4h |
 
 **Total:** −8 workflows, +3 new consolidated workflows (net −5)  
@@ -319,7 +319,7 @@ on:
 
 **Workflow Deleted:**
 
-- issue-create-from-template.yml (superseded by issue-create-enhanced.yml)
+- issue-create-enhanced.yml (superseded by issue-create-enhanced.yml)
 
 **Verification Steps:**
 

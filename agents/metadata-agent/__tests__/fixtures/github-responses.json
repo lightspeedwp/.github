@@ -1,0 +1,104 @@
+{
+  "commits": [
+    {
+      "sha": "abc123",
+      "html_url": "https://github.com/lightspeedwp/.github/commit/abc123",
+      "author": { "login": "ashleyshaw" },
+      "commit": {
+        "message": "feat: add metadata retrieval",
+        "author": {
+          "name": "Ash Shaw",
+          "email": "ash@example.com",
+          "date": "2026-08-20T10:00:00Z"
+        }
+      }
+    },
+    {
+      "sha": "def456",
+      "html_url": "https://github.com/lightspeedwp/.github/commit/def456",
+      "author": { "login": "lightspeed-bot" },
+      "commit": {
+        "message": "fix: fallback logic",
+        "author": {
+          "name": "LightSpeed Bot",
+          "email": "bot@example.com",
+          "date": "2026-08-21T11:00:00Z"
+        }
+      }
+    }
+  ],
+  "singleCommit": {
+    "sha": "abc123",
+    "html_url": "https://github.com/lightspeedwp/.github/commit/abc123",
+    "parents": [{ "sha": "000111" }],
+    "author": { "login": "ashleyshaw" },
+    "commit": {
+      "message": "feat: add metadata retrieval",
+      "author": {
+        "name": "Ash Shaw",
+        "email": "ash@example.com",
+        "date": "2026-08-20T10:00:00Z"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "v2.0.0",
+      "commit": {
+        "sha": "abc123",
+        "url": "https://api.github.com/repos/lightspeedwp/.github/commits/abc123"
+      }
+    },
+    {
+      "name": "v1.9.9",
+      "commit": {
+        "sha": "def456",
+        "url": "https://api.github.com/repos/lightspeedwp/.github/commits/def456"
+      }
+    }
+  ],
+  "branches": [
+    { "name": "develop", "protected": true, "commit": { "sha": "abc123" } },
+    {
+      "name": "feature/test",
+      "protected": false,
+      "commit": { "sha": "def456" }
+    }
+  ],
+  "repo": { "default_branch": "develop" },
+  "pulls": [
+    {
+      "number": 2032,
+      "title": "Reporting Agent v2 Phase 2.2",
+      "state": "open",
+      "merged_at": null,
+      "html_url": "https://github.com/lightspeedwp/.github/pull/2032",
+      "user": { "login": "copilot" },
+      "head": { "sha": "abc123" }
+    }
+  ],
+  "workflows": {
+    "workflows": [
+      {
+        "id": 123,
+        "name": "CI",
+        "state": "active",
+        "path": ".github/workflows/testing.yml",
+        "html_url": "https://github.com/lightspeedwp/.github/actions/workflows/testing.yml"
+      }
+    ]
+  },
+  "workflowRuns": {
+    "workflow_runs": [
+      {
+        "id": 987,
+        "name": "CI",
+        "status": "completed",
+        "conclusion": "success",
+        "head_branch": "develop",
+        "html_url": "https://github.com/lightspeedwp/.github/actions/runs/987",
+        "created_at": "2026-08-21T09:00:00Z"
+      }
+    ]
+  }
+}

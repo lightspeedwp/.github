@@ -57,6 +57,13 @@ const validationState = {
 // SCHEMA VALIDATION
 // ============================================================================
 
+/**
+ * Validate the quirky footer configuration against its JSON schema.
+ *
+ * Reports validation and loading failures instead of throwing them.
+ *
+ * @returns {{valid: boolean, errors: Array}} Validation result and any errors
+ */
 function validateFooterSchema() {
   try {
     const schemaContent = fs.readFileSync(
@@ -66,7 +73,7 @@ function validateFooterSchema() {
     const schema = JSON.parse(schemaContent);
 
     const configContent = fs.readFileSync(CONFIG.quirkyFootersPath, "utf8");
-    const config = load(configContent);
+    const config = yaml.load(configContent);
 
     const ajv = new Ajv();
     addFormats(ajv);

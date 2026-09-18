@@ -1,0 +1,7 @@
+{
+  "description": "CommonJS module boundary for repository telemetry tooling.",
+  "license": "GPL-3.0-or-later",
+  "author": "LightSpeedWP Team",
+  "repository": "https://github.com/lightspeedwp/.github.git",
+  "type": "commonjs"
+}

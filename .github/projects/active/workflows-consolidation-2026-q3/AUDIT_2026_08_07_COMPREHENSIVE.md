@@ -69,7 +69,7 @@ The workflow consolidation initiative is in Phase 3 completion → Phase 4 plann
 - Phase 4.2 (−2): template-enforcement.yml, checklist-finalisation.yml, validate-issue-dod-before-close.yml → issue-compliance.yml
 - Phase 4.3 (−1): issue-fields-backfill.yml, issue-project-field-sync.yml → project-field-sync.yml
 - Phase 4.4 (−1): flaky-test-detection.yml → absorb into checks.yml
-- Phase 4.5 (−1): issue-create-from-template.yml (delete, superseded by issue-create-enhanced.yml)
+- Phase 4.5 (−1): issue-create-enhanced.yml (delete, superseded by issue-create-enhanced.yml)
 - Phase 4.6 (−1): issue-health-audit.yml, issue-remediation-bulk.yml → issue-audit-remediation.yml
 
 ❌ **Phase 3.3 Deletions** (2 workflows already marked deleted)
@@ -131,7 +131,7 @@ The workflow consolidation initiative is in Phase 3 completion → Phase 4 plann
 
 **Consolidation Implications:**
 
-- Phase 4.5 plans to delete issue-create-from-template.yml (superseded by enhanced version)
+- Phase 4.5 plans to delete issue-create-enhanced.yml (superseded by enhanced version)
 - Phase 4.6 plans to merge issue-remediation-bulk.yml with issue-health-audit.yml
 
 **Status:** ✅ Accounted for in Phase 4 planning

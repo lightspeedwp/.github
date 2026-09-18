@@ -29,27 +29,33 @@ Reject any branch starting with these prefixes immediately.
 - No leading or trailing hyphens
 - Scope and title must be kebab-case (words separated by single hyphens)
 
-## Allowed Branch Prefixes (31 Types)
+## Allowed Branch Prefixes (38 Types)
 
-### Core (20 prefixes)
+The canonical list is exported by `scripts/validation/validate-branch-name.cjs`; the groupings below are presentational only.
 
-`feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`
+### Core (22 prefixes)
+
+`feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `doc`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `revert`, `research`, `design`, `a11y`, `ux`, `i18n`, `ops`
 
 ### Product-Specific (5 prefixes)
 
 `proto`, `ds`, `api`, `schema`, `telemetry`
 
-### Content & Operations (6 prefixes)
+### Content & Operations (8 prefixes)
 
 `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`
 
-**Note:** All 31 prefixes are case-sensitive (lowercase only). Any deviation from this list is invalid.
+### Planning & Automation (3 prefixes)
+
+`aiops`, `automation`, `epic`
+
+**Note:** All 38 prefixes are case-sensitive (lowercase only). Any deviation from this list is invalid.
 
 ## Pattern Breakdown
 
 ```
 release/v2-1-0
-├── type:    release  (must be one of 31 allowed types)
+├── type:    release  (must be one of 38 allowed types)
 ├── /        (literal forward slash)
 ├── scope:   v2       (lowercase, kebab-case)
 ├── -        (literal hyphen)
@@ -157,7 +163,7 @@ npm run validate:branch-name -- --branch feat/user-authentication
 npm run validate:branch-name -- --show-pattern
 ```
 
-Exit code `0` = valid branch name  
+Exit code `0` = valid branch name
 Exit code `1` = invalid branch name
 
 ### Pre-Commit Hook
@@ -183,7 +189,7 @@ GitHub Actions workflows validate branch names on every push to `develop` or `ma
 If your agent creates branches, validate the branch name **before** running `git checkout -b`:
 
 ```javascript
-const { validateBranchName } = require("../validation/validate-branch-name.cjs");
+const { validateBranchName } = require('../validation/validate-branch-name.cjs');
 
 const branchName = `feat/my-feature`;
 const result = validateBranchName(branchName);
@@ -201,7 +207,7 @@ execSync(`git checkout -b ${branchName}`);
 If your agent validates branches, use the same validation script and reject invalid names:
 
 ```javascript
-const branches = ["feat/my-feature", "claude/invalid", "fix/bug"];
+const branches = ['feat/my-feature', 'claude/invalid', 'fix/bug'];
 
 for (const branch of branches) {
   const result = validateBranchName(branch);
@@ -227,12 +233,12 @@ If your agent does not create or validate branches, add this disclaimer to your 
 
 ## Quick Reference
 
-| Task | Command |
-|------|---------|
-| Validate current branch | `npm run validate:branch-name` |
+| Task                       | Command                                           |
+| -------------------------- | ------------------------------------------------- |
+| Validate current branch    | `npm run validate:branch-name`                    |
 | Validate a specific branch | `npm run validate:branch-name -- --branch <name>` |
-| Show pattern details | `npm run validate:branch-name -- --show-pattern` |
-| List allowed prefixes | See "Allowed Branch Prefixes" section above |
+| Show pattern details       | `npm run validate:branch-name -- --show-pattern`  |
+| List allowed prefixes      | See "Allowed Branch Prefixes" section above       |
 
 ## Troubleshooting
 
@@ -242,7 +248,7 @@ This error means the branch name doesn't match `{type}/{scope}-{short-title}` fo
 
 **Solutions:**
 
-1. Check the prefix is in the allowed list (31 types)
+1. Check the prefix is in the allowed list (38 types)
 2. Ensure all parts are lowercase
 3. Replace underscores with hyphens
 4. Replace dots with hyphens (especially in version numbers)
@@ -271,4 +277,16 @@ This usually means you're using different validators. The repository uses:
 
 ---
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

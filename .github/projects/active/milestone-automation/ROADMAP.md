@@ -1,9 +1,14 @@
 ---
-file_type: roadmap
 title: Milestone Automation Roadmap
 description: High-level roadmap and feature priorities
-created_date: 2026-08-30
-last_updated: 2026-08-30
+type: planning
+file_type: documentation
+status: active
+version: "1.0.0"
+owner: lightspeedwp/maintainers
+owners:
+  - lightspeedwp/maintainers
+tags: []
 ---
 
 # Milestone Automation Roadmap

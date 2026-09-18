@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-09-08T03:21:48.233Z",
+  "execution": {
+    "repositories": {
+      "total": 1,
+      "successful": 0,
+      "failed": 1
+    }
+  },
+  "reports": [
+    {
+      "repository": "lightspeedwp/.github",
+      "status": "error",
+      "error": "The \"data\" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Object",
+      "timestamp": "2026-09-08T03:21:48.233Z"
+    }
+  ]
+}

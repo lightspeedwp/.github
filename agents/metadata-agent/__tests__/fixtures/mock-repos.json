@@ -1,0 +1,10 @@
+{
+  "default": {
+    "owner": "lightspeedwp",
+    "repo": ".github"
+  },
+  "secondary": {
+    "owner": "lightspeedwp",
+    "repo": "metadata-agent-test"
+  }
+}

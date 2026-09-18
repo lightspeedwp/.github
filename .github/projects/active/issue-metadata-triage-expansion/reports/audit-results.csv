@@ -126,7 +126,7 @@ Issue #,Title,Type Labels,Area Labels,Status Labels,Priority Labels,Assignees,Mi
 1429,"Post-Merge Monitoring — Day 2: Spot-Check & Performance",type:task,area:infrastructure,,priority:normal,ashleyshaw,v1.0,status
 1428,"Post-Merge Monitoring — Day 1: Workflow Monitoring & Edge Cases",type:task,area:infrastructure,,priority:normal,ashleyshaw,v1.0,status
 1411,"Phase 4.6: Consolidate issue-remediation-bulk.yml + issue-health-audit.yml into issue-audit-remediation.yml",type:refactor,,status:ready;status:ready-for-development,priority:medium,ashleyshaw,v1.0,area
-1410,"Phase 4.5: Delete issue-create-from-template.yml (superseded by issue-create-enhanced.yml)",type:chore,,status:ready;status:ready-for-development,priority:low,ashleyshaw,v1.0,area
+1410,"Phase 4.5: Delete issue-create-enhanced.yml (superseded by issue-create-enhanced.yml)",type:chore,,status:ready;status:ready-for-development,priority:low,ashleyshaw,v1.0,area
 1409,"Phase 4.4: Absorb flaky-test-detection.yml into checks.yml",type:refactor,,status:ready;status:ready-for-development,priority:low,ashleyshaw,v1.0,area
 1408,"Phase 4.3: Unify project field sync workflows into project-field-sync.yml",type:refactor,,status:ready;status:ready-for-development,priority:medium,ashleyshaw,v1.0,area
 1407,"Phase 4.2: Consolidate issue-close governance workflows into issue-compliance.yml",type:refactor,,status:ready;status:ready-for-development,priority:medium,ashleyshaw,v1.0,area

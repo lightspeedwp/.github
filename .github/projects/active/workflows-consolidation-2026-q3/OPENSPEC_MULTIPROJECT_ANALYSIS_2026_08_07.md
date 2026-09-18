@@ -202,7 +202,7 @@ Target:   Phase 4 completion by Aug 25
 **Relationship to WC:**
 
 - Phase 4 plan already accounts for these additions
-- Phase 4.5 targets issue-create-from-template.yml (superseded by enhanced)
+- Phase 4.5 targets issue-create-enhanced.yml (superseded by enhanced)
 - Phase 4.6 targets issue-remediation-bulk.yml consolidation
 
 **Status:** ✅ No additional coordination needed

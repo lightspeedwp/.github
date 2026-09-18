@@ -51,6 +51,7 @@ const { validateVersion, parseVersion } = require(validateVersionPath);
  * @param {boolean} dryRun - Dry run mode
  * @param {boolean} allowError - Swallow errors and return empty string
  * @returns {string} Command output
+ * @throws {Error} If the command fails and `allowError` is false
  */
 function exec(cmd, dryRun = false, allowError = false) {
   if (dryRun) {
@@ -64,7 +65,9 @@ function exec(cmd, dryRun = false, allowError = false) {
       console.warn(`Command failed (allowed): ${cmd}\n${error.message}`);
       return "";
     }
-    throw new Error(`Command failed: ${cmd}\n${error.message}`);
+    throw new Error(`Command failed: ${cmd}\n${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -102,14 +105,21 @@ function determineNextVersion(currentVersion, scope = "patch") {
 }
 
 /**
- * Fetch merged PRs between two tags (inclusive of toTag)
+ * Fetch merged pull requests between two Git references, including `toTag`.
+ *
+ * Only merge commits with GitHub's standard pull request message are returned.
+ * Git command failures and ranges without matching commits return an empty array.
+ *
+ * @param {string|null|undefined} fromTag - Exclusive lower bound, or a falsy value to inspect all reachable history
+ * @param {string} toTag - Inclusive upper Git reference
+ * @returns {Array<Object>} Pull request metadata parsed from matching merge commits
  */
 function getMergedPRs(fromTag, toTag = "HEAD") {
   console.log(
     `Fetching merged PRs from ${fromTag || "start"} to ${toTag || "HEAD"}...`,
   );
 
-  let gitLog = "";
+  let gitLog;
   if (fromTag) {
     gitLog = exec(
       `git log ${fromTag}..${toTag} --merges --format="%H|%s|%an|%ae"`,

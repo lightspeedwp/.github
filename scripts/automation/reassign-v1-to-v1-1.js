@@ -68,6 +68,12 @@ class MilestoneReassigner {
     }
   }
 
+  /**
+   * Fetch all repository milestones.
+   *
+   * @returns {Promise<Record<string, Object>>} Milestones keyed by title
+   * @throws {Error} If milestones cannot be fetched
+   */
   async findMilestones() {
     try {
       this.verbose_log("Fetching all milestones...");
@@ -90,10 +96,19 @@ class MilestoneReassigner {
 
       return milestones;
     } catch (err) {
-      throw new Error(`Failed to fetch milestones: ${err.message}`);
+      throw new Error(`Failed to fetch milestones: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 
+  /**
+   * Fetch open issues assigned to a milestone and update the found-issue count.
+   *
+   * @param {number} milestoneNumber - GitHub milestone number
+   * @returns {Promise<Array<Object>>} Open issues assigned to the milestone
+   * @throws {Error} If issues cannot be fetched
+   */
   async fetchIssuesWithMilestone(milestoneNumber) {
     try {
       this.verbose_log(
@@ -116,9 +131,9 @@ class MilestoneReassigner {
 
       return response.data;
     } catch (err) {
-      throw new Error(
-        `Failed to fetch issues with milestone: ${err.message}`,
-      );
+      throw new Error(`Failed to fetch issues with milestone: ${err.message}`, {
+        cause: err,
+      });
     }
   }
 

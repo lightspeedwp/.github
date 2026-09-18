@@ -1,0 +1,157 @@
+{
+  "total_count": 25,
+  "issue_types": [
+    {
+      "type_name": "Task",
+      "label": "type:task",
+      "color": "4393F8",
+      "icon": ""
+    },
+    {
+      "type_name": "Bug",
+      "label": "type:bug",
+      "color": "9F3734",
+      "icon": ""
+    },
+    {
+      "type_name": "Feature",
+      "label": "type:feature",
+      "color": "3FB950",
+      "icon": ""
+    },
+    {
+      "type_name": "Design",
+      "label": "type:design",
+      "color": "AB7DF8",
+      "icon": ""
+    },
+    {
+      "type_name": "Epic",
+      "label": "type:epic",
+      "color": "AB7DF8",
+      "icon": ""
+    },
+    {
+      "type_name": "Question",
+      "label": "type:question",
+      "color": "4393F8",
+      "icon": ""
+    },
+    {
+      "type_name": "Improvement",
+      "label": "type:improve",
+      "color": "3FB950",
+      "icon": ""
+    },
+    {
+      "type_name": "Chore",
+      "label": "type:chore",
+      "color": "9198A1",
+      "icon": ""
+    },
+    {
+      "type_name": "CI",
+      "label": "type:ci",
+      "color": "4393F8",
+      "icon": ""
+    },
+    {
+      "type_name": "Automation",
+      "label": "type:automation",
+      "color": "4393F8",
+      "icon": ""
+    },
+    {
+      "type_name": "Test Coverage",
+      "label": "type:test",
+      "color": "D29922",
+      "icon": ""
+    },
+    {
+      "type_name": "Performance",
+      "label": "type:performance",
+      "color": "D29922",
+      "icon": ""
+    },
+    {
+      "type_name": "Accessibility",
+      "label": "type:a11y",
+      "color": "DB61A2",
+      "icon": ""
+    },
+    {
+      "type_name": "Security",
+      "label": "type:security",
+      "color": "9F3734",
+      "icon": ""
+    },
+    {
+      "type_name": "Compatibility",
+      "label": "type:compat",
+      "color": "8D4821",
+      "icon": ""
+    },
+    {
+      "type_name": "Refactor",
+      "label": "type:refactor",
+      "color": "9198A1",
+      "icon": ""
+    },
+    {
+      "type_name": "Release",
+      "label": "type:release",
+      "color": "3FB950",
+      "icon": ""
+    },
+    {
+      "type_name": "Dependency Update",
+      "label": "type:dependency",
+      "color": "8D4821",
+      "icon": ""
+    },
+    {
+      "type_name": "Documentation",
+      "label": "type:docs",
+      "color": "9198A1",
+      "icon": ""
+    },
+    {
+      "type_name": "Research",
+      "label": "type:research",
+      "color": "9198A1",
+      "icon": ""
+    },
+    {
+      "type_name": "Audit",
+      "label": "type:audit",
+      "color": "9198A1",
+      "icon": ""
+    },
+    {
+      "type_name": "Review",
+      "label": "type:review",
+      "color": "4393F8",
+      "icon": ""
+    },
+    {
+      "type_name": "AI Ops",
+      "label": "type:aiops",
+      "color": "4393F8",
+      "icon": ""
+    },
+    {
+      "type_name": "Content Modelling",
+      "label": "type:content-modelling",
+      "color": "AB7DF8",
+      "icon": ""
+    },
+    {
+      "type_name": "Build",
+      "label": "type:build",
+      "color": "4393F8",
+      "icon": ""
+    }
+  ],
+  "immutable": true,
+  "note": "These 25 type labels are immutable per audit specification"
+}

@@ -1,9 +1,9 @@
 ---
 file_type: project-index
-title: ""Template Enforcement Governance Closeout""
-description: ""Closeout summary for the implemented template enforcement scope and the remaining remote/admin follow-up checks.""
+title: ""Template Enforcement Governance — Complete""
+description: ""Completed template enforcement and frontmatter standardization; remaining work is remote/admin follow-up checks.""
 created_date: "2026-06-08"
-last_updated: "2026-08-25"
+last_updated: "2026-09-02"
 status: active
 ---
 
@@ -23,6 +23,7 @@ from this workspace, so they have been split into a smaller follow-up task.
 - `.github/workflows/template-enforcement.yml` covers issue and PR template validation.
 - `scripts/validation/__fixtures__/pr-templates/` provides validation fixtures.
 - `AGENTS.md`, `CLAUDE.md`, and `docs/BRANCHING_STRATEGY.md` include template-routing guidance.
+- **Frontmatter standardization** completed across all 34 PR and issue templates with unified schema validation (September 2, 2026).
 - The project audit and action documents now describe the implemented scope rather than the original planning-only backlog.
 
 ## Remaining Follow-Up
@@ -41,9 +42,16 @@ See [REMOTE_ADMIN_CHECKS.md](./REMOTE_ADMIN_CHECKS.md) for the smaller follow-up
 
 ## Related Issues
 
-This project is coordinated with:
+### Completed Work
+- [#2693](https://github.com/lightspeedwp/.github/issues/2693) — Template Content Review & Refinement (**BLOCKER** — awaiting user approval)
+- [#2694](https://github.com/lightspeedwp/.github/issues/2694) — Template Testing Framework (enhancement)
+- [#2695](https://github.com/lightspeedwp/.github/issues/2695) — Contributor Guide for Template Maintenance (critical)
 
+### Related Work
 - [#1733](https://github.com/lightspeedwp/.github/issues/1733) — Phase 2: Folder Structure & Linking
+- [#1012](https://github.com/lightspeedwp/.github/issues/1012) — Standardise front matter field usage
+- [#1230](https://github.com/lightspeedwp/.github/issues/1230) — Phase 2 Frontmatter Standardization for Portable Assets
+- [#1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Governance Enforcement
 
 See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.github/projects/active/reports-projects-restructuring-2026-08-11/LINKING_STANDARD.md) for linking patterns.
 

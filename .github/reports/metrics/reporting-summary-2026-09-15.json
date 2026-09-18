@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-09-15T07:49:36.679Z",
+  "execution": {
+    "repositories": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0
+    }
+  },
+  "reports": [
+    {
+      "repository": "lightspeedwp/.github",
+      "status": "success",
+      "reportPath": ".github/reports/metrics/report-lightspeedwp-.github-weekly-2026-09-15.md",
+      "period": "weekly",
+      "timestamp": "2026-09-15T07:49:36.679Z"
+    }
+  ]
+}

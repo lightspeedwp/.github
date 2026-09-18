@@ -28,8 +28,8 @@ function getChangedFiles(baseSha, headSha) {
       encoding: "utf-8",
     });
     return output
-      .trim()
-      .split("\n")
+      .split(/\r?\n/)
+      .map((f) => f.trim())
       .filter((f) => f && /\.(md|yml|yaml)$/.test(f));
   } catch (error) {
     console.error("Failed to get changed files:", error.message);

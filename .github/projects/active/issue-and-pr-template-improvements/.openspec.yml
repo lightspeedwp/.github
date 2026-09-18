@@ -1,0 +1,154 @@
+---
+# OpenSpec Configuration for Issue & PR Template Improvements
+# Auto-generates GitHub issues from this specification
+#
+# Usage:
+#   openspec .openspec.yml --create
+#   openspec .openspec.yml --dry-run
+
+name: "Issue & PR Template Improvements"
+description: "Comprehensive review, audit, and remediation of GitHub templates"
+project_path: ".github/projects/active/issue-and-pr-template-improvements/"
+
+# Repository context
+repository:
+  owner: "lightspeedwp"
+  repo: ".github"
+  branch: "develop"
+
+# Issues to auto-generate
+issues:
+  # Phase 1 Issue
+  - id: "phase-1-cleanup"
+    type: "task"
+    title: "Phase 1: Delete 17 Duplicate Issue Templates & Renumber"
+    labels:
+      - "type:task"
+      - "status:needs-triage"
+      - "priority:normal"
+      - "area:templates"
+      - "meta:phase-1"
+    description_file: "ISSUES_CHECKLIST.md"
+    description_section: "Phase 1: Template Deduplication & Cleanup"
+    milestone: null
+    assignees: []
+
+  # Phase 2 Issue
+  - id: "phase-2-frontmatter"
+    type: "task"
+    title: "Phase 2: Standardize Frontmatter & Fix YAML Syntax in All Templates"
+    labels:
+      - "type:task"
+      - "status:needs-triage"
+      - "priority:normal"
+      - "area:templates"
+      - "meta:phase-2"
+    description_file: "ISSUES_CHECKLIST.md"
+    description_section: "Phase 2: Standardize Frontmatter Across All Templates"
+    milestone: null
+    assignees: []
+    depends_on:
+      - "phase-1-cleanup"
+
+  # Phase 3 Issue
+  - id: "phase-3-pr-titles"
+    type: "task"
+    title: "Phase 3: Correct PR Template Title Patterns to Match Branch Naming Convention"
+    labels:
+      - "type:task"
+      - "status:needs-triage"
+      - "priority:normal"
+      - "area:templates"
+      - "meta:phase-3"
+    description_file: "ISSUES_CHECKLIST.md"
+    description_section: "Phase 3: Fix PR Template Title Patterns"
+    milestone: null
+    assignees: []
+    depends_on:
+      - "phase-2-frontmatter"
+
+  # Phase 4 Issue
+  - id: "phase-4-validation"
+    type: "task"
+    title: "Phase 4: Validate All Templates & Test Template Routing"
+    labels:
+      - "type:task"
+      - "status:needs-triage"
+      - "priority:normal"
+      - "area:templates"
+      - "meta:phase-4"
+    description_file: "ISSUES_CHECKLIST.md"
+    description_section: "Phase 4: Validation & Template Testing"
+    milestone: null
+    assignees: []
+    depends_on:
+      - "phase-3-pr-titles"
+
+  # Phase 5 Issue
+  - id: "phase-5-documentation"
+    type: "task"
+    title: "Phase 5: Create Issue Type Allocator Skill & Update Documentation"
+    labels:
+      - "type:task"
+      - "status:needs-triage"
+      - "priority:normal"
+      - "area:templates"
+      - "meta:phase-5"
+    description_file: "ISSUES_CHECKLIST.md"
+    description_section: "Phase 5: Create Issue Type Allocator Skill & Update Documentation"
+    milestone: null
+    assignees: []
+    depends_on:
+      - "phase-4-validation"
+
+  # Tracking Issue
+  - id: "tracking-project"
+    type: "task"
+    title: "[TRACKING] Issue & PR Template Improvements — Project Status"
+    labels:
+      - "type:task"
+      - "status:in-progress"
+      - "priority:normal"
+      - "area:templates"
+      - "meta:tracking"
+    description_file: "ISSUES_CHECKLIST.md"
+    description_section: "Meta: Project Status Tracking"
+    milestone: null
+    assignees: []
+    is_tracking: true
+
+# Cross-linking strategy
+linking:
+  # Link all phase issues to tracking issue
+  link_all_to_tracking: true
+
+  # Each phase issue links to next phase
+  sequential_linking: true
+
+  # All issues link back to project folder
+  link_to_project: true
+
+  # Add project folder path in each issue
+  project_reference: ".github/projects/active/issue-and-pr-template-improvements/"
+
+# Metadata
+metadata:
+  created_date: "2026-09-04"
+  created_by: "Claude Code"
+  project_phase: "Phase 0: Planning & Documentation"
+  total_phases: 5
+  estimated_duration_hours: 2
+
+# Notes
+notes: |
+  This OpenSpec configuration auto-generates GitHub issues for the
+  Issue & PR Template Improvements project.
+
+  All issues link to project documentation files for context and
+  implementation details. Each phase blocks the next until complete.
+
+  Use `openspec .openspec.yml --dry-run` to preview issues before creating.
+  Use `openspec .openspec.yml --create` to auto-generate all issues.
+
+  After generation, manually link issues to the tracking issue and update
+  STATUS_TRACKING.md with issue numbers.

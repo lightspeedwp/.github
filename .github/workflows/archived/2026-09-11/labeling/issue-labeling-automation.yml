@@ -1,0 +1,166 @@
+name: Issue Labeling Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview labels without applying (dry-run mode)"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      # Replaces a free-text `issue_filter` that was read into a variable and
+      # then never used, so neither the default nor any caller value had any
+      # effect. A day count maps directly onto listForRepo's `since`, so this
+      # one actually narrows the query.
+      updated_within_days:
+        description: "Only consider issues updated in the last N days (0 for no limit)"
+        required: false
+        default: "7"
+        type: string
+      label_types:
+        description: "Which label types to apply"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - "all"
+          - "type"
+          - "area"
+          - "priority"
+      batch_size:
+        description: "Process issues in batches of this size"
+        required: false
+        default: "50"
+        type: string
+
+  schedule:
+    # Run daily at 02:00 UTC for ongoing labeling
+    - cron: "0 2 * * *"
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch issues to label
+        id: fetch
+        uses: actions/github-script@v9
+        env:
+          # Read through env rather than interpolating into the script body:
+          # workflow_dispatch inputs are caller-supplied, so inlining them is a
+          # script injection vector.
+          UPDATED_WITHIN_DAYS: ${{ inputs.updated_within_days }}
+        with:
+          script: |
+            const days = Number.parseInt(process.env.UPDATED_WITHIN_DAYS ?? '', 10);
+            const windowDays = Number.isFinite(days) && days > 0 ? days : 7;
+
+            const params = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              per_page: 100,
+            };
+
+            // 0 (or a non-numeric value) means "no limit"; anything else is
+            // handed to the API as `since` so the window is applied server
+            // side rather than after pagination.
+            if (!(Number.isFinite(days) && days === 0)) {
+              params.since = new Date(Date.now() - windowDays * 86400000).toISOString();
+              core.info(`Considering issues updated since ${params.since}`);
+            } else {
+              core.info('No time limit applied; considering all issues.');
+            }
+
+            try {
+              const issues = await github.paginate(
+                github.rest.issues.listForRepo,
+                params
+              );
+
+              // Filter issues without type labels
+              const unlabeled = issues.filter(issue =>
+                !issue.pull_request && // Exclude PRs
+                !issue.labels.some(l => l.name.startsWith('type:'))
+              );
+
+              core.info(`Found ${unlabeled.length} issues without type labels`);
+
+              // Save to file for Node script processing
+              const fs = require('fs');
+              fs.writeFileSync(
+                'issues-to-label.json',
+                JSON.stringify(unlabeled, null, 2)
+              );
+
+              core.setOutput('count', unlabeled.length);
+              core.setOutput('issues_file', 'issues-to-label.json');
+            } catch (error) {
+              core.error(`Failed to fetch issues: ${error.message}`);
+              core.setOutput('count', 0);
+            }
+
+      - name: Apply labels
+        if: steps.fetch.outputs.count > 0
+        shell: bash
+        run: node scripts/workflows/apply-labels-workflow.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run == 'true' || 'true' }}
+          ISSUES_FILE: ${{ steps.fetch.outputs.issues_file }}
+          LABEL_TYPES: ${{ inputs.label_types || 'all' }}
+          BATCH_SIZE: ${{ inputs.batch_size || '50' }}
+
+      - name: Generate labeling report
+        if: always()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+
+            try {
+              if (!fs.existsSync('labeling-report.json')) {
+                core.info('No labeling report generated');
+                return;
+              }
+
+              const report = JSON.parse(fs.readFileSync('labeling-report.json', 'utf8'));
+
+              core.info(`Labeling Report:`);
+              core.info(`Total issues processed: ${report.summary.total}`);
+              core.info(`Successful: ${report.summary.succeeded}`);
+              core.info(`Errors: ${report.summary.errors}`);
+              core.info(`Type labels applied: ${report.summary.typeLabelsApplied}`);
+              core.info(`Area labels applied: ${report.summary.areaLabelsApplied}`);
+              core.info(`Priority labels applied: ${report.summary.priorityLabelsApplied}`);
+            } catch (error) {
+              core.error(`Failed to generate report: ${error.message}`);
+            }
+
+      - name: Upload labeling report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: labeling-report
+          path: |
+            labeling-report.json
+            issues-to-label.json
+          retention-days: 30

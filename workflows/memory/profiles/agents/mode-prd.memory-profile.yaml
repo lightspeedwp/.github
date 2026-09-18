@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "asset_id": "agent:mode-prd",
   "asset_type": "agent",
-  "source_path": "agents/mode-prd.agent.md",
+  "source_path": "agents/prd-agent/copilot/agent.md",
   "scope": "project",
   "retention":
     {

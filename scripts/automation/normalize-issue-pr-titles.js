@@ -1,589 +1,507 @@
 #!/usr/bin/env node
 
 /**
- * Normalize Issue/PR Title Script
+ * Normalize issue and PR titles to include type prefixes.
  *
- * Adds type prefixes to issue and PR titles based on labels or linked issues.
- * Ensures consistent title formatting across all issues and PRs.
+ * Converts titles like "Update documentation" to "docs: Update documentation"
+ * based on issue type, type: labels, or PR-linked issue information.
  *
- * Usage:
- *   node normalize-issue-pr-titles.js [options]
+ * @module scripts/automation/normalize-issue-pr-titles
+ * @example
+ * // Dry-run scan of all open issues since 2026-01-01
+ * node normalize-issue-pr-titles.js --dry-run --state open --since 2026-01-01
  *
- * Options:
- *   --issue <number>    Process single issue
- *   --pr <number>       Process single PR
- *   --state <state>     Filter by state: open, closed, all (default: open)
- *   --since <date>      Process only since YYYY-MM-DD
- *   --type <type>       Process only: issue, pr, all (default: all)
- *   --dry-run           Show changes without applying
- *   --format <format>   Report format: text, json (default: text)
- *   --verbose           Enable detailed logging
- *   --help              Show this help message
+ * // Actually update all issues (all states, all time)
+ * node normalize-issue-pr-titles.js --state all
+ *
+ * // Generate report only
+ * node normalize-issue-pr-titles.js --dry-run --state all --output report.json
  */
 
-const { execSync } = require("child_process");
 const fs = require("fs");
-const path = require("path");
-
-// Configuration
-const config = {
-  owner: "lightspeedwp",
-  repo: ".github",
-  typeToDisplayName: {
-    bug: "Bug",
-    feature: "Feature",
-    documentation: "Documentation",
-    docs: "Documentation",
-    chore: "Chore",
-    ci: "Build & CI",
-    build: "Build & CI",
-    refactor: "Refactor",
-    security: "Security",
-    test: "Test",
-    task: "Task",
-    hotfix: "Hotfix",
-    perf: "Performance",
-    performance: "Performance",
-    design: "Design",
-    a11y: "Accessibility",
-    accessibility: "Accessibility",
-    ux: "UX",
-    release: "Release",
-    research: "Research",
-    revert: "Revert",
-    i18n: "Internationalization",
-    ops: "Operations",
-    proto: "Prototype",
-    ds: "Design System",
-    api: "API",
-    schema: "Schema",
-    telemetry: "Telemetry",
-    content: "Content",
-    seo: "SEO",
-    config: "Configuration",
-    migrate: "Migration",
-    migration: "Migration",
-    qa: "QA",
-    uat: "UAT",
-    audit: "Audit",
-    deps: "Dependencies",
-    dependency: "Dependencies",
-  },
-  prefixPattern: /^(\w+):\s+/,
-};
-
-// Parse arguments
-const args = process.argv.slice(2);
-const options = parseArgs(args);
-
-if (options.help) {
-  showHelp();
-  process.exit(0);
+let Octokit;
+try {
+  ({ Octokit } = require("octokit"));
+} catch (e) {
+  // Octokit might not be available in test environment
+  Octokit = null;
 }
 
-// Main execution
-async function main() {
-  const log = createLogger(options.verbose);
-  const report = {
-    startTime: new Date(),
-    total: 0,
-    skipped: 0,
-    updated: 0,
-    errors: 0,
-    details: [],
-    errors_list: [],
+// Initialize Octokit (only when GITHUB_TOKEN is available and Octokit is loaded)
+let octokit = null;
+if (process.env.GITHUB_TOKEN && Octokit) {
+  octokit = new Octokit({
+    auth: process.env.GITHUB_TOKEN,
+  });
+}
+
+// Type to prefix mapping
+const TYPE_PREFIXES = {
+  bug: "fix",
+  feature: "feat",
+  hotfix: "hotfix",
+  refactor: "refactor",
+  chore: "chore",
+  docs: "docs",
+  documentation: "docs",
+  test: "test",
+  perf: "perf",
+  performance: "perf",
+  ci: "ci",
+  build: "build",
+  deps: "deps",
+  dependency: "deps",
+  security: "security",
+  design: "design",
+  a11y: "a11y",
+  accessibility: "a11y",
+  ux: "ux",
+  release: "release",
+  research: "research",
+  revert: "revert",
+  i18n: "i18n",
+  ops: "ops",
+  proto: "proto",
+  ds: "ds",
+  api: "api",
+  schema: "schema",
+  telemetry: "telemetry",
+  content: "content",
+  seo: "seo",
+  config: "config",
+  migrate: "migrate",
+  migration: "migrate",
+  qa: "qa",
+  uat: "uat",
+  audit: "audit",
+  task: "chore",
+  improvement: "feat",
+  improve: "feat",
+  enhancement: "feat",
+};
+
+/**
+ * Get the type prefix from various sources.
+ * Precedence: linked issue type > issue type field > PR labels > PR description
+ */
+async function getTypePrefix(item, owner, repo) {
+  let detectedType = null;
+
+  // For PRs: try to find linked issue and get its type
+  if (item.pull_request) {
+    try {
+      const prData = await octokit.rest.pulls.get({
+        owner,
+        repo,
+        pull_number: item.number,
+      });
+
+      const body = prData.data.body || "";
+      const issueMatch = body.match(
+        /(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+#(\d+)/i,
+      );
+
+      if (issueMatch) {
+        const linkedIssueNumber = parseInt(issueMatch[2]);
+        try {
+          const issue = await octokit.rest.issues.get({
+            owner,
+            repo,
+            issue_number: linkedIssueNumber,
+          });
+
+          // Check linked issue labels for type:
+          if (issue.data.labels && issue.data.labels.length > 0) {
+            for (const label of issue.data.labels) {
+              const labelName = label.name.toLowerCase();
+              if (labelName.startsWith("type:")) {
+                detectedType = labelName.replace("type:", "");
+                break;
+              }
+            }
+          }
+        } catch (e) {
+          // Linked issue not found or not accessible
+        }
+      }
+
+      // If no linked issue type, check PR labels
+      if (
+        !detectedType &&
+        prData.data.labels &&
+        prData.data.labels.length > 0
+      ) {
+        for (const label of prData.data.labels) {
+          const labelName = label.name.toLowerCase();
+          if (labelName.startsWith("type:")) {
+            detectedType = labelName.replace("type:", "");
+            break;
+          }
+        }
+      }
+
+      // If no labels, scan PR body for type: indicator
+      if (!detectedType) {
+        const typeMatch = body.match(/type:\s*(\w+)/i);
+        if (typeMatch) {
+          detectedType = typeMatch[1].toLowerCase();
+        }
+      }
+    } catch (error) {
+      console.error(`Error processing PR #${item.number}:`, error.message);
+    }
+  } else {
+    // For issues: check labels first
+    if (item.labels && item.labels.length > 0) {
+      for (const label of item.labels) {
+        const labelName = label.name.toLowerCase();
+        if (labelName.startsWith("type:")) {
+          detectedType = labelName.replace("type:", "");
+          break;
+        }
+      }
+    }
+
+    // If no type: label, scan body for type field
+    if (!detectedType && item.body) {
+      const typeMatch = item.body.match(/type:\s*(\w+)/i);
+      if (typeMatch) {
+        detectedType = typeMatch[1].toLowerCase();
+      }
+    }
+  }
+
+  // Map detected type to prefix
+  if (detectedType) {
+    return TYPE_PREFIXES[detectedType] || "chore";
+  }
+
+  // Default to chore if no type found
+  return "chore";
+}
+
+/**
+ * Check if a title is already prefixed.
+ */
+function isAlreadyPrefixed(title) {
+  const prefixPattern =
+    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit):\s+/i;
+  return prefixPattern.test(title);
+}
+
+/**
+ * Normalize a title by adding type prefix.
+ */
+function normalizeTitle(title, prefix) {
+  if (isAlreadyPrefixed(title)) {
+    return null; // Already prefixed, no change needed
+  }
+
+  return `${prefix}: ${title}`;
+}
+
+/**
+ * Parse command-line arguments.
+ */
+function parseArgs() {
+  const args = {
+    dryRun: process.argv.includes("--dry-run"),
+    state: "open", // open, closed, all
+    since: null,
+    output: null,
+    verbose: process.argv.includes("--verbose"),
+  };
+
+  for (let i = 2; i < process.argv.length; i++) {
+    if (process.argv[i] === "--state" && i + 1 < process.argv.length) {
+      args.state = process.argv[i + 1];
+      i++;
+    } else if (process.argv[i] === "--since" && i + 1 < process.argv.length) {
+      args.since = process.argv[i + 1];
+      i++;
+    } else if (process.argv[i] === "--output" && i + 1 < process.argv.length) {
+      args.output = process.argv[i + 1];
+      i++;
+    }
+  }
+
+  return args;
+}
+
+/**
+ * Format date for GitHub API (ISO 8601).
+ */
+function formatDate(dateStr) {
+  try {
+    return new Date(dateStr).toISOString();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Main normalization routine.
+ */
+async function normalize() {
+  const args = parseArgs();
+
+  if (!process.env.GITHUB_TOKEN) {
+    console.error("❌ GITHUB_TOKEN environment variable is not set");
+    process.exit(1);
+  }
+
+  console.log("🔄 Starting title normalization...");
+  console.log(`   Dry-run: ${args.dryRun}`);
+  console.log(`   State: ${args.state}`);
+  console.log(`   Since: ${args.since || "all time"}`);
+  console.log("");
+
+  const results = {
+    issues: {
+      total: 0,
+      normalized: 0,
+      skipped: 0,
+      errors: 0,
+      items: [],
+    },
+    prs: {
+      total: 0,
+      normalized: 0,
+      skipped: 0,
+      errors: 0,
+      items: [],
+    },
+    summary: {
+      startTime: new Date().toISOString(),
+      dryRun: args.dryRun,
+      state: args.state,
+    },
   };
 
   try {
-    log("Starting title normalization...");
+    // Get repository owner and repo from environment or config
+    const context = JSON.parse(process.env.GITHUB_CONTEXT || "{}");
+    const owner = context.repo?.owner || "lightspeedwp";
+    const repo = context.repo?.repo || ".github";
 
-    if (options.issue) {
-      // Process single issue
-      await processSingleIssue(options.issue, report, log);
-    } else if (options.pr) {
-      // Process single PR
-      await processSinglePR(options.pr, report, log);
-    } else {
-      // Batch processing
-      await processBatch(report, log);
+    console.log(`📦 Repository: ${owner}/${repo}`);
+    console.log("");
+
+    // Build query parameters
+    let query = `repo:${owner}/${repo} `;
+    if (args.state === "open") {
+      query += "is:open ";
+    } else if (args.state === "closed") {
+      query += "is:closed ";
     }
 
-    report.endTime = new Date();
-    report.duration = Math.round((report.endTime - report.startTime) / 1000);
+    if (args.since) {
+      const sinceDate = formatDate(args.since);
+      if (sinceDate) {
+        query += `created:>=${sinceDate} `;
+      }
+    }
 
-    // Output report
-    outputReport(report, options.format, log);
+    // Process issues
+    console.log("🔍 Scanning issues...");
+    let issuesPage = 1;
+    let hasMoreIssues = true;
+
+    while (hasMoreIssues) {
+      try {
+        const issuesResponse = await octokit.rest.search.issuesAndPullRequests({
+          q: `${query} is:issue type:issue`,
+          per_page: 100,
+          page: issuesPage,
+        });
+
+        if (issuesResponse.data.items.length === 0) {
+          break;
+        }
+
+        for (const issue of issuesResponse.data.items) {
+          results.issues.total++;
+
+          try {
+            const prefix = await getTypePrefix(issue, owner, repo);
+            const newTitle = normalizeTitle(issue.title, prefix);
+
+            if (newTitle) {
+              results.issues.items.push({
+                number: issue.number,
+                url: issue.html_url,
+                oldTitle: issue.title,
+                newTitle,
+                prefix,
+                state: issue.state,
+              });
+              results.issues.normalized++;
+
+              if (!args.dryRun) {
+                await octokit.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  title: newTitle,
+                });
+                if (args.verbose) {
+                  console.log(
+                    `  ✅ #${issue.number}: "${issue.title}" → "${newTitle}"`,
+                  );
+                }
+              } else if (args.verbose) {
+                console.log(
+                  `  📝 #${issue.number}: "${issue.title}" → "${newTitle}" (dry-run)`,
+                );
+              }
+            } else {
+              results.issues.skipped++;
+              if (args.verbose) {
+                console.log(`  ⏭️ #${issue.number}: Already prefixed`);
+              }
+            }
+          } catch (error) {
+            results.issues.errors++;
+            console.error(
+              `  ❌ Error processing #${issue.number}:`,
+              error.message,
+            );
+          }
+        }
+
+        issuesPage++;
+      } catch (error) {
+        console.error("❌ Error fetching issues page:", error.message);
+        hasMoreIssues = false;
+      }
+    }
+
+    // Process PRs
+    console.log("");
+    console.log("🔍 Scanning pull requests...");
+    let prsPage = 1;
+    let hasMorePrs = true;
+
+    while (hasMorePrs) {
+      try {
+        const prsResponse = await octokit.rest.search.issuesAndPullRequests({
+          q: `${query} is:pull-request type:pr`,
+          per_page: 100,
+          page: prsPage,
+        });
+
+        if (prsResponse.data.items.length === 0) {
+          break;
+        }
+
+        for (const pr of prsResponse.data.items) {
+          results.prs.total++;
+
+          try {
+            const prefix = await getTypePrefix(pr, owner, repo);
+            const newTitle = normalizeTitle(pr.title, prefix);
+
+            if (newTitle) {
+              results.prs.items.push({
+                number: pr.number,
+                url: pr.html_url,
+                oldTitle: pr.title,
+                newTitle,
+                prefix,
+                state: pr.state,
+              });
+              results.prs.normalized++;
+
+              if (!args.dryRun) {
+                await octokit.rest.pulls.update({
+                  owner,
+                  repo,
+                  pull_number: pr.number,
+                  title: newTitle,
+                });
+                if (args.verbose) {
+                  console.log(
+                    `  ✅ #${pr.number}: "${pr.title}" → "${newTitle}"`,
+                  );
+                }
+              } else if (args.verbose) {
+                console.log(
+                  `  📝 #${pr.number}: "${pr.title}" → "${newTitle}" (dry-run)`,
+                );
+              }
+            } else {
+              results.prs.skipped++;
+              if (args.verbose) {
+                console.log(`  ⏭️ #${pr.number}: Already prefixed`);
+              }
+            }
+          } catch (error) {
+            results.prs.errors++;
+            console.error(
+              `  ❌ Error processing PR #${pr.number}:`,
+              error.message,
+            );
+          }
+        }
+
+        prsPage++;
+      } catch (error) {
+        console.error("❌ Error fetching PRs page:", error.message);
+        hasMorePrs = false;
+      }
+    }
+
+    // Print summary
+    console.log("");
+    console.log("═══════════════════════════════════════");
+    console.log(`📊 Summary Report${args.dryRun ? " (Dry-run)" : ""}`);
+    console.log("═══════════════════════════════════════");
+    console.log("");
+    console.log("Issues:");
+    console.log(`  Total:      ${results.issues.total}`);
+    console.log(`  Normalized: ${results.issues.normalized}`);
+    console.log(`  Skipped:    ${results.issues.skipped}`);
+    console.log(`  Errors:     ${results.issues.errors}`);
+    console.log("");
+    console.log("Pull Requests:");
+    console.log(`  Total:      ${results.prs.total}`);
+    console.log(`  Normalized: ${results.prs.normalized}`);
+    console.log(`  Skipped:    ${results.prs.skipped}`);
+    console.log(`  Errors:     ${results.prs.errors}`);
+    console.log("");
+    console.log(
+      `Grand Total: ${results.issues.total + results.prs.total} items`,
+    );
+    console.log(
+      `To Normalize: ${results.issues.normalized + results.prs.normalized} items`,
+    );
+    console.log("");
+
+    // Write output file if requested
+    if (args.output) {
+      results.summary.endTime = new Date().toISOString();
+      fs.writeFileSync(args.output, JSON.stringify(results, null, 2));
+      console.log(`✅ Detailed report written to: ${args.output}`);
+    }
+
+    // Exit with appropriate code
+    process.exit(results.issues.errors + results.prs.errors > 0 ? 1 : 0);
   } catch (error) {
-    console.error("Fatal error:", error.message);
+    console.error("❌ Fatal error:", error.message);
     process.exit(1);
   }
 }
 
-async function processSingleIssue(issueNumber, report, log) {
-  log(`Processing single issue #${issueNumber}...`);
+// Export functions for testing
+module.exports = {
+  normalizeTitle,
+  isAlreadyPrefixed,
+  getTypePrefix,
+  parseArgs,
+  formatDate,
+};
 
-  try {
-    const issue = JSON.parse(
-      execSync(
-        `gh issue view ${issueNumber} --repo ${config.owner}/${config.repo} --json number,title,labels`,
-        { encoding: "utf-8" },
-      ),
-    );
-
-    report.total++;
-    const { newTitle, type, skipped } = await generateNewTitle(
-      issue,
-      "issue",
-      report,
-      log,
-    );
-
-    if (skipped) {
-      report.skipped++;
-      report.details.push({
-        number: issue.number,
-        type: "issue",
-        oldTitle: issue.title,
-        newTitle: issue.title,
-        reason: "Already prefixed",
-        action: "skipped",
-      });
-    } else if (!options.dryRun) {
-      updateIssueTitle(issue.number, newTitle, log);
-      report.updated++;
-      report.details.push({
-        number: issue.number,
-        type: "issue",
-        oldTitle: issue.title,
-        newTitle: newTitle,
-        typePrefix: type,
-        action: "updated",
-      });
-    } else {
-      report.details.push({
-        number: issue.number,
-        type: "issue",
-        oldTitle: issue.title,
-        newTitle: newTitle,
-        typePrefix: type,
-        action: "would-update",
-      });
-    }
-  } catch (error) {
-    report.errors++;
-    report.errors_list.push({ issue: issueNumber, error: error.message });
-  }
+// Run normalization when executed directly
+if (require.main === module) {
+  normalize();
 }
-
-async function processSinglePR(prNumber, report, log) {
-  log(`Processing single PR #${prNumber}...`);
-
-  try {
-    const pr = JSON.parse(
-      execSync(
-        `gh pr view ${prNumber} --repo ${config.owner}/${config.repo} --json number,title,labels,body`,
-        { encoding: "utf-8" },
-      ),
-    );
-
-    report.total++;
-    const { newTitle, type, skipped } = await generateNewTitle(
-      pr,
-      "pr",
-      report,
-      log,
-    );
-
-    if (skipped) {
-      report.skipped++;
-      report.details.push({
-        number: pr.number,
-        type: "pr",
-        oldTitle: pr.title,
-        newTitle: pr.title,
-        reason: "Already prefixed",
-        action: "skipped",
-      });
-    } else if (!options.dryRun) {
-      updatePRTitle(pr.number, newTitle, log);
-      report.updated++;
-      report.details.push({
-        number: pr.number,
-        type: "pr",
-        oldTitle: pr.title,
-        newTitle: newTitle,
-        typePrefix: type,
-        action: "updated",
-      });
-    } else {
-      report.details.push({
-        number: pr.number,
-        type: "pr",
-        oldTitle: pr.title,
-        newTitle: newTitle,
-        typePrefix: type,
-        action: "would-update",
-      });
-    }
-  } catch (error) {
-    report.errors++;
-    report.errors_list.push({ pr: prNumber, error: error.message });
-  }
-}
-
-async function processBatch(report, log) {
-  const issueStates = options.state === "all" ? "open,closed" : options.state;
-
-  let query = `repo:${config.owner}/${config.repo} is:issue state:${issueStates}`;
-  if (options.since) {
-    query += ` created:>=${options.since}`;
-  }
-
-  if (options.type === "issue" || options.type === "all") {
-    log("Fetching issues...");
-    const issues = JSON.parse(
-      execSync(
-        `gh search issues --repo ${config.owner}/${config.repo} --state ${issueStates} --json number,title,labels --limit 1000`,
-        { encoding: "utf-8" },
-      ),
-    );
-
-    for (const issue of issues) {
-      await processItem(issue, "issue", report, log);
-    }
-  }
-
-  if (options.type === "pr" || options.type === "all") {
-    log("Fetching pull requests...");
-    const prs = JSON.parse(
-      execSync(
-        `gh search prs --repo ${config.owner}/${config.repo} --state ${issueStates} --json number,title,labels,body --limit 1000`,
-        { encoding: "utf-8" },
-      ),
-    );
-
-    for (const pr of prs) {
-      await processItem(pr, "pr", report, log);
-    }
-  }
-}
-
-async function processItem(item, itemType, report, log) {
-  report.total++;
-
-  try {
-    const { newTitle, type, skipped } = await generateNewTitle(
-      item,
-      itemType,
-      report,
-      log,
-    );
-
-    if (skipped) {
-      report.skipped++;
-      report.details.push({
-        number: item.number,
-        type: itemType,
-        oldTitle: item.title,
-        newTitle: item.title,
-        reason: "Already prefixed",
-        action: "skipped",
-      });
-    } else if (!options.dryRun) {
-      if (itemType === "issue") {
-        updateIssueTitle(item.number, newTitle, log);
-      } else {
-        updatePRTitle(item.number, newTitle, log);
-      }
-      report.updated++;
-      report.details.push({
-        number: item.number,
-        type: itemType,
-        oldTitle: item.title,
-        newTitle: newTitle,
-        typePrefix: type,
-        action: "updated",
-      });
-    } else {
-      report.details.push({
-        number: item.number,
-        type: itemType,
-        oldTitle: item.title,
-        newTitle: newTitle,
-        typePrefix: type,
-        action: "would-update",
-      });
-    }
-  } catch (error) {
-    report.errors++;
-    report.errors_list.push({ item: item.number, error: error.message });
-  }
-}
-
-async function generateNewTitle(item, itemType, report, log) {
-  const currentTitle = item.title;
-
-  // Check if already prefixed
-  if (config.prefixPattern.test(currentTitle)) {
-    return { newTitle: currentTitle, type: null, skipped: true };
-  }
-
-  // Detect type
-  let type = await detectType(item, itemType, log);
-
-  const displayName = config.typeToDisplayName[type] || "Feature";
-  const newTitle = `${displayName}: ${currentTitle}`;
-
-  return { newTitle, type, skipped: false };
-}
-
-async function detectType(item, itemType, log) {
-  // For issues: Check labels first
-  if (itemType === "issue" && item.labels && item.labels.length > 0) {
-    for (const label of item.labels) {
-      const labelName = label.name.toLowerCase();
-      if (labelName.startsWith("type:")) {
-        const type = labelName.replace("type:", "");
-        log(`  Issue #${item.number}: detected type from label: ${type}`);
-        return type;
-      }
-    }
-  }
-
-  // For PRs: Check linked issue first
-  if (itemType === "pr" && item.body) {
-    const issueMatch = item.body.match(
-      /(close|closes|fix|fixes|resolve|resolves)\s+#(\d+)/i,
-    );
-    if (issueMatch) {
-      const linkedIssueNumber = parseInt(issueMatch[2]);
-      try {
-        const linkedIssue = JSON.parse(
-          execSync(
-            `gh issue view ${linkedIssueNumber} --repo ${config.owner}/${config.repo} --json labels`,
-            { encoding: "utf-8" },
-          ),
-        );
-
-        if (linkedIssue.labels && linkedIssue.labels.length > 0) {
-          for (const label of linkedIssue.labels) {
-            const labelName = label.name.toLowerCase();
-            if (labelName.startsWith("type:")) {
-              const type = labelName.replace("type:", "");
-              log(
-                `  PR #${item.number}: detected type from linked issue #${linkedIssueNumber}: ${type}`,
-              );
-              return type;
-            }
-          }
-        }
-      } catch (error) {
-        // Linked issue not found, continue with other detection methods
-      }
-    }
-  }
-
-  // Check PR/issue labels (fallback)
-  if (item.labels && item.labels.length > 0) {
-    for (const label of item.labels) {
-      const labelName = label.name.toLowerCase();
-      if (labelName.startsWith("type:")) {
-        const type = labelName.replace("type:", "");
-        log(
-          `  ${itemType.toUpperCase()} #${item.number}: detected type from label: ${type}`,
-        );
-        return type;
-      }
-    }
-  }
-
-  // Scan body/description for type indicators
-  if (item.body) {
-    const bodyMatch = item.body.match(/type:\s*(\w+)/i);
-    if (bodyMatch) {
-      const type = bodyMatch[1].toLowerCase();
-      log(
-        `  ${itemType.toUpperCase()} #${item.number}: detected type from body: ${type}`,
-      );
-      return type;
-    }
-  }
-
-  log(
-    `  ${itemType.toUpperCase()} #${item.number}: using default type: feature`,
-  );
-  return "feature";
-}
-
-function updateIssueTitle(issueNumber, newTitle, log) {
-  try {
-    execSync(
-      `gh issue edit ${issueNumber} --repo ${config.owner}/${config.repo} --title "${escapeShellArg(newTitle)}"`,
-      { encoding: "utf-8" },
-    );
-    log(`  Updated issue #${issueNumber}`);
-  } catch (error) {
-    throw new Error(`Failed to update issue #${issueNumber}: ${error.message}`);
-  }
-}
-
-function updatePRTitle(prNumber, newTitle, log) {
-  try {
-    execSync(
-      `gh pr edit ${prNumber} --repo ${config.owner}/${config.repo} --title "${escapeShellArg(newTitle)}"`,
-      { encoding: "utf-8" },
-    );
-    log(`  Updated PR #${prNumber}`);
-  } catch (error) {
-    throw new Error(`Failed to update PR #${prNumber}: ${error.message}`);
-  }
-}
-
-function parseArgs(args) {
-  const options = {
-    issue: null,
-    pr: null,
-    state: "open",
-    since: null,
-    type: "all",
-    dryRun: false,
-    format: "text",
-    verbose: false,
-    help: false,
-  };
-
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    switch (arg) {
-      case "--issue":
-        options.issue = parseInt(args[++i]);
-        break;
-      case "--pr":
-        options.pr = parseInt(args[++i]);
-        break;
-      case "--state":
-        options.state = args[++i];
-        break;
-      case "--since":
-        options.since = args[++i];
-        break;
-      case "--type":
-        options.type = args[++i];
-        break;
-      case "--dry-run":
-        options.dryRun = true;
-        break;
-      case "--format":
-        options.format = args[++i];
-        break;
-      case "--verbose":
-        options.verbose = true;
-        break;
-      case "--help":
-        options.help = true;
-        break;
-    }
-  }
-
-  return options;
-}
-
-function createLogger(verbose) {
-  return (message) => {
-    if (verbose) {
-      console.log(`[${new Date().toISOString()}] ${message}`);
-    }
-  };
-}
-
-function outputReport(report, format, log) {
-  if (format === "json") {
-    console.log(JSON.stringify(report, null, 2));
-  } else {
-    console.log("\n" + "=".repeat(60));
-    console.log("TITLE NORMALIZATION REPORT");
-    console.log("=".repeat(60));
-    console.log(`\nStart time:  ${report.startTime.toISOString()}`);
-    console.log(`End time:    ${report.endTime.toISOString()}`);
-    console.log(`Duration:    ${report.duration}s`);
-    console.log(`\nTotal processed:  ${report.total}`);
-    console.log(`Updated:          ${report.updated}`);
-    console.log(`Skipped:          ${report.skipped}`);
-    console.log(`Errors:           ${report.errors}`);
-
-    if (report.details.length > 0) {
-      console.log("\nDETAILS:");
-      for (const detail of report.details) {
-        const action =
-          detail.action === "would-update"
-            ? "→ WOULD UPDATE"
-            : detail.action.toUpperCase();
-        console.log(
-          `  [${detail.type.toUpperCase()}#${detail.number}] ${action}: "${detail.oldTitle}" → "${detail.newTitle}"`,
-        );
-      }
-    }
-
-    if (report.errors_list.length > 0) {
-      console.log("\nERRORS:");
-      for (const error of report.errors_list) {
-        console.log(`  Error: ${error.error}`);
-      }
-    }
-
-    console.log("\n" + "=".repeat(60) + "\n");
-  }
-
-  // Log to file
-  const logFile = path.join(__dirname, "normalize-titles.log");
-  fs.appendFileSync(
-    logFile,
-    `\n${new Date().toISOString()} - Processed: ${report.total}, Updated: ${report.updated}, Skipped: ${report.skipped}, Errors: ${report.errors}\n`,
-  );
-}
-
-function showHelp() {
-  console.log(`
-Normalize Issue/PR Title Script
-
-Usage:
-  node normalize-issue-pr-titles.js [options]
-
-Options:
-  --issue <number>    Process single issue
-  --pr <number>       Process single PR
-  --state <state>     Filter by state: open, closed, all (default: open)
-  --since <date>      Process only since YYYY-MM-DD
-  --type <type>       Process only: issue, pr, all (default: all)
-  --dry-run           Show changes without applying
-  --format <format>   Report format: text, json (default: text)
-  --verbose           Enable detailed logging
-  --help              Show this help message
-
-Examples:
-  # Process all open issues and PRs
-  node normalize-issue-pr-titles.js
-
-  # Process single issue #123
-  node normalize-issue-pr-titles.js --issue 123
-
-  # Process all open PRs with dry-run
-  node normalize-issue-pr-titles.js --type pr --dry-run
-
-  # Process closed issues since 2026-08-01
-  node normalize-issue-pr-titles.js --type issue --state closed --since 2026-08-01
-
-  # Get JSON report
-  node normalize-issue-pr-titles.js --format json
-`);
-}
-
-function escapeShellArg(arg) {
-  return arg.replace(/"/g, '\\"');
-}
-
-// Run
-main().catch((error) => {
-  console.error("Script failed:", error.message);
-  process.exit(1);
-});

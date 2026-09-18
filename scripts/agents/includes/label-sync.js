@@ -23,6 +23,7 @@ import { findStandardLabel } from "./label-lookup.js";
  * @param {Array} canonicalLabels - Array of canonical label objects with name, color, description
  * @param {boolean} dryRun - If true, only report what would be changed
  * @returns {Promise<Object>} Sync report with created, updated, deleted counts
+ * @throws {Error} If repository labels cannot be fetched or sync setup fails
  */
 async function syncLabelsWithCanonical(
   octokit,
@@ -163,7 +164,9 @@ async function syncLabelsWithCanonical(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to sync labels: ${error.message}`);
+    throw new Error(`Failed to sync labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -174,6 +177,7 @@ async function syncLabelsWithCanonical(
  * @param {string} repo - Repository name
  * @param {Array} canonicalLabels - Array of canonical label names/objects
  * @returns {Promise<Object>} Validation report with missing, extra, and non-compliant labels
+ * @throws {Error} If repository labels cannot be fetched or validated
  */
 async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
   try {
@@ -253,7 +257,9 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to validate labels: ${error.message}`);
+    throw new Error(`Failed to validate labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 
@@ -265,7 +271,8 @@ async function validateRepoLabels(octokit, owner, repo, canonicalLabels) {
  * @param {Object} aliasMap - Map of alias labels to canonical labels
  * @param {Set} canonicalSet - Set of canonical label names
  * @param {boolean} dryRun - If true, only report what would be changed
- * @returns {Promise<Object>} Standardization report
+ * @returns {Promise<Object>} Standardization report, including individual search and migration errors
+ * @throws {Error} If an unexpected top-level failure prevents a report from being returned
  */
 async function standardizeLabelsOnRepo(
   octokit,
@@ -352,7 +359,9 @@ async function standardizeLabelsOnRepo(
 
     return report;
   } catch (error) {
-    throw new Error(`Failed to standardize labels: ${error.message}`);
+    throw new Error(`Failed to standardize labels: ${error.message}`, {
+      cause: error,
+    });
   }
 }
 

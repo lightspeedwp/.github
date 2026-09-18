@@ -59,6 +59,7 @@ tmp/
 *.zip
 *.tar.gz
 *.tgz
+node_modules/
 .claude/settings.local.json
 
 # Prevent local Claude Code settings from being committed

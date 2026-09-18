@@ -35,8 +35,14 @@ describe("OctokitClientFactory", () => {
   let factory;
 
   beforeEach(() => {
+    // Octokit.plugin() is already wired by the module mock above to return
+    // MockOctokit itself, so `new Octokit(options)` yields mockInstance and
+    // records the call in Octokit.mock.calls. Do not override it here --
+    // that used to replace it with a fresh, unconfigured jest.fn(), whose
+    // `new` result had none of mockInstance's repos/pulls/issues/rateLimit
+    // properties and whose own .mock.calls was never the one later
+    // assertions read from.
     factory = new OctokitClientFactory();
-    Octokit.plugin = jest.fn(() => jest.fn());
   });
 
   describe("constructor", () => {

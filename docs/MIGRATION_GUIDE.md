@@ -1,332 +1,219 @@
----
-title: Instruction Consolidation Migration Guide (v2.0)
-description: Migration guide for 22 instruction files → 5 consolidated instruction
-  files. Maps old files to new sections.
-version: '1.1'
-created_date: '2025-12-07'
-last_updated: '2026-05-29'
-authors:
-- LightSpeed Team
-status: active
----
+# Agent Specification Migration Guide
 
-# Instruction Consolidation Migration Guide
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](https://img.shields.io/badge/Labeling Governance-OK-success.svg)
+![Main Branch Guard](https://img.shields.io/badge/Main Branch Guard-OK-success.svg)
+![Metadata Governance](https://img.shields.io/badge/Metadata Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](https://img.shields.io/badge/Template Enforcement-OK-success.svg)
+![Validate PR Template](https://img.shields.io/badge/Validate PR Template-OK-success.svg)
+![Badges: Documentation Update](https://img.shields.io/badge/Badges: Documentation Update-OK-success.svg)
+![Badges: Health Check](https://img.shields.io/badge/Badges: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](https://img.shields.io/badge/Badges: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
 
-**Migration Date:** December 7, 2025
-**Impact:** 22 instruction files → 5 consolidated files (77% reduction)
-
----
+This guide walks you through migrating existing agent definitions to the new agent specification format.
 
 ## Overview
 
-This guide maps the old, fragmented instruction structure to the new consolidated organization. Use this to find where content has moved and update any cross-references.
+The agent specification system provides a standardized format for defining AI agents with comprehensive metadata, validation, and documentation. If you have existing agent definitions in an older or custom format, this guide helps you migrate them.
 
----
+## Before You Start
 
-## Consolidation Map
+### Check Your Current Format
 
-### 1. **LANGUAGES & LINTING** → `instructions/languages.instructions.md`
+Identify your current agent definition format:
 
-**Old Files (4):**
+- **Custom YAML:** Agent definitions in loose YAML with limited structure
+- **Simple Markdown:** Agent documentation without structured metadata
+- **Legacy Format:** Older agent definition system with different field names
+- **JSON Configuration:** Agent settings in JSON files
+- **Inline Code Comments:** Agent definitions embedded in source code
 
-| Old File                     | New Section                      | Status       |
-| ---------------------------- | -------------------------------- | ------------ |
-| `javascript.instructions.md` | §2 JavaScript/TypeScript Linting | Consolidated |
-| `jsdoc.instructions.md`      | §2.1 JSDoc Standards             | Consolidated |
-| `json.instructions.md`       | §2.2 JSON Schemas                | Consolidated |
-| `yaml.instructions.md`       | §2.3 YAML Linting                | Consolidated |
+### What You'll Gain
 
-**Direct Cross-References:** Update any links from:
+Migrating to the new format provides:
 
-```markdown
-# OLD
+- ✅ **Standardized Metadata:** Consistent structure across all agents
+- ✅ **Validation Support:** Automatic validation of agent specifications
+- ✅ **Version Control:** Track agent versions and changes
+- ✅ **Approval Workflow:** Formal approval tracking
+- ✅ **Integration:** Pre-commit hooks and CI/CD integration
+- ✅ **Discovery:** Searchable agent catalog with tags
+- ✅ **Documentation:** Automatic documentation generation
 
-[JavaScript Linting](.github/instructions/javascript.instructions.md)
+## Migration Process
 
-# NEW
+### Step 1: Choose a Reference Example
 
-[JavaScript Linting](instructions/languages.instructions.md#javascript--typescript-linting)
-```
+Find a similar agent in the examples directory to use as a template.
 
-**Related Files Updated:**
+### Step 2: Create Your Specification File
 
-- `linting.instructions.md` - Points to new location
-- `README.md` - Documentation updated
+Create a new file: `agents/{agent-name}.agent.md`
 
----
+### Step 3: Update Required Fields
 
-### 2. **DOCUMENTATION FORMATS** → `instructions/documentation-formats.instructions.md`
+Fill in all required frontmatter fields with your agent information.
 
-**Old Files (3):**
+### Step 4: Validate Your Specification
 
-| Old File                      | New Section           | Status       |
-| ----------------------------- | --------------------- | ------------ |
-| `markdown.instructions.md`    | §3 Markdown Standards | Consolidated |
-| `frontmatter.instructions.md` | §3.1 YAML Frontmatter | Consolidated |
-| `mermaid.instructions.md`     | §3.2 Mermaid Diagrams | Consolidated |
-
-**Direct Cross-References:** Update any links from:
-
-```markdown
-# OLD
-
-[Markdown Standards](.github/instructions/markdown.instructions.md)
-
-# NEW
-
-[Markdown Standards](instructions/documentation-formats.instructions.md#markdown-standards)
-```
-
----
-
-### 3. **QUALITY ASSURANCE & TESTING** → `instructions/quality-assurance.instructions.md`
-
-**Old Files (3):**
-
-| Old File                  | New Section             | Status       |
-| ------------------------- | ----------------------- | ------------ |
-| `testing.instructions.md` | §4 Testing Strategy     | Consolidated |
-| `tests.instructions.md`   | §4.1 Test Standards     | Consolidated |
-| `jest.instructions.md`    | §4.2 Jest Configuration | Consolidated |
-
-**Direct Cross-References:** Update any links from:
-
-```markdown
-# OLD
-
-[Testing Guide](.github/instructions/testing.instructions.md)
-
-# NEW
-
-[Testing Guide](instructions/quality-assurance.instructions.md#testing-pyramid)
-```
-
----
-
-### 4. **AUTOMATION & WORKFLOWS** → `.github/instructions/automation.instructions.md`
-
-**Old Files (8):**
-
-| Old File                            | New Section                 | Status       |
-| ----------------------------------- | --------------------------- | ------------ |
-| `agents.instructions.md`            | §5.1 Agent Development      | Consolidated |
-| `branding.instructions.md`          | §5.2 Documentation Branding | Consolidated |
-| `metrics.instructions.md`           | §5.3 Metrics Collection     | Consolidated |
-| `planner.instructions.md`           | §5.4 Planning Automation    | Consolidated |
-| `project-meta-sync.instructions.md` | §5.5 Project Sync           | Consolidated |
-| `release.instructions.md`           | §5.6 Release Management     | Consolidated |
-| `reporting.instructions.md`         | §5.7 Report Generation      | Consolidated |
-| `reviewer.instructions.md`          | §5.8 PR Review Automation   | Consolidated |
-
-**Direct Cross-References:** Update any links from:
-
-```markdown
-# OLD
-
-[Release Management](.github/instructions/release.instructions.md)
-
-# NEW
-
-[Release Management](.github/instructions/automation.instructions.md#56-release-management)
-```
-
-**Critical Files Affected:**
-
-- `.github/workflows/release.yml` - References release instructions
-- `agents/release.agent.md` - References release instructions
-- `.github/workflows/labeling.yml` - References labeling instructions
-- `agents/labeling.agent.md` - References labeling instructions
-
----
-
-### 5. **COMMUNITY STANDARDS & GOVERNANCE** → `instructions/community-standards.instructions.md`
-
-**Old Files (4):**
-
-| Old File                             | New Section             | Status       |
-| ------------------------------------ | ----------------------- | ------------ |
-| `file-management.instructions.md`    | §6.1 File Organization  | Consolidated |
-| `naming-conventions.instructions.md` | §6.2 Naming Conventions | Consolidated |
-| `readme.instructions.md`             | §6.3 README Standards   | Consolidated |
-| `saved-replies.instructions.md`      | §6.4 Saved Replies      | Consolidated |
-
-**Direct Cross-References:** Update any links from:
-
-```markdown
-# OLD
-
-[Naming Conventions](.github/instructions/naming-conventions.instructions.md)
-
-# NEW
-
-[Naming Conventions](instructions/community-standards.instructions.md#62-naming-conventions)
-```
-
----
-
-## Files Still Consolidated But Not Deleted
-
-The following instruction files remain separate (not consolidated into the 5 main files):
-
-- `a11y.instructions.md` - Accessibility specific guidance
-- `coding-standards.instructions.md` - Core coding standards (umbrella)
-- `custom-instructions.md` - Copilot-specific instructions
-- `instructions.instructions.md` - How to write instruction files
-- `linting.instructions.md` - Master linting index
-- `prompt.instructions.md` - How to write prompt files
-- `self-explanatory-code-commenting.instructions.md` - Code commenting guidelines
-- `spec-driven-workflow.instructions.md` - Development methodology
-- `taming-copilot.instructions.md` - Copilot behavior guidelines
-- `tasksync.instructions.md` - TaskSync protocol
-- `copilot-thought-logging.instructions.md` - Copilot processing tracking
-- `pull-requests.instructions.md` - PR-specific guidance
-- `issues.instructions.md` - Issue-specific guidance
-- `task-implementation.instructions.md` - Task implementation tracking
-- `tools.instructions.md` - AI Toolkit guidance
-- `workflows.instructions.md` - GitHub Actions best practices
-
----
-
-## Files Archived
-
-The 22 old instruction files have been moved to `.github/instructions/.archive/`:
-
-```
-.github/instructions/.archive/
-├── javascript.instructions.md
-├── jsdoc.instructions.md
-├── json.instructions.md
-├── yaml.instructions.md
-├── markdown.instructions.md
-├── frontmatter.instructions.md
-├── mermaid.instructions.md
-├── testing.instructions.md
-├── tests.instructions.md
-├── jest.instructions.md
-├── agents.instructions.md
-├── branding.instructions.md
-├── metrics.instructions.md
-├── planner.instructions.md
-├── project-meta-sync.instructions.md
-├── release.instructions.md
-├── reporting.instructions.md
-├── reviewer.instructions.md
-├── file-management.instructions.md
-├── naming-conventions.instructions.md
-├── readme.instructions.md
-└── saved-replies.instructions.md
-```
-
----
-
-## How to Find Old Content
-
-**If you remember the OLD filename:**
-
-1. Check the Consolidation Map above to find the new file
-2. Search for section markers (§1, §2, etc.) or use Ctrl+F to find specific content
-3. Update any links to use the new file path
-
-**If you remember the TOPIC:**
-
-1. Browse the 5 new consolidated files:
-   - `languages.instructions.md` - Linting, code standards
-   - `documentation-formats.instructions.md` - Markdown, docs
-   - `quality-assurance.instructions.md` - Testing, coverage
-   - `automation.instructions.md` - Agents, workflows, release
-   - `community-standards.instructions.md` - Organization, governance
-
-2. Use Ctrl+F to search within the consolidated file
-
----
-
-## Search & Replace Examples
-
-### JavaScript/TypeScript Linting References
+Run validation to check for errors:
 
 ```bash
-# OLD pattern
-find . -name "*.md" -exec grep -l "javascript.instructions.md" {} \;
-
-# REPLACE with
-languages.instructions.md#javascript--typescript-linting
+npm run validate:frontmatter -- agents/my-agent.agent.md
 ```
 
-### Testing References
+### Step 5: Run Tests
 
 ```bash
-# OLD pattern
-find . -name "*.md" -exec grep -l "testing.instructions.md\|tests.instructions.md\|jest.instructions.md" {} \;
-
-# REPLACE with
-quality-assurance.instructions.md#testing-pyramid
+npm test
 ```
 
-### Release Management References
+All tests should pass before committing.
+
+## Field Mapping Guide
+
+If migrating from other systems:
+
+| Old Field | New Field |
+|-----------|-----------|
+| `name` | `name` (title case) |
+| `description` | `description` (expand if brief) |
+| `version` | `version` (semantic X.Y.Z) |
+| `created` | `created_date` (YYYY-MM-DD) |
+| `modified` | `updated_date` (YYYY-MM-DD) |
+| `author` | `created_by` |
+| `type` | `category` |
+| `tags` | `tags` |
+
+## Validation Checklist
+
+Before committing:
+
+- [ ] All required fields present
+- [ ] Dates in YYYY-MM-DD format
+- [ ] Version uses semantic versioning
+- [ ] Category is from standard list
+- [ ] Status is valid (active, draft, deprecated, archived)
+- [ ] No sensitive data in specification
+- [ ] Implementation directory exists
+- [ ] Validation passes
+
+## Common Issues
+
+### Missing Required Fields
+
+Add missing frontmatter fields. All required fields must be present.
+
+### Invalid Date Format
+
+Convert dates to ISO 8601 (YYYY-MM-DD).
+
+### Non-Standard Category
+
+Map to one of: governance, analysis, generation, automation, integration, security, documentation
+
+### Implementation Directory Missing
+
+Create the directory or update the reference path.
+
+## Testing Your Migration
 
 ```bash
-# OLD pattern
-find . -name "*.md" -exec grep -l "release.instructions.md" {} \;
+# Validate
+npm run validate:frontmatter -- agents/my-agent.agent.md
 
-# REPLACE with
-automation.instructions.md#56-release-management
+# Run tests
+npm test
+
+# Lint
+npm run lint
 ```
 
----
+## Next Steps
 
-## Updated References in This Repository
+After migration:
 
-The following files have been pre-updated to reference the new consolidated files:
-
-✅ `.github/README.md` - Updated with new structure
-✅ `AGENTS.md` - References to new locations
-✅ `DOCS.md` - Updated index
-✅ `docs/README.md` - Updated documentation structure
-✅ `instructions/linting.instructions.md` - References consolidated files
-✅ `agents/agent.md` - Updated references
-✅ `.github/custom-instructions.md` - Updated references
+1. Update documentation links
+2. Test integration with tools
+3. Verify all use cases work
+4. Remove old specification if no longer needed
+5. Consider adding as example if useful for others
 
 ---
 
-## Guidelines for External References
-
-If you're referencing these instructions from:
-
-- **GitHub Discussions/Issues**: Use the new consolidated file paths
-- **Workflow Files**: Update `references:` sections in YAML frontmatter
-- **Copilot Instructions**: Update `custom-instructions.md` references
-- **Agent Specs**: Update `references:` in agent frontmatter
-
----
-
-## Rollback (If Needed)
-
-All old instruction files are preserved in `.github/instructions/.archive/`. To restore:
-
-```bash
-# Restore a single file
-mv .github/instructions/.archive/javascript.instructions.md .github/instructions/
-
-# Restore all
-cp -r .github/instructions/.archive/* .github/instructions/
-```
-
----
-
-## Questions?
-
-- See [docs/README.md](./docs/README.md) for documentation architecture
-- Check [`README.md`](./.github/README.md) for community health files
-- Review [`coding-standards.instructions.md`](instructions/coding-standards.instructions.md) for coding rules
-
----
-
-**Version History:**
-
-| Date       | Changes                                                        |
-| ---------- | -------------------------------------------------------------- |
-| 2025-12-07 | Initial migration guide created. 22 files consolidated into 5. |
-
----
+**Last Updated:** 2026-09-03
+**Related:** [TROUBLESHOOTING.md](./TROUBLESHOOTING.md), [API_REFERENCE.md](./API_REFERENCE.md)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

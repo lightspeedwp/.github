@@ -411,3 +411,15 @@ If the codebase uses `button-primary` but Figma has a component named `Button`, 
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

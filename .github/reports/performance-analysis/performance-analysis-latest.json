@@ -1,0 +1,890 @@
+{
+  "timestamp": "2026-09-04T08:43:29.804Z",
+  "summary": {
+    "totalWorkflows": 71,
+    "needsConcurrency": 51,
+    "needsCaching": 51,
+    "needsFetchDepth": 58,
+    "estimatedTimeSaveMinutes": 83
+  },
+  "optimizations": {
+    "needsConcurrency": [
+      "allocate-pr-issue-to-milestone.yml",
+      "badges-documentation-update.yml",
+      "badges-health-check.yml",
+      "badges-readme-status.yml",
+      "badges-verification.yml",
+      "badges-workflow-audit.yml",
+      "batch-label-prs.yml",
+      "branch-name-validation.yml",
+      "changelog-safety-audit.yml",
+      "changelog.yml",
+      "cleanup-branches.yml",
+      "enforce-pr-issue-linking.yml",
+      "gitleaks-reusable.yml",
+      "issue-audit-remediation.yml",
+      "issue-compliance.yml",
+      "issue-create-enhanced.yml",
+      "issue-labeling-automation.yml",
+      "issue-remediation-automation.yml",
+      "issues.yml",
+      "label-audit-report.yml",
+      "linting.yml",
+      "manage-blocking-status-labels.yml",
+      "meta-labels-sync.yml",
+      "metrics-reporting.yml",
+      "metrics.yml",
+      "milestone-distribution.yml",
+      "normalize-titles.yml",
+      "openspec-progress-phase.yml",
+      "openspec-report-progression.yml",
+      "openspec-sync-labels.yml",
+      "openspec-validate-labels.yml",
+      "planner.yml",
+      "pr-template-resolver.yml",
+      "pr-template-validation.yml",
+      "pr-validation.yml",
+      "project-archival.yml",
+      "project-field-sync.yml",
+      "project-maintenance-nightly.yml",
+      "project-maintenance-on-demand.yml",
+      "release-e2e-tests.yml",
+      "release.yml",
+      "remediate-bare-labels.yml",
+      "reviewer.yml",
+      "testing.yml",
+      "validate-blocking-issue-before-close.yml",
+      "validate-blocking-status-before-close.yml",
+      "validate-dor-dod-sections.yml",
+      "validate-issue-labels.yml",
+      "validate-pr-template.yml",
+      "validate-project-linking.yml",
+      "workflow-validation.yml"
+    ],
+    "needsCaching": [
+      "agent-spec-validation.yml",
+      "allocate-pr-issue-to-milestone.yml",
+      "awesome-github-site.yml",
+      "badges-documentation-update.yml",
+      "badges-health-check.yml",
+      "badges-readme-status.yml",
+      "badges-workflow-audit.yml",
+      "batch-label-prs.yml",
+      "branch-name-validation.yml",
+      "changelog-management.yml",
+      "changelog-safety-audit.yml",
+      "checks.yml",
+      "cleanup-branches.yml",
+      "docs-maintenance.yml",
+      "docs-validation.yml",
+      "documentation.yml",
+      "issue-audit-remediation.yml",
+      "issue-create-enhanced.yml",
+      "issue-labeling-automation.yml",
+      "issue-remediation-automation.yml",
+      "label-audit-report.yml",
+      "labeling-governance.yml",
+      "labeling.yml",
+      "linting.yml",
+      "meta-agent-validation.yml",
+      "meta-labels-sync.yml",
+      "meta.yml",
+      "metadata-governance.yml",
+      "metrics-collection.yml",
+      "metrics-reporting.yml",
+      "metrics.yml",
+      "milestone-distribution.yml",
+      "openspec-progress-phase.yml",
+      "openspec-report-progression.yml",
+      "openspec-sync-labels.yml",
+      "openspec-validate-labels.yml",
+      "pr-validation.yml",
+      "project-archival.yml",
+      "project-field-sync.yml",
+      "project-maintenance-nightly.yml",
+      "project-maintenance-on-demand.yml",
+      "release-e2e-tests.yml",
+      "release.yml",
+      "remediate-bare-labels.yml",
+      "reporting.yml",
+      "reviewer.yml",
+      "testing.yml",
+      "validate-dor-dod-sections.yml",
+      "validate-issue-labels.yml",
+      "validate-project-linking.yml",
+      "workflow-validation.yml"
+    ],
+    "needsFetchDepth": [
+      "agent-spec-validation.yml",
+      "allocate-pr-issue-to-milestone.yml",
+      "awesome-github-site.yml",
+      "badges-documentation-update.yml",
+      "badges-readme-status.yml",
+      "badges-workflow-audit.yml",
+      "batch-label-prs.yml",
+      "branch-name-validation.yml",
+      "changelog-management.yml",
+      "changelog-safety-audit.yml",
+      "changelog.yml",
+      "checks.yml",
+      "cleanup-branches.yml",
+      "docs-maintenance.yml",
+      "docs-validation.yml",
+      "documentation.yml",
+      "gitleaks-update.yml",
+      "issue-audit-remediation.yml",
+      "issue-compliance.yml",
+      "issue-create-enhanced.yml",
+      "issue-labeling-automation.yml",
+      "issue-management-orchestration.yml",
+      "issues.yml",
+      "label-audit-report.yml",
+      "labeling-governance.yml",
+      "labeling.yml",
+      "linting.yml",
+      "meta-agent-validation.yml",
+      "meta-labels-sync.yml",
+      "meta.yml",
+      "metadata-governance.yml",
+      "metrics-collection.yml",
+      "metrics-reporting.yml",
+      "metrics.yml",
+      "milestone-distribution.yml",
+      "normalize-titles.yml",
+      "openspec-progress-phase.yml",
+      "openspec-report-progression.yml",
+      "openspec-sync-labels.yml",
+      "openspec-validate-labels.yml",
+      "planner.yml",
+      "pr-template-resolver.yml",
+      "pr-validation.yml",
+      "project-archival.yml",
+      "project-maintenance-nightly.yml",
+      "project-maintenance-on-demand.yml",
+      "project-meta-sync.yml",
+      "release-e2e-tests.yml",
+      "release.yml",
+      "remediate-bare-labels.yml",
+      "reporting.yml",
+      "reviewer.yml",
+      "testing.yml",
+      "validate-dor-dod-sections.yml",
+      "validate-issue-labels.yml",
+      "validate-pr-template.yml",
+      "validate-project-linking.yml",
+      "workflow-validation.yml"
+    ]
+  },
+  "details": {
+    "actions-minute-savings-watch.yml": {
+      "filename": "actions-minute-savings-watch.yml",
+      "opportunities": [],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 0
+    },
+    "agent-spec-validation.yml": {
+      "filename": "agent-spec-validation.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 150
+    },
+    "allocate-pr-issue-to-milestone.yml": {
+      "filename": "allocate-pr-issue-to-milestone.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "awesome-github-site.yml": {
+      "filename": "awesome-github-site.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 50
+    },
+    "badges-documentation-update.yml": {
+      "filename": "badges-documentation-update.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "badges-health-check.yml": {
+      "filename": "badges-health-check.yml",
+      "opportunities": ["concurrency", "caching"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 45
+    },
+    "badges-readme-status.yml": {
+      "filename": "badges-readme-status.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "badges-verification.yml": {
+      "filename": "badges-verification.yml",
+      "opportunities": ["concurrency"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 15
+    },
+    "badges-workflow-audit.yml": {
+      "filename": "badges-workflow-audit.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "batch-label-prs.yml": {
+      "filename": "batch-label-prs.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "branch-name-validation.yml": {
+      "filename": "branch-name-validation.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "changelog-management.yml": {
+      "filename": "changelog-management.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 90
+    },
+    "changelog-safety-audit.yml": {
+      "filename": "changelog-safety-audit.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 135
+    },
+    "changelog.yml": {
+      "filename": "changelog.yml",
+      "opportunities": ["concurrency", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 35
+    },
+    "checks.yml": {
+      "filename": "checks.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 200
+    },
+    "cleanup-branches.yml": {
+      "filename": "cleanup-branches.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "docs-maintenance.yml": {
+      "filename": "docs-maintenance.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 150
+    },
+    "docs-validation.yml": {
+      "filename": "docs-validation.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 100
+    },
+    "documentation.yml": {
+      "filename": "documentation.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 150
+    },
+    "enforce-pr-issue-linking.yml": {
+      "filename": "enforce-pr-issue-linking.yml",
+      "opportunities": ["concurrency"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 15
+    },
+    "gitleaks-reusable.yml": {
+      "filename": "gitleaks-reusable.yml",
+      "opportunities": ["concurrency"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 15
+    },
+    "gitleaks-update.yml": {
+      "filename": "gitleaks-update.yml",
+      "opportunities": ["fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 20
+    },
+    "gitleaks.yml": {
+      "filename": "gitleaks.yml",
+      "opportunities": [],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 0
+    },
+    "issue-audit-remediation.yml": {
+      "filename": "issue-audit-remediation.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "issue-compliance.yml": {
+      "filename": "issue-compliance.yml",
+      "opportunities": ["concurrency", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 35
+    },
+    "issue-create-enhanced.yml": {
+      "filename": "issue-create-enhanced.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "issue-labeling-automation.yml": {
+      "filename": "issue-labeling-automation.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "issue-management-orchestration.yml": {
+      "filename": "issue-management-orchestration.yml",
+      "opportunities": ["fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 100
+    },
+    "issue-remediation-automation.yml": {
+      "filename": "issue-remediation-automation.yml",
+      "opportunities": ["concurrency", "caching"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 45
+    },
+    "issues.yml": {
+      "filename": "issues.yml",
+      "opportunities": ["concurrency", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 35
+    },
+    "label-audit-report.yml": {
+      "filename": "label-audit-report.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "labeling-governance.yml": {
+      "filename": "labeling-governance.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 100
+    },
+    "labeling.yml": {
+      "filename": "labeling.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 50
+    },
+    "linting.yml": {
+      "filename": "linting.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "main-branch-guard.yml": {
+      "filename": "main-branch-guard.yml",
+      "opportunities": [],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 0
+    },
+    "manage-blocking-status-labels.yml": {
+      "filename": "manage-blocking-status-labels.yml",
+      "opportunities": ["concurrency"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 15
+    },
+    "meta-agent-validation.yml": {
+      "filename": "meta-agent-validation.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 100
+    },
+    "meta-labels-sync.yml": {
+      "filename": "meta-labels-sync.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "meta.yml": {
+      "filename": "meta.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 120
+    },
+    "metadata-governance.yml": {
+      "filename": "metadata-governance.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 50
+    },
+    "metrics-collection.yml": {
+      "filename": "metrics-collection.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 100
+    },
+    "metrics-reporting.yml": {
+      "filename": "metrics-reporting.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 115
+    },
+    "metrics.yml": {
+      "filename": "metrics.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "milestone-distribution.yml": {
+      "filename": "milestone-distribution.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 115
+    },
+    "normalize-titles.yml": {
+      "filename": "normalize-titles.yml",
+      "opportunities": ["concurrency", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 35
+    },
+    "openspec-progress-phase.yml": {
+      "filename": "openspec-progress-phase.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "openspec-report-progression.yml": {
+      "filename": "openspec-report-progression.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "openspec-sync-labels.yml": {
+      "filename": "openspec-sync-labels.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "openspec-validate-labels.yml": {
+      "filename": "openspec-validate-labels.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "planner.yml": {
+      "filename": "planner.yml",
+      "opportunities": ["concurrency", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 35
+    },
+    "pr-template-resolver.yml": {
+      "filename": "pr-template-resolver.yml",
+      "opportunities": ["concurrency", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 35
+    },
+    "pr-template-validation.yml": {
+      "filename": "pr-template-validation.yml",
+      "opportunities": ["concurrency"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 15
+    },
+    "pr-validation.yml": {
+      "filename": "pr-validation.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "project-archival.yml": {
+      "filename": "project-archival.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "project-field-sync.yml": {
+      "filename": "project-field-sync.yml",
+      "opportunities": ["concurrency", "caching"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": true
+      },
+      "estimatedTimeSaveSeconds": 45
+    },
+    "project-maintenance-nightly.yml": {
+      "filename": "project-maintenance-nightly.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "project-maintenance-on-demand.yml": {
+      "filename": "project-maintenance-on-demand.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 135
+    },
+    "project-meta-sync.yml": {
+      "filename": "project-meta-sync.yml",
+      "opportunities": ["fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 20
+    },
+    "release-e2e-tests.yml": {
+      "filename": "release-e2e-tests.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 385
+    },
+    "release.yml": {
+      "filename": "release.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 115
+    },
+    "remediate-bare-labels.yml": {
+      "filename": "remediate-bare-labels.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "reporting.yml": {
+      "filename": "reporting.yml",
+      "opportunities": ["caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": true,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 140
+    },
+    "reviewer.yml": {
+      "filename": "reviewer.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "testing.yml": {
+      "filename": "testing.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "validate-blocking-issue-before-close.yml": {
+      "filename": "validate-blocking-issue-before-close.yml",
+      "opportunities": ["concurrency"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 15
+    },
+    "validate-blocking-status-before-close.yml": {
+      "filename": "validate-blocking-status-before-close.yml",
+      "opportunities": ["concurrency"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 15
+    },
+    "validate-dor-dod-sections.yml": {
+      "filename": "validate-dor-dod-sections.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "validate-issue-labels.yml": {
+      "filename": "validate-issue-labels.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "validate-pr-template.yml": {
+      "filename": "validate-pr-template.yml",
+      "opportunities": ["concurrency", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 35
+    },
+    "validate-project-linking.yml": {
+      "filename": "validate-project-linking.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    },
+    "workflow-validation.yml": {
+      "filename": "workflow-validation.yml",
+      "opportunities": ["concurrency", "caching", "fetchDepth"],
+      "currentOptimizations": {
+        "hasConcurrency": false,
+        "hasCaching": false,
+        "hasFetchDepth": false
+      },
+      "estimatedTimeSaveSeconds": 65
+    }
+  }
+}

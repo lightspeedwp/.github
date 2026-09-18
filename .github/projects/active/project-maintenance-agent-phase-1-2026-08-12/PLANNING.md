@@ -5,6 +5,7 @@ description: "Phase 1 & 2 planning with detailed requirements, timelines, and de
 created_date: 2026-08-12
 last_updated: "2026-08-25"
 status: active
+status: ACTIVE (merged in PR #2005)
 ---
 
 # Project Maintenance Agent — Planning & Specification
@@ -461,7 +462,6 @@ on:
   schedule:
     - cron: '0 2 * * *'  # 2 AM UTC daily
   workflow_dispatch:
-status: ACTIVE (merged in PR #2005)
 ```
 
 **Features:**
@@ -484,7 +484,6 @@ on:
       operation: [audit, create-docs, validate, archive]
       projects: (comma-separated project slugs)
       dry_run: (true/false, default true)
-status: ACTIVE (merged in PR #2005)
 ```
 
 **Supported Operations:**

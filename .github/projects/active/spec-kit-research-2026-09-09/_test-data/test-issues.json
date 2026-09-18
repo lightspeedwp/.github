@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Fix authentication timeout",
+    "body": "Login fails after 5 minutes of inactivity",
+    "labels": ["bug", "priority:high"],
+    "created_at": "2026-09-01T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Add dark mode support",
+    "body": "Implement dark theme throughout app",
+    "labels": ["feature", "priority:medium"],
+    "created_at": "2026-09-02T11:00:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Improve performance on large datasets",
+    "body": "Optimize query performance for 10K+ item lists",
+    "labels": ["perf", "priority:high"],
+    "created_at": "2026-09-03T09:00:00Z"
+  }
+]

@@ -158,6 +158,25 @@ describe("RetryStrategy", () => {
       expect(delay).toBeGreaterThan(3000);
     });
 
+    test("uses adaptive delay for search rate limit pressure", () => {
+      const fastStrategy = new RetryStrategy({
+        initialDelayMs: 100,
+        maxDelayMs: 5000,
+        jitterFactor: 0,
+      });
+
+      const error = new Error("Rate limit exceeded");
+      error.status = 429;
+      error.response = { headers: { "x-ratelimit-resource": "search" } };
+
+      const delay = fastStrategy.getRetryDelay(error, 1, {
+        quotaRemainingPercent: 5,
+      });
+
+      const expectedDelay = 100 * 2 * 3 * (1 + 0.95);
+      expect(delay).toBeCloseTo(expectedDelay, 0);
+    });
+
     test("handles missing response headers", () => {
       const error = new Error("Generic error");
       const delay = strategy.getRetryDelay(error, 0);

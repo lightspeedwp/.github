@@ -1,13 +1,15 @@
 ---
-name: "Chore PR"
-about: "Repo hygiene: configs, scripts, formatting — no behaviour change"
+file_type: pr-template
+name: "Chore"
+about: "Repo maintenance and housekeeping (configs, scripts, formatting)"
 title: "chore: {scope}"
-labels: ["status:needs-review", "priority:normal"]
+labels: ["type:chore", "status:needs-review", "priority:minor", "area:core",  "meta:needs-review"]
+recommended_issue_type: "type:chore"
 ---
 
 # Chore Pull Request
 
-> This repository enforces changelog, release, and label automation for all PRs and issues.  
+> This repository enforces changelog, release, and label automation for all PRs and issues.
 > See the organisation-wide [Automation Governance & Release Strategy](https://github.com/lightspeedwp/.github/blob/HEAD/docs/AUTOMATION_GOVERNANCE.md) for required rules.
 
 ## Linked issues

@@ -246,6 +246,9 @@ const issues = generator.generateAllIssues(metrics);
 
 ## Usage Examples
 
+For Reporting Agent v2 integration examples with PRD Agent, Testing Agent, and Metrics Agent,
+see [agent-integration-examples.md](./agent-integration-examples.md).
+
 ### Example 1: Get Metrics Context for Meta Agent
 
 ```javascript
@@ -502,3 +505,20 @@ For issues or questions:
 **Created:** 2026-08-19  
 **Status:** Phase 3 Implementation  
 **Test Coverage:** 85%+ target
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
+[Contact](https://lightspeedwp.agency/contact)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

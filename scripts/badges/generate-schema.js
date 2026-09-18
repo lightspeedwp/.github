@@ -60,7 +60,10 @@ function scanWorkflows() {
 }
 
 /**
- * Load existing schema
+ * Load the existing badge schema.
+ *
+ * @returns {*|null} Parsed schema, or `null` when the schema file is absent
+ * @throws {Error} If the schema cannot be read or parsed
  */
 function loadExistingSchema() {
   if (!fs.existsSync(SCHEMA_PATH)) {
@@ -69,7 +72,7 @@ function loadExistingSchema() {
   }
 
   const content = fs.readFileSync(SCHEMA_PATH, "utf-8");
-  return load(content);
+  return yaml.load(content);
 }
 
 /**

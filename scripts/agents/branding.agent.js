@@ -13,7 +13,10 @@ import * as yaml from "js-yaml";
 // ============================================================================
 
 /**
- * Load footer configuration from footers.yml
+ * Load footer configuration from `.github/automation/footers.yml`.
+ *
+ * @returns {*|null} Parsed configuration, or `null` when the file is absent
+ * @throws {Error} If the configuration cannot be read or parsed
  */
 function loadFooterConfig() {
   const configPath = path.join(process.cwd(), ".github/automation/footers.yml");
@@ -21,7 +24,7 @@ function loadFooterConfig() {
     return null;
   }
   const content = fs.readFileSync(configPath, "utf-8");
-  return load(content);
+  return yaml.load(content);
 }
 
 /**
@@ -210,7 +213,10 @@ async function insertHeaderFooter(filePath, _config = {}, options = {}) {
 // ============================================================================
 
 /**
- * Load badge schema configuration
+ * Load badge schema configuration from `.github/automation/badges.schema.yml`.
+ *
+ * @returns {*|null} Parsed schema, or `null` when the file is absent
+ * @throws {Error} If the schema cannot be read or parsed
  */
 function loadBadgeSchema() {
   const schemaPath = path.join(
@@ -221,7 +227,7 @@ function loadBadgeSchema() {
     return null;
   }
   const content = fs.readFileSync(schemaPath, "utf-8");
-  return load(content);
+  return yaml.load(content);
 }
 
 /**

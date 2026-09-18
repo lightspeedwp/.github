@@ -8,6 +8,10 @@ type: implementation-plan
 created: 2026-08-28
 updated: 2026-08-28
 epic: "#2382"
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
 ---
 
 # Phase 3: Integration, Testing & Release

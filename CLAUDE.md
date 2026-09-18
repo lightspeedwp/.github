@@ -33,6 +33,8 @@ Examples:
 | `release` | Release branch | `release/v1.0.0` |
 | `refactor` | Code refactoring | `refactor/api-response-structure` |
 | `chore` | Maintenance, no code changes | `chore/dependency-updates` |
+| `task` | Scoped unit of work (often project/epic-bound) | `task/authentication-refactor` |
+| `doc` | Single documentation change | `doc/readme-typo-fix` |
 | `docs` | Documentation | `docs/branching-strategy-guide` |
 | `test` | Tests, test infrastructure | `test/integration-test-suite` |
 | `perf` | Performance improvements | `perf/query-optimization` |
@@ -40,6 +42,8 @@ Examples:
 | `build` | Build system, package changes | `build/webpack-config-update` |
 | `deps` | Dependency updates | `deps/upgrade-npm-packages` |
 | `security` | Security fixes | `security/xss-vulnerability-fix` |
+| `revert` | Revert previous commit | `revert/pr-2345-bad-merge` |
+| `research` | Research, investigation | `research/performance-benchmarks` |
 | `design` | Design system, UI | `design/button-component-update` |
 | `a11y` | Accessibility | `a11y/wcag-compliance-audit` |
 | `ux` | User experience | `ux/form-validation-feedback` |
@@ -58,8 +62,9 @@ Examples:
 | `uat` | User acceptance testing | `uat/staging-validation-suite` |
 | `audit` | Audit, compliance, review | `audit/security-code-review` |
 | `codex` | Code generation, AI-assisted | `codex/auto-documentation-tool` |
-| `revert` | Revert previous commit | `revert/pr-2345-bad-merge` |
-| `research` | Research, investigation | `research/performance-benchmarks` |
+| `aiops` | AI operations | `aiops/model-monitoring-update` |
+| `automation` | Workflow automation | `automation/issue-routing-update` |
+| `epic` | Multi-part initiative | `epic/platform-modernisation` |
 
 ### FORBIDDEN Prefixes
 
@@ -103,7 +108,7 @@ Branch '{your-branch}' matches the repository branching strategy.
 
 ### More Information
 
-- **Full rules:** [.github/instructions/branch-naming.instructions.md](./.github/instructions/branch-naming.instructions.md)
+- **Full rules:** [instructions/branch-naming.instructions.md](./instructions/branch-naming.instructions.md)
 - **Strategy guide:** [docs/BRANCHING_STRATEGY.md](./docs/BRANCHING_STRATEGY.md)
 - **PR creation process:** [docs/PR_CREATION_PROCESS.md](./docs/PR_CREATION_PROCESS.md)
 - **Copilot-specific rules:** [.github/custom-instructions.md](./.github/custom-instructions.md)
@@ -150,6 +155,69 @@ git checkout -B {type}/{scope}-{title} origin/develop
 
 This ensures your branch includes all latest development work and integrates cleanly without merge conflicts from diverged histories.
 
+## Specification-First Workflow (SpecKit)
+
+**All feature work follows the specification-first process:**
+
+1. **Create branch** (using correct naming convention above)
+2. **Write specification** (using SpecKit process) documenting user needs and acceptance criteria
+3. **Create draft PR** (when ready for review; not automatic, under your control)
+4. **Request review** from team/stakeholders
+5. **Merge to develop** when approved
+
+### When to Create Draft PR
+
+Create a draft PR when:
+- ✅ Specification is complete and clarified
+- ✅ Implementation plan is solid (you understand the approach)
+- ✅ You're ready for feedback or blocked on decisions
+- ✅ Work is substantial enough to benefit from collaborative input
+
+Do **NOT** create PR automatically after creating a branch. Work in your branch first, plan your approach, then create the PR when ready.
+
+### Specification Process (Recommended)
+
+SpecKit runs as agent skills in `.claude/skills/`, not as npm scripts. Invoke each
+skill by name (for example `/speckit-specify` in Claude Code). Artefacts are written
+to `.github/specs/{feature-slug}/`.
+
+For features, audits, and significant changes:
+
+1. Run the `speckit-specify` skill (creates `.github/specs/{feature-slug}/spec.md`)
+2. Complete spec with: User stories, Requirements, Success Criteria, Assumptions
+3. Run the `speckit-clarify` skill (resolve ambiguities with Q&A)
+4. Run the `speckit-plan` skill (generate implementation plan and research)
+5. Run the `speckit-tasks` skill (decompose into actionable tasks)
+6. Implement tasks, then create draft PR when ready
+
+### Quick Reference
+
+| Phase | Skill | Output | Your Role |
+|-------|-------|--------|-----------|
+| 1. Plan | `speckit-specify` | spec.md | Define requirements |
+| 2. Clarify | `speckit-clarify` | Updated spec with Q&A | Answer ambiguity questions |
+| 3. Design | `speckit-plan` | plan.md, research.md | Approve technical approach |
+| 4. Decompose | `speckit-tasks` | tasks.md | Review task breakdown |
+| 5. Implement | Your tools | Branch with commits | Do the work |
+| 6. PR Review | gh / GitHub UI | Draft PR, review, merge | Collaborate with team |
+
+### For Small Changes
+
+Not all work needs a spec. Use your judgment:
+
+- **Needs spec**: New features, governance changes, architectural decisions, multi-day tasks
+- **Skip spec**: Small bug fixes, one-line documentation updates, routine maintenance
+- **Borderline**: Ask yourself: "Would this benefit from written clarification before starting?" If yes, write a spec.
+
+### Existing Specifications
+
+Browse all active governance specifications in the centralized catalog:
+
+- **[Specification Catalog](./.github/specs/CATALOG.md)** — Complete index of all 13+ specifications with status, description, and direct links
+- **[Maintenance Procedures](./.github/specs/MAINTENANCE.md)** — How to create, update, and archive specifications following the numbering scheme
+
+The catalog provides quick navigation to any specification in <30 seconds. Use it as your starting point for understanding governance requirements and historical context.
+
 ## Development Commands
 
 ```bash
@@ -181,6 +249,31 @@ npm run validate:frontmatter
 - **Performance:** Avoid unnecessary JS, defer/lazy-load where possible, prefer native blocks.
 - **No `references` frontmatter field:** Use inline links or footer sections instead.
 - **Instruction files:** Follow the pattern in `.github/instructions/instructions.instructions.md`—frontmatter + role declaration + Overview + General Rules + Detailed Guidance + Examples + Validation + References.
+
+## 🔒 Configuration Files — LOCKED (CRITICAL)
+
+The following files are **FINAL and manually curated by @ashley**. Do NOT edit these without explicit approval:
+
+| File | Purpose | Status | Change Request |
+|------|---------|--------|-----------------|
+| `.github/labels.yml` | Canonical label definitions (158 labels) | 🔒 LOCKED | Open issue: `[LABEL-UPDATE-REQUEST]` |
+| `.github/issue-types.yml` | Org-wide issue type definitions (24 types) | 🔒 LOCKED | Open issue: `[ISSUE-TYPE-UPDATE-REQUEST]` |
+| `.github/ISSUE_TEMPLATE/*.md` | Issue templates (26 templates) | 🔒 LOCKED | Open issue: `[TEMPLATE-UPDATE-REQUEST]` |
+| `.github/PULL_REQUEST_TEMPLATE/*.md` | PR templates (19 templates) | 🔒 LOCKED | Open issue: `[TEMPLATE-UPDATE-REQUEST]` |
+
+**Why these are locked:**
+- Labels, issue types, and templates are the backbone of org-wide automation, labeling, and metrics
+- Uncontrolled changes break PR template routing, GitHub Actions workflows, and AI agent decision trees
+- Each change requires careful validation, testing, and coordination across dependent systems
+
+**How to request a change:**
+1. Open a new GitHub issue on this repository
+2. Use the appropriate tag: `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]`, or `[TEMPLATE-UPDATE-REQUEST]`
+3. Describe the specific change needed and why
+4. Link to any dependent projects, workflows, or agents that would be affected
+5. Wait for @ashley's explicit approval before implementing any changes
+
+---
 
 ## Label Creation Rules (CRITICAL)
 
@@ -215,6 +308,7 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 | Asset Type | Belongs In |
 | --- | --- |
 | GitHub-native governance (templates, labels, workflows) | `.github/` |
+| Specification files (features, plans, research) | `.github/specs/` |
 | Repo-local Copilot/agent instructions | `.github/instructions/` or `.github/custom-instructions.md` |
 | Reports, audits, metrics | `.github/reports/{category}/` |
 | Active project artefacts | `.github/projects/active/{slug}/` |
@@ -235,7 +329,27 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 
 - [AGENTS.md](./AGENTS.md) — full global AI rules
 - [docs/WORKFLOWS.md](./docs/WORKFLOWS.md) — workflow organisation and distribution strategy
+- [.github/specs/](./.github/specs/) — feature specifications and implementation planning
+- [.specify/](./.specify/) — speckit configuration for feature specification workflow
 - [.github/custom-instructions.md](./.github/custom-instructions.md) — Copilot-specific repo instructions
-- [.github/instructions/coding-standards.instructions.md](./.github/instructions/coding-standards.instructions.md) — unified coding standards
+- [instructions/coding-standards.instructions.md](./instructions/coding-standards.instructions.md) — unified coding standards
 - [.github/instructions/file-organisation.instructions.md](./.github/instructions/file-organisation.instructions.md) — canonical file placement rules
 - [.github/instructions/plugin-structure.instructions.md](./.github/instructions/plugin-structure.instructions.md) — WordPress block plugin structure
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

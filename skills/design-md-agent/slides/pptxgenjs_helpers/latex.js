@@ -24,6 +24,7 @@ function ensureMathJax() {
   } catch (err) {
     throw new Error(
       "mathjax-full is not installed. Run `npm i mathjax-full` or avoid latexToSvgDataUri().",
+      { cause: err },
     );
   }
 }

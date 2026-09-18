@@ -151,7 +151,7 @@ Grey `#9198a1` • Blue `#4393f8` • Green `#3fb950` • Yellow `#d29922` • O
 
 ## Pull Request Templates
 
-Keep a default `pull_request_template.md` and optional specialised templates (release/hotfix/docs/dep-update/ci/refactor/bug/chore/feature) prefilled with label prompts & DoD.
+Use specialised PR templates from `.github/PULL_REQUEST_TEMPLATE/` folder (pr_feature.md, pr_bug.md, pr_hotfix.md, pr_release.md, pr_refactor.md, pr_chore.md, pr_docs.md, pr_ci.md, pr_dep_update.md) routed by branch type. Templates are prefilled with label prompts and Definition of Done checklists.
 
 **Global PR DoD:**
 
@@ -166,3 +166,39 @@ Keep a default `pull_request_template.md` and optional specialised templates (re
 *Type assignment is fully automated and standardized by the unified agent and workflow. All changes are canonical and traceable.*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -97,7 +97,9 @@ function main() {
     for (const l of unknown) console.error(`  - ${l}`);
     process.exit(1);
   } else {
-    console.log("All template and type labels are valid.");
+    console.log(
+      "All template frontmatter, labels, and type mappings are valid.",
+    );
   }
 }
 

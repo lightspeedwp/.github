@@ -5,6 +5,10 @@ phase: 4
 epic: "#1271"
 branch: "feat/changelog-phase-4-guardrails"
 target_date: "2026-08-07"
+file_type: "documentation"
+type: "project-documentation"
+status: "active"
+owner: "lightspeedwp/maintainers"
 ---
 
 # Phase 4: Automation & Guardrails — Implementation Kickoff

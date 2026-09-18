@@ -43,13 +43,21 @@ OpenSpec is a **structured specification system** for tracking and coordinating 
 
 ## Active Specifications
 
-### 1. Agent-Tool Permission Alignment
+### 1. Scripts & Agents Consolidation Audit
+
+**Purpose:** Complete audit and consolidation of project management infrastructure  
+**Status:** ✅ Completed (All 6 phases)  
+**Docs:** [README.md](./changes/scripts-consolidation-audit/README.md)  
+**Epic Issue:** [#2687](https://github.com/lightspeedwp/.github/issues/2687)  
+**Impact:** 37 agents consolidated, 237 tests, 2,500+ lines documentation
+
+### 2. Agent-Tool Permission Alignment
 
 **Purpose:** Canonical contract for agent tool access & permissions  
 **Status:** 🟢 Active (Proposal phase)  
 **Docs:** [proposal.md](./changes/agent-tool-permission-alignment/proposal.md) · [design.md](./changes/agent-tool-permission-alignment/design.md) · [spec.md](./changes/agent-tool-permission-alignment/specs/agent-tool-permission-contract/spec.md)
 
-### 2. Test Coverage Implementation
+### 3. Test Coverage Implementation
 
 **Purpose:** Expand test coverage to 80%+ (62-task programme)  
 **Status:** 🟢 Active (Planning phase)  

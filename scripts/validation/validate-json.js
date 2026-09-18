@@ -34,7 +34,7 @@ const path = require("path");
 const { globSync } = require("glob");
 const Ajv = require("ajv");
 const addFormats = require("ajv-formats");
-const { execSync } = require("child_process");
+const prettier = require("prettier");
 
 // Configuration
 const config = {
@@ -177,29 +177,39 @@ async function formatFiles(files) {
 
   log.info("Formatting JSON files with Prettier...");
 
-  const filesArg = files.map((f) => `"${f}"`).join(" ");
-  const cmd = config.readOnly
-    ? `npx prettier --check --no-config ${filesArg}`
-    : `npx prettier --write --no-config ${filesArg}`;
+  let formatted = 0;
+  let needsFormatting = 0;
+  const prettierOptions = {
+    parser: "json",
+    tabWidth: 2,
+    useTabs: false,
+  };
 
   try {
-    const output = execSync(cmd, { encoding: "utf8", stdio: "pipe" });
-    if (config.verbose && output) {
-      log.debug(output);
+    for (const file of files) {
+      const content = fs.readFileSync(file, "utf8");
+      const formattedContent = await prettier.format(content, prettierOptions);
+
+      if (content !== formattedContent) {
+        needsFormatting++;
+        if (!config.readOnly) {
+          fs.writeFileSync(file, formattedContent, "utf8");
+          formatted++;
+          log.debug(`Formatted: ${file}`);
+        } else {
+          log.debug(`Needs formatting: ${file}`);
+        }
+      }
     }
 
-    const formatted = config.readOnly ? 0 : files.length;
-    log.success(`Formatted ${formatted} file(s)`);
-
-    return { formatted, skipped: 0 };
-  } catch (error) {
-    if (config.readOnly && error.status === 1) {
-      log.warn("Some files need formatting (read-only mode)");
-      if (error.stdout) {
-        console.log(error.stdout.toString());
-      }
+    if (config.readOnly && needsFormatting > 0) {
+      log.warn(`${needsFormatting} file(s) need formatting (read-only mode)`);
       return { formatted: 0, skipped: files.length };
     }
+
+    log.success(`Formatted ${formatted} file(s)`);
+    return { formatted, skipped: files.length - formatted };
+  } catch (error) {
     log.error(`Prettier failed: ${error.message}`);
     throw error;
   }

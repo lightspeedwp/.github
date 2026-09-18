@@ -1,268 +1,153 @@
 #!/usr/bin/env node
 
 /**
- * Validate branch names against the repository branching strategy.
+ * CLI for validating branch names against the repository branching strategy.
  *
- * @module scripts/validation/validate-branch-name
+ * Usage:
+ *   npm run validate:branch-name -- --branch <name>
+ *   npm run validate:branch-name -- --current
+ *   npm run validate:branch-name -- --json
+ *   npm run validate:branch-name -- --help
+ *
+ * Exit Codes:
+ *   0 = valid branch name
+ *   1 = invalid branch name
+ *   2 = execution error (e.g., cannot get current branch)
  */
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+import { execSync } from "child_process";
+import {
+  validateBranchName,
+  formatErrorMessage,
+} from "../../lib/validate-branch-name.js";
 
-const ALLOWED_PREFIXES = [
-  "feat",
-  "fix",
-  "hotfix",
-  "release",
-  "refactor",
-  "chore",
-  "docs",
-  "test",
-  "perf",
-  "ci",
-  "build",
-  "deps",
-  "security",
-  "revert",
-  "research",
-  "design",
-  "a11y",
-  "ux",
-  "i18n",
-  "ops",
-  "proto",
-  "ds",
-  "api",
-  "schema",
-  "telemetry",
-  "content",
-  "seo",
-  "config",
-  "migrate",
-  "qa",
-  "uat",
-  "audit",
-  "codex",
-];
+// Parse command-line arguments
+const args = process.argv.slice(2);
+const showHelp = args.includes("--help") || args.includes("-h");
+const jsonOutput = args.includes("--json");
+const useCurrent = args.includes("--current");
+const branchArgIndex = args.indexOf("--branch");
+const explicitBranch = branchArgIndex !== -1 ? args[branchArgIndex + 1] : null;
 
-const BOT_PREFIXES = /^(dependabot|renovate)\//;
-const AUDIT_BRANCH_PATTERN = /^pr-\d+-audit$/;
-const PROTECTED_BRANCHES = new Set(["main", "develop"]);
-// release branches allow EITHER semantic versioning (v1.0.0) or standard format (release/scope-title)
-const BRANCH_PATTERN_RELEASE_SEMVER = /^release\/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$/;
-const BRANCH_PATTERN_RELEASE_STANDARD =
-  /^release\/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$/;
-const BRANCH_PATTERN_STANDARD = new RegExp(
-  `^(${ALLOWED_PREFIXES.filter((p) => p !== "release").join("|")})/([a-z0-9]+(?:-[a-z0-9]+)*)-([a-z0-9]+(?:-[a-z0-9]+)*)$`,
-);
+function showUsage() {
+  console.log(`
+Validate branch names against the repository branching strategy.
 
-function getArgValue(flag) {
-  const index = process.argv.indexOf(flag);
+Usage:
+  npm run validate:branch-name -- [OPTIONS]
 
-  if (index === -1 || index === process.argv.length - 1) {
-    return "";
-  }
+Options:
+  --branch <name>   Validate a specific branch name
+  --current         Validate the current Git branch
+  --json            Output results as JSON (for machine parsing)
+  --help            Show this help message
 
-  return process.argv[index + 1].trim();
+Exit Codes:
+  0 = valid branch name
+  1 = invalid branch name
+  2 = execution error
+
+Examples:
+  npm run validate:branch-name -- --branch feat/user-auth
+  npm run validate:branch-name -- --current
+  npm run validate:branch-name -- --branch fix/bug-fix --json
+
+Pattern: {type}/{scope}-{title}
+
+Allowed Types (24):
+  feat, fix, hotfix, release, refactor, chore, task, docs, test, perf,
+  ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds,
+  audit, codex, revert, research
+
+Forbidden Prefixes:
+  claude/, copilot/, openai/
+`);
 }
 
-function resolveBranchName() {
-  const explicitBranch = getArgValue("--branch");
-
-  if (explicitBranch) {
-    return explicitBranch;
-  }
-
-  const envBranch =
-    process.env.BRANCH_NAME ||
-    process.env.GITHUB_HEAD_REF ||
-    process.env.GITHUB_REF_NAME ||
-    "";
-
-  if (envBranch.trim()) {
-    return envBranch.trim();
-  }
-
+function getCurrentBranch() {
   try {
-    return execSync("git branch --show-current", {
-      stdio: ["ignore", "pipe", "ignore"],
-      encoding: "utf8",
+    return execSync("git rev-parse --abbrev-ref HEAD", {
+      encoding: "utf-8",
     }).trim();
-  } catch (_err) {
-    return "";
-  }
-}
-
-function resolveBaseBranch() {
-  const explicitBase = getArgValue("--base");
-
-  if (explicitBase) {
-    return explicitBase;
-  }
-
-  const envBase = process.env.GITHUB_BASE_REF || process.env.BASE_BRANCH || "";
-
-  return envBase.trim();
-}
-
-function isAllowed(branchName) {
-  return (
-    PROTECTED_BRANCHES.has(branchName) ||
-    BOT_PREFIXES.test(branchName) ||
-    AUDIT_BRANCH_PATTERN.test(branchName) ||
-    BRANCH_PATTERN_RELEASE_SEMVER.test(branchName) ||
-    BRANCH_PATTERN_RELEASE_STANDARD.test(branchName) ||
-    BRANCH_PATTERN_STANDARD.test(branchName)
-  );
-}
-
-function checkBaseBranch(branchName, baseBranch) {
-  if (!baseBranch) {
-    return { valid: true };
-  }
-
-  if (baseBranch === "main") {
-    const isReleaseOrHotfix =
-      branchName.startsWith("release/") ||
-      branchName.startsWith("hotfix/") ||
-      PROTECTED_BRANCHES.has(branchName) ||
-      BOT_PREFIXES.test(branchName);
-
-    if (!isReleaseOrHotfix) {
-      return {
-        valid: false,
-        message: `❌ Policy Violation: Only release/* or hotfix/* branches may merge into main. Received '${branchName}' targeting 'main'.`,
-      };
-    }
-  }
-
-  if (baseBranch === "develop") {
-    if (branchName === "main") {
-      return {
-        valid: false,
-        message: `❌ Policy Violation: Merging the 'main' branch back into 'develop' directly is not allowed. Received '${branchName}' targeting 'develop'.`,
-      };
-    }
-  }
-
-  return { valid: true };
-}
-
-function checkBranchReuse(branchName) {
-  if (PROTECTED_BRANCHES.has(branchName) || BOT_PREFIXES.test(branchName)) {
-    return { reused: false };
-  }
-
-  // 1. Check if the branch has already been merged into develop or main via git log
-  try {
-    // Search for squash merges/merges containing the branch name
-    const gitCmd = `git log --all --grep="from ${branchName}" --grep="${branchName} (#" --oneline`;
-    const output = execSync(gitCmd, {
-      stdio: ["ignore", "pipe", "ignore"],
-      encoding: "utf8",
-    }).trim();
-
-    if (output) {
-      return {
-        reused: true,
-        reason: `Found merge/squash commits for this branch in Git log:\n${output}`,
-      };
-    }
   } catch {
-    // Log search can fail if git history is not initialized, ignore and continue
+    return null;
   }
-
-  // 2. Check CHANGELOG.md for the branch name reference
-  try {
-    const changelogPath = path.resolve(__dirname, "../../CHANGELOG.md");
-    if (fs.existsSync(changelogPath)) {
-      const changelog = fs.readFileSync(changelogPath, "utf8");
-      if (changelog.includes(branchName)) {
-        return {
-          reused: true,
-          reason: `Branch name '${branchName}' is already referenced in CHANGELOG.md.`,
-        };
-      }
-    }
-  } catch {
-    // Ignore FS/path resolve errors
-  }
-
-  return { reused: false };
 }
 
-function printFailure(branchName) {
-  console.error(`Branch '${branchName}' does not follow the required format.`);
-  console.error(
-    "Expected: {type}/{scope}-{short-title} (see docs/BRANCHING_STRATEGY.md)",
-  );
-  console.error(`Allowed prefixes: ${ALLOWED_PREFIXES.join(", ")}`);
-  console.error("Audit replay branches: pr-<number>-audit");
-  console.error(
-    "Examples: fix/frontmatter-validation, docs/canonical-configs-guide, ops/branch-governance-guardrails",
-  );
+function validateAndOutput(branchName) {
+  const result = validateBranchName(branchName);
+
+  if (jsonOutput) {
+    // JSON output for machine parsing
+    console.log(
+      JSON.stringify(
+        {
+          branch: branchName,
+          valid: result.valid,
+          type: result.type,
+          scope: result.scope,
+          title: result.title,
+          errors: result.errors,
+          suggested_name: result.suggested_name,
+        },
+        null,
+        2,
+      ),
+    );
+  } else {
+    // Human-readable output
+    if (result.valid) {
+      console.log(`✅ Branch '${branchName}' is valid`);
+    } else {
+      console.log(formatErrorMessage(branchName, result));
+    }
+  }
+
+  process.exit(result.valid ? 0 : 1);
 }
 
 function main() {
-  if (
-    process.env.GITHUB_REF_TYPE === "tag" ||
-    (process.env.GITHUB_REF && process.env.GITHUB_REF.startsWith("refs/tags/"))
-  ) {
-    console.log("Running on a tag. Skipping branch name validation.");
+  if (showHelp) {
+    showUsage();
     process.exit(0);
   }
 
-  const branchName = resolveBranchName();
-  const baseBranch = resolveBaseBranch();
+  // Determine which branch to validate
+  let branchName;
 
-  if (!branchName) {
-    console.warn(
-      "No active branch detected (possibly detached HEAD). Skipping branch name validation.",
-    );
-    process.exit(0);
+  if (explicitBranch) {
+    branchName = explicitBranch;
+  } else if (useCurrent) {
+    branchName = getCurrentBranch();
+    if (!branchName) {
+      console.error("❌ Error: Could not determine current Git branch");
+      process.exit(2);
+    }
+  } else {
+    // Default: use current branch
+    branchName = getCurrentBranch();
+    if (!branchName) {
+      if (jsonOutput) {
+        console.log(
+          JSON.stringify(
+            {
+              error: "Could not determine current Git branch",
+              branch: null,
+              valid: false,
+            },
+            null,
+            2,
+          ),
+        );
+      } else {
+        console.error("❌ Error: Could not determine current Git branch");
+        console.error("Use --branch <name> to validate a specific branch");
+      }
+      process.exit(2);
+    }
   }
 
-  // Check 1: Naming Convention
-  if (!isAllowed(branchName)) {
-    printFailure(branchName);
-    process.exit(1);
-  }
-
-  // Check 2: Base Branch Rules
-  const baseCheck = checkBaseBranch(branchName, baseBranch);
-  if (!baseCheck.valid) {
-    console.error(baseCheck.message);
-    process.exit(1);
-  }
-
-  // Check 3: Branch Reuse Prevention
-  const reuseCheck = checkBranchReuse(branchName);
-  if (reuseCheck.reused) {
-    console.error(
-      `❌ Policy Violation: Branch '${branchName}' has already been merged or completed and cannot be reused for new work batches.`,
-    );
-    console.error(`Reason: ${reuseCheck.reason}`);
-    process.exit(1);
-  }
-
-  console.log(
-    `Branch '${branchName}' matches the repository branching strategy.`,
-  );
+  validateAndOutput(branchName);
 }
 
-if (require.main === module) {
-  main();
-}
-
-// Export for unit tests
-module.exports = {
-  ALLOWED_PREFIXES,
-  BOT_PREFIXES,
-  PROTECTED_BRANCHES,
-  isAllowed,
-  checkBaseBranch,
-  checkBranchReuse,
-  resolveBranchName,
-  resolveBaseBranch,
-};
+main();

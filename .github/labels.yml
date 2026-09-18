@@ -1,6 +1,10 @@
-# Org-wide Canonical Labels (Issues, PRs, Discussions)
+# 🔒 LOCKED — Org-wide Canonical Labels (Issues, PRs, Discussions)
+# ⚠️  This file is FINAL and manually curated by @ashley. Do NOT edit without explicit approval.
+#
 # All labeling, status, type, and standardization is handled by the unified labeling agent and workflow.
 # This file is the single source of truth for all automation and label configuration.
+#
+# TO REQUEST CHANGES: Open a GitHub issue with [LABEL-UPDATE-REQUEST] in the title and describe the change needed.
 
 # --- Status ---
 
@@ -80,6 +84,17 @@
   color: 0E8A16
   description: "Completed"
 
+- name: status:completed
+  color: ededed
+  description: ""
+  # Overlaps status:done in meaning; kept as a separate declaration because
+  # it is already applied to real issues (e.g. bulk-label-issues.sh) and a
+  # rename would require re-labeling those issues, not just this file.
+
+- name: status:needs-audit
+  color: 7E6007
+  description: "Audit needed (security/compliance/quality)"
+
 # --- Priority ---
 
 - name: priority:critical
@@ -97,6 +112,17 @@
 - name: priority:minor
   color: C2E0C6
   description: "Low priority / nice to have"
+
+- name: priority:high
+  color: ededed
+  description: ""
+  # Overlaps priority:important; kept as a separate declaration for the same
+  # reason as status:completed above — already applied to real issues.
+
+- name: priority:low
+  color: ededed
+  description: ""
+  # Overlaps priority:minor; see priority:high above.
 
 # --- Types (Issue Types) ---
 
@@ -120,29 +146,33 @@
   color: AB7DF8
   description: "Large multi-scope initiative"
 
-- name: type:story
+- name: type:question
   color: 4393F8
-  description: "User story"
+  description: "Question or enquiry"
 
 - name: type:improve
   color: 9198A1
   description: "Improvement to existing behaviour/UX"
 
-- name: type:refactor
+- name: type:chore
   color: 9198A1
-  description: "Refactor or internal change"
+  description: "Routine task or maintenance update"
 
-- name: type:build
+- name: type:ci
   color: 4393F8
-  description: "Build & CI"
+  description: "CI"
 
 - name: type:automation
   color: 4393F8
-  description: "Automation"
+  description: "Automation tasks or scripts"
 
 - name: type:test
   color: D29922
-  description: "Testing/coverage"
+  description: "Test coverage"
+
+- name: type:decision
+  color: BFD4F2
+  description: "Decision record"
 
 - name: type:performance
   color: D29922
@@ -156,23 +186,23 @@
   color: 9F3734
   description: "Security issue"
 
-- name: type:compatibility
+- name: type:compat
   color: 8D4821
   description: "Compatibility"
 
-- name: type:integration
-  color: 8D4821
-  description: "Integration"
+- name: type:refactor
+  color: 9198A1
+  description: "Refactor or internal change"
 
 - name: type:release
   color: 3FB950
   description: "Release"
 
-- name: type:maintenance
+- name: type:dependency
   color: 9198A1
-  description: "Maintenance"
+  description: "Dependency update or management"
 
-- name: type:documentation
+- name: type:docs
   color: 9198A1
   description: "Documentation"
 
@@ -180,23 +210,15 @@
   color: 9198A1
   description: "Research / investigation"
 
-- name: type:chore
-  color: 9198A1
-  description: "Chore / small hygiene change"
-
 - name: type:audit
   color: 9198A1
   description: "Audit"
 
-- name: type:qa
-  color: D29922
-  description: "Quality assurance"
-
 - name: type:review
-  color: 4393F8
+  color: D29922
   description: "Code or design review task"
 
-- name: type:ai-ops
+- name: type:aiops
   color: 4393F8
   description: "AI Ops"
 
@@ -204,41 +226,9 @@
   color: AB7DF8
   description: "Content Modelling"
 
-- name: type:question
+- name: type:build
   color: 4393F8
-  description: "Question or enquiry"
-
-- name: type:ux-feedback
-  color: AB7DF8
-  description: "User experience feedback"
-
-- name: type:help
-  color: 4393F8
-  description: "Help or support request"
-
-- name: type:support
-  color: 4393F8
-  description: "Support or assistance needed"
-
-- name: type:ui
-  color: 3FB950
-  description: "User interface work"
-
-- name: type:enhancement
-  color: 3FB950
-  description: "Enhancement or improvement"
-
-- name: type:ci
-  color: 4393F8
-  description: "CI/CD and continuous integration"
-
-- name: type:dependency
-  color: 8D4821
-  description: "Dependency update or management"
-
-- name: type:investigation
-  color: 9198A1
-  description: "Investigation or research task"
+  description: "Build tasks or processes"
 
 # --- Meta / housekeeping ---
 
@@ -289,6 +279,18 @@
 - name: area:core
   color: C5DEF5
   description: "Core / shared infrastructure"
+
+- name: area:governance
+  color: ededed
+  description: ""
+
+- name: area:qa
+  color: C5DEF5
+  description: "QA & testing (task-level)"
+
+- name: area:operations
+  color: C5DEF5
+  description: "Operations & infra (task-level)"
 
 - name: area:block-editor
   color: C5DEF5
@@ -373,6 +375,74 @@
 - name: area:integration
   color: D93F0B
   description: "3rd-party integrations / ecosystem"
+
+- name: area:automation
+  color: 0F448A
+  description: "Automation and scripting"
+
+- name: area:testing
+  color: 4D1A93
+  description: "Testing and QA"
+
+- name: area:performance
+  color: 7E6007
+  description: "Performance optimization"
+
+- name: area:a11y
+  color: 4D1A93
+  description: "Accessibility (WCAG compliance)"
+
+- name: area:security
+  color: 810E18
+  description: "Security concerns and fixes"
+
+- name: area:compatibility
+  color: 883D07
+  description: "Compatibility issues"
+
+- name: area:release
+  color: 1D7232
+  description: "Release management"
+
+- name: area:maintenance
+  color: 4E575F
+  description: "Maintenance and housekeeping"
+
+- name: area:ai
+  color: 0F448A
+  description: "AI operations and AI-related work"
+
+- name: area:agents
+  color: 0F448A
+  description: "AI agents and agent-related work"
+
+- name: area:skills
+  color: 0F448A
+  description: "AI skills and skill-related work"
+
+- name: area:instructions
+  color: 0F448A
+  description: "AI instructions and instruction-related work"
+
+- name: area:prompts
+  color: 0F448A
+  description: "AI prompts and prompt-related work"
+
+- name: area:playwright
+  color: 4D1A93
+  description: "Playwright testing and E2E automation"
+
+- name: area:jest
+  color: 4D1A93
+  description: "Jest unit and integration testing"
+
+- name: area:phpunit
+  color: 4D1A93
+  description: "PHPUnit testing framework"
+
+- name: area:pagespeed
+  color: 7E6007
+  description: "PageSpeed Insights, performance monitoring, and metrics"
 
 # --- Components (comp:*) ---
 
@@ -612,52 +682,38 @@
 
 # --- Openspec Status ---
 
-- name: openspec:status/discovery
+- name: openspec:discovery
   color: FBCA04
   description: "Openspec discovery phase - component identified and audited"
 
-- name: openspec:status/planning
+- name: openspec:planning
   color: FF6600
   description: "Openspec planning phase - improvement plan documented"
 
-- name: openspec:status/implementation
-  color: 0052CC
-  description: "Openspec implementation phase - component being built/improved"
+- name: openspec:specification-in-progress
+  color: FF6600
+  description: "Openspec in-progress phase - component being actively worked on"
 
-- name: openspec:status/testing
+- name: openspec:specification-complete
+  color: FF6600
+  description: "Openspec specification complete - component specification finalized"
+
+- name: openspec:implementation-pending
+  color: 0052CC
+  description: "Openspec implementation pending - component awaiting being built/improved"
+
+- name: openspec:implementation-in-progress
+  color: 0052CC
+  description: "Openspec implementation phase - component actively being built/improved"
+
+- name: openspec:status-testing
   color: 9B00CC
   description: "Openspec testing phase - component being tested and validated"
 
-- name: openspec:status/production
+- name: openspec:status-production
   color: 28A745
   description: "Openspec production - component complete and production-ready"
 
-- name: openspec:status/deprecated
-  color: 6F42C1
-  description: "Openspec deprecated - component no longer active"
-
-# --- OpenSpec Phase Labels (Specification & Implementation) ---
-
-- name: openspec:specification-pending
-  color: C5DEF5
-  description: "OpenSpec specification needed - phase documentation awaiting review/approval"
-
-- name: openspec:specification-in-progress
-  color: F2D06D
-  description: "OpenSpec specification in progress - phase requirements/success criteria being finalized"
-
-- name: openspec:specification-complete
-  color: 1A7F37
-  description: "OpenSpec specification complete - phase requirements locked; ready for implementation"
-
-- name: openspec:implementation-pending
-  color: C5DEF5
-  description: "OpenSpec implementation pending - phase awaiting execution start"
-
-- name: openspec:implementation-in-progress
-  color: F2D06D
-  description: "OpenSpec implementation in progress - phase actively being executed"
-
 - name: openspec:implementation-complete
-  color: 1A7F37
-  description: "OpenSpec implementation complete - phase completed; success criteria met"
+  color: 6F42C1
+  description: "Openspec implementation complete - component no longer active"

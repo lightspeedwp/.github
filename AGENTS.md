@@ -31,7 +31,7 @@ references:
 - Accessibility and performance are non‑negotiable; highlight potential issues during reviews.
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.
 - When unsure, propose safe defaults and ask **one** focused question to clarify requirements.
-- Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `MIGRATION_GUIDE.md`).
+- Core instructions consolidated: see `instructions/{languages,documentation-formats,quality-assurance,automation,community-standards}.instructions.md` (mapping in `docs/MIGRATION_GUIDE.md`).
 
 ## Agent Directory
 
@@ -49,47 +49,114 @@ references:
 
 ---
 
-## Branch Naming Governance (CRITICAL)
+## Repository Scripts Organisation (CRITICAL)
 
-**All branches MUST follow this pattern:** `{type}/{scope}-{title}`
+**ALL repository scripts MUST be placed in `scripts/` at the root, NOT in `.github/scripts/`.**
 
-This is enforced globally across all LightSpeed projects. See [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) for complete details, 34 allowed type values, examples, and why this matters.
+### Correct Script Locations
+
+```text
+✅ scripts/automation/        - Automation and workflow scripts
+✅ scripts/metrics/           - Metrics collection and analysis
+✅ scripts/telemetry/         - Telemetry instrumentation
+✅ scripts/release/           - Release preparation and validation
+✅ scripts/validation/        - Validation and linting scripts
+✅ scripts/badges/            - Badge generation scripts
+✅ scripts/agents/            - Agent runner scripts
+✅ scripts/workflows/         - Agentic workflow orchestration
+
+❌ .github/scripts/           - DO NOT CREATE - Reserved for GitHub governance only
+```
+
+### The ONLY Exception
+
+- `.github/agentic-workflows/` - Agent specifications for repository governance automation
+
+Website browser-specific JavaScript belongs in `website/src/scripts/` (the site's own source tree), not under `.github/`.
+
+### Why This Matters
+
+- `.github/` is for **GitHub-native governance files** (templates, workflows, configs)
+- `scripts/` is for **executable code** that powers the repository
+- Mixing these creates confusion about file ownership and purpose
+- Import paths become inconsistent when scripts are in the wrong location
+
+### Enforcement
+
+When creating any new script:
+
+1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
+2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
+3. **Known exception**: `.github/agentic-workflows/` (repo governance agents)
+4. **Never use `.github/scripts/`** - This directory should not exist for new work
+5. **Update imports**: Ensure all imports use correct paths from `scripts/`
 
 ### Quick Reference
 
-✅ **Correct:**
+| You're Creating | Put It In | NOT In |
+| --- | --- | --- |
+| A telemetry client | `scripts/telemetry/` | ~~`.github/scripts/telemetry/`~~ |
+| An automation script | `scripts/automation/` | ~~`.github/scripts/automation/`~~ |
+| A metrics collector | `scripts/metrics/` | ~~`.github/scripts/metrics/`~~ |
+| A release validator | `scripts/release/` | ~~`.github/scripts/release/`~~ |
+| A workflow orchestrator | `scripts/workflows/` | ~~`.github/scripts/workflows/`~~ |
+| Website JS (browser) | `website/src/scripts/` | ~~`.github/website/src/scripts/`~~ |
+
+## Branch Naming Governance (CRITICAL) — Non-Negotiable
+
+**⚠️ ALL branches MUST follow this pattern:** `{type}/{scope}-{title}`
+
+**This is a non-negotiable constraint enforced globally across all LightSpeed projects.** Branch naming determines PR template routing, GitHub Actions workflow assignment, validation checks, and downstream automation. Violations break critical systems.
+
+### The Rule (Absolute)
+
+✅ **MUST use**:
 
 - `feat/governance-audit-implementation`
 - `fix/pr-template-routing-bug`
 - `docs/branching-strategy-guide`
+- `audit/security-review-2026`
+- `refactor/api-response-structure`
 
-❌ **Forbidden (never use):**
+❌ **NEVER use** (FORBIDDEN prefixes):
 
 - `claude/something` — Reserved for Claude Code internal sessions
 - `copilot/something` — Reserved for GitHub Copilot integration
 - `openai/something` — Reserved for OpenAI integration
+- `feature/...` — Use `feat/` instead
+- Bare names without prefix — Always use `{type}/`
 
-### Why This Matters
+### Consequences of Non-Compliance
 
-Incorrect branch names cause:
+Incorrect branch names cause **cascading failures**:
 
-1. PR template assignment failures
-2. GitHub Actions workflow failures
-3. Validation check failures
-4. Downstream automation breaks
+1. **PR template routing fails** — Wrong template selected, team cannot see full PR context
+2. **GitHub Actions workflows skip** — Validation and automation bypassed
+3. **Validation checks fail** — Branch name validation rejects invalid prefixes
+4. **Downstream automation breaks** — Release, metrics, and labeling workflows fail
+5. **Manual fixes required** — You must delete PR, rename branch, recreate PR (wasted time and CI credits)
 
-### Before You Push
+### Before You Push (Mandatory)
 
 ```bash
 npm run validate:branch-name -- --branch <your-branch>
 ```
 
-### Full Reference
+**Expected output:**
 
-- **Complete guidance:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (34 types, examples, consequences)
-- **Detailed rules:** [.github/instructions/branch-naming.instructions.md](.github/instructions/branch-naming.instructions.md)
-- **Strategy doc:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
-- **Copilot-specific:** [.github/custom-instructions.md](.github/custom-instructions.md)
+```
+Branch '{your-branch}' matches the repository branching strategy.
+```
+
+If validation fails, rename your branch before pushing.
+
+### Complete Reference & 38 Allowed Types
+
+- **Authority:** [CLAUDE.md — Branch Naming](CLAUDE.md#-branch-naming--critical-read-first) (primary source, 38 types, full consequences, examples)
+- **Canonical list:** [scripts/validation/validate-branch-name.cjs](scripts/validation/validate-branch-name.cjs) — the validator is the single source of truth for the 38 authorised types
+- **Detailed rules:** [instructions/branch-naming.instructions.md](instructions/branch-naming.instructions.md)
+- **Strategy guide:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
+- **Copilot notes:** [.github/custom-instructions.md](.github/custom-instructions.md)
 
 ---
 
@@ -115,19 +182,64 @@ npm run validate:branch-name -- --branch <your-branch>
 
 ---
 
-## Label Creation Governance (CRITICAL)
+## 🔒 Locked Configuration Files (CRITICAL)
 
-When your code creates issues via `gh issue create` or GitHub API:
+The following files are **FINAL and manually curated**. Do NOT edit these without explicit approval from @ashley:
 
-1. **Always validate labels against canonical set** (`.github/labels.yml`)
-2. **All labels MUST include family prefix**:
-   - `type:*` for issue classification (bug, feature, documentation, task, design, etc.)
-   - `status:*` for workflow state (needs-triage, ready, in-progress, blocked, done, etc.)
-   - `priority:*` for urgency (critical, important, normal, minor)
-   - `area:*` for domain/component (ci, docs, security, labels, tests, scripts, etc.)
-   - `meta:*` for automation markers (needs-changelog, has-pr, duplicate, etc.)
+| File | Purpose | Reason for Lock | Change Process |
+|------|---------|-----------------|-----------------|
+| `.github/labels.yml` | Canonical label definitions (158 labels across 8 families) | Backbone of labeling automation, metrics, and workflows | Open `[LABEL-UPDATE-REQUEST]` issue |
+| `.github/issue-types.yml` | Org-wide issue type definitions (24 types) | Used by GitHub native issue types and AI agent routing | Open `[ISSUE-TYPE-UPDATE-REQUEST]` issue |
+| `.github/ISSUE_TEMPLATE/*.md` | 26 issue templates with frontmatter & routing | Uncontrolled changes break template selection and automation | Open `[TEMPLATE-UPDATE-REQUEST]` issue |
+| `.github/PULL_REQUEST_TEMPLATE/*.md` | 19 PR templates with branch prefix routing | PR template assignment depends on branch naming prefixes | Open `[TEMPLATE-UPDATE-REQUEST]` issue |
 
-### Example: Creating an issue with correct labels
+**Why These Are Locked:**
+
+1. **Label synchronization**: Changes must sync across `.github/labels.yml`, GitHub org settings, automation workflows, and AI agent rules
+2. **Template routing**: PR templates route by branch prefix; issue templates route by issue type. Breaking routing cascades across all workflows
+3. **Automation dependencies**: 15+ GitHub Actions workflows, scripts, and AI agents depend on these configs
+4. **Data integrity**: Changes affect 300+ existing issues and PRs; improper changes can corrupt label history
+
+**Process for Requesting Changes:**
+
+1. Open a GitHub issue with the appropriate tag:
+   - `[LABEL-UPDATE-REQUEST]` — To add, modify, or remove labels
+   - `[ISSUE-TYPE-UPDATE-REQUEST]` — To add, modify, or remove issue types
+   - `[TEMPLATE-UPDATE-REQUEST]` — To add, modify, or remove templates
+2. Describe:
+   - The specific change needed
+   - Why it's needed (business case, issue link, user feedback)
+   - Any dependent systems it affects (workflows, agents, scripts)
+   - Test plan for validation
+3. Link to the following projects for context:
+   - [issue-and-pr-template-improvements](./.github/projects/active/issue-and-pr-template-improvements/)
+   - [openspec-labels-automation](./.github/projects/active/openspec-labels-automation/)
+4. Wait for explicit approval from @ashley before implementing any changes
+
+**Last Updated:**
+
+- **Labels:** 2026-09-09 (158 labels, 8 families, OpenSpec phases included)
+- **Issue Types:** 2026-09-09 (24 types aligned with GitHub native types)
+- **Templates:** 2026-09-09 (26 issue, 19 PR templates with standardized frontmatter)
+
+---
+
+## Label Creation Governance (CRITICAL) — Consolidated
+
+**When your code creates issues or PRs**: Use `gh issue create`, `gh pr create`, or GitHub API. **All labels MUST include family prefix** — never apply bare labels.
+
+### The Rule
+
+1. **Always validate labels against the canonical set** (`.github/labels.yml`)
+2. **ALL labels MUST include their family prefix** — no bare labels (e.g., `feature` is invalid; use `type:feature`)
+3. **Prefix families and their domains**:
+   - `type:*` — issue classification (bug, feature, documentation, task, design, security, performance, a11y)
+   - `status:*` — workflow state (needs-triage, ready, in-progress, blocked, review, done)
+   - `priority:*` — urgency (critical, high, important, normal, low, minor)
+   - `area:*` — domain/component (ci, docs, security, labels, tests, scripts, automation, etc.)
+   - `meta:*` — automation markers (needs-changelog, has-pr, duplicate, needs-audit)
+
+### Example: Creating an Issue with Correct Labels
 
 ```bash
 # ✅ CORRECT — All labels use required prefixes
@@ -139,7 +251,7 @@ gh issue create \
   --label "priority:normal" \
   --label "status:needs-triage"
 
-# ❌ INCORRECT — Bare labels without prefixes
+# ❌ INCORRECT — Bare labels without prefixes (DO NOT USE)
 gh issue create \
   --title "Add support for new widget configuration" \
   --body "Users need to configure widgets via JSON..." \
@@ -149,22 +261,29 @@ gh issue create \
   --label "needs-triage"
 ```
 
-### Validation Checklist
+### Pre-Creation Validation Checklist
 
-Before creating any issue programmatically:
+Before creating any issue or PR programmatically:
 
 - [ ] Each label exists in `.github/labels.yml`
-- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, etc.)
-- [ ] No bare labels (labels without colons are invalid)
+- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, `priority:`, `meta:`)
+- [ ] No bare labels without colons
+- [ ] Canonical case (lowercase, hyphens for spaces)
 
-**Reference**: `.github/scripts/validation/validate-labels-before-creation.cjs`
+### References & Validation
+
+- **Canonical labels**: `.github/labels.yml` (158 prefixed labels across 8 families)
+- **Label taxonomy**: `docs/LABEL_STRATEGY.md`
+- **Labeling guide**: `docs/LABELING.md`
+- **Governance audit**: [Issue #1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Enforcement
+- **Validation script**: `scripts/validation/validate-labels-before-creation.cjs`
 
 ---
 
 ## PR Templates
 
-- Use the default PR template: [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)
-- Additional PR templates are available in: [.github/PULL_REQUEST_TEMPLATE/](.github/PULL_REQUEST_TEMPLATE/)
+- PR templates live in [.github/PULL_REQUEST_TEMPLATE/](.github/PULL_REQUEST_TEMPLATE/) and are routed by branch prefix.
+- See [.github/PULL_REQUEST_TEMPLATE/README.md](.github/PULL_REQUEST_TEMPLATE/README.md) for the branch-prefix-to-template map.
   - Use the template most relevant to your change (e.g. feature, fix, documentation, etc.)
 
 ---
@@ -187,62 +306,7 @@ Start here for all key standards:
 | **Claude Instructions**   | [CLAUDE.md](CLAUDE.md)                                           | Claude-specific project instructions; companion to this file       |
 | **Main Agent Index**      | [agents/agent.md](agents/agent.md)                               | Directory of agent specs, stubs, usage, implementation             |
 | **Prompts Index**         | [.github/prompts/prompts.md](.github/prompts/prompts.md)         | Legacy prompt index pending skills/cookbook migration              |
-| **Instruction Migration** | [MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)                         | Mapping from legacy instruction files to the 5 consolidated guides |
-
----
-
-## Label Creation Governance (CRITICAL)
-
-### For Programmatic Issue and PR Creation
-
-When your code creates issues or PRs via `gh issue create`, `gh pr create`, or GitHub API:
-
-1. **Always validate labels against the canonical set** (`.github/labels.yml`)
-2. **ALL labels MUST include family prefix** — never apply bare labels
-3. **Prefix families and examples**:
-   - `type:*` — bug, feature, documentation, task, design, security, performance, a11y
-   - `status:*` — needs-triage, ready, in-progress, blocked, review, done
-   - `priority:*` — critical, high, normal, low
-   - `area:*` — ci, docs, security, labels, tests, scripts, automation, etc.
-   - `meta:*` — needs-changelog, has-pr, duplicate, needs-audit
-
-### Example: Creating an Issue with Correct Labels
-
-```bash
-# ✅ CORRECT — All labels use required prefixes
-gh issue create \
-  --title "Add support for new widget configuration" \
-  --body "Users need to configure widgets via JSON..." \
-  --label "type:feature" \
-  --label "area:core" \
-  --label "priority:normal" \
-  --label "status:needs-triage"
-
-# ❌ INCORRECT — Bare labels without prefixes (DO NOT USE)
-gh issue create \
-  --title "Add support for new widget configuration" \
-  --body "Users need to configure widgets via JSON..." \
-  --label "feature" \
-  --label "core" \
-  --label "normal" \
-  --label "needs-triage"
-```
-
-### Pre-Creation Validation Checklist
-
-Before creating any issue or PR programmatically:
-
-- [ ] Each label exists in `.github/labels.yml`
-- [ ] Each label includes its family prefix (`type:`, `status:`, `area:`, `priority:`, `meta:`)
-- [ ] No bare labels without colons
-- [ ] Canonical case (lowercase, hyphens for spaces)
-
-### References
-
-- **Canonical labels**: `.github/labels.yml` (158 prefixed labels)
-- **Label taxonomy**: `docs/LABEL_STRATEGY.md`
-- **Labeling guide**: `docs/LABELING.md`
-- **Governance audit**: [Issue #1592](https://github.com/lightspeedwp/.github/issues/1592) — Label Prefix Enforcement
+| **Instruction Migration** | [docs/MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md)                    | Mapping from legacy instruction files to the 5 consolidated guides |
 
 ---
 
@@ -256,6 +320,60 @@ Before creating any issue or PR programmatically:
 All contributors, agents, and AI assistants must comply with these standards.*
 
 ---
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

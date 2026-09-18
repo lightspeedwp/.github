@@ -65,3 +65,15 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [metrics.agent.md](../agents/metrics.agent.md) — Metrics agent specification
 - [file-organisation.instructions.md](./file-organisation.instructions.md) — File placement rules
 - [GitHub Issue Metrics Action](https://github.com/github/issue-metrics)
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
