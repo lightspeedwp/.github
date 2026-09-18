@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **PR Template Routing Comment Dedup** — The routing workflow posted a duplicate comment on every push. It now updates the existing comment in place and skips unchanged bodies. ([PR #3379](https://github.com/lightspeedwp/.github/pull/3379))
 - **Changelog Validation Workflow Modernisation** — Moved the validator to Node 24 actions and removed the dangling skills gitlink that broke file detection. ([PR #3378](https://github.com/lightspeedwp/.github/pull/3378))
 - **Branch Validation Metrics Aggregator Modernisation** — Moved the aggregator to Node 24 actions with run-scoped artifact downloads and a fixed metrics commit condition. ([PR #3377](https://github.com/lightspeedwp/.github/pull/3377))
 - **Branch Validator Missing `config` Type** — The branch name validator was missing the `config` type from its authorized types list despite it being documented in CLAUDE.md. This caused `config/coderabbit-review-governance` branches to fail validation. Fixed by adding `config` to `lib/validate-branch-name.js` AUTHORIZED_TYPES array, increasing authorized types from 24 to 25 and aligning validator with documented branching strategy.
