@@ -18,10 +18,11 @@ scripts/summarize-native-type.sh
 '
 
 # collect_shell_files - Find all first-party shell scripts in scripts/ and .github/
-# Outputs sorted list of all .sh and .bash files, excluding archived project artifacts
+# Outputs sorted list of all .sh and .bash files, excluding archived project artifacts and node_modules
 collect_shell_files() {
   find scripts .github -type f \( -name '*.sh' -o -name '*.bash' \) \
-    -not -path '.github/projects/*' | sort
+    -not -path '.github/projects/*' \
+    -not -path '*/node_modules/*' | sort
 }
 
 # is_baselined - Check if a script is on the baseline exemption list
