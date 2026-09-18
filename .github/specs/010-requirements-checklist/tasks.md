@@ -42,30 +42,30 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T010 Create `packages/requirements-checklist/src/lib/index.ts` with main API entry point (exports ChecklistEngine, run function, types)
-- [ ] T011 [P] Create `packages/requirements-checklist/src/lib/types.ts` with TypeScript interfaces for all 5 entities (ChecklistDimension, ChecklistItem, ChecklistTemplate, ChecklistResult, SpecificationReference)
-- [ ] T012 [P] Create `packages/requirements-checklist/src/lib/checklist-engine.ts` with core validation loop: load template → parse spec → evaluate items → aggregate scores → generate findings
-- [ ] T013 [P] Create `packages/requirements-checklist/src/lib/utils/spec-parser.ts` to parse Markdown, YAML, and JSON specification formats (support `.md`, `.yaml`, `.json` files)
-- [ ] T014 [P] Create `packages/requirements-checklist/src/lib/utils/scoring.ts` with hierarchical scoring logic: item score → dimension score (% passed) → overall score (average of dimension scores)
-- [ ] T015 [P] Create `packages/requirements-checklist/src/lib/utils/result-formatter.ts` to format ChecklistResult as JSON, YAML, or human-readable text
+- [x] T010 Create `packages/requirements-checklist/src/lib/index.ts` with main API entry point (exports ChecklistEngine, run function, types)
+- [x] T011 [P] Create `packages/requirements-checklist/src/lib/types.ts` with TypeScript interfaces for all 5 entities (ChecklistDimension, ChecklistItem, ChecklistTemplate, ChecklistResult, SpecificationReference)
+- [x] T012 [P] Create `packages/requirements-checklist/src/lib/checklist-engine.ts` with core validation loop: load template → parse spec → evaluate items → aggregate scores → generate findings
+- [x] T013 [P] Create `packages/requirements-checklist/src/lib/utils/spec-parser.ts` to parse Markdown, YAML, and JSON specification formats (support `.md`, `.yaml`, `.json` files)
+- [x] T014 [P] Create `packages/requirements-checklist/src/lib/utils/scoring.ts` with hierarchical scoring logic: item score → dimension score (% passed) → overall score (average of dimension scores)
+- [x] T015 [P] Create `packages/requirements-checklist/src/lib/utils/result-formatter.ts` to format ChecklistResult as JSON, YAML, or human-readable text
 - [ ] T016 Create `packages/requirements-checklist/src/lib/utils/schema-validator.ts` to validate ChecklistResult against `checklist-result.schema.json`
-- [ ] T017 [P] Create 8 dimension files in `packages/requirements-checklist/src/lib/dimensions/`:
-  - `completeness.ts` — Detect missing sections, incomplete coverage
-  - `clarity.ts` — Detect vague adjectives ("fast", "scalable") without quantifiable thresholds
-  - `consistency.ts` — Detect terminology drift and inconsistent naming
-  - `measurability.ts` — Detect non-quantified success criteria
-  - `scenario-coverage.ts` — Detect missing user journeys or edge paths
-  - `edge-cases.ts` — Detect missing edge case definitions
-  - `dependencies.ts` — Detect unresolved assumptions and cross-project dependencies
-  - `ambiguities.ts` — Detect ambiguous requirements and unclear acceptance criteria
-- [ ] T018 [P] Create base dimension class `packages/requirements-checklist/src/lib/dimensions/base-dimension.ts` with evaluate() method signature and keyword-detection helpers
-- [ ] T019 Create `packages/requirements-checklist/src/lib/dimensions/keyword-registry.ts` with searchable keyword lists per dimension (e.g., vague adjectives for Clarity: "fast", "scalable", "robust", "intuitive")
-- [ ] T020 Create embedded template files in `packages/requirements-checklist/src/lib/templates/`:
-  - `author-pre-review.yaml` — ~50 items, self-directed, 30-min estimate
-  - `peer-review.yaml` — ~50 items, technical review focus, 45-min estimate
-  - `stakeholder-gate.yaml` — ~25 items, business-focused, 15-min estimate, no technical jargon
-  - `cross-project-integration.yaml` — ~30 items, dependency/contract focus, 20-min estimate
-- [ ] T021 Create template loader in `packages/requirements-checklist/src/lib/template-loader.ts` to load YAML templates and validate against `checklist-template.schema.json`
+- [x] T017 [P] Create 8 dimension files in `packages/requirements-checklist/src/lib/dimensions/`:
+  - [x] `completeness.ts` — Detect missing sections, incomplete coverage
+  - [x] `clarity.ts` — Detect vague adjectives ("fast", "scalable") without quantifiable thresholds
+  - [x] `consistency.ts` — Detect terminology drift and inconsistent naming
+  - [x] `measurability.ts` — Detect non-quantified success criteria
+  - [x] `scenario-coverage.ts` — Detect missing user journeys or edge paths
+  - [x] `edge-cases.ts` — Detect missing edge case definitions
+  - [x] `dependencies.ts` — Detect unresolved assumptions and cross-project dependencies
+  - [x] `ambiguities.ts` — Detect ambiguous requirements and unclear acceptance criteria
+- [x] T018 [P] Create base dimension class `packages/requirements-checklist/src/lib/dimensions/base-dimension.ts` with evaluate() method signature and keyword-detection helpers
+- [x] T019 Create `packages/requirements-checklist/src/lib/dimensions/keyword-registry.ts` with searchable keyword lists per dimension (e.g., vague adjectives for Clarity: "fast", "scalable", "robust", "intuitive")
+- [x] T020 Create embedded template files in `packages/requirements-checklist/src/lib/templates/`:
+  - [x] `author-pre-review.yaml` — ~50 items, self-directed, 30-min estimate
+  - [x] `peer-review.yaml` — ~50 items, technical review focus, 45-min estimate
+  - [x] `stakeholder-gate.yaml` — ~25 items, business-focused, 15-min estimate, no technical jargon
+  - [x] `cross-project-integration.yaml` — ~30 items, dependency/contract focus, 20-min estimate
+- [x] T021 Create template loader in `packages/requirements-checklist/src/lib/template-loader.ts` to load YAML templates and validate against `checklist-template.schema.json`
 - [ ] T022 Create evidence collector in `packages/requirements-checklist/src/lib/evidence-collector.ts` to extract quoted text from spec when a checklist item fails (supports Markdown heading navigation)
 - [ ] T023 Create recommendation generator in `packages/requirements-checklist/src/lib/recommendation-generator.ts` with templated suggestions per dimension and audience
 - [ ] T024 [P] Create unit tests for core components:
