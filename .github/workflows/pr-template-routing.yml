@@ -19,14 +19,14 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version-file: ".nvmrc"
           cache: "npm"
 
       - name: Install dependencies
@@ -117,7 +117,7 @@ jobs:
 
       - name: Apply labels to PR
         if: steps.verify-template.outputs.exists == 'true' && steps.route.outputs.labels != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const labels = '${{ steps.route.outputs.labels }}'.split(',').map(l => l.trim()).filter(l => l);
@@ -142,7 +142,7 @@ jobs:
 
       - name: Add PR comment with routing info
         if: success()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const branchType = '${{ steps.route.outputs.branch_type }}';
@@ -165,12 +165,39 @@ jobs:
             const comment = lines.join('\n');
 
             try {
-              await github.rest.issues.createComment({
+              // Update the existing routing comment instead of posting a
+              // duplicate on every synchronize event.
+              const { data: comments } = await github.rest.issues.listComments({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                body: comment
               });
+
+              const existingComment = comments.find(c =>
+                c.user.type === 'Bot' && c.body.includes('## PR Template Routing')
+              );
+
+              if (existingComment) {
+                if (existingComment.body.trim() === comment.trim()) {
+                  console.log('Routing comment already up to date; skipping.');
+                  return;
+                }
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: comment
+                });
+                console.log('Routing comment updated.');
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: comment
+                });
+                console.log('Routing comment created.');
+              }
             } catch (error) {
               console.warn(`Could not post comment: ${error.message}`);
             }
