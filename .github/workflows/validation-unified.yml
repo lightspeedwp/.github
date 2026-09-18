@@ -59,9 +59,10 @@ jobs:
           fetch-depth: 1
 
       - name: Validate branch name format
+        env:
+          BRANCH: ${{ github.head_ref }}
         shell: bash
         run: |
-          BRANCH="${{ github.head_ref }}"
           PATTERN='^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]([a-z0-9\-]*[a-z0-9])?-[a-z0-9]([a-z0-9\-\s]*[a-z0-9])?$'
 
           if ! [[ "$BRANCH" =~ $PATTERN ]]; then
@@ -99,11 +100,11 @@ jobs:
           fetch-depth: 1
 
       - name: Validate PR template routing and structure
+        env:
+          BRANCH: ${{ github.head_ref }}
+          PR_BODY: ${{ github.event.pull_request.body }}
         shell: bash
         run: |
-          BRANCH="${{ github.head_ref }}"
-          PR_BODY="${{ github.event.pull_request.body }}"
-
           echo "🔍 DEBUG: Branch='$BRANCH'"
           echo "🔍 DEBUG: PR Body length=${#PR_BODY}"
 
@@ -171,9 +172,10 @@ jobs:
           fetch-depth: 0
 
       - name: Check CHANGELOG.md modification and format
+        env:
+          TITLE: ${{ github.event.pull_request.title || '' }}
         shell: bash
         run: |
-          TITLE="${{ github.event.pull_request.title || '' }}"
           echo "🔍 DEBUG: PR Title='$TITLE'"
 
           # Check if this is a docs-only or chore PR (exempt from changelog)
@@ -319,10 +321,10 @@ jobs:
     if: github.event_name == 'issues'
     steps:
       - name: Check Definition of Ready
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
         shell: bash
         run: |
-          ISSUE_BODY="${{ github.event.issue.body }}"
-
           if [[ "$ISSUE_BODY" != *"## Definition of Ready"* ]]; then
             echo "⚠️  Definition of Ready section not found"
           else
