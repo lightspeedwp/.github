@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "wordpress-block-theme-router",
+  "skills": [
+    {
+      "id": "wordpress-block-theme-router/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-block-theme-router",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/wordpress-block-theme-router/SKILL.md",
+      "description": "github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "wordpress-block-theme-router/metadata",
+      "name": "metadata",
+      "category": "wordpress-block-theme-router",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/wordpress-block-theme-router/metadata.yml",
+      "description": "No description available",
+      "type": "yaml",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

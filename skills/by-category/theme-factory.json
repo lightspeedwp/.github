@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "theme-factory",
+  "skills": [
+    {
+      "id": "theme-factory/LICENSE",
+      "name": "LICENSE",
+      "category": "theme-factory",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/theme-factory/LICENSE.txt",
+      "description": "www.apache.org/licenses/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "theme-factory/SKILL",
+      "name": "SKILL",
+      "category": "theme-factory",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/theme-factory/SKILL.md",
+      "description": "Theme Factory Skill",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "theme-factory/theme-showcase",
+      "name": "theme-showcase",
+      "category": "theme-factory",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/theme-factory/theme-showcase.pdf",
+      "description": "www.reportlab.com",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "compliant": 2,
+    "compliancePercentage": 67
+  }
+}

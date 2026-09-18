@@ -36,7 +36,7 @@ The changelog agent needs to be restructured with proper skills that conform to 
 **Acceptance Scenarios**:
 
 1. **Given** the changelog agent, **When** scanning the agent's skill directory, **Then** each skill file has a `metadata.yml` with: id, version, description, triggers, inputs, outputs, error handling
-2. **Given** the changelog-validate skill, **When** invoking it with `--changelog-path`, **Then** it executes correctly and returns structured JSON with validation results
+2. **Given** the changelog-validate skill, **When** invoking it via `npm run changelog:validate --changelog-path <path>`, **Then** it executes correctly and returns structured JSON with validation results
 3. **Given** the skill registry lookup, **When** searching for "changelog" skills, **Then** all changelog skills appear with correct metadata and version info
 4. **Given** external systems, **When** attempting to invoke changelog skills via agent API, **Then** they receive consistent, documented responses with proper error handling
 
@@ -80,7 +80,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 - What happens when a changelog file doesn't exist in a PR (new repo or first release)?
 - How does the system handle changelog entries for automated commits (deps, chores)?
-- What happens when multiple changelog agents run concurrently (race conditions)?
+- What happens when multiple changelog agents run concurrently? → **Resolved**: File-level locks prevent corruption; merge operations block until validation completes
 - How does the system handle changelog entries with special characters or Unicode?
 - What happens when a changelog skill fails due to file system permissions?
 
@@ -90,14 +90,15 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 - **FR-001**: Changelog validation tool MUST run locally with `npm run changelog:validate [--changelog-path PATH]` and provide structured output (JSON or parsable text) with all validation results
 - **FR-002**: Validation tool MUST check changelog entries for: length (≤250 chars), PR/issue linking, formatting consistency (Keep a Changelog format), no implementation details
-- **FR-003**: Changelog agent MUST have at minimum 3 skills: `validate` (entry validation), `check-links` (PR/issue verification), `merge` (changelog consolidation), each with `metadata.yml` conforming to agentskills.io spec
+- **FR-003**: Changelog agent MUST have at minimum 3 skills: `validate` (entry validation), `check-links` (PR/issue verification), `merge` (changelog consolidation), each invokable via npm CLI commands (e.g., `npm run changelog:validate`); optional REST API wrapper for external agent integration
 - **FR-004**: Each changelog skill MUST have: unique ID, version, description, triggers, input schema, output schema, error handling specification
 - **FR-005**: Validation failures MUST be clearly reported with: specific error type, location (line number/entry), expected format, actual content, fix suggestion
 - **FR-006**: Changelog documentation MUST exist at `docs/agents/changelog-agent/` with: README.md (overview, quick start), SKILLS.md (skill reference), INTEGRATION.md (workflow integration), TROUBLESHOOTING.md (common issues and fixes), API.md (detailed API documentation)
 - **FR-007**: Changelog workflow MUST apply labels from canonical set (`.github/labels.yml`) with prefix `meta:` for changelog status tracking
 - **FR-008**: Validation workflow MUST run on every PR that modifies CHANGELOG.md and provide feedback via GitHub PR comments or status checks
-- **FR-009**: Workflow MUST block merge if changelog entries fail validation (configurable bypass for chores/deps with explicit label)
+- **FR-009**: Workflow MUST block merge if changelog entries fail validation, with automatic bypass for branches matching `chore/` or `deps/` prefixes (no explicit label required; bypass is automatic by branch type)
 - **FR-010**: Scripts and validation logic currently scattered across `scripts/validation/`, `agents/changelog-agent/`, and `scripts/workflows/` MUST be reorganized into changelog agent skill directories with clear purpose and no duplication
+- **FR-011**: Changelog agent MUST use file-level locking to prevent race conditions; merge operations MUST block until validation completes; concurrent validate operations are allowed
 
 ### Key Entities
 
@@ -120,6 +121,14 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - **SC-008**: Test coverage for changelog agent reaches ≥85% (lines executed during test suite)
 - **SC-009**: All changelog scripts are colocated within the changelog agent directory structure with no duplication or orphaned validation code in `scripts/validation/`
 - **SC-010**: Developers report ≥80% confidence in changelog quality when using the validation tool locally
+
+## Clarifications
+
+### Session 2026-09-19
+
+- Q1: Validation bypass mechanism → A: Automatic bypass by PR type (chore/ and deps/ branches skip validation; all other branches require changelog validation)
+- Q2: Skill invocation patterns → A: Primary npm CLI commands (`npm run changelog:validate`, etc.); optional REST API wrapper for external agents
+- Q3: Concurrent execution & race conditions → A: File-level locks with merge operations blocking until validation completes (concurrent validate operations allowed)
 
 ## Assumptions
 

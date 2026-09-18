@@ -126,18 +126,18 @@
 
 **Independent Test**: Generate registry from filesystem, validate schema, check compliance status
 
-- [ ] T058 [P] [US4] Implement skills registry generator in scripts/validation/lib/skills-registry-generator.js
-- [ ] T059 [US4] Scan all agent skills in agents/*/skills/ and root skills/ in scripts/validation/lib/skills-scanner.js
-- [ ] T060 [P] [US4] Implement agentskills.io compliance checker in scripts/validation/lib/compliance-checker.js (per Decision 1 research)
-- [ ] T061 [P] [US4] Extract skill metadata (id, name, version, location, type, description) and populate registry
-- [ ] T062 [US4] Generate consolidated skills registry and save to skills/registry.json
-- [ ] T063 [P] [US4] Generate per-category skills registries (skills/{category}/registry.json) per Decision 4
-- [ ] T064 [P] [US4] Validate all registry files against contracts/registry-schema.json
-- [ ] T065 [US4] Generate compliance validation report and save to .github/specs/014-agents-restructure-consolidate/reports/compliance-validation-report.json
-- [ ] T066 [P] [US4] Identify skills with agentskills.io violations (blocking and warning severity)
-- [ ] T067 [US4] Create remediation steps for each compliance violation in compliance-validation-report.json
-- [ ] T068 [P] [US4] Document skills registry format in .github/docs/SKILLS_REGISTRY_FORMAT.md
-- [ ] T069 [US4] Generate summary: total skills registered, compliant count, violation count, compliance percentage
+- [x] T058 [P] [US4] Implement skills registry generator in scripts/validation/lib/skills-registry-generator.js
+- [x] T059 [US4] Scan all agent skills in agents/[*]/skills/ and root skills/ in scripts/validation/lib/skills-scanner.js
+- [x] T060 [P] [US4] Implement agentskills.io compliance checker in scripts/validation/lib/compliance-checker.js (per Decision 1 research)
+- [x] T061 [P] [US4] Extract skill metadata (id, name, version, location, type, description) and populate registry
+- [x] T062 [US4] Generate consolidated skills registry and save to skills/registry.json
+- [x] T063 [P] [US4] Generate per-category skills registries (skills/{category}/registry.json) per Decision 4
+- [x] T064 [P] [US4] Validate all registry files against contracts/registry-schema.json
+- [x] T065 [US4] Generate compliance validation report and save to .github/specs/014-agents-restructure-consolidate/reports/compliance-validation-report.json
+- [x] T066 [P] [US4] Identify skills with agentskills.io violations (blocking and warning severity)
+- [x] T067 [US4] Create remediation steps for each compliance violation in compliance-validation-report.json
+- [x] T068 [P] [US4] Document skills registry format in .github/docs/SKILLS_REGISTRY_FORMAT.md
+- [x] T069 [US4] Generate summary: total skills registered, compliant count, violation count, compliance percentage
 
 ---
 

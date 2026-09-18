@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "self-evolving-agent",
+  "skills": [
+    {
+      "id": "self-evolving-agent/CHANGELOG",
+      "name": "CHANGELOG",
+      "category": "self-evolving-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/self-evolving-agent/CHANGELOG.md",
+      "description": "Changelog",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "self-evolving-agent/SKILL",
+      "name": "SKILL",
+      "category": "self-evolving-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/self-evolving-agent/SKILL.md",
+      "description": "Self-Evolving Agent",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 2,
+    "compliancePercentage": 100
+  }
+}

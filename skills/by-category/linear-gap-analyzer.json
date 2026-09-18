@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "linear-gap-analyzer",
+  "skills": [
+    {
+      "id": "linear-gap-analyzer/SKILL",
+      "name": "SKILL",
+      "category": "linear-gap-analyzer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear-gap-analyzer/SKILL.md",
+      "description": "Linear Gap Analyzer",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

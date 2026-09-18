@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "content-collection-planner",
+  "skills": [
+    {
+      "id": "content-collection-planner/SKILL",
+      "name": "SKILL",
+      "category": "content-collection-planner",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-collection-planner/SKILL.md",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

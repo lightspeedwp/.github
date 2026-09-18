@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "agent:chat-closure-agent",
+  "skills": [
+    {
+      "id": "agent:chat-closure-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:chat-closure-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/chat-closure-agent/skills/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

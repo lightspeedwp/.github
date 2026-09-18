@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "zendesk-duplicate-pattern-review",
+  "skills": [
+    {
+      "id": "zendesk-duplicate-pattern-review/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-duplicate-pattern-review",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-duplicate-pattern-review/Icon\r",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "zendesk-duplicate-pattern-review/skill",
+      "name": "skill",
+      "category": "zendesk-duplicate-pattern-review",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-duplicate-pattern-review/skill.zip",
+      "description": "�ӭ�G����\u0017���|���\u001d�\u0006�T�W�\u0014����}���L���0���3�;�v�s�;<\u001cRꙅ��\u0010\u0002j�\u0016�y�,kR.%����C�³�ُ�X8�A���d���\u0002>;��\"yU�ۑ�������.��RQ1��:��\u0001�/\t\u001dS�\u0013�\u0012��ò&$����3�-�\"}�bݧ��",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

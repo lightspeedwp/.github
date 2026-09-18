@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "tour-operator-agent-instructions",
+  "skills": [
+    {
+      "id": "tour-operator-agent-instructions/.DS_Store",
+      "name": ".DS_Store",
+      "category": "tour-operator-agent-instructions",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-agent-instructions/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "tour-operator-agent-instructions/AGENTS",
+      "name": "AGENTS",
+      "category": "tour-operator-agent-instructions",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-agent-instructions/AGENTS.md",
+      "description": "Agent Instructions",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "tour-operator-agent-instructions/Icon\r",
+      "name": "Icon\r",
+      "category": "tour-operator-agent-instructions",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-agent-instructions/Icon\r",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "compliant": 1,
+    "compliancePercentage": 33
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "wordpress-custom-template-generator",
+  "skills": [
+    {
+      "id": "wordpress-custom-template-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-custom-template-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/wordpress-custom-template-generator/SKILL.md",
+      "description": "github.com/lightspeedwp/.github/tree/main/profile)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

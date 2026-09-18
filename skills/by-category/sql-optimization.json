@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "sql-optimization",
+  "skills": [
+    {
+      "id": "sql-optimization/SKILL",
+      "name": "SKILL",
+      "category": "sql-optimization",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/sql-optimization/SKILL.md",
+      "description": "SQL Performance Optimization Assistant",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

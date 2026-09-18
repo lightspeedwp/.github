@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "implementation-plan-generator",
+  "skills": [
+    {
+      "id": "implementation-plan-generator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "implementation-plan-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/implementation-plan-generator/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "implementation-plan-generator/SKILL",
+      "name": "SKILL",
+      "category": "implementation-plan-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/implementation-plan-generator/SKILL.md",
+      "description": "lightspeedwp.agency/contact)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "implementation-plan-generator/metadata",
+      "name": "metadata",
+      "category": "implementation-plan-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/implementation-plan-generator/metadata.yml",
+      "description": "No description available",
+      "type": "yaml",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "compliant": 1,
+    "compliancePercentage": 33
+  }
+}

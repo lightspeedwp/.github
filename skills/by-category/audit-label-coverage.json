@@ -1,0 +1,120 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "audit-label-coverage",
+  "skills": [
+    {
+      "id": "audit-label-coverage/.DS_Store",
+      "name": ".DS_Store",
+      "category": "audit-label-coverage",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/audit-label-coverage/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "audit-label-coverage/README",
+      "name": "README",
+      "category": "audit-label-coverage",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/audit-label-coverage/README.md",
+      "description": "audit-label-coverage Skill",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "audit-label-coverage/SKILL",
+      "name": "SKILL",
+      "category": "audit-label-coverage",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/audit-label-coverage/SKILL.md",
+      "description": "audit-label-coverage Skill",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "audit-label-coverage/example-usage",
+      "name": "example-usage",
+      "category": "audit-label-coverage",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/audit-label-coverage/example-usage.js",
+      "description": "Exampleusageoftheaudit-label-coverageskill",
+      "type": "javascript",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "audit-label-coverage/index",
+      "name": "index",
+      "category": "audit-label-coverage",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/audit-label-coverage/index.js",
+      "description": "!/usr/bin/env node",
+      "type": "javascript",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "audit-label-coverage/package",
+      "name": "package",
+      "category": "audit-label-coverage",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/audit-label-coverage/package.json",
+      "description": "/.test.js\"",
+      "type": "json",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "compliant": 4,
+    "compliancePercentage": 67
+  }
+}

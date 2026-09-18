@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "markdown-content-validator",
+  "skills": [
+    {
+      "id": "markdown-content-validator/README",
+      "name": "README",
+      "category": "markdown-content-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/markdown-content-validator/README.md",
+      "description": "Markdown Content Validator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "markdown-content-validator/SKILL",
+      "name": "SKILL",
+      "category": "markdown-content-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/markdown-content-validator/SKILL.md",
+      "description": "github.com/lightspeedwp/.github/tree/main/profile)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "schema-and-ai-discoverability-planner",
+  "skills": [
+    {
+      "id": "schema-and-ai-discoverability-planner/.DS_Store",
+      "name": ".DS_Store",
+      "category": "schema-and-ai-discoverability-planner",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/schema-and-ai-discoverability-planner/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "schema-and-ai-discoverability-planner/SKILL",
+      "name": "SKILL",
+      "category": "schema-and-ai-discoverability-planner",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/schema-and-ai-discoverability-planner/SKILL.md",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

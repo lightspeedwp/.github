@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "agent-skill-builder",
+  "skills": [
+    {
+      "id": "agent-skill-builder/SKILL",
+      "name": "SKILL",
+      "category": "agent-skill-builder",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-skill-builder/SKILL.md",
+      "description": "Agent Skill Builder",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

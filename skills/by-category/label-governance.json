@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "label-governance",
+  "skills": [
+    {
+      "id": "label-governance/SKILL",
+      "name": "SKILL",
+      "category": "label-governance",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/label-governance/SKILL.md",
+      "description": "lightspeed-label-governance",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "label-governance/metadata",
+      "name": "metadata",
+      "category": "label-governance",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/label-governance/metadata.yml",
+      "description": "No description available",
+      "type": "yaml",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

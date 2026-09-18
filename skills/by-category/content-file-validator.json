@@ -1,0 +1,120 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "content-file-validator",
+  "skills": [
+    {
+      "id": "content-file-validator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "content-file-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-file-validator/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "content-file-validator/README",
+      "name": "README",
+      "category": "content-file-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-file-validator/README.md",
+      "description": "Content File Validator Merge Notes",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "content-file-validator/SKILL",
+      "name": "SKILL",
+      "category": "content-file-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-file-validator/SKILL.md",
+      "description": "Content File Validator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "content-file-validator/skill",
+      "name": "skill",
+      "category": "content-file-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-file-validator/skill.zip",
+      "description": "�uE�|��\u0018�5/D��� ݩ�g�\u0013A",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "content-file-validator/test-report",
+      "name": "test-report",
+      "category": "content-file-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-file-validator/test-report.md",
+      "description": "Content File Validation Report",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "content-file-validator/valid-report",
+      "name": "valid-report",
+      "category": "content-file-validator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-file-validator/valid-report.md",
+      "description": "Content File Validation Report",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "compliant": 1,
+    "compliancePercentage": 17
+  }
+}

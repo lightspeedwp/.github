@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "ai-readiness-router",
+  "skills": [
+    {
+      "id": "ai-readiness-router/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-readiness-router",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-router/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "ai-readiness-router/SKILL",
+      "name": "SKILL",
+      "category": "ai-readiness-router",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-router/SKILL.md",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

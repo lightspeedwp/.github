@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "claim-register-auditor",
+  "skills": [
+    {
+      "id": "claim-register-auditor/.DS_Store",
+      "name": ".DS_Store",
+      "category": "claim-register-auditor",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claim-register-auditor/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "claim-register-auditor/SKILL",
+      "name": "SKILL",
+      "category": "claim-register-auditor",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claim-register-auditor/SKILL.md",
+      "description": "github.com/lightspeedwp/.github/tree/main/instructions)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

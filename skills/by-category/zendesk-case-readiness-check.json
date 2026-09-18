@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "zendesk-case-readiness-check",
+  "skills": [
+    {
+      "id": "zendesk-case-readiness-check/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-case-readiness-check",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-case-readiness-check/Icon\r",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "zendesk-case-readiness-check/skill",
+      "name": "skill",
+      "category": "zendesk-case-readiness-check",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-case-readiness-check/skill.zip",
+      "description": "�",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

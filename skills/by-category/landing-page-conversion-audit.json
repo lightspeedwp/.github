@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "landing-page-conversion-audit",
+  "skills": [
+    {
+      "id": "landing-page-conversion-audit/SKILL",
+      "name": "SKILL",
+      "category": "landing-page-conversion-audit",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/landing-page-conversion-audit/SKILL.md",
+      "description": "Landing Page Conversion Audit",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

@@ -1,0 +1,3190 @@
+{
+  "timestamp": "2026-09-18T23:01:57.742Z",
+  "summary": {
+    "total": 634,
+    "compliant": 345,
+    "violations": 289,
+    "compliancePercentage": 54
+  },
+  "skills": [
+    {
+      "id": "_template-skill/SKILL",
+      "name": "SKILL",
+      "category": "_template-skill",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "acceptance-test-planner/.DS_Store",
+      "name": ".DS_Store",
+      "category": "acceptance-test-planner",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "acceptance-test-planner/SKILL",
+      "name": "SKILL",
+      "category": "acceptance-test-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "accessibility-auditor/.DS_Store",
+      "name": ".DS_Store",
+      "category": "accessibility-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "accessibility-auditor/Icon\r",
+      "name": "Icon\r",
+      "category": "accessibility-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agency-scope-change-control/SKILL",
+      "name": "SKILL",
+      "category": "agency-scope-change-control",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/AGENT_REQUIREMENTS",
+      "name": "AGENT_REQUIREMENTS",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/BUILDER_IMPORT_PROMPT",
+      "name": "BUILDER_IMPORT_PROMPT",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/Icon\r",
+      "name": "Icon\r",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/QUALITY_CHECKLIST",
+      "name": "QUALITY_CHECKLIST",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/README",
+      "name": "README",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/ROUTING_AND_HANDOFF",
+      "name": "ROUTING_AND_HANDOFF",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/TOOL_AND_PERMISSION_MATRIX",
+      "name": "TOOL_AND_PERMISSION_MATRIX",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/business-context",
+      "name": "business-context",
+      "category": "agent-creator-agent-builder-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent-supply-chain/SKILL",
+      "name": "SKILL",
+      "category": "agent-supply-chain",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-chatbot-planner/SKILL",
+      "name": "SKILL",
+      "category": "ai-chatbot-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-documentor/SKILL",
+      "name": "SKILL",
+      "category": "ai-governance-documentor",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Chatbot Discovery Questionnaire - Expanded",
+      "name": "AI Chatbot Discovery Questionnaire - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Chatbot Discovery Questionnaire - Expanded",
+      "name": "AI Chatbot Discovery Questionnaire - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Governance Discovery Questionnaire - Expanded",
+      "name": "AI Governance Discovery Questionnaire - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Governance Discovery Questionnaire - Expanded",
+      "name": "AI Governance Discovery Questionnaire - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Governance Guide Template - Expanded",
+      "name": "AI Governance Guide Template - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Governance Guide Template - Expanded",
+      "name": "AI Governance Guide Template - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Readiness Checklist - Expanded",
+      "name": "AI Readiness Checklist - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/AI Readiness Checklist - Expanded",
+      "name": "AI Readiness Checklist - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/Content Collection Checklist Template - Expanded",
+      "name": "Content Collection Checklist Template - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/Content Collection Checklist Template - Expanded",
+      "name": "Content Collection Checklist Template - Expanded",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-governance-toolkit-expanded/Icon\r",
+      "name": "Icon\r",
+      "category": "ai-governance-toolkit-expanded",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-readiness",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness/SKILL",
+      "name": "SKILL",
+      "category": "ai-readiness",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-agent-knowledge-upload/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-readiness-agent-knowledge-upload",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-agent-knowledge-upload/Icon\r",
+      "name": "Icon\r",
+      "category": "ai-readiness-agent-knowledge-upload",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-agent-knowledge-upload/README",
+      "name": "README",
+      "category": "ai-readiness-agent-knowledge-upload",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-assessor/SKILL",
+      "name": "SKILL",
+      "category": "ai-readiness-assessor",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-assessor/metadata",
+      "name": "metadata",
+      "category": "ai-readiness-assessor",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-estimator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-readiness-estimator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-estimator/CHANGELOG",
+      "name": "CHANGELOG",
+      "category": "ai-readiness-estimator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-estimator/Icon\r",
+      "name": "Icon\r",
+      "category": "ai-readiness-estimator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-estimator/README",
+      "name": "README",
+      "category": "ai-readiness-estimator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-orchestrator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-readiness-orchestrator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-orchestrator/SKILL",
+      "name": "SKILL",
+      "category": "ai-readiness-orchestrator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-router/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-readiness-router",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-router/SKILL",
+      "name": "SKILL",
+      "category": "ai-readiness-router",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-template-pack-md/05-ai-chatbot-discovery-questionnaire",
+      "name": "05-ai-chatbot-discovery-questionnaire",
+      "category": "ai-readiness-template-pack-md",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-readiness-template-pack-md/Icon\r",
+      "name": "Icon\r",
+      "category": "ai-readiness-template-pack-md",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-ready/SKILL",
+      "name": "SKILL",
+      "category": "ai-ready",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-service-templates/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-service-templates",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-service-templates/Icon\r",
+      "name": "Icon\r",
+      "category": "ai-service-templates",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-service-templates/README",
+      "name": "README",
+      "category": "ai-service-templates",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ai-team-orchestration/SKILL",
+      "name": "SKILL",
+      "category": "ai-team-orchestration",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "approval-gate-manager/.DS_Store",
+      "name": ".DS_Store",
+      "category": "approval-gate-manager",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "approval-gate-manager/SKILL",
+      "name": "SKILL",
+      "category": "approval-gate-manager",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "artifacts-builder/SKILL",
+      "name": "SKILL",
+      "category": "artifacts-builder",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "audit-label-coverage/.DS_Store",
+      "name": ".DS_Store",
+      "category": "audit-label-coverage",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "audit-label-coverage/package",
+      "name": "package",
+      "category": "audit-label-coverage",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "audit-qa-validator/Icon\r",
+      "name": "Icon\r",
+      "category": "audit-qa-validator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "brand-guidelines/SKILL",
+      "name": "SKILL",
+      "category": "brand-guidelines",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "breakdown-test/SKILL",
+      "name": "SKILL",
+      "category": "breakdown-test",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "build-evidence-map/SKILL",
+      "name": "SKILL",
+      "category": "build-evidence-map",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "change-request-router/.DS_Store",
+      "name": ".DS_Store",
+      "category": "change-request-router",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "change-request-router/SKILL",
+      "name": "SKILL",
+      "category": "change-request-router",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "chatbot-intake-onboarding/.DS_Store",
+      "name": ".DS_Store",
+      "category": "chatbot-intake-onboarding",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "chatbot-planning-orchestrator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "chatbot-planning-orchestrator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "chatbot-planning-orchestrator-skill/Icon\r",
+      "name": "Icon\r",
+      "category": "chatbot-planning-orchestrator-skill",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "chatgpt-apps/SKILL",
+      "name": "SKILL",
+      "category": "chatgpt-apps",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "claim-register-auditor/.DS_Store",
+      "name": ".DS_Store",
+      "category": "claim-register-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "claim-register-auditor/SKILL",
+      "name": "SKILL",
+      "category": "claim-register-auditor",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "claude-skills/Icon\r",
+      "name": "Icon\r",
+      "category": "claude-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "claude-skills/brainstorming-SKILL",
+      "name": "brainstorming-SKILL",
+      "category": "claude-skills",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "cli-mastery/SKILL",
+      "name": "SKILL",
+      "category": "cli-mastery",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/Icon\r",
+      "name": "Icon\r",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/accessibility-discovery-reviewer",
+      "name": "accessibility-discovery-reviewer",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/content-audit-strategist",
+      "name": "content-audit-strategist",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/discovery-onboarding",
+      "name": "discovery-onboarding",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/discovery-pack-review",
+      "name": "discovery-pack-review",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/discovery-source-intake",
+      "name": "discovery-source-intake",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/email-list-reviewer",
+      "name": "email-list-reviewer",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/website-hosting-reviewer",
+      "name": "website-hosting-reviewer",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/website-performance-assessor",
+      "name": "website-performance-assessor",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/website-security-discovery-reviewer",
+      "name": "website-security-discovery-reviewer",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "client-discover-agent-skills/wordpress-plugin-packaging-review",
+      "name": "wordpress-plugin-packaging-review",
+      "category": "client-discover-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "content-collection-planner/SKILL",
+      "name": "SKILL",
+      "category": "content-collection-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "content-file-validator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "content-file-validator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "content-file-validator/README",
+      "name": "README",
+      "category": "content-file-validator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "content-file-validator/skill",
+      "name": "skill",
+      "category": "content-file-validator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "content-file-validator/test-report",
+      "name": "test-report",
+      "category": "content-file-validator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "content-file-validator/valid-report",
+      "name": "valid-report",
+      "category": "content-file-validator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "copilot-pr-autopilot/SKILL",
+      "name": "SKILL",
+      "category": "copilot-pr-autopilot",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "copilot-usage-metrics/get-enterprise-metrics",
+      "name": "get-enterprise-metrics",
+      "category": "copilot-usage-metrics",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "copilot-usage-metrics/get-enterprise-user-metrics",
+      "name": "get-enterprise-user-metrics",
+      "category": "copilot-usage-metrics",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "copilot-usage-metrics/get-org-metrics",
+      "name": "get-org-metrics",
+      "category": "copilot-usage-metrics",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "copilot-usage-metrics/get-org-user-metrics",
+      "name": "get-org-user-metrics",
+      "category": "copilot-usage-metrics",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "create-github-issue-feature-from-specification/SKILL",
+      "name": "SKILL",
+      "category": "create-github-issue-feature-from-specification",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "create-github-issues-feature-from-implementation-plan/SKILL",
+      "name": "SKILL",
+      "category": "create-github-issues-feature-from-implementation-plan",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "create-github-issues-for-unmet-specification-requirements/SKILL",
+      "name": "SKILL",
+      "category": "create-github-issues-for-unmet-specification-requirements",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "design-md-evidence-gatherer/SKILL",
+      "name": "SKILL",
+      "category": "design-md-evidence-gatherer",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "design-md-generator/SKILL",
+      "name": "SKILL",
+      "category": "design-md-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "design-md-intake-triage/SKILL",
+      "name": "SKILL",
+      "category": "design-md-intake-triage",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "design-md-standards-validator/SKILL",
+      "name": "SKILL",
+      "category": "design-md-standards-validator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "design-md-user-defaults-onboarding/SKILL",
+      "name": "SKILL",
+      "category": "design-md-user-defaults-onboarding",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "desk-journal/SKILL",
+      "name": "SKILL",
+      "category": "desk-journal",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "devops-rollout-plan/SKILL",
+      "name": "SKILL",
+      "category": "devops-rollout-plan",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "documentation-writer/SKILL",
+      "name": "SKILL",
+      "category": "documentation-writer",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "documents/.DS_Store",
+      "name": ".DS_Store",
+      "category": "documents",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "documents/LICENSE",
+      "name": "LICENSE",
+      "category": "documents",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "documents/manifest",
+      "name": "manifest",
+      "category": "documents",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "docx/LICENSE",
+      "name": "LICENSE",
+      "category": "docx",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "docx/SKILL",
+      "name": "SKILL",
+      "category": "docx",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "edit-figma-design/SKILL",
+      "name": "SKILL",
+      "category": "edit-figma-design",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "faq-and-chatbot-source-curator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "faq-and-chatbot-source-curator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "faq-and-chatbot-source-curator/SKILL",
+      "name": "SKILL",
+      "category": "faq-and-chatbot-source-curator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "figma-create-design-system-rules/LICENSE",
+      "name": "LICENSE",
+      "category": "figma-create-design-system-rules",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "figma-themejson-custom-color-tokens/SKILL",
+      "name": "SKILL",
+      "category": "figma-themejson-custom-color-tokens",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "figma-wordpress-parity-auditor/.DS_Store",
+      "name": ".DS_Store",
+      "category": "figma-wordpress-parity-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "figma-wordpress-parity-auditor/SKILL",
+      "name": "SKILL",
+      "category": "figma-wordpress-parity-auditor",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "figma-wordpress-skill-creator/Icon\r",
+      "name": "Icon\r",
+      "category": "figma-wordpress-skill-creator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "figma-wordpress-technical-brief/.DS_Store",
+      "name": ".DS_Store",
+      "category": "figma-wordpress-technical-brief",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "figma-wordpress-technical-brief/SKILL",
+      "name": "SKILL",
+      "category": "figma-wordpress-technical-brief",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "finalize-agent-prompt/SKILL",
+      "name": "SKILL",
+      "category": "finalize-agent-prompt",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "fix-design-system-finding/SKILL",
+      "name": "SKILL",
+      "category": "fix-design-system-finding",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "frontend-design/LICENSE",
+      "name": "LICENSE",
+      "category": "frontend-design",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "frontend-skill/SKILL",
+      "name": "SKILL",
+      "category": "frontend-skill",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "frontmatter-audit/SKILL",
+      "name": "SKILL",
+      "category": "frontmatter-audit",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "frontmatter-audit/metadata",
+      "name": "metadata",
+      "category": "frontmatter-audit",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ga4-conversion-tracking-planner/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ga4-conversion-tracking-planner",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "ga4-conversion-tracking-planner/SKILL",
+      "name": "SKILL",
+      "category": "ga4-conversion-tracking-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "gh-attach/SKILL",
+      "name": "SKILL",
+      "category": "gh-attach",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "git-commit/SKILL",
+      "name": "SKILL",
+      "category": "git-commit",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "github-codespaces-efficiency/SKILL",
+      "name": "SKILL",
+      "category": "github-codespaces-efficiency",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "github-issue-drafter/.DS_Store",
+      "name": ".DS_Store",
+      "category": "github-issue-drafter",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "github-issue-drafter/SKILL",
+      "name": "SKILL",
+      "category": "github-issue-drafter",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "gravity-forms-auditor/Icon\r",
+      "name": "Icon\r",
+      "category": "gravity-forms-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "gravity-forms-configuration/Icon\r",
+      "name": "Icon\r",
+      "category": "gravity-forms-configuration",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "gtm-enterprise-onboarding/SKILL",
+      "name": "SKILL",
+      "category": "gtm-enterprise-onboarding",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "imagegen/.DS_Store",
+      "name": ".DS_Store",
+      "category": "imagegen",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "implementation-plan-generator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "implementation-plan-generator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "implementation-plan-generator/SKILL",
+      "name": "SKILL",
+      "category": "implementation-plan-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "javascript-typescript-jest/SKILL",
+      "name": "SKILL",
+      "category": "javascript-typescript-jest",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "label-governance/SKILL",
+      "name": "SKILL",
+      "category": "label-governance",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "label-governance/metadata",
+      "name": "metadata",
+      "category": "label-governance",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "launch-qa-planner/.DS_Store",
+      "name": ".DS_Store",
+      "category": "launch-qa-planner",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "launch-qa-planner/SKILL",
+      "name": "SKILL",
+      "category": "launch-qa-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "launch-readiness-auditor/.DS_Store",
+      "name": ".DS_Store",
+      "category": "launch-readiness-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "launch-readiness-auditor/SKILL",
+      "name": "SKILL",
+      "category": "launch-readiness-auditor",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "launch-readiness-auditor/metadata",
+      "name": "metadata",
+      "category": "launch-readiness-auditor",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "launch-task-router/.DS_Store",
+      "name": ".DS_Store",
+      "category": "launch-task-router",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "launch-task-router/SKILL",
+      "name": "SKILL",
+      "category": "launch-task-router",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "linear/.DS_Store",
+      "name": ".DS_Store",
+      "category": "linear",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "linear/SKILL",
+      "name": "SKILL",
+      "category": "linear",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "linkedin-post-formatter/SKILL",
+      "name": "SKILL",
+      "category": "linkedin-post-formatter",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "lsx-wp-design-system-v2/.DS_Store",
+      "name": ".DS_Store",
+      "category": "lsx-wp-design-system-v2",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "lsx-wp-design-system-v2/Icon\r",
+      "name": "Icon\r",
+      "category": "lsx-wp-design-system-v2",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "lsx-wp-design-system-v2/README",
+      "name": "README",
+      "category": "lsx-wp-design-system-v2",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "lsx-wp-design-system-v2/package",
+      "name": "package",
+      "category": "lsx-wp-design-system-v2",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "lsx-wp-design-system-v2/theme",
+      "name": "theme",
+      "category": "lsx-wp-design-system-v2",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "markdown-content-validator/README",
+      "name": "README",
+      "category": "markdown-content-validator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "markdown-content-validator/SKILL",
+      "name": "SKILL",
+      "category": "markdown-content-validator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "mcp-security-audit/SKILL",
+      "name": "SKILL",
+      "category": "mcp-security-audit",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "openai-docs/.DS_Store",
+      "name": ".DS_Store",
+      "category": "openai-docs",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "pagespeed-audit-onboarding/Icon\r",
+      "name": "Icon\r",
+      "category": "pagespeed-audit-onboarding",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "pagespeed-audit-onboarding/SKILL",
+      "name": "SKILL",
+      "category": "pagespeed-audit-onboarding",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "pdf/.DS_Store",
+      "name": ".DS_Store",
+      "category": "pdf",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "pdfs/LICENSE",
+      "name": "LICENSE",
+      "category": "pdfs",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "playwright-automation-fill-in-form/SKILL",
+      "name": "SKILL",
+      "category": "playwright-automation-fill-in-form",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "playwright-explore-website/SKILL",
+      "name": "SKILL",
+      "category": "playwright-explore-website",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "playwright-generate-test/SKILL",
+      "name": "SKILL",
+      "category": "playwright-generate-test",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "plugin-creator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "plugin-creator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "policy-page-generator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "policy-page-generator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "pr-review/metadata",
+      "name": "metadata",
+      "category": "pr-review",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-generator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "prd-generator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-generator/SKILL",
+      "name": "SKILL",
+      "category": "prd-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager/.DS_Store",
+      "name": ".DS_Store",
+      "category": "prd-task-manager",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager/SKILL",
+      "name": "SKILL",
+      "category": "prd-task-manager",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-pack/.DS_Store",
+      "name": ".DS_Store",
+      "category": "prd-task-manager-agent-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-pack/Icon\r",
+      "name": "Icon\r",
+      "category": "prd-task-manager-agent-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-pack/README",
+      "name": "README",
+      "category": "prd-task-manager-agent-pack",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/Icon\r",
+      "name": "Icon\r",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-acceptance-test-planner-skill",
+      "name": "lightspeed-acceptance-test-planner-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-approval-gate-manager-skill",
+      "name": "lightspeed-approval-gate-manager-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-change-request-router-skill",
+      "name": "lightspeed-change-request-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-estimation-proposal-planner-skill",
+      "name": "lightspeed-estimation-proposal-planner-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-figma-wordpress-technical-brief-skill",
+      "name": "lightspeed-figma-wordpress-technical-brief-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-github-issue-drafter-skill",
+      "name": "lightspeed-github-issue-drafter-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-implementation-plan-generator-skill",
+      "name": "lightspeed-implementation-plan-generator-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-launch-task-router-skill",
+      "name": "lightspeed-launch-task-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-generator-skill",
+      "name": "lightspeed-prd-generator-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-task-manager-skill",
+      "name": "lightspeed-prd-task-manager-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-task-pack-exporter-skill",
+      "name": "lightspeed-prd-task-pack-exporter-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-task-reviewer-skill",
+      "name": "lightspeed-prd-task-reviewer-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-intake-router-skill",
+      "name": "lightspeed-project-intake-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-memory-manager-skill",
+      "name": "lightspeed-project-memory-manager-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-researcher-skill",
+      "name": "lightspeed-project-researcher-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-status-reporter-skill",
+      "name": "lightspeed-project-status-reporter-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-qa-findings-router-skill",
+      "name": "lightspeed-qa-findings-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-release-handoff-generator-skill",
+      "name": "lightspeed-release-handoff-generator-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-requirements-traceability-mapper-skill",
+      "name": "lightspeed-requirements-traceability-mapper-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-task-breakdown-planner-skill",
+      "name": "lightspeed-task-breakdown-planner-skill",
+      "category": "prd-task-manager-agent-skills",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-pack-exporter/.DS_Store",
+      "name": ".DS_Store",
+      "category": "prd-task-pack-exporter",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-pack-exporter/SKILL",
+      "name": "SKILL",
+      "category": "prd-task-pack-exporter",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-reviewer/.DS_Store",
+      "name": ".DS_Store",
+      "category": "prd-task-reviewer",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "prd-task-reviewer/SKILL",
+      "name": "SKILL",
+      "category": "prd-task-reviewer",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "presentations/.DS_Store",
+      "name": ".DS_Store",
+      "category": "presentations",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-evidence-harvester/.DS_Store",
+      "name": ".DS_Store",
+      "category": "project-evidence-harvester",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-intake-router/.DS_Store",
+      "name": ".DS_Store",
+      "category": "project-intake-router",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-intake-router/metadata",
+      "name": "metadata",
+      "category": "project-intake-router",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-memory-manager/.DS_Store",
+      "name": ".DS_Store",
+      "category": "project-memory-manager",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-memory-manager/SKILL",
+      "name": "SKILL",
+      "category": "project-memory-manager",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-onboarding/.DS_Store",
+      "name": ".DS_Store",
+      "category": "project-onboarding",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-researcher/.DS_Store",
+      "name": ".DS_Store",
+      "category": "project-researcher",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-researcher/SKILL",
+      "name": "SKILL",
+      "category": "project-researcher",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-status-reporter/.DS_Store",
+      "name": ".DS_Store",
+      "category": "project-status-reporter",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "project-status-reporter/SKILL",
+      "name": "SKILL",
+      "category": "project-status-reporter",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "qa-findings-router/.DS_Store",
+      "name": ".DS_Store",
+      "category": "qa-findings-router",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "qa-findings-router/SKILL",
+      "name": "SKILL",
+      "category": "qa-findings-router",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "readme-blueprint-generator/SKILL",
+      "name": "SKILL",
+      "category": "readme-blueprint-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "redirect-map-planner/.DS_Store",
+      "name": ".DS_Store",
+      "category": "redirect-map-planner",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "redirect-map-planner/SKILL",
+      "name": "SKILL",
+      "category": "redirect-map-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "reference-site-analysis/Icon\r",
+      "name": "Icon\r",
+      "category": "reference-site-analysis",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "release-handoff-generator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "release-handoff-generator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "release-handoff-generator/SKILL",
+      "name": "SKILL",
+      "category": "release-handoff-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "requirements-traceability-mapper/.DS_Store",
+      "name": ".DS_Store",
+      "category": "requirements-traceability-mapper",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "requirements-traceability-mapper/SKILL",
+      "name": "SKILL",
+      "category": "requirements-traceability-mapper",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "schema-and-ai-discoverability-planner/.DS_Store",
+      "name": ".DS_Store",
+      "category": "schema-and-ai-discoverability-planner",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "schema-and-ai-discoverability-planner/SKILL",
+      "name": "SKILL",
+      "category": "schema-and-ai-discoverability-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "self-evolving-agent-skill/Icon\r",
+      "name": "Icon\r",
+      "category": "self-evolving-agent-skill",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "skill-installer/.DS_Store",
+      "name": ".DS_Store",
+      "category": "skill-installer",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "slides/LICENSE",
+      "name": "LICENSE",
+      "category": "slides",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "slides/SKILL",
+      "name": "SKILL",
+      "category": "slides",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "spreadsheets/LICENSE",
+      "name": "LICENSE",
+      "category": "spreadsheets",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "spreadsheets/SKILL",
+      "name": "SKILL",
+      "category": "spreadsheets",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "structured-autonomy-generate/SKILL",
+      "name": "SKILL",
+      "category": "structured-autonomy-generate",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "sync-figma-token/SKILL",
+      "name": "SKILL",
+      "category": "sync-figma-token",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "sync-figma-token/maintainers",
+      "name": "maintainers",
+      "category": "sync-figma-token",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "task-breakdown-planner/.DS_Store",
+      "name": ".DS_Store",
+      "category": "task-breakdown-planner",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "task-breakdown-planner/SKILL",
+      "name": "SKILL",
+      "category": "task-breakdown-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "task-breakdown-planner/metadata",
+      "name": "metadata",
+      "category": "task-breakdown-planner",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "theme-factory/theme-showcase",
+      "name": "theme-showcase",
+      "category": "theme-factory",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "theme-orphaned-refs/SKILL",
+      "name": "SKILL",
+      "category": "theme-orphaned-refs",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "tour-operator-agent-instructions/.DS_Store",
+      "name": ".DS_Store",
+      "category": "tour-operator-agent-instructions",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "tour-operator-agent-instructions/Icon\r",
+      "name": "Icon\r",
+      "category": "tour-operator-agent-instructions",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "tour-operator-gravity-forms-auditor/Icon\r",
+      "name": "Icon\r",
+      "category": "tour-operator-gravity-forms-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "tour-operator-gravity-forms-configuration/Icon\r",
+      "name": "Icon\r",
+      "category": "tour-operator-gravity-forms-configuration",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "tour-operator-website/Icon\r",
+      "name": "Icon\r",
+      "category": "tour-operator-website",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "tour-operator-yoast-auditor/Icon\r",
+      "name": "Icon\r",
+      "category": "tour-operator-yoast-auditor",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "tour-operator-yoast-configuration/Icon\r",
+      "name": "Icon\r",
+      "category": "tour-operator-yoast-configuration",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "web-artifacts-builder/SKILL",
+      "name": "SKILL",
+      "category": "web-artifacts-builder",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "website-content-generator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "website-content-generator",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "what-context-needed/SKILL",
+      "name": "SKILL",
+      "category": "what-context-needed",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-block-asset-validator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-block-asset-validator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-block-style-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-block-style-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-block-theme-router/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-block-theme-router",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-block-theme-router/metadata",
+      "name": "metadata",
+      "category": "wordpress-block-theme-router",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-custom-template-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-custom-template-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-design-system-intake-onboarding/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-design-system-intake-onboarding",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-pattern-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-pattern-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-plugin-extension-audit/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-plugin-extension-audit",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-plugin-packaging-review/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-plugin-packaging-review",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-plugin-packaging-review/metadata",
+      "name": "metadata",
+      "category": "wordpress-plugin-packaging-review",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-section-style-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-section-style-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-template-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-template-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-template-part-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-template-part-generator",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-theme-validation/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-theme-validation",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wordpress-theme-validation/metadata",
+      "name": "metadata",
+      "category": "wordpress-theme-validation",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "workshop-create/SKILL",
+      "name": "SKILL",
+      "category": "workshop-create",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wp-blockstyle-css-field/SKILL",
+      "name": "SKILL",
+      "category": "wp-blockstyle-css-field",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "wp-thirdparty-markup-styling/SKILL",
+      "name": "SKILL",
+      "category": "wp-thirdparty-markup-styling",
+      "failedChecks": ["hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-backlog-capability-profile-pack/.DS_Store",
+      "name": ".DS_Store",
+      "category": "zendesk-backlog-capability-profile-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-backlog-capability-profile-pack/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-backlog-capability-profile-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-backlog-capability-profile-pack/README",
+      "name": "README",
+      "category": "zendesk-backlog-capability-profile-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-backlog-capability-profile-pack/templates",
+      "name": "templates",
+      "category": "zendesk-backlog-capability-profile-pack",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-case-readiness-check/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-case-readiness-check",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-case-readiness-check/skill",
+      "name": "skill",
+      "category": "zendesk-case-readiness-check",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-duplicate-pattern-review/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-duplicate-pattern-review",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-duplicate-pattern-review/skill",
+      "name": "skill",
+      "category": "zendesk-duplicate-pattern-review",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-handoff-prep/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-handoff-prep",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-handoff-prep/skill",
+      "name": "skill",
+      "category": "zendesk-handoff-prep",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-knowledge-candidate-review/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-knowledge-candidate-review",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-knowledge-candidate-review/skill",
+      "name": "skill",
+      "category": "zendesk-knowledge-candidate-review",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "zendesk-triage-router/Icon\r",
+      "name": "Icon\r",
+      "category": "zendesk-triage-router",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:adr-generator-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:adr-generator-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:ai-readiness-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:ai-readiness-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:changelog-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:changelog-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:chat-closure-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:chat-closure-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:content-strategy-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:content-strategy-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:design-partner-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:design-partner-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:discovery-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:discovery-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:linear-advisor-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:linear-advisor-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:meta-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:meta-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    },
+    {
+      "id": "agent:pr-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:pr-agent",
+      "failedChecks": ["hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
+      "remediation": [
+        "Add JSDoc comments with description, inputs, outputs",
+        "Include example usage in code or documentation",
+        "Ensure skill is documented in SKILLS_NAMING_CONVENTION.md"
+      ]
+    }
+  ]
+}

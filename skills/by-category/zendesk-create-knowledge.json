@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "zendesk-create-knowledge",
+  "skills": [
+    {
+      "id": "zendesk-create-knowledge/SKILL",
+      "name": "SKILL",
+      "category": "zendesk-create-knowledge",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-create-knowledge/SKILL.md",
+      "description": "Zendesk Create Knowledge",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

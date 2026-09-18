@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "discovery-source-intake",
+  "skills": [
+    {
+      "id": "discovery-source-intake/SKILL",
+      "name": "SKILL",
+      "category": "discovery-source-intake",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/discovery-source-intake/SKILL.md",
+      "description": "Discovery Source Intake",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

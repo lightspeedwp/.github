@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "agent:meta-agent",
+  "skills": [
+    {
+      "id": "agent:meta-agent/.DS_Store",
+      "name": ".DS_Store",
+      "category": "agent:meta-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/meta-agent/skills/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

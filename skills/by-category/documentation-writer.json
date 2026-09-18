@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "documentation-writer",
+  "skills": [
+    {
+      "id": "documentation-writer/SKILL",
+      "name": "SKILL",
+      "category": "documentation-writer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/documentation-writer/SKILL.md",
+      "description": "Diátaxis Documentation Expert",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

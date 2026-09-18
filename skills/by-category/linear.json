@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "linear",
+  "skills": [
+    {
+      "id": "linear/.DS_Store",
+      "name": ".DS_Store",
+      "category": "linear",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "linear/LICENSE",
+      "name": "LICENSE",
+      "category": "linear",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear/LICENSE.txt",
+      "description": "www.apache.org/licenses/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "linear/SKILL",
+      "name": "SKILL",
+      "category": "linear",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear/SKILL.md",
+      "description": "lightspeedwp.agency/contact)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "compliant": 1,
+    "compliancePercentage": 33
+  }
+}

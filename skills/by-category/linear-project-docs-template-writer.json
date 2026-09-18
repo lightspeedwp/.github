@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "linear-project-docs-template-writer",
+  "skills": [
+    {
+      "id": "linear-project-docs-template-writer/SKILL",
+      "name": "SKILL",
+      "category": "linear-project-docs-template-writer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear-project-docs-template-writer/SKILL.md",
+      "description": "Linear Project Docs Template Writer",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

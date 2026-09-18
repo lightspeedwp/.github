@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "sql-server-table-reconciliation",
+  "skills": [
+    {
+      "id": "sql-server-table-reconciliation/SKILL",
+      "name": "SKILL",
+      "category": "sql-server-table-reconciliation",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/sql-server-table-reconciliation/SKILL.md",
+      "description": "SQL Server Table Reconciliation",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

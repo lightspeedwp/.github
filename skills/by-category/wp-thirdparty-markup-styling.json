@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "wp-thirdparty-markup-styling",
+  "skills": [
+    {
+      "id": "wp-thirdparty-markup-styling/SKILL",
+      "name": "SKILL",
+      "category": "wp-thirdparty-markup-styling",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/wp-thirdparty-markup-styling/SKILL.md",
+      "description": "WP Third-Party Markup Styling",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

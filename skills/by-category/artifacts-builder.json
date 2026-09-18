@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "artifacts-builder",
+  "skills": [
+    {
+      "id": "artifacts-builder/LICENSE",
+      "name": "LICENSE",
+      "category": "artifacts-builder",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+      "description": "www.apache.org/licenses/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "artifacts-builder/SKILL",
+      "name": "SKILL",
+      "category": "artifacts-builder",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/SKILL.md",
+      "description": "Artifacts Builder",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 1,
+    "compliancePercentage": 50
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "agent-creator",
+  "skills": [
+    {
+      "id": "agent-creator/SKILL",
+      "name": "SKILL",
+      "category": "agent-creator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator/SKILL.md",
+      "description": "github.com/lightspeedwp/.github/tree/main/instructions)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

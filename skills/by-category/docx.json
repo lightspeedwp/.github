@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "docx",
+  "skills": [
+    {
+      "id": "docx/LICENSE",
+      "name": "LICENSE",
+      "category": "docx",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/docx/LICENSE.txt",
+      "description": "openai.com/policies/row-terms-of-use/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "docx/SKILL",
+      "name": "SKILL",
+      "category": "docx",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/docx/SKILL.md",
+      "description": "github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "docx/render_docx",
+      "name": "render_docx",
+      "category": "docx",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/docx/render_docx.py",
+      "description": "schemas.openxmlformats.org/wordprocessingml/2006/main\"}",
+      "type": "python",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "compliant": 1,
+    "compliancePercentage": 33
+  }
+}

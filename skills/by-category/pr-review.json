@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "pr-review",
+  "skills": [
+    {
+      "id": "pr-review/SKILL",
+      "name": "SKILL",
+      "category": "pr-review",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/pr-review/SKILL.md",
+      "description": "lightspeed-pr-review",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "pr-review/metadata",
+      "name": "metadata",
+      "category": "pr-review",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/pr-review/metadata.yml",
+      "description": "No description available",
+      "type": "yaml",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 1,
+    "compliancePercentage": 50
+  }
+}

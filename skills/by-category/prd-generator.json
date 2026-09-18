@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "prd-generator",
+  "skills": [
+    {
+      "id": "prd-generator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "prd-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-generator/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-generator/SKILL",
+      "name": "SKILL",
+      "category": "prd-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-generator/SKILL.md",
+      "description": "github.com/lightspeedwp/.github/tree/main/instructions)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

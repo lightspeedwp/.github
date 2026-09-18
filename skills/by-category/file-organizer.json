@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "file-organizer",
+  "skills": [
+    {
+      "id": "file-organizer/SKILL",
+      "name": "SKILL",
+      "category": "file-organizer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/file-organizer/SKILL.md",
+      "description": "File Organizer",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

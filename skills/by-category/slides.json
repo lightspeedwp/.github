@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "slides",
+  "skills": [
+    {
+      "id": "slides/LICENSE",
+      "name": "LICENSE",
+      "category": "slides",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/slides/LICENSE.txt",
+      "description": "openai.com/policies/row-terms-of-use/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "slides/SKILL",
+      "name": "SKILL",
+      "category": "slides",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/slides/SKILL.md",
+      "description": "github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

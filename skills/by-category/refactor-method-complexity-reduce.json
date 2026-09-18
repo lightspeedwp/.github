@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "refactor-method-complexity-reduce",
+  "skills": [
+    {
+      "id": "refactor-method-complexity-reduce/SKILL",
+      "name": "SKILL",
+      "category": "refactor-method-complexity-reduce",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/refactor-method-complexity-reduce/SKILL.md",
+      "description": "Refactor Method to Reduce Cognitive Complexity",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

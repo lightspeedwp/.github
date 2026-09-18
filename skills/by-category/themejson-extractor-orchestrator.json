@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "themejson-extractor-orchestrator",
+  "skills": [
+    {
+      "id": "themejson-extractor-orchestrator/SKILL",
+      "name": "SKILL",
+      "category": "themejson-extractor-orchestrator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/themejson-extractor-orchestrator/SKILL.md",
+      "description": "ThemeJSON Extractor Orchestrator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "pagespeed-audit-report-writer",
+  "skills": [
+    {
+      "id": "pagespeed-audit-report-writer/SKILL",
+      "name": "SKILL",
+      "category": "pagespeed-audit-report-writer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/pagespeed-audit-report-writer/SKILL.md",
+      "description": "PageSpeed Audit Report Writer",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}
