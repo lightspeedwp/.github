@@ -45,7 +45,10 @@ All specification catalog entries MUST follow this exact column order and naming
 
 ## Draft Specifications
 
-Currently no draft specifications. All approved specifications are listed above under Active Specifications.
+| # | Slug | Title | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
+
+*Currently no draft specifications. All approved specifications are listed above under Active Specifications.*
 
 ---
 
