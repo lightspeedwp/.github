@@ -29,6 +29,33 @@ validate_catalog_exists() {
   fi
 }
 
+# validate_table_data_rows - Verify all data rows in a table section match canonical schema
+# Parameters:
+#   $1 - Section heading (e.g., "## Active Specifications")
+# Returns:
+#   0 when all data rows have 6 columns (7 pipes)
+#   1 when any data row has incorrect column count
+validate_table_data_rows() {
+  local section="$1"
+  local invalid_count=0
+
+  # Extract data rows only: lines starting with "| " followed by a number (table data rows)
+  # These are actual specification rows, not headers or separators
+  while IFS= read -r line; do
+    [ -z "$line" ] && continue
+
+    # Count pipes in data row (must be exactly 7 for 6 columns)
+    local pipe_count
+    pipe_count=$(printf '%s' "$line" | grep -o '|' | wc -l)
+    if [ "$pipe_count" -ne 7 ]; then
+      echo "  ✗ Row has $pipe_count pipes (expected 7): ${line:0:50}..."
+      ((++invalid_count))
+    fi
+  done < <(sed -n "/^$section$/,/^## /p" "$CATALOG_PATH" | grep "^| [0-9]")
+
+  return $invalid_count
+}
+
 # validate_canonical_schema - Verify CATALOG.md contains canonical schema and table format
 # Parameters: None
 # Returns:
@@ -45,11 +72,16 @@ validate_canonical_schema() {
 
   # Verify table headers match exactly in both Active and Draft sections
   local schema_valid=0
-  local active_rows invalid_rows
 
   # Check Active Specifications header and data rows
   if grep -A 2 "## Active Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
-    echo "✓ Active Specifications table follows canonical schema"
+    echo "✓ Active Specifications table header follows canonical schema"
+    if validate_table_data_rows "## Active Specifications"; then
+      echo "✓ All Active Specifications rows have canonical schema (6 columns)"
+    else
+      echo "✗ Some Active Specifications rows do not have 6 columns"
+      schema_valid=1
+    fi
   else
     echo "✗ Active Specifications table does not follow canonical schema"
     schema_valid=1
@@ -57,7 +89,13 @@ validate_canonical_schema() {
 
   # Check Draft Specifications header and data rows
   if grep -A 2 "## Draft Specifications" "$CATALOG_PATH" | grep -q "^| # | Slug | Title | Status | Created | Link |$"; then
-    echo "✓ Draft Specifications table follows canonical schema"
+    echo "✓ Draft Specifications table header follows canonical schema"
+    if validate_table_data_rows "## Draft Specifications"; then
+      echo "✓ All Draft Specifications rows have canonical schema (6 columns)"
+    else
+      echo "✗ Some Draft Specifications rows do not have 6 columns"
+      schema_valid=1
+    fi
   else
     echo "✗ Draft Specifications table does not follow canonical schema"
     schema_valid=1

@@ -34,14 +34,16 @@ is_baselined() {
   printf '%s\n' "$BASELINE" | grep -Fxq -- "$1"
 }
 
-# has_strict_mode - Verify that a script contains proper strict-mode setup
+# has_strict_mode - Verify that a script contains proper strict-mode setup at top level
 # Parameters:
 #   $1 - Script file path to check for strict mode
 # Returns:
-#   0 when script has set -euo pipefail or set -Eeuo pipefail
-#   1 when script lacks proper strict-mode setup
+#   0 when script has set -euo pipefail or set -Eeuo pipefail in the first 20 lines
+#   1 when script lacks proper strict-mode setup at top level
 has_strict_mode() {
-  grep -q "^set -E\?euo pipefail" "$1"
+  # Verify strict mode is at top-level (before any function definitions)
+  # Check first 20 lines to ensure it's not buried in a function
+  head -20 "$1" | grep -q "^set -E\?euo pipefail"
 }
 
 @test "first-party shell scripts use strict mode" {
