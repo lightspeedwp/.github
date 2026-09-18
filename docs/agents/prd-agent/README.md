@@ -133,3 +133,6 @@ Check the [FAQ](./faq.md) — it covers the most common questions and blockers.
 **Last Updated**: 2026-09-17  
 **Owner**: LightSpeed Product & Engineering  
 **Questions?** Open an issue: [lightspeedwp/.github#issues](https://github.com/lightspeedwp/.github/issues)
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

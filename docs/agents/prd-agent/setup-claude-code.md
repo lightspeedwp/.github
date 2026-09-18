@@ -241,3 +241,6 @@ Most teams prefer option 1 — it keeps each project's configuration self-contai
 **Platform**: Claude Code (all versions)  
 **Agent Version**: v2.1  
 **Questions?** Open an issue: [lightspeedwp/.github](https://github.com/lightspeedwp/.github/issues)
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
