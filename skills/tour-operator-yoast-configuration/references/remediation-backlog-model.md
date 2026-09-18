@@ -57,3 +57,5 @@ Prioritise indexation, canonical, redirect, sitemap and schema risks before meta
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -222,3 +222,5 @@ When adding or renaming related Yoast skills, update `SKILL.md`, `references/rel
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
