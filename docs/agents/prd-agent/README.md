@@ -15,10 +15,10 @@ Welcome to the PRD (Product Requirements Document) Agent playbook. This guide he
 
 New to the PRD agent? Start here:
 
-- **[Setup Guide by Platform](./setup-claude-code.md)** — Install and configure for Claude Code, GitHub Copilot, or OpenAI
+- **[Setup Guide by Platform](./setup-claude-code.md)** — Install and configure for Claude Code, GitHub Copilot, or OpenAI API
   - [Claude Code Setup](./setup-claude-code.md) — Use the PRD agent as a Claude Code subagent
   - [GitHub Copilot Setup](./setup-copilot.md) — Integrate with GitHub Copilot custom agents
-  - [OpenAI Setup](./setup-openai.md) — Configure for OpenAI Codex environments
+  - [OpenAI Setup](./setup-openai.md) — Configure for use with OpenAI API (GPT-4, GPT-3.5-turbo)
 - **[FAQ & Troubleshooting](./faq.md)** — Common questions, setup issues, and solutions
 
 ### Creating & Using PRDs
@@ -45,7 +45,7 @@ Ready to integrate PRDs into your team's systems?
 |----------|---------|----------|
 | [setup-claude-code.md](./setup-claude-code.md) | Install PRD agent in Claude Code | Individual developers, teams |
 | [setup-copilot.md](./setup-copilot.md) | Configure GitHub Copilot custom agent | Teams using GitHub Copilot |
-| [setup-openai.md](./setup-openai.md) | Set up with OpenAI Codex | OpenAI API users |
+| [setup-openai.md](./setup-openai.md) | Set up with OpenAI API | OpenAI API users |
 | [workflow.md](./workflow.md) | PRD creation step-by-step guide | Product managers, leads, developers |
 | [best-practices.md](./best-practices.md) | Quality standards and structure | All PRD creators |
 | [estimation-strategy.md](./estimation-strategy.md) | Structure PRDs for accurate estimates | Tech leads, engineering managers |
@@ -60,7 +60,7 @@ The consolidated PRD agent is a multi-platform AI assistant designed to help tea
 
 - Guides you through PRD creation with a conversational interface
 - Enforces consistency and completeness across all PRDs
-- Works natively in Claude Code, GitHub Copilot, and OpenAI environments
+- Works natively in Claude Code, GitHub Copilot, and OpenAI API environments
 - Integrates seamlessly with your existing tools (Figma, Linear, Claude Code workflows)
 
 ### Three Platforms, One Agent
@@ -69,7 +69,7 @@ The same PRD agent logic is packaged for three environments:
 
 1. **Claude Code** (recommended) — Portable, cross-platform, full feature set
 2. **GitHub Copilot** — Integrated into your .github control plane (Copilot-native workflows)
-3. **OpenAI Codex** — For teams already using OpenAI API
+3. **OpenAI API** — For teams using OpenAI API (GPT-4, GPT-3.5-turbo, other models)
 
 All three produce identical PRD output — choose the platform that fits your workflow.
 

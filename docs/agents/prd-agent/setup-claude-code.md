@@ -66,50 +66,71 @@ agents/prd-agent/claude/agent.md
    git push
    ```
 
-### Step 3: Load the Agent in Claude Code
+### Step 3: Invoke Skills from the Agent in Claude Code
 
-1. **Open Claude Code** in your project directory
-2. **Type the agent invocation**:
+Once the agent file is in place, you can invoke individual skills from the consolidated PRD agent in Claude Code.
 
-   ```
-   /prd-agent
-   ```
+**Available skills:**
 
-   Or reference it by path:
+- `/prd-writer` — Create and edit PRD documents
+- `/project-researcher` — Research and gather product context
+- `/feature-prioritizer` — Prioritize features using impact/effort matrices
+- `/user-story-generator` — Generate user stories with acceptance criteria
+- `/requirements-traceability-mapper` — Link requirements to implementation
+- `/delivery-planner` — Plan releases and milestones
+- `/implementation-plan-generator` — Create technical implementation plans
+- `/acceptance-test-planner` — Define testable acceptance criteria
 
-   ```
-   /agents:prd-agent
-   ```
+For example, to create a PRD:
 
-3. **Claude Code loads the agent** and displays its capabilities
+```
+/prd-writer
+Write a PRD for a new user authentication system
+```
 
 ### Step 4: Verify Installation
 
-You should see:
-
-- Agent name: "PRD Agent"
-- Agent description: "Consolidated PRD generation agent"
-- Available commands and tools
-- Confirmation that the agent initialized without errors
-
-If you see errors about missing tools or invalid configuration, see [Troubleshooting](#troubleshooting) below.
-
-## Using the PRD Agent
-
-Once loaded, invoke the agent with your PRD request:
+Test one of the agent's skills to verify installation:
 
 ```
-/prd-agent
+/prd-writer
+Hello, I want to create a PRD for a new feature.
+```
+
+You should see:
+
+- The skill initializes without errors
+- The skill responds and is ready to help with PRD creation
+- You can follow its prompts to create a structured PRD
+
+If you see "Skill not found" or other errors, see [Troubleshooting](#troubleshooting) below.
+
+## Using the PRD Agent Skills
+
+Once the agent is installed, you can invoke specific skills from the consolidated PRD agent:
+
+**To create a new PRD:**
+
+```
+/prd-writer
 Write a PRD for a new user authentication system with role-based access control.
 ```
 
-Or use it in a conversation:
+**To gather context and requirements:**
 
 ```
-I need a PRD for [feature description]. Can you generate one?
+/project-researcher
+Research the existing user authentication system and competitive landscape.
 ```
 
-The agent will guide you through PRD creation, asking clarifying questions and producing a structured output.
+**To prioritize features:**
+
+```
+/feature-prioritizer
+Help me prioritize features for our Q4 roadmap.
+```
+
+You can also use the skills in natural conversations — the skills will guide you through PRD creation, asking clarifying questions and producing structured output.
 
 ## Configuration & Customisation
 
@@ -147,28 +168,29 @@ Subscribe to the [LightSpeed .github releases](https://github.com/lightspeedwp/.
 
 ## Troubleshooting
 
-### "Agent not found" or "Invalid agent configuration"
+### "Skill not found" or "Invalid skill configuration"
 
-**Problem**: Claude Code can't load the agent.
+**Problem**: Claude Code can't load one of the PRD agent skills.
 
 **Solutions**:
 
 1. Verify `.claude/agents/prd-agent.md` exists and is readable
 2. Check the file syntax — make sure you copied it completely (no truncation)
 3. Look for parse errors in the agent's YAML frontmatter
-4. If you edited the agent, undo your changes and re-download the original
+4. Make sure the skill name is correct (e.g., `/prd-writer`, not `/prd_writer`)
 5. Restart Claude Code and try again
+6. Try a different skill (e.g., `/project-researcher`) to isolate the issue
 
-### "Tool unavailable" or "Tool not found"
+### "Tool unavailable" or "Integration error"
 
-**Problem**: The agent loaded but says its tools are missing.
+**Problem**: A skill loaded but reports missing integrations or external tool errors.
 
 **Solutions**:
 
-1. Claude Code requires certain tools to be available in your session
-2. Check the `tools:` section in `.claude/agents/prd-agent.md`
-3. Most tools are built-in to Claude Code; no additional setup needed
-4. If you see external tool errors, see the [Integration Guide](./integration-guide.md)
+1. Some PRD agent skills integrate with external services (Linear, GitHub, Google Workspace)
+2. Verify you have access to the required integrations
+3. Check the skill description for its specific requirements
+4. If using advanced integration features, see the [Integration Guide](./integration-guide.md)
 
 ### Agent responses are poor quality or incomplete
 

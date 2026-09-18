@@ -41,7 +41,11 @@ agents/prd-agent/copilot/agent.md
 
 This is the Copilot-native version of the agent, optimised for GitHub's control plane and Copilot integration.
 
-### Step 2: Add the Agent to Your `.github` Repository
+### Step 2: Add the Agent to Your Repository
+
+You can add the PRD agent at either organisation or project level:
+
+**Option A: Organisation-wide (recommended)**
 
 1. **In your organisation's `.github` repository**, create or navigate to:
 
@@ -49,7 +53,21 @@ This is the Copilot-native version of the agent, optimised for GitHub's control 
    .github/agents/
    ```
 
-2. **Copy the agent file**:
+   This makes the agent available across all repositories in your organisation.
+
+**Option B: Project-level**
+
+1. **In your project repository**, create or navigate to:
+
+   ```
+   .github/agents/
+   ```
+
+   This makes the agent available only within that specific project.
+
+**Installation (both options use the same path):**
+
+1. **Copy the agent file**:
 
    ```bash
    curl -s https://raw.githubusercontent.com/lightspeedwp/.github/develop/agents/prd-agent/copilot/agent.md \
@@ -61,7 +79,7 @@ This is the Copilot-native version of the agent, optimised for GitHub's control 
    - Copy the entire file contents
    - Create `.github/agents/prd-agent.md` in your `.github` repository and paste
 
-3. **Review the agent configuration** — the YAML frontmatter should specify:
+2. **Review the agent configuration** — the YAML frontmatter should specify:
 
    ```yaml
    name: PRD Agent
@@ -70,7 +88,7 @@ This is the Copilot-native version of the agent, optimised for GitHub's control 
    mcp-servers: [...]
    ```
 
-4. **Commit and push** to your `.github` repository:
+3. **Commit and push** to your `.github` repository:
 
    ```bash
    git add .github/agents/prd-agent.md
@@ -222,11 +240,14 @@ Both produce compatible output. Choose based on your workflow.
 ## Security & Permissions
 
 - **Agent visibility**: All organisation members see the agent (no per-user access control in current GitHub Copilot)
-- **PRD content**: Treated the same as any Copilot chat — sent to Anthropic for processing, not stored persistently
-- **Sensitive data**: Never include credentials, API keys, or private information in PRDs
-- **Licensing**: Requires GitHub Copilot Enterprise or Copilot Pro/Free for individual use
+- **Data privacy**: PRD content is processed by Anthropic via GitHub's Copilot service. Data retention policies vary by subscription tier:
+  - **GitHub Copilot Enterprise**: Check your organisation's data retention settings
+  - **GitHub Copilot Pro/Free**: Subject to GitHub's standard Copilot privacy policy
+  - See [GitHub's Copilot data retention policy](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot#data-retention) for detailed information
+- **Sensitive data**: Never include credentials, API keys, passwords, or private information in PRDs
+- **Licensing**: Requires GitHub Copilot Enterprise (for organisation-wide agents) or Copilot Pro/Free (for individual use)
 
-See [GitHub's Copilot privacy policy](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot#data-retention) and [LightSpeed security policy](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md).
+For detailed information, consult [GitHub's Copilot privacy policy](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot#data-retention) and [LightSpeed security policy](https://github.com/lightspeedwp/.github/blob/develop/SECURITY.md).
 
 ## Next Steps
 

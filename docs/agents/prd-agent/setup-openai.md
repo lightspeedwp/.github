@@ -50,9 +50,14 @@ The agent configuration includes:
 Download or copy the agent specification:
 
 ```bash
-# Download the agent directory
-curl -s https://api.github.com/repos/lightspeedwp/.github/contents/agents/prd-agent/openai \
-  -H "Accept: application/vnd.github.v3.raw" | tar -xz
+# Download the agent files from GitHub
+# Option 1: Clone the entire repository
+git clone https://github.com/lightspeedwp/.github.git
+cd .github/agents/prd-agent/openai/
+
+# Option 2: Download individual files using curl
+curl -o agent.md https://raw.githubusercontent.com/lightspeedwp/.github/develop/agents/prd-agent/openai/agent.md
+curl -o tools.json https://raw.githubusercontent.com/lightspeedwp/.github/develop/agents/prd-agent/openai/tools.json
 
 # Or manually navigate to:
 # https://github.com/lightspeedwp/.github/tree/develop/agents/prd-agent/openai/
@@ -71,12 +76,13 @@ If you're using OpenAI's [function calling](https://platform.openai.com/docs/gui
 3. **Create an API call** with the system prompt and functions:
 
 ```python
-import openai
+import os
+from openai import OpenAI
 
-openai.api_key = "your-api-key"
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def call_prd_agent(user_request):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",  # or gpt-3.5-turbo
         messages=[
             {
@@ -88,18 +94,21 @@ def call_prd_agent(user_request):
                 "content": user_request
             }
         ],
-        functions=[
-            # Define any external functions here
+        tools=[
+            # Define any external tools here
             # Example:
             # {
-            #     "name": "save_prd",
-            #     "description": "Save the PRD to your database",
-            #     "parameters": {...}
+            #     "type": "function",
+            #     "function": {
+            #         "name": "save_prd",
+            #         "description": "Save the PRD to your database",
+            #         "parameters": {...}
+            #     }
             # }
         ],
         temperature=0.7
     )
-    return response
+    return response.choices[0].message.content
 
 # Usage
 prd = call_prd_agent("Write a PRD for a new user authentication system")
@@ -111,9 +120,12 @@ print(prd)
 For a simpler approach, send the agent's prompt as context:
 
 ```python
-import openai
+import os
+from openai import OpenAI
 
-response = openai.ChatCompletion.create(
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+response = client.chat.completions.create(
     model="gpt-4",
     messages=[
         {
@@ -136,14 +148,17 @@ print(response.choices[0].message.content)
 Create a wrapper function that encapsulates the agent:
 
 ```python
+import os
+from openai import OpenAI
+
 class PRDAgent:
-    def __init__(self, api_key):
-        self.api_key = api_key
+    def __init__(self):
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         self.system_prompt = """You are the PRD Agent..."""  # Load from file or config
     
     def generate(self, request):
         """Generate a PRD from a user request."""
-        response = openai.ChatCompletion.create(
+        response = self.client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": self.system_prompt},
@@ -154,7 +169,7 @@ class PRDAgent:
         return response.choices[0].message.content
 
 # Usage
-agent = PRDAgent(api_key="your-api-key")
+agent = PRDAgent()
 prd = agent.generate("Write a PRD for a new payment system")
 ```
 
@@ -177,8 +192,14 @@ prd = agent.generate("Write a PRD for a new payment system")
 ### Recommended Model & Parameters
 
 ```python
-openai.ChatCompletion.create(
+import os
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+response = client.chat.completions.create(
     model="gpt-4",              # Use gpt-4 for best quality; gpt-3.5-turbo for cost
+    messages=[...],             # Your messages list
     temperature=0.7,            # Balanced creativity and consistency
     max_tokens=2000,            # PRDs are typically 500-1500 tokens
     top_p=0.95                  # Nucleus sampling for diversity
@@ -224,12 +245,13 @@ See the full prompt in `agents/prd-agent/openai/` in the .github repository.
 
 ```python
 import time
+from openai import RateLimitError
 
 def call_with_retry(request, max_retries=3):
     for attempt in range(max_retries):
         try:
             return call_prd_agent(request)
-        except openai.error.RateLimitError:
+        except RateLimitError:
             wait_time = 2 ** attempt  # Exponential backoff
             print(f"Rate limited. Waiting {wait_time}s before retry...")
             time.sleep(wait_time)
@@ -238,36 +260,44 @@ def call_with_retry(request, max_retries=3):
 
 ## Advanced: Custom Functions
 
-You can extend the agent with custom functions. For example, to save PRDs directly:
+You can extend the agent with custom tools. For example, to save PRDs directly:
 
 ```python
+import os
+from openai import OpenAI
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 def save_prd_function(prd_content, title):
     """Save PRD to your database."""
     # Your implementation: save to Linear, Notion, database, etc.
     return {"status": "saved", "id": f"prd-{title}"}
 
-functions = [
+tools = [
     {
-        "name": "save_prd",
-        "description": "Save the generated PRD to your database",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "prd_content": {"type": "string", "description": "The full PRD"},
-                "title": {"type": "string", "description": "PRD title"}
-            },
-            "required": ["prd_content", "title"]
+        "type": "function",
+        "function": {
+            "name": "save_prd",
+            "description": "Save the generated PRD to your database",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "prd_content": {"type": "string", "description": "The full PRD"},
+                    "title": {"type": "string", "description": "PRD title"}
+                },
+                "required": ["prd_content", "title"]
+            }
         }
     }
 ]
 
-response = openai.ChatCompletion.create(
+response = client.chat.completions.create(
     model="gpt-4",
     messages=[...],
-    functions=functions
+    tools=tools
 )
 
-# Handle function calls...
+# Handle tool calls...
 ```
 
 ## Security
