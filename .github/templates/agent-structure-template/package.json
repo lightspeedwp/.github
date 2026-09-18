@@ -1,0 +1,27 @@
+{
+  "name": "agents-{agent-name}",
+  "version": "1.0.0",
+  "description": "Brief description of the agent",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "agent",
+    "lightspeedwp"
+  ],
+  "author": "LightSpeedWP",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  }
+}
