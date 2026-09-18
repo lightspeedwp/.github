@@ -316,9 +316,9 @@ Standardize terminology during refactoring:
 
 ## Reference Validation Summary
 
-**Total File References Checked**: 12 unique references  
-**Valid References**: 7 (58%)  
-**Broken/Outdated References**: 5 (42%)
+**Total File References Checked**: 11 unique references
+**Valid References**: 8 (73%)
+**Non-Valid References**: 3 (27%): 1 BROKEN, 1 MIGRATED, 1 STATUS UNKNOWN
 
 ### Detailed Reference Status
 

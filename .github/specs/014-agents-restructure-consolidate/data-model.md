@@ -29,7 +29,7 @@
 - `package.json` - Dependencies declaration
 - `README.md` - Human-readable documentation
 - `skills/` - Agent-specific skills subfolder
-- `tests/` - Test files subfolder (framework: Jest/Bats/Playwright)
+- Framework-specific test directory: `__tests__/` for Jest, `tests/` for Bats, or `tests/e2e/` for Playwright
 - `config/` - Configuration files subfolder
 
 **Relationships**

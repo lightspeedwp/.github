@@ -295,7 +295,7 @@ During the `/speckit-clarify` phase, 5 additional clarifications were resolved t
 **Decision**: Structured markdown at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md`
 
 - **Impact**: Deliverable format specified; findings categorized with line-number references and remediation guidance
-- **Action**: Generate AUDIT_REPORT.md during Phase 2 with all findings from DUP-001, ORG-001, CONST-001, REF-001, VER-001
+- **Action**: Generate AUDIT_REPORT.md during Phase 1 with all findings from DUP-001, ORG-001, CONST-001, REF-001, VER-001
 
 ### Q4: Audit/Refactoring Phasing
 
