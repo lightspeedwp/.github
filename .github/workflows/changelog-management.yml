@@ -9,6 +9,10 @@
 #
 # Purpose: Validate and process changelog entries on every PR, ensuring Keep a Changelog 1.1.0 compliance
 # Triggers: PR creation, synchronization, and reopen events on develop branch
+#
+# NOTE: A workflow_call trigger and pre-release-check job were removed in
+# Sep 2026 (no functional callers existed; the only consumer, release.yml,
+# was archived in the 2026-09-11 consolidation).
 
 name: Changelog • Management
 
@@ -19,13 +23,6 @@ on:
     paths-ignore:
       - "docs/**"
       - "**.md"
-  workflow_call:
-    inputs:
-      validate_only:
-        description: "Run only validation without sync/commit"
-        required: false
-        default: false
-        type: boolean
 
 concurrency:
   group: changelog-mgmt-${{ github.event.pull_request.number || github.ref }}
@@ -210,34 +207,3 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HAS_ENTRIES: ${{ steps.extract.outputs.has_entries }}
         run: bash scripts/report-changelog-action.sh
-
-  # Job 3: Pre-release validation check (called from release.yml)
-
-  pre-release-check:
-    name: Pre-release changelog validation
-    if: github.event_name == 'workflow_call'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-          submodules: false
-
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Validate changelog for release
-        run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
-
-      - name: Check for unreleased section
-        run: |
-          if grep -q "## \[Unreleased\]" CHANGELOG.md; then
-            echo "✅ Changelog has Unreleased section"
-          else
-            echo "⚠️ Warning: No Unreleased section found in CHANGELOG.md"
-          fi

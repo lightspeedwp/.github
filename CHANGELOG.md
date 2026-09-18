@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **Unused Phase 2 Workflow Stubs** — Deleted 7 placeholder workflows (`branch-management`, `issue-management`, `pr-workflow`, `release-orchestration`, `reporting-metrics`, `project-management`, `events-issue-pr-metadata`) that ran `echo` only on every issue/PR/branch event. Also removed the dead `workflow_call` trigger and `pre-release-check` job from `changelog-management.yml` (no functional callers) and rewrote the stale `.github/workflows/README.md` to document the 7 active workflows.
+
 ### Fixed
 
 - **Spec Validation Bats Slimming** — Fixed noisy test installs in the specification workflow by installing Bats without optional libraries. ([PR #3380](https://github.com/lightspeedwp/.github/pull/3380))
@@ -38,6 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch Validation Metrics Aggregator** — Fixed gawk constant-folding 0/0 at compile time; pass counters via awk -v. Also moved to Node LTS via .nvmrc. ([PR #3320](https://github.com/lightspeedwp/.github/pull/3320))
 - **Remaining Dependabot Alerts** — Added Dependabot npm scanning for 4 previously-unscanned lockfiles; overrode transitive smol-toml and lodash-es to patched versions. ([PR #3323](https://github.com/lightspeedwp/.github/pull/3323))
 - **Duplicate Spec Numbers** — Renumbered 3 colliding spec folders (001 x2, 003 x3) to 010/011/012; .github/specs/ is now uniquely 001-012 with no gaps. ([PR #3339](https://github.com/lightspeedwp/.github/pull/3339))
+- **Branch Name Validation on Protected Branches** — The workflow used the ESM validator (`lib/validate-branch-name.js`), which lacked the protected-branch exemption present in the canonical CJS validator, so every push to `develop`/`main` failed. Added the `PROTECTED_BRANCHES` exemption (`main`, `develop`) to the shared lib with test coverage, aligned its authorized types with the canonical 38-type list (previously 26, so valid `qa/`/`api/`-style branches failed CI), added the `ALLOWED_PREFIXES`/`isAllowed` alignment surface the test suite requires, fixed the CLI auto-running `main()` on import (which killed the importing test worker via `process.exit`), and moved the workflow's action pins to current majors (`checkout`/`setup-node`/`upload-artifact` v7, `github-script` v9).
+- **Documentation Bot-Commit Hook Failure** — The `documentation.yml` regenerate job failed on push to `develop` when the husky pre-commit hook ran lint-staged across thousands of staged files. The bot commit step now sets `HUSKY: 0` per Husky's official CI guidance.
 
 ### Removed
 
