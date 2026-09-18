@@ -6,7 +6,9 @@ import { ChecklistResult } from '../types';
  */
 export class ResultFormatter {
   /**
-   * Format result to JSON string
+   * Serialize a result as JSON.
+   *
+   * @param pretty - Whether to indent the output by two spaces.
    */
   static toJson(result: ChecklistResult, pretty: boolean = true): string {
     return JSON.stringify(result, null, pretty ? 2 : 0);
@@ -23,7 +25,7 @@ export class ResultFormatter {
   }
 
   /**
-   * Format result as human-readable text
+   * Render scores, failed findings, specification metadata, and timing as a text report.
    */
   static toText(result: ChecklistResult): string {
     const lines: string[] = [];
@@ -88,7 +90,9 @@ export class ResultFormatter {
   }
 
   /**
-   * Create a visual score bar
+   * Render a rounded filled-and-empty score bar for a percentage.
+   *
+   * @param width - Number of character cells in the bar.
    */
   private static createScoreBar(score: number, width: number = 20): string {
     const filled = Math.round((score / 100) * width);
@@ -98,7 +102,9 @@ export class ResultFormatter {
   }
 
   /**
-   * Format result based on output format preference
+   * Serialize a result in the requested format.
+   *
+   * @returns JSON when the runtime format value is unrecognized.
    */
   static format(result: ChecklistResult, format: 'json' | 'yaml' | 'text' = 'json'): string {
     switch (format) {

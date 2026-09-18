@@ -35,9 +35,11 @@ export {
 export { TemplateLoader } from './template-loader';
 
 /**
- * Convenience function to run a checklist
- * @param options Checklist options including variant, specPath, format
- * @returns ChecklistResult with scores, findings, and metadata
+ * Run a checklist and serialize its result in the requested output format.
+ *
+ * @param options - Checklist selection, specification metadata, and output preferences.
+ * @returns The formatted checklist result; JSON is used when no output format is specified.
+ * @throws {Error} If the selected template or specification cannot be read or parsed.
  */
 export async function run(options: {
   variant: 'author-pre-review' | 'peer-review' | 'stakeholder-gate' | 'cross-project-integration';
@@ -53,7 +55,9 @@ export async function run(options: {
 }
 
 /**
- * Get available checklist variants
+ * List the supported checklist variants and their intended audiences.
+ *
+ * @returns Metadata for each supported variant, including its estimated duration.
  */
 export function getAvailableVariants(): Array<{
   id: string;
@@ -90,7 +94,9 @@ export function getAvailableVariants(): Array<{
 }
 
 /**
- * Get information about quality dimensions
+ * List the quality dimensions used by the framework.
+ *
+ * @returns Dimension metadata with the pass threshold expressed as a percentage.
  */
 export function getDimensions(): Array<{
   id: string;

@@ -3,6 +3,11 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class AmbiguitiesDimension extends BaseDimension {
+  /**
+   * Evaluate vague language, unresolved decisions, potential conflicts, scope, and relative terms.
+   *
+   * @returns Five ambiguity findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
@@ -93,6 +98,9 @@ export class AmbiguitiesDimension extends BaseDimension {
     return findings;
   }
 
+  /**
+   * Count case-insensitive `[DECISION NEEDED]` markers in the source text.
+   */
   private checkUnresolvedDecisions(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 
@@ -101,6 +109,9 @@ export class AmbiguitiesDimension extends BaseDimension {
     return decisionMarkers.length;
   }
 
+  /**
+   * Count predefined pairs of potentially contradictory terms found anywhere in the source text.
+   */
   private checkConflicts(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
     let conflictCount = 0;
@@ -122,6 +133,9 @@ export class AmbiguitiesDimension extends BaseDimension {
     return conflictCount;
   }
 
+  /**
+   * Count distinct predefined relative terms found in the source text.
+   */
   private checkRelativeTerms(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 

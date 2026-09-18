@@ -24,21 +24,29 @@ export class ChecklistEngine {
   private templateLoader: TemplateLoader;
   private dimensions: Map<string, BaseDimension> = new Map();
 
+  /**
+   * Create an engine with the default template loader and dimension registry.
+   */
   constructor() {
     this.templateLoader = new TemplateLoader();
     this.initializeDimensions();
   }
 
   /**
-   * Initialize all dimension implementations
-   * Lazy-loaded on first use to improve startup time
+   * Provide the initialization hook for dimension evaluators.
+   *
+   * The current implementation leaves the registry empty.
    */
   private initializeDimensions(): void {
     // Dimensions will be lazily loaded when needed
   }
 
   /**
-   * Main entry point: Run checklist on a specification
+   * Evaluate a specification with the selected checklist template.
+   *
+   * @param options - Template selection, specification path, and optional result metadata.
+   * @returns Scores and findings for every item in the selected template.
+   * @throws {Error} If the template or specification cannot be read or parsed.
    */
   async run(options: ChecklistOptions): Promise<ChecklistResult> {
     const startTime = Date.now();
@@ -82,7 +90,9 @@ export class ChecklistEngine {
   }
 
   /**
-   * Evaluate all items in a template against a specification
+   * Create one finding per template item from the specification content check.
+   *
+   * @returns Findings in the same order as the template items.
    */
   private async evaluateTemplate(
     template: ChecklistTemplate,
@@ -110,7 +120,9 @@ export class ChecklistEngine {
   }
 
   /**
-   * Simple item evaluation (placeholder for dimension-specific logic)
+   * Report whether the specification contains non-whitespace content.
+   *
+   * @param item - The checklist item reserved for future item-specific evaluation.
    */
   private evaluateItem(item: ChecklistTemplate['items'][0], spec: ParsedSpecification): boolean {
     // This is a placeholder - in the full implementation,

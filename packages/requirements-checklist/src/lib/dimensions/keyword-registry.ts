@@ -209,7 +209,11 @@ export const KeywordRegistry = {
 };
 
 /**
- * Search keywords for a specific dimension
+ * Find registered string keywords present as case-insensitive substrings for a dimension.
+ *
+ * Object-based registry entries are ignored.
+ *
+ * @returns Unique matching registry values, or an empty array for an unknown dimension.
  */
 export function searchDimensionKeywords(dimension: string, content: string): string[] {
   const keywords = KeywordRegistry[dimension as keyof typeof KeywordRegistry];
