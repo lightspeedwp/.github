@@ -62,8 +62,6 @@ pr_governance:
 
 **Relationships**:
 
-<<<<<<< HEAD
-
 ```yaml
 ReviewSettings
   ├── request_changes_workflow: boolean
@@ -173,12 +171,6 @@ BranchContext
 - Each key corresponds to a branch type prefix (feat/, fix/, security/, etc.)
 - Value is markdown text with branch-specific emphasis or criteria
 - Optional - if not present, base instructions apply to all branch types
-=======
-- Ordered by `priority` (descending, 100→1)
-- First matching pattern wins (CodeRabbit behavior)
-- Optional reference to BranchContext entries
-
->>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 **Example**:
 
@@ -241,14 +233,10 @@ code_review_rules:
 | `examples` | string | No | Example scenarios/patterns for this branch type |
 
 **Validation Rules**:
-<<<<<<< HEAD
 
 - Keys must correspond to valid branch types from CLAUDE.md
 - Values must be markdown strings
 - Can be empty/null for branch types without special context
-=======
-
->>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 - `branch_type` must be from 38 authorized set (Constitution Principle V)
 - `review_priorities` must reference existing PathInstruction focus areas
@@ -277,16 +265,11 @@ Focus: Quantify performance improvement; verify no regressions
 
 ### TemplateValidation Entity
 
-<<<<<<< HEAD
 **Attributes**:
 
 - `enabled`: Whether auto-review is turned on
 - `drafts`: Whether to review pull request drafts
 - `base_branches`: Which base branches trigger auto-review (main, develop, feature/*, etc.)
-=======
-**Purpose**: Define rules for validating PR description section completeness and format
-
->>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 **Fields**:
 
@@ -307,14 +290,10 @@ Focus: Quantify performance improvement; verify no regressions
 | `reject_patterns` | string[] | No | Reject content matching patterns (e.g., TODO, FIXME) |
 
 **Validation Rules**:
-<<<<<<< HEAD
 
 - All labels must exist in `.github/labels.yml` (read-only reference)
 - All branch prefixes must match CLAUDE.md naming strategy
 - All file paths must use valid glob patterns
-=======
-
->>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 - `section` headers must match actual PR template section names
 - `min_items` ≥1 if specified
@@ -365,14 +344,10 @@ pr_governance:
 | `default` | string | No | Default label if no better option |
 
 **Validation Rules**:
-<<<<<<< HEAD
 
 - All templates must exist at `.github/PULL_REQUEST_TEMPLATE/[template].md`
 - All branch types must have a mapping
 - Mappings must match actual template files
-=======
-
->>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 - `families` must include at minimum: type (required), status (required)
 - `options` must list 3-8 valid labels
@@ -523,7 +498,6 @@ pr_governance:
 
 ## Relationships & Dependencies
 
-<<<<<<< HEAD
 **Decision 1: Numeric Priority (vs. Named Levels)**
 
 - *Chosen*: Numeric (1-100)
@@ -543,26 +517,6 @@ pr_governance:
 
 - *Chosen*: First matching pattern wins (CodeRabbit behavior)
 - *Rationale*: Simpler mental model, no composition complexity, works with CodeRabbit schema
-=======
-**Code Review → PR Governance**:
-
-- PathInstruction focus areas inform governance priorities
-- Branch types guide template validation routing
-- File patterns in DocValidation align with code_review_rules patterns
-
-**Constitution Alignment**:
-
-- PR governance enforces Constitution Principle VIII (branch types)
-- Label enforcement aligns with Principle II (LOCKED label set)
-- Template validation aligns with Principle IX (quality standards)
-
-**Org-Wide Application**:
-
-- All entities in central `.coderabbit.yml` apply to all consuming repos
-- Repos can override locally (add repo-specific entries)
-- All improvements additive (no breaking changes)
-
->>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 ---
 
