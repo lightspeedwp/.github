@@ -501,6 +501,178 @@ With multiple developers, once Foundational complete:
 
 ---
 
+## Phase 9 Completion: Testing & Validation (Execution)
+
+**Purpose**: Execute all validation and testing tasks required by Phase 9 (T172-T200)
+
+### Cross-Repository Deployment & Execution
+
+- [ ] T231 [P] Deploy `.coderabbit.yml` to WordPress plugin test repository and verify configuration loads without errors
+- [ ] T232 [P] Deploy `.coderabbit.yml` to Node.js/TypeScript test repository and verify configuration loads without errors
+- [ ] T233 [P] Deploy `.coderabbit.yml` to infrastructure-as-code (Terraform/Kubernetes) test repository and verify configuration loads without errors
+- [ ] T234 [P] Deploy `.coderabbit.yml` to CLI tool test repository and verify configuration loads without errors
+- [ ] T235 [P] Deploy `.coderabbit.yml` to MCP server test repository and verify configuration loads without errors
+
+### Cross-Repository Validation Testing
+
+- [ ] T236 [P] Test WordPress plugin repo: Submit sample PR with PHP code changes; verify CodeRabbit applies technology-agnostic guidance (no PHP-specific framework details)
+- [ ] T237 [P] Test Node.js/TypeScript repo: Submit sample PR with TypeScript changes; verify CodeRabbit applies technology-agnostic guidance (no TS/Node-specific framework details)
+- [ ] T238 [P] Test infrastructure-as-code repo: Submit sample PR with Terraform changes; verify CodeRabbit applies technology-agnostic guidance (no IaC-specific tools/syntax details)
+- [ ] T239 [P] Test CLI tool repo: Submit sample PR with CLI code changes; verify CodeRabbit applies guidance applicable across project types
+- [ ] T240 [P] Test MCP server repo: Submit sample PR with MCP server code changes; verify CodeRabbit applies guidance applicable across project types
+- [ ] T241 Verify cross-repo consistency: All five repos receive consistent, technology-agnostic guidance per FR-006 (no framework/language-specific bias)
+- [ ] T242 Verify zero breaking changes: Existing CodeRabbit workflows function identically, no review posting failures, no configuration errors across test repos
+
+### Migration Testing (Baseline Comparison)
+
+- [ ] T243 Collect baseline metrics from test repos: instruction block count, path patterns active, sample review citations, review quality baseline
+- [ ] T244 Deploy updated `.coderabbit.yml` configuration to test repos
+- [ ] T245 Submit fresh sample PRs to test repos; collect new metrics: instruction block usage, pattern matching accuracy, review quality
+- [ ] T246 Compare baseline vs. new metrics: verify no regressions, improved guidance coverage, zero breaking changes documented
+- [ ] T247 Document findings: behavior changes expected (new guidance citations), regression checklist all passed, migration validated safe
+
+### Quickstart Scenario Execution
+
+- [ ] T248 Scenario 1: Create `.specify/spec.md` file; submit to test repo; verify CodeRabbit cites specification completeness checks; confirm SC-007/SC-009 ✓
+- [ ] T249 Scenario 2: Submit PR from `security/*` branch with authentication code changes; verify CodeRabbit emphasizes security-specific guidance; confirm FR-013/SC-011 ✓
+- [ ] T250 Scenario 3: Submit PR with incomplete "Linked Issues" section; verify CodeRabbit flags as required per template validation; confirm SC-014 ✓
+- [ ] T251 Scenario 4: Submit PR with missing/invalid labels; verify CodeRabbit suggests canonical prefixed labels per enforcement rules; confirm SC-015 ✓
+- [ ] T252 Scenario 5: Submit feature/bugfix/docs PRs; verify DoD checklist populated with 5-8 relevant items per change scope; confirm SC-016 ✓
+- [ ] T253 Scenario 6: Submit PR with doc validation failures (broken links, linting); verify CodeRabbit flags critical files and warns/skips non-critical per rules; confirm SC-017 ✓
+- [ ] T254 Scenario 7: Cross-repo consistency test: same file type (e.g., `**/*.md`) across WordPress/Node/IaC repos receives consistent guidance; confirm FR-006/SC-011 ✓
+
+### CodeRabbit Review Quality Audit (SC-009 Validation)
+
+- [ ] T255 Collect 50-100 sample reviews from cross-repository test PRs (T236-T240) spanning multiple file types
+- [ ] T256 Audit each review for citations of path_instructions guidance blocks: identify ≥1 explicit reference per FR-002
+- [ ] T257 Measure citation rate: count reviews citing relevant path_instructions / total reviews; target ≥85% per SC-009
+- [ ] T258 Analyze reviews not citing guidance: identify edge cases, file types with insufficient guidance, or patterns not matching (document reasons)
+- [ ] T259 Document audit findings: citation rate achieved, review quality vs baseline, any gaps identified for future enhancement
+
+### Configuration Validation (Comprehensive)
+
+- [ ] T260 [P] Validate `.coderabbit.yml` YAML syntax: no parse errors, valid schema
+- [ ] T261 [P] Validate priority uniqueness: no duplicate priorities within overlapping path sets
+- [ ] T262 [P] Validate pattern specificity: no overlaps with identical priority; specificity rules applied correctly
+- [ ] T263 [P] Validate all blocks: each instruction block has 3-4 focus areas, 2-3 checks per area minimum
+- [ ] T264 [P] Validate technology-agnosticism: grep `.coderabbit.yml` for forbidden patterns (language/framework specifics); zero matches required per FR-006
+- [ ] T265 [P] Validate Constitution compliance: confirm LOCKED files unchanged, branch types within 38 authorized set, labels match canonical set
+- [ ] T266 Run YAML linting on `.coderabbit.yml` and generated configuration files
+- [ ] T267 Run markdown linting on `BRANCHING_STRATEGY.md`, `CODERABBIT_COVERAGE_AUDIT.md`, `PR_GOVERNANCE.md`, implementation guides
+- [ ] T268 Verify no broken links in all generated documentation
+
+**Checkpoint**: Phase 9 complete - All cross-repository testing passed, quickstart scenarios validated, review quality audit confirms SC-009 achievement (≥85% citation rate), migration verified zero breaking changes, final configuration validated
+
+---
+
+## Phase 10 Completion: Polish, Cleanup & Final Commit
+
+**Purpose**: Final documentation, cleanup, and prepare for merge
+
+### Documentation & Knowledge Transfer
+
+- [ ] T269 Create `.github/docs/CODERABBIT_ADD_PATTERN.md` quick-reference guide for adding new instruction blocks in <5 minutes per SC-010:
+  - Include YAML template for new path entry (minimal example)
+  - Step-by-step instructions for adding single new pattern
+  - Validation checklist for new blocks (3+ focus areas, 2-3 checks, technology-agnostic, no overlaps)
+  - Example: Add instruction block for new file type (e.g., `**/*.yaml`)
+  - Reference links to priority system and pattern conflict resolution algorithm
+- [ ] T270 [P] Create `.github/docs/CODERABBIT_MAINTENANCE_NOTES.md` documenting:
+  - Quarterly audit procedure (when to re-audit, what to measure, gap analysis steps)
+  - Trigger events for re-audit (new file types added, org tech stack changes, coverage drift)
+  - Reviewing and enhancing existing blocks (consistency checks, focus area updates)
+  - Adding new branch types or retiring obsolete ones
+  - Migration strategy for configuration updates across org repositories
+- [ ] T271 [P] Update `.github/README.md` to reference new documentation:
+  - Add links to CODERABBIT_COVERAGE_AUDIT.md, PR_GOVERNANCE.md, CODERABBIT_ADD_PATTERN.md
+  - Add section explaining organization-wide CodeRabbit configuration scope and consumption
+- [ ] T272 [P] Update `docs/BRANCHING_STRATEGY.md` Table of Contents to reference Section 5.3 (Branch-Type Review Context) in overview
+
+### Final Code Cleanup
+
+- [ ] T273 [P] Remove all temporary files from `.github/tmp/` (backup files, current copies, working files: `coderabbit.yml.backup`, `coderabbit.yml.current`, priority-mapping.txt, pattern-conflicts.txt, instruction-template.md, coverage-report.txt, coverage_summary.txt)
+- [ ] T274 [P] Verify no WIP/TODO/FIXME markers in `.coderabbit.yml` (zero matches)
+- [ ] T275 [P] Verify no [NEEDS_CLARIFICATION] markers in design documents (all clarifications resolved per Phase 15 convergence)
+- [ ] T276 [P] Run `npm run lint:md` on all documentation files (BRANCHING_STRATEGY.md, CODERABBIT_COVERAGE_AUDIT.md, PR_GOVERNANCE.md, CODERABBIT_ADD_PATTERN.md, CODERABBIT_MAINTENANCE_NOTES.md); zero violations
+- [ ] T277 [P] Verify no broken links in all generated documentation
+- [ ] T278 [P] Verify code examples in instruction blocks are valid and executable
+- [ ] T279 [P] Verify frontmatter in all docs is valid YAML
+
+### Final Acceptance Criteria Verification
+
+- [ ] T280 [P] Verify all Functional Requirements FR-001 through FR-019 implemented and working (per spec)
+- [ ] T281 [P] Verify all Success Criteria SC-001 through SC-017 satisfied (per spec) with measurement evidence documented
+- [ ] T282 [P] Verify Constitution alignment: all 10 principles satisfied, no violations
+- [ ] T283 [P] Create final verification report: all FR/SC met, all Constitution principles satisfied, cross-repo testing passed, zero breaking changes
+- [ ] T284 Create IMPLEMENTATION_SUMMARY.md documenting:
+  - Feature: CodeRabbit Configuration Optimization + PR Governance Automation (Unified Phase 1)
+  - Scope: 50 path instruction blocks, 22 branch-type contexts, 4 governance automation rule sets
+  - Effort: ~260 tasks across 10 phases + 15 convergence, 14-16 weeks estimated
+  - Testing: Cross-repository (5 repos), quickstart (7 scenarios), quality audit (SC-009 ≥85%), migration (zero breaking changes)
+  - Deployment: Applied organization-wide via central CodeRabbit configuration
+
+### Final Commit & Push
+
+- [ ] T285 Review `git status`: all changes staged and ready for commit (no unstaged/untracked files except .github/tmp/ which will be removed)
+- [ ] T286 Create comprehensive commit message documenting CodeRabbit Configuration Optimization delivery:
+
+  ```
+  feat(coderabbit): Comprehensive configuration optimization with governance automation (Phase 1 unified delivery)
+
+  ## Summary
+  Restructured and expanded .coderabbit.yml with:
+  - 50 path instruction blocks covering 47-50 file types (96% coverage)
+  - 22 branch-type-specific review contexts for top branch types
+  - 4 PR governance automation rule sets (template validation, label enforcement, DoD, doc validation)
+  - External audit guide (CODERABBIT_COVERAGE_AUDIT.md)
+  - Technology-agnostic guidance applicable across diverse org tech stacks
+
+  ## Scope
+  - FR-001 through FR-019 implemented (19 functional requirements)
+  - SC-001 through SC-017 satisfied (17 success criteria)
+  - Constitution principles I-X verified aligned
+  - Zero breaking changes (migration tested, backward compatible)
+  - Organization-wide deployment ready
+
+  ## Testing
+  - Cross-repository validation (5 repos: WordPress, Node.js, IaC, CLI, MCP)
+  - Quickstart scenarios (7 end-to-end validations)
+  - Review quality audit (SC-009: ≥85% citation rate achieved)
+  - Migration testing (baseline → new config, zero regressions)
+  - Configuration validation (YAML syntax, priority uniqueness, pattern specificity, tech-agnosticism)
+
+  ## Effort
+  ~260 tasks, 10 implementation phases + 15 convergence gap closure
+  14-16 weeks estimated single-developer delivery
+
+  ## Files Changed
+  - .coderabbit.yml (enhanced with 50 instruction blocks)
+  - docs/BRANCHING_STRATEGY.md (section 5.3: branch-type review context)
+  - .github/docs/CODERABBIT_COVERAGE_AUDIT.md (new: audit guide)
+  - .github/docs/PR_GOVERNANCE.md (new: governance automation specs)
+  - .github/docs/CODERABBIT_ADD_PATTERN.md (new: pattern addition guide)
+  - .github/docs/CODERABBIT_MAINTENANCE_NOTES.md (new: maintenance procedures)
+  - docs/CHANGELOG.md (added entries for Phases 3-7 completion)
+
+  Closes #1129 (CodeRabbit improvements epic)
+
+  Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>
+  Claude-Session: https://claude.ai/code/session_01GC45unz7qupDCxGu4akscP
+  ```
+
+- [ ] T287 Execute git commit with message from T286
+- [ ] T288 Push to remote branch: `git push -u origin config/coderabbit-review-governance`
+- [ ] T289 Create draft pull request on GitHub:
+  - Title: "feat(coderabbit): Comprehensive configuration optimization + PR governance automation"
+  - Link spec, plan, and artifacts to PR body
+  - Include final verification report summary
+  - Explicitly reference linked issue #1129
+  - Mark as DRAFT pending final review
+
+**Checkpoint**: Implementation complete and merged - all 260+ tasks done, all FR/SC verified, zero breaking changes validated, organization-wide deployment ready
+
+---
+
 ## Notes
 
 ---
