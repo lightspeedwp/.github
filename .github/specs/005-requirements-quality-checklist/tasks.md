@@ -342,7 +342,7 @@
 
 ### Code Quality (MEDIUM)
 
-- [ ] T083 Add docstrings to reach 80% coverage threshold (partial) — Current coverage 64.10% < required 80%; add JSDoc/docstring to all exported functions and key internal functions in `.specify/templates/checklist-template/lib/*.js` files (generator.js, custom-merger.js, checklist-validator.js, audience-generator.js, etc.) to document purpose, parameters, and return types
+- [x] T083 Add docstrings to reach 80% coverage threshold (partial) — Current coverage 64.10% < required 80%; add JSDoc/docstring to all exported functions and key internal functions in `.specify/templates/checklist-template/lib/*.js` files (generator.js, custom-merger.js, checklist-validator.js, audience-generator.js, etc.) to document purpose, parameters, and return types
 
 **Checkpoint**: Phase 9 critical issues resolved; framework ready for final review and integration
 
