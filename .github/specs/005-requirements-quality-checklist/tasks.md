@@ -114,10 +114,10 @@
 
 ### Tests for User Story 2
 
-- [ ] T027 [P] [US2] Unit test for UX-specific items at `.specify/templates/checklist-template/test/unit/test-ux-variant.js` (visual hierarchy, interaction states, accessibility items present)
-- [ ] T028 [P] [US2] Unit test for API-specific items at `.specify/templates/checklist-template/test/unit/test-api-variant.js` (endpoint specs, error responses, versioning items present)
-- [ ] T029 [P] [US2] Unit test for Security-specific items at `.specify/templates/checklist-template/test/unit/test-security-variant.js` (threat model, data protection, compliance items present)
-- [ ] T030 [P] [US2] Unit test for Performance-specific items at `.specify/templates/checklist-template/test/unit/test-performance-variant.js` (metrics, load scenarios, degradation items present)
+- [x] T027 [P] [US2] Unit test for UX-specific items at `.specify/templates/checklist-template/test/unit/ux-variant.test.js` (visual hierarchy, interaction states, accessibility items present)
+- [x] T028 [P] [US2] Unit test for API-specific items at `.specify/templates/checklist-template/test/unit/api-variant.test.js` (endpoint specs, error responses, versioning items present)
+- [x] T029 [P] [US2] Unit test for Security-specific items at `.specify/templates/checklist-template/test/unit/security-variant.test.js` (threat model, data protection, compliance items present)
+- [x] T030 [P] [US2] Unit test for Performance-specific items at `.specify/templates/checklist-template/test/unit/performance-variant.test.js` (metrics, load scenarios, degradation items present)
 
 ### Implementation for User Story 2
 
