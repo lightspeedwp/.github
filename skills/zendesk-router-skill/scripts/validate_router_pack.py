@@ -313,7 +313,10 @@ def main() -> int:
     check_fixtures(root, errors)
     check_companion_manifest(root, errors)
 
-    if errors:
+    # NOTE: len() form — CodeQL does not model list mutation through the
+    # check_*() calls above, so a bare `if errors:` here is misread as
+    # unreachable after the first gate. Semantics are identical.
+    if len(errors):
         return report_errors(errors)
 
     print("OK: zendesk-router-skill structure, routing coverage, fixtures, companion manifest, maintenance references, and shared-agent portability checks passed.")
