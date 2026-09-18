@@ -10,12 +10,20 @@ export class TemplateLoader {
   private templatesDir: string;
   private templateCache: Map<string, ChecklistTemplate> = new Map();
 
+  /**
+   * Create a loader for a template directory.
+   *
+   * @param templatesDir - Directory containing variant-named YAML files; defaults to the bundled templates.
+   */
   constructor(templatesDir?: string) {
     this.templatesDir = templatesDir || path.join(__dirname, 'templates');
   }
 
   /**
-   * Load a checklist template by variant name
+   * Load, validate, and cache a checklist template by variant name.
+   *
+   * @returns The cached template, or the parsed template on its first load.
+   * @throws {Error} If the template is missing, malformed, or lacks required fields.
    */
   async loadTemplate(variant: string): Promise<ChecklistTemplate> {
     // Check cache first
@@ -42,7 +50,10 @@ export class TemplateLoader {
   }
 
   /**
-   * Parse YAML template into ChecklistTemplate
+   * Parse YAML content and apply defaults for omitted template fields.
+   *
+   * @param variant - Identifier used for the template ID and fallback name.
+   * @throws {Error} If the content is not valid YAML.
    */
   private parseTemplate(content: string, variant: string): ChecklistTemplate {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -61,7 +72,9 @@ export class TemplateLoader {
   }
 
   /**
-   * Parse checklist items from template
+   * Normalize parsed checklist items, applying defaults to omitted fields.
+   *
+   * @returns An empty array when the parsed value is not an array.
    */
   private parseItems(items: unknown[]): ChecklistTemplate['items'] {
     if (!Array.isArray(items)) {
@@ -82,7 +95,9 @@ export class TemplateLoader {
   }
 
   /**
-   * Validate template structure
+   * Require a template name, at least one item, and each item's ID, dimension, and question.
+   *
+   * @throws {Error} If any required value is missing.
    */
   private validateTemplate(template: ChecklistTemplate): void {
     if (!template.name) {
@@ -108,7 +123,9 @@ export class TemplateLoader {
   }
 
   /**
-   * Normalize variant name to ChecklistTemplate name
+   * Convert a variant identifier to a supported template name.
+   *
+   * @returns The matching name, or `author-pre-review` for an unknown identifier.
    */
   private normalizeVariant(variant: string): ChecklistTemplate['name'] {
     const mapping: Record<string, ChecklistTemplate['name']> = {

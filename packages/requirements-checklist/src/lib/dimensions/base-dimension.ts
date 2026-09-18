@@ -11,13 +11,19 @@ export abstract class BaseDimension {
   abstract description: string;
 
   /**
-   * Evaluate specification against this dimension
-   * Returns array of findings (pass/fail per item)
+   * Evaluate a specification against this dimension's checks.
+   *
+   * @returns One pass-or-fail finding per dimension check.
    */
   abstract evaluate(spec: ParsedSpecification): Finding[];
 
   /**
-   * Search for text patterns in specification
+   * Find the first regular-expression match in the specification's raw content.
+   *
+   * @param patterns - Regular-expression source strings checked in order.
+   * @param caseSensitive - Whether matching preserves case; defaults to case-insensitive matching.
+   * @returns Match status and up to 50 characters of surrounding evidence.
+   * @throws {SyntaxError} If a pattern is not a valid regular expression.
    */
   protected searchInSpec(
     spec: ParsedSpecification,
@@ -52,7 +58,7 @@ export abstract class BaseDimension {
   }
 
   /**
-   * Check if all required sections are present
+   * Partition section names by whether their parsed content is nonempty.
    */
   protected checkRequiredSections(
     spec: ParsedSpecification,
@@ -74,7 +80,9 @@ export abstract class BaseDimension {
   }
 
   /**
-   * Get content for a specific section
+   * Read a parsed section by converting spaces in its name to underscores.
+   *
+   * @returns String content, joined array content, or `undefined` for an absent or unsupported value.
    */
   protected getSectionContent(spec: ParsedSpecification, section: string): string | undefined {
     const sectionKey = section.toLowerCase().replace(/\s+/g, '_') as keyof ParsedSpecification;
@@ -87,7 +95,9 @@ export abstract class BaseDimension {
   }
 
   /**
-   * Extract section from markdown content
+   * Extract an exact, case-insensitive level-two Markdown section.
+   *
+   * @returns Trimmed content through the next level-two heading, or `undefined` if absent.
    */
   protected extractSection(content: string, sectionName: string): string | undefined {
     const headerRegex = new RegExp(`^## ${sectionName}\\s*$`, 'im');
@@ -105,7 +115,9 @@ export abstract class BaseDimension {
   }
 
   /**
-   * Count occurrences of pattern in content
+   * Count case-insensitive matches for a regular-expression source string.
+   *
+   * @throws {SyntaxError} If the pattern is not a valid regular expression.
    */
   protected countOccurrences(content: string, pattern: string): number {
     const regex = new RegExp(pattern, 'gi');
@@ -114,7 +126,7 @@ export abstract class BaseDimension {
   }
 
   /**
-   * Create a finding from evaluation
+   * Create a finding for this dimension and map the boolean result to pass or fail.
    */
   protected createFinding(
     itemId: string,

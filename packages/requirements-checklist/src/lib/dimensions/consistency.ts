@@ -3,6 +3,11 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class ConsistencyDimension extends BaseDimension {
+  /**
+   * Evaluate terminology, naming, section, data-format, and tone consistency.
+   *
+   * @returns Five consistency findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
@@ -89,6 +94,9 @@ export class ConsistencyDimension extends BaseDimension {
     return findings;
   }
 
+  /**
+   * Count registered terminology groups whose standard and an alternate both appear.
+   */
   private checkTerminologyConsistency(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
     let inconsistencies = 0;
@@ -106,6 +114,11 @@ export class ConsistencyDimension extends BaseDimension {
     return inconsistencies;
   }
 
+  /**
+   * Calculate the share of detected identifiers that use the most common naming style.
+   *
+   * @returns A value from 0 to 1, or 1 when no supported naming style is detected.
+   */
   private checkNamingConsistency(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 
@@ -127,6 +140,9 @@ export class ConsistencyDimension extends BaseDimension {
     return Math.min(1, counts[0] / totalMatches);
   }
 
+  /**
+   * Calculate the proportion of supported parsed sections that contain content.
+   */
   private checkSectionConsistency(spec: ParsedSpecification): number {
     // Check that sections with content have reasonable depth and structure
     const sections = [
@@ -147,6 +163,11 @@ export class ConsistencyDimension extends BaseDimension {
     return filledSections / totalSections;
   }
 
+  /**
+   * Score consistency from the number of detected date and identifier formats.
+   *
+   * @returns One minus 0.25 per detected format, bounded at zero.
+   */
   private checkDataTypeConsistency(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 
@@ -175,6 +196,11 @@ export class ConsistencyDimension extends BaseDimension {
     return Math.max(0, 1 - formatVariety * 0.25);
   }
 
+  /**
+   * Score whether the source uses only formal or only informal predefined terms.
+   *
+   * @returns A value from 0 to 1, or 1 when no tone terms are detected.
+   */
   private checkToneConsistency(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 

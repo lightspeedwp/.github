@@ -3,6 +3,11 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class EdgeCasesDimension extends BaseDimension {
+  /**
+   * Evaluate edge-case count, errors, boundaries, concurrency, and recovery coverage.
+   *
+   * @returns Five edge-case findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
@@ -96,6 +101,9 @@ export class EdgeCasesDimension extends BaseDimension {
     return findings;
   }
 
+  /**
+   * Report whether the source contains a predefined boundary-condition pattern.
+   */
   private checkBoundaryConditions(spec: ParsedSpecification): boolean {
     const content = spec.raw_content || '';
 
@@ -112,6 +120,9 @@ export class EdgeCasesDimension extends BaseDimension {
     return boundaryPatterns.some((pattern) => pattern.test(content));
   }
 
+  /**
+   * Report whether the source contains a predefined concurrency-handling pattern.
+   */
   private checkConcurrencyHandling(spec: ParsedSpecification): boolean {
     const content = spec.raw_content || '';
 

@@ -2,6 +2,11 @@ import { BaseDimension } from './base-dimension';
 import { Finding, ParsedSpecification } from '../types';
 
 export class DependenciesDimension extends BaseDimension {
+  /**
+   * Evaluate dependencies, assumptions, service levels, integration points, and version constraints.
+   *
+   * @returns Five dependency findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
@@ -92,6 +97,9 @@ export class DependenciesDimension extends BaseDimension {
     return findings;
   }
 
+  /**
+   * Report whether the source mentions a predefined service-level or availability pattern.
+   */
   private checkDependencySLAs(spec: ParsedSpecification): boolean {
     const content = spec.raw_content || '';
 
@@ -107,6 +115,9 @@ export class DependenciesDimension extends BaseDimension {
     return slaPatterns.some((pattern) => pattern.test(content));
   }
 
+  /**
+   * Count distinct predefined integration keywords found in the source text.
+   */
   private checkIntegrationPoints(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 
