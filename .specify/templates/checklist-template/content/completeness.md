@@ -28,6 +28,8 @@ A specification is complete when:
 - Timeouts and retry policies are defined
 - User-facing error messages are specified
 
+**Spec Reference**: [Spec §FR-1] (Completeness dimension)
+
 ---
 
 ### CHK-002-Completeness
@@ -49,6 +51,8 @@ A specification is complete when:
 - Scalability targets are measurable (concurrent users, throughput)
 - Accessibility compliance level is stated (A, AA, AAA)
 - Regulatory requirements are explicitly listed
+
+**Spec Reference**: [Spec §FR-1] (Completeness dimension), [Spec §SC-2]
 
 ---
 
@@ -74,6 +78,8 @@ A specification is complete when:
 - Fallback and degradation procedures are defined
 - Cost structure is articulated (if applicable)
 
+**Spec Reference**: [Spec §FR-1] (Completeness dimension), [Spec §SC-3]
+
 ---
 
 ### CHK-004-Completeness
@@ -97,6 +103,8 @@ A specification is complete when:
 - Resource limits are defined
 - Timeout and backpressure mechanisms are specified
 
+**Spec Reference**: [Spec §FR-1] (Completeness dimension), [Spec §SC-4]
+
 ---
 
 ### CHK-005-Completeness
@@ -118,6 +126,8 @@ A specification is complete when:
 - Each assumption has documented impact if violated
 - Fallback behavior is specified if assumptions don't hold
 - Constraints are quantified (e.g., "assumes latency < 500ms")
+
+**Spec Reference**: [Spec §FR-1] (Completeness dimension), [Spec §SC-5]
 
 ---
 
@@ -141,3 +151,5 @@ A specification is complete when:
 - Permission inheritance is clarified
 - Cross-role workflows are specified
 - Admin and privileged operations are explicitly scoped
+
+**Spec Reference**: [Spec §FR-1] (Completeness dimension), [Spec §SC-6]
