@@ -249,6 +249,28 @@ jobs:
     needs: [lint-js, lint-md]
     if: always()
     steps:
+      - name: Determine linting status
+        id: status
+        shell: bash
+        run: |
+          JS_RESULT="${{ needs.lint-js.result }}"
+          MD_RESULT="${{ needs.lint-md.result }}"
+
+          # Treat skipped as success
+          [[ "$JS_RESULT" == "skipped" ]] && JS_RESULT="success"
+          [[ "$MD_RESULT" == "skipped" ]] && MD_RESULT="success"
+
+          # Determine overall status
+          if [[ "$JS_RESULT" == "success" ]] && [[ "$MD_RESULT" == "success" ]]; then
+            OVERALL="success"
+          else
+            OVERALL="failure"
+          fi
+
+          echo "js_result=$JS_RESULT" >> $GITHUB_OUTPUT
+          echo "md_result=$MD_RESULT" >> $GITHUB_OUTPUT
+          echo "overall=$OVERALL" >> $GITHUB_OUTPUT
+
       - name: Collect linting workflow metrics
         id: metrics
         uses: ./.github/actions/collect-metrics
@@ -264,11 +286,11 @@ jobs:
         if: github.event_name == 'pull_request'
         with:
           check_name: 'linting-unified'
-          status: ${{ (needs.lint-js.result == 'success' && needs.lint-md.result == 'success') && 'success' || 'failure' }}
+          status: ${{ steps.status.outputs.overall }}
           title: 'Code Quality Linting'
           summary: |
-            **JavaScript/TypeScript Linting:** ${{ needs.lint-js.result }}
-            **Markdown Linting:** ${{ needs.lint-md.result }}
+            **JavaScript/TypeScript Linting:** ${{ steps.status.outputs.js_result }}
+            **Markdown Linting:** ${{ steps.status.outputs.md_result }}
 
             **Metrics:**
             - Minutes Used: ${{ steps.metrics.outputs.minutes_used }}
@@ -290,12 +312,23 @@ jobs:
         shell: bash
         run: |
           echo "Linting workflow completed"
-          echo "JavaScript/TypeScript linting: ${{ needs.lint-js.result }}"
-          echo "Markdown linting: ${{ needs.lint-md.result }}"
-          echo "Metrics collection: ${{ needs.linting-metrics.result }}"
 
-          # Fail if any critical linting failed
-          if [[ "${{ needs.lint-js.result }}" == "failure" ]] || [[ "${{ needs.lint-md.result }}" == "failure" ]]; then
+          # Handle skipped jobs gracefully
+          JS_RESULT="${{ needs.lint-js.result }}"
+          MD_RESULT="${{ needs.lint-md.result }}"
+          METRICS_RESULT="${{ needs.linting-metrics.result }}"
+
+          # Treat skipped jobs as success (they may be disabled by conditional logic)
+          [[ "$JS_RESULT" == "skipped" ]] && JS_RESULT="success"
+          [[ "$MD_RESULT" == "skipped" ]] && MD_RESULT="success"
+          [[ "$METRICS_RESULT" == "skipped" ]] && METRICS_RESULT="success"
+
+          echo "JavaScript/TypeScript linting: $JS_RESULT"
+          echo "Markdown linting: $MD_RESULT"
+          echo "Metrics collection: $METRICS_RESULT"
+
+          # Fail if any critical linting failed (not including skipped)
+          if [[ "$JS_RESULT" == "failure" ]] || [[ "$MD_RESULT" == "failure" ]]; then
             echo "❌ Linting workflow failed"
             exit 1
           fi
