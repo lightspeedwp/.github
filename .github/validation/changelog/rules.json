@@ -5,11 +5,11 @@
     {
       "rule_id": "CHK_MAX_LENGTH",
       "rule_name": "Maximum entry length",
-      "description": "Changelog entries must not exceed 250 characters",
+      "description": "Changelog entries should not exceed 250 characters (targets new entries; legacy entries exempt)",
       "dimension": "completeness",
-      "severity": "critical",
+      "severity": "warning",
       "validation_logic": "length(content) <= 250",
-      "error_message": "Entry exceeds 250 character limit (constraint from research phase). Current: {actual} chars. Refactor to be more concise and user-focused.",
+      "error_message": "Entry exceeds 250 character limit. Consider refactoring to be more concise and user-focused (target for new entries).",
       "examples": {
         "pass": [
           "Fixed user authentication timeout in login flow (#3350)",

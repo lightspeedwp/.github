@@ -1,0 +1,224 @@
+name: peer-review
+audience: Technical reviewers
+time_estimate_minutes: 45
+description: Technical review checklist for evaluating specification quality and implementation readiness
+
+items:
+  - id: PEER-001
+    dimension: Completeness
+    question: Are all required sections adequately developed?
+    description: Review depth of coverage in overview, scenarios, requirements, criteria, assumptions, and edge cases
+    audience: [peer, stakeholder]
+    pass_criteria: Each section contains substantive content (100+ characters); no placeholder sections
+    suggestion: Request author to expand thin sections with concrete details
+    reference_examples:
+      - "Shallow: 'User can log in' (too brief)"
+      - "Adequate: 'User can log in via email/password or OAuth...'"
+
+  - id: PEER-002
+    dimension: Clarity
+    question: Are requirements written without vague adjectives?
+    description: Check for undefined qualitative terms that lack measurable thresholds
+    audience: [peer]
+    pass_criteria: 'No unmeasured uses of: fast, slow, intuitive, easy, scalable, robust, efficient, etc.'
+    suggestion: Challenge vague terms; require quantification or replacement with specific criteria
+    reference_examples:
+      - "Vague: 'System must be fast' → Specific: 'P95 < 200ms'"
+      - "Vague: 'User-friendly interface' → Specific: '90% complete in < 2 minutes'"
+
+  - id: PEER-003
+    dimension: Clarity
+    question: Are technical assumptions explicit?
+    description: Verify that implicit assumptions about tech stack, infrastructure, or constraints are stated
+    audience: [peer]
+    pass_criteria: Technology stack, infrastructure assumptions, and performance baselines are documented
+    suggestion: Ask author to clarify assumed platform, frameworks, and deployment model
+    reference_examples:
+      - 'Assumes Linux deployment'
+      - 'Requires Node.js >= 18'
+
+  - id: PEER-004
+    dimension: Consistency
+    question: Is terminology used consistently?
+    description: Check for synonym drift and ensure concepts are referred to by single names
+    audience: [peer]
+    pass_criteria: Same concept never referred to by different terms; glossary used if needed
+    suggestion: Flag terminology inconsistencies; suggest standardized terms
+    reference_examples:
+      - "Inconsistent: 'user', 'customer', 'account owner' for same concept"
+      - "Consistent: Always use 'user' with defined meaning"
+
+  - id: PEER-005
+    dimension: Consistency
+    question: Are data types and formats consistent?
+    description: Check date formats, ID schemes, status enumerations for consistency
+    audience: [peer]
+    pass_criteria: Date format (ISO 8601), ID scheme (UUID/nanoid), enums documented once
+    suggestion: Standardize on single format for repeated data structures
+    reference_examples:
+      - 'Date format: Always ISO 8601 (2026-09-17T14:30:00Z)'
+      - 'Status enum: One source of truth for all status values'
+
+  - id: PEER-006
+    dimension: Measurability
+    question: Are all acceptance criteria measurable?
+    description: Success criteria must be testable; check for subjectivity
+    audience: [peer]
+    pass_criteria: Every acceptance criterion is testable with pass/fail result
+    suggestion: Rewrite subjective criteria as observable, testable conditions
+    reference_examples:
+      - "Unmeasurable: 'UI is intuitive'"
+      - "Measurable: '80% complete task without help'"
+
+  - id: PEER-007
+    dimension: Measurability
+    question: Are performance requirements quantified?
+    description: Latency, throughput, memory, and resource constraints should have specific values
+    audience: [peer]
+    pass_criteria: 'Performance targets include: latency percentiles (p50/p95/p99), throughput, resource limits'
+    suggestion: Add performance SLOs with specific percentiles and limits
+    reference_examples:
+      - 'P99 latency < 500ms under 1000 RPS'
+      - 'Memory usage < 512MB per pod'
+
+  - id: PEER-008
+    dimension: Scenario Coverage
+    question: Are primary user journeys documented with flow?
+    description: Check that common paths are documented step-by-step
+    audience: [peer]
+    pass_criteria: 3+ user journeys documented with preconditions, steps, and outcomes
+    suggestion: Add user journey documentation in given/when/then format
+    reference_examples:
+      - 'Given user is authenticated, When user clicks export, Then CSV downloads'
+
+  - id: PEER-009
+    dimension: Scenario Coverage
+    question: Are alternative flows identified?
+    description: Beyond happy path, what happens when user takes different actions?
+    audience: [peer]
+    pass_criteria: At least 2 alternative flows documented (e.g., cancellation, rework, retry)
+    suggestion: Identify what happens when user doesn't follow happy path
+    reference_examples:
+      - 'Happy path: User exports → CSV generated'
+      - 'Alt flow: User cancels → partial data deleted'
+
+  - id: PEER-010
+    dimension: Edge Cases
+    question: Are boundary conditions identified?
+    description: Min/max values, empty states, overflow conditions
+    audience: [peer]
+    pass_criteria: Boundary conditions documented for each quantified field
+    suggestion: For each metric/threshold, document min, max, and edge behaviors
+    reference_examples:
+      - 'Empty dataset: What happens with 0 results?'
+      - 'Max limits: What happens when user has 10,000 items?'
+
+  - id: PEER-011
+    dimension: Edge Cases
+    question: Are error scenarios documented?
+    description: Network failure, timeout, invalid input, race conditions, etc.
+    audience: [peer]
+    pass_criteria: At least 3 error scenarios documented with expected behavior
+    suggestion: Add error handling section with specific error codes and recovery steps
+    reference_examples:
+      - 'Network timeout: Retry logic, exponential backoff'
+      - 'Invalid input: Validation rules, error messages'
+      - 'Concurrent updates: Last-write-wins or conflict resolution'
+
+  - id: PEER-012
+    dimension: Dependencies
+    question: Are external service dependencies documented?
+    description: APIs, databases, services, and their availability impact on requirements
+    audience: [peer]
+    pass_criteria: All external dependencies listed with availability SLAs
+    suggestion: Create dependency matrix showing critical vs optional integrations
+    reference_examples:
+      - 'Stripe payment API (critical, 99.9% SLA)'
+      - 'SendGrid email (optional, graceful degradation)'
+
+  - id: PEER-013
+    dimension: Dependencies
+    question: Are infrastructure assumptions documented?
+    description: Database availability, caching, messaging, CDN, and scaling assumptions
+    audience: [peer]
+    pass_criteria: Infrastructure stack documented with assumptions about availability and scale
+    suggestion: Add architecture section documenting technology choices and constraints
+    reference_examples:
+      - 'PostgreSQL primary + replicas'
+      - 'Redis for session store'
+
+  - id: PEER-014
+    dimension: Ambiguities
+    question: Are there unresolved technical decisions?
+    description: 'Check for [DECISION NEEDED] markers or unclear technical choices'
+    audience: [peer]
+    pass_criteria: 'All technical decisions either resolved or explicitly marked as TBD'
+    suggestion: 'Work with author to resolve decisions or document as deferred'
+    reference_examples:
+      - 'Example: [DECISION NEEDED] Cache invalidation strategy?'
+      - 'Example: [DECISION NEEDED] SQL vs NoSQL for audit log?'
+
+  - id: PEER-015
+    dimension: Ambiguities
+    question: Are integration points with other systems clear?
+    description: How does this feature interact with existing systems?
+    audience: [peer]
+    pass_criteria: Integration points documented with clear API contracts or data flows
+    suggestion: Add integration diagram or API contract documentation
+    reference_examples:
+      - 'Posts feature integrates with User service via gRPC'
+      - 'Payment callbacks trigger order processing'
+
+  - id: PEER-016
+    dimension: Completeness
+    question: Is scope clearly separated (MVP vs roadmap)?
+    description: Distinguish what's in this release vs future work
+    audience: [peer]
+    pass_criteria: MVP features clearly marked; post-launch features and nice-to-haves identified
+    suggestion: Create MVP scope table clearly delineating what's included/excluded
+    reference_examples:
+      - 'MVP: Basic CRUD'
+      - 'Post-launch: Advanced search, bulk operations, reporting'
+
+  - id: PEER-017
+    dimension: Completeness
+    question: Are non-functional requirements documented?
+    description: Security, scalability, localization, accessibility, compliance requirements
+    audience: [peer]
+    pass_criteria: Non-functional requirements (NFRs) for security, scale, i18n, a11y documented
+    suggestion: Add non-functional requirements section covering security and scale
+    reference_examples:
+      - 'Security: HTTPS only, JWT auth, rate limiting'
+      - 'Scale: 1M concurrent users, horizontal scaling'
+
+  - id: PEER-018
+    dimension: Clarity
+    question: Are regulatory or compliance requirements clear?
+    description: GDPR, HIPAA, SOC2, or industry-specific requirements
+    audience: [peer]
+    pass_criteria: Applicable compliance requirements listed with specific controls
+    suggestion: Add compliance section documenting applicable regulations
+    reference_examples:
+      - 'GDPR: User data deletion within 30 days'
+      - 'PCI-DSS: Payment data never stored locally'
+
+  - id: PEER-019
+    dimension: Measurability
+    question: Are testing criteria defined?
+    description: How will this feature be tested? What are pass/fail criteria?
+    audience: [peer]
+    pass_criteria: Test scenarios and expected outcomes documented for each acceptance criterion
+    suggestion: Add testing section with specific test cases for happy path and edge cases
+    reference_examples:
+      - 'Test: User exports 1M records → CSV generates in < 5 seconds'
+
+  - id: PEER-020
+    dimension: Consistency
+    question: Are success metrics and KPIs defined?
+    description: How will success be measured post-launch?
+    audience: [peer]
+    pass_criteria: Key metrics and KPIs identified for feature success evaluation
+    suggestion: Define metrics for adoption, engagement, performance, and business impact
+    reference_examples:
+      - 'Metric: Export feature used by 70% of power users within 30 days'
+      - 'Metric: Average export time < 2 seconds'
