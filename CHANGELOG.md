@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
+
 ### Fixed
 
 - **Code Quality Findings Remediation** — Fixed unclosed files, unused bindings and empty handlers across skill scripts and automation. ([PR #3382](https://github.com/lightspeedwp/.github/pull/3382))
@@ -39,6 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch Validation Metrics Aggregator** — Fixed gawk constant-folding 0/0 at compile time; pass counters via awk -v. Also moved to Node LTS via .nvmrc. ([PR #3320](https://github.com/lightspeedwp/.github/pull/3320))
 - **Remaining Dependabot Alerts** — Added Dependabot npm scanning for 4 previously-unscanned lockfiles; overrode transitive smol-toml and lodash-es to patched versions. ([PR #3323](https://github.com/lightspeedwp/.github/pull/3323))
 - **Duplicate Spec Numbers** — Renumbered 3 colliding spec folders (001 x2, 003 x3) to 010/011/012; .github/specs/ is now uniquely 001-012 with no gaps. ([PR #3339](https://github.com/lightspeedwp/.github/pull/3339))
+- **Branch Validation on Protected Branches** — Fixed validation failing on every push to protected branches by adding the missing exemption, and aligned the allowed type list with the canonical one. (#3381)
+- **Documentation Bot Commit** — Fixed regenerate-job failures on push by skipping local git hooks for automated commits. (#3381)
 
 ### Removed
 

@@ -215,6 +215,11 @@ jobs:
 
       - name: Commit README updates
         if: github.event_name != 'pull_request' && steps.readmes.outputs.files != ''
+        # HUSKY=0 skips local git hooks (husky pre-commit runs lint-staged
+        # across thousands of staged files and fails the bot commit).
+        # Husky's own docs recommend env HUSKY: 0 in GitHub Actions.
+        env:
+          HUSKY: 0
         run: |
           git config user.name "lightspeed-bot"
           git config user.email "ops@lightspeedwp.agency"

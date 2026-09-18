@@ -24,12 +24,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -124,7 +124,7 @@ jobs:
 
       - name: Upload metrics artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: branch-validation-metrics
           path: validation-metrics/
@@ -159,7 +159,7 @@ jobs:
 
     steps:
       - name: Comment on PR with validation error
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const branchName = process.env.BRANCH_NAME;
@@ -174,7 +174,7 @@ jobs:
               '',
               '**Pattern:** `{type}/{scope}-{title}`',
               '',
-              '**Allowed types (24):** feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, audit, codex, revert, research',
+              '**Allowed types (38):** feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, revert, research, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, aiops, automation, epic',
               '',
               '**Forbidden prefixes:** claude/, copilot/, openai/',
               '',
