@@ -3,6 +3,11 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class MeasurabilityDimension extends BaseDimension {
+  /**
+   * Evaluate quantified criteria, performance metrics, testability, metrics, and service levels.
+   *
+   * @returns Five measurability findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
@@ -101,6 +106,9 @@ export class MeasurabilityDimension extends BaseDimension {
     return findings;
   }
 
+  /**
+   * Count criteria containing a supported quantity, comparison, percentile, or service-level pattern.
+   */
   private countQuantifiedCriteria(criteria: string[]): number {
     let quantifiedCount = 0;
 
@@ -122,6 +130,9 @@ export class MeasurabilityDimension extends BaseDimension {
     return quantifiedCount;
   }
 
+  /**
+   * Report whether the source contains a predefined performance metric pattern.
+   */
   private hasPerformanceMetrics(spec: ParsedSpecification): boolean {
     const content = spec.raw_content || '';
 
@@ -136,6 +147,11 @@ export class MeasurabilityDimension extends BaseDimension {
     return performancePatterns.some((pattern) => pattern.test(content));
   }
 
+  /**
+   * Score the presence of test terms, quantities, outcomes, and the absence of vague language.
+   *
+   * @returns A weighted score from 0 to 1.
+   */
   private evaluateTestability(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
     let testabilityScore = 0;

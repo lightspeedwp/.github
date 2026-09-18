@@ -3,6 +3,11 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class ScenarioCoverageDimension extends BaseDimension {
+  /**
+   * Evaluate user stories, happy paths, alternative flows, roles, and interaction points.
+   *
+   * @returns Five scenario-coverage findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
@@ -93,6 +98,9 @@ export class ScenarioCoverageDimension extends BaseDimension {
     return findings;
   }
 
+  /**
+   * Count predefined alternative-flow patterns present in the source text.
+   */
   private checkAlternativeFlows(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 
@@ -111,6 +119,9 @@ export class ScenarioCoverageDimension extends BaseDimension {
     return count;
   }
 
+  /**
+   * Report whether the source contains a predefined user-role or persona pattern.
+   */
   private checkUserRolesDocumented(spec: ParsedSpecification): boolean {
     const content = spec.raw_content || '';
 
@@ -125,6 +136,9 @@ export class ScenarioCoverageDimension extends BaseDimension {
     return rolePatterns.some((pattern) => pattern.test(content));
   }
 
+  /**
+   * Count distinct predefined interaction keywords found in the source text.
+   */
   private checkInteractionPoints(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
 

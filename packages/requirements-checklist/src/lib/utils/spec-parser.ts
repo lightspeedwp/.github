@@ -8,7 +8,10 @@ import { ParsedSpecification } from '../types';
  */
 export class SpecParser {
   /**
-   * Parse a specification file and extract structured content
+   * Read a specification file and extract its supported structured fields.
+   *
+   * @param format - Explicit parser selection; inferred from the file extension when omitted.
+   * @throws {Error} If the file cannot be read, the format is unsupported, or the content is invalid.
    */
   static parse(filePath: string, format?: string): ParsedSpecification {
     const content = fs.readFileSync(filePath, 'utf-8');
@@ -27,7 +30,9 @@ export class SpecParser {
   }
 
   /**
-   * Detect file format from extension
+   * Map a supported file extension to its parser name.
+   *
+   * @throws {Error} If the extension is not Markdown, YAML, or JSON.
    */
   private static detectFormat(filePath: string): string {
     const ext = path.extname(filePath).toLowerCase();
@@ -46,7 +51,7 @@ export class SpecParser {
   }
 
   /**
-   * Parse Markdown specification
+   * Extract supported sections from level-two Markdown headings and preserve the source text.
    */
   private static parseMarkdown(content: string): ParsedSpecification {
     const lines = content.split('\n');
@@ -93,7 +98,11 @@ export class SpecParser {
   }
 
   /**
-   * Parse YAML specification
+   * Extract supported top-level fields from YAML and preserve the source text.
+   *
+   * Array values are converted to strings; unsupported field shapes are omitted.
+   *
+   * @throws {Error} If the content is not valid YAML.
    */
   private static parseYaml(content: string): ParsedSpecification {
     const parsed = yaml.parse(content) as Record<string, unknown>;
@@ -119,7 +128,11 @@ export class SpecParser {
   }
 
   /**
-   * Parse JSON specification
+   * Extract supported top-level fields from JSON and preserve the source text.
+   *
+   * Array values are converted to strings; unsupported field shapes are omitted.
+   *
+   * @throws {SyntaxError} If the content is not valid JSON.
    */
   private static parseJson(content: string): ParsedSpecification {
     const parsed = JSON.parse(content) as Record<string, unknown>;
@@ -145,7 +158,9 @@ export class SpecParser {
   }
 
   /**
-   * Add content to appropriate section
+   * Append Markdown content to a recognized parsed section.
+   *
+   * Unrecognized headings are ignored.
    */
   private static addToSection(spec: ParsedSpecification, section: string, content: string): void {
     switch (section) {

@@ -3,6 +3,11 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class ClarityDimension extends BaseDimension {
+  /**
+   * Evaluate vague adjectives, term and acronym definitions, success criteria, and scope.
+   *
+   * @returns Five clarity findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
@@ -99,6 +104,9 @@ export class ClarityDimension extends BaseDimension {
     return findings;
   }
 
+  /**
+   * Count definition-like lines that match the supported `term: Definition` pattern.
+   */
   private countTermDefinitions(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
     // Simple heuristic: count lines with pattern "term: definition" or "term - definition"
@@ -107,6 +115,9 @@ export class ClarityDimension extends BaseDimension {
     return matches.length;
   }
 
+  /**
+   * Report whether the source contains an uppercase acronym followed by a parenthesized definition.
+   */
   private hasAcronymDefinitions(spec: ParsedSpecification): boolean {
     const content = spec.raw_content || '';
     // Check for patterns like "API (Application Programming Interface)"
@@ -114,6 +125,11 @@ export class ClarityDimension extends BaseDimension {
     return acronymPattern.test(content);
   }
 
+  /**
+   * Calculate the proportion of criteria that omit the predefined unclear terms.
+   *
+   * @returns A value from 0 to 1, or 0 when no criteria are supplied.
+   */
   private evaluateSuccessCriteriaClarity(criteria: string[]): number {
     if (criteria.length === 0) return 0;
 

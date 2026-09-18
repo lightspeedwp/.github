@@ -4,9 +4,9 @@
  */
 
 /**
- * Calculate dimension score from item results
- * Score = (passed items / total applicable items) × 100
- * Returns 0-100
+ * Calculate a rounded pass percentage for a dimension.
+ *
+ * @returns `100` when there are no applicable items; otherwise the rounded percentage.
  */
 export function calculateDimensionScore(passedItems: number, totalItems: number): number {
   if (totalItems === 0) {
@@ -24,8 +24,9 @@ export function isDimensionPassing(score: number, threshold: number = 75): boole
 }
 
 /**
- * Calculate overall score from dimension scores
- * Overall = average of all dimension scores
+ * Calculate the rounded arithmetic mean of the supplied dimension scores.
+ *
+ * @returns `0` when no dimension scores are supplied.
  */
 export function calculateOverallScore(dimensionScores: Record<string, number>): number {
   const scores = Object.values(dimensionScores);
@@ -50,6 +51,12 @@ export interface ScoreBreakdown {
   pass_rate: number; // percentage of passing items
 }
 
+/**
+ * Combine item results and dimension scores into a reporting summary.
+ *
+ * @param threshold - Inclusive dimension pass threshold; defaults to 75.
+ * @returns The original inputs with dimension statuses and rounded overall and item pass rates.
+ */
 export function generateScoreBreakdown(
   itemResults: Array<{ item_id: string; passed: boolean }>,
   dimensionScores: Record<string, number>,

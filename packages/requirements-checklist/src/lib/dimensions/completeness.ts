@@ -19,6 +19,11 @@ export class CompletenessDimension extends BaseDimension {
     'Edge Cases',
   ];
 
+  /**
+   * Evaluate required sections, source length, user stories, success criteria, and edge cases.
+   *
+   * @returns Five completeness findings in checklist order.
+   */
   evaluate(spec: ParsedSpecification): Finding[] {
     const findings: Finding[] = [];
 
