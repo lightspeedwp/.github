@@ -654,6 +654,253 @@ SLA for remediation:
 
 ---
 
+### Scenario Coverage: Incident Response and Breach Notification
+
+**CHK-058-Security-Scenario-Coverage**
+
+**Question**: Is incident response procedure and breach notification process documented?
+
+**Guidance**: Document:
+
+- **Incident classification**: How are incidents categorized? (severity levels, data sensitivity affected)
+- **Incident response team**: Who responds? Roles and responsibilities?
+  - Security engineer, manager, legal, compliance, communications
+  - Escalation path: who do you contact first, second, third?
+  - Incident commander: single point of coordination?
+- **Response procedures**: What steps are taken?
+  - Containment: how is breach contained? (account lockdown, service shutdown, network isolation)
+  - Investigation: forensic analysis to determine scope and impact
+  - Notification: who must be notified? (users, regulators, partners, press)
+  - Remediation: fix the vulnerability, patch systems, reset credentials
+- **Breach notification timelines**: When are users notified?
+  - GDPR: 72 hours after discovery
+  - CCPA: "without unreasonable delay"
+  - Other: state laws may vary
+- **Communication templates**: Drafted messages for different breach types?
+  - Internal notification: staff/management
+  - External notification: affected users, regulators, press
+  - Tone: transparent, accountable, actionable (what users should do)
+- **Regulatory reporting**: Which breaches must be reported?
+  - Regulators (GDPR, state AG, FTC)
+  - Credit bureaus (US breaches with SSN/credit card)
+  - Partners and customers (contractual requirements)
+
+**Success Criteria**:
+
+- Incident response procedure documented
+- Breach notification process defined
+- Notification timelines align with regulations
+- Communication templates drafted
+- Escalation procedures clear
+- Legal and compliance obligations identified
+
+---
+
+### Edge Cases: Supply Chain and Third-Party Risk
+
+**CHK-059-Security-Edge-Cases**
+
+**Question**: Are third-party vendors assessed for security? How are vendor risks managed?
+
+**Guidance**: Document:
+
+- **Vendor assessment**: What security requirements do vendors must meet?
+  - Data location: Where is vendor's data center? (data residency)
+  - Compliance: Does vendor have SOC 2, ISO 27001, HIPAA, PCI-DSS?
+  - Security practices: Encryption, access controls, incident response?
+  - Insurance: Does vendor carry cyber liability insurance?
+- **Vendor questionnaire**: What questions do you ask vendors?
+  - Data handling: What data do they access? How long do they retain it?
+  - Subcontractors: Do they use other vendors? (chain of responsibility)
+  - Breach notification: What's their SLA? Do they notify you immediately?
+  - Audit rights: Can you audit their security? Annual assessment?
+- **Contract requirements**: What security clauses are in vendor contracts?
+  - Data protection agreement (DPA)
+  - Service Level Agreement (SLA) for breach response
+  - Right to audit or assess
+  - Liability for data breaches
+  - Indemnification for third-party claims
+- **Ongoing monitoring**: How do you verify vendor compliance?
+  - Annual questionnaires
+  - Periodic audits or assessments
+  - Breach notifications received
+  - Performance against SLAs
+
+**Success Criteria**:
+
+- Vendor security requirements defined
+- Vendor questionnaire covers key areas
+- Contracts include data protection clauses
+- Audit and assessment procedures established
+- Vendor changes (new, termination) trigger re-assessment
+
+---
+
+### Measurability: Security Testing and Penetration Testing
+
+**CHK-060-Security-Measurability**
+
+**Question**: Is security testing planned? Are penetration tests and vulnerability assessments scheduled?
+
+**Guidance**: Document:
+
+- **Testing frequency**: How often are security tests conducted?
+  - Penetration testing: annually, semi-annually, or per major release?
+  - Vulnerability scanning: continuous (every commit), daily, weekly, or monthly?
+  - Code scanning (SAST): static analysis at code review or pre-commit?
+  - Dependency scanning (SCA): check for known vulnerabilities in dependencies?
+- **Test scope**: What's included in testing?
+  - In-scope: APIs, web interfaces, mobile apps, internal tools, infrastructure
+  - Out-of-scope: third-party systems, EOL systems, demo environments
+  - Critical features: prioritize high-security features (auth, payment, PII handling)
+- **Findings management**: How are vulnerabilities tracked?
+  - Severity classification (CVSS score)
+  - SLA for remediation by severity
+  - Tracking: GitHub issues, bug tracking system, security log
+  - Validation: re-test after fix to confirm closure
+- **Reporting**: What metrics are tracked?
+  - Vulnerability count by severity
+  - Mean time to remediation (MTTR)
+  - Test coverage (lines of code tested)
+  - Finding trends (are vulnerabilities decreasing over time?)
+- **Testing credentials**: How are test accounts managed?
+  - Separate test environment or production?
+  - Test account lifecycles: created/revoked per test
+  - Data sanitization: are test databases cleaned of sensitive data?
+
+**Success Criteria**:
+
+- Security testing is scheduled and resourced
+- Test scope is comprehensive and clearly defined
+- Vulnerability management process documented
+- Metrics tracked and reported
+- Testing validated against real-world attack patterns
+
+---
+
+### Dependencies: Data Residency and Jurisdictional Constraints
+
+**CHK-061-Security-Dependencies**
+
+**Question**: Are data residency and jurisdictional requirements documented?
+
+**Guidance**: Document:
+
+- **Data residency**: Where must customer data be stored?
+  - EU data (GDPR): must be in EU or EEA data centers only
+  - US data: may be in US, Canada, or approved countries
+  - Sector-specific: healthcare (HIPAA), financial (SOC 2), etc.
+  - China: special restrictions on data flow out of China
+- **Processing locations**: Where can data be processed?
+  - Transient processing: Is data allowed to pass through other countries? (e.g., encryption keys in US, data in EU)
+  - Restricted jurisdictions: Cannot store/process in certain countries? (export controls, sanctions)
+- **Backup and recovery**: Where are backups stored?
+  - Same jurisdiction as primary data?
+  - Separate geographic region for disaster recovery?
+  - Are backups encrypted? Can they be restored only in allowed jurisdictions?
+- **Service provider locations**: Where do vendors operate?
+  - Cloud provider data centers: which regions?
+  - Support staff: which countries? (if support has access to sensitive data)
+  - Subprocessors: are subvendors in allowed jurisdictions?
+- **Compliance mapping**: How does the system align with requirements?
+  - GDPR data transfers (Standard Contractual Clauses, Binding Corporate Rules)
+  - Regulatory certifications (SOC 2 Type II with data residency clauses)
+  - Audit trails for compliance verification
+
+**Success Criteria**:
+
+- Data residency requirements explicitly stated
+- Processing locations mapped
+- Backup strategy aligns with residency requirements
+- Service provider locations documented
+- Compliance mechanisms (DPA, SCCs) in place
+
+---
+
+### Ambiguities: Cryptography and Key Management
+
+**CHK-062-Security-Ambiguities**
+
+**Question**: Are cryptographic algorithms and key management procedures clearly specified?
+
+**Guidance**: Document:
+
+- **Encryption algorithms**: Which algorithms are used?
+  - At-rest encryption: AES-256, ChaCha20 (not DES, RC4, MD5)
+  - In-transit encryption: TLS 1.3 (not TLS 1.0, 1.1, SSL 3.0)
+  - Hashing: SHA-256, SHA-3 (not MD5, SHA-1)
+  - MAC: HMAC-SHA256 (for message authentication)
+  - Why these choices? (industry standards, regulatory requirements)
+- **Key management**:
+  - Key generation: Random, appropriate key length (256-bit minimum)
+  - Key storage: Hardware security modules (HSM), encrypted key vault, key management service (AWS KMS)
+  - Key rotation: How often? (e.g., TLS certs annually, database encryption keys quarterly)
+  - Key access: Who can access keys? (principle of least privilege)
+  - Key destruction: How are retired keys securely deleted?
+- **Cryptographic agility**: Can algorithms be changed without major refactoring?
+  - If AES-256 becomes broken, can you switch to ChaCha20?
+  - Can key sizes be increased?
+  - Version encryption scheme (include version in encrypted data)
+- **Certificate management**: For TLS and code signing
+  - Certificate issuance: which CA? Self-signed or trusted CA?
+  - Certificate pinning: do clients pin certificates or trust any CA?
+  - Certificate renewal: automated (Let's Encrypt) or manual?
+  - Revocation: if cert is compromised, how is it revoked? (CRL, OCSP stapling)
+
+**Success Criteria**:
+
+- Algorithms explicitly named (not just "encrypted" or "hashed")
+- Key length specified
+- Key management procedures documented
+- Cryptographic agility considered
+- Certificate management strategy defined
+
+---
+
+### Ambiguities: Security Monitoring and Logging
+
+**CHK-063-Security-Ambiguities**
+
+**Question**: Are security monitoring and logging requirements clearly specified?
+
+**Guidance**: Document:
+
+- **Events to log**: Which activities are logged?
+  - Authentication: login attempts (success and failure), logout, password reset
+  - Authorization: permission denied, role changes, access to sensitive data
+  - Data modifications: create, update, delete of sensitive records
+  - Configuration changes: system configuration, security policy changes
+  - Admin activities: privileged operations, account creation/deletion
+  - Security events: firewall blocks, IDS alerts, vulnerability scans
+- **Log retention**: How long are logs kept?
+  - Compliance requirement: (e.g., GDPR 30 days, HIPAA 6 years, PCI-DSS 1 year)
+  - Storage cost: balance compliance vs. cost (archive old logs)
+  - Legal hold: some logs must be preserved longer for litigation
+- **Log access control**: Who can access logs?
+  - Principle of least privilege: security team, compliance team, NOT app developers
+  - Audit trail: who accessed logs and when?
+  - Log tampering detection: are logs write-once (immutable)?
+- **Monitoring and alerting**: What triggers alerts?
+  - Authentication failures: multiple failed login attempts (e.g., 5 failures = alert)
+  - Privilege escalation: unusual permission changes
+  - Data exfiltration: large downloads, unusual access patterns
+  - Configuration drift: unexpected system changes
+  - Threshold-based: alert on anomalies (e.g., 10x normal API calls)
+- **Log analysis**: How are logs analyzed?
+  - SIEM (Security Information and Event Management): centralized log aggregation
+  - Manual review: security team reviews logs regularly?
+  - Automated rules: alert on patterns (failed logins + data access = suspicious)
+
+**Success Criteria**:
+
+- Events to log are explicitly listed
+- Log retention policy meets compliance requirements
+- Log access and tampering controls in place
+- Monitoring rules are defined and tested
+- Alert thresholds are based on risk, not arbitrary
+
+---
+
 ## Documentation
 
 All 18 Security-specific items extend the base 40-45 item checklist. When generating a Security variant:
