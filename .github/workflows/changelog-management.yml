@@ -45,12 +45,12 @@ jobs:
     outputs:
       should_sync: ${{ steps.gate.outputs.run_validation }}
     steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-          submodules: false
-
+      - name: Checkout repository
+        run: |
+          git clone --depth 1 --no-submodules https://github.com/lightspeedwp/.github.git .
+          git checkout "${{ github.event.pull_request.head.sha }}"
+          git submodule deinit -f . || true
+        shell: bash
       - name: Require changelog update or skip label
         id: gate
         uses: actions/github-script@v9
