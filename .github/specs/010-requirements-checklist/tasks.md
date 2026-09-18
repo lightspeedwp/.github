@@ -360,9 +360,32 @@ With 4 developers:
 
 ---
 
-**Tasks Status**: ✅ COMPLETE — 85 tasks generated, organized by user story, ready for implementation.
+## Phase 8: Convergence — Phase 2 Completion & Framework Validation
 
-Total Tasks: **85** (including tests, core implementation, and polish)
+**Purpose**: Complete Phase 2 foundational utilities missing from initial implementation, add comprehensive test coverage, and validate framework readiness before user story implementation.
+
+**Status**: Post-implementation assessment identified 3 missing Phase 2 utilities (schema-validator, evidence-collector, recommendation-generator) and zero test coverage. Phase 2 is 70% complete; these tasks must complete before Phase 3-7 can proceed safely.
+
+### Phase 2 Completion (Blocking Prerequisites for Phase 3)
+
+- [ ] T086 Create `packages/requirements-checklist/src/lib/utils/schema-validator.ts` to validate ChecklistResult JSON against `checklist-result.schema.json` (FR-004 requirement); export validation function with detailed error reporting
+- [ ] T087 Create `packages/requirements-checklist/src/lib/evidence-collector.ts` to extract quoted text evidence from specification when checklist items fail; support Markdown heading navigation and line-number references (FR-005 requirement); include surrounding context (1-2 lines before/after) for each finding
+- [ ] T088 Create `packages/requirements-checklist/src/lib/recommendation-generator.ts` with templated suggestions per dimension and per audience (author, peer, stakeholder, integration); return severity-classified findings (low/medium/high) with actionable next steps (FR-005 requirement)
+- [ ] T089 Add unit tests in `tests/unit/spec-parser.test.ts`: Test parsing Markdown specs with various structures, YAML specs with frontmatter, JSON specs; verify format detection and content extraction (covers T013 validation)
+- [ ] T090 Add unit tests in `tests/unit/scoring.test.ts`: Test hierarchical scoring logic (item → dimension %) with various pass rates; verify dimension score threshold (≥75%) and overall score calculation (covers T014 validation)
+- [ ] T091 Add unit tests in `tests/unit/schema-validator.test.ts`: Test result validation against schema (positive cases: valid results, negative cases: missing fields, invalid types); verify error messages (covers T086 validation)
+- [ ] T092 Add unit tests in `tests/unit/checklist-engine.test.ts`: Test full validation loop (load template → parse spec → evaluate items → score → format); verify all components integrate correctly; test with sample spec and author-pre-review template
+- [ ] T093 Add contract tests in `tests/contract/checklist-template.schema.test.ts`: Validate all 4 templates (author-pre-review, peer-review, stakeholder-gate, cross-project-integration) conform to checklist-template.schema.json structure
+- [ ] T094 Add contract tests in `tests/contract/checklist-result.schema.test.ts`: Generate sample results for each template → validate against checklist-result.schema.json; verify all required fields present
+- [ ] T095 Add contract tests in `tests/contract/checklist-dimension.schema.test.ts`: Validate all 8 dimension definitions match checklist-dimension.schema.json structure
+
+**Checkpoint**: Phase 2 now complete with full test coverage. All foundational components verified. Proceed to Phase 3 user story implementation.
+
+---
+
+**Tasks Status**: ✅ INITIAL PHASES COMPLETE, CONVERGENCE IN PROGRESS — 85 original tasks + 10 convergence tasks generated.
+
+Total Tasks: **95** (including foundational, convergence, user stories, and polish)
 
 Task Breakdown by Phase:
 
