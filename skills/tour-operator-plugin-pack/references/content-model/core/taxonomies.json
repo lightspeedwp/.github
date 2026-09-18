@@ -1,0 +1,142 @@
+{
+  "model_version": "1.0.0",
+  "last_reviewed": "2026-07-03",
+  "plugin": {
+    "name": "Tour Operator",
+    "slug": "tour-operator",
+    "type": "core",
+    "registration_class_source_file": "class-taxonomies.php",
+    "registration_behaviour": "Taxonomies are registered through register_taxonomy after applying lsx_to_register_taxonomy_args and lsx_to_register_taxonomy_object_types filters.",
+    "source_files": [
+      "class-taxonomies.php",
+      "config-accommodation-brand.php",
+      "config-accommodation-type.php",
+      "config-continent.php",
+      "config-facility.php",
+      "config-travel-style.php"
+    ]
+  },
+  "taxonomies": [
+    {
+      "slug": "accommodation-brand",
+      "label": "Brands",
+      "singular_label": "Brand",
+      "object_types": [
+        "accommodation"
+      ],
+      "hierarchical": true,
+      "show_ui": true,
+      "public": true,
+      "show_in_rest": true,
+      "show_in_nav_menus": true,
+      "show_tagcloud": false,
+      "exclude_from_search": true,
+      "show_admin_column": true,
+      "query_var": true,
+      "rewrite_slug": "brand",
+      "menu_position": 33,
+      "description": "Select the brand the Accommodation belongs to.",
+      "source_file": "config-accommodation-brand.php",
+      "confidence": "confirmed"
+    },
+    {
+      "slug": "accommodation-type",
+      "label": "Accommodation Types",
+      "singular_label": "Accommodation Type",
+      "object_types": [
+        "accommodation"
+      ],
+      "hierarchical": true,
+      "show_ui": true,
+      "public": true,
+      "show_in_rest": true,
+      "show_in_nav_menus": true,
+      "show_tagcloud": false,
+      "exclude_from_search": true,
+      "show_admin_column": false,
+      "query_var": true,
+      "rewrite_slug": "accommodation-type",
+      "menu_position": 32,
+      "description": "Select the type(s) of accommodation (e.g., hotel, resort).",
+      "source_file": "config-accommodation-type.php",
+      "confidence": "confirmed"
+    },
+    {
+      "slug": "continent",
+      "label": "Continents",
+      "singular_label": "Continent",
+      "object_types": [
+        "destination"
+      ],
+      "hierarchical": true,
+      "show_ui": true,
+      "show_in_quick_edit": true,
+      "public": true,
+      "show_in_rest": true,
+      "show_in_nav_menus": true,
+      "show_tagcloud": false,
+      "exclude_from_search": true,
+      "show_admin_column": true,
+      "query_var": true,
+      "rewrite_slug": "continent",
+      "menu_position": 15,
+      "description": "Select the continent that the country belongs to.",
+      "source_file": "config-continent.php",
+      "confidence": "confirmed"
+    },
+    {
+      "slug": "facility",
+      "label": "Facilities",
+      "singular_label": "Facility",
+      "object_types": [
+        "accommodation"
+      ],
+      "hierarchical": true,
+      "show_ui": true,
+      "public": true,
+      "show_in_rest": true,
+      "show_in_nav_menus": true,
+      "show_tagcloud": false,
+      "exclude_from_search": true,
+      "show_admin_column": true,
+      "query_var": true,
+      "rewrite_slug": "facility",
+      "menu_position": 35,
+      "description": "Choose the facilities offered by the accommodation (e.g., pool, gym).",
+      "source_file": "config-facility.php",
+      "confidence": "confirmed"
+    },
+    {
+      "slug": "travel-style",
+      "label": "Travel Styles",
+      "singular_label": "Travel Style",
+      "object_types": [
+        "accommodation",
+        "tour",
+        "destination",
+        "review",
+        "vehicle",
+        "special"
+      ],
+      "hierarchical": true,
+      "show_ui": true,
+      "public": true,
+      "show_in_rest": true,
+      "show_in_nav_menus": true,
+      "show_tagcloud": false,
+      "exclude_from_search": true,
+      "show_admin_column": true,
+      "query_var": true,
+      "rewrite_slug": "travel-style",
+      "menu_position": 22,
+      "description": "Select the relevant travel styles that apply to this item.",
+      "source_file": "config-travel-style.php",
+      "confidence": "confirmed",
+      "boundary_note": "The taxonomy config references review, vehicle and special. This is evidence that the taxonomy can attach to those object type slugs, not proof that the core plugin registers those post types."
+    }
+  ],
+  "boundary_rules": [
+    "Object types listed on a taxonomy are attachment targets for that taxonomy, not proof that every listed object type is registered by the core plugin.",
+    "The travel-style taxonomy references extension-facing object types; treat those as extension-facing until confirmed otherwise."
+  ]
+}

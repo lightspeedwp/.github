@@ -61,10 +61,23 @@
    - **Decision**: Path specificity rule (FR-014) is primary; branch context augments relevant focus areas
    - **Impact**: MEDIUM - clarifies user experience when multiple guidance types apply
 
+### Session 2026-09-17 (Scope Expansion & Governance Audit)
+
+1. **PR Governance Scope**: ✅ Resolved - Phase 1 expanded to include PR governance automation (template validation, label enforcement, DoD checklist).
+   - **Decision**: Expand Phase 1 to cover both code review instructions AND PR governance; adds FR-016 through FR-019 and SC-014 through SC-017
+   - **Impact**: CRITICAL - expands feature scope from 15 tasks (code review only) to ~130-140 tasks (unified delivery); effort increases from 8-10 weeks to 14-16 weeks; delivers complete governance solution
+
+2. **Commented Sections Audit**: ✅ Resolved - Audited `.coderabbit.yml` lines 597-752; identified 150+ lines of governance documentation not yet active as CodeRabbit rules (PR templates, label automation, validation rules).
+   - **Decision**: Convert documented governance rules into active FR/SC/tasks; integrate PR validation, label enforcement, DoD automation into expanded Phase 1
+   - **Impact**: HIGH - provides concrete implementation starting points from prior design work; ensures no valuable governance patterns are lost
+
 ## Spec Status
 
-✅ **READY FOR PLANNING** - All ambiguities resolved, all quality criteria met, no blockers identified.
+✅ **READY FOR PLANNING** - Scope clarified, PR governance requirements added, governance audit completed.
 
-- Sessions: 2 (2026-09-11, 2026-09-14)
-- Total Questions Asked & Answered: 6 (3 + 3)
+- Sessions: 3 (2026-09-11, 2026-09-14, 2026-09-17)
+- Total Questions Asked & Answered: 8 (3 + 3 + 2)
 - Checklist Status: 16/16 items passing (100%)
+- **Scope**: Code review instructions + PR governance automation (unified Phase 1)
+- **Requirements**: FR-001 through FR-019 (15 → 19 functional requirements)
+- **Success Criteria**: SC-001 through SC-017 (13 → 17 measurable outcomes)
