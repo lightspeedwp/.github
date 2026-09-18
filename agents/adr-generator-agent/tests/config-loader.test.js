@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const configLoader = require("../skills/adr-config-loader");
+const configLoader = require("../skills/adr-config-loader/adr-config-loader");
 
 describe("ADR Config Loader", () => {
   let tempDir;

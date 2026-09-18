@@ -2,10 +2,10 @@
 // Test complete end-to-end workflows
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
-import { validateBranchName } from "../../skills/validate-branch-name.js";
-import { routePrTemplate } from "../../skills/route-pr-template.js";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels.js";
-import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation.js";
+import { validateBranchName } from "../../skills/validate-branch-name/validate-branch-name.js";
+import { routePrTemplate } from "../../skills/route-pr-template/route-pr-template.js";
+import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/validate-and-apply-labels.js";
+import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation/orchestrate-pr-creation.js";
 import { MockGitHub, createMockConfig } from "./setup.js";
 
 describe("Category E: Real GitHub Workflows", () => {

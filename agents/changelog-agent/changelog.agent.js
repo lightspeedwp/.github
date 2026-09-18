@@ -28,18 +28,19 @@ async function validateEntry(entry = {}, options = {}) {
   };
 
   try {
-    // Validate format
-    const formatValidation = validator.validateEntryFormat(entry);
+    // Validate against the canonical rule set. The validator returns
+    // { metadata, validation: { ruleResults, summary, complianceScore,
+    // complianceStatus } }; map it onto this wrapper's {valid, errors}
+    // contract. A "warning" status still counts as valid (non-blocking).
+    const validation = validator.validateEntry(entry);
+    const summary = validation.validation?.summary || {};
+    const failedIssues = summary.issues || [];
+    const errors = failedIssues.map(
+      (i) => i.message || i.ruleId || "validation failed",
+    );
 
-    if (!formatValidation.valid) {
-      result.errors.push(...formatValidation.errors);
-    }
-
-    // Validate formatting
-    const formattingValidation = validator.validateNoFormattingIssues(entry);
-
-    if (!formattingValidation.valid) {
-      result.errors.push(...formattingValidation.errors);
+    if (validation.validation?.complianceStatus === "failing") {
+      result.errors.push(...errors);
     }
 
     // Auto-format if requested and has errors
@@ -47,15 +48,18 @@ async function validateEntry(entry = {}, options = {}) {
       const formatted = formatter.formatEntryComprehensive(entry);
       result.formatted = formatted;
 
-      // Re-validate formatted entry
-      const reformatValidation = validator.validateEntry(formatted);
-      if (reformatValidation.valid) {
+      // Re-validate formatted entry (same standard-shape mapping)
+      const revalidation = validator.validateEntry(formatted);
+      const reformattedErrors = (
+        revalidation.validation?.summary?.issues || []
+      ).map((i) => i.message || i.ruleId || "validation failed");
+      if (revalidation.validation?.complianceStatus !== "failing") {
         result.valid = true;
         result.entry = formatted;
         result.status = "success";
         result.message = "Entry auto-formatted and validated successfully";
       } else {
-        result.errors = reformatValidation.errors;
+        result.errors = reformattedErrors;
         result.status = "failed";
         result.message = "Entry could not be auto-formatted";
       }
@@ -97,12 +101,21 @@ async function validateChangelog(changelogPath, options = {}) {
   };
 
   try {
-    // Validate structure
-    const structureValidation =
-      validator.validateChangelogStructure(changelogPath);
+    // Validate structure: the file must be a Keep a Changelog document
+    // with a top-level title and at least one version section. Parsing
+    // alone never throws, so check the markers explicitly.
+    const fs = require("fs");
+    const content = fs.readFileSync(changelogPath, "utf8");
+    const structureErrors = [];
+    if (!/^# Changelog/m.test(content)) {
+      structureErrors.push("Missing top-level '# Changelog' title");
+    }
+    if (!/^## \[/m.test(content)) {
+      structureErrors.push("No version sections (## [x.y.z]) found");
+    }
 
-    result.errors = structureValidation.errors;
-    result.valid = structureValidation.valid;
+    result.errors = structureErrors;
+    result.valid = structureErrors.length === 0;
 
     // Parse if requested
     if (parseContent) {

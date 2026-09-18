@@ -453,10 +453,10 @@ describe("RepoContextDetector", () => {
       const ctx1 = detector.detect("repo-with-agents", ["agents/"]);
       const ctx2 = detector.detect("repo-with-agents", ["agents"]);
 
-      // Both should recognize agents directory
-      expect([ctx1.type, ctx2.type]).toEqual(
-        expect.arrayContaining(["control-plane", "unknown"]),
-      );
+      // Trailing slash must not change detection; agents alone (without
+      // workflows) is not control-plane per the documented AND rule.
+      expect(ctx1.type).toBe(ctx2.type);
+      expect(ctx1.type).toBe("unknown");
     });
 
     it("requires agents AND workflows for control-plane (not just agents)", () => {

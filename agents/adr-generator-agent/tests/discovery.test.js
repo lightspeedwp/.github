@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const { ADRDiscovery } = require("../skills/adr-discovery");
+const { ADRDiscovery } = require("../skills/adr-discovery/adr-discovery");
 
 describe("ADR Discovery", () => {
   let tempDir;

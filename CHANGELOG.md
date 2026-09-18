@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Test Suite Remediation** — Fixed stale test paths, missing config keys and contract drift across the Jest suites. (#3383)
 - **Code Quality Findings Remediation** — Fixed unclosed files, unused bindings and empty handlers across skill scripts and automation. ([PR #3382](https://github.com/lightspeedwp/.github/pull/3382))
 - **Spec Validation Bats Slimming** — Fixed noisy test installs in the specification workflow by installing Bats without optional libraries. ([PR #3380](https://github.com/lightspeedwp/.github/pull/3380))
 - **PR Template Routing Comment Dedup** — The routing workflow posted a duplicate comment on every push. It now updates the existing comment in place and skips unchanged bodies. ([PR #3379](https://github.com/lightspeedwp/.github/pull/3379))
@@ -122,7 +123,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Specs Location Enforced** — Made spec tooling resolve the configured specs directory. (#3120)
 
-- **Decision Precedence Aligned** — Aligned critical blocker precedence across decision docs and tasks. (#3116)
+- **Agent Consolidation Phase 7 Fixed** — Aligned decision criteria to require Critical Blockers == 0 with T080-Defer follow-up. (#3116)
 
 - **Pre-commit Lint Scoped to Changes** — Limited the markdown check to lines the commit touched. (#3159)
 
