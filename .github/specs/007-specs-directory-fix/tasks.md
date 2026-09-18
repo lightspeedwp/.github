@@ -94,6 +94,24 @@ description: "Task list for fixing specs directory configuration"
 
 ---
 
+## Phase 4B: Rollback Mechanism (FR-009 Implementation)
+
+**Purpose**: Implement automatic rollback capability for migration failures
+
+**Dependency**: Phase 2 (Foundational) must be complete
+
+**⚠️ CRITICAL**: Rollback mechanism MUST be in place before T023-T028 migration runs
+
+### Implementation for Rollback (FR-009)
+
+- [ ] T023A [P] Create migration helper script `.specify/scripts/bash/migrate-specs.sh` with rollback capability: (a) pre-migration backup of both locations to temp directory, (b) error detection on any file operation failure, (c) automatic restoration from backup on error, (d) detailed error logging with troubleshooting guidance
+- [ ] T023B [P] Define rollback trigger logic: Any `cp`, `mv`, `mkdir` error detected during migration → immediately trigger rollback, verify original state restored, log error with context (permission denied, disk full, path issues)
+- [ ] T023C Document rollback behavior in quickstart.md: What happens on rollback, how to verify original state preserved, error message format and interpretation
+
+**Checkpoint**: Rollback infrastructure pending — complete T023A–T023C before migration proceeds ⏳
+
+---
+
 ## Phase 5: User Story 3 - Migrate Existing Specs (Priority: P3)
 
 **Goal**: Move existing specs from root `specs/` directory to `.github/specs/` with 100% content preservation
@@ -104,12 +122,12 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for User Story 3
 
-- [x] T023 [US3] Inventory and recursively compare the complete `specs/` and `.github/specs/` trees, including hidden entries, before migration; record every matching destination path as a potential conflict
-- [x] T024 [US3] Resolve every conflicting file or directory explicitly, then copy all source entries to `.github/specs/` without allowing unresolved destination content to be overwritten
-- [x] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
-- [x] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
-- [x] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
-- [x] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/007-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
+- [ ] T023 [US3] Inventory and recursively compare the complete `specs/` and `.github/specs/` trees, including hidden entries, before migration; record every matching destination path as a potential conflict
+- [ ] T024 [US3] Resolve every conflicting file or directory explicitly, then copy all source entries to `.github/specs/` without allowing unresolved destination content to be overwritten
+- [ ] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
+- [ ] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
+- [ ] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
+- [ ] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/007-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
 
 **Checkpoint**: All specs migrated — zero specs in root `specs/`, all specs in `.github/specs/`, all downstream workflows functional ✅ (Already complete - all specs were already in correct location)
 
@@ -121,14 +139,14 @@ description: "Task list for fixing specs directory configuration"
 
 **Dependency**: All user stories complete (US1, US2, US3)
 
-- [x] T029 [P] Run full test suite: Verify create-new-feature.sh dry-run creates specs in correct location via `.specify/scripts/bash/create-new-feature.sh --json --dry-run "test migration verification"`
-- [x] T030 [P] Verify all speckit integration scripts (setup-plan.sh, setup-tasks.sh, check-prerequisites.sh) correctly resolve specs directory from config in `.specify/scripts/bash/`
-- [x] T031 Code review: Ensure all hardcoded `/specs` or `$REPO_ROOT/specs` paths have been replaced with config-driven logic via grep search for "SPECS_DIR" in `.specify/scripts/bash/`
-- [x] T032 [P] Security check: Verify `read_specs_directory()` function validates input (no parent directory traversal, no special characters) in `.specify/scripts/bash/common.sh`
-- [x] T033 Update any project-specific `.specify/` documentation or wiki entries that reference old specs location via docs/ or inline comments
-- [x] T034 Commit final changes with message explaining completion of all three user stories in git
-- [x] T035 [P] Final validation: Run /speckit-specify, /speckit-plan, /speckit-tasks on a new feature to verify entire workflow uses .github/specs/ in bash/shell
-- [x] T036 Verify no residual references to root-level `specs/` directory in CI/CD workflows, GitHub Actions, or automation scripts via grep in `.github/workflows/`
+- [ ] T029 [P] Run full test suite: Verify create-new-feature.sh dry-run creates specs in correct location via `.specify/scripts/bash/create-new-feature.sh --json --dry-run "test migration verification"`
+- [ ] T030 [P] Verify all speckit integration scripts (setup-plan.sh, setup-tasks.sh, check-prerequisites.sh) correctly resolve specs directory from config in `.specify/scripts/bash/`
+- [ ] T031 Code review: Ensure all hardcoded `/specs` or `$REPO_ROOT/specs` paths have been replaced with config-driven logic via grep search for "SPECS_DIR" in `.specify/scripts/bash/`
+- [ ] T032 [P] Security check: Verify `read_specs_directory()` function validates input (no parent directory traversal, no special characters) in `.specify/scripts/bash/common.sh`
+- [ ] T033 Update any project-specific `.specify/` documentation or wiki entries that reference old specs location via docs/ or inline comments
+- [ ] T034 Commit final changes with message explaining completion of all three user stories in git
+- [ ] T035 [P] Final validation: Run /speckit-specify, /speckit-plan, /speckit-tasks on a new feature to verify entire workflow uses .github/specs/ in bash/shell
+- [ ] T036 Verify no residual references to root-level `specs/` directory in CI/CD workflows, GitHub Actions, or automation scripts via grep in `.github/workflows/`
 
 ---
 
@@ -154,11 +172,17 @@ description: "Task list for fixing specs directory configuration"
    - Documentation/governance alignment
    - Can run in parallel with US1 once Foundation done (if staffed)
 
-5. **User Story 3 (Phase 5)** → Depends on US1 completion (T009-T016)
-   - Uses the fixed workflow to verify migration
-   - Cannot run until new workflow is established and tested
+5. **Rollback Mechanism (Phase 4B)** → Depends on Foundational completion (T004-T008)
+   - Implements FR-009 automatic rollback capability
+   - MUST be complete before User Story 3 migration runs
+   - Can run in parallel with US1, US2 once Foundation done
 
-6. **Polish (Phase 6)** → Depends on US1, US2, US3 completion
+6. **User Story 3 (Phase 5)** → Depends on US1 completion (T009-T016) AND Rollback completion (T023A-T023C)
+   - Uses the fixed workflow to verify migration
+   - Rollback mechanism must be in place before migration starts
+   - Cannot run until both new workflow AND rollback are ready
+
+7. **Polish (Phase 6)** → Depends on US1, US2, Rollback, US3 completion
    - Final validation and cleanup
 
 ### Within User Story Dependencies
@@ -173,8 +197,14 @@ description: "Task list for fixing specs directory configuration"
 
 - T017 (main doc update) before T018-T022 (supporting docs)
 
+**Rollback Task Dependencies** (Phase 4B):
+
+- T023A (create migrate script with rollback) before T023B (define triggers)
+- T023B (define triggers) before T023C (document in quickstart)
+
 **US3 Task Dependencies**:
 
+- T023A-T023C (rollback complete) BEFORE T023 (inventory starts)
 - T023 (inventory and compare trees) before T024 (resolve conflicts and copy)
 - T024 (copy content) before T025 (verify migration)
 - T025 (verify migration) before T026 (clean up)
@@ -202,16 +232,21 @@ description: "Task list for fixing specs directory configuration"
 - T017 (CLAUDE.md) sequentially first
 - T018-T022 (other docs) can run in parallel (different files)
 
-**US1 & US2 in Parallel**:
+**Within Rollback (Phase 4B)** - Once Foundational done:
+
+- T023A, T023B, T023C must run sequentially (each depends on previous)
+
+**US1, US2, & Rollback in Parallel**:
 
 - Once Foundational (T004-T008) complete
 - Developer A: Work on US1 (T009-T016)
 - Developer B: Work on US2 (T017-T022)
-- Both can proceed independently
+- Developer C (or B after US2): Implement Rollback (T023A-T023C)
+- All can proceed independently
 
-**US3 Sequence** (must wait for US1):
+**US3 Sequence** (must wait for US1 + Rollback):
 
-- After US1 complete, migrate (T023-T028) sequentially
+- After US1 AND Rollback complete, migrate (T023-T028) sequentially
 
 **Polish & Testing (Phase 6)**:
 
@@ -250,15 +285,16 @@ description: "Task list for fixing specs directory configuration"
 
 ## Implementation Strategy
 
-### MVP First (User Story 1 Only)
+### MVP First (User Story 1 + Rollback Mechanism)
 
 1. ✅ Complete Phase 1: Setup (T001-T003)
 2. ✅ Complete Phase 2: Foundational (T004-T008)
-3. ✅ Complete Phase 3: User Story 1 (T009-T016)
-4. **STOP and VALIDATE**: Test `/speckit-specify` creates specs in `.github/specs/` (T011-T012)
-5. Proceed to US2 & US3 if validation passes
+3. ✅ Complete Phase 4B: Rollback Mechanism (T023A-T023C) — CRITICAL for migration safety
+4. ✅ Complete Phase 3: User Story 1 (T009-T016)
+5. **STOP and VALIDATE**: Test `/speckit-specify` creates specs in `.github/specs/` (T011-T012)
+6. Proceed to US2 & US3 if validation passes
 
-**MVP Deliverable**: Developers can create new feature specs in `.github/specs/` using updated speckit workflow
+**MVP Deliverable**: Developers can create new feature specs in `.github/specs/` with safe migration infrastructure in place
 
 ### Incremental Delivery (Full Feature)
 
@@ -300,3 +336,28 @@ description: "Task list for fixing specs directory configuration"
 - No new code libraries or dependencies required — shell scripts, JSON, Markdown only
 - Backward compatibility: Old configs without `specs_directory` field default to `.github/specs`
 - All changes version-controlled (git) and reversible until final migration cleanup
+
+---
+
+## Phase 7: Convergence Validation (PR #3360 Follow-Up)
+
+**Purpose**: Validate Phase 1-5 implementation completeness and confirm all specifications are met
+
+**Status**: Implementation complete (Phases 1-5); Convergence tasks track deferred Phase 6 validation
+
+**Context**: PR #3360 merged with explicit notation: "Phase 6 Polish & Validation (T029-T036) — Deferred as follow-up work"
+
+### Validation Tasks for Phase 6 Completion
+
+- [ ] T037 [P] Run full integration test: `/speckit-specify --json --dry-run "phase-7-test-feature"` and verify output shows SPEC_FILE in `.github/specs/` (validate FR-001, SC-001) via `.specify/scripts/bash/create-new-feature.sh`
+- [ ] T038 [P] Verify all speckit commands with new specs: Run `/speckit-plan` and `/speckit-tasks` on 007-specs-directory-fix and confirm FEATURE_DIR resolves to `.github/specs/007-specs-directory-fix` (validate FR-004, SC-002) via `.specify/scripts/bash/setup-plan.sh` and `setup-tasks.sh`
+- [ ] T039 [P] Code review: Grep for hardcoded `/specs` paths in repository to confirm no legacy references remain (validate FR-008, SC-004) via `grep -r "^specs\/" .github/specs/` and `grep -r "root.*specs" .specify/scripts/bash/`
+- [ ] T040 [P] Security validation: Review `read_specs_directory()` function for path traversal vulnerability prevention (validate FR-009) via `.specify/scripts/bash/common.sh` lines 135-165; confirm regex/validation blocks `..` parent directory references
+- [ ] T041 Verify migration script rollback: Run `.specify/scripts/bash/migrate-specs.sh --dry-run --verbose` and confirm error handling paths are documented (validate FR-009 rollback mechanism) via `.specify/scripts/bash/migrate-specs.sh`
+- [ ] T042 Update CHANGELOG.md: Add entry under [Unreleased] → Fixed documenting "Specs Directory Fix" completion and migration to `.github/specs` (validate SC-006, governance compliance) via `CHANGELOG.md`
+- [ ] T043 [P] Final integration validation: Create new test feature spec with `/speckit-specify "integration-test-feature-phase7"`, verify `.github/specs/NNN-integration-test-feature-phase7/` created, run `/speckit-plan` and `/speckit-tasks` on it, confirm all downstream workflows work (validate all FRs, all SCs) via bash interactive testing
+- [ ] T044 Document Phase 6 completion: Update `.github/specs/007-specs-directory-fix/spec.md` Status from "Ready for Planning" to "Completed" and add completion date (validate completion status) via `spec.md`
+
+**Checkpoint**: Convergence validation deferred — T037–T044 tracked as Phase 7 follow-up work after Phase 6 implementation merge ⏳
+
+---

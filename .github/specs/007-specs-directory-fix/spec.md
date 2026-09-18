@@ -1,10 +1,10 @@
 # Feature Specification: Fix Specs Directory Configuration
 
-**Feature Branch**: `config/specs-directory-configuration`
+**Feature Branch**: `fix/specs-directory-structure`
 
 **Created**: 2026-09-14
 
-**Status**: Ready for Planning
+**Status**: ✅ Phase 6 Complete | Phase 7 ⏳ Deferred (Convergence Validation Tasks T037-T044 tracked for follow-up)
 
 **Input**: User description: "Fix specs directory configuration to use .github/specs instead of root specs folder"
 
