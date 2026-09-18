@@ -1,0 +1,102 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "ai-readiness-estimator",
+  "skills": [
+    {
+      "id": "ai-readiness-estimator/.DS_Store",
+      "name": ".DS_Store",
+      "category": "ai-readiness-estimator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-estimator/.DS_Store",
+      "description": "�A\u0000\u0000\u0000\u0006\u0000a\u0000g\u0000e\u0000n\u0000t\u0000smodDblob\u0000\u0000\u0000\bM��$�#�A\u0000\u0000\u0000\u0006\u0000a\u0000g\u0000e\u0000n\u0000t\u0000sph1Scomp\u0000\u0000\u0000\u0000\u0000\u0002�\u0000\u0000\u0000\u0000\u0006\u0000a\u0000s\u0000s\u0000e\u0000t\u0000slg1Scomp\u0000\u0000\u0000\u0000\u0000\u0002��\u0000\u0000\u0000\u0006\u0000a\u0000s\u0000s\u0000e\u0000t\u0000smoDDblob\u0000\u0000\u0000\b�Ã$�#�A\u0000\u0000\u0000\u0006\u0000a\u0000s\u0000s\u0000e\u0000t\u0000smodDblob\u0000\u0000\u0000\b�Ã$�#�A\u0000\u0000\u0000\u0006\u0000a\u0000s\u0000s\u0000e\u0000t\u0000sph1Scomp\u0000\u0000\u0000\u0000\u0000\u0002�\u0000\u0000\u0000\u0000",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "ai-readiness-estimator/CHANGELOG",
+      "name": "CHANGELOG",
+      "category": "ai-readiness-estimator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-estimator/CHANGELOG.md",
+      "description": "Changelog",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "ai-readiness-estimator/Icon\r",
+      "name": "Icon\r",
+      "category": "ai-readiness-estimator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-estimator/Icon\r",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "ai-readiness-estimator/README",
+      "name": "README",
+      "category": "ai-readiness-estimator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-estimator/README.md",
+      "description": "LightSpeed AI Readiness Estimator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "ai-readiness-estimator/SKILL",
+      "name": "SKILL",
+      "category": "ai-readiness-estimator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-estimator/SKILL.md",
+      "description": "LightSpeed AI Readiness Estimator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "compliant": 1,
+    "compliancePercentage": 20
+  }
+}

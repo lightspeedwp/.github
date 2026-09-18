@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "project-evidence-harvester",
+  "skills": [
+    {
+      "id": "project-evidence-harvester/.DS_Store",
+      "name": ".DS_Store",
+      "category": "project-evidence-harvester",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/project-evidence-harvester/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "project-evidence-harvester/SKILL",
+      "name": "SKILL",
+      "category": "project-evidence-harvester",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/project-evidence-harvester/SKILL.md",
+      "description": "Project Evidence Harvester",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 1,
+    "compliancePercentage": 50
+  }
+}

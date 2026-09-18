@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "wp-figma-artifact-builder",
+  "skills": [
+    {
+      "id": "wp-figma-artifact-builder/SKILL",
+      "name": "SKILL",
+      "category": "wp-figma-artifact-builder",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/wp-figma-artifact-builder/SKILL.md",
+      "description": "WP Figma Artifact Builder",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

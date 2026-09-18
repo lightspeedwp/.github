@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "gtm-enterprise-account-planning",
+  "skills": [
+    {
+      "id": "gtm-enterprise-account-planning/SKILL",
+      "name": "SKILL",
+      "category": "gtm-enterprise-account-planning",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gtm-enterprise-account-planning/SKILL.md",
+      "description": "linkedin.com/in/smitkpatel)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

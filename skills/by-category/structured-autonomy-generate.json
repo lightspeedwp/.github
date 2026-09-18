@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "structured-autonomy-generate",
+  "skills": [
+    {
+      "id": "structured-autonomy-generate/SKILL",
+      "name": "SKILL",
+      "category": "structured-autonomy-generate",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/structured-autonomy-generate/SKILL.md",
+      "description": "Step 1: Parse Plan & Research Codebase",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

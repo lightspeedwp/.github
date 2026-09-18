@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "prd",
+  "skills": [
+    {
+      "id": "prd/SKILL",
+      "name": "SKILL",
+      "category": "prd",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd/SKILL.md",
+      "description": "Product Requirements Document (PRD)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

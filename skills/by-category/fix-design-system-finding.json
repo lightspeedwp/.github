@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "fix-design-system-finding",
+  "skills": [
+    {
+      "id": "fix-design-system-finding/SKILL",
+      "name": "SKILL",
+      "category": "fix-design-system-finding",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/fix-design-system-finding/SKILL.md",
+      "description": "lightspeedwp.agency/contact)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "chatbot-planning-orchestrator-skill",
+  "skills": [
+    {
+      "id": "chatbot-planning-orchestrator-skill/Icon\r",
+      "name": "Icon\r",
+      "category": "chatbot-planning-orchestrator-skill",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatbot-planning-orchestrator-skill/Icon\r",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "chatbot-planning-orchestrator-skill/SKILL",
+      "name": "SKILL",
+      "category": "chatbot-planning-orchestrator-skill",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatbot-planning-orchestrator-skill/SKILL.md",
+      "description": "WordPress Plugin Packaging Review",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 1,
+    "compliancePercentage": 50
+  }
+}

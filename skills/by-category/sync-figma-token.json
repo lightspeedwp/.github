@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "sync-figma-token",
+  "skills": [
+    {
+      "id": "sync-figma-token/SKILL",
+      "name": "SKILL",
+      "category": "sync-figma-token",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/sync-figma-token/SKILL.md",
+      "description": "github.com/lightspeedwp/.github/tree/main/profile)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "sync-figma-token/maintainers",
+      "name": "maintainers",
+      "category": "sync-figma-token",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/sync-figma-token/maintainers.yml",
+      "description": "No description available",
+      "type": "yaml",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

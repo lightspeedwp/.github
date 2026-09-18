@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "agency-scope-change-control",
+  "skills": [
+    {
+      "id": "agency-scope-change-control/SKILL",
+      "name": "SKILL",
+      "category": "agency-scope-change-control",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agency-scope-change-control/SKILL.md",
+      "description": "Agency Scope & Change Control",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

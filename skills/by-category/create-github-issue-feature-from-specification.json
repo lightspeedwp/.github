@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "create-github-issue-feature-from-specification",
+  "skills": [
+    {
+      "id": "create-github-issue-feature-from-specification/SKILL",
+      "name": "SKILL",
+      "category": "create-github-issue-feature-from-specification",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/create-github-issue-feature-from-specification/SKILL.md",
+      "description": "Create GitHub Issue from Specification",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

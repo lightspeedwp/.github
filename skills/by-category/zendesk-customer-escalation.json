@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "zendesk-customer-escalation",
+  "skills": [
+    {
+      "id": "zendesk-customer-escalation/SKILL",
+      "name": "SKILL",
+      "category": "zendesk-customer-escalation",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-customer-escalation/SKILL.md",
+      "description": "Zendesk Customer Escalation",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}

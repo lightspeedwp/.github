@@ -38,8 +38,11 @@
 - [x] Requirements are testable and unambiguous
   - ✅ FR-001: "run locally with `npm run changelog:validate`" — testable by actually running the command
   - ✅ FR-002: Specific validation checks listed (length, linking, formatting, clarity)
+  - ✅ FR-003: Skill invocation via npm CLI specified; optional REST API wrapper clarified
   - ✅ FR-006: Documentation location and required sections specified exactly
   - ✅ FR-008: "run on every PR that modifies CHANGELOG.md" — testable via workflow logs
+  - ✅ FR-009: Bypass mechanism clarified (automatic by branch type: chore/ and deps/ skip validation)
+  - ✅ FR-011: Concurrent execution behavior specified (file-level locks, merge blocks until validation)
   
 - [x] Success criteria are measurable
   - ✅ SC-001: "within 5 seconds" (testable timing metric)
@@ -59,8 +62,8 @@
   
 - [x] Edge cases are identified
   - ✅ Missing changelog file handling
-  - ✅ Automated commit handling (deps, chores)
-  - ✅ Concurrent skill execution (race conditions)
+  - ✅ Automated commit handling (deps, chores) — now clarified with automatic bypass by branch type
+  - ✅ Concurrent skill execution (race conditions) — now clarified with file-level locking strategy
   - ✅ Special characters and Unicode in entries
   - ✅ File system permissions on skills
   
@@ -106,13 +109,21 @@
 
 ## Validation Notes
 
-✅ **READY FOR PLANNING**: All checklist items pass. No quality issues found.
+✅ **CLARIFICATION COMPLETE & READY FOR PLANNING**: All checklist items pass. Quality issues resolved.
+
+**Clarifications Integrated**:
+
+- Q1: Validation bypass mechanism → Automatic by branch type (chore/ and deps/ skip, others require validation)
+- Q2: Skill invocation patterns → Primary npm CLI commands with optional REST API wrapper
+- Q3: Concurrent execution strategy → File-level locks; merge blocks until validation completes
+
+**Quality Assessment**:
 
 - Specification is complete, clear, and testable
 - User stories are independently implementable and deliver measurable value
-- Requirements are specific and unambiguous
+- Requirements are specific and unambiguous (3 ambiguities clarified and integrated)
 - Success criteria are measurable and aligned with user stories
-- Edge cases and assumptions are documented
+- Edge cases and assumptions are documented with resolved behaviors
 - Specification follows the constitution's quality standards (Principle VII)
 
-**Next Steps**: Ready for `/speckit-clarify` (if questions remain) or `/speckit-plan` (to generate implementation plan and task breakdown).
+**Next Steps**: Ready for `/speckit-plan` (to generate implementation plan and detailed task breakdown).

@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "pdfs",
+  "skills": [
+    {
+      "id": "pdfs/LICENSE",
+      "name": "LICENSE",
+      "category": "pdfs",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/pdfs/LICENSE.txt",
+      "description": "openai.com/policies/row-terms-of-use/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "pdfs/SKILL",
+      "name": "SKILL",
+      "category": "pdfs",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/pdfs/SKILL.md",
+      "description": "PDF Skill (Read • Inspect • Extract • Edit • Render • Forms • OCR • Redact • Convert • Diff)",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 1,
+    "compliancePercentage": 50
+  }
+}

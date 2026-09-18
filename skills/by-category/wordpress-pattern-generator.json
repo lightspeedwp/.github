@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "wordpress-pattern-generator",
+  "skills": [
+    {
+      "id": "wordpress-pattern-generator/SKILL",
+      "name": "SKILL",
+      "category": "wordpress-pattern-generator",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/wordpress-pattern-generator/SKILL.md",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

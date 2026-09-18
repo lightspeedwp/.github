@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "gh-fix-ci",
+  "skills": [
+    {
+      "id": "gh-fix-ci/LICENSE",
+      "name": "LICENSE",
+      "category": "gh-fix-ci",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+      "description": "www.apache.org/licenses/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "gh-fix-ci/SKILL",
+      "name": "SKILL",
+      "category": "gh-fix-ci",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/SKILL.md",
+      "description": "Gh Pr Checks Plan Fix",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "compliant": 2,
+    "compliancePercentage": 100
+  }
+}

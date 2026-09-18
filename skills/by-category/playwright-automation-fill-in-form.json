@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "playwright-automation-fill-in-form",
+  "skills": [
+    {
+      "id": "playwright-automation-fill-in-form/SKILL",
+      "name": "SKILL",
+      "category": "playwright-automation-fill-in-form",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/playwright-automation-fill-in-form/SKILL.md",
+      "description": "Automating Filling in a Form with Playwright MCP",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

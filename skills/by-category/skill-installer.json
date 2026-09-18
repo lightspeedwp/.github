@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "skill-installer",
+  "skills": [
+    {
+      "id": "skill-installer/.DS_Store",
+      "name": ".DS_Store",
+      "category": "skill-installer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/.DS_Store",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "skill-installer/LICENSE",
+      "name": "LICENSE",
+      "category": "skill-installer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/LICENSE.txt",
+      "description": "www.apache.org/licenses/",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "skill-installer/SKILL",
+      "name": "SKILL",
+      "category": "skill-installer",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/SKILL.md",
+      "description": "Skill Installer",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "compliant": 2,
+    "compliancePercentage": 67
+  }
+}

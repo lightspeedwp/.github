@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "workshop-create",
+  "skills": [
+    {
+      "id": "workshop-create/SKILL",
+      "name": "SKILL",
+      "category": "workshop-create",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/workshop-create/SKILL.md",
+      "description": "Create a Workshop",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

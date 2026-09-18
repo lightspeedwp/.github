@@ -1,0 +1,246 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "agent-creator-agent-builder-pack",
+  "skills": [
+    {
+      "id": "agent-creator-agent-builder-pack/AGENT_BUILDER_SPEC",
+      "name": "AGENT_BUILDER_SPEC",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/AGENT_BUILDER_SPEC.md",
+      "description": "Agent Builder Spec — Agent Creator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/AGENT_REQUIREMENTS",
+      "name": "AGENT_REQUIREMENTS",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/AGENT_REQUIREMENTS.md",
+      "description": "Agent Requirements — Agent Creator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/AGENT_SYSTEM_PROMPT",
+      "name": "AGENT_SYSTEM_PROMPT",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/AGENT_SYSTEM_PROMPT.md",
+      "description": "Agent System Prompt — Agent Creator",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/BUILDER_IMPORT_PROMPT",
+      "name": "BUILDER_IMPORT_PROMPT",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/BUILDER_IMPORT_PROMPT.md",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/FILE_MANIFEST",
+      "name": "FILE_MANIFEST",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/FILE_MANIFEST.md",
+      "description": "File Manifest",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/Icon\r",
+      "name": "Icon\r",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/Icon\r",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/OUTPUT_TEMPLATES",
+      "name": "OUTPUT_TEMPLATES",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/OUTPUT_TEMPLATES.md",
+      "description": "Output Templates",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/PHASED_BUILD_PLAN",
+      "name": "PHASED_BUILD_PLAN",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/PHASED_BUILD_PLAN.md",
+      "description": "Phased Build Plan",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/QUALITY_CHECKLIST",
+      "name": "QUALITY_CHECKLIST",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/QUALITY_CHECKLIST.md",
+      "description": "Quality Checklist",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/README",
+      "name": "README",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/README.md",
+      "description": "Agent Creator — Agent Builder Spec Pack",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/ROUTING_AND_HANDOFF",
+      "name": "ROUTING_AND_HANDOFF",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/ROUTING_AND_HANDOFF.md",
+      "description": "Routing and Handoff",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/TOOL_AND_PERMISSION_MATRIX",
+      "name": "TOOL_AND_PERMISSION_MATRIX",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/TOOL_AND_PERMISSION_MATRIX.md",
+      "description": "Tool and Permission Matrix",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "agent-creator-agent-builder-pack/business-context",
+      "name": "business-context",
+      "category": "agent-creator-agent-builder-pack",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/business-context.md",
+      "description": "Business Context",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 13,
+    "compliant": 5,
+    "compliancePercentage": 38
+  }
+}

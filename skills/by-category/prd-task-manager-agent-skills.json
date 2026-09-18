@@ -1,0 +1,390 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "prd-task-manager-agent-skills",
+  "skills": [
+    {
+      "id": "prd-task-manager-agent-skills/Icon\r",
+      "name": "Icon\r",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/Icon\r",
+      "description": "No description available",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-acceptance-test-planner-skill",
+      "name": "lightspeed-acceptance-test-planner-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-acceptance-test-planner-skill.zip",
+      "description": "\u0000\u001c\u0000lightspeed-acceptance-test-planner/UT\t\u0000\u00037��i7��iux\u000b\u0000\u0001\u0004\u0000\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0000PK\u0003\u0004",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-approval-gate-manager-skill",
+      "name": "lightspeed-approval-gate-manager-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-approval-gate-manager-skill.zip",
+      "description": "k\u0005l\u0014�>����Ir�\u001d\u0001\u0004�L�\")�\u0001�\u0000�b^�0@�*�A���&\u001a.�fP�;�[So\u0012�f4c��\u001c\u001a{��#\u0011g�I&�\u0016V�m�;t�j�\u0001PK\u0003\u0004",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-change-request-router-skill",
+      "name": "lightspeed-change-request-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-change-request-router-skill.zip",
+      "description": "C",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-estimation-proposal-planner-skill",
+      "name": "lightspeed-estimation-proposal-planner-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-estimation-proposal-planner-skill.zip",
+      "description": "�:\u0003N�¯^`(Jb,�\u001d��a�}N�H�\u000eG�K�\u0000�Z���\u0006����\u000e�ߒH����;�\u0003g�\u0007�^)�\u0015��2��\u0018gM�14�\u0015\u001ade*��\u0018�i�OV�ˡ|��f�T�\u001cA��,s�o����\u0006",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-figma-wordpress-technical-brief-skill",
+      "name": "lightspeed-figma-wordpress-technical-brief-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-figma-wordpress-technical-brief-skill.zip",
+      "description": "B�1�#\u0012GJ�cR�N1�\u0018�Rq\u000f�\u0014\u0018\br�B���>i�S�k����b\u0011��d\u0000M���ud�_;\u000es-cq �\u0004���p[\u0013��wR�:�\u0011R�8\u0017�x��[�A8:��\u0019;�ɢZ��_�\u001b",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-github-issue-drafter-skill",
+      "name": "lightspeed-github-issue-drafter-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-github-issue-drafter-skill.zip",
+      "description": "%�\\y�^K��j\u0016�UpA{�틤SHv�3L6\u001ax�y!M\u0013�",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-implementation-plan-generator-skill",
+      "name": "lightspeed-implementation-plan-generator-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-implementation-plan-generator-skill.zip",
+      "description": "!��g�j{Y9��޼�\u0005�O��ġ��$ЃW!���GI{��8\f\u0017\u0017�fC7\u0012�K\u0013�\u0010k��p3���q�2r\"|�f<r��;6\u001f�aM\u000f?n�-����M�m����\u000fV{#�\u0000�˹2��,J�)q\u0014",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-launch-task-router-skill",
+      "name": "lightspeed-launch-task-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-launch-task-router-skill.zip",
+      "description": "\u0006��p�T�`�6��\u0007C\u000f+ӊ�Xxj\u0011�pl��MtN\u001c\tk[�\u0014L",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-generator-skill",
+      "name": "lightspeed-prd-generator-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-prd-generator-skill.zip",
+      "description": "�)�����M��G��\\�%�pPB��4\u0018E��i�ڥ���N�\f�Y�\u0013|��v(�+q\u0006�\u0011>4\u0018�����֬\u001f\u000e[\u001a��m�Ac�T�\u0000PK\u0003\u0004",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-task-manager-skill",
+      "name": "lightspeed-prd-task-manager-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-prd-task-manager-skill.zip",
+      "description": "���ӝx\"�?�\u0014�޼\u0011\u000f��SY���VHQ�\u001a��4Z�w��\u001c^�$o��C�ԫv�t�\u0002=\u001eX\u000f\u0007�V��?ÕV�\b�a��*x\u0017�7�U��j",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-task-pack-exporter-skill",
+      "name": "lightspeed-prd-task-pack-exporter-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-prd-task-pack-exporter-skill.zip",
+      "description": "�:\u0003N�¯^`(Jb,�\u001d��a�}N�H�\u000eG�K�\u0000�Z���\u0006����\u000e�ߒH����;�\u0003g�\u0007�^)�\u0015��2��\u0018gM�14�\u0015\u001ade*��\u0018�i�OV�ˡ|��f�T�\u001cA��,s�o����\u0006",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-prd-task-reviewer-skill",
+      "name": "lightspeed-prd-task-reviewer-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-prd-task-reviewer-skill.zip",
+      "description": "�ip��ugg���\\�J\u0013wݕ�j�9S攜po(W\u001e��b(��:*E���;�����'Ǖߘ�H!gb6^\u0010\u0014�U����\\�~1�%��;�ӧ�;7�\u0019A\\�\u0019#9��\u001c�\u000e��J�=��6�%\u0006*��\u000bg�b\u0016��a\u000e�",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-intake-router-skill",
+      "name": "lightspeed-project-intake-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-project-intake-router-skill.zip",
+      "description": "�T�9tO�&\"\u000f�����)\u001a�\u0004\u0017�2�\u0001}�X�I��d�c",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": true,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-memory-manager-skill",
+      "name": "lightspeed-project-memory-manager-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-project-memory-manager-skill.zip",
+      "description": "\u0017��\\Q������\u001f�\u0003���",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-researcher-skill",
+      "name": "lightspeed-project-researcher-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-project-researcher-skill.zip",
+      "description": "��H�����In  �=\u0015%\u001d\u0001�rn\u0004\u001ac�٬\u000b[GiĲ1",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-project-status-reporter-skill",
+      "name": "lightspeed-project-status-reporter-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-project-status-reporter-skill.zip",
+      "description": "\u0000\u001c\u0000lightspeed-project-status-reporter/UT\t\u0000\u0003͌�i͌�iux\u000b\u0000\u0001\u0004\u0000\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0000PK\u0003\u0004",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-qa-findings-router-skill",
+      "name": "lightspeed-qa-findings-router-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-qa-findings-router-skill.zip",
+      "description": "�����(,g�\u0019�J�ECe\u0006`Y�\u001e���@%ܸs�\u001c�,܏pfo�w\u0002�0�J�Ņ��%1�G��KxEƎ\u0016����5@��7\u000e�>�7EY��K\u0002�-\\X�S���v\u0006\u0016�\bl�V�H\u0017l�U\u0014!��\"",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-release-handoff-generator-skill",
+      "name": "lightspeed-release-handoff-generator-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-release-handoff-generator-skill.zip",
+      "description": "Q�\u0019ɪ�\u0000ۻ����p�n~\u0001PK\u0003\u0004",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-requirements-traceability-mapper-skill",
+      "name": "lightspeed-requirements-traceability-mapper-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-requirements-traceability-mapper-skill.zip",
+      "description": "��s�\u0007�{��[)�;�j\u0015���\u0019]V\u0007\u000e�[�uv�t&�8N\u001a�����^N�\u0014�,�J\u000f\u001de\u0013b�8�G#V.�QR�\u001fPK\u0003\u0004\u0014\u0000\u0000\u0000\b\u0000�S�\\�]�(�\u0002\u0000\u0000�\u0004\u0000\u0000T\u0000\u001c\u0000lightspeed-requirements-traceability-mapper/references/requirement-classification.mdUT\t\u0000\u0003ϋ�iϋ�iux\u000b\u0000\u0001\u0004\u0000\u0000\u0000\u0000\u0004\u0000\u0000\u0000\u0000mT�n�0\f��+\b��,��nY�\u000e\u0003�-m��Lˌ�E\u0012=INk \u001f?RN�\u001dv�-3��{|����~�6���a�0%��\u0006��PUWW��L\u001dGK��~$�ܓ<�%",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    },
+    {
+      "id": "prd-task-manager-agent-skills/lightspeed-task-breakdown-planner-skill",
+      "name": "lightspeed-task-breakdown-planner-skill",
+      "category": "prd-task-manager-agent-skills",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-task-breakdown-planner-skill.zip",
+      "description": "�<M��q\u0019d��|����{���$84��a=�yo�5hyv�Gշ�\u0004\u00191N�\u001b\\�Z{\u0017S`�cy�W5mE�Vh��\u001cޣV��+�5",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": false,
+        "checks": {
+          "hasDescription": false,
+          "hasInputs": false,
+          "hasOutputs": false,
+          "hasExamples": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 21,
+    "compliant": 0,
+    "compliancePercentage": 0
+  }
+}

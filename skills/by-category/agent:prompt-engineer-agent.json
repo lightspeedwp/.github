@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "agent:prompt-engineer-agent",
+  "skills": [
+    {
+      "id": "agent:prompt-engineer-agent/analyze-prompt.skill",
+      "name": "analyze-prompt.skill",
+      "category": "agent:prompt-engineer-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/prompt-engineer-agent/skills/analyze-prompt.skill.md",
+      "description": "Analyze Prompt Clarity",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": false,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent:prompt-engineer-agent/improve-prompt.skill",
+      "name": "improve-prompt.skill",
+      "category": "agent:prompt-engineer-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/prompt-engineer-agent/skills/improve-prompt.skill.md",
+      "description": "Generate Prompt Improvements",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    },
+    {
+      "id": "agent:prompt-engineer-agent/validate-prompt.skill",
+      "name": "validate-prompt.skill",
+      "category": "agent:prompt-engineer-agent",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/prompt-engineer-agent/skills/validate-prompt.skill.md",
+      "description": "Validate Prompt Format & Standards",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": true,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "compliant": 3,
+    "compliancePercentage": 100
+  }
+}

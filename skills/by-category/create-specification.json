@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-18T23:01:57.700Z",
+  "version": "1.0.0",
+  "category": "create-specification",
+  "skills": [
+    {
+      "id": "create-specification/SKILL",
+      "name": "SKILL",
+      "category": "create-specification",
+      "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/create-specification/SKILL.md",
+      "description": "Create Specification",
+      "type": "unknown",
+      "version": "1.0.0",
+      "agentskills_io_compliant": {
+        "compliant": true,
+        "checks": {
+          "hasDescription": true,
+          "hasInputs": true,
+          "hasOutputs": false,
+          "hasExamples": true
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "compliant": 1,
+    "compliancePercentage": 100
+  }
+}
