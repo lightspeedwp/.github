@@ -358,6 +358,6 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T043 [P] Final integration validation: Create new test feature spec with `/speckit-specify "integration-test-feature-phase7"`, verify `.github/specs/NNN-integration-test-feature-phase7/` created, run `/speckit-plan` and `/speckit-tasks` on it, confirm all downstream workflows work (validate all FRs, all SCs) via bash interactive testing
 - [ ] T044 Document Phase 6 completion: Update `.github/specs/007-specs-directory-fix/spec.md` Status from "Ready for Planning" to "Completed" and add completion date (validate completion status) via `spec.md`
 
-**Checkpoint**: Convergence validation pending — complete T037–T044 before declaring validation complete ⏳
+**Checkpoint**: Convergence validation deferred — T037–T044 tracked as Phase 7 follow-up work after Phase 6 implementation merge ⏳
 
 ---
