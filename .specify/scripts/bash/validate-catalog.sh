@@ -113,7 +113,8 @@ validate_canonical_schema() {
 #   Status message for each broken link found with target path, summary of validation result
 validate_catalog_links() {
   local broken_links=0
-  local catalog_dir=$(dirname "$CATALOG_PATH")
+  local catalog_dir
+  catalog_dir=$(dirname "$CATALOG_PATH")
 
   # Use process substitution with while loop to validate links
   # Extract all markdown links in format ](./... (all local relative links)

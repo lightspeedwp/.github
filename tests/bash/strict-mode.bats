@@ -38,12 +38,16 @@ is_baselined() {
 # Parameters:
 #   $1 - Script file path to check for strict mode
 # Returns:
-#   0 when script has set -euo pipefail or set -Eeuo pipefail in the first 20 lines
-#   1 when script lacks proper strict-mode setup at top level
+#   0 when script has set -euo pipefail or set -Eeuo pipefail before first function definition
+#   1 when script lacks proper strict-mode setup at top level or it's nested in a function
 has_strict_mode() {
-  # Verify strict mode is at top-level (before any function definitions)
-  # Check first 20 lines to ensure it's not buried in a function
-  head -20 "$1" | grep -q "^set -E\?euo pipefail"
+  # Extract everything before the first function definition
+  # Then verify set -euo pipefail appears on a non-indented line (truly top-level)
+  awk '
+    /^[a-zA-Z_][a-zA-Z0-9_]*\s*\(\s*\)/ { exit }  # Stop at first function definition
+    /^set -E?euo pipefail/ { found = 1 }          # Match non-indented set command
+    END { exit !found }
+  ' "$1"
 }
 
 @test "first-party shell scripts use strict mode" {
