@@ -94,3 +94,5 @@ If you see `anchor` rows, treat as high-risk and inspect renders closely.
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

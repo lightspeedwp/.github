@@ -160,3 +160,5 @@ Load these as needed:
   * Search patterns: `report`, `format`, `finding`, `summary`, `remediation`, `before`, `after`
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

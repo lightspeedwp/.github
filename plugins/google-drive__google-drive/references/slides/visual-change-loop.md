@@ -130,3 +130,5 @@ Use this recipe whenever a Slides write can change anything the user will see, e
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

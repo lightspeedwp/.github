@@ -127,3 +127,5 @@ When compatibility risk is relevant, include:
 - The smallest safe next test.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

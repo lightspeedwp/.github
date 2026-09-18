@@ -65,3 +65,5 @@ Route admin entries to the campaign owner. Include entry source and opt-in state
 - Confirm retention and export/erase stance is documented.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

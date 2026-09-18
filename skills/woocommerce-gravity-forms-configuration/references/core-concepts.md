@@ -76,3 +76,5 @@ Gravity Forms REST API v2 is in core from Gravity Forms 2.4. MCP tools may wrap 
 Never infer licence tier from project type. Licence visibility may be absent from MCP. If licence details cannot be read, state that add-on availability is unverified and provide a manual verification step.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

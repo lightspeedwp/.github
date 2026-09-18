@@ -62,3 +62,5 @@ Mark decisions stale when source evidence changes, the workflow owner changes, t
 Checked by `scripts/validate-memory-hygiene.py`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

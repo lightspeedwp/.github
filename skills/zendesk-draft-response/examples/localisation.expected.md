@@ -14,3 +14,5 @@ Der nächste Schritt ist, dass wir die Plugin-Konfiguration auf der Staging-Webs
 - No extra technical detail or commitment has been added.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

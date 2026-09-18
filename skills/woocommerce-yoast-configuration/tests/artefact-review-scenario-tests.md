@@ -88,3 +88,5 @@ Expected behaviour:
 - Recommend a decision record if product tag indexation changes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

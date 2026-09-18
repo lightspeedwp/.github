@@ -40,3 +40,5 @@ python scripts/summarize_findings.py /tmp/findings.json
 The normalised register is not a final audit. It is a clean starting point for verification, triage, deduplication, and reporting.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

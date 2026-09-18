@@ -167,3 +167,5 @@ Refuse or route away when asked to:
 - Copy all uploads into the Media Library without file type, rights, ownership, and retention review.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

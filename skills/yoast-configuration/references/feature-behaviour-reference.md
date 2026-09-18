@@ -297,3 +297,5 @@ Use this file to answer feature-by-feature questions. It is a routing and QA ref
 - **Sources:** source-register rows matching `Redirects` and related Yoast developer docs.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

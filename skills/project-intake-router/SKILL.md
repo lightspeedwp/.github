@@ -69,3 +69,5 @@ description: structure rough project briefs, figma links, github repos, live or 
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

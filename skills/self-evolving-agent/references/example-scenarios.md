@@ -98,3 +98,5 @@ Rollback: restore previous package ...
 - Adding scripts without testing or documenting safe usage.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

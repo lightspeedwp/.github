@@ -13,3 +13,5 @@ Use `AGENT_SYSTEM_PROMPT.md` as the final system prompt source of truth. Use `me
 Stop for human review before any risky write action, external messaging, publishing, deletion, pricing claim, legal claim, security claim, customer-sensitive claim, or unsupported commitment.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

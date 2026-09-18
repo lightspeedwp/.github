@@ -33,3 +33,5 @@
 The request asks Agent Creator to create a PageSpeed report, but this should route to a PageSpeed specialist skill unless the deliverable is an agent wrapper.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

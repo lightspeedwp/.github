@@ -219,3 +219,5 @@ Required dependencies (install if not available):
 - **defusedxml**: `pip install defusedxml` (for secure XML parsing)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

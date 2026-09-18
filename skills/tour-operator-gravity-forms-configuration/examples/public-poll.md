@@ -53,3 +53,5 @@ Use for editorial polls, quick audience feedback, or campaign questions.
 - Check page cache/CDN impact if results appear stale.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

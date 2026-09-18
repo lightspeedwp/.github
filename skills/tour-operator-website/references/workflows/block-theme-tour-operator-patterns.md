@@ -47,3 +47,5 @@ Use for Site Editor, block-theme, archive, single-template, pattern, query-loop 
 Prefer reusable patterns and semantic theme tokens. Avoid hardcoded one-off templates unless the project requires them and the maintenance cost is justified.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

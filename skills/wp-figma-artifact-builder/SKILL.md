@@ -224,3 +224,5 @@ Load only the reference needed for the current task:
 - `references/tool-targets.md`: guidance for VS Code, Claude Code, Codex, ChatGPT, and Figma MCP targets.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

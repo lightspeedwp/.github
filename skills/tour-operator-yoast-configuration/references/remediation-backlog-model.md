@@ -51,3 +51,5 @@ Use this model for action lists after audits.
 Prioritise indexation, canonical, redirect, sitemap and schema risks before metadata polish. Prioritise high-value destination, tour, accommodation and enquiry pages before low-value archives.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -130,3 +130,5 @@ Use this format:
 Every reusable output should have a template or a documented reason why a template is unnecessary. Structured outputs should align with the matching schema.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

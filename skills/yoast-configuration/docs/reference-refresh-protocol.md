@@ -70,3 +70,5 @@ Then run the Skill Creator packaging validator and confirm `skill.zip` can be op
 - Do not add bulky files, screenshots or exports to the skill package; summarise them into text references instead.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -117,3 +117,5 @@ CSV imports fail above 500 rows. Split all import files into 500-row batches to 
 Expected: flag as not ready for public documentation; recommend internal-only note or further verification.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

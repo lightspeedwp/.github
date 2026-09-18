@@ -61,3 +61,5 @@
 Label these as LightSpeed recommendations unless official docs require them: minimise external services, use domain-aligned From addresses, avoid full personal data in email, prefer clear retention policy, and keep logs temporary and redacted.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

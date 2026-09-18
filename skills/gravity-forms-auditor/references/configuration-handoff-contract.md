@@ -57,3 +57,5 @@ Use this contract when preparing findings for `gravity-forms-configuration`. The
 - Include acceptance/retest criteria so configuration work can close cleanly.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

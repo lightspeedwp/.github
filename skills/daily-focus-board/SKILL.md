@@ -169,3 +169,5 @@ assume someone is neurodivergent, and keep every affordance optional. See
   progress), and the optional "shared signals" bridge for people who run a multi-agent workshop.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

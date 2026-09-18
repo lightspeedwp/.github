@@ -71,3 +71,5 @@ Review the skill when:
 - repeated false positives appear in reports
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

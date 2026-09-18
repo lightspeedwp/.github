@@ -47,3 +47,5 @@ A user provides screenshots of Yoast settings and sample URLs for destinations, 
 Screenshots do not prove rendered output. Recommend sampling page source, sitemap URLs and robots output before live decisions.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

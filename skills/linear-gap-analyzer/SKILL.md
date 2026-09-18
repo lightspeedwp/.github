@@ -333,3 +333,5 @@ Checkout form fails on Safari. Client says customers are getting stuck on paymen
 Identify missing reproduction steps, affected Safari/iOS versions, checkout URL, payment method, expected versus actual behaviour, customer impact, logs or screenshots, and urgency evidence. Ask only the shortest questions needed before confident triage. Do not produce a full generic bug questionnaire. If the user then asks for owner, priority, or labels, route to `linear-triage-router`. If the user asks for an engineering escalation, route to `customer-escalation` or `lightspeed-qa-findings-router` depending on the source and launch impact.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

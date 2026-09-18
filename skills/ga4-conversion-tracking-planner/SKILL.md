@@ -69,3 +69,5 @@ description: define measurement before launch for lightspeed wordpress, woocomme
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

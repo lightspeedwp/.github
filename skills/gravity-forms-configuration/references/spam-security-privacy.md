@@ -93,3 +93,5 @@ Honeypot/layered spam enabled, domain-aligned From Email, Reply-To submitter, vi
 - When a submission is marked as spam, notifications and add-on feeds may not process; include this in false-positive troubleshooting.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

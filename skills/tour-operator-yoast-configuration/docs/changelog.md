@@ -44,3 +44,5 @@
 - Removed commerce-specific scope from the package files and validation set.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

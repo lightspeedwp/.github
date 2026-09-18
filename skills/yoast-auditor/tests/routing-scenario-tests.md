@@ -79,3 +79,5 @@ Input: "Turn these Yoast notes into a client-ready audit report."
 Expected: use the required report structure with executive summary, scope reviewed, evidence status, score or score status, findings by priority, evidence gaps and limitations, recommended next actions and client-safe note.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

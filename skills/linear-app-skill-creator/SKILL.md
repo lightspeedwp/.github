@@ -202,3 +202,5 @@ When information is incomplete, make the most reusable safe assumption you can, 
 When converting from another environment, remove stale references to setup or tooling that do not belong in the final ChatGPT skill unless the user explicitly asks to keep them.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

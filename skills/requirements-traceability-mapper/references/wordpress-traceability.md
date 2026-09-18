@@ -111,3 +111,5 @@ Launch-critical WordPress requirements should have checks for:
 [Contact](https://lightspeedwp.agency/contact)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -285,3 +285,5 @@ Last reviewed: 2026-07-03. This register records the current source pass used fo
 - Notes: Internal LightSpeed workflow instruction. Stable for this package update unless the auditor skill contract changes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

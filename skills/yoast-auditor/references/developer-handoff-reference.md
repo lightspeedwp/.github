@@ -58,3 +58,5 @@ Turn findings into safe, testable developer notes without writing a configuratio
 Each handoff item must include problem, evidence, affected locations, expected output, suggested implementation route, QA steps, risk, dependencies and owner.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

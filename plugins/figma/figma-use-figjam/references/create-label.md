@@ -343,3 +343,5 @@ return pairs.map(({ label, sticky }) => ({ labelId: label.id, stickyId: sticky.i
 [Contact](https://lightspeedwp.agency/contact)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -55,3 +55,5 @@ These come first because they reduce the highest-risk drift: bad memory, inconsi
 Checked by `scripts/validate-links-and-references.py` and `scripts/validate-all.py`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

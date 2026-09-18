@@ -80,3 +80,5 @@ List only questions that materially affect the fix or approval.
 One or two plain-English sentences that can be reused in a client update without overstating search impact or promising outcomes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

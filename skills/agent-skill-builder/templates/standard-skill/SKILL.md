@@ -15,3 +15,5 @@ Use references for workflow rules and templates for repeatable outputs.
 4. Note assumptions and gaps.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

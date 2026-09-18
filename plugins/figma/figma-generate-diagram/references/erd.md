@@ -75,3 +75,5 @@ If the subject is a static architecture of services (not data) → architecture 
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

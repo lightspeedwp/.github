@@ -37,3 +37,5 @@
 - Treat FAQ and HowTo schema as useful structure but not guaranteed Google rich-result wins.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

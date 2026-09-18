@@ -325,3 +325,5 @@ This skill:
 - Prioritizes areas that will have the most impact on your development velocity
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

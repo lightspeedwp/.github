@@ -88,3 +88,5 @@ Use evidence pack mode. Search for the tightest relevant ticket set, shortlist o
 - Immediate next action: Confirm ticket 73984 is the target and collect the smallest missing checkout identifiers before escalation.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

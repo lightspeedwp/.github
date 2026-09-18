@@ -48,3 +48,5 @@ Classify each source or content item as one of:
 - Mark policy-sensitive or legally sensitive material as Legal Review when appropriate.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

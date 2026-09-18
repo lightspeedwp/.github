@@ -203,3 +203,5 @@ Use these patterns when evidence is partial:
 - "Blocked until <specific source> is checked: ..."
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

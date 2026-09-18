@@ -51,3 +51,5 @@ Expected:
 - Request raw schema output or source HTML.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

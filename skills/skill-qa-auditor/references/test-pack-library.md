@@ -177,3 +177,5 @@ Retest this updated skill against its previous expected behaviour. Compare trigg
 Expected behaviour: compares before/after behaviour and flags regressions.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

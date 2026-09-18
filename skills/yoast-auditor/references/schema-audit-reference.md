@@ -62,3 +62,5 @@ Separate confirmed schema output from inference about the cause. Use validation 
 For each reviewed page/template, list schema pieces found, missing or weak inputs, conflicts, validation method, confidence, recommendation and owner route.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

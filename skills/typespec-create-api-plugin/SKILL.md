@@ -175,3 +175,5 @@ Then generate:
 - Optional `cards/card.json` if Adaptive Cards are needed
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

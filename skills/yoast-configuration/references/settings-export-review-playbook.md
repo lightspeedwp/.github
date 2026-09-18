@@ -115,3 +115,5 @@ Use `references/rendered-output-qa-playbook.md` when the settings review needs p
 Update this file when Yoast export formats, UI labels, settings groups, agency defaults, or common audit artefacts change.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

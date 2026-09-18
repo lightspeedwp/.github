@@ -133,3 +133,5 @@ Before returning the draft, check:
 For stricter templates and examples, consult `references/output-templates.md` when needed.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -140,3 +140,5 @@ Prefer:
 - Refresh decisions after Yoast product packaging changes, developer API changes, Google Search documentation changes, or major site information architecture changes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

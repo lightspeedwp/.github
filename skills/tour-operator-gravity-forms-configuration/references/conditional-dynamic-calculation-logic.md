@@ -134,3 +134,5 @@ Route away or pause when:
 - The task requires changing live payment-linked totals without sandbox tests.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

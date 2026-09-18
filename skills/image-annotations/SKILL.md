@@ -601,3 +601,5 @@ for frame_idx in range(total_frames):
 - Algorithmic placement works best with 2-6 annotations; more than that may produce crowded results
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

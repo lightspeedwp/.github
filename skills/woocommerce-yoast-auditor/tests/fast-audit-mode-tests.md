@@ -49,3 +49,5 @@ Input: "Quickly audit this new site and tell me the defaults to set up."
 Expected output: fast audit or evidence gap first, then route setup/defaults to `woocommerce-yoast-configuration`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

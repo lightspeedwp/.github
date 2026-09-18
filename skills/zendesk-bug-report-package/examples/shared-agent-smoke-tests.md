@@ -64,3 +64,5 @@ When intentionally invoking `zendesk-router-skill`, the router should return:
 ```
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

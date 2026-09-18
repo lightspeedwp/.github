@@ -77,3 +77,5 @@ Always state:
 5. Whether implementation needs admin, developer, client or SEO lead approval.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

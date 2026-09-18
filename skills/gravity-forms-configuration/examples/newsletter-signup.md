@@ -55,3 +55,5 @@ Use this as a lightweight Gravity Forms pattern for consent-based newsletter cap
 - Confirm list feed only on staging/test list before production sync.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

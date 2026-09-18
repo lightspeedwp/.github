@@ -74,3 +74,5 @@ When handing work to another teammate, include:
 - Generic marketing copy unrelated to AI-readiness, governance, content, chatbot, launch, or measurement readiness.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

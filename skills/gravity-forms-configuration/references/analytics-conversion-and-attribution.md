@@ -178,3 +178,5 @@ Route away or hand off when the user needs:
 Provide a Gravity Forms handoff with confirmed form IDs, confirmation types, hidden fields, feed state, and recommended event names.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

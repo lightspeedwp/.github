@@ -87,3 +87,5 @@ A production-ready result has no score below 4.
 - Performs bulk cleanup or consequential writes without the required pre-write summary and authorization.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

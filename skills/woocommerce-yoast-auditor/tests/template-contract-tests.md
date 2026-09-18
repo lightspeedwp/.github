@@ -61,3 +61,5 @@ Input: "Check template contract after editing templates."
 Expected output: list each checked template, pass/fail status, missing required fields, and any score/client-safe wording gaps.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

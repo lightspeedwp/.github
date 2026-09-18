@@ -188,3 +188,5 @@ Stay in `yoast-configuration` when the user only needs planning, evidence interp
 Validation coverage: `tests/related-skills-routing-scenario-tests.md` exercises live admin routing, mixed planning/live implementation, settings-export reviews, approved noindex edits, and current UI-path verification.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -345,3 +345,5 @@ Each workflow should be adapted to site evidence, active add-ons, consent/privac
 - **Handoff notes**: Record form ID/title, page URL, fields, notifications, feeds, add-ons, risks, and next owner.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

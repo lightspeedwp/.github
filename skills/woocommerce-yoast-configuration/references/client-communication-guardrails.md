@@ -91,3 +91,5 @@ Keep internal details out unless they help the client decide:
 Update this file when a client misunderstanding recurs, when legal/SEO caveats change, or when templates are revised.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

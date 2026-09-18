@@ -63,3 +63,5 @@ Advanced Post Creation can be used only if the listing post type already exists.
 Directory owner reviews content, confirms category/area, checks image/logo rights, and publishes manually after approval.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

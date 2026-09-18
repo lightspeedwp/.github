@@ -216,3 +216,5 @@ Run `scripts/validate_redirect_migration_pack.py` plus the full package validato
 When adding or renaming related Yoast skills, update `SKILL.md`, `references/related-skills-routing.md`, `references/file-routing-index.md`, `tests/related-skills-routing-scenario-tests.md`, and `scripts/validate_related_skill_routing.py`. If the auditor skill slug changes, replace `yoast-auditor` everywhere in the routing layer.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

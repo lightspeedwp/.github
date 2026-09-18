@@ -74,3 +74,5 @@ Expected behaviour:
 - Require before/after rendered output checks.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

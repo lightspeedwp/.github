@@ -81,3 +81,5 @@ List any site-wide template, archive, product, AI-assisted metadata policy or cl
 Use cautious language: these drafts improve metadata quality and consistency; they do not guarantee rankings, indexing, rich results or AI visibility.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

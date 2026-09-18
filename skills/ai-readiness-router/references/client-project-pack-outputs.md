@@ -139,3 +139,5 @@ This pack supports operational planning and is not legal advice. Legal, privacy 
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

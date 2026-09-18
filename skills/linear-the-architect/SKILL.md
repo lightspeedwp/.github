@@ -283,3 +283,5 @@ Use these prompts to check the skill after updates:
    - Expected: draft or confirm issue shape first if needed, then route live workspace creation to `linear` only because the user explicitly asked for creation.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

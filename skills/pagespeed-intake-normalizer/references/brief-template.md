@@ -84,3 +84,5 @@ Use this template when a separate reusable reference is useful, such as when ano
 ```
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

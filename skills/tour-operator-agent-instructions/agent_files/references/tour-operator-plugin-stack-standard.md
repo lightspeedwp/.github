@@ -108,3 +108,5 @@ Always separate:
 - Do not recommend ecommerce, checkout, cart, booking, or payment plugins unless the user explicitly confirms that the site needs online booking or payment behaviour
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

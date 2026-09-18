@@ -54,3 +54,5 @@ Use this file when the requested Yoast audit scope is ambiguous.
 - Route code-level output conflicts to developer handoff.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

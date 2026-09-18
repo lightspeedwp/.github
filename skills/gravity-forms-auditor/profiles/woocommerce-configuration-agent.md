@@ -53,3 +53,5 @@ Route checkout replacement, tax, order creation, subscriptions, stock, shipping,
 Keep payment credentials, customer personal data, order data, and internal routing rules out of client-safe summaries unless explicitly approved and redacted.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

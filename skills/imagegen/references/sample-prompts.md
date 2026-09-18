@@ -522,3 +522,5 @@ Constraints: preserve layout, proportions, and perspective; choose realistic mat
 [Contact](https://lightspeedwp.agency/contact)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

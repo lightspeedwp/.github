@@ -70,3 +70,5 @@ Use a language-matched thank-you message with a realistic next step.
 - Confirm consent entry records the correct language-specific wording.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

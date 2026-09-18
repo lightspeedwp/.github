@@ -54,3 +54,5 @@ Use `BUILDER_IMPORT_PROMPT.md`.
 Checked by `scripts/validate-starter-prompts.py`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

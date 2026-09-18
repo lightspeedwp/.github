@@ -71,3 +71,5 @@ Automated checks and plugin reports cannot prove full accessibility. Use this ch
 - Editor changes do not remove SEO-critical copy, CTA intent, tracking attributes, or internal links.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

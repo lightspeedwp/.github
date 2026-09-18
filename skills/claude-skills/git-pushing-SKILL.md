@@ -123,3 +123,5 @@ User: "Let's save this to github"
 → Activate workflow, generate appropriate commit message
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

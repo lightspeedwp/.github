@@ -53,3 +53,5 @@ Use this checklist to normalise messy inputs into a clean intake state.
 - Ask only the missing questions that materially affect scope, safety, or estimate confidence.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

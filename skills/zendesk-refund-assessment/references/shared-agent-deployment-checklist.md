@@ -87,3 +87,5 @@ python3 scripts/validate_refund_assessment_pack.py
 The validation should pass before the skill is packaged or uploaded to the shared skill directory.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

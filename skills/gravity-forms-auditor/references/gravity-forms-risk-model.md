@@ -72,3 +72,5 @@ Score each category as `Pass`, `Minor issue`, `Moderate issue`, `Major issue`, `
 Every finding must include finding title, evidence, affected form/page/add-on, severity, confidence, user impact, business impact, recommended fix, configuration handoff needed, suggested owner, and retest step.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -137,3 +137,5 @@ If key files are missing:
 - ask only the next useful question
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -105,3 +105,5 @@ The skill uses `yt-dlp`, a robust YouTube downloader that:
 - Higher quality videos may take longer to download and use more disk space
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
