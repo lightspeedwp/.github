@@ -1,0 +1,298 @@
+# Contract: Specification Maintenance Procedures (MAINTENANCE.md)
+
+**Location**: `.github/specs/MAINTENANCE.md`
+**Purpose**: Documented procedures for maintaining speckit folder structure and governance processes
+**Audience**: Governance team, specification maintainers, stakeholders
+**Version**: 1.0
+
+## Interface Specification
+
+### File Format & Structure
+
+**Format**: GitHub Markdown (CommonMark) with plain-language procedures
+
+**Required Sections**:
+
+```markdown
+# Specification Maintenance Procedures
+
+## Overview
+[2-3 sentences describing scope and purpose]
+
+## Numbering Scheme
+
+### How Numbers Are Assigned
+- Current specifications: 001-012 (preserved as-is, no renumbering)
+- New specifications: Start at 013, increment by 1 (next = highest current + 1)
+- Example: If spec 013 exists, next spec is 014
+- Rationale: Preserves historical traceability, enables predictable numbering
+
+### Number Reuse
+- ❌ Number reuse is NOT allowed after a spec is archived
+- Reason: Maintain chronological traceability (who can tell if "spec 003" is original or repurposed?)
+
+## Creating a New Specification
+
+### Prerequisites
+- Specification scope is clear (what problem does it solve?)
+- Stakeholder need is documented (why is this spec needed?)
+
+### Step-by-Step Process
+
+1. **Determine next number**
+   - List all existing specification directories in `.github/specs/`
+   - Find highest number (e.g., if 013 exists, next is 014)
+   - Confirm number not already assigned
+
+2. **Create directory structure**
+   ```bash
+   mkdir -p .github/specs/NNN-{slug}
+   touch .github/specs/NNN-{slug}/spec.md
+   mkdir -p .github/specs/NNN-{slug}/checklists
+   ```
+
+- NNN = 3-digit number (zero-padded: 001, 002, ..., 013)
+- {slug} = lowercase, hyphens, no spaces/special-chars
+
+3. **Use SpecKit workflow**
+   - Run `/speckit-specify` with feature description
+   - Complete `/speckit-clarify` to resolve ambiguities
+   - Complete `/speckit-plan` to design technical approach
+   - Complete `/speckit-tasks` to decompose into implementation tasks
+
+4. **Update CATALOG.md**
+   - Add row to index table with new number, title, purpose, status, date
+   - Add detailed entry section below (see CATALOG.md contract)
+   - Update date to creation date
+
+5. **Approval gate**
+   - New specification requires review by @ashley (governance authority)
+   - Specification must pass all 8 quality dimensions (Constitution Principle VII)
+   - Quality checklist in `checklists/requirements.md` must show all items passing
+
+### Acceptance Checklist
+
+- [ ] Directory created as `.github/specs/NNN-{slug}/`
+- [ ] spec.md file exists and passes quality checklist
+- [ ] checklists/ directory exists with requirements.md
+- [ ] Specification number is sequential (no gaps)
+- [ ] Folder name slug matches specification title (lowercase, hyphens)
+- [ ] CATALOG.md updated with new entry within 7 days
+- [ ] @ashley has reviewed and approved specification
+- [ ] All 8 quality dimensions passing (Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities)
+
+---
+
+## Updating an Existing Specification
+
+### When to Update
+
+- Clarification needed from stakeholders
+- Ambiguity discovered during planning/implementation
+- Scope change required
+- Quality issues identified in audit
+
+### Update Process
+
+1. **Open change request issue**
+   - Title: "[SPEC-UPDATE] NNN - [specific change needed]"
+   - Describe: What changed and why
+   - Link: Reference original specification number
+
+2. **Update specification**
+   - Edit `.github/specs/NNN-{slug}/spec.md`
+   - Document change in Clarifications section (if applicable)
+   - Re-run `/speckit-clarify` if ambiguity introduced
+   - Update `updated_date` in specification metadata
+
+3. **Update quality checklist**
+   - Review `checklists/requirements.md` against updated spec
+   - Ensure all quality dimensions still passing
+   - Mark any items unchecked that are now unmet
+
+4. **Update CATALOG.md**
+   - Update `Updated` date for affected entry
+   - Update status if changed (Draft → Active or Active → Archived)
+
+5. **Approval gate**
+   - Changes require @ashley review (governance authority)
+   - Quality checklist must pass all items
+   - Changelog entry must document what changed
+
+### Acceptance Checklist
+
+- [ ] Change is documented with rationale
+- [ ] spec.md updated with changes clearly marked
+- [ ] Quality checklist re-validated (all items passing)
+- [ ] CATALOG.md updated with new date and status (if applicable)
+- [ ] @ashley has reviewed and approved changes
+- [ ] Updated date reflects actual update time
+
+---
+
+## Archiving a Specification
+
+### When to Archive
+
+- Specification is obsolete or superseded
+- Specification requires complete rewrite
+- Specification scope is no longer relevant
+
+### Archive Process
+
+1. **Mark as archived**
+   - Change `status` in spec.md from "Active" to "Archived"
+   - Add note: "Archived on [DATE]; see spec [NNN] for replacement" (if applicable)
+
+2. **Preserve in catalog**
+   - Move entry to "Archive" section in CATALOG.md (if created)
+   - Keep full link and metadata for historical reference
+   - ❌ Do NOT delete specification or remove from history
+
+3. **Update references**
+   - Update any CLAUDE.md or README links that pointed to archived spec
+   - Link to replacement specification (if new one created)
+
+4. **Governance tracking**
+   - Document in CHANGELOG.md: why spec was archived, what replaced it
+
+### Acceptance Checklist
+
+- [ ] Archived specification remains in `.github/specs/` (not deleted)
+- [ ] spec.md marked as `status: Archived`
+- [ ] CATALOG.md entry moved to Archive section
+- [ ] Historical links still valid and point to archived spec
+- [ ] Replacement specification (if any) is documented
+
+---
+
+## Maintaining CATALOG.md
+
+### Update Frequency
+
+- **Automatic**: Within 7 days of any new specification creation (SC-008)
+- **Triggered**: Any time specification status changes (Draft → Clarified, Active → Complete, etc.)
+- **Manual check**: Monthly review to ensure all entries are current
+
+### Checklist for CATALOG.md Updates
+
+When updating catalog entries, verify:
+
+- [ ] All specification directories in `.github/specs/` have catalog entry
+- [ ] Numbers are sequential with no gaps
+- [ ] Status matches spec file status
+- [ ] Dates are accurate (created ≤7 days after spec file creation)
+- [ ] Links are valid and point to existing directories
+- [ ] Index table is sorted by number (ascending: 001, 002, ..., 013)
+- [ ] Detailed entries follow same order as table
+
+---
+
+## Quality Gate Enforcement
+
+### Before Specification Becomes Normative
+
+Every specification must pass all 8 quality dimensions before it can be used as normative governance guidance:
+
+1. **Completeness** — All requirements present, all stories complete
+2. **Clarity** — Specific, unambiguous, vague terms quantified
+3. **Consistency** — Requirements aligned, terminology consistent
+4. **Measurability** — Objective acceptance criteria with metrics
+5. **Scenario Coverage** — All user flows addressed
+6. **Edge Cases** — Boundary conditions defined
+7. **Dependencies** — Assumptions documented
+8. **Ambiguities** — No unresolved NEEDS CLARIFICATION markers
+
+### Quality Checklist Location
+
+- File: `.github/specs/NNN-{slug}/checklists/requirements.md`
+- All items must be checked ([ ] → [x]) before approval
+
+### Failure Action
+
+- If quality checklist has unchecked items → Specification blocked from approval
+- Specification author must fix gaps, re-run `/speckit-clarify` if needed
+- @ashley reviews updated quality checklist before final approval
+
+---
+
+## Governance Authority
+
+**Specification Approval Authority**: @ashley (organisation owner)
+
+**Decisions Requiring @ashley Approval**:
+
+- ✅ New specification creation
+- ✅ Significant specification updates
+- ✅ Specification archival/deprecation
+- ✅ Changes to numbering scheme or maintenance procedures
+- ✅ Quality gate exceptions (rare; requires documented justification)
+
+**Self-Service Decisions** (no approval needed):
+
+- ✅ Minor clarifications or wording fixes
+- ✅ CATALOG.md entry updates (status, dates) for existing specs
+- ✅ Bug fixes or corrections to implementation tasks
+
+---
+
+## Tools & Commands
+
+### SpecKit Workflow Commands
+
+| Phase | Command | Purpose |
+|-------|---------|---------|
+| Specify | `/speckit-specify` | Create new specification from user description |
+| Clarify | `/speckit-clarify` | Resolve ambiguities with Q&A |
+| Plan | `/speckit-plan` | Design technical approach |
+| Tasks | `/speckit-tasks` | Decompose into implementation tasks |
+
+### Filesystem Audit Commands
+
+```bash
+# List all specification directories
+ls -d .github/specs/[0-9][0-9][0-9]-*/
+
+# Count existing specifications
+ls -d .github/specs/[0-9][0-9][0-9]-*/ | wc -l
+
+# Find highest number
+ls -d .github/specs/[0-9][0-9][0-9]-*/ | sed 's/.*\///' | cut -d- -f1 | sort -n | tail -1
+
+# Verify spec.md exists in all directories
+for dir in .github/specs/[0-9][0-9][0-9]-*/; do [ ! -f "$dir/spec.md" ] && echo "Missing: $dir"; done
+```
+
+---
+
+## Examples
+
+### Example: Creating Specification 014
+
+```bash
+# Step 1: Determine next number
+# Current highest: 013, so next is 014
+
+# Step 2: Create directory
+mkdir -p .github/specs/014-example-feature
+mkdir -p .github/specs/014-example-feature/checklists
+
+# Step 3: Run SpecKit
+/speckit-specify "Example feature that demonstrates SpecKit workflow"
+
+# Step 4: Clarify and plan
+/speckit-clarify
+/speckit-plan
+
+# Step 5: Update CATALOG.md
+# Add row to index table:
+# | 014 | Example Feature | Demonstrates SpecKit workflow | Draft | 2026-09-17 | [spec/link](./014-example-feature/spec.md) |
+
+# Add detailed entry:
+### 014 - Example Feature
+Example feature specification...
+```
+
+---
+
+**Procedures Version**: 1.0 | **Defined**: 2026-09-16 | **Governance Authority**: @ashley | **Author**: Claude Haiku 4.5

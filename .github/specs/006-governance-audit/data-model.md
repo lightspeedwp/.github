@@ -9,6 +9,7 @@
 Represents a LOCKED governance file that is subject to audit.
 
 **Fields**:
+
 - `id` (string): Unique identifier (e.g., "labels-yml", "issue-types-yml", "pr-templates")
 - `path` (string): Absolute path in repository (e.g., `.github/labels.yml`)
 - `type` (enum): File type — "labels", "issue-types", "templates", "workflows"
@@ -19,6 +20,7 @@ Represents a LOCKED governance file that is subject to audit.
 - `content` (object): Parsed file content (YAML → object, Markdown → metadata + sections)
 
 **Relationships**:
+
 - Has many: `GovernanceEntity` (labels, issue types, templates contained in file)
 - Has many: `AuditRule` (validation rules applicable to this file)
 - Has many: `AuditViolation` (violations found during audit)
@@ -28,6 +30,7 @@ Represents a LOCKED governance file that is subject to audit.
 Individual items within a governance file (labels, issue types, templates, etc.).
 
 **Fields**:
+
 - `id` (string): Unique identifier within file (e.g., "type:bug", "template:task-pr", "issue-type:feature")
 - `fileId` (string): Reference to parent GovernanceFile
 - `name` (string): Display name or title
@@ -37,6 +40,7 @@ Individual items within a governance file (labels, issue types, templates, etc.)
 - `validatedAgainst` (array of strings): Constitutional principles this entity was validated against
 
 **Constraints** (from specification FR):
+
 - Labels MUST include required prefix (e.g., `type:`, `status:`, `priority:`, `area:`, `meta:`)
 - Labels MUST have documented purpose
 - Labels MUST be used at least once in active workflows/templates (or marked deprecated)
@@ -49,6 +53,7 @@ Individual items within a governance file (labels, issue types, templates, etc.)
 Validation rule that checks governance files for compliance.
 
 **Fields**:
+
 - `id` (string): Unique rule identifier (e.g., "label-prefix-check", "template-routing-validation")
 - `name` (string): Human-readable rule name
 - `description` (string): What this rule validates and why it's important
@@ -62,6 +67,7 @@ Validation rule that checks governance files for compliance.
 - `enabled` (boolean): Whether this rule is active in audit
 
 **Example Rules**:
+
 - Rule: "label-prefix-check" — All labels must have one of: type:, status:, priority:, area:, meta: prefix (Section VIII)
 - Rule: "template-routing" — Each branch prefix must map to exactly one PR template (Section V)
 - Rule: "naming-consistency" — Label names must follow lowercase-hyphenated-format (Section VI)
@@ -73,6 +79,7 @@ Validation rule that checks governance files for compliance.
 Individual violation found when audit rule fails.
 
 **Fields**:
+
 - `id` (string): Unique violation identifier (e.g., "violation-20260914-001")
 - `ruleId` (string): Reference to the AuditRule that was violated
 - `fileId` (string): Reference to GovernanceFile where violation was found
@@ -93,6 +100,7 @@ Individual violation found when audit rule fails.
 Output artifact containing audit results, statistics, and recommendations.
 
 **Fields**:
+
 - `id` (string): Report identifier (e.g., "audit-20260914-143022")
 - `timestamp` (ISO 8601 datetime): When audit was run
 - `filesScanned` (array): List of GovernanceFile IDs scanned
@@ -118,6 +126,7 @@ Output artifact containing audit results, statistics, and recommendations.
 Output artifact providing step-by-step guidance for fixing violations.
 
 **Fields**:
+
 - `id` (string): Plan identifier (e.g., "remediation-20260914-001")
 - `timestamp` (ISO 8601 datetime): When plan was generated
 - `sourceReport` (string): Reference to ComplianceReport this plan addresses
@@ -172,6 +181,7 @@ GovernanceFile (input)
 ## Scale & Performance Considerations
 
 **Data Volume**:
+
 - ~160 labels across 5 label families
 - ~24 issue types
 - ~45 templates (26 issue + 19 PR)

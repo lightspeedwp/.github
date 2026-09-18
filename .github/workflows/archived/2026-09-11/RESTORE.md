@@ -52,6 +52,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Use this when:** You need to restore a single specific workflow (< 5 minutes)
 
 **Prerequisites:**
+
 - Git access to repository
 - Write access to `.github/workflows/` directory
 - Workflow file name from ARCHIVED_WORKFLOWS_MANIFEST.md
@@ -59,6 +60,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Steps:**
 
 1. **Identify the workflow file:**
+
    ```bash
    # Example: restore labeling.yml from labeling category
    WORKFLOW_NAME="labeling.yml"
@@ -66,11 +68,13 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 2. **Restore the file:**
+
    ```bash
    git show refactor/workflow-consolidation-and-archiving:.github/workflows/archived/2026-09-11/${CATEGORY}/${WORKFLOW_NAME} > .github/workflows/${WORKFLOW_NAME}
    ```
 
 3. **Verify the restore:**
+
    ```bash
    # Check file exists and has content
    ls -lh .github/workflows/${WORKFLOW_NAME}
@@ -78,6 +82,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 4. **Test the workflow:**
+
    ```bash
    # Verify YAML syntax is valid
    yamllint .github/workflows/${WORKFLOW_NAME}
@@ -87,6 +92,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 5. **Commit and push:**
+
    ```bash
    git add .github/workflows/${WORKFLOW_NAME}
    git commit -m "restore: bring back ${WORKFLOW_NAME} from archive"
@@ -94,6 +100,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 **Expected Output:**
+
 ```
 ✓ File restored to .github/workflows/<workflow>.yml
 ✓ File size and timestamps match archive
@@ -108,11 +115,13 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Use this when:** You need to restore all workflows in a category (10-15 minutes)
 
 **Prerequisites:**
+
 - Git access to repository
 - Write access to `.github/workflows/` directory
 - Category name from ARCHIVED_WORKFLOWS_MANIFEST.md
 
 **Categories:**
+
 - `labeling/` (9 workflows)
 - `validation/` (12 workflows)
 - `documentation/` (8 workflows)
@@ -125,22 +134,26 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Steps:**
 
 1. **Set category variable:**
+
    ```bash
    CATEGORY="labeling"  # or validation, documentation, etc.
    ```
 
 2. **Create temporary restore directory:**
+
    ```bash
    mkdir -p /tmp/restore-${CATEGORY}
    cd /tmp/restore-${CATEGORY}
    ```
 
 3. **Restore all workflows in category:**
+
    ```bash
    git show refactor/workflow-consolidation-and-archiving:.github/workflows/archived/2026-09-11/${CATEGORY}/ | tar -x
    ```
-   
+
    **OR manually restore each file:**
+
    ```bash
    for file in $(git ls-tree -r --name-only refactor/workflow-consolidation-and-archiving:.github/workflows/archived/2026-09-11/${CATEGORY}/); do
      git show refactor/workflow-consolidation-and-archiving:${file} > $(basename ${file})
@@ -148,16 +161,19 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 4. **Move restored files to active workflows:**
+
    ```bash
    mv /tmp/restore-${CATEGORY}/*.yml ~/.github/workflows/
    ```
 
 5. **Verify all files restored:**
+
    ```bash
    ls -lh .github/workflows/*.yml | grep -E "(labeling|validation|documentation|issue|pr|testing|ci|utilities)"
    ```
 
 6. **Validate and commit:**
+
    ```bash
    # Run validation on all restored files
    yamllint .github/workflows/*.yml
@@ -169,6 +185,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 **Expected Output:**
+
 ```
 ✓ All X workflows from <category> restored
 ✓ All files in .github/workflows/ directory
@@ -183,6 +200,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Use this when:** You need to restore all 62 archived workflows (20-30 minutes)
 
 **Prerequisites:**
+
 - Git access to repository
 - Write access to `.github/workflows/` directory
 - Disk space for ~1.2 MB of workflow files
@@ -192,22 +210,26 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Steps:**
 
 1. **Backup current workflows (CRITICAL):**
+
    ```bash
    cp -r .github/workflows .github/workflows.backup.$(date +%Y%m%d-%H%M%S)
    ```
 
 2. **Restore entire archive directory:**
+
    ```bash
    git checkout refactor/workflow-consolidation-and-archiving -- .github/workflows/archived/2026-09-11/
    ```
 
 3. **Move archived workflows to active directory:**
+
    ```bash
    # Move all .yml files from archive to active workflows
    find .github/workflows/archived/2026-09-11 -name "*.yml" -type f -exec mv {} .github/workflows/ \;
    ```
 
 4. **Verify restoration:**
+
    ```bash
    # Count restored workflows (should be 62)
    ls -1 .github/workflows/*.yml | wc -l  # Should output: 62
@@ -226,6 +248,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    - Monitor Actions tab for 24 hours to ensure no failures
 
 6. **Commit and push:**
+
    ```bash
    git add .github/workflows/
    git commit -m "restore: bring back all 62 archived workflows from 2026-09-11 archive"
@@ -233,6 +256,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 7. **Create PR or branch for review:**
+
    ```bash
    # This is a major change, get team review before merging to develop
    gh pr create --title "restore: all archived workflows from 2026-09-11 archive" \
@@ -240,6 +264,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 **Expected Output:**
+
 ```
 ✓ 62 workflows restored from archive
 ✓ All files in .github/workflows/ directory
@@ -256,6 +281,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Use this when:** You need to restore workflows and preserve the full git history (15-20 minutes)
 
 **Prerequisites:**
+
 - Git access to repository
 - Ability to perform git operations
 - Understanding of git branches and merges
@@ -263,16 +289,19 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 **Steps:**
 
 1. **Create restore branch:**
+
    ```bash
    git checkout -b restore/archived-workflows-from-2026-09-11
    ```
 
 2. **Merge archive commit into branch:**
+
    ```bash
    git merge refactor/workflow-consolidation-and-archiving --no-edit
    ```
 
 3. **Cherry-pick workflow files:**
+
    ```bash
    # Get commit hash of archive creation
    git log --oneline refactor/workflow-consolidation-and-archiving | head -5
@@ -282,6 +311,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 4. **Resolve conflicts (if any):**
+
    ```bash
    # If workflows have been modified, resolve conflicts
    git status  # Shows conflicted files
@@ -297,6 +327,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 5. **Verify and test:**
+
    ```bash
    # Verify all workflows present
    find .github/workflows -name "*.yml" -type f | wc -l
@@ -306,6 +337,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    ```
 
 6. **Create PR for review:**
+
    ```bash
    git push -u origin restore/archived-workflows-from-2026-09-11
    gh pr create --title "restore: archived workflows from 2026-09-11 archive" \
@@ -339,6 +371,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
    - Organizational priorities change
 
 **Rollback Timeline:**
+
 - **Detection:** < 1 hour (monitoring and alerts)
 - **Decision:** < 2 hours (team discussion)
 - **Execution:** < 5 minutes per workflow (git restore)
@@ -346,6 +379,7 @@ tar -x < labeling-workflows.tar  # Then move files to .github/workflows/
 - **Total:** < 30 minutes (complete rollback)
 
 **Rollback Approval:**
+
 - **Required:** Tech lead + Workflow owner approval
 - **Process:** Discuss in Slack #engineering channel
 - **Documentation:** Create GitHub issue documenting rollback reason
@@ -434,11 +468,13 @@ gh pr create --title "rollback: consolidation due to critical issue" \
 After restoring workflows, test them thoroughly:
 
 ### 1. Syntax Validation
+
 ```bash
 yamllint .github/workflows/*.yml
 ```
 
 ### 2. Trigger Testing
+
 ```bash
 # For each workflow, verify it triggers correctly
 # - Manual trigger workflows: Run from GitHub Actions tab
@@ -447,6 +483,7 @@ yamllint .github/workflows/*.yml
 ```
 
 ### 3. Integration Testing
+
 ```bash
 # Create test PR to trigger workflows
 git checkout -b test/restored-workflows
@@ -457,6 +494,7 @@ gh pr create --title "test: verify restored workflows" --body "Testing restored 
 ```
 
 ### 4. Monitoring (24-48 hours)
+
 - Watch GitHub Actions dashboard for failures
 - Monitor Slack for workflow notifications
 - Check for any breaking changes in automation
@@ -484,7 +522,7 @@ A: Yes, the files remain in git history on the archive branch indefinitely. Use 
 
 ## Contact & Support
 
-- **Workflow Consolidation Owner:** Ashley Shaw (ashley@lightspeedwp.agency)
+- **Workflow Consolidation Owner:** Ashley Shaw (<ashley@lightspeedwp.agency>)
 - **Archive Branch:** `refactor/workflow-consolidation-and-archiving`
 - **Related Epic:** [Epic] Workflow Consolidation Initiative 2026-Q4
 - **Questions:** Create issue in repository with `[WORKFLOW-RESTORE]` tag

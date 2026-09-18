@@ -19,6 +19,7 @@ status: "complete"
 Phase 1 (Setup) has been successfully completed. All foundational analysis and planning work is done, unblocking Phase 2 (Foundational prerequisites) and subsequent user story implementation.
 
 **Key Deliverables**:
+
 - ✅ T001: Configuration audit baseline
 - ✅ T002: Branch type reference table (34 types extracted)
 - ✅ T003: File type coverage analysis
@@ -45,6 +46,7 @@ Phase 1 (Setup) has been successfully completed. All foundational analysis and p
 ### Path Instruction Coverage (Detailed)
 
 **Explicitly Covered (High Priority - 10 blocks)**:
+
 1. `.github/prompts/**` - AI prompts
 2. `.github/agents/**` - Agent specifications
 3. `.github/custom-instructions.md` - Copilot instructions  
@@ -57,6 +59,7 @@ Phase 1 (Setup) has been successfully completed. All foundational analysis and p
 10. `**/tests/*.*` - Test files (general pattern)
 
 **Explicitly Covered (Medium Priority - 14 blocks)**:
+
 - `.github/agents/*` - Agent specs, implementations, tests (6 blocks)
 - `.github/ISSUE_TEMPLATE/*.md` - Issue templates
 - `.github/PULL_REQUEST_TEMPLATE/*.md` - PR templates
@@ -65,6 +68,7 @@ Phase 1 (Setup) has been successfully completed. All foundational analysis and p
 - `**/docs/*.*/*.md` - Documentation
 
 **Notable Gaps** (Not currently covered):
+
 1. SpecKit specification files (`.specify/spec.md`, `.specify/plan.md`, `.specify/tasks.md`)
 2. Workflow documentation (`.github/workflows/*.md`)
 3. Plugin/Skill documentation (`.github/plugins/*/README.md`, `.github/skills/*/SKILL.md`)
@@ -144,6 +148,7 @@ Each branch type maps to universal review contexts **without technology specific
 Current coverage extends to:
 
 **Core Development** (✅ Covered):
+
 - JavaScript/TypeScript: `**/*.{js,ts,jsx,tsx}`
 - PHP: `**/*.php`, `composer.json`, `phpunit.xml`
 - CSS/SCSS: `**/*.{css,scss,sass,less}`
@@ -153,16 +158,19 @@ Current coverage extends to:
 - Markdown docs: `**/*.md`
 
 **Test Files** (✅ Covered):
+
 - Jest: `**/*.{test,spec}.{js,ts}`
 - PHP Unit: `tests/**/*.php`
 - General tests: `**/tests/*.*`
 
 **Automation** (✅ Covered):
+
 - Shell scripts: `**/*.{sh,bash}`
 - GitHub Actions workflows: `.github/workflows/*.yml`
 - GitHub Actions: `.github/actions/**`
 
 **Documentation** (✅ Covered):
+
 - Markdown: `**/*.md` (general pattern)
 - Issue templates: `.github/ISSUE_TEMPLATE/*.md`
 - PR templates: `.github/PULL_REQUEST_TEMPLATE/*.md`
@@ -170,6 +178,7 @@ Current coverage extends to:
 - Saved replies: `.github/SAVED_REPLIES/**/*.md`
 
 **Critical Gaps** (❌ Not covered):
+
 1. SpecKit files (`.specify/**/*.md`)
 2. Workflow documentation (`.github/workflows/*.md`)
 3. Plugin documentation (`.github/plugins/**/SKILL.md`, `.github/skills/**/README.md`)
@@ -182,6 +191,7 @@ Current coverage extends to:
 ### Coverage Roadmap
 
 **Phase 3+ Coverage Expansion**:
+
 - SpecKit files: Specification completeness
 - Plugin/Skill docs: Documentation clarity, usability
 - Configuration meta: Config review standards
@@ -197,6 +207,7 @@ Current coverage extends to:
 LightSpeed operates across **four distinct technology domains**:
 
 **1. WordPress (PHP-based)**
+
 - Block themes and plugins
 - Classic PHP server-side rendering
 - Gutenberg full-site editing
@@ -204,6 +215,7 @@ LightSpeed operates across **four distinct technology domains**:
 - Repos affected: 20+ WordPress projects
 
 **2. Node.js/TypeScript (JavaScript ecosystem)**
+
 - Nextjs/React applications
 - TypeScript-first microservices
 - Tooling and CLI utilities
@@ -211,6 +223,7 @@ LightSpeed operates across **four distinct technology domains**:
 - Repos affected: 10+ Node/TypeScript projects
 
 **3. Infrastructure & DevOps**
+
 - GitHub Actions workflows (YAML)
 - Infrastructure-as-Code (Terraform, CloudFormation)
 - Deployment scripts (Bash, Python)
@@ -218,6 +231,7 @@ LightSpeed operates across **four distinct technology domains**:
 - Repos affected: 5+ infrastructure projects
 
 **4. AI Operations & SpecKit**
+
 - Agent specifications and implementations (JS, Python, Shell)
 - SpecKit workflow files (markdown specs, plans, tasks)
 - Prompt engineering (markdown-based)
@@ -229,12 +243,14 @@ LightSpeed operates across **four distinct technology domains**:
 CodeRabbit configuration must provide **universal guidance** applicable across all four domains without framework-specific assumptions:
 
 ❌ **Framework-Specific** (FORBIDDEN):
+
 - "Use PHP hooks for WordPress integration"
 - "Implement async/await patterns in TypeScript"
 - "Use Terraform modules from HashiCorp registry"
 - "Check for Node.js event loop blocking"
 
 ✅ **Universal Principles** (REQUIRED):
+
 - "Validate all external input before processing"
 - "Document state transitions and edge cases"
 - "Implement idempotent operations for infrastructure"
@@ -249,6 +265,7 @@ CodeRabbit configuration must provide **universal guidance** applicable across a
 Location: `.coderabbit.yml.backup.2026-09-11`
 
 Command executed:
+
 ```bash
 cp .coderabbit.yml .coderabbit.yml.backup.2026-09-11
 ```
@@ -280,6 +297,7 @@ CodeRabbit supports **three levels of configuration**:
 ### Inheritance Rules
 
 When CodeRabbit reviews a PR:
+
 1. **Load default configuration** from CodeRabbit platform
 2. **Override with repository config** (if `.coderabbit.yml` exists)
 3. **Apply PR-level directives** (commit message, PR body)
@@ -292,6 +310,7 @@ When CodeRabbit reviews a PR:
 ### This Repository's Role
 
 The `.github/.coderabbit.yml` file serves as:
+
 - **Single source of truth** for organization-wide CodeRabbit configuration
 - **Template baseline** for copying to other repositories
 - **Reference implementation** of technology-agnostic review guidance
