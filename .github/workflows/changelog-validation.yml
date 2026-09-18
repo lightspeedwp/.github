@@ -163,6 +163,12 @@ jobs:
             }
         continue-on-error: true
 
+      - name: Validate status when changelog unchanged
+        if: steps.validate.outputs.report_created == 'false' && steps.changed-files.outputs.any_changed == 'false'
+        run: |
+          echo "✅ Changelog validation: No changes to validate"
+          exit 0
+
       - name: Format PR comment
         id: comment
         if: steps.changed-files.outputs.any_changed == 'true'
