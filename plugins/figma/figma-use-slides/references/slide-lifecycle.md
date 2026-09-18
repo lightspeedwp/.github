@@ -120,3 +120,5 @@ Use `getSlideGrid` / `setSlideGrid` to rearrange slides. See [slide-grid.md](sli
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

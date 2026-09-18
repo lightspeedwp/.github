@@ -104,3 +104,5 @@ Draft clear issues with evidence, scope, acceptance criteria, test steps, risk a
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

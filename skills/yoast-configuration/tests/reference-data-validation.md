@@ -71,3 +71,5 @@ Confirm `schemas/research-pack.schema.json` parses as JSON and includes the requ
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -83,3 +83,5 @@ Use `templates/multilingual-seo-qa-report.md` for multilingual QA, `templates/tr
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
