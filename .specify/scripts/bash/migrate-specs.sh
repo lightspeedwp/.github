@@ -44,16 +44,30 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+# log - Print a migration progress message to standard error when verbose mode is enabled.
+# Parameters:
+#   $1 - Message to print
 log() {
     if [ "$VERBOSE" = true ]; then
         echo "[migrate-specs] $1" >&2
     fi
 }
 
+# error - Print an error-prefixed message to standard error.
+# Parameters:
+#   $1 - Error message to print
 error() {
     echo "ERROR: $1" >&2
 }
 
+# rollback - Report a migration failure and restore changed source and target contents.
+# Parameters:
+#   $1 - Failure reason to report
+# Returns:
+#   1 after reporting the failure and attempting any required restoration
+# Side effects:
+#   Removes partial source and target contents before restoring their backups when
+#   migration has mutated them. The backup directory is retained for recovery.
 rollback() {
     local error_msg="$1"
     local restoration_failed=false
@@ -113,6 +127,13 @@ rollback() {
     return 1
 }
 
+# entries_match - Compare two migration entries according to their filesystem type.
+# Parameters:
+#   $1 - Source entry
+#   $2 - Target entry
+# Returns:
+#   0 for equal regular-file contents, equal symlink targets, or matching directory
+#   and special-file types; 1 otherwise
 entries_match() {
     local source_entry="$1"
     local target_entry="$2"
@@ -138,6 +159,9 @@ entries_match() {
     fi
 }
 
+# count_entries - Print the number of descendants below a directory, without a newline.
+# Parameters:
+#   $1 - Directory to inventory
 count_entries() {
     local directory="$1"
     local count=0
@@ -150,7 +174,13 @@ count_entries() {
     printf '%s' "$count"
 }
 
-# Main migration logic
+# main - Migrate the root specs directory into .github/specs after validating safety.
+# Returns:
+#   0 when there is nothing to migrate or migration or its dry run succeeds; 1 on
+#   invalid configuration, conflicts, or a failed migration operation
+# Side effects:
+#   A successful migration retains a backup, merges source entries into the target,
+#   verifies them, and removes the source directory. Dry-run mode changes neither tree.
 main() {
     log "Starting specs directory migration..."
 
