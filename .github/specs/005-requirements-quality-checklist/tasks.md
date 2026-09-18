@@ -308,10 +308,10 @@
 
 ### Phase 4 Incomplete: Domain Tests (T027–T030)
 
-- [ ] T067 [P] [US2] Create unit test for UX-specific items at `.specify/templates/checklist-template/test/unit/test-ux-variant.js` (validate visual hierarchy, interaction states, accessibility items present; verify UX domain adds 15+ focused items)
-- [ ] T068 [P] [US2] Create unit test for API-specific items at `.specify/templates/checklist-template/test/unit/test-api-variant.js` (validate endpoint specs, error responses, versioning items present; verify API domain adds 15+ focused items)
-- [ ] T069 [P] [US2] Create unit test for Security-specific items at `.specify/templates/checklist-template/test/unit/test-security-variant.js` (validate threat model, data protection, compliance items present; verify Security domain adds 15+ focused items)
-- [ ] T070 [P] [US2] Create unit test for Performance-specific items at `.specify/templates/checklist-template/test/unit/test-performance-variant.js` (validate metrics, load scenarios, degradation items present; verify Performance domain adds 15+ focused items)
+- [x] T067 [P] [US2] Create unit test for UX-specific items at `.specify/templates/checklist-template/test/unit/ux-variant.test.js` (validate visual hierarchy, interaction states, accessibility items present; verify UX domain adds 15+ focused items)
+- [x] T068 [P] [US2] Create unit test for API-specific items at `.specify/templates/checklist-template/test/unit/api-variant.test.js` (validate endpoint specs, error responses, versioning items present; verify API domain adds 15+ focused items)
+- [x] T069 [P] [US2] Create unit test for Security-specific items at `.specify/templates/checklist-template/test/unit/security-variant.test.js` (validate threat model, data protection, compliance items present; verify Security domain adds 15+ focused items)
+- [x] T070 [P] [US2] Create unit test for Performance-specific items at `.specify/templates/checklist-template/test/unit/performance-variant.test.js` (validate metrics, load scenarios, degradation items present; verify Performance domain adds 15+ focused items)
 
 ### Phase 7 Incomplete: Polish & Validation
 
