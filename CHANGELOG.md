@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-09-15"
+last_updated: "2026-09-18"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -25,6 +25,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Added
+
+- **Requirements Quality Checklists — Multi-Audience Guidance** — Added audience guidance for authors, reviewers, stakeholders, and integration teams. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+
+- **Requirements Quality Checklists — Domain-Specific Variants** — Added specialized checklist variants for UX, API, Security, and Performance requirements assessment. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+
+- **Requirements Quality Checklists — Automated Generation** — Enabled checklist generation with CLI tool, validator, and `/speckit-checklist` integration. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+
+- **Requirements Quality Checklists — Specification Traceability** — Added cross-references linking checklist items to specification requirements for bidirectional traceability. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+
+- **Requirements Quality Checklists — Schema & Documentation** — Fixed data model format consistency, aligned generator output, and improved code documentation for schema compliance. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
 ### Fixed
 

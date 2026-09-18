@@ -37,25 +37,32 @@ Build requirements quality validation framework ("unit tests for English"). Deve
 
 ## Technical Context
 
-**Language/Version**: Markdown (templates), YAML (configuration), JavaScript/Node.js (optional tooling)
+**Language/Version**: Markdown (templates), YAML (configuration), JavaScript/Node.js (tooling for automation)
 
-**Primary Dependencies**: Markdown template engine, YAML config parser
+**Primary Dependencies**: Markdown template engine, YAML config parser, Node.js (for /speckit-checklist skill)
 
-**Storage**: Markdown files in spec directories (no database)
+**Storage**: Markdown files in spec directories (no database); checklist content authored in `.specify/templates/checklist-variants/` and assembled per-spec in `.github/specs/{###-feature}/checklists/`
 
-**Testing**: Template validation against 8 quality dimensions, checklist accuracy testing
+**Testing**: Template validation against 8 quality dimensions, checklist accuracy testing, usability testing (timed author/reviewer walkthrough)
 
-**Target Platform**: Text/markdown (editor-agnostic); GitHub integration (optional)
+**Target Platform**: Text/markdown (editor-agnostic); GitHub integration via `/speckit-checklist` skill; CLI tool for standalone generation
 
-**Project Type**: Documentation/governance framework with templates
+**Project Type**: Documentation/governance framework with portable reusable templates
 
-**Performance Goals**: Checklist generation <5 minutes; reviewer <1 min per item; author <30 min for 40 items
+**Generation Model**:
+
+- **Phase 1-3 (Weeks 1–4)**: Manual authorship process; humans write dimension-specific items (T017–T024) and assemble base template
+- **Phase 4–6 (Weeks 2–5)**: Tooling automation (T049–T051); `/speckit-checklist` skill generates checklists by merging base template + domain variant + audience guidance
+- **Outcome**: Checklist content is human-authored; composition/assembly is automated
+
+**Performance Goals**: Checklist generation <5 minutes (automated tool); reviewer <1 min per item; author <30 min for 40-item checklist (timed validation)
 
 **Constraints**:
 
-- Must be usable in plain markdown (no special tools)
-- Templates must support custom domain items
-- Checklists must remain human-readable (not auto-generated)
+- Must be usable in plain markdown (no special tools required for reading/using checklists)
+- Templates must support custom domain items without code changes (configuration-only extension)
+- Checklists remain human-readable (audience-specific guidance appended, not embedded)
+- Automated tooling is optional but recommended; manual checklist creation supported
 
 **Scale/Scope**: 4 audience types; 8 quality dimensions; 4+ domain variants; 3 foundational specs as initial use case
 

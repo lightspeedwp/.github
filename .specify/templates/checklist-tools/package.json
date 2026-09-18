@@ -1,0 +1,75 @@
+{
+  "name": "@lightspeedwp/checklist-tools",
+  "version": "1.0.0",
+  "description": "Requirements quality checklist framework tooling — validators, generators, and utilities",
+  "type": "module",
+  "main": "lib/index.js",
+  "bin": {
+    "checklist": "bin/generate-checklist.js",
+    "checklist-validate": "bin/validate-checklist.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=test/unit",
+    "test:integration": "jest --testPathPattern=test/integration",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint lib/ bin/",
+    "format": "prettier --write lib/ bin/",
+    "validate": "node bin/validate-checklist.js"
+  },
+  "keywords": [
+    "requirements",
+    "quality",
+    "checklist",
+    "specification",
+    "validation",
+    "governance"
+  ],
+  "author": "LightSpeedWP",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^5.4.2",
+    "minimist": "^1.2.8"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.0",
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": ".specify/templates/checklist-tools"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "bin/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testMatch": [
+      "**/test/**/*.test.js"
+    ],
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  }
+}

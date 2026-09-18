@@ -127,28 +127,63 @@
 - **Ambiguities:** Are unclear areas surfaced for resolution before implementation?
 - **Testable:** Checklist contains ≥10 items per dimension; each testable against actual specifications
 
-### FR-2: Checklist Item Generation
+#### Requirements Quality Question Definition (A1, A2)
 
-- **Requirement:** System generates checklist items based on specification content and domain
-- **Item format:** Question asking about requirement quality (not implementation behavior)
-  - ✅ CORRECT: "Are error handling requirements defined for all failure scenarios?" [Completeness]
-  - ❌ WRONG: "Verify that the system handles errors correctly"
-- **Item traceability:** Each item includes reference marker: `[Dimension, Spec §X.Y]` or `[Gap]` or `[Ambiguity]`
-- **Item count:** Minimum 40 items per major specification; soft cap 100 items
+A **requirements quality question** tests whether a specification meets quality criteria—NOT whether the system implementation is correct.
+
+**CORRECT examples** (test requirements quality):
+
+- ✅ "Are error handling requirements defined for all failure scenarios?" [Tests completeness of edge cases]
+- ✅ "Are performance metrics specific and measurable (e.g., 'load time <2s', not 'fast')?" [Tests clarity of measurable criteria]
+- ✅ "Do all user flows have acceptance criteria that can be objectively verified?" [Tests measurability]
+- ✅ "Are dependencies on external APIs or third-party services documented?" [Tests completeness of dependencies]
+
+**WRONG examples** (test implementation, not requirements quality):
+
+- ❌ "Verify that the system loads pages in <2s" [Implementation test, not a requirement-quality test]
+- ❌ "Confirm that the API endpoint returns JSON responses" [Implementation verification, not requirements assessment]
+- ❌ "Test that authentication works correctly" [Code-level test, not specification-quality test]
+
+**Clarity Dimension — Vague Terms Guide:**
+When reviewing clarity, flag specifications that use vague adjectives without quantified criteria:
+
+- **"Fast"** → Should specify: "Response time <500ms" or "Load time <2s"
+- **"Scalable"** → Should specify: "Support 10k concurrent users" or "Handle 1000 requests/sec"
+- **"Secure"** → Should specify: "Encrypt with TLS 1.3" or "Authenticate with OAuth 2.0"
+- **"Intuitive"** → Should specify: "Discoverable in <30 seconds" or "Error messages guide user resolution"
+- **"Robust"** → Should specify: "Graceful degradation on network timeout" or "Retry logic with exponential backoff"
+- **"Accessible"** → Should specify: "WCAG 2.2 AA compliance" or "Keyboard navigation for all features"
+
+Items in the Clarity dimension check whether vague terms are converted to measurable criteria before specification approval.
+
+### FR-2: Checklist Item Generation & Structure
+
+- **Requirement:** Checklist template generates items based on 8 quality dimensions; items follow standardised format for clarity and traceability
+- **Item format:** Question asking about requirement quality (not implementation behavior) — see FR-1 Requirements Quality Question Definition for correct vs. wrong examples
+- **Item ID format:** `CHK-###-{dimension}` (e.g., `CHK-001-Completeness`, `CHK-015-Clarity`); auto-sequenced during generation; manually assigned if custom items added
+- **Item properties:**
+  - Question (requirement quality question — see FR-1 definition)
+  - Dimension (one of 8: Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities)
+  - Spec reference (e.g., `[Spec §FR-1]`, `[Spec §User_Scenarios]`, or `[Gap]` / `[Ambiguity]` if content is missing)
+  - Checkbox state tracking: `[ ]` (unchecked), `[x]` (checked), `[Gap]`, `[Ambiguity]`
+  - Optional reviewer comment field
+- **Item count:** Minimum 40 items per major specification (defined as: >3 user stories, involves 2+ teams, or explicit stakeholder designation); soft cap 100 items
+- **Traceability:** ≥80% of items include specification section reference; cross-document references allowed (spec.md, plan.md, tasks.md)
 - **Coverage:** Items address all 8 quality dimensions plus cross-project integration (if applicable)
-- **Testable:** Checklist correctly identifies actual gaps in test specifications (manual validation)
+- **Testable:** Checklist correctly identifies actual gaps in test specifications (manual validation); sensitivity tested against degraded/ambiguous specs
 
-### FR-3: Checklist Customization
+### FR-3: Checklist Customization & Domain Variants
 
-- **Requirement:** Different checklists for different domains (UX, API, Security, Performance, etc.)
-- **Domain examples:**
-  - UX Requirements Quality: visual hierarchy, interaction states, accessibility
-  - API Requirements Quality: error handling, rate limiting, versioning, authentication
-  - Security Requirements Quality: threat model, data protection, compliance alignment
-  - Performance Requirements Quality: specific metrics, load scenarios, degradation
-- **Customization approach:** Template-based with domain-specific item sets
-- **User ability:** Authors can select domain when creating checklist
-- **Testable:** UX checklist includes accessibility items; Security checklist includes threat model items
+- **Requirement:** Framework supports domain-specific checklist variants; each variant combines base template (8 dimensions, 40–50 items) with 15–20 domain-specific items for focused requirements assessment
+- **Foundational domains:** 4 domain variants launched initially
+  - **UX Requirements Quality:** visual hierarchy, interaction states, accessibility, responsive design, error messaging, zero-state scenarios
+  - **API Requirements Quality:** endpoint specifications, error responses, rate limiting, versioning, authentication/authorization, retry logic, deprecation paths
+  - **Security Requirements Quality:** threat model, authentication mechanisms, data protection, compliance frameworks (e.g., GDPR, PCI-DSS), breach response procedures
+  - **Performance Requirements Quality:** specific metrics (latency, throughput, resource usage), load scenarios, degradation strategies, caching policies, optimisation constraints
+- **Extensibility:** New custom domains can be added following template pattern without code changes; framework designed to support 10+ domain variants without performance impact
+- **Customization approach:** Template-based with domain-specific item sets; domains and base template are orthogonal (any domain + any audience can compose)
+- **User ability:** Authors select domain + audience when generating checklist
+- **Testable:** UX checklist includes 5+ accessibility items; Security checklist includes threat model + compliance items; API checklist includes versioning + retry items; Performance checklist includes metrics definition items
 
 ### FR-4: Gap & Ambiguity Markers
 
@@ -168,7 +203,8 @@
   - Stakeholder: "Green checklist = ready for implementation; red = needs clarification"
   - Integration: "Check both specs' dependency sections; confirm parallelization feasible"
 - **Shared foundation:** All audiences use same underlying checklist items
-- **Testable:** Same checklist serves all 4 audiences with context-appropriate guidance
+- **Composition model:** Domains (FR-3: UX, API, Security, Performance) and audiences (FR-5: author, peer, stakeholder, integration) are independent, orthogonal dimensions. Any domain can be combined with any audience (e.g., "UX Checklist for Peer Reviewer" combines UX domain items with peer-review guidance; "API Checklist for Stakeholder Approval" combines API domain items with stakeholder go/no-go decision guidance). Generator accepts both domain and audience parameters.
+- **Testable:** Same base checklist serves all 4 audiences with context-appropriate guidance; domain-audience combinations produce distinct checklists with aligned content but audience-specific instructions
 
 ### FR-6: Ownership & State Tracking
 
@@ -202,13 +238,13 @@
 1. **Checklist Coverage:** All 8 quality dimensions addressed; 40+ items per major specification
 2. **Item Quality:** 100% of items test requirements quality (not implementation); no implementation verification items
 3. **Traceability:** ≥80% of items include specification section references
-4. **Gap Detection:** Checklist correctly identifies 95%+ of actual specification gaps (validated on test specs)
-5. **Ambiguity Detection:** Checklist surfaces 90%+ of unclear/vague requirements in test specifications
-6. **Author Efficiency:** Author completes self-check in <30 minutes; identifies 80%+ of issues before peer review
-7. **Reviewer Efficiency:** Peer reviewer uses checklist to reduce review time by 30%; achieves 95% feedback alignment with checklist
-8. **Stakeholder Clarity:** Stakeholders can assess specification readiness in <15 minutes using checklist status
-9. **Cross-Project Accuracy:** Cross-project checklists flag 100% of actual integration issues; <5% false positives
-10. **Adoption:** 90%+ of specifications submitted include completed checklist; team uses consistently across projects
+4. **Gap Detection:** Checklist correctly identifies 95%+ of actual specification gaps; validated against test specification set: `.github/specs/003-changelog-quality-audit/`, `.github/specs/004-branch-naming-strategy/`, `.github/specs/005-requirements-quality-checklist/` (primary); plus 5 synthetic degraded specifications (created with intentional gaps/ambiguities for sensitivity testing)
+5. **Ambiguity Detection:** Checklist surfaces 90%+ of unclear/vague requirements in test specification set; validated with same test specs as SC-4
+6. **Author Efficiency:** Author completes self-check in <30 minutes for 40-item checklist; identifies 80%+ of actual specification gaps before peer review (validated with timed walkthrough on test specs)
+7. **Reviewer Efficiency:** Peer reviewer uses checklist to reduce review time by 30%; achieves 95% feedback alignment with checklist (measured against independent review notes)
+8. **Stakeholder Clarity:** Stakeholders can assess specification readiness in <15 minutes using checklist status alone; can make go/no-go decision without reading full specification
+9. **Cross-Project Accuracy:** Cross-project checklists flag 100% of actual integration issues (dependencies, timeline conflicts); <5% false positives when validating against 003/004/005 project set
+10. **Adoption:** 90%+ of specifications submitted to develop branch include completed checklist; team uses consistently across projects (tracked via git log analysis + GitHub Actions label automation)
 
 ---
 
@@ -229,7 +265,7 @@
 
 - **Definition:** Single quality validation criterion
 - **Properties:**
-  - Item ID (CHK001, CHK002, etc.)
+  - Item ID (CHK-###-{dimension}, e.g. CHK-001-Completeness, CHK-002-Clarity)
   - Question text (requirement quality question)
   - Dimension (Completeness, Clarity, etc.)
   - Spec reference (§X.Y or [Gap])
@@ -288,6 +324,15 @@
 
 - Risk: Reviewers skip reading specification and only check boxes
 - Mitigation: Checklist is guide, not substitute for careful review; include traceability to spec
+
+### Definition: "Good Enough to Implement"
+
+Specifications achieve "good enough to implement" status when:
+
+- **All [Gap] markers are resolved:** Missing requirement categories have been added (or explicitly deferred as out-of-scope)
+- **[Ambiguity] count ≤3:** No more than 3 unclear/unresolved areas remain (critical ambiguities must be resolved; minor ones can proceed with risk acknowledgement)
+- **All 8 quality dimensions covered:** Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities all have ≥80% of items checked
+- **Stakeholder approval obtained:** Leadership has reviewed checklist status and approved the specification for implementation despite any remaining minor ambiguities
 
 ---
 
