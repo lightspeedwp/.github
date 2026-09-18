@@ -28,15 +28,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Requirements Quality Checklist Framework — Phase 5: Multi-Audience Guidance** — Added audience-specific guidance for 4 user roles with tailored presentations and decision workflows.
+- **Requirements Quality Checklists — Multi-Audience Guidance** — Added audience guidance for authors, reviewers, stakeholders, and integration teams. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
-- **Requirements Quality Checklist Framework — Phase 4: Domain-Specific Variants** — Added 4 domain variants (UX, API, Security, Performance) with 18 items each for domain-focused specification quality.
+- **Requirements Quality Checklists — Domain-Specific Variants** — Added specialized checklist variants for UX, API, Security, and Performance requirements assessment. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
-- **Requirements Quality Checklist Framework — Phase 6: Automated Generation & Tooling** — Implemented automated checklist generation system with CLI tool, validator, and `/speckit-checklist` skill integration.
+- **Requirements Quality Checklists — Automated Generation** — Enabled checklist generation with CLI tool, validator, and `/speckit-checklist` integration. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
-- **Requirements Quality Checklist Framework — Phase 8: Specification Traceability** — Added [Spec §FR-X] cross-references to 80%+ of base template items and domain variant items enabling bidirectional traceability.
+- **Requirements Quality Checklists — Specification Traceability** — Added cross-references linking checklist items to specification requirements for bidirectional traceability. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
-- **Requirements Quality Checklist Framework — Phase 9: Schema & Code Quality** — Fixed data model format, aligned generator output, and added JSDoc documentation for schema consistency.
+- **Requirements Quality Checklists — Schema & Documentation** — Fixed data model format consistency, aligned generator output, and improved code documentation for schema compliance. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
 ### Fixed
 
