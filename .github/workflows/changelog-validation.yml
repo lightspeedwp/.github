@@ -25,14 +25,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '18'
+          node-version-file: ".nvmrc"
           cache: 'npm'
           cache-dependency-path: '.github/validation/changelog/package.json'
 
@@ -43,7 +43,7 @@ jobs:
 
       - name: Detect changed files
         id: changed-files
-        uses: tj-actions/changed-files@v46
+        uses: tj-actions/changed-files@v47
         with:
           files: |
             CHANGELOG.md
@@ -158,7 +158,7 @@ jobs:
 
       - name: Post PR comment
         if: steps.changed-files.outputs.any_changed == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         env:
           COMMENT_BODY: ${{ steps.comment.outputs.body }}
         with:
@@ -196,7 +196,7 @@ jobs:
 
       - name: Request reviewer if validation failed
         if: steps.validate.outputs.failed > 0 && steps.changed-files.outputs.any_changed == 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             core.notice('Validation failed - release manager approval required before merge');
@@ -244,7 +244,7 @@ jobs:
 
       - name: Report validation results
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const result = {
