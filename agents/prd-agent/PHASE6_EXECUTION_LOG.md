@@ -216,9 +216,9 @@
 - **Teams Briefed**: ____ / 5 (required minimum)
 - **Total Attendees**: ____
 - **Key Themes**:
-  1. ____
-  2. ____
-  3. ____
+  1. [TBD]
+  2. [TBD]
+  3. [TBD]
 
 ### T073 Adoption Monitoring — Final Summary
 
@@ -237,9 +237,9 @@
 
 ### Recommendations for Phase 7 & Future
 
-1. ____
-2. ____
-3. ____
+1. [TBD]
+2. [TBD]
+3. [TBD]
 
 ---
 

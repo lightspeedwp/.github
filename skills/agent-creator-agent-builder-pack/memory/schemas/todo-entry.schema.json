@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "title": "Todo Entry",
+  "type": "object",
+  "required": [
+    "todo",
+    "owner",
+    "source",
+    "review_trigger",
+    "status"
+  ],
+  "properties": {
+    "todo": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "Open",
+        "Complete",
+        "Retired",
+        "Blocked"
+      ]
+    }
+  }
+}

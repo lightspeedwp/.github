@@ -1,0 +1,27 @@
+{
+  "required_references": [
+    "references/lightspeed-team-skill-routing.md",
+    "references/agent-folder-structure-guide.md",
+    "references/agent-memory-pack-guide.md",
+    "references/agent-validation-pack-guide.md",
+    "references/source-priority-guide.md",
+    "references/routing-boundaries-guide.md",
+    "references/starter-prompt-guide.md",
+    "references/agent-requirements-template.md",
+    "references/agent-system-prompt-template.md",
+    "references/tool-permission-matrix-template.md",
+    "references/output-template-library.md",
+    "references/skill-package-template.md",
+    "references/quality-checklist.md",
+    "references/example-agent-pack-index.md",
+    "references/team-consumability-checklist.md"
+  ],
+  "recommended_references": [
+    "references/agent-creator-skill-md-update.md"
+  ],
+  "priority_validators": [
+    "scripts/validate-memory-hygiene.py",
+    "scripts/validate-source-priority-consistency.py",
+    "scripts/validate-template-schema-alignment.py"
+  ]
+}

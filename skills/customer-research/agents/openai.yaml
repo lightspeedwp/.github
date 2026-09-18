@@ -1,0 +1,16 @@
+interface:
+  display_name: Customer Research
+  short_description: Build evidence-backed customer and prospect research briefs for
+    sales readiness.
+  default_prompt: Use $customer-research to prepare an internal customer or prospect
+    research brief before outreach, follow-up, proposal work, renewal, upsell, or
+    handoff.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,13 @@
+interface:
+  display_name: OpenSpec Estimate Planner
+  short_description: Turn PRDs or rough estimates into OpenSpec-style proposal and
+    task files.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,120 @@
+# Shared Agent Access Model
+
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
+Use this reference whenever the skill runs inside a shared workspace agent, when connector access, private memory, saved searches, or workspace permissions may differ by teammate, or when a source that should normally be available is unavailable to the current agent session.
+
+## Core Rule
+
+Do not assume the logged-in user has the same personal connector access, private memory, saved searches, mailbox visibility, Drive permissions, Slack visibility, Zendesk views, or project-tool access as any other teammate. Prefer workspace/shared support systems and explicitly label unavailable sources.
+
+## Source Availability States
+
+Classify every intended source as one of these states in the source coverage ledger:
+
+- `relevant`: searched or opened and used for at least one supported claim
+- `no result`: source was accessible and the search returned no matching evidence
+- `not relevant`: source was accessible but did not materially support this brief
+- `unavailable`: source could not be accessed by the current agent session or available workspace permissions
+- `not checked`: source was intentionally skipped because it was not needed for the requested scope
+
+Never treat `unavailable` as `no result`.
+
+## Zendesk Access
+
+Zendesk remains the source of truth for customer-facing support facts. Use shared Zendesk workspace access where available.
+
+If live Zendesk is unavailable:
+
+- state that live Zendesk evidence could not be checked
+- use a pasted ticket export, Zendesk thread excerpt, ticket summary, or user-provided support notes when available
+- label the evidence base as narrower than live Zendesk-backed research
+- downgrade confidence unless another recent, direct support source clearly supports the finding
+- use `Unknown` for support health when the evidence is too thin to score safely
+- do not infer current status, severity, priority, owner, queue, SLA state, or resolution from Gmail, Slack, Drive, Asana, Linear, or GitHub alone
+
+## Supporting Connectors
+
+Use supporting sources only for the purposes below:
+
+| Source | Use for | If unavailable |
+|---|---|---|
+| Gmail | support commitments, client follow-ups, email-only escalation context | mark `unavailable`; do not assume no email exists |
+| Google Drive | handover notes, support playbooks, implementation notes, governance decisions | mark `unavailable`; use user-provided docs if supplied |
+| Slack or chat | ownership signals, internal escalation discussion, operational colour | mark `unavailable`; avoid citing informal claims as support facts |
+| Asana, Linear, GitHub | delivery work, bug state, implementation blockers linked to the support issue | mark `unavailable`; do not infer support health from project tools alone |
+| Pasted exports or notes | bounded evidence when live connectors are unavailable | cite as narrower user-provided evidence and lower confidence when needed |
+
+## Shared-Agent Wording
+
+Use precise wording in briefs:
+
+- `Live Zendesk access was unavailable to this agent, so confidence is Low.`
+- `No relevant result was found in the accessible Zendesk search.`
+- `Gmail was unavailable in this agent session, so prior email commitments were not checked.`
+- `The brief is based on the pasted Zendesk export rather than live ticket history.`
+
+Avoid unsafe wording:
+
+- `There are no tickets` when Zendesk was unavailable or search scope was partial
+- `No one replied` when Gmail or Zendesk public replies were not checked
+- `The customer is happy` unless directly supported by customer wording
+- `The issue is resolved` unless Zendesk or another direct support source confirms resolution
+- `Support is stable` when evidence is sparse, stale, or missing live Zendesk confirmation
+
+## Confidence Impact
+
+Lower confidence when:
+
+- Zendesk is unavailable
+- source access differs materially from the expected shared-agent setup
+- source coverage relies mainly on pasted snippets or informal chat
+- the freshest direct support evidence is old relative to the user's question
+- important sources are unavailable and the missing evidence could change the conclusion
+
+Keep confidence high only when recent Zendesk evidence and relevant supporting sources align cleanly.
+
+## Ledger Example
+
+```md
+### Zendesk checked
+- [Z1] live Zendesk search for example.com - unavailable - current shared agent did not have Zendesk access; confidence lowered
+- [Z2] pasted Zendesk ticket export supplied by user - relevant - supports current ticket status and last customer message
+
+### Email checked
+- [E1] prior commitment search - unavailable - Gmail was not available in this agent session
+```
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

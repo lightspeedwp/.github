@@ -1,0 +1,205 @@
+{
+  "$schema": "https://lightspeedwp.agency/schemas/figma-variables.json",
+  "info": {
+    "name": "LSX Design System Variables",
+    "version": "1.0.1",
+    "description": "Figma variable scaffold aligned to 10up exporter and LSX naming (colors, spacing, typography).",
+    "notes": [
+      "Change values freely; keep slugs stable for mapping.",
+      "Use modes for light/dark if needed; mirror slugs across modes."
+    ]
+  },
+  "modes": [
+    "light"
+  ],
+  "colors": {
+    "semantic": {
+      "base": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "Background / surfaces"
+      },
+      "contrast": {
+        "value": "#111111",
+        "type": "color",
+        "description": "Text / foreground"
+      },
+      "primary": {
+        "value": "#0A84FF",
+        "type": "color",
+        "description": "Brand / CTA"
+      }
+    },
+    "neutral": {
+      "neutral-0": {
+        "value": "#FFFFFF",
+        "type": "color"
+      },
+      "neutral-100": {
+        "value": "#F9FAFB",
+        "type": "color"
+      },
+      "neutral-200": {
+        "value": "#F3F4F6",
+        "type": "color"
+      },
+      "neutral-300": {
+        "value": "#E5E7EB",
+        "type": "color"
+      },
+      "neutral-400": {
+        "value": "#D1D5DB",
+        "type": "color"
+      },
+      "neutral-500": {
+        "value": "#9CA3AF",
+        "type": "color"
+      },
+      "neutral-600": {
+        "value": "#6B7280",
+        "type": "color"
+      },
+      "neutral-700": {
+        "value": "#4B5563",
+        "type": "color"
+      },
+      "neutral-800": {
+        "value": "#1F2937",
+        "type": "color"
+      },
+      "neutral-900": {
+        "value": "#111111",
+        "type": "color"
+      }
+    },
+    "accent": {
+      "accent-100": {
+        "value": "#0A84FF",
+        "type": "color"
+      },
+      "accent-200": {
+        "value": "#3399FF",
+        "type": "color"
+      },
+      "accent-300": {
+        "value": "#66B2FF",
+        "type": "color"
+      },
+      "accent-400": {
+        "value": "#99CCFF",
+        "type": "color"
+      },
+      "accent-500": {
+        "value": "#CCE5FF",
+        "type": "color"
+      },
+      "accent-600": {
+        "value": "#FF7A59",
+        "type": "color"
+      },
+      "accent-700": {
+        "value": "#FF9B80",
+        "type": "color"
+      },
+      "accent-800": {
+        "value": "#FFBCA6",
+        "type": "color"
+      },
+      "accent-900": {
+        "value": "#FFDCD2",
+        "type": "color"
+      }
+    }
+  },
+  "typography": {
+    "fontSizes": {
+      "font-size-100": {
+        "value": "12px",
+        "type": "fontSize",
+        "label": "Tiny"
+      },
+      "font-size-200": {
+        "value": "16px",
+        "type": "fontSize",
+        "label": "Base"
+      },
+      "font-size-300": {
+        "value": "20px",
+        "type": "fontSize",
+        "label": "Small"
+      },
+      "font-size-400": {
+        "value": "24px",
+        "type": "fontSize",
+        "label": "Medium"
+      },
+      "font-size-500": {
+        "value": "32px",
+        "type": "fontSize",
+        "label": "Large"
+      },
+      "font-size-600": {
+        "value": "40px",
+        "type": "fontSize",
+        "label": "X-Large"
+      },
+      "font-size-700": {
+        "value": "48px",
+        "type": "fontSize",
+        "label": "Huge"
+      },
+      "font-size-800": {
+        "value": "64px",
+        "type": "fontSize",
+        "label": "Gigantic"
+      },
+      "font-size-900": {
+        "value": "80px",
+        "type": "fontSize",
+        "label": "Colossal"
+      }
+    }
+  },
+  "spacing": {
+    "spacing-10": {
+      "value": "10px",
+      "type": "spacing"
+    },
+    "spacing-20": {
+      "value": "20px",
+      "type": "spacing"
+    },
+    "spacing-30": {
+      "value": "30px",
+      "type": "spacing"
+    },
+    "spacing-40": {
+      "value": "40px",
+      "type": "spacing"
+    },
+    "spacing-50": {
+      "value": "50px",
+      "type": "spacing"
+    },
+    "spacing-60": {
+      "value": "56px",
+      "type": "spacing"
+    },
+    "spacing-70": {
+      "value": "60px",
+      "type": "spacing"
+    },
+    "spacing-80": {
+      "value": "64px",
+      "type": "spacing"
+    },
+    "spacing-90": {
+      "value": "72px",
+      "type": "spacing"
+    },
+    "spacing-100": {
+      "value": "80px",
+      "type": "spacing"
+    }
+  }
+}

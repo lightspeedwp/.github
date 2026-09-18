@@ -1,0 +1,129 @@
+{
+  "model_version": "1.0.0",
+  "last_reviewed": "2026-07-03",
+  "implementation_status": "planning-only-unless-code-or-live-output-proves-otherwise",
+  "dependencies": {
+    "yoast_required": true,
+    "yoast_active_check": "Confirm via live plugin list or repository/runtime check.",
+    "fallback_mode": "none unless separately implemented and verified",
+    "notes": "Do not assume fallback JSON-LD exists."
+  },
+  "global_nodes": {
+    "expected_yoast_nodes": [
+      "WebSite",
+      "WebPage",
+      "Organization|Person",
+      "BreadcrumbList",
+      "ImageObject"
+    ],
+    "dedupe_rules": [
+      "Reuse Yoast node IDs where appropriate.",
+      "Do not emit duplicate Organization or Person nodes.",
+      "Do not duplicate breadcrumb output.",
+      "Do not duplicate Article/WebPage defaults unless intentionally replacing them."
+    ]
+  },
+  "content_types": [
+    {
+      "post_type": "tour",
+      "candidate_schema_type": "TouristTrip",
+      "google_rich_result_status": "not-documented",
+      "main_entity_connection": "mainEntityOfPage",
+      "yoast_piece_strategy": "custom-graph-piece",
+      "source_fields": [
+        "tagline",
+        "price",
+        "sale_price",
+        "duration",
+        "single_supplement",
+        "best_time_to_visit"
+      ],
+      "known_risks": [
+        "TouristTrip is Schema.org-valid but not a documented Google rich result type.",
+        "Price fields are strings and need structured handling before Offer output."
+      ],
+      "confidence": "needs-validation"
+    },
+    {
+      "post_type": "destination",
+      "candidate_schema_type": "TouristDestination",
+      "google_rich_result_status": "not-documented",
+      "main_entity_connection": "mainEntityOfPage",
+      "yoast_piece_strategy": "custom-graph-piece",
+      "source_fields": [
+        "tagline",
+        "best_time_to_visit"
+      ],
+      "known_risks": [
+        "Avoid treating destination archives as a single TouristDestination."
+      ],
+      "confidence": "needs-validation"
+    },
+    {
+      "post_type": "accommodation",
+      "candidate_schema_type": "LodgingBusiness",
+      "google_rich_result_status": "limited-context-dependent",
+      "main_entity_connection": "mainEntityOfPage",
+      "yoast_piece_strategy": "custom-graph-piece",
+      "source_fields": [
+        "tagline",
+        "price",
+        "sale_price",
+        "price_type",
+        "rating",
+        "rating_type",
+        "spoken_languages",
+        "number_of_rooms",
+        "checkin_time",
+        "checkout_time",
+        "minimum_child_age"
+      ],
+      "known_risks": [
+        "Avoid duplicate LocalBusiness/LodgingBusiness nodes.",
+        "Rating and price fields need validation before public schema output."
+      ],
+      "confidence": "needs-validation"
+    },
+    {
+      "post_type": "review",
+      "candidate_schema_type": "Review",
+      "google_rich_result_status": "context-dependent",
+      "main_entity_connection": "itemReviewed",
+      "yoast_piece_strategy": "custom-or-extension-piece",
+      "source_fields": [],
+      "known_risks": [
+        "Extension internals not confirmed. Do not expose reviewer private data."
+      ],
+      "confidence": "unknown"
+    },
+    {
+      "post_type": "special",
+      "candidate_schema_type": "Offer",
+      "google_rich_result_status": "context-dependent",
+      "main_entity_connection": "itemOffered",
+      "yoast_piece_strategy": "custom-or-extension-piece",
+      "source_fields": [],
+      "known_risks": [
+        "Extension internals not confirmed. Needs structured price, validity and currency."
+      ],
+      "confidence": "unknown"
+    },
+    {
+      "post_type": "team_member",
+      "candidate_schema_type": "Person",
+      "google_rich_result_status": "not-documented",
+      "main_entity_connection": "about|mainEntity",
+      "yoast_piece_strategy": "custom-or-extension-piece",
+      "source_fields": [],
+      "known_risks": [
+        "Extension internals not confirmed. Public contact fields need privacy review."
+      ],
+      "confidence": "unknown"
+    }
+  ],
+  "validation_checks": [
+    "Schema.org Validator",
+    "Google Rich Results Test",
+    "Inspect rendered Yoast graph for duplicate or disconnected nodes"
+  ]
+}
