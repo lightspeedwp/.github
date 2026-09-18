@@ -693,6 +693,286 @@ Breach response:
 
 ---
 
+### Scenario Coverage: Connection Pool and Resource Limits
+
+**CHK-057-Performance-Scenario-Coverage**
+
+**Question**: Are database connection pools, thread pools, and resource limits configured and documented?
+
+**Guidance**: Document:
+
+- **Connection pools**: Database connection management
+  - Pool size: how many connections? (e.g., min=10, max=100)
+  - Connection timeout: how long to wait for available connection?
+  - Idle timeout: when are idle connections closed? (e.g., 5 minutes)
+  - What happens when pool is exhausted? (queue, error, fail-fast)
+- **Thread pools**: Application thread management
+  - Thread count: worker threads for async operations? (e.g., 50-200)
+  - Queue depth: max queued tasks? (e.g., 1000)
+  - Rejection policy: what happens when queue is full? (reject, queue, or throttle)
+- **Memory limits**: Heap size, cache limits
+  - Java heap: max -Xmx? (e.g., 2GB)
+  - Cache size: LRU cache limits? (e.g., 10k items max)
+  - Spill-to-disk: if cache exceeds memory, spill to disk? (performance impact)
+- **Rate limiting**: Request throttling
+  - Token bucket: N requests per minute/hour
+  - Sliding window: N requests in last 60 seconds
+  - Per-user limits: different limits for premium vs. free users?
+  - Backpressure: queue excess requests or reject with 429?
+- **Monitoring**: Are resource utilization metrics tracked?
+  - Connection pool usage: % full? Rejects per hour?
+  - Thread pool queue depth: avg queue size?
+  - Memory pressure: GC frequency, pause time?
+  - Rate limit hits: how many requests throttled per hour?
+
+**Success Criteria**:
+
+- Pool and thread sizes appropriate for expected load
+- Limits defined and tested under stress
+- Monitoring detects saturation early
+- Graceful degradation (queue or reject) not crash
+- Capacity planning based on metrics
+
+---
+
+### Edge Cases: Traffic Spikes and Graceful Degradation
+
+**CHK-058-Performance-Edge-Cases**
+
+**Question**: How does system behave under traffic spikes? What degrades gracefully?
+
+**Guidance**: Document:
+
+- **Traffic spike definition**: What's considered a spike?
+  - Normal: 100 req/s. Spike: 500 req/s (5x)
+  - How often are spikes expected? (daily peak, seasonal events)
+- **Graceful degradation**: What can be turned off under load?
+  - Cache warming: skip on overload
+  - Analytics logging: skip detailed logging
+  - Non-critical features: feature flags to disable under load
+  - Search indexing: defer until load subsides
+- **Fallback strategies**: If primary system overloaded
+  - Read-through cache: serve stale data if fresh data unavailable
+  - Circuit breaker: if external service slow, use fallback
+  - Timeout reduction: reduce timeouts under load
+  - Load shedding: reject lowest-priority requests
+- **Scaling response**: How quickly can system scale?
+  - Auto-scaling: how long to provision new instance? (1-5 minutes?)
+  - Manual escalation: when to page on-call engineer? (2x threshold)
+- **Testing under spikes**: Validated via load testing?
+  - Ramp test: gradually increase load, verify response time
+  - Spike test: sudden 10x load, observe behavior
+  - Soak test: sustained load for 24+ hours, check for leaks
+  - Chaotic test: random spikes, verify system doesn't break
+
+**Success Criteria**:
+
+- Spike handling strategy documented
+- Graceful degradation mechanisms identified
+- Load testing validates spike handling
+- Auto-scaling works as expected
+- Monitoring alerts on overload conditions
+
+---
+
+### Measurability: Cost per Transaction and Resource Efficiency
+
+**CHK-059-Performance-Measurability**
+
+**Question**: Are cost targets and resource efficiency metrics defined?
+
+**Guidance**: Document:
+
+- **Cost per transaction**: What's the cost to process one request?
+  - Compute: CPU time × hourly rate
+  - Storage: data stored × monthly rate
+  - Network: bandwidth × monthly rate
+  - Example: "Each API call costs ~$0.001 (compute + storage + network)"
+- **Cost scaling**: How does cost scale with load?
+  - Linear: cost doubles when load doubles (efficient, auto-scaling works)
+  - Quadratic: cost quadruples when load doubles (inefficient, n^2 algorithms)
+  - Example: "Database query is O(n log n), cost scales linearly with dataset size"
+- **Resource efficiency targets**: CPU, memory, disk usage
+  - CPU utilization: target <70% under normal load (headroom for spikes)
+  - Memory: target <75% of heap (room for GC, temporary allocations)
+  - Disk: target <80% full (room for growth, snapshots)
+- **Benchmarks**: Measured cost vs. targets
+  - Measure: run production workload, sample costs monthly
+  - Report: cost per transaction, cost per GB stored, cost per concurrent user
+  - Target: cost should decrease with optimizations
+- **Cost anomalies**: How are unexpected costs detected?
+  - Alert if cost/transaction increases >10% month-over-month
+  - Root cause: query became slower? Load increased? New feature?
+  - Optimization: reduce cost by caching, indexing, or algorithmic improvement
+
+**Success Criteria**:
+
+- Cost targets quantified (not vague)
+- Cost per transaction measured
+- Resource efficiency tracked
+- Cost anomalies trigger investigation
+- Optimization roadmap based on cost data
+
+---
+
+### Dependencies: Third-Party Service Performance
+
+**CHK-060-Performance-Dependencies**
+
+**Question**: Are SLAs for third-party services documented? How are delays handled?
+
+**Guidance**: Document:
+
+- **Third-party SLAs**: What performance guarantees do they provide?
+  - Uptime: "99.9% availability" (4 9s = 43 minutes downtime/month)
+  - Latency: "p95 < 200ms", "p99 < 1 second"
+  - Throughput: "1000 requests/sec"
+  - Example: AWS S3 "99.99% uptime, p99 latency <100ms"
+- **Dependency impact**: How does external delay affect your system?
+  - Cascading: if third-party slow, does your system become slow? (bad)
+  - Isolated: can you retry, cache, or degrade gracefully? (good)
+  - Example: "Payment gateway timeout → use cached billing data, retry later"
+- **Fallback and retry strategy**: What if third-party is unavailable?
+  - Timeout: how long to wait? (e.g., 5 second timeout)
+  - Retry: exponential backoff? (2s, 4s, 8s, 16s)
+  - Fallback: use cached/stale data? Return error to user? Queue for later?
+- **SLA credits**: If third-party violates SLA, do you get credits?
+  - Example: AWS credits 10% monthly fee if <99.9% uptime
+  - Your SLA to customers: "Our SLA is 99% (one 9) because we depend on third-party 99.9%"
+- **Monitoring third-party performance**: How are delays detected?
+  - Synthetic monitoring: ping third-party regularly, measure latency
+  - Real monitoring: measure actual API call latencies
+  - Alert: if p95 latency >400ms, investigate
+
+**Success Criteria**:
+
+- Third-party SLAs documented and understood
+- Dependency impact on your SLA quantified
+- Fallback strategy for unavailability
+- Your SLA accounts for third-party SLAs
+- Monitoring detects third-party performance issues
+
+---
+
+### Consistency: Performance Trade-Offs and Feature Flags
+
+**CHK-061-Performance-Consistency**
+
+**Question**: Are performance trade-offs documented? How are optimizations prioritized?
+
+**Guidance**: Document:
+
+- **Performance vs. accuracy**: Which is more important?
+  - Exact: "Calculate user's total purchase history (might take 5 seconds)"
+  - Approximate: "Show cached estimate (instant, but may be stale by 1 hour)"
+  - Decision: For shopping cart, accuracy wins. For analytics, approximation OK.
+- **Performance vs. cost**: Which is more important?
+  - Fast query: full-text search index (more storage, more cost)
+  - Slow query: scan table (less cost, slow)
+  - Decision: For customer-facing features, speed wins. For internal reports, cost.
+- **Performance vs. freshness**: Which is more important?
+  - Fresh: query latest data from DB (every time, might be slow)
+  - Stale: serve cached data (fast, but might be 5 minutes old)
+  - Decision: For profiles, freshness. For trending list, cache OK.
+- **Feature flags for optimization**: Can optimizations be toggled?
+  - A/B test: 50% new (optimized) vs. 50% old (safe)
+  - Rollout: enable for 10% users first, then 100%
+  - Rollback: if optimization breaks, disable instantly
+- **Measuring trade-offs**: How do you know if trade-off is acceptable?
+  - Metric: latency, cost, accuracy, freshness
+  - Target: "Reduce latency from 1s to 100ms is worth 5% higher cost"
+  - Validation: measure and compare before/after
+
+**Success Criteria**:
+
+- Performance trade-offs explicitly documented
+- Each trade-off has clear rationale
+- Feature flags enable safe rollout of optimizations
+- Metrics demonstrate trade-off is beneficial
+- Clear rollback strategy if optimization fails
+
+---
+
+### Ambiguities: Warm-Up and Cold-Start Performance
+
+**CHK-062-Performance-Ambiguities**
+
+**Question**: Is cold-start performance acceptable? How is warm-up handled?
+
+**Guidance**: Document:
+
+- **Cold-start latency**: Performance on first request after restart
+  - JVM startup: classloading, JIT compilation, initialization
+  - Database: connection pool initialization
+  - Cache: cache is empty, all requests miss
+  - Typical cold-start: 10-30 seconds worse than steady-state
+- **Warm-up time**: How long until system reaches steady-state?
+  - After restart, requests are slow until caches warm up
+  - Example: "Cold-start p50=5s, p95=15s. After 5 minutes, p50=100ms, p95=300ms"
+- **Is cold-start acceptable?**: Depends on use case
+  - Production SLA: if yes, must include cold-start in SLO
+  - Scale-up: if auto-scaling, cold-start must not violate SLA
+  - Example: "p95 latency <500ms even on cold-start"
+- **Warm-up strategies**: How to reduce cold-start impact?
+  - Request routing: send new instances warm-up requests before routing traffic
+  - Connection pool: pre-warm connections during startup
+  - Cache pre-load: load common data into cache
+  - JVM tuning: class pre-loading, AOT compilation (GraalVM)
+- **Startup validation**: How do you verify system is ready?
+  - Health check: /health endpoint returns 200 OK?
+  - Readiness probe: specific endpoints ready? (DB connection, cache populated)
+  - Liveness probe: process alive? (prevents zombie instances)
+
+**Success Criteria**:
+
+- Cold-start performance measured and acceptable
+- Warm-up time documented
+- SLOs account for cold-start behavior
+- Warm-up strategies tested
+- Health checks ensure system is ready before traffic
+
+---
+
+### Ambiguities: Performance Test Data and Realism
+
+**CHK-063-Performance-Ambiguities**
+
+**Question**: Are performance tests realistic? How does test data represent production?
+
+**Guidance**: Document:
+
+- **Test data size**: Does test data match production scale?
+  - Production: 100M users, 10B transactions
+  - Test: 10M users, 1B transactions (10% of production)
+  - Concern: performance may not scale linearly (algorithms, indexes, memory)
+- **Test data distribution**: Does data have realistic distribution?
+  - Production: most users have 0-10 orders, few have 1000+
+  - Test: all users have exactly 100 orders (unrealistic)
+  - Impact: queries might behave differently on skewed data
+- **Test workload**: Does load pattern match production?
+  - Production: peak 10k req/s at 2pm, off-peak 100 req/s at 3am
+  - Test: constant 1k req/s all day (unrealistic peak behavior)
+  - Impact: caching, batching strategies might not be stress-tested
+- **Test infrastructure**: Does test environment match production?
+  - Different: test on laptop (8 cores) vs. production (128 cores)
+  - Different: test database single instance vs. production sharded
+  - Gap: performance may not transfer to production
+- **Performance anomalies**: Are production-only issues considered?
+  - Network latency: production has real network, test on localhost
+  - Disk I/O: test uses SSD, production uses HDD
+  - Garbage collection: test on small heap, production on large heap (different GC behavior)
+  - Contention: test has 1 concurrent user, production has 10k
+
+**Success Criteria**:
+
+- Test data size representative of production
+- Data distribution realistic (skewed, not uniform)
+- Load patterns include peak and off-peak scenarios
+- Test environment reflects production infrastructure
+- Test results validated against production metrics
+
+---
+
 ## Documentation
 
 All 18 Performance-specific items extend the base 40-45 item checklist. When generating a Performance variant:

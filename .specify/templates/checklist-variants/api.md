@@ -687,6 +687,141 @@ All 18 API-specific items extend the base 40-45 item checklist. When generating 
 2. Add these 18 API-specific items
 3. **Total for API variant**: ~58-63 items (40-45 base + 18 API-specific)
 
+---
+
+### Consistency: API Versioning and Backwards Compatibility
+
+**CHK-060-API-Consistency**
+
+**Question**: Is API versioning strategy documented? How is backwards compatibility handled?
+
+**Guidance**: Document versioning approach:
+
+- **Versioning scheme**: URL versioning (`/v1/`, `/v2/`), header versioning (`Accept: application/vnd.api+json;version=1`), or query parameter (`?api-version=2`)
+- **Deprecation timeline**: How long are old versions supported? (e.g., "v1 supported for 2 years after v2 release")
+- **Breaking changes policy**: How are breaking changes handled? (announce, deprecation period, version bump)
+- **Backwards compatibility**: Which changes break compatibility? Which don't?
+  - Safe: adding optional fields, new endpoints
+  - Breaking: removing fields, changing field types, changing endpoint behavior
+- **Migration guide**: How do clients upgrade from old version to new?
+- **Sunset date**: When will old versions be removed?
+
+Example: "API uses URL versioning (/v1, /v2). Each version supported for 18 months after next major release. Deprecation announced 6 months before sunset. Breaking changes warrant major version bump."
+
+**Success Criteria**:
+
+- Versioning approach is clear
+- Breaking changes are identified
+- Deprecation timeline is explicit
+- Migration path documented
+- Client impact of upgrades understood
+
+---
+
+### Scenario Coverage: Idempotency and Retry Logic
+
+**CHK-061-API-Scenario-Coverage**
+
+**Question**: Which operations are idempotent? How should clients retry failed requests?
+
+**Guidance**: Specify:
+
+- **Idempotent operations**: Which endpoints can be safely retried without side effects?
+  - Safe (idempotent): GET, HEAD, OPTIONS, PUT (usually), DELETE (usually)
+  - Unsafe (non-idempotent): POST (creates duplicate), PATCH (partial updates)
+- **Idempotency key**: For non-idempotent operations, how does server prevent duplicates?
+  - Header: `Idempotency-Key: unique-id-xyz` (server returns same response if key seen before)
+  - Parameter: `?idempotencyId=unique-id-xyz`
+  - How long does server remember keys? (e.g., 24 hours)
+- **Retry strategy**: Which errors are retryable?
+  - Retryable: 408 (timeout), 429 (rate limit), 5xx (server error)
+  - Non-retryable: 400 (bad request), 401 (auth), 403 (permission), 404 (not found)
+- **Retry guidance**: How should clients retry?
+  - Backoff strategy: exponential backoff (2s, 4s, 8s, 16s), jitter
+  - Max retries: (e.g., 3 attempts, then fail)
+  - Timeout: request timeout per attempt
+
+Example: "POST endpoints are not idempotent. Clients must provide `Idempotency-Key` header for writes. Server remembers keys for 24 hours. Return 409 Conflict if key was seen before. Clients should retry with exponential backoff on 5xx errors."
+
+**Success Criteria**:
+
+- Idempotent vs. non-idempotent operations documented
+- Idempotency mechanism specified (if needed)
+- Retryable error codes documented
+- Retry strategy and backoff guidance provided
+- Timeout handling documented
+
+---
+
+### Edge Cases: Request Timeout and Partial Failures
+
+**CHK-062-API-Edge-Cases**
+
+**Question**: How are request timeouts and partial failures handled?
+
+**Guidance**: Specify:
+
+- **Request timeout**: What's the max request duration? (e.g., "30 second timeout")
+  - What happens on timeout? (return 408 Timeout, 504 Gateway Timeout, or no response?)
+  - Can client cancel in-flight request? (if so, how? HTTP DELETE? connection close?)
+- **Partial failures**: For batch operations, what if some items fail?
+  - All-or-nothing: entire operation fails if any item fails
+  - Partial success: returns successful items + error items separately
+  - Example: "POST /batch - if 1 of 10 items fails, return 207 Multi-Status with successes and failures"
+- **Streaming responses**: For large result sets, can response be streamed? (Server-Sent Events, chunked encoding)
+  - If streaming, what if connection drops mid-stream?
+  - Can client resume from last received item? (via checkpoint/cursor)
+- **Large payload handling**: Max request/response size? (e.g., max 10MB per request)
+  - What if client sends oversized payload? (return 413 Payload Too Large, close connection)
+  - What if response would be oversized? (paginate, compress, or error?)
+
+**Success Criteria**:
+
+- Timeout values specified
+- Timeout handling documented
+- Batch operation failure modes specified
+- Streaming and resumption mechanisms documented
+- Size limits documented
+
+---
+
+### Measurability: API Documentation and Discoverability
+
+**CHK-063-API-Measurability**
+
+**Question**: Is API documentation complete and machine-readable? Can clients discover endpoints?
+
+**Guidance**: Document:
+
+- **Documentation format**: OpenAPI/Swagger, GraphQL introspection, or custom documentation
+  - Where is documentation hosted? (API docs site, GitHub wiki, Postman)
+  - Is documentation auto-generated or manually maintained? (auto-gen preferred)
+  - Update frequency: when is documentation updated? (per release, per commit, manual)
+- **Discoverability**: Can clients find endpoints?
+  - Root endpoint: `/api` returns list of available endpoints? (`_links`, `_embedded` in HAL, GraphQL introspection)
+  - Documentation endpoint: `/api/docs` returns OpenAPI spec or documentation?
+  - HATEOAS: Do responses include links to related resources?
+- **Example requests**: Are there code examples for each endpoint?
+  - cURL examples, JavaScript examples, Python examples
+  - Real vs. mock data? (e.g., using `example` field in OpenAPI)
+- **Rate limits documentation**: Are rate limits documented per endpoint?
+  - Which endpoints have limits? (e.g., `/users/search` has 100 req/min, `/users` has 1000 req/min)
+  - How do clients check remaining quota? (headers: `X-RateLimit-Remaining`)
+- **Changelog**: Is API changelog maintained?
+  - When are changes documented? (per release)
+  - Do clients get notified of changes? (email, webhook, RSS feed)
+
+**Success Criteria**:
+
+- API documentation is comprehensive and up-to-date
+- Documentation format is machine-readable (OpenAPI, GraphQL schema)
+- Clients can discover endpoints programmatically
+- Example requests provided for common operations
+- Rate limits documented per endpoint
+- Changelog is maintained and accessible
+
+---
+
 ### Composition Rules
 
 - API variant items use consistent ID format: `CHK-###-API-{Dimension}`
