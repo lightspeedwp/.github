@@ -67,6 +67,25 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - name: 'Validate inputs'
+      id: validate
+      shell: bash
+      run: |
+        # Validate coverage-threshold is a number between 0 and 100
+        THRESHOLD="${{ inputs.coverage-threshold }}"
+
+        if ! [[ "$THRESHOLD" =~ ^[0-9]+$ ]]; then
+          echo "❌ coverage-threshold must be a number between 0 and 100, got: $THRESHOLD" >&2
+          exit 1
+        fi
+
+        if [ "$THRESHOLD" -lt 0 ] || [ "$THRESHOLD" -gt 100 ]; then
+          echo "❌ coverage-threshold must be a number between 0 and 100, got: $THRESHOLD" >&2
+          exit 1
+        fi
+
+        echo "coverage-threshold=$THRESHOLD" >> "$GITHUB_OUTPUT"
+
     - name: 'Prepare aggregation'
       id: prepare
       shell: bash
