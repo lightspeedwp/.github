@@ -107,7 +107,7 @@ jobs:
 
       - name: Report validation via GitHub Check Run
         id: check-run
-        if: steps.changed-files.outputs.any_changed == 'true'
+        if: steps.changed-files.outputs.any_changed == 'true' && hashFiles('.github/validation/changelog/validation-report.json') != ''
         run: |
           cd .github/validation/changelog
 
