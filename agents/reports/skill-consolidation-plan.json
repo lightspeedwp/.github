@@ -1,0 +1,1405 @@
+{
+  "timestamp": "2026-09-18T14:13:39.236Z",
+  "analysis": {
+    "totalSkills": 634,
+    "exactDuplicateGroups": 5,
+    "exactDuplicateCount": 47,
+    "nearDuplicatePairs": 46,
+    "duplicatedSkillsEstimate": {},
+    "consolidationOpportunities": 93,
+    "duplicatedSkillsCount": 98
+  },
+  "recommendations": [
+    {
+      "type": "exact-duplicate",
+      "priority": 1,
+      "skills": [
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/accessibility-auditor/Icon\r",
+          "category": "accessibility-auditor",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/agent-creator-agent-builder-pack/Icon\r",
+          "category": "agent-creator-agent-builder-pack",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-governance-toolkit-expanded/Icon\r",
+          "category": "ai-governance-toolkit-expanded",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-agent-knowledge-upload/Icon\r",
+          "category": "ai-readiness-agent-knowledge-upload",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-estimator/Icon\r",
+          "category": "ai-readiness-estimator",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-template-pack-md/Icon\r",
+          "category": "ai-readiness-template-pack-md",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-service-templates/Icon\r",
+          "category": "ai-service-templates",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/audit-qa-validator/Icon\r",
+          "category": "audit-qa-validator",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatbot-planning-orchestrator-skill/Icon\r",
+          "category": "chatbot-planning-orchestrator-skill",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claude-skills/Icon\r",
+          "category": "claude-skills",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/client-discover-agent-skills/Icon\r",
+          "category": "client-discover-agent-skills",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/figma-wordpress-skill-creator/Icon\r",
+          "category": "figma-wordpress-skill-creator",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gravity-forms-auditor/Icon\r",
+          "category": "gravity-forms-auditor",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gravity-forms-configuration/Icon\r",
+          "category": "gravity-forms-configuration",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/lsx-wp-design-system-v2/Icon\r",
+          "category": "lsx-wp-design-system-v2",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/pagespeed-audit-onboarding/Icon\r",
+          "category": "pagespeed-audit-onboarding",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-pack/Icon\r",
+          "category": "prd-task-manager-agent-pack",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/Icon\r",
+          "category": "prd-task-manager-agent-skills",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/reference-site-analysis/Icon\r",
+          "category": "reference-site-analysis",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/self-evolving-agent-skill/Icon\r",
+          "category": "self-evolving-agent-skill",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-agent-instructions/Icon\r",
+          "category": "tour-operator-agent-instructions",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-gravity-forms-auditor/Icon\r",
+          "category": "tour-operator-gravity-forms-auditor",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-gravity-forms-configuration/Icon\r",
+          "category": "tour-operator-gravity-forms-configuration",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-website/Icon\r",
+          "category": "tour-operator-website",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-yoast-auditor/Icon\r",
+          "category": "tour-operator-yoast-auditor",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-yoast-configuration/Icon\r",
+          "category": "tour-operator-yoast-configuration",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-backlog-capability-profile-pack/Icon\r",
+          "category": "zendesk-backlog-capability-profile-pack",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-case-readiness-check/Icon\r",
+          "category": "zendesk-case-readiness-check",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-duplicate-pattern-review/Icon\r",
+          "category": "zendesk-duplicate-pattern-review",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-handoff-prep/Icon\r",
+          "category": "zendesk-handoff-prep",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-knowledge-candidate-review/Icon\r",
+          "category": "zendesk-knowledge-candidate-review",
+          "size": 0
+        },
+        {
+          "name": "Icon\r",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/zendesk-triage-router/Icon\r",
+          "category": "zendesk-triage-router",
+          "size": 0
+        }
+      ],
+      "suggestedAction": "Consolidate 32 exact duplicates",
+      "consolidatedPath": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/accessibility-auditor/Icon\r",
+      "effort": "low"
+    },
+    {
+      "type": "exact-duplicate",
+      "priority": 1,
+      "skills": [
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+          "category": "artifacts-builder",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/brand-guidelines/LICENSE.txt",
+          "category": "brand-guidelines",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/canvas-design/LICENSE.txt",
+          "category": "canvas-design",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-address-comments/LICENSE.txt",
+          "category": "gh-address-comments",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/internal-comms/LICENSE.txt",
+          "category": "internal-comms",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear/LICENSE.txt",
+          "category": "linear",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/mcp-builder/LICENSE.txt",
+          "category": "mcp-builder",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-creator/LICENSE.txt",
+          "category": "skill-creator",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/theme-factory/LICENSE.txt",
+          "category": "theme-factory",
+          "size": 11357
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/webapp-testing/LICENSE.txt",
+          "category": "webapp-testing",
+          "size": 11357
+        }
+      ],
+      "suggestedAction": "Consolidate 10 exact duplicates",
+      "consolidatedPath": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+      "effort": "low"
+    },
+    {
+      "type": "exact-duplicate",
+      "priority": 1,
+      "skills": [
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/documents/LICENSE.txt",
+          "category": "documents",
+          "size": 1418
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/docx/LICENSE.txt",
+          "category": "docx",
+          "size": 1418
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/pdfs/LICENSE.txt",
+          "category": "pdfs",
+          "size": 1418
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/slides/LICENSE.txt",
+          "category": "slides",
+          "size": 1418
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/spreadsheets/LICENSE.txt",
+          "category": "spreadsheets",
+          "size": 1418
+        }
+      ],
+      "suggestedAction": "Consolidate 5 exact duplicates",
+      "consolidatedPath": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/documents/LICENSE.txt",
+      "effort": "low"
+    },
+    {
+      "type": "exact-duplicate",
+      "priority": 1,
+      "skills": [
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+          "category": "gh-fix-ci",
+          "size": 10776
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/imagegen/LICENSE.txt",
+          "category": "imagegen",
+          "size": 10776
+        },
+        {
+          "name": "LICENSE",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/openai-docs/LICENSE.txt",
+          "category": "openai-docs",
+          "size": 10776
+        }
+      ],
+      "suggestedAction": "Consolidate 3 exact duplicates",
+      "consolidatedPath": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+      "effort": "low"
+    },
+    {
+      "type": "exact-duplicate",
+      "priority": 1,
+      "skills": [
+        {
+          "name": "lightspeed-estimation-proposal-planner-skill",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-estimation-proposal-planner-skill.zip",
+          "category": "prd-task-manager-agent-skills",
+          "size": 8297
+        },
+        {
+          "name": "lightspeed-prd-task-pack-exporter-skill",
+          "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-prd-task-pack-exporter-skill.zip",
+          "category": "prd-task-manager-agent-skills",
+          "size": 8297
+        }
+      ],
+      "suggestedAction": "Consolidate 2 exact duplicates",
+      "consolidatedPath": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/prd-task-manager-agent-skills/lightspeed-estimation-proposal-planner-skill.zip",
+      "effort": "low"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+        "category": "artifacts-builder",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatgpt-apps/LICENSE.txt",
+        "category": "chatgpt-apps",
+        "hash": "a7f55b2cb68997f729e6199720d4d3cae47633aba0254a84b2d36ab284be9d45",
+        "size": 10774
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+        "category": "artifacts-builder",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+        "category": "gh-fix-ci",
+        "hash": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9",
+        "size": 10776
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+        "category": "artifacts-builder",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/LICENSE.txt",
+        "category": "skill-installer",
+        "hash": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "size": 11358
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+        "category": "artifacts-builder",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/web-artifacts-builder/LICENSE.txt",
+        "category": "web-artifacts-builder",
+        "hash": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+        "size": 11345
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatgpt-apps/LICENSE.txt",
+        "category": "chatgpt-apps",
+        "hash": "a7f55b2cb68997f729e6199720d4d3cae47633aba0254a84b2d36ab284be9d45",
+        "size": 10774
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-address-comments/LICENSE.txt",
+        "category": "gh-address-comments",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatgpt-apps/LICENSE.txt",
+        "category": "chatgpt-apps",
+        "hash": "a7f55b2cb68997f729e6199720d4d3cae47633aba0254a84b2d36ab284be9d45",
+        "size": 10774
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+        "category": "gh-fix-ci",
+        "hash": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9",
+        "size": 10776
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatgpt-apps/LICENSE.txt",
+        "category": "chatgpt-apps",
+        "hash": "a7f55b2cb68997f729e6199720d4d3cae47633aba0254a84b2d36ab284be9d45",
+        "size": 10774
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/LICENSE.txt",
+        "category": "skill-installer",
+        "hash": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "size": 11358
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatgpt-apps/LICENSE.txt",
+        "category": "chatgpt-apps",
+        "hash": "a7f55b2cb68997f729e6199720d4d3cae47633aba0254a84b2d36ab284be9d45",
+        "size": 10774
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/web-artifacts-builder/LICENSE.txt",
+        "category": "web-artifacts-builder",
+        "hash": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+        "size": 11345
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+        "category": "gh-fix-ci",
+        "hash": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9",
+        "size": 10776
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/internal-comms/LICENSE.txt",
+        "category": "internal-comms",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+        "category": "gh-fix-ci",
+        "hash": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9",
+        "size": 10776
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/LICENSE.txt",
+        "category": "skill-installer",
+        "hash": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "size": 11358
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/LICENSE.txt",
+        "category": "skill-installer",
+        "hash": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "size": 11358
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/theme-factory/LICENSE.txt",
+        "category": "theme-factory",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/LICENSE.txt",
+        "category": "skill-installer",
+        "hash": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "size": 11358
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/web-artifacts-builder/LICENSE.txt",
+        "category": "web-artifacts-builder",
+        "hash": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+        "size": 11345
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 100,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/web-artifacts-builder/LICENSE.txt",
+        "category": "web-artifacts-builder",
+        "hash": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+        "size": 11345
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/webapp-testing/LICENSE.txt",
+        "category": "webapp-testing",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "suggestedAction": "Review and potentially merge skills (100% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 99,
+      "skill1": {
+        "name": "content-research-writer-SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claude-skills/content-research-writer-SKILL.md",
+        "category": "claude-skills",
+        "hash": "0cb6087d2cfe4799eeba698e6c86a26b95e50bdb5a9b19aa966ab9f105e88e1d",
+        "size": 14261
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/content-research-writer/SKILL.md",
+        "category": "content-research-writer",
+        "hash": "8558d50825d497103a579626bc7bac869f69832c7990a0db78002aa06844c2ac",
+        "size": 14319
+      },
+      "suggestedAction": "Review and potentially merge skills (99% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 99,
+      "skill1": {
+        "name": "file-organizer-SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claude-skills/file-organizer-SKILL.md",
+        "category": "claude-skills",
+        "hash": "bbd248943141701104f88ffdc84ff1c76b3ac2837d09962449837fa686521e0f",
+        "size": 11610
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/file-organizer/SKILL.md",
+        "category": "file-organizer",
+        "hash": "10593a2122318e7cde398d05761c68c511bd559ebc19ca8ef501d5f495d3a6e4",
+        "size": 11354
+      },
+      "suggestedAction": "Review and potentially merge skills (99% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 99,
+      "skill1": {
+        "name": "meeting-insights-analyzer-SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claude-skills/meeting-insights-analyzer-SKILL.md",
+        "category": "claude-skills",
+        "hash": "b7c8a9fe6330dc219ee12dfa056197e2b297c1def6a99a6f8d94797a94739300",
+        "size": 10229
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/meeting-insights-analyzer/SKILL.md",
+        "category": "meeting-insights-analyzer",
+        "hash": "e9d33122bda6890c9e58f7a9d986d3f47384cfaafd61332b43d7e0f85b17bdbb",
+        "size": 10287
+      },
+      "suggestedAction": "Review and potentially merge skills (99% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 99,
+      "skill1": {
+        "name": "skill-creator-SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claude-skills/skill-creator-SKILL.md",
+        "category": "claude-skills",
+        "hash": "741f0329696c38ca1278866fedfef371513bce92f60a22ae88aaf28016024472",
+        "size": 11878
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-creator/SKILL.md",
+        "category": "skill-creator",
+        "hash": "a7922348bd7c2da2f30ecf82eb80a1da444af98cad2694cf17cadeb73fbe32c6",
+        "size": 11828
+      },
+      "suggestedAction": "Review and potentially merge skills (99% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 99,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+        "category": "gh-fix-ci",
+        "hash": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9",
+        "size": 10776
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/web-artifacts-builder/LICENSE.txt",
+        "category": "web-artifacts-builder",
+        "hash": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+        "size": 11345
+      },
+      "suggestedAction": "Review and potentially merge skills (99% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 98,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/woocommerce-yoast-configuration/SKILL.md",
+        "category": "woocommerce-yoast-configuration",
+        "hash": "2e377f73211b761f070e93d2049fd21673231987f3cd3ee6a4561a6e33298281",
+        "size": 31814
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/yoast-configuration/SKILL.md",
+        "category": "yoast-configuration",
+        "hash": "d84814d821045668a3d30422f828cb9ee9bba7ec839fb9dc8607029f33f826de",
+        "size": 30812
+      },
+      "suggestedAction": "Review and potentially merge skills (98% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 97,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gravity-forms-configuration/SKILL.md",
+        "category": "gravity-forms-configuration",
+        "hash": "cbd3f19b38f5c8e3de53de1be37dd1d4778e57d3a4aceaaa0e99bc88e62fa50d",
+        "size": 33872
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-gravity-forms-configuration/SKILL.md",
+        "category": "tour-operator-gravity-forms-configuration",
+        "hash": "045f98f5cb6b05291debee21227a193b874a835ab59db7db6ac8895bd9155c35",
+        "size": 34228
+      },
+      "suggestedAction": "Review and potentially merge skills (97% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 97,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gravity-forms-configuration/SKILL.md",
+        "category": "gravity-forms-configuration",
+        "hash": "cbd3f19b38f5c8e3de53de1be37dd1d4778e57d3a4aceaaa0e99bc88e62fa50d",
+        "size": 33872
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/woocommerce-gravity-forms-configuration/SKILL.md",
+        "category": "woocommerce-gravity-forms-configuration",
+        "hash": "dca2bf8bbd42cf0c8671ed44e591db7a707485fa3fad0b878e29b260d18cca1a",
+        "size": 34172
+      },
+      "suggestedAction": "Review and potentially merge skills (97% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/LICENSE.txt",
+        "category": "artifacts-builder",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/frontend-design/LICENSE.txt",
+        "category": "frontend-design",
+        "hash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "size": 10174
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/artifacts-builder/SKILL.md",
+        "category": "artifacts-builder",
+        "hash": "94879bcb7d90ef517f637f16a6995cfb5e252bd5246bb9629a385bc116a7b03d",
+        "size": 3219
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/web-artifacts-builder/SKILL.md",
+        "category": "web-artifacts-builder",
+        "hash": "9ace26bb693834884592a194f9d483111dc8034e390268282533dc9bd02d2ddd",
+        "size": 3336
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/chatgpt-apps/LICENSE.txt",
+        "category": "chatgpt-apps",
+        "hash": "a7f55b2cb68997f729e6199720d4d3cae47633aba0254a84b2d36ab284be9d45",
+        "size": 10774
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/frontend-design/LICENSE.txt",
+        "category": "frontend-design",
+        "hash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "size": 10174
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/create-specification/SKILL.md",
+        "category": "create-specification",
+        "hash": "6074b62e9fb69690475473d77ed0edd31393cb5a751e087637a406bf2ce180e8",
+        "size": 5816
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/update-specification/SKILL.md",
+        "category": "update-specification",
+        "hash": "64a83789899029f9ac69cd3e9ba5cedd807c851cdf0e555690ac309f981b13a2",
+        "size": 5679
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/frontend-design/LICENSE.txt",
+        "category": "frontend-design",
+        "hash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "size": 10174
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-address-comments/LICENSE.txt",
+        "category": "gh-address-comments",
+        "hash": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+        "size": 11357
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/frontend-design/LICENSE.txt",
+        "category": "frontend-design",
+        "hash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "size": 10174
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gh-fix-ci/LICENSE.txt",
+        "category": "gh-fix-ci",
+        "hash": "4dd13869245e356246a5b770723247bbb80a8f07a181d1d3d873a1734297cdb9",
+        "size": 10776
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/frontend-design/LICENSE.txt",
+        "category": "frontend-design",
+        "hash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "size": 10174
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/skill-installer/LICENSE.txt",
+        "category": "skill-installer",
+        "hash": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "size": 11358
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 96,
+      "skill1": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/frontend-design/LICENSE.txt",
+        "category": "frontend-design",
+        "hash": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "size": 10174
+      },
+      "skill2": {
+        "name": "LICENSE",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/web-artifacts-builder/LICENSE.txt",
+        "category": "web-artifacts-builder",
+        "hash": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+        "size": 11345
+      },
+      "suggestedAction": "Review and potentially merge skills (96% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 95,
+      "skill1": {
+        "name": "image-enhancer-SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/claude-skills/image-enhancer-SKILL.md",
+        "category": "claude-skills",
+        "hash": "863ae5a21055ebc5c54846c918049fd369c5c65f7f821f7c1ba0ae10f8b7e78e",
+        "size": 2846
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/image-enhancer/SKILL.md",
+        "category": "image-enhancer",
+        "hash": "878657bcbef840ca16012f0276b79f7193709bcdc65ee96d32810f029eed2d80",
+        "size": 2870
+      },
+      "suggestedAction": "Review and potentially merge skills (95% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 95,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-gravity-forms-configuration/SKILL.md",
+        "category": "tour-operator-gravity-forms-configuration",
+        "hash": "045f98f5cb6b05291debee21227a193b874a835ab59db7db6ac8895bd9155c35",
+        "size": 34228
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/woocommerce-gravity-forms-configuration/SKILL.md",
+        "category": "woocommerce-gravity-forms-configuration",
+        "hash": "dca2bf8bbd42cf0c8671ed44e591db7a707485fa3fad0b878e29b260d18cca1a",
+        "size": 34172
+      },
+      "suggestedAction": "Review and potentially merge skills (95% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 93,
+      "skill1": {
+        "name": "render_docx",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/documents/render_docx.py",
+        "category": "documents",
+        "hash": "e7ab589242ca7beb4eb8c16448673c0cee639e2675ab0e18c5a6d2fc9dbe01c4",
+        "size": 15502
+      },
+      "skill2": {
+        "name": "render_docx",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/docx/render_docx.py",
+        "category": "docx",
+        "hash": "22f238fc53e88ae8ce3ad6f05504739c9764d8fbb462e353cc76a2731a4e71ad",
+        "size": 13428
+      },
+      "suggestedAction": "Review and potentially merge skills (93% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 92,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/gravity-forms-auditor/SKILL.md",
+        "category": "gravity-forms-auditor",
+        "hash": "ac9ad228421bc9d98b19327bc427576da480addf7cc655c924808c67e780618c",
+        "size": 14184
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-gravity-forms-auditor/SKILL.md",
+        "category": "tour-operator-gravity-forms-auditor",
+        "hash": "cb756dc4e9926c2f4e41973b60a827712124466e1704d803b5f508be317b2e30",
+        "size": 15436
+      },
+      "suggestedAction": "Review and potentially merge skills (92% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 92,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/self-evolving-agent/SKILL.md",
+        "category": "self-evolving-agent",
+        "hash": "01ff8ce33196a9d2bbcb4eebbf0c97ed50b641c6c223f18068a0d86d10d97e79",
+        "size": 13399
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/self-evolving-agent-skill/SKILL.md",
+        "category": "self-evolving-agent-skill",
+        "hash": "bfa3c6ece27ab139b83d88ca0b26e6a016033c9e3f5ed7b773d7195ef9be375a",
+        "size": 10019
+      },
+      "suggestedAction": "Review and potentially merge skills (92% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 90,
+      "skill1": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/chat-closure-agent/skills/.DS_Store",
+        "category": "agent:chat-closure-agent",
+        "hash": "09cdf281121ddad4a2eccc3e1138782417aba5f0ade36d29720d624862eb99d2",
+        "size": 6148
+      },
+      "skill2": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-readiness-agent-knowledge-upload/.DS_Store",
+        "category": "ai-readiness-agent-knowledge-upload",
+        "hash": "ba15ebd1be3fb0bdb74395a9f609e86e3490712896df9ab48f7061fa748913ff",
+        "size": 6148
+      },
+      "suggestedAction": "Review and potentially merge skills (90% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 90,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-yoast-auditor/SKILL.md",
+        "category": "tour-operator-yoast-auditor",
+        "hash": "0124e5d126570c94c45b56765b84678e9c1eba9198a6d92e561e87e64b8131c8",
+        "size": 16876
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/yoast-auditor/SKILL.md",
+        "category": "yoast-auditor",
+        "hash": "b2aebfde9e7ff58c633ba3b45eac8f0a6421e5f937e0812c8661502c95820e54",
+        "size": 16500
+      },
+      "suggestedAction": "Review and potentially merge skills (90% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 88,
+      "skill1": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/ai-readiness-agent/skills/.DS_Store",
+        "category": "agent:ai-readiness-agent",
+        "hash": "42e44ae6241b94ca3cde30f81c0fff6c84263bdc64a2ab41b49c319ab8c23bc5",
+        "size": 6148
+      },
+      "skill2": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/accessibility-auditor/.DS_Store",
+        "category": "accessibility-auditor",
+        "hash": "04cdf270d14a9ab576eda4e4d6f3eac5b60f701356af5ded184dc44530fa8349",
+        "size": 6148
+      },
+      "suggestedAction": "Review and potentially merge skills (88% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 88,
+      "skill1": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/agents/ai-readiness-agent/skills/.DS_Store",
+        "category": "agent:ai-readiness-agent",
+        "hash": "42e44ae6241b94ca3cde30f81c0fff6c84263bdc64a2ab41b49c319ab8c23bc5",
+        "size": 6148
+      },
+      "skill2": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear/.DS_Store",
+        "category": "linear",
+        "hash": "67d228ab5b2668cd0ecaaf657a71bfebacfdfcbef297138943f69f455fde6aaf",
+        "size": 6148
+      },
+      "suggestedAction": "Review and potentially merge skills (88% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 88,
+      "skill1": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/accessibility-auditor/.DS_Store",
+        "category": "accessibility-auditor",
+        "hash": "04cdf270d14a9ab576eda4e4d6f3eac5b60f701356af5ded184dc44530fa8349",
+        "size": 6148
+      },
+      "skill2": {
+        "name": ".DS_Store",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/linear/.DS_Store",
+        "category": "linear",
+        "hash": "67d228ab5b2668cd0ecaaf657a71bfebacfdfcbef297138943f69f455fde6aaf",
+        "size": 6148
+      },
+      "suggestedAction": "Review and potentially merge skills (88% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 88,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/woocommerce-yoast-auditor/SKILL.md",
+        "category": "woocommerce-yoast-auditor",
+        "hash": "5686461e90632180c08ff45c51a7659e66579824d94aeaa9ece2a9497114f820",
+        "size": 19097
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/yoast-auditor/SKILL.md",
+        "category": "yoast-auditor",
+        "hash": "b2aebfde9e7ff58c633ba3b45eac8f0a6421e5f937e0812c8661502c95820e54",
+        "size": 16500
+      },
+      "suggestedAction": "Review and potentially merge skills (88% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 86,
+      "skill1": {
+        "name": "get-enterprise-metrics",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/copilot-usage-metrics/get-enterprise-metrics.sh",
+        "category": "copilot-usage-metrics",
+        "hash": "7e3a6eb96330b76b60bc397c75335a2481e0456a09f85c41e4df42b23e9bbac8",
+        "size": 678
+      },
+      "skill2": {
+        "name": "get-enterprise-user-metrics",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/copilot-usage-metrics/get-enterprise-user-metrics.sh",
+        "category": "copilot-usage-metrics",
+        "hash": "ee0d40cc9cb88d4f0fe2d4d23889bdeb57e49352de2eab56ce3dc1daad60f61b",
+        "size": 698
+      },
+      "suggestedAction": "Review and potentially merge skills (86% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 86,
+      "skill1": {
+        "name": "get-org-metrics",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/copilot-usage-metrics/get-org-metrics.sh",
+        "category": "copilot-usage-metrics",
+        "hash": "0451eb2c0ee72eccb95753f87b3c24118bc040f4196fe73883d1cdbadc1a81b4",
+        "size": 607
+      },
+      "skill2": {
+        "name": "get-org-user-metrics",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/copilot-usage-metrics/get-org-user-metrics.sh",
+        "category": "copilot-usage-metrics",
+        "hash": "c494e54ac3fe012201e7cf87e9c4f6f19f39d2b51693548bb15db29f96053d84",
+        "size": 627
+      },
+      "suggestedAction": "Review and potentially merge skills (86% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 86,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/create-implementation-plan/SKILL.md",
+        "category": "create-implementation-plan",
+        "hash": "e142b8840bbd569e2ed2addf3716062b66ab511674fb23d7b620979867493f3b",
+        "size": 8498
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/update-implementation-plan/SKILL.md",
+        "category": "update-implementation-plan",
+        "hash": "ba5ce921467236015897f557c0c8e3e9bc74a2461e8cc9cdffbcbbb24a01995a",
+        "size": 6514
+      },
+      "suggestedAction": "Review and potentially merge skills (86% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 86,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-yoast-configuration/SKILL.md",
+        "category": "tour-operator-yoast-configuration",
+        "hash": "98293e17e48434e54b09c93341af01032b5a0b2cd2638cbbc94fc42efc3b4020",
+        "size": 26760
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/woocommerce-yoast-configuration/SKILL.md",
+        "category": "woocommerce-yoast-configuration",
+        "hash": "2e377f73211b761f070e93d2049fd21673231987f3cd3ee6a4561a6e33298281",
+        "size": 31814
+      },
+      "suggestedAction": "Review and potentially merge skills (86% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 86,
+      "skill1": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/tour-operator-yoast-configuration/SKILL.md",
+        "category": "tour-operator-yoast-configuration",
+        "hash": "98293e17e48434e54b09c93341af01032b5a0b2cd2638cbbc94fc42efc3b4020",
+        "size": 26760
+      },
+      "skill2": {
+        "name": "SKILL",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/yoast-configuration/SKILL.md",
+        "category": "yoast-configuration",
+        "hash": "d84814d821045668a3d30422f828cb9ee9bba7ec839fb9dc8607029f33f826de",
+        "size": 30812
+      },
+      "suggestedAction": "Review and potentially merge skills (86% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    },
+    {
+      "type": "near-duplicate",
+      "priority": 2,
+      "similarity": 85,
+      "skill1": {
+        "name": "AI Chatbot Discovery Questionnaire - Expanded",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-governance-toolkit-expanded/AI Chatbot Discovery Questionnaire - Expanded.md",
+        "category": "ai-governance-toolkit-expanded",
+        "hash": "ad98ae7ceb3ca14b874d85400aa9b4ffe216c448860488afff2c28a4f59f1fb5",
+        "size": 4810
+      },
+      "skill2": {
+        "name": "AI Governance Discovery Questionnaire - Expanded",
+        "path": "/Users/ash/Studio/LightSpeedWP.Agency/.github/skills/ai-governance-toolkit-expanded/AI Governance Discovery Questionnaire - Expanded.md",
+        "category": "ai-governance-toolkit-expanded",
+        "hash": "59d77c5373ba8b66f913dc0269a09833b79eab0de6bec7590cda30316a0fafb6",
+        "size": 4830
+      },
+      "suggestedAction": "Review and potentially merge skills (85% similar)",
+      "effort": "medium",
+      "review": "requires-manual-review"
+    }
+  ],
+  "strategy": {
+    "phase1": {
+      "focus": "Exact duplicates (100% match)",
+      "approach": "Consolidate to single source",
+      "effort": "low",
+      "count": 5
+    },
+    "phase2": {
+      "focus": "Near-duplicates (85%+ match)",
+      "approach": "Manual review and merge",
+      "effort": "medium",
+      "count": 46,
+      "requirement": "requires-manual-review"
+    }
+  },
+  "nextSteps": [
+    "Review exact duplicates and consolidate to single sources",
+    "Manually review near-duplicate pairs for consolidation candidates",
+    "Update agents to use consolidated skills",
+    "Remove redundant skill definitions",
+    "Update skill imports and references"
+  ]
+}
