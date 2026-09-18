@@ -123,3 +123,5 @@ Recipe Library Page
 ## Context Template
 
 - **Feature PRD:** [The content of the Feature PRD markdown file]
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

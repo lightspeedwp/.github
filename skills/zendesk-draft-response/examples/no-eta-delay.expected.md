@@ -12,3 +12,6 @@ I do not want to give you an ETA before it has been confirmed, as that would ris
 
 - Confirmed: reproducible and escalated.
 - Not confirmed: root cause, fix, release date, ETA.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

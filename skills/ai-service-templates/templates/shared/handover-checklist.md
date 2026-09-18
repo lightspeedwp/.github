@@ -44,3 +44,5 @@ status: draft
 - Handover accepted by: {{handover.accepted_by}}
 - Date: {{handover.date}}
 - Notes: {{handover.notes}}
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

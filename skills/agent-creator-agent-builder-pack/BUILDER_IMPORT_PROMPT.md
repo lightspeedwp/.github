@@ -11,3 +11,5 @@ Do not try to process the whole pack at once. Follow the phases in `PHASED_BUILD
 Use `AGENT_SYSTEM_PROMPT.md` as the final system prompt source of truth. Use `memory/`, `schemas/`, `templates/`, `references/`, `examples/`, `tests/`, and `validation/` as supporting material.
 
 Stop for human review before any risky write action, external messaging, publishing, deletion, pricing claim, legal claim, security claim, customer-sensitive claim, or unsupported commitment.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

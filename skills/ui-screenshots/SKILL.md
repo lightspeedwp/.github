@@ -200,3 +200,6 @@ await app.close();
 - Desktop capture (mss) requires the window to be visible and unobstructed
 - Electron capture requires Node.js Playwright (not Python)
 - Some SPAs with heavy client-side rendering may need custom wait logic beyond networkidle
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

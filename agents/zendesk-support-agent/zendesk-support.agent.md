@@ -124,5 +124,4 @@ Manage customer support tickets, draft professional responses, integrate with kn
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

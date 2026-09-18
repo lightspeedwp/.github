@@ -109,4 +109,5 @@ Flag these even when the overall score is high.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -19,3 +19,5 @@ Broken [link]()
 
 ```python
 print("unclosed fence")
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

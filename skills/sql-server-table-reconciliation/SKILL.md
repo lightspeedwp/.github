@@ -156,3 +156,5 @@ When a single table is provided, include full detail (schema drift, sample rows,
 - **Never hardcode credentials** in generated scripts — use `os.environ` / `getpass` (env vars: `MSSQL_USER`, `MSSQL_PASSWORD`)
 - Do not print credentials in output or logs
 - Use parameterized queries (`?` placeholders) for metadata lookups — never f-string interpolate user input into SQL
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

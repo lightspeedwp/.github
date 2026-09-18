@@ -96,3 +96,6 @@ Require human review before treating any of the following as final:
 ## Team usage
 
 Use `references/team-usage.md` for quick installation notes, starter prompts, and expected outputs.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

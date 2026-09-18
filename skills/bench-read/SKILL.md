@@ -82,3 +82,5 @@ When one desk needs another desk's output:
   means you assess independently.
 - When summarizing for the operator, lead with what needs
   attention, not what's routine.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

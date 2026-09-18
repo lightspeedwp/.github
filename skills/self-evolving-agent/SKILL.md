@@ -214,3 +214,5 @@ python scripts/check_skill_quality.py --skill-dir . --strict
 - `references/quality-gates.md`: pre-package quality gates, validation checks, and report format.
 - `references/safety-and-governance.md`: approval gates, sandbox rules, and memory boundaries.
 - `references/output-templates.md`: reusable templates for briefs, mutation proposals, and changelog entries.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

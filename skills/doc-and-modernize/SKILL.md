@@ -856,3 +856,6 @@ plan to edit and adopt. Never overwrite an existing
   codemods, runtime/base-image lockstep, route-class enumeration, data-store
   upgrade paths, transitional-insecure-state noise, stacked-PR/trunk drift,
   living-doc drift) are what strategic scaffolding alone keeps missing.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

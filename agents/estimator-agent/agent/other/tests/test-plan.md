@@ -122,4 +122,5 @@ A run passes when the agent:
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

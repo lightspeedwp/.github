@@ -63,3 +63,5 @@ Dependabot can automate many updates, but this skill still helps when:
 - Dependabot is not enabled for workflows in a repository.
 - Runtime warnings appear before an automated update is available.
 - A workflow needs behavior-preserving validation after the action bump.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

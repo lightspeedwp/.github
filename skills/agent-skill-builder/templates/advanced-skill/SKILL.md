@@ -14,3 +14,6 @@ Use this structure for mature local agent skills.
 3. Use templates and schemas together.
 4. Maintain memory only for durable context.
 5. Run validation before handoff.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

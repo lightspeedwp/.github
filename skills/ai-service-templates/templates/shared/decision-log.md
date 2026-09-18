@@ -35,3 +35,5 @@ status: draft
 - Last reviewed by: {{review.reviewed_by}}
 - Review date: {{review.date}}
 - Notes: {{review.notes}}
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

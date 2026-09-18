@@ -224,7 +224,6 @@ When the user asks to install, configure, share, or audit this skill for a works
 - Keep connector guidance logical and role-based; never add user-specific connector IDs, file IDs, private mailbox details, credentials, or ticket-specific evidence to the skill package.
 - Recommend testing Zendesk, pasted-context, Gmail, Slack-context, and missing-evidence scenarios before the team relies on the shared agent.
 
-
 ## Shared Agent Regression Testing
 
 When the user asks to test, validate, smoke test, regression check, or build confidence in a shared-agent installation:
@@ -240,7 +239,6 @@ Run the package check from the skill root:
 ```bash
 python scripts/run_skill_checks.py .
 ```
-
 
 ## Evidence and Data Redaction
 
@@ -319,3 +317,6 @@ Allowed specialist follow-ons from this skill:
 - another `zendesk-draft-response` pass: when the user wants a different tone, stakeholder level, length, channel, or locale.
 
 Return to `zendesk-router-skill` instead of selecting a specialist when the user asks for workflow routing, triage, owner/priority/status guidance, duplicate or incident review, backlog reporting, knowledge-worthiness decisions, or any multi-step support plan outside reply drafting. Also return to the router when two or more adjacent handoffs seem plausible.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -83,4 +83,5 @@ Ask only for the smallest missing blocker instead of reopening the full question
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

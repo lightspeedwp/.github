@@ -167,3 +167,5 @@ assume someone is neurodivergent, and keep every affordance optional. See
   body-doubling), and the "make it optional, don't medicalize" stance.
 - `references/customize.md` — theming, the file-backed-state upgrade (agent can read/write
   progress), and the optional "shared signals" bridge for people who run a multi-agent workshop.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

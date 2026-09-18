@@ -99,3 +99,6 @@ If multiple routes seem possible, choose the smallest next step that resolves th
 - Separate **documented guidance** from **interpretation** and **recommended support wording**.
 - Preserve uncertainty. When documentation is incomplete, say so plainly.
 - Avoid relying on personal memory, one teammate's workspace context, or customer-specific details saved from another conversation.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -90,3 +90,6 @@ If the environment exposes too many tools, deselect irrelevant tools or MCP serv
 - Preserve unknown work and ask before destructive or privileged actions.
 - Keep bugs and important decisions in durable project systems, not only chat.
 - See [anti-patterns](./references/anti-patterns.md) for concise lessons.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -67,3 +67,5 @@ description: structure rough project briefs, figma links, github repos, live or 
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

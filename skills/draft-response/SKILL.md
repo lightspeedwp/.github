@@ -131,3 +131,5 @@ Before returning the draft, check:
 - The draft is reviewable and ready for a human to edit before sending.
 
 For stricter templates and examples, consult `references/output-templates.md` when needed.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -64,4 +64,5 @@ Use this module as part of the broader client questionnaire when the client is e
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

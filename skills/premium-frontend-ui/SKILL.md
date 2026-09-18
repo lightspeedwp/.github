@@ -124,3 +124,6 @@ Whenever you receive a prompt to "Build a premium landing page," "Create an Awww
 3. Integrate sweeping, staggered component entrances.
 4. Elevate the typography using fluid scales.
 5. Create an intentional, memorable aesthetic footprint.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

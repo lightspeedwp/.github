@@ -23,4 +23,4 @@ description: draft practical policy and trust-page content for lightspeed wordpr
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

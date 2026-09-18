@@ -82,4 +82,5 @@ Define what pushes a website estimate into Custom Website Solution or other cust
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

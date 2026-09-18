@@ -139,3 +139,5 @@ Conventional Branch complements [Conventional Commits](https://www.conventionalc
 | `release/v1.2.0` | `chore: release v1.2.0` |
 
 Align the branch type with commit types where possible (e.g., `feature/*` branches with `feat:` commits).
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

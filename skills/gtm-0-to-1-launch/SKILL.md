@@ -335,3 +335,5 @@ Customer problem first → Narrow pilot → Reference customers together → Lev
 ---
 
 *Based on launching features that optimized for press and got 12 signups from 50K impressions, diagnosing launch stalls across three companies using the three-layer model, and building the 2-week experiment cycle that turned ad hoc testing into a repeatable machine. Also draws on partner-led market entry across multiple geographies and segments. Not theory — lessons from mistaking vanity metrics for growth and learning to diagnose the actual problem.*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

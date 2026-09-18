@@ -98,3 +98,5 @@ Before finishing:
 - Read `references/output-templates.md` before producing an audit, recommendation, or pre-write summary.
 - Read `references/qa-rubric.md` when testing or revising this skill.
 - Run `scripts/validate_labels.py --help` for deterministic label-set validation.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

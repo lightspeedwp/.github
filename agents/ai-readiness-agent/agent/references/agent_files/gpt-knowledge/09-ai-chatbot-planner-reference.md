@@ -181,4 +181,4 @@ A no-go is required when source content is weak, boundaries are missing or escal
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

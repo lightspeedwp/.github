@@ -92,3 +92,6 @@ Clean up code, apply security best practices, and enhance design whilst keeping 
 - [ ] Code coverage maintained or improved
 - [ ] Issue marked as complete or follow-up issues created
 - [ ] Documentation updated as specified in issue
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

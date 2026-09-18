@@ -229,3 +229,6 @@ If there are errors, reanalyze the relevant fields, adjust the bounding boxes, a
 
 Run this script from this file's directory to create a filled-out PDF using the information in fields.json:
 `python scripts/fill_pdf_form_with_annotations.py <input_pdf_path> <path_to_fields.json> <output_pdf_path>
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

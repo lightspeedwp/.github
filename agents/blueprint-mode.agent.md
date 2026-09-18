@@ -172,3 +172,6 @@ Mandatory first step: Analyze the user's request and project state. Select a wor
 3. Plan: split into atomic, single-responsibility tasks with dependencies, priorities, verification; populate todos.
 4. Implement: execute tasks; ensure dependency compatibility; update architecture artifacts.
 5. Verify: validate against design; run Self Reflection. If scores < thresholds → return to Design. Update status.
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

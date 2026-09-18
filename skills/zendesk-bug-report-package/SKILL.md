@@ -99,3 +99,5 @@ Keep this skill portable across shared support desk agents:
 ## Tone and safety
 
 Write as an internal support-to-engineering handoff: direct, factual, compact, and useful. Avoid blame, speculation, customer-visible promises, or confident engineering conclusions. Link or refer back to Zendesk for sensitive raw evidence instead of copying unnecessary personal data, credentials, logs, billing details, or security-sensitive content into the package.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

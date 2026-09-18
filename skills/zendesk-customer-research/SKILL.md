@@ -234,3 +234,6 @@ Before returning the brief, check that:
 - Citation ledger schema: `references/citation-ledger-schema.md`
 - Routing boundaries: `references/routing-boundaries.md`
 - Anonymised workflow examples: `references/examples.md`
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -110,3 +110,5 @@ Flag any missing Figma evidence as an open question.
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -326,8 +326,8 @@ User says: "Create design system rules for my React project"
 - DO NOT install new icon libraries
 ```
 
-4. Save to the appropriate rule file for the user's agent
-5. Test with a simple button implementation
+1. Save to the appropriate rule file for the user's agent
+2. Test with a simple button implementation
 
 **Result:** The agent now consistently follows the project's conventions when implementing Figma designs.
 
@@ -372,8 +372,8 @@ User says: "Set up Figma rules for my Vue app"
 - Scoped styles with CSS modules
 ```
 
-4. Save to the appropriate rule file for the user's agent
-5. Validate with a card component
+1. Save to the appropriate rule file for the user's agent
+2. Validate with a card component
 
 **Result:** The agent now correctly translates Figma designs to Vue components using the project's design token system.
 
@@ -426,8 +426,8 @@ User says: "Generate rules for our design system library"
 6. Update documentation
 ```
 
-4. Save to the appropriate rule file and share with team
-5. Add to team documentation
+1. Save to the appropriate rule file and share with team
+2. Add to team documentation
 
 **Result:** Entire team follows consistent patterns when adding components from Figma to the design system.
 
@@ -535,3 +535,5 @@ The time invested in creating good rules pays off exponentially across every Fig
 
 - [Figma MCP Server Documentation](https://developers.figma.com/docs/figma-mcp-server/)
 - [Figma Variables and Design Tokens](https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

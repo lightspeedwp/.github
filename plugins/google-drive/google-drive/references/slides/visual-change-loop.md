@@ -126,4 +126,5 @@ Use this recipe whenever a Slides write can change anything the user will see, e
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

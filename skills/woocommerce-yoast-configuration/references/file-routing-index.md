@@ -1,5 +1,35 @@
 # File routing index
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
 Use this index when maintaining the Yoast configuration skill or when a task could load several supporting files. The goal is to keep `SKILL.md` small while making file selection predictable.
 
 ## Routing principles
@@ -58,7 +88,6 @@ When a request matches multiple routes:
 - Keep file paths exact so `scripts/validate_skill_structure.py` can check references reliably.
 - Do not duplicate deep reference content here; this file is a routing map only.
 
-
 ## Comparison and regression routing notes
 
 - For settings-only comparisons, load `references/settings-export-review-playbook.md` and mark live-output checks as required.
@@ -66,7 +95,6 @@ When a request matches multiple routes:
 - For plugin-update checks, load `references/plugin-update-regression-playbook.md` before writing a release recommendation.
 - For acceptance gates, use `templates/yoast-acceptance-criteria.md` and keep each criterion evidence-led and pass/fail.
 - If a risky regression is accepted, route to `references/decision-register-model.md` and `templates/yoast-decision-log.md`.
-
 
 ## Access-aware remediation backlog
 
@@ -117,7 +145,6 @@ Do not treat AI-generated metadata as approved source evidence. Keep proposed co
 
 Use this route when the risk comes from scale, approval state, claim support or implementation method. Do not approve or implement bulk metadata rows solely from a spreadsheet, pasted table, AI draft or settings export.
 
-
 ## Content structure and taxonomy decisions
 
 | User request | Primary files | Supporting files | Output template | Validation |
@@ -159,3 +186,5 @@ Use this route when the risk depends on old URL decisions, redirect implementati
 Stay in `woocommerce-yoast-configuration` when the user only needs planning, evidence interpretation, exported-settings review, rendered-output QA, source-register updates, decision packs, remediation backlogs, or client-safe summaries.
 
 Validation coverage: `tests/related-skills-routing-scenario-tests.md` exercises live admin routing, mixed planning/live implementation, settings-export reviews, approved noindex edits, and current UI-path verification.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

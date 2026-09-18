@@ -70,3 +70,6 @@ For a normal run, provide:
 4. A short assumptions/open questions note if source material was incomplete.
 
 Keep the final answer practical and ready for LightSpeed project planning workflows.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

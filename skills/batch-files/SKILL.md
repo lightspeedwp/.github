@@ -552,3 +552,6 @@ The `assets/` folder contains starter batch file template data, but as text file
 | `executable.txt` | Standalone CLI tool with argument parsing |
 | `library.txt` | Reusable function library with CALL-able labels |
 | `task.txt` | Scheduled task / automation script |
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

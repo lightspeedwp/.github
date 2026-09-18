@@ -412,3 +412,5 @@ Document how the project structure is maintained and enforced:
 
 Include a section at the end about maintaining this blueprint and when it was last updated.
 "
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

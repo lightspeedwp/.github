@@ -50,3 +50,5 @@ status: draft
 - Must-have outcomes:
 - Nice-to-have outcomes:
 - Launch blockers:
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

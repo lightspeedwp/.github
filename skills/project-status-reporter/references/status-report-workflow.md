@@ -119,3 +119,5 @@ If progress evidence is missing, mark the workstream as `Status unknown` or `Nee
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

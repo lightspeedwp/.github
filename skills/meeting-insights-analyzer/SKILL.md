@@ -331,3 +331,5 @@ today."
 - Coaching direct reports on their communication
 - Analyzing customer calls for sales or support patterns
 - Studying negotiation tactics and outcomes
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

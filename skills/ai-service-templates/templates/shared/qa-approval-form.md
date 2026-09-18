@@ -50,3 +50,5 @@ status: draft
 - Approved by: {{qa.approved_by}}
 - Approval date: {{qa.approval_date}}
 - Notes: {{qa.notes}}
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

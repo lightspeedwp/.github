@@ -279,3 +279,6 @@ follows:
   - when the case would benefit from broader customer or account context before the next reply
 - targeted follow-up investigation
   - when one blocked branch needs a narrower second pass rather than a full restart
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

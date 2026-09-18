@@ -392,3 +392,5 @@ Use your file reading tool to read these docs when needed. Do not assume their c
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

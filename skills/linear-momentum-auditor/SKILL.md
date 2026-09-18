@@ -48,15 +48,18 @@ Look for:
 Default output:
 
 ### Momentum Risks
+
 - blocked work
 - stale work
 - weak ownership
 - resolved blockers not reflected downstream
 
 ### Highest-Value Next Moves
+
 - smallest actions that would unblock progress
 
 ### Notes
+
 - assumptions or evidence gaps
 
 ## Quality Bar
@@ -78,3 +81,6 @@ A good result:
 **Expected output shape**
 
 A concise momentum review with blocked or stale issues, the most important momentum risks, and the next actions most likely to unblock progress.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -323,3 +323,5 @@ This skill:
 - Focuses on actionable improvements, not vague feedback
 - Provides specific time estimates based on complexity
 - Prioritizes areas that will have the most impact on your development velocity
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -33,3 +33,6 @@ Make sure you're being holistic in your questions. Don't focus too much on just 
 - Link to authoritative sources (docs, announcements, emails)
 - Keep tone professional but approachable
 - Flag if a question requires executive input or official response
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

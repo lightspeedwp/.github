@@ -40,3 +40,6 @@ gh attach download "$URL" -O "$FILE"
 - Private repo: URL renders only for authorized viewers. An anonymous fetch is expected to return 404 or 403.
 - Sizing: embed `<img width="800" src="$URL">` instead of the bare URL.
 - GitHub Cloud and GHES decide which file extensions and content types they accept.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

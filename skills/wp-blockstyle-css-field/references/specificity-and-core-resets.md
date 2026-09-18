@@ -112,3 +112,5 @@ Hover/colour for nav links must live in **enqueued CSS at `≥ (0,4,0)`**, not i
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

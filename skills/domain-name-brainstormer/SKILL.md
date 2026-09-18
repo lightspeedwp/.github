@@ -215,3 +215,5 @@ After picking a domain:
 - Verify social media handles
 - Research trademark availability
 - Plan brand identity colors/fonts
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

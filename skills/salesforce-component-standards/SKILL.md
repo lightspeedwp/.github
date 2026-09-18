@@ -182,3 +182,6 @@ Standard controllers enforce FLS for bound fields automatically. **Custom contro
 | No `with sharing` on custom controller | VF / Apex | Data exposure | Add `with sharing` declaration |
 | FLS not checked in custom controller | VF / Apex | Privilege escalation | Add `Schema.sObjectType` checks |
 | SOQL concatenated with URL param | VF / Apex | SOQL injection | Use bind variables |
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -87,3 +87,5 @@ Do not claim that a figure looks clean, sits well on the page, is cropped correc
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

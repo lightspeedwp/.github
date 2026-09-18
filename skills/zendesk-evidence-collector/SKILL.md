@@ -333,3 +333,5 @@ Investigation mode:
 - "Reconstruct the timeline before we escalate."
 - "Check whether this is already a known issue or a new failure pattern."
 - "Look up the current status and owner from the case evidence."
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

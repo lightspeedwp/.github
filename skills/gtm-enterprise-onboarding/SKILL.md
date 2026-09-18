@@ -496,3 +496,6 @@ Are active users growing Week 6 → Week 12?
 ---
 
 *Based on enterprise onboarding across multiple platform companies — designing partner onboarding directly and collaborating closely with CS on customer onboarding. Not theory — lessons from seeing Week 4 ghosting happen repeatedly and learning that go-live ≠ success, and understanding the adoption cliff that kills 30% of deals in first year.*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

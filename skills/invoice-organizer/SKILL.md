@@ -468,3 +468,6 @@ For unusual receipt formats:
 - Archiving old financial records
 - Preparing for audits
 - Tracking subscription costs over time
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

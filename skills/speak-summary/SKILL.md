@@ -136,3 +136,5 @@ about a second.
 **`pocket-tts` not found after install.** The virtualenv may be stale, or your
 `python3` may be outside the supported 3.10–3.14 range. Delete
 `~/.cache/speak-summary/venv` and re-run, or point `SPEAK_TTS_BIN` at a known binary.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

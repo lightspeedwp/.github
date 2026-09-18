@@ -234,7 +234,6 @@ The report must be safe to reuse across support agents.
 - Omit empty sections.
 - Keep Markdown clean and copy-paste-ready.
 
-
 ## Bundled examples and smoke prompts
 
 Use `examples/prompt-cookbook.md`, `examples/smoke-test-results-template.md`, and `evaluations/report-scenarios.json` when testing the skill in a shared agent or demonstrating expected prompt patterns. Use the good-output examples to calibrate structure and the anti-pattern examples to avoid unsupported claims, product drift, or personal-view assumptions. Do not load examples or evaluation scenarios during normal reporting unless the current task is QA, training, rollout, or skill maintenance.
@@ -254,3 +253,6 @@ Use optional scripts only for local QA of the packaged skill assets. They are no
 - `scripts/run_all_checks.py`: run fixture validation, scenario validation, portability linting, and structure checks for the bundled good-output examples.
 - `scripts/validate_capability_profile.py`: validate portable shared-agent Zendesk capability profiles.
 - `profiles/workspace-capability-profile.template.json`: portable starter profile for shared-agent Zendesk capability documentation. Copy it per shared agent and validate the completed profile with `scripts/validate_capability_profile.py`.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

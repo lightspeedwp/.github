@@ -109,3 +109,6 @@ A strong result should let the agent or user answer all of these clearly:
 ## Supporting Files
 
 - `references/evidence-record-template.md` — use this as the default output structure for evidence-normalisation and intake-style outputs.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

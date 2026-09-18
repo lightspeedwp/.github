@@ -70,4 +70,4 @@ Use this skill for comment workflows in the unified Google Drive plugin. Drive c
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

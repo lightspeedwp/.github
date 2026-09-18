@@ -120,3 +120,5 @@ Use supplied screenshots, prototype pages and manual notes. Mark Figma extractio
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

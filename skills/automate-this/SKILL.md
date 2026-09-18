@@ -249,3 +249,6 @@ rm -rf "$WORK_DIR"
 ```
 
 Tell the user you're cleaning up temporary files so they know nothing is left behind.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

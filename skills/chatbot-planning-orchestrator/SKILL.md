@@ -138,3 +138,6 @@ Keep the output lean, commercial, and judgement-led.
 - `references/content-collection-and-drafting-rules.md` — use to decide between collection-first and governed AI drafting.
 - `references/estimate-position-rules.md` — use to determine ready, provisional, or discovery-first estimate positioning.
 - `references/wordpress-ai-engine-notes.md` — use only when platform-specific WordPress or AI Engine notes are relevant after planning gates are passed.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

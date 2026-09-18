@@ -156,3 +156,5 @@ The bundled scripts enforce the hard correctness invariants (trigger landing via
   post a reply and resolve in one call.
 - [scripts/10-cleanup-outdated.ps1](scripts/10-cleanup-outdated.ps1) —
   safety net for outdated Copilot threads.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

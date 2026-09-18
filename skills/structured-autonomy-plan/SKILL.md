@@ -80,3 +80,6 @@ Use official documentation and reputable sources. If uncertain about patterns, r
 Stop research at 80% confidence you can break down the feature into testable phases.
 
 </research_guide>
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -155,3 +155,5 @@ tags: [Optional: List of relevant tags or categories, e.g., `feature`, `upgrade`
 [Link to related spec 1]
 [Link to relevant external documentation]
 ```
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -234,3 +234,5 @@ Good example:
 Weak example:
 
 - "Improve the pricing page experience."
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

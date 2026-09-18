@@ -194,3 +194,5 @@ Treat these as lower priority unless the brief specifically depends on them:
 ## Recommended Next Step
 
 Run a focused discovery pass to confirm the user goals, approved sources, and escalation rules before producing anything firmer than a provisional estimate.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

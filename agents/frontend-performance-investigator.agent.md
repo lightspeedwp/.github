@@ -141,3 +141,6 @@ When reporting findings, use this structure:
 - “Use DevTools to diagnose our CLS regression on mobile.”
 - “Find the bottleneck causing poor INP after opening the filter drawer.”
 - “Analyze this route and tell me which fixes will move LCP the most.”
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

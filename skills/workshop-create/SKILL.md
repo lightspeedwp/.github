@@ -141,3 +141,5 @@ Tell the operator:
 - The operator decides where things go. Don't assume.
 - If an existing directory already has work in it, preserve everything.
   Only add what's missing.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

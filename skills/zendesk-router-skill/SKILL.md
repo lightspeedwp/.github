@@ -245,3 +245,6 @@ User: "Review this draft before I send it"
 
 **What input would help next:** The draft and the source ticket or evidence it relies on.
 ```
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

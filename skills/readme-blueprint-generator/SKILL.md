@@ -88,3 +88,6 @@ Format the README with proper Markdown, including:
 - Badges for build status, version, etc. if information is available
 
 Keep the README concise yet informative, focusing on what new developers or users would need to know about the project.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

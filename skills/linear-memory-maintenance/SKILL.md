@@ -130,3 +130,6 @@ A good use of this skill leaves Memory:
 - easier to scan on later runs
 - aligned to real Linear workflow continuity
 - explicit about what is confirmed versus still open
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

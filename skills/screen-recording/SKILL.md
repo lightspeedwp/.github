@@ -236,3 +236,6 @@ def find_changed_clusters(frame_a, frame_b, threshold=30, min_pixels=300, dilate
 - GIF is limited to 256 colors per frame — fine for UI screenshots, may show banding on photographic content
 - Large GIFs (50+ frames at high resolution) can be several MB — consider cropping to the relevant area
 - No audio support in GIF — use MP4 for narrated demos (but lose VS Code preview support)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

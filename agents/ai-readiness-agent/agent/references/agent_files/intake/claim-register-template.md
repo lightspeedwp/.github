@@ -58,4 +58,4 @@ High-risk or unsupported claims must not be used in final public-facing output u
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

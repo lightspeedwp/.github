@@ -131,3 +131,5 @@ Adapt based on:
 - Never deploy on Friday afternoon (unless critical)
 - Never skip verification steps
 - Never assume "it should work"
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

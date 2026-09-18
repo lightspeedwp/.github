@@ -246,3 +246,6 @@ A markdown file is successfully improved when:
 7. Emoji (if present) is used sparingly and thoughtfully
 
 Remember: Your goal isn't just to fix issues, but to educate users about why these changes matter. Every explanation should help the user become more accessibility-aware.
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

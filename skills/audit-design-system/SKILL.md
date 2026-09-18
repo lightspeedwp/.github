@@ -101,21 +101,25 @@ Weak evidence includes:
 When a finding is about a missing shared primitive, try to attach one likely replacement suggestion.
 
 Use `search_design_system` after you already know what category of thing is missing, for example:
+
 - custom avatar cluster
 - bespoke stat tile
 - local alert card
 - hand-built navigation item
 
 Only suggest a replacement when:
+
 - the node's role is clear
 - the search result belongs to the relevant library or audited file context
 - the candidate is structurally plausible for the finding
 
 Good suggestion language:
+
 - `This custom avatar frame could likely be replaced with Avatar from library X.`
 - `These repeated stat tiles appear to map to Metric item from library X.`
 
 Do not overstate:
+
 - do not claim the suggested component is definitely correct unless the evidence is explicit
 - do not force a replacement candidate into every finding
 - do not recommend a component from an unrelated library just because search returned it first
@@ -223,13 +227,17 @@ For a board or larger page:
 - "Review this Figma screen for design-system integration"
 - "Audit this board for missing component usage"
 - "Check whether this design uses tokens correctly"
-- "/audit-design-system https://figma.com/design/..."
-- "/audit-design-system --json https://figma.com/design/..." (for JSON output)
+- "/audit-design-system <https://figma.com/design/>..."
+- "/audit-design-system --json <https://figma.com/design/>..." (for JSON output)
 
 ## Handoff Guidance
 
 Use this routing rule after the review:
+
 - one concrete finding with a narrow write scope: use [fix-design-system-finding](../fix-design-system-finding/SKILL.md)
 - several findings that collapse into a broader screen or section reconciliation pass: use [apply-design-system](../apply-design-system/SKILL.md)
 
 Do not force every review result through the single-finding fix skill. Some reviews are better used as scope discovery for a broader apply pass.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

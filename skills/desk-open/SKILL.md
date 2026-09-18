@@ -88,3 +88,6 @@ carries forward), not in *runtime* (each session is independent).
 - One desk, one focus. If the scope is too broad, open two desks.
   Each desk's value comes from its specific frame — dilute the
   frame and you lose the value.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

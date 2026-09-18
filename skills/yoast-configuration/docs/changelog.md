@@ -145,3 +145,6 @@ Validation required before release: source register, reference data, skill struc
 - Added structured taxonomy-decision schema, fixture and validator.
 - Added regression tests for tags, publisher categories, WooCommerce product tags/attributes, screenshot-only evidence, local service taxonomies and migration cleanup.
 - Updated routing, maintenance and package validation references.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

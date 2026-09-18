@@ -116,3 +116,6 @@ Use templates for consistency:
 - Applied-fix log: `templates/fix-log.md`.
 
 For client-facing summaries, stay practical and non-alarmist. For developer handoff, include exact selectors, template names, block names, post IDs, URLs, reproduction notes, and evidence confidence when available.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

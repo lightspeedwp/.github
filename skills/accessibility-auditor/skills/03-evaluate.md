@@ -151,3 +151,5 @@ After evaluating all criteria, state:
 - Unresolved risk window (difference between the two scores)
 
 Then proceed immediately to Skill 04.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

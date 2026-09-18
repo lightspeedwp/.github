@@ -487,3 +487,6 @@ All templates live in `templates/`:
 `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CLAUDE.md`,
 `AGENTS.md`, `VISION.md`, `CHANGELOG.md`, `templates/README.md`,
 `templates/README.zh.md`.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

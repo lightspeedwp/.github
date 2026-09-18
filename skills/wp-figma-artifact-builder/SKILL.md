@@ -222,3 +222,5 @@ Load only the reference needed for the current task:
 - `references/output-templates.md`: templates for packets, `AGENTS.md`, `CLAUDE.md`, Codex prompts, Figma MCP prompts, and WordPress scaffolds.
 - `references/quality-rubric.md`: validation checks for artefacts, WordPress implementation, Figma mapping, and agent prompts.
 - `references/tool-targets.md`: guidance for VS Code, Claude Code, Codex, ChatGPT, and Figma MCP targets.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

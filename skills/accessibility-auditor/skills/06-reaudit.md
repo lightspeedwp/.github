@@ -122,3 +122,5 @@ If `skillVersionsMismatched` is true, add:
 > "Note: skill versions differ from the prior audit. Criteria coverage may have changed — treat this comparison as approximate."
 
 Then proceed immediately to Skill 05.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

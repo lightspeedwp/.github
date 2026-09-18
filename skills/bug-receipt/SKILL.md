@@ -77,3 +77,6 @@ When a JSON artifact is requested, start from [assets/receipt.template.json](ass
 ## Source and license
 
 Originally published at <https://github.com/lMysticl/bug-receipt> under the MIT License.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

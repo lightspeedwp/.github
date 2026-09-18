@@ -98,6 +98,7 @@ Run this mandatory validation loop before finalizing:
 
 - Fix the document.
 - Re-run validation.
+
 1. Repeat until all seven docs pass.
 
 Then present a summary of all seven documents, list every `[ASK USER]` item as a numbered question, and highlight any Intent vs. Reality divergences from Phase 1.
@@ -175,3 +176,6 @@ Template usage mode:
 
 - Default mode: complete only the "Core Sections (Required)" in each template.
 - Extended mode: add optional sections only when the repo complexity justifies them.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

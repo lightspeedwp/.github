@@ -81,3 +81,6 @@ From the six candidates below, keep only those supported by audit evidence from 
 
 - [`references/codespaces.md`](./references/codespaces.md)
 - [`references/review-rubric.md`](./references/review-rubric.md) — load when reviewing completed efficiency work
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

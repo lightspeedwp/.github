@@ -256,3 +256,5 @@ Success looks like:
 - the layout converted into templates, patterns, and block structures
 - responsive and reuse guidance preserved
 - any likely custom-code requirements surfaced early
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

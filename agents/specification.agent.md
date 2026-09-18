@@ -127,3 +127,5 @@ tags: [Optional: List of relevant tags or categories, e.g., `infrastructure`, `p
 [Link to relevant external documentation]
 
 ```
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

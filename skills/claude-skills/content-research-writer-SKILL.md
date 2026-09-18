@@ -557,3 +557,5 @@ Recommended structure for writing projects:
 - Creating presentation content
 - Writing case studies
 - Developing course outlines
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

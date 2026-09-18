@@ -344,12 +344,12 @@ Celebrate: "See? YOU are always in control! 🎮 Copilot never does anything wit
    > | `/compact` | Shrink conversation to save context | 📦 |
    > | `/context` | See context window usage | 📊 |
 
-2. **Three modes** — Press `Shift+Tab` to cycle:
+1. **Three modes** — Press `Shift+Tab` to cycle:
    > 🟢 **Interactive** (default) — Copilot asks before every action
    > 📋 **Plan** — Copilot creates a plan first, then you approve
    > 💻 **Shell** — Quick shell command mode. Type `!` to jump here instantly! ⚡
 
-3. **The `!` shortcut** — Type `!` at the start to jump to shell mode. `!ls`, `!git status`, `!npm test` — lightning fast! ⚡
+2. **The `!` shortcut** — Type `!` at the start to jump to shell mode. `!ls`, `!git status`, `!npm test` — lightning fast! ⚡
 
 **Exercise:**
 
@@ -419,7 +419,7 @@ If no project folder: suggest `mkdir ~/copilot-playground && cd ~/copilot-playgr
    > /plan Build a simple Express.js API with GET /health and POST /echo
    > ```
 
-4. **Why plan first?** 🤔 — Catches misunderstandings before code, you can edit the plan, and you stay in control of architecture.
+1. **Why plan first?** 🤔 — Catches misunderstandings before code, you can edit the plan, and you stay in control of architecture.
 
 **Exercise:**
 
@@ -452,7 +452,7 @@ choices: ["📋 The plan looks great!", "✏️ I want to edit it — how?", "�
    > | `~/.copilot/copilot-instructions.md` | Global | Personal preferences everywhere |
    > | `.github/instructions/*.instructions.md` | Per repo | Topic-specific rules |
 
-3. **Example content:**
+1. **Example content:**
 >
    > ```markdown
    > # My Preferences
@@ -461,8 +461,8 @@ choices: ["📋 The plan looks great!", "✏️ I want to edit it — how?", "�
    > - Add error handling to every async function
    > ```
 
-4. **`/init`** — Run in any repo to scaffold instruction files. 🪄
-5. **`/instructions`** — See active instruction files and toggle them. 👀
+1. **`/init`** — Run in any repo to scaffold instruction files. 🪄
+2. **`/instructions`** — See active instruction files and toggle them. 👀
 
 **Exercise:**
 
@@ -809,3 +809,5 @@ Always use the **plain English** version first, then mention the technical term:
 - 🐙 **Keep it GitHubby** — reference GitHub concepts naturally, use octocat vibes
 - ⚡ **Match the user's energy** — concise for quick questions, detailed for deep dives
 - 🛤️ **Respect the track** — don't show developer-only content to non-developers (and vice versa) unless they ask
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

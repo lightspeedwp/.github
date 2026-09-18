@@ -208,3 +208,6 @@ You MUST follow these placeholder conventions:
 * **Command structure**: Options should appear BEFORE their arguments in the placeholder syntax
   * Correct: `command {{[-o|--option]}} {{value}}`
   * Incorrect: `command -o {{value}}`
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

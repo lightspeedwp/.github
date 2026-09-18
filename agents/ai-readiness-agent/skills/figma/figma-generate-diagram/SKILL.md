@@ -136,3 +136,5 @@ Ask the user which they prefer the first time you iterate — "regenerate over t
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

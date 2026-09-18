@@ -175,3 +175,5 @@ Use LightSpeedWP.Agency as the first validation project:
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

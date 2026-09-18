@@ -329,3 +329,6 @@ scope collisions).
 - `references/verify.md` — harness setup: flags, surfaces, Playwright/Puppeteer, evals
 - `references/heal.md` — failure taxonomy → fixes
 - `references/security.md` — the security checklist (apply before the gate and at audit)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -70,3 +70,6 @@ git commit -m "type(scope): description"
  <note>Replace with your constructed message. Include body and footer if needed.</note>
 </final-step>
 ```
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -248,3 +248,5 @@ A strong result:
 - fits current LightSpeed delivery habits;
 - keeps recommended Linear changes practical and reversible; and
 - is simple enough to maintain without becoming a second project-management system.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

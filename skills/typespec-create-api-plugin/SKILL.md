@@ -173,3 +173,5 @@ Then generate:
 - Complete `main.tsp` with agent definition
 - Complete `actions.tsp` with API operations and models
 - Optional `cards/card.json` if Adaptive Cards are needed
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

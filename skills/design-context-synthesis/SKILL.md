@@ -8,6 +8,7 @@ description: Use when the request depends on reconciling scattered or conflictin
 Use this skill when the user has not given one clean brief and you need to convert messy project context into a reliable design starting point.
 
 This skill is especially useful when:
+
 - the request references several sources at once
 - stakeholder intent is buried in email or task history
 - content, implementation, and design constraints are split across docs and repositories
@@ -17,6 +18,7 @@ This skill is especially useful when:
 ## Request Shapes
 
 Use `$design-context-synthesis` for requests like:
+
 - "Pull together the brief from the email thread, Drive docs, and the Asana task, then propose the landing page layout."
 - "Review the repo and theme settings, then turn this rough homepage idea into a WordPress-friendly design direction."
 - "I have notes in Gmail, screenshots in Drive, and requirements in Asana. Create a Figma-ready handoff without inventing missing details."
@@ -66,20 +68,24 @@ Success means you produce a cleaner downstream artifact than the raw inputs: a c
 Unless the user asked for a different format, structure the response in this order:
 
 ### 1. Context Summary
+
 - **Deliverable**
 - **Primary goal**
 - **Sources used**
 
 ### 2. Grounded Findings
+
 - **Confirmed requirements**
 - **Implementation constraints**
 - **Assumptions**
 - **Open questions** (omit when none remain)
 
 ### 3. Recommended Artifact
+
 Provide the actual brief, layout direction, page concept, or Figma-ready handoff.
 
 ### 4. Risk Notes
+
 - include only if source conflicts, missing inputs, or implementation tradeoffs materially affect confidence
 
 ## Quality Bar
@@ -89,3 +95,5 @@ Provide the actual brief, layout direction, page concept, or Figma-ready handoff
 - Do not ignore WordPress block-theme or `theme.json` constraints when they are relevant.
 - Do not claim Figma work was completed unless it actually was.
 - Favor a practical, buildable recommendation over a visually ambitious but implementation-blind one.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

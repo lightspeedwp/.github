@@ -12,3 +12,6 @@ To help us check the right records, could you send us the approximate time of th
 
 - Do not state that the form is broken yet; delivery has not been checked.
 - Useful follow-up evidence: submission time, recipient email address, delivery logs, spam/junk check.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

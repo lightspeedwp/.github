@@ -58,3 +58,5 @@ You should commit changes with a descriptive commit message.
 ### Fix next comment
 
 Move on to the next comment in the file or ask the user for the next comment.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

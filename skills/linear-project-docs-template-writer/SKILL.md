@@ -184,3 +184,5 @@ Expected boundary behavior: explain that customer replies and Linear writes are 
 - `references/workflow.md`
 - `references/output-templates.md`
 - `references/qa-rubric.md`
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

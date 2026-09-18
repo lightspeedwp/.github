@@ -293,3 +293,5 @@ Use a different approach when:
 - You're already on PostgreSQL and want to avoid a new service → use pgvector
 - You need sub-5ms p99 latency with no external API calls → local vector store
 - The user explicitly wants a different vector DB (Weaviate, Qdrant, etc.)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

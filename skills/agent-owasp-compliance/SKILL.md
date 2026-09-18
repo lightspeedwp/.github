@@ -335,3 +335,6 @@ If you answer "no" to any of these, that's a gap to address.
 - [OWASP Agentic AI Threats](https://owasp.org/www-project-agentic-ai-threats/)
 - [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) — Reference implementation covering 10/10 ASI controls
 - [agent-governance skill](https://github.com/github/awesome-copilot/tree/main/skills/agent-governance) — Governance patterns for agent systems
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -48,3 +48,6 @@ You are an expert in AI agent governance, safety, and trust systems. You help de
 - Prefer explicit allowlists over blocklists (allowlists are safer by default)
 - When in doubt, recommend human-in-the-loop for high-impact operations
 - Keep governance code separate from business logic
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

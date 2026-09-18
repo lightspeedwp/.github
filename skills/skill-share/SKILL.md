@@ -86,3 +86,5 @@ This skill leverages Rube for:
 - Write access to skill creation directory
 - Python 3.7+ for skill creation scripts
 - Target Slack channel for skill notifications
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

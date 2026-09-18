@@ -199,3 +199,6 @@ When a user requests lead research:
 - Researching specific companies in detail
 - Analyzing competitor customer bases
 - Identifying partnership opportunities
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

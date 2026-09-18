@@ -450,3 +450,5 @@ Documents folder.
 - Cleaning up before storage cleanup
 - Organizing shared team folders
 - Structuring new project directories
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

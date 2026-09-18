@@ -914,3 +914,5 @@ Configure markdown in `hugo.toml`:
 - All Settings: <https://gohugo.io/configuration/all/>
 - Editor Plugins: <https://gohugo.io/tools/editors/>
 - GitHub repository: <https://github.com/gohugoio/hugo>
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

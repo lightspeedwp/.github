@@ -76,3 +76,6 @@ Look for existing sections with these patterns:
 - Sort files alphabetically by default
 - Handle special characters in filenames
 - Validate all generated markdown syntax
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

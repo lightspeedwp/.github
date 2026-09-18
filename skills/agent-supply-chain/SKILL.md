@@ -339,3 +339,5 @@ Add to your GitHub Actions workflow:
 - [npm Provenance](https://docs.npmjs.com/generating-provenance-statements) — Sigstore-based package provenance
 - [Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) — Includes integrity verification and plugin signing
 - [OWASP ASI-09: Supply Chain Integrity](https://owasp.org/www-project-agentic-ai-threats/)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

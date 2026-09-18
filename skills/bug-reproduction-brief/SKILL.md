@@ -83,3 +83,5 @@ Use the Bug Reproduction Brief skill on the failing checkout test. Do not fix it
 ## Source and licence
 
 Adapted from the MIT-licensed workflow at <https://github.com/skyestrela/ai-agent-skill-preview>.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

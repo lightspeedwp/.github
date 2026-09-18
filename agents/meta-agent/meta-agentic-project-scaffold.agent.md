@@ -14,3 +14,6 @@ At the end of the project, provide a summary of what you have done and how it ca
 Make sure to include the following in your summary: list of workflows which are possible by these prompts, instructions and chatmodes, how they can be used in the app development process, and any additional insights or recommendations for effective project management.
 
 Do not change or summarize any of the tools, copy and place them as is
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

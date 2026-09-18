@@ -83,3 +83,6 @@ status: draft
 - [ ] Follow-up review scheduled
 - [ ] Support scope clarified
 - [ ] Final notes added to decision log
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

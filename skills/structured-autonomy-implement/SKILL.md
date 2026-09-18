@@ -17,3 +17,5 @@ Follow the workflow below to ensure accurate and focused implementation.
 - Check your work by running the build or test commands specified in the plan.
 - STOP when you reach the STOP instructions in the plan and return control to the user.
 </workflow>
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

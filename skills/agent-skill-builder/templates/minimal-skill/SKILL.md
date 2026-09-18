@@ -12,3 +12,6 @@ Use this as the smallest acceptable local skill shape.
 1. Read the current request.
 2. Produce the requested output using the rules in this file.
 3. State assumptions only when they matter.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

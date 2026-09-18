@@ -104,3 +104,5 @@ Invoke this skill when you want to:
 - Health-check a workflow after significant changes
 
 Provide the workflow description, prompt text, tool list, or agent configuration as context. The more detail you provide, the more precise the findings.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

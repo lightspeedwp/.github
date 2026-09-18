@@ -1,5 +1,35 @@
 # Code Connect Template API Reference
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
 ## Overview
 
 Code Connect uses template files (`.figma.js`) to connect your code components to Figma designs. This API reference covers the complete template system for creating these mappings.
@@ -82,6 +112,7 @@ Place this file in your project root to configure Code Connect.
 ```
 
 Use placeholders in templates:
+
 ```javascript
 // url=<PROD_FILE>?node-id=123-456
 // source=<path to code component>
@@ -95,6 +126,7 @@ Use placeholders in templates:
 ### File Naming
 
 Templates must use the `.figma.js` extension:
+
 - `Button.figma.js`
 - `Card.figma.js`
 - `MyComponent.figma.js`
@@ -188,6 +220,7 @@ Use these to wrap your code snippets for proper syntax highlighting:
 | `figma.kotlin` | Kotlin code |
 
 **Example:**
+
 ```javascript
 const example = figma.tsx`<MyComponent prop="${value}" />`
 ```
@@ -207,6 +240,7 @@ const snippet = figma.code`${iconSnippet}${buttonSnippet}`
 Helper utilities for rendering code patterns:
 
 **React Helpers:**
+
 ```javascript
 figma.helpers.react.renderProp('propName', value)
 figma.helpers.react.renderChildren(children)
@@ -352,6 +386,7 @@ const avatar = instance.findInstance('Avatar')
 ```
 
 **With selector options:**
+
 ```javascript
 // Find by exact path
 const icon = instance.findInstance('Icon', {
@@ -552,12 +587,14 @@ npx figma connect publish --token=YOUR_ACCESS_TOKEN
 ```
 
 **Using environment variable:**
+
 ```bash
 export FIGMA_ACCESS_TOKEN=your_token_here
 npx figma connect publish
 ```
 
 **With custom config:**
+
 ```bash
 npx figma connect publish --config path/to/figma.config.json
 ```
@@ -565,11 +602,13 @@ npx figma connect publish --config path/to/figma.config.json
 ### Unpublishing
 
 **Unpublish all files in config:**
+
 ```bash
 npx figma connect unpublish
 ```
 
 **Unpublish specific component:**
+
 ```bash
 npx figma connect unpublish --node=https://figma.com/file/abc/File?node-id=123-456 --label=React
 ```
@@ -583,6 +622,7 @@ npx figma connect migrate --outDir ./templates
 ```
 
 **Test migrations:**
+
 1. Set temporary label in `figma.config.json`
 2. Publish to test: `npx figma connect publish`
 3. Verify in Figma
@@ -613,6 +653,7 @@ interface SelectorOptions {
 ```
 
 **Example:**
+
 ```javascript
 // Find icon only in specific hierarchy
 const icon = instance.findInstance('Icon', {
@@ -642,6 +683,7 @@ interface Metadata {
 ```
 
 > **Important:** `nestable` must be set in **two places** for nested templates to work correctly:
+>
 > 1. **`templateDataJson`** when calling `add_code_connect_map` — e.g. `'{"isParserless": true, "nestable": true}'`. This controls whether the child template is loaded into the parent's evaluation context. If missing, the parent cannot find or execute the child via `findConnectedInstance`, `findConnectedInstances`, or `hasCodeConnect()`.
 > 2. **`metadata.nestable`** in the template's `export default` — controls the runtime rendering behavior (inline code vs. clickable pill).
 
@@ -963,6 +1005,7 @@ export default {
 **Error:** `Property "Label" not found`
 
 **Solution:** Check property name in Figma matches exactly (case-sensitive):
+
 ```javascript
 // Property name in Figma: "Button Label"
 const label = instance.getString('Button Label')
@@ -973,6 +1016,7 @@ const label = instance.getString('Button Label')
 **Error:** `Child layer "Icon" not found`
 
 **Solution:** Verify layer name and try with path:
+
 ```javascript
 const icon = instance.findInstance('Icon', {
   path: ['Content', 'IconSlot'],
@@ -985,6 +1029,7 @@ const icon = instance.findInstance('Icon', {
 **Error:** `Property type mismatch`
 
 **Solution:** Use correct method for property type:
+
 - Text properties → `getString()`
 - Boolean properties → `getBoolean()`
 - Variant properties → `getEnum()`
@@ -995,6 +1040,7 @@ const icon = instance.findInstance('Icon', {
 **Issue:** Template doesn't appear in Figma
 
 **Solution:**
+
 1. Ensure URL comment matches component exactly
 2. Check `figma.config.json` includes the file pattern
 3. Verify file was published: `npx figma connect publish`
@@ -1005,6 +1051,7 @@ const icon = instance.findInstance('Icon', {
 **Issue:** Code appears broken in Figma
 
 **Solution:** Never concatenate template results:
+
 ```javascript
 // Wrong
 const result = snippet1 + snippet2
@@ -1012,3 +1059,6 @@ const result = snippet1 + snippet2
 // Correct
 const result = figma.code`${snippet1}${snippet2}`
 ```
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

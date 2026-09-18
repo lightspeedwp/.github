@@ -372,3 +372,5 @@ Is value ratio > 5x for most customers?
 ---
 
 *Based on pricing work at developer platforms and enterprise software companies, including enterprise price increases with zero customer loss, freemium threshold design that separated hobbyists from production users, partner pricing models, and pricing conversations across hundreds of enterprise deal cycles. Not theory — patterns from pricing decisions that directly impacted revenue.*
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

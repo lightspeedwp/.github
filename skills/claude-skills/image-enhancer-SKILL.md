@@ -97,3 +97,6 @@ Original preserved as: screenshot-2024-original.png
 - **Social Media**: Optimize images for Twitter, LinkedIn, Instagram
 - **Presentations**: Upscale images for large screens
 - **Print Materials**: Increase resolution for physical media
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

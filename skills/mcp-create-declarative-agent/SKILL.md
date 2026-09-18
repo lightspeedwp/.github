@@ -313,3 +313,6 @@ Then generate:
 - Test with more specific queries
 
 ````
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

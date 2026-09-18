@@ -442,3 +442,6 @@ Customization:
   - Create file-specific rules in .github/instructions/
   - Build reusable prompts in .github/prompts/
 ```
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

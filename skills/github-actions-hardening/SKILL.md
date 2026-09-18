@@ -158,3 +158,5 @@ Load these as needed:
 * `references/report-format.md` — Output template: summary table, finding cards, and before/after
   remediation blocks.
   * Search patterns: `report`, `format`, `finding`, `summary`, `remediation`, `before`, `after`
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -98,4 +98,4 @@ One active project is already in the concern range and needs PM review before th
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

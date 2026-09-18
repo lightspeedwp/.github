@@ -242,3 +242,5 @@ The updated `llms.txt` file should:
 6. Maintain logical organization for easy LLM consumption
 7. Use clear, unambiguous language throughout
 8. Continue to serve both human and machine readers effectively
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

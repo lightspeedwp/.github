@@ -147,3 +147,6 @@ For short reviews, keep the same headings but compress the detail. Never omit th
 - Use `references/routing-collision-checks.md` to find overlap, upstream/downstream skills and route-away risks.
 - Use `references/memory-behaviour-checks.md` to review durable defaults, project memory and run-specific evidence.
 - Use `references/output-contract-checks.md` to assess whether the skill produces consistent, useful deliverables.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -46,10 +46,15 @@ Look for:
 Default output:
 
 ### Duplicate Risk Summary
+
 ### How To Identify Likely Duplicates
+
 ### Canonical Issue Selection Rules
+
 ### What To Preserve From Duplicate Reports
+
 ### Communication And Resolution Follow-Through
+
 ### Edge Cases And Review Triggers
 
 ## Quality Bar
@@ -71,3 +76,6 @@ A good duplicate playbook:
 **Expected output shape**
 
 A practical playbook with duplicate signals, canonical-issue rules, context-preservation guidance, and follow-through rules.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

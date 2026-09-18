@@ -232,3 +232,5 @@ Do not:
 - put text into the image unless it is clearly required
 - overwrite explicit user direction with aesthetic preference
 - create image claims that imply unsupported business, legal, medical, accessibility, or performance outcomes
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

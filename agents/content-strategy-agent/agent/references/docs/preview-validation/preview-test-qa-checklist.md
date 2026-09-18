@@ -148,5 +148,4 @@ Use this checklist to validate repeatable preview tests across the LightSpeedWP.
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

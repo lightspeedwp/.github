@@ -53,21 +53,26 @@ If some of that is missing, proceed with the clearest safe assumptions and expli
 Default output:
 
 ### Current Intake Summary
+
 - short summary of how requests arrive today
 
 ### Main Gaps
+
 - the top intake weaknesses
 
 ### Risks Created By The Current Flow
+
 - context loss
 - duplication
 - poor routing
 - weak prioritisation inputs
 
 ### Recommended Intake Design
+
 - the improved Linear-centred intake flow
 
 ### First Improvements To Make
+
 - the smallest highest-value changes first
 
 ## Quality Bar
@@ -89,3 +94,5 @@ A good result:
 **Expected output shape**
 
 A concise audit with the current-state map, the main intake risks, and a recommended intake design centred on Linear.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

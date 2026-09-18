@@ -13,3 +13,5 @@ Use references for workflow rules and templates for repeatable outputs.
 2. Select the matching template.
 3. Produce the output.
 4. Note assumptions and gaps.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

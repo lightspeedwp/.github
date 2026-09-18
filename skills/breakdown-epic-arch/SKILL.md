@@ -64,3 +64,6 @@ Use clear subgraphs to organize these layers, apply consistent color coding for 
 ## Context Template
 
 - **Epic PRD:** [The content of the Epic PRD markdown file]
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

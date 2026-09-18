@@ -1,5 +1,35 @@
 # Maintenance guide
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
 Use this guide when updating, validating, or packaging the Yoast configuration skill.
 
 ## Maintenance principles
@@ -90,7 +120,6 @@ python3 scripts/generate_qa_checklist.py --profile migration
 
 Also run the official skill packaging validator. Update `docs/changelog.md` whenever audit triage, evidence state labels, verification playbooks, templates, schemas or validators change.
 
-
 ## Decision and conflict workflow maintenance
 
 When decision, conflict, or client-facing summary files change, run `scripts/validate_decision_records.py` and review `tests/decision-conflict-scenario-tests.md`. Keep decision types aligned across `references/decision-register-model.md`, `schemas/decision-record.schema.json`, templates and routing. Add recurring client approval or source-conflict failures as scenario tests rather than embedding them in `SKILL.md`.
@@ -99,13 +128,11 @@ When decision, conflict, or client-facing summary files change, run `scripts/val
 
 Maintain `references/settings-export-review-playbook.md`, `references/rendered-output-qa-playbook.md`, `templates/settings-export-review.md`, `templates/rendered-output-qa-report.md`, `tests/artefact-review-scenario-tests.md`, `schemas/rendered-output-check.schema.json`, `fixtures/sample-rendered-output-check.json`, and `scripts/validate_artefact_review.py` together. Update them when Yoast export formats, rendered metadata output, sitemap behaviour, robots/llms handling, schema output, or agency QA sample sets change.
 
-
 ## Maintaining comparison and regression files
 
 Maintain `references/state-comparison-playbook.md`, `references/plugin-update-regression-playbook.md`, `templates/yoast-state-comparison-report.md`, `templates/yoast-regression-test-report.md`, `templates/yoast-acceptance-criteria.md`, `schemas/regression-check.schema.json`, `fixtures/sample-regression-check.json`, `scripts/validate_regression_pack.py`, and `tests/comparison-regression-scenario-tests.md` together.
 
 Run `scripts/validate_regression_pack.py` after edits. Add a scenario test whenever a real update, migration, retainer comparison or acceptance gate reveals a new failure mode.
-
 
 ## Remediation pack maintenance
 
@@ -119,6 +146,7 @@ When editing access-level or remediation files, also update:
 - `scripts/validate_remediation_pack.py`
 
 Run `scripts/validate_remediation_pack.py` and the full package validation before releasing a new `skill.zip`.
+
 ## Portfolio/defaults-drift maintenance
 
 When portfolio or defaults-drift files change, run `scripts/validate_portfolio_pack.py` in addition to the normal validators. Keep portfolio guidance focused on triage and cross-site patterns; route site-specific diagnosis back to the normal audit, rendered-output QA, remediation or developer workflows.
@@ -150,7 +178,6 @@ When changing bulk metadata or approval queue workflows:
 5. Add or revise scenarios in `tests/bulk-metadata-governance-scenario-tests.md` for every real-world failure pattern.
 6. Run `scripts/validate_bulk_metadata_pack.py` and `scripts/validate_skill_structure.py` before packaging.
 
-
 ## Maintaining taxonomy and content-structure workflows
 
 When adding or changing taxonomy/indexation guidance:
@@ -162,7 +189,6 @@ When adding or changing taxonomy/indexation guidance:
 5. Run `scripts/validate_taxonomy_pack.py` plus the full package validation set.
 
 Avoid adding site-specific taxonomy rules as global defaults unless they are proven across multiple projects.
-
 
 ## Multilingual workflow maintenance
 
@@ -185,7 +211,9 @@ When redirect, migration, launch-control, Yoast Premium redirect-manager, sitema
 
 Run `scripts/validate_redirect_migration_pack.py` plus the full package validators before release.
 
-
 ## Related skill maintenance
 
 When adding or renaming related Yoast skills, update `SKILL.md`, `references/related-skills-routing.md`, `references/file-routing-index.md`, `tests/related-skills-routing-scenario-tests.md`, and `scripts/validate_related_skill_routing.py`. If the auditor skill slug changes, replace `woocommerce-yoast-auditor` everywhere in the routing layer.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

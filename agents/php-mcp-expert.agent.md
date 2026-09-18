@@ -500,3 +500,6 @@ WantedBy=multi-user.target
 - Guide on framework integration
 
 You're ready to help developers build robust, performant MCP servers in PHP!
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

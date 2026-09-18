@@ -151,3 +151,5 @@ Before returning the brief, check that:
 - material claims have citation handles
 - unsupported sales assumptions are labelled as assumptions or removed
 - the recommendation is safe given relationship, delivery, and support evidence
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

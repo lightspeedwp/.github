@@ -8,10 +8,12 @@ description: This skill helps you integrate an existing Figma design with a publ
 Use this skill for an existing Figma design that should reuse a published design system instead of detached layers, local wrappers, or one-off components.
 
 This skill supports two entry modes:
+
 - `review-then-apply`: the user wants a broad pass, but the exact offending sections are not yet identified
 - `apply-known-scope`: the user already knows which sections or clusters should be brought onto the design system
 
 Load these capabilities first:
+
 - Figma MCP read access for tools such as `get_metadata`, `get_screenshot`, and `search_design_system`
 - a `figma-use`-style helper before any `use_figma` call, when your environment requires one
 - a screen-building companion workflow, when available, if you are reconnecting a full screen or page
@@ -25,6 +27,7 @@ Do not treat a section as "connected" just because it contains a few design-syst
 This skill is for multi-section reconciliation. If the task can be satisfied by fixing one specific reviewed node, the narrower finding-fix skill is the better choice.
 
 Classify each section into exactly one bucket:
+
 - `already-connected`: the section itself is a library instance or a composition the user explicitly accepts as already canonical
 - `exact-swap`: a published library component or variant can replace the section directly
 - `compose-from-primitives`: no single library component exists, but the section can be rebuilt from published library primitives
@@ -37,6 +40,7 @@ Classify each section into exactly one bucket:
 Before gathering replacement candidates, decide whether the screen needs an initial audit.
 
 If scope is not already identified:
+
 1. Run [audit-design-system](../audit-design-system/SKILL.md) or perform an equivalent internal audit pass.
 2. Collapse the review output into section-sized work packages instead of treating every micro-finding as a separate rewrite task.
 3. If the review produces only one narrow finding, switch to [fix-design-system-finding](../fix-design-system-finding/SKILL.md) instead of continuing here.
@@ -48,6 +52,7 @@ Do not skip component discovery just because a review already exists. Review ide
 ### 2. Capture the Current State
 
 Before writing:
+
 1. Get the target frame metadata with `get_metadata`.
 2. Get a screenshot with `get_screenshot`.
 3. If you need `get_design_context` and Figma asks the Code Connect question, ask the user exactly as instructed by the tool before proceeding.
@@ -59,6 +64,7 @@ For this skill, prefer `get_metadata` plus `use_figma` for structure discovery. 
 Before destructive edits, duplicate the frame or page and place the backup to the right.
 
 Name it clearly, for example:
+
 - `Backup - Start`
 - `Backup - Mobile dashboard`
 
@@ -69,6 +75,7 @@ Do this in its own `use_figma` call and return the created node ID.
 Inspect the target frame before searching the library.
 
 Use `use_figma` to gather:
+
 - top-level section instances
 - each section's `mainComponent`
 - whether that component is local, remote, or missing
@@ -106,16 +113,19 @@ Useful read-only inventory pattern:
 ### 5. Build a Component Map From the Design System
 
 Prefer authoritative sources in this order:
+
 1. Existing screens in the same library or workfile that already use the system
 2. Known library pages inspected directly with `use_figma`
 3. `search_design_system` as a fallback only
 
 When using `search_design_system`, remember:
+
 - results may include unrelated team or community libraries
 - broad queries are useful for discovery, but do not trust them without verifying the actual file or page
 - once the right library is known, prefer direct inspection of that file over repeated search calls
 
 For each candidate, capture:
+
 - component or component-set key
 - exact variant name
 - whether the section is a one-to-one swap or a composition
@@ -124,6 +134,7 @@ For each candidate, capture:
 Do not default blindly to the library's primary or default variant.
 
 Before choosing a variant, inspect the original node for:
+
 - semantic cues from the name, copy, and usage context
 - visual cues such as fills, strokes, effects, corner radius, and typography treatment
 - existing variant-like traits already visible in the screen, such as primary vs secondary button treatment
@@ -139,6 +150,7 @@ Use these heuristics:
 - `blocked` if the design system lacks the composite, the library is not published, imports fail, or the section should remain bespoke.
 
 Common patterns:
+
 - Header summary blocks are often `compose-from-primitives`, not one component.
 - Alerts and metrics often have strong `exact-swap` candidates.
 - Appointment or patient cards often require composition unless the system explicitly ships those domain cards.
@@ -149,6 +161,7 @@ Common patterns:
 Never rewrite the entire screen in one script.
 
 For each section:
+
 1. Read the current node IDs.
 2. Import or locate the library component.
 3. Match the closest variant to the original section before swapping or rebuilding.
@@ -160,6 +173,7 @@ For each section:
 Prefer `swapComponent()` when the existing node is already an instance of a compatible family and you want to preserve overrides.
 
 Prefer rebuilding beside the original when:
+
 - the old section is a local wrapper around mixed content
 - you need to compare the result visually before replacing the original
 - you are composing from multiple primitives
@@ -167,6 +181,7 @@ Prefer rebuilding beside the original when:
 When the parent is not auto-layout, treat replacement as a layout-risk operation.
 
 For non-auto-layout parents:
+
 - preserve `x` and `y` explicitly
 - preserve width and height explicitly when the replacement should occupy the same footprint
 - do not assume the new instance will inherit the old node's position or size
@@ -176,6 +191,7 @@ For non-auto-layout parents:
 ### 8. Handle Import Failures Explicitly
 
 If `importComponentSetByKeyAsync()` or `importComponentByKeyAsync()` fails or times out:
+
 1. Stop.
 2. Do not continue making unrelated edits and pretend the section is connected.
 3. Check whether exact component keys already exist elsewhere in the target file.
@@ -184,6 +200,7 @@ If `importComponentSetByKeyAsync()` or `importComponentByKeyAsync()` fails or ti
 6. If imports still fail, mark the section `blocked` and report the blocker clearly.
 
 Treat these as real blockers:
+
 - published key exists in the library but import times out
 - `search_design_system` finds the family, but the target file cannot import it
 - only nested primitives can be imported, not the intended composite
@@ -191,6 +208,7 @@ Treat these as real blockers:
 ### 9. Validate What Actually Changed
 
 After each section:
+
 - screenshot the changed section, not only the full frame
 - confirm placeholder text is gone
 - confirm the instance is really linked to a library component
@@ -212,9 +230,13 @@ At the end, validate the full screen screenshot as well.
 ## Deliverable Format
 
 When closing the task, report:
+
 - `Swapped`: sections replaced directly with library instances
 - `Composed`: sections rebuilt from library primitives
 - `Already connected`: sections that were already valid
 - `Blocked`: sections that could not be connected, with the concrete reason
 
 If everything is blocked, say that plainly and include the exact failure mode instead of a vague summary.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

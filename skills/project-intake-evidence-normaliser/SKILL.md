@@ -293,3 +293,6 @@ Use exactly one final divider line at the end of the document. Do not add duplic
 - Reusable Defaults: nothing saved unless the user explicitly confirms a reusable preference or rule
 - Recommended Next Step: either proceed to chatbot planning or pause for source approval
 - Relevant References Collected During Onboarding: the live FAQ page, policy pages, discovery email thread, and any uploaded draft FAQ document, each labelled with approval state
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

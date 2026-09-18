@@ -95,3 +95,5 @@ Use `--now` when summarizing today so the script can emit `Remaining Today`. Omi
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

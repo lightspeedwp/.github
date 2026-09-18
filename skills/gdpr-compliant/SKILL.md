@@ -310,3 +310,6 @@ For deep dives, read the reference files in `references/`:
 
 *Inspired by CNIL developer GDPR guidance, GDPR Articles 5, 25, 32, 33, 35,
 ENISA, OWASP, and NIST engineering best practices.*
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

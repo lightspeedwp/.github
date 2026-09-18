@@ -186,3 +186,5 @@ After installation or profile changes, run a **recall check**, not a performance
 Confirm that the correct primary and supporting Skills are selected and unrelated Skills stay out. Report a simple result such as `3/3 种说法都能正确识别`; keep raw prompts and routing details in the technical view.
 
 Do not collect or store user prompt history, hit/miss logs, or routing feedback.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

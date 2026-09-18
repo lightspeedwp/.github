@@ -14,6 +14,7 @@ This skill is for discovery and assessment, not for writing the final website co
 ## Request Shapes
 
 Use `$content-audit-strategist` for requests like:
+
 - "Audit this website's content and show what is outdated, duplicated, missing, or weak."
 - "Turn these content notes, page exports, or questionnaires into a content audit summary."
 - "Assess the current content situation and recommend content strategy priorities before redesign or AI work."
@@ -47,6 +48,7 @@ Use `$content-audit-strategist` for requests like:
 ## Output Contract
 
 The default output should:
+
 - state the audit or strategy scope
 - summarize the current content condition
 - identify the biggest content risks or blockers
@@ -60,3 +62,5 @@ The default output should:
 - Do not treat stakeholder opinions as confirmed user needs unless the evidence supports that.
 - Do not collapse content audit and content strategy into one undifferentiated summary; make the current-state versus recommended-direction boundary explicit.
 - Prefer usable categories and synthesis over page-by-page noise when the evidence is broad.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

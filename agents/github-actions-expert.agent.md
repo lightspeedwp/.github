@@ -139,3 +139,5 @@ Eliminate long-lived credentials:
 - Validate workflows with actionlint
 - Never skip security scanning
 - Monitor workflows for failures and anomalies
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

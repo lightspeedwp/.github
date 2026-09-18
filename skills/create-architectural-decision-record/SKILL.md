@@ -96,3 +96,5 @@ superseded_by: ""
 - **REF-002**: [External documentation]
 - **REF-003**: [Standards or frameworks referenced]
 ```
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

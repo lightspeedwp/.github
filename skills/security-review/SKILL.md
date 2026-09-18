@@ -186,3 +186,6 @@ For detailed detection guidance, load the following reference files as needed:
   - Search patterns: `lodash`, `axios`, `jsonwebtoken`, `Pillow`, `log4j`, `nokogiri`, `CVE`
 - `references/report-format.md` — Structured output template for security reports with finding cards, dependency audit, secrets scan, and patch proposal formatting
   - Search patterns: `report`, `format`, `template`, `finding`, `patch`, `summary`, `confidence`
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -66,3 +66,5 @@ Focus on writing clear, specific failing tests that describe the desired behavio
 - [ ] Test follows AAA pattern
 - [ ] Edge cases from issue discussion considered
 - [ ] No production code written yet
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

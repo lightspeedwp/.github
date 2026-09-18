@@ -159,3 +159,5 @@ Connection persists after that.
     <img src="https://img.shields.io/badge/Get_Started_Free-4F46E5?style=for-the-badge" alt="Get Started"/>
   </a>
 </p>
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

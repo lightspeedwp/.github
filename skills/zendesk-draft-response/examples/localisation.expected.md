@@ -12,3 +12,5 @@ Der nächste Schritt ist, dass wir die Plugin-Konfiguration auf der Staging-Webs
 
 - Product/support terms are preserved where appropriate.
 - No extra technical detail or commitment has been added.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

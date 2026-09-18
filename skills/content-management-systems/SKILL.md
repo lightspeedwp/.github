@@ -104,3 +104,6 @@ Step to the owning seam first, then make the smallest change that preserves the 
 ## Platform Notes
 
 See `references/cms-platform-workflows.md` for a compact mapping of common CMS platforms, extension surfaces, and media conventions.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

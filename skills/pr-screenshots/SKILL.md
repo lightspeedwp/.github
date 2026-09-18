@@ -130,3 +130,6 @@ Reference in the PR description:
 - GitHub image upload requires workarounds (no public API for PR description images)
 - Azure DevOps attachment filenames can't be reused — plan naming ahead
 - Very large images (>10MB) may not render inline on some platforms
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

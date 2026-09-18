@@ -337,5 +337,4 @@ range.className = "text-emerald-700 font-bold";
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

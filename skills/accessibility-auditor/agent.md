@@ -30,3 +30,5 @@ Activate this agent when the user wants to audit a UI artefact for WCAG 2.2 AA a
 - Token reference: agents/accessibility-auditor/references/ls-ds-tokens.md
 - All fix recommendations for LightSpeed projects reference DS token names from that file
 - For non-LightSpeed audits, use standard CSS/HTML/ARIA recommendations with WCAG criterion references
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

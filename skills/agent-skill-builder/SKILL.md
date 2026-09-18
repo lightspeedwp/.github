@@ -101,3 +101,6 @@ For planning requests, return a folder recommendation, tier, omitted folders, re
 For creation requests, produce the files or packaged ZIP the user asked for. Include a short handoff summary with validation status and known limitations.
 
 For audits, report blocking errors first, then warnings, then maintainability improvements.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

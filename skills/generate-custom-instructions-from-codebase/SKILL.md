@@ -246,3 +246,5 @@ Instead of generic advice, generates instructions tailored to your specific code
 ### ⚡ **Automated Consistency**
 
 Ensures that new code additions automatically follow the new conventions, preventing architectural regression and maintaining code evolution coherence.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -195,3 +195,6 @@ Fresh live evidence overrides memory.
 ## Output rules
 
 Keep outputs practical, source-aware and evidence-labelled. Separate scope, evidence, confirmed findings, unknowns, risks, next actions and memory update candidates. Keep client-safe summaries free of internal speculation.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

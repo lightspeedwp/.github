@@ -75,6 +75,7 @@ When receiving a `woocommerce-gravity-forms-auditor` handoff, load `references/a
 Treat the handoff as evidence input, not permission to change the site.
 
 Before planning writes:
+
 1. Validate required handoff fields against `schemas/auditor-configuration-handoff.schema.json` when structured data is available.
 2. Preserve original finding IDs in the intake response, change plan, validation report, and final handoff note.
 3. Verify current site state through MCP, export, screenshots, pasted settings, or manual evidence before proposing changes.
@@ -159,7 +160,6 @@ Payments, subscriptions, tax, order creation, account creation, role assignment,
 ## WooCommerce scope gate and routing
 
 Before planning or applying any change, confirm WooCommerce core is active when live-site evidence is available. Keep Gravity Forms scoped to product enquiry, quote request, product option, deposit/payment, account/onboarding, support, or post-purchase flows that belong to a WooCommerce site. Do not treat Gravity Forms as a replacement for core WooCommerce checkout unless the project explicitly requires a custom lead/quote/payment flow and the relevant ecommerce/payment decisions are approved. Route broader checkout, subscription, cart, tax, shipping, fulfilment, order lifecycle, and product catalogue architecture back to the WooCommerce Configuration Agent. Use `profiles/woocommerce-configuration-agent.md` for defaults.
-
 
 ## Required output structure
 
@@ -337,3 +337,6 @@ Route away when the primary job is a full Gravity Forms audit report, formal fin
 - Source confidence and version caveats: `references/source-register.md`
 - Agent-specific defaults: ``profiles/woocommerce-configuration-agent.md`
 - Manual fallback output: `templates/manual-implementation-plan.md`; risk review output: `templates/risk-review.md`; notification audit output: `templates/notification-audit.md`; troubleshooting output: `templates/troubleshooting-runbook.md`; feed audit output: `templates/feed-audit.md`; data-retention output: `templates/data-retention-review.md`; embed validation output: `templates/embed-validation.md`; consent/microcopy output: `templates/consent-copy-review.md`; logic map output: `templates/logic-map-review.md`; webhook feed output: `templates/webhook-feed-review.md`; form inventory output: `templates/form-inventory-audit.md`; permissions review output: `templates/permissions-review.md`; frontend style audit output: `templates/frontend-style-audit.md`; layout regression output: `templates/layout-regression-check.md`; post creation review output: `templates/post-creation-feed-review.md`; UGC handoff output: `templates/ugc-moderation-handoff.md`; conversion tracking output: `templates/conversion-tracking-plan.md`; tracking QA output: `templates/tracking-qa-report.md`; assessment output: `templates/assessment-plan.md`; results review output: `templates/results-review.md`; payment flow output: `templates/payment-flow-review.md`; payment test output: `templates/payment-test-report.md`; auditor handoff intake output: `templates/auditor-handoff-intake.md`
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

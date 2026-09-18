@@ -149,3 +149,5 @@ Success criteria:
 - translates the site into layout and pattern cues
 - preserves only reusable elements rather than copying blindly
 - produces handoff-relevant signals, not just design commentary
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

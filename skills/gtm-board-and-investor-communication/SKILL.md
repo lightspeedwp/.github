@@ -476,3 +476,6 @@ Exec (weekly) → Leadership (bi-weekly) → All-hands (monthly) → Team (ongoi
 ---
 
 *Based on preparing and supporting board communications across multiple companies from Series A through post-IPO — building the deck and sitting in the room at some, reporting updates to the board at others. Includes the investor update cadence that maintained trust through missed quarters, the "Three Things" narrative model used across multiple companies, and the metric discipline framework that survived years of hypergrowth. Not theory — patterns from being close enough to the board to see what lands and what doesn't.*
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

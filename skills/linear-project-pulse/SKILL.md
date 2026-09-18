@@ -47,9 +47,11 @@ Look for:
 Default output:
 
 ### Project Pulse
+
 - one sentence or short paragraph
 
 ### Key Signals
+
 - progress
 - blockers or risks
 - next focus
@@ -73,3 +75,5 @@ A good result:
 **Expected output shape**
 
 A concise project-level status takeaway plus a few key signals about risk, momentum, and next focus.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

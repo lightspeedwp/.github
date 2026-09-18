@@ -196,3 +196,5 @@ Use `FAIL` for a server that cannot start, complete a valid session, keep the
 transport parseable, or safely reject invalid input. Use `PASS WITH CAVEATS`
 only for bounded documentation or metadata drift that does not misrepresent a
 dangerous capability. Otherwise use `PASS`.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

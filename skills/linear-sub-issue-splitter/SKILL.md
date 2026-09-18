@@ -49,14 +49,17 @@ If some of this is missing, propose the most practical split and label assumptio
 Default output:
 
 ### Parent Goal
+
 - one short summary
 
 ### Proposed Sub-Issues
+
 - title
 - short task description
 - dependency or sequencing note when useful
 
 ### Notes
+
 - assumptions
 - possible merge candidates if the split feels too granular
 
@@ -79,3 +82,6 @@ A good result:
 **Expected output shape**
 
 A parent-goal summary plus a practical list of sub-issues with short descriptions and any useful dependency notes.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

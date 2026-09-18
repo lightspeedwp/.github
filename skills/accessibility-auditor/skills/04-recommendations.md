@@ -112,3 +112,6 @@ For each recommendation:
 
 Pass the full recommendations list (including the DS mode statement) to Skill 05.
 Do not present them separately — they will appear in the generated report.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

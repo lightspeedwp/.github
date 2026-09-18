@@ -42,3 +42,5 @@ Use this agent when a GitHub Actions action needs its Node runtime updated (e.g.
 - If the repo uses `@vercel/ncc` or a similar bundler, ensure the build step still works
 - If TypeScript is used, check `tsconfig.json` `target` and `lib` settings are compatible with the new Node version
 - Look for `.node-version`, `.nvmrc`, or `.tool-versions` files that may also need updating
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

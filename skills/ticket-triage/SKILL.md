@@ -233,3 +233,6 @@ Use this compact structure by default:
 - If the source uses generic phrases like `specialist team`, prefer the most concrete owner or routing evidence available.
 - If there is not enough evidence to assign severity confidently, say so and explain what is missing.
 - Do not ask the user to restate details that are already present in the ticket, email, or pasted source material.
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -79,4 +79,4 @@ This log aids accountability and helps explain the rationale behind choices.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

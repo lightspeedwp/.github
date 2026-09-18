@@ -179,3 +179,6 @@ Before saving the final document, mentally verify:
 - When a search term is not found, the output document will note this. If this happens, the anchor was likely not verbatim enough. Adjust and rebuild.
 - For web pages, Playwright renders the page to PDF first. The resulting page numbers may differ from what you see in a browser. Use the extracted text output (step 1) to determine correct page numbers.
 - If the user has already provided the source text or you have already read it in the current conversation, you can skip step 1. But always verify section numbers and page references against the actual text before writing analysis.
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

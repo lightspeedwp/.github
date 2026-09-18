@@ -256,3 +256,5 @@ Next useful confirmation:
 ## Bundled References
 
 Load `references/context-templates.md` when creating or updating actual workspace context files.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

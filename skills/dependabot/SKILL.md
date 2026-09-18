@@ -461,3 +461,5 @@ See: [Advanced Security Plugin — Dependency Scanning Skill](https://github.com
 - `references/dependabot-yml-reference.md` — Complete YAML options reference
 - `references/pr-commands.md` — Full PR comment commands reference
 - `references/example-configs.md` — Real-world configuration examples
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

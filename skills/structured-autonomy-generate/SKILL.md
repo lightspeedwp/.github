@@ -134,3 +134,6 @@ If not, move them to the correct branch. If the branch does not exist, create it
 
 **STOP & COMMIT:** Agent must stop here and wait for the user to test, stage, and commit the change.
 </plan_template>
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

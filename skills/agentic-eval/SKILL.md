@@ -190,3 +190,6 @@ def evaluate_with_rubric(output: str, rubric: dict) -> float:
 - [ ] Log all iterations for debugging
 - [ ] Handle evaluation parse failures gracefully
 ```
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

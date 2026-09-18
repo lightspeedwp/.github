@@ -15,3 +15,6 @@ The plan consists of a Markdown document that describes the implementation plan,
 - Requirements: A list of requirements for the feature or refactoring task.
 - Implementation Steps: A detailed list of steps to implement the feature or refactoring task.
 - Testing: A list of tests that need to be implemented to verify the feature or refactoring task.
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

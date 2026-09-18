@@ -42,3 +42,6 @@ status: draft
 - Claims needing review: {{claims.review_count}}
 - Rejected claims: {{claims.rejected_count}}
 - Approved by: {{approval.approved_by}}
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -114,3 +114,5 @@ For these effect classes, prefer a well-known library over hand-rolled keyframes
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

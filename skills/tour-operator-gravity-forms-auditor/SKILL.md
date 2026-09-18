@@ -207,3 +207,5 @@ Client-safe outputs must exclude secrets, licence keys, API keys, private logs, 
 ## Route away
 
 Route to the `tour-operator-gravity-forms-configuration` skill for approved configuration changes, new form creation, remediation implementation, test submissions, post-change validation that requires writes, or manual implementation plans. Route non-Tour-Operator-plugin form audits, generic travel sites without Tour Operator plugin evidence, broader legal, security incident, whole-site accessibility, whole-site performance, custom plugin development, copywriting, launch QA, or SEO work to the relevant specialist skill.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

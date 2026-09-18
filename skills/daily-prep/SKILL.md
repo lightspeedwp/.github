@@ -155,3 +155,5 @@ If a file already exists for that date, read it first and update rather than ove
 - **WorkIQ MCP tool** must be available for calendar access (Microsoft 365 / Outlook)
 - A workspace with task files and customer/project folders for context enrichment
 - Output is self-contained HTML — no external dependencies
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

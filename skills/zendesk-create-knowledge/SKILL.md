@@ -304,3 +304,5 @@ Explicit route-away boundaries:
 - `zendesk-duplicate-pattern-review` — for duplicate, related-case, repeated-pain, or incident-pattern classification.
 
 Return to `zendesk-router-skill` when the request needs broad Zendesk workflow selection, escalation routing, unclear Zendesk-first intake, mixed outcomes, or any next step outside these direct knowledge-drafting handoffs and explicit route-away boundaries.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

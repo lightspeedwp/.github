@@ -118,3 +118,6 @@ User: "The tests are failing after my refactor"
 4. Fix AttributeErrors → Run subset → Verify
 5. Fix AssertionErrors → Run subset → Verify
 6. Run full suite → All pass ✓
+
+*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

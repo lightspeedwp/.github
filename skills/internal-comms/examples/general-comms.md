@@ -17,3 +17,5 @@
 - Put the most important information first
 - Include relevant links and references
 - Match the company's communication style
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

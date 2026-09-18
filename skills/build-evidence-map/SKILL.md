@@ -106,3 +106,6 @@ Report:
 Never describe a structurally valid map as proven true. Validation establishes
 traceability and graph integrity; source quality and inference quality still
 require human review.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

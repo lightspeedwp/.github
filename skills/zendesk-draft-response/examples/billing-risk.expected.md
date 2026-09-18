@@ -12,3 +12,5 @@ We need to review the billing record and the cancellation history before confirm
 
 - Do not promise a refund, credit, or reversal until approved.
 - Route to billing/account owner review before giving a firm outcome.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

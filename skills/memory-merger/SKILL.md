@@ -108,3 +108,6 @@ Agent:
 6. Updates clojure.instructions.md
 7. Cleans clojure-memory.instructions.md
 ```
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

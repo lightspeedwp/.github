@@ -14,6 +14,7 @@ This is discovery-oriented accessibility review, not a legal certification or a 
 ## Request Shapes
 
 Use `$accessibility-discovery-reviewer` for requests like:
+
 - "Assess this website's accessibility situation from our notes and findings."
 - "Turn these accessibility observations into a structured internal assessment."
 - "What accessibility risks and validation gaps should we highlight before remediation planning?"
@@ -41,6 +42,7 @@ Use `$accessibility-discovery-reviewer` for requests like:
 ## Output Contract
 
 The default output should include:
+
 - current accessibility picture from the available evidence
 - key issue groups and likely user impact
 - confidence or coverage limitations
@@ -53,3 +55,6 @@ The default output should include:
 - Do not overstate severity when the evidence is weak.
 - Keep observed issues distinct from inferred pattern-based concerns.
 - Make missing validation coverage visible.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

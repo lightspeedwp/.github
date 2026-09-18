@@ -284,3 +284,5 @@ Use these prompts to validate routing behaviour:
    Expected route: skip onboarding and use `lightspeed-ai-readiness-router`, `chatbot-planning-orchestrator`, or `ai-chatbot-planner` depending on the requested deliverable.
 5. `Audit this skill package for broken markdown and frontmatter.`  
    Expected route: `skill-creator` plus `markdown-content-validator` or `content-file-validator`; do not ask onboarding questions unless workflow type is genuinely needed.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

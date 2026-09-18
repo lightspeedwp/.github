@@ -1,5 +1,35 @@
 # Usage guide
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](<https://img.shields.io/badge/Labeling> Governance-OK-success.svg)
+![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)
+![Metadata Governance](<https://img.shields.io/badge/Metadata> Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](<https://img.shields.io/badge/Template> Enforcement-OK-success.svg)
+![Validate PR Template](<https://img.shields.io/badge/Validate> PR Template-OK-success.svg)
+![Badges: Documentation Update](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)
+![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)
+![Badges: README Status Maintenance](<https://img.shields.io/badge/Badges>: README Status Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](<https://img.shields.io/badge/Badges>: Workflow Inventory Audit-OK-success.svg)
+[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
+[![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
+[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
+[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
+[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
+[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+<!-- BADGES-END -->
+
 Use this guide when a team member needs to understand how to operate the Yoast configuration skill.
 
 ## Fast routes
@@ -61,7 +91,6 @@ Use `docs/reference-refresh-protocol.md` when the user asks to update reference 
 
 Use `references/audit-triage-model.md` when a finding needs severity, priority, confidence, owner direction, or the smallest safe next action. Use `templates/yoast-troubleshooting-note.md` for concise internal issue notes when a full audit report would be too heavy. Use `docs/current-verification-playbook.md` before making firm claims about current Yoast packaging, UI paths, developer APIs, Google rich-result eligibility, WooCommerce behaviour, or rendered live-site output.
 
-
 ## Client-safe summaries and decision logs
 
 Use `templates/client-safe-summary.md` when turning internal Yoast findings into client-facing language. Use `templates/yoast-decision-log.md` when a recommendation changes indexation, canonicals, schema, WooCommerce archive strategy, redirects, product mix, AI-assisted metadata approval, or developer customisation. Use `references/conflict-resolution-playbook.md` when sources, settings, rendered output, Google guidance, client preference, or developer behaviour disagree.
@@ -69,7 +98,6 @@ Use `templates/client-safe-summary.md` when turning internal Yoast findings into
 ## Artefact review routes
 
 Use `references/settings-export-review-playbook.md` when the input is a Yoast settings export, copied admin setting, option snippet, screenshot or partial configuration dump. Use `references/rendered-output-qa-playbook.md` when the input is rendered HTML, page source, HTTP headers, robots.txt, llms.txt, XML sitemap output, schema JSON-LD or crawl output. Settings artefacts show intended configuration; rendered output shows what crawlers can observe. Do not collapse those evidence types into one conclusion.
-
 
 ## Comparison, regression and acceptance workflows
 
@@ -80,12 +108,12 @@ Use the comparison/regression layer when the user provides a baseline and curren
 - Plugin updates: use `references/plugin-update-regression-playbook.md` and produce `templates/yoast-regression-test-report.md`.
 - Sign-off gates: use `templates/yoast-acceptance-criteria.md` and keep criteria evidence-led, pass/fail and owner-aware.
 
-
 ## Access-aware remediation
 
 When the user asks for action items, implementation plans, backlog entries, or owner routing, load `references/access-level-workflow.md` and `references/remediation-backlog-model.md`. Use `templates/yoast-remediation-backlog.md` for multi-item action lists and `templates/wordpress-admin-change-plan.md` when the work must be limited to WordPress or Yoast admin.
 
 Do not turn an unverified suspicion into an implementation task. If the current evidence is incomplete, create a `verify_first` item with the smallest evidence request and a clear QA path.
+
 ## Portfolio and defaults-drift reviews
 
 Use the portfolio workflow when reviewing multiple client sites, retainer sites, or agency-wide Yoast consistency. Load `references/portfolio-audit-playbook.md` first, then group sites by site type before comparing settings or output. Use `templates/yoast-portfolio-audit-summary.md` for the deliverable.
@@ -133,7 +161,6 @@ Expected output:
 
 Do not use this workflow to bypass client approval or to recommend direct production changes from unverified spreadsheet data.
 
-
 ## Content structure and taxonomy decisions
 
 Use the content-structure route when a user asks whether categories, tags, author archives, date archives, media archives, product tags, product categories, attributes or filtered URL groups should be indexed, noindexed, consolidated or improved.
@@ -141,7 +168,6 @@ Use the content-structure route when a user asks whether categories, tags, autho
 Load `references/content-structure-taxonomy-playbook.md` first, then `references/taxonomy-indexation-decision-model.md` when a clear decision is needed. Use `templates/taxonomy-indexation-decision-pack.md` for approval-ready outputs and `templates/content-structure-remediation-plan.md` when the right next step is cleanup rather than a Yoast setting change.
 
 Do not treat screenshots, settings exports or taxonomy inventories as proof of live output. Rendered archive output, sitemap state and canonical state must be verified before implementation.
-
 
 ## Multilingual and translated metadata requests
 
@@ -155,7 +181,8 @@ When the user provides a redirect map, migration spreadsheet, Yoast Premium redi
 
 Use `templates/redirect-map-review.md` for old-to-new URL decisions and `templates/migration-launch-seo-control-plan.md` when the user needs launch readiness or a migration control plan. If Yoast Premium redirect manager is the proposed route, verify product entitlement or mark it as an explicit verification task before recommending import.
 
-
 ## Related skill routing
 
 Use `woocommerce-yoast-configuration` for planning, evidence interpretation, reports, decision packs and handoffs. Route live WordPress admin inspection or approved Yoast edits to `woocommerce-yoast-auditor` using `references/related-skills-routing.md`.
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

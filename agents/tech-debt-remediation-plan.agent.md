@@ -48,3 +48,6 @@ Create Markdown document with required sections:
 - Use `search_issues` before creating new issues
 - Apply `/.github/ISSUE_TEMPLATE/chore_request.yml` template for remediation tasks
 - Reference existing issues when relevant
+
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -643,3 +643,6 @@ Use this skill when:
 | Introduce Null Object                         | Eliminate null checks                 |
 | Replace Type Code with Class/Enum             | Strong typing                         |
 | Replace Inheritance with Delegation           | Composition over inheritance          |
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

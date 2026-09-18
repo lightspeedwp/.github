@@ -26,3 +26,6 @@ Create GitHub Issue for the specification at `${file}`.
 - Title: Feature name from specification
 - Description: Problem statement, proposed solution, and context
 - Labels: feature, enhancement (as appropriate)
+
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
