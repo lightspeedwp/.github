@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Code Quality Findings Remediation** — Fixed unclosed files, unused bindings and empty handlers across skill scripts and automation. ([PR #3382](https://github.com/lightspeedwp/.github/pull/3382))
 - **Spec Validation Bats Slimming** — Fixed noisy test installs in the specification workflow by installing Bats without optional libraries. ([PR #3380](https://github.com/lightspeedwp/.github/pull/3380))
 - **PR Template Routing Comment Dedup** — The routing workflow posted a duplicate comment on every push. It now updates the existing comment in place and skips unchanged bodies. ([PR #3379](https://github.com/lightspeedwp/.github/pull/3379))
 - **Changelog Validation Workflow Modernisation** — Moved the validator to Node 24 actions and removed the dangling skills gitlink that broke file detection. ([PR #3378](https://github.com/lightspeedwp/.github/pull/3378))

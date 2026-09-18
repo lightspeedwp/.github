@@ -18,7 +18,7 @@ class GitHubIssueCreator {
     period = "weekly",
     options = {},
   ) {
-    const { labels = [], assignees = [], autoClose = true } = options;
+    const { labels = [], assignees = [] } = options;
 
     try {
       const reportDate = new Date().toISOString().split("T")[0];

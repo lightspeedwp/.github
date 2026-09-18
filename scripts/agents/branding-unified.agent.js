@@ -537,10 +537,6 @@ function processBrandingDocument(filePath, options = {}) {
     if (categoryConfig.header_behavior !== "omitted") {
       const header = generateHeader(frontmatter, category, config);
       if (header) {
-        // Remove old header if exists
-        const headerRegex = /^# .*\n\n---\n/m;
-        content = content.replace(headerRegex, "");
-
         // Reconstruct content with new header
         const frontmatterBlock = `---\n${raw_frontmatter}\n---\n`;
         content = frontmatterBlock + header + body;

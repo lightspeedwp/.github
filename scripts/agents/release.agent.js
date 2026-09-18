@@ -40,7 +40,6 @@ const validateVersionPath = path.join(
 const {
   parseChangelog,
   validateChangelog,
-  getUnreleasedChanges,
   hasUnreleasedChanges,
 } = require(changelogUtilsPath);
 const { validateVersion, parseVersion } = require(validateVersionPath);
@@ -401,7 +400,6 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
-        const unreleased = getUnreleasedChanges(changelogData);
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {

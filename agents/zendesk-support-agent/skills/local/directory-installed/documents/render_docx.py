@@ -120,7 +120,7 @@ def calc_dpi_via_ooxml_docx(input_path: str, max_w_px: int, max_h_px: int) -> in
                 "DPI is computed from the first section only. Consider --dpi to override."
             )
     except Exception:
-        pass
+        print("[render_docx] NOTE: multi-section DPI diagnostic skipped (unreadable sectPr).", file=sys.stderr)
 
     return round(min(max_w_px / width_in, max_h_px / height_in))
 

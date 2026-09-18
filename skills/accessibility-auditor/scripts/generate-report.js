@@ -21,7 +21,7 @@ try {
 
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
-  HeadingLevel, AlignmentType, BorderStyle, WidthType, ShadingType,
+  AlignmentType, BorderStyle, WidthType, ShadingType,
   PageBreak,
 } = docx;
 
@@ -29,11 +29,9 @@ const fs = require('fs');
 const path = require('path');
 
 // ─── Colour constants ──────────────────────────────────────────────────────
-const BRAND_DARK = '080808';
 const BRAND_BLUE = '1E6AFF';
 const SECTION_BG = 'F4F6FF';
 const MUTED      = '505050';
-const WHITE      = 'FFFFFF';
 
 const STATUS_STYLE = {
   Pass: { fill: 'E8F5E9', text: '1B5E20' },
