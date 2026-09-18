@@ -1,0 +1,232 @@
+{
+  "version": "1.0.0",
+  "framework": "Keep a Changelog 1.1.0",
+  "rules": [
+    {
+      "rule_id": "CHK_MAX_LENGTH",
+      "rule_name": "Maximum entry length",
+      "description": "Changelog entries must not exceed 250 characters",
+      "dimension": "completeness",
+      "severity": "critical",
+      "validation_logic": "length(content) <= 250",
+      "error_message": "Entry exceeds 250 character limit (constraint from research phase). Current: {actual} chars. Refactor to be more concise and user-focused.",
+      "examples": {
+        "pass": [
+          "Fixed user authentication timeout in login flow (#3350)",
+          "Added support for dark mode in dashboard UI (#3351)",
+          "Improved database query performance for reporting (optimised from 5s to 200ms) (#3352)"
+        ],
+        "fail": [
+          "Fixed a critical issue in the authentication middleware where the JWT token validation was incorrectly checking the expiration timestamp against the system clock instead of the token's internal exp field, which caused valid tokens to be rejected after exactly 24 hours even though they should have been valid for 72 hours according to the issue tracker, resolving the user reports in #3350",
+          "Refactored the entire component structure to use React hooks instead of class components, moving all state management logic into custom hooks for better reusability and testability, implementing proper error boundaries, and adding comprehensive unit tests for all 47 new hook implementations (#3351)"
+        ]
+      }
+    },
+    {
+      "rule_id": "CHK_NO_IMPL_DETAILS",
+      "rule_name": "No implementation details",
+      "description": "Entries must be user-focused; flag code-specific terms only. Architectural verbs (refactored, optimised, deployed, etc.) are PERMITTED.",
+      "dimension": "clarity",
+      "severity": "critical",
+      "validation_logic": "detect code-specific keywords from banned_list; exclude architectural_verbs",
+      "error_message": "Entry contains code-specific implementation details: {violations}. Rewrite from user perspective (user-facing change, not internal implementation). Permitted verbs: refactored, optimised, deployed, migrated, fixed, updated, implemented, patched.",
+      "banned_keywords": [
+        "function",
+        "method",
+        "class",
+        "variable",
+        "module",
+        "middleware",
+        "hook",
+        "component",
+        "REST API",
+        "GraphQL",
+        "database",
+        "query",
+        "cache",
+        "transaction",
+        "endpoint",
+        "algorithm",
+        "logic",
+        "framework",
+        "package",
+        "dependency"
+      ],
+      "architectural_verbs": [
+        "refactored",
+        "optimised",
+        "optimized",
+        "deployed",
+        "migrated",
+        "restructured",
+        "reorganised",
+        "reorganized",
+        "fixed",
+        "updated",
+        "changed",
+        "implemented",
+        "patched"
+      ],
+      "examples": {
+        "pass": [
+          "Refactored authentication flow for better performance (#3350)",
+          "Fixed user profile display issue when email is missing (#3351)",
+          "Optimised database queries to reduce page load time (#3352)",
+          "Implemented automatic backup every 6 hours (#3353)"
+        ],
+        "fail": [
+          "Refactored the React component hierarchy using custom hooks for state management (#3350)",
+          "Fixed memory leak in the database connection pool module (#3351)",
+          "Optimised REST API endpoint response time by implementing query caching (#3352)",
+          "Added transaction logging to the middleware function (#3353)"
+        ]
+      }
+    },
+    {
+      "rule_id": "CHK_HAS_PR_LINK",
+      "rule_name": "PR link present",
+      "description": "Entries must reference at least one PR or issue number",
+      "dimension": "measurability",
+      "severity": "critical",
+      "validation_logic": "regex match #\\d+ or issues/#\\d+",
+      "error_message": "Entry must reference a PR or issue number (e.g., #1234 or issues/#5678). Add reference before changelog can be released.",
+      "examples": {
+        "pass": [
+          "Fixed authentication timeout (#3350)",
+          "Added dark mode support (issues/#2890 #3351)",
+          "Improved performance (#3352 #3353)"
+        ],
+        "fail": [
+          "Fixed authentication timeout",
+          "Added dark mode support",
+          "Improved database performance"
+        ]
+      }
+    },
+    {
+      "rule_id": "CHK_FORMAT_MARKDOWN",
+      "rule_name": "Valid markdown",
+      "description": "Entries must have consistent markdown formatting and no raw HTML",
+      "dimension": "consistency",
+      "severity": "high",
+      "validation_logic": "no raw HTML tags; valid markdown syntax (balanced **, __, [], etc.)",
+      "error_message": "Entry has invalid markdown syntax or raw HTML. Check for balanced brackets, valid links, no raw HTML tags.",
+      "examples": {
+        "pass": [
+          "Added **bold** and *italic* support (#3350)",
+          "Fixed issue with [link text](https://example.com) (#3351)",
+          "Updated `code` formatting in documentation (#3352)"
+        ],
+        "fail": [
+          "Added <strong>bold</strong> support (raw HTML)",
+          "Fixed issue with [broken link](#3350",
+          "Updated code formatting in **documentation (#3352)"
+        ]
+      }
+    },
+    {
+      "rule_id": "CHK_CONSISTENT_TENSE",
+      "rule_name": "Consistent verb tense",
+      "description": "Changelog entries must use consistent tense (typically past tense for completed work)",
+      "dimension": "consistency",
+      "severity": "medium",
+      "validation_logic": "detect tense changes within entry set; flag mixed past/present/future",
+      "error_message": "Entry uses inconsistent verb tense. Keep all entries in past tense for completed changes (e.g., 'Fixed', 'Added', 'Improved', not 'Fix', 'Add', 'Improve').",
+      "examples": {
+        "pass": [
+          "Fixed authentication and improved performance",
+          "Added dark mode and updated documentation",
+          "Refactored API endpoints and deployed to production"
+        ],
+        "fail": [
+          "Fixed authentication and improve performance (mixed past/present)",
+          "Added dark mode and update documentation",
+          "Refactor API endpoints and deploy to production"
+        ]
+      }
+    },
+    {
+      "rule_id": "CHK_NO_ABBREVIATIONS",
+      "rule_name": "No unexplained abbreviations",
+      "description": "Flag uncommon 2+ uppercase consecutive letter sequences (except known acronyms)",
+      "dimension": "clarity",
+      "severity": "medium",
+      "validation_logic": "regex (?<![A-Z])[A-Z]{2,}(?![a-z]) excluding known_acronyms",
+      "error_message": "Entry contains unexplained abbreviation '{abbreviation}'. Either spell it out or add definition in first mention.",
+      "known_acronyms": [
+        "API",
+        "PR",
+        "CI",
+        "CD",
+        "HTML",
+        "CSS",
+        "JS",
+        "JSON",
+        "XML",
+        "HTTP",
+        "HTTPS",
+        "UUID",
+        "ID",
+        "URL",
+        "FAQ",
+        "etc",
+        "vs",
+        "e.g.",
+        "i.e.",
+        "WCAG",
+        "a11y",
+        "i18n"
+      ],
+      "examples": {
+        "pass": [
+          "Fixed API rate limiting issue (#3350)",
+          "Added HTML validation for accessibility (#3351)",
+          "Improved CI/CD pipeline speed (#3352)"
+        ],
+        "fail": [
+          "Fixed RATELIMIT issue in backend SVR (#3350)",
+          "Updated USR permissions for new RBAC system (#3351)"
+        ]
+      }
+    },
+    {
+      "rule_id": "CHK_UNIQUE_CONTENT",
+      "rule_name": "No duplicate entries",
+      "description": "Entries must be unique; similar entries (>90% match) are flagged",
+      "dimension": "consistency",
+      "severity": "high",
+      "validation_logic": "compare content hashes; flag near-duplicates via Levenshtein distance >90% similarity",
+      "error_message": "Entry is very similar to existing entry. Ensure each changelog entry describes a unique change.",
+      "examples": {
+        "pass": [
+          "Fixed authentication timeout issue (#3350)",
+          "Added dark mode toggle in settings (#3351)",
+          "Improved database query performance (#3352)"
+        ],
+        "fail": [
+          "Fixed authentication timeout issue (#3350)",
+          "Fixed the authentication timeout problem (#3351) [duplicate of #3350]"
+        ]
+      }
+    },
+    {
+      "rule_id": "CHK_LINK_VALIDITY",
+      "rule_name": "All links resolve",
+      "description": "PR/issue references must be valid and accessible; validates via GitHub API",
+      "dimension": "measurability",
+      "severity": "high",
+      "validation_logic": "GitHub API v3 GET /repos/lightspeedwp/.github/pulls/{number} or /issues/{number}; retry exponential backoff (2s, 4s, 8s); cache 24 hours",
+      "error_message": "Link '{reference}' could not be validated. PR/issue may be deleted, inaccessible, or incorrect. Verify reference and update if needed.",
+      "examples": {
+        "pass": [
+          "Fixed auth timeout (#3350) [PR exists and returns 200 OK]",
+          "Added dark mode (#3351) [Issue exists and returns 200 OK]"
+        ],
+        "fail": [
+          "Fixed auth timeout (#9999) [PR does not exist - 404]",
+          "Added feature (#3350) [PR deleted]"
+        ]
+      }
+    }
+  ]
+}

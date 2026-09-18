@@ -34,6 +34,7 @@ Central index for all archived GitHub Actions workflows. This document tracks wo
 Phase 1 + Option A of the Workflow Consolidation Initiative to reduce 76 active workflows to 14 core unified workflows. Safely archives 71 non-essential workflows and creates 9 core workflow stubs aligned to Phase 2 architecture. Prepares repository for Phase 2 consolidation work (Oct 1-31, 2026).
 
 **Impact:**
+
 - Code deduplication: ~1000+ lines of duplicate logic eliminated
 - Maintenance burden: 82% reduction (76 → 14 total; 9 core active + 5 unified Phase 2)
 - GitHub Actions minutes: Expected 15-20% savings
@@ -84,6 +85,7 @@ Phase 1 + Option A of the Workflow Consolidation Initiative to reduce 76 active 
 ### Restoration Information
 
 **Quick Restore:**
+
 ```bash
 # Restore single workflow
 git show refactor/workflow-consolidation-and-archiving:.github/workflows/archived/2026-09-11/labeling/labeling.yml > .github/workflows/labeling.yml
@@ -95,6 +97,7 @@ git checkout refactor/workflow-consolidation-and-archiving -- .github/workflows/
 **Detailed procedures:** See [RESTORE.md](./2026-09-11/RESTORE.md)
 
 **Rollback Timeline:**
+
 - Estimated time to restore all 71 workflows: < 30 minutes
 - Estimated time to restore individual workflow: < 5 minutes
 - Retention period: 2 weeks (Sep 11 - Sep 25, 2026)
@@ -145,10 +148,12 @@ This section will be updated as additional consolidation initiatives occur.
 ## Archive Access & Permissions
 
 ### Read Access
+
 - **Public:** Anyone with read access to the repository
 - **Files:** All workflow files, documentation, and procedures
 
 ### Restoration Access
+
 - **Restore commands:** Available to anyone with git access
 - **PR merging:** Requires tech lead approval for consolidation PRs
 - **Rollback:** Available in < 30 minutes if critical issues discovered
@@ -164,17 +169,21 @@ This section will be updated as additional consolidation initiatives occur.
 ## Related Documentation
 
 ### Master Plan
+
 - [WORKFLOW_CONSOLIDATION_MASTER_PLAN.md](../projects/active/workflow-consolidation-master-plan-2026-09/WORKFLOW_CONSOLIDATION_MASTER_PLAN.md)
 - [PHASE_1_IMPLEMENTATION_PLAN.md](../projects/active/workflow-consolidation-master-plan-2026-09/PHASE_1_IMPLEMENTATION_PLAN.md)
 
 ### Specifications
+
 - [workflow-consolidation-2026-q4.spec.md](../specs/workflow-consolidation-2026-q4.spec.md)
 
 ### Mappings & References
+
 - [WORKFLOW_CONSOLIDATION_MAPPING.md](../docs/WORKFLOW_CONSOLIDATION_MAPPING.md)
 - [AUTOMATION.md](../docs/AUTOMATION.md)
 
 ### Validation
+
 - [quickstart.md](../projects/active/workflow-consolidation-master-plan-2026-09/quickstart.md) — Phase 1 validation tests
 
 ---
@@ -208,7 +217,7 @@ This section will be updated as additional consolidation initiatives occur.
 
 For questions about archived workflows:
 
-- **Workflow Consolidation Owner:** Ashley Shaw (ashley@lightspeedwp.agency)
+- **Workflow Consolidation Owner:** Ashley Shaw (<ashley@lightspeedwp.agency>)
 - **Archive Location:** `.github/workflows/archived/`
 - **Master Plan:** `.github/projects/active/workflow-consolidation-master-plan-2026-09/`
 - **Related Epic:** [Epic] Workflow Consolidation Initiative 2026-Q4

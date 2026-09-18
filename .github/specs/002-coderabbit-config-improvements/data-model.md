@@ -25,6 +25,7 @@ CodeRabbitConfig
 **Purpose**: Top-level container for all CodeRabbit behavior
 
 **Validation Rules**:
+
 - Must have at least one path_instruction block
 - reviews settings must be valid YAML
 - label_automation must reference only existing labels from `.github/labels.yml`
@@ -48,6 +49,7 @@ ReviewSettings
 **Purpose**: Global review workflow configuration
 
 **Attributes**:
+
 - `request_changes_workflow`: Whether CodeRabbit should request changes when issues found
 - `high_level_summary`: Include summary in reviews
 - `poem`: Disable/enable poem output (aesthetic setting)
@@ -58,6 +60,7 @@ ReviewSettings
 - `early_access`: Enable early-access CodeRabbit features
 
 **Validation Rules**:
+
 - All boolean fields must have boolean values
 - path_filters must contain valid glob patterns
 - auto_review.enabled must be boolean
@@ -80,6 +83,7 @@ PathInstruction
 **Purpose**: Define review guidance for a specific file type/path
 
 **Attributes**:
+
 - `path`: Glob pattern matching files (e.g., `**/*.js`, `.github/workflows/*.yml`)
 - `priority`: Numeric priority for pattern resolution (higher = more specific)
   - 90-100: Exact file paths
@@ -92,6 +96,7 @@ PathInstruction
 - `validation_rules`: Custom validation rules for this file type
 
 **Structure of instructions field**:
+
 ```markdown
 Review [file type] for [purpose]:
   - **Focus Area 1**: [specific criteria]
@@ -101,12 +106,14 @@ Review [file type] for [purpose]:
 ```
 
 **Validation Rules**:
+
 - path must be non-empty glob pattern
 - priority must be 1-100 (integer)
 - instructions must contain at least 3 distinct review focus areas
 - branch_context values (if present) must map to valid branch types
 
 **Priority Ordering** (resolution algorithm):
+
 1. Sort all matching patterns by priority (descending)
 2. Within same priority: use definition order
 3. First matching pattern wins; no cascading
@@ -132,11 +139,13 @@ BranchContext
 **Purpose**: Provide branch-type-specific review context while reusing core instruction blocks
 
 **Attributes**:
+
 - Each key corresponds to a branch type prefix (feat/, fix/, security/, etc.)
 - Value is markdown text with branch-specific emphasis or criteria
 - Optional - if not present, base instructions apply to all branch types
 
 **Example**:
+
 ```yaml
 security: |
   For security/ branches: Emphasize authentication, access control, 
@@ -144,6 +153,7 @@ security: |
 ```
 
 **Validation Rules**:
+
 - Keys must correspond to valid branch types from CLAUDE.md
 - Values must be markdown strings
 - Can be empty/null for branch types without special context
@@ -163,6 +173,7 @@ AutoReviewConfig
 **Purpose**: Automation settings for automatic review triggering
 
 **Attributes**:
+
 - `enabled`: Whether auto-review is turned on
 - `drafts`: Whether to review pull request drafts
 - `base_branches`: Which base branches trigger auto-review (main, develop, feature/*, etc.)
@@ -183,6 +194,7 @@ LabelAutomationRules
 **Purpose**: Map repository changes to automatic label application
 
 **Validation Rules**:
+
 - All labels must exist in `.github/labels.yml` (read-only reference)
 - All branch prefixes must match CLAUDE.md naming strategy
 - All file paths must use valid glob patterns
@@ -205,6 +217,7 @@ PRTemplateMapping
 **Purpose**: Map branch types to PR templates (for documentation, not automation)
 
 **Validation Rules**:
+
 - All templates must exist at `.github/PULL_REQUEST_TEMPLATE/[template].md`
 - All branch types must have a mapping
 - Mappings must match actual template files
@@ -348,18 +361,22 @@ State: Covered (coverage ≥ 95%)
 ## Design Decisions & Rationale
 
 **Decision 1: Numeric Priority (vs. Named Levels)**
+
 - *Chosen*: Numeric (1-100)
 - *Rationale*: Enables precise ordering, scales to many patterns, clear visual comparison
 
 **Decision 2: Branch-Type-Specific vs. Separate Blocks**
+
 - *Chosen*: Branch-type-specific within single block (via branch_context field)
 - *Rationale*: Reduces config duplication, keeps related guidance together, easier maintenance
 
 **Decision 3: External Audit Guide**
+
 - *Chosen*: External documentation (not embedded in YAML)
 - *Rationale*: Keeps config focused on review instructions; audit is a process, not a config property
 
 **Decision 4: No Cascading Instructions**
+
 - *Chosen*: First matching pattern wins (CodeRabbit behavior)
 - *Rationale*: Simpler mental model, no composition complexity, works with CodeRabbit schema
 

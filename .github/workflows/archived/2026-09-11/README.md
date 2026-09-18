@@ -83,18 +83,22 @@ The consolidation strategy reduces this to **14 core unified workflows** while p
 ## Important Notes
 
 ### Data Safety
+
 - ✅ All workflows preserved with original timestamps
 - ✅ Full git history maintained on `refactor/workflow-consolidation-and-archiving` branch
 - ✅ Zero data loss; files can be restored from git history
 - ✅ Archive kept for 2 weeks before final cleanup
 
 ### Restoration Timeline
+
 - **Rapid restore:** < 5 minutes to restore individual workflow
 - **Full restore:** < 30 minutes to restore all 62 workflows
 - **Rollback criteria:** If Phase 2 consolidated workflows have critical issues
 
 ### What's Still Active
+
 The **14 core workflows** remain in `.github/workflows/` and continue running:
+
 1. `labeling-unified.yml` (new in Phase 2)
 2. `validation-unified.yml` (new in Phase 2)
 3. `quality-gates.yml` (new in Phase 2)
@@ -115,6 +119,7 @@ The **14 core workflows** remain in `.github/workflows/` and continue running:
 ## Next Steps
 
 ### Phase 1 (Sep 16-30)
+
 - [x] Archive 62 workflows (this step)
 - [ ] Create consolidation mapping document
 - [ ] Create archive manifest and restore procedures
@@ -122,12 +127,14 @@ The **14 core workflows** remain in `.github/workflows/` and continue running:
 - [ ] Create GitHub epic + 5 sub-issues
 
 ### Phase 2 (Oct 1-15)
+
 - [ ] Build 14 consolidated workflows
 - [ ] Migrate features from archived workflows
 - [ ] Preserve all functionality while reducing duplication
 - [ ] Test on branch before merge
 
 ### Phase 3 (Oct 16-22)
+
 - [ ] Parallel execution testing
 - [ ] Performance benchmarking
 - [ ] Team validation and approval
@@ -163,7 +170,7 @@ The **14 core workflows** remain in `.github/workflows/` and continue running:
 
 ## Contact & Questions
 
-- **Workflow Consolidation Initiative Owner:** Ashley Shaw (ashley@lightspeedwp.agency)
+- **Workflow Consolidation Initiative Owner:** Ashley Shaw (<ashley@lightspeedwp.agency>)
 - **Phase 1 Branch:** `refactor/workflow-consolidation-and-archiving`
 - **Epic Issue:** [Epic] Workflow Consolidation Initiative 2026-Q4 (TBD)
 - **Master Plan:** `.github/projects/active/workflow-consolidation-master-plan-2026-09/`
