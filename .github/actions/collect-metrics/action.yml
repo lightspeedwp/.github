@@ -76,12 +76,14 @@ runs:
         MINUTES_USED=$((RANDOM % 10))
         DURATION_SECONDS=$((MINUTES_USED * 60))
 
+        # Create metrics JSON
+        METRICS_JSON="{\"minutes_used\":$MINUTES_USED,\"duration_seconds\":$DURATION_SECONDS}"
+
         # Set outputs safely
-        {
-          echo "minutes_used=$MINUTES_USED"
-          echo "duration_seconds=$DURATION_SECONDS"
-          echo "status=success"
-        } >> "$GITHUB_OUTPUT"
+        echo "minutes_used=$MINUTES_USED" >> "$GITHUB_OUTPUT"
+        echo "duration_seconds=$DURATION_SECONDS" >> "$GITHUB_OUTPUT"
+        echo "status=success" >> "$GITHUB_OUTPUT"
+        echo "metrics_json=$METRICS_JSON" >> "$GITHUB_OUTPUT"
 
         echo "✓ Metrics collected successfully"
         exit 0
