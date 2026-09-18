@@ -31,16 +31,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Adoption Metrics (Pending Week 6 Finalization)
 
 **Team Adoption**:
+
 - Active teams (≥1 PRD/team/week): TBD / 5 target
 - Team briefings completed: TBD / 5 minimum
 - Early adoption feedback: [collected in PHASE6_EXECUTION_LOG.md]
 
 **User Satisfaction**:
+
 - Average satisfaction score: TBD / 5.0 (target: ≥4.0/5.0)
 - Survey respondents: TBD / ≥10 target
 - Top feedback themes: [to be populated Week 6]
 
 **Quality & Issues**:
+
 - Critical blockers reported: TBD (target: 0)
 - High-priority issues: TBD (target: 0)
 - Resolved issues: TBD / TBD
@@ -54,6 +57,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **FR-605**: FAQ and troubleshooting guide → FAQ.md ✅
 
 **Checkpoint Status** (pending Week 6):
+
 - [ ] SC-601: Rollout delivered to ≥5 teams
 - [ ] SC-602: ≥5 active teams after 30 days (≥1 PRD/team/week)
 - [ ] SC-603: User satisfaction ≥4.0/5.0
