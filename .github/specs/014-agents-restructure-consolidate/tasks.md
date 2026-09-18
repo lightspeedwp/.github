@@ -59,15 +59,15 @@
 
 **Independent Test**: Run reference audit, identify all broken references, apply fixes, verify CI passes
 
-- [ ] T018 [P] [US1] Document reference types and detection patterns in .github/docs/REFERENCE_TYPES.md
-- [ ] T019 [US1] Implement JavaScript import detection in scripts/validation/lib/reference-detector.js (require(), import statements)
-- [ ] T020 [P] [US1] Implement shell path detection in scripts/validation/lib/reference-detector.js (hardcoded paths in .sh files)
-- [ ] T021 [P] [US1] Implement workflow reference detection in scripts/validation/lib/reference-detector.js (agent invocations in .github/workflows/*.yml)
+- [x] T018 [P] [US1] Document reference types and detection patterns in .github/docs/REFERENCE_TYPES.md
+- [x] T019 [US1] Implement JavaScript import detection in scripts/validation/lib/reference-detector.js (require(), import statements)
+- [x] T020 [P] [US1] Implement shell path detection in scripts/validation/lib/reference-detector.js (hardcoded paths in .sh files)
+- [x] T021 [P] [US1] Implement workflow reference detection in scripts/validation/lib/reference-detector.js (agent invocations in .github/workflows/*.yml)
 - [ ] T022 [US1] Generate broken reference audit report and save to agents/reports/broken-references-audit.json
-- [ ] T023 [P] [US1] Create reference fix recommendations in scripts/validation/lib/fix-suggester.js (suggest correct paths)
-- [ ] T024 [US1] Implement auto-fix capability for identified broken references in scripts/validation/lib/auto-fixer.js
+- [x] T023 [P] [US1] Create reference fix recommendations in scripts/validation/lib/fix-suggester.js (suggest correct paths)
+- [x] T024 [US1] Implement auto-fix capability for identified broken references in scripts/validation/lib/auto-fixer.js
 - [ ] T025 [P] [US1] Create validation script to verify all fixes executed successfully in scripts/validation/verify-fixes.js
-- [ ] T026 [P] [US1] Document broken reference remediation process in .github/docs/BROKEN_REFERENCE_REMEDIATION.md
+- [x] T026 [P] [US1] Document broken reference remediation process in .github/docs/BROKEN_REFERENCE_REMEDIATION.md
 - [ ] T027 [US1] Generate summary report of all broken references fixed (count, types, impact)
 - [ ] T028 [P] [US1] Create integration tests for reference detection and fixing in scripts/validation/**tests**/reference-detection.test.js
 - [ ] T029 [US1] Verify all dependent scripts execute successfully after fixes applied
