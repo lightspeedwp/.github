@@ -1,6 +1,6 @@
 # Specification Catalog
 
-**Last Updated**: 2026-09-17 | **Maintained by**: Governance Authority (@ashley)
+**Last Updated**: 2026-09-18 | **Maintained by**: Governance Authority (@ashley)
 
 ## Overview
 
@@ -39,14 +39,13 @@ All specification catalog entries MUST follow this exact column order and naming
 | 010 | requirements-checklist | Requirements Quality Checklist | Active | 2026-04-01 | [./010-requirements-checklist/spec.md](./010-requirements-checklist/spec.md) |
 | 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
 | 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
+| 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Active | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
 
 ---
 
 ## Draft Specifications
 
-| # | Slug | Title | Status | Created | Link |
-|---|-------|---------|--------|---------|------|
-| 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Draft | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
+Currently no draft specifications. All approved specifications are listed above under Active Specifications.
 
 ---
 
@@ -200,10 +199,10 @@ Audit governance files and refactor organizational structure for improved policy
 
 Audit and refactor the SpecKit folder organization (001-012 specifications) to establish quality standards, create centralized catalog, and implement governance procedures for specification management.
 
-- **Status**: Draft
-- **Phase**: InProgress
+- **Status**: Active
+- **Phase**: Complete
 - **Created**: 2026-09-16
-- **Updated**: 2026-09-17
+- **Updated**: 2026-09-18
 - **Link**: [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md)
 
 ---
