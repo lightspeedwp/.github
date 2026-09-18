@@ -200,7 +200,7 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 
 - Q: Should we extend the 30-day timeline to add dedicated Linting, Test Creation, and Documentation phases, or defer them to Phase 2? → A: Option C - Phased rollout: Phase 1 (this spec) delivers core restructuring in 30 days; Linting, Test Creation, and Documentation phases deferred to Phase 2 spec
 - Q: What files and folder structure should EVERY agent contain? → A: Option B - Recommended: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/
-- Q: Which testing framework should agents mandate for test coverage? → A: Option D - Mixed (context-dependent): Jest for JavaScript agents (__tests__/ folders), Bats for shell scripts (tests/ folder), Playwright for UI agents (tests/e2e/ folder)
+- Q: Which testing framework should agents mandate for test coverage? → A: Option D - Mixed (context-dependent): Jest for JavaScript agents (**tests**/ folders), Bats for shell scripts (tests/ folder), Playwright for UI agents (tests/e2e/ folder)
 - Q: Should skills adopt a categorical naming convention {category}/{scope}-{title} with categorical subfolders? → A: Yes - Adopt pattern with example categories: skills/validation/, skills/audit/, skills/reporting/, skills/registry/
 - Q: Should we add User Stories 8 (Plugins) & 9 (SpecKit Integration) to this spec, or defer to Phase 2? → A: Option A - Defer both to Phase 2 spec; Phase 1 focuses on core restructuring infrastructure (7 user stories)
 

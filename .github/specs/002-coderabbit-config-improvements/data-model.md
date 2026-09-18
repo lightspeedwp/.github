@@ -63,6 +63,7 @@ pr_governance:
 **Relationships**:
 
 <<<<<<< HEAD
+
 ```yaml
 ReviewSettings
   ├── request_changes_workflow: boolean
@@ -176,6 +177,7 @@ BranchContext
 - Ordered by `priority` (descending, 100→1)
 - First matching pattern wins (CodeRabbit behavior)
 - Optional reference to BranchContext entries
+
 >>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 **Example**:
@@ -245,6 +247,7 @@ code_review_rules:
 - Values must be markdown strings
 - Can be empty/null for branch types without special context
 =======
+
 >>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 - `branch_type` must be from 38 authorized set (Constitution Principle V)
@@ -282,6 +285,7 @@ Focus: Quantify performance improvement; verify no regressions
 - `base_branches`: Which base branches trigger auto-review (main, develop, feature/*, etc.)
 =======
 **Purpose**: Define rules for validating PR description section completeness and format
+
 >>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 **Fields**:
@@ -309,6 +313,7 @@ Focus: Quantify performance improvement; verify no regressions
 - All branch prefixes must match CLAUDE.md naming strategy
 - All file paths must use valid glob patterns
 =======
+
 >>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 - `section` headers must match actual PR template section names
@@ -366,6 +371,7 @@ pr_governance:
 - All branch types must have a mapping
 - Mappings must match actual template files
 =======
+
 >>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 - `families` must include at minimum: type (required), status (required)
@@ -555,6 +561,7 @@ pr_governance:
 - All entities in central `.coderabbit.yml` apply to all consuming repos
 - Repos can override locally (add repo-specific entries)
 - All improvements additive (no breaking changes)
+
 >>>>>>> b3cba347e (feat: complete Phase 0 research and Phase 1 design for CodeRabbit governance)
 
 ---
