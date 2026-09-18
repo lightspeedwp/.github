@@ -1,5 +1,7 @@
 #!/usr/bin/env bats
 
+# setup - Initialize test environment with mock git and sleep commands
+# Sets up temporary directory structure with mocked gh and sleep binaries for testing
 setup() {
   REPO_ROOT="$(cd "$BATS_TEST_DIRNAME/../.." && pwd)"
   SCRIPT="$REPO_ROOT/.github/projects/active/prd-combined-agent/bulk-label-issues.sh"
@@ -29,6 +31,10 @@ EOF_SLEEP
   chmod +x "$MOCK_BIN/gh" "$MOCK_BIN/sleep"
 }
 
+# run_bulk_labeler - Execute the bulk-label-issues script with mocked commands
+# Runs the labeling script with mocked gh and sleep for testing
+# Parameters:
+#   $@ - Arguments to pass to the bulk-label-issues script
 run_bulk_labeler() {
   run env \
     PATH="$MOCK_BIN:$PATH" \
@@ -38,6 +44,8 @@ run_bulk_labeler() {
     bash "$SCRIPT" "$@"
 }
 
+# plan_label_rows - Extract issue and label rows from the labeling plan markdown
+# Outputs pipe-delimited pairs of issue numbers and corresponding labels from the plan
 plan_label_rows() {
   awk -F '|' '
     function trim(value) {
@@ -53,6 +61,8 @@ plan_label_rows() {
   ' "$LABELING_PLAN"
 }
 
+# script_label_rows - Extract issue and label mappings from the bulk-label-issues script
+# Outputs pipe-delimited pairs of issue numbers and labels defined in the script
 script_label_rows() {
   sed -nE 's/^  \[([0-9]+)\]="([^"]+)"$/\1|\2/p' "$SCRIPT"
 }

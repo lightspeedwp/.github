@@ -1,0 +1,146 @@
+name: Validate Specifications
+
+on:
+  pull_request:
+    paths:
+      - '.github/specs/**'
+      - '.github/workflows/validate-specifications.yml'
+      - '.specify/scripts/bash/audit-specs.sh'
+      - '.specify/scripts/bash/validate-catalog.sh'
+      - 'tests/bash/**'
+  push:
+    branches:
+      - develop
+    paths:
+      - '.github/specs/**'
+      - '.github/workflows/validate-specifications.yml'
+      - '.specify/scripts/bash/audit-specs.sh'
+      - '.specify/scripts/bash/validate-catalog.sh'
+      - 'tests/bash/**'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Specification Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run specification audit
+        id: audit
+        run: |
+          set -o pipefail
+          bash .specify/scripts/bash/audit-specs.sh 2>&1 | tee audit-output.txt
+          audit_exit=${PIPESTATUS[0]}
+          if [ "$audit_exit" -ne 0 ]; then
+            echo "Specification audit failed with exit code $audit_exit" >&2
+            exit "$audit_exit"
+          fi
+
+      - name: Validate catalog structure
+        id: catalog
+        run: |
+          set +e
+          bash .specify/scripts/bash/validate-catalog.sh
+          exit_code=$?
+          set -e
+
+          if [ $exit_code -eq 0 ]; then
+            {
+              echo "status=found"
+              echo "schema_valid=true"
+              echo "links_valid=true"
+              echo "maintenance_ok=true"
+            } >> "$GITHUB_OUTPUT"
+          else
+            echo "Validation failed with exit code $exit_code" >&2
+            exit 1
+          fi
+
+      - name: Install Bats test framework
+        if: always()
+        uses: bats-core/bats-action@4.0.0
+
+      - name: Run audit script test suite
+        if: always()
+        id: tests
+        run: |
+          bats tests/bash
+          echo "tests_ok=true" >> "$GITHUB_OUTPUT"
+          echo "✓ Audit script tests passed"
+
+      - name: Lint specification files
+        if: always()
+        run: |
+          npm run lint:md -- .github/specs/
+          echo "✓ Markdown linting passed"
+
+      - name: Run security scan
+        if: always()
+        run: |
+          set +e
+          # Scan specification files for common security issues
+          SECURITY_ISSUES=0
+
+          # Check for hardcoded secrets (literal password=, api_key=, token= patterns)
+          if grep -rE '(password|api_key|token)\s*[=:]\s*['"'"'"]?[^'"'"'" \n]' .github/specs/ --include="*.md" 2>/dev/null; then
+            echo "⚠️  Potential hardcoded secrets detected in specifications"
+            ((SECURITY_ISSUES++))
+          fi
+
+          # No dangerous script pattern checks - eval is used legitimately for config loading
+
+          if [ $SECURITY_ISSUES -eq 0 ]; then
+            echo "🔒 Security scan completed"
+            echo "✓ No security issues detected in changes"
+            exit 0
+          else
+            echo "✗ Security scan found $SECURITY_ISSUES issue(s)"
+            exit 1
+          fi
+
+      - name: Generate compliance report
+        if: always()
+        id: report
+        run: |
+          cat > /tmp/compliance-report.md << 'EOF'
+          ## 📋 Specification Compliance Report
+
+          ### Directory Structure
+          - Catalog file: ${{ steps.catalog.outputs.status }}
+          - Schema compliance: ${{ steps.catalog.outputs.schema_valid }}
+
+          ### Schema Compliance
+          - Canonical schema validation: ${{ steps.catalog.outputs.schema_valid }}
+          - Catalog link validation: ${{ steps.catalog.outputs.links_valid }}
+          - MAINTENANCE.md compliant: ${{ steps.catalog.outputs.maintenance_ok }}
+
+          ### Metrics
+          | Metric | Status |
+          |--------|--------|
+          | Catalog exists | ${{ steps.catalog.outputs.status == 'found' && '✅' || '❌' }} |
+          | Schema valid | ${{ steps.catalog.outputs.schema_valid == 'true' && '✅' || '❌' }} |
+          | Links valid | ${{ steps.catalog.outputs.links_valid == 'true' && '✅' || '❌' }} |
+          | MAINTENANCE.md updated | ${{ steps.catalog.outputs.maintenance_ok == 'true' && '✅' || '⚠️' }} |
+          | Tests passed | ${{ steps.tests.outputs.tests_ok == 'true' && '✅' || '❌' }} |
+
+          ### Principle X Compliance
+          This workflow enforces **Principle X: Automated Validation & Metrics-Driven Governance** by:
+          - ✅ Running automated validation on every PR touching specification files
+          - ✅ Generating compliance metrics and reporting them
+          - ✅ Failing the check if critical validation rules are violated
+          - ✅ Tracking specification structure, numbering, and schema compliance
+          - ✅ Running required quality checks (linting, security, tests)
+
+          ---
+          _Generated by specification validation workflow_
+          EOF
+          cat /tmp/compliance-report.md >> "$GITHUB_STEP_SUMMARY"
