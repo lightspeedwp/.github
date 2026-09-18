@@ -100,8 +100,12 @@ jobs:
         run: |
           if [[ $BRANCH =~ ^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/ ]]; then
             echo "branch_valid=true" >> $GITHUB_OUTPUT
+            # Extract branch type (part before /)
+            BRANCH_TYPE="${BRANCH%%/*}"
+            echo "branch_type=$BRANCH_TYPE" >> $GITHUB_OUTPUT
           else
             echo "branch_valid=false" >> $GITHUB_OUTPUT
+            echo "branch_type=unknown" >> $GITHUB_OUTPUT
           fi
 
       - name: Apply file/branch-based labels
@@ -125,7 +129,7 @@ jobs:
           target_type: pull_request
           target_id: ${{ github.event.pull_request.number }}
           source: type
-          labels: "type:${{ github.head_ref | split('/')[0] }}"
+          labels: 'type:${{ steps.branch-validation.outputs.branch_type }}'
           remove_labels: ''
           dry_run: ${{ inputs.dry_run || 'false' }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
