@@ -86,14 +86,14 @@
 - [x] T033 [P] [US2] Create agent folder structure template in .github/templates/agent-structure-template/ with all 7 components
 - [x] T034 [US2] Document standardized agent folder structure in .github/docs/AGENT_FOLDER_STRUCTURE.md (mandate: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
 - [x] T035 [P] [US2] Implement folder structure validation in scripts/validation/lib/structure-checker.js
-- [ ] T036 [US2] Generate structure audit report and save to agents/reports/structure-audit.json
-- [ ] T037 [P] [US2] Identify agents missing required components (per Decision 1: 7-item template)
-- [ ] T038 [P] [US2] Create remediation recommendations for non-conformant agents in agents/reports/structure-remediation-recommendations.json
+- [x] T036 [US2] Generate structure audit report and save to agents/reports/structure-audit.json
+- [x] T037 [P] [US2] Identify agents missing required components (per Decision 1: 7-item template)
+- [x] T038 [P] [US2] Create remediation recommendations for non-conformant agents in agents/reports/structure-remediation-recommendations.json
 - [x] T039 [US2] Document agent CHANGELOG.md format requirements in .github/docs/CHANGELOG_FORMAT.md
 - [x] T040 [P] [US2] Document agent package.json requirements in .github/docs/PACKAGE_JSON_REQUIREMENTS.md
 - [x] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
 - [x] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
-- [ ] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
+- [x] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
 - [x] T044 [P] [US2] Create unit tests for structure validation in scripts/validation/**tests**/structure-validation.test.js
 
 ---
