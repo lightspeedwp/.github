@@ -74,7 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Requirements Quality Checklist Framework** — SDK for 8-dimension spec quality assessment. Includes 35+ automated checks, 4 audience templates (author, peer, stakeholder, integration), and comprehensive test coverage. ([PR #3371](https://github.com/lightspeedwp/.github/pull/3371))
+- **Requirements Quality Checklist Framework** — Assessment framework for 8 quality dimensions. Includes 35+ automated checks, 4 audience templates (author, peer, stakeholder, integration), and comprehensive test coverage. ([PR #3371](https://github.com/lightspeedwp/.github/pull/3371))
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
 - **Branch Cleanup Audit Added** — Added safe-cleanup guidance with keep, review and delete categories. (#3128)
