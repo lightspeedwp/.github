@@ -50,6 +50,10 @@ jobs:
 
       - name: Validate changelog entries
         id: validate
+        # Token via env (not inline) so the secret is not expanded into the
+        # shell command line.
+        env:
+          CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd .github/validation/changelog
 
@@ -57,6 +61,8 @@ jobs:
             echo "passed=0" >> $GITHUB_OUTPUT
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "new_failed=0" >> $GITHUB_OUTPUT
+            echo "base_failed=0" >> $GITHUB_OUTPUT
             echo "result=No changelog files modified in this PR" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -67,15 +73,15 @@ jobs:
             --trigger pr_submission \
             --pr-number ${{ github.event.pull_request.number }} \
             --branch ${{ github.head_ref }} \
-            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            --github-token "$CHANGELOG_GITHUB_TOKEN" \
             --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
           # Parse report
           if [ -f validation-report.json ]; then
-            PASSED=$(jq '.summary.passed' validation-report.json 2>/dev/null || echo "0")
-            FAILED=$(jq '.summary.failed' validation-report.json 2>/dev/null || echo "0")
-            RESULT=$(jq -r '.recommendation' validation-report.json 2>/dev/null || echo "UNKNOWN")
-            GATE_RESULT=$(jq -r '.ci_gate_result' validation-report.json 2>/dev/null || echo "UNKNOWN")
+            PASSED=$(jq '.summary.passed // 0' validation-report.json 2>/dev/null || echo "0")
+            FAILED=$(jq '.summary.failed // 0' validation-report.json 2>/dev/null || echo "0")
+            RESULT=$(jq -r '.recommendation // "UNKNOWN"' validation-report.json 2>/dev/null || echo "UNKNOWN")
+            GATE_RESULT=$(jq -r '.ci_gate_result // "UNKNOWN"' validation-report.json 2>/dev/null || echo "UNKNOWN")
 
             echo "passed=$PASSED" >> $GITHUB_OUTPUT
             echo "failed=$FAILED" >> $GITHUB_OUTPUT
@@ -85,22 +91,55 @@ jobs:
 
             # Save full report for audit
             cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
-
-            # Exit based on gate result
-            if [ "$GATE_RESULT" == "pass" ]; then
-              exit 0
-            elif [ "$GATE_RESULT" == "warning" ]; then
-              exit 0
-            else
-              exit 1
-            fi
           else
             echo "passed=0" >> $GITHUB_OUTPUT
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=ERROR" >> $GITHUB_OUTPUT
             echo "gate_result=UNKNOWN" >> $GITHUB_OUTPUT
+            echo "new_failed=0" >> $GITHUB_OUTPUT
+            echo "base_failed=0" >> $GITHUB_OUTPUT
             [ -f validation-stderr.log ] && cat validation-stderr.log
+            exit 1
+          fi
+
+          # Validate the base-branch CHANGELOG as well, so the gate only
+          # fails on failures introduced by this PR. Legacy Unreleased debt
+          # is reported for visibility but does not block the PR.
+          BASE_FAILED=0
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          if git show "$BASE_SHA:CHANGELOG.md" > /tmp/base-changelog.md 2>/dev/null; then
+            node bin/validate.js \
+              --changelog-path /tmp/base-changelog.md \
+              --trigger pr_submission \
+              --pr-number ${{ github.event.pull_request.number }} \
+              --branch ${{ github.head_ref }} \
+              --github-token "$CHANGELOG_GITHUB_TOKEN" \
+              --output json > base-validation-report.json 2>/dev/null || true
+            if [ -f base-validation-report.json ]; then
+              BASE_FAILED=$(jq '.summary.failed // 0' base-validation-report.json 2>/dev/null || echo "0")
+            fi
+          else
+            echo "⚠️ Could not read base CHANGELOG for comparison; gating on total failures"
+          fi
+
+          # Guard against non-numeric values before arithmetic
+          case "$FAILED" in ''|*[!0-9]*) FAILED=0 ;; esac
+          case "$BASE_FAILED" in ''|*[!0-9]*) BASE_FAILED=0 ;; esac
+
+          NEW_FAILED=$((FAILED - BASE_FAILED))
+          if [ "$NEW_FAILED" -lt 0 ]; then NEW_FAILED=0; fi
+
+          echo "base_failed=$BASE_FAILED" >> $GITHUB_OUTPUT
+          echo "new_failed=$NEW_FAILED" >> $GITHUB_OUTPUT
+          echo "PR failures: $FAILED, base failures: $BASE_FAILED, new: $NEW_FAILED"
+
+          # Exit based on gate result
+          if [ "$GATE_RESULT" == "pass" ]; then
+            exit 0
+          elif [ "$GATE_RESULT" == "warning" ]; then
+            exit 0
+          else
             exit 1
           fi
         continue-on-error: true
@@ -112,9 +151,18 @@ jobs:
           PASSED=${{ steps.validate.outputs.passed }}
           FAILED=${{ steps.validate.outputs.failed }}
           WARNINGS=${{ steps.validate.outputs.warnings }}
+          NEW_FAILED=${{ steps.validate.outputs.new_failed }}
+          BASE_FAILED=${{ steps.validate.outputs.base_failed }}
 
-          # Build comment markdown
-          cat > /tmp/comment.md << 'EOF'
+          # Default empty/non-numeric outputs to zero for numeric tests
+          case "$NEW_FAILED" in ''|*[!0-9]*) NEW_FAILED=0 ;; esac
+          case "$WARNINGS" in ''|*[!0-9]*) WARNINGS=0 ;; esac
+          case "$BASE_FAILED" in ''|*[!0-9]*) BASE_FAILED=0 ;; esac
+
+          # Build comment markdown. NOTE: the heredoc delimiter MUST stay
+          # unquoted so $PASSED/$WARNINGS/$FAILED expand. A quoted 'EOF'
+          # posts the literal variable names to every PR.
+          cat > /tmp/comment.md << EOF
           ## 📋 Changelog Quality Validation
 
           ### Summary
@@ -124,19 +172,24 @@ jobs:
           | ✅ Passing | $PASSED |
           | ⚠️ Warnings | $WARNINGS |
           | ❌ Failing | $FAILED |
+          | 🆕 New failures in this PR | $NEW_FAILED |
+          | 📦 Pre-existing failures | $BASE_FAILED |
 
           ### Status
 
           EOF
 
-          if [ "$FAILED" -gt 0 ]; then
-            echo "❌ **Validation FAILED** - Please fix the issues below before merging" >> /tmp/comment.md
-            echo "All changelog entries must pass validation to maintain quality standards." >> /tmp/comment.md
+          if [ "$NEW_FAILED" -gt 0 ]; then
+            echo "❌ **Validation FAILED** - This PR introduces $NEW_FAILED new changelog failure(s). Please fix them before merging." >> /tmp/comment.md
+            echo "Pre-existing failures ($BASE_FAILED) are reported for visibility and do not block this PR." >> /tmp/comment.md
           elif [ "$WARNINGS" -gt 0 ]; then
             echo "⚠️ **Validation CONDITIONAL PASS** - $WARNINGS warning(s) detected" >> /tmp/comment.md
             echo "Review the warnings and consider addressing them for better quality." >> /tmp/comment.md
           else
-            echo "✅ **Validation PASSED** - All entries meet quality standards" >> /tmp/comment.md
+            echo "✅ **Validation PASSED** - No new failures introduced by this PR." >> /tmp/comment.md
+            if [ "$BASE_FAILED" -gt 0 ]; then
+              echo "Note: $BASE_FAILED pre-existing failure(s) remain in the Unreleased section." >> /tmp/comment.md
+            fi
           fi
 
           echo "" >> /tmp/comment.md
@@ -145,7 +198,7 @@ jobs:
           echo "Run locally:" >> /tmp/comment.md
           echo "\`\`\`bash" >> /tmp/comment.md
           echo "cd .github/validation/changelog" >> /tmp/comment.md
-          echo "node bin/validate.js --changelog-path CHANGELOG.md" >> /tmp/comment.md
+          echo "node bin/validate.js --changelog-path ../../../CHANGELOG.md" >> /tmp/comment.md
           echo "\`\`\`" >> /tmp/comment.md
           echo "" >> /tmp/comment.md
           echo "See [Changelog Quality Audit](.github/validation/changelog/docs/DEVELOPER_GUIDE.md) for details." >> /tmp/comment.md
@@ -195,7 +248,7 @@ jobs:
             }
 
       - name: Request reviewer if validation failed
-        if: steps.validate.outputs.failed > 0 && steps.changed-files.outputs.any_changed == 'true'
+        if: steps.validate.outputs.new_failed > 0 && steps.changed-files.outputs.any_changed == 'true'
         uses: actions/github-script@v9
         with:
           script: |
@@ -211,7 +264,9 @@ jobs:
           FILENAME="${DATE_STR}_$(date +%s).json"
           FILEPATH=".github/reports/validation-audits/$FILENAME"
 
-          cat > "$FILEPATH" << 'EOF'
+          # NOTE: heredoc delimiter stays unquoted so $TIMESTAMP expands
+          # (a quoted 'EOF' would log the literal variable name).
+          cat > "$FILEPATH" << EOF
           {
             "timestamp": "$TIMESTAMP",
             "run_id": "${{ github.run_id }}",
@@ -224,7 +279,9 @@ jobs:
             "validation": {
               "passed": ${{ steps.validate.outputs.passed || 0 }},
               "failed": ${{ steps.validate.outputs.failed || 0 }},
-              "warnings": ${{ steps.validate.outputs.warnings || 0 }}
+              "warnings": ${{ steps.validate.outputs.warnings || 0 }},
+              "new_failed": ${{ steps.validate.outputs.new_failed || 0 }},
+              "base_failed": ${{ steps.validate.outputs.base_failed || 0 }}
             },
             "workflow_conclusion": "${{ job.status }}"
           }
@@ -235,11 +292,13 @@ jobs:
       - name: Set status check
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-          if [ "${{ steps.validate.outputs.failed }}" -gt 0 ]; then
-            echo "❌ Changelog validation failed: ${{ steps.validate.outputs.failed }} errors"
+          NEW_FAILED="${{ steps.validate.outputs.new_failed }}"
+          case "$NEW_FAILED" in ''|*[!0-9]*) NEW_FAILED=0 ;; esac
+          if [ "$NEW_FAILED" -gt 0 ]; then
+            echo "❌ Changelog validation failed: $NEW_FAILED new error(s) introduced by this PR"
             exit 1
           fi
-          echo "✅ Changelog validation passed"
+          echo "✅ Changelog validation passed (no new failures)"
         continue-on-error: true
 
       - name: Report validation results
@@ -251,7 +310,9 @@ jobs:
               passed: ${{ steps.validate.outputs.passed || 0 }},
               failed: ${{ steps.validate.outputs.failed || 0 }},
               warnings: ${{ steps.validate.outputs.warnings || 0 }},
+              new_failed: ${{ steps.validate.outputs.new_failed || 0 }},
+              base_failed: ${{ steps.validate.outputs.base_failed || 0 }},
               status: '${{ steps.validate.outputs.result }}'
             };
 
-            core.notice(`Changelog Validation: ${result.passed} passed, ${result.failed} failed, ${result.warnings} warnings`);
+            core.notice(`Changelog Validation: ${result.passed} passed, ${result.failed} failed, ${result.warnings} warnings, ${result.new_failed} new in PR`);
