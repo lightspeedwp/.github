@@ -122,13 +122,13 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 
 ---
 
-### Edge Cases
+### Edge Cases & Resolutions
 
-- What happens when an agent has skill dependencies on skills that don't exist in root or agent folders?
-- How should we handle agents that have conflicting skill dependencies (two agents need different versions of same skill)?
-- What should we do if a script references multiple agents (belongs to none of them specifically)?
-- How should deprecation of root scripts work when other repositories depend on them?
-- How do we ensure registry updates stay in sync when agents are modified outside the consolidation workflow?
+- **Missing skill dependencies**: Agents with missing skill dependencies are flagged and treated as incomplete. Restructuring cannot complete for that agent until the missing dependency is created or the reference is removed.
+- **Skill version conflicts**: When two agents need different versions of the same skill, agent-specific version-pinned copies are permitted in the agent folder. If versions are identical, agents MUST use the shared root skill to avoid duplication.
+- **Multi-agent script dependencies**: Scripts that logically depend on multiple agents are decomposed into agent-specific subscripts. If logic is truly shared across agents, it becomes a reusable library/utility that each agent references rather than duplicates.
+- **Cross-repository script dependencies**: Deprecation of root scripts follows a timeline documented in User Story 7. Consuming repositories are notified via changelog and migration guide before deprecation.
+- **Registry consistency**: Agent registries are auto-generated from filesystem state and regenerated on demand. No manual registry maintenance required; registry format is machine-parseable JSON to support automation.
 
 ## Requirements *(mandatory)*
 
@@ -161,24 +161,37 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 - **SC-001**: 100% of broken references from agent renames/moves are identified and fixed; CI passes with no import/path errors
 - **SC-002**: 100% of agents in `agents/` folder conform to standardized folder structure as defined in standardization spec
 - **SC-003**: Deduplication audit identifies all duplicate and near-duplicate skills; consolidation plan achieves zero true duplicates post-implementation
-- **SC-004**: Agent registry and skills registry are generated and validated; both are machine-parseable and can be auto-generated from filesystem state
+- **SC-004**: Agent registry and skills registry are generated in JSON format and validated; registries are at `agents/registry.json` (consolidated) and `agents/{agent}/registry.json` (per-agent); both are auto-generated from filesystem state on demand
 - **SC-005**: 100% of agent skills pass agentskills.io specification compliance or have documented, justified exceptions
 - **SC-006**: Skill dependency graph is complete and accurate; shared skills in root folder are used by all agents that need them (no local copies of shared skills)
 - **SC-007**: All root scripts have been mapped to logical agent owners; migration/deprecation plan is created with zero unmapped scripts
 - **SC-008**: Agent restructuring can be decomposed into individual agent specs with clear priority order and no circular dependencies
 - **SC-009**: All reference breakages from renames are fixed; dependent workflows and scripts execute successfully on first run
-- **SC-010**: Restructuring plan shows 30-day completion estimate with clear phase breakdown (audit/consolidation/migration/validation)
+- **SC-010**: Restructuring plan shows 30-day completion estimate broken into 4 phases: Phase 1 (Days 1–5) audit & broken reference remediation; Phase 2 (Days 6–12) standardization & deduplication; Phase 3 (Days 13–20) registry generation & compliance validation; Phase 4 (Days 21–30) agent restructuring specifications & planning
 
 ## Assumptions
 
 - **Scope boundaries**: This specification focuses on agents in `agents/` folder only (not root-level spec-based agents yet - that's Phase 2/lower priority). Root scripts will be mapped but not migrated until Phase 3.
 - **Breaking changes**: Agent file renames in the branch have already occurred; this spec focuses on identifying and remediating the resulting broken references, not preventing future renames
 - **Skills compliance**: All agent skills should eventually comply with agentskills.io specification; until then, deviations will be documented with rationale
-- **Shared vs. agent-specific skills**: Skills that are used by 2+ agents should be consolidated to root `skills/` folder; skills used by 1 agent can stay in agent folder if agent-specific customization is justified
-- **Registry automation**: Registries should be machine-generated from filesystem state (agent folders, skill folders, metadata files) rather than manually maintained; updates should be automatic
-- **Backward compatibility**: Root scripts continue to work during restructuring; deprecation happens after agents are self-contained
+- **Shared vs. agent-specific skills**: Skills that are used by 2+ agents should be consolidated to root `skills/` folder; skills used by 1 agent can stay in agent folder if agent-specific customization is justified. Version-pinned skill copies are permitted in agent folders ONLY when versions differ from root; identical versions must use the shared root skill.
+- **Missing skill dependencies**: Agents with missing skill dependencies are treated as incomplete and block restructuring completion until the dependency is created or reference removed.
+- **Registry format & automation**: Registries are machine-generated from filesystem state in JSON format: `agents/registry.json` (consolidated) and `agents/{agent}/registry.json` (per-agent). Registries are auto-generated on demand and never manually maintained. Regeneration is triggered during audit, consolidation, and validation phases.
+- **Multi-agent script ownership**: Scripts with dependencies on multiple agents are decomposed into agent-specific subscripts or elevated to shared utilities rather than duplicated across agents.
+- **Backward compatibility**: Root scripts continue to work during restructuring; deprecation happens after agents are self-contained. Consuming repositories receive migration guidance before deprecation.
 - **External dependencies**: agentskills.io specification is authoritative; any conflicts with current agent skill structure should be resolved in favor of specification compliance
 - **Testing coverage**: Each agent should have unit tests for its skills and integration tests for cross-agent interactions; test coverage should be at least 80%
+- **Timeline**: 30-day execution target across 4 phases: Phase 1 (Days 1–5) audit & broken references; Phase 2 (Days 6–12) standardization & deduplication; Phase 3 (Days 13–20) registries & compliance; Phase 4 (Days 21–30) restructuring planning & decomposition
+
+## Clarifications
+
+### Session 2026-09-18
+
+- Q: How should the system handle agents requiring different versions of the same skill? → A: Option B - Allow version-pinned skill copies in individual agents only when versions differ; identical versions must use root shared skill
+- Q: How should broken or missing skill dependencies be handled during restructuring? → A: Option A - Flag missing dependencies; agent restructuring is incomplete until dependency is created or reference removed
+- Q: What is the authoritative format and location for the agent registry and skills registry? → A: Option A - JSON registries in agent folders (`agents/{agent}/registry.json`) plus consolidated root registry (`agents/registry.json`); auto-generated from filesystem
+- Q: How should scripts that logically depend on multiple agents be handled during migration? → A: Option B - Decompose multi-agent scripts into agent-specific subscripts; each agent owns relevant portion; shared logic becomes reusable library/utility
+- Q: What is the minimum viable timeline and phasing for the 30-day completion estimate? → A: Phase 1 (Days 1–5) Audit & broken reference remediation; Phase 2 (Days 6–12) Standardize structure & deduplication; Phase 3 (Days 13–20) Registries & compliance; Phase 4 (Days 21–30) Agent restructuring specs & planning
 
 ## Notes
 
