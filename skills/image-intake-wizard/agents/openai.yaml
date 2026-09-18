@@ -1,0 +1,18 @@
+interface:
+  display_name: Image Intake Wizard
+  short_description: Structures and routes image requests before generation
+  default_prompt: Use $image-intake-wizard when a user asks for a generated image,
+    illustration, mockup, hero image, campaign visual, concept visual, or image prompt
+    that needs composition, mood, brand, aspect ratio, audience, reference, or avoidance
+    details. Collect a structured image spec, audit supplied references, route to
+    related LightSpeed skills when the deliverable is really Figma, frontend, WordPress,
+    design QA, brand, or diagram work, and get explicit approval before generation.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

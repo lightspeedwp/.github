@@ -1,0 +1,14 @@
+interface:
+  display_name: Zendesk Customer Research
+  short_description: Build cited Zendesk-first support-health briefs
+  default_prompt: Use $zendesk-customer-research to build a cited Zendesk-first support-health
+    brief for a customer or account before drafting the next reply.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

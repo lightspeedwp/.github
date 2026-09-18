@@ -1,0 +1,13 @@
+interface:
+  display_name: Zendesk Backlog Trend Analysis
+  short_description: Evidence-backed Zendesk backlog health, trend, and queue-risk
+    reporting for shared support agents.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

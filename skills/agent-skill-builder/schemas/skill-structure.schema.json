@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Skill structure",
+  "type": "object",
+  "required": [
+    "name",
+    "tier",
+    "required_files"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "tier": {
+      "enum": [
+        "minimal",
+        "standard",
+        "advanced"
+      ]
+    },
+    "required_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "optional_folders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

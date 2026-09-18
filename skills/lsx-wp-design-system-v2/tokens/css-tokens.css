@@ -1,0 +1,55 @@
+/* LSX Design System → WordPress CSS Tokens */
+/* All sizes use rem; larger sizes use clamp() for fluid behaviour. */
+
+:root {
+  /* Colours (Semantic) */
+  --wp--preset--color--base: #FFFFFF;
+  --wp--preset--color--contrast: #111111;
+  --wp--preset--color--primary: #0A84FF;
+
+  /* Colours (Neutral) */
+  --wp--preset--color--neutral-0:   #FFFFFF;
+  --wp--preset--color--neutral-100: #F9FAFB;
+  --wp--preset--color--neutral-200: #F3F4F6;
+  --wp--preset--color--neutral-300: #E5E7EB;
+  --wp--preset--color--neutral-400: #D1D5DB;
+  --wp--preset--color--neutral-500: #9CA3AF;
+  --wp--preset--color--neutral-600: #6B7280;
+  --wp--preset--color--neutral-700: #4B5563;
+  --wp--preset--color--neutral-800: #1F2937;
+  --wp--preset--color--neutral-900: #111111;
+
+  /* Colours (Accent) */
+  --wp--preset--color--accent-100: #0A84FF;
+  --wp--preset--color--accent-200: #3399FF;
+  --wp--preset--color--accent-300: #66B2FF;
+  --wp--preset--color--accent-400: #99CCFF;
+  --wp--preset--color--accent-500: #CCE5FF;
+  --wp--preset--color--accent-600: #FF7A59;
+  --wp--preset--color--accent-700: #FF9B80;
+  --wp--preset--color--accent-800: #FFBCA6;
+  --wp--preset--color--accent-900: #FFDCD2;
+
+  /* Font Sizes (fluid) */
+  --wp--preset--font-size--font-size-100: clamp(0.75rem, 1vw, 0.875rem);
+  --wp--preset--font-size--font-size-200: clamp(1rem, 1.2vw, 1.125rem);
+  --wp--preset--font-size--font-size-300: clamp(1.25rem, 1.5vw, 1.375rem);
+  --wp--preset--font-size--font-size-400: clamp(1.5rem, 1.8vw, 1.75rem);
+  --wp--preset--font-size--font-size-500: clamp(2rem, 2.5vw, 2.25rem);
+  --wp--preset--font-size--font-size-600: clamp(2.5rem, 3vw, 2.75rem);
+  --wp--preset--font-size--font-size-700: clamp(3rem, 3.5vw, 3.25rem);
+  --wp--preset--font-size--font-size-800: clamp(4rem, 4.5vw, 4.5rem);
+  --wp--preset--font-size--font-size-900: clamp(5rem, 6vw, 6.25rem);
+
+  /* Spacing (smaller static, larger fluid) */
+  --wp--preset--spacing--spacing-10: 0.625rem;
+  --wp--preset--spacing--spacing-20: 1.25rem;
+  --wp--preset--spacing--spacing-30: 1.875rem;
+  --wp--preset--spacing--spacing-40: 2.5rem;
+  --wp--preset--spacing--spacing-50: 3.125rem;
+  --wp--preset--spacing--spacing-60: 3.5rem;
+  --wp--preset--spacing--spacing-70: 3.75rem;
+  --wp--preset--spacing--spacing-80: 4rem;
+  --wp--preset--spacing--spacing-90: clamp(4.5rem, 5vw, 5.5rem);
+  --wp--preset--spacing--spacing-100: clamp(5rem, 8vw, 6.25rem);
+}

@@ -1,0 +1,10 @@
+interface:
+  display_name: Example Standard Workflow
+  short_description: A standard local skill scaffold.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chatbot Intake Onboarding"
+  short_description: "Collect intake defaults and remember them."
+  default_prompt: "Use $chatbot-intake-onboarding to collect missing chatbot intake defaults, save them in Memory, and resume the user's original request."

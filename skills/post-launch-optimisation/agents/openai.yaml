@@ -1,0 +1,5 @@
+interface:
+  display_name: post-launch-optimisation
+  short_description: Review performance, CRO, content, SEO, and chatbot improvements
+  default_prompt: Use $post-launch-optimisation to review post-launch performance,
+    identify optimisation opportunities, and produce a prioritised improvement plan.
