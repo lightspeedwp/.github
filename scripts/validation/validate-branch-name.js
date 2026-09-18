@@ -15,18 +15,15 @@
  *   2 = execution error (e.g., cannot get current branch)
  */
 
-import { execSync } from "child_process";
-import {
-  validateBranchName,
-  formatErrorMessage,
-} from "../../lib/validate-branch-name.js";
+import { execSync } from 'child_process';
+import { validateBranchName, formatErrorMessage } from '../../lib/validate-branch-name.js';
 
 // Parse command-line arguments
 const args = process.argv.slice(2);
-const showHelp = args.includes("--help") || args.includes("-h");
-const jsonOutput = args.includes("--json");
-const useCurrent = args.includes("--current");
-const branchArgIndex = args.indexOf("--branch");
+const showHelp = args.includes('--help') || args.includes('-h');
+const jsonOutput = args.includes('--json');
+const useCurrent = args.includes('--current');
+const branchArgIndex = args.indexOf('--branch');
 const explicitBranch = branchArgIndex !== -1 ? args[branchArgIndex + 1] : null;
 
 function showUsage() {
@@ -54,10 +51,11 @@ Examples:
 
 Pattern: {type}/{scope}-{title}
 
-Allowed Types (24):
-  feat, fix, hotfix, release, refactor, chore, task, docs, test, perf,
-  ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds,
-  audit, codex, revert, research
+Allowed Types (38):
+  feat, fix, hotfix, release, refactor, chore, task, doc, docs, test,
+  perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto,
+  ds, api, schema, telemetry, content, seo, config, migrate, qa, uat,
+  audit, codex, revert, research, aiops, automation, epic
 
 Forbidden Prefixes:
   claude/, copilot/, openai/
@@ -66,8 +64,8 @@ Forbidden Prefixes:
 
 function getCurrentBranch() {
   try {
-    return execSync("git rev-parse --abbrev-ref HEAD", {
-      encoding: "utf-8",
+    return execSync('git rev-parse --abbrev-ref HEAD', {
+      encoding: 'utf-8',
     }).trim();
   } catch {
     return null;
@@ -91,8 +89,8 @@ function validateAndOutput(branchName) {
           suggested_name: result.suggested_name,
         },
         null,
-        2,
-      ),
+        2
+      )
     );
   } else {
     // Human-readable output
@@ -120,7 +118,7 @@ function main() {
   } else if (useCurrent) {
     branchName = getCurrentBranch();
     if (!branchName) {
-      console.error("❌ Error: Could not determine current Git branch");
+      console.error('❌ Error: Could not determine current Git branch');
       process.exit(2);
     }
   } else {
@@ -131,17 +129,17 @@ function main() {
         console.log(
           JSON.stringify(
             {
-              error: "Could not determine current Git branch",
+              error: 'Could not determine current Git branch',
               branch: null,
               valid: false,
             },
             null,
-            2,
-          ),
+            2
+          )
         );
       } else {
-        console.error("❌ Error: Could not determine current Git branch");
-        console.error("Use --branch <name> to validate a specific branch");
+        console.error('❌ Error: Could not determine current Git branch');
+        console.error('Use --branch <name> to validate a specific branch');
       }
       process.exit(2);
     }
