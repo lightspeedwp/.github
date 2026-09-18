@@ -306,7 +306,6 @@ function openInBrowser(filePath) {
     console.log(`[pr-dashboard] Found ${items.length} PR(s)`);
 
     if (!items.length) {
-      const extDir = path.dirname(fileURLToPath(import.meta.url));
       const noResultsPath = path.join(os.tmpdir(), "pr-dashboard-no-results.html");
       fs.writeFileSync(noResultsPath,
         `<html><head><title>PR Dashboard — ${labelWithRange}</title></head><body><h1>No PRs found</h1><p>No pull requests matched your query for ${labelWithRange}.</p></body></html>`,

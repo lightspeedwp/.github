@@ -131,7 +131,7 @@ class SecretsComplianceAudit {
           result.envBlockCount++;
 
           // Check for hardcoded secrets in env
-          for (const [envKey, envVal] of Object.entries(job.env)) {
+          for (const [, envVal] of Object.entries(job.env)) {
             if (
               typeof envVal === "string" &&
               (envVal.includes("${{ secrets.") ||

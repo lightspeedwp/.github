@@ -160,7 +160,6 @@ function readJpegSize(buf) {
       (marker >= 0xc9 && marker <= 0xcb) ||
       (marker >= 0xcd && marker <= 0xcf)
     ) {
-      const blockLength = buf.readUInt16BE(offset + 2);
       const height = buf.readUInt16BE(offset + 5);
       const width = buf.readUInt16BE(offset + 7);
       return { width, height, type: "jpeg" };
