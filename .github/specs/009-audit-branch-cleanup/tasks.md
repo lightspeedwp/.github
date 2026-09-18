@@ -154,7 +154,7 @@ description: "Implementation task list for branch cleanup audit and refactoring"
 
 ### Implementation for User Story 5
 
-- [ ] T046 [US5] Create .github/workflows/branch-audit.yml GitHub Actions workflow with: trigger events (schedule: "0 9 * * 1" = every Monday 09:00 UTC; gate the "first business day" condition in workflow code if a stricter rule is needed, since cron cannot express it directly, manual workflow_dispatch), inputs (--dryRun default true, --inactiveDays default 30, --excludePatterns, --createIssue default false)
+- [ ] T046 [US5] Create .github/workflows/branch-audit.yml GitHub Actions workflow with: trigger events (schedule: "0 9 ** 1" = every Monday 09:00 UTC; gate the "first business day" condition in workflow code if a stricter rule is needed, since cron cannot express it directly, manual workflow_dispatch), inputs (--dryRun default true, --inactiveDays default 30, --excludePatterns, --createIssue default false)
 - [ ] T047 [US5] [P] Implement workflow job: checkout repository (actions/checkout), setup Node.js (actions/setup-node with node-version-file: '.nvmrc'), run audit command (npm run audit:branches -- $OPTS), upload report artifact (actions/upload-artifact with separate path entries for `.github/reports/stale-branches-*.md` and `.github/reports/stale-branches-*.json` — not the invalid `*.md/.json` glob)
 - [ ] T048 [US5] Add optional workflow step: if --createIssue is enabled, parse DISCUSS candidates from JSON report and invoke scripts/lib/issue-generator.js (T036) to create summarising GitHub issue with team review link
 

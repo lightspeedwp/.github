@@ -154,6 +154,65 @@ This agent integrates with real, plugin-backed services for extended functionali
 - **GitHub** — Repository and issue integration, PR workflows
 - **Google Workspace** — Document collaboration and stakeholder review
 
+## Consolidated Skills
+
+The PRD Agent consolidates 28 purpose-built skills across the full planning lifecycle:
+
+### Foundation & Orchestration
+
+- [`prd-agent-orchestrator`](./skills/prd-agent-orchestrator/) — Central orchestration for multi-step PRD workflows
+- [`project-memory-manager`](./skills/project-memory-manager/) — Persistent context management across planning sessions
+- [`memory-management`](./skills/memory-management/) — Skill-level memory and state handling
+
+### Intake & Routing
+
+- [`project-intake`](./skills/project-intake/) — Structured intake of new product initiatives
+- [`intake-routing`](./skills/intake-routing/) — Intelligent routing of intake requests to appropriate workflows
+- [`lightspeed-intake-onboarding`](./skills/lightspeed-intake-onboarding/) — Onboarding workflow for new projects
+
+### Planning & Analysis
+
+- [`prd-writer`](./skills/prd-writer/) — Core PRD document authoring
+- [`project-researcher`](./skills/project-researcher/) — Research and context gathering for product planning
+- [`requirements-traceability-mapper`](./skills/requirements-traceability-mapper/) — Link requirements to implementation artifacts
+- [`estimation-planner`](./skills/estimation-planner/) — Effort and timeline estimation
+- [`delivery-planner`](./skills/delivery-planner/) — Release and delivery planning
+- [`implementation-plan-generator`](./skills/implementation-plan-generator/) — Technical implementation planning
+
+### User Stories & Acceptance Criteria
+
+- [`github-issue-drafter`](./skills/github-issue-drafter/) — Convert stories to actionable GitHub issues
+- [`acceptance-test-planner`](./skills/acceptance-test-planner/) — Define testable acceptance criteria
+- [`prd-task-pack-exporter`](./skills/prd-task-pack-exporter/) — Export tasks for sprint planning
+
+### Review & Validation
+
+- [`prd-task-reviewer`](./skills/prd-task-reviewer/) — Quality assurance for planning artifacts
+- [`markdown-content-validator`](./skills/markdown-content-validator/) — Validate documentation structure and links
+- [`evidence-locker`](./skills/evidence-locker/) — Maintain evidence trails for approval workflows
+
+### Project Management
+
+- [`project-status-reporter`](./skills/project-status-reporter/) — Generate status and progress reports
+- [`change-request-router`](./skills/change-request-router/) — Manage scope changes and impact analysis
+- [`launch-task-router`](./skills/launch-task-router/) — Coordinate launch and deployment tasks
+- [`figma-wordpress-technical-brief`](./skills/figma-wordpress-technical-brief/) — Design system to code bridge
+
+### QA & Compliance
+
+- [`qa-planner`](./skills/qa-planner/) — Quality assurance planning and test design
+- [`qa-findings-router`](./skills/qa-findings-router/) — Route and track QA findings through resolution
+
+### Release & Handoff
+
+- [`release-handoff-generator`](./skills/release-handoff-generator/) — Generate comprehensive release notes and handoff docs
+- [`wordpress-plugin-packaging-review`](./skills/wordpress-plugin-packaging-review/) — WordPress-specific release validation
+- [`validation-support`](./skills/validation-support/) — User acceptance and stakeholder validation workflows
+
+### Approval & Governance
+
+- [`approval-gate-manager`](./skills/approval-gate-manager/) — Manage approval workflows and sign-offs
+
 ## Related Resources
 
 - Prompt Library: `shared/core-prompt.md`
@@ -161,7 +220,6 @@ This agent integrates with real, plugin-backed services for extended functionali
 - Copilot Config: `copilot/agent.md` + `copilot/skills.yaml`
 - OpenAI Config: `openai/agent.md` + `openai/tools.json`
 - Plugin: `plugins/lightspeed-planning-prd/`
-- Cookbook: `cookbook/project-planning-and-prd-playbook.md`
 
 ---
 
@@ -169,55 +227,11 @@ This agent integrates with real, plugin-backed services for extended functionali
 
 ---
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
