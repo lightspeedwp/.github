@@ -24,15 +24,23 @@ const extractCheckoutScript = () => {
     .join('\n');
 };
 
+const isolatedGitEnv = {
+  ...process.env,
+  GIT_CONFIG_GLOBAL: os.devNull,
+  GIT_CONFIG_NOSYSTEM: '1',
+};
+
 const git = (args, cwd) =>
   execFileSync('git', args, {
     cwd,
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
+    env: isolatedGitEnv,
   }).trim();
 
 describe('changelog workflow PR-head checkout', () => {
   let checkoutDirectory;
+  let baseSha;
   let featureSha;
   let remoteUrl;
   let temporaryDirectory;
@@ -54,6 +62,7 @@ describe('changelog workflow PR-head checkout', () => {
     git(['branch', '-M', 'develop'], seedPath);
     git(['remote', 'add', 'origin', remotePath], seedPath);
     git(['push', 'origin', 'develop'], seedPath);
+    baseSha = git(['rev-parse', 'develop'], seedPath);
     git(['symbolic-ref', 'HEAD', 'refs/heads/develop'], remotePath);
 
     fs.writeFileSync(path.join(seedPath, 'tracked.txt'), 'pull request\n');
@@ -72,6 +81,7 @@ describe('changelog workflow PR-head checkout', () => {
   const prepareScript = () =>
     extractCheckoutScript()
       .replace('https://github.com/lightspeedwp/.github.git', remoteUrl)
+      .replaceAll('${{ github.event.pull_request.base.sha }}', baseSha)
       .replaceAll('${{ github.event.pull_request.head.sha }}', featureSha);
 
   it('uses the supported no-recurse-submodules clone option', () => {
@@ -85,10 +95,12 @@ describe('changelog workflow PR-head checkout', () => {
     const result = spawnSync('bash', ['-euo', 'pipefail', '-c', prepareScript()], {
       cwd: checkoutDirectory,
       encoding: 'utf8',
+      env: isolatedGitEnv,
     });
 
     assert.equal(result.status, 0, result.stderr);
     assert.equal(git(['rev-parse', 'HEAD'], checkoutDirectory), featureSha);
+    assert.equal(git(['cat-file', '-t', baseSha], checkoutDirectory), 'commit');
     assert.equal(
       fs.readFileSync(path.join(checkoutDirectory, 'tracked.txt'), 'utf8'),
       'pull request\n'
@@ -101,6 +113,7 @@ describe('changelog workflow PR-head checkout', () => {
     const result = spawnSync('bash', ['-euo', 'pipefail', '-c', scriptWithoutFetch], {
       cwd: checkoutDirectory,
       encoding: 'utf8',
+      env: isolatedGitEnv,
     });
 
     assert.notEqual(result.status, 0);
