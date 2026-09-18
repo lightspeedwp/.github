@@ -1,329 +1,502 @@
-# Phase 1 Quickstart: Validation Scenarios
+# Quickstart: Code Review & PR Governance Validation Scenarios
 
-**Date**: 2026-09-11 | **Purpose**: Validate feature completeness end-to-end
+**Phase 1 Design Deliverable** | **Date**: 2026-09-17 | **Scope**: End-to-end validation of code review instructions + PR governance automation
 
 ---
 
 ## Overview
 
-This document outlines runnable validation scenarios that prove the CodeRabbit configuration improvements work as intended. Use these to verify implementation during Phase 2 (task execution).
+This document provides step-by-step validation scenarios proving the enhanced CodeRabbit configuration works end-to-end across:
+
+1. Code review instructions (FR-001 through FR-015)
+2. PR governance automation (FR-016 through FR-019)
+
+Each scenario includes prerequisites, setup commands, test/run commands, and expected outcomes.
+
+---
+
+## Scenario 1: Code Review Instructions - SpecKit Files
+
+**Feature**: Code reviewers get specific guidance when reviewing `.specify/spec.md` files
+
+**Priority**: P1 (User Story 1 & 4)
+
+**Prerequisites**:
+
+- Enhanced `.coderabbit.yml` deployed to organization
+- Test repository with `.specify/spec.md` file
+- GitHub Actions enabled for PR workflow
+
+**Test Steps**:
+
+1. **Create feature branch**:
+
+   ```bash
+   git checkout -b feat/speckit-review-test
+   ```
+
+2. **Create test specification file** (`.specify/spec.md`):
+
+   ```markdown
+   # Test Feature Specification
+   
+   ## User Scenarios & Testing
+   
+   ### User Story 1 - Test Story
+   As a user, I need X, so that Y.
+   
+   **Why this priority**: P1
+   **Independent Test**: Can test by doing Z
+   
+   **Acceptance Scenarios**:
+   1. **Given** A, **When** B, **Then** C
+   
+   ## Requirements
+   
+   - **FR-001**: Something MUST do X
+   
+   ## Success Criteria
+   
+   - **SC-001**: Outcome is measurable and testable
+   ```
+
+3. **Create PR**:
+
+   ```bash
+   git add .specify/spec.md
+   git commit -m "feat: add test specification"
+   git push -u origin feat/speckit-review-test
+   gh pr create --title "feat: add test specification" --body "Test PR for specification review"
+   ```
+
+4. **Observe CodeRabbit review**:
+   - CodeRabbit should post review comments citing:
+     - "## Specification Review" instruction block
+     - Focus Area 1: Completeness checks
+     - Focus Area 2: Clarity checks
+     - Focus Area 3: Consistency checks
+
+**Expected Outcome**: ✅ CodeRabbit cites specification-specific guidance (FR-007, SC-007, SC-009)
+
+---
+
+## Scenario 2: Code Review Instructions - Branch Type Context
+
+**Feature**: Code reviewers receive context-appropriate guidance based on branch type
+
+**Priority**: P2 (User Story 3)
+
+**Prerequisites**:
+
+- Enhanced `.coderabbit.yml` with branch context documentation
+- Test repositories for multiple branch types
+- Branch naming strategy enforced (CLAUDE.md)
+
+**Test Steps**:
+
+1. **Security branch with authentication changes**:
+
+   ```bash
+   git checkout -b security/auth-validation-fix
+   # Modify authentication code file
+   git commit -m "security: fix auth validation vulnerability"
+   git push -u origin security/auth-validation-fix
+   gh pr create --title "security: fix auth validation" --body "CVE fix for authentication validation"
+   ```
+
+   **Expected**: CodeRabbit emphasizes security focus areas (threat modeling, access control, secrets handling)
+
+2. **Feature branch with code changes**:
+
+   ```bash
+   git checkout -b feat/user-preferences-panel
+   # Modify feature code
+   git commit -m "feat: add user preferences panel"
+   git push -u origin feat/user-preferences-panel
+   gh pr create --title "feat: user preferences panel" --body "New user-facing feature"
+   ```
+
+   **Expected**: CodeRabbit emphasizes feature-specific guidance (testing, documentation, changelog)
+
+3. **Documentation branch**:
+
+   ```bash
+   git checkout -b docs/branching-strategy-guide
+   # Modify documentation
+   git commit -m "docs: expand branching strategy guide"
+   git push -u origin docs/branching-strategy-guide
+   gh pr create --title "docs: expand branching guide" --body "Documentation improvements"
+   ```
+
+   **Expected**: CodeRabbit emphasizes documentation-specific guidance (clarity, structure, links)
+
+**Expected Outcome**: ✅ Reviews reference branch-type-specific priorities from `docs/BRANCHING_STRATEGY.md` Section 5.3 (FR-006, FR-013, SC-011)
+
+---
+
+## Scenario 3: PR Governance - Template Validation
+
+**Feature**: CodeRabbit validates PR descriptions include required sections and correct format
+
+**Priority**: P1 (FR-016, SC-014)
+
+**Prerequisites**:
+
+- PR governance automation enabled in `.coderabbit.yml`
+- PR templates in `.github/PULL_REQUEST_TEMPLATE/` matching branch types
+- test Repository with GitHub Actions
+
+**Test Steps**:
+
+1. **Well-formed PR** (should pass validation):
+
+   ```bash
+   git checkout -b feat/well-formed-test
+   echo "# Test Feature" > test-file.md
+   git add test-file.md
+   git commit -m "feat: test feature"
+   git push -u origin feat/well-formed-test
+   gh pr create --title "feat: test feature" --body "
+   ## Linked Issues
+   
+   Fixes #1234
+   
+   ## Changelog
+   
+   Added new test feature for validation
+   
+   ## Checklist
+   
+   - [x] Code tested locally
+   - [x] Documentation updated
+   - [x] Changelog entry added
+   "
+   ```
+
+   **Expected**: ✅ CodeRabbit posts approval comment (template valid)
+
+2. **Incomplete PR** (should fail validation):
+
+   ```bash
+   git checkout -b feat/incomplete-test
+   echo "# Incomplete Test" > test-file.md
+   git add test-file.md
+   git commit -m "feat: incomplete test"
+   git push -u origin feat/incomplete-test
+   gh pr create --title "feat: incomplete test" --body "
+   ## Linked Issues
+   
+   TODO: add issue link
+   
+   ## Changelog
+   
+   TODO: add changelog
+   
+   ## Checklist
+   
+   - [ ] Code tested locally
+   - [ ] Documentation updated
+   "
+   ```
+
+   **Expected**: ❌ CodeRabbit posts warning (missing: valid issue link, placeholder changelog, unchecked items)
+
+**Expected Outcome**: ✅ Template validation flags incomplete/placeholder PRs (SC-014 ≥95% accuracy)
+
+---
+
+## Scenario 4: PR Governance - Label Enforcement
+
+**Feature**: CodeRabbit validates labels follow canonical prefix structure and suggests missing labels
+
+**Priority**: P1 (FR-017, SC-015)
+
+**Prerequisites**:
+
+- Label enforcement enabled in `.coderabbit.yml`
+- Canonical labels defined in `.github/labels.yml`
+- PR without any labels initially
+
+**Test Steps**:
+
+1. **Create PR without labels**:
+
+   ```bash
+   git checkout -b feat/label-test
+   echo "# Feature" > test.md
+   git add test.md
+   git commit -m "feat: test feature"
+   git push -u origin feat/label-test
+   gh pr create --title "feat: test feature" --body "Test PR for label enforcement"
+   # Do NOT add any labels
+   ```
+
+   **Expected**: CodeRabbit posts comment suggesting:
+   - `type:feature` (from branch prefix feat/)
+   - `status:needs-triage` (default for new PR)
+   - `area:testing` (if changed files suggest test-related area)
+
+2. **Create PR with partial labels**:
+
+   ```bash
+   git checkout -b fix/label-partial
+   echo "# Bug fix" > bug-fix.md
+   git add bug-fix.md
+   git commit -m "fix: resolve bug"
+   git push -u origin fix/label-partial
+   gh pr create --title "fix: resolve bug" --body "Bug fix PR"
+   gh pr edit --add-label "type:bug"
+   # PR has type:bug but missing status:* and area:*
+   ```
+
+   **Expected**: CodeRabbit suggests:
+   - `status:needs-triage` (missing required status family)
+   - `area:testing` (optional, but suggested based on changed files)
+
+**Expected Outcome**: ✅ Label enforcement validates families and suggests missing labels (SC-015 ≥85% accuracy)
+
+---
+
+## Scenario 5: PR Governance - DoD Checklist Automation
+
+**Feature**: CodeRabbit populates PR description with Definition of Done checklist items
+
+**Priority**: P2 (FR-018, SC-016)
+
+**Prerequisites**:
+
+- DoD automation enabled in `.coderabbit.yml`
+- Checklist templates defined for feature, bugfix, docs scopes
+
+**Test Steps**:
+
+1. **Feature PR without DoD section**:
+
+   ```bash
+   git checkout -b feat/dod-test
+   echo "# Feature" > feature.md
+   git add feature.md
+   git commit -m "feat: new feature"
+   git push -u origin feat/dod-test
+   gh pr create --title "feat: new feature" --body "
+   ## Summary
+   
+   New feature implementation
+   "
+   ```
+
+   **Expected**: CodeRabbit appends:
+
+   ```markdown
+   ## Definition of Done
+   
+   - [ ] Code changes tested locally (manual or automated)
+   - [ ] Accessibility (WCAG 2.2 AA) verified
+   - [ ] Performance impact assessed
+   - [ ] Security review completed
+   - [ ] Documentation updated
+   - [ ] Changelog entry added
+   - [ ] Related issues linked
+   ```
+
+2. **Bug fix PR**:
+
+   ```bash
+   git checkout -b fix/dod-test
+   echo "# Bug fix" > bug.md
+   git add bug.md
+   git commit -m "fix: resolve bug"
+   git push -u origin fix/dod-test
+   gh pr create --title "fix: resolve bug" --body "Bug fix description"
+   ```
+
+   **Expected**: CodeRabbit appends bugfix-specific checklist (5 items: root cause, verification, regression test, changelog, linked issues)
+
+**Expected Outcome**: ✅ DoD checklist auto-populated; maintainers report ≥90% relevance (SC-016)
+
+---
+
+## Scenario 6: PR Governance - Documentation Validation Failure Handling
+
+**Feature**: CodeRabbit handles documentation validation failures gracefully with actionable commentary
+
+**Priority**: P2 (FR-019, SC-017)
+
+**Prerequisites**:
+
+- Documentation validation enabled in `.coderabbit.yml`
+- Linter CI workflow configured (e.g., markdownlint)
+- Test documentation files with intentional violations
+
+**Test Steps**:
+
+1. **Critical file with broken links** (should block):
+
+   ```bash
+   git checkout -b fix/docs-links
+   echo "# Documentation\n\n[Broken Link](https://internal-url-404.com)" > README.md
+   git add README.md
+   git commit -m "fix: update documentation"
+   git push -u origin fix/docs-links
+   gh pr create --title "fix: update docs" --body "Documentation fix"
+   ```
+
+   **Expected**: Linter detects broken link → CodeRabbit posts:
+   - "❌ Documentation validation failed: broken links in README.md"
+   - "This is a critical file; broken links must be fixed"
+   - "Fix suggestion: Run markdownlint and verify all links return 200 OK"
+   - Review blocked until resolved
+
+2. **Non-critical file with linting error** (should warn):
+
+   ```bash
+   git checkout -b docs/style-guide
+   echo "# Style Guide\n\n## No space heading" > docs/STYLE.md
+   git add docs/STYLE.md
+   git commit -m "docs: add style guide"
+   git push -u origin docs/style-guide
+   gh pr create --title "docs: style guide" --body "Documentation guide"
+   ```
+
+   **Expected**: Linter detects linting error → CodeRabbit posts:
+   - "⚠️ Documentation validation warning: linting error in docs/STYLE.md"
+   - "This is non-critical; not blocking review"
+   - "Fix suggestion: Run `npm run lint:md` and fix violations"
+
+3. **Auto-generated file with violations** (should skip):
+
+   ```bash
+   git checkout -b chore/generated-docs
+   echo "# Auto-generated\n\nLinter violations here" > generated-docs.md
+   git add generated-docs.md
+   git commit -m "chore: update generated docs"
+   git push -u origin chore/generated-docs
+   gh pr create --title "chore: update generated docs" --body "Auto-generated update"
+   ```
+
+   **Expected**: Linter detects violations but CodeRabbit skips (file in skip_paths):
+   - No comment posted (file excluded from validation)
+
+**Expected Outcome**: ✅ Documentation validation actionable; zero silent failures (SC-017)
+
+---
+
+## Scenario 7: Cross-Repository Validation
+
+**Feature**: Configuration applies consistently across diverse repository types
+
+**Priority**: P2 (FR-001, SC-001)
+
+**Prerequisites**:
+
+- Enhanced `.coderabbit.yml` deployed to organization
+- Multiple test repositories:
+  - WordPress plugin (PHP)
+  - Node.js/TypeScript package
+  - Infrastructure-as-code (Terraform)
+  - CLI tool
+  - MCP server
+
+**Test Steps**:
+
+1. **WordPress plugin repository**:
+
+   ```bash
+   # Create PR with PHP code changes
+   git checkout -b feat/plugin-feature
+   echo "<?php // Plugin code" > plugin-file.php
+   git commit -m "feat: new plugin feature"
+   git push -u origin feat/plugin-feature
+   gh pr create --title "feat: new plugin feature" --body "Plugin feature PR"
+   ```
+
+   **Expected**: CodeRabbit applies universal code quality guidance (technology-agnostic)
+
+2. **Node.js/TypeScript repository**:
+
+   ```bash
+   git checkout -b feat/api-endpoint
+   echo "export const handler = () => {}" > handler.ts
+   git commit -m "feat: new API endpoint"
+   git push -u origin feat/api-endpoint
+   gh pr create --title "feat: new API endpoint" --body "API feature PR"
+   ```
+
+   **Expected**: CodeRabbit applies same universal guidance (not TS/Node-specific)
+
+3. **Infrastructure-as-code repository**:
+
+   ```bash
+   git checkout -b feat/vpc-update
+   echo "resource 'aws_vpc' 'main' { }" > vpc.tf
+   git commit -m "feat: update VPC configuration"
+   git push -u origin feat/vpc-update
+   gh pr create --title "feat: update VPC" --body "Infrastructure update"
+   ```
+
+   **Expected**: CodeRabbit applies universal guidance (not Terraform-specific)
+
+**Expected Outcome**: ✅ Configuration consistent across all project types; guidance is technology-agnostic (FR-006, SC-001, Constitution Principle IV)
 
 ---
 
 ## Validation Checklist
 
-Before marking implementation complete, test all scenarios below.
+Run this checklist to verify implementation completeness:
 
-### Scenario 1: Branch-Type-Specific Review Guidance
+**Code Review Instructions** (FR-001 through FR-015):
 
-**Test Case**: Create PR from `security/*` branch modifying PHP files
+- [ ] Scenario 1 passes: SpecKit files get specific guidance
+- [ ] Scenario 2 passes: Branch types inform review priorities
+- [ ] ≥95% file type coverage (FR-001, SC-001)
+- [ ] Each instruction block has ≥3 focus areas (FR-002, SC-002)
+- [ ] No framework/language-specific guidance (FR-006, Constitution IV)
+- [ ] Path pattern priority documented and working (FR-014, SC-012)
+- [ ] Audit guide created (FR-015, SC-013)
 
-**Setup**:
+**PR Governance Automation** (FR-016 through FR-019):
 
-1. Create branch: `git checkout -b security/authentication-validation`
-2. Modify file: `agents/security-check.agent.php` (add authentication validation logic)
-3. Create PR with this branch
+- [ ] Scenario 3 passes: Template validation works for well/incomplete PRs
+- [ ] Scenario 4 passes: Label enforcement validates families and suggests missing labels
+- [ ] Scenario 5 passes: DoD checklist auto-populated for each scope
+- [ ] Scenario 6 passes: Documentation validation handles failures gracefully
+- [ ] Template validation accuracy ≥95%/≥90% (SC-014)
+- [ ] Label suggestion accuracy ≥85% (SC-015)
+- [ ] DoD checklist relevance ≥90% (SC-016)
+- [ ] Documentation validation zero silent failures (SC-017)
 
-**Expected Outcome**:
+**Cross-Repository** (FR-001, SC-001):
 
-- CodeRabbit review includes security-specific guidance
-- Review emphasizes:
-  - Authentication mechanisms
-  - Access control validation
-  - Secrets handling
-  - Threat model considerations
-- Generic PHP guidance is secondary to security context
-
-**Validation**: ✅ Security context applied (indicates branch-type awareness working)
-
----
-
-### Scenario 2: Pattern Priority Ordering
-
-**Test Case**: File matching multiple patterns uses highest-priority match
-
-**Setup**:
-
-1. Modify file: `tests/e2e/auth.spec.ts`
-2. This file matches multiple patterns:
-   - `**/*.ts` (general TypeScript, priority 40)
-   - `**/e2e/*.ts` (specific e2e tests, priority 80)
-   - `**/tests/*.*` (general tests, priority 50)
-
-**Expected Outcome**:
-
-- CodeRabbit uses guidance from `**/e2e/*.ts` (highest priority)
-- Review includes e2e-specific guidance:
-  - Deterministic setup and environment isolation
-  - Test reliability and flakiness control
-  - Proper test cleanup and state management
-- Does NOT use generic TypeScript guidance as primary focus
-
-**Validation**: ✅ Highest-priority pattern used; no ambiguity or cascading
+- [ ] Scenario 7 passes: Configuration consistent across 5+ repo types
+- [ ] Reviews cite relevant guidance (SC-009 ≥85%)
+- [ ] All improvements additive (no breaking changes)
 
 ---
 
-### Scenario 3: New File Type Coverage (SpecKit)
+## Troubleshooting
 
-**Test Case**: Create PR modifying SpecKit specification files
+**CodeRabbit not posting reviews**:
 
-**Setup**:
+- Verify CodeRabbit app installed on repository
+- Check that `.coderabbit.yml` is merged to main branch
+- Confirm reviews.approve/request_changes settings correct
 
-1. Modify file: `.github/specs/001-feature/spec.md`
-2. Make changes to Requirements section
+**Template validation not catching issues**:
 
-**Expected Outcome**:
+- Verify PR template section headers match config rules
+- Test with simpler section headers (e.g., "## Issues" vs "## Linked Issues")
 
-- CodeRabbit review includes SpecKit-specific guidance
-- Review focuses on:
-  - Specification completeness
-  - Requirement testability
-  - Success criteria measurability
-  - Clarity and precision
+**Label suggestions inaccurate**:
 
-**Validation**: ✅ SpecKit path instruction added and applied
+- Check branch-type mappings in label_enforcement.families.type.mapping
+- Verify all suggestion labels exist in `.github/labels.yml`
 
----
+**DoD checklist not appearing**:
 
-### Scenario 4: New File Type Coverage (Workflow Documentation)
-
-**Test Case**: Create PR modifying workflow documentation
-
-**Setup**:
-
-1. Modify file: `workflows/governance-audit-workflow.md` (agentic workflow doc)
-2. Update workflow steps and phase descriptions
-
-**Expected Outcome**:
-
-- CodeRabbit review includes workflow-specific guidance
-- Review focuses on:
-  - Workflow structure and clarity
-  - Phase definitions
-  - Agent task descriptions
-  - Validation criteria
-
-**Validation**: ✅ Workflow path instruction added and applied
+- Verify dod_automation.enabled = true
+- Check scope_detection matches actual PR scope
+- Confirm templates have items defined for the detected scope
 
 ---
 
-### Scenario 5: Coverage Audit Completeness
-
-**Test Case**: Run coverage audit against repository
-
-**Setup**:
-
-1. List all file types in repository: `find . -type f -not -path './.git/*' | sort -u`
-2. Cross-reference against `.coderabbit.yml` path_instructions
-
-**Expected Outcome**:
-
-- At least 95% of file types have explicit instructions
-- Identified gaps: <5% of repository files
-- External audit guide (`CODERABBIT_COVERAGE_AUDIT.md`) available for maintainers
-
-**Validation**: ✅ Coverage ≥ 95%; audit guide exists
-
----
-
-### Scenario 6: Instruction Block Quality
-
-**Test Case**: Verify all instruction blocks meet quality standards
-
-**Setup**:
-
-1. Extract all instruction blocks from `.coderabbit.yml`
-2. Check each block for minimum requirements
-
-**Expected Outcome**:
-
-- Each block has 3+ specific review focus areas
-- No vague adjectives (e.g., "clean", "efficient") without metrics
-- Each block references relevant documentation (CLAUDE.md, AGENTS.md, standards)
-- UK English spelling throughout
-- No implementation details (frameworks, languages) in tech-agnostic review guidance
-
-**Validation**: ✅ All blocks meet quality standards
-
----
-
-### Scenario 7: Backward Compatibility
-
-**Test Case**: Existing PRs continue to work without behavior change
-
-**Setup**:
-
-1. Identify 5 recent merged PRs
-2. Re-run CodeRabbit review on them using new config
-
-**Expected Outcome**:
-
-- CodeRabbit review produces similar feedback (same focus areas)
-- New branch-context guidance is additive, not disruptive
-- No changes to review severity or tone for existing path patterns
-- Existing approved PRs would still pass review
-
-**Validation**: ✅ No breaking changes; backward compatible
-
----
-
-### Scenario 8: Branch Type Context for 5 High-Value Types
-
-**Test Case**: Create PRs from different branch types, verify context awareness
-
-**Branches to Test**: `feat/`, `fix/`, `security/`, `perf/`, `a11y/`
-
-**Setup**:
-
-1. Create PR from each branch type
-2. Modify a common file type (e.g., `**/*.php`) in each PR
-3. Compare reviews across branches
-
-**Expected Outcome**:
-
-- `feat/` PR: Focus on new functionality, design, scope
-- `fix/` PR: Focus on bug reproduction, regression testing
-- `security/` PR: Focus on security properties, threat model
-- `perf/` PR: Focus on performance metrics, benchmarks
-- `a11y/` PR: Focus on WCAG compliance, accessibility criteria
-
-**Validation**: ✅ Context-specific guidance applied for all 5 branch types
-
----
-
-### Scenario 9: External Audit Guide Usability
-
-**Test Case**: New maintainer uses audit guide to verify config completeness
-
-**Setup**:
-
-1. Provide `CODERABBIT_COVERAGE_AUDIT.md` to team member
-2. Ask them to identify coverage gaps without additional context
-3. Measure time to completion
-
-**Expected Outcome**:
-
-- Audit guide provides clear, step-by-step instructions
-- Maintainer can identify coverage gaps in <15 minutes
-- Guide is self-contained (minimal reference to other docs needed)
-- Process is repeatable for ongoing maintenance
-
-**Validation**: ✅ Audit guide is usable and efficient
-
----
-
-### Scenario 10: Pattern Priority Documentation
-
-**Test Case**: Verify pattern priority is clearly documented
-
-**Setup**:
-
-1. Review `.coderabbit.yml` for pattern priority documentation
-2. Read config comments explaining priority scheme
-3. Try to manually predict which pattern will apply to various files
-
-**Expected Outcome**:
-
-- Pattern priority rules are documented in config comments
-- Specificity levels are clearly explained
-- Examples show which patterns match various files
-- Priority scheme is consistent with data-model.md
-
-**Validation**: ✅ Pattern priority is clearly documented and understandable
-
----
-
-### Scenario 11: Cross-Technology Stack Compatibility
-
-**Test Case**: Instructions apply consistently across diverse project types (WordPress, Node.js, Infrastructure, MCP)
-
-**Setup**:
-
-1. Create PRs modifying files in at least 3 different repository types:
-   - **WordPress project**: Create PR in a block plugin or block theme repo
-   - **Node.js/TypeScript project**: Create PR in `ls-flow` or an MCP server repo
-   - **Infrastructure project**: Create PR in `lightspeed-hosting-infra` (infrastructure-as-code changes)
-2. All PRs should be from the same branch type (e.g., `feat/` for all three)
-3. For each PR, trigger CodeRabbit review
-
-**Expected Outcome**:
-
-- All three PRs receive CodeRabbit reviews
-- Branch-type context is applied consistently (feat/ guidance is relevant to all three project types)
-- File-type guidance does NOT contain technology-specific recommendations (e.g., no "use WordPress hooks" in PHP files, no "use async/await" in TypeScript files)
-- Security, performance, accessibility, and quality guidance applies universally
-- No instruction blocks reference specific frameworks, languages, or project types
-
-**Validation**: ✅ Instructions are technology-agnostic and apply consistently across all project types
-
----
-
-## Test Execution Steps
-
-### For Each Scenario
-
-1. **Setup**: Follow the setup instructions exactly
-2. **Execute**: Trigger CodeRabbit review (create PR, request review, or re-run)
-3. **Observe**: Read CodeRabbit feedback carefully
-4. **Compare**: Check if actual output matches expected outcome
-5. **Document**: Record result (✅ Pass or ❌ Fail) with notes
-6. **Iterate**: If fail, investigate root cause and adjust config
-
-### Testing Timeline
-
-| Scenario | Effort | Timing |
-|----------|--------|--------|
-| 1-3 | Create PR + wait for review | 5 min setup + 5 min review |
-| 4-5 | Create PR + wait for review | 5 min setup + 5 min review |
-| 6 | Config analysis | 10-15 min |
-| 7 | Historical PR analysis | 15-20 min |
-| 8 | Create 5 PRs + wait | 15 min setup + 20 min reviews |
-| 9 | Timed audit guide test | 20-30 min |
-| 10 | Documentation review | 10-15 min |
-| 11 | Cross-tech PR creation + review | 20 min setup + 15 min reviews (3 repos) |
-| **Total** | | **2.5-3 hours** |
-
----
-
-## Success Criteria
-
-| # | Validation Point | Pass Criteria |
-|---|------------------|---------------|
-| 1 | Branch-type context | Security guidance appears in security/ PR review |
-| 2 | Pattern priority | Highest-priority pattern guidance is primary |
-| 3 | SpecKit coverage | spec.md review includes SpecKit-specific guidance |
-| 4 | Workflow coverage | workflow documentation review includes workflow guidance |
-| 5 | Coverage audit | ≥95% file type coverage identified |
-| 6 | Instruction quality | All blocks have 3+ focus areas, no vague language |
-| 7 | Backward compatibility | Existing PRs produce similar feedback |
-| 8 | Branch type guidance | 5 branch types show distinct context |
-| 9 | Audit guide | Usable in <15 min without additional context |
-| 10 | Priority docs | Pattern priority clearly explained in config |
-| 11 | Cross-tech compatibility | Instructions apply consistently across WordPress, Node.js, and infrastructure projects; no framework-specific guidance |
-
-**Result**: ✅ PASS when 10/11+ validation points succeed
-
----
-
-## Rollback Plan
-
-If validation fails:
-
-1. **For Branch-Type Issues**: Review branch_context implementation, ensure logic maps branch prefix correctly
-2. **For Pattern Priority Issues**: Check pattern sort order, priority numeric values, test pattern matching
-3. **For Coverage Issues**: Identify missing file type, add new PathInstruction block, re-audit
-4. **For Quality Issues**: Review instruction text, add missing focus areas, remove vague language
-5. **For Backward Compatibility**: Compare old vs. new config side-by-side, revert problematic patterns if needed
-
----
-
-## References
-
-- **Data Model**: See [data-model.md](./data-model.md) for entity definitions
-- **Contracts**: See `contracts/` directory for schema specifications
-- **Specification**: See [spec.md](./spec.md) for requirements and success criteria
-- **Research**: See [research.md](./research.md) for audit findings and recommendations
-
----
-
-**Readiness for Phase 2**: ✅ YES - Validation scenarios are concrete, testable, and cover all major improvements
+**Status**: ✅ QUICKSTART COMPLETE | Ready for implementation and testing

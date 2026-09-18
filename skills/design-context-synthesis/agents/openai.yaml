@@ -1,0 +1,15 @@
+interface:
+  display_name: Design Context Synthesis
+  short_description: Synthesizes briefs, source files, and constraints into clear
+    design direction.
+  default_prompt: Use $design-context-synthesis to reconcile project context before
+    writing a brief, layout direction, or Figma-ready handoff.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

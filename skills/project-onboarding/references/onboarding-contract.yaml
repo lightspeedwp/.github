@@ -1,0 +1,61 @@
+state_backend: memory
+memory_state_file: lightspeed-project-defaults.yaml
+
+trigger_when:
+  task_requires:
+    - "project-specific AI readiness assessments or estimate-confidence reviews"
+    - "intake-heavy project starts, briefs, plans, content tasks, design tasks, chatbot tasks, website tasks, image tasks, or governance tasks"
+  missing_state:
+    - "project_anchor"
+
+required_state:
+  - key: "project_anchor"
+    ask: "Which client project should I treat as the default assessment context? You can give me the client and project name, or just the website, repo, or Figma file if that's the clearest anchor."
+    store_as: "project_anchor"
+
+optional_state:
+  - key: "project_type"
+    ask: "What kind of project or workflow is this, if it is not already clear from the material you shared?"
+    default: "best-fit from current context"
+    store_as: "project_type"
+  - key: "primary_goal"
+    ask: "What is the main outcome you want from this workflow?"
+    default: "best-fit from current context"
+    store_as: "primary_goal"
+  - key: "audience"
+    ask: "Who is this mainly for: internal LightSpeed use, a client-facing deliverable, or another audience?"
+    default: "internal LightSpeed use"
+    store_as: "audience"
+  - key: "approved_sources"
+    ask: "Which sources should I treat as approved for this project by default?"
+    default: "use current message and approved attached material first"
+    store_as: "approved_sources"
+  - key: "exclusions"
+    ask: "Are there any exclusions, topics to avoid, or must-not-do rules I should treat as standing guidance for this project?"
+    default: "none confirmed yet"
+    store_as: "exclusions"
+  - key: "approval_requirements"
+    ask: "Does this workflow need any standing reviewer, approval, or sign-off rules before public-facing use?"
+    default: "review only when claims, regulated topics, or public-facing output make it necessary"
+    store_as: "approval_requirements"
+  - key: "default_output_format"
+    ask: "If you do not specify a format, what should I default to: estimate, readiness memo, brief, checklist, or best-fit document?"
+    default: "best-fit document"
+    store_as: "default_output_format"
+  - key: "default_assessment_focus"
+    ask: "When you do not specify a focus, should I default to overall AI readiness, estimate confidence, or blocker review?"
+    default: "overall AI readiness"
+    store_as: "default_assessment_focus"
+  - key: "preferred_source_priority"
+    ask: "If several sources are available, which should I prioritise first by default: Gmail, Drive, Harvest, Figma, GitHub, or automatic best-fit selection?"
+    default: "automatic best-fit selection"
+    store_as: "preferred_source_priority"
+
+completion_requires:
+  - "project_anchor"
+
+skip_when:
+  - "the current request already identifies the project clearly enough to proceed"
+  - "the task is a one-off general question, workflow explanation, or setup change rather than a project assessment"
+  - "the current request provides a website, repository, design file, or other reliable project identifier even if Memory is empty"
+  - "enough intake context is already available from the current message, files, connected sources, or memory to proceed safely without a wizard"

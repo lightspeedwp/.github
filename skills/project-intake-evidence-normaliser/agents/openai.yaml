@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Intake & Evidence Normaliser"
+  short_description: "Collect scoped inputs and structure reusable evidence."
+  default_prompt: "Use $project-intake-evidence-normaliser to collect the minimum scoping details, structure evidence, confirm approved sources and exclusions, and save only confirmed reusable defaults."

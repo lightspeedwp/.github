@@ -1,0 +1,65 @@
+{
+  "model_version": "1.0.0",
+  "last_reviewed": "2026-07-03",
+  "plugin": {
+    "name": "Tour Operator Team",
+    "slug": "to-team",
+    "type": "extension",
+    "source_links": [
+      "https://github.com/lightspeedwp/to-team",
+      "https://wordpress.org/plugins/tour-operator-team/"
+    ],
+    "depends_on": [
+      "tour-operator"
+    ]
+  },
+  "evidence_state": "No extension source files were uploaded for this build. Keep this model conservative until repository or live-site evidence confirms internals.",
+  "post_types": [
+    {
+      "slug": "unknown",
+      "labels": {
+        "singular": "unknown",
+        "plural": "unknown"
+      },
+      "purpose": "Store team member, guide or staff profiles where the extension is installed.",
+      "plugin_boundary": "extension",
+      "hierarchical": "unknown",
+      "supports": [
+        "unknown"
+      ],
+      "taxonomies": [
+        "unknown"
+      ],
+      "fields": [],
+      "relationships": [],
+      "archives": {
+        "has_archive": "unknown",
+        "expected_template": "unknown",
+        "notes": "Confirm from extension code or live site."
+      }
+    }
+  ],
+  "taxonomy_notes": [
+    "The core travel-style taxonomy config references some extension-facing object type slugs, but this does not confirm extension post type registration."
+  ],
+  "schema_jsonld_candidates": [
+    {
+      "content_type": "team_member",
+      "candidate_schema_type": "Person",
+      "candidate_properties": [
+        "name",
+        "jobTitle",
+        "description",
+        "sameAs",
+        "image"
+      ],
+      "yoast_integration_notes": "Use privacy-safe contact fields only when approved.",
+      "confidence": "needs-validation"
+    }
+  ],
+  "open_questions": [
+    "Confirm actual post type slug from extension code.",
+    "Confirm field keys, field types, relationship fields and archive behaviour from source or live inspection.",
+    "Confirm whether the extension is active on the target site before applying this model."
+  ]
+}

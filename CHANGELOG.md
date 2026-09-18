@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Branch Validator Missing `config` Type** — The branch name validator was missing the `config` type from its authorized types list despite it being documented in CLAUDE.md. This caused `config/coderabbit-review-governance` branches to fail validation. Fixed by adding `config` to `lib/validate-branch-name.js` AUTHORIZED_TYPES array, increasing authorized types from 24 to 25 and aligning validator with documented branching strategy.
 - **Test Worker Directory State Corruption** — Fixed test directory state corruption where Jest worker processes left working directory at filesystem root, breaking downstream relative-path resolution. Working directory now properly restored between test files. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))
 - **Dependabot Scope Fix** — Restored /website npm scanning and area:dependencies labels in dependabot.yml, dropped by a main->develop sync; needed for Mergify auto-merge. ([PR #3315](https://github.com/lightspeedwp/.github/pull/3315))
 - **Branch Validation Metrics Aggregator** — Fixed gawk constant-folding 0/0 at compile time; pass counters via awk -v. Also moved to Node LTS via .nvmrc. ([PR #3320](https://github.com/lightspeedwp/.github/pull/3320))

@@ -1,0 +1,14 @@
+interface:
+  display_name: Agent Skill Builder
+  short_description: Create local agent skill folders with memory, validation, templates,
+    and rollout guidance.
+  brand_color: '#111827'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

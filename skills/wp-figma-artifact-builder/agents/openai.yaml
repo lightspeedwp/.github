@@ -1,0 +1,16 @@
+interface:
+  display_name: WP Figma Artifact Builder
+  short_description: Create WordPress and Figma implementation artefacts for agents
+    and repos.
+  brand_color: '#0F172A'
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+  default_prompt: Create a WordPress and Figma implementation artefact packet from
+    the supplied project context.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

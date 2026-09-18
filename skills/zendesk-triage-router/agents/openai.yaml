@@ -1,0 +1,12 @@
+interface:
+  display_name: Zendesk Triage Router
+  short_description: Route and triage Zendesk-first support requests
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

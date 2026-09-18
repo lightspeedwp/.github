@@ -1,0 +1,71 @@
+{
+  "report_type": "repeated_theme_review",
+  "scope": "checkout tickets in current 7-day window",
+  "current_window": "last 7 days",
+  "comparison_window": null,
+  "filters": {
+    "text": "checkout redirect payment return",
+    "status": ["new", "open", "pending", "hold"]
+  },
+  "capabilities": {
+    "ticket_counts": true,
+    "ticket_metadata": true,
+    "ticket_details": true,
+    "ticket_conversations": true,
+    "sla_visible": false,
+    "csat_visible": false,
+    "help_centre_visible": false
+  },
+  "counts": {
+    "matching_tickets": 3
+  },
+  "tickets": [
+    {
+      "ticket_id": "ZD-30001",
+      "subject": "Checkout redirect loops after payment",
+      "status": "open",
+      "priority": "high",
+      "created_at": "2026-06-23T09:00:00Z",
+      "updated_at": "2026-06-24T12:00:00Z",
+      "group": "Support",
+      "assignee": null,
+      "organisation": "Example Organisation A",
+      "brand": "Example Brand",
+      "tags": ["checkout", "redirect", "payment"],
+      "channel": "email",
+      "form": "Support request",
+      "custom_fields": {},
+      "comment_count": 4,
+      "sla_status": "unavailable",
+      "age_days": 2,
+      "latest_customer_reply_at": "2026-06-24T10:00:00Z",
+      "latest_agent_reply_at": "2026-06-24T12:00:00Z",
+      "blocked_reason": null,
+      "evidence_class": "confirmed"
+    },
+    {
+      "ticket_id": "ZD-30002",
+      "subject": "Customer returned to blank checkout page",
+      "status": "open",
+      "priority": "normal",
+      "created_at": "2026-06-23T11:30:00Z",
+      "updated_at": "2026-06-24T15:30:00Z",
+      "group": "Support",
+      "assignee": "Example Agent",
+      "organisation": "Example Organisation B",
+      "brand": "Example Brand",
+      "tags": ["checkout", "redirect"],
+      "channel": "web",
+      "form": "Support request",
+      "custom_fields": {},
+      "comment_count": 3,
+      "sla_status": "unavailable",
+      "age_days": 2,
+      "latest_customer_reply_at": "2026-06-24T14:45:00Z",
+      "latest_agent_reply_at": "2026-06-24T15:30:00Z",
+      "blocked_reason": null,
+      "evidence_class": "confirmed"
+    }
+  ],
+  "missing_evidence": ["No confirmed shared root cause", "No system status or deployment evidence checked"]
+}
