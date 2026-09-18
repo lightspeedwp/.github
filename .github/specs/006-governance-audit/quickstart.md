@@ -439,7 +439,7 @@ Once all scenarios pass:
 
 - **Spec**: [spec.md](./spec.md) — Feature requirements and user stories
 - **Data Model**: [data-model.md](./data-model.md) — Core entities and relationships
-- **Contracts**: 
+- **Contracts**:
   - [contracts/audit-rule.contract.md](./contracts/audit-rule.contract.md) — Audit rule interface
   - [contracts/audit-report.contract.md](./contracts/audit-report.contract.md) — Report output format
   - [contracts/remediation.contract.md](./contracts/remediation.contract.md) — Remediation plan format

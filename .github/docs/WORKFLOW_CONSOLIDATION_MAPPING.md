@@ -15,6 +15,7 @@ status: complete
 **Comprehensive mapping of all workflows across the Workflow Consolidation Initiative.**
 
 This document maps:
+
 - **71 archived workflows** (moved to `.github/workflows/archived/2026-09-11/` in Phase 1 + Option A)
 - **9 core active workflows** (retained in `.github/workflows/` with permissions blocks and Phase 2 alignment)
 
@@ -188,6 +189,7 @@ These workflows replace the 71 archived workflows and serve as the unified conso
 ## Consolidation Impact Analysis
 
 ### Before Consolidation (Phase 1 Start)
+
 - **Total workflows:** 76 (62 non-essential + 14 core)
 - **Check gates per PR:** 15-20+ checks
 - **Duplicate code:** ~500 lines
@@ -195,6 +197,7 @@ These workflows replace the 71 archived workflows and serve as the unified conso
 - **GitHub Actions minutes:** High usage
 
 ### After Consolidation (Phase 2+)
+
 - **Total active workflows:** 14 (unified consolidated)
 - **Check gates per PR:** 1 unified gate + dependencies
 - **Duplicate code:** Eliminated (consolidated)
@@ -230,16 +233,19 @@ These workflows replace the 71 archived workflows and serve as the unified conso
 ## Usage and Navigation
 
 ### For Workflow Authors
+
 - Find your old archived workflow → check "Consolidates To" column
 - Review target unified workflow for integration points
 - Reference the target workflow for consolidation logic
 
 ### For Operations
+
 - Restore a workflow: See `.github/workflows/archived/2026-09-11/RESTORE.md`
 - Understand consolidation strategy: Reference this mapping
 - Track impact: See "Consolidation Impact Analysis" section
 
 ### For Phase 2 Implementation
+
 - Developers building Phase 2: Use "Core Active Workflows" table
 - Map old behavior → new consolidated workflow location
 - Merge archived logic into target consolidated workflow
@@ -268,6 +274,7 @@ These workflows replace the 71 archived workflows and serve as the unified conso
 4. When modifying consolidation: Update "Consolidates To" entries
 
 **Version Control:**
+
 - Mapping version: 1.0
 - Created: Sep 11, 2026
 - Last updated: Sep 12, 2026 (Phase 2 archival complete)

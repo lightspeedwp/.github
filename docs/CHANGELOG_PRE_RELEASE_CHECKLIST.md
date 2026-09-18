@@ -302,3 +302,7 @@ node scripts/changelog-pre-release-validator.js --changelog CHANGELOG.md --forma
 *Maintained by 🚀 LightSpeedWP Automation Team — Changelog Quality Assurance*
 
 *Last updated: 2026-09-17*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
