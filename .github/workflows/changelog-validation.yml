@@ -82,6 +82,7 @@ jobs:
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=$RESULT" >> $GITHUB_OUTPUT
             echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
+            echo "report_created=true" >> $GITHUB_OUTPUT
 
             # Save full report for audit
             cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
@@ -100,6 +101,7 @@ jobs:
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=ERROR" >> $GITHUB_OUTPUT
             echo "gate_result=UNKNOWN" >> $GITHUB_OUTPUT
+            echo "report_created=false" >> $GITHUB_OUTPUT
             [ -f validation-stderr.log ] && cat validation-stderr.log
             exit 1
           fi
@@ -107,7 +109,7 @@ jobs:
 
       - name: Report validation via GitHub Check Run
         id: check-run
-        if: steps.changed-files.outputs.any_changed == 'true' && hashFiles('.github/validation/changelog/validation-report.json') != ''
+        if: steps.validate.outputs.report_created == 'true'
         run: |
           cd .github/validation/changelog
 
