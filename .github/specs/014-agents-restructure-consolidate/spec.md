@@ -135,8 +135,8 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 ### Functional Requirements
 
 - **FR-001**: System MUST audit all agent files and identify breaking references from renames/moves, generating a report with file locations, line numbers, and severity
-- **FR-002**: System MUST enforce standardized folder structure for all agents: agent definition files, skills subfolder, tests subfolder, configuration files, README documentation
-- **FR-003**: System MUST identify all agent skills and root skills, compare them for duplication, and generate consolidation recommendations with duplication scores
+- **FR-002**: System MUST enforce standardized folder structure for all agents. Each agent MUST contain: `AGENT.md` (definition), `CHANGELOG.md` (version history), `package.json` (dependencies), `README.md` (documentation), `skills/` (subfolder), `tests/` (subfolder), `config/` (subfolder). Tests MUST use framework matching agent type (Jest for JS agents, Bats for shell scripts, Playwright for UI agents)
+- **FR-003**: System MUST identify all agent skills and root skills, organized by category subfolders (skills/{category}/{scope}-{title} pattern), compare them for duplication, and generate consolidation recommendations with duplication scores
 - **FR-004**: System MUST create an agents registry listing all agents with metadata (name, description, version, folder path, status), discoverable and machine-parseable
 - **FR-005**: System MUST create a skills registry for each agent documenting all skills used, their agentskills.io specification compliance status, schema version, and missing/invalid fields
 - **FR-006**: System MUST validate all agent skills against agentskills.io specification and report compliance violations with specific, actionable remediation steps
@@ -147,7 +147,7 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 
 ### Key Entities
 
-- **Agent**: A self-contained module with definition, skills, tests, configuration, and documentation. Contains metadata (name, description, version, status)
+- **Agent**: A self-contained module with standardized folder structure: AGENT.md (definition), CHANGELOG.md (version history), package.json (dependencies), README.md (documentation), skills/ (agent-specific skills), tests/ (test files using Jest/Bats/Playwright per agent type), config/ (configuration files). Contains metadata (name, description, version, status)
 - **Skill**: A reusable component that can be used by one or more agents. Has agentskills.io specification compliance status and schema version
 - **AgentRegistry**: Machine-readable catalog of all agents with metadata, dependencies, skills, and restructuring status
 - **SkillRegistry**: Catalog of all skills (root and agent-specific) with compliance status, usage count, duplication analysis
@@ -167,7 +167,7 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 - **SC-007**: All root scripts have been mapped to logical agent owners; migration/deprecation plan is created with zero unmapped scripts
 - **SC-008**: Agent restructuring can be decomposed into individual agent specs with clear priority order and no circular dependencies
 - **SC-009**: All reference breakages from renames are fixed; dependent workflows and scripts execute successfully on first run
-- **SC-010**: Restructuring plan shows 30-day completion estimate broken into 4 phases: Phase 1 (Days 1–5) audit & broken reference remediation; Phase 2 (Days 6–12) standardization & deduplication; Phase 3 (Days 13–20) registry generation & compliance validation; Phase 4 (Days 21–30) agent restructuring specifications & planning
+- **SC-010**: Phase 1 (this spec): 30-day completion broken into 4 phases: Phase 1 (Days 1–5) audit & broken reference remediation; Phase 2 (Days 6–12) standardization & deduplication; Phase 3 (Days 13–20) registry generation & compliance validation; Phase 4 (Days 21–30) agent restructuring specifications & planning. Linting, test creation, and comprehensive documentation phases are deferred to Phase 2 spec
 
 ## Assumptions
 
@@ -180,18 +180,29 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 - **Multi-agent script ownership**: Scripts with dependencies on multiple agents are decomposed into agent-specific subscripts or elevated to shared utilities rather than duplicated across agents.
 - **Backward compatibility**: Root scripts continue to work during restructuring; deprecation happens after agents are self-contained. Consuming repositories receive migration guidance before deprecation.
 - **External dependencies**: agentskills.io specification is authoritative; any conflicts with current agent skill structure should be resolved in favor of specification compliance
-- **Testing coverage**: Each agent should have unit tests for its skills and integration tests for cross-agent interactions; test coverage should be at least 80%
-- **Timeline**: 30-day execution target across 4 phases: Phase 1 (Days 1–5) audit & broken references; Phase 2 (Days 6–12) standardization & deduplication; Phase 3 (Days 13–20) registries & compliance; Phase 4 (Days 21–30) restructuring planning & decomposition
+- **Testing framework selection**: Testing uses context-appropriate frameworks: Jest (JavaScript agents/skills, `__tests__/` folder convention), Bats (shell scripts, `tests/` folder), Playwright (UI-heavy agents, `tests/e2e/` folder). Each agent documents its chosen framework in README.md. Minimum target is 80% coverage; actual implementation deferred to Phase 2 spec with dedicated test creation phase
+- **Skills naming convention**: All skills MUST follow naming pattern `{category}/{scope}-{title}` where category is a categorical subfolder in `skills/` (e.g., `skills/validation/broken-refs-finder`, `skills/audit/structure-checker`). Categories organize skills functionally (validation, audit, reporting, registry, etc.)
+- **Phase 1 scope**: This specification covers Phase 1 work (audit, standardization, skill consolidation, registry generation, planning). Linting phase, test creation phase, and comprehensive documentation phase are explicitly deferred to Phase 2 spec to keep Phase 1 30-day timeline realistic and enable shipping Phase 1 PR without linting/test gates
+- **Deferred user stories**: Plugin creation for Claude/Copilot (User Story 8) and SpecKit skill integration (User Story 9) are deferred to Phase 2 spec. Phase 1 focuses on core restructuring infrastructure (7 user stories)
+- **Timeline**: 30-day execution target for Phase 1 across 4 phases: Phase 1 (Days 1–5) audit & broken references; Phase 2 (Days 6–12) standardization & deduplication; Phase 3 (Days 13–20) registries & compliance; Phase 4 (Days 21–30) restructuring planning & decomposition
 
 ## Clarifications
 
-### Session 2026-09-18
+### Session 2026-09-18 (Initial Specification Clarifications)
 
 - Q: How should the system handle agents requiring different versions of the same skill? → A: Option B - Allow version-pinned skill copies in individual agents only when versions differ; identical versions must use root shared skill
 - Q: How should broken or missing skill dependencies be handled during restructuring? → A: Option A - Flag missing dependencies; agent restructuring is incomplete until dependency is created or reference removed
 - Q: What is the authoritative format and location for the agent registry and skills registry? → A: Option A - JSON registries in agent folders (`agents/{agent}/registry.json`) plus consolidated root registry (`agents/registry.json`); auto-generated from filesystem
 - Q: How should scripts that logically depend on multiple agents be handled during migration? → A: Option B - Decompose multi-agent scripts into agent-specific subscripts; each agent owns relevant portion; shared logic becomes reusable library/utility
 - Q: What is the minimum viable timeline and phasing for the 30-day completion estimate? → A: Phase 1 (Days 1–5) Audit & broken reference remediation; Phase 2 (Days 6–12) Standardize structure & deduplication; Phase 3 (Days 13–20) Registries & compliance; Phase 4 (Days 21–30) Agent restructuring specs & planning
+
+### Session 2026-09-18 (Critical Gap Resolution via /speckit-analyze)
+
+- Q: Should we extend the 30-day timeline to add dedicated Linting, Test Creation, and Documentation phases, or defer them to Phase 2? → A: Option C - Phased rollout: Phase 1 (this spec) delivers core restructuring in 30 days; Linting, Test Creation, and Documentation phases deferred to Phase 2 spec
+- Q: What files and folder structure should EVERY agent contain? → A: Option B - Recommended: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/
+- Q: Which testing framework should agents mandate for test coverage? → A: Option D - Mixed (context-dependent): Jest for JavaScript agents (__tests__/ folders), Bats for shell scripts (tests/ folder), Playwright for UI agents (tests/e2e/ folder)
+- Q: Should skills adopt a categorical naming convention {category}/{scope}-{title} with categorical subfolders? → A: Yes - Adopt pattern with example categories: skills/validation/, skills/audit/, skills/reporting/, skills/registry/
+- Q: Should we add User Stories 8 (Plugins) & 9 (SpecKit Integration) to this spec, or defer to Phase 2? → A: Option A - Defer both to Phase 2 spec; Phase 1 focuses on core restructuring infrastructure (7 user stories)
 
 ## Notes
 

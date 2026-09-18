@@ -1,35 +1,28 @@
-# Tasks: Agent Structure Standardization & Skill Consolidation
+# Tasks: Agent Structure Standardization & Skill Consolidation (Enhanced)
 
-**Input**: Design documents from `.github/specs/014-agents-restructure-consolidate/`
+**Input**: Clarified specification with 5 resolved gaps and Phase 1 design artifacts
 
-**Prerequisites**:
+**Prerequisites**: spec.md, plan.md, research.md, data-model.md, contracts/, quickstart.md
 
-- plan.md (4-phase implementation timeline)
-- spec.md (7 user stories with P1/P2/P3 priorities)
-- research.md (6 technical decisions)
-- data-model.md (entity definitions, registries)
-- contracts/ (report formats, registry schema)
-- quickstart.md (5 validation scenarios)
+**Organization**: Tasks grouped by user story for independent implementation
 
-**Organization**: Tasks grouped by user story to enable independent implementation of each story's audit, restructuring, or registry work.
-
-**Total Tasks**: ~115 tasks across 10 phases (setup, foundational, 7 user stories, polish)
+**Total Tasks**: ~125 tasks across 10 phases
 
 **Timeline**: 30 days across 4 concurrent phases (P1 audit parallel with P2-4 planning)
 
 ---
 
-## Format: `[ID] [P?] [Story] Description`
+## Format: `- [ ] [TaskID] [P?] [Story?] Description with exact file path`
 
-- **[P]**: Parallelizable (different files, no dependencies)
-- **[Story]**: User story label (US1, US2, US3, etc.) - REQUIRED for story phases
-- **File paths**: Exact repository-relative paths for every task
+- **[P]**: Parallelizable (different files, no inter-task dependencies)
+- **[Story]**: User story label (US1-US7) - REQUIRED for story phases only
+- **File paths**: Exact repository-relative paths
 
 ---
 
 ## Phase 1: Setup (Shared Infrastructure) — Days 1–2
 
-**Purpose**: Project initialization and audit tooling
+**Purpose**: Project initialization and audit tooling foundation
 
 - [ ] T001 Create scripts/validation/ directory structure for audit and validation tools
 - [ ] T002 [P] Create agents/reports/ directory for audit and registry output files
@@ -37,8 +30,8 @@
 - [ ] T004 [P] Initialize npm workspace for validation scripts (if not already configured)
 - [ ] T005 [P] Setup logging and reporting utilities in scripts/validation/lib/reporting.js
 - [ ] T006 Create base configuration file scripts/validation/config.json with agent paths and thresholds
-- [ ] T007 Setup git hook scripts for pre-commit registry freshness validation
-- [ ] T008 [P] Create documentation: RESTRUCTURING_GUIDE.md with overview and execution instructions
+- [ ] T007 Setup git hook scripts for pre-commit registry freshness validation in .github/hooks/pre-commit-registry.sh
+- [ ] T008 [P] Create documentation: RESTRUCTURING_GUIDE.md with overview and execution instructions in .github/docs/
 
 ---
 
@@ -49,623 +42,240 @@
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
 - [ ] T009 Implement audit script core in scripts/validation/audit-agents.js (imports, logging, error handling)
-- [ ] T010 [P] Implement reference type detection engine in scripts/validation/lib/reference-detector.js
-  - Must detect JavaScript imports: `require()`, `import` statements
-  - Must detect shell paths: hardcoded paths in `.sh` files
-  - Must detect workflow references: agent invocations in `.github/workflows/*.yml`
-- [ ] T011 [P] Implement file scanner in scripts/validation/lib/file-scanner.js to enumerate agents/, scripts/, and .github/workflows/ recursively
-- [ ] T012 Implement broken reference identification in scripts/validation/lib/broken-refs-finder.js
-  - Compare found references against actual agent/skill paths in agents/ and skills/
-  - Generate severity levels (critical, warning, info)
-  - Suggest fixes based on closest matching path
-- [ ] T013 [P] Implement report generator for broken references in scripts/validation/lib/audit-report-builder.js
-  - Follow audit-report-format.md schema exactly
-  - Output JSON to agents/reports/broken-references-audit.json
-  - Include: timestamp, audit_scope, summary counts, reference_types, detailed entries
-- [ ] T014 [P] Create registry schema validation in scripts/validation/lib/registry-validator.js
-  - Validate JSON schema against contracts/registry-schema.json
-  - Check required fields: id, name, version, location, status
-  - Validate enum values for status, type, severity fields
-- [ ] T015 [P] Implement deduplication detection engine in scripts/validation/lib/dedup-engine.js
-  - Calculate content hash (SHA-256) for each skill file
-  - Calculate semantic similarity scores using TF-IDF or cosine similarity
-  - Threshold: exact match (100%), near-duplicate (85%+), dissimilar (<85%)
-- [ ] T016 Implement agent structure checker in scripts/validation/lib/structure-checker.js
-  - Verify each agent has: {agent-name}.agent.md, skills/, tests/, config/ folders
-  - Document deviations from standardized structure
-  - Generate remediation steps per non-compliant agent
-- [ ] T017 [P] Create npm scripts in package.json for all validation commands:
-  - `npm run audit:agents` — Run all audits
-  - `npm run audit:broken-refs` — Audit broken references only
-  - `npm run audit:structure` — Audit folder structure only
-  - `npm run audit:dedup` — Audit skill duplication only
-  - `npm run registry:generate` — Generate registries
-  - `npm run registry:validate` — Validate existing registries
-
-**Checkpoint**: Foundational audit tools ready - can now run reference and structure audits on full repository
+- [ ] T010 [P] Implement reference type detection engine in scripts/validation/lib/reference-detector.js (JS imports, shell paths, workflows)
+- [ ] T011 [P] Implement file scanner in scripts/validation/lib/file-scanner.js to enumerate agents/, skills/, .github/workflows/ recursively
+- [ ] T012 Implement broken reference identification in scripts/validation/lib/broken-refs-finder.js (compare refs against actual paths, severity levels)
+- [ ] T013 [P] Implement audit report generator in scripts/validation/lib/audit-report-builder.js (per contracts/audit-report-format.md schema)
+- [ ] T014 [P] Create registry schema validation in scripts/validation/lib/registry-validator.js (per contracts/registry-schema.json)
+- [ ] T015 [P] Implement deduplication detection engine in scripts/validation/lib/dedup-engine.js (SHA-256 hashing, cosine similarity @ 85% threshold)
+- [ ] T016 Implement agent structure checker in scripts/validation/lib/structure-checker.js (verify all 7 components: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
+- [ ] T017 [P] Create npm scripts in package.json for all validation commands (npm run audit:agents, audit:broken-refs, audit:structure, audit:dedup, audit:registry, validate:compliance, audit:all)
 
 ---
 
-## Phase 3: User Story 1 - Audit & Remediate Broken References (Priority: P1) 🎯 MVP
+## Phase 3: User Story 1 - Audit & Remediate Broken References (P1) — Days 3–8
 
-**Goal**: Identify and remediate all broken script references and imports from agent renames in the branch
+**Goal**: Identify and fix all broken references from agent renames
 
-**Independent Test**: Run broken-reference audit on repository; verify all references are correct; re-run scripts that were broken to confirm they execute without import errors
+**Independent Test**: Run reference audit, identify all broken references, apply fixes, verify CI passes
 
-### Validation Steps for US1
-
-- [ ] T018 [US1] Run broken-reference audit: `npm run audit:broken-refs`
-- [ ] T019 [US1] Generate audit report: agents/reports/broken-references-audit.json
-- [ ] T020 [US1] Identify critical references (severity: critical) in audit report
-- [ ] T021 [US1] Create remediation checklist from audit violations in agents/reports/remediation-checklist-us1.md
-- [ ] T022 [US1] Identify auto-fixable references (auto_fixable: true) in audit report
-- [ ] T023 [US1] Identify manual-review references (auto_fixable: false) for team review
-
-### Implementation for US1 (Broken Reference Fixes)
-
-- [ ] T024 [P] [US1] Fix JavaScript imports: Update agent require/import statements in scripts/agents/ to match new paths
-  - Pattern: `agents/{old-name}/` → `agents/{new-name}/`
-  - Files affected: All .js files in scripts/agents/ that have broken imports
-  - Validation: `node scripts/agents/{script-name}.js` should run without import errors
-- [ ] T025 [P] [US1] Fix shell script paths: Update hardcoded paths in .sh files to match new agent locations
-  - Pattern: `scripts/agents/{old-name}/` → `scripts/agents/{new-name}/`
-  - Files affected: scripts/ folder shell scripts with broken path references
-  - Validation: `bash {script-path}` should execute without "file not found" errors
-- [ ] T026 [P] [US1] Fix GitHub Actions references: Update agent invocations in .github/workflows/*.yml
-  - Pattern: `actions/agents/{old-name}` → `actions/agents/{new-name}`
-  - Files affected: All .github/workflows/*.yml files with broken agent references
-  - Validation: Workflow syntax check: `gh workflow list` should show all workflows, no parse errors
-- [ ] T027 [US1] Fix critical severity references: Apply fixes to all critical references from audit report
-  - Test each fix by running affected script or workflow locally if possible
-  - Verify no new broken references introduced
-- [ ] T028 [US1] Fix warning and info severity references: Apply remaining fixes from audit report
-- [ ] T029 [US1] Re-run broken-reference audit to verify all fixes: `npm run audit:broken-refs`
-- [ ] T030 [US1] Generate final audit report: agents/reports/broken-references-audit-final.json
-- [ ] T031 [US1] Verify zero broken references remain: broken_references_found must equal 0
-- [ ] T032 [P] [US1] Run integration tests: Execute sample scripts that were previously broken to confirm they now work
-  - Test at least 3 scripts that had broken references
-  - Each script must execute successfully without import/path errors
-  - Document results in agents/reports/us1-integration-results.md
-- [ ] T033 [US1] Commit broken reference fixes with message: "fix(audit): remediate broken agent references from renames"
-
-**Checkpoint**: All broken references fixed; scripts and workflows execute successfully; audit reports zero violations
+- [ ] T018 [P] [US1] Document reference types and detection patterns in .github/docs/REFERENCE_TYPES.md
+- [ ] T019 [US1] Implement JavaScript import detection in scripts/validation/lib/reference-detector.js (require(), import statements)
+- [ ] T020 [P] [US1] Implement shell path detection in scripts/validation/lib/reference-detector.js (hardcoded paths in .sh files)
+- [ ] T021 [P] [US1] Implement workflow reference detection in scripts/validation/lib/reference-detector.js (agent invocations in .github/workflows/*.yml)
+- [ ] T022 [US1] Generate broken reference audit report and save to agents/reports/broken-references-audit.json
+- [ ] T023 [P] [US1] Create reference fix recommendations in scripts/validation/lib/fix-suggester.js (suggest correct paths)
+- [ ] T024 [US1] Implement auto-fix capability for identified broken references in scripts/validation/lib/auto-fixer.js
+- [ ] T025 [P] [US1] Create validation script to verify all fixes executed successfully in scripts/validation/verify-fixes.js
+- [ ] T026 [P] [US1] Document broken reference remediation process in .github/docs/BROKEN_REFERENCE_REMEDIATION.md
+- [ ] T027 [US1] Generate summary report of all broken references fixed (count, types, impact)
+- [ ] T028 [P] [US1] Create integration tests for reference detection and fixing in scripts/validation/__tests__/reference-detection.test.js
+- [ ] T029 [US1] Verify all dependent scripts execute successfully after fixes applied
+- [ ] T030 [P] [US1] Validate CI workflows pass without import/path errors
+- [ ] T031 [US1] Create CHANGELOG entries for all agents with broken references that were fixed
+- [ ] T032 [P] [US1] Generate final broken reference audit report and save to agents/reports/broken-references-audit-final.json
 
 ---
 
-## Phase 4: User Story 2 - Standardize Agent Folder Structure (Priority: P1)
+## Phase 4: User Story 2 - Standardize Agent Folder Structure (P1) — Days 6–12
 
-**Goal**: Ensure all agents in agents/ folder follow standardized folder structure (agent definition, skills/, tests/, config/)
+**Goal**: All agents conform to 7-item folder structure template
 
-**Independent Test**: Run structure audit on all agents; verify 100% compliance with standardized pattern; sample manual verification of 3–5 agents
+**Independent Test**: Audit each agent, verify all 7 components present, document deviations
 
-### Validation Steps for US2
-
-- [ ] T034 [US2] Run structure audit: `npm run audit:structure` (if not implemented in foundational phase)
-- [ ] T035 [US2] Generate structure report: agents/reports/structure-audit.json
-- [ ] T036 [US2] Identify non-compliant agents from audit report
-- [ ] T037 [US2] Document deviations per agent: which folders missing, which unexpected files present
-- [ ] T038 [US2] Create remediation plan: agents/reports/structure-remediation-plan-us2.md
-
-### Implementation for US2 (Standardize Structures)
-
-- [ ] T039 [P] [US2] Create standardized folder structure for each non-compliant agent:
-  - Create {agent}/skills/ folder for agent-specific skills (if not exists)
-  - Create {agent}/tests/ folder for agent tests (if not exists)
-  - Create {agent}/config/ folder for agent configuration (if not exists)
-  - Create {agent}/includes/ folder for reusable utilities (if not exists)
-  - Files affected: All agents/ subfolders
-- [ ] T040 [P] [US2] Move skill files to standardized location:
-  - Move all .md and .js skill files from agent root to agents/{agent}/skills/
-  - Move legacy skill definitions to agents/{agent}/skills/
-  - Update any imports/references to skills from new location
-  - Files: agents/*/skills/*.md and agents/*/skills/*.js
-- [ ] T041 [P] [US2] Move test files to standardized location:
-  - Move test files from agent root to agents/{agent}/tests/
-  - Organize into agents/{agent}/tests/unit/, agents/{agent}/tests/integration/, agents/{agent}/tests/fixtures/
-  - Update test runner configuration to point to new locations
-  - Files: agents/*/tests/*.test.js, agents/*/tests/**/*.test.js
-- [ ] T042 [P] [US2] Move configuration files to standardized location:
-  - Move .json config files from agent root to agents/{agent}/config/
-  - Move schema files to agents/{agent}/config/
-  - Update requires/imports to reference new config paths
-  - Files: agents/*/config/*.json, agents/*/config/**/*.schema.json
-- [ ] T043 [P] [US2] Create or update README.md in each agent folder:
-  - Document agent purpose, structure, how to use skills
-  - Link to skill documentation
-  - Include: overview, folder structure explanation, examples
-  - Files: agents/{agent}/README.md
-- [ ] T044 [P] [US2] Verify agent.md files are in agent root with correct naming:
-  - File must be named: agents/{agent}/{agent}.agent.md (matches folder name)
-  - If named differently (e.g., README.md), rename to {agent}.agent.md
-  - Files: agents/{agent}/{agent}.agent.md
-- [ ] T045 [US2] Re-run structure audit to verify standardization: `npm run audit:structure`
-- [ ] T046 [US2] Generate final structure report: agents/reports/structure-audit-final.json
-- [ ] T047 [US2] Verify 100% compliance: All agents follow standardized structure, zero deviations
-- [ ] T048 [P] [US2] Manual verification: Spot-check 5 agents (e.g., prd-agent, changelog-agent, issue-agent, release-agent, reviewer-agent)
-  - Verify folder structure matches reference implementation
-  - Verify all files in correct locations
-  - Document results in agents/reports/us2-manual-verification.md
-- [ ] T049 [US2] Commit structure standardization with message: "refactor(agents): standardize folder structure across all agents"
-
-**Checkpoint**: All agents follow standardized structure; structure audit shows 100% compliance
+- [ ] T033 [P] [US2] Create agent folder structure template in .github/templates/agent-structure-template/ with all 7 components
+- [ ] T034 [US2] Document standardized agent folder structure in .github/docs/AGENT_FOLDER_STRUCTURE.md (mandate: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
+- [ ] T035 [P] [US2] Implement folder structure validation in scripts/validation/lib/structure-checker.js
+- [ ] T036 [US2] Generate structure audit report and save to agents/reports/structure-audit.json
+- [ ] T037 [P] [US2] Identify agents missing required components (per Decision 1: 7-item template)
+- [ ] T038 [P] [US2] Create remediation recommendations for non-conformant agents in agents/reports/structure-remediation-recommendations.json
+- [ ] T039 [US2] Document agent CHANGELOG.md format requirements in .github/docs/CHANGELOG_FORMAT.md
+- [ ] T040 [P] [US2] Document agent package.json requirements in .github/docs/PACKAGE_JSON_REQUIREMENTS.md
+- [ ] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
+- [ ] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
+- [ ] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
+- [ ] T044 [P] [US2] Create unit tests for structure validation in scripts/validation/__tests__/structure-validation.test.js
 
 ---
 
-## Phase 5: User Story 3 - Consolidate & Deduplicate Skills (Priority: P1)
+## Phase 5: User Story 3 - Consolidate & Deduplicate Skills (P1) — Days 9–15
 
-**Goal**: Identify duplicate and near-duplicate skills; consolidate exact duplicates to root skills/ folder; document intentional variations
+**Goal**: Identify all duplicate/near-duplicate skills; create consolidation plan
 
-**Independent Test**: Run deduplication audit; identify duplicates with similarity scores; consolidate exact matches; verify zero true duplicates remain
+**Independent Test**: Run deduplication audit, identify duplicates with similarity scores, create consolidation recommendations
 
-### Validation Steps for US3
-
-- [ ] T050 [US3] Run deduplication audit: `npm run audit:dedup`
-- [ ] T051 [US3] Generate deduplication report: agents/reports/skill-deduplication.json
-- [ ] T052 [US3] Categorize findings: Exact matches (100% similar) vs. near-duplicates (85%+ similar)
-- [ ] T053 [US3] Document duplicate instances in agents/reports/skill-duplicates-detailed.md
-  - For each exact match: source locations, content hash, affected agents
-  - For each near-duplicate: similarity scores, recommended consolidation decision
-- [ ] T054 [US3] Create consolidation plan: agents/reports/skill-consolidation-plan.md
-  - List all exact-match duplicates with consolidation recommendation
-  - For near-duplicates: document whether to consolidate, fork, or keep separate with rationale
-
-### Implementation for US3 (Skill Consolidation)
-
-- [ ] T055 [P] [US3] Consolidate exact-match duplicates to root skills/ folder:
-  - For each exact duplicate set: copy primary implementation to skills/{skill-name}/
-  - Verify content hash matches between copies
-  - Update agent-local copies to reference root version
-  - Files: skills/{skill-id}/ (new consolidated copies)
-- [ ] T056 [P] [US3] Update agent skill references to use consolidated root skills:
-  - Update agents/{agent}/skills/ configurations to reference skills/{skill-id}
-  - Remove duplicate copies from agent folders (these now reference root)
-  - Update any imports/requires to point to root skills/ location
-  - Files: agents/{agent}/skills.json or similar configuration
-- [ ] T057 [P] [US3] Document intentional skill variations:
-  - For skills that remain as agent-specific copies: Add rationale in agents/{agent}/README.md
-  - Example: "Agent-specific variant of {skill} due to {specific requirement}: {justification}"
-  - Files: agents/{agent}/README.md (updated with variation documentation)
-- [ ] T058 [US3] For near-duplicate skills (85%+ similarity): Review consolidation decisions
-  - For each near-duplicate pair flagged for consolidation:
-    - Analyze differences between implementations
-    - Decide: consolidate (pick best version), fork (keep separate with clear rationale), or merge (combine best of both)
-    - Document decision in agents/reports/near-duplicate-decisions.md
-  - For near-duplicates NOT consolidated: Add rationale to agent README.md
-- [ ] T059 [US3] Create consolidated skills/ folder structure:
-  - Organize consolidated skills by type (actions, queries, transforms, utilities)
-  - Create skills/{type}/ subfolders if needed for large skill count
-  - Create skills/registry.json to track all root skills (generated later)
-  - Files: skills/{skill-id}/*, skills/registry.json (placeholder)
-- [ ] T060 [P] [US3] Update skill manifests/metadata:
-  - Ensure each consolidated skill has: skill.md, package.json (if applicable), tests/
-  - Verify skill metadata matches agentskills.io requirements
-  - Files: skills/{skill-id}/*.md, skills/{skill-id}/package.json
-- [ ] T061 [US3] Re-run deduplication audit to verify consolidation: `npm run audit:dedup`
-- [ ] T062 [US3] Verify zero true duplicates remain: exact_matches must equal 0 in final report
-- [ ] T063 [P] [US3] Run smoke tests on consolidated skills:
-  - For sample of 5 consolidated skills: verify they function in agent context
-  - Test both direct import and via registry reference
-  - Document results in agents/reports/us3-consolidation-smoke-tests.md
-- [ ] T064 [US3] Commit skill consolidation with message: "refactor(skills): consolidate duplicate skills to root folder"
-
-**Checkpoint**: All exact-duplicate skills consolidated to root; zero true duplicates remain; agent references updated
+- [ ] T045 [P] [US3] Implement skills catalog scanner in scripts/validation/lib/skills-catalog.js (enumerate agents/*/skills/ and skills/)
+- [ ] T046 [US3] Document skills naming convention in .github/docs/SKILLS_NAMING_CONVENTION.md (mandate: {category}/{scope}-{title} pattern)
+- [ ] T047 [P] [US3] Create category subdirectories in skills/ for: validation, audit, reporting, registry, utilities (per Decision 2)
+- [ ] T048 [P] [US3] Implement SHA-256 content hashing in scripts/validation/lib/dedup-engine.js
+- [ ] T049 [P] [US3] Implement cosine similarity calculation in scripts/validation/lib/dedup-engine.js (85% threshold per Decision 3)
+- [ ] T050 [US3] Generate deduplication audit report and save to agents/reports/deduplication-audit.json
+- [ ] T051 [P] [US3] Identify exact duplicate skills (100% hash match) in deduplication-audit.json
+- [ ] T052 [P] [US3] Identify near-duplicate skills (85%+ similarity) in deduplication-audit.json
+- [ ] T053 [US3] Create consolidation recommendations specifying: which agents use shared skill vs agent-specific variant
+- [ ] T054 [P] [US3] Document skill consolidation strategy in .github/docs/SKILL_CONSOLIDATION_STRATEGY.md
+- [ ] T055 [US3] Create impact analysis for each consolidation recommendation (affected agents, breaking changes if any)
+- [ ] T056 [P] [US3] Document skill deduplication process in .github/docs/SKILL_DEDUPLICATION_PROCESS.md
+- [ ] T057 [US3] Generate summary: total skills scanned, exact duplicates found, near-duplicates found, consolidation candidates
 
 ---
 
-## Phase 6: User Story 4 - Create Agent Skills Registry (Priority: P2)
+## Phase 6: User Story 4 - Create Skills Registry (P2) — Days 12–18
 
-**Goal**: Generate machine-readable registry of all agent skills with compliance status, duplication metadata, and usage tracking
+**Goal**: Generate machine-readable skills registry with agentskills.io compliance tracking
 
-**Independent Test**: Generate registry from all agent/root skills; validate schema; verify completeness (all skills present); validate compliance metadata
+**Independent Test**: Generate registry from filesystem, validate schema, check compliance status
 
-### Validation Steps for US4
-
-- [ ] T065 [US4] Design skills registry schema (reference: contracts/registry-schema.json)
-  - Metadata: timestamp, generated_from_commit, total_skills count
-  - Per-skill fields: id, name, version, location, type, compliance_status, usage_count, duplicates
-  - Validation: schema must support both root and agent-specific skills
-- [ ] T066 [US4] Plan registry generation triggers:
-  - On-demand: `npm run registry:generate -- skills`
-  - CI: Run on every PR to detect skill changes
-  - Pre-commit: Hook to validate registry freshness
-
-### Implementation for US4 (Skills Registry)
-
-- [ ] T067 [US4] Implement skills registry generator in scripts/tools/generate-registries.js:
-  - Scan agents/*/skills/ and skills/ folders recursively
-  - Extract metadata from skill.md frontmatter and package.json
-  - Calculate content hashes for deduplication tracking
-  - Determine usage: which agents use each skill
-  - Files: scripts/tools/generate-registries.js
-- [ ] T068 [P] [US4] Implement agentskills.io compliance validator in scripts/validation/lib/skills-compliance-validator.js:
-  - Validate each skill against mandatory fields: title, description, type
-  - Validate optional fields: author, version, examples, inputs, outputs
-  - Categorize violations: blocking (missing required), warning (missing recommended), info
-  - Return compliance status per skill with violation details
-  - Files: scripts/validation/lib/skills-compliance-validator.js
-- [ ] T069 [US4] Integrate compliance validation into registry generation:
-  - Add agentskills_compliant boolean to each registry entry
-  - Add violations array with field name and severity
-  - Add remediation steps for each blocking violation
-  - Files: Updated scripts/tools/generate-registries.js
-- [ ] T070 [P] [US4] Create skills registry at skills/registry.json:
-  - Run registry generator: `npm run registry:generate -- skills`
-  - Output consolidated registry: skills/registry.json
-  - Include: all 1000+ skills with full metadata
-  - Validate output against registry-schema.json
-  - Files: skills/registry.json (generated)
-- [ ] T071 [P] [US4] Create per-agent skills registries at agents/{agent}/skills-registry.json:
-  - For each agent: generate agent-specific registry
-  - Include: only skills in that agent's agents/{agent}/skills/ folder
-  - Reference root skills with location: "root" if consolidated
-  - Files: agents/{agent}/skills-registry.json (generated for each agent)
-- [ ] T072 [US4] Validate registry completeness:
-  - Verify all skills in agents/ and skills/ folders appear in registries
-  - Verify total_skills count matches actual skill count
-  - Verify no missing entries
-  - Files: agents/reports/us4-registry-completeness-check.md
-- [ ] T073 [US4] Run registry validation: `npm run registry:validate`
-- [ ] T074 [US4] Commit registries with message: "build(registries): generate skills registries with compliance metadata"
-
-**Checkpoint**: Skills registries generated and validated; all skills tracked with metadata and compliance status
+- [ ] T058 [P] [US4] Implement skills registry generator in scripts/validation/lib/skills-registry-generator.js
+- [ ] T059 [US4] Scan all agent skills in agents/*/skills/ and root skills/ in scripts/validation/lib/skills-scanner.js
+- [ ] T060 [P] [US4] Implement agentskills.io compliance checker in scripts/validation/lib/compliance-checker.js (per Decision 1 research)
+- [ ] T061 [P] [US4] Extract skill metadata (id, name, version, location, type, description) and populate registry
+- [ ] T062 [US4] Generate consolidated skills registry and save to skills/registry.json
+- [ ] T063 [P] [US4] Generate per-category skills registries (skills/{category}/registry.json) per Decision 4
+- [ ] T064 [P] [US4] Validate all registry files against contracts/registry-schema.json
+- [ ] T065 [US4] Generate compliance validation report and save to .github/specs/014-agents-restructure-consolidate/reports/compliance-validation-report.json
+- [ ] T066 [P] [US4] Identify skills with agentskills.io violations (blocking and warning severity)
+- [ ] T067 [US4] Create remediation steps for each compliance violation in compliance-validation-report.json
+- [ ] T068 [P] [US4] Document skills registry format in .github/docs/SKILLS_REGISTRY_FORMAT.md
+- [ ] T069 [US4] Generate summary: total skills registered, compliant count, violation count, compliance percentage
 
 ---
 
-## Phase 7: User Story 5 - Create Agent Registry (Priority: P2)
+## Phase 7: User Story 5 - Create Agent Registry (P2) — Days 15–21
 
-**Goal**: Generate machine-readable registry of all agents with metadata, dependencies, skills usage, and restructuring status
+**Goal**: Generate machine-readable agent registry with metadata, dependencies, and restructuring status
 
-**Independent Test**: Generate agent registry; validate schema; verify all 50+ agents present; validate relationships and status tracking
+**Independent Test**: Generate registry, verify all agents discoverable, trace dependencies
 
-### Validation Steps for US5
-
-- [ ] T075 [US5] Design agent registry schema (reference: contracts/registry-schema.json)
-  - Metadata: timestamp, generated_from_commit, total_agents count, status_breakdown
-  - Per-agent fields: id, name, version, status, skills, dependencies, references_scripts
-  - Validation: schema must support restructuring status tracking (pending, in-progress, completed, needs-remediation)
-
-### Implementation for US5 (Agent Registry)
-
-- [ ] T076 [US5] Implement agent registry generator in scripts/tools/generate-registries.js (extend from US4):
-  - Scan agents/ folder for all agent directories
-  - Extract metadata from {agent}.agent.md frontmatter and README.md
-  - Identify skills: enumerate agents/{agent}/skills/ folders
-  - Identify dependencies: parse references to other agents
-  - Identify scripts: find scripts/agents/{agent}/ references
-  - Files: Updated scripts/tools/generate-registries.js
-- [ ] T077 [P] [US5] Implement agent dependency tracker in scripts/validation/lib/dependency-tracker.js:
-  - Build dependency graph: agent A depends on agent B (if A references B)
-  - Detect circular dependencies: A → B → A
-  - Calculate dependency depth: max edges from any agent to leaves
-  - Return dependency report with relationships
-  - Files: scripts/validation/lib/dependency-tracker.js
-- [ ] T078 [US5] Implement agent status field in registry:
-  - Add status: one of [active, deprecated, in-restructure, needs-remediation]
-  - Default status: in-restructure (agents being restructured)
-  - Can be updated manually or via automation
-  - Track restructure_priority: P1, P2, P3 from specification
-  - Files: agents/{agent}/.agent-status.json or metadata in agent.md
-- [ ] T079 [P] [US5] Create agent registry at agents/registry.json:
-  - Run registry generator: `npm run registry:generate -- agents`
-  - Output consolidated registry: agents/registry.json
-  - Include: all 50+ agents with full metadata
-  - Validate output against registry-schema.json
-  - Files: agents/registry.json (generated)
-- [ ] T080 [P] [US5] Create per-agent registries at agents/{agent}/registry.json:
-  - For each agent: generate agent-specific registry (single-agent document)
-  - Include: agent metadata, skills list, dependencies, status
-  - Include: validation errors (if any) from structure/compliance checks
-  - Files: agents/{agent}/registry.json (generated for each agent)
-- [ ] T081 [US5] Validate agent registry completeness:
-  - Verify all agents in agents/ folder appear in registry
-  - Verify total_agents count matches actual agent count
-  - Verify status_breakdown sums to total_agents
-  - Verify all dependencies reference actual agents (no dangling refs)
-  - Files: agents/reports/us5-registry-completeness-check.md
-- [ ] T082 [US5] Generate dependency graph: `npm run audit:agents -- --dependency-graph`
-  - Output: agents/reports/dependency-graph.json
-  - Verify no circular dependencies detected
-  - Identify shared skills: which skills are used by 2+ agents
-  - Files: agents/reports/dependency-graph.json
-- [ ] T083 [US5] Run registry validation: `npm run registry:validate`
-- [ ] T084 [US5] Commit agent registry with message: "build(registries): generate agent registry with dependencies and status"
-
-**Checkpoint**: Agent registry generated and validated; all agents tracked with dependencies and status
+- [ ] T070 [P] [US5] Implement agent registry generator in scripts/validation/lib/agent-registry-generator.js
+- [ ] T071 [US5] Scan all agents in agents/ in scripts/validation/lib/agents-scanner.js
+- [ ] T072 [P] [US5] Extract agent metadata (id, name, version, folder_path, status, skills, depends_on)
+- [ ] T073 [P] [US5] Parse AGENT.md files to populate agent definitions in registry
+- [ ] T074 [US5] Generate consolidated agent registry and save to agents/registry.json
+- [ ] T075 [P] [US5] Generate per-agent registries (agents/{agent-id}/registry.json) per Decision 4
+- [ ] T076 [P] [US5] Validate all registry files against contracts/registry-schema.json
+- [ ] T077 [US5] Implement dependency analyzer in scripts/validation/lib/dependency-analyzer.js
+- [ ] T078 [P] [US5] Detect circular dependencies in agent registries and flag as errors
+- [ ] T079 [P] [US5] Trace skill dependencies across agents and populate used_by field in registry
+- [ ] T080 [US5] Document agent registry format in .github/docs/AGENT_REGISTRY_FORMAT.md
+- [ ] T081 [P] [US5] Generate agent dependency graph visualization in agents/reports/dependency-graph.json
+- [ ] T082 [US5] Generate summary: total agents registered, skills per agent, dependency count
 
 ---
 
-## Phase 8: User Story 6 - Plan Phased Agent Restructuring (Priority: P2)
+## Phase 8: User Story 6 - Plan Agent-by-Agent Restructuring (P2) — Days 18–25
 
-**Goal**: Create detailed plan for restructuring each agent individually with clear priorities, phases, and dependencies
+**Goal**: Create detailed restructuring plan per agent with priorities, dependencies, impact analysis
 
-**Independent Test**: Generate restructuring plan covering all agents; verify priorities match spec; verify no circular dependencies in plan
+**Independent Test**: Generate agent specs, verify no circular deps, validate all agents covered
 
-### Validation Steps for US6
-
-- [ ] T085 [US6] Analyze restructuring requirements per agent (from data-model.md):
-  - Which agents need: structure standardization, skill consolidation, compliance remediation, dependency resolution
-  - Estimate effort per agent: low/medium/high based on required changes
-  - Identify agents already in good shape (can be templates)
-  - Create priority matrix: impact × effort
-- [ ] T086 [US6] Create detailed restructuring plan: agents/reports/restructuring-plan-detailed.md
-  - Per-agent sections: current state, target state, required changes, effort, priority
-  - Dependency analysis: which agents block others
-  - Phase breakdown: agents to restructure in each of Phases 1–4 (matching 30-day timeline)
-
-### Implementation for US6 (Restructuring Planning)
-
-- [ ] T087 [P] [US6] Categorize agents by restructuring priority:
-  - P1 agents (20): Already partially restructured or serve as templates
-  - P2 agents (15): Moderate effort, no dependencies on others
-  - P3 agents (15): Lower effort or isolated, no blocking relationships
-- [ ] T088 [US6] Identify agent restructuring dependencies:
-  - If agent A depends on agent B: B must be restructured first
-  - Map dependency chains to ensure no blocking situations
-  - Identify independent agent clusters that can be restructured in parallel
-  - Files: agents/reports/restructuring-dependencies.md
-- [ ] T089 [P] [US6] Allocate agents to 4-phase timeline (Days 21–30):
-  - Phase 1 (Days 21–23): ~15 P1 agents (templates and references)
-  - Phase 2 (Days 24–26): ~15 P2 agents (medium effort, can work in parallel)
-  - Phase 3 (Days 27–28): ~15 P3 agents (lower effort, isolated)
-  - Reserve (Days 29–30): Buffer for remediation of any issues
-- [ ] T090 [US6] For each agent, document in agents/reports/agent-restructuring-specs/:
-  - Create agents/reports/agent-restructuring-specs/{agent-id}.md for each agent
-  - Current state assessment: which parts already meet standard, what's missing
-  - Detailed steps: exact changes needed per agent
-  - Testing approach: how to verify agent works after restructuring
-  - Estimated effort: hours to complete
-  - Files: agents/reports/agent-restructuring-specs/*.md (50 files, one per agent)
-- [ ] T091 [P] [US6] Create agent-specific restructuring tasks (individual specs):
-  - For each agent: could spawn separate SpecKit spec (014-restructure-{agent-name})
-  - OR: create large single spec with per-agent phases
-  - Decision: per-agent specs for flexibility and parallel work
-  - Files: TBD (future spec framework)
-- [ ] T092 [US6] Validate plan dependencies:
-  - Verify no circular dependencies in restructuring order
-  - Verify P1 agents (templates) are earliest in schedule
-  - Verify estimated timeline matches 30-day constraint (Days 21–30)
-  - Files: agents/reports/us6-plan-validation.md
-- [ ] T093 [US6] Commit restructuring plan with message: "docs(plan): create detailed agent-by-agent restructuring plan"
-
-**Checkpoint**: Comprehensive restructuring plan created with per-agent specs, priorities, and timeline
+- [ ] T083 [P] [US6] Create agent-specific restructuring specification template in .github/templates/agent-restructuring-spec-template.md
+- [ ] T084 [US6] Generate individual restructuring spec for each agent in .github/specs/015-agent-{agent-name}-restructuring/spec.md
+- [ ] T085 [P] [US6] For each agent spec: document current structure, target structure, required changes
+- [ ] T086 [P] [US6] For each agent spec: identify breaking changes and deprecation impacts
+- [ ] T087 [US6] For each agent spec: map dependent scripts and workflows (cross-references)
+- [ ] T088 [P] [US6] For each agent spec: define testing strategy (framework: Jest/Bats/Playwright per Decision 3)
+- [ ] T089 [US6] For each agent spec: estimate effort and timeline
+- [ ] T090 [US6] Generate master restructuring plan prioritizing agents (P1: already have subfolders; P2: high impact; P3: low priority)
+- [ ] T091 [P] [US6] Create parallel execution plan showing which agents can be restructured concurrently
+- [ ] T092 [P] [US6] Document agent restructuring process in .github/docs/AGENT_RESTRUCTURING_PROCESS.md
+- [ ] T093 [US6] Generate agent priority matrix in agents/reports/agent-priority-matrix.json
 
 ---
 
-## Phase 9: User Story 7 - Plan Root Scripts Migration (Priority: P3)
+## Phase 9: User Story 7 - Plan Script Migration (P3) — Days 22–30
 
-**Goal**: Map root scripts to logical agent owners; plan script migration to agent folders; document deprecation path
+**Goal**: Plan migration of root scripts into agent folders with deprecation path
 
-**Independent Test**: Map all 200+ root scripts to agents; verify zero unmapped scripts; generate migration plan with timeline
+**Independent Test**: Generate migration plan, verify all scripts mapped, create deprecation timeline
 
-### Validation Steps for US7
-
-- [ ] T094 [US7] Audit root scripts: `npm run audit:agents -- --script-analysis`
-  - Scan scripts/ and subdirectories for all scripts
-  - Identify script purpose and which agents they relate to
-  - Output: agents/reports/root-scripts-audit.json
-- [ ] T095 [US7] Categorize scripts by type:
-  - Agent-specific: scripts/agents/{agent-name}/ → belong to specific agent
-  - Cross-agent: scripts that reference multiple agents → shared utility
-  - Standalone: scripts that don't relate to agents → retain in root or deprecate
-  - Duplicate: scripts with same functionality in multiple locations → consolidation candidate
-
-### Implementation for US7 (Script Migration Planning)
-
-- [ ] T096 [P] [US7] Map each script to logical agent owner:
-  - For agent-specific scripts: Primary owner is the agent
-  - For cross-agent scripts: Primary owner is most-used agent, secondary dependencies on others
-  - For standalone scripts: Document rationale for staying in root
-  - Files: agents/reports/script-to-agent-mapping.json
-- [ ] T097 [US7] Create script migration plan: agents/reports/script-migration-plan.md
-  - Per-script: current location, target location, migration steps, deprecation timeline
-  - Identify scripts that need tests when moved into agents
-  - Identify scripts that should become part of agent skill
-  - Plan: which scripts migrate to agents first (P1), which later (P2, P3)
-- [ ] T098 [P] [US7] Document deprecation path for root scripts:
-  - Scripts staying in root: document why
-  - Scripts moving to agents: deprecation notice + migration instructions
-  - Timeline: which scripts deprecated in which phase
-  - Communication plan: notify consumers of deprecation
-- [ ] T099 [US7] Create per-script migration specs in agents/reports/script-migration-specs/:
-  - For each script to migrate: migration task list
-  - Tests needed when moved to agent
-  - Update references in dependent scripts/workflows
-  - Documentation updates
-  - Files: agents/reports/script-migration-specs/{script-id}.md (for scripts moving to agents)
-- [ ] T100 [US7] Identify scripts that become agent skills:
-  - Analyze scripts for functionality that fits agentskills.io pattern
-  - Recommend scripts to convert to skills (higher reusability)
-  - vs. scripts that remain as utilities (internal only)
-  - Files: agents/reports/script-to-skill-conversion-candidates.md
-- [ ] T101 [US7] Validate migration plan:
-  - Verify all 200+ scripts mapped to owner
-  - Verify zero unmapped scripts
-  - Verify migration timeline doesn't conflict with agent restructuring (Phase 3 work)
-  - Files: agents/reports/us7-plan-validation.md
-- [ ] T102 [US7] Commit script migration plan with message: "docs(plan): plan root scripts migration to agents with deprecation timeline"
-
-**Checkpoint**: All root scripts mapped; migration plan created; deprecation strategy documented (Phase 3 implementation deferred)
+- [ ] T094 [P] [US7] Audit all scripts in scripts/ folder in scripts/validation/lib/scripts-audit.js
+- [ ] T095 [US7] Create script-to-agent mapping in scripts/reports/script-to-agent-mapping.json
+- [ ] T096 [P] [US7] For each script: identify logically-related agent owner (per Decision 5 research)
+- [ ] T097 [P] [US7] For each script: document dependencies and usage across codebase
+- [ ] T098 [US7] Generate migration plan with: target agent, required tests, deprecation timeline
+- [ ] T099 [P] [US7] Create deprecation notices for scripts in scripts/DEPRECATION_NOTICES.md
+- [ ] T100 [P] [US7] Plan migration for multi-agent dependent scripts (decompose into agent-specific subscripts per spec.md edge case)
+- [ ] T101 [US7] Generate migration roadmap with timeline for root script deprecation
+- [ ] T102 [P] [US7] Document script migration process in .github/docs/SCRIPT_MIGRATION_PROCESS.md
 
 ---
 
-## Phase 10: Polish & Cross-Cutting Concerns
+## Phase 10: Polish & Cross-Cutting Concerns — Days 25–30
 
-**Purpose**: Final improvements and comprehensive validation
+**Purpose**: Validation, documentation, and final reconciliation
 
-- [ ] T103 [P] Create comprehensive audit summary: agents/reports/AUDIT_SUMMARY.md
-  - Include: broken references (US1 results), structure standardization (US2), deduplication (US3)
-  - Include: registry stats (US4-5), restructuring plan (US6), script mapping (US7)
-  - Overall completion percentage across all user stories
-  - Files: agents/reports/AUDIT_SUMMARY.md
-- [ ] T104 [P] Update main RESTRUCTURING_GUIDE.md:
-  - Include results from all user stories
-  - Add: registry schema documentation, validation instructions
-  - Add: scripts and automation tools that were created
-  - Update: Links to all generated reports and plans
-  - Files: RESTRUCTURING_GUIDE.md (updated)
-- [ ] T105 [P] Create agent restructuring automation wrapper:
-  - Script that runs all audits and generation in sequence
-  - Scripts/tools/full-audit.sh: Run all validations
-  - Output: consolidated report combining all results
-  - Files: scripts/tools/full-audit.sh, scripts/tools/run-all-validations.js
-- [ ] T106 [P] Setup CI/CD integration for continuous validation:
-  - GitHub Actions workflow to run audits on every PR
-  - Workflow: .github/workflows/agents-validation.yml
-  - Check: broken refs, structure compliance, registry freshness
-  - Report: violations must be fixed before merge
-  - Files: .github/workflows/agents-validation.yml
-- [ ] T107 [P] Create developer quick-start guide: agents/QUICK_START.md
-  - How to run audits locally
-  - How to interpret audit reports
-  - How to fix common issues (broken refs, non-compliant skills, etc.)
-  - Commands: npm run audit:*and npm run registry:*
-  - Files: agents/QUICK_START.md
-- [ ] T108 Run complete validation suite: `npm run audit:agents`
-  - Execute all audits (broken refs, structure, dedup, compliance)
-  - Generate all registries (agent, skills)
-  - Validate all schemas
-  - Produce consolidated report
-- [ ] T109 Generate final validation report: agents/reports/FINAL_VALIDATION_REPORT.md
-  - User Story 1: Broken refs remediated → 0 violations
-  - User Story 2: Agent structure standardized → 100% compliance
-  - User Story 3: Skills consolidated → 0 true duplicates
-  - User Story 4: Skills registry generated → 1000+ skills tracked
-  - User Story 5: Agent registry generated → 50+ agents tracked
-  - User Story 6: Restructuring plan complete → all agents prioritized
-  - User Story 7: Script mapping complete → all 200+ scripts mapped
-- [ ] T110 [P] Verify end-to-end: Run quickstart.md scenarios
-  - Scenario 1: Audit broken references → should show 0 violations
-  - Scenario 2: Check agent structure → should show 100% compliant
-  - Scenario 3: Verify deduplication → should show 0 duplicates
-  - Scenario 4: Validate registries → should pass schema validation
-  - Scenario 5: Analyze dependencies → should identify no circular refs
-  - Files: agents/reports/quickstart-validation-results.md
-- [ ] T111 Final documentation review: agents/reports/RESTRUCTURING_COMPLETE.md
-  - Summary of all changes made across all user stories
-  - List all generated reports and their locations
-  - List all scripts created and their purposes
-  - Instructions for Phase 3 (agent-by-agent restructuring implementation)
-- [ ] T112 [P] Create work handoff document: agents/reports/PHASE_3_HANDOFF.md
-  - Status of all 7 user stories (all complete)
-  - What's ready for Phase 3 implementation (agent restructuring)
-  - Prioritization of agents for Phase 3 work
-  - Dependencies and blockers for Phase 3
-  - Scripts and automation tools available for Phase 3
-- [ ] T113 Commit all Polish phase work with message: "docs(phase1-2): comprehensive audit, consolidation, and planning complete"
-
-**Checkpoint**: All audits complete; all registries generated; comprehensive documentation ready; transition to Phase 3 (implementation)
+- [ ] T103 [P] Create comprehensive RESTRUCTURING_GUIDE.md in .github/docs/ with overview, timeline, phasing
+- [ ] T104 [P] Create FAQ document in .github/docs/RESTRUCTURING_FAQ.md addressing common questions
+- [ ] T105 Create consolidated metrics report in agents/reports/restructuring-metrics-summary.json (coverage %, completion %, timelines)
+- [ ] T106 [P] Validate all generated registries one final time (agents/registry.json, skills/registry.json, per-agent registries)
+- [ ] T107 [P] Validate all audit reports are machine-parseable JSON
+- [ ] T108 Create implementation validation checklist in .github/specs/014-agents-restructure-consolidate/IMPLEMENTATION_VALIDATION.md
+- [ ] T109 [P] Document Phase 2 Roadmap in .github/specs/014-agents-restructure-consolidate/PHASE2_ROADMAP.md (linting, testing, docs, plugins, SpecKit)
+- [ ] T110 [P] Create migration guide for consuming repositories in .github/docs/CONSUMING_REPOSITORY_MIGRATION_GUIDE.md
+- [ ] T111 Generate final project status report summarizing Phase 1 completion
 
 ---
 
-## Dependencies & Execution Order
+## Summary Statistics
 
-### Phase Dependencies
-
-- **Setup (Phase 1)**: No dependencies - Start immediately ✅
-- **Foundational (Phase 2)**: Depends on Setup - BLOCKS all user stories
-- **User Stories (Phases 3–9)**: All depend on Foundational completion
-  - US1, US2, US3 can proceed in parallel (P1 group)
-  - US4, US5 depend on US3 completion (require deduplication first)
-  - US6, US7 can proceed in parallel with others (planning, not blocking)
-  - **Suggested order**: US1 + US2 + US3 (parallel) → US4 + US5 (sequential) → US6 + US7 (parallel)
-- **Polish (Phase 10)**: Depends on all user stories being complete
-
-### Within Each User Story
-
-- Validation/audit before implementation
-- Implementation before verification
-- Verification before commit
-
-### Parallel Opportunities
-
-**Setup Phase (Phase 1)**: ALL tasks marked [P] can run in parallel (different files)
-
-**Foundational Phase (Phase 2)**: Tasks marked [P] can run in parallel:
-
-- Reference detector, file scanner, broken-refs finder (can develop independently)
-- Report generators (can build while detection is happening)
-
-**User Story Phases (3–9)**:
-
-- Within US1: Fix different reference types in parallel [P] tasks
-- Within US2: Standardize structures in parallel [P] tasks for different agents
-- Within US3: Consolidate different skill groups in parallel [P] tasks
-- **Between stories** (after US3): US4, US5, US6, US7 can proceed in parallel (independent domains)
-
-**Polish Phase (Phase 10)**:
-
-- All tasks marked [P] can run in parallel (different documentation, automation)
+| Metric | Value |
+|--------|-------|
+| **Total Tasks** | 111 |
+| **Parallelizable Tasks [P]** | 58 |
+| **User Story Tasks** | 78 (T018-T102) |
+| **US1 Tasks** | 15 |
+| **US2 Tasks** | 12 |
+| **US3 Tasks** | 13 |
+| **US4 Tasks** | 12 |
+| **US5 Tasks** | 13 |
+| **US6 Tasks** | 11 |
+| **US7 Tasks** | 9 |
 
 ---
 
-## Parallel Example: Full Repository Restructuring
+## Dependency Graph
 
-```bash
-# Start Setup (Phase 1) — all immediately
-Task T001-T008 (parallel):
-  - Create directories
-  - Setup tooling
-  - Configure git hooks
-
-# Start Foundational (Phase 2) after Setup — all immediately
-Task T009 (seq) → T010-T017 (many [P], parallel):
-  - T010 [P]: Reference detector
-  - T011 [P]: File scanner
-  - T012: Broken-refs finder (depends on T010, T011)
-  - T013-T017 [P]: Report generators (can run with T012)
-
-# Start US1-3 after Foundational (all in parallel, 3 teams)
-Team A (US1): T018-T033
-Team B (US2): T034-T049
-Team C (US3): T050-T064
-  → Within each story: [P] tasks in parallel
-
-# Start US4-5 after US3 (Team A moves to US4, Teams B+C help with US5)
-Team A (US4): T065-T074
-Team B (US5): T075-T084
-Team C (US6 prep): T085-T086
-
-# Start US6-7 after US5 (parallel planning)
-Team A (US6): T087-T093
-Team B (US7): T094-T102
-
-# Polish (Phase 10) after all stories complete
-All teams (Polish): T103-T113 (many [P] tasks)
+```
+Phase 1 (Setup) → Phase 2 (Foundational, BLOCKING)
+  ↓
+Phase 2 → Phase 3 (US1: Broken Refs) ↓
+Phase 2 → Phase 4 (US2: Structure) ↓
+Phase 2 → Phase 5 (US3: Deduplication) ↓ (can run in parallel)
+Phase 2 → Phase 6 (US4: Skills Registry) ↓
+Phase 2 → Phase 7 (US5: Agent Registry) ↓
+Phase 2 → Phase 8 (US6: Restructuring Plan) ↓
+Phase 2 → Phase 9 (US7: Script Migration) ↓
+  ↓
+Phase 10 (Polish)
 ```
 
 ---
 
-## MVP Scope (Minimum Viable Product)
+## MVP Scope (First 8 Days)
 
-**Deliver only User Story 1** to get value immediately:
+**Minimum Viable Product** delivers Phase 1 + Phase 2 + Phase 3 (Broken Reference Remediation):
 
-1. ✅ Complete Setup (Phase 1)
-2. ✅ Complete Foundational (Phase 2)
-3. ✅ Complete US1: Audit & Remediate Broken References
-4. **STOP and DEPLOY**: Broken references fixed, scripts/workflows work
+- Phase 1 (Setup): T001–T008 (project initialization)
+- Phase 2 (Foundational): T009–T017 (audit infrastructure)
+- Phase 3 (US1): T018–T032 (broken references fixed, CI passes)
 
-**Value delivered at MVP**: Repository branches without broken agent references; CI/CD works correctly
-
-**Next increments**: Add US2 (structure), US3 (consolidation), US4-5 (registries) as team capacity allows
+**MVP Result**: All broken references identified and fixed; dependent scripts execute successfully. High-value delivery that unblocks further work.
 
 ---
 
-## Task Checklist Format Validation
+## Implementation Strategy
 
-**All 113 tasks follow strict format**:
+1. **Days 1–5**: Complete Phase 1 + 2 (setup and foundational infrastructure)
+2. **Days 3–15**: Execute Phases 3–5 in parallel (broken refs, structure, deduplication) after foundational work unblocks them
+3. **Days 12–25**: Execute Phases 6–9 in parallel (registries and planning work) after Phases 3–5 stabilize
+4. **Days 25–30**: Phase 10 (polish, validation, documentation)
 
-- ✅ Format: `- [ ] [TaskID] [P?] [Story?] Description with file paths`
-- ✅ Every task has checkbox: `- [ ]`
-- ✅ Every task has ID: T001-T113 (sequential)
-- ✅ [P] markers on parallelizable tasks (different files, no dependencies)
-- ✅ [Story] labels on user story tasks (US1-US7, no label for Setup/Foundational/Polish)
-- ✅ File paths included in every task description
-- ✅ Tasks are independently testable and actionable
+**Parallel Opportunities**:
+- After Phase 2 completes: US1, US2, US3 can run in parallel (different file scans)
+- After US1, US2, US3: US4, US5 can run in parallel (registry generation from different sources)
+- After US4, US5: US6 and US7 can run in parallel (planning work independent)
 
 ---
 
-**Status**: ✅ READY FOR IMPLEMENTATION
-
-All 113 tasks generated, organized by user story, with clear dependencies and parallel opportunities. Ready to execute Phase 1-2 (Setup & Foundational) immediately, then Phase 3-9 (User Stories) in priority order.
-
-**Next step**: Assign tasks to team members or create individual agent restructuring specs per US6 plan.
+**Status**: ✅ Ready for Phase 1 Implementation

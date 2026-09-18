@@ -1,47 +1,51 @@
 # Data Model: Agent & Skill Registries
 
-**Date**: 2026-09-18 | **Phase**: 1 Design | **Status**: Ready for Implementation
+**Date**: 2026-09-18 (Enhanced with Clarifications) | **Phase**: 1 Design | **Status**: Ready for Implementation
 
 ## Entity Definitions
 
 ### Agent
 
 **Core Attributes**
-
-- `id` (string): Unique agent identifier (matches folder name)
-- `name` (string): Human-readable agent name
-- `description` (string): Purpose and capability
+- `id` (string): Unique agent identifier, matches folder name (e.g., "prd-agent")
+- `name` (string): Human-readable name
+- `description` (string): Purpose and capabilities
 - `version` (string): Semantic version (e.g., "1.0.0")
-- `folder_path` (string): Relative path from repository root (e.g., "agents/prd-agent")
-- `status` (enum): One of `active`, `deprecated`, `in-restructure`, `needs-remediation`
+- `folder_path` (string): Relative path from repo root (e.g., "agents/prd-agent")
+- `status` (enum): one of `active`, `deprecated`, `in-restructure`, `needs-remediation`
 
 **Metadata**
+- `created_date` (ISO 8601): Creation date
+- `last_modified` (ISO 8601): Last update date
+- `restructure_priority` (enum): P1, P2, P3 (from spec)
+- `owner_team` (string): Responsible team
 
-- `created_date` (ISO 8601): When agent was first created
-- `last_modified` (ISO 8601): Last change date
-- `restructure_priority` (enum): One of `P1`, `P2`, `P3` (from spec)
-- `owner_team` (string): Team responsible for maintenance
+**Folder Structure** (per Decision 1: Agent Folder Structure)
+- `AGENT.md` - Agent definition file
+- `CHANGELOG.md` - Version history
+- `package.json` - Dependencies declaration
+- `README.md` - Human-readable documentation
+- `skills/` - Agent-specific skills subfolder
+- `tests/` - Test files subfolder (framework: Jest/Bats/Playwright)
+- `config/` - Configuration files subfolder
 
 **Relationships**
-
-- `skills` (array): List of skill IDs used by this agent
-- `depends_on` (array): List of agent IDs this agent depends on
-- `references_scripts` (array): List of script paths referenced by this agent
+- `skills` (array): Skill IDs used by this agent
+- `depends_on` (array): Agent IDs this depends on
+- `references_scripts` (array): Script paths referenced
 
 **Validation Rules**
-
 - `id` must match folder name (e.g., agent in "agents/prd-agent" has id="prd-agent")
-- `version` must follow semantic versioning format
-- `status` must be one of canonical enum values
+- `version` must follow semantic versioning
 - `folder_path` must exist and be accessible
-- `dependencies` must reference existing agents (no dangling references)
+- All 7 folder structure components must be present (per Decision 1)
+- `dependencies` must reference existing agents (no dangling refs)
 
 **Lifecycle States**
-
 ```
 PENDING 
   → IN_RESTRUCTURE (restructuring work begins)
-  → COMPLETED (restructuring done, all checks pass)
+  → COMPLETED (all checks pass)
   → NEEDS_REMEDIATION (failures detected; require fixes)
 ```
 
@@ -50,260 +54,135 @@ PENDING
 ### Skill
 
 **Core Attributes**
-
-- `id` (string): Unique skill identifier (e.g., "analyze-prompt")
-- `name` (string): Human-readable skill name
+- `id` (string): Unique skill identifier (e.g., "broken-refs-finder")
+- `name` (string): Human-readable name
 - `version` (string): Semantic version
-- `location` (enum): One of `root` (in `skills/` folder) or `{agent-id}` (in agent folder)
+- `location` (enum): `root` (in `skills/` folder) or agent ID (in agent folder)
+- `category` (string): Categorical subfolder (per Decision 2: validation, audit, reporting, registry, etc.)
 - `description` (string): What the skill does
-- `type` (string): Skill type from agentskills.io (e.g., "action", "query", "transform")
-- `status` (enum): One of `active`, `deprecated`, `in-development`
+- `type` (string): agentskills.io skill type (action, query, transform, etc.)
+- `status` (enum): `active`, `deprecated`, `in-development`
+
+**Naming Convention** (per Decision 2: Skills Naming)
+- Pattern: `{category}/{scope}-{title}`
+- Examples: `validation/broken-refs-finder`, `audit/structure-checker`
+- Full path: `skills/{category}/{scope}-{title}/`
 
 **Compliance Attributes**
-
 - `agentskills_compliant` (boolean): Passes agentskills.io validation
 - `compliance_violations` (array): List of missing/invalid fields
-- `last_validated_date` (ISO 8601): When compliance was last checked
-- `schema_version` (string): agentskills.io specification version used
+- `last_validated_date` (ISO 8601): Last compliance check
+- `schema_version` (string): agentskills.io spec version
 
 **Deduplication Attributes**
-
-- `content_hash` (string): SHA-256 hash of implementation file(s)
+- `content_hash` (string): SHA-256 hash of implementation
 - `semantic_similarity_score` (number): Similarity to other skills (0–1)
-- `duplicate_of` (string, optional): If this is a duplicate, ID of source skill
+- `duplicate_of` (string, optional): Source skill ID if duplicate
 
 **Relationships**
-
-- `used_by` (array): List of agent IDs that use this skill
-- `depends_on` (array): List of skill IDs this depends on
-- `has_tests` (boolean): Whether tests exist for this skill
+- `used_by` (array): Agent IDs that use this skill
+- `depends_on` (array): Skill IDs this depends on
+- `has_tests` (boolean): Whether tests exist
 
 **Validation Rules**
-
-- `id` and `name` must be unique within location (root or agent)
+- `id` and `name` must be unique within location
 - `version` must follow semantic versioning
 - `type` must be valid agentskills.io skill type
-- `used_by` agents must exist in agent registry
-- `content_hash` must be deterministic (same content = same hash)
+- `used_by` agents must exist
+- `content_hash` must be deterministic
 
 ---
 
 ### Agent Registry
 
-**Structure**: Array of agent entries with metadata
-
-**File Locations**:
-
+**File Locations**
 - Consolidated: `agents/registry.json` (all agents)
 - Per-agent: `agents/{agent-id}/registry.json` (single agent)
 
-**Registry Entry Schema**
+**Entry Fields** (per Decision 4: Registry Format)
+- `id` (string): Unique agent identifier
+- `name` (string): Human-readable name
+- `version` (string): Semantic version
+- `folder_path` (string): Relative path from repo root
+- `status` (enum): active, deprecated, in-restructure, needs-remediation
+- `skills` (array): Skill IDs used by this agent
+- `depends_on` (array): Agent IDs this depends on
+- `references_scripts` (array): Script paths referenced
 
-```json
-{
-  "id": "prd-agent",
-  "name": "PRD Agent",
-  "description": "Generates product requirement documents",
-  "version": "1.2.3",
-  "folder_path": "agents/prd-agent",
-  "status": "active",
-  "created_date": "2026-06-15T10:30:00Z",
-  "last_modified": "2026-09-18T08:00:00Z",
-  "restructure_priority": "P1",
-  "owner_team": "platform-eng",
-  "skills": [
-    "prd-template-loader",
-    "prd-outline-generator",
-    "prd-validator"
-  ],
-  "depends_on": [],
-  "references_scripts": [
-    "scripts/agents/prd-agent/generate.js",
-    "scripts/validation/prd-validator.js"
-  ],
-  "restructure_status": "completed",
-  "skill_count": 3,
-  "missing_dependencies": [],
-  "validation_errors": []
-}
-```
-
-**Registry Metadata**
-
-- `timestamp` (ISO 8601): When registry was generated
-- `generated_from_commit` (string): Git commit hash when generated
-- `total_agents` (number): Count of all agents in registry
-- `agents_in_scope` (number): Count of agents included in restructuring
-- `status_breakdown` (object): Count by status (e.g., `{ "active": 45, "deprecated": 3, "in-restructure": 2 }`)
+**Generation & Maintenance** (per Decision 4)
+- Auto-generated from filesystem state
+- Never manually maintained
+- Regenerated on-demand via CLI: `npm run audit:registry`
+- Can be integrated into pre-commit hooks or CI/CD
 
 ---
 
-### Skills Registry
+### Skill Registry
 
-**Structure**: Array of skill entries with metadata
+**File Locations**
+- Consolidated: `skills/registry.json` (all skills)
+- Per-category: `skills/{category}/registry.json` (skills in category)
 
-**File Locations**:
+**Entry Fields**
+- `id` (string): Unique skill identifier
+- `name` (string): Human-readable name
+- `version` (string): Semantic version
+- `location` (string): root or agent ID
+- `category` (string): Categorical subfolder
+- `type` (string): agentskills.io skill type
+- `status` (enum): active, deprecated, in-development
+- `agentskills_compliant` (boolean): Compliance status
+- `compliance_violations` (array): Missing/invalid fields
+- `used_by` (array): Agent IDs that use this skill
 
-- Consolidated: `skills/registry.json` (all skills across root + agents)
-- Per-agent: `agents/{agent-id}/skills-registry.json` (skills in that agent)
-
-**Registry Entry Schema**
-
-```json
-{
-  "id": "prd-template-loader",
-  "name": "PRD Template Loader",
-  "version": "1.0.0",
-  "location": "prd-agent",
-  "description": "Loads and parses PRD templates",
-  "type": "action",
-  "agentskills_compliant": true,
-  "compliance_violations": [],
-  "last_validated_date": "2026-09-18T08:00:00Z",
-  "schema_version": "1.0",
-  "content_hash": "abc123def456...",
-  "semantic_similarity_score": 0.92,
-  "duplicate_of": null,
-  "used_by": ["prd-agent", "prd-factory-planner-agent"],
-  "depends_on": [],
-  "has_tests": true
-}
-```
-
-**Registry Metadata**
-
-- `timestamp` (ISO 8601): When registry was generated
-- `total_skills` (number): Total skills across all agents + root
-- `root_skills_count` (number): Skills in root `skills/` folder
-- `agent_specific_count` (number): Skills in agent folders
-- `compliance_summary` (object): Compliance statistics (e.g., `{ "compliant": 890, "violations": 110 }`)
-- `duplicate_summary` (object): Deduplication statistics (e.g., `{ "exact_matches": 45, "near_duplicates": 23 }`)
+**Generation & Maintenance** (per Decision 4)
+- Auto-generated from filesystem scan of `skills/` and `agents/*/skills/`
+- Preserves categorical organization
+- Regenerated on-demand via CLI
 
 ---
 
 ## State Transitions
 
-### Agent Restructuring Workflow
-
+### Agent States
 ```
-┌─────────────┐
-│   PENDING   │  Agent not yet in standardized structure
-└──────┬──────┘
-       │ (restructuring work starts)
-       ▼
-┌──────────────────┐
-│  IN_RESTRUCTURE  │  Restructuring in progress
-└──────┬───────────┘
-       │ (all checks pass)
-       ├────────────────────► ┌───────────┐
-       │                       │ COMPLETED │ Restructuring done
-       │ (failures detected)   └───────────┘
-       └────────────────────► ┌──────────────────┐
-                              │ NEEDS_REMEDIATION│ Failed checks
-                              └────────┬─────────┘
-                                       │
-                      (fixes applied)  │
-                                       ▼
-                              ┌──────────────────┐
-                              │  IN_RESTRUCTURE  │
-                              └────────┬─────────┘
-                                       │
-                    (cannot proceed)   │
-                                       ▼
-                              ┌──────────────────┐
-                              │     BLOCKED      │
-                              └──────────────────┘
+PENDING → IN_RESTRUCTURE → COMPLETED
+              ↓
+         NEEDS_REMEDIATION
 ```
 
-### Registry Generation Workflow
+**Transition Rules**:
+- PENDING → IN_RESTRUCTURE: Manual transition when restructuring work begins
+- IN_RESTRUCTURE → COMPLETED: Automatic when all 7 folder structure components verified
+- IN_RESTRUCTURE → NEEDS_REMEDIATION: Automatic when structure checks fail
+- NEEDS_REMEDIATION → IN_RESTRUCTURE: Manual transition after fixes applied
 
+### Skill States
 ```
-┌───────┐
-│ STALE │  Registry not recently generated
-└───┬───┘
-    │ (generation triggered)
-    ▼
-┌────────────┐
-│ GENERATING │  Scan in progress
-└────┬───────┘
-     │ (scan complete, no errors)
-     ├─────────────► ┌───────┐
-     │               │ VALID │ Registry fresh and correct
-     │ (errors found)└───────┘
-     └─────────────► ┌─────────┐
-                     │ INVALID │ Errors detected
-                     └─────────┘
+IN_DEVELOPMENT → ACTIVE → DEPRECATED
 ```
+
+**Transition Rules**:
+- IN_DEVELOPMENT: New skills being created
+- ACTIVE: Publicly available and maintained
+- DEPRECATED: Marked for removal; has migration path
 
 ---
 
-## Relationships & Constraints
-
-### Agent → Skill Relationships
-
-**One Agent, Multiple Skills**
-
-- Agent `prd-agent` uses skills: `prd-template-loader`, `prd-outline-generator`, `prd-validator`
-- Each skill can be used by multiple agents
-- Constraint: If agent uses skill of different version, version must be justified in registry
-
-**Skill Duplication Detection**
-
-- If two agents use same skill@1.0.0, single shared copy in `skills/` folder
-- If two agents use different versions (skill@1.0.0 vs skill@2.0.0), each has local version-pinned copy
-- Registry documents why each version is needed
-
-### Script → Agent Relationships
-
-**Script Ownership Mapping** (Phase 3 planning)
-
-- Script can logically belong to one primary agent
-- Script can have secondary dependencies on other agents
-- Some scripts belong to no specific agent (utilities)
-- Each script must have ownership documented for migration planning
-
----
-
-## Validation & Consistency Rules
-
-### Registry Freshness
-
-Registries must be regenerated when:
-
-- Agent folder added, removed, or renamed
-- Agent status changed
-- Skill added, removed, or version changed
-- Skill compliance status changed
-
-**Validation**: Pre-commit hook checks if registry is fresh relative to agent/skill changes. Fails if stale.
+## Validation & Constraints
 
 ### Referential Integrity
+- All agent `depends_on` must reference existing agents (no dangling references)
+- All skill `used_by` agents must exist
+- All agent `references_scripts` must exist in repo
 
-- Agent `depends_on` references must point to existing agents
-- Skill `used_by` references must point to existing agents
-- Skill `depends_on` references must point to existing skills
-- No dangling references allowed
-
-**Validation**: Registry validation script checks all references exist.
-
-### Deduplication Consistency
-
-- If skill A is marked `duplicate_of` skill B, then B must exist
-- Exact duplicates (same hash) must have `semantic_similarity_score` >= 0.99
-- Near-duplicates must have `semantic_similarity_score` 0.85–0.99
-- No circular "duplicate_of" chains
-
-**Validation**: Deduplication audit script validates consistency.
+### Dependency Rules
+- Circular dependencies detected and reported (no cycles allowed)
+- Missing skill dependencies block agent restructuring
+- Version-pinned skill copies allowed ONLY when versions differ
 
 ---
 
-## Implementation Notes
+## Notes
 
-1. **Registry generation is deterministic**: Same agent/skill state produces identical registry (same field order, formatting)
-2. **Registries are version-controlled**: Committed to git; history shows changes over time
-3. **Per-agent registries enable fast queries**: Agents can query their own registry without loading full registry
-4. **Consolidated registry enables org-wide views**: Dependency analysis, compliance summaries, deduplication across all agents
-
----
-
-**Data Model Complete**: Ready for contract specification and quickstart validation
+All generated registries follow the JSON schema defined in `contracts/registry-schema.json`. Registries are machine-parseable and serve as the source of truth for agent and skill discovery, dependency tracking, and compliance validation.

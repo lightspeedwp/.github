@@ -1,268 +1,108 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Agent & Skill Registry Schema",
-  "description": "Schema for auto-generated registries tracking agents and skills across the repository",
-  "definitions": {
-    "semantic_version": {
-      "type": "string",
-      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
-    },
-    "iso_8601_datetime": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "agent_status": {
-      "type": "string",
-      "enum": ["active", "deprecated", "in-restructure", "needs-remediation"]
-    },
-    "restructure_status": {
-      "type": "string",
-      "enum": ["pending", "in-progress", "completed", "needs-remediation", "blocked"]
-    },
-    "skill_status": {
-      "type": "string",
-      "enum": ["active", "deprecated", "in-development"]
-    },
-    "agent_entry": {
-      "type": "object",
-      "required": ["id", "name", "description", "version", "folder_path", "status"],
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique agent identifier (matches folder name)"
-        },
-        "name": {
-          "type": "string",
-          "description": "Human-readable agent name"
-        },
-        "description": {
-          "type": "string",
-          "description": "Purpose and capability of the agent"
-        },
-        "version": {
-          "$ref": "#/definitions/semantic_version",
-          "description": "Semantic version number"
-        },
-        "folder_path": {
-          "type": "string",
-          "description": "Relative path from repository root"
-        },
-        "status": {
-          "$ref": "#/definitions/agent_status"
-        },
-        "created_date": {
-          "$ref": "#/definitions/iso_8601_datetime"
-        },
-        "last_modified": {
-          "$ref": "#/definitions/iso_8601_datetime"
-        },
-        "restructure_priority": {
-          "type": "string",
-          "enum": ["P1", "P2", "P3"]
-        },
-        "owner_team": {
-          "type": "string"
-        },
-        "skills": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of skill IDs used by this agent"
-        },
-        "depends_on": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of agent IDs this agent depends on"
-        },
-        "references_scripts": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of script paths referenced"
-        },
-        "restructure_status": {
-          "$ref": "#/definitions/restructure_status"
-        },
-        "skill_count": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "missing_dependencies": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "validation_errors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "skill_entry": {
-      "type": "object",
-      "required": ["id", "name", "version", "location", "description", "type"],
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique skill identifier"
-        },
-        "name": {
-          "type": "string",
-          "description": "Human-readable skill name"
-        },
-        "version": {
-          "$ref": "#/definitions/semantic_version"
-        },
-        "location": {
-          "type": "string",
-          "description": "Either 'root' or agent ID if agent-specific"
-        },
-        "description": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["action", "query", "transform", "utility", "integration"]
-        },
-        "status": {
-          "$ref": "#/definitions/skill_status"
-        },
-        "agentskills_compliant": {
-          "type": "boolean"
-        },
-        "compliance_violations": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "last_validated_date": {
-          "$ref": "#/definitions/iso_8601_datetime"
-        },
-        "schema_version": {
-          "type": "string"
-        },
-        "content_hash": {
-          "type": "string",
-          "description": "SHA-256 hash for deduplication"
-        },
-        "semantic_similarity_score": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1,
-          "description": "Similarity to other skills (0-1)"
-        },
-        "duplicate_of": {
-          "type": ["string", "null"],
-          "description": "If duplicate, ID of source skill"
-        },
-        "used_by": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "List of agent IDs using this skill"
-        },
-        "depends_on": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "has_tests": {
-          "type": "boolean"
-        }
-      }
-    }
-  },
+  "description": "JSON schema for auto-generated agent and skill registries",
   "type": "object",
-  "oneOf": [
-    {
-      "title": "Agent Registry",
-      "required": ["timestamp", "generated_from_commit", "total_agents", "agents"],
-      "properties": {
-        "timestamp": {
-          "$ref": "#/definitions/iso_8601_datetime"
-        },
-        "generated_from_commit": {
-          "type": "string",
-          "description": "Git commit hash when generated"
-        },
-        "total_agents": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "agents_in_scope": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "status_breakdown": {
-          "type": "object",
-          "properties": {
-            "active": { "type": "integer" },
-            "deprecated": { "type": "integer" },
-            "in-restructure": { "type": "integer" },
-            "needs-remediation": { "type": "integer" }
-          }
-        },
-        "agents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/agent_entry"
+  "required": ["agents", "skills"],
+  "properties": {
+    "agents": {
+      "type": "array",
+      "description": "Consolidated agent registry entries",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "version", "folder_path", "status"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Unique agent identifier, matches folder name"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable agent name"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$",
+            "description": "Semantic version (e.g., 1.0.0)"
+          },
+          "folder_path": {
+            "type": "string",
+            "pattern": "^agents/[a-z0-9-]+/?$",
+            "description": "Relative path from repo root"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "deprecated", "in-restructure", "needs-remediation"],
+            "description": "Current restructuring status"
+          },
+          "skills": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Skill IDs used by this agent"
+          },
+          "depends_on": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Agent IDs this depends on"
           }
         }
       }
     },
-    {
-      "title": "Skills Registry",
-      "required": ["timestamp", "generated_from_commit", "total_skills", "skills"],
-      "properties": {
-        "timestamp": {
-          "$ref": "#/definitions/iso_8601_datetime"
-        },
-        "generated_from_commit": {
-          "type": "string"
-        },
-        "total_skills": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "root_skills_count": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "agent_specific_count": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "compliance_summary": {
-          "type": "object",
-          "properties": {
-            "compliant": { "type": "integer" },
-            "violations": { "type": "integer" }
-          }
-        },
-        "duplicate_summary": {
-          "type": "object",
-          "properties": {
-            "exact_matches": { "type": "integer" },
-            "near_duplicates": { "type": "integer" }
-          }
-        },
-        "skills": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/skill_entry"
+    "skills": {
+      "type": "array",
+      "description": "Consolidated skill registry entries",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "version", "location", "category"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Unique skill identifier"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable skill name"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$",
+            "description": "Semantic version"
+          },
+          "location": {
+            "type": "string",
+            "pattern": "^(root|[a-z0-9-]+)$",
+            "description": "root or agent ID"
+          },
+          "category": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Categorical subfolder (validation, audit, reporting, registry, etc.)"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["action", "query", "transform", "utility"],
+            "description": "agentskills.io skill type"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "deprecated", "in-development"],
+            "description": "Skill status"
+          },
+          "agentskills_compliant": {
+            "type": "boolean",
+            "description": "Passes agentskills.io validation"
+          },
+          "used_by": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Agent IDs that use this skill"
           }
         }
       }
     }
-  ]
+  }
 }
