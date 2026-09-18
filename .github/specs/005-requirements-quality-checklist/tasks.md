@@ -286,12 +286,46 @@
 - **Phase 5 (US3 - FR-3)**: 9 tasks (3 tests, 4 audience guidance, 2 implementation)
 - **Phase 6 (US4 - FR-4)**: 10 tasks (4 tests, 3 implementation, 1 skill integration, 1 doc)
 - **Phase 7 (Polish)**: 10 tasks [+2: T063 usability testing, T064 metrics dashboard]
+- **Phase 8 (Convergence)**: 16 tasks (2 traceability, 4 tests, 10 documentation/validation)
 
-**TOTAL: 65 tasks** (62 original + 3 new)
+**TOTAL: 81 tasks** (65 original + 16 convergence)
 
 **Parallelizable**: 42 tasks marked [P] (+ 3 new, mostly sequential)  
 **MVP Scope**: Phases 1-2-3 = 27 tasks (1.5 weeks for 1 FTE, or 1 week for 2 FTE in parallel)  
 **Full Timeline**: 5 weeks, 35-50 hours + usability/metrics work (parallel team capable; add 1-2 days for T063-T064)
+
+---
+
+## Phase 8: Convergence Gaps
+
+**Purpose**: Address gaps identified during convergence assessment; complete Phase 7 work and missing validations
+
+### Critical Path: Traceability (FR-7 / SC-3)
+
+- [ ] T065 [P] Add [Spec §FR-X] references to base template items at `.specify/templates/checklist-template/content/` (all 8 dimensions: completeness.md through ambiguities.md; minimum 80% of CHK-001–CHK-045 must reference spec section; format: [Spec §FR-1], [Spec §SC-1], [Spec §User_Scenarios], etc.)
+- [ ] T066 [P] Add [Spec §FR-X] references to domain variant items at `.specify/templates/checklist-variants/` (UX, API, Security, Performance; minimum 80% coverage; ensures traceability compliance across all domains)
+
+### Phase 4 Incomplete: Domain Tests (T027–T030)
+
+- [ ] T067 [P] [US2] Create unit test for UX-specific items at `.specify/templates/checklist-template/test/unit/test-ux-variant.js` (validate visual hierarchy, interaction states, accessibility items present; verify UX domain adds 15+ focused items)
+- [ ] T068 [P] [US2] Create unit test for API-specific items at `.specify/templates/checklist-template/test/unit/test-api-variant.js` (validate endpoint specs, error responses, versioning items present; verify API domain adds 15+ focused items)
+- [ ] T069 [P] [US2] Create unit test for Security-specific items at `.specify/templates/checklist-template/test/unit/test-security-variant.js` (validate threat model, data protection, compliance items present; verify Security domain adds 15+ focused items)
+- [ ] T070 [P] [US2] Create unit test for Performance-specific items at `.specify/templates/checklist-template/test/unit/test-performance-variant.js` (validate metrics, load scenarios, degradation items present; verify Performance domain adds 15+ focused items)
+
+### Phase 7 Incomplete: Polish & Validation
+
+- [ ] T071 [P] Create comprehensive README at `.specify/templates/checklist-template/README.md` (framework overview, quick-start guide, usage examples, use-case walkthroughs for each audience; links to dimension guides, architecture docs)
+- [ ] T072 [P] Create architecture documentation at `.specify/templates/checklist-template/ARCHITECTURE.md` (framework design rationale, 8-dimension structure, orthogonal domain/audience composition model, module responsibilities and integration points)
+- [ ] T073 [P] Create dimension deep-dive guides at `.specify/templates/checklist-template/docs/DIMENSIONS.md` (explain each dimension with examples, when items apply, common pitfalls, cross-dimension interactions)
+- [ ] T074 [P] Create best practices guide at `.specify/templates/checklist-template/docs/BEST_PRACTICES.md` (how to write requirements-quality items, avoid implementation-test antipatterns, structure domain-specific items, use markers effectively)
+- [ ] T075 Create team training materials at `.specify/templates/checklist-template/training/` (slides or narrative: 8-dimension concepts, audience use cases, checklist workflow, markers and states, real spec examples; assessment questions)
+- [ ] T076 Run quickstart validation scenarios at `.github/specs/005-requirements-quality-checklist/quickstart.md` (confirm all 4 audience scenarios work end-to-end with framework; validate <30min author, <45min peer, <15min stakeholder, <15min integration flows)
+- [ ] T077 Integrate checklist framework into spec workflow documentation at `.github/CLAUDE.md` (reference Requirements Quality Checklist Framework in spec workflow section; link to checklist directory and usage guide; explain when to use, how to generate, who completes)
+- [ ] T078 Create migration guide for specs that pre-date framework at `.specify/templates/checklist-template/docs/MIGRATION.md` (process for retroactively applying checklists to existing specs 001–004; how to assess legacy specs against framework; gap/ambiguity identification guidance)
+- [ ] T079 Create usability test suite at `.specify/templates/checklist-template/test/usability/` (timed walkthroughs with representative users: author with 40-item checklist targets <30 min completion + 80%+ gap identification; stakeholder with summary <15 min decision time; reviewer with 45-min target; measure per-item completion time, identify bottlenecks, validate gap/ambiguity detection accuracy against known gaps/ambiguities)
+- [ ] T080 Create requirements-quality compliance dashboard at `.github/reports/requirements-quality-compliance/dashboard.md` (daily updates: adoption % [target ≥90% of new specs include checklist], specification coverage %, dimension compliance %, gap/ambiguity counts by project, trend data over 30+ days; automated metrics via GitHub Actions label automation; tracks: frameworks applied, dimensions completed, gaps resolved, ambiguities clarified)
+
+**Checkpoint**: Convergence gaps resolved; Phase 7 deliverables complete; framework ready for adoption
 
 ---
 
