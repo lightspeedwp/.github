@@ -363,10 +363,17 @@ if (require.main === module) {
   main();
 }
 
+// Helper function to check if a branch name is allowed
+function isAllowed(branchName) {
+  const result = validateBranchName(branchName);
+  return result.valid;
+}
+
 // Export for use in tests, hooks, and workflows
 module.exports = {
   validateBranchName,
   ALLOWED_TYPES,
+  ALLOWED_PREFIXES: ALLOWED_TYPES,
   BRANCH_PATTERN_RELEASE_SEMVER,
   BRANCH_PATTERN_RELEASE_STANDARD,
   BRANCH_PATTERN_STANDARD,
@@ -374,4 +381,5 @@ module.exports = {
   PROTECTED_BRANCHES,
   BOT_PREFIXES,
   getCurrentBranchName,
+  isAllowed,
 };
