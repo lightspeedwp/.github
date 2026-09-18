@@ -13,6 +13,7 @@
  *   --dryRun              Preview deletions without executing (default: true)
  *   --dryRun=false        Execute deletions
  *   --deleteLocal         Also delete local branches (default: false)
+ *   --verbose             Enable detailed logging and debug output (default: false)
  *   --inactiveDays=N      Inactivity threshold in days (default: 30)
  *   --excludePatterns=RE  Pipe-separated regex patterns to preserve (e.g. "release/.*|hotfix/.*")
  *   --preserveAuthors=RE  Pipe-separated author patterns to preserve (e.g. "dependabot|renovate")
@@ -25,6 +26,34 @@
 import { execSync, spawnSync } from "child_process";
 import fs from "fs";
 import path from "path";
+
+// ---------------------------------------------------------------------------
+// Logging
+// ---------------------------------------------------------------------------
+
+function logTimestamp() {
+  return new Date().toISOString().split("T")[1].split(".")[0];
+}
+
+function log(level, message) {
+  const timestamp = logTimestamp();
+  const prefix =
+    level === "error"
+      ? "❌"
+      : level === "warn"
+        ? "⚠️ "
+        : level === "debug"
+          ? "🔍"
+          : "ℹ️ ";
+  console.log(`[${timestamp}] ${prefix} ${message}`);
+}
+
+function logError(message, error) {
+  log("error", message);
+  if (error && opts.verbose) {
+    console.error(`    ${error.message || error}`);
+  }
+}
 
 // ---------------------------------------------------------------------------
 // CLI argument parsing
@@ -54,6 +83,7 @@ function parseBool(value, defaultValue = true) {
 const opts = {
   dryRun: parseBool(getArg("dryRun", "true"), true),
   deleteLocal: parseBool(getArg("deleteLocal", "false"), false),
+  verbose: parseBool(getArg("verbose", "false"), false),
   inactiveDays: parseInt(getArg("inactiveDays", "30"), 10),
   excludePatterns: getArg("excludePatterns", ""),
   preserveAuthors: getArg("preserveAuthors", ""),
@@ -62,7 +92,7 @@ const opts = {
 };
 
 if (Number.isNaN(opts.inactiveDays) || opts.inactiveDays < 0) {
-  console.warn("⚠️  Invalid --inactiveDays value; defaulting to 30.");
+  logError("Invalid --inactiveDays value; defaulting to 30.");
   opts.inactiveDays = 30;
 }
 
@@ -550,26 +580,69 @@ function writeJsonReport(
 }
 
 // ---------------------------------------------------------------------------
+// Pre-flight validation
+// ---------------------------------------------------------------------------
+
+function validateEnvironment() {
+  // Check if we're in a git repository
+  const gitDirResult = spawnSync("git", ["rev-parse", "--git-dir"], {
+    encoding: "utf8",
+  });
+  if (gitDirResult.status !== 0) {
+    throw new Error("Not a git repository. Run this script from a git repo.");
+  }
+
+  // Check if origin remote exists
+  const remoteResult = spawnSync("git", ["remote", "get-url", "origin"], {
+    encoding: "utf8",
+  });
+  if (remoteResult.status !== 0 || !remoteResult.stdout.trim()) {
+    throw new Error(
+      'No "origin" remote found. Ensure the repository has an origin remote.',
+    );
+  }
+
+  if (opts.verbose) {
+    log("debug", `Git directory: ${gitDirResult.stdout.trim()}`);
+    log("debug", `Origin URL: ${remoteResult.stdout.trim()}`);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
 async function main() {
-  console.log("🌿 Branch Cleanup Script");
-  console.log("========================");
-  console.log(
-    `Mode:         ${opts.dryRun ? "Dry run (preview only)" : "Live execution"}`,
-  );
-  console.log(`Threshold:    ${opts.inactiveDays} days inactive`);
-  console.log(`Delete local: ${opts.deleteLocal}`);
-  if (opts.excludePatterns)
-    console.log(`Exclude:      ${opts.excludePatterns}`);
-  if (opts.preserveAuthors)
-    console.log(`Preserve:     ${opts.preserveAuthors}`);
-  console.log("");
+  try {
+    console.log("🌿 Branch Cleanup Script");
+    console.log("========================");
+    console.log(
+      `Mode:         ${opts.dryRun ? "Dry run (preview only)" : "Live execution"}`,
+    );
+    console.log(`Threshold:    ${opts.inactiveDays} days inactive`);
+    console.log(`Delete local: ${opts.deleteLocal}`);
+    if (opts.excludePatterns)
+      console.log(`Exclude:      ${opts.excludePatterns}`);
+    if (opts.preserveAuthors)
+      console.log(`Preserve:     ${opts.preserveAuthors}`);
+    console.log("");
 
-  // Fetch latest remote state
-  console.log("🔄 Fetching remote branch list...");
-  run("git fetch --prune origin");
+    // Pre-flight validation
+    if (opts.verbose) log("debug", "Validating environment...");
+    validateEnvironment();
+
+    // Fetch latest remote state
+    log("debug", "Fetching remote branch list...");
+    const fetchResult = spawnSync("git", ["fetch", "--prune", "origin"], {
+      encoding: "utf8",
+    });
+    if (fetchResult.status !== 0) {
+      logError("Failed to fetch remote branches", fetchResult.stderr);
+      if (!opts.verbose) {
+        console.error("  Run with --verbose for details");
+      }
+      process.exit(1);
+    }
 
   const remoteBranches = getRemoteBranches().filter(
     (b) => b !== "HEAD" && b.trim() !== "",
@@ -586,113 +659,120 @@ async function main() {
   console.log("");
 
   const toDelete = [];
-  const toPreserve = [];
-  const baseRef = getBaseRef();
+    const toPreserve = [];
+    const baseRef = getBaseRef();
 
-  for (const branch of remoteBranches) {
-    const classification = classifyBranch(
-      branch,
-      openPRBranches,
-      excludeRe,
-      preserveAuthorRe,
-    );
-
-    if (classification.keep) {
-      toPreserve.push({ branch, reason: classification.reason });
-    } else {
-      const commitCount = getUniqueCommitCount(branch, baseRef);
-      toDelete.push({
+    for (const branch of remoteBranches) {
+      const classification = classifyBranch(
         branch,
-        ...classification,
-        commitCount,
-        estimatedStorageBytes: estimateStorageFreedBytes(commitCount),
-      });
-    }
-  }
+        openPRBranches,
+        excludeRe,
+        preserveAuthorRe,
+      );
 
-  console.log(`🗑️  Branches eligible for deletion: ${toDelete.length}`);
-  console.log(`✅ Branches to preserve: ${toPreserve.length}`);
-  console.log("");
-
-  if (toDelete.length === 0) {
-    console.log("🎉 Nothing to delete. Repository is clean.");
-  }
-
-  const deleted = [];
-  const errors = [];
-
-  for (const branch of toDelete) {
-    const prefix = opts.dryRun ? "[DRY RUN] " : "";
-    console.log(`${prefix}🗑️  ${branch.branch} (${branch.reason})`);
-
-    if (!opts.dryRun) {
-      const remoteResult = deleteRemoteBranch(branch.branch);
-      if (!remoteResult.ok) {
-        console.error(`  ❌ Remote deletion failed: ${remoteResult.error}`);
-        errors.push({ branch: branch.branch, error: remoteResult.error });
-        continue;
+      if (classification.keep) {
+        toPreserve.push({ branch, reason: classification.reason });
+      } else {
+        const commitCount = getUniqueCommitCount(branch, baseRef);
+        toDelete.push({
+          branch,
+          ...classification,
+          commitCount,
+          estimatedStorageBytes: estimateStorageFreedBytes(commitCount),
+        });
       }
     }
 
-    let localDeleted = false;
-    if (opts.deleteLocal) {
-      const localExists = localBranches.includes(branch.branch);
-      if (localExists) {
-        const localResult = deleteLocalBranch(branch.branch);
-        if (!localResult.ok) {
-          console.warn(`  ⚠️  Local deletion failed: ${localResult.error}`);
-        } else {
-          localDeleted = true;
+    console.log(`🗑️  Branches eligible for deletion: ${toDelete.length}`);
+    console.log(`✅ Branches to preserve: ${toPreserve.length}`);
+    console.log("");
+
+    if (toDelete.length === 0) {
+      console.log("🎉 Nothing to delete. Repository is clean.");
+    }
+
+    const deleted = [];
+    const errors = [];
+
+    for (const branch of toDelete) {
+      const prefix = opts.dryRun ? "[DRY RUN] " : "";
+      console.log(`${prefix}🗑️  ${branch.branch} (${branch.reason})`);
+
+      if (!opts.dryRun) {
+        const remoteResult = deleteRemoteBranch(branch.branch);
+        if (!remoteResult.ok) {
+          console.error(`  ❌ Remote deletion failed: ${remoteResult.error}`);
+          errors.push({ branch: branch.branch, error: remoteResult.error });
+          continue;
         }
       }
+
+      let localDeleted = false;
+      if (opts.deleteLocal) {
+        const localExists = localBranches.includes(branch.branch);
+        if (localExists) {
+          const localResult = deleteLocalBranch(branch.branch);
+          if (!localResult.ok) {
+            console.warn(`  ⚠️  Local deletion failed: ${localResult.error}`);
+          } else {
+            localDeleted = true;
+          }
+        }
+      }
+
+      deleted.push({ ...branch, localDeleted });
+    }
+    const metrics = getMetrics(deleted, toPreserve, errors, toDelete.length);
+
+    // Write report
+    let reportPath;
+    if (opts.reportFormat === "json") {
+      reportPath = writeJsonReport(deleted, toPreserve, errors, metrics, opts);
+    } else {
+      reportPath = writeMarkdownReport(
+        deleted,
+        toPreserve,
+        errors,
+        metrics,
+        opts,
+      );
     }
 
-    deleted.push({ ...branch, localDeleted });
-  }
-  const metrics = getMetrics(deleted, toPreserve, errors, toDelete.length);
-
-  // Write report
-  let reportPath;
-  if (opts.reportFormat === "json") {
-    reportPath = writeJsonReport(deleted, toPreserve, errors, metrics, opts);
-  } else {
-    reportPath = writeMarkdownReport(
-      deleted,
-      toPreserve,
-      errors,
-      metrics,
-      opts,
-    );
-  }
-
-  console.log("");
-  console.log("============================");
-  console.log("📋 Cleanup Summary");
-  console.log("============================");
-  console.log(
-    `Deleted:   ${deleted.length} branches${opts.dryRun ? " (dry run)" : ""}`,
-  );
-  console.log(`Preserved: ${toPreserve.length} branches`);
-  if (errors.length) console.log(`Errors:    ${errors.length}`);
-  console.log(`Success:   ${metrics.successRate}`);
-  console.log(`Commits:   ${metrics.totalCommits} (estimate)`);
-  console.log(`Storage:   ${metrics.estimatedStorageHuman} (estimate)`);
-  console.log(`Report:    ${reportPath}`);
-  console.log("");
-
-  if (opts.dryRun && toDelete.length > 0) {
+    console.log("");
+    console.log("============================");
+    console.log("📋 Cleanup Summary");
+    console.log("============================");
     console.log(
-      "ℹ️  This was a dry run. Run with --dryRun=false to execute deletions.",
+      `Deleted:   ${deleted.length} branches${opts.dryRun ? " (dry run)" : ""}`,
     );
-  }
+    console.log(`Preserved: ${toPreserve.length} branches`);
+    if (errors.length) console.log(`Errors:    ${errors.length}`);
+    console.log(`Success:   ${metrics.successRate}`);
+    console.log(`Commits:   ${metrics.totalCommits} (estimate)`);
+    console.log(`Storage:   ${metrics.estimatedStorageHuman} (estimate)`);
+    console.log(`Report:    ${reportPath}`);
+    console.log("");
 
-  if (!opts.dryRun && toDelete.length > 0) {
-    console.log("✅ Post-cleanup: run the following to sync local tracking:");
-    console.log("   git remote update origin --prune");
-    console.log("   git branch -vv");
-  }
+    if (opts.dryRun && toDelete.length > 0) {
+      console.log(
+        "ℹ️  This was a dry run. Run with --dryRun=false to execute deletions.",
+      );
+    }
 
-  process.exit(errors.length > 0 ? 1 : 0);
+    if (!opts.dryRun && toDelete.length > 0) {
+      console.log("✅ Post-cleanup: run the following to sync local tracking:");
+      console.log("   git remote update origin --prune");
+      console.log("   git branch -vv");
+    }
+
+    process.exit(errors.length > 0 ? 1 : 0);
+  } catch (err) {
+    logError("Unexpected error", err);
+    if (opts.verbose) {
+      console.error(err);
+    }
+    process.exit(1);
+  }
 }
 
 if (

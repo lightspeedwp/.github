@@ -1,172 +1,96 @@
-# Implementation Plan: Audit and Refactor Branch Cleanup Infrastructure
+# Implementation Plan: Branch Cleanup Infrastructure
 
-**Branch**: `task/branch-cleanup-refactor` | **Date**: 2026-09-14 | **Spec**: [.github/specs/009-audit-branch-cleanup/spec.md](spec.md)
+**Branch**: `009-audit-branch-cleanup` | **Date**: 2026-09-16 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `.github/specs/009-audit-branch-cleanup/spec.md`
+**Input**: Feature specification from `/specs/009-audit-branch-cleanup/spec.md`
 
 **Note**: This template is filled in by the `/speckit-plan` command; its definition describes the execution workflow.
 
 ## Summary
 
-Comprehensive audit and refactoring of branch cleanup infrastructure to address 300+ accumulated branches in the `.github` repository. The work is structured in three phases:
-
-1. **P1 - Audit**: Generate comprehensive categorisation of all branches as KEEP/DELETE/DISCUSS
-2. **P2 - Safe Cleanup**: Produce verified deletion candidates and flag edge cases for discussion
-3. **P3 - Refactor & Automate**: Harmonise cleanup scripts, documentation, and implement scheduled workflow
-
-Primary technical approach: Enhance `scripts/cleanup-branches.js` to perform safe, categorised audits with clear reporting and optional automated execution.
+Build comprehensive branch cleanup infrastructure to automatically categorise branches as KEEP, DELETE, or DISCUSS using an 8-gate decision tree. Collect metadata via Git and GitHub API integration, support flexible exclusion patterns, provide safe deletion with dry-run mode, and generate comprehensive reports in Markdown and JSON formats.
 
 ## Technical Context
 
-**Language/Version**: JavaScript (Node.js 22) — existing cleanup scripts are JS
+**Language/Version**: Node.js 22+ (ES modules)
 
-**Primary Dependencies**:
+**Primary Dependencies**: git CLI, GitHub API (gh CLI), no external npm dependencies required
 
-- GitHub CLI (`gh`) — for querying open PRs
-- git — for merge history analysis
-- Node.js standard library (fs, path, child_process)
+**Storage**: N/A (report output to filesystem, no database)
 
-**Storage**: N/A (read-only operations on git repository metadata)
+**Testing**: Node.js built-in test runner or Jest/Vitest
 
-**Testing**: Node.js test framework (existing: npm test), git-based validation
+**Target Platform**: Linux/macOS (git operations environment, organisation `.github` repository)
 
-**Target Platform**: Linux/CI environments (GitHub Actions runners)
+**Project Type**: CLI tool + reusable library
 
-**Project Type**: Maintenance automation / CLI tool (branch hygiene)
+**Performance Goals**: Process 100+ branches in <10 seconds; GitHub API calls optimised with efficient querying
 
-**Performance Goals**: Audit report generation <5 seconds for repositories with 500+ branches (SC-004)
+**Constraints**: <50 MB memory footprint; must handle rate limiting gracefully
 
-**Constraints**:
-
-- Safe by default (dry-run mode)
-- Zero accidental data loss (100% merge verification before deletion)
-- Support custom exclusion patterns and thresholds
-
-**Scale/Scope**:
-
-- Current repository: 300+ branches → target <50 active
-- .github repository is the source of truth for multiple downstream repositories
+**Scale/Scope**: Support repositories with 50–1000+ branches; organisation-wide reporting
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-**Applied Principles** (from `.specify/memory/constitution.md`):
+**Principle I – Organisation-Wide Governance Authority**: ✅ PASS  
+This feature enhances `.github` repository by providing organisation-wide branch cleanup capabilities that support governance automation. Feature is portable and reusable across all repositories.
 
-1. ✅ **Specification-First Process**: Feature follows SpecKit workflow (specification → clarification → planning → tasks)
-2. ✅ **Asset Boundaries**: Cleanup infrastructure is portable reusable assets (scripts, documentation, prompts) — belongs in top-level folders or `.github/` if repository-specific
-3. ✅ **Technology-Agnostic Guidance**: Branch cleanup concepts apply universally; documentation must not assume specific tech stacks
-4. ✅ **UK English Standards**: All refactored documentation and code comments must use UK English (colour, optimise, organisation)
-5. ✅ **Branch Naming Non-Negotiable**: Feature directly enforces and validates the mandatory `{type}/{scope}-{title}` pattern and forbidden prefixes
-6. ✅ **Code Review & Quality Gates**: Cleanup logic requires verification that merge detection is correct and deletion is safe
+**Principle II – Curated Assets with Locked Governance**: ✅ PASS  
+Feature does not modify LOCKED files (labels.yml, issue-types.yml, templates). Categorisation rules are internal to feature library and do not impact PR routing or template assignment.
 
-**Design Decisions Requiring Justification**: None at this phase (all straightforward maintenance work)
+**Principle III – Clear Asset Boundaries**: ✅ PASS  
+CLI entry point and reusable library modules placed in `scripts/` (CLI) and `scripts/lib/` (libraries). Reports placed in `.github/reports/`. No duplication of guidance in spec files.
 
-**Gates Status**: ✅ PASS — All constitutional principles satisfied. Feature aligns with governance without violations.
+**Principle IV – Technology-Agnostic Guidance**: ✅ PASS  
+Feature is technology-neutral: operates on git operations and GitHub API (available across all repositories regardless of tech stack). No framework-specific or language-specific assumptions.
+
+**Principle V – Branch Naming Strategy is Non-Negotiable**: ✅ PASS  
+Feature enforces branch name validation: pattern `{type}/{scope}-{title}`, 30+ allowed types, forbidden prefixes (`claude/`, `copilot/`, `openai/`). Supports clean categorisation based on valid branch names.
+
+**Principle VI – UK English, Accessibility, Security Standards**: ✅ PASS  
+All documentation uses UK English spelling (optimise, organisation). Error handling follows security-first mindset (no hardcoded secrets, input validation). No accessibility concerns (CLI tool, not UI).
+
+**Overall Constitution Status**: ✅ PASS – Feature aligns with all governance principles.
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-.github/specs/009-audit-branch-cleanup/
-├── spec.md              # Feature specification (user stories, requirements)
-├── plan.md              # This file (implementation plan)
-├── research.md          # Phase 0 output (research findings, design decisions)
-├── data-model.md        # Phase 1 output (branch entity model, categorisation logic)
-├── quickstart.md        # Phase 1 output (validation guide, usage examples)
-├── contracts/           # Phase 1 output (interface contracts for audit output)
-│   ├── audit-report.schema.json    # Markdown/JSON report format contract
-│   └── deletion-candidates.schema.json # Safe deletion list contract
-├── checklists/
-│   └── requirements.md   # Quality validation checklist
-└── tasks.md             # Phase 2 output (/speckit-tasks command - NOT created by /speckit-plan)
+specs/009-audit-branch-cleanup/
+├── spec.md              # Feature specification (user stories, acceptance criteria)
+├── plan.md              # This file (/speckit-plan command output)
+├── research.md          # Phase 0 output (/speckit-plan command) — TBD
+├── data-model.md        # Phase 1 output (/speckit-plan command) — TBD
+├── quickstart.md        # Phase 1 output (/speckit-plan command) — TBD
+├── contracts/           # Phase 1 output (/speckit-plan command) — TBD
+└── tasks.md             # Phase 2 output (/speckit-tasks command) — TBD
 ```
 
-### Source Code & Configuration (repository root)
+### Source Code (repository root)
 
 ```text
-scripts/
-├── cleanup-branches.js          # Enhanced audit script (REFACTOR/ENHANCE)
-└── validation/
-    └── validate-branch-name.js  # Branch naming validator (REFACTOR for alignment)
-
 .github/
-├── workflows/
-│   └── branch-audit.yml         # NEW: Scheduled branch audit workflow
-└── reports/
-    └── stale-branches-*.md      # Generated audit reports
-
-docs/
-├── BRANCH_CLEANUP.md            # REFACTOR: Update with new audit flow
-├── BRANCHING_STRATEGY.md        # REFACTOR: Cross-reference cleanup
-└── PR_CREATION_PROCESS.md       # UPDATE: Link to cleanup guidance
-
-prompts/
-├── 07-branch-worktree-cleanup.md  # REFACTOR: Align with new automation
-└── (future) branch-audit-prompt.md # NEW: Audit execution prompt
-
-agents/
-└── chat-closure-agent/          # UPDATE: References to cleanup (if applicable)
+├── scripts/
+│   ├── cleanup-branches.js           # CLI entry point
+│   ├── lib/
+│   │   ├── branch-categorization.js  # 8-gate decision tree
+│   │   ├── age-calculator.js         # Age calculation utilities
+│   │   ├── git-merge-utils.js        # Git merge detection
+│   │   ├── github-pr-utils.js        # GitHub PR detection
+│   │   ├── exclusion-patterns.js     # Regex exclusion patterns
+│   │   ├── report-formatter.js       # Report generation
+│   │   └── constants.js              # Shared constants
+│   └── tests/
+│       ├── unit/                     # Unit tests for each library module
+│       ├── integration/              # Integration tests (git + GitHub)
+│       └── fixtures/                 # Test data and mock responses
+├── reports/
+│   └── branch-cleanup/               # Generated cleanup reports (Markdown & JSON)
+└── workflows/
+    └── branch-cleanup.yml            # (Optional) Scheduled cleanup workflow
 ```
 
-**Structure Decision**: Maintenance automation project. No new top-level directories needed. Changes are:
-
-1. **Enhancement** of existing `scripts/cleanup-branches.js` (safe, isolated)
-2. **New workflow** in `.github/workflows/` for scheduled audits
-3. **Documentation updates** in `docs/` for consistency and cross-referencing
-4. **Generated reports** stored in `.github/reports/` with timestamp naming
-
-## Design Artifacts
-
-### Phase 0: Research Complete ✅
-
-**Output**: `research.md`
-
-Design decisions resolved:
-
-- Merge detection via `git merge-base`
-- PR detection via `gh pr list` filtering
-- Categorisation logic: multi-gate decision tree
-- Report format: Markdown + JSON dual output
-- Deletion safety: 3-layer verification + dry-run default
-- Performance target: <5 seconds for 500+ branches
-- Branch naming validation: centralised, imported module
-- Exclusion patterns: regex-based CLI option
-
-No remaining open questions.
-
-### Phase 1: Design Complete ✅
-
-**Outputs**:
-
-1. `data-model.md` — Entity definitions and categorisation logic
-2. `contracts/audit-report.schema.json` — Audit report format (JSON schema)
-3. `contracts/deletion-candidates.schema.json` — Deletion candidates format (JSON schema)
-4. `quickstart.md` — Validation guide with 7 runnable scenarios
-
-**Key Design Decisions**:
-
-- Branch entity with 11 core attributes + 1 computed status property
-- BranchAuditReport structure with categories: KEEP/DELETE/DISCUSS
-- Decision tree with 8 gates for unambiguous categorisation
-- 30+ branch types from canonical taxonomy
-- State transitions from creation → deletion
-- Multi-layer safety validation before deletion
-
-### Constitution Re-Check (Post-Design)
-
-✅ All design decisions align with constitutional principles:
-
-- Specification-first ✅
-- Portable assets ✅
-- Technology-agnostic ✅
-- UK English ✅
-- Branch naming enforcement ✅
-- Code review gates ✅
-
----
-
-## Complexity Tracking
-
-No violations — all design straightforward maintenance work with established patterns.
+**Structure Decision**: Modular library architecture with CLI entry point. CLI script orchestrates library modules for categorisation, metadata collection, deletion, and reporting. Reports saved to `.github/reports/branch-cleanup/` with timestamp naming. All modules use ES modules (Node.js 22+) with zero external dependencies required.
