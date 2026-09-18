@@ -53,7 +53,7 @@
 
 ---
 
-### Q2: Implementation Detail Detection
+### Q2: Implementation Detail Detection (REVISED per Clarification Session 2026-09-17)
 
 **Question**: How to reliably identify "implementation details" without manual review?
 
@@ -67,18 +67,20 @@
 - Manual audit identified 47 entries with implementation details
 - Keyword matching has ~85% precision (some false positives on user-facing terms)
 
-**Decision**: **Hybrid approach: keyword detection + manual review for edge cases**
+**Decision**: **Code-specific keyword detection only (architectural verbs permitted)**
 
-- Rationale: Keyword-based detection catches 85% of violations; CI flags borderline cases for human review
+- Clarification applied: Only code-specific terms flagged; architectural verbs (refactored, optimised, deployed) are user-focused language and are PERMITTED
+- Rationale: Keyword-based detection of code-specific terms catches implementation details; architectural verbs are acceptable user-friendly language
 - Alternatives considered:
-  - Pure keyword matching (rejected: ~15% false positive/negative rate too high)
+  - Pure keyword matching with all implementation keywords (rejected: too restrictive; eliminates user-friendly language)
   - Full NLP analysis (rejected: computational cost, GitHub Actions duration constraints)
   - Manual review only (rejected: doesn't scale to 200+ entries, defeats automation goal)
 
 **Implementation**:
 
-- Banned keywords: `refactored`, `fixed`, `updated`, `patched`, `optimised`, `optimized`, `implemented`, `deployed`, `migrated`, `restructured`, `reorganised`, `reorganized`, `logic`, `algorithm`, `framework`, `component`, `module`, `hook`, `middleware`, `REST API`, `GraphQL`, `database`, `query`, `cache`, `transaction`
-- Flagged for review: Terms with context-dependent meaning (requires human judgment)
+- Flagged keywords (code-specific only): `function`, `method`, `class`, `variable`, `module`, `middleware`, `hook`, `component`, `REST API`, `GraphQL`, `database`, `query`, `cache`, `transaction`, `endpoint`
+- PERMITTED architectural verbs: `refactored`, `optimised`, `optimized`, `deployed`, `migrated`, `restructured`, `reorganised`, `reorganized`, `fixed`, `updated`, `changed`, `implemented`, `patched`
+- Rationale: Code-specific terms are internal details; architectural verbs describe what was improved from user perspective
 
 ---
 

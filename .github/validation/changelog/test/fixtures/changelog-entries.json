@@ -1,0 +1,286 @@
+{
+  "compliant_entries": [
+    {
+      "id": "compliant-1",
+      "content": "Fixed user authentication timeout in login flow (#3350)",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3350],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-2",
+      "content": "Added support for dark mode in dashboard UI (#3351)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [3351],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-3",
+      "content": "Improved database query performance for reporting (optimised from 5s to 200ms) (#3352)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3352],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-4",
+      "content": "Refactored authentication flow for better performance (#3353)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3353],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-5",
+      "content": "Fixed user profile display issue when email is missing (#3354)",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3354],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-6",
+      "content": "Optimised REST API endpoint response time by implementing caching (#3355)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3355],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-7",
+      "content": "Added **bold** and *italic* support in markdown formatting (#3356)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [3356],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-8",
+      "content": "Implemented automatic backup every 6 hours (#3357)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [3357],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-9",
+      "content": "Fixed authentication timeout and improved performance (#3358)",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3358],
+      "issue_numbers": []
+    },
+    {
+      "id": "compliant-10",
+      "content": "Added dark mode support (issues/#2890 #3359)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [3359],
+      "issue_numbers": [2890]
+    }
+  ],
+  "non_compliant_entries": [
+    {
+      "id": "fail-max-length",
+      "content": "Fixed a critical issue in the authentication middleware where the JWT token validation was incorrectly checking the expiration timestamp against the system clock instead of the token's internal exp field, which caused valid tokens to be rejected after exactly 24 hours even though they should have been valid for 72 hours according to the issue tracker, resolving the user reports in #3350",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3350],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_MAX_LENGTH"]
+    },
+    {
+      "id": "fail-impl-details-function",
+      "content": "Refactored the React component hierarchy using custom hooks for state management (#3351)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3351],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_NO_IMPL_DETAILS"]
+    },
+    {
+      "id": "fail-impl-details-database",
+      "content": "Fixed memory leak in the database connection pool module (#3352)",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3352],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_NO_IMPL_DETAILS"]
+    },
+    {
+      "id": "fail-no-pr-link",
+      "content": "Fixed authentication timeout",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_HAS_PR_LINK"]
+    },
+    {
+      "id": "fail-no-pr-link-added",
+      "content": "Added dark mode support",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_HAS_PR_LINK"]
+    },
+    {
+      "id": "fail-raw-html",
+      "content": "Added <strong>bold</strong> support in text formatting (#3353)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [3353],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_FORMAT_MARKDOWN"]
+    },
+    {
+      "id": "fail-broken-link",
+      "content": "Fixed issue with [broken link](#3354",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3354],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_FORMAT_MARKDOWN"]
+    },
+    {
+      "id": "fail-unbalanced-bold",
+      "content": "Updated code formatting in **documentation (#3355)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3355],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_FORMAT_MARKDOWN"]
+    },
+    {
+      "id": "fail-mixed-tense",
+      "content": "Fixed authentication and improve performance (#3356)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3356],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_CONSISTENT_TENSE"]
+    },
+    {
+      "id": "fail-present-tense",
+      "content": "Fix authentication and improve performance (#3357)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3357],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_CONSISTENT_TENSE"]
+    },
+    {
+      "id": "fail-abbreviation-unexplained",
+      "content": "Fixed RATELIMIT issue in backend SVR (#3358)",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3358],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_NO_ABBREVIATIONS"]
+    },
+    {
+      "id": "fail-abbreviation-rbac",
+      "content": "Updated USR permissions for new RBAC system (#3359)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3359],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_NO_ABBREVIATIONS"]
+    },
+    {
+      "id": "fail-duplicate",
+      "content": "Fixed authentication timeout issue (#3360)",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3360],
+      "issue_numbers": [],
+      "isDuplicate": true,
+      "duplicateOf": "compliant-1"
+    },
+    {
+      "id": "fail-impl-details-middleware",
+      "content": "Added transaction logging to the middleware function (#3361)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [3361],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_NO_IMPL_DETAILS"]
+    },
+    {
+      "id": "fail-impl-details-endpoint",
+      "content": "Optimised REST API endpoint response time by implementing query caching (#3362)",
+      "section": "Changed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3362],
+      "issue_numbers": [],
+      "expectedViolations": ["CHK_NO_IMPL_DETAILS"]
+    }
+  ],
+  "edge_cases": [
+    {
+      "id": "edge-empty",
+      "content": "",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [],
+      "issue_numbers": [],
+      "description": "Empty entry"
+    },
+    {
+      "id": "edge-whitespace-only",
+      "content": "   ",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [],
+      "issue_numbers": [],
+      "description": "Whitespace-only entry"
+    },
+    {
+      "id": "edge-very-long",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat (#9999)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [9999],
+      "issue_numbers": [],
+      "description": "Very long entry exceeding 250 char limit"
+    },
+    {
+      "id": "edge-multiple-pr-links",
+      "content": "Fixed auth timeout in PR #3360 and #3361 (#3362)",
+      "section": "Fixed",
+      "version_section": "Unreleased",
+      "pr_numbers": [3360, 3361, 3362],
+      "issue_numbers": [],
+      "description": "Entry with multiple PR references"
+    },
+    {
+      "id": "edge-mixed-reference-types",
+      "content": "Added feature from issue #2890 implemented in PR #3363 (issues/#2891)",
+      "section": "Added",
+      "version_section": "Unreleased",
+      "pr_numbers": [3363],
+      "issue_numbers": [2890, 2891],
+      "description": "Entry with mixed PR and issue reference formats"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "framework": "Keep a Changelog 1.1.0",
+    "total_compliant": 10,
+    "total_non_compliant": 15,
+    "total_edge_cases": 5,
+    "coverage": {
+      "CHK_MAX_LENGTH": 1,
+      "CHK_NO_IMPL_DETAILS": 5,
+      "CHK_HAS_PR_LINK": 2,
+      "CHK_FORMAT_MARKDOWN": 3,
+      "CHK_CONSISTENT_TENSE": 2,
+      "CHK_NO_ABBREVIATIONS": 2,
+      "CHK_UNIQUE_CONTENT": 1,
+      "CHK_LINK_VALIDITY": 0
+    }
+  }
+}
