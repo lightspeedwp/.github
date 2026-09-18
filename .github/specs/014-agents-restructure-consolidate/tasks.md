@@ -69,7 +69,7 @@
 - [ ] T025 [P] [US1] Create validation script to verify all fixes executed successfully in scripts/validation/verify-fixes.js
 - [ ] T026 [P] [US1] Document broken reference remediation process in .github/docs/BROKEN_REFERENCE_REMEDIATION.md
 - [ ] T027 [US1] Generate summary report of all broken references fixed (count, types, impact)
-- [ ] T028 [P] [US1] Create integration tests for reference detection and fixing in scripts/validation/__tests__/reference-detection.test.js
+- [ ] T028 [P] [US1] Create integration tests for reference detection and fixing in scripts/validation/**tests**/reference-detection.test.js
 - [ ] T029 [US1] Verify all dependent scripts execute successfully after fixes applied
 - [ ] T030 [P] [US1] Validate CI workflows pass without import/path errors
 - [ ] T031 [US1] Create CHANGELOG entries for all agents with broken references that were fixed
@@ -94,7 +94,7 @@
 - [ ] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
 - [ ] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
 - [ ] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
-- [ ] T044 [P] [US2] Create unit tests for structure validation in scripts/validation/__tests__/structure-validation.test.js
+- [ ] T044 [P] [US2] Create unit tests for structure validation in scripts/validation/**tests**/structure-validation.test.js
 
 ---
 
@@ -272,6 +272,7 @@ Phase 10 (Polish)
 4. **Days 25–30**: Phase 10 (polish, validation, documentation)
 
 **Parallel Opportunities**:
+
 - After Phase 2 completes: US1, US2, US3 can run in parallel (different file scans)
 - After US1, US2, US3: US4, US5 can run in parallel (registry generation from different sources)
 - After US4, US5: US6 and US7 can run in parallel (planning work independent)
