@@ -35,6 +35,8 @@ A specification has clarity when:
 - Success/failure criteria are quantified
 - No subjective terms remain undefined
 
+**Spec Reference**: [Spec §FR-1] (Clarity dimension), [Spec §SC-7]
+
 ---
 
 ### CHK-008-Clarity
@@ -55,6 +57,8 @@ A specification has clarity when:
 - Terminology is used consistently across the document
 - Abbreviations are defined on first use
 - Related terms are explicitly distinguished
+
+**Spec Reference**: [Spec §FR-1] (Clarity dimension), [Spec §SC-8]
 
 ---
 
@@ -82,6 +86,8 @@ Ensure each criterion is:
 - Success/failure is objectively determinable
 - No acceptance criteria require clarification
 
+**Spec Reference**: [Spec §FR-1] (Clarity dimension), [Spec §SC-9]
+
 ---
 
 ### CHK-010-Clarity
@@ -104,6 +110,8 @@ Ensure each criterion is:
 - Interaction states are specified (hover, focus, active, disabled)
 - Responsive breakpoints are defined
 - Keyboard shortcuts and navigation patterns are documented
+
+**Spec Reference**: [Spec §FR-1] (Clarity dimension), [Spec §SC-10], [Spec §FR-3] (UX domain specifics)
 
 ---
 
@@ -129,6 +137,8 @@ Ensure each criterion is:
 - Example data is provided for each structure
 - Nullable/optional fields are clearly marked
 
+**Spec Reference**: [Spec §FR-1] (Clarity dimension), [Spec §FR-3] (API domain specifics)
+
 ---
 
 ### CHK-012-Clarity
@@ -153,3 +163,5 @@ Example:
 - Default/fallback behavior is specified
 - Precedence is explicit (which rules apply first)
 - Edge cases are handled
+
+**Spec Reference**: [Spec §FR-1] (Clarity dimension), [Spec §FR-4] (Decision logic clarity)
