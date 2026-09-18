@@ -123,3 +123,5 @@ Include tours, destinations, accommodations, itineraries, Wetu or itinerary inte
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -59,3 +59,5 @@ Checked by `scripts/validate-links-and-references.py` and `scripts/validate-all.
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
