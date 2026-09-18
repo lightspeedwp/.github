@@ -45,11 +45,13 @@ jobs:
     outputs:
       should_sync: ${{ steps.gate.outputs.run_validation }}
     steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
+      - name: Checkout repository
+        run: |
+          git clone --depth 1 --no-recurse-submodules https://github.com/lightspeedwp/.github.git .
+          git fetch --depth 1 origin "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
+          git checkout "${{ github.event.pull_request.head.sha }}"
+          git submodule deinit -f . || true
+        shell: bash
       - name: Require changelog update or skip label
         id: gate
         uses: actions/github-script@v9
@@ -134,6 +136,7 @@ jobs:
         with:
           ref: develop
           fetch-depth: 0
+          submodules: false
 
       - name: Check if CHANGELOG.md was modified
         id: check_changelog
@@ -219,6 +222,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+          submodules: false
 
       - name: Setup Node
         uses: actions/setup-node@v7
