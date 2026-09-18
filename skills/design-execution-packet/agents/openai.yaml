@@ -1,0 +1,17 @@
+interface:
+  display_name: Design Execution Packet
+  short_description: Creates routed LightSpeed handoff packets from scattered project
+    inputs
+  default_prompt: Use $design-execution-packet to turn scattered LightSpeed project
+    inputs into one execution-ready packet, separate approved sources from assumptions,
+    label readiness, and recommend one clear next route across QA, Figma, WordPress,
+    implementation, launch, content, governance, or specialist workflows.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

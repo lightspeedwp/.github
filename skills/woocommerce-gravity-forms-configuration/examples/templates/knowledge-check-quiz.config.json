@@ -1,0 +1,76 @@
+{
+  "form_name": "Knowledge Check Quiz",
+  "purpose": "Check lightweight training comprehension and provide pass/fail feedback.",
+  "audience": "Learners or staff members",
+  "source_template": "custom LightSpeed quiz pattern",
+  "fields": [
+    {
+      "id": 1,
+      "label": "Learner name",
+      "type": "name",
+      "required": true
+    },
+    {
+      "id": 2,
+      "label": "Email address",
+      "type": "email",
+      "required": true
+    },
+    {
+      "id": 3,
+      "label": "Question one",
+      "type": "quiz radio",
+      "required": true
+    },
+    {
+      "id": 4,
+      "label": "Question two",
+      "type": "quiz checkbox",
+      "required": true
+    },
+    {
+      "id": 5,
+      "label": "Training feedback",
+      "type": "textarea",
+      "required": false
+    }
+  ],
+  "field_settings": {
+    "labels": "visible"
+  },
+  "conditional_logic": [
+    "Avoid hiding quiz questions unless scoring impact is approved."
+  ],
+  "confirmations": [
+    "Show pass/fail confirmation only after score threshold approval."
+  ],
+  "notifications": [
+    "Send results to training owner; avoid unnecessary score exposure to broad admin recipients."
+  ],
+  "feeds": [
+    "Quiz Add-On settings and result dashboard; no certification or LMS claim without separate approval."
+  ],
+  "embedding_target": "Training page or internal learner portal.",
+  "data_retention_notes": "Identified learner result. Retention should match training record policy; do not treat as anonymous.",
+  "test_data": {
+    "pass_case": "All correct answers",
+    "fail_case": "Below threshold",
+    "boundary_case": "Exactly pass threshold"
+  },
+  "required_addons": [
+    "Gravity Forms Quiz Add-On"
+  ],
+  "risks": [
+    "Scoring changes can affect displayed historical results.",
+    "Hidden quiz questions still count as incorrect.",
+    "Not suitable as secure exam/proctoring system without separate controls."
+  ],
+  "spam_settings": {
+    "honeypot": true,
+    "recommended": "Use layered spam protection appropriate for public feedback forms."
+  },
+  "accessibility_settings": {
+    "labels": "Visible labels required. Scale choices need plain-language labels."
+  },
+  "approval_status": "draft"
+}

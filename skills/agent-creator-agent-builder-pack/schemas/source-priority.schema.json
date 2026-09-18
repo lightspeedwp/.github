@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "title": "Source Priority",
+  "type": "object",
+  "required": [
+    "priority_order"
+  ],
+  "properties": {
+    "priority_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 6
+    }
+  },
+  "examples": [
+    {
+      "priority_order": [
+        "User-provided files and explicit instructions",
+        "Current agent-creator SKILL.md",
+        "Approved LightSpeed references in this pack",
+        "Connected internal sources explicitly authorised for the task",
+        "Current public web sources when freshness is required",
+        "Model knowledge for stable background only"
+      ]
+    }
+  ]
+}

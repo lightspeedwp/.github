@@ -1,0 +1,39 @@
+state_backend: memory
+memory_state_file: chatbot-intake-defaults.yaml
+
+trigger_when:
+  task_requires:
+    - chatbot planning
+    - chatbot estimate
+    - chatbot discovery
+    - source readiness review
+  missing_state:
+    - project_label
+    - primary_website
+
+required_state:
+  - key: project_label
+    ask: What client or project should I use for this chatbot work?
+    store_as: active_project.project_label
+  - key: primary_website
+    ask: What is the main website or domain for this project?
+    store_as: active_project.primary_website
+
+optional_state:
+  - key: output_audience
+    ask: Should I default to an internal LightSpeed working document or a client-ready deliverable for this project?
+    default: internal
+    store_as: active_project.output_audience
+  - key: source_pack_status
+    ask: Do you usually already have an approved source pack for this project, or should I assume sources still need confirmation?
+    default: sources_need_confirmation
+    store_as: active_project.source_pack_status
+
+completion_requires:
+  - project_label
+  - primary_website
+
+skip_when:
+  - the current request already names the client or project and the primary website or domain
+  - the current request is a one-off formatting or validation task that does not need project intake
+  - existing Memory already has matching active project values needed for the current request

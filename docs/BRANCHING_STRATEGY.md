@@ -389,28 +389,397 @@ Branch prefixes drive both **Issue Type** labels and **Project Type** field assi
 
 ### 5.3 Branch-Type Review Context
 
-CodeRabbit reviews are guided by branch type to ensure feedback is contextually relevant. The following reference table maps each branch type to its primary review focus areas and critical checks:
+CodeRabbit applies context-aware review guidance based on branch type to ensure feedback is specifically relevant to the work being done. This section documents the primary review focus areas and critical checks for each branch type.
 
-| Branch Type | Review Focus Areas | Critical Checks |
-|---|---|---|
-| `feat/` | Completeness, UX/API design, backwards compatibility | Acceptance criteria met; no breaking changes; accessibility (WCAG 2.2 AA) verified |
-| `fix/` | Root cause, regression prevention, edge cases | Root cause addressed (not symptom); regression test added; edge cases considered |
-| `hotfix/` | Critical impact, rollback readiness, security | Impact classified; rollback plan documented; security implications evaluated |
-| `release/` | Versioning, changelog, deployment checklist | Version bump correct; changelog updated; deployment checklist complete |
-| `refactor/` | Maintainability, no behaviour change, test coverage | No functional changes; test coverage maintained; code clarity improved |
-| `chore/` | Dependencies, housekeeping, automation | Dependencies correctly updated; no side effects; automation rules verified |
-| `task/` | Epic/project scope, breakdown clarity, dependencies | Scope clearly defined; dependencies identified; subtasks aligned |
-| `docs/` or `doc/` | Clarity, structure, navigation, WCAG AA compliance | Content accurate and complete; structure logical; all links functional; accessibility verified |
-| `test/` | Test coverage, isolation, reproducibility | Tests isolated from external state; reproducible; coverage adequate |
-| `perf/` | Benchmarks, metrics, scalability, trade-offs | Benchmarks documented; metrics baseline established; scalability implications noted |
-| `ci/` | Job definition, secret handling, status checks | Secrets properly managed; required status checks enforced; job structure correct |
-| `security/` | Vulnerability severity, disclosure, mitigation | Vulnerability properly classified; fix prevents exploitation; no security debt introduced |
-| `design/` | Design consistency, component reusability, accessibility | Consistent with design system; reusable patterns; accessibility standards met |
-| `a11y/` | WCAG 2.2 AA compliance, keyboard support, contrast | All WCAG 2.2 AA criteria met; keyboard navigation functional; colour contrast sufficient |
-| `ops/` | Infrastructure, deployment safety, monitoring | Infrastructure changes safe; monitoring configured; rollback procedure documented |
-| `build/`, `deps/`, `api/`, `schema/`, `migrate/` | Type-specific review guidance applies (as per feature branch context) | Validated for integration impact and compatibility |
+#### Top-Priority Branch Types (High-Frequency, All Repositories)
 
-**Usage:** When reviewing a PR, CodeRabbit applies the review focus areas and critical checks relevant to the branch type, ensuring feedback is targeted and actionable across all repositories.
+##### `feat/` — New Features
+
+**Review Focus Areas**:
+
+- **Feature Completeness & Correctness**: Does the implementation fully address the specified requirements? Are acceptance criteria met? Is the feature functionally correct?
+- **API & Design Quality**: Is the API/interface design intuitive and maintainable? Does it follow established patterns? Are backward compatibility implications considered?
+- **Accessibility & User Experience**: Does the feature meet WCAG 2.2 AA standards? Is keyboard navigation supported? Is the UX clear and intuitive?
+- **Test Coverage**: Are there tests covering happy path, edge cases, and error conditions? Is coverage adequate (≥80%)?
+
+**Critical Checks**:
+
+- ✓ Acceptance criteria documented and met
+- ✓ No breaking changes OR breaking changes clearly documented
+- ✓ Accessibility (WCAG 2.2 AA) verified
+- ✓ Tests added (unit, integration, or e2e as appropriate)
+- ✓ Documentation updated (if user-facing)
+- ✓ Changelog entry added (if user-facing)
+
+**Scope**: Applies to all repositories (WordPress plugins, Node.js, Python, infrastructure-as-code)
+
+---
+
+##### `fix/` — Bug Fixes
+
+**Review Focus Areas**:
+
+- **Root Cause Analysis**: Does the fix address the root cause or just the symptom? Is the fix sustainable?
+- **Regression Prevention**: Are there tests preventing this bug from reoccurring? Are related areas checked for similar issues?
+- **Edge Cases**: Are boundary conditions and edge cases considered? Could the fix introduce new bugs?
+- **Code Quality**: Is the fix minimal and focused? Does it avoid unnecessary refactoring?
+
+**Critical Checks**:
+
+- ✓ Root cause documented in PR description
+- ✓ Fix verified against original reproduction steps
+- ✓ Regression test added (prevents bug recurrence)
+- ✓ Related edge cases considered and tested
+- ✓ Existing tests still passing
+- ✓ Changelog entry added
+
+**Scope**: Applies to all repositories
+
+---
+
+##### `security/` — Security Vulnerabilities
+
+**Review Focus Areas**:
+
+- **Vulnerability Severity & Impact**: Is the vulnerability properly classified (critical/high/medium/low)? Are impact implications documented?
+- **Fix Efficacy**: Does the fix fully prevent exploitation? Are there bypasses or edge cases?
+- **Security Debt**: Does the fix introduce new security concerns? Are there related vulnerabilities?
+- **Disclosure & Communication**: Is the fix handled responsibly? Are security review processes followed?
+
+**Critical Checks**:
+
+- ✓ Vulnerability severity assessed (critical/high/medium/low)
+- ✓ Fix prevents confirmed exploitation path
+- ✓ Security review completed (security team approval)
+- ✓ No new security warnings introduced
+- ✓ Changelog marked `[SECURITY]`
+- ✓ PR marked `priority:critical`
+- ✓ All related test cases pass
+
+**Scope**: Applies to all repositories; follows responsible disclosure process
+
+---
+
+##### `perf/` — Performance Improvements
+
+**Review Focus Areas**:
+
+- **Benchmarking & Metrics**: Are performance improvements measured and documented? Are baseline metrics established?
+- **Scalability & Trade-offs**: Does the improvement scale? Are trade-offs (memory, complexity, maintainability) documented?
+- **Regression Testing**: Are there tests ensuring performance improvements don't regress? Does it avoid regressions in other areas?
+- **Relevance**: Does the improvement address a real performance bottleneck? Are priorities aligned?
+
+**Critical Checks**:
+
+- ✓ Performance metrics measured (before/after)
+- ✓ Improvement meets stated goal
+- ✓ No regression in other metrics
+- ✓ Load testing completed (if applicable)
+- ✓ Memory/resource usage assessed
+- ✓ Caching strategy documented (if applicable)
+- ✓ Tests added for performance regressions
+
+**Scope**: Applies to all repositories; particularly critical for user-facing features, APIs, and infrastructure
+
+---
+
+##### `a11y/` — Accessibility Improvements
+
+**Review Focus Areas**:
+
+- **WCAG 2.2 AA Compliance**: Do all changes meet WCAG 2.2 AA standards? Are colour contrast ratios sufficient (4.5:1 for text)?
+- **Keyboard Navigation**: Is the change fully navigable via keyboard? Are focus indicators visible?
+- **Screen Reader Support**: Is semantic HTML used? Are aria attributes appropriate?
+- **Testing & Validation**: Are accessibility changes tested (keyboard, screen reader, colour contrast tools)?
+
+**Critical Checks**:
+
+- ✓ Changes comply with WCAG 2.2 AA standards
+- ✓ Keyboard navigation tested and working
+- ✓ Screen reader compatibility verified
+- ✓ Colour contrast meets AA standards (4.5:1 text, 3:1 graphics)
+- ✓ Focus indicators visible and accessible
+- ✓ Alt text added for all images
+- ✓ Semantic HTML used
+- ✓ Tests added for accessibility features
+
+**Scope**: Applies to all user-facing repositories; all public-facing changes must maintain accessibility standards
+
+---
+
+##### `docs/` or `doc/` — Documentation Updates
+
+**Review Focus Areas**:
+
+- **Content Accuracy & Completeness**: Is the information accurate and current? Does it cover all necessary aspects?
+- **Structure & Navigation**: Is the documentation well-organised? Are headings and links clear and logical?
+- **Audience Appropriateness**: Is the content written for the intended audience (developers, end-users, maintainers)?
+- **Technical Validity**: Do code examples run correctly? Are commands and configurations tested?
+
+**Critical Checks**:
+
+- ✓ Content is accurate and complete
+- ✓ Links are valid (internal and external)
+- ✓ Code examples run and produce expected output
+- ✓ Spelling and grammar checked
+- ✓ Markdown lints successfully
+- ✓ Frontmatter is valid YAML (if applicable)
+- ✓ No placeholder or TODO content
+- ✓ Updated TOCs or indexes (if applicable)
+
+**Scope**: Applies to all repositories; documentation is critical for user adoption and maintainability
+
+---
+
+##### `ci/` — CI/CD Pipeline Changes
+
+**Review Focus Areas**:
+
+- **Job Definition & Reliability**: Is the job configuration correct? Will it reliably detect failures?
+- **Secret & Credential Handling**: Are secrets properly masked and protected? Are credentials never logged?
+- **Status Check Enforcement**: Are required checks properly gated? Do they appropriately block merges?
+- **Performance & Cost**: Does the job run efficiently? Are unnecessary steps avoided?
+
+**Critical Checks**:
+
+- ✓ Secrets properly managed (masked in logs, passed as env vars only)
+- ✓ Required status checks enforced
+- ✓ Job structure is clear and maintainable
+- ✓ Timeouts set on long-running jobs
+- ✓ Error messages are actionable
+- ✓ Documentation explains job purpose and requirements
+- ✓ Tested on actual branch (not just syntax validation)
+
+**Scope**: Applies to all repositories; CI/CD impacts all developers
+
+---
+
+#### High-Priority Branch Types (Frequent, Most Repositories)
+
+##### `hotfix/` — Urgent Production Fixes
+
+**Review Focus Areas**:
+
+- **Critical Impact Assessment**: Is this truly urgent/critical? Are implications fully understood?
+- **Rollback Readiness**: Is a rollback plan documented? Can the change be reverted quickly?
+- **Minimal Scope**: Is the fix minimal and focused? Are unnecessary changes avoided?
+
+**Critical Checks**:
+
+- ✓ Issue impact classified (critical/high)
+- ✓ Fix verified to resolve the issue
+- ✓ Rollback plan documented
+- ✓ Security implications evaluated
+- ✓ Changelog marked `[HOTFIX]`
+- ✓ All related tests pass
+
+**Scope**: Applies to production-deployed repositories; follows expedited merge process
+
+---
+
+##### `refactor/` — Code Refactoring
+
+**Review Focus Areas**:
+
+- **No Behaviour Change**: Are functional changes completely avoided? Does the refactoring preserve all existing behaviour?
+- **Maintainability Improvement**: Does the refactoring improve code clarity, reduce complexity, or enhance structure?
+- **Risk Assessment**: Are there risks of subtle behaviour changes? Are all test cases still passing?
+
+**Critical Checks**:
+
+- ✓ Refactoring scope clearly defined
+- ✓ All existing tests pass (no changes to test logic)
+- ✓ Risk assessment completed (low/medium/high)
+- ✓ Breaking changes documented (if any)
+- ✓ Performance impact assessed (if applicable)
+- ✓ Code review approved
+- ✓ No new warnings or technical debt introduced
+
+**Scope**: Applies to all repositories; particularly important for maintainability
+
+---
+
+##### `task/` — Scoped Work / Epic Work
+
+**Review Focus Areas**:
+
+- **Epic/Project Scope Clarity**: Is the scope of work clearly defined? Are dependencies identified?
+- **Breakdown Clarity**: Are subtasks well-defined and independently testable?
+- **Integration Plan**: How does this integrate with related work? Are handoffs clear?
+
+**Critical Checks**:
+
+- ✓ Scope clearly defined
+- ✓ Dependencies identified and documented
+- ✓ Subtasks aligned with project breakdown
+- ✓ Related PRs/issues referenced
+- ✓ Integration plan documented
+- ✓ Acceptance criteria clear
+
+**Scope**: Applies to complex work spanning multiple PRs or repositories
+
+---
+
+##### `release/` — Release Branches
+
+**Review Focus Areas**:
+
+- **Version Correctness**: Is the version bump appropriate (major/minor/patch)? Does it follow semantic versioning?
+- **Changelog Completeness**: Are all changes documented? Is the changelog accurate and user-facing?
+- **Deployment Readiness**: Is the deployment checklist complete? Are all pre-release steps done?
+
+**Critical Checks**:
+
+- ✓ Version bump correct and follows semantic versioning
+- ✓ Changelog updated with all user-facing changes
+- ✓ Deployment checklist complete
+- ✓ Release notes prepared
+- ✓ All CI checks passing
+- ✓ QA verification completed (if applicable)
+
+**Scope**: Applies to released/distributed repositories (packages, plugins, applications)
+
+---
+
+##### `chore/` — Maintenance & Housekeeping
+
+**Review Focus Areas**:
+
+- **Dependency Updates**: Are dependencies correctly updated? Are there security implications?
+- **Maintenance Safety**: Are there side effects from maintenance changes? Is the scope clear?
+- **Automation Correctness**: Do automation/tooling changes work as expected?
+
+**Critical Checks**:
+
+- ✓ Dependencies correctly updated (version ranges, checksums)
+- ✓ No unintended side effects
+- ✓ Automation rules verified
+- ✓ Documentation updated (if applicable)
+- ✓ All tests passing
+
+**Scope**: Applies to all repositories; can be fast-tracked if low-risk
+
+---
+
+##### `test/` — Test Infrastructure & Additions
+
+**Review Focus Areas**:
+
+- **Test Coverage & Quality**: Do tests cover important scenarios? Are tests well-isolated and independent?
+- **Reproducibility**: Can tests be run reliably? Do they fail predictably on regressions?
+- **Integration**: Do tests integrate with CI/CD? Are they fast enough for developer feedback?
+
+**Critical Checks**:
+
+- ✓ Test coverage increased (target ≥80%)
+- ✓ All tests passing (unit, integration, e2e)
+- ✓ Edge cases covered
+- ✓ Error paths tested
+- ✓ Mocks/fixtures documented
+- ✓ CI/CD integration verified
+- ✓ No flaky tests introduced
+
+**Scope**: Applies to all repositories; test quality impacts maintainability and confidence
+
+---
+
+##### `design/` — Design System & UI Changes
+
+**Review Focus Areas**:
+
+- **Design System Consistency**: Are changes consistent with established design system? Are patterns reusable?
+- **Accessibility**: Do design changes maintain accessibility standards? Is colour contrast sufficient?
+- **Component Reusability**: Can components be reused across the organization? Are they flexible?
+
+**Critical Checks**:
+
+- ✓ Consistent with design system
+- ✓ Reusable patterns used
+- ✓ Accessibility standards met (WCAG 2.2 AA)
+- ✓ Component documentation clear
+- ✓ Design review completed
+- ✓ No technical debt introduced
+
+**Scope**: Applies to frontend/design-heavy repositories
+
+---
+
+#### Medium-Priority Branch Types (Varies by Repository)
+
+##### `ops/` — Operations & Infrastructure
+
+**Review Focus Areas**:
+
+- **Infrastructure Safety**: Are infrastructure changes safe? Is rollback possible?
+- **Deployment Readiness**: Is monitoring configured? Is communication clear?
+- **Compliance & Security**: Do changes meet security/compliance requirements?
+
+**Critical Checks**:
+
+- ✓ Infrastructure changes documented
+- ✓ Monitoring configured
+- ✓ Rollback procedure documented
+- ✓ Security review completed
+- ✓ Impact assessment done
+
+**Scope**: Applies to infrastructure, deployment, and DevOps repositories
+
+---
+
+##### `build/` — Build System Changes
+
+**Review Focus Areas**:
+
+- **Build Reliability**: Do changes improve build reliability? Will they break existing builds?
+- **Performance**: Do changes improve build performance? Are unnecessary steps removed?
+- **Portability**: Are changes portable across different environments and CI systems?
+
+**Critical Checks**:
+
+- ✓ Build tested locally and in CI
+- ✓ No breaking changes to build process
+- ✓ Performance implications assessed
+- ✓ Documentation updated
+
+**Scope**: Applies to repositories with custom build systems
+
+---
+
+##### `deps/` — Dependency Updates
+
+**Review Focus Areas**:
+
+- **Compatibility**: Are updated dependencies compatible with the codebase? Are breaking changes handled?
+- **Security**: Are security updates applied? Are known vulnerabilities addressed?
+- **Testing**: Are existing tests passing with updated dependencies?
+
+**Critical Checks**:
+
+- ✓ Compatibility verified (no breaking changes or handled appropriately)
+- ✓ Security updates applied
+- ✓ All tests passing
+- ✓ Lock file updated (if applicable)
+- ✓ Release notes reviewed (if major update)
+
+**Scope**: Applies to all repositories; security dependencies require priority
+
+---
+
+**Additional High-Frequency Types** (varies by repository):
+
+- `proto/` — Prototype/experimental work (low priority for review; exploratory only)
+- `audit/` — Governance audits and compliance reviews (high priority; requires thorough review)
+- `research/` — Research and investigation (informational; documents findings)
+- `api/` — API changes (high priority; breaking changes require special attention)
+- `schema/` — Database/data schema changes (high priority; migration safety critical)
+- `migrate/` — Data/schema migrations (high priority; reversibility and safety critical)
+- `automation/` — Automation scripts (medium priority; safety and error handling critical)
+- `i18n/` — Internationalization changes (medium priority; completeness across all languages required)
+- `ux/` — User experience improvements (medium priority; usability and accessibility critical)
+
+---
+
+**Usage in Code Reviews**: When reviewing a PR, CodeRabbit identifies the branch type from the PR source branch, then applies the review focus areas and critical checks documented above. This ensures feedback is contextually relevant and actionable across all repositories in the organisation.
 
 ---
 

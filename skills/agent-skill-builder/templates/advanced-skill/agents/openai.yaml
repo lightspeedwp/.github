@@ -1,0 +1,10 @@
+interface:
+  display_name: Example Advanced Workflow
+  short_description: An advanced local skill scaffold.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

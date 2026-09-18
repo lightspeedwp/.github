@@ -1,0 +1,184 @@
+wizard_fields:
+  - key: project_type
+    label: Project or task type
+    status_default: inferred
+    required_for:
+      - intake_heavy_workflows
+    save_policy: confirm_before_save
+  - key: primary_goal
+    label: Primary goal
+    status_default: inferred
+    required_for:
+      - intake_heavy_workflows
+    save_policy: save_if_user_confirms
+  - key: audience
+    label: Audience or user group
+    status_default: inferred
+    required_for:
+      - most_workflows
+    save_policy: confirm_before_save
+  - key: workflow_context
+    label: Agent or workflow context
+    status_default: inferred
+    required_for:
+      - intake_heavy_workflows
+    save_policy: current_run_only
+  - key: questionnaire_sources
+    label: Relevant questionnaire source
+    status_default: inferred
+    required_for:
+      - questionnaire_assisted_workflows
+    save_policy: current_run_only
+  - key: source_assets
+    label: Reference asset or source material
+    status_default: inferred
+    required_for:
+      - source_driven_workflows
+    save_policy: save_links_only
+  - key: output_format
+    label: Required output format
+    status_default: defaulted
+    required_for:
+      - deliverable_workflows
+    save_policy: confirm_before_save
+  - key: scope_boundaries
+    label: Scope boundaries
+    status_default: inferred
+    required_for:
+      - scoped_workflows
+    save_policy: save_if_user_confirms
+  - key: exclusions
+    label: Exclusions or must-not-do rules
+    status_default: inferred
+    required_for:
+      - risk_sensitive_workflows
+    save_policy: save_if_user_confirms
+  - key: timeline_risk_approval
+    label: Timeline, urgency, risk, or approval requirements
+    status_default: inferred
+    required_for:
+      - delivery_sensitive_workflows
+    save_policy: confirm_before_save
+
+statuses:
+  - confirmed
+  - inferred
+  - defaulted
+  - missing
+
+token_extraction:
+  - brand
+  - audience
+  - offer
+  - services_products
+  - content_types
+  - design_direction
+  - technical_requirements
+  - integrations
+  - source_assets
+  - exclusions
+  - legal_privacy_requirements
+  - claims
+  - approval_owners
+  - launch_handoff_requirements
+  - risks
+  - missing_blockers
+
+claim_register:
+  claim:
+  claim_type:
+  source:
+  questionnaire_source:
+  evidence_status: confirmed | inferred | defaulted | missing | unsupported
+  risk_level: low | medium | high
+  approved_for_use: yes | no | needs_review
+  reviewer:
+  notes:
+
+memory_buckets:
+  - current_run_context
+  - project_memory_candidates
+  - confirmed_project_memory
+  - unsafe_or_unverified_memory
+
+memory_schema:
+  project_id:
+    status: missing
+    save_policy: confirm_before_save
+  project_type:
+    status: inferred
+    save_policy: confirm_before_save
+  primary_goal:
+    status: confirmed
+    save_policy: save_if_user_confirms
+  audience:
+    status: inferred
+    save_policy: confirm_before_save
+  questionnaire_sources:
+    status: inferred
+    save_policy: current_run_only
+  source_assets:
+    status: confirmed
+    save_policy: save_links_only
+  approved_sources:
+    status: missing
+    save_policy: confirm_before_save
+  exclusions:
+    status: confirmed
+    save_policy: save_if_user_confirms
+  risk_flags:
+    status: inferred
+    save_policy: do_not_save_without_review
+  smart_defaults:
+    status: defaulted
+    save_policy: current_run_only
+  claim_register_required:
+    status: inferred
+    save_policy: confirm_before_save
+
+claim_register:
+  claim:
+    status: missing
+  claim_type:
+    status: missing
+  source:
+    status: inferred
+  questionnaire_source:
+    status: inferred
+  evidence_status:
+    allowed:
+      - confirmed
+      - inferred
+      - defaulted
+      - missing
+      - unsupported
+  risk_level:
+    allowed:
+      - low
+      - medium
+      - high
+  approved_for_use:
+    allowed:
+      - yes
+      - no
+      - needs_review
+  reviewer:
+    status: missing
+  notes:
+    status: inferred
+
+claim_register_triggers:
+  - regulated_content
+  - pricing_or_roi_claims
+  - conversion_or_ranking_claims
+  - testimonials_or_case_studies
+  - externally_published_factual_claims
+  - compliance_or_suitability_defaults
+  - ai_generated_recommendations_with_decision_impact
+
+approval_dimensions:
+  - approved_sources
+  - exclusions
+  - reviewer_ownership
+  - approval_gate
+  - handoff_requirements

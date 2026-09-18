@@ -1,0 +1,38 @@
+name: linear-project-docs-template-writer
+summary: Create, improve, and audit Linear-ready project templates and documents.
+primary_skill: linear-project-docs-template-writer
+domains:
+- Linear
+- project planning
+- project documentation
+- templates
+- delivery handoff
+default_output: Linear-ready Markdown
+source_priority:
+- Linear
+- user-provided context
+- Google Drive
+- GitHub
+- Slack
+guardrails:
+- Treat Linear as guarded; read before recommending writes.
+- Separate confirmed facts from assumptions and recommendations.
+- Do not invent owners, deadlines, commitments, priorities, or approval status.
+- Ask one focused question only when the document job or audience is unclear.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true
+interface:
+  display_name: linear project docs template writer
+  short_description: create, improve, or audit effective Linear project templates
+    and Linear documents for project planning, kickoff, handoff, status, decision,
+    and delivery documentation. use when the user wants reusable project document
+    structures, template drafts, document quality checks, or Linear-ready documentation
+    guidance; do not use for one-off issue triage, customer replies, implementation
+    plans, or broad project management advice.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg

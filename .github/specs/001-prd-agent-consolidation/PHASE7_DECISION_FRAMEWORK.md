@@ -312,7 +312,11 @@ Before making the final decision, verify:
 - [ ] All Phase 6 team feedback and blockers are documented
 - [ ] Decision memo has been reviewed by at least one peer (QA lead or product lead)
 - [ ] Decision aligns with organizational strategy (if multi-year agent consolidation is planned)
-- [ ] Stakeholders (team leads from ≥5 active teams) have been notified of decision options
+
+**⚠️ CONDITIONAL STAKEHOLDER NOTIFICATION** *(added per A4 finding)*:
+
+- [ ] **IF adoption metrics show ≥5 teams active (SC-602 MET)**: Notify stakeholders (team leads from active teams) of decision options (Archive/Sync/Defer)
+- [ ] **IF adoption metrics show <5 teams active (SC-602 NOT MET)**: Skip stakeholder notification and proceed directly to DEFER branch (T081-Defer) per decision gate logic. Stakeholders will be notified of the deferral decision and re-evaluation criteria instead.
 
 ---
 

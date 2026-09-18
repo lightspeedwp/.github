@@ -1,0 +1,66 @@
+{
+  "model_version": "1.0.0",
+  "last_reviewed": "2026-07-03",
+  "plugin": {
+    "name": "Tour Operator Special Offers",
+    "slug": "to-specials",
+    "type": "extension",
+    "source_links": [
+      "https://github.com/lightspeedwp/to-specials",
+      "https://wordpress.org/plugins/tour-operator-special-offers/"
+    ],
+    "depends_on": [
+      "tour-operator"
+    ]
+  },
+  "evidence_state": "No extension source files were uploaded for this build. Keep this model conservative until repository or live-site evidence confirms internals.",
+  "post_types": [
+    {
+      "slug": "unknown",
+      "labels": {
+        "singular": "unknown",
+        "plural": "unknown"
+      },
+      "purpose": "Store time-bound promotional offers attached to Tour Operator content where the extension is installed.",
+      "plugin_boundary": "extension",
+      "hierarchical": "unknown",
+      "supports": [
+        "unknown"
+      ],
+      "taxonomies": [
+        "unknown"
+      ],
+      "fields": [],
+      "relationships": [],
+      "archives": {
+        "has_archive": "unknown",
+        "expected_template": "unknown",
+        "notes": "Confirm from extension code or live site."
+      }
+    }
+  ],
+  "taxonomy_notes": [
+    "The core travel-style taxonomy config references some extension-facing object type slugs, but this does not confirm extension post type registration."
+  ],
+  "schema_jsonld_candidates": [
+    {
+      "content_type": "special",
+      "candidate_schema_type": "Offer",
+      "candidate_properties": [
+        "priceSpecification",
+        "validFrom",
+        "validThrough",
+        "itemOffered",
+        "priceCurrency",
+        "availability"
+      ],
+      "yoast_integration_notes": "Requires structured price and validity data. Avoid duplicate itemOffered output.",
+      "confidence": "needs-validation"
+    }
+  ],
+  "open_questions": [
+    "Confirm actual post type slug from extension code.",
+    "Confirm field keys, field types, relationship fields and archive behaviour from source or live inspection.",
+    "Confirm whether the extension is active on the target site before applying this model."
+  ]
+}

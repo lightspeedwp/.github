@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gravity Forms consent and microcopy review",
+  "type": "object",
+  "required": [
+    "form_name",
+    "languages",
+    "consent_fields",
+    "microcopy_findings",
+    "legal_review_required",
+    "approval_status",
+    "next_action"
+  ],
+  "properties": {
+    "form_name": {
+      "type": "string"
+    },
+    "form_id": {
+      "type": [
+        "string",
+        "integer"
+      ]
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "consent_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "required",
+          "purpose",
+          "risk"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "current_wording": {
+            "type": "string"
+          },
+          "risk": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "approved": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "microcopy_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "area",
+          "finding",
+          "recommendation"
+        ],
+        "properties": {
+          "area": {
+            "type": "string"
+          },
+          "finding": {
+            "type": "string"
+          },
+          "recommendation": {
+            "type": "string"
+          },
+          "approval_required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "localisation_notes": {
+      "type": "string"
+    },
+    "legal_review_required": {
+      "type": "boolean"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "needs approval",
+        "approved",
+        "blocked"
+      ]
+    },
+    "next_action": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
