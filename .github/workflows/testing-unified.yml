@@ -530,10 +530,12 @@ jobs:
         id: aggregate
         uses: ./.github/actions/aggregate-tests
         with:
-          test_results_path: 'test-results/'
-          coverage_path: 'coverage/'
-          output_format: 'json'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          unit_test_result: 'test-results/unit-summary.json'
+          integration_test_result: 'test-results/integration-summary.json'
+          e2e_test_result: 'skip'
+          coverage_file: 'coverage/coverage-summary.json'
+          coverage_threshold: '80'
+          output_file: 'test-results/aggregated.json'
 
       - name: Collect testing workflow metrics
         id: metrics
