@@ -78,6 +78,7 @@
     "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json",
     "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
+    "lint:md:specs": "markdownlint-cli2 \".github/specs/**/*.md\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
     "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
     "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",

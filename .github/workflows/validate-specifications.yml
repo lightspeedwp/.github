@@ -100,24 +100,7 @@ jobs:
       - name: Lint specification files
         if: always()
         run: |
-          # Lint only markdown files changed in this PR. A repo-wide run
-          # fails on pre-existing debt in unrelated skill and plugin docs,
-          # which this check must not gate on.
-          mapfile -t CHANGED_MD < <(git diff --name-only --diff-filter=ACMR \
-            "$(git merge-base HEAD origin/develop)" HEAD -- '*.md' '*.mdx' \
-            | while IFS= read -r file; do
-                [ -f "$file" ] && printf '%s\n' "$file"
-              done)
-
-          if [ "${#CHANGED_MD[@]}" -eq 0 ]; then
-            echo "✓ No changed markdown files to lint"
-            exit 0
-          fi
-
-          printf 'Linting %d changed file(s):\n' "${#CHANGED_MD[@]}"
-          printf '  %s\n' "${CHANGED_MD[@]}"
-          npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
-          ./node_modules/.bin/markdownlint-cli2 "${CHANGED_MD[@]}"
+          npm run lint:md:specs
           echo "✓ Markdown linting passed"
 
       - name: Run security scan
