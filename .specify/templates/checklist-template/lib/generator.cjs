@@ -1,6 +1,15 @@
 /**
  * Checklist Generator
- * T049: Generate checklists from base template and apply variants
+ *
+ * Generates requirement quality checklists from templates and applies domain variants.
+ * Produces normalized checklist objects with items, metadata, and summary metrics.
+ *
+ * Exports:
+ * - generateChecklist(input): Generate checklist from input items and metadata
+ * - generateFromBase(): Generate checklist from base template
+ * - applyVariant(base, variant): Merge variant items into base checklist
+ *
+ * @requires checklist-schema.json - Validates output against schema
  */
 
 const baseTemplate = {
@@ -36,6 +45,17 @@ const baseTemplate = {
   },
 };
 
+/**
+ * Generate a checklist from input items and metadata
+ *
+ * Normalizes items, calculates summary metrics (totals, percentages, markers),
+ * and produces a schema-compliant checklist object.
+ *
+ * @param {Object} input - Input configuration
+ * @param {Array} input.items - Checklist items with id, question, dimension, guidance
+ * @param {Object} input.metadata - Checklist metadata (title, domain, audience, etc.)
+ * @returns {Object} Checklist object { items, metadata, summary }
+ */
 const generateChecklist = (input = {}) => {
   const items = input.items || [];
   const metadata = input.metadata || {};
@@ -93,10 +113,29 @@ const generateChecklist = (input = {}) => {
   };
 };
 
+/**
+ * Generate checklist from hardcoded base template
+ *
+ * Convenience function that generates a standard checklist with all 24 base items
+ * across 8 dimensions (Completeness, Clarity, Consistency, Measurability,
+ * Scenario Coverage, Edge Cases, Dependencies, Ambiguities).
+ *
+ * @returns {Object} Checklist object with base items, metadata, and summary
+ */
 const generateFromBase = () => {
   return generateChecklist(baseTemplate);
 };
 
+/**
+ * Apply a domain variant to a base checklist
+ *
+ * Merges domain-specific items (UX, API, Security, Performance) into a base checklist,
+ * avoiding duplicates by ID. Recalculates summary metrics for the merged result.
+ *
+ * @param {Object} base - Base checklist object from generateFromBase()
+ * @param {Object} variant - Variant checklist with domain-specific items
+ * @returns {Object} Merged checklist with base items + variant items and updated summary
+ */
 const applyVariant = (base, variant) => {
   if (!base || !variant) return base;
 

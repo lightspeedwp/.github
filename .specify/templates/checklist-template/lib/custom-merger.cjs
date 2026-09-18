@@ -1,6 +1,13 @@
 /**
  * Custom Item Merger
- * T050: Merge custom items with generated checklist
+ *
+ * Merges user-defined custom checklist items with generated base/variant items.
+ * Handles deduplication, validation, and dimension classification.
+ *
+ * Exports:
+ * - mergeCustomItems(base, customItems): Merge custom items into base checklist
+ * - validateCustomItems(items): Validate custom items against schema and dimensions
+ * - deduplicateItems(items): Remove duplicate items by ID
  */
 
 const VALID_DIMENSIONS = [
@@ -14,6 +21,15 @@ const VALID_DIMENSIONS = [
   'Ambiguities',
 ];
 
+/**
+ * Remove duplicate items by ID
+ *
+ * Filters items array keeping only first occurrence of each ID.
+ * Preserves order, removes subsequent duplicates.
+ *
+ * @param {Array} items - Checklist items with id, question, dimension
+ * @returns {Array} Deduplicated items array
+ */
 function deduplicateItems(items) {
   const seen = new Set();
   return items.filter(item => {
@@ -25,6 +41,15 @@ function deduplicateItems(items) {
   });
 }
 
+/**
+ * Validate custom items against schema and dimension requirements
+ *
+ * Checks: required fields (id, question, dimension), valid dimension names,
+ * ID format (CHK-###-{dimension}), and detects issues for warning/error reporting.
+ *
+ * @param {Array} items - Custom items to validate
+ * @returns {Object} { errors: [], warnings: [] } - Validation results
+ */
 function validateCustomItems(items) {
   const errors = [];
   const warnings = [];
@@ -59,6 +84,16 @@ function validateCustomItems(items) {
   };
 }
 
+/**
+ * Merge custom items into a base checklist
+ *
+ * Combines base checklist items with user-provided custom items, deduplicates,
+ * and tracks statistics (base count, custom count, total count).
+ *
+ * @param {Object} baseChecklist - Generated checklist with items and metadata
+ * @param {Array} customItems - Custom items to merge (array of {id, question, dimension})
+ * @returns {Object} Merged checklist with items, metadata, and merge statistics
+ */
 function mergeCustomItems(baseChecklist, customItems = []) {
   const merged = {
     items: [...(baseChecklist.items || [])],

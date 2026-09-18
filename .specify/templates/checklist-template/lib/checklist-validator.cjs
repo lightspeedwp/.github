@@ -1,6 +1,12 @@
 /**
  * Checklist Validator
- * T053: Validate generated checklists
+ *
+ * Validates generated checklists against structural and content requirements.
+ * Checks: object structure, required fields, item properties, dimension validity,
+ * ID uniqueness, and completeness metrics.
+ *
+ * Exports:
+ * - checklistValidator(checklist): Validate checklist structure and content
  */
 
 const VALID_DIMENSIONS = [
@@ -14,6 +20,19 @@ const VALID_DIMENSIONS = [
   'Ambiguities',
 ];
 
+/**
+ * Validate checklist structure and content
+ *
+ * Performs comprehensive validation including:
+ * - Presence of required fields (items array, metadata object, summary object)
+ * - Item property validation (id, question, dimension, state)
+ * - Dimension name validation against VALID_DIMENSIONS
+ * - ID uniqueness and format validation (CHK-###-{dimension})
+ * - Summary metrics consistency
+ *
+ * @param {Object} checklist - Checklist object to validate
+ * @returns {Object} { isValid: boolean, errors: string[], warnings: string[] }
+ */
 function checklistValidator(checklist) {
   const errors = [];
   const warnings = [];
