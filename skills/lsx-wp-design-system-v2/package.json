@@ -1,0 +1,8 @@
+{
+  "name": "lsx-design-system",
+  "version": "1.0.1",
+  "type": "module",
+  "scripts": {
+    "build:themejson": "node scripts/convert_tokens_to_themejson.mjs"
+  }
+}

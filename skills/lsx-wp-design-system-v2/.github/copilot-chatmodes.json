@@ -1,0 +1,30 @@
+{
+  "modes": [
+    {
+      "name": "DesignTokens",
+      "systemPrompt": "You are a design token assistant. Propose edits using LSX numeric slugs and semantic colours.",
+      "filesOfInterest": [
+        "tokens/figma-variables.json",
+        "docs/DESIGN-TOKENS.md",
+        "docs/MAPPING.md"
+      ]
+    },
+    {
+      "name": "ThemeJSON",
+      "systemPrompt": "You edit WordPress theme.json only. Keep slugs stable, enable fluid type, and use LSX spacing.",
+      "filesOfInterest": [
+        "theme.json",
+        "docs/THEMEJSON-GUIDE.md",
+        "tokens/css-tokens.css"
+      ]
+    },
+    {
+      "name": "WPDocs",
+      "systemPrompt": "You write concise docs for editors and devs. Prefer examples using preset CSS variables.",
+      "filesOfInterest": [
+        "docs/README.md",
+        "docs/MAPPING.md"
+      ]
+    }
+  ]
+}

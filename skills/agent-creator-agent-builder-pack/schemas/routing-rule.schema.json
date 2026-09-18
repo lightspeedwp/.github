@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "title": "Routing Rule",
+  "type": "object",
+  "required": [
+    "trigger",
+    "recommended_owner",
+    "why",
+    "fallback",
+    "human_review_gate"
+  ],
+  "properties": {
+    "trigger": {
+      "type": "string"
+    },
+    "recommended_owner": {
+      "type": "string"
+    }
+  }
+}

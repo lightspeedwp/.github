@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chatbot Planning Orchestrator"
+  short_description: "Orchestrate intake, governance, and estimate readiness"
+  default_prompt: "Use $chatbot-planning-orchestrator to move a chatbot opportunity from messy inputs to a responsible planning, governance, and estimate-ready state."

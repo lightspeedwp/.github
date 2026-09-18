@@ -1,0 +1,120 @@
+{
+  "form_name": "GA4 Lead Tracking Form",
+  "purpose": "Track successful lead submissions as GA4 generate_lead events with non-personal parameters.",
+  "audience": "Marketing and sales teams measuring enquiry conversion quality.",
+  "source_template": "GA4 tracking configuration example",
+  "fields": [
+    {
+      "id": 1,
+      "label": "Full Name",
+      "type": "name",
+      "required": true,
+      "accessibility_notes": "Visible label retained."
+    },
+    {
+      "id": 2,
+      "label": "Email Address",
+      "type": "email",
+      "required": true,
+      "accessibility_notes": "Visible label retained."
+    },
+    {
+      "id": 3,
+      "label": "Lead Type",
+      "type": "select",
+      "required": true,
+      "choices": [
+        "Sales enquiry",
+        "Private guide enquiry",
+        "Partnership"
+      ],
+      "accessibility_notes": "Visible label and clear options."
+    },
+    {
+      "id": 4,
+      "label": "Consent",
+      "type": "consent",
+      "required": true,
+      "accessibility_notes": "Consent field must include explicit wording."
+    },
+    {
+      "id": 5,
+      "label": "Form Source Page",
+      "type": "hidden",
+      "required": false,
+      "privacy_notes": "Use page path or internal label only."
+    }
+  ],
+  "field_settings": {
+    "analytics_event": "generate_lead",
+    "event_parameters": [
+      "form_id",
+      "form_name",
+      "form_type",
+      "lead_type",
+      "page_path"
+    ],
+    "excluded_parameters": [
+      "name",
+      "email",
+      "phone",
+      "message",
+      "uploaded_file_url"
+    ]
+  },
+  "conditional_logic": [],
+  "confirmations": [
+    {
+      "name": "Lead thank you",
+      "type": "page",
+      "page": "Thank you",
+      "note": "Use only after confirming thank-you page tracking and no sensitive query strings."
+    }
+  ],
+  "notifications": [
+    {
+      "name": "Admin lead notification",
+      "to": "site owner",
+      "reply_to": "submitter email"
+    }
+  ],
+  "feeds": [
+    {
+      "type": "Gravity Forms Google Analytics Add-On or GTM handoff",
+      "event_name": "generate_lead",
+      "status": "draft",
+      "personal_data_excluded": true
+    }
+  ],
+  "spam_settings": {
+    "honeypot": true,
+    "additional_layer": "Use approved spam protection before launch."
+  },
+  "accessibility_settings": {
+    "labels": "Visible labels are required for all user-facing fields.",
+    "confirmation": "Thank-you page must include clear next steps."
+  },
+  "embedding_target": {
+    "method": "Gravity Forms block",
+    "page": "Lead page",
+    "ajax": false
+  },
+  "data_retention_notes": "Entry stores personal data and consent. Analytics event must exclude personal data and must respect the consent platform where present.",
+  "test_data": {
+    "expected_ga4_event": "generate_lead",
+    "qa_tools": [
+      "GA4 Realtime",
+      "GA4 DebugView",
+      "GTM Preview if GTM is in scope"
+    ]
+  },
+  "required_addons": [
+    "Gravity Forms Google Analytics Add-On if using the add-on path"
+  ],
+  "risks": [
+    "Duplicate scripts can double-count events.",
+    "Click-only tracking can count failed submissions.",
+    "Consent refusal may correctly suppress analytics events."
+  ],
+  "approval_status": "draft"
+}

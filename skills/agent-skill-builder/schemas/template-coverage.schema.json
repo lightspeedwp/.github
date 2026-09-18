@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Template coverage",
+  "type": "object",
+  "required": [
+    "template",
+    "schema",
+    "required_placeholders"
+  ],
+  "properties": {
+    "template": {
+      "type": "string"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "required_placeholders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "optional_placeholders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

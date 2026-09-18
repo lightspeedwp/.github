@@ -1,0 +1,104 @@
+# Conditional, Dynamic, and Calculation Logic
+
+Use this reference when the task involves conditional fields, conditional pages, dynamic population, query-string or block field values, pricing fields, totals, calculations, or quote calculators.
+
+## Operating stance
+
+Treat logic as behaviour, not only configuration. Logic can affect visible fields, required fields, prices, totals, notifications, confirmations, feeds, cache compatibility, data quality, and accessibility. Do not edit live logic without reading the current form schema and producing a change plan.
+
+## Preflight checks
+
+Before changing logic, confirm:
+
+- Gravity Forms version and whether the relevant field types exist.
+- Existing fields, IDs, labels, choices, required status, and visibility.
+- Existing conditional logic on fields, sections, pages, notifications, confirmations, and feeds.
+- Existing calculations, product/option/quantity/total fields, and payment feeds.
+- Whether the form is embedded on cached pages or behind script optimisation.
+- Whether dynamic values are passed through a query string, shortcode, block Field Values setting, or code hook.
+- Whether parameter names collide with WordPress reserved terms.
+- Whether the workflow needs accessibility review because hidden or revealed fields change required context.
+
+## Conditional logic rules
+
+Use conditional logic to reduce friction, not to hide important terms, consent, pricing, or errors.
+
+Recommended checks:
+
+- Keep parent choice fields stable before mapping child fields.
+- Avoid complex nested logic when a simpler page split or duplicate form would be safer.
+- Do not make a condition depend on a hidden field unless the population source is verified.
+- Test each branch with realistic submissions.
+- Check that required fields hidden by logic do not block submission.
+- Check notifications, confirmations, and feeds that depend on the same routing value.
+- For multi-page forms, test forward and back navigation after changing page logic.
+
+## Dynamic population rules
+
+Dynamic population can use query strings, shortcode `field_values`, the Gravity Forms block Field Values setting, or PHP hooks. Treat each source differently:
+
+- Query string: validate parameter names, avoid reserved WordPress terms, and avoid sensitive personal data in URLs.
+- Shortcode: validate `field_values` syntax and escaped ampersands.
+- Block: validate the Advanced tab Field Values string and preview behaviour.
+- Hook: route to developer/customisation review unless the MCP app explicitly supports safe code management.
+
+Known caveats:
+
+- Dynamic population uses PHP to set values and may not work on cached pages.
+- Aggressive cache layers can cache query-string variants.
+- Parameter names and choice values can be case-sensitive in practice.
+- Hidden administrative fields are useful for routing metadata, but they still need source and retention notes.
+
+## Calculation and pricing rules
+
+Treat pricing calculations as medium to high risk. Treat payment-linked calculations as high risk.
+
+Before recommending a calculation:
+
+- Confirm whether the form is a quote only, payment, donation, booking deposit, or tour-related flow.
+- Confirm whether Product, Option, Quantity, Shipping, Total, Number, or calculation-enabled fields are needed.
+- Confirm whether the total is informational only or controls payment.
+- Confirm whether discounts, coupons, deposits, traveller pricing, or payment handling require a dedicated commercial/payment architecture review.
+- Check if a payment feed reads the total, product fields, or mapped transaction values.
+
+Safe defaults:
+
+- Use a Total field for user-visible summaries.
+- Use Product fields for priced items, Option fields for add-ons, Quantity fields for counts, and Total for the summed result.
+- Use Number calculation fields for non-payment estimates only when pricing fields are not appropriate.
+- Keep formulas simple and test boundary values.
+- Put estimate caveats in confirmations and notifications when the value is not final pricing.
+
+## Approval triggers
+
+Require explicit approval before:
+
+- Changing live conditional logic on required fields.
+- Changing live multi-page page-routing logic.
+- Adding or changing dynamic population on a production page.
+- Passing values through public URLs.
+- Adding or changing pricing fields, totals, discounts, taxes, deposits, donations, or payment-linked calculations.
+- Changing a calculation that feeds a payment, quote, or sales-routing workflow.
+- Editing custom hook-based dynamic population.
+
+## Validation checklist
+
+Run or recommend:
+
+- Branch coverage: one test per conditional branch.
+- Required-field coverage: hidden required fields do not block submit.
+- Dynamic value coverage: query string, shortcode, or block value appears as expected.
+- Cache coverage: test on logged-out page with cache/CDN behaviour enabled where safe.
+- Calculation coverage: zero, normal, maximum, and invalid values.
+- Payment/feed coverage if totals affect downstream systems.
+- Accessibility coverage: labels, descriptions, revealed field context, page progress, error messages.
+- Handoff note: list fields whose IDs/choices are logic dependencies.
+
+## Refusal or route-away cases
+
+Route away or pause when:
+
+- The user wants custom PHP hooks or JavaScript and no safe code-management workflow is available.
+- The user wants commercial pricing, recurring billing, platform record creation, or payment-flow replacement architecture.
+- The user wants to pass personal or payment data in query strings.
+- The task requires changing live payment-linked totals without sandbox tests.
