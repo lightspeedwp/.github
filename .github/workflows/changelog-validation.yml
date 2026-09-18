@@ -139,20 +139,28 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const headSha = context.payload.pull_request?.head.sha || context.sha;
+            try {
+              const headSha = "${{ github.event.pull_request.head.sha }}" || "${{ github.sha }}";
 
-            await github.rest.checks.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              name: "Changelog Validation",
-              head_sha: headSha,
-              status: "completed",
-              conclusion: "neutral",
-              output: {
-                title: "No changelog changes detected",
-                summary: "CHANGELOG.md was not modified in this PR. Validation skipped.",
-              }
-            });
+              core.info(`Creating neutral check run for SHA: ${headSha}`);
+
+              await github.rest.checks.create({
+                owner: "${{ github.repository_owner }}",
+                repo: "${{ github.event.repository.name }}",
+                name: "Changelog Validation",
+                head_sha: headSha,
+                status: "completed",
+                conclusion: "neutral",
+                output: {
+                  title: "No changelog changes detected",
+                  summary: "CHANGELOG.md was not modified in this PR. Validation skipped.",
+                }
+              });
+
+              core.info("Neutral check run created successfully");
+            } catch (error) {
+              core.warning(`Failed to create check run: ${error.message}`);
+            }
         continue-on-error: true
 
       - name: Format PR comment
