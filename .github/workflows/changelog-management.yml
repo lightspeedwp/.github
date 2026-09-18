@@ -47,7 +47,7 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-          git clone --depth 1 --no-submodules https://github.com/lightspeedwp/.github.git .
+          git clone --depth 1 --no-recurse-submodules https://github.com/lightspeedwp/.github.git .
           git checkout "${{ github.event.pull_request.head.sha }}"
           git submodule deinit -f . || true
         shell: bash
