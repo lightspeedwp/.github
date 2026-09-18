@@ -83,7 +83,7 @@ class DocxXMLEditor(XMLEditor):
                     try:
                         max_id = max(max_id, int(change_id))
                     except ValueError:
-                        pass
+                        continue
         return max_id + 1
 
     def _ensure_w16du_namespace(self):
@@ -898,7 +898,7 @@ class Document:
                 try:
                     max_id = max(max_id, int(comment_id))
                 except ValueError:
-                    pass
+                    continue
         return max_id + 1
 
     def _load_existing_comments(self):

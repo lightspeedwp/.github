@@ -17,6 +17,7 @@ from pathlib import Path
 
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from contextlib import suppress
 
 
 def main() -> int:
@@ -50,11 +51,9 @@ def main() -> int:
     cy = args.center_y if args.center_y is not None else h / 2.0
 
     # Transparency
-    try:
-        c.setFillAlpha(args.opacity)
-    except Exception:
+    with suppress(Exception):
         # Older reportlab builds may not support; fall back to solid.
-        pass
+        c.setFillAlpha(args.opacity)
 
     c.setFont(args.font, args.font_size)
     c.saveState()

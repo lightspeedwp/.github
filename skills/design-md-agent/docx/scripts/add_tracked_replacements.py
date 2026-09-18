@@ -50,7 +50,7 @@ def _next_change_id(doc_root: etree._Element) -> int:
         try:
             ids.append(int(el.get(w("id"))))
         except Exception:
-            pass
+            continue
     return (max(ids) + 1) if ids else 1
 
 

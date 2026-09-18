@@ -79,7 +79,7 @@ def infer_scope(skill_file: Path, project_root: Path | None) -> str:
             skill_file.relative_to(project_root)
             return "project"
         except ValueError:
-            pass
+            return "global"
     return "global"
 
 

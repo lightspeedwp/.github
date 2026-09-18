@@ -118,7 +118,7 @@ def flatten_part(root: etree._Element) -> int:
                 try:
                     p.remove(kids[k])
                 except Exception:
-                    pass
+                    continue
 
             changed += 1
             kids = list(p)
