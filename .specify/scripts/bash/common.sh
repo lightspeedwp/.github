@@ -130,8 +130,8 @@ read_feature_json_feature_directory() {
 
 # Print the configured feature-spec directory.
 # Accepts an optional repository root; otherwise resolves it with get_repo_root.
-# Prints specs_directory from .specify/init-options.json when a nonempty value
-# can be read, or '.github/specs' otherwise. Always returns 0.
+# Prints specs_directory from .specify/init-options.json when configured, or
+# '.github/specs' when the field is absent. Invalid configuration returns 1.
 read_specs_directory() {
     local repo_root="${1:-$(get_repo_root)}" || return 1
     local init_json="$repo_root/.specify/init-options.json"
@@ -140,33 +140,66 @@ read_specs_directory() {
     [[ ! -f "$init_json" ]] && { printf '%s' "$default_specs_dir"; return 0; }
 
     local specs_dir=''
-    # Try jq first (most reliable)
+    local field_present=false
+
+    # Try jq first (most reliable).
     if command -v jq >/dev/null 2>&1; then
-        if ! specs_dir=$(jq -r '.specs_directory // empty' "$init_json" 2>/dev/null); then
-            specs_dir=''
+        if ! field_present=$(jq -r 'if type == "object" then has("specs_directory") else error("expected object") end' "$init_json" 2>/dev/null); then
+            return 1
         fi
-    fi
-
-    # Fall back to python3 if jq unavailable or empty
-    if [[ -z "$specs_dir" ]] && command -v python3 >/dev/null 2>&1; then
-        if ! specs_dir=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); v=d.get('specs_directory'); print(v if v else '')" "$init_json" 2>/dev/null); then
-            specs_dir=''
+        if [[ "$field_present" == true ]]; then
+            if ! specs_dir=$(jq -er '.specs_directory | if type == "string" then . else error("expected string") end' "$init_json" 2>/dev/null); then
+                return 1
+            fi
         fi
-    fi
+    elif command -v python3 >/dev/null 2>&1; then
+        if ! field_present=$(python3 -c '
+import json
+import sys
 
-    # Last-resort grep/sed fallback
-    if [[ -z "$specs_dir" ]]; then
-        specs_dir=$( { grep -E '"specs_directory"[[:space:]]*:' "$init_json" 2>/dev/null || true; } \
-            | head -n 1 \
-            | sed -E 's/^[^:]*:[[:space:]]*"([^"]*)".*$/\1/' )
-    fi
-
-    # Return configured value or default
-    if [[ -n "$specs_dir" ]]; then
-        printf '%s' "$specs_dir"
+with open(sys.argv[1], encoding="utf-8") as config_file:
+    data = json.load(config_file)
+if not isinstance(data, dict):
+    raise ValueError("expected object")
+if "specs_directory" in data and not isinstance(data["specs_directory"], str):
+    raise ValueError("specs_directory must be a string")
+print(str("specs_directory" in data).lower())
+' "$init_json" 2>/dev/null); then
+            return 1
+        fi
+        if [[ "$field_present" == true ]]; then
+            if ! specs_dir=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); sys.stdout.write(d['specs_directory'])" "$init_json" 2>/dev/null); then
+                return 1
+            fi
+        fi
     else
-        printf '%s' "$default_specs_dir"
+        # Last-resort parser for the simple JSON shape used by init-options.
+        local compact_json
+        compact_json=$(tr -d '[:space:]' < "$init_json")
+        [[ "$compact_json" == \{*\} ]] || return 1
+
+        if grep -q '"specs_directory"[[:space:]]*:' "$init_json"; then
+            field_present=true
+            if ! specs_dir=$(grep -E '"specs_directory"[[:space:]]*:[[:space:]]*"[^"]*"' "$init_json" \
+                | head -n 1 \
+                | sed -E 's/^[^:]*:[[:space:]]*"([^"]*)".*$/\1/'); then
+                return 1
+            fi
+        fi
     fi
+
+    if [[ "$field_present" == false ]]; then
+        printf '%s' "$default_specs_dir"
+        return 0
+    fi
+
+    case "$specs_dir" in
+        ""|/*|*/|.|..|./*|../*|*/.|*/..|*/./*|*/../*|*//*|*[!A-Za-z0-9_./-]*)
+            return 1
+            ;;
+    esac
+
+    printf '%s' "$specs_dir"
     return 0
 }
 

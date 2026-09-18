@@ -108,7 +108,7 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T023B [P] Define rollback trigger logic: Any `cp`, `mv`, `mkdir` error detected during migration → immediately trigger rollback, verify original state restored, log error with context (permission denied, disk full, path issues)
 - [ ] T023C Document rollback behavior in quickstart.md: What happens on rollback, how to verify original state preserved, error message format and interpretation
 
-**Checkpoint**: Rollback infrastructure ready — migration can proceed safely with automatic error recovery ✅
+**Checkpoint**: Rollback infrastructure pending — complete T023A–T023C before migration proceeds ⏳
 
 ---
 
@@ -358,6 +358,6 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T043 [P] Final integration validation: Create new test feature spec with `/speckit-specify "integration-test-feature-phase7"`, verify `.github/specs/NNN-integration-test-feature-phase7/` created, run `/speckit-plan` and `/speckit-tasks` on it, confirm all downstream workflows work (validate all FRs, all SCs) via bash interactive testing
 - [ ] T044 Document Phase 6 completion: Update `.github/specs/007-specs-directory-fix/spec.md` Status from "Ready for Planning" to "Completed" and add completion date (validate completion status) via `spec.md`
 
-**Checkpoint**: All specifications, acceptance criteria, and functional requirements validated ✅
+**Checkpoint**: Convergence validation pending — complete T037–T044 before declaring validation complete ⏳
 
 ---
