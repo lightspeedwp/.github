@@ -157,3 +157,5 @@ Use this format when handing from audit to configuration:
 "Use `gravity-forms-configuration` to prepare a remediation plan for the attached auditor handoff. Treat the handoff as evidence, verify current site state first, preserve finding IDs, do not make changes until the change plan and approval requirements are confirmed, and return validation steps mapped to the original findings."
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

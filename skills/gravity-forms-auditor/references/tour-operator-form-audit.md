@@ -57,3 +57,5 @@ Use this file for travel, safari, accommodation, itinerary, booking enquiry, quo
 - Confirm no sensitive travel document collection unless approved.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

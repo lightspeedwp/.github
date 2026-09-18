@@ -87,3 +87,5 @@ Use one of these phrases in deliverables:
 6. Update `docs/changelog.md` with the source refresh and affected files.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

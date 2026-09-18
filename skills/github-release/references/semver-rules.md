@@ -123,3 +123,5 @@ Default to `1.0.0` regardless of what's in the diff. Inform the user.
 | Reverting a previous commit entirely | Follow what the net diff shows, not the revert message |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

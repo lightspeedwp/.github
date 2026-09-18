@@ -105,3 +105,5 @@ Expected behaviour:
 - Use migration and content-structure workflows together.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

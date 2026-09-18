@@ -59,3 +59,5 @@ Use this when a Yoast recommendation depends on WordPress content structure, tem
 - QA rendered output rather than relying only on settings screens.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

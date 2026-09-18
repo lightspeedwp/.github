@@ -61,3 +61,5 @@ Use these prompts to regression-test the WooCommerce-focused auditor behaviour.
 | 25 | Search the skill for stale generic references. | Fail if any downstream reference uses the non-WooCommerce configuration target, any generic downstream reference uses the non-WooCommerce auditor target, or any tourism/operator-sector wording remains. Allow the current WooCommerce auditor source skill name and the WooCommerce configuration target skill name. |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

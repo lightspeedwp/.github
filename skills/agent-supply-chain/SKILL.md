@@ -341,3 +341,5 @@ Add to your GitHub Actions workflow:
 - [OWASP ASI-09: Supply Chain Integrity](https://owasp.org/www-project-agentic-ai-threats/)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

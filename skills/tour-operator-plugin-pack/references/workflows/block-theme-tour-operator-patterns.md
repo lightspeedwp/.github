@@ -50,3 +50,6 @@ Do not hard-code extension-backed sections into core templates unless the extens
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

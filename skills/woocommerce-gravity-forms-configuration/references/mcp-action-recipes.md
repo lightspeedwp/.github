@@ -104,3 +104,5 @@ If an MCP action returns an error:
 - Lower confidence and provide a manual fallback if the connector cannot verify state.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

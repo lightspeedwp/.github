@@ -120,3 +120,5 @@ When MCP cannot run browser-level tests, still check:
 - Do not claim email deliverability is fixed until a real or controlled test confirms delivery to the target mailbox.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

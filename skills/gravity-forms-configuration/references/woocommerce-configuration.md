@@ -51,3 +51,5 @@ Route checkout architecture, cart customisation, order customisation, subscripti
 Treat payment/deposit feeds, order creation, customer account creation, tax-related wording, subscription-related wording, file uploads, and production embeds as high-risk. Do not promise payment, tax, fulfilment, subscription, or checkout behaviour that is not confirmed by evidence.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

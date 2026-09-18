@@ -55,3 +55,5 @@ Use for a post-project, post-support, or post-purchase feedback form.
 - Confirm notifications do not expose sensitive feedback beyond approved recipients.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

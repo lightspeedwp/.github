@@ -113,3 +113,5 @@
 - Metadata localisation should be approved by a language or market owner before implementation.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

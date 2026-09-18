@@ -79,3 +79,5 @@ A score is not provided because [evidence limitation]. The minimum evidence need
 3. [Action, owner, route, expected evidence]
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -121,3 +121,6 @@ In those cases, provide a qualitative status and smallest next evidence request.
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -41,3 +41,5 @@ Use this reference only after the planning, approval, and governance gates are a
 - Keep bounded chatbot behaviour ahead of platform flexibility.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

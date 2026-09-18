@@ -53,3 +53,5 @@
 - `tour-operator-gravity-forms-configuration` skill: plan, configure, validate approved changes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

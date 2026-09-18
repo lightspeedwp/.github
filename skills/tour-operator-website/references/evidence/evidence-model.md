@@ -64,3 +64,5 @@ When sources conflict, report the conflict and prefer the newest verified eviden
 Client-facing copy may say "we found", "we checked" or "this needs confirmation". Avoid phrases that expose internal uncertainty such as "the skill does not know" or "the model hallucinated". Keep speculation in internal handoff only.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

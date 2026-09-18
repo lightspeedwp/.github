@@ -92,3 +92,5 @@ For each public form, record:
 Use `templates/data-retention-review.md` when the user asks about privacy, retention, entries, exports, erasure, entry cleanup, uploaded files, partial entries, Save and Continue, or data minimisation.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

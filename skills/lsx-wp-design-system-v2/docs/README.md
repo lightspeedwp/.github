@@ -43,3 +43,5 @@ Aligns the **LSX Figma design system** with WordPress **Global Styles** (theme.j
 Copy into **ai-block-theme-template** or keep standalone.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

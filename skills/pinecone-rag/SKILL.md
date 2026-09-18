@@ -295,3 +295,5 @@ Use a different approach when:
 - The user explicitly wants a different vector DB (Weaviate, Qdrant, etc.)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

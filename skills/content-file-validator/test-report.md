@@ -112,3 +112,5 @@ version: "1.0.0"
 4. Re-run the validator.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -95,3 +95,5 @@ Use optional fields only when they improve review quality:
 - Keep proposal records separate from raw private notes, secrets, or customer-specific details.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

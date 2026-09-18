@@ -63,3 +63,5 @@ The request concerns tour data models, itinerary structures, availability, booki
 Produce a handoff note after live changes, after a read-only audit, before routing to another agent, or when the current connector lacks permission to finish the task.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

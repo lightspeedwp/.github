@@ -57,3 +57,5 @@ Do not assume exact MCP action names. Discover available tools/resources and map
 - Do not fill gaps with guesses.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

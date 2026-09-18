@@ -98,3 +98,5 @@ For any chosen playbook, include at least:
 - post-change evidence and rollback notes for risky changes
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

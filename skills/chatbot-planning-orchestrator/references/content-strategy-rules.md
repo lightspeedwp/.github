@@ -52,3 +52,5 @@ Use this checklist to judge content readiness.
 - If source material is weak, contradictory, or unapproved, route to source curation or content collection first.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

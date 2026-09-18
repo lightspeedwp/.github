@@ -58,3 +58,5 @@ Use this pattern when a client needs supporting documents with an enquiry or sup
 - Confirm notification does not expose file unnecessarily.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

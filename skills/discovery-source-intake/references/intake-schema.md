@@ -125,3 +125,5 @@ Do not treat the normalized intake as something that should automatically be sto
 Only durable user defaults belong in onboarding or Memory-backed state.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

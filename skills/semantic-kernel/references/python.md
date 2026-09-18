@@ -45,3 +45,5 @@ Use this reference when the target project is written in Python.
 - Check the latest Python samples before introducing new APIs, plugins, or orchestration patterns.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

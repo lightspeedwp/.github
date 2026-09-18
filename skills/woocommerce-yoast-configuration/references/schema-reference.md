@@ -319,3 +319,5 @@ Use this file for Yoast schema graph and schema piece work. Always distinguish Y
 - **Risks or limitations:** vocabulary validity does not guarantee Google rich results; avoid duplicate/conflicting schema plugins.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

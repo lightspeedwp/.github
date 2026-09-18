@@ -69,3 +69,5 @@ Customer-identifying details were limited to ticket IDs and organisation names n
 A shared agent may be used by teammates with different permissions. Do not assume that every teammate can view the same restricted ticket details. When a report includes restricted examples, say that the details require matching Zendesk access.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

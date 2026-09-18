@@ -73,3 +73,5 @@ Use these patterns to keep findings consistent.
 - Retest: confirm final-domain output after deployment.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

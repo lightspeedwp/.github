@@ -119,3 +119,5 @@ Include tours, destinations, accommodations, itineraries, Wetu or itinerary inte
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

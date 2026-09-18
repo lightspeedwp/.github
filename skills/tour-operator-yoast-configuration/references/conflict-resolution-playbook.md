@@ -50,3 +50,5 @@ Use this when evidence sources disagree.
 5. Avoid changing settings until the approved source of truth is clear.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

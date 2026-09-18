@@ -83,3 +83,5 @@ Start with Google Drive for file discovery and file lifecycle tasks, then route 
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

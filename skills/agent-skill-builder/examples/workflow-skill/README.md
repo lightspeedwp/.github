@@ -33,3 +33,5 @@
 Use a workflow skill when repeated steps, output templates, or examples improve consistency.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

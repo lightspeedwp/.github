@@ -53,3 +53,5 @@ Single public contact form on `/contact/`; internal audit with client-safe summa
 Route GF-AUD-001 to the `tour-operator-gravity-forms-configuration` skill to update notification sender safely after approval.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

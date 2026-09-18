@@ -39,3 +39,5 @@ Use simple semantic versioning for the skill package.
 Every release must update `docs/changelog.md`, run validation scripts, and package the full skill as `skill.zip`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

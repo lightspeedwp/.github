@@ -175,3 +175,5 @@ python scripts/evolution_log.py --skill self-evolving-agent --source feedback.tx
 - `references/output-templates.md`: reusable templates for briefs, mutation proposals, and changelog entries.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

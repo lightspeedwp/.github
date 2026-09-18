@@ -43,3 +43,5 @@ Agent Creator classifies the deliverable, routes before drafting, creates requir
 A full agent pack, unless the user mentions Agent Builder or prompt-size limits, in which case create an Agent Builder spec pack.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

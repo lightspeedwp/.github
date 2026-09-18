@@ -47,3 +47,5 @@ Script emits:
 Extend with modes (e.g. dark) by adding token groups & merging palettes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

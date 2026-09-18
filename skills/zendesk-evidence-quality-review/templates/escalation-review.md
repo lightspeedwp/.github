@@ -84,3 +84,5 @@ Provide concise replacement wording for the highest-risk lines.
 - Safe to escalate as-is: Yes/No
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

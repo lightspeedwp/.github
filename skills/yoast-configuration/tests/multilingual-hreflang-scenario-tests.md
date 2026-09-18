@@ -113,3 +113,5 @@ Expected behaviour:
 - Use client-safe language about signal alignment, not ranking promises.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

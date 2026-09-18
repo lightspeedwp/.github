@@ -51,3 +51,5 @@ Page 1: contact and trip basics. Page 2: destinations/interests and dates. Page 
 Deposit/payment feeds, passport/ID upload, insurance/medical data, automated booking confirmation, availability promises, external CRM/webhook feeds, and retention settings.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

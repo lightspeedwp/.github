@@ -198,3 +198,5 @@ only for bounded documentation or metadata drift that does not misrepresent a
 dangerous capability. Otherwise use `PASS`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -59,3 +59,5 @@ Record installed/active official add-ons and third-party plugins, including paym
 Gravity Wiz/Gravity Perks, GravityKit, Zero Spam, and similar plugins are useful only when installed, active, supported, and licensed where needed. Do not recommend dependency-heavy add-ons without a clear risk/ROI note.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

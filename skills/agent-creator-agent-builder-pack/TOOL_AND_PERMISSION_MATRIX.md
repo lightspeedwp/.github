@@ -49,3 +49,5 @@
 When approval is needed, ask for a concrete confirmation of the action, target, and source of truth before proceeding.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

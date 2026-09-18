@@ -74,3 +74,5 @@ Owner: **parent** (no sub-agent); budget: n/a.
    take the [single-iteration fallback](orchestration.md#single-iteration-fallback).
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

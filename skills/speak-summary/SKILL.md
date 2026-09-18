@@ -138,3 +138,5 @@ about a second.
 `~/.cache/speak-summary/venv` and re-run, or point `SPEAK_TTS_BIN` at a known binary.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

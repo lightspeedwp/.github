@@ -56,3 +56,5 @@ Use only when the user asks for configuration, implementation, developer plannin
 Include objective, source evidence, non-goals, affected files, content model references, implementation sequence, acceptance checks, rollback/manual recovery and unresolved questions.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

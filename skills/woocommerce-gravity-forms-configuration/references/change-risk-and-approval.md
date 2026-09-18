@@ -87,3 +87,5 @@ Refuse or route away when the user asks to:
 - Disable accessibility features or spam protection solely for visual preference without recording risk acceptance.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

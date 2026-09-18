@@ -51,3 +51,5 @@ Load for migration, rebuild, domain change, permalink change or post-launch vali
 If redirect/canonical evidence is missing, label the finding as blocked and state the minimum evidence needed.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

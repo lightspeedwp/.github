@@ -53,3 +53,5 @@ Route booking engine architecture, live availability, payment/refund/cancellatio
 Avoid exposing traveller personal data, budget details, health/accessibility details, passport/document information, or internal CRM routing in client-safe summaries.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

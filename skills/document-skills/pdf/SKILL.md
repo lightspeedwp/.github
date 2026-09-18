@@ -310,3 +310,5 @@ with open("encrypted.pdf", "wb") as output:
 - For troubleshooting guides, see reference.md
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

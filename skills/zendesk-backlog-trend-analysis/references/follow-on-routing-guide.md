@@ -68,3 +68,5 @@ If a secondary system is used, label its evidence separately from Zendesk eviden
 This skill should not perform Zendesk write actions by default. If the user asks to update tickets, assign owners, add tags, or publish knowledge content, confirm the exact write action or route to the appropriate write-capable workflow available in the active agent.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

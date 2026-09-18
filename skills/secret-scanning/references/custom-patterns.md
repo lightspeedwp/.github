@@ -192,3 +192,5 @@ Organization and enterprise patterns automatically apply to new repositories whe
 8. **Consider Copilot** — let AI generate the initial regex, then refine manually
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -286,3 +286,5 @@ Use these prompts to validate routing behaviour:
    Expected route: `skill-creator` plus `markdown-content-validator` or `content-file-validator`; do not ask onboarding questions unless workflow type is genuinely needed.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -62,3 +62,5 @@ Cursor, Copilot, OpenClaw, etc.) working in this repository.
 - i18n: `<language requirement, if any>`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

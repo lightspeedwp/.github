@@ -62,3 +62,5 @@
 These recommendations are based on the reviewed evidence. They are intended to reduce SEO risk and improve search appearance clarity; they do not guarantee ranking changes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

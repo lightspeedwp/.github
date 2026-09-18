@@ -335,3 +335,5 @@ Investigation mode:
 - "Look up the current status and owner from the case evidence."
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -229,3 +229,5 @@ Lead with the result and the exact reason. Prefer a reproducible blocker over a
 confidence score.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

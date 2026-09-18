@@ -84,3 +84,5 @@ When one desk needs another desk's output:
   attention, not what's routine.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

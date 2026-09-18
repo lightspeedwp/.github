@@ -34,3 +34,5 @@
 - 2026-07-03: Put `business-context.md` under `references/` instead of the root so reference material stays together.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -111,3 +111,5 @@ Use these types as needed:
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

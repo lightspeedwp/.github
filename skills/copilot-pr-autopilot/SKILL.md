@@ -158,3 +158,5 @@ The bundled scripts enforce the hard correctness invariants (trigger landing via
   safety net for outdated Copilot threads.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

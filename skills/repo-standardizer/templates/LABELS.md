@@ -77,3 +77,5 @@ none do, never mixed. Write labels in the repo's primary language.
 > Maintained by repo-standardizer — keep in sync whenever labels change.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

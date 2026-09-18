@@ -83,3 +83,5 @@ Pass the classified table to step 4 — the triage rubric depends on it.
   they're handled like any other open thread in step 8.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

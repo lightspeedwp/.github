@@ -186,3 +186,5 @@ Expected boundary behavior: explain that customer replies and Linear writes are 
 - `references/qa-rubric.md`
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

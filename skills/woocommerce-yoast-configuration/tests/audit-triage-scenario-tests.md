@@ -93,3 +93,5 @@ Use these tests when refining the audit, troubleshooting, QA or migration behavi
 - Developer escalation is only used when configuration/content changes cannot safely resolve the issue.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

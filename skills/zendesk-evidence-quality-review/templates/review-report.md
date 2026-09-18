@@ -79,3 +79,5 @@ Provide concise rewrite suggestions or replacement lines. Do not add new facts u
 - Safe to send or share as-is: Yes/No
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

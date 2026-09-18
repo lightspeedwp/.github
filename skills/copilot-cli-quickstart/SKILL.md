@@ -811,3 +811,5 @@ Always use the **plain English** version first, then mention the technical term:
 - 🛤️ **Respect the track** — don't show developer-only content to non-developers (and vice versa) unless they ask
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

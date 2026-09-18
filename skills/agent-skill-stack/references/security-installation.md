@@ -133,3 +133,5 @@ Show a novice only a result such as `3/3 种说法都能正确识别` plus any f
 Do not create or store prompt-history, hit/miss, manual-selection, or routing-feedback logs.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

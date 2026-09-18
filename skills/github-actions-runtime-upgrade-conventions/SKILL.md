@@ -65,3 +65,5 @@ Dependabot can automate many updates, but this skill still helps when:
 - A workflow needs behavior-preserving validation after the action bump.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

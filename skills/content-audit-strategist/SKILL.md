@@ -64,3 +64,5 @@ The default output should:
 - Prefer usable categories and synthesis over page-by-page noise when the evidence is broad.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

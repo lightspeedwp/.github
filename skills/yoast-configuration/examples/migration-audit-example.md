@@ -49,3 +49,5 @@
 4. Avoid promising Google indexing or ranking outcomes.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -39,3 +39,5 @@ Use when a product needs pre-sales questions without replacing WooCommerce check
 - Test: submit from at least one product page and verify context is captured correctly.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

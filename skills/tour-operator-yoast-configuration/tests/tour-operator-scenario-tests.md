@@ -47,3 +47,5 @@ Expected route: `references/ai-assisted-seo-workflow.md`, `references/ai-metadat
 Expected route: prepare handoff using `references/related-skills-routing.md` and route implementation to `tour-operator-yoast-auditor`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

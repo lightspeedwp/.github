@@ -61,3 +61,5 @@ Mark visual/keyboard/contrast conclusions as `Not assessed` or `Low confidence` 
 - Confirm screen-reader-friendly field grouping where evidence is available.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

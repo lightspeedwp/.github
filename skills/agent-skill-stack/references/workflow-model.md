@@ -133,3 +133,5 @@ The flow is detailed enough when every required step has:
 If the generated flow looks suspiciously similar to a prior example, discard it and derive again from the current outcome.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

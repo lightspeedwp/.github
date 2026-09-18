@@ -126,3 +126,5 @@ when needed, and prepare a pull request. Do not merge.
 ```
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

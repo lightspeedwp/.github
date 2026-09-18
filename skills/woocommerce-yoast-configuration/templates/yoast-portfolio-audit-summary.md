@@ -103,3 +103,5 @@
 - Product packaging, UI paths, Yoast developer APIs, Google Search guidance, WooCommerce behaviour, and Schema.org vocabulary may require current verification before client-facing claims or implementation decisions.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -143,3 +143,5 @@ Tell the operator:
   Only add what's missing.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -56,3 +56,5 @@ Use MCP-safe reads and read-only SQL by default. Do not edit Yoast indexables, m
 For each finding, identify evidence type, source, confidence, limitation and whether the next action is audit follow-up, `woocommerce-yoast-configuration`, content editing or developer handoff.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -162,3 +162,5 @@ private class AccountServiceTest {
 | Hardcoded record ID (`'001...'`) | Replace with queried or inserted test record ID |
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

@@ -55,3 +55,5 @@ Use this as a compact lookup when the request is ambiguous or when the router be
 - Do not perform the downstream workflow inside the router response.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

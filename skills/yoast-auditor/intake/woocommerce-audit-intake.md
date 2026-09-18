@@ -52,3 +52,5 @@ Collect only what is relevant:
 Audit existing output here. Route setup or default template design to `yoast-configuration`.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

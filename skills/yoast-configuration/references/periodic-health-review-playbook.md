@@ -183,3 +183,5 @@ Recommend a deeper audit instead of a light health note when:
 - Use `templates/client-safe-summary.md` when the output is client-facing.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

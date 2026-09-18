@@ -42,3 +42,5 @@ status: draft
 - Open gaps: {{approval.open_gaps}}
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

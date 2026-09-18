@@ -141,3 +141,5 @@ Route away when the user needs:
 - Legal wording for donation deductibility, refund policy, terms, or tax status.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

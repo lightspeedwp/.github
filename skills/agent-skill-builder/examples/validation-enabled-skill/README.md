@@ -33,3 +33,5 @@
 Use validators when references, templates, schemas, examples, and memory can drift.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

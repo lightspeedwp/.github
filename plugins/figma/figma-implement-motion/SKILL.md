@@ -167,3 +167,5 @@ Six deep dives, fetched on demand. General frontend concerns (performance, units
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
