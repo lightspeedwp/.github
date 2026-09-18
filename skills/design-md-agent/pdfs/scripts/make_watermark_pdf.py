@@ -16,7 +16,6 @@ import argparse
 from pathlib import Path
 
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
 

@@ -18,11 +18,8 @@ import os
 import sys
 import argparse
 import subprocess
-import json
 from pathlib import Path
-from typing import List, Set
-import re
-
+from typing import List
 TREE_LIMIT = 200
 TREE_MAX_DEPTH = 3
 TODO_LIMIT = 60
@@ -291,7 +288,6 @@ def search_todos() -> List[str]:
     """Search for TODO/FIXME/HACK comments."""
     todos = []
     patterns = ["TODO", "FIXME", "HACK"]
-    exclude_dirs_str = "|".join(EXCLUDE_DIRS | {"test", "tests", "__tests__", "spec", "__mocks__", "fixtures"})
 
     try:
         for root, dirs, files in os.walk(Path.cwd()):
