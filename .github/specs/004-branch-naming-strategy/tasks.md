@@ -518,7 +518,7 @@ Mark all tasks as complete to finish implementation. Each task represents one co
 
 ### Documentation & CLI Help Update
 
-- [ ] T136 Update `scripts/validation/validate-branch-name.js` help text (line 57-60); change "Allowed Types (24)" to "Allowed Types (38)"; add missing 14 types to help text: `aiops, automation, epic, migrate, uat, audit, codex, qa, telemetry, seo, config, schema, api, ds, proto` (per Constitution Principle V)
+- [x] T136 Update `scripts/validation/validate-branch-name.js` help text (line 57-60); change "Allowed Types (24)" to "Allowed Types (38)"; add missing 14 types to help text: `aiops, automation, epic, migrate, uat, audit, codex, qa, telemetry, seo, config, schema, api, ds, proto` (per Constitution Principle V)
 - [ ] T137 [P] Create rollout announcement draft; document branch naming policy, enforcement timeline, support contact; intended for team leads and all developers; link from CLAUDE.md
 - [ ] T138 [P] Prepare Slack/email bot integration (optional); set up bot responses to "How do I name branches?" with link to branching strategy guide and quick examples
 
