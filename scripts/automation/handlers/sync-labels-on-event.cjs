@@ -7,12 +7,9 @@
  * - Handles all openspec:*, status:*, and type:* labels
  */
 
-const phaseStateMachine = require("../includes/phase-state-machine.cjs");
 const labelValidator = require("../includes/label-validator.cjs");
 const auditLogger = require("../includes/audit-logger.cjs");
 
-const OWNER = "lightspeedwp";
-const REPO = ".github";
 
 /**
  * Sync labels on issue event

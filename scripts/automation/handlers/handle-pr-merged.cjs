@@ -303,12 +303,6 @@ if (require.main === module) {
   }
 }
 
-module.exports = {
-  handlePRMerged,
-  extractLinkedIssue,
-  applyPhaseCompletion,
-  updateStatusLabel,
-};
 
 /**
  * Extract linked issue number from PR body
@@ -369,6 +363,7 @@ function generateCompletionReport(issueNumber) {
 
 module.exports = {
   handlePRMerged,
+  extractLinkedIssue,
   applyPhaseCompletion,
   updateStatusLabel,
   generateCompletionReport,

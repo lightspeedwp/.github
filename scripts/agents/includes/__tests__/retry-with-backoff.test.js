@@ -83,8 +83,6 @@ describe("retry-with-backoff", () => {
           Math.pow(2, attempt) * initialDelay,
           maxDelay,
         );
-        const expectedMin = expectedBase * 0.9;
-        const expectedMax = expectedBase * 1.1;
 
         // With jitter, delay should be within ±10% of base (roughly)
         expect(delay).toBeGreaterThanOrEqual(initialDelay);

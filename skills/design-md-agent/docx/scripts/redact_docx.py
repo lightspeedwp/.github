@@ -27,7 +27,6 @@ import re
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 
 from lxml import etree
 

@@ -197,7 +197,7 @@ function printSummary(report) {
 /**
  * Main execution
  */
-function main() {
+async function main() {
   console.log("🔍 Starting Frontmatter Audit...\n");
 
   // Find all markdown files

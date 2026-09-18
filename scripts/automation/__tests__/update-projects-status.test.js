@@ -14,7 +14,6 @@ const os = require("os");
 const execAsync = promisify(exec);
 
 // Test fixtures
-const FIXTURES_DIR = path.join(__dirname, "fixtures", "update-projects-status");
 
 /**
  * Helper to create temporary project structure for testing
@@ -126,7 +125,7 @@ describe("update-projects-status.cjs", () => {
         "..",
         "update-projects-status.cjs",
       );
-      const { stdout, stderr } = await execAsync(`node "${scriptPath}" help`);
+      const { stdout } = await execAsync(`node "${scriptPath}" help`);
       expect(stdout).toContain("Usage");
       expect(stdout).toContain("audit");
       expect(stdout).toContain("template");

@@ -3,7 +3,7 @@ from presentation_artifact_tool import Presentation, PresentationFile
 
 def move_to() -> Presentation:
     deck = Presentation.create()
-    first = deck.slides.add()  # noqa: F841
+    deck.slides.add()
     second = deck.slides.add()
 
     # Move the second slide to the first position

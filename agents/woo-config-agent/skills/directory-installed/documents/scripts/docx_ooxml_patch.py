@@ -282,7 +282,7 @@ def add_comment_to_first_indented_paragraph(
                     except Exception:
                         continue
             except Exception:
-                pass
+                print("[docx_ooxml_patch] NOTE: comments.xml unreadable; using document.xml ids only.", file=sys.stderr)
         new_id = 0
         while new_id in used:
             new_id += 1
@@ -325,7 +325,7 @@ def add_comment_to_first_indented_paragraph(
                 try:
                     max_rid = max(max_rid, int(rid[3:]))
                 except Exception:
-                    pass
+                    continue
         comments_rId = f"rId{max_rid + 1}"
         new_rel = etree.SubElement(rroot, _qn("pr", "Relationship"))
         new_rel.set("Id", comments_rId)

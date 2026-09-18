@@ -259,7 +259,6 @@ def _fix_table_headers_first_row(root: etree._Element) -> int:
 
 def audit_docx(path: str) -> dict[str, Any]:
     with zipfile.ZipFile(path, "r") as z:
-        rels_map = _load_document_rels(z)
         parts = _iter_story_parts(z)
         findings: list[Finding] = []
         for part in parts:
