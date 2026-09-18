@@ -10,6 +10,14 @@
 
 **Tasks**: [specs/012-audit-governance-structure/tasks.md](../../../specs/012-audit-governance-structure/tasks.md)
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#3367](../../../issues/3367) | task | Governance audit implementation & CI remediation | 🟡 In Progress |
+
+**Note:** Additional project tracking issues to be linked as work progresses through phases.
+
 ## Kanban Board Status
 
 ### Backlog (0)
