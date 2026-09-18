@@ -65,9 +65,9 @@ jobs:
           node bin/validate.js \
             --changelog-path ../../../CHANGELOG.md \
             --trigger pr_submission \
-            --pr-number ${{ github.event.pull_request.number }} \
-            --branch ${{ github.head_ref }} \
-            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            --pr-number "${{ github.event.pull_request.number }}" \
+            --branch "${{ github.head_ref }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
             --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
           # Parse report
