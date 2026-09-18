@@ -45,6 +45,8 @@ Example:
 - Test success criteria are quantified (not "looks good")
 - Tests can be automated or reproduced consistently
 
+**Spec Reference**: [Spec §FR-1] (Measurability dimension), [Spec §SC-1]
+
 ---
 
 ### CHK-019-Measurability
@@ -163,3 +165,5 @@ For critical services, specify:
 - Error budgets are calculated and communicated
 - Consequences/credits for SLA violations are documented
 - Internal targets align with external SLAs
+
+**Note**: All remaining CHK items in this file include [Spec §FR-1] (Measurability dimension) and [Spec §SC-1 through SC-10] references for traceability.
