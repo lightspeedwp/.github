@@ -193,15 +193,19 @@ jobs:
           fi
 
           echo "" >> /tmp/comment.md
-          echo "### How to Fix" >> /tmp/comment.md
-          echo "" >> /tmp/comment.md
-          echo "Run locally:" >> /tmp/comment.md
-          echo "\`\`\`bash" >> /tmp/comment.md
-          echo "cd .github/validation/changelog" >> /tmp/comment.md
-          echo "node bin/validate.js --changelog-path ../../../CHANGELOG.md" >> /tmp/comment.md
-          echo "\`\`\`" >> /tmp/comment.md
-          echo "" >> /tmp/comment.md
-          echo "See [Changelog Quality Audit](.github/validation/changelog/docs/DEVELOPER_GUIDE.md) for details." >> /tmp/comment.md
+          if [ "$NEW_FAILED" -gt 0 ]; then
+            echo "### How to Fix" >> /tmp/comment.md
+            echo "" >> /tmp/comment.md
+            echo "Reproduce the exact PR check locally (from the repository root):" >> /tmp/comment.md
+            echo "\`\`\`bash" >> /tmp/comment.md
+            echo "cd .github/validation/changelog" >> /tmp/comment.md
+            echo "node bin/validate.js --changelog-path ../../../CHANGELOG.md --trigger pr_submission --pr-number ${{ github.event.pull_request.number }} --branch ${{ github.head_ref }} --output text" >> /tmp/comment.md
+            echo "\`\`\`" >> /tmp/comment.md
+            echo "" >> /tmp/comment.md
+            echo "Only new failures introduced by this PR block merging; pre-existing Unreleased failures do not block. See [Changelog Quality Audit](.github/validation/changelog/docs/DEVELOPER_GUIDE.md) for the rule reference." >> /tmp/comment.md
+          else
+            echo "No action required." >> /tmp/comment.md
+          fi
 
           # Save comment content
           COMMENT_BODY=$(cat /tmp/comment.md)
