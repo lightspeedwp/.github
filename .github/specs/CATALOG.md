@@ -38,7 +38,7 @@ All specification catalog entries MUST follow this exact column order and naming
 | 009 | audit-branch-cleanup | Audit and Refactor Branch Cleanup | Active | 2026-03-20 | [./009-audit-branch-cleanup/spec.md](./009-audit-branch-cleanup/spec.md) |
 | 010 | requirements-checklist | Requirements Quality Checklist | Active | 2026-04-01 | [./010-requirements-checklist/spec.md](./010-requirements-checklist/spec.md) |
 | 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
-| 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-09-14 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
+| 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
 | 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Active | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
 
 ---
@@ -192,7 +192,7 @@ Audit governance files and refactor organizational structure for improved policy
 
 - **Status**: Active
 - **Phase**: InProgress
-- **Created**: 2026-09-14
+- **Created**: 2026-04-20
 - **Updated**: 2026-09-18
 - **Link**: [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md)
 

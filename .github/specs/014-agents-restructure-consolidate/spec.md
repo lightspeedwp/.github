@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: Review branch refactor/agents-resturcturing with major agent restructuring, skills consolidation, registry creation, and breaking reference remediation.
+**Input**: User description: Review branch `refactor/agents-restructure-consolidate` with major agent restructuring, skills consolidation, registry creation, and breaking reference remediation.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -120,6 +120,8 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 2. **Given** script-to-agent mapping is complete, **When** migration plan is created, **Then** plan specifies: target agent for each script, required test coverage, deprecation timeline for root script
 3. **Given** scripts are moved into agents, **When** root scripts are marked for deprecation, **Then** deprecation notices are added with migration instructions and timeline
 
+The existing `scripts/validation/__tests__/` Jest suite is included in migration planning scope. JavaScript tests retain the `__tests__/` convention when mapped or migrated; they are not renamed to `tests/`.
+
 ---
 
 ### Edge Cases & Resolutions
@@ -135,7 +137,7 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 ### Functional Requirements
 
 - **FR-001**: System MUST audit all agent files and identify breaking references from renames/moves, generating a report with file locations, line numbers, and severity
-- **FR-002**: System MUST enforce standardized folder structure for all agents. Each agent MUST contain: `AGENT.md` (definition), `CHANGELOG.md` (version history), `package.json` (dependencies), `README.md` (documentation), `skills/` (subfolder), `tests/` (subfolder), `config/` (subfolder). Tests MUST use framework matching agent type (Jest for JS agents, Bats for shell scripts, Playwright for UI agents)
+- **FR-002**: System MUST enforce standardized folder structure for all agents. Each agent MUST contain: `AGENT.md` (definition), `CHANGELOG.md` (version history), `package.json` (dependencies), `README.md` (documentation), `skills/` (subfolder), `config/` (subfolder), and a framework-specific test directory: `__tests__/` for Jest-based JavaScript agents, `tests/` for Bats-based shell agents, or `tests/e2e/` for Playwright-based UI agents
 - **FR-003**: System MUST identify all agent skills and root skills, organized by category subfolders (skills/{category}/{scope}-{title} pattern), compare them for duplication, and generate consolidation recommendations with duplication scores
 - **FR-004**: System MUST create an agents registry listing all agents with metadata (name, description, version, folder path, status), discoverable and machine-parseable
 - **FR-005**: System MUST create a skills registry for each agent documenting all skills used, their agentskills.io specification compliance status, schema version, and missing/invalid fields
@@ -147,7 +149,7 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 
 ### Key Entities
 
-- **Agent**: A self-contained module with standardized folder structure: AGENT.md (definition), CHANGELOG.md (version history), package.json (dependencies), README.md (documentation), skills/ (agent-specific skills), tests/ (test files using Jest/Bats/Playwright per agent type), config/ (configuration files). Contains metadata (name, description, version, status)
+- **Agent**: A self-contained module with standardized folder structure: AGENT.md (definition), CHANGELOG.md (version history), package.json (dependencies), README.md (documentation), skills/ (agent-specific skills), config/ (configuration files), and the framework-specific test directory (`__tests__/` for JavaScript, `tests/` for shell, or `tests/e2e/` for UI). Contains metadata (name, description, version, status)
 - **Skill**: A reusable component that can be used by one or more agents. Has agentskills.io specification compliance status and schema version
 - **AgentRegistry**: Machine-readable catalog of all agents with metadata, dependencies, skills, and restructuring status
 - **SkillRegistry**: Catalog of all skills (root and agent-specific) with compliance status, usage count, duplication analysis
@@ -180,7 +182,7 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 - **Multi-agent script ownership**: Scripts with dependencies on multiple agents are decomposed into agent-specific subscripts or elevated to shared utilities rather than duplicated across agents.
 - **Backward compatibility**: Root scripts continue to work during restructuring; deprecation happens after agents are self-contained. Consuming repositories receive migration guidance before deprecation.
 - **External dependencies**: agentskills.io specification is authoritative; any conflicts with current agent skill structure should be resolved in favor of specification compliance
-- **Testing framework selection**: Testing uses context-appropriate frameworks: Jest (JavaScript agents/skills, `__tests__/` folder convention), Bats (shell scripts, `tests/` folder), Playwright (UI-heavy agents, `tests/e2e/` folder). Each agent documents its chosen framework in README.md. Minimum target is 80% coverage; actual implementation deferred to Phase 2 spec with dedicated test creation phase
+- **Testing framework selection**: Testing uses context-appropriate frameworks: Jest (JavaScript agents/skills, `__tests__/` folder convention), Bats (shell scripts, `tests/` folder), Playwright (UI-heavy agents, `tests/e2e/` folder). The existing `scripts/validation/__tests__/` suite remains in scope and keeps its current path. Each agent documents its chosen framework in README.md. Minimum target is 80% coverage; actual implementation deferred to Phase 2 spec with dedicated test creation phase
 - **Skills naming convention**: All skills MUST follow naming pattern `{category}/{scope}-{title}` where category is a categorical subfolder in `skills/` (e.g., `skills/validation/broken-refs-finder`, `skills/audit/structure-checker`). Categories organize skills functionally (validation, audit, reporting, registry, etc.)
 - **Phase 1 scope**: This specification covers Phase 1 work (audit, standardization, skill consolidation, registry generation, planning). Linting phase, test creation phase, and comprehensive documentation phase are explicitly deferred to Phase 2 spec to keep Phase 1 30-day timeline realistic and enable shipping Phase 1 PR without linting/test gates
 - **Deferred user stories**: Plugin creation for Claude/Copilot (User Story 8) and SpecKit skill integration (User Story 9) are deferred to Phase 2 spec. Phase 1 focuses on core restructuring infrastructure (7 user stories)
@@ -199,8 +201,8 @@ As a system maintainer, I need to plan the reconstruction of root-level scripts 
 ### Session 2026-09-18 (Critical Gap Resolution via /speckit-analyze)
 
 - Q: Should we extend the 30-day timeline to add dedicated Linting, Test Creation, and Documentation phases, or defer them to Phase 2? → A: Option C - Phased rollout: Phase 1 (this spec) delivers core restructuring in 30 days; Linting, Test Creation, and Documentation phases deferred to Phase 2 spec
-- Q: What files and folder structure should EVERY agent contain? → A: Option B - Recommended: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/
-- Q: Which testing framework should agents mandate for test coverage? → A: Option D - Mixed (context-dependent): Jest for JavaScript agents (**tests**/ folders), Bats for shell scripts (tests/ folder), Playwright for UI agents (tests/e2e/ folder)
+- Q: What files and folder structure should EVERY agent contain? → A: Option B - Recommended: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, config/, and a framework-specific test directory
+- Q: Which testing framework should agents mandate for test coverage? → A: Option D - Mixed (context-dependent): Jest for JavaScript agents (`__tests__/` folders), Bats for shell scripts (`tests/` folder), Playwright for UI agents (`tests/e2e/` folder)
 - Q: Should skills adopt a categorical naming convention {category}/{scope}-{title} with categorical subfolders? → A: Yes - Adopt pattern with example categories: skills/validation/, skills/audit/, skills/reporting/, skills/registry/
 - Q: Should we add User Stories 8 (Plugins) & 9 (SpecKit Integration) to this spec, or defer to Phase 2? → A: Option A - Defer both to Phase 2 spec; Phase 1 focuses on core restructuring infrastructure (7 user stories)
 

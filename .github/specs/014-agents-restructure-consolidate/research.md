@@ -15,7 +15,7 @@
 3. `package.json` - Node.js dependencies
 4. `README.md` - Human-readable documentation
 5. `skills/` - Subfolder for agent-specific skills
-6. `tests/` - Subfolder for test files
+6. Framework-specific test directory: `__tests__/` for JavaScript, `tests/` for shell, or `tests/e2e/` for UI
 7. `config/` - Subfolder for configuration files
 
 **Rationale**: Standardized structure enables automated tooling; each agent self-contained; package.json provides dependency declaration standard; reduces onboarding overhead.
@@ -64,7 +64,7 @@
 
 - Single framework for all - *Rejected*: Mismatched tooling fit
 
-**Implementation Impact**: Task T016 validates tests/ folder matches agent type; Phase 2 enforces 80% coverage.
+**Implementation Impact**: Task T016 validates that the test directory matches the agent type; Phase 2 enforces 80% coverage. The existing `scripts/validation/__tests__/` Jest suite is included in migration planning and retains the JavaScript `__tests__/` convention.
 
 ---
 

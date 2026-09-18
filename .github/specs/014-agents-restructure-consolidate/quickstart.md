@@ -13,7 +13,7 @@ This guide documents 5 runnable validation scenarios that prove Phase 1 implemen
 **Prerequisites**:
 
 - Phase 1 Setup complete (audit scripts available)
-- Agent files have been renamed/reorganized (per refactor/agents-resturcturing branch)
+- Agent files have been renamed/reorganized (per `refactor/agents-restructure-consolidate` branch)
 
 **Run**:
 
@@ -55,7 +55,7 @@ npm run audit:structure
 **Validation**:
 
 - ✓ 100% of agents in standardized structure (or flagged as needing remediation)
-- ✓ All 7 required components present: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/
+- ✓ All 7 required components present: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, config/, and the framework-specific test directory (`__tests__/` for JavaScript, `tests/` for shell, or `tests/e2e/` for UI)
 - ✓ No agents with missing structure components remain undetected
 
 ---

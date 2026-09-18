@@ -118,12 +118,12 @@ As a **reader**, I need all references and links in governance files to point to
 
 ### Functional Requirements
 
-- **FR-001**: Governance audit MUST identify all duplicate content sections across CLAUDE.md and AGENTS.md with specific line number references; sections with ≥70% text overlap MUST be consolidated into single authoritative version preserving unique content from both
-- **FR-002**: Audit MUST validate all file path references against actual repository structure and report: (1) broken/missing files, (2) outdated paths, (3) unimplemented consolidation claims, and (4) line-number mismatches
+- **FR-001 (Phase 1)**: Governance audit MUST identify and report all duplicate content sections across CLAUDE.md and AGENTS.md with specific line number references; sections with ≥70% text overlap MUST be recorded as consolidation candidates, without changing governance files before audit approval
+- **FR-002 (Phase 1)**: Audit MUST validate all file path references against actual repository structure and report: (1) broken/missing files, (2) outdated paths, (3) unimplemented consolidation claims, and (4) line-number mismatches
 - **FR-003**: Audit MUST identify conflicting guidance about branch naming, label creation, script organization, and AI rules that exists in multiple files
 - **FR-004**: Audit MUST map relationships between CLAUDE.md, AGENTS.md, constitution, instruction files, and dependent systems (workflows, agents, scripts)
 - **FR-005**: Refactored CLAUDE.md MUST contain clear, actionable branch naming guidance aligned with constitution, with no forbidden prefixes created by default AI tools
-- **FR-006**: Refactored AGENTS.md MUST have single-source-of-truth sections for each topic (no duplicate "Label Creation Governance" or other sections)
+- **FR-006 (Phase 2)**: After AUDIT_REPORT.md approval, refactored AGENTS.md MUST have single-source-of-truth sections for each topic (no duplicate "Label Creation Governance" or other sections)
 - **FR-007**: Refactored governance files MUST include specification-first workflow guidance showing branch → spec → draft PR → review → merge process
 - **FR-008**: Refactored governance files MUST clearly distinguish between constraints that are constitution-level (unchangeable) versus implementation details (changeable per project)
 - **FR-009**: All cross-references between CLAUDE.md and AGENTS.md MUST use consistent link anchors and clearly indicate which file to consult for each topic

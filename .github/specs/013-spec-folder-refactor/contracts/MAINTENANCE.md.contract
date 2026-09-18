@@ -54,18 +54,18 @@
 - NNN = 3-digit number (zero-padded: 001, 002, ..., 013)
 - {slug} = lowercase, hyphens, no spaces/special-chars
 
-1. **Use SpecKit workflow**
+3. **Use SpecKit workflow**
    - Run `/speckit-specify` with feature description
    - Complete `/speckit-clarify` to resolve ambiguities
    - Complete `/speckit-plan` to design technical approach
    - Complete `/speckit-tasks` to decompose into implementation tasks
 
-2. **Update CATALOG.md**
+4. **Update CATALOG.md**
    - Add row to index table with new number, title, purpose, status, date
    - Add detailed entry section below (see CATALOG.md contract)
    - Update date to creation date
 
-3. **Approval gate**
+5. **Approval gate**
    - New specification requires review by @ashley (governance authority)
    - Specification must pass all 8 quality dimensions (Constitution Principle VII)
    - Quality checklist in `checklists/requirements.md` must show all items passing

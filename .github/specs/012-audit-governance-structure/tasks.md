@@ -152,15 +152,15 @@ This two-phase approach allows stakeholder review and critique of findings befor
 
 ---
 
-## Phase 5: User Story 3 – Duplicate Content Resolution (P1)
+## Phase 5: User Story 3 – Duplicate Content Audit (P1)
 
-**Goal**: Eliminate duplicate "Label Creation Governance" section and consolidate all duplicated content
+**Goal**: Identify and report the duplicate "Label Creation Governance" section and document the proposed consolidation
 
-**Independent Test**: Search AGENTS.md for "Label Creation Governance" returns only 1 occurrence; verify all content preserved
+**Independent Test**: AUDIT_REPORT.md identifies both occurrences, preserves their unique content in the proposed consolidation, and records the approval dependency
 
-### US3 Consolidation Tasks
+### US3 Audit Tasks
 
-- [X] T061 [US3] Count occurrences of "Label Creation Governance" in AGENTS.md (should be 2 before consolidation); per clarification Q1, sections with ≥70% text overlap must be consolidated
+- [X] T061 [US3] Count occurrences of "Label Creation Governance" in AGENTS.md (should be 2 in the audited baseline); per clarification Q1, sections with ≥70% text overlap must be reported as consolidation candidates
 - [X] T062 [US3] Extract complete first occurrence of "Label Creation Governance" (lines 209-252)
 - [X] T063 [US3] Extract complete second occurrence of "Label Creation Governance" (lines 285-338)
 - [X] T064 [US3] Compare both versions line-by-line to identify unique and shared content; calculate text overlap percentage
@@ -168,15 +168,15 @@ This two-phase approach allows stakeholder review and critique of findings befor
 - [X] T066 [US3] Document which unique examples/items appear only in second version
 - [X] T067 [P] [US3] Identify any differences in validation checklist between versions
 - [X] T068 [P] [US3] Identify any differences in referenced scripts between versions (e.g., validate-labels-before-creation.cjs)
-- [X] T069 [US3] Create consolidated "Label Creation Governance" section using union approach (per Q1 clarification) with all unique content from both versions
-- [X] T070 [US3] Verify consolidated section includes: all examples, all validation items, all script references, traceability noting original locations (lines 209-252 and 285-338)
-- [X] T071 [US3] Update AGENTS.md to remove second occurrence of "Label Creation Governance"
-- [X] T072 [US3] Verify consolidated section appears exactly 1 time in AGENTS.md
+- [X] T069 [US3] Draft the proposed consolidated "Label Creation Governance" section in the audit artefacts using the union approach (per Q1 clarification) with all unique content from both versions
+- [X] T070 [US3] Verify the proposed consolidated section includes: all examples, all validation items, all script references, traceability noting original locations (lines 209-252 and 285-338)
+- [ ] T071 [US3] **DEFERRED TO PHASE 2**: After AUDIT_REPORT.md approval, update AGENTS.md to remove the second occurrence of "Label Creation Governance" (implementation tracked by T122)
+- [ ] T072 [US3] **DEFERRED TO PHASE 2**: After T071, verify the consolidated section appears exactly once in AGENTS.md
 - [X] T073 [P] [US3] Search entire CLAUDE.md and AGENTS.md for other duplicate sections using similarity analysis
 - [X] T074 [US3] Document all other duplicates found (if any) beyond "Label Creation Governance"
 - [X] T075 [US3] Plan consolidation approach for any additional duplicates
 
-**Checkpoint**: US3 Duplicate "Label Creation Governance" consolidated; zero duplicate sections remain
+**Checkpoint**: US3 duplicate findings and proposed consolidation documented in AUDIT_REPORT.md; governance-file changes await approval
 
 ---
 

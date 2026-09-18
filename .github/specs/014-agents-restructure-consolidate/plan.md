@@ -91,7 +91,7 @@ agents/
 ├── {50+ agents}/           # Agents to be restructured
 │   ├── *.agent.md         # Agent definition
 │   ├── skills/            # Agent-specific skills (to be consolidated)
-│   ├── tests/             # Agent tests
+│   ├── {test-directory}/  # __tests__/ for JS; tests/ for shell; tests/e2e/ for UI
 │   └── README.md          # Agent documentation
 ├── registry.json          # Consolidated agent registry (TO BE GENERATED)
 
