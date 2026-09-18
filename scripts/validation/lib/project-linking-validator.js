@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Validates that all active projects have Related Issues section in README.
@@ -29,7 +29,7 @@ function validateProjectLinking(projectsPath) {
   for (const projectName of projectDirs) {
     result.projectsFound += 1;
     const projectDir = path.join(projectsPath, projectName);
-    const readmePath = path.join(projectDir, "README.md");
+    const readmePath = path.join(projectDir, 'README.md');
 
     if (!fs.existsSync(readmePath)) {
       result.missingLinks.push(projectName);
@@ -37,7 +37,7 @@ function validateProjectLinking(projectsPath) {
       continue;
     }
 
-    const content = fs.readFileSync(readmePath, "utf8");
+    const content = fs.readFileSync(readmePath, 'utf8');
 
     // Check for "Related Issues" section (accept emoji-prefixed headers like "## 🔗 Related Issues")
     if (/^## +[^\n#]*Related Issues/m.test(content)) {
@@ -73,13 +73,13 @@ function validateIssueNumbers(projectsPath) {
 
   for (const projectName of projectDirs) {
     const projectDir = path.join(projectsPath, projectName);
-    const readmePath = path.join(projectDir, "README.md");
+    const readmePath = path.join(projectDir, 'README.md');
 
     if (!fs.existsSync(readmePath)) {
       continue;
     }
 
-    const content = fs.readFileSync(readmePath, "utf8");
+    const content = fs.readFileSync(readmePath, 'utf8');
     const issueMatches = content.matchAll(/#(\d+)/g);
 
     for (const match of issueMatches) {
