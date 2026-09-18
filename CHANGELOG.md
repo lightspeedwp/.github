@@ -67,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Validation Audit Specification Added** — Added the quality audit specification with duplicate detection. (#3348)
 
 - **Specs Directory Fix Scripts & Docs** — Updated speckit scripts to resolve the specs directory from configuration with backward-compatible defaults. ([PR #3360](https://github.com/lightspeedwp/.github/pull/3360))
+- **Specs Directory Fix Phase 7 Tasks** — Appended convergence validation tasks tracking deferred Phase 6 verification work for the specs-directory fix. ([PR #3360](https://github.com/lightspeedwp/.github/pull/3360))
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
 
