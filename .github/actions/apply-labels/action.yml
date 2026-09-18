@@ -114,28 +114,66 @@ runs:
           STATUS="partial_success"
         fi
 
-        # Simulate label application (in production, this would call GitHub API)
+        # Build JSON array for GitHub API
+        LABELS_JSON='['
         APPLIED_COUNT=0
-        for label in "${LABELS_ARRAY[@]}"; do
-          label=$(echo "$label" | xargs)  # Trim whitespace
+        for i in "${!LABELS_ARRAY[@]}"; do
+          label=$(echo "${LABELS_ARRAY[$i]}" | xargs)  # Trim whitespace
           if [[ -n "$label" ]]; then
-            echo "  → Label: $label"
+            if [[ $APPLIED_COUNT -gt 0 ]]; then
+              LABELS_JSON+=","
+            fi
+            LABELS_JSON+="\"$label\""
             APPLIED_COUNT=$((APPLIED_COUNT + 1))
+            echo "  → Label: $label"
           fi
         done
+        LABELS_JSON+=']'
 
-        # In dry-run mode, don't actually apply
-        if [[ "$DRY_RUN" == "true" ]]; then
+        # Apply labels via GitHub API if not in dry-run mode
+        if [[ "$DRY_RUN" != "true" ]] && [[ $APPLIED_COUNT -gt 0 ]]; then
+          RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/$TARGET_ID/labels" \
+            -d "$LABELS_JSON")
+
+          # Check for API errors
+          if echo "$RESPONSE" | grep -q "message"; then
+            ERROR_MSG=$(echo "$RESPONSE" | jq -r '.message // "Unknown error"')
+            STATUS="failure"
+            echo "❌ Error applying labels: $ERROR_MSG"
+          else
+            echo "✓ Applied $APPLIED_COUNT labels"
+            LABELS_APPLIED="$LABELS_JSON"
+          fi
+        elif [[ "$DRY_RUN" == "true" ]]; then
           echo "DRY-RUN: Would have applied $APPLIED_COUNT labels"
-          STATUS="success"
-        else
-          echo "✓ Applied $APPLIED_COUNT labels"
+          LABELS_APPLIED="$LABELS_JSON"
         fi
 
-        # Set outputs as JSON
-        echo "labels_applied=$(echo "\"$LABELS_TO_ADD\"" | tr ',' '\n' | paste -sd ',' - | sed 's/,/", "/g' | sed 's/^/["/' | sed 's/$/]/')" >> "$GITHUB_OUTPUT"
+        # Handle label removal if specified
+        if [[ -n "$LABELS_TO_REMOVE" ]]; then
+          IFS=',' read -ra REMOVE_ARRAY <<< "$LABELS_TO_REMOVE"
+          for label in "${REMOVE_ARRAY[@]}"; do
+            label=$(echo "$label" | xargs)  # Trim whitespace
+            if [[ -n "$label" ]]; then
+              if [[ "$DRY_RUN" != "true" ]]; then
+                curl -s -X DELETE \
+                  -H "Authorization: token $GITHUB_TOKEN" \
+                  -H "Accept: application/vnd.github.v3+json" \
+                  "https://api.github.com/repos/${{ github.repository }}/issues/$TARGET_ID/labels/$label" > /dev/null
+              fi
+              echo "  ↻ Removed: $label"
+            fi
+          done
+          LABELS_REMOVED="$LABELS_TO_REMOVE"
+        fi
+
+        # Set outputs as JSON (using jq for proper JSON formatting)
+        echo "labels_applied=$LABELS_APPLIED" >> "$GITHUB_OUTPUT"
         echo "labels_removed=$LABELS_REMOVED" >> "$GITHUB_OUTPUT"
-        echo "total_labels=$((APPLIED_COUNT))" >> "$GITHUB_OUTPUT"
+        echo "total_labels=$APPLIED_COUNT" >> "$GITHUB_OUTPUT"
         echo "status=$STATUS" >> "$GITHUB_OUTPUT"
         echo "error_message=$ERROR_MSG" >> "$GITHUB_OUTPUT"
 
