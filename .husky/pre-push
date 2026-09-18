@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+# Pre-push hook: Validate branch name before pushing
+# Prevents invalid branches from being pushed to remote
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+# Don't validate detached HEAD state or special branches
+if [ "$BRANCH_NAME" = "HEAD" ]; then
+  exit 0
+fi
+
+# Skip validation for develop and main (protected branches)
+if [ "$BRANCH_NAME" = "develop" ] || [ "$BRANCH_NAME" = "main" ]; then
+  exit 0
+fi
+
+# Run branch validation
+echo "🔍 Validating branch name: $BRANCH_NAME"
+npm run validate:branch-name -- --branch "$BRANCH_NAME"
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+  echo ""
+  echo "❌ Branch name validation failed."
+  echo ""
+  echo "Your branch name does not follow the required pattern:"
+  echo "  Pattern: {type}/{scope}-{title}"
+  echo ""
+  echo "To see the help text, run:"
+  echo "  npm run validate:branch-name -- --help"
+  echo ""
+  echo "To bypass this hook (NOT recommended):"
+  echo "  git push --no-verify"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Branch name is valid"
+exit 0

@@ -8,7 +8,7 @@
 # All referenced templates must exist in .github/PULL_REQUEST_TEMPLATE/
 #
 # Validation: Verified against actual templates in .github/PULL_REQUEST_TEMPLATE/
-# Last verified: 2026-09-14 (16 templates, 24 types covered)
+# Last verified: 2026-09-17 (19 templates, 38 types covered per Constitution Principle V)
 
 branch_types:
   # Feature & Task Types
@@ -26,6 +26,11 @@ branch_types:
     template: pr_feature
     description: Prototype or experimental work
     example: proto/new-caching-strategy
+
+  epic:
+    template: pr_feature
+    description: Multi-part initiative or epic
+    example: epic/platform-modernisation
 
   # Bug & Fix Types
   fix:
@@ -61,6 +66,11 @@ branch_types:
     example: chore/dependency-updates
 
   # Documentation & Internationalization
+  doc:
+    template: pr_docs
+    description: Single documentation change
+    example: doc/readme-typo-fix
+
   docs:
     template: pr_docs
     description: Documentation
@@ -71,11 +81,31 @@ branch_types:
     description: Internationalization
     example: i18n/german-translation-pack
 
+  content:
+    template: pr_docs
+    description: Content changes
+    example: content/blog-post-updates
+
+  seo:
+    template: pr_docs
+    description: SEO optimizations
+    example: seo/meta-tag-improvements
+
   # Testing & Quality
   test:
     template: pr_test
     description: Tests or test infrastructure
     example: test/integration-test-suite
+
+  qa:
+    template: pr_ci
+    description: QA processes and test automation
+    example: qa/test-automation-framework
+
+  uat:
+    template: pr_ci
+    description: User acceptance testing
+    example: uat/staging-validation-suite
 
   # Performance & Optimization
   perf:
@@ -93,6 +123,16 @@ branch_types:
     template: pr_ci
     description: Build system changes
     example: build/webpack-config-update
+
+  automation:
+    template: pr_ci
+    description: Workflow automation and tooling
+    example: automation/issue-routing-update
+
+  aiops:
+    template: pr_aiops
+    description: AI-assisted operations
+    example: aiops/model-monitoring-update
 
   # Dependencies
   deps:
@@ -150,6 +190,33 @@ branch_types:
     template: pr_feature
     description: Research or investigation
     example: research/performance-benchmarks
+
+  # Data & Infrastructure
+  api:
+    template: pr_feature
+    description: API changes and endpoints
+    example: api/rest-endpoint-versioning
+
+  schema:
+    template: pr_feature
+    description: Data schema and database changes
+    example: schema/user-model-changes
+
+  telemetry:
+    template: pr_feature
+    description: Analytics and monitoring
+    example: telemetry/event-tracking-setup
+
+  # Configuration & Migration
+  config:
+    template: pr_ci
+    description: Configuration changes
+    example: config/environment-variables
+
+  migrate:
+    template: pr_ci
+    description: Data and schema migrations
+    example: migrate/user-table-migration
 
 # Fallback
 fallback_template: pr_feature

@@ -108,17 +108,23 @@ The organization's existing PR template routing system (which depends on branch 
 - Q: What mechanism triggers branch rename detection and metadata update? → A: Reactive detection via GitHub Actions `push` event. When a commit already associated with a PR appears on a different branch name, GitHub Actions detects the rename and updates PR metadata (template, labels) for the new branch name.
 - Q: When automated label application runs, what happens if PR already has manually-applied labels? → A: Merge and deduplicate. Add system-determined labels only if not already present. Preserve existing manually-applied labels. Allows developer customization while ensuring type labels are always present.
 
+### Session 2026-09-17 (Constitution Alignment)
+
+- Q: Spec claims 24 authorized types, but Constitution (Principle V) mandates 38 types. Which is correct? → A: Constitution is authoritative (non-negotiable per Principles I & VII). Spec updated to include all 38 types: `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `doc`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`, `revert`, `research`, `aiops`, `automation`, `epic`.
+  - **Resolution**: FR-001 updated to list all 38 types; FR-002 regex updated to include all 38; data-model.md updated from "Enum (24 values)" to "Enum (38 values)"; plan.md and tasks.md updated to reflect 38-type scope.
+  - **Validation**: All regexes, mappings (branch-types.yml, branch-labels.yml), and test scenarios updated to include complete 38-type set.
+
 ## Requirements
 
 ### Functional Requirements
 
-- **FR-001**: System MUST support exactly 24 authorized branch types: `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `audit`, `codex`, `revert`, `research`
+- **FR-001**: System MUST support exactly 38 authorized branch types: `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `doc`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`, `revert`, `research`, `aiops`, `automation`, `epic`
 
 - **FR-002**: System MUST enforce branch naming pattern `{type}/{scope}-{title}` where:
-  - `type` is exactly one of the 24 authorized values
+  - `type` is exactly one of the 38 authorized values
   - `scope` is lowercase alphanumeric and hyphens only (e.g., `user-auth`, `pr-template`)
   - `title` is lowercase alphanumeric and hyphens only (e.g., `implementation`, `routing-bug`)
-  - Full pattern matches regex: `^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|audit|codex|revert|research)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$`
+  - Full pattern matches regex: `^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|revert|research|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$`
 
 - **FR-003**: System MUST reject all branches using forbidden prefixes: `claude/`, `copilot/`, `openai/` with clear error message explaining reservation
 

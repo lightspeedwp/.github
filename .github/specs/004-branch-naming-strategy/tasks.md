@@ -4,11 +4,13 @@
 
 **Prerequisites**: plan.md (6-week timeline, tech stack), spec.md (5 user stories), research.md (research decisions), data-model.md (entities), contracts/branch-naming.contract.md (type mappings), quickstart.md (validation scenarios)
 
-**Scope**: 51 tasks across 6 phases (Research, Design, Core Validation, Routing, Integration, Rollout)
+**Scope**: 51+ tasks across 6 phases (Research, Design, Core Validation, Routing, Integration, Rollout) supporting 38 authorized branch types
 
 **Technology Stack**: Node.js, GitHub Actions, Husky, YAML configuration, npm scripts
 
 **Organization**: Tasks grouped by phase and user story to enable parallel execution and independent testing
+
+**Note**: Specification updated to align with Constitution Principle V (38 authorized types, not 24). All type mappings, regexes, and configurations must reflect complete 38-type set.
 
 ---
 
@@ -92,13 +94,13 @@
   - Regex pattern validation against pattern defined in contracts (24 types, scope-title format)
   - Forbidden prefix detection (claude/, copilot/, openai/)
   - Return: `{valid: boolean, type?, scope?, title?, errors: [], suggested_name?}`
-- [x] T019 [P] [US1] Implement type validation in `lib/validate-branch-name.js`; validate against list of 24 types from contracts/branch-naming.contract.md
+- [x] T019 [P] [US1] Implement type validation in `lib/validate-branch-name.js`; validate against list of 38 types from contracts/branch-naming.contract.md
 - [x] T020 [P] [US1] Implement scope/title validation in `lib/validate-branch-name.js`; enforce lowercase, hyphens only, no consecutive hyphens, no underscores/spaces/special chars
 - [x] T021 [US1] Implement error message generation in `lib/validate-branch-name.js`; create messages for all 6 error cases with suggestions using fuzzy matching
 
 #### Unit Test Tasks (Validation Library)
 
-- [x] T022 [P] [US1] Create `lib/__tests__/validate-branch-name.test.js` with tests for 24 valid types (all must pass); test 3 forbidden prefixes (all must fail); test malformed scope/title (all must fail)
+- [x] T022 [P] [US1] Create `lib/__tests__/validate-branch-name.test.js` with tests for 38 valid types (all must pass); test 3 forbidden prefixes (all must fail); test malformed scope/title (all must fail)
 - [x] T023 [P] [US1] Add unit tests for edge cases: empty scope/title, consecutive hyphens, uppercase letters, special characters, very long branch names
 - [x] T024 [P] [US1] Add unit tests for error message suggestions; verify suggestions are actionable and correct
 
@@ -182,9 +184,9 @@
 
 #### Configuration Tasks
 
-- [x] T049 [P] Create `.github/branch-types.yml` configuration file; define mapping: 24 types → PR template files (e.g., `feat` → `pr_feature.md`)
-- [x] T050 [P] Create `.github/branch-labels.yml` configuration file; define mapping: 24 types → default labels (e.g., `feat` → `["type:feature"]`); include area detection keywords
-- [x] T051 [US3] Validate branch-types.yml against `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all referenced templates exist
+- [x] T049 [P] Create `.github/branch-types.yml` configuration file; define mapping: 38 types → PR template files (e.g., `feat` → `pr_feature.md`)
+- [x] T050 [P] Create `.github/branch-labels.yml` configuration file; define mapping: 38 types → default labels (e.g., `feat` → `["type:feature"]`); include area detection keywords
+- [x] T051 [US3] Validate branch-types.yml against `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all 38 type mappings are correct and all referenced templates exist
 
 #### GitHub Actions Workflow: Template Routing
 
@@ -205,7 +207,7 @@
 - [x] T060 [P] [US3] Create integration test: Create PR from `feat/user-auth-improvements`; verify template (`pr_feature.md`) applied; verify labels (`type:feature`) applied
 - [x] T061 [P] [US3] Create integration test: Create PR from `security/sql-injection-fix`; verify template (`pr_security.md`) applied; verify labels (`type:security, priority:critical`) applied
 - [x] T062 [P] [US3] Create integration test: Create PR from branch with area keywords (e.g., `feat/api-endpoint`); verify area label (`area:api`) auto-detected and applied
-- [x] T063 [P] [US3] Test all 24 types; create 24 sample branches, create PRs from each, verify correct template + labels for every type
+- [x] T063 [P] [US3] Test all 38 types; create 38 sample branches, create PRs from each, verify correct template + labels for every type
 
 **Checkpoint: US3 Complete** — PR template routing works perfectly; all labels applied from canonical set; area detection works; 100% accuracy across 24 types
 
@@ -261,7 +263,7 @@
 - [ ] T076 [P] [US5] Integration test: Create feature PR; verify `.github/PULL_REQUEST_TEMPLATE/pr_feature.md` loaded in PR description; verify all template sections present
 - [ ] T077 [P] [US5] Integration test: Create security PR; verify `pr_security.md` template loaded; verify security-specific sections (threat model, CVSS, remediation) present
 - [ ] T078 [P] [US5] Integration test: Create release PR; verify `pr_release.md` template loaded; verify release-specific sections (changelog, version bump) present
-- [ ] T079 [P] [US5] Test routing for all 19 distinct templates; verify 24 types map to correct templates with no conflicts
+- [ ] T079 [P] [US5] Test routing for all 19 distinct templates; verify 38 types map correctly to templates (multiple types may share a template) with no conflicts
 
 #### Workflow Conflict Testing
 
@@ -272,7 +274,7 @@
 #### Audit & Validation
 
 - [ ] T083 Audit existing `.github/PULL_REQUEST_TEMPLATE/` files; verify all 19 templates are compatible with new routing (no hard-coded assumptions about branch name format)
-- [ ] T084 [P] Create comprehensive test report: 24 types × 10 sample branches = 240 routing scenarios tested; document pass/fail rates, edge cases, recommendations
+- [ ] T084 [P] Create comprehensive test report: 38 types × 10 sample branches = 380 routing scenarios tested; document pass/fail rates, edge cases, recommendations
 
 **Checkpoint: US5 Complete** — PR template routing perfect; 100% routing accuracy; zero manual intervention; existing template system works as designed
 
@@ -478,6 +480,59 @@ Mark all tasks as complete to finish implementation. Each task represents one co
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+
+---
+
+## Phase 7: Convergence — Missing Integration Tests & Workflow Implementation
+
+**Purpose**: Complete remaining integration tests, implement PR template routing workflow, update documentation, and prepare for production rollout
+
+**Duration**: ~20 hours (Weeks 6-7)
+
+**Dependencies**: Phases 2-4 complete; validation library, configuration files, and core documentation ready
+
+**Gate**: All integration tests passing, template routing workflow operational, CLI documentation updated, team communication ready
+
+### Integration Testing (Remote Enforcement)
+
+- [ ] T122 [P] [US2] Create integration test: Push valid branch `feat/integration-test-valid` to remote; verify GitHub Actions `branch-name-validation` workflow passes; verify workflow status check shows success
+- [ ] T123 [P] [US2] Create integration test: Push invalid branch to remote with `git push --no-verify` (bypassing local hook); verify GitHub Actions `branch-name-validation` workflow fails; verify PR creation is blocked or commented with validation error
+- [ ] T124 [P] [US2] Create integration test: Verify merge blocking enabled in enforcement policy; attempt merge from invalid branch; verify merge blocked with `branch-name-validation` status required
+
+### GitHub Actions Template & Label Routing Workflow Implementation
+
+- [ ] T125 [US3] Create `.github/workflows/pr-template-routing.yml` workflow; trigger on `pull_request` events (opened, synchronize); extract branch type from `github.event.pull_request.head.ref` (head branch name)
+- [ ] T126 [US3] Implement template selection logic in workflow; parse branch type using regex pattern; look up corresponding template in `.github/branch-types.yml`; load template from `.github/PULL_REQUEST_TEMPLATE/{template}.md`
+- [ ] T127 [US3] Implement template application in workflow; use `github-script` action to update PR description via REST API; preserve existing description (append template or merge based on configuration)
+- [ ] T128 [US3] Implement label routing step in workflow; extract branch type; look up `default_labels` from `.github/branch-labels.yml`; validate all labels exist in canonical `.github/labels.yml`
+- [ ] T129 [US3] Implement area label detection; extract scope from branch name using regex `([a-z0-9]+(?:-[a-z0-9]+)*)-[a-z0-9]+(?:-[a-z0-9]+)*`; match scope keywords against `area_keywords` in branch-labels.yml; apply matching area labels
+- [ ] T130 [US3] Implement label application in workflow; use `actions/github-script` with REST API to add labels to PR; skip labels already applied (no duplicates); preserve manually-applied labels (merge strategy)
+
+### Integration Testing (Template & Label Routing)
+
+- [ ] T131 [P] [US5] Integration test: Create PR from `feat/user-auth-improvements`; verify `pr_feature.md` template auto-loaded in PR description; verify all template sections present (checklist, acceptance criteria, testing notes)
+- [ ] T132 [P] [US5] Integration test: Create PR from `security/sql-injection-fix`; verify `pr_security.md` template loaded; verify security-specific sections present (threat model, CVSS scoring, remediation)
+- [ ] T133 [P] [US5] Integration test: Create PR from branch with area keywords (e.g., `feat/api-endpoint`); verify area label `area:api` auto-detected and applied; verify no duplicate labels
+- [ ] T134 [P] [US5] Integration test: Test all 38 branch types; create sample PR for each type; verify correct template + labels applied for every type; document pass/fail in test report
+- [ ] T135 [US5] Test GitHub Actions execution order; verify `branch-name-validation` workflow completes before `pr-template-routing`; verify both run without conflicts; test on 10+ sample PRs
+
+### Documentation & CLI Help Update
+
+- [x] T136 Update `scripts/validation/validate-branch-name.js` help text (line 57-60); correct the mislabelled "Allowed Types (24)" heading, whose list contained 25 types, to "Allowed Types (38)"; add the 13 genuinely missing types to help text: `doc, api, schema, telemetry, content, seo, config, migrate, qa, uat, aiops, automation, epic` (per Constitution Principle V)
+- [ ] T137 [P] Create rollout announcement draft; document branch naming policy, enforcement timeline, support contact; intended for team leads and all developers; link from CLAUDE.md
+- [ ] T138 [P] Prepare Slack/email bot integration (optional); set up bot responses to "How do I name branches?" with link to branching strategy guide and quick examples
+
+### Compliance & Metrics Verification
+
+- [ ] T139 Run all 9 quickstart validation scenarios on production-like environment (PR #3353 branch or staging); confirm all scenarios pass with current code; document results in convergence report
+- [ ] T140 Verify branch-types.yml and branch-labels.yml map all 38 types to templates/labels with no gaps or missing entries; confirm canonical label validation succeeds for all default labels
+
+**Checkpoint: Phase 7 Complete** — Integration tests verify remote enforcement works; template routing workflow operational; CLI documentation accurate; team communication ready for pilot rollout
+
+---
+
+*Generated by Convergence Analysis (2026-09-18) to complete specification alignment*
+[GitHub PR #3353](https://github.com/lightspeedwp/.github/pull/3353)
 
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
