@@ -139,14 +139,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { Octokit } = require("@octokit/rest");
-            const octokit = new Octokit({ auth: "${{ secrets.GITHUB_TOKEN }}" });
+            const headSha = context.payload.pull_request?.head.sha || context.sha;
 
-            const headSha = "${{ github.event.pull_request.head.sha }}" || "${{ github.sha }}";
-
-            await octokit.rest.checks.create({
-              owner: "${{ github.repository_owner }}",
-              repo: "${{ github.event.repository.name }}",
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
               name: "Changelog Validation",
               head_sha: headSha,
               status: "completed",
