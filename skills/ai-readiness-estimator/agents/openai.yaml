@@ -1,0 +1,4 @@
+interface:
+  display_name: LightSpeed AI Readiness Estimator
+  short_description: Routes AI-readiness, governance, content, chatbot and launch-prep work for LightSpeed projects.
+  icon: ../assets/icon.svg

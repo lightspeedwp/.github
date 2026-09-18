@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Accessibility Fix Plan",
+  "type": "object",
+  "required": [
+    "scope",
+    "approval_required",
+    "planned_fixes",
+    "excluded_items",
+    "verification"
+  ],
+  "properties": {
+    "scope": {
+      "type": "string"
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "planned_fixes": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "excluded_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rollback_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

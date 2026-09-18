@@ -1,0 +1,14 @@
+interface:
+  display_name: LightSpeed Linear Label Governance
+  short_description: Enforce canonical labels in Linear workflows.
+  default_prompt: Use $lightspeed-linear-label-governance to validate and recommend
+    labels for this Linear issue.
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

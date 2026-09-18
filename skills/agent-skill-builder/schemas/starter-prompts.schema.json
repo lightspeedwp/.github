@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Starter prompts",
+  "type": "object",
+  "required": [
+    "prompts"
+  ],
+  "properties": {
+    "prompts": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "prompt",
+          "workflow"
+        ],
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "minLength": 15
+          },
+          "workflow": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

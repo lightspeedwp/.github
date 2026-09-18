@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Evidence Harvester"
+  short_description: "Collect and normalise chatbot project evidence"
+  default_prompt: "Use $project-evidence-harvester to gather and normalise website, document, email, design, and repo evidence before planning or estimating."

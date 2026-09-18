@@ -1,0 +1,14 @@
+interface:
+  display_name: GitHub Address Comments
+  short_description: Address comments in a GitHub PR review"
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+  default_prompt: Address all actionable GitHub PR review comments in this branch
+    and summarize the updates.
+policy:
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
+  allow_implicit_invocation: true

@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Zendesk Evidence Quality Review Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "verdict",
+    "output_type",
+    "summary",
+    "issues",
+    "checklist"
+  ],
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "mostly_ready_with_fixes",
+        "not_ready"
+      ]
+    },
+    "output_type": {
+      "type": "string",
+      "enum": [
+        "customer_reply",
+        "investigation",
+        "escalation_brief",
+        "handoff",
+        "backlog_report",
+        "trend_summary",
+        "knowledge_draft",
+        "other"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "One to three sentences summarising the review judgement."
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "category",
+          "severity",
+          "finding",
+          "recommended_fix"
+        ],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "missing_evidence",
+              "overstated_claim",
+              "weak_next_step",
+              "risk_gap",
+              "handoff_gap",
+              "wording_risk",
+              "privacy_redaction_risk"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "finding": {
+            "type": "string"
+          },
+          "recommended_fix": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "checklist": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_supports_main_claims",
+        "facts_and_interpretation_separated",
+        "next_steps_specific_and_owned",
+        "risk_or_escalation_gaps_remain",
+        "sensitive_data_minimised_for_audience",
+        "safe_to_share_as_is"
+      ],
+      "properties": {
+        "evidence_supports_main_claims": {
+          "type": "boolean"
+        },
+        "facts_and_interpretation_separated": {
+          "type": "boolean"
+        },
+        "next_steps_specific_and_owned": {
+          "type": "boolean"
+        },
+        "risk_or_escalation_gaps_remain": {
+          "type": "boolean"
+        },
+        "safe_to_share_as_is": {
+          "type": "boolean"
+        },
+        "sensitive_data_minimised_for_audience": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
