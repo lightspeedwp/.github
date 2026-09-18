@@ -129,7 +129,7 @@ $ npm run validate:branch-name -- --branch feat/user-auth
 **Mappings Verified:**
 ```
 feat → pr_feature.md → type:feature
-fix → pr_bugfix.md → type:bug
+fix → pr_bug.md → type:bug
 security → pr_security.md → type:security, priority:critical
 docs → pr_docs.md → type:documentation
 [... all 38 types have mappings ...]
@@ -184,7 +184,7 @@ docs → pr_docs.md → type:documentation
 
 **Verifications:**
 - [x] CLAUDE.md § Branch Naming — Full guidance with all 38 types
-- [x] CLAUSE.md § Forbidden Prefixes — Clear warnings
+- [x] CLAUDE.md § Forbidden Prefixes — Clear warnings
 - [x] AGENTS.md § Branch Naming Rules — Agent-specific guidance
 - [x] AGENTS.md § References — Links to all supporting docs
 
