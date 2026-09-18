@@ -42,6 +42,11 @@ const useCurrent = args.includes('--current');
 const branchArgIndex = args.indexOf('--branch');
 const explicitBranch = branchArgIndex !== -1 ? args[branchArgIndex + 1] : null;
 
+/**
+ * Print the CLI usage guide to standard output.
+ *
+ * @returns {void}
+ */
 function showUsage() {
   console.log(`
 Validate branch names against the repository branching strategy.
@@ -80,6 +85,11 @@ Forbidden Prefixes:
 `);
 }
 
+/**
+ * Read the current branch name from Git.
+ *
+ * @returns {string | null} The current branch name, or `null` when Git cannot determine it.
+ */
 function getCurrentBranch() {
   try {
     return execSync('git rev-parse --abbrev-ref HEAD', {
@@ -90,6 +100,12 @@ function getCurrentBranch() {
   }
 }
 
+/**
+ * Print the validation result in the requested format and exit with its status.
+ *
+ * @param {string} branchName - The branch name to validate.
+ * @returns {never} This function exits with status 0 for a valid name or 1 for an invalid name.
+ */
 function validateAndOutput(branchName) {
   const result = validateBranchName(branchName);
 
@@ -122,6 +138,11 @@ function validateAndOutput(branchName) {
   process.exit(result.valid ? 0 : 1);
 }
 
+/**
+ * Resolve the CLI options and validate the selected or current branch.
+ *
+ * @returns {never} This function exits after displaying help, reporting an error, or validating a branch.
+ */
 function main() {
   if (showHelp) {
     showUsage();
