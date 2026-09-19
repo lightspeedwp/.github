@@ -31,16 +31,19 @@ async function validateEntry(entry = {}, options = {}) {
     // Validate against the canonical rule set. The validator returns
     // { metadata, validation: { ruleResults, summary, complianceScore,
     // complianceStatus } }; map it onto this wrapper's {valid, errors}
-    // contract. A "warning" status still counts as valid (non-blocking).
+    // contract. Any failed error-severity rule blocks the entry, even
+    // when the aggregate score alone would only be a warning (a single
+    // error scores 75, which is "warning" territory) — otherwise addEntry
+    // could write entries that failed blocking rules.
     const validation = validator.validateEntry(entry);
     const summary = validation.validation?.summary || {};
     const failedIssues = summary.issues || [];
-    const errors = failedIssues.map(
-      (i) => i.message || i.ruleId || "validation failed",
-    );
+    const blockingErrors = failedIssues
+      .filter((i) => (i.severity || "error") === "error")
+      .map((i) => i.message || i.ruleId || "validation failed");
 
-    if (validation.validation?.complianceStatus === "failing") {
-      result.errors.push(...errors);
+    if (blockingErrors.length > 0) {
+      result.errors.push(...blockingErrors);
     }
 
     // Auto-format if requested and has errors
@@ -110,8 +113,12 @@ async function validateChangelog(changelogPath, options = {}) {
     if (!/^# Changelog/m.test(content)) {
       structureErrors.push("Missing top-level '# Changelog' title");
     }
-    if (!/^## \[/m.test(content)) {
-      structureErrors.push("No version sections (## [x.y.z]) found");
+    // Unreleased alone is not a releasable structure: require at least
+    // one numeric x.y.z release section.
+    if (!/^## \[\d+\.\d+\.\d+\]/m.test(content)) {
+      structureErrors.push(
+        "No release version sections (## [x.y.z]) found",
+      );
     }
 
     result.errors = structureErrors;

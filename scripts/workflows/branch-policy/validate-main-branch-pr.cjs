@@ -47,9 +47,12 @@ function validatePullRequestMetadata(pullRequest, branchName) {
     );
   }
 
-  if (release && !/^chore\(release\): v\d+\.\d+\.\d+/.test(title)) {
+  // The title must name the exact version from the branch: a prefix-only
+  // check would accept extra text or a mismatched version.
+  const branchVersion = release ? extractReleaseVersion(normalised) : null;
+  if (release && title !== `chore(release): v${branchVersion}`) {
     findings.push(
-      `PR title must match "chore(release): vX.Y.Z" for release branches. Received '${title}'.`,
+      `PR title must exactly match "chore(release): v${branchVersion}" for branch '${normalised}'. Received '${title}'.`,
     );
   }
 
@@ -66,8 +69,15 @@ function validatePullRequestMetadata(pullRequest, branchName) {
   const requiredSections = release || !hotfix
     ? ["Linked issues", "Changelog", "Checklist"]
     : ["Linked issues", "Incident / Root Cause", "Changelog", "Checklist"];
+  // Match standalone Markdown headings (allowing suffixes such as
+  // "### Checklist (Global DoD / PR)"), not passing mentions in prose:
+  // only lines that actually carry heading markers count.
+  const headings = body.split("\n").flatMap((line) => {
+    const match = line.trim().match(/^#+\s+(.*)$/);
+    return match ? [match[1]] : [];
+  });
   for (const section of requiredSections) {
-    if (!body.includes(section)) {
+    if (!headings.some((heading) => heading.startsWith(section))) {
       findings.push(`Missing "${section}" section in PR body.`);
     }
   }
