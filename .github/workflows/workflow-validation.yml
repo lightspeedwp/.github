@@ -1,0 +1,47 @@
+name: Workflow Validation
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'workflows/**'
+      - '.github/workflows/**'
+      - '.github/scripts/validate-workflows.js'
+  pull_request:
+    paths:
+      - 'workflows/**'
+      - '.github/workflows/**'
+      - '.github/scripts/validate-workflows.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  validate-workflow-organization:
+    runs-on: ubuntu-latest
+    name: Validate Workflow Organization
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run workflow validation
+        run: node .github/scripts/validate-workflows.js
+        continue-on-error: false
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "✅ Workflow validation completed"
+          echo "See workflow logs for details"

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Research brief",
+  "type": "object",
+  "required": ["research_summary", "confirmed_project_context", "constraints", "risks", "recommended_next_skill"],
+  "properties": {
+    "research_summary": { "type": "string" },
+    "confirmed_project_context": { "type": "array", "items": { "type": "string" } },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "risks": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "prd_ready_notes": { "type": "array", "items": { "type": "string" } },
+    "estimate_relevant_factors": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "recommended_next_skill": { "type": "string" }
+  },
+  "additionalProperties": false
+}

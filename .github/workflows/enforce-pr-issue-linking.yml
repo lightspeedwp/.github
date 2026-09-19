@@ -1,0 +1,151 @@
+name: Enforce PR-Issue Linking
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  check-linking:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for linked issue
+        id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const prNumber = pr.number;
+            const body = pr.body || '';
+
+            // Keywords that indicate a linked issue
+            const linkingKeywords = [
+              'close',
+              'closes',
+              'closed',
+              'fix',
+              'fixes',
+              'fixed',
+              'resolve',
+              'resolves',
+              'resolved',
+              'related to',
+              'part of',
+            ];
+
+            // Look for issue/PR reference patterns
+            let hasLinkedIssue = false;
+            let linkedNumber = null;
+
+            for (const keyword of linkingKeywords) {
+              const regex = new RegExp(
+                `${keyword}\\s+#(\\d+)`,
+                'gi'
+              );
+              const match = body.match(regex);
+              if (match) {
+                hasLinkedIssue = true;
+                const numberMatch = body.match(
+                  new RegExp(`${keyword}\\s+#(\\d+)`, 'i')
+                );
+                if (numberMatch) {
+                  linkedNumber = numberMatch[1];
+                }
+                break;
+              }
+            }
+
+            // Also check for "Closes" syntax without keyword (GitHub auto-linking)
+            if (!hasLinkedIssue) {
+              const autoLinkMatch = body.match(/#(\d+)/);
+              if (autoLinkMatch) {
+                hasLinkedIssue = true;
+                linkedNumber = autoLinkMatch[1];
+              }
+            }
+
+            core.setOutput('has-linked-issue', hasLinkedIssue);
+            core.setOutput('linked-number', linkedNumber);
+
+            // Log for debugging
+            if (hasLinkedIssue) {
+              console.log(
+                `✅ PR #${prNumber} has linked issue #${linkedNumber}`
+              );
+            } else {
+              console.log(`⚠️  PR #${prNumber} has no linked issue`);
+            }
+
+      - name: Comment on PR if no linked issue
+        if: steps.check.outputs.has-linked-issue == 'false'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = context.issue.number;
+
+            // Check if comment already exists
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber
+            });
+
+            const existingComment = comments.data.find(c =>
+              c.body.includes('This pull request is not linked to an issue') &&
+              c.user.type === 'Bot'
+            );
+
+            if (existingComment) {
+              console.log('Comment already exists, skipping...');
+              return;
+            }
+
+            const comment = [
+              '⚠️ **Missing Issue Link**',
+              '',
+              'This pull request is not linked to an issue. Please link this PR to the issue it resolves or relates to.',
+              '',
+              '**How to link this PR:**',
+              '',
+              'Update your PR description to include one of these keywords followed by an issue number:',
+              '',
+              '- `Closes #123` — for PRs that resolve an issue (auto-closes the issue when merged)',
+              '- `Fixes #123` — alternative to "Closes"',
+              '- `Resolves #123` — alternative to "Closes"',
+              '- `Relates to #123` — for PRs related to but not directly resolving an issue',
+              '- `Part of #123` — for PRs that are part of a larger initiative',
+              '',
+              '**Example:**',
+              '',
+              '```',
+              '## Summary',
+              'This PR fixes the authentication timeout issue.',
+              '',
+              'Closes #1234',
+              '```',
+              '',
+              '**Why this matters:**',
+              '',
+              '- Linking PRs to issues enables better tracking and automation',
+              '- Linked issues are automatically closed when the PR merges',
+              '- Project tracking and milestone management depend on proper linking',
+              '- This is part of our governance standards (see [CLAUDE.md](../CLAUDE.md))',
+              '',
+              'See [PR Creation Process](../docs/PR_CREATION_PROCESS.md) for more details.',
+              '',
+              '---',
+              '_Automated by [PR-Issue Linking Enforcer](../../.github/workflows/enforce-pr-issue-linking.yml)_'
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: comment
+            });
+
+            console.log('Comment added to PR');

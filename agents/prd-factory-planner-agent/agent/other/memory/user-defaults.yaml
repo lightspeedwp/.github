@@ -1,0 +1,3 @@
+default_starting_artifact: intake_summary
+default_output_depth: smallest_useful_artifact
+default_memory_mode: maintain_memory_for_active_projects

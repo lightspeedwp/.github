@@ -1,0 +1,306 @@
+name: Create Issue (Enhanced)
+
+on:
+  workflow_dispatch:
+    inputs:
+      template_key:
+        description: "Canonical issue template to use"
+        required: true
+        type: choice
+        options:
+          - task
+          - bug
+          - feature
+          - design
+          - epic
+          - story
+          - improvement
+          - code-refactor
+          - build-ci
+          - automation
+          - testing-coverage
+          - performance
+          - a11y
+          - security
+          - compatibility
+          - integration-issue
+          - release
+          - maintenance
+          - documentation
+          - research
+          - audit
+          - code-review
+          - ai-ops
+          - content-modelling
+      title:
+        description: "Issue title"
+        required: true
+        type: string
+      body:
+        description: "Optional additional context to append after the template"
+        required: false
+        default: ""
+        type: string
+      labels:
+        description: "Optional extra labels, comma-separated"
+        required: false
+        default: ""
+        type: string
+      assignee:
+        description: "Optional assignee"
+        required: false
+        default: ""
+        type: string
+      milestone:
+        description: "Optional milestone title (auto-assigned if left blank)"
+        required: false
+        default: ""
+        type: string
+      parent_issue:
+        description: "Optional parent issue number (for child issues)"
+        required: false
+        default: ""
+        type: string
+      link_pr:
+        description: "Optional linked PR number"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-issue-enhanced:
+    name: Create issue with enhanced metadata
+    runs-on: ubuntu-latest
+    outputs:
+      issue_number: ${{ steps.create.outputs.issue_number }}
+      milestone_assigned: ${{ steps.assign_milestone.outputs.assigned }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create issue from template
+        id: create
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            function normalizeType(value) {
+              return (value || '').trim().replace(/^type:/i, '');
+            }
+
+            const inputs = context.payload.inputs || {};
+            const templateKey = (inputs.template_key || '').trim();
+            const title = (inputs.title || '').trim();
+            const extraBody = (inputs.body || '').trim();
+            const extraLabels = (inputs.labels || '')
+              .split(',')
+              .map((label) => label.trim())
+              .filter(Boolean);
+            const assignee = (inputs.assignee || '').trim();
+            const milestoneTitle = (inputs.milestone || '').trim();
+            const parentIssueNum = (inputs.parent_issue || '').trim();
+            const linkPrNum = (inputs.link_pr || '').trim();
+
+            const templates = {
+              task: { file: '.github/ISSUE_TEMPLATE/08-task.md', defaultType: 'type:task' },
+              bug: { file: '.github/ISSUE_TEMPLATE/02-bug.md', defaultType: 'type:bug' },
+              feature: { file: '.github/ISSUE_TEMPLATE/03-feature.md', defaultType: 'type:feature' },
+              design: { file: '.github/ISSUE_TEMPLATE/04-design.md', defaultType: 'type:design' },
+              epic: { file: '.github/ISSUE_TEMPLATE/05-epic.md', defaultType: 'type:epic' },
+              story: { file: '.github/ISSUE_TEMPLATE/06-story.md', defaultType: 'type:story' },
+              improvement: { file: '.github/ISSUE_TEMPLATE/07-improvement.md', defaultType: 'type:improve' },
+              'code-refactor': { file: '.github/ISSUE_TEMPLATE/09-code-refactor.md', defaultType: 'type:refactor' },
+              'build-ci': { file: '.github/ISSUE_TEMPLATE/10-build-ci.md', defaultType: 'type:build' },
+              automation: { file: '.github/ISSUE_TEMPLATE/11-automation.md', defaultType: 'type:automation' },
+              'testing-coverage': { file: '.github/ISSUE_TEMPLATE/12-testing-coverage.md', defaultType: 'type:test' },
+              performance: { file: '.github/ISSUE_TEMPLATE/13-performance.md', defaultType: 'type:performance' },
+              a11y: { file: '.github/ISSUE_TEMPLATE/14-a11y.md', defaultType: 'type:a11y' },
+              security: { file: '.github/ISSUE_TEMPLATE/15-security.md', defaultType: 'type:security' },
+              compatibility: { file: '.github/ISSUE_TEMPLATE/16-compatibility.md', defaultType: 'type:compatibility' },
+              'integration-issue': { file: '.github/ISSUE_TEMPLATE/17-integration-issue.md', defaultType: 'type:integration' },
+              release: { file: '.github/ISSUE_TEMPLATE/18-release.md', defaultType: 'type:release' },
+              maintenance: { file: '.github/ISSUE_TEMPLATE/19-maintenance.md', defaultType: 'type:maintenance' },
+              documentation: { file: '.github/ISSUE_TEMPLATE/20-documentation.md', defaultType: 'type:documentation' },
+              research: { file: '.github/ISSUE_TEMPLATE/21-research.md', defaultType: 'type:research' },
+              audit: { file: '.github/ISSUE_TEMPLATE/22-audit.md', defaultType: 'type:audit' },
+              'code-review': { file: '.github/ISSUE_TEMPLATE/23-code-review.md', defaultType: 'type:review' },
+              'ai-ops': { file: '.github/ISSUE_TEMPLATE/24-ai-ops.md', defaultType: 'type:ai-ops' },
+              'content-modelling': { file: '.github/ISSUE_TEMPLATE/25-content-modelling.md', defaultType: 'type:content-modelling' },
+            };
+
+            const template = templates[templateKey];
+            if (!template) throw new Error(`Unknown template key: ${templateKey}`);
+            if (!title) throw new Error('title is required.');
+
+            const workspace = process.env.GITHUB_WORKSPACE || process.cwd();
+            const templatePath = path.join(workspace, template.file);
+            if (!fs.existsSync(templatePath)) {
+              throw new Error(`Template file not found: ${template.file}`);
+            }
+
+            const templateBody = fs.readFileSync(templatePath, 'utf8').trimEnd();
+            const selectedType = template.defaultType;
+
+            // Build issue body with enhanced metadata
+            const metaComments = [
+              '<!-- created-by: issue-create-enhanced -->',
+              `<!-- template-key: ${templateKey} -->`,
+              `<!-- canonical-type: ${selectedType} -->`,
+            ];
+
+            if (parentIssueNum) {
+              metaComments.push(`<!-- parent-issue: #${parentIssueNum} -->`);
+            }
+
+            if (linkPrNum) {
+              metaComments.push(`<!-- linked-pr: #${linkPrNum} -->`);
+            }
+
+            const issueBody = [
+              metaComments.join('\n'),
+              templateBody,
+              extraBody ? `## Automation Notes\n\n${extraBody}` : null,
+            ]
+              .filter(Boolean)
+              .join('\n\n');
+
+            const labels = new Set([
+              'status:needs-triage',
+              'priority:normal',
+              selectedType,
+              ...extraLabels,
+            ]);
+
+            let milestone;
+            if (milestoneTitle) {
+              const milestones = await github.paginate(github.rest.issues.listMilestones, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'all',
+                per_page: 100,
+              });
+
+              const match = milestones.find((item) => item.title === milestoneTitle);
+              if (!match) {
+                throw new Error(`Milestone not found: ${milestoneTitle}`);
+              }
+              milestone = match.number;
+            }
+
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body: issueBody,
+              labels: Array.from(labels),
+              milestone,
+              assignees: assignee ? [assignee] : undefined,
+            });
+
+            // Link parent issue if provided
+            if (parentIssueNum) {
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: parseInt(parentIssueNum),
+                  body: `🔗 Child issue created: #${issue.data.number}`,
+                });
+              } catch (error) {
+                core.warning(`Could not link parent issue #${parentIssueNum}: ${error.message}`);
+              }
+            }
+
+            core.setOutput('issue_number', issue.data.number);
+
+            await core.summary
+              .addHeading('Issue created successfully')
+              .addRaw(`- Issue: #${issue.data.number}\n`)
+              .addRaw(`- Title: ${title}\n`)
+              .addRaw(`- Template: ${templateKey}\n`)
+              .addRaw(`- Type: ${selectedType}\n`)
+              .addRaw(`${milestone ? `- Milestone: ${milestoneTitle || 'auto-assigned'}\n` : ''}`)
+              .addRaw(`- URL: ${issue.data.html_url}\n`)
+              .write();
+
+      - name: Auto-assign milestone (if not provided)
+        id: assign_milestone
+        if: success() && !inputs.milestone
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { MilestoneAssignmentAgent } = require('./scripts/agents/includes/milestone-assignment.cjs');
+
+            const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
+            const agent = new MilestoneAssignmentAgent(github, context.repo.owner, context.repo.repo);
+
+            // Fetch the created issue
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNum,
+            });
+
+            const assignment = await agent.assignMilestone(issue);
+
+            if (assignment) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNum,
+                milestone: assignment.milestoneNumber,
+              });
+
+              core.setOutput('assigned', `${assignment.milestoneTitle} (${assignment.reason})`);
+              core.info(`Milestone assigned: ${assignment.milestoneTitle}`);
+            } else {
+              core.info('No applicable milestone found for auto-assignment');
+            }
+
+      - name: Post remediation checklist (if template gaps exist)
+        if: success()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
+
+            const issueNum = parseInt('${{ steps.create.outputs.issue_number }}');
+            const generator = new RemediationChecklistGenerator(github, context.repo.owner, context.repo.repo);
+
+            // Fetch the created issue
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNum,
+            });
+
+            const compliance = generator.analyzeCompliance(issue);
+
+            if (compliance.isNonCompliant) {
+              const checklistComment = generator.generateRemediationComment(compliance);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNum,
+                body: checklistComment,
+              });
+
+              core.warning(
+                `Issue #${issueNum} is missing template sections (DoR: ${!compliance.hasDoR}, DoD: ${!compliance.hasDoD})`
+              );
+            }

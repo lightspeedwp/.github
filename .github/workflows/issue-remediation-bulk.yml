@@ -1,0 +1,244 @@
+name: Bulk Issue Remediation
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Remediate issues created in the last N days (default: 7)"
+        required: false
+        default: "7"
+        type: string
+      dry_run:
+        description: "Run without making changes"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      remediate_milestones:
+        description: "Auto-assign missing milestones"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      remediate_labels:
+        description: "Add missing type labels"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      remediate_templates:
+        description: "Post remediation checklists for template gaps"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  bulk-remediation:
+    name: Bulk issue remediation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch non-compliant issues
+        id: fetch
+        uses: actions/github-script@v9
+        env:
+          DAYS: ${{ inputs.days }}
+        with:
+          script: |
+            const days = parseInt(process.env.DAYS || '7', 10);
+            const createdSince = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split('T')[0];
+
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              since: createdSince,
+              per_page: 100,
+            });
+
+            const nonCompliant = issues
+              .filter((issue) => !issue.pull_request) // Exclude PRs
+              .filter((issue) => {
+                const body = (issue.body || '').toLowerCase();
+                const hasDoR = /definition of ready \(dor\)/i.test(body);
+                const hasDoD = /definition of done \(dod\)/i.test(body);
+                const hasType = (issue.labels || []).some((l) =>
+                  (typeof l === 'string' ? l : l.name).startsWith('type:')
+                );
+                const hasMilestone = !!issue.milestone;
+
+                // Flag as non-compliant if missing any of: type label, milestone, DoR, DoD
+                return !hasType || !hasMilestone || !hasDoR || !hasDoD;
+              });
+
+            core.info(
+              `Found ${nonCompliant.length} non-compliant issue(s) from last ${days} day(s)`
+            );
+
+            core.setOutput('count', nonCompliant.length);
+            core.setOutput('issues', JSON.stringify(nonCompliant));
+
+      - name: Assign milestones
+        if: ${{ inputs.remediate_milestones == 'true' && steps.fetch.outputs.count > 0 }}
+        shell: bash
+        run: |
+          set +e
+          node scripts/workflows/assign-milestones-workflow.cjs
+          echo "Exit code: $?"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          RUN_ID: ${{ github.run_id }}
+
+      - name: Add missing type labels
+        if: ${{ inputs.remediate_labels == 'true' && steps.fetch.outputs.count > 0 }}
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
+            const dryRun = '${{ inputs.dry_run }}' === 'true';
+
+            let labelCount = 0;
+            for (const issue of issues) {
+              const hasType = (issue.labels || []).some((l) =>
+                (typeof l === 'string' ? l : l.name).startsWith('type:')
+              );
+
+              if (!hasType) {
+                if (!dryRun) {
+                  // Try to infer type from body or use default
+                  let typeLabel = 'type:task';
+                  const body = (issue.body || '').toLowerCase();
+
+                  if (body.includes('bug') || body.includes('error') || body.includes('broken')) {
+                    typeLabel = 'type:bug';
+                  } else if (body.includes('feature') || body.includes('enhancement')) {
+                    typeLabel = 'type:feature';
+                  } else if (body.includes('refactor') || body.includes('clean up')) {
+                    typeLabel = 'type:refactor';
+                  } else if (body.includes('test') || body.includes('coverage')) {
+                    typeLabel = 'type:test';
+                  } else if (body.includes('doc') || body.includes('guide')) {
+                    typeLabel = 'type:documentation';
+                  } else if (body.includes('design')) {
+                    typeLabel = 'type:design';
+                  }
+
+                  try {
+                    await github.rest.issues.addLabels({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: issue.number,
+                      labels: [typeLabel],
+                    });
+                    labelCount++;
+                  } catch (error) {
+                    core.warning(`Failed to add label to #${issue.number}: ${error.message}`);
+                  }
+                } else {
+                  labelCount++;
+                }
+              }
+            }
+
+            core.info(`Type label remediation: ${labelCount} issue(s) labeled (dry-run: ${dryRun})`);
+
+      - name: Post remediation checklists
+        if: ${{ inputs.remediate_templates == 'true' && steps.fetch.outputs.count > 0 }}
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { RemediationChecklistGenerator } = require('./scripts/agents/includes/remediation-checklist-generator.js');
+            const issues = JSON.parse('${{ steps.fetch.outputs.issues }}');
+            const dryRun = '${{ inputs.dry_run }}' === 'true';
+
+            const generator = new RemediationChecklistGenerator(github, context.repo.owner, context.repo.repo);
+            const results = await generator.postRemediationChecklists(issues, { dryRun });
+
+            const posted = results.filter((r) => r.status === 'checklist-posted' || r.status === 'checklist-updated' || r.status === 'ready-to-post');
+            const compliant = results.filter((r) => r.status === 'compliant');
+            const errors = results.filter((r) => r.status === 'error');
+
+            core.summary
+              .addHeading('Remediation Checklist Summary')
+              .addRaw(`- Total: ${results.length}\n`)
+              .addRaw(`- Checklists posted: ${posted.length}\n`)
+              .addRaw(`- Already compliant: ${compliant.length}\n`)
+              .addRaw(`- Errors: ${errors.length}\n`)
+              .write();
+
+            core.info(`Remediation checklists: ${posted.length} posted, ${compliant.length} compliant, ${errors.length} errors`);
+
+      - name: Run labeling workflow
+        if: success()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            core.info('Triggering unified labeling workflow...');
+
+            try {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'labeling.yml',
+                ref: 'develop',
+                inputs: {
+                  dry_run: '${{ inputs.dry_run }}',
+                  report_commit: 'false',
+                },
+              });
+              core.info('Labeling workflow triggered successfully');
+            } catch (error) {
+              core.warning(`Could not trigger labeling workflow: ${error.message}`);
+            }
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: remediation-reports-${{ github.run_id }}
+          path: |
+            .github/reports/remediation/
+            .github/reports/labeling/
+          retention-days: 30
+
+      - name: Summary
+        if: always()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const dryRun = '${{ inputs.dry_run }}' === 'true';
+            const mode = dryRun ? '🏁 DRY-RUN' : '✅ APPLIED';
+
+            core.summary
+              .addHeading(`${mode} - Bulk Issue Remediation Complete`)
+              .addRaw(`\n**Reports available in artifacts**\n`)
+              .addRaw(`- Milestone assignment: .github/reports/remediation/milestone-assignment-${{ github.run_id }}.md\n`)
+              .addRaw(`- Labeling workflow initiated\n`)
+              .write();

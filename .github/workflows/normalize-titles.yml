@@ -1,0 +1,210 @@
+name: Normalize Issue/PR Titles
+
+on:
+  workflow_dispatch:
+    inputs:
+      state:
+        description: "Filter by issue/PR state"
+        required: false
+        default: "open"
+        type: choice
+        options:
+          - open
+          - closed
+          - all
+      since:
+        description: "Process items created since (YYYY-MM-DD)"
+        required: false
+        type: string
+      item_type:
+        description: "Process only issues or PRs"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - issue
+          - pr
+          - all
+      dry_run:
+        description: "Preview changes without applying"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  normalize-titles:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run title normalization
+        id: normalize
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ARGS="--format json"
+          if [ "${{ inputs.state }}" != "" ]; then
+            ARGS="$ARGS --state ${{ inputs.state }}"
+          fi
+          if [ "${{ inputs.since }}" != "" ]; then
+            ARGS="$ARGS --since ${{ inputs.since }}"
+          fi
+          if [ "${{ inputs.item_type }}" != "" ]; then
+            ARGS="$ARGS --type ${{ inputs.item_type }}"
+          fi
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+
+          echo "Running: node scripts/automation/normalize-issue-pr-titles.js $ARGS"
+          REPORT=$(node scripts/automation/normalize-issue-pr-titles.js $ARGS 2>&1)
+          echo "$REPORT" > /tmp/normalize-report.json
+          echo "report<<EOF" >> $GITHUB_OUTPUT
+          cat /tmp/normalize-report.json >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Parse report
+        id: parse
+        run: |
+          REPORT='${{ steps.normalize.outputs.report }}'
+          echo "$REPORT" | jq . || true
+
+          TOTAL=$(echo "$REPORT" | jq '.total // 0')
+          UPDATED=$(echo "$REPORT" | jq '.updated // 0')
+          SKIPPED=$(echo "$REPORT" | jq '.skipped // 0')
+          ERRORS=$(echo "$REPORT" | jq '.errors // 0')
+
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "updated=$UPDATED" >> $GITHUB_OUTPUT
+          echo "skipped=$SKIPPED" >> $GITHUB_OUTPUT
+          echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+
+      - name: Create result comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            let report = {};
+            try {
+              const reportJson = fs.readFileSync('/tmp/normalize-report.json', 'utf8');
+              report = JSON.parse(reportJson);
+            } catch (error) {
+              console.log('Could not parse report:', error.message);
+            }
+
+            const total = report.total || 0;
+            const updated = report.updated || 0;
+            const skipped = report.skipped || 0;
+            const errors = report.errors || 0;
+            const dryRun = '${{ inputs.dry_run }}' === 'true';
+
+            let emoji = '✅';
+            if (errors > 0) emoji = '❌';
+            else if (dryRun) emoji = '👁️';
+
+            let comment = `${emoji} **Title Normalization Report**\n\n`;
+            comment += `**Mode:** ${dryRun ? 'Dry-run (preview only)' : 'Applied'}\n\n`;
+            comment += `| Metric | Count |\n`;
+            comment += `|--------|-------|\n`;
+            comment += `| Total processed | ${total} |\n`;
+            comment += `| ${dryRun ? 'Would update' : 'Updated'} | ${updated} |\n`;
+            comment += `| Skipped | ${skipped} |\n`;
+            comment += `| Errors | ${errors} |\n\n`;
+
+            if (report.details && report.details.length > 0) {
+              const updated_items = report.details.filter(d => d.action === 'updated' || d.action === 'would-update');
+
+              if (updated_items.length > 0) {
+                comment += `**Changes:**\n\n`;
+
+                const issues = updated_items.filter(d => d.type === 'issue');
+                const prs = updated_items.filter(d => d.type === 'pr');
+
+                if (issues.length > 0) {
+                  comment += `**Issues (${issues.length}):**\n`;
+                  for (const item of issues.slice(0, 10)) {
+                    comment += `- #${item.number} [\`${item.typePrefix}\`]: "${item.oldTitle}" → "${item.newTitle}"\n`;
+                  }
+                  if (issues.length > 10) {
+                    comment += `- ... and ${issues.length - 10} more\n`;
+                  }
+                  comment += '\n';
+                }
+
+                if (prs.length > 0) {
+                  comment += `**Pull Requests (${prs.length}):**\n`;
+                  for (const item of prs.slice(0, 10)) {
+                    comment += `- #${item.number} [\`${item.typePrefix}\`]: "${item.oldTitle}" → "${item.newTitle}"\n`;
+                  }
+                  if (prs.length > 10) {
+                    comment += `- ... and ${prs.length - 10} more\n`;
+                  }
+                  comment += '\n';
+                }
+              }
+            }
+
+            if (report.errors_list && report.errors_list.length > 0) {
+              comment += `**Errors:**\n`;
+              for (const error of report.errors_list.slice(0, 5)) {
+                comment += `- ${error.error}\n`;
+              }
+              if (report.errors_list.length > 5) {
+                comment += `- ... and ${report.errors_list.length - 5} more\n`;
+              }
+              comment += '\n';
+            }
+
+            if (dryRun) {
+              comment += `💡 **Dry-run mode**: No changes were applied. Re-run without "dry_run" to apply changes.\n`;
+            }
+
+            comment += `\n---\n_Automated by [PR Template Resolver](../../.github/workflows/normalize-titles.yml)_`;
+
+            // Create or update issue comment
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'meta:normalization-report',
+              state: 'open',
+              per_page: 1
+            });
+
+            if (issues.data.length > 0) {
+              // Update existing issue
+              const issueNumber = issues.data[0].number;
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: comment
+              });
+            } else {
+              // Create new issue for the report
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `Title Normalization Report - ${new Date().toISOString().split('T')[0]}`,
+                body: comment,
+                labels: ['type:documentation', 'meta:normalization-report', 'area:automation']
+              });
+            }
+
+      - name: Exit with error if failures
+        if: failure() && steps.parse.outputs.errors != '0'
+        run: |
+          echo "Title normalization encountered errors"
+          exit 1

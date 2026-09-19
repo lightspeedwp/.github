@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PRD delta",
+  "type": "object",
+  "required": ["changed_scope", "unchanged_approved_scope"],
+  "properties": {
+    "changed_scope": { "type": "array", "items": { "type": "string" } },
+    "unchanged_approved_scope": { "type": "array", "items": { "type": "string" } },
+    "new_approval_needed": { "type": "string" }
+  },
+  "additionalProperties": false
+}

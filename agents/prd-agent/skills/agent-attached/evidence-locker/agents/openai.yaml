@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence Locker"
+  short_description: "Lock facts, assumptions, and decisions across outputs"
+  default_prompt: "Use $evidence-locker to separate confirmed facts from assumptions, record source-backed decisions, and keep planning outputs consistent."

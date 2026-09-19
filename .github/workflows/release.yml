@@ -1,0 +1,63 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "Comma-separated package scope (optional)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+
+  release:
+    needs: [lint]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: develop
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - name: Install
+        run: npm ci
+      - name: Configure git user
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "ops@lightspeedwp.agency"
+      - name: Validate changelog (schema + unreleased content)
+        run: |
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+          node scripts/agents/includes/changelogUtils.cjs --unreleased CHANGELOG.md
+      - name: Run Release Agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SCOPE_INPUT="${{ github.event.inputs.scope }}"
+          if [ -z "$SCOPE_INPUT" ]; then
+            SCOPE_INPUT="patch"
+          fi
+          node scripts/agents/release.agent.js --scope="$SCOPE_INPUT"
+      - name: Post metrics
+        if: always()
+        run: echo "metric=release_cycle conclusion=${{ job.status }}"

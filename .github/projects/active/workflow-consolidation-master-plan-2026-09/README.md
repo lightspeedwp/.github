@@ -19,6 +19,16 @@ timeline_weeks: 4-5
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#3367](../../../issues/3367) | task | Workflow consolidation master plan & execution | ⏰ Planned |
+
+**Note:** Additional phase tracking issues to be created as execution begins.
+
+---
+
 ## Quick Start
 
 1. **Start Here** → [`EXECUTION_SUMMARY.md`](./EXECUTION_SUMMARY.md) (5-min overview)

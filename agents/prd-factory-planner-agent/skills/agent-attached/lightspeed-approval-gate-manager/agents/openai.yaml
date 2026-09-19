@@ -1,0 +1,5 @@
+interface:
+  display_name: LightSpeed Approval Gate Manager
+  short_description: Manage approval checkpoints and sign-off gates for LightSpeed WordPress projects.
+  icon: assets/icon.svg
+  accent_color: '#2F6BFF'

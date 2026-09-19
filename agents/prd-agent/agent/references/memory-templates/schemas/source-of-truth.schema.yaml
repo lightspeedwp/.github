@@ -1,0 +1,9 @@
+title: source-of-truth
+required:
+  - sources
+properties:
+  sources:
+    type: array
+    items:
+      type: object
+      required: [name, type, authority_level]

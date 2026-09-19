@@ -1,0 +1,310 @@
+<script>
+  import { onMount, onDestroy } from "svelte";
+
+  export let items = [];
+  export let base = "/";
+
+  let open = false;
+  let query = "";
+  let selected = 0;
+  let inputEl: HTMLInputElement;
+  let dialogEl: HTMLElement;
+  let previousFocus: HTMLElement | null = null;
+
+  $: filtered = query.trim().length < 1
+    ? items.slice(0, 8)
+    : items.filter((item) => {
+        const q = query.toLowerCase();
+        return (
+          item.name.toLowerCase().includes(q) ||
+          item.description.toLowerCase().includes(q) ||
+          item.cat.toLowerCase().includes(q) ||
+          item.tags.some((t) => t.toLowerCase().includes(q))
+        );
+      }).slice(0, 8);
+
+  $: if (filtered) selected = 0;
+
+  function openPalette() {
+    previousFocus = document.activeElement as HTMLElement;
+    open = true;
+    query = "";
+    selected = 0;
+    setTimeout(() => inputEl?.focus(), 50);
+  }
+
+  function closePalette() {
+    open = false;
+    query = "";
+    setTimeout(() => previousFocus?.focus(), 50);
+    previousFocus = null;
+  }
+
+  function navigate(item: typeof items[0]) {
+    window.location.href = `${base}c/${item.cat}/${item.slug}/`;
+    closePalette();
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      open ? closePalette() : openPalette();
+    }
+    if (!open) return;
+
+    if (e.key === "Escape") closePalette();
+    if (e.key === "ArrowDown") { e.preventDefault(); selected = Math.min(selected + 1, filtered.length - 1); }
+    if (e.key === "ArrowUp") { e.preventDefault(); selected = Math.max(selected - 1, 0); }
+    if (e.key === "Enter" && filtered[selected]) navigate(filtered[selected]);
+    if (e.key === "Tab" && dialogEl) {
+      const focusable = dialogEl.querySelectorAll<HTMLElement>('input, button, [tabindex="0"]');
+      if (focusable.length > 0) {
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  }
+
+  function handleBackdropClick(e: MouseEvent) {
+    if (e.target === dialogEl) closePalette();
+  }
+
+  onMount(() => {
+    window.addEventListener("keydown", handleKeydown);
+    // Also trigger open from the search button
+    document.addEventListener("search-palette-open", openPalette);
+  });
+
+  onDestroy(() => {
+    window.removeEventListener("keydown", handleKeydown);
+    document.removeEventListener("search-palette-open", openPalette);
+  });
+
+  const catLabels: Record<string, string> = {
+    agents: "Agent",
+    instructions: "Instruction",
+    prompts: "Prompt",
+    skills: "Skill",
+    hooks: "Hook",
+    workflows: "Workflow",
+    plugins: "Plugin",
+    tools: "Tool",
+  };
+</script>
+
+{#if open}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+  <div
+    class="sp-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Search"
+    bind:this={dialogEl}
+    on:click={handleBackdropClick}
+  >
+    <div class="sp-panel">
+      <div class="sp-input-row">
+        <span class="sp-search-icon" aria-hidden="true">⌕</span>
+        <input
+          bind:this={inputEl}
+          bind:value={query}
+          class="sp-input"
+          type="text"
+          role="combobox"
+          aria-expanded={filtered.length > 0}
+          aria-haspopup="listbox"
+          placeholder="Search agents, instructions, prompts…"
+          autocomplete="off"
+          aria-label="Search catalogue"
+          aria-controls="sp-results"
+          aria-autocomplete="list"
+          aria-activedescendant={filtered.length > 0 ? "sp-option-" + selected : undefined}
+        />
+        <button class="sp-close" on:click={closePalette} aria-label="Close search" type="button">
+          Esc
+        </button>
+      </div>
+
+      {#if filtered.length > 0}
+        <ul class="sp-results" id="sp-results" role="listbox" aria-label="Search results">
+          {#each filtered as item, i}
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <li
+              id={"sp-option-" + i}
+              role="option"
+              aria-selected={i === selected}
+              class="sp-result {i === selected ? 'sp-result--selected' : ''}"
+              on:click={() => navigate(item)}
+              on:mouseenter={() => (selected = i)}
+            >
+              <span class="sp-result-cat">{catLabels[item.cat] || item.cat}</span>
+              <span class="sp-result-name">{item.name}</span>
+              <span class="sp-result-desc">{item.description.slice(0, 70)}{item.description.length > 70 ? "…" : ""}</span>
+            </li>
+          {/each}
+        </ul>
+      {:else if query.trim().length > 0}
+        <div class="sp-empty">No results for "<strong>{query}</strong>"</div>
+      {/if}
+
+      <div class="sp-footer">
+        <span><kbd>↑↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> open</span>
+        <span><kbd>Esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<style>
+  .sp-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 15vh var(--gutter, 32px) var(--gutter, 32px);
+  }
+
+  .sp-panel {
+    width: 100%;
+    max-width: 600px;
+    background: var(--bg, #fff);
+    border: 1px solid var(--border, #e1e1e1);
+    border-radius: var(--radius-xl, 16px);
+    box-shadow: var(--shadow-xl, 0 32px 80px rgba(14,50,120,.18));
+    overflow: hidden;
+  }
+
+  .sp-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border, #e1e1e1);
+  }
+
+  .sp-search-icon {
+    color: var(--fg-3, #909090);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .sp-input {
+    flex: 1;
+    font-size: 16px;
+    font-family: var(--font-body, system-ui);
+    color: var(--fg, #090909);
+    background: transparent;
+    border: none;
+    outline: none;
+    line-height: 1.5;
+  }
+
+  .sp-input::placeholder { color: var(--fg-3, #909090); }
+
+  .sp-close {
+    flex-shrink: 0;
+    font-size: 11px;
+    padding: 3px 8px;
+    background: var(--bg-muted, #f0f0f0);
+    color: var(--fg-3, #909090);
+    border: 1px solid var(--border, #e1e1e1);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .sp-results {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+
+  .sp-result {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 120ms ease-out;
+    flex-wrap: wrap;
+  }
+
+  .sp-result--selected {
+    background: var(--accent-soft, rgba(30,106,255,.10));
+  }
+
+  .sp-result-cat {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent, #1e6aff);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    min-width: 70px;
+  }
+
+  .sp-result-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg-1, #090909);
+    white-space: nowrap;
+  }
+
+  .sp-result-desc {
+    font-size: 13px;
+    color: var(--fg-3, #909090);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .sp-empty {
+    padding: 32px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--fg-3, #909090);
+  }
+
+  .sp-footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--border, #e1e1e1);
+    font-size: 12px;
+    color: var(--fg-3, #909090);
+  }
+
+  kbd {
+    display: inline-block;
+    padding: 1px 5px;
+    background: var(--bg-muted, #f0f0f0);
+    border: 1px solid var(--border, #e1e1e1);
+    border-radius: 3px;
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    margin-right: 3px;
+  }
+
+  @media (max-width: 640px) {
+    .sp-backdrop { padding: 60px 16px 16px; }
+    .sp-result-desc { display: none; }
+  }
+</style>

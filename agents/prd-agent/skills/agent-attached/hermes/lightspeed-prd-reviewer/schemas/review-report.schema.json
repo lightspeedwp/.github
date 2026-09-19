@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Review report",
+  "type": "object",
+  "required": ["verdict", "blocking_issues", "recommended_fixes"],
+  "properties": {
+    "verdict": { "type": "string" },
+    "blocking_issues": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "unsupported_claims": { "type": "array", "items": { "type": "string" } },
+    "missing_evidence": { "type": "array", "items": { "type": "string" } },
+    "recommended_fixes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

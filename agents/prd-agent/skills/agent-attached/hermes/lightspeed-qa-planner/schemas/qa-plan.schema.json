@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QA plan",
+  "type": "object",
+  "required": ["qa_scope", "test_areas", "go_no_go_criteria"],
+  "properties": {
+    "qa_scope": { "type": "string" },
+    "test_areas": { "type": "array", "items": { "type": "string" } },
+    "go_no_go_criteria": { "type": "array", "items": { "type": "string" } },
+    "owner_and_evidence_notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

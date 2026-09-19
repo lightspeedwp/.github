@@ -1,0 +1,227 @@
+name: "Badges: Health Check"
+
+on:
+  schedule:
+    # Run weekly on Tuesday at 02:00 UTC
+    - cron: "0 2 * * 2"
+  workflow_dispatch:
+    inputs:
+      report_only:
+        description: "Report findings without creating issues"
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  health-check:
+    name: "Validate All Badge Links"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: "Install dependencies"
+        run: npm ci
+
+      - name: "Find markdown files with badges"
+        id: find
+        run: |
+          echo "Finding markdown files with badge markers..."
+
+          find . -type f -name "*.md" \
+            ! -path "*/node_modules/*" \
+            ! -path "*/.git/*" \
+            ! -path "*/.github/*" \
+            -exec grep -l "<!-- BADGES-START -->" {} \; > /tmp/files_with_badges.txt
+
+          count=$(grep -c . /tmp/files_with_badges.txt || echo 0)
+          echo "files_count=$count" >> $GITHUB_OUTPUT
+
+          echo "Found $count files with badges"
+
+      - name: "Extract badge URLs"
+        id: extract
+        run: |
+          echo "Extracting badge URLs from markdown files..."
+
+          total_badges=0
+          total_files=$(grep -c . /tmp/files_with_badges.txt || echo 0)
+
+          > /tmp/all_badges.txt
+
+          while IFS= read -r file; do
+            [[ -z "$file" ]] && continue
+
+            echo "Processing: $file"
+
+            # Extract badge URLs only (img.shields.io and github.com/...badge.svg)
+            grep -oP '(?:https?://img\.shields\.io/|https?://github\.com/)[^)]+' "$file" | sort -u >> /tmp/all_badges.txt
+
+          done < /tmp/files_with_badges.txt
+
+          # Remove duplicates
+          sort -u /tmp/all_badges.txt > /tmp/unique_badges.txt
+          mv /tmp/unique_badges.txt /tmp/all_badges.txt
+
+          total_badges=$(grep -c . /tmp/all_badges.txt || echo 0)
+          echo "badges_count=$total_badges" >> $GITHUB_OUTPUT
+
+          echo "Found $total_badges unique badge URLs"
+
+      - name: "Validate badge URLs"
+        id: validate
+        run: |
+          echo "Validating badge URLs..."
+
+          broken_count=0
+          timeout_count=0
+          working_count=0
+
+          > /tmp/broken_links.txt
+          > /tmp/timeout_links.txt
+
+          while IFS= read -r url; do
+            [[ -z "$url" ]] && continue
+
+            echo -n "  Testing: $url ... "
+
+            # Test URL with 10 second timeout
+            response=$(timeout 10 curl -s -o /dev/null -w "%{http_code}" "$url" 2>/dev/null || echo "timeout")
+
+            case "$response" in
+              200|301|302|304)
+                echo "✓ OK"
+                ((++working_count))
+                ;;
+              404)
+                echo "✗ BROKEN (404)"
+                echo "$url" >> /tmp/broken_links.txt
+                ((++broken_count))
+                ;;
+              403|410)
+                echo "✗ BROKEN ($response)"
+                echo "$url" >> /tmp/broken_links.txt
+                ((++broken_count))
+                ;;
+              timeout)
+                echo "⚠ TIMEOUT"
+                echo "$url" >> /tmp/timeout_links.txt
+                ((++timeout_count))
+                ;;
+              *)
+                echo "? UNKNOWN ($response)"
+                ((++working_count))
+                ;;
+            esac
+          done < /tmp/all_badges.txt
+
+          echo "broken_count=$broken_count" >> $GITHUB_OUTPUT
+          echo "timeout_count=$timeout_count" >> $GITHUB_OUTPUT
+          echo "working_count=$working_count" >> $GITHUB_OUTPUT
+
+      - name: "Generate health report"
+        id: report
+        run: |
+          echo "# Badge Health Check Report" > /tmp/health_report.md
+          echo "" >> /tmp/health_report.md
+          echo "**Scan Date:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> /tmp/health_report.md
+          echo "" >> /tmp/health_report.md
+          echo "## Summary" >> /tmp/health_report.md
+          echo "" >> /tmp/health_report.md
+          echo "| Metric | Count |" >> /tmp/health_report.md
+          echo "|--------|-------|" >> /tmp/health_report.md
+          echo "| Files Scanned | ${{ steps.find.outputs.files_count }} |" >> /tmp/health_report.md
+          echo "| Badge URLs | ${{ steps.extract.outputs.badges_count }} |" >> /tmp/health_report.md
+          echo "| Working | ${{ steps.validate.outputs.working_count }} |" >> /tmp/health_report.md
+          echo "| Broken | ${{ steps.validate.outputs.broken_count }} |" >> /tmp/health_report.md
+          echo "| Timeouts | ${{ steps.validate.outputs.timeout_count }} |" >> /tmp/health_report.md
+
+          if [[ ${{ steps.validate.outputs.broken_count }} -gt 0 ]]; then
+            echo "" >> /tmp/health_report.md
+            echo "## Broken Links" >> /tmp/health_report.md
+            cat /tmp/broken_links.txt >> /tmp/health_report.md
+          fi
+
+          if [[ ${{ steps.validate.outputs.timeout_count }} -gt 0 ]]; then
+            echo "" >> /tmp/health_report.md
+            echo "## Timeout Links" >> /tmp/health_report.md
+            cat /tmp/timeout_links.txt >> /tmp/health_report.md
+          fi
+
+          cat /tmp/health_report.md
+          echo "report_generated=true" >> $GITHUB_OUTPUT
+
+      - name: "Create health check issue"
+        if: steps.validate.outputs.broken_count > 0 && !inputs.report_only
+        continue-on-error: true
+        run: |
+          # Prepend DoR/DoD to health report
+          {
+            echo "## Definition of Ready (DoR)"
+            echo ""
+            echo "- [x] Badge validation workflow completed"
+            echo "- [x] Broken links identified"
+            echo "- [x] Health report generated"
+            echo ""
+            cat /tmp/health_report.md
+            echo ""
+            echo "## Definition of Done (DoD)"
+            echo ""
+            echo "- [ ] Broken links investigated"
+            echo "- [ ] Schema corrected or links validated"
+            echo "- [ ] Documentation updated if needed"
+            echo "- [ ] Health check rerun confirms resolution"
+          } > /tmp/issue_body.txt
+
+          gh issue create \
+            --repo "${{ github.repository }}" \
+            --title "🏥 Badge Health Check - ${{ steps.validate.outputs.broken_count }} Broken Links" \
+            --body-file /tmp/issue_body.txt \
+            --label "type:task,area:automation,priority:important" || {
+              echo "::warning::Could not create issue"
+            }
+
+      - name: "Post workflow summary"
+        if: always()
+        run: |
+          echo "## 🏥 Badge Health Check Results"
+          echo ""
+          echo "**Scan Results:**"
+          echo "- Files Checked: ${{ steps.find.outputs.files_count }}"
+          echo "- Badge URLs: ${{ steps.extract.outputs.badges_count }}"
+          echo "- Working: ${{ steps.validate.outputs.working_count }} ✓"
+          echo "- Broken: ${{ steps.validate.outputs.broken_count }} ✗"
+          echo "- Timeouts: ${{ steps.validate.outputs.timeout_count }} ⚠"
+          echo ""
+
+          if [[ ${{ steps.validate.outputs.broken_count }} -eq 0 && ${{ steps.validate.outputs.timeout_count }} -eq 0 ]]; then
+            echo "✅ **All badges are healthy!**"
+          else
+            echo "❌ **Issues detected - see report above**"
+          fi
+
+      - name: "Log detailed results"
+        if: failure()
+        run: |
+          echo "Health check failed with errors."
+          echo ""
+          echo "Broken links:"
+          cat /tmp/broken_links.txt || echo "None"
+          echo ""
+          echo "Timeout links:"
+          cat /tmp/timeout_links.txt || echo "None"

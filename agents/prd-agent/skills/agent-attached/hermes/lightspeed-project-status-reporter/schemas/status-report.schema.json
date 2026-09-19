@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Status report",
+  "type": "object",
+  "required": ["status_headline", "current_phase"],
+  "properties": {
+    "status_headline": { "type": "string" },
+    "current_phase": { "type": "string" },
+    "completed_since_last_update": { "type": "array", "items": { "type": "string" } },
+    "in_progress": { "type": "array", "items": { "type": "string" } },
+    "blockers": { "type": "array", "items": { "type": "string" } },
+    "risks": { "type": "array", "items": { "type": "string" } },
+    "decisions_needed": { "type": "array", "items": { "type": "string" } },
+    "upcoming_work": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

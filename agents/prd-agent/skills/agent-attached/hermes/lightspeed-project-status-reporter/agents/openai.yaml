@@ -1,0 +1,4 @@
+interface:
+  display_name: "LS Status Reporter"
+  short_description: "Turn project evidence into internal or client-safe LightSpeed status updates."
+  default_prompt: "Use $lightspeed-project-status-reporter to create a grounded LightSpeed project status update with blockers, risks, and next actions."

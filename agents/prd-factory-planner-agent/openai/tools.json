@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "provider": "openai",
+  "functions": [
+    {
+      "name": "generate_prd",
+      "description": "Generate a complete PRD document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "PRD title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Product description and overview"
+          },
+          "scope": {
+            "type": "array",
+            "description": "List of features and requirements",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["title", "description"]
+      }
+    },
+    {
+      "name": "estimate_timeline",
+      "description": "Estimate project timeline and milestones",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "requirements": {
+            "type": "array",
+            "description": "List of project requirements",
+            "items": { "type": "string" }
+          },
+          "team_size": {
+            "type": "integer",
+            "description": "Expected team size"
+          },
+          "complexity": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "Project complexity level"
+          }
+        },
+        "required": ["requirements"]
+      }
+    }
+  ],
+  "models": ["gpt-4-turbo", "gpt-4", "gpt-4o"]
+}

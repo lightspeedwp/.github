@@ -1,0 +1,143 @@
+---
+import AwesomeGithubLayout from '../layouts/AwesomeGithubLayout.astro';
+import WapuuHero from '../components/WapuuHero.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<AwesomeGithubLayout
+  title="Why This Exists — Awesome GitHub"
+  description="The philosophy behind the Awesome GitHub control plane — governance, not opinions."
+>
+  <section class="editorial-hero">
+      <div class="editorial-hero-inner">
+        <div class="editorial-hero-text">
+          <span class="eyebrow">Philosophy</span>
+          <h1 class="page-h1">Why This Exists</h1>
+          <p class="page-lead">
+            Governance, not opinions. One <code>.github</code> repository encodes your team's
+            standards so every AI assistant starts from the same playbook.
+          </p>
+        </div>
+        <WapuuHero page="why" />
+      </div>
+    </section>
+
+    <div class="prose-body">
+      <div class="md">
+        <h2>The problem with "just wing it"</h2>
+        <p>
+          Out of the box, every AI assistant starts from scratch on every session. It doesn't know
+          your naming conventions, your accessibility requirements, your branching strategy, or which
+          patterns your team has decided to avoid. So it guesses — and the guesses are sometimes good,
+          often generic, and occasionally harmful.
+        </p>
+        <p>
+          Multiply that across a team of engineers using Copilot, Cursor, Claude Code, or Gemini CLI,
+          and you get a different implicit rulebook for every developer. Code review becomes a game of
+          catching AI-generated patterns that don't match your standards. Onboarding stays slow because
+          the AI doesn't reinforce your conventions — it introduces its own.
+        </p>
+
+        <h2>The fix: explicit, versioned governance</h2>
+        <p>
+          The Awesome GitHub control plane makes AI behaviour predictable by shipping structured
+          governance files alongside your code. Instead of hoping the model infers your standards from
+          examples, you write them down once in machine-readable formats and let every tool consume them.
+        </p>
+        <p>
+          Instructions tell the model what standards to follow. Agents narrow the scope to a specific
+          role. Hooks catch violations before they land in a PR. Workflows orchestrate multi-step tasks
+          that would otherwise require manual coordination. Prompts give the team reusable starting points
+          that skip the "how do I ask for this?" overhead.
+        </p>
+
+        <h2>Why not just use a linter?</h2>
+        <p>
+          Linters are mechanical — they check syntax and pattern matches. AI governance is semantic —
+          it shapes reasoning before code is written. A linter can't tell the model "prefer
+          <code>wp_safe_redirect()</code> over <code>wp_redirect()</code> and always check the return
+          value." An instruction can. They're complementary, not competing.
+        </p>
+        <p>
+          The hooks in this catalogue bridge the two: they use the linter as a guardrail but give the
+          AI enough context to avoid the violation in the first place, rather than just flagging it after
+          the fact.
+        </p>
+
+        <h2>Awesome GitHub vs. awesome lists</h2>
+        <p>
+          The "Awesome" naming is intentional but ironic. Traditional awesome lists are curated links to
+          third-party resources. This project is different: everything here lives in the repository, is
+          versioned with the codebase, and is immediately usable — not a reading list.
+        </p>
+        <p>
+          The catalogue is the repository. The instructions are deployed. The agents are running. The
+          workflows are wired into CI. If it's in this catalogue, it's production.
+        </p>
+
+        <h2>Designed for every AI tool</h2>
+        <p>
+          The assets here are deliberately tool-agnostic. Instructions follow the
+          <code>.github/instructions/</code> convention that GitHub Copilot reads natively.
+          Agents are specified in a portable YAML-like format that Claude Code, Gemini CLI, and
+          custom runners all understand. Skills have <code>SKILL.md</code> entrypoints that any
+          model can follow.
+        </p>
+        <p>
+          We maintain canonical configurations for Claude (<code>ai/Claude.md</code>), Gemini
+          (<code>ai/Gemini.md</code>), and GitHub Actions runners (<code>ai/RUNNERS.md</code>) so
+          you can adopt whichever tool fits the task.
+        </p>
+
+        <h2>A living system</h2>
+        <p>
+          The control plane is not documentation you write once and forget. It evolves with the team.
+          When a new pattern emerges in code review, someone writes an instruction. When a workflow
+          saves three hours of manual work, it goes in the catalogue. When an agent proves its value,
+          it gets a version bump and a changelog entry.
+        </p>
+        <p>
+          The goal is a feedback loop: better governance → better AI output → faster development →
+          time to improve governance. That's the flywheel.
+        </p>
+      </div>
+
+      <div class="why-cta-block">
+        <h2>Ready to explore?</h2>
+        <p>Browse the catalogue or start with the learning tracks to understand the system.</p>
+        <div class="cta-row">
+          <a class="btn-primary btn-pill" href={`${base}c/agents/`}>Browse the catalogue →</a>
+          <a class="btn-ghost btn-pill" href={`${base}learn/`}>Start learning</a>
+        </div>
+      </div>
+    </div>
+</AwesomeGithubLayout>
+
+<style>
+  .why-cta-block {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--hair);
+  }
+
+  .why-cta-block h2 {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2vw, 26px);
+    font-weight: 700;
+    color: var(--fg-1);
+    margin: 0 0 8px;
+  }
+
+  .why-cta-block > p {
+    font-size: 16px;
+    color: var(--fg-2);
+    margin: 0 0 20px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+</style>

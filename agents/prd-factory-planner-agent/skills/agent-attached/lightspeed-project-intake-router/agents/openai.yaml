@@ -1,0 +1,5 @@
+interface:
+  display_name: LightSpeed Project Intake Router
+  short_description: Structure project inputs and route Figma-to-WordPress work into PRD/task workflows.
+  icon: ../assets/icon.svg
+  accent_color: '#1e73be'

@@ -1,0 +1,37 @@
+smart_defaults_register:
+  project_type:
+    value:
+    status: defaulted
+    source:
+    safe_to_use_without_confirmation: false
+    notes:
+  preferred_output:
+    value:
+    status: defaulted
+    source:
+    safe_to_use_without_confirmation: true
+    notes:
+  questionnaire_family:
+    value:
+    status: defaulted
+    source:
+    safe_to_use_without_confirmation: false
+    notes:
+  source_priority:
+    value:
+    status: defaulted
+    source:
+    safe_to_use_without_confirmation: true
+    notes:
+  memory_preference:
+    value:
+    status: defaulted
+    source:
+    safe_to_use_without_confirmation: false
+    notes:
+  risk_posture:
+    value:
+    status: defaulted
+    source:
+    safe_to_use_without_confirmation: false
+    notes:

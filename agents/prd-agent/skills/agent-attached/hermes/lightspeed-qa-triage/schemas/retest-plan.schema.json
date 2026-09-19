@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Retest plan",
+  "type": "object",
+  "required": ["retest_steps"],
+  "properties": {
+    "retest_steps": { "type": "array", "items": { "type": "string" } },
+    "evidence_needed": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

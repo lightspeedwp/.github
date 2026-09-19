@@ -1,0 +1,98 @@
+schema_version: 1.0.0
+file: user-defaults.yaml
+purpose: Reusable per-user defaults for how LightSpeed planning work should start and be formatted.
+content_type: yaml
+root_type: map
+required_fields:
+  - user_id
+  - planning_defaults
+optional_fields:
+  - preferred_project_types
+  - notes
+field_definitions:
+  user_id:
+    type: string
+    required: true
+    description: Stable identifier or human-readable user key for the current memory owner.
+  planning_defaults:
+    type: map
+    required: true
+    fields:
+      preferred_starting_artifact:
+        type: string
+        required: true
+        accepted_values:
+          - intake_summary
+          - prd
+          - technical_brief
+          - task_plan
+          - implementation_plan
+          - handoff_pack
+      evidence_source_priority:
+        type: sequence
+        required: true
+        item_type: string
+        min_items: 1
+        max_items: 8
+        accepted_values:
+          - user_files
+          - google_drive
+          - github
+          - figma
+          - gmail
+          - linear
+          - asana
+          - memory
+          - official_docs
+          - web
+      maintain_project_memory:
+        type: boolean
+        required: true
+      default_output_style:
+        type: string
+        required: true
+        accepted_values:
+          - concise
+          - standard
+          - detailed
+      default_estimation_mode:
+        type: string
+        required: false
+        accepted_values:
+          - t_shirt
+          - hours
+          - sprint_fit
+          - complexity_risk
+          - no_estimate
+  preferred_project_types:
+    type: sequence
+    required: false
+    item_type: string
+    max_items: 12
+  notes:
+    type: string
+    required: false
+    max_length: 500
+validation_rules:
+  - planning_defaults.evidence_source_priority must be ordered from highest to lowest preference
+  - do not store secrets, passwords, or sensitive personal data
+  - overwrite preferences only when the user states a new standing preference or behaviour clearly implies one
+update_rules:
+  - create on first confirmed onboarding preferences
+  - update only when a standing default changes
+example: |
+  user_id: ash-shaw
+  planning_defaults:
+    preferred_starting_artifact: intake_summary
+    evidence_source_priority:
+      - user_files
+      - google_drive
+      - github
+      - figma
+      - memory
+    maintain_project_memory: true
+    default_output_style: standard
+    default_estimation_mode: complexity_risk
+  preferred_project_types:
+    - business website
+    - wooCommerce

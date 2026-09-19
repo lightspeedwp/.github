@@ -1,0 +1,232 @@
+---
+import { CATEGORIES } from "../../lib/catalogue";
+
+const base = import.meta.env.BASE_URL;
+
+const catalogueCats = CATEGORIES.slice(0, 4);
+const moreCats = CATEGORIES.slice(4);
+---
+
+<footer class="foot">
+  <!-- Cyan halo effect -->
+  <div class="foot-halo" aria-hidden="true"></div>
+
+  <div class="foot-inner">
+    <!-- Top section: brand + 4 columns -->
+    <div class="foot-top">
+      <!-- Brand block (left) -->
+      <div class="foot-brand">
+        <a href={`${base}`} class="foot-logo-link">
+          <img src={`${base}awesome-github/LS-Agency-Logo-White.svg`} alt="LightSpeed" />
+        </a>
+        <p>Installable AI governance for the LightSpeed WordPress & WooCommerce team.</p>
+      </div>
+
+      <!-- 4 columns of links -->
+      <div class="foot-cols">
+        <!-- Column 1: Catalogues (Browse categories, first 4) -->
+        <div class="foot-col">
+          <h5>Catalogues</h5>
+          {catalogueCats.map((cat) => (
+            <a href={`${base}c/${cat.id}/`}>{cat.label}</a>
+          ))}
+        </div>
+
+        <!-- Column 2: More (remaining categories) -->
+        <div class="foot-col">
+          <h5>More</h5>
+          {moreCats.map((cat) => (
+            <a href={`${base}c/${cat.id}/`}>{cat.label}</a>
+          ))}
+        </div>
+
+        <!-- Column 3: Learn -->
+        <div class="foot-col">
+          <h5>Learn</h5>
+          <a href={`${base}learn/`}>Learning Centre</a>
+          <a href={`${base}cookbook/`}>Cookbook</a>
+          <a href={`${base}onboarding/`}>Onboarding journey</a>
+          <a href={`${base}getting-started/`}>Getting started</a>
+        </div>
+
+        <!-- Column 4: Reference -->
+        <div class="foot-col">
+          <h5>Reference</h5>
+          <a href={`${base}glossary/`}>Glossary</a>
+          <a href={`${base}references/`}>References</a>
+          <a href="https://lightspeedwp.agency/" target="_blank" rel="noopener noreferrer">LightSpeed site</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="foot-bottom">
+      <p>© 2026 LightSpeed · Crafted with care in WordPress.</p>
+      <p>GPL-3.0</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* ── Footer container ────────────────────────────────────────────── */
+  .foot {
+    background: var(--c-black);
+    color: #fff;
+    padding: 56px 0 36px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Cyan halo from top center */
+  .foot-halo {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 460px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(123, 231, 255, 0.18), transparent 70%);
+    pointer-events: none;
+  }
+
+  .foot-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Top section ─────────────────────────────────────────────────── */
+  .foot-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 28px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  /* ── Brand block ─────────────────────────────────────────────────── */
+  .foot-brand {
+    flex: 0 0 auto;
+  }
+
+  .foot-logo-link {
+    display: block;
+  }
+
+  .foot-brand img {
+    height: 26px;
+    width: auto;
+    margin-bottom: 14px;
+  }
+
+  .foot-brand p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    max-width: 280px;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ── Link columns ────────────────────────────────────────────────── */
+  .foot-cols {
+    display: flex;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+
+  .foot-col h5 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 0 12px;
+    font-weight: 700;
+  }
+
+  .foot-col a {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 4px 0;
+    cursor: pointer;
+    transition: color var(--dur) var(--ease-out);
+  }
+
+  .foot-col a:hover {
+    color: var(--c-light-blue);
+  }
+
+  /* ── Bottom bar ──────────────────────────────────────────────────── */
+  .foot-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 13px;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .foot-bottom p {
+    margin: 0;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .foot-top {
+      flex-direction: column;
+    }
+
+    .foot-cols {
+      width: 100%;
+      gap: 32px;
+    }
+
+    .foot-col {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .foot-cols {
+      gap: 24px;
+    }
+
+    .foot-col {
+      min-width: 150px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .foot-top {
+      gap: 24px;
+      padding-bottom: 20px;
+    }
+
+    .foot-cols {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .foot-col {
+      min-width: unset;
+    }
+
+    .foot-bottom {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+</style>

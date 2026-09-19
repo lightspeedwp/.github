@@ -1,0 +1,9 @@
+title: active-projects
+required:
+  - projects
+properties:
+  projects:
+    type: array
+    items:
+      type: object
+      required: [name, stage, updated_at]

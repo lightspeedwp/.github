@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Route card",
+  "type": "object",
+  "required": [
+    "project_stage",
+    "confirmed_evidence",
+    "missing_evidence",
+    "recommended_primary_skill",
+    "reason",
+    "expected_output",
+    "safest_next_action"
+  ],
+  "properties": {
+    "project_stage": { "type": "string" },
+    "confirmed_evidence": { "type": "array", "items": { "type": "string" } },
+    "missing_evidence": { "type": "array", "items": { "type": "string" } },
+    "recommended_primary_skill": { "type": "string" },
+    "optional_supporting_skill": { "type": ["string", "null"] },
+    "reason": { "type": "string" },
+    "expected_output": { "type": "string" },
+    "project_state_update_recommendation": { "type": "string" },
+    "safest_next_action": { "type": "string" }
+  },
+  "additionalProperties": false
+}

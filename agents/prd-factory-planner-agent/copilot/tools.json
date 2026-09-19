@@ -1,0 +1,32 @@
+{
+  "version": "1.0.0",
+  "provider": "github",
+  "tools": [
+    {
+      "name": "github_issues_create",
+      "description": "Create GitHub issues from PRD requirements",
+      "enabled": true
+    },
+    {
+      "name": "github_projects_manage",
+      "description": "Create and update GitHub Projects from milestones",
+      "enabled": true
+    },
+    {
+      "name": "github_discussions_post",
+      "description": "Post PRD sections to GitHub Discussions for feedback",
+      "enabled": true
+    },
+    {
+      "name": "github_workflows_trigger",
+      "description": "Trigger GitHub Actions workflows for PRD export",
+      "enabled": true
+    }
+  ],
+  "integrations": [
+    "github_issues",
+    "github_projects",
+    "github_discussions",
+    "github_workflows"
+  ]
+}

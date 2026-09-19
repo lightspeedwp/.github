@@ -1,0 +1,4 @@
+interface:
+  display_name: "LS Lifecycle Router"
+  short_description: "Route LightSpeed project work to the right next specialist skill."
+  default_prompt: "Use $lightspeed-prd-agent-orchestrator to classify project stage, assess evidence, and recommend the next LightSpeed skill."

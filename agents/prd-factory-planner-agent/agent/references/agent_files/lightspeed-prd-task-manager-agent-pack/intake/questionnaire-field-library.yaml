@@ -1,0 +1,43 @@
+version: 1
+field_groups:
+  project_foundations:
+    - brand
+    - project_type
+    - primary_goal
+    - audience
+    - success_criteria
+    - scope_boundaries
+  sources_and_assets:
+    - questionnaire_sources
+    - source_assets
+    - approved_sources
+    - urls
+    - docs
+    - designs
+    - repos
+    - screenshots
+  delivery_and_risk:
+    - output_format
+    - timeline
+    - urgency
+    - integrations
+    - exclusions
+    - approval_owners
+    - risk_flags
+    - missing_blockers
+  content_and_design:
+    - content_types
+    - design_direction
+    - brand_perception
+    - page_requirements
+    - conversion_action
+  launch_and_handoff:
+    - launch_requirements
+    - handoff_requirements
+    - qa_requirements
+    - training_needs
+status_values: [confirmed, inferred, defaulted, missing]
+rules:
+  - Only surface fields relevant to the current workflow.
+  - Prefer prefilled values over asking duplicate questions.
+  - Mark extracted questionnaire values as inferred unless explicitly confirmed.
