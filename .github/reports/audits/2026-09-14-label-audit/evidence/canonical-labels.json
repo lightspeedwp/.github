@@ -1,0 +1,530 @@
+{
+  "labels": [
+    {
+      "name": "status:needs-planning"
+    },
+    {
+      "name": "status:needs-triage"
+    },
+    {
+      "name": "status:ready"
+    },
+    {
+      "name": "status:in-progress"
+    },
+    {
+      "name": "status:on-hold"
+    },
+    {
+      "name": "status:needs-design"
+    },
+    {
+      "name": "status:needs-design-review"
+    },
+    {
+      "name": "status:needs-figma-update"
+    },
+    {
+      "name": "status:needs-dev"
+    },
+    {
+      "name": "status:needs-review"
+    },
+    {
+      "name": "status:needs-qa"
+    },
+    {
+      "name": "status:needs-testing"
+    },
+    {
+      "name": "status:needs-documentation"
+    },
+    {
+      "name": "status:in-discussion"
+    },
+    {
+      "name": "status:needs-more-info"
+    },
+    {
+      "name": "status:blocked"
+    },
+    {
+      "name": "status:duplicate"
+    },
+    {
+      "name": "status:wontfix"
+    },
+    {
+      "name": "status:done"
+    },
+    {
+      "name": "status:completed"
+    },
+    {
+      "name": "status:needs-audit"
+    },
+    {
+      "name": "priority:critical"
+    },
+    {
+      "name": "priority:important"
+    },
+    {
+      "name": "priority:normal"
+    },
+    {
+      "name": "priority:minor"
+    },
+    {
+      "name": "priority:high"
+    },
+    {
+      "name": "priority:low"
+    },
+    {
+      "name": "type:task"
+    },
+    {
+      "name": "type:bug"
+    },
+    {
+      "name": "type:feature"
+    },
+    {
+      "name": "type:design"
+    },
+    {
+      "name": "type:epic"
+    },
+    {
+      "name": "type:question"
+    },
+    {
+      "name": "type:improve"
+    },
+    {
+      "name": "type:chore"
+    },
+    {
+      "name": "type:ci"
+    },
+    {
+      "name": "type:automation"
+    },
+    {
+      "name": "type:test"
+    },
+    {
+      "name": "type:decision"
+    },
+    {
+      "name": "type:performance"
+    },
+    {
+      "name": "type:a11y"
+    },
+    {
+      "name": "type:security"
+    },
+    {
+      "name": "type:compat"
+    },
+    {
+      "name": "type:refactor"
+    },
+    {
+      "name": "type:release"
+    },
+    {
+      "name": "type:dependency"
+    },
+    {
+      "name": "type:docs"
+    },
+    {
+      "name": "type:research"
+    },
+    {
+      "name": "type:audit"
+    },
+    {
+      "name": "type:review"
+    },
+    {
+      "name": "type:aiops"
+    },
+    {
+      "name": "type:content-modelling"
+    },
+    {
+      "name": "type:build"
+    },
+    {
+      "name": "meta:needs-changelog"
+    },
+    {
+      "name": "meta:no-changelog"
+    },
+    {
+      "name": "meta:has-pr"
+    },
+    {
+      "name": "meta:no-issue-activity"
+    },
+    {
+      "name": "meta:no-pr-activity"
+    },
+    {
+      "name": "meta:stale"
+    },
+    {
+      "name": "release:patch"
+    },
+    {
+      "name": "release:minor"
+    },
+    {
+      "name": "release:major"
+    },
+    {
+      "name": "release:hotfix"
+    },
+    {
+      "name": "area:core"
+    },
+    {
+      "name": "area:governance"
+    },
+    {
+      "name": "area:qa"
+    },
+    {
+      "name": "area:operations"
+    },
+    {
+      "name": "area:block-editor"
+    },
+    {
+      "name": "area:theme"
+    },
+    {
+      "name": "area:documentation"
+    },
+    {
+      "name": "area:tests"
+    },
+    {
+      "name": "area:scripts"
+    },
+    {
+      "name": "area:assets"
+    },
+    {
+      "name": "area:woocommerce"
+    },
+    {
+      "name": "area:content"
+    },
+    {
+      "name": "area:design-system"
+    },
+    {
+      "name": "area:navigation"
+    },
+    {
+      "name": "area:forms"
+    },
+    {
+      "name": "area:plugins"
+    },
+    {
+      "name": "area:search"
+    },
+    {
+      "name": "area:seo"
+    },
+    {
+      "name": "area:analytics"
+    },
+    {
+      "name": "area:infrastructure"
+    },
+    {
+      "name": "area:i18n"
+    },
+    {
+      "name": "area:ci"
+    },
+    {
+      "name": "area:deployment"
+    },
+    {
+      "name": "area:dependencies"
+    },
+    {
+      "name": "area:integration"
+    },
+    {
+      "name": "area:automation"
+    },
+    {
+      "name": "area:testing"
+    },
+    {
+      "name": "area:performance"
+    },
+    {
+      "name": "area:a11y"
+    },
+    {
+      "name": "area:security"
+    },
+    {
+      "name": "area:compatibility"
+    },
+    {
+      "name": "area:release"
+    },
+    {
+      "name": "area:maintenance"
+    },
+    {
+      "name": "area:ai"
+    },
+    {
+      "name": "area:agents"
+    },
+    {
+      "name": "area:skills"
+    },
+    {
+      "name": "area:instructions"
+    },
+    {
+      "name": "area:prompts"
+    },
+    {
+      "name": "area:playwright"
+    },
+    {
+      "name": "area:jest"
+    },
+    {
+      "name": "area:phpunit"
+    },
+    {
+      "name": "area:pagespeed"
+    },
+    {
+      "name": "comp:block-editor"
+    },
+    {
+      "name": "comp:block-inserter"
+    },
+    {
+      "name": "comp:block-variations"
+    },
+    {
+      "name": "comp:block-supports"
+    },
+    {
+      "name": "comp:block-locking"
+    },
+    {
+      "name": "comp:block-bindings"
+    },
+    {
+      "name": "comp:block-templates"
+    },
+    {
+      "name": "comp:block-patterns"
+    },
+    {
+      "name": "comp:template-parts"
+    },
+    {
+      "name": "comp:block-json"
+    },
+    {
+      "name": "comp:theme-json"
+    },
+    {
+      "name": "comp:wp-admin"
+    },
+    {
+      "name": "comp:settings"
+    },
+    {
+      "name": "comp:post-settings"
+    },
+    {
+      "name": "comp:style-variations"
+    },
+    {
+      "name": "comp:block-styles"
+    },
+    {
+      "name": "comp:color-palette"
+    },
+    {
+      "name": "comp:typography"
+    },
+    {
+      "name": "comp:section-styles"
+    },
+    {
+      "name": "comp:spacing"
+    },
+    {
+      "name": "lang:php"
+    },
+    {
+      "name": "lang:js"
+    },
+    {
+      "name": "lang:css"
+    },
+    {
+      "name": "lang:html"
+    },
+    {
+      "name": "lang:md"
+    },
+    {
+      "name": "lang:json"
+    },
+    {
+      "name": "lang:yaml"
+    },
+    {
+      "name": "env:prototype"
+    },
+    {
+      "name": "env:staging"
+    },
+    {
+      "name": "env:live"
+    },
+    {
+      "name": "compat:wordpress"
+    },
+    {
+      "name": "compat:php"
+    },
+    {
+      "name": "compat:woocommerce"
+    },
+    {
+      "name": "compat:gutenberg"
+    },
+    {
+      "name": "compat:rtl"
+    },
+    {
+      "name": "compat:multisite"
+    },
+    {
+      "name": "cpt:posts"
+    },
+    {
+      "name": "cpt:pages"
+    },
+    {
+      "name": "ai-ops:instructions"
+    },
+    {
+      "name": "ai-ops:chat-modes"
+    },
+    {
+      "name": "ai-ops:agents"
+    },
+    {
+      "name": "ai-ops:prompts"
+    },
+    {
+      "name": "ai-ops:datasets"
+    },
+    {
+      "name": "ai-ops:evaluations"
+    },
+    {
+      "name": "ai-ops:tools"
+    },
+    {
+      "name": "contrib:good-first-issue"
+    },
+    {
+      "name": "contrib:help-wanted"
+    },
+    {
+      "name": "contrib:discussion"
+    },
+    {
+      "name": "discussion:announcement"
+    },
+    {
+      "name": "discussion:showcase"
+    },
+    {
+      "name": "discussion:community"
+    },
+    {
+      "name": "discussion:feedback"
+    },
+    {
+      "name": "discussion:support"
+    },
+    {
+      "name": "discussion:sponsorship"
+    },
+    {
+      "name": "discussion:partnership"
+    },
+    {
+      "name": "openspec:discovery"
+    },
+    {
+      "name": "openspec:planning"
+    },
+    {
+      "name": "openspec:specification-in-progress"
+    },
+    {
+      "name": "openspec:specification-complete"
+    },
+    {
+      "name": "openspec:implementation-pending"
+    },
+    {
+      "name": "openspec:implementation-in-progress"
+    },
+    {
+      "name": "openspec:status-testing"
+    },
+    {
+      "name": "openspec:status-production"
+    },
+    {
+      "name": "openspec:implementation-complete"
+    }
+  ],
+  "count": 169,
+  "families": [
+    "ai-ops",
+    "area",
+    "comp",
+    "compat",
+    "contrib",
+    "cpt",
+    "discussion",
+    "env",
+    "lang",
+    "meta",
+    "openspec",
+    "priority",
+    "release",
+    "status",
+    "type"
+  ],
+  "family_count": 15
+}

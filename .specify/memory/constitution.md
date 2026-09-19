@@ -74,8 +74,8 @@ All governance decisions MUST be supported by continuous metrics: specification 
 
 | File | Purpose | Amendment Process |
 |------|---------|------------------|
-| `.github/labels.yml` | Canonical 158 labels | Issue: `[LABEL-UPDATE-REQUEST]` + approval |
-| `.github/issue-types.yml` | 24 issue types | Issue: `[ISSUE-TYPE-UPDATE-REQUEST]` + approval |
+| `.github/labels.yml` | Canonical 169 labels | Issue: `[LABEL-UPDATE-REQUEST]` + approval |
+| `.github/issue-types.yml` | 25 issue types | Issue: `[ISSUE-TYPE-UPDATE-REQUEST]` + approval |
 | `.github/ISSUE_TEMPLATE/*.md` | 26 issue templates | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
 | `.github/PULL_REQUEST_TEMPLATE/*.md` | 19 PR templates | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
 

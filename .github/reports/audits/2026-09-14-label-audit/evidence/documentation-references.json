@@ -1,0 +1,23 @@
+{
+  "documentation_files": [
+    "docs/ISSUE_CREATION_GUIDE.md",
+    "docs/ISSUE_FIELDS.md",
+    "docs/ISSUE_LABELS.md",
+    "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+    "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+    "docs/ISSUE_PR_TITLE_GOVERNANCE.md",
+    "docs/ISSUE_TRIAGE.md",
+    "docs/ISSUE_TRIAGE_AUTOMATION.md",
+    "docs/ISSUE_TRIAGE_LABELING.md",
+    "docs/ISSUE_TYPES.md",
+    "docs/ISSUE_UPDATES_GUIDE.md",
+    "docs/LABEL_COLOR_STRATEGY.md",
+    "docs/LABEL_INVENTORY.md",
+    "docs/LABEL_MANAGEMENT_CLI.md",
+    "docs/LABEL_STRATEGY.md",
+    "docs/PR_CREATION_PROCESS.md",
+    "docs/PR_LABELS.md",
+    "docs/PR_TEMPLATE_VALIDATION.md"
+  ],
+  "count": 18
+}
