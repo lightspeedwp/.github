@@ -48,7 +48,7 @@
 - [ ] T013 [P] Implement audit report generator in scripts/validation/lib/audit-report-builder.js (per contracts/audit-report-format.md schema)
 - [ ] T014 [P] Create registry schema validation in scripts/validation/lib/registry-validator.js (per contracts/registry-schema.json)
 - [ ] T015 [P] Implement deduplication detection engine in scripts/validation/lib/dedup-engine.js (SHA-256 hashing, cosine similarity @ 85% threshold)
-- [ ] T016 Implement agent structure checker in scripts/validation/lib/structure-checker.js (verify all 7 components: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
+- [ ] T016 Implement agent structure checker in scripts/validation/lib/structure-checker.js (verify all 7 components: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, config/, and the framework-specific test directory: `__tests__/` for JavaScript, `tests/` for shell, or `tests/e2e/` for UI)
 - [ ] T017 [P] Create npm scripts in package.json for all validation commands (npm run audit:agents, audit:broken-refs, audit:structure, audit:dedup, audit:registry, validate:compliance, audit:all)
 
 ---
@@ -69,7 +69,7 @@
 - [ ] T025 [P] [US1] Create validation script to verify all fixes executed successfully in scripts/validation/verify-fixes.js
 - [ ] T026 [P] [US1] Document broken reference remediation process in .github/docs/BROKEN_REFERENCE_REMEDIATION.md
 - [ ] T027 [US1] Generate summary report of all broken references fixed (count, types, impact)
-- [ ] T028 [P] [US1] Create integration tests for reference detection and fixing in scripts/validation/__tests__/reference-detection.test.js
+- [ ] T028 [P] [US1] Create integration tests for reference detection and fixing in `scripts/validation/__tests__/reference-detection.test.js`
 - [ ] T029 [US1] Verify all dependent scripts execute successfully after fixes applied
 - [ ] T030 [P] [US1] Validate CI workflows pass without import/path errors
 - [ ] T031 [US1] Create CHANGELOG entries for all agents with broken references that were fixed
@@ -84,7 +84,7 @@
 **Independent Test**: Audit each agent, verify all 7 components present, document deviations
 
 - [ ] T033 [P] [US2] Create agent folder structure template in .github/templates/agent-structure-template/ with all 7 components
-- [ ] T034 [US2] Document standardized agent folder structure in .github/docs/AGENT_FOLDER_STRUCTURE.md (mandate: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
+- [ ] T034 [US2] Document standardized agent folder structure in .github/docs/AGENT_FOLDER_STRUCTURE.md (mandate: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, config/, and `__tests__/` for JavaScript, `tests/` for shell, or `tests/e2e/` for UI)
 - [ ] T035 [P] [US2] Implement folder structure validation in scripts/validation/lib/structure-checker.js
 - [ ] T036 [US2] Generate structure audit report and save to agents/reports/structure-audit.json
 - [ ] T037 [P] [US2] Identify agents missing required components (per Decision 1: 7-item template)
@@ -94,7 +94,7 @@
 - [ ] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
 - [ ] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
 - [ ] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
-- [ ] T044 [P] [US2] Create unit tests for structure validation in scripts/validation/__tests__/structure-validation.test.js
+- [ ] T044 [P] [US2] Create unit tests for structure validation in `scripts/validation/__tests__/structure-validation.test.js`
 
 ---
 
@@ -193,7 +193,7 @@
 - [ ] T095 [US7] Create script-to-agent mapping in scripts/reports/script-to-agent-mapping.json
 - [ ] T096 [P] [US7] For each script: identify logically-related agent owner (per Decision 5 research)
 - [ ] T097 [P] [US7] For each script: document dependencies and usage across codebase
-- [ ] T098 [US7] Generate migration plan with: target agent, required tests, deprecation timeline
+- [ ] T098 [US7] Generate migration plan with: target agent, required tests, deprecation timeline, and explicit coverage of the existing `scripts/validation/__tests__/` Jest suite while retaining the JavaScript `__tests__/` convention
 - [ ] T099 [P] [US7] Create deprecation notices for scripts in scripts/DEPRECATION_NOTICES.md
 - [ ] T100 [P] [US7] Plan migration for multi-agent dependent scripts (decompose into agent-specific subscripts per spec.md edge case)
 - [ ] T101 [US7] Generate migration roadmap with timeline for root script deprecation
@@ -272,6 +272,7 @@ Phase 10 (Polish)
 4. **Days 25–30**: Phase 10 (polish, validation, documentation)
 
 **Parallel Opportunities**:
+
 - After Phase 2 completes: US1, US2, US3 can run in parallel (different file scans)
 - After US1, US2, US3: US4, US5 can run in parallel (registry generation from different sources)
 - After US4, US5: US6 and US7 can run in parallel (planning work independent)
