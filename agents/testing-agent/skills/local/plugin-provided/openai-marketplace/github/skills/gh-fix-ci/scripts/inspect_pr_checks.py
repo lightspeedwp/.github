@@ -75,6 +75,16 @@ def run_gh_command_raw(args: Sequence[str], cwd: Path) -> tuple[int, bytes, str]
     return process.returncode, process.stdout, stderr
 
 
+def has_repo_access(repo_root: Path) -> bool:
+    """Verify the authenticated (triggering) user has at least read access to the repo."""
+    result = run_gh_command(
+        ["repo", "view", "--json", "viewerPermission", "--jq", ".viewerPermission"],
+        repo_root,
+    )
+    permission = result.stdout.strip()
+    return result.returncode == 0 and permission not in ("", "NONE")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
