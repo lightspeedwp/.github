@@ -197,10 +197,27 @@ jobs:
           git config user.name "lightspeed-bot"
           git config user.email "ops@lightspeedwp.agency"
           git add CHANGELOG.md
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(changelog): merge entries from PR #${PR_NUMBER} [skip ci]"
-            git push origin develop
+          if git diff --cached --quiet; then
+            echo "No changelog changes to commit."
+            exit 0
           fi
+          git commit -m "chore(changelog): merge entries from PR #${PR_NUMBER} [skip ci]"
+          # Same push-race protection as the metrics aggregator: develop
+          # moves under this job, so rebase and retry with linear backoff.
+          attempt=1
+          max_attempts=5
+          until git push origin develop; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "❌ Push failed after $max_attempts attempts; giving up."
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
+            sleep $((attempt * 10))
+            git fetch origin develop
+            git rebase origin/develop || (git rebase --abort && exit 1)
+          done
+          echo "✅ Changelog update pushed."
 
       - name: Report action
         env:
