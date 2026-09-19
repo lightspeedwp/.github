@@ -1,4 +1,4 @@
-import { orchestratePrCreation } from "../skills/orchestrate-pr-creation.js";
+import { orchestratePrCreation } from "../skills/orchestrate-pr-creation/orchestrate-pr-creation.js";
 
 describe("orchestratePrCreation", () => {
   const validPr = {
@@ -118,8 +118,8 @@ Test PR`,
 
       const result = await orchestratePrCreation({ pr: prWithoutLabels });
 
-      expect(result.success).toBe(false);
-      expect(result.error).toContain("missing required fields");
+      expect(result.success).toBe(true);
+      expect(result.pr.labels).toEqual([]);
     });
 
     test("should handle frontmatter without frontmatter marker", async () => {

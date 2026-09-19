@@ -170,6 +170,26 @@ See CHANGELOG.md
     expect(findings.some((f) => /title/i.test(f))).toBe(true);
   });
 
+  test("fails when PR title has trailing text after the version", () => {
+    const pr = {
+      draft: false,
+      title: "chore(release): v1.2.3 extra",
+      body: validBody,
+    };
+    const findings = validatePullRequestMetadata(pr, "release/v1.2.3");
+    expect(findings.some((f) => /title/i.test(f))).toBe(true);
+  });
+
+  test("fails when PR title names a different version than the branch", () => {
+    const pr = {
+      draft: false,
+      title: "chore(release): v1.2.4",
+      body: validBody,
+    };
+    const findings = validatePullRequestMetadata(pr, "release/v1.2.3");
+    expect(findings.some((f) => /title/i.test(f))).toBe(true);
+  });
+
   test("fails when PR is a draft", () => {
     const pr = {
       draft: true,
@@ -196,6 +216,13 @@ See CHANGELOG.md
 
   test("fails when Checklist section is missing", () => {
     const body = `## Linked issues & merged PRs\n\nCloses #1\n\n## Changelog\n\nSee CHANGELOG.md\n`;
+    const pr = { draft: false, title: "chore(release): v1.2.3", body };
+    const findings = validatePullRequestMetadata(pr, "release/v1.2.3");
+    expect(findings.some((f) => /Checklist/i.test(f))).toBe(true);
+  });
+
+  test("fails when a section is only mentioned in prose, not as a heading", () => {
+    const body = `## Linked issues & merged PRs\n\nCloses #1\n\n## Changelog\n\nSee CHANGELOG.md\n\nWe still need a Checklist before merging.\n`;
     const pr = { draft: false, title: "chore(release): v1.2.3", body };
     const findings = validatePullRequestMetadata(pr, "release/v1.2.3");
     expect(findings.some((f) => /Checklist/i.test(f))).toBe(true);

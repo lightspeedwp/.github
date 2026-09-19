@@ -1,13 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const { detectRepoType } = require("../../skills/repo-type-detection");
-const { extractMetadata } = require("../../skills/metadata-extraction");
-const { applyStandards } = require("../../skills/apply-standards");
+const { detectRepoType } = require("../../skills/repo-type-detection/repo-type-detection");
+const { extractMetadata } = require("../../skills/metadata-extraction/metadata-extraction");
+const { applyStandards } = require("../../skills/apply-standards/apply-standards");
 const {
   generateBadges,
   injectBadges,
-} = require("../../skills/generate-badges");
+} = require("../../skills/generate-badges/generate-badges");
 
 describe("Meta Agent v2.0 - Full Workflow Integration", () => {
   let tempDir;

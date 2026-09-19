@@ -68,7 +68,7 @@ function loadSchema() {
     return cachedSchema;
   }
 
-  const schemaPath = path.join(__dirname, "../config/adr-config.schema.json");
+  const schemaPath = path.join(__dirname, "../../config/adr-config.schema.json");
   try {
     const schemaContent = fs.readFileSync(schemaPath, "utf-8");
     cachedSchema = JSON.parse(schemaContent);

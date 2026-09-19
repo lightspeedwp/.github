@@ -1,3 +1,10 @@
+/**
+ * @jest-environment node
+ *
+ * Uses the Node environment: eslint's flat-config Linter needs
+ * structuredClone, which the repo-default jsdom environment does not
+ * expose. This file has no DOM usage.
+ */
 import { describe, expect, it } from '@jest/globals';
 import { Linter } from 'eslint';
 
