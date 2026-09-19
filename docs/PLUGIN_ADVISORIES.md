@@ -6,10 +6,13 @@
 - **Companion issue:** [#1396](https://github.com/lightspeedwp/.github/issues/1396)
 
 This document is the single versioned home for plugin advisories. Every
-advisory names its replacement or alternative, never only the restriction.
-Status legend used below: **shipped** means the replacement exists in the
-starter codebase today with a link; **planned** means it does not exist yet
-and the link points at the tracking issue (or states that none exists yet).
+advisory names its replacement or its alternative, never only the
+restriction. The canonical list of what may be installed is the companion
+[Approved Plugin Register](PLUGIN_REGISTER.md); anything not on that list
+is not approved. Status legend used below: **shipped** means the replacement
+exists in the starter codebase today with a link; **planned** means it does
+not exist yet and the link points at the tracking issue (or states that none
+exists yet).
 
 Enforcement mechanism: the starter plugin ships a redundant-plugin admin
 notice (`inc/class-redundant-plugins-notice.php`) backed by a registry with
