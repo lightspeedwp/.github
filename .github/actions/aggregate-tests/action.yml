@@ -72,7 +72,7 @@ runs:
       shell: bash
       run: |
         # Validate coverage-threshold is a number between 0 and 100
-        THRESHOLD="${{ inputs.coverage-threshold }}"
+        THRESHOLD="${{ inputs.coverage_threshold }}"
 
         if ! [[ "$THRESHOLD" =~ ^[0-9]+$ ]]; then
           echo "❌ coverage-threshold must be a number between 0 and 100, got: $THRESHOLD" >&2

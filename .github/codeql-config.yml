@@ -1,0 +1,11 @@
+name: "CodeQL Config"
+
+# Default CodeQL query suites plus extended security coverage.
+# See https://docs.codeql.com/codeql-cli/using-custom-queries
+queries:
+  - uses: security-extended
+
+paths-ignore:
+  - node_modules
+  - "**/node_modules/**"
+  - "**/*.min.js"
