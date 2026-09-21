@@ -33,19 +33,24 @@ jobs:
         run: npm ci
 
       - name: Diagnose environment
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
         run: |
           echo "Node version: $(node --version)"
           echo "npm version: $(npm --version)"
-          echo "GitHub context branch (head_ref): ${{ github.head_ref }}"
+          echo "GitHub context branch (head_ref): $BRANCH_NAME"
           echo "Current directory: $(pwd)"
           echo "Files in scripts/: $(ls -la scripts/pr-template-router.js 2>&1)"
 
       - name: Route PR template and labels
         id: route
+        # Branch name via env: it is attacker-controlled on fork PRs and
+        # must not be expanded inline into the shell command line.
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
         run: |
           set -x  # Enable debug output
 
-          BRANCH_NAME="${{ github.head_ref }}"
           echo "DEBUG: BRANCH_NAME='$BRANCH_NAME'"
 
           if [ -z "$BRANCH_NAME" ]; then
