@@ -12,9 +12,12 @@ permissions:
   actions: read
 
 # Serialise runs: concurrent aggregations would race the metrics commit.
+# queue: max (GitHub, May 2026) lets hourly schedule runs pile up behind an
+# in-flight run instead of cancelling the single pending one.
 concurrency:
   group: branch-validation-metrics
   cancel-in-progress: false
+  queue: max
 
 jobs:
   aggregate-metrics:
@@ -128,31 +131,13 @@ jobs:
           git commit -m "chore: Update branch validation metrics [skip ci]"
 
           # develop moves under this job (merges, other bot commits), so a
-          # plain push loses the race with "fetch first" rejections. Rebase
-          # onto the latest remote state and retry with linear backoff.
-          # Gives up after 5 tries and fails the step so the race stays
-          # visible instead of silently dropping metrics.
-          # The summary is a regenerated snapshot (last-writer-wins), so a
-          # rebase conflict on it is resolved by keeping this run's version
-          # ("theirs" during a rebase) instead of failing the job.
-          attempt=1
-          max_attempts=5
-          until git push origin HEAD:develop; do
-            if [ "$attempt" -ge "$max_attempts" ]; then
-              echo "❌ Push failed after $max_attempts attempts; giving up."
-              exit 1
-            fi
-            attempt=$((attempt + 1))
-            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
-            sleep $((attempt * 10))
-            git fetch origin develop
-            if ! git rebase origin/develop; then
-              git checkout --theirs -- .github/reports/branch-validation/metrics-summary.json || true
-              git add .github/reports/branch-validation/metrics-summary.json || true
-              git -c core.editor=true rebase --continue || (git rebase --abort && exit 1)
-            fi
-          done
-          echo "✅ Metrics pushed."
+          # plain push loses the race with "fetch first" rejections.
+          # Logic lives in scripts/workflows/push-with-retry.sh (covered by
+          # tests/bash/push-with-retry.bats) so it is linted and tested
+          # instead of existing only as inline YAML.
+          bash scripts/workflows/push-with-retry.sh \
+            --branch develop \
+            --snapshot .github/reports/branch-validation/metrics-summary.json
 
       - name: Upload aggregated metrics
         if: steps.aggregate.outputs.total != '0'
