@@ -125,7 +125,10 @@ jobs:
             const templateFile = `.github/PULL_REQUEST_TEMPLATE/${templateName}.md`;
             const template = fs.readFileSync(templateFile, 'utf8');
             const required = [...template.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim());
-            const body = (context.payload.pull_request?.body || '').toLowerCase();
+            const rawBody = context.payload.pull_request?.body || '';
+            const body = rawBody.toLowerCase();
+
+            // 1. Every template section heading must be present.
             const missing = required.filter((h) => !body.includes(`## ${h.toLowerCase()}`));
             if (missing.length > 0) {
               core.setFailed(
@@ -133,8 +136,45 @@ jobs:
                 missing.map((h) => `"## ${h}"`).join(', ') +
                 `. Copy the template sections into the PR body (see ${templateFile}).`
               );
+              return;
+            }
+
+            // 2. Every section must contain real content: HTML comments
+            // (the templates ship with instructional placeholders) and
+            // whitespace do not count, and neither does an unchanged copy
+            // of the template's own default text. Write `N/A` where a
+            // section genuinely does not apply.
+            const splitSections = (text) => {
+              const sections = {};
+              let current = null;
+              for (const line of text.split('\n')) {
+                const match = line.match(/^## (.+)$/);
+                if (match) {
+                  current = match[1].trim().toLowerCase();
+                  sections[current] = [];
+                } else if (current) {
+                  sections[current].push(line);
+                }
+              }
+              return sections;
+            };
+            const normalize = (text) => text.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').trim();
+            const bodySections = splitSections(rawBody);
+            const templateSections = splitSections(template);
+            const empty = required.filter((h) => {
+              const key = h.toLowerCase();
+              const submitted = normalize((bodySections[key] || []).join('\n'));
+              const templateDefault = normalize((templateSections[key] || []).join('\n'));
+              return submitted.length === 0 || submitted === templateDefault;
+            });
+            if (empty.length > 0) {
+              core.setFailed(
+                `PR body has ${empty.length} empty or unmodified section(s) from ${templateName}.md: ` +
+                empty.map((h) => `"## ${h}"`).join(', ') +
+                `. Fill each section with PR-specific content (or write N/A); an unchanged copy of the template text does not count.`
+              );
             } else {
-              core.info(`PR body contains all ${required.length} sections from ${templateName}.md.`);
+              core.info(`PR body contains all ${required.length} sections from ${templateName}.md with content.`);
             }
 
       - name: Apply labels to PR
