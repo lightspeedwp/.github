@@ -21,6 +21,7 @@
 [![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
 [![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
 [![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+[![workflow-lint](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml)
 <!-- BADGES-END -->
 
 Translate SwiftUI source code into a Figma design using `use_figma`. This doc covers the SwiftUI-specific translation knowledge; the API-level rules for `use_figma` itself live in [`figma-use`](../../figma-use/SKILL.md), the screen-assembly workflow lives in [`figma-generate-design`](../../figma-generate-design/SKILL.md), and the component / variant / variable workflow lives in [`figma-generate-library`](../../figma-generate-library/SKILL.md). Load whichever of those match the scope of the request, and use this doc to drive the *SwiftUI semantic interpretation* of the source.
