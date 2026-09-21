@@ -8,7 +8,9 @@
  * @returns {Object} Validation result with valid flag and errors
  */
 
-const FORBIDDEN_PREFIXES = ["claude", "bot", "automated"];
+// Sourced from docs/BRANCHING_STRATEGY.md Section 4.1
+const FORBIDDEN_PREFIXES = ["claude", "copilot", "openai"];
+// Sourced from docs/BRANCHING_STRATEGY.md Section 3's canonical type list
 const ALLOWED_TYPES = [
   "feat",
   "fix",
@@ -16,6 +18,8 @@ const ALLOWED_TYPES = [
   "release",
   "refactor",
   "chore",
+  "task",
+  "doc",
   "docs",
   "test",
   "perf",
@@ -43,6 +47,9 @@ const ALLOWED_TYPES = [
   "uat",
   "audit",
   "codex",
+  "aiops",
+  "automation",
+  "epic",
 ];
 
 const DEFAULT_ALLOWED_TYPES = ALLOWED_TYPES;

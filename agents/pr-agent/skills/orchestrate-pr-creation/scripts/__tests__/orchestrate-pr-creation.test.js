@@ -114,7 +114,8 @@ Test PR`,
     });
 
     test("should handle PR without optional labels field", async () => {
-      const { labels, ...prWithoutLabels } = validPr;
+      const prWithoutLabels = { ...validPr };
+      delete prWithoutLabels.labels;
 
       const result = await orchestratePrCreation({ pr: prWithoutLabels });
 
