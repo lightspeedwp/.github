@@ -1,0 +1,91 @@
+name: Labeling • Unified
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, edited, synchronize, reopened, ready_for_review, labeled, unlabeled]
+  issues:
+    types: [opened, edited, reopened, labeled, unlabeled]
+  discussion:
+    types: [created, edited, answered, labeled, unlabeled]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run without writing labels"
+        required: false
+        default: "true"
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  discussions: write
+
+concurrency:
+  group: labeling-unified-${{ github.event_name }}-${{ github.event.number || github.run_id }}
+  cancel-in-progress: false
+
+env:
+  LABELS_CONFIG: .github/labels.yml
+  LABELER_RULES: .github/labeler.yml
+
+jobs:
+  validate:
+    name: Validate configs (read-only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm ci --ignore-scripts
+      - name: Validate labeling configs
+        run: node scripts/validation/validate-labeling-configs.cjs
+      - name: Guardrail — unknown labels in templates
+        run: node scripts/validation/validate-labels-before-creation.cjs
+        continue-on-error: true
+
+  file-labels:
+    name: File/branch labels (PRs)
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'meta:skip-labeling')
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/labeler@v6
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: ${{ env.LABELER_RULES }}
+          sync-labels: true
+
+  agent-labels:
+    name: Labeling agent (issues/PRs)
+    runs-on: ubuntu-latest
+    needs: validate
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      !contains(github.event.head_commit.message, '[skip labeling]')
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm ci --ignore-scripts
+      - name: Run labeling agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: node scripts/agents/run-labeling-agent.js
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: labeling-report-${{ github.run_id }}
+          path: .github/reports/labeling/
+          if-no-files-found: ignore
