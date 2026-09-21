@@ -67,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
 
 - **Workflow Lint with actionlint** — Added a workflow-lint CI gate over active workflows on an explicit file list. Two workflows stay excluded until their script-injection findings are fixed. (#3395)
+- **PR Body Template Check** — The router now fails pull requests whose body lacks the routed template sections. (#3396)
 
 ### Added
 
