@@ -2,11 +2,30 @@
 
 **Input**: Specification from `/specs/012-audit-governance-structure/spec.md`
 
-**Status**: Phase 2 - Task Decomposition Complete
+**Status**: Phase 2 - Task Decomposition Complete (Updated 2026-09-17 with clarification integration)
 
 **Total Tasks**: 196 tasks organized by user story and phase
 
 **Output**: Actionable task list with file paths, acceptance criteria, and dependencies for governance audit and refactoring
+
+---
+
+## Two-Phase Execution Approach
+
+Per 2026-09-17 clarification (Q4):
+
+- **Phase 1: Audit & Analysis** (Phases 1–8 of task list)
+  - Complete all investigation, verification, and finding documentation
+  - Consolidate findings into **AUDIT_REPORT.md** (structured markdown at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md`)
+  - Deliverable: Comprehensive audit report ready for @ashley review and approval
+  - **Gate**: @ashley reviews AUDIT_REPORT.md, approves findings before proceeding
+
+- **Phase 2: Refactoring & Implementation** (Phases 9–11 of task list)
+  - Based on approved audit findings, implement fixes to CLAUDE.md and AGENTS.md
+  - Apply consolidations, reference fixes, structure improvements
+  - Deliverable: Refactored governance files ready for PR and merge
+
+This two-phase approach allows stakeholder review and critique of findings before any changes are made to the governance files, reducing risk of unwanted modifications.
 
 ---
 
@@ -25,13 +44,13 @@
 
 ### Setup Tasks
 
-- [ ] T001 [P] Create task tracking structure in `.github/projects/active/audit-governance-refactor-2026-09/` with kanban board
-- [ ] T002 [P] Create backup copies of current CLAUDE.md and AGENTS.md in `.github/reports/governance-audit-2026-09-14/originals/`
-- [ ] T003 [P] Initialize audit log file at `.github/reports/governance-audit-2026-09-14/audit-log.md` with timestamp and scope
-- [ ] T004 [P] Create working directory for consolidated content at `.github/reports/governance-audit-2026-09-14/working/`
-- [ ] T005 Verify all research.md findings are documented and accessible at `specs/012-audit-governance-structure/research.md`
-- [ ] T006 Verify all data-model.md entities are accessible at `specs/012-audit-governance-structure/data-model.md`
-- [ ] T007 Verify validation checklist from quickstart.md at `specs/012-audit-governance-structure/quickstart.md`
+- [X] T001 [P] Create task tracking structure in `.github/projects/active/audit-governance-refactor-2026-09/` with kanban board
+- [X] T002 [P] Create backup copies of current CLAUDE.md and AGENTS.md in `.github/reports/governance-audit-2026-09-14/originals/`
+- [X] T003 [P] Initialize audit log file at `.github/reports/governance-audit-2026-09-14/audit-log.md` with timestamp and scope
+- [X] T004 [P] Create working directory for consolidated content at `.github/reports/governance-audit-2026-09-14/working/`
+- [X] T005 Verify all research.md findings are documented and accessible at `specs/012-audit-governance-structure/research.md`
+- [X] T006 Verify all data-model.md entities are accessible at `specs/012-audit-governance-structure/data-model.md`
+- [X] T007 Verify validation checklist from quickstart.md at `specs/012-audit-governance-structure/quickstart.md`
 
 **Checkpoint**: Baseline established, audit environment ready, original files backed up
 
@@ -43,31 +62,31 @@
 
 ### VER-001: Reference Validation (7 verification tasks from research.md)
 
-- [ ] T008 [US6] Validate the repository-local reference `.github/instructions/branch-naming.instructions.md` in `.github/instructions/`; if only top-level `instructions/branch-naming.instructions.md` exists, record it as a migration rather than a successful exact-path check
-- [ ] T009 [US6] Verify if `docs/BRANCHING_STRATEGY.md` exists; document path or missing status in audit log
-- [ ] T010 [US6] Verify if `docs/PR_CREATION_PROCESS.md` exists; document path or missing status in audit log
-- [ ] T011 [US6] Verify if `.github/prompts/prompts.md` exists; document migration status if legacy pending
-- [ ] T012 [US6] Verify the five consolidated portable files in top-level `instructions/`: `languages.instructions.md`, `documentation-formats.instructions.md`, `quality-assurance.instructions.md`, `automation.instructions.md`, and `community-standards.instructions.md`; report supporting instruction files separately
-- [ ] T013 [US6] Verify if GitHub projects in `.github/projects/active/` are current or archived; document status
-- [ ] T014 [US6] Validate the AGENTS.md script reference against `scripts/validation/validate-labels-before-creation.cjs`; classify any `.github/scripts/validation/` reference as legacy and record the required migration to the root `scripts/validation/` directory
+- [X] T008 [US6] Validate the repository-local reference `.github/instructions/branch-naming.instructions.md` in `.github/instructions/`; if only top-level `instructions/branch-naming.instructions.md` exists, record it as a migration rather than a successful exact-path check
+- [X] T009 [US6] Verify if `docs/BRANCHING_STRATEGY.md` exists; document path or missing status in audit log
+- [X] T010 [US6] Verify if `docs/PR_CREATION_PROCESS.md` exists; document path or missing status in audit log
+- [X] T011 [US6] Verify if `.github/prompts/prompts.md` exists; document migration status if legacy pending
+- [X] T012 [US6] Verify the five consolidated portable files in top-level `instructions/`: `languages.instructions.md`, `documentation-formats.instructions.md`, `quality-assurance.instructions.md`, `automation.instructions.md`, and `community-standards.instructions.md`; report supporting instruction files separately
+- [X] T013 [US6] Verify if GitHub projects in `.github/projects/active/` are current or archived; document status
+- [X] T014 [US6] Validate the AGENTS.md script reference against `scripts/validation/validate-labels-before-creation.cjs`; classify any `.github/scripts/validation/` reference as legacy and record the required migration to the root `scripts/validation/` directory
 
 ### Audit Scope Definition
 
-- [ ] T015 [P] Document baseline state: current line counts for CLAUDE.md and AGENTS.md in audit log
-- [ ] T016 [P] Document baseline state: count of duplicate sections, broken references, and identified conflicts
-- [ ] T017 Extract all file path references from current CLAUDE.md into `audit-references-claude.txt`
-- [ ] T018 Extract all file path references from current AGENTS.md into `audit-references-agents.txt`
-- [ ] T019 [P] Extract all cross-file references from CLAUDE.md and AGENTS.md into `audit-cross-references.txt`
+- [X] T015 [P] Document baseline state: current line counts for CLAUDE.md and AGENTS.md in audit log
+- [X] T016 [P] Document baseline state: count of duplicate sections, broken references, and identified conflicts
+- [X] T017 Extract all file path references from current CLAUDE.md into `audit-references-claude.txt`
+- [X] T018 Extract all file path references from current AGENTS.md into `audit-references-agents.txt`
+- [X] T019 [P] Extract all cross-file references from CLAUDE.md and AGENTS.md into `audit-cross-references.txt`
 
 ### Constitution Alignment Verification
 
-- [ ] T020 [US1] Verify CLAUDE.md alignment with Constitution Principle I (Organisation-Wide Governance Authority)
-- [ ] T021 [US1] Verify CLAUDE.md alignment with Constitution Principle II (Curated Assets with Locked Governance)
-- [ ] T022 [US1] Verify CLAUDE.md alignment with Constitution Principle III (Clear Asset Boundaries, No Duplication)
-- [ ] T023 [US1] Verify CLAUDE.md alignment with Constitution Principle IV (Technology-Agnostic Guidance)
-- [ ] T024 [US1] Verify CLAUDE.md alignment with Constitution Principle V (Branch Naming Non-Negotiable)
-- [ ] T025 [US1] Verify CLAUDE.md alignment with Constitution Principle VI (UK English, Accessibility, Security)
-- [ ] T026 [US2] Verify AGENTS.md alignment with all 6 constitution principles
+- [X] T020 [US1] Verify CLAUDE.md alignment with Constitution Principle I (Organisation-Wide Governance Authority)
+- [X] T021 [US1] Verify CLAUDE.md alignment with Constitution Principle II (Curated Assets with Locked Governance)
+- [X] T022 [US1] Verify CLAUDE.md alignment with Constitution Principle III (Clear Asset Boundaries, No Duplication)
+- [X] T023 [US1] Verify CLAUDE.md alignment with Constitution Principle IV (Technology-Agnostic Guidance)
+- [X] T024 [US1] Verify CLAUDE.md alignment with Constitution Principle V (Branch Naming Non-Negotiable)
+- [X] T025 [US1] Verify CLAUDE.md alignment with Constitution Principle VI (UK English, Accessibility, Security)
+- [X] T026 [US2] Verify AGENTS.md alignment with all 6 constitution principles
 
 **Checkpoint**: All verification tasks complete, reference validation done, constitution alignment confirmed
 
@@ -81,27 +100,27 @@
 
 ### US1 Audit Tasks
 
-- [ ] T027 [P] [US1] Diff AGENTS.md lines 209-252 (Label Creation Governance v1) against lines 285-338 (v2); document findings
-- [ ] T028 [US1] Create diff report showing exact differences between duplicate "Label Creation Governance" sections
-- [ ] T029 [US1] Extract unique content from AGENTS.md lines 209-252 into working file
-- [ ] T030 [US1] Extract unique content from AGENTS.md lines 285-338 into working file
-- [ ] T031 [US1] Merge unique content and identify common elements; document consolidation approach
-- [ ] T032 [P] [US1] Search CLAUDE.md for all section headings; create structured outline
-- [ ] T033 [P] [US1] Search AGENTS.md for all section headings; create structured outline
-- [ ] T034 [US1] Compare section outlines to identify overlap and relationship patterns
-- [ ] T035 [P] [US1] Extract all "see also" and "related" references from CLAUDE.md
-- [ ] T036 [P] [US1] Extract all "see also" and "related" references from AGENTS.md
-- [ ] T037 [US1] Map all cross-references to verify target sections exist in both files
-- [ ] T038 [P] [US1] Identify all internal links in CLAUDE.md using regex `\[.*\]\(\.?/?.*\)`
-- [ ] T039 [P] [US1] Identify all internal links in AGENTS.md using regex `\[.*\]\(\.?/?.*\)`
-- [ ] T040 [US1] Verify each internal link exists or is documented as migrated
-- [ ] T041 [P] [US1] List all sections in AGENTS.md that appear to belong in CLAUDE.md instead
-- [ ] T042 [P] [US1] List all sections in CLAUDE.md that appear to be duplicated or contradicted elsewhere
-- [ ] T043 [US1] Create comprehensive audit report documenting all findings
-- [ ] T044 [US1] Categorize findings by severity: CRITICAL, MAJOR, MEDIUM, LOW
-- [ ] T045 [US1] Document decision rationale for each finding and proposed resolution
+- [X] T027 [P] [US1] Diff AGENTS.md lines 209-252 (Label Creation Governance v1) against lines 285-338 (v2); document findings
+- [X] T028 [US1] Create diff report showing exact differences between duplicate "Label Creation Governance" sections
+- [X] T029 [US1] Extract unique content from AGENTS.md lines 209-252 into working file
+- [X] T030 [US1] Extract unique content from AGENTS.md lines 285-338 into working file
+- [X] T031 [US1] Merge unique content and identify common elements; document consolidation approach
+- [X] T032 [P] [US1] Search CLAUDE.md for all section headings; create structured outline
+- [X] T033 [P] [US1] Search AGENTS.md for all section headings; create structured outline
+- [X] T034 [US1] Compare section outlines to identify overlap and relationship patterns
+- [X] T035 [P] [US1] Extract all "see also" and "related" references from CLAUDE.md
+- [X] T036 [P] [US1] Extract all "see also" and "related" references from AGENTS.md
+- [X] T037 [US1] Map all cross-references to verify target sections exist in both files
+- [X] T038 [P] [US1] Identify all internal links in CLAUDE.md using regex `\[.*\]\(\.?/?.*\)`
+- [X] T039 [P] [US1] Identify all internal links in AGENTS.md using regex `\[.*\]\(\.?/?.*\)`
+- [X] T040 [US1] Verify each internal link exists or is documented as migrated
+- [X] T041 [P] [US1] List all sections in AGENTS.md that appear to belong in CLAUDE.md instead
+- [X] T042 [P] [US1] List all sections in CLAUDE.md that appear to be duplicated or contradicted elsewhere
+- [X] T043 [US1] Create structured AUDIT_REPORT.md at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md` documenting all findings with: (1) Executive summary, (2) Finding categories (DUP-*, ORG-*, REF-*, CONST-*, VER-*), (3) Line-number references for each issue, (4) Remediation guidance per finding
+- [X] T044 [US1] Categorize findings in AUDIT_REPORT.md by severity: CRITICAL (blocks automation), MAJOR (confuses readers), MEDIUM (technical debt), LOW (style)
+- [X] T045 [US1] Document decision rationale for each finding in AUDIT_REPORT.md and proposed resolution approach
 
-**Checkpoint**: US1 Baseline audit complete with comprehensive report
+**Checkpoint**: US1 Baseline audit complete; AUDIT_REPORT.md ready for @ashley review
 
 ---
 
@@ -113,51 +132,51 @@
 
 ### US2 Branch Naming Audit Tasks
 
-- [ ] T046 [P] [US2] Extract all branch naming guidance from CLAUDE.md (lines 14-111)
-- [ ] T047 [P] [US2] Extract all branch naming guidance from AGENTS.md (lines 104-145)
-- [ ] T048 [P] [US2] Extract branch naming guidance from `.github/instructions/branch-naming.instructions.md` if it exists
-- [ ] T049 [US2] Compare branch naming sections across all files; identify contradictions or inconsistencies
-- [ ] T050 [US2] Document all 38 allowed branch types from CLAUDE.md with examples
-- [ ] T051 [US2] Verify all forbidden prefixes are clearly documented with explanation: `claude/`, `copilot/`, `openai/`
-- [ ] T052 [P] [US2] Create document showing forbidden prefixes with rationale for each
-- [ ] T053 [P] [US2] List all examples in CLAUDE.md branch naming section; verify none use forbidden prefixes
-- [ ] T054 [P] [US2] List all examples in AGENTS.md branch naming section; verify none use forbidden prefixes
-- [ ] T055 [US2] Verify validation script `npm run validate:branch-name` exists and works correctly
-- [ ] T056 [US2] Test validation script with 5 valid branches (feat/, fix/, audit/, etc.) to confirm acceptance
-- [ ] T057 [US2] Test validation script with 3 forbidden branches (claude/, copilot/) to confirm rejection
-- [ ] T058 [P] [US2] Document any branches in repository using forbidden prefixes
-- [ ] T059 [US2] Create guidance document for consolidating/renaming forbidden-prefix branches
-- [ ] T060 [US2] Verify CLAUDE.md section on branch naming is authoritative; AGENTS.md references it appropriately
+- [X] T046 [P] [US2] Extract all branch naming guidance from CLAUDE.md (lines 14-111)
+- [X] T047 [P] [US2] Extract all branch naming guidance from AGENTS.md (lines 104-145)
+- [X] T048 [P] [US2] Extract branch naming guidance from `.github/instructions/branch-naming.instructions.md` if it exists
+- [X] T049 [US2] Compare branch naming sections across all files; identify contradictions or inconsistencies
+- [X] T050 [US2] Document all 38 allowed branch types from CLAUDE.md with examples
+- [X] T051 [US2] Verify all forbidden prefixes are clearly documented with explanation: `claude/`, `copilot/`, `openai/`
+- [X] T052 [P] [US2] Create document showing forbidden prefixes with rationale for each
+- [X] T053 [P] [US2] List all examples in CLAUDE.md branch naming section; verify none use forbidden prefixes
+- [X] T054 [P] [US2] List all examples in AGENTS.md branch naming section; verify none use forbidden prefixes
+- [X] T055 [US2] Verify validation script `npm run validate:branch-name` exists and works correctly
+- [X] T056 [US2] Test validation script with 5 valid branches (feat/, fix/, audit/, etc.) to confirm acceptance
+- [X] T057 [US2] Test validation script with 3 forbidden branches (claude/, copilot/) to confirm rejection
+- [X] T058 [P] [US2] Document any branches in repository using forbidden prefixes
+- [X] T059 [US2] Create guidance document for consolidating/renaming forbidden-prefix branches
+- [X] T060 [US2] Verify CLAUDE.md section on branch naming is authoritative; AGENTS.md references it appropriately
 
 **Checkpoint**: US2 Branch naming audit complete; all branch types documented; no conflicting guidance remains
 
 ---
 
-## Phase 5: User Story 3 – Duplicate Content Resolution (P1)
+## Phase 5: User Story 3 – Duplicate Content Audit (P1)
 
-**Goal**: Eliminate duplicate "Label Creation Governance" section and consolidate all duplicated content
+**Goal**: Identify and report the duplicate "Label Creation Governance" section and document the proposed consolidation
 
-**Independent Test**: Search AGENTS.md for "Label Creation Governance" returns only 1 occurrence; verify all content preserved
+**Independent Test**: AUDIT_REPORT.md identifies both occurrences, preserves their unique content in the proposed consolidation, and records the approval dependency
 
-### US3 Consolidation Tasks
+### US3 Audit Tasks
 
-- [ ] T061 [US3] Count occurrences of "Label Creation Governance" in AGENTS.md (should be 2 before consolidation)
-- [ ] T062 [US3] Extract complete first occurrence of "Label Creation Governance" (lines 209-252)
-- [ ] T063 [US3] Extract complete second occurrence of "Label Creation Governance" (lines 285-338)
-- [ ] T064 [US3] Compare both versions line-by-line to identify unique and shared content
-- [ ] T065 [US3] Document which unique examples/items appear only in first version
-- [ ] T066 [US3] Document which unique examples/items appear only in second version
-- [ ] T067 [P] [US3] Identify any differences in validation checklist between versions
-- [ ] T068 [P] [US3] Identify any differences in referenced scripts between versions (e.g., validate-labels-before-creation.cjs)
-- [ ] T069 [US3] Create consolidated "Label Creation Governance" section with all unique content
-- [ ] T070 [US3] Verify consolidated section includes: all examples, all validation items, all script references, traceability notes
-- [ ] T071 [US3] Update AGENTS.md to remove second occurrence of "Label Creation Governance"
-- [ ] T072 [US3] Verify consolidated section appears exactly 1 time in AGENTS.md
-- [ ] T073 [P] [US3] Search entire CLAUDE.md and AGENTS.md for other duplicate sections using similarity analysis
-- [ ] T074 [US3] Document all other duplicates found (if any) beyond "Label Creation Governance"
-- [ ] T075 [US3] Plan consolidation approach for any additional duplicates
+- [X] T061 [US3] Count occurrences of "Label Creation Governance" in AGENTS.md (should be 2 in the audited baseline); per clarification Q1, sections with ≥70% text overlap must be reported as consolidation candidates
+- [X] T062 [US3] Extract complete first occurrence of "Label Creation Governance" (lines 209-252)
+- [X] T063 [US3] Extract complete second occurrence of "Label Creation Governance" (lines 285-338)
+- [X] T064 [US3] Compare both versions line-by-line to identify unique and shared content; calculate text overlap percentage
+- [X] T065 [US3] Document which unique examples/items appear only in first version
+- [X] T066 [US3] Document which unique examples/items appear only in second version
+- [X] T067 [P] [US3] Identify any differences in validation checklist between versions
+- [X] T068 [P] [US3] Identify any differences in referenced scripts between versions (e.g., validate-labels-before-creation.cjs)
+- [X] T069 [US3] Draft the proposed consolidated "Label Creation Governance" section in the audit artefacts using the union approach (per Q1 clarification) with all unique content from both versions
+- [X] T070 [US3] Verify the proposed consolidated section includes: all examples, all validation items, all script references, traceability noting original locations (lines 209-252 and 285-338)
+- [ ] T071 [US3] **DEFERRED TO PHASE 2**: After AUDIT_REPORT.md approval, update AGENTS.md to remove the second occurrence of "Label Creation Governance" (implementation tracked by T122)
+- [ ] T072 [US3] **DEFERRED TO PHASE 2**: After T071, verify the consolidated section appears exactly once in AGENTS.md
+- [X] T073 [P] [US3] Search entire CLAUDE.md and AGENTS.md for other duplicate sections using similarity analysis
+- [X] T074 [US3] Document all other duplicates found (if any) beyond "Label Creation Governance"
+- [X] T075 [US3] Plan consolidation approach for any additional duplicates
 
-**Checkpoint**: US3 Duplicate "Label Creation Governance" consolidated; zero duplicate sections remain
+**Checkpoint**: US3 duplicate findings and proposed consolidation documented in AUDIT_REPORT.md; governance-file changes await approval
 
 ---
 
@@ -169,20 +188,20 @@
 
 ### US4 Structure & Organization Tasks
 
-- [ ] T076 [P] [US4] Create table of contents structure for refactored CLAUDE.md with proposed section ordering
-- [ ] T077 [P] [US4] Create table of contents structure for refactored AGENTS.md with proposed section ordering
-- [ ] T078 [US4] Document current section order in CLAUDE.md and identify issues with grouping
-- [ ] T079 [US4] Document current section order in AGENTS.md and identify issues with grouping
-- [ ] T080 [P] [US4] Map all branch naming related content across both files; plan consolidation location
-- [ ] T081 [P] [US4] Map all label governance related content across both files; plan consolidation location
-- [ ] T082 [P] [US4] Map all AI client rules across both files; plan consolidation location
-- [ ] T083 [US4] Create visual diagram showing information architecture and content flow for governance files
-- [ ] T084 [US4] Document heading hierarchy and anchor naming convention for all sections
-- [ ] T085 [US4] Verify section anchors are consistent and link-friendly across files
-- [ ] T086 [P] [US4] Create navigation guide showing how to find topic X in both CLAUDE.md and AGENTS.md
-- [ ] T087 [US4] Organize CLAUDE.md into logical sections: Purpose, Key Conventions, Branching, Workflow, Commands, Configuration, Related Files
-- [ ] T088 [US4] Organize AGENTS.md into logical sections: Purpose, Governance Principles, Global Rules, Coding Standards, Configuration, Instruction Files
-- [ ] T089 [US4] Add cross-references between files using consistent anchor format
+- [X] T076 [P] [US4] Create table of contents structure for refactored CLAUDE.md with proposed section ordering
+- [X] T077 [P] [US4] Create table of contents structure for refactored AGENTS.md with proposed section ordering
+- [X] T078 [US4] Document current section order in CLAUDE.md and identify issues with grouping
+- [X] T079 [US4] Document current section order in AGENTS.md and identify issues with grouping
+- [X] T080 [P] [US4] Map all branch naming related content across both files; plan consolidation location
+- [X] T081 [P] [US4] Map all label governance related content across both files; plan consolidation location
+- [X] T082 [P] [US4] Map all AI client rules across both files; plan consolidation location
+- [X] T083 [US4] Create visual diagram showing information architecture and content flow for governance files
+- [X] T084 [US4] Document heading hierarchy and anchor naming convention for all sections
+- [X] T085 [US4] Verify section anchors are consistent and link-friendly across files
+- [X] T086 [P] [US4] Create navigation guide showing how to find topic X in both CLAUDE.md and AGENTS.md
+- [X] T087 [US4] Organize CLAUDE.md into logical sections: Purpose, Key Conventions, Branching, Workflow, Commands, Configuration, Related Files
+- [X] T088 [US4] Organize AGENTS.md into logical sections: Purpose, Governance Principles, Global Rules, Coding Standards, Configuration, Instruction Files
+- [X] T089 [US4] Add cross-references between files using consistent anchor format
 
 **Checkpoint**: US4 Governance files reorganized; clear information architecture established
 
@@ -196,23 +215,23 @@
 
 ### US5 Workflow Guidance Tasks
 
-- [ ] T090 [P] [US5] Document workflow Phase 0: Create feature branch with correct naming convention
-- [ ] T091 [P] [US5] Document workflow Phase 1: Write specification in `specs/{###-feature-name}/spec.md`
-- [ ] T092 [P] [US5] Document workflow Phase 2: Run `/speckit-plan` to create implementation plan
-- [ ] T093 [P] [US5] Document workflow Phase 3: Run `/speckit-tasks` to decompose into concrete tasks
-- [ ] T094 [P] [US5] Document workflow Phase 4: Implement tasks and commit changes to feature branch (do NOT create PR automatically)
-- [ ] T095 [US5] Document workflow Phase 5: User manually creates draft PR when ready (not automatic)
-- [ ] T096 [US5] Document workflow Phase 6: Review, respond to feedback, merge to develop when approved
-- [ ] T097 [P] [US5] For each phase, define clear entry criteria (what must be done before this phase starts)
-- [ ] T098 [P] [US5] For each phase, define clear exit criteria (what marks this phase as complete)
-- [ ] T099 [P] [US5] For each phase, define measurable success criteria
-- [ ] T100 [US5] Create example: "Implement a simple feature" showing all 6 workflow phases
-- [ ] T101 [US5] Create example: "Audit and refactor" showing workflow applied to governance work
-- [ ] T102 [US5] Document when to create specs vs. when specs are optional
-- [ ] T103 [US5] Document when @ashley approval is required and how to obtain it
-- [ ] T104 [US5] Add workflow guidance to CLAUDE.md under "Git Workflow" section
-- [ ] T105 [US5] Add workflow reference to AGENTS.md with link to authoritative CLAUDE.md section
-- [ ] T106 [US5] Verify workflow guidance aligns with constitution principle on Specification-First Process
+- [X] T090 [P] [US5] Document workflow Phase 0: Create feature branch with correct naming convention
+- [X] T091 [P] [US5] Document workflow Phase 1: Write specification in `specs/{###-feature-name}/spec.md`
+- [X] T092 [P] [US5] Document workflow Phase 2: Run `/speckit-plan` to create implementation plan
+- [X] T093 [P] [US5] Document workflow Phase 3: Run `/speckit-tasks` to decompose into concrete tasks
+- [X] T094 [P] [US5] Document workflow Phase 4: Implement tasks and commit changes to feature branch (do NOT create PR automatically)
+- [X] T095 [US5] Document workflow Phase 5: User manually creates draft PR when ready (not automatic)
+- [X] T096 [US5] Document workflow Phase 6: Review, respond to feedback, merge to develop when approved
+- [X] T097 [P] [US5] For each phase, define clear entry criteria (what must be done before this phase starts)
+- [X] T098 [P] [US5] For each phase, define clear exit criteria (what marks this phase as complete)
+- [X] T099 [P] [US5] For each phase, define measurable success criteria
+- [X] T100 [US5] Create example: "Implement a simple feature" showing all 6 workflow phases
+- [X] T101 [US5] Create example: "Audit and refactor" showing workflow applied to governance work
+- [X] T102 [US5] Document when to create specs vs. when specs are optional
+- [X] T103 [US5] Document when @ashley approval is required and how to obtain it
+- [X] T104 [US5] Add workflow guidance to CLAUDE.md under "Git Workflow" section
+- [X] T105 [US5] Add workflow reference to AGENTS.md with link to authoritative CLAUDE.md section
+- [X] T106 [US5] Verify workflow guidance aligns with constitution principle on Specification-First Process
 
 **Checkpoint**: US5 Specification-first workflow clearly documented with all phases and criteria
 
@@ -226,27 +245,48 @@
 
 ### US6 Reference Validation Tasks
 
-- [ ] T107 [P] [US6] Verify each reference from T017 (CLAUDE.md references) and document status
-- [ ] T108 [P] [US6] Verify each reference from T018 (AGENTS.md references) and document status
-- [ ] T109 [P] [US6] Update CLAUDE.md references to reflect actual file locations
-- [ ] T110 [P] [US6] Update AGENTS.md references to reflect actual file locations
-- [ ] T111 [US6] For each missing file, create entry in migration log documenting: original path, status, action taken
-- [ ] T112 [US6] If `.github/prompts/prompts.md` exists, document its content and relationship to governance
-- [ ] T113 [US6] If `.github/prompts/prompts.md` doesn't exist, update AGENTS.md line 18 reference appropriately
-- [ ] T114 [US6] Verify all 5 consolidated instruction files exist and contain expected topics
-- [ ] T115 [US6] If any consolidated instruction files are missing, document which topics were not consolidated
-- [ ] T116 [US6] Verify GitHub projects in `.github/projects/active/` exist and update any archived project references
-- [ ] T117 [US6] Migrate the legacy `.github/scripts/validation/validate-labels-before-creation.cjs` reference to `scripts/validation/validate-labels-before-creation.cjs`
-- [ ] T118 [US6] Create reference validation report documenting: total references checked, valid, broken, migrated
-- [ ] T119 [US6] Add validation check to governance files: "Last validated: [DATE]"
+Per Q2 clarification, validate all 4 categories: (1) broken/missing files, (2) outdated paths, (3) unimplemented consolidation claims, (4) line-number mismatches
+
+- [X] T107 [P] [US6] Verify each reference from T017 (CLAUDE.md references) and document status against all 4 validation categories
+- [X] T108 [P] [US6] Verify each reference from T018 (AGENTS.md references) and document status against all 4 validation categories
+- [X] T109 [P] [US6] Update CLAUDE.md references to reflect actual file locations; for line-number references, use section anchors instead where possible
+- [X] T110 [P] [US6] Update AGENTS.md references to reflect actual file locations; for line-number references, use section anchors instead where possible
+- [X] T111 [US6] For each missing file, create entry in migration log documenting: original path, status (broken, migrated, consolidated), action taken
+- [X] T112 [US6] If `.github/prompts/prompts.md` exists, document its content and relationship to governance (category 2: outdated path)
+- [X] T113 [US6] If `.github/prompts/prompts.md` doesn't exist, update AGENTS.md line 18 reference appropriately (category 1: broken file)
+- [X] T114 [US6] Verify all 5 consolidated instruction files exist and contain expected topics (category 3: unimplemented consolidation claims)
+- [X] T115 [US6] If any consolidated instruction files are missing, document which topics were not consolidated (category 3)
+- [X] T116 [US6] Verify GitHub projects in `.github/projects/active/` exist and update any archived project references (category 2: outdated paths)
+- [X] T117 [US6] Migrate the legacy `.github/scripts/validation/validate-labels-before-creation.cjs` reference to `scripts/validation/validate-labels-before-creation.cjs` (category 2: outdated path)
+- [X] T118 [US6] Create reference validation report documenting: total references checked, valid, broken (cat 1), outdated (cat 2), unimplemented (cat 3), line-mismatches (cat 4)
+- [X] T119 [US6] Add validation check to governance files: "Last validated: [DATE]" with reference to AUDIT_REPORT.md validation section
 
 **Checkpoint**: US6 All references validated; no broken links remain; migration status documented
 
 ---
 
+## 🔐 APPROVAL GATE: @ashley Review & Approval
+
+**After completing Phase 8 Checkpoint (T119), STOP and request review:**
+
+1. @ashley reviews AUDIT_REPORT.md for accuracy and completeness
+2. @ashley reviews all audit findings and consolidation decisions
+3. @ashley approves/flags any conflicts per Q5 (constitution vs. practice conflicts classified and decision options provided)
+4. @ashley signals approval to proceed with Phase 9 (Refactoring)
+
+**Do NOT proceed with Phases 9–11 until @ashley has explicitly approved the audit findings.**
+
+This gate ensures all structural changes are reviewed and approved before implementation begins.
+
+---
+
 ## Phase 9: Refactoring Implementation (Multi-User Story)
 
-**Purpose**: Apply all audit findings and consolidations to refactored governance files
+**Purpose**: Apply all audit findings documented in AUDIT_REPORT.md and consolidations to refactored governance files
+
+**Prerequisites**: @ashley approval of AUDIT_REPORT.md findings (Approval Gate, above)
+
+**Reference**: All decisions and findings from AUDIT_REPORT.md guide the refactoring tasks below. Each task implements a specific finding or consolidation identified during audit phases.
 
 ### Refactoring Core Tasks (Applies to Multiple US)
 

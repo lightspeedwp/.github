@@ -74,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Completed governance files audit identifying 7 findings: 1 critical duplicate, 5 major issues. Audit report ready for review; Phase 2 refactoring pending. (#3368)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
 - **Branch Cleanup Audit Added** — Added safe-cleanup guidance with keep, review and delete categories. (#3128)

@@ -8,6 +8,15 @@
 
 **Input**: User description: "Audit CLAUDE.md and AGENTS.md governance files to fix branch naming configuration issues, improve structure, establish proper AI client workflow (branch → spec → draft PR → review → merge), and resolve duplicates and bad references."
 
+## Implementation Approach
+
+This work is structured in two distinct phases:
+
+- **Phase 1 – Audit & Analysis**: Identify all duplicates, bad references, and structural issues; deliver findings in AUDIT_REPORT.md for review and approval by @ashley
+- **Phase 2 – Refactoring & Implementation**: Based on approved audit findings, implement fixes to CLAUDE.md and AGENTS.md; delivered in follow-up PR
+
+This two-phase approach allows stakeholder review and critique of findings before any changes are made to the governance files, reducing risk of unwanted modifications.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Governance Files Quality Baseline (Priority: P1)
@@ -97,20 +106,24 @@ As a **reader**, I need all references and links in governance files to point to
 ### Edge Cases
 
 - What happens if a referenced instruction file has been consolidated or moved but not updated in governance files?
+  - **Resolution**: Validate file existence comprehensively; flag all missing/moved references in AUDIT_REPORT.md with current vs. expected paths
 - How do we handle references to GitHub projects (`.github/projects/active/`) that may be archived or renamed?
+  - **Resolution**: Check project status; flag archived/renamed projects; document migration path if known
 - What if governance guidance conflicts with constitution principles but has been implemented in practice?
+  - **Resolution**: Flag all conflicts in AUDIT_REPORT.md with evidence; classify as "governance error" or "constitution exception"; let @ashley decide per-case
 - How do we validate that consolidated instruction files mentioned in AGENTS.md actually contain all the content they claim to consolidate?
+  - **Resolution**: For each consolidation claim, verify all referenced source files exist and contain expected sections; report completeness status in AUDIT_REPORT.md
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-- **FR-001**: Governance audit MUST identify all duplicate content sections across CLAUDE.md and AGENTS.md with specific line number references
-- **FR-002**: Audit MUST validate all file path references against actual repository structure and report broken or outdated links
+- **FR-001 (Phase 1)**: Governance audit MUST identify and report all duplicate content sections across CLAUDE.md and AGENTS.md with specific line number references; sections with ≥70% text overlap MUST be recorded as consolidation candidates, without changing governance files before audit approval
+- **FR-002 (Phase 1)**: Audit MUST validate all file path references against actual repository structure and report: (1) broken/missing files, (2) outdated paths, (3) unimplemented consolidation claims, and (4) line-number mismatches
 - **FR-003**: Audit MUST identify conflicting guidance about branch naming, label creation, script organization, and AI rules that exists in multiple files
 - **FR-004**: Audit MUST map relationships between CLAUDE.md, AGENTS.md, constitution, instruction files, and dependent systems (workflows, agents, scripts)
 - **FR-005**: Refactored CLAUDE.md MUST contain clear, actionable branch naming guidance aligned with constitution, with no forbidden prefixes created by default AI tools
-- **FR-006**: Refactored AGENTS.md MUST have single-source-of-truth sections for each topic (no duplicate "Label Creation Governance" or other sections)
+- **FR-006 (Phase 2)**: After AUDIT_REPORT.md approval, refactored AGENTS.md MUST have single-source-of-truth sections for each topic (no duplicate "Label Creation Governance" or other sections)
 - **FR-007**: Refactored governance files MUST include specification-first workflow guidance showing branch → spec → draft PR → review → merge process
 - **FR-008**: Refactored governance files MUST clearly distinguish between constraints that are constitution-level (unchangeable) versus implementation details (changeable per project)
 - **FR-009**: All cross-references between CLAUDE.md and AGENTS.md MUST use consistent link anchors and clearly indicate which file to consult for each topic
@@ -129,7 +142,7 @@ As a **reader**, I need all references and links in governance files to point to
 
 ### Measurable Outcomes
 
-- **SC-001**: Audit report identifies and categorizes ALL duplicate sections, bad references, and structural issues in CLAUDE.md and AGENTS.md (must be 100% complete, not sampling)
+- **SC-001**: Audit report identifies and categorizes ALL duplicate sections, bad references, and structural issues in CLAUDE.md and AGENTS.md (must be 100% complete, not sampling); delivered as structured markdown at `AUDIT_REPORT.md` in spec directory with clear sections, line-number references, and remediation guidance
 - **SC-002**: Refactored CLAUDE.md contains zero forbidden branch prefixes in examples and guidance; all examples use correct prefixes (audit, feat, fix, etc.)
 - **SC-003**: AGENTS.md reduced from 2 duplicate "Label Creation Governance" sections to 1 authoritative section with no content loss
 - **SC-004**: All file path references validated; 100% of referenced files either exist in repository or have documented migration status
@@ -148,6 +161,14 @@ As a **reader**, I need all references and links in governance files to point to
 - Q3: How to handle concurrent edits during multi-day refactoring? → A: Accept conflicts and rebase regularly; feature branch rebases onto develop as changes occur, conflicts resolved incrementally
 - Q4: Audit completeness requirement—100% or sampling acceptable? → A: 100% completeness with tool assistance; use automated tools (diff, grep, similarity analysis) to guarantee reliable detection of all duplicates and bad references
 - Q5: Post-refactor governance change tracking strategy? → A: Changelog file approach; add GOVERNANCE_CHANGELOG.md documenting all changes with dates and impact for transparency to downstream repos
+
+### Session 2026-09-17
+
+- Q1: How to treat near-identical sections (e.g., "Label Creation Governance" appearing twice)? → A: Merge all sections with ≥70% text overlap into one; use union of both versions' content to preserve unique information from each occurrence
+- Q2: What categories of "bad references" to validate? → A: Validate all categories—broken/missing files, outdated paths, unimplemented consolidation claims, and line-number mismatches—for comprehensive reference validation
+- Q3: Audit report format and delivery mechanism? → A: Structured markdown report at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md` for version control, easy linking, and integration with spec artifacts
+- Q4: Audit and refactoring in same PR or separate phases? → A: Separate phases—Phase 1 audit findings only (AUDIT_REPORT.md for review/approval by @ashley), Phase 2 implements refactoring based on approved findings; allows critique before changes
+- Q5: How to handle conflicts between governance guidance and constitution? → A: Flag all conflicts in AUDIT_REPORT.md with evidence; classify each as either "governance error to fix" or "constitution exception to document"; let @ashley decide per-case during review
 
 ## Assumptions
 
