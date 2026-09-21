@@ -2,7 +2,7 @@
 // Test complex label scenarios
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/validate-and-apply-labels.js";
+import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js";
 import { MockGitHub, createMockConfig } from "./setup.js";
 
 describe("Category B: Label Application Scenarios", () => {

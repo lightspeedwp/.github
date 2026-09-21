@@ -1,4 +1,4 @@
-import { orchestratePrCreation } from "../skills/orchestrate-pr-creation/orchestrate-pr-creation.js";
+import { orchestratePrCreation } from "../orchestrate-pr-creation.js";
 
 describe("orchestratePrCreation", () => {
   const validPr = {
