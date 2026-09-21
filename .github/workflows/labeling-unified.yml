@@ -36,6 +36,7 @@ jobs:
   validate:
     name: Validate configs (read-only)
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
         with:
@@ -43,7 +44,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci --ignore-scripts
+          cache: "npm"
+      - run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
       - name: Validate labeling configs
         run: node scripts/validation/validate-labeling-configs.cjs
       - name: Guardrail — unknown labels in templates
@@ -53,6 +55,7 @@ jobs:
   file-labels:
     name: File/branch labels (PRs)
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: validate
     if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'meta:skip-labeling')
     steps:
@@ -127,7 +130,8 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci --ignore-scripts
+          cache: "npm"
+      - run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
       - name: Run labeling agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -135,7 +139,7 @@ jobs:
         run: node scripts/agents/run-labeling-agent.js
       - name: Upload report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: labeling-report-${{ github.run_id }}
           path: .github/reports/labeling/
