@@ -78,3 +78,5 @@ Unchanged from the reference feature — `.github/PULL_REQUEST_TEMPLATE/config.y
 | `prLink` | Reference back to the PR | 100% linked — never added before the PR exists (FR-013) |
 
 **Lifecycle**: Unchanged from the reference feature — created only after the PR exists, only when the changelog-decision label requires one, never duplicated across stack layers.
+
+**Restricted-type override (FR-013a)**: A PR whose `type:*` label is on this repository's CI-enforced `restrictedTypes` list (`type:feature`, `type:bug`, `type:performance`, `type:security`, `type:release`, `type:hotfix`) MUST always carry `meta:needs-changelog` and a real Changelog Entry — this overrides the "supporting stack layer uses `meta:no-changelog`" convention when the two would otherwise conflict.
