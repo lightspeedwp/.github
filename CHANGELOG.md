@@ -65,6 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
 
+- **Workflow Lint with actionlint** — Added a workflow-lint CI gate running actionlint (pinned binary, shellcheck at error severity) over the active workflows on an explicit file list. changelog-validation.yml and pr-template-routing.yml are excluded until their open script-injection findings are fixed.
+
 ### Added
 
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
