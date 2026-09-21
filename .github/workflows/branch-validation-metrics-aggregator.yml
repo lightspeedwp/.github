@@ -5,7 +5,7 @@ on:
     workflows: [Branch Name Validation]
     types: [completed]
   schedule:
-    - cron: "0 * * * *"
+    - cron: '0 * * * *'
 
 permissions:
   contents: write
@@ -25,6 +25,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          # Full history is required so the metrics commit can rebase
+          # onto the latest develop when the push races another writer.
+          fetch-depth: 0
 
       # Artifacts live on the triggering run, not this one: download-artifact
       # only searches the current run unless run-id is given.
@@ -41,7 +45,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Aggregate metrics
         id: aggregate
@@ -128,6 +132,9 @@ jobs:
           # onto the latest remote state and retry with linear backoff.
           # Gives up after 5 tries and fails the step so the race stays
           # visible instead of silently dropping metrics.
+          # The summary is a regenerated snapshot (last-writer-wins), so a
+          # rebase conflict on it is resolved by keeping this run's version
+          # ("theirs" during a rebase) instead of failing the job.
           attempt=1
           max_attempts=5
           until git push origin HEAD:develop; do
@@ -139,7 +146,11 @@ jobs:
             echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
             sleep $((attempt * 10))
             git fetch origin develop
-            git rebase origin/develop || (git rebase --abort && exit 1)
+            if ! git rebase origin/develop; then
+              git checkout --theirs -- .github/reports/branch-validation/metrics-summary.json || true
+              git add .github/reports/branch-validation/metrics-summary.json || true
+              git -c core.editor=true rebase --continue || (git rebase --abort && exit 1)
+            fi
           done
           echo "✅ Metrics pushed."
 
