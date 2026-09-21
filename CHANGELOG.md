@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
+- **Metrics Rebase Conflict Resolution** — The metrics push retry aborted on snapshot conflicts and failed the job. It now keeps this run's regenerated snapshot on conflict instead. ([PR #3394](https://github.com/lightspeedwp/.github/pull/3394))
 - **Code Quality Findings Remediation** — Fixed unclosed files, unused bindings and empty handlers across skill scripts and automation. ([PR #3382](https://github.com/lightspeedwp/.github/pull/3382))
 - **Spec Validation Bats Slimming** — Fixed noisy test installs in the specification workflow by installing Bats without optional libraries. ([PR #3380](https://github.com/lightspeedwp/.github/pull/3380))
 - **PR Template Routing Comment Dedup** — The routing workflow posted a duplicate comment on every push. It now updates the existing comment in place and skips unchanged bodies. ([PR #3379](https://github.com/lightspeedwp/.github/pull/3379))
