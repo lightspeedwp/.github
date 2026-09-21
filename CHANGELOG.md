@@ -33,7 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
-- **Changelog Unified Workflow** — Merged changelog-management.yml and changelog-validation.yml into a single changelog-unified.yml (require-gate, quality validation with PR feedback, merge-sync), replacing the raw git clone with actions/checkout and passing branch names via env to close script-injection findings. ([PR #3405](https://github.com/lightspeedwp/.github/pull/3405))
+- **Changelog Unified Workflow** — Merged the two changelog validators into one changelog-unified.yml; fixed script-injection findings via env passthrough. ([PR #3405](https://github.com/lightspeedwp/.github/pull/3405))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
