@@ -15,7 +15,7 @@ This guide documents the required updates for GitHub issues #2803–#2811 to pro
 
 All 9 issues should be updated with:
 
-- ✅ **Title:** Updated to reflect the prompt and use `type:ai-ops:` prefix
+- ✅ **Title:** Updated to reflect the prompt and use `type:aiops:` prefix
 - ✅ **Labels:** `type:ai-ops`, `area:automation`, `area:docs`, `status:ready-for-use`
 - ✅ **Description:** Comprehensive body explaining the prompt, use cases, and deliverables
 - ✅ **Template:** AI Ops issue template (`.github/ISSUE_TEMPLATE/23-ai-ops.md`)
