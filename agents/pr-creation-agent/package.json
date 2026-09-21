@@ -37,7 +37,7 @@
     "@babel/preset-env": "^7.23.0",
     "@eslint/js": "^10.0.1",
     "@jest/globals": "^30.4.1",
-    "@types/node": "^20.0.0",
+    "@types/node": "^26.6.1",
     "babel-jest": "^30.5.1",
     "eslint": "^10.10.0",
     "globals": "^17.12.0",
