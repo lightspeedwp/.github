@@ -141,32 +141,37 @@ jobs:
 
             // 2. Every section must contain real content: HTML comments
             // (the templates ship with instructional placeholders) and
-            // whitespace do not count. Write `N/A` where a section genuinely
-            // does not apply.
-            const lines = rawBody.split('\n');
-            const sections = {};
-            let current = null;
-            for (const line of lines) {
-              const match = line.match(/^## (.+)$/);
-              if (match) {
-                current = match[1].trim().toLowerCase();
-                sections[current] = [];
-              } else if (current) {
-                sections[current].push(line);
+            // whitespace do not count, and neither does an unchanged copy
+            // of the template's own default text. Write `N/A` where a
+            // section genuinely does not apply.
+            const splitSections = (text) => {
+              const sections = {};
+              let current = null;
+              for (const line of text.split('\n')) {
+                const match = line.match(/^## (.+)$/);
+                if (match) {
+                  current = match[1].trim().toLowerCase();
+                  sections[current] = [];
+                } else if (current) {
+                  sections[current].push(line);
+                }
               }
-            }
+              return sections;
+            };
+            const normalize = (text) => text.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').trim();
+            const bodySections = splitSections(rawBody);
+            const templateSections = splitSections(template);
             const empty = required.filter((h) => {
-              const text = (sections[h.toLowerCase()] || [])
-                .join('\n')
-                .replace(/<!--[\s\S]*?-->/g, '')
-                .trim();
-              return text.length === 0;
+              const key = h.toLowerCase();
+              const submitted = normalize((bodySections[key] || []).join('\n'));
+              const templateDefault = normalize((templateSections[key] || []).join('\n'));
+              return submitted.length === 0 || submitted === templateDefault;
             });
             if (empty.length > 0) {
               core.setFailed(
-                `PR body has ${empty.length} empty section(s) from ${templateName}.md: ` +
+                `PR body has ${empty.length} empty or unmodified section(s) from ${templateName}.md: ` +
                 empty.map((h) => `"## ${h}"`).join(', ') +
-                `. Fill each section (or write N/A) instead of leaving headings blank.`
+                `. Fill each section with PR-specific content (or write N/A); an unchanged copy of the template text does not count.`
               );
             } else {
               core.info(`PR body contains all ${required.length} sections from ${templateName}.md with content.`);
