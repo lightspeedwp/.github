@@ -117,6 +117,14 @@ agents/pr-agent/
 
 **Structure Decision**: Single consolidated agent at `agents/pr-agent/`, per Source A's proposed structure layered with the Agent Skills specification's per-skill `scripts/`/`references/`/`assets/` shape. No new top-level folder, no new service — this is a restructuring of what already exists at `agents/pr-agent/` and `agents/pr-creation-agent/`, not a new component.
 
+**Delivery Decision**: Rather than one branch/PR for all of User Story 1, the work was split into three stacked branches to stay within the review budget in LightSpeed's Pull Request & Code Review Workflow (≈15 files preferred, ≈25 hard cap, stack ≤5 PRs):
+
+1. `feature/pr-agent-consolidation-portability` → `develop` — this spec's planning docs, plus the `package.json`/`AGENT.md`/`eslint.config.js` fixes and dependency corrections (14 files)
+2. `refactor/pr-agent-skills-restructure` → branch 1 — the six-skill Agent Skills restructuring (23 files)
+3. `fix/pr-agent-branch-name-validation` → branch 2 — the `validate-branch-name.js` prefix-list fix, deferred lint verification, `pr-creation-agent` deletion, and `README.md`/`CHANGELOG.md` (~10 files)
+
+Each PR's body states its stack position, depends-on/followed-by links, and review scope per that workflow's Section 4 format; only the final layer (if any) uses a closing issue keyword.
+
 ## Complexity Tracking
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
