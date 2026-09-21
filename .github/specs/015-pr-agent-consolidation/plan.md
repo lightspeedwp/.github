@@ -27,6 +27,7 @@ Consolidate `agents/pr-agent/` and `agents/pr-creation-agent/` into a single, Ag
 **Performance Goals**: N/A — not a running service; success is correctness of the resulting agent behaviour and portability, not latency/throughput.
 
 **Constraints**:
+
 - MUST NOT modify any LOCKED file (`.github/labels.yml`, `.github/issue-types.yml`, `.github/ISSUE_TEMPLATE/*.md`, `.github/PULL_REQUEST_TEMPLATE/*.md`) as part of this feature — per constitution Principle II, any such change requires a separate `[TEMPLATE-UPDATE-REQUEST]`/`[LABEL-UPDATE-REQUEST]` issue and @ashley's explicit approval. This specifically means the five-missing-routing-entries discrepancy noted in spec Edge Cases stays a flagged, deferred issue — this feature does not touch `config.yml`'s routing table itself.
 - MUST use UK English throughout every file this feature creates or edits (constitution Principle VI, non-negotiable) — `spec.md` has already been corrected (`behavior`→`behaviour`, `recognize`→`recognise`, etc.); the same applies to `AGENT.md`, every `SKILL.md`, `README.md`, and `CHANGELOG.md` produced by this work.
 - MUST NOT fabricate verification results (spec FR-019); MUST preserve 100% of existing Jest test coverage through the restructuring (spec FR-020, SC-006).

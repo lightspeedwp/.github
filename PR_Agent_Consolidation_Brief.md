@@ -10,6 +10,7 @@ This is source material for /speckit-specify in lightspeedwp/.github, not the sp
 - Source B: a validated, admin-approved reference implementation from lightspeedwp/ls-theme (kept open as PR #53, not merged, not deleted)
 - Source C: an audit of what already exists in lightspeedwp/.github right now
 - Source D: verified factual conflicts between B and C that the new spec must resolve, not silently pick a side on
+
 # SOURCE A — Org Consolidation Plan (verbatim, full text)
 
 ## Overview
@@ -52,7 +53,7 @@ The PR agent already contains a skills directory: agents/pr-agent/skills/
 
 Existing example: agents/pr-agent/skills/handle-pr-errors/SKILL.md
 
-Skills should follow the Agent Skills specification: https://agentskills.io/specification
+Skills should follow the Agent Skills specification: <https://agentskills.io/specification>
 
 ### Expected skill structure
 
@@ -122,6 +123,7 @@ Add README.md. The README should provide an overview of the PR agent and explain
 - How linting works.
 - How repository documentation is referenced.
 - How the agent is intended to be reused across LightSpeedWP repositories.
+
 ## 9. Documentation References
 
 The PR agent should make use of the existing organisational documentation rather than duplicating governance rules inside the agent wherever possible. Relevant documentation can be found under docs/.
@@ -231,19 +233,20 @@ docs/
 The completed work should result in:
 
 - 1. pr-agent being the single PR-related agent.
-- 2. pr-creation-agent functionality being incorporated into pr-agent.
-- 3. pr-creation.agent.md content being appropriately merged into AGENT.md.
-- 4. Agent Skills following the Agent Skills specification.
-- 5. Tests being added for applicable executable skill logic.
-- 6. Markdown and JavaScript linting being introduced.
-- 7. package.json and package-lock.json supporting the required tooling.
-- 8. A CHANGELOG.md being maintained.
-- 9. A README.md documenting the agent.
-- 10. Existing branch, PR, label, issue, and title-governance documentation being reused as references.
-- 11. Wildcard document references being treated as patterns rather than literal filenames.
-- 12. Potential use of symlinks for shared documentation and PR-template assets being evaluated.
-- 13. The agent working first-class inside the .github control plane repository.
-- 14. The same agent remaining portable to WordPress block plugin, WordPress block theme, and other LightSpeedWP organisation repositories.
+- 1. pr-creation-agent functionality being incorporated into pr-agent.
+- 1. pr-creation.agent.md content being appropriately merged into AGENT.md.
+- 1. Agent Skills following the Agent Skills specification.
+- 1. Tests being added for applicable executable skill logic.
+- 1. Markdown and JavaScript linting being introduced.
+- 1. package.json and package-lock.json supporting the required tooling.
+- 1. A CHANGELOG.md being maintained.
+- 1. A README.md documenting the agent.
+- 1. Existing branch, PR, label, issue, and title-governance documentation being reused as references.
+- 1. Wildcard document references being treated as patterns rather than literal filenames.
+- 1. Potential use of symlinks for shared documentation and PR-template assets being evaluated.
+- 1. The agent working first-class inside the .github control plane repository.
+- 1. The same agent remaining portable to WordPress block plugin, WordPress block theme, and other LightSpeedWP organisation repositories.
+
 ## Core Design Principle
 
 The final PR agent should provide one canonical PR workflow agent backed by central LightSpeedWP governance, rather than maintaining multiple overlapping agents or duplicating standards across repositories.
@@ -252,23 +255,24 @@ The .github repository defines the organisational rules; the PR agent consumes t
 
 ## Reference Links (retained as source references for implementation)
 
-- Main agents directory: https://github.com/lightspeedwp/.github/tree/develop/agents
-- Existing PR agent: https://github.com/lightspeedwp/.github/tree/develop/agents/pr-agent
-- Existing PR creation agent to be merged: https://github.com/lightspeedwp/.github/tree/develop/agents/pr-creation-agent
-- pr-creation.agent.md: https://github.com/lightspeedwp/.github/blob/develop/agents/pr-creation-agent/pr-creation.agent.md
-- pr-agent/AGENT.md: https://github.com/lightspeedwp/.github/blob/develop/agents/pr-agent/AGENT.md
-- PR agent skills directory: https://github.com/lightspeedwp/.github/tree/develop/agents/pr-agent/skills
-- Existing handle-pr-errors skill: https://github.com/lightspeedwp/.github/blob/develop/agents/pr-agent/skills/handle-pr-errors/SKILL.md
-- Agent Skills specification: https://agentskills.io/specification
-- Agent documentation directory: https://github.com/lightspeedwp/.github/tree/develop/docs/agents
-- Organisation pull request templates: https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE
-- Main documentation directory: https://github.com/lightspeedwp/.github/tree/develop/docs
-- BRANCHING_*.md pattern: https://github.com/lightspeedwp/.github/blob/develop/docs/BRANCHING_*.md
-- PR_*.md pattern: https://github.com/lightspeedwp/.github/blob/develop/docs/PR_*.md
-- LABEL*.md pattern: https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL*.md
-- LABELING.md: https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md
-- ISSUE_PR_TITLE_GOVERNANCE.md: https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_PR_TITLE_GOVERNANCE.md
-- ISSUE*.md pattern: https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE*.md
+- Main agents directory: <https://github.com/lightspeedwp/.github/tree/develop/agents>
+- Existing PR agent: <https://github.com/lightspeedwp/.github/tree/develop/agents/pr-agent>
+- Existing PR creation agent to be merged: <https://github.com/lightspeedwp/.github/tree/develop/agents/pr-creation-agent>
+- pr-creation.agent.md: <https://github.com/lightspeedwp/.github/blob/develop/agents/pr-creation-agent/pr-creation.agent.md>
+- pr-agent/AGENT.md: <https://github.com/lightspeedwp/.github/blob/develop/agents/pr-agent/AGENT.md>
+- PR agent skills directory: <https://github.com/lightspeedwp/.github/tree/develop/agents/pr-agent/skills>
+- Existing handle-pr-errors skill: <https://github.com/lightspeedwp/.github/blob/develop/agents/pr-agent/skills/handle-pr-errors/SKILL.md>
+- Agent Skills specification: <https://agentskills.io/specification>
+- Agent documentation directory: <https://github.com/lightspeedwp/.github/tree/develop/docs/agents>
+- Organisation pull request templates: <https://github.com/lightspeedwp/.github/tree/develop/.github/PULL_REQUEST_TEMPLATE>
+- Main documentation directory: <https://github.com/lightspeedwp/.github/tree/develop/docs>
+- BRANCHING_*.md pattern: <https://github.com/lightspeedwp/.github/blob/develop/docs/BRANCHING_*.md>
+- PR_*.md pattern: <https://github.com/lightspeedwp/.github/blob/develop/docs/PR_*.md>
+- LABEL*.md pattern: <https://github.com/lightspeedwp/.github/blob/develop/docs/LABEL*.md>
+- LABELING.md: <https://github.com/lightspeedwp/.github/blob/develop/docs/LABELING.md>
+- ISSUE_PR_TITLE_GOVERNANCE.md: <https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE_PR_TITLE_GOVERNANCE.md>
+- ISSUE*.md pattern: <https://github.com/lightspeedwp/.github/blob/develop/docs/ISSUE*.md>
+
 # SOURCE B — Validated ls-theme reference implementation (PR #53, kept open, not merged)
 
 Everything in this section comes from lightspeedwp/ls-theme, branch feature/ls-3223-aiops-openspec-plan-new-skills, open as PR #53 against develop. This work went through a full Spec Kit planning cycle and was validated against org guidelines set by an admin. It is authoritative for BEHAVIOR. Source A is authoritative for STRUCTURE/PORTABILITY. Where they conflict, the new spec must flag it, not silently pick one.
@@ -296,8 +300,9 @@ Independent Test: Can be fully tested by running the skill on a real branch with
 Acceptance Scenarios:
 
 - 1. Given a branch with committed, pushed changes and no existing open PR, When the skill is run, Then a PR is opened against the correct base branch with a title and description derived from the branch's own commits and diff, an assignee, and exactly one changelog-decision label.
-- 2. Given a branch whose name doesn't follow the approved naming convention, When the skill is run, Then the mismatch is flagged to the user before a PR is created, rather than silently proceeding.
-- 3. Given a branch whose change exceeds the preferred review-size guidance, When the skill is run, Then the resulting PR clearly notes that it exceeds the preferred size and that it should either be split or have a documented exception.
+- 1. Given a branch whose name doesn't follow the approved naming convention, When the skill is run, Then the mismatch is flagged to the user before a PR is created, rather than silently proceeding.
+- 1. Given a branch whose change exceeds the preferred review-size guidance, When the skill is run, Then the resulting PR clearly notes that it exceeds the preferred size and that it should either be split or have a documented exception.
+
 ### User Story 2 - Update an existing PR instead of duplicating it (Priority: P2)
 
 A contributor has pushed additional commits to a branch that already has an open PR, and wants the PR's description and metadata refreshed to reflect the current state of the branch — without losing parts of the existing description that are still accurate, and without ending up with two PRs for the same branch.
@@ -309,7 +314,8 @@ Independent Test: Can be fully tested by running the skill twice against the sam
 Acceptance Scenarios:
 
 - 1. Given a branch that already has an open PR, When the skill is run again, Then the existing PR is updated rather than a new one being created.
-- 2. Given an existing PR missing its assignee, labels, or changelog-decision indicator, When the skill updates it, Then those are backfilled immediately rather than left for a later pass.
+- 1. Given an existing PR missing its assignee, labels, or changelog-decision indicator, When the skill updates it, Then those are backfilled immediately rather than left for a later pass.
+
 ### User Story 3 - Coordinate a stacked set of PRs (Priority: P3)
 
 A contributor is delivering a large change as multiple dependent, independently-reviewable PRs (a "stack"), and wants each PR to clearly show its position in the stack, its dependencies, and to close the originating issue only once the full stack lands — not on an intermediate layer.
@@ -321,7 +327,8 @@ Independent Test: Can be fully tested by opening two or more related PRs in sequ
 Acceptance Scenarios:
 
 - 1. Given a PR that is one layer of a multi-layer stacked change, When it is opened, Then its description states its position, the issue/epic it belongs to, its dependencies, and its own review scope — and it references the issue with a non-closing phrase.
-- 2. Given a PR that is the final layer completing the originating issue, When it is opened, Then it uses a closing reference so the issue resolves only once that layer merges.
+- 1. Given a PR that is the final layer completing the originating issue, When it is opened, Then it uses a closing reference so the issue resolves only once that layer merges.
+
 ### User Story 4 - Open early as a draft for large or multi-day work (Priority: P4)
 
 A contributor starting large or multi-day work wants to open a PR early, once there's a useful initial diff, to surface architecture decisions and scope problems early — without that draft being treated as a formal request for review.
@@ -333,7 +340,8 @@ Independent Test: Can be fully tested by requesting a draft PR on a branch with 
 Acceptance Scenarios:
 
 - 1. Given a request to open a draft PR, When the skill runs, Then the PR is opened as a draft and the ready-for-review steps are skipped until the user explicitly asks for it to be marked ready.
-- 2. Given a draft PR that later needs substantial rework after review has already started on a non-draft PR, When this is detected, Then the user is prompted about returning it to draft rather than the skill deciding unprompted.
+- 1. Given a draft PR that later needs substantial rework after review has already started on a non-draft PR, When this is detected, Then the user is prompted about returning it to draft rather than the skill deciding unprompted.
+
 ### Edge Cases
 
 - What happens when the branch is hotfix/ or a release branch rather than normal development work? The correct base branch is main, not the repository's general default branch, and a follow-up sync back to develop must be flagged rather than silently assumed complete.
@@ -343,6 +351,7 @@ Acceptance Scenarios:
 - What happens when the skill is invoked by a vague natural-language request rather than an explicit command? It must confirm the intended branch and base with the user before creating or changing anything, rather than acting on an assumption.
 - What happens when a lower layer of a stacked PR set needs a fix after a higher layer has already been reviewed? The fix must land in the owning (lower) layer, with the higher layer updated afterward — not patched around from the higher layer.
 - What happens when a reviewer requests changes? Every review thread must eventually receive a reply; fixes must not be pushed silently without addressing the thread that prompted them.
+
 ### Functional Requirements
 
 - FR-001: The skill MUST derive all pull request content (what changed, why, and any related ticket) from the branch's own commit history and diff, without relying on assumed context from prior conversation.
@@ -365,6 +374,7 @@ Acceptance Scenarios:
 - FR-018: Once a pull request is under review, the skill's guidance MUST require a reply to every review thread rather than a silent fix, and MUST require that a fix for a defect belonging to a lower layer of a stacked set be made in that owning layer, with layers above it updated afterward — never worked around from a higher layer.
 - FR-019: The skill MUST be usable both via an explicit, unambiguous invocation and via a natural-language request describing the same intent; for the latter, it MUST confirm the intended branch and base with the user before creating or changing anything.
 - FR-020: The skill MUST never fabricate verification results, metrics, or checks that were not genuinely performed, and MUST never attribute the description of a change to anyone other than the branch's actual author.
+
 ### Key Entities
 
 - Pull Request: The reviewable unit this skill creates or updates — has a title, base branch, description, labels (including exactly one changelog-decision indicator), an assignee, and a draft/ready state.
@@ -372,6 +382,7 @@ Acceptance Scenarios:
 - PR Template: An organization-defined structure (title format, sections, checklist) that a pull request should follow when one is configured for the repository, selected according to the branch's type.
 - Stack: A coordinated, ordered set of pull requests representing one larger change split into independently reviewable layers, where each member records its position and dependencies relative to the others.
 - Changelog Entry: A user-facing record of a change, linked to its pull request, added only when the pull request's changelog-decision indicator requires one.
+
 ### Success Criteria — Measurable Outcomes
 
 - SC-001: A contributor can go from "branch is ready" to "pull request opened with correct base, description, assignee, and labels" without manually re-deriving any of that information themselves.
@@ -381,6 +392,7 @@ Acceptance Scenarios:
 - SC-005: A reviewer opening any pull request produced by this skill can determine, without asking the author, whether it's part of a larger stack and — if so — its position and dependencies.
 - SC-006: When a natural-language request is used instead of the explicit command, the user is asked to confirm branch and base before anything is created, in 100% of such invocations.
 - SC-007: A changelog entry never appears for a pull request before that pull request exists, and never appears at all when the changelog-decision indicator states one isn't needed.
+
 ### Assumptions
 
 - This repository does not currently define a constitutional principle governing branch/PR/changelog conventions (the merged-in project constitution covers styling, reuse, tokens, core blocks, accessibility/security, validation, and PHP discipline, but not this area) — this feature's requirements are instead sourced directly from the LightSpeedWP organization's Pull Request Creation Workflow documentation and the organization's shared PR-template repository, both authoritative outside this repository's own constitution. (Note: this assumption was true when the ls-theme spec was written, but a Principle VIII was added afterward — see Source B10 below.)
@@ -388,6 +400,7 @@ Acceptance Scenarios:
 - "Natural-language invocation" is assumed to mean any request that expresses the intent to open, update, or prepare a pull request without using the feature's explicit, unambiguous command form.
 - The organization's pull-request-template routing configuration and template files are assumed to already exist within the repository (not fetched from elsewhere at run time) so that this feature has no external network dependency during normal operation.
 - Creating any missing labels this feature depends on (such as the changelog-decision indicators) is assumed to be a one-time repository setup concern, not an action this feature performs itself.
+
 ## B2. Implementation Plan — specs/002-open-pr-skill/plan.md (verbatim)
 
 Implementation Plan: Open PR Skill. Branch: feature/ls-3223-aiops-openspec-plan-new-skills | Date: 2026-09-17 | Spec: spec.md
@@ -407,6 +420,7 @@ An agent skill (open-pr) that creates and updates pull requests for the current 
 - Performance Goals: N/A — not a running service; success is measured by correctness of the resulting PR, not latency/throughput.
 - Constraints: MUST NOT fabricate verification results (spec FR-020); MUST set labels/assignee in the same gh invocation that creates/updates the PR (FR-012); MUST NOT create branches or push unrelated changes (FR-002); MUST confirm branch/base before acting on an implicit (natural-language) invocation (FR-019).
 - Scale/Scope: Single repository (ls-theme); one skill file (.claude/skills/open-pr/SKILL.md), expected to remain well under the 500-line/5000-token progressive-disclosure ceiling recommended for agent skills.
+
 ### Constitution Check (GATE: must pass before Phase 0 research; re-checked after Phase 1 design)
 
 - I. Theme-First Styling — N/A, this feature touches no theme.json/styles/src/scss; it produces a single Markdown skill file. PASS (N/A).
@@ -463,6 +477,7 @@ Context found while planning: .claude/skills/open-pr/SKILL.md already exists on 
 ### Phase 1: Setup
 
 - [X] T001 Verify .claude/skills/open-pr/SKILL.md frontmatter matches spec: name: open-pr, and a description covering both explicit and natural-language trigger phrasing per FR-019, under the 1024-character agentskills.io limit.
+
 ### Phase 2: Foundational (Blocking Prerequisites)
 
 Purpose: Core content every user story depends on — context gathering, pre-flight checks, and base-branch/naming logic. No user story's PR can be created or updated correctly until this phase is synced. CRITICAL: No user story work can begin until this phase is complete.
@@ -485,9 +500,9 @@ Independent Test: Run the skill on a real branch with committed, pushed changes 
 - [X] T009 [US1] Sync the fallback "PR structure" section — all 10 body sections including Scope and exclusions, Screenshots/video, a11y/perf/backcompat notes (per FR-011) — into SKILL.md.
 - [X] T010 [US1] Sync the "Creating the PR" section (labels + assignee + exactly one changelog-decision label in the same gh pr create call, per FR-012) into SKILL.md.
 - [X] T011 [US1] Sync the "Changelog — after the PR is created" section (gated on meta:needs-changelog, changelog-validation command, per FR-013) into SKILL.md.
-- [ ] T012 [P][US1] Run quickstart.md Scenario 1 (explicit invocation creates a compliant PR) against a real branch and confirm all fields per the "Create a new Pull Request" contract.
-- [ ] T013 [P][US1] Run quickstart.md Scenario 3 (oversized change is flagged) against a branch exceeding the larger threshold.
-- [ ] T014 [P][US1] Run quickstart.md Scenario 6 (natural-language invocation confirms branch/base before acting, per FR-019) and confirm the invocation-guard wording already in SKILL.md's header still matches this behavior.
+- [ ] T012 `[P][US1]` Run quickstart.md Scenario 1 (explicit invocation creates a compliant PR) against a real branch and confirm all fields per the "Create a new Pull Request" contract.
+- [ ] T013 `[P][US1]` Run quickstart.md Scenario 3 (oversized change is flagged) against a branch exceeding the larger threshold.
+- [ ] T014 `[P][US1]` Run quickstart.md Scenario 6 (natural-language invocation confirms branch/base before acting, per FR-019) and confirm the invocation-guard wording already in SKILL.md's header still matches this behavior.
 Checkpoint: User Story 1 fully functional and testable independently — this is the MVP.
 
 ### Phase 4: User Story 2 - Update an existing PR instead of duplicating it (Priority: P2)
@@ -518,8 +533,8 @@ Independent Test: Request a draft PR on a branch with a partial diff and confirm
 
 - [X] T019 [US4] Sync the "Draft PRs" section (draft creation for larger/multi-day work, skipping ready-for-review gating, stack draft sequencing — bottom layer ready first, "return to draft" trigger on substantial rework, per FR-015) into SKILL.md.
 - [X] T020 [US4] Sync the "Marking Ready for Review" section (CI confirmation, gh pr ready, reviewer request, status:needs-review, and the Linear/Asana link step that warns and continues rather than blocking when no tool is available, per FR-016 and the 2026-09-17 Clarification) into SKILL.md.
-- [ ] T021 [P][US4] Run quickstart.md Scenario 5 (draft PR skips ready-for-review actions) against a partial-diff branch.
-- [ ] T022 [P][US4] Run quickstart.md Scenario 7 (missing Linear/Asana tool warns, doesn't block) confirming the "Mark ready for review" contract.
+- [ ] T021 `[P][US4]` Run quickstart.md Scenario 5 (draft PR skips ready-for-review actions) against a partial-diff branch.
+- [ ] T022 `[P][US4]` Run quickstart.md Scenario 7 (missing Linear/Asana tool warns, doesn't block) confirming the "Mark ready for review" contract.
 Checkpoint: All four user stories independently functional.
 
 ### Phase 7: Polish & Cross-Cutting Concerns
@@ -529,6 +544,7 @@ Checkpoint: All four user stories independently functional.
 - [X] T025 Update the location-note comment at the top of SKILL.md to reference specs/002-open-pr-skill/research.md (Decision: Skill location) instead of the now-removed openspec/changes/open-pr-skill/design.md.
 - [X] T026 Diff SKILL.md against the validated personal command (~/.claude/commands/open-pr.md) and confirm full content parity, accounting only for the skill-specific frontmatter and location-note additions.
 - [ ] T027 Run all 7 quickstart.md scenarios as one final end-to-end pass.
+
 ### Dependencies & Execution Order
 
 - Setup (Phase 1): No dependencies — can start immediately.
@@ -609,7 +625,7 @@ No NEEDS CLARIFICATION markers remained in the Technical Context after drafting 
 
 ### Decision: Skill location is .claude/skills/open-pr/, not .agents/skills/
 
-Rationale: This repository's own convention (constitution Principle II / AGENTS.md) points portable, cross-tool skills at .agents/skills/. However, Claude Code's native skill discovery and slash-command registration only scans .claude/skills/<name>/SKILL.md — .agents/skills/ content is only read when something explicitly tells an agent to go read it (as happens for wp-block-style-audit). Since this feature has two hard requirements — an explicit /open-pr command and natural-language auto-invocation (spec FR-019) — it needs the native mechanism, which only .claude/skills/ provides.
+Rationale: This repository's own convention (constitution Principle II / AGENTS.md) points portable, cross-tool skills at .agents/skills/. However, Claude Code's native skill discovery and slash-command registration only scans .claude/skills/`<name>`/SKILL.md — .agents/skills/ content is only read when something explicitly tells an agent to go read it (as happens for wp-block-style-audit). Since this feature has two hard requirements — an explicit /open-pr command and natural-language auto-invocation (spec FR-019) — it needs the native mechanism, which only .claude/skills/ provides.
 
 Alternatives considered: .agents/skills/open-pr/ for consistency with the repo's stated portable-skill convention. Rejected — it would silently break both invocation modes the spec requires. This is a deliberate, scoped exception, not a precedent for all future skills (documented inline in the skill file's own header comment).
 
@@ -647,13 +663,14 @@ A runnable guide to prove the feature works end-to-end. This is a validation gui
 - gh CLI is authenticated against lightspeedwp/ls-theme.
 - A branch exists with committed, pushed changes, named per the approved convention (e.g. feat/example-validation-run).
 - .github/PULL_REQUEST_TEMPLATE/config.yml and its template files are present (already true in this repo as of a prior change).
+
 ### Scenario 1 — Explicit invocation creates a compliant PR (User Story 1)
 
-1. On the prepared branch, run /open-pr. 2. Expected: a PR is opened in one action, with: base branch correct for the branch's type (develop unless it's hotfix/release); title/body following the org template matched by config.yml for this branch's prefix; exactly one of meta:needs-changelog / meta:no-changelog applied; assignee set to brandonmarshal. 3. Verify: gh pr view <number> --json labels,assignees,baseRefName shows all of the above in a single existing PR — not added in a follow-up edit.
+1. On the prepared branch, run /open-pr. 2. Expected: a PR is opened in one action, with: base branch correct for the branch's type (develop unless it's hotfix/release); title/body following the org template matched by config.yml for this branch's prefix; exactly one of meta:needs-changelog / meta:no-changelog applied; assignee set to brandonmarshal. 3. Verify: gh pr view `<number>` --json labels,assignees,baseRefName shows all of the above in a single existing PR — not added in a follow-up edit.
 
 ### Scenario 2 — Re-running against the same branch updates instead of duplicating (User Story 2)
 
-1. Push an additional commit to the same branch. 2. Run /open-pr again. 3. Expected: gh pr list --head <branch> still shows exactly one PR; its body reflects the new commit; any test-plan checkboxes are refreshed, not left stale.
+1. Push an additional commit to the same branch. 2. Run /open-pr again. 3. Expected: gh pr list --head `<branch>` still shows exactly one PR; its body reflects the new commit; any test-plan checkboxes are refreshed, not left stale.
 
 ### Scenario 3 — Oversized change is flagged (Review Budget)
 
@@ -685,12 +702,14 @@ This feature has no network API — its "interface" is the agent-invocation cont
 
 - Explicit command /open-pr — None (no pre-action requirement) — proceeds directly (spec FR-019).
 - Natural-language request ("create the PR for me", "get this ready for review") — MUST confirm target branch and base with the user before creating or changing anything (FR-019).
+
 ### Preconditions (checked before any PR is created or modified)
 
 - Current branch is not develop/main, has commits ahead of base, and is pushed to origin.
 - No existing open PR for this branch — if one exists, the "Update" contract applies instead of "Create."
 - Repository's real label set is known (via gh label list), not assumed.
 - Correct base branch is known, by branch type (FR-003).
+
 ### Contract: Create a new Pull Request
 
 Given the preconditions above are satisfied and no open PR exists for this branch, When the skill runs, Then it MUST produce, in one atomic action:
@@ -723,6 +742,7 @@ Purpose: Validate specification completeness and quality before proceeding to pl
 - [x] Focused on user value and business needs
 - [x] Written for non-technical stakeholders
 - [x] All mandatory sections completed
+
 ### Requirement Completeness
 
 - [x] No [NEEDS CLARIFICATION] markers remain
@@ -733,12 +753,14 @@ Purpose: Validate specification completeness and quality before proceeding to pl
 - [x] Edge cases are identified
 - [x] Scope is clearly bounded
 - [x] Dependencies and assumptions identified
+
 ### Feature Readiness
 
 - [x] All functional requirements have clear acceptance criteria
 - [x] User scenarios cover primary flows
 - [x] Feature meets measurable outcomes defined in Success Criteria
 - [x] No implementation details leak into specification
+
 ### Notes
 
 SC-001 and SC-005 are stated as binary/verifiable outcomes rather than numeric metrics — appropriate for this workflow-process feature (there is no natural time/percentage/volume metric for "the author didn't have to re-derive information themselves"), but flagged here for visibility rather than silently treated as a standard quantitative success criterion.
@@ -759,23 +781,25 @@ Invocation guard: if this skill was triggered by a natural-language request (e.g
 
 This command must work correctly even with zero memory of what was discussed to get here. Before writing anything:
 
-- 1. Identify the base branch and diff range: git log <base>..HEAD --oneline for the commit list, git diff <base>...HEAD --stat for the full list of changed files.
-- 2. Read every commit message in that range — they're the primary source of "what was done and why."
-- 3. For any file whose change isn't self-explanatory from its commit message alone, read the actual diff (git diff <base>...HEAD -- <file>) to understand it.
-- 4. If the changes reference an issue/ticket number (in commit messages, branch name, or code comments), look it up for additional context if a tool for that is available — don't invent ticket details.
-- 5. From the actual file types and paths touched, work out what this change is about — don't assume a category of work (performance, a bug fix, a new feature, refactoring, docs) based on anything other than what the diff itself shows.
+- 1. Identify the base branch and diff range: git log `<base>`..HEAD --oneline for the commit list, git diff `<base>`...HEAD --stat for the full list of changed files.
+- 1. Read every commit message in that range — they're the primary source of "what was done and why."
+- 1. For any file whose change isn't self-explanatory from its commit message alone, read the actual diff (git diff `<base>`...HEAD -- `<file>`) to understand it.
+- 1. If the changes reference an issue/ticket number (in commit messages, branch name, or code comments), look it up for additional context if a tool for that is available — don't invent ticket details.
+- 1. From the actual file types and paths touched, work out what this change is about — don't assume a category of work (performance, a bug fix, a new feature, refactoring, docs) based on anything other than what the diff itself shows.
+
 ### Step 2: Pre-flight checks
 
 - 1. Confirm the current branch is not develop/main, has commits ahead of it, and is pushed to origin. Push it first if it isn't.
-- 2. Check for an existing open PR on this branch: gh pr list --head <branch-name>. If one exists, update it instead of creating a duplicate.
-- 3. Look at 2-3 recent merged PRs (gh pr list --state merged --limit 3 --json title,body,labels) to confirm title/body/label conventions haven't drifted — don't assume any previously-seen pattern is permanently fixed.
-- 4. Check gh label list for the full current label set — never invent a label that doesn't exist in the repo.
-- 5. Confirm the base branch by branch type, not just the repo default: normal development branches (feat/, fix/, chore/, etc.) target develop; a hotfix/ branch or a release branch targets main (and, once approved and merged, must be synchronised back to develop — flag this to the user as a follow-up, since this command doesn't perform that sync itself). Only fall back to gh repo view --json defaultBranchRef when the branch type doesn't clearly indicate one of the above.
-- 6. Check whether this repo maintains a CHANGELOG.md (or equivalent) with a documented rule requiring an entry (check its contributor guidance file — e.g. AGENTS.md, CONTRIBUTING.md). If so, note that an entry is required — but do not add it yet; the entry is written after the PR exists, so it can link to the PR.
-- 7. Identify which validation/lint/test commands this repo defines (check its contributor guidance file and package.json/composer.json scripts) and run whichever ones apply to the file types actually changed in this branch. Use these fresh, real results for the Test Plan section — never rely on memory of checks run earlier in an unrelated conversation.
-- 8. Branch naming (LightSpeed convention): confirm the current branch name matches {type}/{scope}-{short-title} using one of the approved prefixes: feat/, fix/, hotfix/, refactor/, chore/, task/, docs/, test/, perf/, ci/, build/, deps/, security/, design/, a11y/, seo/, config/. Never use a tool-specific prefix (claude/, copilot/, openai/). Each branch in a stacked PR must use the prefix that describes that layer's own work, not the stack's overall type. This command does not rename branches — if the current branch doesn't match, flag it to the user before proceeding rather than silently creating the PR anyway.
-- 9. Review budget (LightSpeed convention): from the diff stat gathered in Step 1, count reviewable files/lines — excluding generated assets, lock files, compiled/build output, snapshots, and translation files (call these exclusions out explicitly in the PR body if any were excluded from the count). Preferred budget is roughly ≤15 files / ≤400 lines / ~30-45 min human review time. Over ~15 files or ~400 lines: note in the PR that it exceeds the preferred budget. Over ~25 files or ~800 lines: flag clearly to the user that this should either be split into a stacked PR or have a maintainer-approved exception recorded before requesting review. Do not silently proceed as if this were a normal-sized PR.
-- 10. Self-review gate: before drafting the PR, confirm (don't just assume) all of the following: the final diff (not just individual commits) was reviewed; the PR still contains one coherent outcome a reviewer can understand (if it's drifted into multiple unrelated outcomes, flag this rather than proceeding); it remains within the review budget from Step 2.9, or has a documented exception; applicable lint, unit, build, and other automated checks were run — not just lint/test in isolation; PHP/JavaScript errors were checked, and debugging/temporary code and unrelated formatting changes have been removed; responsive, editor/front-end, and accessibility behaviour were tested where relevant, accessibility target is WCAG 2.2 AA — use this figure even if this repo's own docs reference an older WCAG version, since 2.2 AA is the current LightSpeed org-wide standard; documentation was updated where required; if this repo has AI code-review automation enabled (e.g. CodeRabbit), its findings on this PR have been reviewed and responded to — noted in the PR, not silently ignored, AI review assists but never substitutes for the required human review; use this repo's own AGENTS.md/CONTRIBUTING.md for the concrete WordPress-specific checks (coding standards, sanitize/escape, capabilities, nonces, backwards compatibility, block.json/theme.json/editor-front-end parity) rather than re-deriving them here.
+- 1. Check for an existing open PR on this branch: gh pr list --head `<branch-name>`. If one exists, update it instead of creating a duplicate.
+- 1. Look at 2-3 recent merged PRs (gh pr list --state merged --limit 3 --json title,body,labels) to confirm title/body/label conventions haven't drifted — don't assume any previously-seen pattern is permanently fixed.
+- 1. Check gh label list for the full current label set — never invent a label that doesn't exist in the repo.
+- 1. Confirm the base branch by branch type, not just the repo default: normal development branches (feat/, fix/, chore/, etc.) target develop; a hotfix/ branch or a release branch targets main (and, once approved and merged, must be synchronised back to develop — flag this to the user as a follow-up, since this command doesn't perform that sync itself). Only fall back to gh repo view --json defaultBranchRef when the branch type doesn't clearly indicate one of the above.
+- 1. Check whether this repo maintains a CHANGELOG.md (or equivalent) with a documented rule requiring an entry (check its contributor guidance file — e.g. AGENTS.md, CONTRIBUTING.md). If so, note that an entry is required — but do not add it yet; the entry is written after the PR exists, so it can link to the PR.
+- 1. Identify which validation/lint/test commands this repo defines (check its contributor guidance file and package.json/composer.json scripts) and run whichever ones apply to the file types actually changed in this branch. Use these fresh, real results for the Test Plan section — never rely on memory of checks run earlier in an unrelated conversation.
+- 1. Branch naming (LightSpeed convention): confirm the current branch name matches {type}/{scope}-{short-title} using one of the approved prefixes: feat/, fix/, hotfix/, refactor/, chore/, task/, docs/, test/, perf/, ci/, build/, deps/, security/, design/, a11y/, seo/, config/. Never use a tool-specific prefix (claude/, copilot/, openai/). Each branch in a stacked PR must use the prefix that describes that layer's own work, not the stack's overall type. This command does not rename branches — if the current branch doesn't match, flag it to the user before proceeding rather than silently creating the PR anyway.
+- 1. Review budget (LightSpeed convention): from the diff stat gathered in Step 1, count reviewable files/lines — excluding generated assets, lock files, compiled/build output, snapshots, and translation files (call these exclusions out explicitly in the PR body if any were excluded from the count). Preferred budget is roughly ≤15 files / ≤400 lines / ~30-45 min human review time. Over ~15 files or ~400 lines: note in the PR that it exceeds the preferred budget. Over ~25 files or ~800 lines: flag clearly to the user that this should either be split into a stacked PR or have a maintainer-approved exception recorded before requesting review. Do not silently proceed as if this were a normal-sized PR.
+- 1. Self-review gate: before drafting the PR, confirm (don't just assume) all of the following: the final diff (not just individual commits) was reviewed; the PR still contains one coherent outcome a reviewer can understand (if it's drifted into multiple unrelated outcomes, flag this rather than proceeding); it remains within the review budget from Step 2.9, or has a documented exception; applicable lint, unit, build, and other automated checks were run — not just lint/test in isolation; PHP/JavaScript errors were checked, and debugging/temporary code and unrelated formatting changes have been removed; responsive, editor/front-end, and accessibility behaviour were tested where relevant, accessibility target is WCAG 2.2 AA — use this figure even if this repo's own docs reference an older WCAG version, since 2.2 AA is the current LightSpeed org-wide standard; documentation was updated where required; if this repo has AI code-review automation enabled (e.g. CodeRabbit), its findings on this PR have been reviewed and responded to — noted in the PR, not silently ignored, AI review assists but never substitutes for the required human review; use this repo's own AGENTS.md/CONTRIBUTING.md for the concrete WordPress-specific checks (coding standards, sanitize/escape, capabilities, nonces, backwards compatibility, block.json/theme.json/editor-front-end parity) rather than re-deriving them here.
+
 ### Choosing a PR template (if this repo has one)
 
 Before drafting the PR body, check whether this repo has .github/PULL_REQUEST_TEMPLATE/config.yml.
@@ -789,11 +813,12 @@ If it doesn't exist: use the freeform "PR structure" below as-is.
 - Title: plain description of what the diff actually does, derived from Step 1 — not from assumption. Append (TICKET-ID) only if a real ticket reference was found in Step 1. Never invent one.
 - Base: the branch confirmed in Step 2.5.
 - Body, in this order: 1. ## Summary — plain-English explanation of what was broken/needed and why, written as if the PR author wrote it directly. Never refer to "the user," any third party, or narrate an assistant's working process ("I found...", "we decided...") — state the facts of the change only. 2. Subsections (###) grouping related changes, one per distinct area touched — derived from the actual diff, not a fixed template of section names. 3. A section covering anything investigated but deliberately not changed, if applicable — explain why, with evidence, not just "not done." 4. Scope and exclusions — what this PR deliberately does not cover, and any files excluded from the review-budget count. 5. Screenshots/video — required for any visible/UI change; note explicitly if none apply. 6. Accessibility/performance/backwards-compatibility notes — where relevant to the change; omit the heading entirely if genuinely not applicable rather than writing "N/A". 7. ## Stack — only when this PR is one layer of a stacked PR set; omit entirely for a standalone PR. 8. ## Test plan — checklist of what was actually verified using Step 2.7's fresh results. Only check off what was genuinely run/verified just now — leave manual-QA items unchecked/pending. Never mark an item done to make the list look complete. 9. Changelog decision — state which of meta:needs-changelog / meta:no-changelog applies and why. 10. A closing reference to the ticket, only if one was genuinely found in Step 1.
+
 ### Stack information (only when this PR is part of a stacked PR set)
 
 A stack is used when the change contains multiple dependent-but-independently-reviewable layers, a foundation must land before UI/integration work, a refactor must land before behavioural changes, or the full change would be too large/hard to review as one PR. A normal stack should contain no more than 5 PRs — larger work should normally be split into multiple stacks under an epic rather than one oversized stack. Don't split work arbitrarily just to reduce file counts — each layer must be coherent and testable on its own.
 
-When this PR is part of a stack, include in the body a ## Stack section with: Position: PR <n> of <total>; Issue/Epic: #<issue>; Depends on: #<pr> (omit if bottom layer); Followed by: #<pr> (omit if top layer); Review scope: <what this specific layer covers>.
+When this PR is part of a stack, include in the body a ## Stack section with: Position: PR `<n>` of `<total>`; Issue/Epic: #`<issue>`; Depends on: #`<pr>` (omit if bottom layer); Followed by: #`<pr>` (omit if top layer); Review scope: `<what this specific layer covers>`.
 
 Ticket-closing phrasing depends on stack position: only the PR that actually completes the issue uses Closes #123 / Fixes #123 / Resolves #123. Every supporting/intermediate layer uses Relates to #123 / Part of #123 instead — never a closing keyword on a layer that doesn't finish the work, since that would let the issue auto-close before the full stack merges.
 
@@ -807,10 +832,10 @@ For a stack opened as drafts: create the planned layers as drafts, mark the bott
 
 Run gh pr create with --label and --assignee included in that same invocation — never run a bare gh pr create and add these afterward as a separate step.
 
-- Labels: pull the real set from gh label list first — never guess or invent one. Choose labels based on what Step 1 actually found changed (area/component/language touched), not a fixed default set. Pass each chosen label with its own --label "<name>" flag.
+- Labels: pull the real set from gh label list first — never guess or invent one. Choose labels based on what Step 1 actually found changed (area/component/language touched), not a fixed default set. Pass each chosen label with its own --label "`<name>`" flag.
 - Changelog label (required, LightSpeed convention): every PR must carry exactly one of meta:needs-changelog or meta:no-changelog, in addition to the type/area/status/priority labels above. Use meta:needs-changelog for a user-facing change on the owning/final-delivery PR; supporting/internal stack layers normally use meta:no-changelog even if the overall change is user-facing, since the owning PR carries that entry.
 - Assignee: always --assignee brandonmarshal.
-Example shape: gh pr create --base <base> --title "<title>" --body "<body>" --label "area:block-editor" --label "meta:needs-changelog" --assignee brandonmarshal
+Example shape: gh pr create --base `<base>` --title "`<title>`" --body "`<body>`" --label "area:block-editor" --label "meta:needs-changelog" --assignee brandonmarshal
 
 ### Changelog — after the PR is created
 
@@ -820,19 +845,21 @@ If the PR is labelled meta:no-changelog, skip this section entirely — don't ad
 
 ### Marking Ready for Review
 
-Once the PR is genuinely ready (not applicable while it's intentionally a draft): 1. Confirm required CI is passing before asking for review. 2. Mark the PR ready for review if it was opened as a draft (gh pr ready <number>). 3. Request the appropriate reviewer/code owner if one can be determined; otherwise flag to the user that a reviewer still needs to be chosen. 4. Confirm status:needs-review is applied (add it if this repo tracks review status via labels and it's missing). 5. Link the PR back to its Linear/Asana issue and note that the work item should move to "In Review" — do this via an available tool if one exists. If no such tool is available, warn that this step needs doing manually and still finish successfully — don't fail or skip the notice silently.
+Once the PR is genuinely ready (not applicable while it's intentionally a draft): 1. Confirm required CI is passing before asking for review. 2. Mark the PR ready for review if it was opened as a draft (gh pr ready `<number>`). 3. Request the appropriate reviewer/code owner if one can be determined; otherwise flag to the user that a reviewer still needs to be chosen. 4. Confirm status:needs-review is applied (add it if this repo tracks review status via labels and it's missing). 5. Link the PR back to its Linear/Asana issue and note that the work item should move to "In Review" — do this via an available tool if one exists. If no such tool is available, warn that this step needs doing manually and still finish successfully — don't fail or skip the notice silently.
 
 ### Updating an existing PR
 
-- Read the current PR body first (gh pr view <number> --json body) before rewriting it.
+- Read the current PR body first (gh pr view `<number>` --json body) before rewriting it.
 - Preserve any part that still accurately reflects the current code — don't blindly overwrite everything. Rewrite only what's gone stale, and refresh the Test Plan checkboxes to reflect what's true now, not what was true when it was first opened.
-- If labels or assignee are missing from the existing PR, add them now with gh pr edit <number> --add-label "<name>" --add-assignee brandonmarshal — don't leave them for later. This includes the meta:needs-changelog/meta:no-changelog label if it's missing from an existing PR.
+- If labels or assignee are missing from the existing PR, add them now with gh pr edit `<number>` --add-label "`<name>`" --add-assignee brandonmarshal — don't leave them for later. This includes the meta:needs-changelog/meta:no-changelog label if it's missing from an existing PR.
+
 ### Responding to feedback (once review is underway)
 
 - Respond to every review thread — don't leave any unaddressed.
 - Do not silently push fixes: when changes are requested, fix the owning branch, test again, push, let CI run again, reply to the review threads explaining what changed, then re-request review.
 - For stacked PRs, fix the issue in the layer that actually owns the affected code — never work around a defect in a lower layer from a higher one in the stack. After fixing the owning layer, rebase/update the layers above it and confirm their CI reruns.
 - Use git push --force-with-lease only where stack rebasing genuinely requires it after fixing a lower layer. Avoid unqualified --force pushes.
+
 ### What NOT to do
 
 - Don't create branches or commit/push unrelated changes as part of this command — assume the branch and commits already exist. The one exception is the changelog entry itself.
@@ -847,6 +874,7 @@ Once the PR is genuinely ready (not applicable while it's intentionally a draft)
 - Don't silently create an oversized PR (>~25 files/~800 lines) without flagging that it should be a stack or needs a documented exception.
 - Don't apply a template's suggested label from its frontmatter if that label doesn't actually exist in this repo's gh label list.
 - Don't silently push a fix without replying to the review thread it addresses, and don't force-push without --force-with-lease during stack rebasing.
+
 ## B10. Project Constitution — Principle VIII and Sync Impact Report (verbatim, from .specify/memory/constitution.md)
 
 ### Sync Impact Report (for the amendment that added Principle VIII)
@@ -897,7 +925,7 @@ agents/pr-agent/ already contains real, working code and tests — not scaffoldi
 - Six skills with working .js implementations and Jest unit tests: route-pr-template, handle-pr-errors, validate-branch-name, orchestrate-pr-creation, validate-and-apply-labels, submit-pr
 - Implementation line counts: handle-pr-errors.js 329, validate-and-apply-labels.js 305, validate-branch-name.js 271, submit-pr.js 214, orchestrate-pr-creation.js 117, route-pr-template.js 109 (about 1,345 lines total)
 - Unit test line counts: validate-and-apply-labels.test.js 514, validate-branch-name.test.js 477, submit-pr-and-error-handling.test.js 473, route-pr-template.test.js 311, orchestrate-pr-creation.test.js 167 (about 1,942 lines)
-- A separate integration test suite under __tests__/integration/: setup.js, real-github-workflows.test.js, performance-edge-cases.test.js, sequential-skill-execution.test.js, label-application-scenarios.test.js, template-routing-scenarios.test.js, error-recovery-workflows.test.js (about 1,091 lines)
+- A separate integration test suite under **tests**/integration/: setup.js, real-github-workflows.test.js, performance-edge-cases.test.js, sequential-skill-execution.test.js, label-application-scenarios.test.js, template-routing-scenarios.test.js, error-recovery-workflows.test.js (about 1,091 lines)
 Gaps against Source A's requirements, verified by direct inspection:
 
 - Every skill's SKILL.md is still the unfilled agentskills.io template placeholder: "name: template-skill / description: Replace with description of the skill and when Claude should use it. / # Insert instructions below" — none contain real procedural content, despite the .js files beside them being fully implemented and tested.
@@ -910,6 +938,7 @@ Gaps against Source A's requirements, verified by direct inspection:
 - docs/agents/ contains only docs/agents/prd-agent/ — there is no docs/agents/pr-agent/ yet.
 - Root-level lint configuration exists (.eslintrc.js, .eslintrc.json, eslint.config.cjs, .eslint.config.cjs, .markdownlint-cli2.cjs, .markdownlint.config.cjs, .markdownlint.jsonc, .prettierrc) but whether it actually covers agents/pr-agent/** specifically has not been confirmed — this needs to be checked, not assumed, before the new spec can claim linting is "already wired."
 - A separate, apparently unrelated agent — agents/linear-advisor-agent/agent/references/agent_files/canonical/PR_CREATION_PROCESS.md — holds its own copy of the PR creation process doc. This is outside the scope of the pr-agent consolidation itself, but is flagged here as a second, independent source of the same governance content that could drift from docs/PR_CREATION_PROCESS.md over time — worth a follow-up note in the new spec's Assumptions, not something this feature needs to fix.
+
 # SOURCE D — Verified factual conflicts between Source B (ls-theme) and Source C (.github) that the new spec MUST resolve
 
 ## D1. A real bug: validate-branch-name.js's forbidden-prefix list does not match .github's own canonical doc
@@ -960,11 +989,12 @@ Source C's six existing skills (route-pr-template, handle-pr-errors, validate-br
 - Source the full, canonical branch-prefix list from .github's own docs/BRANCHING_STRATEGY.md rather than re-embedding any one repository's narrower subset (D2), and flag the feature/ prefix discrepancy (D3) for a maintainer decision rather than silently resolving it.
 - Carry forward, rather than resolve, the constitution's own unresolved TODO(WCAG_BASELINE_RECONCILIATION) (Source B10) — the new spec should note it as a known open question, matching how ls-theme's own constitution already treats it.
 - Merge agents/pr-creation-agent/ into agents/pr-agent/ per Source A items 1-2, informed by the confirmed near-duplicate finding in Source C (safe to remove once merged) and fix AGENT.md's stale implementation: path pointer and package.json's stale name/directory fields.
-- Restructure every skill folder to the Agent Skills spec shape (scripts/, references/, assets/, per Source A item 3), fill in every placeholder SKILL.md with real instructions, and add scripts/__tests__/ per Source A item 4 (moving/reorganizing existing tests as needed rather than duplicating them).
+- Restructure every skill folder to the Agent Skills spec shape (scripts/, references/, assets/, per Source A item 3), fill in every placeholder SKILL.md with real instructions, and add scripts/**tests**/ per Source A item 4 (moving/reorganizing existing tests as needed rather than duplicating them).
 - Add markdown + JavaScript linting scoped to agents/pr-agent/** (confirming, not assuming, whether root configs already cover it), a README.md, and a CHANGELOG.md (Source A items 5-8).
 - Add docs/agents/pr-agent/ and reference the docs/BRANCHING_*.md, docs/PR_*.md, docs/LABEL*.md, docs/ISSUE*.md wildcard patterns as patterns, not literal filenames, per Source A's explicit wildcard rule (item 9 and its "Important wildcard rule" subsection) — and evaluate the optional symlink approaches in Source A items 11-12, informed by the confirmed template-file non-conflict in D4.
 - Produce one feature spec split into phases/user stories, mirroring how Source B1's spec split into P1-P4 priorities, rather than one flat, undifferentiated task list — so the resulting work stays reviewable and independently testable phase by phase, the same discipline Source B already demonstrated successfully.
 - Keep the agent working first-class inside lightspeedwp/.github (Source A item 13) while remaining portable to other LightSpeedWP repositories (item 14) — meaning nothing in the final skills may hardcode an assignee, a base-branch name, a review-budget threshold, or a prefix list that only makes sense for one specific repository.
+
 # APPENDIX — PR Template Routing Table (verbatim, .github/PULL_REQUEST_TEMPLATE/config.yml)
 
 Confirmed byte-identical between lightspeedwp/.github and lightspeedwp/ls-theme's copy (see Source D4). Reproduced here in full so the new spec has the actual routing table on hand rather than a description of it.
