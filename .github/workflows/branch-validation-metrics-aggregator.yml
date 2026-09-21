@@ -5,7 +5,10 @@ on:
     workflows: [Branch Name Validation]
     types: [completed]
   schedule:
-    - cron: '0 * * * *'
+    # Daily off-hour run (UTC). The workflow_run trigger above already keeps
+    # the fixed-branch PR fresh on validation activity; the schedule is only
+    # a backstop, so hourly would just burn minutes and PR-update noise.
+    - cron: '17 3 * * *'
 
 permissions:
   contents: write
