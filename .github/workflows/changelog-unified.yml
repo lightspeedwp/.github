@@ -146,11 +146,11 @@ jobs:
 
       - name: Validate changelog entries
         id: validate
-        # Token and PR context via env (not inline) so secrets and
-        # untrusted inputs are not expanded into the shell command line.
         env:
           CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_REF: ${{ github.head_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           cd .github/validation/changelog
 
@@ -167,7 +167,7 @@ jobs:
           node bin/validate.js \
             --changelog-path ../../../CHANGELOG.md \
             --trigger pr_submission \
-            --pr-number ${{ github.event.pull_request.number }} \
+            --pr-number "$PR_NUMBER" \
             --branch "$HEAD_REF" \
             --github-token "$CHANGELOG_GITHUB_TOKEN" \
             --output json --metrics > validation-report.json 2>validation-stderr.log || true
@@ -198,12 +198,11 @@ jobs:
           fi
 
           BASE_FAILED=0
-          BASE_SHA="${{ github.event.pull_request.base.sha }}"
           if git show "$BASE_SHA:CHANGELOG.md" > /tmp/base-changelog.md 2>/dev/null; then
             node bin/validate.js \
               --changelog-path /tmp/base-changelog.md \
               --trigger pr_submission \
-              --pr-number ${{ github.event.pull_request.number }} \
+              --pr-number "$PR_NUMBER" \
               --branch "$HEAD_REF" \
               --github-token "$CHANGELOG_GITHUB_TOKEN" \
               --output json > base-validation-report.json 2>/dev/null || true
