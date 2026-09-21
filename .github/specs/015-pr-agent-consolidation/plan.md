@@ -78,6 +78,7 @@ agents/pr-agent/
 ├── CHANGELOG.md                      # New (FR-021)
 ├── package.json                      # Fixed name/repository.directory (was pointing at pr-creation-agent)
 ├── package-lock.json
+├── eslint.config.js                  # Adopted from pr-creation-agent (the only working flat config either dir had)
 ├── __tests__/
 │   └── integration/                  # Existing cross-skill suite — kept at this level, untouched location
 │       ├── setup.js
@@ -100,8 +101,18 @@ agents/pr-agent/
     ├── validate-and-apply-labels/     # Same shape; absorbs changelog-decision-label logic (FR-012/FR-013)
     └── submit-pr/                     # Same shape; absorbs stack/draft/ready-for-review logic (FR-014–FR-016)
 
-# Removed entirely:
-# agents/pr-creation-agent/            (content already folded into AGENT.md — verified near-duplicate)
+# Removed entirely, only after User Story 1's file-by-file inventory confirms
+# every one of its 5 files has a recorded disposition (folded in / superseded /
+# discarded-with-reason) — not just its pr-creation.agent.md:
+# agents/pr-creation-agent/
+#   ├── pr-creation.agent.md      → folded into AGENT.md (rewritten, not copied)
+#   ├── eslint.config.js          → becomes agents/pr-agent/eslint.config.js (the
+#   │                                only working flat config either dir has)
+#   ├── __tests__/eslint-config.test.js → relocated alongside it
+#   ├── package.json              → superseded (pr-agent's own package.json is
+#   │                                corrected instead of adopting this one)
+#   └── package-lock.json         → discarded (regenerated for pr-agent's own
+#                                    corrected package.json)
 ```
 
 **Structure Decision**: Single consolidated agent at `agents/pr-agent/`, per Source A's proposed structure layered with the Agent Skills specification's per-skill `scripts/`/`references/`/`assets/` shape. No new top-level folder, no new service — this is a restructuring of what already exists at `agents/pr-agent/` and `agents/pr-creation-agent/`, not a new component.
