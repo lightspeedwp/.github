@@ -12,12 +12,12 @@ permissions:
   actions: read
 
 # Serialise runs: concurrent aggregations would race the metrics commit.
-# queue: max (GitHub, May 2026) lets hourly schedule runs pile up behind an
-# in-flight run instead of cancelling the single pending one.
+# NOTE: GitHub added `concurrency.queue: max` (May 2026) for deeper queues,
+# but actionlint's schema does not recognise it yet — re-add once tooling
+# catches up.
 concurrency:
   group: branch-validation-metrics
   cancel-in-progress: false
-  queue: max
 
 jobs:
   aggregate-metrics:
