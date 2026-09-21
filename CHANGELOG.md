@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Labeling Unified Workflow** — Restored the 11 archived labeling workflows as a single labeling-unified.yml with corrected action versions, staggered scheduling and error-isolated jobs. Also fixed the labeling config validator to accept the actions/labeler v5+ array schema and corrected two labeler mappings to canonical names (type:docs, type:aiops). ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
+- **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
