@@ -164,6 +164,11 @@ jobs:
           case "$WARNINGS" in ''|*[!0-9]*) WARNINGS=0 ;; esac
           case "$BASE_FAILED" in ''|*[!0-9]*) BASE_FAILED=0 ;; esac
 
+          # Shell-escape the branch for the reproduction command below:
+          # branch names may contain characters (e.g. ;) that would
+          # otherwise execute when a reader copies the command.
+          ESCAPED_BRANCH=$(printf '%q' "$HEAD_REF")
+
           # Build comment markdown. NOTE: the heredoc delimiter MUST stay
           # unquoted so $PASSED/$WARNINGS/$FAILED expand. A quoted 'EOF'
           # posts the literal variable names to every PR.
@@ -204,7 +209,7 @@ jobs:
             echo "Reproduce the exact PR check locally (from the repository root):" >> /tmp/comment.md
             echo "\`\`\`bash" >> /tmp/comment.md
             echo "cd .github/validation/changelog" >> /tmp/comment.md
-            echo "node bin/validate.js --changelog-path ../../../CHANGELOG.md --trigger pr_submission --pr-number ${{ github.event.pull_request.number }} --branch $HEAD_REF --output text" >> /tmp/comment.md
+            echo "node bin/validate.js --changelog-path ../../../CHANGELOG.md --trigger pr_submission --pr-number ${{ github.event.pull_request.number }} --branch $ESCAPED_BRANCH --output text" >> /tmp/comment.md
             echo "\`\`\`" >> /tmp/comment.md
             echo "" >> /tmp/comment.md
             echo "Only new failures introduced by this PR block merging; pre-existing Unreleased failures do not block. See [Changelog Quality Audit](.github/validation/changelog/docs/DEVELOPER_GUIDE.md) for the rule reference." >> /tmp/comment.md
@@ -276,6 +281,10 @@ jobs:
           FILENAME="${DATE_STR}_$(date +%s).json"
           FILEPATH=".github/reports/validation-audits/$FILENAME"
 
+          # JSON-encode the title: it is attacker-controlled and a raw
+          # interpolation (even via env) breaks the record on quotes.
+          PR_TITLE_JSON=$(jq -Rn --arg title "$PR_TITLE" '$title')
+
           # NOTE: heredoc delimiter stays unquoted so $TIMESTAMP expands
           # (a quoted 'EOF' would log the literal variable name).
           cat > "$FILEPATH" << EOF
@@ -284,7 +293,7 @@ jobs:
             "run_id": "${{ github.run_id }}",
             "run_number": ${{ github.run_number }},
             "pr_number": ${{ github.event.pull_request.number }},
-            "pr_title": "$PR_TITLE",
+            "pr_title": $PR_TITLE_JSON,
             "branch": "${{ github.ref }}",
             "actor": "${{ github.actor }}",
             "status": "${{ steps.validate.outputs.result || 'unknown' }}",
