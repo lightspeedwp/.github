@@ -8,6 +8,9 @@ on:
     types: [opened, edited, reopened, labeled, unlabeled]
   discussion:
     types: [created, edited, answered, labeled, unlabeled]
+  schedule:
+    # Staggered off the 02:00/03:00/04:00 cluster cited in the archival manifest.
+    - cron: "17 5 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -61,6 +64,54 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           configuration-path: ${{ env.LABELER_RULES }}
           sync-labels: true
+
+  issue-labels:
+    name: Issue labels by type (T018)
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'issues' && github.actor != 'github-actions[bot]'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+      - name: Apply status triage label via composite action (T020)
+        uses: ./.github/actions/apply-labels
+        with:
+          labels: "status:needs-triage"
+          issue-number: ${{ github.event.issue.number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Collect metrics (T021)
+        uses: ./.github/actions/collect-metrics
+        with:
+          workflow-name: labeling-unified
+          job-name: issue-labels
+          metrics-file: issue-labels-metrics.json
+
+  scheduled-cleanup:
+    name: Scheduled label cleanup (T019)
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'false')
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm ci --ignore-scripts
+      - name: Audit report (read-only, dry-run safe)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: "true"
+        run: node scripts/agents/run-labeling-agent.js
+        continue-on-error: true
+      - name: Collect metrics (T021)
+        uses: ./.github/actions/collect-metrics
+        with:
+          workflow-name: labeling-unified
+          job-name: scheduled-cleanup
+          metrics-file: scheduled-cleanup-metrics.json
 
   agent-labels:
     name: Labeling agent (issues/PRs)
