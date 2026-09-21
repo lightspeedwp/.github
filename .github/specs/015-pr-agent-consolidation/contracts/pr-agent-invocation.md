@@ -9,12 +9,12 @@ Like the reference feature this absorbs, this has no network API — its "interf
 | Explicit command | None — proceeds directly (FR-018) |
 | Natural-language request | MUST confirm the target branch and base with the user before creating or changing anything (FR-018) |
 
-## Preconditions (checked before any PR is created or modified)
+## Preconditions (checked before any PR is created; the Update contract below has its own entry condition)
 
 - Current branch is not the target repository's default branch, has commits ahead of it, and is pushed to `origin`.
-- No existing open PR for this branch — if one exists, the "Update" contract applies instead of "Create."
+- No existing open PR for this branch — this precondition applies to the "Create" contract only; if an open PR already exists, the "Update" contract applies instead of "Create" (FR-007).
 - The target repository's real label set is known (via `gh label list`), not assumed.
-- The correct base branch is known, resolved dynamically from the target repository's own default branch (FR-006) — never assumed to be `develop`/`main` literally.
+- The correct base branch is known, resolved by branch-type role against the target repository's own actual branches at runtime (FR-006) — never assumed to be `develop`/`main` literally: `hotfix/`/`release/` branches target the production-role branch, every other type targets the integration-role branch when one exists, falling back to the repository's real default branch only when the branch type identifies no role.
 - The invoking user's identity is known, for use as the assignee (FR-012) — never assumed to be any fixed person.
 - If `.github/pr-agent.config.json` exists in the target repository, its overrides have been read and validated; if it does not exist, the organisation-wide defaults apply.
 

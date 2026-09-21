@@ -38,7 +38,7 @@ A runnable guide proving the feature works end-to-end. Validation guide only —
 
 ## Scenario 5 — LOCKED-file boundary is respected
 
-1. `git diff` (or the eventual PR's file list) for this feature includes no changes under `.github/PULL_REQUEST_TEMPLATE/`, `.github/labels.yml`, or `.github/issue-types.yml`.
+1. `git diff` (or the eventual PR's file list) for this feature includes no changes under `.github/PULL_REQUEST_TEMPLATE/`, `.github/labels.yml`, `.github/issue-types.yml`, or `.github/ISSUE_TEMPLATE/`.
 2. Expected: zero changes to any LOCKED file, confirming the five-missing-routing-entries discrepancy was deferred, not fixed inline.
 
 ## Pass/fail

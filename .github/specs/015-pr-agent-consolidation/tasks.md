@@ -55,7 +55,7 @@ description: "Task list for PR Agent Consolidation & Portability"
 - [x] T011 [US1] Add test coverage in `agents/pr-agent/skills/validate-branch-name/scripts/__tests__/validate-branch-name.test.js` for the forbidden-prefix and allowed-type lists (neither had any before) — done, PR #3403
 - [x] T012 [US1] Delete `agents/pr-creation-agent/` only once T001's inventory confirms every file's disposition, and confirm `agents/pr-agent/`'s suite and lint are unaffected by the removal — done, PR #3403
 - [x] T013 [US1] Add `agents/pr-agent/README.md` (skills table, structure, dev commands, governance references per FR-022) and `agents/pr-agent/CHANGELOG.md` per FR-021 — done, PR #3403
-- [x] T014 Run quickstart.md Scenario 1 (consolidation complete, bug fixed) — passes once #3400/#3401/#3403 merge to `develop`
+- [ ] T014 Run quickstart.md Scenario 1 (consolidation complete, bug fixed) — passes once #3400/#3401/#3403 merge to `develop`
 
 **Checkpoint**: User Story 1 fully implemented across the 3-PR stack; complete once all three merge.
 
