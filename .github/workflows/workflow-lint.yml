@@ -51,15 +51,15 @@ jobs:
           # so pre-existing style findings elsewhere do not gate this check.
           SHELLCHECK_OPTS: --severity=error
         run: |
-          # Explicit file list, not repo-wide: changelog-validation.yml and
-          # pr-template-routing.yml have open script-injection findings
-          # (untrusted github.head_ref / pull_request.title in run: blocks).
-          # Fix those, then widen this list. Archived workflows are frozen
+          # Explicit file list, not repo-wide: add a workflow here once its
+          # actionlint findings are fixed. Archived workflows are frozen
           # history and stay unlinted.
           ./actionlint -shellcheck="$(command -v shellcheck || true)" \
             .github/workflows/branch-name-validation.yml \
             .github/workflows/branch-validation-metrics-aggregator.yml \
             .github/workflows/changelog-management.yml \
+            .github/workflows/changelog-validation.yml \
             .github/workflows/documentation.yml \
+            .github/workflows/pr-template-routing.yml \
             .github/workflows/validate-specifications.yml \
             .github/workflows/workflow-lint.yml

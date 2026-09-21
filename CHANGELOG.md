@@ -32,10 +32,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
 - **Metrics Rebase Conflict Resolution** — The metrics push retry now lives in a tested helper script and resolves snapshot-only conflicts to the current run. ([PR #3394](https://github.com/lightspeedwp/.github/pull/3394))
+- **Workflow Script-Injection Hardening** — Moved untrusted branch and title values to env vars in two workflows and fixed a trap-quoting fault in a helper script. (#3399)
 - **Code Quality Findings Remediation** — Fixed unclosed files, unused bindings and empty handlers across skill scripts and automation. ([PR #3382](https://github.com/lightspeedwp/.github/pull/3382))
 - **Spec Validation Bats Slimming** — Fixed noisy test installs in the specification workflow by installing Bats without optional libraries. ([PR #3380](https://github.com/lightspeedwp/.github/pull/3380))
 - **PR Template Routing Comment Dedup** — The routing workflow posted a duplicate comment on every push. It now updates the existing comment in place and skips unchanged bodies. ([PR #3379](https://github.com/lightspeedwp/.github/pull/3379))

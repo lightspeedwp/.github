@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
           cache: 'npm'
           cache-dependency-path: '.github/validation/changelog/package.json'
 
@@ -50,10 +50,11 @@ jobs:
 
       - name: Validate changelog entries
         id: validate
-        # Token via env (not inline) so the secret is not expanded into the
-        # shell command line.
+        # Token and PR context via env (not inline) so secrets and
+        # untrusted inputs are not expanded into the shell command line.
         env:
           CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           cd .github/validation/changelog
 
@@ -72,7 +73,7 @@ jobs:
             --changelog-path ../../../CHANGELOG.md \
             --trigger pr_submission \
             --pr-number ${{ github.event.pull_request.number }} \
-            --branch ${{ github.head_ref }} \
+            --branch "$HEAD_REF" \
             --github-token "$CHANGELOG_GITHUB_TOKEN" \
             --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
@@ -113,7 +114,7 @@ jobs:
               --changelog-path /tmp/base-changelog.md \
               --trigger pr_submission \
               --pr-number ${{ github.event.pull_request.number }} \
-              --branch ${{ github.head_ref }} \
+              --branch "$HEAD_REF" \
               --github-token "$CHANGELOG_GITHUB_TOKEN" \
               --output json > base-validation-report.json 2>/dev/null || true
             if [ -f base-validation-report.json ]; then
@@ -147,6 +148,10 @@ jobs:
       - name: Format PR comment
         id: comment
         if: steps.changed-files.outputs.any_changed == 'true'
+        # Branch name via env so the untrusted value is not expanded into
+        # the shell command line (script-injection hardening).
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           PASSED=${{ steps.validate.outputs.passed }}
           FAILED=${{ steps.validate.outputs.failed }}
@@ -158,6 +163,11 @@ jobs:
           case "$NEW_FAILED" in ''|*[!0-9]*) NEW_FAILED=0 ;; esac
           case "$WARNINGS" in ''|*[!0-9]*) WARNINGS=0 ;; esac
           case "$BASE_FAILED" in ''|*[!0-9]*) BASE_FAILED=0 ;; esac
+
+          # Shell-escape the branch for the reproduction command below:
+          # branch names may contain characters (e.g. ;) that would
+          # otherwise execute when a reader copies the command.
+          ESCAPED_BRANCH=$(printf '%q' "$HEAD_REF")
 
           # Build comment markdown. NOTE: the heredoc delimiter MUST stay
           # unquoted so $PASSED/$WARNINGS/$FAILED expand. A quoted 'EOF'
@@ -199,7 +209,7 @@ jobs:
             echo "Reproduce the exact PR check locally (from the repository root):" >> /tmp/comment.md
             echo "\`\`\`bash" >> /tmp/comment.md
             echo "cd .github/validation/changelog" >> /tmp/comment.md
-            echo "node bin/validate.js --changelog-path ../../../CHANGELOG.md --trigger pr_submission --pr-number ${{ github.event.pull_request.number }} --branch ${{ github.head_ref }} --output text" >> /tmp/comment.md
+            echo "node bin/validate.js --changelog-path ../../../CHANGELOG.md --trigger pr_submission --pr-number ${{ github.event.pull_request.number }} --branch $ESCAPED_BRANCH --output text" >> /tmp/comment.md
             echo "\`\`\`" >> /tmp/comment.md
             echo "" >> /tmp/comment.md
             echo "Only new failures introduced by this PR block merging; pre-existing Unreleased failures do not block. See [Changelog Quality Audit](.github/validation/changelog/docs/DEVELOPER_GUIDE.md) for the rule reference." >> /tmp/comment.md
@@ -260,6 +270,9 @@ jobs:
 
       - name: Create audit log entry
         if: always() && steps.changed-files.outputs.any_changed == 'true'
+        # PR title is attacker-controlled: pass via env, never inline.
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
           mkdir -p .github/reports/validation-audits
 
@@ -267,6 +280,10 @@ jobs:
           DATE_STR=$(date +%Y%m%d)
           FILENAME="${DATE_STR}_$(date +%s).json"
           FILEPATH=".github/reports/validation-audits/$FILENAME"
+
+          # JSON-encode the title: it is attacker-controlled and a raw
+          # interpolation (even via env) breaks the record on quotes.
+          PR_TITLE_JSON=$(jq -Rn --arg title "$PR_TITLE" '$title')
 
           # NOTE: heredoc delimiter stays unquoted so $TIMESTAMP expands
           # (a quoted 'EOF' would log the literal variable name).
@@ -276,7 +293,7 @@ jobs:
             "run_id": "${{ github.run_id }}",
             "run_number": ${{ github.run_number }},
             "pr_number": ${{ github.event.pull_request.number }},
-            "pr_title": "${{ github.event.pull_request.title }}",
+            "pr_title": $PR_TITLE_JSON,
             "branch": "${{ github.ref }}",
             "actor": "${{ github.actor }}",
             "status": "${{ steps.validate.outputs.result || 'unknown' }}",

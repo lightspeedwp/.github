@@ -314,7 +314,7 @@ async function applyDefaultType({
   }
 }
 
-module.exports = {
+export {
   enforceOneHotLabels,
   enforceOneHotStatus,
   applyDefaultStatus,
