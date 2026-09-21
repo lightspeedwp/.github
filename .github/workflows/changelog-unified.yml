@@ -15,7 +15,7 @@ name: Changelog • Unified
 on:
   pull_request:
     branches: [develop, main]
-    types: [opened, synchronize, reopened, edited, ready_for_review, closed]
+    types: [opened, synchronize, reopened, edited, ready_for_review, closed, labeled, unlabeled]
 
 concurrency:
   group: changelog-unified-${{ github.event.pull_request.number || github.ref }}
@@ -40,6 +40,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: false
+          persist-credentials: false
 
       - name: Require changelog update or skip label
         id: gate
@@ -124,6 +125,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: false
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v7
@@ -172,11 +174,18 @@ jobs:
             --github-token "$CHANGELOG_GITHUB_TOKEN" \
             --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
-          if [ -f validation-report.json ]; then
-            PASSED=$(jq '.summary.passed // 0' validation-report.json 2>/dev/null || echo "0")
-            FAILED=$(jq '.summary.failed // 0' validation-report.json 2>/dev/null || echo "0")
-            RESULT=$(jq -r '.recommendation // "UNKNOWN"' validation-report.json 2>/dev/null || echo "UNKNOWN")
-            GATE_RESULT=$(jq -r '.ci_gate_result // "UNKNOWN"' validation-report.json 2>/dev/null || echo "UNKNOWN")
+          # Fail closed: the report must exist, be valid JSON, and carry
+          # numeric summary fields plus string recommendation/gate result.
+          # Anything else counts as a failure (NEW_FAILED=1) so a broken
+          # validator can never silently pass the gate.
+          if [ -f validation-report.json ] \
+            && jq -e '.summary | (.passed | type == "number") and (.failed | type == "number")' validation-report.json >/dev/null 2>&1 \
+            && jq -e '.recommendation | type == "string"' validation-report.json >/dev/null 2>&1 \
+            && jq -e '.ci_gate_result | type == "string"' validation-report.json >/dev/null 2>&1; then
+            PASSED=$(jq '.summary.passed' validation-report.json)
+            FAILED=$(jq '.summary.failed' validation-report.json)
+            RESULT=$(jq -r '.recommendation' validation-report.json)
+            GATE_RESULT=$(jq -r '.ci_gate_result' validation-report.json)
 
             echo "passed=$PASSED" >> $GITHUB_OUTPUT
             echo "failed=$FAILED" >> $GITHUB_OUTPUT
@@ -186,15 +195,15 @@ jobs:
 
             cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
           else
+            echo "❌ Validation report missing or malformed; failing closed"
+            [ -f validation-stderr.log ] && cat validation-stderr.log
             echo "passed=0" >> $GITHUB_OUTPUT
-            echo "failed=0" >> $GITHUB_OUTPUT
+            echo "failed=1" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
             echo "result=ERROR" >> $GITHUB_OUTPUT
-            echo "gate_result=UNKNOWN" >> $GITHUB_OUTPUT
-            echo "new_failed=0" >> $GITHUB_OUTPUT
-            echo "base_failed=0" >> $GITHUB_OUTPUT
-            [ -f validation-stderr.log ] && cat validation-stderr.log
-            exit 1
+            echo "gate_result=fail" >> $GITHUB_OUTPUT
+            FAILED=1
+            GATE_RESULT=fail
           fi
 
           BASE_FAILED=0
@@ -224,12 +233,12 @@ jobs:
           echo "PR failures: $FAILED, base failures: $BASE_FAILED, new: $NEW_FAILED"
 
           # Gate on new failures only; pre-existing Unreleased debt never blocks.
-          if [ "$GATE_RESULT" == "pass" ] || [ "$GATE_RESULT" == "warning" ]; then
-            exit 0
-          else
-            exit 1
+          # Enforcement happens in the Set status check step (after the PR
+          # comment posts), so this step always exits 0 once outputs are set.
+          if [ "$GATE_RESULT" != "pass" ] && [ "$GATE_RESULT" != "warning" ]; then
+            echo "❌ Changelog gate failing (enforced by Set status check step)"
           fi
-        continue-on-error: true
+          exit 0
 
       - name: Post PR comment
         if: steps.changed-files.outputs.any_changed == 'true'
@@ -313,7 +322,8 @@ jobs:
             exit 1
           fi
           echo "✅ Changelog validation passed (no new failures)"
-        continue-on-error: true
+        # No continue-on-error: a positive NEW_FAILED must fail the job
+        # and enforce the changelog gate.
 
   sync:
     name: Auto-sync merged entries
@@ -336,10 +346,13 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const { data: files } = await github.rest.pulls.listFiles({
+            // listFiles pages at 30 entries by default; paginate so large
+            // PRs (>30 files) cannot hide a CHANGELOG.md change.
+            const files = await github.paginate(github.rest.pulls.listFiles, {
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number,
+              per_page: 100,
             });
             core.setOutput('has_changelog', files.some(f => f.filename === 'CHANGELOG.md'));
 
