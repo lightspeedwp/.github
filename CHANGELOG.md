@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **gh-fix-ci Repo Access Gate** — Wired the `viewerPermission` read-access check into `inspect_pr_checks.py` so the skill aborts fail-closed for users without read access; added `--skip-access-check` for offline use. (#3406)
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **README-Regen Noise Fixed** — The documentation workflow no longer opens or updates the README-regeneration PR when a run produces no content changes; metrics-only runs are detected and skipped. ([PR #3429](https://github.com/lightspeedwp/.github/pull/3429))
+- **PR Agent Branch-Validation Prefix Lists** — `validate-branch-name`'s forbidden-prefix list (`claude/bot/automated` → `claude/copilot/openai`) and allowed-type list (added `task`, `doc`, `aiops`, `automation`, `epic`) now match `docs/BRANCHING_STRATEGY.md` exactly, with new test coverage for both. ([PR #3403](https://github.com/lightspeedwp/.github/pull/3403))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
