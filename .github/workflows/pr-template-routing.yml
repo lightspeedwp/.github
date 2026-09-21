@@ -125,7 +125,10 @@ jobs:
             const templateFile = `.github/PULL_REQUEST_TEMPLATE/${templateName}.md`;
             const template = fs.readFileSync(templateFile, 'utf8');
             const required = [...template.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim());
-            const body = (context.payload.pull_request?.body || '').toLowerCase();
+            const rawBody = context.payload.pull_request?.body || '';
+            const body = rawBody.toLowerCase();
+
+            // 1. Every template section heading must be present.
             const missing = required.filter((h) => !body.includes(`## ${h.toLowerCase()}`));
             if (missing.length > 0) {
               core.setFailed(
@@ -133,8 +136,40 @@ jobs:
                 missing.map((h) => `"## ${h}"`).join(', ') +
                 `. Copy the template sections into the PR body (see ${templateFile}).`
               );
+              return;
+            }
+
+            // 2. Every section must contain real content: HTML comments
+            // (the templates ship with instructional placeholders) and
+            // whitespace do not count. Write `N/A` where a section genuinely
+            // does not apply.
+            const lines = rawBody.split('\n');
+            const sections = {};
+            let current = null;
+            for (const line of lines) {
+              const match = line.match(/^## (.+)$/);
+              if (match) {
+                current = match[1].trim().toLowerCase();
+                sections[current] = [];
+              } else if (current) {
+                sections[current].push(line);
+              }
+            }
+            const empty = required.filter((h) => {
+              const text = (sections[h.toLowerCase()] || [])
+                .join('\n')
+                .replace(/<!--[\s\S]*?-->/g, '')
+                .trim();
+              return text.length === 0;
+            });
+            if (empty.length > 0) {
+              core.setFailed(
+                `PR body has ${empty.length} empty section(s) from ${templateName}.md: ` +
+                empty.map((h) => `"## ${h}"`).join(', ') +
+                `. Fill each section (or write N/A) instead of leaving headings blank.`
+              );
             } else {
-              core.info(`PR body contains all ${required.length} sections from ${templateName}.md.`);
+              core.info(`PR body contains all ${required.length} sections from ${templateName}.md with content.`);
             }
 
       - name: Apply labels to PR
