@@ -1,0 +1,608 @@
+name: Testing Unified • Unit, Integration & E2E
+
+# TEMPORARILY DISABLED - Phase 4 skeleton workflow under development
+# Remove this condition when implementation is complete (T038-T047)
+
+on:
+  push:
+    branches: [develop, 'release/*']
+  pull_request:
+    branches: [develop]
+    types: [opened, edited, synchronize, reopened]
+  schedule:
+    # 00:30 UTC - Nightly test run
+    - cron: '30 0 * * *'
+    # 02:00 UTC Saturday - Extended weekend tests
+    - cron: '0 2 * * 6'
+    # 10:00 UTC Wednesday - Weekly E2E tests
+    - cron: '0 10 * * 3'
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Which test suite to run'
+        required: false
+        type: choice
+        options:
+          - 'all'
+          - 'unit'
+          - 'integration'
+          - 'e2e'
+        default: 'all'
+      environment:
+        description: 'Test environment'
+        required: false
+        type: choice
+        options:
+          - 'local'
+          - 'staging'
+        default: 'local'
+
+permissions:
+  contents: read
+  checks: write
+
+concurrency:
+  group: testing-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ============================================================================
+  # Setup job - determine which tests to run
+  # ============================================================================
+
+  test-context:
+    name: Determine Test Context
+    runs-on: ubuntu-latest
+    outputs:
+      run-unit: ${{ steps.context.outputs.run-unit }}
+      run-integration: ${{ steps.context.outputs.run-integration }}
+      run-e2e: ${{ steps.context.outputs.run-e2e }}
+    steps:
+      - name: Determine test context
+        id: context
+        shell: bash
+        run: |
+          # Determine which tests to run based on event
+          RUN_UNIT="true"
+          RUN_INTEGRATION="true"
+          RUN_E2E="false"
+
+          # E2E only on release branches or explicit trigger
+          if [[ "${{ github.ref }}" == "refs/heads/release/"* ]] || [[ "${{ github.event_name }}" == "schedule" && "${{ github.event.schedule }}" == "0 10 * * 3" ]]; then
+            RUN_E2E="true"
+          fi
+
+          # workflow_dispatch override
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            SUITE="${{ inputs.test_suite }}"
+            if [[ "$SUITE" != "all" ]]; then
+              RUN_UNIT=$([[ "$SUITE" == "unit" ]] && echo "true" || echo "false")
+              RUN_INTEGRATION=$([[ "$SUITE" == "integration" ]] && echo "true" || echo "false")
+              RUN_E2E=$([[ "$SUITE" == "e2e" ]] && echo "true" || echo "false")
+            fi
+          fi
+
+          echo "run-unit=$RUN_UNIT" >> $GITHUB_OUTPUT
+          echo "run-integration=$RUN_INTEGRATION" >> $GITHUB_OUTPUT
+          echo "run-e2e=$RUN_E2E" >> $GITHUB_OUTPUT
+
+          echo "Test context:"
+          echo "  run-unit: $RUN_UNIT"
+          echo "  run-integration: $RUN_INTEGRATION"
+          echo "  run-e2e: $RUN_E2E"
+
+  # ============================================================================
+  # Unit tests job
+  # ============================================================================
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: [test-context]
+    if: needs.test-context.outputs.run-unit == 'true'
+    strategy:
+      matrix:
+        node-version: ['22', '24']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests with coverage
+        run: npm test -- --coverage
+        continue-on-error: true
+
+      - name: Validate coverage threshold
+        shell: bash
+        run: |
+          if [ ! -f coverage/coverage-summary.json ]; then
+            echo "⚠️  Coverage summary not found"
+            exit 0
+          fi
+
+          # Extract coverage percentages
+          LINES_COVERAGE=$(grep -o '"lines":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+          BRANCHES_COVERAGE=$(grep -o '"branches":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+          FUNCTIONS_COVERAGE=$(grep -o '"functions":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+          STATEMENTS_COVERAGE=$(grep -o '"statements":{[^}]*}' coverage/coverage-summary.json | grep -o '"pct":[^,}]*' | head -1 | cut -d':' -f2 | cut -d'.' -f1)
+
+          MIN_COVERAGE=80
+
+          echo "Coverage Report (Node ${{ matrix.node-version }}):"
+          echo "  Lines:      ${LINES_COVERAGE}% (target: ${MIN_COVERAGE}%)"
+          echo "  Branches:   ${BRANCHES_COVERAGE}%"
+          echo "  Functions:  ${FUNCTIONS_COVERAGE}%"
+          echo "  Statements: ${STATEMENTS_COVERAGE}%"
+
+          if [ -z "$LINES_COVERAGE" ] || [ "$LINES_COVERAGE" -lt "$MIN_COVERAGE" ]; then
+            echo ""
+            echo "❌ Coverage below threshold (${LINES_COVERAGE}% < ${MIN_COVERAGE}%)"
+            exit 1
+          fi
+
+          echo ""
+          echo "✅ Unit test coverage threshold met (${LINES_COVERAGE}%)"
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-unit-node-${{ matrix.node-version }}
+          path: coverage/
+          retention-days: 7
+
+  # ============================================================================
+  # Integration tests job
+  # ============================================================================
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: [test-context]
+    if: needs.test-context.outputs.run-integration == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run integration tests
+        run: npm run test:integration 2>&1 | tee integration-test.log
+        continue-on-error: true
+
+      - name: Validate integration test results
+        shell: bash
+        run: |
+          # Check if test results file exists
+          if [ -f test-results/integration-summary.json ]; then
+            TOTAL=$(jq '.total' test-results/integration-summary.json || echo "0")
+            PASSED=$(jq '.passed' test-results/integration-summary.json || echo "0")
+            FAILED=$(jq '.failed' test-results/integration-summary.json || echo "0")
+
+            PASS_RATE=0
+            if [ "$TOTAL" -gt 0 ]; then
+              PASS_RATE=$((PASSED * 100 / TOTAL))
+            fi
+
+            echo "Integration Test Results:"
+            echo "  Total:  $TOTAL"
+            echo "  Passed: $PASSED"
+            echo "  Failed: $FAILED"
+            echo "  Pass Rate: ${PASS_RATE}%"
+
+            if [ "$FAILED" -gt 0 ]; then
+              echo ""
+              echo "❌ Integration tests failed (${FAILED} failures)"
+              exit 1
+            else
+              echo ""
+              echo "✅ Integration tests passed"
+            fi
+          else
+            echo "⚠️  Integration test results file not found"
+            echo "Checking log file for test summary..."
+
+            if grep -q "FAIL" integration-test.log; then
+              echo "❌ Integration tests appear to have failed"
+              exit 1
+            elif grep -q "PASS\|passed\|ok" integration-test.log; then
+              echo "✅ Integration tests appear to have passed"
+            else
+              echo "⚠️  Could not determine integration test status"
+            fi
+          fi
+
+      - name: Upload integration test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-results
+          path: test-results/
+          retention-days: 7
+
+      - name: Upload integration test logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-logs
+          path: integration-test.log
+          retention-days: 7
+
+  # ============================================================================
+  # E2E tests job (release branches only)
+  # ============================================================================
+
+  e2e-tests:
+    name: E2E Tests (Release)
+    runs-on: ubuntu-latest
+    needs: [test-context]
+    if: needs.test-context.outputs.run-e2e == 'true'
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run E2E tests
+        shell: bash
+        run: |
+          echo "🧪 Running E2E tests against staging environment..."
+
+          # Create output directory
+          mkdir -p e2e-results
+
+          # Run E2E test suite (assuming Playwright or similar)
+          if [ -f "package.json" ] && grep -q "test:e2e" package.json; then
+            npm run test:e2e -- --reporter=json --outputFile=e2e-results/report.json 2>&1 | tee e2e-test.log || true
+          else
+            echo "⚠️  E2E test script not found in package.json"
+            echo "Skipping E2E tests"
+            exit 0
+          fi
+        continue-on-error: true
+
+      - name: Validate E2E test results
+        if: always()
+        shell: bash
+        run: |
+          if [ ! -f e2e-results/report.json ]; then
+            echo "⚠️  E2E test report not generated"
+            exit 0
+          fi
+
+          # Parse test results
+          TOTAL=$(jq '.stats.tests // 0' e2e-results/report.json)
+          PASSED=$(jq '.stats.passes // 0' e2e-results/report.json)
+          FAILED=$(jq '.stats.failures // 0' e2e-results/report.json)
+          DURATION=$(jq '.stats.duration // 0' e2e-results/report.json)
+
+          echo "E2E Test Results:"
+          echo "  Total:    $TOTAL"
+          echo "  Passed:   $PASSED"
+          echo "  Failed:   $FAILED"
+          echo "  Duration: ${DURATION}ms"
+
+          if [ "$FAILED" -gt 0 ]; then
+            echo ""
+            echo "❌ E2E tests failed (${FAILED} failures)"
+            # Don't fail the workflow for E2E on non-release branches
+            if [[ "${{ github.ref }}" != "refs/heads/release/"* ]]; then
+              echo "ℹ️  E2E failures allowed on non-release branches"
+              exit 0
+            fi
+            exit 1
+          else
+            echo ""
+            echo "✅ E2E tests passed"
+          fi
+
+      - name: Upload E2E results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-test-results
+          path: e2e-results/
+          retention-days: 30
+
+      - name: Upload E2E screenshots on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: e2e-screenshots
+          path: e2e-results/screenshots/
+          retention-days: 7
+
+  # ============================================================================
+  # Coverage aggregation job
+  # ============================================================================
+
+  coverage-aggregation:
+    name: Coverage Aggregation
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests]
+    if: always()
+    steps:
+      - name: Download all coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: coverage-artifacts
+
+      - name: Checkout code (for coverage tools)
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Aggregate coverage reports
+        shell: bash
+        run: |
+          echo "🔄 Aggregating coverage reports from multiple test suites..."
+
+          # Create output directory
+          mkdir -p aggregated-coverage
+
+          # Initialize coverage data
+          TOTAL_COVERAGE=0
+          COVERAGE_COUNT=0
+          ALL_COVERAGE_VALID=true
+
+          # Parse all coverage-summary.json files
+          for coverage_file in coverage-artifacts/*/coverage-summary.json; do
+            if [ -f "$coverage_file" ]; then
+              echo "📊 Processing: $coverage_file"
+
+              # Extract coverage metrics
+              LINES=$(grep -o '"lines":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+              BRANCHES=$(grep -o '"branches":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+              FUNCTIONS=$(grep -o '"functions":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+              STATEMENTS=$(grep -o '"statements":{[^}]*"pct":[^,}]*' "$coverage_file" | grep -o '[0-9.]*' | tail -1)
+
+              if [ -z "$LINES" ]; then
+                echo "⚠️  Could not parse coverage from $coverage_file"
+                ALL_COVERAGE_VALID=false
+              else
+                echo "  Lines: ${LINES}%"
+                echo "  Branches: ${BRANCHES}%"
+                echo "  Functions: ${FUNCTIONS}%"
+                echo "  Statements: ${STATEMENTS}%"
+
+                # Add to running total
+                TOTAL_COVERAGE=$(echo "$TOTAL_COVERAGE + $LINES" | bc)
+                COVERAGE_COUNT=$((COVERAGE_COUNT + 1))
+              fi
+            fi
+          done
+
+          # Calculate weighted average
+          if [ "$COVERAGE_COUNT" -gt 0 ]; then
+            AVERAGE_COVERAGE=$(echo "scale=2; $TOTAL_COVERAGE / $COVERAGE_COUNT" | bc)
+            echo ""
+            echo "📈 Aggregated Coverage Summary"
+            echo "=============================="
+            echo "Total test suites analyzed: $COVERAGE_COUNT"
+            echo "Average line coverage: ${AVERAGE_COVERAGE}%"
+            echo ""
+
+            # Validate against 80% threshold
+            THRESHOLD=80
+            if (( $(echo "$AVERAGE_COVERAGE >= $THRESHOLD" | bc -l) )); then
+              echo "✅ Coverage meets threshold (${AVERAGE_COVERAGE}% >= ${THRESHOLD}%)"
+            else
+              echo "❌ Coverage below threshold (${AVERAGE_COVERAGE}% < ${THRESHOLD}%)"
+              ALL_COVERAGE_VALID=false
+            fi
+          else
+            echo "⚠️  No valid coverage files found"
+            ALL_COVERAGE_VALID=false
+          fi
+
+          # Save aggregated summary
+          cat > aggregated-coverage/AGGREGATED_SUMMARY.txt << EOF
+          Coverage Aggregation Report
+          ============================
+          Generated: $(date)
+
+          Total Suites: $COVERAGE_COUNT
+          Average Coverage: ${AVERAGE_COVERAGE}%
+          Threshold: ${THRESHOLD}%
+          Status: $([ "$ALL_COVERAGE_VALID" = true ] && echo "✅ PASS" || echo "❌ FAIL")
+          EOF
+
+          # Exit with error if coverage is below threshold
+          if [ "$ALL_COVERAGE_VALID" = false ] && [ "$COVERAGE_COUNT" -gt 0 ]; then
+            (( $(echo "$AVERAGE_COVERAGE < $THRESHOLD" | bc -l) )) && exit 1
+          fi
+
+      - name: Generate aggregated coverage HTML report
+        shell: bash
+        run: |
+          # Copy all coverage reports to aggregated directory for easy viewing
+          echo "📄 Generating aggregated coverage report..."
+
+          cp -r coverage-artifacts/* aggregated-coverage/ 2>/dev/null || true
+
+          # Create index.html for easy navigation
+          cat > aggregated-coverage/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Aggregated Coverage Report</title>
+            <style>
+              body { font-family: Arial, sans-serif; margin: 20px; }
+              h1 { color: #333; }
+              .summary { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; }
+              .coverage-item { margin: 10px 0; }
+              a { color: #0066cc; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .pass { color: green; }
+              .fail { color: red; }
+            </style>
+          </head>
+          <body>
+            <h1>Aggregated Test Coverage Report</h1>
+            <div class="summary">
+              <p><strong>Report Generated:</strong> <span id="timestamp"></span></p>
+              <p><strong>Coverage Threshold:</strong> 80%</p>
+              <p>Coverage reports from all test suites are available below.</p>
+            </div>
+            <h2>Coverage Sources</h2>
+            <div class="coverage-item">
+              <p>View detailed coverage reports in each test suite directory:</p>
+              <ul>
+                <li><a href="coverage-unit-node-18/index.html">Unit Tests - Node 18</a></li>
+                <li><a href="coverage-unit-node-20/index.html">Unit Tests - Node 20</a></li>
+                <li><a href="AGGREGATED_SUMMARY.txt">Aggregation Summary</a></li>
+              </ul>
+            </div>
+            <script>
+              document.getElementById('timestamp').textContent = new Date().toLocaleString();
+            </script>
+          </body>
+          </html>
+          EOF
+
+          echo "✅ Coverage report generated"
+
+      - name: Upload aggregated coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: aggregated-coverage-report
+          path: aggregated-coverage/
+          retention-days: 30
+
+      - name: Report coverage metrics
+        shell: bash
+        run: |
+          if [ -f aggregated-coverage/AGGREGATED_SUMMARY.txt ]; then
+            echo "📊 Coverage Aggregation Summary:"
+            cat aggregated-coverage/AGGREGATED_SUMMARY.txt
+          else
+            echo "⚠️  Aggregated summary not generated"
+          fi
+
+  # ============================================================================
+  # Test metrics collection job
+  # ============================================================================
+
+  testing-metrics:
+    name: Testing Metrics Collection
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, coverage-aggregation]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Aggregate test results
+        id: aggregate
+        uses: ./.github/actions/aggregate-tests
+        with:
+          unit_test_result: 'test-results/unit-summary.json'
+          integration_test_result: 'test-results/integration-summary.json'
+          e2e_test_result: 'skip'
+          coverage_file: 'coverage/coverage-summary.json'
+          coverage_threshold: '80'
+          output_file: 'test-results/aggregated.json'
+
+      - name: Collect testing workflow metrics
+        id: metrics
+        uses: ./.github/actions/collect-metrics
+        with:
+          workflow_name: 'testing-unified'
+          workflow_run_id: 'current'
+          metric_type: 'all'
+          output_format: 'json'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload testing metrics
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: testing-metrics
+          path: |
+            test-results/
+            coverage/
+            metrics/
+          retention-days: 30
+
+  # ============================================================================
+  # Artifact cleanup job
+  # ============================================================================
+
+  artifact-cleanup:
+    name: Artifact Cleanup
+    runs-on: ubuntu-latest
+    needs: [coverage-aggregation, e2e-tests, testing-metrics]
+    if: always()
+    steps:
+      - name: Clean up old test artifacts
+        shell: bash
+        run: |
+          echo "ℹ️  Artifact cleanup would run periodically"
+          echo "Placeholder for old artifact cleanup logic"
+
+  # ============================================================================
+  # Summary job
+  # ============================================================================
+
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, e2e-tests, coverage-aggregation, testing-metrics]
+    if: always()
+    steps:
+      - name: Report test results
+        shell: bash
+        run: |
+          echo "Test run summary:"
+          echo "Unit tests: ${{ needs.unit-tests.result }}"
+          echo "Integration tests: ${{ needs.integration-tests.result }}"
+          echo "E2E tests: ${{ needs.e2e-tests.result }}"
+          echo "Coverage aggregation: ${{ needs.coverage-aggregation.result }}"
+          echo "Metrics collection: ${{ needs.testing-metrics.result }}"
+
+          # Fail if any critical test failed
+          if [[ "${{ needs.unit-tests.result }}" == "failure" ]] || [[ "${{ needs.integration-tests.result }}" == "failure" ]]; then
+            echo "❌ Test suite failed"
+            exit 1
+          fi
+
+          echo "✅ Test suite completed"

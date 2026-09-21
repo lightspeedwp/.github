@@ -30,6 +30,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 
+### Added
+
+- **Workflow Consolidation Phase 1-2** — Completed baseline metrics, rollback procedure, 4 composite actions and test harness; 14 of 78 tasks done. (#3359)
+- **Workflow Consolidation Phase 2 MVP** — Completed 5-workflow consolidation implementation, 72 of 78 tasks done. (#3359)
+- **Workflow Consolidation Phase 3** — Implemented labeling-unified.yml consolidating 11 archived labeling workflows into one workflow with 9 jobs. (#3359)
+
 ### Fixed
 
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))

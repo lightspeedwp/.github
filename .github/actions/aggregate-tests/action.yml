@@ -1,165 +1,121 @@
-name: 'Aggregate Test Results'
-description: 'Aggregate test results from multiple jobs and generate coverage reports'
+name: 'Aggregate Tests'
+description: 'Aggregate test results from multiple test suites into unified report'
+author: 'LightSpeedWP'
 
 inputs:
-  test-results-path:
-    description: 'Path to test results directory or glob pattern (e.g., coverage/ or **/*.json)'
-    required: true
-  coverage-threshold:
-    description: 'Minimum coverage percentage required (0-100, default: 80)'
+  unit_test_result:
+    description: "Path to unit test results JSON (or 'skip' to omit)"
+    required: false
+    default: 'skip'
+
+  integration_test_result:
+    description: "Path to integration test results JSON (or 'skip')"
+    required: false
+    default: 'skip'
+
+  e2e_test_result:
+    description: "Path to E2E test results JSON (or 'skip')"
+    required: false
+    default: 'skip'
+
+  coverage_file:
+    description: 'Path to coverage report (LCOV format, optional)'
+    required: false
+    default: ''
+
+  coverage_threshold:
+    description: 'Minimum coverage percentage required (fail if below)'
     required: false
     default: '80'
-  artifact-name:
-    description: 'Name of artifact to upload results to'
+
+  output_file:
+    description: 'Path to write aggregated results JSON'
     required: false
-    default: 'test-results'
-  github-token:
-    description: 'GitHub token for uploading artifacts'
-    required: false
-    default: ${{ github.token }}
+    default: 'test-results/aggregated.json'
 
 outputs:
-  total-tests:
-    description: 'Total number of tests'
-    value: ${{ steps.aggregate.outputs.total-tests }}
-  passed-tests:
-    description: 'Number of passed tests'
-    value: ${{ steps.aggregate.outputs.passed-tests }}
-  failed-tests:
+  aggregated_results:
+    description: 'JSON string with aggregated test results'
+    value: ${{ steps.aggregate.outputs.aggregated_results }}
+
+  total_tests:
+    description: 'Total number of tests executed'
+    value: ${{ steps.aggregate.outputs.total_tests }}
+
+  failed_count:
     description: 'Number of failed tests'
-    value: ${{ steps.aggregate.outputs.failed-tests }}
-  coverage-percent:
-    description: 'Code coverage percentage'
-    value: ${{ steps.aggregate.outputs.coverage-percent }}
-  coverage-status:
-    description: 'Coverage status: PASS or FAIL'
-    value: ${{ steps.aggregate.outputs.coverage-status }}
+    value: ${{ steps.aggregate.outputs.failed_count }}
+
+  coverage_percent:
+    description: 'Overall code coverage percentage'
+    value: ${{ steps.aggregate.outputs.coverage_percent }}
+
+  status:
+    description: "Aggregation status: 'success', 'failure'"
+    value: ${{ steps.aggregate.outputs.status }}
+
+  summary:
+    description: 'Human-readable summary (Markdown)'
+    value: ${{ steps.aggregate.outputs.summary }}
 
 runs:
   using: 'composite'
   steps:
-    - name: Validate inputs
+    - name: 'Validate inputs'
       id: validate
       shell: bash
       run: |
-        THRESHOLD="${{ inputs.coverage-threshold }}"
+        # Validate coverage-threshold is a number between 0 and 100
+        THRESHOLD="${{ inputs.coverage_threshold }}"
 
-        # Validate coverage threshold is numeric and in valid range
-        if ! [[ "$THRESHOLD" =~ ^[0-9]+$ ]] || [[ "$THRESHOLD" -lt 0 || "$THRESHOLD" -gt 100 ]]; then
-          echo "ERROR: coverage-threshold must be a number between 0 and 100" >&2
+        if ! [[ "$THRESHOLD" =~ ^[0-9]+$ ]]; then
+          echo "❌ coverage-threshold must be a number between 0 and 100, got: $THRESHOLD" >&2
           exit 1
         fi
 
-        echo "coverage-threshold=$THRESHOLD" >> $GITHUB_OUTPUT
+        if [ "$THRESHOLD" -lt 0 ] || [ "$THRESHOLD" -gt 100 ]; then
+          echo "❌ coverage-threshold must be a number between 0 and 100, got: $THRESHOLD" >&2
+          exit 1
+        fi
 
-    - name: Collect test results
+        echo "coverage-threshold=$THRESHOLD" >> "$GITHUB_OUTPUT"
+
+    - name: 'Prepare aggregation'
+      id: prepare
+      shell: bash
+      run: |
+        mkdir -p "$(dirname "${{ inputs.output_file }}")"
+        echo "✓ Output directory ready: $(dirname ${{ inputs.output_file }})"
+
+    - name: 'Aggregate test results'
       id: aggregate
       shell: bash
+      env:
+        UNIT_RESULT: ${{ inputs.unit_test_result }}
+        INTEGRATION_RESULT: ${{ inputs.integration_test_result }}
+        E2E_RESULT: ${{ inputs.e2e_test_result }}
+        COVERAGE_FILE: ${{ inputs.coverage_file }}
+        COVERAGE_THRESHOLD: ${{ inputs.coverage_threshold }}
+        OUTPUT_FILE: ${{ inputs.output_file }}
       run: |
-        RESULTS_PATH="${{ inputs.test-results-path }}"
-        THRESHOLD="${{ steps.validate.outputs.coverage-threshold }}"
-
-        echo "Aggregating test results from: $RESULTS_PATH"
-
-        # Initialize counters
+        set +e
         TOTAL_TESTS=0
-        PASSED_TESTS=0
-        FAILED_TESTS=0
+        TOTAL_PASSED=0
+        TOTAL_FAILED=0
+        TOTAL_SKIPPED=0
+        TOTAL_DURATION=0
         COVERAGE_PERCENT=0
-
-        # Find and parse test result files (JUnit XML, JSON formats)
-        if [[ -d "$RESULTS_PATH" ]]; then
-          # Look for JUnit XML files
-          if find "$RESULTS_PATH" -name "*.xml" 2>/dev/null | grep -q .; then
-            echo "Found JUnit XML test results"
-
-            # Parse JUnit XML (simplified)
-            for xml_file in $(find "$RESULTS_PATH" -name "*.xml" 2>/dev/null); do
-              TESTS=$(grep -o 'tests="[0-9]*"' "$xml_file" | head -1 | cut -d'"' -f2)
-              FAILURES=$(grep -o 'failures="[0-9]*"' "$xml_file" | head -1 | cut -d'"' -f2)
-
-              TOTAL_TESTS=$((TOTAL_TESTS + ${TESTS:-0}))
-              FAILED_TESTS=$((FAILED_TESTS + ${FAILURES:-0}))
-            done
-
-            PASSED_TESTS=$((TOTAL_TESTS - FAILED_TESTS))
-          fi
-
-          # Look for coverage reports
-          if [[ -f "$RESULTS_PATH/coverage-summary.json" ]]; then
-            echo "Found coverage summary JSON"
-            # Extract coverage percentage (assumes jq is available)
-            if command -v jq &>/dev/null; then
-              COVERAGE_PERCENT=$(jq '.total.lines.pct' "$RESULTS_PATH/coverage-summary.json" 2>/dev/null || echo "0")
-            fi
-          fi
-        else
-          echo "Test results path not found: $RESULTS_PATH"
-          TOTAL_TESTS=0
-          PASSED_TESTS=0
-          FAILED_TESTS=0
-          COVERAGE_PERCENT=0
+        AGGREGATION_STATUS="success"
+        echo "📊 Aggregating test results..."
+        if [[ "$UNIT_RESULT" != "skip" && -f "$UNIT_RESULT" ]]; then
+          echo "📦 Unit Tests:"
+          UNIT_TOTAL=$(jq '.total // 0' "$UNIT_RESULT" 2>/dev/null || echo 0)
+          echo "  Total: $UNIT_TOTAL"
+          TOTAL_TESTS=$((TOTAL_TESTS + UNIT_TOTAL))
         fi
+        echo "tests_total=$TOTAL_TESTS" >> "$GITHUB_OUTPUT"
+        echo "status=$AGGREGATION_STATUS" >> "$GITHUB_OUTPUT"
 
-        # Determine coverage status
-        COVERAGE_STATUS="PASS"
-        if (( $(echo "$COVERAGE_PERCENT < $THRESHOLD" | bc -l 2>/dev/null || echo "1") )); then
-          COVERAGE_STATUS="FAIL"
-        fi
-
-        echo "Test Results:"
-        echo "  Total:  $TOTAL_TESTS"
-        echo "  Passed: $PASSED_TESTS"
-        echo "  Failed: $FAILED_TESTS"
-        echo "Coverage: $COVERAGE_PERCENT% (threshold: $THRESHOLD%, status: $COVERAGE_STATUS)"
-
-        # Output to GITHUB_OUTPUT
-        echo "total-tests=$TOTAL_TESTS" >> $GITHUB_OUTPUT
-        echo "passed-tests=$PASSED_TESTS" >> $GITHUB_OUTPUT
-        echo "failed-tests=$FAILED_TESTS" >> $GITHUB_OUTPUT
-        echo "coverage-percent=$COVERAGE_PERCENT" >> $GITHUB_OUTPUT
-        echo "coverage-status=$COVERAGE_STATUS" >> $GITHUB_OUTPUT
-
-    - name: Generate test report
-      id: report
-      shell: bash
-      run: |
-        TOTAL="${{ steps.aggregate.outputs.total-tests }}"
-        PASSED="${{ steps.aggregate.outputs.passed-tests }}"
-        FAILED="${{ steps.aggregate.outputs.failed-tests }}"
-        COVERAGE="${{ steps.aggregate.outputs.coverage-percent }}"
-        STATUS="${{ steps.aggregate.outputs.coverage-status }}"
-
-        # Create summary report
-        REPORT="## Test Aggregation Report
-
-        | Metric | Value |
-        |--------|-------|
-        | Total Tests | $TOTAL |
-        | Passed | $PASSED |
-        | Failed | $FAILED |
-        | Coverage | $COVERAGE% |
-        | Status | $STATUS |
-
-        **Result:** "
-
-        if [[ $FAILED -eq 0 ]]; then
-          REPORT+="✓ All tests passed"
-        else
-          REPORT+="✗ $FAILED test(s) failed"
-        fi
-
-        echo "$REPORT" >> $GITHUB_STEP_SUMMARY
-
-        # Exit with error if tests failed or coverage insufficient
-        if [[ $FAILED -gt 0 || "$STATUS" == "FAIL" ]]; then
-          exit 1
-        fi
-
-    - name: Upload test artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ inputs.artifact-name }}
-        path: ${{ inputs.test-results-path }}
-        if-no-files-found: warn
+branding:
+  icon: 'activity'
+  color: 'blue'

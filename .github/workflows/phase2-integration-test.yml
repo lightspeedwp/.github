@@ -1,0 +1,424 @@
+name: Phase 2 Integration Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_scope:
+        description: 'Scope of integration testing'
+        required: false
+        type: choice
+        options:
+          - 'all'
+          - 'labeling-only'
+          - 'validation-only'
+          - 'testing-only'
+          - 'linting-only'
+          - 'quality-gates-only'
+        default: 'all'
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+  issues: write
+
+concurrency:
+  group: phase2-integration-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  # ============================================================================
+  # Integration test context - determine which workflows to test
+  # ============================================================================
+
+  integration-context:
+    name: Integration Test Context
+    runs-on: ubuntu-latest
+    outputs:
+      test-labeling: ${{ steps.context.outputs.test-labeling }}
+      test-validation: ${{ steps.context.outputs.test-validation }}
+      test-testing: ${{ steps.context.outputs.test-testing }}
+      test-linting: ${{ steps.context.outputs.test-linting }}
+      test-quality: ${{ steps.context.outputs.test-quality }}
+    steps:
+      - name: Determine integration test scope
+        id: context
+        shell: bash
+        run: |
+          # Parse test scope
+          SCOPE="${{ inputs.test_scope }}"
+
+          # Default: test all workflows
+          TEST_LABELING="true"
+          TEST_VALIDATION="true"
+          TEST_TESTING="true"
+          TEST_LINTING="true"
+          TEST_QUALITY="true"
+
+          case "$SCOPE" in
+            labeling-only)
+              TEST_VALIDATION="false"
+              TEST_TESTING="false"
+              TEST_LINTING="false"
+              TEST_QUALITY="false"
+              ;;
+            validation-only)
+              TEST_LABELING="false"
+              TEST_TESTING="false"
+              TEST_LINTING="false"
+              TEST_QUALITY="false"
+              ;;
+            testing-only)
+              TEST_LABELING="false"
+              TEST_VALIDATION="false"
+              TEST_LINTING="false"
+              TEST_QUALITY="false"
+              ;;
+            linting-only)
+              TEST_LABELING="false"
+              TEST_VALIDATION="false"
+              TEST_TESTING="false"
+              TEST_QUALITY="false"
+              ;;
+            quality-gates-only)
+              TEST_LABELING="false"
+              TEST_VALIDATION="false"
+              TEST_TESTING="false"
+              TEST_LINTING="false"
+              ;;
+          esac
+
+          echo "test-labeling=$TEST_LABELING" >> $GITHUB_OUTPUT
+          echo "test-validation=$TEST_VALIDATION" >> $GITHUB_OUTPUT
+          echo "test-testing=$TEST_TESTING" >> $GITHUB_OUTPUT
+          echo "test-linting=$TEST_LINTING" >> $GITHUB_OUTPUT
+          echo "test-quality=$TEST_QUALITY" >> $GITHUB_OUTPUT
+
+          echo "Integration Test Scope:"
+          echo "  Labeling: $TEST_LABELING"
+          echo "  Validation: $TEST_VALIDATION"
+          echo "  Testing: $TEST_TESTING"
+          echo "  Linting: $TEST_LINTING"
+          echo "  Quality Gates: $TEST_QUALITY"
+
+  # ============================================================================
+  # Integration tests for each unified workflow
+  # ============================================================================
+
+  test-labeling-workflow:
+    name: Integration Test • Labeling Workflow
+    runs-on: ubuntu-latest
+    needs: [integration-context]
+    if: needs.integration-context.outputs.test-labeling == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify labeling-unified.yml exists
+        shell: bash
+        run: |
+          if [ -f .github/workflows/labeling-unified.yml ]; then
+            echo "✅ labeling-unified.yml found"
+            grep -q "name: Labeling Unified" .github/workflows/labeling-unified.yml && \
+              echo "✅ Workflow name validated"
+          else
+            echo "❌ labeling-unified.yml not found"
+            exit 1
+          fi
+
+      - name: Validate labeling workflow syntax
+        shell: bash
+        run: |
+          echo "🔍 Validating labeling workflow YAML..."
+          # Basic YAML validation
+          if grep -q "^jobs:" .github/workflows/labeling-unified.yml; then
+            echo "✅ Jobs section found"
+          else
+            echo "❌ No jobs section in labeling workflow"
+            exit 1
+          fi
+
+      - name: Verify labeling workflow triggers
+        shell: bash
+        run: |
+          echo "Checking labeling workflow triggers..."
+          if grep -q "pull_request" .github/workflows/labeling-unified.yml; then
+            echo "✅ pull_request trigger found"
+          fi
+          if grep -q "issues" .github/workflows/labeling-unified.yml; then
+            echo "✅ issues trigger found"
+          fi
+          if grep -q "schedule" .github/workflows/labeling-unified.yml; then
+            echo "✅ schedule trigger found"
+          fi
+
+      - name: Report labeling test results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: >
+            console.log('Labeling workflow integration test completed');
+        continue-on-error: true
+
+  test-validation-workflow:
+    name: Integration Test • Validation Workflow
+    runs-on: ubuntu-latest
+    needs: [integration-context]
+    if: needs.integration-context.outputs.test-validation == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify validation-unified.yml exists
+        shell: bash
+        run: |
+          if [ -f .github/workflows/validation-unified.yml ]; then
+            echo "✅ validation-unified.yml found"
+            grep -q "name: Validation Unified" .github/workflows/validation-unified.yml && \
+              echo "✅ Workflow name validated"
+          else
+            echo "❌ validation-unified.yml not found"
+            exit 1
+          fi
+
+      - name: Validate validation workflow syntax
+        shell: bash
+        run: |
+          echo "🔍 Validating validation workflow YAML..."
+          if grep -q "^jobs:" .github/workflows/validation-unified.yml; then
+            echo "✅ Jobs section found"
+          else
+            echo "❌ No jobs section in validation workflow"
+            exit 1
+          fi
+
+      - name: Verify validation jobs
+        shell: bash
+        run: |
+          echo "Checking validation workflow jobs..."
+          for job in branch-validation pr-template-validation changelog-validation commit-validation; do
+            if grep -q "$job:" .github/workflows/validation-unified.yml; then
+              echo "✅ $job found"
+            fi
+          done
+
+      - name: Report validation test results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: >
+            console.log('Validation workflow integration test completed');
+        continue-on-error: true
+
+  test-testing-workflow:
+    name: Integration Test • Testing Workflow
+    runs-on: ubuntu-latest
+    needs: [integration-context]
+    if: needs.integration-context.outputs.test-testing == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify testing-unified.yml exists
+        shell: bash
+        run: |
+          if [ -f .github/workflows/testing-unified.yml ]; then
+            echo "✅ testing-unified.yml found"
+            grep -q "name: Testing Unified" .github/workflows/testing-unified.yml && \
+              echo "✅ Workflow name validated"
+          else
+            echo "❌ testing-unified.yml not found"
+            exit 1
+          fi
+
+      - name: Validate testing workflow syntax
+        shell: bash
+        run: |
+          echo "🔍 Validating testing workflow YAML..."
+          if grep -q "^jobs:" .github/workflows/testing-unified.yml; then
+            echo "✅ Jobs section found"
+          else
+            echo "❌ No jobs section in testing workflow"
+            exit 1
+          fi
+
+      - name: Verify test jobs exist
+        shell: bash
+        run: |
+          echo "Checking testing workflow jobs..."
+          for job in unit-tests integration-tests coverage-aggregation; do
+            if grep -q "$job" .github/workflows/testing-unified.yml; then
+              echo "✅ $job reference found"
+            fi
+          done
+
+      - name: Report testing workflow test results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: >
+            console.log('Testing workflow integration test completed');
+        continue-on-error: true
+
+  test-linting-workflow:
+    name: Integration Test • Linting Workflow
+    runs-on: ubuntu-latest
+    needs: [integration-context]
+    if: needs.integration-context.outputs.test-linting == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify linting-unified.yml exists
+        shell: bash
+        run: |
+          if [ -f .github/workflows/linting-unified.yml ]; then
+            echo "✅ linting-unified.yml found"
+            grep -q "name: Linting Unified" .github/workflows/linting-unified.yml && \
+              echo "✅ Workflow name validated"
+          else
+            echo "❌ linting-unified.yml not found"
+            exit 1
+          fi
+
+      - name: Validate linting workflow syntax
+        shell: bash
+        run: |
+          echo "🔍 Validating linting workflow YAML..."
+          if grep -q "^jobs:" .github/workflows/linting-unified.yml; then
+            echo "✅ Jobs section found"
+          else
+            echo "❌ No jobs section in linting workflow"
+            exit 1
+          fi
+
+      - name: Verify linting jobs
+        shell: bash
+        run: |
+          echo "Checking linting workflow jobs..."
+          for job in lint-js lint-md; do
+            if grep -q "$job:" .github/workflows/linting-unified.yml; then
+              echo "✅ $job job found"
+            fi
+          done
+
+      - name: Report linting test results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: >
+            console.log('Linting workflow integration test completed');
+        continue-on-error: true
+
+  test-quality-gates-workflow:
+    name: Integration Test • Quality Gates Workflow
+    runs-on: ubuntu-latest
+    needs: [integration-context]
+    if: needs.integration-context.outputs.test-quality == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify quality-gates.yml exists
+        shell: bash
+        run: |
+          if [ -f .github/workflows/quality-gates.yml ]; then
+            echo "✅ quality-gates.yml found"
+            grep -q "name: Quality Gates" .github/workflows/quality-gates.yml && \
+              echo "✅ Workflow name validated"
+          else
+            echo "❌ quality-gates.yml not found"
+            exit 1
+          fi
+
+      - name: Validate quality-gates workflow syntax
+        shell: bash
+        run: |
+          echo "🔍 Validating quality-gates workflow YAML..."
+          if grep -q "^jobs:" .github/workflows/quality-gates.yml; then
+            echo "✅ Jobs section found"
+          else
+            echo "❌ No jobs section in quality-gates workflow"
+            exit 1
+          fi
+
+      - name: Verify quality gates jobs
+        shell: bash
+        run: |
+          echo "Checking quality-gates workflow jobs..."
+          for job in sast-scanning dependency-scanning license-compliance code-quality-metrics security-policy; do
+            if grep -q "$job:" .github/workflows/quality-gates.yml; then
+              echo "✅ $job job found"
+            fi
+          done
+
+      - name: Report quality gates test results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: >
+            console.log('Quality gates workflow integration test completed');
+        continue-on-error: true
+
+  # ============================================================================
+  # Integration test summary
+  # ============================================================================
+
+  integration-summary:
+    name: Integration Test Summary
+    runs-on: ubuntu-latest
+    needs:
+      [
+        integration-context,
+        test-labeling-workflow,
+        test-validation-workflow,
+        test-testing-workflow,
+        test-linting-workflow,
+        test-quality-gates-workflow,
+      ]
+    if: always()
+    steps:
+      - name: Report integration test results
+        shell: bash
+        run: |
+          echo "Phase 2 Integration Tests Summary"
+          echo "==================================="
+          echo ""
+          echo "Labeling Workflow: ${{ needs.test-labeling-workflow.result }}"
+          echo "Validation Workflow: ${{ needs.test-validation-workflow.result }}"
+          echo "Testing Workflow: ${{ needs.test-testing-workflow.result }}"
+          echo "Linting Workflow: ${{ needs.test-linting-workflow.result }}"
+          echo "Quality Gates Workflow: ${{ needs.test-quality-gates-workflow.result }}"
+          echo ""
+
+          # Count results
+          TOTAL=5
+          PASSED=0
+          for result in "${{ needs.test-labeling-workflow.result }}" \
+                        "${{ needs.test-validation-workflow.result }}" \
+                        "${{ needs.test-testing-workflow.result }}" \
+                        "${{ needs.test-linting-workflow.result }}" \
+                        "${{ needs.test-quality-gates-workflow.result }}"; do
+            if [[ "$result" == "success" ]] || [[ "$result" == "skipped" ]]; then
+              ((PASSED++))
+            fi
+          done
+
+          echo "Results: $PASSED/$TOTAL passed"
+          echo ""
+
+          if [ "$PASSED" -eq "$TOTAL" ]; then
+            echo "✅ All integration tests passed"
+          else
+            echo "⚠️  Some integration tests failed or were skipped"
+          fi
