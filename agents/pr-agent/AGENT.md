@@ -52,8 +52,8 @@ Create and update GitHub pull requests correctly and consistently: deriving PR c
 ## Implementation Reference
 
 - **Folder:** `agents/pr-agent/`
-- **Entry points:** each skill's own `skills/<name>/<name>.js`
-- **Tests:** `__tests__/` (unit), `__tests__/integration/` (cross-skill)
+- **Entry points:** each skill's own `skills/<name>/scripts/<name>.js`
+- **Tests:** `skills/<name>/scripts/__tests__/<name>.test.js` (unit), `__tests__/integration/` (cross-skill)
 
 ---
 
