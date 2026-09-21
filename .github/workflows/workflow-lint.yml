@@ -28,13 +28,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          # Read-only job: nothing pushes, so do not persist credentials.
+          persist-credentials: false
 
       - name: Download actionlint
         env:
           ACTIONLINT_VERSION: '1.7.12'
+          # SHA-256 of actionlint_1.7.12_linux_amd64.tar.gz from the release
+          # assets (actionlint_1.7.12_checksums.txt). Update both together.
+          ACTIONLINT_SHA256: '8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8'
         run: |
           curl -sSfL -o actionlint.tar.gz \
             "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+          echo "${ACTIONLINT_SHA256}  actionlint.tar.gz" | sha256sum -c -
           tar xzf actionlint.tar.gz actionlint
           ./actionlint --version
 
