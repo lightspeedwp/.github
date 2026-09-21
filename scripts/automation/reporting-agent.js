@@ -141,7 +141,6 @@ async function main() {
 
     const issueNumber = args.issue;
     const repo = args.repo;
-    const token = args.token;
     const trigger = args.trigger || "manual";
 
     if (!issueNumber && trigger !== "scheduled") {

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import json
-import os
 from pathlib import Path
 
 SKIP_DIRS = {'.git', '__pycache__', '.venv', 'node_modules', 'dist'}

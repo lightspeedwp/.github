@@ -18,9 +18,10 @@ class ScoreCalculator {
     const warningRules = failedRules.filter(r => r.severity === 'warning');
 
     // Calculate score: baseline 100, -25 per error, -5 per warning
-    let score = config.SCORE_BASE;
-    score -= errorRules.length * config.SCORE_ERROR_PENALTY;
-    score -= warningRules.length * config.SCORE_WARNING_PENALTY;
+    // Keys live in the canonical changelog-agent config (config.cjs).
+    let score = config.scoring.baseScore;
+    score -= errorRules.length * config.scoring.errorPenalty;
+    score -= warningRules.length * config.scoring.warningPenalty;
 
     // Ensure score doesn't go below 0
     score = Math.max(0, score);
@@ -42,9 +43,9 @@ class ScoreCalculator {
       score,
       status,
       breakdown: {
-        baseline: config.SCORE_BASE,
-        errorPenalty: -errorRules.length * config.SCORE_ERROR_PENALTY,
-        warningPenalty: -warningRules.length * config.SCORE_WARNING_PENALTY,
+        baseline: config.scoring.baseScore,
+        errorPenalty: -errorRules.length * config.scoring.errorPenalty,
+        warningPenalty: -warningRules.length * config.scoring.warningPenalty,
         total: score
       },
       failures: {
@@ -72,10 +73,10 @@ class ScoreCalculator {
    * @returns {string} Status: 'passing', 'warning', or 'failing'
    */
   determineStatus(score) {
-    if (score >= config.COMPLIANCE_PASS_THRESHOLD) {
+    if (score >= config.compliance.passingThreshold) {
       return 'passing';
     }
-    if (score >= config.COMPLIANCE_WARNING_THRESHOLD) {
+    if (score >= config.compliance.conditionalPassThreshold) {
       return 'warning';
     }
     return 'failing';

@@ -39,7 +39,6 @@ async function main() {
     // Check if actor is in the maintainers team
     try {
       if (!token) {
-        authFailureReason = "GITHUB_TOKEN not available";
         throw new Error("GITHUB_TOKEN not available for authorization check");
       }
 

@@ -37,7 +37,7 @@ describe('ScoreCalculator', () => {
         { status: 'failed', severity: 'warning' }
       ];
       const score = scoreCalculator.calculateScore(results);
-      expect(score.score).toBe(50); // 100 - (2*25) - (2*5)
+      expect(score.score).toBe(40); // 100 - (2*25) - (2*5)
     });
 
     test('should not go below 0', () => {

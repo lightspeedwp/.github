@@ -117,8 +117,6 @@ function warnIfSlideHasOverlaps(slide, pptx, options = {}) {
               // Parallel: check colinearity and overlapping projections
               const crossCol = cross(q1.x - p1.x, q1.y - p1.y, d1x, d1y);
               if (Math.abs(crossCol) > EPS) return false;
-              const proj = (a, b, c) =>
-                Math.min(Math.max(a, b), Math.max(Math.min(a, b), c));
               const overlapX = !(
                 Math.max(p1.x, p2.x) < Math.min(q1.x, q2.x) - EPS ||
                 Math.max(q1.x, q2.x) < Math.min(p1.x, p2.x) - EPS

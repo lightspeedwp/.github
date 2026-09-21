@@ -206,10 +206,7 @@ function validate() {
     // Validate frontmatter
     if (frontmatter) {
       agentRecord.frontmatterValid = true;
-      agentRecord.frontmatterIssues = validateFrontmatter(
-        frontmatter,
-        specPath,
-      );
+      agentRecord.frontmatterIssues = validateFrontmatter(frontmatter);
 
       // Check implementation reference
       if (frontmatter.implementation) {

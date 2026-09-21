@@ -9,7 +9,6 @@
 const { execFileSync } = require("child_process");
 const phaseStateMachine = require("../includes/phase-state-machine.cjs");
 const labelValidator = require("../includes/label-validator.cjs");
-const auditLogger = require("../includes/audit-logger.cjs");
 
 const OWNER = "lightspeedwp";
 const REPO = ".github";
@@ -79,16 +78,6 @@ function handleOpenSpecLabelAdded(issue, label, currentLabels) {
     reason: null,
   };
 
-  // Remove conflicting OpenSpec labels from same phase
-  const specLabels = [
-    ...phaseStateMachine.STATES.SPECIFICATION_PENDING,
-    ...phaseStateMachine.STATES.SPECIFICATION_IN_PROGRESS,
-    ...phaseStateMachine.STATES.SPECIFICATION_COMPLETE,
-    ...phaseStateMachine.STATES.IMPLEMENTATION_PENDING,
-    ...phaseStateMachine.STATES.IMPLEMENTATION_IN_PROGRESS,
-    ...phaseStateMachine.STATES.IMPLEMENTATION_COMPLETE,
-  ];
-
   const existingOpenSpecLabels = currentLabels.filter(
     (l) => l.startsWith("openspec:") && l !== label,
   );
@@ -103,7 +92,6 @@ function handleOpenSpecLabelAdded(issue, label, currentLabels) {
   }
 
   // Suggest related status label based on OpenSpec label
-  const phase = phaseStateMachine.getPhase(label);
   const step = phaseStateMachine.getStep(label);
 
   const statusSuggestions = {

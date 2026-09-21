@@ -15,7 +15,7 @@ type:feature:
 type:bug:
   - head-branch:
       - ^fix/.*
-type:documentation:
+type:docs:
   - head-branch:
       - ^docs?/.*
 type:chore:
@@ -54,7 +54,7 @@ type:security:
 type:automation:
   - head-branch:
       - ^automation/.*
-type:ai-ops:
+type:aiops:
   - head-branch:
       - ^aiops/.*
 type:epic:

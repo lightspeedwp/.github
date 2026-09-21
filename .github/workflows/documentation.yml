@@ -215,14 +215,39 @@ jobs:
 
       - name: Commit README updates
         if: github.event_name != 'pull_request' && steps.readmes.outputs.files != ''
+        # HUSKY=0 skips local git hooks (husky pre-commit runs lint-staged
+        # across thousands of staged files and fails the bot commit).
+        # Husky's own docs recommend env HUSKY: 0 in GitHub Actions.
+        env:
+          HUSKY: 0
         run: |
           git config user.name "lightspeed-bot"
           git config user.email "ops@lightspeedwp.agency"
           git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(docs): regenerate impacted README files [skip ci]"
-            git push origin ${{ github.ref_name }}
+          if git diff --cached --quiet; then
+            echo "No README changes to commit."
+            exit 0
           fi
+          git commit -m "chore(docs): regenerate impacted README files [skip ci]"
+          # develop moves under this job (merges, other bot commits), so a
+          # plain push loses the race with "fetch first" rejections. Rebase
+          # onto the latest remote state and retry with linear backoff.
+          # Gives up after 5 tries and fails the step so the race stays
+          # visible instead of silently dropping the commit.
+          attempt=1
+          max_attempts=5
+          until git push origin ${{ github.ref_name }}; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "❌ Push failed after $max_attempts attempts; giving up."
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
+            sleep $((attempt * 10))
+            git fetch origin ${{ github.ref_name }}
+            git rebase origin/${{ github.ref_name }} || (git rebase --abort && exit 1)
+          done
+          echo "✅ README updates pushed."
 
       - name: Upload regeneration artifacts
         if: always()
@@ -343,7 +368,22 @@ jobs:
       - name: Push changes
         if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
         run: |
-          git push origin HEAD:$(git rev-parse --abbrev-ref HEAD)
+          # Same push-race protection as the regenerate job above: rebase
+          # onto the latest remote state and retry with linear backoff.
+          attempt=1
+          max_attempts=5
+          until git push origin HEAD:$(git rev-parse --abbrev-ref HEAD); do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "❌ Push failed after $max_attempts attempts; giving up."
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
+            sleep $((attempt * 10))
+            git fetch origin $(git rev-parse --abbrev-ref HEAD)
+            git rebase origin/$(git rev-parse --abbrev-ref HEAD) || (git rebase --abort && exit 1)
+          done
+          echo "✅ Maintenance changes pushed."
 
       - name: Upload maintenance report
         if: always()

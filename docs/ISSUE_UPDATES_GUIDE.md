@@ -15,10 +15,10 @@ This guide documents the required updates for GitHub issues #2803–#2811 to pro
 
 All 9 issues should be updated with:
 
-- ✅ **Title:** Updated to reflect the prompt and use `type:ai-ops:` prefix
-- ✅ **Labels:** `type:ai-ops`, `area:automation`, `area:docs`, `status:ready-for-use`
+- ✅ **Title:** Updated to reflect the prompt and use `type:aiops:` prefix
+- ✅ **Labels:** `type:aiops`, `area:automation`, `area:docs`, `status:ready-for-use`
 - ✅ **Description:** Comprehensive body explaining the prompt, use cases, and deliverables
-- ✅ **Template:** AI Ops issue template (`.github/ISSUE_TEMPLATE/23-ai-ops.md`)
+- ✅ **Template:** AI Ops issue template (`.github/ISSUE_TEMPLATE/23-aiops.md`)
 
 ---
 
@@ -35,13 +35,13 @@ All 9 issues should be updated with:
 **New Title:**
 
 ```
-type:ai-ops: Update Active Projects From Chat Work
+type:aiops: Update Active Projects From Chat Work
 ```
 
 **Labels to Add:**
 
 ```
-type:ai-ops
+type:aiops
 area:automation
 area:docs
 status:ready-for-use
@@ -196,13 +196,13 @@ The prompt provides 10-step workflow:
 **New Title:**
 
 ```
-type:ai-ops: Context Continuation Prompt Generator
+type:aiops: Context Continuation Prompt Generator
 ```
 
 **Labels to Add:**
 
 ```
-type:ai-ops
+type:aiops
 area:automation
 area:docs
 status:ready-for-use
@@ -227,13 +227,13 @@ status:ready-for-use
 **New Title:**
 
 ```
-type:ai-ops: Dependabot PR Merge Workflow (Dependency-Ordered)
+type:aiops: Dependabot PR Merge Workflow (Dependency-Ordered)
 ```
 
 **Labels to Add:**
 
 ```
-type:ai-ops
+type:aiops
 area:automation
 area:docs
 status:ready-for-use
@@ -259,13 +259,13 @@ status:ready-for-use
 **New Title:**
 
 ```
-type:ai-ops: Task Prioritization (Priority Scoring 0–100)
+type:aiops: Task Prioritization (Priority Scoring 0–100)
 ```
 
 **Labels to Add:**
 
 ```
-type:ai-ops
+type:aiops
 area:automation
 area:docs
 status:ready-for-use

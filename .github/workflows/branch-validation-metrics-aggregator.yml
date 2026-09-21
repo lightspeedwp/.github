@@ -5,11 +5,19 @@ on:
     workflows: [Branch Name Validation]
     types: [completed]
   schedule:
-    - cron: "0 * * * *"
+    - cron: '0 * * * *'
 
 permissions:
   contents: write
   actions: read
+
+# Serialise runs: concurrent aggregations would race the metrics commit.
+# NOTE: GitHub added `concurrency.queue: max` (May 2026) for deeper queues,
+# but actionlint's schema does not recognise it yet — re-add once tooling
+# catches up.
+concurrency:
+  group: branch-validation-metrics
+  cancel-in-progress: false
 
 jobs:
   aggregate-metrics:
@@ -19,105 +27,121 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          # Full history is required so the metrics commit can rebase
+          # onto the latest develop when the push races another writer.
+          fetch-depth: 0
 
+      # Artifacts live on the triggering run, not this one: download-artifact
+      # only searches the current run unless run-id is given.
+      # See https://github.com/actions/download-artifact#download-artifacts-from-other-workflow-runs-or-repositories
       - name: Download recent metrics artifacts
-        uses: actions/download-artifact@v4
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@v8
         with:
           path: metrics-artifacts
           pattern: branch-validation-metrics
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Aggregate metrics
+        id: aggregate
+        shell: bash
         run: |
           mkdir -p .github/reports/branch-validation
-          TOTAL_VALIDATIONS=0
-          FAILED_VALIDATIONS=0
-          VALID_COUNT=0
-          FORBIDDEN_PREFIX_COUNT=0
-          INVALID_TYPE_COUNT=0
-          MALFORMED_COUNT=0
 
-          # Process all metric files (find all .json files in metrics artifacts)
-          for file in $(find metrics-artifacts -name "*.json" 2>/dev/null); do
-            if [ -f "$file" ]; then
-              TOTAL_VALIDATIONS=$((TOTAL_VALIDATIONS + 1))
-              VALID=$(jq -r '.valid' "$file" 2>/dev/null || echo "false")
-              if [ "$VALID" = "true" ]; then
-                VALID_COUNT=$((VALID_COUNT + 1))
-              else
-                FAILED_VALIDATIONS=$((FAILED_VALIDATIONS + 1))
-                ERRORS=$(jq -r '.errors' "$file" 2>/dev/null || echo "")
-                if echo "$ERRORS" | grep -q "forbidden_prefix"; then
-                  FORBIDDEN_PREFIX_COUNT=$((FORBIDDEN_PREFIX_COUNT + 1))
-                fi
-                if echo "$ERRORS" | grep -q "invalid_type"; then
-                  INVALID_TYPE_COUNT=$((INVALID_TYPE_COUNT + 1))
-                fi
-                if echo "$ERRORS" | grep -q "malformed"; then
-                  MALFORMED_COUNT=$((MALFORMED_COUNT + 1))
-                fi
-              fi
-            fi
-          done
+          # Single jq pass over every metric file; empty input yields zeros.
+          summary=$(
+            find metrics-artifacts -name '*.json' -print0 2>/dev/null \
+              | xargs -0 -r jq -s '{
+                  total: length,
+                  valid: map(select(.valid == true)) | length,
+                  forbidden: map(select((.errors // "" | tostring) | contains("forbidden_prefix"))) | length,
+                  invalid: map(select((.errors // "" | tostring) | contains("invalid_type"))) | length,
+                  malformed: map(select((.errors // "" | tostring) | contains("malformed"))) | length
+                }' 2>/dev/null \
+              || echo '{"total":0,"valid":0,"forbidden":0,"invalid":0,"malformed":0}'
+          )
 
-          PASS_RATE=$(awk -v total="$TOTAL_VALIDATIONS" -v valid="$VALID_COUNT" 'BEGIN {if (total == 0) print "0.0"; else printf "%.1f", (valid / total) * 100}')
+          # xargs -r runs nothing on empty input, leaving $summary unset.
+          if [ -z "$summary" ]; then
+            summary='{"total":0,"valid":0,"forbidden":0,"invalid":0,"malformed":0}'
+          fi
 
-          # Write summary as JSON
-          cat > .github/reports/branch-validation/metrics-summary.json <<'SUMMARY'
-          {
-            "timestamp": "TIMESTAMP",
-            "total_validations": TOTAL,
-            "valid_count": VALID,
-            "failed_validations": FAILED,
-            "pass_rate_percent": PASS_RATE,
-            "error_breakdown": {
-              "forbidden_prefix": FORBIDDEN,
-              "invalid_type": INVALID,
-              "malformed_format": MALFORMED
-            }
-          }
-          SUMMARY
+          total=$(echo "$summary" | jq -r '.total')
+          valid=$(echo "$summary" | jq -r '.valid')
+          failed=$((total - valid))
+          forbidden=$(echo "$summary" | jq -r '.forbidden')
+          invalid=$(echo "$summary" | jq -r '.invalid')
+          malformed=$(echo "$summary" | jq -r '.malformed')
+          pass_rate=$(awk -v total="$total" -v valid="$valid" 'BEGIN {if (total == 0) print "0.0"; else printf "%.1f", (valid / total) * 100}')
 
-          # Use sed to replace placeholders
-          sed -i "s/TIMESTAMP/$(date -u +'%Y-%m-%dT%H:%M:%SZ')/g" .github/reports/branch-validation/metrics-summary.json
-          sed -i "s/TOTAL/$TOTAL_VALIDATIONS/g" .github/reports/branch-validation/metrics-summary.json
-          sed -i "s/VALID/$VALID_COUNT/g" .github/reports/branch-validation/metrics-summary.json
-          sed -i "s/FAILED/$FAILED_VALIDATIONS/g" .github/reports/branch-validation/metrics-summary.json
-          sed -i "s/PASS_RATE/$PASS_RATE/g" .github/reports/branch-validation/metrics-summary.json
-          sed -i "s/FORBIDDEN/$FORBIDDEN_PREFIX_COUNT/g" .github/reports/branch-validation/metrics-summary.json
-          sed -i "s/INVALID/$INVALID_TYPE_COUNT/g" .github/reports/branch-validation/metrics-summary.json
-          sed -i "s/MALFORMED/$MALFORMED_COUNT/g" .github/reports/branch-validation/metrics-summary.json
+          jq -n \
+            --arg ts "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --argjson total "$total" \
+            --argjson valid "$valid" \
+            --argjson failed "$failed" \
+            --argjson pass_rate "$pass_rate" \
+            --argjson forbidden "$forbidden" \
+            --argjson invalid "$invalid" \
+            --argjson malformed "$malformed" \
+            '{
+              timestamp: $ts,
+              total_validations: $total,
+              valid_count: $valid,
+              failed_validations: $failed,
+              pass_rate_percent: $pass_rate,
+              error_breakdown: {
+                forbidden_prefix: $forbidden,
+                invalid_type: $invalid,
+                malformed_format: $malformed
+              }
+            }' > .github/reports/branch-validation/metrics-summary.json
 
-          # Display summary
           echo "📊 Branch Validation Metrics"
           echo "============================"
-          echo "Total Validations: $TOTAL_VALIDATIONS"
-          echo "Valid Branches: $VALID_COUNT"
-          echo "Failed Validations: $FAILED_VALIDATIONS"
-          echo "Pass Rate: $PASS_RATE%"
+          echo "Total Validations: $total"
+          echo "Valid Branches: $valid"
+          echo "Failed Validations: $failed"
+          echo "Pass Rate: $pass_rate%"
           echo "Error Breakdown:"
-          echo "  - Forbidden Prefix: $FORBIDDEN_PREFIX_COUNT"
-          echo "  - Invalid Type: $INVALID_TYPE_COUNT"
-          echo "  - Malformed Format: $MALFORMED_COUNT"
+          echo "  - Forbidden Prefix: $forbidden"
+          echo "  - Invalid Type: $invalid"
+          echo "  - Malformed Format: $malformed"
+
+          echo "total=$total" >> "$GITHUB_OUTPUT"
 
       - name: Commit metrics
+        if: steps.aggregate.outputs.total != '0'
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          if git diff --quiet .github/reports/branch-validation/metrics-summary.json 2>/dev/null || [ ! -f .github/reports/branch-validation/metrics-summary.json ]; then
-            git add .github/reports/branch-validation/metrics-summary.json 2>/dev/null || true
-            git commit -m "chore: Update branch validation metrics" || true
-            git push || true
+          git add .github/reports/branch-validation/metrics-summary.json
+          if git diff --cached --quiet; then
+            echo "No metrics changes to commit."
+            exit 0
           fi
+          git commit -m "chore: Update branch validation metrics [skip ci]"
+
+          # develop moves under this job (merges, other bot commits), so a
+          # plain push loses the race with "fetch first" rejections.
+          # Logic lives in scripts/workflows/push-with-retry.sh (covered by
+          # tests/bash/push-with-retry.bats) so it is linted and tested
+          # instead of existing only as inline YAML.
+          bash scripts/workflows/push-with-retry.sh \
+            --branch develop \
+            --snapshot .github/reports/branch-validation/metrics-summary.json
 
       - name: Upload aggregated metrics
-        uses: actions/upload-artifact@v4
+        if: steps.aggregate.outputs.total != '0'
+        uses: actions/upload-artifact@v7
         with:
           name: branch-validation-metrics-summary
           path: .github/reports/branch-validation/metrics-summary.json

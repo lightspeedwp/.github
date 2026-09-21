@@ -8,7 +8,7 @@
 # All referenced templates must exist in .github/PULL_REQUEST_TEMPLATE/
 #
 # Validation: Verified against actual templates in .github/PULL_REQUEST_TEMPLATE/
-# Last verified: 2026-09-14 (16 templates, 24 types covered)
+# Last verified: 2026-09-18 (19 templates, 38 types covered)
 
 branch_types:
   # Feature & Task Types
@@ -150,6 +150,78 @@ branch_types:
     template: pr_feature
     description: Research or investigation
     example: research/performance-benchmarks
+
+  # API & Schema
+  api:
+    template: pr_feature
+    description: API surface or contract changes
+    example: api/abilities-endpoint
+
+  schema:
+    template: pr_refactor
+    description: Data or API schema restructuring
+    example: schema/frontmatter-v2-migration
+
+  # Documentation Variants & Content
+  doc:
+    template: pr_docs
+    description: Documentation (singular alias of docs)
+    example: doc/contributing-guide-update
+
+  content:
+    template: pr_docs
+    description: Content updates (website, copy, SEO content)
+    example: content/homepage-copy-refresh
+
+  seo:
+    template: pr_feature
+    description: Search visibility enhancement
+    example: seo/meta-description-coverage
+
+  # Configuration & Maintenance
+  config:
+    template: pr_chore
+    description: Configuration changes
+    example: config/eslint-rules-update
+
+  migrate:
+    template: pr_refactor
+    description: Framework or data migration
+    example: migrate/jest-vitest-runner
+
+  # Testing Variants
+  qa:
+    template: pr_test
+    description: Quality assurance verification
+    example: qa/release-checklist-run
+
+  uat:
+    template: pr_test
+    description: User acceptance testing
+    example: uat/checkout-flow-signoff
+
+  # AI Operations & Automation
+  aiops:
+    template: pr_aiops
+    description: AI-assisted operations
+    example: aiops/flaky-test-triage
+
+  automation:
+    template: pr_aiops
+    description: Automation or agent-driven tasks
+    example: automation/label-sync-workflow
+
+  # Telemetry & Observability
+  telemetry:
+    template: pr_ci
+    description: Telemetry, metrics, or observability
+    example: telemetry/action-version-dashboard
+
+  # Epics
+  epic:
+    template: pr_epic
+    description: Epic spanning multiple related PRs
+    example: epic/workflow-consolidation
 
 # Fallback
 fallback_template: pr_feature

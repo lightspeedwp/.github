@@ -26,7 +26,6 @@ const AGENT_DIRS = [
   path.join(REPO_ROOT, ".github", "agents"),
 ].filter((dir) => fs.existsSync(dir));
 const SCHEMAS_DIR = path.join(REPO_ROOT, ".schemas");
-const WORKFLOWS_DIR = path.join(REPO_ROOT, ".github", "workflows");
 
 // Configuration
 const args = process.argv.slice(2);
