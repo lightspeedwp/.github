@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
   actions: read
+  pull-requests: write
 
 # Serialise runs: concurrent aggregations would race the metrics commit.
 # NOTE: GitHub added `concurrency.queue: max` (May 2026) for deeper queues,
