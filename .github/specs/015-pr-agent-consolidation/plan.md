@@ -1,6 +1,6 @@
 # Implementation Plan: PR Agent Consolidation & Portability
 
-**Branch**: `feature/pr-agent-consolidation-portability` | **Date**: 2026-09-18 | **Spec**: [spec.md](./spec.md)
+**Branch**: `aiops/pr-agent-consolidation-portability` | **Date**: 2026-09-18 | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `.github/specs/015-pr-agent-consolidation/spec.md`
 
@@ -45,10 +45,10 @@ Consolidate `agents/pr-agent/` and `agents/pr-creation-agent/` into a single, Ag
 | II. Curated Assets with Locked Governance | Directly applicable — see Constraints above. This feature fixes a bug in the agent's own code (not a LOCKED file) and explicitly defers the LOCKED-file discrepancy (missing `config.yml` routing entries) to a separate governance process rather than fixing it inline. | PASS (compliant by deferral, not by touching the LOCKED file) |
 | III. Clear Asset Boundaries (No Duplication) | `agents/pr-agent/` already lives at the correct top-level `agents/` location (not under `.github/`), consistent with this principle. | PASS |
 | IV. Technology-Agnostic Guidance | This feature's own portability requirement (spec User Story 3) is a direct instance of this principle applied to an agent rather than a guidance doc. | PASS |
-| V. Branch Naming Strategy is Non-Negotiable | Directly implements/enforces this principle via FR-003/FR-004. **Flagged, not silently passed**: this feature's own working branch, `feature/pr-agent-consolidation-portability`, uses `feature/` — not one of the 38 authorised types. See Complexity Tracking below. | FLAGGED (see Complexity Tracking) |
+| V. Branch Naming Strategy is Non-Negotiable | Directly implements/enforces this principle via FR-003/FR-004. This feature's own working branch was originally created as `feature/pr-agent-consolidation-portability` — not one of the 38 authorised types — and was renamed to `aiops/pr-agent-consolidation-portability` before any PR was opened. See Complexity Tracking below. | PASS (renamed before PR opened) |
 | VI. UK English, Accessibility, Security Standards | Directly applicable to every file this feature writes. `spec.md` corrected during this planning pass (see Technical Context). Every subsequent artifact (`AGENT.md`, `SKILL.md`s, `README.md`, `CHANGELOG.md`) MUST be written in UK English and hold the WCAG 2.2 AA bar unconditionally — no reconciliation needed here, unlike `ls-theme`'s constitution, since this repository's Principle VI already sets 2.2 AA as the single, universal baseline. | PASS (corrective action taken) |
 | VII. Specification Quality Standards | `spec.md` and `checklists/requirements.md` already validated: 15/15 checklist items passing, one clarification session resolved, zero remaining `[NEEDS CLARIFICATION]` markers. | PASS |
-| VIII. Branch Strategy Compliance & Automated Enforcement | Same routing table as Principle V; this feature's agent enforces it. Same branch-name flag as Principle V applies. | FLAGGED (see Complexity Tracking) |
+| VIII. Branch Strategy Compliance & Automated Enforcement | Same routing table as Principle V; this feature's agent enforces it. Same branch-name resolution as Principle V applies. | PASS (renamed before PR opened) |
 | IX. Requirements-Driven Quality & Changelog Compliance | Directly relevant to the `Changelog Entry` entity and FR-013/FR-021 — carried forward into `data-model.md`'s constraints (≤250 chars, user-focused, linked to PR/issue). | PASS (constraint carried into design) |
 | X. Automated Validation & Metrics-Driven Governance | Org-wide metrics dashboards are a separate, existing concern this single-agent feature does not build or modify. | PASS (N/A) |
 
@@ -120,7 +120,7 @@ agents/pr-agent/
 
 **Delivery Decision**: Rather than one branch/PR for all of User Story 1, the work was split into three stacked branches to stay within the review budget in LightSpeed's Pull Request & Code Review Workflow (≈15 files preferred, ≈25 hard cap, stack ≤5 PRs):
 
-1. `feature/pr-agent-consolidation-portability` → `develop` — this spec's planning docs, plus the `package.json`/`AGENT.md`/`eslint.config.js` fixes and dependency corrections (14 files)
+1. `aiops/pr-agent-consolidation-portability` → `develop` — this spec's planning docs, plus the `package.json`/`AGENT.md`/`eslint.config.js` fixes and dependency corrections (14 files)
 2. `refactor/pr-agent-skills-restructure` → branch 1 — the six-skill Agent Skills restructuring (23 files)
 3. `fix/pr-agent-branch-name-validation` → branch 2 — the `validate-branch-name.js` prefix-list fix, deferred lint verification, `pr-creation-agent` deletion, and `README.md`/`CHANGELOG.md` (~10 files)
 
@@ -128,6 +128,8 @@ Each PR's body states its stack position, depends-on/followed-by links, and revi
 
 ## Complexity Tracking
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
+*No open violations. The one flagged during planning (below) was resolved before any PR was opened.*
+
+| Violation | Why Needed | Resolution |
 |---|---|---|
-| Working branch `feature/pr-agent-consolidation-portability` uses a prefix (`feature/`) outside the constitution's 38 authorised types (Principles V/VIII) | The branch was created mid-session, off current `develop`, before this plan existed, and already holds the untracked planning brief and this spec's own files | Renaming/recreating the branch now is a trivial `git branch -m`-style housekeeping action better done by the maintainer at a convenient point (e.g. before opening a PR) than performed unprompted by a planning document. **Recommendation**: rename to an `aiops/`-prefixed branch (matching this work's own `type:aiops` Linear label and `LS-4214`'s Linear-generated branch name) before pushing or opening a PR from it. |
+| Working branch `feature/pr-agent-consolidation-portability` used a prefix (`feature/`) outside the constitution's 38 authorised types (Principles V/VIII) | The branch was created mid-session, off current `develop`, before this plan existed, and already held the untracked planning brief and this spec's own files | Renamed to `aiops/pr-agent-consolidation-portability` (matching this work's own `type:aiops` Linear label and `LS-4214`'s Linear-generated branch name) before any PR was opened — confirmed safe since a branch rename touches no commit content or history. |

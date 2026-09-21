@@ -30,10 +30,11 @@ Like the reference feature this absorbs, this has no network API — its "interf
 - If the change exceeds the effective review-budget thresholds (organisation-wide default, or this repository's override): an explicit note in the PR body, and beyond the hard-flag threshold, a flag that this should be a stack or have a documented exception
 
 **And must NOT**:
+
 - Create a branch, or commit/push unrelated changes (matches reference feature's equivalent constraint)
 - Fabricate verification results not actually run (FR-019)
 - Apply a label absent from the target repository's real label set
-- Read or write `.github/PULL_REQUEST_TEMPLATE/config.yml` (LOCKED — constitution Principle II)
+- Write `.github/PULL_REQUEST_TEMPLATE/config.yml` (LOCKED — constitution Principle II); reading it to resolve template routing (FR-010) is required, not prohibited
 
 ## Contract: Update an existing Pull Request
 
@@ -58,6 +59,7 @@ Like the reference feature this absorbs, this has no network API — its "interf
 **Given** the agent is about to resolve review-budget thresholds, the stack-size limit, or the approved-prefix list for the current invocation,
 **When** it checks the target repository for `.github/pr-agent.config.json`,
 **Then**:
+
 - If the file does not exist, it MUST use the organisation-wide default values (see `repository-override-config.schema.json`).
 - If the file exists, it MUST use each field it explicitly sets, and MUST fall back to the organisation-wide default for any field the file omits.
 - It MUST NOT treat an unrecognised field in that file as a valid override, and MUST NOT silently proceed with a malformed file as if it were absent.

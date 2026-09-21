@@ -31,7 +31,7 @@ A runnable guide proving the feature works end-to-end. Validation guide only —
 
 ## Scenario 4 — Agent Skills structure, tests, and lint (User Story 4)
 
-1. `ls agents/pr-agent/skills/*/SKILL.md` — none contain the literal string `template-skill`.
+1. `! grep -R -n --include='SKILL.md' 'template-skill' agents/pr-agent/skills` — no matches.
 2. `npm test` from `agents/pr-agent/` — passes, with a test count at or above the pre-restructuring count.
 3. Introduce a deliberate lint violation in one skill's `.js` file, run `npm run lint` from `agents/pr-agent/` — fails, confirming coverage.
 4. `agents/pr-agent/README.md` exists and references `docs/BRANCHING_*.md`/`docs/PR_*.md`/`docs/LABEL*.md`/`docs/ISSUE*.md` by pattern, not by inlining their rules.

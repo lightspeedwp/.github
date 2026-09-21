@@ -35,7 +35,7 @@ The reviewable unit the agent creates or updates — unchanged in shape from the
 | Field | Description | Source / Validation Rule |
 |---|---|---|
 | `title`, `body` | Derived from the branch's own commits/diff | FR-005; never fabricated (FR-019) |
-| `base` | Target branch | **Resolved dynamically** via the target repository's actual default branch (FR-006) — not a fixed `develop`/`main` string, and not read from `Repository Override Config` |
+| `base` | Target branch | **Resolved dynamically** by branch-type role, then against the target repository's actual branches (FR-006): `hotfix/`/`release/` → the repository's production-role branch (real `main`-equivalent); every other type → the repository's integration-role branch (real `develop`-equivalent), falling back to the repository's actual default branch only when neither role applies. Not a fixed `develop`/`main` string, and not read from `Repository Override Config`. |
 | `labels` | Including exactly one changelog-decision indicator | Must exist in the repository's real label set (matches `ls-theme` FR-010 equivalent) |
 | `assignee` | Responsible person | **Resolved dynamically** to whoever is invoking the agent (FR-012) — never read from `Repository Override Config`, never hardcoded |
 | `draft` | Draft vs. ready state | FR-015 |
@@ -49,7 +49,7 @@ The reviewable unit the agent creates or updates — unchanged in shape from the
 |---|---|---|
 | `name` | Branch name | MUST match `{type}/{scope}-{short-title}` using the canonical prefix list (FR-004); tool-specific prefixes rejected (FR-003) |
 | `commits`, `diff` | Read-only source of PR content | Never fabricated |
-| `resolvedBaseBranch` | The target repository's actual default branch | Derived, not stored — the mechanism behind the Pull Request's `base` field above |
+| `resolvedBaseBranch` | The target repository's actual production- or integration-role branch, per the branch-type policy in FR-006 | Derived, not stored — the mechanism behind the Pull Request's `base` field above |
 
 ## Repository Override Config *(new)*
 
