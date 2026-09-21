@@ -26,8 +26,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -114,6 +114,28 @@ jobs:
             echo "⚠ Template not found: $TEMPLATE_FILE"
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Verify PR body matches template
+        if: steps.verify-template.outputs.exists == 'true'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require('node:fs');
+            const templateName = '${{ steps.route.outputs.template }}';
+            const templateFile = `.github/PULL_REQUEST_TEMPLATE/${templateName}.md`;
+            const template = fs.readFileSync(templateFile, 'utf8');
+            const required = [...template.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim());
+            const body = (context.payload.pull_request?.body || '').toLowerCase();
+            const missing = required.filter((h) => !body.includes(`## ${h.toLowerCase()}`));
+            if (missing.length > 0) {
+              core.setFailed(
+                `PR body is missing ${missing.length} section(s) from ${templateName}.md: ` +
+                missing.map((h) => `"## ${h}"`).join(', ') +
+                `. Copy the template sections into the PR body (see ${templateFile}).`
+              );
+            } else {
+              core.info(`PR body contains all ${required.length} sections from ${templateName}.md.`);
+            }
 
       - name: Apply labels to PR
         if: steps.verify-template.outputs.exists == 'true' && steps.route.outputs.labels != ''
