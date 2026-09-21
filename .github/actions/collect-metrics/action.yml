@@ -6,30 +6,25 @@ inputs:
   workflow_name:
     description: 'Name of workflow to collect metrics for'
     required: true
-    type: string
 
   workflow_run_id:
     description: "GitHub Actions run ID (or 'current' for current run)"
     required: false
-    type: string
     default: 'current'
 
   metric_type:
     description: "Metric to collect: 'minutes_used', 'duration_seconds', 'job_count', 'all'"
     required: false
-    type: string
     default: 'all'
 
   output_format:
     description: "Output format: 'json', 'markdown', 'csv'"
     required: false
-    type: string
     default: 'json'
 
   github_token:
     description: 'GitHub API token (requires read:repo permission)'
     required: true
-    type: string
 
 outputs:
   metrics_json:

@@ -6,27 +6,22 @@ inputs:
   target_type:
     description: "Target entity type: 'pull_request' or 'issue'"
     required: true
-    type: string
 
   target_id:
     description: 'GitHub API ID of PR or issue'
     required: true
-    type: string
 
   source:
     description: "Where labels come from: 'frontmatter', 'type', 'custom'"
     required: true
-    type: string
 
   labels:
     description: 'Comma-separated label names (must exist in .github/labels.yml with prefix)'
     required: true
-    type: string
 
   remove_labels:
     description: 'Comma-separated labels to remove (optional)'
     required: false
-    type: string
     default: ''
 
   dry_run:
@@ -38,12 +33,10 @@ inputs:
   github_token:
     description: 'GitHub API token with write permissions to PR/issue'
     required: true
-    type: string
 
   github_repository:
     description: 'GitHub repository in owner/repo format'
     required: true
-    type: string
 
 outputs:
   labels_applied:

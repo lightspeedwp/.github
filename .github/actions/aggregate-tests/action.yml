@@ -6,37 +6,31 @@ inputs:
   unit_test_result:
     description: "Path to unit test results JSON (or 'skip' to omit)"
     required: false
-    type: string
     default: 'skip'
 
   integration_test_result:
     description: "Path to integration test results JSON (or 'skip')"
     required: false
-    type: string
     default: 'skip'
 
   e2e_test_result:
     description: "Path to E2E test results JSON (or 'skip')"
     required: false
-    type: string
     default: 'skip'
 
   coverage_file:
     description: 'Path to coverage report (LCOV format, optional)'
     required: false
-    type: string
     default: ''
 
   coverage_threshold:
     description: 'Minimum coverage percentage required (fail if below)'
     required: false
-    type: string
     default: '80'
 
   output_file:
     description: 'Path to write aggregated results JSON'
     required: false
-    type: string
     default: 'test-results/aggregated.json'
 
 outputs:

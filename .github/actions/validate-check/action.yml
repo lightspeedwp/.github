@@ -6,39 +6,32 @@ inputs:
   check_name:
     description: "Name of the check to report (e.g., 'validation-unified')"
     required: true
-    type: string
 
   status:
     description: "Validation result: 'success', 'failure', 'neutral'"
     required: true
-    type: string
 
   title:
     description: 'Short title for the check result'
     required: true
-    type: string
 
   summary:
     description: 'Detailed summary of validation result (Markdown)'
     required: true
-    type: string
 
   details:
     description: 'Additional validation details or error messages (JSON array, optional)'
     required: false
-    type: string
     default: '[]'
 
   post_comment:
     description: "If 'true', post PR comment with validation results"
     required: false
-    type: boolean
     default: false
 
   github_token:
     description: 'GitHub API token with write permissions to PR checks'
     required: true
-    type: string
 
 outputs:
   check_id:

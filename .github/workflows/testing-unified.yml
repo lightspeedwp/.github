@@ -102,7 +102,7 @@ jobs:
     if: needs.test-context.outputs.run-unit == 'true'
     strategy:
       matrix:
-        node-version: ['18', '20']
+        node-version: ['22', '24']
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -179,7 +179,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
@@ -266,7 +266,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
@@ -362,7 +362,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies

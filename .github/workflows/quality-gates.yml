@@ -133,13 +133,7 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: '/language:${{ matrix.language }}'
-
-      - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: 'sarif-results.sarif'
-          wait-for-processing: true
+        # analyze uploads SARIF automatically; no manual upload step needed.
 
       - name: Parse SAST results
         id: sast-results
