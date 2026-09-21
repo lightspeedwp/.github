@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Bot Commits via PRs** — Metrics, README-regeneration and docs-maintenance bots now open fixed-branch PRs instead of pushing directly to develop; metrics schedule throttled to a daily backstop. ([PR #3410](https://github.com/lightspeedwp/.github/pull/3410))
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
