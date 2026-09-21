@@ -27,7 +27,6 @@ inputs:
   dry_run:
     description: "If 'true', log labels but don't apply (for validation)"
     required: false
-    type: boolean
     default: false
 
   github_token:
