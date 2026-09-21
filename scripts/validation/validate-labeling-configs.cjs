@@ -86,23 +86,28 @@ function assertLabelerConfig(labeler) {
   }
 
   for (const [label, rules] of Object.entries(labeler)) {
-    if (!rules || typeof rules !== "object" || Array.isArray(rules)) {
-      fail(`Rule for '${label}' must be an object`);
+    // actions/labeler v5+ schema: label -> array of match objects.
+    // (Legacy v4 single-object form is also accepted.)
+    const ruleList = Array.isArray(rules) ? rules : [rules];
+    if (ruleList.length === 0 || ruleList.some((r) => !r || typeof r !== "object" || Array.isArray(r))) {
+      fail(`Rule for '${label}' must be an object or an array of objects`);
     }
 
-    const hasHeadBranch = Object.prototype.hasOwnProperty.call(
-      rules,
-      "head-branch",
-    );
-    const hasChangedFiles = Object.prototype.hasOwnProperty.call(
-      rules,
-      "changed-files",
-    );
-
-    if (!hasHeadBranch && !hasChangedFiles) {
-      fail(
-        `Rule for '${label}' must include at least one of 'head-branch' or 'changed-files'`,
+    for (const rule of ruleList) {
+      const hasHeadBranch = Object.prototype.hasOwnProperty.call(
+        rule,
+        "head-branch",
       );
+      const hasChangedFiles = Object.prototype.hasOwnProperty.call(
+        rule,
+        "changed-files",
+      );
+
+      if (!hasHeadBranch && !hasChangedFiles) {
+        fail(
+          `Rule for '${label}' must include at least one of 'head-branch' or 'changed-files'`,
+        );
+      }
     }
   }
 }
