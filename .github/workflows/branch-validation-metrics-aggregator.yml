@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
   actions: read
+  pull-requests: write
 
 # Serialise runs: concurrent aggregations would race the metrics commit.
 # NOTE: GitHub added `concurrency.queue: max` (May 2026) for deeper queues,
@@ -117,27 +118,22 @@ jobs:
 
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
-      - name: Commit metrics
+      - name: Create or update metrics PR
         if: steps.aggregate.outputs.total != '0'
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: chore/branch-validation-metrics
+          base: develop
+          commit-message: 'chore: Update branch validation metrics [skip ci]'
+          title: 'chore: Update branch validation metrics'
+          body: |
+            Automated metrics update, Dependabot-style.
 
-          git add .github/reports/branch-validation/metrics-summary.json
-          if git diff --cached --quiet; then
-            echo "No metrics changes to commit."
-            exit 0
-          fi
-          git commit -m "chore: Update branch validation metrics [skip ci]"
-
-          # develop moves under this job (merges, other bot commits), so a
-          # plain push loses the race with "fetch first" rejections.
-          # Logic lives in scripts/workflows/push-with-retry.sh (covered by
-          # tests/bash/push-with-retry.bats) so it is linted and tested
-          # instead of existing only as inline YAML.
-          bash scripts/workflows/push-with-retry.sh \
-            --branch develop \
-            --snapshot .github/reports/branch-validation/metrics-summary.json
+            - Updates `.github/reports/branch-validation/metrics-summary.json`
+            - Fixed branch; subsequent runs update this same PR until merged.
+          labels: |
+            type:chore
+            area:ci
 
       - name: Upload aggregated metrics
         if: steps.aggregate.outputs.total != '0'
