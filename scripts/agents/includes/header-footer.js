@@ -14,7 +14,7 @@ import { load } from 'js-yaml';
  * Load footer configuration from footers.yml
  */
 function loadFooterConfig() {
-  const configPath = path.join(process.cwd(), '.github/automation/footers.yml');
+  const configPath = path.join(process.cwd(), '.github/footers.yml');
   if (!fs.existsSync(configPath)) {
     return null;
   }
@@ -49,9 +49,10 @@ function getFooterPhrases(category = 'default') {
     return config.categories[category].phrases;
   }
 
-  // Fall back to default category
-  if (config.categories.default && config.categories.default.phrases) {
-    return config.categories.default.phrases;
+  // Fall back to the top-level default block (footers.yml has `default`
+  // as a sibling of `categories`, not nested inside it).
+  if (config.default && config.default.phrases) {
+    return config.default.phrases;
   }
 
   return DEFAULT_FOOTERS;
