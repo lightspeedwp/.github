@@ -4,9 +4,11 @@
 
 **Created**: 2026-09-18
 
-**Status**: Draft
+**Status**: Resolved (2026-09-22)
 
 **Input**: User description: "Create a new speckit with number prefix of 015 to address CI Failures (Not Audit-Related): 1. Changelog validation — Pre-existing on develop (6/54 entries compliant) — documented in PR comment 2. Mermaid diagrams — From merged develop files, not audit specs 3. Frontmatter validation — From merged develop files 4. Agent spec validation — Automation check failures 5. Milestone not assigned — Governance workflow requirement (can set via UI) 6. lint/Testing failures — From merged develop branch files"
+
+**Resolution note (2026-09-22)**: All checks on PR #3367 pass as of this date — the CI failures this spec was written to classify no longer occur. The changelog claim in User Story 1 (6/54 compliant) is specifically stale: PR #3383 (merged 2026-09-18) rewrote the 50 failing legacy `Unreleased` entries, and the validate-changelog check now passes on both `develop` and this branch. User Stories 2–4 (Mermaid/frontmatter/agent-spec/lint) are unverified against current `develop` beyond the fact that PR #3367's own CI run is currently green — kept below for historical record, not as an active work item. No further remediation identified; closing rather than carrying stale failure counts forward.
 
 ## User Scenarios & Testing
 
