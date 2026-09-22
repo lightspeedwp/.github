@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **PR Template Routing Comment Dedup** — The routing workflow posted a duplicate comment on every push. It now updates the existing comment in place and skips unchanged bodies. ([PR #3379](https://github.com/lightspeedwp/.github/pull/3379))
 - **Changelog Validation Workflow Modernisation** — Moved the validator to Node 24 actions and removed the dangling skills gitlink that broke file detection. ([PR #3378](https://github.com/lightspeedwp/.github/pull/3378))
 - **Branch Validation Metrics Aggregator Modernisation** — Moved the aggregator to Node 24 actions with run-scoped artifact downloads and a fixed metrics commit condition. ([PR #3377](https://github.com/lightspeedwp/.github/pull/3377))
+- **PR Template Check Uses Live Body** — The template verification now fetches the current PR body via the API instead of the stale event snapshot, and body edits retrigger the check. ([PR #3431](https://github.com/lightspeedwp/.github/pull/3431))
 - **Branch Validator `config` Type** — Added the documented `config` type to the authorised validator list. (#3304)
 
 - **Test Runner Working Directory Fixed** — Fixed shared worker state leaking the filesystem root into later test files. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))
