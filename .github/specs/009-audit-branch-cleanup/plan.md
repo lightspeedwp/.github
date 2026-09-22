@@ -1,6 +1,6 @@
 # Implementation Plan: Branch Cleanup Infrastructure
 
-**Branch**: `009-audit-branch-cleanup` | **Date**: 2026-09-16 | **Spec**: [spec.md](./spec.md)
+**Branch**: `task/branch-cleanup-refactor` | **Feature ID**: `009-audit-branch-cleanup` | **Date**: 2026-09-16 | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `/specs/009-audit-branch-cleanup/spec.md`
 

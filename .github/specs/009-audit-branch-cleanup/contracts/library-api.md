@@ -58,6 +58,11 @@ export function categorizeBranches(
 - `inactiveDays` must be non-negative integer
 - Invalid inputs trigger early return with error logged (graceful degradation)
 
+`categorizeBranches()` preserves a supplied `Set` and converts an array with
+`new Set(openPRs)` before invoking `categorizeBranch()`. Any other value is
+logged and returns empty category arrays, so `categorizeBranch()` always
+receives an object that safely supports `.has()`.
+
 ### Example Usage
 
 ```javascript
@@ -69,22 +74,22 @@ const result = categorizeBranches(
     'feat/login': {
       author: 'alice@example.com',
       lastCommitDate: '2026-08-15T10:30:00Z',
-      mergeStatus: { merged: false, state: 'unmerged' }
+      mergeStatus: { merged: false, state: 'unmerged' },
     },
-    'main': {
+    main: {
       author: 'bot',
       lastCommitDate: '2026-09-16T14:00:00Z',
-      mergeStatus: { merged: true, state: 'merged', mergedToBranches: ['main'] }
-    }
+      mergeStatus: { merged: true, state: 'merged', mergedToBranches: ['main'] },
+    },
   },
-  new Set(['feat/login']),    // feat/login has open PR
-  /release\/.*|hotfix\/.*/,   // exclude release and hotfix branches
-  30                          // 30-day inactivity threshold
+  new Set(['feat/login']), // feat/login has open PR
+  /release\/.*|hotfix\/.*/, // exclude release and hotfix branches
+  30 // 30-day inactivity threshold
 );
 
-console.log(result.KEEP.length);     // Branches to preserve
-console.log(result.DELETE.length);   // Branches ready to delete
-console.log(result.DISCUSS.length);  // Branches needing review
+console.log(result.KEEP.length); // Branches to preserve
+console.log(result.DELETE.length); // Branches ready to delete
+console.log(result.DISCUSS.length); // Branches needing review
 ```
 
 ---
@@ -163,7 +168,7 @@ export function validateBranchName(branch: string): {
 
 ```javascript
 {
-  valid: true
+  valid: true;
 }
 ```
 
@@ -199,13 +204,13 @@ export function detectOpenPRs(
   owner: string,
   repo: string,
   branch?: string
-): Promise<Set<string>>
+): Promise<Set<string> | null>
 ```
 
 **Implementation**: `gh pr list --repo {owner}/{repo} --json headRefName`  
-**Return**: Set of branch names with open PRs  
-**Fallback**: On API error, return empty Set (conservative: assume no PRs)  
-**Error Handling**: Log warning, do not throw
+**Return**: Set of branch names with open PRs; an empty Set means a confirmed response with no open PRs
+**Fallback**: On CLI, authentication, rate-limit, or API error, return `null` to represent unavailable verification
+**Error Handling**: Log a warning. Callers must fail closed by marking possible deletion candidates KEEP/DISCUSS or halting deletion; `hasOpenPR()` throws when verification is unavailable.
 
 ---
 
@@ -272,18 +277,55 @@ export function formatJSONReport(
 ## Constants Export
 
 ```javascript
-export const PROTECTED_BRANCHES = new Set(['main', 'develop', 'master']);
+export const PROTECTED_BRANCHES = new Set(['main', 'develop', 'production', 'staging', 'master']);
 export const FORBIDDEN_PREFIXES = ['claude', 'copilot', 'openai'];
 export const ALLOWED_BRANCH_TYPES = new Set([
-  'feat', 'fix', 'hotfix', 'release', 'refactor', 'chore', 'task', 'docs',
-  'test', 'perf', 'ci', 'build', 'deps', 'security', 'design', 'a11y', 'ux',
-  'i18n', 'ops', 'proto', 'ds', 'api', 'schema', 'telemetry', 'content',
-  'seo', 'config', 'migrate', 'qa', 'uat', 'audit', 'codex', 'revert', 'research'
+  'feat',
+  'fix',
+  'hotfix',
+  'release',
+  'refactor',
+  'chore',
+  'task',
+  'docs',
+  'test',
+  'perf',
+  'ci',
+  'build',
+  'deps',
+  'security',
+  'design',
+  'a11y',
+  'ux',
+  'i18n',
+  'ops',
+  'proto',
+  'ds',
+  'api',
+  'schema',
+  'telemetry',
+  'content',
+  'seo',
+  'config',
+  'migrate',
+  'qa',
+  'uat',
+  'audit',
+  'codex',
+  'revert',
+  'research',
 ]);
 export const REASON_CODES = {
-  KEEP: { protected_branch, excluded_pattern, active_pr, unmerged, recent_activity },
+  KEEP: {
+    protected_branch,
+    excluded_pattern,
+    active_pr,
+    author_preserved,
+    unmerged,
+    recent_activity,
+  },
   DELETE: { merged_stale },
-  DISCUSS: { naming_violation, unmerged_stale, unclear_status }
+  DISCUSS: { naming_violation, unmerged_stale, pr_verification_unavailable, unclear_status },
 };
 ```
 
@@ -293,9 +335,9 @@ export const REASON_CODES = {
 
 **Graceful Degradation**: All functions should fail gracefully rather than throw:
 
-- Missing git/gh commands: Log warning, continue with conservative assumptions
+- Missing `git`: Treat as fatal. Missing `gh`: Log a warning and fail closed
 - Invalid input: Log error, use default or skip processing
-- API timeouts: Log warning, use fallback (e.g., assume no open PRs)
+- API timeouts: Log a warning and mark candidates DISCUSS or halt deletion
 
 **Logging Levels**:
 

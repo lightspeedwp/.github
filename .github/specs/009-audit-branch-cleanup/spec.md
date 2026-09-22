@@ -62,14 +62,14 @@ Repository maintainers need to identify edge cases and ambiguous branches that r
 
 **Why this priority**: Some branches may have uncommon patterns, orphaned status, or unclear purpose that warrants team discussion before deletion.
 
-**Independent Test**: Can be fully tested by identifying branches that do NOT meet clear deletion criteria (e.g., orphaned, invalid naming, unmerged work, author flags) and presenting them with context for review.
+**Independent Test**: Can be fully tested by identifying branches that do NOT meet clear deletion criteria (e.g., orphaned, invalid naming, unmerged work, or unavailable verification) and presenting them with context for review.
 
 **Acceptance Scenarios**:
 
 1. **Given** branches that are 30+ days old but unmerged to any base, **When** categorising, **Then** they are flagged as DISCUSS with reason "unmerged work, verify intent"
 2. **Given** branches with invalid names (`claude/*`, `copilot/*`), **When** categorising, **Then** they are flagged as DISCUSS with reason "naming violation, determine if rename or delete"
 3. **Given** branches with no commits after 60 days with no PR history, **When** categorising, **Then** they are flagged as DISCUSS with reason "orphaned branch, unclear purpose"
-4. **Given** branches authored by bots/automation (dependabot, renovate) with no PR, **When** categorising, **Then** they are flagged for policy decision (auto-delete or preserve)
+4. **Given** a branch that would otherwise be eligible for deletion while open-PR verification is unavailable, **When** categorising, **Then** it is flagged as DISCUSS and deletion is blocked
 
 ---
 
@@ -141,7 +141,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - **Audit Report**: A structured document categorising branches with metadata, produced in Markdown and/or JSON formats
 - **Deletion Candidate**: A branch meeting all safety criteria (merged, 30+ days old, no open PR, not excluded)
 - **Discussion Candidate**: A branch requiring manual review (orphaned, invalid name, unmerged but stale, special author)
-- **Cleanup Script**: The Node.js script (`scripts/cleanup-branches.js`) that executes audit and optional deletion logic
+- **Cleanup Script**: The Node.js script (`scripts/cleanup-branches.js`) that audits branches and generates deletion candidates without deleting them directly
 - **Branch Type**: Classification of branches using the defined taxonomy (feat/, fix/, docs/, etc.)
 
 ## Success Criteria *(mandatory)*
@@ -162,10 +162,10 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - Merged status is determined by checking if a commit exists in the merge-base history of `develop` or `main` (standard git merge detection)
 - 30 days is a reasonable inactivity threshold; teams can customise via `--inactiveDays` parameter
 - Protected branches are those explicitly configured in GitHub repository settings or hardcoded as `main`, `develop`, `production`
-- Branch authors are resolvable through git commit authorship of the first commit on the branch; bot detection uses first commit author (most reliable signal). Bot branches typically created by automation follow naming patterns (dependabot/*, renovate/*, etc.)
+- Branch authors are resolvable through git commit authorship of the first commit on the branch; bot detection uses first commit author (most reliable signal). Bot branches typically created by automation follow naming patterns (`dependabot/*`, `renovate/*`, etc.)
 - Repository has sufficient permissions to list all branches and open PRs (standard repository access)
 - GitHub CLI (`gh`) is available in execution environment for PR querying (alternative: use GitHub API)
-- Dry-run is the safe default; users must explicitly opt-in to destructive deletions
+- Dry-run is the only direct CLI mode; destructive deletion requires the separate draft-PR approval and merge workflow
 - Existing cleanup scripts, documentation, and prompts are in the codebase and can be audited; no external dependencies required
 - UK English and project-standard conventions apply to all refactored documentation and code
 - Branch cleanup is a maintenance task performed monthly or as-needed, not a continuous autonomous process

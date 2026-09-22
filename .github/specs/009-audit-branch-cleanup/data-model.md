@@ -8,20 +8,20 @@ Represents a Git branch with metadata collected from local/remote Git and GitHub
 
 ### Fields
 
-| Field | Type | Required | Constraints | Description |
-|-------|------|----------|-------------|-------------|
-| `name` | string | Yes | Must match pattern `{type}/{scope}-{title}` OR be protected | Branch name from git |
-| `type` | string | Yes | One of 30+ allowed types (feat, fix, docs, etc.) | Extracted from branch name prefix |
-| `scope` | string | No | Must contain hyphen-separated scope | Extracted from branch name middle section |
-| `title` | string | No | Must not be empty | Extracted from branch name suffix |
-| `author` | string | Yes | Non-empty, typically email or GitHub handle | Person who created the branch |
-| `lastCommitDate` | ISO8601 string | Yes | Valid RFC3339 format | Timestamp of last commit |
-| `ageInDays` | number | Yes | Non-negative, calculated from `lastCommitDate` | Days since last commit to now |
-| `mergeStatus` | object | Yes | See MergeStatus entity below | Merge state to develop/main branches |
-| `isProtected` | boolean | Yes | True if branch in PROTECTED_BRANCHES constant | Whether branch is protected (no deletion allowed) |
-| `hasOpenPR` | boolean | Yes | True if branch has open PR on GitHub | Whether branch is actively being reviewed |
-| `category` | enum | Yes | Values: KEEP, DELETE, DISCUSS | Result of 8-gate categorisation |
-| `reason` | string | Yes | One of predefined reason codes | Human-readable explanation for categorisation |
+| Field            | Type                 | Required | Constraints                                                     | Description                                       |
+| ---------------- | -------------------- | -------- | --------------------------------------------------------------- | ------------------------------------------------- |
+| `name`           | string               | Yes      | Must match pattern `{type}/{scope}-{title}` OR be protected     | Branch name from git                              |
+| `type`           | string               | Yes      | One of 30+ allowed types (feat, fix, docs, etc.)                | Extracted from branch name prefix                 |
+| `scope`          | string               | No       | Must contain hyphen-separated scope                             | Extracted from branch name middle section         |
+| `title`          | string               | No       | Must not be empty                                               | Extracted from branch name suffix                 |
+| `author`         | string               | Yes      | Non-empty, typically email or GitHub handle                     | Person who created the branch                     |
+| `lastCommitDate` | ISO8601 string       | Yes      | Valid RFC3339 format                                            | Timestamp of last commit                          |
+| `ageInDays`      | number               | Yes      | Non-negative, calculated from `lastCommitDate`                  | Days since last commit to now                     |
+| `mergeStatus`    | object               | Yes      | See MergeStatus entity below                                    | Merge state to develop/main branches              |
+| `isProtected`    | boolean              | Yes      | True if branch in PROTECTED_BRANCHES constant                   | Whether branch is protected (no deletion allowed) |
+| `hasOpenPR`      | boolean or `unknown` | Yes      | True if branch has an open PR; `unknown` if verification failed | Whether branch is actively being reviewed         |
+| `category`       | enum                 | Yes      | Values: KEEP, DELETE, DISCUSS                                   | Result of 8-gate categorisation                   |
+| `reason`         | string               | Yes      | One of predefined reason codes                                  | Human-readable explanation for categorisation     |
 
 ### Validation Rules
 
@@ -38,11 +38,11 @@ Encapsulates branch merge state information.
 
 ### Fields
 
-| Field | Type | Required | Constraints | Description |
-|-------|------|----------|-------------|-------------|
-| `merged` | boolean | Yes | True if branch is ancestor of develop or main | Whether branch has been merged to any base |
-| `state` | string | Yes | Values: "merged", "unmerged", "unknown" | Human-readable state |
-| `mergedToBranches` | string[] | No | Base branch names (e.g., ["develop", "main"]) | Which base branches contain this branch |
+| Field              | Type     | Required | Constraints                                   | Description                                |
+| ------------------ | -------- | -------- | --------------------------------------------- | ------------------------------------------ |
+| `merged`           | boolean  | Yes      | True if branch is ancestor of develop or main | Whether branch has been merged to any base |
+| `state`            | string   | Yes      | Values: "merged", "unmerged", "unknown"       | Human-readable state                       |
+| `mergedToBranches` | string[] | No       | Base branch names (e.g., ["develop", "main"]) | Which base branches contain this branch    |
 
 ### State Transitions
 
@@ -60,20 +60,20 @@ Output of the 8-gate decision tree for a single branch.
 
 ### Fields
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `name` | string | Yes | Branch name |
-| `category` | enum | Yes | KEEP, DELETE, or DISCUSS |
-| `reason` | string | Yes | Reason code and human explanation |
-| `metadata` | object | Yes | Branch metadata (author, age, merge status) |
+| Field      | Type   | Required | Description                                 |
+| ---------- | ------ | -------- | ------------------------------------------- |
+| `name`     | string | Yes      | Branch name                                 |
+| `category` | enum   | Yes      | KEEP, DELETE, or DISCUSS                    |
+| `reason`   | string | Yes      | Reason code and human explanation           |
+| `metadata` | object | Yes      | Branch metadata (author, age, merge status) |
 
 ### Category Rules
 
-| Category | Meaning | Deletion Allowed |
-|----------|---------|-----------------|
-| KEEP | Never delete this branch | No (protected, active PR, recent, or policy-preserved) |
-| DELETE | Safe to delete this branch | Yes (merged and stale beyond threshold) |
-| DISCUSS | Requires human review before deletion | No (unmerged but stale, invalid name, or ambiguous) |
+| Category | Meaning                               | Deletion Allowed                                       |
+| -------- | ------------------------------------- | ------------------------------------------------------ |
+| KEEP     | Never delete this branch              | No (protected, active PR, recent, or policy-preserved) |
+| DELETE   | Safe to delete this branch            | Yes (merged and stale beyond threshold)                |
+| DISCUSS  | Requires human review before deletion | No (unmerged but stale, invalid name, or ambiguous)    |
 
 ---
 
@@ -83,16 +83,16 @@ Single branch record in generated report.
 
 ### Fields
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `name` | string | Yes | Branch name |
-| `category` | enum | Yes | KEEP, DELETE, or DISCUSS |
-| `reason` | string | Yes | Categorisation reason |
-| `type` | string | No | Branch type (feat, fix, etc.) |
-| `author` | string | No | Branch author |
-| `ageInDays` | number | No | Age in days |
-| `lastCommitDate` | string | No | ISO8601 timestamp |
-| `mergeStatus` | object | No | Merge state details |
+| Field            | Type   | Required | Description                   |
+| ---------------- | ------ | -------- | ----------------------------- |
+| `name`           | string | Yes      | Branch name                   |
+| `category`       | enum   | Yes      | KEEP, DELETE, or DISCUSS      |
+| `reason`         | string | Yes      | Categorisation reason         |
+| `type`           | string | No       | Branch type (feat, fix, etc.) |
+| `author`         | string | No       | Branch author                 |
+| `ageInDays`      | number | No       | Age in days                   |
+| `lastCommitDate` | string | No       | ISO8601 timestamp             |
+| `mergeStatus`    | object | No       | Merge state details           |
 
 ---
 
@@ -102,22 +102,22 @@ Complete report of categorised branches.
 
 ### Fields
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `timestamp` | ISO8601 string | Yes | Report generation time |
-| `generator` | string | Yes | "cleanup-branches.js v1.0.0" |
-| `stats` | object | Yes | Counts per category (see below) |
-| `branches` | ReportEntry[] | Yes | Array of categorised branches |
-| `summary` | string | No | Human-readable summary |
+| Field       | Type           | Required | Description                     |
+| ----------- | -------------- | -------- | ------------------------------- |
+| `timestamp` | ISO8601 string | Yes      | Report generation time          |
+| `generator` | string         | Yes      | "cleanup-branches.js v1.0.0"    |
+| `stats`     | object         | Yes      | Counts per category (see below) |
+| `branches`  | ReportEntry[]  | Yes      | Array of categorised branches   |
+| `summary`   | string         | No       | Human-readable summary          |
 
 ### Stats Object
 
-| Field | Type | Description |
-|-------|------|-------------|
+| Field           | Type   | Description              |
+| --------------- | ------ | ------------------------ |
 | `totalBranches` | number | Total branches evaluated |
-| `keepCount` | number | Branches marked KEEP |
-| `deleteCount` | number | Branches marked DELETE |
-| `discussCount` | number | Branches marked DISCUSS |
+| `keepCount`     | number | Branches marked KEEP     |
+| `deleteCount`   | number | Branches marked DELETE   |
+| `discussCount`  | number | Branches marked DISCUSS  |
 
 ---
 
@@ -129,6 +129,7 @@ Set of branch names that are never deleted:
 
 - `main`
 - `develop`
+- `production`
 - `master` (legacy support)
 - Any branch matching organisation-specific protected patterns
 
@@ -184,10 +185,10 @@ CleanupReport ◄─1──→ ReportEntry[] (collection)
 ## Constraints & Validation
 
 - **Age Boundary**: Stale threshold is configurable (default: 30 days). Branches with `ageInDays >= threshold` are considered stale.
-- **Merge Detection**: Branch is "merged" if it is ancestor of ANY base branch (develop, main, master).
+- **Merge Detection**: Branch is "merged" if it is an ancestor of either supported base branch (`develop` or `main`).
 - **Name Validation**: All branches must pass 4-part check: (1) no forbidden prefix, (2) has exactly 2 parts separated by `/`, (3) type is allowed, (4) scope-title pattern is valid.
-- **API Fallback**: If GitHub API unavailable, `hasOpenPR` defaults to false (conservative: assume branch can be deleted).
-- **Date Handling**: Invalid ISO8601 dates default to epoch (age = very old), preventing data corruption.
+- **API Fallback**: If the GitHub API is unavailable, open-PR status is unknown. Possible deletion candidates default to DISCUSS (or the run halts) until verification succeeds.
+- **Date Handling**: Invalid ISO8601 dates use age 0 (unknown/recent), so invalid data can never make a branch appear old enough for deletion.
 
 ---
 

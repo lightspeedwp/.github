@@ -13,25 +13,24 @@ node scripts/cleanup-branches.js [options]
 
 ## Command-Line Options
 
-| Option | Type | Default | Description | Example |
-|--------|------|---------|-------------|---------|
-| `--dryRun` | boolean | true | Preview deletions without executing | `--dryRun=false` |
-| `--deleteLocal` | boolean | false | Also delete local branches (remote only by default) | `--deleteLocal` |
-| `--verbose` | boolean | false | Enable debug output | `--verbose` |
-| `--inactiveDays` | number | 30 | Inactivity threshold in days | `--inactiveDays=60` |
-| `--excludePatterns` | string | "release/\|hotfix/" | Pipe-separated regex patterns to preserve | `--excludePatterns="release/.*\|hotfix/.*"` |
-| `--preserveAuthors` | string | "" | Pipe-separated author patterns to preserve | `--preserveAuthors="dependabot\|renovate"` |
-| `--reportFormat` | enum | "markdown" | Output format: `markdown` or `json` | `--reportFormat=json` |
-| `--reportDir` | string | ".github/reports" | Directory to write report | `--reportDir=.github/reports` |
+| Option              | Type    | Default             | Description                                                                                                                                                          | Example                                     |
+| ------------------- | ------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `--dryRun`          | boolean | true                | Preview deletion candidates without executing. Direct `--dryRun=false` runs are rejected; execution belongs to the draft-PR workflow after human approval and merge. | `--dryRun=true`                             |
+| `--deleteLocal`     | boolean | false               | Include local branch inventory in the preview                                                                                                                        | `--deleteLocal`                             |
+| `--verbose`         | boolean | false               | Enable debug output                                                                                                                                                  | `--verbose`                                 |
+| `--inactiveDays`    | number  | 30                  | Inactivity threshold in days                                                                                                                                         | `--inactiveDays=60`                         |
+| `--excludePatterns` | string  | "release/\|hotfix/" | Pipe-separated regex patterns to preserve                                                                                                                            | `--excludePatterns="release/.*\|hotfix/.*"` |
+| `--preserveAuthors` | string  | ""                  | Pipe-separated author patterns to preserve                                                                                                                           | `--preserveAuthors="dependabot\|renovate"`  |
+| `--reportFormat`    | enum    | "markdown"          | Output format: `markdown` or `json`                                                                                                                                  | `--reportFormat=json`                       |
+| `--reportDir`       | string  | ".github/reports"   | Directory to write report                                                                                                                                            | `--reportDir=.github/reports`               |
 
 ## Exit Codes
 
-| Code | Meaning | Conditions |
-|------|---------|-----------|
-| 0 | Success | Categorisation complete, report generated (dry-run or executed) |
-| 1 | Fatal error | Invalid arguments, missing git/gh CLI, cannot read local branches |
-| 2 | Partial failure | Some branches processed, some errors (see report for details) |
-| 127 | Missing dependency | `git` or `gh` CLI not found in PATH |
+| Code | Meaning         | Conditions                                                        |
+| ---- | --------------- | ----------------------------------------------------------------- |
+| 0    | Success         | Categorisation complete and report generated                      |
+| 1    | Fatal error     | Invalid arguments, direct live mode, or repository access failure |
+| 2    | Partial failure | Some branches processed, some errors (see report for details)     |
 
 ## Standard Output
 
@@ -43,20 +42,15 @@ node scripts/cleanup-branches.js [options]
 [HH:MM:SS] ℹ️  Categorising branches...
 [HH:MM:SS] ✅ Dry-run complete: 85 KEEP, 32 DELETE, 10 DISCUSS
 [HH:MM:SS] ℹ️  Report written to: .github/reports/branch-cleanup-2026-09-16T14-30-45.md
-[HH:MM:SS] ℹ️  To execute: node scripts/cleanup-branches.js --dryRun=false
+[HH:MM:SS] ℹ️  Submit deletion candidates through the draft-PR approval workflow
 ```
 
-### Execution Mode
+### Approval-Gated Execution
 
-```
-[HH:MM:SS] ℹ️  Starting branch cleanup...
-[HH:MM:SS] ℹ️  Found 127 branches to evaluate
-[HH:MM:SS] ℹ️  Categorising branches...
-[HH:MM:SS] ✅ Deleted 32 remote branches
-[HH:MM:SS] ⚠️  5 branches failed to delete (see report)
-[HH:MM:SS] ℹ️  Report written to: .github/reports/branch-cleanup-2026-09-16T14-30-45.md
-[HH:MM:SS] ℹ️  Summary: 85 KEEP, 27 DELETED, 10 DISCUSS
-```
+The CLI does not execute remote or local deletion directly. Passing
+`--dryRun=false` is a fatal error (exit code 1). The scheduled/manual workflow
+creates a draft PR containing the reviewed candidates; only human approval and
+merge may trigger the separate deletion step.
 
 ### Verbose Mode
 
@@ -74,15 +68,14 @@ Additional debug output:
 ```
 ❌ Error: 'git' command not found
    Install git: https://git-scm.com/
-   Exit code: 127
+   Exit code: 1
 ```
 
 ### GitHub API Errors
 
 ```
-⚠️  GitHub API unavailable (assuming no open PRs)
-   Continuing with conservative estimate...
-   Affected count: 5 branches
+⚠️  GitHub API unavailable; open-PR verification could not complete
+   Deletion candidates are downgraded to DISCUSS; no deletion can proceed
 ```
 
 ### Invalid Arguments
@@ -111,11 +104,11 @@ Reports are written to `{reportDir}/branch-cleanup-{timestamp}.{format}` where:
 
 ## Summary
 
-| Category | Count | Action |
-|----------|-------|--------|
-| KEEP | 85 | Preserved |
-| DELETE | 32 | Ready for deletion |
-| DISCUSS | 10 | Requires review |
+| Category | Count | Action             |
+| -------- | ----- | ------------------ |
+| KEEP     | 85    | Preserved          |
+| DELETE   | 32    | Ready for deletion |
+| DISCUSS  | 10    | Requires review    |
 
 ## Details
 

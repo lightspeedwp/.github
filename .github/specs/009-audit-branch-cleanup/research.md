@@ -31,7 +31,7 @@ Research phase confirms no NEEDS CLARIFICATION items in the technical context. A
 
 ### Decision: 8-Gate Categorisation Decision Tree
 
-**Choice**: Sequential evaluation gates in strict order: (1) protected, (2) excluded pattern, (3) open PR, (4) invalid name, (5) unmerged stale, (6) age threshold, (7) policy violations, (8) unclear
+**Choice**: Sequential evaluation gates in strict order: (1) protected, (2) excluded pattern, (3) open PR, (4) invalid name, (5) unmerged stale, (6) age threshold, (7) merged recent activity, (8) unclear
 
 **Rationale**:
 
@@ -52,7 +52,7 @@ Research phase confirms no NEEDS CLARIFICATION items in the technical context. A
 
 ### Decision: Git Merge Detection via `git merge-base --is-ancestor`
 
-**Choice**: Use `git merge-base --is-ancestor BASE BRANCH` to detect if branch is merged to base branches (develop, main)
+**Choice**: Use `git merge-base --is-ancestor BRANCH BASE` to detect if branch is merged to base branches (`develop`, `main`)
 
 **Rationale**:
 
@@ -145,7 +145,7 @@ Research phase confirms no NEEDS CLARIFICATION items in the technical context. A
 
 - Default: 5,000 requests/hour per user
 - Optimisation: Single `gh pr list` query for all PRs (not per-branch)
-- Fallback: Graceful degradation if API unavailable
+- Fallback: Fail closed as DISCUSS or halt deletion if API verification is unavailable
 
 ## Summary
 

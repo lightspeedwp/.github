@@ -7,54 +7,49 @@
  * @module scripts/lib/git-merge-utils
  */
 
-import { execSync, spawnSync } from "child_process";
+import { execFileSync, spawnSync } from 'child_process';
 
-function run(cmd) {
+function run(args) {
   try {
-    return execSync(cmd, {
-      encoding: "utf8",
-      stdio: ["pipe", "pipe", "pipe"],
+    return execFileSync('git', args, {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
     }).trim();
   } catch {
-    return "";
+    return '';
   }
 }
 
-function runLines(cmd) {
-  return run(cmd)
-    .split("\n")
+function runLines(args) {
+  return run(args)
+    .split('\n')
     .map((l) => l.trim())
     .filter(Boolean);
 }
 
 function hasRemoteRef(ref) {
-  return (
-    spawnSync("git", ["show-ref", "--verify", "--quiet", `refs/remotes/${ref}`])
-      .status === 0
-  );
+  return spawnSync('git', ['show-ref', '--verify', '--quiet', `refs/remotes/${ref}`]).status === 0;
 }
 
 export function getBaseRef() {
-  if (hasRemoteRef("origin/develop")) return "origin/develop";
-  if (hasRemoteRef("origin/main")) return "origin/main";
-  return "origin/HEAD";
+  if (hasRemoteRef('origin/develop')) return 'origin/develop';
+  if (hasRemoteRef('origin/main')) return 'origin/main';
+  return 'origin/HEAD';
 }
 
 export function getMergeBase(baseRef, branchRef) {
-  return run(`git merge-base ${baseRef} ${branchRef}`);
+  return run(['merge-base', baseRef, branchRef]);
 }
 
 export function isMergedToDevelop(branch) {
   const branchRef = `origin/${branch}`;
-  const developMerged = runLines(
-    "git branch -r --merged origin/develop 2>/dev/null",
-  );
+  const developMerged = runLines(['branch', '-r', '--merged', 'origin/develop']);
   return developMerged.includes(branchRef);
 }
 
 export function isMergedToMain(branch) {
   const branchRef = `origin/${branch}`;
-  const mainMerged = runLines("git branch -r --merged origin/main 2>/dev/null");
+  const mainMerged = runLines(['branch', '-r', '--merged', 'origin/main']);
   return mainMerged.includes(branchRef);
 }
 
@@ -62,13 +57,13 @@ export function getMergeStatus(branch) {
   const mergedToDevelop = isMergedToDevelop(branch);
   const mergedToMain = isMergedToMain(branch);
 
-  let state = "unmerged";
+  let state = 'unmerged';
   if (mergedToDevelop && mergedToMain) {
-    state = "both";
+    state = 'both';
   } else if (mergedToDevelop) {
-    state = "develop";
+    state = 'develop';
   } else if (mergedToMain) {
-    state = "main";
+    state = 'main';
   }
 
   return {
@@ -84,7 +79,7 @@ export function getUniqueCommitCount(branch, baseRef) {
   const mergeBase = getMergeBase(baseRef, branchRef);
   if (!mergeBase) return 0;
 
-  const countStr = run(`git rev-list --count ${mergeBase}..${branchRef}`);
+  const countStr = run(['rev-list', '--count', `${mergeBase}..${branchRef}`]);
   const count = parseInt(countStr.trim(), 10);
   return Number.isNaN(count) ? 0 : count;
 }
