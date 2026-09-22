@@ -347,13 +347,25 @@ jobs:
         id: changes
         run: test "$(git status --porcelain | wc -l)" -gt 0 && echo "has_changes=true" >> "$GITHUB_OUTPUT" || echo "has_changes=false" >> "$GITHUB_OUTPUT"
 
+      - name: Generate GitHub App token
+        # App token (not GITHUB_TOKEN) so the maintenance PR triggers CI and
+        # can satisfy develop's required checks. Requires repo/org secrets:
+        # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        id: app-token
+        if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+
       - name: Create or update maintenance PR
         if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ steps.app-token.outputs.token }}
           branch: chore/docs-maintenance
           base: develop
-          commit-message: 'docs: maintenance updates (Mermaid + staleness) [skip ci]'
+          commit-message: 'docs: maintenance updates (Mermaid + staleness)'
           title: 'docs: maintenance updates (Mermaid + staleness)'
           body: |
             Automated documentation maintenance, Dependabot-style.
