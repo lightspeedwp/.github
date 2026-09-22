@@ -8,42 +8,40 @@
  * @returns {Object} Validation result with valid flag and errors
  */
 
-const FORBIDDEN_PREFIXES = ["claude", "bot", "automated"];
-const ALLOWED_TYPES = [
-  "feat",
-  "fix",
-  "hotfix",
-  "release",
-  "refactor",
-  "chore",
-  "docs",
-  "test",
-  "perf",
-  "ci",
-  "build",
-  "deps",
-  "security",
-  "revert",
-  "research",
-  "design",
-  "a11y",
-  "ux",
-  "i18n",
-  "ops",
-  "proto",
-  "ds",
-  "api",
-  "schema",
-  "telemetry",
-  "content",
-  "seo",
-  "config",
-  "migrate",
-  "qa",
-  "uat",
-  "audit",
-  "codex",
-];
+import { readFileSync } from "node:fs";
+import { load as loadYaml } from "js-yaml";
+
+const BRANCH_POLICY_PATH = new URL(
+  "../../../../../.github/branch-types.yml",
+  import.meta.url,
+);
+
+function loadBranchPolicy() {
+  const policy = loadYaml(readFileSync(BRANCH_POLICY_PATH, "utf8"));
+  const forbiddenPrefixes = policy?.forbidden_prefixes;
+  const allowedTypes = Object.keys(policy?.branch_types ?? {});
+
+  if (
+    !Array.isArray(forbiddenPrefixes) ||
+    forbiddenPrefixes.length === 0 ||
+    forbiddenPrefixes.some((prefix) => typeof prefix !== "string")
+  ) {
+    throw new Error(
+      ".github/branch-types.yml must define non-empty forbidden_prefixes",
+    );
+  }
+
+  if (allowedTypes.length === 0) {
+    throw new Error(
+      ".github/branch-types.yml must define at least one branch_types entry",
+    );
+  }
+
+  return { forbiddenPrefixes, allowedTypes };
+}
+
+const { forbiddenPrefixes: FORBIDDEN_PREFIXES, allowedTypes: ALLOWED_TYPES } =
+  loadBranchPolicy();
 
 const DEFAULT_ALLOWED_TYPES = ALLOWED_TYPES;
 const MAX_LENGTH = 50;

@@ -1,4 +1,4 @@
-import { routePrTemplate } from "../skills/route-pr-template/route-pr-template.js";
+import { routePrTemplate } from "../route-pr-template.js";
 
 describe("routePrTemplate", () => {
   test("returns user override when provided", async () => {

@@ -26,16 +26,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
+
 ### Removed
 
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 
 ### Fixed
 
+- **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
+- **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
+- **Bot Commits via Pull Requests** — Metrics, documentation and maintenance bots now open fixed-branch pull requests instead of pushing to develop; metrics run daily. ([PR #3410](https://github.com/lightspeedwp/.github/pull/3410))
+- **Metrics PR Runs CI via App Token** — The metrics aggregator mints a GitHub App token for its fixed-branch PR and drops `[skip ci]`, so required checks report and the merge queue can take it.
+- **Bot PR Hygiene Pass** — Docs bot PR bodies now carry all required template sections, the docs bot is exempt from the changelog requirement like Dependabot, and both token steps use the modern client-id input.
+- **Compounded Footers Cleanup** — Collapsed 25 duplicated footer blocks in tests/README.md to the single canonical footer (legacy of the pre-fix emphasis-marker mismatch).
 - **gh-fix-ci Repo Access Gate** — Wired the `viewerPermission` read-access check into `inspect_pr_checks.py` so the skill aborts fail-closed for users without read access; added `--skip-access-check` for offline use. (#3406)
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **Changelog Unified Workflow** — Merged the two changelog validators into one changelog-unified.yml; fixed script-injection findings via env passthrough. ([PR #3405](https://github.com/lightspeedwp/.github/pull/3405))
 - **README-Regen Noise Fixed** — The documentation workflow no longer opens or updates the README-regeneration PR when a run produces no content changes; metrics-only runs are detected and skipped. ([PR #3429](https://github.com/lightspeedwp/.github/pull/3429))
+- **PR Agent Branch-Validation Prefix Lists** — `validate-branch-name`'s forbidden-prefix list (`claude/bot/automated` → `claude/copilot/openai`) and allowed-type list (added `task`, `doc`, `aiops`, `automation`, `epic`) now match `docs/BRANCHING_STRATEGY.md` exactly, with new test coverage for both. ([PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
@@ -48,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch Validation Metrics Aggregator Modernisation** — Moved the aggregator to Node 24 actions with run-scoped artifact downloads and a fixed metrics commit condition. ([PR #3377](https://github.com/lightspeedwp/.github/pull/3377))
 - **PR Template Check Uses Live Body** — The template verification now fetches the current PR body via the API instead of the stale event snapshot, and body edits retrigger the check. ([PR #3431](https://github.com/lightspeedwp/.github/pull/3431))
 - **Bot Branch Validation Exemption** — The runtime branch validator now exempts dependabot/renovate branches, mirroring the canonical validator. ([PR #3432](https://github.com/lightspeedwp/.github/pull/3432))
+- **Test README Cross-Reference** — Added the broken-reference remediation guide to the test documentation index. ([PR #3440](https://github.com/lightspeedwp/.github/pull/3440))
 - **Branch Validator `config` Type** — Added the documented `config` type to the authorised validator list. (#3304)
 
 - **Test Runner Working Directory Fixed** — Fixed shared worker state leaking the filesystem root into later test files. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))

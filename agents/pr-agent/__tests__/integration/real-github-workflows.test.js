@@ -2,10 +2,10 @@
 // Test complete end-to-end workflows
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
-import { validateBranchName } from "../../skills/validate-branch-name/validate-branch-name.js";
-import { routePrTemplate } from "../../skills/route-pr-template/route-pr-template.js";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/validate-and-apply-labels.js";
-import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation/orchestrate-pr-creation.js";
+import { validateBranchName } from "../../skills/validate-branch-name/scripts/validate-branch-name.js";
+import { routePrTemplate } from "../../skills/route-pr-template/scripts/route-pr-template.js";
+import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js";
+import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js";
 import { MockGitHub, createMockConfig } from "./setup.js";
 
 describe("Category E: Real GitHub Workflows", () => {
@@ -19,7 +19,7 @@ describe("Category E: Real GitHub Workflows", () => {
 
   test("Test E1: Feature Branch Complete Workflow → All 4 skills succeed", async () => {
     const branchName = "feat/new-dashboard";
-    const labels = ["type:feature"];
+    const labels = ["type:feature", "meta:no-changelog"];
 
     // Validate branch
     const branchValidation = await validateBranchName({ branchName, config });
@@ -59,7 +59,7 @@ describe("Category E: Real GitHub Workflows", () => {
 
   test("Test E2: Bug Fix Workflow → Branch validation → bug template → labels → PR", async () => {
     const branchName = "fix/invalid-validation";
-    const labels = ["type:bug", "priority:critical"];
+    const labels = ["type:bug", "priority:critical", "meta:needs-changelog"];
 
     const branchValidation = await validateBranchName({ branchName, config });
     expect(branchValidation.valid).toBe(true);
@@ -78,7 +78,7 @@ describe("Category E: Real GitHub Workflows", () => {
 
   test("Test E3: Documentation Update → docs/ → docs template → minimal labels", async () => {
     const branchName = "docs/branching-guide";
-    const labels = ["type:docs"];
+    const labels = ["type:docs", "meta:no-changelog"];
 
     const branchValidation = await validateBranchName({ branchName, config });
     expect(branchValidation.valid).toBe(true);
@@ -92,7 +92,7 @@ describe("Category E: Real GitHub Workflows", () => {
       mockGitHub: mockGitHub.issues,
     });
     expect(labelValidation.valid).toBe(true);
-    expect(labelValidation.appliedLabels.length).toBe(1);
+    expect(labelValidation.appliedLabels.length).toBe(2);
   });
 
   test("Test E4: Chore/Dependency Update → chore/ → chore template → meta labels", async () => {

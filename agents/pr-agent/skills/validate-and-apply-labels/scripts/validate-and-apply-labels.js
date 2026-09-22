@@ -35,7 +35,11 @@ const CANONICAL_LABELS = {
   "area:a11y": 2,
   "meta:needs-more-info": 3,
   "meta:ready-for-review": 3,
+  "meta:needs-changelog": 3,
+  "meta:no-changelog": 3,
 };
+
+const CHANGELOG_DECISION_LABELS = ["meta:needs-changelog", "meta:no-changelog"];
 
 // Default branch type to label mapping (30+ branch types)
 const BRANCH_TYPE_LABELS = {
@@ -146,10 +150,16 @@ export async function validateAndApplyLabels(input) {
       mappedLabels.push("meta:ready-for-review");
     }
 
+    // Combine caller-supplied labels (e.g. the changelog-decision label) with
+    // the branch-type-mapped labels before validating -- a branch-mapped call
+    // must still carry exactly one changelog-decision label (SKILL.md's
+    // documented contract), which the mapping alone never provides.
+    const combinedLabels = [...mappedLabels, ...labels];
+
     // Deduplicate labels
     const seenLabels = new Set();
     const deduplicatedLabels = [];
-    for (const label of mappedLabels) {
+    for (const label of combinedLabels) {
       if (!seenLabels.has(label)) {
         deduplicatedLabels.push(label);
         seenLabels.add(label);
@@ -188,6 +198,21 @@ export async function validateAndApplyLabels(input) {
       }
     }
 
+    // A branch-mapped call must carry exactly one changelog-decision label,
+    // same as a direct label-validation call.
+    const changelogDecisionLabels = deduplicatedLabels.filter((label) =>
+      CHANGELOG_DECISION_LABELS.includes(label),
+    );
+    if (changelogDecisionLabels.length === 0) {
+      validationErrors.push(
+        "Exactly one changelog-decision label (meta:needs-changelog or meta:no-changelog) is required",
+      );
+    } else if (changelogDecisionLabels.length > 1) {
+      validationErrors.push(
+        "Only one changelog-decision label is allowed, found multiple",
+      );
+    }
+
     const isValid = validationErrors.length === 0 && mappedLabels.length > 0;
 
     // Separate context labels from type labels
@@ -203,24 +228,12 @@ export async function validateAndApplyLabels(input) {
       templateFile,
       validationErrors,
       warnings,
-      deduplicatedCount: mappedLabels.length - deduplicatedLabels.length,
+      deduplicatedCount: combinedLabels.length - deduplicatedLabels.length,
       metadata: {
         typeLabels,
         contextLabels,
         totalLabels: deduplicatedLabels.length,
       },
-    };
-  }
-
-  // If no labels provided, that's valid (no labels required)
-  if (!labels || labels.length === 0) {
-    return {
-      valid: true,
-      appliedLabels: [],
-      errors: [],
-      deduplicatedCount: 0,
-      validationErrors: [],
-      warnings: [],
     };
   }
 
@@ -245,15 +258,8 @@ export async function validateAndApplyLabels(input) {
       continue;
     }
 
-    // Check if label is canonical or has valid prefix format
-    let isValid = false;
-    if (CANONICAL_LABELS[label]) {
-      isValid = true;
-    } else if (label.match(/^[a-z]+:[a-z0-9-]+$/)) {
-      isValid = true;
-    }
-
-    if (!isValid) {
+    // A valid prefix is not enough: the label must be canonical.
+    if (!CANONICAL_LABELS[label]) {
       errors.push("non-canonical-label");
       invalidLabels.push(label);
       continue;
@@ -272,6 +278,15 @@ export async function validateAndApplyLabels(input) {
         labels: appliedInFamily,
       });
     }
+  }
+
+  const changelogDecisionLabels = validLabels.filter((label) =>
+    CHANGELOG_DECISION_LABELS.includes(label),
+  );
+  if (changelogDecisionLabels.length === 0) {
+    errors.push("missing-changelog-decision-label");
+  } else if (changelogDecisionLabels.length > 1) {
+    errors.push("multiple-changelog-decision-labels");
   }
 
   // Sort labels by priority (lower priority number = higher priority)

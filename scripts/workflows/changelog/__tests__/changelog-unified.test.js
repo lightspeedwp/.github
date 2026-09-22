@@ -308,6 +308,17 @@ describe('require-gate inline script', () => {
     expect(result.core.setFailed).not.toHaveBeenCalled();
   });
 
+  test('skips validation for docs-bot normalization PRs', async () => {
+    const result = await runGithubScript(gateScript, {
+      changedFiles: ['docs/guide.md'],
+      context: contextWith({ author: 'app/lightspeed-docs-bot' }),
+    });
+
+    expect(outputValue(result.core, 'run_validation')).toBe('false');
+    expect(result.core.setFailed).not.toHaveBeenCalled();
+    expect(result.childProcess.execSync).not.toHaveBeenCalled();
+  });
+
   test('allows an explicit skip for a non-restricted change', async () => {
     const result = await runGithubScript(gateScript, {
       changedFiles: ['docs/guide.md'],

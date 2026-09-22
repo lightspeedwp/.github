@@ -58,6 +58,15 @@ jobs:
               return;
             }
 
+            // Automated docs-maintenance bots open fixed-branch normalization
+            // PRs with no user-facing content; requiring a changelog entry on
+            // every run would spam release notes. Same precedent as Dependabot.
+            if (author === "app/lightspeed-docs-bot") {
+              core.info("Skipping changelog requirement for docs-bot pull requests.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
+
             if (has("meta:needs-changelog") && has("meta:no-changelog")) {
               core.setFailed("PR cannot include both meta:needs-changelog and meta:no-changelog.");
               return;

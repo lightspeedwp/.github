@@ -56,6 +56,8 @@ jobs:
           # pr-template-routing.yml pass branch-derived data via env, not
           # inline expansion, and are linted.
           ./actionlint -shellcheck="$(command -v shellcheck || true)" \
+            -ignore 'missing input "app-id" which is required by action "actions/create-github-app-token@v3"' \
+            -ignore 'input "client-id" is not defined in action "actions/create-github-app-token@v3"' \
             .github/workflows/branch-name-validation.yml \
             .github/workflows/branch-validation-metrics-aggregator.yml \
             .github/workflows/changelog-unified.yml \
