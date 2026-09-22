@@ -68,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Agent Linting Upgraded to Version 10** — Moved agent linting to the flat config format on Node 24. (#3326)
 
 - **Validation Audit Specification Added** — Added the quality audit specification with duplicate detection. (#3348)
+- **Branch Naming Strategy Constitution Alignment** — Aligned all branch naming artifacts to 38 authorised types. ([PR #3351](https://github.com/lightspeedwp/.github/pull/3351))
 
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
