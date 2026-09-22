@@ -1,14 +1,19 @@
 # Branch Type to PR Template Mapping
 #
-# Single source of truth for routing branch types to PR templates.
-# This configuration is used by GitHub Actions workflows to automatically
-# select the correct PR template based on the branch type.
+# Single source of truth for allowed and forbidden branch types and for routing
+# allowed branch types to PR templates. This configuration is consumed by
+# branch validation and GitHub Actions workflows.
 #
 # Format: Each type maps to a PR template filename (without .md extension)
 # All referenced templates must exist in .github/PULL_REQUEST_TEMPLATE/
 #
 # Validation: Verified against actual templates in .github/PULL_REQUEST_TEMPLATE/
 # Last verified: 2026-09-18 (19 templates, 38 types covered)
+
+forbidden_prefixes:
+  - claude
+  - copilot
+  - openai
 
 branch_types:
   # Feature & Task Types
