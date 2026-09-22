@@ -186,8 +186,10 @@ describe('changelog unified workflow contract', () => {
   test('limits elevated permissions to feedback and merged-entry synchronisation', () => {
     expect(workflow.permissions).toEqual({
       contents: 'read',
+    });
+    expect(workflow.jobs.quality.permissions).toEqual({
+      contents: 'read',
       'pull-requests': 'write',
-      checks: 'write',
     });
     expect(workflow.jobs.sync.permissions).toEqual({
       contents: 'write',

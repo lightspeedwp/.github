@@ -23,8 +23,6 @@ concurrency:
 
 permissions:
   contents: read
-  pull-requests: write
-  checks: write
 
 jobs:
   require-gate:
@@ -146,6 +144,9 @@ jobs:
     if: ${{ !cancelled() && needs.require-gate.outputs.run_validation == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
