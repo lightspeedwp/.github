@@ -4,7 +4,9 @@
   "enforcement": "active",
   "conditions": {
     "ref_name": {
-      "include": ["refs/heads/develop"],
+      "include": [
+        "refs/heads/develop"
+      ],
       "exclude": []
     }
   },
@@ -31,23 +33,15 @@
         "strict_required_status_checks_policy": true,
         "required_status_checks": [
           {
-            "context": "Validate PR Template / validate-pr-template"
+            "context": "Route PR template and apply labels"
           },
           {
-            "context": "CI • Unified Checks (Lint, Test, Validate) / All Checks Passed"
+            "context": "Validate changelog on PR"
+          },
+          {
+            "context": "actionlint"
           }
         ]
-      }
-    },
-    {
-      "type": "merge_queue",
-      "parameters": {
-        "check_response_timeout_minutes": 60,
-        "grouping_strategy": "ALLGREEN",
-        "max_entries_to_build": 5,
-        "max_entries_to_merge": 5,
-        "min_entries_to_merge": 1,
-        "min_entries_to_merge_wait_minutes": 0
       }
     }
   ],

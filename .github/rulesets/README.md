@@ -31,9 +31,11 @@ This directory contains version-controlled JSON definitions of the GitHub reposi
   - Deletion blocked
   - Non-fast-forward merges (force pushes) blocked
   - Pull request required before merging (1 approval, dismiss stale approvals, resolve conversations, respect Code Owners)
-  - Required status checks:
-    - `Validate PR Template / validate-pr-template`
-    - `CI • Unified Checks (Lint, Test, Validate) / All Checks Passed`
+  - Required status checks (live check-run names, verified 2026-09-22):
+    - `Route PR template and apply labels`
+    - `Validate changelog on PR`
+    - `actionlint`
+- **Not enforced:** no merge-queue rule — the repo merges directly and via Mergify, not the GitHub merge queue. No bypass actors.
 
 ### 2. `main` Branch Ruleset ([main.ruleset.json](./main.ruleset.json))
 
