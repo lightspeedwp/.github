@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Bot Commits via Pull Requests** — Metrics, documentation and maintenance bots now open fixed-branch pull requests instead of pushing to develop; metrics run daily. ([PR #3410](https://github.com/lightspeedwp/.github/pull/3410))
+- **Metrics PR Runs CI via App Token** — The metrics aggregator mints a GitHub App token for its fixed-branch PR and drops `[skip ci]`, so required checks report and the merge queue can take it.
 - **gh-fix-ci Repo Access Gate** — Wired the `viewerPermission` read-access check into `inspect_pr_checks.py` so the skill aborts fail-closed for users without read access; added `--skip-access-check` for offline use. (#3406)
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **README-Regen Noise Fixed** — The documentation workflow no longer opens or updates the README-regeneration PR when a run produces no content changes; metrics-only runs are detected and skipped. ([PR #3429](https://github.com/lightspeedwp/.github/pull/3429))
