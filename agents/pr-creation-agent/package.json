@@ -33,7 +33,7 @@
     "directory": "agents/pr-creation-agent"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.5",
+    "@babel/core": "^8.0.6",
     "@babel/preset-env": "^7.23.0",
     "@eslint/js": "^10.0.1",
     "@jest/globals": "^30.4.1",
