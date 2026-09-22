@@ -15,7 +15,7 @@ After `validate-branch-name` and `route-pr-template`, once the PR's title, body,
 
 ```js
 {
-  pr: object,                     // { title, body, head, base, labels }
+  pr: object,                     // { owner, repo, title, body, head, base, labels }
   aiFeedback: array,              // optional: AI review feedback
   triggerWorkflow: boolean,       // optional
   createFeedbackResponse: boolean, // optional
@@ -30,8 +30,22 @@ After `validate-branch-name` and `route-pr-template`, once the PR's title, body,
 
 ## Output
 
+Failures return a single error:
+
 ```js
-{ success: boolean, pr: object, errors: string[] }
+{ success: false, error: string }
+```
+
+Successes return the assembled PR and orchestration metadata:
+
+```js
+{
+  success: true,
+  pr: object,
+  frontmatter: object | null,
+  feedbackResponseCreated: boolean,
+  workflowRequested: boolean,
+}
 ```
 
 ## Usage
@@ -39,5 +53,7 @@ After `validate-branch-name` and `route-pr-template`, once the PR's title, body,
 ```js
 import { orchestratePrCreation } from "./scripts/orchestrate-pr-creation.js";
 
-const result = await orchestratePrCreation({ pr: { title, body, head, base, labels } });
+const result = await orchestratePrCreation({
+  pr: { owner, repo, title, body, head, base, labels },
+});
 ```

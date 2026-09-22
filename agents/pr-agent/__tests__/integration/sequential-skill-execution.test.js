@@ -37,7 +37,7 @@ describe("Category A: Sequential Skill Execution", () => {
     expect(templateRoute.routed).toBe(true);
 
     // Step 3: Validate labels
-    const labels = ["type:feature"];
+    const labels = ["type:feature", "meta:no-changelog"];
     const labelValidation = await validateAndApplyLabels({
       labels,
       config,
@@ -117,7 +117,7 @@ describe("Category A: Sequential Skill Execution", () => {
   });
 
   test("Test A6: Mixed Label Scenarios → Multiple labels applied correctly", async () => {
-    const labels = ["type:feature", "area:agents"];
+    const labels = ["type:feature", "area:agents", "meta:no-changelog"];
 
     const result = await validateAndApplyLabels({
       labels,
@@ -146,7 +146,7 @@ describe("Category A: Sequential Skill Execution", () => {
 
   test("Test A8: Complete Feature Workflow → feat/ branch full pipeline", async () => {
     const branchName = "feat/new-feature";
-    const labels = ["type:feature"];
+    const labels = ["type:feature", "meta:no-changelog"];
 
     // Full workflow validation
     const branchValidation = await validateBranchName({

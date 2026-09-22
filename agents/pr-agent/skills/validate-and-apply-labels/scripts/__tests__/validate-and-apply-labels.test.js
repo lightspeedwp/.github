@@ -48,6 +48,46 @@ describe("validateAndApplyLabels", () => {
     });
   });
 
+  describe("Direct Label Validation", () => {
+    test("should accept canonical labels with one changelog decision", async () => {
+      const result = await validateAndApplyLabels({
+        labels: ["type:feature", "meta:no-changelog"],
+      });
+
+      expect(result.valid).toBe(true);
+      expect(result.appliedLabels).toEqual([
+        "type:feature",
+        "meta:no-changelog",
+      ]);
+    });
+
+    test("should reject a format-matching non-canonical label", async () => {
+      const result = await validateAndApplyLabels({
+        labels: ["type:feature", "custom:value", "meta:no-changelog"],
+      });
+
+      expect(result.valid).toBe(false);
+      expect(result.errors).toContain("non-canonical-label");
+      expect(result.invalidLabels).toContain("custom:value");
+    });
+
+    test("should reject labels without a changelog decision", async () => {
+      const result = await validateAndApplyLabels({ labels: ["type:feature"] });
+
+      expect(result.valid).toBe(false);
+      expect(result.errors).toContain("missing-changelog-decision-label");
+    });
+
+    test("should reject multiple changelog decisions", async () => {
+      const result = await validateAndApplyLabels({
+        labels: ["type:feature", "meta:needs-changelog", "meta:no-changelog"],
+      });
+
+      expect(result.valid).toBe(false);
+      expect(result.errors).toContain("multiple-changelog-decision-labels");
+    });
+  });
+
   describe("Branch Type Label Mapping", () => {
     test("should map feat to type:feature", async () => {
       const result = await validateAndApplyLabels({
