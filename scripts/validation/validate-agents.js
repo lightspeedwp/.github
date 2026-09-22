@@ -11,27 +11,27 @@
  * @see agents/agent.md
  */
 
-import fs from "fs";
-import path from "path";
-import Ajv from "ajv";
-import addFormats from "ajv-formats";
-import { load } from "js-yaml";
-import { fileURLToPath } from "url";
-import { globSync } from "glob";
+import fs from 'fs';
+import path from 'path';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
+import { load } from 'js-yaml';
+import { fileURLToPath } from 'url';
+import { globSync } from 'glob';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPO_ROOT = path.join(__dirname, "../..");
+const REPO_ROOT = path.join(__dirname, '../..');
 const AGENT_DIRS = [
-  path.join(REPO_ROOT, "agents"),
-  path.join(REPO_ROOT, ".github", "agents"),
+  path.join(REPO_ROOT, 'agents'),
+  path.join(REPO_ROOT, '.github', 'agents'),
 ].filter((dir) => fs.existsSync(dir));
 const SCHEMAS_DIR = path.join(REPO_ROOT, ".schemas");
 
 // Configuration
 const args = process.argv.slice(2);
-const targetAgent = args.find((a) => !a.startsWith("--"));
-const outputJson = args.includes("--json");
-const verbose = args.includes("--verbose");
+const targetAgent = args.find((a) => !a.startsWith('--'));
+const outputJson = args.includes('--json');
+const verbose = args.includes('--verbose');
 
 // Initialize Ajv validator
 const ajv = new Ajv({ allErrors: true, strict: false });
@@ -53,7 +53,7 @@ const results = {
  */
 function loadSchema(schemaPath) {
   try {
-    const content = fs.readFileSync(schemaPath, "utf-8");
+    const content = fs.readFileSync(schemaPath, 'utf-8');
     return JSON.parse(content);
   } catch (err) {
     console.error(`Failed to load schema: ${schemaPath}`);
@@ -82,14 +82,14 @@ function extractFrontmatter(content) {
  */
 function validateAgent(filePath) {
   const fileName = path.basename(filePath);
-  const agentName = fileName.replace(/\.agent\.md$/, "").replace(/\.md$/, "");
+  const agentName = fileName.replace(/\.agent\.md$/, '').replace(/\.md$/, '');
 
   results.total++;
 
   // Read file
   let content;
   try {
-    content = fs.readFileSync(filePath, "utf-8");
+    content = fs.readFileSync(filePath, 'utf-8');
   } catch (err) {
     results.invalid++;
     results.errors.push(`[${agentName}] Cannot read file: ${err.message}`);
@@ -104,7 +104,7 @@ function validateAgent(filePath) {
     results.errors.push(`[${agentName}] No frontmatter found`);
     results.agents[agentName] = {
       valid: false,
-      errors: ["No frontmatter found"],
+      errors: ['No frontmatter found'],
     };
     return;
   }
@@ -116,7 +116,7 @@ function validateAgent(filePath) {
     return;
   }
 
-  if (frontmatter.file_type && frontmatter.file_type !== "agent") {
+  if (frontmatter.file_type && frontmatter.file_type !== 'agent') {
     results.skipped++;
     results.agents[agentName] = {
       valid: true,
@@ -129,7 +129,7 @@ function validateAgent(filePath) {
   }
 
   // Validate against schema
-  const schema = loadSchema(path.join(SCHEMAS_DIR, "frontmatter.schema.json"));
+  const schema = loadSchema(path.join(SCHEMAS_DIR, 'frontmatter.schema.json'));
   const validate = ajv.compile(schema);
   const valid = validate(frontmatter);
 
@@ -142,11 +142,9 @@ function validateAgent(filePath) {
 
   if (!valid) {
     results.invalid++;
-    agentResult.errors = validate.errors.map(
-      (e) => `${e.dataPath || "root"}: ${e.message}`,
-    );
+    agentResult.errors = validate.errors.map((e) => `${e.dataPath || 'root'}: ${e.message}`);
     results.errors.push(
-      `[${agentName}] Schema validation failed: ${agentResult.errors.join("; ")}`,
+      `[${agentName}] Schema validation failed: ${agentResult.errors.join('; ')}`
     );
   } else {
     results.valid++;
@@ -168,36 +166,36 @@ function validateAgent(filePath) {
  */
 function validateTools(agentName, frontmatter, result) {
   if (!frontmatter.tools) {
-    result.warnings.push("No tools specified (will default to all available)");
+    result.warnings.push('No tools specified (will default to all available)');
     return;
   }
 
   const validTools = [
-    "shell",
-    "bash",
-    "powershell",
-    "read",
-    "edit",
-    "write",
-    "search",
-    "grep",
-    "glob",
-    "custom-agent",
-    "task",
-    "web",
-    "websearch",
-    "webfetch",
-    "todo",
-    "todowrite",
+    'shell',
+    'bash',
+    'powershell',
+    'read',
+    'edit',
+    'write',
+    'search',
+    'grep',
+    'glob',
+    'custom-agent',
+    'task',
+    'web',
+    'websearch',
+    'webfetch',
+    'todo',
+    'todowrite',
   ];
 
-  if (typeof frontmatter.tools === "string") {
-    if (frontmatter.tools !== "*") {
+  if (typeof frontmatter.tools === 'string') {
+    if (frontmatter.tools !== '*') {
       result.warnings.push(`Invalid tool string: ${frontmatter.tools}`);
     }
   } else if (Array.isArray(frontmatter.tools)) {
     for (const tool of frontmatter.tools) {
-      if (!validTools.includes(tool) && !tool.includes("/") && tool !== "*") {
+      if (!validTools.includes(tool) && !tool.includes('/') && tool !== '*') {
         result.warnings.push(`Unknown tool: ${tool}`);
       }
     }
@@ -214,7 +212,7 @@ function validateHandoffs(agentName, frontmatter, result) {
 
   for (const handoff of frontmatter.handoffs) {
     if (!handoff.agent) {
-      result.errors.push("Handoff missing agent name");
+      result.errors.push('Handoff missing agent name');
       continue;
     }
 
@@ -257,7 +255,7 @@ function findAgentFiles() {
     return [agentFile];
   }
 
-  return AGENT_DIRS.flatMap((dir) => globSync(path.join(dir, "*.agent.md")));
+  return AGENT_DIRS.flatMap((dir) => globSync(path.join(dir, '*.agent.md')));
 }
 
 /**
@@ -272,13 +270,9 @@ function generateReport() {
     return;
   }
 
-  console.log(
-    "\n╔════════════════════════════════════════════════════════════╗",
-  );
-  console.log("║         Agent Frontmatter Validation Report               ║");
-  console.log(
-    "╚════════════════════════════════════════════════════════════╝\n",
-  );
+  console.log('\n╔════════════════════════════════════════════════════════════╗');
+  console.log('║         Agent Frontmatter Validation Report               ║');
+  console.log('╚════════════════════════════════════════════════════════════╝\n');
 
   console.log(`Total agents:    ${results.total}`);
   console.log(`Valid:           ${results.valid} ✓`);
@@ -287,14 +281,14 @@ function generateReport() {
   console.log(`Warnings:        ${results.warnings} ⚠`);
 
   if (results.errors.length > 0) {
-    console.log("\n📋 ERRORS:\n");
+    console.log('\n📋 ERRORS:\n');
     results.errors.forEach((err) => console.log(`  • ${err}`));
   }
 
   if (!outputJson) {
-    console.log("\n📊 AGENT DETAILS:\n");
+    console.log('\n📊 AGENT DETAILS:\n');
     for (const [agentName, agentResult] of Object.entries(results.agents)) {
-      const status = agentResult.valid ? "✓ VALID" : "✗ INVALID";
+      const status = agentResult.valid ? '✓ VALID' : '✗ INVALID';
       console.log(`  ${agentName}: ${status}`);
 
       if (verbose && agentResult.errors.length > 0) {
@@ -307,7 +301,7 @@ function generateReport() {
     }
   }
 
-  console.log("\n");
+  console.log('\n');
 
   // Exit with appropriate code
   if (results.invalid > 0) {
@@ -320,13 +314,13 @@ function generateReport() {
  */
 function main() {
   if (verbose) {
-    console.log(`Validating agents in: ${AGENT_DIRS.join(", ")}\n`);
+    console.log(`Validating agents in: ${AGENT_DIRS.join(', ')}\n`);
   }
 
   const agentFiles = findAgentFiles();
 
   if (agentFiles.length === 0) {
-    console.error("No agent files found");
+    console.error('No agent files found');
     process.exit(1);
   }
 

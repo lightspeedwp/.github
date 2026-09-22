@@ -29,24 +29,24 @@
  * @license GPL-3.0-or-later
  */
 
-const fs = require("fs");
-const path = require("path");
-const { globSync } = require("glob");
-const Ajv = require("ajv");
-const addFormats = require("ajv-formats");
-const prettier = require("prettier");
+const fs = require('fs');
+const path = require('path');
+const { globSync } = require('glob');
+const Ajv = require('ajv');
+const addFormats = require('ajv-formats');
+const prettier = require('prettier');
 
 // Configuration
 const config = {
-  glob: "**/*.json",
+  glob: '**/*.json',
   schema: null,
-  spec: "draft2020",
+  spec: 'draft2020',
   formatOnly: false,
   validateOnly: false,
   readOnly: false,
   strict: false,
-  reportDir: "./reports",
-  errorsFormat: "text",
+  reportDir: './reports',
+  errorsFormat: 'text',
   verbose: false,
 };
 
@@ -56,38 +56,38 @@ function parseArgs() {
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
     switch (arg) {
-      case "--glob":
+      case '--glob':
         config.glob = args[++i];
         break;
-      case "--schema":
+      case '--schema':
         config.schema = args[++i];
         break;
-      case "--spec":
+      case '--spec':
         config.spec = args[++i];
         break;
-      case "--format-only":
+      case '--format-only':
         config.formatOnly = true;
         break;
-      case "--validate-only":
+      case '--validate-only':
         config.validateOnly = true;
         break;
-      case "--read-only":
+      case '--read-only':
         config.readOnly = true;
         break;
-      case "--strict":
+      case '--strict':
         config.strict = true;
         break;
-      case "--report-dir":
+      case '--report-dir':
         config.reportDir = args[++i];
         break;
-      case "--errors":
+      case '--errors':
         config.errorsFormat = args[++i];
         break;
-      case "--verbose":
+      case '--verbose':
         config.verbose = true;
         break;
-      case "--help":
-      case "-h":
+      case '--help':
+      case '-h':
         printHelp();
         process.exit(0);
         break;
@@ -156,12 +156,7 @@ function findJsonFiles() {
   log.debug(`Searching for files matching: ${config.glob}`);
 
   const files = globSync(config.glob, {
-    ignore: [
-      "**/node_modules/**",
-      "**/package-lock.json",
-      "**/reports/**",
-      "**/.git/**",
-    ],
+    ignore: ['**/node_modules/**', '**/package-lock.json', '**/reports/**', '**/.git/**'],
   });
 
   log.info(`Found ${files.length} JSON file(s)`);
@@ -171,29 +166,29 @@ function findJsonFiles() {
 // Format JSON files with Prettier
 async function formatFiles(files) {
   if (config.validateOnly) {
-    log.debug("Skipping formatting (validate-only mode)");
+    log.debug('Skipping formatting (validate-only mode)');
     return { formatted: 0, skipped: files.length };
   }
 
-  log.info("Formatting JSON files with Prettier...");
+  log.info('Formatting JSON files with Prettier...');
 
   let formatted = 0;
   let needsFormatting = 0;
   const prettierOptions = {
-    parser: "json",
+    parser: 'json',
     tabWidth: 2,
     useTabs: false,
   };
 
   try {
     for (const file of files) {
-      const content = fs.readFileSync(file, "utf8");
+      const content = fs.readFileSync(file, 'utf8');
       const formattedContent = await prettier.format(content, prettierOptions);
 
       if (content !== formattedContent) {
         needsFormatting++;
         if (!config.readOnly) {
-          fs.writeFileSync(file, formattedContent, "utf8");
+          fs.writeFileSync(file, formattedContent, 'utf8');
           formatted++;
           log.debug(`Formatted: ${file}`);
         } else {
@@ -218,18 +213,18 @@ async function formatFiles(files) {
 // Validate syntax with JSONLint
 function validateSyntax(files) {
   if (!config.strict) {
-    log.debug("Skipping strict syntax check (use --strict to enable)");
+    log.debug('Skipping strict syntax check (use --strict to enable)');
     return { valid: files.length, invalid: 0 };
   }
 
-  log.info("Validating JSON syntax with JSONLint...");
+  log.info('Validating JSON syntax with JSONLint...');
 
   let invalid = 0;
   const errors = [];
 
   for (const file of files) {
     try {
-      const content = fs.readFileSync(file, "utf8");
+      const content = fs.readFileSync(file, 'utf8');
       JSON.parse(content);
       log.debug(`✓ ${file}`);
     } catch (error) {
@@ -241,9 +236,9 @@ function validateSyntax(files) {
   }
 
   if (invalid > 0) {
-    const reportFile = path.join(config.reportDir, "jsonlint.log");
+    const reportFile = path.join(config.reportDir, 'jsonlint.log');
     ensureReportDir();
-    fs.writeFileSync(reportFile, errors.join("\n"));
+    fs.writeFileSync(reportFile, errors.join('\n'));
     log.info(`Syntax errors written to: ${reportFile}`);
   }
 
@@ -253,12 +248,12 @@ function validateSyntax(files) {
 // Validate against JSON Schema with Ajv
 async function validateSchema(files) {
   if (!config.schema) {
-    log.debug("No schema provided, skipping schema validation");
+    log.debug('No schema provided, skipping schema validation');
     return { valid: files.length, invalid: 0, errors: [] };
   }
 
   if (config.formatOnly) {
-    log.debug("Skipping schema validation (format-only mode)");
+    log.debug('Skipping schema validation (format-only mode)');
     return { valid: files.length, invalid: 0, errors: [] };
   }
 
@@ -266,7 +261,7 @@ async function validateSchema(files) {
 
   let schema;
   try {
-    const schemaContent = fs.readFileSync(config.schema, "utf8");
+    const schemaContent = fs.readFileSync(config.schema, 'utf8');
     schema = JSON.parse(schemaContent);
   } catch (error) {
     log.error(`Failed to load schema: ${error.message}`);
@@ -279,7 +274,7 @@ async function validateSchema(files) {
     strict: false,
   };
 
-  if (config.spec === "jtd") {
+  if (config.spec === 'jtd') {
     ajvOptions.jtd = true;
   }
 
@@ -299,7 +294,7 @@ async function validateSchema(files) {
 
   for (const file of files) {
     try {
-      const content = fs.readFileSync(file, "utf8");
+      const content = fs.readFileSync(file, 'utf8');
       const data = JSON.parse(content);
 
       const valid = validate(data);
@@ -307,7 +302,7 @@ async function validateSchema(files) {
       if (!valid) {
         invalid++;
         const fileErrors = validate.errors.map((err) => {
-          const jsonPath = err.instancePath || "$";
+          const jsonPath = err.instancePath || '$';
           return {
             file,
             path: jsonPath,
@@ -330,10 +325,10 @@ async function validateSchema(files) {
       invalid++;
       allErrors.push({
         file,
-        path: "$",
-        keyword: "parse",
+        path: '$',
+        keyword: 'parse',
         message: error.message,
-        params: "{}",
+        params: '{}',
       });
       log.error(`FAIL ${file} → Parse error: ${error.message}`);
     }
@@ -342,17 +337,15 @@ async function validateSchema(files) {
   if (invalid > 0) {
     ensureReportDir();
 
-    if (config.errorsFormat === "json") {
-      const reportFile = path.join(config.reportDir, "ajv-errors.json");
+    if (config.errorsFormat === 'json') {
+      const reportFile = path.join(config.reportDir, 'ajv-errors.json');
       fs.writeFileSync(reportFile, JSON.stringify(allErrors, null, 2));
       log.info(`Validation errors written to: ${reportFile}`);
     } else {
-      const reportFile = path.join(config.reportDir, "ajv-errors.txt");
+      const reportFile = path.join(config.reportDir, 'ajv-errors.txt');
       const errorText = allErrors
-        .map(
-          (err) => `${err.file} → ${err.path}: ${err.message} (${err.keyword})`,
-        )
-        .join("\n");
+        .map((err) => `${err.file} → ${err.path}: ${err.message} (${err.keyword})`)
+        .join('\n');
       fs.writeFileSync(reportFile, errorText);
       log.info(`Validation errors written to: ${reportFile}`);
     }
@@ -363,34 +356,32 @@ async function validateSchema(files) {
 
 // Generate summary report
 function generateSummary(stats) {
-  console.log("\n" + "=".repeat(60));
-  console.log("JSON Validation Summary");
-  console.log("=".repeat(60));
+  console.log('\n' + '='.repeat(60));
+  console.log('JSON Validation Summary');
+  console.log('='.repeat(60));
   console.log(`Total files:      ${stats.total}`);
   console.log(`Formatted:        ${stats.formatted}`);
   console.log(`Syntax valid:     ${stats.syntaxValid}`);
   console.log(`Schema valid:     ${stats.schemaValid}`);
   console.log(`Invalid:          ${stats.invalid}`);
-  console.log(`Schema spec:      ${config.schema ? config.spec : "N/A"}`);
-  console.log("=".repeat(60));
+  console.log(`Schema spec:      ${config.schema ? config.spec : 'N/A'}`);
+  console.log('='.repeat(60));
 
   if (stats.invalid > 0) {
-    console.log(
-      `\n\x1b[31mValidation failed with ${stats.invalid} error(s)\x1b[0m`,
-    );
+    console.log(`\n\x1b[31mValidation failed with ${stats.invalid} error(s)\x1b[0m`);
     console.log(`See reports in: ${config.reportDir}/\n`);
     return 1;
   }
 
-  console.log("\n\x1b[32m✓ All validations passed!\x1b[0m\n");
+  console.log('\n\x1b[32m✓ All validations passed!\x1b[0m\n');
   return 0;
 }
 
 // Print commands for reference
 function printCommands(files) {
-  console.log("\n" + "─".repeat(60));
-  console.log("Runnable Commands");
-  console.log("─".repeat(60));
+  console.log('\n' + '─'.repeat(60));
+  console.log('Runnable Commands');
+  console.log('─'.repeat(60));
 
   if (!config.validateOnly) {
     const formatCmd = config.readOnly
@@ -401,38 +392,32 @@ function printCommands(files) {
   }
 
   if (config.schema && !config.formatOnly) {
-    const specFlag =
-      config.spec !== "draft2020" ? ` --spec=${config.spec}` : "";
-    const errorsFlag =
-      config.errorsFormat === "json" ? " --errors=json" : " --errors=text";
+    const specFlag = config.spec !== 'draft2020' ? ` --spec=${config.spec}` : '';
+    const errorsFlag = config.errorsFormat === 'json' ? ' --errors=json' : ' --errors=text';
     console.log(`\n# Validate against schema:`);
-    console.log(
-      `npx ajv validate -s ${config.schema} -d "${config.glob}"${specFlag}${errorsFlag}`,
-    );
+    console.log(`npx ajv validate -s ${config.schema} -d "${config.glob}"${specFlag}${errorsFlag}`);
   }
 
   if (config.strict) {
     console.log(`\n# Strict syntax check:`);
-    console.log(
-      `npx jsonlint -cq ${files.slice(0, 3).join(" ")}${files.length > 3 ? " ..." : ""}`,
-    );
+    console.log(`npx jsonlint -cq ${files.slice(0, 3).join(' ')}${files.length > 3 ? ' ...' : ''}`);
   }
 
-  console.log("─".repeat(60) + "\n");
+  console.log('─'.repeat(60) + '\n');
 }
 
 // Main execution
 async function main() {
   parseArgs();
 
-  log.info("JSON Linting & Validation Tool v1.0.0");
-  log.info("─".repeat(60));
+  log.info('JSON Linting & Validation Tool v1.0.0');
+  log.info('─'.repeat(60));
 
   try {
     const files = findJsonFiles();
 
     if (files.length === 0) {
-      log.warn("No JSON files found matching pattern");
+      log.warn('No JSON files found matching pattern');
       return 0;
     }
 

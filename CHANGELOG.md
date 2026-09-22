@@ -32,8 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **gh-fix-ci Repo Access Gate** — Wired the `viewerPermission` read-access check into `inspect_pr_checks.py` so the skill aborts fail-closed for users without read access; added `--skip-access-check` for offline use. (#3406)
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **Changelog Unified Workflow** — Merged the two changelog validators into one changelog-unified.yml; fixed script-injection findings via env passthrough. ([PR #3405](https://github.com/lightspeedwp/.github/pull/3405))
+- **README-Regen Noise Fixed** — The documentation workflow no longer opens or updates the README-regeneration PR when a run produces no content changes; metrics-only runs are detected and skipped. ([PR #3429](https://github.com/lightspeedwp/.github/pull/3429))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
@@ -44,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **PR Template Routing Comment Dedup** — The routing workflow posted a duplicate comment on every push. It now updates the existing comment in place and skips unchanged bodies. ([PR #3379](https://github.com/lightspeedwp/.github/pull/3379))
 - **Changelog Validation Workflow Modernisation** — Moved the validator to Node 24 actions and removed the dangling skills gitlink that broke file detection. ([PR #3378](https://github.com/lightspeedwp/.github/pull/3378))
 - **Branch Validation Metrics Aggregator Modernisation** — Moved the aggregator to Node 24 actions with run-scoped artifact downloads and a fixed metrics commit condition. ([PR #3377](https://github.com/lightspeedwp/.github/pull/3377))
+- **PR Template Check Uses Live Body** — The template verification now fetches the current PR body via the API instead of the stale event snapshot, and body edits retrigger the check. ([PR #3431](https://github.com/lightspeedwp/.github/pull/3431))
+- **Bot Branch Validation Exemption** — The runtime branch validator now exempts dependabot/renovate branches, mirroring the canonical validator. ([PR #3432](https://github.com/lightspeedwp/.github/pull/3432))
 - **Branch Validator `config` Type** — Added the documented `config` type to the authorised validator list. (#3304)
 
 - **Test Runner Working Directory Fixed** — Fixed shared worker state leaking the filesystem root into later test files. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))
