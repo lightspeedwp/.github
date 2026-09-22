@@ -121,6 +121,23 @@ jobs:
 
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
+      # Bound the committed artifact history: without pruning, every run adds
+      # another metrics-artifacts/*.json file and create-pull-request commits
+      # them all, growing the fixed branch (and develop after merge) forever.
+      # Keep the 30 most recent files; the aggregate above already ran, so
+      # deletions only affect future runs' input window, not this summary.
+      - name: Prune old metrics artifacts
+        shell: bash
+        run: |
+          keep=30
+          mapfile -t stale < <(ls -1t metrics-artifacts/*.json 2>/dev/null | tail -n +$((keep + 1)) || true)
+          if [ "${#stale[@]}" -gt 0 ]; then
+            printf '%s\n' "${stale[@]}" | xargs rm -f --
+            echo "Pruned ${#stale[@]} artifact(s), kept latest $keep."
+          else
+            echo "Nothing to prune (≤ $keep artifacts present)."
+          fi
+
       - name: Create or update metrics PR
         if: steps.aggregate.outputs.total != '0'
         uses: peter-evans/create-pull-request@v8
