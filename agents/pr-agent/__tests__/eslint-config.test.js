@@ -34,6 +34,15 @@ describe('ESLint flat configuration', () => {
     expect(messages).toEqual([]);
   });
 
+  it('parses top-level await as modern module syntax', () => {
+    const messages = lint(`
+      const value = await Promise.resolve('ready');
+      export { value };
+    `);
+
+    expect(messages).toEqual([]);
+  });
+
   it('applies the recommended rules to undefined identifiers', () => {
     const messages = lint('missingApi();');
 
@@ -45,17 +54,30 @@ describe('ESLint flat configuration', () => {
     ]);
   });
 
-  it('warns for console.log while allowing console.warn and console.error', () => {
+  it('warns for unapproved console methods while allowing warn and error', () => {
     const messages = lint(`
       console.log('debug');
+      console.info('information');
+      console.debug('diagnostic');
       console.warn('warning');
       console.error('error');
     `);
 
+    expect(messages.map(({ ruleId, severity }) => ({ ruleId, severity }))).toEqual([
+      { ruleId: 'no-console', severity: 1 },
+      { ruleId: 'no-console', severity: 1 },
+      { ruleId: 'no-console', severity: 1 },
+    ]);
+  });
+
+  it('reports unused local variables even when prefixed with an underscore', () => {
+    const messages = lint('const _unused = true;');
+
     expect(messages).toEqual([
       expect.objectContaining({
-        ruleId: 'no-console',
-        severity: 1,
+        ruleId: 'no-unused-vars',
+        severity: 2,
+        message: expect.stringContaining('_unused'),
       }),
     ]);
   });
