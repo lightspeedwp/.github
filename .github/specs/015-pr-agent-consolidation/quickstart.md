@@ -10,10 +10,19 @@ A runnable guide proving the feature works end-to-end. Validation guide only —
 
 ## Scenario 1 — Consolidation is complete and the verified bug is fixed (User Story 1)
 
-1. Confirm `agents/pr-creation-agent/` no longer exists: `test -d agents/pr-creation-agent && echo FAIL || echo PASS`.
+1. Confirm `agents/pr-creation-agent/` no longer exists:
+
+   ```bash
+   if [ -d agents/pr-creation-agent ]; then
+     echo FAIL
+     exit 1
+   else
+     echo PASS
+   fi
+   ```
 2. Confirm `agents/pr-agent/AGENT.md` and `package.json` contain no reference to `pr-creation-agent`: `grep -r pr-creation-agent agents/pr-agent/` returns nothing.
 3. Confirm `validate-branch-name.js`'s forbidden list matches `docs/BRANCHING_STRATEGY.md` exactly: `claude/`, `copilot/`, `openai/` — no others.
-4. Expected: all four checks pass.
+4. Expected: all three checks pass.
 
 ## Scenario 2 — Validated behaviour is present (User Story 2)
 
