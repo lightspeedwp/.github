@@ -164,7 +164,7 @@
     "babel-jest": "30.5.1",
     "bats": "^1.8.0",
     "dotenv": "^18.0.1",
-    "eslint": "^10.10.0",
+    "eslint": "^10.11.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "glob": "10.5.0",
