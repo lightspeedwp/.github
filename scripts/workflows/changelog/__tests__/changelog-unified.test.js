@@ -174,7 +174,9 @@ describe('changelog unified workflow contract', () => {
   test('wires quality behind the gate while keeping merged-PR sync independent', () => {
     expect(Object.keys(workflow.jobs)).toEqual(['require-gate', 'quality', 'sync']);
     expect(workflow.jobs.quality.needs).toBe('require-gate');
-    expect(workflow.jobs.quality.if).toBe("needs.require-gate.outputs.run_validation == 'true'");
+    expect(workflow.jobs.quality.if).toBe(
+      "${{ !cancelled() && needs.require-gate.outputs.run_validation == 'true' }}"
+    );
     expect(workflow.jobs.sync.needs).toBeUndefined();
     expect(workflow.jobs.sync.if).toBe(
       "github.event.action == 'closed' && github.event.pull_request.merged == true"
@@ -430,6 +432,28 @@ describe('quality validation shell steps', () => {
     expect(outputLine(result.output, 'gate_result')).toBe('fail');
   });
 
+  test('fails closed when the validator report carries fractional counts', () => {
+    const result = runBashStep(validationScript, {
+      commands: { git: gitCommand, node: nodeCommand },
+      env: {
+        BASE_REPORT: JSON.stringify({ summary: { failed: 0 } }),
+        GIT_SHOW_STATUS: '0',
+        PRIMARY_REPORT: JSON.stringify({
+          summary: { passed: 7, failed: 1.5 },
+          recommendation: 'Fix new entries',
+          ci_gate_result: 'fail',
+        }),
+      },
+      expressions: { 'steps.changed-files.outputs.any_changed': 'true' },
+    });
+
+    expect(result.status).toBe(0);
+    expect(result.stdout).toContain('Validation report missing or malformed; failing closed');
+    expect(outputLine(result.output, 'failed')).toBe('1');
+    expect(outputLine(result.output, 'new_failed')).toBe('1');
+    expect(outputLine(result.output, 'gate_result')).toBe('fail');
+  });
+
   test.each([
     ['0', 0],
     ['1', 1],
@@ -451,10 +475,10 @@ describe('quality feedback inline script', () => {
 
   function githubWithComments(comments = []) {
     return {
+      paginate: jest.fn().mockResolvedValue(comments),
       rest: {
         issues: {
           createComment: jest.fn(),
-          listComments: jest.fn().mockResolvedValue({ data: comments }),
           updateComment: jest.fn(),
         },
       },
@@ -521,8 +545,7 @@ describe('quality feedback inline script', () => {
     expect(github.rest.issues.createComment).not.toHaveBeenCalled();
   });
 
-  test('does not overwrite a human comment that happens to use the report heading', async () => {
-    const github = githubWithComments([
+  test('does not overwrite a human comment that happens to use the report heading', async () => {    const github = githubWithComments([
       {
         id: 100,
         body: '## 📋 Changelog Quality Validation\nHuman-authored note',
@@ -544,6 +567,29 @@ describe('quality feedback inline script', () => {
 
     expect(github.rest.issues.updateComment).not.toHaveBeenCalled();
     expect(github.rest.issues.createComment).toHaveBeenCalledTimes(1);
+  });
+
+  test('searches all comment pages for the existing bot report', async () => {
+    const github = githubWithComments();
+
+    await runGithubScript(commentScript, {
+      env: {
+        BASE_FAILED: '0',
+        FAILED: '0',
+        HEAD_REF: 'docs/example',
+        NEW_FAILED: '0',
+        PASSED: '4',
+        PR_NUMBER: '3405',
+      },
+      github,
+    });
+
+    expect(github.paginate).toHaveBeenCalledWith(github.rest.issues.listComments, {
+      owner: 'lightspeedwp',
+      repo: '.github',
+      issue_number: 3405,
+      per_page: 100,
+    });
   });
 });
 
@@ -580,8 +626,7 @@ describe('merged changelog sync inline script', () => {
     expect(outputValue(result.core, 'has_changelog')).toBe(false);
   });
 
-  test('guards every mutation step behind the extracted-entry output', () => {
-    for (const stepName of [
+  test('guards every mutation step behind the extracted-entry output', () => {    for (const stepName of [
       'Validate extracted entries',
       'Merge changelog entries',
       'Validate final changelog schema',
@@ -596,5 +641,15 @@ describe('merged changelog sync inline script', () => {
       PR_HEAD_SHA: '${{ github.event.pull_request.head.sha }}',
       CHANGELOG_PATH: 'CHANGELOG.md',
     });
+  });
+
+  test('fetches the PR head ref before extraction so missing SHAs fail visibly', () => {
+    const fetchHead = findStep('sync', 'Fetch PR head');
+
+    expect(fetchHead.if).toBe("steps.check_changelog.outputs.has_changelog == 'true'");
+    expect(fetchHead.env).toEqual({
+      PR_NUMBER: '${{ github.event.pull_request.number }}',
+    });
+    expect(fetchHead.run).toContain('refs/pull/${PR_NUMBER}/head');
   });
 });

@@ -116,7 +116,9 @@ jobs:
   quality:
     name: Quality validation + PR feedback
     needs: require-gate
-    if: needs.require-gate.outputs.run_validation == 'true'
+    # !cancelled(): still report when the gate job fails (its outputs survive
+    # from completed steps) instead of skipping feedback silently.
+    if: ${{ !cancelled() && needs.require-gate.outputs.run_validation == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -175,11 +177,12 @@ jobs:
             --output json --metrics > validation-report.json 2>validation-stderr.log || true
 
           # Fail closed: the report must exist, be valid JSON, and carry
-          # numeric summary fields plus string recommendation/gate result.
-          # Anything else counts as a failure (NEW_FAILED=1) so a broken
-          # validator can never silently pass the gate.
+          # non-negative integer summary fields plus string
+          # recommendation/gate result. Anything else counts as a failure
+          # (NEW_FAILED=1) so a broken validator can never silently pass
+          # the gate.
           if [ -f validation-report.json ] \
-            && jq -e '.summary | (.passed | type == "number") and (.failed | type == "number")' validation-report.json >/dev/null 2>&1 \
+            && jq -e '.summary | (.passed | type == "number" and . >= 0 and floor == .) and (.failed | type == "number" and . >= 0 and floor == .)' validation-report.json >/dev/null 2>&1 \
             && jq -e '.recommendation | type == "string"' validation-report.json >/dev/null 2>&1 \
             && jq -e '.ci_gate_result | type == "string"' validation-report.json >/dev/null 2>&1; then
             PASSED=$(jq '.summary.passed' validation-report.json)
@@ -288,10 +291,13 @@ jobs:
                 : "No action required.",
             ].join("\n");
 
-            const { data: comments } = await github.rest.issues.listComments({
+            // listComments pages at 30 entries by default; paginate so the
+            // bot report is found even on busy PRs instead of posting a duplicate.
+            const comments = await github.paginate(github.rest.issues.listComments, {
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
+              per_page: 100,
             });
             const existing = comments.find((c) =>
               c.user.type === "Bot" && c.body.includes("Changelog Quality Validation"),
@@ -355,6 +361,16 @@ jobs:
               per_page: 100,
             });
             core.setOutput('has_changelog', files.some(f => f.filename === 'CHANGELOG.md'));
+
+      - name: Fetch PR head
+        # The sync checkout pins ref: develop, so the PR head SHA is not
+        # guaranteed locally (fork squash-merge, deleted branch). Fetch the
+        # pull ref explicitly; a failed fetch fails the job visibly instead
+        # of silently skipping synchronisation in extraction.
+        if: steps.check_changelog.outputs.has_changelog == 'true'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: git fetch origin "refs/pull/${PR_NUMBER}/head"
 
       - name: Setup Node.js
         if: steps.check_changelog.outputs.has_changelog == 'true'
