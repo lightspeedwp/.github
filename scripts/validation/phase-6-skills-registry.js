@@ -145,9 +145,10 @@ function analyzeCompliance(registry) {
     }
   }
 
-  violations.summary.compliancePercentage = Math.round(
-    (violations.summary.compliant / violations.summary.total) * 100
-  );
+  violations.summary.compliancePercentage =
+    violations.summary.total === 0
+      ? 0
+      : Math.round((violations.summary.compliant / violations.summary.total) * 100);
 
   const reportPath = path.join(REPORTS_DIR, 'compliance-violations-report.json');
   fs.writeFileSync(reportPath, JSON.stringify(violations, null, 2));

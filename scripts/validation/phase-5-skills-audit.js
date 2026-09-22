@@ -259,7 +259,7 @@ function generateSummaryReport(analysis, consolidationPlan) {
       'T057',
     ],
     skills: {
-      totalScanned: analysis.totalSkills,
+      totalScanned: analysis.summary.totalSkills,
       byLocation: {
         agentSkills: analysis.summary.agentSkills,
         rootSkills: analysis.summary.rootSkills,

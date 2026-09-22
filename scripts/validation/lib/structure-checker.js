@@ -113,7 +113,7 @@ class StructureChecker {
           severity: 'error',
           message: 'Missing "name" field',
         });
-      } else if (!pkg.name.startsWith('agents-')) {
+      } else if (pkg.name !== `agents-${agentName}`) {
         issues.push({
           component: 'package.json',
           severity: 'error',

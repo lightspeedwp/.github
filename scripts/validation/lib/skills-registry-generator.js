@@ -170,9 +170,12 @@ class SkillsRegistryGenerator {
         total: skills.length,
         byCategory: this.groupByCategory(skills),
         compliant: skills.filter((s) => s.agentskills_io_compliant.compliant).length,
-        compliancePercentage: Math.round(
-          (skills.filter((s) => s.agentskills_io_compliant.compliant).length / skills.length) * 100
-        ),
+        compliancePercentage:
+          skills.length === 0
+            ? 0
+            : Math.round(
+                (skills.filter((s) => s.agentskills_io_compliant.compliant).length / skills.length) * 100
+              ),
       },
       skills,
     };
@@ -196,11 +199,14 @@ class SkillsRegistryGenerator {
         summary: {
           total: categorySkills.length,
           compliant: categorySkills.filter((s) => s.agentskills_io_compliant.compliant).length,
-          compliancePercentage: Math.round(
-            (categorySkills.filter((s) => s.agentskills_io_compliant.compliant).length /
-              categorySkills.length) *
-              100
-          ),
+          compliancePercentage:
+            categorySkills.length === 0
+              ? 0
+              : Math.round(
+                  (categorySkills.filter((s) => s.agentskills_io_compliant.compliant).length /
+                    categorySkills.length) *
+                    100
+                ),
         },
       };
     }

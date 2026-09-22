@@ -31,7 +31,7 @@ class PackageJsonValidator {
       this.validateRequiredFields(pkg, agentName, errors);
 
       // Validate field values
-      this.validateFieldValues(pkg, errors, warnings);
+      this.validateFieldValues(pkg, errors, warnings, packageJsonPath);
 
       // Validate scripts
       this.validateScripts(pkg, errors, warnings);
@@ -100,7 +100,7 @@ class PackageJsonValidator {
   /**
    * Validate field values
    */
-  validateFieldValues(pkg, errors, warnings) {
+  validateFieldValues(pkg, errors, warnings, packageJsonPath) {
     // Validate type field
     if (pkg.type && pkg.type !== 'module') {
       errors.push({
@@ -121,7 +121,7 @@ class PackageJsonValidator {
 
     // Validate main file exists
     if (pkg.main) {
-      const mainPath = path.join(path.dirname(pkg), pkg.main);
+      const mainPath = path.join(path.dirname(packageJsonPath), pkg.main);
       if (!fs.existsSync(mainPath)) {
         warnings.push({
           field: 'main',
