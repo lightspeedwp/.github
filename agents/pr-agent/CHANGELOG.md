@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.1.0] - 2026-09-21
 
+Delivered across [PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), and [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), tracked under [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane).
+
 ### Changed
 
 - Merged `agents/pr-creation-agent/` into this agent — it no longer exists as a separate directory
