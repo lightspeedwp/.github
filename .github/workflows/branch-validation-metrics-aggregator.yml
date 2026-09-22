@@ -141,12 +141,15 @@ jobs:
       - name: Generate GitHub App token
         # App token (not GITHUB_TOKEN) so the metrics PR triggers CI and
         # can satisfy develop's required checks. Requires repo/org secrets:
-        # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        # BOT_PR_APP_ID and BOT_PR_APP_PRIVATE_KEY.
         id: app-token
         if: steps.aggregate.outputs.total != '0'
         uses: actions/create-github-app-token@v3
         with:
-          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          # NOTE: upstream renamed this to client-id, but the actionlint
+          # schema pinned in CI still requires app-id (still honoured at
+          # runtime via the deprecation path). Revisit on actionlint bump.
+          app-id: ${{ secrets.BOT_PR_APP_ID }}
           private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
 
       - name: Create or update metrics PR
