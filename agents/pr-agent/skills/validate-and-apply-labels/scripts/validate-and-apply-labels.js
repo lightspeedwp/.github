@@ -150,10 +150,16 @@ export async function validateAndApplyLabels(input) {
       mappedLabels.push("meta:ready-for-review");
     }
 
+    // Combine caller-supplied labels (e.g. the changelog-decision label) with
+    // the branch-type-mapped labels before validating -- a branch-mapped call
+    // must still carry exactly one changelog-decision label (SKILL.md's
+    // documented contract), which the mapping alone never provides.
+    const combinedLabels = [...mappedLabels, ...labels];
+
     // Deduplicate labels
     const seenLabels = new Set();
     const deduplicatedLabels = [];
-    for (const label of mappedLabels) {
+    for (const label of combinedLabels) {
       if (!seenLabels.has(label)) {
         deduplicatedLabels.push(label);
         seenLabels.add(label);
@@ -192,6 +198,21 @@ export async function validateAndApplyLabels(input) {
       }
     }
 
+    // A branch-mapped call must carry exactly one changelog-decision label,
+    // same as a direct label-validation call.
+    const changelogDecisionLabels = deduplicatedLabels.filter((label) =>
+      CHANGELOG_DECISION_LABELS.includes(label),
+    );
+    if (changelogDecisionLabels.length === 0) {
+      validationErrors.push(
+        "Exactly one changelog-decision label (meta:needs-changelog or meta:no-changelog) is required",
+      );
+    } else if (changelogDecisionLabels.length > 1) {
+      validationErrors.push(
+        "Only one changelog-decision label is allowed, found multiple",
+      );
+    }
+
     const isValid = validationErrors.length === 0 && mappedLabels.length > 0;
 
     // Separate context labels from type labels
@@ -207,7 +228,7 @@ export async function validateAndApplyLabels(input) {
       templateFile,
       validationErrors,
       warnings,
-      deduplicatedCount: mappedLabels.length - deduplicatedLabels.length,
+      deduplicatedCount: combinedLabels.length - deduplicatedLabels.length,
       metadata: {
         typeLabels,
         contextLabels,

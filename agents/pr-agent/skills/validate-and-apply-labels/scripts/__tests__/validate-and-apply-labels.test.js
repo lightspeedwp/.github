@@ -93,6 +93,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -103,6 +104,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "fix",
         templateFile: "pr_bug.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -113,6 +115,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "docs",
         templateFile: "pr_docs.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -123,6 +126,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "hotfix",
         templateFile: "pr_hotfix.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -134,6 +138,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "security",
         templateFile: "pr_bug.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -144,6 +149,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "ci",
         templateFile: "pr_ci.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -154,6 +160,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "test",
         templateFile: "pr_chore.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -164,6 +171,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "a11y",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -209,6 +217,7 @@ describe("validateAndApplyLabels", () => {
         const result = await validateAndApplyLabels({
           branchType,
           templateFile: "pr_feature.md",
+          labels: ["meta:no-changelog"],
         });
 
         expect(result.valid).toBe(true);
@@ -222,6 +231,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: {
           missingSections: ["Changelog", "Checklist"],
           complete: false,
@@ -236,6 +246,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: {
           missingSections: [],
           complete: true,
@@ -250,6 +261,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: null,
       });
 
@@ -262,6 +274,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: {
           missingSections: ["Changelog"],
           complete: false,
@@ -279,6 +292,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
       });
 
       expect(result.valid).toBe(true);
@@ -321,6 +335,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         config: {
           branchTypeLabels: { feat: ["type:feature", "type:feature"] },
         },
@@ -339,6 +354,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         config: {
           branchTypeLabels: {
             feat: ["type:feature", "area:docs"],
@@ -348,6 +364,7 @@ describe("validateAndApplyLabels", () => {
             "type:bug",
             "area:docs",
             "meta:ready-for-review",
+            "meta:no-changelog",
           ],
         },
       });
@@ -358,10 +375,11 @@ describe("validateAndApplyLabels", () => {
     });
 
     test("should use custom canonical labels when provided", async () => {
-      const customLabels = ["custom:label1", "custom:label2"];
+      const customLabels = ["custom:label1", "custom:label2", "meta:no-changelog"];
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         config: {
           branchTypeLabels: {
             feat: ["custom:label1"],
@@ -380,9 +398,10 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         config: {
           branchTypeLabels: { feat: ["type:feature", "wp:plugin"] },
-          canonicalLabels: ["type:feature", "wp:plugin", "wp:theme"],
+          canonicalLabels: ["type:feature", "wp:plugin", "wp:theme", "meta:no-changelog"],
         },
       });
 
@@ -428,6 +447,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: {
           missingSections: [],
           complete: true,
@@ -444,6 +464,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: {
           missingSections: [],
           complete: true,
@@ -465,6 +486,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "security",
         templateFile: "pr_bug.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: {
           missingSections: ["Changelog"],
           complete: false,
@@ -483,6 +505,7 @@ describe("validateAndApplyLabels", () => {
             "type:bug",
             "type:security",
             "meta:needs-more-info",
+            "meta:no-changelog",
           ],
         },
       });
@@ -499,6 +522,7 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         templateMetadata: {},
       });
 
@@ -539,11 +563,12 @@ describe("validateAndApplyLabels", () => {
       const result = await validateAndApplyLabels({
         branchType: "feat",
         templateFile: "pr_feature.md",
+        labels: ["meta:no-changelog"],
         config: {
           branchTypeLabels: {
             feat: ["type:feature", "area:docs/api"],
           },
-          canonicalLabels: ["type:feature", "area:docs/api"],
+          canonicalLabels: ["type:feature", "area:docs/api", "meta:no-changelog"],
         },
       });
 

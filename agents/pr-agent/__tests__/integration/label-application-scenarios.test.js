@@ -86,7 +86,7 @@ describe("Category B: Label Application Scenarios", () => {
   test("Test B6: Conditional Labels → Applied based on branch type", async () => {
     // Branch type determines which labels should be applied
     const branchType = "fix";
-    const conditionalLabels = ["type:bug"];
+    const conditionalLabels = ["type:bug", "meta:no-changelog"];
 
     const result = await validateAndApplyLabels({
       labels: conditionalLabels,

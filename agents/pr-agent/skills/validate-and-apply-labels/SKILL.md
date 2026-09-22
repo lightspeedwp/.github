@@ -83,5 +83,9 @@ Direct label validation returns label-specific errors and may identify invalid o
 ```js
 import { validateAndApplyLabels } from './scripts/validate-and-apply-labels.js';
 
-const result = await validateAndApplyLabels({ labels: ['type:feature'], branchType: 'feat' });
+const result = await validateAndApplyLabels({
+  labels: ['meta:no-changelog'],
+  branchType: 'feat',
+  templateFile: 'pr_feature.md',
+});
 ```

@@ -22,7 +22,7 @@ Before any PR is created or updated, and whenever a branch name needs to be chec
 
 ## Behaviour
 
-- Rejects branch names using a forbidden prefix (`claude/`, `bot/`, `automated/`).
+- Rejects branch names using a forbidden prefix (`claude/`, `copilot/`, `openai/`).
 - Rejects a branch type not in the repository's approved-type list.
 - Rejects a name that doesn't match `{type}/{scope}-{short-title}`.
 
