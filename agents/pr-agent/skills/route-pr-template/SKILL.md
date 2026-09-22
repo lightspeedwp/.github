@@ -30,14 +30,34 @@ After `validate-branch-name` confirms the branch name, and before `orchestrate-p
 
 ## Output
 
+Matched routes and user overrides return:
+
 ```js
-{ template: string, source: string }
+{
+  routed: true,
+  template: string,
+  reason: string,
+  fallback: false,
+  userOverride?: true,
+}
+```
+
+Invalid input and unknown branch types use the fallback template and include a warning:
+
+```js
+{
+  routed: false,
+  template: "pr_feature.md",
+  reason: "invalid-input" | "unknown-branch-type",
+  fallback: true,
+  warning: string,
+}
 ```
 
 ## Usage
 
 ```js
-import { routePrTemplate } from "./scripts/route-pr-template.js";
+import { routePrTemplate } from './scripts/route-pr-template.js';
 
-const result = await routePrTemplate({ branchName: "feat/new-feature" });
+const result = await routePrTemplate({ branchName: 'feat/new-feature' });
 ```

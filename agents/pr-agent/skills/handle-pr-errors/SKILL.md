@@ -30,14 +30,37 @@ Whenever any other skill in this agent (`validate-branch-name`, `route-pr-templa
 
 ## Output
 
+Handled errors include their classification and recovery plan:
+
 ```js
-{ handled: boolean, errorCategory: string, severity: string, recoveryOptions: string[], nextSteps: string[], retryable: boolean, retryCount: number, maxRetries: number }
+{
+  handled: true,
+  errorCategory: string,
+  severity: string,
+  originalError: string,
+  recoveryOptions: string[],
+  recommendedAction: string,
+  nextSteps: string[],
+  retryable: boolean,
+  retryCount: number,
+  maxRetries: 3,
+}
+```
+
+Invalid input and failures caught while handling an error return the same failure shape:
+
+```js
+{
+  handled: false,
+  error: string,
+  recoveryOptions: [],
+}
 ```
 
 ## Usage
 
 ```js
-import { handlePrErrors } from "./scripts/handle-pr-errors.js";
+import { handlePrErrors } from './scripts/handle-pr-errors.js';
 
-const result = await handlePrErrors({ error: { message: "Rate limit exceeded" } });
+const result = await handlePrErrors({ error: { message: 'Rate limit exceeded' } });
 ```

@@ -29,14 +29,72 @@ As the final step, once `orchestrate-pr-creation` and `validate-and-apply-labels
 
 ## Output
 
+PR validation failures return:
+
 ```js
-{ valid: boolean, submitted: boolean, prUrl: string|null, prNumber: number, prId: string, warnings: string[], validationErrors: string[] }
+{
+  valid: false,
+  error: "PR validation failed",
+  validationErrors: string[],
+  warnings: string[],
+  submitted: false,
+  prUrl: null,
+}
+```
+
+A successful dry run returns a preview without submission identifiers:
+
+```js
+{
+  valid: true,
+  dryRun: true,
+  submitted: false,
+  prUrl: null,
+  prPreview: {
+    title: string,
+    body: string,
+    head: string,
+    base: string,
+    labels: string[],
+  },
+  warnings: string[],
+  message: string,
+}
+```
+
+A successful submission returns the GitHub identifiers and applied labels:
+
+```js
+{
+  valid: true,
+  submitted: true,
+  prUrl: string,
+  prNumber: number,
+  prId: string,
+  message: string,
+  labels: string[],
+  warnings: string[],
+}
+```
+
+Invalid input, GitHub submission failures, and caught errors return an error variant. Missing-field input errors add
+`missingFields`; GitHub submission errors add `details`:
+
+```js
+{
+  valid: false,
+  error: string,
+  submitted: false,
+  prUrl: null,
+  missingFields?: string[],
+  details?: { missingFields: string[] },
+}
 ```
 
 ## Usage
 
 ```js
-import { submitPr } from "./scripts/submit-pr.js";
+import { submitPr } from './scripts/submit-pr.js';
 
 const result = await submitPr({ pr, githubContext, dryRun: true });
 ```

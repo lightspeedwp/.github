@@ -31,14 +31,57 @@ Before `submit-pr`, to confirm every label attached to the PR is real (exists in
 
 ## Output
 
+Branch-type mapping returns the applied labels and any mapping validation errors:
+
 ```js
-{ valid: boolean, labels: string[], errors: string[] }
+{
+  valid: boolean,
+  appliedLabels: string[],
+  branchType: string,
+  templateFile: string,
+  validationErrors: string[],
+  warnings: string[],
+  deduplicatedCount: number,
+  metadata: {
+    typeLabels: string[],
+    contextLabels: string[],
+    totalLabels: number,
+  },
+}
+```
+
+Invalid branch-type mapping input omits `templateFile`, deduplication data, and metadata:
+
+```js
+{
+  valid: false,
+  error: string,
+  appliedLabels: [],
+  branchType: unknown,
+  validationErrors: [],
+  warnings: [],
+}
+```
+
+Direct label validation returns label-specific errors and may identify invalid or conflicting labels:
+
+```js
+{
+  valid: boolean,
+  appliedLabels: string[],
+  errors: string[] | undefined,
+  deduplicatedCount: number,
+  validationErrors: string[],
+  warnings: string[],
+  invalidLabels?: unknown[],
+  conflicts?: Array<{ family: string, labels: string[] }>,
+}
 ```
 
 ## Usage
 
 ```js
-import { validateAndApplyLabels } from "./scripts/validate-and-apply-labels.js";
+import { validateAndApplyLabels } from './scripts/validate-and-apply-labels.js';
 
-const result = await validateAndApplyLabels({ labels: ["type:feature"], branchType: "feat" });
+const result = await validateAndApplyLabels({ labels: ['type:feature'], branchType: 'feat' });
 ```
