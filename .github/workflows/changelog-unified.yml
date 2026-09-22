@@ -123,7 +123,10 @@ jobs:
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
 
   quality:
-    name: Quality validation + PR feedback
+    # Display name preserves the "Validate changelog on PR" required-check
+    # context from changelog-management.yml, so branch protection keeps
+    # matching across the workflow replacement.
+    name: Validate changelog on PR
     needs: require-gate
     # !cancelled(): still report when the gate job fails (its outputs survive
     # from completed steps) instead of skipping feedback silently.
