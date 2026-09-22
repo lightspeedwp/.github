@@ -1,6 +1,6 @@
 ---
 name: validate-and-apply-labels
-description: Validates labels against the repository's real canonical label set and maps branch type to its required labels, including exactly one changelog-decision label. Use before submission, to make sure every label on a PR is valid and nothing required (like the changelog-decision label) is missing.
+description: Maps branch types to labels and validates them against built-in defaults or a caller-supplied canonical set, including exactly one changelog-decision label. Use before submission to check the currently assembled labels.
 ---
 
 # validate-and-apply-labels
@@ -9,7 +9,7 @@ Validates GitHub labels against the canonical set and maps branch type to labels
 
 ## When to use this skill
 
-Before `submit-pr`, to confirm every label attached to the PR is real (exists in this repository's canonical set) and that branch-type-required labels — including exactly one changelog-decision label — are present.
+Before `submit-pr`, to apply the current branch-type mapping, validate label shape or membership against the available policy, and confirm exactly one changelog-decision label is present.
 
 ## Input
 
@@ -26,8 +26,10 @@ Before `submit-pr`, to confirm every label attached to the PR is real (exists in
 ## Behaviour
 
 - Rejects a bare label without its required family prefix (e.g. `bug` instead of `type:bug`).
-- Rejects a label not present in the repository's real canonical label set — never invents one.
+- In direct-validation mode, checks labels against the built-in canonical set.
+- In branch-mapping mode, uses `config.canonicalLabels` when supplied; otherwise it accepts built-in labels and well-formed supported-family labels.
 - Ensures exactly one changelog-decision label is present, never zero or two.
+- Does not yet fetch the repository's live label set or apply labels atomically with PR submission; those guarantees are deferred to T021.
 
 ## Output
 

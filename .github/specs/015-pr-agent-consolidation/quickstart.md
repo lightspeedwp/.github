@@ -20,21 +20,24 @@ A runnable guide proving the feature works end-to-end. Validation guide only —
      echo PASS
    fi
    ```
+
 2. Confirm `agents/pr-agent/AGENT.md` and `package.json` contain no reference to `pr-creation-agent`: `grep -r pr-creation-agent agents/pr-agent/` returns nothing.
-3. Confirm `validate-branch-name.js`'s forbidden list matches `docs/BRANCHING_STRATEGY.md` exactly: `claude/`, `copilot/`, `openai/` — no others.
+3. Confirm `.github/branch-types.yml`, consumed by `validate-branch-name.js`, matches `docs/BRANCHING_STRATEGY.md` exactly: forbidden prefixes are `claude/`, `copilot/`, and `openai/`, and all 38 allowed types are present.
 4. Expected: all three checks pass.
 
 ## Scenario 2 — Validated behaviour is present (User Story 2)
 
-1. On a prepared branch, invoke `pr-agent` to create a PR.
-2. Expected: base branch correct for the branch's type; title/body derived from commits/diff; exactly one changelog-decision label; assignee set; review-budget note present if oversized.
-3. Push an additional commit, invoke again.
-4. Expected: the existing PR is updated in place (`gh pr list --head <branch>` still shows exactly one PR), not duplicated.
+1. In a repository whose authoritative branch-policy metadata designates different live production and integration branches, invoke `pr-agent` from prepared `hotfix/`, `release/`, and standard-type branches.
+2. Expected: `hotfix/` and `release/` target the designated production branch; every other type targets the designated integration branch. Title/body are derived from commits/diff, exactly one changelog-decision label and the assignee are set, and the review-budget note is present if oversized.
+3. Remove one role's designation while keeping a live `defaultBranchRef`, then repeat for a branch type routed to that role. Expected: that role alone falls back to `defaultBranchRef`; an explicit designation for the other role is unaffected.
+4. Test a malformed, non-live, and ambiguous designation. Expected: each fails before PR creation rather than falling back. Also confirm fallback fails when required and `defaultBranchRef` is missing or non-live.
+5. Push an additional commit to a valid prepared branch and invoke again.
+6. Expected: the existing PR is updated in place (`gh pr list --head <branch>` still shows exactly one PR), not duplicated.
 
 ## Scenario 3 — Portability (User Story 3)
 
-1. Invoke `pr-agent` against a branch in a second, different LightSpeedWP repository (one you have access to, with a different assignee-in-practice and, ideally, a different default branch name than `.github`'s).
-2. Expected: the assignee on the resulting PR is whoever ran the command, not `brandonmarshal` or any other fixed name; the base branch matches that repository's actual default branch; the review-budget thresholds and prefix list applied are the organisation-wide defaults.
+1. Invoke `pr-agent` against a branch in a second, different LightSpeedWP repository (one you have access to, with a different assignee-in-practice and, ideally, production and integration role names different from `.github`'s).
+2. Expected: the assignee on the resulting PR is whoever ran the command, not `brandonmarshal` or any other fixed name; the base branch matches the role designated by that repository's authoritative branch-policy metadata, using its live default branch only when that role is undesignated; the review-budget thresholds and prefix list applied are the organisation-wide defaults.
 3. Add a `.github/pr-agent.config.json` to that second repository overriding `reviewBudget.preferredFiles` to a smaller number, and run a PR that would only exceed the *override*, not the default.
 4. Expected: the PR body notes it as oversized, proving the override was read and applied instead of the default.
 

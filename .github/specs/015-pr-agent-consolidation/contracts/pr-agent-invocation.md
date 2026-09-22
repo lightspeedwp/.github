@@ -19,11 +19,11 @@ Like the reference feature this absorbs, this has no network API — its "interf
 - Current branch is not the target repository's default branch, has commits ahead of it, and is pushed to `origin`.
 - No existing open PR exists for this branch; if one exists, the Update contract applies instead (FR-007).
 - The correct base branch is resolved at runtime from the target repository's actual default branch, branch list, and authoritative branch-policy metadata (FR-006), using this deterministic order:
-  1. Query the live `defaultBranchRef` and existing branch list before evaluating either role.
-  2. The one live `defaultBranchRef` is the production-role branch. If it is absent or is not in the live branch list, fail without creating a PR.
-  3. An integration-role branch exists only when the repository's authoritative branch-policy metadata designates exactly one live branch for that role. No designation means that the role is absent; a designation matching no live branch or multiple live branches is invalid and MUST fail without creating a PR.
-  4. For `hotfix/` and `release/`, select the production-role branch. For every other branch type, select the integration-role branch, falling back to the live default branch only when the integration role is absent.
-  5. Explicit role metadata takes precedence over fallback. Never infer a role from a literal name such as `main` or `develop`, branch sort order, or guesswork, and never use fallback to hide invalid or ambiguous metadata.
+  1. Query the live `defaultBranchRef`, existing branch list, and authoritative branch-policy metadata before evaluating either role.
+  2. Resolve the production and integration roles independently from the authoritative metadata. When a role is designated, exactly one designated branch MUST be live. A malformed designation with no branch, a designation naming a non-live branch, or multiple designations for one role is invalid and MUST fail without creating a PR.
+  3. If the metadata contains no designation for a role, use the one live `defaultBranchRef` as that role's documented fallback. If fallback is required and `defaultBranchRef` is absent or not in the live branch list, fail without creating a PR.
+  4. For `hotfix/` and `release/`, select the resolved production-role branch. For every other branch type, select the resolved integration-role branch.
+  5. Explicit role metadata takes precedence over fallback. Never infer a role from a literal name such as `main` or `develop`, branch sort order, or guesswork, and never use fallback to hide malformed, non-live, or ambiguous metadata.
 - If `.github/pr-agent.config.json` exists in the target repository, its overrides have been read and validated; if it does not exist, the organisation-wide defaults apply.
 
 ## Contract: Create a new Pull Request

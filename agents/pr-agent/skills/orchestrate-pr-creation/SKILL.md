@@ -1,6 +1,6 @@
 ---
 name: orchestrate-pr-creation
-description: Assembles and validates the complete PR data object (title, body, head, base, labels) derived from the branch's own commits and diff, before it is submitted. Use after branch name validation and template routing, once the PR's content is ready to be assembled.
+description: Assembles and validates a caller-supplied PR data object (title, body, head, base, labels) before it is submitted. Use after branch name validation and template routing, once the caller has prepared the PR content.
 ---
 
 # orchestrate-pr-creation
@@ -25,8 +25,9 @@ After `validate-branch-name` and `route-pr-template`, once the PR's title, body,
 
 ## Behaviour
 
-- Derives PR content from the branch's own commits/diff, not assumed prior context.
+- Requires the caller to supply the title, body, head, base, and repository identity.
 - Validates the assembled PR object before it is handed to `submit-pr`.
+- Does not yet derive title or body from commits and diff; that guarantee is deferred to T015.
 
 ## Output
 

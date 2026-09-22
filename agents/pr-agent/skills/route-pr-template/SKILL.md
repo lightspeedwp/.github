@@ -25,6 +25,7 @@ After `validate-branch-name` confirms the branch name, and before `orchestrate-p
 
 - Matches the branch type against the static `BRANCH_TYPE_ROUTING` map.
 - Uses `userSelectedTemplate` when provided.
+- Does not yet load repository template-routing configuration or follow template content verbatim; that guarantee is deferred to T020.
 
 ## Output
 

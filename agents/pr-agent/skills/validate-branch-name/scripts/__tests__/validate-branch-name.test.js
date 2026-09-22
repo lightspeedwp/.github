@@ -26,7 +26,11 @@ describe("Skill: validate-branch-name", () => {
       // neither is an allowed type either, so both are still invalid --
       // just for the right reason (unknown type, not a forbidden prefix).
       expect(bot.valid).toBe(false);
+      expect(bot.errors).not.toContain("branch-prefix-forbidden");
+      expect(bot.errors).toContain("branch-type-invalid");
       expect(automated.valid).toBe(false);
+      expect(automated.errors).not.toContain("branch-prefix-forbidden");
+      expect(automated.errors).toContain("branch-type-invalid");
     });
   });
 

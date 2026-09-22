@@ -20,11 +20,11 @@ No `NEEDS CLARIFICATION` markers remained in the Technical Context after draftin
 
 **Alternatives considered**: Bundle a `config.yml` fix into this feature's PR as an obviously-correct drive-by fix. Rejected — Principle II's approval requirement is about process and blast-radius control across dependent systems, not about whether a given fix is correct; bundling it would violate that process regardless of correctness.
 
-## Decision: Assignee and base branch are resolved dynamically at invocation time, never stored
+## Decision: Assignee and branch roles are resolved dynamically at invocation time, never stored
 
-**Rationale**: Per the 2026-09-18 Clarification. Assignee resolves to whoever is actually running the agent (via the authenticated `gh`/git identity); base branch resolves by checking the target repository's own actual default branch (`gh repo view --json defaultBranchRef`, the same call `ls-theme` `SKILL.md` Step 2.5 already used as its *last-resort* fallback) — promoted here from fallback to the primary mechanism, since a portable agent can no longer assume `develop`/`main` are the literal names in every repository.
+**Rationale**: Per the 2026-09-18 Clarification. Assignee resolves to whoever is actually running the agent (via the authenticated `gh`/git identity). Production and integration branches are independently resolved from the target repository's authoritative branch-policy metadata and checked against its live branches, so a portable agent never assumes `main` or `develop` as literal names. The live `defaultBranchRef` remains a last-resort fallback for either role only when that role has no designation; it never overrides or masks a malformed, non-live, or ambiguous designation.
 
-**Alternatives considered**: Require a config-file entry for either value. Rejected — both are already answerable directly from `gh`/`git` state at the moment the agent runs; a config entry would just be a second, staler copy of information already available live.
+**Alternatives considered**: Treat `defaultBranchRef` as the production role and infer integration from conventional branch names. Rejected — the default branch and the production role are distinct repository concepts, while literal-name inference would make portability depend on `main`/`develop` conventions. Requiring role metadata in every repository was also rejected: when a role is genuinely undesignated, the live default branch is the documented deterministic fallback.
 
 ## Decision: One new, optional per-repository override file — `.github/pr-agent.config.json` — for review-budget thresholds and the approved-prefix list only
 

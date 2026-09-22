@@ -30,16 +30,18 @@ permissions:
 
 ## Purpose
 
-Create and update GitHub pull requests correctly and consistently: deriving PR content from a branch's own commits, routing to the right PR template, validating branch names and labels, submitting the PR, and recovering from errors along the way. First-class in `lightspeedwp/.github`, portable to any other LightSpeedWP repository.
+Coordinate the current GitHub pull-request workflow: validate branch names, route caller-supplied PR data through static template and label mappings, submit it, and recover from errors. First-class in `lightspeedwp/.github`, portable to any other LightSpeedWP repository.
+
+The complete User Story 2 guarantees are not implemented yet. Commit/diff-derived content is deferred to T015, repository-configuration-driven template routing to T020, and repository-backed exact label validation and atomic application to T021. Until those tasks land, callers must supply accurate PR content and any repository-specific policy inputs themselves.
 
 ## Skills
 
 | Skill | Responsibility |
 | --- | --- |
 | [`validate-branch-name`](skills/validate-branch-name/SKILL.md) | Validates a branch name follows `{type}/{scope}-{short-title}`, checking it against this repository's canonical forbidden and approved prefix lists. |
-| [`route-pr-template`](skills/route-pr-template/SKILL.md) | Selects the correct PR template based on branch type, honouring the repository's own template-routing configuration and any user override. |
-| [`orchestrate-pr-creation`](skills/orchestrate-pr-creation/SKILL.md) | Assembles and validates the PR data (title, body, head, base, labels) from the branch's own commits and diff before submission. |
-| [`validate-and-apply-labels`](skills/validate-and-apply-labels/SKILL.md) | Validates labels against the repository's real canonical set and maps branch type to its required labels, including the changelog-decision label. |
+| [`route-pr-template`](skills/route-pr-template/SKILL.md) | Selects a template from its static branch-type map or an explicit user override. |
+| [`orchestrate-pr-creation`](skills/orchestrate-pr-creation/SKILL.md) | Validates and assembles caller-supplied PR data (title, body, head, base, labels) before submission. |
+| [`validate-and-apply-labels`](skills/validate-and-apply-labels/SKILL.md) | Applies static or caller-configured branch-type mappings and validates labels against its current built-in or caller-supplied policy. |
 | [`submit-pr`](skills/submit-pr/SKILL.md) | Submits the orchestrated PR object to GitHub, or validates it without creating anything in dry-run mode. |
 | [`handle-pr-errors`](skills/handle-pr-errors/SKILL.md) | Catches errors from any stage of the PR workflow and suggests recovery actions. |
 
