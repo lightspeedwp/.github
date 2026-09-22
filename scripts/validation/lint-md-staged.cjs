@@ -63,6 +63,27 @@ const repoRoot = execFileSync("git", ["rev-parse", "--show-toplevel"], {
   encoding: "utf8",
 }).trim();
 
+// Resolve the locally-installed markdownlint-cli2 binary directly instead of
+// shelling out via "npx". On Windows, spawnSync("npx", ...) fails with
+// ENOENT: npx is a .cmd shim, and spawnSync does not resolve .cmd/.bat PATH
+// shims without shell: true. Reading package.json's own "bin" field and
+// invoking that script with process.execPath sidesteps the shim entirely --
+// deterministic (the exact locally-installed version, no npm registry
+// resolution), and needs no shell layer on any platform.
+//
+// require.resolve("markdownlint-cli2/package.json") is deliberately not
+// used here: the package's "exports" field doesn't list that subpath, so
+// Node's resolver rejects it (ERR_PACKAGE_PATH_NOT_EXPORTED) even though
+// the file exists on disk. Resolving the main entry point instead and
+// reading package.json from its directory via fs sidesteps that
+// restriction -- it's a plain file read, not a module import, so "exports"
+// doesn't apply.
+const markdownlintCli2Dir = path.dirname(require.resolve("markdownlint-cli2"));
+const markdownlintCli2Pkg = JSON.parse(
+  fs.readFileSync(path.join(markdownlintCli2Dir, "package.json"), "utf8"),
+);
+const markdownlintCli2Bin = path.join(markdownlintCli2Dir, markdownlintCli2Pkg.bin["markdownlint-cli2"]);
+
 function isIgnored(file) {
   return ignorePaths.some((pattern) => minimatch(file, pattern, { dot: true }));
 }
@@ -284,7 +305,7 @@ async function main() {
     });
   }
 
-  const fixResult = spawnSync("npx", ["markdownlint-cli2", "--fix", ...files], {
+  const fixResult = spawnSync(process.execPath, [markdownlintCli2Bin, "--fix", ...files], {
     encoding: "utf8",
     cwd: repoRoot,
   });
