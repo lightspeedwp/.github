@@ -319,6 +319,16 @@ describe('require-gate inline script', () => {
     expect(result.childProcess.execSync).not.toHaveBeenCalled();
   });
 
+  test('exempts docs-only changes without requiring a label', async () => {
+    const result = await runGithubScript(gateScript, {
+      changedFiles: ['docs/guide.md', 'README.md'],
+      context: contextWith({ labels: ['type:docs'] }),
+    });
+
+    expect(outputValue(result.core, 'run_validation')).toBe('false');
+    expect(result.core.setFailed).not.toHaveBeenCalled();
+  });
+
   test('allows an explicit skip for a non-restricted change', async () => {
     const result = await runGithubScript(gateScript, {
       changedFiles: ['docs/guide.md'],
@@ -340,15 +350,13 @@ describe('require-gate inline script', () => {
     expect(result.core.setOutput).not.toHaveBeenCalled();
   });
 
-  test('does not mistake a nested file named CHANGELOG.md for the repository changelog', async () => {
+  test('exempts a nested CHANGELOG.md under docs/ as docs-only', async () => {
     const result = await runGithubScript(gateScript, {
       changedFiles: ['docs/CHANGELOG.md'],
     });
 
-    expect(result.core.setFailed).toHaveBeenCalledWith(
-      'PR requires a CHANGELOG.md update or the meta:no-changelog label.'
-    );
-    expect(result.core.setOutput).not.toHaveBeenCalled();
+    expect(outputValue(result.core, 'run_validation')).toBe('false');
+    expect(result.core.setFailed).not.toHaveBeenCalled();
   });
 });
 

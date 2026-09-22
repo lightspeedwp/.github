@@ -2,7 +2,7 @@
 title: "Agent Test Suite"
 description: "Comprehensive Jest tests for all LightSpeed agents"
 version: "v1.0"
-last_updated: "2025-11-24"
+last_updated: "2026-09-22""
 file_type: "documentation"
 ---
 

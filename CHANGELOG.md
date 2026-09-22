@@ -33,9 +33,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
-
 ### Fixed
 
+- **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate with identical scope.
+- **Bot PR Template Bodies** — Fixed-branch bot PRs (docs regen, maintenance, metrics) now ship full pr_chore sections so the template gate passes on automation-authored PRs.
+- **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
 - **Bot Commits via Pull Requests** — Metrics, documentation and maintenance bots now open fixed-branch pull requests instead of pushing to develop; metrics run daily. ([PR #3410](https://github.com/lightspeedwp/.github/pull/3410))

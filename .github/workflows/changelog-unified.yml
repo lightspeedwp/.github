@@ -100,6 +100,19 @@ jobs:
               return;
             }
 
+            // Docs-only diffs are exempt (same docs/** + **.md scope as the
+            // retired changelog-management workflow): the unified workflow
+            // must still report for required checks, so exempt in-gate
+            // rather than via trigger filters.
+            const isDocsOnly =
+              changed.length > 0 &&
+              changed.every((file) => file.startsWith("docs/") || file.endsWith(".md"));
+            if (isDocsOnly) {
+              core.info("Docs-only changes; changelog entry not required.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
+
             if (has("meta:no-changelog")) {
               core.info("Skipping changelog requirement due to meta:no-changelog label.");
               core.setOutput("run_validation", "false");

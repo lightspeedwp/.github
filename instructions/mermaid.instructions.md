@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Mermaid Diagram Guide"
 description: "How to design, style, and validate Mermaid diagrams. For README-specific inclusion rules, see readme.instructions.md."
 applyTo: "**/*.md"
-last_updated: "2025-12-10"
+last_updated: "2026-09-22""
 status: "active"
 owners: ["LightSpeedWP Team"]
 tags: ["mermaid", "diagrams", "documentation", "a11y", "visuals"]
@@ -144,8 +144,8 @@ flowchart TD
     C -->|Success| D[Output]
     C -->|Error| E[Error Handler]
 
-    classDef primary fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-    classDef secondary fill:#e2e8f0,stroke:#0f172a,color:#0f172a
+    classDef primary fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+    classDef secondary fill:#f1f5f9,stroke:#334155,color:#0f172a
     classDef accent fill:#2563eb,stroke:#0b1b3f,color:#f8fafc
 
     class A,B secondary
@@ -182,6 +182,7 @@ flowchart TD
   A[Sign up] --> B{Verify email?}
   B -- Yes --> C[Activate account]
   B -- No --> D[Resend verification]
+accDescr: Detailed diagram
 ```
 
 ## Placement & Integration

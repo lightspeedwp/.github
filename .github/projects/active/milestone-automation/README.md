@@ -143,7 +143,7 @@ graph LR
   B --> B3["Edge Case Testing"]
   B --> B4["Enhancements"]
   
-  classDef complete fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px
+  classDef complete fill:#dcfce7,stroke:#14532d,stroke-width:2px,color:#14532d
   classDef active fill:#FFF9C4,stroke:#F57F17,stroke-width:2px
   classDef future fill:#E1BEE7,stroke:#6A1B9A,stroke-width:2px
   classDef task fill:#BBDEFB,stroke:#1565C0,stroke-width:2px
