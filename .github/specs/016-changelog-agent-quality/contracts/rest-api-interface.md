@@ -1,6 +1,6 @@
 # REST API Contract: Changelog Agent (Optional, Future)
 
-**Feature**: 015-changelog-agent-quality
+**Feature**: 016-changelog-agent-quality
 
 **Version**: 1.0.0-draft
 

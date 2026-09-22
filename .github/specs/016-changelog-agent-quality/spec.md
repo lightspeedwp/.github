@@ -6,15 +6,17 @@
 
 **Status**: Draft
 
+**Note (2026-09-22)**: Renumbered from `015` to `016` — `015` was independently claimed on `develop` by `.github/specs/015-ci-failure-remediation`. The validation engine referenced in User Story 1 has since shipped to `develop` (`.github/validation/changelog/`, wired into `.github/workflows/changelog-validation.yml`); it already provides local execution (`npm run validate:changelog` from within that package, or `.github/validation/changelog/validate.sh`), 8 documented rules, and JSON/text output. User Story 1 has been rescoped below to close the remaining gap — a convenience alias at the repo root — rather than rebuild what already exists. User Stories 2–4 remain open gaps as originally scoped.
+
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Local Changelog Validation with Clear Feedback (Priority: P1)
+### User Story 1 - Root-Level Convenience Alias for Local Changelog Validation (Priority: P1)
 
-Developers and CI systems need to validate changelog entries locally before committing, with clear, actionable error messages that explain exactly what failed and how to fix it. Currently, the validation script runs in CI but fails silently or produces confusing output; developers cannot debug locally.
+The changelog validation engine (`.github/validation/changelog/`) already runs locally with clear, actionable output and is wired into CI via `.github/workflows/changelog-validation.yml`. What's missing is a root-level `npm run` alias so developers don't need to `cd .github/validation/changelog` first, and confirmation that its existing feedback (error type, line number, fix suggestion) is sufficient without further changes.
 
-**Why this priority**: This is the blocking issue preventing the changelog quality validation workflow from working. Until developers can validate locally with clear feedback, the entire validation system fails.
+**Why this priority**: This is the remaining friction point in an otherwise-complete validation workflow. Adding the alias is low-risk and unblocks the rest of this spec's user stories, which depend on it as their local entry point.
 
-**Independent Test**: Can be fully tested by running `npm run changelog:validate` locally on a branch with intentionally invalid entries and verifying: (1) the command exits with error code, (2) feedback lists specific validation failures with line numbers, (3) feedback includes actionable fix suggestions, (4) output formatting is clear and parsable.
+**Independent Test**: Can be fully tested by running `npm run changelog:validate` from the repo root on a branch with intentionally invalid entries and verifying: (1) the command exits with error code, (2) feedback lists specific validation failures with line numbers, (3) feedback includes actionable fix suggestions, (4) output formatting is clear and parsable.
 
 **Acceptance Scenarios**:
 
@@ -88,9 +90,9 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 ### Functional Requirements
 
-- **FR-001**: Changelog validation tool MUST run locally with `npm run changelog:validate [--changelog-path PATH]` and provide structured output (JSON or parsable text) with all validation results
-- **FR-002**: Validation tool MUST check changelog entries for: length (≤250 chars), PR/issue linking, formatting consistency (Keep a Changelog format), no implementation details
-- **FR-003**: Changelog agent MUST have at minimum 3 skills: `validate` (entry validation), `check-links` (PR/issue verification), `merge` (changelog consolidation), each invokable via npm CLI commands (e.g., `npm run changelog:validate`); optional REST API wrapper for external agent integration
+- **FR-001**: A root-level `npm run changelog:validate [--changelog-path PATH]` alias MUST wrap the existing `.github/validation/changelog` engine (`bin/validate.js`) and provide the same structured output (JSON or parsable text) it already produces
+- **FR-002**: Validation tool MUST check changelog entries for: length (≤250 chars), PR/issue linking, formatting consistency (Keep a Changelog format), no implementation details — already implemented in `.github/validation/changelog/rules.json` (8 rules); this FR is a verification/regression check, not new build
+- **FR-003**: Changelog agent MUST have at minimum 3 skills: `validate` (entry validation), `check-links` (PR/issue verification), `merge` (changelog consolidation), each invokable via npm CLI commands (e.g., `npm run changelog:validate`); optional REST API wrapper for external agent integration. `validate` already exists as the engine covered by FR-001; `check-links` and `merge` are the net-new skills this FR requires
 - **FR-004**: Each changelog skill MUST have: unique ID, version, description, triggers, input schema, output schema, error handling specification
 - **FR-005**: Validation failures MUST be clearly reported with: specific error type, location (line number/entry), expected format, actual content, fix suggestion
 - **FR-006**: Changelog documentation MUST exist at `docs/agents/changelog-agent/` with: README.md (overview, quick start), SKILLS.md (skill reference), INTEGRATION.md (workflow integration), TROUBLESHOOTING.md (common issues and fixes), API.md (detailed API documentation)
@@ -133,6 +135,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 ## Assumptions
 
 - The existing changelog validation rules (entry length ≤250 chars, PR linking required, etc.) remain stable and are documented in `docs/CHANGELOG_RULES.md`
+- The validation engine at `.github/validation/changelog/` (shipped via PR #3350, #3378) is the canonical implementation and will not be duplicated; this spec extends and re-exposes it rather than replacing it
 - The agentskills.io specification (<https://agentskills.io/specification>) remains the authoritative source for skill metadata structure
 - The prd-agent documentation at `docs/agents/prd-agent/` serves as the style and structure template for changelog agent docs
 - Changelog validation is non-blocking for automated commits (chores, deps) and can be configured per PR type or with explicit label

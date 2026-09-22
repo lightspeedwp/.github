@@ -1,6 +1,6 @@
 # Research: Changelog Agent Quality & Validation Framework
 
-**Feature**: 015-changelog-agent-quality
+**Feature**: 016-changelog-agent-quality
 
 **Date**: 2026-09-19
 

@@ -47,8 +47,7 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
-
-*Currently no draft specifications. All approved specifications are listed above under Active Specifications.*
+| 016 | changelog-agent-quality | Changelog Agent Quality & Validation Framework | Draft | 2026-09-18 | [./016-changelog-agent-quality/spec.md](./016-changelog-agent-quality/spec.md) |
 
 ---
 

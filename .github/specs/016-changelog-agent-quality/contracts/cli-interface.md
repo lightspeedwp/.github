@@ -1,6 +1,6 @@
 # CLI Interface Contract: Changelog Agent
 
-**Feature**: 015-changelog-agent-quality
+**Feature**: 016-changelog-agent-quality
 
 **Version**: 1.0.0
 
