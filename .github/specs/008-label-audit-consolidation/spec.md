@@ -124,7 +124,7 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 ### Functional Requirements
 
 - **FR-001**: System MUST identify and catalog all labels currently defined in the canonical `labels.yml` file (169 labels), organized by family, with counts and descriptions
-- **FR-002**: System MUST extract all 25 type mappings from `issue-types.yml` and verify each has a corresponding entry in `labels.yml` with matching name and color. NOTE: Canonical `labels.yml` contains 26 type:* labels; identify type labels in canonical that lack issue-types.yml mappings
+- **FR-002**: System MUST extract all 25 immutable type mappings from `issue-types.yml` and verify each has a corresponding entry in `labels.yml` with matching name and color. Canonical `labels.yml` contains 26 immutable `type:*` labels: the 25-label mapping set plus `type:decision`, which is intentionally excluded from that mapping set
 - **FR-003**: System MUST compare canonical labels against the `label-governance-policy.yml` never-delete list and identify:
   - Labels in the policy that don't exist in canonical file
   - Labels with name mismatches between files (e.g., `type:documentation` vs `type:docs`)
@@ -138,29 +138,29 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
   - Labels referenced in each workflow
   - Apparent failure points or design issues
   - Relationships to the current unified labeling agent
-- **FR-006**: System MUST query GitHub API to identify labels currently in use on the `.github` repository that may not be in the canonical file (orphan/undocumented labels)
+- **FR-006 (Incomplete)**: System MUST query the GitHub API to obtain the full repository label set and identify labels that may not be in the canonical file (orphan/undocumented labels). `github-api-labels.json` contains no verified GitHub label inventory, so the orphan-label audit MUST remain incomplete until that inventory is obtained
 - **FR-007**: System MUST identify potential duplicate labels (multiple labels that represent the same concept with different naming conventions)
-- **FR-008**: System MUST preserve the immutability of `type:*` family (exactly 25 labels from `issue-types.yml` must not change)
+- **FR-008**: System MUST preserve all 26 immutable canonical `type:*` labels: the 25-label `issue-types.yml` mapping set and `type:decision`, an immutable canonical label excluded from that mapping set. Neither the mapping set nor `type:decision` may be changed by this audit
 - **FR-009**: System MUST NOT edit locked configuration files (`labels.yml`, `issue-types.yml`, `label-governance-policy.yml`) - audit only
 - **FR-010**: System MUST document assumptions about which labels can be consolidated vs. which must be preserved due to existing automation
 
 ### Key Entities
 
 - **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, openspec (and any others discovered during audit)
-- **Type Labels**: 25 labels that map to GitHub issue types (immutable - defined in `issue-types.yml`)
+- **Type Labels**: 26 immutable canonical `type:*` labels: 25 labels in the `issue-types.yml` mapping set, plus `type:decision`, which is excluded from that mapping set
 - **Canonical Labels**: The 169 labels currently defined in `.github/labels.yml`
 - **Governance Policy**: The never-delete label list and related rules in `label-governance-policy.yml`
 - **Archived Workflows**: 11 workflow files that were disabled due to non-functional status
 - **Documentation**: All files describing label taxonomy and labeling strategy
-- **GitHub API Labels**: Current labels in use on the repository (retrieved via API)
+- **GitHub API Labels**: The full current repository label set required for orphan-label validation; no verified inventory has yet been retrieved
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: Audit report identifies all missing labels (those in GitHub but not in canonical file with 169 labels) with 100% accuracy
+- **SC-001 (Incomplete)**: Audit report identifies all missing labels (those in GitHub but not in the canonical file with 169 labels) with 100% accuracy. This criterion MUST remain incomplete until a verified full repository label set replaces the empty inventory in `github-api-labels.json`
 - **SC-002**: Audit report identifies all label mismatches (different names/colors between files) with 100% accuracy
-- **SC-003**: All 25 type mappings from `issue-types.yml` are verified as present and correct in canonical file. Canonical file contains 26 type labels; identify which type label (type:decision) lacks issue-types.yml mapping and assess if this is intentional governance gap
+- **SC-003**: All 25 immutable type mappings from `issue-types.yml` are verified as present and correct in the canonical file, and `type:decision` is verified as the additional immutable canonical type label excluded from the 25-label mapping set. The audit MUST NOT add, remove, rename, or otherwise change `type:decision` or the mapping set
 - **SC-004**: Audit report identifies ALL duplicate/overlapping labels across families, ranked by consolidation impact and usage frequency
 - **SC-005**: All 11 archived workflows are analyzed with documented findings (purpose, issues, recommendations) for each
 - **SC-006**: Audit identifies all discrepancies between canonical `labels.yml` (169 labels) and its documented purpose as "single source of truth", including type label mapping gaps
@@ -170,10 +170,10 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 ## Assumptions
 
 - The canonical `labels.yml` file is considered final and the baseline for this audit (169 labels total; no recommendations to change existing labels unless duplicates are identified)
-- The 25 type mappings in `issue-types.yml` are immutable and must not be changed as part of this audit. NOTE: Canonical file has 26 type labels; governance gap with type:decision (not mapped in issue-types.yml) is audit finding, not change target
+- The canonical `type:*` family contains 26 immutable labels: the 25-label `issue-types.yml` mapping set and `type:decision`, which is intentionally excluded from that mapping set. Neither may be changed as part of this audit
 - The `label-governance-policy.yml` never-delete list contains labels that may not be in the canonical file, and this is intentional (represents labels that must be preserved for historical or compatibility reasons)
 - Archived workflows were disabled due to conflicts, performance issues, or obsolescence rather than planned retirement
-- GitHub API has labels currently assigned to issues/PRs that represent the true system state of labels in use
+- The full GitHub API label inventory represents the true repository state, but `github-api-labels.json` currently contains no verified labels; orphan-label conclusions remain pending until the inventory is obtained
 - Documentation files (LABEL_*.md, ISSUE_*.md, PR_*.md) reflect intended labeling strategy even if implementation gaps exist
 - The unified labeling agent (`labeling.agent.js` / `labeling.yml`) is the current and future canonical source for label automation
 - Future work will address workflow restoration and label expansion, but this audit focuses on analysis and documentation
@@ -184,7 +184,7 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 
 This specification results in a **comprehensive audit report** documenting:
 
-1. Complete label inventory and family taxonomy
+1. Complete local canonical label inventory and family taxonomy; the live repository inventory and orphan-label audit remain pending
 2. All mismatches and inconsistencies between files
 3. Identified duplicate/overlapping labels (with consolidation recommendations)
 4. Analysis of archived workflows and automation gaps
@@ -197,7 +197,7 @@ The audit itself makes no changes to the production label configuration. It serv
 
 ### Session 2026-09-14
 
-- Q: Should the audit identify and consolidate exactly 5-10 duplicate labels, or is that range just an estimate? → A: Find ALL possible duplicate/overlapping labels and report them ranked by consolidation impact. This gives the governance team complete visibility rather than artificially limiting analysis.
+- Q: Should the audit identify and consolidate exactly 5-10 duplicate labels, or is that range just an estimate? → A: Find ALL possible duplicate/overlapping labels and report them ranked by consolidation impact. This gives the governance team complete visibility across verified local sources; complete repository visibility remains pending until the full GitHub label inventory is obtained.
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

@@ -130,6 +130,12 @@
       "label": "type:story",
       "found_in": "governance_policy",
       "finding_type": "missing_from_canonical"
+    },
+    {
+      "label": "type:decision",
+      "found_in": "canonical_labels",
+      "finding_type": "issue_type_mapping_exception",
+      "severity": "HIGH"
     }
   ]
 }

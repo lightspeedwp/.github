@@ -80,12 +80,12 @@
 
 | Family | Count | Status |
 |--------|-------|--------|
-| type | 26 | ✅ Complete (1 unmapped: type:decision) |
-| status | 8 | ✅ OK |
-| priority | 4 | ✅ OK |
-| area | 18 | ✅ OK |
-| meta | 12 | ✅ OK |
-| Other families (10) | 97 | ✅ OK |
+| type | 26 | ✅ Complete (`type:decision` is excluded from the mapping set) |
+| status | 21 | ✅ OK |
+| priority | 6 | ✅ OK |
+| area | 42 | ✅ OK |
+| meta | 6 | ✅ OK |
+| Other families (10) | 68 | ✅ OK |
 
 **Total**: 169 labels across 15 families
 
@@ -170,12 +170,12 @@
 
 ## Sign-Off
 
-**Audit Status**: ✅ MVP Complete (User Story 1: Reconciliation)
+**Audit Status**: ⚠️ MVP local reconciliation complete; orphan-label validation remains incomplete pending a verified live GitHub label inventory
 
 **Findings Summary**:
 - 2 CRITICAL/HIGH findings requiring governance decision
 - 1 recommendation for policy alignment
-- All data sources successfully audited
+- Local data sources were successfully audited; live GitHub API validation was unavailable
 - Evidence traceable to specific files and line numbers
 
 **Ready for**:
