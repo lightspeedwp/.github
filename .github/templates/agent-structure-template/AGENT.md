@@ -36,7 +36,7 @@ See `config/` folder for environment and runtime configuration.
 ### As a Node.js Module
 
 ```javascript
-const Agent = require('agents/{agent-name}');
+import Agent from 'agents-{agent-name}';
 const agent = new Agent(options);
 ```
 

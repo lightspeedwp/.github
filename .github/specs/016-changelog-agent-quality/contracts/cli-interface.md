@@ -137,8 +137,10 @@ Run 'npm run changelog:validate -- --help' for more info.
 # Basic link checking (uses GitHub token from env)
 npm run changelog:check-links -- --changelog-path ./CHANGELOG.md
 
-# With explicit token
-npm run changelog:check-links -- --changelog-path ./CHANGELOG.md --github-token ghp_xxxx
+# With an explicit token: set it as an environment variable, never as a CLI
+# argument (command-line args are visible in shell history and `ps`/process
+# lists on shared machines and CI runners)
+GITHUB_TOKEN=ghp_xxxx npm run changelog:check-links -- --changelog-path ./CHANGELOG.md
 
 # Strict mode (only merged PRs count)
 npm run changelog:check-links -- --changelog-path ./CHANGELOG.md --strict

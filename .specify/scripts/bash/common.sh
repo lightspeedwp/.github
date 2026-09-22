@@ -180,9 +180,13 @@ print(str("specs_directory" in data).lower())
 
         if grep -q '"specs_directory"[[:space:]]*:' "$init_json"; then
             field_present=true
+            # Anchor the capture to the "specs_directory" key itself (not the
+            # first colon on the line) - a line with other properties before
+            # it (e.g. {"a": "b", "specs_directory": "c"}) would otherwise
+            # capture the wrong value.
             if ! specs_dir=$(grep -E '"specs_directory"[[:space:]]*:[[:space:]]*"[^"]*"' "$init_json" \
                 | head -n 1 \
-                | sed -E 's/^[^:]*:[[:space:]]*"([^"]*)".*$/\1/'); then
+                | sed -E 's/^.*"specs_directory"[[:space:]]*:[[:space:]]*"([^"]*)".*$/\1/'); then
                 return 1
             fi
         fi

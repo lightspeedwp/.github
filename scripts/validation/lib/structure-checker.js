@@ -46,7 +46,12 @@ class StructureChecker {
     // Check each required component
     for (const [component, info] of Object.entries(REQUIRED_COMPONENTS)) {
       const componentPath = path.join(agentPath, component);
-      const exists = fs.existsSync(componentPath);
+      const pathExists = fs.existsSync(componentPath);
+      const exists =
+        pathExists &&
+        (info.type === 'directory'
+          ? fs.statSync(componentPath).isDirectory()
+          : fs.statSync(componentPath).isFile());
 
       if (!exists) {
         missing.push({

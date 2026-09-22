@@ -14,7 +14,7 @@
 ## Installation
 
 ```bash
-npm install agents/{agent-name}
+npm install agents-{agent-name}
 ```
 
 Or use as a GitHub Action:
@@ -28,7 +28,7 @@ Or use as a GitHub Action:
 ### Basic Example
 
 ```javascript
-const {AgentName} = require('agents/{agent-name}');
+import { AgentName } from 'agents-{agent-name}';
 
 const agent = new AgentName({
   option1: 'value'

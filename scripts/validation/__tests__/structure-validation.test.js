@@ -24,10 +24,16 @@ describe('StructureChecker', () => {
       fs.mkdirSync(path.join(testAgentPath, 'skills'), { recursive: true });
       fs.mkdirSync(path.join(testAgentPath, 'tests'), { recursive: true });
       fs.mkdirSync(path.join(testAgentPath, 'config'), { recursive: true });
-      fs.writeFileSync(path.join(testAgentPath, 'AGENT.md'), '# Agent');
+      fs.writeFileSync(
+        path.join(testAgentPath, 'AGENT.md'),
+        '# Conformant Agent\n\n' +
+          'Description: a fixture agent used to verify StructureChecker reports zero issues for a fully complete agent folder.\n\n' +
+          'Capabilities: exercises every required file and directory.\n\n' +
+          'Skills: none, this is a structure-only fixture.'
+      );
       fs.writeFileSync(
         path.join(testAgentPath, 'CHANGELOG.md'),
-        '# Changelog\n## [1.0.0]\n### Added\n- Initial'
+        '# Changelog\n\n## [1.0.0]\n\n### Added\n\n- Initial release of the conformant-agent test fixture used by structure-validation.test.js'
       );
       fs.writeFileSync(
         path.join(testAgentPath, 'package.json'),
@@ -37,6 +43,7 @@ describe('StructureChecker', () => {
           type: 'module',
           main: 'index.js',
           scripts: { test: 'jest', lint: 'eslint' },
+          engines: { node: '>=18.0.0' },
         })
       );
       fs.writeFileSync(path.join(testAgentPath, 'README.md'), '# README');

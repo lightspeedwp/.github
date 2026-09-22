@@ -166,7 +166,10 @@ class SkillsCatalog {
     const entries = fs.readdirSync(this.skillsDir, { withFileTypes: true });
 
     for (const entry of entries) {
-      if (entry.isDirectory() && !entry.name.startsWith('.')) {
+      // 'by-category' is SkillsRegistryGenerator's own generated output
+      // directory (see phase-6-skills-registry.js) - scanning it here would
+      // catalog Phase 6's generated registry files as if they were skills.
+      if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'by-category') {
         const categoryPath = path.join(this.skillsDir, entry.name);
         const skillFiles = fs.readdirSync(categoryPath);
 

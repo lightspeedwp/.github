@@ -6,6 +6,7 @@
 
 import fs from 'fs';
 import crypto from 'crypto';
+import path from 'path';
 
 class DedupEngine {
   constructor(options = {}) {
@@ -244,8 +245,9 @@ class DedupEngine {
    * Suggest consolidated path for exact duplicates
    */
   suggestConsolidatedPath(skills) {
-    // Prefer root skills over agent skills
-    const rootSkills = skills.filter((s) => !s.path.includes('/agents/'));
+    // Prefer root skills over agent skills. Split on path segments (not a
+    // hard-coded '/') so this also works with Windows backslash paths.
+    const rootSkills = skills.filter((s) => !s.path.split(path.sep).includes('agents'));
     if (rootSkills.length > 0) {
       return rootSkills[0].path;
     }
