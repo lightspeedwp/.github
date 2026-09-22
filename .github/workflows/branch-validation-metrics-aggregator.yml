@@ -138,13 +138,29 @@ jobs:
             echo "Nothing to prune (≤ $keep artifacts present)."
           fi
 
+      - name: Generate GitHub App token
+        # App token (not GITHUB_TOKEN) so the metrics PR triggers CI and
+        # can satisfy develop's required checks. Requires repo/org secrets:
+        # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        id: app-token
+        if: steps.aggregate.outputs.total != '0'
+        # NOTE: actionlint 1.7.12 (latest) bundles a stale v2-era input set
+        # for this action (expects app-id, rejects client-id). Upstream v3
+        # renamed app-id to client-id; the two messages are filtered via
+        # documented -ignore flags in workflow-lint.yml.
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+
       - name: Create or update metrics PR
         if: steps.aggregate.outputs.total != '0'
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ steps.app-token.outputs.token }}
           branch: chore/branch-validation-metrics
           base: develop
-          commit-message: 'chore: Update branch validation metrics [skip ci]'
+          commit-message: 'chore: Update branch validation metrics'
           title: 'chore: Update branch validation metrics'
           body: |
             Automated metrics update, Dependabot-style.
