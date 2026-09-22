@@ -1,0 +1,31 @@
+{
+  "agentPaths": ["agents"],
+  "skillPaths": ["agents/*/skills", "skills"],
+  "workflowPaths": [".github/workflows"],
+  "reportOutputDir": "agents/reports",
+  "specReportOutputDir": ".github/specs/014-agents-restructure-consolidate/reports",
+  "deduplication": {
+    "algorithm": "sha256-cosine-similarity",
+    "similarityThreshold": 0.85,
+    "exactMatchThreshold": 1.0
+  },
+  "agentStructure": {
+    "requiredFiles": ["AGENT.md", "CHANGELOG.md", "package.json", "README.md"],
+    "requiredDirs": ["skills", "tests", "config"]
+  },
+  "registry": {
+    "agentRegistry": "agents/registry.json",
+    "skillsRegistry": "skills/registry.json",
+    "perAgentRegistry": "agents/{agent-id}/registry.json",
+    "perCategoryRegistry": "skills/{category}/registry.json"
+  },
+  "validation": {
+    "agentskillsIoSpecVersion": "1.0.0",
+    "complianceCheckEnabled": true,
+    "strictMode": false
+  },
+  "logging": {
+    "verbose": false,
+    "format": "json"
+  }
+}
