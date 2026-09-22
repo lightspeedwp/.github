@@ -1,4 +1,5 @@
 name: Documentation Validation & Maintenance
+# ci-resync: force synchronize event after PR reopen didn't retrigger checks
 
 on:
   workflow_dispatch:
