@@ -1,6 +1,6 @@
 ---
 name: route-pr-template
-description: Selects the correct PR template for a branch based on its type, honouring the repository's own template-routing configuration and any explicit user override. Use once the branch has been validated and before assembling the PR body, to know which template structure to follow.
+description: Selects the correct PR template for a branch based on its type using the static branch-type routing map or an explicit user override. Use once the branch has been validated and before assembling the PR body, to know which template structure to follow.
 ---
 
 # route-pr-template
@@ -17,16 +17,14 @@ After `validate-branch-name` confirms the branch name, and before `orchestrate-p
 {
   branchName: string,          // full branch name, e.g. "feat/new-feature"
   branchType: string,          // alternative: just the type, e.g. "feat"
-  config: object,               // optional: routing configuration override
   userSelectedTemplate: string, // optional: explicit user override
 }
 ```
 
 ## Behaviour
 
-- Honours a repository's own PR-template routing configuration (e.g. `.github/PULL_REQUEST_TEMPLATE/config.yml`) where one exists.
-- Falls back to a standard description structure when no routing configuration exists.
-- Never applies a template-suggested label absent from the repository's real label set.
+- Matches the branch type against the static `BRANCH_TYPE_ROUTING` map.
+- Uses `userSelectedTemplate` when provided.
 
 ## Output
 

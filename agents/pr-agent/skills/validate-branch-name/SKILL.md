@@ -16,7 +16,7 @@ Before any PR is created or updated, and whenever a branch name needs to be chec
 ```js
 {
   branchName: string,   // e.g. "feat/pr-agent-consolidation-portability"
-  config: object,       // optional: override allowed types / forbidden prefixes
+  config: object,       // optional: override allowed types through config.allowed_types only
 }
 ```
 
