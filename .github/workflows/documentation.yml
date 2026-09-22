@@ -244,6 +244,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'maintain'
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
