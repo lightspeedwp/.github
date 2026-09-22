@@ -20,6 +20,13 @@ const REGISTRY_DIR = path.join(ROOT_DIR, 'skills');
   }
 });
 
+// Agent categories are named "agent:<name>"; ':' (and other characters below)
+// are invalid in a filename on Windows/NTFS, so both the write path and any
+// reported path for a category must use this same slug.
+function slugifyCategory(category) {
+  return category.replace(/[<>:"/\\|?*]/g, '-');
+}
+
 /**
  * T058-T062: Generate skills registry
  */
@@ -55,10 +62,7 @@ function generateCategoryRegistries(skills) {
   }
 
   for (const [category, registry] of Object.entries(categoryRegistries)) {
-    // Agent categories are named "agent:<name>"; ':' is invalid in a filename
-    // on Windows/NTFS, so slug it before writing.
-    const categorySlug = category.replace(/[<>:"/\\|?*]/g, '-');
-    const categoryPath = path.join(categoryDir, `${categorySlug}.json`);
+    const categoryPath = path.join(categoryDir, `${slugifyCategory(category)}.json`);
     fs.writeFileSync(categoryPath, JSON.stringify(registry, null, 2));
   }
 
@@ -299,7 +303,7 @@ function generateSummaryReport(registry, violations, categoryRegistries) {
             {
               skills: reg.skills.length,
               compliant: reg.summary.compliant,
-              path: `skills/by-category/${cat}.json`,
+              path: `skills/by-category/${slugifyCategory(cat)}.json`,
             },
           ])
         ),
