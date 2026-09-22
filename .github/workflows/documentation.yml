@@ -4,48 +4,48 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: "Action to perform"
+        description: 'Action to perform'
         required: true
         type: choice
         options:
           - audit
           - maintain
       scope:
-        description: "Scope (audit: all/syntax/accessibility/contrast/staleness; maintain: all/mermaid/staleness)"
+        description: 'Scope (audit: all/syntax/accessibility/contrast/staleness; maintain: all/mermaid/staleness)'
         required: false
-        default: "all"
+        default: 'all'
         type: string
       dry_run:
-        description: "Preview changes without committing (maintain action only)"
+        description: 'Preview changes without committing (maintain action only)'
         required: false
-        default: "false"
+        default: 'false'
         type: choice
         options:
-          - "true"
-          - "false"
+          - 'true'
+          - 'false'
 
   pull_request:
     branches:
       - develop
     types: [opened, edited, synchronize, reopened, ready_for_review]
     paths:
-      - "**/*.md"
-      - ".github/workflows/**"
-      - "agents/**"
-      - ".github/instructions/**"
-      - "docs/**"
-      - "scripts/**"
+      - '**/*.md'
+      - '.github/workflows/**'
+      - 'agents/**'
+      - '.github/instructions/**'
+      - 'docs/**'
+      - 'scripts/**'
 
   push:
     branches:
       - develop
     paths:
-      - "**/*.md"
-      - ".github/workflows/**"
-      - "agents/**"
-      - ".github/instructions/**"
-      - "docs/**"
-      - "scripts/**"
+      - '**/*.md'
+      - '.github/workflows/**'
+      - 'agents/**'
+      - '.github/instructions/**'
+      - 'docs/**'
+      - 'scripts/**'
 
 permissions:
   contents: read
@@ -79,8 +79,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -181,8 +181,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -213,41 +213,21 @@ jobs:
           README_FILES: ${{ steps.readmes.outputs.files }}
         run: node scripts/agents/meta.agent.js --files "$README_FILES"
 
-      - name: Commit README updates
+      - name: Create or update README PR
         if: github.event_name != 'pull_request' && steps.readmes.outputs.files != ''
-        # HUSKY=0 skips local git hooks (husky pre-commit runs lint-staged
-        # across thousands of staged files and fails the bot commit).
-        # Husky's own docs recommend env HUSKY: 0 in GitHub Actions.
-        env:
-          HUSKY: 0
-        run: |
-          git config user.name "lightspeed-bot"
-          git config user.email "ops@lightspeedwp.agency"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No README changes to commit."
-            exit 0
-          fi
-          git commit -m "chore(docs): regenerate impacted README files [skip ci]"
-          # develop moves under this job (merges, other bot commits), so a
-          # plain push loses the race with "fetch first" rejections. Rebase
-          # onto the latest remote state and retry with linear backoff.
-          # Gives up after 5 tries and fails the step so the race stays
-          # visible instead of silently dropping the commit.
-          attempt=1
-          max_attempts=5
-          until git push origin ${{ github.ref_name }}; do
-            if [ "$attempt" -ge "$max_attempts" ]; then
-              echo "❌ Push failed after $max_attempts attempts; giving up."
-              exit 1
-            fi
-            attempt=$((attempt + 1))
-            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
-            sleep $((attempt * 10))
-            git fetch origin ${{ github.ref_name }}
-            git rebase origin/${{ github.ref_name }} || (git rebase --abort && exit 1)
-          done
-          echo "✅ README updates pushed."
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: chore/readme-regeneration
+          base: develop
+          commit-message: 'chore(docs): regenerate impacted README files [skip ci]'
+          title: 'chore(docs): regenerate impacted README files'
+          body: |
+            Automated README regeneration, Dependabot-style.
+
+            - Fixed branch; subsequent runs update this same PR until merged.
+          labels: |
+            type:documentation
+            area:documentation
 
       - name: Upload regeneration artifacts
         if: always()
@@ -275,8 +255,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
