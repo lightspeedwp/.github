@@ -26,26 +26,31 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Diagnose environment
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
         run: |
           echo "Node version: $(node --version)"
           echo "npm version: $(npm --version)"
-          echo "GitHub context branch (head_ref): ${{ github.head_ref }}"
+          echo "GitHub context branch (head_ref): $BRANCH_NAME"
           echo "Current directory: $(pwd)"
           echo "Files in scripts/: $(ls -la scripts/pr-template-router.js 2>&1)"
 
       - name: Route PR template and labels
         id: route
+        # Branch name via env: it is attacker-controlled on fork PRs and
+        # must not be expanded inline into the shell command line.
+        env:
+          BRANCH_NAME: ${{ github.head_ref }}
         run: |
           set -x  # Enable debug output
 
-          BRANCH_NAME="${{ github.head_ref }}"
           echo "DEBUG: BRANCH_NAME='$BRANCH_NAME'"
 
           if [ -z "$BRANCH_NAME" ]; then
@@ -115,12 +120,78 @@ jobs:
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Verify PR body matches template
+        if: steps.verify-template.outputs.exists == 'true'
+        uses: actions/github-script@v9
+        env:
+          ROUTE_TEMPLATE: ${{ steps.route.outputs.template }}
+        with:
+          script: |
+            const fs = require('node:fs');
+            const templateName = process.env.ROUTE_TEMPLATE;
+            const templateFile = `.github/PULL_REQUEST_TEMPLATE/${templateName}.md`;
+            const template = fs.readFileSync(templateFile, 'utf8');
+            const required = [...template.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim());
+            const rawBody = context.payload.pull_request?.body || '';
+            const body = rawBody.toLowerCase();
+
+            // 1. Every template section heading must be present.
+            const missing = required.filter((h) => !body.includes(`## ${h.toLowerCase()}`));
+            if (missing.length > 0) {
+              core.setFailed(
+                `PR body is missing ${missing.length} section(s) from ${templateName}.md: ` +
+                missing.map((h) => `"## ${h}"`).join(', ') +
+                `. Copy the template sections into the PR body (see ${templateFile}).`
+              );
+              return;
+            }
+
+            // 2. Every section must contain real content: HTML comments
+            // (the templates ship with instructional placeholders) and
+            // whitespace do not count, and neither does an unchanged copy
+            // of the template's own default text. Write `N/A` where a
+            // section genuinely does not apply.
+            const splitSections = (text) => {
+              const sections = {};
+              let current = null;
+              for (const line of text.split('\n')) {
+                const match = line.match(/^## (.+)$/);
+                if (match) {
+                  current = match[1].trim().toLowerCase();
+                  sections[current] = [];
+                } else if (current) {
+                  sections[current].push(line);
+                }
+              }
+              return sections;
+            };
+            const normalize = (text) => text.replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').trim();
+            const bodySections = splitSections(rawBody);
+            const templateSections = splitSections(template);
+            const empty = required.filter((h) => {
+              const key = h.toLowerCase();
+              const submitted = normalize((bodySections[key] || []).join('\n'));
+              const templateDefault = normalize((templateSections[key] || []).join('\n'));
+              return submitted.length === 0 || submitted === templateDefault;
+            });
+            if (empty.length > 0) {
+              core.setFailed(
+                `PR body has ${empty.length} empty or unmodified section(s) from ${templateName}.md: ` +
+                empty.map((h) => `"## ${h}"`).join(', ') +
+                `. Fill each section with PR-specific content (or write N/A); an unchanged copy of the template text does not count.`
+              );
+            } else {
+              core.info(`PR body contains all ${required.length} sections from ${templateName}.md with content.`);
+            }
+
       - name: Apply labels to PR
         if: steps.verify-template.outputs.exists == 'true' && steps.route.outputs.labels != ''
         uses: actions/github-script@v9
+        env:
+          ROUTE_LABELS: ${{ steps.route.outputs.labels }}
         with:
           script: |
-            const labels = '${{ steps.route.outputs.labels }}'.split(',').map(l => l.trim()).filter(l => l);
+            const labels = (process.env.ROUTE_LABELS || '').split(',').map(l => l.trim()).filter(l => l);
 
             if (labels.length > 0) {
               console.log(`Adding labels: ${labels.join(', ')}`);
@@ -143,12 +214,17 @@ jobs:
       - name: Add PR comment with routing info
         if: success()
         uses: actions/github-script@v9
+        env:
+          ROUTE_BRANCH_TYPE: ${{ steps.route.outputs.branch_type }}
+          ROUTE_TEMPLATE: ${{ steps.route.outputs.template }}
+          ROUTE_LABELS: ${{ steps.route.outputs.labels }}
+          ROUTE_SCOPE: ${{ steps.route.outputs.scope }}
         with:
           script: |
-            const branchType = '${{ steps.route.outputs.branch_type }}';
-            const template = '${{ steps.route.outputs.template }}';
-            const labels = '${{ steps.route.outputs.labels }}' || 'none';
-            const scope = '${{ steps.route.outputs.scope }}';
+            const branchType = process.env.ROUTE_BRANCH_TYPE;
+            const template = process.env.ROUTE_TEMPLATE;
+            const labels = process.env.ROUTE_LABELS || 'none';
+            const scope = process.env.ROUTE_SCOPE;
 
             const labelDisplay = labels === 'none' ? '_none_' : labels;
             const lines = [

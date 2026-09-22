@@ -5,13 +5,17 @@ on:
     workflows: [Branch Name Validation]
     types: [completed]
   schedule:
-    - cron: "0 * * * *"
+    - cron: '0 * * * *'
 
 permissions:
   contents: write
   actions: read
+  pull-requests: write
 
 # Serialise runs: concurrent aggregations would race the metrics commit.
+# NOTE: GitHub added `concurrency.queue: max` (May 2026) for deeper queues,
+# but actionlint's schema does not recognise it yet — re-add once tooling
+# catches up.
 concurrency:
   group: branch-validation-metrics
   cancel-in-progress: false
@@ -25,6 +29,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          # Full history is required so the metrics commit can rebase
+          # onto the latest develop when the push races another writer.
+          fetch-depth: 0
 
       # Artifacts live on the triggering run, not this one: download-artifact
       # only searches the current run unless run-id is given.
@@ -41,7 +49,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Aggregate metrics
         id: aggregate
@@ -110,38 +118,22 @@ jobs:
 
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
-      - name: Commit metrics
+      - name: Create or update metrics PR
         if: steps.aggregate.outputs.total != '0'
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: chore/branch-validation-metrics
+          base: develop
+          commit-message: 'chore: Update branch validation metrics [skip ci]'
+          title: 'chore: Update branch validation metrics'
+          body: |
+            Automated metrics update, Dependabot-style.
 
-          git add .github/reports/branch-validation/metrics-summary.json
-          if git diff --cached --quiet; then
-            echo "No metrics changes to commit."
-            exit 0
-          fi
-          git commit -m "chore: Update branch validation metrics [skip ci]"
-
-          # develop moves under this job (merges, other bot commits), so a
-          # plain push loses the race with "fetch first" rejections. Rebase
-          # onto the latest remote state and retry with linear backoff.
-          # Gives up after 5 tries and fails the step so the race stays
-          # visible instead of silently dropping metrics.
-          attempt=1
-          max_attempts=5
-          until git push origin HEAD:develop; do
-            if [ "$attempt" -ge "$max_attempts" ]; then
-              echo "❌ Push failed after $max_attempts attempts; giving up."
-              exit 1
-            fi
-            attempt=$((attempt + 1))
-            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
-            sleep $((attempt * 10))
-            git fetch origin develop
-            git rebase origin/develop || (git rebase --abort && exit 1)
-          done
-          echo "✅ Metrics pushed."
+            - Updates `.github/reports/branch-validation/metrics-summary.json`
+            - Fixed branch; subsequent runs update this same PR until merged.
+          labels: |
+            type:chore
+            area:ci
 
       - name: Upload aggregated metrics
         if: steps.aggregate.outputs.total != '0'

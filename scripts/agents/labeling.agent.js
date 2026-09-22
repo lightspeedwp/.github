@@ -14,7 +14,7 @@
 import fs from "fs";
 import { load } from "js-yaml";
 import core from "@actions/core";
-import github from "@actions/github";
+import * as github from "@actions/github";
 import {
   buildLabelAliasMap,
   findStandardLabel,
