@@ -24,7 +24,9 @@ function generateStructureAudit() {
   console.log('\n[T036] Generating structure audit report...');
 
   const checker = new StructureChecker({ rootDir: ROOT_DIR });
-  const results = checker.checkAllAgents();
+  // checkAllAgents() populates checker.results as a side effect, which
+  // generateSummary() reads below - its own return value isn't needed here.
+  checker.checkAllAgents();
   const auditReport = checker.generateSummary();
 
   const reportPath = path.join(REPORTS_DIR, 'structure-audit.json');
