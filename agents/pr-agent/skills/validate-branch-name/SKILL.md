@@ -1,6 +1,6 @@
 ---
 name: validate-branch-name
-description: Validates that a branch name follows the {type}/{scope}-{short-title} convention, rejects forbidden prefixes (claude/, bot/, automated/), and checks the type against the repository's canonical list. Use before creating or updating a PR, whenever a branch name needs checking against this repository's branching convention.
+description: Validates that a branch name follows the {type}/{scope}-{short-title} convention, rejects forbidden prefixes (claude/, copilot/, openai/), and checks the type against the repository's canonical list. Use before creating or updating a PR, whenever a branch name needs checking against this repository's branching convention.
 ---
 
 # validate-branch-name
