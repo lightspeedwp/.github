@@ -39,6 +39,7 @@ The following diagram and table provide an overview of the available report cate
 ### Subdirectory Purposes
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     A[📂 .github/reports] --> B[🤖 Agents]
     A --> C[🔬 Analysis]
@@ -99,7 +100,8 @@ graph TD
 
 Use descriptive project names:
 
-    style A fill:#e1f5fe,stroke:#333,stroke-width:2px
+    style A fill:#dbeafe,stroke:#1e3a5f,stroke-width:2px,color:#1e3a5f
+accDescr: Detailed diagram
 ```
 
 {project-name}-{type}.md

@@ -3,7 +3,7 @@ file_type: "instructions"
 title: Reporting Instructions
 description: Guidelines for generating and storing reports in this repository.
 version: "1.1"
-last_updated: "2025-12-08"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Engineering"]
 tags: ["reporting", "automation", "governance", "standards"]
 ---
