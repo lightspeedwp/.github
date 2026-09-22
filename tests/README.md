@@ -336,6 +336,7 @@ npm ci
 - [WordPress Automation Schemas](../.schemas/header-footer-agent/README.md) — WordPress theme automation schemas
 - [Coverage Reports](../coverage/README.md) — Test coverage reporting and analysis
 - [HTML Coverage Reports](../coverage/lcov-report/README.md) — Interactive coverage visualization
+- [Broken Reference Remediation](../.github/docs/BROKEN_REFERENCE_REMEDIATION.md) — Remediation guide for broken documentation references
 
 #### 🎯 AI & Automation
 
@@ -350,18 +351,6 @@ npm ci
 *🧪 Ensuring quality through comprehensive testing and continuous coverage validation.*
 
 <!-- RANDOM FOOTER: 🧪 Docs signed by Copilot for LightSpeedWP -->
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
