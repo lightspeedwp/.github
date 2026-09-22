@@ -1,8 +1,8 @@
-# Implementation Plan: [FEATURE]
+# Implementation Plan: Changelog Agent Quality & Validation Framework
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Branch**: `refactor/changelog-agent-quality` | **Date**: 2026-09-19 | **Spec**: [./spec.md](./spec.md)
 
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**Input**: Feature specification from `.github/specs/015-changelog-agent-quality/spec.md`
 
 **Note**: This template is filled in by the `/speckit-plan` command; its definition describes the execution workflow.
 
