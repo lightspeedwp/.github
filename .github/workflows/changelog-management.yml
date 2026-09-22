@@ -20,9 +20,10 @@ on:
   pull_request:
     branches: [develop]
     types: [opened, synchronize, reopened, edited, ready_for_review, closed]
-    paths-ignore:
-      - "docs/**"
-      - "**.md"
+    # No paths-ignore: this workflow backs the required "Validate changelog
+    # on PR" status check, and a filtered-out run never reports, leaving the
+    # check at "Expected" forever. Docs-only diffs are exempted in the gate
+    # step below instead (same docs/** + **.md scope as before).
 
 concurrency:
   group: changelog-mgmt-${{ github.event.pull_request.number || github.ref }}
@@ -104,6 +105,17 @@ jobs:
             if (changed.includes("CHANGELOG.md")) {
               core.info("CHANGELOG.md updated in PR diff.");
               core.setOutput("run_validation", "true");
+              return;
+            }
+
+            // Docs-only diffs (previously paths-ignore: docs/**, **.md) are
+            // exempt: the workflow must still report for required checks.
+            const isDocsOnly = changed.every(
+              (file) => file.startsWith("docs/") || file.endsWith(".md")
+            );
+            if (isDocsOnly) {
+              core.info("Docs-only changes; changelog entry not required.");
+              core.setOutput("run_validation", "false");
               return;
             }
 
