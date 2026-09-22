@@ -78,3 +78,6 @@ When any of these documents change, this agent's skills (particularly `validate-
 
 - **Full Agent Details:** See [AGENT.md](./AGENT.md)
 - **Version History:** See [CHANGELOG.md](./CHANGELOG.md)
+
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
+[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

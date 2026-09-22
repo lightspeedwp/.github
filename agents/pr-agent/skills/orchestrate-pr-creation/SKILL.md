@@ -58,3 +58,5 @@ const result = await orchestratePrCreation({
   pr: { owner, repo, title, body, head, base, labels },
 });
 ```
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

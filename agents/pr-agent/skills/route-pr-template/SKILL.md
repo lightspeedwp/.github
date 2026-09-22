@@ -60,3 +60,5 @@ import { routePrTemplate } from './scripts/route-pr-template.js';
 
 const result = await routePrTemplate({ branchName: 'feat/new-feature' });
 ```
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

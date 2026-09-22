@@ -64,3 +64,5 @@ import { handlePrErrors } from './scripts/handle-pr-errors.js';
 
 const result = await handlePrErrors({ error: { message: 'Rate limit exceeded' } });
 ```
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

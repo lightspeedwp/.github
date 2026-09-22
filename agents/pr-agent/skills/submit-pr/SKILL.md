@@ -98,3 +98,5 @@ import { submitPr } from './scripts/submit-pr.js';
 
 const result = await submitPr({ pr, githubContext, dryRun: true });
 ```
+
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

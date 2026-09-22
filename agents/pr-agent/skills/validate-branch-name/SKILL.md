@@ -39,3 +39,6 @@ import { validateBranchName } from "./scripts/validate-branch-name.js";
 
 const result = await validateBranchName({ branchName: "feat/my-feature" });
 ```
+
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
