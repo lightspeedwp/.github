@@ -40,7 +40,7 @@ This directory contains version-controlled JSON definitions of the GitHub reposi
 ### 2. `main` Branch Ruleset ([main.ruleset.json](./main.ruleset.json))
 
 - **Target Ref:** `refs/heads/main`
-- **Enforcement:** Active
+- **Enforcement:** Active in JSON — **not yet applied** (needs explicit go-ahead before enforcing on `main`)
 - **Key Rules:**
   - Deletion blocked
   - Non-fast-forward merges (force pushes) blocked
@@ -49,7 +49,7 @@ This directory contains version-controlled JSON definitions of the GitHub reposi
     - `Route PR template and apply labels`
     - `Validate branch name`
     - `actionlint`
-  - **Not applied yet** — no `validate-release-branch` check exists; the changelog gate only targets develop PRs, so it is intentionally excluded here.
+  - No `validate-release-branch` check exists; the changelog gate only targets develop PRs, so it is intentionally excluded here.
 - **Not enforced:** no merge-queue rule — the repo merges directly and via Mergify, not the GitHub merge queue.
 
 ## Importing and Applying Rulesets
