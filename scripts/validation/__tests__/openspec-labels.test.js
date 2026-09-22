@@ -5,23 +5,16 @@
  * truth; this suite asserts its current 9-label OpenSpec scheme).
  */
 
-const fs = require("fs");
-const path = require("path");
-const yaml = require("js-yaml");
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
 
-describe("OpenSpec Status Labels", () => {
+describe('OpenSpec Status Labels', () => {
   let labelsConfig;
 
   beforeAll(() => {
-    const labelsPath = path.join(
-      __dirname,
-      "..",
-      "..",
-      "..",
-      ".github",
-      "labels.yml",
-    );
-    const fileContent = fs.readFileSync(labelsPath, "utf8");
+    const labelsPath = path.join(__dirname, '..', '..', '..', '.github', 'labels.yml');
+    const fileContent = fs.readFileSync(labelsPath, 'utf8');
     labelsConfig = yaml.load(fileContent);
   });
 
@@ -119,10 +112,8 @@ describe("OpenSpec Status Labels", () => {
       });
     });
 
-    it("should be compatible with status labels", () => {
-      const statusLabels = labelsConfig.filter((l) =>
-        l.name.startsWith("status:"),
-      );
+    it('should be compatible with status labels', () => {
+      const statusLabels = labelsConfig.filter((l) => l.name.startsWith('status:'));
       expect(statusLabels.length).toBeGreaterThan(0);
 
       // OpenSpec labels should be distinguishable from status labels
@@ -168,14 +159,10 @@ describe("OpenSpec Status Labels", () => {
       });
     });
 
-    it("should allow parallel specification and implementation tracking", () => {
+    it('should allow parallel specification and implementation tracking', () => {
       // An issue could have both a specification and implementation label
-      const specLabel = labelsConfig.find(
-        (l) => l.name === "openspec:specification-complete",
-      );
-      const implLabel = labelsConfig.find(
-        (l) => l.name === "openspec:implementation-in-progress",
-      );
+      const specLabel = labelsConfig.find((l) => l.name === 'openspec:specification-complete');
+      const implLabel = labelsConfig.find((l) => l.name === 'openspec:implementation-in-progress');
 
       expect(specLabel).toBeDefined();
       expect(implLabel).toBeDefined();

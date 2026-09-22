@@ -11,39 +11,30 @@
  * @version 1.0.0
  */
 
-const fs = require("fs");
-const path = require("path");
-const { execFileSync } = require("child_process");
-const yaml = require("js-yaml");
-const Ajv = require("ajv");
-const addFormats = require("ajv-formats");
-const glob = require("glob");
-const { minimatch } = require("minimatch");
+const fs = require('fs');
+const path = require('path');
+const { execFileSync } = require('child_process');
+const yaml = require('js-yaml');
+const Ajv = require('ajv');
+const addFormats = require('ajv-formats');
+const glob = require('glob');
+const { minimatch } = require('minimatch');
 
 // Configuration
 const CONFIG = {
-  schemaPath: path.join(__dirname, "../../.schemas/frontmatter.schema.json"),
-  rootDir: path.join(__dirname, "../.."),
-  logDir: path.join(__dirname, "../../logs/validation"),
-  outputFile: path.join(
-    __dirname,
-    "../../logs/validation/frontmatter-validation.log",
-  ),
+  schemaPath: path.join(__dirname, '../../.schemas/frontmatter.schema.json'),
+  rootDir: path.join(__dirname, '../..'),
+  logDir: path.join(__dirname, '../../logs/validation'),
+  outputFile: path.join(__dirname, '../../logs/validation/frontmatter-validation.log'),
   patterns: [
-    "**/*.md",
-    "**/*.yml",
-    "**/*.yaml",
-    ".github/**/*.md",
-    ".github/**/*.yml",
-    ".github/**/*.yaml",
+    '**/*.md',
+    '**/*.yml',
+    '**/*.yaml',
+    '.github/**/*.md',
+    '.github/**/*.yml',
+    '.github/**/*.yaml',
   ],
-  excludePatterns: [
-    "node_modules/**",
-    ".git/**",
-    "coverage/**",
-    "logs/**",
-    "**/package-lock.json",
-  ],
+  excludePatterns: ['node_modules/**', '.git/**', 'coverage/**', 'logs/**', '**/package-lock.json'],
   targetFiles: [],
 };
 
@@ -74,15 +65,15 @@ class Logger {
 
     // Console output with color coding
     const colors = {
-      ERROR: "\x1b[31m", // Red
-      WARN: "\x1b[33m", // Yellow
-      INFO: "\x1b[36m", // Cyan
-      SUCCESS: "\x1b[32m", // Green
-      RESET: "\x1b[0m",
+      ERROR: '\x1b[31m', // Red
+      WARN: '\x1b[33m', // Yellow
+      INFO: '\x1b[36m', // Cyan
+      SUCCESS: '\x1b[32m', // Green
+      RESET: '\x1b[0m',
     };
 
     const color = colors[level] || colors.RESET;
-    const fileInfo = file ? ` [${path.relative(CONFIG.rootDir, file)}]` : "";
+    const fileInfo = file ? ` [${path.relative(CONFIG.rootDir, file)}]` : '';
     console.log(`${color}[${level}]${colors.RESET} ${message}${fileInfo}`);
 
     if (details) {
@@ -91,19 +82,19 @@ class Logger {
   }
 
   error(message, file, details) {
-    this.log("ERROR", message, file, details);
+    this.log('ERROR', message, file, details);
   }
 
   warn(message, file, details) {
-    this.log("WARN", message, file, details);
+    this.log('WARN', message, file, details);
   }
 
   info(message, file, details) {
-    this.log("INFO", message, file, details);
+    this.log('INFO', message, file, details);
   }
 
   success(message, file, details) {
-    this.log("SUCCESS", message, file, details);
+    this.log('SUCCESS', message, file, details);
   }
 
   writeToFile() {
@@ -111,12 +102,10 @@ class Logger {
       .map(
         (entry) =>
           `[${entry.timestamp}] ${entry.level}: ${entry.message}` +
-          (entry.file ? ` [${entry.file}]` : "") +
-          (entry.details
-            ? `\n  Details: ${JSON.stringify(entry.details)}`
-            : ""),
+          (entry.file ? ` [${entry.file}]` : '') +
+          (entry.details ? `\n  Details: ${JSON.stringify(entry.details)}` : '')
       )
-      .join("\n");
+      .join('\n');
 
     fs.writeFileSync(this.logFile, logContent);
     this.info(`Validation log written to: ${this.logFile}`);
@@ -137,10 +126,9 @@ class FrontmatterExtractor {
       const frontmatter = yaml.load(match[1]);
       return { frontmatter, hasYamlBlock: true };
     } catch (error) {
-      throw new Error(
-        `Invalid YAML frontmatter in ${filePath}: ${error.message}`,
-        { cause: error },
-      );
+      throw new Error(`Invalid YAML frontmatter in ${filePath}: ${error.message}`, {
+        cause: error,
+      });
     }
   }
 }
@@ -164,13 +152,12 @@ class FrontmatterValidator {
 
   loadSchema(schemaPath) {
     try {
-      const schemaContent = fs.readFileSync(schemaPath, "utf8");
+      const schemaContent = fs.readFileSync(schemaPath, 'utf8');
       return JSON.parse(schemaContent);
     } catch (error) {
-      throw new Error(
-        `Failed to load schema from ${schemaPath}: ${error.message}`,
-        { cause: error },
-      );
+      throw new Error(`Failed to load schema from ${schemaPath}: ${error.message}`, {
+        cause: error,
+      });
     }
   }
 
@@ -178,19 +165,15 @@ class FrontmatterValidator {
     this.stats.total++;
 
     try {
-      const content = fs.readFileSync(filePath, "utf8");
-      const { frontmatter, hasYamlBlock } = FrontmatterExtractor.extract(
-        content,
-        filePath,
-      );
+      const content = fs.readFileSync(filePath, 'utf8');
+      const { frontmatter, hasYamlBlock } = FrontmatterExtractor.extract(content, filePath);
 
       // Skip files without frontmatter for certain file types
       if (!hasYamlBlock) {
         const shouldHaveFrontmatter = this.shouldHaveFrontmatter(filePath);
         if (shouldHaveFrontmatter) {
-          this.logger.warn("Missing frontmatter", filePath, {
-            reason:
-              "File should have frontmatter according to LightSpeed standards",
+          this.logger.warn('Missing frontmatter', filePath, {
+            reason: 'File should have frontmatter according to LightSpeed standards',
             fileType: this.getFileType(filePath),
           });
           this.stats.warnings++;
@@ -204,10 +187,10 @@ class FrontmatterValidator {
       const isValid = this.validate(frontmatter);
 
       if (isValid) {
-        this.logger.success("Valid frontmatter", filePath);
+        this.logger.success('Valid frontmatter', filePath);
         this.stats.validated++;
       } else {
-        this.logger.error("Invalid frontmatter", filePath, {
+        this.logger.error('Invalid frontmatter', filePath, {
           errors: this.validate.errors.map((error) => ({
             instancePath: error.instancePath,
             schemaPath: error.schemaPath,
@@ -222,7 +205,7 @@ class FrontmatterValidator {
       // Additional LightSpeed-specific validations
       this.performLightSpeedValidations(frontmatter, filePath);
     } catch (error) {
-      this.logger.error("Validation failed", filePath, {
+      this.logger.error('Validation failed', filePath, {
         error: error.message,
       });
       this.stats.errors++;
@@ -249,35 +232,28 @@ class FrontmatterValidator {
   }
 
   getFileType(filePath) {
-    if (filePath.includes("/agents/") || filePath.includes("/.github/agents/"))
-      return "agent";
-    if (filePath.includes("/.github/chatmodes/")) return "chatmode";
-    if (filePath.includes("/.github/instructions/")) return "instruction";
-    if (filePath.includes("/.github/prompts/")) return "prompt";
-    if (filePath.includes("/.github/collections/")) return "collection";
-    if (filePath.includes("/ISSUE_TEMPLATE/")) return "issue_template";
-    if (filePath.includes("/PULL_REQUEST_TEMPLATE/"))
-      return "pull_request_template";
-    if (filePath.includes("/DISCUSSION_TEMPLATE/"))
-      return "discussion_template";
-    if (filePath.includes("/SAVED_REPLIES/")) return "saved_reply";
-    if (filePath.endsWith("README.md")) return "readme";
-    if (filePath.includes("/.github/") && filePath.endsWith(".md"))
-      return "documentation";
-    return "unknown";
+    if (filePath.includes('/agents/') || filePath.includes('/.github/agents/')) return 'agent';
+    if (filePath.includes('/.github/chatmodes/')) return 'chatmode';
+    if (filePath.includes('/.github/instructions/')) return 'instruction';
+    if (filePath.includes('/.github/prompts/')) return 'prompt';
+    if (filePath.includes('/.github/collections/')) return 'collection';
+    if (filePath.includes('/ISSUE_TEMPLATE/')) return 'issue_template';
+    if (filePath.includes('/PULL_REQUEST_TEMPLATE/')) return 'pull_request_template';
+    if (filePath.includes('/DISCUSSION_TEMPLATE/')) return 'discussion_template';
+    if (filePath.includes('/SAVED_REPLIES/')) return 'saved_reply';
+    if (filePath.endsWith('README.md')) return 'readme';
+    if (filePath.includes('/.github/') && filePath.endsWith('.md')) return 'documentation';
+    return 'unknown';
   }
 
   performLightSpeedValidations(frontmatter, filePath) {
     const fileType = this.getFileType(filePath);
 
     // Ensure the removed `references` field is not present
-    if (
-      frontmatter &&
-      Object.prototype.hasOwnProperty.call(frontmatter, "references")
-    ) {
+    if (frontmatter && Object.prototype.hasOwnProperty.call(frontmatter, 'references')) {
       this.logger.error(
         "The frontmatter 'references' field has been removed; convert any links to inline citations instead.",
-        filePath,
+        filePath
       );
       this.stats.errors++;
     }
@@ -289,14 +265,14 @@ class FrontmatterValidator {
         !Object.prototype.hasOwnProperty.call(frontmatter, field) ||
         frontmatter[field] === null ||
         frontmatter[field] === undefined ||
-        frontmatter[field] === "",
+        frontmatter[field] === ''
     );
 
     if (missingFields.length > 0) {
-      this.logger.warn("Missing required fields", filePath, {
+      this.logger.warn('Missing required fields', filePath, {
         fileType,
         missingFields,
-        recommendation: `Add the following fields: ${missingFields.join(", ")}`,
+        recommendation: `Add the following fields: ${missingFields.join(', ')}`,
       });
       this.stats.warnings++;
     }
@@ -304,56 +280,48 @@ class FrontmatterValidator {
     // Check for recommended fields
     const recommendedFields = this.getRecommendedFieldsByType(fileType);
     const missingRecommended = recommendedFields.filter(
-      (field) => !Object.prototype.hasOwnProperty.call(frontmatter, field),
+      (field) => !Object.prototype.hasOwnProperty.call(frontmatter, field)
     );
 
     if (missingRecommended.length > 0) {
-      this.logger.info("Missing recommended fields", filePath, {
+      this.logger.info('Missing recommended fields', filePath, {
         fileType,
         missingRecommended,
-        suggestion: `Consider adding: ${missingRecommended.join(", ")}`,
+        suggestion: `Consider adding: ${missingRecommended.join(', ')}`,
       });
     }
   }
 
   getRequiredFieldsByType(fileType) {
     const requirements = {
-      agent: ["file_type", "name", "description"],
-      chatmode: ["file_type", "description"],
-      instruction: ["file_type", "description"], // apply_to/applyTo verified separately if present
-      prompt: ["file_type", "description"],
-      collection: ["file_type", "name", "description"],
-      issue_template: ["file_type", "name", "about"],
-      pull_request_template: ["file_type", "title"],
-      discussion_template: ["file_type", "name", "description"],
-      saved_reply: ["file_type", "title"],
-      readme: ["file_type", "title", "description"],
-      documentation: ["file_type", "description"],
+      agent: ['file_type', 'name', 'description'],
+      chatmode: ['file_type', 'description'],
+      instruction: ['file_type', 'description'], // apply_to/applyTo verified separately if present
+      prompt: ['file_type', 'description'],
+      collection: ['file_type', 'name', 'description'],
+      issue_template: ['file_type', 'name', 'about'],
+      pull_request_template: ['file_type', 'title'],
+      discussion_template: ['file_type', 'name', 'description'],
+      saved_reply: ['file_type', 'title'],
+      readme: ['file_type', 'title', 'description'],
+      documentation: ['file_type', 'description'],
     };
 
-    return requirements[fileType] || ["file_type"];
+    return requirements[fileType] || ['file_type'];
   }
 
   getRecommendedFieldsByType(fileType) {
     const recommendations = {
-      agent: ["version", "last_updated", "owners", "tags"],
-      chatmode: [
-        "tools",
-        "model",
-        "owners",
-        "tags",
-        "context_window",
-        "temperature",
-        "max_tokens",
-      ],
-      instruction: ["owners", "tags", "version"],
-      prompt: ["mode", "model", "tools", "tags"],
-      collection: ["version", "last_updated", "tags"],
-      readme: ["version", "last_updated", "owners", "tags"],
-      documentation: ["owners", "tags"],
+      agent: ['version', 'last_updated', 'owners', 'tags'],
+      chatmode: ['tools', 'model', 'owners', 'tags', 'context_window', 'temperature', 'max_tokens'],
+      instruction: ['owners', 'tags', 'version'],
+      prompt: ['mode', 'model', 'tools', 'tags'],
+      collection: ['version', 'last_updated', 'tags'],
+      readme: ['version', 'last_updated', 'owners', 'tags'],
+      documentation: ['owners', 'tags'],
     };
 
-    return recommendations[fileType] || ["owners", "tags"];
+    return recommendations[fileType] || ['owners', 'tags'];
   }
 
   getStats() {
@@ -391,28 +359,20 @@ class FileDiscovery {
    * @param {string} rootDir - Repository root directory.
    * @returns {string[]} Absolute paths of changed, matching files.
    */
-  static findChangedFiles(
-    baseSha,
-    headSha,
-    patterns,
-    excludePatterns,
-    rootDir,
-  ) {
+  static findChangedFiles(baseSha, headSha, patterns, excludePatterns, rootDir) {
     // Validate SHAs to prevent shell injection — must be 4–64 hex characters
     const shaRe = /^[0-9a-f]{4,64}$/i;
     if (!shaRe.test(baseSha) || !shaRe.test(headSha)) {
-      console.warn(
-        "Invalid SHA format for --base/--head; falling back to full validation.",
-      );
+      console.warn('Invalid SHA format for --base/--head; falling back to full validation.');
       return FileDiscovery.findFiles(patterns, excludePatterns, rootDir);
     }
 
     let changedRelative;
     try {
       const output = execFileSync(
-        "git",
-        ["diff", "--name-only", "--diff-filter=ACMRT", baseSha, headSha],
-        { cwd: rootDir, encoding: "utf8" },
+        'git',
+        ['diff', '--name-only', '--diff-filter=ACMRT', baseSha, headSha],
+        { cwd: rootDir, encoding: 'utf8' }
       );
       changedRelative = output
         .split(/\r?\n/)
@@ -449,30 +409,24 @@ function resolveCliTargetFiles(fileArgs, rootDir) {
   return [
     ...new Set(
       fileArgs.map((filePath) =>
-        path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath),
-      ),
+        path.isAbsolute(filePath) ? filePath : path.resolve(rootDir, filePath)
+      )
     ),
   ].filter((filePath) => fs.existsSync(filePath));
 }
 
 function runAltValidation() {
   try {
-    const schemaContent = fs.readFileSync(CONFIG.schemaPath, "utf8");
+    const schemaContent = fs.readFileSync(CONFIG.schemaPath, 'utf8');
     const schema = JSON.parse(schemaContent);
-    const files = FileDiscovery.findFiles(
-      CONFIG.patterns,
-      CONFIG.excludePatterns,
-      CONFIG.rootDir,
-    );
+    const files = FileDiscovery.findFiles(CONFIG.patterns, CONFIG.excludePatterns, CONFIG.rootDir);
 
-    console.log("Alt frontmatter validation placeholder.");
-    console.log(
-      `Schema title: ${schema.title || "unknown"} | Files discovered: ${files.length}`,
-    );
+    console.log('Alt frontmatter validation placeholder.');
+    console.log(`Schema title: ${schema.title || 'unknown'} | Files discovered: ${files.length}`);
 
     process.exit(0);
   } catch (error) {
-    console.error("Alt frontmatter validation failed:", error.message);
+    console.error('Alt frontmatter validation failed:', error.message);
     process.exit(1);
   }
 }
@@ -481,7 +435,7 @@ function runAltValidation() {
 async function validateFrontmatter(filePaths) {
   const logger = new Logger(CONFIG.outputFile);
 
-  logger.info("Starting frontmatter validation", null, {
+  logger.info('Starting frontmatter validation', null, {
     schema: CONFIG.schemaPath,
     rootDir: CONFIG.rootDir,
     patterns: CONFIG.patterns,
@@ -495,12 +449,7 @@ async function validateFrontmatter(filePaths) {
 
     // Discover files — use provided list or fall back to full discovery
     const files =
-      filePaths ||
-      FileDiscovery.findFiles(
-        CONFIG.patterns,
-        CONFIG.excludePatterns,
-        CONFIG.rootDir,
-      );
+      filePaths || FileDiscovery.findFiles(CONFIG.patterns, CONFIG.excludePatterns, CONFIG.rootDir);
 
     logger.info(`Found ${files.length} files to validate`);
 
@@ -511,7 +460,7 @@ async function validateFrontmatter(filePaths) {
 
     // Generate summary
     const stats = validator.getStats();
-    logger.info("Validation completed", null, stats);
+    logger.info('Validation completed', null, stats);
 
     // Write log file
     logger.writeToFile();
@@ -520,7 +469,7 @@ async function validateFrontmatter(filePaths) {
     const hasErrors = stats.errors > 0;
     process.exit(hasErrors ? 1 : 0);
   } catch (error) {
-    logger.error("Validation failed", null, { error: error.message });
+    logger.error('Validation failed', null, { error: error.message });
     logger.writeToFile();
     process.exit(1);
   }
@@ -530,9 +479,9 @@ async function validateFrontmatter(filePaths) {
 if (require.main === module) {
   const args = process.argv.slice(2);
 
-  const altMode = args.includes("--alt");
+  const altMode = args.includes('--alt');
 
-  if (args.includes("--help") || args.includes("-h")) {
+  if (args.includes('--help') || args.includes('-h')) {
     console.log(`
 Frontmatter Validation Script
 
@@ -556,25 +505,25 @@ Examples:
   }
 
   // Parse command line arguments
-  const schemaIndex = args.indexOf("--schema");
+  const schemaIndex = args.indexOf('--schema');
   if (schemaIndex !== -1 && args[schemaIndex + 1]) {
     CONFIG.schemaPath = path.resolve(args[schemaIndex + 1]);
   }
 
-  const rootIndex = args.indexOf("--root");
+  const rootIndex = args.indexOf('--root');
   if (rootIndex !== -1 && args[rootIndex + 1]) {
     CONFIG.rootDir = path.resolve(args[rootIndex + 1]);
   }
 
-  const outputIndex = args.indexOf("--output");
+  const outputIndex = args.indexOf('--output');
   if (outputIndex !== -1 && args[outputIndex + 1]) {
     CONFIG.outputFile = path.resolve(args[outputIndex + 1]);
   }
 
-  const baseIndex = args.indexOf("--base");
+  const baseIndex = args.indexOf('--base');
   const baseSha = baseIndex !== -1 ? args[baseIndex + 1] : null;
 
-  const headIndex = args.indexOf("--head");
+  const headIndex = args.indexOf('--head');
   const headSha = headIndex !== -1 ? args[headIndex + 1] : null;
   if (altMode) {
     runAltValidation();
@@ -585,15 +534,15 @@ Examples:
       headSha,
       CONFIG.patterns,
       CONFIG.excludePatterns,
-      CONFIG.rootDir,
+      CONFIG.rootDir
     );
     validateFrontmatter(changedFiles).catch((err) => {
-      console.error("Frontmatter validation error:", err?.stack ?? String(err));
+      console.error('Frontmatter validation error:', err?.stack ?? String(err));
       process.exit(1);
     });
   } else {
     validateFrontmatter().catch((err) => {
-      console.error("Frontmatter validation error:", err?.stack ?? String(err));
+      console.error('Frontmatter validation error:', err?.stack ?? String(err));
       process.exit(1);
     });
   }

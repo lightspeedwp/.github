@@ -6,6 +6,7 @@ on:
       - opened
       - synchronize
       - reopened
+      - edited
 
 permissions:
   contents: read
@@ -132,7 +133,21 @@ jobs:
             const templateFile = `.github/PULL_REQUEST_TEMPLATE/${templateName}.md`;
             const template = fs.readFileSync(templateFile, 'utf8');
             const required = [...template.matchAll(/^## (.+)$/gm)].map((m) => m[1].trim());
-            const rawBody = context.payload.pull_request?.body || '';
+            // Fetch the live PR body: the event payload snapshot goes stale
+            // (job reruns reuse the original payload, so body edits made
+            // after the run started are invisible). Fall back to the payload
+            // if the API call fails.
+            let rawBody = context.payload.pull_request?.body || '';
+            try {
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request?.number,
+              });
+              rawBody = pr.body || '';
+            } catch (error) {
+              core.warning(`Live PR body fetch failed, using event payload: ${error.message}`);
+            }
             const body = rawBody.toLowerCase();
 
             // 1. Every template section heading must be present.
