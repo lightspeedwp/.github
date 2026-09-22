@@ -2,7 +2,7 @@
 title: 'Template: Agent Specification'
 description: 'Standard specification for defining a LightSpeed Copilot Agent: role, behaviours, tooling, schemas, and safety constraints.'
 version: v1.1
-last_updated: '2025-12-11'
+last_updated: "2026-09-22"'
 owners:
   - LightSpeedWP Engineering
 tags:

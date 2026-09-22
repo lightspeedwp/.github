@@ -104,11 +104,11 @@ graph TB
   J --> J2["Collection schemas"]
   J --> J3["Validation rules"]
 
-  classDef core fill:#e2e8f0,stroke:#0f172a,color:#0f172a,stroke-width:2px
-  classDef gov fill:#d9f2ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
-  classDef ai fill:#f3e8ff,stroke:#6b21a8,color:#0f172a,stroke-width:2px
-  classDef resource fill:#d1fae5,stroke:#0f172a,color:#0f172a,stroke-width:2px
-  classDef sub fill:#fef3c7,stroke:#92400e,color:#0f172a,stroke-width:1px
+  classDef core fill:#f1f5f9,stroke:#334155,color:#0f172a,stroke-width:2px
+  classDef gov fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f,stroke-width:2px
+  classDef ai fill:#f3e8ff,stroke:#7e22ce,color:#3b0764,stroke-width:2px
+  classDef resource fill:#dcfce7,stroke:#14532d,color:#14532d,stroke-width:2px
+  classDef sub fill:#fef3c7,stroke:#b45309,color:#4a2c00,stroke-width:1px
 
   class A core
   class B,B1,B2,B3,B4,B5 gov
@@ -122,6 +122,7 @@ graph TB
   class J,J1,J2,J3 resource
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
+accDescr: Detailed diagram
 ```
 
 ### Key Directories
@@ -173,15 +174,16 @@ flowchart LR
   H --> I["📊 Project Sync"]
   I --> J["🌐 Org-wide Standards"]
 
-  classDef files fill:#d9f2ff,stroke:#0f172a,color:#0f172a,stroke-width:2px
-  classDef process fill:#f3e8ff,stroke:#6b21a8,color:#0f172a,stroke-width:2px
-  classDef outcome fill:#d1fae5,stroke:#0f172a,color:#0f172a,stroke-width:2px
+  classDef files fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f,stroke-width:2px
+  classDef process fill:#f3e8ff,stroke:#7e22ce,color:#3b0764,stroke-width:2px
+  classDef outcome fill:#dcfce7,stroke:#14532d,color:#14532d,stroke-width:2px
 
   class A,B,D,F files
   class C,E,G,H process
   class I,J outcome
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
+accDescr: Detailed diagram
 ```
 
 ---
@@ -298,11 +300,11 @@ flowchart TD
   N --> K
   L -->|✅ Yes| O["🌐 Merge/Deploy"]
 
-  classDef change fill:#e2e8f0,stroke:#0f172a,color:#0f172a
-  classDef validation fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-  classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
-  classDef deploy fill:#f3e8ff,stroke:#6b21a8,color:#0f172a
-  classDef decision fill:#fef3c7,stroke:#92400e,color:#0f172a
+  classDef change fill:#f1f5f9,stroke:#334155,color:#0f172a
+  classDef validation fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+  classDef test fill:#dcfce7,stroke:#14532d,color:#14532d
+  classDef deploy fill:#f3e8ff,stroke:#7e22ce,color:#3b0764
+  classDef decision fill:#fef3c7,stroke:#b45309,color:#4a2c00
 
   class A change
   class B,C,D validation
@@ -311,6 +313,7 @@ flowchart TD
   class L decision
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
+accDescr: Detailed diagram
 ```
 
 ### Development Commands
@@ -372,9 +375,9 @@ flowchart LR
   K -->|✅ Yes| L["✔️ Pass"]
   K -->|❌ No| M["⚠️ Fix Required"]
 
-  classDef test fill:#d1fae5,stroke:#0f172a,color:#0f172a
-  classDef tool fill:#d9f2ff,stroke:#0f172a,color:#0f172a
-  classDef gate fill:#fef3c7,stroke:#92400e,color:#0f172a
+  classDef test fill:#dcfce7,stroke:#14532d,color:#14532d
+  classDef tool fill:#dbeafe,stroke:#1e3a5f,color:#1e3a5f
+  classDef gate fill:#fef3c7,stroke:#b45309,color:#4a2c00
   classDef result fill:#ede9fe,stroke:#5b21b6,color:#0f172a
 
   class A,C,D test
@@ -383,6 +386,7 @@ flowchart LR
   class L,M result
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
+accDescr: Detailed diagram
 ```
 
 See [docs/TESTING.md](./docs/TESTING.md) for comprehensive testing guidance, configuration, and best practices.
@@ -614,5 +618,5 @@ We welcome contributions! Please:
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

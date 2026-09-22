@@ -3,7 +3,7 @@ title: "Linting Strategy & Implementation Guide"
 description: "Comprehensive guide to linting setup, configuration, and automation across LightSpeed WordPress projects"
 file_type: "documentation"
 version: "1.0"
-last_updated: "2025-10-26"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Team"]
 tags:
   [
