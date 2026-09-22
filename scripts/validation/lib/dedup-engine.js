@@ -194,6 +194,9 @@ class DedupEngine {
 
     analysis.duplicatedSkillsCount = analysis.duplicatedSkillsEstimate.size;
     analysis.consolidationOpportunities = analysis.exactDuplicateCount + nearDuplicates.length;
+    // Convert before returning: this object is JSON.stringify'd downstream
+    // (phase-5-skills-audit.js), and JSON.stringify(Set) serialises to "{}".
+    analysis.duplicatedSkillsEstimate = [...analysis.duplicatedSkillsEstimate];
 
     return analysis;
   }

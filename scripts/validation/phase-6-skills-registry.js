@@ -55,7 +55,10 @@ function generateCategoryRegistries(skills) {
   }
 
   for (const [category, registry] of Object.entries(categoryRegistries)) {
-    const categoryPath = path.join(categoryDir, `${category}.json`);
+    // Agent categories are named "agent:<name>"; ':' is invalid in a filename
+    // on Windows/NTFS, so slug it before writing.
+    const categorySlug = category.replace(/[<>:"/\\|?*]/g, '-');
+    const categoryPath = path.join(categoryDir, `${categorySlug}.json`);
     fs.writeFileSync(categoryPath, JSON.stringify(registry, null, 2));
   }
 
