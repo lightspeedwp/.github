@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch Validation Metrics Aggregator Modernisation** — Moved the aggregator to Node 24 actions with run-scoped artifact downloads and a fixed metrics commit condition. ([PR #3377](https://github.com/lightspeedwp/.github/pull/3377))
 - **PR Template Check Uses Live Body** — The template verification now fetches the current PR body via the API instead of the stale event snapshot, and body edits retrigger the check. ([PR #3431](https://github.com/lightspeedwp/.github/pull/3431))
 - **Bot Branch Validation Exemption** — The runtime branch validator now exempts dependabot/renovate branches, mirroring the canonical validator. ([PR #3432](https://github.com/lightspeedwp/.github/pull/3432))
+- **Test README Cross-Reference** — Added the broken-reference remediation guide to the test documentation index. ([PR #3440](https://github.com/lightspeedwp/.github/pull/3440))
 - **Branch Validator `config` Type** — Added the documented `config` type to the authorised validator list. (#3304)
 
 - **Test Runner Working Directory Fixed** — Fixed shared worker state leaking the filesystem root into later test files. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))
