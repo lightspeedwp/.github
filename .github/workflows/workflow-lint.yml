@@ -6,10 +6,10 @@ name: Workflow Lint
 # See https://github.com/rhysd/actionlint
 
 on:
+  # No paths filter on pull_request: this workflow backs the required
+  # "actionlint" status check, and a filtered-out run never reports,
+  # leaving the check at "Expected" forever. The job itself is seconds.
   pull_request:
-    paths:
-      - '.github/workflows/**'
-      - '.github/actionlint.yaml'
   push:
     branches:
       - develop
