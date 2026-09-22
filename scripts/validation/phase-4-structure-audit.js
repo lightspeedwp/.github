@@ -10,7 +10,6 @@ import path from 'path';
 import StructureChecker from './lib/structure-checker.js';
 
 const ROOT_DIR = process.cwd();
-const AGENTS_DIR = path.join(ROOT_DIR, 'agents');
 const REPORTS_DIR = path.join(ROOT_DIR, 'agents', 'reports');
 
 // Ensure reports directory exists

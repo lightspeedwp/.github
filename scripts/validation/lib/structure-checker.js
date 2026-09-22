@@ -58,31 +58,30 @@ class StructureChecker {
         present.push(component);
 
         // Validate file-specific requirements
+        // Push whatever issues each validator found, regardless of its own
+        // `valid` flag (which only reflects error-severity issues) - warning-only
+        // results were previously dropped here and never surfaced to the caller.
         if (component === 'package.json') {
           const validation = this.validatePackageJson(componentPath, agentName);
-          if (!validation.valid) {
-            issues.push(...validation.issues);
-          }
+          issues.push(...validation.issues);
         } else if (component === 'CHANGELOG.md') {
           const validation = this.validateChangelog(componentPath);
-          if (!validation.valid) {
-            issues.push(...validation.issues);
-          }
+          issues.push(...validation.issues);
         } else if (component === 'AGENT.md') {
           const validation = this.validateAgentMd(componentPath);
-          if (!validation.valid) {
-            issues.push(...validation.issues);
-          }
+          issues.push(...validation.issues);
         } else if (component === 'config') {
           const validation = this.validateConfigDir(componentPath);
-          if (!validation.valid) {
-            issues.push(...validation.issues);
-          }
+          issues.push(...validation.issues);
         }
       }
     }
 
-    const isConformant = missing.length === 0 && issues.length === 0;
+    // Warnings are surfaced in `issues` for reporting but do not gate conformance -
+    // phase-4-structure-audit.js already treats error/warning severities differently
+    // downstream ("Fix validation errors before component is considered conformant").
+    const isConformant =
+      missing.length === 0 && issues.filter((issue) => issue.severity === 'error').length === 0;
 
     return {
       agent: agentName,

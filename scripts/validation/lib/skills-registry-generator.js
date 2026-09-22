@@ -116,7 +116,10 @@ class SkillsRegistryGenerator {
       const entries = fs.readdirSync(this.skillsDir, { withFileTypes: true });
 
       for (const entry of entries) {
-        if (entry.isDirectory() && !entry.name.startsWith('.')) {
+        // 'by-category' is this generator's own output directory (see
+        // generateCategoryRegistries below) - scanning it as a skill category
+        // would re-ingest the previous run's generated registry files.
+        if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'by-category') {
           const categoryPath = path.join(this.skillsDir, entry.name);
           const files = fs.readdirSync(categoryPath);
 

@@ -365,6 +365,14 @@ try {
 
   printReport(registry, violations, categoryRegistries, summary);
 
+  if (!validation.consolidated.valid) {
+    console.error('\n❌ Phase 6 failed: registry validation errors');
+    for (const err of validation.consolidated.errors) {
+      console.error(`  - ${err}`);
+    }
+    process.exit(1);
+  }
+
   console.log('\n✅ Phase 6 complete');
   process.exit(0);
 } catch (error) {
