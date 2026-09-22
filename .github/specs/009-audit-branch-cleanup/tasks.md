@@ -115,7 +115,7 @@ All paths are repository-relative from `.github/`:
 - [ ] T026 [US3] Implement GitHub API querying in scripts/lib/github-pr-utils.js: use `gh pr list` to fetch all open PRs efficiently (single query, not per-branch)
 - [ ] T027 [US3] Add retry logic and exponential backoff for GitHub API errors in scripts/lib/github-pr-utils.js
 - [ ] T028 [US3] Implement caching mechanism to avoid repeated API calls in scripts/lib/github-pr-utils.js
-- [ ] T029 [US3] Add graceful fallback: if API unavailable, assume no open PRs (conservative) and log warning in scripts/lib/github-pr-utils.js
+- [ ] T029 [US3] Add fail-closed fallback: if API verification is unavailable, mark deletion candidates DISCUSS or halt deletion and log a warning in scripts/lib/github-pr-utils.js
 - [ ] T030 [P] [US3] Write unit tests for PR detection in scripts/tests/unit/test-github-pr-utils.js (test PR matching, filtering, edge cases)
 - [ ] T031 [US3] Write integration test for GitHub API error handling and fallback in scripts/tests/integration/test-github-integration.js
 - [ ] T032 [US3] Add mock GitHub API responses for offline testing in scripts/tests/fixtures/
@@ -126,9 +126,9 @@ All paths are repository-relative from `.github/`:
 
 ## Phase 6: User Story 4 - Flexible Exclusion Patterns (Priority: P2)
 
-**Goal**: Support user-defined regex patterns to preserve branches (release/*, hotfix/*, custom patterns)
+**Goal**: Support user-defined regex patterns to preserve branches (`release/*`, `hotfix/*`, custom patterns)
 
-**Independent Test**: Exclusion patterns correctly match branches; default patterns preserve release/*and hotfix/*; invalid regex handled gracefully
+**Independent Test**: Exclusion patterns correctly match branches; default patterns preserve `release/*` and `hotfix/*`; invalid regex handled gracefully
 
 ### Implementation for User Story 4
 
@@ -144,21 +144,21 @@ All paths are repository-relative from `.github/`:
 
 ## Phase 7: User Story 5 - Branch Deletion with Safety (Priority: P2)
 
-**Goal**: Implement safe branch deletion with dry-run mode (default), optional local deletion, and error handling
+**Goal**: Produce safe deletion candidates in dry-run mode and execute them only through a draft-PR approval gate
 
-**Independent Test**: Dry-run mode shows deletions without executing; execution mode deletes remote branches correctly; local deletion optional; errors reported per branch
+**Independent Test**: Dry-run mode shows candidates without executing; direct live mode is rejected; an approved and merged draft PR is required before the workflow can delete remote branches
 
 ### Implementation for User Story 5
 
-- [ ] T038 [P] [US5] Create branch deletion module in scripts/lib/branch-deletion.js: deleteBranches(branches[], options) function
-- [ ] T039 [US5] Implement remote branch deletion using `git push origin --delete` in scripts/lib/branch-deletion.js
-- [ ] T040 [US5] Implement optional local branch deletion using `git branch -d` in scripts/lib/branch-deletion.js
-- [ ] T041 [US5] Add dry-run mode (default: true) that logs deletions without executing in scripts/lib/branch-deletion.js
-- [ ] T042 [US5] Implement per-branch error handling and success/failure reporting in scripts/lib/branch-deletion.js
-- [ ] T043 [P] [US5] Write unit tests for deletion logic in scripts/tests/unit/test-branch-deletion.js (test dry-run, local, remote, error cases)
-- [ ] T044 [US5] Write integration test for full deletion workflow with git operations in scripts/tests/integration/test-deletion-workflow.js
-- [ ] T046 [US5] Create .github/workflows/branch-audit.yml GitHub Actions workflow with: trigger events (schedule: "0 9 ** 1" = every Monday 09:00 UTC; gate the "first business day" condition in workflow code if a stricter rule is needed, since cron cannot express it directly, manual workflow_dispatch), inputs (--dryRun default true, --inactiveDays default 30, --excludePatterns, --createIssue default false)
-- [ ] T047 [US5] [P] Implement workflow job: checkout repository (actions/checkout), setup Node.js (actions/setup-node with node-version-file: '.nvmrc'), run audit command (npm run audit:branches -- $OPTS), upload report artifact (actions/upload-artifact with separate path entries for `.github/reports/stale-branches-*.md` and `.github/reports/stale-branches-*.json` — not the invalid `*.md/.json` glob)
+- [ ] T038 [P] [US5] Create a deletion-candidate module in scripts/lib/branch-deletion.js that serialises verified candidates for draft-PR review
+- [ ] T039 [US5] Implement remote branch deletion using `git push origin --delete` only in the post-approval workflow invoked after the draft PR is approved and merged
+- [ ] T040 [US5] Keep direct CLI and local branch deletion disabled; local cleanup remains an explicit maintainer action
+- [ ] T041 [US5] Keep dry-run mode as the CLI default and reject direct `--dryRun=false` execution
+- [ ] T042 [US5] Implement per-branch error handling and success/failure reporting in the approval-gated workflow
+- [ ] T043 [P] [US5] Write unit tests for candidate generation and approval-gate enforcement in scripts/tests/unit/test-branch-deletion.js
+- [ ] T044 [US5] Write an integration test proving direct deletion is rejected and only the approved workflow can perform remote git operations
+- [ ] T046 [US5] Create .github/workflows/branch-audit.yml GitHub Actions workflow with: trigger events (schedule: `0 9 * * 1` = every Monday 09:00 UTC; gate the "first business day" condition in workflow code if a stricter rule is needed, since cron cannot express it directly, manual workflow_dispatch), inputs (--dryRun default true, --inactiveDays default 30, --excludePatterns, --createIssue default false)
+- [ ] T047 [US5] [P] Implement workflow job: checkout repository (actions/checkout), setup Node.js (actions/setup-node with node-version-file: '.nvmrc'), run audit command (npm run audit:branches -- $OPTS), upload report artifact (actions/upload-artifact with separate path entries for `.github/reports/branch-cleanup-*.md` and `.github/reports/branch-cleanup-*.json`)
 - [ ] T048 [US5] Add optional workflow step: if --createIssue is enabled, parse DISCUSS candidates from JSON report and invoke scripts/lib/issue-generator.js (T036) to create summarising GitHub issue with team review link
 
 **Checkpoint**: Safe branch deletion with dry-run mode working correctly
@@ -366,19 +366,19 @@ Recommended for complete feature:
 
 ## Total Task Count: 69 Tasks
 
-| Phase | Tasks | Parallel Opportunities |
-|-------|-------|------------------------|
-| Setup | T001–T005 (5) | 4 of 5 can parallel |
-| Foundational | T006–T011 (6) | 5 of 6 can parallel |
-| US1 Categorisation (P1) | T012–T018 (7) | 5 of 7 can parallel (tests) |
-| US2 Metadata (P1) | T019–T025 (7) | 4 of 7 can parallel |
-| US3 GitHub (P1) | T026–T032 (7) | 3 of 7 can parallel |
-| US4 Exclusion (P2) | T033–T037 (5) | 2 of 5 can parallel |
-| US5 Deletion (P2) | T038–T044 (7) | 3 of 7 can parallel |
-| US6 Reporting (P1) | T045–T053 (9) | 5 of 9 can parallel |
-| CLI Integration | T054–T059 (6) | 2 of 6 can parallel |
-| Polish | T060–T069 (10) | 9 of 10 can parallel |
-| **TOTAL** | **69** | **~38 parallelisable** |
+| Phase                   | Tasks          | Parallel Opportunities      |
+| ----------------------- | -------------- | --------------------------- |
+| Setup                   | T001–T005 (5)  | 4 of 5 can parallel         |
+| Foundational            | T006–T011 (6)  | 5 of 6 can parallel         |
+| US1 Categorisation (P1) | T012–T018 (7)  | 5 of 7 can parallel (tests) |
+| US2 Metadata (P1)       | T019–T025 (7)  | 4 of 7 can parallel         |
+| US3 GitHub (P1)         | T026–T032 (7)  | 3 of 7 can parallel         |
+| US4 Exclusion (P2)      | T033–T037 (5)  | 2 of 5 can parallel         |
+| US5 Deletion (P2)       | T038–T044 (7)  | 3 of 7 can parallel         |
+| US6 Reporting (P1)      | T045–T053 (9)  | 5 of 9 can parallel         |
+| CLI Integration         | T054–T059 (6)  | 2 of 6 can parallel         |
+| Polish                  | T060–T069 (10) | 9 of 10 can parallel        |
+| **TOTAL**               | **69**         | **~38 parallelisable**      |
 
 ---
 

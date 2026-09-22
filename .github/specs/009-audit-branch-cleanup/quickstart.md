@@ -23,12 +23,21 @@ jq --version
 ## Setup: Create Test Repository
 
 ```bash
+# Run the setup and tests in the same shell so SOURCE_REPO and PATH persist.
+SOURCE_REPO="$(git rev-parse --show-toplevel)"
+
 # Create a temporary test repo
-mkdir /tmp/branch-cleanup-test
+mkdir -p /tmp/branch-cleanup-test/scripts
+cp "$SOURCE_REPO/scripts/cleanup-branches.js" /tmp/branch-cleanup-test/scripts/
+cp -R "$SOURCE_REPO/scripts/lib" /tmp/branch-cleanup-test/scripts/
+cp "$SOURCE_REPO/.github/specs/009-audit-branch-cleanup/fixtures/test-lib-api.js" \
+  /tmp/branch-cleanup-test/test-lib-api.js
+printf '%s\n' '{"type":"module"}' > /tmp/branch-cleanup-test/package.json
+
 cd /tmp/branch-cleanup-test
 
 # Initialise git repo
-git init
+git init -b main
 git config user.name "Test User"
 git config user.email "test@example.com"
 
@@ -38,11 +47,13 @@ git add README.md
 git commit -m "Initial commit"
 
 # Create test branches (to be categorised)
+git branch develop main
+
 git checkout -b feat/old-feature
 echo "feature" > feature.txt
 git commit --allow-empty -m "Old feature (will be stale)"
 
-git checkout -b bugfix/typo
+git checkout -b fix/typo-fix
 echo "fix" > typo.txt
 git commit --allow-empty -m "Typo fix (will be stale)"
 
@@ -56,6 +67,28 @@ git commit --allow-empty -m "Release branch (will be preserved)"
 
 # Return to main
 git checkout main
+
+# Add a local origin because the CLI audits remote-tracking branches.
+git init --bare /tmp/branch-cleanup-origin.git
+git remote add origin /tmp/branch-cleanup-origin.git
+git push --set-upstream origin --all
+
+# Supply a deterministic gh fixture: the successful empty response confirms
+# that this isolated repository has no open PRs.
+mkdir -p bin
+cat > bin/gh <<'EOF'
+#!/usr/bin/env bash
+if [ "$1" = "--version" ]; then
+  echo "gh version quickstart-fixture"
+  exit 0
+fi
+if [ "$1" = "pr" ] && [ "$2" = "list" ]; then
+  exit 0
+fi
+exit 1
+EOF
+chmod +x bin/gh
+export PATH="/tmp/branch-cleanup-test/bin:$PATH"
 ```
 
 ## Test 1: Dry-Run Categorisation (No Deletions)
@@ -103,6 +136,7 @@ git checkout -b no-slash-branch  # Missing /
 git commit --allow-empty -m "No slash"
 
 # Run categorisation
+git push origin --all
 node scripts/cleanup-branches.js --verbose
 
 # Verify report marks these as DISCUSS
@@ -186,8 +220,9 @@ GIT_AUTHOR_DATE="2026-07-01T10:00:00" \
 git commit --allow-empty -m "Simulating old commit"
 
 # Merge it to develop so it's in merged+stale state
-git checkout -b develop || git checkout develop 2>/dev/null || true
+git checkout develop
 git merge feat/old-feature --no-edit
+git push origin develop feat/old-feature
 
 # Run categorisation with default 30-day threshold
 node scripts/cleanup-branches.js --inactiveDays=30 --verbose
@@ -344,12 +379,13 @@ node scripts/cleanup-branches.js --inactiveDays=invalid
 
 ```bash
 # On real .github repository:
+export PATH="${PATH#/tmp/branch-cleanup-test/bin:}"
 node scripts/cleanup-branches.js --verbose
 
 # Verify that branches with open PRs are marked KEEP
-cat .github/reports/branch-cleanup-*.md | grep -B2 "active_pr"
+cat .github/reports/branch-cleanup-*.md | grep "Has active pull request"
 
-# Expected reason for those branches: "active_pr"
+# Expected reason for those branches: "Has active pull request"
 ```
 
 **Validation**:
@@ -364,38 +400,9 @@ cat .github/reports/branch-cleanup-*.md | grep -B2 "active_pr"
 
 **Goal**: Verify library modules can be imported and used directly
 
-```javascript
-// test-lib-api.js
-import { categorizeBranches } from './scripts/lib/branch-categorization.js';
-import { getAgeInDays } from './scripts/lib/age-calculator.js';
-import { validateBranchName } from './scripts/lib/branch-categorization.js';
-
-// Test age calculator
-console.log(getAgeInDays('2026-08-15T10:00:00Z'));  // Should be ~32 days
-
-// Test branch name validation
-console.log(validateBranchName('feat/login-screen'));  // Should be valid
-console.log(validateBranchName('claude/bad'));          // Should be invalid
-
-// Test categorisation
-const result = categorizeBranches(
-  ['feat/old', 'main', 'release/v1.0'],
-  {
-    'feat/old': {
-      author: 'alice',
-      lastCommitDate: '2026-07-15T10:00:00Z',
-      mergeStatus: { merged: true, state: 'merged' }
-    }
-  },
-  new Set(),
-  /release\/.*|hotfix\/.*/,
-  30
-);
-
-console.log('KEEP:', result.KEEP.length);    // main, release/v1.0
-console.log('DELETE:', result.DELETE.length); // feat/old (merged + stale)
-console.log('DISCUSS:', result.DISCUSS.length); // (any invalid names)
-```
+The setup copies the maintained
+`fixtures/test-lib-api.js` program into the temporary repository alongside the
+CLI and `scripts/lib/`, so all imports resolve from the isolated working tree.
 
 **Run Test**:
 
@@ -418,6 +425,7 @@ node test-lib-api.js
 # Remove test repository
 rm -rf /tmp/branch-cleanup-test
 rm -rf /tmp/custom-reports
+rm -rf /tmp/branch-cleanup-origin.git
 ```
 
 ---
@@ -429,7 +437,7 @@ All tests pass when:
 1. ✅ Dry-run mode categorises branches correctly without deletion
 2. ✅ Invalid branch names marked DISCUSS
 3. ✅ Protected branches (main, develop) never deleted
-4. ✅ Exclusion patterns preserve release/*and hotfix/* branches
+4. ✅ Exclusion patterns preserve `release/*` and `hotfix/*` branches
 5. ✅ Age-based categorisation works (merged + stale → DELETE)
 6. ✅ Both Markdown and JSON reports generated correctly
 7. ✅ CLI options (threshold, patterns, reportDir) respected
