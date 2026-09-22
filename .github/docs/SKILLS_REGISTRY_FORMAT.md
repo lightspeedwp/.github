@@ -58,12 +58,13 @@ The registry includes a summary section:
 
 Skills are tracked for agentskills.io compliance based on:
 
+- Has name field
 - Has description field
 - Has inputs specification
 - Has outputs specification
 - Has usage examples
 
-A skill is considered compliant when at least 2 of these 4 checks pass.
+A skill is considered compliant when its frontmatter carries a non-empty name and description. Inputs/outputs/examples are structural signals reported for visibility.
 
 ## Using the Registry
 

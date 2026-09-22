@@ -137,14 +137,29 @@ class SkillsCatalog {
         continue;
       }
 
-      const skillFiles = fs.readdirSync(skillsPath);
+      const skillEntries = fs.readdirSync(skillsPath, { withFileTypes: true });
 
-      for (const skillFile of skillFiles) {
-        const skillPath = path.join(skillsPath, skillFile);
+      for (const skillEntry of skillEntries) {
+        const skillPath = path.join(skillsPath, skillEntry.name);
 
-        if (fs.statSync(skillPath).isFile()) {
+        if (skillEntry.isFile()) {
           const skill = this.scanSkill(skillPath, `agent:${path.basename(agentDir)}`);
           agentSkills.push(skill);
+        } else if (skillEntry.isDirectory() && !skillEntry.name.startsWith('.')) {
+          // Skill subdirectories (agents/{agent}/skills/{skill}/): catalog
+          // the directory's defined source or metadata file.
+          const subFiles = fs.readdirSync(skillPath);
+          const entry =
+            ['SKILL.md', 'metadata.yml', 'metadata.yaml', 'index.md'].find((name) =>
+              subFiles.includes(name)
+            ) || subFiles.find((name) => fs.statSync(path.join(skillPath, name)).isFile());
+          if (entry) {
+            const skill = this.scanSkill(
+              path.join(skillPath, entry),
+              `agent:${path.basename(agentDir)}`
+            );
+            agentSkills.push(skill);
+          }
         }
       }
     }

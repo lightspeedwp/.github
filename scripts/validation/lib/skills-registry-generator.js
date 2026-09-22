@@ -48,16 +48,26 @@ class SkillsRegistryGenerator {
 
   /**
    * T060: Check agentskills.io compliance
+   *
+   * Structural validation instead of substring matching: a skill is
+   * compliant when its SKILL.md frontmatter carries a non-empty name and
+   * description. Inputs/outputs/examples are structural signals only
+   * (frontmatter keys or Markdown headings), reported for visibility.
    */
   checkCompliance(content) {
+    const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+    const frontmatter = frontmatterMatch ? frontmatterMatch[1] : '';
+    const hasField = (name) => new RegExp(`^${name}:\\s*\\S`, 'm').test(frontmatter);
+    const hasSection = (name) => new RegExp(`^#{1,3}\\s+${name}s?\\b`, 'mi').test(content);
     const checks = {
-      hasDescription: content.includes('description') || content.includes('Description'),
-      hasInputs: content.includes('inputs') || content.includes('input'),
-      hasOutputs: content.includes('outputs') || content.includes('output'),
-      hasExamples: content.includes('example') || content.includes('Example'),
+      hasName: hasField('name'),
+      hasDescription: hasField('description'),
+      hasInputs: hasField('inputs') || hasSection('input'),
+      hasOutputs: hasField('outputs') || hasSection('output'),
+      hasExamples: hasField('examples') || hasSection('example'),
     };
 
-    const compliant = Object.values(checks).filter(Boolean).length >= 2;
+    const compliant = checks.hasName && checks.hasDescription;
 
     return {
       compliant,
