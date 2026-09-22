@@ -18,7 +18,8 @@ if [ -z "$CHANGED" ]; then
 fi
 
 TMP=$(mktemp)
-trap "rm -f '$TMP'" EXIT
+# Single quotes: $TMP must expand when the trap fires, not when set.
+trap 'rm -f "$TMP"' EXIT
 
 HAS_SUBDIR_CHANGES=0
 

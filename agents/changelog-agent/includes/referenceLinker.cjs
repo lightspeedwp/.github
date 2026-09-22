@@ -94,7 +94,7 @@ function enrichEntryWithLinks(entry, validationResults = []) {
     ...entry,
     pr_links: [],
     issue_links: [],
-    linked_text: entry.text,
+    linked_text: entry.text || "",
   };
 
   // Build links from validation results
@@ -115,7 +115,7 @@ function enrichEntryWithLinks(entry, validationResults = []) {
   }
 
   // Generate linked text for Markdown rendering
-  let linkedText = enriched.text;
+  let linkedText = enriched.text || "";
 
   // Replace PR references with links
   for (const prLink of enriched.pr_links) {

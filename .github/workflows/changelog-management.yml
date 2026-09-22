@@ -9,6 +9,10 @@
 #
 # Purpose: Validate and process changelog entries on every PR, ensuring Keep a Changelog 1.1.0 compliance
 # Triggers: PR creation, synchronization, and reopen events on develop branch
+#
+# NOTE: A workflow_call trigger and pre-release-check job were removed in
+# Sep 2026 (no functional callers existed; the only consumer, release.yml,
+# was archived in the 2026-09-11 consolidation).
 
 name: Changelog • Management
 
@@ -19,13 +23,6 @@ on:
     paths-ignore:
       - "docs/**"
       - "**.md"
-  workflow_call:
-    inputs:
-      validate_only:
-        description: "Run only validation without sync/commit"
-        required: false
-        default: false
-        type: boolean
 
 concurrency:
   group: changelog-mgmt-${{ github.event.pull_request.number || github.ref }}
@@ -47,7 +44,8 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-          git clone --depth 1 --no-submodules https://github.com/lightspeedwp/.github.git .
+          git clone --depth 1 --no-recurse-submodules https://github.com/lightspeedwp/.github.git .
+          git fetch --depth 1 origin "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}"
           git checkout "${{ github.event.pull_request.head.sha }}"
           git submodule deinit -f . || true
         shell: bash
@@ -199,44 +197,30 @@ jobs:
           git config user.name "lightspeed-bot"
           git config user.email "ops@lightspeedwp.agency"
           git add CHANGELOG.md
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(changelog): merge entries from PR #${PR_NUMBER} [skip ci]"
-            git push origin develop
+          if git diff --cached --quiet; then
+            echo "No changelog changes to commit."
+            exit 0
           fi
+          git commit -m "chore(changelog): merge entries from PR #${PR_NUMBER} [skip ci]"
+          # Same push-race protection as the metrics aggregator: develop
+          # moves under this job, so rebase and retry with linear backoff.
+          attempt=1
+          max_attempts=5
+          until git push origin develop; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "❌ Push failed after $max_attempts attempts; giving up."
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
+            sleep $((attempt * 10))
+            git fetch origin develop
+            git rebase origin/develop || (git rebase --abort && exit 1)
+          done
+          echo "✅ Changelog update pushed."
 
       - name: Report action
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HAS_ENTRIES: ${{ steps.extract.outputs.has_entries }}
         run: bash scripts/report-changelog-action.sh
-
-  # Job 3: Pre-release validation check (called from release.yml)
-
-  pre-release-check:
-    name: Pre-release changelog validation
-    if: github.event_name == 'workflow_call'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-          submodules: false
-
-      - name: Setup Node
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: ".nvmrc"
-
-      - name: Validate changelog for release
-        run: |
-          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
-          node scripts/validation/validate-changelog.cjs CHANGELOG.md
-
-      - name: Check for unreleased section
-        run: |
-          if grep -q "## \[Unreleased\]" CHANGELOG.md; then
-            echo "✅ Changelog has Unreleased section"
-          else
-            echo "⚠️ Warning: No Unreleased section found in CHANGELOG.md"
-          fi

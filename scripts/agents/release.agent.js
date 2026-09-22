@@ -40,7 +40,6 @@ const validateVersionPath = path.join(
 const {
   parseChangelog,
   validateChangelog,
-  getUnreleasedChanges,
   hasUnreleasedChanges,
 } = require(changelogUtilsPath);
 const { validateVersion, parseVersion } = require(validateVersionPath);
@@ -401,7 +400,6 @@ async function validateRelease(options = {}) {
         );
 
         // Check for unreleased changes
-        const unreleased = getUnreleasedChanges(changelogData);
         if (hasUnreleasedChanges(changelogData)) {
           console.log("   ✓ Unreleased changes found");
         } else {
@@ -608,6 +606,8 @@ async function run() {
       args.includes("--dry-run") || args.includes("--dry-run=true");
     const scopeArg = args.find((arg) => arg.startsWith("--scope="));
     const scope = scopeArg ? scopeArg.split("=")[1] : "patch";
+    const providerArg = args.find((arg) => arg.startsWith("--provider="));
+    const provider = providerArg ? providerArg.split("=")[1] : "shell";
 
     console.log("╔════════════════════════════════════════╗");
     console.log("║     LightSpeed Release Agent           ║");
@@ -641,6 +641,28 @@ async function run() {
 
     console.log(`\nVersion bump: ${currentVersion} → ${nextVersion}`);
     // TODO (b): Strengthen the version bump + validation steps to lock changelog sections, dependencies, and metadata before mutating files.
+
+    // MCP provider path: API-driven release without a local checkout.
+    // Kept separate from the shell flow below, which mutates the working
+    // tree (branches, version files, tags via git/gh).
+    if (provider === "mcp") {
+      const mcp = createMcpReleaseProvider();
+      await mcp.preflight(nextVersion, { dryRun });
+      await mcp.createTag(nextVersion, { dryRun });
+      await mcp.createReleasePR(nextVersion, releaseBranch, { dryRun });
+
+      console.log("\n");
+      console.log("╔════════════════════════════════════════╗");
+      console.log("║   ✅ Release completed successfully!   ║");
+      console.log("╚════════════════════════════════════════╝");
+      console.log(`\nVersion: ${nextVersion}`);
+      console.log(`Tag: v${nextVersion}`);
+
+      if (dryRun) {
+        console.log("\n⚠️  This was a DRY-RUN. No changes were made.");
+      }
+      return;
+    }
 
     // Step 2b: Create release branch
     if (!dryRun) {
@@ -702,6 +724,243 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   run();
 }
 
+/**
+ * Resolve the target repository from the environment.
+ * @returns {{owner: string, repo: string}}
+ */
+function getTargetRepo() {
+  const [owner = "lightspeedwp", repo = ".github"] = (
+    process.env.GITHUB_REPOSITORY || "lightspeedwp/.github"
+  ).split("/");
+  return { owner, repo };
+}
+
+/**
+ * Call the GitHub REST API with retries on retryable failures.
+ * @param {string} apiPath - API path (e.g. "/repos/o/r/pulls")
+ * @param {Object} options - { method, body, retries, initialBackoffMs, backoffFactor }
+ * @returns {Promise<any>} Parsed JSON response
+ * @throws {Error} With a `status` property when the API responds with an error
+ */
+async function githubApiRequest(apiPath, options = {}) {
+  const {
+    method = "GET",
+    body,
+    retries = 2,
+    initialBackoffMs = 500,
+    backoffFactor = 2,
+  } = options;
+
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) {
+    throw new Error("GITHUB_TOKEN is required for GitHub API requests");
+  }
+
+  let attempt = 0;
+  let delayMs = initialBackoffMs;
+  for (;;) {
+    const response = await globalThis.fetch(
+      `https://api.github.com${apiPath}`,
+      {
+        method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github+json",
+          "User-Agent": "lightspeedwp-release-agent",
+          ...(body !== undefined
+            ? { "Content-Type": "application/json" }
+            : {}),
+        },
+        ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+      },
+    );
+    const text = await response.text();
+    let data = null;
+    try {
+      data = text ? JSON.parse(text) : null;
+    } catch {
+      // Non-JSON response body: data stays null.
+    }
+
+    if (response.ok) {
+      return data;
+    }
+
+    const retryable = response.status >= 500 || response.status === 429;
+    if (!retryable || attempt >= retries) {
+      const error = new Error(
+        `GitHub API ${method} ${apiPath} failed: ${response.status} ${response.statusText}`,
+      );
+      error.status = response.status;
+      throw error;
+    }
+
+    attempt += 1;
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+    delayMs *= backoffFactor;
+  }
+}
+
+/**
+ * Check whether a tag or release already exists (404 means absent).
+ * @param {() => Promise<any>} probe - API call to attempt
+ * @returns {Promise<boolean>} True when the probed resource exists
+ */
+async function apiResourceExists(probe) {
+  try {
+    await probe();
+    return true;
+  } catch (error) {
+    if (error && error.status === 404) {
+      return false;
+    }
+    throw error;
+  }
+}
+
+/**
+ * Create the API (MCP) release provider. Performs release operations
+ * through the GitHub REST API instead of local git/gh commands, so it
+ * works in environments without a checkout (e.g. release workflows).
+ * @returns {{name: string, preflight: Function, createTag: Function, createReleasePR: Function, createReleasePRToMain: Function}}
+ */
+function createMcpReleaseProvider() {
+  const { owner, repo } = getTargetRepo();
+  const base = `/repos/${owner}/${repo}`;
+
+  return {
+    name: "mcp",
+
+    async preflight(version, options = {}) {
+      const { dryRun = false } = options;
+      const tag = `v${version}`;
+
+      if (
+        await apiResourceExists(() =>
+          githubApiRequest(`${base}/git/ref/tags/${tag}`),
+        )
+      ) {
+        throw new Error(`Tag ${tag} already exists`);
+      }
+      if (
+        await apiResourceExists(() =>
+          githubApiRequest(`${base}/releases/tags/${tag}`),
+        )
+      ) {
+        throw new Error(`Release ${tag} already exists`);
+      }
+
+      console.log(
+        `${dryRun ? "[DRY-RUN] " : ""}[MCP] Preflight passed for ${tag}`,
+      );
+      return { tagExists: false, releaseExists: false };
+    },
+
+    async createTag(version, options = {}) {
+      const { dryRun = false } = options;
+      const tag = `v${version}`;
+      if (dryRun) {
+        console.log(`[DRY-RUN] [MCP] Would create tag ref ${tag}`);
+        return { ref: `refs/tags/${tag}`, dryRun: true };
+      }
+      // GITHUB_SHA is always set on Actions runners; "HEAD" keeps local
+      // usage working without inventing a commit hash.
+      const sha = process.env.GITHUB_SHA || "HEAD";
+      return githubApiRequest(`${base}/git/refs`, {
+        method: "POST",
+        body: { ref: `refs/tags/${tag}`, sha },
+      });
+    },
+
+    async createReleasePR(version, branch, options = {}) {
+      const { dryRun = false } = options;
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [MCP] Would create release PR from ${branch} to develop`,
+        );
+        return { dryRun: true, head: branch, base: "develop" };
+      }
+      return githubApiRequest(`${base}/pulls`, {
+        method: "POST",
+        body: {
+          title: `chore(release): v${version}`,
+          head: branch,
+          base: "develop",
+          body: "Automated release PR generated by release.agent.js (MCP provider).",
+        },
+      });
+    },
+
+    async createReleasePRToMain(version, options = {}) {
+      const { dryRun = false, branch = "develop", developPRNumber } = options;
+      const head = developPRNumber ? "develop" : branch;
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] [MCP] Would create release PR from ${head} to main`,
+        );
+        return { dryRun: true, head, base: "main" };
+      }
+      const created = await githubApiRequest(`${base}/pulls`, {
+        method: "POST",
+        body: {
+          title: `chore(release): v${version}`,
+          head,
+          base: "main",
+          body: `Automated main release PR generated by release.agent.js (MCP provider).${developPRNumber ? ` Develop PR: #${developPRNumber}.` : ""}`,
+        },
+      });
+      return created && created.number !== undefined ? created.number : created;
+    },
+  };
+}
+
+/**
+ * Create the shell release provider. Thin wrapper over this module's
+ * existing git/gh-based functions for environments with a checkout.
+ */
+function createShellReleaseProvider() {
+  return {
+    name: "shell",
+
+    async preflight() {
+      return { ok: true, provider: "shell" };
+    },
+
+    async createTag(version, options = {}) {
+      return createTag(version, options);
+    },
+
+    async createReleasePR(version, branch, options = {}) {
+      return createReleasePR(version, branch, options);
+    },
+
+    async createReleasePRToMain(version, options = {}) {
+      const { dryRun = false, branch = "develop" } = options;
+      const title = `chore(release): v${version}`;
+      if (dryRun) {
+        console.log(
+          `[DRY-RUN] Would create PR from ${branch} to main with title "${title}"`,
+        );
+        return;
+      }
+      // Strict on purpose: unlike createReleasePR (which warns and
+      // continues for the interactive flow), a workflow-called release PR
+      // must fail loudly when gh cannot create it.
+      const output = exec(
+        `gh pr create --base main --head ${branch} --title "${title}" --body "Automated main release PR generated by release.agent.js (shell provider)."`,
+        dryRun,
+      );
+      console.log("✓ Main release PR created");
+      const match = String(output || "").match(/\/pull\/(\d+)/);
+      return match ? match[1] : undefined;
+    },
+
+    async createRelease(version, options = {}) {
+      return createRelease(version, options);
+    },
+  };
+}
+
 export {
   run,
   validateRelease,
@@ -713,4 +972,7 @@ export {
   determineNextVersion,
   formatReleaseNotes,
   createReleasePR,
+  githubApiRequest,
+  createMcpReleaseProvider,
+  createShellReleaseProvider,
 };

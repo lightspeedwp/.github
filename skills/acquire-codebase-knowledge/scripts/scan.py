@@ -18,11 +18,8 @@ import os
 import sys
 import argparse
 import subprocess
-import json
 from pathlib import Path
-from typing import List, Set
-import re
-
+from typing import List
 TREE_LIMIT = 200
 TREE_MAX_DEPTH = 3
 TODO_LIMIT = 60
@@ -220,7 +217,7 @@ def get_directory_tree(max_depth: int = TREE_MAX_DEPTH) -> List[str]:
                 if item.is_dir():
                     walk(item, depth + 1)
         except (PermissionError, OSError):
-            pass
+            return
 
     walk(Path.cwd(), 0)
     return files[:TREE_LIMIT]
@@ -291,7 +288,6 @@ def search_todos() -> List[str]:
     """Search for TODO/FIXME/HACK comments."""
     todos = []
     patterns = ["TODO", "FIXME", "HACK"]
-    exclude_dirs_str = "|".join(EXCLUDE_DIRS | {"test", "tests", "__tests__", "spec", "__mocks__", "fixtures"})
 
     try:
         for root, dirs, files in os.walk(Path.cwd()):
@@ -313,11 +309,9 @@ def search_todos() -> List[str]:
                                     rel_path = filepath.relative_to(Path.cwd())
                                     todos.append(f"{rel_path}:{line_num}: {line.strip()}")
                 except Exception:
-                    pass
+                    continue
     except Exception:
-        pass
-
-    return todos[:TODO_LIMIT]
+        return todos[:TODO_LIMIT]
 
 
 def get_git_commits() -> List[str]:
@@ -391,9 +385,7 @@ def detect_monorepo() -> List[str]:
                 if '"workspaces"' in content:
                     signals.append("package.json has 'workspaces' field (npm/yarn workspaces monorepo)")
         except Exception:
-            pass
-
-    return signals
+            return signals
 
 
 def detect_ci_cd_pipelines() -> List[str]:
@@ -410,7 +402,7 @@ def detect_ci_cd_pipelines() -> List[str]:
                 if list(path.glob("*.yml")) or list(path.glob("*.yaml")):
                     pipelines.append(f"CI/CD: {pipeline_name}")
             except Exception:
-                pass
+                continue
 
     return pipelines
 
@@ -435,7 +427,7 @@ def detect_containers() -> List[str]:
                 if list(path.glob("*.yml")) or list(path.glob("*.yaml")):
                     containers.append(f"Container/Orchestration: {config}/ directory found")
             except Exception:
-                pass
+                continue
 
     return containers
 
@@ -465,7 +457,7 @@ def detect_performance_markers() -> List[str]:
                 if Path(marker).is_dir():
                     performance.append(f"Performance: {marker}/ directory found")
             except Exception:
-                pass
+                continue
 
     return performance
 
@@ -520,9 +512,9 @@ def collect_code_metrics() -> dict:
                             with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
                                 metrics["total_lines"] += len(f.readlines())
                         except Exception:
-                            pass
+                            continue
                 except Exception:
-                    pass
+                    continue
 
         # Top 10 largest files
         file_sizes.sort(key=lambda x: x[1], reverse=True)
@@ -531,9 +523,7 @@ def collect_code_metrics() -> dict:
         ]
 
     except Exception:
-        pass
-
-    return metrics
+        return metrics
 
 
 def print_section(title: str, content: List[str], output_file=None) -> None:

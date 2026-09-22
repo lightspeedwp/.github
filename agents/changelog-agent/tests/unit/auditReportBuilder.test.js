@@ -318,6 +318,7 @@ describe("Audit Report Builder", () => {
             category: "Added",
             text: "Bad feature",
             validation: {
+              complianceStatus: "failing",
               summary: {
                 issues: [
                   { ruleId: "R001", message: "Implementation detail" },
@@ -333,6 +334,7 @@ describe("Audit Report Builder", () => {
             category: "Added",
             text: "Bad feature",
             validation: {
+              complianceStatus: "failing",
               summary: {
                 issues: [
                   { ruleId: "R001", message: "Implementation detail" },
@@ -347,8 +349,10 @@ describe("Audit Report Builder", () => {
 
       const report = auditBuilder.buildValidationReport(auditResult);
 
-      expect(report.recommendations).toHaveLength(1);
-      expect(report.recommendations[0].type).toBe("rule_violation");
+      const types = report.recommendations.map((r) => r.type);
+      expect(report.recommendations).toHaveLength(2);
+      expect(types).toContain("rule_violation");
+      expect(types).toContain("category_focus");
     });
   });
 });

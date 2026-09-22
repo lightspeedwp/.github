@@ -31,7 +31,6 @@ import {
   apiClient,
   createClient,
   authenticateClient,
-  GitHubAPIClient,
 } from "./api-client.js";
 import {
   validation,
@@ -43,8 +42,6 @@ import {
 import {
   confidenceScorer,
   createScorer,
-  ConfidenceScorer,
-  DEFAULT_THRESHOLD,
 } from "./confidence-scorer.js";
 import {
   errorHandler,
@@ -52,7 +49,6 @@ import {
   retry,
   suggest,
   format,
-  ERROR_TYPES,
 } from "./error-handler.js";
 
 // Export label utilities

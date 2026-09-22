@@ -5,7 +5,6 @@ it is copied into a Google Doc, or after a Google Doc is exported to markdown or
 """
 
 from pathlib import Path
-import re
 import sys
 
 REQUIRED_HEADINGS = [

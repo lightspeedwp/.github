@@ -19,7 +19,20 @@ import { execSync } from "child_process";
 import {
   validateBranchName,
   formatErrorMessage,
+  AUTHORIZED_TYPES,
 } from "../../lib/validate-branch-name.js";
+
+// Alignment surface for the runtime validator (see __tests__/
+// validate-branch-name.test.js "should stay aligned with the runtime
+// validator"). ALLOWED_PREFIXES mirrors the canonical type list so the
+// workflow-consumed validator and validate-branch-name.cjs agree.
+const ALLOWED_PREFIXES = [...AUTHORIZED_TYPES];
+
+function isAllowed(branchName) {
+  return validateBranchName(branchName).valid;
+}
+
+export { validateBranchName, formatErrorMessage, ALLOWED_PREFIXES, isAllowed };
 
 // Parse command-line arguments
 const args = process.argv.slice(2);
@@ -54,10 +67,13 @@ Examples:
 
 Pattern: {type}/{scope}-{title}
 
-Allowed Types (24):
-  feat, fix, hotfix, release, refactor, chore, task, docs, test, perf,
-  ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds,
-  audit, codex, revert, research
+Allowed Types (38, canonical list in validate-branch-name.cjs):
+  feat, fix, hotfix, release, refactor, chore, task, doc, docs, test,
+  perf, ci, build, deps, security, revert, research, design, a11y, ux,
+  i18n, ops, proto, ds, api, schema, telemetry, content, seo, config,
+  migrate, qa, uat, audit, codex, aiops, automation, epic
+
+Protected branches (exempt): main, develop
 
 Forbidden Prefixes:
   claude/, copilot/, openai/
@@ -150,4 +166,9 @@ function main() {
   validateAndOutput(branchName);
 }
 
-main();
+// Only run when executed directly, not when imported (e.g. by unit tests).
+// Importing this module previously ran main() unconditionally, which called
+// process.exit() and killed the importing test worker.
+if (process.argv[1] && process.argv[1].endsWith('validate-branch-name.js')) {
+  main();
+}

@@ -4,7 +4,6 @@
 
 const { MetricsStorage } = require("../metrics-storage.cjs");
 const fs = require("fs");
-const path = require("path");
 
 describe("MetricsStorage", () => {
   let storage;

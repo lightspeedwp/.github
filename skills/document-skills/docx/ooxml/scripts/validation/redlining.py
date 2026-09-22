@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 import zipfile
 from pathlib import Path
+from contextlib import suppress
 
 
 class RedliningValidator:
@@ -27,8 +28,9 @@ class RedliningValidator:
             print(f"FAILED - Modified document.xml not found at {modified_file}")
             return False
 
-        # First, check if there are any tracked changes by Claude to validate
-        try:
+        # First, check if there are any tracked changes by Claude to validate.
+        # If the XML cannot be parsed, suppress and continue with full validation.
+        with suppress(Exception):
             import xml.etree.ElementTree as ET
 
             tree = ET.parse(modified_file)
@@ -56,9 +58,6 @@ class RedliningValidator:
                     print("PASSED - No tracked changes by Claude found.")
                 return True
 
-        except Exception:
-            # If we can't parse the XML, continue with full validation
-            pass
 
         # Create temporary directory for unpacking original docx
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -138,7 +137,8 @@ class RedliningValidator:
 
     def _get_git_word_diff(self, original_text, modified_text):
         """Generate word diff using git with character-level precision."""
-        try:
+        # Git not available or other error: suppress and return None to use fallback.
+        with suppress((subprocess.CalledProcessError, FileNotFoundError, Exception)):
             with tempfile.TemporaryDirectory() as temp_dir:
                 temp_path = Path(temp_dir)
 
@@ -208,9 +208,6 @@ class RedliningValidator:
                             content_lines.append(line)
                     return "\n".join(content_lines)
 
-        except (subprocess.CalledProcessError, FileNotFoundError, Exception):
-            # Git not available or other error, return None to use fallback
-            pass
 
         return None
 

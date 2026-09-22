@@ -2,7 +2,7 @@
 // Test complex label scenarios
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels.js";
+import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/validate-and-apply-labels.js";
 import { MockGitHub, createMockConfig } from "./setup.js";
 
 describe("Category B: Label Application Scenarios", () => {
@@ -91,6 +91,7 @@ describe("Category B: Label Application Scenarios", () => {
     const result = await validateAndApplyLabels({
       labels: conditionalLabels,
       branchType,
+      templateFile: "pr_bug.md",
       config,
       mockGitHub: mockGitHub.issues,
     });

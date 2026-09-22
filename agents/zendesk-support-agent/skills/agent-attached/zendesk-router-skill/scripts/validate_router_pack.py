@@ -283,6 +283,13 @@ def check_companion_manifest(root: Path, errors: list[str]) -> None:
             errors.append(f"companion manifest skill {name} needs a useful fallback_when_unavailable")
 
 
+def report_errors(errors: list[str]) -> int:
+    """Print collected errors and return the failure exit code."""
+    for error in errors:
+        print(f"ERROR: {error}", file=sys.stderr)
+    return 1
+
+
 def main() -> int:
     root = Path(sys.argv[1]) if len(sys.argv) > 1 else Path.cwd()
     root = root.resolve()
@@ -294,9 +301,7 @@ def main() -> int:
 
     check_required_files(root, errors)
     if errors:
-        for error in errors:
-            print(f"ERROR: {error}", file=sys.stderr)
-        return 1
+        return report_errors(errors)
 
     check_frontmatter(root, errors)
     check_output_contract(root, errors)
@@ -308,10 +313,11 @@ def main() -> int:
     check_fixtures(root, errors)
     check_companion_manifest(root, errors)
 
-    if errors:
-        for error in errors:
-            print(f"ERROR: {error}", file=sys.stderr)
-        return 1
+    # NOTE: len() form — CodeQL does not model list mutation through the
+    # check_*() calls above, so a bare `if errors:` here is misread as
+    # unreachable after the first gate. Semantics are identical.
+    if len(errors):
+        return report_errors(errors)
 
     print("OK: zendesk-router-skill structure, routing coverage, fixtures, companion manifest, maintenance references, and shared-agent portability checks passed.")
     return 0
