@@ -13,7 +13,7 @@ import * as yaml from 'js-yaml';
 // ============================================================================
 
 /**
- * Load footer configuration from `.github/automation/footers.yml`.
+ * Load footer configuration from `.github/footers.yml`.
  *
  * @returns {*|null} Parsed configuration, or `null` when the file is absent
  * @throws {Error} If the configuration cannot be read or parsed
