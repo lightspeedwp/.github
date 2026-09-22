@@ -2,10 +2,10 @@
 // Test performance and unusual scenarios
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
-import { validateBranchName } from "../../skills/validate-branch-name/validate-branch-name.js";
-import { routePrTemplate } from "../../skills/route-pr-template/route-pr-template.js";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/validate-and-apply-labels.js";
-import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation/orchestrate-pr-creation.js";
+import { validateBranchName } from "../../skills/validate-branch-name/scripts/validate-branch-name.js";
+import { routePrTemplate } from "../../skills/route-pr-template/scripts/route-pr-template.js";
+import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js";
+import { orchestratePrCreation } from "../../skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js";
 import { MockGitHub, createMockConfig } from "./setup.js";
 
 describe("Category F: Performance & Edge Cases", () => {

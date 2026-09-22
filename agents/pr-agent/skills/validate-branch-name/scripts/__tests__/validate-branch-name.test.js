@@ -1,6 +1,55 @@
-import { validateBranchName } from "../skills/validate-branch-name/validate-branch-name.js";
+import { validateBranchName } from "../validate-branch-name.js";
 
 describe("Skill: validate-branch-name", () => {
+  // ===== FORBIDDEN PREFIXES (docs/BRANCHING_STRATEGY.md Section 4.1) =====
+
+  describe("Forbidden prefixes", () => {
+    test.each(["claude", "copilot", "openai"])(
+      "should reject %s/ as a forbidden prefix",
+      async (prefix) => {
+        const result = await validateBranchName({
+          branchName: `${prefix}/some-change`,
+        });
+
+        expect(result.valid).toBe(false);
+        expect(result.errors.join(" ")).toMatch(new RegExp(prefix, "i"));
+      },
+    );
+
+    test("should no longer reject bot/ or automated/ (not in the canonical list)", async () => {
+      const bot = await validateBranchName({ branchName: "bot/some-change" });
+      const automated = await validateBranchName({
+        branchName: "automated/some-change",
+      });
+
+      // Neither is a forbidden prefix per docs/BRANCHING_STRATEGY.md, and
+      // neither is an allowed type either, so both are still invalid --
+      // just for the right reason (unknown type, not a forbidden prefix).
+      expect(bot.valid).toBe(false);
+      expect(bot.errors).not.toContain("branch-prefix-forbidden");
+      expect(bot.errors).toContain("branch-type-invalid");
+      expect(automated.valid).toBe(false);
+      expect(automated.errors).not.toContain("branch-prefix-forbidden");
+      expect(automated.errors).toContain("branch-type-invalid");
+    });
+  });
+
+  // ===== CANONICAL TYPES PREVIOUSLY MISSING (docs/BRANCHING_STRATEGY.md Section 3) =====
+
+  describe("Previously-missing canonical types", () => {
+    test.each(["task", "doc", "aiops", "automation", "epic"])(
+      "should accept %s/ as a valid branch type",
+      async (type) => {
+        const result = await validateBranchName({
+          branchName: `${type}/some-change-here`,
+        });
+
+        expect(result.valid).toBe(true);
+        expect(result.type).toBe(type);
+      },
+    );
+  });
+
   // ===== VALID BRANCH NAMES =====
 
   describe("Valid branch names", () => {
