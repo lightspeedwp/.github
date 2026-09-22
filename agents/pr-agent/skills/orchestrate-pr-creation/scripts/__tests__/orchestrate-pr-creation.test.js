@@ -1,4 +1,4 @@
-import { orchestratePrCreation } from "../skills/orchestrate-pr-creation/orchestrate-pr-creation.js";
+import { orchestratePrCreation } from "../orchestrate-pr-creation.js";
 
 describe("orchestratePrCreation", () => {
   const validPr = {
@@ -114,7 +114,8 @@ Test PR`,
     });
 
     test("should handle PR without optional labels field", async () => {
-      const { labels, ...prWithoutLabels } = validPr;
+      const prWithoutLabels = { ...validPr };
+      delete prWithoutLabels.labels;
 
       const result = await orchestratePrCreation({ pr: prWithoutLabels });
 
