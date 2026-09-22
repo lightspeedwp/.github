@@ -4,23 +4,31 @@ Like the reference feature this absorbs, this has no network API — its "interf
 
 ## Trigger forms
 
-| Form | Pre-action requirement |
-|---|---|
-| Explicit command | None — proceeds directly (FR-018) |
+| Form                     | Pre-action requirement                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------------------- |
+| Explicit command         | None — proceeds directly (FR-018)                                                                   |
 | Natural-language request | MUST confirm the target branch and base with the user before creating or changing anything (FR-018) |
 
-## Preconditions (checked before any PR is created; the Update contract below has its own entry condition)
+## Shared preconditions (Create and Update)
+
+- The target repository's real label set is known (via `gh label list`), not assumed.
+- The invoking user's identity is known, for use as the assignee (FR-012) — never assumed to be any fixed person.
+
+## Create preconditions
 
 - Current branch is not the target repository's default branch, has commits ahead of it, and is pushed to `origin`.
-- No existing open PR for this branch — this precondition applies to the "Create" contract only; if an open PR already exists, the "Update" contract applies instead of "Create" (FR-007).
-- The target repository's real label set is known (via `gh label list`), not assumed.
-- The correct base branch is known, resolved by branch-type role against the target repository's own actual branches at runtime (FR-006) — never assumed to be `develop`/`main` literally: `hotfix/`/`release/` branches target the production-role branch, every other type targets the integration-role branch when one exists, falling back to the repository's real default branch only when the branch type identifies no role.
-- The invoking user's identity is known, for use as the assignee (FR-012) — never assumed to be any fixed person.
+- No existing open PR exists for this branch; if one exists, the Update contract applies instead (FR-007).
+- The correct base branch is resolved at runtime from the target repository's actual default branch, branch list, and authoritative branch-policy metadata (FR-006), using this deterministic order:
+  1. Query the live `defaultBranchRef` and existing branch list before evaluating either role.
+  2. The one live `defaultBranchRef` is the production-role branch. If it is absent or is not in the live branch list, fail without creating a PR.
+  3. An integration-role branch exists only when the repository's authoritative branch-policy metadata designates exactly one live branch for that role. No designation means that the role is absent; a designation matching no live branch or multiple live branches is invalid and MUST fail without creating a PR.
+  4. For `hotfix/` and `release/`, select the production-role branch. For every other branch type, select the integration-role branch, falling back to the live default branch only when the integration role is absent.
+  5. Explicit role metadata takes precedence over fallback. Never infer a role from a literal name such as `main` or `develop`, branch sort order, or guesswork, and never use fallback to hide invalid or ambiguous metadata.
 - If `.github/pr-agent.config.json` exists in the target repository, its overrides have been read and validated; if it does not exist, the organisation-wide defaults apply.
 
 ## Contract: Create a new Pull Request
 
-**Given** the preconditions above are satisfied and no open PR exists for this branch,
+**Given** the shared and Create preconditions above are satisfied,
 **When** the agent runs,
 **Then** it MUST produce, in one atomic action:
 
@@ -40,7 +48,9 @@ Like the reference feature this absorbs, this has no network API — its "interf
 
 **Given** an open PR already exists for this branch,
 **When** the agent runs,
-**Then** it MUST: read the current PR body first, preserving accurate content and rewriting only what's stale; backfill any missing labels, assignee, or changelog-decision label immediately; refresh the testing/verification summary to reflect what's true now.
+**Then** the shared preconditions apply, and it MUST read the current PR body first and, in the same update action, preserve accurate content while rewriting only what's stale, set the invoking user as assignee, backfill applicable labels including exactly one changelog-decision label, and refresh the testing/verification summary to reflect what's true now (FR-012).
+
+The Create-only branch-state, base-branch, and repository-override checks do not apply to an Update that leaves the base and review-budget calculation unchanged. If an Update recalculates either value, it MUST first satisfy the corresponding Create precondition and use the same runtime-resolution rules.
 
 ## Contract: Mark ready for review
 
