@@ -4,6 +4,8 @@
 # - Only directories with a real manifest and dependencies are listed. The
 #   agent template (.github/templates/agent-structure-template) is excluded:
 #   its package.json holds {placeholders}, not real dependencies.
+# - No composer ecosystem: the only composer.json is a test fixture
+#   (agents/chat-closure-agent/tests/fixtures/), and the root has none.
 # - Minor and patch updates are grouped per directory, so one PR replaces
 #   many; majors stay separate for individual review.
 # - Cooldown waits a few days after a release before proposing it, which

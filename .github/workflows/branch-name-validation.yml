@@ -25,12 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
-    outputs:
-      branch_name: ${{ steps.extract-branch.outputs.branch_name }}
-      valid: ${{ steps.validate.outputs.valid }}
-      errors: ${{ steps.validate.outputs.errors }}
-      suggested_name: ${{ steps.validate.outputs.suggested_name }}
-
     steps:
       # The validator only needs its own two files and uses no git history or
       # npm packages, so a sparse, shallow checkout without an install suffices.
