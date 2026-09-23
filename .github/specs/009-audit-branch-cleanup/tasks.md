@@ -174,9 +174,9 @@ All paths are repository-relative from `.github/`:
 ### Implementation for User Story 6
 
 - [ ] T045 [P] [US6] Implement report-formatter.js: formatMarkdownReport(categorised, options) function in scripts/lib/report-formatter.js
-- [ ] T046 [P] [US6] Implement report-formatter.js: formatJSONReport(categorised, options) function in scripts/lib/report-formatter.js
-- [ ] T047 [US6] Implement report file writing: saveReport(report, reportDir, format, timestamp) in scripts/lib/report-formatter.js
-- [ ] T048 [US6] Implement Markdown report structure: header, summary table, KEEP/DELETE/DISCUSS sections, branch details in scripts/lib/report-formatter.js
+- [ ] T070 [P] [US6] Implement report-formatter.js: formatJSONReport(categorised, options) function in scripts/lib/report-formatter.js
+- [ ] T071 [US6] Implement report file writing: saveReport(report, reportDir, format, timestamp) in scripts/lib/report-formatter.js
+- [ ] T072 [US6] Implement Markdown report structure: header, summary table, KEEP/DELETE/DISCUSS sections, branch details in scripts/lib/report-formatter.js
 - [ ] T049 [US6] Implement JSON report structure: stats object, branches array with required fields (name, category, reason, metadata) in scripts/lib/report-formatter.js
 - [ ] T050 [US6] Add timestamp generation (ISO8601 format) for report filenames in scripts/lib/report-formatter.js
 - [ ] T051 [P] [US6] Write unit tests for Markdown report formatting in scripts/tests/unit/test-markdown-reporter.js
@@ -230,7 +230,7 @@ All paths are repository-relative from `.github/`:
 1. **Setup (Phase 1)**: No dependencies - can start immediately
 2. **Foundational (Phase 2)**: Depends on Setup completion - **BLOCKS all user stories**
 3. **User Stories (Phases 3–8)**: All depend on Foundational phase completion
-   - US1, US2, US3, US6 (P1) can proceed in parallel after Foundational
+   - US1, US2, US3 (P1) can proceed in parallel after Foundational (US6 starts after US1, since reporting requires categorised data — see User Story Dependencies)
    - US4, US5 (P2) follow after P1 stories or in parallel if staffed
 4. **CLI Integration (Phase 9)**: Depends on all user stories (3–8) complete
 5. **Polish (Phase 10)**: Depends on CLI integration complete

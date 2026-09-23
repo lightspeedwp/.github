@@ -317,15 +317,20 @@ export const ALLOWED_BRANCH_TYPES = new Set([
 ]);
 export const REASON_CODES = {
   KEEP: {
-    protected_branch,
-    excluded_pattern,
-    active_pr,
-    author_preserved,
-    unmerged,
-    recent_activity,
+    protected_branch: 'Protected branch (main, develop, production, staging, master)',
+    excluded_pattern: 'Matches exclusion pattern (release/*, hotfix/*)',
+    active_pr: 'Has active pull request',
+    author_preserved: 'Author matches an explicit preservation pattern',
+    unmerged: 'Not fully merged to any base branch',
+    recent_activity: 'Recently active (merged and recent)',
   },
-  DELETE: { merged_stale },
-  DISCUSS: { naming_violation, unmerged_stale, pr_verification_unavailable, unclear_status },
+  DELETE: { merged_stale: 'Merged and inactive beyond threshold' },
+  DISCUSS: {
+    naming_violation: 'Invalid branch name format',
+    unmerged_stale: 'Unmerged and stale',
+    pr_verification_unavailable: 'Open-PR verification unavailable; deletion blocked',
+    unclear_status: 'Unclear merge/age status (manual review needed)',
+  },
 };
 ```
 
