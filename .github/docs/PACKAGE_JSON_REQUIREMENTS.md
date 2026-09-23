@@ -12,19 +12,19 @@
 
 ```json
 {
-  "name": "agents-{agent-name}",
+  "name": "@lightspeedwp/{agent-name}",
   "version": "1.0.0",
   "description": "Brief one-line description of the agent",
   "main": "index.js",
   "type": "module",
-  "license": "MIT"
+  "license": "GPL-3.0-or-later"
 }
 ```
 
 **Constraints**:
 
-- **name**: MUST be `agents-{agent-name}` (lowercase, kebab-case, no spaces)
-  - Matches folder name: `agents/prd-agent/` → `"name": "agents-prd-agent"`
+- **name**: MUST be `<scope>/{agent-name}`, where `<scope>` is the scope of the repository root `package.json` (currently `@lightspeedwp`)
+  - Matches folder name: `agents/prd-agent/` → `"name": "@lightspeedwp/prd-agent"`
   - Used for npm scoping and imports
 
 - **version**: MUST match latest entry in CHANGELOG.md
@@ -43,7 +43,7 @@
   - Required for modern Node.js
   - Enables `import` statements
 
-- **license**: MUST be `"MIT"`
+- **license**: MUST match the repository root `package.json` licence (currently `"GPL-3.0-or-later"`)
   - Consistent across all agents
 
 ### Engine Requirements
@@ -160,7 +160,7 @@
 
 **Problem**: Folder is `agents/prd-agent/` but `package.json` has `"name": "prd-agent"`
 
-**Fix**: Change to `"name": "agents-prd-agent"`
+**Fix**: Change to `"name": "@lightspeedwp/prd-agent"`
 
 ### Issue: Version mismatch
 

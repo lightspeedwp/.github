@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Saved Replies Usage Instructions"
 description: "How to use, maintain, and extend GitHub Saved Replies for issues and pull requests in LightSpeedWP projects."
 version: "1.0"
-last_updated: "2025-10-23"
+last_updated: "2026-09-22""
 owners:
   - "lightspeedwp/maintainers"
 tags: ["saved replies", "instructions", "automation", "github"]

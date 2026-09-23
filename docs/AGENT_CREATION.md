@@ -4,7 +4,7 @@ title: "Agent Specification Authoring Guide"
 description: "Comprehensive guide for creating, documenting, and maintaining agent specification files following LightSpeed standards"
 version: "v1.0"
 created_date: "2025-01-15"
-last_updated: "2025-01-15"
+last_updated: "2026-09-22""
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 license: "GPL-3.0"
@@ -156,9 +156,9 @@ graph TB
     H --> I
     I --> J
 
-    style A fill:#e1f5fe,color:#0f172a
-    style H fill:#f3e5f5,color:#0f172a
-    style K fill:#e8f5e8,color:#0f172a
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style H fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style K fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ---

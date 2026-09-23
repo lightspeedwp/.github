@@ -521,6 +521,7 @@ Claude excels at:
 ### 1. 2-Tier Architecture Diagram
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     subgraph Repos["Repository Layer"]
         GH[".github (control-plane)"]
@@ -552,11 +553,13 @@ graph TD
     PA --> PHP
     PA --> PY
     PA --> PW
+accDescr: Detailed diagram
 ```
 
 ### 2. Delegation Flow Diagram
 
 ```mermaid
+accTitle: Sequence Diagram
 sequenceDiagram
     participant R as Repository
     participant CP as Control-Plane<br/>Agent
@@ -572,11 +575,13 @@ sequenceDiagram
     S->>PA: Return results
     PA->>CP: Report results
     CP->>R: Display results
+accDescr: Detailed diagram
 ```
 
 ### 3. Test Execution Pipeline
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     subgraph Input["Input"]
         PR["Pull Request<br/>or<br/>Workflow"]
@@ -619,11 +624,13 @@ graph LR
     
     R1 --> R2
     R1 --> R3
+accDescr: Detailed diagram
 ```
 
 ### 4. Framework Coverage Matrix
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph Frameworks["Framework Coverage"]
         J["Jest<br/>JavaScript/TypeScript<br/>Block Plugins"]
@@ -646,11 +653,13 @@ graph TB
     PY -.-> CI
     PW -.-> STATE
     PW -.-> API
+accDescr: Detailed diagram
 ```
 
 ### 5. Jest Testing Flow
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     J1["Jest Config<br/>Detected"] 
     J2["Mock WordPress<br/>REST API"]
@@ -664,11 +673,13 @@ graph LR
     J3 --> J4
     J4 --> J5
     J5 --> J6
+accDescr: Detailed diagram
 ```
 
 ### 6. PHPUnit Testing Flow
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     PHP1["PHPUnit Config<br/>Detected"]
     PHP2["Mock WordPress<br/>Globals"]
@@ -684,11 +695,13 @@ graph LR
     PHP4 --> PHP5
     PHP5 --> PHP6
     PHP6 --> PHP7
+accDescr: Detailed diagram
 ```
 
 ### 7. pytest Testing Flow
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     PY1["pytest Config<br/>Detected"]
     PY2["Setup CI<br/>Environment"]
@@ -702,11 +715,13 @@ graph LR
     PY3 --> PY4
     PY4 --> PY5
     PY5 --> PY6
+accDescr: Detailed diagram
 ```
 
 ### 8. Playwright Testing Flow
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     PW1["Playwright Config<br/>Detected"]
     PW2["Setup Browsers<br/>Chrome, Firefox,<br/>Safari, Edge"]
@@ -722,6 +737,7 @@ graph LR
     PW4 --> PW5
     PW5 --> PW6
     PW6 --> PW7
+accDescr: Detailed diagram
 ```
 
 ---

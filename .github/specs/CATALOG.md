@@ -47,6 +47,8 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
+| 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
+| 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
 | 016 | changelog-agent-quality | Changelog Agent Quality & Validation Framework | Draft | 2026-09-18 | [./016-changelog-agent-quality/spec.md](./016-changelog-agent-quality/spec.md) |
 
 ---

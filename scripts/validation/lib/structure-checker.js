@@ -8,6 +8,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { expectedAgentPackageName } from './package-conventions.js';
 
 /**
  * Required components for agent structure (7-item template)
@@ -117,11 +118,11 @@ class StructureChecker {
           severity: 'error',
           message: 'Missing "name" field',
         });
-      } else if (pkg.name !== `agents-${agentName}`) {
+      } else if (pkg.name !== expectedAgentPackageName(agentName, this.rootDir)) {
         issues.push({
           component: 'package.json',
           severity: 'error',
-          message: `Package name should be "agents-${agentName}", got "${pkg.name}"`,
+          message: `Package name should be "${expectedAgentPackageName(agentName, this.rootDir)}", got "${pkg.name}"`,
         });
       }
 

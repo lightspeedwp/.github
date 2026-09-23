@@ -25,6 +25,7 @@ The current ADR Generator Agent (`.github/agents/adr.agent.md`) is tightly coupl
 ## Architecture Overview
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph "Tier 1: Portable Agent"
         AgentSpec["agents/adr-generator/<br/>adr-generator.agent.md"]
@@ -69,6 +70,7 @@ graph TB
     ConfigLoader -.-> OrgRepos
     ConfigLoader -.-> WordPressPlugins
     ConfigLoader -.-> WordPressThemes
+accDescr: Detailed diagram
 ```
 
 ---

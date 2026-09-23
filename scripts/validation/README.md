@@ -56,9 +56,9 @@ graph TD
     I[Schema File] --> C
     J[File Patterns] --> A
 
-    style A fill:#e1f5fe,color:#0f172a
-    style F fill:#f3e5f5,color:#0f172a
-    style G fill:#e8f5e8,color:#0f172a
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style F fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style G fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## Main Scripts
@@ -290,5 +290,5 @@ All validation scripts provide robust error handling and log errors to the conso
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -477,7 +477,11 @@ it('should reject invalid syntax', () => {
 
 ```javascript
 it('should handle empty diagrams', () => {
-  const content = '```mermaid\n\n```'
+  const content = '```mermaid
+accTitle: Diagram
+\n\n
+accDescr: Detailed diagram
+```'
   const result = validateDiagramSyntax(content)
   expect(result.errors).toContain('Empty diagram')
 })

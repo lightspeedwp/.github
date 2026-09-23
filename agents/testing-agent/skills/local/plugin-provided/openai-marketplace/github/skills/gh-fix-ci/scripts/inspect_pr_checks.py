@@ -75,6 +75,26 @@ def run_gh_command_raw(args: Sequence[str], cwd: Path) -> tuple[int, bytes, str]
     return process.returncode, process.stdout, stderr
 
 
+def has_repo_access(repo_root: Path) -> bool:
+    """Verify the authenticated user has at least read access to the repo.
+
+    Uses ``gh repo view --json viewerPermission``. Known values are
+    ADMIN/MAINTAIN/WRITE/TRIAGE/READ/NONE. Fail closed on errors,
+    empty output, NONE, null, and unknown values.
+    """
+    try:
+        result = run_gh_command(
+            ["repo", "view", "--json", "viewerPermission", "--jq", ".viewerPermission"],
+            repo_root,
+        )
+    except Exception:
+        return False
+    if result.returncode != 0:
+        return False
+    permission = (result.stdout or "").strip().upper()
+    return permission in ("READ", "TRIAGE", "WRITE", "MAINTAIN", "ADMIN")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -90,6 +110,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-lines", type=int, default=DEFAULT_MAX_LINES)
     parser.add_argument("--context", type=int, default=DEFAULT_CONTEXT_LINES)
     parser.add_argument("--json", action="store_true", help="Emit JSON instead of text output.")
+    parser.add_argument(
+        "--skip-access-check",
+        action="store_true",
+        help="Skip the repository access check (for offline use).",
+    )
     return parser.parse_args()
 
 
@@ -101,6 +126,10 @@ def main() -> int:
         return 1
 
     if not ensure_gh_available(repo_root):
+        return 1
+
+    if not args.skip_access_check and not has_repo_access(repo_root):
+        print("Error: authenticated user lacks read access to this repository.", file=sys.stderr)
         return 1
 
     pr_value = resolve_pr(args.pr, repo_root)

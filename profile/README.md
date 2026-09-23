@@ -4,7 +4,7 @@ title: "LightSpeed WordPress Development Agency - GitHub Profile"
 description: "Welcome to LightSpeed's GitHub Organization - WordPress design and development agency creating powerful, open-source solutions for the WordPress ecosystem since 2003"
 version: "2.1"
 created_date: "2025-10-20"
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
@@ -80,9 +80,9 @@ flowchart LR
     F --> J
     G --> K
 
-    style A fill:#e1f5fe,color:#0f172a
-    style D fill:#f3e5f5,color:#0f172a
-    style H fill:#e8f5e8,color:#0f172a
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style H fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## About Us
@@ -138,9 +138,9 @@ flowchart TD
     P --> I
     O --> Q[📢 Community Update]
 
-    style A fill:#e1f5fe,color:#0f172a
-    style E fill:#f3e5f5,color:#0f172a
-    style O fill:#c8e6c9,color:#0f172a
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style E fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style O fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ### 🤝 Ways to Contribute
@@ -209,11 +209,11 @@ graph TB
     K --> N
     L --> O
 
-    style A fill:#e1f5fe,color:#0f172a
-    style D fill:#f3e5f5,color:#0f172a
-    style G fill:#fff3e0,color:#0f172a
-    style J fill:#e8f5e8,color:#0f172a
-    style M fill:#fce4ec,color:#0f172a
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style G fill:#fef3c7,color:#4a2c00,stroke:#b45309
+    style J fill:#dcfce7,color:#14532d,stroke:#14532d
+    style M fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
 ```
 
 ### [LSX Design](https://lsx.design)

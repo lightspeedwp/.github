@@ -82,7 +82,7 @@ agents/{agent-name}/
 
 **Required fields**:
 
-- `name`: Must be `agents-{agent-name}` (kebab-case)
+- `name`: Must be `@lightspeedwp/{agent-name}` (scope from the root `package.json`; kebab-case)
 - `version`: Must match latest CHANGELOG.md version
 - `description`: Brief description
 - `main`: Entry point (typically `index.js` or `src/index.js`)

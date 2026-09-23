@@ -13,10 +13,27 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const testFixturesDir = path.join(__dirname, '../__fixtures__');
 
+// Self-contained organisation root: package naming scope, licence and the agent
+// list come from here, so the tests do not depend on the live repository.
+const ORG_ROOT = path.join(testFixturesDir, 'org-root');
+const ORG_LICENSE = 'GPL-3.0-or-later';
+
+beforeAll(() => {
+  fs.mkdirSync(path.join(ORG_ROOT, 'agents', 'other-agent'), { recursive: true });
+  fs.writeFileSync(
+    path.join(ORG_ROOT, 'package.json'),
+    JSON.stringify({ name: '@lightspeedwp/fixture-root', license: ORG_LICENSE })
+  );
+});
+
+afterAll(() => {
+  fs.rmSync(ORG_ROOT, { recursive: true, force: true });
+});
+
 describe('StructureChecker', () => {
   describe('checkAgent', () => {
     it('should identify conformant agent with all 7 components', () => {
-      const checker = new StructureChecker({ rootDir: __dirname });
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
       const testAgentPath = path.join(testFixturesDir, 'conformant-agent');
 
       // Create test agent structure
@@ -38,7 +55,7 @@ describe('StructureChecker', () => {
       fs.writeFileSync(
         path.join(testAgentPath, 'package.json'),
         JSON.stringify({
-          name: 'agents-conformant-agent',
+          name: '@lightspeedwp/conformant-agent',
           version: '1.0.0',
           type: 'module',
           main: 'index.js',
@@ -84,7 +101,7 @@ describe('StructureChecker', () => {
     });
 
     it('should validate package.json name matches agent name', () => {
-      const checker = new StructureChecker({ rootDir: __dirname });
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
       const testAgentPath = path.join(testFixturesDir, 'name-mismatch-agent');
 
       // Create agent with mismatched package name
@@ -136,12 +153,12 @@ describe('StructureChecker', () => {
     });
 
     it('should validate type field is module', () => {
-      const checker = new StructureChecker();
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
       const tempPath = path.join(testFixturesDir, 'package.json');
       fs.writeFileSync(
         tempPath,
         JSON.stringify({
-          name: 'agents-test',
+          name: '@lightspeedwp/test-agent',
           version: '1.0.0',
           type: 'commonjs',
         })
@@ -181,7 +198,7 @@ describe('StructureChecker', () => {
 describe('PackageJsonValidator', () => {
   describe('validate', () => {
     it('should validate conformant package.json', () => {
-      const validator = new PackageJsonValidator();
+      const validator = new PackageJsonValidator({ rootDir: ORG_ROOT });
       const tempDir = path.join(testFixturesDir, 'valid-agent');
       fs.mkdirSync(tempDir, { recursive: true });
       const packageJsonPath = path.join(tempDir, 'package.json');
@@ -189,12 +206,12 @@ describe('PackageJsonValidator', () => {
       fs.writeFileSync(
         packageJsonPath,
         JSON.stringify({
-          name: 'agents-valid-agent',
+          name: '@lightspeedwp/valid-agent',
           version: '1.0.0',
           description: 'Test agent',
           main: 'index.js',
           type: 'module',
-          license: 'MIT',
+          license: ORG_LICENSE,
           engines: { node: '>=18.0.0' },
           scripts: { test: 'jest', lint: 'eslint' },
           devDependencies: { jest: '^29.0.0', eslint: '^8.0.0' },
@@ -210,7 +227,7 @@ describe('PackageJsonValidator', () => {
     });
 
     it('should reject agent-to-agent dependencies', () => {
-      const validator = new PackageJsonValidator();
+      const validator = new PackageJsonValidator({ rootDir: ORG_ROOT });
       const tempDir = path.join(testFixturesDir, 'invalid-agent');
       fs.mkdirSync(tempDir, { recursive: true });
       const packageJsonPath = path.join(tempDir, 'package.json');
@@ -218,13 +235,13 @@ describe('PackageJsonValidator', () => {
       fs.writeFileSync(
         packageJsonPath,
         JSON.stringify({
-          name: 'agents-invalid-agent',
+          name: '@lightspeedwp/invalid-agent',
           version: '1.0.0',
           description: 'Test agent',
           main: 'index.js',
           type: 'module',
           scripts: { test: 'jest' },
-          dependencies: { 'agents-other-agent': '^1.0.0' },
+          dependencies: { '@lightspeedwp/other-agent': '^1.0.0' },
         })
       );
 

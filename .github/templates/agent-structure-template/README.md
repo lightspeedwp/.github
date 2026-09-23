@@ -1,92 +1,159 @@
 # {Agent Name}
 
-**Quick Summary**: One-line description of what this agent does.
+{Brief one-sentence description}
 
-## Table of Contents
+## Features
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [Skills](#skills)
-- [Testing](#testing)
-- [Contributing](#contributing)
+- Feature 1
+- Feature 2
+- Feature 3
 
 ## Installation
 
 ```bash
-npm install agents-{agent-name}
+npm install @lightspeedwp/{agent-id}
 ```
 
-Or use as a GitHub Action:
+## Quick Start
 
-```yaml
-- uses: lightspeedwp/.github/agents/{agent-name}@main
-```
-
-## Usage
-
-### Basic Example
+### As a Claude Agent
 
 ```javascript
-import { AgentName } from 'agents-{agent-name}';
+import { {AgentClass} } from '@lightspeedwp/{agent-id}';
 
-const agent = new AgentName({
-  option1: 'value'
+const agent = new {AgentClass}({
+  apiKey: process.env.ANTHROPIC_API_KEY
 });
 
-agent.execute().then(result => {
-  console.log('Success:', result);
+const result = await agent.execute({
+  // execution parameters
 });
 ```
 
-### As GitHub Action
+### CLI Usage
 
-```yaml
-- name: Run {Agent Name}
-  uses: lightspeedwp/.github/agents/{agent-name}@main
-  with:
-    input-param: value
+```bash
+npx @lightspeedwp/{agent-id} --help
 ```
 
 ## Configuration
 
-Configuration options can be set via:
+See [`config/config.json`](./config/config.json) for all configuration options.
 
-1. **Environment Variables**: See `config/.env.example`
-2. **Config Files**: See `config/default.json`
-3. **Runtime Options**: Pass options to agent constructor
+### Environment Variables
+
+- `ANTHROPIC_API_KEY` - Claude API key (required)
+- `AGENT_TIMEOUT` - Request timeout in ms (default: 30000)
+- `AGENT_RETRIES` - Number of retries (default: 3)
 
 ## Skills
 
-This agent depends on the following skills:
+This agent includes the following skills:
 
-- [skill-one](../../skills/skill-one) - Description
-- [skill-two](../../skills/skill-two) - Description
+- [{skill-name}](./skills/{skill-id}/README.md) - Description
 
 ## Testing
 
+Run the test suite:
+
 ```bash
-# Run all tests
-npm test -- agents/{agent-name}
+npm test
 
-# Run specific test
-npm test -- agents/{agent-name}/tests/specific.test.js
+# With coverage
+npm run test
 
-# Run with coverage
-npm test -- agents/{agent-name} --coverage
+# Watch mode
+npm run test:watch
 ```
+
+**Test Framework**: [Jest | Bats | Playwright]
+
+**Coverage Target**: 80%
+
+**Test Files**:
+
+- Unit tests: `tests/unit/`
+- Integration tests: `tests/integration/` (if applicable)
+
+## Architecture
+
+```
+{agent-name}/
+├── AGENT.md                 # Agent definition
+├── CHANGELOG.md             # Version history
+├── package.json             # Dependencies and scripts
+├── README.md                # This file
+├── skills/                  # Agent-specific skills
+│   ├── {skill-1}/
+│   └── {skill-2}/
+├── tests/                   # Test files
+│   ├── {agent-name}.test.js
+│   ├── unit/
+│   └── integration/
+└── config/                  # Configuration
+    └── config.json
+```
+
+## API Reference
+
+### Main Class: `{AgentClass}`
+
+```typescript
+class {AgentClass} {
+  constructor(options: {AgentOptions})
+  execute(input: {InputType}): Promise<{OutputType}>
+  // ... other methods
+}
+```
+
+See [Full API Documentation](./AGENT.md) for details.
+
+## Troubleshooting
+
+### Issue: [Common Problem]
+
+**Solution**: [Steps to resolve]
+
+For more issues, see [FAQs](./docs/FAQ.md) or open an [issue](https://github.com/lightspeedwp/.github/issues).
 
 ## Contributing
 
-1. Fork the repository
+1. Read [CONTRIBUTING.md](../../CONTRIBUTING.md)
 2. Create a feature branch
-3. Make your changes
-4. Add/update tests
-5. Update CHANGELOG.md
-6. Submit a pull request
+3. Write tests for new features
+4. Submit a PR
 
-## Related
+## Dependencies
 
-- [Agent Registry](../registry.json) - Discover other agents
-- [Skills Registry](../../skills/registry.json) - Find available skills
-- [Structure Guide](.github/docs/AGENT_FOLDER_STRUCTURE.md) - Folder structure requirements
+### Production
+
+- `@anthropic-ai/sdk` - Claude API client
+
+### Development
+
+- `jest` - Testing framework
+- `typescript` - Type checking
+- `eslint` - Linting
+- `prettier` - Code formatting
+
+See [package.json](./package.json) for versions.
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history and breaking changes.
+
+## License
+
+MIT - See [LICENSE](../../LICENSE) for details
+
+## Support
+
+- GitHub Issues: <https://github.com/lightspeedwp/.github/issues>
+- Email: <engineering@lightspeedwp.agency>
+- Slack: #engineering
+
+---
+
+**Maintained by**: @{maintainer}
+
+**Last Updated**: {date}

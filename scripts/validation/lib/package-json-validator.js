@@ -8,6 +8,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { expectedAgentPackageName, getOrgConventions, listAgentNames } from './package-conventions.js';
 
 class PackageJsonValidator {
   constructor(options = {}) {
@@ -78,7 +79,7 @@ class PackageJsonValidator {
 
     // Additional validation for specific fields
     if (pkg.name) {
-      const expectedName = `agents-${agentName}`;
+      const expectedName = expectedAgentPackageName(agentName, this.rootDir);
       if (pkg.name !== expectedName) {
         errors.push({
           field: 'name',
@@ -88,10 +89,11 @@ class PackageJsonValidator {
       }
     }
 
-    if (pkg.license && pkg.license !== 'MIT') {
+    const { license: orgLicense } = getOrgConventions(this.rootDir);
+    if (pkg.license && orgLicense && pkg.license !== orgLicense) {
       errors.push({
         field: 'license',
-        message: `License should be "MIT", got "${pkg.license}"`,
+        message: `License should be "${orgLicense}" (root package.json), got "${pkg.license}"`,
         severity: 'error',
       });
     }
@@ -202,8 +204,11 @@ class PackageJsonValidator {
       ...pkg.peerDependencies,
     };
 
+    const agentPackageNames = new Set(
+      [...listAgentNames(this.rootDir)].map((name) => expectedAgentPackageName(name, this.rootDir))
+    );
     for (const [depName] of Object.entries(allDeps || {})) {
-      if (depName.startsWith('agents-')) {
+      if (agentPackageNames.has(depName)) {
         errors.push({
           field: 'dependencies',
           message: `Should not depend on other agents (${depName}). Use skills instead.`,

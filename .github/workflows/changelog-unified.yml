@@ -1,0 +1,473 @@
+# Changelog • Unified
+#
+# Merges changelog-management.yml (require-gate + Keep-a-Changelog schema +
+# merge-sync) and changelog-validation.yml (quality rules + PR feedback) into
+# one workflow sharing a single trigger set. Previously two workflows each did
+# their own checkout + node setup on every PR.
+#
+# Jobs:
+#  1. require-gate — fail fast if neither CHANGELOG.md nor meta:no-changelog
+#  2. quality     — quality rules, PR comment, audit log (needs: require-gate)
+#  3. sync        — merge entries on PR merge to develop
+
+name: Changelog • Unified
+
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, edited, ready_for_review, closed, labeled, unlabeled]
+
+concurrency:
+  group: changelog-unified-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  require-gate:
+    name: Require changelog or skip label
+    if: github.event.action != 'closed' && github.actor != 'imgbot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run_validation: ${{ steps.gate.outputs.run_validation }}
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          submodules: false
+          persist-credentials: false
+
+      - name: Require changelog update or skip label
+        id: gate
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const cp = require("node:child_process");
+            const author = context.payload.pull_request?.user?.login || "";
+            const labels = (context.payload.pull_request?.labels || []).map((l) => l.name);
+            const has = (name) => labels.includes(name);
+
+            if (author === "dependabot[bot]" || author === "app/dependabot") {
+              core.info("Skipping changelog requirement for Dependabot pull requests.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
+
+            // Automated docs-maintenance bots open fixed-branch normalization
+            // PRs with no user-facing content; requiring a changelog entry on
+            // every run would spam release notes. Same precedent as Dependabot.
+            if (author === "app/lightspeed-docs-bot") {
+              core.info("Skipping changelog requirement for docs-bot pull requests.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
+
+            if (has("meta:needs-changelog") && has("meta:no-changelog")) {
+              core.setFailed("PR cannot include both meta:needs-changelog and meta:no-changelog.");
+              return;
+            }
+
+            const restrictedTypes = new Set([
+              "type:feature",
+              "type:bug",
+              "type:performance",
+              "type:security",
+              "type:release",
+              "type:hotfix",
+            ]);
+            if (has("meta:no-changelog") && labels.some((label) => restrictedTypes.has(label))) {
+              core.setFailed("meta:no-changelog is not allowed for high-impact release-related change types.");
+              return;
+            }
+
+            const baseSha = context.payload.pull_request?.base?.sha;
+            const headSha = context.payload.pull_request?.head?.sha;
+            const changed = cp
+              .execSync(`git diff --name-only ${baseSha} ${headSha}`, {
+                encoding: "utf8",
+                maxBuffer: 1024 * 1024 * 100,
+              })
+              .split("\n")
+              .filter(Boolean);
+            if (changed.includes("CHANGELOG.md")) {
+              core.info("CHANGELOG.md updated in PR diff.");
+              core.setOutput("run_validation", "true");
+              return;
+            }
+
+            // Docs-only diffs are exempt (same docs/** + **.md scope as the
+            // retired changelog-management workflow): the unified workflow
+            // must still report for required checks, so exempt in-gate
+            // rather than via trigger filters.
+            const isDocsOnly =
+              changed.length > 0 &&
+              changed.every((file) => file.startsWith("docs/") || file.endsWith(".md"));
+            if (isDocsOnly) {
+              core.info("Docs-only changes; changelog entry not required.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
+
+            if (has("meta:no-changelog")) {
+              core.info("Skipping changelog requirement due to meta:no-changelog label.");
+              core.setOutput("run_validation", "false");
+              return;
+            }
+
+            core.setFailed("PR requires a CHANGELOG.md update or the meta:no-changelog label.");
+
+      - name: Setup Node
+        if: steps.gate.outputs.run_validation == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Validate changelog schema
+        if: steps.gate.outputs.run_validation == 'true'
+        run: |
+          npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
+          node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+          node scripts/validation/validate-changelog.cjs CHANGELOG.md
+
+  quality:
+    # Display name preserves the "Validate changelog on PR" required-check
+    # context from changelog-management.yml, so branch protection keeps
+    # matching across the workflow replacement.
+    name: Validate changelog on PR
+    needs: require-gate
+    # !cancelled(): still report when the gate job fails (its outputs survive
+    # from completed steps) instead of skipping feedback silently.
+    if: ${{ !cancelled() && needs.require-gate.outputs.run_validation == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          submodules: false
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          cache-dependency-path: ".github/validation/changelog/package.json"
+
+      - name: Install validator dependencies
+        run: |
+          cd .github/validation/changelog
+          npm ci --prefer-offline --no-audit --no-fund
+
+      - name: Detect changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v47
+        with:
+          files: |
+            CHANGELOG.md
+
+      - name: Validate changelog entries
+        id: validate
+        env:
+          CHANGELOG_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          cd .github/validation/changelog
+
+          if [ "${{ steps.changed-files.outputs.any_changed }}" == "false" ]; then
+            echo "passed=0" >> $GITHUB_OUTPUT
+            echo "failed=0" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "new_failed=0" >> $GITHUB_OUTPUT
+            echo "base_failed=0" >> $GITHUB_OUTPUT
+            echo "result=No changelog files modified in this PR" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          node bin/validate.js \
+            --changelog-path ../../../CHANGELOG.md \
+            --trigger pr_submission \
+            --pr-number "$PR_NUMBER" \
+            --branch "$HEAD_REF" \
+            --github-token "$CHANGELOG_GITHUB_TOKEN" \
+            --output json --metrics > validation-report.json 2>validation-stderr.log || true
+
+          # Fail closed: the report must exist, be valid JSON, and carry
+          # non-negative integer summary fields plus string
+          # recommendation/gate result. Anything else counts as a failure
+          # (NEW_FAILED=1) so a broken validator can never silently pass
+          # the gate.
+          if [ -f validation-report.json ] \
+            && jq -e '.summary | (.passed | type == "number" and . >= 0 and floor == .) and (.failed | type == "number" and . >= 0 and floor == .)' validation-report.json >/dev/null 2>&1 \
+            && jq -e '.recommendation | type == "string"' validation-report.json >/dev/null 2>&1 \
+            && jq -e '.ci_gate_result | type == "string"' validation-report.json >/dev/null 2>&1; then
+            PASSED=$(jq '.summary.passed' validation-report.json)
+            FAILED=$(jq '.summary.failed' validation-report.json)
+            RESULT=$(jq -r '.recommendation' validation-report.json)
+            GATE_RESULT=$(jq -r '.ci_gate_result' validation-report.json)
+
+            echo "passed=$PASSED" >> $GITHUB_OUTPUT
+            echo "failed=$FAILED" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "result=$RESULT" >> $GITHUB_OUTPUT
+            echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
+
+            cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
+          else
+            echo "❌ Validation report missing or malformed; failing closed"
+            [ -f validation-stderr.log ] && cat validation-stderr.log
+            echo "passed=0" >> $GITHUB_OUTPUT
+            echo "failed=1" >> $GITHUB_OUTPUT
+            echo "warnings=0" >> $GITHUB_OUTPUT
+            echo "result=ERROR" >> $GITHUB_OUTPUT
+            echo "gate_result=fail" >> $GITHUB_OUTPUT
+            FAILED=1
+            GATE_RESULT=fail
+          fi
+
+          BASE_FAILED=0
+          if git show "$BASE_SHA:CHANGELOG.md" > /tmp/base-changelog.md 2>/dev/null; then
+            node bin/validate.js \
+              --changelog-path /tmp/base-changelog.md \
+              --trigger pr_submission \
+              --pr-number "$PR_NUMBER" \
+              --branch "$HEAD_REF" \
+              --github-token "$CHANGELOG_GITHUB_TOKEN" \
+              --output json > base-validation-report.json 2>/dev/null || true
+            if [ -f base-validation-report.json ]; then
+              BASE_FAILED=$(jq '.summary.failed // 0' base-validation-report.json 2>/dev/null || echo "0")
+            fi
+          else
+            echo "⚠️ Could not read base CHANGELOG for comparison; gating on total failures"
+          fi
+
+          case "$FAILED" in ''|*[!0-9]*) FAILED=0 ;; esac
+          case "$BASE_FAILED" in ''|*[!0-9]*) BASE_FAILED=0 ;; esac
+
+          NEW_FAILED=$((FAILED - BASE_FAILED))
+          if [ "$NEW_FAILED" -lt 0 ]; then NEW_FAILED=0; fi
+
+          echo "base_failed=$BASE_FAILED" >> $GITHUB_OUTPUT
+          echo "new_failed=$NEW_FAILED" >> $GITHUB_OUTPUT
+          echo "PR failures: $FAILED, base failures: $BASE_FAILED, new: $NEW_FAILED"
+
+          # Gate on new failures only; pre-existing Unreleased debt never blocks.
+          # Enforcement happens in the Set status check step (after the PR
+          # comment posts), so this step always exits 0 once outputs are set.
+          if [ "$GATE_RESULT" != "pass" ] && [ "$GATE_RESULT" != "warning" ]; then
+            echo "❌ Changelog gate failing (enforced by Set status check step)"
+          fi
+          exit 0
+
+      - name: Post PR comment
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/github-script@v9
+        env:
+          PASSED: ${{ steps.validate.outputs.passed }}
+          FAILED: ${{ steps.validate.outputs.failed }}
+          NEW_FAILED: ${{ steps.validate.outputs.new_failed }}
+          BASE_FAILED: ${{ steps.validate.outputs.base_failed }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.head_ref }}
+        with:
+          script: |
+            const passed = Number(process.env.PASSED || 0);
+            const failed = Number(process.env.FAILED || 0);
+            const newFailed = Number(process.env.NEW_FAILED || 0);
+            const baseFailed = Number(process.env.BASE_FAILED || 0);
+            const prNumber = process.env.PR_NUMBER;
+            const headRef = process.env.HEAD_REF;
+
+            let status;
+            if (newFailed > 0) {
+              status = `❌ **Validation FAILED** - This PR introduces ${newFailed} new changelog failure(s). Please fix them before merging.\nPre-existing failures (${baseFailed}) are reported for visibility and do not block this PR.`;
+            } else {
+              status = `✅ **Validation PASSED** - No new failures introduced by this PR.`;
+              if (baseFailed > 0) {
+                status += `\nNote: ${baseFailed} pre-existing failure(s) remain in the Unreleased section.`;
+              }
+            }
+
+            const body = [
+              "## 📋 Changelog Quality Validation",
+              "",
+              "| Metric | Count |",
+              "|--------|-------|",
+              `| ✅ Passing | ${passed} |`,
+              `| ❌ Failing | ${failed} |`,
+              `| 🆕 New failures in this PR | ${newFailed} |`,
+              `| 📦 Pre-existing failures | ${baseFailed} |`,
+              "",
+              "### Status",
+              "",
+              status,
+              "",
+              newFailed > 0
+                ? `### How to Fix\n\nReproduce locally (from the repository root):\n\n\`\`\`bash\ncd .github/validation/changelog\nnode bin/validate.js --changelog-path ../../../CHANGELOG.md --trigger pr_submission --pr-number ${prNumber} --branch ${headRef} --output text\n\`\`\``
+                : "No action required.",
+            ].join("\n");
+
+            // listComments pages at 30 entries by default; paginate so the
+            // bot report is found even on busy PRs instead of posting a duplicate.
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+            const existing = comments.find((c) =>
+              c.user.type === "Bot" && c.body.includes("Changelog Quality Validation"),
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Set status check (new failures only)
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          NEW_FAILED="${{ steps.validate.outputs.new_failed }}"
+          case "$NEW_FAILED" in ''|*[!0-9]*) NEW_FAILED=0 ;; esac
+          if [ "$NEW_FAILED" -gt 0 ]; then
+            echo "❌ Changelog validation failed: $NEW_FAILED new error(s) introduced by this PR"
+            exit 1
+          fi
+          echo "✅ Changelog validation passed (no new failures)"
+        # No continue-on-error: a positive NEW_FAILED must fail the job
+        # and enforce the changelog gate.
+
+  sync:
+    name: Auto-sync merged entries
+    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Checkout develop
+        uses: actions/checkout@v7
+        with:
+          ref: develop
+          fetch-depth: 0
+          submodules: false
+
+      - name: Check if CHANGELOG.md was modified
+        id: check_changelog
+        uses: actions/github-script@v9
+        with:
+          script: |
+            // listFiles pages at 30 entries by default; paginate so large
+            // PRs (>30 files) cannot hide a CHANGELOG.md change.
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              per_page: 100,
+            });
+            core.setOutput('has_changelog', files.some(f => f.filename === 'CHANGELOG.md'));
+
+      - name: Fetch PR head
+        # The sync checkout pins ref: develop, so the PR head SHA is not
+        # guaranteed locally (fork squash-merge, deleted branch). Fetch the
+        # pull ref explicitly; a failed fetch fails the job visibly instead
+        # of silently skipping synchronisation in extraction.
+        if: steps.check_changelog.outputs.has_changelog == 'true'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: git fetch origin "refs/pull/${PR_NUMBER}/head"
+
+      - name: Setup Node.js
+        if: steps.check_changelog.outputs.has_changelog == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        if: steps.check_changelog.outputs.has_changelog == 'true'
+        run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
+
+      - name: Extract PR changelog entries
+        id: extract
+        if: steps.check_changelog.outputs.has_changelog == 'true'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          CHANGELOG_PATH: CHANGELOG.md
+        run: |
+          set -euo pipefail
+          node scripts/workflows/changelog/extract-pr-entries.cjs
+
+      - name: Validate extracted entries
+        if: steps.extract.outputs.has_entries == 'true'
+        run: node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
+
+      - name: Merge changelog entries
+        if: steps.extract.outputs.has_entries == 'true'
+        env:
+          PR_ENTRIES: ${{ steps.extract.outputs.entries_file }}
+          CHANGELOG_PATH: CHANGELOG.md
+        run: |
+          set -euo pipefail
+          node scripts/workflows/changelog/merge-entries.cjs
+
+      - name: Validate final changelog schema
+        if: steps.extract.outputs.has_entries == 'true'
+        run: node scripts/validation/validate-changelog.cjs CHANGELOG.md
+
+      - name: Commit changelog update
+        if: steps.extract.outputs.has_entries == 'true'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git config user.name "lightspeed-bot"
+          git config user.email "ops@lightspeedwp.agency"
+          git add CHANGELOG.md
+          if git diff --cached --quiet; then
+            echo "No changelog changes to commit."
+            exit 0
+          fi
+          git commit -m "chore(changelog): merge entries from PR #${PR_NUMBER} [skip ci]"
+          attempt=1
+          max_attempts=5
+          until git push origin develop; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "❌ Push failed after $max_attempts attempts; giving up."
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            echo "⚠️ Push rejected (attempt $((attempt - 1))/$max_attempts); rebasing and retrying..."
+            sleep $((attempt * 10))
+            git fetch origin develop
+            git rebase origin/develop || (git rebase --abort && exit 1)
+          done
+          echo "✅ Changelog update pushed."
+
+      - name: Report action
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HAS_ENTRIES: ${{ steps.extract.outputs.has_entries }}
+        run: bash scripts/report-changelog-action.sh

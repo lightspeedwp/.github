@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Governance"
 description: "Maintainer and contributor roles, responsibilities, and decision-making processes for LightSpeed community health repository"
 version: "1.0"
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Maintainers"]
 tags: ["governance", "maintainers", "contributors", "decision-making", "roles"]
 references:
@@ -254,4 +254,4 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

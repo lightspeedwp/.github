@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Note (2026-09-22)**: Renumbered from `015` to `016` — `015` was independently claimed on `develop` by `.github/specs/015-ci-failure-remediation`. The validation engine referenced in User Story 1 has since shipped to `develop` (`.github/validation/changelog/`, wired into `.github/workflows/changelog-validation.yml`); it already provides local execution (`npm run validate:changelog` from within that package, or `.github/validation/changelog/validate.sh`), 8 documented rules, and JSON/text output. User Story 1 has been rescoped below to close the remaining gap — a convenience alias at the repo root — rather than rebuild what already exists. User Stories 2–4 remain open gaps as originally scoped.
+**Note (2026-09-22)**: Renumbered from `015` to `016` — `015` is used on `develop` by `015-pr-agent-consolidation` (#3403), and was also claimed by `015-ci-failure-remediation` on #3367, since removed. The validation engine referenced in User Story 1 has since shipped to `develop` (`.github/validation/changelog/`, wired into `.github/workflows/changelog-validation.yml`); it already provides local execution (`npm run validate:changelog` from within that package, or `.github/validation/changelog/validate.sh`), 8 documented rules, and JSON/text output. User Story 1 has been rescoped below to close the remaining gap — a convenience alias at the repo root — rather than rebuild what already exists. User Stories 2–4 remain open gaps as originally scoped.
 
 ## User Scenarios & Testing *(mandatory)*
 

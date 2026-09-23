@@ -24,14 +24,14 @@
 
 **Purpose**: Project initialization and audit tooling foundation
 
-- [ ] T001 Create scripts/validation/ directory structure for audit and validation tools
-- [ ] T002 [P] Create agents/reports/ directory for audit and registry output files
-- [ ] T003 [P] Create .github/specs/014-agents-restructure-consolidate/reports/ for consolidation reports
-- [ ] T004 [P] Initialize npm workspace for validation scripts (if not already configured)
-- [ ] T005 [P] Setup logging and reporting utilities in scripts/validation/lib/reporting.js
-- [ ] T006 Create base configuration file scripts/validation/config.json with agent paths and thresholds
-- [ ] T007 Setup git hook scripts for pre-commit registry freshness validation in .github/hooks/pre-commit-registry.sh
-- [ ] T008 [P] Create documentation: RESTRUCTURING_GUIDE.md with overview and execution instructions in .github/docs/
+- [x] T001 Create scripts/validation/ directory structure for audit and validation tools
+- [x] T002 [P] Create agents/reports/ directory for audit and registry output files
+- [x] T003 [P] Create .github/specs/014-agents-restructure-consolidate/reports/ for consolidation reports
+- [x] T004 [P] Initialize npm workspace for validation scripts (if not already configured)
+- [x] T005 [P] Setup logging and reporting utilities in scripts/validation/lib/reporting.js
+- [x] T006 Create base configuration file scripts/validation/config.json with agent paths and thresholds
+- [x] T007 Setup git hook scripts for pre-commit registry freshness validation in .github/hooks/pre-commit-registry.sh
+- [x] T008 [P] Create documentation: RESTRUCTURING_GUIDE.md with overview and execution instructions in .github/docs/
 
 ---
 
@@ -41,15 +41,15 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T009 Implement audit script core in scripts/validation/audit-agents.js (imports, logging, error handling)
-- [ ] T010 [P] Implement reference type detection engine in scripts/validation/lib/reference-detector.js (JS imports, shell paths, workflows)
-- [ ] T011 [P] Implement file scanner in scripts/validation/lib/file-scanner.js to enumerate agents/, skills/, .github/workflows/ recursively
-- [ ] T012 Implement broken reference identification in scripts/validation/lib/broken-refs-finder.js (compare refs against actual paths, severity levels)
-- [ ] T013 [P] Implement audit report generator in scripts/validation/lib/audit-report-builder.js (per contracts/audit-report-format.md schema)
-- [ ] T014 [P] Create registry schema validation in scripts/validation/lib/registry-validator.js (per contracts/registry-schema.json)
-- [ ] T015 [P] Implement deduplication detection engine in scripts/validation/lib/dedup-engine.js (SHA-256 hashing, cosine similarity @ 85% threshold)
-- [ ] T016 Implement agent structure checker in scripts/validation/lib/structure-checker.js (verify all 7 components: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
-- [ ] T017 [P] Create npm scripts in package.json for all validation commands (npm run audit:agents, audit:broken-refs, audit:structure, audit:dedup, audit:registry, validate:compliance, audit:all)
+- [x] T009 Implement audit script core in scripts/validation/audit-agents.js (imports, logging, error handling)
+- [x] T010 [P] Implement reference type detection engine in scripts/validation/lib/reference-detector.js (JS imports, shell paths, workflows)
+- [x] T011 [P] Implement file scanner in scripts/validation/lib/file-scanner.js to enumerate agents/, skills/, .github/workflows/ recursively
+- [x] T012 Implement broken reference identification in scripts/validation/lib/broken-refs-finder.js (compare refs against actual paths, severity levels)
+- [x] T013 [P] Implement audit report generator in scripts/validation/lib/audit-report-builder.js (per contracts/audit-report-format.md schema)
+- [x] T014 [P] Create registry schema validation in scripts/validation/lib/registry-validator.js (per contracts/registry-schema.json)
+- [x] T015 [P] Implement deduplication detection engine in scripts/validation/lib/dedup-engine.js (SHA-256 hashing, cosine similarity @ 85% threshold)
+- [x] T016 Implement agent structure checker in scripts/validation/lib/structure-checker.js (verify all 7 components: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
+- [x] T017 [P] Create npm scripts in package.json for all validation commands (npm run audit:agents, audit:broken-refs, audit:structure, audit:dedup, audit:registry, validate:compliance, audit:all)
 
 ---
 
@@ -59,21 +59,21 @@
 
 **Independent Test**: Run reference audit, identify all broken references, apply fixes, verify CI passes
 
-- [ ] T018 [P] [US1] Document reference types and detection patterns in .github/docs/REFERENCE_TYPES.md
-- [ ] T019 [US1] Implement JavaScript import detection in scripts/validation/lib/reference-detector.js (require(), import statements)
-- [ ] T020 [P] [US1] Implement shell path detection in scripts/validation/lib/reference-detector.js (hardcoded paths in .sh files)
-- [ ] T021 [P] [US1] Implement workflow reference detection in scripts/validation/lib/reference-detector.js (agent invocations in .github/workflows/*.yml)
-- [ ] T022 [US1] Generate broken reference audit report and save to agents/reports/broken-references-audit.json
-- [ ] T023 [P] [US1] Create reference fix recommendations in scripts/validation/lib/fix-suggester.js (suggest correct paths)
-- [ ] T024 [US1] Implement auto-fix capability for identified broken references in scripts/validation/lib/auto-fixer.js
-- [ ] T025 [P] [US1] Create validation script to verify all fixes executed successfully in scripts/validation/verify-fixes.js
-- [ ] T026 [P] [US1] Document broken reference remediation process in .github/docs/BROKEN_REFERENCE_REMEDIATION.md
-- [ ] T027 [US1] Generate summary report of all broken references fixed (count, types, impact)
-- [ ] T028 [P] [US1] Create integration tests for reference detection and fixing in scripts/validation/**tests**/reference-detection.test.js
-- [ ] T029 [US1] Verify all dependent scripts execute successfully after fixes applied
-- [ ] T030 [P] [US1] Validate CI workflows pass without import/path errors
-- [ ] T031 [US1] Create CHANGELOG entries for all agents with broken references that were fixed
-- [ ] T032 [P] [US1] Generate final broken reference audit report and save to agents/reports/broken-references-audit-final.json
+- [x] T018 [P] [US1] Document reference types and detection patterns in .github/docs/REFERENCE_TYPES.md
+- [x] T019 [US1] Implement JavaScript import detection in scripts/validation/lib/reference-detector.js (require(), import statements)
+- [x] T020 [P] [US1] Implement shell path detection in scripts/validation/lib/reference-detector.js (hardcoded paths in .sh files)
+- [x] T021 [P] [US1] Implement workflow reference detection in scripts/validation/lib/reference-detector.js (agent invocations in .github/workflows/*.yml)
+- [x] T022 [US1] Generate broken reference audit report and save to agents/reports/broken-references-audit.json
+- [x] T023 [P] [US1] Create reference fix recommendations in scripts/validation/lib/fix-suggester.js (suggest correct paths)
+- [x] T024 [US1] Implement auto-fix capability for identified broken references in scripts/validation/lib/auto-fixer.js
+- [x] T025 [P] [US1] Create validation script to verify all fixes executed successfully in scripts/validation/verify-fixes.js
+- [x] T026 [P] [US1] Document broken reference remediation process in .github/docs/BROKEN_REFERENCE_REMEDIATION.md
+- [x] T027 [US1] Generate summary report of all broken references fixed (count, types, impact)
+- [x] T028 [P] [US1] Create integration tests for reference detection and fixing in scripts/validation/**tests**/reference-detection.test.js
+- [x] T029 [US1] Verify all dependent scripts execute successfully after fixes applied
+- [x] T030 [P] [US1] Validate CI workflows pass without import/path errors
+- [x] T031 [US1] Create CHANGELOG entries for all agents with broken references that were fixed
+- [x] T032 [P] [US1] Generate final broken reference audit report and save to agents/reports/broken-references-audit-final.json
 
 ---
 
