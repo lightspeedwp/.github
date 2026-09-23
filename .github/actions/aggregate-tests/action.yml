@@ -106,15 +106,136 @@ runs:
         TOTAL_DURATION=0
         COVERAGE_PERCENT=0
         AGGREGATION_STATUS="success"
+        PARSE_ERROR=false
+
         echo "📊 Aggregating test results..."
-        if [[ "$UNIT_RESULT" != "skip" && -f "$UNIT_RESULT" ]]; then
-          echo "📦 Unit Tests:"
-          UNIT_TOTAL=$(jq '.total // 0' "$UNIT_RESULT" 2>/dev/null || echo 0)
-          echo "  Total: $UNIT_TOTAL"
-          TOTAL_TESTS=$((TOTAL_TESTS + UNIT_TOTAL))
+
+        # Helper function to parse test result files
+        parse_test_file() {
+          local file=$1
+          local name=$2
+
+          if [[ "$file" == "skip" ]]; then
+            return 0
+          fi
+
+          if [[ ! -f "$file" ]]; then
+            echo "  ❌ Missing file: $file"
+            PARSE_ERROR=true
+            return 1
+          fi
+
+          echo "📦 $name:"
+          local total passed failed skipped duration
+
+          # Try parsing with jq, set to 0 if jq fails
+          if ! total=$(jq -e '.total // 0' "$file" 2>/dev/null); then
+            PARSE_ERROR=true
+            total=0
+          fi
+          if ! passed=$(jq -e '.passed // 0' "$file" 2>/dev/null); then
+            PARSE_ERROR=true
+            passed=0
+          fi
+          if ! failed=$(jq -e '.failed // 0' "$file" 2>/dev/null); then
+            PARSE_ERROR=true
+            failed=0
+          fi
+          if ! skipped=$(jq -e '.skipped // 0' "$file" 2>/dev/null); then
+            PARSE_ERROR=true
+            skipped=0
+          fi
+          if ! duration=$(jq -e '.duration_seconds // 0' "$file" 2>/dev/null); then
+            PARSE_ERROR=true
+            duration=0
+          fi
+
+          if [[ "$PARSE_ERROR" == "true" ]]; then
+            echo "  ❌ Failed to parse $file"
+            return 1
+          fi
+
+          echo "  Total: $total, Passed: $passed, Failed: $failed, Skipped: $skipped"
+
+          TOTAL_TESTS=$((TOTAL_TESTS + total))
+          TOTAL_PASSED=$((TOTAL_PASSED + passed))
+          TOTAL_FAILED=$((TOTAL_FAILED + failed))
+          TOTAL_SKIPPED=$((TOTAL_SKIPPED + skipped))
+          TOTAL_DURATION=$((TOTAL_DURATION + duration))
+        }
+
+        # Parse all result files (use || true to prevent script exit on error)
+        parse_test_file "$UNIT_RESULT" "Unit Tests" || true
+        parse_test_file "$INTEGRATION_RESULT" "Integration Tests" || true
+        parse_test_file "$E2E_RESULT" "E2E Tests" || true
+
+        # Handle parse errors
+        if [[ "$PARSE_ERROR" == "true" ]]; then
+          AGGREGATION_STATUS="failure"
         fi
-        echo "tests_total=$TOTAL_TESTS" >> "$GITHUB_OUTPUT"
+
+        # Calculate coverage percentage if coverage file provided
+        if [[ -n "$COVERAGE_FILE" && -f "$COVERAGE_FILE" ]]; then
+          echo "📊 Calculating coverage from LCOV file..."
+          LINES_HIT=$(grep "^LH:" "$COVERAGE_FILE" | awk -F: '{sum+=$2} END {print sum}')
+          LINES_FOUND=$(grep "^LF:" "$COVERAGE_FILE" | awk -F: '{sum+=$2} END {print sum}')
+
+          # If LH/LF not found, try calculating from DA lines (executed vs total)
+          if [[ -z "$LINES_HIT" || -z "$LINES_FOUND" ]]; then
+            LINES_HIT=$(grep "^DA:" "$COVERAGE_FILE" | awk -F',' '$2 > 0 {count++} END {print count+0}')
+            LINES_FOUND=$(grep "^DA:" "$COVERAGE_FILE" | wc -l)
+          fi
+
+          if [[ -n "$LINES_HIT" && -n "$LINES_FOUND" && "$LINES_FOUND" -gt 0 ]]; then
+            COVERAGE_PERCENT=$((LINES_HIT * 100 / LINES_FOUND))
+            echo "  Coverage: $COVERAGE_PERCENT% ($LINES_HIT/$LINES_FOUND lines)"
+
+            if [[ "$COVERAGE_PERCENT" -lt "$COVERAGE_THRESHOLD" ]]; then
+              echo "  ❌ Coverage below threshold ($COVERAGE_PERCENT% < $COVERAGE_THRESHOLD%)"
+              AGGREGATION_STATUS="failure"
+            fi
+          fi
+        fi
+
+        # Determine status based on failed tests
+        if [[ "$TOTAL_FAILED" -gt 0 ]]; then
+          AGGREGATION_STATUS="failure"
+        fi
+
+        # Create aggregated results JSON using jq
+        AGGREGATED_JSON=$(jq -n \
+          --arg status "$AGGREGATION_STATUS" \
+          --argjson total "$TOTAL_TESTS" \
+          --argjson passed "$TOTAL_PASSED" \
+          --argjson failed "$TOTAL_FAILED" \
+          --argjson skipped "$TOTAL_SKIPPED" \
+          --argjson duration "$TOTAL_DURATION" \
+          --argjson coverage "$COVERAGE_PERCENT" \
+          '{
+            total_tests: $total,
+            passed: $passed,
+            failed: $failed,
+            skipped: $skipped,
+            duration_seconds: $duration,
+            coverage_percent: $coverage,
+            status: $status
+          }')
+
+        # Write results to output file
+        mkdir -p "$(dirname "$OUTPUT_FILE")"
+        echo "$AGGREGATED_JSON" > "$OUTPUT_FILE"
+        echo "✓ Results written to $OUTPUT_FILE"
+
+        # Create summary markdown using printf
+        SUMMARY=$(printf '## Test Aggregation Summary\n\n| Metric | Count |\n|--------|-------|\n| Total Tests | %d |\n| Passed | %d |\n| Failed | %d |\n| Skipped | %d |\n| Duration | %ds |\n| Coverage | %d%% |\n| Status | %s |\n' "$TOTAL_TESTS" "$TOTAL_PASSED" "$TOTAL_FAILED" "$TOTAL_SKIPPED" "$TOTAL_DURATION" "$COVERAGE_PERCENT" "$AGGREGATION_STATUS")
+
+        # Output all values
+        echo "aggregated_results=$(echo "$AGGREGATED_JSON" | jq -c .)" >> "$GITHUB_OUTPUT"
+        echo "total_tests=$TOTAL_TESTS" >> "$GITHUB_OUTPUT"
+        echo "failed_count=$TOTAL_FAILED" >> "$GITHUB_OUTPUT"
+        echo "coverage_percent=$COVERAGE_PERCENT" >> "$GITHUB_OUTPUT"
         echo "status=$AGGREGATION_STATUS" >> "$GITHUB_OUTPUT"
+        echo "summary=$SUMMARY" >> "$GITHUB_OUTPUT"
 
 branding:
   icon: 'activity'
