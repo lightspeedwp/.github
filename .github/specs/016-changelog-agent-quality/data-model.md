@@ -37,10 +37,11 @@
 ```
 DRAFT (entry written)
   → VALIDATING (validation in progress)
-  → VALID (passed all checks)
-  → INVALID (failed one or more checks)
-  → MERGED (incorporated into release section)
+      ├→ VALID (passed all checks) → MERGED (incorporated into release section)
+      └→ INVALID (failed one or more checks) → corrected → VALIDATING
 ```
+
+Only a `VALID` entry reaches `MERGED`.
 
 **Example**:
 
@@ -52,7 +53,7 @@ DRAFT (entry written)
   "category": "Added",
   "content": "Support for changelog validation in local development environments with clear feedback",
   "pr_issues": ["#3372", "PR-3373"],
-  "character_count": 98,
+  "character_count": 86,
   "line_number": 15
 }
 ```

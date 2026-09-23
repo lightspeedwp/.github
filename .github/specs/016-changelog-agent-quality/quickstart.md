@@ -263,7 +263,10 @@ node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.tes
 
 # Test 4: Output includes required fields
 node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.test.md --output json | \
-  jq '.summary.total_entries, .summary.passed, .summary.failed, .ci_gate_result' > /dev/null && \
+  jq -e '(.summary.total_entries | type == "number")
+    and (.summary.passed | type == "number")
+    and (.summary.failed | type == "number")
+    and (.ci_gate_result | type == "string")' > /dev/null && \
   echo "✓ Output includes required fields"
 ```
 
@@ -328,11 +331,16 @@ fi
 
 ```bash
 # Check documentation files exist
+missing=0
 for file in README.md SKILLS.md INTEGRATION.md TROUBLESHOOTING.md API.md; do
-  [ -f "docs/agents/changelog-agent/$file" ] && \
-    echo "✓ $file exists" || \
+  if [ -f "docs/agents/changelog-agent/$file" ]; then
+    echo "✓ $file exists"
+  else
     echo "✗ $file MISSING"
+    missing=1
+  fi
 done
+[ "$missing" -eq 0 ] || exit 1
 
 # Verify content completeness
 grep -q "Quick Start" docs/agents/changelog-agent/README.md && \
