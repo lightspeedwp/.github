@@ -61,6 +61,11 @@ jobs:
       - name: Determine test context
         id: context
         shell: bash
+        env:
+          GIT_REF: ${{ github.ref }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          TEST_SUITE_INPUT: ${{ inputs.test_suite }}
         run: |
           # Determine which tests to run based on event
           RUN_UNIT="true"
@@ -68,13 +73,13 @@ jobs:
           RUN_E2E="false"
 
           # E2E only on release branches or explicit trigger
-          if [[ "${{ github.ref }}" == "refs/heads/release/"* ]] || [[ "${{ github.event_name }}" == "schedule" && "${{ github.event.schedule }}" == "0 10 * * 3" ]]; then
+          if [[ "$GIT_REF" == "refs/heads/release/"* ]] || [[ "$EVENT_NAME" == "schedule" && "$EVENT_SCHEDULE" == "0 10 * * 3" ]]; then
             RUN_E2E="true"
           fi
 
           # workflow_dispatch override
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            SUITE="${{ inputs.test_suite }}"
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            SUITE="$TEST_SUITE_INPUT"
             if [[ "$SUITE" != "all" ]]; then
               RUN_UNIT=$([[ "$SUITE" == "unit" ]] && echo "true" || echo "false")
               RUN_INTEGRATION=$([[ "$SUITE" == "integration" ]] && echo "true" || echo "false")
@@ -293,6 +298,8 @@ jobs:
       - name: Validate E2E test results
         if: always()
         shell: bash
+        env:
+          GIT_REF: ${{ github.ref }}
         run: |
           if [ ! -f e2e-results/report.json ]; then
             echo "⚠️  E2E test report not generated"
@@ -315,7 +322,7 @@ jobs:
             echo ""
             echo "❌ E2E tests failed (${FAILED} failures)"
             # Don't fail the workflow for E2E on non-release branches
-            if [[ "${{ github.ref }}" != "refs/heads/release/"* ]]; then
+            if [[ "$GIT_REF" != "refs/heads/release/"* ]]; then
               echo "ℹ️  E2E failures allowed on non-release branches"
               exit 0
             fi
@@ -591,16 +598,22 @@ jobs:
     steps:
       - name: Report test results
         shell: bash
+        env:
+          UNIT_RESULT: ${{ needs.unit-tests.result }}
+          INTEGRATION_RESULT: ${{ needs.integration-tests.result }}
+          E2E_RESULT: ${{ needs.e2e-tests.result }}
+          COVERAGE_RESULT: ${{ needs.coverage-aggregation.result }}
+          METRICS_RESULT: ${{ needs.testing-metrics.result }}
         run: |
           echo "Test run summary:"
-          echo "Unit tests: ${{ needs.unit-tests.result }}"
-          echo "Integration tests: ${{ needs.integration-tests.result }}"
-          echo "E2E tests: ${{ needs.e2e-tests.result }}"
-          echo "Coverage aggregation: ${{ needs.coverage-aggregation.result }}"
-          echo "Metrics collection: ${{ needs.testing-metrics.result }}"
+          echo "Unit tests: $UNIT_RESULT"
+          echo "Integration tests: $INTEGRATION_RESULT"
+          echo "E2E tests: $E2E_RESULT"
+          echo "Coverage aggregation: $COVERAGE_RESULT"
+          echo "Metrics collection: $METRICS_RESULT"
 
           # Fail if any critical test failed
-          if [[ "${{ needs.unit-tests.result }}" == "failure" ]] || [[ "${{ needs.integration-tests.result }}" == "failure" ]]; then
+          if [[ "$UNIT_RESULT" == "failure" ]] || [[ "$INTEGRATION_RESULT" == "failure" ]]; then
             echo "❌ Test suite failed"
             exit 1
           fi

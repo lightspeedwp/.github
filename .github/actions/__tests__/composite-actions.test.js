@@ -23,7 +23,7 @@ function resolveInputExpressions(value, inputs) {
     return String(value);
   }
 
-  return value.replace(/\$\{\{\s*inputs\.([a-z_]+)\s*\}\}/gi, (_, inputName) => {
+  return value.replace(/\$\{\{\s*inputs\.([a-z0-9_]+)\s*\}\}/gi, (_, inputName) => {
     return String(inputs[inputName] ?? '');
   });
 }
