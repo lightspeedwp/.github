@@ -141,6 +141,7 @@ Pull request templates are automatically routed by branch prefix according to th
 | `hotfix/` | pr_hotfix.md | VIII | Urgent production fix; requires fast-track review |
 | `refactor/` | pr_refactor.md | VIII | Code structure, maintainability |
 | `chore/` | pr_chore.md | VIII | Maintenance, build tooling, no user impact |
+| `doc/` | pr_docs.md | VIII | Single documentation change, typo fix, comment update |
 | `docs/` | pr_docs.md | VIII | Documentation, guides, comments |
 | `task/` | pr_task.md | VIII | Scoped unit of work (often issue-bound) |
 | `test/` | pr_chore.md | VIII | Test infrastructure, coverage improvements |
