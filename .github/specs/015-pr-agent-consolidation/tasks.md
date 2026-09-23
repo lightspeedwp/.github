@@ -11,7 +11,7 @@ description: "Task list for PR Agent Consolidation & Portability"
 
 **Tests**: Jest tests are already part of `agents/pr-agent/`'s existing, preserved suite — no new test-writing tasks below duplicate that; tasks reference the suite where relevant.
 
-**Organization**: Tasks are grouped by user story. User Story 1 was delivered ahead of running this command, across three stacked branches/PRs (`aiops/pr-agent-consolidation-portability` #3400, `refactor/pr-agent-skills-restructure` #3401, `fix/pr-agent-branch-name-validation` #3403, all open, not yet merged) — its tasks below are marked done and reference the PR that delivered them, not left as pending work to redo.
+**Organization**: Tasks are grouped by user story. User Story 1 was delivered ahead of running this command, across three stacked branches/PRs (`aiops/pr-agent-consolidation-portability` #3400, `refactor/pr-agent-skills-restructure` #3401, `fix/pr-agent-branch-name-validation` #3403), all merged to `develop` on 2026-09-22 — its tasks below are marked done and reference the PR that delivered them, not left as pending work to redo.
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -40,7 +40,7 @@ description: "Task list for PR Agent Consolidation & Portability"
 
 ---
 
-## Phase 3: User Story 1 - Both existing agents fully inventoried, merged with no file or behaviour lost, and restructured to the Agent Skills specification shape, with known bugs fixed (Priority: P1) 🎯 MVP — ✅ DONE (pending merge of #3400/#3401/#3403)
+## Phase 3: User Story 1 - Both existing agents fully inventoried, merged with no file or behaviour lost, and restructured to the Agent Skills specification shape, with known bugs fixed (Priority: P1) 🎯 MVP — ✅ DONE (merged to `develop` 2026-09-22)
 
 **Goal**: Exactly one PR-related agent directory, every `pr-creation-agent` file accounted for, every skill in Agent Skills spec shape, the verified branch-validation bug fixed.
 
@@ -55,9 +55,9 @@ description: "Task list for PR Agent Consolidation & Portability"
 - [x] T011 [US1] Add test coverage in `agents/pr-agent/skills/validate-branch-name/scripts/__tests__/validate-branch-name.test.js` for the forbidden-prefix and allowed-type lists (neither had any before) — done, PR #3403
 - [x] T012 [US1] Delete `agents/pr-creation-agent/` only once T001's inventory confirms every file's disposition, and confirm `agents/pr-agent/`'s suite and lint are unaffected by the removal — done, PR #3403
 - [x] T013 [US1] Add `agents/pr-agent/README.md` (skills table, structure, dev commands, governance references per FR-022) and `agents/pr-agent/CHANGELOG.md` per FR-021 — done, PR #3403
-- [ ] T014 Run quickstart.md Scenario 1 (consolidation complete, bug fixed) — passes once #3400/#3401/#3403 merge to `develop`
+- [ ] T014 Run quickstart.md Scenario 1 (consolidation complete, bug fixed) against `develop` — unblocked now that #3400/#3401/#3403 have merged
 
-**Checkpoint**: User Story 1 fully implemented across the 3-PR stack; complete once all three merge.
+**Checkpoint**: User Story 1 fully implemented across the 3-PR stack; all three merged to `develop`.
 
 ---
 
@@ -110,7 +110,7 @@ description: "Task list for PR Agent Consolidation & Portability"
 **Goal**: Per spec.md, this story's acceptance scenarios (real `SKILL.md` content, `scripts/`/`scripts/__tests__/` restructuring, demonstrable lint coverage, `README.md`/`CHANGELOG.md`) — all already delivered as part of User Story 1's actual scope (T007, T008, T013), not deferred here as originally organised in the spec's phasing.
 
 - [x] T033 [US4] Confirm `npm run lint` from `agents/pr-agent/` demonstrably covers its own contents (deliberately-introduced-violation check, SC-007) — done, PR #3400/#3403 (verified twice: once adopting the config, once after the restructuring)
-- [ ] T034 [US4] Run quickstart.md Scenario 4 in full (grep-based `template-skill` check, `npm test`, deliberate lint violation, `README.md` reference check) once #3400/#3401/#3403 have merged to `develop`
+- [ ] T034 [US4] Run quickstart.md Scenario 4 in full (grep-based `template-skill` check, `npm test`, deliberate lint violation, `README.md` reference check) against `develop` — unblocked now that #3400/#3401/#3403 have merged
 
 **Checkpoint**: All user stories independently functional; Story 4's own acceptance criteria already satisfied by Story 1's delivery.
 
@@ -130,8 +130,8 @@ description: "Task list for PR Agent Consolidation & Portability"
 - **User Story 1 (Phase 3)**: Done (T007-T014), delivered across PR #3401/#3403 — complete once those merge.
 - **User Story 2 (Phase 4)**: Depends on User Story 1 being merged (its skills are the ones being extended). Not started.
 - **User Story 3 (Phase 5)**: Depends on User Story 2 (portability generalises behaviour that must exist first, per spec.md's "Why this priority"). Not started.
-- **User Story 4 (Phase 6)**: Already satisfied by User Story 1's actual delivery (T033 done); only T034's end-to-end confirmation remains, blocked on merge.
-- **Polish (Phase 7)**: Depends on Stories 2-3 for T036's full-picture analysis; T035 can run once the stack merges; T037 depends on all of the above.
+- **User Story 4 (Phase 6)**: Already satisfied by User Story 1's actual delivery (T033 done); only T034's end-to-end confirmation remains, now unblocked.
+- **Polish (Phase 7)**: T035 can run now (stack merged); T036 depends on Stories 2-3 for its full-picture analysis; T037 depends on all of the above.
 
 ### Parallel Opportunities
 
@@ -144,8 +144,8 @@ description: "Task list for PR Agent Consolidation & Portability"
 
 ### Current state
 
-User Story 1 (the MVP) is fully implemented, delivered across three stacked, open PRs (#3400 → `develop`, #3401 → #3400, #3403 → #3401), verified (Jest suite, lint, markdownlint) at every step, not yet merged.
+User Story 1 (the MVP) is fully implemented, delivered across three stacked PRs (#3400 → `develop`, #3401 → #3400, #3403 → #3401), verified (Jest suite, lint, markdownlint) at every step, and merged to `develop` on 2026-09-22.
 
 ### Next increment
 
-Once the stack merges: User Story 2 (T015-T028) is the next priority — it delivers the actual PR-creation value this agent exists for. User Story 3 (portability) and the remainder of User Story 4 (T034) follow.
+User Story 2 (T015-T028) is the next priority — it delivers the actual PR-creation value this agent exists for. User Story 3 (portability) and the remainder of User Story 4 (T034) follow, plus the Polish tasks (T035-T037).
