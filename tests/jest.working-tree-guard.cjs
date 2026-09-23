@@ -13,18 +13,33 @@
 const { execFileSync } = require("node:child_process");
 
 const KEY = "__workingTreeGuardBefore";
+const NOT_A_WORK_TREE = "not-a-work-tree";
 
+/**
+ * Status entries as `XY path`. With -z, a rename or copy (X or Y is R/C) is
+ * followed by a separate field holding the original path, which is skipped.
+ */
 function status() {
+  let output;
   try {
-    const output = execFileSync(
+    output = execFileSync(
       "git",
       ["status", "--porcelain=v1", "-z", "--untracked-files=all"],
       { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
     );
-    return output.split("\0").filter(Boolean);
   } catch {
     return null; // Not a Git work tree.
   }
+
+  const fields = output.split("\0");
+  const entries = [];
+  for (let i = 0; i < fields.length; i += 1) {
+    const entry = fields[i];
+    if (!entry) continue;
+    entries.push(entry);
+    if (/[RC]/.test(entry.slice(0, 2))) i += 1;
+  }
+  return entries;
 }
 
 function hashOf(entry) {
@@ -41,7 +56,7 @@ function hashOf(entry) {
 
 function snapshot() {
   const entries = status();
-  if (!entries) return null;
+  if (!entries) return NOT_A_WORK_TREE;
   return new Map(entries.map((entry) => [entry, hashOf(entry)]));
 }
 
@@ -55,10 +70,19 @@ async function setup() {
 }
 
 async function teardown() {
+  if (disabled()) return;
   const before = globalThis[KEY];
-  if (disabled() || !before) return;
+  if (before === NOT_A_WORK_TREE) return;
+  if (!(before instanceof Map)) {
+    // Setup did not record a snapshot, so the guard cannot check this run.
+    console.warn(
+      "⚠️  Working tree guard did not run: no snapshot from globalSetup (#3498).",
+    );
+    return;
+  }
 
   const after = snapshot();
+  if (!(after instanceof Map)) return;
   const changed = [...after]
     .filter(([entry, hash]) => before.get(entry) !== hash)
     .map(([entry]) => entry);
