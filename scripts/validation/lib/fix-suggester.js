@@ -4,6 +4,8 @@
  * and contextual analysis
  */
 
+import { referenceName, replaceReferenceName } from './reference-name.js';
+
 export class FixSuggester {
   constructor(options = {}) {
     this.agentIndex = options.agentIndex || new Map();
@@ -55,9 +57,11 @@ export class FixSuggester {
   findCandidates(brokenReference, targetType = 'agent') {
     const index = targetType === 'agent' ? this.agentIndex : this.skillIndex;
     const candidates = [];
+    // Indexes hold bare names, so compare the bare name, not the path (#3460).
+    const brokenName = referenceName(brokenReference);
 
     for (const [name, _value] of index) {
-      const similarity = this.calculateSimilarity(brokenReference, name);
+      const similarity = this.calculateSimilarity(brokenName, name);
       if (similarity >= this.similarityThreshold) {
         candidates.push({
           suggestion: name,
@@ -83,6 +87,8 @@ export class FixSuggester {
         suggestion: null,
         reason: `No similar ${targetType} found (threshold: ${this.similarityThreshold})`,
         candidates: [],
+        alternativeCandidates: [],
+        replacement: null,
       };
     }
 
@@ -92,6 +98,8 @@ export class FixSuggester {
       confidence: candidates[0].confidence,
       similarity: candidates[0].similarity,
       alternativeCandidates: candidates.slice(1, 3),
+      // The broken reference with only its name swapped, keeping its path.
+      replacement: replaceReferenceName(brokenReference, candidates[0].suggestion),
       reason: `Best match found with ${Math.round(candidates[0].similarity * 100)}% similarity`,
     };
   }

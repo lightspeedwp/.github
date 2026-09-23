@@ -6,18 +6,27 @@
 
 import fs from 'fs';
 import path from 'path';
+import { referenceName } from './reference-name.js';
 
 export class BrokenRefsFinder {
   constructor(options = {}) {
     this.rootDir = options.rootDir || process.cwd();
     this.agentPaths = options.agentPaths || ['agents'];
     this.skillPaths = options.skillPaths || ['agents/*/skills', 'skills'];
+    // Optional pre-built indexes (names), as FixSuggester accepts (#3460).
+    this.agentIndex = options.agentIndex ? new Set(options.agentIndex) : null;
+    this.skillIndex = options.skillIndex ? new Set(options.skillIndex) : null;
   }
 
   /**
-   * Build index of valid agent paths
+   * Build index of valid agent paths. Pass `names` to use them instead of
+   * scanning the filesystem; the index is kept for analyzeReferences().
    */
-  buildAgentIndex() {
+  buildAgentIndex(names = null) {
+    if (names) {
+      this.agentIndex = new Set(names);
+      return this.agentIndex;
+    }
     const agents = new Set();
 
     for (const agentPath of this.agentPaths) {
@@ -36,9 +45,14 @@ export class BrokenRefsFinder {
   }
 
   /**
-   * Build index of valid skill paths
+   * Build index of valid skill paths. Pass `names` to use them instead of
+   * scanning the filesystem; the index is kept for analyzeReferences().
    */
-  buildSkillIndex() {
+  buildSkillIndex(names = null) {
+    if (names) {
+      this.skillIndex = new Set(names);
+      return this.skillIndex;
+    }
     const skills = new Set();
 
     for (const skillPathPattern of this.skillPaths) {
@@ -97,9 +111,12 @@ export class BrokenRefsFinder {
     // Normalize value (remove leading ./ and extensions)
     const normalizedValue = value.replace(/^\.\//, '').replace(/\.\w+$/, '');
 
+    // Indexes hold bare names, so look up the name, not the path (#3460).
+    const name = referenceName(value);
+
     // Check if reference exists
-    const isAgent = agentIndex.has(normalizedValue);
-    const isSkill = skillIndex.has(normalizedValue);
+    const isAgent = agentIndex.has(name);
+    const isSkill = skillIndex.has(name);
 
     if (isAgent || isSkill) {
       return {
@@ -131,8 +148,8 @@ export class BrokenRefsFinder {
    * Analyze all references for broken links
    */
   analyzeReferences(references, fileInfo) {
-    const agentIndex = this.buildAgentIndex();
-    const skillIndex = this.buildSkillIndex();
+    const agentIndex = this.agentIndex || this.buildAgentIndex();
+    const skillIndex = this.skillIndex || this.buildSkillIndex();
 
     const results = [];
 

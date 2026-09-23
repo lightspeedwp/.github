@@ -38,6 +38,21 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       expect(refs[0].value).toBe('agents/my-agent');
     });
 
+    it.each([
+      ["import { run } from 'agents/my-agent'", 'agents/my-agent'],
+      ["import Agent, { run } from 'agents/my-agent'", 'agents/my-agent'],
+      ["import * as Agent from 'agents/my-agent'", 'agents/my-agent'],
+      ["import 'agents/my-agent'", 'agents/my-agent'],
+    ])('should detect the import form %s', (content, value) => {
+      const refs = detector.detectJSImports(content);
+      expect(refs.map((r) => r.value)).toEqual([value]);
+    });
+
+    it('should not treat a dynamic import() as a static import twice', () => {
+      const refs = detector.detectJSImports("await import('agents/my-agent')");
+      expect(refs).toHaveLength(1);
+    });
+
     it('should detect shell paths', () => {
       const content = 'bash agents/my-agent/run.sh';
       const refs = detector.detectShellPaths(content);
@@ -84,6 +99,15 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       expect(results[0].severity).toBe('OK');
     });
 
+    it('should use the injected index, not the real agents/ directory', () => {
+      const results = finder.analyzeReferences(
+        { jsImports: [{ value: 'agents/pr-agent', type: 'js-import' }] },
+        { path: 'test.js' }
+      );
+      // pr-agent exists on disk but not in the injected index.
+      expect(results[0].isBroken).toBe(true);
+    });
+
     it('should set correct severity levels', () => {
       const criticalRef = {
         jsImports: [{ value: 'agents/missing', type: 'js-import' }],
@@ -106,8 +130,21 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
     });
 
     it('should suggest multiple candidates', () => {
+      const suggestion = suggester.suggestFix('agent-onx', 'js-import', 'agent');
+      expect(suggestion.suggestion).toBe('agent-one');
+      expect(suggestion.alternativeCandidates.map((c) => c.suggestion)).toContain('agent-two');
+    });
+
+    it('should return the same shape when nothing matches', () => {
       const suggestion = suggester.suggestFix('agent', 'js-import', 'agent');
-      expect(suggestion.alternativeCandidates.length).toBeGreaterThanOrEqual(0);
+      expect(suggestion.alternativeCandidates).toEqual([]);
+      expect(suggestion.replacement).toBeNull();
+    });
+
+    it('should match on the name, not the path', () => {
+      const suggestion = suggester.suggestFix('agents/agent-on', 'js-import', 'agent');
+      expect(suggestion.suggestion).toBe('agent-one');
+      expect(suggestion.replacement).toBe('agents/agent-one');
     });
 
     it('should handle no matches gracefully', () => {
@@ -165,21 +202,13 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       const suggestion = suggester.suggestFix(detected[0].value, 'js-import', 'agent');
       expect(suggestion.suggestion).toBe('issue-agent');
 
-      // 3. Apply
-      const fixed = fixer.fixJSImports(jsContent, detected[0].value, suggestion.suggestion);
+      // 3. Apply: the replacement keeps the agents/ path (#3460)
+      expect(suggestion.replacement).toBe('agents/issue-agent');
+      const fixed = fixer.fixJSImports(jsContent, detected[0].value, suggestion.replacement);
       expect(fixed.changed).toBe(false); // Already correct
     });
 
-    // it.failing: state-isolation (this test getting its own FixSuggester
-    // instance, below) is fixed, but the test still genuinely fails even
-    // isolated -- FixSuggester.suggestFix() never strips the 'agents/'
-    // prefix before fuzzy-matching against its bare-name index, so
-    // similarity('agents/issue-agent', 'issue-triage-agent') scores 0.44,
-    // below the 0.6 threshold. That's a separate, real bug tracked in
-    // #3460 (root cause 1). it.failing() marks this as a known failure
-    // (and will itself fail, loudly, the moment #3460 is fixed and this
-    // test starts passing again -- a reminder to flip it back to it()).
-    it.failing('should handle rename scenario correctly', () => {
+    it('should handle rename scenario correctly', () => {
       // Scenario: issue-agent was renamed to issue-triage-agent. Uses its
       // own FixSuggester instance rather than the shared `suggester` from
       // the outer beforeEach: that beforeEach seeds 'issue-agent' into the
@@ -206,7 +235,8 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       expect(suggestion.suggestion).toBe('issue-triage-agent');
 
       // 4. Apply fix
-      const fixed = fixer.fixJSImports(oldRef, 'agents/issue-agent', 'agents/issue-triage-agent');
+      expect(suggestion.replacement).toBe('agents/issue-triage-agent');
+      const fixed = fixer.fixJSImports(oldRef, 'agents/issue-agent', suggestion.replacement);
       expect(fixed.content).toContain('issue-triage-agent');
       expect(fixed.content).not.toContain('issue-agent');
     });
