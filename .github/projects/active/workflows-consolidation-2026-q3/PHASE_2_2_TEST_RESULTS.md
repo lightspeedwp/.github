@@ -29,6 +29,8 @@ metadata:
 
 ​```mermaid
 graph TD
+    accTitle: Test process loop
+    accDescr: A start node leads to a process and a decision that ends or loops back.
     A[Start] --> B[Process]
     B --> C{Decision}
     C -->|Yes| D[End]
@@ -40,6 +42,7 @@ graph TD
 
 ​```mermaid
 graph LR
+    accDescr: An input node leads to an output node.
     A[Input] --> B[Output]
 ​```
 ```
