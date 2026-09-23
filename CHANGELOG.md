@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+
 ### Changed
 
 - **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))

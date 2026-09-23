@@ -26,11 +26,23 @@ This workflow automatically validates that:
 
 ### 1. Workflow Definition
 
-- **Path:** `.github/workflows/ai-feedback-validation.yml`
-- **Triggers:** PR open, edit, reopen, synchronize, ready_for_review
-- **Jobs:**
-  - `validate-feedback-linkage` — Checks issue links and feedback response completeness
-  - `check-feedback-response-format` — Validates FEEDBACK_RESPONSE.md structure if present
+- **Path:** `.github/workflows/ai-feedback-validation.yml` (organisation reusable workflow, `on: workflow_call`)
+- **Caller in this repository:** `.github/workflows/ai-feedback.yml` (PR open, edit, reopen, synchronize, ready_for_review)
+- **Input:** `enforce` (boolean, default `false`): when `false` the check only warns; when `true` a failed validation fails the check
+- **Job:** `validate-feedback-linkage` checks issue links and, if the PR contains `FEEDBACK_RESPONSE.md`, its structure and statuses
+
+Other repositories call it by path, pinned to a commit of this repository:
+
+```yaml
+jobs:
+  ai-feedback:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: lightspeedwp/.github/.github/workflows/ai-feedback-validation.yml@<commit-sha>
+    with:
+      enforce: false
+```
 
 ### 2. Validation Helper Script
 
@@ -61,22 +73,18 @@ This workflow automatically validates that:
 ```
 PR Opened/Edited
     ↓
-Workflow Triggered (pull_request_target event)
+Caller workflow (pull_request or pull_request_target) calls the reusable workflow
     ↓
 validate-feedback-linkage job
+    ├─ Check out this repository's helpers at the called workflow's commit
+    │  (no PR code is checked out or executed)
     ├─ Check for issue links (Resolves/Closes/Fixes)
-    ├─ Load FEEDBACK_RESPONSE.md if exists
-    ├─ Validate feedback status markers
-    ├─ Check for deferred items without issues
-    └─ Comment with results or delete previous comment
-    ↓
-check-feedback-response-format job (if file exists)
-    ├─ Validate file structure
-    ├─ Check for required sections
-    └─ Log warnings/errors
+    ├─ Read FEEDBACK_RESPONSE.md from the PR head through the API, if present
+    ├─ Validate structure, status markers and deferred items
+    └─ Comment with results, or delete the previous comment once it passes
     ↓
 Validation Complete
-    └─ Workflow passes ✅ or fails ❌
+    └─ enforce: false → warning only; enforce: true → check fails ❌
 ```
 
 ### Validation Rules
@@ -105,7 +113,7 @@ FEEDBACK_RESPONSE.md exists with:
 - FEEDBACK_RESPONSE.md is missing (but recommended)
 - Deferred items don't reference tracking issues (strongly discouraged)
 
-#### FAIL (❌ Blocks merge)
+#### FAIL (❌ Fails the check only with `enforce: true`; otherwise a warning)
 
 - No issue links in PR description
 - Invalid or malformed FEEDBACK_RESPONSE.md
@@ -227,29 +235,34 @@ Comment posted with validation report:
 
 ### Trigger Events
 
-The workflow runs on:
-
-- `pull_request_target` with type `[opened, edited, reopened, synchronize, ready_for_review]`
+The reusable workflow runs with the caller's event. This repository's caller
+(`ai-feedback.yml`) uses `pull_request` with types
+`[opened, edited, reopened, synchronize, ready_for_review]`. Fork PRs on
+`pull_request` get a read-only token, so the report goes to the job log
+instead of a comment. Callers that want comments on fork PRs can use
+`pull_request_target`, which is safe here because no PR code is run.
 
 ### Permissions
+
+The calling job grants, and the called workflow requests:
 
 ```yaml
 permissions:
   contents: read
-  issues: read
   pull-requests: write
-  checks: write
 ```
 
 ### Concurrency
 
 ```yaml
 concurrency:
-  group: ai-feedback-${{ github.pull_request.number }}
+  group: ai-feedback-validation-${{ github.repository }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 ```
 
-One workflow per PR at a time; new triggers cancel previous runs.
+One run per PR at a time; new triggers cancel previous runs. The group name
+differs from any caller's, since a called workflow shares the caller's
+`github.workflow`.
 
 ---
 
@@ -298,10 +311,10 @@ Edit `.github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md`:
 
 **Solutions:**
 
-1. Check `.github/workflows/ai-feedback-validation.yml` exists
-2. Verify branch is not in `paths-ignore` list
-3. Check PR is against a branch (not draft)
-4. Ensure `pull_request_target` trigger is enabled
+1. Check the repository has a caller workflow (here: `.github/workflows/ai-feedback.yml`)
+2. Verify the changed files are not all in the caller's `paths-ignore` list
+3. Check the calling job grants `pull-requests: write`
+4. Check the `uses:` reference points at an existing commit of `lightspeedwp/.github`
 
 ### Validation Comment Not Appearing
 

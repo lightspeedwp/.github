@@ -5,9 +5,12 @@
 #
 # - Every action is pinned to a full commit SHA with its version as a
 #   comment; let Dependabot (github-actions ecosystem) keep the pins current.
-# - Organisation reusable workflows from lightspeedwp/.github are not
-#   available yet (tracked in #3480). Once they are, call them with
-#   `uses: lightspeedwp/.github/.github/workflows/<file>.yml@<sha>`.
+# - Organisation reusable workflows are called by path and pinned to a
+#   lightspeedwp/.github commit SHA: replace REPLACE_WITH_COMMIT_SHA below.
+#   Available: ai-feedback-validation.yml (below) and
+#   orchestrate-phase-progression.yml, which needs issues and
+#   pull_request_target triggers, so it belongs in its own workflow file
+#   (see the usage block at the top of that file).
 
 name: Plugin CI
 
@@ -26,6 +29,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  ai-feedback:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: lightspeedwp/.github/.github/workflows/ai-feedback-validation.yml@REPLACE_WITH_COMMIT_SHA
+    with:
+      enforce: false
+
   php-lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10

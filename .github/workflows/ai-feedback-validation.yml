@@ -1,0 +1,197 @@
+name: Validate AI Feedback & Issue Linkage
+
+# Organisation reusable workflow. Call it from a pull_request or
+# pull_request_target workflow:
+#
+#   jobs:
+#     ai-feedback:
+#       permissions:
+#         contents: read
+#         pull-requests: write
+#       uses: lightspeedwp/.github/.github/workflows/ai-feedback-validation.yml@<commit-sha>
+#       with:
+#         enforce: false
+#
+# Security: no PR code is checked out or executed. Only this repository's
+# helper scripts are checked out (at the called workflow's own commit), and
+# FEEDBACK_RESPONSE.md is read from the PR head through the API as data.
+
+on:
+  workflow_call:
+    inputs:
+      enforce:
+        description: Fail the check when validation fails (default warns only).
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-feedback-linkage:
+    name: Validate AI feedback and issue linkage
+    if: github.event.pull_request.number
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Distinct from any caller group: a called workflow inherits the
+    # caller's github.workflow, so reusing it would cancel the caller.
+    concurrency:
+      group: ai-feedback-validation-${{ github.repository }}-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: Check out validation helpers
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: scripts/validation
+
+      - name: Check PR-issue linkage and feedback response
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          ENFORCE: ${{ inputs.enforce }}
+        with:
+          script: |
+            const { validateAIFeedback } = require('./scripts/validation/ai-feedback-helpers.cjs');
+
+            const pr = context.payload.pull_request;
+            const author = pr.user?.login || '';
+            const botAuthors = ['dependabot[bot]', 'imgbot[bot]', 'lightspeed-docs-bot[bot]'];
+            const enforce = process.env.ENFORCE === 'true';
+
+            if (botAuthors.includes(author)) {
+              core.info(`Skipping AI feedback validation for bot author ${author}.`);
+              return;
+            }
+
+            // Read FEEDBACK_RESPONSE.md from the PR head as data, never by
+            // checking out PR code. A fork's head repo may be gone (null).
+            let feedbackContent = null;
+            if (pr.head?.repo) {
+              try {
+                const { data } = await github.rest.repos.getContent({
+                  owner: pr.head.repo.owner.login,
+                  repo: pr.head.repo.name,
+                  path: 'FEEDBACK_RESPONSE.md',
+                  ref: pr.head.sha,
+                });
+                if (!Array.isArray(data) && data.content) {
+                  feedbackContent = Buffer.from(data.content, 'base64').toString('utf8');
+                }
+              } catch (error) {
+                if (error.status !== 404) {
+                  throw error;
+                }
+              }
+            }
+
+            const validation = await validateAIFeedback(
+              context.repo.owner,
+              context.repo.repo,
+              pr.number,
+              pr.body || '',
+              { feedbackContent }
+            );
+
+            const marker = '<!-- ai-feedback-validation -->';
+            const message = buildValidationMessage(marker, validation);
+
+            // Comment writes need a write token; fork PRs on a pull_request
+            // trigger only get read access, so degrade to a log warning.
+            try {
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                per_page: 100,
+              });
+              const previous = comments.find(
+                (comment) => comment.user?.type === 'Bot' && comment.body?.includes(marker)
+              );
+
+              if (previous && message) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: previous.id,
+                  body: message,
+                });
+              } else if (!previous && message) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body: message,
+                });
+              } else if (previous && !message) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: previous.id,
+                });
+              }
+            } catch (error) {
+              if (error.status !== 403) {
+                throw error;
+              }
+              core.warning('No permission to comment on this PR; see the job log for the report.');
+              if (message) {
+                core.info(message);
+              }
+            }
+
+            if (!validation.passed) {
+              const summary = `AI feedback validation failed for PR #${pr.number}`;
+              if (enforce) {
+                core.setFailed(summary);
+              } else {
+                core.warning(`${summary} (warn-only; set enforce: true to fail).`);
+              }
+            }
+
+            function buildValidationMessage(marker, validation) {
+              const { issues } = validation;
+              const lines = [];
+
+              if (issues.missingIssueLink) {
+                lines.push('❌ **No issue link found**: the PR must include `Resolves #123` or `Closes #123`.');
+              }
+              if (issues.incompleteFeedbackTracking.length > 0) {
+                lines.push(
+                  '❌ **Incomplete feedback tracking** in FEEDBACK_RESPONSE.md:',
+                  ...issues.incompleteFeedbackTracking.map((item) => `  - ${item}`)
+                );
+              }
+              if (issues.invalidStatus.length > 0) {
+                lines.push(
+                  '❌ **Invalid feedback status** (allowed: ✅ Addressed, 📋 Deferred, ❌ Rejected):',
+                  ...issues.invalidStatus.map((item) => `  - ${item}`)
+                );
+              }
+              if (issues.deferredNoIssue.length > 0) {
+                lines.push(
+                  '⚠️ **Deferred feedback without a follow-up issue:**',
+                  ...issues.deferredNoIssue.map((item) => `  - ${item}`)
+                );
+              }
+
+              if (validation.passed && lines.length === 0) {
+                return null;
+              }
+
+              return [
+                marker,
+                '## AI Feedback Validation Report',
+                '',
+                ...lines,
+                '',
+                '### Required actions',
+                '1. Link this PR to its issue with `Resolves #123` or `Closes #123` in the description.',
+                '2. Track AI review feedback in `FEEDBACK_RESPONSE.md` with a status per item.',
+                '3. For deferred feedback, open a follow-up issue and link it.',
+              ].join('\n');
+            }

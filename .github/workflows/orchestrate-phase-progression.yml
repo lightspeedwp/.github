@@ -1,0 +1,223 @@
+name: Orchestrate Phase Progression
+
+# Organisation reusable workflow. It keeps openspec:* phase labels and their
+# companion status labels in step with issue and PR events. Call it from a
+# workflow triggered by `issues` and `pull_request_target`:
+#
+#   on:
+#     issues:
+#       types: [opened, labeled, reopened, closed]
+#     pull_request_target:
+#       types: [opened, closed]
+#   jobs:
+#     phase-progression:
+#       permissions:
+#         contents: read
+#         issues: write
+#         pull-requests: read
+#       uses: lightspeedwp/.github/.github/workflows/orchestrate-phase-progression.yml@<commit-sha>
+#
+# pull_request_target gives fork PRs a token that can label the linked
+# issues. That is safe here because no PR code is checked out or executed:
+# only this repository's handlers are checked out, at the called
+# workflow's own commit, and the PR body is read as data.
+#
+# Labels are only added if they already exist in the calling repository.
+
+on:
+  workflow_call:
+    inputs:
+      dry-run:
+        description: Log the planned label changes without writing them.
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  sync-labels-on-issue-event:
+    name: Sync labels on issue event
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: phase-progression-${{ github.repository }}-issue-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    steps:
+      - name: Check out label handlers
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: scripts/automation
+
+      - name: Sync labels
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          DRY_RUN: ${{ inputs.dry-run }}
+        with:
+          script: |
+            const { syncLabelsOnEvent } = require('./scripts/automation/handlers/sync-labels-on-event.cjs');
+            const { applyLabelChanges } = require('./scripts/automation/handlers/apply-label-changes.cjs');
+
+            const payloadIssue = context.payload.issue;
+            const issue = {
+              number: payloadIssue.number,
+              title: payloadIssue.title,
+              body: payloadIssue.body || '',
+              labels: (payloadIssue.labels || []).map((label) => ({
+                name: typeof label === 'string' ? label : label.name,
+              })),
+            };
+
+            // Compute only; the write happens through applyLabelChanges.
+            const result = syncLabelsOnEvent(issue, context.payload.action, { dryRun: true });
+
+            result.warnings.forEach((warning) => core.warning(`#${issue.number}: ${warning}`));
+            if (result.conflicts.length > 0) {
+              core.warning(`#${issue.number} label conflicts: ${result.conflicts.join(', ')}`);
+            }
+            if (!result.success) {
+              core.setFailed(`Label sync failed: ${result.errors.join(', ')}`);
+              return;
+            }
+
+            const applied = await applyLabelChanges({
+              github,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issueNumber: issue.number,
+              add: result.labelsToAdd,
+              remove: result.labelsToRemove,
+              dryRun: process.env.DRY_RUN === 'true',
+            });
+            core.info(`#${issue.number}: ${JSON.stringify(applied)}`);
+            if (applied.skipped.length > 0) {
+              core.warning(`#${issue.number}: labels missing in this repository, not added: ${applied.skipped.join(', ')}`);
+            }
+
+  orchestrate-pr-progression:
+    name: Advance phase of linked issues
+    # Only real transitions: a PR being opened, or merged. Pushes
+    # (synchronize) and closing without merge never advance a phase.
+    if: >-
+      (github.event_name == 'pull_request' || github.event_name == 'pull_request_target') &&
+      (github.event.action == 'opened' ||
+       (github.event.action == 'closed' && github.event.pull_request.merged == true))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: phase-progression-${{ github.repository }}-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: false
+    steps:
+      - name: Check out phase handlers
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: scripts/automation
+
+      - name: Advance linked issues
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          DRY_RUN: ${{ inputs.dry-run }}
+        with:
+          script: |
+            const {
+              extractLinkedIssues,
+              orchestratePhaseProgression,
+            } = require('./scripts/automation/handlers/orchestrate-phase-progression.cjs');
+            const {
+              applyLabelChanges,
+              listRepoLabels,
+            } = require('./scripts/automation/handlers/apply-label-changes.cjs');
+
+            const pr = context.payload.pull_request;
+            const trigger = context.payload.action === 'closed' ? 'PR merged' : 'PR opened';
+            const linkedIssues = extractLinkedIssues(pr.body || '');
+
+            if (linkedIssues.length === 0) {
+              core.info('No linked issues in the PR body.');
+              return;
+            }
+
+            const { owner, repo } = context.repo;
+            const repoLabels = await listRepoLabels(github, owner, repo);
+            const dryRun = process.env.DRY_RUN === 'true';
+
+            for (const issueNumber of linkedIssues) {
+              try {
+                const { data } = await github.rest.issues.get({ owner, repo, issue_number: issueNumber });
+                if (data.pull_request) {
+                  continue; // "Closes #N" can point at a PR; only issues have phases.
+                }
+
+                const issue = {
+                  number: data.number,
+                  title: data.title,
+                  body: data.body || '',
+                  labels: (data.labels || []).map((label) => ({
+                    name: typeof label === 'string' ? label : label.name,
+                  })),
+                };
+
+                // Compute only; the write happens through applyLabelChanges.
+                const result = orchestratePhaseProgression(issue, trigger, { dryRun: true });
+                result.warnings.forEach((warning) => core.info(`#${issueNumber}: ${warning}`));
+                result.errors.forEach((error) => core.warning(`#${issueNumber}: ${error}`));
+
+                if (!result.transitionValid || !result.nextPhaseLabel) {
+                  continue;
+                }
+
+                // Never strip the current phase unless the next one can be
+                // applied, or the issue would be left with no phase at all.
+                if (!repoLabels.has(result.nextPhaseLabel)) {
+                  core.warning(`#${issueNumber}: ${result.nextPhaseLabel} does not exist in this repository; phase not advanced.`);
+                  continue;
+                }
+
+                const applied = await applyLabelChanges({
+                  github,
+                  owner,
+                  repo,
+                  issueNumber,
+                  add: [result.nextPhaseLabel],
+                  remove: [result.currentPhaseLabel],
+                  dryRun,
+                  repoLabels,
+                });
+                core.info(`#${issueNumber}: ${result.currentPhaseLabel} -> ${result.nextPhaseLabel} ${JSON.stringify(applied)}`);
+              } catch (error) {
+                core.warning(`Failed to process issue #${issueNumber}: ${error.message}`);
+              }
+            }
+
+  validate-issue-completion:
+    name: Validate issue completion
+    if: github.event_name == 'issues' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check for completion labels
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const labels = (context.payload.issue.labels || []).map((label) =>
+              typeof label === 'string' ? label : label.name
+            );
+            const complete = labels.some((label) => label.includes('complete') || label === 'status:done');
+
+            if (complete) {
+              core.info(`#${context.issue.number} closed with a completion label.`);
+            } else {
+              core.warning(`#${context.issue.number} closed without a completion label (status:done or openspec:*-complete).`);
+            }

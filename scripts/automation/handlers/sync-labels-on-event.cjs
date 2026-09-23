@@ -49,6 +49,9 @@ function syncLabelsOnEvent(issue, eventType, options = {}) {
 
     // Handle based on event type
     switch (eventType) {
+      // GitHub's issues event action is "opened"; "created" is kept for
+      // existing callers.
+      case "opened":
       case "created":
         handleIssueCreated(issue, result);
         break;
