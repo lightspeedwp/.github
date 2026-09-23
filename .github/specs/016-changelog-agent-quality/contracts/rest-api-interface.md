@@ -47,6 +47,12 @@ that escape the repository.
 }
 ```
 
+| Field | Required | Meaning |
+| --- | --- | --- |
+| `changelog_path` | Yes | Identifies the changelog file. It is always confined as above, including when `changelog_content` is sent. |
+| `changelog_content` | No | Inline changelog text to validate instead of the file on disk (for example, an unsaved draft). Reports still name `changelog_path`. This endpoint never writes; the merge endpoint below always operates on the file at its own `changelog_path`. |
+| `output_format` | No | Response format; `json` is the only format this contract defines. |
+
 An invalid or escaping path returns `400 Bad Request` with code
 `INVALID_CHANGELOG_PATH`; it is never opened.
 
