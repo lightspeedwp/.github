@@ -134,9 +134,10 @@ Runs on every push to any branch. If invalid:
 
 ### 3. **PR Template Routing**
 
-Valid branch names automatically route to correct PR template:
+Valid branch names use the authoritative `.github/branch-types.yml` mapping;
+`.github/PULL_REQUEST_TEMPLATE/config.yml` mirrors its template routes:
 
-| Branch Prefix | PR Template | Auto-Applied Labels |
+| Branch Prefix | PR Template (from `branch-types.yml`) | Auto-Applied Labels |
 |---------------|------------|-------------------|
 | `feat/` | pr_feature.md | `type:feature` |
 | `fix/` | pr_bug.md | `type:bug` |
