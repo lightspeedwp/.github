@@ -105,12 +105,16 @@ jobs:
             fi
           done
           # Both jobs check out to the same workspace path, so one root
-          # makes their test paths comparable.
+          # makes their test paths comparable. The default shell is
+          # bash -e: suspend errexit so a non-zero result still reaches the
+          # summary below.
+          set +e
           node scripts/validation/compare-jest-failures.cjs \
             --head reports/jest-report-head/jest-report.json --head-root "$GITHUB_WORKSPACE" \
             --base reports/jest-report-base/jest-report.json --base-root "$GITHUB_WORKSPACE" \
             | tee comparison.txt
           status=${PIPESTATUS[0]}
+          set -e
           {
             echo "## Test comparison (head vs base)"
             echo
