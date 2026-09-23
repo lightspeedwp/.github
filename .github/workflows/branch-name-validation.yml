@@ -4,11 +4,20 @@ on:
   push:
     branches:
       - "**"
+      # The metrics aggregator pushes this fixed bot branch after every run
+      # of this workflow; validating it re-triggers the aggregator, which
+      # looped ~450 times a day (see #3474).
+      - "!chore/branch-validation-metrics"
 
+# Read-only: the job calls no GitHub API (artifact upload uses the runner's
+# own token), so no write scopes are granted.
 permissions:
   contents: read
-  pull-requests: write
-  checks: write
+
+# One validation per branch at a time; a newer push supersedes the old run.
+concurrency:
+  group: branch-name-validation-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-branch-name:
@@ -16,35 +25,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
-    outputs:
-      branch_name: ${{ steps.extract-branch.outputs.branch_name }}
-      valid: ${{ steps.validate.outputs.valid }}
-      errors: ${{ steps.validate.outputs.errors }}
-      suggested_name: ${{ steps.validate.outputs.suggested_name }}
-
     steps:
+      # The validator only needs its own two files and uses no git history or
+      # npm packages, so a sparse, shallow checkout without an install suffices.
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            scripts/validation
+            lib
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Verify installation
-        run: |
-          echo "Node version:"
-          node --version
-          echo "npm version:"
-          npm --version
-          echo "npm validate:branch-name script:"
-          npm run validate:branch-name -- --help | head -20
 
       - name: Extract branch name
         id: extract-branch
@@ -52,21 +48,27 @@ jobs:
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
+      # Branch names can contain shell metacharacters ($, parentheses), so
+      # every value derived from them is passed through env, never inlined.
       - name: Validate branch name
         id: validate
         timeout-minutes: 2
+        env:
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch_name }}
         run: |
-          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
           echo "🔍 Validating: $BRANCH_NAME"
 
-          # Run validation directly with timeout and capture output
+          # Capture stdout only: Node warnings on stderr made the combined
+          # output unparseable, so `errors` was never set and the metrics
+          # error breakdown was always zero.
           set +e
-          OUTPUT=$(timeout 30s node scripts/validation/validate-branch-name.js --branch "$BRANCH_NAME" --json 2>&1)
+          OUTPUT=$(timeout 30s node scripts/validation/validate-branch-name.js --branch "$BRANCH_NAME" --json 2>validator-stderr.log)
           EXIT_CODE=$?
           set -e
 
           echo "--- Validation Output ---"
           echo "$OUTPUT"
+          if [ -s validator-stderr.log ]; then echo "--- stderr ---"; cat validator-stderr.log; fi
           echo "--- Exit Code: $EXIT_CODE ---"
 
           # Use jq to extract valid field if jq is available and output looks like JSON
@@ -94,37 +96,34 @@ jobs:
 
       - name: Collect validation metrics
         if: always()
+        env:
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch_name }}
+          VALID: ${{ steps.validate.outputs.valid }}
+          ERRORS: ${{ steps.validate.outputs.errors }}
         run: |
-          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
-          VALID="${{ steps.validate.outputs.valid }}"
-          ERRORS="${{ steps.validate.outputs.errors }}"
-          TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-
-          # Create metrics JSON
-          METRICS="{
-            \"timestamp\": \"$TIMESTAMP\",
-            \"branch_name\": \"$BRANCH_NAME\",
-            \"valid\": $VALID,
-            \"errors\": \"$ERRORS\",
-            \"actor\": \"$GITHUB_ACTOR\",
-            \"event\": \"$GITHUB_EVENT_NAME\",
-            \"ref\": \"$GITHUB_REF\",
-            \"sha\": \"$GITHUB_SHA\"
-          }"
-
-          # Create metrics directory
           mkdir -p validation-metrics
-
-          # Write metric to file with timestamp
           FILENAME="validation-metrics/$(date +'%Y%m%d-%H%M%S')-$GITHUB_RUN_ID.json"
-          echo "$METRICS" > "$FILENAME"
+
+          # jq builds the JSON so quotes or backslashes in branch names or
+          # error text cannot corrupt the metrics file.
+          jq -n \
+            --arg timestamp "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --arg branch_name "$BRANCH_NAME" \
+            --argjson valid "$([ "$VALID" = "true" ] && echo true || echo false)" \
+            --arg errors "$ERRORS" \
+            --arg actor "$GITHUB_ACTOR" \
+            --arg event "$GITHUB_EVENT_NAME" \
+            --arg ref "$GITHUB_REF" \
+            --arg sha "$GITHUB_SHA" \
+            '{timestamp: $timestamp, branch_name: $branch_name, valid: $valid, errors: $errors, actor: $actor, event: $event, ref: $ref, sha: $sha}' \
+            > "$FILENAME"
 
           echo "Metrics collected: $FILENAME"
           cat "$FILENAME"
 
       - name: Upload metrics artifact
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: branch-validation-metrics
           path: validation-metrics/
@@ -132,15 +131,9 @@ jobs:
 
       - name: Set job status based on validation
         if: always()
+        env:
+          VALID: ${{ steps.validate.outputs.valid }}
         run: |
-          VALID="${{ steps.validate.outputs.valid }}"
-          echo "DEBUG: VALID output = '$VALID'"
-          echo "DEBUG: Outputs available:"
-          echo "  branch_name = ${{ steps.extract-branch.outputs.branch_name }}"
-          echo "  valid = ${{ steps.validate.outputs.valid }}"
-          echo "  errors = ${{ steps.validate.outputs.errors }}"
-          echo "  suggested_name = ${{ steps.validate.outputs.suggested_name }}"
-
           if [ "$VALID" = "true" ]; then
             echo "✅ Branch name validation passed"
             exit 0
@@ -148,49 +141,3 @@ jobs:
             echo "❌ Branch name validation failed (VALID='$VALID')"
             exit 1
           fi
-
-  report-validation-failure:
-    name: Report validation failure
-    needs: validate-branch-name
-    if: failure() && needs.validate-branch-name.outputs.valid == 'false'
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-
-    steps:
-      - name: Comment on PR with validation error
-        uses: actions/github-script@v9
-        with:
-          script: |
-            const branchName = process.env.BRANCH_NAME;
-            const errors = process.env.ERRORS;
-            const suggested = process.env.SUGGESTED;
-
-            const message = [
-              `❌ **Invalid branch name: \`${branchName}\`**`,
-              '',
-              `**Error:** ${errors}`,
-              suggested ? `**Suggestion:** Did you mean \`${suggested}\`?` : '',
-              '',
-              '**Pattern:** `{type}/{scope}-{title}`',
-              '',
-              '**Allowed types (38):** feat, fix, hotfix, release, refactor, chore, task, doc, docs, test, perf, ci, build, deps, security, revert, research, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, aiops, automation, epic',
-              '',
-              '**Forbidden prefixes:** claude/, copilot/, openai/',
-              '',
-              'For more information, see [Branch Naming Strategy](./docs/BRANCHING_STRATEGY.md).'
-            ].filter(line => line !== '').join('\n');
-
-            // Only comment if this is a PR
-            if (context.payload.pull_request) {
-              github.rest.issues.createComment({
-                issue_number: context.payload.pull_request.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: message
-              });
-            }
-        env:
-          BRANCH_NAME: ${{ needs.validate-branch-name.outputs.branch_name }}
-          ERRORS: ${{ needs.validate-branch-name.outputs.errors }}
-          SUGGESTED: ${{ needs.validate-branch-name.outputs.suggested_name }}
