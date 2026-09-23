@@ -163,6 +163,19 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       ]);
     });
 
+    it.each([
+      ['agents/skill-one', true, 'a skill name under agents/'],
+      ['skills/agent-one', true, 'an agent name under skills/'],
+      ['skill-one', false, 'a bare skill name'],
+      ['agent-one', false, 'a bare agent name'],
+    ])('should check %s against the index its path names (%s: %s)', (value, broken) => {
+      const results = finder.analyzeReferences(
+        { jsImports: [{ value, type: 'js-import' }] },
+        { path: 'test.js' }
+      );
+      expect(results[0].isBroken).toBe(broken);
+    });
+
     it('should treat an explicitly empty injected index as authoritative', () => {
       const emptyFinder = new BrokenRefsFinder({ agentIndex: [], skillIndex: [] });
       const results = emptyFinder.analyzeReferences(

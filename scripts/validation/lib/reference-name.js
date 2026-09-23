@@ -6,42 +6,63 @@
  * like.
  */
 
-const CONTAINER = /(?:^|\/)(?:agents|skills)\/([^/]+)/g;
+const CONTAINER = /(?:^|\/)(agents|skills)\/([^/]+)/g;
 
 /**
- * Remove relative-path notation, trailing slashes, and file extensions.
+ * Locate the agent/skill name in a reference.
  *
- * @param {string} value - Reference value to normalise.
- * @returns {string} Normalised reference path.
+ * The name is the segment after the last `agents/` or `skills/`; without
+ * either, it is the last path segment. A file extension is dropped when the
+ * name segment is the last segment (`skills/foo.js` -> `foo`).
+ *
+ * @param {string} value - Reference value, e.g. `agents/pr-agent/run.sh`.
+ * @returns {{container: ('agents'|'skills'|null), name: string, start: number, end: number}}
+ *   `start`/`end` are offsets of the name in `value`, so the same segment can
+ *   be replaced.
  */
-function clean(value) {
-  return value
-    .replace(/^\.\//, '')
-    .replace(/\/+$/, '')
-    .replace(/\.\w+$/, '');
+export function parseReference(value) {
+  const trimmed = value.replace(/\/+$/, '');
+  const matches = [...trimmed.matchAll(CONTAINER)];
+
+  let container = null;
+  let segment;
+  let start;
+  if (matches.length) {
+    const last = matches[matches.length - 1];
+    container = last[1];
+    segment = last[2];
+    start = last.index + last[0].length - segment.length;
+  } else {
+    start = trimmed.lastIndexOf('/') + 1;
+    segment = trimmed.slice(start);
+  }
+
+  const isLastSegment = start + segment.length === trimmed.length;
+  const name = isLastSegment ? segment.replace(/\.\w+$/, '') : segment;
+  return { container, name, start, end: start + name.length };
 }
 
 /**
- * Bare agent/skill name a reference points at: the segment after the last
- * `agents/` or `skills/`, otherwise the last path segment.
+ * Bare agent/skill name a reference points at.
+ *
+ * @param {string} value - Reference value.
+ * @returns {string} The bare name, e.g. `issue-agent`.
  */
 export function referenceName(value) {
-  const cleaned = clean(value);
-  const matches = [...cleaned.matchAll(CONTAINER)];
-  if (matches.length) return matches[matches.length - 1][1];
-  return cleaned.split('/').pop();
+  return parseReference(value).name;
 }
 
 /**
- * Replace the name in a reference while keeping its path, so
+ * Replace the name in a reference while keeping its path and extension, so
  * `agents/issue-agent` renamed to `issue-triage-agent` becomes
- * `agents/issue-triage-agent`.
+ * `agents/issue-triage-agent`. The segment replaced is the one
+ * referenceName() reads, so referenceName(result) === newName.
+ *
+ * @param {string} value - Reference value.
+ * @param {string} newName - Replacement bare name.
+ * @returns {string} The reference with its name replaced.
  */
 export function replaceReferenceName(value, newName) {
-  const name = referenceName(value);
-  // Search before any extension, so `skills/js/js.js` never matches `.js`.
-  const extension = value.match(/\.\w+$/)?.[0] ?? '';
-  const index = value.slice(0, value.length - extension.length).lastIndexOf(name);
-  if (index === -1) return newName;
-  return value.slice(0, index) + newName + value.slice(index + name.length);
+  const { start, end } = parseReference(value);
+  return value.slice(0, start) + newName + value.slice(end);
 }

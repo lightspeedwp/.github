@@ -6,7 +6,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import { referenceName } from './reference-name.js';
+import { parseReference } from './reference-name.js';
 
 export class BrokenRefsFinder {
   constructor(options = {}) {
@@ -111,12 +111,14 @@ export class BrokenRefsFinder {
     // Normalize value (remove leading ./ and extensions)
     const normalizedValue = value.replace(/^\.\//, '').replace(/\.\w+$/, '');
 
-    // Indexes hold bare names, so look up the name, not the path (#3460).
-    const name = referenceName(value);
+    // Indexes hold bare names, so look up the name, not the path (#3460). An
+    // explicit agents/ or skills/ path is checked against that index only;
+    // a bare name may be either.
+    const { container, name } = parseReference(value);
 
     // Check if reference exists
-    const isAgent = agentIndex.has(name);
-    const isSkill = skillIndex.has(name);
+    const isAgent = container !== 'skills' && agentIndex.has(name);
+    const isSkill = container !== 'agents' && skillIndex.has(name);
 
     if (isAgent || isSkill) {
       return {
