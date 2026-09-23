@@ -90,22 +90,25 @@ This runs lint-staged, which processes only your staged files according to the c
 
 ## Pre-push Hook
 
-Our pre-push hook is defined in **`.husky/pre-push`** and runs the full test suite before allowing a push to the remote repository:
+Our pre-push hook is defined in **`.husky/pre-push`** and validates the branch name before allowing a push to the remote repository:
 
 ```bash
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Run tests before push
-npm test
+#!/usr/bin/env sh
+node lib/hooks/pre-push "$@"
 ```
 
-This ensures that all tests pass before code is shared with the team. The hook runs:
+If the branch name does not follow the naming strategy, the push is aborted. The full test suite runs in CI, not in this hook.
 
-- JavaScript/TypeScript unit tests (Jest)
-- Any other configured test suites
+### Hooks not running
 
-If tests fail, the push is aborted and you must fix the issues before trying again.
+`core.hooksPath` is `.husky/_`, which only `npm run prepare` creates. After `npm ci --ignore-scripts` (worktrees, bots) that directory is missing and Git runs **no hooks, without warning**. Check and fix:
+
+```bash
+npm run hooks:check
+npm run prepare
+```
+
+`npm test` runs the same check first and prints a warning when hooks are missing.
 
 ## Workflow Overview
 

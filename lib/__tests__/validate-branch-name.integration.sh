@@ -11,7 +11,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 CLI_PATH="$PROJECT_ROOT/scripts/validation/validate-branch-name.js"
 HOOK_PATH="$PROJECT_ROOT/lib/hooks/pre-push"
-INSTALL_PATH="$PROJECT_ROOT/lib/hooks/install.js"
+HUSKY_HOOK_PATH="$PROJECT_ROOT/.husky/pre-push"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -49,12 +49,12 @@ else
   ((TESTS_FAILED++))
 fi
 
-# Test 2: Install script exists
-if [ -f "$INSTALL_PATH" ]; then
-  echo -e "${GREEN}✓${NC} Install script exists at $INSTALL_PATH"
+# Test 2: Husky runs the hook (#3493)
+if grep -q "lib/hooks/pre-push" "$HUSKY_HOOK_PATH" 2>/dev/null; then
+  echo -e "${GREEN}✓${NC} $HUSKY_HOOK_PATH runs the pre-push hook"
   ((TESTS_PASSED++))
 else
-  echo -e "${RED}✗${NC} Install script not found at $INSTALL_PATH"
+  echo -e "${RED}✗${NC} $HUSKY_HOOK_PATH does not run lib/hooks/pre-push"
   ((TESTS_FAILED++))
 fi
 

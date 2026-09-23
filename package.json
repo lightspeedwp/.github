@@ -64,8 +64,9 @@
     ".github/"
   ],
   "scripts": {
-    "prepare": "husky && node lib/hooks/install.js",
-    "postinstall": "node lib/hooks/install.js",
+    "prepare": "husky",
+    "hooks:check": "node scripts/check-git-hooks.mjs",
+    "pretest": "node scripts/check-git-hooks.mjs",
     "check": "npm run lint:all && npm run test",
     "lint:baseline": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern --format stylish > .github/reports/linting/eslint-baseline.txt || true",
     "lint:baseline:json": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline.json || true",
