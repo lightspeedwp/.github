@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Shared Claude Code Cloud Environment** — One cloud setup for the whole team, and Claude sessions can no longer commit, push or open PRs on branches that break the branching strategy. (#3524)
+
 ### Changed
 
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
