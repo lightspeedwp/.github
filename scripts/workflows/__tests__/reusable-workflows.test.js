@@ -243,6 +243,23 @@ describe('ai-feedback-validation.yml', () => {
 });
 
 describe('orchestrate-phase-progression.yml', () => {
+  test('only trusted authors or same-repository branches can advance phases', () => {
+    const workflow = YAML.parse(
+      fs.readFileSync(
+        path.join(repositoryRoot, '.github/workflows/orchestrate-phase-progression.yml'),
+        'utf8'
+      )
+    );
+    const condition = workflow.jobs['orchestrate-pr-progression'].if;
+
+    expect(condition).toContain(
+      'github.event.pull_request.head.repo.full_name == github.repository'
+    );
+    expect(condition).toContain(
+      `contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.pull_request.author_association)`
+    );
+  });
+
   const syncStep = loadStep(
     'orchestrate-phase-progression.yml',
     'sync-labels-on-issue-event',

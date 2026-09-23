@@ -106,10 +106,15 @@ jobs:
     name: Advance phase of linked issues
     # Only real transitions: a PR being opened, or merged. Pushes
     # (synchronize) and closing without merge never advance a phase.
+    # Only trusted authors may move phases: under pull_request_target any
+    # fork PR could otherwise advance any issue by writing "Closes #N".
+    # Same-repository branches already require write access.
     if: >-
       (github.event_name == 'pull_request' || github.event_name == 'pull_request_target') &&
       (github.event.action == 'opened' ||
-       (github.event.action == 'closed' && github.event.pull_request.merged == true))
+       (github.event.action == 'closed' && github.event.pull_request.merged == true)) &&
+      (github.event.pull_request.head.repo.full_name == github.repository ||
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.pull_request.author_association))
     runs-on: ubuntu-latest
     timeout-minutes: 5
     concurrency:
