@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: Create comprehensive branch naming strategy specification with enforcement, validation, and automation covering 24 authorized branch types, forbidden prefixes (claude/, copilot/, openai/), PR template routing, label mapping, and GitHub Actions validation.
+**Input**: Create comprehensive branch naming strategy specification with enforcement, validation, and automation covering 38 authorized branch types, forbidden prefixes (claude/, copilot/, openai/), PR template routing, label mapping, and GitHub Actions validation.
 
 ## User Scenarios & Testing
 
@@ -66,7 +66,7 @@ Developers need clear, accessible documentation that explains the branch naming 
 
 **Why this priority**: Documentation enables self-service adoption. Without it, developers guess at type values and create inconsistent patterns. Clear guidance reduces support burden and improves compliance.
 
-**Independent Test**: A developer can read the branching strategy guide, understand the 24 types, and choose the correct type for their work without asking for help. The feature delivers value through reduced support tickets.
+**Independent Test**: A developer can read the branching strategy guide, understand the 38 types, and choose the correct type for their work without asking for help. The feature delivers value through reduced support tickets.
 
 **Acceptance Scenarios**:
 
@@ -110,7 +110,7 @@ The organization's existing PR template routing system (which depends on branch 
 
 ### Session 2026-09-17 (Constitution Alignment)
 
-- Q: Spec claims 24 authorized types, but Constitution (Principle V) mandates 38 types. Which is correct? → A: Constitution is authoritative (non-negotiable per Principles I & VII). Spec updated to include all 38 types: `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `doc`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`, `revert`, `research`, `aiops`, `automation`, `epic`.
+- Q: Spec claims 38 authorized types, but Constitution (Principle V) mandates 38 types. Which is correct? → A: Constitution is authoritative (non-negotiable per Principles I & VII). Spec updated to include all 38 types: `feat`, `fix`, `hotfix`, `release`, `refactor`, `chore`, `task`, `doc`, `docs`, `test`, `perf`, `ci`, `build`, `deps`, `security`, `design`, `a11y`, `ux`, `i18n`, `ops`, `proto`, `ds`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `audit`, `codex`, `revert`, `research`, `aiops`, `automation`, `epic`.
   - **Resolution**: FR-001 updated to list all 38 types; FR-002 regex updated to include all 38; data-model.md updated from "Enum (24 values)" to "Enum (38 values)"; plan.md and tasks.md updated to reflect 38-type scope.
   - **Validation**: All regexes, mappings (branch-types.yml, branch-labels.yml), and test scenarios updated to include complete 38-type set.
 
@@ -172,7 +172,7 @@ The organization's existing PR template routing system (which depends on branch 
 ### Key Entities
 
 - **BranchName**: A Git branch with pattern `{type}/{scope}-{title}`
-  - `type`: One of 24 authorized types
+  - `type`: One of 38 authorized types
   - `scope`: Hyphen-separated lowercase identifier for feature domain
   - `title`: Hyphen-separated lowercase identifier for specific change
   - `full_name`: Complete branch name string

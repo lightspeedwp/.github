@@ -14,6 +14,10 @@
 {type}/{scope}-{title}
 ```
 
+> **Exemptions:** `main` and `develop` skip validation (protected branches).
+> `release/*` additionally accepts semantic-version format (`release/v1.0.0`);
+> all other types must use `{scope}-{title}`.
+
 ### Examples
 
 ✅ **Valid:**
@@ -40,7 +44,7 @@
 | `feat` | New feature | `feat/user-auth-panel` |
 | `fix` | Bug fix | `fix/database-connection-leak` |
 | `hotfix` | Urgent production fix | `hotfix/critical-security-patch` |
-| `release` | Release branch | `release/v1.0.0` |
+| `release` | Release branch | `release/v1.0.0` (semantic-version exception) |
 | `refactor` | Code refactoring | `refactor/api-response-structure` |
 | `chore` | Maintenance, no code changes | `chore/dependency-updates` |
 | `task` | Scoped unit of work | `task/authentication-refactor` |

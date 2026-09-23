@@ -179,7 +179,7 @@ git checkout -B docs/branching-strategy-guide origin/develop
 A: No. Use the table above or run `npm run validate:branch-name -- --help` for quick reference. For detailed guidance on choosing the right type, see [BRANCHING_STRATEGY.md](../../../docs/BRANCHING_STRATEGY.md).
 
 **Q: What if my existing branches don't follow the pattern?**
-A: Existing branches are grandfathered in. Only NEW branches must follow the pattern. Invalid existing branches continue to work, but new work should use valid names.
+A: Existing branches are grandfathered in — they are not renamed retroactively. Only NEW branches must follow the pattern. Note: the pre-push hook and CI validate the branch on every push, so pushing new commits to a non-conforming existing branch will be blocked until it is renamed; plan the rename before your next push.
 
 **Q: Can I use branch aliases or shortcuts?**
 A: No. All branches must follow the exact pattern: `{type}/{scope}-{title}`. Branch shortcuts should be configured locally in your `.gitconfig` if desired.

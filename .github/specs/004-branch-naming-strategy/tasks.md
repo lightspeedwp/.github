@@ -54,10 +54,10 @@
 ### Design Completion Tasks (Artifact Generation)
 
 - [x] T007 Finalize BranchName entity definition; confirm 15 fields, validation rules, computed properties; review against data-model.md
-- [x] T008 Finalize BranchType entity definition; ensure all 24 types mapped to PR templates and labels; confirm area detection keywords
+- [x] T008 Finalize BranchType entity definition; ensure all 38 types mapped to PR templates and labels; confirm area detection keywords
 - [x] T009 Finalize ComplianceMetrics entity definition; design aggregation strategy and trend analysis approach
 - [x] T010 [P] Audit `.github/labels.yml` canonical set; verify all labels in data-model.md exist; document canonical prefix rules in contracts/branch-naming.contract.md
-- [x] T011 [P] Audit `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all 19 PR template files exist; verify routing mapping covers all 24 types; document in contracts/branch-naming.contract.md
+- [x] T011 [P] Audit `.github/PULL_REQUEST_TEMPLATE/` directory; confirm all 19 PR template files exist; verify routing mapping covers all 38 types; document in contracts/branch-naming.contract.md
 - [x] T012 [P] Design area label detection algorithm; extract keywords for each area (api, docs, ui, ci, security, database, testing); update contracts/branch-naming.contract.md with keyword mappings
 - [x] T013 Design error message system; create message templates for 6 error cases (invalid_type, forbidden_prefix, malformed_scope, malformed_title, empty_scope, empty_title) with examples; document in contracts/branch-naming.contract.md
 
@@ -91,7 +91,7 @@
 #### Validation Library Tasks (Core)
 
 - [x] T018 [P] [US1] Create `lib/validate-branch-name.js` core library with:
-  - Regex pattern validation against pattern defined in contracts (24 types, scope-title format)
+  - Regex pattern validation against pattern defined in contracts (38 types, scope-title format)
   - Forbidden prefix detection (claude/, copilot/, openai/)
   - Return: `{valid: boolean, type?, scope?, title?, errors: [], suggested_name?}`
 - [x] T019 [P] [US1] Implement type validation in `lib/validate-branch-name.js`; validate against list of 38 types from contracts/branch-naming.contract.md
@@ -174,13 +174,13 @@
 
 **Dependencies**: Phase 2 (validation) complete
 
-**Gate**: PR template routing works for all 24 types; labels applied from canonical set; 100% accuracy
+**Gate**: PR template routing works for all 38 types; labels applied from canonical set; 100% accuracy
 
 ### US3 Implementation: GitHub Actions Automate Template & Label Routing
 
 **Goal**: PRs created from valid branches automatically receive correct template and labels; no manual routing needed
 
-**Independent Test**: PR created from `feat/user-auth-improvements` receives feature template and correct labels; all 24 types route correctly
+**Independent Test**: PR created from `feat/user-auth-improvements` receives feature template and correct labels; all 38 types route correctly
 
 #### Configuration Tasks
 
@@ -209,7 +209,7 @@
 - [x] T062 [P] [US3] Create integration test: Create PR from branch with area keywords (e.g., `feat/api-endpoint`); verify area label (`area:api`) auto-detected and applied
 - [x] T063 [P] [US3] Test all 38 types; create 38 sample branches, create PRs from each, verify correct template + labels for every type
 
-**Checkpoint: US3 Complete** — PR template routing works perfectly; all labels applied from canonical set; area detection works; 100% accuracy across 24 types
+**Checkpoint: US3 Complete** — PR template routing works perfectly; all labels applied from canonical set; area detection works; 100% accuracy across 38 types
 
 ---
 
@@ -223,7 +223,7 @@
 
 ### US4 Implementation: Developers Reference Branching Strategy
 
-**Goal**: Developers have clear, accessible guide for branch naming; understand 24 types; can choose correct type; adoption increases
+**Goal**: Developers have clear, accessible guide for branch naming; understand 38 types; can choose correct type; adoption increases
 
 **Independent Test**: Developer reads guide, understands pattern, creates valid branch correctly on first attempt; support tickets decrease
 
@@ -233,7 +233,7 @@
 - [x] T065 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Pattern explanation (`{type}/{scope}-{title}`), examples for each component, common mistakes
 - [x] T066 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Scope/title naming rules (lowercase, hyphens, no underscores, no special chars); provide do's and don'ts
 - [x] T067 [P] Add section to `docs/BRANCHING_STRATEGY.md`: When to use each type; decision tree for choosing correct type (e.g., "Is it a new feature?" → feat, "Is it a bug fix?" → fix)
-- [x] T068 Update `CLAUDE.md` with link to branching strategy guide; add quick reference table of 24 types; note forbidden prefixes
+- [x] T068 Update `CLAUDE.md` with link to branching strategy guide; add quick reference table of 38 types; note forbidden prefixes
 - [x] T069 Create branching strategy one-pager (PDF or Markdown); print-friendly version for team distribution
 
 #### Training Materials
@@ -357,7 +357,7 @@
 
 ### Quality & Testing
 
-- [ ] T109 [P] Run full test suite on final validation library; 100% test coverage for validation logic; test all 24 types + forbidden prefixes + edge cases
+- [ ] T109 [P] Run full test suite on final validation library; 100% test coverage for validation logic; test all 38 types + forbidden prefixes + edge cases
 - [ ] T110 [P] Load testing (optional); simulate 10,000 concurrent validation requests; measure latency; confirm <1 second consistently
 - [ ] T111 [P] Security audit; review validation library for injection vulnerabilities, malicious branch name handling, fork bombs (if regex complex)
 

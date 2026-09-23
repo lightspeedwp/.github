@@ -54,8 +54,9 @@ jobs:
 
       - name: Skip validation for protected branches
         id: skip-check
+        env:
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch_name }}
         run: |
-          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
           if [ "$BRANCH_NAME" = "develop" ] || [ "$BRANCH_NAME" = "main" ]; then
             echo "skip=true" >> $GITHUB_OUTPUT
             echo "✅ Skipping validation for protected branch: $BRANCH_NAME"
@@ -67,8 +68,9 @@ jobs:
         id: validate
         timeout-minutes: 2
         if: steps.skip-check.outputs.skip == 'false'
+        env:
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch_name }}
         run: |
-          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
           echo "🔍 Validating: $BRANCH_NAME"
 
           # Run validation directly with timeout and capture output
@@ -106,11 +108,12 @@ jobs:
 
       - name: Collect validation metrics
         if: always()
+        env:
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch_name }}
+          SKIP: ${{ steps.skip-check.outputs.skip }}
+          VALID: ${{ steps.validate.outputs.valid }}
+          ERRORS: ${{ steps.validate.outputs.errors }}
         run: |
-          BRANCH_NAME="${{ steps.extract-branch.outputs.branch_name }}"
-          SKIP="${{ steps.skip-check.outputs.skip }}"
-          VALID="${{ steps.validate.outputs.valid }}"
-          ERRORS="${{ steps.validate.outputs.errors }}"
           TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
           # Handle skip case
@@ -151,16 +154,20 @@ jobs:
 
       - name: Set job status based on validation
         if: always()
+        env:
+          SKIP: ${{ steps.skip-check.outputs.skip }}
+          VALID: ${{ steps.validate.outputs.valid }}
+          BRANCH_NAME: ${{ steps.extract-branch.outputs.branch_name }}
+          ERRORS: ${{ steps.validate.outputs.errors }}
+          SUGGESTED_NAME: ${{ steps.validate.outputs.suggested_name }}
         run: |
-          SKIP="${{ steps.skip-check.outputs.skip }}"
-          VALID="${{ steps.validate.outputs.valid }}"
           echo "DEBUG: SKIP = '$SKIP', VALID output = '$VALID'"
           echo "DEBUG: Outputs available:"
-          echo "  branch_name = ${{ steps.extract-branch.outputs.branch_name }}"
-          echo "  skip = ${{ steps.skip-check.outputs.skip }}"
-          echo "  valid = ${{ steps.validate.outputs.valid }}"
-          echo "  errors = ${{ steps.validate.outputs.errors }}"
-          echo "  suggested_name = ${{ steps.validate.outputs.suggested_name }}"
+          echo "  branch_name = $BRANCH_NAME"
+          echo "  skip = $SKIP"
+          echo "  valid = $VALID"
+          echo "  errors = $ERRORS"
+          echo "  suggested_name = $SUGGESTED_NAME"
 
           if [ "$SKIP" = "true" ]; then
             echo "✅ Validation skipped for protected branch"
