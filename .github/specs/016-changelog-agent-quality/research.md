@@ -55,31 +55,27 @@ This document captures research findings, design decisions, and best practices f
 - Provides consistent invocation interface (CLI parameters, return formats)
 - Supports versioning, error codes, and skill dependencies
 
-**Skill Metadata Structure** (per agentskills.io spec):
+**Skill definition** (standard Agent Skills frontmatter plus namespaced project metadata):
 
 ```yaml
-id: changelog-validate  # Unique identifier
-version: 1.0.0          # Semantic versioning
-name: Changelog Validate
-description: Validates changelog entries against quality standards
-triggers:              # When skill should be invoked
-  - event: pull_request.opened
-    filter: "changelog.md"
-inputs:               # Required/optional parameters
-  - name: changelog_path
-    type: string
-    required: true
-    description: Path to CHANGELOG.md
-outputs:              # What skill returns
-  - name: validation_result
-    type: object
-    schema: ValidationResult
-error_handling:       # Defined error codes
-  - code: ENTRY_TOO_LONG
-    message: Entry exceeds 250 character limit
-  - code: MISSING_LINK
-    message: Entry missing required PR/issue link
+---
+name: changelog-validate
+description: Validate changelog entries against quality standards when checking a release or pull request.
+license: GPL-3.0-or-later
+compatibility: Requires Node.js 18 or later and repository file access.
+metadata:
+  lightspeedwp-version: '1.0.0'
+  lightspeedwp-triggers: 'manual,pull_request.opened'
+  lightspeedwp-inputs: 'changelog_path:string:optional,output:text|json:optional'
+  lightspeedwp-outputs: 'validation_result:object'
+  lightspeedwp-error-codes: 'VALIDATION_FAILED'
+---
 ```
+
+`name` and `description` are the required standard fields. `license`,
+`compatibility`, and `allowed-tools` are optional standard fields. LightSpeed's
+version and invocation contract use namespaced string entries in the standard
+`metadata` map; separate `metadata.yml` files are not part of the model.
 
 **Skills to Implement**:
 
@@ -108,9 +104,9 @@ error_handling:       # Defined error codes
 1. **npm CLI** (PRIMARY):
 
    ```bash
-   npm run changelog:validate --changelog-path ./CHANGELOG.md
-   npm run changelog:check-links --changelog-path ./CHANGELOG.md
-   npm run changelog:merge --version 1.0.0 --changelog-path ./CHANGELOG.md
+   npm run changelog:validate -- --changelog-path ./CHANGELOG.md
+   npm run changelog:check-links -- --changelog-path ./CHANGELOG.md
+   npm run changelog:merge -- --version 1.0.0 --changelog-path ./CHANGELOG.md
    ```
 
 2. **REST API** (OPTIONAL, future):
@@ -224,7 +220,7 @@ Line 22: Entry missing required PR/issue link
 
 ```javascript
 // In workflow:
-const branchType = branch.split('/')[0];  // Extract type from branch name
+const branchType = branch.split('/')[0]; // Extract type from branch name
 const skipValidation = ['chore', 'deps'].includes(branchType);
 
 if (!skipValidation) {
@@ -260,53 +256,47 @@ if (!skipValidation) {
 - Allows parallel validation operations (read-only, safe)
 - Simple implementation using file system locks or Node.js fs locks
 
-**Locking Strategy**:
+**Locking strategy**:
 
-```javascript
-// In changelog agent:
-const fs = require('fs');
-const path = require('path');
+- Prefer an OS-backed advisory reader/writer lock when the runtime and file
+  system provide one.
+- The portable fallback uses an exclusive coordination mutex, a writer-intent
+  file, one active-reader marker per validation, and an exclusive write-lock
+  file. Every file contains a random owner token, PID, hostname, creation time,
+  lease expiry, and last-heartbeat time.
+- Creation uses exclusive mode (`wx`). The owner refreshes its heartbeat before
+  half the lease elapses and removes a file only when its token still matches.
+- On `EEXIST`, acquisition reads the owner metadata. A same-host PID that
+  responds to signal `0`, or any owner with an unexpired heartbeat lease, is
+  active and retains the existing 100 ms retry behaviour for up to 5 seconds.
+- A same-host lock is stale only when its lease has expired and the owner PID is
+  confirmed dead. A different-host lock is stale only after its lease expires
+  and its heartbeat metadata remains unchanged for an additional recovery
+  grace period. Corrupt metadata must likewise remain unchanged beyond that
+  grace period. Recovery re-stats the file and compares its owner token, inode,
+  size, and modification time before unlinking; if any value changed, the
+  contender retries without deleting it. This prevents an abandoned
+  `.changelog.lock` from blocking future runs without deleting a live owner's
+  replacement lock.
 
-const LOCK_FILE = '.changelog.lock';
+**Reader/writer protocol**:
 
-async function acquireLock(changelogPath) {
-  const lockPath = path.join(path.dirname(changelogPath), LOCK_FILE);
-  
-  // Wait up to 5 seconds for lock
-  for (let i = 0; i < 50; i++) {
-    try {
-      const fd = fs.openSync(lockPath, 'wx'); // Create if not exists
-      fs.closeSync(fd);
-      return { acquired: true, lockPath };
-    } catch (e) {
-      if (e.code === 'EEXIST') {
-        await sleep(100);
-        continue;
-      }
-      throw e;
-    }
-  }
-  
-  throw new Error('Could not acquire changelog lock after 5 seconds');
-}
+1. **Validate and check-links** acquire the short coordination mutex, verify no
+   writer intent or active write lock exists, create a uniquely named active
+   reader marker, and release the mutex. They remove their marker after the
+   changelog read completes. Multiple readers may be active together.
+2. **Merge and Format** acquire the coordination mutex, create writer intent,
+   and release the mutex. New readers now wait. The writer waits until every
+   active reader marker has been released or safely recovered as stale, then
+   acquires the exclusive write lock before reading or writing the changelog.
+3. The writer releases its write lock and writer intent in a `finally` block,
+   checking the owner token before each removal. This closes the race where a
+   merge could otherwise begin after checking for readers while a validation
+   begins reading.
 
-async function releaseLock(lockPath) {
-  try {
-    fs.unlinkSync(lockPath);
-  } catch (e) {
-    console.warn('Warning: Could not release lock file', e);
-  }
-}
-```
-
-**Operation Behaviors**:
-
-- **Validate**: Read-only operation; parallel executions allowed (no lock needed)
-- **Check-links**: Read-only operation; parallel executions allowed (no lock needed)
-- **Merge**: Write operation; acquires lock; blocks until validation completes (if validation in progress)
-- **Format**: Write operation; acquires lock; blocks concurrent operations
-
-**Lock Timeout**: 5 seconds (sufficient for typical validation/merge operations)
+**Lock timeout**: Active owners preserve the existing 5-second wait limit.
+Timeout errors identify whether a reader, writer intent, or write lock remains
+active.
 
 **Source**: Concurrent programming best practices, POSIX file locking
 
@@ -400,16 +390,16 @@ docs/agents/changelog-agent/
 
 ## Design Decisions Summary
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| Changelog Format | Keep a Changelog | Industry standard, already documented |
-| Skill Metadata | agentskills.io spec | Cross-agent compatibility |
-| Invocation | npm CLI primary + REST API optional | Matches repo patterns, developer-friendly |
-| Error Reporting | Structured JSON + human-readable | Machine-parseable and user-friendly |
-| Bypass Strategy | Automatic by branch type | Reduces friction for chores/deps |
-| Concurrency | File-level locks on merge | Prevents corruption |
-| Labels | Canonical set with meta: prefix | Enables automation and reporting |
-| Documentation | Mirror prd-agent structure | Consistency and familiarity |
+| Decision         | Choice                              | Rationale                                 |
+| ---------------- | ----------------------------------- | ----------------------------------------- |
+| Changelog Format | Keep a Changelog                    | Industry standard, already documented     |
+| Skill Metadata   | agentskills.io spec                 | Cross-agent compatibility                 |
+| Invocation       | npm CLI primary + REST API optional | Matches repo patterns, developer-friendly |
+| Error Reporting  | Structured JSON + human-readable    | Machine-parseable and user-friendly       |
+| Bypass Strategy  | Automatic by branch type            | Reduces friction for chores/deps          |
+| Concurrency      | File-level locks on merge           | Prevents corruption                       |
+| Labels           | Canonical set with meta: prefix     | Enables automation and reporting          |
+| Documentation    | Mirror prd-agent structure          | Consistency and familiarity               |
 
 ---
 

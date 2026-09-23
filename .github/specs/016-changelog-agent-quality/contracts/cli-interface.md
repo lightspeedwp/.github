@@ -16,102 +16,98 @@ The changelog agent exposes its core skills via npm CLI commands. This contract 
 
 ## Changelog Validate Skill
 
-**Command**: `npm run changelog:validate`
+**Shipped entrypoint**: `.github/validation/changelog/bin/validate.js`
+
+**Command from the repository root**:
+
+```bash
+node .github/validation/changelog/bin/validate.js [options]
+```
+
+The root-level `npm run changelog:validate` alias is planned by FR-001 but is not
+shipped yet.
 
 **Purpose**: Validate changelog entries against quality standards
 
 ### Parameters
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `--changelog-path` | string | Yes | — | Path to CHANGELOG.md file (relative or absolute) |
-| `--output-format` | enum | No | json | Output format: `json`, `text`, `csv` |
-| `--strict` | boolean | No | false | Treat warnings as errors |
-| `--max-entries` | integer | No | 500 | Maximum entries to validate (prevents runaway) |
+| Parameter                | Type    | Required | Default                | Description                                       |
+| ------------------------ | ------- | -------- | ---------------------- | ------------------------------------------------- |
+| `--changelog-path`, `-p` | string  | No       | `CHANGELOG.md`         | Path resolved from the caller's working directory |
+| `--output`, `-o`         | enum    | No       | `text`                 | Output format: `text` or `json`                   |
+| `--trigger`, `-t`        | enum    | No       | `manual`               | `manual`, `pr_submission`, or `scheduled_audit`   |
+| `--pr-number`            | number  | No       | —                      | Pull request number for a PR-triggered run        |
+| `--branch`               | string  | No       | —                      | Branch name included in validation context        |
+| `--github-token`         | string  | No       | `GITHUB_TOKEN`         | Token made available to link-validation context   |
+| `--verbose`, `-v`        | boolean | No       | `false`                | Write diagnostic progress to stderr               |
+| `--metrics`, `-m`        | boolean | No       | `false`                | Save a metrics snapshot                           |
+| `--metrics-path`         | string  | No       | implementation default | Metrics snapshot destination                      |
+
+The shipped validator has no `--strict` mode and no configurable entry limit. It
+validates every entry parsed from `[Unreleased]`; warning gate results remain
+successful.
 
 ### Usage Examples
 
 ```bash
 # Basic validation
-npm run changelog:validate -- --changelog-path ./CHANGELOG.md
+node .github/validation/changelog/bin/validate.js --changelog-path ./CHANGELOG.md
 
 # With text output for humans
-npm run changelog:validate -- --changelog-path ./CHANGELOG.md --output-format text
+node .github/validation/changelog/bin/validate.js --changelog-path ./CHANGELOG.md --output text
 
-# Strict mode (warnings fail validation)
-npm run changelog:validate -- --changelog-path ./CHANGELOG.md --strict
-
-# Custom entry limit
-npm run changelog:validate -- --changelog-path ./CHANGELOG.md --max-entries 100
+# JSON output for automation
+node .github/validation/changelog/bin/validate.js --output json
 ```
 
 ### Exit Codes
 
-| Code | Meaning | Description |
-|------|---------|-------------|
-| 0 | SUCCESS | All entries valid; no errors |
-| 1 | VALIDATION_FAILED | One or more entries failed validation |
-| 2 | FILE_NOT_FOUND | Changelog file does not exist |
-| 3 | PARSE_ERROR | Could not parse changelog file (syntax error) |
-| 4 | INVALID_ARGUMENTS | Invalid parameters provided |
-| 5 | TIMEOUT | Validation exceeded timeout limit |
-| 127 | NOT_FOUND | Script not found (npm script missing) |
+| Code | Meaning | Description                                                                                                |
+| ---- | ------- | ---------------------------------------------------------------------------------------------------------- |
+| 0    | SUCCESS | Gate result is `pass` or `warning`, no entries are present, or help was requested                          |
+| 1    | FAILED  | Missing file, missing `[Unreleased]`, parse failure, failed gate, invalid yargs input, or unexpected error |
 
-### Output Format: JSON (Default)
+### Output Format: JSON
 
 ```json
 {
-  "valid": false,
-  "changelog_path": "./CHANGELOG.md",
+  "summary": {
+    "total_entries": 12,
+    "passed": 10,
+    "failed": 2,
+    "pass_rate": "83.3"
+  },
+  "validations": [],
+  "trigger": "manual",
+  "ci_context": {},
   "timestamp": "2026-09-19T14:32:15.123Z",
-  "entries_total": 12,
-  "entries_valid": 10,
-  "entries_invalid": 2,
-  "validation_time_ms": 245,
-  "skill_version": "1.0.0",
-  "errors": [
-    {
-      "entry_id": "entry_001",
-      "line_number": 15,
-      "error_code": "LENGTH",
-      "message": "Entry exceeds 250-character limit",
-      "field": "content",
-      "expected_format": "≤250 characters",
-      "actual_value": "Added support for OAuth2 authentication with provider...",
-      "suggestion": "Shorten to focus on user-facing benefit; remove implementation details",
-      "severity": "ERROR"
-    }
-  ],
-  "warnings": []
+  "ci_gate_result": "warning",
+  "recommendation": "review_required"
 }
 ```
 
 ### Output Format: Text
 
 ```
-❌ Changelog Validation FAILED
+════════════════════════════════════════
+    CHANGELOG VALIDATION REPORT
+════════════════════════════════════════
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Line 15: Entry exceeds 250-character limit
-  Current: 262 characters
-  Expected: ≤250 characters
-  Content: Added support for OAuth2 authentication with provider...
-  Fix: Shorten to focus on user-facing benefit; remove implementation details
+Total Entries: 12
+Compliant:    10 (83.3%)
+Non-Compliant: 2
 
-Line 22: Entry missing required PR/issue link
-  Expected: Format #123 or PR-456
-  Content: Fixed race condition in concurrent changelog merges
-  Fix: Add PR link (e.g., '#2845') or create issue if missing
+Gate Result: ⚠ WARNING
+Recommendation: review_required
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Issues Found:
+─────────────────────────────────────
+CHK_MAX_LENGTH [ERROR]: 1 violation(s)
+  → Entry exceeds 250 character limit. Current: 262 chars
+CHK_HAS_PR_LINK [ERROR]: 1 violation(s)
+  → Entry must reference a PR or issue number (e.g., #1234 or issues/#5678)
 
-Summary:
-  Total entries: 12
-  Valid: 10
-  Invalid: 2
-  Validation time: 245ms
-
-Run 'npm run changelog:validate -- --help' for more info.
+════════════════════════════════════════
 ```
 
 ---
@@ -124,12 +120,12 @@ Run 'npm run changelog:validate -- --help' for more info.
 
 ### Parameters
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `--changelog-path` | string | Yes | — | Path to CHANGELOG.md file |
-| `--github-token` | string | No | env.GITHUB_TOKEN | GitHub API token for verification |
-| `--repo` | string | No | env.GITHUB_REPOSITORY | GitHub repo (owner/name) |
-| `--strict` | boolean | No | false | Fail if any link is unmerged (draft/open PR) |
+| Parameter          | Type    | Required | Default               | Description                                  |
+| ------------------ | ------- | -------- | --------------------- | -------------------------------------------- |
+| `--changelog-path` | string  | Yes      | —                     | Path to CHANGELOG.md file                    |
+| `--github-token`   | string  | No       | env.GITHUB_TOKEN      | GitHub API token for verification            |
+| `--repo`           | string  | No       | env.GITHUB_REPOSITORY | GitHub repo (owner/name)                     |
+| `--strict`         | boolean | No       | false                 | Fail if any link is unmerged (draft/open PR) |
 
 ### Usage Examples
 
@@ -148,14 +144,14 @@ npm run changelog:check-links -- --changelog-path ./CHANGELOG.md --strict
 
 ### Exit Codes
 
-| Code | Meaning |
-|------|---------|
-| 0 | All links valid and merged |
-| 1 | One or more links invalid or unmerged |
-| 2 | File not found |
-| 3 | GitHub API error (auth, rate limit, etc.) |
-| 4 | Invalid arguments |
-| 5 | Timeout |
+| Code | Meaning                                   |
+| ---- | ----------------------------------------- |
+| 0    | All links valid and merged                |
+| 1    | One or more links invalid or unmerged     |
+| 2    | File not found                            |
+| 3    | GitHub API error (auth, rate limit, etc.) |
+| 4    | Invalid arguments                         |
+| 5    | Timeout                                   |
 
 ### Output Format: JSON
 
@@ -202,12 +198,12 @@ npm run changelog:check-links -- --changelog-path ./CHANGELOG.md --strict
 
 ### Parameters
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `--changelog-path` | string | Yes | — | Path to CHANGELOG.md |
-| `--version` | string | Yes | — | Version to release (e.g., 1.0.0) |
-| `--release-date` | date | No | today | Release date (ISO 8601: YYYY-MM-DD) |
-| `--dry-run` | boolean | No | false | Show changes without writing |
+| Parameter          | Type    | Required | Default | Description                         |
+| ------------------ | ------- | -------- | ------- | ----------------------------------- |
+| `--changelog-path` | string  | Yes      | —       | Path to CHANGELOG.md                |
+| `--version`        | string  | Yes      | —       | Version to release (e.g., 1.0.0)    |
+| `--release-date`   | date    | No       | today   | Release date (ISO 8601: YYYY-MM-DD) |
+| `--dry-run`        | boolean | No       | false   | Show changes without writing        |
 
 ### Usage Examples
 
@@ -224,14 +220,14 @@ npm run changelog:merge -- --changelog-path ./CHANGELOG.md --version 1.0.0 --dry
 
 ### Exit Codes
 
-| Code | Meaning |
-|------|---------|
-| 0 | Merge successful |
-| 1 | No unreleased entries to merge |
-| 2 | File not found |
-| 3 | Invalid version format |
-| 4 | Invalid arguments |
-| 5 | File lock timeout (another merge in progress) |
+| Code | Meaning                                       |
+| ---- | --------------------------------------------- |
+| 0    | Merge successful                              |
+| 1    | No unreleased entries to merge                |
+| 2    | File not found                                |
+| 3    | Invalid version format                        |
+| 4    | Invalid arguments                             |
+| 5    | File lock timeout (another merge in progress) |
 
 ### Output Format: JSON
 
@@ -266,10 +262,10 @@ npm run changelog:merge -- --changelog-path ./CHANGELOG.md --version 1.0.0 --dry
 
 ### Parameters
 
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `--changelog-path` | string | Yes | — | Path to CHANGELOG.md |
-| `--dry-run` | boolean | No | false | Show changes without writing |
+| Parameter          | Type    | Required | Default | Description                  |
+| ------------------ | ------- | -------- | ------- | ---------------------------- |
+| `--changelog-path` | string  | Yes      | —       | Path to CHANGELOG.md         |
+| `--dry-run`        | boolean | No       | false   | Show changes without writing |
 
 ### Usage Examples
 
@@ -301,36 +297,25 @@ All commands follow this error response pattern:
 
 ### Timeout Handling
 
-All commands have default timeout of 5 seconds for validation, 30 seconds for API calls:
-
-- If operation exceeds timeout, exit code 5 is returned
-- Output includes `timeout_reached: true` flag
+The shipped validate CLI does not enforce an internal timeout or return a
+timeout-specific exit code. The future check-links and merge commands may add
+their contract-specific timeouts when implemented.
 
 ### Help Output
 
 ```bash
-$ npm run changelog:validate -- --help
-
-Usage: npm run changelog:validate -- [options]
+$ node .github/validation/changelog/bin/validate.js --help
 
 Options:
-  --changelog-path PATH       Path to CHANGELOG.md (required)
-  --output-format FORMAT      Output format: json, text, csv (default: json)
-  --strict                    Treat warnings as errors
-  --max-entries NUM           Max entries to validate (default: 500)
-  --help                      Show this help message
-
-Examples:
-  npm run changelog:validate -- --changelog-path ./CHANGELOG.md
-  npm run changelog:validate -- --changelog-path ./CHANGELOG.md --output-format text
-
-Exit codes:
-  0  Validation passed
-  1  Validation failed
-  2  File not found
-  3  Parse error
-  4  Invalid arguments
-  5  Timeout
+  -p, --changelog-path  Path to CHANGELOG.md file       [default: "CHANGELOG.md"]
+  -t, --trigger         Validation trigger type
+                    [choices: "manual", "pr_submission", "scheduled_audit"]
+                                                       [default: "manual"]
+  -o, --output          Output format
+                                      [choices: "text", "json"] [default: "text"]
+  -v, --verbose         Enable verbose output          [boolean] [default: false]
+  -m, --metrics         Save metrics snapshot          [boolean] [default: false]
+  -h, --help            Show help                                      [boolean]
 ```
 
 ---
@@ -339,24 +324,22 @@ Exit codes:
 
 **Version 1.0.0 guarantees**:
 
-- Exit code 0 = success, 1 = validation failed (will not change)
-- JSON output structure is stable (new fields added only at end)
+- Exit code 0 = successful or warning gate; exit code 1 = failure
+- JSON output is selected explicitly with `--output json`
 - Parameter order does not matter
-- Unknown parameters are ignored with warning
 
 **Deprecation policy**:
 
-- Parameters deprecated in v1.x will be removed in v2.0
-- At least 2 minor releases before removal (e.g., deprecated in v1.1, removed in v2.0)
-- Deprecation warnings printed to stderr
+- New options must not reuse existing short aliases
+- Any future incompatible option or output change requires a major version
 
 ---
 
 ## Performance Characteristics
 
-| Operation | Typical Time | Max Time | Notes |
-|-----------|--------------|----------|-------|
-| Validate (20 entries) | <100ms | 5s | Lock wait can add delay |
-| Check-links (25 links) | <2s | 30s | API rate limits apply |
-| Merge (12 entries) | <200ms | 5s | File lock wait time |
-| Format | <100ms | 5s | Parsing + output time |
+| Operation              | Typical Time | Max Time | Notes                   |
+| ---------------------- | ------------ | -------- | ----------------------- |
+| Validate (20 entries)  | <100ms       | 5s       | Lock wait can add delay |
+| Check-links (25 links) | <2s          | 30s      | API rate limits apply   |
+| Merge (12 entries)     | <200ms       | 5s       | File lock wait time     |
+| Format                 | <100ms       | 5s       | Parsing + output time   |

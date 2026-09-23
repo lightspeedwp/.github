@@ -186,6 +186,7 @@
     "octokit": "5.0.5",
     "prettier": "^3.9.8",
     "puppeteer": "^25.11.0",
+    "semver": "^7.8.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "8.70.0",
     "yaml": "2.9.1",
