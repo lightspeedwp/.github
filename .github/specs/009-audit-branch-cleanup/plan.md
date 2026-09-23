@@ -72,21 +72,22 @@ specs/009-audit-branch-cleanup/
 ### Source Code (repository root)
 
 ```text
+scripts/                        # repo root
+├── cleanup-branches.js           # CLI entry point
+├── lib/
+│   ├── branch-categorization.js  # 8-gate decision tree
+│   ├── age-calculator.js         # Age calculation utilities
+│   ├── git-merge-utils.js        # Git merge detection
+│   ├── github-pr-utils.js        # GitHub PR detection
+│   ├── exclusion-patterns.js     # Regex exclusion patterns
+│   ├── report-formatter.js       # Report generation
+│   └── constants.js              # Shared constants
+└── tests/
+    ├── unit/                     # Unit tests for each library module
+    ├── integration/              # Integration tests (git + GitHub)
+    └── fixtures/                 # Test data and mock responses
+
 .github/
-├── scripts/
-│   ├── cleanup-branches.js           # CLI entry point
-│   ├── lib/
-│   │   ├── branch-categorization.js  # 8-gate decision tree
-│   │   ├── age-calculator.js         # Age calculation utilities
-│   │   ├── git-merge-utils.js        # Git merge detection
-│   │   ├── github-pr-utils.js        # GitHub PR detection
-│   │   ├── exclusion-patterns.js     # Regex exclusion patterns
-│   │   ├── report-formatter.js       # Report generation
-│   │   └── constants.js              # Shared constants
-│   └── tests/
-│       ├── unit/                     # Unit tests for each library module
-│       ├── integration/              # Integration tests (git + GitHub)
-│       └── fixtures/                 # Test data and mock responses
 ├── reports/
 │   └── branch-cleanup/               # Generated cleanup reports (Markdown & JSON)
 └── workflows/
