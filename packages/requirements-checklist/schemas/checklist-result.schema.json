@@ -27,30 +27,7 @@
       "description": "ISO8601 timestamp of execution"
     },
     "specification_reference": {
-      "type": "object",
-      "required": ["spec_path"],
-      "properties": {
-        "spec_path": {
-          "type": "string"
-        },
-        "spec_version": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "author": {
-          "type": "string"
-        },
-        "repository": {
-          "type": "string"
-        },
-        "last_modified": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "additionalProperties": false
+      "$ref": "specification-reference.schema.json"
     },
     "template_id": {
       "type": "string",

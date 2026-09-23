@@ -1,37 +1,65 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SpecificationReference",
-  "description": "Metadata linking a ChecklistResult to its source specification",
+  "description": "Metadata linking a ChecklistResult to its source specification. Accepts either the engine-emitted shape (path/format, as produced by ChecklistEngine) or the legacy hand-written shape (spec_path/spec_version).",
   "type": "object",
-  "required": ["spec_path"],
-  "properties": {
-    "spec_path": {
-      "type": "string",
-      "description": "Relative path to spec file"
+  "anyOf": [
+    {
+      "description": "Engine-emitted reference (ChecklistEngine.run)",
+      "required": ["path", "format"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to spec file (as passed to the engine)"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["markdown", "yaml", "json"],
+          "description": "Spec serialisation format"
+        },
+        "author": {
+          "type": "string",
+          "description": "Original spec author"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version or branch name (e.g. 'draft', 'v1.0', 'main')"
+        }
+      },
+      "additionalProperties": false
     },
-    "spec_version": {
-      "type": "string",
-      "description": "Version or branch name (e.g. 'draft', 'v1.0', 'main')"
-    },
-    "title": {
-      "type": "string",
-      "description": "Spec title (from heading)"
-    },
-    "author": {
-      "type": "string",
-      "format": "email",
-      "description": "Original spec author"
-    },
-    "repository": {
-      "type": "string",
-      "pattern": "^[a-z0-9-]+/[a-z0-9.-]+$",
-      "description": "GitHub repository path (owner/repo)"
-    },
-    "last_modified": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Last modification time of spec file"
+    {
+      "description": "Legacy hand-written reference",
+      "required": ["spec_path"],
+      "properties": {
+        "spec_path": {
+          "type": "string",
+          "description": "Relative path to spec file"
+        },
+        "spec_version": {
+          "type": "string",
+          "description": "Version or branch name (e.g. 'draft', 'v1.0', 'main')"
+        },
+        "title": {
+          "type": "string",
+          "description": "Spec title (from heading)"
+        },
+        "author": {
+          "type": "string",
+          "description": "Original spec author"
+        },
+        "repository": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+/[a-z0-9.-]+$",
+          "description": "GitHub repository path (owner/repo)"
+        },
+        "last_modified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modification time of spec file"
+        }
+      },
+      "additionalProperties": false
     }
-  },
-  "additionalProperties": false
+  ]
 }

@@ -3,6 +3,9 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class AmbiguitiesDimension extends BaseDimension {
+  id = 'ambiguities';
+  name = 'Ambiguities';
+  description = 'Vague language, unresolved decisions, conflicts, scope and relative terms';
   /**
    * Evaluate vague language, unresolved decisions, potential conflicts, scope, and relative terms.
    *
@@ -110,11 +113,16 @@ export class AmbiguitiesDimension extends BaseDimension {
   }
 
   /**
-   * Count predefined pairs of potentially contradictory terms found anywhere in the source text.
+   * Count predefined pairs of potentially contradictory terms co-occurring
+   * within the same statement (sentence or list item).
    */
   private checkConflicts(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
     let conflictCount = 0;
+
+    // Split into statements so opposing terms only count when they can
+    // actually contradict each other (same sentence or list item).
+    const statements = content.split(/(?<=[.!?])\s+|\r?\n/);
 
     // Check for contradictory patterns
     const conflictingPatterns = [
@@ -125,7 +133,10 @@ export class AmbiguitiesDimension extends BaseDimension {
     ];
 
     for (const conflict of conflictingPatterns) {
-      if (conflict.pattern1.test(content) && conflict.pattern2.test(content)) {
+      const contradicts = statements.some(
+        (statement) => conflict.pattern1.test(statement) && conflict.pattern2.test(statement)
+      );
+      if (contradicts) {
         conflictCount++;
       }
     }

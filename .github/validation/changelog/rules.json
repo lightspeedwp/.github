@@ -5,7 +5,7 @@
     {
       "rule_id": "CHK_MAX_LENGTH",
       "rule_name": "Maximum entry length",
-      "description": "Changelog entries should not exceed 250 characters (targets new entries; legacy entries exempt)",
+      "description": "Changelog entries should not exceed 250 characters. Applies to all Unreleased entries; a legacy-entry exemption is not implemented (tracked under spec 016 changelog-agent quality work).",
       "dimension": "completeness",
       "severity": "warning",
       "validation_logic": "length(content) <= 250",

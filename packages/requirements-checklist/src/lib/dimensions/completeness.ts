@@ -12,8 +12,8 @@ export class CompletenessDimension extends BaseDimension {
 
   private requiredSections = [
     'Overview',
-    'User Scenarios',
-    'Requirements',
+    'User Stories',
+    'Functional Requirements',
     'Success Criteria',
     'Assumptions',
     'Edge Cases',

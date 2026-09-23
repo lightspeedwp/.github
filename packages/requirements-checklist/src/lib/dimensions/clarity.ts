@@ -3,6 +3,9 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class ClarityDimension extends BaseDimension {
+  id = 'clarity';
+  name = 'Clarity';
+  description = 'Vague adjectives, term and acronym definitions, success criteria and scope';
   /**
    * Evaluate vague adjectives, term and acronym definitions, success criteria, and scope.
    *
@@ -52,17 +55,16 @@ export class ClarityDimension extends BaseDimension {
     // CLR-003: Check for clear context around acronyms
     const acronymMatches = (spec.raw_content || '').match(/\b[A-Z]{2,}\b/g) || [];
     const uniqueAcronyms = new Set(acronymMatches);
+    const undefinedAcronyms = this.findUndefinedAcronyms(spec, uniqueAcronyms);
     findings.push(
       this.createFinding(
         'CLR-003',
-        uniqueAcronyms.size <= 3 || this.hasAcronymDefinitions(spec),
-        this.hasAcronymDefinitions(spec) || uniqueAcronyms.size <= 3
-          ? '✓ Acronyms are appropriately defined or minimal'
-          : `✗ Found ${uniqueAcronyms.size} undefined acronyms`,
+        undefinedAcronyms.size === 0,
+        undefinedAcronyms.size === 0
+          ? '✓ All acronyms are defined on first use or minimal'
+          : `✗ Found ${undefinedAcronyms.size} undefined acronyms (${[...undefinedAcronyms].slice(0, 5).join(', ')})`,
         undefined,
-        uniqueAcronyms.size > 3 && !this.hasAcronymDefinitions(spec)
-          ? 'Define all acronyms on first use or in a glossary'
-          : undefined
+        undefinedAcronyms.size > 0 ? 'Define all acronyms on first use or in a glossary' : undefined
       )
     );
 
@@ -116,13 +118,16 @@ export class ClarityDimension extends BaseDimension {
   }
 
   /**
-   * Report whether the source contains an uppercase acronym followed by a parenthesized definition.
+   * Report the detected acronyms lacking a parenthesized definition
+   * (e.g. "API (Application Programming Interface)") on first use.
    */
-  private hasAcronymDefinitions(spec: ParsedSpecification): boolean {
+  private findUndefinedAcronyms(spec: ParsedSpecification, acronyms: Set<string>): Set<string> {
     const content = spec.raw_content || '';
-    // Check for patterns like "API (Application Programming Interface)"
-    const acronymPattern = /\b([A-Z]{2,})\s*\([^)]{3,}\)/g;
-    return acronymPattern.test(content);
+    // Collect acronyms with patterns like "API (Application Programming Interface)"
+    const defined = new Set(
+      [...content.matchAll(/\b([A-Z]{2,})\s*\([^)]{3,}\)/g)].map((match) => match[1])
+    );
+    return new Set([...acronyms].filter((acronym) => !defined.has(acronym)));
   }
 
   /**

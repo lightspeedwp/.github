@@ -37,6 +37,9 @@ export class ResultFormatter {
 
     // Overall score
     lines.push(`📊 Overall Quality Score: ${result.overall_score}/100`);
+    lines.push(
+      `🆔 Result: ${result.id} | Template: ${result.template} (${result.audience}) | ${result.passed ? '✅ PASS' : '❌ FAIL'}`
+    );
     lines.push('');
 
     // Dimension scores

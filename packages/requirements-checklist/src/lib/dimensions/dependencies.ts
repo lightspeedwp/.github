@@ -2,6 +2,10 @@ import { BaseDimension } from './base-dimension';
 import { Finding, ParsedSpecification } from '../types';
 
 export class DependenciesDimension extends BaseDimension {
+  id = 'dependencies';
+  name = 'Dependencies';
+  description =
+    'Dependencies, assumptions, service levels, integration points and version constraints';
   /**
    * Evaluate dependencies, assumptions, service levels, integration points, and version constraints.
    *

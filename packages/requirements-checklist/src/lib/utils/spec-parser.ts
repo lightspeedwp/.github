@@ -71,6 +71,11 @@ export class SpecParser {
     for (const line of lines) {
       // Detect section headers
       if (line.startsWith('## ')) {
+        // Flush the previous section before starting a new one
+        if (buffer.length > 0) {
+          this.addToSection(result, currentSection, buffer.join('\n'));
+          buffer = [];
+        }
         currentSection = line.substring(3).toLowerCase();
       } else if (line.startsWith('### ')) {
         // Subsection - include in current section
@@ -105,7 +110,11 @@ export class SpecParser {
    * @throws {Error} If the content is not valid YAML.
    */
   private static parseYaml(content: string): ParsedSpecification {
-    const parsed = yaml.parse(content) as Record<string, unknown>;
+    const parsed = (yaml.parse(content) ?? {}) as Record<string, unknown>;
+
+    if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+      return { raw_content: content };
+    }
 
     return {
       raw_content: content,

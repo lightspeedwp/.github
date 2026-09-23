@@ -3,6 +3,9 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class EdgeCasesDimension extends BaseDimension {
+  id = 'edge-cases';
+  name = 'Edge Cases';
+  description = 'Edge-case count, errors, boundaries, concurrency and recovery coverage';
   /**
    * Evaluate edge-case count, errors, boundaries, concurrency, and recovery coverage.
    *

@@ -3,6 +3,9 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class ScenarioCoverageDimension extends BaseDimension {
+  id = 'scenario-coverage';
+  name = 'Scenario Coverage';
+  description = 'User stories, happy paths, alternative flows, roles and interaction points';
   /**
    * Evaluate user stories, happy paths, alternative flows, roles, and interaction points.
    *
@@ -27,21 +30,25 @@ export class ScenarioCoverageDimension extends BaseDimension {
       )
     );
 
-    // SC-002: Check for happy path documentation
+    // SC-002: Check for happy path documentation in structured form
     const happyPathContent = this.searchInSpec(
       spec,
       KeywordRegistry.scenario_coverage.happy_path_keywords,
       false
     );
+    const specContent = spec.raw_content || '';
+    const hasStructuredFlow =
+      /given\b/i.test(specContent) && /when\b/i.test(specContent) && /then\b/i.test(specContent);
+    const happyPathDocumented = happyPathContent.matched.length > 0 && hasStructuredFlow;
     findings.push(
       this.createFinding(
         'SC-002',
-        happyPathContent.matched && happyPathContent.matched.length > 0,
-        happyPathContent.matched && happyPathContent.matched.length > 0
-          ? '✓ Happy path is documented'
-          : '✗ No happy path scenario found',
-        undefined,
-        !happyPathContent.matched || happyPathContent.matched.length === 0
+        happyPathDocumented,
+        happyPathDocumented
+          ? '✓ Happy path is documented in given/when/then form'
+          : '✗ No structured happy path scenario found',
+        happyPathContent.evidence || undefined,
+        !happyPathDocumented
           ? 'Document the primary/happy path using given/when/then format'
           : undefined
       )

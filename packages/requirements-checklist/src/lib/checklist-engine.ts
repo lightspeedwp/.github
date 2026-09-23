@@ -75,10 +75,15 @@ export class ChecklistEngine {
     const dimensionScores = this.calculateDimensionScores(findingsByDimension);
 
     // Create result
+    const dimensionStatus = this.calculateDimensionStatus(dimensionScores);
     const result: ChecklistResult = {
+      id: `chk_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e6).toString(36)}`,
       overall_score: calculateOverallScore(dimensionScores),
       dimension_scores: dimensionScores,
-      dimension_status: this.calculateDimensionStatus(dimensionScores),
+      dimension_status: dimensionStatus,
+      passed: Object.values(dimensionStatus).every((status) => status === 'pass'),
+      template: template.id,
+      audience: template.audience,
       findings,
       findings_by_dimension: findingsByDimension,
       completion_time_ms: Date.now() - startTime,

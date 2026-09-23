@@ -1,5 +1,4 @@
 import { Finding, ParsedSpecification } from '../types';
-import { SpecificationEvidence } from '../types';
 
 /**
  * Base class for quality dimensions
@@ -18,43 +17,42 @@ export abstract class BaseDimension {
   abstract evaluate(spec: ParsedSpecification): Finding[];
 
   /**
-   * Find the first regular-expression match in the specification's raw content.
+   * Find all regular-expression matches in the specification's raw content.
    *
    * @param patterns - Regular-expression source strings checked in order.
    * @param caseSensitive - Whether matching preserves case; defaults to case-insensitive matching.
-   * @returns Match status and up to 50 characters of surrounding evidence.
+   * @returns Matched texts plus up to 50 characters of surrounding evidence per match (first 3 shown).
    * @throws {SyntaxError} If a pattern is not a valid regular expression.
    */
   protected searchInSpec(
     spec: ParsedSpecification,
     patterns: string[],
     caseSensitive: boolean = false
-  ): { matched: boolean; evidence: SpecificationEvidence | undefined } {
+  ): { matched: string[]; evidence: string } {
     const content = spec.raw_content;
+    const matched: string[] = [];
+    const evidenceParts: string[] = [];
 
     for (const pattern of patterns) {
       const regex = new RegExp(pattern, caseSensitive ? 'g' : 'gi');
 
-      const matches = content.matchAll(regex);
-      for (const match of matches) {
-        if (match.index !== undefined) {
+      for (const match of content.matchAll(regex)) {
+        if (match.index === undefined) {
+          continue;
+        }
+        matched.push(match[0]);
+        if (evidenceParts.length < 3) {
           // Extract context around match
           const startContext = Math.max(0, match.index - 50);
           const endContext = Math.min(content.length, match.index + match[0].length + 50);
-
-          return {
-            matched: true,
-            evidence: {
-              matched_text: match[0],
-              context_before: content.substring(startContext, match.index),
-              context_after: content.substring(match.index + match[0].length, endContext),
-            },
-          };
+          evidenceParts.push(
+            `...${content.substring(startContext, match.index)}[${match[0]}]${content.substring(match.index + match[0].length, endContext)}...`
+          );
         }
       }
     }
 
-    return { matched: false, evidence: undefined };
+    return { matched, evidence: evidenceParts.join('\n') };
   }
 
   /**

@@ -3,6 +3,9 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class ConsistencyDimension extends BaseDimension {
+  id = 'consistency';
+  name = 'Consistency';
+  description = 'Terminology, naming, section, data-format and tone consistency';
   /**
    * Evaluate terminology, naming, section, data-format, and tone consistency.
    *
@@ -103,9 +106,9 @@ export class ConsistencyDimension extends BaseDimension {
 
     // Check known terminology pairs from keyword registry
     const alternateTerms = KeywordRegistry.consistency.terminology_alternates;
-    for (const [standard, alternates] of Object.entries(alternateTerms)) {
+    for (const { standard, variants } of alternateTerms) {
       const standardCount = this.countOccurrences(content, standard);
-      const alternateMatches = alternates.filter((alt) => this.countOccurrences(content, alt) > 0);
+      const alternateMatches = variants.filter((alt) => this.countOccurrences(content, alt) > 0);
       if (standardCount > 0 && alternateMatches.length > 0) {
         inconsistencies++;
       }
@@ -166,7 +169,8 @@ export class ConsistencyDimension extends BaseDimension {
   /**
    * Score consistency from the number of detected date and identifier formats.
    *
-   * @returns One minus 0.25 per detected format, bounded at zero.
+   * @returns 1 when each category uses at most one format, minus 0.25 per
+   * additional format within a category, bounded at zero.
    */
   private checkDataTypeConsistency(spec: ParsedSpecification): number {
     const content = spec.raw_content || '';
@@ -191,9 +195,11 @@ export class ConsistencyDimension extends BaseDimension {
       numericIdPattern.test(content) ? 1 : 0,
     ].filter((x) => x === 1).length;
 
-    // Score: 1 if only 1 format used, decreases with more formats
-    const formatVariety = dateFormats + idFormats;
-    return Math.max(0, 1 - formatVariety * 0.25);
+    // Score: 1 when each category uses at most one format; penalise only
+    // additional formats *within* a category (one date format + one ID
+    // format is consistent, not varied).
+    const extraFormats = Math.max(0, dateFormats - 1) + Math.max(0, idFormats - 1);
+    return Math.max(0, 1 - extraFormats * 0.25);
   }
 
   /**

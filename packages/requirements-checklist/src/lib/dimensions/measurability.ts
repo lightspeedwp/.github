@@ -3,6 +3,9 @@ import { Finding, ParsedSpecification } from '../types';
 import { KeywordRegistry } from './keyword-registry';
 
 export class MeasurabilityDimension extends BaseDimension {
+  id = 'measurability';
+  name = 'Measurability';
+  description = 'Quantified criteria, performance metrics, testability and service levels';
   /**
    * Evaluate quantified criteria, performance metrics, testability, metrics, and service levels.
    *
@@ -15,7 +18,7 @@ export class MeasurabilityDimension extends BaseDimension {
     const successCriteria = spec.success_criteria || [];
     const quantifiedCriteria = this.countQuantifiedCriteria(successCriteria);
     const quantificationScore =
-      successCriteria.length > 0 ? quantifiedCriteria / successCriteria.length : 1;
+      successCriteria.length > 0 ? quantifiedCriteria / successCriteria.length : 0;
 
     findings.push(
       this.createFinding(

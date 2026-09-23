@@ -53,9 +53,13 @@ export interface ChecklistTemplate {
  * The result of running a checklist on a specification
  */
 export interface ChecklistResult {
+  id: string; // Unique result identifier
   overall_score: number; // 0-100
   dimension_scores: Record<string, number>; // dimension name -> score
   dimension_status: Record<string, 'pass' | 'fail'>; // dimension name -> pass/fail
+  passed: boolean; // true when every dimension passes
+  template: string; // checklist template id used for this run
+  audience: string; // intended audience of the template used
   findings: Finding[];
   completion_time_ms: number;
   generated_at: string; // ISO 8601 timestamp
