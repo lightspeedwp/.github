@@ -65,6 +65,29 @@ describe('mermaid-parse CLI', () => {
     expect(stderr).toContain('Unclosed ```mermaid fence');
   });
 
+  test('reads a NUL-delimited list with a non-ASCII and a spaced pathname', () => {
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'mermaid-list-'));
+    try {
+      const good = path.join(directory, 'café notes.md');
+      const bad = path.join(directory, 'naïve.md');
+      fs.writeFileSync(good, block('flowchart TD\n  A --> B'));
+      fs.writeFileSync(bad, block('flowchart TD\n  A -->\n'));
+      const list = path.join(directory, 'changed.txt');
+      fs.writeFileSync(list, `${good}\0${bad}\0`);
+
+      const result = spawnSync(process.execPath, [script, `--changed-files-list=${list}`], {
+        encoding: 'utf8',
+        cwd: path.join(__dirname, '..', '..', '..'),
+      });
+
+      expect(result.status).toBe(1);
+      expect(result.stdout).toContain('2 file(s), 2 diagram(s), 1 failure(s)');
+      expect(result.stderr).toContain('naïve.md:3:');
+    } finally {
+      fs.rmSync(directory, { force: true, recursive: true });
+    }
+  });
+
   test('ignores ```mermaid quoted inside another code block', () => {
     const { status, stdout } = runOn({
       'quoted.md': '````markdown\n```mermaid\nnot a diagram\n```\n````\n',

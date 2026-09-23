@@ -104,14 +104,20 @@ function trackedMarkdown() {
     .filter(Boolean);
 }
 
+/**
+ * Read a changed-files list. NUL-delimited (git -z) records are taken as-is,
+ * so pathnames keep every byte; a list without NULs is read one path per line.
+ */
+function readFileList(listPath) {
+  const content = fs.readFileSync(listPath, 'utf8');
+  const records = content.includes('\0') ? content.split('\0') : content.split(/\r?\n/);
+  return records.filter(Boolean);
+}
+
 function resolveTargets(args) {
   const listArg = args.find((arg) => arg.startsWith('--changed-files-list='));
   const files = listArg
-    ? fs
-        .readFileSync(listArg.slice('--changed-files-list='.length), 'utf8')
-        .split('\n')
-        .map((line) => line.trim())
-        .filter(Boolean)
+    ? readFileList(listArg.slice('--changed-files-list='.length))
     : args.filter((arg) => !arg.startsWith('--'));
   const candidates = files.length > 0 || listArg ? files : trackedMarkdown();
   return candidates.filter((file) => /\.mdx?$/i.test(file) && !isExcluded(file));

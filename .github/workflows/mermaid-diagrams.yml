@@ -36,12 +36,13 @@ jobs:
         env:
           EVENT: ${{ github.event_name }}
         run: |
+          # NUL-delimited (-z) so Git never C-quotes unusual pathnames.
           if [ "$EVENT" = "pull_request" ]; then
-            git diff --name-only --diff-filter=ACMR HEAD^1 HEAD -- '*.md' '*.mdx' > changed-md.txt
+            git diff -z --name-only --diff-filter=ACMR HEAD^1 HEAD -- '*.md' '*.mdx' > changed-md.txt
           else
-            git ls-files -- '*.md' '*.mdx' > changed-md.txt
+            git ls-files -z -- '*.md' '*.mdx' > changed-md.txt
           fi
-          count=$(wc -l < changed-md.txt)
+          count=$(tr -cd '\0' < changed-md.txt | wc -c)
           echo "count=$count" >> "$GITHUB_OUTPUT"
           echo "Markdown files to check: $count"
 
