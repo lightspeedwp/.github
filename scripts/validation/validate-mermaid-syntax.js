@@ -134,10 +134,20 @@ function validateDiagramSyntax(content) {
     index = close === -1 ? statements.length : close + 1;
     skip();
   }
-  if (/^acc(Title|Descr)\b/.test(statements[index] || '')) {
+  const firstStatement = statements[index] || '';
+  if (/^acc(Title|Descr)\b/.test(firstStatement)) {
     errors.push(
       'accTitle/accDescr must come after the diagram type line; Mermaid reads the type from the first statement'
     );
+  } else if (
+    firstStatement &&
+    !Object.values(DIAGRAM_TYPES).some((pattern) =>
+      new RegExp(`^(?:${pattern.source.replace(/^\^\\s\*/, '')})`).test(firstStatement)
+    )
+  ) {
+    // The /m type patterns below match a type keyword on any line, so a
+    // stray preamble line would otherwise pass.
+    errors.push(`First statement must be a diagram type, found: ${firstStatement}`);
   }
 
   // Check for valid diagram type

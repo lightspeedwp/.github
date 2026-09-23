@@ -145,16 +145,35 @@ const ACC_LINE = /^\s*acc(Title|Descr)\s*:/;
  * diagram type from this line, so accTitle/accDescr must come after it
  * (#3490). Returns -1 when there is no such line.
  */
+const ACC_BLOCK_START = /^\s*accDescr\s*\{/;
+
+/**
+ * Length in lines of a multi-line `accDescr { ... }` block starting at
+ * `start` (0 when `lines[start]` does not open one).
+ */
+function accBlockLength(lines, start) {
+  if (!ACC_BLOCK_START.test(lines[start] || "")) return 0;
+  if (lines[start].includes("}")) return 1;
+  const close = lines.findIndex((line, i) => i > start && line.trim() === "}");
+  return close === -1 ? lines.length - start : close - start + 1;
+}
+
 function findTypeLineIndex(lines) {
   let index = 0;
   const skipBlankAndComments = () => {
-    while (
-      index < lines.length &&
-      (lines[index].trim() === "" ||
+    while (index < lines.length) {
+      const blockLength = accBlockLength(lines, index);
+      if (blockLength > 0) {
+        index += blockLength;
+      } else if (
+        lines[index].trim() === "" ||
         lines[index].trim().startsWith("%%") ||
-        ACC_LINE.test(lines[index]))
-    ) {
-      index += 1;
+        ACC_LINE.test(lines[index])
+      ) {
+        index += 1;
+      } else {
+        break;
+      }
     }
   };
 
@@ -242,27 +261,69 @@ function fixDiagram(diagram) {
       .join("\n");
   }
 
-  const misplaced = lines
-    .slice(0, typeIndex)
-    .filter((line) => ACC_LINE.test(line));
-  const before = lines
-    .slice(0, typeIndex)
-    .filter((line) => !ACC_LINE.test(line));
-  const after = lines.slice(typeIndex + 1);
+  // Split everything above the type line into accessibility statements
+  // (single lines or whole `accDescr { ... }` blocks) and other lines.
+  const misplaced = [];
+  const before = [];
+  for (let i = 0; i < typeIndex;) {
+    const blockLength = accBlockLength(lines, i);
+    if (blockLength > 0) {
+      misplaced.push(lines.slice(i, i + blockLength));
+      i += blockLength;
+    } else if (ACC_LINE.test(lines[i])) {
+      misplaced.push([lines[i]]);
+      i += 1;
+    } else {
+      before.push(lines[i]);
+      i += 1;
+    }
+  }
+
+  // Identical accessibility statements repeated after the type line are
+  // dropped (keep the first), so earlier double insertions collapse.
+  const seen = new Set();
+  const deduplicated = lines.slice(typeIndex + 1).filter((line) => {
+    if (!ACC_LINE.test(line)) return true;
+    const key = line.trim();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  // Boilerplate this script once injected is also dropped wherever an
+  // author-written statement of the same kind exists (for example a
+  // generic "accDescr: Detailed diagram" next to an `accDescr { ... }`).
+  const authored = (kind) =>
+    [...lines.slice(0, typeIndex), ...deduplicated].some(
+      (line) =>
+        new RegExp(`^\\s*${kind}\\s*[:{]`).test(line) && !INJECTED.test(line),
+    );
+  const after = deduplicated.filter((line) => {
+    if (!INJECTED.test(line)) return true;
+    return !authored(
+      line.trim().startsWith("accTitle") ? "accTitle" : "accDescr",
+    );
+  });
 
   const indent = (after.find((line) => line.trim() !== "") || "").match(
     /^\s*/,
   )[0];
   // Both forms count: `accDescr: text` and the multi-line `accDescr { ... }`.
   const isAcc = (name, line) => new RegExp(`^\\s*${name}\\s*[:{]`).test(line);
-  // A misplaced statement is dropped when the same one already follows the
+  // A misplaced statement is dropped when the same kind already follows the
   // type line, so moving it never produces a duplicate.
   const accLines = misplaced
-    .filter((line) => {
-      const name = line.trim().startsWith("accTitle") ? "accTitle" : "accDescr";
+    .filter((statement) => {
+      const name = statement[0].trim().startsWith("accTitle")
+        ? "accTitle"
+        : "accDescr";
       return !after.some((other) => isAcc(name, other));
     })
-    .map((line) => `${indent}${line.trim()}`);
+    .flatMap((statement) => {
+      // Re-indent the statement as a unit, keeping a block's inner layout.
+      const base = statement[0].match(/^\s*/)[0].length;
+      const strip = new RegExp(`^[ \\t]{0,${base}}`);
+      return statement.map((line) => `${indent}${line.replace(strip, "")}`);
+    });
   const has = (name) =>
     [...accLines, ...after].some((line) => isAcc(name, line));
 

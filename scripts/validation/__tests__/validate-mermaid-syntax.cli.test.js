@@ -49,4 +49,13 @@ describe('validate-mermaid-syntax CLI: accessibility statement placement (#3490)
 
     expect(output).not.toContain('must come after the diagram type line');
   });
+
+  test('fails when any non-type statement precedes the type line (Copilot #3491)', () => {
+    const { status, output } = runOn(
+      '```mermaid\ngarbage line\nflowchart TD\n  accTitle: T\n  accDescr: D\n  A --> B\n```\n'
+    );
+
+    expect(status).toBe(1);
+    expect(output).toContain('First statement must be a diagram type, found: garbage line');
+  });
 });

@@ -122,7 +122,6 @@ graph TB
   class J,J1,J2,J3 resource
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
-accDescr: Detailed diagram
 ```
 
 ### Key Directories
@@ -183,7 +182,6 @@ flowchart LR
   class I,J outcome
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
-accDescr: Detailed diagram
 ```
 
 ---
@@ -313,7 +311,6 @@ flowchart TD
   class L decision
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
-accDescr: Detailed diagram
 ```
 
 ### Development Commands
@@ -386,7 +383,6 @@ flowchart LR
   class L,M result
 
   linkStyle default stroke:#0f172a,stroke-width:1.4px
-accDescr: Detailed diagram
 ```
 
 See [docs/TESTING.md](./docs/TESTING.md) for comprehensive testing guidance, configuration, and best practices.

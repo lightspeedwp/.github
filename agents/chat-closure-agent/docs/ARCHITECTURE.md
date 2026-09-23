@@ -35,7 +35,6 @@
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
-accTitle: Graph Diagram
     A["Session Input<br/>(repoPath, options)"] -->|Analyze| B["Core Analysis<br/>(git metadata)"]
     B -->|Extract| C["Git Metadata<br/>(branch, commits, issues)"]
     C -->|Create| D["Memory Updater<br/>(10-family YAML)"]
@@ -59,7 +58,6 @@ accDescr: Detailed diagram showing structure and relationships
 ```mermaid
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
-accTitle: Graph Diagram
 accTitle: Graph Diagram
     subgraph "Agent Layer"
         A["claude/prompt.md<br/>(orchestration)"]
@@ -109,7 +107,6 @@ accDescr: Detailed diagram showing structure and relationships
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
-accTitle: Sequence Diagram
     Agent ->> CoreAnalysis: analyzeRepository(repoPath)
     CoreAnalysis ->> CoreAnalysis: detectRepoType()
     CoreAnalysis ->> CoreAnalysis: getCurrentBranch()
@@ -137,7 +134,6 @@ accDescr: Detailed diagram showing structure and relationships
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
-accTitle: Sequence Diagram
     Agent ->> MemoryUpdater: updateMemoryForSessionClosure(repoPath, analysis, options)
     MemoryUpdater ->> MemoryUpdater: createMemoryEntry(metadata)
     MemoryUpdater ->> MemoryUpdater: formatMemoryAsMarkdown(entry)
@@ -162,7 +158,6 @@ accDescr: Detailed diagram showing structure and relationships
 ```mermaid
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
-accTitle: Graph Diagram
 accTitle: Graph Diagram
     subgraph "Input Data"
         A["Core Analysis<br/>(branch, commits)"]
@@ -219,7 +214,6 @@ accDescr: Detailed diagram showing structure and relationships
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
-accTitle: Graph Diagram
     A["cleanupWorktree()"]
     
     A -->|Step 1| B["validateCleanupSafety()"]
@@ -264,7 +258,6 @@ accDescr: Detailed diagram showing structure and relationships
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TD
 accTitle: Graph Diagram
-accTitle: Graph Diagram
     A["detectRepoType(repoPath)"] -->|Check| B{".github/projects/active<br/>AND<br/>.github/labels.yml?"}
     B -->|YES| C["control-plane"]
     B -->|NO| D{".plugin.php<br/>AND<br/>composer.json?"}
@@ -295,7 +288,6 @@ accDescr: Detailed diagram showing structure and relationships
 ```mermaid
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
-accTitle: Graph Diagram
 accTitle: Graph Diagram
     subgraph "10-Family Memory"
         A["metadata<br/>(session, branch, repo)"]
@@ -355,7 +347,6 @@ metadata:        # Agent tracking: session_id, branch, timestamp
 ```mermaid
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
-accTitle: Graph Diagram
 accTitle: Graph Diagram
     A["Session Closure Request"]
     

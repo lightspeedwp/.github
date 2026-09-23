@@ -182,7 +182,6 @@ flowchart TD
   A[Sign up] --> B{Verify email?}
   B -- Yes --> C[Activate account]
   B -- No --> D[Resend verification]
-accDescr: Detailed diagram
 ```
 
 ## Placement & Integration

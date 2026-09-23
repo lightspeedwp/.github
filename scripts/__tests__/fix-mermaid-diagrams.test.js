@@ -143,4 +143,38 @@ describe('fixDiagram duplicates (#3490 review)', () => {
     expect(result.match(/accTitle:/g)).toHaveLength(1);
     expect(result).toContain('accTitle: New');
   });
+
+  test('collapses identical accTitle lines that already follow the type line (Copilot #3491)', () => {
+    const result = fixDiagram(
+      'graph LR\naccTitle: Graph Diagram\naccTitle: Graph Diagram\n    A --> B'
+    );
+
+    expect(result.match(/accTitle:/g)).toHaveLength(1);
+    expect(fixDiagram(result)).toBe(result);
+  });
+
+  test('drops injected boilerplate when an authored statement of the same kind exists', () => {
+    const block =
+      'flowchart TD\n  accTitle: Release flow\n  accDescr {\n    Real text\n  }\n  A --> B\naccDescr: Detailed diagram';
+
+    expect(fixDiagram(block)).toBe(
+      'flowchart TD\n  accTitle: Release flow\n  accDescr {\n    Real text\n  }\n  A --> B'
+    );
+  });
+
+  test('moves a misplaced multi-line accDescr { } block below the type line (Copilot #3491)', () => {
+    const result = fixDiagram('accDescr {\n  Long text\n}\nflowchart TD\n  A --> B');
+
+    expect(result).toBe(
+      [
+        'flowchart TD',
+        '  accTitle: Flowchart',
+        '  accDescr {',
+        '    Long text',
+        '  }',
+        '  A --> B',
+      ].join('\n')
+    );
+    expect(fixDiagram(result)).toBe(result);
+  });
 });
