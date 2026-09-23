@@ -34,14 +34,21 @@
 ## Classification & Remediation Context
 
 - [x] 6 categories of CI failures clearly identified and documented
-- [x] Each category marked as environmental (pre-existing or merge artifact)
-- [x] Evidence basis established (validation comparisons, file mappings)
+- [ ] Each category marked as environmental (pre-existing or merge artifact)
+  - Only User Story 1 (changelog) was verified. User Story 3 (agent spec
+    validation) still needed investigation, and Stories 2–4 were not verified
+    against `develop` before the spec was resolved (see the resolution note in
+    `spec.md`).
+- [ ] Evidence basis established (validation comparisons, file mappings)
+  - Established for User Story 1 only; not recorded for Stories 2–4.
 - [x] Remediation approach specified as separate maintenance work (not audit blocking)
 - [x] Connection to PR #3367 (governance audit PR) documented in context
 
 ## Notes
 
-**Specification Status**: ✅ **READY FOR PLANNING**
+**Specification Status**: Resolved 2026-09-22 without classifying User Stories
+2–4: PR #3367's CI became green, so they were kept as a historical record, not
+verified findings.
 
 **Key Validations Passed**:
 
