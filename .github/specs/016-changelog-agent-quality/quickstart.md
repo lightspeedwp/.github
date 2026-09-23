@@ -25,7 +25,7 @@
 - Node.js ≥18 installed
 - npm ≥9 installed
 - `.github` repository cloned
-- `package.json` has `changelog:validate` npm script
+- `.github/validation/changelog/package.json` has the shipped `validate` npm script
 
 **Setup**:
 
@@ -58,20 +58,20 @@ All notable changes to this project will be documented in this file.
 EOF
 
 # 2. Run validation (should PASS)
-npm run changelog:validate -- --changelog-path CHANGELOG.test.md --output-format text
+node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.test.md --output text
 
 # Expected output:
-# ✅ Changelog Validation PASSED
-# Total entries: 2
-# Valid: 2
-# Invalid: 0
-# Validation time: 120ms
+# CHANGELOG VALIDATION REPORT
+# Total Entries: 2
+# Compliant:    2 (100.0%)
+# Non-Compliant: 0
+# Gate Result: ✓ PASS
 ```
 
 **Verification**:
 
 - ✅ Exit code = 0 (success)
-- ✅ Output contains "PASSED"
+- ✅ Output contains `Gate Result: ✓ PASS`
 - ✅ Execution time < 5 seconds
 - ✅ Both entries reported as valid
 
@@ -95,32 +95,29 @@ cat > CHANGELOG.test.md << 'EOF'
 - This is an entry that is intentionally written to be way too long and exceed the 250 character limit that we have set for changelog entries to ensure they stay user focused and do not include implementation details that belong in pull requests and commit messages not in user facing changelog documentation (#3372)
 EOF
 
-npm run changelog:validate -- --changelog-path CHANGELOG.test.md --output-format text
+node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.test.md --output text
 ```
 
 **Expected Output**:
 
 ```
-❌ Changelog Validation FAILED
+CHANGELOG VALIDATION REPORT
+Total Entries: 1
+Compliant:    0 (0.0%)
+Non-Compliant: 1
+Gate Result: ✗ FAIL
+Recommendation: blocked
 
-Line 6: Entry exceeds 250-character limit
-  Current: 268 characters
-  Expected: ≤250 characters
-  Content: This is an entry that is intentionally written...
-  Fix: Shorten to focus on user-facing benefit; remove implementation details
-
-Summary:
-  Total entries: 1
-  Valid: 0
-  Invalid: 1
+Issues Found:
+CHK_MAX_LENGTH [CRITICAL]: 1 violation(s)
+  → Entry exceeds 250 character limit. Current: 314 chars
 ```
 
 **Verification**:
 
 - ✅ Exit code = 1 (failure)
-- ✅ Error identifies exact line number
-- ✅ Error shows character count vs. limit
-- ✅ Error provides actionable fix suggestion
+- ✅ Error identifies `CHK_MAX_LENGTH`
+- ✅ Error shows the character limit and actual count
 
 ### Subtest 2b: Missing PR/Issue Link
 
@@ -139,35 +136,29 @@ cat > CHANGELOG.test.md << 'EOF'
 - Race condition in concurrent merges
 EOF
 
-npm run changelog:validate -- --changelog-path CHANGELOG.test.md --output-format text
+node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.test.md --output text
 ```
 
 **Expected Output**:
 
 ```
-❌ Changelog Validation FAILED
+CHANGELOG VALIDATION REPORT
+Total Entries: 2
+Compliant:    0 (0.0%)
+Non-Compliant: 2
+Gate Result: ✗ FAIL
+Recommendation: blocked
 
-Line 6: Entry missing required PR/issue link
-  Expected: Format #123 or PR-456
-  Content: Support for changelog validation in local development
-  Fix: Add PR link (e.g., '#3372') or create issue if missing
-
-Line 9: Entry missing required PR/issue link
-  Expected: Format #123 or PR-456
-  Content: Race condition in concurrent merges
-  Fix: Add PR link (e.g., '#2845') or create issue if missing
-
-Summary:
-  Total entries: 2
-  Valid: 0
-  Invalid: 2
+Issues Found:
+CHK_HAS_PR_LINK [CRITICAL]: 2 violation(s)
+  → Entry must reference a PR or issue number (e.g., #1234 or issues/#5678)
 ```
 
 **Verification**:
 
 - ✅ Exit code = 1
-- ✅ Both entries flagged
-- ✅ Suggestions show exact link format
+- ✅ Both entries are counted as non-compliant
+- ✅ `CHK_HAS_PR_LINK` reports two violations and the accepted link examples
 
 ---
 
@@ -177,49 +168,69 @@ Summary:
 
 **Prerequisites**:
 
-- Skills directory created with metadata.yml files
+- Skills exist at `agents/changelog-agent/skills/<skill-name>/SKILL.md`
 
 **Test Case**:
 
 ```bash
-# Check metadata files exist and are valid YAML
-for skill in agents/changelog-agent/skills/*/metadata.yml; do
-  echo "Checking $skill..."
-  
-  # Verify YAML is valid
-  node -e "require('js-yaml').load(require('fs').readFileSync('$skill', 'utf8'))"
-  
-  # Check required fields (using jq if available)
-  grep -q "^id:" "$skill" && echo "  ✓ id field present"
-  grep -q "^version:" "$skill" && echo "  ✓ version field present"
-  grep -q "^inputs:" "$skill" && echo "  ✓ inputs field present"
-  grep -q "^outputs:" "$skill" && echo "  ✓ outputs field present"
-done
+# Scan every skill directory and validate SKILL.md YAML frontmatter.
+node --input-type=module <<'NODE'
+import fs from 'node:fs';
+import path from 'node:path';
+import yaml from 'js-yaml';
+
+const root = 'agents/changelog-agent/skills';
+const requiredMetadata = [
+  'lightspeedwp-version',
+  'lightspeedwp-triggers',
+  'lightspeedwp-inputs',
+  'lightspeedwp-outputs',
+  'lightspeedwp-error-codes',
+];
+
+for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+  if (!entry.isDirectory()) continue;
+  const skillPath = path.join(root, entry.name, 'SKILL.md');
+  if (!fs.existsSync(skillPath)) throw new Error(`Missing ${skillPath}`);
+
+  const content = fs.readFileSync(skillPath, 'utf8');
+  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) throw new Error(`Missing YAML frontmatter: ${skillPath}`);
+  const frontmatter = yaml.load(match[1]);
+
+  for (const field of ['name', 'description']) {
+    if (typeof frontmatter[field] !== 'string' || !frontmatter[field].trim()) {
+      throw new Error(`Missing ${field}: ${skillPath}`);
+    }
+  }
+  if (frontmatter.name !== entry.name) {
+    throw new Error(`name must match directory: ${skillPath}`);
+  }
+  for (const field of requiredMetadata) {
+    if (typeof frontmatter.metadata?.[field] !== 'string') {
+      throw new Error(`Missing string metadata.${field}: ${skillPath}`);
+    }
+  }
+  console.log(`✓ ${skillPath}`);
+}
+NODE
 ```
 
 **Expected Output**:
 
 ```
-Checking agents/changelog-agent/skills/validate/metadata.yml...
-  ✓ id field present
-  ✓ version field present
-  ✓ inputs field present
-  ✓ outputs field present
-
-Checking agents/changelog-agent/skills/check-links/metadata.yml...
-  ✓ id field present
-  ✓ version field present
-  ✓ inputs field present
-  ✓ outputs field present
+✓ agents/changelog-agent/skills/validate/SKILL.md
+✓ agents/changelog-agent/skills/check-links/SKILL.md
 
 ... (for each skill)
 ```
 
 **Verification**:
 
-- ✅ All skills have metadata.yml files
-- ✅ YAML is valid (no parse errors)
-- ✅ All required fields present (id, version, inputs, outputs)
+- ✅ All skill directories have `SKILL.md`
+- ✅ YAML frontmatter is valid
+- ✅ Standard `name` and `description` fields are present
+- ✅ Required project metadata is present as string values
 - ✅ Skills are discoverable by scanning directory
 
 ---
@@ -232,21 +243,26 @@ Checking agents/changelog-agent/skills/check-links/metadata.yml...
 
 ```bash
 # Test 1: Help output works
-npm run changelog:validate -- --help | grep -q "Usage" && echo "✓ Help works"
+node .github/validation/changelog/bin/validate.js --help | grep -q "Options" && echo "✓ Help works"
 
 # Test 2: Exit codes follow contract
-npm run changelog:validate -- --changelog-path /nonexistent/file.md
-EXIT_CODE=$?
-[ $EXIT_CODE -eq 2 ] && echo "✓ Exit code 2 for file not found"
+set +e
+MISSING_FILE_JSON="$(node .github/validation/changelog/bin/validate.js \
+  --changelog-path /nonexistent/file.md --output json)"
+MISSING_FILE_STATUS=$?
+set -e
+printf '%s' "$MISSING_FILE_JSON" | \
+  node -e "JSON.parse(require('fs').readFileSync(0, 'utf8'))"
+[ "$MISSING_FILE_STATUS" -eq 1 ] && echo "✓ Exit code 1 for file not found"
 
 # Test 3: JSON output is parseable
-npm run changelog:validate -- --changelog-path CHANGELOG.test.md --output-format json | \
+node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.test.md --output json | \
   node -e "JSON.parse(require('fs').readFileSync(0, 'utf8'))" && \
   echo "✓ JSON output is valid"
 
 # Test 4: Output includes required fields
-npm run changelog:validate -- --changelog-path CHANGELOG.test.md --output-format json | \
-  jq '.valid, .entries_total, .entries_valid, .validation_time_ms' > /dev/null && \
+node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.test.md --output json | \
+  jq '.summary.total_entries, .summary.passed, .summary.failed, .ci_gate_result' > /dev/null && \
   echo "✓ Output includes required fields"
 ```
 
@@ -254,7 +270,7 @@ npm run changelog:validate -- --changelog-path CHANGELOG.test.md --output-format
 
 ```
 ✓ Help works
-✓ Exit code 2 for file not found
+✓ Exit code 1 for file not found
 ✓ JSON output is valid
 ✓ Output includes required fields
 ```
@@ -276,12 +292,12 @@ npm run changelog:validate -- --changelog-path CHANGELOG.test.md --output-format
 
 ```bash
 # 1. Create a test PR (in CI simulation)
-# 2. Run workflow that calls npm run changelog:validate
+# 2. Run workflow that calls the shipped validator package
 # 3. Verify labels are applied based on result
 # 4. Verify PR is blocked if validation fails
 
 # Pseudo-code (actual workflow in .github/workflows/changelog-validate.yml):
-if npm run changelog:validate -- --changelog-path CHANGELOG.md; then
+if node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.md; then
   # Validation passed
   gh pr edit --add-label "meta:has-changelog"
   echo "✓ Validation passed; label applied"

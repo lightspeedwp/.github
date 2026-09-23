@@ -8,7 +8,7 @@
 
 **Note (2026-09-22)**: Renumbered from `015` to `016` — `015` is used on `develop` by `015-pr-agent-consolidation` (#3403), and was also claimed by `015-ci-failure-remediation` on #3367, since removed. The validation engine referenced in User Story 1 has since shipped to `develop` (`.github/validation/changelog/`, wired into `.github/workflows/changelog-validation.yml`); it already provides local execution (`npm run validate:changelog` from within that package, or `.github/validation/changelog/validate.sh`), 8 documented rules, and JSON/text output. User Story 1 has been rescoped below to close the remaining gap — a convenience alias at the repo root — rather than rebuild what already exists. User Stories 2–4 remain open gaps as originally scoped.
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing (mandatory)
 
 ### User Story 1 - Root-Level Convenience Alias for Local Changelog Validation (Priority: P1)
 
@@ -33,12 +33,12 @@ The changelog agent needs to be restructured with proper skills that conform to 
 
 **Why this priority**: Without proper skill structure, the agent cannot be reliably invoked by other systems or agents. Conformance to the spec enables reusability and consistent integration patterns.
 
-**Independent Test**: Can be fully tested by verifying: (1) each changelog skill has valid `metadata.yml` conforming to agentskills.io spec, (2) skills have unique identifiers and version info, (3) skills are discoverable via the skill registry, (4) skills can be invoked standalone with correct parameters, (5) skill documentation is complete and accurate.
+**Independent Test**: Can be fully tested by verifying: (1) every `agents/changelog-agent/skills/<skill-name>/` directory contains a valid `SKILL.md` with Agent Skills YAML frontmatter, (2) skill names are unique and project metadata includes version information, (3) skills are discoverable via the skill registry, (4) skills can be invoked standalone with correct parameters, (5) skill documentation is complete and accurate.
 
 **Acceptance Scenarios**:
 
-1. **Given** the changelog agent, **When** scanning the agent's skill directory, **Then** each skill file has a `metadata.yml` with: id, version, description, triggers, inputs, outputs, error handling
-2. **Given** the changelog-validate skill, **When** invoking it via `npm run changelog:validate --changelog-path <path>`, **Then** it executes correctly and returns structured JSON with validation results
+1. **Given** the changelog agent, **When** scanning `agents/changelog-agent/skills/<skill-name>/`, **Then** every skill directory has a `SKILL.md` whose YAML frontmatter contains standard `name` and `description` fields plus namespaced string metadata for version, triggers, inputs, outputs, and error codes
+2. **Given** the changelog-validate skill, **When** invoking it via `npm run changelog:validate -- --changelog-path <path> --output json`, **Then** it executes correctly and returns structured JSON with validation results
 3. **Given** the skill registry lookup, **When** searching for "changelog" skills, **Then** all changelog skills appear with correct metadata and version info
 4. **Given** external systems, **When** attempting to invoke changelog skills via agent API, **Then** they receive consistent, documented responses with proper error handling
 
@@ -86,7 +86,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - How does the system handle changelog entries with special characters or Unicode?
 - What happens when a changelog skill fails due to file system permissions?
 
-## Requirements *(mandatory)*
+## Requirements (mandatory)
 
 ### Functional Requirements
 
@@ -100,7 +100,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - **FR-008**: Validation workflow MUST run on every PR that modifies CHANGELOG.md and provide feedback via GitHub PR comments or status checks
 - **FR-009**: Workflow MUST block merge if changelog entries fail validation, with automatic bypass for branches matching `chore/` or `deps/` prefixes (no explicit label required; bypass is automatic by branch type)
 - **FR-010**: Scripts and validation logic currently scattered across `scripts/validation/`, `agents/changelog-agent/`, and `scripts/workflows/` MUST be reorganized into changelog agent skill directories with clear purpose and no duplication
-- **FR-011**: Changelog agent MUST use file-level locking to prevent race conditions; merge operations MUST block until validation completes; concurrent validate operations are allowed
+- **FR-011**: Changelog operations MUST use a reader/writer protocol: Validate and check-links register active reader markers while reading; Merge and Format first publish writer intent to block new readers, wait for existing readers to finish, then acquire the exclusive write lock. Locks and markers MUST carry owner tokens, process/host identity, leases, and heartbeats so stale state can be recovered without removing an active owner's lock; concurrent Validate operations remain allowed
 
 ### Key Entities
 
@@ -109,7 +109,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - **Error Object**: Structured error report; attributes: error_type (length/formatting/linking/clarity), message, location (line number), expected_format, actual_value, fix_suggestion
 - **Skill Metadata**: Configuration for a changelog skill; attributes: id, version, description, triggers, input_schema, output_schema, error_codes
 
-## Success Criteria *(mandatory)*
+## Success Criteria (mandatory)
 
 ### Measurable Outcomes
 

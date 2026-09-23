@@ -8,10 +8,19 @@
 import fs from 'fs';
 import path from 'path';
 import SkillsRegistryGenerator from './lib/skills-registry-generator.js';
+import SkillsRegistryValidator from './lib/skills-registry-validator.js';
 
 const ROOT_DIR = process.cwd();
 const REPORTS_DIR = path.join(ROOT_DIR, 'agents', 'reports');
 const REGISTRY_DIR = path.join(ROOT_DIR, 'skills');
+const REGISTRY_SCHEMA_PATH = path.join(
+  ROOT_DIR,
+  '.github',
+  'specs',
+  '014-agents-restructure-consolidate',
+  'contracts',
+  'registry-schema.json'
+);
 
 // Ensure directories exist
 [REPORTS_DIR, REGISTRY_DIR].forEach((dir) => {
@@ -77,36 +86,11 @@ function generateCategoryRegistries(skills) {
 function validateRegistries(registry, categoryRegistries) {
   console.log('\n[T064-T065] Validating registries...');
 
+  const validator = new SkillsRegistryValidator(REGISTRY_SCHEMA_PATH);
   const validation = {
     timestamp: new Date().toISOString(),
-    consolidated: {
-      valid: true,
-      errors: [],
-      warnings: [],
-    },
-    categories: {},
+    ...validator.validateRegistries(registry, categoryRegistries),
   };
-
-  // Validate consolidated registry
-  if (!registry.skills || registry.skills.length === 0) {
-    validation.consolidated.valid = false;
-    validation.consolidated.errors.push('No skills in consolidated registry');
-  }
-
-  if (!registry.summary) {
-    validation.consolidated.valid = false;
-    validation.consolidated.errors.push('Missing summary section');
-  }
-
-  // Validate category registries
-  for (const [category, catRegistry] of Object.entries(categoryRegistries)) {
-    validation.categories[category] = {
-      valid: true,
-      skills: catRegistry.skills.length,
-      compliant: catRegistry.summary.compliant,
-      compliancePercentage: catRegistry.summary.compliancePercentage,
-    };
-  }
 
   const reportPath = path.join(REPORTS_DIR, 'registry-validation-report.json');
   fs.writeFileSync(reportPath, JSON.stringify(validation, null, 2));
@@ -374,10 +358,19 @@ try {
 
   printReport(registry, violations, categoryRegistries, summary);
 
-  if (!validation.consolidated.valid) {
+  const invalidCategories = Object.entries(validation.categories).filter(
+    ([_category, result]) => !result.valid
+  );
+
+  if (!validation.consolidated.valid || invalidCategories.length > 0) {
     console.error('\n❌ Phase 6 failed: registry validation errors');
     for (const err of validation.consolidated.errors) {
-      console.error(`  - ${err}`);
+      console.error(`  - consolidated: ${err}`);
+    }
+    for (const [category, result] of invalidCategories) {
+      for (const err of result.errors) {
+        console.error(`  - ${category}: ${err}`);
+      }
     }
     process.exit(1);
   }

@@ -8,7 +8,10 @@
 
 import fs from 'fs';
 import path from 'path';
+import semver from 'semver';
 import { expectedAgentPackageName, getOrgConventions, listAgentNames } from './package-conventions.js';
+
+const REQUIRED_PACKAGE_FIELDS = ['name', 'version', 'description', 'main', 'type', 'license'];
 
 class PackageJsonValidator {
   constructor(options = {}) {
@@ -65,9 +68,7 @@ class PackageJsonValidator {
    * Validate required fields exist
    */
   validateRequiredFields(pkg, agentName, errors) {
-    const requiredFields = ['name', 'version', 'description', 'main', 'type'];
-
-    for (const field of requiredFields) {
+    for (const field of REQUIRED_PACKAGE_FIELDS) {
       if (!pkg[field]) {
         errors.push({
           field,
@@ -125,28 +126,41 @@ class PackageJsonValidator {
     if (pkg.main) {
       const mainPath = path.join(path.dirname(packageJsonPath), pkg.main);
       if (!fs.existsSync(mainPath)) {
-        warnings.push({
+        errors.push({
           field: 'main',
           message: `Main file "${pkg.main}" does not exist`,
-          severity: 'warning',
+          severity: 'error',
         });
       }
     }
 
     // Validate engines
-    if (!pkg.engines) {
-      warnings.push({
-        field: 'engines',
-        message: 'Missing "engines" field (recommended to specify Node.js version)',
-        severity: 'warning',
-      });
-    } else if (!pkg.engines.node) {
-      warnings.push({
+    if (!pkg.engines?.node) {
+      errors.push({
         field: 'engines.node',
         message: 'Missing "engines.node" specification',
-        severity: 'warning',
+        severity: 'error',
       });
-    } else if (!pkg.engines.node.includes('18') && !pkg.engines.node.includes('20')) {
+      return;
+    }
+
+    let engineRange = null;
+    try {
+      engineRange = semver.validRange(pkg.engines.node);
+    } catch {
+      // Invalid non-string values are reported through the common error below.
+    }
+
+    if (!engineRange) {
+      errors.push({
+        field: 'engines.node',
+        message: `Invalid Node.js engine range: "${pkg.engines.node}"`,
+        severity: 'error',
+      });
+    } else if (
+      !semver.satisfies('18.0.0', engineRange) &&
+      !semver.satisfies('20.0.0', engineRange)
+    ) {
       warnings.push({
         field: 'engines.node',
         message: 'Should support Node.js 18+ (e.g., ">=18.0.0")',

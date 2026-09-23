@@ -8,9 +8,8 @@ import StructureChecker from '../lib/structure-checker.js';
 import PackageJsonValidator from '../lib/package-json-validator.js';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = path.join(process.cwd(), 'scripts', 'validation', '__tests__');
 const testFixturesDir = path.join(__dirname, '../__fixtures__');
 
 // Self-contained organisation root: package naming scope, licence and the agent
@@ -57,12 +56,16 @@ describe('StructureChecker', () => {
         JSON.stringify({
           name: '@lightspeedwp/conformant-agent',
           version: '1.0.0',
+          description: 'Conformant agent fixture',
           type: 'module',
           main: 'index.js',
-          scripts: { test: 'jest', lint: 'eslint' },
+          license: ORG_LICENSE,
+          scripts: { test: 'jest', lint: 'eslint', format: 'prettier', build: 'node index.js' },
+          devDependencies: { jest: '^30.0.0', eslint: '^10.0.0', prettier: '^3.0.0' },
           engines: { node: '>=18.0.0' },
         })
       );
+      fs.writeFileSync(path.join(testAgentPath, 'index.js'), 'export default {};');
       fs.writeFileSync(path.join(testAgentPath, 'README.md'), '# README');
       fs.writeFileSync(path.join(testAgentPath, 'config', 'default.json'), '{}');
       fs.writeFileSync(path.join(testAgentPath, 'config', '.env.example'), '# env');
@@ -217,6 +220,7 @@ describe('PackageJsonValidator', () => {
           devDependencies: { jest: '^29.0.0', eslint: '^8.0.0' },
         })
       );
+      fs.writeFileSync(path.join(tempDir, 'index.js'), 'export default {};');
 
       const result = validator.validate(packageJsonPath);
 
@@ -264,6 +268,64 @@ describe('PackageJsonValidator', () => {
       expect(validator.isSemver('1.0')).toBe(false);
       expect(validator.isSemver('latest')).toBe(false);
     });
+
+    it('should reject missing mandatory licence and unresolved main files', () => {
+      const validator = new PackageJsonValidator({ rootDir: ORG_ROOT });
+      const tempDir = path.join(testFixturesDir, 'missing-package-fields-agent');
+      fs.mkdirSync(tempDir, { recursive: true });
+      const packageJsonPath = path.join(tempDir, 'package.json');
+
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify({
+          name: '@lightspeedwp/missing-package-fields-agent',
+          version: '1.0.0',
+          description: 'Test agent',
+          main: 'missing.js',
+          type: 'module',
+          engines: { node: '>=18.0.0' },
+          scripts: { test: 'jest', lint: 'eslint' },
+        })
+      );
+
+      const result = validator.validate(packageJsonPath);
+
+      expect(result.valid).toBe(false);
+      expect(result.errors.map((error) => error.field)).toEqual(
+        expect.arrayContaining(['license', 'main'])
+      );
+
+      fs.rmSync(tempDir, { recursive: true });
+    });
+
+    it.each([undefined, 'not-a-range'])(
+      'should reject a missing or invalid Node.js engine range (%s)',
+      (nodeRange) => {
+        const validator = new PackageJsonValidator({ rootDir: ORG_ROOT });
+        const tempDir = path.join(testFixturesDir, 'invalid-engine-agent');
+        fs.mkdirSync(tempDir, { recursive: true });
+        fs.writeFileSync(path.join(tempDir, 'index.js'), 'export default {};');
+        const packageJsonPath = path.join(tempDir, 'package.json');
+        const packageJson = {
+          name: '@lightspeedwp/invalid-engine-agent',
+          version: '1.0.0',
+          description: 'Test agent',
+          main: 'index.js',
+          type: 'module',
+          license: ORG_LICENSE,
+          scripts: { test: 'jest', lint: 'eslint' },
+          engines: nodeRange === undefined ? {} : { node: nodeRange },
+        };
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson));
+
+        const result = validator.validate(packageJsonPath);
+
+        expect(result.valid).toBe(false);
+        expect(result.errors.some((error) => error.field === 'engines.node')).toBe(true);
+
+        fs.rmSync(tempDir, { recursive: true });
+      }
+    );
   });
 });
 

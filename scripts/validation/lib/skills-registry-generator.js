@@ -17,14 +17,14 @@ class SkillsRegistryGenerator {
   /**
    * T061: Extract skill metadata
    */
-  extractSkillMetadata(skillPath, category) {
+  extractSkillMetadata(skillPath, category, skillName = null) {
     try {
       const content = fs.readFileSync(skillPath, 'utf-8');
-      const skillName = path.basename(skillPath, path.extname(skillPath));
+      const resolvedSkillName = skillName || path.basename(skillPath, path.extname(skillPath));
 
       const metadata = {
-        id: this.generateSkillId(category, skillName),
-        name: skillName,
+        id: this.generateSkillId(category, resolvedSkillName),
+        name: resolvedSkillName,
         category,
         path: skillPath,
         description: this.extractDescription(content),
@@ -34,7 +34,7 @@ class SkillsRegistryGenerator {
       };
 
       return metadata;
-    } catch (error) {
+    } catch {
       return null;
     }
   }
@@ -116,6 +116,22 @@ class SkillsRegistryGenerator {
   }
 
   /**
+   * Select the entrypoint or metadata file that defines a directory-based skill.
+   */
+  findSkillDefinition(skillDirectory) {
+    const entries = fs.readdirSync(skillDirectory, { withFileTypes: true });
+    const files = entries.filter((entry) => entry.isFile() && !entry.name.startsWith('.'));
+    const preferredNames = ['SKILL.md', 'metadata.yml', 'metadata.yaml', 'index.md'];
+
+    for (const preferredName of preferredNames) {
+      const match = files.find((entry) => entry.name === preferredName);
+      if (match) return path.join(skillDirectory, match.name);
+    }
+
+    return files.length > 0 ? path.join(skillDirectory, files[0].name) : null;
+  }
+
+  /**
    * T059: Scan all skills
    */
   scanAllSkills() {
@@ -153,13 +169,24 @@ class SkillsRegistryGenerator {
           const skillsPath = path.join(this.agentsDir, agent.name, 'skills');
 
           if (fs.existsSync(skillsPath)) {
-            const files = fs.readdirSync(skillsPath);
+            const skillEntries = fs.readdirSync(skillsPath, { withFileTypes: true });
+            const category = `agent:${agent.name}`;
 
-            for (const file of files) {
-              if (fs.statSync(path.join(skillsPath, file)).isFile()) {
-                const skillPath = path.join(skillsPath, file);
-                const category = `agent:${agent.name}`;
+            for (const skillEntry of skillEntries) {
+              const skillPath = path.join(skillsPath, skillEntry.name);
+
+              if (skillEntry.isFile()) {
                 const metadata = this.extractSkillMetadata(skillPath, category);
+                if (metadata) skills.push(metadata);
+              } else if (skillEntry.isDirectory() && !skillEntry.name.startsWith('.')) {
+                const definitionPath = this.findSkillDefinition(skillPath);
+                if (!definitionPath) continue;
+
+                const metadata = this.extractSkillMetadata(
+                  definitionPath,
+                  category,
+                  skillEntry.name
+                );
                 if (metadata) skills.push(metadata);
               }
             }
@@ -187,7 +214,9 @@ class SkillsRegistryGenerator {
           skills.length === 0
             ? 0
             : Math.round(
-                (skills.filter((s) => s.agentskills_io_compliant.compliant).length / skills.length) * 100
+                (skills.filter((s) => s.agentskills_io_compliant.compliant).length /
+                  skills.length) *
+                  100
               ),
       },
       skills,

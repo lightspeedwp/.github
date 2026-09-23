@@ -8,7 +8,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import { expectedAgentPackageName } from './package-conventions.js';
+import PackageJsonValidator from './package-json-validator.js';
 
 /**
  * Required components for agent structure (7-item template)
@@ -68,7 +68,7 @@ class StructureChecker {
         // `valid` flag (which only reflects error-severity issues) - warning-only
         // results were previously dropped here and never surfaced to the caller.
         if (component === 'package.json') {
-          const validation = this.validatePackageJson(componentPath, agentName);
+          const validation = this.validatePackageJson(componentPath);
           issues.push(...validation.issues);
         } else if (component === 'CHANGELOG.md') {
           const validation = this.validateChangelog(componentPath);
@@ -104,77 +104,18 @@ class StructureChecker {
   /**
    * Validate package.json requirements
    */
-  validatePackageJson(packageJsonPath, agentName) {
-    const issues = [];
-
-    try {
-      const content = fs.readFileSync(packageJsonPath, 'utf-8');
-      const pkg = JSON.parse(content);
-
-      // Check required fields
-      if (!pkg.name) {
-        issues.push({
-          component: 'package.json',
-          severity: 'error',
-          message: 'Missing "name" field',
-        });
-      } else if (pkg.name !== expectedAgentPackageName(agentName, this.rootDir)) {
-        issues.push({
-          component: 'package.json',
-          severity: 'error',
-          message: `Package name should be "${expectedAgentPackageName(agentName, this.rootDir)}", got "${pkg.name}"`,
-        });
-      }
-
-      if (!pkg.version) {
-        issues.push({
-          component: 'package.json',
-          severity: 'error',
-          message: 'Missing "version" field',
-        });
-      }
-
-      if (!pkg.type || pkg.type !== 'module') {
-        issues.push({
-          component: 'package.json',
-          severity: 'error',
-          message: 'Must have "type": "module"',
-        });
-      }
-
-      if (!pkg.scripts || !pkg.scripts.test) {
-        issues.push({
-          component: 'package.json',
-          severity: 'error',
-          message: 'Missing test script in scripts section',
-        });
-      }
-
-      if (!pkg.scripts || !pkg.scripts.lint) {
-        issues.push({
-          component: 'package.json',
-          severity: 'warning',
-          message: 'Missing lint script (recommended)',
-        });
-      }
-
-      if (!pkg.engines || !pkg.engines.node) {
-        issues.push({
-          component: 'package.json',
-          severity: 'warning',
-          message: 'Missing engines.node specification',
-        });
-      }
-    } catch (error) {
-      issues.push({
-        component: 'package.json',
-        severity: 'error',
-        message: `Invalid JSON: ${error.message}`,
-      });
-    }
+  validatePackageJson(packageJsonPath) {
+    const validator = new PackageJsonValidator({ rootDir: this.rootDir });
+    const result = validator.validate(packageJsonPath);
+    const issues = [...result.errors, ...result.warnings].map((issue) => ({
+      component: 'package.json',
+      field: issue.field,
+      severity: issue.severity,
+      message: issue.message,
+    }));
 
     return {
-      valid: issues.filter((i) => i.severity === 'error').length === 0,
+      valid: result.valid,
       issues,
     };
   }
