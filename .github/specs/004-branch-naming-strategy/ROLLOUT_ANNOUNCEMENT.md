@@ -165,11 +165,19 @@ git checkout -B docs/branching-strategy-guide origin/develop
 
 **"I already created an invalid branch" — how do I fix it?**
 
-1. Push to a temporary branch: `git push origin old-name:temp-old-name`
-2. Create correct branch: `git checkout -B correct-name origin/develop`
-3. Cherry-pick commits: `git cherry-pick origin/develop..origin/temp-old-name`
-4. Push correct branch and create PR
-5. Delete temp branch: `git push origin --delete temp-old-name`
+**Option 1 (Simplest — if no push yet):**
+
+1. Rename locally: `git branch -m old-name correct-name`
+2. Push with correct name: `git push -u origin correct-name`
+
+**Option 2 (If already pushed with invalid name):**
+
+1. Create correct branch with same commits: `git checkout -B correct-name` (stay on current commit)
+2. Push with correct name: `git push -u origin correct-name`
+3. Create PR from the correct branch
+4. Delete the invalid branch remotely: `git push origin --delete old-name`
+
+**Note:** The pre-push hook will reject pushes to invalid branch names, so you cannot push further commits to the old branch. Always use a valid branch name before pushing.
 
 ---
 

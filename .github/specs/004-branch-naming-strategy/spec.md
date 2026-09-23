@@ -124,7 +124,8 @@ The organization's existing PR template routing system (which depends on branch 
   - `type` is exactly one of the 38 authorized values
   - `scope` is lowercase alphanumeric and hyphens only (e.g., `user-auth`, `pr-template`)
   - `title` is lowercase alphanumeric and hyphens only (e.g., `implementation`, `routing-bug`)
-  - Full pattern matches regex: `^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|revert|research|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$`
+  - **Exception for release type:** `release/` branches additionally accept semantic version format: `release/v{major}.{minor}.{patch}` (e.g., `release/v1.0.0`, `release/v2.1.5`)
+  - Full pattern matches regex: `^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|revert|research|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$` OR `^release/v\d+\.\d+\.\d+$` (for release branches with semantic versioning)
 
 - **FR-003**: System MUST reject all branches using forbidden prefixes: `claude/`, `copilot/`, `openai/` with clear error message explaining reservation
 

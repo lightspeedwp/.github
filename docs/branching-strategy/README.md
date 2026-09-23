@@ -291,7 +291,7 @@ npm run validate:branch-name -- --help
 All agents in `agents/` are configured to understand branch naming rules:
 
 - [pr-creation.agent.md](../../agents/pr-creation-agent/) — PR creation guidance
-- [labeling.agent.md](../../agents/labeling.agent.md) — Label routing
+- [labeling.agent.md](../../agents/labeling-agent/labeling.agent.md) — Label routing
 - [release.agent.md](../../agents/release-agent/) — Release management
 - [AGENTS.md](../../AGENTS.md) — Global AI rules (see Branch Naming section)
 

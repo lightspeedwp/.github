@@ -122,17 +122,17 @@ jobs:
             ERRORS="protected-branch"
           fi
 
-          # Create metrics JSON
-          METRICS="{
-            \"timestamp\": \"$TIMESTAMP\",
-            \"branch_name\": \"$BRANCH_NAME\",
-            \"valid\": \"$VALID\",
-            \"errors\": \"$ERRORS\",
-            \"actor\": \"$GITHUB_ACTOR\",
-            \"event\": \"$GITHUB_EVENT_NAME\",
-            \"ref\": \"$GITHUB_REF\",
-            \"sha\": \"$GITHUB_SHA\"
-          }"
+          # Create metrics JSON using jq to safely escape special characters
+          METRICS=$(jq -n \
+            --arg timestamp "$TIMESTAMP" \
+            --arg branch_name "$BRANCH_NAME" \
+            --arg valid "$VALID" \
+            --arg errors "$ERRORS" \
+            --arg actor "$GITHUB_ACTOR" \
+            --arg event "$GITHUB_EVENT_NAME" \
+            --arg ref "$GITHUB_REF" \
+            --arg sha "$GITHUB_SHA" \
+            '{timestamp: $timestamp, branch_name: $branch_name, valid: $valid, errors: $errors, actor: $actor, event: $event, ref: $ref, sha: $sha}')
 
           # Create metrics directory
           mkdir -p validation-metrics
