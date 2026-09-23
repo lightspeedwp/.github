@@ -389,20 +389,34 @@ jobs:
       ]
     if: always()
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Collect validation metrics
+        uses: ./.github/actions/collect-metrics
+        with:
+          workflow_name: 'validation-unified'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Report validation check summary
+        id: summary
         shell: bash
         run: |
-          echo "## Validation Check Summary"
-          echo ""
-          echo "| Check | Status |"
-          echo "|-------|--------|"
-          echo "| Branch Validation | ${{ needs.branch-validation.result }} |"
-          echo "| PR Template Validation | ${{ needs.pr-template-validation.result }} |"
-          echo "| Changelog Validation | ${{ needs.changelog-validation.result }} |"
-          echo "| Commit Validation | ${{ needs.commit-validation.result }} |"
-          echo "| Workflow Validation | ${{ needs.workflow-validation.result }} |"
-          echo "| Secret Scanning | ${{ needs.secret-scanning.result }} |"
-          echo ""
+          echo "summary=$(cat <<'EOF'
+          ## Validation Check Summary
+
+          | Check | Status |
+          |-------|--------|
+          | Branch Validation | ${{ needs.branch-validation.result }} |
+          | PR Template Validation | ${{ needs.pr-template-validation.result }} |
+          | Changelog Validation | ${{ needs.changelog-validation.result }} |
+          | Commit Validation | ${{ needs.commit-validation.result }} |
+          | Workflow Validation | ${{ needs.workflow-validation.result }} |
+          | Secret Scanning | ${{ needs.secret-scanning.result }} |
+          EOF
+          )" >> "$GITHUB_OUTPUT"
 
           # Check if all validations passed or were skipped (not triggered for this event)
           check_status() {
@@ -416,12 +430,22 @@ jobs:
              check_status "${{ needs.commit-validation.result }}" && \
              check_status "${{ needs.workflow-validation.result }}" && \
              check_status "${{ needs.secret-scanning.result }}"; then
+            echo "status=success" >> "$GITHUB_OUTPUT"
             echo "✅ All validation checks passed"
-            exit 0
           else
+            echo "status=failure" >> "$GITHUB_OUTPUT"
             echo "❌ One or more validation checks failed"
-            exit 1
           fi
+
+      - name: Report validation results
+        uses: ./.github/actions/validate-check
+        with:
+          check_name: 'validation-unified'
+          status: ${{ steps.summary.outputs.status }}
+          title: 'Validation Check Results'
+          summary: ${{ steps.summary.outputs.summary }}
+          details: '[]'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
   validation-summary:
     name: Validation Summary
