@@ -122,4 +122,25 @@ describe('fixMarkdown', () => {
       '```mermaid\nflowchart TD\n  accTitle: T\n  accDescr: Detailed diagram\n  A --> B\n```'
     );
   });
+
+  test('a closing fence indented differently from the opening does not swallow later content', () => {
+    const doc =
+      '1. Step\n\n   ```mermaid\n   flowchart TD\n     A --> B\n```\n\nProse between.\n\n```mermaid\nflowchart LR\n  C --> D\n```\n';
+    const { content } = fixMarkdown(doc);
+
+    expect(content).toContain('Prose between.');
+    expect(content.match(/```mermaid/g)).toHaveLength(2);
+    expect(content).toContain('flowchart LR\n  accTitle: Flowchart');
+  });
+});
+
+describe('fixDiagram duplicates (#3490 review)', () => {
+  test('drops a misplaced accTitle when one already follows the type line', () => {
+    const result = fixDiagram(
+      'accTitle: Old\nflowchart TD\n  accTitle: New\n  accDescr: D\n  A --> B'
+    );
+
+    expect(result.match(/accTitle:/g)).toHaveLength(1);
+    expect(result).toContain('accTitle: New');
+  });
 });

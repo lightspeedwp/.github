@@ -73,8 +73,13 @@ function findMarkdownFiles(dir = ".") {
     if (entry.isDirectory()) {
       if (entry.name === "node_modules" || entry.name === ".git") continue;
       // Generated reports are historical records; never rewrite them.
-      if (path.join(dir, entry.name) === path.join(".github", "reports"))
-        continue;
+      // Compared relative to the working directory, whatever `dir` form
+      // (relative or absolute) the walk started from.
+      const relative = path.relative(
+        process.cwd(),
+        path.resolve(dir, entry.name),
+      );
+      if (relative === path.join(".github", "reports")) continue;
       files.push(...findMarkdownFiles(path.join(dir, entry.name)));
       continue;
     }
@@ -248,12 +253,18 @@ function fixDiagram(diagram) {
   const indent = (after.find((line) => line.trim() !== "") || "").match(
     /^\s*/,
   )[0];
-  const accLines = misplaced.map((line) => `${indent}${line.trim()}`);
   // Both forms count: `accDescr: text` and the multi-line `accDescr { ... }`.
+  const isAcc = (name, line) => new RegExp(`^\\s*${name}\\s*[:{]`).test(line);
+  // A misplaced statement is dropped when the same one already follows the
+  // type line, so moving it never produces a duplicate.
+  const accLines = misplaced
+    .filter((line) => {
+      const name = line.trim().startsWith("accTitle") ? "accTitle" : "accDescr";
+      return !after.some((other) => isAcc(name, other));
+    })
+    .map((line) => `${indent}${line.trim()}`);
   const has = (name) =>
-    [...accLines, ...after].some((line) =>
-      new RegExp(`^\\s*${name}\\s*[:{]`).test(line),
-    );
+    [...accLines, ...after].some((line) => isAcc(name, line));
 
   if (!has("accTitle"))
     accLines.unshift(`${indent}accTitle: ${titleFor(typeLine)}`);
@@ -270,18 +281,19 @@ function fixDiagram(diagram) {
  */
 function fixMarkdown(content) {
   let modified = false;
-  // Match real fences only: an opening line that is just ```mermaid and a
-  // closing line that is just ```. The old unanchored pattern also matched
-  // ```mermaid written inline in prose and injected text into sentences.
-  const fence = /^([ \t]*)```mermaid[ \t]*\n([^]*?)^\1```[ \t]*$/gm;
-  const next = content.replace(fence, (match, indent, diagram) => {
+  // Match real fences only: an opening line that is just ```mermaid and the
+  // next line that is just ``` (any indent, as CommonMark allows). The old
+  // unanchored pattern also matched ```mermaid written inline in prose and
+  // injected text into sentences.
+  const fence = /^([ \t]*)```mermaid[ \t]*\n([^]*?)^([ \t]*)```[ \t]*$/gm;
+  const next = content.replace(fence, (match, indent, diagram, closeIndent) => {
     if (!diagram.trim()) return match;
     const fixed = fixDiagram(diagram);
     // Leave blocks untouched unless the fix changes their content, so
     // formatting-only differences cause no churn.
     if (fixed === diagram.replace(/^\n+|\s+$/g, "")) return match;
     modified = true;
-    return `${indent}\`\`\`mermaid\n${fixed}\n${indent}\`\`\``;
+    return `${indent}\`\`\`mermaid\n${fixed}\n${closeIndent}\`\`\``;
   });
   return { content: next, modified };
 }
