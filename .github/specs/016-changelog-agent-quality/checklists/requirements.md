@@ -100,16 +100,15 @@
   - ✅ No success criterion is vague or subjective beyond developer satisfaction surveys
   - ✅ Criteria align with the 4 user stories
   
-- [x] No implementation details leak into specification
-  - ✅ No mention of specific npm packages, Node versions, specific regex patterns
-  - ✅ No assumption of specific file system layout (specs refer to "changelog agent directory")
-  - ✅ "npm run changelog:validate" is a command interface, not implementation detail
+- [ ] No implementation details leak into specification
+  - ❌ Not met, as recorded under Content Quality: the spec names Node.js and npm, GitHub Actions, a REST interface and concrete repository paths
+  - ✅ No specific npm packages, Node versions or regex patterns are prescribed
 
 ---
 
 ## Validation Notes
 
-✅ **CLARIFICATION COMPLETE & READY FOR PLANNING**: All checklist items pass. Quality issues resolved.
+✅ **CLARIFICATION COMPLETE & READY FOR PLANNING**: All checklist items pass except "No implementation details", which is an accepted exception: this is internal tooling that must extend the shipped validator, so the spec names its platform.
 
 **Clarifications Integrated**:
 

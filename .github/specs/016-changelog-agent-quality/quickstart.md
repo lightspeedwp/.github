@@ -194,7 +194,8 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   if (!fs.existsSync(skillPath)) throw new Error(`Missing ${skillPath}`);
 
   const content = fs.readFileSync(skillPath, 'utf8');
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  // The closing delimiter must be a whole line: `---` then end of line or file.
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/);
   if (!match) throw new Error(`Missing YAML frontmatter: ${skillPath}`);
   const frontmatter = yaml.load(match[1]);
 

@@ -273,11 +273,24 @@ if (!skipValidation) {
   confirmed dead. A different-host lock is stale only after its lease expires
   and its heartbeat metadata remains unchanged for an additional recovery
   grace period. Corrupt metadata must likewise remain unchanged beyond that
-  grace period. Recovery re-stats the file and compares its owner token, inode,
-  size, and modification time before unlinking; if any value changed, the
-  contender retries without deleting it. This prevents an abandoned
-  `.changelog.lock` from blocking future runs without deleting a live owner's
-  replacement lock.
+  grace period.
+- Recovery is an atomic compare-and-remove, never a path-based unlink after a
+  check (two contenders could both pass the check, and the second would delete
+  a new owner's live lock):
+  1. Record the stale file's owner token and inode.
+  2. `rename()` it to a tombstone unique to this contender
+     (`<lock>.stale.<contender-token>`). Rename is atomic, so it moves exactly
+     one file, and a contender that loses the race gets `ENOENT`.
+  3. Compare the tombstone's inode and token with the recorded values. If they
+     match, unlink the tombstone. If not, a new owner's lock was moved:
+     restore it with `link(tombstone, lock)` (atomic, fails with `EEXIST` if a
+     lock already exists), then unlink the tombstone and retry.
+  4. Every owner checks that its token is still in the lock file immediately
+     before each write, as a fence. An owner that finds its lock missing or
+     replaced aborts without writing.
+- The coordination mutex is recovered the same way, so recovering it cannot
+  delete a live mutex either. This prevents an abandoned `.changelog.lock` from
+  blocking future runs without deleting a live owner's lock.
 
 **Reader/writer protocol**:
 

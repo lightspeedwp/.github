@@ -144,10 +144,14 @@ npm run changelog:check-links -- --changelog-path ./CHANGELOG.md --strict
 
 ### Exit Codes
 
-| Code | Meaning                                   |
-| ---- | ----------------------------------------- |
-| 0    | All links valid and merged                |
-| 1    | One or more links invalid or unmerged     |
+An unmerged link (draft or open PR) fails the run only with `--strict`. Without
+it, unmerged links are counted in `links_unmerged` and reported, but `valid`
+stays `true` and the exit code is 0.
+
+| Code | Meaning                                                                   |
+| ---- | ------------------------------------------------------------------------- |
+| 0    | All links valid (unmerged links allowed unless `--strict`)                |
+| 1    | One or more links invalid, or, with `--strict`, one or more unmerged      |
 | 2    | File not found                            |
 | 3    | GitHub API error (auth, rate limit, etc.) |
 | 4    | Invalid arguments                         |
