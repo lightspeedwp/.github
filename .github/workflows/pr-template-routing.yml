@@ -12,6 +12,11 @@ permissions:
   contents: read
   pull-requests: write
 
+# A newer push or body edit supersedes the in-flight routing run.
+concurrency:
+  group: pr-template-routing-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   route-pr-template-and-labels:
     name: Route PR template and apply labels
@@ -19,29 +24,26 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      # The router needs only scripts/, the PR templates and the root
+      # package files (included by cone-mode sparse checkout), and no git
+      # history.
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+          sparse-checkout: |
+            scripts
+            .github/PULL_REQUEST_TEMPLATE
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
+      # --ignore-scripts skips the husky/git-hook install, which CI never uses.
       - name: Install dependencies
-        run: npm ci
-
-      - name: Diagnose environment
-        env:
-          BRANCH_NAME: ${{ github.head_ref }}
-        run: |
-          echo "Node version: $(node --version)"
-          echo "npm version: $(npm --version)"
-          echo "GitHub context branch (head_ref): $BRANCH_NAME"
-          echo "Current directory: $(pwd)"
-          echo "Files in scripts/: $(ls -la scripts/pr-template-router.js 2>&1)"
+        run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
 
       - name: Route PR template and labels
         id: route
@@ -109,10 +111,14 @@ jobs:
 
           echo "DEBUG: Outputs written successfully"
 
+      # Router outputs are derived from the branch name, which a fork PR
+      # controls: pass them through env, never inline them into shell.
       - name: Verify template exists
         id: verify-template
+        env:
+          ROUTE_TEMPLATE: ${{ steps.route.outputs.template }}
         run: |
-          TEMPLATE_FILE=".github/PULL_REQUEST_TEMPLATE/${{ steps.route.outputs.template }}.md"
+          TEMPLATE_FILE=".github/PULL_REQUEST_TEMPLATE/${ROUTE_TEMPLATE}.md"
           if [ -f "$TEMPLATE_FILE" ]; then
             echo "✓ Template found: $TEMPLATE_FILE"
             echo "exists=true" >> $GITHUB_OUTPUT
@@ -123,11 +129,22 @@ jobs:
 
       - name: Verify PR body matches template
         if: steps.verify-template.outputs.exists == 'true'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           ROUTE_TEMPLATE: ${{ steps.route.outputs.template }}
         with:
           script: |
+            // Automated update PRs have generated bodies that never follow a
+            // human template; requiring the sections made every Dependabot PR
+            // fail this required check (#3476). Explicit allowlist, so other
+            // app-authored PRs (for example AI agents) still need the template.
+            const exemptAuthors = ['dependabot[bot]', 'lightspeed-docs-bot[bot]'];
+            const author = context.payload.pull_request?.user?.login || '';
+            if (exemptAuthors.includes(author)) {
+              core.info(`Skipping template body check for automated PR author ${author}.`);
+              return;
+            }
+
             const fs = require('node:fs');
             const templateName = process.env.ROUTE_TEMPLATE;
             const templateFile = `.github/PULL_REQUEST_TEMPLATE/${templateName}.md`;
@@ -201,7 +218,7 @@ jobs:
 
       - name: Apply labels to PR
         if: steps.verify-template.outputs.exists == 'true' && steps.route.outputs.labels != ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           ROUTE_LABELS: ${{ steps.route.outputs.labels }}
         with:
@@ -228,7 +245,7 @@ jobs:
 
       - name: Add PR comment with routing info
         if: success()
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           ROUTE_BRANCH_TYPE: ${{ steps.route.outputs.branch_type }}
           ROUTE_TEMPLATE: ${{ steps.route.outputs.template }}
@@ -295,10 +312,16 @@ jobs:
 
       - name: Report routing status
         if: always()
+        env:
+          ROUTE_BRANCH_TYPE: ${{ steps.route.outputs.branch_type }}
+          ROUTE_SCOPE: ${{ steps.route.outputs.scope }}
+          ROUTE_TEMPLATE: ${{ steps.route.outputs.template }}
+          ROUTE_LABELS: ${{ steps.route.outputs.labels }}
+          TEMPLATE_EXISTS: ${{ steps.verify-template.outputs.exists }}
         run: |
           echo "=== PR Template Routing Summary ==="
-          echo "Branch Type: ${{ steps.route.outputs.branch_type }}"
-          echo "Scope: ${{ steps.route.outputs.scope }}"
-          echo "PR Template: ${{ steps.route.outputs.template }}"
-          echo "Labels: ${{ steps.route.outputs.labels }}"
-          echo "Template Exists: ${{ steps.verify-template.outputs.exists }}"
+          echo "Branch Type: $ROUTE_BRANCH_TYPE"
+          echo "Scope: $ROUTE_SCOPE"
+          echo "PR Template: $ROUTE_TEMPLATE"
+          echo "Labels: $ROUTE_LABELS"
+          echo "Template Exists: $TEMPLATE_EXISTS"

@@ -34,7 +34,7 @@ jobs:
       run_validation: ${{ steps.gate.outputs.run_validation }}
     steps:
       - name: Checkout PR head
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           submodules: false
@@ -42,7 +42,7 @@ jobs:
 
       - name: Require changelog update or skip label
         id: gate
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const cp = require("node:child_process");
@@ -121,7 +121,7 @@ jobs:
 
       - name: Setup Node
         if: steps.gate.outputs.run_validation == 'true'
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -149,14 +149,14 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           submodules: false
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -167,12 +167,19 @@ jobs:
           cd .github/validation/changelog
           npm ci --prefer-offline --no-audit --no-fund
 
+      # Native git diff instead of a third-party action: the checkout is the
+      # PR test-merge commit, whose first parent is the base SHA, so this is
+      # exactly "did this PR change CHANGELOG.md".
       - name: Detect changed files
         id: changed-files
-        uses: tj-actions/changed-files@v47
-        with:
-          files: |
-            CHANGELOG.md
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if git diff --quiet "$BASE_SHA" HEAD -- CHANGELOG.md; then
+            echo "any_changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "any_changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Validate changelog entries
         id: validate
@@ -181,10 +188,11 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_REF: ${{ github.head_ref }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          CHANGELOG_CHANGED: ${{ steps.changed-files.outputs.any_changed }}
         run: |
           cd .github/validation/changelog
 
-          if [ "${{ steps.changed-files.outputs.any_changed }}" == "false" ]; then
+          if [ "$CHANGELOG_CHANGED" == "false" ]; then
             echo "passed=0" >> $GITHUB_OUTPUT
             echo "failed=0" >> $GITHUB_OUTPUT
             echo "warnings=0" >> $GITHUB_OUTPUT
@@ -271,7 +279,7 @@ jobs:
 
       - name: Post PR comment
         if: steps.changed-files.outputs.any_changed == 'true'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           PASSED: ${{ steps.validate.outputs.passed }}
           FAILED: ${{ steps.validate.outputs.failed }}
@@ -367,7 +375,7 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout develop
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: develop
           fetch-depth: 0
@@ -375,7 +383,7 @@ jobs:
 
       - name: Check if CHANGELOG.md was modified
         id: check_changelog
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             // listFiles pages at 30 entries by default; paginate so large
@@ -400,7 +408,7 @@ jobs:
 
       - name: Setup Node.js
         if: steps.check_changelog.outputs.has_changelog == 'true'
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
