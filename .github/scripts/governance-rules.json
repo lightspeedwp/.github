@@ -1,0 +1,194 @@
+{
+  "version": "1.0.0",
+  "description": "Governance audit rules configuration for LightSpeed .github",
+  "auditRules": [
+    {
+      "id": "label-prefix-validation",
+      "name": "Label Prefix Validation",
+      "description": "Ensures all labels in .github/labels.yml include required prefix (type:, status:, priority:, area:, meta:)",
+      "enabled": true,
+      "severity": "HIGH",
+      "file": ".github/labels.yml",
+      "validation": {
+        "type": "label-prefix",
+        "requiredPrefixes": ["type:", "status:", "priority:", "area:", "meta:"],
+        "pattern": "^[a-z-]+:[a-z0-9-]+$"
+      }
+    },
+    {
+      "id": "label-documented-purpose",
+      "name": "Label Documented Purpose",
+      "description": "Verifies each label has a documented purpose in YAML comment above definition",
+      "enabled": true,
+      "severity": "MEDIUM",
+      "file": ".github/labels.yml",
+      "validation": {
+        "type": "documented-purpose",
+        "requireComment": true,
+        "maxCommentLength": 100
+      }
+    },
+    {
+      "id": "label-active-usage",
+      "name": "Label Active Usage Detection",
+      "description": "Detects if label is used in templates, workflows, or specifications",
+      "enabled": true,
+      "severity": "MEDIUM",
+      "file": ".github/labels.yml",
+      "validation": {
+        "type": "active-usage",
+        "checkTemplates": true,
+        "checkWorkflows": true,
+        "checkSpecifications": true,
+        "templatePaths": [
+          ".github/ISSUE_TEMPLATE/",
+          ".github/PULL_REQUEST_TEMPLATE/"
+        ],
+        "workflowPaths": [".github/workflows/"],
+        "specPaths": [".github/specs/"]
+      }
+    },
+    {
+      "id": "label-duplicate-detection",
+      "name": "Duplicate Label Detection",
+      "description": "Identifies labels with similar meanings or near-duplicate names",
+      "enabled": true,
+      "severity": "HIGH",
+      "file": ".github/labels.yml",
+      "validation": {
+        "type": "duplicate-detection",
+        "algorithm": "semantic-similarity",
+        "thresholdPercent": 75
+      }
+    },
+    {
+      "id": "issue-type-usage",
+      "name": "Issue Type Usage Validation",
+      "description": "Verifies all issue types in .github/issue-types.yml are used in at least one template",
+      "enabled": true,
+      "severity": "MEDIUM",
+      "file": ".github/issue-types.yml",
+      "validation": {
+        "type": "usage-check",
+        "templatePaths": [".github/ISSUE_TEMPLATE/"]
+      }
+    },
+    {
+      "id": "template-content-validation",
+      "name": "Template Content Validation",
+      "description": "Checks template content for UK English spelling, WCAG 2.2 AA guidance, and no implementation details",
+      "enabled": true,
+      "severity": "MEDIUM",
+      "file": ".github/ISSUE_TEMPLATE/",
+      "validation": {
+        "type": "template-content",
+        "checkSpelling": "uk-english",
+        "checkAccessibility": "wcag2.2-aa",
+        "forbiddenPatterns": ["TODO", "FIXME", "HACK", "XXX"]
+      }
+    },
+    {
+      "id": "pr-template-routing",
+      "name": "PR Template Routing Validation",
+      "description": "Verifies each branch prefix maps to exactly one PR template and mapping is documented",
+      "enabled": true,
+      "severity": "HIGH",
+      "file": ".github/PULL_REQUEST_TEMPLATE/",
+      "validation": {
+        "type": "routing-validation",
+        "configPath": ".github/PULL_REQUEST_TEMPLATE/config.yml",
+        "branchTypes": [
+          "feat",
+          "fix",
+          "hotfix",
+          "release",
+          "refactor",
+          "chore",
+          "task",
+          "doc",
+          "docs",
+          "test",
+          "perf",
+          "ci",
+          "build",
+          "deps",
+          "security",
+          "design",
+          "a11y",
+          "ux",
+          "i18n",
+          "ops",
+          "proto",
+          "ds",
+          "api",
+          "schema",
+          "telemetry",
+          "content",
+          "seo",
+          "config",
+          "migrate",
+          "qa",
+          "uat",
+          "audit",
+          "codex",
+          "revert",
+          "research",
+          "automation",
+          "epic",
+          "aiops"
+        ]
+      }
+    },
+    {
+      "id": "yaml-syntax-validation",
+      "name": "YAML Syntax Validation",
+      "description": "Validates YAML syntax and required field presence in governance files",
+      "enabled": true,
+      "severity": "CRITICAL",
+      "file": ".github/labels.yml",
+      "validation": {
+        "type": "yaml-syntax",
+        "requiredFields": ["name", "color", "description"],
+        "reportLineNumbers": true
+      }
+    }
+  ],
+  "compliance": {
+    "compliancePercentageFormula": "(rulesPassedCount / totalRulesCount) * 100",
+    "thresholdPercent": 95,
+    "severityWeights": {
+      "CRITICAL": 10,
+      "HIGH": 5,
+      "MEDIUM": 2,
+      "LOW": 1
+    }
+  },
+  "reporting": {
+    "outputFormats": ["json", "markdown"],
+    "outputDirectory": ".github/reports",
+    "reportFilePattern": "governance-audit-{YYYYMMDD}-{HHMMSS}",
+    "retentionDays": 90,
+    "summarizeAfterDays": 30
+  },
+  "performance": {
+    "targetAuditDurationSeconds": 30,
+    "targetValidationDurationSeconds": 2,
+    "targetReportGenerationSeconds": 5
+  },
+  "constitution": {
+    "source": ".specify/memory/constitution.md",
+    "alignmentCheckEnabled": true,
+    "principles": [
+      "organisation-wide-governance-authority",
+      "curated-assets-locked-governance",
+      "clear-asset-boundaries",
+      "technology-agnostic-guidance",
+      "branch-naming-strategy",
+      "uk-english-accessibility-security",
+      "specification-quality-standards",
+      "branch-strategy-compliance",
+      "requirements-driven-quality",
+      "automated-validation-metrics"
+    ]
+  }
+}

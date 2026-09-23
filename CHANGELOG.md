@@ -97,6 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
 - **Branch Cleanup Audit Added** — Added safe-cleanup guidance with keep, review and delete categories. (#3128)
