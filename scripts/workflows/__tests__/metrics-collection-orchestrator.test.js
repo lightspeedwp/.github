@@ -298,11 +298,10 @@ describe("MetricsCollectionOrchestrator", () => {
 
   test("should track collection duration", async () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
-    const startTime = Date.now();
-    orchestrator.startTime = startTime;
-
-    // Simulate some processing time
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // A fixed clock, not a 100 ms sleep: timers may fire up to 1 ms early
+    // relative to Date.now(), which made this assertion flaky (#3479).
+    const nowSpy = jest.spyOn(Date, "now").mockReturnValue(1_000_100);
+    orchestrator.startTime = 1_000_000;
 
     orchestrator.results = [
       {
@@ -316,10 +315,14 @@ describe("MetricsCollectionOrchestrator", () => {
       },
     ];
 
-    const summary = orchestrator.generateSummary();
+    let summary;
+    try {
+      summary = orchestrator.generateSummary();
+    } finally {
+      nowSpy.mockRestore();
+    }
 
-    expect(summary.execution.duration).toBeGreaterThanOrEqual(100);
-    expect(summary.execution.duration).toBeGreaterThan(0);
+    expect(summary.execution.duration).toBe(100);
   });
 
   test("should handle parallel vs sequential execution configuration", () => {
