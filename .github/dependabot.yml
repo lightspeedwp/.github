@@ -1,75 +1,60 @@
+# Dependabot version updates.
+# Options reference: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+#
+# - Only directories with a real manifest and dependencies are listed. The
+#   agent template (.github/templates/agent-structure-template) is excluded:
+#   its package.json holds {placeholders}, not real dependencies.
+# - No composer ecosystem: the only composer.json is a test fixture
+#   (agents/chat-closure-agent/tests/fixtures/), and the root has none.
+# - Minor and patch updates are grouped per directory, so one PR replaces
+#   many; majors stay separate for individual review.
+# - Cooldown waits a few days after a release before proposing it, which
+#   avoids most bad or compromised releases that are pulled quickly.
 version: 2
 updates:
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
-    - area:ci
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
-- package-ecosystem: npm
-  directory: "/website"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
-- package-ecosystem: npm
-  directory: "/agents/changelog"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
-- package-ecosystem: npm
-  directory: "/agents/pr-creation-agent"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
-- package-ecosystem: npm
-  directory: "/skills/design-md-agent/pdfs/js"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
-- package-ecosystem: npm
-  directory: "/skills/pdfs/js"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
-- package-ecosystem: composer
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: Africa/Johannesburg
-  open-pull-requests-limit: 99
-  labels:
-    - area:dependencies
+  - package-ecosystem: github-actions
+    directories:
+      - "/"
+      - "/.github/actions/*"
+    schedule:
+      interval: daily
+      time: "03:00"
+      timezone: Africa/Johannesburg
+    cooldown:
+      default-days: 3
+    groups:
+      github-actions-minor-patch:
+        update-types: [minor, patch]
+    open-pull-requests-limit: 10
+    labels:
+      - area:dependencies
+      - area:ci
+
+  - package-ecosystem: npm
+    directories:
+      - "/"
+      - "/website"
+      - "/.github/validation/changelog"
+      - "/agents/changelog-agent"
+      - "/agents/meta-agent"
+      - "/agents/pr-agent"
+      - "/agents/prompt-engineer-agent"
+      - "/agents/wordpress-release-utilities-agent"
+      - "/packages/metadata-agent"
+      - "/scripts/validation"
+      - "/skills/audit-label-coverage"
+      - "/skills/design-md-agent/pdfs/js"
+      - "/skills/pdfs/js"
+    schedule:
+      interval: daily
+      time: "03:00"
+      timezone: Africa/Johannesburg
+    cooldown:
+      default-days: 3
+      semver-major-days: 7
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+    open-pull-requests-limit: 10
+    labels:
+      - area:dependencies

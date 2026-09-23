@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://coderabbit.ai/integrations/coderabbit-overrides.v2.json
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
 # Branch-type-specific review context is maintained externally in docs/BRANCHING_STRATEGY.md
 # section 5.3 ("Branch-Type Review Context"), which maps branch types to review focus areas.
@@ -13,23 +13,38 @@ reviews:
   collapse_walkthrough: true # Collapse walkthroughs by default
 
   # === Path Filters (Exclude from Review) ===
+  # Generated, vendored and archived paths are excluded: they are not
+  # reviewable source, and every file counts toward the review file limit.
   path_filters:
     - '!build/**'
     - '!node_modules/**'
     - '!assets/css/*.map'
     - '!logs/**'
     - '!docs/drafts/**'
+    - '!**/package-lock.json'
+    - '!**/checksums.sha256'
+    - '!**/plugin-cache/**'
+    - '!**/plugins/cache/**'
+    - '!metrics-artifacts/**'
+    - '!.github/reports/**'
+    - '!agents/archived/**'
+    - '!.github/workflows/archived/**'
+    - '!.github/projects/archived/**'
 
   # === Auto Review Settings ===
   auto_review:
     enabled: true
     drafts: false
+    # Regex patterns (schema: "Accepts regex patterns"), in addition to the
+    # default branch (develop). Every PR must be reviewed before merge,
+    # including stacked PRs whose base is another feature branch.
     base_branches:
-      - 'main'
-      - 'develop'
-      - 'feature/*'
-      - 'fix/*'
-      - 'update/*'
+      - '.*'
+    # Automated update PRs are human-approved anyway; skipping them saves the
+    # review quota for human-authored changes.
+    ignore_usernames:
+      - 'dependabot[bot]'
+      - 'lightspeed-docs-bot[bot]'
 
   # === Path Priority System (CRITICAL: DO NOT SKIP) ===
   # This system ensures deterministic path pattern matching with explicit priority/specificity ordering.

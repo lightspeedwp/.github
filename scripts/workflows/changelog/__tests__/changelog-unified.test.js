@@ -104,7 +104,25 @@ function writeExecutable(directory, name, source) {
   fs.writeFileSync(executable, `#!/usr/bin/env bash\n${source}\n`, { mode: 0o755 });
 }
 
-function runBashStep(script, options = {}) {
+// Mirror the runner: a step's `env:` values are expression-rendered and
+// exported to its script. Only entries whose expressions the test supplies
+// are exported, so the harness defaults below stand in for secrets.
+function renderStepEnv(step, expressions) {
+  return Object.fromEntries(
+    Object.entries(step.env || {}).flatMap(([name, value]) => {
+      const keys = [...String(value).matchAll(/\$\{\{\s*([^}]+?)\s*\}\}/gu)].map((match) =>
+        match[1].trim()
+      );
+
+      return keys.every((key) => Object.hasOwn(expressions, key))
+        ? [[name, renderExpressions(String(value), expressions)]]
+        : [];
+    })
+  );
+}
+
+function runBashStep(step, options = {}) {
+  const script = step.run;
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-unified-'));
   const mockBin = path.join(temporaryDirectory, 'bin');
   const outputPath = path.join(temporaryDirectory, 'github-output');
@@ -133,6 +151,7 @@ function runBashStep(script, options = {}) {
       CHANGELOG_GITHUB_TOKEN: 'test-token',
       HEAD_REF: 'fix/changelog-unified',
       PR_NUMBER: '3405',
+      ...renderStepEnv(step, options.expressions || {}),
       ...options.env,
       GITHUB_OUTPUT: outputPath,
       PATH: `${mockBin}:${process.env.PATH}`,
@@ -363,8 +382,8 @@ describe('require-gate inline script', () => {
 });
 
 describe('quality validation shell steps', () => {
-  const validationScript = findStep('quality', 'validate').run;
-  const statusScript = findStep('quality', 'Set status check (new failures only)').run;
+  const validationScript = findStep('quality', 'validate');
+  const statusScript = findStep('quality', 'Set status check (new failures only)');
   const nodeCommand = [
     'if [[ "$*" == *"base-changelog.md"* ]]; then',
     '  printf \'%s\\n\' "$BASE_REPORT"',

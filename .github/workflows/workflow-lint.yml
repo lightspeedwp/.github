@@ -20,6 +20,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: workflow-lint-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   actionlint:
     name: actionlint
@@ -27,10 +31,12 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Read-only job: nothing pushes, so do not persist credentials.
           persist-credentials: false
+          # Only workflow files and local actions are linted.
+          sparse-checkout: .github
 
       - name: Download actionlint
         env:
@@ -52,16 +58,16 @@ jobs:
           SHELLCHECK_OPTS: --severity=error
         run: |
           # Explicit file list, not repo-wide. Archived workflows are
-          # frozen history and stay unlinted. changelog-unified.yml and
-          # pr-template-routing.yml pass branch-derived data via env, not
-          # inline expansion, and are linted.
+          # frozen history and stay unlinted. Every active workflow must be
+          # listed here.
           ./actionlint -shellcheck="$(command -v shellcheck || true)" \
-            -ignore 'missing input "app-id" which is required by action "actions/create-github-app-token@v3"' \
-            -ignore 'input "client-id" is not defined in action "actions/create-github-app-token@v3"' \
+            -ignore 'missing input "app-id" which is required by action "actions/create-github-app-token@' \
+            -ignore 'input "client-id" is not defined in action "actions/create-github-app-token@' \
             .github/workflows/branch-name-validation.yml \
             .github/workflows/branch-validation-metrics-aggregator.yml \
             .github/workflows/changelog-unified.yml \
             .github/workflows/documentation.yml \
+            .github/workflows/labeling-unified.yml \
             .github/workflows/pr-template-routing.yml \
             .github/workflows/validate-specifications.yml \
             .github/workflows/workflow-lint.yml
