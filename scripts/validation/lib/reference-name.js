@@ -8,6 +8,12 @@
 
 const CONTAINER = /(?:^|\/)(?:agents|skills)\/([^/]+)/g;
 
+/**
+ * Remove relative-path notation, trailing slashes, and file extensions.
+ *
+ * @param {string} value - Reference value to normalise.
+ * @returns {string} Normalised reference path.
+ */
 function clean(value) {
   return value
     .replace(/^\.\//, '')
