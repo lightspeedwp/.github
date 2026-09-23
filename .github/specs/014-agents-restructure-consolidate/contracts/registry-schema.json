@@ -83,39 +83,25 @@
         "id",
         "name",
         "category",
-        "path",
+        "location",
         "description",
         "type",
         "version",
-        "agentskills_io_compliant"
+        "agentskills_compliant",
+        "compliance_violations",
+        "used_by"
       ],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string", "minLength": 1 },
         "category": { "type": "string", "minLength": 1 },
-        "path": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "pattern": "^(root|[a-z0-9-]+)$" },
         "description": { "type": "string", "minLength": 1 },
         "type": { "type": "string", "minLength": 1 },
         "version": { "$ref": "#/$defs/version" },
-        "agentskills_io_compliant": { "$ref": "#/$defs/compliance" }
-      }
-    },
-    "compliance": {
-      "type": "object",
-      "required": ["compliant", "checks"],
-      "properties": {
-        "compliant": { "type": "boolean" },
-        "checks": {
-          "type": "object",
-          "required": ["hasName", "hasDescription", "hasInputs", "hasOutputs", "hasExamples"],
-          "properties": {
-            "hasName": { "type": "boolean" },
-            "hasDescription": { "type": "boolean" },
-            "hasInputs": { "type": "boolean" },
-            "hasOutputs": { "type": "boolean" },
-            "hasExamples": { "type": "boolean" }
-          }
-        }
+        "agentskills_compliant": { "type": "boolean" },
+        "compliance_violations": { "type": "array", "items": { "type": "string" } },
+        "used_by": { "type": "array", "items": { "type": "string" } }
       }
     },
     "consolidatedSummary": {

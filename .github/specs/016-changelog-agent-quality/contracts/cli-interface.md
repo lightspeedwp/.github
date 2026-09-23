@@ -287,17 +287,36 @@ npm run changelog:format -- --changelog-path ./CHANGELOG.md --dry-run
 
 ### Error Handling
 
-All commands follow this error response pattern:
+With `--output json`, the shipped validate CLI reports errors as follows. `error`
+is a string, not a boolean. There is no shared `code`, `suggestion` or
+`timestamp` field.
+
+| Case                           | Fields                                                         |
+| ------------------------------ | -------------------------------------------------------------- |
+| Missing file                   | `error`, `exit_code` (1), `trigger`, `ci_context`              |
+| Missing `[Unreleased]` section | `error`, `exit_code` (1), `trigger`, `ci_context`              |
+| Parse failure                  | `error`, `errors` (string array), `exit_code` (1), `trigger`, `ci_context` |
+| Unexpected error               | `error`, `message`, `exit_code` (1), `trigger`                 |
 
 ```json
 {
-  "error": true,
-  "code": "ERROR_CODE",
-  "message": "Human-readable error message",
-  "suggestion": "How to fix this error",
-  "timestamp": "2026-09-19T14:32:15Z"
+  "error": "CHANGELOG.md not found at ./CHANGELOG.md",
+  "exit_code": 1,
+  "trigger": "manual",
+  "ci_context": {
+    "ci_system": "local",
+    "branch": "unknown",
+    "is_pr": false,
+    "pr_number": null,
+    "commit": "",
+    "repo": "",
+    "event": "unknown"
+  }
 }
 ```
+
+The check-links, merge and format commands are not shipped. Their error
+payloads are defined when they are implemented.
 
 ### Timeout Handling
 
@@ -311,14 +330,20 @@ their contract-specific timeouts when implemented.
 $ node .github/validation/changelog/bin/validate.js --help
 
 Options:
-  -p, --changelog-path  Path to CHANGELOG.md file       [default: "CHANGELOG.md"]
+      --version         Show version number                            [boolean]
+  -p, --changelog-path  Path to CHANGELOG.md file
+                                              [string] [default: "CHANGELOG.md"]
   -t, --trigger         Validation trigger type
-                    [choices: "manual", "pr_submission", "scheduled_audit"]
-                                                       [default: "manual"]
+          [string] [choices: "manual", "pr_submission", "scheduled_audit"]
+                                                             [default: "manual"]
+      --pr-number       GitHub PR number (for pr_submission trigger)    [number]
+      --branch          Git branch name                                 [string]
+      --github-token    GitHub API token for link validation            [string]
   -o, --output          Output format
-                                      [choices: "text", "json"] [default: "text"]
-  -v, --verbose         Enable verbose output          [boolean] [default: false]
-  -m, --metrics         Save metrics snapshot          [boolean] [default: false]
+                            [string] [choices: "text", "json"] [default: "text"]
+  -v, --verbose         Enable verbose output         [boolean] [default: false]
+  -m, --metrics         Save metrics snapshot         [boolean] [default: false]
+      --metrics-path    Path to metrics.json file                       [string]
   -h, --help            Show help                                      [boolean]
 ```
 

@@ -67,4 +67,4 @@ verified findings.
 5. Milestone assignment (governance workflow, manual assignment)
 6. lint/Testing (merged develop branch files)
 
-**Next Step**: Execute `/speckit-clarify` if any team questions arise during PR review, or proceed to `/speckit-plan` to define the remediation roadmap.
+**Status**: Resolved (2026-09-22). No remediation roadmap is needed; see the resolution note in [spec.md](../spec.md).

@@ -40,6 +40,13 @@ All specification catalog entries MUST follow this exact column order and naming
 | 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
 | 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
 | 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Active | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
+
+---
+
+## Resolved Specifications
+
+| # | Slug | Title | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
 | 017 | ci-failure-remediation | CI Failure Remediation (Environmental Issues) | Resolved | 2026-09-18 | [./017-ci-failure-remediation/spec.md](./017-ci-failure-remediation/spec.md) |
 
 ---
@@ -259,6 +266,7 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 - **Draft**: New specification pending governance approval
 - **Active**: Approved and in use
+- **Resolved**: Closed because the problem it addressed no longer occurs; kept for the record
 - **Archived**: No longer used; superseded, cancelled, or deprecated; preserved for historical traceability
 
 ---
