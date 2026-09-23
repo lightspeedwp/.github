@@ -25,6 +25,8 @@ describe('replaceReferenceName', () => {
     ['agents/issue-agent', 'issue-triage-agent', 'agents/issue-triage-agent'],
     ['agents/issue-agent/run.sh', 'triage', 'agents/triage/run.sh'],
     ['agents/pr-agent/skills/submit-pr', 'open-pr', 'agents/pr-agent/skills/open-pr'],
+    ['skills/js/js.js', 'bar', 'skills/js/bar.js'],
+    ['./skills/foo.js', 'bar', './skills/bar.js'],
   ])('%s with %s -> %s', (value, name, expected) => {
     expect(replaceReferenceName(value, name)).toBe(expected);
   });

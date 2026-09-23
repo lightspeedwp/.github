@@ -48,6 +48,11 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       expect(refs.map((r) => r.value)).toEqual([value]);
     });
 
+    it('should not match prose that mentions import and from', () => {
+      const refs = detector.detectJSImports("Docs: we import the thing from 'agents/my-agent'");
+      expect(refs).toHaveLength(0);
+    });
+
     it('should not treat a dynamic import() as a static import twice', () => {
       const refs = detector.detectJSImports("await import('agents/my-agent')");
       expect(refs).toHaveLength(1);

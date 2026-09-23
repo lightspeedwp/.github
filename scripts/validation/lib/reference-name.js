@@ -33,7 +33,9 @@ export function referenceName(value) {
  */
 export function replaceReferenceName(value, newName) {
   const name = referenceName(value);
-  const index = value.lastIndexOf(name);
+  // Search before any extension, so `skills/js/js.js` never matches `.js`.
+  const extension = value.match(/\.\w+$/)?.[0] ?? '';
+  const index = value.slice(0, value.length - extension.length).lastIndexOf(name);
   if (index === -1) return newName;
   return value.slice(0, index) + newName + value.slice(index + name.length);
 }

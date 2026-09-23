@@ -13,7 +13,8 @@ export class ReferenceDetector {
       jsImport: [
         /require\(['"]([^'"]+)['"]?\)/g,
         // Side-effect, default, named and namespace imports (#3460).
-        /import\s+(?:[\w$*{},\s]+?\s+from\s+)?['"]([^'"]+)['"]/g,
+        // Anchored to the start of a line so prose is not matched.
+        /^\s*import\s+(?:[\w$*{},\s]+?\s+from\s+)?['"]([^'"]+)['"]/gm,
         /import\(['"]([^'"]+)['"]\)/g,
       ],
       shellPath: [/agents\/[\w-]+/g, /scripts\/[\w-]+/g, /skills\/[\w-]+/g],
