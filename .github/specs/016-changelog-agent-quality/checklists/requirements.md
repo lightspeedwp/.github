@@ -24,7 +24,7 @@
   
 - [x] All mandatory sections completed
   - ✅ User Scenarios & Testing: 4 prioritized stories with acceptance scenarios
-  - ✅ Requirements: 10 functional requirements, 4 key entities
+  - ✅ Requirements: 11 functional requirements (FR-001–FR-011), 4 key entities
   - ✅ Success Criteria: 10 measurable outcomes
   - ✅ Assumptions: 12 clearly stated assumptions
 
