@@ -9,173 +9,182 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 class GovernanceFile {
-	constructor(filePath, content, metadata = {}) {
-		this.id = this._generateId(filePath);
-		this.path = filePath;
-		this.type = this._detectType(filePath);
-		this.format = this._detectFormat(filePath);
-		this.content = content;
-		this.locked = metadata.locked !== false; // Default to locked
-		this.metadata = metadata;
-	}
+  constructor(filePath, content, metadata = {}) {
+    this.id = this._generateId(filePath);
+    this.path = filePath;
+    this.type = this._detectType(filePath);
+    this.format = this._detectFormat(filePath);
+    this.content = content;
+    this.locked = metadata.locked !== false; // Default to locked
+    this.metadata = metadata;
+  }
 
-	/**
-	 * Generate unique identifier from file path
-	 */
-	_generateId(filePath) {
-		return path.basename(filePath).replace(/\.[^/.]+$/, '').replace(/[^a-z0-9-]/gi, '-').toLowerCase();
-	}
+  /**
+   * Generate unique identifier from file path
+   */
+  _generateId(filePath) {
+    return path
+      .basename(filePath)
+      .replace(/\.[^/.]+$/, '')
+      .replace(/[^a-z0-9-]/gi, '-')
+      .toLowerCase();
+  }
 
-	/**
-	 * Detect governance file type
-	 */
-	_detectType(filePath) {
-		const filename = path.basename(filePath);
+  /**
+   * Detect governance file type
+   */
+  _detectType(filePath) {
+    const filename = path.basename(filePath);
 
-		if (filename === 'labels.yml' || filename === 'labels.yaml') {
-			return 'labels';
-		}
-		if (filename === 'issue-types.yml' || filename === 'issue-types.yaml') {
-			return 'issue-types';
-		}
-		if (filename.endsWith('.md') && filePath.includes('TEMPLATE')) {
-			return 'template';
-		}
-		const normalized = filePath.split(path.sep).join('/');
-		if (/(^|\/)\.github\/workflows\//.test(normalized) && (filename.endsWith('.yml') || filename.endsWith('.yaml'))) {
-			return 'workflow';
-		}
-		if (filename.endsWith('.json')) {
-			return 'json-config';
-		}
-		return 'unknown';
-	}
+    if (filename === 'labels.yml' || filename === 'labels.yaml') {
+      return 'labels';
+    }
+    if (filename === 'issue-types.yml' || filename === 'issue-types.yaml') {
+      return 'issue-types';
+    }
+    if (filename.endsWith('.md') && filePath.includes('TEMPLATE')) {
+      return 'template';
+    }
+    const normalized = filePath.split(path.sep).join('/');
+    if (
+      /(^|\/)\.github\/workflows\//.test(normalized) &&
+      (filename.endsWith('.yml') || filename.endsWith('.yaml'))
+    ) {
+      return 'workflow';
+    }
+    if (filename.endsWith('.json')) {
+      return 'json-config';
+    }
+    return 'unknown';
+  }
 
-	/**
-	 * Detect file format
-	 */
-	_detectFormat(filePath) {
-		const ext = path.extname(filePath).toLowerCase();
-		if (ext === '.yml' || ext === '.yaml') return 'yaml';
-		if (ext === '.md' || ext === '.markdown') return 'markdown';
-		if (ext === '.json') return 'json';
-		return 'text';
-	}
+  /**
+   * Detect file format
+   */
+  _detectFormat(filePath) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (ext === '.yml' || ext === '.yaml') return 'yaml';
+    if (ext === '.md' || ext === '.markdown') return 'markdown';
+    if (ext === '.json') return 'json';
+    return 'text';
+  }
 
-	/**
-	 * Parse YAML content
-	 */
-	static parseYaml(content) {
-		try {
-			return yaml.load(content);
-		} catch (error) {
-			throw new Error(`YAML parse error: ${error.message}`);
-		}
-	}
+  /**
+   * Parse YAML content
+   */
+  static parseYaml(content) {
+    try {
+      return yaml.load(content);
+    } catch (error) {
+      throw new Error(`YAML parse error: ${error.message}`, { cause: error });
+    }
+  }
 
-	/**
-	 * Parse JSON content
-	 */
-	static parseJson(content) {
-		try {
-			return JSON.parse(content);
-		} catch (error) {
-			throw new Error(`JSON parse error: ${error.message}`);
-		}
-	}
+  /**
+   * Parse JSON content
+   */
+  static parseJson(content) {
+    try {
+      return JSON.parse(content);
+    } catch (error) {
+      throw new Error(`JSON parse error: ${error.message}`, { cause: error });
+    }
+  }
 
-	/**
-	 * Parse Markdown frontmatter
-	 */
-	static parseMarkdownFrontmatter(content) {
-		const frontmatterRegex = /^---\r?\n([\s\S]*?)(?:\r?\n)?---(?:\r?\n|$)([\s\S]*)$/;
-		const match = content.match(frontmatterRegex);
+  /**
+   * Parse Markdown frontmatter
+   */
+  static parseMarkdownFrontmatter(content) {
+    const frontmatterRegex = /^---\r?\n([\s\S]*?)(?:\r?\n)?---(?:\r?\n|$)([\s\S]*)$/;
+    const match = content.match(frontmatterRegex);
 
-		if (!match) {
-			return { metadata: {}, body: content };
-		}
+    if (!match) {
+      return { metadata: {}, body: content };
+    }
 
-		try {
-			const loaded = yaml.load(match[1]);
-			const metadata = loaded && typeof loaded === 'object' && !Array.isArray(loaded) ? loaded : {};
-			return { metadata, body: match[2] };
-		} catch (error) {
-			throw new Error(`Frontmatter parse error: ${error.message}`);
-		}
-	}
+    try {
+      const loaded = yaml.load(match[1]);
+      const metadata = loaded && typeof loaded === 'object' && !Array.isArray(loaded) ? loaded : {};
+      return { metadata, body: match[2] };
+    } catch (error) {
+      throw new Error(`Frontmatter parse error: ${error.message}`, { cause: error });
+    }
+  }
 
-	/**
-	 * Get parsed content based on format
-	 */
-	getParsedContent() {
-		switch (this.format) {
-			case 'yaml':
-				return GovernanceFile.parseYaml(this.content);
-			case 'json':
-				return GovernanceFile.parseJson(this.content);
-			case 'markdown': {
-				const { metadata, body } = GovernanceFile.parseMarkdownFrontmatter(this.content);
-				return { metadata, body };
-			}
-			default:
-				return { raw: this.content };
-		}
-	}
+  /**
+   * Get parsed content based on format
+   */
+  getParsedContent() {
+    switch (this.format) {
+      case 'yaml':
+        return GovernanceFile.parseYaml(this.content);
+      case 'json':
+        return GovernanceFile.parseJson(this.content);
+      case 'markdown': {
+        const { metadata, body } = GovernanceFile.parseMarkdownFrontmatter(this.content);
+        return { metadata, body };
+      }
+      default:
+        return { raw: this.content };
+    }
+  }
 
-	/**
-	 * Serialize to JSON
-	 */
-	toJSON() {
-		return {
-			id: this.id,
-			path: this.path,
-			type: this.type,
-			format: this.format,
-			locked: this.locked,
-			metadata: this.metadata,
-			contentLength: this.content.length,
-		};
-	}
+  /**
+   * Serialize to JSON
+   */
+  toJSON() {
+    return {
+      id: this.id,
+      path: this.path,
+      type: this.type,
+      format: this.format,
+      locked: this.locked,
+      metadata: this.metadata,
+      contentLength: this.content.length,
+    };
+  }
 }
 
 /**
  * Load governance file from disk
  */
 async function loadGovernanceFile(filePath, options = {}) {
-	try {
-		const resolvedPath = path.resolve(filePath);
-		const content = fs.readFileSync(resolvedPath, 'utf8');
+  try {
+    const resolvedPath = path.resolve(filePath);
+    const content = fs.readFileSync(resolvedPath, 'utf8');
 
-		return new GovernanceFile(filePath, content, {
-			locked: options.locked !== false,
-			...options.metadata,
-		});
-	} catch (error) {
-		throw new Error(`Failed to load governance file ${filePath}: ${error.message}`);
-	}
+    return new GovernanceFile(filePath, content, {
+      locked: options.locked !== false,
+      ...options.metadata,
+    });
+  } catch (error) {
+    throw new Error(`Failed to load governance file ${filePath}: ${error.message}`, {
+      cause: error,
+    });
+  }
 }
 
 /**
  * Load multiple governance files
  */
 async function loadGovernanceFiles(filePaths, options = {}) {
-	const files = [];
-	const errors = [];
+  const files = [];
+  const errors = [];
 
-	for (const filePath of filePaths) {
-		try {
-			const file = await loadGovernanceFile(filePath, options);
-			files.push(file);
-		} catch (error) {
-			errors.push({ filePath, error: error.message });
-		}
-	}
+  for (const filePath of filePaths) {
+    try {
+      const file = await loadGovernanceFile(filePath, options);
+      files.push(file);
+    } catch (error) {
+      errors.push({ filePath, error: error.message });
+    }
+  }
 
-	return { files, errors };
+  return { files, errors };
 }
 
 module.exports = {
-	GovernanceFile,
-	loadGovernanceFile,
-	loadGovernanceFiles,
+  GovernanceFile,
+  loadGovernanceFile,
+  loadGovernanceFiles,
 };
