@@ -13,7 +13,7 @@ This guide documents 5 runnable validation scenarios that prove Phase 1 implemen
 **Prerequisites**:
 
 - Phase 1 Setup complete (audit scripts available)
-- Agent files have been renamed/reorganized (per refactor/agents-resturcturing branch)
+- Agent files have been renamed/reorganized (per refactor/agents-restructure-consolidate branch)
 
 **Run**:
 

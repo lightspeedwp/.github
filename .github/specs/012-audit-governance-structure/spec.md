@@ -173,7 +173,7 @@ As a **reader**, I need all references and links in governance files to point to
 ## Assumptions
 
 - **Assumption**: CLAUDE.md and AGENTS.md are authoritative governance files that supersede project-specific instruction files (per constitution)
-- **Assumption**: The constitution (`.specify/memory/constitution.md`) defines non-negotiable principles; any conflicts indicate governance file error, not constitution error
+- **Assumption**: The constitution (`.specify/memory/constitution.md`) defines non-negotiable principles; conflicts with governance files are presumed to be governance file errors unless @ashley explicitly documents a constitution exception with justification during audit review (per Q5 clarification)
 - **Assumption**: @ashley maintains final approval for changes to locked governance files; audit may identify issues but implementation requires her approval
 - **Assumption**: Branch naming rules are non-negotiable and MUST be enforced consistently across all AI tools and GitHub Actions workflows
 - **Assumption**: Spec-first workflow (branch → spec → draft PR) is the standard process; audit should reinforce this pattern, not change it

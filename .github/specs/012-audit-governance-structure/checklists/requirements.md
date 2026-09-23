@@ -17,7 +17,7 @@
 - [x] Requirements are testable and unambiguous — each FR describes measurable state (e.g., "identify ALL duplicates," "validate 100% of references")
 - [x] Success criteria are measurable — includes quantitative targets (15–25% size reduction, 100% reference validation, SC-001 through SC-009, including new changelog requirement)
 - [x] Success criteria are technology-agnostic — focus on governance outcomes, not implementation tools
-- [x] All acceptance scenarios are defined — 3 scenarios per P1 story, 2 per P2 story, plus edge cases
+- [x] All acceptance scenarios are defined — 3 scenarios per P1 story, 3 per P2 story, plus edge cases
 - [x] Edge cases are identified — documents conflict scenarios (consolidated files, archived projects, constitution vs. practice conflicts)
 - [x] Scope is clearly bounded — limits to CLAUDE.md and AGENTS.md, references constitution, excludes locked configuration files as change targets
 - [x] Dependencies and assumptions identified — documents that @ashley has final approval, that constitution supersedes other files, that branch naming is non-negotiable
