@@ -69,12 +69,13 @@ describe('fixDiagram accessibility placement (#3490)', () => {
     expect(fixDiagram(snippet)).toBe('style A fill:#f1f5f9,color:#0f172a,stroke:#334155');
   });
 
-  test.each(['block-beta\n  columns 1\n  A', 'sankey-beta\n  A,B,1'])(
-    'does not inject into types that reject accTitle: %s',
-    (diagram) => {
-      expect(fixDiagram(`accTitle: Diagram\n${diagram}\naccDescr: Detailed diagram`)).toBe(diagram);
-    }
-  );
+  test.each([
+    'block-beta\n  columns 1\n  A',
+    'sankey-beta\n  A,B,1',
+    'mindmap\n  root((R))\n    A',
+  ])('does not inject into types that reject accTitle: %s', (diagram) => {
+    expect(fixDiagram(`accTitle: Diagram\n${diagram}\naccDescr: Detailed diagram`)).toBe(diagram);
+  });
 
   test('keeps author-written accessibility text on unsupported types untouched', () => {
     expect(fixDiagram('block-beta\n  %% accTitle: kept as comment\n  A')).toBe(

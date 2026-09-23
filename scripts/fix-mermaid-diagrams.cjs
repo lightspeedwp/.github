@@ -190,8 +190,10 @@ function findTypeLineIndex(lines) {
   return index < lines.length ? index : -1;
 }
 
-// Diagram types verified (mermaid 12.0.0 parser) to accept accTitle/accDescr
-// directly after the type line. sankey-beta and block-beta reject them.
+// Diagram types verified to accept accTitle/accDescr directly after the type
+// line, by a full mermaid 12.0.0 parse under a DOM (happy-dom). mindmap,
+// sankey-beta and block-beta reject them (a mindmap reads them as extra root
+// nodes: "There can be only one root").
 const ACC_TYPES = [
   "flowchart",
   "flowchart-elk",
@@ -212,14 +214,13 @@ const ACC_TYPES = [
   "C4Component",
   "C4Dynamic",
   "C4Deployment",
-  "mindmap",
   "timeline",
   "xychart-beta",
   "packet-beta",
   "architecture-beta",
   "kanban",
 ];
-const NO_ACC_TYPES = ["sankey-beta", "block-beta"];
+const NO_ACC_TYPES = ["mindmap", "sankey-beta", "block-beta"];
 // Boilerplate this script used to inject; removed again from blocks that
 // cannot carry it (typeless snippets, sankey-beta, block-beta).
 const INJECTED =
