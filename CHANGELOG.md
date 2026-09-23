@@ -73,15 +73,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch Validation on Protected Branches** — Fixed validation failing on every push to protected branches by adding the missing exemption, and aligned the allowed type list with the canonical one. (#3381)
 - **Documentation Bot Commit** — Fixed regenerate-job failures on push by skipping local git hooks for automated commits. (#3381)
 
-### Removed
-
-- **Stale Website Duplicate Removed** — Removed the dead duplicate site folder and corrected the docs. (#3319)
-
 ### Changed
 
 - **Agent Linting Upgraded to Version 10** — Moved agent linting to the flat config format on Node 24. (#3326)
-
-- **Validation Audit Specification Added** — Added the quality audit specification with duplicate detection. (#3348)
 
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
@@ -89,18 +83,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Workflow Lint with actionlint** — Added a workflow-lint CI gate over active workflows on an explicit file list. Two workflows stay excluded until their script-injection findings are fixed. (#3395)
 - **PR Body Template Check** — The router now fails pull requests whose body lacks the routed template sections. (#3396)
 - **PR Body Content Check** — Sections must also contain real content; bare headings or comment-only placeholders now fail the gate. (#3398)
-
-- **Generator Test Suite Added** — Added 19 tests covering the tool, template and validator. (#2620)
-
-- **Generator Integration Added** — Added npm scripts and test suite integration for validation. (#2620)
-
-- **Batch Labelling Added** — Added retroactive labelling for open pull requests missing labels. (#2626)
-
-- **Canonical Labels Added** — Added 10 missing canonical labels for prefix governance. (#2590)
-
-- **Label Enforcement Planned** — Published the 5-phase planning hub for label validation. (#2352)
-
-### Changed
 
 - **Labelling Skip Conditions Added** — Added exclusions for three pull requests to unblock merges. (#2893)
 
