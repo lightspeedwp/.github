@@ -43,9 +43,20 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       ["import Agent, { run } from 'agents/my-agent'", 'agents/my-agent'],
       ["import * as Agent from 'agents/my-agent'", 'agents/my-agent'],
       ["import 'agents/my-agent'", 'agents/my-agent'],
+      ['\timport Agent from "agents/my-agent";', 'agents/my-agent'],
+      ["import {\n  run,\n  stop,\n} from 'agents/my-agent';", 'agents/my-agent'],
     ])('should detect the import form %s', (content, value) => {
       const refs = detector.detectJSImports(content);
       expect(refs.map((r) => r.value)).toEqual([value]);
+    });
+
+    it.each([
+      ["import Agent from './agents/my-agent'", 'relative imports'],
+      ["import Agent from '@scope/my-agent'", 'scoped package imports'],
+      ["// import Agent from 'agents/my-agent'", 'commented-out imports'],
+      ['const note = "import Agent from \'agents/my-agent\'"', 'string contents'],
+    ])('should ignore %s', (content) => {
+      expect(detector.detectJSImports(content)).toEqual([]);
     });
 
     it('should not match prose that mentions import and from', () => {
@@ -113,6 +124,57 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       expect(results[0].isBroken).toBe(true);
     });
 
+    it.each([
+      ['agents/agent-one/run.sh', 'agent paths with a trailing file'],
+      ['skills/skill-one.js', 'skill paths with an extension'],
+    ])('should resolve %s from a bare-name index', (value) => {
+      const results = finder.analyzeReferences(
+        { jsImports: [{ value, type: 'js-import' }] },
+        { path: 'test.js' }
+      );
+
+      expect(results[0]).toMatchObject({
+        reference: value,
+        isBroken: false,
+        severity: 'OK',
+      });
+    });
+
+    it('should honour indexes supplied to the constructor', () => {
+      const injectedFinder = new BrokenRefsFinder({
+        agentIndex: ['constructor-agent'],
+        skillIndex: ['constructor-skill'],
+      });
+      const results = injectedFinder.analyzeReferences(
+        {
+          jsImports: [
+            { value: 'agents/constructor-agent', type: 'js-import' },
+            { value: 'skills/constructor-skill.js', type: 'js-import' },
+            { value: 'agents/missing-agent', type: 'js-import' },
+          ],
+        },
+        { path: 'test.js' }
+      );
+
+      expect(results.map(({ reference, isBroken }) => ({ reference, isBroken }))).toEqual([
+        { reference: 'agents/constructor-agent', isBroken: false },
+        { reference: 'skills/constructor-skill.js', isBroken: false },
+        { reference: 'agents/missing-agent', isBroken: true },
+      ]);
+    });
+
+    it('should treat an explicitly empty injected index as authoritative', () => {
+      const emptyFinder = new BrokenRefsFinder({ agentIndex: [], skillIndex: [] });
+      const results = emptyFinder.analyzeReferences(
+        { jsImports: [{ value: 'agents/pr-agent', type: 'js-import' }] },
+        { path: 'test.js' }
+      );
+
+      // pr-agent exists on disk, but an explicitly empty index must prevent
+      // analyzeReferences() from silently falling back to filesystem state.
+      expect(results[0].isBroken).toBe(true);
+    });
+
     it('should set correct severity levels', () => {
       const criticalRef = {
         jsImports: [{ value: 'agents/missing', type: 'js-import' }],
@@ -150,6 +212,33 @@ describe('Phase 3: Broken Reference Detection & Remediation', () => {
       const suggestion = suggester.suggestFix('agents/agent-on', 'js-import', 'agent');
       expect(suggestion.suggestion).toBe('agent-one');
       expect(suggestion.replacement).toBe('agents/agent-one');
+    });
+
+    it('should use the skill index and preserve a nested path and extension', () => {
+      const suggestion = suggester.suggestFix(
+        'agents/pr-agent/skills/skill-on.js',
+        'js-import',
+        'skill'
+      );
+
+      expect(suggestion).toMatchObject({
+        suggestion: 'skill-one',
+        confidence: 'high',
+        replacement: 'agents/pr-agent/skills/skill-one.js',
+      });
+    });
+
+    it('should keep a stable result contract when no candidate reaches the threshold', () => {
+      const suggestion = suggester.suggestFix('agents/unrelated', 'js-import', 'agent');
+
+      expect(suggestion).toMatchObject({
+        reference: 'agents/unrelated',
+        suggestion: null,
+        candidates: [],
+        alternativeCandidates: [],
+        replacement: null,
+      });
+      expect(suggestion.reason).toContain('threshold: 0.6');
     });
 
     it('should handle no matches gracefully', () => {
