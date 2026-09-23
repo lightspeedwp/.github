@@ -26,9 +26,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
+- **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
+- **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
+- **Branch Cleanup Audit Added** — Added safe-cleanup guidance with keep, review and delete categories. (#3128)
+- **Branch Naming Phase 3 Completed** — Shipped branch-type routing configuration with verified templates. (#3131)
+- **Workflow Consolidation Phase 2 Completed** — Shipped unified workflows with reduced maintenance load. (#3308)
+- **Tasks-to-Issues Conversion Completed** — Converted all 209 specification tasks into tracked issues. (#2907)
+- **Tasks-to-Issues Batch 2 Completed** — Created 80 issues through the API with improved pacing. (#2932)
+- **Review Coverage Guide Added** — Added instruction blocks and a coverage audit guide. (#2895)
+- **Agent Consolidation Phase 6 Completed** — Validated specs and hardened infrastructure. (#2868)
+- **Issue Enrichment Automation Added** — Added automated completeness checks with type-specific templates. (#2835)
+- **Milestone Automation Fixes Completed** — Resolved review findings and synced project docs. (#2640)
+- **Agent Spec Generator Added** — Added an interactive command-line tool for scaffolding agent specs. (#2620)
+- **Agent Spec Template Added** — Added a frontmatter template with placeholder fields for metadata. (#2620)
+
 ### Removed
 
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
+- **Stale Website Duplicate Removed** — Removed the dead duplicate site folder and corrected the docs. (#3319)
 
 ### Fixed
 
@@ -71,33 +89,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Workflow Lint with actionlint** — Added a workflow-lint CI gate over active workflows on an explicit file list. Two workflows stay excluded until their script-injection findings are fixed. (#3395)
 - **PR Body Template Check** — The router now fails pull requests whose body lacks the routed template sections. (#3396)
 - **PR Body Content Check** — Sections must also contain real content; bare headings or comment-only placeholders now fail the gate. (#3398)
-
-### Added
-
-- **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
-- **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
-- **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
-- **Branch Cleanup Audit Added** — Added safe-cleanup guidance with keep, review and delete categories. (#3128)
-
-- **Branch Naming Phase 3 Completed** — Shipped branch-type routing configuration with verified templates. (#3131)
-
-- **Workflow Consolidation Phase 2 Completed** — Shipped unified workflows with reduced maintenance load. (#3308)
-
-- **Tasks-to-Issues Conversion Completed** — Converted all 209 specification tasks into tracked issues. (#2907)
-
-- **Tasks-to-Issues Batch 2 Completed** — Created 80 issues through the API with improved pacing. (#2932)
-
-- **Review Coverage Guide Added** — Added instruction blocks and a coverage audit guide. (#2895)
-
-- **Agent Consolidation Phase 6 Completed** — Validated specs and hardened infrastructure. (#2868)
-
-- **Issue Enrichment Automation Added** — Added automated completeness checks with type-specific templates. (#2835)
-
-- **Milestone Automation Fixes Completed** — Resolved review findings and synced project docs. (#2640)
-
-- **Agent Spec Generator Added** — Added an interactive command-line tool for scaffolding agent specs. (#2620)
-
-- **Agent Spec Template Added** — Added a frontmatter template with placeholder fields for metadata. (#2620)
 
 - **Generator Test Suite Added** — Added 19 tests covering the tool, template and validator. (#2620)
 
