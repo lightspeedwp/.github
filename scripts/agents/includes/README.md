@@ -48,7 +48,7 @@ Files in the parent `agents/` directory are **executable agents** that:
 | `status-enforcer.js` | One-hot label enforcement                   | `labeling.agent.js`            |
 | `readmeUtils.js`     | README file discovery and updates           | `manage-readmes.agent.js`      |
 | `badgeUtils.js`      | Badge generation and management             | `meta.agent.js`                |
-| `footerUtils.js`     | Footer generation and insertion             | `meta.agent.js`                |
+| `header-footer.js`   | Footer generation and insertion             | `meta.agent.js`                |
 | `yaml-parser.js`     | YAML configuration parsing                  | Multiple agents                |
 | `yaml-validator.js`  | Schema validation for YAML files            | Validation workflows           |
 
