@@ -40,9 +40,16 @@ class ComplianceReport {
 	}
 
 	/**
-	 * Check if report passes compliance threshold
+	 * Check if audit passed (no violations found)
 	 */
-	passesThreshold(threshold = 95) {
+	hasPassed() {
+		return this.violations.length === 0;
+	}
+
+	/**
+	 * Check if compliance percentage meets threshold (progress target, not pass/fail)
+	 */
+	meetsComplianceTarget(threshold = 95) {
 		return this.getCompliancePercentage() >= threshold;
 	}
 
@@ -119,6 +126,7 @@ class ComplianceReport {
 				duration: `${this.auditDuration}ms`,
 				filesScanned: this.filesScanned,
 				filesTotal: this.filesTotal,
+				passed: this.hasPassed(),
 			},
 			rules: {
 				checked: this.rulesChecked,
@@ -127,7 +135,7 @@ class ComplianceReport {
 			},
 			compliance: {
 				percentage: this.getCompliancePercentage(),
-				passed: this.passesThreshold(),
+				meetsTarget: this.meetsComplianceTarget(),
 			},
 			violations: {
 				total: stats.total,
@@ -150,7 +158,8 @@ class ComplianceReport {
 		const compliance = this.getCompliancePercentage();
 		const stats = this.getViolationStats();
 		const byFile = this.getViolationsByFile();
-		const passed = this.passesThreshold() ? '✅' : '❌';
+		const auditPassed = this.hasPassed() ? '✅' : '❌';
+		const meetsTarget = this.meetsComplianceTarget() ? '✅' : '⚠️';
 
 		let md = `# Governance Audit Report\n\n`;
 		md += `**Report ID**: ${this.reportId}\n`;
@@ -159,7 +168,8 @@ class ComplianceReport {
 		md += `## Summary\n\n`;
 		md += `| Metric | Value |\n`;
 		md += `|--------|-------|\n`;
-		md += `| **Compliance** | ${compliance}% ${passed} |\n`;
+		md += `| **Audit Status** | ${auditPassed} |\n`;
+		md += `| **Compliance Target** | ${compliance}% ${meetsTarget} |\n`;
 		md += `| **Files Scanned** | ${this.filesScanned}/${this.filesTotal} |\n`;
 		md += `| **Audit Duration** | ${this.auditDuration}ms |\n`;
 		md += `| **Rules Checked** | ${this.rulesChecked} |\n`;
@@ -270,21 +280,31 @@ class ReportWriter {
 			return [];
 		}
 
-		const files = fs.readdirSync(this.outputDir);
-		const jsonFiles = files
-			.filter((f) => f.endsWith('.json'))
-			.map((f) => ({
-				filename: f,
-				filepath: path.join(this.outputDir, f),
-				mtime: fs.statSync(path.join(this.outputDir, f)).mtime,
-			}))
-			.sort((a, b) => b.mtime - a.mtime)
-			.slice(0, limit);
+		try {
+			const files = fs.readdirSync(this.outputDir);
+			const jsonFiles = files
+				.filter((f) => f.endsWith('.json'))
+				.map((f) => ({
+					filename: f,
+					filepath: path.join(this.outputDir, f),
+					mtime: fs.statSync(path.join(this.outputDir, f)).mtime,
+				}))
+				.sort((a, b) => b.mtime - a.mtime)
+				.slice(0, limit);
 
-		return jsonFiles.map((f) => {
-			const content = fs.readFileSync(f.filepath, 'utf8');
-			return JSON.parse(content);
-		});
+			return jsonFiles.map((f) => {
+				try {
+					const content = fs.readFileSync(f.filepath, 'utf8');
+					return JSON.parse(content);
+				} catch (error) {
+					console.error(`Failed to read report ${f.filename}: ${error.message}`);
+					return null;
+				}
+			}).filter((r) => r !== null);
+		} catch (error) {
+			console.error(`Failed to read reports directory: ${error.message}`);
+			return [];
+		}
 	}
 }
 
