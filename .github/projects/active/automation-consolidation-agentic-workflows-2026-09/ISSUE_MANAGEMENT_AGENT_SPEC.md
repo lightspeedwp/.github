@@ -140,10 +140,10 @@ graph TD
     T -->|No| V["✅ Issue Ready for Work"]
     
     style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style V fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style E fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
-    style G fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style K fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style V fill:#dcfce7,stroke:#14532d,stroke-width:2px,color:#14532d
+    style E fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#4a2c00
+    style G fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style K fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
 ```
 
 ---
@@ -172,9 +172,9 @@ graph TD
     K --> L["✅ Labels Updated"]
     
     style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style L fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style D fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style G fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
+    style L fill:#dcfce7,stroke:#14532d,stroke-width:2px,color:#14532d
+    style D fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style G fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#4a2c00
 ```
 
 ---
@@ -213,11 +213,11 @@ graph TD
     M --> R
     
     style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style N fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style D fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style G fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style J fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style M fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
+    style N fill:#dcfce7,stroke:#14532d,stroke-width:2px,color:#14532d
+    style D fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style G fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style J fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style M fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
 ```
 
 ---

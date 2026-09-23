@@ -4,7 +4,7 @@ title: "Pull Request Templates Directory"
 description: "Standardized pull request templates for the LightSpeedWP organization"
 version: "v1.1"
 created_date: "2025-10-20"
-last_updated: "2025-11-25"
+last_updated: "2026-09-22""
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]

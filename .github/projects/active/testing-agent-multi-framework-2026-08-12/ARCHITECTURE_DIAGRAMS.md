@@ -9,6 +9,7 @@
 ## Diagram 1: 2-Tier Testing Architecture
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph Repos["Repositories Layer"]
         GH[".github<br/>(Control Plane)"]
@@ -47,11 +48,12 @@ graph TB
     Playwright -->|executes| PWExecution["playwright test"]
 
     style GHAGENT fill:#e1f5ff
-    style ORGAGENT fill:#f3e5f5
-    style Jest fill:#fff3e0
+    style ORGAGENT fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style Jest fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style PHPUnit fill:#e8f5e9
-    style pytest fill:#fce4ec
+    style pytest fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style Playwright fill:#f1f8e9
+accDescr: Detailed diagram
 ```
 
 **Key Points:**
@@ -66,6 +68,7 @@ graph TB
 ## Diagram 2: Delegation Flow (What Each Agent Handles)
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     A["Testing Request<br/>(What to test?)"]
     
@@ -92,10 +95,11 @@ graph TD
     RESULT2 --> END
     
     style C fill:#e1f5ff
-    style D fill:#f3e5f5
-    style D1 fill:#fff3e0
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style D1 fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style D2 fill:#f5f5f5
     style D3 fill:#f5f5f5
+accDescr: Detailed diagram
 ```
 
 **Key Points:**
@@ -110,6 +114,7 @@ graph TD
 ## Diagram 3: Test Execution Pipeline
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     A["Repo<br/>(source code)"]
     
@@ -151,14 +156,15 @@ graph LR
     
     N --> O["Report to User<br/>(PR comment,<br/>GitHub Check,<br/>workflow output)"]
     
-    style C fill:#fff3e0
+    style C fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style F fill:#f5f5f5
     style G fill:#ffccbc
     style I fill:#e0f2f1
     style J fill:#ffccbc
-    style L fill:#c8e6c9
+    style L fill:#dcfce7,color:#14532d,stroke:#14532d
     style M fill:#f5f5f5
     style O fill:#e1f5ff
+accDescr: Detailed diagram
 ```
 
 **Key Points:**
@@ -174,6 +180,7 @@ graph LR
 ## Diagram 4: Framework Coverage & Selection Matrix
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph JS["JavaScript/TypeScript Projects"]
         J1["Block Theme JavaScript"]
@@ -213,10 +220,11 @@ graph TB
     E2 --> PLAYWRIGHT
     E3 --> PLAYWRIGHT
     
-    style JEST fill:#fff3e0
+    style JEST fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style PHPUNIT fill:#e8f5e9
-    style PYTEST fill:#fce4ec
+    style PYTEST fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style PLAYWRIGHT fill:#f1f8e9
+accDescr: Detailed diagram
 ```
 
 **Key Points:**
@@ -231,6 +239,7 @@ graph TB
 ## Diagram 5: Skill & Documentation Structure
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     ROOT["agents/testing-agent/"]
     
@@ -262,16 +271,17 @@ graph TD
     
     style README fill:#e1f5ff
     style AGENT fill:#e1f5ff
-    style CORE fill:#f3e5f5
-    style SELECTION fill:#f3e5f5
-    style JEST_SKILL fill:#fff3e0
+    style CORE fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style SELECTION fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style JEST_SKILL fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style PHPUNIT_SKILL fill:#e8f5e9
-    style PYTEST_SKILL fill:#fce4ec
+    style PYTEST_SKILL fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style PLAYWRIGHT_SKILL fill:#f1f8e9
-    style JEST_GUIDE fill:#fff3e0
+    style JEST_GUIDE fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style PHPUNIT_GUIDE fill:#e8f5e9
-    style PYTEST_GUIDE fill:#fce4ec
+    style PYTEST_GUIDE fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style PLAYWRIGHT_GUIDE fill:#f1f8e9
+accDescr: Detailed diagram
 ```
 
 **Key Points:**
@@ -287,6 +297,7 @@ graph TD
 ## Diagram 6: Integration Test Scenarios
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph SCENARIOS["Integration Test Scenarios"]
         S1["Scenario 1:<br/>.github Agent<br/>→ Portable Agent"]
@@ -314,11 +325,12 @@ graph TB
     RESULT4 --> FINAL
     
     style SCENARIOS fill:#f5f5f5
-    style RESULT1 fill:#c8e6c9
-    style RESULT2 fill:#c8e6c9
-    style RESULT3 fill:#c8e6c9
-    style RESULT4 fill:#c8e6c9
+    style RESULT1 fill:#dcfce7,color:#14532d,stroke:#14532d
+    style RESULT2 fill:#dcfce7,color:#14532d,stroke:#14532d
+    style RESULT3 fill:#dcfce7,color:#14532d,stroke:#14532d
+    style RESULT4 fill:#dcfce7,color:#14532d,stroke:#14532d
     style FINAL fill:#a5d6a7
+accDescr: Detailed diagram
 ```
 
 **Key Points:**
@@ -333,6 +345,7 @@ graph TB
 ## Diagram 7: Test Coverage Thresholds by Context
 
 ```mermaid
+accTitle: Diagram
 xychart-beta
     title Test Coverage Thresholds by Repository & Framework
     x-axis [Control-Plane, Block Theme, Block Plugin, Other Repos]
@@ -341,6 +354,7 @@ xychart-beta
     line [-, 80, 85, 80] name "PHPUnit (PHP)"
     line [75, -, -, 75] name "pytest (Python)"
     line [-, 70, 70, 70] name "Playwright (E2E)"
+accDescr: Detailed diagram
 ```
 
 **Key Points:**
@@ -355,6 +369,7 @@ xychart-beta
 ## Diagram 8: CI/CD Integration Flow
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     PR["Pull Request<br/>Created"]
     
@@ -379,12 +394,13 @@ graph TD
     BLOCK --> PR_AUTHOR["Notify PR Author<br/>Fix tests or coverage"]
     ALLOW --> MERGIFY["Mergify Queue<br/>(ready to merge)"]
     
-    style GITHUB_ACTIONS fill:#f3e5f5
-    style INVOKE fill:#f3e5f5
+    style GITHUB_ACTIONS fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style INVOKE fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
     style AGENT_RUN fill:#f5f5f5
     style COMMENT fill:#e1f5ff
     style BLOCK fill:#ffccbc
-    style ALLOW fill:#c8e6c9
+    style ALLOW fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 
 **Key Points:**

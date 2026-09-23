@@ -21,6 +21,7 @@ status: active
 ### 1.1 High-Level Design
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph "LightSpeedWP Organization"
         direction TB
@@ -60,6 +61,7 @@ graph TB
     
     SPEC_CP -->|documents| AGENT_CP
     PROMPT_CP -->|drives| AGENT_CP
+accDescr: Detailed diagram
 ```
 
 ### 1.2 Component Structure
@@ -109,6 +111,7 @@ packages/metadata-agent/                    # Shared npm package
 ### 2.1 Test Pyramid & Coverage
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph "Test Coverage Hierarchy (80%+ Target)"
         E2E["<b>E2E Tests (10%)</b><br/>Real GitHub repos<br/>Full workflow validation<br/>5-10 tests"]
@@ -127,6 +130,7 @@ graph TB
     style INT fill:#f59e0b,color:#fff
     style UNIT fill:#3b82f6,color:#fff
     style COVER fill:#8b5cf6,color:#fff
+accDescr: Detailed diagram
 ```
 
 ### 2.2 Test Execution Plan
@@ -536,6 +540,7 @@ export const blockThemeConfig = {
 ### 6.1 Component Dependency Graph
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     Agent["Agent<br/>(prompt + spec)"]
     Orch["label-orchestrator.js<br/>(Phase 3-4)"]
@@ -548,11 +553,13 @@ graph LR
     PKG -->|wraps| API
     Agent -->|loads| Ext
     Orch -->|calls| API
+accDescr: Detailed diagram
 ```
 
 ### 6.2 Data Flow: Label Audit & Sync
 
 ```mermaid
+accTitle: Sequence Diagram
 sequenceDiagram
     participant User
     participant Agent
@@ -571,15 +578,18 @@ sequenceDiagram
     GitHub API-->>Orch: Success (N changes)
     Orch-->>Agent: Results summary
     Agent->>User: "Fixed 42 labels. Coverage increased to 95%."
+accDescr: Detailed diagram
 ```
 
 ### 6.3 Test Coverage Distribution
 
 ```mermaid
+accTitle: Diagram
 pie title "Test Coverage by Type"
     "Unit Tests (60-80 tests, 60%)" : 60
     "Integration Tests (20-30 tests, 20%)" : 20
     "E2E Tests (5-10 tests, 10%)" : 10
+accDescr: Detailed diagram
 ```
 
 ---

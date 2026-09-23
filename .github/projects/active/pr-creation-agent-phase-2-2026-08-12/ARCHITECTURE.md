@@ -11,6 +11,7 @@
 ### 1.1 High-Level System Diagram
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     Input["Input: PR Data<br/>(branch, files, metadata)"]
     
@@ -58,6 +59,7 @@ graph TB
     style S6 fill:#7ED321
     style Config fill:#F5A623
     style StateMachine fill:#BD10E0
+accDescr: Detailed diagram
 ```
 
 ---
@@ -67,6 +69,7 @@ graph TB
 ### 2.1 State Diagram
 
 ```mermaid
+accTitle: Diagram
 stateDiagram-v2
     [*] --> IDLE
     
@@ -107,9 +110,10 @@ stateDiagram-v2
     FAILED --> [*]
     
     style IDLE fill:#e1f5ff,color:#000
-    style SUCCESS fill:#c8e6c9,color:#000
-    style FAILED fill:#ffcdd2,color:#000
-    style ERROR fill:#ffcdd2,color:#000
+    style SUCCESS fill:#dcfce7,color:#14532d,stroke:#14532d
+    style FAILED fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    style ERROR fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+accDescr: Detailed diagram
 ```
 
 ---
@@ -119,6 +123,7 @@ stateDiagram-v2
 ### 3.1 Sequential Skill Flow
 
 ```mermaid
+accTitle: Sequence Diagram
 sequenceDiagram
     participant Orchestrator
     participant Skill1 as validate-branch-name
@@ -150,6 +155,7 @@ sequenceDiagram
     Skill6-->>Orchestrator: PR data
     
     Orchestrator-->>Orchestrator: return result
+accDescr: Detailed diagram
 ```
 
 ---
@@ -159,6 +165,7 @@ sequenceDiagram
 ### 4.1 Configuration Loading Diagram
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     A["Agent Default Config<br/>(agents/pr-creation-agent/config/defaults.yml)"]
     B["Repo Config<br/>(.claude/pr-agent.config.yml)"]
@@ -178,6 +185,7 @@ graph TD
     style D fill:#4CAF50,color:#fff
     style E fill:#2196F3,color:#fff
     style F fill:#2196F3,color:#fff
+accDescr: Detailed diagram
 ```
 
 ---
@@ -372,6 +380,7 @@ Contract:
 ### 6.1 Error Flow Diagram
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     Error["Error Occurs<br/>(in any skill)"]
     Classify["Classify Error<br/>(type & severity)"]
@@ -400,10 +409,11 @@ graph TB
     Report --> Abort
     Abort --> [*]
     
-    style Error fill:#ffcdd2
+    style Error fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
     style Retry fill:#fff9c4
-    style Report fill:#ffcdd2
-    style Success fill:#c8e6c9
+    style Report fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    style Success fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 
 ---
@@ -507,6 +517,7 @@ module.exports = {
 ### 10.1 WordPress Config Integration
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     Config["Check: wordpress.enabled?"]
     
@@ -530,6 +541,7 @@ graph TD
     style PluginConfig fill:#FF9800,color:#fff
     style ThemeConfig fill:#FF9800,color:#fff
     style FinalConfig fill:#4CAF50,color:#fff
+accDescr: Detailed diagram
 ```
 
 ---
