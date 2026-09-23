@@ -133,7 +133,7 @@ CHK_HAS_PR_LINK [ERROR]: 1 violation(s)
 # Basic link checking (uses GitHub token from env)
 npm run changelog:check-links -- --changelog-path ./CHANGELOG.md
 
-# With an explicit token: set it as an environment variable, never as a CLI
+# With an explicit token, pass it as an environment variable, never as a CLI
 # argument (command-line args are visible in shell history and `ps`/process
 # lists on shared machines and CI runners)
 GITHUB_TOKEN=ghp_xxxx npm run changelog:check-links -- --changelog-path ./CHANGELOG.md
