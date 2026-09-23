@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "c8": "^8.0.1",
-    "eslint": "^8.50.0"
+    "eslint": "^10.11.0"
   },
   "files": [
     "README.md",
