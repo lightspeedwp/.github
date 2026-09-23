@@ -10,6 +10,7 @@ version: '1.0'
 ## System Overview
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph "GitHub"
         GH["GitHub API<br/>Issues, PRs, Contributors"]
@@ -43,6 +44,7 @@ graph TB
     style ANALYZE fill:#1B5E20,color:#fff
     style PACKAGE fill:#880E4F,color:#fff
     style REPORT fill:#33691E,color:#fff
+accDescr: Detailed diagram
 ```
 
 ## Component Architecture
@@ -50,12 +52,14 @@ graph TB
 ### Configuration Layer
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     USER["User/Automation"] -->|Provides| CONFIG_FILE["Config File<br/>.json"]
     CONFIG_FILE -->|Loads| CONFIG_LOADER["ConfigurationLoader"]
     CONFIG_LOADER -->|Validates| VALIDATOR["ConfigValidator"]
     VALIDATOR -->|Output| CONFIG_OBJ["Configuration<br/>Object"]
     CONFIG_OBJ -->|Provides to| COLLECTOR["Collection Module"]
+accDescr: Detailed diagram
 ```
 
 **Responsibilities:**
@@ -68,6 +72,7 @@ graph LR
 ### Collection Module
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     CONFIG["Configuration"] --> QUERY["GitHub API Queries"]
     QUERY -->|Batch requests| GITHUB["GitHub API"]
@@ -78,6 +83,7 @@ graph TD
     
     GITHUB -.->|Rate limit| RETRY["Exponential Backoff"]
     RETRY -.->|Retry| GITHUB
+accDescr: Detailed diagram
 ```
 
 **Responsibilities:**
@@ -91,6 +97,7 @@ graph TD
 ### Aggregation Module
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     RAW["Raw Metrics<br/>Per Repository"] --> CALC["Calculate<br/>Derived Metrics"]
     CALC --> NORM["Normalize Values"]
@@ -98,6 +105,7 @@ graph TD
     AGG --> COMBINE["Combine with<br/>Previous Period"]
     COMBINE --> TREND["Calculate Trends"]
     TREND --> RESULT["Aggregated Metrics<br/>Dataset"]
+accDescr: Detailed diagram
 ```
 
 **Responsibilities:**
@@ -111,6 +119,7 @@ graph TD
 ### Analysis Module
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     METRICS["Aggregated Metrics"] --> PATTERN["Identify Patterns"]
     PATTERN --> ANOMALY["Detect Anomalies"]
@@ -123,6 +132,7 @@ graph TD
         PATTERN --> DOWN["↓ Declining"]
         PATTERN --> STABLE["→ Stable"]
     end
+accDescr: Detailed diagram
 ```
 
 **Responsibilities:**
@@ -136,6 +146,7 @@ graph TD
 ### Packaging Module
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     METRICS["Aggregated<br/>Metrics"] --> PKG["Package"]
     INSIGHTS["Insights &<br/>Recommendations"] --> PKG
@@ -143,6 +154,7 @@ graph LR
     PKG -->|Format| JSON["Metrics Dataset<br/>JSON"]
     JSON -->|Create| HANDOFF["Handoff<br/>Message"]
     HANDOFF -->|Send to| REPORTING["Reporting Agent"]
+accDescr: Detailed diagram
 ```
 
 **Responsibilities:**
@@ -158,6 +170,7 @@ graph LR
 ### Complete Collection Flow
 
 ```mermaid
+accTitle: Sequence Diagram
 sequenceDiagram
     participant User
     participant Config as ConfigurationLoader
@@ -193,11 +206,13 @@ sequenceDiagram
     Report->>Report: Format report
     Report->>Report: Store in .github/reports/
     Report-->>User: ✅ Report created
+accDescr: Detailed diagram
 ```
 
 ## Multi-Repository Aggregation
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph "Per-Repository Collection"
         R1["Repo 1<br/>lightspeedwp/.github"]
@@ -232,11 +247,13 @@ graph TB
     MERGE --> CALC
     MERGE --> PER
     CALC --> ORG
+accDescr: Detailed diagram
 ```
 
 ## Configuration-Driven Behavior
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     CONFIG["Configuration File"] -->|context| CONTEXT{Context Type?}
     
@@ -249,6 +266,7 @@ graph TD
     WT -->|Theme metrics| COLLECT
     
     COLLECT --> OUTPUT["Metrics Dataset"]
+accDescr: Detailed diagram
 ```
 
 **Context-Specific Metric Subsets:**
@@ -262,6 +280,7 @@ graph TD
 ## Error Handling & Retry Strategy
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     OPERATION["Execute Operation"]
     OPERATION -->|Success| RESULT["Result"]
@@ -276,6 +295,7 @@ graph TD
     LOG -->|Continue| PARTIAL["Partial Results<br/>+ Warning"]
     RESULT -->|Complete| OUTPUT["Final Metrics"]
     PARTIAL -->|Complete| OUTPUT
+accDescr: Detailed diagram
 ```
 
 **Backoff Strategy:**
@@ -292,6 +312,7 @@ Max: 5 attempts (total ~31 seconds)
 ## Integration with Reporting Agent
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     METRICS["Metrics Agent<br/>Complete Dataset"]
     
@@ -303,6 +324,7 @@ graph LR
     
     MD --> OUTPUT["Formatted Report"]
     FRONTMATTER --> OUTPUT
+accDescr: Detailed diagram
 ```
 
 **Handoff Protocol:**
@@ -327,6 +349,7 @@ graph LR
 ### Single vs Multi-Repository
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     subgraph "Single Repository"
         S1["100 Issues"]
@@ -349,11 +372,13 @@ graph LR
     M1 --> TIME2
     M2 --> TIME2
     M3 --> TIME2
+accDescr: Detailed diagram
 ```
 
 ### Caching Strategy
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     REQUEST["Collection Request"] --> CACHE{Cache<br/>Available?}
     CACHE -->|Yes| RETURN["Return Cached<br/>Results"]
@@ -364,6 +389,7 @@ graph TD
     
     RETURN -->|If stale| REFRESH["Refresh<br/>Background"]
     REFRESH -->|Update cache| STORE
+accDescr: Detailed diagram
 ```
 
 **Cache TTL:** 1 hour (configurable)

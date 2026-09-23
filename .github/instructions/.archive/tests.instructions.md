@@ -85,15 +85,18 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 ## 🧪 Testing Pyramid
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     A[E2E Tests<br/>Playwright] --> B[Integration Tests<br/>Jest + PHPUnit]
     B --> C[Unit Tests<br/>Jest + PHPUnit + pytest]
     C --> D[Static Analysis<br/>ESLint + PHPCS + mypy]
+accDescr: Detailed diagram
 ```
 
 ## 🔄 Test Execution Flow
 
 ```mermaid
+accTitle: Sequence Diagram
 sequenceDiagram
     participant Dev as Developer
     participant Local as Local Tests
@@ -108,6 +111,7 @@ sequenceDiagram
     CI->>CI: E2E Tests
     CI->>QA: Quality Gates
     QA->>CI: Pass/Fail Status
+accDescr: Detailed diagram
 ```
 
 ## 🔗 Integration Points
@@ -173,6 +177,7 @@ sequenceDiagram
 ## 📊 Test Coverage Matrix
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     A[Code Changes] --> B{Test Type}
     B --> C[Unit Tests<br/>Fast & Isolated]
@@ -186,6 +191,7 @@ graph LR
     F --> I[Quality Gate]
     G --> I
     H --> I
+accDescr: Detailed diagram
 ```
 
 ## 💡 Best Practices

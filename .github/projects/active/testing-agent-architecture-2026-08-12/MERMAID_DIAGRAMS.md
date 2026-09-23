@@ -14,6 +14,7 @@ status: active
 This diagram shows the overall architecture with control-plane and portable agents.
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     subgraph Repos["Repository Layer"]
         GH[".github<br/>(Control-Plane)"]
@@ -60,6 +61,7 @@ graph TD
     CP -->|results| BP
     CP -->|results| BT
     CP -->|results| OR
+accDescr: Detailed diagram
 ```
 
 ---
@@ -69,6 +71,7 @@ graph TD
 This diagram shows how requests flow through the 2-tier system.
 
 ```mermaid
+accTitle: Sequence Diagram
 sequenceDiagram
     participant R as Repository
     participant CP as Control-Plane<br/>Agent
@@ -107,6 +110,7 @@ sequenceDiagram
     S->>PA: Results + coverage
     PA->>CP: Aggregated results
     CP->>R: Display in GitHub check
+accDescr: Detailed diagram
 ```
 
 ---
@@ -116,6 +120,7 @@ sequenceDiagram
 This diagram shows the complete test execution flow.
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph Input["1️⃣ Input"]
         PR["Pull Request or<br/>Workflow Trigger"]
@@ -176,6 +181,7 @@ graph TB
     R2 -->|< threshold| FAIL["❌ PR Needs Work"]
     
     R3 --> FAIL
+accDescr: Detailed diagram
 ```
 
 ---
@@ -185,6 +191,7 @@ graph TB
 This diagram shows which frameworks are supported for different project types.
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph Frameworks["Testing Frameworks"]
         J["Jest<br/>JavaScript/TypeScript<br/>Block Plugin Tests"]
@@ -229,6 +236,7 @@ graph TB
     
     PY -->|for| OTH
     PW -->|for| E2E
+accDescr: Detailed diagram
 ```
 
 ---
@@ -238,6 +246,7 @@ graph TB
 This diagram shows how Jest tests execute with WordPress mocking.
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     START["Jest Config<br/>Detected"]
     
@@ -264,6 +273,7 @@ graph LR
     
     FAIL --> ANNO["GitHub<br/>Annotations"]
     FAIL_MSG --> ANNO
+accDescr: Detailed diagram
 ```
 
 ---
@@ -273,6 +283,7 @@ graph LR
 This diagram shows how PHPUnit tests execute with WordPress and database mocking.
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     START["PHPUnit Config<br/>Detected"]
     
@@ -306,6 +317,7 @@ graph LR
     
     SUCCESS -->|no| FAIL
     STANDARDS -->|no| FAIL
+accDescr: Detailed diagram
 ```
 
 ---
@@ -315,6 +327,7 @@ graph LR
 This diagram shows how pytest integrates with GitHub Actions.
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     START["pytest Config<br/>Detected"]
     
@@ -338,6 +351,7 @@ graph LR
     Success -->|no| FAIL["❌ Fail"]
     
     FAIL --> ANNO["GitHub<br/>Annotations"]
+accDescr: Detailed diagram
 ```
 
 ---
@@ -347,6 +361,7 @@ graph LR
 This diagram shows how Playwright executes end-to-end tests with WordPress.
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     START["Playwright Config<br/>Detected"]
     
@@ -381,6 +396,7 @@ graph LR
     
     Success -->|yes| PASS["✅ Pass"]
     Success -->|no| FAIL["❌ Fail"]
+accDescr: Detailed diagram
 ```
 
 ---
@@ -390,6 +406,7 @@ graph LR
 This diagram shows how projects with multiple frameworks are handled.
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph Project["Project with Multiple Frameworks"]
         PJ["Block Plugin Project"]
@@ -431,6 +448,7 @@ graph TB
     
     CHECK -->|yes| PASS["✅ Merge OK"]
     CHECK -->|no| FAIL["❌ Fix Issues"]
+accDescr: Detailed diagram
 ```
 
 ---
@@ -440,6 +458,7 @@ graph TB
 This diagram shows how the agent works with different AI providers.
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph Agents["Control-Plane Agent"]
         COORD["Coordinator"]
@@ -474,6 +493,7 @@ graph TB
     TESTING -->|selects| PHP
     TESTING -->|selects| PYTEST
     TESTING -->|selects| PLAYWRIGHT
+accDescr: Detailed diagram
 ```
 
 ---
@@ -483,6 +503,7 @@ graph TB
 This diagram shows how coverage targets are enforced.
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph Tests["Test Execution"]
         RUN["Tests Run"]
@@ -524,6 +545,7 @@ graph TB
     CHECK -->|no| FAIL
     
     FAIL --> ANNOTATION
+accDescr: Detailed diagram
 ```
 
 ---

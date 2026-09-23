@@ -4,26 +4,26 @@
  * Provides branding utilities for documentation, READMEs, and automated content insertion
  */
 
-import fs from "fs";
-import path from "path";
-import * as yaml from "js-yaml";
+import fs from 'fs';
+import path from 'path';
+import * as yaml from 'js-yaml';
 
 // ============================================================================
 // Footer Configuration & Functions
 // ============================================================================
 
 /**
- * Load footer configuration from `.github/automation/footers.yml`.
+ * Load footer configuration from `.github/footers.yml`.
  *
  * @returns {*|null} Parsed configuration, or `null` when the file is absent
  * @throws {Error} If the configuration cannot be read or parsed
  */
 function loadFooterConfig() {
-  const configPath = path.join(process.cwd(), ".github/automation/footers.yml");
+  const configPath = path.join(process.cwd(), '.github/footers.yml');
   if (!fs.existsSync(configPath)) {
     return null;
   }
-  const content = fs.readFileSync(configPath, "utf-8");
+  const content = fs.readFileSync(configPath, 'utf-8');
   return yaml.load(content);
 }
 
@@ -31,11 +31,11 @@ function loadFooterConfig() {
  * Standard footer variants (fallback if config not found)
  */
 const DEFAULT_FOOTERS = [
-  "_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)",
-  "_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)",
-  "_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)",
-  "_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)",
-  "_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_",
+  '_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)',
+  '_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)',
+  '_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)',
+  '_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)',
+  '_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_',
 ];
 
 /**
@@ -43,7 +43,7 @@ const DEFAULT_FOOTERS = [
  * @param {string} category - Category from front matter or 'default'
  * @returns {Array<string>} Array of footer phrases
  */
-function getFooterPhrases(category = "default") {
+function getFooterPhrases(category = 'default') {
   const config = loadFooterConfig();
   if (!config || !config.categories) {
     return DEFAULT_FOOTERS;
@@ -53,8 +53,10 @@ function getFooterPhrases(category = "default") {
     return config.categories[category].phrases;
   }
 
-  if (config.categories.default && config.categories.default.phrases) {
-    return config.categories.default.phrases;
+  // Fall back to the top-level default block (footers.yml has `default`
+  // as a sibling of `categories`, not nested inside it).
+  if (config.default && config.default.phrases) {
+    return config.default.phrases;
   }
 
   return DEFAULT_FOOTERS;
@@ -90,44 +92,54 @@ function selectFooter(phrases, seed = null) {
  * @param {string} seed - Optional seed for deterministic selection
  * @returns {string} Footer text
  */
-function getRandomFooter(category = "default", seed = null) {
+function getRandomFooter(category = 'default', seed = null) {
   const phrases = getFooterPhrases(category);
   return selectFooter(phrases, seed);
 }
 
 /**
- * Regex patterns to match existing footers
+ * Regex patterns to match existing footers.
+ *
+ * Ported from the corrected implementation in
+ * scripts/agents/includes/header-footer.js (see #3443/#3446): each
+ * pattern's body is bounded to a single line ([^\n]*, not [\s\S]*?) to
+ * avoid over-matching across newlines, and the leading emphasis marker
+ * is optional ([*_]?) so detection works regardless of whether the
+ * footer is wrapped in _..._ or *...*.
  */
 const FOOTER_PATTERNS = [
-  "_Maintained with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Built by 🧱[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Have questions\\?[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_This page brought to you by[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "_Docs signed by 🤖[\\s\\S]*?",
-  "Made with ❤️[\\s\\S]*?(?:\\n\\[.*?\\]\\(.*?\\))?",
-  "Questions\\?[\\s\\S]*?",
-  "Prefer a guided[\\s\\S]*?",
-  "Clarity first[\\s\\S]*?",
-  "Improvements welcome[\\s\\S]*?",
-  "Copy, adapt[\\s\\S]*?",
-  "Tweak the variables[\\s\\S]*?",
-  "Your feedback shapes[\\s\\S]*?",
-  "Reuse beats[\\s\\S]*?",
-  "Keep prompts[\\s\\S]*?",
-  "Use responsibly[\\s\\S]*?",
-  "Keep tone[\\s\\S]*?",
-  "Update when[\\s\\S]*?",
-  "Link policies[\\s\\S]*?",
-  "Thanks for helping[\\s\\S]*?",
-  "Need help\\?[\\s\\S]*?",
+  '[*_]?Maintained with ❤️[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?Built by 🧱[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?Have questions\\?[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?This page brought to you by[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?Docs signed by 🤖[^\\n]*',
+  '[*_]?Made with ❤️[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?Questions\\?[^\\n]*',
+  '[*_]?Prefer a guided[^\\n]*',
+  '[*_]?Clarity first[^\\n]*',
+  '[*_]?Improvements welcome[^\\n]*',
+  '[*_]?Copy, adapt[^\\n]*',
+  '[*_]?Tweak the variables[^\\n]*',
+  '[*_]?Your feedback shapes[^\\n]*',
+  '[*_]?Reuse beats[^\\n]*',
+  '[*_]?Keep prompts[^\\n]*',
+  '[*_]?Use responsibly[^\\n]*',
+  '[*_]?Keep tone[^\\n]*',
+  '[*_]?Update when[^\\n]*',
+  '[*_]?Link policies[^\\n]*',
+  '[*_]?Thanks for helping[^\\n]*',
+  '[*_]?Need help\\?[^\\n]*',
 ];
 
 /**
- * Build the footer regex from the patterns array
+ * Build the footer regex from the patterns array. Anchored to the end of
+ * the whole file and required to start its own line (right after "\n", or
+ * at the very start of the file) — see header-footer.js's buildFooterRegex
+ * for the full rationale.
  * @returns {RegExp}
  */
 function buildFooterRegex() {
-  const pattern = `(${FOOTER_PATTERNS.join("|")})$/m`;
+  const pattern = `(^|\\n)(?:${FOOTER_PATTERNS.join('|')})\\n?$`;
   return new RegExp(pattern);
 }
 
@@ -140,7 +152,7 @@ const FOOTER_REGEX = buildFooterRegex();
  * @returns {boolean} true if file was updated
  */
 function ensureFooter(file, options = {}) {
-  const { category = "default", seed = null, backup = false } = options;
+  const { category = 'default', seed = null, backup = false } = options;
 
   if (!fs.existsSync(file)) {
     throw new Error(`File not found: ${file}`);
@@ -151,19 +163,27 @@ function ensureFooter(file, options = {}) {
     fs.copyFileSync(file, backupPath);
   }
 
-  let content = fs.readFileSync(file, "utf-8");
+  let content = fs.readFileSync(file, 'utf-8');
   const nextFooter = getRandomFooter(category, seed);
 
   if (FOOTER_REGEX.test(content)) {
-    content = content.replace(FOOTER_REGEX, nextFooter);
+    // Preserve the matched boundary (start-of-file "" or the preceding
+    // "\n") and restore a trailing newline the match may have swallowed
+    // (no "m" flag on the regex) -- see header-footer.js's ensureFooter
+    // for the full rationale.
+    const hadTrailingNewline = content.endsWith('\n');
+    content = content.replace(FOOTER_REGEX, (_match, boundary) => boundary + nextFooter);
+    if (hadTrailingNewline && !content.endsWith('\n')) {
+      content += '\n';
+    }
     fs.writeFileSync(file, content);
     return true;
   }
 
-  if (!content.endsWith("\n")) {
-    content += "\n";
+  if (!content.endsWith('\n')) {
+    content += '\n';
   }
-  content += "\n" + nextFooter + "\n";
+  content += '\n' + nextFooter + '\n';
   fs.writeFileSync(file, content);
   return true;
 }
@@ -178,10 +198,10 @@ function removeFooter(file) {
     throw new Error(`File not found: ${file}`);
   }
 
-  let content = fs.readFileSync(file, "utf-8");
+  let content = fs.readFileSync(file, 'utf-8');
 
   if (FOOTER_REGEX.test(content)) {
-    content = content.replace(FOOTER_REGEX, "").trim() + "\n";
+    content = content.replace(FOOTER_REGEX, '').trim() + '\n';
     fs.writeFileSync(file, content);
     return true;
   }
@@ -197,7 +217,7 @@ function removeFooter(file) {
  * @returns {Promise<boolean>} true if successful
  */
 async function insertHeaderFooter(filePath, _config = {}, options = {}) {
-  const { backup = false, category = "default", seed = null } = options;
+  const { backup = false, category = 'default', seed = null } = options;
 
   if (!fs.existsSync(filePath)) {
     throw new Error(`File not found: ${filePath}`);
@@ -219,22 +239,19 @@ async function insertHeaderFooter(filePath, _config = {}, options = {}) {
  * @throws {Error} If the schema cannot be read or parsed
  */
 function loadBadgeSchema() {
-  const schemaPath = path.join(
-    process.cwd(),
-    ".github/automation/badges.schema.yml",
-  );
+  const schemaPath = path.join(process.cwd(), '.github/automation/badges.schema.yml');
   if (!fs.existsSync(schemaPath)) {
     return null;
   }
-  const content = fs.readFileSync(schemaPath, "utf-8");
+  const content = fs.readFileSync(schemaPath, 'utf-8');
   return yaml.load(content);
 }
 
 /**
  * Generate workflow badge markdown
  */
-function generateWorkflowBadge(repo, workflowFile, branch = "main") {
-  const workflowName = workflowFile.replace(/\.(yml|yaml)$/, "");
+function generateWorkflowBadge(repo, workflowFile, branch = 'main') {
+  const workflowName = workflowFile.replace(/\.(yml|yaml)$/, '');
   const badgeUrl = `https://github.com/${repo}/actions/workflows/${workflowFile}/badge.svg?branch=${branch}`;
   const workflowUrl = `https://github.com/${repo}/actions/workflows/${workflowFile}`;
   return `[![${workflowName}](${badgeUrl})](${workflowUrl})`;
@@ -243,22 +260,22 @@ function generateWorkflowBadge(repo, workflowFile, branch = "main") {
 /**
  * Generate badge markdown for all workflows in .github/workflows/
  */
-function generateWorkflowBadges(repo, branch = "main", format = "stacked") {
-  const workflowsDir = path.join(process.cwd(), ".github", "workflows");
+function generateWorkflowBadges(repo, branch = 'main', format = 'stacked') {
+  const workflowsDir = path.join(process.cwd(), '.github', 'workflows');
   if (!fs.existsSync(workflowsDir)) {
     return [];
   }
   const badges = [];
   fs.readdirSync(workflowsDir).forEach((file) => {
-    if (file.endsWith(".yml") || file.endsWith(".yaml")) {
+    if (file.endsWith('.yml') || file.endsWith('.yaml')) {
       badges.push(generateWorkflowBadge(repo, file, branch));
     }
   });
   if (badges.length === 0) {
     return [];
   }
-  if (format === "inline") {
-    return [badges.join(" ")];
+  if (format === 'inline') {
+    return [badges.join(' ')];
   }
   return badges;
 }
@@ -283,16 +300,9 @@ function generateMetadataBadges(frontMatter) {
       conditionMet = false;
     }
 
-    if (
-      rule.when.front_matter &&
-      rule.when.front_matter.license &&
-      frontMatter
-    ) {
+    if (rule.when.front_matter && rule.when.front_matter.license && frontMatter) {
       const allowedLicenses = rule.when.front_matter.license;
-      if (
-        !frontMatter.license ||
-        !allowedLicenses.includes(frontMatter.license)
-      ) {
+      if (!frontMatter.license || !allowedLicenses.includes(frontMatter.license)) {
         conditionMet = false;
       }
     }
@@ -314,7 +324,7 @@ function generateMetadataBadges(frontMatter) {
  * Resolve a badge reference from schema
  */
 function resolveBadge(badgeRef, badgeDefs, frontMatter) {
-  const parts = badgeRef.split(".");
+  const parts = badgeRef.split('.');
   let current = badgeDefs;
 
   for (const part of parts) {
@@ -325,21 +335,17 @@ function resolveBadge(badgeRef, badgeDefs, frontMatter) {
     }
   }
 
-  if (!current || typeof current !== "object") {
+  if (!current || typeof current !== 'object') {
     return null;
   }
 
-  if (badgeRef.startsWith("workflow.")) {
+  if (badgeRef.startsWith('workflow.')) {
     const label = current.label || badgeRef;
-    const successText = current.success_text || "OK";
+    const successText = current.success_text || 'OK';
     return `![${label}](https://img.shields.io/badge/${label}-${successText}-success.svg)`;
   }
 
-  if (
-    badgeRef.startsWith("meta.license") &&
-    frontMatter &&
-    frontMatter.license
-  ) {
+  if (badgeRef.startsWith('meta.license') && frontMatter && frontMatter.license) {
     const license = frontMatter.license.toUpperCase();
     return `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
   }
@@ -351,21 +357,18 @@ function resolveBadge(badgeRef, badgeDefs, frontMatter) {
  * Insert or update badge block in README.md between markers
  */
 function updateReadmeBadges(readmeFile, badges) {
-  const badgeStart = "<!-- BADGES-START -->";
-  const badgeEnd = "<!-- BADGES-END -->";
+  const badgeStart = '<!-- BADGES-START -->';
+  const badgeEnd = '<!-- BADGES-END -->';
 
   if (!fs.existsSync(readmeFile)) {
     throw new Error(`README file not found: ${readmeFile}`);
   }
 
-  let content = fs.readFileSync(readmeFile, "utf-8");
-  const badgeBlock = [badgeStart, ...badges, badgeEnd].join("\n");
+  let content = fs.readFileSync(readmeFile, 'utf-8');
+  const badgeBlock = [badgeStart, ...badges, badgeEnd].join('\n');
 
   if (content.includes(badgeStart) && content.includes(badgeEnd)) {
-    content = content.replace(
-      new RegExp(`${badgeStart}[\\s\\S]*?${badgeEnd}`, "m"),
-      badgeBlock,
-    );
+    content = content.replace(new RegExp(`${badgeStart}[\\s\\S]*?${badgeEnd}`, 'm'), badgeBlock);
   } else {
     content = content.replace(/^(# .+\n)/, `$1\n${badgeBlock}\n`);
   }
@@ -383,9 +386,9 @@ function updateReadmeBadges(readmeFile, badges) {
 async function updateBadgesInReadme(readmePath, workflowsPath, options = {}) {
   const {
     backup = false,
-    repo = "lightspeedwp/.github",
-    branch = "develop",
-    format = "stacked",
+    repo = 'lightspeedwp/.github',
+    branch = 'develop',
+    format = 'stacked',
     frontMatter = null,
   } = options;
 
