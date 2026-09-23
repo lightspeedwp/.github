@@ -10,15 +10,18 @@
 #   many; majors stay separate for individual review.
 # - Cooldown waits a few days after a release before proposing it, which
 #   avoids most bad or compromised releases that are pulled quickly.
+# - Merge policy (#3476): every Dependabot PR needs a human code-owner
+#   approval. Majors always will. Grouped *-minor-patch PRs may later merge
+#   automatically, once Jest runs as a required check on pull requests.
 version: 2
 updates:
   - package-ecosystem: github-actions
     directories:
-      - "/"
-      - "/.github/actions/*"
+      - '/'
+      - '/.github/actions/*'
     schedule:
       interval: daily
-      time: "03:00"
+      time: '03:00'
       timezone: Africa/Johannesburg
     cooldown:
       default-days: 3
@@ -32,22 +35,26 @@ updates:
 
   - package-ecosystem: npm
     directories:
-      - "/"
-      - "/website"
-      - "/.github/validation/changelog"
-      - "/agents/changelog-agent"
-      - "/agents/meta-agent"
-      - "/agents/pr-agent"
-      - "/agents/prompt-engineer-agent"
-      - "/agents/wordpress-release-utilities-agent"
-      - "/packages/metadata-agent"
-      - "/scripts/validation"
-      - "/skills/audit-label-coverage"
-      - "/skills/design-md-agent/pdfs/js"
-      - "/skills/pdfs/js"
+      - '/'
+      - '/website'
+      - '/.github/validation/changelog'
+      - '/agents/changelog-agent'
+      - '/agents/meta-agent'
+      - '/agents/pr-agent'
+      - '/agents/prompt-engineer-agent'
+      - '/agents/wordpress-release-utilities-agent'
+      - '/packages/metadata-agent'
+      - '/scripts/validation'
+      - '/skills/audit-label-coverage'
+      - '/skills/design-md-agent/pdfs/js'
+      - '/skills/pdfs/js'
+    # Weekly: 13 directories on a daily schedule meant up to 13 grouped PRs a
+    # day, each needing a human review (#3476). Security updates are not
+    # affected by this schedule and still open as soon as an advisory lands.
     schedule:
-      interval: daily
-      time: "03:00"
+      interval: weekly
+      day: monday
+      time: '03:00'
       timezone: Africa/Johannesburg
     cooldown:
       default-days: 3
