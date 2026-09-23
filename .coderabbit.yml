@@ -36,12 +36,10 @@ reviews:
     enabled: true
     drafts: false
     # Regex patterns (schema: "Accepts regex patterns"), in addition to the
-    # default branch (develop), which is always reviewed.
+    # default branch (develop). Every PR must be reviewed before merge,
+    # including stacked PRs whose base is another feature branch.
     base_branches:
-      - '^main$'
-      - '^feature/'
-      - '^fix/'
-      - '^update/'
+      - '.*'
     # Automated update PRs are human-approved anyway; skipping them saves the
     # review quota for human-authored changes.
     ignore_usernames:
