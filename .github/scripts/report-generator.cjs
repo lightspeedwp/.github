@@ -110,7 +110,6 @@ class ComplianceReport {
 	 * Serialize to JSON
 	 */
 	toJSON() {
-		const bySeverity = this.getViolationsBySeverity();
 		const stats = this.getViolationStats();
 
 		return {
@@ -150,7 +149,6 @@ class ComplianceReport {
 	toMarkdown() {
 		const compliance = this.getCompliancePercentage();
 		const stats = this.getViolationStats();
-		const bySeverity = this.getViolationsBySeverity();
 		const byFile = this.getViolationsByFile();
 		const passed = this.passesThreshold() ? '✅' : '❌';
 
