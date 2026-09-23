@@ -14,6 +14,9 @@ module.exports = {
     setupFilesAfterEnv: [
         '<rootDir>/.github/tests/jest.setup.localstorage.js',
     ],
+    // Fail the run if any test writes into the repository (#3498).
+    globalSetup: '<rootDir>/tests/jest.global-setup.cjs',
+    globalTeardown: '<rootDir>/tests/jest.global-teardown.cjs',
     globals: {
         'babel-jest': {
             useESM: true,

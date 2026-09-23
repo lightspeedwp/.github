@@ -2,18 +2,19 @@
  * Metrics Collection Orchestrator Tests
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 
 // Mock process.exit to prevent Jest from exiting
 const originalExit = process.exit;
 process.exit = jest.fn();
 
 // Mock the external dependencies before importing MetricsCollectionOrchestrator
-jest.mock("../../metrics/metrics-agent.cjs", () => ({
+jest.mock('../../metrics/metrics-agent.cjs', () => ({
   GitHubAPIClient: jest.fn().mockImplementation(() => ({
     fetchMetrics: jest.fn().mockResolvedValue({
-      repository: "test/repo",
+      repository: 'test/repo',
       stats: { stargazers_count: 100 },
       issues: [],
       pullRequests: [],
@@ -23,89 +24,94 @@ jest.mock("../../metrics/metrics-agent.cjs", () => ({
   })),
 }));
 
-jest.mock("../../metrics/metrics-storage.cjs", () => ({
+jest.mock('../../metrics/metrics-storage.cjs', () => ({
   MetricsStorage: jest.fn().mockImplementation(() => ({
     saveMetrics: jest.fn().mockResolvedValue(true),
   })),
 }));
 
-jest.mock("../../metrics/trend-analyzer.cjs", () => ({
+jest.mock('../../metrics/trend-analyzer.cjs', () => ({
   TrendAnalyzer: jest.fn().mockImplementation(() => ({
     analyzeTrends: jest.fn().mockResolvedValue({}),
   })),
 }));
 
-jest.mock("../../metrics/anomaly-detector.cjs", () => ({
+jest.mock('../../metrics/anomaly-detector.cjs', () => ({
   AnomalyDetector: jest.fn().mockImplementation(() => ({
     detectAnomalies: jest.fn().mockResolvedValue([]),
   })),
 }));
 
-jest.mock("../../telemetry/telemetry-client.js", () => ({
+jest.mock('../../telemetry/telemetry-client.js', () => ({
   createTelemetryClient: jest.fn().mockReturnValue({
     emit: jest.fn(),
   }),
 }));
 
-jest.mock("../../telemetry/event-schemas.js", () => ({
+jest.mock('../../telemetry/event-schemas.js', () => ({
   EVENT_SCHEMAS: {
-    "metrics.collection.started": {
-      eventName: "metrics.collection.started",
+    'metrics.collection.started': {
+      eventName: 'metrics.collection.started',
       safe: {
-        component: "string",
-        trigger: "string",
+        component: 'string',
+        trigger: 'string',
       },
       restricted: {
-        repositoryCount: "number",
+        repositoryCount: 'number',
       },
     },
-    "metrics.collection.completed": {
-      eventName: "metrics.collection.completed",
+    'metrics.collection.completed': {
+      eventName: 'metrics.collection.completed',
       safe: {
-        component: "string",
-        duration: "number",
-        repositoriesProcessed: "number",
+        component: 'string',
+        duration: 'number',
+        repositoriesProcessed: 'number',
       },
       restricted: {
-        successCount: "number",
-        failureCount: "number",
+        successCount: 'number',
+        failureCount: 'number',
       },
     },
-    "metrics.repository.collection.failed": {
-      eventName: "metrics.repository.collection.failed",
+    'metrics.repository.collection.failed': {
+      eventName: 'metrics.repository.collection.failed',
       safe: {
-        component: "string",
-        trigger: "string",
+        component: 'string',
+        trigger: 'string',
       },
       restricted: {
-        repositoryName: "string",
-        errorMessage: "string",
+        repositoryName: 'string',
+        errorMessage: 'string',
       },
     },
   },
 }));
 
-const {
-  MetricsCollectionOrchestrator,
-} = require("../metrics-collection-orchestrator.cjs");
+const { MetricsCollectionOrchestrator } = require('../metrics-collection-orchestrator.cjs');
 
-describe("MetricsCollectionOrchestrator", () => {
+describe('MetricsCollectionOrchestrator', () => {
   let orchestrator;
   let configPath;
   let testConfig;
+  // Every file the orchestrator writes goes here, never into the repo (#3498).
+  let tempDir;
+
+  beforeAll(() => {
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'metrics-orchestrator-'));
+  });
 
   afterAll(() => {
     // Restore process.exit
     process.exit = originalExit;
+    fs.rmSync(tempDir, { force: true, recursive: true });
   });
 
   beforeEach(() => {
     // Create test configuration
     testConfig = {
       schedule: {
-        cron: "0 2 * * *",
-        timezone: "UTC",
-        description: "Daily metrics collection at 2 AM UTC",
+        cron: '0 2 * * *',
+        timezone: 'UTC',
+        description: 'Daily metrics collection at 2 AM UTC',
       },
       execution: {
         parallelJobs: 1,
@@ -115,16 +121,16 @@ describe("MetricsCollectionOrchestrator", () => {
       },
       repositories: [
         {
-          owner: "lightspeedwp",
-          repo: ".github",
-          context: "github-control-plane",
+          owner: 'lightspeedwp',
+          repo: '.github',
+          context: 'github-control-plane',
           enabled: true,
         },
       ],
       storage: {
-        basePath: ".github/reports/metrics",
-        format: "json",
-        timestampFormat: "ISO8601",
+        basePath: path.join(tempDir, 'metrics'),
+        format: 'json',
+        timestampFormat: 'ISO8601',
         retention: {
           days: 365,
           maxFiles: 366,
@@ -133,17 +139,17 @@ describe("MetricsCollectionOrchestrator", () => {
       notifications: {
         onFailure: true,
         onSuccess: false,
-        channels: ["github-issues"],
+        channels: ['github-issues'],
       },
       logging: {
-        level: "info",
+        level: 'info',
         verbose: false,
-        outputPath: ".github/reports/metrics/logs",
+        outputPath: path.join(tempDir, 'metrics', 'logs'),
       },
     };
 
     // Write test configuration to temporary file
-    configPath = path.join(__dirname, "test-metrics-config.json");
+    configPath = path.join(tempDir, 'test-metrics-config.json');
     fs.writeFileSync(configPath, JSON.stringify(testConfig, null, 2));
   });
 
@@ -156,40 +162,40 @@ describe("MetricsCollectionOrchestrator", () => {
     jest.clearAllMocks();
   });
 
-  test("should load configuration successfully", () => {
+  test('should load configuration successfully', () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
     expect(orchestrator.config).toBeDefined();
     expect(orchestrator.config.repositories).toHaveLength(1);
-    expect(orchestrator.config.schedule.cron).toBe("0 2 * * *");
+    expect(orchestrator.config.schedule.cron).toBe('0 2 * * *');
   });
 
-  test("should throw error when configuration file not found", () => {
-    const invalidPath = path.join(__dirname, "nonexistent-config.json");
+  test('should throw error when configuration file not found', () => {
+    const invalidPath = path.join(__dirname, 'nonexistent-config.json');
     expect(() => {
       new MetricsCollectionOrchestrator(invalidPath);
-    }).toThrow("Configuration file not found");
+    }).toThrow('Configuration file not found');
   });
 
-  test("should throw error when repositories array is empty", () => {
+  test('should throw error when repositories array is empty', () => {
     testConfig.repositories = [];
     fs.writeFileSync(configPath, JSON.stringify(testConfig, null, 2));
 
     expect(() => {
       new MetricsCollectionOrchestrator(configPath);
-    }).toThrow("No repositories configured");
+    }).toThrow('No repositories configured');
   });
 
-  test("should initialize storage and analyzers", () => {
+  test('should initialize storage and analyzers', () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
     expect(orchestrator.storage).toBeDefined();
     expect(orchestrator.trendAnalyzer).toBeDefined();
     expect(orchestrator.anomalyDetector).toBeDefined();
   });
 
-  test("should handle disabled repositories", async () => {
+  test('should handle disabled repositories', async () => {
     testConfig.repositories = [
-      { owner: "org", repo: "repo1", context: "test", enabled: true },
-      { owner: "org", repo: "repo2", context: "test", enabled: false },
+      { owner: 'org', repo: 'repo1', context: 'test', enabled: true },
+      { owner: 'org', repo: 'repo2', context: 'test', enabled: false },
     ];
     fs.writeFileSync(configPath, JSON.stringify(testConfig, null, 2));
 
@@ -201,15 +207,15 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(orchestrator.config.repositories).toHaveLength(2);
   });
 
-  test("should generate summary with correct structure", async () => {
+  test('should generate summary with correct structure', async () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
     orchestrator.startTime = Date.now();
 
     // Add mock results
     orchestrator.results = [
       {
-        repository: "lightspeedwp/.github",
-        status: "success",
+        repository: 'lightspeedwp/.github',
+        status: 'success',
         metricsCount: 15,
         timestamp: new Date().toISOString(),
         collectionTime: 2500,
@@ -229,14 +235,14 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(summary.results).toHaveLength(1);
   });
 
-  test("should handle mixed success and error results", async () => {
+  test('should handle mixed success and error results', async () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
     orchestrator.startTime = Date.now();
 
     orchestrator.results = [
       {
-        repository: "lightspeedwp/.github",
-        status: "success",
+        repository: 'lightspeedwp/.github',
+        status: 'success',
         metricsCount: 15,
         timestamp: new Date().toISOString(),
         collectionTime: 2500,
@@ -247,9 +253,9 @@ describe("MetricsCollectionOrchestrator", () => {
 
     orchestrator.errors = [
       {
-        repository: "lightspeedwp/plugin",
-        status: "error",
-        error: "GitHub API rate limit exceeded",
+        repository: 'lightspeedwp/plugin',
+        status: 'error',
+        error: 'GitHub API rate limit exceeded',
         timestamp: new Date().toISOString(),
       },
     ];
@@ -259,17 +265,17 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(summary.execution.repositories.total).toBe(2);
     expect(summary.execution.repositories.successful).toBe(1);
     expect(summary.execution.repositories.failed).toBe(1);
-    expect(summary.execution.repositories.percentage).toBe("50.00");
+    expect(summary.execution.repositories.percentage).toBe('50.00');
   });
 
-  test("should save summary report to disk", async () => {
+  test('should save summary report to disk', async () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
     orchestrator.startTime = Date.now();
 
     orchestrator.results = [
       {
-        repository: "lightspeedwp/.github",
-        status: "success",
+        repository: 'lightspeedwp/.github',
+        status: 'success',
         metricsCount: 15,
         timestamp: new Date().toISOString(),
         collectionTime: 2500,
@@ -282,21 +288,17 @@ describe("MetricsCollectionOrchestrator", () => {
 
     // Verify summary file exists
     const expectedPath = path.join(
-      ".github/reports/metrics",
-      `collection-summary-${new Date().toISOString().split("T")[0]}.json`,
+      testConfig.storage.basePath,
+      `collection-summary-${new Date().toISOString().split('T')[0]}.json`
     );
 
-    if (fs.existsSync(expectedPath)) {
-      const savedSummary = JSON.parse(fs.readFileSync(expectedPath, "utf8"));
-      expect(savedSummary.timestamp).toBeDefined();
-      expect(savedSummary.results).toHaveLength(1);
-
-      // Clean up
-      fs.unlinkSync(expectedPath);
-    }
+    expect(fs.existsSync(expectedPath)).toBe(true);
+    const savedSummary = JSON.parse(fs.readFileSync(expectedPath, 'utf8'));
+    expect(savedSummary.timestamp).toBeDefined();
+    expect(savedSummary.results).toHaveLength(1);
   });
 
-  test("should track collection duration", async () => {
+  test('should track collection duration', async () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
     const startTime = Date.now();
     orchestrator.startTime = startTime;
@@ -306,8 +308,8 @@ describe("MetricsCollectionOrchestrator", () => {
 
     orchestrator.results = [
       {
-        repository: "lightspeedwp/.github",
-        status: "success",
+        repository: 'lightspeedwp/.github',
+        status: 'success',
         metricsCount: 15,
         timestamp: new Date().toISOString(),
         collectionTime: 2500,
@@ -322,7 +324,7 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(summary.execution.duration).toBeGreaterThan(0);
   });
 
-  test("should handle parallel vs sequential execution configuration", () => {
+  test('should handle parallel vs sequential execution configuration', () => {
     testConfig.execution.parallelJobs = 4;
     fs.writeFileSync(configPath, JSON.stringify(testConfig, null, 2));
 
@@ -331,7 +333,7 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(orchestrator.config.execution.parallelJobs).toBe(4);
   });
 
-  test("should validate configuration structure", () => {
+  test('should validate configuration structure', () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
 
     expect(orchestrator.config.schedule).toBeDefined();
@@ -342,32 +344,30 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(orchestrator.config.logging).toBeDefined();
   });
 
-  test("should collect metrics for a single repository without exiting", async () => {
+  test('should collect metrics for a single repository without exiting', async () => {
     orchestrator = new MetricsCollectionOrchestrator(configPath);
     orchestrator.startTime = Date.now();
 
-    const result = await orchestrator.collectMetricsForRepository(
-      testConfig.repositories[0],
-    );
+    const result = await orchestrator.collectMetricsForRepository(testConfig.repositories[0]);
 
     expect(result).toBeDefined();
-    expect(result.status).toBe("success");
-    expect(result.repository).toBe("lightspeedwp/.github");
+    expect(result.status).toBe('success');
+    expect(result.repository).toBe('lightspeedwp/.github');
     expect(result.metricsCount).toBeGreaterThan(0);
   });
 
-  test("should orchestrate collection for multiple repositories", async () => {
+  test('should orchestrate collection for multiple repositories', async () => {
     testConfig.repositories = [
       {
-        owner: "lightspeedwp",
-        repo: ".github",
-        context: "github-control-plane",
+        owner: 'lightspeedwp',
+        repo: '.github',
+        context: 'github-control-plane',
         enabled: true,
       },
       {
-        owner: "lightspeedwp",
-        repo: "plugin",
-        context: "wordpress-plugin",
+        owner: 'lightspeedwp',
+        repo: 'plugin',
+        context: 'wordpress-plugin',
         enabled: true,
       },
     ];
@@ -382,18 +382,18 @@ describe("MetricsCollectionOrchestrator", () => {
     expect(summary.results.length).toBeGreaterThan(0);
   });
 
-  test("should skip disabled repositories during orchestration", async () => {
+  test('should skip disabled repositories during orchestration', async () => {
     testConfig.repositories = [
       {
-        owner: "lightspeedwp",
-        repo: ".github",
-        context: "github-control-plane",
+        owner: 'lightspeedwp',
+        repo: '.github',
+        context: 'github-control-plane',
         enabled: true,
       },
       {
-        owner: "lightspeedwp",
-        repo: "plugin",
-        context: "wordpress-plugin",
+        owner: 'lightspeedwp',
+        repo: 'plugin',
+        context: 'wordpress-plugin',
         enabled: false,
       },
     ];

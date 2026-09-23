@@ -5,55 +5,48 @@
  * against baseline metrics and generating performance reports.
  */
 
-import { describe, it, expect, beforeAll, afterAll } from "@jest/globals";
-import path from "path";
-import fs from "fs";
+import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
+import path from 'path';
+import fs from 'fs';
+import os from 'os';
 import {
   runBenchmarks,
   generateReport,
   saveResults,
   OPTIMIZATION_TARGET,
-} from "./performance-benchmarking.js";
-import {
-  generateHTMLDashboard,
-  generateMarkdownReport,
-} from "./metrics-dashboard.js";
+} from './performance-benchmarking.js';
+import { generateHTMLDashboard, generateMarkdownReport } from './metrics-dashboard.js';
 
 // `__dirname` here is Jest's ambient CommonJS-wrapper global, not a native
 // ESM binding: import.meta.url has no CJS equivalent, so using it would
 // leave this file un-transformable to CommonJS and break under plain jest
 // (no --experimental-vm-modules), which is how the root suite runs it.
 // Derive REPO_ROOT from __dirname: scripts/automation/__tests__/performance -> repo root
-const REPO_ROOT = path.resolve(path.join(__dirname, "../../../../"));
+const REPO_ROOT = path.resolve(path.join(__dirname, '../../../../'));
 
-describe("Phase 2B Performance Validation", () => {
+describe('Phase 2B Performance Validation', () => {
   let benchmarkResults;
 
   beforeAll(async () => {
     // Capture tracked results file state before test
     const trackedResultsPath = path.join(
       REPO_ROOT,
-      "scripts/automation/__tests__/performance/results-phase-2b.json",
+      'scripts/automation/__tests__/performance/results-phase-2b.json'
     );
-    const beforeStats = fs.existsSync(trackedResultsPath)
-      ? fs.statSync(trackedResultsPath)
-      : null;
+    const beforeStats = fs.existsSync(trackedResultsPath) ? fs.statSync(trackedResultsPath) : null;
 
     // Run benchmarks without persisting to tracked file
     benchmarkResults = await runBenchmarks();
 
     // Verify that tracked file was not modified during benchmark execution
-    const afterStats = fs.existsSync(trackedResultsPath)
-      ? fs.statSync(trackedResultsPath)
-      : null;
+    const afterStats = fs.existsSync(trackedResultsPath) ? fs.statSync(trackedResultsPath) : null;
     expect({
       existedBefore: beforeStats !== null,
       existsAfter: afterStats !== null,
       // fs stat's `mtime` is a fresh Date object on every call, so `===`
       // always compares references (never equal, even for the same
       // unchanged file); compare the underlying timestamp instead.
-      sameModificationTime:
-        beforeStats?.mtime.getTime() === afterStats?.mtime.getTime(),
+      sameModificationTime: beforeStats?.mtime.getTime() === afterStats?.mtime.getTime(),
     }).toEqual({
       existedBefore: beforeStats !== null,
       existsAfter: afterStats !== null,
@@ -61,11 +54,9 @@ describe("Phase 2B Performance Validation", () => {
     });
   });
 
-  describe("Execution Time Improvements", () => {
-    it("should improve audit-issue-metadata execution time by at least 30%", () => {
-      const result = benchmarkResults.find(
-        (r) => r.scriptName === "audit-issue-metadata",
-      );
+  describe('Execution Time Improvements', () => {
+    it('should improve audit-issue-metadata execution time by at least 30%', () => {
+      const result = benchmarkResults.find((r) => r.scriptName === 'audit-issue-metadata');
       expect(result).toBeDefined();
 
       const improvements = result.calculateImprovements();
@@ -74,10 +65,8 @@ describe("Phase 2B Performance Validation", () => {
       expect(improvement).toBeGreaterThanOrEqual(OPTIMIZATION_TARGET * 100);
     });
 
-    it("should improve bulk-issue-metadata-updater execution time by at least 30%", () => {
-      const result = benchmarkResults.find(
-        (r) => r.scriptName === "bulk-issue-metadata-updater",
-      );
+    it('should improve bulk-issue-metadata-updater execution time by at least 30%', () => {
+      const result = benchmarkResults.find((r) => r.scriptName === 'bulk-issue-metadata-updater');
       expect(result).toBeDefined();
 
       const improvements = result.calculateImprovements();
@@ -86,10 +75,8 @@ describe("Phase 2B Performance Validation", () => {
       expect(improvement).toBeGreaterThanOrEqual(OPTIMIZATION_TARGET * 100);
     });
 
-    it("should improve staging-validation execution time by at least 30%", () => {
-      const result = benchmarkResults.find(
-        (r) => r.scriptName === "staging-validation",
-      );
+    it('should improve staging-validation execution time by at least 30%', () => {
+      const result = benchmarkResults.find((r) => r.scriptName === 'staging-validation');
       expect(result).toBeDefined();
 
       const improvements = result.calculateImprovements();
@@ -98,7 +85,7 @@ describe("Phase 2B Performance Validation", () => {
       expect(improvement).toBeGreaterThanOrEqual(OPTIMIZATION_TARGET * 100);
     });
 
-    it("should achieve average execution time improvement across all scripts", () => {
+    it('should achieve average execution time improvement across all scripts', () => {
       const avgImprovement =
         benchmarkResults.reduce((sum, r) => {
           return sum + r.calculateImprovements().executionTime.improvement;
@@ -108,30 +95,26 @@ describe("Phase 2B Performance Validation", () => {
     });
   });
 
-  describe("Memory Usage Improvements", () => {
-    it("should reduce memory usage by at least 27%", () => {
+  describe('Memory Usage Improvements', () => {
+    it('should reduce memory usage by at least 27%', () => {
       const avgMemoryImprovement =
         benchmarkResults.reduce((sum, r) => {
           return sum + r.calculateImprovements().memory.improvement;
         }, 0) / benchmarkResults.length;
 
-      expect(avgMemoryImprovement).toBeGreaterThanOrEqual(
-        OPTIMIZATION_TARGET * 100 * 0.9,
-      );
+      expect(avgMemoryImprovement).toBeGreaterThanOrEqual(OPTIMIZATION_TARGET * 100 * 0.9);
     });
 
-    it("should have measurable peak memory reduction", () => {
+    it('should have measurable peak memory reduction', () => {
       for (const result of benchmarkResults) {
         const improvements = result.calculateImprovements();
-        expect(improvements.memory.actual).toBeLessThan(
-          improvements.memory.baseline,
-        );
+        expect(improvements.memory.actual).toBeLessThan(improvements.memory.baseline);
       }
     });
   });
 
-  describe("API Call Optimization", () => {
-    it("should reduce API calls through caching", () => {
+  describe('API Call Optimization', () => {
+    it('should reduce API calls through caching', () => {
       for (const result of benchmarkResults) {
         const improvements = result.calculateImprovements();
         // Should reduce API calls by at least 20%
@@ -139,7 +122,7 @@ describe("Phase 2B Performance Validation", () => {
       }
     });
 
-    it("should achieve cache hit rates above 60%", () => {
+    it('should achieve cache hit rates above 60%', () => {
       for (const result of benchmarkResults) {
         const improvements = result.calculateImprovements();
         expect(parseInt(improvements.cacheHitRate)).toBeGreaterThanOrEqual(60);
@@ -147,8 +130,8 @@ describe("Phase 2B Performance Validation", () => {
     });
   });
 
-  describe("Optimization Target Validation", () => {
-    it("should meet 30% execution time improvement target", () => {
+  describe('Optimization Target Validation', () => {
+    it('should meet 30% execution time improvement target', () => {
       const allTargetsMet = benchmarkResults.every((r) => {
         return r.calculateImprovements().executionTime.targetMet;
       });
@@ -156,7 +139,7 @@ describe("Phase 2B Performance Validation", () => {
       expect(allTargetsMet).toBe(true);
     });
 
-    it("should document all baseline metrics", () => {
+    it('should document all baseline metrics', () => {
       for (const result of benchmarkResults) {
         expect(result.baseline).toBeDefined();
         expect(result.baseline.executionTime).toBeGreaterThan(0);
@@ -165,114 +148,113 @@ describe("Phase 2B Performance Validation", () => {
       }
     });
 
-    it("should calculate improvements correctly", () => {
+    it('should calculate improvements correctly', () => {
       for (const result of benchmarkResults) {
         const improvements = result.calculateImprovements();
 
         // Verify calculation logic
         expect(improvements.executionTime.improvement).toEqual(
-          (1 -
-            improvements.executionTime.actual /
-              improvements.executionTime.baseline) *
-            100,
+          (1 - improvements.executionTime.actual / improvements.executionTime.baseline) * 100
         );
 
         expect(improvements.memory.improvement).toEqual(
-          (1 - improvements.memory.actual / improvements.memory.baseline) * 100,
+          (1 - improvements.memory.actual / improvements.memory.baseline) * 100
         );
       }
     });
   });
 
-  describe("Report Generation", () => {
-    it("should generate text report", () => {
+  describe('Report Generation', () => {
+    it('should generate text report', () => {
       const report = generateReport(benchmarkResults);
 
-      expect(report).toContain("PHASE 2B OPTIMIZATION VALIDATION REPORT");
-      expect(report).toContain("EXECUTIVE SUMMARY");
-      expect(report).toContain("PER-SCRIPT RESULTS");
-      expect(report).toContain("AGGREGATE IMPROVEMENTS");
-      expect(report).toContain("VALIDATION CHECKLIST");
+      expect(report).toContain('PHASE 2B OPTIMIZATION VALIDATION REPORT');
+      expect(report).toContain('EXECUTIVE SUMMARY');
+      expect(report).toContain('PER-SCRIPT RESULTS');
+      expect(report).toContain('AGGREGATE IMPROVEMENTS');
+      expect(report).toContain('VALIDATION CHECKLIST');
     });
 
-    it("should include improvement percentages in report", () => {
+    it('should include improvement percentages in report', () => {
       const report = generateReport(benchmarkResults);
 
       for (const result of benchmarkResults) {
         const improvements = result.calculateImprovements();
         expect(report).toContain(result.scriptName);
-        expect(report).toContain(
-          improvements.executionTime.improvement.toFixed(2),
-        );
+        expect(report).toContain(improvements.executionTime.improvement.toFixed(2));
       }
     });
 
-    it("should generate HTML dashboard", () => {
-      const tempDir = fs.mkdtempSync(path.join(__dirname, ".tmp-html-"));
-      const dashboardPath = path.join(tempDir, "phase-2b-dashboard.html");
+    it('should generate HTML dashboard', () => {
+      const tempDir = fs.mkdtempSync(path.join(__dirname, '.tmp-html-'));
+      const dashboardPath = path.join(tempDir, 'phase-2b-dashboard.html');
 
       try {
         generateHTMLDashboard(benchmarkResults, dashboardPath);
 
         expect(fs.existsSync(dashboardPath)).toBe(true);
 
-        const html = fs.readFileSync(dashboardPath, "utf8");
-        expect(html).toContain("Phase 2B Performance Validation");
-        expect(html).toContain("Avg Execution Time Improvement");
-        expect(html).toContain("Per-Script Performance Metrics");
+        const html = fs.readFileSync(dashboardPath, 'utf8');
+        expect(html).toContain('Phase 2B Performance Validation');
+        expect(html).toContain('Avg Execution Time Improvement');
+        expect(html).toContain('Per-Script Performance Metrics');
       } finally {
         // Clean up temporary directory
         fs.rmSync(tempDir, { recursive: true, force: true });
       }
     });
 
-    it("should generate Markdown report", () => {
+    it('should generate Markdown report', () => {
       const report = generateMarkdownReport(benchmarkResults);
 
-      expect(report).toContain("Phase 2B Performance Validation Report");
-      expect(report).toContain("Executive Summary");
-      expect(report).toContain("Per-Script Results");
-      expect(report).toContain("Validation Checklist");
-      expect(report).toContain("Phase 2C Optimization");
+      expect(report).toContain('Phase 2B Performance Validation Report');
+      expect(report).toContain('Executive Summary');
+      expect(report).toContain('Per-Script Results');
+      expect(report).toContain('Validation Checklist');
+      expect(report).toContain('Phase 2C Optimization');
     });
   });
 
-  describe("Results Persistence", () => {
-    it("should save results to JSON file", () => {
-      const resultsPath = path.join(__dirname, "results-phase-2b.json");
-      saveResults(benchmarkResults, resultsPath);
+  describe('Results Persistence', () => {
+    it('should save results to JSON file', () => {
+      // Write to a temporary directory: results-phase-2b.json next to this
+      // test is a tracked file and must not change on a test run (#3498).
+      const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'phase-2b-'));
+      const resultsPath = path.join(tempDir, 'results-phase-2b.json');
+      try {
+        saveResults(benchmarkResults, resultsPath);
 
-      expect(fs.existsSync(resultsPath)).toBe(true);
+        expect(fs.existsSync(resultsPath)).toBe(true);
 
-      const saved = JSON.parse(fs.readFileSync(resultsPath, "utf8"));
-      expect(saved.metadata.phase).toBe("2B Validation");
-      expect(saved.results).toHaveLength(benchmarkResults.length);
+        const saved = JSON.parse(fs.readFileSync(resultsPath, 'utf8'));
+        expect(saved.metadata.phase).toBe('2B Validation');
+        expect(saved.results).toHaveLength(benchmarkResults.length);
+      } finally {
+        fs.rmSync(tempDir, { force: true, recursive: true });
+      }
     });
   });
 
   afterAll(() => {
     // Only generate reports if requested via environment variable
-    if (process.env.GENERATE_REPORTS !== "true") {
+    if (process.env.GENERATE_REPORTS !== 'true') {
       return;
     }
 
     // Generate and save reports
     const report = generateReport(benchmarkResults);
-    const reportPath = path.join(__dirname, "PHASE-2B-VALIDATION-REPORT.txt");
+    const reportPath = path.join(__dirname, 'PHASE-2B-VALIDATION-REPORT.txt');
     fs.writeFileSync(reportPath, report);
 
-    const dashboardPath = path.join(__dirname, "phase-2b-dashboard.html");
+    const dashboardPath = path.join(__dirname, 'phase-2b-dashboard.html');
     generateHTMLDashboard(benchmarkResults, dashboardPath);
 
-    const markdownPath = path.join(
-      REPO_ROOT,
-      "docs/PHASE-2B-VALIDATION-RESULTS.md",
-    );
+    const markdownPath = path.join(REPO_ROOT, 'docs/PHASE-2B-VALIDATION-RESULTS.md');
     const markdownReport = generateMarkdownReport(benchmarkResults);
     fs.mkdirSync(path.dirname(markdownPath), { recursive: true });
     fs.writeFileSync(markdownPath, markdownReport);
 
-    console.log("\n✅ All reports generated successfully!");
+    console.log('\n✅ All reports generated successfully!');
     console.log(`   - Text Report: ${reportPath}`);
     console.log(`   - HTML Dashboard: ${dashboardPath}`);
     console.log(`   - Markdown Report: ${markdownPath}`);
