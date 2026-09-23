@@ -137,6 +137,11 @@ function generateBaseItems() {
 function generateDomainItems(domain) {
   // Placeholder for domain-specific items
   // In Phase 4, domain-specific items would be loaded from domain variant files
+  if (domain !== 'base') {
+    console.error(
+      `⚠️ Domain '${domain}' variant items are not loaded yet (Phase 4 work): generating base items only.`
+    );
+  }
   return [];
 }
 
@@ -159,6 +164,7 @@ function generateMarkdown(items, metrics, report, audience) {
   let output = `# Requirements Quality Checklist\n\n`;
   output += `**Checklist**: ${audienceLabel}  \n`;
   output += `**Domain**: ${domain}  \n`;
+  output += `**Specification**: ${title}  \n`;
   output += `**Date**: ${now}  \n`;
 
   if (specRef) {
@@ -237,6 +243,7 @@ function generateJSON(items, metrics, report) {
           id: `checklist-${domain}-${audience}-${Date.now()}`,
           domain,
           audience,
+          title,
           specificationRef: specRef,
           generatedAt: now,
         },

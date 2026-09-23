@@ -182,14 +182,27 @@ const generateFromBase = () => {
 const applyVariant = (base, variant) => {
   if (!base || !variant) return base;
 
-  const baseItemIds = new Set(base.items.map((item) => item.id));
-  const newItems = variant.items.filter((item) => !baseItemIds.has(item.id));
+  const seenIds = new Set(base.items.map((item) => item && item.id));
+  const newItems = variant.items.filter((item) => {
+    if (!item || seenIds.has(item.id)) {
+      return false;
+    }
+    seenIds.add(item.id);
+    return true;
+  });
+
+  // Track applied variant domains for provenance (test-generator contract)
+  const applied = [...((base.metadata && base.metadata.variantsApplied) || [])];
+  if (variant.metadata && variant.metadata.domain && !applied.includes(variant.metadata.domain)) {
+    applied.push(variant.metadata.domain);
+  }
 
   return {
     items: [...base.items, ...newItems],
     metadata: {
       ...base.metadata,
       ...variant.metadata,
+      variantsApplied: applied,
     },
   };
 };

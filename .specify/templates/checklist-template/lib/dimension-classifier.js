@@ -100,12 +100,23 @@ const DIMENSIONS = {
 };
 
 /**
+ * Case-insensitive lookup for dimension keys so items carrying any casing
+ * (e.g. 'scenario-coverage' vs 'Scenario-Coverage') are never dropped.
+ */
+const DIMENSIONS_BY_KEY = Object.fromEntries(
+  Object.keys(DIMENSIONS).map((key) => [key.toLowerCase(), key])
+);
+
+/**
  * Get dimension metadata by name
- * @param {string} dimensionName - Name of dimension (e.g., 'Completeness')
+ * @param {string} dimensionName - Name of dimension (e.g. 'Completeness')
  * @returns {Object|null} Dimension metadata or null if not found
  */
 function getDimension(dimensionName) {
-  return DIMENSIONS[dimensionName] || null;
+  if (typeof dimensionName !== 'string') {
+    return null;
+  }
+  return DIMENSIONS[DIMENSIONS_BY_KEY[dimensionName.toLowerCase()]] || null;
 }
 
 /**
@@ -125,10 +136,14 @@ function classifyByDimension(items) {
     classified[dim] = [];
   });
 
-  // Classify items
+  // Classify items (case-insensitive: producers may emit any casing)
   items.forEach((item) => {
-    if (item.dimension && DIMENSIONS[item.dimension]) {
-      classified[item.dimension].push(item);
+    const key =
+      item && typeof item.dimension === 'string'
+        ? DIMENSIONS_BY_KEY[item.dimension.toLowerCase()]
+        : undefined;
+    if (key) {
+      classified[key].push(item);
     }
   });
 

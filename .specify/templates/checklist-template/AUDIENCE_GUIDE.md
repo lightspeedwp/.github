@@ -367,9 +367,7 @@ Author addresses feedback
     ↓
 Ready for implementation?
     ├─ High-risk/large → Stakeholder gates (STAKEHOLDER audience)
-    └─ Low-risk/small → Proceed to implementation
-    ↓
-Check dependencies (INTEGRATION audience)
+    └─ Low-risk/small → Check dependencies (INTEGRATION audience)
     ↓
 Proceed with implementation
 ```

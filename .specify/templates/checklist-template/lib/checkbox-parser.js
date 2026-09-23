@@ -3,7 +3,7 @@
  * Parses markdown checkboxes and extracts checklist item state and markers
  */
 
-const MARKER_PATTERN = /\[(Gap|Ambiguity-Critical|Ambiguity):\s*([^\]]*)\]/;
+const MARKER_PATTERN = /\[(Gap|Ambiguity-Critical|Ambiguity)(?::\s*([^\]]*))?\]/;
 
 /**
  * Parse checkbox state from markdown line
@@ -35,7 +35,7 @@ function parseCheckboxLine(line) {
   const markerMatch = questionAndMarker.match(MARKER_PATTERN);
   if (markerMatch) {
     marker = markerMatch[1];
-    markerDetail = markerMatch[2].trim();
+    markerDetail = (markerMatch[2] || '').trim() || null;
     // Remove marker from question text
     questionAndMarker = questionAndMarker.replace(MARKER_PATTERN, '').trim();
   }
@@ -135,8 +135,10 @@ function parseCheckboxes(markdown) {
 function countCheckboxes(markdown) {
   const items = parseCheckboxes(markdown);
 
-  const checked = items.filter((item) => item.isChecked).length;
-  const unchecked = items.filter((item) => !item.isChecked).length;
+  // Effective completion: a checked box carrying a gap/ambiguity marker is
+  // still open work, so it must not count as complete.
+  const checked = items.filter((item) => item.isChecked && !item.marker).length;
+  const unchecked = items.length - checked;
   const gaps = items.filter((item) => item.marker === 'Gap').length;
   const ambiguities = items.filter((item) => item.marker === 'Ambiguity').length;
   const criticalAmbiguities = items.filter((item) => item.marker === 'Ambiguity-Critical').length;

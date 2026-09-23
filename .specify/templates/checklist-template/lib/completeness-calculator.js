@@ -18,7 +18,7 @@ const STATUS_THRESHOLDS = {
   },
   fail: {
     gaps: Infinity,
-    criticalAmbiguities: 2,
+    criticalAmbiguities: 1,
     ambiguities: Infinity,
   },
 };

@@ -34,7 +34,7 @@ The **Base Checklist** covers 8 fundamental quality dimensions applicable to ANY
 
 Each variant **adds 15-20 domain-specific items** to the base checklist, extending coverage for specialized requirements:
 
-**UX Variant** (+18 items):
+**UX Variant** (+15 items):
 
 - Error state handling, visual hierarchy, interaction states
 - Accessibility compliance, responsive design, zero states
@@ -289,11 +289,11 @@ Each variant adds **different clarity concerns** relevant to its domain.
 | Domain | Dimension Items | Domain-Specific Items | Total Items |
 |--------|-----------|-----------|-----|
 | Base only | 40-45 | — | **40-45** |
-| + UX Variant | 40-45 | 18 UX-specific | **58-63** |
+| + UX Variant | 40-45 | 15 UX-specific | **55-60** |
 | + API Variant | 40-45 | 18 API-specific | **58-63** |
 | + Security Variant | 40-45 | 18 Security-specific | **58-63** |
 | + Performance Variant | 40-45 | 18 Performance-specific | **58-63** |
-| + All 4 variants | 40-45 | 72 domain-specific (18×4) | **112-117** |
+| + All 4 variants | 40-45 | 69 domain-specific (18×3 + 15) | **109-114** |
 
 ---
 

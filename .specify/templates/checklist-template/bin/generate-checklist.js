@@ -34,19 +34,37 @@ function parseArguments() {
     output: 'checklist.md',
   };
 
+  const valuedFlags = new Set(['--domain', '--audience', '--custom', '--output']);
+
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--help') {
       printUsage();
       process.exit(0);
-    } else if (args[i] === '--domain' && i + 1 < args.length) {
-      opts.domain = args[++i];
-    } else if (args[i] === '--audience' && i + 1 < args.length) {
-      opts.audience = args[++i];
-    } else if (args[i] === '--custom' && i + 1 < args.length) {
-      opts.custom = args[++i];
-    } else if (args[i] === '--output' && i + 1 < args.length) {
-      opts.output = args[++i];
+    } else if (valuedFlags.has(args[i])) {
+      const value = args[i + 1];
+      if (value === undefined || value.startsWith('--')) {
+        console.error(`❌ ${args[i]} requires a value`);
+        process.exit(1);
+      }
+      opts[args[i].slice(2)] = value;
+      i++;
+    } else if (args[i].startsWith('--')) {
+      console.error(`❌ Unknown argument: ${args[i]}`);
+      printUsage();
+      process.exit(1);
+    } else {
+      console.error(`❌ Unexpected positional argument: ${args[i]}`);
+      printUsage();
+      process.exit(1);
     }
+  }
+
+  const validAudiences = ['author', 'peer', 'stakeholder', 'integration'];
+  if (!validAudiences.includes(opts.audience)) {
+    console.error(
+      `❌ Invalid audience '${opts.audience}'. Must be one of: ${validAudiences.join(', ')}`
+    );
+    process.exit(1);
   }
 
   return opts;
@@ -114,8 +132,10 @@ async function main() {
 
     // Step 2: Apply domain variant if specified
     if (opts.domain) {
-      console.log(`✓ Applying ${opts.domain} domain variant`);
-      // TODO: Load and apply actual variant file
+      console.error(
+        `❌ --domain '${opts.domain}' is not implemented yet: variant files (.specify/templates/checklist-variants/*.md) are prose and have no machine reader. Generate without --domain for now.`
+      );
+      process.exit(1);
     }
 
     // Step 3: Merge custom items if provided

@@ -98,7 +98,7 @@ function validateIdSequence(items) {
     }
 
     // Check format
-    if (!item.id.match(/^CHK-\d{3}-[\w\-]+$/)) {
+    if (!item.id.match(/^CHK-\d{3}-[\w-]+$/)) {
       errors.push(`Item ${index}: Invalid format for ID '${item.id}'`);
     }
 

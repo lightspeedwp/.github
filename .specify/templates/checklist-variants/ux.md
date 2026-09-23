@@ -8,7 +8,7 @@
 
 ---
 
-## UX-Specific Items (18 items)
+## UX-Specific Items (15 items)
 
 ### Completeness: UX Errors and Edge Cases
 

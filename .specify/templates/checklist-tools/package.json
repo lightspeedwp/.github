@@ -2,7 +2,7 @@
   "name": "@lightspeedwp/checklist-tools",
   "version": "1.0.0",
   "description": "Requirements quality checklist framework tooling — validators, generators, and utilities",
-  "type": "module",
+  "type": "commonjs",
   "main": "lib/index.js",
   "bin": {
     "checklist": "bin/generate-checklist.js",

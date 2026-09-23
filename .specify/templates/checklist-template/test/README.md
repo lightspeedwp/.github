@@ -117,4 +117,4 @@ npm test -- --verbose
 
 - [Schema Documentation](../MARKER_SYNTAX.md)
 - [Checklist Template](../checklist-template.md)
-- [JSON Schema](../checklist-schema.json)
+- [JSON Schema](../../checklist-schema.json)

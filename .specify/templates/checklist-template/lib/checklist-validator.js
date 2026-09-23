@@ -8,8 +8,8 @@ const VALID_DIMENSIONS = [
   'Clarity',
   'Consistency',
   'Measurability',
-  'Scenario Coverage',
-  'Edge Cases',
+  'Scenario-Coverage',
+  'Edge-Cases',
   'Dependencies',
   'Ambiguities',
 ];
@@ -64,10 +64,14 @@ function checklistValidator(checklist) {
       if (!item.dimension) {
         errors.push(`Item ${index}: Missing dimension`);
       } else {
-        dimensionCoverage.add(item.dimension);
+        // Track coverage under the canonical hyphenated name so space and
+        // hyphen forms ('Scenario Coverage' vs 'Scenario-Coverage') unify.
+        const canonicalDimension = String(item.dimension).toLowerCase().replace(/\s+/g, '-');
+        dimensionCoverage.add(canonicalDimension);
 
-        // Check valid dimension
-        if (!VALID_DIMENSIONS.includes(item.dimension)) {
+        // Check valid dimension (spaces and hyphens equivalent)
+        const validDimensions = VALID_DIMENSIONS.map((d) => d.toLowerCase().replace(/\s+/g, '-'));
+        if (!validDimensions.includes(canonicalDimension)) {
           errors.push(`Item ${index}: Invalid dimension '${item.dimension}'`);
         }
       }
@@ -75,7 +79,7 @@ function checklistValidator(checklist) {
 
     // Check dimension coverage
     VALID_DIMENSIONS.forEach((dimension) => {
-      if (!dimensionCoverage.has(dimension)) {
+      if (!dimensionCoverage.has(dimension.toLowerCase())) {
         warnings.push(`Missing coverage for dimension: ${dimension}`);
       }
     });

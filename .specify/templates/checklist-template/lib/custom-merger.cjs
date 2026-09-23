@@ -15,8 +15,8 @@ const VALID_DIMENSIONS = [
   'Clarity',
   'Consistency',
   'Measurability',
-  'Scenario Coverage',
-  'Edge Cases',
+  'Scenario-Coverage',
+  'Edge-Cases',
   'Dependencies',
   'Ambiguities',
 ];
@@ -32,7 +32,12 @@ const VALID_DIMENSIONS = [
  */
 function deduplicateItems(items) {
   const seen = new Set();
-  return items.filter(item => {
+  return items.filter((item) => {
+    // ID-less items cannot collide: keep them and let validateCustomItems
+    // report the missing id instead of dropping them as duplicates.
+    if (!item || !item.id) {
+      return true;
+    }
     if (seen.has(item.id)) {
       return false;
     }
@@ -67,7 +72,11 @@ function validateCustomItems(items) {
     }
     if (!item.dimension) {
       errors.push(`Item ${index}: Missing required field 'dimension'`);
-    } else if (!VALID_DIMENSIONS.includes(item.dimension)) {
+    } else if (
+      !VALID_DIMENSIONS.map((d) => d.toLowerCase().replace(/\s+/g, '-')).includes(
+        String(item.dimension).toLowerCase().replace(/\s+/g, '-')
+      )
+    ) {
       errors.push(`Item ${index}: Invalid dimension '${item.dimension}'`);
     }
 
@@ -106,7 +115,7 @@ function mergeCustomItems(baseChecklist, customItems = []) {
   };
 
   // Add custom items
-  customItems.forEach(item => {
+  customItems.forEach((item) => {
     merged.items.push({
       ...item,
       isCustom: true,

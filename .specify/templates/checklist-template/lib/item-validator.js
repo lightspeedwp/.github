@@ -26,6 +26,10 @@ const VALID_PRIORITIES = ['critical', 'high', 'medium', 'low'];
 function validateItem(item) {
   const errors = [];
 
+  if (!item || typeof item !== 'object') {
+    return { isValid: false, errors: ['Item must be an object'], item };
+  }
+
   // Check required fields
   if (!item.id) {
     errors.push('Missing required field: id');
@@ -98,14 +102,11 @@ function isValidItemId(id) {
   }
 
   const dimensionPart = parts.slice(2).join('-');
-  // ID dimension should match one of the valid dimensions (normalized)
-  const normalizedDimensions = VALID_DIMENSIONS.map((d) =>
-    d
-      .replace(/([A-Z])/g, '-$1')
-      .toLowerCase()
-      .replace(/^-/, '')
-  );
-  return normalizedDimensions.includes(dimensionPart.toLowerCase());
+  // ID dimension should match one of the valid dimensions (case-insensitive;
+  // spaces and hyphens are equivalent: 'Scenario Coverage' === 'Scenario-Coverage')
+  const normalizedDimensions = VALID_DIMENSIONS.map((d) => d.toLowerCase());
+  const normalizedPart = dimensionPart.toLowerCase().replace(/\s+/g, '-');
+  return normalizedDimensions.includes(normalizedPart);
 }
 
 /**
