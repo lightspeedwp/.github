@@ -19,7 +19,7 @@
 | **Governance Policy Labels** | 57 |
 | **Documentation Files Reviewed** | 18 |
 | **Archived Workflows Analyzed** | 11 |
-| **Critical Findings** | 13 |
+| **Total Findings** | 13 |
 
 ### Critical Findings Discovered
 
@@ -173,7 +173,7 @@
 **Audit Status**: ⚠️ MVP local reconciliation complete; orphan-label validation remains incomplete pending a verified live GitHub label inventory
 
 **Findings Summary**:
-- 2 CRITICAL/HIGH findings requiring governance decision
+- 1 HIGH and 1 MEDIUM finding requiring governance decision (no CRITICAL findings)
 - 1 recommendation for policy alignment
 - Local data sources were successfully audited; live GitHub API validation was unavailable
 - Evidence traceable to specific files and line numbers
