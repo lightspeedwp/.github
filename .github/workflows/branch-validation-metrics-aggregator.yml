@@ -152,6 +152,9 @@ jobs:
         with:
           client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          # Least privilege: push the branch, open/update the PR, label it.
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Create or update metrics PR
         if: steps.aggregate.outputs.total != '0'

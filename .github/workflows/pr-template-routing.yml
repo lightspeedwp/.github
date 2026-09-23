@@ -30,6 +30,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          # The router runs PR-supplied scripts; never leave the token in
+          # .git/config for them. github-script uses its own token input.
+          persist-credentials: false
           fetch-depth: 1
           sparse-checkout: |
             scripts

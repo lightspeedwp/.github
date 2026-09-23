@@ -9,10 +9,10 @@ on:
       # looped ~450 times a day (see #3474).
       - "!chore/branch-validation-metrics"
 
+# Read-only: the job calls no GitHub API (artifact upload uses the runner's
+# own token), so no write scopes are granted.
 permissions:
   contents: read
-  pull-requests: write
-  checks: write
 
 # One validation per branch at a time; a newer push supersedes the old run.
 concurrency:
@@ -31,6 +31,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           fetch-depth: 1
           sparse-checkout: |
             scripts/validation
