@@ -224,15 +224,20 @@ describe('ai-feedback-validation.yml', () => {
     expect(core.warning).toHaveBeenCalledWith(expect.stringContaining('No permission to comment'));
   });
 
-  test('a fork whose head repository was deleted is treated as no feedback file', async () => {
-    const { github } = makeGithub();
+  test('a fork PR (even with its head repository deleted) is read through the base repository', async () => {
+    const { github } = makeGithub({ feedbackFile: VALID_FEEDBACK });
     const core = makeCore();
     const context = prContext({ body: 'Closes #7' });
     context.payload.pull_request.head.repo = null;
 
     await runScript(step, { github, context, core, env: { ENFORCE: 'true' } });
 
-    expect(github.rest.repos.getContent).not.toHaveBeenCalled();
+    expect(github.rest.repos.getContent).toHaveBeenCalledWith({
+      owner: 'lightspeedwp',
+      repo: 'example',
+      path: 'FEEDBACK_RESPONSE.md',
+      ref: 'abc123',
+    });
     expect(core.setFailed).not.toHaveBeenCalled();
   });
 });

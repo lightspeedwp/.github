@@ -68,24 +68,24 @@ jobs:
               return;
             }
 
-            // Read FEEDBACK_RESPONSE.md from the PR head as data, never by
-            // checking out PR code. A fork's head repo may be gone (null).
+            // Read FEEDBACK_RESPONSE.md at the PR head commit as data, never
+            // by checking out PR code. The base repository serves fork head
+            // commits too, so this works for forks (even deleted ones) with a
+            // token scoped to the calling repository.
             let feedbackContent = null;
-            if (pr.head?.repo) {
-              try {
-                const { data } = await github.rest.repos.getContent({
-                  owner: pr.head.repo.owner.login,
-                  repo: pr.head.repo.name,
-                  path: 'FEEDBACK_RESPONSE.md',
-                  ref: pr.head.sha,
-                });
-                if (!Array.isArray(data) && data.content) {
-                  feedbackContent = Buffer.from(data.content, 'base64').toString('utf8');
-                }
-              } catch (error) {
-                if (error.status !== 404) {
-                  throw error;
-                }
+            try {
+              const { data } = await github.rest.repos.getContent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                path: 'FEEDBACK_RESPONSE.md',
+                ref: pr.head.sha,
+              });
+              if (!Array.isArray(data) && data.content) {
+                feedbackContent = Buffer.from(data.content, 'base64').toString('utf8');
+              }
+            } catch (error) {
+              if (error.status !== 404) {
+                throw error;
               }
             }
 
