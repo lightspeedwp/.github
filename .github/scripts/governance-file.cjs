@@ -41,7 +41,8 @@ class GovernanceFile {
 		if (filename.endsWith('.md') && filePath.includes('TEMPLATE')) {
 			return 'template';
 		}
-		if (filename.includes('workflow') && (filename.endsWith('.yml') || filename.endsWith('.yaml'))) {
+		const normalized = filePath.split(path.sep).join('/');
+		if (/(^|\/)\.github\/workflows\//.test(normalized) && (filename.endsWith('.yml') || filename.endsWith('.yaml'))) {
 			return 'workflow';
 		}
 		if (filename.endsWith('.json')) {
@@ -87,7 +88,7 @@ class GovernanceFile {
 	 * Parse Markdown frontmatter
 	 */
 	static parseMarkdownFrontmatter(content) {
-		const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+		const frontmatterRegex = /^---\r?\n([\s\S]*?)(?:\r?\n)?---(?:\r?\n|$)([\s\S]*)$/;
 		const match = content.match(frontmatterRegex);
 
 		if (!match) {
@@ -95,7 +96,8 @@ class GovernanceFile {
 		}
 
 		try {
-			const metadata = yaml.load(match[1]) || {};
+			const loaded = yaml.load(match[1]);
+			const metadata = loaded && typeof loaded === 'object' && !Array.isArray(loaded) ? loaded : {};
 			return { metadata, body: match[2] };
 		} catch (error) {
 			throw new Error(`Frontmatter parse error: ${error.message}`);

@@ -4,6 +4,8 @@
  * Provides violation metadata, remediation guidance, and affected system tracking
  */
 
+const { randomUUID } = require('crypto');
+
 class AuditViolation {
 	constructor(options = {}) {
 		this.id = this._generateId(options);
@@ -26,10 +28,7 @@ class AuditViolation {
 	 */
 	_generateId(options) {
 		const ruleId = options.ruleId || 'unknown';
-		const file = (options.file || 'unknown').replace(/\//g, '-');
-		const line = options.line || '0';
-		const timestamp = Date.now();
-		return `${ruleId}-${file}-${line}-${timestamp}`.substring(0, 64);
+		return `${ruleId}-${randomUUID()}`;
 	}
 
 	/**
@@ -219,7 +218,7 @@ class ViolationBuilder {
 	/**
 	 * Get violations by severity
 	 */
-	getByServerity(severity) {
+	getBySeverity(severity) {
 		return this.violations.filter((v) => v.severity === severity);
 	}
 

@@ -99,8 +99,7 @@ class AuditRuleLoader {
 		return this.rules.filter((rule) => {
 			if (!rule.file) return false;
 			if (rule.file.includes('/')) {
-				// Handle directory paths like ".github/ISSUE_TEMPLATE/"
-				return rule.file.includes(fileType);
+				return rule.file.toLowerCase().includes(fileType.toLowerCase());
 			}
 			return rule.file === fileType;
 		});
