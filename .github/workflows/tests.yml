@@ -1,0 +1,121 @@
+name: Tests
+
+# Runs the Jest suite on every PR and fails only on failures the PR
+# introduces: develop still carries known failures (#3472), so the head and
+# base are tested in parallel and compared. Once #3472 clears the baseline,
+# this can gate on zero failures instead (#3479).
+
+on:
+  # No paths filter: this backs a status check, and a filtered-out run
+  # never reports.
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  jest:
+    name: Jest (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [head, base]
+        exclude:
+          # No base to compare against outside a pull request.
+          - target: ${{ github.event_name != 'pull_request' && 'base' || 'none' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          # head: the PR merge commit (default); base: the PR base commit.
+          ref: ${{ matrix.target == 'base' && github.event.pull_request.base.sha || '' }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
+
+      - name: Run Jest
+        run: |
+          # Failing tests are expected on develop; the compare job decides.
+          # A missing or invalid report fails closed there.
+          npx jest --config .jest.config.cjs --ci --coverage=false \
+            --json --outputFile=jest-report.json || true
+          jq -r '"suites=\(.numTotalTestSuites) failed_suites=\(.numFailedTestSuites) tests=\(.numTotalTests) failed=\(.numFailedTests)"' \
+            jest-report.json 2>/dev/null || echo "::warning::No Jest report was written"
+
+      - name: Check the suite left the working tree clean
+        run: |
+          # Tests must not write into the repository (#3482). Warning only
+          # until that is fixed.
+          dirty=$(git status --porcelain -- . ':!jest-report.json')
+          if [ -n "$dirty" ]; then
+            echo "::warning::Jest modified the working tree (#3482):"
+            printf '%s\n' "$dirty"
+          fi
+
+      - name: Upload report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: jest-report-${{ matrix.target }}
+          path: jest-report.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+  compare:
+    name: No new test failures
+    needs: jest
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout comparison script
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: scripts/validation
+
+      - name: Download reports
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          pattern: jest-report-*
+          path: reports
+
+      - name: Compare head with base
+        run: |
+          set -o pipefail
+          for target in head base; do
+            if ! jq -e '.testResults | type == "array"' "reports/jest-report-$target/jest-report.json" >/dev/null 2>&1; then
+              echo "::error::Missing or invalid Jest report for $target; failing closed."
+              exit 1
+            fi
+          done
+          # Both jobs check out to the same workspace path, so one root
+          # makes their test paths comparable.
+          node scripts/validation/compare-jest-failures.cjs \
+            --head reports/jest-report-head/jest-report.json --head-root "$GITHUB_WORKSPACE" \
+            --base reports/jest-report-base/jest-report.json --base-root "$GITHUB_WORKSPACE" \
+            | tee comparison.txt
+          status=${PIPESTATUS[0]}
+          {
+            echo "## Test comparison (head vs base)"
+            echo
+            echo '```'
+            cat comparison.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
