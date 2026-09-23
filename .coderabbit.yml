@@ -35,13 +35,16 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
+    # Review a new PR once, automatically; do not re-review on every push.
+    # The plan allows 1 review an hour, and push-triggered re-reviews used it
+    # up before queued PRs got a turn (#3517). Re-reviews after fixes are
+    # requested with `@coderabbitai review` (the review queue does this).
+    auto_incremental_review: false
     # Regex patterns (schema: "Accepts regex patterns"), in addition to the
-    # default branch (develop), which is always reviewed.
+    # default branch (develop). Every PR must be reviewed before merge,
+    # including stacked PRs whose base is another feature branch.
     base_branches:
-      - '^main$'
-      - '^feature/'
-      - '^fix/'
-      - '^update/'
+      - '.*'
     # Automated update PRs are human-approved anyway; skipping them saves the
     # review quota for human-authored changes.
     ignore_usernames:

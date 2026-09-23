@@ -129,12 +129,22 @@ jobs:
       - name: Prune old metrics artifacts
         shell: bash
         run: |
+          set -euo pipefail
           keep=30
-          # Newest first by mtime, NUL-delimited so any filename is safe.
-          mapfile -d '' -t stale < <(
-            find metrics-artifacts -maxdepth 1 -name '*.json' -printf '%T@\t%p\0' 2>/dev/null \
-              | sort -z -rn | tail -z -n +$((keep + 1)) | cut -z -f2- || true
-          )
+          if [ ! -d metrics-artifacts ]; then
+            echo "No metrics-artifacts directory; nothing to prune."
+            exit 0
+          fi
+          # Newest first by filename: names start with a UTC timestamp
+          # (YYYYMMDD-HHMMSS-<run id>.json). mtime is useless here because
+          # checkout gives every file the same one. The pipeline runs
+          # synchronously into a NUL-delimited file so a failure fails this
+          # step (process substitution would hide it).
+          list=$(mktemp)
+          find metrics-artifacts -maxdepth 1 -type f -name '*.json' -print0 \
+            | sort -z -r | tail -z -n +$((keep + 1)) > "$list"
+          mapfile -d '' -t stale < "$list"
+          rm -f -- "$list"
           if [ "${#stale[@]}" -gt 0 ]; then
             rm -f -- "${stale[@]}"
             echo "Pruned ${#stale[@]} artifact(s), kept latest $keep."
@@ -156,6 +166,9 @@ jobs:
         with:
           client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          # Least privilege: push the branch, open/update the PR, label it.
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: Create or update metrics PR
         if: steps.aggregate.outputs.total != '0'
