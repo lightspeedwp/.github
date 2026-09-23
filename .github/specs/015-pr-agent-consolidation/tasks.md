@@ -70,19 +70,24 @@ description: "Task list for PR Agent Consolidation & Portability"
 ### Implementation for User Story 2
 
 - [ ] T015 [P] [US2] Update `orchestrate-pr-creation`'s scripts to derive title/body from the branch's own commits/diff without assuming prior conversation context, matching `ls-theme` `SKILL.md` Step 1, in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js` (FR-005)
+- [ ] T015a [P] [US2] Implement the recently-merged-PR convention-drift check (`gh pr list --state merged --limit 3 --json title,body,labels`, checked before drafting) in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js` per FR-005a
+- [ ] T015b [P] [US2] Implement PR title generation per `docs/ISSUE_PR_TITLE_GOVERNANCE.md`'s format (`{type}: {scope} - {short-description}` or `{type}: {short-description}`), short type-label form, action-oriented under-60-char description, and no issue reference in the title, validated against that doc's §7 regex `^(feat|fix|hotfix|docs?|refactor|chore|test|perf|ci|build|deps|security|design|a11y|audit|aiops|automation|research|release)(/[a-z0-9]+(?:-[a-z0-9]+)*)?:\s.+$`, in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js` per FR-005b — this format supersedes and replaces any title logic that would follow `instructions/pull-requests.instructions.md` §4 (FR-024)
 - [ ] T016 [US2] Implement base-branch-by-type resolution per FR-006's policy (`hotfix/`/`release/` → production-role branch; else → integration-role branch; fall back to the repository's real default branch only when neither role applies) in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js`, resolved via `gh repo view --json defaultBranchRef` and the repository's existing branches, never a literal `develop`/`main` string (depends on T015)
 - [ ] T017 [P] [US2] Implement "check for an already-open PR, update in place" logic (read current body first, rewrite only stale parts, backfill missing labels/assignee/changelog-decision label) in `agents/pr-agent/skills/submit-pr/scripts/submit-pr.js` per FR-007
 - [ ] T018 [P] [US2] Implement review-budget size calculation (excluding generated/compiled/lock/snapshot/translation files) and preferred (~15 files/~400 lines) / hard-flag (~25 files/~800 lines) threshold flagging in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js` per FR-008, reading `Repository Override Config` (`.github/pr-agent.config.json`, see `contracts/repository-override-config.schema.json`) where present
 - [ ] T019 [US2] Implement the self-review gate from `ls-theme` `SKILL.md` Step 2.10, including the CodeRabbit/AI-review-findings check where enabled, in `agents/pr-agent/AGENT.md`'s orchestration instructions per FR-009 (depends on T015-T018)
+- [ ] T019a [US2] Implement per-branch-type required PR-body sections and validation patterns from `docs/PR_GOVERNANCE.md` (e.g. `feat/`: `Linked Issues` matching `^(Closes|Fixes|Relates to) #\d+`, `Description` ≥50 chars non-placeholder, `Changes Made` ≥2 items, `Acceptance Criteria` ≥2 items — one rule set per documented branch type) in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js` per FR-025, falling back to FR-011's standard structure where `PR_GOVERNANCE.md` defines no rule for a branch type (depends on T015)
 - [ ] T020 [P] [US2] Implement PR-template verbatim-following with additive layering (never inventing a label absent from the repository's real label set) in `agents/pr-agent/skills/route-pr-template/scripts/route-pr-template.js` per FR-010, and the fallback structure per FR-011 when no routing configuration exists
 - [ ] T021 [US2] Ensure assignee and all applicable labels (including exactly one changelog-decision indicator) are set in the same atomic action that creates/updates the PR, never a follow-up step, in `agents/pr-agent/skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js` and `agents/pr-agent/skills/submit-pr/scripts/submit-pr.js` per FR-012
+- [ ] T021a [US2] Implement the minimum-required-label-family check from `docs/LABEL_STRATEGY.md` §4B — one `status:*`, one `type:*`, one `priority:*`, at least one `area:*`/`comp:*` where determinable, one `release:*` (`release:patch`/`minor`/`major`/`hotfix`) — additive to the changelog-decision indicator, never inventing a label absent from the repository's real label set, in `agents/pr-agent/skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js` per FR-012a (depends on T021)
 - [ ] T022 [US2] Implement changelog-entry addition (only after the PR exists, only when the changelog-decision indicator requires one, ≤250 characters per constitution Principle IX) in `agents/pr-agent/skills/submit-pr/scripts/submit-pr.js` per FR-013 (depends on T021)
 - [ ] T023 [P] [US2] Implement stack position/issue-epic/dependencies/review-scope recording and the closing-vs-non-closing issue reference rule (only the layer completing the work uses a closing keyword) in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js` per FR-014
+- [ ] T023a [P] [US2] Implement the 5-PR stack-size-limit flag (recommend splitting into multiple stacks under an epic when a stack would exceed 5 PRs) in `agents/pr-agent/skills/orchestrate-pr-creation/scripts/orchestrate-pr-creation.js` per FR-014
 - [ ] T024 [P] [US2] Implement draft-PR support that skips ready-for-review actions (CI confirmation, reviewer request, review-status label, work-item link) until explicitly asked, in `agents/pr-agent/skills/submit-pr/scripts/submit-pr.js` per FR-015
 - [ ] T025 [US2] Implement the mark-ready-for-review sequence (confirm checks, request reviewer, apply review-status indicator, attempt work-item link, warn-not-fail when no linking tool is available) in `agents/pr-agent/skills/submit-pr/scripts/submit-pr.js` per FR-016 (depends on T024)
 - [ ] T026 [P] [US2] Add "reply to every review thread, fix a stacked-set defect in its owning layer, rebase layers above afterward" guidance to `agents/pr-agent/AGENT.md` per FR-017
 - [ ] T027 [P] [US2] Add the natural-language-invocation confirm-branch-and-base-before-acting guard to `agents/pr-agent/AGENT.md` per FR-018
-- [ ] T028 [US2] Run quickstart.md Scenario 2 end-to-end against a real branch, confirming create and update-in-place both work (depends on T015-T027)
+- [ ] T028 [US2] Run quickstart.md Scenario 2 end-to-end against a real branch, confirming create and update-in-place both work, including title-format (T015b), label-family (T021a), per-branch-type body sections (T019a), and stack-limit (T023a) checks (depends on T015-T027, T015a, T015b, T019a, T021a, T023a)
 
 **Checkpoint**: User Stories 1 AND 2 both work independently.
 
@@ -135,7 +140,7 @@ description: "Task list for PR Agent Consolidation & Portability"
 
 ### Parallel Opportunities
 
-- Within Phase 4: T015, T017, T018, T020, T023, T024, T026, T027 are marked `[P]` — different files, no dependencies on each other.
+- Within Phase 4: T015, T015a, T015b, T017, T018, T020, T023, T023a, T024, T026, T027 are marked `[P]` — different files, no dependencies on each other.
 - Within Phase 5: T029, T031 are marked `[P]`.
 
 ---
@@ -148,4 +153,4 @@ User Story 1 (the MVP) is fully implemented, delivered across three stacked PRs 
 
 ### Next increment
 
-User Story 2 (T015-T028) is the next priority — it delivers the actual PR-creation value this agent exists for. User Story 3 (portability) and the remainder of User Story 4 (T034) follow, plus the Polish tasks (T035-T037).
+User Story 2 (T015-T028, plus T015a/T015b/T019a/T021a/T023a added 2026-09-23 from the doc-alignment audit) is the next priority — it delivers the actual PR-creation value this agent exists for. User Story 3 (portability) and the remainder of User Story 4 (T034) follow, plus the Polish tasks (T035-T037).

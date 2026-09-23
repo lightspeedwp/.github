@@ -28,11 +28,15 @@ A runnable guide proving the feature works end-to-end. Validation guide only —
 ## Scenario 2 — Validated behaviour is present (User Story 2)
 
 1. In a repository whose authoritative branch-policy metadata designates different live production and integration branches, invoke `pr-agent` from prepared `hotfix/`, `release/`, and standard-type branches.
-2. Expected: `hotfix/` and `release/` target the designated production branch; every other type targets the designated integration branch. Title/body are derived from commits/diff, exactly one changelog-decision label and the assignee are set, and the review-budget note is present if oversized.
+2. Expected: `hotfix/` and `release/` target the designated production branch; every other type targets the designated integration branch. Title/body are derived from commits/diff, exactly one changelog-decision label and the assignee are set, and an informational oversized-PR note (with the documented-exception mention) is present if the review budget is exceeded — with no accompanying recommendation to restructure the branch into a stack or parallel PRs.
 3. Remove one role's designation while keeping a live `defaultBranchRef`, then repeat for a branch type routed to that role. Expected: that role alone falls back to `defaultBranchRef`; an explicit designation for the other role is unaffected.
 4. Test a malformed, non-live, and ambiguous designation. Expected: each fails before PR creation rather than falling back. Also confirm fallback fails when required and `defaultBranchRef` is missing or non-live.
 5. Push an additional commit to a valid prepared branch and invoke again.
 6. Expected: the existing PR is updated in place (`gh pr list --head <branch>` still shows exactly one PR), not duplicated.
+7. Inspect the generated title against `docs/ISSUE_PR_TITLE_GOVERNANCE.md` §7's regex: `^(feat|fix|hotfix|docs?|refactor|chore|test|perf|ci|build|deps|security|design|a11y|audit|aiops|automation|research|release)(/[a-z0-9]+(?:-[a-z0-9]+)*)?:\s.+$`. Expected: match, and no issue/ticket reference present in the title itself.
+8. Inspect the generated labels. Expected: one `status:*`, one `type:*`, one `priority:*`, at least one `area:*`/`comp:*`, one `release:*`, plus exactly one changelog-decision label — all present in the same create/update action, none invented beyond the repository's real label set.
+9. From a `feat/` branch, inspect the generated PR body against `docs/PR_GOVERNANCE.md`'s `feat/` required sections. Expected: a `Linked Issues` line matching `^(Closes|Fixes|Relates to) #\d+`, a non-placeholder `Description` ≥50 characters, a `Changes Made` section with ≥2 items, and ≥2 measurable `Acceptance Criteria`.
+10. Prepare (or simulate) a stack of 6 dependent branches. Expected: the agent flags that the stack exceeds the 5-PR limit and recommends splitting into multiple stacks under an epic, rather than silently proceeding.
 
 ## Scenario 3 — Portability (User Story 3)
 

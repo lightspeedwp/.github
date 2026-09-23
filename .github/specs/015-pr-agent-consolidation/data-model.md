@@ -34,14 +34,16 @@ The reviewable unit the agent creates or updates — unchanged in shape from the
 
 | Field | Description | Source / Validation Rule |
 |---|---|---|
-| `title`, `body` | Derived from the branch's own commits/diff | FR-005; never fabricated (FR-019) |
+| `title` | Format `{type}: {scope} - {short-description}` (or `{type}: {short-description}`) | **FR-005b** — per `docs/ISSUE_PR_TITLE_GOVERNANCE.md`, not `instructions/pull-requests.instructions.md` §4 (superseded, FR-024); MUST match that doc's §7 regex; never contains the issue reference (that belongs in `body`) |
+| `body` | Derived from the branch's own commits/diff, plus a recent-merged-PR convention check | FR-005 (Step 1), FR-005a (Step 2.3 convention-drift check); never fabricated (FR-019); per-branch-type required sections per FR-025 |
 | `base` | Target branch | **Resolved dynamically** by branch-type role, then against the target repository's actual branches (FR-006): `hotfix/`/`release/` → the repository's production-role branch (real `main`-equivalent); every other type → the repository's integration-role branch (real `develop`-equivalent), falling back to the repository's actual default branch only when neither role applies. Not a fixed `develop`/`main` string, and not read from `Repository Override Config`. |
-| `labels` | Including exactly one changelog-decision indicator | Must exist in the repository's real label set (matches `ls-theme` FR-010 equivalent) |
+| `labels` | One `status:*`, one `type:*`, one `priority:*`, at least one `area:*`/`comp:*`, one `release:*` (FR-012a), plus exactly one changelog-decision indicator (FR-012/FR-013a) | Must exist in the repository's real label set (FR-010); never more than one label per family |
 | `assignee` | Responsible person | **Resolved dynamically** to whoever is invoking the agent (FR-012) — never read from `Repository Override Config`, never hardcoded |
 | `draft` | Draft vs. ready state | FR-015 |
 | `closingReference` | Issue-closing phrase, if any | Only on the stack layer that completes the issue (FR-014) |
+| `stackSize` | Total PRs in this PR's stack, if any | MUST be flagged when it would exceed 5 (FR-014) |
 
-**Relationships**: Unchanged from the reference — one Branch, zero-or-one Stack, zero-or-one PR Template Routing Configuration match.
+**Relationships**: Unchanged from the reference — one Branch, zero-or-one Stack, zero-or-one PR Template Routing Configuration match, zero-or-one `docs/PR_GOVERNANCE.md` branch-type rule (FR-025).
 
 ## Branch
 
