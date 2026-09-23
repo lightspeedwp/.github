@@ -32,9 +32,9 @@
 ### High-Level Data Flow
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
+accTitle: Graph Diagram
 accTitle: Graph Diagram
     A["Session Input<br/>(repoPath, options)"] -->|Analyze| B["Core Analysis<br/>(git metadata)"]
     B -->|Extract| C["Git Metadata<br/>(branch, commits, issues)"]
@@ -57,9 +57,9 @@ accDescr: Detailed diagram showing structure and relationships
 ### Component Stack
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
+accTitle: Graph Diagram
 accTitle: Graph Diagram
     subgraph "Agent Layer"
         A["claude/prompt.md<br/>(orchestration)"]
@@ -106,9 +106,9 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Extract git metadata and repository context
 
 ```mermaid
-accTitle: Sequence Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
+accTitle: Sequence Diagram
 accTitle: Sequence Diagram
     Agent ->> CoreAnalysis: analyzeRepository(repoPath)
     CoreAnalysis ->> CoreAnalysis: detectRepoType()
@@ -134,9 +134,9 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Create and persist session memory in 10-family YAML format
 
 ```mermaid
-accTitle: Sequence Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
+accTitle: Sequence Diagram
 accTitle: Sequence Diagram
     Agent ->> MemoryUpdater: updateMemoryForSessionClosure(repoPath, analysis, options)
     MemoryUpdater ->> MemoryUpdater: createMemoryEntry(metadata)
@@ -160,9 +160,9 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Generate professional handoff prompts with full context
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
+accTitle: Graph Diagram
 accTitle: Graph Diagram
     subgraph "Input Data"
         A["Core Analysis<br/>(branch, commits)"]
@@ -216,9 +216,9 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Safe cleanup with validation and confirmation
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
+accTitle: Graph Diagram
 accTitle: Graph Diagram
     A["cleanupWorktree()"]
     
@@ -261,9 +261,9 @@ accDescr: Detailed diagram showing structure and relationships
 ### Detection Logic
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TD
+accTitle: Graph Diagram
 accTitle: Graph Diagram
     A["detectRepoType(repoPath)"] -->|Check| B{".github/projects/active<br/>AND<br/>.github/labels.yml?"}
     B -->|YES| C["control-plane"]
@@ -293,9 +293,9 @@ accDescr: Detailed diagram showing structure and relationships
 ### 10-Family YAML Structure
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
+accTitle: Graph Diagram
 accTitle: Graph Diagram
     subgraph "10-Family Memory"
         A["metadata<br/>(session, branch, repo)"]
@@ -353,9 +353,9 @@ metadata:        # Agent tracking: session_id, branch, timestamp
 ### Validation & Safety Gates
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
+accTitle: Graph Diagram
 accTitle: Graph Diagram
     A["Session Closure Request"]
     

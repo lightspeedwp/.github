@@ -170,8 +170,8 @@ puts markdown.to_html
 
 ````md
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+  accTitle: Graph Diagram
   A --> B
 accDescr: Detailed diagram
 ```

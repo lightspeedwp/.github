@@ -318,10 +318,10 @@ config:
   flowchart:
     htmlLabels: true
   theme: base
-accTitle: Node.js 24 Upgrade Workflow
-accDescr: Five-phase execution flow from start through audit, upgrade, validation, workflow standardization, merge, and post-merge monitoring to completion.
 ---
 flowchart TD
+  accTitle: Node.js 24 Upgrade Workflow
+  accDescr: Five-phase execution flow from start through audit, upgrade, validation, workflow standardization, merge, and post-merge monitoring to completion.
   A["Start: Node 24 Alignment"] --> B["Phase 1: Audit"]
   B --> C["Phase 2: Local Upgrade"]
   C --> D["Phase 3: Validation"]

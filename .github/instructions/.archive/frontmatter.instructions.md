@@ -83,8 +83,8 @@ references:
 - VS Code and Copilot validate automatically if configured (see `.vscode/settings.json`).
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A[File with Frontmatter] --> B[Schema Validation]
     B -->|Valid| C[Accepted]
     B -->|Invalid| D[Error: Fix Required]

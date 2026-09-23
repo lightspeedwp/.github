@@ -25,8 +25,8 @@ The current ADR Generator Agent (`.github/agents/adr.agent.md`) is tightly coupl
 ## Architecture Overview
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph "Tier 1: Portable Agent"
         AgentSpec["agents/adr-generator/<br/>adr-generator.agent.md"]
         Config["Configuration Schema<br/>.adr-config.json"]

@@ -19,8 +19,8 @@ tags:- planning
 ## Agent Ecosystem Overview
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     User["👤 User<br/>(Creates Issue/PR)"]
     
     subgraph IssuAgent["Issues Agent v2.1<br/>(Content Quality)"]

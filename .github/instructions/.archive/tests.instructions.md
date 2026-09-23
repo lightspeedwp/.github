@@ -85,8 +85,8 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 ## 🧪 Testing Pyramid
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A[E2E Tests<br/>Playwright] --> B[Integration Tests<br/>Jest + PHPUnit]
     B --> C[Unit Tests<br/>Jest + PHPUnit + pytest]
     C --> D[Static Analysis<br/>ESLint + PHPCS + mypy]
@@ -96,8 +96,8 @@ accDescr: Detailed diagram
 ## 🔄 Test Execution Flow
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant Dev as Developer
     participant Local as Local Tests
     participant CI as CI Pipeline
@@ -177,8 +177,8 @@ accDescr: Detailed diagram
 ## 📊 Test Coverage Matrix
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     A[Code Changes] --> B{Test Type}
     B --> C[Unit Tests<br/>Fast & Isolated]
     B --> D[Integration Tests<br/>Component Interaction]

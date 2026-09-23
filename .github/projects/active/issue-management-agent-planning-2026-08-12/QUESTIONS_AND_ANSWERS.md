@@ -481,8 +481,8 @@ What documentation should include Mermaid diagrams?
 **1. System Architecture** (Component Diagram)
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     User["👤 Users/CI/Scheduler"]
     Agent["🤖 Issue Management Agent"]
     
@@ -534,8 +534,8 @@ accDescr: Detailed diagram
 **2. Daily Sync Workflow** (Sequence Diagram)
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant Schedule as Scheduler/Manual
     participant Agent as Agent
     participant Skills as Skills
@@ -585,8 +585,8 @@ accDescr: Detailed diagram
 **3. Skill Composition** (Flowchart)
 
 ```mermaid
-accTitle: Flowchart
 flowchart TD
+    accTitle: Flowchart
     Start([Operation Triggered]) --> Config[Load Configuration]
     Config --> Validate{Validate<br/>Repo Access?}
     
@@ -619,8 +619,8 @@ accDescr: Detailed diagram
 **4. Multi-Repo Orchestration** (State Diagram)
 
 ```mermaid
-accTitle: Diagram
 stateDiagram-v2
+    accTitle: Diagram
     [*] --> SelectRepo
     
     SelectRepo: Choose Target Repository
@@ -718,8 +718,8 @@ Week 3 (Aug 27-Sep 2) — Core Skills 3-5
 #### Dependency Map
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     Shared["Shared Utilities<br/>(label-management.js<br/>report-generator.js<br/>activity-analyzer.js)"]
     
     Audit["📊 audit-label-coverage"]
@@ -1077,8 +1077,8 @@ theme:design-system-sync:        # Design system sync needed
 #### Approval Gate Workflow (WordPress Repos)
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     Detect["Detect Stale<br/>Issues"] -->|Preview| Review["Human Review<br/>(with Preview)"]
     Review -->|✅ Approve| Apply["Apply Labels<br/>& Mark Stale"]
     Review -->|❌ Reject| Skip["Skip Marking<br/>Log Decision"]

@@ -40,8 +40,8 @@ tags: [process, cicd, github-actions, automation, [domain-specific-tags]]
 ## Execution Flow Diagram
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A[Trigger Event] --> B[Job 1]
     B --> C[Job 2]
     C --> D[Job 3]
@@ -250,13 +250,11 @@ When analyzing the workflow file:
 - **Conditional**: `A --> B{Decision}; B -->|Yes| C; B -->|No| D`
 
 ### Styling
-```mermaid
-accTitle: Diagram
+```text
 style TriggerNode fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
 style SuccessNode fill:#dcfce7,color:#14532d,stroke:#14532d
 style FailureNode fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 style ProcessNode fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
-accDescr: Detailed diagram
 ```
 
 ### Complex Workflows
@@ -264,8 +262,8 @@ accDescr: Detailed diagram
 For workflows with 5+ jobs, use subgraphs:
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     subgraph "Build Phase"
         A[Lint] --> B[Test] --> C[Build]
     end

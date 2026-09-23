@@ -74,8 +74,8 @@ User Input (Branch Name)
 ### 3.2 Data Flow Diagram (Mermaid)
 
 ```mermaid
-accTitle: Flowchart
 flowchart LR
+  accTitle: Flowchart
   Input["User Input<br/>(branch name)"]
   S1["Skill 1<br/>validate-branch-name"]
   S2["Skill 2<br/>route-pr-template"]

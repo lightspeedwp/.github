@@ -40,6 +40,16 @@ const DIAGRAM_TYPES = {
   gantt: /^\s*gantt\b/m,
   pie: /^\s*pie\b/m,
   mindmap: /^\s*mindmap\b/m,
+  // Further types accepted by mermaid 12 (verified with its parser, #3490).
+  classDiagram: /^\s*classDiagram\b/m,
+  journey: /^\s*journey\b/m,
+  quadrantChart: /^\s*quadrantChart\b/m,
+  requirementDiagram: /^\s*requirementDiagram\b/m,
+  gitGraph: /^\s*gitGraph\b/m,
+  c4: /^\s*C4(Context|Container|Component|Dynamic|Deployment)\b/m,
+  timeline: /^\s*timeline\b/m,
+  beta: /^\s*(xychart|sankey|block|packet|architecture)-beta\b/m,
+  kanban: /^\s*kanban\b/m,
 };
 
 function extractMermaidDiagrams(content) {
@@ -105,6 +115,29 @@ function validateDiagramSyntax(content) {
   if (!content || content.length === 0) {
     errors.push('Empty diagram');
     return errors;
+  }
+
+  // Mermaid detects the diagram type from the first statement, so
+  // accTitle/accDescr before the type line makes the whole diagram fail to
+  // render ("No diagram type detected", #3490). Skip blank lines, %%
+  // comments/directives and a leading --- frontmatter block.
+  const statements = content.split('\n').map((line) => line.trim());
+  let index = 0;
+  const skip = () => {
+    while (index < statements.length && (statements[index] === '' || statements[index].startsWith('%%'))) {
+      index += 1;
+    }
+  };
+  skip();
+  if (statements[index] === '---') {
+    const close = statements.indexOf('---', index + 1);
+    index = close === -1 ? statements.length : close + 1;
+    skip();
+  }
+  if (/^acc(Title|Descr)\b/.test(statements[index] || '')) {
+    errors.push(
+      'accTitle/accDescr must come after the diagram type line; Mermaid reads the type from the first statement'
+    );
   }
 
   // Check for valid diagram type
@@ -325,8 +358,11 @@ ${
 }
 `;
 
-  fs.writeFileSync(path.join(ROOT, '.github/reports/mermaid-validation-report.md'), reportContent);
-  console.log('\n✅ Validation report saved to .github/reports/mermaid-validation-report.md');
+  // MERMAID_SYNTAX_REPORT overrides the report path (tests write to a temp dir).
+  const reportPath =
+    process.env.MERMAID_SYNTAX_REPORT || path.join(ROOT, '.github/reports/mermaid-validation-report.md');
+  fs.writeFileSync(reportPath, reportContent);
+  console.log(`\n✅ Validation report saved to ${path.relative(ROOT, reportPath) || reportPath}`);
 
   process.exit(report.errorDiagrams > 0 ? 1 : 0);
 }

@@ -56,7 +56,6 @@ flowchart TD
       who cannot see the visual diagram.
     }
     ...
-accDescr: Detailed diagram
 ```
 ````
 
@@ -64,9 +63,7 @@ accDescr: Detailed diagram
 
 - `accTitle` is mandatory on every diagram — no exceptions.
 - `accDescr` is mandatory on every diagram — no exceptions.
-- The diagram type (e.g. `flowchart`, `graph`, `sequenceDiagram`) **must** be the first line after the opening ` ```mermaid
-accTitle: Diagram
-` fence.
+- The diagram type (e.g. `flowchart`, `graph`, `sequenceDiagram`) **must** be the first line after the opening ` ```mermaid ` fence.
 - Place `accTitle` and `accDescr` inline, directly after the diagram type and before any node definitions.
 - **Do NOT use the YAML `---` front-matter syntax** before the diagram type — GitHub's Mermaid renderer does not support it and will display an error instead of the diagram.
 
@@ -108,7 +105,6 @@ All pairs below are pre-verified to meet **WCAG 2.2 AA 4.5:1** normal-text contr
 | **Highlight** (key actions, automation) | `#ecfdf5` | `#064e3b` | `#059669` | 10.8:1 |
 
 **Usage:**
-accDescr: Detailed diagram
 
 ```mermaid
 flowchart LR

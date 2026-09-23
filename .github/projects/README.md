@@ -39,8 +39,8 @@ The following diagram and table provide an overview of the available report cate
 ### Subdirectory Purposes
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A[📂 .github/reports] --> B[🤖 Agents]
     A --> C[🔬 Analysis]
     A --> D[🛡️ Audits]

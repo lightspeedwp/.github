@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Broken Diagrams Repaired** — 123 diagrams in 36 documents render again; the diagram tidy-up bot now places accessibility titles correctly and no longer edits surrounding text. (#3490)
 - **Code Owner Reviews** — Every code owners rule now also lists the `@lightspeedwp/lightspeed` team, so pull requests opened by the sole named owner can still be approved. ([#3465](https://github.com/lightspeedwp/.github/issues/3465))
 - **Main Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. Not applied yet — needs explicit go-ahead for main. (#3458)
 - **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate with identical scope.

@@ -521,8 +521,8 @@ Claude excels at:
 ### 1. 2-Tier Architecture Diagram
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     subgraph Repos["Repository Layer"]
         GH[".github (control-plane)"]
         BP["Block Plugins"]
@@ -559,8 +559,8 @@ accDescr: Detailed diagram
 ### 2. Delegation Flow Diagram
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant R as Repository
     participant CP as Control-Plane<br/>Agent
     participant PA as Portable<br/>Agent
@@ -581,8 +581,8 @@ accDescr: Detailed diagram
 ### 3. Test Execution Pipeline
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     subgraph Input["Input"]
         PR["Pull Request<br/>or<br/>Workflow"]
     end
@@ -630,8 +630,8 @@ accDescr: Detailed diagram
 ### 4. Framework Coverage Matrix
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph Frameworks["Framework Coverage"]
         J["Jest<br/>JavaScript/TypeScript<br/>Block Plugins"]
         P["PHPUnit<br/>PHP<br/>Plugins & Themes"]
@@ -659,8 +659,8 @@ accDescr: Detailed diagram
 ### 5. Jest Testing Flow
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     J1["Jest Config<br/>Detected"] 
     J2["Mock WordPress<br/>REST API"]
     J3["Setup Block<br/>Utilities"]
@@ -679,8 +679,8 @@ accDescr: Detailed diagram
 ### 6. PHPUnit Testing Flow
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     PHP1["PHPUnit Config<br/>Detected"]
     PHP2["Mock WordPress<br/>Globals"]
     PHP3["Setup Database<br/>Mocking"]
@@ -701,8 +701,8 @@ accDescr: Detailed diagram
 ### 7. pytest Testing Flow
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     PY1["pytest Config<br/>Detected"]
     PY2["Setup CI<br/>Environment"]
     PY3["Run Test Suite"]
@@ -721,8 +721,8 @@ accDescr: Detailed diagram
 ### 8. Playwright Testing Flow
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     PW1["Playwright Config<br/>Detected"]
     PW2["Setup Browsers<br/>Chrome, Firefox,<br/>Safari, Edge"]
     PW3["Login to<br/>WordPress"]

@@ -243,8 +243,8 @@ See [../openspec/PHASE-3-IMPLEMENTATION.md](../openspec/PHASE-3-IMPLEMENTATION.m
 ## Visual Workflow
 
 ```mermaid
-accTitle: Flowchart
 flowchart TD
+  accTitle: Flowchart
   accTitle "Phase 4 Planning Workflow"
   accDescr "Project planning and implementation workflow"
   A[Start Here] --> B[Read Scope and Prerequisites]

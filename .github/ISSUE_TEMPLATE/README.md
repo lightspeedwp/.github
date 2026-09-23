@@ -46,8 +46,8 @@ For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) a
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
-accTitle: Flowchart
 flowchart TD
+    accTitle: Flowchart
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
     B -->|Feature Request| D[Feature Template]

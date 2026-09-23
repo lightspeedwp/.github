@@ -255,8 +255,8 @@ All 7 Phase 4 tasks delivered. Ready for Phase 5 General Availability rollout.
 ## Visual Workflow
 
 ```mermaid
-accTitle: Flowchart
 flowchart TD
+  accTitle: Flowchart
   A[Phase 3 Complete] --> B[Integration Testing]
   B --> C[End-to-End Validation]
   C --> D[QA & Performance]

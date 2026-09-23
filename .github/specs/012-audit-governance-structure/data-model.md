@@ -224,8 +224,8 @@
 ### Governance Relationships
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     CONST["Constitution<br/>(6 non-negotiable principles)"]
     CLAUDE["CLAUDE.md<br/>(Project-specific<br/>governance)"]
     AGENTS["AGENTS.md<br/>(Global AI rules)"]

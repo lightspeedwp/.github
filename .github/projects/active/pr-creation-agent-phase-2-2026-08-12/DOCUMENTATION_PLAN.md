@@ -23,8 +23,8 @@
 **Documentation Architecture:**
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     Root["PR Creation Agent<br/>Documentation Suite"]
     
     GettingStarted["📘 Getting Started Guide"]
@@ -454,8 +454,8 @@ Examples:
 #### 3.9.1 ARCHITECTURE_DIAGRAMS.md
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     Input["PR Input<br/>(branch, files)"]
     
     Validator["Validation Layer<br/>(5 checks)"]
@@ -475,8 +475,8 @@ accDescr: Detailed diagram
 #### 3.9.2 WORKFLOW_DIAGRAMS.md
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     Developer->>Agent: Trigger PR creation
     Agent->>Skill1: Validate branch
     Agent->>Skill2: Route template
@@ -491,8 +491,8 @@ accDescr: Detailed diagram
 #### 3.9.3 CONFIGURATION_DIAGRAMS.md
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     Default["Default Config<br/>(Agent Level)"]
     Repo["Repo Config<br/>(.claude/pr-agent.config.yml)"]
     Hooks["Custom Hooks<br/>(.claude/pr-agent-hooks.js)"]
@@ -604,8 +604,8 @@ docs/
 ### 7.1 Documentation Map Diagram
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     README["README.md<br/>(Master Index)"]
     
     STARTED["GETTING_STARTED.md<br/>(5 min quickstart)"]

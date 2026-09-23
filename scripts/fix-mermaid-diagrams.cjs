@@ -72,6 +72,9 @@ function findMarkdownFiles(dir = ".") {
   for (const entry of entries) {
     if (entry.isDirectory()) {
       if (entry.name === "node_modules" || entry.name === ".git") continue;
+      // Generated reports are historical records; never rewrite them.
+      if (path.join(dir, entry.name) === path.join(".github", "reports"))
+        continue;
       files.push(...findMarkdownFiles(path.join(dir, entry.name)));
       continue;
     }
@@ -128,56 +131,185 @@ function rewriteColourDeclaration(line) {
   return `${indent}${keyword} ${target} ${rewritten}`;
 }
 
-const markdownFiles = findMarkdownFiles();
-const changes = [];
+const ACC_LINE = /^\s*acc(Title|Descr)\s*:/;
 
-markdownFiles.forEach((file) => {
-  let content = fs.readFileSync(file, "utf-8");
+/**
+ * Index of the diagram-type line: the first line that is not blank, not a
+ * `%%` comment or `%%{init}%%` directive, not inside a leading `---`
+ * frontmatter block and not an accessibility statement. Mermaid detects the
+ * diagram type from this line, so accTitle/accDescr must come after it
+ * (#3490). Returns -1 when there is no such line.
+ */
+function findTypeLineIndex(lines) {
+  let index = 0;
+  const skipBlankAndComments = () => {
+    while (
+      index < lines.length &&
+      (lines[index].trim() === "" ||
+        lines[index].trim().startsWith("%%") ||
+        ACC_LINE.test(lines[index]))
+    ) {
+      index += 1;
+    }
+  };
+
+  skipBlankAndComments();
+  if (lines[index]?.trim() === "---") {
+    const close = lines.findIndex(
+      (line, i) => i > index && line.trim() === "---",
+    );
+    if (close === -1) return -1;
+    index = close + 1;
+    skipBlankAndComments();
+  }
+
+  return index < lines.length ? index : -1;
+}
+
+// Diagram types verified (mermaid 12.0.0 parser) to accept accTitle/accDescr
+// directly after the type line. sankey-beta and block-beta reject them.
+const ACC_TYPES = [
+  "flowchart",
+  "graph",
+  "sequenceDiagram",
+  "classDiagram",
+  "stateDiagram",
+  "stateDiagram-v2",
+  "erDiagram",
+  "journey",
+  "gantt",
+  "pie",
+  "quadrantChart",
+  "requirementDiagram",
+  "gitGraph",
+  "C4Context",
+  "C4Container",
+  "C4Component",
+  "C4Dynamic",
+  "C4Deployment",
+  "mindmap",
+  "timeline",
+  "xychart-beta",
+  "packet-beta",
+  "architecture-beta",
+  "kanban",
+];
+const NO_ACC_TYPES = ["sankey-beta", "block-beta"];
+// Boilerplate this script used to inject; removed again from blocks that
+// cannot carry it (typeless snippets, sankey-beta, block-beta).
+const INJECTED =
+  /^\s*(accTitle: (Diagram|Flowchart|Graph Diagram|Sequence Diagram|Gantt Chart)|accDescr: Detailed diagram)\s*$/;
+
+function diagramKind(typeLine) {
+  const keyword = typeLine.trim().split(/[\s:;{]/)[0];
+  if (ACC_TYPES.includes(keyword)) return "acc";
+  if (NO_ACC_TYPES.includes(keyword)) return "no-acc";
+  return "unknown";
+}
+
+function titleFor(typeLine) {
+  const type = typeLine.trim().toLowerCase();
+  if (type.startsWith("flowchart")) return "Flowchart";
+  if (type.startsWith("graph")) return "Graph Diagram";
+  if (type.startsWith("sequencediagram")) return "Sequence Diagram";
+  if (type.startsWith("gantt")) return "Gantt Chart";
+  return "Diagram";
+}
+
+/**
+ * Ensure a diagram has accTitle and accDescr directly after its type line,
+ * moving any found above the type line, and apply palette fixes.
+ * Idempotent: fixing an already-fixed diagram returns it unchanged.
+ * @param {string} diagram - Diagram source between the fences
+ * @returns {string}
+ */
+function fixDiagram(diagram) {
+  const lines = diagram.replace(/^\n+|\s+$/g, "").split("\n");
+  const typeIndex = findTypeLineIndex(lines);
+  const typeLine = typeIndex === -1 ? "" : lines[typeIndex];
+
+  // Typeless snippets (e.g. a list of style lines) and types that reject
+  // accessibility statements: never inject, and drop earlier injections.
+  if (typeIndex === -1 || diagramKind(typeLine) !== "acc") {
+    return lines
+      .filter((line) => !INJECTED.test(line))
+      .map((line) => rewriteColourDeclaration(line))
+      .join("\n");
+  }
+
+  const misplaced = lines
+    .slice(0, typeIndex)
+    .filter((line) => ACC_LINE.test(line));
+  const before = lines
+    .slice(0, typeIndex)
+    .filter((line) => !ACC_LINE.test(line));
+  const after = lines.slice(typeIndex + 1);
+
+  const indent = (after.find((line) => line.trim() !== "") || "").match(
+    /^\s*/,
+  )[0];
+  const accLines = misplaced.map((line) => `${indent}${line.trim()}`);
+  // Both forms count: `accDescr: text` and the multi-line `accDescr { ... }`.
+  const has = (name) =>
+    [...accLines, ...after].some((line) =>
+      new RegExp(`^\\s*${name}\\s*[:{]`).test(line),
+    );
+
+  if (!has("accTitle"))
+    accLines.unshift(`${indent}accTitle: ${titleFor(typeLine)}`);
+  if (!has("accDescr")) accLines.push(`${indent}accDescr: Detailed diagram`);
+
+  return [...before, typeLine, ...accLines, ...after]
+    .map((line) => rewriteColourDeclaration(line))
+    .join("\n");
+}
+
+/**
+ * Apply fixDiagram to every mermaid block in a Markdown document.
+ * @returns {{content: string, modified: boolean}}
+ */
+function fixMarkdown(content) {
   let modified = false;
+  // Match real fences only: an opening line that is just ```mermaid and a
+  // closing line that is just ```. The old unanchored pattern also matched
+  // ```mermaid written inline in prose and injected text into sentences.
+  const fence = /^([ \t]*)```mermaid[ \t]*\n([^]*?)^\1```[ \t]*$/gm;
+  const next = content.replace(fence, (match, indent, diagram) => {
+    if (!diagram.trim()) return match;
+    const fixed = fixDiagram(diagram);
+    // Leave blocks untouched unless the fix changes their content, so
+    // formatting-only differences cause no churn.
+    if (fixed === diagram.replace(/^\n+|\s+$/g, "")) return match;
+    modified = true;
+    return `${indent}\`\`\`mermaid\n${fixed}\n${indent}\`\`\``;
+  });
+  return { content: next, modified };
+}
 
-  content = content.replace(/```mermaid([^]*?)```/g, (match, diagram) => {
-    let nextDiagram = diagram.trim();
-    if (!nextDiagram) return match;
+function main() {
+  const changes = [];
 
-    if (!nextDiagram.includes("accTitle:")) {
-      const firstLine = nextDiagram.split("\n")[0];
-      if (firstLine && !firstLine.startsWith("--")) {
-        const diagType = firstLine.toLowerCase();
-        let title = "Diagram";
-        if (diagType.includes("graph")) title = "Graph Diagram";
-        if (diagType.includes("flowchart")) title = "Flowchart";
-        if (diagType.includes("sequence")) title = "Sequence Diagram";
-        if (diagType.includes("gantt")) title = "Gantt Chart";
-
-        nextDiagram = `accTitle: ${title}\n${nextDiagram}`;
-        modified = true;
+  findMarkdownFiles().forEach((file) => {
+    const { content, modified } = fixMarkdown(fs.readFileSync(file, "utf-8"));
+    if (modified) {
+      changes.push({ file, type: "mermaid-update" });
+      if (process.env.DRY_RUN !== "true") {
+        fs.writeFileSync(file, content);
       }
     }
-
-    if (!nextDiagram.includes("accDescr:")) {
-      nextDiagram = `${nextDiagram}\naccDescr: Detailed diagram`;
-      modified = true;
-    }
-
-    nextDiagram = nextDiagram
-      .split("\n")
-      .map((line) => {
-        const rewritten = rewriteColourDeclaration(line);
-        if (rewritten !== line) modified = true;
-        return rewritten;
-      })
-      .join("\n");
-
-    return `\`\`\`mermaid\n${nextDiagram}\n\`\`\``;
   });
 
-  if (modified) {
-    changes.push({ file, type: "mermaid-update" });
-    if (process.env.DRY_RUN !== "true") {
-      fs.writeFileSync(file, content);
-    }
-  }
-});
+  console.log("Mermaid fixes:", changes.length, "files");
+  console.log(JSON.stringify(changes, null, 2));
+}
 
-console.log("Mermaid fixes:", changes.length, "files");
-console.log(JSON.stringify(changes, null, 2));
+if (require.main === module) {
+  main();
+}
+
+module.exports = {
+  fixDiagram,
+  fixMarkdown,
+  findTypeLineIndex,
+  rewriteColourDeclaration,
+};

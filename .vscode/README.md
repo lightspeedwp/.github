@@ -21,8 +21,8 @@ It ensures a consistent, automated, and standards-driven development experience 
 ## 📊 VS Code Configuration Architecture
 
 ```mermaid
-accTitle: Flowchart
 flowchart TD
+    accTitle: Flowchart
     A[VS Code Workspace] --> B[Extensions]
     A --> C[Tasks]
     A --> D[Settings]
