@@ -18,7 +18,7 @@
   "author": "LightSpeed Automation Team",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "jest": "^29.0.0"
+    "jest": "^30.5.2"
   },
   "jest": {
     "testEnvironment": "node",
