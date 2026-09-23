@@ -194,6 +194,7 @@ function findTypeLineIndex(lines) {
 // directly after the type line. sankey-beta and block-beta reject them.
 const ACC_TYPES = [
   "flowchart",
+  "flowchart-elk",
   "graph",
   "sequenceDiagram",
   "classDiagram",
@@ -247,8 +248,15 @@ function titleFor(typeLine) {
  * @param {string} diagram - Diagram source between the fences
  * @returns {string}
  */
+// `accTitle "text"` without a colon is a parse error in mermaid 12; the
+// documented single-line form is `accTitle: text`.
+const NO_COLON_ACC = /^(\s*)acc(Title|Descr)\s+"(.*)"\s*$/;
+
 function fixDiagram(diagram) {
-  const lines = diagram.replace(/^\n+|\s+$/g, "").split("\n");
+  const lines = diagram
+    .replace(/^\n+|\s+$/g, "")
+    .split("\n")
+    .map((line) => line.replace(NO_COLON_ACC, "$1acc$2: $3"));
   const typeIndex = findTypeLineIndex(lines);
   const typeLine = typeIndex === -1 ? "" : lines[typeIndex];
 

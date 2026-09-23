@@ -178,3 +178,32 @@ describe('fixDiagram duplicates (#3490 review)', () => {
     expect(fixDiagram(result)).toBe(result);
   });
 });
+
+describe('CodeRabbit review on #3491', () => {
+  test('normalises the no-colon form and drops boilerplate next to it', () => {
+    const block = [
+      'flowchart TD',
+      '  accTitle: Flowchart',
+      '  accTitle "Phase 4 Planning Workflow"',
+      '  accDescr "Project planning workflow"',
+      '  A --> B',
+      'accDescr: Detailed diagram',
+    ].join('\n');
+
+    expect(fixDiagram(block)).toBe(
+      [
+        'flowchart TD',
+        '  accTitle: Phase 4 Planning Workflow',
+        '  accDescr: Project planning workflow',
+        '  A --> B',
+      ].join('\n')
+    );
+  });
+
+  test('treats flowchart-elk as a type that takes accessibility statements', () => {
+    expect(fixDiagram('accTitle: T\nflowchart-elk TD\n  A --> B').split('\n').slice(0, 2)).toEqual([
+      'flowchart-elk TD',
+      '  accTitle: T',
+    ]);
+  });
+});

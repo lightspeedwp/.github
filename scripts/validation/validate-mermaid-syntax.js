@@ -124,7 +124,10 @@ function validateDiagramSyntax(content) {
   const statements = content.split('\n').map((line) => line.trim());
   let index = 0;
   const skip = () => {
-    while (index < statements.length && (statements[index] === '' || statements[index].startsWith('%%'))) {
+    while (
+      index < statements.length &&
+      (statements[index] === '' || statements[index].startsWith('%%'))
+    ) {
       index += 1;
     }
   };
@@ -134,6 +137,13 @@ function validateDiagramSyntax(content) {
     index = close === -1 ? statements.length : close + 1;
     skip();
   }
+  const noColon = statements.find((line) => /^acc(Title|Descr)\s+"/.test(line));
+  if (noColon) {
+    errors.push(
+      `Use the colon form for accessibility statements (mermaid rejects ${noColon.split(' ')[0]} "..."): ${noColon}`
+    );
+  }
+
   const firstStatement = statements[index] || '';
   if (/^acc(Title|Descr)\b/.test(firstStatement)) {
     errors.push(
@@ -370,7 +380,8 @@ ${
 
   // MERMAID_SYNTAX_REPORT overrides the report path (tests write to a temp dir).
   const reportPath =
-    process.env.MERMAID_SYNTAX_REPORT || path.join(ROOT, '.github/reports/mermaid-validation-report.md');
+    process.env.MERMAID_SYNTAX_REPORT ||
+    path.join(ROOT, '.github/reports/mermaid-validation-report.md');
   fs.writeFileSync(reportPath, reportContent);
   console.log(`\n✅ Validation report saved to ${path.relative(ROOT, reportPath) || reportPath}`);
 
