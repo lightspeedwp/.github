@@ -1,5 +1,5 @@
 /**
- * ESLint flat configuration for @lightspeedwp/pr-creation-agent.
+ * ESLint flat configuration for @lightspeedwp/pr-agent.
  *
  * Migrated from the legacy eslintrc format as part of the ESLint 8 → 10
  * upgrade. ESLint 10 supports flat config only; `.eslintrc.*` files,
