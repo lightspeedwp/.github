@@ -29,7 +29,7 @@ function getStep(actionName, stepId) {
     throw new Error(`Step ${stepId} was not found in ${actionName}`);
   }
 
-  return step.run;
+  return step;
 }
 
 function renderExpressions(script, expressions) {
@@ -70,15 +70,26 @@ function runStep(actionName, stepId, options = {}) {
     writeExecutable(mockBin, name, body);
   });
 
-  const script = `${options.preamble || ''}\n${renderExpressions(
-    getStep(actionName, stepId),
-    options.expressions || {}
-  )}`;
+  const step = getStep(actionName, stepId);
+  const expressions = options.expressions || {};
+  const script = `${options.preamble || ''}\n${renderExpressions(step.run, expressions)}`;
+  // Mirror the runner: a step's `env:` values are expression-rendered and
+  // exported to its script, which reads inputs from them rather than inline.
+  // Unsupplied expressions (e.g. tokens) render empty, as an unset context does.
+  const stepEnv = Object.fromEntries(
+    Object.entries(step.env || {}).map(([name, value]) => [
+      name,
+      String(value).replace(/\$\{\{\s*([^}]+?)\s*\}\}/g, (_match, expression) =>
+        Object.hasOwn(expressions, expression.trim()) ? expressions[expression.trim()] : ''
+      ),
+    ])
+  );
   const result = spawnSync('/bin/bash', ['-c', script], {
     cwd: workingDirectory,
     encoding: 'utf8',
     env: {
       ...process.env,
+      ...stepEnv,
       ...options.env,
       CALL_LOG: callLog,
       GITHUB_OUTPUT: outputFile,
