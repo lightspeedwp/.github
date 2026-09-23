@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
+- **Workflow Speed & Hardening** — Workflows use sparse, shallow checkouts, install npm packages only when a step needs them, cancel superseded runs and have timeouts; every action is pinned to a commit SHA; untrusted inputs pass via `env`, not inline in scripts. Dependabot covers all real manifests with grouping and cooldown; Mergify is reduced to its one working Dependabot rule; CodeRabbit skips generated, archived and bot-authored changes. (#3474, #3476)
 
 ### Removed
 
