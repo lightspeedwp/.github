@@ -406,6 +406,28 @@ if ! rm -rf specs/; then
 fi
 ```
 
+## Rollback Behaviour (FR-009)
+
+`.specify/scripts/bash/migrate-specs.sh` backs up both trees to `.github/tmp/migration-backup-<epoch>/` before changing anything. Any failed `cp`, `mv` or `mkdir` triggers a rollback, and the script exits non-zero. Use `--dry-run` to see what would be migrated without changing anything.
+
+What you see depends on where the failure happens:
+
+| When it fails | Message on stderr | State afterwards |
+|---|---|---|
+| Pre-flight checks (config, symlinked roots, target not a directory) | `ERROR: <reason>. No changes were made.` | Both trees untouched; no backup is created |
+| Creating a backup | `ERROR: Migration failed: <reason>` followed by `ERROR: Migration stopped before source or target contents were changed.` | Both trees untouched |
+| During migration, rollback succeeded | `ERROR: Migration failed and rollback restored the original source and target state: <reason>` and `ERROR: Backup preserved at: <dir>` | Both trees restored from the backup |
+| During migration, rollback also failed | `ERROR: Rollback failed after migration error: <reason>`, the backup path, and manual recovery steps | Restore by hand from `<dir>/source` and `<dir>/target` as printed |
+
+To confirm the original state was preserved after a rollback, compare each tree with its backup:
+
+```bash
+diff -r .github/tmp/migration-backup-<epoch>/source specs
+diff -r .github/tmp/migration-backup-<epoch>/target .github/specs
+```
+
+No output means the trees match. The failure paths are tested in `tests/bash/specs-directory.bats`: "target backup failure stops before migration and preserves both trees" and "migration failure restores both trees and exits nonzero".
+
 ## Success Criteria Summary
 
 All validation scenarios must pass:

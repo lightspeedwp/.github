@@ -251,7 +251,7 @@ GitHubPullRequest (external)
 | Content length            | Business   | `len(content) ≤ 250`                                                 | SC-001           |
 | PR/issue link             | Business   | `pr_issues.length ≥ 1`                                               | FR-002           |
 | Valid PR/issue format     | Business   | Format matches `#\d+` or `PR-\d+`                                    | FR-002           |
-| PR must exist             | Business   | Linked PR must be merged or closed (not open)                        | Best practice    |
+| PR must exist             | Business   | Linked PR must be merged (open, draft or closed-unmerged are invalid) | Best practice    |
 | No implementation details | Business   | Scan for code snippets, function names, API details                  | Clarity rule     |
 | Valid category            | Structural | Must be one of: Added, Changed, Fixed, Deprecated, Removed, Security | Keep a Changelog |
 

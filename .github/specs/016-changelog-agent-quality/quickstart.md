@@ -296,7 +296,7 @@ node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.tes
 # 3. Verify labels are applied based on result
 # 4. Verify PR is blocked if validation fails
 
-# Pseudo-code (actual workflow in .github/workflows/changelog-validate.yml):
+# Pseudo-code (actual workflow in .github/workflows/changelog-unified.yml):
 if node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.md; then
   # Validation passed
   gh pr edit --add-label "meta:has-changelog"
@@ -315,7 +315,7 @@ fi
 - ✅ PR with invalid entries gets `meta:needs-changelog-fix` label
 - ✅ PR with invalid entries has merge blocked
 - ✅ Developer sees PR comment with specific error details
-- ✅ PR with `chore/*` or `deps/*` branch bypasses validation
+- ✅ Dependabot and docs-bot PRs, docs-only diffs, and PRs labelled `meta:no-changelog` (not allowed for high-impact release types) skip the changelog requirement
 
 ---
 

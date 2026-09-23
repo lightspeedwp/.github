@@ -51,7 +51,7 @@ agents/{agent-name}/
 
 **Size**: 50-200 lines typically
 
-**Template**: See [agent-structure-template/AGENT.md](.github/templates/agent-structure-template/AGENT.md)
+**Template**: See [agent-structure-template/AGENT.md](../templates/agent-structure-template/AGENT.md)
 
 ---
 
@@ -72,7 +72,7 @@ agents/{agent-name}/
 
 **Validation**: Each version MUST have a corresponding git tag `agents/{agent-name}/v{version}`
 
-**Template**: See [agent-structure-template/CHANGELOG.md](.github/templates/agent-structure-template/CHANGELOG.md)
+**Template**: See [agent-structure-template/CHANGELOG.md](../templates/agent-structure-template/CHANGELOG.md)
 
 ---
 
@@ -92,7 +92,7 @@ agents/{agent-name}/
 
 **Validation**: Must parse as valid JSON and satisfy npm schema
 
-**Template**: See [agent-structure-template/package.json](.github/templates/agent-structure-template/package.json)
+**Template**: See [agent-structure-template/package.json](../templates/agent-structure-template/package.json)
 
 ---
 
@@ -114,7 +114,7 @@ agents/{agent-name}/
 
 **Size**: 200-500 lines typically
 
-**Template**: See [agent-structure-template/README.md](.github/templates/agent-structure-template/README.md)
+**Template**: See [agent-structure-template/README.md](../templates/agent-structure-template/README.md)
 
 ---
 
@@ -217,7 +217,7 @@ AGENT_TIMEOUT=30000
 7. ✅ tests/ directory exists with at least one test file
 8. ✅ config/default.json exists and is valid JSON
 9. ✅ config/.env.example exists
-10. ✅ No files directly in agent root (everything organized)
+10. ✅ No unexpected files in the agent root: only the required `AGENT.md`, `CHANGELOG.md`, `package.json` and `README.md` sit there; everything else lives in its subdirectory
 
 ---
 
@@ -260,7 +260,7 @@ This structure balances:
 
 ## Related
 
-- [Standardized Template](.github/templates/agent-structure-template/)
+- [Standardized Template](../templates/agent-structure-template/)
 - [CHANGELOG Format](CHANGELOG_FORMAT.md)
 - [package.json Requirements](PACKAGE_JSON_REQUIREMENTS.md)
 - [Structure Audit Guide](AGENT_FOLDER_STRUCTURE_AUDIT.md)

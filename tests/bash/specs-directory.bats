@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 setup() {
-  PROJECT_ROOT="$(CDPATH="" cd "$BATS_TEST_DIRNAME/.." && pwd)"
+  PROJECT_ROOT="$(CDPATH="" cd "$BATS_TEST_DIRNAME/../.." && pwd)"
   COMMON_SH="$PROJECT_ROOT/.specify/scripts/bash/common.sh"
   CREATE_FEATURE_SH="$PROJECT_ROOT/.specify/scripts/bash/create-new-feature.sh"
   MIGRATE_SPECS_SH="$PROJECT_ROOT/.specify/scripts/bash/migrate-specs.sh"
@@ -68,6 +68,8 @@ json_field() {
 
 @test "read_specs_directory validates configuration through the Python fallback" {
   write_config '{"specs_directory":"docs/specifications"}'
+  # PATH holds only python3, so jq is unavailable: read_specs_directory must
+  # take its Python branch, which has to return the configured path intact.
   mkdir -p "$TEST_ROOT/python-bin"
   ln -s "$(command -v python3)" "$TEST_ROOT/python-bin/python3"
 
@@ -238,6 +240,9 @@ json_field() {
   printf '%s\n' 'source content' > "$TEST_REPO/specs/source.txt"
   printf '%s\n' 'target content' > "$TEST_REPO/.github/specs/target.txt"
 
+  # Rollback stage: target backup. The fake cp fails only when copying the
+  # existing target tree (the backup step) and delegates everything else to
+  # the real cp. Invariant: the script stops before touching either tree.
   local real_cp
   real_cp="$(command -v cp)"
   printf '%s\n' \
@@ -274,6 +279,10 @@ json_field() {
   printf '%s\n' 'source content' > "$TEST_REPO/specs/fail-copy.txt"
   printf '%s\n' 'target content' > "$TEST_REPO/.github/specs/target.txt"
 
+  # Rollback stage: migration copy. Backups succeed; the fake cp fails only
+  # when copying source entries into the target, after backups exist.
+  # Invariant: rollback restores both trees exactly and the script exits
+  # non-zero.
   local real_cp
   real_cp="$(command -v cp)"
   printf '%s\n' \

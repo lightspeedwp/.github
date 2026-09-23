@@ -193,7 +193,7 @@
 
 ## Template
 
-See [agent-structure-template/package.json](.github/templates/agent-structure-template/package.json)
+See [agent-structure-template/package.json](../templates/agent-structure-template/package.json)
 
 ---
 

@@ -10,9 +10,9 @@
 
 ## Content Quality
 
-- [x] No implementation details (languages, frameworks, APIs)
-  - ✅ Spec focuses on capabilities, not "use Node.js streams" or "parse with regex"
-  - ✅ Workflows and labeling are technology-agnostic
+- [ ] No implementation details (languages, frameworks, APIs)
+  - ❌ Not met: the spec names Node.js and npm, GitHub Actions, a REST interface and concrete repository paths (Requirements and Assumptions). Acceptable for internal tooling that must extend the shipped validator, but it does not meet this criterion as written
+  - ✅ It avoids low-level choices such as "use Node.js streams" or "parse with regex"
   
 - [x] Focused on user value and business needs
   - ✅ Each requirement tied to developer workflow or system reliability

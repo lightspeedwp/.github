@@ -4,7 +4,7 @@
 
 **Created**: 2026-09-14
 
-**Status**: ✅ Phase 6 Complete | Phase 7 ⏳ Deferred (Convergence Validation Tasks T037-T044 tracked for follow-up)
+**Status**: ✅ Phases 1–5 and 4B complete | ⏳ Phase 6 (Polish, T029–T036) pending | Phase 7 ⏳ Deferred (Convergence Validation Tasks T037-T044 tracked for follow-up)
 
 **Input**: User description: "Fix specs directory configuration to use .github/specs instead of root specs folder"
 

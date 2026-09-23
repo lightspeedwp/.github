@@ -138,7 +138,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - The validation engine at `.github/validation/changelog/` (shipped via PR #3350, #3378) is the canonical implementation and will not be duplicated; this spec extends and re-exposes it rather than replacing it
 - The agentskills.io specification (<https://agentskills.io/specification>) remains the authoritative source for skill metadata structure
 - The prd-agent documentation at `docs/agents/prd-agent/` serves as the style and structure template for changelog agent docs
-- Changelog validation is non-blocking for automated commits (chores, deps) and can be configured per PR type or with explicit label
+- The changelog requirement follows the shipped gate in `.github/workflows/changelog-unified.yml`: it is skipped for Dependabot and docs-bot pull requests and for docs-only diffs (`docs/**` or `*.md`); any other pull request needs a `CHANGELOG.md` update or the `meta:no-changelog` label, and that label is refused for high-impact release-related change types
 - The canonical label set in `.github/labels.yml` already includes changelog-related labels or they will be added as part of this work
 - Node.js and npm are available in all environments where changelog validation runs (local, CI, agent runtime)
 - The changelog agent is a Node.js-based system (consistent with existing agent implementations in the repository)

@@ -104,11 +104,11 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for Rollback (FR-009)
 
-- [ ] T023A [P] Create migration helper script `.specify/scripts/bash/migrate-specs.sh` with rollback capability: (a) pre-migration backup of both locations to temp directory, (b) error detection on any file operation failure, (c) automatic restoration from backup on error, (d) detailed error logging with troubleshooting guidance
-- [ ] T023B [P] Define rollback trigger logic: Any `cp`, `mv`, `mkdir` error detected during migration → immediately trigger rollback, verify original state restored, log error with context (permission denied, disk full, path issues)
-- [ ] T023C Document rollback behavior in quickstart.md: What happens on rollback, how to verify original state preserved, error message format and interpretation
+- [x] T023A [P] Create migration helper script `.specify/scripts/bash/migrate-specs.sh` with rollback capability: (a) pre-migration backup of both locations to temp directory, (b) error detection on any file operation failure, (c) automatic restoration from backup on error, (d) detailed error logging with troubleshooting guidance
+- [x] T023B [P] Define rollback trigger logic: Any `cp`, `mv`, `mkdir` error detected during migration → immediately trigger rollback, verify original state restored, log error with context (permission denied, disk full, path issues)
+- [x] T023C Document rollback behavior in quickstart.md: What happens on rollback, how to verify original state preserved, error message format and interpretation
 
-**Checkpoint**: Rollback infrastructure pending — complete T023A–T023C before migration proceeds ⏳
+**Checkpoint**: Rollback infrastructure complete ✅ — `migrate-specs.sh` backs up both trees and rolls back on any `cp`/`mv`/`mkdir` error (T023A–T023B); behaviour documented in quickstart.md "Rollback Behaviour" (T023C); failure paths covered by `tests/bash/specs-directory.bats`.
 
 ---
 
@@ -122,12 +122,14 @@ description: "Task list for fixing specs directory configuration"
 
 ### Implementation for User Story 3
 
-- [ ] T023 [US3] Inventory and recursively compare the complete `specs/` and `.github/specs/` trees, including hidden entries, before migration; record every matching destination path as a potential conflict
-- [ ] T024 [US3] Resolve every conflicting file or directory explicitly, then copy all source entries to `.github/specs/` without allowing unresolved destination content to be overwritten
-- [ ] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
-- [ ] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
-- [ ] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
-- [ ] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/007-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
+> Not needed (verified 2026-09-23): the repository has no root `specs/` directory (0 tracked files), every spec is already under `.github/specs/`, and `.specify/feature.json` is gitignored and auto-populated. T023–T028 are marked done on that basis; `migrate-specs.sh` remains for any repository that still has a root `specs/`.
+
+- [x] T023 [US3] Inventory and recursively compare the complete `specs/` and `.github/specs/` trees, including hidden entries, before migration; record every matching destination path as a potential conflict
+- [x] T024 [US3] Resolve every conflicting file or directory explicitly, then copy all source entries to `.github/specs/` without allowing unresolved destination content to be overwritten
+- [x] T025 [US3] Recursively compare each source entry with its migrated destination to verify 100% content preservation; after verification, update `.specify/feature.json` to the migrated path if it is version-controlled, or document its ignored, auto-populated status
+- [x] T026 [US3] Only after T025 succeeds, remove the root `specs/` tree or confirm it is empty, and verify no source content remains unmigrated
+- [x] T027 [US3] Verify `/speckit-plan` and `/speckit-tasks` can still find migrated spec in `.github/specs/002-coderabbit-config-improvements/` (run against existing spec to confirm paths resolve) in `.specify/scripts/bash/setup-plan.sh` and `.specify/scripts/bash/setup-tasks.sh`
+- [x] T028 [US3] Run quickstart.md validation scenarios (from `.github/specs/007-specs-directory-fix/quickstart.md`) to confirm all changes working end-to-end in `./quickstart.md`
 
 **Checkpoint**: All specs migrated — zero specs in root `specs/`, all specs in `.github/specs/`, all downstream workflows functional ✅ (Already complete - all specs were already in correct location)
 
@@ -353,7 +355,7 @@ description: "Task list for fixing specs directory configuration"
 - [ ] T038 [P] Verify all speckit commands with new specs: Run `/speckit-plan` and `/speckit-tasks` on 007-specs-directory-fix and confirm FEATURE_DIR resolves to `.github/specs/007-specs-directory-fix` (validate FR-004, SC-002) via `.specify/scripts/bash/setup-plan.sh` and `setup-tasks.sh`
 - [ ] T039 [P] Code review: Grep for hardcoded `/specs` paths in repository to confirm no legacy references remain (validate FR-008, SC-004) via `grep -r "^specs\/" .github/specs/` and `grep -r "root.*specs" .specify/scripts/bash/`
 - [ ] T040 [P] Security validation: Review `read_specs_directory()` function for path traversal vulnerability prevention (validate FR-009) via `.specify/scripts/bash/common.sh` lines 135-165; confirm regex/validation blocks `..` parent directory references
-- [ ] T041 Verify migration script rollback: Run `.specify/scripts/bash/migrate-specs.sh --dry-run --verbose` and confirm error handling paths are documented (validate FR-009 rollback mechanism) via `.specify/scripts/bash/migrate-specs.sh`
+- [x] T041 Verify migration script rollback through controlled failures, not only a successful `--dry-run`: `tests/bash/specs-directory.bats` injects a failing `cp` at the target-backup stage ("target backup failure stops before migration and preserves both trees") and at the migration-copy stage ("migration failure restores both trees and exits nonzero"); both pass (17/17, 2026-09-23) and run in CI via `validate-specifications.yml`. Error paths are documented in quickstart.md "Rollback Behaviour" (validates FR-009)
 - [ ] T042 Update CHANGELOG.md: Add entry under [Unreleased] → Fixed documenting "Specs Directory Fix" completion and migration to `.github/specs` (validate SC-006, governance compliance) via `CHANGELOG.md`
 - [ ] T043 [P] Final integration validation: Create new test feature spec with `/speckit-specify "integration-test-feature-phase7"`, verify `.github/specs/NNN-integration-test-feature-phase7/` created, run `/speckit-plan` and `/speckit-tasks` on it, confirm all downstream workflows work (validate all FRs, all SCs) via bash interactive testing
 - [ ] T044 Document Phase 6 completion: Update `.github/specs/007-specs-directory-fix/spec.md` Status from "Ready for Planning" to "Completed" and add completion date (validate completion status) via `spec.md`

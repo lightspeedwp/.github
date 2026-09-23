@@ -53,7 +53,7 @@ Correct the speckit configuration to place all feature specifications under `.gi
 **Principle V: Branch Naming Strategy** ✅
 
 - **Status**: PASS
-- **Verification**: Branch `fix/specs-directory-configuration` follows `{type}/{scope}-{title}` pattern with `fix` type (bug fix for incorrect directory placement).
+- **Verification**: Branch `fix/specs-directory-structure` follows `{type}/{scope}-{title}` pattern with `fix` type (bug fix for incorrect directory placement).
 
 **Principle I: Organisation-Wide Governance Authority** ✅
 

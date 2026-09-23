@@ -94,7 +94,7 @@
 - [x] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
 - [x] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
 - [x] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
-- [x] T044 [P] [US2] Create unit tests for structure validation in scripts/validation/**tests**/structure-validation.test.js
+- [x] T044 [P] [US2] Create unit tests for structure validation in `scripts/validation/__tests__/structure-validation.test.js`
 
 ---
 
