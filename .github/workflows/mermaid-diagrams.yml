@@ -1,0 +1,61 @@
+name: Mermaid Diagrams
+
+# Parses every Mermaid diagram in changed Markdown with Mermaid's own parser
+# (scripts/validation/mermaid-parse.mjs, #3492), so a PR cannot merge a
+# diagram that fails to render. workflow_dispatch checks the whole repo.
+
+on:
+  # No paths filter: this backs a status check, and a filtered-out run never
+  # reports. The job exits in seconds when no Markdown changed.
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mermaid-diagrams-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  parse:
+    name: Mermaid diagrams parse
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          # The PR merge commit and its first parent (the base) are enough
+          # to list the files the PR changes.
+          fetch-depth: 2
+
+      - name: List changed Markdown
+        id: changed
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            git diff --name-only --diff-filter=ACMR HEAD^1 HEAD -- '*.md' '*.mdx' > changed-md.txt
+          else
+            git ls-files -- '*.md' '*.mdx' > changed-md.txt
+          fi
+          count=$(wc -l < changed-md.txt)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "Markdown files to check: $count"
+
+      - name: Set up Node.js
+        if: steps.changed.outputs.count != '0'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.changed.outputs.count != '0'
+        run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
+
+      - name: Parse Mermaid diagrams
+        if: steps.changed.outputs.count != '0'
+        run: node scripts/validation/mermaid-parse.mjs --changed-files-list=changed-md.txt

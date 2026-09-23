@@ -9,6 +9,8 @@
  * exclusions already applied in eslint.config.cjs, package.json's `lint:md`
  * script, and .github/workflows/meta.yml's `lint-and-links` job.
  */
+const path = require("path");
+
 const EXCLUDED_PATTERNS = [
   /^projects\/active\//,
   /\/plugin-provided\//,
@@ -19,8 +21,14 @@ const EXCLUDED_PATTERNS = [
   /scripts\/dashboard\//,
 ];
 
+// lint-staged passes absolute paths by default (`--relative` is false), so
+// match the patterns against the path relative to the repository root.
 function isExcluded(filename) {
-  return EXCLUDED_PATTERNS.some((pattern) => pattern.test(filename));
+  const relative = path
+    .relative(process.cwd(), path.resolve(filename))
+    .split(path.sep)
+    .join("/");
+  return EXCLUDED_PATTERNS.some((pattern) => pattern.test(relative));
 }
 
 function quoteAll(filenames) {
@@ -45,7 +53,11 @@ module.exports = {
     // introduce. The staged-diff script only fails on violations that land
     // on lines the commit actually touches.
     return included.length
-      ? [`node scripts/validation/lint-md-staged.cjs ${quoteAll(included)}`]
+      ? [
+          `node scripts/validation/lint-md-staged.cjs ${quoteAll(included)}`,
+          // Mermaid's own parser on every diagram in the staged files (#3492).
+          `node scripts/validation/mermaid-parse.mjs ${quoteAll(included)}`,
+        ]
       : [];
   },
   "*.json": ["prettier --write"],

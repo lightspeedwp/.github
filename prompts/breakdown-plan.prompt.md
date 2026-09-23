@@ -65,11 +65,11 @@ Create two primary deliverables:
 ```mermaid
 graph TD
     accTitle: Graph Diagram
-    A[Epic: {Epic Name}] --> B[Feature: {Feature Name}]
-    B --> C[Story 1: {User Story}]
-    B --> D[Story 2: {User Story}]
-    B --> E[Enabler 1: {Technical Work}]
-    B --> F[Enabler 2: {Infrastructure}]
+    A["Epic: {Epic Name}"] --> B["Feature: {Feature Name}"]
+    B --> C["Story 1: {User Story}"]
+    B --> D["Story 2: {User Story}"]
+    B --> E["Enabler 1: {Technical Work}"]
+    B --> F["Enabler 2: {Infrastructure}"]
 
     C --> G[Task: Frontend Implementation]
     C --> H[Task: API Integration]

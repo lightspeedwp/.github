@@ -61,8 +61,10 @@ flowchart TD
 
 **Rules:**
 
-- `accTitle` is mandatory on every diagram — no exceptions.
-- `accDescr` is mandatory on every diagram — no exceptions.
+- `accTitle` and `accDescr` are mandatory on every diagram type that supports them.
+- Exceptions: `mindmap`, `sankey-beta` and `block-beta` reject them. Adding them breaks the diagram (verified with a full mermaid 12 parse). For these, put a short text alternative in the Markdown directly above the fence instead.
+- Use the colon form (`accTitle: text`). `accTitle "text"` without a colon is a parse error.
+- Check diagrams with `npm run validate:mermaid-parse`, which runs Mermaid's own parser. The same check runs in pre-commit and as the **Mermaid Diagrams** PR check.
 - The diagram type (e.g. `flowchart`, `graph`, `sequenceDiagram`) **must** be the first line after the opening ` ```mermaid ` fence.
 - Place `accTitle` and `accDescr` inline, directly after the diagram type and before any node definitions.
 - **Do NOT use the YAML `---` front-matter syntax** before the diagram type — GitHub's Mermaid renderer does not support it and will display an error instead of the diagram.

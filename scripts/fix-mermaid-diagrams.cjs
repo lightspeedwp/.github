@@ -345,36 +345,75 @@ function fixDiagram(diagram) {
     .join("\n");
 }
 
+const MarkdownIt = require("markdown-it");
+
+const markdown = new MarkdownIt();
+
+/**
+ * Every mermaid fenced block in a Markdown document, located with a
+ * CommonMark parser (markdown-it) so blocks are found exactly as GitHub
+ * renders them: ```mermaid written inline in prose, or quoted inside
+ * another code block, is not a diagram (#3490, #3492).
+ *
+ * `line` is the 1-based line of the opening fence; `source` is the raw
+ * text between the fences; `open`/`close` are 0-based line indexes of the
+ * fence lines (`close` is -1 when the fence is never closed).
+ * @returns {{line: number, source: string, open: number, close: number}[]}
+ */
+function findMermaidBlocks(content) {
+  const lines = content.split("\n");
+  const blocks = [];
+  for (const token of markdown.parse(content, {})) {
+    if (token.type !== "fence" || !token.map) continue;
+    if (token.info.trim().split(/\s+/)[0] !== "mermaid") continue;
+    const [open, end] = token.map;
+    const last = end - 1;
+    const closed =
+      last > open &&
+      new RegExp(`^\\s*${token.markup[0]}{${token.markup.length},}\\s*$`).test(
+        lines[last] ?? "",
+      );
+    const close = closed ? last : -1;
+    const source = lines.slice(open + 1, closed ? last : end).join("\n");
+    if (!source.trim()) continue;
+    blocks.push({ line: open + 1, source, open, close });
+  }
+  return blocks;
+}
+
 /**
  * Apply fixDiagram to every mermaid block in a Markdown document.
  * @returns {{content: string, modified: boolean}}
  */
 function fixMarkdown(content) {
+  const lines = content.split("\n");
   let modified = false;
-  // Match real fences only: an opening line that is just ```mermaid and the
-  // next line that is just ``` (any indent, as CommonMark allows). The old
-  // unanchored pattern also matched ```mermaid written inline in prose and
-  // injected text into sentences.
-  const fence = /^([ \t]*)```mermaid[ \t]*\n([^]*?)^([ \t]*)```[ \t]*$/gm;
-  const next = content.replace(fence, (match, indent, diagram, closeIndent) => {
-    if (!diagram.trim()) return match;
-    const fixed = fixDiagram(diagram);
+  // Replace from the bottom up so earlier line indexes stay valid.
+  for (const block of findMermaidBlocks(content).reverse()) {
+    if (block.close === -1) continue; // unclosed fence: report, never rewrite
+    const fixed = fixDiagram(block.source);
     // Leave blocks untouched unless the fix changes their content, so
     // formatting-only differences cause no churn.
-    if (fixed === diagram.replace(/^\n+|\s+$/g, "")) return match;
+    if (fixed === block.source.replace(/^\n+|\s+$/g, "")) continue;
+    lines.splice(
+      block.open + 1,
+      block.close - block.open - 1,
+      ...fixed.split("\n"),
+    );
     modified = true;
-    return `${indent}\`\`\`mermaid\n${fixed}\n${closeIndent}\`\`\``;
-  });
-  return { content: next, modified };
+  }
+  return { content: lines.join("\n"), modified };
 }
 
-function main() {
+async function main() {
   const changes = [];
+  const outputs = [];
 
   findMarkdownFiles().forEach((file) => {
     const { content, modified } = fixMarkdown(fs.readFileSync(file, "utf-8"));
     if (modified) {
       changes.push({ file, type: "mermaid-update" });
+      outputs.push({ file, content });
       if (process.env.DRY_RUN !== "true") {
         fs.writeFileSync(file, content);
       }
@@ -383,13 +422,38 @@ function main() {
 
   console.log("Mermaid fixes:", changes.length, "files");
   console.log(JSON.stringify(changes, null, 2));
+
+  // Self-check (#3492): every diagram in every file this run changed must
+  // pass Mermaid's own parser, so an automated run (the docs bot) fails
+  // before it can open a PR that breaks diagrams, as #3435 did.
+  if (outputs.length > 0) {
+    const { parseFile } = await import("./validation/mermaid-parse.mjs");
+    const failures = [];
+    for (const { file, content } of outputs) {
+      failures.push(...(await parseFile(file, content)));
+    }
+    if (failures.length > 0) {
+      failures.forEach((failure) =>
+        console.error(`${failure.file}:${failure.line}: ${failure.message}`),
+      );
+      console.error(
+        `Mermaid self-check failed: ${failures.length} diagram(s) in fixed files do not parse.`,
+      );
+      process.exitCode = 1;
+    }
+  }
 }
 
 if (require.main === module) {
-  main();
+  main().catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
 }
 
 module.exports = {
+  diagramKind,
+  findMermaidBlocks,
   fixDiagram,
   fixMarkdown,
   findTypeLineIndex,

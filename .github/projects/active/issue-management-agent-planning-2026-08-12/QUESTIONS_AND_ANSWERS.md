@@ -653,9 +653,10 @@ stateDiagram-v2
     ReportSuccess --> Notify
     
     Notify: Notify Results
-    Notify --> NextRepo{More<br/>Repos?}
-    NextRepo --> SelectRepo: ✅ Yes
-    NextRepo --> [*]: ❌ No
+    state NextRepo <<choice>>
+    Notify --> NextRepo
+    NextRepo --> SelectRepo: ✅ More repos
+    NextRepo --> [*]: ❌ No more repos
     
     Error1 --> [*]
     Error2 --> [*]

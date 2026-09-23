@@ -344,18 +344,14 @@ accDescr: Detailed diagram
 
 ## Diagram 7: Test Coverage Thresholds by Context
 
-```mermaid
-xychart-beta
-    accTitle: Diagram
-    title Test Coverage Thresholds by Repository & Framework
-    x-axis [Control-Plane, Block Theme, Block Plugin, Other Repos]
-    y-axis "Coverage Threshold (%)" 60 --> 90
-    line [80, 80, 85, 80] name "Jest (JavaScript)"
-    line [-, 80, 85, 80] name "PHPUnit (PHP)"
-    line [75, -, -, 75] name "pytest (Python)"
-    line [-, 70, 70, 70] name "Playwright (E2E)"
-accDescr: Detailed diagram
-```
+Test coverage thresholds (%) by repository and framework. A dash means the framework does not apply to that repository. (A table, because `xychart-beta` cannot plot missing values or name its lines.)
+
+| Framework | Control-Plane | Block Theme | Block Plugin | Other Repos |
+| --- | --- | --- | --- | --- |
+| Jest (JavaScript) | 80 | 80 | 85 | 80 |
+| PHPUnit (PHP) | – | 80 | 85 | 80 |
+| pytest (Python) | 75 | – | – | 75 |
+| Playwright (E2E) | – | 70 | 70 | 70 |
 
 **Key Points:**
 

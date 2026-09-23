@@ -407,7 +407,7 @@ graph TB
     Permanent -->|yes| Report
     
     Report --> Abort
-    Abort --> [*]
+    Abort --> End([End])
     
     style Error fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
     style Retry fill:#fff9c4

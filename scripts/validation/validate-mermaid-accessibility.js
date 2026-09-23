@@ -6,9 +6,19 @@
  */
 
 import fs from 'fs';
+import { createRequire } from 'module';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { globSync } from 'glob';
+
+// Shared with the fixer and the parser gate (#3492): CommonMark block
+// detection and the verified per-type accessibility support.
+const require = createRequire(import.meta.url);
+const {
+  diagramKind,
+  findMermaidBlocks,
+  findTypeLineIndex,
+} = require('../fix-mermaid-diagrams.cjs');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '../../');
@@ -22,6 +32,8 @@ const getMarkdownFiles = () =>
       '**/.claude/**',
       '**/coverage/**',
       '**/logs/**',
+      // Historical records keep the diagrams they were written with (#3490).
+      '.github/reports/**',
       '**/.github/projects/**',
       '**/plugin-provided/**',
       '**/platform-managed/**',
@@ -32,16 +44,8 @@ const getMarkdownFiles = () =>
   }).sort();
 
 function extractMermaidDiagrams(content) {
-  const diagrams = [];
-  const regex = /```mermaid\r?\n([\s\S]*?)```/g;
-  let match;
-
-  while ((match = regex.exec(content)) !== null) {
-    const diagramContent = match[1].trim();
-    diagrams.push(diagramContent);
-  }
-
-  return diagrams;
+  // CommonMark-aware: ignores ```mermaid in prose or inside other code blocks.
+  return findMermaidBlocks(content).map((block) => block.source.trim());
 }
 
 function getDiagramType(content) {
@@ -115,9 +119,18 @@ function validateAccessibility(content) {
     return issues;
   }
 
+  // mindmap, sankey-beta and block-beta reject accTitle/accDescr (verified
+  // with a full mermaid 12 parse, #3492); adding them breaks the diagram.
+  // Those need a text alternative in the surrounding Markdown instead, and
+  // typeless snippets are not diagrams. Neither is checked here.
+  const typeIndex = findTypeLineIndex(lines);
+  if (typeIndex === -1 || diagramKind(lines[typeIndex]) !== 'acc') {
+    return issues;
+  }
+
   // Check for accTitle as an inline statement after the diagram type line.
-  // Supported forms: "accTitle: text" or (rarely) "accTitle text"
-  const hasAccTitle = /^\s*accTitle\s*:/m.test(content) || /^\s*accTitle\s+\S/m.test(content);
+  // Only the colon form is valid: `accTitle "text"` is a parse error.
+  const hasAccTitle = /^\s*accTitle\s*:/m.test(content);
   if (!hasAccTitle) {
     issues.push(
       'Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)'
@@ -126,10 +139,7 @@ function validateAccessibility(content) {
 
   // Check for accDescr as an inline statement after the diagram type line.
   // Supported forms: "accDescr: text" or block "accDescr { ... }"
-  const hasAccDescr =
-    /^\s*accDescr\s*:/m.test(content) ||
-    /^\s*accDescr\s*\{/m.test(content) ||
-    /^\s*accDescr\s+\S/m.test(content);
+  const hasAccDescr = /^\s*accDescr\s*:/m.test(content) || /^\s*accDescr\s*\{/m.test(content);
   if (!hasAccDescr) {
     issues.push(
       'Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)'

@@ -1,4 +1,9 @@
-const { fixDiagram, fixMarkdown, findTypeLineIndex } = require('../fix-mermaid-diagrams.cjs');
+const {
+  findMermaidBlocks,
+  fixDiagram,
+  fixMarkdown,
+  findTypeLineIndex,
+} = require('../fix-mermaid-diagrams.cjs');
 
 describe('fixDiagram accessibility placement (#3490)', () => {
   test('inserts accTitle and accDescr directly after the type line', () => {
@@ -124,14 +129,24 @@ describe('fixMarkdown', () => {
     );
   });
 
-  test('a closing fence indented differently from the opening does not swallow later content', () => {
+  test('follows CommonMark for a list-item fence closed at column 0 and rewrites nothing', () => {
+    // CommonMark (and GitHub): the list-item fence never closes; the
+    // column-0 ``` opens a plain code block that swallows the prose and the
+    // second ```mermaid as literal text. Nothing here is a closed diagram.
     const doc =
       '1. Step\n\n   ```mermaid\n   flowchart TD\n     A --> B\n```\n\nProse between.\n\n```mermaid\nflowchart LR\n  C --> D\n```\n';
-    const { content } = fixMarkdown(doc);
 
-    expect(content).toContain('Prose between.');
-    expect(content.match(/```mermaid/g)).toHaveLength(2);
-    expect(content).toContain('flowchart LR\n  accTitle: Flowchart');
+    expect(fixMarkdown(doc)).toEqual({ content: doc, modified: false });
+    expect(findMermaidBlocks(doc)).toEqual([
+      { line: 3, source: '   flowchart TD\n     A --> B', open: 2, close: -1 },
+    ]);
+  });
+
+  test('ignores ```mermaid quoted inside another code block', () => {
+    const doc = '````markdown\n```mermaid\ngraph TD\n```\n````\n';
+
+    expect(findMermaidBlocks(doc)).toEqual([]);
+    expect(fixMarkdown(doc).modified).toBe(false);
   });
 });
 

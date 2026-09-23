@@ -62,6 +62,7 @@ jobs:
             .github/workflows/branch-validation-metrics-aggregator.yml \
             .github/workflows/changelog-unified.yml \
             .github/workflows/documentation.yml \
+            .github/workflows/mermaid-diagrams.yml \
             .github/workflows/pr-template-routing.yml \
             .github/workflows/validate-specifications.yml \
             .github/workflows/workflow-lint.yml

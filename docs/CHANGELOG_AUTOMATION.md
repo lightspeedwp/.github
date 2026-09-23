@@ -90,13 +90,13 @@ flowchart TD
   accDescr: Flowchart showing changelog validation gates for release process
   A["Release triggered on develop branch"] --> B["Run Phase 5A Gates"]
   B -->|"GATE 1"| C["Changelog Validation"]
-  C --> D{["CHANGELOG.md<br/>exists?"]}
+  C --> D{"CHANGELOG.md<br/>exists?"}
   D -->|"No"| Z1["❌ FAIL<br/>Missing CHANGELOG.md"]
-  D -->|"Yes"| E{["Valid schema?<br/>Keep a Changelog 1.1.0"]}
+  D -->|"Yes"| E{"Valid schema?<br/>Keep a Changelog 1.1.0"}
   E -->|"No"| Z2["❌ FAIL<br/>Invalid schema"]
-  E -->|"Yes"| F{["Has [Unreleased]<br/>section?"]}
+  E -->|"Yes"| F{"Has [Unreleased]<br/>section?"}
   F -->|"No"| Z3["❌ FAIL<br/>Missing Unreleased"]
-  F -->|"Yes"| G{["Unreleased has<br/>entries?"]}
+  F -->|"Yes"| G{"Unreleased has<br/>entries?"}
   G -->|"No"| Z4["❌ FAIL<br/>Empty Unreleased"]
   G -->|"Yes"| H["✅ PASS<br/>Ready for release"]
   H --> I["Continue to GATE 2"]
