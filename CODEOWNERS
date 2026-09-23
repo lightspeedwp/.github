@@ -3,41 +3,40 @@
 # See <https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners>
 
 # Global Owner (fallback for all files)
-* @ashleyshaw @lightspeedwp
+* @ashleyshaw @lightspeedwp/lightspeed
 
 # Governance and Documentation
-/GOVERNANCE.md @ashleyshaw
-/CONTRIBUTING.md @ashleyshaw
-/CODE_OF_CONDUCT.md @ashleyshaw
-/SECURITY.md @ashleyshaw
-/README.md @ashleyshaw
+/GOVERNANCE.md @ashleyshaw @lightspeedwp/lightspeed
+/CONTRIBUTING.md @ashleyshaw @lightspeedwp/lightspeed
+/CODE_OF_CONDUCT.md @ashleyshaw @lightspeedwp/lightspeed
+/SECURITY.md @ashleyshaw @lightspeedwp/lightspeed
+/README.md @ashleyshaw @lightspeedwp/lightspeed
 
 # Workflows and Automation (critical for org-wide automation)
-/.github/workflows/ @ashleyshaw
+/.github/workflows/ @ashleyshaw @lightspeedwp/lightspeed
 
 # Labels and Issue Types (critical for automation)
-/.github/labels.yml @ashleyshaw
-/.github/issue-types.yml @ashleyshaw
-/.github/labeler.yml @ashleyshaw
+/.github/labels.yml @ashleyshaw @lightspeedwp/lightspeed
+/.github/issue-types.yml @ashleyshaw @lightspeedwp/lightspeed
+/.github/labeler.yml @ashleyshaw @lightspeedwp/lightspeed
 
 # AI and Copilot Instructions
-/.github/custom-instructions.md @ashleyshaw
-/.github/agents/ @ashleyshaw
-/agents/ @ashleyshaw
-/.github/prompts/ @ashleyshaw
-/.github/instructions/ @ashleyshaw
-/instructions/ @ashleyshaw
-/AGENTS.md @ashleyshaw
+/.github/custom-instructions.md @ashleyshaw @lightspeedwp/lightspeed
+/.github/agents/ @ashleyshaw @lightspeedwp/lightspeed
+/agents/ @ashleyshaw @lightspeedwp/lightspeed
+/.github/prompts/ @ashleyshaw @lightspeedwp/lightspeed
+/.github/instructions/ @ashleyshaw @lightspeedwp/lightspeed
+/instructions/ @ashleyshaw @lightspeedwp/lightspeed
+/AGENTS.md @ashleyshaw @lightspeedwp/lightspeed
 
 # Core Documentation
-/docs/ @ashleyshaw
+/docs/ @ashleyshaw @lightspeedwp/lightspeed
 
 # Scripts (validation, automation, testing)
-/scripts/ @ashleyshaw
+/scripts/ @ashleyshaw @lightspeedwp/lightspeed
 
 # Tests (quality assurance)
-/tests/ @ashleyshaw
+/tests/ @ashleyshaw @lightspeedwp/lightspeed
 
 # Schemas (JSON validation)
-/.schemas/ @ashleyshaw
-/.schemas/ @ashleyshaw
+/.schemas/ @ashleyshaw @lightspeedwp/lightspeed
