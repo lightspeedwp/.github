@@ -402,8 +402,12 @@ describe('workflow consolidation composite actions', () => {
     });
 
     test('returns internally consistent metric values', () => {
+      const directory = createTemporaryDirectory();
+      const stub = installCurlStub(directory, JSON.stringify({ run_duration_ms: 300000 }));
       const result = runStep('collect-metrics', 'collect', {
+        cwd: directory,
         inputs: { workflow_name: 'testing-unified', workflow_run_id: '1234' },
+        env: stub,
       });
       const metrics = JSON.parse(result.outputs.metrics_json);
       const minutes = Number(result.outputs.minutes_used);
@@ -411,15 +415,25 @@ describe('workflow consolidation composite actions', () => {
 
       expect(result.status).toBe(0);
       expect(result.outputs.status).toBe('success');
-      expect(minutes).toBeGreaterThanOrEqual(0);
-      expect(minutes).toBeLessThan(10);
-      expect(duration).toBe(minutes * 60);
+      expect(minutes).toBe(5);
+      expect(duration).toBe(300);
       expect(metrics).toMatchObject({
-        workflow_name: 'testing-unified',
-        workflow_run_id: '1234',
         minutes_used: minutes,
         duration_seconds: duration,
       });
+    });
+
+    test('fails closed when the API returns an error', () => {
+      const directory = createTemporaryDirectory();
+      const stub = installCurlStub(directory, JSON.stringify({ message: 'Not Found' }));
+      const result = runStep('collect-metrics', 'collect', {
+        cwd: directory,
+        inputs: { workflow_name: 'testing-unified', workflow_run_id: '1234' },
+        env: stub,
+      });
+
+      expect(result.status).toBe(1);
+      expect(result.outputs.status).toBe('failure');
     });
   });
 
@@ -442,9 +456,12 @@ describe('workflow consolidation composite actions', () => {
 
     test.each([
       ['false', ''],
-      ['true', 'comment_'],
-    ])('reports a check when post_comment is %s', (postComment, commentPrefix) => {
+      ['true', '999'],
+    ])('reports a check when post_comment is %s', (postComment, commentId) => {
+      const directory = createTemporaryDirectory();
+      const stub = installCurlStub(directory, JSON.stringify({ id: 999 }));
       const result = runStep('validate-check', 'report', {
+        cwd: directory,
         inputs: {
           github_token: 'local-test-token',
           check_name: 'validation-unified',
@@ -454,19 +471,41 @@ describe('workflow consolidation composite actions', () => {
           details: '[{"check":"branch","passed":true}]',
           post_comment: postComment,
         },
+        env: stub,
       });
 
       expect(result.status).toBe(0);
-      expect(result.outputs.check_id).toMatch(/^check_\d+$/);
-      expect(result.outputs.comment_id).toMatch(
-        commentPrefix ? new RegExp(`^${commentPrefix}\\d+$`) : /^$/
-      );
+      expect(result.outputs.check_id).toBe('999');
+      expect(result.outputs.comment_id).toBe(commentId);
       expect(result.outputs.status).toBe('success');
       expect(result.outputs.message).toBe("Check 'validation-unified' reported as neutral");
     });
 
+    test('fails closed when the check-runs API returns an error', () => {
+      const directory = createTemporaryDirectory();
+      const stub = installCurlStub(directory, JSON.stringify({ message: 'Validation Failed' }));
+      const result = runStep('validate-check', 'report', {
+        cwd: directory,
+        inputs: {
+          github_token: 'local-test-token',
+          check_name: 'validation-unified',
+          status: 'success',
+          title: 'Validation result',
+          summary: 'All good',
+          details: '[]',
+          post_comment: 'false',
+        },
+        env: stub,
+      });
+
+      expect(result.status).toBe(0);
+      expect(result.outputs.status).toBe('failure');
+      expect(result.outputs.message).toContain('Failed to report check');
+    });
+
     test('treats Markdown summary content as data rather than executable shell', () => {
       const directory = createTemporaryDirectory();
+      const stub = installCurlStub(directory, JSON.stringify({ id: 999 }));
       const sentinel = path.join(directory, 'executed');
       const summary = `$(touch ${sentinel})`;
       const result = runStep('validate-check', 'report', {
@@ -480,6 +519,7 @@ describe('workflow consolidation composite actions', () => {
           details: '[]',
           post_comment: 'false',
         },
+        env: stub,
       });
 
       expect(result.status).toBe(0);

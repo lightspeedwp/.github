@@ -56,15 +56,18 @@ runs:
     - name: 'Validate check inputs'
       id: validate
       shell: bash
+      env:
+        INPUT_STATUS: ${{ inputs.status }}
+        INPUT_CHECK_NAME: ${{ inputs.check_name }}
       run: |
         # Validate status value
-        if [[ "${{ inputs.status }}" != "success" && "${{ inputs.status }}" != "failure" && "${{ inputs.status }}" != "neutral" ]]; then
+        if [[ "$INPUT_STATUS" != "success" && "$INPUT_STATUS" != "failure" && "$INPUT_STATUS" != "neutral" ]]; then
           echo "ERROR: Invalid status. Must be 'success', 'failure', or 'neutral'"
           exit 1
         fi
 
         # Validate check_name
-        if [[ -z "${{ inputs.check_name }}" ]]; then
+        if [[ -z "$INPUT_CHECK_NAME" ]]; then
           echo "ERROR: check_name cannot be empty"
           exit 1
         fi
@@ -82,11 +85,13 @@ runs:
         SUMMARY: ${{ inputs.summary }}
         DETAILS: ${{ inputs.details }}
         POST_COMMENT: ${{ inputs.post_comment }}
+        HEAD_SHA: ${{ github.sha }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         set +e
 
         # Initialize outputs
-        CHECK_ID="check_$(date +%s)"
+        CHECK_ID=""
         COMMENT_ID=""
         REPORT_STATUS="success"
         MESSAGE="Check '$CHECK_NAME' reported as $STATUS"
@@ -96,8 +101,30 @@ runs:
         echo "  Status: $STATUS"
         echo "  Title: $TITLE"
 
-        # In production, this would call GitHub API to create check run
-        # For now, log the validation results
+        # Create a real check run via the GitHub API (fails closed on API error)
+        CHECK_PAYLOAD=$(jq -n \
+          --arg name "$CHECK_NAME" \
+          --arg head_sha "$HEAD_SHA" \
+          --arg conclusion "$STATUS" \
+          --arg title "$TITLE" \
+          --arg summary "$SUMMARY" \
+          '{name: $name, head_sha: $head_sha, status: "completed", conclusion: $conclusion, output: {title: $title, summary: $summary}}')
+        API_RESPONSE=$(curl -s -X POST \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/check-runs" \
+          -d "$CHECK_PAYLOAD")
+        API_CHECK_ID=$(echo "$API_RESPONSE" | jq -r '.id // empty')
+        if [[ -z "$API_CHECK_ID" ]]; then
+          API_ERROR=$(echo "$API_RESPONSE" | jq -r '.message // "Unknown error"')
+          echo "❌ Error creating check run: $API_ERROR"
+          REPORT_STATUS="failure"
+          MESSAGE="Failed to report check '$CHECK_NAME': $API_ERROR"
+        else
+          CHECK_ID="$API_CHECK_ID"
+          echo "✓ Check run created: $CHECK_ID"
+        fi
+
         echo ""
         echo "## Validation Result"
         echo ""
@@ -116,10 +143,27 @@ runs:
           echo ""
         fi
 
-        # Post PR comment if requested
+        # Post PR comment if requested (skipped outside pull_request events)
         if [[ "$POST_COMMENT" == "true" ]]; then
-          echo "💬 Would post PR comment with validation results"
-          COMMENT_ID="comment_$(date +%s)"
+          if [[ -z "$PR_NUMBER" ]]; then
+            echo "⚠️ POST_COMMENT requested but no pull request number in event context; skipping comment"
+          else
+            COMMENT_PAYLOAD=$(jq -n --arg body "## $TITLE ($STATUS)"$'\n\n'"$SUMMARY" '{body: $body}')
+            COMMENT_RESPONSE=$(curl -s -X POST \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" \
+              -d "$COMMENT_PAYLOAD")
+            COMMENT_ID=$(echo "$COMMENT_RESPONSE" | jq -r '.id // empty')
+            if [[ -z "$COMMENT_ID" ]]; then
+              COMMENT_ERROR=$(echo "$COMMENT_RESPONSE" | jq -r '.message // "Unknown error"')
+              echo "❌ Error posting PR comment: $COMMENT_ERROR"
+              REPORT_STATUS="failure"
+              MESSAGE="Check '$CHECK_NAME' reported, but comment failed: $COMMENT_ERROR"
+            else
+              echo "💬 PR comment posted: $COMMENT_ID"
+            fi
+          fi
         fi
 
         # Map status to conclusion

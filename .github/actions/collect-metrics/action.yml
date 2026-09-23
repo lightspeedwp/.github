@@ -49,9 +49,16 @@ runs:
     - name: 'Validate metric inputs'
       id: validate
       shell: bash
+      env:
+        METRIC_TYPE: ${{ inputs.metric_type }}
+        OUTPUT_FORMAT: ${{ inputs.output_format }}
       run: |
-        if [[ "${{ inputs.metric_type }}" != "minutes_used" && "${{ inputs.metric_type }}" != "duration_seconds" && "${{ inputs.metric_type }}" != "job_count" && "${{ inputs.metric_type }}" != "all" ]]; then
+        if [[ "$METRIC_TYPE" != "minutes_used" && "$METRIC_TYPE" != "duration_seconds" && "$METRIC_TYPE" != "job_count" && "$METRIC_TYPE" != "all" ]]; then
           echo "ERROR: Invalid metric_type"
+          exit 1
+        fi
+        if [[ "$OUTPUT_FORMAT" != "json" && "$OUTPUT_FORMAT" != "markdown" && "$OUTPUT_FORMAT" != "csv" ]]; then
+          echo "ERROR: Invalid output_format. Must be 'json', 'markdown', or 'csv'"
           exit 1
         fi
         echo "✓ Metric validation passed"
@@ -60,6 +67,7 @@ runs:
       id: collect
       shell: bash
       env:
+        GITHUB_TOKEN: ${{ inputs.github_token }}
         WORKFLOW_NAME: ${{ inputs.workflow_name }}
         RUN_ID: ${{ inputs.workflow_run_id }}
       run: |
@@ -67,12 +75,49 @@ runs:
 
         echo "📊 Collecting metrics for: $WORKFLOW_NAME"
 
-        # Generate mock metrics (in production would call GitHub API)
-        MINUTES_USED=$((RANDOM % 10))
-        DURATION_SECONDS=$((MINUTES_USED * 60))
+        # Resolve 'current' to this run's ID
+        TARGET_RUN_ID="$RUN_ID"
+        if [[ "$TARGET_RUN_ID" == "current" ]]; then
+          TARGET_RUN_ID="$GITHUB_RUN_ID"
+        fi
 
-        # Create metrics JSON
-        METRICS_JSON="{\"minutes_used\":$MINUTES_USED,\"duration_seconds\":$DURATION_SECONDS}"
+        # Fetch the real workflow run (fails closed: no mock data on API error)
+        RUN_JSON=$(curl -s \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$TARGET_RUN_ID")
+
+        DURATION_MS=$(echo "$RUN_JSON" | jq -r '.run_duration_ms // empty')
+        if [[ -z "$DURATION_MS" ]]; then
+          API_ERROR=$(echo "$RUN_JSON" | jq -r '.message // "Unknown error"')
+          echo "❌ Error fetching workflow run: $API_ERROR"
+          echo "status=failure" >> "$GITHUB_OUTPUT"
+          echo "metrics_json={\"error\":\"$API_ERROR\"}" >> "$GITHUB_OUTPUT"
+          exit 1
+        fi
+
+        DURATION_SECONDS=$((DURATION_MS / 1000))
+        # Billable minutes, rounded up (OS multipliers not applied)
+        MINUTES_USED=$(((DURATION_SECONDS + 59) / 60))
+
+        JOB_COUNT=""
+        if [[ "$METRIC_TYPE" == "job_count" || "$METRIC_TYPE" == "all" ]]; then
+          JOBS_JSON=$(curl -s \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/runs/$TARGET_RUN_ID/jobs?per_page=100")
+          JOB_COUNT=$(echo "$JOBS_JSON" | jq -r '.total_count // empty')
+          if [[ -z "$JOB_COUNT" ]]; then
+            echo "⚠️ Could not fetch job count; continuing without it"
+          fi
+        fi
+
+        # Create metrics JSON (compact: $GITHUB_OUTPUT is line-parsed)
+        METRICS_JSON=$(jq -cn \
+          --argjson minutes_used "$MINUTES_USED" \
+          --argjson duration_seconds "$DURATION_SECONDS" \
+          --arg job_count "${JOB_COUNT:-null}" \
+          '{minutes_used: $minutes_used, duration_seconds: $duration_seconds, job_count: ($job_count | tonumber? // null)}')
 
         # Set outputs safely
         echo "minutes_used=$MINUTES_USED" >> "$GITHUB_OUTPUT"
@@ -80,7 +125,7 @@ runs:
         echo "status=success" >> "$GITHUB_OUTPUT"
         echo "metrics_json=$METRICS_JSON" >> "$GITHUB_OUTPUT"
 
-        echo "✓ Metrics collected successfully"
+        echo "✓ Metrics collected successfully (run $TARGET_RUN_ID: ${MINUTES_USED} min, ${DURATION_SECONDS}s)"
         exit 0
 
 branding:

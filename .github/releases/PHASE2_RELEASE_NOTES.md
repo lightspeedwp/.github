@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Phase 2 successfully consolidates 71 archived GitHub Actions workflows into 5 unified, maintainable workflows with **parallel execution**, **comprehensive error handling**, and **integrated security scanning**. This release achieves the target GitHub Actions minutes reduction while improving workflow transparency and reducing technical debt.
+Phase 2 successfully consolidates 71 archived GitHub Actions workflows into 5 unified, maintainable workflows with **parallel execution**, **comprehensive error handling**, and **integrated security scanning**. The GitHub Actions minutes-reduction target (≥15%) is pending CI validation (see metrics table below); all other release targets are met.
 
 ### Key Metrics
 
