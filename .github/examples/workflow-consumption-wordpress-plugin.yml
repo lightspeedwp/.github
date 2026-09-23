@@ -1,81 +1,57 @@
-# Example: Using LightSpeed reusable workflows in a WordPress block plugin
+# Example: CI for a WordPress block plugin
 #
-# Place this in: .github/workflows/ci.yml (in your wordpress-block-plugin repo)
+# Place this in: .github/workflows/ci.yml (in your plugin repo, e.g. one
+# generated from lightspeedwp/block-plugin-scaffold).
 #
-# This example shows how to consume reusable workflows from lightspeedwp/.github
+# - Every action is pinned to a full commit SHA with its version as a
+#   comment; let Dependabot (github-actions ecosystem) keep the pins current.
+# - Organisation reusable workflows from lightspeedwp/.github are not
+#   available yet (tracked in #3480). Once they are, call them with
+#   `uses: lightspeedwp/.github/.github/workflows/<file>.yml@<sha>`.
 
-name: Plugin CI/CD
+name: Plugin CI
 
 on:
   push:
     branches: [main, develop]
-    paths:
-      - '**.js'
-      - '**.php'
-      - 'package.json'
-      - 'composer.json'
   pull_request:
     branches: [main, develop]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  # Run AI feedback validation on PRs
-  ai-feedback:
-    if: github.event_name == 'pull_request'
-    uses: lightspeedwp/.github/workflows/ai-feedback-validation@main
-    with:
-      context: wordpress-plugin
-      severity: warning
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Run integration tests using PR creation agent
-  integration-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-
-      # Use the reusable workflow if it supports your test setup
-      - name: Run integration tests
-        uses: lightspeedwp/.github/workflows/pr-creation-agent-integration-tests@main
-        secrets:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # PHP linting
   php-lint:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: shivammathur/setup-php@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          php-version: '8.1'
-      - run: composer install
+          persist-credentials: false
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          # Use a PHP release in active support that your plugin supports.
+          php-version: '8.4'
+          tools: composer
+      - run: composer install --no-interaction --no-progress
       - run: composer run lint
 
-  # JavaScript linting
-  js-lint:
+  js-lint-and-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run lint
-
-  # Phase progression (on main branch pushes)
-  update-phase:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: lightspeedwp/.github/workflows/orchestrate-phase-progression@main
-    with:
-      repo-context: wordpress-plugin
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm test

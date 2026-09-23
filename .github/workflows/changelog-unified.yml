@@ -193,12 +193,14 @@ jobs:
           cd .github/validation/changelog
 
           if [ "$CHANGELOG_CHANGED" == "false" ]; then
-            echo "passed=0" >> $GITHUB_OUTPUT
-            echo "failed=0" >> $GITHUB_OUTPUT
-            echo "warnings=0" >> $GITHUB_OUTPUT
-            echo "new_failed=0" >> $GITHUB_OUTPUT
-            echo "base_failed=0" >> $GITHUB_OUTPUT
-            echo "result=No changelog files modified in this PR" >> $GITHUB_OUTPUT
+            {
+              echo "passed=0"
+              echo "failed=0"
+              echo "warnings=0"
+              echo "new_failed=0"
+              echo "base_failed=0"
+              echo "result=No changelog files modified in this PR"
+            } >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -224,21 +226,25 @@ jobs:
             RESULT=$(jq -r '.recommendation' validation-report.json)
             GATE_RESULT=$(jq -r '.ci_gate_result' validation-report.json)
 
-            echo "passed=$PASSED" >> $GITHUB_OUTPUT
-            echo "failed=$FAILED" >> $GITHUB_OUTPUT
-            echo "warnings=0" >> $GITHUB_OUTPUT
-            echo "result=$RESULT" >> $GITHUB_OUTPUT
-            echo "gate_result=$GATE_RESULT" >> $GITHUB_OUTPUT
+            {
+              echo "passed=$PASSED"
+              echo "failed=$FAILED"
+              echo "warnings=0"
+              echo "result=$RESULT"
+              echo "gate_result=$GATE_RESULT"
+            } >> "$GITHUB_OUTPUT"
 
             cp validation-report.json ../../../.github/reports/validation-audits/latest-report.json 2>/dev/null || true
           else
             echo "❌ Validation report missing or malformed; failing closed"
             [ -f validation-stderr.log ] && cat validation-stderr.log
-            echo "passed=0" >> $GITHUB_OUTPUT
-            echo "failed=1" >> $GITHUB_OUTPUT
-            echo "warnings=0" >> $GITHUB_OUTPUT
-            echo "result=ERROR" >> $GITHUB_OUTPUT
-            echo "gate_result=fail" >> $GITHUB_OUTPUT
+            {
+              echo "passed=0"
+              echo "failed=1"
+              echo "warnings=0"
+              echo "result=ERROR"
+              echo "gate_result=fail"
+            } >> "$GITHUB_OUTPUT"
             FAILED=1
             GATE_RESULT=fail
           fi
@@ -265,8 +271,8 @@ jobs:
           NEW_FAILED=$((FAILED - BASE_FAILED))
           if [ "$NEW_FAILED" -lt 0 ]; then NEW_FAILED=0; fi
 
-          echo "base_failed=$BASE_FAILED" >> $GITHUB_OUTPUT
-          echo "new_failed=$NEW_FAILED" >> $GITHUB_OUTPUT
+          echo "base_failed=$BASE_FAILED" >> "$GITHUB_OUTPUT"
+          echo "new_failed=$NEW_FAILED" >> "$GITHUB_OUTPUT"
           echo "PR failures: $FAILED, base failures: $BASE_FAILED, new: $NEW_FAILED"
 
           # Gate on new failures only; pre-existing Unreleased debt never blocks.

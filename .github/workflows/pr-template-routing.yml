@@ -104,10 +104,12 @@ jobs:
           echo "DEBUG:   labels='$ALL_LABELS'"
           echo "DEBUG:   scope='$SCOPE'"
 
-          echo "branch_type=$BRANCH_TYPE" >> $GITHUB_OUTPUT
-          echo "template=$TEMPLATE" >> $GITHUB_OUTPUT
-          echo "labels=$ALL_LABELS" >> $GITHUB_OUTPUT
-          echo "scope=$SCOPE" >> $GITHUB_OUTPUT
+          {
+            echo "branch_type=$BRANCH_TYPE"
+            echo "template=$TEMPLATE"
+            echo "labels=$ALL_LABELS"
+            echo "scope=$SCOPE"
+          } >> "$GITHUB_OUTPUT"
 
           echo "DEBUG: Outputs written successfully"
 
@@ -121,10 +123,10 @@ jobs:
           TEMPLATE_FILE=".github/PULL_REQUEST_TEMPLATE/${ROUTE_TEMPLATE}.md"
           if [ -f "$TEMPLATE_FILE" ]; then
             echo "✓ Template found: $TEMPLATE_FILE"
-            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "⚠ Template not found: $TEMPLATE_FILE"
-            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Verify PR body matches template

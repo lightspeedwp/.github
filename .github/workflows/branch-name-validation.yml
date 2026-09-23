@@ -45,7 +45,7 @@ jobs:
         id: extract-branch
         run: |
           BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       # Branch names can contain shell metacharacters ($, parentheses), so
       # every value derived from them is passed through env, never inlined.
@@ -77,16 +77,16 @@ jobs:
             ERRORS=$(echo "$OUTPUT" | jq -r '.errors | join(", ")')
             SUGGESTED=$(echo "$OUTPUT" | jq -r '.suggested_name // empty')
 
-            echo "valid=$VALID" >> $GITHUB_OUTPUT
-            [ -n "$ERRORS" ] && echo "errors=$ERRORS" >> $GITHUB_OUTPUT
-            [ -n "$SUGGESTED" ] && echo "suggested_name=$SUGGESTED" >> $GITHUB_OUTPUT
+            echo "valid=$VALID" >> "$GITHUB_OUTPUT"
+            [ -n "$ERRORS" ] && echo "errors=$ERRORS" >> "$GITHUB_OUTPUT"
+            [ -n "$SUGGESTED" ] && echo "suggested_name=$SUGGESTED" >> "$GITHUB_OUTPUT"
           else
             # Fallback: simple string matching
             echo "Using fallback parsing"
             if echo "$OUTPUT" | grep -q '"valid": true'; then
-              echo "valid=true" >> $GITHUB_OUTPUT
+              echo "valid=true" >> "$GITHUB_OUTPUT"
             else
-              echo "valid=false" >> $GITHUB_OUTPUT
+              echo "valid=false" >> "$GITHUB_OUTPUT"
             fi
           fi
 

@@ -120,7 +120,7 @@ jobs:
         if: contains(fromJson('["all", "staleness"]'), env.AUDIT_SCOPE)
         run: |
           echo "Checking for stale README files (>6 months old)..."
-          find . -name "README.md" -type f | while read file; do
+          find . -name "README.md" -type f | while read -r file; do
             echo "Checking staleness for $file..."
           done
 
@@ -459,10 +459,17 @@ jobs:
 
       - name: Maintenance summary
         if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          HAS_CHANGES: ${{ steps.changes.outputs.has_changes }}
         run: |
-          echo "## Documentation Maintenance Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Scope**: ${{ env.AUDIT_SCOPE }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Dry Run**: ${{ env.DRY_RUN }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Changes Made**: ${{ steps.changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
+          # AUDIT_SCOPE and DRY_RUN are already job env; read them as shell
+          # variables rather than inlining expressions into the script.
+          {
+            echo "## Documentation Maintenance Summary"
+            echo ""
+            echo "**Status**: $JOB_STATUS"
+            echo "**Scope**: $AUDIT_SCOPE"
+            echo "**Dry Run**: $DRY_RUN"
+            echo "**Changes Made**: $HAS_CHANGES"
+          } >> "$GITHUB_STEP_SUMMARY"

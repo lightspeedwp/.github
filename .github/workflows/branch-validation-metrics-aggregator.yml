@@ -130,9 +130,13 @@ jobs:
         shell: bash
         run: |
           keep=30
-          mapfile -t stale < <(ls -1t metrics-artifacts/*.json 2>/dev/null | tail -n +$((keep + 1)) || true)
+          # Newest first by mtime, NUL-delimited so any filename is safe.
+          mapfile -d '' -t stale < <(
+            find metrics-artifacts -maxdepth 1 -name '*.json' -printf '%T@\t%p\0' 2>/dev/null \
+              | sort -z -rn | tail -z -n +$((keep + 1)) | cut -z -f2- || true
+          )
           if [ "${#stale[@]}" -gt 0 ]; then
-            printf '%s\n' "${stale[@]}" | xargs rm -f --
+            rm -f -- "${stale[@]}"
             echo "Pruned ${#stale[@]} artifact(s), kept latest $keep."
           else
             echo "Nothing to prune (≤ $keep artifacts present)."

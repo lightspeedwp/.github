@@ -1,10 +1,15 @@
-# Example: Using LightSpeed reusable workflows in a WordPress block theme
+# Example: CI for a WordPress block theme
 #
-# Place this in: .github/workflows/ci.yml (in your wordpress-block-theme repo)
+# Place this in: .github/workflows/ci.yml (in your theme repo, e.g. one
+# generated from lightspeedwp/block-theme-scaffold).
 #
-# This example shows how to consume reusable workflows from lightspeedwp/.github
+# - Every action is pinned to a full commit SHA with its version as a
+#   comment; let Dependabot (github-actions ecosystem) keep the pins current.
+# - Organisation reusable workflows from lightspeedwp/.github are not
+#   available yet (tracked in #3480). Once they are, call them with
+#   `uses: lightspeedwp/.github/.github/workflows/<file>.yml@<sha>`.
 
-name: CI/CD Pipeline
+name: Theme CI
 
 on:
   push:
@@ -13,50 +18,25 @@ on:
     branches: [main, develop]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  # Validate issue labels (if this is a PR)
-  validate-labels:
-    if: github.event_name == 'pull_request'
-    uses: lightspeedwp/.github/workflows/validate-issue-labels@main
-    # Note: workflow must be public or you must have access to lightspeedwp/.github
-
-  # Collect AI feedback on PR changes
-  ai-feedback:
-    if: github.event_name == 'pull_request'
-    uses: lightspeedwp/.github/workflows/ai-feedback-validation@main
-    with:
-      context: wordpress-theme
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Run orchestrated phase progression (if applicable to your project)
-  phase-progression:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: lightspeedwp/.github/workflows/orchestrate-phase-progression@main
-    with:
-      repo-context: wordpress-theme
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Your custom jobs below
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run lint
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
       - run: npm test
