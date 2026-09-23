@@ -42,8 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
-<- **Branding Agent Footer Config Path Fixed** — Corrected the same stale config path and dedup regex bugs in `branding.agent.js`. (#3456)
-- **Reference Detection Test Isolation Fixed** — A shared test fixture leaked stale data into a rename-detection test, hiding a separate matching defect now tracked for follow-up. (#3452)
+- **Branding Agent Footer Config Path Fixed** — Corrected the same stale config path and dedup regex bugs in `branding.agent.js`. (#3456)
+- **Reference Detection Test Isolation Fixed** — Isolated the rename-scenario test from leaked fixture state; remaining match defect tracked separately. (#3452)
 - **Bot Commits via Pull Requests** — Metrics, documentation and maintenance bots now open fixed-branch pull requests instead of pushing to develop; metrics run daily. ([PR #3410](https://github.com/lightspeedwp/.github/pull/3410))
 - **Metrics PR Runs CI via App Token** — The metrics aggregator mints a GitHub App token for its fixed-branch PR and drops `[skip ci]`, so required checks report and the merge queue can take it.
 - **Bot PR Hygiene Pass** — Docs bot PR bodies now carry all required template sections, the docs bot is exempt from the changelog requirement like Dependabot, and both token steps use the modern client-id input.
