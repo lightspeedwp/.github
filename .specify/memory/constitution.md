@@ -105,7 +105,7 @@ GitHub issue creation is routed by issue type. Each canonical issue type in `.gi
 | Feature | 03-feature.md | type:feature | New capability, user-facing enhancement |
 | Design | 04-design.md | type:design | Design system, UI/UX, visual assets |
 | Epic | 05-epic.md | type:epic | Large initiative spanning multiple features |
-| Question | 06-question.md | type:question | Support inquiry, clarification needed |
+| Decision | 06-decision.md | type:decision | Decision record: context, options considered, outcome, consequences |
 | Improvement | 07-improvement.md | type:improve | Enhancement to existing feature |
 | Chore | 08-chore.md | type:chore | Maintenance, no user-facing changes |
 | CI | 09-ci.md | type:ci | CI/CD pipeline, automation, GitHub Actions |
@@ -123,8 +123,10 @@ GitHub issue creation is routed by issue type. Each canonical issue type in `.gi
 | Audit | 21-audit.md | type:audit | Code audit, compliance review, quality check |
 | Review | 22-review.md | type:review | Process review, retrospective, feedback |
 | AI Ops | 23-aiops.md | type:aiops | AI-assisted operations, automation agents |
-| Content Modelling | 24-content-modelling.md | (no standard label) | Content structure, schema design |
-| Build | 25-build.md | (no standard label) | Build tooling, compilation, bundling |
+| Content Modelling | 24-content-modelling.md | type:content-modelling | Content structure, schema design |
+| Build | 25-build.md | type:build | Build tooling, compilation, bundling |
+
+**Decision replaces Question**: GitHub and Linear allow at most 25 issue types, so `type:decision` takes the slot previously held by Question (`type:question`). Questions and support requests MUST go to GitHub Discussions (`discussion:support`), not issues. Decision work that changes files MUST use a `docs/` branch and the `pr_docs.md` PR template. Until the `[ISSUE-TYPE-UPDATE-REQUEST]`, `[TEMPLATE-UPDATE-REQUEST]` and `[LABEL-UPDATE-REQUEST]` changes are merged, `06-question.md` and `type:question` remain in place and MUST NOT be used for new issues.
 
 **Enforcement**: All public issues MUST use exactly one type from the canonical set. Issues without a valid type MUST be closed or reassigned with a supportive comment. Issue creation forms enforce type selection; `type:*` labels are applied automatically by issue routing workflows.
 
@@ -322,19 +324,6 @@ Each specification project includes a `checklists/` directory with:
   - Trend data (improving/declining compliance)
   - Team adherence by individual/repo
 
-<!-- SYNC IMPACT REPORT
-Version: 1.1.0 → 1.2.0 (MINOR bump)
-Changes:
-  - Added: "Issue Type and Template Routing" section with issue-type-to-template mapping (24 types)
-  - Added: "Branch Type to PR Template Routing" section with branch-prefix-to-template mapping (38 allowed types, 3 forbidden)
-  - Updated: Principle VIII branch type count from 34 to 38 (added automation, epic, aiops)
-  - Updated: Code Review & Quality Gates section with references to new routing sections
-  - Enhanced: Branch naming enforcement documentation with fallback routing explanation
-  - Clarified: Forbidden prefix handling and fallback behavior
-
-Rationale: MINOR bump (new governance sections) for explicit governance documentation of issue and branch routing mappings.
--->
-
 ---
 
-**Version**: 1.2.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-14
+**Version**: 1.3.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-24
