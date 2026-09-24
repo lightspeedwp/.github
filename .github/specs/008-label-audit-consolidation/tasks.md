@@ -112,49 +112,49 @@
 
 ### Phase 3.1: Canonical vs Governance Policy Comparison
 
-- [X] T013 Compare canonical labels against governance policy: For each label in governance never-delete list, verify it exists in canonical file with matching name
+- [X] T013 [US1] Compare canonical labels against governance policy: For each label in governance never-delete list, verify it exists in canonical file with matching name
   - Create findings JSON: `{ finding_type: "mismatch" | "missing", source_label: "...", canonical_label: "..." }`
   - Save to `evidence/governance-vs-canonical.json`
   - Expected findings: type:documentation → type:docs, type:ai-ops → type:aiops, plus 6-8 labels missing from canonical
   
-- [X] T014 [P] Generate governance gaps report: List all labels in governance policy that are NOT in canonical file OR have name mismatches
+- [X] T014 [P] [US1] Generate governance gaps report: List all labels in governance policy that are NOT in canonical file OR have name mismatches
   - Include: Line number in policy file, current name, canonical name (if exists), recommendation
   - Save to `evidence/governance-gaps.json`
 
 ### Phase 3.2: Issue Types Validation
 
-- [X] T015 Verify all 25 mapped type labels present in canonical: Cross-reference issue-types.yml with labels.yml
+- [X] T015 [US1] Verify all 25 mapped type labels present in canonical: Cross-reference issue-types.yml with labels.yml
   - For each of 25 types: Confirm label exists in canonical file with matching name and color
   - Record `type:decision` as the 26th canonical `type:*` label with no issue-types.yml mapping (governance gap, pending decision)
   - Create verification JSON: `{ type: "...", label: "...", in_canonical: true/false, color_match: true/false }`
   - Save to `evidence/type-labels-validation.json`
   - Expected result: All 25 mapped present, all colors match; `type:decision` documented as unmapped
   
-- [X] T016 Type labels immutability check: Verify type: family has exactly 26 labels (25 mapped + `type:decision` unmapped), no other additions/removals
+- [X] T016 [US1] Type labels immutability check: Verify type: family has exactly 26 labels (25 mapped + `type:decision` unmapped), no other additions/removals
   - Compare current canonical count against issue-types.yml count
   - Confirm: 25 mapped type labels all present; `type:decision` recorded as unmapped gap, no changes needed by the audit itself
 
 ### Phase 3.3: Missing Labels Detection
 
-- [ ] T017 Identify orphan labels: Compare GitHub API labels against canonical file
+- [ ] T017 [US1] Identify orphan labels: Compare GitHub API labels against canonical file
   - For each label in GitHub API: Check if it exists in canonical file
   - Create findings JSON: `{ label: "...", in_github_api: true, in_canonical: false, status: "orphan" }`
   - Save to `evidence/orphan-labels.json`
   - Expected result: If orphans exist, document them
   
-- [X] T018 [P] Check for undocumented labels: Compare canonical file against documentation
+- [X] T018 [P] [US1] Check for undocumented labels: Compare canonical file against documentation
   - For each label in canonical: Verify it's mentioned in LABEL_STRATEGY.md or relevant LABEL_*.md
   - Create findings JSON: `{ label: "...", documented: true/false, doc_files: [...] }`
   - Save to `evidence/documentation-coverage.json`
 
 ### Phase 3.4: Generate Reconciliation Findings
 
-- [x] T019 Consolidate all inconsistencies into findings report: Combine all Phase 3 sub-findings
+- [x] T019 [US1] Consolidate all inconsistencies into findings report: Combine all Phase 3 sub-findings
   - Create comprehensive JSON: One entry per finding with finding_type, severity, evidence (file + line), recommendation
   - Structure: Similar to data-model.md ReconciliationFinding entity
   - Save to `evidence/all-findings.json`
   
-- [x] T020 Generate audit-report.md: Main deliverable with findings summary
+- [x] T020 [US1] Generate audit-report.md: Main deliverable with findings summary
   - Include sections:
     - Executive Summary (status, key metrics, critical issues)
     - Label Inventory by Family (status, priority, type, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, meta, release, openspec)
@@ -176,13 +176,13 @@
 
 ### Phase 4.1: Duplicate Label Detection
 
-- [x] T021 Analyze label families for semantic duplicates: For each family, identify labels with similar purposes
+- [x] T021 [US2] Analyze label families for semantic duplicates: For each family, identify labels with similar purposes
   - Examples: type:documentation vs type:docs (already identified as mismatch)
   - Area family analysis: area:ai, area:agents, area:skills, area:instructions, area:prompts (might overlap conceptually)
   - Create analysis JSON: `{ family: "...", label1: "...", label2: "...", reason_duplicate: "...", confidence: "high/medium/low" }`
   - Save to `evidence/duplicate-candidates.json`
   
-- [x] T022 [P] Check historical usage patterns: For each duplicate candidate, determine which should be canonical (done 2026-09-24 with document, automation and policy counts; issue and PR usage counts read "pending T041/T042" until the live inventories exist, so the SC-004 ranking is completed after T041 and T042)
+- [x] T022 [P] [US2] Check historical usage patterns: For each duplicate candidate, determine which should be canonical (done 2026-09-24 with document, automation and policy counts; issue and PR usage counts read "pending T041/T042" until the live inventories exist, so the SC-004 ranking is completed after T041 and T042)
   - Query: Which label appears more frequently in issues/PRs (if accessible via API)?
   - Query: Which label is mentioned in documentation more often?
   - Which label is in governance policy never-delete list?
@@ -191,7 +191,7 @@
 
 ### Phase 4.2: Consolidation Strategy
 
-- [x] T023 Generate consolidation recommendations: For each identified duplicate
+- [x] T023 [US2] Generate consolidation recommendations: For each identified duplicate
   - Decision: Keep canonical name or rename?
   - Migration strategy: Rename, deprecate, or alias?
   - Impact analysis: Which workflows/automations use each label?
@@ -199,14 +199,14 @@
   - Create recommendation JSON: Similar to data-model.md format with impact analysis
   - Save to `evidence/consolidation-recommendations.json`
   
-- [x] T024 Identify labeling gaps: Labels mentioned in docs but not in canonical, or policy but not canonical
+- [x] T024 [US2] Identify labeling gaps: Labels mentioned in docs but not in canonical, or policy but not canonical
   - Clarify: Are these intentional (deprecated), or should they be added to canonical?
   - Create gap analysis JSON: `{ gap_type: "documentation_only" | "policy_only", label: "...", recommendation: "add_to_canonical" | "remove_from_docs" | "deprecated" }`
   - Save to `evidence/labeling-gaps.json`
 
 ### Phase 4.3: Generate Duplicates Analysis Report
 
-- [x] T025 Generate duplicates-analysis.md: Consolidation strategy document
+- [x] T025 [US2] Generate duplicates-analysis.md: Consolidation strategy document
   - Include sections:
     - Executive Summary (total duplicates, high-priority consolidations)
     - Duplicate Families (area, type, other families with consolidation candidates)
@@ -228,7 +228,7 @@
 
 ### Phase 5.1: Archived Workflow Analysis
 
-- [x] T026 [P] Analyze each of 11 archived workflows, starting from the per-workflow data already extracted by T011 in `evidence/archived-workflows.json` (do not re-extract): add failure points and assessment for each file
+- [x] T026 [P] [US3] Analyze each of 11 archived workflows, starting from the per-workflow data already extracted by T011 in `evidence/archived-workflows.json` (do not re-extract): add failure points and assessment for each file
   - Workflow 1: batch-label-prs.yml
   - Workflow 2: issue-labeling-automation.yml
   - Workflow 3: label-audit-report.yml
@@ -243,7 +243,7 @@
   - For each: Extract purpose, labels referenced, triggers, actions, any error handling or validation
   - Create analysis JSON per workflow: Save to `evidence/workflow-[name].json`
   
-- [x] T027 Determine archival reason for each workflow: Conflicts, performance, obsolete, superseded?
+- [x] T027 [US3] Determine archival reason for each workflow: Conflicts, performance, obsolete, superseded?
   - Check: Does unified labeling agent (labeling.agent.js) cover same purpose?
   - Check: Are there related active workflows in `.github/workflows/`?
   - Create archival analysis: `{ workflow: "...", purpose: "...", archival_reason: "conflicts" | "obsolete" | "performance" | "superseded", superseded_by: "...", root_cause: "..." }`
@@ -251,14 +251,14 @@
 
 ### Phase 5.2: Restoration Feasibility Assessment
 
-- [x] T028 Assess restoration feasibility for each workflow: Can it be fixed/restored?
+- [x] T028 [US3] Assess restoration feasibility for each workflow: Can it be fixed/restored?
   - For each workflow: Is restoration high/medium/low effort?
   - Should it be: restored, rebuilt, or retired?
   - What automation gaps still exist?
   - Create feasibility JSON: `{ workflow: "...", feasibility: "high" | "medium" | "low", recommendation: "restore" | "rebuild" | "retire", effort: "minimal" | "moderate" | "significant", gap_filled_by: "labeling.agent.js" | null }`
   - Save to `evidence/workflow-restoration-feasibility.json`
   
-- [x] T029 Identify automation gaps: Which labeling automations are NOT currently handled?
+- [x] T029 [US3] Identify automation gaps: Which labeling automations are NOT currently handled?
   - Compare archived workflow purposes against current unified labeling agent capabilities
   - List any gaps: "Issue labeling based on [criteria] not implemented", etc.
   - Create gaps report: `{ gap: "...", last_attempted_in: "workflow_name", current_coverage: "...", recommendation: "implement_in_unified_agent" | "restore_workflow" }`
@@ -266,7 +266,7 @@
 
 ### Phase 5.3: Generate Workflow Analysis Report
 
-- [x] T030 Generate workflow-analysis.md: Archived workflow assessment document
+- [x] T030 [US3] Generate workflow-analysis.md: Archived workflow assessment document
   - Include sections:
     - Executive Summary (11 workflows analyzed, restoration opportunities)
     - Workflow Inventory (table: file, purpose, archival reason, feasibility)
