@@ -66,6 +66,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 - Shell scripting for workflow analysis
 - JSON/YAML comparison and reconciliation
 - Linear API (label listing, issue label updates, rename, retire/restore)
+- Credentials (FR-018): org-wide GitHub App with Issues read/write and Metadata read (short-lived tokens); read-only `LINEAR_API_KEY` secret for the drift check; deletion and Linear writes run from @ashley's session
 - GitHub Actions scheduled workflow (weekly drift check)
 
 **Data Sources**:
@@ -176,7 +177,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 - **Documentation**: All specification, planning, and design artifacts reside in `.github/specs/008-label-audit-consolidation/` (per SpecKit convention)
 - **Audit Output**: Final audit reports and findings stored in `.github/reports/audits/2026-09-14-label-audit/` (per repository governance for audit artifacts)
 - **No source code development in the audit phase**: deliverables are reconciliation reports and recommendations
-- **Consolidation changes (US4)**: `.github/labels.yml`, `.github/issue-types.yml`, `.github/ISSUE_TEMPLATE/06-decision.md` (replacing `06-question.md`), `.github/issue-fields.yml`, `.github/label-governance-policy.yml`, `.github/labeler.yml`, `.github/branch-labels.yml`, automation scripts that reference renamed labels, five docs files, a new scheduled drift-check workflow in `.github/workflows/`, and the OpenSpec → Spec Kit rename across live files
+- **Consolidation changes (US4)**: `.github/labels.yml`, `.github/issue-types.yml`, `.github/ISSUE_TEMPLATE/06-decision.md` (replacing `06-question.md`), `.github/issue-fields.yml`, `.github/label-governance-policy.yml`, `.github/labeler.yml`, `.github/branch-labels.yml`, automation scripts that reference renamed labels, six docs files, a new scheduled drift-check workflow in `.github/workflows/`, and the OpenSpec → Spec Kit rename across live files
 
 ## Complexity Tracking
 
@@ -194,10 +195,10 @@ Each stage starts only when the previous stage's exit check passes. Validation s
 | --- | --- | --- | --- |
 | 0. Evidence | Paginated label inventory for every repository; `evidence/linear-labels.json` with issue counts and proposed mappings (`contracts/label-mapping-schema.md`) | Mapping validation rules pass (Test 9) | FR-006, FR-012 |
 | 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a migration issue for OpenSpec paths, and a new gate issue replacing #95 | @ashley approves all requests | FR-009, FR-013, FR-014, FR-016 |
-| 2. Configuration PR | One PR: `labels.yml` (renames, imports, `type:question` removed), `issue-types.yml`, `06-decision.md` replacing `06-question.md`, `issue-fields.yml`, `label-governance-policy.yml` (new gate issue, `enabled: false`, `type:question` off never-delete), `labeler.yml`, `branch-labels.yml`, scripts referencing `ai-ops:` or `openspec:` labels, and the five docs files | CI green; Test 10 passes | FR-011, FR-012, FR-014 |
+| 2. Configuration PR | One PR: `labels.yml` (renames, imports, `type:question` removed), `issue-types.yml`, `06-decision.md` replacing `06-question.md`, `issue-fields.yml`, `label-governance-policy.yml` (new gate issue, `enabled: false`, `type:question` off never-delete), `labeler.yml`, `branch-labels.yml`, scripts referencing `ai-ops:` or `openspec:` labels, and the six docs files | CI green; Test 10 passes | FR-011, FR-012, FR-014 |
 | 2b. Spec Kit rename PR | Separate PR for the OpenSpec → Spec Kit rename in live files and paths, with links updated | Test 11 passes | FR-013 |
 | 3. GitHub changes | Per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones | No issue left without exactly one `type:*` label | FR-011, FR-012, FR-014, FR-015 |
-| 4. GitHub deletion | Per repository: generate dry run and snapshot; @ashley approves on the gate issue; set `enabled: true`, delete, set `enabled: false` | Test 12 passes for every approved repository; unapproved repositories untouched | FR-016 |
+| 4. GitHub deletion | Per repository: generate dry run and snapshot; @ashley approves on the gate issue; run the deletion with `--apply --confirm-gate <gate issue>` (refused for unapproved repositories); `destructive_cleanup.enabled` stays `false` in the repository | Test 12 passes for every approved repository; unapproved repositories untouched | FR-016 |
 | 5. Linear clean-up | Relabel issues for merges and re-prefixes, retire zero-use and merged labels, team-scope project labels, update colours and descriptions (including `spec:*`), restrict label creation in the GitHub integration | Test 13 passes | FR-012, FR-015, FR-017 |
 | 6. Drift check | Enable the weekly scheduled workflow; run it once manually | "No drift" report (Test 14) | FR-017, SC-009 |
 

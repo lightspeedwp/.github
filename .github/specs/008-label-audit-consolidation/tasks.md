@@ -228,7 +228,7 @@
 
 ### Phase 5.1: Archived Workflow Analysis
 
-- [ ] T026 [P] Analyze each of 11 archived workflows: For each file, extract purpose, labels, triggers, actions
+- [ ] T026 [P] Analyze each of 11 archived workflows, starting from the per-workflow data already extracted by T011 in `evidence/archived-workflows.json` (do not re-extract): add failure points and assessment for each file
   - Workflow 1: batch-label-prs.yml
   - Workflow 2: issue-labeling-automation.yml
   - Workflow 3: label-audit-report.yml
@@ -418,7 +418,7 @@
 
 - [ ] T065 [US4] Extend `scripts/automation/label-consolidate.js` with a deletion dry run that fills `to_delete` in `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json` with a full snapshot per label (name, colour, description, open and closed item numbers) and a `migrate_to` for every label on open items, per `contracts/dry-run-and-drift-report-schema.md` (depends on T064)
 - [ ] T066 [US4] Post each repository's dry-run summary on the gate issue and record @ashley's per-repository approval in the `approval` block of `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json`; repositories without approval are marked `skipped` (depends on T065)
-- [ ] T067 [US4] For approved repositories only: set `destructive_cleanup.enabled: true` in `.github/label-governance-policy.yml`, migrate open items, delete the listed labels, set `enabled` back to `false`, and run quickstart Test 12 (depends on T066)
+- [ ] T067 [US4] From @ashley's session, run `scripts/automation/label-consolidate.js --apply --confirm-gate <gate issue number>`, which migrates open items and deletes the listed labels only in repositories whose `evidence/dry-run/{repo}.json` approval is `approved` and refuses otherwise; `destructive_cleanup.enabled` in `.github/label-governance-policy.yml` stays `false`; then run quickstart Test 12 (depends on T066)
 - [ ] T068 [P] [US4] Update the organisation's default repository labels to match `.github/labels.yml` (API if available, otherwise organisation settings), recording the method used on the gate issue and in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json` (research R9) (depends on T059)
 
 ### Stage 5: Linear Clean-up (FR-012, FR-015, FR-017)
@@ -429,7 +429,7 @@
 
 ### Stage 6: Drift Check (FR-017, SC-009)
 
-- [ ] T072 [US4] Create `.github/workflows/label-drift-check.yml` (weekly `schedule` plus `workflow_dispatch`) running a new `scripts/automation/label-drift-check.js` that compares every repository's labels and the Linear workspace labels with `.github/labels.yml` and creates or updates the single "Label drift report" issue per `contracts/dry-run-and-drift-report-schema.md`; it must never create, edit or delete labels, and needs a Linear API secret configured in the repository (depends on T071)
+- [ ] T072 [US4] Create `.github/workflows/label-drift-check.yml` (weekly `schedule` plus `workflow_dispatch`) running a new `scripts/automation/label-drift-check.js` that compares every repository's labels and the Linear workspace labels with `.github/labels.yml` and creates or updates the single "Label drift report" issue per `contracts/dry-run-and-drift-report-schema.md`; it must never create, edit or delete labels; it authenticates with the org-wide GitHub App (Issues read/write, Metadata read) and reads Linear with the read-only `LINEAR_API_KEY` repository secret (FR-018) (depends on T071)
 - [ ] T073 [US4] Trigger the drift workflow manually, confirm the report shows "No drift" with team-scoped Linear labels only under allowed exceptions (quickstart Test 14, SC-009), close the gate issue and change requests with links to the evidence, and mark all five as closed in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json` (depends on T072)
 
 **Checkpoint**: User Story 4 complete. SC-003 (25 type labels, each mapped) and SC-009 (zero unapproved labels in GitHub and Linear) are both met.

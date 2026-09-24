@@ -443,7 +443,7 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 # Expected: no output
 ```
 
-1. Confirm `destructive_cleanup.enabled` is back to `false`.
+1. Confirm `destructive_cleanup.enabled` is still `false` in `label-governance-policy.yml`, and that the deletion log shows only repositories with approved dry runs.
 
 ### Test 13: Linear Clean-up
 

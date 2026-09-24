@@ -397,7 +397,7 @@ Replaces closed issue #95 in `label-governance-policy.yml`.
 | Field | Type | Rule |
 | --- | --- | --- |
 | `gated_by_issue` | integer | The new gate issue number |
-| `enabled` | boolean | `true` only during an approved deletion run |
+| `enabled` | boolean | Always `false` in the repository; deletion is authorised per run by `--apply --confirm-gate <gate issue>` plus an approved dry run |
 | `approved_orphan_labels` | list | Filled from approved dry runs |
 
 ### 10. Drift Report

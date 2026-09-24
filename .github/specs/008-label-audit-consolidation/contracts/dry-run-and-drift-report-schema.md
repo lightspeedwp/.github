@@ -40,7 +40,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 2. Every `to_delete` entry with `open_items` has a `migrate_to` that exists in `labels.yml`, or is listed for a decision in the gate comment.
 3. The snapshot keeps name, colour, description and item numbers, so any deleted label can be recreated and reapplied (research R8).
 4. Deletion runs only when `approval.status` is `approved` and `approved_by` is `ashleyshaw`. Repositories without approval are skipped.
-5. `destructive_cleanup.enabled` in `label-governance-policy.yml` is `true` only for the deletion run and is set back to `false` afterwards.
+5. `destructive_cleanup.enabled` in `label-governance-policy.yml` stays `false`. Deletion requires the run-time flags `--apply --confirm-gate <gate issue number>`, and the tool refuses any repository whose `approval.status` is not `approved`.
 
 ## Weekly drift report issue
 
