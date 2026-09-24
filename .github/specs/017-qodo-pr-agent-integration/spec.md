@@ -22,6 +22,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 ### Session 2026-09-24
 
 - Q: How should Qodo PR-Agent work alongside CodeRabbit, which already reviews every PR? → A: Complement. Responsibilities are split so each concern has exactly one owning tool; CodeRabbit keeps primary code review, and Qodo PR-Agent owns diff-based descriptions, improvement suggestions, on-demand questions and changelog drafting.
+- Q: How many repositories should this feature switch Qodo PR-Agent on for? → A: Only `lightspeedwp/.github`. The reusable, organisation-standard setup is built and documented so other repositories can opt in later, but enabling any other repository is out of scope.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -103,7 +104,7 @@ A maintainer of another LightSpeed repository can enable Qodo PR-Agent by refere
 
 **Why this priority**: Portability across 50+ repositories is the long-term value (constitution Principles I and III), but it should follow a proven pilot.
 
-**Independent Test**: Enable Qodo PR-Agent in one non-`.github` repository using only the central configuration plus at most one documented override. Confirm the behaviour matches the pilot.
+**Independent Test**: Confirm that the pilot in `lightspeedwp/.github` runs entirely from the central configuration, with no repository-specific settings. Then walk through the opt-in guide against a non-`.github` repository without enabling it, and confirm that every step and prerequisite needed to enable it is documented.
 
 **Acceptance Scenarios**:
 
@@ -111,7 +112,7 @@ A maintainer of another LightSpeed repository can enable Qodo PR-Agent by refere
 2. **Given** the central configuration changes, **When** a consuming repository next runs Qodo PR-Agent, **Then** it picks up the change without a per-repository edit (or on the next pinned-version bump, if pinning is chosen).
 3. **Given** the central review guidance, **When** it is audited, **Then** it contains no framework- or language-specific rules (Principle IV).
 
-Rollout scope: [NEEDS CLARIFICATION: Is this feature's scope (a) the `lightspeedwp/.github` pilot plus a reusable configuration ready for opt-in, (b) the pilot plus a named set of 2–5 pilot repositories, or (c) org-wide enablement across all active repositories?]
+Rollout scope: this feature enables Qodo PR-Agent on `lightspeedwp/.github` only. Other repositories are **not** enabled as part of this feature. The central configuration and opt-in guide are delivered ready for them, and each later enablement is a separate, follow-up change. Acceptance scenarios 1 and 2 are validated against the pilot, which consumes the central configuration exactly as a future repository would.
 
 ---
 
@@ -199,9 +200,9 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - **SC-003**: 0 PRs are blocked from merging solely because Qodo PR-Agent was unavailable.
 - **SC-004**: At least 70% of surveyed maintainers rate Qodo PR-Agent output as useful after a 14-day pilot, and fewer than 20% of its automatic comments are marked as duplicating another bot's.
 - **SC-005**: Every integration point in User Story 3 has documented fallback behaviour, and each passes an "unavailable" test.
-- **SC-006**: A second repository can be enabled in under 30 minutes using only the central configuration and documentation.
+- **SC-006**: The opt-in guide lets a maintainer enable a further repository in under 30 minutes using only the central configuration and the documentation. This is verified by a walkthrough review that finds no missing step. Actually enabling another repository is outside this feature's scope.
 - **SC-007**: The kill-switch stops all new runs within 15 minutes of use.
-- **SC-008**: Monthly Qodo PR-Agent spend is reported and stays within a budget agreed by the organisation owner before org-wide rollout.
+- **SC-008**: Monthly Qodo PR-Agent spend is reported and stays within a budget agreed by the organisation owner before any repository beyond the pilot is enabled.
 
 ## Assumptions
 
@@ -212,4 +213,5 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - No new labels are needed for the pilot. If any are later wanted (e.g. an opt-out label), they go through the `[LABEL-UPDATE-REQUEST]` process.
 - Qodo PR-Agent's own help and configuration commands are available to maintainers only, not to anonymous commenters.
 - Maintainer usefulness feedback is gathered with a lightweight method, such as reactions or a short survey. A formal feedback system is out of scope.
+- Enabling Qodo PR-Agent on any repository other than `lightspeedwp/.github` is out of scope; each later enablement is a follow-up change.
 - GitLab, Bitbucket, Azure DevOps and Gitea support is out of scope; LightSpeed uses GitHub only.
