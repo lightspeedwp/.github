@@ -511,8 +511,8 @@ Document:
 ### Critical Path
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     A["Phase 1:<br/>Implementation"] -->|Code review approved| B["Phase 2:<br/>Documentation"]
     B -->|User guide complete| C["Phase 3:<br/>Integration & Testing"]
     C -->|Alpha testing approved| D["Phase 4:<br/>Production Rollout"]
