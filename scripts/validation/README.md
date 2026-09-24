@@ -66,7 +66,7 @@ graph TD
 
 - **`__tests__/validate-frontmatter.test.js`** — Test suite for frontmatter validation
 - **`__tests__/validate-branch-names.test.js`** — Jest test suite for branch name validation (38 allowed types, forbidden prefix rejection, format validation)
-- **`validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
+- **`__tests__/validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
 
 ## Features
 
