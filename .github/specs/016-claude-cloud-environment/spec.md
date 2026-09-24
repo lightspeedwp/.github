@@ -27,6 +27,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: Should the branch guard also apply when team members run Claude Code on their own machines, or only in cloud sessions? → A: Both. The guard blocks in cloud and local sessions alike; the enforcement switch is the only way to downgrade it to warnings.
 - Q: Should this setup be built only for `lightspeedwp/.github`, or packaged so other LightSpeed repositories can adopt it? → A: This repository now. Packaging it as a portable plugin for other LightSpeed repositories is a recorded follow-up and out of scope for this spec.
 - Q: How should the empty `claude/*` branches that the platform leaves on GitHub after every session be cleaned up? → A: A scheduled job deletes `claude/*` branches that have no commits beyond `develop` and are older than 24 hours.
+- Q: How should we measure whether the guard is working, including SC-007? → A: No new recording of refusals. SC-001 to SC-003 use the existing branch-validation metrics, and SC-007 becomes a monthly review of 10 sampled sessions.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -182,7 +183,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **SC-004**: A team member can start a correctly configured session with zero manual configuration steps once the Owner has completed setup.
 - **SC-005**: Session start adds no more than 30 seconds when dependencies are already current. The first provisioning run completes in under 5 minutes.
 - **SC-006**: A maintainer unfamiliar with the setup can recreate the environment and pass every verification step using only the documentation, in under 15 minutes.
-- **SC-007**: When an action is refused, the agent completes the fix and retries successfully without human help in at least 95% of cases.
+- **SC-007**: In a monthly review of 10 sampled agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help.
 
 ## Assumptions
 
@@ -195,6 +196,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - Sessions opened with several repositories do not load repository-level protections. This is documented, not solved.
 - The guard uses command-parsing heuristics. Unusual constructions (for example, committing in another directory after changing into it) may not be caught, and CI's branch-name validation remains the final gate.
 - Scope is this repository only. Packaging the environment definition, hooks and guard as a portable plugin (top-level `plugins/`) for other LightSpeed repositories is a follow-up spec. This spec's design should not block that reuse.
+- The guard does not record or report refusals. Success is measured through the existing branch-validation metrics and the monthly session review (SC-007), so no session telemetry is collected or stored.
 - Changes to locked configuration files (labels, issue types, templates) are not required.
 
 ## Related
