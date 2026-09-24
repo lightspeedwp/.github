@@ -128,7 +128,8 @@ There are two ways to provide the credential. If both are configured, the stored
 Every eligible event, and every skip that isn't just a normal comment, writes a run record. The record goes to the job summary and to an artefact named `qodo-pr-agent-run-<run id>`, kept for 30 days. The report aggregates those artefacts:
 
 ```bash
-# PILOT_START: the pilot's first day, recorded in .github/reports/metrics/qodo-pr-agent/pilot-validation.md
+# The pilot's first day, as recorded in .github/reports/metrics/qodo-pr-agent/pilot-validation.md
+PILOT_START=YYYY-MM-DD
 GITHUB_TOKEN=<token with actions:read> \
   node scripts/metrics/qodo-pr-agent-report.cjs --since "$PILOT_START" --out .github/reports/metrics/qodo-pr-agent/
 ```
