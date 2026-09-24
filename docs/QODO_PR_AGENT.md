@@ -108,7 +108,7 @@ As a second line of defence, revoke or cap the dedicated key in the Anthropic co
 
 - **Secret**: the organisation secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`. It holds a key used **only** by Qodo PR-Agent, with repository access set to *selected repositories*.
 - **Monthly spend limit**: set on that key in the Anthropic console. Its usage page gives exact spend.
-- **Provisioning**: requested in the pilot provisioning issue (task T002).
+- **Provisioning**: requested in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002).
 
 ### Run records and the pilot report
 
