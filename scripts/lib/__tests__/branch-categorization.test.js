@@ -55,4 +55,77 @@ describe('branch categorization', () => {
       expect(result.KEEP).toHaveLength(1);
     }
   );
+
+  describe('empty agent-session branches (spec 016)', () => {
+    const old = '2020-01-01T00:00:00Z';
+    const merged = { merged: true, state: 'merged' };
+    const unmerged = { merged: false, state: 'unmerged' };
+
+    it('auto-approves deletion of a merged claude/* branch at least a day old', () => {
+      const result = categorizeBranches(['claude/brave-otter-x1y2z3'], {
+        'claude/brave-otter-x1y2z3': { lastCommitDate: old, mergeStatus: merged },
+      });
+
+      expect(result.DELETE).toEqual([
+        expect.objectContaining({ name: 'claude/brave-otter-x1y2z3', autoApproved: true }),
+      ]);
+    });
+
+    it('sends a claude/* branch with its own commits to DISCUSS', () => {
+      const result = categorizeBranches(['claude/brave-otter-x1y2z3'], {
+        'claude/brave-otter-x1y2z3': { lastCommitDate: old, mergeStatus: unmerged },
+      });
+
+      expect(result.DISCUSS).toHaveLength(1);
+      expect(result.DELETE).toHaveLength(0);
+    });
+
+    it('keeps a claude/* branch that has an open PR', () => {
+      const result = categorizeBranches(
+        ['claude/brave-otter-x1y2z3'],
+        { 'claude/brave-otter-x1y2z3': { lastCommitDate: old, mergeStatus: merged } },
+        ['claude/brave-otter-x1y2z3']
+      );
+
+      expect(result.KEEP).toHaveLength(1);
+    });
+
+    it('does not auto-approve a claude/* branch younger than a day', () => {
+      const result = categorizeBranches(['claude/brave-otter-x1y2z3'], {
+        'claude/brave-otter-x1y2z3': {
+          lastCommitDate: new Date().toISOString(),
+          mergeStatus: merged,
+        },
+      });
+
+      expect(result.DELETE).toHaveLength(0);
+      expect(result.DISCUSS).toHaveLength(1);
+    });
+
+    it('does not auto-approve other forbidden prefixes', () => {
+      const result = categorizeBranches(['copilot/fix-login-bug'], {
+        'copilot/fix-login-bug': { lastCommitDate: old, mergeStatus: merged },
+      });
+
+      expect(result.DELETE).toHaveLength(0);
+      expect(result.DISCUSS).toHaveLength(1);
+    });
+
+    it('marks ordinary merged-stale deletions as not auto-approved', () => {
+      const result = categorizeBranches(['feat/account-login'], {
+        'feat/account-login': { lastCommitDate: old, mergeStatus: merged },
+      });
+
+      expect(result.DELETE).toEqual([expect.objectContaining({ autoApproved: false })]);
+    });
+  });
+
+  it.each([
+    'doc/readme-typo-fix',
+    'aiops/model-monitoring-update',
+    'automation/issue-routing',
+    'epic/platform-modernisation',
+  ])('accepts canonical branch type %s', (branch) => {
+    expect(validateBranchName(branch)).toEqual({ valid: true });
+  });
 });

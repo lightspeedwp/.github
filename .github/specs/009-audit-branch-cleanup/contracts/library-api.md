@@ -324,7 +324,10 @@ export const REASON_CODES = {
     unmerged: 'Not fully merged to any base branch',
     recent_activity: 'Recently active (merged and recent)',
   },
-  DELETE: { merged_stale: 'Merged and inactive beyond threshold' },
+  DELETE: {
+    merged_stale: 'Merged and inactive beyond threshold',
+    auto_delete_empty_agent_branch: 'Empty agent-session branch (merged, no open PR); auto-approved for deletion',
+  },
   DISCUSS: {
     naming_violation: 'Invalid branch name format',
     unmerged_stale: 'Unmerged and stale',
