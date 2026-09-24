@@ -180,6 +180,15 @@ describe("sync-labels-on-event", () => {
       expect(result.success).toBe(true);
       expect(result.eventType).toBe("created");
     });
+
+    it("handles GitHub's 'opened' action the same as 'created'", () => {
+      mockIssue.labels = [{ name: "openspec:specification-pending" }];
+      const opened = syncLabelsOnEvent(mockIssue, "opened", { dryRun: true });
+      const created = syncLabelsOnEvent(mockIssue, "created", { dryRun: true });
+
+      expect(opened.labelsToAdd).toEqual(created.labelsToAdd);
+      expect(opened.labelsToAdd.length).toBeGreaterThan(0);
+    });
   });
 
   describe("syncLabelsOnEvent - issue labeled", () => {
