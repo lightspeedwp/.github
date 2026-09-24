@@ -4,10 +4,13 @@ on:
   pull_request:
     branches: [develop]
     types: [opened, edited, synchronize, reopened, ready_for_review, labeled, unlabeled]
+  # Issues and discussions react to content, not label changes (#3531): a
+  # bulk relabel queued ~660 runs, and each re-applied default labels from
+  # a stale payload, undoing the manual changes.
   issues:
-    types: [opened, edited, reopened, labeled, unlabeled]
+    types: [opened, edited, reopened]
   discussion:
-    types: [created, edited, answered, labeled, unlabeled]
+    types: [created, edited, answered]
   schedule:
     # Staggered off the 02:00/03:00/04:00 cluster cited in the archival manifest.
     - cron: '17 5 * * *'
@@ -21,8 +24,14 @@ on:
 permissions:
   contents: read
 
+# One group per item and action (#3531): github.event.number exists only on
+# PR events, so every issue event had its own group. A group holds one
+# running and one pending run, and a newer pending run replaces the older
+# one, so a burst of edits collapses. The action is part of the key so an
+# `edited` run never replaces a pending `opened` run (which applies the
+# triage label). Running jobs are never cancelled mid-apply.
 concurrency:
-  group: labeling-unified-${{ github.event_name }}-${{ github.event.number || github.run_id }}
+  group: labeling-unified-${{ github.event_name }}-${{ github.event.action }}-${{ github.event.pull_request.number || github.event.issue.number || github.event.discussion.number || github.run_id }}
   cancel-in-progress: false
 
 env:
@@ -32,6 +41,8 @@ env:
 jobs:
   validate:
     name: Validate configs (read-only)
+    # Configs change only through PRs; issue and discussion runs skip it.
+    if: github.event_name == 'pull_request' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -83,7 +94,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: validate
-    if: github.event_name == 'issues' && github.actor != 'github-actions[bot]'
+    # Triage label only for new issues, never on later edits (#3531).
+    if: >-
+      !cancelled() && needs.validate.result != 'failure' &&
+      github.event_name == 'issues' && github.event.action == 'opened' &&
+      github.actor != 'github-actions[bot]'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -140,6 +155,7 @@ jobs:
     timeout-minutes: 10
     needs: validate
     if: >-
+      !cancelled() && needs.validate.result != 'failure' &&
       github.actor != 'github-actions[bot]' &&
       !contains(github.event.head_commit.message, '[skip labeling]')
     steps:
