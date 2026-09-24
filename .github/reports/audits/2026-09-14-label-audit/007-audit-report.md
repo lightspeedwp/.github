@@ -22,7 +22,7 @@
 | **Audit Findings** | 2 (1 HIGH, 1 MEDIUM) |
 | **Affected Labels in Governance Gaps** | 13 |
 
-### Critical Findings Discovered
+### Key Findings Discovered
 
 1. **Type Label Governance Gap**: `type:decision` exists in canonical `labels.yml` but is NOT mapped in `issue-types.yml`
    - **Impact**: One type label lacks official issue-type mapping
