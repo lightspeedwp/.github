@@ -23,7 +23,8 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 
 - Q: How should Qodo PR-Agent work alongside CodeRabbit, which already reviews every PR? → A: Complement. Responsibilities are split so each concern has exactly one owning tool; CodeRabbit keeps primary code review, and Qodo PR-Agent owns diff-based descriptions, improvement suggestions, on-demand questions and changelog drafting.
 - Q: How many repositories should this feature switch Qodo PR-Agent on for? → A: Only `lightspeedwp/.github`. The reusable, organisation-standard setup is built and documented so other repositories can opt in later, but enabling any other repository is out of scope.
-- Q: Where should Qodo PR-Agent actually run when a PR is opened or someone comments a command? → A: Inside the organisation's own CI, triggered by PR and comment events, using an organisation secret for the model provider. There is no self-hosted server, and the Qodo-hosted app is not used.
+- Q: Where should Qodo PR-Agent actually run when a PR is opened or someone comments a command? → A: Inside the organisation's own CI, triggered by PR and comment events, using a secret credential for the model provider (see the FR-002 clarification below). There is no self-hosted server, and the Qodo-hosted app is not used.
+- Q: Which credential should the spec require for the Qodo PR-Agent pilot? → A: The dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT` is required. Keyless Workload Identity Federation is an optional alternative, and a stored key takes precedence when both are configured.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -151,7 +152,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 **Installation & security**
 
 - **FR-001**: The organisation MUST have Qodo PR-Agent installed and operational on `lightspeedwp/.github` using the open-source (self-managed) distribution, running inside the organisation's own CI on PR and comment events. It MUST NOT depend on a separately hosted server, a paid hosted plan or the Qodo-hosted app.
-- **FR-002**: The language-model credential MUST be stored only as an organisation or repository secret. It MUST never appear in configuration files, logs or PR comments. The default provider MUST be the organisation's existing Anthropic credential convention (`ANTHROPIC_API_KEY`).
+- **FR-002**: The language-model credential MUST be a dedicated Anthropic API key used only by Qodo PR-Agent, stored as the organisation or repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`. Keyless Workload Identity Federation MAY be configured as an alternative; it creates a short-lived token for each run and stores no key. When both are configured, the stored key MUST take precedence. A credential or token MUST NOT appear in configuration files, logs or PR comments.
 - **FR-003**: Qodo PR-Agent MUST run with least-privilege permissions, and any third-party action it depends on MUST be pinned to an immutable version, consistent with existing workflow standards.
 - **FR-004**: Code from forked or untrusted PRs MUST NOT be able to read repository secrets through Qodo PR-Agent runs.
 - **FR-005**: Automatic runs MUST be skipped for draft PRs and for the bot authors already excluded from CodeRabbit.
@@ -208,7 +209,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 ## Assumptions
 
 - The open-source Qodo PR-Agent is used, not the paid Qodo Merge hosted product. It runs inside the organisation's own CI, triggered by PR and comment events. No self-hosted GitHub App or webhook server is built, and the Qodo-hosted app is not used, so diffs go only to the organisation's chosen model provider. Replies may take a few minutes because each run starts fresh, which is accepted (see SC-001).
-- Anthropic Claude models are the default provider because `ANTHROPIC_API_KEY` is the organisation's only existing LLM secret convention. Other providers remain possible through configuration.
+- Anthropic Claude models are the default provider, following the organisation's `ANTHROPIC_API_KEY*` secret naming convention. A dedicated key keeps Qodo PR-Agent spend separate and lets it be revoked or capped on its own. Other providers remain possible through configuration.
 - CodeRabbit stays in place as the primary reviewer. Replacing it is out of scope for this feature.
 - The internal PR agent (spec 015) keeps ownership of PR creation, branch validation, template routing and final label application. This feature does not change spec 015's scope; it only adds optional inputs to it.
 - No new labels are needed for the pilot. If any are later wanted (e.g. an opt-out label), they go through the `[LABEL-UPDATE-REQUEST]` process.
