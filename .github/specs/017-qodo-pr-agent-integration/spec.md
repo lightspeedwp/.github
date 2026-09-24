@@ -27,6 +27,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 - Q: Which credential should the spec require for the Qodo PR-Agent pilot? → A: The dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT` is required. Keyless Workload Identity Federation is an optional alternative, and a stored key takes precedence when both are configured.
 - Q: Should FR-018 let the reusable workflow and the root `.pr_agent.toml` stay where GitHub and Qodo PR-Agent require them, under the constitution's platform-required locations exception? → A: Yes. Both use the Principle III exception (constitution v1.3.0), reusable logic stays in portable top-level folders wherever it can, and the plan records it as an exception, not a violation.
 - Q: How should we measure whether the opt-in guide is good enough, given that the walkthrough deliberately doesn't enable another repository? → A: A second maintainer's walkthrough finds no missing step or prerequisite. The 30-minute target is dropped.
+- Q: What should the spec require when Qodo PR-Agent's comment might repeat a secret that appears in a PR's changes? → A: Record it as a known limitation, with a documented response: a maintainer deletes the comment, rotates the exposed secret, and uses the kill-switch if it recurs.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -144,7 +145,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - **Description overwrites**: if a PR body follows a routed PR template, an automatic describe must not remove required template sections. It adds content, or it runs on demand only.
 - **LOCKED files**: Qodo PR-Agent suggestions touching `.github/labels.yml`, `.github/issue-types.yml` or issue/PR templates are informational only and never auto-applied.
 - **Forbidden branch prefixes** (`claude/`, `copilot/`, `openai/`): Qodo PR-Agent does not replace branch validation. Such PRs still fail the existing gate.
-- **Secrets or sensitive content in diffs**: Qodo PR-Agent output must not echo detected secrets back into comments.
+- **Secrets or sensitive content in diffs**: the model's output can't be guaranteed never to repeat a secret from the diff, so this is a known limitation. `docs/QODO_PR_AGENT.md` MUST document the response: a maintainer deletes the comment, rotates the exposed secret, and uses the kill-switch if it happens again. The workflow's own logs already mask the model credential.
 - **Tool outage mid-run**: partial output is marked incomplete and does not block merge.
 
 ## Requirements *(mandatory)*
