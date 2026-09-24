@@ -27,7 +27,7 @@
 
 **Purpose**: resolve the external facts and access that every later task depends on.
 
-- [ ] T001 Resolve the Qodo PR-Agent container digest by running `docker buildx imagetools inspect pragent/pr-agent:0.46.0-github_action --format '{{.Manifest.Digest}}'`. Verify provenance with `gh attestation verify "oci://index.docker.io/pragent/pr-agent@sha256:<digest>" --repo The-PR-Agent/pr-agent`. Record the digest, version and verification date in a new "Pinned version" table in `docs/QODO_PR_AGENT.md` (create the file with just a title and that table). The research-time value was `sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7`; use the freshly resolved one.
+- [ ] T001 Verify the provenance of the pinned Qodo PR-Agent image. The digest `sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7` (`0.46.0-github_action`) is already resolved, pinned in the reusable workflow and the skill runner, and recorded in the "Pinned version" table of `docs/QODO_PR_AGENT.md`. Run `gh attestation verify "oci://index.docker.io/pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7" --repo The-PR-Agent/pr-agent` from a machine with the `gh` CLI, and record the verification date in that table and in `.github/reports/metrics/qodo-pr-agent/pilot-validation.md`. If verification fails, don't go live: raise it on lightspeedwp/.github#3535.
 - [X] T002 Open a GitHub issue on `lightspeedwp/.github` titled "Qodo PR-Agent pilot: provision model credential". Labels: `type:task`, `area:ci`, `priority:normal`, `status:needs-triage`. The body asks @ashley for quickstart prerequisites P-1 and P-2: a dedicated Anthropic API key with a monthly spend limit, stored as organisation secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` with repository access set to "selected → lightspeedwp/.github". Link the issue in `docs/QODO_PR_AGENT.md`. This is a human dependency, and US1 can't be validated live until it's closed.
 
 ---
@@ -89,7 +89,7 @@
   - **Safety**: no checkout, fork PRs skipped, never blocks merge, never commits or labels
   - **Upstream project**: `the-pr-agent/pr-agent`, formerly `qodo-ai/pr-agent`
   - **Recognising Qodo PR-Agent feedback**: a placeholder that T010 fills in
-- [ ] T009 [US1] After T002 is closed and T004–T008 are merged to `develop`, run quickstart Q-01, Q-02, Q-05, Q-06, Q-09, Q-10 and Q-11 on branch `test/qodo-pr-agent-smoke`. Record pass or fail and evidence links in `.github/reports/metrics/qodo-pr-agent/pilot-validation.md`. For Q-09: if `extra_config_url` was **not** loaded, record it and open a follow-up issue for the R3 fallback (a consumer copy plus a parity test). Don't block US1 on it, because the local `.pr_agent.toml` still applies here.
+- [ ] T009 [US1] After T002 is closed and T004–T008 are merged to `develop`, run quickstart Q-01, Q-02, Q-03, Q-04, Q-05, Q-06, Q-08, Q-09, Q-10, Q-11 and Q-12 on branch `test/qodo-pr-agent-smoke`. Q-03 and Q-04 confirm that on-demand reviews apply no labels and that `/generate_labels` and `/similar_issue` are rejected (FR-008); Q-08 confirms changelog proposals arrive as comments and are never committed (FR-009); Q-12 covers the large-PR edge case. Q-13 is T039. Record pass or fail and evidence links in `.github/reports/metrics/qodo-pr-agent/pilot-validation.md`. For Q-09: if `extra_config_url` was **not** loaded, record it and open a follow-up issue for the R3 fallback (a consumer copy plus a parity test). Don't block US1 on it, because the local `.pr_agent.toml` still applies here.
 - [ ] T010 [US1] From the Q-01 PR, copy the exact header or marker text Qodo PR-Agent puts on its description, suggestions and review comments into the "Recognising Qodo PR-Agent feedback" section of `docs/QODO_PR_AGENT.md`. Note that the author is `github-actions[bot]`, so the marker is what identifies the comment.
 
 **Checkpoint**: the MVP is live and validated on this repository.
@@ -211,6 +211,7 @@
   - **Upgrading the pinned version**: repeat T001, update the digest in both the workflow and the skill script in one PR, and add a CHANGELOG note.
   - **Pilot report**: the T029 command.
   - **Monthly spend limit**: set on the key.
+- [ ] T040 [P] [US5] Add a "Secrets in Qodo PR-Agent comments" subsection to the "Operations" section of `docs/QODO_PR_AGENT.md`, as required by the clarified spec edge case (2026-09-24). State that the model's output can't be guaranteed never to repeat a secret from the diff, and give the response in order: (1) a maintainer deletes the comment; (2) the exposed secret is rotated wherever it is used; (3) if it happens again, set `QODO_PR_AGENT_ENABLED` to `false` and raise an issue. Note that the workflow's own logs mask the model credential. Add a contract assertion for the subsection heading to `tests/js/qodo-pr-agent-integrations.test.js`.
 - [ ] T031 [US5] After 14 days of pilot operation, run `node scripts/metrics/qodo-pr-agent-report.cjs`, write `.github/reports/metrics/qodo-pr-agent/pilot-report-YYYY-MM-DD.md`, and add the maintainer usefulness result: a short survey or reaction count, with the SC-004 target ≥ 70% useful. Open a follow-up issue that summarises the keep, adjust or roll-out recommendation for @ashley, including the monthly budget needed for SC-008.
 
 - [X] T037 [US5] Create `.github/workflows/qodo-pr-agent-report.yml` (`name: Qodo PR-Agent • Daily report`). It runs on `schedule` (daily, `43 6 * * *`) and `workflow_dispatch` (optional `since` input); has top-level `permissions: contents: read`, with the job adding `actions: read`; does a sparse checkout of `scripts/metrics` with `persist-credentials: false`; and runs `node scripts/metrics/qodo-pr-agent-report.cjs --since <14 days ago>`, publishing to the job summary and an artefact. Nothing is committed. Added by `/speckit-analyze` finding C2: constitution Principle X requires metrics that update at least daily.
@@ -226,7 +227,7 @@
 - [X] T034 [P] In `docs/AI_FEEDBACK_SYSTEM_SUMMARY.md`, list Qodo PR-Agent as an AI reviewer whose feedback follows the same `FEEDBACK_RESPONSE.md` process as CodeRabbit, and link the "Recognising Qodo PR-Agent feedback" section of `docs/QODO_PR_AGENT.md`. Add `docs/QODO_PR_AGENT.md` to the `docs/README.md` index.
 - [X] T035 Run the full local check set from quickstart "Local checks": `npm test`, `npm run validate:all`, `npm run lint:md`, `npm run lint:workflows`. Fix anything they report.
 - [X] T038 Add keyless Workload Identity Federation to the reusable workflow as an alternative to the key secret: `federation_rule_id`, `organization_id`, `service_account_id` and `workspace_id` inputs (from Actions variables in the caller); a `token` step that exchanges the job's GitHub OIDC token (audience `https://api.anthropic.com`) at `/v1/oauth/token`, masks the result and passes it to Qodo PR-Agent; `id-token: write` on the `run` job and the caller; a stored key takes precedence; a failed exchange is recorded as `failure` without blocking the PR; fork PRs skip with `fork`. Covered by `tests/js/qodo-pr-agent-workflow.test.js`, the reusable-workflow contract and `docs/QODO_PR_AGENT.md`.
-- [ ] T039 [live] Run quickstart Q-13 once the federation resources exist, and record whether Qodo PR-Agent accepts the exchanged token in `.github/reports/metrics/qodo-pr-agent/pilot-validation.md`.
+- [ ] T039 Live check: run quickstart Q-13 once the federation resources exist, and record whether Qodo PR-Agent accepts the exchanged token in `.github/reports/metrics/qodo-pr-agent/pilot-validation.md`.
 - [ ] T036 Set `**Status**:` in `.github/specs/017-qodo-pr-agent-integration/spec.md` to `Implemented (pilot)`. Add or update the 017 row in `.github/specs/CATALOG.md` (`| 017 | qodo-pr-agent-integration | Qodo PR-Agent Installation & Agent/Skill Integration | Active | 2026-09-24 | [./017-qodo-pr-agent-integration/spec.md](./017-qodo-pr-agent-integration/spec.md) |`). Do this after spec 016 (lightspeedwp/.github#3525) has landed, so the numbering stays contiguous.
 
 ---
@@ -241,8 +242,9 @@
 - **US2 (T011–T013)**: T011 and T012 need only T008. T013 needs live pilot data, so it comes after T009.
 - **US3 (T014–T025)**: T015 needs T001 (the same digest), and T019 needs T010 (the marker text). Everything else only needs Foundational. It can proceed in parallel with US1 implementation.
 - **US4 (T026–T027)**: needs T007 (the caller exists) and T008.
-- **US5 (T028–T031)**: T028 needs T006. T029 and T030 are independent. T031 needs 14 days of pilot runs after T009.
-- **Polish (T032–T036)**: after the stories it describes. T036 also waits on lightspeedwp/.github#3525.
+- **US5 (T028–T031, T037, T040)**: T028 needs T006. T029, T030, T037 and T040 are independent. T031 needs 14 days of pilot runs after T009.
+- **Polish (T032–T036, T038–T039)**: after the stories it describes. T038 needs T006 and T007. T039 needs T038 plus federation resources in the Claude Console, and only applies if the keyless route is used. T036 also waits on lightspeedwp/.github#3525.
+- **FR-023**: no LOCKED-file change is needed for the pilot, so there is no task. Any later need goes through a tagged change-request issue.
 
 ### Story completion order
 
