@@ -113,8 +113,18 @@ jobs:
             // Docs-only diffs are exempt (same docs/** + **.md scope as the
             // retired changelog-management workflow): the unified workflow
             // must still report for required checks, so exempt in-gate
-            // rather than via trigger filters.
+            // rather than via trigger filters. The exemption needs the full
+            // file list: past the API cap, unlisted files may be code, so a
+            // truncated list falls through to the normal requirement.
+            const totalChanged = context.payload.pull_request.changed_files;
+            const listComplete = changed.length >= totalChanged;
+            if (!listComplete) {
+              core.warning(
+                `The files API listed ${changed.length} of ${totalChanged} changed files; the docs-only exemption needs the full list.`,
+              );
+            }
             const isDocsOnly =
+              listComplete &&
               changed.length > 0 &&
               changed.every((file) => file.startsWith("docs/") || file.endsWith(".md"));
             if (isDocsOnly) {
