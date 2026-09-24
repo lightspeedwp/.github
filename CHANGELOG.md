@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Cloud Environment Specification** — Documented the shared Claude Code cloud setup and the branch-name rules Claude sessions must follow, with automated checks that keep the spec consistent. (#3525)
+
 ### Changed
 
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
