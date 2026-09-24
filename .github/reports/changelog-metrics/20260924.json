@@ -1,0 +1,37 @@
+{
+  "snapshot_date": "2026-09-24T11:35:11.349Z",
+  "snapshot_timestamp": 1790249711349,
+  "scope": "release:1.0.0",
+  "version": "1.0.0",
+  "total_entries": 9,
+  "compliant_entries": 1,
+  "non_compliant_entries": 8,
+  "compliance_percentage": 11.1,
+  "warning_count": 1,
+  "error_count": 7,
+  "violations_by_rule": [],
+  "most_common_violations": [],
+  "total_violations": 0,
+  "entries_by_category": {
+    "Added": {
+      "total": 4,
+      "compliant": 0,
+      "non_compliant": 4,
+      "warnings": 0
+    },
+    "Fixed": {
+      "total": 3,
+      "compliant": 0,
+      "non_compliant": 3,
+      "warnings": 0
+    },
+    "Security": {
+      "total": 2,
+      "compliant": 1,
+      "non_compliant": 0,
+      "warnings": 1
+    }
+  },
+  "average_quality_score": 67.2,
+  "quality_trend": "stable"
+}

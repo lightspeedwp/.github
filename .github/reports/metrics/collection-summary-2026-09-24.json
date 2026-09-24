@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-09-24T11:35:15.459Z",
+  "execution": {
+    "startTime": 1790249715455,
+    "duration": 4,
+    "repositories": {
+      "total": 1,
+      "successful": 1,
+      "failed": 0,
+      "percentage": "100.00"
+    }
+  },
+  "results": [
+    {
+      "repository": "lightspeedwp/.github",
+      "status": "success",
+      "metricsCount": 6,
+      "timestamp": "2026-09-24T11:35:15.458Z",
+      "collectionTime": 0,
+      "anomalies": 0,
+      "trends": 0
+    }
+  ],
+  "errors": [],
+  "config": {
+    "schedule": "0 2 * * *",
+    "parallelJobs": 1,
+    "storagePath": ".github/reports/metrics"
+  }
+}
