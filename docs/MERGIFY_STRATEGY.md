@@ -2,8 +2,8 @@
 file_type: documentation
 title: Mergify Strategy & Implementation
 description: Complete guide to Mergify configuration, auto-merge rules, and troubleshooting
-version: v1.0.1
-last_updated: '2026-08-21'
+version: v1.0.2
+last_updated: '2026-09-24'
 owners:
   - lightspeedwp
 ---
@@ -11,6 +11,14 @@ owners:
 # Mergify Strategy & Implementation
 
 This document describes how Mergify is configured and used for automated pull request merging in the LightSpeedWP/.github repository.
+
+> [!WARNING]
+> **Partially historical.** The authoritative configuration is `.github/mergify.yml`.
+> The "Overview", "Current Status" and "Auto-Merge Rules" sections below reflect the
+> current file. Sections describing imgbot, meta-agent, and the merge queue document
+> configuration that was **removed in #3476** and are kept only for history. The queue
+> is no longer configured; the develop ruleset plus a human code-owner approval is the
+> merge gate.
 
 ## Table of Contents
 
@@ -28,17 +36,22 @@ This document describes how Mergify is configured and used for automated pull re
 
 Mergify is a GitHub App that automates pull request merging based on configurable rules. We use it for:
 
-1. **Dependabot dependency updates** - Auto-merge when CI passes
-2. **ImgBot image optimisations** - Auto-merge when CI passes
-3. **Meta-agent sync PRs** - Auto-merge automated metadata updates
-4. **Merge queue management** - Sequential merging to prevent conflicts
-5. **Flaky test detection** - Integration with CI/CD health monitoring
+1. **Dependabot dependency updates** - Merge base branch in when they fall behind
+2. **Labelled pull requests** - Merge base branch in when a `keep-up-to-date` PR falls behind
+3. **Dependabot auto-merge** - Merge once GitHub branch protection is satisfied
 
 ### Current Status
 
 - **Configuration File**: `.github/mergify.yml`
-- **Active Rules**: 4 auto-merge rules + 1 queue rule
-- **Known Issues**: Dependabot auto-merge not working; meta-agent double-merge attempts
+- **Active Rules**: 2 update rules (Dependabot, and `keep-up-to-date` label) + Dependabot auto-merge
+- **Known Issues**: none known. The queue, imgbot and meta-agent rules were removed in #3476
+  because they gated on an "All Checks Passed" check no workflow produces. Human PRs still
+  require a human code-owner approval; Mergify never bypasses that.
+
+> **Note:** Mergify cannot auto-merge a human PR even when configured to. The `develop`
+> ruleset requires a code-owner approval, and Mergify's auto-merge only fires once branch
+> protection is satisfied. Dependabot PRs are not merged by Mergify either until a human
+> approves them. This is intentional, not a misconfiguration.
 
 ## Architecture
 
@@ -112,24 +125,44 @@ We standardly use **squash** for clean history.
 
 ### Rule 1: Keep Dependabot PRs Current
 
-**Purpose**: Rebase Dependabot PRs if develop branch moved ahead
+**Purpose**: Merge the base branch into Dependabot PRs when develop moves ahead
 
 **Conditions**:
 
 - Author is Dependabot (`dependabot[bot]` or `app/dependabot`)
 - Base branch is `develop`
-- Has `area:dependencies` label
 - Not a draft
 - No merge conflicts
 - More than 0 commits behind
 
 **Actions**:
 
-- Rebase the PR to incorporate latest develop changes
+- `update: {}` — Mergify merges `develop` into the PR branch, which re-triggers CI against
+  the current tree. The action defaults to `update_method: merge`, which is also the
+  fork-safe choice (`rebase` + `update_bot_account` is deprecated for repos that receive
+  fork PRs, and this repository is public).
 
 **Trigger**: Automatic on develop updates
 
-**Current Status**: ⚠️ **May not be working** - Base branch needs to update for trigger
+**Verified**: working — Mergify has pushed `Merge branch 'develop' into dependabot/...`
+commits to open Dependabot PRs. A PR showing BEHIND simply means develop moved again
+after its last update.
+
+---
+
+### Rule 2: Keep Labelled Pull Requests Current
+
+**Purpose**: Same as Rule 1, for human-authored PRs, gated on a label
+
+**Conditions**: base `develop`, not a draft, no conflicts, has the `keep-up-to-date`
+label, more than 0 commits behind
+
+**Why the label**: updating every non-draft PR on every develop push would re-trigger CI
+across the whole open queue. Mergify's own guidance is to gate the update action on a
+label for exactly this reason. Apply `keep-up-to-date` once a PR is ready for review.
+
+**Limitations**: Mergify never rebases a conflicting branch, so a PR with conflicts still
+reports DIRTY and needs manual resolution.
 
 ---
 
