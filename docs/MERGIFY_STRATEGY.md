@@ -37,13 +37,13 @@ This document describes how Mergify is configured and used for automated pull re
 Mergify is a GitHub App that automates pull request merging based on configurable rules. We use it for:
 
 1. **Dependabot dependency updates** - Merge base branch in when they fall behind
-2. **Labelled pull requests** - Merge base branch in when a `keep-up-to-date` PR falls behind
+2. **Stale pull requests** - Merge base branch in once a PR is more than 5 commits behind
 3. **Dependabot auto-merge** - Merge once GitHub branch protection is satisfied
 
 ### Current Status
 
 - **Configuration File**: `.github/mergify.yml`
-- **Active Rules**: 2 update rules (Dependabot, and `keep-up-to-date` label) + Dependabot auto-merge
+- **Active Rules**: 2 update rules (Dependabot, and any PR >5 commits behind) + Dependabot auto-merge
 - **Known Issues**: none known. The queue, imgbot and meta-agent rules were removed in #3476
   because they gated on an "All Checks Passed" check no workflow produces. Human PRs still
   require a human code-owner approval; Mergify never bypasses that.
@@ -150,16 +150,17 @@ after its last update.
 
 ---
 
-### Rule 2: Keep Labelled Pull Requests Current
+### Rule 2: Keep Stale Pull Requests Current
 
-**Purpose**: Same as Rule 1, for human-authored PRs, gated on a label
+**Purpose**: Same as Rule 1, for human-authored PRs, gated on a staleness threshold
 
-**Conditions**: base `develop`, not a draft, no conflicts, has the `keep-up-to-date`
-label, more than 0 commits behind
+**Conditions**: base `develop`, not a draft, no conflicts, more than 5 commits behind
 
-**Why the label**: updating every non-draft PR on every develop push would re-trigger CI
-across the whole open queue. Mergify's own guidance is to gate the update action on a
-label for exactly this reason. Apply `keep-up-to-date` once a PR is ready for review.
+**Why a threshold, not a label**: this repository's label governance requires every label
+to be canonical and family-prefixed (AGENTS.md). A `keep-up-to-date` label was neither,
+and adding it would require a locked-file change and @ashley's approval. A threshold
+achieves the same result with no new label and no governance debt. The threshold of 5
+came from the observed spread of open PRs (most 4-8 behind, worst 11-25).
 
 **Limitations**: Mergify never rebases a conflicting branch, so a PR with conflicts still
 reports DIRTY and needs manual resolution.

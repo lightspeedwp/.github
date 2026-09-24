@@ -29,12 +29,17 @@ pull_request_rules:
   # of BEHIND PRs. This merges the base branch in so CI re-runs against the
   # current tree.
   #
-  # Opt-in via label, following Mergify's own guidance
-  # (https://docs.mergify.com/actions/update/): updating every non-draft PR
-  # on every develop push would re-trigger CI across the whole open queue,
-  # which is why they recommend gating on a label. Apply
-  # `keep-up-to-date` to a PR once it is ready for review and it stops
-  # going stale.
+  # Gated on a staleness threshold rather than a label, following Mergify's own
+  # documented example (https://docs.mergify.com/actions/update/). A label was
+  # rejected: this repository's label governance requires every label to be
+  # canonical and family-prefixed (AGENTS.md), `keep-up-to-date` was neither,
+  # and adding it would mean a locked-file change needing @ashley's approval.
+  # A threshold keeps this useful with no new label and no governance debt.
+  #
+  # The threshold (5) was chosen from the observed spread of open PRs: most sit
+  # 4-8 commits behind, and the worst at 11-25. Updating only once a PR is
+  # clearly stale avoids re-triggering CI across the whole queue on every single
+  # develop push, while still self-healing before a PR becomes hard to rebase.
   #
   # `update` takes no parameters here, so Mergify uses `update_method: merge`
   # (the documented default for pull_request_rules). `merge` is also the
@@ -42,13 +47,12 @@ pull_request_rules:
   # deprecated for repositories that receive fork PRs, and this repository
   # is public. Mergify never rebases conflicting branches, so a PR that
   # needs manual conflict resolution still reports DIRTY.
-  - name: Keep labelled pull requests current
+  - name: Keep stale pull requests current
     conditions:
       - base=develop
       - -draft
       - -conflict
-      - label=keep-up-to-date
-      - "#commits-behind > 0"
+      - "#commits-behind > 5"
     actions:
       update: {}
 
