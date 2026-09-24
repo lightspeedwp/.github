@@ -5,6 +5,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
 import YAML from 'yaml';
 
 const repoRoot = path.resolve(__dirname, '../..');
@@ -44,6 +45,35 @@ function qodoStep(doc) {
 function preflightScript(doc) {
   const steps = doc.jobs?.preflight?.steps || [];
   return steps.map((step) => String(step.with?.script || step.run || '')).join('\n');
+}
+
+function runPreflight({ eventName = 'pull_request', payload, env = {} } = {}) {
+  const outputs = {};
+  const core = {
+    setOutput: jest.fn((key, value) => {
+      outputs[key] = value;
+    }),
+    notice: jest.fn(),
+    warning: jest.fn(),
+  };
+  const defaultPayload =
+    eventName === 'pull_request'
+      ? { sender: { type: 'User' }, pull_request: { draft: false, user: { login: 'maintainer' } } }
+      : {
+          sender: { type: 'User' },
+          issue: { pull_request: {} },
+          comment: { body: '/review', author_association: 'OWNER' },
+        };
+  vm.runInNewContext(
+    preflightScript(reusable.doc),
+    {
+      context: { eventName, payload: payload || defaultPayload },
+      process: { env: { HAS_CREDENTIAL: 'true', ...env } },
+      core,
+    },
+    { timeout: 1000 }
+  );
+  return { outputs, core };
 }
 
 describe('Qodo PR-Agent reusable workflow', () => {
@@ -133,6 +163,99 @@ describe('Qodo PR-Agent reusable workflow', () => {
     it('skips with a notice and never fails', () => {
       expect(script).toMatch(/core\.notice\(/);
       expect(script).not.toMatch(/exit 1|core\.setFailed\(/);
+    });
+
+    it('enables a non-draft human PR with a credential', () => {
+      const { outputs, core } = runPreflight();
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'auto' });
+      expect(core.notice).not.toHaveBeenCalled();
+    });
+
+    it.each([
+      ['kill-switch', { env: { KILL_SWITCH: 'FALSE' } }],
+      ['bot-sender', { payload: { sender: { type: 'Bot' } } }],
+      ['draft', { payload: { pull_request: { draft: true } } }],
+      ['excluded-author', { env: { EXCLUDED_AUTHORS: '["maintainer"]' } }],
+      ['no-credential', { env: { HAS_CREDENTIAL: 'false' } }],
+    ])('skips a PR on %s without failing the check', (reason, overrides) => {
+      const defaultPayload = {
+        sender: { type: 'User' },
+        pull_request: { draft: false, user: { login: 'maintainer' } },
+      };
+      const { outputs, core } = runPreflight({
+        ...overrides,
+        payload: { ...defaultPayload, ...overrides.payload },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool: 'none' });
+      expect(core.notice).toHaveBeenCalledWith(`Qodo PR-Agent skipped: ${reason}`);
+    });
+
+    it('warns on malformed excluded authors and still handles a valid PR', () => {
+      const { outputs, core } = runPreflight({ env: { EXCLUDED_AUTHORS: '[invalid' } });
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'auto' });
+      expect(core.warning).toHaveBeenCalledWith(
+        'excluded_authors is not valid JSON; treating it as empty.'
+      );
+    });
+
+    it.each(ALLOWED_COMMANDS)('enables authorised maintainer command %s', (command) => {
+      const { outputs } = runPreflight({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: {} },
+          comment: {
+            body: `  ${command.toUpperCase()} extra arguments  `,
+            author_association: 'MEMBER',
+          },
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: command.slice(1) });
+    });
+
+    it.each([
+      ['not-a-pr', { issue: {}, comment: { body: '/review', author_association: 'OWNER' } }],
+      [
+        'not-a-command',
+        {
+          issue: { pull_request: {} },
+          comment: { body: 'ordinary comment', author_association: 'OWNER' },
+        },
+      ],
+      [
+        'author-not-allowed',
+        {
+          issue: { pull_request: {} },
+          comment: { body: '/review', author_association: 'CONTRIBUTOR' },
+        },
+      ],
+      [
+        'command-not-allowed',
+        {
+          issue: { pull_request: {} },
+          comment: { body: '/generate_labels', author_association: 'OWNER' },
+        },
+      ],
+    ])('rejects issue comments with reason %s', (reason, payload) => {
+      const { outputs, core } = runPreflight({ eventName: 'issue_comment', payload });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool: 'none' });
+      expect(core.notice).toHaveBeenCalledTimes(reason === 'not-a-command' ? 0 : 1);
+    });
+
+    it('rejects authorised commands when the credential is missing', () => {
+      const { outputs } = runPreflight({
+        eventName: 'issue_comment',
+        env: { HAS_CREDENTIAL: 'false' },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'no-credential', tool: 'none' });
+    });
+
+    it('skips unsupported events rather than running a tool', () => {
+      const { outputs } = runPreflight({ eventName: 'push' });
+      expect(outputs).toStrictEqual({
+        enabled: 'false',
+        reason: 'unsupported-event',
+        tool: 'none',
+      });
     });
   });
 

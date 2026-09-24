@@ -30,11 +30,11 @@ const records = [
   { tool: 'none', outcome: 'skipped:command-not-allowed', duration_seconds: 0 },
 ];
 
-function zipOf(name, content) {
-  const data = zlib.deflateRawSync(Buffer.from(content));
+function zipOf(name, content, method = 8) {
+  const data = method === 8 ? zlib.deflateRawSync(Buffer.from(content)) : Buffer.from(content);
   const header = Buffer.alloc(30);
   header.writeUInt32LE(0x04034b50, 0);
-  header.writeUInt16LE(8, 8);
+  header.writeUInt16LE(method, 8);
   header.writeUInt32LE(data.length, 18);
   header.writeUInt16LE(Buffer.byteLength(name), 26);
   return Buffer.concat([header, Buffer.from(name), data]);
@@ -77,6 +77,70 @@ describe('qodo-pr-agent-report aggregate', () => {
     expect(report).toContain('**50.0%**');
     expect(report).toContain('ANTHROPIC_API_KEY_QODO_PR_AGENT');
   });
+
+  it('reports no activity without dividing by zero or charging for skipped runs', () => {
+    const empty = aggregate([]);
+    expect(empty).toStrictEqual({
+      total: 0,
+      executed: 0,
+      byTool: {},
+      outcomes: {},
+      medianDurationSeconds: null,
+      sc001: { automatic: 0, withinLimit: 0, rate: null },
+      estimatedSpendUsd: 0,
+    });
+    const report = renderReport(empty, {
+      repo: 'lightspeedwp/.github',
+      workflow: 'qodo-pr-agent.yml',
+      since: '2026-09-01',
+      generated: '2026-09-15',
+      tokensPerRun: 20000,
+      pricePerMtok: 6,
+    });
+    expect(report).toContain('Median run duration: **n/a s**');
+    expect(report).toContain('automatic output within 10 minutes of the PR event: **n/a**');
+    expect(report).toContain('**≈ $0.00**');
+  });
+
+  it('takes the mean of the middle two durations without mutating its input', () => {
+    const input = [
+      { tool: 'ask', outcome: 'failure', duration_seconds: 9 },
+      { tool: 'review', outcome: 'success', duration_seconds: 1 },
+      { tool: 'auto', outcome: 'skipped:draft', duration_seconds: 1000 },
+      { tool: 'improve', outcome: 'success', duration_seconds: 5 },
+      { tool: 'describe', outcome: 'failure', duration_seconds: 3 },
+    ];
+    expect(aggregate(input).medianDurationSeconds).toBe(4);
+    expect(input.map((record) => record.duration_seconds)).toStrictEqual([9, 1, 1000, 5, 3]);
+  });
+
+  it('includes completion exactly at ten minutes but excludes a second later', () => {
+    const timestamp = '2026-09-01T12:00:00Z';
+    const automatic = (duration_seconds) => ({
+      tool: 'auto',
+      outcome: 'success',
+      event_at: timestamp,
+      started_at: '2026-09-01T12:01:00Z',
+      duration_seconds,
+    });
+    expect(
+      aggregate([
+        automatic(540),
+        automatic(541),
+        { ...automatic(1), outcome: 'failure' },
+        { ...automatic(1), tool: 'ask' },
+        { ...automatic(1), started_at: undefined },
+      ]).sc001
+    ).toStrictEqual({ automatic: 2, withinLimit: 1, rate: 0.5 });
+  });
+
+  it('counts missing tool and outcome as unknown without treating them as executed', () => {
+    const summary = aggregate([{}, { tool: 'auto', outcome: 'skipped:no-credential' }]);
+    expect(summary.byTool).toStrictEqual({ unknown: 1, auto: 1 });
+    expect(summary.outcomes).toStrictEqual({ unknown: 1, 'skipped:no-credential': 1 });
+    expect(summary.executed).toBe(0);
+    expect(summary.estimatedSpendUsd).toBe(0);
+  });
 });
 
 describe('qodo-pr-agent-report helpers', () => {
@@ -86,8 +150,52 @@ describe('qodo-pr-agent-report helpers', () => {
     expect(readFromZip(zip, 'missing.json')).toBeNull();
   });
 
+  it('reads a stored entry after another entry, and returns null for an empty archive', () => {
+    const archive = Buffer.concat([
+      zipOf('other.json', '{}'),
+      zipOf('qodo-pr-agent-run.json', '{"outcome":"success"}', 0),
+    ]);
+    expect(readFromZip(archive, 'qodo-pr-agent-run.json')).toBe('{"outcome":"success"}');
+    expect(readFromZip(Buffer.alloc(0), 'qodo-pr-agent-run.json')).toBeNull();
+  });
+
   it('requires --since in YYYY-MM-DD form', () => {
     expect(() => parseArgs([])).toThrow(/--since/);
     expect(parseArgs(['--since', '2026-10-01']).since).toBe('2026-10-01');
+  });
+
+  it('parses optional overrides and rejects unknown flags', () => {
+    expect(parseArgs(['--since', '2026-09-01'])).toStrictEqual({
+      since: '2026-09-01',
+      repo: 'lightspeedwp/.github',
+      workflow: 'qodo-pr-agent.yml',
+      tokensPerRun: 20000,
+      pricePerMtok: 6,
+    });
+    expect(
+      parseArgs([
+        '--since',
+        '2026-09-01',
+        '--out',
+        'reports',
+        '--repo',
+        'other/repo',
+        '--workflow',
+        'custom.yml',
+        '--tokens-per-run',
+        '4000',
+        '--price-per-mtok',
+        '2.5',
+      ])
+    ).toMatchObject({
+      out: 'reports',
+      repo: 'other/repo',
+      workflow: 'custom.yml',
+      tokensPerRun: 4000,
+      pricePerMtok: 2.5,
+    });
+    expect(() => parseArgs(['--since', '2026-09-01', '--unknown', 'value'])).toThrow(
+      'Unknown argument: --unknown'
+    );
   });
 });
