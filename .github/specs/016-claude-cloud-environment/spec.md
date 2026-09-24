@@ -31,6 +31,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: Spec 009 (branch cleanup) requires human approval of every deletion through a draft PR, which conflicts with automatic deletion here. Which spec gives way? → A: Spec 009 gains a narrow exception: an agent-session branch (`claude/*`) with no commits of its own, no open PR and a tip at least 24 hours old is auto-approved for deletion. Everything else still goes through 009's draft-PR approval. The cleanup is implemented by 009's categorisation and scheduled workflow, not by a separate job.
 - Q: When a session needs to push fixes to an existing PR whose branch already has a non-compliant name, should the guard allow it? → A: Yes, only when the branch already exists on GitHub and is the head of an open PR (the legacy PR exception). Creating or renaming to a new non-compliant name is still refused, and if the open-PR status can't be verified the push is refused.
 - Q: Should Claude be stopped from editing the branch guard's own files (`.claude/hooks/` and `.claude/settings.json`) during a session? → A: Yes. The guard refuses the agent's edits to those files unless the enforcement switch is off, and CODEOWNERS requires an Owner's review for changes under `.claude/`.
+- Q: If the guard itself breaks (for example, its branch-name validator can't be loaded), what should happen to Claude's commands? → A: Fail closed for git writes only. Git commit, push and branch operations, and the GitHub branch and PR tools, are refused with a "guard unavailable" message. All other commands are allowed with a visible warning.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -110,6 +111,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Documentation exception on a protected branch where GitHub branch protection requires PRs**: The guard allows the commit, but GitHub may still reject the push. The refusal from GitHub is reported to the user, who can merge through a PR instead.
 - **Mixed commit (documentation plus code) on a protected branch**: The whole commit is refused. It is not split automatically.
 - **Indirect edits to guard files (for example `sed -i`, `mv`, `rm`, or output redirection targeting `.claude/hooks/`)**: Refused while enforcement is on, using the same command parsing as the git checks. Unusual constructions may slip through, so CODEOWNERS review remains the final safeguard.
+- **Guard fault (validator missing, internal error)**: Git writes and GitHub branch or PR tools are refused as "guard unavailable". Other commands continue with a warning, so the session stays usable while the fault is fixed (FR-012a).
 - **Malformed input to the guard**: The session must never break. Allow and move on.
 
 ## Requirements *(mandatory)*
@@ -143,6 +145,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
 - **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal.
 - **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings.
+- **FR-012a**: If the guard can't evaluate a call because of its own fault (for example, the validator fails to load or an internal error occurs), it MUST refuse git commit, push and branch operations and the GitHub branch, file and PR tools with a message saying the guard is unavailable and how to report it. It MUST allow all other commands, with a visible warning. Malformed hook input from the platform is still allowed silently.
 - **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files (`.claude/hooks/**` and `.claude/settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`.
 - **FR-014**: Enforcement MUST block in both cloud and local agent sessions on this repository, with identical rules. Only the enforcement switch (FR-013) may downgrade refusals to warnings, in either setting.
 
