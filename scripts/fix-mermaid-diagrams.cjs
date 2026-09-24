@@ -200,6 +200,7 @@ const ACC_TYPES = [
   "graph",
   "sequenceDiagram",
   "classDiagram",
+  "classDiagram-v2",
   "stateDiagram",
   "stateDiagram-v2",
   "erDiagram",

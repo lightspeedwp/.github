@@ -207,4 +207,12 @@ describe('CodeRabbit review on #3491', () => {
       '  accTitle: T',
     ]);
   });
+
+  test('treats classDiagram-v2 as a type that takes accessibility statements', () => {
+    // Same gap as flowchart-elk: the keyword is the whole type line, so it
+    // must be listed explicitly or a misplaced accTitle is left unrepaired.
+    // Mermaid 12 parses accTitle/accDescr after this type line.
+    const fixed = fixDiagram('accTitle: T\nclassDiagram-v2\n  class Foo');
+    expect(fixed.split('\n').slice(0, 2)).toEqual(['classDiagram-v2', '  accTitle: T']);
+  });
 });
