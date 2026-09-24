@@ -9,8 +9,8 @@
 ## Diagram 1: 2-Tier Testing Architecture
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph Repos["Repositories Layer"]
         GH[".github<br/>(Control Plane)"]
         BT["Block Theme<br/>Repos"]
@@ -68,8 +68,8 @@ accDescr: Detailed diagram
 ## Diagram 2: Delegation Flow (What Each Agent Handles)
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A["Testing Request<br/>(What to test?)"]
     
     A --> B{Is this<br/>.github testing?}
@@ -114,8 +114,8 @@ accDescr: Detailed diagram
 ## Diagram 3: Test Execution Pipeline
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     A["Repo<br/>(source code)"]
     
     A --> B["Trigger<br/>(PR, commit,<br/>manual)"]
@@ -180,8 +180,8 @@ accDescr: Detailed diagram
 ## Diagram 4: Framework Coverage & Selection Matrix
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph JS["JavaScript/TypeScript Projects"]
         J1["Block Theme JavaScript"]
         J2["Block Plugin JavaScript"]
@@ -239,8 +239,8 @@ accDescr: Detailed diagram
 ## Diagram 5: Skill & Documentation Structure
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     ROOT["agents/testing-agent/"]
     
     ROOT --> DOCS["Documentation"]
@@ -297,8 +297,8 @@ accDescr: Detailed diagram
 ## Diagram 6: Integration Test Scenarios
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph SCENARIOS["Integration Test Scenarios"]
         S1["Scenario 1:<br/>.github Agent<br/>→ Portable Agent"]
         S2["Scenario 2:<br/>GitHub Actions<br/>Workflow Using Agent"]
@@ -345,8 +345,8 @@ accDescr: Detailed diagram
 ## Diagram 7: Test Coverage Thresholds by Context
 
 ```mermaid
-accTitle: Diagram
 xychart-beta
+    accTitle: Diagram
     title Test Coverage Thresholds by Repository & Framework
     x-axis [Control-Plane, Block Theme, Block Plugin, Other Repos]
     y-axis "Coverage Threshold (%)" 60 --> 90
@@ -369,8 +369,8 @@ accDescr: Detailed diagram
 ## Diagram 8: CI/CD Integration Flow
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     PR["Pull Request<br/>Created"]
     
     PR --> GITHUB_ACTIONS["GitHub Actions<br/>Triggered"]
