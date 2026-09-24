@@ -299,6 +299,7 @@ function writeMarkdownReport(deleted, preserved, errors, metrics, reportOptions 
     `| Metric | Value |`,
     `| --- | --- |`,
     `| Branches considered for deletion | ${metrics.candidatesCount} |`,
+    `| Auto-approved deletions (empty agent-session branches) | ${deleted.filter((b) => b.autoApproved).length} |`,
     `| Branches deleted | ${deleted.length} |`,
     `| Branches preserved | ${preserved.length} |`,
     `| Errors | ${errors.length} |`,
@@ -404,6 +405,7 @@ function writeJsonReport(deleted, preserved, errors, metrics, reportOptions = op
     inactiveDays: reportOptions.inactiveDays,
     summary: {
       candidates: metrics.candidatesCount,
+      autoApprovedDelete: deleted.filter((b) => b.autoApproved).length,
       deleted: deleted.length,
       preserved: preserved.length,
       errors: errors.length,
@@ -544,6 +546,7 @@ async function main() {
         classification = {
           ...classification,
           category: 'DISCUSS',
+          autoApproved: false,
           reason: REASON_CODES.DISCUSS.pr_verification_unavailable,
         };
       }
@@ -552,6 +555,7 @@ async function main() {
         classification = {
           ...classification,
           category: 'KEEP',
+          autoApproved: false,
           reason: `${REASON_CODES.KEEP.author_preserved}: ${author}`,
         };
       }
@@ -567,6 +571,7 @@ async function main() {
         toDelete.push({
           branch,
           reason: classification.reason,
+          autoApproved: classification.autoApproved === true,
           lastCommitDate: classification.metadata.lastCommitDate,
           author: classification.metadata.author,
           hash: getLastCommitHash(branch),

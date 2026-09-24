@@ -7,50 +7,28 @@
  * @module scripts/lib/constants
  */
 
+import {
+  AUTHORIZED_TYPES,
+  FORBIDDEN_PREFIXES as CANONICAL_FORBIDDEN_PREFIXES,
+} from '../../lib/validate-branch-name.js';
+
 export const PROTECTED_BRANCHES = new Set(['main', 'develop', 'production', 'staging', 'master']);
 
-export const FORBIDDEN_PREFIXES = new Set(['claude', 'copilot', 'openai']);
+// Branch naming rules come from the canonical validator shared with CI and the
+// Claude Code branch guard, so the three can never drift apart.
+export const FORBIDDEN_PREFIXES = new Set(
+  CANONICAL_FORBIDDEN_PREFIXES.map((prefix) => prefix.replace(/\/$/, ''))
+);
 
-export const ALLOWED_BRANCH_TYPES = new Set([
-  'feat',
-  'fix',
-  'hotfix',
-  'release',
-  'refactor',
-  'chore',
-  'task',
-  'docs',
-  'test',
-  'perf',
-  'ci',
-  'build',
-  'deps',
-  'security',
-  'design',
-  'a11y',
-  'ux',
-  'i18n',
-  'ops',
-  'proto',
-  'ds',
-  'api',
-  'schema',
-  'telemetry',
-  'content',
-  'seo',
-  'config',
-  'migrate',
-  'qa',
-  'uat',
-  'audit',
-  'codex',
-  'revert',
-  'research',
-]);
+export const ALLOWED_BRANCH_TYPES = new Set(AUTHORIZED_TYPES);
+
+// Agent-session branches (spec 016) that may be deleted without the draft-PR
+// approval step when they hold no commits of their own and have no open PR.
+export const AUTO_DELETE_PREFIXES = new Set(['claude']);
+
+export const AUTO_DELETE_MIN_AGE_DAYS = 1;
 
 export const DEFAULT_INACTIVE_DAYS = 30;
-
-export const BRANCH_NAME_PATTERN = /^[a-z]+\/[a-z0-9]+(?:-[a-z0-9]+)+$/;
 
 export const REASON_CODES = {
   KEEP: {
@@ -63,6 +41,8 @@ export const REASON_CODES = {
   },
   DELETE: {
     merged_stale: 'Merged and inactive beyond threshold',
+    auto_delete_empty_agent_branch:
+      'Empty agent-session branch (merged, no open PR); auto-approved for deletion',
   },
   DISCUSS: {
     naming_violation: 'Invalid branch name format',

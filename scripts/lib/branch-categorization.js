@@ -8,6 +8,7 @@
  * 1. Protected branch? → KEEP
  * 2. Excluded by pattern? → KEEP
  * 3. Has open PR? → KEEP
+ * 3b. Empty agent-session branch (claude/*, merged, old enough)? → DELETE (auto-approved)
  * 4. Invalid branch name? → DISCUSS
  * 5. Not merged to any base? → DISCUSS (if stale)
  * 6. Meets age threshold? → DELETE
@@ -18,53 +19,31 @@
  */
 
 import {
-  ALLOWED_BRANCH_TYPES,
-  BRANCH_NAME_PATTERN,
+  AUTO_DELETE_MIN_AGE_DAYS,
+  AUTO_DELETE_PREFIXES,
   FORBIDDEN_PREFIXES,
   PROTECTED_BRANCHES,
   REASON_CODES,
 } from './constants.js';
 import { getAgeInDays, meetsAgeThreshold } from './age-calculator.js';
 import { matchesExclusionPattern } from './exclusion-patterns.js';
+import { validateBranchName as validateCanonicalBranchName } from '../../lib/validate-branch-name.js';
 
 export function validateBranchName(branch) {
-  // Check forbidden prefixes
-  for (const forbidden of FORBIDDEN_PREFIXES) {
-    if (branch.startsWith(`${forbidden}/`)) {
-      return {
-        valid: false,
-        reason: `forbidden prefix: ${forbidden}`,
-      };
-    }
+  const result = validateCanonicalBranchName(branch);
+  if (result.valid) {
+    return { valid: true };
   }
 
-  // Check format: type/scope-title
-  const parts = branch.split('/');
-  if (parts.length !== 2) {
-    return {
-      valid: false,
-      reason: 'must follow pattern: {type}/{scope}-{title}',
-    };
+  const prefix = typeof branch === 'string' ? branch.split('/')[0] : '';
+  if (result.errors.includes('forbidden_prefix') && FORBIDDEN_PREFIXES.has(prefix)) {
+    return { valid: false, reason: `forbidden prefix: ${prefix}` };
   }
 
-  const type = parts[0];
-  // Check type is allowed
-  if (!ALLOWED_BRANCH_TYPES.has(type)) {
-    return {
-      valid: false,
-      reason: `unknown type: ${type}`,
-    };
-  }
-
-  // Check the complete type/scope-title pattern
-  if (!BRANCH_NAME_PATTERN.test(branch)) {
-    return {
-      valid: false,
-      reason: 'must follow pattern: {type}/{scope}-{title}',
-    };
-  }
-
-  return { valid: true };
+  return {
+    valid: false,
+    reason: `must follow pattern: {type}/{scope}-{title} (${result.errors.join(', ')})`,
+  };
 }
 
 function extractMetadata(branch, metadata = {}) {
@@ -112,6 +91,23 @@ export function categorizeBranch(
     return {
       category: 'KEEP',
       reason: REASON_CODES.KEEP.active_pr,
+      metadata: extracted,
+    };
+  }
+
+  // Gate 3b: Empty agent-session branch? Merged means it holds no commits of
+  // its own, so deleting it cannot lose work. The caller downgrades this to
+  // DISCUSS when open-PR verification was unavailable (spec 016 FR-020).
+  const prefix = branch.split('/')[0];
+  if (
+    AUTO_DELETE_PREFIXES.has(prefix) &&
+    extracted.mergeStatus.merged === true &&
+    meetsAgeThreshold(extracted.ageInDays, AUTO_DELETE_MIN_AGE_DAYS)
+  ) {
+    return {
+      category: 'DELETE',
+      autoApproved: true,
+      reason: REASON_CODES.DELETE.auto_delete_empty_agent_branch,
       metadata: extracted,
     };
   }
@@ -228,6 +224,7 @@ export function categorizeBranches(
       name: branch,
       category: categorization.category,
       reason: categorization.reason,
+      autoApproved: categorization.autoApproved === true,
       ...categorization.metadata,
     });
   }
