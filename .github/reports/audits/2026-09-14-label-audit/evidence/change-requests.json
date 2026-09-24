@@ -7,10 +7,11 @@
       "issue_number": 3530,
       "url": "https://github.com/lightspeedwp/.github/issues/3530",
       "covers": ["constitution v1.3.0 (d6af819354)", "constitution v1.3.1 (917dac08e9)"],
-      "status": "open",
-      "approved_by": null,
-      "approved_at": null,
-      "blocks": "merge of audit/label-consolidation into develop"
+      "status": "approved",
+      "approved_by": "ashleyshaw",
+      "approved_at": "2026-09-24",
+      "blocks": "merge of audit/label-consolidation into develop",
+      "approval_comment": "https://github.com/lightspeedwp/.github/issues/3530#issuecomment-5809051163"
     }
   ]
 }
