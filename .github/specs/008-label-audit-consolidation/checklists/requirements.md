@@ -42,7 +42,7 @@
 
 ## Requirement Completeness
 
-- [x] No [NEEDS CLARIFICATION] markers remain
+- [ ] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -63,7 +63,9 @@
 
 ## Validation Notes
 
-✅ **PASSED** - All items complete.
+⏳ **2026-09-24 update for [#3554](https://github.com/lightspeedwp/.github/issues/3554)**: FR-021, SC-010, acceptance scenarios 10–11, three edge cases and two clarifications added. Two [NEEDS CLARIFICATION] markers remain in FR-012 (`area:observability` merge; colours for imported labels). Every other item still passes.
+
+✅ **PASSED (2026-09-14)** - All items complete.
 
 ### Key Strengths
 
