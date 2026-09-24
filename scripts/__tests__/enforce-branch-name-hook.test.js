@@ -250,9 +250,31 @@ describe('guard faults (T013)', () => {
     expect(run.stderr).toBe('');
   });
 
+  const FAULT = { NODE_ENV: 'test', LS_GUARD_FORCE_FAULT: '1' };
+
+  test('warns and allows a non-git command on a fault', () => {
+    const run = runBash(fx, 'ls', FAULT);
+    expect(run.status).toBe(0);
+    expect(run.json().systemMessage).toMatch(/^Branch guard unavailable: .*LS_GUARD_FORCE_FAULT/);
+  });
+
+  test('warns and allows git commit on a fault when the hook starts with the switch off', () => {
+    fx.branch('chore/session-abc123');
+    const run = runBash(fx, 'git commit -m "x"', { ...FAULT, LS_ENFORCE_BRANCH_NAMES: '0' });
+    expect(run.status).toBe(0);
+    expect(run.json().systemMessage).toMatch(
+      /^Branch guard \(warning only\): Branch guard unavailable:/
+    );
+  });
+
+  test('ignores the fault flag outside test mode', () => {
+    fx.branch('chore/session-abc123');
+    const run = runBash(fx, 'git commit -m "x"', { ...FAULT, NODE_ENV: 'production' });
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/session placeholder/);
+  });
+
   test.todo("refuses git commit with 'Branch guard unavailable' when the validator fails to load");
-  test.todo('warns and allows git commit on a fault when the hook starts with the switch off');
-  test.todo('warns and allows a non-git command on a fault');
   test.todo('refuses MCP create_pull_request on a fault');
 });
 

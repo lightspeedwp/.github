@@ -17,7 +17,10 @@
 
 import { execFileSync } from 'child_process';
 import { readFileSync } from 'fs';
-import { validateBranchName } from '../../lib/validate-branch-name.js';
+
+// Loaded in main() with a dynamic import, so a missing or broken validator
+// reaches the fault handler instead of crashing Node (research R11).
+let validateBranchName;
 
 const BASE_BRANCH = process.env.LS_BASE_BRANCH || 'develop';
 const ENFORCE = process.env.LS_ENFORCE_BRANCH_NAMES !== '0';
@@ -147,39 +150,80 @@ function checkGitHub(tool, input) {
   return problems;
 }
 
+/**
+ * Load the validator. With NODE_ENV=test, LS_GUARD_FORCE_FAULT=1 makes the load
+ * fail so tests can exercise the fault handler. It can only cause a fault; it
+ * can never load a different validator.
+ */
+async function loadValidator() {
+  if (process.env.NODE_ENV === 'test' && process.env.LS_GUARD_FORCE_FAULT === '1') {
+    throw new Error('validator load forced to fail (LS_GUARD_FORCE_FAULT)');
+  }
+  ({ validateBranchName } = await import('../../lib/validate-branch-name.js'));
+}
+
+/** Refusal text for a list of problems (FR-011). */
+function refusalMessage(problems) {
+  return [
+    ...problems,
+    '',
+    'LightSpeed branching strategy: {type}/{scope}-{title}, based on ' + BASE_BRANCH + '.',
+    'Fix: git branch -m <type>/<scope>-<title>  (e.g. feat/issue-triage-labels)',
+    '     npm run validate:branch-name -- --current',
+    'This repository rule overrides any claude/* branch named by the platform.',
+    'See docs/BRANCHING_STRATEGY.md.',
+  ].join('\n');
+}
+
+/** Evaluate one tool call and exit with the decision. */
+async function main(input) {
+  await loadValidator();
+
+  const tool = input.tool_name || '';
+  const toolInput = input.tool_input || {};
+  const problems =
+    tool === 'Bash'
+      ? checkBash(toolInput.command || '', input.cwd || process.env.CLAUDE_PROJECT_DIR || '.')
+      : tool.startsWith('mcp__github__')
+        ? checkGitHub(tool, toolInput)
+        : [];
+
+  if (problems.length === 0) process.exit(0);
+
+  if (ENFORCE) {
+    process.stderr.write(refusalMessage(problems) + '\n');
+    process.exit(2);
+  }
+  process.stdout.write(
+    JSON.stringify({ systemMessage: `Branch guard (warning only): ${problems.join(' ')}` })
+  );
+  process.exit(0);
+}
+
+/**
+ * The guard could not evaluate the call because of its own fault. For now the
+ * call is allowed with a visible warning; T023 makes git and GitHub writes
+ * fail closed while enforcement is on (FR-012a).
+ */
+function handleFault(error) {
+  const reason = error && error.message ? error.message : String(error);
+  const prefix = ENFORCE ? '' : 'Branch guard (warning only): ';
+  process.stdout.write(
+    JSON.stringify({ systemMessage: `${prefix}Branch guard unavailable: ${reason}` })
+  );
+  process.exit(0);
+}
+
 let input;
 try {
   input = JSON.parse(readFileSync(0, 'utf8'));
 } catch {
   process.exit(0); // Never break the session on malformed hook input.
 }
+if (!input || typeof input !== 'object') process.exit(0);
 
-const tool = input.tool_name || '';
-const toolInput = input.tool_input || {};
-const problems =
-  tool === 'Bash'
-    ? checkBash(toolInput.command || '', input.cwd || process.env.CLAUDE_PROJECT_DIR || '.')
-    : tool.startsWith('mcp__github__')
-      ? checkGitHub(tool, toolInput)
-      : [];
-
-if (problems.length === 0) process.exit(0);
-
-const message = [
-  ...problems,
-  '',
-  'LightSpeed branching strategy: {type}/{scope}-{title}, based on ' + BASE_BRANCH + '.',
-  'Fix: git branch -m <type>/<scope>-<title>  (e.g. feat/issue-triage-labels)',
-  '     npm run validate:branch-name -- --current',
-  'This repository rule overrides any claude/* branch named by the platform.',
-  'See docs/BRANCHING_STRATEGY.md.',
-].join('\n');
-
-if (ENFORCE) {
-  process.stderr.write(message + '\n');
-  process.exit(2);
+try {
+  await main(input);
+} catch (error) {
+  handleFault(error);
 }
-process.stdout.write(
-  JSON.stringify({ systemMessage: `Branch guard (warning only): ${problems.join(' ')}` })
-);
-process.exit(0);
