@@ -29,6 +29,14 @@ import { getAgeInDays, meetsAgeThreshold } from './age-calculator.js';
 import { matchesExclusionPattern } from './exclusion-patterns.js';
 import { validateBranchName as validateCanonicalBranchName } from '../../lib/validate-branch-name.js';
 
+/**
+ * Adapt the canonical branch-name validator to cleanup's reason format.
+ * Forbidden prefixes receive a specific reason; other failures include the
+ * canonical error codes.
+ *
+ * @param {string} branch - Branch name to validate.
+ * @returns {{valid: boolean, reason?: string}} Validation result.
+ */
 export function validateBranchName(branch) {
   const result = validateCanonicalBranchName(branch);
   if (result.valid) {
@@ -46,6 +54,14 @@ export function validateBranchName(branch) {
   };
 }
 
+/**
+ * Fill in branch classification metadata, including fractional age in days.
+ * Missing or invalid commit dates produce an age of zero.
+ *
+ * @param {string} branch - Branch name.
+ * @param {object} metadata - Optional author, lastCommitDate, and mergeStatus.
+ * @returns {object} Normalized classification metadata.
+ */
 function extractMetadata(branch, metadata = {}) {
   const type = branch.includes('/') ? branch.split('/')[0] : 'other';
   const ageInDays = getAgeInDays(metadata.lastCommitDate || '');
@@ -59,6 +75,21 @@ function extractMetadata(branch, metadata = {}) {
   };
 }
 
+/**
+ * Classify one branch as KEEP, DELETE, or DISCUSS with a reason and metadata.
+ * Protected, excluded, and open-PR branches stay KEEP. Merged claude/* branches
+ * at least one day old are marked auto-approved before naming checks; other
+ * merged branches must meet the inclusive inactivity threshold to be DELETE.
+ * Open-PR verification is the caller's responsibility: an empty Set does not
+ * distinguish a confirmed empty list from a failed lookup.
+ *
+ * @param {string} branch - Branch name.
+ * @param {object} metadata - Optional author, lastCommitDate, and mergeStatus.
+ * @param {Set<string>} openPRs - Confirmed open PR branch names.
+ * @param {RegExp|null} excludePattern - Optional branch exclusion pattern.
+ * @param {number} inactiveDays - Inactivity threshold in 24-hour days.
+ * @returns {object} Category, reason, normalized metadata, and optional autoApproved flag.
+ */
 export function categorizeBranch(
   branch,
   metadata = {},
@@ -169,6 +200,19 @@ export function categorizeBranch(
   };
 }
 
+/**
+ * Group branch classifications by KEEP, DELETE, and DISCUSS.
+ * Invalid branch lists, metadata maps, open-PR collections, or thresholds
+ * produce empty groups and a console error instead of throwing. Arrays of
+ * PR names are accepted in addition to Sets.
+ *
+ * @param {string[]} branches - Nonempty branch names.
+ * @param {object} branchMetadata - Metadata keyed by branch name.
+ * @param {Set<string>|string[]} openPRs - Confirmed open PR branch names.
+ * @param {RegExp|null} excludePattern - Optional branch exclusion pattern.
+ * @param {number} inactiveDays - Nonnegative integer threshold in days.
+ * @returns {{KEEP: object[], DELETE: object[], DISCUSS: object[]}} Branches with classification details.
+ */
 export function categorizeBranches(
   branches = [],
   branchMetadata = {},
