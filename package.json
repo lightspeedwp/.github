@@ -128,7 +128,7 @@
     "sync-version": "node scripts/sync-version.js",
     "metrics:run": "node metrics/frontmatter-metrics.js",
     "metrics:ci": "node metrics/frontmatter-metrics.js",
-    "test:js": "jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles",
+    "test:js": "jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles && npm --prefix agents/pr-agent test",
     "test:agent-spec-validation": "node .github/scripts/__tests__/validate-agent-specs.test.js",
     "test:index-generator": "node .github/scripts/__tests__/generate-agent-index.test.js",
     "test:create-agent-spec": "node .github/scripts/__tests__/create-agent-spec.test.js",

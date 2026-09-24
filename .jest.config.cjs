@@ -78,5 +78,11 @@ module.exports = {
         '<rootDir>/.github/scripts/__tests__/generate-agent-index.test.js',
         '<rootDir>/.github/scripts/__tests__/validate-agent-specs.test.js',
         '<rootDir>/.github/scripts/__tests__/workflow-integration.test.js',
+        // ESM-authored suites under agents/pr-agent use import.meta, which
+        // babel-jest cannot compile for jest's CJS require path. That
+        // package owns its own runner (agents/pr-agent/package.json test:
+        // node --experimental-vm-modules), wired into root `test:js`, so
+        // excluding it here is delegation, not a scope cut (#3552).
+        '<rootDir>/agents/pr-agent/',
     ],
 };
