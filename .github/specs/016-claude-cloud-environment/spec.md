@@ -19,6 +19,12 @@ Every Claude Code cloud session starts on a branch the platform generates (for e
 
 No environment setting can rename the platform's branch. The feature therefore has to correct the agent's behaviour inside the session and block non-compliant actions before they reach GitHub. It also has to give every team member one identical starting configuration.
 
+## Clarifications
+
+### Session 2026-09-24
+
+- Q: When a maintainer explicitly asks Claude to commit straight to `develop` or `main`, should the guard ever allow it? → A: Only for specification and documentation changes: a commit or push to a protected branch is allowed when every changed file is under `.github/specs/` or `docs/`. Code and configuration changes always need a feature branch and PR.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Agent never publishes a non-compliant branch (Priority: P1)
@@ -38,6 +44,8 @@ A team member starts a new cloud session on this repository and asks for a chang
 5. **Given** the agent is on `main` or `develop`, **When** it attempts to commit or push there, **Then** the action is refused.
 6. **Given** the agent opens a PR on a LightSpeed repository, **When** the head branch is non-compliant, or the base is `main` and the head is not a `release/*` or `hotfix/*` branch, **Then** PR creation is refused.
 7. **Given** a commit message or file content that merely mentions a forbidden branch name, **When** the agent commits, **Then** the commit is not refused on that basis.
+8. **Given** the agent is on `develop` or `main` and every changed file is under `.github/specs/` or `docs/`, **When** it commits and pushes, **Then** neither action is refused by the guard.
+9. **Given** the agent is on `develop` or `main` and at least one changed file is outside `.github/specs/` and `docs/`, **When** it commits or pushes, **Then** the action is refused and the refusal names the files that need a feature branch.
 
 ---
 
@@ -84,7 +92,9 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Deleting a remote branch**: Pushing a deletion (for example, cleaning up a stale `claude/*` branch) must not be refused by the guard.
 - **Chained commands such as "rename then commit"**: These are judged against the branch in effect after the rename.
 - **Repositories outside the LightSpeed organisation**: Their GitHub actions are not policed.
-- **Bot-owned branches (dependabot, renovate) and protected branches**: They follow the existing validator's exemptions for naming. Protected branches are still refused for direct commits or pushes.
+- **Bot-owned branches (dependabot, renovate) and protected branches**: They follow the existing validator's exemptions for naming. Protected branches are still refused for direct commits or pushes, except for changes covered by the documentation exception.
+- **Documentation exception on a protected branch where GitHub branch protection requires PRs**: The guard allows the commit, but GitHub may still reject the push. The refusal from GitHub is reported to the user, who can merge through a PR instead.
+- **Mixed commit (documentation plus code) on a protected branch**: The whole commit is refused. It is not split automatically.
 - **Malformed input to the guard**: The session must never break. Allow and move on.
 
 ## Requirements *(mandatory)*
@@ -109,10 +119,10 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-005**: Before a commit is recorded, the action MUST be refused when the effective branch is:
   - non-compliant
   - the session placeholder
-  - protected (`main` or the configured base branch)
-- **FR-006**: Before a push, the action MUST be refused when the target branch is non-compliant, the placeholder, or protected. Pushes that delete a remote branch or push only tags MUST be allowed.
+  - protected (`main` or the configured base branch), unless every file in the commit is under `.github/specs/` or `docs/` (the documentation exception)
+- **FR-006**: Before a push, the action MUST be refused when the target branch is non-compliant or the placeholder. A push to a protected branch MUST be refused unless every file changed by the pushed commits is covered by the documentation exception. Pushes that delete a remote branch or push only tags MUST be allowed.
 - **FR-007**: Creating or renaming a branch to a non-compliant or placeholder name MUST be refused, whether it is done locally or through the GitHub integration.
-- **FR-008**: Writing files to a non-compliant, placeholder or protected branch through the GitHub integration MUST be refused.
+- **FR-008**: Writing files to a non-compliant or placeholder branch through the GitHub integration MUST be refused. Writing to a protected branch this way MUST be refused unless every written file is covered by the documentation exception.
 - **FR-009**: Opening a PR on a LightSpeed repository MUST be refused when the head branch is non-compliant. On this repository, it MUST also be refused when the base is `main` and the head is not a `release/*` or `hotfix/*` branch.
 - **FR-010**: Branch-name compliance MUST be decided by the same validation rules the repository's CI uses, so that the guard and CI can never disagree.
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
@@ -146,7 +156,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 
 - **Shared cloud environment**: The organisation-level configuration every session starts from. It has a name, network access level, environment variables and a provisioning script. It is owned and edited by Owners, and its canonical copy is versioned in the repository.
 - **Session placeholder branch**: A temporary, deliberately non-final local branch name that replaces the platform-generated branch. It must be renamed before any commit.
-- **Branching rules**: The pattern, authorised types, forbidden prefixes, protected branches and PR base rule. They are defined once by the existing validator and the branching strategy document.
+- **Branching rules**: The pattern, authorised types, forbidden prefixes, protected branches, the documentation exception and the PR base rule. Naming rules are defined once by the existing validator and the branching strategy document.
 - **Enforcement switch**: An environment-level setting that toggles between blocking and warning.
 
 ## Success Criteria *(mandatory)*
