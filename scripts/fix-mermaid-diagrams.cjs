@@ -356,9 +356,13 @@ const markdown = new MarkdownIt();
  * another code block, is not a diagram (#3490, #3492).
  *
  * `line` is the 1-based line of the opening fence; `source` is the raw
- * text between the fences; `open`/`close` are 0-based line indexes of the
- * fence lines (`close` is -1 when the fence is never closed).
- * @returns {{line: number, source: string, open: number, close: number}[]}
+ * text between the fences (used for rewrites); `content` is the diagram as
+ * the parser sees it, with container prefixes such as `> ` removed (used
+ * for validation); `open`/`close` are 0-based line indexes of the fence
+ * lines (`close` is -1 when the fence is never closed); `nested` is true
+ * inside a container with markers (a blockquote), whose raw lines must not
+ * be rewritten. Empty blocks are included so the gate can reject them.
+ * @returns {{line: number, source: string, content: string, open: number, close: number, nested: boolean}[]}
  */
 function findMermaidBlocks(content) {
   const lines = content.split("\n");
@@ -367,18 +371,41 @@ function findMermaidBlocks(content) {
     if (token.type !== "fence" || !token.map) continue;
     if (token.info.trim().split(/\s+/)[0] !== "mermaid") continue;
     const [open, end] = token.map;
+    const prefix = lines[open].slice(0, lines[open].indexOf(token.markup));
     const last = end - 1;
     const closed =
-      last > open &&
-      new RegExp(`^\\s*${token.markup[0]}{${token.markup.length},}\\s*$`).test(
-        lines[last] ?? "",
-      );
+      last > open && isClosingFence(lines[last], prefix, token.markup);
     const close = closed ? last : -1;
     const source = lines.slice(open + 1, closed ? last : end).join("\n");
-    if (!source.trim()) continue;
-    blocks.push({ line: open + 1, source, open, close });
+    blocks.push({
+      line: open + 1,
+      source,
+      content: token.content.replace(/\n$/, ""),
+      open,
+      close,
+      nested: /\S/.test(prefix),
+    });
   }
   return blocks;
+}
+
+/**
+ * Whether `line` closes a fence opened with `markup` after `prefix`, judged
+ * in the opening fence's container: the same blockquote markers are
+ * stripped, or list indentation up to the opening fence's own; the marker
+ * may then be indented at most three spaces (CommonMark). A four-space
+ * indented lookalike is diagram content, not a closing fence.
+ */
+function isClosingFence(line, prefix, markup) {
+  let rest = line ?? "";
+  if (/\S/.test(prefix)) {
+    const markers = (prefix.match(/>/g) || []).length;
+    for (let i = 0; i < markers; i += 1) rest = rest.replace(/^ {0,3}> ?/, "");
+  } else {
+    rest = rest.replace(new RegExp(`^ {0,${prefix.length}}`), "");
+  }
+  const char = markup[0] === "~" ? "~" : "`";
+  return new RegExp(`^ {0,3}${char}{${markup.length},}[ \\t]*$`).test(rest);
 }
 
 /**
@@ -391,6 +418,8 @@ function fixMarkdown(content) {
   // Replace from the bottom up so earlier line indexes stay valid.
   for (const block of findMermaidBlocks(content).reverse()) {
     if (block.close === -1) continue; // unclosed fence: report, never rewrite
+    // Raw lines inside a blockquote carry `> ` prefixes: report, never rewrite.
+    if (block.nested) continue;
     const fixed = fixDiagram(block.source);
     // Leave blocks untouched unless the fix changes their content, so
     // formatting-only differences cause no churn.

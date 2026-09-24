@@ -11,14 +11,15 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { globSync } from 'glob';
 
-// Shared with the fixer and the parser gate (#3492): CommonMark block
-// detection and the verified per-type accessibility support.
+// The rules live in a CommonJS module shared with the tests (#3492), so the
+// tests exercise these exact checks.
 const require = createRequire(import.meta.url);
 const {
-  diagramKind,
-  findMermaidBlocks,
-  findTypeLineIndex,
-} = require('../fix-mermaid-diagrams.cjs');
+  accessibilityKind,
+  extractMermaidBlocks,
+  getDiagramType,
+  validateAccessibility,
+} = require('./mermaid-accessibility-rules.cjs');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '../../');
@@ -42,130 +43,6 @@ const getMarkdownFiles = () =>
     ],
     dot: true,
   }).sort();
-
-function extractMermaidDiagrams(content) {
-  // CommonMark-aware: ignores ```mermaid in prose or inside other code blocks.
-  return findMermaidBlocks(content).map((block) => block.source.trim());
-}
-
-function getDiagramType(content) {
-  const types = [
-    'graph',
-    'flowchart',
-    'sequenceDiagram',
-    'stateDiagram',
-    'erDiagram',
-    'gantt',
-    'pie',
-    'mindmap',
-  ];
-  const lines = content.split('\n');
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    if (
-      trimmed === '' ||
-      trimmed.startsWith('%%') ||
-      trimmed === '---' ||
-      trimmed.startsWith('accTitle') ||
-      trimmed.startsWith('accDescr')
-    ) {
-      continue;
-    }
-
-    for (const type of types) {
-      if (new RegExp(`^${type}\\b`).test(trimmed)) {
-        return type;
-      }
-    }
-
-    if (/^stateDiagram-v2\b/.test(trimmed)) {
-      return 'stateDiagram';
-    }
-
-    const match = trimmed.match(/^(\w+)/);
-    return match ? match[1] : 'unknown';
-  }
-
-  return 'unknown';
-}
-
-function validateAccessibility(content) {
-  const issues = [];
-  const lines = content.split('\n');
-
-  // Check for YAML front-matter header (--- blocks) — NOT supported by GitHub's renderer.
-  // The first non-blank, non-comment line of a Mermaid block must be the diagram type,
-  // not a YAML front-matter delimiter.
-  const firstMeaningfulLine = lines.find((l) => l.trim() !== '' && !l.trim().startsWith('%%'));
-  if (firstMeaningfulLine && firstMeaningfulLine.trim() === '---') {
-    issues.push(
-      "YAML front-matter (---) syntax is not supported by GitHub's Mermaid renderer. " +
-        'Move accTitle and accDescr inline, after the diagram type declaration.'
-    );
-    // Return early — remaining checks are meaningless if the block uses the unsupported format
-    return issues;
-  }
-
-  // Reject accessibility attributes placed before the diagram type declaration.
-  // The diagram type (e.g. flowchart TD) must be the very first line; accTitle/accDescr
-  // that precede it are invisible to screen readers and indicate a mis-ordered block.
-  if (firstMeaningfulLine && /^\s*(accTitle|accDescr)\s*[:{\s]/.test(firstMeaningfulLine)) {
-    issues.push(
-      'accTitle/accDescr must appear after the diagram type declaration, not before it. ' +
-        'Move the diagram type (e.g. `flowchart TD`) to the first line.'
-    );
-    return issues;
-  }
-
-  // mindmap, sankey-beta and block-beta reject accTitle/accDescr (verified
-  // with a full mermaid 12 parse, #3492); adding them breaks the diagram.
-  // Those need a text alternative in the surrounding Markdown instead, and
-  // typeless snippets are not diagrams. Neither is checked here.
-  const typeIndex = findTypeLineIndex(lines);
-  if (typeIndex === -1 || diagramKind(lines[typeIndex]) !== 'acc') {
-    return issues;
-  }
-
-  // Check for accTitle as an inline statement after the diagram type line.
-  // Only the colon form is valid: `accTitle "text"` is a parse error.
-  const hasAccTitle = /^\s*accTitle\s*:/m.test(content);
-  if (!hasAccTitle) {
-    issues.push(
-      'Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)'
-    );
-  }
-
-  // Check for accDescr as an inline statement after the diagram type line.
-  // Supported forms: "accDescr: text" or block "accDescr { ... }"
-  const hasAccDescr = /^\s*accDescr\s*:/m.test(content) || /^\s*accDescr\s*\{/m.test(content);
-  if (!hasAccDescr) {
-    issues.push(
-      'Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)'
-    );
-  }
-
-  // Validate accDescr block format if present — ensure closing brace exists
-  let inAccDescrBlock = false;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-
-    if (/^accDescr\s*\{/.test(line)) {
-      inAccDescrBlock = true;
-    }
-
-    if (inAccDescrBlock && line === '}') {
-      inAccDescrBlock = false;
-    }
-  }
-
-  if (inAccDescrBlock) {
-    issues.push('Unclosed accDescr block — add a closing `}` on its own line');
-  }
-
-  return issues;
-}
 
 async function main() {
   const args = process.argv.slice(2);
@@ -215,7 +92,7 @@ async function main() {
     }
 
     const content = fs.readFileSync(filePath, 'utf-8');
-    const diagrams = extractMermaidDiagrams(content);
+    const diagrams = extractMermaidBlocks(content);
 
     if (diagrams.length === 0) {
       console.log(`✅ ${file}: No Mermaid diagrams`);
@@ -225,11 +102,14 @@ async function main() {
     console.log(`📄 ${file}: Checking ${diagrams.length} diagram(s)`);
 
     for (let i = 0; i < diagrams.length; i++) {
-      const diagramContent = diagrams[i];
+      const { diagram: diagramContent, textAlternative } = diagrams[i];
       const type = getDiagramType(diagramContent);
       report.totalDiagrams++;
 
-      const issues = validateAccessibility(diagramContent);
+      const issues = validateAccessibility(diagramContent, { textAlternative });
+      // Types that reject accTitle/accDescr are checked for a Markdown text
+      // alternative instead; the attribute columns do not apply.
+      const noAcc = accessibilityKind(diagramContent) === 'no-acc';
 
       const hasAccTitle =
         /accTitle\s*[:=]|accTitle\s*{/.test(diagramContent) ||
@@ -240,14 +120,16 @@ async function main() {
 
       if (issues.length === 0) {
         report.accessibleDiagrams++;
-        console.log(`   ✅ Diagram ${i + 1} [${type}]: Accessible (accTitle & accDescr present)`);
-        csvRows.push(`${file},${i + 1},${type},Yes,Yes,"—",✅ Accessible`);
+        console.log(
+          `   ✅ Diagram ${i + 1} [${type}]: Accessible (${noAcc ? 'text alternative above the diagram' : 'accTitle & accDescr present'})`
+        );
+        csvRows.push(`${file},${i + 1},${type},${noAcc ? 'N/A,N/A' : 'Yes,Yes'},"—",✅ Accessible`);
       } else {
         report.inaccessibleDiagrams++;
         const issueMsg = issues.join('; ');
         console.log(`   ⚠️  Diagram ${i + 1} [${type}]: ${issueMsg}`);
         csvRows.push(
-          `${file},${i + 1},${type},${hasAccTitle ? 'Yes' : 'No'},${hasAccDescr ? 'Yes' : 'No'},"${issueMsg}",⚠️ Non-Compliant`
+          `${file},${i + 1},${type},${noAcc ? 'N/A,N/A' : `${hasAccTitle ? 'Yes' : 'No'},${hasAccDescr ? 'Yes' : 'No'}`},"${issueMsg}",⚠️ Non-Compliant`
         );
         report.issues.push({
           file,

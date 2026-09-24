@@ -8,77 +8,11 @@ const path = require('path');
 
 const FIXTURE_DIR = path.join(__dirname, '../../..', 'tests/fixtures/mermaid-accessibility');
 
-// Import or define the validation functions
-function extractMermaidDiagrams(content) {
-  const diagrams = [];
-  const regex = /```mermaid\r?\n([\s\S]*?)```/g;
-  let match;
-
-  while ((match = regex.exec(content)) !== null) {
-    const diagramContent = match[1].trim();
-    diagrams.push(diagramContent);
-  }
-
-  return diagrams;
-}
-
-function validateAccessibility(content) {
-  const issues = [];
-  const lines = content.split('\n');
-
-  const firstMeaningfulLine = lines.find((l) => l.trim() !== '' && !l.trim().startsWith('%%'));
-  if (firstMeaningfulLine && firstMeaningfulLine.trim() === '---') {
-    issues.push(
-      "YAML front-matter (---) syntax is not supported by GitHub's Mermaid renderer. " +
-        'Move accTitle and accDescr inline, after the diagram type declaration.'
-    );
-    return issues;
-  }
-
-  if (firstMeaningfulLine && /^\s*(accTitle|accDescr)\s*[:{\s]/.test(firstMeaningfulLine)) {
-    issues.push(
-      'accTitle/accDescr must appear after the diagram type declaration, not before it. ' +
-        'Move the diagram type (e.g. `flowchart TD`) to the first line.'
-    );
-    return issues;
-  }
-
-  const hasAccTitle = /^\s*accTitle\s*:/m.test(content) || /^\s*accTitle\s+\S/m.test(content);
-  if (!hasAccTitle) {
-    issues.push(
-      'Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)'
-    );
-  }
-
-  const hasAccDescr =
-    /^\s*accDescr\s*:/m.test(content) ||
-    /^\s*accDescr\s*\{/m.test(content) ||
-    /^\s*accDescr\s+\S/m.test(content);
-  if (!hasAccDescr) {
-    issues.push(
-      'Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)'
-    );
-  }
-
-  let inAccDescrBlock = false;
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-
-    if (/^accDescr\s*\{/.test(line)) {
-      inAccDescrBlock = true;
-    }
-
-    if (inAccDescrBlock && line === '}') {
-      inAccDescrBlock = false;
-    }
-  }
-
-  if (inAccDescrBlock) {
-    issues.push('Unclosed accDescr block — add a closing `}` on its own line');
-  }
-
-  return issues;
-}
+// The real rules the CLI uses (#3492), not a copy.
+const {
+  extractMermaidDiagrams,
+  validateAccessibility,
+} = require('../mermaid-accessibility-rules.cjs');
 
 describe('validate-mermaid-accessibility', () => {
   describe('extractMermaidDiagrams', () => {
@@ -128,13 +62,13 @@ flowchart LR
       expect(issues.filter((i) => i.includes('accTitle'))).toHaveLength(0);
     });
 
-    it('should pass with accTitle space format', () => {
+    it('should reject the accTitle space format (a Mermaid parse error)', () => {
       const diagram = `flowchart LR
     accTitle My Flow
     A --> B`;
       const issues = validateAccessibility(diagram);
 
-      expect(issues.filter((i) => i.includes('accTitle'))).toHaveLength(0);
+      expect(issues).toContainEqual(expect.stringContaining('Missing accTitle'));
     });
 
     it('should fail with missing accTitle', () => {
@@ -180,14 +114,14 @@ graph TD
       expect(issues.filter((i) => i.includes('accDescr'))).toHaveLength(0);
     });
 
-    it('should pass with accDescr space format', () => {
+    it('should reject the accDescr space format', () => {
       const diagram = `flowchart LR
     accTitle: Title
     accDescr Detailed description text
     A --> B`;
       const issues = validateAccessibility(diagram);
 
-      expect(issues.filter((i) => i.includes('accDescr'))).toHaveLength(0);
+      expect(issues).toContainEqual(expect.stringContaining('Missing accDescr'));
     });
 
     it('should fail with missing accDescr', () => {
@@ -217,6 +151,30 @@ graph TD
       const issues = validateAccessibility(diagram);
 
       expect(issues.some((i) => i.includes('Unclosed accDescr block'))).toBe(true);
+    });
+  });
+
+  describe('validateAccessibility - types that reject accTitle/accDescr', () => {
+    it.each(['mindmap\n  root((R))', 'sankey-beta\n  A,B,1', 'block-beta\n  columns 1\n  a'])(
+      'requires a Markdown text alternative for %s',
+      (diagram) => {
+        expect(validateAccessibility(diagram)).toContainEqual(
+          expect.stringContaining('Missing text alternative')
+        );
+        expect(
+          validateAccessibility(diagram, { textAlternative: 'The priority matrix, P1 to P3.' })
+        ).toEqual([]);
+      }
+    );
+
+    it('finds the text alternative directly above the fence', () => {
+      const { extractMermaidBlocks } = require('../mermaid-accessibility-rules.cjs');
+      const [withText, afterHeading] = extractMermaidBlocks(
+        'Three priorities, P1 to P3.\n\n```mermaid\nblock-beta\n  a\n```\n\n## Next\n\n```mermaid\nmindmap\n  root((R))\n```\n'
+      );
+
+      expect(withText.textAlternative).toBe('Three priorities, P1 to P3.');
+      expect(afterHeading.textAlternative).toBeNull();
     });
   });
 

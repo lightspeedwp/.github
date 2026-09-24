@@ -138,8 +138,42 @@ describe('fixMarkdown', () => {
 
     expect(fixMarkdown(doc)).toEqual({ content: doc, modified: false });
     expect(findMermaidBlocks(doc)).toEqual([
-      { line: 3, source: '   flowchart TD\n     A --> B', open: 2, close: -1 },
+      {
+        line: 3,
+        source: '   flowchart TD\n     A --> B',
+        content: 'flowchart TD\n  A --> B',
+        open: 2,
+        close: -1,
+        nested: false,
+      },
     ]);
+  });
+
+  test('closes a blockquote fence in its container and never rewrites it', () => {
+    const doc = '> ```mermaid\n> flowchart TD\n>   A --> B\n> ```\n';
+
+    expect(findMermaidBlocks(doc)).toEqual([
+      {
+        line: 1,
+        source: '> flowchart TD\n>   A --> B',
+        content: 'flowchart TD\n  A --> B',
+        open: 0,
+        close: 3,
+        nested: true,
+      },
+    ]);
+    expect(fixMarkdown(doc)).toEqual({ content: doc, modified: false });
+  });
+
+  test('does not close a fence on a four-space indented ```', () => {
+    const [block] = findMermaidBlocks('```mermaid\nflowchart TD\n    ```\n');
+
+    expect(block.close).toBe(-1);
+  });
+
+  test('keeps empty blocks so the gate can reject them', () => {
+    expect(findMermaidBlocks('```mermaid\n```\n')).toHaveLength(1);
+    expect(findMermaidBlocks('Text\n\n```mermaid\n')).toHaveLength(1);
   });
 
   test('ignores ```mermaid quoted inside another code block', () => {

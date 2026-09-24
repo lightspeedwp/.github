@@ -82,7 +82,12 @@ export async function parseFile(file, content) {
       });
       continue;
     }
-    const message = await parseDiagram(block.source);
+    if (!block.content.trim()) {
+      failures.push({ file, line: block.line, message: 'Empty ```mermaid block' });
+      continue;
+    }
+    // Parser-normalised content: blockquote `> ` prefixes are not diagram text.
+    const message = await parseDiagram(block.content);
     if (message) failures.push({ file, line: block.line, message });
   }
   return failures;
@@ -129,7 +134,12 @@ export async function main(args = process.argv.slice(2)) {
   const failures = [];
 
   for (const file of targets) {
-    if (!fs.existsSync(file)) continue; // deleted in the change set
+    // Explicit targets must exist: a misspelt path must not pass unchecked.
+    // The PR workflow lists only added and modified files (ACMR).
+    if (!fs.existsSync(file)) {
+      failures.push({ file, line: 0, message: 'File not found' });
+      continue;
+    }
     const content = fs.readFileSync(file, 'utf8');
     diagrams += findMermaidBlocks(content).length;
     failures.push(...(await parseFile(file, content)));

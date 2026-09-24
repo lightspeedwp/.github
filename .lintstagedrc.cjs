@@ -28,7 +28,11 @@ function isExcluded(filename) {
     .relative(process.cwd(), path.resolve(filename))
     .split(path.sep)
     .join("/");
-  return EXCLUDED_PATTERNS.some((pattern) => pattern.test(relative));
+  // A leading slash lets `/tests/...`-style patterns match root-level paths
+  // too (`tests/markdown-issues.md`), not only nested ones.
+  return EXCLUDED_PATTERNS.some(
+    (pattern) => pattern.test(relative) || pattern.test(`/${relative}`),
+  );
 }
 
 function quoteAll(filenames) {

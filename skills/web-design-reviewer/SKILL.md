@@ -160,6 +160,8 @@ Test at the following viewports:
 
 ### 3.1 Issue Prioritization
 
+Issues fall into three priorities: P1, fix immediately (layout issues affecting functionality); P2, fix next (visual issues degrading UX); P3, fix if possible (minor visual inconsistencies).
+
 ```mermaid
 block-beta
     columns 1

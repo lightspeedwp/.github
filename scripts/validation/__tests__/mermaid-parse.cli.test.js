@@ -88,6 +88,44 @@ describe('mermaid-parse CLI', () => {
     }
   });
 
+  test('parses a diagram inside a blockquote without its > prefixes', () => {
+    const { status, stdout } = runOn({
+      'quote.md': '> ```mermaid\n> flowchart TD\n>   A --> B\n> ```\n',
+    });
+
+    expect(status).toBe(0);
+    expect(stdout).toContain('1 diagram(s), 0 failure(s)');
+  });
+
+  test('treats a four-space indented ``` as content, not a closing fence', () => {
+    const { status, stderr } = runOn({
+      'indent.md': '```mermaid\nflowchart TD\n    ```\n',
+    });
+
+    expect(status).toBe(1);
+    expect(stderr).toContain('Unclosed ```mermaid fence');
+  });
+
+  test.each([
+    ['a closed empty block', '```mermaid\n```\n', 'Empty ```mermaid block'],
+    ['an opening fence at end of file', 'Text\n\n```mermaid\n', 'Unclosed ```mermaid fence'],
+  ])('fails on %s', (_name, content, message) => {
+    const { status, stderr } = runOn({ 'empty.md': content });
+
+    expect(status).toBe(1);
+    expect(stderr).toContain(message);
+  });
+
+  test('fails when an explicit target does not exist', () => {
+    const result = spawnSync(process.execPath, [script, 'no-such-file.md'], {
+      encoding: 'utf8',
+      cwd: path.join(__dirname, '..', '..', '..'),
+    });
+
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('no-such-file.md:0: File not found');
+  });
+
   test('ignores ```mermaid quoted inside another code block', () => {
     const { status, stdout } = runOn({
       'quoted.md': '````markdown\n```mermaid\nnot a diagram\n```\n````\n',
