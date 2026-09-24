@@ -12,10 +12,10 @@
  */
 // TODO: Align this helper with the latest automation spec updates.
 
-import fs from "fs";
-import { load } from "js-yaml";
-import core from "@actions/core";
-import { minimatch } from "minimatch";
+import fs from 'fs';
+import { load } from 'js-yaml';
+import core from '@actions/core';
+import { minimatch } from 'minimatch';
 
 /**
  * Loads labeler rules from YAML configuration file
@@ -23,27 +23,23 @@ import { minimatch } from "minimatch";
  * @returns {Object} Labeler rules object
  * @throws {Error} If file cannot be read or parsed
  */
-function fetchLabelerRules(labelerPath = ".github/labeler.yml") {
+function fetchLabelerRules(labelerPath = '.github/labeler.yml') {
   try {
     if (!fs.existsSync(labelerPath)) {
-      core.warning(
-        `[labeler-utils] Labeler config not found at: ${labelerPath}`,
-      );
+      core.warning(`[labeler-utils] Labeler config not found at: ${labelerPath}`);
       return {};
     }
 
-    const yml = fs.readFileSync(labelerPath, "utf8");
+    const yml = fs.readFileSync(labelerPath, 'utf8');
     const rules = load(yml);
 
-    if (!rules || typeof rules !== "object") {
-      core.warning(
-        `[labeler-utils] Invalid labeler config format at: ${labelerPath}`,
-      );
+    if (!rules || typeof rules !== 'object') {
+      core.warning(`[labeler-utils] Invalid labeler config format at: ${labelerPath}`);
       return {};
     }
 
     core.info(
-      `[labeler-utils] Loaded ${Object.keys(rules).length} labeler rules from ${labelerPath}`,
+      `[labeler-utils] Loaded ${Object.keys(rules).length} labeler rules from ${labelerPath}`
     );
     return rules;
   } catch (error) {
@@ -65,14 +61,12 @@ function matchesBranchPattern(branchName, patterns) {
 
   return patterns.some((pattern) => {
     // Support regex patterns (starting with ^)
-    if (pattern.startsWith("^")) {
+    if (pattern.startsWith('^')) {
       try {
         const regex = new RegExp(pattern);
         return regex.test(branchName);
       } catch (error) {
-        core.warning(
-          `[labeler-utils] Invalid regex pattern: ${pattern} - ${error.message}`,
-        );
+        core.warning(`[labeler-utils] Invalid regex pattern: ${pattern} - ${error.message}`);
         return false;
       }
     }
@@ -94,41 +88,39 @@ function matchesFilePatterns(changedFiles, filePatterns) {
   }
 
   // Handle 'any-glob-to-any-file' pattern (OR logic)
-  if (filePatterns["any-glob-to-any-file"]) {
-    const patterns = filePatterns["any-glob-to-any-file"];
-    return patterns.some((pattern) =>
-      changedFiles.some((file) => minimatch(file, pattern)),
-    );
+  if (filePatterns['any-glob-to-any-file']) {
+    const patterns = filePatterns['any-glob-to-any-file'];
+    return patterns.some((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
   }
 
   // Handle 'all-globs-to-all-files' pattern (AND logic)
-  if (filePatterns["all-globs-to-all-files"]) {
-    const patterns = filePatterns["all-globs-to-all-files"];
-    return patterns.every((pattern) =>
-      changedFiles.some((file) => minimatch(file, pattern)),
-    );
+  if (filePatterns['all-globs-to-all-files']) {
+    const patterns = filePatterns['all-globs-to-all-files'];
+    return patterns.every((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
   }
 
   // Handle 'any-glob-to-all-files' pattern
-  if (filePatterns["any-glob-to-all-files"]) {
-    const patterns = filePatterns["any-glob-to-all-files"];
-    return patterns.some((pattern) =>
-      changedFiles.every((file) => minimatch(file, pattern)),
-    );
+  if (filePatterns['any-glob-to-all-files']) {
+    const patterns = filePatterns['any-glob-to-all-files'];
+    return patterns.some((pattern) => changedFiles.every((file) => minimatch(file, pattern)));
   }
 
   // Handle simple array of patterns (default to any-glob-to-any-file)
   if (Array.isArray(filePatterns)) {
-    return filePatterns.some((pattern) =>
-      changedFiles.some((file) => minimatch(file, pattern)),
-    );
+    return filePatterns.some((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
   }
 
   return false;
 }
 
 /**
- * Determines which labels should be applied based on labeler rules
+ * Determines which labels should be applied based on labeler rules.
+ * Mirrors actions/labeler matching semantics for the supported v5+ form:
+ * each label maps to an array of rule objects; every rule object must
+ * match (AND across objects), where a single object matches when any of
+ * its matchers (head-branch globs/regexes, changed-files patterns) match
+ * (OR within an object).
+ *
  * @param {Object} context - GitHub context object
  * @param {Object} labelerRules - Labeler rules from YAML
  * @param {string[]} changedFiles - Array of changed file paths (for PRs)
@@ -139,41 +131,62 @@ function determineLabelsFromRules(context, labelerRules, changedFiles = []) {
   const isPR = !!context.payload.pull_request;
   const branchName = isPR
     ? context.payload.pull_request.head.ref
-    : context.ref?.replace("refs/heads/", "");
+    : context.ref?.replace('refs/heads/', '');
 
   for (const [label, rules] of Object.entries(labelerRules)) {
-    let shouldApply = false;
-
-    // Check branch patterns
-    if (rules["head-branch"] && branchName) {
-      const patterns = Array.isArray(rules["head-branch"])
-        ? rules["head-branch"]
-        : [rules["head-branch"]];
-
-      if (matchesBranchPattern(branchName, patterns)) {
-        shouldApply = true;
-        core.info(
-          `[labeler-utils] Label '${label}' matched branch pattern for: ${branchName}`,
-        );
-      }
+    // v5+ form: array of rule objects. Legacy single-object form is
+    // accepted for compatibility.
+    const ruleList = Array.isArray(rules) ? rules : [rules];
+    if (ruleList.length === 0 || ruleList.some((rule) => !rule || typeof rule !== 'object')) {
+      continue;
     }
 
-    // Check file patterns (only for PRs with changed files)
-    if (rules["changed-files"] && changedFiles.length > 0) {
-      if (matchesFilePatterns(changedFiles, rules["changed-files"])) {
-        shouldApply = true;
-        core.info(
-          `[labeler-utils] Label '${label}' matched file patterns for ${changedFiles.length} changed files`,
-        );
-      }
-    }
+    const matchesAll = ruleList.every((rule) => matchesRuleObject(rule, branchName, changedFiles));
 
-    if (shouldApply) {
+    if (matchesAll) {
       labelsToApply.add(label);
     }
   }
 
   return Array.from(labelsToApply);
+}
+
+/**
+ * Evaluates one labeler rule object: matches when any present matcher
+ * matches (head-branch regex/glob, or changed-files patterns).
+ *
+ * @param {Object} rule - Single rule object from a label's rule array
+ * @param {string} branchName - Head branch name (may be empty)
+ * @param {string[]} changedFiles - Changed file paths (may be empty)
+ * @returns {boolean} True if the rule object matches
+ */
+function matchesRuleObject(rule, branchName, changedFiles = []) {
+  let matched = false;
+  let hasMatcher = false;
+
+  if (rule['head-branch'] && branchName) {
+    hasMatcher = true;
+    const patterns = Array.isArray(rule['head-branch'])
+      ? rule['head-branch']
+      : [rule['head-branch']];
+
+    if (matchesBranchPattern(branchName, patterns)) {
+      core.info(`[labeler-utils] Rule matched branch pattern for: ${branchName}`);
+      matched = true;
+    }
+  }
+
+  if (rule['changed-files'] && changedFiles.length > 0) {
+    hasMatcher = true;
+    if (matchesFilePatterns(changedFiles, rule['changed-files'])) {
+      core.info(
+        `[labeler-utils] Rule matched file patterns for ${changedFiles.length} changed files`
+      );
+      matched = true;
+    }
+  }
+
+  return hasMatcher && matched;
 }
 
 /**
@@ -205,9 +218,7 @@ async function fetchPRChangedFiles(github, owner, repo, prNumber) {
       page++;
     }
 
-    core.info(
-      `[labeler-utils] Fetched ${allFiles.length} changed files for PR #${prNumber}`,
-    );
+    core.info(`[labeler-utils] Fetched ${allFiles.length} changed files for PR #${prNumber}`);
     return allFiles;
   } catch (error) {
     core.error(`[labeler-utils] Error fetching PR files: ${error.message}`);
@@ -224,6 +235,9 @@ async function fetchPRChangedFiles(github, owner, repo, prNumber) {
  * @param {string[]} params.currentLabels - Current labels on the item
  * @param {boolean} params.dryRun - If true, only log actions without applying
  * @param {number} [params.maxRetries=3] - Maximum retry attempts for API calls
+ * @param {string[]} [params.skipFamilies=[]] - Label family prefixes (with
+ *   colon) the caller owns elsewhere and must not write, e.g. ["type:"]
+ *   on PRs where the router owns types (#3545)
  * @returns {Promise<string[]>} Array of labels that were applied
  */
 async function applyLabelerRules({
@@ -233,17 +247,16 @@ async function applyLabelerRules({
   currentLabels = [],
   dryRun = false,
   maxRetries = 3,
+  skipFamilies = [],
 }) {
   const appliedLabels = [];
   const isPR = !!context.payload.pull_request;
   const owner = context.repo.owner;
   const repo = context.repo.repo;
-  const number = isPR
-    ? context.payload.pull_request.number
-    : context.payload.issue?.number;
+  const number = isPR ? context.payload.pull_request.number : context.payload.issue?.number;
 
   if (!number) {
-    core.warning("[labeler-utils] No issue or PR number found in context");
+    core.warning('[labeler-utils] No issue or PR number found in context');
     return appliedLabels;
   }
 
@@ -251,31 +264,35 @@ async function applyLabelerRules({
   let changedFiles = [];
   if (isPR) {
     changedFiles = await fetchPRChangedFiles(github, owner, repo, number);
-    core.info(
-      `[labeler-utils] Found ${changedFiles.length} changed files in PR #${number}`,
-    );
+    core.info(`[labeler-utils] Found ${changedFiles.length} changed files in PR #${number}`);
   }
 
   // Determine which labels to apply
-  const labelsToApply = determineLabelsFromRules(
-    context,
-    labelerRules,
-    changedFiles,
-  );
+  let labelsToApply = determineLabelsFromRules(context, labelerRules, changedFiles);
+
+  // The caller may own some families elsewhere (e.g. PR types belong to
+  // the router); never write those, so two writers cannot fight (#3545).
+  if (skipFamilies.length > 0) {
+    const skipped = labelsToApply.filter((label) =>
+      skipFamilies.some((prefix) => label.startsWith(prefix))
+    );
+    if (skipped.length > 0) {
+      core.info(`[labeler-utils] Skipping caller-owned families: ${skipped.join(', ')}`);
+    }
+    labelsToApply = labelsToApply.filter(
+      (label) => !skipFamilies.some((prefix) => label.startsWith(prefix))
+    );
+  }
 
   // Filter out labels that are already applied
-  const newLabels = labelsToApply.filter(
-    (label) => !currentLabels.includes(label),
-  );
+  const newLabels = labelsToApply.filter((label) => !currentLabels.includes(label));
 
   if (newLabels.length === 0) {
-    core.info("[labeler-utils] No new labels to apply based on labeler rules");
+    core.info('[labeler-utils] No new labels to apply based on labeler rules');
     return appliedLabels;
   }
 
-  core.info(
-    `[labeler-utils] Applying ${newLabels.length} labels: ${newLabels.join(", ")}`,
-  );
+  core.info(`[labeler-utils] Applying ${newLabels.length} labels: ${newLabels.join(', ')}`);
 
   // Apply labels with retry logic and exponential backoff
   if (!dryRun) {
@@ -299,13 +316,13 @@ async function applyLabelerRules({
           attempts++;
           if (attempts >= maxRetries) {
             core.error(
-              `[labeler-utils] Failed to apply label ${label} after ${maxRetries} attempts: ${error.message}`,
+              `[labeler-utils] Failed to apply label ${label} after ${maxRetries} attempts: ${error.message}`
             );
           } else {
             // Exponential backoff: 2^attempts * 1000ms
             const delay = Math.pow(2, attempts) * 1000;
             core.warning(
-              `[labeler-utils] Retry ${attempts}/${maxRetries} for label ${label} after ${delay}ms`,
+              `[labeler-utils] Retry ${attempts}/${maxRetries} for label ${label} after ${delay}ms`
             );
             await new Promise((resolve) => setTimeout(resolve, delay));
           }
@@ -313,9 +330,7 @@ async function applyLabelerRules({
       }
     }
   } else {
-    core.info(
-      `[labeler-utils] [DRY RUN] Would apply labels: ${newLabels.join(", ")}`,
-    );
+    core.info(`[labeler-utils] [DRY RUN] Would apply labels: ${newLabels.join(', ')}`);
     appliedLabels.push(...newLabels);
   }
 
@@ -326,6 +341,7 @@ export {
   fetchLabelerRules,
   matchesBranchPattern,
   matchesFilePatterns,
+  matchesRuleObject,
   determineLabelsFromRules,
   fetchPRChangedFiles,
   applyLabelerRules,

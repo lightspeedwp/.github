@@ -86,14 +86,29 @@ function assertLabelerConfig(labeler) {
   }
 
   for (const [label, rules] of Object.entries(labeler)) {
-    // actions/labeler v5+ schema: label -> array of match objects.
-    // (Legacy v4 single-object form is also accepted.)
-    const ruleList = Array.isArray(rules) ? rules : [rules];
-    if (ruleList.length === 0 || ruleList.some((r) => !r || typeof r !== "object" || Array.isArray(r))) {
+    // actions/labeler v5+ schema: label -> array of match objects. The
+    // pinned v7 rejects anything else outright ("should be array of config
+    // options"), so this validator does too. In particular the legacy
+    // mapping form ({changed-files: {...}} directly under the label) is
+    // rejected here (#3545).
+    if (!Array.isArray(rules) || rules.length === 0) {
+      fail(
+        `Rule for '${label}' must be a non-empty array of match objects (v5+ list form with 'changed-files' / 'head-branch' entries)`,
+      );
+    }
+    const ruleList = rules;
+    if (ruleList.some((r) => !r || typeof r !== "object" || Array.isArray(r))) {
       fail(`Rule for '${label}' must be an object or an array of objects`);
     }
 
     for (const rule of ruleList) {
+      for (const key of Object.keys(rule)) {
+        if (!ALLOWED_RULE_KEYS.includes(key)) {
+          fail(
+            `Rule for '${label}' uses unknown match key '${key}' (allowed: ${ALLOWED_RULE_KEYS.join(", ")})`,
+          );
+        }
+      }
       const hasHeadBranch = Object.prototype.hasOwnProperty.call(
         rule,
         "head-branch",
@@ -108,7 +123,70 @@ function assertLabelerConfig(labeler) {
           `Rule for '${label}' must include at least one of 'head-branch' or 'changed-files'`,
         );
       }
+      if (hasHeadBranch) assertHeadBranchShape(label, rule);
+      if (hasChangedFiles) assertChangedFilesShape(label, rule);
+      for (const group of ["all", "any"]) {
+        if (Object.prototype.hasOwnProperty.call(rule, group)) {
+          const members = rule[group];
+          if (!Array.isArray(members) || members.length === 0) {
+            fail(`Rule for '${label}' group '${group}' must be a non-empty array`);
+          }
+        }
+      }
     }
+  }
+}
+
+// Match keys accepted by the pinned actions/labeler inside one rule object.
+const ALLOWED_RULE_KEYS = ["changed-files", "head-branch", "all", "any"];
+const ALLOWED_CHANGED_FILES_KEYS = [
+  "any-glob-to-any-file",
+  "any-glob-to-all-files",
+  "all-globs-to-any-file",
+  "all-globs-to-all-files",
+];
+
+function assertChangedFilesShape(label, rule) {
+  const value = rule["changed-files"];
+  // In the v5+ list form each rule object's 'changed-files' is a matcher
+  // map ({any-glob-to-any-file: [...]}), never a bare array or scalar.
+  // actions/labeler v7 drops anything else for the rule, so reject it
+  // here instead of letting CI silently ignore file rules (#3545).
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    fail(
+      `Rule for '${label}' must use the matcher-map form of 'changed-files' (e.g. any-glob-to-any-file: [...])`,
+    );
+  }
+  const entries = Object.entries(value);
+  if (entries.length === 0) {
+    fail(`Rule for '${label}' has an empty 'changed-files' matcher map`);
+  }
+  for (const [key, globs] of entries) {
+    if (!ALLOWED_CHANGED_FILES_KEYS.includes(key)) {
+      fail(
+        `Rule for '${label}' uses unknown changed-files matcher '${key}' (allowed: ${ALLOWED_CHANGED_FILES_KEYS.join(", ")})`,
+      );
+    }
+    if (
+      !Array.isArray(globs) ||
+      globs.length === 0 ||
+      globs.some((g) => typeof g !== "string" || g.length === 0)
+    ) {
+      fail(
+        `Rule for '${label}' matcher '${key}' must list at least one glob string`,
+      );
+    }
+  }
+}
+
+function assertHeadBranchShape(label, rule) {
+  const value = rule["head-branch"];
+  const list = Array.isArray(value) ? value : [value];
+  if (
+    list.length === 0 ||
+    list.some((p) => typeof p !== "string" || p.length === 0)
+  ) {
+    fail(`Rule for '${label}' must list at least one head-branch pattern`);
   }
 }
 
@@ -119,6 +197,23 @@ function assertLabelerParity(labeler, labelNames) {
   if (missingLabels.length > 0) {
     fail(
       `.github/labeler.yml emits labels not defined in .github/labels.yml (${missingLabels.length}): ${missingLabels.join(", ")}`,
+    );
+  }
+}
+
+function assertBranchLabelsParity(branchLabels, labelNames) {
+  const mapping = (branchLabels || {}).branch_labels || {};
+  const bad = [];
+  for (const [branchType, config] of Object.entries(mapping)) {
+    for (const label of (config && config.default_labels) || []) {
+      if (!labelNames.has(label)) {
+        bad.push(`${branchType} -> ${label}`);
+      }
+    }
+  }
+  if (bad.length > 0) {
+    fail(
+      `.github/branch-labels.yml default_labels not defined in .github/labels.yml (${bad.length}): ${bad.join(", ")}`,
     );
   }
 }
@@ -158,6 +253,7 @@ const root = process.cwd();
 const labels = loadYaml(path.join(root, ".github/labels.yml"));
 const issueTypes = loadYaml(path.join(root, ".github/issue-types.yml"));
 const labeler = loadYaml(path.join(root, ".github/labeler.yml"));
+const branchLabels = loadYaml(path.join(root, ".github/branch-labels.yml"));
 const governancePolicy = loadYaml(
   path.join(root, ".github/label-governance-policy.yml"),
 );
@@ -166,6 +262,7 @@ assertLabelConfig(labels);
 assertIssueTypeConfig(issueTypes);
 assertLabelerConfig(labeler);
 assertLabelerParity(labeler, collectLabelNames(labels));
+assertBranchLabelsParity(branchLabels, collectLabelNames(labels));
 assertGovernancePolicy(governancePolicy);
 
 console.log("[validate-labeling-configs] OK");

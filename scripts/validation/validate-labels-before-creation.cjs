@@ -14,6 +14,9 @@
  *     --labels "type:bug,status:needs-triage" \
  *     --canonical-file .github/labels.yml
  *
+ *   node validate-labels-before-creation.cjs --scan-templates
+ *     [--templates-dir .github/PULL_REQUEST_TEMPLATE]
+ *
  * Exit Codes:
  *   0 = validation passed
  *   1 = validation failed
@@ -37,7 +40,9 @@ function parseArgs() {
   const args = process.argv.slice(2);
   const opts = {
     labels: [],
-    canonical_file: '.github/labels.yml'
+    canonical_file: '.github/labels.yml',
+    scan_templates: false,
+    templates_dir: '.github/PULL_REQUEST_TEMPLATE'
   };
 
   for (let i = 0; i < args.length; i++) {
@@ -46,6 +51,11 @@ function parseArgs() {
       i++;
     } else if (args[i] === '--canonical-file' && i + 1 < args.length) {
       opts.canonical_file = args[i + 1];
+      i++;
+    } else if (args[i] === '--scan-templates') {
+      opts.scan_templates = true;
+    } else if (args[i] === '--templates-dir' && i + 1 < args.length) {
+      opts.templates_dir = args[i + 1];
       i++;
     }
   }
@@ -89,12 +99,13 @@ function loadCanonicalLabels(filePath) {
 // ============================================================================
 
 /**
- * Extract family prefix from label (part before colon)
+ * Extract family prefix from label (part before colon).
+ * Hyphenated families (ai-ops:) are supported.
  * @param {string} label - Label name (e.g., "type:bug")
  * @returns {string} Family name or null if no prefix
  */
 function getFamily(label) {
-  const match = label.match(/^([a-z]+):/);
+  const match = label.match(/^([a-z][a-z-]*):/);
   return match ? match[1] : null;
 }
 
@@ -157,7 +168,7 @@ function validateLabels(labels, canonicalLabels) {
     if (!hasRequired) {
       errors.push(
         `Missing required '${requiredFamily}:*' label for classification. ` +
-        `Examples: type:bug, type:feature, type:task, type:documentation`
+        `Examples: type:bug, type:feature, type:task, type:docs`
       );
     }
   }
@@ -219,6 +230,69 @@ function formatOutput(result) {
 }
 
 // ============================================================================
+// PR Template Scanning
+// ============================================================================
+
+/**
+ * Known template frontmatter violations grandfathered pending the
+ * [TEMPLATE-UPDATE-REQUEST] follow-up for LOCKED template files (#3545).
+ * Entries are "file:label" pairs: a NEW unknown label in any template
+ * fails, while these shrink to zero as templates are corrected.
+ */
+const GRANDFATHERED_TEMPLATE_LABELS = new Set([
+  'pr_aiops.md:type:ai-ops',
+  'pr_aiops.md:meta:needs-review',
+  'pr_chore.md:meta:needs-review',
+  'pr_ci.md:meta:needs-review',
+  'pr_docs.md:type:documentation',
+  'pr_task.md:meta:needs-review',
+  'pr_test.md:meta:needs-review',
+]);
+
+/**
+ * Extract the frontmatter `labels:` list from a PR template file.
+ * @param {string} filePath - Template path
+ * @returns {string[]} Label names (empty when no frontmatter list present)
+ */
+function templateFrontmatterLabels(filePath) {
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const match = content.match(/^labels:\s*\[(.*)\]/m);
+  if (!match) return [];
+  return match[1].split(',').map(l => l.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+}
+
+/**
+ * Validate every pr_*.md template's frontmatter labels against canonical.
+ * Unknown labels fail unless grandfathered (see above).
+ * @param {string} templatesDir - Template directory
+ * @param {Map} canonicalLabels - Map of valid labels
+ * @returns {object} { valid, errors, warnings }
+ */
+function validateTemplates(templatesDir, canonicalLabels) {
+  const errors = [];
+  const warnings = [];
+  const files = fs.readdirSync(templatesDir).filter(f => f.startsWith('pr_') && f.endsWith('.md'));
+
+  for (const file of files) {
+    for (const label of templateFrontmatterLabels(require('path').join(templatesDir, file))) {
+      if (canonicalLabels.has(label)) continue;
+      const key = `${file}:${label}`;
+      if (GRANDFATHERED_TEMPLATE_LABELS.has(key)) {
+        warnings.push(
+          `Grandfathered non-canonical label '${label}' in ${file} (pending template governance update).`
+        );
+      } else {
+        errors.push(
+          `Template ${file} uses non-canonical label '${label}' (not in .github/labels.yml).`
+        );
+      }
+    }
+  }
+
+  return { valid: errors.length === 0, errors, warnings };
+}
+
+// ============================================================================
 // Main
 // ============================================================================
 
@@ -228,6 +302,22 @@ function main() {
   try {
     // Load canonical labels
     const canonicalLabels = loadCanonicalLabels(opts.canonical_file);
+
+    if (opts.scan_templates) {
+      const result = validateTemplates(opts.templates_dir, canonicalLabels);
+      console.log(result.valid
+        ? '✅ Template label validation passed\n'
+        : '❌ Template label validation failed:\n');
+      for (const error of result.errors) console.log(`  ❌ ${error}`);
+      for (const warning of result.warnings) console.log(`  ⚠️  ${warning}`);
+      console.error(JSON.stringify({
+        valid: result.valid,
+        templates_checked: fs.readdirSync(opts.templates_dir).filter(f => f.startsWith('pr_') && f.endsWith('.md')).length,
+        errors: result.errors,
+        warnings: result.warnings
+      }, null, 2));
+      process.exit(result.valid ? 0 : 1);
+    }
 
     // Validate input labels
     const result = validateLabels(opts.labels, canonicalLabels);

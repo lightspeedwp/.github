@@ -13,13 +13,13 @@ on:
     types: [created, edited, answered]
   schedule:
     # Staggered off the 02:00/03:00/04:00 cluster cited in the archival manifest.
-    - cron: "17 5 * * *"
+    - cron: '17 5 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Run without writing labels"
+        description: 'Run without writing labels'
         required: false
-        default: "true"
+        default: 'true'
 
 permissions:
   contents: read
@@ -53,14 +53,22 @@ jobs:
           fetch-depth: 1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
       - run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
       - name: Validate labeling configs
         run: node scripts/validation/validate-labeling-configs.cjs
+      - name: Label governance contracts (#3545)
+        # Jest contract suite proving canonical emitters, branch-mapping
+        # parity, labeler schema, one-type reconciliation, idempotence and
+        # router/agent convergence. Blocking: this job gates every other
+        # job in the workflow.
+        run: npx jest --config .jest.config.cjs scripts/agents/__tests__/label-contracts.test.js --coverage=false --forceExit
       - name: Guardrail — unknown labels in templates
-        run: node scripts/validation/validate-labels-before-creation.cjs
-        continue-on-error: true
+        # Scans PR template frontmatter against .github/labels.yml. Known
+        # LOCKED-template violations are grandfathered with warnings (see
+        # the script); any new unknown label fails this job (#3545).
+        run: node scripts/validation/validate-labels-before-creation.cjs --scan-templates
 
   file-labels:
     name: File/branch labels (PRs)
@@ -101,7 +109,7 @@ jobs:
       - name: Apply status triage label via composite action (T020)
         uses: ./.github/actions/apply-labels
         with:
-          labels: "status:needs-triage"
+          labels: 'status:needs-triage'
           issue-number: ${{ github.event.issue.number }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Collect metrics (T021)
@@ -125,12 +133,12 @@ jobs:
           fetch-depth: 1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
       - run: npm ci --ignore-scripts
       - name: Audit report (read-only, dry-run safe)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DRY_RUN: "true"
+          DRY_RUN: 'true'
         run: node scripts/agents/run-labeling-agent.js
         continue-on-error: true
       - name: Collect metrics (T021)
@@ -159,8 +167,8 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
       - run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
       - name: Run labeling agent
         env:
