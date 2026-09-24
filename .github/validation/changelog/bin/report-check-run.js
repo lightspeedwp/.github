@@ -46,6 +46,12 @@ const argv = yargs(hideBin(process.argv))
   .alias('help', 'h')
   .parseSync();
 
+/**
+ * Read a validation report and create a check run for the requested commit.
+ * Print the created check run as JSON and exit with status 0, or print the
+ * failure and exit with status 1 if the report cannot be read or parsed, or
+ * the check run cannot be created.
+ */
 async function main() {
   try {
     const reportPath = argv['report-path'];

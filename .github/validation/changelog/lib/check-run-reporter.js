@@ -7,6 +7,12 @@ import * as github from '@actions/github';
 import * as core from '@actions/core';
 
 export class CheckRunReporter {
+  /**
+   * Configure the GitHub client and repository used for check run creation.
+   * @param {string} token - Token used to authenticate GitHub API requests.
+   * @param {string} owner - Repository owner.
+   * @param {string} repo - Repository name.
+   */
   constructor(token, owner, repo) {
     this.octokit = github.getOctokit(token);
     this.owner = owner;
@@ -14,10 +20,13 @@ export class CheckRunReporter {
   }
 
   /**
-   * Create or update a GitHub Check Run with validation results
-   * @param {Object} context - GitHub Actions context
-   * @param {Object} validationResult - Result from validation engine
-   * @returns {Promise<Object>} Check run response from GitHub API
+   * Create a completed changelog check run for the pull request head SHA, or
+   * context.sha when the pull request head SHA is unavailable. At most 50
+   * annotations are included in the request.
+   * @param {Object} context - GitHub Actions context with payload and SHA.
+   * @param {Object} validationResult - Report with summary and optional violations.
+   * @returns {Promise<Object>} GitHub API response for the created check run.
+   * @throws {Error} Propagates errors from the GitHub check creation request.
    */
   async reportCheckRun(context, validationResult) {
     const checkRunName = 'Changelog Validation';
@@ -54,9 +63,10 @@ export class CheckRunReporter {
   }
 
   /**
-   * Determine check conclusion from validation result
-   * @param {Object} validationResult - Validation engine result
-   * @returns {string} 'success', 'failure', or 'neutral'
+   * Choose failure for any failed entries, neutral for warnings or a missing
+   * result or summary, and success otherwise.
+   * @param {Object} validationResult - Report whose summary contains failed and warning counts.
+   * @returns {string} The check run conclusion.
    */
   determineConclusion(validationResult) {
     if (!validationResult || !validationResult.summary) {
@@ -77,9 +87,11 @@ export class CheckRunReporter {
   }
 
   /**
-   * Build check run output (title, summary, annotations)
-   * @param {Object} validationResult - Validation engine result
-   * @returns {Object} { title, summary, annotations }
+   * Format the check title and summary from passed, failed, and warning counts.
+   * Missing counts default to zero; annotations come from top-level violations
+   * and are not limited here.
+   * @param {Object} validationResult - Report with summary and optional violations.
+   * @returns {Object} Check output with title, summary, and annotations.
    */
   buildCheckOutput(validationResult) {
     const { summary = {}, violations = [] } = validationResult;
@@ -116,9 +128,11 @@ export class CheckRunReporter {
   }
 
   /**
-   * Build GitHub Check Run annotations from violations
-   * @param {Array} violations - Array of violation objects
-   * @returns {Array} GitHub annotation objects
+   * Annotate each violation at line 1 of CHANGELOG.md using its rule, entry,
+   * message, optional details, and severity. Missing fields use fallback text;
+   * non-array or empty input produces no annotations.
+   * @param {Array} violations - Violation objects to annotate.
+   * @returns {Array} GitHub annotation objects, without a count limit.
    */
   buildAnnotations(violations) {
     if (!Array.isArray(violations) || violations.length === 0) {
@@ -147,9 +161,10 @@ export class CheckRunReporter {
   }
 
   /**
-   * Convert validation severity to GitHub annotation level
-   * @param {string} severity - 'critical', 'high', 'medium', 'low'
-   * @returns {string} 'failure', 'warning', or 'notice'
+   * Map severity to a GitHub annotation level, ignoring case. Critical and high
+   * are failures, medium is a warning, and low or unknown values are notices.
+   * @param {string} severity - Violation severity.
+   * @returns {string} The annotation level.
    */
   severityToAnnotationLevel(severity) {
     switch (severity?.toLowerCase()) {
