@@ -85,7 +85,7 @@ An engineer or AI agent working through an existing LightSpeed agent or skill ca
 | review / improve findings | Internal PR agent's self-review gate (spec 015 US2) | Findings count as the "AI-review findings" the gate checks. |
 | generate labels | `agents/labeling-agent/`, `skills/label-governance` | Label suggestions are filtered through the canonical label set before anything is applied. |
 | update changelog | `agents/changelog-agent/`, `skills/changelog-generator`, changelog gate | Proposed entries must pass the existing changelog validation (≤250 characters, user-focused, linked to a PR or issue). |
-| similar issues | `agents/issue-agent/`, `skills/ticket-triage` | Duplicate candidates are surfaced during triage for a human to confirm. Issues are never closed automatically. |
+| similar issues | `agents/issue-agent/`, `skills/ticket-triage` | **Deferred** (see plan research R8). The upstream tool is experimental, needs OpenAI embeddings and isn't in the Action image. When delivered, duplicate candidates are surfaced during triage for a human to confirm, and issues are never closed automatically. |
 | add docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | On-demand only; output is reviewed by the documentation agent. |
 | ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | Available as an on-demand question tool inside review and QA flows. |
 | (all) | AI feedback validation process (`workflows/ai-feedback-validation.yml`) | Qodo PR-Agent feedback is recognised as AI review feedback and recorded under the same process as CodeRabbit feedback. |
