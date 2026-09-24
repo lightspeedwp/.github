@@ -57,6 +57,14 @@ function logError(message, error) {
 // CLI argument parsing
 // ---------------------------------------------------------------------------
 
+/**
+ * Read the first matching CLI option, accepting --name or --name=value.
+ * A bare option yields "true"; an absent option yields the supplied default.
+ *
+ * @param {string} name - Option name without leading dashes.
+ * @param {string} defaultValue - Value when the option is absent.
+ * @returns {string} Option value.
+ */
 function getArg(name, defaultValue) {
   const longFlag = `--${name}=`;
   const boolFlag = `--${name}`;
@@ -72,6 +80,14 @@ function getArg(name, defaultValue) {
   return defaultValue;
 }
 
+/**
+ * Accept only the strings "true" and "false" as Boolean options.
+ * Other values use the supplied default.
+ *
+ * @param {string} value - CLI option value.
+ * @param {boolean} defaultValue - Fallback for unrecognized values.
+ * @returns {boolean} Parsed option.
+ */
 function parseBool(value, defaultValue = true) {
   if (value === 'false') return false;
   if (value === 'true') return true;
@@ -107,6 +123,13 @@ const AVG_STORAGE_BYTES_PER_COMMIT = 4096;
 // Helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * Run Git with separate arguments and return trimmed stdout.
+ * Git failures yield an empty string rather than reaching the caller.
+ *
+ * @param {string[]} args - Git arguments.
+ * @returns {string} Git output or an empty string.
+ */
 function run(args) {
   try {
     return execFileSync('git', args, {
@@ -118,6 +141,12 @@ function run(args) {
   }
 }
 
+/**
+ * Split Git output into nonempty trimmed lines; Git failures yield [].
+ *
+ * @param {string[]} args - Git arguments.
+ * @returns {string[]} Output lines.
+ */
 function runLines(args) {
   return run(args)
     .split('\n')
@@ -130,6 +159,13 @@ function toPct(numerator, denominator) {
   return `${((numerator / denominator) * 100).toFixed(2)}%`;
 }
 
+/**
+ * Choose a run exit code based on recorded errors and processed branches.
+ *
+ * @param {number} processedBranches - Number of branches processed.
+ * @param {object[]} errors - Recorded branch errors.
+ * @returns {number} Zero for no errors, two for partial failure, or one for fatal failure.
+ */
 function getRunExitCode(processedBranches, errors) {
   if (errors.length === 0) return 0;
   return processedBranches > 0 ? 2 : 1;
@@ -161,6 +197,13 @@ function daysSince(isoDate) {
   return (Date.now() - then.getTime()) / MS_PER_DAY;
 }
 
+/**
+ * Build a branch-name exclusion regex with release/hotfix defaults.
+ * Pipe-separated user patterns are added as alternatives; invalid regexes
+ * warn and fall back to the default regex.
+ *
+ * @returns {RegExp} Exclusion pattern.
+ */
 function buildExcludeRegex() {
   const parts = [DEFAULT_EXCLUDE_PATTERN.source];
   if (opts.excludePatterns) {
@@ -181,6 +224,13 @@ function buildExcludeRegex() {
   }
 }
 
+/**
+ * Build a regex from pipe-separated author preservation patterns.
+ * Empty input or invalid regexes disable author preservation; invalid
+ * patterns also produce a warning.
+ *
+ * @returns {RegExp|null} Author pattern, or null when unavailable.
+ */
 function buildPreserveAuthorRegex() {
   if (!opts.preserveAuthors) return null;
   const parts = opts.preserveAuthors
@@ -204,16 +254,34 @@ function buildPreserveAuthorRegex() {
 // Branch discovery
 // ---------------------------------------------------------------------------
 
+/**
+ * Return the names of origin's remote-tracking branches, without "origin/".
+ * Failed Git commands yield an empty list.
+ *
+ * @returns {string[]} Remote branch names.
+ */
 function getRemoteBranches() {
   return runLines(['for-each-ref', 'refs/remotes/origin', '--format=%(refname:short)']).map((b) =>
     b.replace(/^origin\//, '')
   );
 }
 
+/**
+ * Return local branch names; failed Git commands yield an empty list.
+ *
+ * @returns {string[]} Local branch names.
+ */
 function getLocalBranches() {
   return runLines(['for-each-ref', 'refs/heads', '--format=%(refname:short)']);
 }
 
+/**
+ * Check whether origin/develop or origin/main contains an origin branch.
+ * A failed Git query for either base is treated as not merged for that base.
+ *
+ * @param {string} branch - Branch name without origin/.
+ * @returns {boolean} Whether either base contains the branch.
+ */
 function isMerged(branch) {
   const branchRef = `origin/${branch}`;
 
@@ -242,12 +310,30 @@ function getLastCommitHash(branch) {
 // Reporting
 // ---------------------------------------------------------------------------
 
+/**
+ * Create the report directory if absent, including missing parents.
+ * Filesystem errors propagate to the caller.
+ *
+ * @param {string} reportDir - Output directory, defaulting to the CLI option.
+ * @throws {Error} If the directory cannot be created.
+ */
 function ensureReportDir(reportDir = opts.reportDir) {
   if (!fs.existsSync(reportDir)) {
     fs.mkdirSync(reportDir, { recursive: true });
   }
 }
 
+/**
+ * Aggregate report counts, author names, commit totals, and storage estimates.
+ * Entries in "deleted" are counted as successful even during a dry run;
+ * errors are counted separately and per-record estimated storage is summed.
+ *
+ * @param {object[]} deleted - Deletion candidates recorded by the caller.
+ * @param {object[]} preserved - Branches not selected for deletion.
+ * @param {object[]} errors - Recorded branch errors.
+ * @param {number} candidatesCount - Count of deletion candidates.
+ * @returns {object} Summary metrics, including formatted size and percentage.
+ */
 function getMetrics(deleted, preserved, errors, candidatesCount) {
   const byType = {};
   const authorSet = new Set();
@@ -283,6 +369,20 @@ function getMetrics(deleted, preserved, errors, candidatesCount) {
   };
 }
 
+/**
+ * Write a timestamped Markdown branch report to the requested directory.
+ * Includes candidate, preservation, error, and rollback sections; the
+ * "deleted" records are reported as deletions even in a dry run.
+ * Filesystem errors propagate to the caller.
+ *
+ * @param {object[]} deleted - Candidate branch records.
+ * @param {object[]} preserved - KEEP and DISCUSS branch records.
+ * @param {object[]} errors - Recorded branch errors.
+ * @param {object} metrics - Summary from getMetrics.
+ * @param {object} reportOptions - Output directory, run mode, and age threshold.
+ * @returns {string} Path to the written Markdown file.
+ * @throws {Error} If the directory or file cannot be written.
+ */
 function writeMarkdownReport(deleted, preserved, errors, metrics, reportOptions = opts) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
   const filePath = path.join(reportOptions.reportDir, `branch-cleanup-${timestamp}.md`);
@@ -396,6 +496,19 @@ function writeMarkdownReport(deleted, preserved, errors, metrics, reportOptions 
   return filePath;
 }
 
+/**
+ * Write a timestamped JSON branch report to the requested directory.
+ * Preserved branches default to KEEP when their category is missing.
+ * Filesystem and JSON serialization errors propagate to the caller.
+ *
+ * @param {object[]} deleted - Candidate branch records.
+ * @param {object[]} preserved - Branch records not selected for deletion.
+ * @param {object[]} errors - Recorded branch errors.
+ * @param {object} metrics - Summary from getMetrics.
+ * @param {object} reportOptions - Output directory, run mode, and age threshold.
+ * @returns {string} Path to the written JSON file.
+ * @throws {Error} If the report cannot be serialized or written.
+ */
 function writeJsonReport(deleted, preserved, errors, metrics, reportOptions = opts) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
   const filePath = path.join(reportOptions.reportDir, `branch-cleanup-${timestamp}.json`);
@@ -436,6 +549,11 @@ function writeJsonReport(deleted, preserved, errors, metrics, reportOptions = op
 // Pre-flight validation
 // ---------------------------------------------------------------------------
 
+/**
+ * Require a Git checkout with a configured origin remote.
+ *
+ * @throws {Error} If the current directory is not in a Git repository or lacks origin.
+ */
 function validateEnvironment() {
   // Check if we're in a git repository
   const gitDirResult = spawnSync('git', ['rev-parse', '--git-dir'], {
@@ -463,6 +581,15 @@ function validateEnvironment() {
 // Main
 // ---------------------------------------------------------------------------
 
+/**
+ * Preview remote branch classifications and write a Markdown or JSON report.
+ * Fetches and prunes origin; never deletes branches, even when --dryRun=false
+ * is requested. Unverified open PR status changes DELETE candidates to
+ * DISCUSS; failed fetches, environment checks, and report writes exit with
+ * status one.
+ *
+ * @returns {Promise<void>} The run exits the process with a status code.
+ */
 async function main() {
   try {
     console.log('🌿 Branch Cleanup Script');
