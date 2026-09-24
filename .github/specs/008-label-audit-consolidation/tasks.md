@@ -1,4 +1,4 @@
-# Tasks: GitHub Label Audit & Consolidation (007)
+# Tasks: GitHub Label Audit & Consolidation (008)
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
@@ -31,23 +31,21 @@
 
 **Input**: Design documents from `.github/specs/008-label-audit-consolidation/`
 
-**Prerequisites**: plan.md (implementation strategy), spec.md (3 user stories with priorities P1, P2, P3), data-model.md (audit entities), contracts/ (output schemas), research.md (data sources confirmed)
+**Prerequisites**: plan.md, spec.md (4 user stories: US1 P1, US2 P2, US3 P3, US4 P1), data-model.md, contracts/, research.md, quickstart.md
 
-**Audit Focus**: Read-only analysis of GitHub label governance across canonical files, policy, documentation, archived workflows, and API state
+**Scope**: Phases 1–7 are a read-only audit. Phase 8 (User Story 4) consolidates labels across GitHub and Linear behind approval gates.
 
 **Deliverables**:
 
-- audit-report.md (main findings with evidence)
-- label-inventory.csv (complete label catalog)
-- duplicates-analysis.md (consolidation recommendations)
-- workflow-analysis.md (archived workflow assessment)
+- Audit (Phases 1–7): 007-audit-report.md, label-inventory.csv/json, duplicates-analysis.md, workflow-analysis.md, evidence/
+- Consolidation (Phase 8): evidence/linear-labels.json, evidence/dry-run/{repo}.json, change-request issues, the configuration PR, the Spec Kit rename PR, and the weekly drift-check workflow
 
 **Key Constraints**:
 
-- Type labels (25 from issue-types.yml) are IMMUTABLE - no changes
+- Phases 1–7: no changes to `labels.yml`, `issue-types.yml` or `label-governance-policy.yml`; the type family stays at 26 (25 mapped + unmapped `type:decision`)
+- Phase 8: locked files change only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` are approved by @ashley; the only type-family change is the FR-014 swap (ends at exactly 25)
+- Phase 8: labels are deleted only in repositories whose dry run @ashley has approved (FR-016)
 - All findings must be evidence-based (file path + line number)
-- Locked configuration files (labels.yml, issue-types.yml) are read-only - audit only
-- Governance policy (label-governance-policy.yml) read-only - no changes
 
 ---
 
@@ -55,11 +53,11 @@
 
 **Purpose**: Initialize audit directory structure and tooling
 
-- [ ] T001 Create output directory: `.github/reports/audits/2026-09-14-label-audit/`
-- [ ] T002 Create subdirectories: `evidence/` for supporting data, `findings.json`, `label-inventory.json`
-- [ ] T003 [P] Verify access to all audit data sources: `.github/labels.yml`, `.github/issue-types.yml`, `.github/label-governance-policy.yml`
-- [ ] T004 [P] List all documentation files: `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md` (inventory into findings.json)
-- [ ] T005 [P] List all archived workflow files: `.github/workflows/archived/2026-09-11/labeling/` (11 total, verify count)
+- [x] T001 Create output directory: `.github/reports/audits/2026-09-14-label-audit/`
+- [x] T002 Create subdirectories: `evidence/` for supporting data, `findings.json`, `label-inventory.json`
+- [x] T003 [P] Verify access to all audit data sources: `.github/labels.yml`, `.github/issue-types.yml`, `.github/label-governance-policy.yml`
+- [x] T004 [P] List all documentation files: `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md` (inventory into findings.json)
+- [x] T005 [P] List all archived workflow files: `.github/workflows/archived/2026-09-11/labeling/` (11 total, verify count)
 
 **Checkpoint**: Audit infrastructure ready - all data sources accessible and inventoried
 
@@ -73,32 +71,32 @@
 
 ### Data Extraction Tasks
 
-- [ ] T006 Extract canonical labels from `.github/labels.yml`: Create JSON with all 169 labels (name, color, description, family). Save to `evidence/canonical-labels.json`
+- [x] T006 Extract canonical labels from `.github/labels.yml`: Create JSON with all 169 labels (name, color, description, family). Save to `evidence/canonical-labels.json`
   - Include: family (e.g., "status", "priority", "type"), name (full name with prefix), color (hex), description
   - Verify count: Exactly 169 labels
   
-- [ ] T007 Extract issue types from `.github/issue-types.yml`: Create JSON with all 25 type labels and their mappings. Save to `evidence/issue-types.json`
+- [x] T007 Extract issue types from `.github/issue-types.yml`: Create JSON with all 25 type labels and their mappings. Save to `evidence/issue-types.json`
   - Include: Issue type name, label name, color
   - Verify count: Exactly 25 types (IMMUTABLE)
   - Verify each type maps to one `type:*` label
   
-- [ ] T008 Extract governance policy from `.github/label-governance-policy.yml`: Create JSON with never-delete list. Save to `evidence/governance-policy.json`
+- [x] T008 Extract governance policy from `.github/label-governance-policy.yml`: Create JSON with never-delete list. Save to `evidence/governance-policy.json`
   - Include: All labels in never-delete list (57 labels)
   - Note: Verify if labels are in canonical or not
   
-- [ ] T009 Query GitHub API for current labels: `gh label list --repo lightspeedwp/.github --json name,color,description`. Save to `evidence/github-api-labels.json`
+- [ ] T009 Superseded by T041 (org-wide paginated inventory). If run standalone: `gh label list --repo lightspeedwp/.github --limit 1000 --json name,color,description` saved to `evidence/github-api-labels.json`
   - Include: All labels currently on repository
   - Verify structure matches output format (JSON)
   
-- [ ] T010 Parse documentation files: Extract label families and taxonomy mentioned in `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md`. Save to `evidence/documentation-references.json`
+- [x] T010 Parse documentation files: Extract label families and taxonomy mentioned in `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md`. Save to `evidence/documentation-references.json`
   - Include: File path, labels mentioned, context/description
   - Note: Which families are documented, which aren't
   
-- [ ] T011 [P] Analyze each archived workflow file: Extract purpose, labels referenced, triggers, actions from all 11 files in `.github/workflows/archived/2026-09-11/labeling/`. Save to `evidence/archived-workflows.json`
+- [x] T011 [P] Analyze each archived workflow file: Extract purpose, labels referenced, triggers, actions from all 11 files in `.github/workflows/archived/2026-09-11/labeling/`. Save to `evidence/archived-workflows.json`
   - For each workflow: name, file path, purpose (from comments/description), labels used, triggers (issues/pull_request/etc.), actions performed
   - Extract any configuration or conditionals that may explain why it was archived
   
-- [ ] T012 Create label family index from canonical file: Map each label to its family. Save to `evidence/label-families.json`
+- [x] T012 Create label family index from canonical file: Map each label to its family. Save to `evidence/label-families.json`
   - Include: 15 families identified (status, priority, type, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, meta, release, openspec)
   - Family count and members
 
@@ -151,12 +149,12 @@
 
 ### Phase 3.4: Generate Reconciliation Findings
 
-- [ ] T019 Consolidate all inconsistencies into findings report: Combine all Phase 3 sub-findings
+- [x] T019 Consolidate all inconsistencies into findings report: Combine all Phase 3 sub-findings
   - Create comprehensive JSON: One entry per finding with finding_type, severity, evidence (file + line), recommendation
   - Structure: Similar to data-model.md ReconciliationFinding entity
   - Save to `evidence/all-findings.json`
   
-- [ ] T020 Generate audit-report.md: Main deliverable with findings summary
+- [x] T020 Generate audit-report.md: Main deliverable with findings summary
   - Include sections:
     - Executive Summary (status, key metrics, critical issues)
     - Label Inventory by Family (status, priority, type, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, meta, release, openspec)
@@ -288,13 +286,13 @@
 
 ### Integration Tasks
 
-- [ ] T031 [P] Generate label-inventory.csv: Complete label catalog from canonical file
+- [x] T031 [P] Generate label-inventory.csv: Complete label catalog from canonical file
   - Columns: family, label_name, color, description, in_canonical, in_issue_types, in_policy, in_docs, in_workflows, api_present, status, notes
   - Rows: All 169 labels from canonical file
   - Status field: "OK" | "ORPHAN" | "DUPLICATE" | "MISMATCH" | "DEPRECATED" | "GAP"
   - Save to `.github/reports/audits/2026-09-14-label-audit/label-inventory.csv`
   
-- [ ] T032 [P] Generate label-inventory.json: Machine-readable version of inventory
+- [x] T032 [P] Generate label-inventory.json: Machine-readable version of inventory
   - Structure per data-model.md (families, labels, summary statistics)
   - Include: All 169 labels with complete metadata
   - Include: Summary showing total_canonical, total_in_api, total_orphans, total_duplicates, total_ok, families_with_issues
@@ -371,6 +369,10 @@
 
 **Depends on**: Phase 3 (US1) evidence. Stages run strictly in order (plan.md, Consolidation Execution Plan); each stage's exit check must pass before the next starts. Branches for the PRs below must follow `{type}/{scope}-{title}` (for example `chore/labels-consolidation-config`).
 
+### Governance prerequisite
+
+- [x] T040a [US4] Open the constitution v1.3.0–v1.3.1 approval issue in `lightspeedwp/.github` (rationale, affected sections, impact, validation plan) and record its number and @ashley's sign-off in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; blocks merging `audit/label-consolidation` into `develop`
+
 ### Stage 0: Evidence (FR-006, FR-010, FR-012)
 
 - [ ] T041 [US4] Write `scripts/automation/label-inventory.js` that lists every `lightspeedwp` repository and pages through each repository's labels with `per_page=100` until no `next` link remains; save the result to `.github/reports/audits/2026-09-14-label-audit/evidence/github-api-labels.json` (replacing the empty inventory) with, per repository, `label_count` and `pages_read` where "`pages_read × 100 ≥ label_count`"
@@ -385,16 +387,16 @@
 
 - [ ] T046 [US4] Draft the `[LABEL-UPDATE-REQUEST]` issue body with the full mapping table and impact list from T043/T044 in `.github/reports/audits/2026-09-14-label-audit/change-requests/label-update-request.md`
 - [ ] T047 [P] [US4] Draft the `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` bodies for Question → Decision, citing `contracts/decision-issue-template.md`, in `.github/reports/audits/2026-09-14-label-audit/change-requests/issue-type-update-request.md` and `.github/reports/audits/2026-09-14-label-audit/change-requests/template-update-request.md`
-- [ ] T048 [P] [US4] Draft the OpenSpec migration issue body listing every source → target path (`OPENSPEC*.md` → `SPEC*.md`, `skills/openspec-estimate-planner/` → `skills/speckit-estimate-planner/`, and the chosen target for the `openspec/` folder) in `.github/reports/audits/2026-09-14-label-audit/change-requests/openspec-migration.md`
+- [ ] T048 [P] [US4] Draft the OpenSpec migration issue body listing every source → target path (`OPENSPEC*.md` → `SPEC*.md`, `skills/openspec-estimate-planner/` → `skills/speckit-estimate-planner/`, the root `openspec` symlink removed and its target `.github/projects/active/openspec/` renamed to `.github/projects/active/speckit-changes/`) in `.github/reports/audits/2026-09-14-label-audit/change-requests/openspec-migration.md`
 - [ ] T049 [P] [US4] Draft the new deletion gate issue body that replaces closed issue #95, describing the per-repository dry-run approval flow from `contracts/dry-run-and-drift-report-schema.md`, in `.github/reports/audits/2026-09-14-label-audit/change-requests/label-deletion-gate.md`
-- [ ] T050 [US4] Open the five issues in `lightspeedwp/.github` using only prefixed labels from `labels.yml` (for example `type:task`, `area:labels`), link the label request as the approval issue for constitution v1.3.0/v1.3.1, and record issue numbers and approval status in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; stop until @ashley approves all five (depends on T046 to T049)
+- [ ] T050 [US4] Open the five issues in `lightspeedwp/.github` using only prefixed labels from `labels.yml` (for example `type:task`, `area:labels`), reference the constitution approval issue from T040a, and record issue numbers and approval status in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; stop until @ashley approves all five (depends on T046 to T049)
 
 ### Stage 2: Configuration PR (FR-011, FR-012, FR-014, SC-003)
 
 - [ ] T051 [US4] Update `.github/labels.yml`: rename `ai-ops:*` → `aiops:*` and `openspec:*` → `spec:*`, add approved imports, remove merged sources (for example `status:completed`, `area:tests`) and `type:question`, keeping the header comments; the type family must total exactly 25 (depends on T050)
 - [ ] T052 [P] [US4] Update `.github/issue-types.yml`: replace the Question entry with Decision (`label: type:decision`), keeping 25 entries (depends on T050)
 - [ ] T053 [P] [US4] Create `.github/ISSUE_TEMPLATE/06-decision.md` exactly as defined in `contracts/decision-issue-template.md` (frontmatter, six sections, DoR, DoD), delete `.github/ISSUE_TEMPLATE/06-question.md`, and point question-style requests to Discussions in `.github/ISSUE_TEMPLATE/config.yml` (depends on T050)
-- [ ] T054 [P] [US4] Update `.github/issue-fields.yml`: replace `type:question: Task` with `type:decision: Task`, and remove the Linear-only type entries retired by FR-015 (`type:ux-feedback`, `type:help`, `type:support`, `type:ui`, `type:qa`) (depends on T050)
+- [ ] T054 [P] [US4] Update `.github/issue-fields.yml`: replace `type:question: Task` with `type:decision: Task`, and remove every `type:*` entry that is not in `.github/labels.yml` after T051 — currently `type:enhancement`, `type:help`, `type:integration`, `type:investigation`, `type:maintenance`, `type:qa`, `type:story`, `type:support`, `type:ui` and `type:ux-feedback` (depends on T050)
 - [ ] T055 [P] [US4] Update `.github/label-governance-policy.yml`: set `gated_by_issue` to the new gate issue number, keep `enabled: false`, remove `type:question` and other labels no longer in `labels.yml` from `never_delete_labels` (resolving the 12 policy misalignments from Finding 2), and update `last_updated` (depends on T050)
 - [ ] T056 [P] [US4] Update `.github/labeler.yml` and `.github/branch-labels.yml` for every renamed or merged label in T043 (depends on T050)
 - [ ] T057 [US4] Update every script and workflow listed in `.github/reports/audits/2026-09-14-label-audit/evidence/renamed-label-references.json` (under `scripts/` and `.github/workflows/`) to the new label names, and make label-creating automation create only labels present in `.github/labels.yml` (research R6c) (depends on T044, T051)
@@ -403,7 +405,7 @@
 
 ### Stage 2b: Spec Kit Rename PR (FR-013)
 
-- [ ] T060 [US4] Rename every live OpenSpec path with `git mv` per the approved migration issue from T048 (excluding `*/reports/*`, `*/archived/*`, `node_modules/`) and update every link to those paths (depends on T050)
+- [ ] T060 [US4] Rename every live OpenSpec path with `git mv` per the approved migration issue from T048 (excluding `*/reports/*`, `*/archived/*`, `node_modules/`) and update every link to those paths (depends on T059: the configuration PR must be merged first, because both touch files such as `scripts/validation/__tests__/openspec-labels.test.js`)
 - [ ] T061 [US4] Replace OpenSpec text references in live file contents with `speckit` (tool and process) or `spec`/`specs` (artefacts and labels), then run quickstart Test 11 and open the rename PR separately from T059 (depends on T060)
 
 ### Stage 3: GitHub Changes (FR-011, FR-012, FR-014, FR-015)
@@ -438,7 +440,7 @@
 
 **Audit is COMPLETE when**:
 
-✅ All 73 tasks in phases 1-8 are completed  
+✅ All 74 tasks in phases 1-8 are completed  
 ✅ Phase 2 (Foundational) complete - BLOCKS all story work (done)  
 ✅ User Story 1 (P1) complete - Reconciliation report with all inconsistencies identified  
 ✅ User Story 2 (P2) complete - Duplicates analysis and consolidation strategy  
@@ -462,7 +464,7 @@
 - **User Story 3 (Phase 5)**: Depends on Foundational completion (can start after Phase 2, parallel to US1)
 - **Integration (Phase 6)**: Depends on US1, US2, US3 completion
 - **Polish (Phase 7)**: Final phase after all analysis complete
-- **User Story 4 (Phase 8)**: Depends on Phase 3 (US1) evidence only; independent of US2, US3 and Phases 6-7. Its stages run strictly in order: Stage 0 → 1 (approval gate) → 2 and 2b → 3 → 4 (per-repository approval gate) → 5 → 6. Stage 2b (T060-T061) can run alongside Stage 2 after approval
+- **User Story 4 (Phase 8)**: Depends on Phase 3 (US1) evidence only; independent of US2, US3 and Phases 6-7. Its stages run strictly in order: Stage 0 → 1 (approval gate) → 2 → 2b (after T059) and 3 → 4 (per-repository approval gate) → 5 → 6. Stage 2b (T060–T061) starts after T059 merges; Stages 3 onward don't wait for it
 
 ### Parallel Opportunities
 
@@ -520,10 +522,10 @@
 
 ---
 
-**Total Tasks**: 73 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
+**Total Tasks**: 74 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
 
 **MVP Completion**: Phases 1-3 (Setup + Foundational + US1) ≈ 50% of tasks
-**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 33 of the 73)
+**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 34 of the 74)
 
 **Next Step**: Run first task in Phase 1 (T001 - Create output directory). Report progress checkpoint after Phase 2 completion (all data extracted and verified).
 

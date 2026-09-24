@@ -1,0 +1,16 @@
+{
+  "updated_at": "2026-09-24",
+  "requests": [
+    {
+      "kind": "CONSTITUTION-APPROVAL",
+      "task": "T040a",
+      "issue_number": 3530,
+      "url": "https://github.com/lightspeedwp/.github/issues/3530",
+      "covers": ["constitution v1.3.0 (d6af819354)", "constitution v1.3.1 (917dac08e9)"],
+      "status": "open",
+      "approved_by": null,
+      "approved_at": null,
+      "blocks": "merge of audit/label-consolidation into develop"
+    }
+  ]
+}
