@@ -176,8 +176,7 @@ implementation in lightspeedwp/.github#3524.
 
   Both accept `disableAllHooks` or overriding hook entries.
 
-  ⚠️ **Spec follow-up**: FR-013a lists only the first two paths. Add the other two to FR-013a with `/speckit-clarify`
-  or a direct spec edit, before `/speckit-tasks`.
+  **Spec**: FR-013a now lists all four paths (third clarification session, threat-model question).
 - **CODEOWNERS**: Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed`, following the existing explicit-path
   convention. The global `*` rule already covers it, but an explicit line makes the requirement visible and
   survives changes to the fallback.

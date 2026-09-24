@@ -80,7 +80,7 @@ of branches a day.
 | IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
 | V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
 | VI. UK English, security | UK English in docs and messages. No secrets. The guard fails closed on unknown file sets, unverifiable legacy PRs and its own faults (for git writes). It protects its own files, and CODEOWNERS covers `.claude/`. The workflow has least-privilege permissions and pinned actions | ✅ |
-| VII. Spec quality | Checklist 16/16. Clarified in two sessions (10 decisions). One spec follow-up (FR-013a protected paths, research R12) before `/speckit-tasks` | ⚠️ follow-up |
+| VII. Spec quality | Checklist 16/16. Clarified in three sessions. FR-013a protected paths resolved | ✅ |
 | VIII. Enforcement and compliance ≥95% | The guard blocks before push. Cleanup removes empty `claude/*` branches that would lower the compliance metric | ✅ |
 | IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |
 | X. Metrics-driven | Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 | ✅ (justified) |
