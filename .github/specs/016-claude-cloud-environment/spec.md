@@ -29,6 +29,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: How should the empty `claude/*` branches that the platform leaves on GitHub after every session be cleaned up? → A: A scheduled job deletes `claude/*` branches that have no commits beyond `develop` and are older than 24 hours.
 - Q: How should we measure whether the guard is working, including SC-007? → A: No new recording of refusals. SC-001 to SC-003 use the existing branch-validation metrics, and SC-007 becomes a monthly review of 10 sampled sessions.
 - Q: Spec 009 (branch cleanup) requires human approval of every deletion through a draft PR, which conflicts with automatic deletion here. Which spec gives way? → A: Spec 009 gains a narrow exception: an agent-session branch (`claude/*`) with no commits of its own, no open PR and a tip at least 24 hours old is auto-approved for deletion. Everything else still goes through 009's draft-PR approval. The cleanup is implemented by 009's categorisation and scheduled workflow, not by a separate job.
+- Q: When a session needs to push fixes to an existing PR whose branch already has a non-compliant name, should the guard allow it? → A: Yes, only when the branch already exists on GitHub and is the head of an open PR (the legacy PR exception). Creating or renaming to a new non-compliant name is still refused, and if the open-PR status can't be verified the push is refused.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -45,12 +46,13 @@ A team member starts a new cloud session on this repository and asks for a chang
 1. **Given** a new session on a platform-generated `claude/*` branch, **When** the session starts, **Then** the agent is no longer on a `claude/*` branch, has been told the branching rules, and has been told those rules take precedence over the platform's branch instruction.
 2. **Given** the agent is on the session placeholder branch, **When** it attempts to commit, **Then** the commit is refused and the refusal names the rule and the rename command.
 3. **Given** the agent has renamed its branch to a compliant name, **When** it commits and pushes, **Then** both succeed without intervention.
-4. **Given** any branch, **When** the agent attempts to push to, create, or rename to a name with a forbidden prefix (`claude/`, `copilot/`, `openai/`), an unauthorised type or a malformed pattern, **Then** the action is refused.
+4. **Given** any branch, **When** the agent attempts to push to, create, or rename to a name with a forbidden prefix (`claude/`, `copilot/`, `openai/`), an unauthorised type or a malformed pattern, **Then** the action is refused, unless the legacy PR exception (scenario 10) applies to a push or commit.
 5. **Given** the agent is on `main` or `develop`, **When** it attempts to commit or push there, **Then** the action is refused.
 6. **Given** the agent opens a PR on a LightSpeed repository, **When** the head branch is non-compliant, or the base is `main` and the head is not a `release/*` or `hotfix/*` branch, **Then** PR creation is refused.
 7. **Given** a commit message or file content that merely mentions a forbidden branch name, **When** the agent commits, **Then** the commit is not refused on that basis.
 8. **Given** the agent is on `develop` or `main` and every changed file is under `.github/specs/` or `docs/`, **When** it commits and pushes, **Then** neither action is refused by the guard.
 9. **Given** the agent is on `develop` or `main` and at least one changed file is outside `.github/specs/` and `docs/`, **When** it commits or pushes, **Then** the action is refused and the refusal names the files that need a feature branch.
+10. **Given** a non-compliant branch that already exists on GitHub and is the head of an open PR, **When** the agent commits to it and pushes, **Then** neither action is refused (the legacy PR exception). **Given** the same branch without an open PR, or when open-PR status can't be verified, **Then** the push is refused.
 
 ---
 
@@ -113,7 +115,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 
 #### Session start
 
-- **FR-001**: At session start in a cloud session, a working branch with a forbidden prefix MUST be renamed locally to a clearly non-final placeholder. The placeholder MUST NOT be pushed.
+- **FR-001**: At session start in a cloud session, a working branch with a forbidden prefix and no commits of its own beyond the base branch MUST be renamed locally to a clearly non-final placeholder. The placeholder MUST NOT be pushed. A forbidden-prefix branch that already has commits (for example, a session opened on an existing PR) MUST NOT be renamed.
 - **FR-002**: At session start in a cloud session, a branch with no commits of its own and no uncommitted changes MUST be brought up to date with the tip of the base branch (`develop` by default).
 - **FR-003**: At every session start, including resume and after context compaction, the agent MUST receive the branching rules in its context. That text MUST cover:
   - the pattern
@@ -127,12 +129,12 @@ A maintainer can find, in the repository, the exact environment definition the t
 #### Enforcement
 
 - **FR-005**: Before a commit is recorded, the action MUST be refused when the effective branch is:
-  - non-compliant
+  - non-compliant, unless the legacy PR exception (FR-006) applies
   - the session placeholder
   - protected (`main` or the configured base branch), unless every file in the commit is under `.github/specs/` or `docs/` (the documentation exception)
-- **FR-006**: Before a push, the action MUST be refused when the target branch is non-compliant or the placeholder. A push to a protected branch MUST be refused unless every file changed by the pushed commits is covered by the documentation exception. Pushes that delete a remote branch or push only tags MUST be allowed.
+- **FR-006**: Before a push, the action MUST be refused when the target branch is non-compliant or the placeholder, unless the legacy PR exception applies: the branch already exists on GitHub and is the head of an open PR. If open-PR status can't be verified, the exception doesn't apply. A push to a protected branch MUST be refused unless every file changed by the pushed commits is covered by the documentation exception. Pushes that delete a remote branch or push only tags MUST be allowed.
 - **FR-007**: Creating or renaming a branch to a non-compliant or placeholder name MUST be refused, whether it is done locally or through the GitHub integration.
-- **FR-008**: Writing files to a non-compliant or placeholder branch through the GitHub integration MUST be refused. Writing to a protected branch this way MUST be refused unless every written file is covered by the documentation exception.
+- **FR-008**: Writing files to a non-compliant or placeholder branch through the GitHub integration MUST be refused, unless the legacy PR exception applies. Writing to a protected branch this way MUST be refused unless every written file is covered by the documentation exception.
 - **FR-009**: Opening a PR on a LightSpeed repository MUST be refused when the head branch is non-compliant. On this repository, it MUST also be refused when the base is `main` and the head is not a `release/*` or `hotfix/*` branch.
 - **FR-010**: Branch-name compliance MUST be decided by the same validation rules the repository's CI uses, so that the guard and CI can never disagree.
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
