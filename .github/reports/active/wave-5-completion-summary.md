@@ -142,7 +142,6 @@ accDescr {
 }
   A[.github Repository] --> B[Community Health]
   A --> C[Automation & Workflows]
-accDescr: Detailed diagram
 ```
 
 ---

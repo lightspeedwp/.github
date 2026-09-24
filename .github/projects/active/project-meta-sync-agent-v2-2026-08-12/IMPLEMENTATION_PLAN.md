@@ -21,8 +21,8 @@ status: active
 ### 1.1 High-Level Design
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph "LightSpeedWP Organization"
         direction TB
         
@@ -111,8 +111,8 @@ packages/metadata-agent/                    # Shared npm package
 ### 2.1 Test Pyramid & Coverage
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph "Test Coverage Hierarchy (80%+ Target)"
         E2E["<b>E2E Tests (10%)</b><br/>Real GitHub repos<br/>Full workflow validation<br/>5-10 tests"]
         INT["<b>Integration Tests (20%)</b><br/>Agent + Orchestrator<br/>Mocked GitHub API<br/>20-30 tests"]
@@ -540,8 +540,8 @@ export const blockThemeConfig = {
 ### 6.1 Component Dependency Graph
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     Agent["Agent<br/>(prompt + spec)"]
     Orch["label-orchestrator.js<br/>(Phase 3-4)"]
     PKG["@lightspeedwp/<br/>metadata-agent<br/>(npm)"]
@@ -559,8 +559,8 @@ accDescr: Detailed diagram
 ### 6.2 Data Flow: Label Audit & Sync
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant User
     participant Agent
     participant Orch as label-orchestrator.js
@@ -584,8 +584,8 @@ accDescr: Detailed diagram
 ### 6.3 Test Coverage Distribution
 
 ```mermaid
-accTitle: Diagram
 pie title "Test Coverage by Type"
+    accTitle: Diagram
     "Unit Tests (60-80 tests, 60%)" : 60
     "Integration Tests (20-30 tests, 20%)" : 20
     "E2E Tests (5-10 tests, 10%)" : 10
