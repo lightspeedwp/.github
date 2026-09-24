@@ -426,6 +426,21 @@ grep -rE "^- name: (ai-ops|openspec):" .github/labels.yml   # Expected: no outpu
 - The organisation's native issue types, listed from GitHub, have exactly the same 25 names as `.github/issue-types.yml` (Decision included; no Question, Maintenance, Story or Integration).
 - `evidence/native-issue-types.json` shows zero issues left on removed types before they were removed.
 
+### Test 10c: Issue Type Colours and Descriptions (FR-020)
+
+```bash
+node -e "
+const yaml=require('js-yaml'),fs=require('fs');
+const it=yaml.load(fs.readFileSync('.github/issue-types.yml','utf8')).issue_types;
+const lab=Object.fromEntries(yaml.load(fs.readFileSync('.github/labels.yml','utf8')).map(l=>[l.name,String(l.color).toUpperCase()]));
+const bad=it.filter(t=>!t.description||lab[t.label]!==String(t.color).toUpperCase());
+console.log(it.length, bad.map(t=>t.name));"
+# Expected: 25 []
+```
+
+- Every hex in `issue-types.yml` appears in `docs/LABEL_COLOR_STRATEGY.md`.
+- The organisation settings page shows the same names, descriptions and native colours as `contracts/issue-types-org-settings.md`.
+
 ### Test 11: OpenSpec Rename (FR-013)
 
 ```bash
@@ -458,6 +473,7 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 
 ### Test 14: Drift Check (FR-017, SC-009)
 
+- Confirm the workflow authenticates with the organisation GitHub App and the read-only `LINEAR_API_KEY` secret, and that no credential appears in the repository (FR-018).
 - Trigger the drift workflow manually once.
 - **Pass condition**: the "Label drift report" issue shows "No drift", with team-scoped Linear labels listed only under allowed exceptions.
 

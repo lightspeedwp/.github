@@ -410,6 +410,21 @@ The single weekly report issue (FR-017).
 | `allowed_exceptions` | list | Documented team-scoped Linear labels |
 | `status` | enum | `drift` or `no drift` (SC-009 steady state) |
 
+### 11. Issue Type
+
+One of the 25 canonical issue types (FR-014, FR-019, FR-020). Source: `.github/issue-types.yml`; values listed in `contracts/issue-types-org-settings.md`.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `name` | string | Unique; exactly matches the organisation's native issue type name |
+| `label` | string | The one `type:*` label for this type; exists in `labels.yml` |
+| `color` | hex (6) | From `docs/LABEL_COLOR_STRATEGY.md`; identical to the label's colour in `labels.yml` |
+| `native_color` | enum | `gray`, `blue`, `green`, `yellow`, `orange`, `red`, `pink`, `purple`; the colour's family name (Teal → green) |
+| `description` | string | Required; the same text in `issue-types.yml` and the organisation settings page |
+| `template` | file | Exactly one issue template in `.github/ISSUE_TEMPLATE/` |
+
+**Rules**: exactly 25 issue types; names, labels and templates are one-to-one; a native type is removed only after zero issues use it.
+
 ### Consolidation State Transitions
 
 ```text

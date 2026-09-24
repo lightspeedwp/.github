@@ -125,11 +125,13 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 
 7. **Issue Type and Template Routing**: The Question → Decision swap is already reflected in constitution v1.3.1, including the rule that `06-question.md` stays until the change requests merge. Issue-type fallback PR routing is marked not yet implemented and is out of scope. ✅
 
-8. **Automated Validation & Metrics-Driven Governance**: The weekly drift check (FR-017) replaces one-off manual audits for label consistency. ✅
+8. **UK English, Accessibility, Security Standards (Principle VI)**: Organisation-wide credentials are least-privilege and short-lived, destructive runs stay out of CI, and no secret is committed (FR-018); the Accessibility issue type now cites WCAG 2.2 AA. ✅
+
+9. **Automated Validation & Metrics-Driven Governance**: The weekly drift check (FR-017) replaces one-off manual audits for label consistency. ✅
 
 **No violations identified.** Audit and consolidation are within scope and compliant with constitution v1.3.1.
 
-**Post-design re-check (2026-09-24)**: ✅ Still compliant. Every change to a locked file is behind an approved change request; deletion is behind a per-repository approved dry run; no portable assets are added under `.github/`.
+**Post-design re-check (2026-09-24, after FR-018 to FR-020)**: ✅ Still compliant. Stage 0a's locked-file changes (T040b, PR #3534) follow the approved #3530 sign-off. Earlier re-check: Every change to a locked file is behind an approved change request; deletion is behind a per-repository approved dry run; no portable assets are added under `.github/`.
 
 ## Project Structure
 
@@ -199,7 +201,7 @@ Each stage starts only when the previous stage's exit check passes. Validation s
 | 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a migration issue for OpenSpec paths, and a new gate issue replacing #95 | @ashley approves all requests | FR-009, FR-013, FR-014, FR-016 |
 | 2. Configuration PR | One PR: `labels.yml` (renames, imports, `type:question` removed), `issue-types.yml`, `06-decision.md` replacing `06-question.md`, `issue-fields.yml`, `label-governance-policy.yml` (new gate issue, `enabled: false`, `type:question` off never-delete), `labeler.yml`, `branch-labels.yml`, scripts referencing `ai-ops:` or `openspec:` labels, and the six docs files | CI green; Test 10 passes | FR-011, FR-012, FR-014 |
 | 2b. Spec Kit rename PR | Separate PR for the OpenSpec → Spec Kit rename in live files and paths, with links updated | Test 11 passes | FR-013 |
-| 3. GitHub changes | Per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones. Organisation: migrate issues off Maintenance, Story and Integration, then rename, remove and add native issue types to match `issue-types.yml` (FR-019) | No issue left without exactly one `type:*` label; native issue types match `issue-types.yml` | FR-011, FR-012, FR-014, FR-015, FR-019 |
+| 3. GitHub changes | Per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones. Organisation native issue types were already changed by hand in Stage 0a (T040c); this stage only verifies them (T064a/T064b) | No issue left without exactly one `type:*` label; native issue types match `issue-types.yml` | FR-011, FR-012, FR-014, FR-015, FR-019 |
 | 4. GitHub deletion | Per repository: generate dry run and snapshot; @ashley approves on the gate issue; run the deletion with `--apply --confirm-gate <gate issue>` (refused for unapproved repositories); `destructive_cleanup.enabled` stays `false` in the repository | Test 12 passes for every approved repository; unapproved repositories untouched | FR-016 |
 | 5. Linear clean-up | Relabel issues for merges and re-prefixes, retire zero-use and merged labels, team-scope project labels, update colours and descriptions (including `spec:*`), restrict label creation in the GitHub integration | Test 13 passes | FR-012, FR-015, FR-017 |
 | 6. Drift check | Enable the weekly scheduled workflow; run it once manually | "No drift" report (Test 14) | FR-017, SC-009 |
@@ -534,7 +536,7 @@ grep "^- name: status:" .github/labels.yml | wc -l
 
 ✅ **research.md** — Research findings and unknowns resolved
 ✅ **data-model.md** — Entity catalog for label audit domain
-✅ **contracts/** — Output format specifications for audit reports, plus US4 contracts: label mapping, Decision issue template, dry-run and drift report
+✅ **contracts/** — Output format specifications for audit reports, plus US4 contracts: label mapping, Decision issue template, dry-run and drift report, issue types list (names, descriptions, colours)
 ✅ **quickstart.md** — Validation & testing guide for audit completeness
 
 ---

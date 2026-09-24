@@ -287,6 +287,19 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 - **Verify**: Whether organisation issue types can be managed through the API. **Fallback**: organisation settings (Settings → Planning → Issue types), recorded on the gate issue.
 - **Alternatives considered**: Make GitHub the source of truth (rejected: would change templates and labels, and Decision still needs a slot).
 
+### R12. Issue type colours and descriptions (FR-020)
+
+- **Decision**: Assign every issue type a colour from the eight families in `docs/LABEL_COLOR_STRATEGY.md`, using the doc's explicit rule where one exists (13 types) and the closest family otherwise (12 types, marked "inferred" in `contracts/issue-types-org-settings.md`). The same hex is used in `issue-types.yml` and `labels.yml`. Descriptions reuse the organisation's existing wording where the type exists; Accessibility moves to WCAG 2.2 AA (constitution Principle VI).
+- **Constraint**: GitHub's native issue types accept only eight named colours (gray, blue, green, yellow, orange, red, pink, purple), so each hex has a native colour name. Teal has no native equivalent and maps to green.
+- **Rationale**: One list drives three places (two files and the organisation settings page), so they cannot drift; inferred choices are visible for review rather than hidden.
+- **Alternatives considered**: Keep the existing colours (rejected: they don't follow the strategy doc and three types already disagreed between the two files); give every type a unique colour (not possible with eight native colours).
+
+### R13. Credentials for organisation-wide changes (FR-018)
+
+- **Decision**: An organisation-wide GitHub App with only Issues (read/write) and Metadata (read), using short-lived installation tokens; a read-only Linear API key (`LINEAR_API_KEY`) for the drift check. Deletion runs and Linear writes run from @ashley's session, not CI.
+- **Rationale**: The default workflow token can only reach `lightspeedwp/.github`. An App limits scope and lifetime; keeping destructive and write operations out of CI means a leaked CI secret cannot delete labels or change Linear.
+- **Alternatives considered**: A fine-grained personal access token (long-lived and tied to one person); running everything locally with no CI (loses the automated weekly drift check).
+
 ### R10. Decision issue template
 
 - **Decision**: `.github/ISSUE_TEMPLATE/06-decision.md` replaces `06-question.md`, following the existing template frontmatter (`name`, `about`, `title`, `labels`, `recommended_branch`, `file_type`) and ending with Definition of Ready and Definition of Done checklists. Full content in `contracts/decision-issue-template.md`.
