@@ -79,6 +79,9 @@ it's refused (quickstart §1, §4).
   - with any other file staged → exit 2, and stderr lists the file
   - `git add package.json && git commit` on `develop` → exit 2
   - push to `develop` whose diff touches only allowed paths → exit 0
+  - commit on `main` with only `docs/**` staged → exit 2 (no exception on `main`)
+  - push to `main` (including `git push origin HEAD:main`) whose diff touches only `docs/**` → exit 2
+  - MCP `push_files` to `main` with only `docs/` paths → exit 2
   - an empty or unknown path set → exit 2
 - [ ] T010 [P] [US1] Add legacy PR exception cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
   - push to an existing remote `copilot/fix-login` with the `gh` stub returning an open PR → exit 0
@@ -95,7 +98,10 @@ it's refused (quickstart §1, §4).
   - `Write` to `.claude/settings.local.json` → exit 2
   - `sed -i … .claude/settings.json`, `rm .claude/hooks/x`, `echo {} > .claude/settings.json` and `git restore .claude/settings.json` → exit 2
   - `cat .claude/settings.json` → exit 0
-  - every refusal with `LS_ENFORCE_BRANCH_NAMES=0` → exit 0 plus a `systemMessage`
+  - every refusal with `LS_ENFORCE_BRANCH_NAMES=0` set in the hook's own environment → exit 0 plus a `systemMessage`
+  - switch set inside the command, e.g. `LS_ENFORCE_BRANCH_NAMES=0 git commit -m x` or `export LS_ENFORCE_BRANCH_NAMES=0 && git commit -m x` on `chore/session-abc123`, with the hook environment enforcing → exit 2 (FR-013)
+  - `Edit` of `.claude/settings.local.json` adding `"env": {"LS_ENFORCE_BRANCH_NAMES": "0"}` or `"disableAllHooks": true` → exit 2
+  - `Write` to `~/.claude/settings.json` (resolved against `$HOME`) → exit 2
 - [ ] T013 [P] [US1] Add guard-fault cases to `scripts/__tests__/enforce-branch-name-hook.test.js`, forcing the validator import to fail (for example with an environment variable that points it at a missing path in test mode):
   - `git commit` → exit 2, and stderr contains "Branch guard unavailable"
   - `ls` → exit 0 plus a `systemMessage` warning
@@ -123,6 +129,7 @@ it's refused (quickstart §1, §4).
   - collect paths for a commit (`git diff --cached --name-only`, plus `git diff --name-only` for `-a`/`--all`, plus paths from an earlier `git add` in the same command, where `-A`/`.`/`--all` means all of `git status --porcelain`)
   - collect paths for a push (`git diff --name-only origin/<target>...<source>`)
   - collect paths for an MCP write (`path` / `files[].path`)
+  - apply the exception only when the target is the configured base branch (`LS_BASE_BRANCH`, default `develop`); never for `main`, which is always refused (FR-005, FR-006, FR-008)
   - allow only when every normalised path starts with `.github/specs/` or `docs/`
   - an empty or unknown set fails closed, and the refusal lists the offending files (research R4)
 - [ ] T021 [US1] Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh pr list --head <branch> --state open --json number --limit 1`, each with a 5-second timeout. Allow only when both confirm an open PR; any failure means refuse (FR-006, research R9).
@@ -171,9 +178,12 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 
 - [x] T031 [P] [US3] Write `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, covering the problem, the layers, Owner setup, usage, checks, maintenance and limitations (done in #3524).
 - [ ] T032 [US3] Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` with:
-  - the documentation exception
+  - the documentation exception, on `develop` only (every direct commit or push to `main` is refused)
   - the legacy PR exception
   - that the guard applies in local sessions too
+  - the threat model (accidents plus obvious self-bypasses; CI and CODEOWNERS are the final gate)
+  - that the enforcement switch is read only from the environment a session starts with, and can't be changed from inside the session
+  - the four protected files: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and `~/.claude/settings.json`
   - self-protection and the CODEOWNERS entry
   - the guard-unavailable behaviour
   - measurement (branch metrics plus the monthly review of 10 sessions, SC-007)
