@@ -168,9 +168,14 @@ describe('Claude cloud environment specification contracts', () => {
 
     test('protects the guard in both local and cloud sessions', () => {
       expect(requirement('FR-014')).toMatch(/both cloud and local agent sessions/);
-      expect(requirement('FR-013a')).toMatch(
-        /`\.claude\/hooks\/\*\*` and `\.claude\/settings\.json`/
-      );
+      for (const protectedPath of [
+        '`.claude/hooks/**`',
+        '`.claude/settings.json`',
+        '`.claude/settings.local.json`',
+        '`~/.claude/settings.json`',
+      ]) {
+        expect(requirement('FR-013a')).toContain(protectedPath);
+      }
       expect(hooks).toMatch(/`Edit` \/ `Write` \/ `MultiEdit` \/ `NotebookEdit`/);
       expect(hooks).toMatch(/Bash write verb or redirection naming a protected guard file/);
     });

@@ -32,6 +32,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: When a session needs to push fixes to an existing PR whose branch already has a non-compliant name, should the guard allow it? → A: Yes, only when the branch already exists on GitHub and is the head of an open PR (the legacy PR exception). Creating or renaming to a new non-compliant name is still refused, and if the open-PR status can't be verified the push is refused.
 - Q: Should Claude be stopped from editing the branch guard's own files (`.claude/hooks/` and `.claude/settings.json`) during a session? → A: Yes. The guard refuses the agent's edits to those files unless the enforcement switch is off, and CODEOWNERS requires an Owner's review for changes under `.claude/`.
 - Q: If the guard itself breaks (for example, its branch-name validator can't be loaded), what should happen to Claude's commands? → A: Fail closed for git writes only. Git commit, push and branch operations, and the GitHub branch and PR tools, are refused with a "guard unavailable" message. All other commands are allowed with a visible warning.
+- Q: Is the branch guard meant to stop accidental mistakes by Claude, or to hold up against an agent that's actively trying to get around it? → A: Accidents, plus the obvious ways an agent could switch the guard off: editing the guard's files or any settings file that can disable hooks, or turning off the switch from inside the session. Unusual shell constructions are out of scope, and CI branch validation and CODEOWNERS review remain the final gate.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -55,7 +56,7 @@ A team member starts a new cloud session on this repository and asks for a chang
 8. **Given** the agent is on `develop` or `main` and every changed file is under `.github/specs/` or `docs/`, **When** it commits and pushes, **Then** neither action is refused by the guard.
 9. **Given** the agent is on `develop` or `main` and at least one changed file is outside `.github/specs/` and `docs/`, **When** it commits or pushes, **Then** the action is refused and the refusal names the files that need a feature branch.
 10. **Given** a non-compliant branch that already exists on GitHub and is the head of an open PR, **When** the agent commits to it and pushes, **Then** neither action is refused (the legacy PR exception). **Given** the same branch without an open PR, or when open-PR status can't be verified, **Then** the push is refused.
-11. **Given** enforcement is on, **When** the agent tries to change, move or delete a file under `.claude/hooks/` or `.claude/settings.json` (through its editing tools or a shell command), **Then** the action is refused. **Given** the enforcement switch is off, **Then** the edit is allowed.
+11. **Given** enforcement is on, **When** the agent tries to change, move or delete a file under `.claude/hooks/`, `.claude/settings.json`, `.claude/settings.local.json` or `~/.claude/settings.json` (through its editing tools or a shell command), **Then** the action is refused. **Given** the enforcement switch is off, **Then** the edit is allowed.
 
 ---
 
@@ -144,9 +145,9 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-010**: Branch-name compliance MUST be decided by the same validation rules the repository's CI uses, so that the guard and CI can never disagree.
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
 - **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal.
-- **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings.
+- **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings. The agent MUST NOT be able to change the switch from inside a running session; it takes effect only from the environment the session started with.
 - **FR-012a**: If the guard can't evaluate a call because of its own fault (for example, the validator fails to load or an internal error occurs), it MUST refuse git commit, push and branch operations and the GitHub branch, file and PR tools with a message saying the guard is unavailable and how to report it. It MUST allow all other commands, with a visible warning. Malformed hook input from the platform is still allowed silently.
-- **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files (`.claude/hooks/**` and `.claude/settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`.
+- **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files and any settings file that can disable or override hooks (`.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and the user settings file `~/.claude/settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`.
 - **FR-014**: Enforcement MUST block in both cloud and local agent sessions on this repository, with identical rules. Only the enforcement switch (FR-013) may downgrade refusals to warnings, in either setting.
 
 #### Shared environment
@@ -206,6 +207,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - Empty `claude/*` branches left by the platform are removed by spec 009's scheduled cleanup under the auto-approval exception (FR-020 to FR-022). Existing `claude/*` branches that have commits are reviewed by maintainers through 009's DISCUSS category, not deleted automatically.
 - The cleanup requirements depend on spec 009 and lightspeedwp/.github#3358 (the categorisation library and scheduled workflow). They are delivered after #3358 merges, together with the matching amendment to spec 009.
 - Sessions opened with several repositories do not load repository-level protections. This is documented, not solved.
+- Threat model: the guard is designed to stop accidental non-compliance and the obvious self-bypasses (editing guard or settings files, or changing the switch in-session). It is not designed to resist a determined adversary using unusual shell constructions; CI branch validation and CODEOWNERS review are the final gate.
 - The guard uses command-parsing heuristics. Unusual constructions (for example, committing in another directory after changing into it) may not be caught, and CI's branch-name validation remains the final gate.
 - Scope is this repository only. Packaging the environment definition, hooks and guard as a portable plugin (top-level `plugins/`) for other LightSpeed repositories is a follow-up spec. This spec's design should not block that reuse.
 - The guard does not record or report refusals. Success is measured through the existing branch-validation metrics and the monthly session review (SC-007), so no session telemetry is collected or stored.

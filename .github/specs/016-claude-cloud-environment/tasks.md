@@ -32,7 +32,7 @@ the real baseline.
 
 **Purpose**: Align the spec with the plan, and put the test harness in place.
 
-- [ ] T001 Amend FR-013a in `.github/specs/016-claude-cloud-environment/spec.md` so the protected guard files also include `.claude/settings.local.json` and `~/.claude/settings.json`, which can disable hooks (research R12). Update the matching clarification bullet, acceptance scenario 11 and edge case.
+- [x] T001 Amend FR-013a in `.github/specs/016-claude-cloud-environment/spec.md` so the protected guard files also include `.claude/settings.local.json` and `~/.claude/settings.json`, which can disable hooks (research R12). Update the matching clarification bullet, acceptance scenario 11 and edge case.
 - [ ] T002 [P] Create the black-box test harness in `scripts/__tests__/enforce-branch-name-hook.test.js`. It needs:
   - a helper that spawns `node .claude/hooks/enforce-branch-name.mjs` with a JSON payload `{ tool_name, tool_input, cwd }` on stdin
   - a temporary git repository fixture (`git init`, a `develop` branch, a bare `origin` remote)
