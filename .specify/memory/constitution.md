@@ -341,19 +341,6 @@ Each specification project includes a `checklists/` directory with:
   - Trend data (improving/declining compliance)
   - Team adherence by individual/repo
 
-<!-- SYNC IMPACT REPORT
-Version: 1.1.0 → 1.2.0 (MINOR bump)
-Changes:
-  - Added: "Issue Type and Template Routing" section with issue-type-to-template mapping (24 types)
-  - Added: "Branch Type to PR Template Routing" section with branch-prefix-to-template mapping (38 allowed types, 3 forbidden)
-  - Updated: Principle VIII branch type count from 34 to 38 (added automation, epic, aiops)
-  - Updated: Code Review & Quality Gates section with references to new routing sections
-  - Enhanced: Branch naming enforcement documentation with fallback routing explanation
-  - Clarified: Forbidden prefix handling and fallback behavior
-
-Rationale: MINOR bump (new governance sections) for explicit governance documentation of issue and branch routing mappings.
--->
-
 ---
 
 **Version**: 1.3.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-24
