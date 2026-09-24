@@ -101,8 +101,8 @@ From canonical file:
 
 ```bash
 grep "^- name: type:" .github/labels.yml | sort
-# Before consolidation: 26 labels (includes unmapped type:decision)
-# After consolidation: exactly 25 (type:question retired)
+# At the audit (2026-09-14): 26 labels (includes unmapped type:decision)
+# Since Stage 0a (T040b): exactly 25 (type:question retired)
 # Should include: type:task, type:bug, type:feature, type:docs, etc.
 
 grep "^- name: type:" .github/labels.yml | wc -l

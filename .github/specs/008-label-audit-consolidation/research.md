@@ -74,14 +74,14 @@
 
 **All 25 types confirmed present in canonical labels.yml** with matching names and colors.
 
-**Issue types**:
+**Issue types** (after the Stage 0a swap, Decision replaces Question):
 
 1. Task → `type:task`
 2. Bug → `type:bug`
 3. Feature → `type:feature`
 4. Design → `type:design`
 5. Epic → `type:epic`
-6. Question → `type:question`
+6. Decision → `type:decision`
 7. Improvement → `type:improve`
 8. Chore → `type:chore`
 9. CI → `type:ci`

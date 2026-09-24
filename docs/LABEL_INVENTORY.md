@@ -86,44 +86,37 @@ Labels signalling urgency and business impact.
 
 ---
 
-## Type Labels (32)
+## Type Labels (25)
 
-Labels classifying the type of work. Assign exactly one per issue.
+Labels classifying the type of work. Assign exactly one per issue. Each maps to one issue type in `.github/issue-types.yml`; questions go to GitHub Discussions, not issues.
 
-| Label | Color | Description | Project Field | Notes |
+| Label | Color | Description | Issue Type | Notes |
 | --- | --- | --- | --- | --- |
-| `type:task` | 0F448A | Task or to-do | Task | Default for untyped work |
-| `type:bug` | 810E18 | Bug or defect | Bug | Broken/incorrect behaviour |
-| `type:feature` | 1D7232 | Feature or enhancement | Feature | New capability |
-| `type:enhancement` | 1D7232 | Enhancement/alias for improve | Feature | Alias for improve; enhancement to existing feature |
-| `type:design` | 4D1A93 | Design work | Design | Design artefacts/decisions |
-| `type:ui` | 4D1A93 | UI implementation | Design | UI consistency, implementation |
-| `type:epic` | 4D1A93 | Large multi-scope initiative | Task | Parent issue for stories/tasks |
-| `type:story` | 0F448A | User story | Task | User-centred vertical slice |
-| `type:improve` | 4E575F | Improvement to existing behaviour/UX | Feature | Enhance existing feature |
-| `type:refactor` | 4E575F | Refactor or internal change | Chore | Internal restructure; no UX change |
-| `type:build` | 0F448A | Build & CI | Task | Build pipelines, tooling |
-| `type:ci` | 0F448A | CI/CD pipelines | Automation | CI/CD infrastructure |
-| `type:automation` | 0F448A | Automation | Automation | Bots, actions, scripts |
-| `type:test` | 7E6007 | Testing/coverage | Automation | Testing and QA work; branch mapping rule: head-branch ["^test/.*", "^qa/.*"] |
-| `type:performance` | 7E6007 | Performance improvement | Task | Speed, efficiency optimisation |
-| `type:a11y` | 4D1A93 | Accessibility | Design | Accessibility/WCAG work |
-| `type:security` | 810E18 | Security issue | Bug | Security concern/hardening |
-| `type:compatibility` | 883D07 | Compatibility | Task | Browser/device/plugin compatibility |
-| `type:integration` | 883D07 | Integration | Task | External system integration |
-| `type:dependency` | 883D07 | Dependency update | Integration | Dependency updates, version management |
-| `type:release` | 1D7232 | Release | Release | Release planning/management |
-| `type:maintenance` | 4E575F | Maintenance | Task | Routine maintenance, updates |
-| `type:documentation` | 4E575F | Documentation | Documentation | Docs, guides, specifications |
-| `type:research` | 4E575F | Research / investigation | Task | Investigation, POC, spike |
-| `type:investigation` | 4E575F | Investigation | Research | Issue diagnosis, root cause analysis |
-| `type:chore` | 4E575F | Chore / small hygiene change | Task | Hygiene change, typos, config |
-| `type:audit` | 4E575F | Audit | Task | Security/code/process audit |
-| `type:review` | 0F448A | Code or design review task | Task | Peer review, validation |
-| `type:ai-ops` | 0F448A | AI Ops | Automation | AI, agents, datasets |
-| `type:content-modelling` | 4D1A93 | Content Modelling | Design | Content structure, CPTs, taxonomy |
-| `type:question` | 4D1A93 | Question or request for clarification | Task | Clarification request |
-| `type:support` | 1D7232 | Support request | Task | Support/troubleshooting |
+| `type:task` | 0969DA | Task or to-do | Task | Default for untyped work |
+| `type:bug` | B91C1C | Bug or defect | Bug | Broken/incorrect behaviour |
+| `type:feature` | 2A7A3B | Feature or enhancement | Feature | New capability |
+| `type:design` | 8957E5 | Design work | Design | Design artefacts/decisions |
+| `type:epic` | 3467D3 | Large multi-scope initiative | Epic | Parent issue for stories/tasks |
+| `type:decision` | 3467D3 | Decision record | Decision | — |
+| `type:improve` | 2A7A3B | Improvement to existing behaviour/UX | Improvement | Enhance existing feature |
+| `type:chore` | 57606A | Routine task or maintenance update | Chore | Hygiene change, typos, config |
+| `type:ci` | C5DEF5 | CI | CI | CI/CD infrastructure |
+| `type:automation` | D0D7DE | Automation tasks or scripts | Automation | Bots, actions, scripts |
+| `type:test` | D29922 | Test coverage | Test Coverage | Testing and QA work; branch mapping rule: head-branch ["^test/.*", "^qa/.*"] |
+| `type:performance` | F2D06D | Performance improvement | Performance | Speed, efficiency optimisation |
+| `type:a11y` | 8957E5 | Accessibility | Accessibility | Accessibility/WCAG work |
+| `type:security` | CF222E | Security issue | Security | Security concern/hardening |
+| `type:compat` | 0D7F6F | Compatibility | Compatibility | — |
+| `type:refactor` | B1BAC4 | Refactor or internal change | Refactor | Internal restructure; no UX change |
+| `type:release` | 1A7F37 | Release | Release | Release planning/management |
+| `type:dependency` | 007580 | Dependency update or management | Dependency Update | Dependency updates, version management |
+| `type:docs` | 3467D3 | Documentation | Documentation | — |
+| `type:research` | C5DEF5 | Research / investigation | Research | Investigation, POC, spike |
+| `type:audit` | D29922 | Audit | Audit | Security/code/process audit |
+| `type:review` | 0969DA | Code or design review task | Review | Peer review, validation |
+| `type:aiops` | B1BAC4 | AI Ops | AI Ops | — |
+| `type:content-modelling` | B4A7E8 | Content Modelling | Content Modelling | Content structure, CPTs, taxonomy |
+| `type:build` | C5DEF5 | Build tasks or processes | Build | Build pipelines, tooling |
 
 ---
 

@@ -185,7 +185,7 @@ As the label governance owner (@ashley), I need GitHub and Linear to share one a
 ### Key Entities
 
 - **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, ai-ops (target: `aiops`, FR-011), contrib, discussion, openspec (target: `spec`, FR-011) (and any others discovered during audit)
-- **Type Labels**: Currently 26 `type:*` labels (25 mapped to issue types, plus unmapped `type:decision`); after the FR-014 swap, exactly 25, each mapped to one issue type
+- **Type Labels**: Exactly 25 `type:*` labels, each mapped to one issue type. The audit found 26 (25 mapped, plus unmapped `type:decision`); Stage 0a applied the FR-014 swap
 - **Canonical Labels**: The 169 labels currently defined in `.github/labels.yml`
 - **Governance Policy**: The never-delete label list and related rules in `label-governance-policy.yml`
 - **Archived Workflows**: 11 workflow files that were disabled due to non-functional status
@@ -199,7 +199,7 @@ As the label governance owner (@ashley), I need GitHub and Linear to share one a
 
 - **SC-001 (Incomplete)**: Audit report identifies all missing labels (those in GitHub but not in the canonical file with 169 labels) with 100% accuracy. This criterion MUST remain incomplete until a verified full repository label set replaces the empty inventory in `github-api-labels.json`
 - **SC-002**: Audit report identifies all label mismatches (different names/colors between files) with 100% accuracy
-- **SC-003**: The audit verifies all 25 issue-type mappings are present and correct in the canonical file and records `type:decision` as unmapped. After consolidation, the type family contains exactly 25 labels, each mapped to one issue type and template, with `type:decision` mapped and `type:question` retired
+- **SC-003**: The audit verifies all 25 issue-type mappings are present and correct in the canonical file, with `type:decision` mapped and `type:question` retired (Stage 0a; the 2026-09-14 audit recorded `type:decision` as unmapped). After consolidation, the type family contains exactly 25 labels, each mapped to one issue type and template, with `type:decision` mapped and `type:question` retired
 - **SC-004**: Audit report identifies ALL duplicate/overlapping labels across families, ranked by consolidation impact and usage frequency. Usage frequency is the total number of open and closed issues and PRs carrying the label, summed across all `lightspeedwp` repositories (from the paginated inventory), plus the label's Linear issue count
 - **SC-005**: All 11 archived workflows are analyzed with documented findings (purpose, issues, recommendations) for each
 - **SC-006**: Audit identifies all discrepancies between canonical `labels.yml` (169 labels) and its documented purpose as "single source of truth", including type label mapping gaps
@@ -210,7 +210,7 @@ As the label governance owner (@ashley), I need GitHub and Linear to share one a
 ## Assumptions
 
 - The canonical `labels.yml` file is considered final and the baseline for this audit (169 labels total); changes are limited to the FR-011 renames, the FR-012 merges and imports, and duplicates identified by the audit
-- The canonical `type:*` family currently contains 26 labels: the 25-label `issue-types.yml` mapping set and unmapped `type:decision`. GitHub and Linear allow at most 25 issue types, so the only type-family change is the FR-014 swap
+- At the audit, the canonical `type:*` family contained 26 labels: the 25-label `issue-types.yml` mapping set and unmapped `type:decision`. GitHub and Linear allow at most 25 issue types, so the only type-family change is the FR-014 swap
 - The `label-governance-policy.yml` never-delete list contains labels that may not be in the canonical file, and this is intentional (represents labels that must be preserved for historical or compatibility reasons)
 - Archived workflows were disabled due to conflicts, performance issues, or obsolescence rather than planned retirement
 - The full GitHub API label inventory represents the true repository state, but `github-api-labels.json` currently contains no verified labels; orphan-label conclusions remain pending until the inventory is obtained

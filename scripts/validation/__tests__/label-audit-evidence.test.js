@@ -16,14 +16,13 @@ describe('Label audit evidence', () => {
   const policy = evidence('governance-policy');
   const findings = evidence('all-findings');
   const inventory = JSON.parse(read(`${audit}/label-inventory.json`));
-  const sourceLabels = yaml.load(read('.github/labels.yml'));
-  const sourceIssueTypes = yaml.load(read('.github/issue-types.yml'));
-  const sourcePolicy = yaml.load(read('.github/label-governance-policy.yml'));
+  // The evidence is a snapshot of the configuration on the audit date
+  // (2026-09-14). Consolidation changes the live files afterwards, so these
+  // checks compare the evidence with itself, not with the live files.
 
-  test('canonical snapshot contains every unique source label', () => {
+  test('canonical snapshot contains 169 unique labels', () => {
     const canonicalNames = names(canonical.labels);
 
-    expect(canonicalNames).toEqual(names(sourceLabels));
     expect(new Set(canonicalNames).size).toBe(canonicalNames.length);
     expect(canonical.count).toBe(canonicalNames.length);
     expect(canonical.count).toBe(169);
@@ -44,12 +43,11 @@ describe('Label audit evidence', () => {
     expect(sorted(familyLabels)).toEqual(sorted(names(canonical.labels)));
   });
 
-  test('issue-type snapshot matches mappings and records only the unmapped exception', () => {
-    const mapped = sourceIssueTypes.issue_types.map((issueType) => issueType.label);
+  test('issue-type snapshot records only the unmapped exception', () => {
+    const mapped = issueTypes.type_labels;
     const canonicalTypes = names(canonical.labels).filter((label) => label.startsWith('type:'));
     const unmapped = canonicalTypes.filter((label) => !mapped.includes(label));
 
-    expect(sorted(issueTypes.type_labels)).toEqual(sorted(mapped));
     expect(issueTypes.count).toBe(mapped.length);
     expect(new Set(mapped).size).toBe(mapped.length);
     expect(mapped.every((label) => canonicalTypes.includes(label))).toBe(true);
@@ -57,12 +55,11 @@ describe('Label audit evidence', () => {
     expect(findings.type_label_gaps).toEqual(unmapped);
   });
 
-  test('policy snapshot and missing-label findings match the source policy', () => {
-    const protectedLabels = sourcePolicy.destructive_cleanup.never_delete_labels;
+  test('missing-label findings match the policy snapshot', () => {
+    const protectedLabels = policy.never_delete_labels;
     const canonicalNames = new Set(names(canonical.labels));
     const missing = protectedLabels.filter((label) => !canonicalNames.has(label));
 
-    expect(sorted(policy.never_delete_labels)).toEqual(sorted(protectedLabels));
     expect(policy.count).toBe(protectedLabels.length);
     expect(new Set(protectedLabels).size).toBe(protectedLabels.length);
     expect(sorted(findings.governance_gaps.map(({ label }) => label))).toEqual(sorted(missing));
@@ -76,6 +73,15 @@ describe('Label audit evidence', () => {
       )
     );
     expect(missing).toHaveLength(12);
+  });
+
+  test('live never-delete list only protects labels in labels.yml (T055)', () => {
+    const live = new Set(names(yaml.load(read('.github/labels.yml'))));
+    const livePolicy = yaml.load(read('.github/label-governance-policy.yml'));
+    const protectedLabels = livePolicy.destructive_cleanup.never_delete_labels;
+
+    expect(protectedLabels.filter((label) => !live.has(label))).toEqual([]);
+    expect(protectedLabels).not.toContain('type:question');
   });
 
   test('findings and summary reflect the two independent sources of gaps', () => {

@@ -50,7 +50,7 @@
 | `name` | string | ✅ | Human-readable family name |
 | `total_count` | integer | ✅ | Number of labels in this family (from canonical file) |
 | `description` | string | ✅ | Family purpose and usage guidelines |
-| `is_immutable` | boolean | ✅ | True for `type:*` family (26 labels today, 25 after FR-014; changes only via the approved swap) |
+| `is_immutable` | boolean | ✅ | True for `type:*` family (exactly 25 labels since the Stage 0a swap; changes only via the approved FR-014 swap) |
 | `canonical_count` | integer | ✅ | Labels defined in canonical labels.yml |
 | `source_files` | string[] | ✅ | Files defining this family (e.g., [".github/labels.yml", ".github/issue-types.yml"]) |
 
@@ -326,7 +326,7 @@ Each label MUST pass these checks:
 2. **Family Membership**: Family must exist in families list
 3. **Color Code**: Must be valid hex color (6 characters)
 4. **Description**: Must be non-empty and descriptive
-5. **Type Family Control**: All 25 mapped type labels must be present; `type:decision` is the 26th until the FR-014 swap retires `type:question`
+5. **Type Family Control**: Exactly 25 type labels, each mapped to one issue type (`type:decision` mapped, `type:question` retired in Stage 0a)
 6. **Consistency**: If canonical, should not have duplication_status != "unique"
 
 ### Audit Completeness Checks

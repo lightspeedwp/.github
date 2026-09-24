@@ -320,7 +320,7 @@ You can read these to understand exactly what validation checks.
 ### What if I have a question not answered here?
 
 1. Check [`docs/LABELING.md`](./LABELING.md) for more details
-2. Open an issue with your question and tag it `type:question`, `area:labels`
+2. Ask in [GitHub Discussions](https://github.com/lightspeedwp/.github/discussions) (Q&A category); questions are not tracked as issues
 3. Ask in #engineering Slack channel
 
 ---
