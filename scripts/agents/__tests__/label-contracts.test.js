@@ -630,7 +630,173 @@ describe('label governance contracts (#3545)', () => {
     });
   });
 
-  describe('router/agent convergence (#3525 case)', () => {
+  describe('issue type is the source of type:* (#3545 section 4, #3554 case)', () => {
+    // The live issue carries a GitHub issue type (issues.get); the event
+    // payload may not, or may predate a type change.
+    function withIssueType(octokit, typeName) {
+      octokit.rest.issues.get = async () => ({
+        data: { type: typeName ? { name: typeName } : null },
+      });
+      return octokit;
+    }
+
+    const LINEAR_BODY = [
+      '## Chore Summary',
+      '',
+      'Add five approved conflict-resolution labels to the canonical label taxonomy.',
+      'No issue-level label retirement or migration in this request.',
+      'The decision and approver must be recorded.',
+    ].join('\n');
+
+    test('#3554: Chore issue whose body says "issue" gets only type:chore', async () => {
+      const octokit = withIssueType(createMockOctokit([]), 'Chore');
+      const report = await agent.runLabelingAgent({
+        context: issueContext({
+          title: '[LABEL-UPDATE-REQUEST] Add conflict-resolution labels to canonical taxonomy',
+          body: LINEAR_BODY,
+        }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+      expect(octokit.calls.added).not.toContain('type:bug');
+      expect(octokit.calls.added).not.toContain('type:task');
+      expect(report.errors).toEqual([]);
+    });
+
+    test('live issue type wins over a stale payload type', async () => {
+      const octokit = withIssueType(createMockOctokit([]), 'Chore');
+      const context = issueContext({ title: 'Tidy labels', body: '' });
+      context.payload.issue.type = { name: 'Bug' };
+      await agent.runLabelingAgent({ context, github: octokit, dryRun: false });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+    });
+
+    test('existing wrong type labels converge to the issue type', async () => {
+      const octokit = withIssueType(createMockOctokit(['type:task', 'type:bug']), 'Chore');
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'Tidy labels', labels: ['type:task', 'type:bug'] }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+      expect(report.errors).toEqual([]);
+    });
+
+    test('a type missing from issue-types.yml falls back to its canonical slug', async () => {
+      const octokit = withIssueType(createMockOctokit([]), 'Decision');
+      await agent.runLabelingAgent({
+        context: issueContext({ title: 'Choose a label policy', body: 'fix the process' }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:decision']);
+    });
+
+    test('an issue type with no canonical label falls back to content detection', async () => {
+      const octokit = withIssueType(createMockOctokit([]), 'Widget');
+      await agent.runLabelingAgent({
+        context: issueContext({ title: 'fix: broken thing' }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:bug']);
+    });
+
+    test('no issue type: the word "issue" alone no longer means type:bug', async () => {
+      const octokit = withIssueType(createMockOctokit([]), null);
+      await agent.runLabelingAgent({
+        context: issueContext({ title: 'Label taxonomy request', body: LINEAR_BODY }),
+        github: octokit,
+        dryRun: false,
+      });
+      // "Chore Summary" is the first whole-word match; "decision" no
+      // longer matches `ci`, and "issue" no longer maps to type:bug.
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+    });
+
+    test('rerun with the same issue type mutates nothing (idempotent)', async () => {
+      const first = withIssueType(createMockOctokit([]), 'Chore');
+      await agent.runLabelingAgent({
+        context: issueContext({ title: 'Tidy labels' }),
+        github: first,
+        dryRun: false,
+      });
+      const second = withIssueType(createMockOctokit([...first.state.labels]), 'Chore');
+      await agent.runLabelingAgent({
+        context: issueContext({ title: 'Tidy labels', labels: [...first.state.labels] }),
+        github: second,
+        dryRun: false,
+      });
+      expect(second.calls.added).toEqual([]);
+      expect(second.calls.removed).toEqual([]);
+    });
+
+    test('removing the issue type (untyped) re-derives the type label', async () => {
+      const octokit = withIssueType(createMockOctokit(['type:chore']), null);
+      const context = issueContext({ title: 'Tidy labels', labels: ['type:chore'] });
+      context.payload.action = 'untyped';
+      const report = await agent.runLabelingAgent({ context, github: octokit, dryRun: false });
+      // No title prefix or keyword: the default replaces the stale label.
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:task']);
+      expect(octokit.calls.removed).toContain('type:chore');
+      expect(report.errors).toEqual([]);
+    });
+
+    test('untyped re-derives from the title prefix when there is one', async () => {
+      const octokit = withIssueType(createMockOctokit(['type:chore']), null);
+      const context = issueContext({ title: 'fix: broken thing', labels: ['type:chore'] });
+      context.payload.action = 'untyped';
+      await agent.runLabelingAgent({ context, github: octokit, dryRun: false });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:bug']);
+    });
+
+    test('other events on an issue without a type keep its existing type label', async () => {
+      const octokit = withIssueType(createMockOctokit(['type:chore']), null);
+      const context = issueContext({ title: 'fix: broken thing', labels: ['type:chore'] });
+      context.payload.action = 'edited';
+      await agent.runLabelingAgent({ context, github: octokit, dryRun: false });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+      expect(octokit.calls.removed).toEqual([]);
+    });
+
+    test('keywords match whole words only', () => {
+      const detect = agent.detectIssueTypeFromContent;
+      expect(detect('', 'a decision was recorded')).not.toBe('type:ci');
+      expect(detect('', 'update the prefix handling')).not.toBe('type:bug');
+      expect(detect('', 'see the document')).not.toBe('type:docs');
+      expect(detect('ci: pin actions', '')).toBe('type:ci');
+      expect(detect('', 'this fixes #12')).toBe('type:bug');
+      expect(detect('Report an issue', '')).toBeNull();
+    });
+
+    test('a conventional title prefix outranks body keywords', () => {
+      const detect = agent.detectIssueTypeFromContent;
+      const canonical = canonicalLabelSet();
+      // #3541: "decision: …" with no issue type.
+      expect(detect('decision: specs - pick one checklist', 'routine maintenance', canonical)).toBe(
+        'type:decision'
+      );
+      expect(detect('fix(ci): pin actions', 'new feature', canonical)).toBe('type:bug');
+      expect(detect('review: label consolidation', '', canonical)).toBe('type:review');
+      // An unknown prefix falls through to keywords.
+      expect(detect('wibble: tidy', 'routine maintenance', canonical)).toBe('type:chore');
+    });
+
+    test('every issue-types.yml entry maps to a canonical label', () => {
+      const canonical = canonicalLabelSet();
+      const map = agent.loadIssueTypeLabelMap(path.join(REPO_ROOT, '.github/issue-types.yml'));
+      expect(map.size).toBeGreaterThan(0);
+      for (const [name] of map) {
+        expect([name, agent.labelForIssueType(name, map, canonical)]).toEqual([
+          name,
+          expect.stringMatching(/^type:/),
+        ]);
+      }
+    });
+  });
+
+>  describe('router/agent convergence (#3525 case)', () => {
     test('docs/ PR converges to type:docs regardless of order', async () => {
       // Router-first: router applied type:docs, agent must keep exactly it.
       const routerFirst = createMockOctokit(routeBranch('docs/spec-x'));
