@@ -176,8 +176,8 @@
         "area:agents": false,
         "ai-ops:agents": false
       },
-      "recommended_canonical": null,
-      "status": "needs decision"
+      "recommended_canonical": "aiops:agents",
+      "status": "decided"
     },
     {
       "label1": "area:instructions",
@@ -198,8 +198,8 @@
         "area:instructions": false,
         "ai-ops:instructions": false
       },
-      "recommended_canonical": null,
-      "status": "needs decision"
+      "recommended_canonical": "aiops:instructions",
+      "status": "decided"
     },
     {
       "label1": "area:prompts",
@@ -220,8 +220,8 @@
         "area:prompts": false,
         "ai-ops:prompts": false
       },
-      "recommended_canonical": null,
-      "status": "needs decision"
+      "recommended_canonical": "aiops:prompts",
+      "status": "decided"
     },
     {
       "label1": "area:operations",

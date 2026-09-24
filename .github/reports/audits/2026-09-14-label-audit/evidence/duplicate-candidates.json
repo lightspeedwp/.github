@@ -74,7 +74,7 @@
       "relationship": "cross-family",
       "reason_duplicate": "AI agent work is labelled in two families.",
       "confidence": "high",
-      "decided_in": null
+      "decided_in": "spec FR-012, 2026-09-24 clarification (area:agents \u2192 aiops:agents)"
     },
     {
       "family": "area / ai-ops",
@@ -83,7 +83,7 @@
       "relationship": "cross-family",
       "reason_duplicate": "AI instruction files are labelled in two families.",
       "confidence": "high",
-      "decided_in": null
+      "decided_in": "spec FR-012, 2026-09-24 clarification (area:instructions \u2192 aiops:instructions)"
     },
     {
       "family": "area / ai-ops",
@@ -92,7 +92,7 @@
       "relationship": "cross-family",
       "reason_duplicate": "Reusable prompts are labelled in two families.",
       "confidence": "high",
-      "decided_in": null
+      "decided_in": "spec FR-012, 2026-09-24 clarification (area:prompts \u2192 aiops:prompts)"
     },
     {
       "family": "area",
@@ -126,7 +126,7 @@
       "label1": "area:ai",
       "label2": "area:agents",
       "relationship": "same-family",
-      "reason_duplicate": "area:ai is the umbrella for area:agents, area:skills, area:instructions and area:prompts; they are nested rather than duplicate.",
+      "reason_duplicate": "area:ai is the umbrella area label for AI work and stays; its children area:agents, area:instructions and area:prompts move to aiops:* (FR-012), and area:skills is decided in T043.",
       "confidence": "low",
       "decided_in": null
     },

@@ -149,7 +149,7 @@
       "pair": ["area:agents", "ai-ops:agents"],
       "action": "merge",
       "canonical": "aiops:agents",
-      "rationale": "After the FR-011 rename, keep aiops:agents for AI assets and retire area:agents.",
+      "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:agents \u2192 aiops:agents).",
       "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
       "automation_impact": [
         "agents/pr-agent/__tests__/integration/label-application-scenarios.test.js",
@@ -160,27 +160,27 @@
         "agents/pr-agent/skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js"
       ],
       "rollout": "Stage 2 configuration PR + Stage 3 relabel",
-      "needs_approval": true
+      "needs_approval": false
     },
     {
       "pair": ["area:instructions", "ai-ops:instructions"],
       "action": "merge",
       "canonical": "aiops:instructions",
-      "rationale": "As above: keep aiops:instructions, retire area:instructions.",
+      "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:instructions \u2192 aiops:instructions).",
       "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
       "automation_impact": [],
       "rollout": "Stage 2 configuration PR + Stage 3 relabel",
-      "needs_approval": true
+      "needs_approval": false
     },
     {
       "pair": ["area:prompts", "ai-ops:prompts"],
       "action": "merge",
       "canonical": "aiops:prompts",
-      "rationale": "As above: keep aiops:prompts, retire area:prompts.",
+      "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:prompts \u2192 aiops:prompts).",
       "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
       "automation_impact": [],
       "rollout": "Stage 2 configuration PR + Stage 3 relabel",
-      "needs_approval": true
+      "needs_approval": false
     },
     {
       "pair": ["area:operations", "area:infrastructure"],
@@ -219,7 +219,7 @@
       "pair": ["area:ai", "area:agents"],
       "action": "keep",
       "canonical": "both",
-      "rationale": "Not duplicates: area:ai is the umbrella for area:agents, area:skills, area:instructions and area:prompts; they are nested rather than duplicate.",
+      "rationale": "Not duplicates: area:ai is the umbrella area label for AI work and stays; its children area:agents, area:instructions and area:prompts move to aiops:* (FR-012), and area:skills is decided in T043.",
       "migration": "none",
       "automation_impact": [],
       "rollout": "none",
