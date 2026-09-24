@@ -35,6 +35,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: Is the branch guard meant to stop accidental mistakes by Claude, or to hold up against an agent that's actively trying to get around it? → A: Accidents, plus the obvious ways an agent could switch the guard off: editing the guard's files or any settings file that can disable hooks, or turning off the switch from inside the session. Unusual shell constructions are out of scope, and CI branch validation and CODEOWNERS review remain the final gate.
 - Q: Should the docs-only exception also cover `main`, or only `develop`? → A: `develop` only. Every commit or push straight to `main` is refused, including docs-only changes, because `main` receives changes only through releases from `develop`.
 - Q: Should the one-time Owner setup be required to turn on "Require review from Code Owners" for `develop`, so the `/.claude/` CODEOWNERS entry actually blocks unreviewed changes to the guard's files? → A: Yes. It is a required Owner setup step for `develop` and `main`, and the verification steps check that it is on.
+- Q: Should the spec set a measurable speed limit for the branch guard, so it doesn't noticeably slow down every command the agent runs? → A: Yes. The guard adds 150 ms or less per call in the normal case, and the legacy PR check (up to 10 seconds) runs only when a write would otherwise be refused. An automated test covers it (SC-008).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -199,6 +200,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **SC-005**: Session start adds no more than 30 seconds when dependencies are already current. The first provisioning run completes in under 5 minutes.
 - **SC-006**: A maintainer unfamiliar with the setup can recreate the environment and pass every verification step using only the documentation, in under 15 minutes.
 - **SC-007**: In a monthly review of 10 sampled agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help.
+- **SC-008**: The guard adds no more than 150 ms per matched tool call (median over the automated contract test run) in the normal case, where no network check is needed. The legacy PR check, which may take up to 10 seconds, runs only when a commit, push or GitHub write would otherwise be refused.
 
 ## Assumptions
 
