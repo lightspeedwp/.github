@@ -59,6 +59,14 @@ Provide enterprise-grade, portable changelog management using Keep a Changelog 1
 **Release Processing** - Convert [Unreleased] to version releases
 **Formatting** - Enforce changelog formatting standards
 
+## Qodo PR-Agent integration
+
+[Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+
+- **Invocation**: pr-comment (the proposal a maintainer requests with `/update_changelog`) or [`skills/qodo-pr-agent`](../../skills/qodo-pr-agent/SKILL.md) with `update_changelog`.
+- **On output**: Validate the proposal against the changelog rules: at most 250 characters, user-facing, no implementation detail, linked to a PR or issue, and in a Keep a Changelog category. Reject it and name the failing rule if it fails. Qodo PR-Agent never commits the entry.
+- **Fallback**: The existing changelog flow applies unchanged. When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
+
 ## Implementation Reference
 
 - **Folder:** `agents/changelog/`

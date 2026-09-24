@@ -28,7 +28,13 @@ Notes:
 
 - If gh hits auth/rate issues mid-run, prompt the user to re-authenticate with `gh auth login`, then retry.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+## Qodo PR-Agent integration
+
+[Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+
+- **Invocation**: pr-comment. Read the persistent Qodo PR-Agent improvement-suggestions comment (author `github-actions[bot]`; identify it by the marker recorded in `docs/QODO_PR_AGENT.md` → "Recognising Qodo PR-Agent feedback").
+- **On output**: Triage each suggestion like any other review comment: address it, or reply with the reason it stays as is.
+- **Fallback**: If there is no Qodo PR-Agent comment, there is nothing extra to triage. When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
@@ -38,4 +44,6 @@ Notes:
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+
+*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

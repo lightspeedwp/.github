@@ -118,7 +118,7 @@
 
 ### Tests for User Story 3
 
-- [ ] T014 [P] [US3] Create `tests/js/qodo-pr-agent-integrations.test.js`. It asserts:
+- [X] T014 [P] [US3] Create `tests/js/qodo-pr-agent-integrations.test.js`. It asserts:
   - (a) `skills/qodo-pr-agent/SKILL.md` exists with frontmatter `name: "lightspeed-qodo-pr-agent"` and a `description`, and documents the output fields `status`, `reason`, `tool`, `markdown`, `data`, `truncated` and the statuses `ok`, `skipped`, `error`.
   - (b) `skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh` exists and is executable. It contains `publish_output=false`, `propagate_tool_errors=true` and `response_language=en-GB`, and uses the same `sha256:` digest as `.github/workflows/qodo-pr-agent-reusable.yml`, compared by reading both files.
   - (c) `skills/SKILL_REGISTRY.json` has `lightspeed-qodo-pr-agent` in the `core` group.
@@ -129,7 +129,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T015 [US3] Create `skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh` (bash, `set -euo pipefail`, executable) per [contracts/skill-interface.md](./contracts/skill-interface.md).
+- [X] T015 [US3] Create `skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh` (bash, `set -euo pipefail`, executable) per [contracts/skill-interface.md](./contracts/skill-interface.md).
   - **Arguments**: `<tool> (--pr-url <url> | --diff-file <path>) [--question "<text>"] [--out <dir>]`. Allowed tools are `review improve describe ask generate_labels update_changelog add_docs`. With `--diff-file`, only `review improve describe ask` are allowed. `--question` is required for `ask`.
   - **Credentials**: the credential comes from `ANTHROPIC_API_KEY_QODO_PR_AGENT`, falling back to `ANTHROPIC_API_KEY`, exported as `ANTHROPIC__KEY`. PR mode requires `GITHUB_TOKEN`, exported as `GITHUB__USER_TOKEN`.
   - **Runtime**: prefer `docker run --rm` of `pragent/pr-agent@sha256:<same digest as T006>`. Otherwise use `pipx run pr-agent==0.46.0`, which needs Python ≥ 3.12. If neither is available, return `skipped` with reason `no-runtime`.
@@ -137,36 +137,36 @@
   - **Result**: write `<out>/result.json` and echo it, with `{"status","reason","tool","markdown","data","truncated"}`. `truncated` is true if the output mentions clipped or omitted files. Map a missing key to `skipped`/`no-credential`, a disallowed tool to `skipped`/`tool-disabled`, rate-limit (HTTP 429) text to `error`/`rate-limited`, and any other non-zero exit to `error`/`upstream-error`.
   - **Exit codes**: 0 for ok and skipped, 2 for error.
   - Never print the credential, and never pass it on the command line; use `-e` or `env` only.
-- [ ] T016 [US3] Create `skills/qodo-pr-agent/SKILL.md`, with frontmatter `name: "lightspeed-qodo-pr-agent"` and a `description` starting "Use this skill when an agent needs Qodo PR-Agent output (review, improve, describe, ask, labels, changelog, docs) for a PR or diff without publishing to GitHub". Use the `docs/SKILLS_STANDARDS.md` sections: Purpose, Capabilities, Input Interface, Output Interface, Usage in Agents (the caller obligations 1–4 from the skill contract, verbatim), Error Handling, Examples (PR mode, diff mode, and a skipped result), Testing. Also create `skills/qodo-pr-agent/metadata.yml`, mirroring `skills/pr-review/metadata.yml` (`version: v0.1.0`, `owners`, platforms).
-- [ ] T017 [US3] Add `"lightspeed-qodo-pr-agent"` to the `core` group `skills` array in `skills/SKILL_REGISTRY.json`, keeping alphabetical order. Then run `npm run validate:skills` and `npm run audit:registry`.
-- [ ] T018 [P] [US3] Add a `## Qodo PR-Agent integration` section to `skills/pr-review/SKILL.md` and `agents/reviewer-agent/AGENT.md`. In the reviewer agent it goes under its "Configuration" section, as a new optional input. The section says:
+- [X] T016 [US3] Create `skills/qodo-pr-agent/SKILL.md`, with frontmatter `name: "lightspeed-qodo-pr-agent"` and a `description` starting "Use this skill when an agent needs Qodo PR-Agent output (review, improve, describe, ask, labels, changelog, docs) for a PR or diff without publishing to GitHub". Use the `docs/SKILLS_STANDARDS.md` sections: Purpose, Capabilities, Input Interface, Output Interface, Usage in Agents (the caller obligations 1–4 from the skill contract, verbatim), Error Handling, Examples (PR mode, diff mode, and a skipped result), Testing. Also create `skills/qodo-pr-agent/metadata.yml`, mirroring `skills/pr-review/metadata.yml` (`version: v0.1.0`, `owners`, platforms).
+- [X] T017 [US3] Add `"lightspeed-qodo-pr-agent"` to the `core` group `skills` array in `skills/SKILL_REGISTRY.json`, keeping alphabetical order. Then run `npm run validate:skills` and `npm run audit:registry`.
+- [X] T018 [P] [US3] Add a `## Qodo PR-Agent integration` section to `skills/pr-review/SKILL.md` and `agents/reviewer-agent/AGENT.md`. In the reviewer agent it goes under its "Configuration" section, as a new optional input. The section says:
   - **Invocation**: `skills/qodo-pr-agent` with `review` (and `ask` for targeted questions)
   - **On output**: merge the findings as inputs and apply LightSpeed standards on top; Qodo PR-Agent is not a separate verdict
   - **Fallback**: continue without it and state `Qodo PR-Agent input skipped: <reason>`
-- [ ] T019 [P] [US3] Add a `## Qodo PR-Agent integration` section to `skills/gh-address-comments/SKILL.md` and `agents/address-comments.agent.md`. It says:
+- [X] T019 [P] [US3] Add a `## Qodo PR-Agent integration` section to `skills/gh-address-comments/SKILL.md` and `agents/address-comments.agent.md`. It says:
   - **Invocation**: pr-comment. Read the persistent Qodo PR-Agent suggestions comment, identified by the marker from T010.
   - **On output**: triage each suggestion like any review comment, either addressing it or replying with a reason.
   - **Fallback**: if there is no Qodo PR-Agent comment, there is nothing to triage ("skipped").
-- [ ] T020 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/pr-agent/AGENT.md` (the internal PR agent). It covers two things:
+- [X] T020 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/pr-agent/AGENT.md` (the internal PR agent). It covers two things:
   - (1) The `describe` summary via `skills/qodo-pr-agent` in **diff mode**, as an optional source for the diff-derived body section. Routed-template ownership stays with the internal agent.
   - (2) `review`/`improve` findings as the "AI-review findings" input to the self-review gate (spec 015 US2).
   - **Fallback**: existing behaviour, plus the gate records "no Qodo PR-Agent input (skipped)".
 
   Before editing, check the open stacked spec-015 PRs (lightspeedwp/.github#3400, lightspeedwp/.github#3401, lightspeedwp/.github#3403) for changes to this file, and merge `develop` first to avoid conflicts.
-- [ ] T021 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/labeling-agent/AGENT.md` (after "Configuration Files") and `skills/label-governance/SKILL.md`. It says:
+- [X] T021 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/labeling-agent/AGENT.md` (after "Configuration Files") and `skills/label-governance/SKILL.md`. It says:
   - **Invocation**: `skills/qodo-pr-agent` with `generate_labels` (publishing off).
   - **On output**: keep only names that exist exactly in `.github/labels.yml`; never create or apply any other name; record the dropped names in the agent output.
   - **Fallback**: the existing labelling rules ("skipped").
   - State that Qodo PR-Agent itself never applies labels (FR-008).
-- [ ] T022 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/changelog-agent/AGENT.md` and `skills/changelog-generator/SKILL.md`. It says:
+- [X] T022 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/changelog-agent/AGENT.md` and `skills/changelog-generator/SKILL.md`. It says:
   - **Invocation**: pr-comment, which is the `/update_changelog` proposal comment, or the skill with `update_changelog`.
   - **On output**: validate against the changelog rules (≤250 characters, user-facing, no implementation detail, linked to a PR or issue, Keep a Changelog category). Reject naming the failing rule; the entry is never committed by Qodo PR-Agent.
   - **Fallback**: the existing changelog flow ("skipped").
-- [ ] T023 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/document-reviewer-agent/AGENT.md` and `skills/documentation-writer/SKILL.md`. It says:
+- [X] T023 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/document-reviewer-agent/AGENT.md` and `skills/documentation-writer/SKILL.md`. It says:
   - **Invocation**: pr-comment, which is the `/add_docs` output.
   - **On output**: review the suggestions before any adoption.
   - **Fallback**: none needed ("skipped").
-- [ ] T024 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/qa-subagent.agent.md`. It says:
+- [X] T024 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/qa-subagent.agent.md`. It says:
   - **Invocation**: `skills/qodo-pr-agent` with `ask` and a targeted question.
   - **On output**: use the answer as test-planning input.
   - **Fallback**: proceed without it ("skipped").

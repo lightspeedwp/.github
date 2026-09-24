@@ -682,3 +682,12 @@ After identifying problems, always provide clear paths forward:
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+
+## Qodo PR-Agent integration
+
+[Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+
+- **Invocation**: pr-comment (the output a maintainer requests with `/add_docs`).
+- **On output**: Review the suggested documentation against this asset's criteria before anything is adopted.
+- **Fallback**: None needed; documentation review works without it. When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
+
