@@ -24,22 +24,33 @@ log() { printf '==> %s\n' "$*" >&2; }
 # ── 1 + 2. Cloud-only setup, on startup/resume (not clear/compact) ───────────
 if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && { [ "$SOURCE" = "startup" ] || [ "$SOURCE" = "resume" ]; }; then
   CURRENT_BRANCH="$(git branch --show-current 2>/dev/null || true)"
+  FETCHED=false
+  git fetch --quiet origin "$BASE_BRANCH" 2>/dev/null && FETCHED=true
+  # Commits of this branch's own beyond the base; unknown counts as "has work".
+  AHEAD="$(git rev-list --count "origin/${BASE_BRANCH}..HEAD" 2>/dev/null || echo unknown)"
 
+  # Only a fresh platform branch is renamed. A claude/* branch with commits of
+  # its own (for example a session opened on an existing PR) is left alone, and
+  # the guard judges its commits and pushes (FR-001, research R10).
   if [[ "$CURRENT_BRANCH" == claude/* ]]; then
-    # "claude/admiring-mendel-nqdk8j" → "chore/session-nqdk8j". This is only a
-    # placeholder: the commit guard blocks commits on it until Claude renames it.
-    NEW_BRANCH="chore/session-${CURRENT_BRANCH##*-}"
-    if git branch -m "$CURRENT_BRANCH" "$NEW_BRANCH" 2>/dev/null; then
-      log "Renamed forbidden branch ${CURRENT_BRANCH} → ${NEW_BRANCH} (placeholder, not pushed)"
-      CURRENT_BRANCH="$NEW_BRANCH"
+    if [ "$AHEAD" = "0" ]; then
+      # "claude/admiring-mendel-nqdk8j" → "chore/session-nqdk8j". This is only a
+      # placeholder: the guard blocks commits on it until Claude renames it.
+      NEW_BRANCH="chore/session-${CURRENT_BRANCH##*-}"
+      if git branch -m "$CURRENT_BRANCH" "$NEW_BRANCH" 2>/dev/null; then
+        log "Renamed forbidden branch ${CURRENT_BRANCH} → ${NEW_BRANCH} (placeholder, not pushed)"
+        CURRENT_BRANCH="$NEW_BRANCH"
+      fi
+    else
+      log "Kept ${CURRENT_BRANCH}: it has commits of its own (${AHEAD} ahead of origin/${BASE_BRANCH})"
     fi
   fi
 
   # Fresh session (clean tree, no commits of its own): start from the tip of
   # the base branch so work never begins from a stale or wrong base.
-  if git fetch --quiet origin "$BASE_BRANCH" 2>/dev/null &&
+  if [ "$FETCHED" = true ] &&
      [ -z "$(git status --porcelain 2>/dev/null)" ] &&
-     [ "$(git rev-list --count "origin/${BASE_BRANCH}..HEAD" 2>/dev/null || echo 1)" = "0" ]; then
+     [ "$AHEAD" = "0" ]; then
     git reset --quiet --hard "origin/${BASE_BRANCH}" && log "Synced ${CURRENT_BRANCH} with origin/${BASE_BRANCH}"
   fi
 
@@ -82,10 +93,21 @@ Before your FIRST commit in this session:
        npm run validate:branch-name -- --current
   5. Push with: git push -u origin <new-name>
   6. Open PRs as drafts against ${BASE_BRANCH} (release/* and hotfix/* may target main).
-     Never commit directly to main or ${BASE_BRANCH}.
+
+Protected branches:
+  - Never commit or push directly to main. main has no exception.
+  - Documentation exception: direct commits and pushes to ${BASE_BRANCH} are allowed
+    only when every changed file is under .github/specs/ or docs/. Anything
+    else needs a feature branch and a PR.
+
+Legacy PR exception: an existing non-compliant branch (for example claude/* or
+copilot/*) that is already the head of an open PR may still receive commits and
+pushes. Never create a new branch with such a name.
 
 A PreToolUse hook blocks git commit/push and GitHub branch/PR tools on invalid
-branch names, so renaming first saves a round trip.
+branch names, so renaming first saves a round trip. While enforcement is on, the
+guard's own files can't be edited: .claude/hooks/**, .claude/settings.json,
+.claude/settings.local.json and ~/.claude/settings.json.
 EOF
 
 jq -n --arg ctx "$CONTEXT" '{hookSpecificOutput: {hookEventName: "SessionStart", additionalContext: $ctx}}'

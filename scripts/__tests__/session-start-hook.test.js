@@ -3,8 +3,7 @@
  *
  * Contract tests for the SessionStart hook, .claude/hooks/session-start.sh
  * (spec 016, contracts/hooks.md). Each case runs the real hook in a temporary
- * repository with a bare `origin` and a stubbed `npm`. Cases marked
- * `test.todo` describe behaviour that tasks T016 and T017 have not built yet.
+ * repository with a bare `origin` and a stubbed `npm`.
  */
 
 const fs = require('fs');
@@ -74,7 +73,17 @@ describe('branch handling (T014)', () => {
     expect(context).toMatch(/LIGHTSPEED BRANCHING RULES/);
   });
 
-  test.todo('leaves a claude/* branch with commits of its own unchanged (T016)');
+  test('leaves a claude/* branch with commits of its own unchanged (T016)', () => {
+    fx.branch('claude/x-abc123');
+    fx.write('docs/work.md', '# Work\n');
+    fx.git('commit', '--quiet', '-m', 'work in progress');
+    const head = fx.git('rev-parse', 'HEAD');
+
+    contextOf(runSessionStart(fx, 'startup', CLOUD));
+
+    expect(fx.git('branch', '--show-current')).toBe('claude/x-abc123');
+    expect(fx.git('rev-parse', 'HEAD')).toBe(head); // Not reset to origin/develop.
+  });
 });
 
 describe('context text (T014)', () => {
@@ -86,9 +95,32 @@ describe('context text (T014)', () => {
     expect(context).toMatch(/chore\/session-\* are NOT acceptable final names/);
   });
 
-  test.todo('describes the documentation exception on develop and none on main (T017)');
-  test.todo('describes the legacy PR exception (T017)');
-  test.todo("notes that guard files can't be edited while enforcement is on (T017)");
+  test('describes the documentation exception on develop and none on main (T017)', () => {
+    const context = contextOf(runSessionStart(fx, 'startup'));
+    expect(context).toMatch(/main has no exception/);
+    expect(context).toMatch(/Documentation exception: direct commits and pushes to develop/);
+    expect(context).toMatch(/under \.github\/specs\/ or docs\//);
+    expect(context).not.toMatch(/Never commit directly to main or develop/);
+  });
+
+  test('describes the legacy PR exception (T017)', () => {
+    const context = contextOf(runSessionStart(fx, 'startup'));
+    expect(context).toMatch(/Legacy PR exception: .*non-compliant branch/);
+    expect(context).toMatch(/head of an open PR/);
+  });
+
+  test("notes that guard files can't be edited while enforcement is on (T017)", () => {
+    const context = contextOf(runSessionStart(fx, 'startup'));
+    expect(context).toMatch(/guard's own files can't be edited/);
+    for (const file of [
+      '.claude/hooks/**',
+      '.claude/settings.json',
+      '.claude/settings.local.json',
+      '~/.claude/settings.json',
+    ]) {
+      expect(context).toContain(file);
+    }
+  });
 });
 
 describe('dependency install (T014, FR-004)', () => {
