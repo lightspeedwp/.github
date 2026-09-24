@@ -559,6 +559,26 @@ async function runLabelingAgent(opts = {}) {
         markAdded(issueTypeLabel);
         report.rulesApplied.push(`Issue type: ${issueTypeLabel}`);
       }
+
+      // The issue type was removed (`untyped`). Its type label was derived
+      // from it, and the webhook does not say which type was removed, so
+      // clear the type labels and re-derive one below (title prefix,
+      // keywords, then the default), exactly as for a new issue.
+      if (!issueTypeName && context.payload.action === 'untyped') {
+        const staleTypes = [...knownLabels].filter((l) => l.startsWith('type:'));
+        for (const label of staleTypes) {
+          if (!dryRun) {
+            await removeLabelSafe(octokit, owner, repo, number, label);
+          }
+          markRemoved(label);
+        }
+        if (staleTypes.length > 0) {
+          core.info(
+            `[labeling.agent] Issue type removed; cleared ${staleTypes.join(', ')} to re-derive the type`
+          );
+          report.rulesApplied.push(`Issue type removed: cleared ${staleTypes.join(', ')}`);
+        }
+      }
     }
 
     // Step 1: Apply labeler rules (branch patterns and file changes).

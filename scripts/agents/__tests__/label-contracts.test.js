@@ -550,6 +550,34 @@ describe('label governance contracts (#3545)', () => {
       expect(second.calls.removed).toEqual([]);
     });
 
+    test('removing the issue type (untyped) re-derives the type label', async () => {
+      const octokit = withIssueType(createMockOctokit(['type:chore']), null);
+      const context = issueContext({ title: 'Tidy labels', labels: ['type:chore'] });
+      context.payload.action = 'untyped';
+      const report = await agent.runLabelingAgent({ context, github: octokit, dryRun: false });
+      // No title prefix or keyword: the default replaces the stale label.
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:task']);
+      expect(octokit.calls.removed).toContain('type:chore');
+      expect(report.errors).toEqual([]);
+    });
+
+    test('untyped re-derives from the title prefix when there is one', async () => {
+      const octokit = withIssueType(createMockOctokit(['type:chore']), null);
+      const context = issueContext({ title: 'fix: broken thing', labels: ['type:chore'] });
+      context.payload.action = 'untyped';
+      await agent.runLabelingAgent({ context, github: octokit, dryRun: false });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:bug']);
+    });
+
+    test('other events on an issue without a type keep its existing type label', async () => {
+      const octokit = withIssueType(createMockOctokit(['type:chore']), null);
+      const context = issueContext({ title: 'fix: broken thing', labels: ['type:chore'] });
+      context.payload.action = 'edited';
+      await agent.runLabelingAgent({ context, github: octokit, dryRun: false });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+      expect(octokit.calls.removed).toEqual([]);
+    });
+
     test('keywords match whole words only', () => {
       const detect = agent.detectIssueTypeFromContent;
       expect(detect('', 'a decision was recorded')).not.toBe('type:ci');
