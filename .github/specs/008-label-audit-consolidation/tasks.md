@@ -377,8 +377,8 @@
 
 These two tasks come first. The list they use is `contracts/issue-types-org-settings.md`.
 
-- [ ] T040b [US4] In one PR from a correctly named branch (for example `chore/issue-types-colours`): update `.github/issue-types.yml` to the 25 entries in `contracts/issue-types-org-settings.md` (Decision replaces Question; add a `description` for every entry; hex colours from the list) and update every `type:*` label in `.github/labels.yml` to the same hex, adding `type:decision` colour `3467D3` and removing `type:question`. Because template and field validation check labels against `labels.yml`, the same PR also does T053 (create `06-decision.md`, remove `06-question.md`) and T054 (`issue-fields.yml`), and adds `description` to the issue-type schema in `scripts/agents/includes/yaml-validator.js`. Record @ashley's approval (#3530 sign-off plus the `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]`) in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; run `npm test` and `node scripts/validation/validate-labeling-configs.cjs` before merging (depends on T040a) — in progress: PR <https://github.com/lightspeedwp/.github/pull/3534>
-- [ ] T040c [US4] Manually update the organisation's issue types page (Settings → Planning → Issue types) using the ordered steps in `contracts/issue-types-org-settings.md`: rename four types, update every description and native colour, move issues off Maintenance, Story and Integration (counts from T041a) and delete those types, then add Decision, Dependency Update and Build; record the final list in `.github/reports/audits/2026-09-14-label-audit/evidence/native-issue-types.json` (depends on T040b, T041a)
+- [ ] T040b [US4] In one PR from a correctly named branch (for example `chore/issue-types-colours`): update `.github/issue-types.yml` to the 25 entries in `contracts/issue-types-org-settings.md` (Decision replaces Question; add a `description` for every entry; hex colours from the list) and update every `type:*` label in `.github/labels.yml` to the same hex, adding `type:decision` colour `3467D3` and removing `type:question`. Because template and field validation check labels against `labels.yml`, the same PR also does T053 (create `06-decision.md`, remove `06-question.md`) and T054 (`issue-fields.yml`), and adds `description` to the issue-type schema in `scripts/agents/includes/yaml-validator.js`. Record @ashley's approval (#3530 sign-off plus the `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]`) in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; keep the Issue Type rules from `data-model.md` ("exactly 25 issue types; names, labels and templates are one-to-one"); run quickstart Test 10c, `npm test` and `node scripts/validation/validate-labeling-configs.cjs` before merging (depends on T040a) — in progress: PR <https://github.com/lightspeedwp/.github/pull/3534>
+- [ ] T040c [US4] Manually update the organisation's issue types page (Settings → Planning → Issue types) using the ordered steps in `contracts/issue-types-org-settings.md`: rename four types, update every description and native colour, move issues off Maintenance, Story and Integration (counts from T041a) and delete those types, then add Decision, Dependency Update and Build; run quickstart Test 10b; record the final list in `.github/reports/audits/2026-09-14-label-audit/evidence/native-issue-types.json` (depends on T040b, T041a)
 
 ### Stage 0: Evidence (FR-006, FR-010, FR-012)
 
@@ -439,7 +439,8 @@ These two tasks come first. The list they use is `contracts/issue-types-org-sett
 
 ### Stage 6: Drift Check (FR-017, SC-009)
 
-- [ ] T072 [US4] Create `.github/workflows/label-drift-check.yml` (weekly `schedule` plus `workflow_dispatch`) running a new `scripts/automation/label-drift-check.js` that compares every repository's labels and the Linear workspace labels with `.github/labels.yml` and creates or updates the single "Label drift report" issue per `contracts/dry-run-and-drift-report-schema.md`; it must never create, edit or delete labels; it authenticates with the org-wide GitHub App (Issues read/write, Metadata read) and reads Linear with the read-only `LINEAR_API_KEY` repository secret (FR-018) (depends on T071)
+- [ ] T071a [US4] (@ashley, manual) Install a GitHub App across the `lightspeedwp` organisation with only Issues (read/write) and Metadata (read) permissions, store its credentials as repository secrets in `lightspeedwp/.github` (or reuse the existing `BOT_PR_APP_*` App if its permissions can be narrowed to these), and add a read-only Linear API key as the `LINEAR_API_KEY` repository secret; record the App name, permissions and secret names (never values) in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json` (FR-018, research R13)
+- [ ] T072 [US4] Create `.github/workflows/label-drift-check.yml` (weekly `schedule` plus `workflow_dispatch`) running a new `scripts/automation/label-drift-check.js` that compares every repository's labels and the Linear workspace labels with `.github/labels.yml` and creates or updates the single "Label drift report" issue per `contracts/dry-run-and-drift-report-schema.md`; it must never create, edit or delete labels; it authenticates with the org-wide GitHub App (Issues read/write, Metadata read) and reads Linear with the read-only `LINEAR_API_KEY` repository secret (FR-018) (depends on T071, T071a)
 - [ ] T073 [US4] Trigger the drift workflow manually, confirm the report shows "No drift" with team-scoped Linear labels only under allowed exceptions (quickstart Test 14, SC-009), close the gate issue and change requests with links to the evidence, and mark all five as closed in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json` (depends on T072)
 
 **Checkpoint**: User Story 4 complete. SC-003 (25 type labels, each mapped) and SC-009 (zero unapproved labels in GitHub and Linear) are both met.
@@ -450,7 +451,7 @@ These two tasks come first. The list they use is `contracts/issue-types-org-sett
 
 **Audit is COMPLETE when**:
 
-✅ All 79 tasks in phases 1-8 are completed  
+✅ All 80 tasks in phases 1-8 are completed  
 ✅ Phase 2 (Foundational) complete - BLOCKS all story work (done)  
 ✅ User Story 1 (P1) complete - Reconciliation report with all inconsistencies identified  
 ✅ User Story 2 (P2) complete - Duplicates analysis and consolidation strategy  
@@ -532,10 +533,10 @@ These two tasks come first. The list they use is `contracts/issue-types-org-sett
 
 ---
 
-**Total Tasks**: 79 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
+**Total Tasks**: 80 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
 
 **MVP Completion**: Phases 1-3 (Setup + Foundational + US1) ≈ 50% of tasks
-**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 39 of the 79)
+**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 40 of the 80)
 
 **Next Step**: Run first task in Phase 1 (T001 - Create output directory). Report progress checkpoint after Phase 2 completion (all data extracted and verified).
 
