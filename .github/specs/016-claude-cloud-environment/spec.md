@@ -28,6 +28,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: Should this setup be built only for `lightspeedwp/.github`, or packaged so other LightSpeed repositories can adopt it? → A: This repository now. Packaging it as a portable plugin for other LightSpeed repositories is a recorded follow-up and out of scope for this spec.
 - Q: How should the empty `claude/*` branches that the platform leaves on GitHub after every session be cleaned up? → A: A scheduled job deletes `claude/*` branches that have no commits beyond `develop` and are older than 24 hours.
 - Q: How should we measure whether the guard is working, including SC-007? → A: No new recording of refusals. SC-001 to SC-003 use the existing branch-validation metrics, and SC-007 becomes a monthly review of 10 sampled sessions.
+- Q: Spec 009 (branch cleanup) requires human approval of every deletion through a draft PR, which conflicts with automatic deletion here. Which spec gives way? → A: Spec 009 gains a narrow exception: an agent-session branch (`claude/*`) with no commits of its own, no open PR and a tip at least 24 hours old is auto-approved for deletion. Everything else still goes through 009's draft-PR approval. The cleanup is implemented by 009's categorisation and scheduled workflow, not by a separate job.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -83,8 +84,8 @@ A maintainer can find, in the repository, the exact environment definition the t
 1. **Given** the repository, **When** a maintainer looks for the environment definition, **Then** the setup script and variables are both in one documented location and match what is configured in the product.
 2. **Given** the documentation, **When** a member runs the verification steps in a new session, **Then** each step has a stated expected result.
 3. **Given** an emergency where enforcement blocks legitimate work, **When** an Owner flips the documented switch, **Then** refusals become warnings without a code change.
-4. **Given** a `claude/*` branch on GitHub with no commits beyond `develop` that is more than 24 hours old, **When** the scheduled cleanup runs, **Then** the branch is deleted and the deletion is recorded in the run log.
-5. **Given** a `claude/*` branch that has its own commits, is less than 24 hours old, or is the head of an open PR, **When** the scheduled cleanup runs, **Then** the branch is kept and listed in the run log for a maintainer to review.
+4. **Given** a `claude/*` branch on GitHub that is merged to a base branch (it has no commits of its own), has no open PR and has a tip more than 24 hours old, **When** spec 009's scheduled cleanup runs, **Then** the branch is categorised as auto-approved DELETE, deleted without a draft PR, and the deletion is recorded in the run summary.
+5. **Given** a `claude/*` branch that has its own commits, is less than 24 hours old, is the head of an open PR, or whose open-PR status cannot be verified, **When** the scheduled cleanup runs, **Then** it is not auto-deleted: it follows spec 009's normal categorisation (KEEP or DISCUSS) and appears in the report for review.
 
 ---
 
@@ -97,7 +98,8 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Session opened with several repositories**: Repository-level protections do not load, as documented by the platform. This is a known limitation and must be listed in the documentation.
 - **Deleting a remote branch**: Pushing a deletion (for example, cleaning up a stale `claude/*` branch) must not be refused by the guard.
 - **A session still running when cleanup runs**: The 24-hour minimum age protects it. A session older than 24 hours that has not yet committed may lose its empty remote `claude/*` branch, which is harmless because the work continues on its renamed local branch.
-- **Cleanup cannot delete a branch (permissions or branch protection)**: The run continues with the remaining branches, reports the failure and ends unsuccessfully so a maintainer notices.
+- **Cleanup cannot delete a branch (permissions or branch protection)**: The run continues with the remaining branches, reports the failure and ends unsuccessfully (spec 009's partial-failure status) so a maintainer notices.
+- **Branch changes between audit and deletion**: Just before deleting, the workflow re-checks that the branch still has no commits of its own and no open PR. If either has changed, it skips the branch.
 - **Chained commands such as "rename then commit"**: These are judged against the branch in effect after the rename.
 - **Repositories outside the LightSpeed organisation**: Their GitHub actions are not policed.
 - **Bot-owned branches (dependabot, renovate) and protected branches**: They follow the existing validator's exemptions for naming. Protected branches are still refused for direct commits or pushes, except for changes covered by the documentation exception.
@@ -162,9 +164,9 @@ A maintainer can find, in the repository, the exact environment definition the t
 
 #### Branch cleanup
 
-- **FR-020**: A scheduled job MUST run at least daily and delete every remote `claude/*` branch that has no commits beyond `develop`, is more than 24 hours old, and is not the head of an open PR.
-- **FR-021**: The cleanup MUST NOT delete a `claude/*` branch that has its own commits. It MUST list such branches in its run log for a maintainer to review.
-- **FR-022**: The cleanup MUST support a dry-run mode that reports what it would delete without deleting anything. It MUST also be possible to start it manually.
+- **FR-020**: Spec 009's branch categorisation MUST mark a remote `claude/*` branch as auto-approved DELETE when all of these hold: it is merged to a base branch (no commits of its own), open-PR verification succeeded and found none, and its tip is at least 24 hours old. Spec 009's scheduled workflow MUST run at least daily and delete auto-approved branches without a draft PR.
+- **FR-021**: Any `claude/*` branch that fails an FR-020 condition MUST NOT be auto-deleted. It follows spec 009's normal rules (KEEP, DISCUSS, or DELETE through the draft-PR approval) and MUST appear in the report.
+- **FR-022**: Auto-approved deletions MUST respect spec 009's dry-run default: the audit command never deletes. Deletion happens only in the scheduled workflow's deletion step, which re-verifies each branch first. A manual workflow run MUST offer a report-only option.
 
 ### Key Entities
 
@@ -192,7 +194,8 @@ A maintainer can find, in the repository, the exact environment definition the t
 - The platform's push protection allows pushing the session's current branch after it has been renamed. This was verified during the draft implementation.
 - The existing validator (`lib/validate-branch-name.js`) and `docs/BRANCHING_STRATEGY.md` are authoritative. No changes to authorised types are in scope.
 - The default network level (Trusted) reaches every host the provisioning script needs.
-- Empty `claude/*` branches left by the platform are removed by the scheduled cleanup (FR-020–FR-022). Existing `claude/*` branches that have commits are reviewed by maintainers, not deleted automatically.
+- Empty `claude/*` branches left by the platform are removed by spec 009's scheduled cleanup under the auto-approval exception (FR-020 to FR-022). Existing `claude/*` branches that have commits are reviewed by maintainers through 009's DISCUSS category, not deleted automatically.
+- The cleanup requirements depend on spec 009 and lightspeedwp/.github#3358 (the categorisation library and scheduled workflow). They are delivered after #3358 merges, together with the matching amendment to spec 009.
 - Sessions opened with several repositories do not load repository-level protections. This is documented, not solved.
 - The guard uses command-parsing heuristics. Unusual constructions (for example, committing in another directory after changing into it) may not be caught, and CI's branch-name validation remains the final gate.
 - Scope is this repository only. Packaging the environment definition, hooks and guard as a portable plugin (top-level `plugins/`) for other LightSpeed repositories is a follow-up spec. This spec's design should not block that reuse.

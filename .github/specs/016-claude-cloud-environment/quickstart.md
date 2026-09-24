@@ -57,13 +57,18 @@ Start a new session on this repository without changing the environment selector
    first commit, and a draft PR is opened against `develop`.
 4. "Commit a change to package.json directly on develop". Expected: the guard refuses it.
 
-## 5. Branch cleanup (FR-020 to FR-022)
+## 5. Branch cleanup (FR-020 to FR-022, after lightspeedwp/.github#3358 merges)
 
 ```bash
-node scripts/cleanup-branches.js --includePatterns="^claude/" --inactiveDays=1 --dryRun=true
+node scripts/cleanup-branches.js --reportFormat=json --reportDir=/tmp/cleanup
+jq '[.branches[] | select(.autoApproved)] | map(.name)' /tmp/cleanup/*.json
 ```
 
-Expected: the output lists only `claude/*` branches. Empty branches with a tip older than 1 day are marked for
-deletion. Branches with their own commits, or with an open PR, are kept with a reason. Nothing is deleted.
+Expected:
 
-Then trigger **claude-branch-cleanup** manually with `dry_run=true`, and check that the job summary matches.
+- Only `claude/*` branches that are merged, have no open PR and are at least a day old are auto-approved.
+- `claude/*` branches with their own commits appear under DISCUSS.
+- Nothing is deleted, and `--dryRun=false` exits with 1.
+
+Then run the spec 009 cleanup workflow manually in report-only mode, and check that its summary lists the same
+auto-approved branches.

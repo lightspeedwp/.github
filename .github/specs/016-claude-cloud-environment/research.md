@@ -67,21 +67,35 @@ implementation in lightspeedwp/.github#3524.
 
 ## R6. Cleaning up empty `claude/*` branches
 
-- **Decision**: Reuse `scripts/cleanup-branches.js` from a new scheduled workflow. Add one option,
-  `--includePatterns`, to limit the run to `^claude/`. Run it daily with `--inactiveDays=1 --dryRun=false`.
-  `workflow_dispatch` defaults to dry-run.
-- **Rationale**: The script already does most of what FR-020 to FR-022 ask for:
-  - It keeps protected branches and branches with open PRs (it uses `gh`, which Actions runners have).
-  - It deletes only branches merged into `develop` or `main`. An empty `claude/*` branch's tip is on `develop`, so
-    it counts as merged.
-  - It supports dry-run and writes a report.
-  - It exits with 1 when any deletion fails.
-- **"Age"**: Git and GitHub don't record when a branch was created, so age is the tip commit's date. An empty branch
-  can therefore be deleted within 24 hours of the session starting. The spec's edge case accepts this: the session
-  works on its renamed local branch, so losing the empty remote branch does no harm.
+- **Decision** (revised after `/speckit-analyze`, option B): Don't build a separate job. Spec 009 and
+  lightspeedwp/.github#3358 get an auto-approval exception:
+  - **Categorisation**: `scripts/lib/branch-categorization.js` returns `DELETE` with `autoApproved: true` and the
+    reason code `auto_delete_empty_agent_branch` for a `claude/*` branch when all of these hold:
+    - it is merged to a base branch
+    - open-PR verification succeeded and found no open PR
+    - its tip is at least 1 day old
+
+    This check runs before the naming-violation check.
+  - **Audit command**: `cleanup-branches.js` stays report-only, as 009 FR-011 requires. The JSON report lists the
+    auto-approved branches.
+  - **Scheduled workflow**: 009's workflow gains a deletion step. It reads the JSON report, re-checks each
+    auto-approved branch (still merged, still no open PR), then deletes it. Everything else goes to the draft PR as
+    before.
+- **Rationale**:
+  - A branch with no commits of its own holds no work, so 009's zero-data-loss goal holds.
+  - Keeping one categoriser and one workflow avoids duplication (constitution III).
+  - The audit command never deletes, so 009's command-line contract is unchanged.
+- **Consequences**:
+  - FR-020 to FR-022 depend on #3358 merging first.
+  - The exit codes follow 009: 0 for success, 1 for fatal, 2 for partial failure.
+- **"Age"**: the tip commit's date, as in 009 FR-005. The spec's edge case accepts that an empty branch can go
+  within a day of its session starting.
 - **Alternatives considered**:
-  - A new script: it would duplicate logic (constitution III), so it was rejected.
-  - Excluding `claude/*` from metrics instead: this was rejected by Q4.
+  - A: route `claude/*` through the draft PR. This needs a person to approve every day to meet SC-002, so it was
+    rejected.
+  - C: a separate deleter that calls the GitHub API. This duplicates logic and sidesteps 009, so it was rejected.
+  - The original plan, reusing the current script with `--dryRun=false`: #3358 makes that a fatal error, so it was
+    withdrawn.
 
 ## R7. Tooling in the cloud environment
 

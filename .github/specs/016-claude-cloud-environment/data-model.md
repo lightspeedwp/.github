@@ -57,12 +57,24 @@ When the tree is clean and has no local commits, SessionStart also resets the br
 
 ## Cleanup decision (per remote `claude/*` branch)
 
-The rules are checked in order, and the first match wins:
+The cleanup is implemented in spec 009's categoriser (lightspeedwp/.github#3358). Its rules are checked in order,
+and the first match wins:
 
-1. Doesn't match `--includePatterns` (`^claude/`) → ignore.
-2. Head of an open PR → keep ("has open pull request").
-3. Not merged into `develop` or `main`, so it has its own commits → keep, and list it for review (FR-021).
-4. Tip commit less than 1 day old → keep.
-5. Otherwise → delete. Dry-run only reports it (FR-022).
+1. Protected branch → KEEP.
+2. Matches an exclusion pattern → KEEP.
+3. Has an open PR → KEEP.
+4. **New (016)**: prefix `claude/`, merged to a base branch, open-PR check succeeded, tip at least 1 day old →
+   **DELETE, auto-approved** (`auto_delete_empty_agent_branch`).
+5. Invalid name (including `claude/*` branches with their own commits) → DISCUSS (unchanged 009 rule).
+6. All later 009 rules are unchanged.
 
-A deletion failure is recorded, the remaining branches are still processed, and the job exits with 1.
+If open-PR verification is unavailable, rule 4 never applies. The branch falls through to 009's existing
+"verification unavailable" DISCUSS rule.
+
+**Deletion step** (in 009's scheduled workflow) for each auto-approved branch:
+
+1. Re-check that the branch is still merged and has no open PR.
+2. Delete it.
+3. Record the result.
+
+Any failure → carry on with the other branches; the job ends with 009's partial-failure status (exit 2).

@@ -15,11 +15,11 @@ This plan enforces the LightSpeed branching strategy with four repository-level 
 2. **PreToolUse guard**: blocks non-compliant commits, pushes, branches and PRs. It reuses the CI validator and
    allows the documentation exception on protected branches.
 3. **Shared cloud environment definition**: a setup script and variables, versioned in `.claude/cloud/`.
-4. **Scheduled cleanup**: deletes the empty `claude/*` branches the platform leaves behind, by extending the
-   existing `scripts/cleanup-branches.js`.
+4. **Cleanup of empty `claude/*` branches**: an auto-approval exception added to spec 009's categoriser and
+   scheduled workflow (lightspeedwp/.github#3358). There is no separate job.
 
-Most of this already exists in #3524. The rest of the work is the documentation exception (Q1), the cleanup job
-(Q4), automated tests and documentation updates.
+Most of this already exists in #3524. The rest of the work is the documentation exception (Q1), the spec 009 amendment
+for cleanup (Q4, revised after `/speckit-analyze`), automated tests and documentation updates.
 
 ## Technical Context
 
@@ -73,7 +73,7 @@ of branches a day.
 | --- | --- | --- |
 | I. Org-wide governance authority | Changes live in the control-plane repo and implement the org branching strategy | ✅ |
 | II. Locked configuration | Doesn't touch `labels.yml`, `issue-types.yml` or the issue/PR templates | ✅ |
-| III. Clear boundaries, no duplication | Reuses `lib/validate-branch-name.js` and `scripts/cleanup-branches.js`. Hooks stay in `.claude/`, which is repository configuration, not a portable asset. Portability is a follow-up spec (Q3) | ✅ |
+| III. Clear boundaries, no duplication | Reuses `lib/validate-branch-name.js` and spec 009's categoriser and workflow (no second cleanup job). #3358 should also import `lib/validate-branch-name.js` instead of its own copy (analysis finding F5). Hooks stay in `.claude/`, which is repository configuration, not a portable asset. Portability is a follow-up spec (Q3) | ✅ |
 | IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
 | V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
 | VI. UK English, security | UK English in docs and messages. No secrets. The guard fails closed on unknown file sets. The workflow has least-privilege permissions and pinned actions | ✅ |
@@ -120,14 +120,15 @@ files. All gates still pass.
     └── enforce-branch-name.mjs    # update: documentation exception (R4)
 
 scripts/
-├── cleanup-branches.js            # update: --includePatterns option
-├── __tests__/
-│   └── enforce-branch-name-hook.test.js   # new: black-box guard contract tests
-└── validation/__tests__/
-    └── cleanup-branches.test.js   # extend: --includePatterns cases
+└── __tests__/
+    └── enforce-branch-name-hook.test.js   # new: black-box guard contract tests
 
-.github/workflows/
-└── claude-branch-cleanup.yml      # new: daily and manual cleanup
+# Delivered with spec 009 / #3358 (amendment, after #3358 merges):
+scripts/lib/constants.js                   # AUTO_DELETE_PREFIXES, AUTO_DELETE_MIN_AGE_DAYS, reason code
+scripts/lib/branch-categorization.js       # auto-approval rule (before naming-violation DISCUSS)
+scripts/lib/__tests__/branch-categorization.test.js   # auto-approval cases
+.github/workflows/<009 cleanup workflow>   # auto-delete step with re-verification
+.github/specs/009-audit-branch-cleanup/    # spec amendment (clarification, FR-010, US3, SC-007)
 
 docs/
 └── CLAUDE_CLOUD_ENVIRONMENT.md    # update: documentation exception, cleanup, local enforcement, measurement
@@ -147,9 +148,10 @@ These follow the user-story priorities in the spec:
    plus Jest contract tests. Ships in #3524.
 2. **P2, US2 (shared environment)**: already built in #3524. Needs verification only, following quickstart §3–4
    after the Owner has set it up.
-3. **P3, US3 (documentation and cleanup)**: the `--includePatterns` option and its tests, the
-   `claude-branch-cleanup.yml` workflow, and the doc updates. This can be a follow-up PR from #3524 to keep the
-   review small.
+3. **P3, US3 (documentation and cleanup)**:
+   - The doc updates ship in #3524.
+   - The cleanup (FR-020 to FR-022) ships as an amendment to spec 009 and #3358's code, after #3358 merges (or in
+     #3358 itself if its owner agrees).
 
 ## Complexity Tracking
 
