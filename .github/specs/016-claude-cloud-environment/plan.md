@@ -19,7 +19,7 @@ This plan enforces the LightSpeed branching strategy with four repository-level 
    scheduled workflow (lightspeedwp/.github#3358). There is no separate job.
 
 Most of this already exists in #3524. The second clarification session added the legacy PR exception,
-no-rename for `claude/*` branches that already have commits, fail-closed handling of guard faults, and
+no-rename for `claude/*` branches that already have commits, fail-closed handling of guard faults while enforcing, and
 self-protection with CODEOWNERS review (research R9 to R12). The third session set the threat model (accidents plus the obvious self-bypasses) and
 named the validator authority (research R13). The rest of the work is the documentation exception (Q1), the spec 009 amendment
 for cleanup (Q4, revised after `/speckit-analyze`), automated tests and documentation updates.
@@ -33,7 +33,8 @@ per `.nvmrc`.
 
 - `lib/validate-branch-name.js` (existing)
 - `jq`, `git`
-- `gh` (Actions runner, for the open-PR check)
+- `gh` (hook sessions and Actions runner, for the open-PR check; cloud sessions authenticate through the GitHub
+  proxy, while local sessions require an authenticated `gh` login)
 - GitHub Actions pinned by SHA
 
 **Storage**: N/A (no persistent data; reports are written to `.github/reports/` by the existing script)
@@ -80,7 +81,7 @@ of branches a day.
 | III. Clear boundaries, no duplication | Reuses `lib/validate-branch-name.js` and spec 009's categoriser and workflow (no second cleanup job). #3358 should also import `lib/validate-branch-name.js` instead of its own copy (analysis finding F5). Hooks stay in `.claude/`, which is repository configuration, not a portable asset. Portability is a follow-up spec (Q3) | ✅ |
 | IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
 | V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
-| VI. UK English, security | UK English in docs and messages. No secrets. The guard fails closed on unknown file sets, unverifiable legacy PRs and its own faults (for git writes). It protects its own files and every settings file that can disable hooks. The switch can't be changed from inside a session. CODEOWNERS covers `.claude/`. The threat model is written down (R13). The workflow has least-privilege permissions and pinned actions | ✅ |
+| VI. UK English, security | UK English in docs and messages. No secrets. While enforcing, the guard fails closed on unknown file sets, unverifiable legacy PRs and its own faults (for git writes). With enforcement off, guard faults warn and allow the writes (FR-013). It protects its own files and every settings file that can disable hooks. The switch can't be changed from inside a session. CODEOWNERS covers `.claude/`. The threat model is written down (R13). The workflow has least-privilege permissions and pinned actions | ✅ |
 | VII. Spec quality | Checklist 16/16. Clarified in three sessions. FR-013a protected paths resolved | ✅ |
 | VIII. Enforcement and compliance ≥95% | The guard blocks before push. Cleanup removes empty `claude/*` branches that would lower the compliance metric | ✅ |
 | IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |

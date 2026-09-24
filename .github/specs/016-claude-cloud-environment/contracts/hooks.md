@@ -18,8 +18,12 @@ Both hooks read a single JSON object on stdin, following the
 | Cloud and source is `startup`/`resume`, branch `claude/*` with 0 commits ahead of `origin/<base>` | Rename locally to `chore/session-<hash>`. Never push (FR-001). |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with its own commits | Leave it unchanged (FR-001). The context text notes the legacy PR exception. |
 | Cloud and source is `startup`/`resume`, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). |
-| Cloud and source is `startup`/`resume`, lockfile newer than installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
+| Cloud and source is `startup`/`resume`, installed dependency tree missing or lockfile newer than the installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
 | Any source, cloud or local | Emit branching rules as context (FR-003). |
+
+**Contract test (FR-004)**: In a temporary cloud project, stub `npm`, remove `node_modules`, and give the lockfile
+an old timestamp. Run the hook with both `startup` and `resume`; each must invoke `npm install`. With an installed
+tree newer than the lockfile, neither source should invoke it.
 
 **Output (stdout)**: exactly one JSON object:
 
@@ -78,8 +82,14 @@ MCP calls whose `owner` isn't `lightspeedwp` are always allowed.
 | Refused, enforcing | 2 | empty | Refusal message (below) |
 | Refused, `LS_ENFORCE_BRANCH_NAMES=0` | 0 | `{"systemMessage":"Branch guard (warning only): …"}` | empty |
 | Malformed input | 0 | empty | empty |
-| Guard fault, git write or GitHub branch/file/PR tool (FR-012a) | 2 | empty | `Branch guard unavailable: <error>. Open an issue on lightspeedwp/.github` |
+| Guard fault, git write or GitHub branch/file/PR tool, enforcing (FR-012a) | 2 | empty | `Branch guard unavailable: <error>. Open an issue on lightspeedwp/.github` |
+| Guard fault, git write or GitHub branch/file/PR tool, `LS_ENFORCE_BRANCH_NAMES=0` (FR-013) | 0; write proceeds | `{"systemMessage":"Branch guard (warning only): Branch guard unavailable: <error>. Open an issue on lightspeedwp/.github"}` | empty |
 | Guard fault, any other call (FR-012a) | 0 | `{"systemMessage":"Branch guard unavailable: <error>"}` | empty |
+
+**Emergency procedure**: An Owner can set `LS_ENFORCE_BRANCH_NAMES=0` in the environment used to start a new
+session. In that session, guard faults produce a visible warning and allow the write to proceed (FR-013). Existing
+sessions keep their starting setting. With enforcement on, guard faults still block git and GitHub writes with exit
+2 (FR-012a). Restore enforcement after the fault is fixed.
 
 **Legacy PR exception check**: `git ls-remote --exit-code --heads origin <branch>`, then
 `gh pr list --head <branch> --state open --json number --limit 1`, each with a 5-second timeout. Any failure means

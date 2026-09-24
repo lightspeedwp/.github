@@ -104,6 +104,7 @@ it's refused (quickstart §1, §4).
   - `Write` to `~/.claude/settings.json` (resolved against `$HOME`) → exit 2
 - [ ] T013 [P] [US1] Add guard-fault cases to `scripts/__tests__/enforce-branch-name-hook.test.js`, forcing the validator import to fail (for example with an environment variable that points it at a missing path in test mode):
   - `git commit` → exit 2, and stderr contains "Branch guard unavailable"
+  - `git commit` with `LS_ENFORCE_BRANCH_NAMES=0` in the hook environment → exit 0, visible `systemMessage` warning, write proceeds
   - `ls` → exit 0 plus a `systemMessage` warning
   - MCP `create_pull_request` → exit 2
   - malformed stdin → exit 0, silent
@@ -112,6 +113,7 @@ it's refused (quickstart §1, §4).
   - `claude/x-abc123` with its own commits → unchanged
   - on `compact` → no rename, but the context is still emitted
   - the context contains the documentation exception, the legacy PR exception, the protected-files note and "OVERRIDE"
+  - on cloud `startup` and `resume`, `node_modules` missing with an old lockfile timestamp → `npm install` runs; with an installed tree newer than the lockfile, it is skipped
 
 ### Implementation for User Story 1
 
@@ -139,8 +141,9 @@ it's refused (quickstart §1, §4).
   - protected paths: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`, `~/.claude/settings.json`
   - refuse while `LS_ENFORCE_BRANCH_NAMES` is not `0`; reads are allowed (FR-013a, research R12)
 - [ ] T023 [US1] Implement the fault handler in `.claude/hooks/enforce-branch-name.mjs`:
-  - on a caught error, classify without the validator: Bash matching `\bgit\b[^|;&]*\b(commit|push|branch|checkout|switch)\b`, or a matched GitHub MCP tool, gets exit 2 and "Branch guard unavailable: {error}. Open an issue on lightspeedwp/.github"
+  - on a caught error with enforcement on, classify without the validator: Bash matching `\bgit\b[^|;&]*\b(commit|push|branch|checkout|switch)\b`, or a matched GitHub MCP tool, gets exit 2 and "Branch guard unavailable: {error}. Open an issue on lightspeedwp/.github"
   - anything else gets exit 0 with a `systemMessage` warning
+  - when enforcement is off, downgrade the fault refusal to a visible `systemMessage` warning and allow the write with exit 0 (FR-013)
   - keep malformed-stdin handling silent (FR-012a, research R11)
 - [ ] T024 [US1] Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed` to `CODEOWNERS` under the "AI and Copilot Instructions" block (FR-013a).
 - [ ] T025 [US1] Run `npx jest scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js`, `shellcheck .claude/hooks/session-start.sh` and `npx eslint .claude/hooks/enforce-branch-name.mjs`. Fix everything until it's green.
@@ -151,19 +154,20 @@ it's refused (quickstart §1, §4).
 
 ## Phase 4: User Story 2 - Every team member starts from the same environment (Priority: P2)
 
-**Goal**: One shared **LightSpeed** environment, set as the organisation default, gives every session the same
-toolchain and variables.
+**Goal**: One shared **LightSpeed** environment, set as the organisation default, gives sessions without a saved
+environment selection the same toolchain and variables.
 
-**Independent Test**: Two members start sessions without touching the selector. Both report the Node version from
-`.nvmrc`, `shellcheck` and `actionlint` present, and `LS_BASE_BRANCH=develop` (quickstart §3, §4).
+**Independent Test**: Two members without saved selections start sessions without touching the selector. Both
+report the Node version from `.nvmrc`, `shellcheck`, `actionlint` and authenticated `gh` available, and
+`LS_BASE_BRANCH=develop`. A member with a saved selection confirms their choice persists (quickstart §3, §4).
 
-- [x] T026 [P] [US2] Create the setup script `.claude/cloud/setup.sh`. It installs Node from `.nvmrc` into `/opt/node<major>` symlinked from `/root/.local/bin`, `shellcheck` through apt and `actionlint` through `go install`, and sets system git defaults. It must exit 0 and finish in under 5 minutes (done in #3524).
+- [ ] T026 [P] [US2] Update the existing setup script `.claude/cloud/setup.sh` (initial version in #3524) to install or confirm `gh` alongside Node from `.nvmrc`, `shellcheck` and `actionlint`, and retain the system git defaults. It must exit 0, finish in under 5 minutes and be safe to rerun. Cloud hook sessions must have proxy-authenticated `gh`; local hook sessions need an authenticated developer `gh` login.
 - [x] T027 [P] [US2] Create `.claude/cloud/environment.env` with `LS_BASE_BRANCH=develop`, `LS_ENFORCE_BRANCH_NAMES=1`, `LS_NODE_VERSION`, npm quiet flags and locale. No secrets (done in #3524).
-- [ ] T028 [US2] Owner action: create the shared **LightSpeed** environment in claude.ai admin settings → Cloud environments, with Trusted network access and the contents of `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`. Set it as the organisation default at claude.ai/admin-settings/claude-code.
+- [ ] T028 [US2] Owner action: create the shared **LightSpeed** environment in claude.ai admin settings → Cloud environments, with Trusted network access and the contents of `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`. Set it as the organisation default at claude.ai/admin-settings/claude-code; this applies when members have no saved selection and does not override their choice.
 - [ ] T029 [US2] Optional, after T028: add `"remote": { "defaultEnvironmentId": "env_..." }` to `.claude/settings.json` with the shared environment's ID, for `claude --cloud` sessions.
-- [ ] T030 [US2] Run quickstart §3 and §4 in a fresh cloud session, and record the results (the Node version, whether the tools are present, the branch behaviour) in the #3524 PR description.
+- [ ] T030 [US2] Run quickstart §3 and §4 in a fresh cloud session. Record the selected environment, Node version, tool availability, cloud `gh auth status` and branch behaviour in the #3524 PR description. In a local session, confirm `gh` is installed and `gh auth status` succeeds with the developer's login.
 
-**Checkpoint**: A new team member gets an identical, compliant session with no setup.
+**Checkpoint**: A new team member without a saved selection gets an identical, compliant session with no setup.
 
 ---
 
@@ -186,6 +190,7 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - the four protected files: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and `~/.claude/settings.json`
   - self-protection and the CODEOWNERS entry
   - the guard-unavailable behaviour
+  - the emergency procedure: with enforcement off in a new session, guard faults warn and allow writes; with enforcement on, they block git and GitHub writes
   - measurement (branch metrics plus the monthly review of 10 sessions, SC-007)
   - cleanup through spec 009's auto-approval
 - [x] T033 [P] [US3] Spec 009 auto-approval rule, config, report fields and shared validator in `scripts/lib/branch-categorization.js`, `scripts/lib/constants.js` and `scripts/cleanup-branches.js` (spec 009 T070–T072 and T074, done in #3358)

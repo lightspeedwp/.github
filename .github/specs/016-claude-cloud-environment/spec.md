@@ -31,7 +31,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: Spec 009 (branch cleanup) requires human approval of every deletion through a draft PR, which conflicts with automatic deletion here. Which spec gives way? → A: Spec 009 gains a narrow exception: an agent-session branch (`claude/*`) with no commits of its own, no open PR and a tip at least 24 hours old is auto-approved for deletion. Everything else still goes through 009's draft-PR approval. The cleanup is implemented by 009's categorisation and scheduled workflow, not by a separate job.
 - Q: When a session needs to push fixes to an existing PR whose branch already has a non-compliant name, should the guard allow it? → A: Yes, only when the branch already exists on GitHub and is the head of an open PR (the legacy PR exception). Creating or renaming to a new non-compliant name is still refused, and if the open-PR status can't be verified the push is refused.
 - Q: Should Claude be stopped from editing the branch guard's own files (`.claude/hooks/` and `.claude/settings.json`) during a session? → A: Yes. The guard refuses the agent's edits to those files unless the enforcement switch is off, and CODEOWNERS requires an Owner's review for changes under `.claude/`.
-- Q: If the guard itself breaks (for example, its branch-name validator can't be loaded), what should happen to Claude's commands? → A: Fail closed for git writes only. Git commit, push and branch operations, and the GitHub branch and PR tools, are refused with a "guard unavailable" message. All other commands are allowed with a visible warning.
+- Q: If the guard itself breaks (for example, its branch-name validator can't be loaded), what should happen to Claude's commands? → A: With enforcement on, fail closed for git writes only. Git commit, push and branch operations, and the GitHub branch and PR tools, are refused with a "guard unavailable" message. Other commands are allowed with a visible warning. With enforcement off, warn and allow the writes too (FR-013).
 - Q: Is the branch guard meant to stop accidental mistakes by Claude, or to hold up against an agent that's actively trying to get around it? → A: Accidents, plus the obvious ways an agent could switch the guard off: editing the guard's files or any settings file that can disable hooks, or turning off the switch from inside the session. Unusual shell constructions are out of scope, and CI branch validation and CODEOWNERS review remain the final gate.
 - Q: Should the docs-only exception also cover `main`, or only `develop`? → A: `develop` only. Every commit or push straight to `main` is refused, including docs-only changes, because `main` receives changes only through releases from `develop`.
 - Q: Should the one-time Owner setup be required to turn on "Require review from Code Owners" for `develop`, so the `/.claude/` CODEOWNERS entry actually blocks unreviewed changes to the guard's files? → A: Yes. It is a required Owner setup step for `develop` and `main`, and the verification steps check that it is on.
@@ -65,15 +65,22 @@ A team member starts a new cloud session on this repository and asks for a chang
 
 ### User Story 2 - Every team member starts from the same environment (Priority: P2)
 
-An Owner defines one shared **LightSpeed** cloud environment and makes it the organisation default. Every team member's new session on this repository then starts with the same toolchain, variables and network policy, and nobody has to configure anything personally.
+An Owner defines one shared **LightSpeed** cloud environment and makes it the organisation default. Members without
+a saved environment selection start new sessions with the same toolchain, variables and network policy. Members who
+have saved another environment keep their selection.
 
 **Why this priority**: The user asked for the team to "start with the same cloud config every time". The protections in Story 1 live in the repository and work without this. The shared environment adds consistent tooling and one switch for the whole team.
 
-**Independent Test**: Two team members each start a new session without touching the environment selector. Both report the same runtime version, the same linting tools available, and the same base-branch variable.
+**Independent Test**: Two team members without a saved environment selection each start a new session without
+touching the selector. Both report the same runtime version, linting tools and base-branch variable. A member with
+a saved selection starts a new session and confirms that their selected environment is retained.
 
 **Acceptance Scenarios**:
 
-1. **Given** the Owner has created the shared environment from the repository's canonical definition and set it as the organisation default, **When** any member starts a new session, **Then** that session uses the shared environment.
+1. **Given** the Owner has created the shared environment from the repository's canonical definition and set it as
+   the organisation default, **When** a member with no saved environment selection starts a new session, **Then**
+   that session uses the shared environment. **Given** a member has saved another selection, **When** they start a
+   new session, **Then** their choice is retained rather than overridden by the organisation default.
 2. **Given** a new session in the shared environment, **When** the member checks the toolchain, **Then** the runtime version matches the repository's pinned version and the linting tools CI relies on are available.
 3. **Given** the environment's provisioning step fails on a non-critical install, **When** a session starts, **Then** the session still starts and falls back to the platform defaults for that tool.
 4. **Given** a member starting cloud sessions from the terminal, **When** they follow the documented one-time step, **Then** their terminal-started sessions also use the shared environment.
@@ -93,7 +100,9 @@ A maintainer can find, in the repository, the exact environment definition the t
 1. **Given** the repository, **When** a maintainer looks for the environment definition, **Then** the setup script and variables are both in one documented location and match what is configured in the product.
 2. **Given** the documentation, **When** a member runs the verification steps in a new session, **Then** each step has a stated expected result.
 3. **Given** the Owner setup is complete, **When** a maintainer checks branch protection on `develop` and `main`, **Then** "Require review from Code Owners" is on, so a PR that changes `.claude/` can't merge without an Owner's review.
-4. **Given** an emergency where enforcement blocks legitimate work, **When** an Owner flips the documented switch, **Then** refusals become warnings without a code change.
+4. **Given** an emergency where enforcement blocks legitimate work, **When** an Owner turns off the documented
+   switch for a new session, **Then** all refusals, including guard faults on git and GitHub writes, become visible
+   warnings and the writes proceed without a code change. With enforcement on, those guard faults still block.
 5. **Given** a `claude/*` branch on GitHub that is merged to a base branch (it has no commits of its own), has no open PR and has a tip more than 24 hours old, **When** spec 009's scheduled cleanup runs, **Then** the branch is categorised as auto-approved DELETE, deleted without a draft PR, and the deletion is recorded in the run summary.
 6. **Given** a `claude/*` branch that has its own commits, is less than 24 hours old, is the head of an open PR, or whose open-PR status cannot be verified, **When** the scheduled cleanup runs, **Then** it is not auto-deleted: it follows spec 009's normal categorisation (KEEP or DISCUSS) and appears in the report for review.
 
@@ -116,7 +125,9 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Documentation exception on `develop` where GitHub branch protection requires PRs**: The guard allows the commit, but GitHub may still reject the push. The refusal from GitHub is reported to the user, who can merge through a PR instead.
 - **Mixed commit (documentation plus code) on a protected branch**: The whole commit is refused. It is not split automatically.
 - **Indirect edits to guard files (for example `sed -i`, `mv`, `rm`, or output redirection targeting `.claude/hooks/`)**: Refused while enforcement is on, using the same command parsing as the git checks. Unusual constructions may slip through, so CODEOWNERS review remains the final safeguard.
-- **Guard fault (validator missing, internal error)**: Git writes and GitHub branch or PR tools are refused as "guard unavailable". Other commands continue with a warning, so the session stays usable while the fault is fixed (FR-012a).
+- **Guard fault (validator missing, internal error)**: With enforcement on, git writes and GitHub branch, file or
+  PR tools are refused as "guard unavailable"; other commands continue with a warning. With enforcement off, the
+  fault warns and the write proceeds (FR-012a, FR-013).
 - **Malformed input to the guard**: The session must never break. Allow and move on.
 
 ## Requirements *(mandatory)*
@@ -150,7 +161,12 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
 - **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal.
 - **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings. The agent MUST NOT be able to change the switch from inside a running session; it takes effect only from the environment the session started with.
-- **FR-012a**: If the guard can't evaluate a call because of its own fault (for example, the validator fails to load or an internal error occurs), it MUST refuse git commit, push and branch operations and the GitHub branch, file and PR tools with a message saying the guard is unavailable and how to report it. It MUST allow all other commands, with a visible warning. Malformed hook input from the platform is still allowed silently.
+- **FR-012a**: If the guard can't evaluate a call because of its own fault (for example, the validator fails to load
+  or an internal error occurs), it MUST refuse git commit, push and branch operations and the GitHub branch, file
+  and PR tools with a message saying the guard is unavailable and how to report it while enforcement is on. It MUST
+  allow all other commands with a visible warning. When enforcement is off, FR-013 takes precedence: the fault
+  MUST produce a visible warning and allow the write. Malformed hook input from the platform is still allowed
+  silently.
 - **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files and any settings file that can disable or override hooks (`.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and the user settings file `~/.claude/settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`, and branch protection on `develop` and `main` MUST have "Require review from Code Owners" turned on so that review is enforced.
 - **FR-014**: Enforcement MUST block in both cloud and local agent sessions on this repository, with identical rules. Only the enforcement switch (FR-013) may downgrade refusals to warnings, in either setting.
 
@@ -196,7 +212,8 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **SC-001**: 100% of branches pushed from cloud agent sessions on this repository pass the branch-name validator. This is measured over the first 30 days after rollout via the existing branch-validation metrics.
 - **SC-002**: Zero new `chore/session-*` or `claude/*` branches with commits appear on the remote after rollout. No empty `claude/*` branch stays on the remote for more than 48 hours.
 - **SC-003**: PR template fallback routing caused by agent-created branches drops to 0% (constitution goal for fallback routing).
-- **SC-004**: A team member can start a correctly configured session with zero manual configuration steps once the Owner has completed setup.
+- **SC-004**: A team member without a saved environment selection can start a correctly configured session with
+  zero manual configuration steps once the Owner has completed setup.
 - **SC-005**: Session start adds no more than 30 seconds when dependencies are already current. The first provisioning run completes in under 5 minutes.
 - **SC-006**: A maintainer unfamiliar with the setup can recreate the environment and pass every verification step using only the documentation, in under 15 minutes.
 - **SC-007**: In a monthly review of 10 sampled agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help.

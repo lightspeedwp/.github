@@ -124,8 +124,9 @@ implementation in lightspeedwp/.github#3524.
   Each step has a 5-second timeout. Any failure, timeout or empty result means "not verified", and the action is
   refused (FR-006).
 - **Rationale**:
-  - `gh` is pre-installed in cloud sessions and authenticates through the GitHub proxy (`GH_TOKEN=proxy-injected`),
-    so it needs no token. Locally it uses the developer's own `gh` login.
+  - Cloud sessions authenticate `gh` through the GitHub proxy, so they need no
+    separately configured token. Setup must install or confirm `gh` and verify authentication. Local sessions
+    require the developer's own authenticated `gh` login.
   - Running the check only on the refusal path keeps compliant pushes fast (performance goal of 150 ms or less).
 - **Alternatives considered**:
   - The GitHub MCP tools: hooks can't call them, so this was rejected.
@@ -145,11 +146,12 @@ implementation in lightspeedwp/.github#3524.
 
 - **Decision**:
   - Load the validator with a dynamic `await import()` inside a `try`, and wrap all evaluation in the same `try`.
-  - On a fault, classify the call without the validator:
+  - With enforcement on, classify a fault without the validator:
     - Bash commands matching `\bgit\b[^|;&]*\b(commit|push|branch|checkout|switch)\b` are git writes, and are
       refused with exit 2 and "Branch guard unavailable: {error}. Open an issue on lightspeedwp/.github".
     - Matched GitHub MCP branch, file and PR tools are refused the same way.
     - Everything else is allowed with exit 0 and a warning in `systemMessage`.
+  - With enforcement off, FR-013 takes precedence: warn in `systemMessage` and allow the write with exit 0.
   - Malformed stdin JSON is still allowed silently.
 - **Rationale**: A static import failure would crash Node before any handler ran. Claude Code treats a non-2 exit
   as a non-blocking error, so that would silently fail open. The dynamic import keeps the fail-closed decision in
