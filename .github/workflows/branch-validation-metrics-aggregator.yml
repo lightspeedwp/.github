@@ -60,23 +60,53 @@ jobs:
         run: |
           mkdir -p .github/reports/branch-validation
 
-          # Single jq pass over every metric file; empty input yields zeros.
-          summary=$(
-            find metrics-artifacts -name '*.json' -print0 2>/dev/null \
-              | xargs -0 -r jq -s '{
+          # Validate each metric file individually before aggregating: a
+          # single malformed artifact must not discard the valid ones
+          # (#3528). NUL-delimited throughout so unusual filenames cannot
+          # split or glob. A file is accepted only if it parses and every
+          # JSON value in it is an object or null: the aggregation below
+          # indexes .valid and .errors, which fails on an array, string,
+          # number or boolean and would zero the whole summary. Empty files
+          # and null keep their existing behaviour.
+          valid_list=$(mktemp)
+          invalid_count=0
+          if [ -d metrics-artifacts ]; then
+            while IFS= read -r -d '' metric_file; do
+              if jq -e -n '[inputs | type == "object" or type == "null"] | all' -- "$metric_file" >/dev/null 2>&1; then
+                printf '%s\0' "$metric_file" >> "$valid_list"
+              else
+                echo "⚠️ Skipping malformed metrics artifact: $metric_file" >&2
+                invalid_count=$((invalid_count + 1))
+              fi
+            done < <(find metrics-artifacts -type f -name '*.json' -print0 2>/dev/null)
+          fi
+
+          if [ "$invalid_count" -gt 0 ]; then
+            echo "⚠️ Skipped $invalid_count malformed metrics artifact(s); aggregating the remainder."
+          fi
+
+          # Aggregate the valid files only; no valid files yields zeros,
+          # preserving the existing empty-input and total==0 semantics.
+          if [ ! -s "$valid_list" ]; then
+            summary='{"total":0,"valid":0,"forbidden":0,"invalid":0,"malformed":0}'
+          else
+            summary=$(
+              xargs -0 -r jq -s '{
                   total: length,
                   valid: map(select(.valid == true)) | length,
                   forbidden: map(select((.errors // "" | tostring) | contains("forbidden_prefix"))) | length,
                   invalid: map(select((.errors // "" | tostring) | contains("invalid_type"))) | length,
                   malformed: map(select((.errors // "" | tostring) | contains("malformed"))) | length
-                }' 2>/dev/null \
-              || echo '{"total":0,"valid":0,"forbidden":0,"invalid":0,"malformed":0}'
-          )
+                }' < "$valid_list" 2>/dev/null \
+                || echo '{"total":0,"valid":0,"forbidden":0,"invalid":0,"malformed":0}'
+            )
 
-          # xargs -r runs nothing on empty input, leaving $summary unset.
-          if [ -z "$summary" ]; then
-            summary='{"total":0,"valid":0,"forbidden":0,"invalid":0,"malformed":0}'
+            # xargs -r runs nothing on empty input, leaving $summary unset.
+            if [ -z "$summary" ]; then
+              summary='{"total":0,"valid":0,"forbidden":0,"invalid":0,"malformed":0}'
+            fi
           fi
+          rm -f "$valid_list"
 
           total=$(echo "$summary" | jq -r '.total')
           valid=$(echo "$summary" | jq -r '.valid')
