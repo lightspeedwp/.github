@@ -19,7 +19,8 @@
 | **Governance Policy Labels** | 57 |
 | **Documentation Files Reviewed** | 18 |
 | **Archived Workflows Analyzed** | 11 |
-| **Total Findings** | 13 |
+| **Audit Findings** | 2 (1 HIGH, 1 MEDIUM) |
+| **Affected Labels in Governance Gaps** | 13 |
 
 ### Critical Findings Discovered
 
