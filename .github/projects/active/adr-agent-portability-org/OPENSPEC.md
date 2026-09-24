@@ -382,6 +382,7 @@ agents/adr-generator/
 **Mermaid Diagrams Required:**
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     A[User Input] --> B[Config Loader]
     B --> C[Template Selector]
@@ -392,9 +393,11 @@ graph LR
     F -->|No| H[Return Errors]
     G --> I[Success Message]
     H --> J[User Feedback]
+accDescr: Detailed diagram
 ```
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     Config["User provides decision info"]
     Config --> CheckConfig["Load .adr-config.json"]
@@ -406,6 +409,7 @@ graph TB
     ShowErrors --> End["Stop"]
     Decision -->|Yes| WriteFile["Write ADR file"]
     WriteFile --> Success["Success confirmation"]
+accDescr: Detailed diagram
 ```
 
 ---

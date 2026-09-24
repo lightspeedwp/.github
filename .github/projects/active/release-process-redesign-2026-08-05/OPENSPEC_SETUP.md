@@ -267,6 +267,7 @@ Estimated Total: 18-22 days (2 sprints)
 Mermaid diagrams generated from your answers:
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     A[Start: Feature Ready] --> B{Release Flow Type?}
     B -->|Develop-First| C[Create release/vX.Y.Z from develop]
@@ -283,6 +284,7 @@ graph TD
     L -->|Yes| M[Sync version back to develop]
     L -->|No| N[End]
     M --> N
+accDescr: Detailed diagram
 ```
 
 ---

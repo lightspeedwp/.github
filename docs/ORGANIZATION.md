@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Documentation Organization"
 description: "Document types, folder structure, and navigation guide for LightSpeedWP repository"
 version: "1.0"
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Team"]
 tags: ["documentation", "organization", "structure", "navigation"]
 references:

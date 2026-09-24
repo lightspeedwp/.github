@@ -11,30 +11,30 @@
  * @module scripts/validation/validate-mermaid-colour-contrast
  */
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { globSync } from "glob";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { globSync } from 'glob';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, "../../");
+const ROOT = path.join(__dirname, '../../');
 
 const WCAG_AA_NORMAL_TEXT = 4.5;
 
 const getMarkdownFiles = () =>
-  globSync("**/*.{md,mdx}", {
+  globSync('**/*.{md,mdx}', {
     cwd: ROOT,
     ignore: [
-      "**/node_modules/**",
-      "**/.git/**",
-      "**/coverage/**",
-      "**/logs/**",
-      "**/.github/projects/**",
-      "**/.claude/**",
-      "**/plugin-provided/**",
-      "**/platform-managed/**",
-      "**/directory-installed/**",
-      "**/agentskills-main/**",
+      '**/node_modules/**',
+      '**/.git/**',
+      '**/coverage/**',
+      '**/logs/**',
+      '**/.github/projects/**',
+      '**/.claude/**',
+      '**/plugin-provided/**',
+      '**/platform-managed/**',
+      '**/directory-installed/**',
+      '**/agentskills-main/**',
     ],
   }).sort();
 
@@ -48,12 +48,12 @@ const getMarkdownFiles = () =>
  * @returns {string} 6-digit hex without leading #
  */
 function normaliseHex(hex) {
-  const h = hex.replace(/^#/, "");
+  const h = hex.replace(/^#/, '');
   if (h.length === 3) {
     return h
-      .split("")
+      .split('')
       .map((c) => c + c)
-      .join("");
+      .join('');
   }
   return h;
 }
@@ -69,8 +69,7 @@ function relativeLuminance(hex) {
   const g = parseInt(h.slice(2, 4), 16) / 255;
   const b = parseInt(h.slice(4, 6), 16) / 255;
 
-  const linearise = (c) =>
-    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  const linearise = (c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
 
   return 0.2126 * linearise(r) + 0.7152 * linearise(g) + 0.0722 * linearise(b);
 }
@@ -97,31 +96,31 @@ function contrastRatio(hex1, hex2) {
  */
 function namedColourToHex(name) {
   const map = {
-    black: "#000000",
-    white: "#ffffff",
-    red: "#ff0000",
-    green: "#008000",
-    blue: "#0000ff",
-    yellow: "#ffff00",
-    orange: "#ffa500",
-    purple: "#800080",
-    pink: "#ffc0cb",
-    gray: "#808080",
-    grey: "#808080",
-    darkgray: "#a9a9a9",
-    darkgrey: "#a9a9a9",
-    lightgray: "#d3d3d3",
-    lightgrey: "#d3d3d3",
-    navy: "#000080",
-    teal: "#008080",
-    aqua: "#00ffff",
-    cyan: "#00ffff",
-    fuchsia: "#ff00ff",
-    magenta: "#ff00ff",
-    silver: "#c0c0c0",
-    maroon: "#800000",
-    olive: "#808000",
-    lime: "#00ff00",
+    black: '#000000',
+    white: '#ffffff',
+    red: '#ff0000',
+    green: '#008000',
+    blue: '#0000ff',
+    yellow: '#ffff00',
+    orange: '#ffa500',
+    purple: '#800080',
+    pink: '#ffc0cb',
+    gray: '#808080',
+    grey: '#808080',
+    darkgray: '#a9a9a9',
+    darkgrey: '#a9a9a9',
+    lightgray: '#d3d3d3',
+    lightgrey: '#d3d3d3',
+    navy: '#000080',
+    teal: '#008080',
+    aqua: '#00ffff',
+    cyan: '#00ffff',
+    fuchsia: '#ff00ff',
+    magenta: '#ff00ff',
+    silver: '#c0c0c0',
+    maroon: '#800000',
+    olive: '#808000',
+    lime: '#00ff00',
     transparent: null,
     none: null,
   };
@@ -152,7 +151,7 @@ function parseColour(colour) {
  */
 function extractDiagrams(content) {
   const diagrams = [];
-  const lines = content.split("\n");
+  const lines = content.split('\n');
   let inBlock = false;
   let blockStart = -1;
   let blockLines = [];
@@ -164,7 +163,7 @@ function extractDiagrams(content) {
       blockStart = i + 1;
       blockLines = [];
     } else if (inBlock && /^```\s*$/.test(line.trim())) {
-      diagrams.push({ raw: blockLines.join("\n"), startLine: blockStart });
+      diagrams.push({ raw: blockLines.join('\n'), startLine: blockStart });
       inBlock = false;
       blockLines = [];
     } else if (inBlock) {
@@ -185,7 +184,7 @@ function detectTheme(diagramRaw) {
   if (match) return match[1].toLowerCase();
   const dq = diagramRaw.match(/%%\{.*?"theme"\s*:\s*"([^"]+)"/);
   if (dq) return dq[1].toLowerCase();
-  return "default";
+  return 'default';
 }
 
 /**
@@ -200,12 +199,12 @@ function detectTheme(diagramRaw) {
  */
 function parseStyleDeclarations(diagramRaw) {
   const results = [];
-  const lines = diagramRaw.split("\n");
+  const lines = diagramRaw.split('\n');
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     // Strip inline %% comments before parsing to avoid false positives
-    const cleanLine = line.split("%%")[0];
+    const cleanLine = line.split('%%')[0];
     // Match `style <NodeId> <properties>`
     const styleMatch = cleanLine.match(/^\s*style\s+(\S+)\s+(.+)/);
     if (!styleMatch) continue;
@@ -246,7 +245,7 @@ function validateStyleContrast(styleDecl, _theme) {
   const fillHex = parseColour(fill);
   if (!fillHex) {
     issues.push({
-      level: "error",
+      level: 'error',
       message: `Node "${nodeId}": fill "${fill}" could not be parsed as a valid colour. Use a 3 or 6-digit hex value from the approved palette.`,
     });
     return issues;
@@ -254,22 +253,22 @@ function validateStyleContrast(styleDecl, _theme) {
 
   if (!color) {
     // Check both Mermaid light default (#333333) and dark mode (white #ffffff)
-    const lightRatio = contrastRatio(fillHex, "#333333");
-    const darkRatio = contrastRatio(fillHex, "#ffffff");
+    const lightRatio = contrastRatio(fillHex, '#333333');
+    const darkRatio = contrastRatio(fillHex, '#ffffff');
     const failsLight = lightRatio < WCAG_AA_NORMAL_TEXT;
     const failsDark = darkRatio < WCAG_AA_NORMAL_TEXT;
 
     if (failsLight || failsDark) {
       let failMode;
       if (failsLight && failsDark) {
-        failMode = "both light and dark modes";
+        failMode = 'both light and dark modes';
       } else if (failsLight) {
-        failMode = "light mode (dark text)";
+        failMode = 'light mode (dark text)';
       } else {
-        failMode = "dark mode (white text)";
+        failMode = 'dark mode (white text)';
       }
       issues.push({
-        level: "error",
+        level: 'error',
         message:
           `Node "${nodeId}": fill ${fill} without explicit color FAILS in ${failMode} ` +
           `(light contrast: ${lightRatio.toFixed(2)}:1, dark contrast: ${darkRatio.toFixed(2)}:1). ` +
@@ -277,7 +276,7 @@ function validateStyleContrast(styleDecl, _theme) {
       });
     } else {
       issues.push({
-        level: "warning",
+        level: 'warning',
         message:
           `Node "${nodeId}": fill ${fill} has no explicit color. ` +
           `Passes contrast in both modes (light: ${lightRatio.toFixed(2)}:1, dark: ${darkRatio.toFixed(2)}:1) ` +
@@ -291,7 +290,7 @@ function validateStyleContrast(styleDecl, _theme) {
   const colorHex = parseColour(color);
   if (!colorHex) {
     issues.push({
-      level: "error",
+      level: 'error',
       message: `Node "${nodeId}": color "${color}" could not be parsed as a valid colour. Use a 3 or 6-digit hex value from the approved palette.`,
     });
     return issues;
@@ -300,7 +299,7 @@ function validateStyleContrast(styleDecl, _theme) {
   const ratio = contrastRatio(fillHex, colorHex);
   if (ratio < WCAG_AA_NORMAL_TEXT) {
     issues.push({
-      level: "error",
+      level: 'error',
       message:
         `Node "${nodeId}": fill ${fill} / color ${color} contrast ratio is ${ratio.toFixed(2)}:1 — ` +
         `FAILS WCAG AA 2.2 (${WCAG_AA_NORMAL_TEXT}:1 required for normal text).`,
@@ -316,37 +315,29 @@ function validateStyleContrast(styleDecl, _theme) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
-  const changedFilesListArg = args.find((a) =>
-    a.startsWith("--changed-files-list="),
-  );
+  const changedFilesArg = args.find((a) => a.startsWith('--changed-files='));
+  const changedFilesListArg = args.find((a) => a.startsWith('--changed-files-list='));
   // Explicit file lists (from --changed-files/--changed-files-list) bypass
   // getMarkdownFiles()'s glob `ignore` patterns entirely, so vendor paths
   // must be filtered again here.
   const isVendorPath = (filePath) =>
     /(^|\/)(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
-      filePath,
+      filePath
     );
 
   const targetFiles = (
     changedFilesListArg
       ? fs
-          .readFileSync(
-            changedFilesListArg.replace("--changed-files-list=", ""),
-            "utf8",
-          )
-          .split("\n")
+          .readFileSync(changedFilesListArg.replace('--changed-files-list=', ''), 'utf8')
+          .split('\n')
           .map((f) => f.trim())
           .filter(Boolean)
       : changedFilesArg
-        ? changedFilesArg
-            .replace("--changed-files=", "")
-            .split(",")
-            .filter(Boolean)
+        ? changedFilesArg.replace('--changed-files=', '').split(',').filter(Boolean)
         : getMarkdownFiles()
   ).filter((f) => !isVendorPath(f));
 
-  console.log("🎨 Validating Mermaid colour contrast (WCAG 2.2 AA)...\n");
+  console.log('🎨 Validating Mermaid colour contrast (WCAG 2.2 AA)...\n');
   console.log(`Scanning ${targetFiles.length} file(s)\n`);
 
   const report = {
@@ -359,12 +350,10 @@ async function main() {
   };
 
   for (const relPath of targetFiles) {
-    const filePath = path.isAbsolute(relPath)
-      ? relPath
-      : path.join(ROOT, relPath);
+    const filePath = path.isAbsolute(relPath) ? relPath : path.join(ROOT, relPath);
 
     if (!fs.existsSync(filePath)) continue;
-    const content = fs.readFileSync(filePath, "utf-8");
+    const content = fs.readFileSync(filePath, 'utf-8');
     const diagrams = extractDiagrams(content);
     if (diagrams.length === 0) continue;
 
@@ -383,7 +372,7 @@ async function main() {
         const issues = validateStyleContrast(style, theme);
 
         for (const issue of issues) {
-          if (issue.level === "error") report.errors++;
+          if (issue.level === 'error') report.errors++;
           else report.warnings++;
 
           const fileLine = diagram.startLine + style.line + 1;
@@ -402,24 +391,20 @@ async function main() {
             fileHasIssues = true;
           }
 
-          const icon = issue.level === "error" ? "❌" : "⚠️ ";
-          console.log(
-            `   ${icon} Diagram ${di + 1} (line ${fileLine}): ${issue.message}`,
-          );
+          const icon = issue.level === 'error' ? '❌' : '⚠️ ';
+          console.log(`   ${icon} Diagram ${di + 1} (line ${fileLine}): ${issue.message}`);
         }
       }
     }
 
     if (!fileHasIssues && diagrams.length > 0) {
-      console.log(
-        `✅ ${relPath} — ${diagrams.length} diagram(s), all styles pass`,
-      );
+      console.log(`✅ ${relPath} — ${diagrams.length} diagram(s), all styles pass`);
     }
   }
 
-  console.log("\n" + "=".repeat(70));
-  console.log("🎨 COLOUR CONTRAST SUMMARY");
-  console.log("=".repeat(70));
+  console.log('\n' + '='.repeat(70));
+  console.log('🎨 COLOUR CONTRAST SUMMARY');
+  console.log('='.repeat(70));
   console.log(`Files scanned:    ${report.filesScanned}`);
   console.log(`Diagrams scanned: ${report.diagramsScanned}`);
   console.log(`Styles checked:   ${report.stylesChecked}`);
@@ -427,10 +412,10 @@ async function main() {
   console.log(`Warnings:         ${report.warnings}`);
 
   if (report.findings.length > 0) {
-    console.log("\n📋 FINDINGS:");
+    console.log('\n📋 FINDINGS:');
     for (const f of report.findings) {
       console.log(
-        `\n  ${f.level.toUpperCase()} in ${f.file} (Diagram #${f.diagramIndex}, theme: ${f.theme})`,
+        `\n  ${f.level.toUpperCase()} in ${f.file} (Diagram #${f.diagramIndex}, theme: ${f.theme})`
       );
       console.log(`  Style: ${f.rawStyle}`);
       console.log(`  Issue: ${f.message}`);
@@ -439,20 +424,18 @@ async function main() {
 
   if (report.errors > 0) {
     console.log(
-      `\n❌ ${report.errors} contrast error(s) found. See approved palette in instructions/mermaid.instructions.md`,
+      `\n❌ ${report.errors} contrast error(s) found. See approved palette in instructions/mermaid.instructions.md`
     );
   } else if (report.warnings > 0) {
     console.log(
-      `\n⚠️  ${report.warnings} warning(s). Add explicit color: to every fill: declaration to guarantee contrast in all themes.`,
+      `\n⚠️  ${report.warnings} warning(s). Add explicit color: to every fill: declaration to guarantee contrast in all themes.`
     );
   } else {
-    console.log(
-      "\n✅ All style declarations meet WCAG 2.2 AA contrast requirements.",
-    );
+    console.log('\n✅ All style declarations meet WCAG 2.2 AA contrast requirements.');
   }
 
   // Write report
-  const reportDir = path.join(ROOT, ".github/reports/mermaid");
+  const reportDir = path.join(ROOT, '.github/reports/mermaid');
   fs.mkdirSync(reportDir, { recursive: true });
   const today = new Date().toISOString().slice(0, 10);
   const reportPath = path.join(reportDir, `colour-contrast-report-${today}.md`);
@@ -486,16 +469,16 @@ stability: stable
 
 ${
   report.findings.length === 0
-    ? "✅ All style declarations meet WCAG 2.2 AA requirements."
+    ? '✅ All style declarations meet WCAG 2.2 AA requirements.'
     : report.findings
         .map(
           (f) =>
             `### ${f.level.toUpperCase()}: \`${f.file}\` — Diagram #${f.diagramIndex} (line ${f.line})\n\n` +
             `- **Theme**: ${f.theme}\n` +
             `- **Style**: \`${f.rawStyle}\`\n` +
-            `- **Issue**: ${f.message}\n`,
+            `- **Issue**: ${f.message}\n`
         )
-        .join("\n")
+        .join('\n')
 }
 
 ## Approved Colour Palette
@@ -520,6 +503,6 @@ See \`instructions/mermaid.instructions.md\` for the full approved palette with 
 }
 
 main().catch((err) => {
-  console.error("Colour contrast validation error:", err);
+  console.error('Colour contrast validation error:', err);
   process.exit(1);
 });

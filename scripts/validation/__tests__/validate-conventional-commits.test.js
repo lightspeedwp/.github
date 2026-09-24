@@ -1,32 +1,23 @@
-const { validateCommit } = require("../validate-conventional-commits");
+const { validateCommit } = require('../validate-conventional-commits');
 
-describe("validate-conventional-commits", () => {
-  describe("validateCommit", () => {
-    it("validates proper feat commit", () => {
-      const result = validateCommit("feat: add new feature");
+describe('validate-conventional-commits', () => {
+  describe('validateCommit', () => {
+    it('validates proper feat commit', () => {
+      const result = validateCommit('feat: add new feature');
 
       expect(result.valid).toBe(true);
       expect(result.errors).toHaveLength(0);
     });
 
-    it("validates commit with scope", () => {
-      const result = validateCommit("fix(auth): resolve login issue");
+    it('validates commit with scope', () => {
+      const result = validateCommit('fix(auth): resolve login issue');
 
       expect(result.valid).toBe(true);
-      expect(result.parsed.scope).toBe("auth");
+      expect(result.parsed.scope).toBe('auth');
     });
 
-    it("validates all commit types", () => {
-      const types = [
-        "feat",
-        "fix",
-        "docs",
-        "style",
-        "refactor",
-        "perf",
-        "test",
-        "chore",
-      ];
+    it('validates all commit types', () => {
+      const types = ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'chore'];
 
       types.forEach((type) => {
         const result = validateCommit(`${type}: description`);
@@ -34,26 +25,26 @@ describe("validate-conventional-commits", () => {
       });
     });
 
-    it("rejects invalid format", () => {
-      const result = validateCommit("this is not a valid commit");
+    it('rejects invalid format', () => {
+      const result = validateCommit('this is not a valid commit');
 
       expect(result.valid).toBe(false);
       expect(result.errors.length).toBeGreaterThan(0);
     });
 
-    it("rejects missing type", () => {
-      const result = validateCommit(": description");
+    it('rejects missing type', () => {
+      const result = validateCommit(': description');
 
       expect(result.valid).toBe(false);
     });
 
-    it("rejects missing description", () => {
-      const result = validateCommit("feat:");
+    it('rejects missing description', () => {
+      const result = validateCommit('feat:');
 
       expect(result.valid).toBe(false);
     });
 
-    it("validates commit with body", () => {
+    it('validates commit with body', () => {
       const message = `feat: add feature
 
 This is a longer description.
@@ -64,14 +55,14 @@ It can span multiple lines.`;
       expect(result.valid).toBe(true);
     });
 
-    it("validates breaking change notation", () => {
-      const result = validateCommit("feat!: major update");
+    it('validates breaking change notation', () => {
+      const result = validateCommit('feat!: major update');
 
       expect(result.valid).toBe(true);
       expect(result.parsed.isBreaking).toBe(true);
     });
 
-    it("validates BREAKING CHANGE footer", () => {
+    it('validates BREAKING CHANGE footer', () => {
       const message = `feat: update API
 
 BREAKING CHANGE: endpoint changed`;

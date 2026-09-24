@@ -224,6 +224,7 @@
 ### Governance Relationships
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     CONST["Constitution<br/>(6 non-negotiable principles)"]
     CLAUDE["CLAUDE.md<br/>(Project-specific<br/>governance)"]
@@ -258,6 +259,7 @@ graph TD
     style AGENTS fill:#4ecdc4
     style LOCKED fill:#ffe66d
     style BRANCHES fill:#95e1d3
+accDescr: Detailed diagram
 ```
 
 ---

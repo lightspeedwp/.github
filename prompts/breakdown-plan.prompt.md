@@ -63,6 +63,7 @@ Create two primary deliverables:
 #### 2. Work Item Hierarchy
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     A[Epic: {Epic Name}] --> B[Feature: {Feature Name}]
     B --> C[Story 1: {User Story}]
@@ -83,6 +84,7 @@ graph TD
 
     F --> O[Task: CI/CD Pipeline]
     F --> P[Task: Monitoring Setup]
+accDescr: Detailed diagram
 ```
 
 #### 3. GitHub Issues Breakdown
@@ -318,6 +320,7 @@ This enabler supports:
 #### 6. Dependency Management
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     A[Epic Planning] --> B[Feature Definition]
     B --> C[Enabler Implementation]
@@ -329,6 +332,7 @@ graph LR
     H[API Design] --> D
     I[Database Schema] --> C
     J[Authentication] --> D
+accDescr: Detailed diagram
 ```
 
 ##### Dependency Types

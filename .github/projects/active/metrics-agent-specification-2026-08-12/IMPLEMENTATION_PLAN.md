@@ -511,6 +511,7 @@ Document:
 ### Critical Path
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     A["Phase 1:<br/>Implementation"] -->|Code review approved| B["Phase 2:<br/>Documentation"]
     B -->|User guide complete| C["Phase 3:<br/>Integration & Testing"]
@@ -518,6 +519,7 @@ graph LR
     
     A -->|Weekly progress| P1["Reporting Agent<br/>Working"]
     P1 -->|Integration ready| C
+accDescr: Detailed diagram
 ```
 
 ### External Dependencies

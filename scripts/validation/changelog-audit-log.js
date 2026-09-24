@@ -5,15 +5,12 @@
  * Records who, when, and what changed in CHANGELOG.md
  */
 
-const fs = require("fs");
-const path = require("path");
-const { execSync } = require("child_process");
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
 
-const CHANGELOG_FILE = path.join(process.cwd(), "CHANGELOG.md");
-const AUDIT_LOG_FILE = path.join(
-  process.cwd(),
-  ".github/reports/audits/changelog-audit-log.md",
-);
+const CHANGELOG_FILE = path.join(process.cwd(), 'CHANGELOG.md');
+const AUDIT_LOG_FILE = path.join(process.cwd(), '.github/reports/audits/changelog-audit-log.md');
 const AUDIT_DIR = path.dirname(AUDIT_LOG_FILE);
 
 class ChangelogAuditLogger {
@@ -54,7 +51,7 @@ last_updated: ${new Date().toISOString()}
 ## Audit Entries
 
 `;
-      fs.writeFileSync(AUDIT_LOG_FILE, initialLog, "utf8");
+      fs.writeFileSync(AUDIT_LOG_FILE, initialLog, 'utf8');
       return true;
     }
     return false;
@@ -65,17 +62,16 @@ last_updated: ${new Date().toISOString()}
    */
   getGitHistory() {
     try {
-      const log = execSync(
-        'git log --follow --format="%H|%an|%ae|%ai|%s" -- CHANGELOG.md',
-        { encoding: "utf8" },
-      );
+      const log = execSync('git log --follow --format="%H|%an|%ae|%ai|%s" -- CHANGELOG.md', {
+        encoding: 'utf8',
+      });
 
       return log
         .trim()
-        .split("\n")
+        .split('\n')
         .filter((line) => line.length > 0)
         .map((line) => {
-          const [hash, author, email, date, subject] = line.split("|");
+          const [hash, author, email, date, subject] = line.split('|');
           return {
             hash: hash.substring(0, 7),
             author,
@@ -85,7 +81,7 @@ last_updated: ${new Date().toISOString()}
           };
         });
     } catch (error) {
-      console.warn("⚠️  Could not retrieve git history:", error.message);
+      console.warn('⚠️  Could not retrieve git history:', error.message);
       return [];
     }
   }
@@ -98,16 +94,14 @@ last_updated: ${new Date().toISOString()}
       return null;
     }
 
-    const content = fs.readFileSync(CHANGELOG_FILE, "utf8");
-    const lines = content.split("\n");
+    const content = fs.readFileSync(CHANGELOG_FILE, 'utf8');
+    const lines = content.split('\n');
 
     // Count versions
     const versions = (content.match(/## \[\d+\.\d+\.\d+\]/g) || []).length;
 
     // Count unreleased entries
-    const unreleasedMatch = content.match(
-      /## \[Unreleased\]([\s\S]*?)(?=## \[|$)/,
-    );
+    const unreleasedMatch = content.match(/## \[Unreleased\]([\s\S]*?)(?=## \[|$)/);
     const unreleasedEntries = unreleasedMatch
       ? (unreleasedMatch[1].match(/^- /gm) || []).length
       : 0;
@@ -135,7 +129,7 @@ last_updated: ${new Date().toISOString()}
       totalEntries,
       hasFrontmatter,
       lastUpdated,
-      size: Buffer.byteLength(content, "utf8"),
+      size: Buffer.byteLength(content, 'utf8'),
       lines: lines.length,
     };
   }
@@ -163,7 +157,7 @@ last_updated: ${new Date().toISOString()}
     const stats = this.analyzeChangelog();
 
     if (!stats) {
-      console.warn("⚠️  CHANGELOG.md not found, cannot generate audit report");
+      console.warn('⚠️  CHANGELOG.md not found, cannot generate audit report');
       return;
     }
 
@@ -192,7 +186,7 @@ total_contributors: ${new Set(history.map((h) => h.author)).size}
 - **Unreleased Entries**: ${stats.unreleasedEntries}
 - **Total Entries**: ${stats.totalEntries}
 - **File Size**: ${stats.size} bytes
-- **Last Updated**: ${stats.lastUpdated || "Unknown"}
+- **Last Updated**: ${stats.lastUpdated || 'Unknown'}
 
 ---
 
@@ -204,13 +198,13 @@ total_contributors: ${new Set(history.map((h) => h.author)).size}
 
     // Add modification entries in reverse chronological order
     for (const entry of history) {
-      const date = new Date(entry.date).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
+      const date = new Date(entry.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
       });
 
       report += `| ${date} | \`${entry.hash}\` | ${this.escapeMarkdown(entry.author)} | \`${entry.email}\` | ${this.escapeMarkdown(entry.subject)} |\n`;
@@ -232,8 +226,8 @@ total_contributors: ${new Set(history.map((h) => h.author)).size}
       .sort((a, b) => b[1] - a[1])
       .slice(0, 10);
 
-    report += "| Author | Contributions |\n";
-    report += "|--------|---------------|\n";
+    report += '| Author | Contributions |\n';
+    report += '|--------|---------------|\n';
 
     for (const [author, count] of sortedContributors) {
       report += `| ${this.escapeMarkdown(author)} | ${count} |\n`;
@@ -254,18 +248,18 @@ total_contributors: ${new Set(history.map((h) => h.author)).size}
    */
   escapeMarkdown(text) {
     return text
-      .replace(/\|/g, "\\|")
-      .replace(/\[/g, "\\[")
-      .replace(/\]/g, "\\]")
-      .replace(/\(/g, "\\(")
-      .replace(/\)/g, "\\)");
+      .replace(/\|/g, '\\|')
+      .replace(/\[/g, '\\[')
+      .replace(/\]/g, '\\]')
+      .replace(/\(/g, '\\(')
+      .replace(/\)/g, '\\)');
   }
 
   /**
    * Save audit report to file
    */
   saveAuditReport(report) {
-    fs.writeFileSync(AUDIT_LOG_FILE, report, "utf8");
+    fs.writeFileSync(AUDIT_LOG_FILE, report, 'utf8');
     return AUDIT_LOG_FILE;
   }
 
@@ -273,43 +267,41 @@ total_contributors: ${new Set(history.map((h) => h.author)).size}
    * Run complete audit logging
    */
   run() {
-    console.log("📋 Changelog Audit Logger v1.0.0");
-    console.log("═".repeat(60));
-    console.log("");
+    console.log('📋 Changelog Audit Logger v1.0.0');
+    console.log('═'.repeat(60));
+    console.log('');
 
     // Initialize audit log if needed
     const initialized = this.initializeAuditLog();
     if (initialized) {
-      console.log("✅ Initialized new audit log");
+      console.log('✅ Initialized new audit log');
     }
 
     // Generate report from git history
     const report = this.generateAuditReport();
 
     if (!report) {
-      console.error("❌ Failed to generate audit report");
+      console.error('❌ Failed to generate audit report');
       process.exit(1);
     }
 
     // Save report
     const savedPath = this.saveAuditReport(report);
-    console.log(
-      `✅ Audit report saved to: ${path.relative(process.cwd(), savedPath)}`,
-    );
-    console.log("");
+    console.log(`✅ Audit report saved to: ${path.relative(process.cwd(), savedPath)}`);
+    console.log('');
 
     // Print summary
     const stats = this.analyzeChangelog();
     if (stats) {
-      console.log("📊 Changelog Statistics:");
+      console.log('📊 Changelog Statistics:');
       console.log(`  • Versions: ${stats.versions}`);
       console.log(`  • Unreleased entries: ${stats.unreleasedEntries}`);
       console.log(`  • Total entries: ${stats.totalEntries}`);
       console.log(`  • File size: ${stats.size} bytes`);
-      console.log("");
+      console.log('');
     }
 
-    console.log("═".repeat(60));
+    console.log('═'.repeat(60));
   }
 }
 

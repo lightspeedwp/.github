@@ -124,7 +124,9 @@ jobs:
         id: has_diagrams
         run: |
           CHANGED="${{ steps.changed.outputs.files }}"
-          if grep -q '```mermaid' $CHANGED; then
+          if grep -q '```mermaid
+accTitle: Diagram
+' $CHANGED; then
             echo "result=true" >> "$GITHUB_OUTPUT"
           fi
       - name: Validate Mermaid diagrams
@@ -146,6 +148,7 @@ jobs:
       - name: Validate README structure
       - name: Check frontmatter
       - name: Post comment on PR
+accDescr: Detailed diagram
 ```
 
 **Benefits:**

@@ -2,7 +2,7 @@
 // Test complex label scenarios
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
-import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/validate-and-apply-labels.js";
+import { validateAndApplyLabels } from "../../skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js";
 import { MockGitHub, createMockConfig } from "./setup.js";
 
 describe("Category B: Label Application Scenarios", () => {
@@ -14,22 +14,8 @@ describe("Category B: Label Application Scenarios", () => {
     config = createMockConfig();
   });
 
-  test("Test B1: Single Label Application → type:feature only", async () => {
-    const labels = ["type:feature"];
-
-    const result = await validateAndApplyLabels({
-      labels,
-      config,
-      mockGitHub: mockGitHub.issues,
-    });
-
-    expect(result.valid).toBe(true);
-    expect(result.appliedLabels).toEqual(["type:feature"]);
-    expect(result.appliedLabels.length).toBe(1);
-  });
-
-  test("Test B2: Multiple Labels → type:feature + area:agents", async () => {
-    const labels = ["type:feature", "area:agents"];
+  test("Test B1: Label Application → type and changelog decision", async () => {
+    const labels = ["type:feature", "meta:no-changelog"];
 
     const result = await validateAndApplyLabels({
       labels,
@@ -40,6 +26,20 @@ describe("Category B: Label Application Scenarios", () => {
     expect(result.valid).toBe(true);
     expect(result.appliedLabels).toEqual(labels);
     expect(result.appliedLabels.length).toBe(2);
+  });
+
+  test("Test B2: Multiple Labels → type:feature + area:agents", async () => {
+    const labels = ["type:feature", "area:agents", "meta:no-changelog"];
+
+    const result = await validateAndApplyLabels({
+      labels,
+      config,
+      mockGitHub: mockGitHub.issues,
+    });
+
+    expect(result.valid).toBe(true);
+    expect(result.appliedLabels).toEqual(labels);
+    expect(result.appliedLabels.length).toBe(3);
   });
 
   test("Test B3: Label Conflicts → Resolved per labeling strategy", async () => {
@@ -86,7 +86,7 @@ describe("Category B: Label Application Scenarios", () => {
   test("Test B6: Conditional Labels → Applied based on branch type", async () => {
     // Branch type determines which labels should be applied
     const branchType = "fix";
-    const conditionalLabels = ["type:bug"];
+    const conditionalLabels = ["type:bug", "meta:no-changelog"];
 
     const result = await validateAndApplyLabels({
       labels: conditionalLabels,
@@ -101,7 +101,12 @@ describe("Category B: Label Application Scenarios", () => {
   });
 
   test("Test B7: Label Priority → Higher priority labels applied first", async () => {
-    const labels = ["area:agents", "type:feature", "priority:critical"];
+    const labels = [
+      "area:agents",
+      "type:feature",
+      "priority:critical",
+      "meta:no-changelog",
+    ];
 
     const result = await validateAndApplyLabels({
       labels,
@@ -115,7 +120,12 @@ describe("Category B: Label Application Scenarios", () => {
   });
 
   test("Test B8: Label Deduplication → Duplicate labels removed", async () => {
-    const labels = ["type:feature", "type:feature", "area:agents"];
+    const labels = [
+      "type:feature",
+      "type:feature",
+      "area:agents",
+      "meta:no-changelog",
+    ];
 
     const result = await validateAndApplyLabels({
       labels,
@@ -124,8 +134,12 @@ describe("Category B: Label Application Scenarios", () => {
     });
 
     expect(result.valid).toBe(true);
-    expect(result.appliedLabels).toEqual(["type:feature", "area:agents"]);
-    expect(result.appliedLabels.length).toBe(2);
+    expect(result.appliedLabels).toEqual([
+      "type:feature",
+      "area:agents",
+      "meta:no-changelog",
+    ]);
+    expect(result.appliedLabels.length).toBe(3);
     expect(result.deduplicatedCount).toBe(1);
   });
 });

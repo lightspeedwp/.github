@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Community Standards"
 description: "Community health standards: naming conventions, README expectations, saved replies, and shared assets. File placement lives in file-organisation.instructions.md."
 version: "v1.0"
-last_updated: "2025-12-07"
+last_updated: "2026-09-22""
 owners: ["GitHub Community Health Team"]
 tags:
   [

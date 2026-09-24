@@ -1,7 +1,7 @@
 ---
 description: "Comprehensive automation scripts, utilities, and maintenance tools for LightSpeedWP projects. Modular design with shared infrastructure and extensive testing."
 version: "2.5"
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 owners:
   - LightSpeedWP Team
 references:
@@ -66,9 +66,9 @@ graph TB
     T[Pre-commit Hooks] --> A
     U[CI/CD Pipeline] --> A
 
-    style A fill:#e1f5fe,color:#0f172a
-    style C fill:#f3e5f5,color:#0f172a
-    style S fill:#e8f5e8,color:#0f172a
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style C fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style S fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 ## Automation Workflow
@@ -362,10 +362,10 @@ flowchart TD
     L --> N[Exit with Error]
     M --> O[Exit Successfully]
 
-    style A fill:#e1f5fe,color:#0f172a
-    style I fill:#e8f5e8,color:#0f172a
-    style O fill:#c8e6c9,color:#0f172a
-    style N fill:#ffcdd2,color:#0f172a
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style I fill:#dcfce7,color:#14532d,stroke:#14532d
+    style O fill:#dcfce7,color:#14532d,stroke:#14532d
+    style N fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 ```
 
 ## Contributing
@@ -488,5 +488,5 @@ When contributing new scripts or modifications:
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
