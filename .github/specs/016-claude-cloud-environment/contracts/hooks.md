@@ -15,7 +15,8 @@ Both hooks read a single JSON object on stdin, following the
 
 | Condition | Action |
 | --- | --- |
-| Cloud and source is `startup`/`resume`, branch `claude/*` | Rename locally to `chore/session-<hash>`. Never push (FR-001). |
+| Cloud and source is `startup`/`resume`, branch `claude/*` with 0 commits ahead of `origin/<base>` | Rename locally to `chore/session-<hash>`. Never push (FR-001). |
+| Cloud and source is `startup`/`resume`, branch `claude/*` with its own commits | Leave it unchanged (FR-001). The context text notes the legacy PR exception. |
 | Cloud and source is `startup`/`resume`, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). |
 | Cloud and source is `startup`/`resume`, lockfile newer than installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
 | Any source, cloud or local | Emit branching rules as context (FR-003). |
@@ -36,6 +37,8 @@ The rules text MUST include:
 - the rename and validate commands
 - the PR base rule
 - the documentation exception
+- the legacy PR exception
+- a note that the guard's own files can't be edited while enforcement is on
 - a statement that the rules override any platform `claude/*` instruction
 
 All other output goes to stderr. The exit code is always 0.
@@ -43,7 +46,7 @@ All other output goes to stderr. The exit code is always 0.
 ## PreToolUse: `.claude/hooks/enforce-branch-name.mjs`
 
 **Matcher**:
-`Bash|mcp__github__(create_branch|create_pull_request|push_files|create_or_update_file|delete_file)`
+`Bash|Edit|Write|MultiEdit|NotebookEdit|mcp__github__(create_branch|create_pull_request|push_files|create_or_update_file|delete_file)`
 
 **Input (stdin)**: `{ "tool_name": string, "tool_input": object, "cwd": string }`
 
@@ -55,10 +58,12 @@ All other output goes to stderr. The exit code is always 0.
 | --- | --- | --- |
 | `git branch -m/-M` | new name | not compliant, placeholder, or protected |
 | `git checkout -b/-B`, `git switch -c/-C` | new name | not compliant, or placeholder |
-| `git commit` | effective branch | not compliant or placeholder; or protected and the documentation exception fails |
-| `git push` (not `--delete`/`--tags`) | target branch | not compliant or placeholder; or protected and the documentation exception fails |
+| `git commit` | effective branch | placeholder; or not compliant and the legacy PR exception fails; or protected and the documentation exception fails |
+| `git push` (not `--delete`/`--tags`) | target branch | placeholder; or not compliant and the legacy PR exception fails; or protected and the documentation exception fails |
 | `mcp__github__create_branch` | `branch` | not compliant, or placeholder |
-| `mcp__github__push_files` / `create_or_update_file` / `delete_file` | `branch` plus paths | not compliant or placeholder; or protected and the documentation exception fails |
+| `mcp__github__push_files` / `create_or_update_file` / `delete_file` | `branch` plus paths | placeholder; or not compliant and the legacy PR exception fails; or protected and the documentation exception fails |
+| `Edit` / `Write` / `MultiEdit` / `NotebookEdit` | resolved `file_path` / `notebook_path` | path is a protected guard file and enforcement is on (FR-013a) |
+| Bash write verb or redirection naming a protected guard file | the path | enforcement is on (FR-013a, research R12) |
 | `mcp__github__create_pull_request` | `head`, `base` | `head` not compliant; or, on `.github`, `base == main` and `head` not `release/*`/`hotfix/*` |
 
 MCP calls whose `owner` isn't `lightspeedwp` are always allowed.
@@ -71,6 +76,12 @@ MCP calls whose `owner` isn't `lightspeedwp` are always allowed.
 | Refused, enforcing | 2 | empty | Refusal message (below) |
 | Refused, `LS_ENFORCE_BRANCH_NAMES=0` | 0 | `{"systemMessage":"Branch guard (warning only): …"}` | empty |
 | Malformed input | 0 | empty | empty |
+| Guard fault, git write or GitHub branch/file/PR tool (FR-012a) | 2 | empty | `Branch guard unavailable: <error>. Open an issue on lightspeedwp/.github` |
+| Guard fault, any other call (FR-012a) | 0 | `{"systemMessage":"Branch guard unavailable: <error>"}` | empty |
+
+**Legacy PR exception check**: `git ls-remote --exit-code --heads origin <branch>`, then
+`gh pr list --head <branch> --state open --json number --limit 1`, each with a 5-second timeout. Any failure means
+the exception doesn't apply (research R9).
 
 **Refusal message** (FR-011) contains, in order:
 

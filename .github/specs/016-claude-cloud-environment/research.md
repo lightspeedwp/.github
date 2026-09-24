@@ -113,3 +113,75 @@ implementation in lightspeedwp/.github#3524.
 - **Decision**: No refusal telemetry (Q5). SC-001 to SC-003 come from `branch-validation-metrics-aggregator.yml`
   and PR-template routing. SC-007 is a monthly manual review of 10 sessions.
 - **Rationale**: It collects no data from people's sessions and adds nothing to build or store.
+
+## R9. Legacy PR exception: confirming an open PR from inside the guard
+
+- **Decision**: Check for an open PR only on the rare path where a push, commit or MCP write would otherwise be
+  refused for a non-compliant branch. The check has two steps:
+  1. `git ls-remote --exit-code --heads origin <branch>`, to confirm the branch exists on GitHub.
+  2. `gh pr list --head <branch> --state open --json number --limit 1`, to confirm an open PR exists.
+
+  Each step has a 5-second timeout. Any failure, timeout or empty result means "not verified", and the action is
+  refused (FR-006).
+- **Rationale**:
+  - `gh` is pre-installed in cloud sessions and authenticates through the GitHub proxy (`GH_TOKEN=proxy-injected`),
+    so it needs no token. Locally it uses the developer's own `gh` login.
+  - Running the check only on the refusal path keeps compliant pushes fast (performance goal of 150 ms or less).
+- **Alternatives considered**:
+  - The GitHub MCP tools: hooks can't call them, so this was rejected.
+  - Caching PR state for the session: that risks stale "open" answers after a merge, so it was rejected.
+
+## R10. Session start on an existing `claude/*` branch (FR-001)
+
+- **Decision**: Rename a `claude/*` branch only when `git rev-list --count origin/<base>..HEAD` is 0 (a fresh
+  platform branch). If the branch has commits, leave it alone. Commits and pushes on it are then judged by the
+  guard, and allowed only under the legacy PR exception.
+- **Rationale**: A session opened on an existing PR shouldn't have its branch renamed away from the PR head.
+  This check needs only git, with no network access.
+- **Alternatives considered**: Asking GitHub whether the branch has a PR at session start adds network latency to
+  every session, so it was rejected.
+
+## R11. Guard faults (FR-012a)
+
+- **Decision**:
+  - Load the validator with a dynamic `await import()` inside a `try`, and wrap all evaluation in the same `try`.
+  - On a fault, classify the call without the validator:
+    - Bash commands matching `\bgit\b[^|;&]*\b(commit|push|branch|checkout|switch)\b` are git writes, and are
+      refused with exit 2 and "Branch guard unavailable: {error}. Open an issue on lightspeedwp/.github".
+    - Matched GitHub MCP branch, file and PR tools are refused the same way.
+    - Everything else is allowed with exit 0 and a warning in `systemMessage`.
+  - Malformed stdin JSON is still allowed silently.
+- **Rationale**: A static import failure would crash Node before any handler ran. Claude Code treats a non-2 exit
+  as a non-blocking error, so that would silently fail open. The dynamic import keeps the fail-closed decision in
+  the guard's hands.
+- **Known limit**: If `node` itself is missing, the hook can't run at all, and Claude Code carries on. The setup
+  script installs Node, and the quickstart checks for it.
+
+## R12. Guard self-protection (FR-013a)
+
+- **Decision**:
+  - Extend the PreToolUse matcher to `Edit|Write|MultiEdit|NotebookEdit`.
+  - For those tools: resolve `tool_input.file_path` (or `notebook_path`) against the project directory, following
+    `..` and symlinks with `realpath` where the file exists. Refuse when the path is protected.
+  - For Bash: refuse a command segment that names a protected path together with a write verb. The write verbs
+    are:
+    - `sed -i`, `perl -i`, `mv`, `rm`, `cp` (when the destination is protected), `tee`, `truncate`, `chmod`, `ln`
+    - `>` or `>>` redirection
+    - `git checkout … -- <path>`, `git restore`, `git rm`, `git mv`, `git apply`
+  - Reading protected files is always allowed.
+- **Protected paths**: `.claude/hooks/**` and `.claude/settings.json`, as the spec states. The plan also covers
+  two files that can switch the guard off without touching those:
+  - `.claude/settings.local.json`
+  - the user settings file `~/.claude/settings.json`
+
+  Both accept `disableAllHooks` or overriding hook entries.
+
+  ⚠️ **Spec follow-up**: FR-013a lists only the first two paths. Add the other two to FR-013a with `/speckit-clarify`
+  or a direct spec edit, before `/speckit-tasks`.
+- **CODEOWNERS**: Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed`, following the existing explicit-path
+  convention. The global `*` rule already covers it, but an explicit line makes the requirement visible and
+  survives changes to the fallback.
+- **Rationale**: Hook and settings changes are picked up during the session, so self-edits are the cheapest way
+  around the guard. CODEOWNERS review is the backstop for anything the parser misses.
+- **Alternatives considered**: Making the files read-only in the setup script was rejected. It only applies in
+  the cloud, and the agent runs as root, so it can undo it.

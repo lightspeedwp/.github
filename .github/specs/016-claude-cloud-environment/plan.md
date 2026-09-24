@@ -18,7 +18,9 @@ This plan enforces the LightSpeed branching strategy with four repository-level 
 4. **Cleanup of empty `claude/*` branches**: an auto-approval exception added to spec 009's categoriser and
    scheduled workflow (lightspeedwp/.github#3358). There is no separate job.
 
-Most of this already exists in #3524. The rest of the work is the documentation exception (Q1), the spec 009 amendment
+Most of this already exists in #3524. The second clarification session added the legacy PR exception,
+no-rename for `claude/*` branches that already have commits, fail-closed handling of guard faults, and
+self-protection with CODEOWNERS review (research R9 to R12). The rest of the work is the documentation exception (Q1), the spec 009 amendment
 for cleanup (Q4, revised after `/speckit-analyze`), automated tests and documentation updates.
 
 ## Technical Context
@@ -51,7 +53,8 @@ per `.nvmrc`.
 
 **Performance Goals**:
 
-- Guard adds 150 ms or less per matched tool call.
+- Guard adds 150 ms or less per matched tool call. The legacy PR check (up to 10 s) runs only when a write would
+  otherwise be refused.
 - SessionStart adds 30 s or less when dependencies are current (SC-005).
 - The setup script finishes in under 5 minutes (it measured about 22 s).
 
@@ -76,8 +79,8 @@ of branches a day.
 | III. Clear boundaries, no duplication | Reuses `lib/validate-branch-name.js` and spec 009's categoriser and workflow (no second cleanup job). #3358 should also import `lib/validate-branch-name.js` instead of its own copy (analysis finding F5). Hooks stay in `.claude/`, which is repository configuration, not a portable asset. Portability is a follow-up spec (Q3) | ✅ |
 | IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
 | V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
-| VI. UK English, security | UK English in docs and messages. No secrets. The guard fails closed on unknown file sets. The workflow has least-privilege permissions and pinned actions | ✅ |
-| VII. Spec quality | Checklist 16/16. Clarified 5/5 | ✅ |
+| VI. UK English, security | UK English in docs and messages. No secrets. The guard fails closed on unknown file sets, unverifiable legacy PRs and its own faults (for git writes). It protects its own files, and CODEOWNERS covers `.claude/`. The workflow has least-privilege permissions and pinned actions | ✅ |
+| VII. Spec quality | Checklist 16/16. Clarified in two sessions (10 decisions). One spec follow-up (FR-013a protected paths, research R12) before `/speckit-tasks` | ⚠️ follow-up |
 | VIII. Enforcement and compliance ≥95% | The guard blocks before push. Cleanup removes empty `claude/*` branches that would lower the compliance metric | ✅ |
 | IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |
 | X. Metrics-driven | Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 | ✅ (justified) |
@@ -111,13 +114,14 @@ files. All gates still pass.
 
 ```text
 .claude/
-├── settings.json                  # registers SessionStart + PreToolUse (exists in #3524)
+├── settings.json                  # registers SessionStart + PreToolUse; matcher extended to Edit/Write/MultiEdit/NotebookEdit
 ├── cloud/
 │   ├── setup.sh                   # environment setup script (exists)
 │   └── environment.env            # environment variables (exists)
 └── hooks/
     ├── session-start.sh           # update: documentation exception in the context text
-    └── enforce-branch-name.mjs    # update: documentation exception (R4)
+    └── enforce-branch-name.mjs    # update: documentation exception (R4), legacy PR exception (R9),
+                                   #   fault handling (R11), self-protection (R12)
 
 scripts/
 └── __tests__/
@@ -133,6 +137,7 @@ scripts/lib/__tests__/branch-categorization.test.js   # auto-approval cases
 docs/
 └── CLAUDE_CLOUD_ENVIRONMENT.md    # update: documentation exception, cleanup, local enforcement, measurement
 
+CODEOWNERS                         # add explicit /.claude/ entry (FR-013a)
 CHANGELOG.md                       # entry per implementation PR
 ```
 
@@ -144,8 +149,12 @@ top-level folders.
 
 These follow the user-story priorities in the spec:
 
-1. **P1, US1 (guard and session rules)**: the documentation exception in the guard and the SessionStart text,
-   plus Jest contract tests. Ships in #3524.
+1. **P1, US1 (guard and session rules)**: ships in #3524, with Jest contract tests. It covers:
+   - the documentation exception and the legacy PR exception
+   - fault handling and self-protection
+   - the FR-001 no-rename rule
+   - the updated SessionStart text
+   - the CODEOWNERS entry
 2. **P2, US2 (shared environment)**: already built in #3524. Needs verification only, following quickstart §3–4
    after the Owner has set it up.
 3. **P3, US3 (documentation and cleanup)**:

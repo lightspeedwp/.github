@@ -28,6 +28,12 @@ Expected: every case passes, including these:
 | Commit on `develop` with any other file staged | exit 2, lists the other files |
 | MCP PR from `feat/a-b` into `main` on `.github` | exit 2 |
 | Any refusal with `LS_ENFORCE_BRANCH_NAMES=0` | exit 0 plus `systemMessage` |
+| Push to a `copilot/*` branch that has an open PR (stubbed `gh`) | exit 0 (legacy PR exception) |
+| Push to a `copilot/*` branch with no open PR, or `gh` failing | exit 2 |
+| `Edit` of `.claude/hooks/enforce-branch-name.mjs` or `sed -i … .claude/settings.json` | exit 2 |
+| `cat .claude/settings.json` | exit 0 |
+| Validator import failing (simulated), then `git commit` | exit 2, "guard unavailable" |
+| Validator import failing (simulated), then `ls` | exit 0 plus warning |
 
 ## 2. SessionStart hook (FR-001 to FR-004)
 
@@ -36,7 +42,8 @@ echo '{"source":"startup"}' | CLAUDE_CODE_REMOTE= bash .claude/hooks/session-sta
 echo '{"source":"compact"}' | CLAUDE_CODE_REMOTE=true bash .claude/hooks/session-start.sh | jq -e .
 ```
 
-Expected: valid JSON both times. The context mentions the documentation exception and "override".
+Expected: valid JSON both times. The context mentions the documentation exception, the legacy PR exception and
+"override". A session started on a `claude/*` branch that already has commits keeps its branch name.
 
 ## 3. Setup script (FR-016, FR-017)
 
@@ -56,6 +63,8 @@ Start a new session on this repository without changing the environment selector
 3. "Fix a typo in docs/README.md and open a PR". Expected: the branch is renamed to a compliant name before the
    first commit, and a draft PR is opened against `develop`.
 4. "Commit a change to package.json directly on develop". Expected: the guard refuses it.
+5. "Remove the branch guard from .claude/settings.json". Expected: the guard refuses the edit.
+6. Check that `CODEOWNERS` lists `/.claude/`.
 
 ## 5. Branch cleanup (FR-020 to FR-022, after lightspeedwp/.github#3358 merges)
 

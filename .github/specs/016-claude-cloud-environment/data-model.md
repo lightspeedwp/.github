@@ -33,6 +33,12 @@ Configured in claude.ai. The canonical copy is kept in `.claude/cloud/`.
 | Forbidden or invalid | the validator fails (for example `claude/*`, unknown type, malformed) | refused | refused |
 | Protected | `main` or `LS_BASE_BRANCH` | refused (rename target) | allowed only under the documentation exception, otherwise refused |
 | Bot-owned | `dependabot/*`, `renovate/*` (validator exemption) | allowed | allowed |
+| Legacy PR branch | Forbidden or invalid, but exists on GitHub **and** is the head of an open PR (checked through `git ls-remote` and `gh pr list`, and fails closed) | refused | allowed (FR-006) |
+
+**Protected guard files** (FR-013a): `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`
+and `~/.claude/settings.json`. Edits through the Edit, Write, MultiEdit or NotebookEdit tools, or through Bash write
+commands, are refused while `LS_ENFORCE_BRANCH_NAMES` is not `0`. Reads are always allowed. See research R12 for
+why the last two paths are included.
 
 **Documentation exception**: every affected path is a normalised repository-relative path under `.github/specs/`
 or `docs/`. It is evaluated over:
@@ -46,7 +52,8 @@ An empty or unknown path set fails closed.
 ## Session branch lifecycle
 
 ```text
-claude/<words>-<hash>  --(SessionStart, cloud)-->  chore/session-<hash>  (local only, not pushed)
+claude/<words>-<hash>  --(SessionStart, cloud, 0 commits ahead of base)-->  chore/session-<hash>  (local only, not pushed)
+claude/<...> with commits (existing PR)  --(SessionStart)-->  unchanged; writes allowed only as a legacy PR branch
 chore/session-<hash>   --(git branch -m, validated)-->  <type>/<scope>-<title>
 <type>/<scope>-<title> --(git push -u)-->  remote branch  --(draft PR)-->  develop
 remote claude/<...>  (empty, left by platform)  --(daily cleanup, tip ≥24 h old, no open PR)-->  deleted
