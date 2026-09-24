@@ -4,7 +4,7 @@
 
 The root `.pr_agent.toml` in `lightspeedwp/.github` MUST contain these keys with these values. A contract test (`tests/js/qodo-pr-agent-config.test.js`) parses the file with `smol-toml` and asserts every row.
 
-**Locked** keys may not be overridden by a consuming repository. The opt-in guide says so, and consumer overrides are reviewed against this table.
+**Locked** keys may not be overridden by a consuming repository. This is enforced, not just documented: the reusable workflow re-sets every locked key as an environment variable, the highest-precedence layer upstream, so a repository's own `.pr_agent.toml` cannot weaken them (asserted by `tests/js/qodo-pr-agent-workflow.test.js`).
 
 | Section.key | Value | Locked | Requirement |
 | --- | --- | --- | --- |

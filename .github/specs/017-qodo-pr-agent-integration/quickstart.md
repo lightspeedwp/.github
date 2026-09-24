@@ -71,7 +71,10 @@ A second maintainer reads `docs/QODO_PR_AGENT.md` → "Enable in another reposit
 ## Pilot report (after 14 days)
 
 ```bash
-node scripts/metrics/qodo-pr-agent-report.cjs --since 2026-10-01 --out .github/reports/metrics/qodo-pr-agent/
+# PILOT_START is the date Q-01 first passed (recorded in pilot-validation.md),
+# so the report covers the whole pilot window rather than a fixed date.
+PILOT_START=YYYY-MM-DD
+node scripts/metrics/qodo-pr-agent-report.cjs --since "$PILOT_START" --out .github/reports/metrics/qodo-pr-agent/
 ```
 
 Expected: `pilot-report-YYYY-MM-DD.md`, with runs per tool, failures, skipped reasons, estimated spend (cross-checked against the Anthropic console) and the usefulness survey result (SC-004, SC-008).

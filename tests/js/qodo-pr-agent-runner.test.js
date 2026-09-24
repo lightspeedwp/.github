@@ -47,7 +47,7 @@ while [ "$#" -gt 0 ]; do
 done
 if [ -n "$markdown" ]; then
   printf '%s\\n' 'Suggestion: clipped output' > "$markdown"
-  printf '%s\\n' '{"suggestions":[1]}' > "$json"
+  if [ -n "$json" ]; then printf '%s\\n' '{"suggestions":[1]}' > "$json"; fi
 else
   printf '%s\\n' 'Suggested PR summary'
 fi
@@ -128,7 +128,7 @@ fi
       tool: 'ask',
       reason: null,
       markdown: 'Suggestion: clipped output\n',
-      data: { suggestions: [1] },
+      data: null,
       truncated: true,
     });
     expect(JSON.parse(fs.readFileSync(path.join(output, 'result.json'), 'utf8'))).toStrictEqual(
@@ -138,7 +138,39 @@ fi
     expect(invocation).toContain('--config.publish_output=false');
     expect(invocation).toContain('--config.response_language=en-GB');
     expect(invocation).toContain('Why?');
+    // Upstream rejects --json-output for every command except review.
+    expect(invocation).not.toContain('--json-output');
     expect(invocation).not.toContain('test-only-key');
+  });
+
+  it('requests structured JSON output for diff-mode review only', () => {
+    const result = run(['review', '--diff-file', diff], {
+      ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+    });
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout)).toMatchObject({ status: 'ok', data: { suggestions: [1] } });
+    expect(fs.readFileSync(capture, 'utf8')).toContain('--json-output');
+  });
+
+  it('resolves a relative --out directory to an absolute path', () => {
+    const relative = path.relative(process.cwd(), output);
+    const result = spawnSync('bash', [runner, 'review', '--diff-file', diff, '--out', relative], {
+      encoding: 'utf8',
+      timeout: 10000,
+      env: {
+        ...process.env,
+        PATH: `${path.join(directory, 'bin')}:${process.env.PATH}`,
+        MOCK_CAPTURE: capture,
+        MOCK_FAILURE: '',
+        ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+      },
+    });
+    expect(result.status).toBe(0);
+    const outputArg = fs
+      .readFileSync(capture, 'utf8')
+      .split('\n')
+      .find((l) => l.endsWith('out.md'));
+    expect(path.isAbsolute(outputArg)).toBe(true);
   });
 
   it('captures PR-mode stdout as Markdown without publishing', () => {

@@ -126,6 +126,28 @@ describe('Qodo PR-Agent reusable workflow', () => {
     expect(step.uses).toMatch(/^docker:\/\/pragent\/pr-agent@sha256:[a-f0-9]{64}$/);
   });
 
+  it('re-sets every locked key in the environment so repository config cannot weaken it', () => {
+    const env = qodoStep(doc).env;
+    expect(env).toMatchObject({
+      'config.response_language': 'en-GB',
+      'config.enable_custom_labels': 'false',
+      'pr_description.publish_description_as_comment': 'true',
+      'pr_description.publish_labels': 'false',
+      'pr_description.generate_ai_title': 'false',
+      'pr_reviewer.enable_review_labels_security': 'false',
+      'pr_reviewer.enable_review_labels_effort': 'false',
+      'pr_code_suggestions.commitable_code_suggestions': 'false',
+      'pr_update_changelog.push_changelog_changes': 'false',
+    });
+  });
+
+  it('never fails the PR when Qodo PR-Agent itself fails, and records the real outcome', () => {
+    expect(qodoStep(doc)['continue-on-error']).toBe(true);
+    expect(doc.jobs.run.outputs.outcome).toContain('steps.qodo.outcome');
+    const recordEnv = doc.jobs.record.steps.find((step) => step.name === 'Write run record').env;
+    expect(recordEnv.RUN_RESULT).toContain('needs.run.outputs.outcome');
+  });
+
   it('passes the contracted environment to Qodo PR-Agent', () => {
     const env = qodoStep(doc).env;
     expect(env['github_action_config.auto_review']).toBe('false');
@@ -172,12 +194,14 @@ describe('Qodo PR-Agent reusable workflow', () => {
     });
 
     it.each([
-      ['kill-switch', { env: { KILL_SWITCH: 'FALSE' } }],
-      ['bot-sender', { payload: { sender: { type: 'Bot' } } }],
-      ['draft', { payload: { pull_request: { draft: true } } }],
-      ['excluded-author', { env: { EXCLUDED_AUTHORS: '["maintainer"]' } }],
-      ['no-credential', { env: { HAS_CREDENTIAL: 'false' } }],
-    ])('skips a PR on %s without failing the check', (reason, overrides) => {
+      // PR-event skips after the kill-switch and bot checks are automatic attempts ('auto'),
+      // so the report can count them against SC-001.
+      ['kill-switch', { env: { KILL_SWITCH: 'FALSE' } }, 'none'],
+      ['bot-sender', { payload: { sender: { type: 'Bot' } } }, 'none'],
+      ['draft', { payload: { pull_request: { draft: true } } }, 'auto'],
+      ['excluded-author', { env: { EXCLUDED_AUTHORS: '["maintainer"]' } }, 'auto'],
+      ['no-credential', { env: { HAS_CREDENTIAL: 'false' } }, 'auto'],
+    ])('skips a PR on %s without failing the check', (reason, overrides, tool) => {
       const defaultPayload = {
         sender: { type: 'User' },
         pull_request: { draft: false, user: { login: 'maintainer' } },
@@ -186,7 +210,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
         ...overrides,
         payload: { ...defaultPayload, ...overrides.payload },
       });
-      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool: 'none' });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
       expect(core.notice).toHaveBeenCalledWith(`Qodo PR-Agent skipped: ${reason}`);
     });
 

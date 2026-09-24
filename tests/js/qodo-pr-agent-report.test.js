@@ -131,7 +131,8 @@ describe('qodo-pr-agent-report aggregate', () => {
         { ...automatic(1), tool: 'ask' },
         { ...automatic(1), started_at: undefined },
       ]).sc001
-    ).toStrictEqual({ automatic: 2, withinLimit: 1, rate: 0.5 });
+      // Failed and untimed eligible attempts count in the denominator only.
+    ).toStrictEqual({ automatic: 4, withinLimit: 1, rate: 0.25 });
   });
 
   it('counts missing tool and outcome as unknown without treating them as executed', () => {
@@ -143,7 +144,43 @@ describe('qodo-pr-agent-report aggregate', () => {
   });
 });
 
+describe('qodo-pr-agent-report SC-001 eligibility', () => {
+  it('counts failed and no-credential automatic attempts but not ineligible skips', () => {
+    const timely = {
+      tool: 'auto',
+      outcome: 'success',
+      event_at: '2026-10-01T10:00:00Z',
+      started_at: '2026-10-01T10:01:00Z',
+      duration_seconds: 60,
+    };
+    const sc001 = aggregate([
+      timely,
+      { tool: 'auto', outcome: 'failure' },
+      { tool: 'auto', outcome: 'skipped:no-credential' },
+      { tool: 'auto', outcome: 'skipped:draft' },
+      { tool: 'auto', outcome: 'skipped:kill-switch' },
+      { tool: 'auto', outcome: 'skipped:excluded-author' },
+    ]).sc001;
+    expect(sc001).toStrictEqual({ automatic: 3, withinLimit: 1, rate: 1 / 3 });
+  });
+});
+
+// A streamed archive (as written by actions/upload-artifact): general-purpose
+// flag bit 3 set, sizes zero in the local header and recorded in a data
+// descriptor and the central directory. Generated with Python's zipfile on a
+// non-seekable stream.
+const STREAMED_ZIP_BASE64 =
+  'UEsDBBQACAAIAAAAIQAAAAAAAAAAAAAAAAAWAAAAcW9kby1wci1hZ2VudC1ydW4uanNvbqtWKsnPz1GyUkosLclX0lHKLy1Jzs9NBQoUlyYnpxYXK9UCAFBLBwhBcbWLJAAAACMAAABQSwMEFAAIAAgAAAAhAAAAAAAAAAAAAAAAABoAAABxb2RvLXByLWFnZW50LW1ldHJpY3MuanNvbqtWylWyMqwFAFBLBwiuQeuTCQAAAAcAAABQSwECFAMUAAgACAAAACEAQXG1iyQAAAAjAAAAFgAAAAAAAAAAAAAAgAEAAAAAcW9kby1wci1hZ2VudC1ydW4uanNvblBLAQIUAxQACAAIAAAAIQCuQeuTCQAAAAcAAAAaAAAAAAAAAAAAAACAAWgAAABxb2RvLXByLWFnZW50LW1ldHJpY3MuanNvblBLBQYAAAAAAgACAIwAAAC5AAAAAAA=';
+
 describe('qodo-pr-agent-report helpers', () => {
+  it('reads entries from a streamed archive with data descriptors', () => {
+    const zip = Buffer.from(STREAMED_ZIP_BASE64, 'base64');
+    expect(zip.readUInt32LE(18)).toBe(0); // local header carries no size
+    expect(readFromZip(zip, 'qodo-pr-agent-run.json')).toBe('{"tool":"auto","outcome":"success"}');
+    expect(readFromZip(zip, 'qodo-pr-agent-metrics.json')).toBe('{"m":1}');
+    expect(readFromZip(zip, 'missing.json')).toBeNull();
+  });
+
   it('reads a deflated file from a zip archive', () => {
     const zip = zipOf('qodo-pr-agent-run.json', '{"tool":"auto"}');
     expect(readFromZip(zip, 'qodo-pr-agent-run.json')).toBe('{"tool":"auto"}');

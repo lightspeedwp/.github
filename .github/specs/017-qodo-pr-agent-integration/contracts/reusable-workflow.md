@@ -53,7 +53,7 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
    - `pull_request`: the PR is a draft, the sender type is `Bot`, or the author is in `excluded_authors`
    - `issue_comment`: the comment is not on a PR, `author_association` is not in {`OWNER`, `MEMBER`, `COLLABORATOR`}, or the first token of the body is not in the command allow-list
 2. **`run`** (`needs: preflight`, `if: needs.preflight.outputs.enabled == 'true'`, `timeout-minutes: 15`). Its steps:
-   - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow.
+   - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow. The step uses `continue-on-error: true`, so an invalid key, rate limit or upstream outage records `failure` and emits a notice without failing the PR (FR-006, SC-003).
 3. **`record`** (`needs: [preflight, run]`, `if: always()` unless the preflight reason is `not-a-command`, `bot-sender` or `not-a-pr`, `permissions: {}`). It writes the run record ([data model](../data-model.md#run-record)), with outcome `success`, `failure` or `skipped:<reason>`, to `$GITHUB_STEP_SUMMARY`, and uploads it as artefact `qodo-pr-agent-run-${{ github.run_id }}` (retention 30 days). It then calls `lightspeedwp/.github/.github/actions/collect-metrics@<sha>` (non-blocking). It is referenced by path and SHA so it needs no checkout, and works in consuming repositories too.
 4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write` and `issues: write`, and nothing else. It does **not** get `contents: write`, because nothing is ever pushed.
 5. **Concurrency**: `group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one.
@@ -69,6 +69,7 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
 | `github_action_config.auto_describe` | from the input |
 | `github_action_config.auto_improve` | from the input |
 | `github_action_config.pr_actions` | `'["opened","reopened","ready_for_review"]'` |
+| every **locked** key from [pr-agent-config.md](./pr-agent-config.md) (e.g. `pr_description.publish_description_as_comment: 'true'`) | the locked value; env beats a consumer's `.pr_agent.toml` |
 
 Untrusted event values, such as the comment body and branch names, are passed to scripts **only** through `env:` and never interpolated into `run:`. This follows existing repository practice.
 

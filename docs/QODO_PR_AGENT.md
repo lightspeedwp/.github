@@ -91,7 +91,7 @@ Qodo PR-Agent feedback is AI review feedback, and follows the same `FEEDBACK_RES
 
 - **No code is checked out or executed.** Qodo PR-Agent reads the PR through the GitHub API.
 - **Fork PRs** receive no secrets, so they are skipped with a notice. A maintainer can still run commands on them.
-- **It never blocks a PR.** A missing or invalid credential, the kill-switch, or an ineligible event all produce a notice and a successful check.
+- **It never blocks a PR.** A missing or invalid credential, a provider rate limit or outage, the kill-switch, or an ineligible event all produce a notice and a successful check. Failed runs are still recorded as `failure` in the run record.
 - **It never commits, merges, approves or labels.** The locked keys in `.pr_agent.toml` enforce this, and `tests/js/qodo-pr-agent-config.test.js` asserts them.
 - **Configuration is read from the default branch.** A PR cannot change its own review settings.
 - **Known limitation**: upstream's fixed headings are in US English, even though the generated text is UK English. If a model call fails part-way, the persistent comment may be incomplete. The check still passes, and `/describe` or `/improve` refreshes it.
@@ -115,8 +115,9 @@ As a second line of defence, revoke or cap the dedicated key in the Anthropic co
 Every eligible event, and every skip that isn't just a normal comment, writes a run record. The record goes to the job summary and to an artefact named `qodo-pr-agent-run-<run id>`, kept for 30 days. The report aggregates those artefacts:
 
 ```bash
+# PILOT_START: the pilot's first day, recorded in .github/reports/metrics/qodo-pr-agent/pilot-validation.md
 GITHUB_TOKEN=<token with actions:read> \
-  node scripts/metrics/qodo-pr-agent-report.cjs --since 2026-10-01 --out .github/reports/metrics/qodo-pr-agent/
+  node scripts/metrics/qodo-pr-agent-report.cjs --since "$PILOT_START" --out .github/reports/metrics/qodo-pr-agent/
 ```
 
 The [daily report workflow](../.github/workflows/qodo-pr-agent-report.yml) runs this every day at 06:43 UTC for the last 14 days. It publishes the report to the job summary and as an artefact, which satisfies the constitution's daily-metrics rule (Principle X). You can also start it manually, with an optional `since` date.
@@ -147,6 +148,6 @@ Only `lightspeedwp/.github` is enabled in the pilot. These steps are for later o
 ### Overrides
 
 - Put a `# override: <reason>` comment directly above every key you override.
-- **Locked** keys can't be overridden: `config.response_language`, `config.enable_custom_labels`, `pr_description.publish_description_as_comment`, `pr_description.publish_labels`, `pr_description.generate_ai_title`, `pr_reviewer.enable_review_labels_security`, `pr_reviewer.enable_review_labels_effort`, `pr_code_suggestions.commitable_code_suggestions` and `pr_update_changelog.push_changelog_changes`. They are marked `# locked:` in `.pr_agent.toml`.
+- **Locked** keys can't be overridden: `config.response_language`, `config.enable_custom_labels`, `pr_description.publish_description_as_comment`, `pr_description.publish_labels`, `pr_description.generate_ai_title`, `pr_reviewer.enable_review_labels_security`, `pr_reviewer.enable_review_labels_effort`, `pr_code_suggestions.commitable_code_suggestions` and `pr_update_changelog.push_changelog_changes`. They are marked `# locked:` in `.pr_agent.toml`, and the reusable workflow re-sets them as environment variables, which take precedence over a repository's own `.pr_agent.toml`. An override of a locked key therefore has no effect.
 - List every override in the repository's `README.md` or `AGENTS.md`, under a heading **"Qodo PR-Agent overrides"**.
 - Never put credentials in `.pr_agent.toml`.

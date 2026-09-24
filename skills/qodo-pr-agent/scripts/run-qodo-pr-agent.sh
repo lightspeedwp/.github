@@ -38,6 +38,8 @@ done
 
 out_dir="${out_dir:-$(mktemp -d)}"
 mkdir -p "$out_dir"
+# Docker bind mounts need an absolute host path; a relative one becomes a named volume.
+out_dir="$(cd "$out_dir" && pwd)"
 log_file="$out_dir/qodo-pr-agent.log"
 : > "$log_file"
 
@@ -137,7 +139,9 @@ run_docker() {
     local abs_diff
     abs_diff="$(cd "$(dirname "$diff_file")" && pwd)/$(basename "$diff_file")"
     args+=(-v "$abs_diff:/work/input.diff:ro" -v "$out_dir:/work/out")
-    target=(--diff-file /work/input.diff --output /work/out/out.md --json-output /work/out/out.json)
+    target=(--diff-file /work/input.diff --output /work/out/out.md)
+    # Upstream accepts --json-output for review only.
+    if [ "$tool" = "review" ]; then target+=(--json-output /work/out/out.json); fi
   fi
   docker "${args[@]}" "$IMAGE" -m pr_agent.cli "${target[@]}" "${tool_args[@]}" "${settings[@]}"
 }
@@ -148,7 +152,8 @@ run_pipx() {
   if [ -n "$pr_url" ]; then
     target=(--pr_url "$pr_url")
   else
-    target=(--diff-file "$diff_file" --output "$md_out" --json-output "$json_out")
+    target=(--diff-file "$diff_file" --output "$md_out")
+    if [ "$tool" = "review" ]; then target+=(--json-output "$json_out"); fi
   fi
   pipx run --spec "$PIP_SPEC" pr-agent "${target[@]}" "${tool_args[@]}" "${settings[@]}"
 }

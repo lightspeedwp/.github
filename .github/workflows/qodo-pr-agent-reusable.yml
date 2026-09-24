@@ -100,9 +100,9 @@ jobs:
                 } catch {
                   core.warning('excluded_authors is not valid JSON; treating it as empty.');
                 }
-                if (pr.draft) return { reason: 'draft' };
-                if (excluded.includes(pr.user?.login)) return { reason: 'excluded-author' };
-                if (process.env.HAS_CREDENTIAL !== 'true') return { reason: 'no-credential' };
+                if (pr.draft) return { reason: 'draft', tool: 'auto' };
+                if (excluded.includes(pr.user?.login)) return { reason: 'excluded-author', tool: 'auto' };
+                if (process.env.HAS_CREDENTIAL !== 'true') return { reason: 'no-credential', tool: 'auto' };
                 return { reason: 'ok', tool: 'auto' };
               }
 
@@ -143,6 +143,7 @@ jobs:
       issues: write
     outputs:
       started_at: ${{ steps.start.outputs.at }}
+      outcome: ${{ steps.qodo.outcome }}
     steps:
       - name: Record start time
         id: start
@@ -150,8 +151,11 @@ jobs:
 
       # Pinned by image digest: the upstream action's own Dockerfile uses a
       # floating tag, so pinning the action ref would not pin the code that runs.
+      # continue-on-error: an invalid key, rate limit or upstream outage must never
+      # turn the PR red. The outcome is recorded by the record job instead.
       - name: Qodo PR-Agent
         id: qodo
+        continue-on-error: true
         uses: docker://pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7 # 0.46.0-github_action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -161,6 +165,21 @@ jobs:
           github_action_config.auto_describe: ${{ inputs.auto_describe && 'true' || 'false' }}
           github_action_config.auto_improve: ${{ inputs.auto_improve && 'true' || 'false' }}
           github_action_config.pr_actions: '["opened","reopened","ready_for_review"]'
+          # Locked keys, re-set here because environment variables take precedence
+          # over a consuming repository's own .pr_agent.toml, which cannot weaken them.
+          config.response_language: en-GB
+          config.enable_custom_labels: 'false'
+          pr_description.publish_description_as_comment: 'true'
+          pr_description.publish_labels: 'false'
+          pr_description.generate_ai_title: 'false'
+          pr_reviewer.enable_review_labels_security: 'false'
+          pr_reviewer.enable_review_labels_effort: 'false'
+          pr_code_suggestions.commitable_code_suggestions: 'false'
+          pr_update_changelog.push_changelog_changes: 'false'
+
+      - name: Report a failed run without blocking the PR
+        if: steps.qodo.outcome == 'failure'
+        run: echo "::notice::Qodo PR-Agent failed (invalid key, rate limit or upstream error). The PR is not blocked; see this job's log."
 
   record:
     name: Record run
@@ -180,7 +199,7 @@ jobs:
           TOOL: ${{ needs.preflight.outputs.tool }}
           TRIGGER: ${{ github.event_name }}
           REASON: ${{ needs.preflight.outputs.reason }}
-          RUN_RESULT: ${{ needs.run.result }}
+          RUN_RESULT: ${{ needs.run.outputs.outcome || needs.run.result }}
           STARTED_AT: ${{ needs.run.outputs.started_at }}
           EVENT_AT: ${{ github.event.comment.created_at || github.event.pull_request.updated_at }}
         run: |

@@ -39,7 +39,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 - **Decision**:
   - A root-level **`.pr_agent.toml`** in `lightspeedwp/.github` holds the organisation-standard settings. Qodo PR-Agent requires this file name and location for repository-local configuration, and `.coderabbit.yml` sets the root-level precedent.
   - The reusable workflow passes `CONFIG.EXTRA_CONFIG_URL` pointing at the raw URL of that file at the **same ref the caller pinned** (input `config_ref`, default `main`).
-  - A consuming repository's own `.pr_agent.toml`, if present, overrides individual keys. Precedence, as documented upstream: defaults < `extra_config_url` < org `pr-agent-settings` repo < local `.pr_agent.toml` < environment variables.
+  - A consuming repository's own `.pr_agent.toml`, if present, overrides individual keys, **except locked keys**, which the workflow re-sets as environment variables (the top precedence layer) so they cannot be weakened (review finding, 2026-09-24). Precedence, as documented upstream: defaults < `extra_config_url` < org `pr-agent-settings` repo < local `.pr_agent.toml` < environment variables.
 - **Rationale**:
   - `extra_config_url` is a *host-only* key, so a repository's own `.pr_agent.toml` cannot set it. It can be set by the workflow environment, which is the host.
   - This gives central defaults, per-repository overrides (FR-019) and change propagation (US4 AS2) without creating a new repository.
