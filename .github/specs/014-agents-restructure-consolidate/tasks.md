@@ -83,18 +83,18 @@
 
 **Independent Test**: Audit each agent, verify all 7 components present, document deviations
 
-- [x] T033 [P] [US2] Create agent folder structure template in .github/templates/agent-structure-template/ with all 7 components
-- [x] T034 [US2] Document standardized agent folder structure in .github/docs/AGENT_FOLDER_STRUCTURE.md (mandate: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
+- [ ] T033 [P] [US2] Create agent folder structure template in .github/templates/agent-structure-template/ with all 7 components
+- [ ] T034 [US2] Document standardized agent folder structure in .github/docs/AGENT_FOLDER_STRUCTURE.md (mandate: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
 - [x] T035 [P] [US2] Implement folder structure validation in scripts/validation/lib/structure-checker.js
-- [x] T036 [US2] Generate structure audit report and save to agents/reports/structure-audit.json
+- [ ] T036 [US2] Generate structure audit report and save to agents/reports/structure-audit.json
 - [x] T037 [P] [US2] Identify agents missing required components (per Decision 1: 7-item template)
-- [x] T038 [P] [US2] Create remediation recommendations for non-conformant agents in agents/reports/structure-remediation-recommendations.json
-- [x] T039 [US2] Document agent CHANGELOG.md format requirements in .github/docs/CHANGELOG_FORMAT.md
-- [x] T040 [P] [US2] Document agent package.json requirements in .github/docs/PACKAGE_JSON_REQUIREMENTS.md
+- [ ] T038 [P] [US2] Create remediation recommendations for non-conformant agents in agents/reports/structure-remediation-recommendations.json
+- [ ] T039 [US2] Document agent CHANGELOG.md format requirements in .github/docs/CHANGELOG_FORMAT.md
+- [ ] T040 [P] [US2] Document agent package.json requirements in .github/docs/PACKAGE_JSON_REQUIREMENTS.md
 - [x] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
-- [x] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
+- [ ] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
 - [x] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
-- [x] T044 [P] [US2] Create unit tests for structure validation in `scripts/validation/__tests__/structure-validation.test.js`
+- [ ] T044 [P] [US2] Create unit tests for structure validation in `scripts/validation/__tests__/structure-validation.test.js`
 
 ---
 
@@ -104,19 +104,19 @@
 
 **Independent Test**: Run deduplication audit, identify duplicates with similarity scores, create consolidation recommendations
 
-- [x] T045 [P] [US3] Implement skills catalog scanner in scripts/validation/lib/skills-catalog.js (enumerate agents/[*]/skills/ and skills/)
-- [x] T046 [US3] Document skills naming convention in .github/docs/SKILLS_NAMING_CONVENTION.md (mandate: {category}/{scope}-{title} pattern)
-- [x] T047 [P] [US3] Create category subdirectories in skills/ for: validation, audit, reporting, registry, utilities (per Decision 2)
+- [ ] T045 [P] [US3] Implement skills catalog scanner in scripts/validation/lib/skills-catalog.js (enumerate agents/[*]/skills/ and skills/)
+- [ ] T046 [US3] Document skills naming convention in .github/docs/SKILLS_NAMING_CONVENTION.md (mandate: {category}/{scope}-{title} pattern)
+- [ ] T047 [P] [US3] Create category subdirectories in skills/ for: validation, audit, reporting, registry, utilities (per Decision 2)
 - [x] T048 [P] [US3] Implement SHA-256 content hashing in scripts/validation/lib/dedup-engine.js
 - [x] T049 [P] [US3] Implement cosine similarity calculation in scripts/validation/lib/dedup-engine.js (85% threshold per Decision 3)
-- [x] T050 [US3] Generate deduplication audit report and save to agents/reports/deduplication-audit.json
-- [x] T051 [P] [US3] Identify exact duplicate skills (100% hash match) in deduplication-audit.json
-- [x] T052 [P] [US3] Identify near-duplicate skills (85%+ similarity) in deduplication-audit.json
-- [x] T053 [US3] Create consolidation recommendations specifying: which agents use shared skill vs agent-specific variant
-- [x] T054 [P] [US3] Document skill consolidation strategy in .github/docs/SKILL_CONSOLIDATION_STRATEGY.md
-- [x] T055 [US3] Create impact analysis for each consolidation recommendation (affected agents, breaking changes if any)
-- [x] T056 [P] [US3] Document skill deduplication process in .github/docs/SKILL_DEDUPLICATION_PROCESS.md
-- [x] T057 [US3] Generate summary: total skills scanned, exact duplicates found, near-duplicates found, consolidation candidates
+- [ ] T050 [US3] Generate deduplication audit report and save to agents/reports/deduplication-audit.json
+- [ ] T051 [P] [US3] Identify exact duplicate skills (100% hash match) in deduplication-audit.json
+- [ ] T052 [P] [US3] Identify near-duplicate skills (85%+ similarity) in deduplication-audit.json
+- [ ] T053 [US3] Create consolidation recommendations specifying: which agents use shared skill vs agent-specific variant
+- [ ] T054 [P] [US3] Document skill consolidation strategy in .github/docs/SKILL_CONSOLIDATION_STRATEGY.md
+- [ ] T055 [US3] Create impact analysis for each consolidation recommendation (affected agents, breaking changes if any)
+- [ ] T056 [P] [US3] Document skill deduplication process in .github/docs/SKILL_DEDUPLICATION_PROCESS.md
+- [ ] T057 [US3] Generate summary: total skills scanned, exact duplicates found, near-duplicates found, consolidation candidates
 
 ---
 
