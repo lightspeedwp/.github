@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **PR Agent Tests Run Again** — Fixed 6 PR agent test suites that could not load, so 95 more tests now run. (#3472)
 - **Actions Import Regression Guarded** — A test now fails if a default import of the Actions toolkit returns, which is what blocked the upgrade. ([#3561](https://github.com/lightspeedwp/.github/issues/3561))
 - **Labelling Agent Crash on @actions/core 3** — The labelling and project sync agents now load with both current and upcoming versions of the GitHub Actions toolkit. ([#3503](https://github.com/lightspeedwp/.github/pull/3503))
 - **Changelog Check Timeouts** — Fixed the changelog check failing at random on slow checkouts; it now reads only the files it needs. (#3520)
