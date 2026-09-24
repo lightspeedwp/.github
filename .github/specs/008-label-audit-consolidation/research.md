@@ -59,7 +59,7 @@
 | `ai-ops:*` | 7 | AI operations labels |
 | `contrib:*` | 3 | Contributor workflow labels |
 | `discussion:*` | 7 | GitHub Discussions category labels |
-| `openspec:*` | 10 | Openspec workflow labels |
+| `openspec:*` | 9 | Openspec workflow labels |
 
 **Curation Status**: Manually curated by @ashley, locked configuration, change requests via GitHub issues with specific tags.
 
