@@ -52,10 +52,9 @@ jobs:
           ./actionlint --version
 
       - name: Run actionlint on active workflows
-        env:
-          # shellcheck is preinstalled on ubuntu runners; error-level only
-          # so pre-existing style findings elsewhere do not gate this check.
-          SHELLCHECK_OPTS: --severity=error
+        # shellcheck (preinstalled on ubuntu runners) runs at its default
+        # severity: active workflows are clean at every level (#3478), so
+        # style and info findings gate this check too.
         run: |
           # Explicit file list, not repo-wide. Archived workflows are
           # frozen history and stay unlinted. Every active workflow must be
