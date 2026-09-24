@@ -160,7 +160,7 @@ jobs:
         shell: bash
         run: |
           keep=30
-          mapfile -t stale < <(ls -1t metrics-artifacts/*.json 2>/dev/null | tail -n +$((keep + 1)) || true)
+          mapfile -t stale < <(find metrics-artifacts -maxdepth 1 -type f -name '*.json' -printf '%T@\t%p\n' 2>/dev/null | sort -rn -k1,1 -k2,2 | tail -n +$((keep + 1)) | cut -f2- || true)
           if [ "${#stale[@]}" -gt 0 ]; then
             printf '%s\n' "${stale[@]}" | xargs rm -f --
             echo "Pruned ${#stale[@]} artifact(s), kept latest $keep."

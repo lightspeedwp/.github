@@ -11,7 +11,7 @@
  */
 // TODO: Align this helper with the latest automation spec updates.
 
-import core from "@actions/core";
+import * as core from "@actions/core";
 
 // Preferred ordering for retaining a single status label when multiples exist.
 const STATUS_PRIORITY_ORDER = [
