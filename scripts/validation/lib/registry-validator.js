@@ -88,7 +88,9 @@ export class RegistryValidator {
     }
 
     // Evaluate the loaded JSON schema when available (#3522). Without a
-    // compiled schema, fall through to minimal structural validation.
+    // compiled schema, fall back to the minimal required-field check. The
+    // schema does not declare `entries` or `generatedAt` (undeclared
+    // properties stay allowed), so their checks below run on both paths.
     if (this.validateFn) {
       const schemaValid = this.validateFn(obj);
       if (!schemaValid) {
@@ -96,14 +98,7 @@ export class RegistryValidator {
           errors.push(`Schema: ${err.instancePath || '/'} ${err.message}`);
         }
       }
-      return {
-        valid: errors.length === 0,
-        errors,
-        path,
-      };
-    }
-    // Check for required fields (will be expanded per schema)
-    if (!Array.isArray(obj.entries) && !obj.agents && !obj.skills) {
+    } else if (!Array.isArray(obj.entries) && !obj.agents && !obj.skills) {
       errors.push('Registry must contain entries, agents, or skills field');
     }
 
