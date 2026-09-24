@@ -114,6 +114,7 @@ it's refused (quickstart §1, §4).
   - on `compact` → no rename, but the context is still emitted
   - the context contains the documentation exception, the legacy PR exception, the protected-files note and "OVERRIDE"
   - on cloud `startup` and `resume`, `node_modules` missing with an old lockfile timestamp → `npm install` runs; with an installed tree newer than the lockfile, it is skipped
+- [ ] T041 [P] [US1] Add a speed test for SC-008 to `scripts/__tests__/enforce-branch-name-hook.test.js`: spawn the guard 20 times on normal-path calls that need no network check (`git status`, and `git commit -m x` on `feat/good-name`), and assert the median wall-clock time is 150 ms or less. Use the `gh` and `git ls-remote` `PATH` stubs to count calls, and assert neither runs on an allowed call; they run only on a write that would otherwise be refused (SC-008).
 
 ### Implementation for User Story 1
 
@@ -146,7 +147,7 @@ it's refused (quickstart §1, §4).
   - when enforcement is off, downgrade the fault refusal to a visible `systemMessage` warning and allow the write with exit 0 (FR-013)
   - keep malformed-stdin handling silent (FR-012a, research R11)
 - [ ] T024 [US1] Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed` to `CODEOWNERS` under the "AI and Copilot Instructions" block (FR-013a).
-- [ ] T025 [US1] Run `npx jest scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js`, `shellcheck .claude/hooks/session-start.sh` and `npx eslint .claude/hooks/enforce-branch-name.mjs`. Fix everything until it's green.
+- [ ] T025 [US1] Run `npx jest scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js` (including the T041 speed test), `shellcheck .claude/hooks/session-start.sh` and `npx eslint .claude/hooks/enforce-branch-name.mjs`. Fix everything until it's green.
 
 **Checkpoint**: US1 is fully enforceable and tested. This is the MVP.
 
@@ -188,7 +189,8 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - the threat model (accidents plus obvious self-bypasses; CI and CODEOWNERS are the final gate)
   - that the enforcement switch is read only from the environment a session starts with, and can't be changed from inside the session
   - the four protected files: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and `~/.claude/settings.json`
-  - self-protection and the CODEOWNERS entry
+  - self-protection, the CODEOWNERS entry, and the required "Require review from Code Owners" setting on `develop` and `main`
+  - the guard's speed target (150 ms or less per call; the legacy PR check runs only when a write would otherwise be refused, SC-008)
   - the guard-unavailable behaviour
   - the emergency procedure: with enforcement off in a new session, guard faults warn and allow writes; with enforcement on, they block git and GitHub writes
   - measurement (branch metrics plus the monthly review of 10 sessions, SC-007)
@@ -198,6 +200,8 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 - [ ] T035 [US3] Run quickstart §5 against `develop` once #3358 merges, and confirm the auto-approved list only contains merged `claude/*` branches with no open PR that are at least a day old.
 - [x] T036 [US3] Add the CHANGELOG entry for the environment and guard (done in #3524).
 - [ ] T037 [US3] Update the CHANGELOG entry in `CHANGELOG.md` under Unreleased/Added for the new guard behaviours. It must be 250 characters or less, linked to #3524, and pass `node scripts/validation/validate-changelog.cjs CHANGELOG.md`.
+- [ ] T042 [US3] Owner action: turn on "Require review from Code Owners" in branch protection (or the ruleset) for both `develop` and `main`, so the `/.claude/` CODEOWNERS entry from T024 blocks unreviewed changes to the guard (FR-013a, US3 scenario 3).
+- [ ] T043 [US3] After T042, run quickstart §4 step 7 and record both `true` results in the #3524 PR description. Add the same check to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md`.
 
 **Checkpoint**: Everything is documented and the cleanup is running.
 
@@ -218,11 +222,12 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 - **Setup (Phase 1)**: T001 is independent (spec branch). T002 and T003 have no dependencies.
 - **Foundational (Phase 2)**: T006 and T007 block all US1 rule implementation (T020–T023).
 - **US1 (Phase 3)**: Needs Phase 2.
-  - Tests T008–T014 are written first and should fail where behaviour is missing.
+  - Tests T008–T014 and T041 are written first and should fail where behaviour is missing.
   - T020–T023 all edit the same file, so do them one after another.
 - **US2 (Phase 4)**: Independent of US1 code. T028 is an Owner action. T030 needs T028 and ideally the US1 merge.
 - **US3 (Phase 5)**:
   - T032 needs the US1 behaviour to be settled.
+  - T042 is an Owner action that needs T024 merged. T043 needs T042.
   - T034 and T035 depend on lightspeedwp/.github#3358 merging.
 - **Polish (Phase 6)**: After the stories you intend to ship.
 
@@ -230,20 +235,20 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 
 - **US1 (P1)**: None beyond Phase 2. This is the MVP.
 - **US2 (P2)**: None in code. It depends on an Owner action.
-- **US3 (P3)**: The docs depend on US1. The cleanup depends on spec 009 and #3358.
+- **US3 (P3)**: The docs depend on US1. The Code Owners check depends on an Owner action (T042). The cleanup depends on spec 009 and #3358.
 
 ## Parallel Opportunities
 
 - T002 and T003 (different test files).
-- T008–T013 (independent `describe` blocks; if two people edit the file at once, merge them in order).
+- T008–T013 and T041 (independent `describe` blocks; if two people edit the file at once, merge them in order).
 - T014 alongside T008–T013 (a different file).
-- T026, T027 and T031 are done. T024 (CODEOWNERS) can run alongside any US1 task.
+- T027 and T031 are done. T026 (setup script) and T024 (CODEOWNERS) can run alongside any US1 task.
 
 ```text
 # US1 tests, written together before implementation:
 T008 naming/placeholder   T009 documentation exception   T010 legacy PR
 T011 MCP                  T012 self-protection           T013 guard fault
-T014 SessionStart (separate file)
+T041 SC-008 speed        T014 SessionStart (separate file)
 ```
 
 ## Implementation Strategy
@@ -252,11 +257,11 @@ T014 SessionStart (separate file)
 
 1. T001 (spec alignment) and T002 and T003 (test harness).
 2. T006 and T007 (safe loading, wider matcher).
-3. T008–T014 tests, then T016, T017 and T020–T024.
+3. T008–T014 and T041 tests, then T016, T017 and T020–T024.
 4. T025, which must be green. Push to #3524. **Stop and validate** with quickstart §1–§2.
 
 ### Incremental delivery
 
 1. US1 → #3524 ready for review.
 2. US2 → Owner creates the environment (T028), then verification (T030).
-3. US3 → docs update (T032) in #3524, cleanup (T034 and T035) after #3358.
+3. US3 → docs update (T032) in #3524, Code Owners setting (T042, T043) after T024 merges, cleanup (T034 and T035) after #3358.

@@ -14,7 +14,7 @@ behaviour (FR-005 to FR-014, FR-012a, FR-013a, and the related session-start rul
 
 ## Requirement Completeness
 
-- [ ] CHK001 Does FR-013a list every file that can switch the guard off? The spec names only `.claude/hooks/**` and `.claude/settings.json`, but research R12 shows `.claude/settings.local.json` and `~/.claude/settings.json` can also disable hooks. [Gap, Spec §FR-013a]
+- [ ] CHK001 Does FR-013a list every file that can switch the guard off? It now names `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and `~/.claude/settings.json` (T001, research R12); confirm no other settings source can disable hooks. [Completeness, Spec §FR-013a]
 - [ ] CHK002 Does the spec define every write path the guard must police? The spec names git and "the GitHub integration" but doesn't say whether `gh api`, `gh pr create` or pushes to remotes other than `origin` are in scope. [Coverage, Gap, Spec §FR-006, §FR-008]
 - [ ] CHK003 Are requirements defined for who may turn off the enforcement switch, and where it can be set: the shared environment, a personal environment, or a developer's local shell? [Gap, Spec §FR-013, §FR-014]
 - [ ] CHK004 Are default values specified for when the switch and base-branch settings are missing, for example in a local session with no LightSpeed variables? [Gap, Spec §FR-013, §FR-014]

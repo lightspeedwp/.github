@@ -172,7 +172,7 @@ describe('Claude cloud environment specification contracts', () => {
       expect(
         contractRow(
           hooks,
-          'Cloud and source is `startup`/`resume`, lockfile newer than installed tree'
+          'Cloud and source is `startup`/`resume`, installed dependency tree missing or lockfile newer than the installed tree'
         )
       ).toMatch(/`npm install`\. Failure is logged and not fatal/);
     });
@@ -257,8 +257,17 @@ describe('Claude cloud environment specification contracts', () => {
 
     test('fails closed on guard faults, but does not block ordinary commands or malformed input', () => {
       expect(
-        contractRow(hooks, 'Guard fault, git write or GitHub branch/file/PR tool (FR-012a)')
+        contractRow(
+          hooks,
+          'Guard fault, git write or GitHub branch/file/PR tool, enforcing (FR-012a)'
+        )
       ).toMatch(/\| 2 \| empty \| `Branch guard unavailable:/);
+      expect(
+        contractRow(
+          hooks,
+          'Guard fault, git write or GitHub branch/file/PR tool, `LS_ENFORCE_BRANCH_NAMES=0` (FR-013)'
+        )
+      ).toMatch(/\| 0; write proceeds \| `\{"systemMessage":"Branch guard \(warning only\):/);
       expect(contractRow(hooks, 'Guard fault, any other call (FR-012a)')).toMatch(
         /\| 0 \| `\{"systemMessage":"Branch guard unavailable:/
       );

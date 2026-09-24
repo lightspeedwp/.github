@@ -53,7 +53,7 @@ A team member starts a new cloud session on this repository and asks for a chang
 2. **Given** the agent is on the session placeholder branch, **When** it attempts to commit, **Then** the commit is refused and the refusal names the rule and the rename command.
 3. **Given** the agent has renamed its branch to a compliant name, **When** it commits and pushes, **Then** both succeed without intervention.
 4. **Given** any branch, **When** the agent attempts to push to, create, or rename to a name with a forbidden prefix (`claude/`, `copilot/`, `openai/`), an unauthorised type or a malformed pattern, **Then** the action is refused, unless the legacy PR exception (scenario 10) applies to a push or commit.
-5. **Given** the agent is on `main` or `develop`, **When** it attempts to commit or push there, **Then** the action is refused.
+5. **Given** the agent is on `main`, **When** it attempts to commit or push there, **Then** the action is refused. **Given** the agent is on `develop`, **When** it attempts to commit or push there, **Then** the action is refused unless the documentation exception applies (scenarios 8 and 9).
 6. **Given** the agent opens a PR on a LightSpeed repository, **When** the head branch is non-compliant, or the base is `main` and the head is not a `release/*` or `hotfix/*` branch, **Then** PR creation is refused.
 7. **Given** a commit message or file content that merely mentions a forbidden branch name, **When** the agent commits, **Then** the commit is not refused on that basis.
 8. **Given** the agent is on `develop` and every changed file is under `.github/specs/` or `docs/`, **When** it commits and pushes, **Then** neither action is refused by the guard.
@@ -216,7 +216,7 @@ A maintainer can find, in the repository, the exact environment definition the t
   zero manual configuration steps once the Owner has completed setup.
 - **SC-005**: Session start adds no more than 30 seconds when dependencies are already current. The first provisioning run completes in under 5 minutes.
 - **SC-006**: A maintainer unfamiliar with the setup can recreate the environment and pass every verification step using only the documentation, in under 15 minutes.
-- **SC-007**: In a monthly review of 10 sampled agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help.
+- **SC-007**: In a monthly review of 10 agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help. A maintainer picks the sessions from the team's Claude Code session history for this repository by searching transcripts for the guard's refusal text ("Branch guard"); no refusal data is recorded by the guard itself.
 - **SC-008**: The guard adds no more than 150 ms per matched tool call (median over the automated contract test run) in the normal case, where no network check is needed. The legacy PR check, which may take up to 10 seconds, runs only when a commit, push or GitHub write would otherwise be refused.
 
 ## Assumptions

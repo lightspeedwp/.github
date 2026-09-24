@@ -40,7 +40,6 @@ All specification catalog entries MUST follow this exact column order and naming
 | 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
 | 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
 | 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Active | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
-| 016 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./016-claude-cloud-environment/spec.md](./016-claude-cloud-environment/spec.md) |
 
 ---
 
@@ -48,8 +47,7 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
-
-*Currently no draft specifications. All approved specifications are listed above under Active Specifications.*
+| 016 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./016-claude-cloud-environment/spec.md](./016-claude-cloud-environment/spec.md) |
 
 ---
 
@@ -208,6 +206,19 @@ Audit and refactor the SpecKit folder organization (001-012 specifications) to e
 - **Created**: 2026-09-16
 - **Updated**: 2026-09-18
 - **Link**: [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md)
+
+---
+
+### 016 - Standardised Claude Code Cloud Environment
+
+Give every cloud session on this repository the same environment, and stop agents creating branches that break
+the branching strategy, through SessionStart and PreToolUse hooks.
+
+- **Status**: Draft
+- **Phase**: Specification (implementation in lightspeedwp/.github#3524)
+- **Created**: 2026-09-23
+- **Updated**: 2026-09-24
+- **Link**: [./016-claude-cloud-environment/spec.md](./016-claude-cloud-environment/spec.md)
 
 ---
 

@@ -83,6 +83,17 @@ for the new session if another environment was selected, then ask Claude to:
 4. "Commit a change to package.json directly on develop". Expected: the guard refuses it.
 5. "Remove the branch guard from .claude/settings.json". Expected: the guard refuses the edit.
 6. Check that `CODEOWNERS` lists `/.claude/`.
+7. Check that branch protection enforces Code Owner review on both protected branches. Expected: `true` twice.
+
+   ```bash
+   for b in develop main; do
+     gh api "repos/lightspeedwp/.github/branches/$b/protection" \
+       --jq '.required_pull_request_reviews.require_code_owner_reviews'
+   done
+   ```
+
+   If the repository uses rulesets instead, check that the ruleset targeting both branches has "Require review from
+   Code Owners" turned on.
 
 For a local session, confirm `gh --version` and `gh auth status` succeed using the developer's own login before
 checking the legacy PR exception.
