@@ -26,6 +26,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: When a maintainer explicitly asks Claude to commit straight to `develop` or `main`, should the guard ever allow it? → A: Only for specification and documentation changes: a commit or push to a protected branch is allowed when every changed file is under `.github/specs/` or `docs/`. Code and configuration changes always need a feature branch and PR.
 - Q: Should the branch guard also apply when team members run Claude Code on their own machines, or only in cloud sessions? → A: Both. The guard blocks in cloud and local sessions alike; the enforcement switch is the only way to downgrade it to warnings.
 - Q: Should this setup be built only for `lightspeedwp/.github`, or packaged so other LightSpeed repositories can adopt it? → A: This repository now. Packaging it as a portable plugin for other LightSpeed repositories is a recorded follow-up and out of scope for this spec.
+- Q: How should the empty `claude/*` branches that the platform leaves on GitHub after every session be cleaned up? → A: A scheduled job deletes `claude/*` branches that have no commits beyond `develop` and are older than 24 hours.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -81,6 +82,8 @@ A maintainer can find, in the repository, the exact environment definition the t
 1. **Given** the repository, **When** a maintainer looks for the environment definition, **Then** the setup script and variables are both in one documented location and match what is configured in the product.
 2. **Given** the documentation, **When** a member runs the verification steps in a new session, **Then** each step has a stated expected result.
 3. **Given** an emergency where enforcement blocks legitimate work, **When** an Owner flips the documented switch, **Then** refusals become warnings without a code change.
+4. **Given** a `claude/*` branch on GitHub with no commits beyond `develop` that is more than 24 hours old, **When** the scheduled cleanup runs, **Then** the branch is deleted and the deletion is recorded in the run log.
+5. **Given** a `claude/*` branch that has its own commits, is less than 24 hours old, or is the head of an open PR, **When** the scheduled cleanup runs, **Then** the branch is kept and listed in the run log for a maintainer to review.
 
 ---
 
@@ -92,6 +95,8 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Dependency install fails**: The session still starts, and the failure is reported.
 - **Session opened with several repositories**: Repository-level protections do not load, as documented by the platform. This is a known limitation and must be listed in the documentation.
 - **Deleting a remote branch**: Pushing a deletion (for example, cleaning up a stale `claude/*` branch) must not be refused by the guard.
+- **A session still running when cleanup runs**: The 24-hour minimum age protects it. A session older than 24 hours that has not yet committed may lose its empty remote `claude/*` branch, which is harmless because the work continues on its renamed local branch.
+- **Cleanup cannot delete a branch (permissions or branch protection)**: The run continues with the remaining branches, reports the failure and ends unsuccessfully so a maintainer notices.
 - **Chained commands such as "rename then commit"**: These are judged against the branch in effect after the rename.
 - **Repositories outside the LightSpeed organisation**: Their GitHub actions are not policed.
 - **Bot-owned branches (dependabot, renovate) and protected branches**: They follow the existing validator's exemptions for naming. Protected branches are still refused for direct commits or pushes, except for changes covered by the documentation exception.
@@ -154,6 +159,12 @@ A maintainer can find, in the repository, the exact environment definition the t
   - maintenance procedure
   - known limitations
 
+#### Branch cleanup
+
+- **FR-020**: A scheduled job MUST run at least daily and delete every remote `claude/*` branch that has no commits beyond `develop`, is more than 24 hours old, and is not the head of an open PR.
+- **FR-021**: The cleanup MUST NOT delete a `claude/*` branch that has its own commits. It MUST list such branches in its run log for a maintainer to review.
+- **FR-022**: The cleanup MUST support a dry-run mode that reports what it would delete without deleting anything. It MUST also be possible to start it manually.
+
 ### Key Entities
 
 - **Shared cloud environment**: The organisation-level configuration every session starts from. It has a name, network access level, environment variables and a provisioning script. It is owned and edited by Owners, and its canonical copy is versioned in the repository.
@@ -166,7 +177,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 ### Measurable Outcomes
 
 - **SC-001**: 100% of branches pushed from cloud agent sessions on this repository pass the branch-name validator. This is measured over the first 30 days after rollout via the existing branch-validation metrics.
-- **SC-002**: Zero new `chore/session-*` or `claude/*` branches with commits appear on the remote after rollout, excluding the platform's own initial empty branch.
+- **SC-002**: Zero new `chore/session-*` or `claude/*` branches with commits appear on the remote after rollout. No empty `claude/*` branch stays on the remote for more than 48 hours.
 - **SC-003**: PR template fallback routing caused by agent-created branches drops to 0% (constitution goal for fallback routing).
 - **SC-004**: A team member can start a correctly configured session with zero manual configuration steps once the Owner has completed setup.
 - **SC-005**: Session start adds no more than 30 seconds when dependencies are already current. The first provisioning run completes in under 5 minutes.
@@ -180,7 +191,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - The platform's push protection allows pushing the session's current branch after it has been renamed. This was verified during the draft implementation.
 - The existing validator (`lib/validate-branch-name.js`) and `docs/BRANCHING_STRATEGY.md` are authoritative. No changes to authorised types are in scope.
 - The default network level (Trusted) reaches every host the provisioning script needs.
-- Cleaning up stale `claude/*` branches already on the remote is out of scope. The platform's initial empty `claude/*` branch may remain on the remote, and removing it is left to maintainers.
+- Empty `claude/*` branches left by the platform are removed by the scheduled cleanup (FR-020–FR-022). Existing `claude/*` branches that have commits are reviewed by maintainers, not deleted automatically.
 - Sessions opened with several repositories do not load repository-level protections. This is documented, not solved.
 - The guard uses command-parsing heuristics. Unusual constructions (for example, committing in another directory after changing into it) may not be caught, and CI's branch-name validation remains the final gate.
 - Scope is this repository only. Packaging the environment definition, hooks and guard as a portable plugin (top-level `plugins/`) for other LightSpeed repositories is a follow-up spec. This spec's design should not block that reuse.
