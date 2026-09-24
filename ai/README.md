@@ -41,8 +41,8 @@ Keep this directory focused on canonical references and audit evidence, not impl
 ## Visual Workflow
 
 ```mermaid
-accTitle: Flowchart
 flowchart TD
+  accTitle: Flowchart
   A[Start Here] --> B[Read Scope and Prerequisites]
   B --> C[Run the Documented Workflow]
   C --> D[Validate with Repo Tooling]

@@ -88,8 +88,8 @@ This repository's `.github` folder serves as the **single source of truth** for 
 ## GitHub Template Ecosystem Architecture
 
 ```mermaid
-accTitle: Flowchart
 flowchart TB
+    accTitle: Flowchart
     subgraph "🏛️ .github Repository Hub"
         A[🏠 Community Health Files]
         B[📝 Issue Templates]
@@ -228,8 +228,8 @@ This repository is the **canonical, organisation-wide source** for:
 ## GitHub Automation Workflow Process
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
     participant Hub as 🏛️ .github Hub
@@ -272,8 +272,8 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 ## Repository Structure Visualization
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
         B[🎯 prompts/]
@@ -407,8 +407,8 @@ This diagram illustrates how all components work together to create a seamless d
 ## Complete Integration Flow
 
 ```mermaid
-accTitle: Flowchart
 flowchart LR
+    accTitle: Flowchart
     subgraph "👨‍💻 Developer Experience"
         A[New Contributor]
         B[Issue Creation]
