@@ -23,7 +23,7 @@ const zlib = require('node:zlib');
 
 const SC001_LIMIT_SECONDS = 600;
 // Eligible automatic attempts (human, non-draft PRs while enabled). Draft, bot,
-// excluded-author and kill-switch skips are not eligible for SC-001.
+// excluded-author, fork and kill-switch skips are not eligible for SC-001.
 const SC001_ELIGIBLE_OUTCOMES = new Set(['success', 'failure', 'skipped:no-credential']);
 
 /**

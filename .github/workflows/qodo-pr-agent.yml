@@ -27,5 +27,14 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
+      id-token: write # lets the run job request a GitHub OIDC token for keyless auth
+    # Credential: the dedicated key secret, or keyless Workload Identity Federation
+    # configured through Actions variables (see docs/QODO_PR_AGENT.md → Credential and spend).
+    # A stored key takes precedence when both are set.
+    with:
+      federation_rule_id: ${{ vars.QODO_PR_AGENT_FEDERATION_RULE_ID }}
+      organization_id: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
+      service_account_id: ${{ vars.QODO_PR_AGENT_SERVICE_ACCOUNT_ID }}
+      workspace_id: ${{ vars.QODO_PR_AGENT_WORKSPACE_ID }}
     secrets:
       model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}

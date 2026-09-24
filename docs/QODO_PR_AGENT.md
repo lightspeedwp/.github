@@ -90,7 +90,7 @@ Qodo PR-Agent feedback is AI review feedback, and follows the same `FEEDBACK_RES
 ## Safety
 
 - **No code is checked out or executed.** Qodo PR-Agent reads the PR through the GitHub API.
-- **Fork PRs** receive no secrets, so they are skipped with a notice. A maintainer can still run commands on them.
+- **Fork PRs** receive neither secrets nor an OIDC token, so they are skipped with a `fork` notice. A maintainer can still run commands on them.
 - **It never blocks a PR.** A missing or invalid credential, a provider rate limit or outage, the kill-switch, or an ineligible event all produce a notice and a successful check. Failed runs are still recorded as `failure` in the run record.
 - **It never commits, merges, approves or labels.** The locked keys in `.pr_agent.toml` enforce this, and `tests/js/qodo-pr-agent-config.test.js` asserts them.
 - **Configuration is read from the default branch.** A PR cannot change its own review settings.
@@ -106,8 +106,21 @@ As a second line of defence, revoke or cap the dedicated key in the Anthropic co
 
 ### Credential and spend
 
+There are two ways to provide the credential. If both are configured, the stored key wins, as it does in the Anthropic SDKs.
+
 - **Secret**: the organisation secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`. It holds a key used **only** by Qodo PR-Agent, with repository access set to *selected repositories*.
-- **Monthly spend limit**: set on that key in the Anthropic console. Its usage page gives exact spend.
+- **Keyless (Workload Identity Federation)**: no key is stored. Each run exchanges the job's GitHub OIDC token for an Anthropic access token that expires within about 10 minutes.
+  1. In the Claude Console, open **Settings → Workload identity → Connect workload** and choose **GitHub Actions**. Create:
+     - an issuer for `https://token.actions.githubusercontent.com` with OIDC discovery;
+     - a service account, for example `qodo-pr-agent`, that is a member of a dedicated workspace;
+     - a rule with subject prefix `repo:lightspeedwp/.github:*`, audience `https://api.anthropic.com`, claims `repository_owner: lightspeedwp` and `repository: lightspeedwp/.github`, scope `workspace:developer` and a 600-second lifetime.
+
+     The subject needs the trailing `*` because PR events arrive as `repo:<owner>/<repo>:pull_request` and comment commands as `repo:<owner>/<repo>:ref:refs/heads/<default branch>`.
+  2. Set these Actions **variables** (they are identifiers, not secrets): `QODO_PR_AGENT_FEDERATION_RULE_ID` (`fdrl_...`), `ANTHROPIC_ORGANIZATION_ID` and `QODO_PR_AGENT_SERVICE_ACCOUNT_ID` (`svac_...`). Set `QODO_PR_AGENT_WORKSPACE_ID` only if the rule covers more than one workspace.
+  3. Leave the key secret unset, then run quickstart Q-13. Until Q-13 passes it isn't confirmed that Qodo PR-Agent accepts the exchanged token, so keep the key route available.
+
+  A denied exchange doesn't block the PR: the run is recorded as `failure`, and the reason is on the authentication history page in the Claude Console.
+- **Monthly spend limit**: with a key, set it on that key in the Anthropic console. With federation, set it on the service account's workspace. The console's usage page gives exact spend.
 - **Provisioning**: requested in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002).
 
 ### Run records and the pilot report
@@ -133,7 +146,7 @@ The [daily report workflow](../.github/workflows/qodo-pr-agent-report.yml) runs 
 
 Only `lightspeedwp/.github` is enabled in the pilot. These steps are for later opt-in.
 
-1. **Credential**: ask the organisation owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` secret's selected repositories.
+1. **Credential**: ask the organisation owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` secret's selected repositories. For keyless federation, ask an organisation admin to add a federation rule whose subject prefix is `repo:lightspeedwp/<repository>:*`, then set the federation variables on that repository (see [Credential and spend](#credential-and-spend)). The copied caller already grants `id-token: write` and passes the variables.
 2. **Workflow**: copy [`.github/workflows/qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) into the repository's `.github/workflows/`, and change the `uses:` line to:
 
    ```yaml

@@ -42,6 +42,46 @@ function qodoStep(doc) {
   );
 }
 
+function tokenStep(doc) {
+  return (doc.jobs?.run?.steps || []).find((step) => step.id === 'token');
+}
+
+async function runTokenExchange({ env = {}, response } = {}) {
+  const outputs = {};
+  const core = {
+    getIDToken: jest.fn(async () => 'github-oidc-jwt'),
+    setSecret: jest.fn(),
+    setOutput: jest.fn((key, value) => {
+      outputs[key] = value;
+    }),
+    setFailed: jest.fn(),
+    info: jest.fn(),
+  };
+  const fetch = jest.fn(async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({ access_token: 'sk-ant-oat01-test', expires_in: 600 }),
+    ...response,
+  }));
+  // actions/github-script runs the script as the body of an async function.
+  const run = vm.runInNewContext(`(async () => {\n${tokenStep(reusable.doc).with.script}\n})`, {
+    core,
+    fetch,
+    process: {
+      env: {
+        HAS_API_KEY: 'false',
+        FEDERATION_RULE_ID: 'fdrl_test',
+        ORGANIZATION_ID: '00000000-0000-0000-0000-000000000000',
+        SERVICE_ACCOUNT_ID: 'svac_test',
+        WORKSPACE_ID: '',
+        ...env,
+      },
+    },
+  });
+  await run();
+  return { outputs, core, fetch };
+}
+
 function preflightScript(doc) {
   const steps = doc.jobs?.preflight?.steps || [];
   return steps.map((step) => String(step.with?.script || step.run || '')).join('\n');
@@ -95,6 +135,14 @@ describe('Qodo PR-Agent reusable workflow', () => {
     ]);
     expect(call.inputs.auto_review).toBeUndefined();
     expect(call.secrets.model_credential.required).toBe(false);
+    for (const input of [
+      'federation_rule_id',
+      'organization_id',
+      'service_account_id',
+      'workspace_id',
+    ]) {
+      expect(call.inputs[input]).toMatchObject({ type: 'string', required: false, default: '' });
+    }
   });
 
   it('uses least-privilege permissions', () => {
@@ -105,8 +153,11 @@ describe('Qodo PR-Agent reusable workflow', () => {
       contents: 'read',
       'pull-requests': 'write',
       issues: 'write',
+      'id-token': 'write',
     });
     expect(doc.jobs.run['timeout-minutes']).toBe(15);
+    expect(doc.jobs.preflight.permissions).not.toHaveProperty('id-token');
+    expect(doc.jobs.record.permissions).toStrictEqual({});
   });
 
   it('only runs when preflight enables it', () => {
@@ -201,6 +252,20 @@ describe('Qodo PR-Agent reusable workflow', () => {
       ['draft', { payload: { pull_request: { draft: true } } }, 'auto'],
       ['excluded-author', { env: { EXCLUDED_AUTHORS: '["maintainer"]' } }, 'auto'],
       ['no-credential', { env: { HAS_CREDENTIAL: 'false' } }, 'auto'],
+      [
+        'fork',
+        {
+          payload: {
+            repository: { full_name: 'lightspeedwp/.github' },
+            pull_request: {
+              draft: false,
+              user: { login: 'maintainer' },
+              head: { repo: { full_name: 'someone/.github' } },
+            },
+          },
+        },
+        'auto',
+      ],
     ])('skips a PR on %s without failing the check', (reason, overrides, tool) => {
       const defaultPayload = {
         sender: { type: 'User' },
@@ -212,6 +277,30 @@ describe('Qodo PR-Agent reusable workflow', () => {
       });
       expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
       expect(core.notice).toHaveBeenCalledWith(`Qodo PR-Agent skipped: ${reason}`);
+    });
+
+    it('runs a same-repository PR whose head repository matches', () => {
+      const { outputs } = runPreflight({
+        payload: {
+          sender: { type: 'User' },
+          repository: { full_name: 'lightspeedwp/.github' },
+          pull_request: {
+            draft: false,
+            user: { login: 'maintainer' },
+            head: { repo: { full_name: 'lightspeedwp/.github' } },
+          },
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'auto' });
+    });
+
+    it('treats either a stored key or a complete federation configuration as a credential', () => {
+      const expression = String(doc.jobs.preflight.steps[0].env.HAS_CREDENTIAL);
+      expect(expression).toContain("secrets.model_credential != ''");
+      for (const input of ['federation_rule_id', 'organization_id', 'service_account_id']) {
+        expect(expression).toContain(`inputs.${input} != ''`);
+      }
+      expect(expression).not.toContain('workspace_id');
     });
 
     it('warns on malformed excluded authors and still handles a valid PR', () => {
@@ -283,6 +372,98 @@ describe('Qodo PR-Agent reusable workflow', () => {
     });
   });
 
+  describe('Workload Identity Federation token exchange', () => {
+    const steps = doc.jobs.run.steps;
+
+    it('runs before Qodo PR-Agent, only when federation is configured, and never fails the PR', () => {
+      const step = tokenStep(doc);
+      expect(step).toBeDefined();
+      expect(steps.indexOf(step)).toBeLessThan(steps.indexOf(qodoStep(doc)));
+      expect(String(step.if)).toContain("inputs.federation_rule_id != ''");
+      expect(step['continue-on-error']).toBe(true);
+      expect(step.uses).toMatch(/^actions\/github-script@[a-f0-9]{40}$/);
+      expect(step.env).toMatchObject({
+        HAS_API_KEY: "${{ secrets.model_credential != '' }}",
+        FEDERATION_RULE_ID: '${{ inputs.federation_rule_id }}',
+        ORGANIZATION_ID: '${{ inputs.organization_id }}',
+        SERVICE_ACCOUNT_ID: '${{ inputs.service_account_id }}',
+        WORKSPACE_ID: '${{ inputs.workspace_id }}',
+      });
+    });
+
+    it('hands the exchanged token to Qodo PR-Agent, falling back to the stored key', () => {
+      const qodo = qodoStep(doc);
+      expect(qodo.env['ANTHROPIC.KEY']).toBe(
+        '${{ steps.token.outputs.credential || secrets.model_credential }}'
+      );
+      expect(String(qodo.if)).toContain("steps.token.outcome != 'failure'");
+      expect(doc.jobs.run.outputs.outcome).toContain("steps.token.outcome == 'failure'");
+      const notice = steps.find(
+        (step) => step.name === 'Report a failed run without blocking the PR'
+      );
+      expect(String(notice.if)).toContain("steps.token.outcome == 'failure'");
+    });
+
+    it('exchanges the GitHub OIDC token and masks the Anthropic token', async () => {
+      const { outputs, core, fetch } = await runTokenExchange();
+      expect(core.getIDToken).toHaveBeenCalledWith('https://api.anthropic.com');
+      expect(fetch).toHaveBeenCalledTimes(1);
+      const [url, request] = fetch.mock.calls[0];
+      expect(url).toBe('https://api.anthropic.com/v1/oauth/token');
+      expect(request.method).toBe('POST');
+      expect(request.headers).toStrictEqual({ 'content-type': 'application/json' });
+      expect(JSON.parse(request.body)).toStrictEqual({
+        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+        assertion: 'github-oidc-jwt',
+        federation_rule_id: 'fdrl_test',
+        organization_id: '00000000-0000-0000-0000-000000000000',
+        service_account_id: 'svac_test',
+      });
+      expect(core.setSecret).toHaveBeenCalledWith('sk-ant-oat01-test');
+      expect(core.setSecret.mock.invocationCallOrder[0]).toBeLessThan(
+        core.setOutput.mock.invocationCallOrder[0]
+      );
+      expect(outputs).toStrictEqual({ credential: 'sk-ant-oat01-test' });
+      expect(core.setFailed).not.toHaveBeenCalled();
+    });
+
+    it('sends the workspace only when one is configured', async () => {
+      const { fetch } = await runTokenExchange({ env: { WORKSPACE_ID: 'wrkspc_test' } });
+      expect(JSON.parse(fetch.mock.calls[0][1].body).workspace_id).toBe('wrkspc_test');
+    });
+
+    it('lets a stored key take precedence without requesting any token', async () => {
+      const { outputs, core, fetch } = await runTokenExchange({ env: { HAS_API_KEY: 'true' } });
+      expect(core.getIDToken).not.toHaveBeenCalled();
+      expect(fetch).not.toHaveBeenCalled();
+      expect(outputs).toStrictEqual({});
+      expect(core.setFailed).not.toHaveBeenCalled();
+    });
+
+    it('fails the step, not the PR, when the configuration is incomplete', async () => {
+      const { outputs, core, fetch } = await runTokenExchange({ env: { SERVICE_ACCOUNT_ID: '' } });
+      expect(fetch).not.toHaveBeenCalled();
+      expect(core.setFailed).toHaveBeenCalledTimes(1);
+      expect(outputs).toStrictEqual({});
+    });
+
+    it('fails the step with the status, and no token, when the exchange is denied', async () => {
+      const { outputs, core } = await runTokenExchange({
+        response: { ok: false, status: 401, json: async () => ({}) },
+      });
+      expect(core.setFailed).toHaveBeenCalledWith(expect.stringContaining('HTTP 401'));
+      expect(core.setFailed.mock.calls[0][0]).not.toContain('github-oidc-jwt');
+      expect(core.setSecret).not.toHaveBeenCalled();
+      expect(outputs).toStrictEqual({});
+    });
+
+    it('fails the step when the response has no access token', async () => {
+      const { outputs, core } = await runTokenExchange({ response: { json: async () => ({}) } });
+      expect(core.setFailed).toHaveBeenCalledWith(expect.stringContaining('no access token'));
+      expect(outputs).toStrictEqual({});
+    });
+  });
+
   it('serialises runs per PR without cancelling commands', () => {
     expect(String(doc.concurrency.group)).toMatch(/^qodo-pr-agent-/);
     expect(doc.concurrency['cancel-in-progress']).toBe(false);
@@ -322,7 +503,18 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
       contents: 'read',
       'pull-requests': 'write',
       issues: 'write',
+      'id-token': 'write',
     });
     expect(doc.permissions).toStrictEqual({ contents: 'read' });
+  });
+
+  it('passes the keyless federation identifiers from Actions variables, never secrets', () => {
+    const [job] = Object.values(doc.jobs);
+    expect(job.with).toStrictEqual({
+      federation_rule_id: '${{ vars.QODO_PR_AGENT_FEDERATION_RULE_ID }}',
+      organization_id: '${{ vars.ANTHROPIC_ORGANIZATION_ID }}',
+      service_account_id: '${{ vars.QODO_PR_AGENT_SERVICE_ACCOUNT_ID }}',
+      workspace_id: '${{ vars.QODO_PR_AGENT_WORKSPACE_ID }}',
+    });
   });
 });

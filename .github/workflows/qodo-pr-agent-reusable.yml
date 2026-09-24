@@ -10,6 +10,11 @@
 # - No actions/checkout: Qodo PR-Agent reads the PR through the API, so no PR
 #   code is ever executed. Fork PRs receive no secrets and are skipped with a notice.
 # - Kill-switch: set the Actions variable QODO_PR_AGENT_ENABLED to "false".
+# - Credential: either the `model_credential` secret (a dedicated API key) or
+#   Workload Identity Federation (the federation_* inputs), where the job's GitHub
+#   OIDC token is exchanged for a short-lived Anthropic token and no key is stored.
+#   A stored key takes precedence, matching the Anthropic SDKs. Callers must grant
+#   `id-token: write` to the calling job.
 # - A skipped run always concludes successfully; this workflow never blocks a PR.
 #
 # Docs: docs/QODO_PR_AGENT.md
@@ -39,6 +44,28 @@ on:
         type: string
         required: false
         default: '["dependabot[bot]","lightspeed-docs-bot[bot]"]'
+      # Workload Identity Federation (keyless). Identifiers, not secrets: pass them
+      # from Actions variables. All three of the first inputs are needed to federate.
+      federation_rule_id:
+        description: 'Anthropic federation rule ID (fdrl_...) for keyless authentication'
+        type: string
+        required: false
+        default: ''
+      organization_id:
+        description: 'Anthropic organisation ID (UUID) that owns the federation rule'
+        type: string
+        required: false
+        default: ''
+      service_account_id:
+        description: 'Anthropic service account ID (svac_...) the federation rule targets'
+        type: string
+        required: false
+        default: ''
+      workspace_id:
+        description: 'Anthropic workspace ID (wrkspc_...); only needed when the rule covers several workspaces'
+        type: string
+        required: false
+        default: ''
     secrets:
       model_credential:
         description: 'Anthropic API key dedicated to Qodo PR-Agent (ANTHROPIC_API_KEY_QODO_PR_AGENT)'
@@ -67,7 +94,9 @@ jobs:
         id: decide
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
-          HAS_CREDENTIAL: ${{ secrets.model_credential != '' }}
+          HAS_CREDENTIAL: >-
+            ${{ secrets.model_credential != '' || (inputs.federation_rule_id != '' &&
+            inputs.organization_id != '' && inputs.service_account_id != '') }}
           KILL_SWITCH: ${{ vars.QODO_PR_AGENT_ENABLED }}
           EXCLUDED_AUTHORS: ${{ inputs.excluded_authors }}
         with:
@@ -102,6 +131,11 @@ jobs:
                 }
                 if (pr.draft) return { reason: 'draft', tool: 'auto' };
                 if (excluded.includes(pr.user?.login)) return { reason: 'excluded-author', tool: 'auto' };
+                // Fork PRs get no secrets and no OIDC token, so neither credential can work.
+                const headRepo = pr.head?.repo?.full_name;
+                if (headRepo && headRepo !== payload.repository?.full_name) {
+                  return { reason: 'fork', tool: 'auto' };
+                }
                 if (process.env.HAS_CREDENTIAL !== 'true') return { reason: 'no-credential', tool: 'auto' };
                 return { reason: 'ok', tool: 'auto' };
               }
@@ -141,13 +175,74 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
+      id-token: write # Workload Identity Federation only; unused with a stored key
     outputs:
       started_at: ${{ steps.start.outputs.at }}
-      outcome: ${{ steps.qodo.outcome }}
+      outcome: ${{ steps.token.outcome == 'failure' && 'failure' || steps.qodo.outcome }}
     steps:
       - name: Record start time
         id: start
         run: echo "at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+
+      # Keyless: exchange this job's GitHub OIDC token (audience
+      # https://api.anthropic.com) for a short-lived Anthropic access token.
+      # The token lives at most min(rule lifetime, twice the OIDC token's ~5 minutes),
+      # which covers one run. continue-on-error: a failed exchange is recorded as a
+      # failure and never turns the PR red; the deny reason is in the Claude Console's
+      # workload identity authentication history.
+      - name: Exchange GitHub OIDC token for an Anthropic token
+        id: token
+        if: inputs.federation_rule_id != ''
+        continue-on-error: true
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          HAS_API_KEY: ${{ secrets.model_credential != '' }}
+          FEDERATION_RULE_ID: ${{ inputs.federation_rule_id }}
+          ORGANIZATION_ID: ${{ inputs.organization_id }}
+          SERVICE_ACCOUNT_ID: ${{ inputs.service_account_id }}
+          WORKSPACE_ID: ${{ inputs.workspace_id }}
+        with:
+          script: |
+            const AUDIENCE = 'https://api.anthropic.com';
+            const TOKEN_URL = 'https://api.anthropic.com/v1/oauth/token';
+            const env = process.env;
+
+            if (env.HAS_API_KEY === 'true') {
+              core.info('A stored API key is configured; it takes precedence over federation.');
+              return;
+            }
+            if (!env.ORGANIZATION_ID || !env.SERVICE_ACCOUNT_ID) {
+              core.setFailed('Federation needs organization_id and service_account_id as well as federation_rule_id.');
+              return;
+            }
+
+            const body = {
+              grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+              assertion: await core.getIDToken(AUDIENCE),
+              federation_rule_id: env.FEDERATION_RULE_ID,
+              organization_id: env.ORGANIZATION_ID,
+              service_account_id: env.SERVICE_ACCOUNT_ID,
+            };
+            if (env.WORKSPACE_ID) body.workspace_id = env.WORKSPACE_ID;
+
+            const response = await fetch(TOKEN_URL, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify(body),
+            });
+            if (!response.ok) {
+              core.setFailed(
+                `Token exchange failed with HTTP ${response.status}. See the authentication history under Settings → Workload identity in the Claude Console.`
+              );
+              return;
+            }
+            const { access_token: accessToken } = await response.json();
+            if (!accessToken) {
+              core.setFailed('Token exchange succeeded but returned no access token.');
+              return;
+            }
+            core.setSecret(accessToken);
+            core.setOutput('credential', accessToken);
 
       # Pinned by image digest: the upstream action's own Dockerfile uses a
       # floating tag, so pinning the action ref would not pin the code that runs.
@@ -155,11 +250,12 @@ jobs:
       # turn the PR red. The outcome is recorded by the record job instead.
       - name: Qodo PR-Agent
         id: qodo
+        if: steps.token.outcome != 'failure'
         continue-on-error: true
         uses: docker://pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7 # 0.46.0-github_action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC.KEY: ${{ secrets.model_credential }}
+          ANTHROPIC.KEY: ${{ steps.token.outputs.credential || secrets.model_credential }}
           CONFIG.EXTRA_CONFIG_URL: https://raw.githubusercontent.com/lightspeedwp/.github/${{ inputs.config_ref }}/.pr_agent.toml
           github_action_config.auto_review: 'false'
           github_action_config.auto_describe: ${{ inputs.auto_describe && 'true' || 'false' }}
@@ -178,8 +274,8 @@ jobs:
           pr_update_changelog.push_changelog_changes: 'false'
 
       - name: Report a failed run without blocking the PR
-        if: steps.qodo.outcome == 'failure'
-        run: echo "::notice::Qodo PR-Agent failed (invalid key, rate limit or upstream error). The PR is not blocked; see this job's log."
+        if: steps.token.outcome == 'failure' || steps.qodo.outcome == 'failure'
+        run: echo "::notice::Qodo PR-Agent failed (token exchange, invalid key, rate limit or upstream error). The PR is not blocked; see this job's log."
 
   record:
     name: Record run
