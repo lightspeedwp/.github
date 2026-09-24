@@ -72,6 +72,18 @@ describe('Claude cloud environment specification contracts', () => {
     expect(references.filter((id) => !declarations.includes(id))).toEqual([]);
   });
 
+  test('retains the complete set of functional requirements, including the two fault and security additions', () => {
+    const declarations = [...spec.matchAll(/^- \*\*(FR-\d{3}[a-z]?)\*\*:/gm)].map(
+      (match) => match[1]
+    );
+    const expected = Array.from(
+      { length: 22 },
+      (_, index) => `FR-${String(index + 1).padStart(3, '0')}`
+    );
+
+    expect(declarations.sort()).toEqual([...expected, 'FR-012a', 'FR-013a'].sort());
+  });
+
   test.each([
     ['1', 'P1', 'US1'],
     ['2', 'P2', 'US2'],
@@ -85,6 +97,35 @@ describe('Claude cloud environment specification contracts', () => {
   });
 
   describe('session-start behaviour', () => {
+    test('emits one parseable context response containing every required branching rule', () => {
+      const output = hooks.match(
+        /\*\*Output \(stdout\)\*\*: exactly one JSON object:\s*```json\s*([^\n]+)\s*```/
+      );
+      expect(output).not.toBeNull();
+      expect(JSON.parse(output[1])).toEqual({
+        hookSpecificOutput: {
+          hookEventName: 'SessionStart',
+          additionalContext: '<rules text>',
+        },
+      });
+      for (const rule of [
+        'current branch and the base branch',
+        'pattern',
+        'authorised types',
+        'forbidden prefixes',
+        'placeholder warning',
+        'rename and validate commands',
+        'PR base rule',
+        'documentation exception',
+        'legacy PR exception',
+        "guard's own files can't be edited",
+        'override any platform `claude/*` instruction',
+      ]) {
+        expect(hooks).toContain(rule);
+      }
+      expect(hooks).toMatch(/All other output goes to stderr\. The exit code is always 0/);
+    });
+
     test('renames only an empty cloud branch, never one with its own commits', () => {
       expect(requirement('FR-001')).toMatch(/no commits of its own.*renamed locally/);
       expect(requirement('FR-001')).toMatch(/already has commits.*MUST NOT be renamed/);
@@ -138,6 +179,48 @@ describe('Claude cloud environment specification contracts', () => {
   });
 
   describe('branch guard behaviour', () => {
+    test('keeps placeholders blocked and legacy PR branches write-only', () => {
+      expect(contractRow(model, 'Placeholder')).toMatch(/\^chore\/session-\[a-z0-9\]\+\$/);
+      expect(contractRow(model, 'Placeholder')).toMatch(/\| refused \| refused \|/);
+      expect(contractRow(model, 'Legacy PR branch')).toMatch(/exists on GitHub.*open PR/);
+      expect(contractRow(model, 'Legacy PR branch')).toMatch(/\| refused \| allowed/);
+      expect(contractRow(hooks, '`git commit`')).toMatch(/placeholder.*legacy PR exception fails/);
+      expect(contractRow(hooks, '`git push` (not `--delete`/`--tags`)')).toMatch(
+        /placeholder.*legacy PR exception fails/
+      );
+    });
+
+    test('checks every affected path before allowing the base-branch documentation exception', () => {
+      expect(model).toMatch(/every affected path is a normalised repository-relative path/);
+      expect(model).toMatch(
+        /\*\*Commit\*\*: staged paths, plus `-a` tracked changes, plus paths from an earlier `git add`/
+      );
+      expect(model).toContain('`git diff --name-only origin/<target>...<source>`');
+      expect(model).toContain('**MCP**: the paths in the tool input');
+      expect(research).toMatch(/`docs\/\.\.\/x` is\s+rejected after normalisation/);
+      expect(model).toMatch(/An empty or unknown path set fails closed/);
+    });
+
+    test('makes refused actions actionable without leaking hook output into stdout', () => {
+      expect(requirement('FR-011')).toMatch(
+        /which rule was broken.*corrected name.*exact rename and validation steps/
+      );
+      expect(hooks).toMatch(/One line per problem, naming the rule/);
+      expect(hooks).toContain('`git branch -m <type>/<scope>-<title>`');
+      expect(hooks).toContain('`npm run validate:branch-name -- --current`');
+      expect(contractRow(hooks, 'Refused, enforcing')).toMatch(/\| 2 \| empty \| Refusal message/);
+    });
+
+    test('scopes legacy PR lookups and GitHub guard calls to the intended owner', () => {
+      expect(hooks).toMatch(/`git ls-remote --exit-code --heads origin <branch>`/);
+      expect(hooks).toMatch(/`gh pr list --head <branch> --state open --json number --limit 1`/);
+      expect(hooks).toMatch(/each with a 5-second timeout\. Any failure means/);
+      expect(hooks).toMatch(/MCP calls whose `owner` isn't `lightspeedwp` are always allowed/);
+      expect(contractRow(hooks, '`mcp__github__create_pull_request`')).toMatch(
+        /`base == main`.*`release\/\*`\/`hotfix\/\*`/
+      );
+    });
+
     test('refuses mixed protected-branch changes but permits documentation-only changes', () => {
       expect(requirement('FR-005')).toMatch(
         /protected.*unless every file.*`\.github\/specs\/` or `docs\/`/s
@@ -257,6 +340,32 @@ describe('Claude cloud environment specification contracts', () => {
   });
 
   describe('empty agent-branch cleanup', () => {
+    test('evaluates protection and open PRs before auto-approval, then preserves ordinary review', () => {
+      const decisions = model.slice(model.indexOf('## Cleanup decision'));
+      const order = [
+        'Protected branch → KEEP',
+        'Matches an exclusion pattern → KEEP',
+        'Has an open PR → KEEP',
+        '**DELETE, auto-approved**',
+        'Invalid name',
+      ].map((rule) => decisions.indexOf(rule));
+
+      expect(order.every((position) => position >= 0)).toBe(true);
+      expect(order).toEqual([...order].sort((left, right) => left - right));
+      expect(contractRow(cleanup, 'Draft PR')).toMatch(/remaining `DELETE` candidates.*approval/);
+      expect(contractRow(cleanup, 'DISCUSS issue')).toContain('Unchanged');
+    });
+
+    test('rechecks before deletion and continues after an individual failure', () => {
+      expect(model).toMatch(/Re-check that the branch is still merged and has no open PR/);
+      expect(model).toMatch(/Any failure → carry on with the other branches.*exit 2/);
+      expect(contractRow(cleanup, 'Auto-delete (new)')).toMatch(/re-check merged and no open PR/);
+      expect(contractRow(cleanup, 'Schedule')).toContain('At least daily');
+      expect(contractRow(cleanup, 'Permissions')).toMatch(
+        /`contents: write`.*`pull-requests: read`/
+      );
+    });
+
     test('requires a merged branch, verified absence of an open PR, and a full day of age', () => {
       expect(requirement('FR-020')).toMatch(
         /merged to a base branch.*open-PR verification succeeded.*at least 24 hours old/
@@ -312,6 +421,18 @@ describe('Claude cloud environment specification contracts', () => {
     expect(contractRow(model, '`LS_BASE_BRANCH`')).toContain('`develop`');
     expect(contractRow(model, '`LS_ENFORCE_BRANCH_NAMES`')).toContain('`1`');
     expect(contractRow(model, '`LS_NODE_VERSION`')).toContain('from `.nvmrc`');
+  });
+
+  test('identifies a single canonical, versioned environment and its bounded configuration', () => {
+    expect(requirement('FR-015')).toMatch(
+      /canonical provisioning script and environment variables/
+    );
+    expect(model).toContain('The canonical copy is kept in `.claude/cloud/`');
+    expect(contractRow(model, 'Environment variables')).toContain(
+      '`.claude/cloud/environment.env`'
+    );
+    expect(contractRow(model, 'Setup script')).toContain('`.claude/cloud/setup.sh`');
+    expect(requirement('FR-018')).toMatch(/MUST NOT contain secrets/);
   });
 
   test('does not make optional setup failures fatal or drift from the pinned runtime', () => {
