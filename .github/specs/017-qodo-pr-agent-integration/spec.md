@@ -23,6 +23,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 
 - Q: How should Qodo PR-Agent work alongside CodeRabbit, which already reviews every PR? → A: Complement. Responsibilities are split so each concern has exactly one owning tool; CodeRabbit keeps primary code review, and Qodo PR-Agent owns diff-based descriptions, improvement suggestions, on-demand questions and changelog drafting.
 - Q: How many repositories should this feature switch Qodo PR-Agent on for? → A: Only `lightspeedwp/.github`. The reusable, organisation-standard setup is built and documented so other repositories can opt in later, but enabling any other repository is out of scope.
+- Q: Where should Qodo PR-Agent actually run when a PR is opened or someone comments a command? → A: Inside the organisation's own CI, triggered by PR and comment events, using an organisation secret for the model provider. There is no self-hosted server, and the Qodo-hosted app is not used.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -149,7 +150,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 
 **Installation & security**
 
-- **FR-001**: The organisation MUST have Qodo PR-Agent installed and operational on `lightspeedwp/.github` using the open-source (self-managed) distribution. A paid hosted plan is not required.
+- **FR-001**: The organisation MUST have Qodo PR-Agent installed and operational on `lightspeedwp/.github` using the open-source (self-managed) distribution, running inside the organisation's own CI on PR and comment events. It MUST NOT depend on a separately hosted server, a paid hosted plan or the Qodo-hosted app.
 - **FR-002**: The language-model credential MUST be stored only as an organisation or repository secret. It MUST never appear in configuration files, logs or PR comments. The default provider MUST be the organisation's existing Anthropic credential convention (`ANTHROPIC_API_KEY`).
 - **FR-003**: Qodo PR-Agent MUST run with least-privilege permissions, and any third-party action it depends on MUST be pinned to an immutable version, consistent with existing workflow standards.
 - **FR-004**: Code from forked or untrusted PRs MUST NOT be able to read repository secrets through Qodo PR-Agent runs.
@@ -206,7 +207,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 
 ## Assumptions
 
-- The open-source Qodo PR-Agent is used, not the paid Qodo Merge hosted product. The installation runs inside the organisation's existing CI rather than on a separately hosted server, because no webhook-server infrastructure exists today. [NEEDS CLARIFICATION: Should Qodo PR-Agent run (a) inside CI on PR and comment events, reusing existing CI and secrets; (b) as a self-hosted GitHub App or webhook server, which gives faster replies but needs infrastructure; or (c) the free Qodo-hosted app, where code and diffs are sent to a third party?]
+- The open-source Qodo PR-Agent is used, not the paid Qodo Merge hosted product. It runs inside the organisation's own CI, triggered by PR and comment events. No self-hosted GitHub App or webhook server is built, and the Qodo-hosted app is not used, so diffs go only to the organisation's chosen model provider. Replies may take a few minutes because each run starts fresh, which is accepted (see SC-001).
 - Anthropic Claude models are the default provider because `ANTHROPIC_API_KEY` is the organisation's only existing LLM secret convention. Other providers remain possible through configuration.
 - CodeRabbit stays in place as the primary reviewer. Replacing it is out of scope for this feature.
 - The internal PR agent (spec 015) keeps ownership of PR creation, branch validation, template routing and final label application. This feature does not change spec 015's scope; it only adds optional inputs to it.
