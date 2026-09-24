@@ -147,6 +147,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 │   ├── label-inventory-schema.md
 │   ├── label-mapping-schema.md          # US4: mapping and linear-labels.json
 │   ├── decision-issue-template.md       # US4: 06-decision.md content (U9)
+│   ├── issue-types-org-settings.md      # US4: 25 issue types, descriptions, colours (FR-020)
 │   └── dry-run-and-drift-report-schema.md  # US4: deletion dry run and drift report
 ├── checklists/
 │   └── requirements.md                  # Quality validation checklist
@@ -193,6 +194,7 @@ Each stage starts only when the previous stage's exit check passes. Validation s
 
 | Stage | What happens | Gate / exit check | Requirements |
 | --- | --- | --- | --- |
+| 0a. Issue types and colours (immediate) | PR updating `issue-types.yml` (25 entries with descriptions, Decision replaces Question) and `type:*` label colours in `labels.yml` from `contracts/issue-types-org-settings.md`, together with the Decision template and `issue-fields.yml`; then a manual update of the organisation's issue types page in the order given in the contract | Configuration validation and `npm test` pass; settings page matches the contract (Test 10b) | FR-014, FR-019, FR-020 |
 | 0. Evidence | Paginated label inventory for every repository; `evidence/linear-labels.json` with issue counts and proposed mappings (`contracts/label-mapping-schema.md`) | Mapping validation rules pass (Test 9) | FR-006, FR-012 |
 | 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a migration issue for OpenSpec paths, and a new gate issue replacing #95 | @ashley approves all requests | FR-009, FR-013, FR-014, FR-016 |
 | 2. Configuration PR | One PR: `labels.yml` (renames, imports, `type:question` removed), `issue-types.yml`, `06-decision.md` replacing `06-question.md`, `issue-fields.yml`, `label-governance-policy.yml` (new gate issue, `enabled: false`, `type:question` off never-delete), `labeler.yml`, `branch-labels.yml`, scripts referencing `ai-ops:` or `openspec:` labels, and the six docs files | CI green; Test 10 passes | FR-011, FR-012, FR-014 |
@@ -205,6 +207,10 @@ Each stage starts only when the previous stage's exit check passes. Validation s
 **Why this order**: The Linear GitHub integration copies GitHub labels into Linear (`status:done` was recreated in Linear on 2026-09-24). Finishing GitHub first stops Linear clean-up being undone. See research R3.
 
 **Rollback**: Renames are reversed by renaming back. Deletions are reversed from the stage 4 snapshot (recreate the label, reapply it to the recorded issues). Linear retirements are reversed with restore. See research R8.
+
+### Issue Type List (FR-020)
+
+Full list: `contracts/issue-types-org-settings.md`: 25 names, labels, hex colours from `docs/LABEL_COLOR_STRATEGY.md`, native colour names (GitHub's issue types accept only named colours; Teal maps to green), descriptions, and the ordered steps for the organisation settings page.
 
 ### Decision Issue Template (U9)
 

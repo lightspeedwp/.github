@@ -373,6 +373,13 @@
 
 - [x] T040a [US4] Open the constitution v1.3.0–v1.3.1 approval issue in `lightspeedwp/.github` (rationale, affected sections, impact, validation plan) and record its number and @ashley's sign-off in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; blocks merging `audit/label-consolidation` into `develop`
 
+### Stage 0a: Immediate — Issue Types and Colours (FR-014, FR-019, FR-020)
+
+These two tasks come first. The list they use is `contracts/issue-types-org-settings.md`.
+
+- [ ] T040b [US4] In one PR from a correctly named branch (for example `chore/issue-types-colours`): update `.github/issue-types.yml` to the 25 entries in `contracts/issue-types-org-settings.md` (Decision replaces Question; add a `description` for every entry; hex colours from the list) and update every `type:*` label in `.github/labels.yml` to the same hex, adding `type:decision` colour `3467D3` and removing `type:question`. Because template and field validation check labels against `labels.yml`, the same PR also does T053 (create `06-decision.md`, remove `06-question.md`) and T054 (`issue-fields.yml`), and adds `description` to the issue-type schema in `scripts/agents/includes/yaml-validator.js`. Record @ashley's approval (#3530 sign-off plus the `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]`) in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; run `npm test` and `node scripts/validation/validate-labeling-configs.cjs` before merging (depends on T040a)
+- [ ] T040c [US4] Manually update the organisation's issue types page (Settings → Planning → Issue types) using the ordered steps in `contracts/issue-types-org-settings.md`: rename four types, update every description and native colour, move issues off Maintenance, Story and Integration (counts from T041a) and delete those types, then add Decision, Dependency Update and Build; record the final list in `.github/reports/audits/2026-09-14-label-audit/evidence/native-issue-types.json` (depends on T040b, T041a)
+
 ### Stage 0: Evidence (FR-006, FR-010, FR-012)
 
 - [ ] T041 [US4] Write `scripts/automation/label-inventory.js` that lists every `lightspeedwp` repository and pages through each repository's labels with `per_page=100` until no `next` link remains; save the result to `.github/reports/audits/2026-09-14-label-audit/evidence/github-api-labels.json` (replacing the empty inventory) with, per repository, `label_count` and `pages_read` where "`pages_read × 100 ≥ label_count`"
@@ -394,10 +401,10 @@
 
 ### Stage 2: Configuration PR (FR-011, FR-012, FR-014, SC-003)
 
-- [ ] T051 [US4] Update `.github/labels.yml`: rename `ai-ops:*` → `aiops:*` and `openspec:*` → `spec:*`, add approved imports, remove merged sources (for example `status:completed`, `area:tests`) and `type:question`, keeping the header comments; the type family must total exactly 25 (depends on T050)
-- [ ] T052 [P] [US4] Update `.github/issue-types.yml`: replace the Question entry with Decision (`label: type:decision`), keeping 25 entries (depends on T050)
-- [ ] T053 [P] [US4] Create `.github/ISSUE_TEMPLATE/06-decision.md` exactly as defined in `contracts/decision-issue-template.md` (frontmatter, six sections, DoR, DoD), delete `.github/ISSUE_TEMPLATE/06-question.md`, and point question-style requests to Discussions in `.github/ISSUE_TEMPLATE/config.yml` (depends on T050)
-- [ ] T054 [P] [US4] Update `.github/issue-fields.yml`: replace `type:question: Task` with `type:decision: Task`, and remove every `type:*` entry that is not in `.github/labels.yml` after T051 — currently `type:enhancement`, `type:help`, `type:integration`, `type:investigation`, `type:maintenance`, `type:qa`, `type:story`, `type:support`, `type:ui` and `type:ux-feedback` (depends on T050)
+- [ ] T051 [US4] Update `.github/labels.yml`: rename `ai-ops:*` → `aiops:*` and `openspec:*` → `spec:*`, add approved imports, remove merged sources (for example `status:completed`, `area:tests`) and `type:question`, keeping the header comments; `type:*` colours and the `type:question` removal are already done by T040b; the type family must total exactly 25 (depends on T050)
+- [ ] T052 [P] [US4] Superseded by T040b (`.github/issue-types.yml` already updated); verify only that it still has 25 entries matching `contracts/issue-types-org-settings.md`
+- [ ] T053 [P] [US4] Done in T040b's PR; if not, Create `.github/ISSUE_TEMPLATE/06-decision.md` exactly as defined in `contracts/decision-issue-template.md` (frontmatter, six sections, DoR, DoD), delete `.github/ISSUE_TEMPLATE/06-question.md`, and point question-style requests to Discussions in `.github/ISSUE_TEMPLATE/config.yml` (depends on T050)
+- [ ] T054 [P] [US4] Done in T040b's PR; if not, Update `.github/issue-fields.yml`: replace `type:question: Task` with `type:decision: Task`, and remove every `type:*` entry that is not in `.github/labels.yml` after T051 — currently `type:enhancement`, `type:help`, `type:integration`, `type:investigation`, `type:maintenance`, `type:qa`, `type:story`, `type:support`, `type:ui` and `type:ux-feedback` (depends on T050)
 - [ ] T055 [P] [US4] Update `.github/label-governance-policy.yml`: set `gated_by_issue` to the new gate issue number, keep `enabled: false`, remove `type:question` and other labels no longer in `labels.yml` from `never_delete_labels` (resolving the 12 policy misalignments from Finding 2), and update `last_updated` (depends on T050)
 - [ ] T056 [P] [US4] Update `.github/labeler.yml` and `.github/branch-labels.yml` for every renamed or merged label in T043 (depends on T050)
 - [ ] T057 [US4] Update every script and workflow listed in `.github/reports/audits/2026-09-14-label-audit/evidence/renamed-label-references.json` (under `scripts/` and `.github/workflows/`) to the new label names, and make label-creating automation create only labels present in `.github/labels.yml` (research R6c) (depends on T044, T051)
@@ -417,8 +424,8 @@
 
 ### Stage 4: Gated GitHub Deletion (FR-016)
 
-- [ ] T064a [US4] Move every issue on the Maintenance, Story or Integration native types to its mapped type (Maintenance → Chore plus `area:maintenance`, Integration → Feature plus `area:integration`, Story → Feature) and update its `type:*` label to match, recording each change in `.github/reports/audits/2026-09-14-label-audit/evidence/native-issue-types.json` (depends on T041a, T059)
-- [ ] T064b [US4] Change the organisation's native issue types in this order (the organisation is limited to 25): rename A11y → Accessibility, Code Refactor → Refactor, Code Review → Review, Build & CI → CI; remove Maintenance, Story and Integration once T064a shows zero issues on them; add Build, Dependency Update and Decision. Use the organisation issue-types API if available, otherwise organisation settings; confirm the final list matches `.github/issue-types.yml` and record it in `.github/reports/audits/2026-09-14-label-audit/evidence/native-issue-types.json` (depends on T064a)
+- [ ] T064a [US4] Superseded by T040c (manual organisation update); verify only. Original scope: Move every issue on the Maintenance, Story or Integration native types to its mapped type (Maintenance → Chore plus `area:maintenance`, Integration → Feature plus `area:integration`, Story → Feature) and update its `type:*` label to match, recording each change in `.github/reports/audits/2026-09-14-label-audit/evidence/native-issue-types.json` (depends on T041a, T059)
+- [ ] T064b [US4] Superseded by T040c (manual organisation update); verify only. Original scope: Change the organisation's native issue types in this order (the organisation is limited to 25): rename A11y → Accessibility, Code Refactor → Refactor, Code Review → Review, Build & CI → CI; remove Maintenance, Story and Integration once T064a shows zero issues on them; add Build, Dependency Update and Decision. Use the organisation issue-types API if available, otherwise organisation settings; confirm the final list matches `.github/issue-types.yml` and record it in `.github/reports/audits/2026-09-14-label-audit/evidence/native-issue-types.json` (depends on T064a)
 - [ ] T065 [US4] Extend `scripts/automation/label-consolidate.js` with a deletion dry run that fills `to_delete` in `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json` with a full snapshot per label (name, colour, description, open and closed item numbers) and a `migrate_to` for every label on open items, per `contracts/dry-run-and-drift-report-schema.md` (depends on T064)
 - [ ] T066 [US4] Post each repository's dry-run summary on the gate issue and record @ashley's per-repository approval in the `approval` block of `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json`; repositories without approval are marked `skipped` (depends on T065)
 - [ ] T067 [US4] From @ashley's session, run `scripts/automation/label-consolidate.js --apply --confirm-gate <gate issue number>`, which migrates open items and deletes the listed labels only in repositories whose `evidence/dry-run/{repo}.json` approval is `approved` and refuses otherwise; `destructive_cleanup.enabled` in `.github/label-governance-policy.yml` stays `false`; then run quickstart Test 12 (depends on T066)
@@ -443,7 +450,7 @@
 
 **Audit is COMPLETE when**:
 
-✅ All 77 tasks in phases 1-8 are completed  
+✅ All 79 tasks in phases 1-8 are completed  
 ✅ Phase 2 (Foundational) complete - BLOCKS all story work (done)  
 ✅ User Story 1 (P1) complete - Reconciliation report with all inconsistencies identified  
 ✅ User Story 2 (P2) complete - Duplicates analysis and consolidation strategy  
@@ -467,7 +474,7 @@
 - **User Story 3 (Phase 5)**: Depends on Foundational completion (can start after Phase 2, parallel to US1)
 - **Integration (Phase 6)**: Depends on US1, US2, US3 completion
 - **Polish (Phase 7)**: Final phase after all analysis complete
-- **User Story 4 (Phase 8)**: Depends on Phase 3 (US1) evidence only; independent of US2, US3 and Phases 6-7. Its stages run strictly in order: Stage 0 → 1 (approval gate) → 2 → 2b (after T059) and 3 → 4 (per-repository approval gate) → 5 → 6. Stage 2b (T060–T061) starts after T059 merges; Stages 3 onward don't wait for it
+- **User Story 4 (Phase 8)**: Depends on Phase 3 (US1) evidence only; independent of US2, US3 and Phases 6-7. Its stages run strictly in order: Stage 0a (T040b, then T040c after T041a) → Stage 0 → 1 (approval gate) → 2 → 2b (after T059) and 3 → 4 (per-repository approval gate) → 5 → 6. Stage 2b (T060–T061) starts after T059 merges; Stages 3 onward don't wait for it
 
 ### Parallel Opportunities
 
@@ -525,10 +532,10 @@
 
 ---
 
-**Total Tasks**: 77 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
+**Total Tasks**: 79 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
 
 **MVP Completion**: Phases 1-3 (Setup + Foundational + US1) ≈ 50% of tasks
-**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 37 of the 77)
+**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 39 of the 79)
 
 **Next Step**: Run first task in Phase 1 (T001 - Create output directory). Report progress checkpoint after Phase 2 completion (all data extracted and verified).
 
