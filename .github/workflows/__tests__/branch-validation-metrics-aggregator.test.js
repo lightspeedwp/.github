@@ -30,18 +30,6 @@ function findStep(jobName, identifier) {
   return step;
 }
 
-function renderExpressions(script, expressions) {
-  return script.replace(/\$\{\{\s*([^}]+?)\s*\}\}/gu, (_match, expression) => {
-    const key = expression.trim();
-
-    if (!Object.hasOwn(expressions, key)) {
-      throw new Error(`No test value supplied for expression: ${key}`);
-    }
-
-    return expressions[key];
-  });
-}
-
 function metricFile(overrides = {}) {
   return JSON.stringify({
     timestamp: '2026-09-24T00:00:00Z',
