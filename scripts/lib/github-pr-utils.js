@@ -9,6 +9,8 @@
 
 import { spawnSync } from 'child_process';
 
+const OPEN_PR_LIMIT = 250;
+
 export function isGhAvailable() {
   const result = spawnSync('gh', ['--version'], { encoding: 'utf8' });
   return result.status === 0;
@@ -22,7 +24,18 @@ export function getOpenPRs() {
 
   const result = spawnSync(
     'gh',
-    ['pr', 'list', '--state', 'open', '--json', 'headRefName', '--jq', '.[].headRefName'],
+    [
+      'pr',
+      'list',
+      '--state',
+      'open',
+      '--limit',
+      String(OPEN_PR_LIMIT),
+      '--json',
+      'headRefName',
+      '--jq',
+      '.[].headRefName',
+    ],
     {
       encoding: 'utf8',
       env: {
@@ -52,6 +65,13 @@ export function getOpenPRs() {
     .map((b) => b.trim())
     .filter(Boolean);
 
+  if (prBranches.length >= OPEN_PR_LIMIT) {
+    console.warn(
+      `⚠️  Open PR list truncated at ${OPEN_PR_LIMIT}. Open-PR verification is unavailable.`
+    );
+    return null;
+  }
+
   return new Set(prBranches);
 }
 
@@ -70,7 +90,16 @@ export function getOpenPRDetails() {
 
   const result = spawnSync(
     'gh',
-    ['pr', 'list', '--state', 'open', '--json', 'headRefName,title,author'],
+    [
+      'pr',
+      'list',
+      '--state',
+      'open',
+      '--limit',
+      String(OPEN_PR_LIMIT),
+      '--json',
+      'headRefName,title,author',
+    ],
     {
       encoding: 'utf8',
       env: {
@@ -86,7 +115,14 @@ export function getOpenPRDetails() {
 
   try {
     const output = (result.stdout || '').trim();
-    return output ? JSON.parse(output) : [];
+    const details = output ? JSON.parse(output) : [];
+    if (Array.isArray(details) && details.length >= OPEN_PR_LIMIT) {
+      console.warn(
+        `⚠️  Open PR details truncated at ${OPEN_PR_LIMIT}. Open-PR verification is unavailable.`
+      );
+      return null;
+    }
+    return details;
   } catch {
     return null;
   }
