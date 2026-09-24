@@ -287,14 +287,12 @@ references:
    - **Example**:
 
      ```mermaid
-accTitle: Flowchart
-flowchart TB
+     flowchart TB
          A[LightSpeed Org] --> B[Community Health]
          A --> C[Documentation]
          A --> D[Scripts & Automation]
          A --> E[Testing Framework]
-accDescr: Detailed diagram
-```
+     ```
 
 3. **/docs/README.md**
    - **Issue**: Simple index without visual aid
