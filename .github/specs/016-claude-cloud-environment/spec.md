@@ -24,6 +24,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 ### Session 2026-09-24
 
 - Q: When a maintainer explicitly asks Claude to commit straight to `develop` or `main`, should the guard ever allow it? → A: Only for specification and documentation changes: a commit or push to a protected branch is allowed when every changed file is under `.github/specs/` or `docs/`. Code and configuration changes always need a feature branch and PR.
+- Q: Should the branch guard also apply when team members run Claude Code on their own machines, or only in cloud sessions? → A: Both. The guard blocks in cloud and local sessions alike; the enforcement switch is the only way to downgrade it to warnings.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -128,7 +129,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
 - **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal.
 - **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings.
-- **FR-014**: Enforcement MUST apply in both cloud and local agent sessions on this repository.
+- **FR-014**: Enforcement MUST block in both cloud and local agent sessions on this repository, with identical rules. Only the enforcement switch (FR-013) may downgrade refusals to warnings, in either setting.
 
 #### Shared environment
 
