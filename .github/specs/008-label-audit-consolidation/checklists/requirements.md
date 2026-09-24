@@ -42,7 +42,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -63,7 +63,7 @@
 
 ## Validation Notes
 
-⏳ **2026-09-24 update for [#3554](https://github.com/lightspeedwp/.github/issues/3554)**: FR-021, SC-010, acceptance scenarios 10–11, three edge cases and two clarifications added. Two [NEEDS CLARIFICATION] markers remain in FR-012 (`area:observability` merge; colours for imported labels). Every other item still passes.
+⏳ **2026-09-24 update for [#3554](https://github.com/lightspeedwp/.github/issues/3554)**: FR-021, SC-010, acceptance scenarios 10–11, three edge cases and two clarifications added. Both [NEEDS CLARIFICATION] markers in FR-012 were resolved by `/speckit-clarify` the same day (keep `area:observability`; import colours follow the strategy where it has a rule). All items pass.
 
 ✅ **PASSED (2026-09-14)** - All items complete.
 
