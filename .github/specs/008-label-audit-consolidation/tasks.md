@@ -363,16 +363,88 @@
 
 ---
 
+## Phase 8: User Story 4 - Governance Lead Aligns GitHub and Linear Labels (Priority: P1)
+
+**Goal**: One approved label set shared by every `lightspeedwp` repository and the Linear workspace, with exactly 25 type labels and no drift (FR-011 to FR-017, SC-003, SC-009).
+
+**Independent Test**: After one approved run, every repository and Linear hold only labels from `labels.yml` (plus documented team-scoped Linear labels), the type family has exactly 25 labels, and the first drift report says "No drift" (quickstart Tests 9 to 14).
+
+**Depends on**: Phase 3 (US1) evidence. Stages run strictly in order (plan.md, Consolidation Execution Plan); each stage's exit check must pass before the next starts. Branches for the PRs below must follow `{type}/{scope}-{title}` (for example `chore/labels-consolidation-config`).
+
+### Stage 0: Evidence (FR-006, FR-010, FR-012)
+
+- [ ] T041 [US4] Write `scripts/automation/label-inventory.js` that lists every `lightspeedwp` repository and pages through each repository's labels with `per_page=100` until no `next` link remains; save the result to `.github/reports/audits/2026-09-14-label-audit/evidence/github-api-labels.json` (replacing the empty inventory) with, per repository, `label_count` and `pages_read` where "`pages_read × 100 ≥ label_count`"
+- [ ] T042 [P] [US4] Export all Linear workspace and team labels with per-label issue counts (exact label ID filter, archived issues included) into the `sources` block of `.github/reports/audits/2026-09-14-label-audit/evidence/linear-labels.json`, following `contracts/label-mapping-schema.md`
+- [ ] T043 [US4] Fill `mappings[]` in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-labels.json` from spec FR-011 (renames), FR-012 (imports, merges, retirements, team-scope), FR-014 (swap) and FR-015 (re-prefix), with each entry's `action` one of "`rename`, `import`, `merge`, `re-prefix`, `retire`, `team-scope`, `swap`"; check validation rules 1 to 5 of the schema, including "No mapping leaves an issue with zero or two `type:*` labels" (depends on T041, T042)
+- [ ] T044 [P] [US4] Search workflows, scripts, configuration and docs for every label being renamed, merged or retired (`ai-ops:`, `openspec:`, `type:question`, `status:completed`, `area:tests` and the other FR-012 sources) and record file, line and label in `.github/reports/audits/2026-09-14-label-audit/evidence/renamed-label-references.json` as FR-010/FR-011 impact evidence
+- [ ] T045 [US4] Add a "Consolidation mapping" section to `.github/reports/audits/2026-09-14-label-audit/007-audit-report.md` summarising `linear-labels.json`, and correct Finding 1: `type:decision` is intentionally unmapped until the FR-014 swap, so it is not a HIGH gap (depends on T043)
+
+**Checkpoint**: quickstart Test 9 passes (every mapping target exists in the proposed `labels.yml`).
+
+### Stage 1: Approve (FR-009, FR-013, FR-014, FR-016)
+
+- [ ] T046 [US4] Draft the `[LABEL-UPDATE-REQUEST]` issue body with the full mapping table and impact list from T043/T044 in `.github/reports/audits/2026-09-14-label-audit/change-requests/label-update-request.md`
+- [ ] T047 [P] [US4] Draft the `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` bodies for Question → Decision, citing `contracts/decision-issue-template.md`, in `.github/reports/audits/2026-09-14-label-audit/change-requests/issue-type-update-request.md` and `.github/reports/audits/2026-09-14-label-audit/change-requests/template-update-request.md`
+- [ ] T048 [P] [US4] Draft the OpenSpec migration issue body listing every source → target path (`OPENSPEC*.md` → `SPEC*.md`, `skills/openspec-estimate-planner/` → `skills/speckit-estimate-planner/`, and the chosen target for the `openspec/` folder) in `.github/reports/audits/2026-09-14-label-audit/change-requests/openspec-migration.md`
+- [ ] T049 [P] [US4] Draft the new deletion gate issue body that replaces closed issue #95, describing the per-repository dry-run approval flow from `contracts/dry-run-and-drift-report-schema.md`, in `.github/reports/audits/2026-09-14-label-audit/change-requests/label-deletion-gate.md`
+- [ ] T050 [US4] Open the five issues in `lightspeedwp/.github` using only prefixed labels from `labels.yml` (for example `type:task`, `area:labels`), link the label request as the approval issue for constitution v1.3.0/v1.3.1, and record issue numbers and approval status in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json`; stop until @ashley approves all five (depends on T046 to T049)
+
+### Stage 2: Configuration PR (FR-011, FR-012, FR-014, SC-003)
+
+- [ ] T051 [US4] Update `.github/labels.yml`: rename `ai-ops:*` → `aiops:*` and `openspec:*` → `spec:*`, add approved imports, remove merged sources (for example `status:completed`, `area:tests`) and `type:question`, keeping the header comments; the type family must total exactly 25 (depends on T050)
+- [ ] T052 [P] [US4] Update `.github/issue-types.yml`: replace the Question entry with Decision (`label: type:decision`), keeping 25 entries (depends on T050)
+- [ ] T053 [P] [US4] Create `.github/ISSUE_TEMPLATE/06-decision.md` exactly as defined in `contracts/decision-issue-template.md` (frontmatter, six sections, DoR, DoD), delete `.github/ISSUE_TEMPLATE/06-question.md`, and point question-style requests to Discussions in `.github/ISSUE_TEMPLATE/config.yml` (depends on T050)
+- [ ] T054 [P] [US4] Update `.github/issue-fields.yml`: replace `type:question: Task` with `type:decision: Task`, and remove the Linear-only type entries retired by FR-015 (`type:ux-feedback`, `type:help`, `type:support`, `type:ui`, `type:qa`) (depends on T050)
+- [ ] T055 [P] [US4] Update `.github/label-governance-policy.yml`: set `gated_by_issue` to the new gate issue number, keep `enabled: false`, remove `type:question` and other labels no longer in `labels.yml` from `never_delete_labels` (resolving the 12 policy misalignments from Finding 2), and update `last_updated` (depends on T050)
+- [ ] T056 [P] [US4] Update `.github/labeler.yml` and `.github/branch-labels.yml` for every renamed or merged label in T043 (depends on T050)
+- [ ] T057 [US4] Update every script and workflow listed in `.github/reports/audits/2026-09-14-label-audit/evidence/renamed-label-references.json` (under `scripts/` and `.github/workflows/`) to the new label names, and make label-creating automation create only labels present in `.github/labels.yml` (research R6c) (depends on T044, T051)
+- [ ] T058 [P] [US4] Update `docs/LABELING_FAQ.md`, `docs/LABEL_INVENTORY.md`, `docs/ISSUE_FIELDS.md`, `docs/ISSUE_TRIAGE_AUTOMATION.md`, `docs/CODERABBIT_LABELS_ALIGNMENT.md` and `docs/LABEL_STRATEGY.md` for the renamed labels and the Decision type (depends on T051)
+- [ ] T059 [US4] Run quickstart Test 10, `npm test`, `npm run lint:md` and `npm run validate:frontmatter`; open the configuration PR from a correctly named branch and get it merged (depends on T051 to T058)
+
+### Stage 2b: Spec Kit Rename PR (FR-013)
+
+- [ ] T060 [US4] Rename every live OpenSpec path with `git mv` per the approved migration issue from T048 (excluding `*/reports/*`, `*/archived/*`, `node_modules/`) and update every link to those paths (depends on T050)
+- [ ] T061 [US4] Replace OpenSpec text references in live file contents with `speckit` (tool and process) or `spec`/`specs` (artefacts and labels), then run quickstart Test 11 and open the rename PR separately from T059 (depends on T060)
+
+### Stage 3: GitHub Changes (FR-011, FR-012, FR-014, FR-015)
+
+- [ ] T062 [US4] Write `scripts/automation/label-consolidate.js` (dry-run by default, `--apply` to execute) that, per repository and with full pagination, renames labels in place, creates or updates labels from `.github/labels.yml`, and relabels items where the target already exists before removing the source; write planned `to_create` and `to_rename` into `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json` (depends on T059)
+- [ ] T063 [US4] In each repository with open `type:question` issues, convert them to Discussions (Q&A category) with the Labels page bulk action; relabel closed ones `type:task` + `discussion:support`; record repositories where Discussions are disabled in `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json` and relabel their open issues the same way (depends on T059)
+- [ ] T064 [US4] Run `scripts/automation/label-consolidate.js --apply` for renames, creates and relabels across all repositories, then confirm no issue or PR has zero or two `type:*` labels, recording the check in `.github/reports/audits/2026-09-14-label-audit/evidence/type-label-check.json` (depends on T062, T063)
+
+### Stage 4: Gated GitHub Deletion (FR-016)
+
+- [ ] T065 [US4] Extend `scripts/automation/label-consolidate.js` with a deletion dry run that fills `to_delete` in `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json` with a full snapshot per label (name, colour, description, open and closed item numbers) and a `migrate_to` for every label on open items, per `contracts/dry-run-and-drift-report-schema.md` (depends on T064)
+- [ ] T066 [US4] Post each repository's dry-run summary on the gate issue and record @ashley's per-repository approval in the `approval` block of `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json`; repositories without approval are marked `skipped` (depends on T065)
+- [ ] T067 [US4] For approved repositories only: set `destructive_cleanup.enabled: true` in `.github/label-governance-policy.yml`, migrate open items, delete the listed labels, set `enabled` back to `false`, and run quickstart Test 12 (depends on T066)
+- [ ] T068 [P] [US4] Update the organisation's default repository labels to match `.github/labels.yml` (API if available, otherwise organisation settings), recording the method used on the gate issue and in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json` (research R9) (depends on T059)
+
+### Stage 5: Linear Clean-up (FR-012, FR-015, FR-017)
+
+- [ ] T069 [US4] In Linear, relabel every issue for each `merge` and `re-prefix` mapping in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-labels.json` (each issue ends with exactly one `type:*` label), then retire the source labels; retire, never delete (depends on T067)
+- [ ] T070 [P] [US4] In Linear, retire zero-use and `retire` mapped labels, move `area:xero`, `area:flow`, `area:jobs` and `area:monorepo` to team scope, retire `type:question` after its issues are migrated, and set colours and descriptions to match `.github/labels.yml` (including removing "Openspec" from `spec:*` descriptions); log every change in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-changes.json` (depends on T067)
+- [ ] T071 [US4] Restrict label creation in Linear's GitHub integration and limit repository label management to maintainers (research R6a/R6b), record the settings applied on the gate issue and in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-changes.json`, and run quickstart Test 13 (depends on T069, T070)
+
+### Stage 6: Drift Check (FR-017, SC-009)
+
+- [ ] T072 [US4] Create `.github/workflows/label-drift-check.yml` (weekly `schedule` plus `workflow_dispatch`) running a new `scripts/automation/label-drift-check.js` that compares every repository's labels and the Linear workspace labels with `.github/labels.yml` and creates or updates the single "Label drift report" issue per `contracts/dry-run-and-drift-report-schema.md`; it must never create, edit or delete labels, and needs a Linear API secret configured in the repository (depends on T071)
+- [ ] T073 [US4] Trigger the drift workflow manually, confirm the report shows "No drift" with team-scoped Linear labels only under allowed exceptions (quickstart Test 14, SC-009), close the gate issue and change requests with links to the evidence, and mark all five as closed in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json` (depends on T072)
+
+**Checkpoint**: User Story 4 complete. SC-003 (25 type labels, each mapped) and SC-009 (zero unapproved labels in GitHub and Linear) are both met.
+
+---
+
 ## Completion Criteria
 
 **Audit is COMPLETE when**:
 
-✅ All 40 tasks in phases 1-7 are completed  
+✅ All 73 tasks in phases 1-8 are completed  
 ✅ Phase 2 (Foundational) complete - BLOCKS all story work (done)  
 ✅ User Story 1 (P1) complete - Reconciliation report with all inconsistencies identified  
 ✅ User Story 2 (P2) complete - Duplicates analysis and consolidation strategy  
 ✅ User Story 3 (P3) complete - Workflow analysis and restoration roadmap  
-✅ All 8 validation tests pass (quickstart.md)  
+✅ User Story 4 (P1) complete - GitHub and Linear share one approved label set; drift report clean (SC-003, SC-009)  
+✅ All 14 validation tests pass (quickstart.md)  
 ✅ Every finding has evidence-based support (file + line + quote)  
 ✅ All deliverables in `.github/reports/audits/2026-09-14-label-audit/` directory  
 ✅ audit-report.md, label-inventory.csv, duplicates-analysis.md, workflow-analysis.md all present and complete  
@@ -390,6 +462,7 @@
 - **User Story 3 (Phase 5)**: Depends on Foundational completion (can start after Phase 2, parallel to US1)
 - **Integration (Phase 6)**: Depends on US1, US2, US3 completion
 - **Polish (Phase 7)**: Final phase after all analysis complete
+- **User Story 4 (Phase 8)**: Depends on Phase 3 (US1) evidence only; independent of US2, US3 and Phases 6-7. Its stages run strictly in order: Stage 0 → 1 (approval gate) → 2 and 2b → 3 → 4 (per-repository approval gate) → 5 → 6. Stage 2b (T060-T061) can run alongside Stage 2 after approval
 
 ### Parallel Opportunities
 
@@ -399,6 +472,7 @@
 - Within Phase 3: T013-T014 can run in parallel, T015-T016 can run in parallel, T017-T018 can run in parallel
 - Within Phase 5: All T026 tasks can run in parallel (one per workflow)
 - Phase 6 tasks T031-T032-T033 can run in parallel
+- Within Phase 8: T041 and T042 and T044 in parallel; T047-T049 in parallel; T052-T056 in parallel after approval; T058 alongside T057; T068 alongside Stage 3/4; T069 and T070 in parallel
 
 **Recommended parallel execution with multiple auditors**:
 
@@ -446,10 +520,10 @@
 
 ---
 
-**Total Tasks**: 40 | **Phases**: 7 | **User Stories**: 3 (P1, P2, P3) | **Parallel Opportunities**: High (within phases, across stories)
+**Total Tasks**: 73 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
 
 **MVP Completion**: Phases 1-3 (Setup + Foundational + US1) ≈ 50% of tasks
-**Full Completion**: All 7 phases ≈ 100% of tasks
+**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 33 of the 73)
 
 **Next Step**: Run first task in Phase 1 (T001 - Create output directory). Report progress checkpoint after Phase 2 completion (all data extracted and verified).
 
