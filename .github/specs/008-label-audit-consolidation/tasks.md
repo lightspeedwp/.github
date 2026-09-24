@@ -71,11 +71,11 @@
 
 ### Data Extraction Tasks
 
-- [x] T006 Extract canonical labels from `.github/labels.yml`: Create JSON with all 169 labels (name, color, description, family). Save to `evidence/canonical-labels.json`
+- [x] T006 Extract canonical labels from `.github/labels.yml`: Create JSON with all 169 labels (name, color, description, family). Save to `evidence/canonical-labels.json` (FR-001)
   - Include: family (e.g., "status", "priority", "type"), name (full name with prefix), color (hex), description
   - Verify count: Exactly 169 labels
   
-- [x] T007 Extract issue types from `.github/issue-types.yml`: Create JSON with all 25 type labels and their mappings. Save to `evidence/issue-types.json`
+- [x] T007 Extract issue types from `.github/issue-types.yml`: Create JSON with all 25 type labels and their mappings. Save to `evidence/issue-types.json` (FR-002)
   - Include: Issue type name, label name, color
   - Verify count: Exactly 25 types (IMMUTABLE)
   - Verify each type maps to one `type:*` label
@@ -88,11 +88,11 @@
   - Include: All labels currently on repository
   - Verify structure matches output format (JSON)
   
-- [x] T010 Parse documentation files: Extract label families and taxonomy mentioned in `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md`. Save to `evidence/documentation-references.json`
+- [x] T010 Parse documentation files: Extract label families and taxonomy mentioned in `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md`. Save to `evidence/documentation-references.json` (FR-004)
   - Include: File path, labels mentioned, context/description
   - Note: Which families are documented, which aren't
   
-- [x] T011 [P] Analyze each archived workflow file: Extract purpose, labels referenced, triggers, actions from all 11 files in `.github/workflows/archived/2026-09-11/labeling/`. Save to `evidence/archived-workflows.json`
+- [x] T011 [P] Analyze each archived workflow file: Extract purpose, labels referenced, triggers, actions from all 11 files in `.github/workflows/archived/2026-09-11/labeling/`. Save to `evidence/archived-workflows.json` (FR-005)
   - For each workflow: name, file path, purpose (from comments/description), labels used, triggers (issues/pull_request/etc.), actions performed
   - Extract any configuration or conditionals that may explain why it was archived
   
@@ -112,49 +112,49 @@
 
 ### Phase 3.1: Canonical vs Governance Policy Comparison
 
-- [X] T013 [US1] Compare canonical labels against governance policy: For each label in governance never-delete list, verify it exists in canonical file with matching name
+- [X] T013 [US1] Compare canonical labels against governance policy: For each label in governance never-delete list, verify it exists in canonical file with matching name (output: `.github/reports/audits/2026-09-14-label-audit/evidence/governance-vs-canonical.json`) (FR-003)
   - Create findings JSON: `{ finding_type: "mismatch" | "missing", source_label: "...", canonical_label: "..." }`
   - Save to `evidence/governance-vs-canonical.json`
   - Expected findings: type:documentation → type:docs, type:ai-ops → type:aiops, plus 6-8 labels missing from canonical
   
-- [X] T014 [P] [US1] Generate governance gaps report: List all labels in governance policy that are NOT in canonical file OR have name mismatches
+- [X] T014 [P] [US1] Generate governance gaps report: List all labels in governance policy that are NOT in canonical file OR have name mismatches (output: `.github/reports/audits/2026-09-14-label-audit/evidence/governance-gaps.json`) (FR-003)
   - Include: Line number in policy file, current name, canonical name (if exists), recommendation
   - Save to `evidence/governance-gaps.json`
 
 ### Phase 3.2: Issue Types Validation
 
-- [X] T015 [US1] Verify all 25 mapped type labels present in canonical: Cross-reference issue-types.yml with labels.yml
+- [X] T015 [US1] Verify all 25 mapped type labels present in canonical: Cross-reference issue-types.yml with labels.yml (output: `.github/reports/audits/2026-09-14-label-audit/evidence/type-labels-validation.json`) (FR-002)
   - For each of 25 types: Confirm label exists in canonical file with matching name and color
   - Record `type:decision` as the 26th canonical `type:*` label with no issue-types.yml mapping (governance gap, pending decision)
   - Create verification JSON: `{ type: "...", label: "...", in_canonical: true/false, color_match: true/false }`
   - Save to `evidence/type-labels-validation.json`
   - Expected result: All 25 mapped present, all colors match; `type:decision` documented as unmapped
   
-- [X] T016 [US1] Type labels immutability check: Verify type: family has exactly 26 labels (25 mapped + `type:decision` unmapped), no other additions/removals
+- [X] T016 [US1] Type labels immutability check: Verify type: family has exactly 26 labels (25 mapped + `type:decision` unmapped), no other additions/removals (output: `.github/reports/audits/2026-09-14-label-audit/evidence/type-labels-validation.json`) (FR-008)
   - Compare current canonical count against issue-types.yml count
   - Confirm: 25 mapped type labels all present; `type:decision` recorded as unmapped gap, no changes needed by the audit itself
 
 ### Phase 3.3: Missing Labels Detection
 
-- [ ] T017 [US1] Identify orphan labels: Compare GitHub API labels against canonical file
+- [ ] T017 [US1] Identify orphan labels: Compare GitHub API labels against canonical file (output: `.github/reports/audits/2026-09-14-label-audit/evidence/github-api-labels.json`)
   - For each label in GitHub API: Check if it exists in canonical file
   - Create findings JSON: `{ label: "...", in_github_api: true, in_canonical: false, status: "orphan" }`
   - Save to `evidence/orphan-labels.json`
   - Expected result: If orphans exist, document them
   
-- [X] T018 [P] [US1] Check for undocumented labels: Compare canonical file against documentation
+- [X] T018 [P] [US1] Check for undocumented labels: Compare canonical file against documentation (output: `.github/reports/audits/2026-09-14-label-audit/evidence/documentation-coverage.json`) (FR-004)
   - For each label in canonical: Verify it's mentioned in LABEL_STRATEGY.md or relevant LABEL_*.md
   - Create findings JSON: `{ label: "...", documented: true/false, doc_files: [...] }`
   - Save to `evidence/documentation-coverage.json`
 
 ### Phase 3.4: Generate Reconciliation Findings
 
-- [x] T019 [US1] Consolidate all inconsistencies into findings report: Combine all Phase 3 sub-findings
+- [x] T019 [US1] Consolidate all inconsistencies into findings report: Combine all Phase 3 sub-findings (output: `.github/reports/audits/2026-09-14-label-audit/evidence/all-findings.json`)
   - Create comprehensive JSON: One entry per finding with finding_type, severity, evidence (file + line), recommendation
   - Structure: Similar to data-model.md ReconciliationFinding entity
   - Save to `evidence/all-findings.json`
   
-- [x] T020 [US1] Generate audit-report.md: Main deliverable with findings summary
+- [x] T020 [US1] Generate audit-report.md: Main deliverable with findings summary (output: `.github/reports/audits/2026-09-14-label-audit/007-audit-report.md`)
   - Include sections:
     - Executive Summary (status, key metrics, critical issues)
     - Label Inventory by Family (status, priority, type, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, meta, release, openspec)
@@ -176,13 +176,13 @@
 
 ### Phase 4.1: Duplicate Label Detection
 
-- [x] T021 [US2] Analyze label families for semantic duplicates: For each family, identify labels with similar purposes
+- [x] T021 [US2] Analyze label families for semantic duplicates: For each family, identify labels with similar purposes (output: `.github/reports/audits/2026-09-14-label-audit/evidence/duplicate-candidates.json`) (FR-007)
   - Examples: type:documentation vs type:docs (already identified as mismatch)
   - Area family analysis: area:ai, area:agents, area:skills, area:instructions, area:prompts (might overlap conceptually)
   - Create analysis JSON: `{ family: "...", label1: "...", label2: "...", reason_duplicate: "...", confidence: "high/medium/low" }`
   - Save to `evidence/duplicate-candidates.json`
   
-- [x] T022 [P] [US2] Check historical usage patterns: For each duplicate candidate, determine which should be canonical (done 2026-09-24 with document, automation and policy counts; issue and PR usage counts read "pending T041/T042" until the live inventories exist, so the SC-004 ranking is completed after T041 and T042)
+- [x] T022 [P] [US2] Check historical usage patterns: For each duplicate candidate, determine which should be canonical (done 2026-09-24 with document, automation and policy counts; issue and PR usage counts read "pending T041/T042" until the live inventories exist, so the SC-004 ranking is completed after T041 and T042) (output: `.github/reports/audits/2026-09-14-label-audit/evidence/duplicate-consolidation-analysis.json`) (FR-007)
   - Query: Which label appears more frequently in issues/PRs (if accessible via API)?
   - Query: Which label is mentioned in documentation more often?
   - Which label is in governance policy never-delete list?
@@ -191,7 +191,7 @@
 
 ### Phase 4.2: Consolidation Strategy
 
-- [x] T023 [US2] Generate consolidation recommendations: For each identified duplicate
+- [x] T023 [US2] Generate consolidation recommendations: For each identified duplicate (output: `.github/reports/audits/2026-09-14-label-audit/evidence/consolidation-recommendations.json`)
   - Decision: Keep canonical name or rename?
   - Migration strategy: Rename, deprecate, or alias?
   - Impact analysis: Which workflows/automations use each label?
@@ -199,14 +199,14 @@
   - Create recommendation JSON: Similar to data-model.md format with impact analysis
   - Save to `evidence/consolidation-recommendations.json`
   
-- [x] T024 [US2] Identify labeling gaps: Labels mentioned in docs but not in canonical, or policy but not canonical
+- [x] T024 [US2] Identify labeling gaps: Labels mentioned in docs but not in canonical, or policy but not canonical (output: `.github/reports/audits/2026-09-14-label-audit/evidence/labeling-gaps.json`)
   - Clarify: Are these intentional (deprecated), or should they be added to canonical?
   - Create gap analysis JSON: `{ gap_type: "documentation_only" | "policy_only", label: "...", recommendation: "add_to_canonical" | "remove_from_docs" | "deprecated" }`
   - Save to `evidence/labeling-gaps.json`
 
 ### Phase 4.3: Generate Duplicates Analysis Report
 
-- [x] T025 [US2] Generate duplicates-analysis.md: Consolidation strategy document
+- [x] T025 [US2] Generate duplicates-analysis.md: Consolidation strategy document (output: `.github/reports/audits/2026-09-14-label-audit/duplicates-analysis.md`)
   - Include sections:
     - Executive Summary (total duplicates, high-priority consolidations)
     - Duplicate Families (area, type, other families with consolidation candidates)
@@ -228,7 +228,7 @@
 
 ### Phase 5.1: Archived Workflow Analysis
 
-- [x] T026 [P] [US3] Analyze each of 11 archived workflows, starting from the per-workflow data already extracted by T011 in `evidence/archived-workflows.json` (do not re-extract): add failure points and assessment for each file
+- [x] T026 [P] [US3] Analyze each of 11 archived workflows, starting from the per-workflow data already extracted by T011 in `evidence/archived-workflows.json` (do not re-extract): add failure points and assessment for each file (FR-005)
   - Workflow 1: batch-label-prs.yml
   - Workflow 2: issue-labeling-automation.yml
   - Workflow 3: label-audit-report.yml
@@ -243,7 +243,7 @@
   - For each: Extract purpose, labels referenced, triggers, actions, any error handling or validation
   - Create analysis JSON per workflow: Save to `evidence/workflow-[name].json`
   
-- [x] T027 [US3] Determine archival reason for each workflow: Conflicts, performance, obsolete, superseded?
+- [x] T027 [US3] Determine archival reason for each workflow: Conflicts, performance, obsolete, superseded? (output: `.github/reports/audits/2026-09-14-label-audit/evidence/workflow-archival-analysis.json`)
   - Check: Does unified labeling agent (labeling.agent.js) cover same purpose?
   - Check: Are there related active workflows in `.github/workflows/`?
   - Create archival analysis: `{ workflow: "...", purpose: "...", archival_reason: "conflicts" | "obsolete" | "performance" | "superseded", superseded_by: "...", root_cause: "..." }`
@@ -251,14 +251,14 @@
 
 ### Phase 5.2: Restoration Feasibility Assessment
 
-- [x] T028 [US3] Assess restoration feasibility for each workflow: Can it be fixed/restored?
+- [x] T028 [US3] Assess restoration feasibility for each workflow: Can it be fixed/restored? (output: `.github/reports/audits/2026-09-14-label-audit/evidence/workflow-restoration-feasibility.json`)
   - For each workflow: Is restoration high/medium/low effort?
   - Should it be: restored, rebuilt, or retired?
   - What automation gaps still exist?
   - Create feasibility JSON: `{ workflow: "...", feasibility: "high" | "medium" | "low", recommendation: "restore" | "rebuild" | "retire", effort: "minimal" | "moderate" | "significant", gap_filled_by: "labeling.agent.js" | null }`
   - Save to `evidence/workflow-restoration-feasibility.json`
   
-- [x] T029 [US3] Identify automation gaps: Which labeling automations are NOT currently handled?
+- [x] T029 [US3] Identify automation gaps: Which labeling automations are NOT currently handled? (output: `.github/reports/audits/2026-09-14-label-audit/evidence/automation-gaps.json`)
   - Compare archived workflow purposes against current unified labeling agent capabilities
   - List any gaps: "Issue labeling based on [criteria] not implemented", etc.
   - Create gaps report: `{ gap: "...", last_attempted_in: "workflow_name", current_coverage: "...", recommendation: "implement_in_unified_agent" | "restore_workflow" }`
@@ -266,7 +266,7 @@
 
 ### Phase 5.3: Generate Workflow Analysis Report
 
-- [x] T030 [US3] Generate workflow-analysis.md: Archived workflow assessment document
+- [x] T030 [US3] Generate workflow-analysis.md: Archived workflow assessment document (output: `.github/reports/audits/2026-09-14-label-audit/workflow-analysis.md`)
   - Include sections:
     - Executive Summary (11 workflows analyzed, restoration opportunities)
     - Workflow Inventory (table: file, purpose, archival reason, feasibility)
@@ -286,26 +286,26 @@
 
 ### Integration Tasks
 
-- [x] T031 [P] Generate label-inventory.csv: Complete label catalog from canonical file
+- [x] T031 [P] Generate label-inventory.csv: Complete label catalog from canonical file (output: `.github/reports/audits/2026-09-14-label-audit/label-inventory.csv`)
   - Columns: family, label_name, color, description, in_canonical, in_issue_types, in_policy, in_docs, in_workflows, api_present, status, notes
   - Rows: All 169 labels from canonical file
   - Status field: "OK" | "ORPHAN" | "DUPLICATE" | "MISMATCH" | "DEPRECATED" | "GAP"
   - Save to `.github/reports/audits/2026-09-14-label-audit/label-inventory.csv`
   
-- [x] T032 [P] Generate label-inventory.json: Machine-readable version of inventory
+- [x] T032 [P] Generate label-inventory.json: Machine-readable version of inventory (output: `.github/reports/audits/2026-09-14-label-audit/label-inventory.json`)
   - Structure per data-model.md (families, labels, summary statistics)
   - Include: All 169 labels with complete metadata
   - Include: Summary showing total_canonical, total_in_api, total_orphans, total_duplicates, total_ok, families_with_issues
   - Save to `.github/reports/audits/2026-09-14-label-audit/label-inventory.json`
   
-- [x] T033 [P] Consolidate evidence directory: Organize all supporting JSON files
+- [x] T033 [P] Consolidate evidence directory: Organize all supporting JSON files (output: `.github/reports/audits/2026-09-14-label-audit/evidence/README.md`)
   - Move/link all evidence/*.json files to `.github/reports/audits/2026-09-14-label-audit/evidence/`
   - Create index: `evidence/README.md` documenting each evidence file
   - Verify: Every finding in audit report has corresponding evidence file with line numbers
 
 ### Validation & Quality Assurance
 
-- [x] T034 Run quickstart.md validation tests: Verify audit completeness
+- [x] T034 Run quickstart.md validation tests: Verify audit completeness (output: `.github/reports/audits/2026-09-14-label-audit/validation-results.md`)
   - Test 1: Label inventory completeness (GitHub API vs canonical) ✅
   - Test 2: Type labels validation (25 present, immutable, all mapped) ✅
   - Test 3: Governance policy consistency (gaps/inconsistencies identified) ✅
@@ -316,13 +316,13 @@
   - Test 8: Recommendations actionability (clear, prioritized, implementable) ✅
   - Document results in `.github/reports/audits/2026-09-14-label-audit/validation-results.md`
 
-- [x] T035 [P] Verify evidence traceability: For each finding in audit-report.md
+- [x] T035 [P] Verify evidence traceability: For each finding in audit-report.md (output: `.github/reports/audits/2026-09-14-label-audit/validation-results.md`)
   - Confirm: File path is correct and accessible
   - Confirm: Line number is accurate and quote is verbatim
   - Confirm: Context/evidence supports finding conclusion
   - Create traceability report: Flag any broken references
 
-- [x] T036 Final audit report review: Ensure all sections complete and coherent
+- [x] T036 Final audit report review: Ensure all sections complete and coherent (output: `.github/reports/audits/2026-09-14-label-audit/007-audit-report.md`)
   - Check: Executive summary is accurate
   - Check: All findings have evidence
   - Check: All recommendations are actionable
@@ -336,19 +336,19 @@
 
 **Purpose**: Documentation and delivery finalization
 
-- [x] T037 [P] Create audit summary document: Executive brief for stakeholders
+- [x] T037 [P] Create audit summary document: Executive brief for stakeholders (output: `.github/reports/audits/2026-09-14-label-audit/SUMMARY.md`)
   - Include: What was audited (data sources), what was found (key metrics), what's recommended (top 3-5 actions)
   - Save to `.github/reports/audits/2026-09-14-label-audit/SUMMARY.md`
   
-- [x] T038 [P] Document audit methodology: How audit was conducted
+- [x] T038 [P] Document audit methodology: How audit was conducted (output: `.github/reports/audits/2026-09-14-label-audit/METHODOLOGY.md`)
   - Include: Data sources, comparison logic, finding classification, evidence standards
   - Save to `.github/reports/audits/2026-09-14-label-audit/METHODOLOGY.md`
   
-- [x] T039 Create audit metadata file: Date, scope, auditor, version
+- [x] T039 Create audit metadata file: Date, scope, auditor, version (output: `.github/reports/audits/2026-09-14-label-audit/audit-metadata.json`)
   - JSON file with: audit_date, repository, scope, total_labels_audited, total_findings, timestamp, auditor
   - Save to `.github/reports/audits/2026-09-14-label-audit/audit-metadata.json`
   
-- [x] T040 Final deliverables checklist: Verify all audit outputs present
+- [x] T040 Final deliverables checklist: Verify all audit outputs present (output: `.github/reports/audits/2026-09-14-label-audit/`)
   - ✅ 007-audit-report.md (main findings)
   - ✅ label-inventory.csv (human-readable catalog)
   - ✅ label-inventory.json (machine-readable catalog)
@@ -419,8 +419,8 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 - [ ] T056 [P] [US4] Update `.github/labeler.yml` and `.github/branch-labels.yml` for every renamed or merged label in T043 (depends on T050)
 - [ ] T057 [US4] Update every script and workflow listed in `.github/reports/audits/2026-09-14-label-audit/evidence/renamed-label-references.json` (under `scripts/` and `.github/workflows/`) to the new label names, and make label-creating automation create only labels present in `.github/labels.yml` (research R6c) (depends on T044, T051)
 - [ ] T058 [P] [US4] Update `docs/LABELING_FAQ.md`, `docs/LABEL_INVENTORY.md`, `docs/ISSUE_FIELDS.md`, `docs/ISSUE_TRIAGE_AUTOMATION.md`, `docs/CODERABBIT_LABELS_ALIGNMENT.md` and `docs/LABEL_STRATEGY.md` for the renamed labels and the Decision type (depends on T051) — Decision part done on the spec branch (FAQ, inventory type table, triage list, CodeRabbit mapping; `docs/ISSUE_FIELDS.md` in #3534); the `aiops:` and `spec:` renames wait for T051
-- [ ] T058a [P] [US4] Document the `meta:needs-approval` approval-gate policy (FR-021: when to apply it, the required approver/decision/scope/options/risk/evidence fields, removal on a dated decision) in `docs/LABEL_STRATEGY.md`; once the label exists, apply it to the open spec 008 change requests and the gate issue and check SC-010 (depends on T051)
-- [ ] T059 [US4] Run quickstart Test 10, `npm test`, `npm run lint:md` and `npm run validate:frontmatter`; open the configuration PR from a correctly named branch and get it merged (depends on T051 to T058)
+- [ ] T058a [P] [US4] Document the `meta:needs-approval` approval-gate policy (FR-021: when to apply it, the required approver/decision/scope/options/risk/evidence fields, removal on a dated decision) in `docs/LABEL_STRATEGY.md`; once the label exists, apply it to the open spec 008 change requests and the gate issue and check SC-010 with quickstart Test 15 (depends on T051)
+- [ ] T059 [US4] Run quickstart Test 10, `npm test`, `npm run lint:md` and `npm run validate:frontmatter`; open the configuration PR from a correctly named branch and get it merged (depends on T051 to T058) (output: `.github/specs/008-label-audit-consolidation/quickstart.md`)
 
 ### Stage 2b: Spec Kit Rename PR (FR-013)
 
