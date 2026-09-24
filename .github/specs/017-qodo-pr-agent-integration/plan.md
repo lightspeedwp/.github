@@ -93,7 +93,8 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 
 .github/workflows/
 ├── qodo-pr-agent-reusable.yml                   # NEW: workflow_call definition (contract: reusable-workflow.md)
-└── qodo-pr-agent.yml                            # NEW: pilot caller (triggers, then the local reusable workflow)
+├── qodo-pr-agent.yml                            # NEW: pilot caller (triggers, then the local reusable workflow)
+└── qodo-pr-agent-report.yml                     # NEW: daily pilot report (Principle X; analysis finding C2)
 
 skills/qodo-pr-agent/                            # NEW: shared skill (contract: skill-interface.md)
 ├── SKILL.md

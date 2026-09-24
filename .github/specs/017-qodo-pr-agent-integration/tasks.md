@@ -184,7 +184,7 @@
 
 **Independent Test**: the pilot runs purely from the central configuration, and a walkthrough of the opt-in guide against a non-`.github` repository finds no missing step (spec US4, SC-006).
 
-- [ ] T026 [US4] Add an "Enable in another repository" section to `docs/QODO_PR_AGENT.md`, with numbered steps:
+- [X] T026 [US4] Add an "Enable in another repository" section to `docs/QODO_PR_AGENT.md`, with numbered steps:
   1. Ask the org owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` secret's selected repositories.
   2. Copy `.github/workflows/qodo-pr-agent.yml` from this repository, and replace the `uses:` line with `lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>`, explaining `main` versus a release tag.
   3. Optionally set the `config_ref` input.
@@ -204,14 +204,16 @@
 
 **Independent Test**: after 14 days, the pilot report shows runs per tool, failures and estimated spend. Setting the kill-switch stops new runs (quickstart Q-10, SC-007, SC-008).
 
-- [ ] T028 [US5] In `.github/workflows/qodo-pr-agent-reusable.yml` job `run`, after the upload step, add a step using `./.github/actions/collect-metrics` with `workflow-name: qodo-pr-agent`, `job-name: run` and `metrics-file: qodo-pr-agent-metrics.json`, plus `continue-on-error: true`. Note that consumers outside this repository can't use the local action path: add `if: github.repository == 'lightspeedwp/.github'` and a comment explaining why. Remove the T006 placeholder comment. Re-run `npx jest tests/js/qodo-pr-agent-workflow.test.js` and `npm run validate:workflows`.
-- [ ] T029 [P] [US5] Create `scripts/metrics/qodo-pr-agent-report.cjs` (CommonJS, Node ≥ 20, no new dependencies, using the built-in `fetch` with `GITHUB_TOKEN`). CLI: `--since YYYY-MM-DD --out <dir> [--repo lightspeedwp/.github] [--tokens-per-run <n>] [--price-per-mtok <usd>]`. It lists workflow runs of `qodo-pr-agent.yml` since the date, downloads each `qodo-pr-agent-run-*` artefact's `qodo-pr-agent-run.json`, and writes `<out>/pilot-report-YYYY-MM-DD.md`. The report has tables for runs per `tool`, outcome counts (success, failure, and each `skipped:<reason>`) and median `duration_seconds`, plus an "Estimated spend" line (runs × tokens-per-run × price, labelled as an estimate) and a reminder to cross-check the dedicated key's usage in the Anthropic console. Add a unit test `tests/js/qodo-pr-agent-report.test.js` for the aggregation function with fixture run records, and export the aggregation function for it.
-- [ ] T030 [P] [US5] Add an "Operations" section to `docs/QODO_PR_AGENT.md`:
+- [X] T028 [US5] In `.github/workflows/qodo-pr-agent-reusable.yml` job `run`, after the upload step, add a step using `./.github/actions/collect-metrics` with `workflow-name: qodo-pr-agent`, `job-name: run` and `metrics-file: qodo-pr-agent-metrics.json`, plus `continue-on-error: true`. Note that consumers outside this repository can't use the local action path: add `if: github.repository == 'lightspeedwp/.github'` and a comment explaining why. Remove the T006 placeholder comment. Re-run `npx jest tests/js/qodo-pr-agent-workflow.test.js` and `npm run validate:workflows`.
+- [X] T029 [P] [US5] Create `scripts/metrics/qodo-pr-agent-report.cjs` (CommonJS, Node ≥ 20, no new dependencies, using the built-in `fetch` with `GITHUB_TOKEN`). CLI: `--since YYYY-MM-DD --out <dir> [--repo lightspeedwp/.github] [--tokens-per-run <n>] [--price-per-mtok <usd>]`. It lists workflow runs of `qodo-pr-agent.yml` since the date, downloads each `qodo-pr-agent-run-*` artefact's `qodo-pr-agent-run.json`, and writes `<out>/pilot-report-YYYY-MM-DD.md`. The report has tables for runs per `tool`, outcome counts (success, failure, and each `skipped:<reason>`) and median `duration_seconds`, plus an "Estimated spend" line (runs × tokens-per-run × price, labelled as an estimate) and a reminder to cross-check the dedicated key's usage in the Anthropic console. Add a unit test `tests/js/qodo-pr-agent-report.test.js` for the aggregation function with fixture run records, and export the aggregation function for it.
+- [X] T030 [P] [US5] Add an "Operations" section to `docs/QODO_PR_AGENT.md`:
   - **Kill-switch**: set the Actions variable `QODO_PR_AGENT_ENABLED` to `false` at repository or organisation level. It takes effect on the next event, and no commit is needed. Second line: revoke or cap the key in the Anthropic console.
   - **Upgrading the pinned version**: repeat T001, update the digest in both the workflow and the skill script in one PR, and add a CHANGELOG note.
   - **Pilot report**: the T029 command.
   - **Monthly spend limit**: set on the key.
 - [ ] T031 [US5] After 14 days of pilot operation, run `node scripts/metrics/qodo-pr-agent-report.cjs`, write `.github/reports/metrics/qodo-pr-agent/pilot-report-YYYY-MM-DD.md`, and add the maintainer usefulness result: a short survey or reaction count, with the SC-004 target ≥ 70% useful. Open a follow-up issue that summarises the keep, adjust or roll-out recommendation for @ashley, including the monthly budget needed for SC-008.
+
+- [X] T037 [US5] Create `.github/workflows/qodo-pr-agent-report.yml` (`name: Qodo PR-Agent • Daily report`). It runs on `schedule` (daily, `43 6 * * *`) and `workflow_dispatch` (optional `since` input); has top-level `permissions: contents: read`, with the job adding `actions: read`; does a sparse checkout of `scripts/metrics` with `persist-credentials: false`; and runs `node scripts/metrics/qodo-pr-agent-report.cjs --since <14 days ago>`, publishing to the job summary and an artefact. Nothing is committed. Added by `/speckit-analyze` finding C2: constitution Principle X requires metrics that update at least daily.
 
 **Checkpoint**: all user stories are complete.
 

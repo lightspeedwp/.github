@@ -216,11 +216,22 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # Referenced by path and SHA rather than ./ so no checkout is needed and
+      # consuming repositories can use it too. It reads no repository files.
+      - name: Collect workflow metrics
+        continue-on-error: true
+        uses: lightspeedwp/.github/.github/actions/collect-metrics@8183af8ab41542bc71c5bd2be5ed44397874da9a # develop 2026-09
+        with:
+          workflow-name: qodo-pr-agent
+          job-name: run
+          metrics-file: qodo-pr-agent-metrics.json
+
       - name: Upload run record
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: qodo-pr-agent-run-${{ github.run_id }}
-          path: qodo-pr-agent-run.json
+          path: |
+            qodo-pr-agent-run.json
+            qodo-pr-agent-metrics.json
+          if-no-files-found: warn
           retention-days: 30
-
-      # metrics: see T028

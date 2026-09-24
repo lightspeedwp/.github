@@ -119,6 +119,8 @@ GITHUB_TOKEN=<token with actions:read> \
   node scripts/metrics/qodo-pr-agent-report.cjs --since 2026-10-01 --out .github/reports/metrics/qodo-pr-agent/
 ```
 
+The [daily report workflow](../.github/workflows/qodo-pr-agent-report.yml) runs this every day at 06:43 UTC for the last 14 days. It publishes the report to the job summary and as an artefact, which satisfies the constitution's daily-metrics rule (Principle X). You can also start it manually, with an optional `since` date.
+
 ### Upgrading the pinned version
 
 1. Resolve the new digest: `docker buildx imagetools inspect pragent/pr-agent:<version>-github_action --format '{{.Manifest.Digest}}'`.
