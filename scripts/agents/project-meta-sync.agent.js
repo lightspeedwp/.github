@@ -16,7 +16,7 @@
 import { readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 import { getOctokit } from "@actions/github";
-import core from "@actions/core";
+import * as core from "@actions/core";
 
 async function run() {
   try {
