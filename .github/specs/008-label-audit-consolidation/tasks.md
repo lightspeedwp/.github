@@ -228,7 +228,7 @@
 
 ### Phase 5.1: Archived Workflow Analysis
 
-- [ ] T026 [P] Analyze each of 11 archived workflows, starting from the per-workflow data already extracted by T011 in `evidence/archived-workflows.json` (do not re-extract): add failure points and assessment for each file
+- [x] T026 [P] Analyze each of 11 archived workflows, starting from the per-workflow data already extracted by T011 in `evidence/archived-workflows.json` (do not re-extract): add failure points and assessment for each file
   - Workflow 1: batch-label-prs.yml
   - Workflow 2: issue-labeling-automation.yml
   - Workflow 3: label-audit-report.yml
@@ -243,7 +243,7 @@
   - For each: Extract purpose, labels referenced, triggers, actions, any error handling or validation
   - Create analysis JSON per workflow: Save to `evidence/workflow-[name].json`
   
-- [ ] T027 Determine archival reason for each workflow: Conflicts, performance, obsolete, superseded?
+- [x] T027 Determine archival reason for each workflow: Conflicts, performance, obsolete, superseded?
   - Check: Does unified labeling agent (labeling.agent.js) cover same purpose?
   - Check: Are there related active workflows in `.github/workflows/`?
   - Create archival analysis: `{ workflow: "...", purpose: "...", archival_reason: "conflicts" | "obsolete" | "performance" | "superseded", superseded_by: "...", root_cause: "..." }`
@@ -251,14 +251,14 @@
 
 ### Phase 5.2: Restoration Feasibility Assessment
 
-- [ ] T028 Assess restoration feasibility for each workflow: Can it be fixed/restored?
+- [x] T028 Assess restoration feasibility for each workflow: Can it be fixed/restored?
   - For each workflow: Is restoration high/medium/low effort?
   - Should it be: restored, rebuilt, or retired?
   - What automation gaps still exist?
   - Create feasibility JSON: `{ workflow: "...", feasibility: "high" | "medium" | "low", recommendation: "restore" | "rebuild" | "retire", effort: "minimal" | "moderate" | "significant", gap_filled_by: "labeling.agent.js" | null }`
   - Save to `evidence/workflow-restoration-feasibility.json`
   
-- [ ] T029 Identify automation gaps: Which labeling automations are NOT currently handled?
+- [x] T029 Identify automation gaps: Which labeling automations are NOT currently handled?
   - Compare archived workflow purposes against current unified labeling agent capabilities
   - List any gaps: "Issue labeling based on [criteria] not implemented", etc.
   - Create gaps report: `{ gap: "...", last_attempted_in: "workflow_name", current_coverage: "...", recommendation: "implement_in_unified_agent" | "restore_workflow" }`
@@ -266,7 +266,7 @@
 
 ### Phase 5.3: Generate Workflow Analysis Report
 
-- [ ] T030 Generate workflow-analysis.md: Archived workflow assessment document
+- [x] T030 Generate workflow-analysis.md: Archived workflow assessment document
   - Include sections:
     - Executive Summary (11 workflows analyzed, restoration opportunities)
     - Workflow Inventory (table: file, purpose, archival reason, feasibility)
