@@ -5,8 +5,13 @@
 // breaks, this test fails instead of suites silently going unrun.
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '../../..');
+const PR_AGENT = path.join(ROOT, 'agents/pr-agent');
+
+// Repository-relative path with `/` separators on every OS.
+const toPosix = (file) => path.relative(PR_AGENT, file).split(path.sep).join('/');
 
 function listTestFiles(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -32,16 +37,28 @@ describe('jest runner wiring (#3552)', () => {
     expect(configSource).toMatch(/agents\/pr-agent\//);
   });
 
-  test('every pr-agent test file is matched by the nested runner', () => {
-    const files = listTestFiles(path.join(ROOT, 'agents/pr-agent'));
+  test('every pr-agent test file is run by the nested runner', () => {
+    const files = listTestFiles(PR_AGENT).map(toPosix).sort();
     expect(files.length).toBeGreaterThan(0);
-    const orphaned = files.filter(
-      (f) =>
-        !/__tests__\//.test(path.relative(path.join(ROOT, 'agents/pr-agent'), f)) &&
-        !/__integration__\//.test(path.relative(path.join(ROOT, 'agents/pr-agent'), f))
+
+    // Ask the nested runner which files its projects actually match, so a
+    // file outside every project's testMatch or extensions is caught.
+    const result = spawnSync(
+      process.execPath,
+      [path.join(PR_AGENT, 'scripts/jest-vm.js'), '--listTests'],
+      { cwd: PR_AGENT, encoding: 'utf8' }
     );
+    expect(result.status).toBe(0);
+    const listed = new Set(
+      result.stdout
+        .split(/\r?\n/)
+        .filter(Boolean)
+        .map((file) => toPosix(path.resolve(PR_AGENT, file)))
+    );
+
+    const orphaned = files.filter((file) => !listed.has(file));
     expect(orphaned).toEqual([]);
-  });
+  }, 60000);
 
   test('root-ignored standalone suites each have a dedicated npm script', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));

@@ -4,12 +4,12 @@
   "description": "Portable PR agent for GitHub pull request creation, template routing, labelling, and error handling.",
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage --verbose",
-    "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest __tests__ --coverage",
-    "test:validate-branch-name": "NODE_OPTIONS=--experimental-vm-modules jest __tests__/validate-branch-name.test.js --verbose",
-    "test:integration": "NODE_OPTIONS=--experimental-vm-modules jest __tests__/integration",
-    "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest __tests__/e2e --runInBand",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
+    "test": "node scripts/jest-vm.js --coverage --verbose",
+    "test:unit": "node scripts/jest-vm.js __tests__ --coverage",
+    "test:validate-branch-name": "node scripts/jest-vm.js __tests__/validate-branch-name.test.js --verbose",
+    "test:integration": "node scripts/jest-vm.js __tests__/integration",
+    "test:e2e": "node scripts/jest-vm.js __tests__/e2e --runInBand",
+    "test:watch": "node scripts/jest-vm.js --watch",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write '**/*.{js,json,yml,md}'",
     "validate": "npm run lint && npm run test"
