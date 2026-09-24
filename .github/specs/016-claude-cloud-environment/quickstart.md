@@ -26,6 +26,7 @@ Expected: every case passes, including these:
 | `git commit -m "mentions claude/x"` on a compliant branch | exit 0 |
 | Commit on `develop` with only `docs/` and `.github/specs/` files staged | exit 0 (documentation exception) |
 | Commit on `develop` with any other file staged | exit 2, lists the other files |
+| Commit on `main` with only `docs/` files staged | exit 2 (no exception on `main`) |
 | MCP PR from `feat/a-b` into `main` on `.github` | exit 2 |
 | Any refusal with `LS_ENFORCE_BRANCH_NAMES=0` | exit 0 plus `systemMessage` |
 | Push to a `copilot/*` branch that has an open PR (stubbed `gh`) | exit 0 (legacy PR exception) |

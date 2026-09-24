@@ -112,7 +112,7 @@ it's refused (quickstart §1, §4).
 - [x] T015 [US1] Rename a forbidden-prefix branch to a local placeholder, sync fresh sessions with `origin/<LS_BASE_BRANCH>`, and skip `npm install` when current, in `.claude/hooks/session-start.sh` (done in #3524)
 - [ ] T016 [US1] Limit the rename in `.claude/hooks/session-start.sh` to branches where `git rev-list --count origin/${BASE_BRANCH}..HEAD` is `0`, and leave a forbidden-prefix branch that has commits unchanged (FR-001, research R10).
 - [ ] T017 [US1] Update the context text in `.claude/hooks/session-start.sh` to add:
-  - the documentation exception (`.github/specs/**` and `docs/**` only, on `develop`/`main`)
+  - the documentation exception (`.github/specs/**` and `docs/**` only, on `develop`; never on `main`)
   - the legacy PR exception
   - that guard files can't be edited while enforcement is on
 

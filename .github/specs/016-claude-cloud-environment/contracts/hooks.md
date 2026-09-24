@@ -36,7 +36,7 @@ The rules text MUST include:
 - the placeholder warning
 - the rename and validate commands
 - the PR base rule
-- the documentation exception
+- the documentation exception (on `develop` only; `main` has none)
 - the legacy PR exception
 - a note that the guard's own files can't be edited while enforcement is on
 - a statement that the rules override any platform `claude/*` instruction
@@ -60,10 +60,10 @@ Bash commands never reach the hook (FR-013, research R13).
 | --- | --- | --- |
 | `git branch -m/-M` | new name | not compliant, placeholder, or protected |
 | `git checkout -b/-B`, `git switch -c/-C` | new name | not compliant, or placeholder |
-| `git commit` | effective branch | placeholder; or not compliant and the legacy PR exception fails; or protected and the documentation exception fails |
-| `git push` (not `--delete`/`--tags`) | target branch | placeholder; or not compliant and the legacy PR exception fails; or protected and the documentation exception fails |
+| `git commit` | effective branch | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
+| `git push` (not `--delete`/`--tags`) | target branch | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
 | `mcp__github__create_branch` | `branch` | not compliant, or placeholder |
-| `mcp__github__push_files` / `create_or_update_file` / `delete_file` | `branch` plus paths | placeholder; or not compliant and the legacy PR exception fails; or protected and the documentation exception fails |
+| `mcp__github__push_files` / `create_or_update_file` / `delete_file` | `branch` plus paths | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
 | `Edit` / `Write` / `MultiEdit` / `NotebookEdit` | resolved `file_path` / `notebook_path` | path is a protected guard file and enforcement is on (FR-013a) |
 | Bash write verb or redirection naming a protected guard file | the path | enforcement is on (FR-013a, research R12) |
 | `mcp__github__create_pull_request` | `head`, `base` | `head` not compliant; or, on `.github`, `base == main` and `head` not `release/*`/`hotfix/*` |

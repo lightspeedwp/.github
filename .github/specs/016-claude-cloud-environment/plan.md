@@ -13,7 +13,7 @@ This plan enforces the LightSpeed branching strategy with four repository-level 
 1. **SessionStart hook**: renames the branch locally, syncs it with `develop`, installs dependencies and injects
    the branching rules.
 2. **PreToolUse guard**: blocks non-compliant commits, pushes, branches and PRs. It reuses the CI validator and
-   allows the documentation exception on protected branches.
+   allows the documentation exception on `develop` (never on `main`).
 3. **Shared cloud environment definition**: a setup script and variables, versioned in `.claude/cloud/`.
 4. **Cleanup of empty `claude/*` branches**: an auto-approval exception added to spec 009's categoriser and
    scheduled workflow (lightspeedwp/.github#3358). There is no separate job.

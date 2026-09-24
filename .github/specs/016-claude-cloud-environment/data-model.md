@@ -31,7 +31,7 @@ Configured in claude.ai. The canonical copy is kept in `.claude/cloud/`.
 | Compliant | `validateBranchName(name).valid` and not in another class | allowed | allowed |
 | Placeholder | `^chore/session-[a-z0-9]+$` | refused | refused |
 | Forbidden or invalid | the validator fails (for example `claude/*`, unknown type, malformed) | refused | refused |
-| Protected | `main` or `LS_BASE_BRANCH` | refused (rename target) | allowed only under the documentation exception, otherwise refused |
+| Protected | `main` or `LS_BASE_BRANCH` | refused (rename target) | `main`: always refused. Base branch: allowed only under the documentation exception, otherwise refused |
 | Bot-owned | `dependabot/*`, `renovate/*` (validator exemption) | allowed | allowed |
 | Legacy PR branch | Forbidden or invalid, but exists on GitHub **and** is the head of an open PR (checked through `git ls-remote` and `gh pr list`, and fails closed) | refused | allowed (FR-006) |
 
