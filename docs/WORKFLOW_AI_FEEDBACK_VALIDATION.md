@@ -349,10 +349,10 @@ Edit `.github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md`:
 
 ## Related Resources
 
-- **Guide:** [AI Feedback Response Tracking](./docs/ai-feedback-response-tracking.md)
-- **Template:** [FEEDBACK_RESPONSE.md](./PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md)
-- **Script:** [ai-feedback-helpers.cjs](./scripts/validation/ai-feedback-helpers.cjs)
-- **Workflow:** [ai-feedback-validation.yml](./workflows/ai-feedback-validation.yml)
+- **Guide:** [AI Feedback Response Tracking](./ai-feedback-response-tracking.md)
+- **Template:** [FEEDBACK_RESPONSE.md](../.github/PULL_REQUEST_TEMPLATE/FEEDBACK_RESPONSE.md)
+- **Script:** [ai-feedback-helpers.cjs](../scripts/validation/ai-feedback-helpers.cjs)
+- **Workflow:** [ai-feedback-validation.yml](../.github/workflows/ai-feedback-validation.yml)
 
 ---
 
@@ -380,7 +380,7 @@ A: You can create one comprehensive issue (#567) and reference it from multiple 
 
 For questions or issues:
 
-1. Check the **[AI Feedback Response Tracking Guide](./docs/ai-feedback-response-tracking.md)**
+1. Check the **[AI Feedback Response Tracking Guide](./ai-feedback-response-tracking.md)**
 2. Review **Examples** in `.github/examples/`
 3. Open an issue with `workflow` label
 4. Tag `@team/engineering` for assistance

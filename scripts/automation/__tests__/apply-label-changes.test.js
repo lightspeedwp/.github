@@ -1,7 +1,7 @@
 const { applyLabelChanges, listRepoLabels } = require('../handlers/apply-label-changes.cjs');
 
-function mockGithub({ labels = [], removeStatus } = {}) {
-  const calls = { add: [], remove: [], list: 0 };
+function mockGithub({ labels = [], removeStatus, addStatus } = {}) {
+  const calls = { add: [], remove: [], list: 0, order: [] };
   const github = {
     paginate: jest.fn(async (method, params) => method(params)),
     rest: {
@@ -11,6 +11,12 @@ function mockGithub({ labels = [], removeStatus } = {}) {
           return labels.map((name) => ({ name }));
         }),
         addLabels: jest.fn(async (params) => {
+          if (addStatus) {
+            const error = new Error('add failed');
+            error.status = addStatus;
+            throw error;
+          }
+          calls.order.push('add');
           calls.add.push(params);
         }),
         removeLabel: jest.fn(async (params) => {
@@ -19,6 +25,7 @@ function mockGithub({ labels = [], removeStatus } = {}) {
             error.status = removeStatus;
             throw error;
           }
+          calls.order.push('remove');
           calls.remove.push(params);
         }),
       },
@@ -31,7 +38,37 @@ function mockGithub({ labels = [], removeStatus } = {}) {
 const base = { owner: 'lightspeedwp', repo: 'example', issueNumber: 7 };
 
 describe('applyLabelChanges', () => {
-  test('removes then adds, only adding labels that exist in the repository', async () => {
+  test('adds before removing', async () => {
+    const { github, calls } = mockGithub({ labels: ['openspec:implementation-in-progress'] });
+
+    await applyLabelChanges({
+      ...base,
+      github,
+      add: ['openspec:implementation-in-progress'],
+      remove: ['openspec:implementation-pending'],
+    });
+
+    expect(calls.order).toEqual(['add', 'remove']);
+  });
+
+  test('keeps the current label when adding fails', async () => {
+    const { github, calls } = mockGithub({
+      labels: ['openspec:implementation-in-progress'],
+      addStatus: 502,
+    });
+
+    await expect(
+      applyLabelChanges({
+        ...base,
+        github,
+        add: ['openspec:implementation-in-progress'],
+        remove: ['openspec:implementation-pending'],
+      })
+    ).rejects.toThrow('add failed');
+    expect(calls.remove).toEqual([]);
+  });
+
+  test('adds then removes, only adding labels that exist in the repository', async () => {
     const { github, calls } = mockGithub({
       labels: ['openspec:implementation-in-progress', 'status:in-progress'],
     });

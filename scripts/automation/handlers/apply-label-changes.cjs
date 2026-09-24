@@ -53,6 +53,17 @@ async function applyLabelChanges({
     return result;
   }
 
+  // Add before removing: a failed add must not strip the current label.
+  if (existing.length > 0) {
+    await github.rest.issues.addLabels({
+      owner,
+      repo,
+      issue_number: issueNumber,
+      labels: existing,
+    });
+    result.added = existing;
+  }
+
   for (const name of toRemove) {
     try {
       await github.rest.issues.removeLabel({ owner, repo, issue_number: issueNumber, name });
@@ -62,16 +73,6 @@ async function applyLabelChanges({
         throw error;
       }
     }
-  }
-
-  if (existing.length > 0) {
-    await github.rest.issues.addLabels({
-      owner,
-      repo,
-      issue_number: issueNumber,
-      labels: existing,
-    });
-    result.added = existing;
   }
 
   return result;
