@@ -28,8 +28,11 @@ NODE_VERSION="${LS_NODE_VERSION:-24.20.0}" # keep in step with .nvmrc
 install_node() {
   local dir="/opt/node${NODE_VERSION%%.*}"
   local tarball="node-v${NODE_VERSION}-linux-x64.tar.xz"
-  if [ ! -x "${dir}/bin/node" ]; then
+  # The directory is keyed by major version, so also check the exact version:
+  # a bump within the same major must replace the cached binary.
+  if [ ! -x "${dir}/bin/node" ] || [ "$("${dir}/bin/node" -v 2>/dev/null)" != "v${NODE_VERSION}" ]; then
     log "Installing Node ${NODE_VERSION}"
+    rm -rf "${dir}"
     if ! { curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/${tarball}" -o "/tmp/${tarball}" &&
       mkdir -p "${dir}" &&
       tar -xJf "/tmp/${tarball}" -C "${dir}" --strip-components=1; }; then
