@@ -25,6 +25,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 
 - Q: When a maintainer explicitly asks Claude to commit straight to `develop` or `main`, should the guard ever allow it? → A: Only for specification and documentation changes: a commit or push to a protected branch is allowed when every changed file is under `.github/specs/` or `docs/`. Code and configuration changes always need a feature branch and PR.
 - Q: Should the branch guard also apply when team members run Claude Code on their own machines, or only in cloud sessions? → A: Both. The guard blocks in cloud and local sessions alike; the enforcement switch is the only way to downgrade it to warnings.
+- Q: Should this setup be built only for `lightspeedwp/.github`, or packaged so other LightSpeed repositories can adopt it? → A: This repository now. Packaging it as a portable plugin for other LightSpeed repositories is a recorded follow-up and out of scope for this spec.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -182,6 +183,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - Cleaning up stale `claude/*` branches already on the remote is out of scope. The platform's initial empty `claude/*` branch may remain on the remote, and removing it is left to maintainers.
 - Sessions opened with several repositories do not load repository-level protections. This is documented, not solved.
 - The guard uses command-parsing heuristics. Unusual constructions (for example, committing in another directory after changing into it) may not be caught, and CI's branch-name validation remains the final gate.
+- Scope is this repository only. Packaging the environment definition, hooks and guard as a portable plugin (top-level `plugins/`) for other LightSpeed repositories is a follow-up spec. This spec's design should not block that reuse.
 - Changes to locked configuration files (labels, issue types, templates) are not required.
 
 ## Related
