@@ -78,12 +78,13 @@ Only a `VALID` entry reaches `MERGED`.
 | `errors`             | array[ErrorObject]   | Yes      | List of validation errors          | Empty array if `valid=true`  |
 | `warnings`           | array[WarningObject] | No       | List of non-blocking warnings      |                              |
 | `validation_time_ms` | integer              | Yes      | Execution time in milliseconds     | Non-negative                 |
+| `skill_id`           | string               | Yes      | ID of the skill that produced it   | Matches a `Skill.id`         |
 | `skill_version`      | string               | Yes      | Version of validation skill used   | Semantic version             |
 
 **Relationships**:
 
 - One-to-many: `ValidationResult` → `ErrorObject` (result contains multiple errors)
-- Many-to-one: `ValidationResult` → `Skill` (via `skill_version`)
+- Many-to-one: `ValidationResult` → `Skill` (via `skill_id` and `skill_version`)
 
 **Example**:
 
@@ -106,6 +107,7 @@ Only a `VALID` entry reaches `MERGED`.
   ],
   "warnings": [],
   "validation_time_ms": 243,
+  "skill_id": "changelog-validate",
   "skill_version": "1.0.0"
 }
 ```

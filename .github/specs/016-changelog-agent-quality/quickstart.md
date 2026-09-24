@@ -188,6 +188,19 @@ const requiredMetadata = [
   'lightspeedwp-error-codes',
 ];
 
+// The four skills named in plan.md; a missing one fails the scenario.
+const requiredSkills = [
+  'changelog-validate',
+  'changelog-check-links',
+  'changelog-merge',
+  'changelog-format',
+];
+for (const name of requiredSkills) {
+  if (!fs.existsSync(path.join(root, name))) {
+    throw new Error(`Missing skill directory: ${path.join(root, name)}`);
+  }
+}
+
 for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
   if (!entry.isDirectory()) continue;
   const skillPath = path.join(root, entry.name, 'SKILL.md');
@@ -220,10 +233,10 @@ NODE
 **Expected Output**:
 
 ```
-✓ agents/changelog-agent/skills/validate/SKILL.md
-✓ agents/changelog-agent/skills/check-links/SKILL.md
-
-... (for each skill)
+✓ agents/changelog-agent/skills/changelog-validate/SKILL.md
+✓ agents/changelog-agent/skills/changelog-check-links/SKILL.md
+✓ agents/changelog-agent/skills/changelog-merge/SKILL.md
+✓ agents/changelog-agent/skills/changelog-format/SKILL.md
 ```
 
 **Verification**:

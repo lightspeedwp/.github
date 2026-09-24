@@ -115,8 +115,7 @@ agents/changelog-agent/
     ├── integration/
     └── fixtures/
 .github/workflows/
-├── changelog-validation.yml
-└── changelog-management.yml
+└── changelog-unified.yml                 # shipped validation gate
 docs/agents/changelog-agent/
 ├── README.md
 ├── SKILLS.md

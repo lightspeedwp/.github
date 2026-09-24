@@ -285,8 +285,9 @@ Lint Failure — Audit-Introduced (hypothetical):
                           ▼
             ┌──────────────────────────┐
             │ CLASSIFICATION COMPLETE  │
-            │  (ENVIRONMENTAL or       │
-            │   AUDIT-INTRODUCED)      │
+            │  (ENVIRONMENTAL,         │
+            │   AUDIT-INTRODUCED or    │
+            │   GOVERNANCE WORKFLOW)   │
             └──────────────────────────┘
 ```
 

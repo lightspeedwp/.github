@@ -229,7 +229,7 @@ Currently no archived or deprecated specifications. All numbered specifications 
 
 - **Existing Specifications**: 001-012 (preserved as-is, no renumbering)
 - **Audit Specification**: 013 (this specification catalog refactoring)
-- **Future Numbering**: Next specification = highest current + 1 (014, 015, etc.)
+- **Future Numbering**: Next specification = highest current + 1; check the tables above and the `.github/specs/` folders first
 - **No Reuse Policy**: Archived/deprecated specs keep their numbers; future specs get next available
 
 For details, see [MAINTENANCE.md](./MAINTENANCE.md).
@@ -256,7 +256,7 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Determine next number: current highest is 013, so next is 014
+1. Determine next number: take the highest number in this catalog and in `.github/specs/` (017 at the time of writing) and add 1 (018)
 2. Create directory: `.github/specs/014-{slug}/`
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
