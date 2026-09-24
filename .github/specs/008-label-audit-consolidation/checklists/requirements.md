@@ -46,7 +46,7 @@
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
-- [ ] All acceptance scenarios are defined
+- [x] All acceptance scenarios are defined
 - [x] Edge cases are identified
 - [x] Scope is clearly bounded
 - [x] Dependencies and assumptions identified
@@ -54,12 +54,12 @@
 ## Feature Readiness
 
 - [x] All functional requirements have clear acceptance criteria
-- [ ] User scenarios cover primary flows
+- [x] User scenarios cover primary flows
 - [x] Feature meets measurable outcomes defined in Success Criteria
 - [x] No implementation details leak into specification
-- [ ] Type label immutability (25 labels) is explicitly preserved
+- [x] Type family ends at exactly 25 labels, each mapped to one issue type (FR-014, SC-003)
 - [x] Locked configuration files are explicitly protected from editing
-- [ ] Audit-only scope is clearly stated (no changes to production config)
+- [x] Audit phase is read-only; consolidation changes require approved change requests (FR-009)
 
 ## Validation Notes
 
@@ -67,8 +67,8 @@
 
 ### Key Strengths
 
-1. **Clear scope boundaries**: Three prioritized user stories with specific, independent tests
-2. **Immutability constraints**: Explicit protection of 25 type labels and locked configuration files
+1. **Clear scope boundaries**: Four prioritised user stories (three audit, one consolidation) with specific, independent tests
+2. **Governance constraints**: Type family fixed at 25 labels mapped to issue types; locked files change only through approved change requests
 3. **Multiple data sources**: Audit covers canonical files, governance policy, documentation, workflows, and GitHub API
 4. **Comprehensive analysis targets**:
    - Missing labels (exist in GitHub but not canonical file)
@@ -76,7 +76,7 @@
    - Duplicate labels (consolidation candidates)
    - Archived workflow analysis (automation gaps)
 5. **Evidence-based findings**: All recommendations include file/line references
-6. **Non-destructive approach**: Read-only audit with no production changes
+6. **Gated changes**: Read-only audit phase; consolidation deletions need a per-repository dry run approved by @ashley
 
 ### Clarification Notes
 
@@ -84,14 +84,16 @@
 
 **Status**: ✅ Clarification integrated into spec. All requirements remain sufficiently detailed and unambiguous.
 
+**Clarification sessions (2026-09-24)**: The spec expanded from an audit to audit plus consolidation (User Story 4, FR-011 to FR-017, SC-009). Checklist items "Type label immutability" and "Audit-only scope" were reworded to match the approved scope. File and script names in FR-012 and FR-016 are governance evidence, not implementation choices.
+
 ### Assumptions Clarity
 
 All key assumptions documented:
 
 - Baseline is canonical `labels.yml` (final document)
-- Type labels (25) are immutable
+- Type family ends at exactly 25 labels (`type:decision` replaces `type:question`)
 - Governance policy may contain labels not in canonical file (intentional)
-- Read-only audit with findings-only output
+- Read-only audit phase, then gated consolidation after `[LABEL-UPDATE-REQUEST]` approval
 - Unified labeling agent is canonical automation source
 
 ---

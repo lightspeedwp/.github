@@ -29,7 +29,7 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Feature Branch**: `audit/github-label-audit`
+**Feature Branch**: `audit/label-consolidation`
 
 **Created**: 2026-09-14
 
@@ -112,12 +112,39 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 
 ---
 
+### User Story 4 - Governance Lead Aligns GitHub and Linear Labels (Priority: P1)
+
+As the label governance owner (@ashley), I need GitHub and Linear to share one approved label set, so that labels created ad hoc in any repository stop syncing into Linear, every issue carries exactly one valid type label, and automation and reporting read consistent labels across both systems.
+
+**Why this priority**: Unapproved GitHub labels are actively syncing into Linear and creating duplicates (for example `scope:website` and `scope: website`, and `status:done` being recreated). The audit (User Story 1) identifies the problems; this story fixes them. It starts once User Story 1 evidence is available and the `[LABEL-UPDATE-REQUEST]` mapping is approved.
+
+**Independent Test**: Completed when, after one approved consolidation run, every `lightspeedwp` repository and the Linear workspace show only labels from `labels.yml` (plus documented team-scoped project labels), the type family contains exactly 25 labels each tied to one issue type, and the first weekly drift report lists zero differences (SC-003, SC-009).
+
+**Acceptance Scenarios**:
+
+1. **Given** `labels.yml` defines `ai-ops:*` (7) and `openspec:*` (9) labels, **When** the approved rename runs, **Then** every repository shows `aiops:*` and `spec:*` in their place, and issues that carried the old labels now carry the new ones (FR-011)
+2. **Given** a Linear-only label applied to at least one issue or required by automation (for example `area:builds`, 232 issues, or `status:needs-template-fix`), **When** the import runs, **Then** it appears in `labels.yml` and in every repository; **and given** a Linear-only label with zero issues, **Then** it is retired in Linear and not imported (FR-012)
+3. **Given** an approved merge pair (for example `priority:medium` → `priority:normal`), **When** consolidation runs, **Then** every issue and PR that carried the source label carries the target label, and the source label no longer exists in GitHub or Linear (FR-012)
+4. **Given** the Question issue type and `type:question`, **When** the swap is applied, **Then** the Decision issue type and template replace them, open `type:question` issues are converted to Discussions, closed ones are relabelled `type:task` + `discussion:support`, and the type family has exactly 25 labels (FR-014, SC-003)
+5. **Given** a Linear issue carrying one of the eight Linear-only type labels (for example `type:maintenance`), **When** the re-prefix runs, **Then** it carries exactly one approved `type:*` label plus the mapped concept label (for example `type:chore` + `area:maintenance`) (FR-015)
+6. **Given** live files that reference OpenSpec in content or path, **When** the Spec Kit rename is complete, **Then** a case-insensitive search for `openspec` in contents and paths returns zero matches outside `node_modules/`, `*/reports/*` and `*/archived/*`, and every renamed path is recorded in the migration issue (FR-013)
+7. **Given** a repository label outside the approved set, **When** @ashley has approved that repository's dry-run list, **Then** the label is deleted, after any open issue or PR carrying it has been moved to its approved equivalent; **and given** no approval for a repository, **Then** nothing in it is deleted (FR-016)
+8. **Given** someone creates an unapproved label after consolidation, **When** the weekly drift check runs, **Then** the single drift report issue lists the label, the repository or Linear location, and when it was first seen (FR-017)
+
+---
+
 ### Edge Cases
 
 - What happens when a label exists in GitHub but nowhere in our documentation (orphan labels)?
 - How are labels that were accidentally created (typos, test labels) identified and marked for cleanup?
 - What if workflows reference labels that no longer align with the current taxonomy?
 - How do we handle labels that exist but have zero usage (dormant labels)?
+- A target label already exists in a repository (for example `status:done` next to `status:completed`), so an in-place rename is impossible: the source label is replaced on every issue and PR first, then retired (FR-012)
+- A repository has more than 100 labels: inventory and deletion must page through all of them, or orphans are silently missed (FR-016)
+- The Linear GitHub sync recreates a label while consolidation is running (as happened to `status:done` on 2026-09-24): GitHub deletions are completed before Linear clean-up, and the drift check reports any label that reappears (FR-016, FR-017)
+- An issue would end up with two `type:*` labels after a merge: the concept label is retired instead of merged, so exactly one type label remains (FR-012, FR-015)
+- An open `type:question` issue cannot be converted to a Discussion (for example, Discussions are disabled in that repository): it is relabelled `type:task` + `discussion:support` and listed in the dry run (FR-014)
+- A renamed OpenSpec path is still linked from a dated report or archived file: those links are left as historical record and excluded from the completion check (FR-013)
 
 ## Requirements *(mandatory)*
 
