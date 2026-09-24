@@ -13,14 +13,31 @@ const ROOT = path.join(__dirname, '../../..');
 // convention); excluded from the every-file-runs invariant.
 const KNOWN_SKIP_DIRS = ['.jest-skip/'];
 
-// Suites with their own harness that crash Jest workers; they run via
-// dedicated `npm run test:*` scripts, never via root jest.
+// Suites with their own harness that crash Jest workers; each names the npm
+// script that actually runs it, so a script that keeps its name but stops
+// executing its suite is caught. `via` marks an indirect owner: the script
+// runs a shell runner that invokes the suite.
 const STANDALONE = [
-  '.github/scripts/__tests__/create-agent-spec.test.js',
-  '.github/scripts/__tests__/generate-agent-index.test.js',
-  '.github/scripts/__tests__/validate-agent-specs.test.js',
-  '.github/scripts/__tests__/workflow-integration.test.js',
+  {
+    file: '.github/scripts/__tests__/create-agent-spec.test.js',
+    script: 'test:create-agent-spec',
+  },
+  {
+    file: '.github/scripts/__tests__/generate-agent-index.test.js',
+    script: 'test:index-generator',
+  },
+  {
+    file: '.github/scripts/__tests__/validate-agent-specs.test.js',
+    script: 'test:agent-spec-validation',
+  },
+  {
+    file: '.github/scripts/__tests__/workflow-integration.test.js',
+    script: 'test:phase-5',
+    via: '.github/scripts/__tests__/run-all-tests.sh',
+  },
 ];
+
+const STANDALONE_FILES = STANDALONE.map(({ file }) => file);
 
 function listTestFiles(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -70,32 +87,39 @@ describe('jest runner wiring (#3552)', () => {
     const listed = jestListTests(ROOT);
     const expected = files.filter(
       (file) =>
-        !STANDALONE.includes(file) &&
+        !STANDALONE_FILES.includes(file) &&
         !KNOWN_SKIP_DIRS.some((dir) => file === dir || file.startsWith(dir))
     );
     const missing = expected.filter((file) => !listed.has(file));
     expect(missing).toEqual([]);
   }, 300000);
 
-  test('root-ignored standalone suites each have a dedicated npm script', () => {
+  test('root-ignored standalone suites are still executed by their owning script', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-    const scripts = JSON.stringify(pkg.scripts);
-    for (const name of [
-      'test:agent-spec-validation',
-      'test:index-generator',
-      'test:create-agent-spec',
-    ]) {
-      expect(scripts).toMatch(name);
+
+    for (const { file, script, via } of STANDALONE) {
+      const command = pkg.scripts?.[script];
+      // The owner script must exist...
+      expect(typeof command).toBe('string');
+      // ...and must actually reach the suite, directly or through the
+      // runner it invokes.
+      if (via) {
+        expect(command).toContain(via);
+        expect(fs.readFileSync(path.join(ROOT, via), 'utf8')).toContain(path.basename(file));
+      } else {
+        expect(command).toContain(file);
+      }
     }
+
     // The standalone files must also be ignored by the root config, or
     // they crash workers instead of reporting failures (#3496 context).
     const configSource = fs.readFileSync(path.join(ROOT, '.jest.config.cjs'), 'utf8');
-    for (const file of STANDALONE) {
+    for (const file of STANDALONE_FILES) {
       expect(configSource).toContain(file);
     }
   });
 
-  test('nested pr-agent runner still selects its own suites standalone', () => {
+  test('nested pr-agent runner selects every test file it owns', () => {
     const agentDir = path.join(ROOT, 'agents/pr-agent');
     const result = spawnSync(
       process.execPath,
@@ -103,7 +127,19 @@ describe('jest runner wiring (#3552)', () => {
       { cwd: agentDir, encoding: 'utf8' }
     );
     expect(result.status).toBe(0);
-    const listed = result.stdout.split(/\r?\n/).filter(Boolean);
-    expect(listed.length).toBeGreaterThan(0);
+
+    // Compare against the files on disk rather than a count, so a nested
+    // jest config that silently drops the skill-level suites fails here.
+    const onDisk = listTestFiles(agentDir)
+      .map((file) => toPosix(path.resolve(file)))
+      .sort();
+    expect(onDisk.length).toBeGreaterThan(0);
+
+    const listed = result.stdout
+      .split(/\r?\n/)
+      .filter(Boolean)
+      .map((file) => toPosix(path.resolve(agentDir, file)))
+      .sort();
+    expect(listed).toEqual(onDisk);
   }, 120000);
 });
