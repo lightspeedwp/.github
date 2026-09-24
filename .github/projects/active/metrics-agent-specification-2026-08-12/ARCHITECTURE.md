@@ -10,8 +10,8 @@ version: '1.0'
 ## System Overview
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph "GitHub"
         GH["GitHub API<br/>Issues, PRs, Contributors"]
     end
@@ -52,8 +52,8 @@ accDescr: Detailed diagram
 ### Configuration Layer
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     USER["User/Automation"] -->|Provides| CONFIG_FILE["Config File<br/>.json"]
     CONFIG_FILE -->|Loads| CONFIG_LOADER["ConfigurationLoader"]
     CONFIG_LOADER -->|Validates| VALIDATOR["ConfigValidator"]
@@ -72,8 +72,8 @@ accDescr: Detailed diagram
 ### Collection Module
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     CONFIG["Configuration"] --> QUERY["GitHub API Queries"]
     QUERY -->|Batch requests| GITHUB["GitHub API"]
     GITHUB -->|Responses| PARSE["Parse Response"]
@@ -97,8 +97,8 @@ accDescr: Detailed diagram
 ### Aggregation Module
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     RAW["Raw Metrics<br/>Per Repository"] --> CALC["Calculate<br/>Derived Metrics"]
     CALC --> NORM["Normalize Values"]
     NORM --> AGG["Aggregate<br/>Multi-Repo"]
@@ -119,8 +119,8 @@ accDescr: Detailed diagram
 ### Analysis Module
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     METRICS["Aggregated Metrics"] --> PATTERN["Identify Patterns"]
     PATTERN --> ANOMALY["Detect Anomalies"]
     ANOMALY --> INSIGHT["Generate Insights"]
@@ -146,8 +146,8 @@ accDescr: Detailed diagram
 ### Packaging Module
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     METRICS["Aggregated<br/>Metrics"] --> PKG["Package"]
     INSIGHTS["Insights &<br/>Recommendations"] --> PKG
     METADATA["Collection<br/>Metadata"] --> PKG
@@ -170,8 +170,8 @@ accDescr: Detailed diagram
 ### Complete Collection Flow
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant User
     participant Config as ConfigurationLoader
     participant Collect as CollectionModule
@@ -212,8 +212,8 @@ accDescr: Detailed diagram
 ## Multi-Repository Aggregation
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     subgraph "Per-Repository Collection"
         R1["Repo 1<br/>lightspeedwp/.github"]
         R2["Repo 2<br/>WordPress Plugin"]
@@ -253,8 +253,8 @@ accDescr: Detailed diagram
 ## Configuration-Driven Behavior
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     CONFIG["Configuration File"] -->|context| CONTEXT{Context Type?}
     
     CONTEXT -->|github-control-plane| GH["GitHub Control Plane<br/>All metrics enabled"]
@@ -280,8 +280,8 @@ accDescr: Detailed diagram
 ## Error Handling & Retry Strategy
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     OPERATION["Execute Operation"]
     OPERATION -->|Success| RESULT["Result"]
     OPERATION -->|Error| CHECK{Error Type?}
@@ -312,8 +312,8 @@ Max: 5 attempts (total ~31 seconds)
 ## Integration with Reporting Agent
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     METRICS["Metrics Agent<br/>Complete Dataset"]
     
     METRICS -->|Handoff| REPORTING["Reporting Agent<br/>receiving handoff"]
@@ -349,8 +349,8 @@ accDescr: Detailed diagram
 ### Single vs Multi-Repository
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     subgraph "Single Repository"
         S1["100 Issues"]
         S2["50 PRs"]
@@ -378,8 +378,8 @@ accDescr: Detailed diagram
 ### Caching Strategy
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     REQUEST["Collection Request"] --> CACHE{Cache<br/>Available?}
     CACHE -->|Yes| RETURN["Return Cached<br/>Results"]
     CACHE -->|No| QUERY["Query GitHub<br/>API"]
