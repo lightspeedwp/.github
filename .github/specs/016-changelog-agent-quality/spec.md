@@ -40,7 +40,7 @@ The changelog agent needs to be restructured with proper skills that conform to 
 1. **Given** the changelog agent, **When** scanning `agents/changelog-agent/skills/<skill-name>/`, **Then** every skill directory has a `SKILL.md` whose YAML frontmatter contains standard `name` and `description` fields plus namespaced string metadata for version, triggers, inputs, outputs, and error codes
 2. **Given** the changelog-validate skill, **When** invoking it via `npm run changelog:validate -- --changelog-path <path> --output json`, **Then** it executes correctly and returns structured JSON with validation results
 3. **Given** the skill registry lookup, **When** searching for "changelog" skills, **Then** all changelog skills appear with correct metadata and version info
-4. **Given** external systems, **When** attempting to invoke changelog skills via agent API, **Then** they receive consistent, documented responses with proper error handling
+4. **Given** external systems, **When** attempting to invoke changelog skills via their npm CLI commands (the Phase 1 interface; the REST wrapper is optional and out of Phase 1), **Then** they receive consistent, documented responses with proper error handling
 
 ---
 
