@@ -13,7 +13,7 @@
 
 import fs from 'fs';
 import { load } from 'js-yaml';
-import core from '@actions/core';
+import * as core from '@actions/core';
 import * as github from '@actions/github';
 import { buildLabelAliasMap, findStandardLabel } from './includes/label-lookup.js';
 import {

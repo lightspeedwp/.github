@@ -14,7 +14,7 @@
 
 import fs from 'fs';
 import { load } from 'js-yaml';
-import core from '@actions/core';
+import * as core from '@actions/core';
 import { minimatch } from 'minimatch';
 
 /**
