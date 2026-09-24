@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Local Git Hooks Now Run** — Restored the branch name check before a push, which never ran, and added a warning when hooks are not installed. (#3493)
+- **Changelog Check Timeouts** — Fixed the changelog check failing at random on slow checkouts; it now reads only the files it needs. (#3520)
 - **Issue Labelling Floods** — Relabelling issues in bulk no longer queues hundreds of labelling runs or puts back labels that were just removed. ([#3531](https://github.com/lightspeedwp/.github/issues/3531))
 - **Code Owner Reviews** — Every code owners rule now also lists the `@lightspeedwp/lightspeed` team, so pull requests opened by the sole named owner can still be approved. ([#3465](https://github.com/lightspeedwp/.github/issues/3465))
 - **Main Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. Not applied yet — needs explicit go-ahead for main. (#3458)
