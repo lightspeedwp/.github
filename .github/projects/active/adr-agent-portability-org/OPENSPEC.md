@@ -382,8 +382,8 @@ agents/adr-generator/
 **Mermaid Diagrams Required:**
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     A[User Input] --> B[Config Loader]
     B --> C[Template Selector]
     C --> D[Template Renderer]
@@ -397,8 +397,8 @@ accDescr: Detailed diagram
 ```
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     Config["User provides decision info"]
     Config --> CheckConfig["Load .adr-config.json"]
     CheckConfig --> GetTemplate["Select template"]
