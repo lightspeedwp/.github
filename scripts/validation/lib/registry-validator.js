@@ -6,6 +6,8 @@
 
 import fs from 'fs';
 import path from 'path';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 
 export class RegistryValidator {
   constructor(options = {}) {
@@ -14,6 +16,7 @@ export class RegistryValidator {
       options.schemaPath ||
       '.github/specs/014-agents-restructure-consolidate/contracts/registry-schema.json';
     this.schema = this.loadSchema();
+    this.validateFn = this.compileSchema();
   }
 
   /**
@@ -28,6 +31,24 @@ export class RegistryValidator {
     return JSON.parse(fs.readFileSync(schemaFile, 'utf-8'));
   }
 
+  /**
+   * Compile the loaded schema with ajv (same convention as
+   * validate-agents.js). Returns null when no schema was loaded so
+   * callers fall back to minimal structural validation.
+   */
+  compileSchema() {
+    if (!this.schema) {
+      return null;
+    }
+    try {
+      this.ajv = new Ajv({ allErrors: true, strict: false });
+      addFormats(this.ajv);
+      return this.ajv.compile(this.schema);
+    } catch (error) {
+      console.warn(`Could not compile registry schema: ${error.message}`);
+      return null;
+    }
+  }
   /**
    * Validate registry file structure
    */
@@ -66,6 +87,21 @@ export class RegistryValidator {
       };
     }
 
+    // Evaluate the loaded JSON schema when available (#3522). Without a
+    // compiled schema, fall through to minimal structural validation.
+    if (this.validateFn) {
+      const schemaValid = this.validateFn(obj);
+      if (!schemaValid) {
+        for (const err of this.validateFn.errors || []) {
+          errors.push(`Schema: ${err.instancePath || '/'} ${err.message}`);
+        }
+      }
+      return {
+        valid: errors.length === 0,
+        errors,
+        path,
+      };
+    }
     // Check for required fields (will be expanded per schema)
     if (!Array.isArray(obj.entries) && !obj.agents && !obj.skills) {
       errors.push('Registry must contain entries, agents, or skills field');
