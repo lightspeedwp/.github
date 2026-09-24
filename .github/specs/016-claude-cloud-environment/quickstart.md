@@ -32,6 +32,8 @@ Expected: every case passes, including these:
 | Push to a `copilot/*` branch with no open PR, or `gh` failing | exit 2 |
 | `Edit` of `.claude/hooks/enforce-branch-name.mjs` or `sed -i … .claude/settings.json` | exit 2 |
 | `cat .claude/settings.json` | exit 0 |
+| `LS_ENFORCE_BRANCH_NAMES=0 git commit -m x` on `chore/session-abc123` (switch set inside the command) | exit 2 |
+| `Edit` of `.claude/settings.local.json` to add `"env": {"LS_ENFORCE_BRANCH_NAMES": "0"}` | exit 2 |
 | Validator import failing (simulated), then `git commit` | exit 2, "guard unavailable" |
 | Validator import failing (simulated), then `ls` | exit 0 plus warning |
 

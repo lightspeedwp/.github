@@ -142,7 +142,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-007**: Creating or renaming a branch to a non-compliant or placeholder name MUST be refused, whether it is done locally or through the GitHub integration.
 - **FR-008**: Writing files to a non-compliant or placeholder branch through the GitHub integration MUST be refused, unless the legacy PR exception applies. Writing to a protected branch this way MUST be refused unless every written file is covered by the documentation exception.
 - **FR-009**: Opening a PR on a LightSpeed repository MUST be refused when the head branch is non-compliant. On this repository, it MUST also be refused when the base is `main` and the head is not a `release/*` or `hotfix/*` branch.
-- **FR-010**: Branch-name compliance MUST be decided by the same validation rules the repository's CI uses, so that the guard and CI can never disagree.
+- **FR-010**: Branch-name compliance MUST be decided by the same validation rules the repository's CI uses, so that the guard and CI can never disagree. The authority is `lib/validate-branch-name.js`, the library the `branch-name-validation` workflow runs through `scripts/validation/validate-branch-name.js`.
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
 - **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal.
 - **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings. The agent MUST NOT be able to change the switch from inside a running session; it takes effect only from the environment the session started with.

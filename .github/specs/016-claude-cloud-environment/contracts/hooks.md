@@ -50,7 +50,9 @@ All other output goes to stderr. The exit code is always 0.
 
 **Input (stdin)**: `{ "tool_name": string, "tool_input": object, "cwd": string }`
 
-**Environment**: `LS_BASE_BRANCH` (default `develop`), `LS_ENFORCE_BRANCH_NAMES` (default `1`).
+**Environment**: `LS_BASE_BRANCH` (default `develop`), `LS_ENFORCE_BRANCH_NAMES` (default `1`). Both are read only
+from the hook's own process environment, which comes from how the session started. Variables set in the agent's
+Bash commands never reach the hook (FR-013, research R13).
 
 **Decisions**: the branch classes are defined in [data-model.md](../data-model.md#branch-classification-used-by-the-guard).
 

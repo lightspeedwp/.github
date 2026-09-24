@@ -184,3 +184,22 @@ implementation in lightspeedwp/.github#3524.
   around the guard. CODEOWNERS review is the backstop for anything the parser misses.
 - **Alternatives considered**: Making the files read-only in the setup script was rejected. It only applies in
   the cloud, and the agent runs as root, so it can undo it.
+
+## R13. Threat model and the enforcement switch (FR-013, third clarification session)
+
+- **Decision**: The guard targets accidental non-compliance and the obvious self-bypasses. The enforcement switch
+  (`LS_ENFORCE_BRANCH_NAMES`) is read only from the hook's own process environment. Claude Code passes that
+  environment down from how the session started: the cloud environment's variables, or the developer's shell
+  when they launched Claude locally.
+- **Why the agent can't flip it in a session**:
+  - Hooks run as children of the Claude Code process, not of the agent's Bash tool. So `export
+    LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash call never reaches the hook.
+  - The only in-session route is a settings file `env` block or `disableAllHooks`, and R12 already protects those
+    files.
+- **Local developers**: someone who launches Claude with the switch set to `0` in their own shell is making a
+  deliberate human choice. That's outside the threat model, and CI branch validation still applies to anything
+  they push.
+- **Validator authority (FR-010)**: `.github/workflows/branch-name-validation.yml` runs
+  `scripts/validation/validate-branch-name.js`, which imports `lib/validate-branch-name.js`. The guard imports the
+  same library (R3), so the guard and CI can't disagree. `scripts/validation/validate-branch-name.cjs` is a
+  separate CommonJS copy that CI doesn't run. Merging the two is out of scope here (see spec 009 finding F5).
