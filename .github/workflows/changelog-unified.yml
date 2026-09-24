@@ -30,13 +30,26 @@ jobs:
     if: github.event.action != 'closed' && github.actor != 'imgbot[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    # pull-requests: read for the PR files API used by the gate.
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
       run_validation: ${{ steps.gate.outputs.run_validation }}
     steps:
+      # Only the four files this job reads, at depth 1. A full-history checkout
+      # took over 5 minutes and hit the job timeout (#3520); the changed-file
+      # list now comes from the PR files API instead of git history.
       - name: Checkout PR head
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+          sparse-checkout: |
+            CHANGELOG.md
+            .nvmrc
+            scripts/agents/includes/changelogUtils.cjs
+            scripts/validation/validate-changelog.cjs
+          sparse-checkout-cone-mode: false
           submodules: false
           persist-credentials: false
 
@@ -45,7 +58,6 @@ jobs:
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
-            const cp = require("node:child_process");
             const author = context.payload.pull_request?.user?.login || "";
             const labels = (context.payload.pull_request?.labels || []).map((l) => l.name);
             const has = (name) => labels.includes(name);
@@ -83,15 +95,15 @@ jobs:
               return;
             }
 
-            const baseSha = context.payload.pull_request?.base?.sha;
-            const headSha = context.payload.pull_request?.head?.sha;
-            const changed = cp
-              .execSync(`git diff --name-only ${baseSha} ${headSha}`, {
-                encoding: "utf8",
-                maxBuffer: 1024 * 1024 * 100,
-              })
-              .split("\n")
-              .filter(Boolean);
+            // Changed files from the API (up to 3,000, GitHub's cap), so no
+            // git history is needed.
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page: 100,
+            });
+            const changed = files.map((file) => file.filename);
             if (changed.includes("CHANGELOG.md")) {
               core.info("CHANGELOG.md updated in PR diff.");
               core.setOutput("run_validation", "true");
@@ -101,8 +113,18 @@ jobs:
             // Docs-only diffs are exempt (same docs/** + **.md scope as the
             // retired changelog-management workflow): the unified workflow
             // must still report for required checks, so exempt in-gate
-            // rather than via trigger filters.
+            // rather than via trigger filters. The exemption needs the full
+            // file list: past the API cap, unlisted files may be code, so a
+            // truncated list falls through to the normal requirement.
+            const totalChanged = context.payload.pull_request.changed_files;
+            const listComplete = changed.length >= totalChanged;
+            if (!listComplete) {
+              core.warning(
+                `The files API listed ${changed.length} of ${totalChanged} changed files; the docs-only exemption needs the full list.`,
+              );
+            }
             const isDocsOnly =
+              listComplete &&
               changed.length > 0 &&
               changed.every((file) => file.startsWith("docs/") || file.endsWith(".md"));
             if (isDocsOnly) {
@@ -123,13 +145,12 @@ jobs:
         if: steps.gate.outputs.run_validation == 'true'
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
 
+      # Both scripts use only Node built-ins (fs, path), so no npm install.
       - name: Validate changelog schema
         if: steps.gate.outputs.run_validation == 'true'
         run: |
-          npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
           node scripts/agents/includes/changelogUtils.cjs --validate CHANGELOG.md
           node scripts/validation/validate-changelog.cjs CHANGELOG.md
 
@@ -158,9 +179,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
-          cache-dependency-path: ".github/validation/changelog/package.json"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: '.github/validation/changelog/package.json'
 
       - name: Install validator dependencies
         run: |
@@ -410,8 +431,8 @@ jobs:
         if: steps.check_changelog.outputs.has_changelog == 'true'
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         if: steps.check_changelog.outputs.has_changelog == 'true'
