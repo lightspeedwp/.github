@@ -257,7 +257,7 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 ### Adding a New Specification
 
 1. Determine next number: take the highest number in this catalog and in `.github/specs/` (017 at the time of writing) and add 1 (018)
-2. Create directory: `.github/specs/014-{slug}/`
+2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `018-{slug}`)
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
 5. Request approval from @ashley (governance authority)
