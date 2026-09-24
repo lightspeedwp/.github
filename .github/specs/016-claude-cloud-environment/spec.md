@@ -30,6 +30,7 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: How should we measure whether the guard is working, including SC-007? → A: No new recording of refusals. SC-001 to SC-003 use the existing branch-validation metrics, and SC-007 becomes a monthly review of 10 sampled sessions.
 - Q: Spec 009 (branch cleanup) requires human approval of every deletion through a draft PR, which conflicts with automatic deletion here. Which spec gives way? → A: Spec 009 gains a narrow exception: an agent-session branch (`claude/*`) with no commits of its own, no open PR and a tip at least 24 hours old is auto-approved for deletion. Everything else still goes through 009's draft-PR approval. The cleanup is implemented by 009's categorisation and scheduled workflow, not by a separate job.
 - Q: When a session needs to push fixes to an existing PR whose branch already has a non-compliant name, should the guard allow it? → A: Yes, only when the branch already exists on GitHub and is the head of an open PR (the legacy PR exception). Creating or renaming to a new non-compliant name is still refused, and if the open-PR status can't be verified the push is refused.
+- Q: Should Claude be stopped from editing the branch guard's own files (`.claude/hooks/` and `.claude/settings.json`) during a session? → A: Yes. The guard refuses the agent's edits to those files unless the enforcement switch is off, and CODEOWNERS requires an Owner's review for changes under `.claude/`.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -53,6 +54,7 @@ A team member starts a new cloud session on this repository and asks for a chang
 8. **Given** the agent is on `develop` or `main` and every changed file is under `.github/specs/` or `docs/`, **When** it commits and pushes, **Then** neither action is refused by the guard.
 9. **Given** the agent is on `develop` or `main` and at least one changed file is outside `.github/specs/` and `docs/`, **When** it commits or pushes, **Then** the action is refused and the refusal names the files that need a feature branch.
 10. **Given** a non-compliant branch that already exists on GitHub and is the head of an open PR, **When** the agent commits to it and pushes, **Then** neither action is refused (the legacy PR exception). **Given** the same branch without an open PR, or when open-PR status can't be verified, **Then** the push is refused.
+11. **Given** enforcement is on, **When** the agent tries to change, move or delete a file under `.claude/hooks/` or `.claude/settings.json` (through its editing tools or a shell command), **Then** the action is refused. **Given** the enforcement switch is off, **Then** the edit is allowed.
 
 ---
 
@@ -107,6 +109,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Bot-owned branches (dependabot, renovate) and protected branches**: They follow the existing validator's exemptions for naming. Protected branches are still refused for direct commits or pushes, except for changes covered by the documentation exception.
 - **Documentation exception on a protected branch where GitHub branch protection requires PRs**: The guard allows the commit, but GitHub may still reject the push. The refusal from GitHub is reported to the user, who can merge through a PR instead.
 - **Mixed commit (documentation plus code) on a protected branch**: The whole commit is refused. It is not split automatically.
+- **Indirect edits to guard files (for example `sed -i`, `mv`, `rm`, or output redirection targeting `.claude/hooks/`)**: Refused while enforcement is on, using the same command parsing as the git checks. Unusual constructions may slip through, so CODEOWNERS review remains the final safeguard.
 - **Malformed input to the guard**: The session must never break. Allow and move on.
 
 ## Requirements *(mandatory)*
@@ -140,6 +143,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
 - **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal.
 - **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings.
+- **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files (`.claude/hooks/**` and `.claude/settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`.
 - **FR-014**: Enforcement MUST block in both cloud and local agent sessions on this repository, with identical rules. Only the enforcement switch (FR-013) may downgrade refusals to warnings, in either setting.
 
 #### Shared environment
