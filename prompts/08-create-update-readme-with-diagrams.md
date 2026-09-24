@@ -516,18 +516,22 @@ done
 **Example Diagrams:**
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     A["Step 1"] --> B["Step 2"]
     B --> C{Decision}
     C -->|Yes| D["Action A"]
     C -->|No| E["Action B"]
+accDescr: Detailed diagram
 ```
 
 ```mermaid
+accTitle: Graph Diagram
 graph LR
     Client["Client"] -->|Request| Agent["Agent"]
     Agent -->|Process| Engine["Execution Engine"]
     Engine -->|Result| Client
+accDescr: Detailed diagram
 ```
 
 ---

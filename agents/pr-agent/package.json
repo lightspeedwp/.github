@@ -1,9 +1,8 @@
 {
-  "name": "@lightspeedwp/pr-creation-agent",
+  "name": "@lightspeedwp/pr-agent",
   "version": "1.0.0",
-  "description": "Portable PR creation agent with configuration-driven workflows",
+  "description": "Portable PR agent for GitHub pull request creation, template routing, labelling, and error handling.",
   "type": "module",
-  "main": "pr-orchestrator.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --verbose",
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js __tests__ --coverage",
@@ -17,6 +16,7 @@
   },
   "keywords": [
     "agent",
+    "pr-agent",
     "pr-creation",
     "github",
     "workflow",
@@ -27,14 +27,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lightspeedwp/.github.git",
-    "directory": "agents/pr-creation-agent"
+    "directory": "agents/pr-agent"
   },
   "devDependencies": {
+    "@babel/core": "^8.0.5",
     "@babel/preset-env": "^8.0.5",
+    "@eslint/js": "^10.0.1",
     "@jest/globals": "^30.4.1",
     "@types/node": "^26.5.1",
-    "babel-jest": "^29.7.0",
-    "eslint": "^8.50.0",
+    "babel-jest": "^30.5.1",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
     "jest": "^30.5.1",
     "jest-esm-transformer": "^1.0.0",
     "prettier": "^3.0.0"

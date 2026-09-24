@@ -8,7 +8,7 @@ handoffs:
     prompt: Now implement the labeling changes outlined above.
     send: false
 version: v2.0
-last_updated: '2025-11-20'
+last_updated: "2026-09-22"'
 author: LightSpeedWP
 maintainer: Ash Shaw
 file_type: agent

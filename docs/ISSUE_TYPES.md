@@ -4,7 +4,7 @@ description: "Canonical guide for org-wide issue type definitions, assignment, a
 file_type: "documentation"
 version: "v2.0"
 created_date: "2025-10-20"
-last_updated: "2025-12-07"
+last_updated: "2026-09-22""
 author: "LightSpeed Team"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]

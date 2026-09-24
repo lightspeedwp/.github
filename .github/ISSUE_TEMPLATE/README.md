@@ -46,6 +46,7 @@ For advanced usage, see the [Issue Template Index](./ISSUE_TEMPLATE/README.md) a
 ## 🗂️ Issue Template Workflow
 
 ```mermaid
+accTitle: Flowchart
 flowchart TD
     A[User Creates Issue] --> B{Select Template}
     B -->|Bug Report| C[Bug Template]
@@ -71,9 +72,10 @@ flowchart TD
     Q[Label System] --> J
     R[Project Management] --> L
 
-    style A fill:#e1f5fe
-    style I fill:#f3e5f5
-    style N fill:#e8f5e8
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style I fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style N fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 
 ## 📁 Available Templates

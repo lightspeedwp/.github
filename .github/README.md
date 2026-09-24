@@ -88,6 +88,7 @@ This repository's `.github` folder serves as the **single source of truth** for 
 ## GitHub Template Ecosystem Architecture
 
 ```mermaid
+accTitle: Flowchart
 flowchart TB
     subgraph "🏛️ .github Repository Hub"
         A[🏠 Community Health Files]
@@ -134,10 +135,11 @@ flowchart TB
     P --> R
     Q --> S
 
-    style A fill:#e1f5fe
-    style D fill:#fce4ec
-    style M fill:#e8f5e8
-    style R fill:#fff3e0
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style M fill:#dcfce7,color:#14532d,stroke:#14532d
+    style R fill:#fef3c7,color:#4a2c00,stroke:#b45309
+accDescr: Detailed diagram
 ```
 
 **Key goals:**
@@ -226,6 +228,7 @@ This repository is the **canonical, organisation-wide source** for:
 ## GitHub Automation Workflow Process
 
 ```mermaid
+accTitle: Sequence Diagram
 sequenceDiagram
     participant Dev as 👨‍💻 Developer
     participant Repo as 📁 Member Repo
@@ -242,6 +245,7 @@ sequenceDiagram
     Auto->>Repo: Apply labels
     Auto->>PM: Sync to projects
     PM-->>Dev: Notify assignment
+accDescr: Detailed diagram
 ```
 
 **How it works:**
@@ -268,6 +272,7 @@ The `.github` folder is organised for maximum clarity and modularity, grouping r
 ## Repository Structure Visualization
 
 ```mermaid
+accTitle: Graph Diagram
 graph TB
     subgraph "📁 .github/ Directory Structure"
         A[📋 instructions/]
@@ -318,10 +323,11 @@ graph TB
     H --> H4
     D --> D1
 
-    style A fill:#e1f5fe
-    style B fill:#fce4ec
-    style H fill:#e8f5e8
-    style D fill:#fff3e0
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style B fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style H fill:#dcfce7,color:#14532d,stroke:#14532d
+    style D fill:#fef3c7,color:#4a2c00,stroke:#b45309
+accDescr: Detailed diagram
 ```
 
 ## Directory Structure Details
@@ -401,6 +407,7 @@ This diagram illustrates how all components work together to create a seamless d
 ## Complete Integration Flow
 
 ```mermaid
+accTitle: Flowchart
 flowchart LR
     subgraph "👨‍💻 Developer Experience"
         A[New Contributor]
@@ -448,10 +455,11 @@ flowchart LR
     L --> P
     M --> Q
 
-    style A fill:#e1f5fe
-    style E fill:#f3e5f5
-    style J fill:#e8f5e8
-    style N fill:#c8e6c9
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style E fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style J fill:#dcfce7,color:#14532d,stroke:#14532d
+    style N fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 
 ## Component Integration Details

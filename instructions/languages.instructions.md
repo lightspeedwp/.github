@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Programming Languages Standards"
 description: "Unified linting, formatting, and documentation standards for JavaScript, TypeScript, JSON, and YAML across all GitHub repositories"
 version: "v1.0"
-last_updated: "2025-12-07"
+last_updated: "2026-09-22""
 owners: ["GitHub Community Health Team"]
 tags:
   ["javascript", "typescript", "json", "yaml", "linting", "formatting", "jsdoc"]

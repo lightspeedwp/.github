@@ -5,7 +5,10 @@ on:
     workflows: [Branch Name Validation]
     types: [completed]
   schedule:
-    - cron: '0 * * * *'
+    # Daily off-hour run (UTC). The workflow_run trigger above already keeps
+    # the fixed-branch PR fresh on validation activity; the schedule is only
+    # a backstop, so hourly would just burn minutes and PR-update noise.
+    - cron: '17 3 * * *'
 
 permissions:
   contents: write
@@ -23,12 +26,17 @@ concurrency:
 jobs:
   aggregate-metrics:
     name: Aggregate validation metrics
+    # Never react to a validation of this workflow's own output branch: that
+    # push-validate-aggregate cycle looped ~450 times a day (#3474).
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.head_branch != 'chore/branch-validation-metrics'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Full history is required so the metrics commit can rebase
           # onto the latest develop when the push races another writer.
@@ -39,17 +47,12 @@ jobs:
       # See https://github.com/actions/download-artifact#download-artifacts-from-other-workflow-runs-or-repositories
       - name: Download recent metrics artifacts
         if: github.event_name == 'workflow_run'
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           path: metrics-artifacts
           pattern: branch-validation-metrics
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: '.nvmrc'
 
       - name: Aggregate metrics
         id: aggregate
@@ -118,13 +121,49 @@ jobs:
 
           echo "total=$total" >> "$GITHUB_OUTPUT"
 
+      # Bound the committed artifact history: without pruning, every run adds
+      # another metrics-artifacts/*.json file and create-pull-request commits
+      # them all, growing the fixed branch (and develop after merge) forever.
+      # Keep the 30 most recent files; the aggregate above already ran, so
+      # deletions only affect future runs' input window, not this summary.
+      - name: Prune old metrics artifacts
+        shell: bash
+        run: |
+          keep=30
+          mapfile -t stale < <(ls -1t metrics-artifacts/*.json 2>/dev/null | tail -n +$((keep + 1)) || true)
+          if [ "${#stale[@]}" -gt 0 ]; then
+            printf '%s\n' "${stale[@]}" | xargs rm -f --
+            echo "Pruned ${#stale[@]} artifact(s), kept latest $keep."
+          else
+            echo "Nothing to prune (≤ $keep artifacts present)."
+          fi
+
+      - name: Generate GitHub App token
+        # App token (not GITHUB_TOKEN) so the metrics PR triggers CI and
+        # can satisfy develop's required checks. Requires repo/org secrets:
+        # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        id: app-token
+        if: steps.aggregate.outputs.total != '0'
+        # NOTE: actionlint 1.7.12 (latest) bundles a stale v2-era input set
+        # for this action (expects app-id, rejects client-id). Upstream v3
+        # renamed app-id to client-id; the two messages are filtered via
+        # documented -ignore flags in workflow-lint.yml.
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          # Least privilege: push the branch, open/update the PR, label it.
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Create or update metrics PR
         if: steps.aggregate.outputs.total != '0'
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
+          token: ${{ steps.app-token.outputs.token }}
           branch: chore/branch-validation-metrics
           base: develop
-          commit-message: 'chore: Update branch validation metrics [skip ci]'
+          commit-message: 'chore: Update branch validation metrics'
           title: 'chore: Update branch validation metrics'
           body: |
             Automated metrics update, Dependabot-style.
@@ -137,7 +176,7 @@ jobs:
 
       - name: Upload aggregated metrics
         if: steps.aggregate.outputs.total != '0'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: branch-validation-metrics-summary
           path: .github/reports/branch-validation/metrics-summary.json

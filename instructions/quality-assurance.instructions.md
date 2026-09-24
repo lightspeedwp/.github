@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Quality Assurance Standards"
 description: "Comprehensive testing, validation, and quality assurance standards for all GitHub repository code and automation"
 version: "v1.0"
-last_updated: "2025-12-07"
+last_updated: "2026-09-22""
 owners: ["GitHub Community Health Team"]
 tags: ["testing", "quality", "jest", "playwright", "coverage", "ci-cd"]
 applyTo: ["**/*.{test,spec}.{js,ts,jsx,tsx}", "**/__tests__/**/*"]
@@ -72,10 +72,10 @@ graph TD
     B --> C[Unit Tests<br/>Pure Functions & Logic]
     C --> D[Static Analysis<br/>Linting & Type Checking]
 
-    classDef e2e fill:#ffebee
-    classDef integration fill:#fff3e0
-    classDef unit fill:#e8f5e8
-    classDef static fill:#e1f5fe
+    classDef e2e fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+    classDef integration fill:#fef3c7,color:#4a2c00,stroke:#b45309
+    classDef unit fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef static fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
 
     class A e2e
     class B integration

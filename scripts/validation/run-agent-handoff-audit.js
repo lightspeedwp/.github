@@ -5,18 +5,18 @@
  * @see ../../agents/agent.md
  */
 
-const fs = require("fs");
-const path = require("path");
-const yaml = require("js-yaml");
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
 
-const REPO_ROOT = path.resolve(__dirname, "..", "..");
-const AGENTS_DIR = path.join(REPO_ROOT, ".github", "agents");
+const REPO_ROOT = path.resolve(__dirname, '..', '..');
+const AGENTS_DIR = path.join(REPO_ROOT, '.github', 'agents');
 
 function readAgentFiles() {
   if (!fs.existsSync(AGENTS_DIR)) return [];
   return fs
     .readdirSync(AGENTS_DIR)
-    .filter((f) => f.endsWith(".agent.md"))
+    .filter((f) => f.endsWith('.agent.md'))
     .map((f) => path.join(AGENTS_DIR, f));
 }
 
@@ -35,14 +35,12 @@ function buildGraph(agentFiles) {
   const agentsByName = {};
 
   for (const file of agentFiles) {
-    const name = path.basename(file).replace(/\.agent\.md$/, "");
+    const name = path.basename(file).replace(/\.agent\.md$/, '');
     agentsByName[name] = file;
-    const content = fs.readFileSync(file, "utf8");
+    const content = fs.readFileSync(file, 'utf8');
     const fm = extractFrontmatter(content) || {};
     const handoffs = Array.isArray(fm.handoffs) ? fm.handoffs : [];
-    graph[name] = handoffs
-      .filter((h) => h && typeof h.agent === "string")
-      .map((h) => h.agent);
+    graph[name] = handoffs.filter((h) => h && typeof h.agent === 'string').map((h) => h.agent);
   }
 
   return { graph, agentsByName };
@@ -78,7 +76,7 @@ function findCycles(graph) {
   const norm = new Set();
   const unique = [];
   for (const c of cycles) {
-    const s = c.join("->");
+    const s = c.join('->');
     if (!norm.has(s)) {
       norm.add(s);
       unique.push(c);
@@ -100,37 +98,37 @@ function findMissingTargets(graph, agentsByName) {
 function main() {
   const files = readAgentFiles();
   if (files.length === 0) {
-    console.log("No agent files found under", AGENTS_DIR);
+    console.log('No agent files found under', AGENTS_DIR);
     process.exit(0);
   }
   const { graph, agentsByName } = buildGraph(files);
   const cycles = findCycles(graph);
   const missing = findMissingTargets(graph, agentsByName);
 
-  console.log("\nAgent Handoff Audit");
-  console.log("====================");
+  console.log('\nAgent Handoff Audit');
+  console.log('====================');
   console.log(`Agents scanned: ${Object.keys(graph).length}`);
 
   if (cycles.length === 0) {
-    console.log("\nNo circular handoffs detected.");
+    console.log('\nNo circular handoffs detected.');
   } else {
     console.log(`\nFound ${cycles.length} circular handoff(s):`);
     cycles.forEach((c, i) => {
-      console.log(`  ${i + 1}. ${c.join(" -> ")}`);
+      console.log(`  ${i + 1}. ${c.join(' -> ')}`);
     });
   }
 
   if (missing.length === 0) {
-    console.log("\nNo missing handoff targets.");
+    console.log('\nNo missing handoff targets.');
   } else {
     console.log(`\nMissing handoff targets (${missing.length}):`);
     missing.forEach((m) => console.log(`  - ${m.from} -> ${m.to}`));
   }
 
   // Also print a simple adjacency list for review
-  console.log("\nAdjacency list:");
+  console.log('\nAdjacency list:');
   for (const [k, vs] of Object.entries(graph)) {
-    console.log(`  - ${k}: ${vs.join(", ") || "(none)"}`);
+    console.log(`  - ${k}: ${vs.join(', ') || '(none)'}`);
   }
 
   // Exit non-zero if cycles exist

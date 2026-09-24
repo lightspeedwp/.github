@@ -3,7 +3,7 @@ file_type: "instructions"
 description: "Unified coding standards for all LightSpeedWP projects: applies to all code, documentation, automation, and AI contributions."
 applyTo: "**"
 version: "v2.1"
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 owners: ["LightSpeedWP Team"]
 tags: ["coding-standards", "governance", "automation", "docs", "lint", "ai"]
 ---

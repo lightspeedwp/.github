@@ -13,9 +13,9 @@
  * ============================================================================
  */
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const { parseConventionalCommit } = require("../agents/includes/commitParser");
+const { execSync } = require('child_process');
+const fs = require('fs');
+const { parseConventionalCommit } = require('../agents/includes/commitParser');
 
 /**
  * Validate a commit message
@@ -32,11 +32,11 @@ function validateCommit(message) {
 
   // Check required fields
   if (!parsed.type) {
-    errors.push("Commit type is required");
+    errors.push('Commit type is required');
   }
 
   if (!parsed.description) {
-    errors.push("Commit description is required");
+    errors.push('Commit description is required');
   }
 
   // Warn about scopes (not required but good practice)
@@ -59,29 +59,29 @@ function validateCommit(message) {
  */
 function getGitLog(since, limit = 50) {
   if (since && !/^[a-zA-Z0-9_./~^@:-]+$/.test(since)) {
-    throw new Error("Invalid git reference format");
+    throw new Error('Invalid git reference format');
   }
   try {
-    const format = "%H%n%an%n%ae%n%s%n%b%n---END-COMMIT---%n";
+    const format = '%H%n%an%n%ae%n%s%n%b%n---END-COMMIT---%n';
     let cmd = 'git log --format="' + format + '" -n ' + limit;
 
     if (since) {
-      cmd += " " + since + "..HEAD";
+      cmd += ' ' + since + '..HEAD';
     }
 
-    const commitStrings = execSync(cmd, { encoding: "utf8", stdio: "pipe" })
-      .split("---END-COMMIT---\n")
+    const commitStrings = execSync(cmd, { encoding: 'utf8', stdio: 'pipe' })
+      .split('---END-COMMIT---\n')
       .filter((s) => s.trim());
 
     const commits = [];
     commitStrings.forEach((commitStr) => {
-      const lines = commitStr.trim().split("\n");
+      const lines = commitStr.trim().split('\n');
       if (lines.length >= 3) {
         commits.push({
           hash: lines[0],
           author: lines[1],
           email: lines[2],
-          message: lines.slice(3).join("\n"),
+          message: lines.slice(3).join('\n'),
         });
       }
     });
@@ -135,29 +135,23 @@ function main() {
   const args = process.argv.slice(2);
 
   if (args.length === 0) {
-    console.error(
-      "Usage: validate-conventional-commits.js [--git [since] | --file <path>]",
-    );
-    console.error("");
-    console.error("Options:");
-    console.error(
-      "  --git [since]   Validate commits from git log (optional: from reference)",
-    );
-    console.error("  --file <path>   Validate commits from file");
+    console.error('Usage: validate-conventional-commits.js [--git [since] | --file <path>]');
+    console.error('');
+    console.error('Options:');
+    console.error('  --git [since]   Validate commits from git log (optional: from reference)');
+    console.error('  --file <path>   Validate commits from file');
     process.exit(1);
   }
 
   const command = args[0];
 
   try {
-    if (command === "--git") {
-      const since = args[1] || "origin/develop";
+    if (command === '--git') {
+      const since = args[1] || 'origin/develop';
       const result = validateGitLog(since);
 
       if (result.invalidCount === 0) {
-        console.log(
-          `✓ All ${result.validCount} commits follow Conventional Commits format`,
-        );
+        console.log(`✓ All ${result.validCount} commits follow Conventional Commits format`);
         process.exit(0);
       } else {
         console.error(`✗ Found ${result.invalidCount} invalid commits:`);
@@ -168,10 +162,10 @@ function main() {
         });
         process.exit(1);
       }
-    } else if (command === "--file") {
+    } else if (command === '--file') {
       const filePath = args[1];
       if (!filePath) {
-        console.error("--file requires a path argument");
+        console.error('--file requires a path argument');
         process.exit(1);
       }
 
@@ -180,14 +174,14 @@ function main() {
         process.exit(1);
       }
 
-      const content = fs.readFileSync(filePath, "utf8");
+      const content = fs.readFileSync(filePath, 'utf8');
       const result = validateCommit(content);
 
       if (result.valid) {
-        console.log("✓ Commit message is valid");
+        console.log('✓ Commit message is valid');
         process.exit(0);
       } else {
-        console.error("✗ Commit message is invalid:");
+        console.error('✗ Commit message is invalid:');
         result.errors.forEach((err) => console.error(`  - ${err}`));
         process.exit(1);
       }

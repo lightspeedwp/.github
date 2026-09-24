@@ -3,7 +3,7 @@ file_type: "documentation"
 title: "Configurations"
 description: "Configuration management and environment setup guide for LightSpeedWP projects"
 version: "1.0.0"
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Team"]
 tags: ["configuration", "environment", "setup", "settings", "tooling"]
 references:

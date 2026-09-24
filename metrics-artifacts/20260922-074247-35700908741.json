@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-09-22T07:42:47Z",
+  "branch_name": "fix/changelog-unified",
+  "valid": true,
+  "errors": "",
+  "actor": "ashleyshaw",
+  "event": "push",
+  "ref": "refs/heads/fix/changelog-unified",
+  "sha": "817f84127021371bd1f59cb79aa72f6c51dbf39a"
+}

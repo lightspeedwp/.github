@@ -40,6 +40,7 @@ tags: [process, cicd, github-actions, automation, [domain-specific-tags]]
 ## Execution Flow Diagram
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     A[Trigger Event] --> B[Job 1]
     B --> C[Job 2]
@@ -49,8 +50,9 @@ graph TD
     B --> F[Parallel Job]
     F --> D
     
-    style A fill:#e1f5fe
-    style E fill:#e8f5e8
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style E fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 
 ## Jobs & Dependencies
@@ -249,10 +251,12 @@ When analyzing the workflow file:
 
 ### Styling
 ```mermaid
-style TriggerNode fill:#e1f5fe
-style SuccessNode fill:#e8f5e8
-style FailureNode fill:#ffebee
-style ProcessNode fill:#f3e5f5
+accTitle: Diagram
+style TriggerNode fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+style SuccessNode fill:#dcfce7,color:#14532d,stroke:#14532d
+style FailureNode fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+style ProcessNode fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+accDescr: Detailed diagram
 ```
 
 ### Complex Workflows
@@ -260,6 +264,7 @@ style ProcessNode fill:#f3e5f5
 For workflows with 5+ jobs, use subgraphs:
 
 ```mermaid
+accTitle: Graph Diagram
 graph TD
     subgraph "Build Phase"
         A[Lint] --> B[Test] --> C[Build]
@@ -268,6 +273,7 @@ graph TD
         D[Staging] --> E[Production]
     end
     C --> D
+accDescr: Detailed diagram
 ```
 
 ## Token Optimization Strategies
@@ -295,5 +301,5 @@ Focus on creating a specification that serves as both documentation and a templa
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

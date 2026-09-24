@@ -28,20 +28,26 @@ metadata:
 ## Valid Mermaid Diagram
 
 ​```mermaid
+accTitle: Graph Diagram
 graph TD
     A[Start] --> B[Process]
     B --> C{Decision}
     C -->|Yes| D[End]
     C -->|No| E[Loop Back]
     E --> B
-​```
+​
+accDescr: Detailed diagram
+```
 
 ## Invalid Diagram (missing accTitle)
 
 ​```mermaid
+accTitle: Graph Diagram
 graph LR
     A[Input] --> B[Output]
-​```
+​
+accDescr: Detailed diagram
+```
 ```
 
 **Expected Results:**

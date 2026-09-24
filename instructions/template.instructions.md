@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Template: Instructions"
 description: "Generic instruction file skeleton for LightSpeedWP documentation and automation."
 version: "v1.0"
-last_updated: "2025-10-23"
+last_updated: "2026-09-22""
 owners: ["LightSpeedWP Engineering"]
 tags: ["template", "instructions", "copilot", "guidance"]
 status: "draft"

@@ -35,6 +35,7 @@ This skill enables visual inspection and validation of website design quality, i
 ## Workflow Overview
 
 ```mermaid
+accTitle: Flowchart
 flowchart TD
     A[Step 1: Information Gathering] --> B[Step 2: Visual Inspection]
     B --> C[Step 3: Issue Fixing]
@@ -42,6 +43,7 @@ flowchart TD
     D --> E{Issues Remaining?}
     E -->|Yes| B
     E -->|No| F[Completion Report]
+accDescr: Detailed diagram
 ```
 
 ---
@@ -159,6 +161,7 @@ Test at the following viewports:
 ### 3.1 Issue Prioritization
 
 ```mermaid
+accTitle: Diagram
 block-beta
     columns 1
     block:priority["Priority Matrix"]
@@ -166,6 +169,7 @@ block-beta
         P2["P2: Fix Next\n(Visual issues degrading UX)"]
         P3["P3: Fix If Possible\n(Minor visual inconsistencies)"]
     end
+accDescr: Detailed diagram
 ```
 
 ### 3.2 Identifying Source Files
@@ -219,10 +223,12 @@ See [references/framework-fixes.md](references/framework-fixes.md) for details.
 ### 4.3 Iteration Decision
 
 ```mermaid
+accTitle: Flowchart
 flowchart TD
     A{Issues Remaining?}
     A -->|Yes| B[Return to Step 2]
     A -->|No| C[Proceed to Completion Report]
+accDescr: Detailed diagram
 ```
 
 **Iteration Limit**: If more than 3 fix attempts are needed for a specific issue, consult the user
