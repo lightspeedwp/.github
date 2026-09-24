@@ -12,6 +12,40 @@
       "approved_at": "2026-09-24",
       "blocks": "merge of audit/label-consolidation into develop",
       "approval_comment": "https://github.com/lightspeedwp/.github/issues/3530#issuecomment-5809051163"
+    },
+    {
+      "kind": "ISSUE-TYPE-UPDATE-REQUEST",
+      "task": "T040b",
+      "issue_number": 3556,
+      "url": "https://github.com/lightspeedwp/.github/issues/3556",
+      "covers": [
+        ".github/issue-types.yml (25 entries, descriptions, colours; Decision replaces Question)",
+        ".github/labels.yml type:* colours and type:question removal",
+        "organisation native issue types (T040c, FR-019)"
+      ],
+      "implemented_in": "https://github.com/lightspeedwp/.github/pull/3534",
+      "status": "pending",
+      "approved_by": null,
+      "approved_at": null,
+      "approval_comment": null,
+      "blocks": "merge of #3534"
+    },
+    {
+      "kind": "TEMPLATE-UPDATE-REQUEST",
+      "task": "T040b",
+      "issue_number": 3557,
+      "url": "https://github.com/lightspeedwp/.github/issues/3557",
+      "covers": [
+        ".github/ISSUE_TEMPLATE/06-decision.md added",
+        ".github/ISSUE_TEMPLATE/06-question.md removed",
+        ".github/ISSUE_TEMPLATE/config.yml Discussions link"
+      ],
+      "implemented_in": "https://github.com/lightspeedwp/.github/pull/3534",
+      "status": "pending",
+      "approved_by": null,
+      "approved_at": null,
+      "approval_comment": null,
+      "blocks": "merge of #3534"
     }
   ]
 }
