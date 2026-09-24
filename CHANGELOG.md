@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Remaining Mermaid Gaps Closed** — Examples use text fences and the last unsupported config is gone, so check is clean. ([PR #3537](https://github.com/lightspeedwp/.github/pull/3537), [#3526](https://github.com/lightspeedwp/.github/issues/3526))
 - **Diagram Check on Every Pull Request** — Diagrams are now checked with Mermaid's own parser on each pull request and before commit, and 8 more broken diagrams render again. (#3492)
 - **Broken Diagrams Repaired** — 123 diagrams in 36 documents render again; the diagram tidy-up bot now places accessibility titles correctly and no longer edits surrounding text. (#3490)
+- **Changelog Check Timeouts** — Fixed the changelog check failing at random on slow checkouts; it now reads only the files it needs. (#3520)
 - **Issue Labelling Floods** — Relabelling issues in bulk no longer queues hundreds of labelling runs or puts back labels that were just removed. ([#3531](https://github.com/lightspeedwp/.github/issues/3531))
 - **Code Owner Reviews** — Every code owners rule now also lists the `@lightspeedwp/lightspeed` team, so pull requests opened by the sole named owner can still be approved. ([#3465](https://github.com/lightspeedwp/.github/issues/3465))
 - **Main Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. Not applied yet — needs explicit go-ahead for main. (#3458)
