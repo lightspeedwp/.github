@@ -61,7 +61,7 @@ Start a new session on this repository without changing the environment selector
 
 ```bash
 node scripts/cleanup-branches.js --reportFormat=json --reportDir=/tmp/cleanup
-jq '[.branches[] | select(.autoApproved)] | map(.name)' /tmp/cleanup/*.json
+jq '[.deleted[] | select(.autoApproved) | .branch]' /tmp/cleanup/*.json
 ```
 
 Expected:

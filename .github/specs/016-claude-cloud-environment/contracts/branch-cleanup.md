@@ -20,7 +20,8 @@ All other results carry `autoApproved: false` (or omit it).
 ## Audit command (`scripts/cleanup-branches.js`)
 
 - The existing 009 command-line contract is unchanged. `--dryRun=false` is still rejected with exit 1.
-- The JSON report adds `autoApproved` to each branch entry, and a summary count, `autoApprovedDelete`.
+- The JSON report adds `autoApproved` to each candidate in `deleted[]`, and a summary count, `summary.autoApprovedDelete`.
+- Branch-name checks use `lib/validate-branch-name.js`. The local copy in `scripts/lib/` is removed (analysis finding F5).
 - The Markdown report lists auto-approved deletions in their own section.
 
 ## Scheduled workflow (spec 009 User Story 5)
