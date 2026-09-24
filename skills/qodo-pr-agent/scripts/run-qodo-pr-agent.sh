@@ -42,12 +42,15 @@ log_file="$out_dir/qodo-pr-agent.log"
 : > "$log_file"
 
 # emit <status> <reason|""> [markdown-file] [json-file] [truncated]
+# Write and print the result; missing output files or invalid JSON data become null.
+# Exit 2 for errors and 0 for successful or skipped runs.
 emit() {
   STATUS="$1" REASON="$2" TOOL="$tool" MD_FILE="${3:-}" JSON_FILE="${4:-}" TRUNCATED="${5:-false}" \
     python3 - "$out_dir/result.json" <<'PY'
 import json, os, sys
 
 def read(path):
+    """Read an existing UTF-8 file, or return None if its path is unavailable."""
     if path and os.path.isfile(path):
         with open(path, encoding="utf-8") as handle:
             return handle.read()
@@ -79,6 +82,7 @@ PY
   esac
 }
 
+# Report invalid usage on stderr and exit with status 64.
 usage_error() {
   echo "$1" >&2
   echo "Usage: run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--question \"<text>\"] [--out <dir>]" >&2
@@ -122,6 +126,7 @@ if [ "$tool" = "ask" ]; then tool_args+=("$question"); fi
 md_out="$out_dir/out.md"
 json_out="$out_dir/out.json"
 
+# Run the pinned container against a PR URL or a read-only mounted diff.
 run_docker() {
   local args=(run --rm -e ANTHROPIC__KEY --entrypoint python)
   local target=()
@@ -137,6 +142,7 @@ run_docker() {
   docker "${args[@]}" "$IMAGE" -m pr_agent.cli "${target[@]}" "${tool_args[@]}" "${settings[@]}"
 }
 
+# Run the pinned pipx CLI against a PR URL or a local diff and output files.
 run_pipx() {
   local target=()
   if [ -n "$pr_url" ]; then
