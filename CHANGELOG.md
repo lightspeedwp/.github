@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Issue Labelling Floods** — Relabelling issues in bulk no longer queues hundreds of labelling runs or puts back labels that were just removed. ([#3531](https://github.com/lightspeedwp/.github/issues/3531))
 - **Code Owner Reviews** — Every code owners rule now also lists the `@lightspeedwp/lightspeed` team, so pull requests opened by the sole named owner can still be approved. ([#3465](https://github.com/lightspeedwp/.github/issues/3465))
 - **Main Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. Not applied yet — needs explicit go-ahead for main. (#3458)
 - **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate with identical scope.
@@ -49,6 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
 - **Branding Agent Footer Config Path Fixed** — Corrected the same stale config path and dedup regex bugs in `branding.agent.js`. (#3456)
 - **Reference Detection Test Isolation Fixed** — Isolated the rename-scenario test from leaked fixture state; remaining match defect tracked separately. (#3452)
+- **Broken Reference Checks** — Fixed path matching, default and named import detection, and injected test indexes, so all reference detection tests pass. (#3460)
 - **Bot Commits via Pull Requests** — Metrics, documentation and maintenance bots now open fixed-branch pull requests instead of pushing to develop; metrics run daily. ([PR #3410](https://github.com/lightspeedwp/.github/pull/3410))
 - **Metrics PR Runs CI via App Token** — The metrics aggregator mints a GitHub App token for its fixed-branch PR and drops `[skip ci]`, so required checks report and the merge queue can take it.
 - **Bot PR Hygiene Pass** — Docs bot PR bodies now carry all required template sections, the docs bot is exempt from the changelog requirement like Dependabot, and both token steps use the modern client-id input.
