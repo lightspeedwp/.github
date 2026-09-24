@@ -5,6 +5,9 @@
 #
 # - Every action is pinned to a full commit SHA with its version as a
 #   comment; let Dependabot (github-actions ecosystem) keep the pins current.
+# - `npm ci` and the npm cache need a committed `package-lock.json`. The
+#   scaffold's .gitignore excludes it: remove that line, run `npm install`
+#   and commit the lockfile before enabling this workflow.
 # - Organisation reusable workflows are called by path and pinned to a
 #   lightspeedwp/.github commit SHA: replace REPLACE_WITH_COMMIT_SHA below.
 #   Available: ai-feedback-validation.yml (below) and
