@@ -1,0 +1,226 @@
+# Qodo PR-Agent • Reusable
+#
+# Organisation-standard run definition for Qodo PR-Agent
+# (https://github.com/the-pr-agent/pr-agent, formerly qodo-ai/pr-agent).
+# Callers declare the triggers; this workflow decides whether to run and runs it.
+#
+# - CodeRabbit owns the automatic review verdict, so `auto_review` is hard-coded
+#   to "false". Qodo PR-Agent automatically posts a summary comment (describe)
+#   and improvement suggestions (improve); everything else is a maintainer command.
+# - No actions/checkout: Qodo PR-Agent reads the PR through the API, so no PR
+#   code is ever executed. Fork PRs receive no secrets and are skipped with a notice.
+# - Kill-switch: set the Actions variable QODO_PR_AGENT_ENABLED to "false".
+# - A skipped run always concludes successfully; this workflow never blocks a PR.
+#
+# Docs: docs/QODO_PR_AGENT.md
+# Contract: .github/specs/017-qodo-pr-agent-integration/contracts/reusable-workflow.md
+name: Qodo PR-Agent • Reusable
+
+on:
+  workflow_call:
+    inputs:
+      config_ref:
+        description: 'Ref of lightspeedwp/.github whose .pr_agent.toml is loaded as extra_config_url'
+        type: string
+        required: false
+        default: main
+      auto_describe:
+        description: 'Post the summary comment automatically on PR events'
+        type: boolean
+        required: false
+        default: true
+      auto_improve:
+        description: 'Post improvement suggestions automatically on PR events'
+        type: boolean
+        required: false
+        default: true
+      excluded_authors:
+        description: 'JSON array of PR authors that never trigger automatic runs'
+        type: string
+        required: false
+        default: '["dependabot[bot]","lightspeed-docs-bot[bot]"]'
+    secrets:
+      model_credential:
+        description: 'Anthropic API key dedicated to Qodo PR-Agent (ANTHROPIC_API_KEY_QODO_PR_AGENT)'
+        required: false
+
+permissions:
+  contents: read
+
+# One run per PR at a time; never cancel a maintainer's command for an unrelated event.
+concurrency:
+  group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    name: Decide whether Qodo PR-Agent runs
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    outputs:
+      enabled: ${{ steps.decide.outputs.enabled }}
+      reason: ${{ steps.decide.outputs.reason }}
+      tool: ${{ steps.decide.outputs.tool }}
+    steps:
+      - name: Check eligibility
+        id: decide
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          HAS_CREDENTIAL: ${{ secrets.model_credential != '' }}
+          KILL_SWITCH: ${{ vars.QODO_PR_AGENT_ENABLED }}
+          EXCLUDED_AUTHORS: ${{ inputs.excluded_authors }}
+        with:
+          script: |
+            const ALLOWED_COMMANDS = [
+              '/describe',
+              '/improve',
+              '/review',
+              '/ask',
+              '/update_changelog',
+              '/add_docs',
+              '/help',
+            ];
+            const ALLOWED_ASSOCIATIONS = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+            const payload = context.payload;
+
+            function decide() {
+              if (String(process.env.KILL_SWITCH).toLowerCase() === 'false') {
+                return { reason: 'kill-switch' };
+              }
+              if (payload.sender?.type === 'Bot') {
+                return { reason: 'bot-sender' };
+              }
+
+              if (context.eventName === 'pull_request') {
+                const pr = payload.pull_request;
+                let excluded = [];
+                try {
+                  excluded = JSON.parse(process.env.EXCLUDED_AUTHORS || '[]');
+                } catch {
+                  core.warning('excluded_authors is not valid JSON; treating it as empty.');
+                }
+                if (pr.draft) return { reason: 'draft' };
+                if (excluded.includes(pr.user?.login)) return { reason: 'excluded-author' };
+                if (process.env.HAS_CREDENTIAL !== 'true') return { reason: 'no-credential' };
+                return { reason: 'ok', tool: 'auto' };
+              }
+
+              if (context.eventName === 'issue_comment') {
+                const comment = payload.comment;
+                if (!payload.issue?.pull_request) return { reason: 'not-a-pr' };
+                const command = String(comment?.body || '').trim().split(/\s+/)[0].toLowerCase();
+                if (!command.startsWith('/')) return { reason: 'not-a-command' };
+                if (!ALLOWED_ASSOCIATIONS.includes(comment?.author_association)) {
+                  return { reason: 'author-not-allowed' };
+                }
+                if (!ALLOWED_COMMANDS.includes(command)) return { reason: 'command-not-allowed' };
+                if (process.env.HAS_CREDENTIAL !== 'true') return { reason: 'no-credential' };
+                return { reason: 'ok', tool: command.slice(1) };
+              }
+
+              return { reason: 'unsupported-event' };
+            }
+
+            const { reason, tool = 'none' } = decide();
+            const enabled = reason === 'ok';
+            core.setOutput('enabled', String(enabled));
+            core.setOutput('reason', reason);
+            core.setOutput('tool', tool);
+            if (!enabled && reason !== 'not-a-command') {
+              core.notice(`Qodo PR-Agent skipped: ${reason}`);
+            }
+
+  run:
+    name: Run Qodo PR-Agent
+    needs: preflight
+    if: needs.preflight.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    outputs:
+      started_at: ${{ steps.start.outputs.at }}
+    steps:
+      - name: Record start time
+        id: start
+        run: echo "at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+
+      # Pinned by image digest: the upstream action's own Dockerfile uses a
+      # floating tag, so pinning the action ref would not pin the code that runs.
+      - name: Qodo PR-Agent
+        id: qodo
+        uses: docker://pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7 # 0.46.0-github_action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC.KEY: ${{ secrets.model_credential }}
+          CONFIG.EXTRA_CONFIG_URL: https://raw.githubusercontent.com/lightspeedwp/.github/${{ inputs.config_ref }}/.pr_agent.toml
+          github_action_config.auto_review: 'false'
+          github_action_config.auto_describe: ${{ inputs.auto_describe && 'true' || 'false' }}
+          github_action_config.auto_improve: ${{ inputs.auto_improve && 'true' || 'false' }}
+          github_action_config.pr_actions: '["opened","reopened","ready_for_review"]'
+
+  record:
+    name: Record run
+    needs: [preflight, run]
+    # Ordinary conversation, bot comments and non-PR comments leave no record.
+    if: >-
+      always() &&
+      !contains(fromJSON('["not-a-command","bot-sender","not-a-pr"]'), needs.preflight.outputs.reason)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Write run record
+        env:
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+          TOOL: ${{ needs.preflight.outputs.tool }}
+          TRIGGER: ${{ github.event_name }}
+          REASON: ${{ needs.preflight.outputs.reason }}
+          RUN_RESULT: ${{ needs.run.result }}
+          STARTED_AT: ${{ needs.run.outputs.started_at }}
+          EVENT_AT: ${{ github.event.comment.created_at || github.event.pull_request.updated_at }}
+        run: |
+          if [ "$REASON" != "ok" ]; then
+            outcome="skipped:${REASON}"
+          elif [ "$RUN_RESULT" = "success" ]; then
+            outcome="success"
+          else
+            outcome="failure"
+          fi
+          duration=0
+          if [ -n "$STARTED_AT" ]; then
+            duration=$(( $(date -u +%s) - $(date -u -d "$STARTED_AT" +%s) ))
+          fi
+          jq -n \
+            --arg repository "$REPOSITORY" \
+            --argjson pr "${PR_NUMBER:-0}" \
+            --arg tool "$TOOL" \
+            --arg trigger "$TRIGGER" \
+            --arg outcome "$outcome" \
+            --argjson duration_seconds "$duration" \
+            --arg model "anthropic/claude-sonnet-5" \
+            --arg started_at "${STARTED_AT:-}" \
+            --arg event_at "${EVENT_AT:-}" \
+            '{repository: $repository, pr: $pr, tool: $tool, trigger: $trigger, outcome: $outcome,
+              duration_seconds: $duration_seconds, model: $model, started_at: $started_at, event_at: $event_at}' \
+            > qodo-pr-agent-run.json
+          {
+            echo "### Qodo PR-Agent run record"
+            echo
+            echo '```json'
+            cat qodo-pr-agent-run.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload run record
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: qodo-pr-agent-run-${{ github.run_id }}
+          path: qodo-pr-agent-run.json
+          retention-days: 30
+
+      # metrics: see T028

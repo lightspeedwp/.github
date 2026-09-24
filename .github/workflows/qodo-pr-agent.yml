@@ -1,0 +1,31 @@
+# Qodo PR-Agent • Pilot
+#
+# Pilot caller for lightspeedwp/.github. Other repositories copy this file and
+# change the `uses:` line to
+#   lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>
+# (see docs/QODO_PR_AGENT.md → "Enable in another repository").
+#
+# Automatic: summary comment and improvement suggestions on non-draft PRs when
+# they are opened, reopened or marked ready for review. No re-run on every push.
+# On demand: maintainer comments such as `/ask`, `/review`, `/update_changelog`.
+name: Qodo PR-Agent • Pilot
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  qodo:
+    name: Qodo PR-Agent
+    uses: ./.github/workflows/qodo-pr-agent-reusable.yml
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    secrets:
+      model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}

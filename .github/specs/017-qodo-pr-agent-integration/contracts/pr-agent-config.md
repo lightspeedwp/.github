@@ -33,6 +33,7 @@ Every `extra_instructions` value MUST:
 
 - Tell the model to write in UK English.
 - Point to `AGENTS.md` as the source of organisation standards. It must not restate those standards; upstream already injects `AGENTS.md` through `config.repo_context_files`.
+- Tell the model never to reproduce credentials, tokens or keys found in the diff, and to refer to them by file and line only (spec edge case "Secrets or sensitive content in diffs").
 - Contain no framework-, language- or CMS-specific rules. The contract test rejects the words `WordPress`, `PHP`, `React` and `block theme`.
 
 `pr_update_changelog.extra_instructions` MUST also state: entries are at most 250 characters, user-facing, contain no implementation detail, link the PR, and use Keep a Changelog categories.

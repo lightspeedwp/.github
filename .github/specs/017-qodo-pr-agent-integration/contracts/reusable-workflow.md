@@ -54,10 +54,9 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
    - `issue_comment`: the comment is not on a PR, `author_association` is not in {`OWNER`, `MEMBER`, `COLLABORATOR`}, or the first token of the body is not in the command allow-list
 2. **`run`** (`needs: preflight`, `if: needs.preflight.outputs.enabled == 'true'`, `timeout-minutes: 15`). Its steps:
    - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow.
-   - Write the run record ([data model](../data-model.md#run-record)) to `$GITHUB_STEP_SUMMARY` and upload it as artefact `qodo-pr-agent-run-${{ github.run_id }}` (retention 30 days). This step runs with `if: always()`.
-   - Call `lightspeedwp/.github/.github/actions/collect-metrics` with `workflow-name: qodo-pr-agent`. The pilot uses the local `./.github/actions/collect-metrics`. This step is non-blocking.
-3. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write` and `issues: write`, and nothing else. It does **not** get `contents: write`, because nothing is ever pushed.
-4. **Concurrency**: `group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one.
+3. **`record`** (`needs: [preflight, run]`, `if: always()` unless the preflight reason is `not-a-command`, `bot-sender` or `not-a-pr`, `permissions: {}`). It writes the run record ([data model](../data-model.md#run-record)), with outcome `success`, `failure` or `skipped:<reason>`, to `$GITHUB_STEP_SUMMARY`, and uploads it as artefact `qodo-pr-agent-run-${{ github.run_id }}` (retention 30 days). It then calls `./.github/actions/collect-metrics` (non-blocking, and only in `lightspeedwp/.github`).
+4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write` and `issues: write`, and nothing else. It does **not** get `contents: write`, because nothing is ever pushed.
+5. **Concurrency**: `group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one.
 
 ## Environment passed to the Qodo PR-Agent step
 

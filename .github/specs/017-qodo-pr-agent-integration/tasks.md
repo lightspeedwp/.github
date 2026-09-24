@@ -36,7 +36,7 @@
 
 **Purpose**: the central configuration that every story reads. This phase must finish before any user story starts.
 
-- [ ] T003 [P] Create `tests/js/qodo-pr-agent-config.test.js`. It parses the root `.pr_agent.toml` with `smol-toml` and asserts **every** row of [contracts/pr-agent-config.md](./contracts/pr-agent-config.md) with its exact value, including:
+- [X] T003 [P] Create `tests/js/qodo-pr-agent-config.test.js`. It parses the root `.pr_agent.toml` with `smol-toml` and asserts **every** row of [contracts/pr-agent-config.md](./contracts/pr-agent-config.md) with its exact value, including:
   - `config.response_language == "en-GB"` and `config.enable_custom_labels == false`
   - `pr_description.publish_description_as_comment == true`, `pr_description.publish_labels == false`, `pr_description.generate_ai_title == false`
   - `pr_reviewer.enable_review_labels_security == false`, `pr_reviewer.enable_review_labels_effort == false`
@@ -45,7 +45,7 @@
   - `ignore.glob` contains `node_modules/**`, `.github/workflows/archived/**`, `.github/reports/**`, `**/*.lock` and `package-lock.json`
 
   It also asserts the "must NOT appear" list: there is no `[custom_labels.*]` table, no `github_action_config` section, `pr_description.use_description_markers` is not `true`, and no value matches `/sk-ant-|api[_-]?key\s*=/i`. For each `extra_instructions` (describe, reviewer, code_suggestions, questions, update_changelog, add_docs), it asserts the value is non-empty, contains "UK English" and "AGENTS.md", and does not match `/WordPress|PHP|React|block theme/i`. For `pr_update_changelog.extra_instructions`, it asserts the value mentions "250 characters". Run it and confirm it fails because the file doesn't exist yet.
-- [ ] T004 Create the root `.pr_agent.toml` so that T003 passes. Start it with a comment header: its purpose (organisation-standard Qodo PR-Agent configuration), links to `docs/QODO_PR_AGENT.md` and this spec, and a note that Qodo PR-Agent reads it from the default branch, so changes apply only after merge. Mark each **locked** key from the config contract with a `# locked:` comment. Write the `extra_instructions` values:
+- [X] T004 Create the root `.pr_agent.toml` so that T003 passes. Start it with a comment header: its purpose (organisation-standard Qodo PR-Agent configuration), links to `docs/QODO_PR_AGENT.md` and this spec, and a note that Qodo PR-Agent reads it from the default branch, so changes apply only after merge. Mark each **locked** key from the config contract with a `# locked:` comment. Write the `extra_instructions` values:
   - Describe, review, improve, ask and add_docs: write in UK English; follow the organisation standards in AGENTS.md; stay technology-agnostic; be concise; never suggest editing `.github/labels.yml`, `.github/issue-types.yml` or the issue/PR templates (they are locked).
   - Update changelog: additionally, entries must be at most 250 characters, user-facing, contain no implementation detail, link the PR, and use Keep a Changelog categories (Added, Changed, Fixed, Removed).
 
@@ -63,7 +63,7 @@
 
 ### Tests for User Story 1
 
-- [ ] T005 [P] [US1] Create `tests/js/qodo-pr-agent-workflow.test.js`. It parses `.github/workflows/qodo-pr-agent-reusable.yml` and `.github/workflows/qodo-pr-agent.yml` with the `yaml` package and asserts the "Acceptance checks" in [contracts/reusable-workflow.md](./contracts/reusable-workflow.md):
+- [X] T005 [P] [US1] Create `tests/js/qodo-pr-agent-workflow.test.js`. It parses `.github/workflows/qodo-pr-agent-reusable.yml` and `.github/workflows/qodo-pr-agent.yml` with the `yaml` package and asserts the "Acceptance checks" in [contracts/reusable-workflow.md](./contracts/reusable-workflow.md):
   - The reusable workflow has `on.workflow_call` with inputs `config_ref` (default `main`), `auto_describe` (default `true`), `auto_improve` (default `true`) and `excluded_authors` (default `["dependabot[bot]","lightspeed-docs-bot[bot]"]`), and an optional secret `model_credential`. There is no `auto_review` input.
   - The top-level `permissions` is `{contents: read}`. Job `preflight` has `permissions: {}` and `timeout-minutes: 2`. Job `run` has `needs: preflight`, `if` containing `needs.preflight.outputs.enabled == 'true'`, permissions exactly `{contents: read, pull-requests: write, issues: write}`, and `timeout-minutes: 15`.
   - No step anywhere `uses` a value starting `actions/checkout`. The Qodo PR-Agent step `uses` matches `/^docker:\/\/pragent\/pr-agent@sha256:[a-f0-9]{64}$/`.
@@ -76,12 +76,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] Create `.github/workflows/qodo-pr-agent-reusable.yml` (`name: Qodo PR-Agent • Reusable`) per [contracts/reusable-workflow.md](./contracts/reusable-workflow.md). Open it with a header comment block: what it does, that the automatic review verdict belongs to CodeRabbit, no-checkout and fork safety, the kill-switch, and a link to `docs/QODO_PR_AGENT.md`.
+- [X] T006 [US1] Create `.github/workflows/qodo-pr-agent-reusable.yml` (`name: Qodo PR-Agent • Reusable`) per [contracts/reusable-workflow.md](./contracts/reusable-workflow.md). Open it with a header comment block: what it does, that the automatic review verdict belongs to CodeRabbit, no-checkout and fork safety, the kill-switch, and a link to `docs/QODO_PR_AGENT.md`.
   - **Job `preflight`**: a single `actions/github-script` step pinned to the repo's canonical SHA (`3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0`). Its env carries `HAS_CREDENTIAL: ${{ secrets.model_credential != '' }}`, `KILL_SWITCH: ${{ vars.QODO_PR_AGENT_ENABLED }}` and `EXCLUDED_AUTHORS: ${{ inputs.excluded_authors }}`. It reads `context.payload` and sets outputs `enabled` and `reason`, with reason one of `kill-switch`, `no-credential`, `draft`, `bot-sender`, `excluded-author`, `not-a-pr`, `author-not-allowed`, `command-not-allowed` or `ok`. It emits `core.notice(\`Qodo PR-Agent skipped: ${reason}\`)` when disabled.
   - **Job `run`**: the Qodo PR-Agent step `uses: docker://pragent/pr-agent@sha256:<T001 digest> # 0.46.0-github_action`, with the env from the contract. After it, an `if: always()` step writes the run record JSON (fields `repository`, `pr`, `tool`, `trigger`, `outcome`, `duration_seconds`, `model`, `started_at`; `tool` is `auto` for PR events, otherwise the first word of the comment without `/`; `outcome` is one of `success`, `skipped:<reason>`, `failure`) to `$GITHUB_STEP_SUMMARY` and to `qodo-pr-agent-run.json`. Then comes `actions/upload-artifact` at the canonical SHA (`043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1`), with name `qodo-pr-agent-run-${{ github.run_id }}` and `retention-days: 30`.
   - Metrics collection is added in T028 (US5); leave a `# metrics: see T028` comment here.
-- [ ] T007 [US1] Create `.github/workflows/qodo-pr-agent.yml` (`name: Qodo PR-Agent • Pilot`). Triggers: `pull_request: types [opened, reopened, ready_for_review]` and `issue_comment: types [created]`. Top-level `permissions: contents: read`. One job, `qodo`, with `uses: ./.github/workflows/qodo-pr-agent-reusable.yml`, job permissions `contents: read, pull-requests: write, issues: write`, and `secrets: model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}`. It relies on the defaults for all inputs. Add a header comment saying this caller is the template other repositories copy. Then run `npx jest tests/js/qodo-pr-agent-workflow.test.js` (it should pass), `npm run validate:workflows`, `npm run lint:workflows` and `npx actionlint .github/workflows/qodo-pr-agent*.yml`.
-- [ ] T008 [US1] Write the core sections of `docs/QODO_PR_AGENT.md`:
+- [X] T007 [US1] Create `.github/workflows/qodo-pr-agent.yml` (`name: Qodo PR-Agent • Pilot`). Triggers: `pull_request: types [opened, reopened, ready_for_review]` and `issue_comment: types [created]`. Top-level `permissions: contents: read`. One job, `qodo`, with `uses: ./.github/workflows/qodo-pr-agent-reusable.yml`, job permissions `contents: read, pull-requests: write, issues: write`, and `secrets: model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}`. It relies on the defaults for all inputs. Add a header comment saying this caller is the template other repositories copy. Then run `npx jest tests/js/qodo-pr-agent-workflow.test.js` (it should pass), `npm run validate:workflows`, `npm run lint:workflows` and `npx actionlint .github/workflows/qodo-pr-agent*.yml`.
+- [X] T008 [US1] Write the core sections of `docs/QODO_PR_AGENT.md`:
   - **What it is**, including a callout that it is *not* the internal `agents/pr-agent/`
   - **What runs automatically**: describe as a comment, improve
   - **Commands**: a table of the seven allow-listed commands with one-line uses, maintainers only
@@ -102,8 +102,8 @@
 
 **Independent Test**: across five pilot PRs, every automatic Qodo PR-Agent output maps to one matrix row, and no concern is flagged as primary by both tools (spec US2).
 
-- [ ] T011 [P] [US2] Add a "Who does what" section to `docs/QODO_PR_AGENT.md` with the full review-concerns table from [contracts/responsibility-matrix.md](./contracts/responsibility-matrix.md). The contract file stays the source, so link it; don't paraphrase. Include "Talking to the bots": `@coderabbitai review` versus `/review`, and when to use each.
-- [ ] T012 [P] [US2] In `docs/CODERABBIT_LABELS_ALIGNMENT.md`, add a short "Relationship to Qodo PR-Agent" note: CodeRabbit remains the primary automatic reviewer, and Qodo PR-Agent adds description, suggestions and on-demand tools. Link `docs/QODO_PR_AGENT.md`. Do **not** change `.coderabbit.yml`.
+- [X] T011 [P] [US2] Add a "Who does what" section to `docs/QODO_PR_AGENT.md` with the full review-concerns table from [contracts/responsibility-matrix.md](./contracts/responsibility-matrix.md). The contract file stays the source, so link it; don't paraphrase. Include "Talking to the bots": `@coderabbitai review` versus `/review`, and when to use each.
+- [X] T012 [P] [US2] In `docs/CODERABBIT_LABELS_ALIGNMENT.md`, add a short "Relationship to Qodo PR-Agent" note: CodeRabbit remains the primary automatic reviewer, and Qodo PR-Agent adds description, suggestions and on-demand tools. Link `docs/QODO_PR_AGENT.md`. Do **not** change `.coderabbit.yml`.
 - [ ] T013 [US2] During the pilot, review five PRs that received both CodeRabbit and Qodo PR-Agent output. For each automatic Qodo PR-Agent comment, record its matrix row and whether it duplicates a CodeRabbit primary finding. Write the results to `.github/reports/metrics/qodo-pr-agent/pilot-validation.md` under "US2 duplication check". Target: under 20% duplicates (SC-004).
 
 **Checkpoint**: US1 and US2 together complete the P1 scope.
