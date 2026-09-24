@@ -313,12 +313,6 @@ See [Linking Standard](https://github.com/lightspeedwp/.github/blob/develop/.git
 ## Visual Workflow
 
 ```mermaid
----
-config:
-  flowchart:
-    htmlLabels: true
-  theme: base
----
 flowchart TD
   accTitle: Node.js 24 Upgrade Workflow
   accDescr: Five-phase execution flow from start through audit, upgrade, validation, workflow standardization, merge, and post-merge monitoring to completion.

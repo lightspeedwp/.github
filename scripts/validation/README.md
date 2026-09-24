@@ -36,12 +36,6 @@ The validation system provides automated checking of:
 All schema files are stored in `../../.schemas/`.
 
 ```mermaid
----
-config:
-  theme: default
-  look: handDrawn
-  layout: elk
----
 graph TD
     accTitle: Validation System Flow
     accDescr: Flowchart showing file discovery through log output with configuration, schema, and pattern inputs
