@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Qodo PR-Agent Pilot** — Pull requests on this repository now get an automatic summary and improvement suggestions alongside CodeRabbit, and maintainers can ask questions with commands such as `/ask`. (#3532)
+
 ### Changed
 
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)

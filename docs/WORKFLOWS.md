@@ -199,6 +199,7 @@ If you find a file exists in both locations, determine the canonical location ba
 - `issue-remediation-automation.yml`
 - `release.yml`
 - `testing.yml`
+- `qodo-pr-agent.yml`, `qodo-pr-agent-reusable.yml`, `qodo-pr-agent-report.yml`. These are the Qodo PR-Agent pilot, its reusable definition and its daily report. The reusable definition is called from other repositories as `lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>` (see [QODO_PR_AGENT.md](./QODO_PR_AGENT.md)).
 - ... (and many others for control-plane operations)
 
 ### Reusable Workflows (`workflows/`)

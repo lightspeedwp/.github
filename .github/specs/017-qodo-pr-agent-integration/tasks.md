@@ -221,10 +221,10 @@
 
 ## Phase 8: Polish & cross-cutting concerns
 
-- [ ] T032 [P] Add a `### Added` entry to `CHANGELOG.md` under Unreleased, at most 250 characters and user-facing: "Qodo PR-Agent pilot on this repository: automatic PR summaries and improvement suggestions alongside CodeRabbit, plus maintainer commands such as /ask and /update_changelog." Link the implementation PR.
-- [ ] T033 [P] Register both new workflows in the inventory tables of `docs/WORKFLOWS.md` and `.github/workflows/README.md`, one row each with purpose and triggers. Don't rewrite the portable-workflow guidance, which is covered by a separate task.
-- [ ] T034 [P] In `docs/AI_FEEDBACK_SYSTEM_SUMMARY.md`, list Qodo PR-Agent as an AI reviewer whose feedback follows the same `FEEDBACK_RESPONSE.md` process as CodeRabbit, and link the "Recognising Qodo PR-Agent feedback" section of `docs/QODO_PR_AGENT.md`. Add `docs/QODO_PR_AGENT.md` to the `docs/README.md` index.
-- [ ] T035 Run the full local check set from quickstart "Local checks": `npm test`, `npm run validate:all`, `npm run lint:md`, `npm run lint:workflows`. Fix anything they report.
+- [X] T032 [P] Add a `### Added` entry to `CHANGELOG.md` under Unreleased, at most 250 characters and user-facing: "Qodo PR-Agent pilot on this repository: automatic PR summaries and improvement suggestions alongside CodeRabbit, plus maintainer commands such as /ask and /update_changelog." Link the implementation PR.
+- [X] T033 [P] Register both new workflows in the inventory tables of `docs/WORKFLOWS.md` and `.github/workflows/README.md`, one row each with purpose and triggers. Don't rewrite the portable-workflow guidance, which is covered by a separate task.
+- [X] T034 [P] In `docs/AI_FEEDBACK_SYSTEM_SUMMARY.md`, list Qodo PR-Agent as an AI reviewer whose feedback follows the same `FEEDBACK_RESPONSE.md` process as CodeRabbit, and link the "Recognising Qodo PR-Agent feedback" section of `docs/QODO_PR_AGENT.md`. Add `docs/QODO_PR_AGENT.md` to the `docs/README.md` index.
+- [X] T035 Run the full local check set from quickstart "Local checks": `npm test`, `npm run validate:all`, `npm run lint:md`, `npm run lint:workflows`. Fix anything they report.
 - [ ] T036 Set `**Status**:` in `.github/specs/017-qodo-pr-agent-integration/spec.md` to `Implemented (pilot)`. Add or update the 017 row in `.github/specs/CATALOG.md` (`| 017 | qodo-pr-agent-integration | Qodo PR-Agent Installation & Agent/Skill Integration | Active | 2026-09-24 | [./017-qodo-pr-agent-integration/spec.md](./017-qodo-pr-agent-integration/spec.md) |`). Do this after spec 016 (lightspeedwp/.github#3525) has landed, so the numbering stays contiguous.
 
 ---
