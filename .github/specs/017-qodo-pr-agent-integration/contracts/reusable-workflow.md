@@ -25,7 +25,7 @@ jobs:
       pull-requests: write
       issues: write
     secrets:
-      anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}
+      model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}
 ```
 
 ## Inputs
@@ -43,7 +43,7 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
 
 | Secret | Required | Behaviour when absent |
 | --- | --- | --- |
-| `anthropic_api_key` | no | Preflight emits `::notice::Qodo PR-Agent skipped: no model credential (fork PR or secret not configured)`, and the run concludes **success** (FR-006, FR-004) |
+| `model_credential` | no | Preflight emits `::notice::Qodo PR-Agent skipped: no model credential (fork PR or secret not configured)`, and the run concludes **success** (FR-006, FR-004) |
 
 ## Required job structure
 
@@ -64,7 +64,7 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
 | Env var | Value |
 | --- | --- |
 | `GITHUB_TOKEN` | `${{ secrets.GITHUB_TOKEN }}` |
-| `ANTHROPIC.KEY` | `${{ secrets.anthropic_api_key }}` |
+| `ANTHROPIC.KEY` | `${{ secrets.model_credential }}` |
 | `CONFIG.EXTRA_CONFIG_URL` | `https://raw.githubusercontent.com/lightspeedwp/.github/${{ inputs.config_ref }}/.pr_agent.toml` |
 | `github_action_config.auto_review` | `"false"` |
 | `github_action_config.auto_describe` | from the input |
