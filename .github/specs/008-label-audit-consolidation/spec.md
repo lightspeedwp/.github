@@ -124,7 +124,7 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 ### Functional Requirements
 
 - **FR-001**: System MUST identify and catalog all labels currently defined in the canonical `labels.yml` file (169 labels), organized by family, with counts and descriptions
-- **FR-002**: System MUST extract all 25 immutable type mappings from `issue-types.yml` and verify each has a corresponding entry in `labels.yml` with matching name and color. Canonical `labels.yml` contains 26 immutable `type:*` labels: the 25-label mapping set plus `type:decision`, which is intentionally excluded from that mapping set
+- **FR-002**: System MUST extract all 25 type mappings from `issue-types.yml` and verify each has a corresponding entry in `labels.yml` with matching name and color. Canonical `labels.yml` currently contains 26 `type:*` labels: the 25-label mapping set plus `type:decision`, which is currently excluded from that mapping set (resolved by FR-014)
 - **FR-003**: System MUST compare canonical labels against the `label-governance-policy.yml` never-delete list and identify:
   - Labels in the policy that don't exist in canonical file
   - Labels with name mismatches between files (e.g., `type:documentation` vs `type:docs`)
@@ -140,20 +140,25 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
   - Relationships to the current unified labeling agent
 - **FR-006 (Incomplete)**: System MUST query the GitHub API to obtain the full repository label set and identify labels that may not be in the canonical file (orphan/undocumented labels). `github-api-labels.json` contains no verified GitHub label inventory, so the orphan-label audit MUST remain incomplete until that inventory is obtained
 - **FR-007**: System MUST identify potential duplicate labels (multiple labels that represent the same concept with different naming conventions)
-- **FR-008**: System MUST preserve all 26 immutable canonical `type:*` labels: the 25-label `issue-types.yml` mapping set and `type:decision`, an immutable canonical label excluded from that mapping set. Neither the mapping set nor `type:decision` may be changed by this audit
-- **FR-009**: System MUST NOT edit locked configuration files (`labels.yml`, `issue-types.yml`, `label-governance-policy.yml`) - audit only
+- **FR-008**: The audit phase MUST NOT change any `type:*` label. In the consolidation phase, the only permitted type-family change is the FR-014 swap (`type:question` retired, `type:decision` mapped); no other `type:*` label may be added, removed or renamed
+- **FR-009**: The audit phase (User Stories 1-3) MUST NOT edit locked configuration files (`labels.yml`, `issue-types.yml`, `label-governance-policy.yml`). The consolidation phase MAY change them only after the mapping in FR-012 is approved through a `[LABEL-UPDATE-REQUEST]` issue by @ashley
 - **FR-010**: System MUST document assumptions about which labels can be consolidated vs. which must be preserved due to existing automation
 - **FR-011**: The canonical prefixes for the AI operations and specification-status families are `aiops:` and `spec:`. The audit MUST catalogue the rename mappings `ai-ops:*` → `aiops:*` (7 labels) and `openspec:*` → `spec:*` (9 labels), and list every workflow, script, configuration and documentation reference to the old prefixes as impact evidence under FR-010
+- **FR-012**: System MUST import into GitHub every label that exists only in the Linear workspace, except labels resolved by FR-011 renames or merged into an existing canonical label. Approved merges: `area:ci-cd` → `area:ci`; `type:content-model` → `type:content-modelling`; `type:ai-ops` → `type:aiops`; `area:docs` → `area:documentation`; `area:ops` → `area:operations`; `scope:website` and `scope: website` → `area:website`; `status:planned` and `status:planning` → `status:needs-planning`; `priority:medium` → `priority:normal`; `status:completed` and `status:resolved` → `status:done`; `area:tests` → `area:testing` (test code and harnesses); `area:quality` → `area:qa` (QA processes and validation). Where the target label already exists in a repo (for example `status:done`), the source label MUST be replaced on every issue and PR before it is retired. The import list and merge table MUST be recorded as evidence (`evidence/linear-labels.json`) before the `[LABEL-UPDATE-REQUEST]` is raised. GitHub repos MUST be updated by renaming labels in place (never delete-and-recreate) so existing issue and PR associations are kept; orphan deletion stays gated by `label-governance-policy.yml`
+- **FR-014**: The type family MUST end at exactly 25 labels matching the 25 issue types allowed in GitHub and Linear. `type:question` is retired and `type:decision` takes its issue-type slot; questions move to GitHub Discussions (`discussion:support`). This requires `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` approval to replace the Question issue type and `.github/ISSUE_TEMPLATE/06-question.md` with a Decision issue type and template. Decision work that changes files uses a `docs/` branch, so its PR is labelled `type:docs` and routed to `pr_docs.md`; the linked issue keeps `type:decision`, and fallback PR routing MUST map the Decision issue type to `pr_docs.md`
+- **FR-015**: The eight Linear-only type labels MUST NOT be imported as `type:*`. Every issue and PR keeps exactly one `type:*` label, so each affected Linear issue receives the listed type label and its concept moves to another family: `type:help` and `type:support` → `type:task` + `discussion:support`; `type:investigation` → `type:research`; `type:maintenance` → `type:chore` + `area:maintenance`; `type:qa` → `type:test` + `area:qa`; `type:ui` → `type:design` + `area:frontend`; `type:ux-feedback` → `type:design` + `discussion:feedback`; `type:integration` → `type:feature` + `area:integration`
+- **FR-013**: OpenSpec has been replaced by GitHub Spec Kit. Every live file that references OpenSpec (`openspec`, `OpenSpec`, `OPENSPEC`), meaning code, workflows, scripts, skills, agents, prompts, docs, configuration and active project artefacts (about 454 files on 2026-09-24), MUST be updated to reference Spec Kit (`speckit`) for the tool and process, and `spec`/`specs` for specification artefacts and labels. Dated reports (`*/reports/*`) and archived files (`*/archived/*`) keep their original wording as historical record. File and folder names are renamed too (`OPENSPEC*.md` → `SPEC*.md`, the `openspec/` folder to its Spec Kit equivalent, `skills/openspec-estimate-planner/` → `skills/speckit-estimate-planner/`), with every link updated in the same change and a migration issue recording each source → target path. Completion is measured by a case-insensitive search for `openspec` in both file contents and paths returning zero matches outside `node_modules/`, `*/reports/*` and `*/archived/*`
 
 ### Key Entities
 
 - **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, aiops (formerly referred to as "ai-ops"), contrib, discussion, spec (formerly referred to as "openspec") (and any others discovered during audit)
-- **Type Labels**: 26 immutable canonical `type:*` labels: 25 labels in the `issue-types.yml` mapping set, plus `type:decision`, which is excluded from that mapping set
+- **Type Labels**: Currently 26 `type:*` labels (25 mapped to issue types, plus unmapped `type:decision`); after the FR-014 swap, exactly 25, each mapped to one issue type
 - **Canonical Labels**: The 169 labels currently defined in `.github/labels.yml`
 - **Governance Policy**: The never-delete label list and related rules in `label-governance-policy.yml`
 - **Archived Workflows**: 11 workflow files that were disabled due to non-functional status
 - **Documentation**: All files describing label taxonomy and labeling strategy
 - **GitHub API Labels**: The full current repository label set required for orphan-label validation; no verified inventory has yet been retrieved
+- **Linear Labels**: The Linear workspace label set (244 labels on 2026-09-24), the source for labels imported into GitHub under FR-012
 
 ## Success Criteria *(mandatory)*
 
@@ -161,7 +166,7 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 
 - **SC-001 (Incomplete)**: Audit report identifies all missing labels (those in GitHub but not in the canonical file with 169 labels) with 100% accuracy. This criterion MUST remain incomplete until a verified full repository label set replaces the empty inventory in `github-api-labels.json`
 - **SC-002**: Audit report identifies all label mismatches (different names/colors between files) with 100% accuracy
-- **SC-003**: All 25 immutable type mappings from `issue-types.yml` are verified as present and correct in the canonical file, and `type:decision` is verified as the additional immutable canonical type label excluded from the 25-label mapping set. The audit MUST NOT add, remove, rename, or otherwise change `type:decision` or the mapping set
+- **SC-003**: The audit verifies all 25 issue-type mappings are present and correct in the canonical file and records `type:decision` as unmapped. After consolidation, the type family contains exactly 25 labels, each mapped to one issue type and template, with `type:decision` mapped and `type:question` retired
 - **SC-004**: Audit report identifies ALL duplicate/overlapping labels across families, ranked by consolidation impact and usage frequency
 - **SC-005**: All 11 archived workflows are analyzed with documented findings (purpose, issues, recommendations) for each
 - **SC-006**: Audit identifies all discrepancies between canonical `labels.yml` (169 labels) and its documented purpose as "single source of truth", including type label mapping gaps
@@ -170,15 +175,15 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 
 ## Assumptions
 
-- The canonical `labels.yml` file is considered final and the baseline for this audit (169 labels total; no recommendations to change existing labels unless duplicates are identified)
-- The canonical `type:*` family contains 26 immutable labels: the 25-label `issue-types.yml` mapping set and `type:decision`, which is intentionally excluded from that mapping set. Neither may be changed as part of this audit
+- The canonical `labels.yml` file is considered final and the baseline for this audit (169 labels total); changes are limited to the FR-011 renames, the FR-012 merges and imports, and duplicates identified by the audit
+- The canonical `type:*` family currently contains 26 labels: the 25-label `issue-types.yml` mapping set and unmapped `type:decision`. GitHub and Linear allow at most 25 issue types, so the only type-family change is the FR-014 swap
 - The `label-governance-policy.yml` never-delete list contains labels that may not be in the canonical file, and this is intentional (represents labels that must be preserved for historical or compatibility reasons)
 - Archived workflows were disabled due to conflicts, performance issues, or obsolescence rather than planned retirement
 - The full GitHub API label inventory represents the true repository state, but `github-api-labels.json` currently contains no verified labels; orphan-label conclusions remain pending until the inventory is obtained
 - Documentation files (LABEL_*.md, ISSUE_*.md, PR_*.md) reflect intended labeling strategy even if implementation gaps exist
 - The unified labeling agent (`labeling.agent.js` / `labeling.yml`) is the current and future canonical source for label automation
 - Future work will address workflow restoration and label expansion, but this audit focuses on analysis and documentation
-- No label merging or deletion will occur as part of this audit (read-only analysis)
+- No label merging or deletion occurs during the audit phase; merges, renames and imports happen only in the consolidation phase after `[LABEL-UPDATE-REQUEST]` approval (FR-009, FR-012)
 - The repository structure and conventions follow UK English spelling and LightSpeed coding standards (from CLAUDE.md)
 
 ## Phase Outcome
@@ -192,7 +197,7 @@ This specification results in a **comprehensive audit report** documenting:
 5. Prioritized roadmap for label governance improvements
 6. Documented evidence for all findings (with file/line references)
 
-The audit itself makes no changes to the production label configuration. It serves as the foundation for a future consolidation and workflow restoration task.
+The audit itself makes no changes to the production label configuration. The approved consolidation phase then applies the FR-011 renames, FR-012 Linear imports and merges, and the FR-013 OpenSpec-to-Spec Kit rename; workflow restoration remains future work.
 
 ## Clarifications
 
@@ -203,6 +208,13 @@ The audit itself makes no changes to the production label configuration. It serv
 ### Session 2026-09-24
 
 - Q: Which prefixes are canonical for the AI operations and OpenSpec label families? → A: `ai-ops` becomes `aiops` and `openspec` becomes `spec`
+- Q: Which labels should flow between Linear and GitHub? → A: Import every Linear-only label into GitHub, applying the approved renames and merges; `labels.yml` stays the source of truth
+- Q: How should OpenSpec references be handled now that it has been replaced? → A: OpenSpec is replaced by GitHub Spec Kit; every file referencing OpenSpec must reference `speckit` and `spec`/`specs` instead
+- Q: Should `type:question` be swapped for `type:decision` (keeping exactly 25 types), with the eight Linear type labels re-prefixed and every issue keeping one type label? → A: Yes, swap and re-prefix; the Question issue template must be replaced and `type:decision` needs a defined PR routing path
+- Q: Which single label should mean "finished": `status:done`, `status:completed` or `status:resolved`? → A: `status:done`; the other two merge into it
+- Q: Should the OpenSpec-to-Spec Kit rename also rewrite past records, or only live files? → A: Live and active files only; dated reports and archived files stay as historical record
+- Q: Should the OpenSpec rename also rename files and folders, or only change text inside files? → A: Rename paths too, update every link in the same change, and record source → target paths in a migration issue
+- Q: Which labels should cover testing and QA work? → A: Two labels: `area:testing` for test code and harnesses (absorbs `area:tests`) and `area:qa` for QA processes (absorbs `area:quality`)
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

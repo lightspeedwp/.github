@@ -46,7 +46,7 @@
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
-- [x] All acceptance scenarios are defined
+- [ ] All acceptance scenarios are defined
 - [x] Edge cases are identified
 - [x] Scope is clearly bounded
 - [x] Dependencies and assumptions identified
@@ -54,12 +54,12 @@
 ## Feature Readiness
 
 - [x] All functional requirements have clear acceptance criteria
-- [x] User scenarios cover primary flows
-- [x] Feature meets measurable outcomes defined in Success Criteria
+- [ ] User scenarios cover primary flows
+- [ ] Feature meets measurable outcomes defined in Success Criteria
 - [x] No implementation details leak into specification
-- [x] Type label immutability (25 labels) is explicitly preserved
+- [ ] Type label immutability (25 labels) is explicitly preserved
 - [x] Locked configuration files are explicitly protected from editing
-- [x] Audit-only scope is clearly stated (no changes to production config)
+- [ ] Audit-only scope is clearly stated (no changes to production config)
 
 ## Validation Notes
 
