@@ -19,26 +19,28 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 
 ## Clarifications
 
-*Pending. See the three open questions marked [NEEDS CLARIFICATION] below.*
+### Session 2026-09-24
+
+- Q: How should Qodo PR-Agent work alongside CodeRabbit, which already reviews every PR? → A: Complement. Responsibilities are split so each concern has exactly one owning tool; CodeRabbit keeps primary code review, and Qodo PR-Agent owns diff-based descriptions, improvement suggestions, on-demand questions and changelog drafting.
 
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Governed Qodo PR-Agent pilot on this repository (Priority: P1)
 
-A LightSpeed maintainer opens or updates a pull request in `lightspeedwp/.github` and, without doing anything else, receives a Qodo PR-Agent review and a generated description. The output follows organisation rules: UK English, canonical prefixed labels only, and no secrets exposed. The maintainer can also trigger any other Qodo PR-Agent command on demand by commenting on the PR.
+A LightSpeed maintainer opens or updates a pull request in `lightspeedwp/.github` and, without doing anything else, receives a generated description and code-improvement suggestions from Qodo PR-Agent. CodeRabbit continues to provide the code review. The output follows organisation rules: UK English, canonical prefixed labels only, and no secrets exposed. The maintainer can also trigger any other Qodo PR-Agent command on demand by commenting on the PR.
 
 **Why this priority**: Nothing else can be integrated until the tool is installed, secured and producing trustworthy output somewhere. A single-repository pilot proves the value and the cost before any wider rollout.
 
 **Independent Test**: Open a test PR on a correctly named branch in this repository and confirm that:
 
-- an automatic review and description appear;
+- an automatic description and improvement suggestions appear, but no automatic Qodo review verdict;
 - a comment command (e.g. ask) receives a reply;
 - no non-canonical label is applied;
 - nothing runs on draft PRs or bot-authored PRs.
 
 **Acceptance Scenarios**:
 
-1. **Given** a non-draft PR opened by a human, **When** the PR is opened or marked ready for review, **Then** Qodo PR-Agent posts one review and one description within 10 minutes.
+1. **Given** a non-draft PR opened by a human, **When** the PR is opened or marked ready for review, **Then** Qodo PR-Agent posts one description update and one set of improvement suggestions within 10 minutes, and does not post an automatic review verdict.
 2. **Given** an open PR, **When** a maintainer comments with a supported Qodo PR-Agent command, **Then** the corresponding tool runs and replies on that PR.
 3. **Given** a PR authored by `dependabot[bot]` or `lightspeed-docs-bot[bot]`, or a PR in draft, **When** it is opened or updated, **Then** no automatic Qodo PR-Agent run occurs, matching the existing CodeRabbit exclusions.
 4. **Given** the language-model credential is missing or invalid, **When** a run is triggered, **Then** the check reports a clear, non-blocking warning and does not fail or block the PR, following the existing "warn, don't fail" convention for AI keys.
@@ -59,7 +61,7 @@ A reviewer looking at a PR sees complementary, non-duplicated AI feedback. It is
 1. **Given** the responsibility matrix, **When** a PR receives feedback from both tools, **Then** each automatic output maps to exactly one owning tool in the matrix.
 2. **Given** a tool is set to "on-demand only" in the matrix, **When** a PR is opened, **Then** that tool does not run automatically.
 
-Relationship to CodeRabbit: [NEEDS CLARIFICATION: Should Qodo PR-Agent (a) complement CodeRabbit with split responsibilities, (b) run as a time-boxed side-by-side comparison pilot leading to a keep/replace decision, or (c) replace CodeRabbit?]
+Relationship to CodeRabbit: Qodo PR-Agent **complements** CodeRabbit; it does not replace it. CodeRabbit keeps primary code review (correctness, security, standards, and `.coderabbit.yml` path guidance). Qodo PR-Agent owns diff-based PR descriptions, code-improvement suggestions, on-demand questions and changelog drafting. Qodo PR-Agent's own review tool does not post an automatic, standalone review verdict. It runs on demand, or as an input to the LightSpeed review skill and agents (User Story 3).
 
 ---
 
@@ -158,7 +160,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - **FR-007**: All Qodo PR-Agent output MUST be in UK English.
 - **FR-008**: Qodo PR-Agent MUST NOT create labels, and MUST NOT apply any label outside the canonical, prefixed set in `.github/labels.yml`.
 - **FR-009**: Qodo PR-Agent MUST NOT commit to branches, merge, approve, or dismiss reviews. All code or changelog changes it proposes MUST go through a human or an existing governed agent.
-- **FR-010**: A responsibility matrix MUST define, for each Qodo PR-Agent tool, whether it runs automatically, on demand, or not at all, and which tool (CodeRabbit, Qodo PR-Agent or an internal agent) owns each review concern.
+- **FR-010**: CodeRabbit MUST remain the primary automatic code reviewer, and Qodo PR-Agent MUST NOT post an automatic standalone review verdict. A responsibility matrix MUST define, for each Qodo PR-Agent tool, whether it runs automatically, on demand, or not at all, and which tool (CodeRabbit, Qodo PR-Agent or an internal agent) owns each review concern.
 - **FR-011**: The central review guidance given to Qodo PR-Agent MUST be technology-agnostic and consistent with, not duplicating, the guidance in `.coderabbit.yml` and AGENTS.md.
 - **FR-012**: Qodo PR-Agent's automatic description MUST preserve the sections of the routed PR template.
 
@@ -205,7 +207,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 
 - The open-source Qodo PR-Agent is used, not the paid Qodo Merge hosted product. The installation runs inside the organisation's existing CI rather than on a separately hosted server, because no webhook-server infrastructure exists today. [NEEDS CLARIFICATION: Should Qodo PR-Agent run (a) inside CI on PR and comment events, reusing existing CI and secrets; (b) as a self-hosted GitHub App or webhook server, which gives faster replies but needs infrastructure; or (c) the free Qodo-hosted app, where code and diffs are sent to a third party?]
 - Anthropic Claude models are the default provider because `ANTHROPIC_API_KEY` is the organisation's only existing LLM secret convention. Other providers remain possible through configuration.
-- CodeRabbit stays in place for the duration of the pilot, whatever the long-term answer to the relationship question.
+- CodeRabbit stays in place as the primary reviewer. Replacing it is out of scope for this feature.
 - The internal PR agent (spec 015) keeps ownership of PR creation, branch validation, template routing and final label application. This feature does not change spec 015's scope; it only adds optional inputs to it.
 - No new labels are needed for the pilot. If any are later wanted (e.g. an opt-out label), they go through the `[LABEL-UPDATE-REQUEST]` process.
 - Qodo PR-Agent's own help and configuration commands are available to maintainers only, not to anonymous commenters.
