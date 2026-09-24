@@ -28,6 +28,7 @@ import { buildLabelingReport } from './includes/label-reporting.js';
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || '.github/labels.yml';
 const LABELER_RULES = process.env.LABELER_RULES || '.github/labeler.yml';
+const ISSUE_TYPES_CONFIG = process.env.ISSUE_TYPES_CONFIG || '.github/issue-types.yml';
 
 // Enhanced content-based type detection heuristics
 const KEYWORD_TYPE_MAP = {
@@ -37,7 +38,6 @@ const KEYWORD_TYPE_MAP = {
   'closes #': 'type:bug',
   defect: 'type:bug',
   error: 'type:bug',
-  issue: 'type:bug',
   feature: 'type:feature',
   feat: 'type:feature',
   enhancement: 'type:feature',
@@ -156,26 +156,105 @@ function detectTypeFromBranch(branchName = '') {
  * @param {string} body - Issue/PR body
  * @returns {string|null} Canonical type label or null if none matched
  */
-function detectIssueTypeFromContent(title = '', body = '') {
+/**
+ * Keyword matchers for content-based type detection. Keys match as whole
+ * words, not substrings, so `ci` no longer matches "decision" or `fix`
+ * "prefix" (#3545). A boundary is required only on an alphanumeric edge,
+ * so keys such as "fixes #" still match "fixes #12".
+ */
+const KEYWORD_MATCHERS = Object.entries(KEYWORD_TYPE_MAP).map(([keyword, typeLabel]) => {
+  const escaped = keyword.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const lead = /^[a-z0-9]/.test(keyword) ? '(?:^|[^a-z0-9])' : '';
+  const trail = /[a-z0-9]$/.test(keyword) ? '(?![a-z0-9])' : '';
+  return { keyword, typeLabel, pattern: new RegExp(`${lead}${escaped}${trail}`, 'i') };
+});
+
+/**
+ * Type from a conventional title prefix, e.g. `decision: …`, `fix(ci): …`,
+ * `[Review] …` is not matched. The prefix is an explicit author signal, so
+ * it outranks keywords. Resolves through KEYWORD_TYPE_MAP (fix -> type:bug)
+ * or directly to `type:<prefix>` when that label is canonical.
+ */
+function detectTypeFromTitlePrefix(title = '', canonicalSet = null) {
+  const match = /^\s*([a-z][a-z-]*)(?:\([^)]*\))?!?:\s/i.exec(title || '');
+  if (!match) return null;
+  const prefix = match[1].toLowerCase();
+  const direct = `type:${prefix}`;
+  if (canonicalSet && canonicalSet.has(direct)) return direct;
+  return KEYWORD_TYPE_MAP[prefix] || null;
+}
+
+function detectIssueTypeFromContent(title = '', body = '', canonicalSet = null) {
+  const fromPrefix = detectTypeFromTitlePrefix(title, canonicalSet);
+  if (fromPrefix) {
+    core.info(`[labeling.agent] Detected type from title prefix: ${fromPrefix}`);
+    return fromPrefix;
+  }
+
   // Check title first (higher confidence)
-  const lowerTitle = title.toLowerCase();
-  for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
-    if (lowerTitle.includes(keyword.toLowerCase())) {
+  for (const { keyword, typeLabel, pattern } of KEYWORD_MATCHERS) {
+    if (pattern.test(title || '')) {
       core.info(`[labeling.agent] Detected type from title keyword '${keyword}': ${typeLabel}`);
       return typeLabel;
     }
   }
 
   // Check body if no match in title
-  const lowerBody = body.toLowerCase();
-  for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
-    if (lowerBody.includes(keyword.toLowerCase())) {
+  for (const { keyword, typeLabel, pattern } of KEYWORD_MATCHERS) {
+    if (pattern.test(body || '')) {
       core.info(`[labeling.agent] Detected type from body keyword '${keyword}': ${typeLabel}`);
       return typeLabel;
     }
   }
 
   return null;
+}
+
+/**
+ * Issue type name (lower-case) -> canonical type label, from
+ * .github/issue-types.yml. That file is the curated mapping; it is read,
+ * never written, here.
+ *
+ * @returns {Map<string, string>}
+ */
+function loadIssueTypeLabelMap(configPath = ISSUE_TYPES_CONFIG) {
+  const data = load(fs.readFileSync(configPath, 'utf8')) || {};
+  const map = new Map();
+  for (const entry of data.issue_types || []) {
+    if (entry && entry.name && entry.label) map.set(String(entry.name).toLowerCase(), entry.label);
+  }
+  return map;
+}
+
+/**
+ * Canonical type label for a GitHub issue type, or null. Uses the
+ * issue-types.yml mapping; for a type that file does not list, falls back
+ * to `type:<slug>` only when that label is canonical. Never invents a
+ * label that labels.yml does not define.
+ */
+function labelForIssueType(typeName, issueTypeMap, canonicalSet) {
+  if (!typeName) return null;
+  const key = String(typeName).toLowerCase();
+  const mapped = issueTypeMap.get(key);
+  if (mapped && canonicalSet.has(mapped)) return mapped;
+  const slug = `type:${key.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+  return canonicalSet.has(slug) ? slug : null;
+}
+
+/**
+ * The issue's GitHub issue type name, read live (the event payload may
+ * predate a type change). Falls back to the payload on API failure.
+ *
+ * @returns {Promise<string|null>}
+ */
+async function fetchIssueTypeName(octokit, owner, repo, number, payloadIssue) {
+  try {
+    const { data } = await octokit.rest.issues.get({ owner, repo, issue_number: number });
+    return (data && data.type && data.type.name) || null;
+  } catch (error) {
+    core.warning(`[labeling.agent] Issue type fetch failed, using event payload: ${error.message}`);
+    return (payloadIssue && payloadIssue.type && payloadIssue.type.name) || null;
+  }
 }
 
 /**
@@ -244,14 +323,16 @@ const PRIORITY_SEVERITY_ORDER = [
  * Deterministically picks the single surviving type label.
  *
  * Precedence (no reliance on API/event ordering):
- *   1. branchType, when it is live (the router's branch intent);
- *   2. contentType, when it is live (fresh content signal);
- *   3. otherwise the earliest label in canonical labels.yml order.
+ *   1. issueTypeLabel, when it is live (the issue's GitHub issue type);
+ *   2. branchType, when it is live (the router's branch intent);
+ *   3. contentType, when it is live (fresh content signal);
+ *   4. otherwise the earliest label in canonical labels.yml order.
  *
  * @returns {string|null} Winning label, or null when none are live.
  */
-function resolveTypeWinner({ liveTypes, branchType, contentType, canonicalOrder }) {
+function resolveTypeWinner({ liveTypes, issueTypeLabel, branchType, contentType, canonicalOrder }) {
   const live = new Set(liveTypes);
+  if (issueTypeLabel && live.has(issueTypeLabel)) return issueTypeLabel;
   if (branchType && live.has(branchType)) return branchType;
   if (contentType && live.has(contentType)) return contentType;
   for (const name of canonicalOrder) {
@@ -375,6 +456,7 @@ async function runLabelingAgent(opts = {}) {
 
     // Load canonical configurations with error handling
     let canonicalSet, aliasMap, labelerRules;
+    let issueTypeMap = new Map();
     try {
       core.startGroup('Loading canonical configurations');
       canonicalSet = loadCanonicalLabels();
@@ -385,6 +467,14 @@ async function runLabelingAgent(opts = {}) {
 
       labelerRules = fetchLabelerRules(LABELER_RULES);
       core.info(`[labeling.agent] Loaded ${Object.keys(labelerRules).length} labeler rules`);
+
+      try {
+        issueTypeMap = loadIssueTypeLabelMap(ISSUE_TYPES_CONFIG);
+        core.info(`[labeling.agent] Loaded ${issueTypeMap.size} issue type mappings`);
+      } catch (error) {
+        issueTypeMap = new Map();
+        core.warning(`[labeling.agent] Issue type mapping unavailable: ${error.message}`);
+      }
       core.endGroup();
     } catch (error) {
       core.error(`[labeling.agent] Configuration loading failed: ${error.message}`);
@@ -439,6 +529,38 @@ async function runLabelingAgent(opts = {}) {
     const branchName = isPR ? context.payload.pull_request.head.ref : '';
     const branchType = isPR ? detectTypeFromBranch(branchName) : null;
 
+    // Issues: the GitHub issue type (set in the UI, by Linear, or by an
+    // issue form) is the source of truth for type:*. When set, it decides
+    // the type label and no keyword guess or default is added (#3545).
+    let issueTypeLabel = null;
+    if (isIssue) {
+      const issueTypeName = await fetchIssueTypeName(
+        octokit,
+        owner,
+        repo,
+        number,
+        context.payload.issue
+      );
+      issueTypeLabel = labelForIssueType(issueTypeName, issueTypeMap, canonicalSet);
+      if (issueTypeName) {
+        core.info(
+          `[labeling.agent] Issue type: ${issueTypeName} -> ${issueTypeLabel || 'no canonical label'}`
+        );
+      }
+      if (issueTypeLabel && !knownLabels.has(issueTypeLabel)) {
+        if (!dryRun) {
+          await octokit.rest.issues.addLabels({
+            owner,
+            repo,
+            issue_number: number,
+            labels: [issueTypeLabel],
+          });
+        }
+        markAdded(issueTypeLabel);
+        report.rulesApplied.push(`Issue type: ${issueTypeLabel}`);
+      }
+    }
+
     // Step 1: Apply labeler rules (branch patterns and file changes).
     // On PRs, type:* is router-owned and skipped here so the agent never
     // writes a family another writer owns (#3545).
@@ -477,11 +599,17 @@ async function runLabelingAgent(opts = {}) {
       core.startGroup('Enforcing one-hot label constraints');
       const preTypes = [...knownLabels].filter((l) => l.startsWith('type:'));
       if (preTypes.length > 1) {
-        const prestatement = isPR
-          ? null
-          : detectIssueTypeFromContent(context.payload.issue.title, context.payload.issue.body);
+        const prestatement =
+          isPR || issueTypeLabel
+            ? null
+            : detectIssueTypeFromContent(
+                context.payload.issue.title,
+                context.payload.issue.body,
+                canonicalSet
+              );
         const preWinner = resolveTypeWinner({
           liveTypes: preTypes,
+          issueTypeLabel,
           branchType: isPR ? branchType : null,
           contentType: !isPR ? prestatement : null,
           canonicalOrder,
@@ -550,7 +678,12 @@ async function runLabelingAgent(opts = {}) {
         if (![...knownLabels].some((l) => l.startsWith('priority:')) && !dryRun) {
           markAdded('priority:normal');
         }
-        if (!isPR && ![...knownLabels].some((l) => l.startsWith('type:')) && !dryRun) {
+        if (
+          !isPR &&
+          !issueTypeLabel &&
+          ![...knownLabels].some((l) => l.startsWith('type:')) &&
+          !dryRun
+        ) {
           markAdded('type:task');
         }
       }
@@ -568,11 +701,11 @@ async function runLabelingAgent(opts = {}) {
     // double-add one second apart).
     const liveTypeLabels = [...knownLabels].filter((l) => l.startsWith('type:'));
     let contentType = null;
-    if (!isPR && liveTypeLabels.length === 0) {
+    if (!isPR && !issueTypeLabel && liveTypeLabels.length === 0) {
       try {
         const title = context.payload.issue.title;
         const body = context.payload.issue.body;
-        contentType = detectIssueTypeFromContent(title, body);
+        contentType = detectIssueTypeFromContent(title, body, canonicalSet);
 
         if (contentType && !knownLabels.has(contentType)) {
           if (!dryRun) {
@@ -590,17 +723,18 @@ async function runLabelingAgent(opts = {}) {
         core.warning(`[labeling.agent] Content type detection failed: ${error.message}`);
         report.errors.push(`Content detection error: ${error.message}`);
       }
-    } else if (!isPR && liveTypeLabels.length > 0) {
+    } else if (!isPR && !issueTypeLabel && liveTypeLabels.length > 0) {
       // Recompute the signal for final precedence even when no add happens.
       contentType = detectIssueTypeFromContent(
         context.payload.issue.title,
-        context.payload.issue.body
+        context.payload.issue.body,
+        canonicalSet
       );
     }
 
     // Deferred type default for issues: only when content detection found
     // nothing, so exactly one type is ever introduced per run.
-    if (!isPR && ![...knownLabels].some((l) => l.startsWith('type:'))) {
+    if (!isPR && !issueTypeLabel && ![...knownLabels].some((l) => l.startsWith('type:'))) {
       try {
         await applyDefaultType({
           github: octokit,
@@ -661,6 +795,7 @@ async function runLabelingAgent(opts = {}) {
       if (liveTypes.length > 1) {
         const winner = resolveTypeWinner({
           liveTypes,
+          issueTypeLabel,
           branchType: isPR ? branchType : null,
           contentType: !isPR ? contentType : null,
           canonicalOrder,
@@ -780,6 +915,8 @@ export {
   fetchLiveLabels,
   removeLabelSafe,
   resolveTypeWinner,
+  labelForIssueType,
+  loadIssueTypeLabelMap,
   resolvePriorityWinner,
   standardizeLabelsOnItem,
   BRANCH_PREFIX_TYPE_MAP,

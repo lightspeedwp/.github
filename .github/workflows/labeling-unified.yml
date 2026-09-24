@@ -7,8 +7,10 @@ on:
   # Issues and discussions react to content, not label changes (#3531): a
   # bulk relabel queued ~660 runs, and each re-applied default labels from
   # a stale payload, undoing the manual changes.
+  # typed/untyped: an issue type change (UI, Linear, issue form) must
+  # update its type label, which is derived from the issue type (#3545).
   issues:
-    types: [opened, edited, reopened]
+    types: [opened, edited, reopened, typed, untyped]
   discussion:
     types: [created, edited, answered]
   schedule:

@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Issue Type Labels** — An issue's `type:` label now follows its GitHub issue type, so issues created from Linear or with a type set get the right label instead of a guess. ([#3545](https://github.com/lightspeedwp/.github/issues/3545))
 - **Label Ownership Reconciled** — Routing, labeler and agent each own one label family, ending add/remove fights. ([PR #3549](https://github.com/lightspeedwp/.github/pull/3549), [#3545](https://github.com/lightspeedwp/.github/issues/3545))
 - **Changelog Check Timeouts** — Fixed the changelog check failing at random on slow checkouts; it now reads only the files it needs. (#3520)
 - **Issue Labelling Floods** — Relabelling issues in bulk no longer queues hundreds of labelling runs or puts back labels that were just removed. ([#3531](https://github.com/lightspeedwp/.github/issues/3531))
