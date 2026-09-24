@@ -117,3 +117,5 @@ One Qodo PR-Agent execution in CI.
 | `event_at` | ISO-8601 | When the triggering comment was posted, or the PR's `updated_at` for PR events. Used for the SC-001 "within 10 minutes" measure. |
 
 **Storage**: the job summary, plus artefact `qodo-pr-agent-run-<run_id>` (30-day retention), plus `collect-metrics` output. Records are aggregated into `.github/reports/metrics/qodo-pr-agent/pilot-report-YYYY-MM-DD.md` (FR-021).
+
+**Estimated cost**: a record carries no cost field. The spec's "estimated cost" for a run record is computed when records are aggregated: executed runs × tokens per run × price per million tokens (`scripts/metrics/qodo-pr-agent-report.cjs`). Exact spend comes from the Anthropic console.

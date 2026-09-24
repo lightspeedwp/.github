@@ -15,6 +15,8 @@ The organisation-standard behaviour lives in two places:
 
 The pilot calls that same reusable workflow.
 
+The model credential is the dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT`. Keyless Workload Identity Federation is an optional alternative: the run job exchanges its GitHub OIDC token for a short-lived Anthropic token, and a stored key takes precedence (FR-002, clarified 2026-09-24).
+
 Existing agents and skills consume Qodo PR-Agent through one new shared skill, `skills/qodo-pr-agent`, which runs the CLI with publishing disabled and returns `ok | skipped | error`. Each integration point documents its fallback.
 
 Run records, a pilot report and a variable-based kill-switch cover operations. Full rationale is in [research.md](./research.md).
@@ -28,18 +30,18 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
   - TOML (Qodo PR-Agent config)
 - **Primary Dependencies**:
   - Qodo PR-Agent `0.46.0` via the container `pragent/pr-agent@sha256:<digest>` (`-github_action` variant), or PyPI `pr-agent==0.46.0` for the skill fallback
-  - Anthropic API (`anthropic/claude-sonnet-5`, fallback `anthropic/claude-haiku-4-5-20251001`)
+  - Anthropic API (`anthropic/claude-sonnet-5`, fallback `anthropic/claude-haiku-4-5-20251001`), authenticated by the dedicated key or, optionally, by Workload Identity Federation (`POST /v1/oauth/token`)
   - Existing: `smol-toml`, `yaml`, `jest`, `.github/actions/collect-metrics`
 - **Storage**: None. Run records are Actions artefacts (30 days) plus a Markdown pilot report in `.github/reports/metrics/qodo-pr-agent/`.
 - **Testing**:
-  - Jest contract tests in `tests/js/qodo-pr-agent-*.test.js` for config, workflow and integration docs
+  - Jest contract tests in `tests/js/qodo-pr-agent-*.test.js` for the config, workflows (including the token exchange), integration docs, report script and skill runner
   - Existing `validate:workflows`, `lint:workflows` (spectral), actionlint (`workflow-lint.yml`), `validate:skills` and `lint:md`
   - Manual end-to-end validation via [quickstart.md](./quickstart.md)
 - **Target Platform**: GitHub-hosted `ubuntu-latest` runners, and maintainer or agent workstations with Docker or Python ≥ 3.12 (skill).
 - **Project Type**: Governance and automation assets in a control-plane repository: workflow, config, skill and documentation.
 - **Performance Goals**: The automatic output is posted within 10 minutes of a PR being opened or marked ready (SC-001). The job timeout is 15 minutes.
 - **Constraints**:
-  - Least privilege: no `contents: write`, and no checkout.
+  - Least privilege: no `contents: write`, and no checkout. The `run` job's `id-token: write` is used only by the optional federation token exchange.
   - No `pull_request_target`.
   - Never blocks merge (SC-003).
   - Spend is capped at the provider and reported (SC-008).
@@ -54,17 +56,17 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 | --- | --- | --- |
 | I. Org-wide governance authority | The central `.pr_agent.toml` and reusable workflow are owned by this repository, and consumers inherit them. CodeRabbit stays the governed primary reviewer. | ✅ |
 | II. Locked curated assets | No edits to `labels.yml`, `issue-types.yml`, or the issue or PR templates. Posting descriptions as comments avoids template markers. Any future marker or label need goes through a tagged request (FR-023). | ✅ |
-| III. Clear asset boundaries | The skill is in `skills/` and the docs in `docs/`. **Deviation**: the reusable workflow must live in `.github/workflows/`, because GitHub only resolves reusable workflows there. See Complexity Tracking. The root `.pr_agent.toml` location is required by the tool, and follows the `.coderabbit.yml` precedent. | ⚠️ justified |
+| III. Clear asset boundaries | The skill is in `skills/` and the docs in `docs/`. **Exception (platform-required locations, constitution v1.3.0)**: the reusable workflow lives in `.github/workflows/`, because GitHub only resolves callable workflows there, and `.pr_agent.toml` sits at the root, where Qodo PR-Agent reads it. The workflow is documented as callable in `docs/WORKFLOWS.md` and `docs/QODO_PR_AGENT.md`. Its preflight and token-exchange logic stays inline because the no-checkout design forbids loading repository scripts; all other reusable logic is in `skills/qodo-pr-agent`. | ✅ exception |
 | IV. Technology-agnostic guidance | `extra_instructions` point to AGENTS.md, and a contract test rejects stack-specific terms. | ✅ |
 | V / VIII. Branch naming | The branch is `aiops/qodo-pr-agent-integration`, validated. No change to routing. | ✅ |
-| VI. UK English, accessibility, security | `response_language = "en-GB"`. The secret is a scoped org secret. No secrets reach the shell. Pinned by digest. | ✅ |
+| VI. UK English, accessibility, security | `response_language = "en-GB"`. The credential is a dedicated key in an organisation or repository secret, or a per-run federated token that is masked in logs. No secrets reach the shell. Pinned by digest. Secrets repeated in model output are a documented known limitation with a response procedure. | ✅ |
 | VII. Spec quality | The spec checklist is at 16/16, and clarifications are resolved (2026-09-24). | ✅ |
 | IX. Changelog compliance | `update_changelog` only proposes. Proposals must pass changelog-agent validation (≤250 chars, linked). The PR gate is unchanged. | ✅ |
 | X. Metrics-driven governance | Run records, the `collect-metrics` integration and a 14-day pilot report. | ✅ |
 
-**Gate result**: PASS, with one justified deviation.
+**Gate result**: PASS. Principle III uses the platform-required locations exception; there are no violations.
 
-**Post-design re-check (after Phase 1)**: the contracts introduce no new violations. The config contract locks the governance keys, the workflow contract forbids checkout, write-contents and `pull_request_target`, and the skill contract never publishes. Gate still **PASS**.
+**Post-design re-check (after Phase 1, repeated 2026-09-24 after clarification)**: the contracts introduce no violations, including the federation token exchange (least-privilege `id-token: write` on the `run` job only). The config contract locks the governance keys, the workflow contract forbids checkout, write-contents and `pull_request_target`, and the skill contract never publishes. Gate still **PASS**.
 
 ## Project Structure
 
@@ -76,7 +78,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 ├── plan.md                         # This file
 ├── research.md                     # Phase 0: R1–R12 decisions
 ├── data-model.md                   # Phase 1: entities
-├── quickstart.md                   # Phase 1: validation guide (Q-01…Q-12)
+├── quickstart.md                   # Phase 1: validation guide (Q-01…Q-13)
 ├── contracts/
 │   ├── responsibility-matrix.md    # Concern → owner, and integration points
 │   ├── pr-agent-config.md          # Required .pr_agent.toml keys
@@ -121,8 +123,10 @@ scripts/metrics/qodo-pr-agent-report.cjs         # NEW: aggregates run-record ar
 
 tests/js/
 ├── qodo-pr-agent-config.test.js                 # NEW
-├── qodo-pr-agent-workflow.test.js               # NEW
-└── qodo-pr-agent-integrations.test.js           # NEW
+├── qodo-pr-agent-workflow.test.js               # NEW (includes the token exchange)
+├── qodo-pr-agent-integrations.test.js           # NEW
+├── qodo-pr-agent-report.test.js                 # NEW
+└── qodo-pr-agent-runner.test.js                 # NEW
 
 docs/QODO_PR_AGENT.md                            # NEW: what it is, commands, matrix, how it differs from agents/pr-agent,
                                                  #      recognising feedback, kill-switch, opt-in guide, overrides
@@ -148,11 +152,11 @@ CHANGELOG.md                                     # EDIT: Added entry
 | An upstream image changes behaviour | Digest pin. Bumps go through a normal PR with a changelog note, and provenance is verified with `gh attestation verify`. |
 | The upstream repo moved (`qodo-ai` → `the-pr-agent`) | Docs link the new name. The digest is independent of the repo name. |
 | Comment noise alongside CodeRabbit | The matrix, persistent comments, no automatic review, and the SC-004 duplicate-rate measure. |
-| Spend overrun | Provider-side monthly limit on the dedicated key, the kill-switch and the pilot report. |
+| Spend overrun | Provider-side monthly limit on the dedicated key (or the federation service account's workspace), the kill-switch and the pilot report. |
+| Qodo PR-Agent may not accept a federated `sk-ant-oat01-` token as its key | The dedicated key stays the required route; federation is optional until quickstart Q-13 passes (FR-002). |
+| The model repeats a secret from the diff in a comment | Known limitation with a documented response: delete the comment, rotate the secret, use the kill-switch if it recurs. |
 | `docs/WORKFLOWS.md` wrongly claims root `workflows/` files are callable | Out of scope here; raise a separate fix. This feature documents the correct `.github/workflows/` path. |
 
 ## Complexity Tracking
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-| --- | --- | --- |
-| Reusable workflow under `.github/workflows/` (Principle III says portable assets should not live under `.github/`) | GitHub only resolves `uses: owner/repo/.github/workflows/<file>.yml@ref`. A file in root `workflows/` cannot be called by other repositories. | Copy-paste templates in `workflows/` drift, and break FR-018 and US4 AS2, which require changes to propagate without per-repository edits. |
+No violations. The reusable workflow's location under `.github/workflows/` was tracked here as a deviation until constitution v1.3.0 added the Principle III platform-required locations exception; it is now recorded as an exception in the Constitution Check (see research R2).
