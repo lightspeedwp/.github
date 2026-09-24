@@ -34,7 +34,7 @@ describe('validate-branch-name', () => {
       const path = require('path');
       const result = spawnSync(
         process.execPath,
-        [path.resolve(__dirname, '../../validate-branch-name.cjs'), '--show-pattern'],
+        [path.resolve(__dirname, '../validate-branch-name.cjs'), '--show-pattern'],
         {
           encoding: 'utf8',
         }
