@@ -186,7 +186,7 @@ These prefixes are NEVER allowed and trigger validation failures:
 | `copilot/` | Reserved for GitHub Copilot integration | Resolved via linked issue type |
 | `openai/` | Reserved for OpenAI integration | Resolved via linked issue type |
 
-When a PR uses a forbidden prefix (e.g., `claude/my-feature`), the `pr-template-resolver.yml` workflow applies fallback routing: it queries the linked issue, extracts the issue type (from issue type field, `type:*` label, or PR description), and maps the type to the correct template. **This fallback routing is a temporary measure only; the branch MUST be corrected to the proper prefix before merge.**
+When a PR uses a forbidden prefix (e.g., `claude/my-feature`), fallback routing is intended to query the linked issue, extract the issue type (from issue type field, `type:*` label, or PR description), and map the type to the correct template. **Not yet implemented:** `pr-template-resolver.yml` does not exist; `pr-template-routing.yml` currently routes by branch prefix only, so forbidden-prefix branches receive `pr_feature.md`. Issue-type fallback routing is deferred to a separate follow-up specification (spec 008, FR-014). **This fallback routing is a temporary measure only; the branch MUST be corrected to the proper prefix before merge.**
 
 **Compliance gates**: Pre-commit hooks validate branch names before push. CI gates validate on PR creation. Invalid branches cannot merge until renamed and PR recreated with correct prefix.
 
@@ -326,4 +326,4 @@ Each specification project includes a `checklists/` directory with:
 
 ---
 
-**Version**: 1.3.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-24
+**Version**: 1.3.1 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-24
