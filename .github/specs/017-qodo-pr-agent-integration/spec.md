@@ -25,6 +25,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 - Q: How many repositories should this feature switch Qodo PR-Agent on for? → A: Only `lightspeedwp/.github`. The reusable, organisation-standard setup is built and documented so other repositories can opt in later, but enabling any other repository is out of scope.
 - Q: Where should Qodo PR-Agent actually run when a PR is opened or someone comments a command? → A: Inside the organisation's own CI, triggered by PR and comment events, using a secret credential for the model provider (see the FR-002 clarification below). There is no self-hosted server, and the Qodo-hosted app is not used.
 - Q: Which credential should the spec require for the Qodo PR-Agent pilot? → A: The dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT` is required. Keyless Workload Identity Federation is an optional alternative, and a stored key takes precedence when both are configured.
+- Q: Should FR-018 let the reusable workflow and the root `.pr_agent.toml` stay where GitHub and Qodo PR-Agent require them, under the constitution's platform-required locations exception? → A: Yes. Both use the Principle III exception (constitution v1.3.0), reusable logic stays in portable top-level folders wherever it can, and the plan records it as an exception, not a violation.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -177,7 +178,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 
 **Portability, operations & documentation**
 
-- **FR-018**: The organisation-standard Qodo PR-Agent configuration and any reusable run definition MUST live in the portable top-level folders, not under `.github/` (Principle III), and be consumable by other repositories.
+- **FR-018**: Reusable logic (the shared skill and its runner) MUST live in the portable top-level folders (Principle III). The reusable run definition MUST live in `.github/workflows/`, and the central configuration at the repository root as `.pr_agent.toml`, under the Principle III platform-required locations exception, because GitHub and Qodo PR-Agent only load them from there. All of them MUST be consumable by other repositories, and the reusable run definition MUST be documented as callable.
 - **FR-019**: Consuming repositories MUST be able to override individual settings with a documented reason, and all overrides MUST be discoverable.
 - **FR-020**: Qodo PR-Agent MUST be switchable off per repository and organisation-wide through a documented procedure.
 - **FR-021**: Run counts per tool, failures and estimated spend MUST be reported, feeding the existing metrics and reporting practice.
