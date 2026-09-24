@@ -37,12 +37,13 @@
 
 Conduct a comprehensive audit of GitHub labels across the `.github` repository to identify inconsistencies, duplicates, and gaps in label governance. The audit compares canonical `labels.yml` against `issue-types.yml`, governance policy, documentation, archived workflows, and GitHub API usage to produce a reconciliation report with recommendations for consolidation and workflow restoration.
 
-User Story 4 then consolidates labels across GitHub and Linear: prefix renames (`ai-ops:` → `aiops:`, `openspec:` → `spec:`), import of used Linear-only labels with approved merges, the Question → Decision issue-type swap, re-prefix of eight Linear type labels, the OpenSpec → Spec Kit rename, gated deletion of unapproved labels in every `lightspeedwp` repository, and a weekly drift check. The execution order is approve → update configuration → change GitHub → delete in GitHub → clean up Linear → enable drift check (see Consolidation Execution Plan).
+User Story 4 then consolidates labels across GitHub and Linear: prefix renames (`ai-ops:` → `aiops:`, `openspec:` → `spec:`), import of used Linear-only labels with approved merges, the Question → Decision issue-type swap, re-prefix of eight Linear type labels, the five Linear labels requested in #3554, the `meta:needs-approval` approval gate (FR-021), a guard that stops the labelling agent removing labels before the mapping exists (FR-022), the OpenSpec → Spec Kit rename, gated deletion of unapproved labels in every `lightspeedwp` repository, and a weekly drift check. The execution order is approve → update configuration → change GitHub → delete in GitHub → clean up Linear → enable drift check (see Consolidation Execution Plan).
 
 **Key Constraints**:
 
 - Type family: exactly 25 labels, each mapped to one issue type. The audit (2026-09-14) found 26 (25 mapped + unmapped `type:decision`); Stage 0a (T040b, #3534) applied the FR-014 swap, so `type:decision` is mapped and `type:question` is retired. No other type-family change is permitted
-- Audit phase (US1-US3) is read-only; consolidation (US4) changes configuration only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` approval
+- Audit phase (US1-US3) is read-only; consolidation (US4) changes configuration only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` approval. FR-009 exempts two earlier changes: the Stage 0a issue-type change (approved via #3530, #3556 and #3557) and the never-delete list clean-up
+- Until Stage 3, labelling automation removes no label for being outside `labels.yml` (FR-022); AI assets live in `aiops:*`, with `area:ai` as the one umbrella area label (FR-012)
 - All findings must be evidence-based with file/line references
 
 ## Technical Context
@@ -72,7 +73,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 **Data Sources**:
 
 - `.github/labels.yml` (canonical, 169 labels, 15+ families)
-- `.github/issue-types.yml` (25 type mappings; canonical has 26 type labels including type:decision)
+- `.github/issue-types.yml` (25 type mappings; at the audit, canonical had 26 type labels including unmapped type:decision)
 - `.github/label-governance-policy.yml` (never-delete policy)
 - `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md` (18+ doc files)
 - `.github/workflows/archived/2026-09-11/labeling/` (11 archived workflows)
@@ -98,7 +99,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 **Scale/Scope**:
 
 - 169 labels across 15+ families in canonical file
-- 26 type labels in canonical (25 with issue-types.yml mappings; type:decision unmapped)
+- 26 type labels in canonical at the audit (25 with issue-types.yml mappings; type:decision unmapped); 25 since Stage 0a
 - 57 labels in governance never-delete policy
 - 11 archived workflows to analyze
 - 18+ documentation files to review
@@ -131,7 +132,9 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 
 **No violations identified.** Audit and consolidation are within scope and compliant with constitution v1.3.1.
 
-**Post-design re-check (2026-09-24, after FR-018 to FR-020)**: ✅ Still compliant. Stage 0a's locked-file changes (T040b, PR #3534) follow the approved #3530 sign-off. Earlier re-check: Every change to a locked file is behind an approved change request; deletion is behind a per-repository approved dry run; no portable assets are added under `.github/`.
+**Post-design re-check (2026-09-24, after FR-021 and FR-022 and the #3554 clarifications)**: ✅ Compliant, with one open gate: #3534 changes locked files and may merge only after #3556 and #3557 are approved (Principle II); auto-merge on #3534 must not merge it earlier. FR-022 keeps automation inside the approved label set (Principle VIII: auto-labelling applies only canonical labels). The FR-009 exemptions cover only changes that have their own approval or cannot delete anything.
+
+**Earlier re-check (2026-09-24, after FR-018 to FR-020)**: ✅ Still compliant. Stage 0a's locked-file changes (T040b, PR #3534) follow the approved #3530 sign-off. Earlier re-check: Every change to a locked file is behind an approved change request; deletion is behind a per-repository approved dry run; no portable assets are added under `.github/`.
 
 ## Project Structure
 
@@ -192,17 +195,18 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 
 ## Consolidation Execution Plan (User Story 4)
 
-Each stage starts only when the previous stage's exit check passes. Validation steps are in `quickstart.md` (Tests 9 to 14).
+Each stage starts only when the previous stage's exit check passes. Validation steps are in `quickstart.md` (Tests 9 to 16).
 
 | Stage | What happens | Gate / exit check | Requirements |
 | --- | --- | --- | --- |
-| 0a. Issue types and colours (immediate) | PR updating `issue-types.yml` (25 entries with descriptions, Decision replaces Question) and `type:*` label colours in `labels.yml` from `contracts/issue-types-org-settings.md`, together with the Decision template and `issue-fields.yml`; then a manual update of the organisation's issue types page in the order given in the contract | Configuration validation and `npm test` pass; settings page matches the contract (Test 10b) | FR-014, FR-019, FR-020 |
+| 0a. Issue types and colours (immediate) | PR updating `issue-types.yml` (25 entries with descriptions, Decision replaces Question) and `type:*` label colours in `labels.yml` from `contracts/issue-types-org-settings.md`, together with the Decision template and `issue-fields.yml`; then a manual update of the organisation's issue types page in the order given in the contract | #3556 and #3557 approved before #3534 merges; configuration validation and `npm test` pass; settings page matches the contract (Test 10b) | FR-009, FR-014, FR-019, FR-020 |
+| 0b. Labelling agent guard (immediate) | Separate fix PR (`fix/` branch): the agent stops removing labels for being outside `labels.yml`, honours `DRY_RUN`, and applies only `type:*` labels that exist in `labels.yml` | Test 16 passes; the agent's own tests pass | FR-017, FR-022 |
 | 0. Evidence | Paginated label inventory for every repository; `evidence/linear-labels.json` with issue counts and proposed mappings (`contracts/label-mapping-schema.md`) | Mapping validation rules pass (Test 9) | FR-006, FR-012 |
-| 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a migration issue for OpenSpec paths, and a new gate issue replacing #95 | @ashley approves all requests | FR-009, FR-013, FR-014, FR-016 |
-| 2. Configuration PR | One PR: `labels.yml` (renames, imports), `label-governance-policy.yml` (new gate issue, `enabled: false`), `labeler.yml`, `branch-labels.yml`, scripts referencing `ai-ops:` or `openspec:` labels, and the six docs files. The `type:question` removal, `issue-types.yml`, `06-decision.md` and `issue-fields.yml` belong to Stage 0a; the never-delete list clean-up (T055) is already on the spec branch | CI green; Test 10 passes | FR-011, FR-012, FR-014 |
+| 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table, referencing #3554 for its five imports), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a migration issue for OpenSpec paths, and a new gate issue replacing #95; each waiting request carries `meta:needs-approval` once the label exists | @ashley approves all requests | FR-009, FR-013, FR-014, FR-016, FR-021 |
+| 2. Configuration PR | One PR: `labels.yml` (renames, imports including the five #3554 labels with the FR-012 colour rule, the `area:*` → `aiops:*` AI merges), `label-governance-policy.yml` (new gate issue, `enabled: false`), `labeler.yml`, `branch-labels.yml`, scripts referencing `ai-ops:` or `openspec:` labels, the six docs files, and the FR-021 policy in `docs/LABEL_STRATEGY.md`. The `type:question` removal, `issue-types.yml`, `06-decision.md` and `issue-fields.yml` belong to Stage 0a; the never-delete list clean-up (T055) is already on the spec branch | CI green; Test 10 and Test 15 pass | FR-011, FR-012, FR-014, FR-021 |
 | 2b. Spec Kit rename PR | Separate PR for the OpenSpec → Spec Kit rename in live files and paths, with links updated | Test 11 passes | FR-013 |
-| 3. GitHub changes | Per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones. Organisation native issue types were already changed by hand in Stage 0a (T040c); this stage only verifies them (T064a/T064b) | No issue left without exactly one `type:*` label; native issue types match `issue-types.yml` | FR-011, FR-012, FR-014, FR-015, FR-019 |
-| 4. GitHub deletion | Per repository: generate dry run and snapshot; @ashley approves on the gate issue; run the deletion with `--apply --confirm-gate <gate issue>` (refused for unapproved repositories); `destructive_cleanup.enabled` stays `false` in the repository | Test 12 passes for every approved repository; unapproved repositories untouched | FR-016 |
+| 3. GitHub changes | Per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones. Organisation native issue types were already changed by hand in Stage 0a (T040c); this stage only verifies them (T064a/T064b). From this stage the labelling agent uses the approved mapping as its alias list (FR-022) | No issue left without exactly one `type:*` label; native issue types match `issue-types.yml`; every open `type:question` issue converted (T063) | FR-011, FR-012, FR-014, FR-015, FR-019, FR-022 |
+| 4. GitHub deletion | Starts only when every item in `checklists/destructive-changes.md` is reviewed (T064c). Per repository: generate dry run and snapshot; @ashley approves on the gate issue; run the deletion with `--apply --confirm-gate <gate issue>` (refused for unapproved repositories); `destructive_cleanup.enabled` stays `false` in the repository | Test 12 passes for every approved repository; unapproved repositories untouched | FR-016 |
 | 5. Linear clean-up | Relabel issues for merges and re-prefixes, retire zero-use and merged labels, team-scope project labels, update colours and descriptions (including `spec:*`), restrict label creation in the GitHub integration | Test 13 passes | FR-012, FR-015, FR-017 |
 | 6. Drift check | Enable the weekly scheduled workflow; run it once manually | "No drift" report (Test 14) | FR-017, SC-009 |
 
@@ -462,7 +466,7 @@ Compare output against:
 
 **Pass Condition**: Every label in GitHub API output is documented in canonical file OR identified as an orphan/finding in the audit report.
 
-### Step 2: Validate Type Labels (26 now, 25 after FR-014)
+### Step 2: Validate Type Labels (26 at the audit, 25 since Stage 0a)
 
 Extract type labels from canonical file:
 

@@ -364,6 +364,9 @@ One approved change to one label.
 | `concept_label` | string or null | `re-prefix` only |
 | `issue_count` | integer | Items carrying `source` at generation time |
 | `requirement` | FR id | FR-011, FR-012, FR-014 or FR-015 |
+| `color` | hex (6) or null | Required for `import`; from `docs/LABEL_COLOR_STRATEGY.md` where the family has a rule, otherwise from the approved request (FR-012) |
+| `description` | string or null | Required for `import`; for #3554 labels, the description in #3554 |
+| `change_request` | integer or null | The `[LABEL-UPDATE-REQUEST]` issue that approves this entry (for example 3554) |
 
 **Rule**: After all mappings are applied, every issue has exactly one `type:*` label and the type family has exactly 25 labels.
 
@@ -425,9 +428,26 @@ One of the 25 canonical issue types (FR-014, FR-019, FR-020). Source: `.github/i
 
 **Rules**: exactly 25 issue types; names, labels and templates are one-to-one; a native type is removed only after zero issues use it.
 
+### 12. Approval Gate Label
+
+`meta:needs-approval` (FR-021), applied to an issue while a named approver's decision is pending.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `approver` | string | Named on the issue (for example `@ashley`) |
+| `decision_requested` | string | What must be decided |
+| `scope` | string | What the decision affects |
+| `options` | string | The options or proposed change |
+| `risk` | string | What goes wrong if decided badly |
+| `acceptance_evidence` | string | What will show the decision was applied |
+| `decided_at` | date or null | Dated approval or rejection; the label is removed within one day (SC-010) |
+
+**Rules**: not used for ordinary review (`status:needs-review`) or a generic block (`status:blocked`); review completion is not consent.
+
 ### Consolidation State Transitions
 
 ```text
+Approval Gate Label: applied (decision pending) → removed (dated decision recorded)
 Label Mapping:     proposed → approved (Change Request merged) → applied-github → applied-linear → verified (drift report clean)
 Repository Dry Run: generated → approved → executed → verified
                               ↘ skipped (no approval: nothing deleted)

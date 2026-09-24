@@ -300,6 +300,25 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 - **Rationale**: The default workflow token can only reach `lightspeedwp/.github`. An App limits scope and lifetime; keeping destructive and write operations out of CI means a leaked CI secret cannot delete labels or change Linear.
 - **Alternatives considered**: A fine-grained personal access token (long-lived and tied to one person); running everything locally with no CI (loses the automated weekly drift check).
 
+### R14. Labelling agent removing labels before the mapping exists (FR-022)
+
+- **Finding**: `scripts/agents/labeling.agent.js` (lines 216–240) removes every label that is not in `labels.yml` from the issue or PR it processes; it only adds a replacement when an alias exists, and `labels.yml` defines none. `run-labeling-agent.js` calls it with no options, so `DRY_RUN` in `labeling-unified.yml` has no effect. Its keyword map applies `type:documentation`, `type:dependencies` and `type:accessibility`, which are not in `labels.yml` (see `.github/reports/audits/2026-09-14-label-audit/workflow-analysis.md`).
+- **Decision**: Until Stage 3, the agent removes nothing for being outside `labels.yml`; from Stage 3 it uses the approved FR-012 mapping as its alias list and removes only unmapped labels; `DRY_RUN` must work; it applies only canonical `type:*` labels (`type:docs`, `type:dependency`, `type:a11y`). Delivered as a separate fix PR (Stage 0b).
+- **Rationale**: Removing labels outside the approved process loses data the mapping may still import (for example the #3554 labels) and bypasses the FR-016 rule that labels on open items are migrated first.
+- **Alternatives considered**: Accept the removal as known behaviour (rejected: it makes the gated deletion pointless); turn the agent off until Stage 3 (rejected: it also stops correct labelling of new issues and PRs).
+
+### R15. Where AI work is labelled
+
+- **Decision**: `aiops:*` (after the FR-011 rename) holds AI assets: agents, instructions, prompts, chat modes, datasets, evaluations and tools. `area:ai` stays as the one umbrella area label for AI work, so `meta:ai-ops` → `area:ai` still applies. `area:agents`, `area:instructions` and `area:prompts` merge into their `aiops:*` labels; `area:skills` is decided in the mapping (T043).
+- **Rationale**: Removes three cross-family duplicates found in `duplicates-analysis.md` and keeps one simple area label for triage.
+- **Alternatives considered**: Keep AI work under `area:*` and retire the matching `aiops:*` labels; use `aiops:*` only and retire `area:ai`.
+
+### R16. Colours for imported labels (#3554)
+
+- **Decision**: An imported label uses the `docs/LABEL_COLOR_STRATEGY.md` colour where the strategy has a rule for its family (every `meta:*` label is `57606A`, so `meta:needs-approval` is `57606A`, not the `E1E4E8` in #3554); where it has none (currently `area:*`), the colour in the approved request is used, so #3554's `area:*` colours stand. The mapping records the colour and description of every import (`contracts/label-mapping-schema.md`).
+- **Rationale**: Follows the strategy wherever it speaks, without inventing an `area:*` rule inside this spec; existing `area:*` labels already use colours outside the strategy's families.
+- **Alternatives considered**: The strategy's families for every import (needs a new `area:*` rule first); the request's colours for everything (breaks the `meta:*` rule).
+
 ### R10. Decision issue template
 
 - **Decision**: `.github/ISSUE_TEMPLATE/06-decision.md` replaces `06-question.md`, following the existing template frontmatter (`name`, `about`, `title`, `labels`, `recommended_branch`, `file_type`) and ending with Definition of Ready and Definition of Done checklists. Full content in `contracts/decision-issue-template.md`.

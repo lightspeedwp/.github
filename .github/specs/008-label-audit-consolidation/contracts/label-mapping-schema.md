@@ -22,6 +22,19 @@ Defines `evidence/linear-labels.json` and the mapping table attached to the `[LA
       "concept_label": null,
       "requirement": "FR-012",
       "notes": ""
+    },
+    {
+      "source": "meta:needs-approval",
+      "systems": ["linear"],
+      "action": "import",
+      "target": null,
+      "issue_count": 0,
+      "concept_label": null,
+      "requirement": "FR-012, FR-021",
+      "color": "57606A",
+      "description": "Explicit decision or sign-off required before the specified work proceeds; remove once the decision and approver are recorded.",
+      "change_request": 3554,
+      "notes": "Required by the FR-021 approval gate"
     }
   ]
 }
@@ -39,6 +52,9 @@ Defines `evidence/linear-labels.json` and the mapping table attached to the `[LA
 | `concept_label` | string or null | | For `re-prefix` only: the non-type label added alongside `target` (for example `area:maintenance`) |
 | `requirement` | string | ✅ | The FR that authorises the action |
 | `notes` | string | | Free text, for example why a merge was retired instead |
+| `color` | string or null | For `import` | Six-digit hex; the `docs/LABEL_COLOR_STRATEGY.md` colour where the family has a rule, otherwise the colour in the approved request |
+| `description` | string or null | For `import` | The label description to write to `labels.yml` |
+| `change_request` | integer or null | | The `[LABEL-UPDATE-REQUEST]` issue that approves the entry (for example `3554`) |
 
 ## Actions
 
@@ -59,6 +75,8 @@ Defines `evidence/linear-labels.json` and the mapping table attached to the `[LA
 3. `import` entries have `issue_count` ≥ 1, or `notes` names the automation that requires the label.
 4. `retire` entries with `issue_count` > 0 name the reason in `notes`.
 5. After applying all mappings, the `type:*` family has exactly 25 labels.
+6. Every `import` has `color` and `description`; a `meta:*` import uses `57606A`, and any family with a strategy rule uses that rule's colour.
+7. No mapping merges `area:observability` into `area:monitoring` (both are imported), and `area:agents`, `area:instructions` and `area:prompts` map to their `aiops:*` labels.
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)

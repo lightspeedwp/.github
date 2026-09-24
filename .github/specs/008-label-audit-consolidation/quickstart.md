@@ -477,6 +477,26 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 - Trigger the drift workflow manually once.
 - **Pass condition**: the "Label drift report" issue shows "No drift", with team-scoped Linear labels listed only under allowed exceptions.
 
+### Test 15: Approval Gate Label (FR-021, SC-010)
+
+```bash
+# Every open spec 008 change request or gate issue waiting for a decision carries the label
+gh issue list --repo lightspeedwp/.github --label meta:needs-approval --state open --json number,title
+# Expected: the open change requests and the gate issue; none whose decision was recorded more than a day ago
+```
+
+Pass when the list matches the open requests and no issue keeps the label after its dated decision.
+
+### Test 16: Labelling Agent Guard (FR-022)
+
+Run the agent in dry-run mode against an issue carrying a label that is not in `labels.yml`:
+
+- Before Stage 3: nothing is removed and the run log shows no `Removed non-canonical label` lines
+- With `DRY_RUN=true`: no API write is made at all
+- The agent applies only `type:*` labels that exist in `labels.yml` (no `type:documentation`, `type:dependencies` or `type:accessibility`)
+
+Pass when all three hold and the agent's unit tests pass.
+
 ## Acceptance Criteria Summary
 
 ### All Tests Must Pass
