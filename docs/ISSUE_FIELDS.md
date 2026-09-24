@@ -57,38 +57,31 @@ This document specifies the organization-level issue fields, type mappings, and 
 | --- | --- | --- |
 | `type:bug` | Bug | Critical issues requiring fix |
 | `type:feature` | Feature | New functionality/capabilities |
-| `type:improve` | Feature | Enhancement to existing feature |
-| `type:enhancement` | Feature | Enhancement (alias for improve) |
-| `type:documentation` | Documentation | Docs, guides, specifications |
+| `type:docs` | Documentation | Documentation |
 | `type:task` | Task | Generic work without specific type |
+| `type:release` | Release | Release management/deployment |
+| `type:improve` | Feature | Enhancement to existing feature |
 | `type:design` | Design | Design artefacts/decisions |
-| `type:ui` | Design | UI implementation/consistency |
 | `type:a11y` | Design | Accessibility improvements |
 | `type:chore` | Chore | General maintenance tasks |
 | `type:refactor` | Chore | Code quality improvements |
-| `type:maintenance` | Chore | System upkeep/updates |
-| `type:release` | Release | Release management/deployment |
-| `type:research` | Research | Investigation/discovery/POCs |
-| `type:investigation` | Research | Issue diagnosis/root cause analysis |
 | `type:automation` | Automation | Workflow automation/task automation |
 | `type:test` | Automation | Test coverage/infrastructure |
-| `type:ai-ops` | Automation | AI operations/agents/tooling |
-| `type:ci` | Automation | CI/CD pipelines |
+| `type:aiops` | Automation | AI Ops |
 | `type:build` | Automation | Build system improvements |
-| `type:integration` | Integration | External system integrations |
-| `type:dependency` | Integration | Dependency updates/management |
-| `type:compatibility` | Integration | Cross-platform compatibility |
-| `type:epic` | Task | Parent issue grouping stories |
-| `type:story` | Task | User-centred vertical slice |
-| `type:review` | Task | Peer review/QA/validation |
-| `type:audit` | Task | Security/code/process audits |
-| `type:question` | Task | Clarification request/open question |
-| `type:support` | Task | Support request/troubleshooting |
-| `type:content-modelling` | Task | Content structure/CPTs/taxonomy |
-| `type:performance` | Task | Performance optimization work |
+| `type:compat` | Compatibility | Compatibility |
+| `type:research` | Research | Investigation/discovery/POCs |
 | `type:security` | Task | Security issues/improvements |
+| `type:performance` | Task | Performance optimization work |
+| `type:audit` | Task | Security/code/process audits |
+| `type:epic` | Task | Parent issue grouping stories |
+| `type:decision` | Task | Decision record: context, options, outcome, consequences |
+| `type:content-modelling` | Task | Content structure/CPTs/taxonomy |
+| `type:review` | Task | Peer review/QA/validation |
+| `type:ci` | Automation | CI/CD pipelines |
+| `type:dependency` | Dependency Update | Dependency updates/management |
 
-**Total Coverage**: All 32 canonical types mapped to 10 project field values; 0 unmapped types
+**Total Coverage**: All 25 canonical types mapped to 11 project field values; 0 unmapped types
 
 ### 1.2 Type Category Groups
 
