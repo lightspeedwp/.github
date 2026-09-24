@@ -28,26 +28,23 @@ metadata:
 ## Valid Mermaid Diagram
 
 ​```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Test process loop
+    accDescr: A start node leads to a process and a decision that ends or loops back.
     A[Start] --> B[Process]
     B --> C{Decision}
     C -->|Yes| D[End]
     C -->|No| E[Loop Back]
     E --> B
-​
-accDescr: Detailed diagram
-```
+​```
 
 ## Invalid Diagram (missing accTitle)
 
 ​```mermaid
-accTitle: Graph Diagram
 graph LR
+    accDescr: An input node leads to an output node.
     A[Input] --> B[Output]
-​
-accDescr: Detailed diagram
-```
+​```
 ```
 
 **Expected Results:**

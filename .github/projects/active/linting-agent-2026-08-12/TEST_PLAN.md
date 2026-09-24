@@ -17,8 +17,8 @@ status: active
 ## 1. Test Architecture
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A["Test Suite<br/>linting.agent.test.js"] --> B["Unit Tests<br/>Helper Functions"]
     A --> C["Integration Tests<br/>Mock Linters"]
     A --> D["E2E Tests<br/>Real Repositories"]
@@ -431,8 +431,8 @@ describe('E2E: WordPress Theme (Block Theme)', () => {
 ### Target: ≥ 95% coverage
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A["Code Coverage<br/>Jest Coverage Report"] --> B["Statements: ≥95%"]
     A --> C["Branches: ≥95%"]
     A --> D["Functions: ≥95%"]
