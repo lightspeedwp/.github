@@ -43,8 +43,9 @@ function writeExecutable(file, body) {
  * branch, and a stub directory for PATH.
  *
  * Stubs:
- *   - gh: GH_STUB_MODE=open prints one open PR, empty prints [], fail exits 1,
- *     hang sleeps 30 s. Every call is logged to the stub log.
+ *   - gh: GH_STUB_MODE=open prints one open PR from this repository, fork prints
+ *     one from a fork, empty prints [], fail exits 1, hang sleeps 30 s. Every
+ *     call is logged to the stub log.
  *   - git: logs `ls-remote` calls, then runs the real git.
  *   - npm: logs every call and exits 0.
  */
@@ -76,10 +77,11 @@ function createFixture() {
     `#!/bin/sh
 echo "gh $*" >> "${log}"
 case "\${GH_STUB_MODE:-empty}" in
-  open) echo '[{"number":1}]' ;;
+  open) echo '[{"number":1,"isCrossRepository":false}]' ;;
+  fork) echo '[{"number":1,"isCrossRepository":true}]' ;;
   empty) echo '[]' ;;
   fail) exit 1 ;;
-  hang) sleep 30 ;;
+  hang) exec sleep 30 ;;
 esac
 `
   );

@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Shared Claude Code Cloud Environment** — One cloud setup for the whole team, and Claude sessions can no longer commit, push or open PRs on branches that break the branching strategy. (#3524)
+- **Shared Claude Code Cloud Environment** — One cloud setup for the whole team. Claude can no longer commit, push, open PRs or edit its guard files against the branching strategy; docs-only changes may still go to develop. (#3524)
 
 ### Changed
 

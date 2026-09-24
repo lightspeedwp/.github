@@ -50,9 +50,16 @@ install_node() {
 
 # ── 2. Linters used by CI but not pre-installed ──────────────────────────────
 install_linters() {
-  log "Installing shellcheck"
-  { apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq shellcheck; } >/dev/null 2>&1 ||
-    log "shellcheck install failed (non-fatal)"
+  # gh is needed by the branch guard's legacy PR check (spec 016 FR-006). One
+  # apt run for both, so the two installs never fight over the apt lock.
+  log "Installing shellcheck and gh"
+  { apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq shellcheck gh; } >/dev/null 2>&1 ||
+    log "shellcheck/gh install failed (non-fatal)"
+  if command -v gh >/dev/null 2>&1; then
+    log "gh $(gh --version | head -1 | awk '{print $3}') available"
+  else
+    log "gh not available; the guard's legacy PR check will refuse (fail closed)"
+  fi
 
   # actionlint via the Go module proxy (GitHub release assets from repos not
   # attached to the session return 403 through the GitHub proxy).
@@ -73,6 +80,16 @@ git config --system push.autoSetupRemote true
 git config --system fetch.prune true
 git config --system pull.rebase false
 git config --system merge.conflictstyle zdiff3
+
+# gh authenticates through the platform's GitHub proxy once a session starts,
+# so this only reports; a failure here is expected before the first session.
+if command -v gh >/dev/null 2>&1; then
+  if gh auth status >/dev/null 2>&1; then
+    log "gh is authenticated"
+  else
+    log "gh is not authenticated yet (sessions authenticate through the GitHub proxy)"
+  fi
+fi
 
 log "Done"
 exit 0

@@ -5,10 +5,10 @@
  * .claude/hooks/enforce-branch-name.mjs (spec 016, contracts/hooks.md).
  *
  * Each case spawns the real hook with a tool-call payload inside a temporary
- * repository. Exit 2 means refused, exit 0 means allowed. Cases marked
- * `test.todo` describe behaviour that tasks T020–T023 have not built yet.
+ * repository. Exit 2 means refused, exit 0 means allowed.
  */
 
+const path = require('path');
 const { createFixture, runBash, runGuard } = require('./helpers/claude-hook-harness');
 
 jest.setTimeout(30000);
@@ -76,14 +76,26 @@ describe('naming and the session placeholder (T008)', () => {
 });
 
 describe('refusal message (FR-011)', () => {
-  test('names the rule, suggests a name, and gives the fix in order', () => {
+  test('starts with "Branch guard:" so the SC-007 transcript search finds it', () => {
     const run = runBash(fx, 'git checkout -b feature/thing');
+    expect(run.status).toBe(2);
+    expect(run.stderr.split('\n')[0]).toMatch(/^Branch guard: /);
+  });
+
+  test('leaves out a suggestion that would itself fail the validator (T046)', () => {
+    const run = runBash(fx, 'git checkout -b feature/thing');
+    expect(run.status).toBe(2);
+    expect(run.stderr).not.toMatch(/did you mean/);
+  });
+
+  test('names the rule, suggests a valid name, and gives the fix in order', () => {
+    const run = runBash(fx, 'git checkout -b feature/issue-triage');
     expect(run.status).toBe(2);
     const lines = run.stderr.split('\n');
     const at = (pattern) => lines.findIndex((line) => pattern.test(line));
 
-    const rule = at(/^Branch creation blocked: 'feature\/thing'.*invalid_type/);
-    const suggestion = at(/did you mean 'feat\/thing'/);
+    const rule = at(/^Branch creation blocked: 'feature\/issue-triage'.*invalid_type/);
+    const suggestion = at(/did you mean 'feat\/issue-triage'/);
     const rename = at(/git branch -m <type>\/<scope>-<title>/);
     const validate = at(/npm run validate:branch-name -- --current/);
     const override = at(/overrides any claude\/\* branch named by the platform/);
@@ -136,9 +148,56 @@ describe('protected branches and the documentation exception (T009)', () => {
     expect(runBash(fx, 'git commit -m "x"').status).toBe(2);
   });
 
-  test.todo('allows a commit on develop when only docs/** and .github/specs/** are staged');
-  test.todo('lists the files outside the allowed paths in the refusal');
-  test.todo('allows a push to develop whose diff touches only allowed paths');
+  test('allows a commit on develop when only docs/** and .github/specs/** are staged', () => {
+    fx.write('docs/guide.md', '# Changed\n');
+    fx.write('.github/specs/016-x/spec.md', '# Spec\n');
+    expect(runBash(fx, 'git commit -m "docs"').status).toBe(0);
+  });
+
+  test('allows git add of docs then commit on develop in one command', () => {
+    fx.write('docs/guide.md', '# Changed\n', { stage: false });
+    expect(runBash(fx, 'git add docs/guide.md && git commit -m "docs"').status).toBe(0);
+  });
+
+  test('lists the files outside the allowed paths in the refusal', () => {
+    fx.write('docs/guide.md', '# Changed\n');
+    fx.write('package.json', '{"name":"x"}\n');
+    const run = runBash(fx, 'git commit -m "mixed"');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/Needs a feature branch: .*package\.json/);
+    expect(run.stderr).not.toMatch(/Needs a feature branch: .*docs\/guide\.md/);
+  });
+
+  test('counts git add -A as every changed file', () => {
+    fx.write('docs/guide.md', '# Changed\n', { stage: false });
+    fx.write('app.js', 'x\n', { stage: false });
+    const run = runBash(fx, 'git add -A && git commit -m "x"');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/Needs a feature branch: .*app\.js/);
+  });
+
+  test('does not let a path escape docs/ through ..', () => {
+    const run = runGuard(
+      fx,
+      mcp('push_files', {
+        branch: 'develop',
+        files: [{ path: 'docs/../package.json', content: 'x' }],
+      })
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('allows a push to develop whose diff touches only allowed paths', () => {
+    fx.write('docs/guide.md', '# Changed\n');
+    fx.git('commit', '--quiet', '-m', 'docs');
+    expect(runBash(fx, 'git push origin develop').status).toBe(0);
+  });
+
+  test('refuses a push to develop whose diff touches other files', () => {
+    fx.write('package.json', '{"name":"x"}\n');
+    fx.git('commit', '--quiet', '-m', 'code');
+    expect(runBash(fx, 'git push origin HEAD:develop').status).toBe(2);
+  });
 });
 
 describe('legacy PR exception (T010)', () => {
@@ -162,8 +221,25 @@ describe('legacy PR exception (T010)', () => {
     expect(run.status).toBe(2);
   });
 
-  test.todo('allows a push to an existing branch that is the head of an open PR');
-  test.todo('allows a commit on an existing branch that is the head of an open PR');
+  test('allows a push to an existing branch that is the head of an open PR', () => {
+    const run = runBash(fx, 'git push origin copilot/fix-login', { GH_STUB_MODE: 'open' });
+    expect(run.status).toBe(0);
+  });
+
+  test('allows a commit on an existing branch that is the head of an open PR', () => {
+    expect(runBash(fx, 'git commit -m "x"', { GH_STUB_MODE: 'open' }).status).toBe(0);
+  });
+
+  test('refuses when the open PR comes from a fork', () => {
+    const run = runBash(fx, 'git push origin copilot/fix-login', { GH_STUB_MODE: 'fork' });
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses a branch that exists only locally, even if gh reports a PR', () => {
+    fx.branch('copilot/local-only');
+    const run = runBash(fx, 'git commit -m "x"', { GH_STUB_MODE: 'open' });
+    expect(run.status).toBe(2);
+  });
 });
 
 describe('GitHub MCP tools (T011)', () => {
@@ -204,7 +280,53 @@ describe('GitHub MCP tools (T011)', () => {
     expect(run.status).toBe(0);
   });
 
-  test.todo('allows push_files to develop when every path is under docs/');
+  test('allows push_files to develop when every path is under docs/', () => {
+    const run = runGuard(
+      fx,
+      mcp('push_files', { branch: 'develop', files: [{ path: 'docs/a.md', content: 'a' }] })
+    );
+    expect(run.status).toBe(0);
+  });
+
+  test('refuses Bash gh pr create from a claude/* head (T044)', () => {
+    const run = runBash(
+      fx,
+      'gh pr create --repo lightspeedwp/.github --head claude/x-y --base develop'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses Bash gh pr create into main from a feature branch on .github (T044)', () => {
+    const run = runBash(fx, 'gh pr create -R lightspeedwp/.github --base main --head feat/a-b');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/only release\/\* and hotfix\/\* target main/);
+  });
+
+  test('uses the current branch as the gh pr create head (T044)', () => {
+    fx.branch('chore/session-abc123');
+    expect(runBash(fx, 'gh pr create -R lightspeedwp/.github --fill').status).toBe(2);
+  });
+
+  test('refuses gh api content writes to main (T044)', () => {
+    const run = runBash(
+      fx,
+      'gh api -X PUT repos/lightspeedwp/.github/contents/docs/a.md -f branch=main -f message=x -f content=eA=='
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses gh api branch creation with a forbidden prefix (T044)', () => {
+    const run = runBash(
+      fx,
+      'gh api repos/lightspeedwp/.github/git/refs -f ref=refs/heads/claude/x -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('allows gh api reads and other owners (T044)', () => {
+    expect(runBash(fx, 'gh api repos/lightspeedwp/.github/pulls').status).toBe(0);
+    expect(runBash(fx, 'gh pr create -R someone/else --head claude/x-y').status).toBe(0);
+  });
 });
 
 describe('enforcement switch and self-protection (T012)', () => {
@@ -232,14 +354,78 @@ describe('enforcement switch and self-protection (T012)', () => {
     expect(runBash(fx, 'export LS_ENFORCE_BRANCH_NAMES=0 && git commit -m "x"').status).toBe(2);
   });
 
-  test.todo('refuses Edit of .claude/hooks/enforce-branch-name.mjs');
-  test.todo('refuses Write to .claude/settings.local.json');
-  test.todo(
-    'refuses sed -i, rm, redirection and git restore that target .claude/settings.json or .claude/hooks/'
-  );
-  test.todo('refuses an Edit that adds an env override or disableAllHooks to settings.local.json');
-  test.todo('refuses Write to ~/.claude/settings.json resolved against $HOME');
-  test.todo('allows edits to guard files when the hook starts with the switch off');
+  const edit = (tool, file, extra = {}) => ({
+    tool_name: tool,
+    tool_input: { file_path: file, ...extra },
+  });
+
+  test('refuses Edit of .claude/hooks/enforce-branch-name.mjs', () => {
+    const run = runGuard(fx, edit('Edit', '.claude/hooks/enforce-branch-name.mjs'));
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/branch-guard file/);
+  });
+
+  test('refuses Write to .claude/settings.local.json, by absolute path too', () => {
+    expect(runGuard(fx, edit('Write', '.claude/settings.local.json')).status).toBe(2);
+    const absolute = path.join(fx.repo, '.claude', 'settings.local.json');
+    expect(runGuard(fx, edit('Write', absolute)).status).toBe(2);
+  });
+
+  test.each([
+    'sed -i "s/1/0/" .claude/settings.json',
+    'rm .claude/hooks/x',
+    'rm -rf .claude',
+    'echo {} > .claude/settings.json',
+    'echo {} >> ".claude/settings.local.json"',
+    'cat x | tee .claude/settings.json',
+    'cp /tmp/x .claude/hooks/enforce-branch-name.mjs',
+    'mv .claude/settings.json /tmp/x',
+    'git restore .claude/settings.json',
+    'git checkout HEAD -- .claude/hooks/session-start.sh',
+  ])('refuses the shell write %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  test('allows redirection text inside quotes (FR-012)', () => {
+    expect(runBash(fx, 'echo "> .claude/settings.json"').status).toBe(0);
+    expect(runBash(fx, "grep -n 'rm .claude/hooks' notes.md").status).toBe(0);
+  });
+
+  test('refuses an Edit that adds an env override or disableAllHooks to settings.local.json', () => {
+    const run = runGuard(
+      fx,
+      edit('Edit', '.claude/settings.local.json', {
+        old_string: '{',
+        new_string: '{"env":{"LS_ENFORCE_BRANCH_NAMES":"0"},"disableAllHooks":true,',
+      })
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses Write to ~/.claude/settings.json resolved against $HOME', () => {
+    const env = { HOME: fx.root };
+    expect(
+      runGuard(fx, edit('Write', path.join(fx.root, '.claude', 'settings.json')), env).status
+    ).toBe(2);
+    expect(runGuard(fx, edit('Write', '~/.claude/settings.json'), env).status).toBe(2);
+  });
+
+  test('refuses Write to the managed settings file', () => {
+    expect(runGuard(fx, edit('Write', '/etc/claude-code/managed-settings.json')).status).toBe(2);
+  });
+
+  test('allows edits to other files', () => {
+    expect(runGuard(fx, edit('Edit', 'docs/guide.md')).status).toBe(0);
+    expect(runGuard(fx, edit('Write', '.claude/cloud/setup.sh')).status).toBe(0);
+  });
+
+  test('allows edits to guard files when the hook starts with the switch off', () => {
+    const run = runGuard(fx, edit('Edit', '.claude/settings.json'), {
+      LS_ENFORCE_BRANCH_NAMES: '0',
+    });
+    expect(run.status).toBe(0);
+    expect(run.json().systemMessage).toMatch(/^Branch guard \(warning only\):/);
+  });
 });
 
 describe('guard faults (T013)', () => {
@@ -274,8 +460,74 @@ describe('guard faults (T013)', () => {
     expect(run.stderr).toMatch(/session placeholder/);
   });
 
-  test.todo("refuses git commit with 'Branch guard unavailable' when the validator fails to load");
-  test.todo('refuses MCP create_pull_request on a fault');
+  test("refuses git commit with 'Branch guard unavailable' when the validator fails to load", () => {
+    fx.branch('feat/good-name');
+    const run = runBash(fx, 'git commit -m "x"', FAULT);
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(
+      /^Branch guard unavailable: .*Open an issue on lightspeedwp\/\.github/
+    );
+  });
+
+  test('refuses MCP create_pull_request on a fault', () => {
+    const run = runGuard(
+      fx,
+      mcp('create_pull_request', { head: 'feat/a-b', base: 'develop' }),
+      FAULT
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test.each(['git branch -D old-thing', 'git checkout -b feat/new-thing', 'gh pr create --fill'])(
+    'refuses the branch operation %s on a fault (FR-012a)',
+    (command) => {
+      expect(runBash(fx, command, FAULT).status).toBe(2);
+    }
+  );
+
+  test('allows switching to an existing branch on a fault, with a warning (FR-012a)', () => {
+    const run = runBash(fx, 'git switch develop', FAULT);
+    expect(run.status).toBe(0);
+    expect(run.json().systemMessage).toMatch(/Branch guard unavailable/);
+  });
+});
+
+describe('unusual git states (FR-005, FR-006)', () => {
+  test('refuses a commit on a detached HEAD with nothing in progress', () => {
+    fx.git('checkout', '--quiet', '--detach');
+    const run = runBash(fx, 'git commit -m "x"');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/HEAD is detached/);
+  });
+
+  test('judges a commit during a rebase by the branch being rebased', () => {
+    fx.branch('claude/x-abc123');
+    fx.write('docs/a.md', 'a\n');
+    fx.git('commit', '--quiet', '-m', 'a');
+    fx.git('checkout', '--quiet', 'develop');
+    fx.write('docs/a.md', 'b\n');
+    fx.git('commit', '--quiet', '-m', 'b');
+    fx.git('checkout', '--quiet', 'claude/x-abc123');
+    try {
+      fx.git('rebase', 'develop');
+    } catch {
+      // The conflicting rebase stops with a detached HEAD, as intended.
+    }
+    const run = runBash(fx, 'git commit -m "resolve"');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/claude\/x-abc123/);
+  });
+
+  test('allows a force-push to a compliant, unprotected branch', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'git push --force-with-lease origin feat/good-name').status).toBe(0);
+  });
+
+  test('judges a refspec push by its target branch', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'git push origin feat/good-name:claude/other').status).toBe(2);
+    expect(runBash(fx, 'git push upstream HEAD:feat/other-name').status).toBe(0);
+  });
 });
 
 describe('speed on the normal path (T041, SC-008)', () => {
