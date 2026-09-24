@@ -11,8 +11,8 @@
 ### 1.1 High-Level System Diagram
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     Input["Input: PR Data<br/>(branch, files, metadata)"]
     
     Orchestrator["PR Orchestrator<br/>(Main Agent)"]
@@ -69,8 +69,8 @@ accDescr: Detailed diagram
 ### 2.1 State Diagram
 
 ```mermaid
-accTitle: Diagram
 stateDiagram-v2
+    accTitle: Diagram
     [*] --> IDLE
     
     IDLE --> VALIDATE_BRANCH: receive input
@@ -123,8 +123,8 @@ accDescr: Detailed diagram
 ### 3.1 Sequential Skill Flow
 
 ```mermaid
-accTitle: Sequence Diagram
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant Orchestrator
     participant Skill1 as validate-branch-name
     participant Skill2 as route-pr-template
@@ -165,8 +165,8 @@ accDescr: Detailed diagram
 ### 4.1 Configuration Loading Diagram
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A["Agent Default Config<br/>(agents/pr-creation-agent/config/defaults.yml)"]
     B["Repo Config<br/>(.claude/pr-agent.config.yml)"]
     C["Custom Hooks<br/>(.claude/pr-agent-hooks.js)"]
@@ -380,8 +380,8 @@ Contract:
 ### 6.1 Error Flow Diagram
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     Error["Error Occurs<br/>(in any skill)"]
     Classify["Classify Error<br/>(type & severity)"]
     
@@ -517,8 +517,8 @@ module.exports = {
 ### 10.1 WordPress Config Integration
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     Config["Check: wordpress.enabled?"]
     
     Config -->|false| Standard["Use Standard Config"]
