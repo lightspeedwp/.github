@@ -18,7 +18,7 @@
 | **Type Labels (Issue-Types Mapped)** | 25 |
 | **Governance Policy Labels** | 57 |
 | **Documentation Files Reviewed** | 18 |
-| **Archived Workflows Analyzed** | 11 |
+| **Archived Workflows Analysed** | 11 |
 | **Audit Findings** | 2 (1 HIGH, 1 MEDIUM) |
 | **Affected Labels in Governance Gaps** | 13 |
 
@@ -28,7 +28,7 @@
    - **Impact**: One type label lacks official issue-type mapping
    - **Severity**: HIGH
    - **Evidence**: 
-     - Canonical file: `.github/labels.yml` line 186 (type:decision)
+     - Canonical file: `.github/labels.yml` line 173 in the 2026-09-14 snapshot (type:decision)
      - Issue-types file: `.github/issue-types.yml` (25 mappings, missing type:decision)
 
 2. **Governance Policy Misalignment**: 12 labels in `label-governance-policy.yml` do NOT exist in canonical `labels.yml`
@@ -45,7 +45,7 @@
 
 **Category**: Type Label Governance  
 **Severity**: HIGH  
-**Status**: Requires Governance Decision
+**Status**: Decided on 2026-09-24: Decision replaces Question as an issue type (#3530). Implemented in #3534, which is waiting for the approvals in #3556 and #3557
 
 `type:decision` appears in canonical `labels.yml` (169 labels) but is not included in `issue-types.yml` (25 mappings).
 
@@ -62,7 +62,7 @@
 
 **Category**: Governance Policy Consistency  
 **Severity**: MEDIUM  
-**Status**: Policy Update Needed
+**Status**: Resolved on the spec branch (task T055): the never-delete list now keeps only labels in `labels.yml`
 
 12 labels in `label-governance-policy.yml` (never-delete list) are not found in `labels.yml` (canonical source of truth).
 
@@ -96,7 +96,7 @@
 
 ✅ **Type Labels**: 26 in canonical (1 gap with issue-types.yml mapping)  
 ✅ **Canonical Labels**: 169 all accounted for  
-✅ **Documentation**: Complete for all major families  
+⚠️ **Documentation**: 142 of 169 labels are mentioned in the label documents; 27 are not (`evidence/documentation-coverage.json`)  
 ✅ **Governance Policy**: 57 labels defined (12 not in canonical - see Finding 2)
 
 ---
@@ -122,7 +122,7 @@
 
 ## Audit Methodology
 
-### Data Sources Analyzed
+### Data Sources Analysed
 
 1. `.github/labels.yml` - Canonical label definitions (169 labels)
 2. `.github/issue-types.yml` - Issue type mappings (25 types)
@@ -164,8 +164,8 @@
 2. Document decisions in CLAUDE.md governance section
 
 ### Medium Term (Q4)
-1. Complete workflow restoration analysis (User Story 3)
-2. Generate duplicates consolidation strategy (User Story 2)
+1. Workflow restoration analysis (User Story 3): done in `workflow-analysis.md`
+2. Duplicates consolidation strategy (User Story 2): done in `duplicates-analysis.md`
 
 ---
 
