@@ -116,6 +116,25 @@ describe('Claude cloud environment specification contracts', () => {
       );
       expect(quickstart).toContain('{"source":"compact"}');
     });
+
+    test('does not rename local branches or reset branches with uncommitted changes or commits', () => {
+      expect(requirement('FR-001')).toMatch(/in a cloud session/);
+      expect(requirement('FR-002')).toMatch(/no commits of its own and no uncommitted changes/);
+      expect(hooks).toMatch(/Cloud and source is `startup`\/`resume`.*Rename locally/m);
+      expect(contractRow(hooks, 'Any source, cloud or local')).toContain('context');
+      expect(model).toMatch(/When the tree is clean and has no local commits.*resets/s);
+    });
+
+    test('treats dependency installation failures as non-fatal', () => {
+      expect(requirement('FR-004')).toMatch(/missing or out of date and skipped when current/);
+      expect(requirement('FR-004')).toMatch(/failed install MUST NOT prevent the session/);
+      expect(
+        contractRow(
+          hooks,
+          'Cloud and source is `startup`/`resume`, lockfile newer than installed tree'
+        )
+      ).toMatch(/`npm install`\. Failure is logged and not fatal/);
+    });
   });
 
   describe('branch guard behaviour', () => {
@@ -179,6 +198,62 @@ describe('Claude cloud environment specification contracts', () => {
       expect(hooks).toMatch(/`Edit` \/ `Write` \/ `MultiEdit` \/ `NotebookEdit`/);
       expect(hooks).toMatch(/Bash write verb or redirection naming a protected guard file/);
     });
+
+    test('refuses documentation-only writes to main and unknown path sets on develop', () => {
+      expect(requirement('FR-005')).toMatch(/always for `main`/);
+      expect(requirement('FR-006')).toMatch(/never `main`/);
+      expect(requirement('FR-008')).toMatch(/never `main`/);
+      expect(quickstart).toMatch(/Commit on `main` with only `docs\/` files staged \| exit 2/);
+      expect(model).toMatch(
+        /normalised repository-relative path under `\.github\/specs\/`\s+or `docs\/`/
+      );
+      expect(model).toMatch(/An empty or unknown path set fails closed/);
+    });
+
+    test('covers branch creation, renaming and GitHub file writes as well as git commits', () => {
+      expect(requirement('FR-007')).toMatch(/locally or through the GitHub integration/);
+      expect(requirement('FR-008')).toMatch(
+        /Writing files to a non-compliant or placeholder branch/
+      );
+      for (const operation of [
+        '`git branch -m/-M`',
+        '`git checkout -b/-B`, `git switch -c/-C`',
+        '`mcp__github__create_branch`',
+        '`mcp__github__push_files` / `create_or_update_file` / `delete_file`',
+      ]) {
+        expect(contractRow(hooks, operation)).toMatch(/not compliant|placeholder/);
+      }
+    });
+
+    test('restricts PRs into main on this repository without blocking other owners', () => {
+      expect(requirement('FR-009')).toMatch(/base is `main`.*`release\/\*` or `hotfix\/\*`/);
+      expect(contractRow(hooks, '`mcp__github__create_pull_request`')).toMatch(
+        /`base == main`.*`release\/\*`\/`hotfix\/\*`/
+      );
+      expect(hooks).toMatch(/MCP calls whose `owner` isn't `lightspeedwp` are always allowed/);
+      expect(quickstart).toMatch(/MCP PR from `feat\/a-b` into `main`.*exit 2/);
+    });
+
+    test('uses the CI validator and ignores branch-like text inside commit messages', () => {
+      expect(requirement('FR-010')).toContain('`lib/validate-branch-name.js`');
+      expect(requirement('FR-010')).toContain('`scripts/validation/validate-branch-name.js`');
+      expect(requirement('FR-012')).toMatch(/quoted strings and here-documents/);
+      expect(quickstart).toMatch(/`git commit -m "mentions claude\/x"`.*exit 0/);
+    });
+
+    test('prevents per-command overrides of enforcement while allowing configured warnings', () => {
+      expect(requirement('FR-013')).toMatch(/only from the environment the session started with/);
+      expect(hooks).toMatch(/Variables set in the agent's\s+Bash commands never reach the hook/);
+      expect(quickstart).toMatch(/`LS_ENFORCE_BRANCH_NAMES=0 git commit -m x`.*exit 2/);
+      expect(contractRow(hooks, 'Refused, `LS_ENFORCE_BRANCH_NAMES=0`')).toContain('warning only');
+    });
+
+    test('covers user-level settings and read-only access to protected guard files', () => {
+      expect(requirement('FR-013a')).toContain('`~/.claude/settings.json`');
+      expect(model).toMatch(/Reads are always allowed/);
+      expect(quickstart).toMatch(/`cat \.claude\/settings\.json` \| exit 0/);
+      expect(quickstart).toMatch(/`Edit` of `\.claude\/settings\.local\.json`.*exit 2/);
+    });
   });
 
   describe('empty agent-branch cleanup', () => {
@@ -208,6 +283,25 @@ describe('Claude cloud environment specification contracts', () => {
       expect(model).toMatch(/"verification unavailable" DISCUSS rule/);
       expect(cleanup).toMatch(/All other results carry `autoApproved: false`/);
     });
+
+    test('keeps younger or unmerged agent branches out of the auto-delete rule', () => {
+      expect(requirement('FR-020')).toMatch(/merged to a base branch \(no commits of its own\)/);
+      expect(requirement('FR-020')).toMatch(/at least 24 hours old/);
+      expect(requirement('FR-021')).toMatch(/fails an FR-020 condition MUST NOT be auto-deleted/);
+      expect(contractRow(cleanup, 'Condition')).toMatch(
+        /merged to a base branch.*at least `AUTO_DELETE_MIN_AGE_DAYS` \(1\)/
+      );
+      expect(model).toMatch(
+        /Invalid name \(including `claude\/\*` branches with their own commits\) → DISCUSS/
+      );
+    });
+
+    test('reports auto-approvals and preserves the partial-failure status', () => {
+      expect(cleanup).toContain('`summary.autoApprovedDelete`');
+      expect(cleanup).toMatch(/`autoApproved` to each candidate in `deleted\[\]`/);
+      expect(contractRow(cleanup, 'Exit status')).toMatch(/partial-failure status/);
+      expect(model).toMatch(/Any failure → carry on with the other branches.*exit 2/);
+    });
   });
 
   test('defines a repeatable, secret-free shared environment', () => {
@@ -218,5 +312,13 @@ describe('Claude cloud environment specification contracts', () => {
     expect(contractRow(model, '`LS_BASE_BRANCH`')).toContain('`develop`');
     expect(contractRow(model, '`LS_ENFORCE_BRANCH_NAMES`')).toContain('`1`');
     expect(contractRow(model, '`LS_NODE_VERSION`')).toContain('from `.nvmrc`');
+  });
+
+  test('does not make optional setup failures fatal or drift from the pinned runtime', () => {
+    expect(requirement('FR-016')).toMatch(/exit successfully even when an optional install fails/);
+    expect(requirement('FR-016')).toMatch(/five-minute limit/);
+    expect(requirement('FR-017')).toMatch(/runtime version pinned by the repository/);
+    expect(contractRow(model, 'Setup script')).toMatch(/exits 0, under 5 min, idempotent/);
+    expect(contractRow(model, '`LS_NODE_VERSION`')).toContain('`.nvmrc`');
   });
 });
