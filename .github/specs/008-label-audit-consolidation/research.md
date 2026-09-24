@@ -39,7 +39,7 @@
 
 **Status**: ✅ Verified and analyzed
 
-- **Total labels**: 147 (confirmed via line count and manual inspection)
+- **Total labels**: 169 (confirmed via line count and manual inspection)
 - **Format**: YAML, key-value structure with name, color, description fields
 - **Families identified**: 15 distinct label families
 
@@ -47,7 +47,7 @@
 |--------|-------|-------|
 | `status:*` | 20 | Workflow progression labels |
 | `priority:*` | 4 | Urgency/scheduling labels |
-| `type:*` | 25 | Issue types (IMMUTABLE per issue-types.yml) |
+| `type:*` | 26 | Issue types: 25 mapped + unmapped `type:decision` (25 after FR-014 swap) |
 | `meta:*` | 4 | Housekeeping and changelog labels |
 | `release:*` | 4 | Release scope labels |
 | `area:*` | 28 | Codebase and product areas |
@@ -65,12 +65,12 @@
 
 ### 2. Issue Types Definition (`issue-types.yml`)
 
-**Status**: ✅ Verified and immutable
+**Status**: ✅ Verified (changes only via FR-014 swap)
 
 - **Total issue types**: 25 (confirmed via grep)
 - **Each type maps to**: Exactly one `type:*` label
 - **Format**: YAML with name, color, label fields
-- **Immutability**: These 25 labels MUST NOT change as part of this audit or any consolidation
+- **Change control**: The audit MUST NOT change these labels; consolidation may only apply the FR-014 swap (Question → Decision)
 
 **All 25 types confirmed present in canonical labels.yml** with matching names and colors.
 
@@ -108,7 +108,7 @@
 
 - **Purpose**: Define labels that must never be deleted for historical/compatibility reasons
 - **Format**: YAML list of label names
-- **Total labels in never-delete list**: 43 labels documented
+- **Total labels in never-delete list**: 57 labels documented
 
 **Key Finding**: The governance policy contains labels that DON'T exist in canonical `labels.yml`:
 
@@ -193,7 +193,7 @@ No significant ambiguities remain in the specification. All technical details co
 
 ✅ Data sources identified and accessible  
 ✅ Format specifications understood (YAML, JSON, CSV, Markdown)  
-✅ 25 type labels confirmed immutable and correct  
+✅ 25 mapped type labels confirmed correct; `type:decision` recorded as unmapped  
 ✅ Governance policy inconsistencies identified as research finding  
 ✅ Archived workflows inventoried and ready for detailed analysis  
 ✅ Analysis methodology defined (comparison, extraction, reconciliation)
@@ -216,13 +216,75 @@ No significant ambiguities remain in the specification. All technical details co
 
 | Source | Path | Type | Status |
 |--------|------|------|--------|
-| Canonical Labels | `.github/labels.yml` | YAML | 147 labels, 15 families |
-| Issue Types | `.github/issue-types.yml` | YAML | 25 types (immutable) |
-| Governance Policy | `.github/label-governance-policy.yml` | YAML | 43 protected labels |
+| Canonical Labels | `.github/labels.yml` | YAML | 169 labels, 15 families |
+| Issue Types | `.github/issue-types.yml` | YAML | 25 types (26 `type:*` labels until FR-014) |
+| Governance Policy | `.github/label-governance-policy.yml` | YAML | 57 protected labels |
 | Documentation | `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md` | Markdown | 18+ files |
 | Archived Workflows | `.github/workflows/archived/2026-09-11/labeling/` | YAML | 11 workflows |
 | Active Workflows | `.github/workflows/` | YAML | ~5 active labeling workflows |
 | API Labels | lightspeedwp/.github repository | GitHub API | TBD in task phase |
+
+## Consolidation Research (User Story 4)
+
+Added 2026-09-24 after the clarification sessions. Items marked **Verify** depend on platform behaviour that must be confirmed during the first dry run; each has a fallback.
+
+### R1. Renaming labels without losing issue associations
+
+- **Decision**: Rename labels in place (GitHub REST `PATCH /repos/{owner}/{repo}/labels/{name}` with `new_name`, or `gh label edit --name`). Where the target label already exists in a repository, relabel every issue and PR from source to target, then delete the source.
+- **Rationale**: An in-place rename keeps the label on every issue and PR; delete-and-recreate strips it (FR-012).
+- **Alternatives considered**: `gh label clone --force` (creates and updates only; never renames or deletes, so it is used only for the create/update step).
+
+### R2. Complete label inventory across the organisation
+
+- **Decision**: Enumerate every `lightspeedwp` repository and page through labels with `per_page=100` until no `next` link remains (`gh label list --limit 1000` is acceptable).
+- **Rationale**: `scripts/agents/includes/label-sync.js` reads only the first 100 labels, and `labels.yml` has 169, so orphan detection would miss labels (FR-016). `gh label list` defaults to 30 results.
+- **Alternatives considered**: Fixing `label-sync.js` in place; possible, but its workflow is archived and it deletes without a dry run.
+
+### R3. Order of operations
+
+- **Decision**: Approve → update `labels.yml` and dependent configuration → apply renames, creates and migrations in GitHub → gated deletion in GitHub → clean up Linear → enable the weekly drift check.
+- **Rationale**: The Linear GitHub integration copies GitHub labels into Linear, and `status:done` was recreated in Linear on 2026-09-24 while labels were being edited. Finishing GitHub first means Linear clean-up is not undone by the sync.
+- **Alternatives considered**: Linear first (rejected: the sync recreates labels); both at once (rejected: races between the two systems).
+
+### R4. Converting open `type:question` issues to Discussions
+
+- **Decision**: Use GitHub's per-label bulk action ("Convert issues to discussions" on the repository Labels page) for the `type:question` label, into the Q&A category, then relabel closed `type:question` issues `type:task` + `discussion:support`.
+- **Verify**: Discussions are enabled in each repository that has open `type:question` issues. **Fallback**: relabel as for closed issues and list the issue in the dry run (spec edge case).
+- **Alternatives considered**: Creating a discussion per issue and closing the issue with a link (loses the issue's comment history in the discussion).
+
+### R5. Linear label operations
+
+- **Decision**: Perform Linear changes through the Linear API (the Linear connector in this environment exposes label listing, issue label updates, label rename and retire). Merges are done by relabelling each issue, then retiring the source label. Retire, never delete.
+- **Rationale**: Retiring is reversible (`restore`), and relabelling issue by issue gives an exact audit trail.
+- **Alternatives considered**: Linear UI "merge label" (faster, but not scriptable or reviewable as a dry run).
+
+### R6. Stopping labels from being recreated
+
+- **Decision**: (a) Restrict label creation from Linear's GitHub integration; (b) limit repository label management to maintainers; (c) require automation that creates labels (for example the labeler and remediation scripts) to create only labels present in `labels.yml`; (d) weekly drift check (FR-017).
+- **Verify**: Which Linear integration settings control label creation, and which GitHub repository role can create labels. **Fallback**: rely on (c) and (d), which are fully under this repository's control.
+- **Rationale**: Issue #95 itself carries `migrate:*` labels created by automation, so permissions alone are not enough.
+
+### R7. Weekly drift check
+
+- **Decision**: A scheduled GitHub Actions workflow (weekly, plus manual dispatch) compares every repository's labels and the Linear workspace labels with `labels.yml`, and creates or updates one report issue (FR-017). It reports; it never deletes.
+- **Rationale**: Deletion stays behind the human-approved gate (FR-016).
+- **Alternatives considered**: Auto-delete on detection (rejected during clarification).
+
+### R8. Rollback
+
+- **Decision**: Before any deletion, export a per-repository snapshot (label name, colour, description, and the numbers of issues and PRs carrying it) to `evidence/dry-run/{repo}.json`. Renames are reversed by renaming back; deletions are reversed by recreating the label from the snapshot and reapplying it to the recorded issues; Linear retirements are reversed with restore.
+- **Rationale**: Deletion is the only irreversible GitHub step, so it gets a full snapshot.
+
+### R9. Organisation default labels for new repositories
+
+- **Decision**: Update the organisation's default repository labels to match `labels.yml` after consolidation.
+- **Verify**: Whether this can be done through the API. **Fallback**: a manual step in organisation settings, recorded in the gate issue.
+
+### R10. Decision issue template
+
+- **Decision**: `.github/ISSUE_TEMPLATE/06-decision.md` replaces `06-question.md`, following the existing template frontmatter (`name`, `about`, `title`, `labels`, `recommended_branch`, `file_type`) and ending with Definition of Ready and Definition of Done checklists. Full content in `contracts/decision-issue-template.md`.
+- **Rationale**: A decision record needs context, options, the outcome and consequences to be useful later; `recommended_branch: "docs/"` matches FR-014's routing (`pr_docs.md`).
+- **Alternatives considered**: An architecture-decision-record file per decision instead of an issue (still possible: the issue links to it under Linked work).
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

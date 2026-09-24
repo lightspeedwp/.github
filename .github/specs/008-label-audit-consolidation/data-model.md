@@ -50,7 +50,7 @@
 | `name` | string | ✅ | Human-readable family name |
 | `total_count` | integer | ✅ | Number of labels in this family (from canonical file) |
 | `description` | string | ✅ | Family purpose and usage guidelines |
-| `is_immutable` | boolean | ✅ | True for `type:*` family (25 labels, never change) |
+| `is_immutable` | boolean | ✅ | True for `type:*` family (26 labels today, 25 after FR-014; changes only via the approved swap) |
 | `canonical_count` | integer | ✅ | Labels defined in canonical labels.yml |
 | `source_files` | string[] | ✅ | Files defining this family (e.g., [".github/labels.yml", ".github/issue-types.yml"]) |
 
@@ -60,7 +60,7 @@
 {
   "id": "type",
   "name": "Issue Type",
-  "total_count": 25,
+  "total_count": 26,
   "description": "Categorize work by nature (bug, feature, docs, test, etc.). Immutable - tied to GitHub issue types.",
   "is_immutable": true,
   "canonical_count": 25,
@@ -326,7 +326,7 @@ Each label MUST pass these checks:
 2. **Family Membership**: Family must exist in families list
 3. **Color Code**: Must be valid hex color (6 characters)
 4. **Description**: Must be non-empty and descriptive
-5. **Type Family Immutability**: All 25 type: labels must be present and unchanged
+5. **Type Family Control**: All 25 mapped type labels must be present; `type:decision` is the 26th until the FR-014 swap retires `type:question`
 6. **Consistency**: If canonical, should not have duplication_status != "unique"
 
 ### Audit Completeness Checks
@@ -346,6 +346,77 @@ Each label MUST pass these checks:
 ✅ Validation rules testable and automatable  
 ✅ Audit completeness criteria defined  
 ✅ Ready for task decomposition and implementation
+
+## Consolidation Entities (User Story 4)
+
+Added 2026-09-24. These entities support FR-011 to FR-017; formats are defined in `contracts/label-mapping-schema.md` and `contracts/dry-run-and-drift-report-schema.md`.
+
+### 6. Label Mapping
+
+One approved change to one label.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `source` | string | Exact label name in GitHub and/or Linear |
+| `systems` | set | `github`, `linear` |
+| `action` | enum | `rename`, `import`, `merge`, `re-prefix`, `retire`, `team-scope`, `swap` |
+| `target` | string or null | Exists in `labels.yml` after the change |
+| `concept_label` | string or null | `re-prefix` only |
+| `issue_count` | integer | Items carrying `source` at generation time |
+| `requirement` | FR id | FR-011, FR-012, FR-014 or FR-015 |
+
+**Rule**: After all mappings are applied, every issue has exactly one `type:*` label and the type family has exactly 25 labels.
+
+### 7. Change Request
+
+A governance approval that unlocks a locked file.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `kind` | enum | `LABEL-UPDATE-REQUEST`, `ISSUE-TYPE-UPDATE-REQUEST`, `TEMPLATE-UPDATE-REQUEST`, `MIGRATION` (OpenSpec paths) |
+| `issue_number` | integer | GitHub issue in `lightspeedwp/.github` |
+| `mappings` | list | Label Mappings covered (label requests only) |
+| `status` | enum | `draft` → `open` → `approved` → `merged` (or `rejected`) |
+| `approved_by` | string | `ashleyshaw` for locked files |
+
+### 8. Repository Dry Run
+
+The per-repository deletion proposal (FR-016).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `repository` | string | `lightspeedwp/{repo}` |
+| `label_count` / `pages_read` | integer | `pages_read × 100 ≥ label_count` |
+| `to_delete` | list | Each with a snapshot and `migrate_to` for open items |
+| `approval` | object | `pending` → `approved` → `executed` (or `skipped`) |
+
+### 9. Gate
+
+Replaces closed issue #95 in `label-governance-policy.yml`.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `gated_by_issue` | integer | The new gate issue number |
+| `enabled` | boolean | `true` only during an approved deletion run |
+| `approved_orphan_labels` | list | Filled from approved dry runs |
+
+### 10. Drift Report
+
+The single weekly report issue (FR-017).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `differences` | list | Location, label, difference type, first seen, item count |
+| `allowed_exceptions` | list | Documented team-scoped Linear labels |
+| `status` | enum | `drift` or `no drift` (SC-009 steady state) |
+
+### Consolidation State Transitions
+
+```text
+Label Mapping:     proposed → approved (Change Request merged) → applied-github → applied-linear → verified (drift report clean)
+Repository Dry Run: generated → approved → executed → verified
+                              ↘ skipped (no approval: nothing deleted)
+```
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

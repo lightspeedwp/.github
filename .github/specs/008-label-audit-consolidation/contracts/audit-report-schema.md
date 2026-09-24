@@ -60,7 +60,7 @@
 - Total labels analyzed: [N]
 - Labels in canonical file: [N]
 - Findings identified: [N] (Critical: X, High: Y, Medium: Z, Low: W)
-- Type labels (immutable): ✅ All 25 present and correct
+- Type labels: ✅ All 25 mapped present and correct; `type:decision` unmapped until FR-014
 - Governance policy gaps: [N] labels in policy but not canonical
 
 **Critical Issues** (if any):
@@ -90,7 +90,7 @@
 
 **Summary**: 20/20 labels present, all documented, no duplicates, good governance coverage.
 
-### Type Family (25 labels) - IMMUTABLE
+### Type Family (26 labels; 25 after FR-014)
 
 | Label | Color | Issue Type | Status |
 |-------|-------|:----------:|--------|
@@ -98,7 +98,7 @@
 | type:bug | 9F3734 | Bug | ✅ OK |
 | ... | ... | ... | ... |
 
-**Validation**: ✅ All 25 type labels present, correct colors, matching issue-types.yml. IMMUTABLE - no changes.
+**Validation**: ✅ All 25 type labels present, correct colors, matching issue-types.yml. Changes only via the FR-014 swap.
 
 [Continue for each family...]
 
@@ -268,7 +268,7 @@
 | meta: | 4 | 4 | 0 | ✅ | 0 | ✅ Complete |
 | release: | 4 | 4 | 0 | ✅ | 0 | ✅ Complete |
 | openspec: | 10 | 10 | 0 | ✅ | 0 | ✅ Complete |
-| **TOTAL** | **147** | **147** | **8** | **✅** | **0** | ✅ **Complete** |
+| **TOTAL** | **169** | **169** | **8** | **✅** | **0** | ✅ **Complete** |
 
 * Policy references 8 type: labels not in canonical (duplicates/naming mismatches)
 ```

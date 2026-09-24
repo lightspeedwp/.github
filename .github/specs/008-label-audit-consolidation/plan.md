@@ -37,10 +37,12 @@
 
 Conduct a comprehensive audit of GitHub labels across the `.github` repository to identify inconsistencies, duplicates, and gaps in label governance. The audit compares canonical `labels.yml` against `issue-types.yml`, governance policy, documentation, archived workflows, and GitHub API usage to produce a reconciliation report with recommendations for consolidation and workflow restoration.
 
+User Story 4 then consolidates labels across GitHub and Linear: prefix renames (`ai-ops:` → `aiops:`, `openspec:` → `spec:`), import of used Linear-only labels with approved merges, the Question → Decision issue-type swap, re-prefix of eight Linear type labels, the OpenSpec → Spec Kit rename, gated deletion of unapproved labels in every `lightspeedwp` repository, and a weekly drift check. The execution order is approve → update configuration → change GitHub → delete in GitHub → clean up Linear → enable drift check (see Consolidation Execution Plan).
+
 **Key Constraints**:
 
-- Type labels (25 from `issue-types.yml`) are immutable
-- Audit is read-only (no changes to production configuration)
+- Type family: 26 labels today (25 mapped + unmapped `type:decision`); exactly 25 after the FR-014 swap (`type:decision` replaces `type:question`). No other type-family change is permitted
+- Audit phase (US1-US3) is read-only; consolidation (US4) changes configuration only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` approval
 - All findings must be evidence-based with file/line references
 
 ## Technical Context
@@ -63,6 +65,8 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 - GitHub API (via `gh` CLI or API client)
 - Shell scripting for workflow analysis
 - JSON/YAML comparison and reconciliation
+- Linear API (label listing, issue label updates, rename, retire/restore)
+- GitHub Actions scheduled workflow (weekly drift check)
 
 **Data Sources**:
 
@@ -72,6 +76,8 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 - `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md` (18+ doc files)
 - `.github/workflows/archived/2026-09-11/labeling/` (11 archived workflows)
 - GitHub API labels on lightspeedwp/.github repository
+- Labels on every `lightspeedwp` repository (paginated; consolidation phase)
+- Linear workspace labels (about 240 on 2026-09-24; all labelled issues in the LightSpeed team) and per-label issue counts
 
 **Deliverables**:
 
@@ -92,9 +98,11 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 
 - 169 labels across 15+ families in canonical file
 - 26 type labels in canonical (25 with issue-types.yml mappings; type:decision unmapped)
-- ~43 labels in governance never-delete policy
+- 57 labels in governance never-delete policy
 - 11 archived workflows to analyze
 - 18+ documentation files to review
+- About 454 live files referencing OpenSpec (content or path) for the Spec Kit rename
+- About 70 Linear-only labels to import, merge, re-prefix, retire or team-scope
 
 ## Constitution Check
 
@@ -104,17 +112,23 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 
 1. **Organisation-Wide Governance Authority**: This audit serves the `.github` repository's role as authoritative source for label governance across all LightSpeed repositories. ✅
 
-2. **Curated Assets with Locked Governance**: Audit protects locked files (labels.yml, issue-types.yml) — no changes permitted, read-only analysis only. ✅
+2. **Curated Assets with Locked Governance**: The audit phase is read-only. Consolidation changes `labels.yml`, `issue-types.yml` and `06-question.md` only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` are approved by @ashley, with impact analysis from the label mapping. ✅
 
 3. **Clear Asset Boundaries**: Audit clearly differentiates between canonical configuration (`.github/`) and documentation (top-level `docs/`). ✅
 
 4. **Technology-Agnostic Guidance**: Audit findings apply universally to all repositories consuming central label configuration, regardless of tech stack. ✅
 
-5. **Branch Naming Strategy**: Uses proper `audit/github-label-audit` branch naming (not forbidden `claude/` prefix). ✅
+5. **Branch Naming Strategy**: Uses proper `audit/label-consolidation` branch naming (not forbidden `claude/` prefix). ✅
 
 6. **UK English, Accessibility, Security Standards**: All deliverables will follow UK English, semantic documentation, and security-first practices. ✅
 
-**No violations identified.** Audit is within scope and compliant with constitution.
+7. **Issue Type and Template Routing**: The Question → Decision swap is already reflected in constitution v1.3.1, including the rule that `06-question.md` stays until the change requests merge. Issue-type fallback PR routing is marked not yet implemented and is out of scope. ✅
+
+8. **Automated Validation & Metrics-Driven Governance**: The weekly drift check (FR-017) replaces one-off manual audits for label consistency. ✅
+
+**No violations identified.** Audit and consolidation are within scope and compliant with constitution v1.3.1.
+
+**Post-design re-check (2026-09-24)**: ✅ Still compliant. Every change to a locked file is behind an approved change request; deletion is behind a per-repository approved dry run; no portable assets are added under `.github/`.
 
 ## Project Structure
 
@@ -130,7 +144,9 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 ├── contracts/                           # Phase 1: Output format specifications
 │   ├── audit-report-schema.md
 │   ├── label-inventory-schema.md
-│   └── findings-evidence-schema.md
+│   ├── label-mapping-schema.md          # US4: mapping and linear-labels.json
+│   ├── decision-issue-template.md       # US4: 06-decision.md content (U9)
+│   └── dry-run-and-drift-report-schema.md  # US4: deletion dry run and drift report
 ├── checklists/
 │   └── requirements.md                  # Quality validation checklist
 └── tasks.md                             # Phase 2: Task decomposition (via /speckit-tasks)
@@ -150,23 +166,54 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 │           └── evidence/
 │               ├── label-mappings.json      # Source data comparisons
 │               ├── missing-labels.json      # Labels in GitHub but not canonical
-│               └── mismatches.json          # Name/color inconsistencies
+│               ├── mismatches.json          # Name/color inconsistencies
+│               ├── linear-labels.json       # US4: Linear inventory and mapping
+│               └── dry-run/{repo}.json      # US4: per-repository deletion dry runs
 ```
 
 **Structure Decision**:
 
 - **Documentation**: All specification, planning, and design artifacts reside in `.github/specs/008-label-audit-consolidation/` (per SpecKit convention)
 - **Audit Output**: Final audit reports and findings stored in `.github/reports/audits/2026-09-14-label-audit/` (per repository governance for audit artifacts)
-- **No source code development**: This is an audit/analysis task; deliverables are configuration reconciliation reports and recommendations
+- **No source code development in the audit phase**: deliverables are reconciliation reports and recommendations
+- **Consolidation changes (US4)**: `.github/labels.yml`, `.github/issue-types.yml`, `.github/ISSUE_TEMPLATE/06-decision.md` (replacing `06-question.md`), `.github/issue-fields.yml`, `.github/label-governance-policy.yml`, `.github/labeler.yml`, `.github/branch-labels.yml`, automation scripts that reference renamed labels, five docs files, a new scheduled drift-check workflow in `.github/workflows/`, and the OpenSpec → Spec Kit rename across live files
 
 ## Complexity Tracking
 
-**No Constitution Check violations.** Audit is straightforward analysis with clear scope:
+**No Constitution Check violations.**
 
-- Read-only access to all configuration files
-- No modifications to locked files
-- Governance principles fully supported
-- Output format is standard documentation + structured data
+- Audit phase: read-only access to all configuration files; output is documentation plus structured data
+- Consolidation phase: locked files change only through approved change requests (Principle II)
+- The OpenSpec → Spec Kit rename touches about 454 files; it ships as its own PR so it can be reviewed separately from the label changes
+
+## Consolidation Execution Plan (User Story 4)
+
+Each stage starts only when the previous stage's exit check passes. Validation steps are in `quickstart.md` (Tests 9 to 14).
+
+| Stage | What happens | Gate / exit check | Requirements |
+| --- | --- | --- | --- |
+| 0. Evidence | Paginated label inventory for every repository; `evidence/linear-labels.json` with issue counts and proposed mappings (`contracts/label-mapping-schema.md`) | Mapping validation rules pass (Test 9) | FR-006, FR-012 |
+| 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a migration issue for OpenSpec paths, and a new gate issue replacing #95 | @ashley approves all requests | FR-009, FR-013, FR-014, FR-016 |
+| 2. Configuration PR | One PR: `labels.yml` (renames, imports, `type:question` removed), `issue-types.yml`, `06-decision.md` replacing `06-question.md`, `issue-fields.yml`, `label-governance-policy.yml` (new gate issue, `enabled: false`, `type:question` off never-delete), `labeler.yml`, `branch-labels.yml`, scripts referencing `ai-ops:` or `openspec:` labels, and the five docs files | CI green; Test 10 passes | FR-011, FR-012, FR-014 |
+| 2b. Spec Kit rename PR | Separate PR for the OpenSpec → Spec Kit rename in live files and paths, with links updated | Test 11 passes | FR-013 |
+| 3. GitHub changes | Per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones | No issue left without exactly one `type:*` label | FR-011, FR-012, FR-014, FR-015 |
+| 4. GitHub deletion | Per repository: generate dry run and snapshot; @ashley approves on the gate issue; set `enabled: true`, delete, set `enabled: false` | Test 12 passes for every approved repository; unapproved repositories untouched | FR-016 |
+| 5. Linear clean-up | Relabel issues for merges and re-prefixes, retire zero-use and merged labels, team-scope project labels, update colours and descriptions (including `spec:*`), restrict label creation in the GitHub integration | Test 13 passes | FR-012, FR-015, FR-017 |
+| 6. Drift check | Enable the weekly scheduled workflow; run it once manually | "No drift" report (Test 14) | FR-017, SC-009 |
+
+**Why this order**: The Linear GitHub integration copies GitHub labels into Linear (`status:done` was recreated in Linear on 2026-09-24). Finishing GitHub first stops Linear clean-up being undone. See research R3.
+
+**Rollback**: Renames are reversed by renaming back. Deletions are reversed from the stage 4 snapshot (recreate the label, reapply it to the recorded issues). Linear retirements are reversed with restore. See research R8.
+
+### Decision Issue Template (U9)
+
+Full contract: `contracts/decision-issue-template.md`.
+
+- **File**: `.github/ISSUE_TEMPLATE/06-decision.md`, replacing `06-question.md`
+- **Title**: `type:decision: {scope} - {short description}`
+- **Default labels**: `type:decision`, `status:needs-triage`, `priority:normal`
+- **Recommended branch**: `docs/` (routes to `pr_docs.md`)
+- **Sections**: Summary, Context, Options Considered, Decision, Consequences, Linked Work, then Definition of Ready and Definition of Done
 
 ---
 
@@ -177,8 +224,8 @@ Conduct a comprehensive audit of GitHub labels across the `.github` repository t
 No significant NEEDS CLARIFICATION markers in the specification. Technical approach is well-defined:
 
 1. **Data Source Inventory** (Resolved)
-   - Canonical labels: `.github/labels.yml` — 147 labels, 15 families, YAML format
-   - Issue types: `.github/issue-types.yml` — 25 types (immutable), YAML format
+   - Canonical labels: `.github/labels.yml` — 169 labels, 15 families, YAML format
+   - Issue types: `.github/issue-types.yml` — 25 types (26 `type:*` labels in canonical until the FR-014 swap), YAML format
    - Governance policy: `.github/label-governance-policy.yml` — never-delete list, YAML format
    - Documentation: 18+ files in `docs/LABEL_*.md`, `docs/ISSUE_*.md`, `docs/PR_*.md`
    - Archived workflows: 11 YAML files in `.github/workflows/archived/2026-09-11/labeling/`
@@ -204,19 +251,19 @@ No significant NEEDS CLARIFICATION markers in the specification. Technical appro
 ## Data Source Analysis
 
 ### Canonical Labels (labels.yml)
-- **Total**: 147 labels across 15 families
+- **Total**: 169 labels across 15 families
 - **Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, openspec
 - **Format**: YAML key-value with name, color, description
 - **Status**: Manually curated, locked, no recent changes
 
 ### Issue Types (issue-types.yml)
-- **Total**: 25 types (IMMUTABLE - must not change)
+- **Total**: 25 types; 26 `type:*` labels in canonical today, 25 after the FR-014 swap
 - **Mapping**: Each type maps to a `type:*` label
 - **Constraint**: All 25 must exist in canonical labels.yml with matching name and color
 - **Status**: Confirmed present and correct
 
 ### Governance Policy (label-governance-policy.yml)
-- **Never-delete list**: 43 labels that must be preserved for compatibility
+- **Never-delete list**: 57 labels that must be preserved for compatibility
 - **Includes labels**: Some not present in canonical labels.yml (gap identified)
 - **Key mismatches**:
   - `type:documentation` in policy vs `type:docs` in canonical
@@ -268,7 +315,7 @@ No significant NEEDS CLARIFICATION markers in the specification. Technical appro
   - name: string (family name without trailing colon)
   - total_count: integer (number of labels in family)
   - description: string (family purpose)
-  - is_immutable: boolean (true for type: family)
+  - is_fixed_family: boolean (true for type: family; changes only via FR-014)
   - source_file: string (canonical definition location)
 
 ### Label
@@ -406,7 +453,7 @@ Compare output against:
 
 **Pass Condition**: Every label in GitHub API output is documented in canonical file OR identified as an orphan/finding in the audit report.
 
-### Step 2: Validate Type Labels (25)
+### Step 2: Validate Type Labels (26 now, 25 after FR-014)
 
 Extract type labels from canonical file:
 
@@ -422,7 +469,7 @@ grep "label: type:" .github/issue-types.yml | wc -l
 # Should output: 25
 \`\`\`
 
-**Pass Condition**: Both commands output exactly 25, confirming type labels are immutable and complete.
+**Pass Condition**: Before consolidation, canonical outputs 26 and issue-types.yml 25 (difference is `type:decision`). After consolidation, both output exactly 25.
 
 ### Step 3: Verify Governance Policy Consistency
 
@@ -467,11 +514,11 @@ grep "^- name: status:" .github/labels.yml | wc -l
 
 ## Acceptance Criteria
 
-✅ All 3 user stories from spec have independent tests (above)
+✅ All 4 user stories from spec have independent tests (above)
 ✅ No NEEDS CLARIFICATION markers in findings
 ✅ Every finding includes evidence (file path + line number)
 ✅ Recommendations are actionable and prioritized
-✅ Type labels (25) remain immutable and unmodified
+✅ Type family is 26 before consolidation and exactly 25 after (FR-014)
 ```
 
 ---
@@ -480,12 +527,12 @@ grep "^- name: status:" .github/labels.yml | wc -l
 
 ✅ **research.md** — Research findings and unknowns resolved
 ✅ **data-model.md** — Entity catalog for label audit domain
-✅ **contracts/** — Output format specifications for audit reports
+✅ **contracts/** — Output format specifications for audit reports, plus US4 contracts: label mapping, Decision issue template, dry-run and drift report
 ✅ **quickstart.md** — Validation & testing guide for audit completeness
 
 ---
 
-**Next Step**: Run `/speckit-tasks` to decompose audit into executable tasks with clear acceptance criteria and file paths.
+**Next Step**: Run `/speckit-tasks` to add tasks for User Story 4 (stages 0 to 6) alongside the existing audit tasks.
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
