@@ -132,6 +132,38 @@ describe('branch validation metrics aggregator', () => {
     expect(result.combinedOutput).toMatch(/20260924-000003-3\.json/);
   });
 
+  test.each([
+    ['an array', '[]'],
+    ['a number', '42'],
+    ['a string', '"text"'],
+    ['a boolean', 'true'],
+    ['an object followed by an array', '{"valid": true} []'],
+  ])('skips a file whose JSON value is %s instead of zeroing the summary', (_name, content) => {
+    const result = runAggregateStep({
+      '20260924-000001-1.json': metricFile({ valid: true }),
+      '20260924-000002-2.json': content,
+    });
+
+    expect(result.status).toBe(0);
+    expect(result.summary.total_validations).toBe(1);
+    expect(result.summary.valid_count).toBe(1);
+    expect(result.totalOutput).toBe('1');
+    expect(result.combinedOutput).toMatch(/Skipping malformed metrics artifact/);
+  });
+
+  test('null and empty files keep their existing behaviour', () => {
+    const result = runAggregateStep({
+      '20260924-000001-1.json': metricFile({ valid: true }),
+      '20260924-000002-2.json': 'null',
+      '20260924-000003-3.json': '',
+    });
+
+    expect(result.status).toBe(0);
+    expect(result.summary.total_validations).toBe(2);
+    expect(result.summary.valid_count).toBe(1);
+    expect(result.combinedOutput).not.toMatch(/Skipping malformed metrics artifact/);
+  });
+
   test('empty input retains the zero semantics', () => {
     const result = runAggregateStep({});
 

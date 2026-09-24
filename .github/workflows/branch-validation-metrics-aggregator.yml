@@ -63,14 +63,16 @@ jobs:
           # Validate each metric file individually before aggregating: a
           # single malformed artifact must not discard the valid ones
           # (#3528). NUL-delimited throughout so unusual filenames cannot
-          # split or glob; `jq empty` accepts exactly what the `jq -s`
-          # aggregation below can parse (including JSON null), so the set
-          # of counted files is unchanged apart from excluding garbage.
+          # split or glob. A file is accepted only if it parses and every
+          # JSON value in it is an object or null: the aggregation below
+          # indexes .valid and .errors, which fails on an array, string,
+          # number or boolean and would zero the whole summary. Empty files
+          # and null keep their existing behaviour.
           valid_list=$(mktemp)
           invalid_count=0
           if [ -d metrics-artifacts ]; then
             while IFS= read -r -d '' metric_file; do
-              if jq empty -- "$metric_file" >/dev/null 2>&1; then
+              if jq -e -n '[inputs | type == "object" or type == "null"] | all' -- "$metric_file" >/dev/null 2>&1; then
                 printf '%s\0' "$metric_file" >> "$valid_list"
               else
                 echo "⚠️ Skipping malformed metrics artifact: $metric_file" >&2
