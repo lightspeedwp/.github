@@ -63,8 +63,8 @@ Create two primary deliverables:
 #### 2. Work Item Hierarchy
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A[Epic: {Epic Name}] --> B[Feature: {Feature Name}]
     B --> C[Story 1: {User Story}]
     B --> D[Story 2: {User Story}]
@@ -320,8 +320,8 @@ This enabler supports:
 #### 6. Dependency Management
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     A[Epic Planning] --> B[Feature Definition]
     B --> C[Enabler Implementation]
     C --> D[Story Development]
