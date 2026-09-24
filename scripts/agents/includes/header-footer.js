@@ -39,12 +39,12 @@ const DEFAULT_FOOTERS = [
  */
 function getFooterPhrases(category = 'default') {
   const config = loadFooterConfig();
-  if (!config || !config.categories) {
+  if (!config) {
     return DEFAULT_FOOTERS;
   }
 
   // Try to get category-specific footers
-  if (config.categories[category] && config.categories[category].phrases) {
+  if (config.categories && config.categories[category] && config.categories[category].phrases) {
     return config.categories[category].phrases;
   }
 
