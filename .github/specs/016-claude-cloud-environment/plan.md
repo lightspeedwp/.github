@@ -1,0 +1,156 @@
+# Implementation Plan: Standardised Claude Code Cloud Environment
+
+**Branch**: `config/claude-cloud-environment` (implementation, PR lightspeedwp/.github#3524) · spec on
+`docs/claude-cloud-environment-spec` | **Date**: 2026-09-24 | **Spec**: [spec.md](./spec.md)
+
+**Input**: Feature specification from `.github/specs/016-claude-cloud-environment/spec.md`
+
+## Summary
+
+Cloud sessions start on a platform-generated `claude/*` branch, and the platform tells the agent to push there.
+This plan enforces the LightSpeed branching strategy with four repository-level controls:
+
+1. **SessionStart hook**: renames the branch locally, syncs it with `develop`, installs dependencies and injects
+   the branching rules.
+2. **PreToolUse guard**: blocks non-compliant commits, pushes, branches and PRs. It reuses the CI validator and
+   allows the documentation exception on protected branches.
+3. **Shared cloud environment definition**: a setup script and variables, versioned in `.claude/cloud/`.
+4. **Scheduled cleanup**: deletes the empty `claude/*` branches the platform leaves behind, by extending the
+   existing `scripts/cleanup-branches.js`.
+
+Most of this already exists in #3524. The rest of the work is the documentation exception (Q1), the cleanup job
+(Q4), automated tests and documentation updates.
+
+## Technical Context
+
+**Language/Version**: Bash (hooks, setup script); Node.js ≥18 ES modules (guard, cleanup script). CI uses Node 24
+per `.nvmrc`.
+
+**Primary Dependencies**:
+
+- `lib/validate-branch-name.js` (existing)
+- `jq`, `git`
+- `gh` (Actions runner, for the open-PR check)
+- GitHub Actions pinned by SHA
+
+**Storage**: N/A (no persistent data; reports are written to `.github/reports/` by the existing script)
+
+**Testing**:
+
+- Jest (`.jest.config.cjs`), black-box tests that spawn the hook with JSON on stdin
+- shellcheck
+- actionlint
+- existing `scripts/validation/__tests__/cleanup-branches.test.js` extended
+
+**Target Platform**:
+
+- Claude Code sessions: the Anthropic cloud VM (Ubuntu 24.04) and developers' local machines
+- GitHub Actions `ubuntu-latest`
+
+**Project Type**: Repository governance tooling (hooks, a CLI script, a workflow)
+
+**Performance Goals**:
+
+- Guard adds 150 ms or less per matched tool call.
+- SessionStart adds 30 s or less when dependencies are current (SC-005).
+- The setup script finishes in under 5 minutes (it measured about 22 s).
+
+**Constraints**:
+
+- Hooks must never break a session: malformed input is allowed, and the SessionStart exit code is always 0.
+- The setup script must exit 0.
+- No secrets in environment variables.
+- No refusal telemetry (Q5).
+
+**Scale/Scope**: One repository, a team of about 10 people, and about 38 branch types. The cleanup handles tens
+of branches a day.
+
+## Constitution Check
+
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+
+| Principle | Assessment | Status |
+| --- | --- | --- |
+| I. Org-wide governance authority | Changes live in the control-plane repo and implement the org branching strategy | ✅ |
+| II. Locked configuration | Doesn't touch `labels.yml`, `issue-types.yml` or the issue/PR templates | ✅ |
+| III. Clear boundaries, no duplication | Reuses `lib/validate-branch-name.js` and `scripts/cleanup-branches.js`. Hooks stay in `.claude/`, which is repository configuration, not a portable asset. Portability is a follow-up spec (Q3) | ✅ |
+| IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
+| V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
+| VI. UK English, security | UK English in docs and messages. No secrets. The guard fails closed on unknown file sets. The workflow has least-privilege permissions and pinned actions | ✅ |
+| VII. Spec quality | Checklist 16/16. Clarified 5/5 | ✅ |
+| VIII. Enforcement and compliance ≥95% | The guard blocks before push. Cleanup removes empty `claude/*` branches that would lower the compliance metric | ✅ |
+| IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |
+| X. Metrics-driven | Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 | ✅ (justified) |
+
+**Documentation exception vs `CLAUDE.md` ("never commit feature work directly to `main`")**: the exception covers
+only `.github/specs/**` and `docs/**`, which aren't feature work. GitHub branch protection still applies to the
+push. No violation.
+
+**Post-design re-check (after Phase 1)**: the contracts and data model add no new dependencies, storage or locked
+files. All gates still pass.
+
+## Project Structure
+
+### Documentation (this feature)
+
+```text
+.github/specs/016-claude-cloud-environment/
+├── spec.md
+├── plan.md              # This file
+├── research.md          # Phase 0
+├── data-model.md        # Phase 1
+├── quickstart.md        # Phase 1
+├── contracts/
+│   ├── hooks.md         # SessionStart + PreToolUse contract
+│   └── branch-cleanup.md
+├── checklists/requirements.md
+└── tasks.md             # Phase 2 (/speckit-tasks, not created here)
+```
+
+### Source Code (repository root)
+
+```text
+.claude/
+├── settings.json                  # registers SessionStart + PreToolUse (exists in #3524)
+├── cloud/
+│   ├── setup.sh                   # environment setup script (exists)
+│   └── environment.env            # environment variables (exists)
+└── hooks/
+    ├── session-start.sh           # update: documentation exception in the context text
+    └── enforce-branch-name.mjs    # update: documentation exception (R4)
+
+scripts/
+├── cleanup-branches.js            # update: --includePatterns option
+├── __tests__/
+│   └── enforce-branch-name-hook.test.js   # new: black-box guard contract tests
+└── validation/__tests__/
+    └── cleanup-branches.test.js   # extend: --includePatterns cases
+
+.github/workflows/
+└── claude-branch-cleanup.yml      # new: daily and manual cleanup
+
+docs/
+└── CLAUDE_CLOUD_ENVIRONMENT.md    # update: documentation exception, cleanup, local enforcement, measurement
+
+CHANGELOG.md                       # entry per implementation PR
+```
+
+**Structure Decision**: Add to the existing layout. Keep hooks in `.claude/` (repository configuration), tests in
+`scripts/__tests__/` (already covered by Jest's `testMatch`), and the workflow in `.github/workflows/`. No new
+top-level folders.
+
+## Delivery Slices
+
+These follow the user-story priorities in the spec:
+
+1. **P1, US1 (guard and session rules)**: the documentation exception in the guard and the SessionStart text,
+   plus Jest contract tests. Ships in #3524.
+2. **P2, US2 (shared environment)**: already built in #3524. Needs verification only, following quickstart §3–4
+   after the Owner has set it up.
+3. **P3, US3 (documentation and cleanup)**: the `--includePatterns` option and its tests, the
+   `claude-branch-cleanup.yml` workflow, and the doc updates. This can be a follow-up PR from #3524 to keep the
+   review small.
+
+## Complexity Tracking
+
+No constitution violations to justify.
