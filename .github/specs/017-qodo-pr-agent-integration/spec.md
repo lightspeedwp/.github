@@ -26,6 +26,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 - Q: Where should Qodo PR-Agent actually run when a PR is opened or someone comments a command? → A: Inside the organisation's own CI, triggered by PR and comment events, using a secret credential for the model provider (see the FR-002 clarification below). There is no self-hosted server, and the Qodo-hosted app is not used.
 - Q: Which credential should the spec require for the Qodo PR-Agent pilot? → A: The dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT` is required. Keyless Workload Identity Federation is an optional alternative, and a stored key takes precedence when both are configured.
 - Q: Should FR-018 let the reusable workflow and the root `.pr_agent.toml` stay where GitHub and Qodo PR-Agent require them, under the constitution's platform-required locations exception? → A: Yes. Both use the Principle III exception (constitution v1.3.0), reusable logic stays in portable top-level folders wherever it can, and the plan records it as an exception, not a violation.
+- Q: How should we measure whether the opt-in guide is good enough, given that the walkthrough deliberately doesn't enable another repository? → A: A second maintainer's walkthrough finds no missing step or prerequisite. The 30-minute target is dropped.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -203,7 +204,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - **SC-003**: 0 PRs are blocked from merging solely because Qodo PR-Agent was unavailable.
 - **SC-004**: At least 70% of surveyed maintainers rate Qodo PR-Agent output as useful after a 14-day pilot, and fewer than 20% of its automatic comments are marked as duplicating another bot's.
 - **SC-005**: Every integration point in User Story 3 has documented fallback behaviour, and each passes an "unavailable" test.
-- **SC-006**: The opt-in guide lets a maintainer enable a further repository in under 30 minutes using only the central configuration and the documentation. This is verified by a walkthrough review that finds no missing step. Actually enabling another repository is outside this feature's scope.
+- **SC-006**: A second maintainer walks through the opt-in guide against a non-`.github` repository, without enabling it, and finds no missing step or prerequisite. The guide relies only on the central configuration and the documentation. Actually enabling another repository is outside this feature's scope.
 - **SC-007**: The kill-switch stops all new runs within 15 minutes of use.
 - **SC-008**: Monthly Qodo PR-Agent spend is reported and stays within a budget agreed by the organisation owner before any repository beyond the pilot is enabled.
 
