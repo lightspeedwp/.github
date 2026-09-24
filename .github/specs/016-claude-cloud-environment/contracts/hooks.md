@@ -64,15 +64,18 @@ Bash commands never reach the hook (FR-013, research R13).
 | --- | --- | --- |
 | `git branch -m/-M` | new name | not compliant, placeholder, or protected |
 | `git checkout -b/-B`, `git switch -c/-C` | new name | not compliant, or placeholder |
-| `git commit` | effective branch | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
+| `git commit` | effective branch (the branch being worked on during a rebase, merge, cherry-pick or revert) | detached HEAD with none of those in progress; or placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
 | `git push` (not `--delete`/`--tags`) | target branch | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
 | `mcp__github__create_branch` | `branch` | not compliant, or placeholder |
 | `mcp__github__push_files` / `create_or_update_file` / `delete_file` | `branch` plus paths | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
 | `Edit` / `Write` / `MultiEdit` / `NotebookEdit` | resolved `file_path` / `notebook_path` | path is a protected guard file and enforcement is on (FR-013a) |
-| Bash write verb or redirection naming a protected guard file | the path | enforcement is on (FR-013a, research R12) |
+| `gh pr create`, and `gh api` calls that create or update refs, file contents or PRs | head/base, or target branch plus paths | the same rules as `mcp__github__create_pull_request` and the MCP file tools (FR-008, FR-009, CHK002) |
+| Bash write verb or redirection (outside quotes) naming a protected guard file | the path | enforcement is on (FR-013a, research R12) |
 | `mcp__github__create_pull_request` | `head`, `base` | `head` not compliant; or, on `.github`, `base == main` and `head` not `release/*`/`hotfix/*` |
 
-MCP calls whose `owner` isn't `lightspeedwp` are always allowed.
+MCP calls and `gh` commands whose owner isn't `lightspeedwp` (compared case-insensitively) are always allowed.
+
+**Git write, for guard faults (FR-012a)**: `git commit`, `git push`, and branch operations that create, rename, delete or force-reset a branch (`git branch -m/-M/-d/-D/-f`, `git checkout -b/-B`, `git switch -c/-C`), plus `gh pr create` and `gh api` writes. Switching to an existing branch is not a git write.
 
 **Output**:
 
@@ -92,8 +95,8 @@ sessions keep their starting setting. With enforcement on, guard faults still bl
 2 (FR-012a). Restore enforcement after the fault is fixed.
 
 **Legacy PR exception check**: `git ls-remote --exit-code --heads origin <branch>`, then
-`gh pr list --head <branch> --state open --json number --limit 1`, each with a 5-second timeout. Any failure means
-the exception doesn't apply (research R9).
+`gh pr list --head <branch> --state open --json number,isCrossRepository --limit 1`, each with a 5-second timeout. Any failure means
+the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (`isCrossRepository` is `false`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
 
 **Refusal message** (FR-011) contains, in order:
 

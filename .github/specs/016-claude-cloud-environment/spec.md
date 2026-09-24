@@ -37,6 +37,21 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: Should the one-time Owner setup be required to turn on "Require review from Code Owners" for `develop`, so the `/.claude/` CODEOWNERS entry actually blocks unreviewed changes to the guard's files? → A: Yes. It is a required Owner setup step for `develop` and `main`, and the verification steps check that it is on.
 - Q: Should the spec set a measurable speed limit for the branch guard, so it doesn't noticeably slow down every command the agent runs? → A: Yes. The guard adds 150 ms or less per call in the normal case, and the legacy PR check (up to 10 seconds) runs only when a write would otherwise be refused. An automated test covers it (SC-008).
 
+### Session 2026-09-24 (security checklist review)
+
+The reviewer settled `checklists/security.md` item by item. These are the decisions that changed the requirements:
+
+- Q: Which write paths are in scope? → A: Git commands pushing to any remote, the GitHub MCP tools, and the `gh` command-line tool (`gh pr create`, and `gh api` calls that create or update refs, file contents or pull requests) (FR-006, FR-008, FR-009).
+- Q: Which settings files can switch the guard off? → A: The four already listed plus the managed settings file `/etc/claude-code/managed-settings.json`, which takes precedence over all others (FR-013a).
+- Q: Who may turn off enforcement, and what are the defaults? → A: Owners in the shared environment; members in a personal environment or their own shell for local sessions, as a deliberate human choice. Unset means enforcement on and base branch `develop` (FR-013).
+- Q: Are `release/*` branches protected? → A: No, deliberately. Only `main` and the configured base branch are protected (FR-005).
+- Q: What counts as a "branch operation" during a guard fault? → A: Creating, renaming, deleting or force-resetting a branch. Switching to an existing branch is allowed with a warning (FR-012a).
+- Q: Does the legacy PR exception cover PRs from forks or other repositories? → A: No. It applies only when the open PR's head branch is in this repository (FR-006).
+- Q: How are documentation-exception paths compared? → A: After normalisation to repository-relative paths (resolving `.`, `..` and, for existing files, symlinks), case-sensitively. A path that leaves `.github/specs/` or `docs/` after normalisation isn't covered (FR-005).
+- Q: Does quote-stripping hide redirections? → A: No. Shell operators outside quotes still count: `echo "x" > .claude/settings.json` targets the file; `echo "> .claude/settings.json"` doesn't (FR-012).
+- Q: How are unusual git states judged? → A: During a rebase, merge, cherry-pick or revert, by the branch being worked on. A commit on a detached HEAD with none of those in progress is refused. A refspec push is judged by its target branch. A force-push to the agent's own compliant, unprotected branch is allowed (FR-005, FR-006).
+- Q: What if the guard can't run at all, for example because Node is missing? → A: It fails open. That is a recorded known limitation; the setup script installs Node and CI stays the final gate (Assumptions).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Agent never publishes a non-compliant branch (Priority: P1)
@@ -59,7 +74,10 @@ A team member starts a new cloud session on this repository and asks for a chang
 8. **Given** the agent is on `develop` and every changed file is under `.github/specs/` or `docs/`, **When** it commits and pushes, **Then** neither action is refused by the guard.
 9. **Given** the agent is on `develop` and at least one changed file is outside `.github/specs/` and `docs/`, **When** it commits or pushes, **Then** the action is refused and the refusal names the files that need a feature branch. **Given** the agent is on `main`, **When** it commits or pushes anything, including a docs-only change, **Then** the action is refused.
 10. **Given** a non-compliant branch that already exists on GitHub and is the head of an open PR, **When** the agent commits to it and pushes, **Then** neither action is refused (the legacy PR exception). **Given** the same branch without an open PR, or when open-PR status can't be verified, **Then** the push is refused.
-11. **Given** enforcement is on, **When** the agent tries to change, move or delete a file under `.claude/hooks/`, `.claude/settings.json`, `.claude/settings.local.json` or `~/.claude/settings.json` (through its editing tools or a shell command), **Then** the action is refused. **Given** the enforcement switch is off, **Then** the edit is allowed.
+11. **Given** enforcement is on, **When** the agent tries to change, move or delete a file under `.claude/hooks/`, `.claude/settings.json`, `.claude/settings.local.json`, `~/.claude/settings.json` or `/etc/claude-code/managed-settings.json` (through its editing tools or a shell command), **Then** the action is refused. **Given** the enforcement switch is off, **Then** the edit is allowed.
+12. **Given** the agent writes files through the GitHub integration (the MCP file tools or `gh api`), **When** the target branch is non-compliant, the placeholder or `main`, **Then** the write is refused, unless the legacy PR exception applies. **When** the target is `develop` and every path is under `.github/specs/` or `docs/`, **Then** the write is allowed.
+13. **Given** the guard can't load its validator, **When** enforcement is on and the agent commits, pushes, creates, renames, deletes or force-resets a branch, or uses a GitHub branch, file or PR tool, **Then** the action is refused with "Branch guard unavailable" and how to report it. Other commands, including switching to an existing branch, are allowed with a visible warning. **Given** enforcement is off, **Then** the write is allowed with a visible warning.
+14. **Given** the agent runs `gh pr create` in a shell, **When** the head branch is non-compliant, or the base is `main` and the head is not `release/*` or `hotfix/*`, **Then** the command is refused, as for the MCP PR tool.
 
 ---
 
@@ -111,7 +129,12 @@ A maintainer can find, in the repository, the exact environment definition the t
 ### Edge Cases
 
 - **Resumed or compacted session**: The session must not rename or reset a branch that already has work. The branching rules must still be in the agent's context after compaction.
-- **Session with uncommitted or unpushed work**: The session must never be reset to the base branch automatically.
+- **Session with uncommitted or unpushed work**: The session must never be reset to the base branch automatically. Untracked files count as uncommitted work, so they are never discarded.
+- **Rebase, merge, cherry-pick or revert in progress**: Commits are judged by the branch being worked on. A commit on a detached HEAD with none of these in progress is refused.
+- **Refspec and force pushes**: A push such as `git push origin HEAD:other` is judged by its target branch. A force-push to the agent's own compliant, unprotected branch is allowed.
+- **`release/*` and `hotfix/*` branches**: Not protected. Their names are checked like any other branch.
+- **PRs from forks or other repositories**: The legacy PR exception doesn't apply to them.
+- **Guard can't run at all (for example, Node is missing)**: The hook never starts and Claude Code carries on, so the guard fails open. This is a known limitation: the setup script installs Node, and CI branch validation remains the final gate.
 - **Base branch unreachable at session start (network failure)**: Session start continues without syncing.
 - **Dependency install fails**: The session still starts, and the failure is reported.
 - **Session opened with several repositories**: Repository-level protections do not load, as documented by the platform. This is a known limitation and must be listed in the documentation.
@@ -136,8 +159,8 @@ A maintainer can find, in the repository, the exact environment definition the t
 
 #### Session start
 
-- **FR-001**: At session start in a cloud session, a working branch with a forbidden prefix and no commits of its own beyond the base branch MUST be renamed locally to a clearly non-final placeholder. The placeholder MUST NOT be pushed. A forbidden-prefix branch that already has commits (for example, a session opened on an existing PR) MUST NOT be renamed.
-- **FR-002**: At session start in a cloud session, a branch with no commits of its own and no uncommitted changes MUST be brought up to date with the tip of the base branch (`develop` by default).
+- **FR-001**: At session start in a cloud session, a working branch with a forbidden prefix and no commits of its own beyond the base branch MUST be renamed locally to a clearly non-final placeholder, `chore/session-<suffix>`, where the whole name matches `^chore/session-[a-z0-9]+$` and the suffix is the last hyphen-separated part of the platform branch name. The placeholder MUST NOT be pushed. A forbidden-prefix branch that already has commits (for example, a session opened on an existing PR) MUST NOT be renamed.
+- **FR-002**: At session start in a cloud session, a branch with no commits of its own and no uncommitted changes MUST be brought up to date with the tip of the base branch (`develop` by default). Session start MUST NOT discard untracked files, uncommitted changes or unpushed commits.
 - **FR-003**: At every session start, including resume and after context compaction, the agent MUST receive the branching rules in its context. That text MUST cover:
   - the pattern
   - the authorised types
@@ -153,21 +176,24 @@ A maintainer can find, in the repository, the exact environment definition the t
   - non-compliant, unless the legacy PR exception (FR-006) applies
   - the session placeholder
   - protected: always for `main`; for the configured base branch, unless every file in the commit is under `.github/specs/` or `docs/` (the documentation exception)
-- **FR-006**: Before a push, the action MUST be refused when the target branch is non-compliant or the placeholder, unless the legacy PR exception applies: the branch already exists on GitHub and is the head of an open PR. If open-PR status can't be verified, the exception doesn't apply. A push to a protected branch MUST be refused, except a push to the configured base branch (never `main`) where every file changed by the pushed commits is covered by the documentation exception. Pushes that delete a remote branch or push only tags MUST be allowed.
+  - a detached HEAD with no rebase, merge, cherry-pick or revert in progress. While one is in progress, the effective branch is the branch being worked on.
+
+  Only `main` and the configured base branch are protected; `release/*` and `hotfix/*` are not. For the documentation exception, paths are compared after normalisation to repository-relative form (resolving `.`, `..` and, for files that exist, symlinks), case-sensitively. A path that leaves `.github/specs/` or `docs/` after normalisation is not covered, and an empty or unknown set of paths is not covered.
+- **FR-006**: Before a push, the action MUST be refused when the target branch is non-compliant or the placeholder, unless the legacy PR exception applies: the branch already exists on GitHub and is the head of an open PR whose head repository is this repository. If open-PR status can't be verified (a check errors, exits non-zero, returns no PR or takes longer than 5 seconds), the exception doesn't apply. These rules apply to pushes to any remote. A refspec push is judged by its target branch, and a force-push to a compliant, unprotected branch is allowed. A push to a protected branch MUST be refused, except a push to the configured base branch (never `main`) where every file changed by the pushed commits is covered by the documentation exception. Pushes that delete a remote branch or push only tags MUST be allowed.
 - **FR-007**: Creating or renaming a branch to a non-compliant or placeholder name MUST be refused, whether it is done locally or through the GitHub integration.
-- **FR-008**: Writing files to a non-compliant or placeholder branch through the GitHub integration MUST be refused, unless the legacy PR exception applies. Writing to a protected branch this way MUST be refused, except writes to the configured base branch (never `main`) where every written file is covered by the documentation exception.
-- **FR-009**: Opening a PR on a LightSpeed repository MUST be refused when the head branch is non-compliant. On this repository, it MUST also be refused when the base is `main` and the head is not a `release/*` or `hotfix/*` branch.
+- **FR-008**: Writing files to a non-compliant or placeholder branch through the GitHub integration (the GitHub MCP tools, or `gh api` calls that create or update refs or file contents) MUST be refused, unless the legacy PR exception applies. Writing to a protected branch this way MUST be refused, except writes to the configured base branch (never `main`) where every written file is covered by the documentation exception.
+- **FR-009**: Opening a PR on a LightSpeed repository (one whose GitHub owner is `lightspeedwp`, compared case-insensitively), through the GitHub MCP tools, `gh pr create` or `gh api`, MUST be refused when the head branch is non-compliant. On this repository, it MUST also be refused when the base is `main` and the head is not a `release/*` or `hotfix/*` branch.
 - **FR-010**: Branch-name compliance MUST be decided by the same validation rules the repository's CI uses, so that the guard and CI can never disagree. The authority is `lib/validate-branch-name.js`, the library the `branch-name-validation` workflow runs through `scripts/validation/validate-branch-name.js`.
-- **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name where the validator can, and give the exact rename and validation steps.
-- **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal.
-- **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings. The agent MUST NOT be able to change the switch from inside a running session; it takes effect only from the environment the session started with.
+- **FR-011**: Every refusal MUST state which rule was broken, suggest a corrected name only when that suggestion itself passes the validator, and give the exact rename and validation steps. The refusal is returned to the agent, and the person sees the same text in the session transcript; there is no separate notification.
+- **FR-012**: Text inside quoted strings and here-documents (such as commit messages) MUST NOT trigger a refusal. Shell operators outside quotes, such as `>` and `>>`, MUST still be evaluated: `echo "x" > .claude/settings.json` targets the file, while `echo "> .claude/settings.json"` doesn't.
 - **FR-012a**: If the guard can't evaluate a call because of its own fault (for example, the validator fails to load
-  or an internal error occurs), it MUST refuse git commit, push and branch operations and the GitHub branch, file
-  and PR tools with a message saying the guard is unavailable and how to report it while enforcement is on. It MUST
-  allow all other commands with a visible warning. When enforcement is off, FR-013 takes precedence: the fault
+  or an internal error occurs), it MUST refuse git commit, push and branch operations (creating, renaming, deleting or force-resetting a
+  branch) and the GitHub branch, file and PR tools with a message saying the guard is unavailable and how to report it while enforcement is on. It MUST
+  allow all other commands, including switching to an existing branch, with a visible warning. When enforcement is off, FR-013 takes precedence: the fault
   MUST produce a visible warning and allow the write. Malformed hook input from the platform is still allowed
   silently.
-- **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files and any settings file that can disable or override hooks (`.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and the user settings file `~/.claude/settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`, and branch protection on `develop` and `main` MUST have "Require review from Code Owners" turned on so that review is enforced.
+- **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings. The agent MUST NOT be able to change the switch from inside a running session; it takes effect only from the environment the session started with. The switch is `LS_ENFORCE_BRANCH_NAMES`, and enforcement is on unless it is `0`. Owners set it in the shared environment; a member may set it in a personal environment or in their own shell for a local session, which is a deliberate human choice outside the threat model. The base branch is `LS_BASE_BRANCH`, `develop` when unset. Turning the switch off leaves no record, by design (no refusal telemetry, Clarification Q5).
+- **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files and any settings file that can disable or override hooks (`.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`, the user settings file `~/.claude/settings.json` and the managed settings file `/etc/claude-code/managed-settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`, and branch protection on `develop` and `main` MUST have "Require review from Code Owners" turned on so that review is enforced.
 - **FR-014**: Enforcement MUST block in both cloud and local agent sessions on this repository, with identical rules. Only the enforcement switch (FR-013) may downgrade refusals to warnings, in either setting.
 
 #### Shared environment
@@ -201,9 +227,9 @@ A maintainer can find, in the repository, the exact environment definition the t
 ### Key Entities
 
 - **Shared cloud environment**: The organisation-level configuration every session starts from. It has a name, network access level, environment variables and a provisioning script. It is owned and edited by Owners, and its canonical copy is versioned in the repository.
-- **Session placeholder branch**: A temporary, deliberately non-final local branch name that replaces the platform-generated branch. It must be renamed before any commit.
+- **Session placeholder branch**: A temporary, deliberately non-final local branch name that replaces the platform-generated branch, matching `^chore/session-[a-z0-9]+$`. The name passes the validator, so the guard recognises it by this pattern. It must be renamed before any commit.
 - **Branching rules**: The pattern, authorised types, forbidden prefixes, protected branches, the documentation exception and the PR base rule. Naming rules are defined once by the existing validator and the branching strategy document.
-- **Enforcement switch**: An environment-level setting that toggles between blocking and warning.
+- **Enforcement switch**: An environment-level setting, `LS_ENFORCE_BRANCH_NAMES`, that toggles between blocking (the default) and warning.
 
 ## Success Criteria *(mandatory)*
 
@@ -216,14 +242,14 @@ A maintainer can find, in the repository, the exact environment definition the t
   zero manual configuration steps once the Owner has completed setup.
 - **SC-005**: Session start adds no more than 30 seconds when dependencies are already current. The first provisioning run completes in under 5 minutes.
 - **SC-006**: A maintainer unfamiliar with the setup can recreate the environment and pass every verification step using only the documentation, in under 15 minutes.
-- **SC-007**: In a monthly review of 10 agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help. A maintainer picks the sessions from the team's Claude Code session history for this repository by searching transcripts for the guard's refusal text ("Branch guard"); no refusal data is recorded by the guard itself.
+- **SC-007**: In a monthly review of 10 agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help. A maintainer picks the sessions from the team's Claude Code session history for this repository by searching transcripts for the guard's refusal text ("Branch guard"); no refusal data is recorded by the guard itself. The same review counts refusals of actions that were correct under the rules (wrongful refusals); the target is 0, and each one found is fixed with a regression test.
 - **SC-008**: The guard adds no more than 150 ms per matched tool call (median over the automated contract test run) in the normal case, where no network check is needed. The legacy PR check, which may take up to 10 seconds, runs only when a commit, push or GitHub write would otherwise be refused.
 
 ## Assumptions
 
 - The organisation is on a plan that supports organisation-shared cloud environments and an organisation default environment. Personal-plan members can recreate the same environment from the documentation.
 - The platform will keep generating `claude/*` branches and instructing the agent to use them. This feature works around that behaviour rather than changing it.
-- The platform's push protection allows pushing the session's current branch after it has been renamed. This was verified during the draft implementation.
+- The platform's push protection allows pushing the session's current branch after it has been renamed. This was verified during the draft implementation. If the platform changes this, pushes from renamed branches fail loudly (the push is rejected, not redirected), CI branch validation still applies, and the verification steps (quickstart §4) catch it; the documentation lists it as a limitation.
 - The existing validator (`lib/validate-branch-name.js`) and `docs/BRANCHING_STRATEGY.md` are authoritative. No changes to authorised types are in scope.
 - The default network level (Trusted) reaches every host the provisioning script needs.
 - Empty `claude/*` branches left by the platform are removed by spec 009's scheduled cleanup under the auto-approval exception (FR-020 to FR-022). Existing `claude/*` branches that have commits are reviewed by maintainers through 009's DISCUSS category, not deleted automatically.
@@ -232,6 +258,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - Threat model: the guard is designed to stop accidental non-compliance and the obvious self-bypasses (editing guard or settings files, or changing the switch in-session). It is not designed to resist a determined adversary using unusual shell constructions; CI branch validation and CODEOWNERS review are the final gate.
 - The guard uses command-parsing heuristics. Unusual constructions (for example, committing in another directory after changing into it) may not be caught, and CI's branch-name validation remains the final gate.
 - Scope is this repository only. Packaging the environment definition, hooks and guard as a portable plugin (top-level `plugins/`) for other LightSpeed repositories is a follow-up spec. This spec's design should not block that reuse.
+- If the guard can't run at all (for example, Node is missing), it fails open. This is a known limitation; the setup script installs Node and CI branch validation remains the final gate.
 - The guard does not record or report refusals. Success is measured through the existing branch-validation metrics and the monthly session review (SC-007), so no session telemetry is collected or stored.
 - Changes to locked configuration files (labels, issue types, templates) are not required.
 

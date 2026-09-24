@@ -213,9 +213,13 @@ describe('Claude cloud environment specification contracts', () => {
 
     test('scopes legacy PR lookups and GitHub guard calls to the intended owner', () => {
       expect(hooks).toMatch(/`git ls-remote --exit-code --heads origin <branch>`/);
-      expect(hooks).toMatch(/`gh pr list --head <branch> --state open --json number --limit 1`/);
+      expect(hooks).toMatch(
+        /`gh pr list --head <branch> --state open --json number,isCrossRepository --limit 1`/
+      );
       expect(hooks).toMatch(/each with a 5-second timeout\. Any failure means/);
-      expect(hooks).toMatch(/MCP calls whose `owner` isn't `lightspeedwp` are always allowed/);
+      expect(hooks).toMatch(
+        /MCP calls and `gh` commands whose owner isn't `lightspeedwp`.*are always allowed/
+      );
       expect(contractRow(hooks, '`mcp__github__create_pull_request`')).toMatch(
         /`base == main`.*`release\/\*`\/`hotfix\/\*`/
       );
@@ -244,7 +248,9 @@ describe('Claude cloud environment specification contracts', () => {
       expect(requirement('FR-006')).toMatch(
         /already exists on GitHub and is the head of an open PR/
       );
-      expect(requirement('FR-006')).toMatch(/can't be verified, the exception doesn't apply/);
+      expect(requirement('FR-006')).toMatch(
+        /can't be verified \(.*longer than 5 seconds\), the exception doesn't apply/
+      );
       expect(quickstart).toMatch(/with no open PR, or `gh` failing \| exit 2/);
     });
 
@@ -288,7 +294,9 @@ describe('Claude cloud environment specification contracts', () => {
         expect(requirement('FR-013a')).toContain(protectedPath);
       }
       expect(hooks).toMatch(/`Edit` \/ `Write` \/ `MultiEdit` \/ `NotebookEdit`/);
-      expect(hooks).toMatch(/Bash write verb or redirection naming a protected guard file/);
+      expect(hooks).toMatch(
+        /Bash write verb or redirection \(outside quotes\) naming a protected guard file/
+      );
     });
 
     test('refuses documentation-only writes to main and unknown path sets on develop', () => {
@@ -322,7 +330,9 @@ describe('Claude cloud environment specification contracts', () => {
       expect(contractRow(hooks, '`mcp__github__create_pull_request`')).toMatch(
         /`base == main`.*`release\/\*`\/`hotfix\/\*`/
       );
-      expect(hooks).toMatch(/MCP calls whose `owner` isn't `lightspeedwp` are always allowed/);
+      expect(hooks).toMatch(
+        /MCP calls and `gh` commands whose owner isn't `lightspeedwp`.*are always allowed/
+      );
       expect(quickstart).toMatch(/MCP PR from `feat\/a-b` into `main`.*exit 2/);
     });
 

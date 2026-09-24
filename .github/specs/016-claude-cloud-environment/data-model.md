@@ -35,8 +35,8 @@ Configured in claude.ai. The canonical copy is kept in `.claude/cloud/`.
 | Bot-owned | `dependabot/*`, `renovate/*` (validator exemption) | allowed | allowed |
 | Legacy PR branch | Forbidden or invalid, but exists on GitHub **and** is the head of an open PR (checked through `git ls-remote` and `gh pr list`, and fails closed) | refused | allowed (FR-006) |
 
-**Protected guard files** (FR-013a): `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`
-and `~/.claude/settings.json`. Edits through the Edit, Write, MultiEdit or NotebookEdit tools, or through Bash write
+**Protected guard files** (FR-013a): `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`,
+`~/.claude/settings.json` and `/etc/claude-code/managed-settings.json`. Edits through the Edit, Write, MultiEdit or NotebookEdit tools, or through Bash write
 commands, are refused while `LS_ENFORCE_BRANCH_NAMES` is not `0`. Reads are always allowed. See research R12 for
 why the last two paths are included.
 

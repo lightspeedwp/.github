@@ -33,11 +33,11 @@ the real baseline.
 **Purpose**: Align the spec with the plan, and put the test harness in place.
 
 - [x] T001 Amend FR-013a in `.github/specs/016-claude-cloud-environment/spec.md` so the protected guard files also include `.claude/settings.local.json` and `~/.claude/settings.json`, which can disable hooks (research R12). Update the matching clarification bullet, acceptance scenario 11 and edge case.
-- [ ] T002 [P] Create the black-box test harness in `scripts/__tests__/enforce-branch-name-hook.test.js`. It needs:
+- [x] T002 [P] Create the black-box test harness in `scripts/__tests__/enforce-branch-name-hook.test.js`. It needs:
   - a helper that spawns `node .claude/hooks/enforce-branch-name.mjs` with a JSON payload `{ tool_name, tool_input, cwd }` on stdin
   - a temporary git repository fixture (`git init`, a `develop` branch, a bare `origin` remote)
   - a `PATH` stub for `gh`, so the open-PR result can be controlled
-- [ ] T003 [P] Create `scripts/__tests__/session-start-hook.test.js`. It runs `bash .claude/hooks/session-start.sh` with `CLAUDE_CODE_REMOTE` and `source` variants in a temporary repository, and asserts that stdout is a single valid JSON object.
+- [x] T003 [P] Create `scripts/__tests__/session-start-hook.test.js`. It runs `bash .claude/hooks/session-start.sh` with `CLAUDE_CODE_REMOTE` and `source` variants in a temporary repository, and asserts that stdout is a single valid JSON object.
 
 ---
 
@@ -49,7 +49,7 @@ the real baseline.
 
 - [x] T004 Register the SessionStart and PreToolUse hooks in `.claude/settings.json` (done in #3524)
 - [x] T005 Create the guard skeleton in `.claude/hooks/enforce-branch-name.mjs`. It parses Bash commands (quote and here-document stripping, segment splitting, effective-branch tracking) and returns exit 2 with stderr when refusing (done in #3524).
-- [ ] T006 Restructure `.claude/hooks/enforce-branch-name.mjs` to load `lib/validate-branch-name.js` with a dynamic `await import()` inside a single `try` around all evaluation, so a load or internal error reaches the fault handler instead of crashing Node (research R11).
+- [x] T006 Restructure `.claude/hooks/enforce-branch-name.mjs` to load `lib/validate-branch-name.js` with a dynamic `await import()` inside a single `try` around all evaluation, so a load or internal error reaches the fault handler instead of crashing Node (research R11).
 - [ ] T007 Extend the PreToolUse matcher in `.claude/settings.json` to `Bash|Edit|Write|MultiEdit|NotebookEdit|mcp__github__(create_branch|create_pull_request|push_files|create_or_update_file|delete_file)`, as in `contracts/hooks.md`.
 
 **Checkpoint**: The guard loads safely and sees every tool it needs to police.
@@ -67,7 +67,7 @@ it's refused (quickstart §1, §4).
 
 ### Tests for User Story 1
 
-- [ ] T008 [P] [US1] Add naming and placeholder cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
+- [x] T008 [P] [US1] Add naming and placeholder cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
   - commit on `chore/session-abc123` → exit 2
   - `git push -u origin claude/foo` → exit 2
   - `git push origin --delete claude/foo` → exit 0
@@ -88,11 +88,14 @@ it's refused (quickstart §1, §4).
   - `gh` returning `[]`, exiting non-zero or timing out → exit 2
   - commit on that branch with an open PR → exit 0
   - creating a new `copilot/*` branch → exit 2
+  - the `gh` stub returning an open PR whose head is in a fork (`isCrossRepository: true`) → exit 2 (FR-006)
 - [ ] T011 [P] [US1] Add GitHub MCP cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
   - `create_pull_request` from `feat/a-b` into `main` on `.github` → exit 2
   - head `claude/x-y` → exit 2
   - owner other than `lightspeedwp` → exit 0
   - `push_files` to `develop` with only `docs/` paths → exit 0
+  - Bash `gh pr create --head claude/x-y` → exit 2, and `gh pr create --base main --head feat/a-b` on `.github` → exit 2 (FR-009, scenario 14)
+  - Bash `gh api` writes to `repos/lightspeedwp/.github/contents/…` on `main` → exit 2 (FR-008)
 - [ ] T012 [P] [US1] Add self-protection cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
   - `Edit` of `.claude/hooks/enforce-branch-name.mjs` → exit 2
   - `Write` to `.claude/settings.local.json` → exit 2
@@ -102,25 +105,28 @@ it's refused (quickstart §1, §4).
   - switch set inside the command, e.g. `LS_ENFORCE_BRANCH_NAMES=0 git commit -m x` or `export LS_ENFORCE_BRANCH_NAMES=0 && git commit -m x` on `chore/session-abc123`, with the hook environment enforcing → exit 2 (FR-013)
   - `Edit` of `.claude/settings.local.json` adding `"env": {"LS_ENFORCE_BRANCH_NAMES": "0"}` or `"disableAllHooks": true` → exit 2
   - `Write` to `~/.claude/settings.json` (resolved against `$HOME`) → exit 2
-- [ ] T013 [P] [US1] Add guard-fault cases to `scripts/__tests__/enforce-branch-name-hook.test.js`, forcing the validator import to fail (for example with an environment variable that points it at a missing path in test mode):
+  - `Write` to `/etc/claude-code/managed-settings.json` → exit 2
+  - `echo "> .claude/settings.json"` → exit 0 (redirection inside quotes, FR-012)
+- [ ] T013 [P] [US1] Add guard-fault cases to `scripts/__tests__/enforce-branch-name-hook.test.js`, forcing the validator import to fail with `LS_GUARD_FORCE_FAULT=1` (honoured only when `NODE_ENV=test`):
   - `git commit` → exit 2, and stderr contains "Branch guard unavailable"
   - `git commit` with `LS_ENFORCE_BRANCH_NAMES=0` in the hook environment → exit 0, visible `systemMessage` warning, write proceeds
   - `ls` → exit 0 plus a `systemMessage` warning
+  - `git switch develop` (an existing branch) → exit 0 plus a warning; `git branch -D x` → exit 2 (FR-012a branch operations)
   - MCP `create_pull_request` → exit 2
   - malformed stdin → exit 0, silent
-- [ ] T014 [P] [US1] Add SessionStart cases to `scripts/__tests__/session-start-hook.test.js`:
+- [x] T014 [P] [US1] Add SessionStart cases to `scripts/__tests__/session-start-hook.test.js`:
   - a fresh `claude/x-abc123` with 0 commits ahead → renamed to `chore/session-abc123` and not pushed
   - `claude/x-abc123` with its own commits → unchanged
   - on `compact` → no rename, but the context is still emitted
   - the context contains the documentation exception, the legacy PR exception, the protected-files note and "OVERRIDE"
   - on cloud `startup` and `resume`, `node_modules` missing with an old lockfile timestamp → `npm install` runs; with an installed tree newer than the lockfile, it is skipped
-- [ ] T041 [P] [US1] Add a speed test for SC-008 to `scripts/__tests__/enforce-branch-name-hook.test.js`: spawn the guard 20 times on normal-path calls that need no network check (`git status`, and `git commit -m x` on `feat/good-name`), and assert the median wall-clock time is 150 ms or less. Use the `gh` and `git ls-remote` `PATH` stubs to count calls, and assert neither runs on an allowed call; they run only on a write that would otherwise be refused (SC-008).
+- [x] T041 [P] [US1] Add a speed test for SC-008 to `scripts/__tests__/enforce-branch-name-hook.test.js`: spawn the guard 20 times on normal-path calls that need no network check (`git status`, and `git commit -m x` on `feat/good-name`), and assert the median wall-clock time is 150 ms or less. Use the `gh` and `git ls-remote` `PATH` stubs to count calls, and assert neither runs on an allowed call; they run only on a write that would otherwise be refused (SC-008).
 
 ### Implementation for User Story 1
 
 - [x] T015 [US1] Rename a forbidden-prefix branch to a local placeholder, sync fresh sessions with `origin/<LS_BASE_BRANCH>`, and skip `npm install` when current, in `.claude/hooks/session-start.sh` (done in #3524)
-- [ ] T016 [US1] Limit the rename in `.claude/hooks/session-start.sh` to branches where `git rev-list --count origin/${BASE_BRANCH}..HEAD` is `0`, and leave a forbidden-prefix branch that has commits unchanged (FR-001, research R10).
-- [ ] T017 [US1] Update the context text in `.claude/hooks/session-start.sh` to add:
+- [x] T016 [US1] Limit the rename in `.claude/hooks/session-start.sh` to branches where `git rev-list --count origin/${BASE_BRANCH}..HEAD` is `0`, and leave a forbidden-prefix branch that has commits unchanged (FR-001, research R10).
+- [x] T017 [US1] Update the context text in `.claude/hooks/session-start.sh` to add:
   - the documentation exception (`.github/specs/**` and `docs/**` only, on `develop`; never on `main`)
   - the legacy PR exception
   - that guard files can't be edited while enforcement is on
@@ -134,20 +140,26 @@ it's refused (quickstart §1, §4).
   - collect paths for an MCP write (`path` / `files[].path`)
   - apply the exception only when the target is the configured base branch (`LS_BASE_BRANCH`, default `develop`); never for `main`, which is always refused (FR-005, FR-006, FR-008)
   - allow only when every normalised path starts with `.github/specs/` or `docs/`
+  - normalise each path to repository-relative form (resolve `.`, `..` and, for existing files, symlinks) and compare case-sensitively; a path that leaves the allowed folders is not covered (FR-005)
   - an empty or unknown set fails closed, and the refusal lists the offending files (research R4)
-- [ ] T021 [US1] Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh pr list --head <branch> --state open --json number --limit 1`, each with a 5-second timeout. Allow only when both confirm an open PR; any failure means refuse (FR-006, research R9).
+  - judge commits during a rebase, merge, cherry-pick or revert by the branch being worked on; refuse a commit on a detached HEAD with none in progress; judge refspec pushes by their target; allow force-pushes to a compliant, unprotected branch (FR-005, FR-006)
+- [ ] T021 [US1] Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh pr list --head <branch> --state open --json number,isCrossRepository --limit 1`, each with a 5-second timeout. Allow only when both confirm an open PR whose head is in this repository; any error, non-zero exit, empty result or timeout means refuse (FR-006, research R9).
 - [ ] T022 [US1] Implement guard self-protection in `.claude/hooks/enforce-branch-name.mjs`:
   - for `Edit`/`Write`/`MultiEdit`/`NotebookEdit`: resolve `file_path`/`notebook_path` against the project directory, using `realpath` when the file exists
   - for Bash: detect write verbs (`sed -i`, `perl -i`, `mv`, `rm`, `cp` to the destination, `tee`, `truncate`, `chmod`, `ln`, `>`/`>>`, `git checkout … --`, `git restore`, `git rm`, `git mv`, `git apply`) that name a protected path
-  - protected paths: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`, `~/.claude/settings.json`
+  - protected paths: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`, `~/.claude/settings.json`, `/etc/claude-code/managed-settings.json`
+  - evaluate redirection operators outside quotes only (FR-012)
   - refuse while `LS_ENFORCE_BRANCH_NAMES` is not `0`; reads are allowed (FR-013a, research R12)
 - [ ] T023 [US1] Implement the fault handler in `.claude/hooks/enforce-branch-name.mjs`:
-  - on a caught error with enforcement on, classify without the validator: Bash matching `\bgit\b[^|;&]*\b(commit|push|branch|checkout|switch)\b`, or a matched GitHub MCP tool, gets exit 2 and "Branch guard unavailable: {error}. Open an issue on lightspeedwp/.github"
+  - on a caught error with enforcement on, classify without the validator: Bash `git commit`, `git push`, a branch operation that creates, renames, deletes or force-resets a branch (`git branch -m/-M/-d/-D/-f`, `checkout -b/-B`, `switch -c/-C`), `gh pr create` or a `gh api` write, or a matched GitHub MCP tool, gets exit 2 and "Branch guard unavailable: {error}. Open an issue on lightspeedwp/.github"
   - anything else gets exit 0 with a `systemMessage` warning
   - when enforcement is off, downgrade the fault refusal to a visible `systemMessage` warning and allow the write with exit 0 (FR-013)
   - keep malformed-stdin handling silent (FR-012a, research R11)
+- [ ] T044 [US1] Police the `gh` command-line tool in `.claude/hooks/enforce-branch-name.mjs`: apply the `create_pull_request` rules to Bash `gh pr create` (head from `--head` or the current branch, base from `--base`, repository from `--repo` or `origin`), and the MCP file-write rules to `gh api` calls that create or update refs, file contents or PRs. Owners other than `lightspeedwp` are ignored (FR-008, FR-009, scenario 14).
+- [ ] T045 [US1] Update the protected-files list in the `.claude/hooks/session-start.sh` context text and `scripts/__tests__/session-start-hook.test.js` to add `/etc/claude-code/managed-settings.json` (FR-013a).
+- [ ] T046 [US1] Make every enforcing refusal start with "Branch guard:", so the SC-007 transcript search for "Branch guard" finds refusals as well as warnings, and suggest a name only when the validator's suggestion itself passes the validator (FR-011, SC-007). Add both to the refusal-message test.
 - [ ] T024 [US1] Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed` to `CODEOWNERS` under the "AI and Copilot Instructions" block (FR-013a).
-- [ ] T025 [US1] Run `npx jest scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js` (including the T041 speed test), `shellcheck .claude/hooks/session-start.sh` and `npx eslint .claude/hooks/enforce-branch-name.mjs`. Fix everything until it's green.
+- [ ] T025 [US1] Run `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js` (including the T041 speed test), `shellcheck .claude/hooks/session-start.sh` and `npx eslint .claude/hooks/enforce-branch-name.mjs`. Fix everything until it's green.
 
 **Checkpoint**: US1 is fully enforceable and tested. This is the MVP.
 
@@ -191,7 +203,10 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - the four protected files: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and `~/.claude/settings.json`
   - self-protection, the CODEOWNERS entry, and the required "Require review from Code Owners" setting on `develop` and `main`
   - the guard's speed target (150 ms or less per call; the legacy PR check runs only when a write would otherwise be refused, SC-008)
-  - the guard-unavailable behaviour
+  - the guard-unavailable behaviour, and which commands count as git writes during a fault
+  - who may turn the switch off and where, the defaults (`LS_ENFORCE_BRANCH_NAMES` unset means on, `LS_BASE_BRANCH` unset means `develop`), and that turning it off leaves no record
+  - known limitations: the guard fails open if Node is missing, and pushes from renamed branches depend on the platform's push protection
+  - the fifth protected file, `/etc/claude-code/managed-settings.json`
   - the emergency procedure: with enforcement off in a new session, guard faults warn and allow writes; with enforcement on, they block git and GitHub writes
   - measurement (branch metrics plus the monthly review of 10 sessions, SC-007)
   - cleanup through spec 009's auto-approval

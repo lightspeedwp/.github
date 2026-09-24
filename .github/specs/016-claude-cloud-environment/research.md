@@ -119,7 +119,8 @@ implementation in lightspeedwp/.github#3524.
 - **Decision**: Check for an open PR only on the rare path where a push, commit or MCP write would otherwise be
   refused for a non-compliant branch. The check has two steps:
   1. `git ls-remote --exit-code --heads origin <branch>`, to confirm the branch exists on GitHub.
-  2. `gh pr list --head <branch> --state open --json number --limit 1`, to confirm an open PR exists.
+  2. `gh pr list --head <branch> --state open --json number,isCrossRepository --limit 1`, to confirm an open PR
+     exists whose head is in this repository (`isCrossRepository` is `false`). PRs from forks don't qualify.
 
   Each step has a 5-second timeout. Any failure, timeout or empty result means "not verified", and the action is
   refused (FR-006).
@@ -147,7 +148,9 @@ implementation in lightspeedwp/.github#3524.
 - **Decision**:
   - Load the validator with a dynamic `await import()` inside a `try`, and wrap all evaluation in the same `try`.
   - With enforcement on, classify a fault without the validator:
-    - Bash commands matching `\bgit\b[^|;&]*\b(commit|push|branch|checkout|switch)\b` are git writes, and are
+    - Bash commands matching `\bgit\b[^|;&]*\b(commit|push)\b`, or a branch operation that creates, renames, deletes or
+      force-resets a branch (`git branch -m/-M/-d/-D/-f`, `git checkout -b/-B`, `git switch -c/-C`), or `gh pr create`
+      or a `gh api` write, are git writes, and are
       refused with exit 2 and "Branch guard unavailable: {error}. Open an issue on lightspeedwp/.github".
     - Matched GitHub MCP branch, file and PR tools are refused the same way.
     - Everything else is allowed with exit 0 and a warning in `systemMessage`.
@@ -156,6 +159,8 @@ implementation in lightspeedwp/.github#3524.
 - **Rationale**: A static import failure would crash Node before any handler ran. Claude Code treats a non-2 exit
   as a non-blocking error, so that would silently fail open. The dynamic import keeps the fail-closed decision in
   the guard's hands.
+- **Test hook**: tests force a fault with `LS_GUARD_FORCE_FAULT=1`, honoured only when `NODE_ENV=test`. It can
+  only make the load fail; it can never load a different validator.
 - **Known limit**: If `node` itself is missing, the hook can't run at all, and Claude Code carries on. The setup
   script installs Node, and the quickstart checks for it.
 
@@ -168,15 +173,17 @@ implementation in lightspeedwp/.github#3524.
   - For Bash: refuse a command segment that names a protected path together with a write verb. The write verbs
     are:
     - `sed -i`, `perl -i`, `mv`, `rm`, `cp` (when the destination is protected), `tee`, `truncate`, `chmod`, `ln`
-    - `>` or `>>` redirection
+    - `>` or `>>` redirection outside quotes (FR-012: quote-stripping never hides an operator)
     - `git checkout … -- <path>`, `git restore`, `git rm`, `git mv`, `git apply`
   - Reading protected files is always allowed.
 - **Protected paths**: `.claude/hooks/**` and `.claude/settings.json`, as the spec states. The plan also covers
-  two files that can switch the guard off without touching those:
+  three files that can switch the guard off without touching those:
   - `.claude/settings.local.json`
   - the user settings file `~/.claude/settings.json`
+  - the managed settings file `/etc/claude-code/managed-settings.json`, which takes precedence over every other settings file. The cloud
+    agent runs as root, so it could otherwise write it (security checklist CHK001).
 
-  Both accept `disableAllHooks` or overriding hook entries.
+  All three accept `disableAllHooks` or overriding hook entries.
 
   **Spec**: FR-013a now lists all four paths (third clarification session, threat-model question).
 - **CODEOWNERS**: Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed`, following the existing explicit-path
