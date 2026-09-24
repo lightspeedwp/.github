@@ -280,6 +280,13 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 - **Decision**: Update the organisation's default repository labels to match `labels.yml` after consolidation.
 - **Verify**: Whether this can be done through the API. **Fallback**: a manual step in organisation settings, recorded in the gate issue.
 
+### R11. Native GitHub issue types
+
+- **Finding**: The organisation's 25 native issue types do not match `issue-types.yml`: there is no Question type; Maintenance, Story and Integration exist only in GitHub; Build and Dependency Update exist only in the YAML; four names differ (A11y, Code Refactor, Code Review, Build & CI).
+- **Decision**: `issue-types.yml` is the source of truth (FR-019). Rename four types, migrate issues off Maintenance (→ Chore), Story (→ Feature) and Integration (→ Feature), remove those three, then add Build, Dependency Update and Decision. Removals come before additions because the organisation is limited to 25 types.
+- **Verify**: Whether organisation issue types can be managed through the API. **Fallback**: organisation settings (Settings → Planning → Issue types), recorded on the gate issue.
+- **Alternatives considered**: Make GitHub the source of truth (rejected: would change templates and labels, and Decision still needs a slot).
+
 ### R10. Decision issue template
 
 - **Decision**: `.github/ISSUE_TEMPLATE/06-decision.md` replaces `06-question.md`, following the existing template frontmatter (`name`, `about`, `title`, `labels`, `recommended_branch`, `file_type`) and ending with Definition of Ready and Definition of Done checklists. Full content in `contracts/decision-issue-template.md`.

@@ -421,6 +421,11 @@ test -f .github/ISSUE_TEMPLATE/06-decision.md && ! test -f .github/ISSUE_TEMPLAT
 grep -rE "^- name: (ai-ops|openspec):" .github/labels.yml   # Expected: no output
 ```
 
+### Test 10b: Native Issue Types (FR-019)
+
+- The organisation's native issue types, listed from GitHub, have exactly the same 25 names as `.github/issue-types.yml` (Decision included; no Question, Maintenance, Story or Integration).
+- `evidence/native-issue-types.json` shows zero issues left on removed types before they were removed.
+
 ### Test 11: OpenSpec Rename (FR-013)
 
 ```bash
