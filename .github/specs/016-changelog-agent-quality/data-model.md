@@ -20,7 +20,7 @@
 | ----------------- | ------------- | -------- | ----------------------------------- | -------------------------------------------------------------------------- |
 | `id`              | string        | Yes      | Stable content hash or UUID         | Non-empty, immutable; never derived from line position                     |
 | `version`         | string        | Yes      | Release version (e.g., "1.0.0")     | Semantic versioning format                                                 |
-| `release_date`    | date          | No       | Release date (ISO 8601: YYYY-MM-DD) | Valid date or "Unreleased"                                                 |
+| `release_date`    | date \| `"Unreleased"` | No | Release date (ISO 8601: YYYY-MM-DD), or the literal `"Unreleased"` | Valid date or `"Unreleased"`                                        |
 | `category`        | enum          | Yes      | Entry type per Keep a Changelog     | One of: Added, Changed, Fixed, Deprecated, Removed, Security               |
 | `content`         | string        | Yes      | User-facing change description      | 1-250 characters, no implementation details                                |
 | `pr_issues`       | array[string] | Yes      | PR/issue references                 | At least one; format: "#123" or "PR-456"                                   |
@@ -37,7 +37,7 @@
 ```
 DRAFT (entry written)
   → VALIDATING (validation in progress)
-      ├→ VALID (passed all checks) → MERGED (incorporated into release section)
+      ├→ VALID (passed all checks) → READY_FOR_RELEASE → MERGED (incorporated into release section)
       └→ INVALID (failed one or more checks) → corrected → VALIDATING
 ```
 
@@ -279,7 +279,7 @@ DRAFT
 PENDING_VALIDATION
   ↓ (workflow triggers validation)
 VALIDATING
-  ├→ VALID (all checks pass) → READY_FOR_RELEASE
+  ├→ VALID (all checks pass) → READY_FOR_RELEASE → MERGED (incorporated into release section)
   ├→ INVALID (checks fail) → AWAITING_FIX → VALIDATING (loop back)
   └→ ERROR (validation crash) → REQUIRES_INVESTIGATION
 ```
