@@ -3,6 +3,25 @@
  * Calculates checklist completion metrics and status determination
  */
 
+/**
+ * Thresholds for determining checklist completion status
+ * Defines requirements for 'pass', 'caution', and 'fail' statuses
+ * @type {Object}
+ * @property {Object} pass - Pass status requirements (most restrictive)
+ * @property {number} pass.gaps - Maximum allowed gaps (0)
+ * @property {number} pass.criticalAmbiguities - Maximum allowed critical ambiguities (0)
+ * @property {number} pass.ambiguities - Maximum allowed ambiguities (3)
+ * @property {number} pass.checkedPercent - Minimum completion percentage (80%)
+ * @property {Object} caution - Caution status requirements (middle)
+ * @property {number} caution.gaps - Maximum allowed gaps (2)
+ * @property {number} caution.criticalAmbiguities - Maximum allowed critical ambiguities (1)
+ * @property {number} caution.ambiguities - Maximum allowed ambiguities (5)
+ * @property {number} caution.checkedPercent - Minimum completion percentage (60%)
+ * @property {Object} fail - Fail status requirements (least restrictive)
+ * @property {number} fail.gaps - Maximum allowed gaps (Infinity)
+ * @property {number} fail.criticalAmbiguities - Maximum allowed critical ambiguities (1)
+ * @property {number} fail.ambiguities - Maximum allowed ambiguities (Infinity)
+ */
 const STATUS_THRESHOLDS = {
   pass: {
     gaps: 0,

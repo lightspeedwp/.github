@@ -8,7 +8,17 @@ const path = require('path');
 
 const { validateAudience, getAudienceContext } = require('./audience-detector');
 
+/**
+ * Directory path containing audience guidance markdown files
+ * @type {string}
+ */
 const GUIDANCE_DIR = path.join(__dirname, '..', 'content');
+
+/**
+ * Cache for loaded guidance objects indexed by audience
+ * Reduces file I/O by storing loaded guidance content
+ * @type {Object<string, Object>}
+ */
 const guidanceCache = {};
 
 /**

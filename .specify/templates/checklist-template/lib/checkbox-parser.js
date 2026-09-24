@@ -3,6 +3,11 @@
  * Parses markdown checkboxes and extracts checklist item state and markers
  */
 
+/**
+ * Regex pattern for parsing gap and ambiguity markers in checklist items
+ * Matches: [Gap], [Ambiguity], [Ambiguity-Critical] with optional detail text
+ * @type {RegExp}
+ */
 const MARKER_PATTERN = /\[(Gap|Ambiguity-Critical|Ambiguity)(?::\s*([^\]]*))?\]/;
 
 /**

@@ -3,6 +3,10 @@
  * Validates individual checklist items against schema and business rules
  */
 
+/**
+ * Valid checklist item dimensions
+ * @type {Array<string>}
+ */
 const VALID_DIMENSIONS = [
   'Completeness',
   'Clarity',
@@ -14,8 +18,16 @@ const VALID_DIMENSIONS = [
   'Ambiguities',
 ];
 
+/**
+ * Valid checklist item states
+ * @type {Array<string>}
+ */
 const VALID_STATES = ['unchecked', 'checked', 'gap', 'ambiguity', 'ambiguity-critical'];
 
+/**
+ * Valid priority levels for checklist items
+ * @type {Array<string>}
+ */
 const VALID_PRIORITIES = ['critical', 'high', 'medium', 'low'];
 
 /**

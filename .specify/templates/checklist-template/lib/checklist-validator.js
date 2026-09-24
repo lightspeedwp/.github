@@ -3,6 +3,10 @@
  * T053: Validate generated checklists
  */
 
+/**
+ * Valid checklist item dimensions
+ * @type {Array<string>}
+ */
 const VALID_DIMENSIONS = [
   'Completeness',
   'Clarity',
@@ -14,6 +18,17 @@ const VALID_DIMENSIONS = [
   'Ambiguities',
 ];
 
+/**
+ * Validates a checklist object structure and items
+ * Checks for required fields, valid dimensions, duplicate IDs, and dimension coverage
+ * @param {Object} checklist - Checklist object to validate
+ * @param {Array} checklist.items - Array of checklist items
+ * @param {Object} [checklist.metadata] - Metadata object
+ * @returns {Object} Validation result
+ * @returns {boolean} result.isValid - Whether checklist is valid
+ * @returns {Array<string>} result.errors - Array of error messages
+ * @returns {Array<string>} result.warnings - Array of warning messages
+ */
 function checklistValidator(checklist) {
   const errors = [];
   const warnings = [];
