@@ -42,10 +42,10 @@ This repository contains:
 ## 📊 Repository Structure
 
 ```mermaid
-graph TB
+graph LR
   accTitle: "LightSpeed .github repository structure"
   accDescr {
-    Top-down view of the main folders and their purposes:
+    Left-to-right view of the main folders and their purposes:
     .github for community health and governance,
     agents for reusable specifications,
     skills for self-contained automation,
