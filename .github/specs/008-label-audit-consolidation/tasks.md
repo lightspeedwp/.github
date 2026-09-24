@@ -176,13 +176,13 @@
 
 ### Phase 4.1: Duplicate Label Detection
 
-- [ ] T021 Analyze label families for semantic duplicates: For each family, identify labels with similar purposes
+- [x] T021 Analyze label families for semantic duplicates: For each family, identify labels with similar purposes
   - Examples: type:documentation vs type:docs (already identified as mismatch)
   - Area family analysis: area:ai, area:agents, area:skills, area:instructions, area:prompts (might overlap conceptually)
   - Create analysis JSON: `{ family: "...", label1: "...", label2: "...", reason_duplicate: "...", confidence: "high/medium/low" }`
   - Save to `evidence/duplicate-candidates.json`
   
-- [ ] T022 [P] Check historical usage patterns: For each duplicate candidate, determine which should be canonical
+- [x] T022 [P] Check historical usage patterns: For each duplicate candidate, determine which should be canonical (done 2026-09-24 with document, automation and policy counts; issue and PR usage counts read "pending T041/T042" until the live inventories exist, so the SC-004 ranking is completed after T041 and T042)
   - Query: Which label appears more frequently in issues/PRs (if accessible via API)?
   - Query: Which label is mentioned in documentation more often?
   - Which label is in governance policy never-delete list?
@@ -191,7 +191,7 @@
 
 ### Phase 4.2: Consolidation Strategy
 
-- [ ] T023 Generate consolidation recommendations: For each identified duplicate
+- [x] T023 Generate consolidation recommendations: For each identified duplicate
   - Decision: Keep canonical name or rename?
   - Migration strategy: Rename, deprecate, or alias?
   - Impact analysis: Which workflows/automations use each label?
@@ -199,14 +199,14 @@
   - Create recommendation JSON: Similar to data-model.md format with impact analysis
   - Save to `evidence/consolidation-recommendations.json`
   
-- [ ] T024 Identify labeling gaps: Labels mentioned in docs but not in canonical, or policy but not canonical
+- [x] T024 Identify labeling gaps: Labels mentioned in docs but not in canonical, or policy but not canonical
   - Clarify: Are these intentional (deprecated), or should they be added to canonical?
   - Create gap analysis JSON: `{ gap_type: "documentation_only" | "policy_only", label: "...", recommendation: "add_to_canonical" | "remove_from_docs" | "deprecated" }`
   - Save to `evidence/labeling-gaps.json`
 
 ### Phase 4.3: Generate Duplicates Analysis Report
 
-- [ ] T025 Generate duplicates-analysis.md: Consolidation strategy document
+- [x] T025 Generate duplicates-analysis.md: Consolidation strategy document
   - Include sections:
     - Executive Summary (total duplicates, high-priority consolidations)
     - Duplicate Families (area, type, other families with consolidation candidates)

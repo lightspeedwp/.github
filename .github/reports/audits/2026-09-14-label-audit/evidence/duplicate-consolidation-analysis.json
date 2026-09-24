@@ -1,0 +1,513 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T022",
+  "note": "Usage counts across repositories and Linear need the live inventory (T041) and the Linear export (T042); SC-004 ranking waits for them. Document and automation counts are files that mention the label (reports and archived files excluded).",
+  "matrix": [
+    {
+      "label1": "status:done",
+      "label2": "status:completed",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "status:done": 3,
+        "status:completed": 0
+      },
+      "automation_references": {
+        "status:done": 23,
+        "status:completed": 0
+      },
+      "policy_status": {
+        "status:done": false,
+        "status:completed": false
+      },
+      "recommended_canonical": "status:done",
+      "status": "decided"
+    },
+    {
+      "label1": "area:tests",
+      "label2": "area:testing",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:tests": 3,
+        "area:testing": 1
+      },
+      "automation_references": {
+        "area:tests": 12,
+        "area:testing": 7
+      },
+      "policy_status": {
+        "area:tests": true,
+        "area:testing": true
+      },
+      "recommended_canonical": "area:testing",
+      "status": "decided"
+    },
+    {
+      "label1": "priority:important",
+      "label2": "priority:high",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "priority:important": 2,
+        "priority:high": 6
+      },
+      "automation_references": {
+        "priority:important": 25,
+        "priority:high": 31
+      },
+      "policy_status": {
+        "priority:important": false,
+        "priority:high": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "priority:minor",
+      "label2": "priority:low",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "priority:minor": 5,
+        "priority:low": 2
+      },
+      "automation_references": {
+        "priority:minor": 10,
+        "priority:low": 9
+      },
+      "policy_status": {
+        "priority:minor": false,
+        "priority:low": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "status:needs-qa",
+      "label2": "status:needs-testing",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "status:needs-qa": 5,
+        "status:needs-testing": 2
+      },
+      "automation_references": {
+        "status:needs-qa": 8,
+        "status:needs-testing": 3
+      },
+      "policy_status": {
+        "status:needs-qa": false,
+        "status:needs-testing": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "meta:stale",
+      "label2": "meta:no-issue-activity",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "meta:stale": 4,
+        "meta:no-issue-activity": 2
+      },
+      "automation_references": {
+        "meta:stale": 12,
+        "meta:no-issue-activity": 4
+      },
+      "policy_status": {
+        "meta:stale": false,
+        "meta:no-issue-activity": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "area:block-editor",
+      "label2": "comp:block-editor",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:block-editor": 2,
+        "comp:block-editor": 4
+      },
+      "automation_references": {
+        "area:block-editor": 7,
+        "comp:block-editor": 6
+      },
+      "policy_status": {
+        "area:block-editor": true,
+        "comp:block-editor": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "area:agents",
+      "label2": "ai-ops:agents",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:agents": 0,
+        "ai-ops:agents": 1
+      },
+      "automation_references": {
+        "area:agents": 6,
+        "ai-ops:agents": 2
+      },
+      "policy_status": {
+        "area:agents": false,
+        "ai-ops:agents": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "area:instructions",
+      "label2": "ai-ops:instructions",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:instructions": 0,
+        "ai-ops:instructions": 1
+      },
+      "automation_references": {
+        "area:instructions": 0,
+        "ai-ops:instructions": 2
+      },
+      "policy_status": {
+        "area:instructions": false,
+        "ai-ops:instructions": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "area:prompts",
+      "label2": "ai-ops:prompts",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:prompts": 0,
+        "ai-ops:prompts": 1
+      },
+      "automation_references": {
+        "area:prompts": 0,
+        "ai-ops:prompts": 2
+      },
+      "policy_status": {
+        "area:prompts": false,
+        "ai-ops:prompts": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "area:operations",
+      "label2": "area:infrastructure",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:operations": 0,
+        "area:infrastructure": 1
+      },
+      "automation_references": {
+        "area:operations": 0,
+        "area:infrastructure": 7
+      },
+      "policy_status": {
+        "area:operations": false,
+        "area:infrastructure": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "area:compatibility",
+      "label2": "compat:wordpress",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:compatibility": 1,
+        "compat:wordpress": 1
+      },
+      "automation_references": {
+        "area:compatibility": 2,
+        "compat:wordpress": 1
+      },
+      "policy_status": {
+        "area:compatibility": false,
+        "compat:wordpress": false
+      },
+      "recommended_canonical": null,
+      "status": "needs decision"
+    },
+    {
+      "label1": "contrib:discussion",
+      "label2": "discussion:community",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "contrib:discussion": 2,
+        "discussion:community": 2
+      },
+      "automation_references": {
+        "contrib:discussion": 3,
+        "discussion:community": 2
+      },
+      "policy_status": {
+        "contrib:discussion": false,
+        "discussion:community": false
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "area:ai",
+      "label2": "area:agents",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "area:ai": 1,
+        "area:agents": 0
+      },
+      "automation_references": {
+        "area:ai": 3,
+        "area:agents": 6
+      },
+      "policy_status": {
+        "area:ai": false,
+        "area:agents": false
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:a11y",
+      "label2": "area:a11y",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:a11y": 6,
+        "area:a11y": 1
+      },
+      "automation_references": {
+        "type:a11y": 18,
+        "area:a11y": 5
+      },
+      "policy_status": {
+        "type:a11y": true,
+        "area:a11y": true
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:security",
+      "label2": "area:security",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:security": 7,
+        "area:security": 2
+      },
+      "automation_references": {
+        "type:security": 26,
+        "area:security": 23
+      },
+      "policy_status": {
+        "type:security": true,
+        "area:security": true
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:performance",
+      "label2": "area:performance",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:performance": 6,
+        "area:performance": 2
+      },
+      "automation_references": {
+        "type:performance": 25,
+        "area:performance": 8
+      },
+      "policy_status": {
+        "type:performance": true,
+        "area:performance": true
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:ci",
+      "label2": "area:ci",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:ci": 4,
+        "area:ci": 8
+      },
+      "automation_references": {
+        "type:ci": 7,
+        "area:ci": 43
+      },
+      "policy_status": {
+        "type:ci": true,
+        "area:ci": true
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:automation",
+      "label2": "area:automation",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:automation": 4,
+        "area:automation": 2
+      },
+      "automation_references": {
+        "type:automation": 10,
+        "area:automation": 17
+      },
+      "policy_status": {
+        "type:automation": true,
+        "area:automation": false
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:docs",
+      "label2": "area:documentation",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:docs": 3,
+        "area:documentation": 2
+      },
+      "automation_references": {
+        "type:docs": 13,
+        "area:documentation": 17
+      },
+      "policy_status": {
+        "type:docs": false,
+        "area:documentation": true
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:dependency",
+      "label2": "area:dependencies",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:dependency": 4,
+        "area:dependencies": 2
+      },
+      "automation_references": {
+        "type:dependency": 3,
+        "area:dependencies": 8
+      },
+      "policy_status": {
+        "type:dependency": true,
+        "area:dependencies": true
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:release",
+      "label2": "area:release",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:release": 4,
+        "area:release": 1
+      },
+      "automation_references": {
+        "type:release": 16,
+        "area:release": 4
+      },
+      "policy_status": {
+        "type:release": true,
+        "area:release": false
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    },
+    {
+      "label1": "type:chore",
+      "label2": "area:maintenance",
+      "usage_count": {
+        "github_issues_prs": "pending T041",
+        "linear_issues": "pending T042"
+      },
+      "doc_mentions": {
+        "type:chore": 7,
+        "area:maintenance": 2
+      },
+      "automation_references": {
+        "type:chore": 29,
+        "area:maintenance": 1
+      },
+      "policy_status": {
+        "type:chore": true,
+        "area:maintenance": false
+      },
+      "recommended_canonical": null,
+      "status": "keep both"
+    }
+  ]
+}
