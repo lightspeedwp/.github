@@ -151,7 +151,9 @@ top-level folders.
 
 These follow the user-story priorities in the spec:
 
-1. **P1, US1 (guard and session rules)**: ships in #3524, with Jest contract tests. It covers:
+1. **P1, US1 (guard and session rules)**: ships in #3524 as one complete unit, with Jest contract tests. #3524
+   doesn't merge until every US1 task is done, because the session rules may only describe enforced behaviour
+   (FR-003). It covers:
    - the documentation exception and the legacy PR exception
    - fault handling and self-protection
    - the FR-001 no-rename rule

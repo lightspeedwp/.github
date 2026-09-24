@@ -72,12 +72,12 @@ describe('Claude cloud environment specification contracts', () => {
     expect(references.filter((id) => !declarations.includes(id))).toEqual([]);
   });
 
-  test('retains the complete set of functional requirements, including the two fault and security additions', () => {
+  test('retains the complete set of functional requirements, including the fault, security and CI-gate additions', () => {
     const declarations = [...spec.matchAll(/^- \*\*(FR-\d{3}[a-z]?)\*\*:/gm)].map(
       (match) => match[1]
     );
     const expected = Array.from(
-      { length: 22 },
+      { length: 23 },
       (_, index) => `FR-${String(index + 1).padStart(3, '0')}`
     );
 

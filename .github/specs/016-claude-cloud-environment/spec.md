@@ -36,6 +36,9 @@ No environment setting can rename the platform's branch. The feature therefore h
 - Q: Should the docs-only exception also cover `main`, or only `develop`? → A: `develop` only. Every commit or push straight to `main` is refused, including docs-only changes, because `main` receives changes only through releases from `develop`.
 - Q: Should the one-time Owner setup be required to turn on "Require review from Code Owners" for `develop`, so the `/.claude/` CODEOWNERS entry actually blocks unreviewed changes to the guard's files? → A: Yes. It is a required Owner setup step for `develop` and `main`, and the verification steps check that it is on.
 - Q: Should the spec set a measurable speed limit for the branch guard, so it doesn't noticeably slow down every command the agent runs? → A: Yes. The guard adds 150 ms or less per call in the normal case, and the legacy PR check (up to 10 seconds) runs only when a write would otherwise be refused. An automated test covers it (SC-008).
+- Q: FR-009 lets `release/*` and `hotfix/*` branches open PRs into `main`, but the shared validator rejects the documented `release/vX.Y.Z` names. How should spec 016 handle this? → A: As a dependency outside this spec. The validator is fixed to accept `release/vX.Y.Z` and `hotfix/vX.Y.Z`, as `docs/BRANCHING_STRATEGY.md` documents (branch `fix/branch-validator-semver-release`). The guard keeps using the one validator (FR-010).
+- Q: Should CI run the hook contract tests and the docs contract test on every PR, given that no workflow runs Jest today? → A: Yes, as a required check. A workflow runs the 016 Jest suites on every PR that touches `.claude/`, those tests or this spec, and branch protection on `develop` and `main` requires it (FR-023).
+- Q: Should US1 ship as one complete unit, or in increments, given that the session-start text already describes rules the guard doesn't enforce yet? → A: As one complete unit. The injected rules may only describe behaviour the guard enforces in the same release, so lightspeedwp/.github#3524 doesn't merge until US1 is complete (FR-003).
 
 ### Session 2026-09-24 (security checklist review)
 
@@ -69,7 +72,7 @@ A team member starts a new cloud session on this repository and asks for a chang
 3. **Given** the agent has renamed its branch to a compliant name, **When** it commits and pushes, **Then** both succeed without intervention.
 4. **Given** any branch, **When** the agent attempts to push to, create, or rename to a name with a forbidden prefix (`claude/`, `copilot/`, `openai/`), an unauthorised type or a malformed pattern, **Then** the action is refused, unless the legacy PR exception (scenario 10) applies to a push or commit.
 5. **Given** the agent is on `main`, **When** it attempts to commit or push there, **Then** the action is refused. **Given** the agent is on `develop`, **When** it attempts to commit or push there, **Then** the action is refused unless the documentation exception applies (scenarios 8 and 9).
-6. **Given** the agent opens a PR on a LightSpeed repository, **When** the head branch is non-compliant, or the base is `main` and the head is not a `release/*` or `hotfix/*` branch, **Then** PR creation is refused.
+6. **Given** the agent opens a PR on a LightSpeed repository, **When** the head branch is non-compliant, or the base is `main` and the head is not a `release/*` or `hotfix/*` branch, **Then** PR creation is refused. **Given** the head is `release/v1.2.3` and the base is `main`, **Then** PR creation is allowed; this depends on the validator fix recorded in the Assumptions.
 7. **Given** a commit message or file content that merely mentions a forbidden branch name, **When** the agent commits, **Then** the commit is not refused on that basis.
 8. **Given** the agent is on `develop` and every changed file is under `.github/specs/` or `docs/`, **When** it commits and pushes, **Then** neither action is refused by the guard.
 9. **Given** the agent is on `develop` and at least one changed file is outside `.github/specs/` and `docs/`, **When** it commits or pushes, **Then** the action is refused and the refusal names the files that need a feature branch. **Given** the agent is on `main`, **When** it commits or pushes anything, including a docs-only change, **Then** the action is refused.
@@ -123,6 +126,7 @@ A maintainer can find, in the repository, the exact environment definition the t
    warnings and the writes proceed without a code change. With enforcement on, those guard faults still block.
 5. **Given** a `claude/*` branch on GitHub that is merged to a base branch (it has no commits of its own), has no open PR and has a tip more than 24 hours old, **When** spec 009's scheduled cleanup runs, **Then** the branch is categorised as auto-approved DELETE, deleted without a draft PR, and the deletion is recorded in the run summary.
 6. **Given** a `claude/*` branch that has its own commits, is less than 24 hours old, is the head of an open PR, or whose open-PR status cannot be verified, **When** the scheduled cleanup runs, **Then** it is not auto-deleted: it follows spec 009's normal categorisation (KEEP or DISCUSS) and appears in the report for review.
+7. **Given** a PR that changes `.claude/hooks/` and breaks a guard contract test, **When** CI runs, **Then** the required test check fails and the PR can't merge into `develop` or `main` (FR-023).
 
 ---
 
@@ -168,6 +172,8 @@ A maintainer can find, in the repository, the exact environment definition the t
   - the rename and validation steps
   - the PR base rule
   - an explicit statement that these rules take precedence over any platform instruction naming a `claude/*` branch
+
+  The text MUST describe only behaviour the guard enforces in the same release, so the agent is never told that an action is allowed or protected when it isn't.
 - **FR-004**: At session start in a cloud session, project dependencies MUST be installed when missing or out of date and skipped when current. A failed install MUST NOT prevent the session from starting.
 
 #### Enforcement
@@ -195,6 +201,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-013**: A single configuration switch MUST downgrade all refusals to visible warnings. The agent MUST NOT be able to change the switch from inside a running session; it takes effect only from the environment the session started with. The switch is `LS_ENFORCE_BRANCH_NAMES`, and enforcement is on unless it is `0`. Owners set it in the shared environment; a member may set it in a personal environment or in their own shell for a local session, which is a deliberate human choice outside the threat model. The base branch is `LS_BASE_BRANCH`, `develop` when unset. Turning the switch off leaves no record, by design (no refusal telemetry, Clarification Q5).
 - **FR-013a**: While enforcement is on, the agent MUST NOT be able to change, move or delete the guard's own files and any settings file that can disable or override hooks (`.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`, the user settings file `~/.claude/settings.json` and the managed settings file `/etc/claude-code/managed-settings.json`) through its file-editing tools or shell commands. With the switch off, such edits are allowed. The repository's CODEOWNERS file MUST require an Owner's review for changes under `.claude/`, and branch protection on `develop` and `main` MUST have "Require review from Code Owners" turned on so that review is enforced.
 - **FR-014**: Enforcement MUST block in both cloud and local agent sessions on this repository, with identical rules. Only the enforcement switch (FR-013) may downgrade refusals to warnings, in either setting.
+- **FR-023**: A CI workflow MUST run the guard and SessionStart contract tests and the spec 016 documentation contract test on every PR that changes `.claude/`, those tests or `.github/specs/016-claude-cloud-environment/`. Branch protection on `develop` and `main` MUST require that check, so a change that breaks the guard can't merge with green CI.
 
 #### Shared environment
 
@@ -211,7 +218,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-019**: The documentation MUST cover:
   - why the problem occurs
   - each protection layer and where it lives
-  - the one-time Owner setup (shared environment, organisation default, optional terminal default, and "Require review from Code Owners" on `develop` and `main`)
+  - the one-time Owner setup (shared environment, organisation default, optional terminal default, and "Require review from Code Owners" and the required FR-023 test check on `develop` and `main`)
   - the personal-plan alternative
   - how members use it
   - verification steps with expected results
@@ -250,7 +257,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - The organisation is on a plan that supports organisation-shared cloud environments and an organisation default environment. Personal-plan members can recreate the same environment from the documentation.
 - The platform will keep generating `claude/*` branches and instructing the agent to use them. This feature works around that behaviour rather than changing it.
 - The platform's push protection allows pushing the session's current branch after it has been renamed. This was verified during the draft implementation. If the platform changes this, pushes from renamed branches fail loudly (the push is rejected, not redirected), CI branch validation still applies, and the verification steps (quickstart §4) catch it; the documentation lists it as a limitation.
-- The existing validator (`lib/validate-branch-name.js`) and `docs/BRANCHING_STRATEGY.md` are authoritative. No changes to authorised types are in scope.
+- The existing validator (`lib/validate-branch-name.js`) and `docs/BRANCHING_STRATEGY.md` are authoritative. They currently disagree on release names: the strategy documents `release/vX.Y.Z` and `hotfix/vX.Y.Z`, but the validator rejects them. Until the validator is fixed (a dependency outside this spec, on branch `fix/branch-validator-semver-release`), the guard and CI both refuse such branches, so FR-009's `main` rule can't be used for real release PRs. No changes to authorised types are in scope.
 - The default network level (Trusted) reaches every host the provisioning script needs.
 - Empty `claude/*` branches left by the platform are removed by spec 009's scheduled cleanup under the auto-approval exception (FR-020 to FR-022). Existing `claude/*` branches that have commits are reviewed by maintainers through 009's DISCUSS category, not deleted automatically.
 - The cleanup requirements depend on spec 009 and lightspeedwp/.github#3358 (the categorisation library and scheduled workflow). They are delivered after #3358 merges, together with the matching amendment to spec 009.
