@@ -77,14 +77,6 @@ These helper scripts follow GitHub Actions best practices by avoiding direct she
 - ✅ Entries follow format standards
 
 ```mermaid
----
-config:
-  flowchart:
-    useMaxWidth: true
-  accessibility:
-    diagramMarginX: 8
-    diagramMarginY: 8
----
 flowchart TD
   accTitle: Changelog Validation Flowchart
   accDescr: Flowchart showing changelog validation gates for release process
