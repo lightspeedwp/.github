@@ -73,9 +73,9 @@
 
 ### Data Extraction Tasks
 
-- [ ] T006 Extract canonical labels from `.github/labels.yml`: Create JSON with all 147 labels (name, color, description, family). Save to `evidence/canonical-labels.json`
+- [ ] T006 Extract canonical labels from `.github/labels.yml`: Create JSON with all 169 labels (name, color, description, family). Save to `evidence/canonical-labels.json`
   - Include: family (e.g., "status", "priority", "type"), name (full name with prefix), color (hex), description
-  - Verify count: Exactly 147 labels
+  - Verify count: Exactly 169 labels
   
 - [ ] T007 Extract issue types from `.github/issue-types.yml`: Create JSON with all 25 type labels and their mappings. Save to `evidence/issue-types.json`
   - Include: Issue type name, label name, color
@@ -83,7 +83,7 @@
   - Verify each type maps to one `type:*` label
   
 - [ ] T008 Extract governance policy from `.github/label-governance-policy.yml`: Create JSON with never-delete list. Save to `evidence/governance-policy.json`
-  - Include: All labels in never-delete list (43 labels)
+  - Include: All labels in never-delete list (57 labels)
   - Note: Verify if labels are in canonical or not
   
 - [ ] T009 Query GitHub API for current labels: `gh label list --repo lightspeedwp/.github --json name,color,description`. Save to `evidence/github-api-labels.json`
@@ -125,15 +125,16 @@
 
 ### Phase 3.2: Issue Types Validation
 
-- [ ] T015 Verify all 25 type labels present in canonical: Cross-reference issue-types.yml with labels.yml
+- [ ] T015 Verify all 25 mapped type labels present in canonical: Cross-reference issue-types.yml with labels.yml
   - For each of 25 types: Confirm label exists in canonical file with matching name and color
+  - Record `type:decision` as the 26th canonical `type:*` label with no issue-types.yml mapping (governance gap, pending decision)
   - Create verification JSON: `{ type: "...", label: "...", in_canonical: true/false, color_match: true/false }`
   - Save to `evidence/type-labels-validation.json`
-  - Expected result: All 25 present, all colors match, IMMUTABLE confirmed
+  - Expected result: All 25 mapped present, all colors match; `type:decision` documented as unmapped
   
-- [ ] T016 Type labels immutability check: Verify type: family has exactly 25 labels, no additions/removals
+- [ ] T016 Type labels immutability check: Verify type: family has exactly 26 labels (25 mapped + `type:decision` unmapped), no other additions/removals
   - Compare current canonical count against issue-types.yml count
-  - Confirm: 25 type labels, all present, no changes needed
+  - Confirm: 25 mapped type labels all present; `type:decision` recorded as unmapped gap, no changes needed by the audit itself
 
 ### Phase 3.3: Missing Labels Detection
 
@@ -160,7 +161,7 @@
     - Executive Summary (status, key metrics, critical issues)
     - Label Inventory by Family (status, priority, type, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, meta, release, openspec)
     - Findings Summary (organized by finding_type: missing, misnamed, mismatch, duplicate, orphan, governance_gap)
-    - Validation Results (type labels: ✅ 25 all present, canonical: ✅ 147 all accounted for)
+    - Validation Results (type labels: ✅ 25 mapped all present + `type:decision` unmapped gap recorded, canonical: ✅ 169 all accounted for)
     - Recommendations (prioritized by impact)
     - Appendices with JSON evidence
   - Save to `.github/reports/audits/2026-09-14-label-audit/007-audit-report.md`
@@ -289,13 +290,13 @@
 
 - [ ] T031 [P] Generate label-inventory.csv: Complete label catalog from canonical file
   - Columns: family, label_name, color, description, in_canonical, in_issue_types, in_policy, in_docs, in_workflows, api_present, status, notes
-  - Rows: All 147 labels from canonical file
+  - Rows: All 169 labels from canonical file
   - Status field: "OK" | "ORPHAN" | "DUPLICATE" | "MISMATCH" | "DEPRECATED" | "GAP"
   - Save to `.github/reports/audits/2026-09-14-label-audit/label-inventory.csv`
   
 - [ ] T032 [P] Generate label-inventory.json: Machine-readable version of inventory
   - Structure per data-model.md (families, labels, summary statistics)
-  - Include: All 147 labels with complete metadata
+  - Include: All 169 labels with complete metadata
   - Include: Summary showing total_canonical, total_in_api, total_orphans, total_duplicates, total_ok, families_with_issues
   - Save to `.github/reports/audits/2026-09-14-label-audit/label-inventory.json`
   
