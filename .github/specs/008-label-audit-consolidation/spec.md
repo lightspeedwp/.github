@@ -143,10 +143,11 @@ As a DevOps/automation lead, I need to understand why 11 labeling workflows were
 - **FR-008**: System MUST preserve all 26 immutable canonical `type:*` labels: the 25-label `issue-types.yml` mapping set and `type:decision`, an immutable canonical label excluded from that mapping set. Neither the mapping set nor `type:decision` may be changed by this audit
 - **FR-009**: System MUST NOT edit locked configuration files (`labels.yml`, `issue-types.yml`, `label-governance-policy.yml`) - audit only
 - **FR-010**: System MUST document assumptions about which labels can be consolidated vs. which must be preserved due to existing automation
+- **FR-011**: The canonical prefixes for the AI operations and specification-status families are `aiops:` and `spec:`. The audit MUST catalogue the rename mappings `ai-ops:*` → `aiops:*` (7 labels) and `openspec:*` → `spec:*` (9 labels), and list every workflow, script, configuration and documentation reference to the old prefixes as impact evidence under FR-010
 
 ### Key Entities
 
-- **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, openspec (and any others discovered during audit)
+- **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, aiops (formerly referred to as "ai-ops"), contrib, discussion, spec (formerly referred to as "openspec") (and any others discovered during audit)
 - **Type Labels**: 26 immutable canonical `type:*` labels: 25 labels in the `issue-types.yml` mapping set, plus `type:decision`, which is excluded from that mapping set
 - **Canonical Labels**: The 169 labels currently defined in `.github/labels.yml`
 - **Governance Policy**: The never-delete label list and related rules in `label-governance-policy.yml`
@@ -198,6 +199,10 @@ The audit itself makes no changes to the production label configuration. It serv
 ### Session 2026-09-14
 
 - Q: Should the audit identify and consolidate exactly 5-10 duplicate labels, or is that range just an estimate? → A: Find ALL possible duplicate/overlapping labels and report them ranked by consolidation impact. This gives the governance team complete visibility across verified local sources; complete repository visibility remains pending until the full GitHub label inventory is obtained.
+
+### Session 2026-09-24
+
+- Q: Which prefixes are canonical for the AI operations and OpenSpec label families? → A: `ai-ops` becomes `aiops` and `openspec` becomes `spec`
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
