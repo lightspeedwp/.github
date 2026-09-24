@@ -95,8 +95,8 @@ sessions keep their starting setting. With enforcement on, guard faults still bl
 2 (FR-012a). Restore enforcement after the fault is fixed.
 
 **Legacy PR exception check**: `git ls-remote --exit-code --heads origin <branch>`, then
-`gh pr list --head <branch> --state open --json number,isCrossRepository --limit 1`, each with a 5-second timeout. Any failure means
-the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (`isCrossRepository` is `false`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
+`gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST: cloud sessions can't reach GitHub's GraphQL API, which `gh pr list` uses), each with a 5-second timeout. Any failure means
+the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (the PR's `head.repo.full_name` equals its `base.repo.full_name`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
 
 **Refusal message** (FR-011) contains, in order:
 

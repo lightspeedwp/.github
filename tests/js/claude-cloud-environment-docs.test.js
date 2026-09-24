@@ -214,7 +214,7 @@ describe('Claude cloud environment specification contracts', () => {
     test('scopes legacy PR lookups and GitHub guard calls to the intended owner', () => {
       expect(hooks).toMatch(/`git ls-remote --exit-code --heads origin <branch>`/);
       expect(hooks).toMatch(
-        /`gh pr list --head <branch> --state open --json number,isCrossRepository --limit 1`/
+        /`gh api repos\/\{owner\}\/\{repo\}\/pulls\?head=\{owner\}:<branch>&state=open&per_page=1`/
       );
       expect(hooks).toMatch(/each with a 5-second timeout\. Any failure means/);
       expect(hooks).toMatch(

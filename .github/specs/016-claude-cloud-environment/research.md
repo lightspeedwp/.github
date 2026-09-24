@@ -119,8 +119,10 @@ implementation in lightspeedwp/.github#3524.
 - **Decision**: Check for an open PR only on the rare path where a push, commit or MCP write would otherwise be
   refused for a non-compliant branch. The check has two steps:
   1. `git ls-remote --exit-code --heads origin <branch>`, to confirm the branch exists on GitHub.
-  2. `gh pr list --head <branch> --state open --json number,isCrossRepository --limit 1`, to confirm an open PR
-     exists whose head is in this repository (`isCrossRepository` is `false`). PRs from forks don't qualify.
+  2. `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1`, to confirm an open PR
+     exists whose head is in this repository (`head.repo.full_name` equals `base.repo.full_name`). PRs from forks
+     don't qualify. It uses the REST API because cloud sessions get HTTP 403 from GitHub's GraphQL API, which
+     `gh pr list` needs (found during implementation).
 
   Each step has a 5-second timeout. Any failure, timeout or empty result means "not verified", and the action is
   refused (FR-006).
