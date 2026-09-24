@@ -112,25 +112,25 @@
 
 ### Phase 3.1: Canonical vs Governance Policy Comparison
 
-- [ ] T013 Compare canonical labels against governance policy: For each label in governance never-delete list, verify it exists in canonical file with matching name
+- [X] T013 Compare canonical labels against governance policy: For each label in governance never-delete list, verify it exists in canonical file with matching name
   - Create findings JSON: `{ finding_type: "mismatch" | "missing", source_label: "...", canonical_label: "..." }`
   - Save to `evidence/governance-vs-canonical.json`
   - Expected findings: type:documentation → type:docs, type:ai-ops → type:aiops, plus 6-8 labels missing from canonical
   
-- [ ] T014 [P] Generate governance gaps report: List all labels in governance policy that are NOT in canonical file OR have name mismatches
+- [X] T014 [P] Generate governance gaps report: List all labels in governance policy that are NOT in canonical file OR have name mismatches
   - Include: Line number in policy file, current name, canonical name (if exists), recommendation
   - Save to `evidence/governance-gaps.json`
 
 ### Phase 3.2: Issue Types Validation
 
-- [ ] T015 Verify all 25 mapped type labels present in canonical: Cross-reference issue-types.yml with labels.yml
+- [X] T015 Verify all 25 mapped type labels present in canonical: Cross-reference issue-types.yml with labels.yml
   - For each of 25 types: Confirm label exists in canonical file with matching name and color
   - Record `type:decision` as the 26th canonical `type:*` label with no issue-types.yml mapping (governance gap, pending decision)
   - Create verification JSON: `{ type: "...", label: "...", in_canonical: true/false, color_match: true/false }`
   - Save to `evidence/type-labels-validation.json`
   - Expected result: All 25 mapped present, all colors match; `type:decision` documented as unmapped
   
-- [ ] T016 Type labels immutability check: Verify type: family has exactly 26 labels (25 mapped + `type:decision` unmapped), no other additions/removals
+- [X] T016 Type labels immutability check: Verify type: family has exactly 26 labels (25 mapped + `type:decision` unmapped), no other additions/removals
   - Compare current canonical count against issue-types.yml count
   - Confirm: 25 mapped type labels all present; `type:decision` recorded as unmapped gap, no changes needed by the audit itself
 
@@ -142,7 +142,7 @@
   - Save to `evidence/orphan-labels.json`
   - Expected result: If orphans exist, document them
   
-- [ ] T018 [P] Check for undocumented labels: Compare canonical file against documentation
+- [X] T018 [P] Check for undocumented labels: Compare canonical file against documentation
   - For each label in canonical: Verify it's mentioned in LABEL_STRATEGY.md or relevant LABEL_*.md
   - Create findings JSON: `{ label: "...", documented: true/false, doc_files: [...] }`
   - Save to `evidence/documentation-coverage.json`
