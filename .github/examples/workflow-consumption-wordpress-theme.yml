@@ -5,6 +5,9 @@
 #
 # - Every action is pinned to a full commit SHA with its version as a
 #   comment; let Dependabot (github-actions ecosystem) keep the pins current.
+# - `npm ci` and the npm cache need a committed `package-lock.json`. The
+#   scaffold's .gitignore excludes it: remove that line, run `npm install`
+#   and commit the lockfile before enabling this workflow.
 # - Organisation reusable workflows from lightspeedwp/.github are not
 #   available yet (tracked in #3480). Once they are, call them with
 #   `uses: lightspeedwp/.github/.github/workflows/<file>.yml@<sha>`.
@@ -37,6 +40,15 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
+      # The scaffold's `npm run lint` and `npm test` also run `composer run
+      # lint` (phpcs) and `composer run test` (phpunit), so PHP and the
+      # Composer dependencies must be installed first.
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          # Use a PHP release in active support that your theme supports.
+          php-version: '8.4'
+          tools: composer
+      - run: composer install --no-interaction --no-progress
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run lint
       - run: npm test
