@@ -83,6 +83,57 @@ function listLocalReferences() {
   return references.filter(([, reference]) => reference.startsWith('./'));
 }
 
+/**
+ * Every action directory under `.github/actions/`, as paths relative to that
+ * directory. An action is a directory containing `action.yml`, so nested
+ * actions (`foo/bar/action.yml`) are found too and reported as `foo/bar` — the
+ * same shape a `uses:` reference produces.
+ */
+function listActionDirectories(directory = actionsDirectory, prefix = '') {
+  const found = [];
+
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name === '__tests__') {
+      continue;
+    }
+
+    const relative = prefix ? `${prefix}/${entry.name}` : entry.name;
+    const absolute = path.join(directory, entry.name);
+
+    if (fs.existsSync(path.join(absolute, 'action.yml'))) {
+      found.push(relative);
+    }
+
+    found.push(...listActionDirectories(absolute, relative));
+  }
+
+  return found.sort();
+}
+
+/**
+ * Why a local `uses:` reference is unusable, or null when it is well-formed and
+ * resolvable. GitHub distinguishes the two kinds of local reference: a
+ * `uses:` to `.github/workflows/<file>` calls that workflow file, while a
+ * `uses:` to `.github/actions/<dir>` calls the directory's `action.yml`.
+ * Pointing an action reference at the `action.yml` file itself is not a valid
+ * form, so an existing file is not on its own proof of a valid reference.
+ */
+function describeUnresolvableReference(reference) {
+  const target = path.join(repositoryRoot, reference.slice(2));
+
+  if (reference.startsWith('./.github/actions/')) {
+    if (/(^|\/)[^/]+\.ya?ml$/.test(reference)) {
+      return 'points at a file; a local action reference must name the action directory';
+    }
+
+    return fs.existsSync(path.join(target, 'action.yml'))
+      ? null
+      : 'no action.yml in that directory';
+  }
+
+  return fs.existsSync(target) ? null : 'no such file';
+}
+
 // GitHub Actions only registers workflows in .github/workflows/, so a
 // workflow-shaped file anywhere else can never run. These guards keep that
 // from recurring silently, which is how the harness in .github/tests/
@@ -104,17 +155,14 @@ describe('workflow reachability', () => {
     expect(misplaced).toEqual([]);
   });
 
-  test('every local uses: reference in an active workflow resolves on disk', () => {
+  test('every local uses: reference in an active workflow is well-formed and resolves', () => {
     const unresolved = [];
 
     for (const [workflow, reference] of listLocalReferences()) {
-      const target = path.join(repositoryRoot, reference.slice(2));
-      // A `uses:` to a workflow calls the file; a `uses:` to a composite
-      // action calls its action.yml.
-      const resolves = fs.existsSync(target) || fs.existsSync(path.join(target, 'action.yml'));
+      const problem = describeUnresolvableReference(reference);
 
-      if (!resolves) {
-        unresolved.push(`${workflow}: ${reference}`);
+      if (problem) {
+        unresolved.push(`${workflow}: ${reference} (${problem})`);
       }
     }
 
@@ -128,12 +176,7 @@ describe('workflow reachability', () => {
         .map(([, reference]) => reference.slice('./.github/actions/'.length))
     );
 
-    const orphans = fs
-      .readdirSync(actionsDirectory, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory() && entry.name !== '__tests__')
-      .map((entry) => entry.name)
-      .filter((name) => !callers.has(name))
-      .sort();
+    const orphans = listActionDirectories().filter((name) => !callers.has(name));
 
     expect(orphans).toEqual([]);
   });
@@ -144,10 +187,8 @@ describe('workflow reachability', () => {
       'utf8'
     );
 
-    for (const entry of fs.readdirSync(actionsDirectory, { withFileTypes: true })) {
-      if (entry.isDirectory() && entry.name !== '__tests__') {
-        expect(contractTest).toContain(`'${entry.name}'`);
-      }
+    for (const name of listActionDirectories()) {
+      expect(contractTest).toContain(`'${name}'`);
     }
   });
 });
