@@ -1,0 +1,62 @@
+{
+  "workflow": "issue-labeling-automation.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/issue-labeling-automation.yml",
+  "size_bytes": 5652,
+  "purpose": "Daily and on-demand backfill of type/area/priority labels on issues that have no type:* label, delegating the labelling to scripts/workflows/apply-labels-workflow.js.",
+  "triggers": [
+    "workflow_dispatch (inputs: dry_run, updated_within_days, label_types, batch_size)",
+    "schedule: \"0 2 * * *\""
+  ],
+  "jobs": [
+    {
+      "id": "label-issues",
+      "summary": "Checkout, setup Node, npm ci; github-script paginates issues.listForRepo (state all, optional since window) and writes issues without a type:* label to issues-to-label.json; runs apply-labels-workflow.js; logs and uploads labeling-report.json."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/workflows/apply-labels-workflow.js",
+      "exists": false
+    }
+  ],
+  "actions_used": [
+    "actions/checkout@v7",
+    "actions/setup-node@v7",
+    "actions/github-script@v9",
+    "actions/upload-artifact@v7"
+  ],
+  "labels_referenced": ["type:* (prefix filter only)"],
+  "labels_not_in_canonical": [],
+  "permissions": {
+    "label-issues": {
+      "issues": "write",
+      "contents": "read"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "Referenced script scripts/workflows/apply-labels-workflow.js does not exist; the Apply labels step fails whenever any unlabelled issue is found.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/issue-labeling-automation.yml:124"
+    },
+    {
+      "issue": "DRY_RUN expression `inputs.dry_run == 'true' || 'true'` always evaluates to 'true', so the workflow could never apply labels (scheduled or manual).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/issue-labeling-automation.yml:127"
+    },
+    {
+      "issue": "Fetch errors are caught and turned into count=0 with a green run (silent failure).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/issue-labeling-automation.yml:116"
+    },
+    {
+      "issue": "state: 'all' includes closed issues in the backfill set.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/issue-labeling-automation.yml:79"
+    },
+    {
+      "issue": "Scheduled at 02:00 UTC, inside the 02:00/03:00/04:00 schedule cluster the active workflow was staggered away from.",
+      "evidence": ".github/workflows/labeling-unified.yml:15"
+    }
+  ],
+  "overlaps_with": [
+    "labeling-unified.yml (agent applies default and content-detected type labels on issue events)",
+    "meta-labels-sync.yml (adjacent schedule)"
+  ]
+}
