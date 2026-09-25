@@ -465,7 +465,7 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 
 - [ ] T069 [US4] In Linear, relabel every issue for each `merge` and `re-prefix` mapping in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-labels.json` (each issue ends with exactly one `type:*` label), then retire the source labels; retire, never delete (depends on T067, T064c)
 - [ ] T070 [P] [US4] In Linear, retire zero-use and `retire` mapped labels, move `area:xero`, `area:flow`, `area:jobs` and `area:monorepo` to team scope, retire `type:question` after its issues are migrated, and set colours and descriptions to match `.github/labels.yml` (including removing "Openspec" from `spec:*` descriptions); log every change in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-changes.json` (depends on T067)
-- [ ] T071 [US4] Restrict label creation in Linear's GitHub integration and, where GitHub allows it without reducing anyone's existing repository access, limit repository label management to maintainers (FR-017; research R6a/R6b), record the settings applied on the gate issue and in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-changes.json`, and run quickstart Test 13 (depends on T069, T070)
+- [ ] T071 [US4] Before Stage 3 starts (ahead of T062), restrict label creation in Linear's GitHub integration and, where GitHub allows it without reducing anyone's existing repository access, limit repository label management to maintainers (FR-017; research R6a/R6b), record the settings applied on the gate issue and in `.github/reports/audits/2026-09-14-label-audit/evidence/linear-changes.json`, and run quickstart Test 13 (depends on T069, T070)
 
 ### Stage 6: Drift Check (FR-017, SC-009)
 

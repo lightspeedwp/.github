@@ -55,11 +55,11 @@
 
 ## Edge Case Coverage
 
-- [ ] CHK029 Are API rate-limit and throttling requirements stated for organisation-wide renames, relabels and deletions? [Gap, Non-Functional]
-- [ ] CHK030 Are requirements defined for the Linear sync recreating a deleted or merged label while the run is in progress, beyond detecting it in the next drift report? [Coverage, Edge Cases, Spec §FR-017]
-- [ ] CHK031 Are requirements defined for a Linear team-scoped label that shares a name with a workspace label being merged or retired? [Gap, Spec §FR-012]
-- [ ] CHK032 Is behaviour defined when a source label and its merge target differ only by case or spacing (for example `scope: website`)? [Coverage, Spec §FR-012]
-- [ ] CHK033 Is behaviour defined when a native issue type cannot be removed (the 25-type limit reached, or the API unavailable) partway through FR-019's ordered steps? [Gap, Spec §FR-019]
+- [x] CHK029 Are API rate-limit and throttling requirements stated for organisation-wide renames, relabels and deletions? [Gap, Non-Functional]
+- [x] CHK030 Are requirements defined for the Linear sync recreating a deleted or merged label while the run is in progress, beyond detecting it in the next drift report? [Coverage, Edge Cases, Spec §FR-017]
+- [x] CHK031 Are requirements defined for a Linear team-scoped label that shares a name with a workspace label being merged or retired? [Gap, Spec §FR-012]
+- [x] CHK032 Is behaviour defined when a source label and its merge target differ only by case or spacing (for example `scope: website`)? [Coverage, Spec §FR-012]
+- [x] CHK033 Is behaviour defined when a native issue type cannot be removed (the 25-type limit reached, or the API unavailable) partway through FR-019's ordered steps? [Gap, Spec §FR-019]
 
 ## Non-Functional Requirements
 
