@@ -30,19 +30,19 @@ describe('failureIds', () => {
       ],
     };
 
-    expect([...failureIds(report, '/head')]).toEqual(['a/x.test.js::x breaks']);
+    expect(failureIds(report, '/head')).toEqual(new Map([['a/x.test.js::x breaks', 1]]));
   });
 
   test('records a suite that fails without running tests', () => {
     const report = { testResults: [suite('/head/c/z.test.js', { status: 'failed' })] };
 
-    expect([...failureIds(report, '/head')]).toEqual([`c/z.test.js::${SUITE_FAILURE}`]);
+    expect(failureIds(report, '/head')).toEqual(new Map([[`c/z.test.js::${SUITE_FAILURE}`, 1]]));
   });
 
   test('records an aggregate snapshot failure', () => {
     const report = { snapshot: { failure: true }, testResults: [] };
 
-    expect([...failureIds(report, '/head')]).toEqual([SNAPSHOT_FAILURE]);
+    expect(failureIds(report, '/head')).toEqual(new Map([[SNAPSHOT_FAILURE, 1]]));
   });
 
   test('rejects input that is not a Jest report', () => {
@@ -52,9 +52,39 @@ describe('failureIds', () => {
 
 describe('compare', () => {
   test('separates new, fixed and unchanged failures', () => {
-    const result = compare(new Set(['a', 'b', 'new']), new Set(['a', 'b', 'gone']));
+    const result = compare(
+      new Map([
+        ['a', 1],
+        ['b', 1],
+        ['new', 1],
+      ]),
+      new Map([
+        ['a', 1],
+        ['b', 1],
+        ['gone', 1],
+      ])
+    );
 
     expect(result).toEqual({ added: ['new'], fixed: ['gone'], unchanged: 2 });
+  });
+
+  test('counts duplicate failures for the same test name', () => {
+    const head = {
+      testResults: [
+        suite('/head/a.test.js', { status: 'failed', failed: ['same failure', 'same failure'] }),
+      ],
+    };
+    const base = {
+      testResults: [suite('/base/a.test.js', { status: 'failed', failed: ['same failure'] })],
+    };
+
+    const result = compare(failureIds(head, '/head'), failureIds(base, '/base'));
+
+    expect(result).toEqual({
+      added: ['a.test.js::same failure'],
+      fixed: [],
+      unchanged: 1,
+    });
   });
 
   test('matches identical failures from checkouts at different paths', () => {

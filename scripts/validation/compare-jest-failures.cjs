@@ -25,30 +25,32 @@ const OPTIONS = ['--head', '--head-root', '--base', '--base-root'];
 /**
  * @param {object} report - Parsed Jest JSON report
  * @param {string} rootDir - Checkout the report's absolute paths are under
- * @returns {Set<string>}
+ * @returns {Map<string, number>}
  */
 function failureIds(report, rootDir) {
   if (!report || !Array.isArray(report.testResults)) {
     throw new Error('Not a Jest --json report (missing testResults)');
   }
 
-  const ids = new Set();
+  const ids = new Map();
 
   for (const suite of report.testResults) {
     const file = path.relative(rootDir, suite.name).split(path.sep).join('/');
     const failedTests = (suite.assertionResults || []).filter((test) => test.status === 'failed');
 
     for (const test of failedTests) {
-      ids.add(`${file}::${test.fullName}`);
+      const id = `${file}::${test.fullName}`;
+      ids.set(id, (ids.get(id) ?? 0) + 1);
     }
 
     if (suite.status === 'failed' && failedTests.length === 0) {
-      ids.add(`${file}::${SUITE_FAILURE}`);
+      const id = `${file}::${SUITE_FAILURE}`;
+      ids.set(id, (ids.get(id) ?? 0) + 1);
     }
   }
 
   if (report.snapshot?.failure === true) {
-    ids.add(SNAPSHOT_FAILURE);
+    ids.set(SNAPSHOT_FAILURE, (ids.get(SNAPSHOT_FAILURE) ?? 0) + 1);
   }
 
   return ids;
@@ -57,11 +59,30 @@ function failureIds(report, rootDir) {
 /**
  * @returns {{added: string[], fixed: string[], unchanged: number}}
  */
-function compare(headIds, baseIds) {
-  const added = [...headIds].filter((id) => !baseIds.has(id)).sort();
-  const fixed = [...baseIds].filter((id) => !headIds.has(id)).sort();
+function compare(headCounts, baseCounts) {
+  const added = [];
+  const fixed = [];
 
-  return { added, fixed, unchanged: headIds.size - added.length };
+  for (const [id, headCount] of headCounts) {
+    const baseCount = baseCounts.get(id) ?? 0;
+    for (let count = baseCount; count < headCount; count += 1) {
+      added.push(id);
+    }
+  }
+
+  for (const [id, baseCount] of baseCounts) {
+    const headCount = headCounts.get(id) ?? 0;
+    for (let count = headCount; count < baseCount; count += 1) {
+      fixed.push(id);
+    }
+  }
+
+  const unchanged = [...headCounts].reduce(
+    (total, [id, headCount]) => total + Math.min(headCount, baseCounts.get(id) ?? 0),
+    0
+  );
+
+  return { added: added.sort(), fixed: fixed.sort(), unchanged };
 }
 
 function parseArgs(argv) {
