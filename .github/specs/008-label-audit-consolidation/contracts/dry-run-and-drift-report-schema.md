@@ -10,6 +10,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 {
   "repository": "lightspeedwp/example-repo",
   "generated_at": "2026-09-24T00:00:00Z",
+  "approved_set_commit": "<develop commit of labels.yml>",
   "label_count": 212,
   "pages_read": 3,
   "approved_set_count": 191,
@@ -39,7 +40,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 1. `pages_read` × 100 must be at least `label_count`; a dry run that read one page for a repository with more than 100 labels is invalid.
 2. Every `to_delete` entry with `open_items` has a `migrate_to` that exists in `labels.yml`, or is listed for a decision in the gate comment.
 3. The snapshot keeps name, colour, description and item numbers, so any deleted label can be recreated and reapplied (research R8).
-4. Deletion runs only when `approval.status` is `approved` and `approved_by` is `ashleyshaw`. Repositories without approval are skipped.
+4. Deletion runs only when `approval.status` is `approved`, `approved_by` is `ashleyshaw`, and `gate_comment_url` points to a comment reading `Approved: <repo> dry run <generated_at>` whose repository and timestamp match this file. Repositories without approval are skipped. If `labels.yml` on `develop` differs from `approved_set_commit`, the dry run is stale and must be regenerated.
 5. `destructive_cleanup.enabled` in `label-governance-policy.yml` stays `false`. Deletion requires the run-time flags `--apply --confirm-gate <gate issue number>`, and the tool refuses any repository whose `approval.status` is not `approved`.
 
 ## Weekly drift report issue

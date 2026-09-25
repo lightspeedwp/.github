@@ -23,12 +23,12 @@
 
 ## Requirement Clarity
 
-- [ ] CHK009 Is "approved set" defined unambiguously at the moment of deletion (the merged `labels.yml` on `develop`, at a stated commit)? [Clarity, Spec §FR-016]
-- [ ] CHK010 Is "required by repository automation" defined with an objective test, so the import list cannot grow by judgement? [Ambiguity, Spec §FR-012]
-- [ ] CHK011 Is "retire" defined for GitHub, where labels cannot be retired, as distinct from Linear retirement? [Clarity, Spec §FR-012, Contracts §label-mapping-schema]
-- [ ] CHK012 Is it clear whether "rename in place" applies when the target label already exists in some repositories but not others? [Clarity, Spec §FR-012, Edge Cases]
-- [ ] CHK013 Is the approver's identity and the form of approval (a comment on the gate issue, and its required wording) specified precisely enough to be checked? [Clarity, Spec §FR-016, Contracts §dry-run-and-drift-report-schema]
-- [ ] CHK014 Is "exactly matches `labels.yml`" in SC-009 defined to include or exclude colour and description differences? [Ambiguity, Spec §SC-009]
+- [x] CHK009 Is "approved set" defined unambiguously at the moment of deletion (the merged `labels.yml` on `develop`, at a stated commit)? [Clarity, Spec §FR-016]
+- [x] CHK010 Is "required by repository automation" defined with an objective test, so the import list cannot grow by judgement? [Ambiguity, Spec §FR-012]
+- [x] CHK011 Is "retire" defined for GitHub, where labels cannot be retired, as distinct from Linear retirement? [Clarity, Spec §FR-012, Contracts §label-mapping-schema]
+- [x] CHK012 Is it clear whether "rename in place" applies when the target label already exists in some repositories but not others? [Clarity, Spec §FR-012, Edge Cases]
+- [x] CHK013 Is the approver's identity and the form of approval (a comment on the gate issue, and its required wording) specified precisely enough to be checked? [Clarity, Spec §FR-016, Contracts §dry-run-and-drift-report-schema]
+- [x] CHK014 Is "exactly matches `labels.yml`" in SC-009 defined to include or exclude colour and description differences? [Ambiguity, Spec §SC-009]
 
 ## Requirement Consistency
 
