@@ -33,6 +33,7 @@ const ISSUE_TYPES_CONFIG = process.env.ISSUE_TYPES_CONFIG || '.github/issue-type
 // Content fallback signals use explicit markers and whole-word matching.
 const KEYWORD_TYPE_MAP = {
   bug: 'type:bug',
+  fix: 'type:bug',
   defect: 'type:bug',
   error: 'type:bug',
   'fix:': 'type:bug',
@@ -156,13 +157,15 @@ async function fetchNativeIssueTypeLabel(octokit, owner, repo, number, issueType
     (typeof data?.type === 'string' ? data.type : data?.type?.name) ||
     data?.issue_type?.name ||
     null;
-  if (!nativeType) return null;
+  if (!nativeType) {
+    return { label: null, present: false };
+  }
 
   const label = issueTypeMap.get(String(nativeType).toLowerCase()) || null;
   if (!label) {
     core.warning(`[labeling.agent] Native issue type '${nativeType}' is not mapped`);
   }
-  return label;
+  return { label, present: true };
 }
 
 /**
@@ -199,6 +202,16 @@ function containsKeyword(text, keyword) {
  * @returns {string|null} Canonical type label or null if none matched
  */
 function detectIssueTypeFromContent(title = '', body = '') {
+  const prefix = String(title ?? '').match(/^\s*([a-z0-9]+)(?:\([^)]*\))?!?:/i);
+  if (prefix) {
+    const keyword = prefix[1].toLowerCase();
+    const typeLabel = KEYWORD_TYPE_MAP[keyword] || KEYWORD_TYPE_MAP[`${keyword}:`];
+    if (typeLabel) {
+      core.info(`[labeling.agent] Detected type from title prefix '${keyword}:': ${typeLabel}`);
+      return typeLabel;
+    }
+  }
+
   for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
     if (containsKeyword(title, keyword)) {
       core.info(`[labeling.agent] Detected type from title keyword '${keyword}': ${typeLabel}`);
@@ -335,31 +348,41 @@ async function standardizeLabelsOnItem(
   canonicalSet,
   aliasMap = {},
   dryRun = false,
-  log = console.log
+  log = console.log,
+  removeUnmapped = false
 ) {
+  const result = { migrated: [], removed: [], kept: [] };
   for (const label of currentLabels) {
-    if (!canonicalSet.has(label)) {
-      // Migrate legacy/alias to canonical
-      const canonical = findStandardLabel(label, aliasMap, canonicalSet);
-      if (canonical) {
-        if (!dryRun) {
-          await github.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: number,
-            labels: [canonical],
-          });
-        }
-        log(`[labeling.agent] Migrated: ${label} -> ${canonical} on #${number}`);
-      }
-      // Remove non-canonical label; an already-absent label is success,
-      // never a 404 abort mid-run (#3545).
-      if (!dryRun) {
-        await removeLabelSafe(github, owner, repo, number, label);
-      }
-      log(`[labeling.agent] Removed non-canonical label: ${label} from #${number}`);
+    if (canonicalSet.has(label)) continue;
+
+    const canonical = findStandardLabel(label, aliasMap, canonicalSet);
+    if (!canonical && !removeUnmapped) {
+      result.kept.push(label);
+      log(`[labeling.agent] Kept non-canonical label with no mapping: ${label} on #${number}`);
+      continue;
     }
+
+    if (canonical) {
+      if (!dryRun) {
+        await github.rest.issues.addLabels({
+          owner,
+          repo,
+          issue_number: number,
+          labels: [canonical],
+        });
+      }
+      result.migrated.push({ from: label, to: canonical });
+      log(`[labeling.agent] Migrated: ${label} -> ${canonical} on #${number}`);
+    } else {
+      result.removed.push(label);
+    }
+
+    if (!dryRun) {
+      await removeLabelSafe(github, owner, repo, number, label);
+    }
+    log(`[labeling.agent] Removed non-canonical label: ${label} from #${number}`);
   }
+  return result;
 }
 
 /**
@@ -388,7 +411,8 @@ async function runLabelingAgent(opts = {}) {
     const context = opts.context || github.context;
     const octokit =
       opts.github || github.getOctokit(core.getInput('github-token') || process.env.GITHUB_TOKEN);
-    const dryRun = !!opts.dryRun;
+    const dryRun = opts.dryRun ?? process.env.DRY_RUN === 'true';
+    const removeUnmapped = opts.removeUnmapped ?? process.env.LABELING_REMOVE_UNMAPPED === 'true';
     const maxRetries = opts.maxRetries || 3;
 
     const owner = context.repo.owner;
@@ -483,15 +507,18 @@ async function runLabelingAgent(opts = {}) {
     const branchType = isPR ? detectTypeFromBranch(branchName) : null;
     let nativeTypeLabel = null;
     let nativeTypeLookupFailed = false;
+    let nativeTypeUnmapped = false;
     if (!isPR) {
       try {
-        nativeTypeLabel = await fetchNativeIssueTypeLabel(
+        const nativeTypeResult = await fetchNativeIssueTypeLabel(
           octokit,
           owner,
           repo,
           number,
           issueTypeMap
         );
+        nativeTypeLabel = nativeTypeResult.label;
+        nativeTypeUnmapped = nativeTypeResult.present && !nativeTypeResult.label;
         if (nativeTypeLabel) {
           core.info(`[labeling.agent] Using native issue type label: ${nativeTypeLabel}`);
         }
@@ -541,7 +568,7 @@ async function runLabelingAgent(opts = {}) {
       const preTypes = [...knownLabels].filter((l) => l.startsWith('type:'));
       if (preTypes.length > 1) {
         const prestatement =
-          isPR || nativeTypeLabel || nativeTypeLookupFailed
+          isPR || nativeTypeLabel || nativeTypeLookupFailed || nativeTypeUnmapped
             ? null
             : detectIssueTypeFromContent(context.payload.issue.title, context.payload.issue.body);
         const preWinner = resolveTypeWinner({
@@ -549,6 +576,16 @@ async function runLabelingAgent(opts = {}) {
           branchType: isPR ? branchType : null,
           nativeType: nativeTypeLabel,
           contentType: !isPR ? prestatement : null,
+          canonicalOrder,
+        });
+        if (preWinner) {
+          knownLabels = new Set([preWinner, ...[...knownLabels].filter((l) => l !== preWinner)]);
+        }
+      }
+      const prePriorities = [...knownLabels].filter((l) => l.startsWith('priority:'));
+      if (prePriorities.length > 1) {
+        const preWinner = resolvePriorityWinner({
+          livePriorities: prePriorities,
           canonicalOrder,
         });
         if (preWinner) {
@@ -626,17 +663,37 @@ async function runLabelingAgent(opts = {}) {
     // Step 5: Resolve one type for issues. Native issue type is authoritative;
     // content keywords are only a fallback when no type is already live.
     const liveTypeLabels = [...knownLabels].filter((l) => l.startsWith('type:'));
+    const clearStaleTypeLabels = async (reason) => {
+      for (const label of liveTypeLabels) {
+        try {
+          if (!dryRun) {
+            await removeLabelSafe(octokit, owner, repo, number, label);
+          }
+          markRemoved(label);
+          report.rulesApplied.push(`${reason}: ${label}`);
+        } catch (error) {
+          core.warning(`[labeling.agent] Stale type label removal failed: ${error.message}`);
+          report.errors.push(`Stale type label removal error: ${error.message}`);
+        }
+      }
+    };
     const isUntypedIssueEvent =
-      !isPR && context.payload.action === 'untyped' && !nativeTypeLookupFailed && !nativeTypeLabel;
+      !isPR &&
+      context.payload.action === 'untyped' &&
+      !nativeTypeLookupFailed &&
+      !nativeTypeUnmapped &&
+      !nativeTypeLabel;
     if (isUntypedIssueEvent) {
       try {
-        nativeTypeLabel = await fetchNativeIssueTypeLabel(
+        const nativeTypeResult = await fetchNativeIssueTypeLabel(
           octokit,
           owner,
           repo,
           number,
           issueTypeMap
         );
+        nativeTypeLabel = nativeTypeResult.label;
+        nativeTypeUnmapped = nativeTypeResult.present && !nativeTypeResult.label;
         if (nativeTypeLabel) {
           core.info(`[labeling.agent] Revalidated native issue type label: ${nativeTypeLabel}`);
         }
@@ -645,22 +702,11 @@ async function runLabelingAgent(opts = {}) {
         core.warning(`[labeling.agent] Native issue type revalidation failed: ${error.message}`);
         report.errors.push(`Native issue type revalidation error: ${error.message}`);
       }
-      if (!nativeTypeLookupFailed && !nativeTypeLabel) {
-        for (const label of liveTypeLabels) {
-          try {
-            if (!dryRun) {
-              await removeLabelSafe(octokit, owner, repo, number, label);
-            }
-            markRemoved(label);
-            report.rulesApplied.push(
-              `Cleared stale type label after native type removal: ${label}`
-            );
-          } catch (error) {
-            core.warning(`[labeling.agent] Stale type label removal failed: ${error.message}`);
-            report.errors.push(`Stale type label removal error: ${error.message}`);
-          }
-        }
-      }
+    }
+    if (!isPR && nativeTypeUnmapped) {
+      await clearStaleTypeLabels('Cleared stale type label for unmapped native type');
+    } else if (isUntypedIssueEvent && !nativeTypeLabel) {
+      await clearStaleTypeLabels('Cleared stale type label after native type removal');
     }
     const hasTypeLabel = [...knownLabels].some((l) => l.startsWith('type:'));
     let contentType = null;
@@ -682,7 +728,7 @@ async function runLabelingAgent(opts = {}) {
         core.warning(`[labeling.agent] Native type label application failed: ${error.message}`);
         report.errors.push(`Native type label error: ${error.message}`);
       }
-    } else if (!isPR && !nativeTypeLookupFailed && !hasTypeLabel) {
+    } else if (!isPR && !nativeTypeLookupFailed && !nativeTypeUnmapped && !hasTypeLabel) {
       try {
         contentType = detectIssueTypeFromContent(
           context.payload.issue.title,
@@ -713,6 +759,7 @@ async function runLabelingAgent(opts = {}) {
       !isPR &&
       !nativeTypeLabel &&
       !nativeTypeLookupFailed &&
+      !nativeTypeUnmapped &&
       ![...knownLabels].some((l) => l.startsWith('type:'))
     ) {
       try {
@@ -817,7 +864,7 @@ async function runLabelingAgent(opts = {}) {
         core.warning(`[labeling.agent] Live fetch before standardize failed: ${error.message}`);
         standardizeList = [...knownLabels];
       }
-      await standardizeLabelsOnItem(
+      const standardized = await standardizeLabelsOnItem(
         octokit,
         owner,
         repo,
@@ -826,8 +873,11 @@ async function runLabelingAgent(opts = {}) {
         canonicalSet,
         aliasMap,
         dryRun,
-        core.info
+        core.info,
+        removeUnmapped
       );
+      report.migrated.push(...standardized.migrated);
+      report.removed.push(...standardized.removed);
       core.endGroup();
     } catch (error) {
       core.warning(`[labeling.agent] Label reconciliation failed: ${error.message}`);

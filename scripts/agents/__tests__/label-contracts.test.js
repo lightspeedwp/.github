@@ -559,6 +559,21 @@ describe('label governance contracts (#3545)', () => {
       expect(report.rulesApplied).toContain('Native issue type: type:chore');
     });
 
+    test('unmapped native issue type clears stale types and suppresses fallback', async () => {
+      const octokit = createMockOctokit(['type:bug'], { nativeType: 'FutureType' });
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'fix: this is a bug', labels: ['type:bug'] }),
+        github: octokit,
+        dryRun: false,
+      });
+
+      expect(octokit.state.labels.filter((label) => label.startsWith('type:'))).toEqual([]);
+      expect(octokit.calls.removed).toContain('type:bug');
+      expect(octokit.calls.added).not.toContain('type:bug');
+      expect(octokit.calls.added).not.toContain('type:task');
+      expect(report.errors).toEqual([]);
+    });
+
     test('native issue type replaces a stale conflicting live label', async () => {
       const octokit = createMockOctokit(['type:bug'], { nativeType: 'Chore' });
       await agent.runLabelingAgent({
@@ -616,6 +631,34 @@ describe('label governance contracts (#3545)', () => {
       );
     });
 
+    test('untyped revalidation failure clears stale type without fallback', async () => {
+      const octokit = createMockOctokit(['type:docs']);
+      let lookups = 0;
+      octokit.rest.issues.get = async () => {
+        lookups += 1;
+        if (lookups === 1) return { data: { type: null } };
+        throw new Error('native revalidation unavailable');
+      };
+
+      const report = await agent.runLabelingAgent({
+        context: issueContext({
+          title: 'fix: untyped revalidation failure',
+          labels: ['type:docs'],
+          action: 'untyped',
+        }),
+        github: octokit,
+        dryRun: false,
+      });
+
+      expect(octokit.state.labels.filter((label) => label.startsWith('type:'))).toEqual([]);
+      expect(octokit.calls.removed).toContain('type:docs');
+      expect(octokit.calls.added).not.toContain('type:bug');
+      expect(octokit.calls.added).not.toContain('type:task');
+      expect(
+        report.errors.some((error) => error.includes('Native issue type revalidation error'))
+      ).toBe(true);
+    });
+
     test('native type write failure is contained and does not add a default', async () => {
       const octokit = createMockOctokit([], { nativeType: 'Chore' });
       const addLabels = octokit.rest.issues.addLabels;
@@ -659,6 +702,16 @@ describe('label governance contracts (#3545)', () => {
       expect(agent.detectIssueTypeFromContent('', 'fixes #123')).toBe('type:bug');
     });
 
+    test('explicit title prefixes take precedence over keyword order', () => {
+      expect(agent.detectIssueTypeFromContent('feat: improve error messages', '')).toBe(
+        'type:feature'
+      );
+      expect(agent.detectIssueTypeFromContent('docs: document test fixtures', '')).toBe(
+        'type:docs'
+      );
+      expect(agent.detectIssueTypeFromContent('fix(core): correct parser', '')).toBe('type:bug');
+    });
+
     test('live type suppresses content double-add on stale payload', async () => {
       // Payload predates the router; live API already has the type.
       const octokit = createMockOctokit(['type:docs']);
@@ -682,6 +735,111 @@ describe('label governance contracts (#3545)', () => {
       // one canonical type remains and no error was recorded.
       expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:docs']);
       expect(report.errors.filter((e) => /does not exist|404/.test(e))).toEqual([]);
+    });
+
+    test('duplicate priority labels keep the highest severity', async () => {
+      const octokit = createMockOctokit([
+        'status:needs-triage',
+        'type:bug',
+        'priority:low',
+        'priority:critical',
+      ]);
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'fix: priority reconciliation' }),
+        github: octokit,
+        dryRun: false,
+      });
+
+      expect(octokit.state.labels.filter((label) => label.startsWith('priority:'))).toEqual([
+        'priority:critical',
+      ]);
+      expect(report.errors).toEqual([]);
+    });
+
+    test('preserves unmapped labels unless removal is explicitly enabled', async () => {
+      const keptOctokit = createMockOctokit(['area:external']);
+      const kept = await agent.standardizeLabelsOnItem(
+        keptOctokit,
+        'o',
+        'r',
+        1,
+        ['area:external'],
+        new Set(['type:bug']),
+        {},
+        false,
+        () => {}
+      );
+      expect(kept).toEqual({ migrated: [], removed: [], kept: ['area:external'] });
+      expect(keptOctokit.calls.added).toEqual([]);
+      expect(keptOctokit.calls.removed).toEqual([]);
+
+      const removedOctokit = createMockOctokit(['area:external']);
+      const removed = await agent.standardizeLabelsOnItem(
+        removedOctokit,
+        'o',
+        'r',
+        1,
+        ['area:external'],
+        new Set(['type:bug']),
+        {},
+        false,
+        () => {},
+        true
+      );
+      expect(removed).toEqual({ migrated: [], removed: ['area:external'], kept: [] });
+      expect(removedOctokit.calls.removed).toEqual(['area:external']);
+    });
+
+    test('honours DRY_RUN=true without an explicit option', async () => {
+      const previousDryRun = process.env.DRY_RUN;
+      process.env.DRY_RUN = 'true';
+      try {
+        const octokit = createMockOctokit([]);
+        const report = await agent.runLabelingAgent({
+          context: issueContext({ title: 'fix: dry-run safety' }),
+          github: octokit,
+        });
+        expect(octokit.calls.added).toEqual([]);
+        expect(octokit.calls.removed).toEqual([]);
+        expect(report.success).toBe(true);
+      } finally {
+        if (previousDryRun === undefined) {
+          delete process.env.DRY_RUN;
+        } else {
+          process.env.DRY_RUN = previousDryRun;
+        }
+      }
+    });
+
+    test('reports a failed default type write instead of marking it added', async () => {
+      const octokit = createMockOctokit([]);
+      const throwing = {
+        ...octokit,
+        rest: {
+          ...octokit.rest,
+          issues: {
+            ...octokit.rest.issues,
+            addLabels: async ({ labels }) => {
+              if (labels.includes('type:task')) {
+                throw new Error('type write failed');
+              }
+              return octokit.rest.issues.addLabels({ labels });
+            },
+          },
+        },
+      };
+
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'Uncategorised request' }),
+        github: throwing,
+        dryRun: false,
+      });
+
+      expect(octokit.state.labels).not.toContain('type:task');
+      expect(report.added).not.toContain('type:task');
+      expect(report.errors).toEqual(
+        expect.arrayContaining([expect.stringContaining('Default type error')])
+      );
     });
 
     test('absent-label removal is harmless', async () => {
@@ -877,6 +1035,85 @@ describe('label governance contracts (#3545)', () => {
       );
       expect(result.status).not.toBe(0);
       expect(result.stdout).toMatch(/invalid YAML frontmatter|malformed frontmatter/);
+    });
+
+    test('non-mapping frontmatter fails the gate', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'template-non-mapping-'));
+      const templatesDir = path.join(dir, '.github/PULL_REQUEST_TEMPLATE');
+      fs.mkdirSync(templatesDir, { recursive: true });
+      fs.copyFileSync(
+        path.join(REPO_ROOT, '.github/labels.yml'),
+        path.join(dir, '.github/labels.yml')
+      );
+      fs.writeFileSync(
+        path.join(templatesDir, 'pr_sequence.md'),
+        '---\n- type:bug\n---\n# Sequence\n'
+      );
+      const result = spawnSync(
+        'node',
+        [
+          path.join(REPO_ROOT, 'scripts/validation/validate-labels-before-creation.cjs'),
+          '--scan-templates',
+          '--templates-dir',
+          templatesDir,
+          '--canonical-file',
+          path.join(dir, '.github/labels.yml'),
+        ],
+        { encoding: 'utf8' }
+      );
+      expect(result.status).not.toBe(0);
+      expect(result.stdout).toMatch(/frontmatter must be a mapping/);
+    });
+
+    test('accepts a mapping with null labels', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'template-null-labels-'));
+      const templatesDir = path.join(dir, '.github/PULL_REQUEST_TEMPLATE');
+      fs.mkdirSync(templatesDir, { recursive: true });
+      fs.copyFileSync(
+        path.join(REPO_ROOT, '.github/labels.yml'),
+        path.join(dir, '.github/labels.yml')
+      );
+      fs.writeFileSync(
+        path.join(templatesDir, 'pr_null_labels.md'),
+        '---\nlabels: null\n---\n# No labels\n'
+      );
+      const result = spawnSync(
+        'node',
+        [
+          path.join(REPO_ROOT, 'scripts/validation/validate-labels-before-creation.cjs'),
+          '--scan-templates',
+          '--templates-dir',
+          templatesDir,
+          '--canonical-file',
+          path.join(dir, '.github/labels.yml'),
+        ],
+        { encoding: 'utf8' }
+      );
+      expect(result.status).toBe(0);
+    });
+
+    test('accepts empty frontmatter', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'template-empty-frontmatter-'));
+      const templatesDir = path.join(dir, '.github/PULL_REQUEST_TEMPLATE');
+      fs.mkdirSync(templatesDir, { recursive: true });
+      fs.copyFileSync(
+        path.join(REPO_ROOT, '.github/labels.yml'),
+        path.join(dir, '.github/labels.yml')
+      );
+      fs.writeFileSync(path.join(templatesDir, 'pr_empty.md'), '---\n---\n# No metadata\n');
+      const result = spawnSync(
+        'node',
+        [
+          path.join(REPO_ROOT, 'scripts/validation/validate-labels-before-creation.cjs'),
+          '--scan-templates',
+          '--templates-dir',
+          templatesDir,
+          '--canonical-file',
+          path.join(dir, '.github/labels.yml'),
+        ],
+        { encoding: 'utf8' }
+      );
+      expect(result.status).toBe(0);
     });
 
     test('unsupported frontmatter labels values fail the gate', () => {

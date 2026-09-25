@@ -257,7 +257,7 @@ const GRANDFATHERED_TEMPLATE_LABELS = new Set([
 function templateFrontmatterLabels(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
   const hasFrontmatterStart = /^---\s*\n/.test(content);
-  const match = content.match(/^---\s*\n([\s\S]*?)\n---(?:\s*\n|$)/);
+  const match = content.match(/^---\s*\n(?:([\s\S]*?)\n)?---(?:\s*\n|$)/);
   if (!match) {
     if (hasFrontmatterStart) {
       throw new Error(`Template ${filePath} has malformed frontmatter`);
@@ -267,14 +267,28 @@ function templateFrontmatterLabels(filePath) {
 
   let frontmatter;
   try {
-    frontmatter = yaml.load(match[1]);
+    frontmatter = match[1] === undefined ? {} : yaml.load(match[1]);
   } catch (error) {
     throw new Error(`Template ${filePath} has invalid YAML frontmatter: ${error.message}`, {
       cause: error,
     });
   }
 
-  const labels = frontmatter && frontmatter.labels;
+  if (frontmatter === undefined) {
+    frontmatter = {};
+  }
+
+  if (
+    frontmatter === null ||
+    typeof frontmatter !== 'object' ||
+    Array.isArray(frontmatter) ||
+    (Object.getPrototypeOf(frontmatter) !== Object.prototype &&
+      Object.getPrototypeOf(frontmatter) !== null)
+  ) {
+    throw new Error(`Template ${filePath} frontmatter must be a mapping`);
+  }
+
+  const labels = frontmatter.labels;
   if (labels === undefined || labels === null) return [];
   if (Array.isArray(labels)) {
     if (labels.some((label) => typeof label !== 'string' || !label.trim())) {
