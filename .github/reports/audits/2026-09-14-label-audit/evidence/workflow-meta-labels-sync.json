@@ -1,0 +1,75 @@
+{
+  "workflow": "meta-labels-sync.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/meta-labels-sync.yml",
+  "size_bytes": 3462,
+  "purpose": "Daily maintenance of lifecycle meta labels: meta:has-pr from linked PRs (sync-pr-labels.js) and meta:stale for inactive issues (manage-stale-issues.js).",
+  "triggers": [
+    "schedule: \"0 3 * * *\"",
+    "workflow_dispatch (inputs: dryRun, stalenessThreshold, verbose)"
+  ],
+  "jobs": [
+    {
+      "id": "sync-labels",
+      "summary": "Checkout, setup Node, npm ci; on schedule run both scripts in apply mode (30-day threshold); on dispatch run them in dry-run or apply mode according to dryRun."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/automation/sync-pr-labels.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/automation/manage-stale-issues.js",
+      "exists": true
+    }
+  ],
+  "actions_used": ["actions/checkout@v7", "actions/setup-node@v7"],
+  "labels_referenced": [],
+  "labels_not_in_canonical": [],
+  "script_labels_referenced": [
+    {
+      "label": "meta:has-pr",
+      "evidence": "scripts/automation/sync-pr-labels.js:244"
+    },
+    {
+      "label": "meta:stale",
+      "evidence": "scripts/automation/manage-stale-issues.js:145"
+    },
+    {
+      "label": "priority:critical, status:in-progress, type:epic (stale exemptions)",
+      "evidence": "scripts/automation/manage-stale-issues.js:28"
+    }
+  ],
+  "permissions": {
+    "workflow": {
+      "contents": "read",
+      "issues": "write",
+      "pull-requests": "read"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "Scheduled at 03:00 UTC, the '3am UTC' collision given as an archival reason.",
+      "evidence": ".github/workflows/archived/2026-09-11/README.md:75"
+    },
+    {
+      "issue": "dryRun is free text; any value other than exactly 'true' or 'false' skips every step and the run still reports success.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/meta-labels-sync.yml:58"
+    },
+    {
+      "issue": "Scheduled stale detection hard-codes --days 30 rather than a shared setting.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/meta-labels-sync.yml:54"
+    },
+    {
+      "issue": "Scripts hard-code OWNER/REPO to lightspeedwp/.github.",
+      "evidence": "scripts/automation/sync-pr-labels.js:22"
+    },
+    {
+      "issue": "The manifest describes it as 'Label schema synchronization', but it does not sync label definitions; the name is misleading.",
+      "evidence": ".github/workflows/archived/2026-09-11/ARCHIVED_WORKFLOWS_MANIFEST.md:46"
+    }
+  ],
+  "overlaps_with": [
+    "issue-labeling-automation.yml (02:00) and label-audit-report.yml (04:00) in the same schedule cluster"
+  ]
+}
