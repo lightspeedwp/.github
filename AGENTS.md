@@ -424,7 +424,7 @@ hotspots), no LLM, no key.
   for understanding or editing, the top node IS the answer — cite its
   `covers:` file:line spans and edit straight from `--source`. For
   exhaustive tasks ("every occurrence / every caller of this pattern"), ranked
-  results are top-N, not complete — run `graft grep "<literal>"` instead
+  results are top-N, not complete — run `graft grep --fixed "<literal>"` instead
   (exhaustive over indexed files, grouped by enclosing symbol), falling back
   to raw `grep -rn` only for unindexed files.
 - `graft skeleton <file>` → every definition's signature + span, ~10× cheaper
