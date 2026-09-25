@@ -63,13 +63,13 @@
 
 ## Non-Functional Requirements
 
-- [ ] CHK034 Are audit-trail requirements defined for every destructive action (who ran it, when, which repository, what changed), and where that record is kept? [Gap, Traceability]
-- [ ] CHK035 Are the least-privilege requirements for @ashley's session credentials during deletion runs stated, alongside the CI GitHub App's permissions? [Gap, Spec §FR-018]
+- [x] CHK034 Are audit-trail requirements defined for every destructive action (who ran it, when, which repository, what changed), and where that record is kept? [Gap, Traceability]
+- [x] CHK035 Are the least-privilege requirements for @ashley's session credentials during deletion runs stated, alongside the CI GitHub App's permissions? [Gap, Spec §FR-018]
 
 ## Dependencies & Assumptions
 
-- [ ] CHK036 Is the assumption that GitHub rename preserves issue and PR associations recorded, with how it will be confirmed before the run? [Assumption, Spec §FR-012, Research §R1]
-- [ ] CHK037 Is the dependency on Discussions being enabled (for moving `type:question` issues) recorded with a stated fallback in the spec, not only in research? [Dependency, Spec §FR-014, Research §R4]
+- [x] CHK036 Is the assumption that GitHub rename preserves issue and PR associations recorded, with how it will be confirmed before the run? [Assumption, Spec §FR-012, Research §R1]
+- [x] CHK037 Is the dependency on Discussions being enabled (for moving `type:question` issues) recorded with a stated fallback in the spec, not only in research? [Dependency, Spec §FR-014, Research §R4]
 - [x] CHK038 Is the dependency between the configuration PR merging and the GitHub changes starting stated as a hard requirement in the spec? [Dependency, Spec §FR-009, Plan §Consolidation Execution Plan]
 
 ## Notes
