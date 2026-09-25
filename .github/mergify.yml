@@ -13,8 +13,8 @@
 # that actually merged Dependabot PRs is auto_merge below, so it is kept.
 
 pull_request_rules:
-  # Every open pull request against develop merges it in as soon as it falls
-  # behind, so nothing is ever blocked on staleness alone.
+  # Every open same-repository pull request against develop merges it in as
+  # soon as it falls behind, so nothing is ever blocked on staleness alone.
   #
   # develop's ruleset uses a strict up-to-date policy, so a PR one commit
   # behind is blocked from merging exactly as much as one twenty behind. An
@@ -30,11 +30,15 @@ pull_request_rules:
   # linear history example. A draft is not waiting to merge, and re-running CI
   # on every open draft on every develop push is pure cost.
   #
+  # `-from-fork` excludes forks because Mergify can only write a fork head
+  # branch when the contributor enabled maintainer edits. Without that
+  # permission the action fails and the pull request stays behind, so the rule
+  # must not claim to cover every fork.
+  #
   # `update` rather than `rebase`: `rebase` has to impersonate a GitHub user
   # and cannot impersonate a bot-owned account, so it fails outright on
   # Dependabot pull requests, and it refuses fork pull requests entirely.
-  # `update` merges the base in, needs no impersonation, and works on forks
-  # (https://docs.mergify.com/workflow/actions/rebase/).
+  # `update` merges the base in and needs no impersonation.
   #
   # Mergify skips pull requests in a conflict or already in the merge queue
   # (`queue-position = -1`), so one needing manual conflict resolution still
@@ -45,10 +49,11 @@ pull_request_rules:
   # correct rather than incidental — the code the reviewer approved has moved
   # underneath them — but it does mean a review must be given again after each
   # merge to develop.
-  - name: Keep all pull requests on develop current
+  - name: Keep same-repository pull requests on develop current
     conditions:
       - base=develop
       - -draft
+      - -from-fork
       - -conflict
       - '#commits-behind > 0'
     actions:
