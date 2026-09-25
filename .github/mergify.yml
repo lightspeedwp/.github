@@ -1,9 +1,10 @@
 # Mergify configuration.
 # Schema: https://docs.mergify.com/mergify-configuration-schema.json
 #
-# Scope: Dependabot updates on develop only. The develop ruleset still
-# requires the three required checks and one code-owner approval, so
-# Mergify never merges anything a human has not approved.
+# Scope: keep pull requests current against develop, and auto-merge Dependabot
+# updates once the develop ruleset is satisfied. The ruleset still requires the
+# required checks and one code-owner approval, so Mergify never merges anything
+# a human has not approved.
 #
 # Removed (#3476): the queue, auto-approve, imgbot and meta-agent rules.
 # They gated on a check named "All Checks Passed" that no workflow has
@@ -12,15 +13,49 @@
 # that actually merged Dependabot PRs is auto_merge below, so it is kept.
 
 pull_request_rules:
-  # develop requires branches to be up to date before merging, so rebase
-  # Dependabot PRs whenever develop moves ahead.
-  - name: Keep Dependabot updates on develop current
+  # Every open same-repository pull request against develop merges it in as
+  # soon as it falls behind, so nothing is ever blocked on staleness alone.
+  #
+  # develop's ruleset uses a strict up-to-date policy, so a PR one commit
+  # behind is blocked from merging exactly as much as one twenty behind. An
+  # earlier revision of this rule waited until a PR was more than five commits
+  # behind; that left a band of PRs permanently stuck until they drifted past
+  # the threshold. The threshold is gone so the rule fires at any staleness.
+  #
+  # This replaced a Dependabot-only rule. It is a strict superset of it, so
+  # keeping both would have matched every Dependabot pull request twice and
+  # run the same update action from two rules.
+  #
+  # `-draft` excludes work-in-progress, following Mergify's own documented
+  # linear history example. A draft is not waiting to merge, and re-running CI
+  # on every open draft on every develop push is pure cost.
+  #
+  # `-from-fork` excludes forks because Mergify can only write a fork head
+  # branch when the contributor enabled maintainer edits. Without that
+  # permission the action fails and the pull request stays behind, so the rule
+  # must not claim to cover every fork.
+  #
+  # `update` rather than `rebase`: `rebase` has to impersonate a GitHub user
+  # and cannot impersonate a bot-owned account, so it fails outright on
+  # Dependabot pull requests, and it refuses fork pull requests entirely.
+  # `update` merges the base in and needs no impersonation.
+  #
+  # Mergify skips pull requests in a conflict or already in the merge queue
+  # (`queue-position = -1`), so one needing manual conflict resolution still
+  # reports DIRTY, and a queued one is left to the queue.
+  #
+  # Cost: develop's ruleset sets `dismiss_stale_reviews_on_push`, so this
+  # action dismisses existing approvals on the pull request it touches. That is
+  # correct rather than incidental — the code the reviewer approved has moved
+  # underneath them — but it does mean a review must be given again after each
+  # merge to develop.
+  - name: Keep same-repository pull requests on develop current
     conditions:
-      - author~=^(dependabot\[bot\]|app/dependabot)$
       - base=develop
       - -draft
+      - -from-fork
       - -conflict
-      - "#commits-behind > 0"
+      - '#commits-behind > 0'
     actions:
       update: {}
 
@@ -31,5 +66,11 @@ merge_protections_settings:
   # author on every branch, which previously auto-merged human PRs against
   # an unprotected release branch
   # (https://docs.mergify.com/merge-protections/auto-merge/).
+  #
+  # This is inert unless a `merge_protections` rule below matches the PR, or
+  # the merge queue is enabled: with no matching rule there are no
+  # success_conditions to evaluate, and Mergify reports "does not match any
+  # conditions of the merge protections". Left as-is deliberately — the gate
+  # that matters is the develop ruleset (code-owner review), not Mergify's.
   auto_merge_conditions:
     - author~=^(dependabot\[bot\]|app/dependabot)$
