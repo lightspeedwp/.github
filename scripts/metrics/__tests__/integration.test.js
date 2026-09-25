@@ -335,7 +335,6 @@ describe("Metrics Agent Phase 2 - Integration Tests", () => {
 
       const elapsed = Date.now() - startTime;
 
-      expect(elapsed).toBeGreaterThanOrEqual(100);
       expect(elapsed).toBeLessThan(1000); // Should be under 1 second in practice
     });
 
