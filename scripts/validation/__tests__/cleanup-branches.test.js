@@ -168,9 +168,14 @@ describe('cleanup-branches edge case handling', () => {
   });
 
   it('rejects direct live deletion before invoking repository operations', () => {
-    const script = path.resolve('scripts/cleanup-branches.js');
+    // Resolve from this file, not the Jest working directory, and keep the
+    // skip-main flag set by beforeAll out of the child's environment.
+    const script = path.resolve(__dirname, '../../cleanup-branches.js');
+    const env = { ...process.env };
+    delete env.CLEANUP_BRANCHES_SKIP_MAIN;
     const result = spawnSync(process.execPath, [script, '--dryRun=false', '--verbose'], {
       encoding: 'utf8',
+      env,
     });
 
     expect(result.status).toBe(1);
