@@ -10,8 +10,8 @@ Follows the frontmatter keys used by the existing templates in `.github/ISSUE_TE
 | --- | --- | --- |
 | `name` | `"🧭 Decision"` | Shown in the issue template chooser |
 | `about` | `"Record a decision: context, options considered, outcome and consequences"` | |
-| `title` | `"type:decision: {scope} - {short description}"` | Same pattern as the other templates |
-| `labels` | `["type:decision", "status:needs-triage", "priority:normal"]` | Exactly one `type:*` label; no default `area:*` (the author picks the area) |
+| `title` | `"decision: {scope} - {short description}"` | Short type prefix, like the other templates (`bug:`, `docs:`); listed in `docs/ISSUE_PR_TITLE_GOVERNANCE.md` §5 |
+| `labels` | `["type:decision", "status:needs-triage", "priority:normal", "area:governance"]` | Exactly one `type:*` label. Like every other template it sets one default `area:*`; `area:governance` because most decisions are governance decisions, and the author changes it when another area fits |
 | `recommended_branch` | `"docs/"` | A decision that changes files uses a `docs/` branch, which routes to `pr_docs.md` |
 | `file_type` | `issue-template` | |
 

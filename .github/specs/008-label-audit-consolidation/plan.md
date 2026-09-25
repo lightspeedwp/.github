@@ -223,8 +223,8 @@ Full list: `contracts/issue-types-org-settings.md`: 25 names, labels, hex colour
 Full contract: `contracts/decision-issue-template.md`.
 
 - **File**: `.github/ISSUE_TEMPLATE/06-decision.md`, replacing `06-question.md`
-- **Title**: `type:decision: {scope} - {short description}`
-- **Default labels**: `type:decision`, `status:needs-triage`, `priority:normal`
+- **Title**: `decision: {scope} - {short description}`
+- **Default labels**: `type:decision`, `status:needs-triage`, `priority:normal`, `area:governance`
 - **Recommended branch**: `docs/` (routes to `pr_docs.md`)
 - **Sections**: Summary, Context, Options Considered, Decision, Consequences, Linked Work, then Definition of Ready and Definition of Done
 
