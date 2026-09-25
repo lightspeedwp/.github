@@ -1,0 +1,83 @@
+{
+  "workflow": "validate-issue-labels.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml",
+  "size_bytes": 4689,
+  "purpose": "On issue events, post or update a warning comment listing labels that are not in labels.yml, with guidance on canonical prefixes.",
+  "triggers": ["issues: types [opened, edited, labeled, unlabeled]"],
+  "jobs": [
+    {
+      "id": "validate-issue-labels",
+      "summary": "Checkout (fetch-depth 0), setup Node, npm ci, load labels.yml with js-yaml, skip bot authors, comment (marker-deduplicated) when non-canonical labels are present."
+    }
+  ],
+  "scripts_called": [],
+  "actions_used": ["actions/checkout@v7", "actions/setup-node@v7", "actions/github-script@v9"],
+  "labels_referenced": [
+    "area:ci",
+    "area:docs",
+    "area:labels",
+    "area:security",
+    "meta:blocked",
+    "meta:duplicate",
+    "meta:needs-changelog",
+    "priority:critical",
+    "priority:high",
+    "priority:low",
+    "priority:normal",
+    "status:done",
+    "status:in-progress",
+    "status:needs-triage",
+    "type:bug",
+    "type:documentation",
+    "type:feature",
+    "type:task"
+  ],
+  "labels_not_in_canonical": [
+    "area:docs",
+    "area:labels",
+    "meta:blocked",
+    "meta:duplicate",
+    "type:documentation"
+  ],
+  "permissions": {
+    "workflow": {
+      "contents": "read",
+      "issues": "write"
+    },
+    "validate-issue-labels": {
+      "contents": "read",
+      "issues": "write"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "The guidance comment recommends five labels that are not in labels.yml (type:documentation, area:docs, area:labels, meta:duplicate, meta:blocked).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml:84"
+    },
+    {
+      "issue": "The link './.github/labels.yml' in an issue comment resolves relative to the issue URL and is broken.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml:89"
+    },
+    {
+      "issue": "labeled/unlabeled triggers produce one run per label change (the #3531 event-storm pattern).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml:5"
+    },
+    {
+      "issue": "When labels become canonical the job returns early and leaves the earlier warning comment in place.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml:72"
+    },
+    {
+      "issue": "Full-history checkout and npm ci only to read labels.yml.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/validate-issue-labels.yml:23"
+    },
+    {
+      "issue": "Duplicates the detect-bare-labels job in labeling-governance.yml.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:117"
+    }
+  ],
+  "overlaps_with": [
+    "labeling-governance.yml (detect-bare-labels)",
+    "labeling.yml (issue label events)",
+    "labeling-unified.yml (agent removes non-canonical labels)"
+  ]
+}
