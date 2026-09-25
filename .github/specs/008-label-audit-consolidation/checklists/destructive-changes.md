@@ -40,10 +40,10 @@
 
 ## Acceptance Criteria Quality
 
-- [ ] CHK020 Can SC-009 be measured at a stated point in time, given that the Linear sync can recreate labels during and after the run? [Measurability, Spec §SC-009]
-- [ ] CHK021 Is there an acceptance criterion confirming that no issue or PR lost its only `type:*` label because of a deletion or merge? [Gap, Spec §FR-012, Spec §FR-015]
-- [ ] CHK022 Is there an acceptance criterion that every deleted label has a complete snapshot that allows it to be recreated and reapplied? [Gap, Spec §FR-016, Research §R8]
-- [ ] CHK023 Are acceptance criteria defined for FR-019's native issue-type change (zero issues left on removed types before removal)? [Measurability, Spec §FR-019]
+- [x] CHK020 Can SC-009 be measured at a stated point in time, given that the Linear sync can recreate labels during and after the run? [Measurability, Spec §SC-009]
+- [x] CHK021 Is there an acceptance criterion confirming that no issue or PR lost its only `type:*` label because of a deletion or merge? [Gap, Spec §FR-012, Spec §FR-015]
+- [x] CHK022 Is there an acceptance criterion that every deleted label has a complete snapshot that allows it to be recreated and reapplied? [Gap, Spec §FR-016, Research §R8]
+- [x] CHK023 Are acceptance criteria defined for FR-019's native issue-type change (zero issues left on removed types before removal)? [Measurability, Spec §FR-019]
 
 ## Scenario Coverage
 

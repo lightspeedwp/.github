@@ -208,14 +208,16 @@ As the label governance owner (@ashley), I need GitHub and Linear to share one a
 
 - **SC-001 (Incomplete)**: Audit report identifies all missing labels (those in GitHub but not in the canonical file with 169 labels) with 100% accuracy. This criterion MUST remain incomplete until a verified full repository label set replaces the empty inventory in `github-api-labels.json`
 - **SC-002**: Audit report identifies all label mismatches (different names/colors between files) with 100% accuracy
-- **SC-003**: The audit verifies all 25 issue-type mappings are present and correct in the canonical file, with `type:decision` mapped and `type:question` retired (Stage 0a; the 2026-09-14 audit recorded `type:decision` as unmapped). After consolidation, the type family contains exactly 25 labels, each mapped to one issue type and template, with `type:decision` mapped and `type:question` retired
+- **SC-003**: The audit verifies all 25 issue-type mappings are present and correct in the canonical file, with `type:decision` mapped and `type:question` retired; no issue is left on a removed native issue type, and each of Maintenance, Story and Integration is removed only when its issue count is zero (FR-019) (Stage 0a; the 2026-09-14 audit recorded `type:decision` as unmapped). After consolidation, the type family contains exactly 25 labels, each mapped to one issue type and template, with `type:decision` mapped and `type:question` retired
 - **SC-004**: Audit report identifies ALL duplicate/overlapping labels across families, ranked by consolidation impact and usage frequency. Usage frequency is the total number of open and closed issues and PRs carrying the label, summed across all `lightspeedwp` repositories (from the paginated inventory), plus the label's Linear issue count
 - **SC-005**: All 11 archived workflows are analyzed with documented findings (purpose, issues, recommendations) for each
 - **SC-006**: Audit identifies all discrepancies between canonical `labels.yml` (169 labels) and its documented purpose as "single source of truth", including type label mapping gaps
 - **SC-007**: Audit creates a prioritized roadmap for label family expansion, cleanup, and workflow restoration
 - **SC-008**: All audit findings can be traced to specific files/sections (quotable evidence)
-- **SC-009**: After consolidation, every `lightspeedwp` repository's label set exactly matches `labels.yml` in name, colour and description (zero unapproved labels, zero missing canonical labels, zero colour or description mismatches), and no Linear workspace label exists outside `labels.yml` apart from documented team-scoped project labels
+- **SC-009**: After consolidation, every `lightspeedwp` repository's label set exactly matches `labels.yml` in name, colour and description (zero unapproved labels, zero missing canonical labels, zero colour or description mismatches), and no Linear workspace label exists outside `labels.yml` apart from documented team-scoped project labels. SC-009 is measured by the first scheduled drift report that runs at least 24 hours after Linear clean-up (Stage 5) finishes
 - **SC-010**: Every open spec 008 change request and gate issue awaiting a decision carries `meta:needs-approval`, and no issue still carries it more than one day after its dated approval or rejection is recorded
+- **SC-011**: Every issue and PR that carried a `type:*` label before Stage 3 carries exactly one `type:*` label after Stage 4, checked against the dry-run snapshots (FR-012, FR-015, FR-016)
+- **SC-012**: Every label deleted in Stage 4 has a snapshot entry with its name, colour, description and the numbers of the items that carried it, so it can be recreated and reapplied (FR-016; quickstart Test 12)
 
 ## Assumptions
 
@@ -293,6 +295,7 @@ The audit itself makes no changes to the production label configuration. The app
 - Q: Should repository owners be told before labels are deleted from their repository? → A: Yes, through the gate issue: each repository's dry-run comment mentions the owning team; deletion can run as soon as @ashley approves, with no waiting period
 - Q: What exactly counts as @ashley's approval of a repository's dry run? → A: A comment on the gate issue by @ashleyshaw reading `Approved: <repo> dry run <generated_at>`, checked by the tool against the dry-run file
 - Q: For SC-009's "exactly matches `labels.yml`", what must match? → A: Name, colour and description
+- Q: When should SC-009 be measured? → A: By the first scheduled drift report that runs at least 24 hours after Linear clean-up (Stage 5) finishes
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
