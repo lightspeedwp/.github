@@ -83,7 +83,7 @@ meta,meta:missing-label,E1E4E8,Missing label,N,N,N,N,N,N,GAP,In governance polic
 {
   "audit_date": "2026-09-14",
   "repository": "lightspeedwp/.github",
-  "total_labels": 147,
+  "total_labels": 169,
   "families": {
     "status": {
       "count": 20,
@@ -151,8 +151,8 @@ meta,meta:missing-label,E1E4E8,Missing label,N,N,N,N,N,N,GAP,In governance polic
     }
   },
   "summary": {
-    "total_canonical": 147,
-    "total_in_api": 147,
+    "total_canonical": 169,
+    "total_in_api": 169,
     "total_orphans": 0,
     "total_duplicates": 2,
     "total_ok": 145,
@@ -265,7 +265,7 @@ cut -d, -f11 label-inventory.csv | tail -n +2 | sort | uniq -c
 **Completeness**:
 
 - ✅ Every label in canonical file has one row
-- ✅ All 147 labels accounted for
+- ✅ All 169 labels accounted for
 - ✅ Status field provides audit conclusion for each label
 
 **Formats**: Both CSV and JSON must be consistent with each other.
