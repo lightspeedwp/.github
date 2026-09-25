@@ -1,7 +1,7 @@
 ---
 name: "🧭 Decision"
 about: "Record a decision: context, options considered, outcome and consequences"
-title: "type:decision: {scope} - {short description}"
+title: "decision: {scope} - {short description}"
 labels: ["type:decision", "status:needs-triage", "priority:normal", "area:governance"]
 recommended_branch: "docs/"
 file_type: issue-template

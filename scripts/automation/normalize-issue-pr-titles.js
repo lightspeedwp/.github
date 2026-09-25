@@ -74,6 +74,10 @@ const TYPE_PREFIXES = {
   qa: "qa",
   uat: "uat",
   audit: "audit",
+  decision: "decision",
+  // Question is retired (questions go to Discussions); issues still labelled
+  // type:question keep a question: prefix until they are converted.
+  question: "question",
   task: "chore",
   improvement: "feat",
   improve: "feat",
@@ -185,7 +189,7 @@ async function getTypePrefix(item, owner, repo) {
  */
 function isAlreadyPrefixed(title) {
   const prefixPattern =
-    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit):\s+/i;
+    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|decision|question):\s+/i;
   return prefixPattern.test(title);
 }
 
