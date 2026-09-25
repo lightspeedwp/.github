@@ -7,9 +7,11 @@
 import { existsSync } from "fs";
 import { join } from "path";
 
+// JSON.stringify double-quotes the path (escaping any quotes in it), which bash, zsh and
+// PowerShell all accept, so checkouts whose path contains spaces still work.
 const reminder = (graph) =>
   `[graphify] knowledge graph at ${graph}. For focused questions, run ` +
-  `graphify query "<question>" --graph ${graph} (scoped subgraph, usually much smaller than ` +
+  `graphify query "<question>" --graph ${JSON.stringify(graph)} (scoped subgraph, usually much smaller than ` +
   "GRAPH_REPORT.md) instead of grepping raw files. Read GRAPH_REPORT.md next to it only for " +
   "broad architecture context.";
 
