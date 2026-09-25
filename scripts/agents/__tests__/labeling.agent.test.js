@@ -118,7 +118,7 @@ describe('labeling.agent', () => {
       'summary.md'
     );
     fs.writeFileSync(summaryFile, '');
-    const { calls } = runNodeEsm(
+    const { report, calls } = runNodeEsm(
       `
       const { runLabelingAgent } = await import('./scripts/agents/labeling.agent.js');
       ${FAKE_GITHUB}
@@ -129,11 +129,13 @@ describe('labeling.agent', () => {
           labels: [{ name: 'area:builds' }, { name: 'bug' }],
         } },
       };
-      await runLabelingAgent({ context, github });
-      console.log(JSON.stringify({ calls }));
+      const report = await runLabelingAgent({ context, github });
+      console.log(JSON.stringify({ report, calls }));
     `,
       { DRY_RUN: 'true', GITHUB_STEP_SUMMARY: summaryFile }
     );
+    expect(report.success).toBe(true);
+    expect(report.errors).toEqual([]);
     expect(calls).toEqual([]);
   });
 });
