@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
-const yaml = require("js-yaml");
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
 
 function fail(message) {
   console.error(`[validate-labeling-configs] ${message}`);
@@ -11,7 +11,7 @@ function fail(message) {
 
 function loadYaml(filePath) {
   try {
-    return yaml.load(fs.readFileSync(filePath, "utf8"));
+    return yaml.load(fs.readFileSync(filePath, 'utf8'));
   } catch (error) {
     fail(`Failed to parse ${filePath}: ${error.message}`);
   }
@@ -20,47 +20,42 @@ function loadYaml(filePath) {
 function collectLabelNames(labels) {
   return new Set(
     labels
-      .filter(
-        (item) =>
-          item && typeof item === "object" && typeof item.name === "string",
-      )
-      .map((item) => item.name),
+      .filter((item) => item && typeof item === 'object' && typeof item.name === 'string')
+      .map((item) => item.name)
   );
 }
 
 function assertLabelConfig(labels) {
   const allowedPrefixes = [
-    "status:",
-    "priority:",
-    "type:",
-    "area:",
-    "comp:",
-    "lang:",
-    "env:",
-    "compat:",
-    "cpt:",
-    "ai-ops:",
-    "contrib:",
-    "discussion:",
-    "release:",
-    "meta:",
-    "openspec:",
+    'status:',
+    'priority:',
+    'type:',
+    'area:',
+    'comp:',
+    'lang:',
+    'env:',
+    'compat:',
+    'cpt:',
+    'ai-ops:',
+    'contrib:',
+    'discussion:',
+    'release:',
+    'meta:',
+    'openspec:',
   ];
 
   if (!Array.isArray(labels)) {
-    fail(".github/labels.yml must be an array");
+    fail('.github/labels.yml must be an array');
   }
   labels.forEach((item, index) => {
-    if (typeof item === "string") return;
-    if (!item || typeof item !== "object" || typeof item.name !== "string") {
+    if (typeof item === 'string') return;
+    if (!item || typeof item !== 'object' || typeof item.name !== 'string') {
       fail(`Invalid labels.yml entry at index ${index}`);
     }
-    const hasAllowedPrefix = allowedPrefixes.some((prefix) =>
-      item.name.startsWith(prefix),
-    );
+    const hasAllowedPrefix = allowedPrefixes.some((prefix) => item.name.startsWith(prefix));
     if (!hasAllowedPrefix) {
       fail(
-        `Label '${item.name}' must use a canonical family prefix (${allowedPrefixes.join(", ")})`,
+        `Label '${item.name}' must use a canonical family prefix (${allowedPrefixes.join(', ')})`
       );
     }
   });
@@ -68,21 +63,21 @@ function assertLabelConfig(labels) {
 
 function assertIssueTypeConfig(issueTypes) {
   if (!issueTypes || !Array.isArray(issueTypes.issue_types)) {
-    fail(".github/issue-types.yml must include an issue_types array");
+    fail('.github/issue-types.yml must include an issue_types array');
   }
   issueTypes.issue_types.forEach((item, index) => {
-    if (!item || typeof item !== "object") {
+    if (!item || typeof item !== 'object') {
       fail(`Invalid issue type entry at index ${index}`);
     }
-    if (typeof item.name !== "string" || typeof item.label !== "string") {
+    if (typeof item.name !== 'string' || typeof item.label !== 'string') {
       fail(`Issue type at index ${index} must include name and label`);
     }
   });
 }
 
 function assertLabelerConfig(labeler) {
-  if (!labeler || typeof labeler !== "object" || Array.isArray(labeler)) {
-    fail(".github/labeler.yml must be an object map");
+  if (!labeler || typeof labeler !== 'object' || Array.isArray(labeler)) {
+    fail('.github/labeler.yml must be an object map');
   }
 
   for (const [label, rules] of Object.entries(labeler)) {
@@ -93,11 +88,11 @@ function assertLabelerConfig(labeler) {
     // rejected here (#3545).
     if (!Array.isArray(rules) || rules.length === 0) {
       fail(
-        `Rule for '${label}' must be a non-empty array of rule objects (each must include 'changed-files', 'head-branch', 'all', or 'any')`,
+        `Rule for '${label}' must be a non-empty array of rule objects (each must include 'changed-files', 'head-branch', 'all', or 'any')`
       );
     }
     const ruleList = rules;
-    if (ruleList.some((r) => !r || typeof r !== "object" || Array.isArray(r))) {
+    if (ruleList.some((r) => !r || typeof r !== 'object' || Array.isArray(r))) {
       fail(`Rule for '${label}' must be an object or an array of objects`);
     }
 
@@ -108,42 +103,42 @@ function assertLabelerConfig(labeler) {
 }
 
 // Match keys accepted by the pinned actions/labeler inside one rule object.
-const ALLOWED_RULE_KEYS = ["changed-files", "head-branch", "all", "any"];
+const ALLOWED_RULE_KEYS = ['changed-files', 'head-branch', 'all', 'any'];
 const ALLOWED_CHANGED_FILES_KEYS = [
-  "any-glob-to-any-file",
-  "any-glob-to-all-files",
-  "all-globs-to-any-file",
-  "all-globs-to-all-files",
+  'any-glob-to-any-file',
+  'any-glob-to-all-files',
+  'all-globs-to-any-file',
+  'all-globs-to-all-files',
 ];
 
-function assertRuleObjectShape(label, rule, location = "rule") {
-  if (!rule || typeof rule !== "object" || Array.isArray(rule)) {
+function assertRuleObjectShape(label, rule, location = 'rule') {
+  if (!rule || typeof rule !== 'object' || Array.isArray(rule)) {
     fail(`Rule for '${label}' ${location} must be an object`);
   }
 
   for (const key of Object.keys(rule)) {
     if (!ALLOWED_RULE_KEYS.includes(key)) {
       fail(
-        `Rule for '${label}' uses unknown match key '${key}' (allowed: ${ALLOWED_RULE_KEYS.join(", ")})`,
+        `Rule for '${label}' uses unknown match key '${key}' (allowed: ${ALLOWED_RULE_KEYS.join(', ')})`
       );
     }
   }
 
-  const hasHeadBranch = Object.prototype.hasOwnProperty.call(rule, "head-branch");
-  const hasChangedFiles = Object.prototype.hasOwnProperty.call(rule, "changed-files");
-  const hasAll = Object.prototype.hasOwnProperty.call(rule, "all");
-  const hasAny = Object.prototype.hasOwnProperty.call(rule, "any");
+  const hasHeadBranch = Object.prototype.hasOwnProperty.call(rule, 'head-branch');
+  const hasChangedFiles = Object.prototype.hasOwnProperty.call(rule, 'changed-files');
+  const hasAll = Object.prototype.hasOwnProperty.call(rule, 'all');
+  const hasAny = Object.prototype.hasOwnProperty.call(rule, 'any');
 
   if (!hasHeadBranch && !hasChangedFiles && !hasAll && !hasAny) {
     fail(
-      `Rule for '${label}' ${location} must include 'head-branch', 'changed-files', 'all', or 'any'`,
+      `Rule for '${label}' ${location} must include 'head-branch', 'changed-files', 'all', or 'any'`
     );
   }
 
   if (hasHeadBranch) assertHeadBranchShape(label, rule);
   if (hasChangedFiles) assertChangedFilesShape(label, rule);
 
-  for (const group of ["all", "any"]) {
+  for (const group of ['all', 'any']) {
     if (!Object.prototype.hasOwnProperty.call(rule, group)) continue;
     const members = rule[group];
     if (!Array.isArray(members) || members.length === 0) {
@@ -156,53 +151,42 @@ function assertRuleObjectShape(label, rule, location = "rule") {
 }
 
 function assertChangedFilesShape(label, rule) {
-  const value = rule["changed-files"];
+  const value = rule['changed-files'];
   if (!Array.isArray(value) || value.length === 0) {
-    fail(
-      `Rule for '${label}' must use a non-empty list of changed-files matcher objects`,
-    );
+    fail(`Rule for '${label}' must use a non-empty list of changed-files matcher objects`);
   }
 
   value.forEach((matcher, matcherIndex) => {
-    if (!matcher || typeof matcher !== "object" || Array.isArray(matcher)) {
-      fail(
-        `Rule for '${label}' changed-files matcher ${matcherIndex} must be an object`,
-      );
+    if (!matcher || typeof matcher !== 'object' || Array.isArray(matcher)) {
+      fail(`Rule for '${label}' changed-files matcher ${matcherIndex} must be an object`);
     }
 
     const entries = Object.entries(matcher);
     if (entries.length === 0) {
-      fail(
-        `Rule for '${label}' changed-files matcher ${matcherIndex} must not be empty`,
-      );
+      fail(`Rule for '${label}' changed-files matcher ${matcherIndex} must not be empty`);
     }
 
     for (const [key, globs] of entries) {
       if (!ALLOWED_CHANGED_FILES_KEYS.includes(key)) {
         fail(
-          `Rule for '${label}' uses unknown changed-files matcher '${key}' (allowed: ${ALLOWED_CHANGED_FILES_KEYS.join(", ")})`,
+          `Rule for '${label}' uses unknown changed-files matcher '${key}' (allowed: ${ALLOWED_CHANGED_FILES_KEYS.join(', ')})`
         );
       }
       if (
         !Array.isArray(globs) ||
         globs.length === 0 ||
-        globs.some((g) => typeof g !== "string" || g.length === 0)
+        globs.some((g) => typeof g !== 'string' || g.length === 0)
       ) {
-        fail(
-          `Rule for '${label}' matcher '${key}' must list at least one glob string`,
-        );
+        fail(`Rule for '${label}' matcher '${key}' must list at least one glob string`);
       }
     }
   });
 }
 
 function assertHeadBranchShape(label, rule) {
-  const value = rule["head-branch"];
+  const value = rule['head-branch'];
   const list = Array.isArray(value) ? value : [value];
-  if (
-    list.length === 0 ||
-    list.some((p) => typeof p !== "string" || p.length === 0)
-  ) {
+  if (list.length === 0 || list.some((p) => typeof p !== 'string' || p.length === 0)) {
     fail(`Rule for '${label}' must list at least one head-branch pattern`);
   }
 }
@@ -213,16 +197,43 @@ function assertLabelerParity(labeler, labelNames) {
 
   if (missingLabels.length > 0) {
     fail(
-      `.github/labeler.yml emits labels not defined in .github/labels.yml (${missingLabels.length}): ${missingLabels.join(", ")}`,
+      `.github/labeler.yml emits labels not defined in .github/labels.yml (${missingLabels.length}): ${missingLabels.join(', ')}`
     );
   }
 }
 
 function assertBranchLabelsParity(branchLabels, labelNames) {
-  const mapping = (branchLabels || {}).branch_labels || {};
+  if (!branchLabels || typeof branchLabels !== 'object' || Array.isArray(branchLabels)) {
+    fail('.github/branch-labels.yml must be an object');
+  }
+
+  const mapping = branchLabels.branch_labels;
+  if (!mapping || typeof mapping !== 'object' || Array.isArray(mapping)) {
+    fail('.github/branch-labels.yml must include a branch_labels object');
+  }
+
+  const branchTypes = Object.keys(mapping);
+  if (branchTypes.length === 0) {
+    fail('.github/branch-labels.yml branch_labels must not be empty');
+  }
+
+  for (const branchType of branchTypes) {
+    const config = mapping[branchType];
+    if (!config || typeof config !== 'object' || Array.isArray(config)) {
+      fail(`branch_labels.${branchType} must be an object`);
+    }
+    const defaultLabels = config.default_labels;
+    if (!Array.isArray(defaultLabels) || defaultLabels.length === 0) {
+      fail(`branch_labels.${branchType}.default_labels must be a non-empty array`);
+    }
+    if (defaultLabels.some((label) => typeof label !== 'string' || label.length === 0)) {
+      fail(`branch_labels.${branchType}.default_labels must contain non-empty label strings`);
+    }
+  }
+
   const bad = [];
   for (const [branchType, config] of Object.entries(mapping)) {
-    for (const label of (config && config.default_labels) || []) {
+    for (const label of config.default_labels) {
       if (!labelNames.has(label)) {
         bad.push(`${branchType} -> ${label}`);
       }
@@ -230,50 +241,43 @@ function assertBranchLabelsParity(branchLabels, labelNames) {
   }
   if (bad.length > 0) {
     fail(
-      `.github/branch-labels.yml default_labels not defined in .github/labels.yml (${bad.length}): ${bad.join(", ")}`,
+      `.github/branch-labels.yml default_labels not defined in .github/labels.yml (${bad.length}): ${bad.join(', ')}`
     );
   }
 }
 
 function assertGovernancePolicy(policy) {
-  if (!policy || typeof policy !== "object" || Array.isArray(policy)) {
-    fail(".github/label-governance-policy.yml must be an object");
+  if (!policy || typeof policy !== 'object' || Array.isArray(policy)) {
+    fail('.github/label-governance-policy.yml must be an object');
   }
 
   const cleanup = policy.destructive_cleanup;
-  if (!cleanup || typeof cleanup !== "object" || Array.isArray(cleanup)) {
-    fail(
-      ".github/label-governance-policy.yml must include destructive_cleanup object",
-    );
+  if (!cleanup || typeof cleanup !== 'object' || Array.isArray(cleanup)) {
+    fail('.github/label-governance-policy.yml must include destructive_cleanup object');
   }
 
-  if (typeof cleanup.enabled !== "boolean") {
-    fail("destructive_cleanup.enabled must be a boolean");
+  if (typeof cleanup.enabled !== 'boolean') {
+    fail('destructive_cleanup.enabled must be a boolean');
   }
 
   if (
     cleanup.approved_orphan_labels !== undefined &&
     !Array.isArray(cleanup.approved_orphan_labels)
   ) {
-    fail("destructive_cleanup.approved_orphan_labels must be an array");
+    fail('destructive_cleanup.approved_orphan_labels must be an array');
   }
 
-  if (
-    cleanup.never_delete_labels !== undefined &&
-    !Array.isArray(cleanup.never_delete_labels)
-  ) {
-    fail("destructive_cleanup.never_delete_labels must be an array");
+  if (cleanup.never_delete_labels !== undefined && !Array.isArray(cleanup.never_delete_labels)) {
+    fail('destructive_cleanup.never_delete_labels must be an array');
   }
 }
 
 const root = process.cwd();
-const labels = loadYaml(path.join(root, ".github/labels.yml"));
-const issueTypes = loadYaml(path.join(root, ".github/issue-types.yml"));
-const labeler = loadYaml(path.join(root, ".github/labeler.yml"));
-const branchLabels = loadYaml(path.join(root, ".github/branch-labels.yml"));
-const governancePolicy = loadYaml(
-  path.join(root, ".github/label-governance-policy.yml"),
-);
+const labels = loadYaml(path.join(root, '.github/labels.yml'));
+const issueTypes = loadYaml(path.join(root, '.github/issue-types.yml'));
+const labeler = loadYaml(path.join(root, '.github/labeler.yml'));
+const branchLabels = loadYaml(path.join(root, '.github/branch-labels.yml'));
+const governancePolicy = loadYaml(path.join(root, '.github/label-governance-policy.yml'));
 
 assertLabelConfig(labels);
 assertIssueTypeConfig(issueTypes);
@@ -282,4 +286,4 @@ assertLabelerParity(labeler, collectLabelNames(labels));
 assertBranchLabelsParity(branchLabels, collectLabelNames(labels));
 assertGovernancePolicy(governancePolicy);
 
-console.log("[validate-labeling-configs] OK");
+console.log('[validate-labeling-configs] OK');

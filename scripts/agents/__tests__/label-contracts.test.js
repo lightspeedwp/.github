@@ -294,16 +294,17 @@ describe('label governance contracts (#3545)', () => {
   });
 
   describe('labeler schema contract', () => {
-    function runValidatorWithLabeler(labelerObject) {
+    function runValidatorWithLabeler(labelerObject, branchLabelsOverride) {
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'labeler-schema-'));
       fs.mkdirSync(path.join(dir, '.github'), { recursive: true });
-      for (const file of [
-        'labels.yml',
-        'issue-types.yml',
-        'label-governance-policy.yml',
-        'branch-labels.yml',
-      ]) {
+      for (const file of ['labels.yml', 'issue-types.yml', 'label-governance-policy.yml']) {
         fs.copyFileSync(path.join(REPO_ROOT, '.github', file), path.join(dir, '.github', file));
+      }
+      const branchLabelsPath = path.join(dir, '.github', 'branch-labels.yml');
+      if (branchLabelsOverride === undefined) {
+        fs.copyFileSync(path.join(REPO_ROOT, '.github', 'branch-labels.yml'), branchLabelsPath);
+      } else {
+        fs.writeFileSync(branchLabelsPath, yaml.dump(branchLabelsOverride));
       }
       fs.writeFileSync(path.join(dir, '.github', 'labeler.yml'), yaml.dump(labelerObject));
       return spawnSync(
@@ -378,6 +379,25 @@ describe('label governance contracts (#3545)', () => {
         'area:testing': [{ 'changed-files': [{ 'fuzzy-glob': ['tests/**/*'] }] }],
       });
       expect(result.status).not.toBe(0);
+    });
+
+    test.each([
+      ['missing branch_labels', {}],
+      ['sequence branch_labels', { branch_labels: [] }],
+      ['empty branch_labels', { branch_labels: {} }],
+      ['missing default_labels', { branch_labels: { fix: { area_keywords: [] } } }],
+    ])('branch-label config rejects %s', (_name, branchLabels) => {
+      const result = runValidatorWithLabeler({}, branchLabels);
+      expect(result.status).not.toBe(0);
+      expect(result.stderr).toMatch(/branch_labels|default_labels/);
+    });
+
+    test('branch-label config accepts a canonical default mapping', () => {
+      const result = runValidatorWithLabeler(
+        {},
+        { branch_labels: { fix: { default_labels: ['type:bug'] } } }
+      );
+      expect(result.status).toBe(0);
     });
   });
 
