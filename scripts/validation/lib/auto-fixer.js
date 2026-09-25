@@ -10,7 +10,7 @@ export class AutoFixer {
   constructor(options = {}) {
     this.rootDir = options.rootDir || process.cwd();
     this.dryRun = options.dryRun || false;
-    this.backup = options.backup || true;
+    this.backup = options.backup ?? true;
     this.fixes = [];
   }
 

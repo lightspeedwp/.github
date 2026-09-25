@@ -86,6 +86,13 @@ describe("validateAndApplyLabels", () => {
       expect(result.valid).toBe(false);
       expect(result.errors).toContain("multiple-changelog-decision-labels");
     });
+
+    test("should treat explicit labels:null like an empty array (#3538)", async () => {
+      const result = await validateAndApplyLabels({ labels: null });
+
+      expect(result.valid).toBe(false);
+      expect(result.errors).toContain("missing-changelog-decision-label");
+    });
   });
 
   describe("Branch Type Label Mapping", () => {
@@ -574,6 +581,19 @@ describe("validateAndApplyLabels", () => {
 
       expect(result.valid).toBe(true);
       expect(result.appliedLabels).toContain("area:docs/api");
+    });
+
+    test("should treat explicit labels:null in branch-mapping mode (#3538)", async () => {
+      const result = await validateAndApplyLabels({
+        branchType: "fix",
+        templateFile: "pr_bug.md",
+        labels: null,
+      });
+
+      expect(result.appliedLabels).toContain("type:bug");
+      expect(result.validationErrors).toContain(
+        "Exactly one changelog-decision label (meta:needs-changelog or meta:no-changelog) is required",
+      );
     });
   });
 });
