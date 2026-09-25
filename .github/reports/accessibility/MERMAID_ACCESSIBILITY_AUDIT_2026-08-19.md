@@ -27,7 +27,7 @@ Comprehensive accessibility enhancements applied to all Mermaid diagrams in the 
 
 Every diagram now includes an `accTitle:` field with a semantic, auto-generated title based on diagram type:
 
-```mermaid
+```text
 accTitle: Contribution workflow
 ```
 
@@ -50,7 +50,7 @@ accTitle: Contribution workflow
 
 Every diagram includes an `accDescr:` field with semantic context:
 
-```mermaid
+```text
 accDescr: Visual diagram showing structure, relationships, and flow
 ```
 
@@ -60,7 +60,7 @@ This allows screen readers to convey diagram intent to users with visual disabil
 
 Added Mermaid accessibility initialization config to enable:
 
-```mermaid
+```text
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 ```
 
@@ -166,7 +166,7 @@ Verified all diagram color schemes meet WCAG AA standards:
 
 ### Before
 
-```mermaid
+```text
 flowchart TD
   A[Start] --> B[Process]
   B --> C[End]
