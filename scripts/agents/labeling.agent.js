@@ -11,109 +11,99 @@
  * @author LightSpeedWP
  */
 
-import fs from "fs";
-import { load } from "js-yaml";
-import * as core from "@actions/core";
-import * as github from "@actions/github";
-import {
-  buildLabelAliasMap,
-  findStandardLabel,
-} from "./includes/label-lookup.js";
+import fs from 'fs';
+import { load } from 'js-yaml';
+import * as core from '@actions/core';
+import * as github from '@actions/github';
+import { buildLabelAliasMap, findStandardLabel } from './includes/label-lookup.js';
 import {
   enforceOneHotLabels,
   applyDefaultStatus,
   applyDefaultPriority,
   applyDefaultType,
-} from "./includes/status-enforcer.js";
-import {
-  fetchLabelerRules,
-  applyLabelerRules,
-} from "./includes/labeler-utils.js";
-import {
-  buildLabelingReport,
-} from "./includes/label-reporting.js";
+} from './includes/status-enforcer.js';
+import { fetchLabelerRules, applyLabelerRules } from './includes/labeler-utils.js';
+import { buildLabelingReport } from './includes/label-reporting.js';
 
 // Environment configurable paths (fallback to repo defaults)
-const LABELS_CONFIG = process.env.LABELS_CONFIG || ".github/labels.yml";
-const LABELER_RULES = process.env.LABELER_RULES || ".github/labeler.yml";
+const LABELS_CONFIG = process.env.LABELS_CONFIG || '.github/labels.yml';
+const LABELER_RULES = process.env.LABELER_RULES || '.github/labeler.yml';
 
 // Enhanced content-based type detection heuristics
 const KEYWORD_TYPE_MAP = {
-  bug: "type:bug",
-  fix: "type:bug",
-  "fixes #": "type:bug",
-  "closes #": "type:bug",
-  defect: "type:bug",
-  error: "type:bug",
-  issue: "type:bug",
-  feature: "type:feature",
-  feat: "type:feature",
-  enhancement: "type:feature",
-  "new feature": "type:feature",
-  improvement: "type:feature",
-  docs: "type:documentation",
-  doc: "type:documentation",
-  documentation: "type:documentation",
-  readme: "type:documentation",
-  guide: "type:documentation",
-  test: "type:test",
-  testing: "type:test",
-  "unit test": "type:test",
-  "integration test": "type:test",
-  perf: "type:performance",
-  performance: "type:performance",
-  optimization: "type:performance",
-  optimize: "type:performance",
-  security: "type:security",
-  vulnerability: "type:security",
-  cve: "type:security",
-  refactor: "type:refactor",
-  refactoring: "type:refactor",
-  restructure: "type:refactor",
-  chore: "type:chore",
-  maintenance: "type:chore",
-  cleanup: "type:chore",
-  dependencies: "type:dependencies",
-  dependency: "type:dependencies",
-  "bump version": "type:dependencies",
-  ci: "type:ci",
-  "continuous integration": "type:ci",
-  workflow: "type:ci",
-  a11y: "type:accessibility",
-  accessibility: "type:accessibility",
-  wcag: "type:accessibility",
+  bug: 'type:bug',
+  fix: 'type:bug',
+  'fixes #': 'type:bug',
+  'closes #': 'type:bug',
+  defect: 'type:bug',
+  error: 'type:bug',
+  issue: 'type:bug',
+  feature: 'type:feature',
+  feat: 'type:feature',
+  enhancement: 'type:feature',
+  'new feature': 'type:feature',
+  improvement: 'type:feature',
+  docs: 'type:docs',
+  doc: 'type:docs',
+  documentation: 'type:docs',
+  readme: 'type:docs',
+  guide: 'type:docs',
+  test: 'type:test',
+  testing: 'type:test',
+  'unit test': 'type:test',
+  'integration test': 'type:test',
+  perf: 'type:performance',
+  performance: 'type:performance',
+  optimization: 'type:performance',
+  optimize: 'type:performance',
+  security: 'type:security',
+  vulnerability: 'type:security',
+  cve: 'type:security',
+  refactor: 'type:refactor',
+  refactoring: 'type:refactor',
+  restructure: 'type:refactor',
+  chore: 'type:chore',
+  maintenance: 'type:chore',
+  cleanup: 'type:chore',
+  dependencies: 'type:dependency',
+  dependency: 'type:dependency',
+  'bump version': 'type:dependency',
+  ci: 'type:ci',
+  'continuous integration': 'type:ci',
+  workflow: 'type:ci',
+  a11y: 'type:a11y',
+  accessibility: 'type:a11y',
+  wcag: 'type:a11y',
 };
 
 // Branch prefix to type mapping for PRs
 const BRANCH_PREFIX_TYPE_MAP = {
-  "feat/": "type:feature",
-  "feature/": "type:feature",
-  "fix/": "type:bug",
-  "bugfix/": "type:bug",
-  "hotfix/": "type:bug",
-  "docs/": "type:documentation",
-  "doc/": "type:documentation",
-  "test/": "type:test",
-  "tests/": "type:test",
-  "perf/": "type:performance",
-  "refactor/": "type:refactor",
-  "chore/": "type:chore",
-  "ci/": "type:ci",
-  "deps/": "type:dependencies",
-  "security/": "type:security",
-  "a11y/": "type:accessibility",
+  'feat/': 'type:feature',
+  'feature/': 'type:feature',
+  'fix/': 'type:bug',
+  'bugfix/': 'type:bug',
+  'hotfix/': 'type:bug',
+  'docs/': 'type:docs',
+  'doc/': 'type:docs',
+  'test/': 'type:test',
+  'tests/': 'type:test',
+  'perf/': 'type:performance',
+  'refactor/': 'type:refactor',
+  'chore/': 'type:chore',
+  'ci/': 'type:ci',
+  'deps/': 'type:dependency',
+  'security/': 'type:security',
+  'a11y/': 'type:a11y',
 };
 
 function readYamlArrayFile(path, purpose) {
   if (!fs.existsSync(path)) {
     throw new Error(`[labeling.agent] Missing ${purpose} file at: ${path}`);
   }
-  const raw = fs.readFileSync(path, "utf8");
+  const raw = fs.readFileSync(path, 'utf8');
   const data = load(raw);
   if (!Array.isArray(data)) {
-    throw new Error(
-      `[labeling.agent] Expected array in ${purpose} file: ${path}`,
-    );
+    throw new Error(`[labeling.agent] Expected array in ${purpose} file: ${path}`);
   }
   return data;
 }
@@ -123,8 +113,8 @@ function readYamlArrayFile(path, purpose) {
  * @returns {Set<string>} Set of canonical label names.
  */
 function loadCanonicalLabels() {
-  const labelsData = readYamlArrayFile(LABELS_CONFIG, "labels config");
-  return new Set(labelsData.map((l) => (typeof l === "string" ? l : l.name)));
+  const labelsData = readYamlArrayFile(LABELS_CONFIG, 'labels config');
+  return new Set(labelsData.map((l) => (typeof l === 'string' ? l : l.name)));
 }
 
 /**
@@ -132,7 +122,7 @@ function loadCanonicalLabels() {
  * @returns {Object} aliasMap - Maps alias to canonical label.
  */
 function loadAliasMap() {
-  const labelsData = readYamlArrayFile(LABELS_CONFIG, "labels config");
+  const labelsData = readYamlArrayFile(LABELS_CONFIG, 'labels config');
   return buildLabelAliasMap(labelsData);
 }
 
@@ -141,15 +131,13 @@ function loadAliasMap() {
  * @param {string} branchName - Branch name to analyze
  * @returns {string|null} Canonical type label or null if none matched
  */
-function detectTypeFromBranch(branchName = "") {
+function detectTypeFromBranch(branchName = '') {
   if (!branchName) return null;
 
   const lowerBranch = branchName.toLowerCase();
   for (const [prefix, typeLabel] of Object.entries(BRANCH_PREFIX_TYPE_MAP)) {
     if (lowerBranch.startsWith(prefix)) {
-      core.info(
-        `[labeling.agent] Detected type from branch prefix '${prefix}': ${typeLabel}`,
-      );
+      core.info(`[labeling.agent] Detected type from branch prefix '${prefix}': ${typeLabel}`);
       return typeLabel;
     }
   }
@@ -163,14 +151,12 @@ function detectTypeFromBranch(branchName = "") {
  * @param {string} body - Issue/PR body
  * @returns {string|null} Canonical type label or null if none matched
  */
-function detectIssueTypeFromContent(title = "", body = "") {
+function detectIssueTypeFromContent(title = '', body = '') {
   // Check title first (higher confidence)
   const lowerTitle = title.toLowerCase();
   for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
     if (lowerTitle.includes(keyword.toLowerCase())) {
-      core.info(
-        `[labeling.agent] Detected type from title keyword '${keyword}': ${typeLabel}`,
-      );
+      core.info(`[labeling.agent] Detected type from title keyword '${keyword}': ${typeLabel}`);
       return typeLabel;
     }
   }
@@ -179,9 +165,7 @@ function detectIssueTypeFromContent(title = "", body = "") {
   const lowerBody = body.toLowerCase();
   for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
     if (lowerBody.includes(keyword.toLowerCase())) {
-      core.info(
-        `[labeling.agent] Detected type from body keyword '${keyword}': ${typeLabel}`,
-      );
+      core.info(`[labeling.agent] Detected type from body keyword '${keyword}': ${typeLabel}`);
       return typeLabel;
     }
   }
@@ -190,7 +174,13 @@ function detectIssueTypeFromContent(title = "", body = "") {
 }
 
 /**
- * Removes or migrates any label on an issue/PR that is not in the canonical set.
+ * Migrates labels that are not in the canonical set.
+ *
+ * A label with a canonical mapping (an alias in labels.yml) is replaced by its
+ * canonical label. A label with no mapping is kept unless `removeUnmapped` is
+ * true: spec 008 FR-022 forbids removing labels only because they are missing
+ * from labels.yml until the approved consolidation mapping exists.
+ *
  * @param {Object} github - Octokit instance.
  * @param {string} owner
  * @param {string} repo
@@ -198,8 +188,10 @@ function detectIssueTypeFromContent(title = "", body = "") {
  * @param {string[]} currentLabels
  * @param {Set<string>} canonicalSet
  * @param {Object} aliasMap
- * @param {boolean} dryRun
+ * @param {boolean} dryRun - When true, no API call is made.
  * @param {function} log
+ * @param {boolean} [removeUnmapped=false] - Remove labels that have no mapping.
+ * @returns {Promise<{migrated: string[], removed: string[], kept: string[]}>}
  */
 async function standardizeLabelsOnItem(
   github,
@@ -211,38 +203,45 @@ async function standardizeLabelsOnItem(
   aliasMap = {},
   dryRun = false,
   log = console.log,
+  removeUnmapped = false
 ) {
+  const result = { migrated: [], removed: [], kept: [] };
   for (const label of currentLabels) {
-    if (!canonicalSet.has(label)) {
-      // Migrate legacy/alias to canonical
-      const canonical = findStandardLabel(label, aliasMap, canonicalSet);
-      if (canonical) {
-        if (!dryRun) {
-          await github.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: number,
-            labels: [canonical],
-          });
-        }
-        log(
-          `[labeling.agent] Migrated: ${label} -> ${canonical} on #${number}`,
-        );
-      }
-      // Remove non-canonical label
+    if (canonicalSet.has(label)) continue;
+
+    const canonical = findStandardLabel(label, aliasMap, canonicalSet);
+    if (!canonical && !removeUnmapped) {
+      result.kept.push(label);
+      log(`[labeling.agent] Kept non-canonical label with no mapping: ${label} on #${number}`);
+      continue;
+    }
+
+    if (canonical) {
       if (!dryRun) {
-        await github.rest.issues.removeLabel({
+        await github.rest.issues.addLabels({
           owner,
           repo,
           issue_number: number,
-          name: label,
+          labels: [canonical],
         });
       }
-      log(
-        `[labeling.agent] Removed non-canonical label: ${label} from #${number}`,
-      );
+      result.migrated.push(`${label} -> ${canonical}`);
+      log(`[labeling.agent] Migrated: ${label} -> ${canonical} on #${number}`);
+    } else {
+      result.removed.push(label);
     }
+
+    if (!dryRun) {
+      await github.rest.issues.removeLabel({
+        owner,
+        repo,
+        issue_number: number,
+        name: label,
+      });
+    }
+    log(`[labeling.agent] Removed non-canonical label: ${label} from #${number}`);
   }
+  return result;
 }
 
 /**
@@ -250,7 +249,8 @@ async function standardizeLabelsOnItem(
  * @param {Object} opts - Configuration options
  * @param {Object} [opts.context=github.context] - GitHub context
  * @param {Object} [opts.github] - Octokit instance
- * @param {boolean} [opts.dryRun=false] - Dry run mode
+ * @param {boolean} [opts.dryRun] - Dry run mode; defaults to the DRY_RUN environment variable
+ * @param {boolean} [opts.removeUnmapped] - Remove labels with no canonical mapping; defaults to the LABELING_REMOVE_UNMAPPED environment variable (off)
  * @param {number} [opts.maxRetries=3] - Maximum retry attempts for API calls
  * @returns {Promise<Object>} Report object with summary of actions taken
  */
@@ -270,11 +270,9 @@ async function runLabelingAgent(opts = {}) {
     // Initialize context and GitHub client
     const context = opts.context || github.context;
     const octokit =
-      opts.github ||
-      github.getOctokit(
-        core.getInput("github-token") || process.env.GITHUB_TOKEN,
-      );
-    const dryRun = !!opts.dryRun;
+      opts.github || github.getOctokit(core.getInput('github-token') || process.env.GITHUB_TOKEN);
+    const dryRun = opts.dryRun ?? process.env.DRY_RUN === 'true';
+    const removeUnmapped = opts.removeUnmapped ?? process.env.LABELING_REMOVE_UNMAPPED === 'true';
     const maxRetries = opts.maxRetries || 3;
 
     const owner = context.repo.owner;
@@ -288,42 +286,32 @@ async function runLabelingAgent(opts = {}) {
         : null;
 
     if (!number) {
-      core.info("[labeling.agent] No issue or PR in context");
+      core.info('[labeling.agent] No issue or PR in context');
       report.success = true;
       report.duration = Date.now() - startTime;
       return report;
     }
 
-    core.info(
-      `[labeling.agent] Processing ${isPR ? "PR" : "Issue"} #${number}`,
-    );
+    core.info(`[labeling.agent] Processing ${isPR ? 'PR' : 'Issue'} #${number}`);
     if (dryRun) {
-      core.info("[labeling.agent] Running in DRY RUN mode");
+      core.info('[labeling.agent] Running in DRY RUN mode');
     }
 
     // Load canonical configurations with error handling
     let canonicalSet, aliasMap, labelerRules;
     try {
-      core.startGroup("Loading canonical configurations");
+      core.startGroup('Loading canonical configurations');
       canonicalSet = loadCanonicalLabels();
-      core.info(
-        `[labeling.agent] Loaded ${canonicalSet.size} canonical labels`,
-      );
+      core.info(`[labeling.agent] Loaded ${canonicalSet.size} canonical labels`);
 
       aliasMap = loadAliasMap();
-      core.info(
-        `[labeling.agent] Loaded ${Object.keys(aliasMap).length} label aliases`,
-      );
+      core.info(`[labeling.agent] Loaded ${Object.keys(aliasMap).length} label aliases`);
 
       labelerRules = fetchLabelerRules(LABELER_RULES);
-      core.info(
-        `[labeling.agent] Loaded ${Object.keys(labelerRules).length} labeler rules`,
-      );
+      core.info(`[labeling.agent] Loaded ${Object.keys(labelerRules).length} labeler rules`);
       core.endGroup();
     } catch (error) {
-      core.error(
-        `[labeling.agent] Configuration loading failed: ${error.message}`,
-      );
+      core.error(`[labeling.agent] Configuration loading failed: ${error.message}`);
       core.endGroup();
       report.errors.push(`Configuration error: ${error.message}`);
       core.setFailed(error.message);
@@ -337,12 +325,12 @@ async function runLabelingAgent(opts = {}) {
       : (context.payload.pull_request.labels || []).map((l) => l.name);
 
     core.info(
-      `[labeling.agent] Current labels (${currentLabels.length}): ${currentLabels.join(", ") || "none"}`,
+      `[labeling.agent] Current labels (${currentLabels.length}): ${currentLabels.join(', ') || 'none'}`
     );
 
     // Step 1: Apply labeler rules (branch patterns and file changes)
     try {
-      core.startGroup("Applying labeler rules");
+      core.startGroup('Applying labeler rules');
       const appliedFromRules = await applyLabelerRules({
         github: octokit,
         context,
@@ -354,15 +342,11 @@ async function runLabelingAgent(opts = {}) {
 
       if (appliedFromRules.length > 0) {
         report.added.push(...appliedFromRules);
-        report.rulesApplied.push(
-          `File/branch patterns matched: ${appliedFromRules.join(", ")}`,
-        );
+        report.rulesApplied.push(`File/branch patterns matched: ${appliedFromRules.join(', ')}`);
       }
       core.endGroup();
     } catch (error) {
-      core.warning(
-        `[labeling.agent] Labeler rules application failed: ${error.message}`,
-      );
+      core.warning(`[labeling.agent] Labeler rules application failed: ${error.message}`);
       report.errors.push(`Labeler rules error: ${error.message}`);
       core.endGroup();
     }
@@ -385,16 +369,14 @@ async function runLabelingAgent(opts = {}) {
           report.rulesApplied.push(`Branch prefix detection: ${branchType}`);
         }
       } catch (error) {
-        core.warning(
-          `[labeling.agent] Branch type detection failed: ${error.message}`,
-        );
+        core.warning(`[labeling.agent] Branch type detection failed: ${error.message}`);
         report.errors.push(`Branch detection error: ${error.message}`);
       }
     }
 
     // Step 3: Enforce one-hot constraints (status, priority, type)
     try {
-      core.startGroup("Enforcing one-hot label constraints");
+      core.startGroup('Enforcing one-hot label constraints');
       await enforceOneHotLabels({
         github: octokit,
         owner,
@@ -405,16 +387,14 @@ async function runLabelingAgent(opts = {}) {
       });
       core.endGroup();
     } catch (error) {
-      core.warning(
-        `[labeling.agent] One-hot enforcement failed: ${error.message}`,
-      );
+      core.warning(`[labeling.agent] One-hot enforcement failed: ${error.message}`);
       report.errors.push(`One-hot enforcement error: ${error.message}`);
       core.endGroup();
     }
 
     // Step 4: Apply defaults for missing required labels
     try {
-      core.startGroup("Applying default labels");
+      core.startGroup('Applying default labels');
       await applyDefaultStatus({
         github: octokit,
         owner,
@@ -445,23 +425,17 @@ async function runLabelingAgent(opts = {}) {
       });
       core.endGroup();
     } catch (error) {
-      core.warning(
-        `[labeling.agent] Default label application failed: ${error.message}`,
-      );
+      core.warning(`[labeling.agent] Default label application failed: ${error.message}`);
       report.errors.push(`Default labels error: ${error.message}`);
       core.endGroup();
     }
 
     // Step 5: Content-based type detection (if no type label yet)
-    const hasTypeLabel = currentLabels.some((l) => l.startsWith("type:"));
+    const hasTypeLabel = currentLabels.some((l) => l.startsWith('type:'));
     if (!hasTypeLabel) {
       try {
-        const title = isIssue
-          ? context.payload.issue.title
-          : context.payload.pull_request.title;
-        const body = isIssue
-          ? context.payload.issue.body
-          : context.payload.pull_request.body;
+        const title = isIssue ? context.payload.issue.title : context.payload.pull_request.title;
+        const body = isIssue ? context.payload.issue.body : context.payload.pull_request.body;
         const detectedType = detectIssueTypeFromContent(title, body);
 
         if (detectedType) {
@@ -474,14 +448,10 @@ async function runLabelingAgent(opts = {}) {
             });
           }
           report.added.push(detectedType);
-          report.rulesApplied.push(
-            `Content-based type detection: ${detectedType}`,
-          );
+          report.rulesApplied.push(`Content-based type detection: ${detectedType}`);
         }
       } catch (error) {
-        core.warning(
-          `[labeling.agent] Content type detection failed: ${error.message}`,
-        );
+        core.warning(`[labeling.agent] Content type detection failed: ${error.message}`);
         report.errors.push(`Content detection error: ${error.message}`);
       }
     }
@@ -489,35 +459,29 @@ async function runLabelingAgent(opts = {}) {
     // Step 6: Changelog nudge for PRs
     if (isPR) {
       try {
-        const changelogLabels = [
-          "meta:no-changelog",
-          "meta:needs-changelog",
-          "meta:changelog",
-        ];
+        const changelogLabels = ['meta:no-changelog', 'meta:needs-changelog', 'meta:changelog'];
         if (!currentLabels.some((l) => changelogLabels.includes(l))) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
               repo,
               issue_number: number,
-              labels: ["meta:needs-changelog"],
+              labels: ['meta:needs-changelog'],
             });
           }
-          report.added.push("meta:needs-changelog");
-          core.info("[labeling.agent] Added meta:needs-changelog");
+          report.added.push('meta:needs-changelog');
+          core.info('[labeling.agent] Added meta:needs-changelog');
         }
       } catch (error) {
-        core.warning(
-          `[labeling.agent] Changelog label application failed: ${error.message}`,
-        );
+        core.warning(`[labeling.agent] Changelog label application failed: ${error.message}`);
         report.errors.push(`Changelog label error: ${error.message}`);
       }
     }
 
     // Step 7: Standardize/migrate non-canonical labels
     try {
-      core.startGroup("Standardizing labels");
-      await standardizeLabelsOnItem(
+      core.startGroup('Standardizing labels');
+      const standardized = await standardizeLabelsOnItem(
         octokit,
         owner,
         repo,
@@ -527,12 +491,13 @@ async function runLabelingAgent(opts = {}) {
         aliasMap,
         dryRun,
         core.info,
+        removeUnmapped
       );
+      report.migrated.push(...standardized.migrated);
+      report.removed.push(...standardized.removed);
       core.endGroup();
     } catch (error) {
-      core.warning(
-        `[labeling.agent] Label standardization failed: ${error.message}`,
-      );
+      core.warning(`[labeling.agent] Label standardization failed: ${error.message}`);
       report.errors.push(`Standardization error: ${error.message}`);
       core.endGroup();
     }
@@ -541,11 +506,9 @@ async function runLabelingAgent(opts = {}) {
     report.success = true;
     report.duration = Date.now() - startTime;
 
+    core.info(`[labeling.agent] Completed in ${report.duration}ms (DRY_RUN=${dryRun})`);
     core.info(
-      `[labeling.agent] Completed in ${report.duration}ms (DRY_RUN=${dryRun})`,
-    );
-    core.info(
-      `[labeling.agent] Summary: ${report.added.length} added, ${report.removed.length} removed, ${report.migrated.length} migrated, ${report.errors.length} errors`,
+      `[labeling.agent] Summary: ${report.added.length} added, ${report.removed.length} removed, ${report.migrated.length} migrated, ${report.errors.length} errors`
     );
 
     // Output structured report
@@ -583,6 +546,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
 export {
   runLabelingAgent,
+  standardizeLabelsOnItem,
+  KEYWORD_TYPE_MAP,
+  BRANCH_PREFIX_TYPE_MAP,
   detectIssueTypeFromContent,
   detectTypeFromBranch,
   loadCanonicalLabels,
