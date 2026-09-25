@@ -8,6 +8,12 @@ const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const evidence = (name) => JSON.parse(read(`${audit}/evidence/${name}.json`));
 const names = (labels) => labels.map((label) => label.name);
 const sorted = (labels) => [...labels].sort();
+// FR-011 target names: ai-ops -> aiops, openspec -> spec.
+const targetName = (name) =>
+  name
+    .replace(/^ai-ops:/, 'aiops:')
+    .replace(/^openspec:/, 'spec:')
+    .replace(/^([a-z]+):ai-ops$/, '$1:aiops');
 
 describe('Label audit evidence', () => {
   const canonical = evidence('canonical-labels');
@@ -106,12 +112,26 @@ describe('Label audit evidence', () => {
     });
   });
 
+  test('snapshot records keep recorded names and add FR-011 target names', () => {
+    for (const record of canonical.labels) {
+      expect(record.target_name).toBe(targetName(record.name));
+    }
+    expect(Object.keys(families.target_names).sort()).toEqual(sorted(names(canonical.labels)));
+    for (const [name, target] of Object.entries(families.target_names)) {
+      expect(target).toBe(targetName(name));
+    }
+    const renamed = canonical.labels.filter((record) => record.target_name !== record.name);
+    expect(renamed).toHaveLength(16);
+  });
+
   test('JSON and CSV inventory classify every canonical label consistently', () => {
     const rows = read(`${audit}/label-inventory.csv`).trimEnd().split('\n');
     const mapped = new Set(issueTypes.type_labels);
     const protectedLabels = new Set(policy.never_delete_labels);
 
-    expect(rows.shift()).toBe('Family,Label,In_Canonical,In_Issue_Types,In_Policy,Status');
+    expect(rows.shift()).toBe(
+      'Family,Label,In_Canonical,In_Issue_Types,In_Policy,Status,Target_Label'
+    );
     expect(inventory.labels).toEqual(canonical.labels);
     expect(inventory.total_labels).toBe(canonical.count);
     expect(inventory.families).toBe(canonical.family_count);
@@ -131,6 +151,7 @@ describe('Label audit evidence', () => {
           mapped.has(label) ? 'YES' : 'NO',
           protectedLabels.has(label) ? 'YES' : 'NO',
           findings.type_label_gaps.includes(label) ? 'TYPE_UNMAPPED' : 'OK',
+          targetName(label),
         ].join(',')
       )
     );

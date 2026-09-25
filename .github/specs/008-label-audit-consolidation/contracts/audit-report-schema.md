@@ -262,12 +262,12 @@
 | env: | 3 | 3 | 0 | ✅ | 0 | ✅ Complete |
 | compat: | 6 | 6 | 0 | ✅ | 0 | ✅ Complete |
 | cpt: | 2 | 2 | 0 | ✅ | 0 | ✅ Complete |
-| ai-ops: | 7 | 7 | 0 | ✅ | 0 | ✅ Complete |
+| aiops: | 7 | 7 | 0 | ✅ | 0 | ✅ Complete |
 | contrib: | 3 | 3 | 0 | ✅ | 0 | ✅ Complete |
 | discussion: | 7 | 7 | 0 | ✅ | 0 | ✅ Complete |
 | meta: | 4 | 4 | 0 | ✅ | 0 | ✅ Complete |
 | release: | 4 | 4 | 0 | ✅ | 0 | ✅ Complete |
-| openspec: | 10 | 10 | 0 | ✅ | 0 | ✅ Complete |
+| spec: | 10 | 10 | 0 | ✅ | 0 | ✅ Complete |
 | **TOTAL** | **169** | **169** | **8** | **✅** | **0** | ✅ **Complete** |
 
 * Policy references 8 type: labels not in canonical (duplicates/naming mismatches)

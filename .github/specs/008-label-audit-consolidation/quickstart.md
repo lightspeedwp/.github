@@ -511,7 +511,7 @@ git grep -n -i -E '[a-z0-9_-]+:ai-ops|ai-ops:[a-z*]|openspec:[a-z*]' -- .github/
 
 Pass when:
 
-- the search prints only lines that name an old label as a rename source (a `from`, "was" or `→` mention, or a clarification quoting the question), never as a current label name
+- the search prints only lines that name an old label as a rename source (a `from`, "was", "to" or `→` mention, or a clarification quoting the question), quote or count what another file contains (findings about policy or docs, `documentation-coverage.json`, `duplicate-consolidation-analysis.json`, the `workflow-*.json` files), or sit in `openspec_labels` frontmatter, which the FR-013 Spec Kit rename covers; never a line that uses an old name as a current or proposed label
 - each of the four snapshot files gives every label a `target_name`, and every label keeps its recorded `name`
 - `renamed-label-references.json` is unchanged since 2026-09-14
 - `npx jest --config .jest.config.cjs scripts/validation/__tests__/label-audit-evidence.test.js` passes

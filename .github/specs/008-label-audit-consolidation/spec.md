@@ -193,7 +193,7 @@ As the label governance owner (@ashley), I need GitHub and Linear to share one a
 
 ### Key Entities
 
-- **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, ai-ops (target: `aiops`, FR-011), contrib, discussion, openspec (target: `spec`, FR-011) (and any others discovered during audit)
+- **Label Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, aiops (`ai-ops` in `labels.yml` until the FR-011 rename), contrib, discussion, spec (`openspec` until the FR-011 rename) (and any others discovered during audit)
 - **Type Labels**: Exactly 25 `type:*` labels, each mapped to one issue type. The audit found 26 (25 mapped, plus unmapped `type:decision`); Stage 0a applied the FR-014 swap
 - **Canonical Labels**: The 169 labels currently defined in `.github/labels.yml`
 - **Governance Policy**: The never-delete label list and related rules in `label-governance-policy.yml`

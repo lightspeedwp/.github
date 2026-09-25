@@ -146,7 +146,7 @@
       "needs_approval": true
     },
     {
-      "pair": ["area:agents", "ai-ops:agents"],
+      "pair": ["area:agents", "aiops:agents"],
       "action": "merge",
       "canonical": "aiops:agents",
       "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:agents \u2192 aiops:agents).",
@@ -163,7 +163,7 @@
       "needs_approval": false
     },
     {
-      "pair": ["area:instructions", "ai-ops:instructions"],
+      "pair": ["area:instructions", "aiops:instructions"],
       "action": "merge",
       "canonical": "aiops:instructions",
       "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:instructions \u2192 aiops:instructions).",
@@ -173,7 +173,7 @@
       "needs_approval": false
     },
     {
-      "pair": ["area:prompts", "ai-ops:prompts"],
+      "pair": ["area:prompts", "aiops:prompts"],
       "action": "merge",
       "canonical": "aiops:prompts",
       "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:prompts \u2192 aiops:prompts).",

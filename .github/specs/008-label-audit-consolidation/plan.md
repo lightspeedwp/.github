@@ -269,7 +269,7 @@ No significant NEEDS CLARIFICATION markers in the specification. Technical appro
 
 ### Canonical Labels (labels.yml)
 - **Total**: 169 labels across 15 families
-- **Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, ai-ops, contrib, discussion, openspec
+- **Families**: status, priority, type, meta, release, area, comp, lang, env, compat, cpt, aiops (was `ai-ops`), contrib, discussion, spec (was `openspec`)
 - **Format**: YAML key-value with name, color, description
 - **Status**: Manually curated, locked, no recent changes
 

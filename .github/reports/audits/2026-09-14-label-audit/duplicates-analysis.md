@@ -2,7 +2,8 @@
 
 **Audit date**: 2026-09-14 (label snapshot); analysis 2026-09-24  
 **Scope**: the 169 labels in `evidence/canonical-labels.json`, the never-delete list snapshot and the 18 audited label documents, plus `CLAUDE.md` and `AGENTS.md`  
-**Tasks**: spec 008 T021–T025 (User Story 2)
+**Tasks**: spec 008 T021–T025 (User Story 2)  
+**Label names**: current and proposed labels use the spec 008 FR-011 names (`aiops:*` was `ai-ops:*`, `spec:*` was `openspec:*` in the 2026-09-14 snapshot); usage counts and file references keep the names found in the files
 
 ---
 
@@ -16,14 +17,14 @@
 
 ## Duplicate Families
 
-| Family          | Pairs | What overlaps                                                                                                                                                                        |
-| --------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `priority`      | 2     | Two scales in one family: critical / important / normal / minor, and high / low                                                                                                      |
-| `status`        | 2     | Finished (`done` / `completed`); waiting for verification (`needs-qa` / `needs-testing`)                                                                                             |
-| `area`          | 3     | `tests` / `testing`; `operations` / `infrastructure` (kept, descriptions to sharpen); `ai` is an umbrella, not a duplicate                                                           |
-| `meta`          | 1     | `stale` versus `no-issue-activity` / `no-pr-activity`                                                                                                                                |
-| Across families | 6     | `area:block-editor` / `comp:block-editor`; `area:agents`, `area:instructions`, `area:prompts` / `ai-ops:*`; `area:compatibility` / `compat:*`; `contrib:discussion` / `discussion:*` |
-| `type` / `area` | 9     | Same word in both families on purpose: type says what kind of work, area says which part of the system (FR-015)                                                                      |
+| Family          | Pairs | What overlaps                                                                                                                                                                       |
+| --------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `priority`      | 2     | Two scales in one family: critical / important / normal / minor, and high / low                                                                                                     |
+| `status`        | 2     | Finished (`done` / `completed`); waiting for verification (`needs-qa` / `needs-testing`)                                                                                            |
+| `area`          | 3     | `tests` / `testing`; `operations` / `infrastructure` (kept, descriptions to sharpen); `ai` is an umbrella, not a duplicate                                                          |
+| `meta`          | 1     | `stale` versus `no-issue-activity` / `no-pr-activity`                                                                                                                               |
+| Across families | 6     | `area:block-editor` / `comp:block-editor`; `area:agents`, `area:instructions`, `area:prompts` / `aiops:*`; `area:compatibility` / `compat:*`; `contrib:discussion` / `discussion:*` |
+| `type` / `area` | 9     | Same word in both families on purpose: type says what kind of work, area says which part of the system (FR-015)                                                                     |
 
 ## Consolidation Matrix
 
@@ -36,9 +37,9 @@
 | `status:needs-qa`    | `status:needs-testing`   | medium     | merge  | `status:needs-testing` | needs decision | Mirror the area:qa / area:testing split only if QA sign-off is a separate step; otherwise merge needs-qa → needs-testing. Needs @ashley's decision.               |
 | `meta:stale`         | `meta:no-issue-activity` | medium     | keep   | `both`                 | keep           | Keep meta:no-issue-activity and meta:no-pr-activity for the stale bot, and define meta:stale as their umbrella, or retire meta:stale if no automation applies it. |
 | `area:block-editor`  | `comp:block-editor`      | high       | merge  | `comp:block-editor`    | needs decision | The comp:* family holds every other block-editor component, so keep comp:block-editor and retire area:block-editor.                                               |
-| `area:agents`        | `ai-ops:agents`          | high       | merge  | `aiops:agents`         | approved       | Already approved in spec FR-012, 2026-09-24 clarification (area:agents → aiops:agents).                                                                           |
-| `area:instructions`  | `ai-ops:instructions`    | high       | merge  | `aiops:instructions`   | approved       | Already approved in spec FR-012, 2026-09-24 clarification (area:instructions → aiops:instructions).                                                               |
-| `area:prompts`       | `ai-ops:prompts`         | high       | merge  | `aiops:prompts`        | approved       | Already approved in spec FR-012, 2026-09-24 clarification (area:prompts → aiops:prompts).                                                                         |
+| `area:agents`        | `aiops:agents`           | high       | merge  | `aiops:agents`         | approved       | Already approved in spec FR-012, 2026-09-24 clarification (area:agents → aiops:agents).                                                                           |
+| `area:instructions`  | `aiops:instructions`     | high       | merge  | `aiops:instructions`   | approved       | Already approved in spec FR-012, 2026-09-24 clarification (area:instructions → aiops:instructions).                                                               |
+| `area:prompts`       | `aiops:prompts`          | high       | merge  | `aiops:prompts`        | approved       | Already approved in spec FR-012, 2026-09-24 clarification (area:prompts → aiops:prompts).                                                                         |
 | `area:operations`    | `area:infrastructure`    | medium     | keep   | `both`                 | keep           | Keep both with sharper descriptions: operations for running and supporting services, infrastructure for hosting and platform.                                     |
 | `area:compatibility` | `compat:wordpress`       | medium     | retire | `compat:*`             | needs decision | Retire area:compatibility; use a specific compat:* label with type:compat.                                                                                        |
 

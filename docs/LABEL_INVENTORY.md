@@ -276,17 +276,17 @@ Labels for WordPress post type specificity.
 
 ## AI Ops Labels (7)
 
-Labels for AI operations and automation infrastructure.
+Labels for AI operations and automation infrastructure. These use the `aiops:` prefix agreed in spec 008 (FR-011); `.github/labels.yml` still names them `ai-ops:*` until the configuration change renames them.
 
 | Label | Color | Description |
 | --- | --- | --- |
-| `ai-ops:instructions` | 0F448A | AI instruction docs |
-| `ai-ops:chat-modes` | 0F448A | Prompt sets / chat modes |
-| `ai-ops:agents` | 0F448A | AI agent definitions |
-| `ai-ops:prompts` | 0F448A | Reusable prompts |
-| `ai-ops:datasets` | 0F448A | Training/evaluation datasets |
-| `ai-ops:evaluations` | 0F448A | Evaluation results |
-| `ai-ops:tools` | 0F448A | Tool/plugin manifests |
+| `aiops:instructions` | 0F448A | AI instruction docs |
+| `aiops:chat-modes` | 0F448A | Prompt sets / chat modes |
+| `aiops:agents` | 0F448A | AI agent definitions |
+| `aiops:prompts` | 0F448A | Reusable prompts |
+| `aiops:datasets` | 0F448A | Training/evaluation datasets |
+| `aiops:evaluations` | 0F448A | Evaluation results |
+| `aiops:tools` | 0F448A | Tool/plugin manifests |
 
 ---
 

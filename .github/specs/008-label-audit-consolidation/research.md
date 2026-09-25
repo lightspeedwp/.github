@@ -56,10 +56,10 @@
 | `env:*` | 3 | Environment labels (prototype/staging/live) |
 | `compat:*` | 6 | Compatibility matrix labels |
 | `cpt:*` | 2 | Content type labels |
-| `ai-ops:*` | 7 | AI operations labels |
+| `aiops:*` (was `ai-ops:*`) | 7 | AI operations labels |
 | `contrib:*` | 3 | Contributor workflow labels |
 | `discussion:*` | 7 | GitHub Discussions category labels |
-| `openspec:*` | 9 | Openspec workflow labels |
+| `spec:*` (was `openspec:*`) | 9 | Spec status labels |
 
 **Curation Status**: Manually curated by @ashley, locked configuration, change requests via GitHub issues with specific tags.
 

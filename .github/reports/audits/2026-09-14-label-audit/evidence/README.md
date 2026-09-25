@@ -2,6 +2,8 @@
 
 Supporting data for `007-audit-report.md`, `duplicates-analysis.md` and `workflow-analysis.md` (spec 008, task T033). Label data is the 2026-09-14 snapshot; the tests in `scripts/validation/__tests__/label-audit-evidence.test.js` check that these files agree with each other and with the report.
 
+**Label names (spec 008 FR-011)**: the snapshot files (`canonical-labels.json`, `label-families.json`, `../label-inventory.json`, `../label-inventory.csv`) keep the names recorded on 2026-09-14 and add each label's `target_name` (`target_names` in `label-families.json`; the `Target_Label` column in the CSV): `ai-ops:*` becomes `aiops:*` and `openspec:*` becomes `spec:*`. `renamed-label-references.json` keeps the old names because it lists the references still to change, and files that count or quote what other files contain keep the names found there.
+
 33 files.
 
 | File                                          | Task                 | What it holds                                                                                                 |

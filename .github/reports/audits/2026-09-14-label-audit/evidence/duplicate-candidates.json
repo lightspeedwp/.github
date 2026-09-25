@@ -68,27 +68,27 @@
       "decided_in": null
     },
     {
-      "family": "area / ai-ops",
+      "family": "area / aiops",
       "label1": "area:agents",
-      "label2": "ai-ops:agents",
+      "label2": "aiops:agents",
       "relationship": "cross-family",
       "reason_duplicate": "AI agent work is labelled in two families.",
       "confidence": "high",
       "decided_in": "spec FR-012, 2026-09-24 clarification (area:agents \u2192 aiops:agents)"
     },
     {
-      "family": "area / ai-ops",
+      "family": "area / aiops",
       "label1": "area:instructions",
-      "label2": "ai-ops:instructions",
+      "label2": "aiops:instructions",
       "relationship": "cross-family",
       "reason_duplicate": "AI instruction files are labelled in two families.",
       "confidence": "high",
       "decided_in": "spec FR-012, 2026-09-24 clarification (area:instructions \u2192 aiops:instructions)"
     },
     {
-      "family": "area / ai-ops",
+      "family": "area / aiops",
       "label1": "area:prompts",
-      "label2": "ai-ops:prompts",
+      "label2": "aiops:prompts",
       "relationship": "cross-family",
       "reason_duplicate": "Reusable prompts are labelled in two families.",
       "confidence": "high",
