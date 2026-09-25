@@ -239,9 +239,10 @@ function validateLabelsYml(filePath) {
 }
 
 /**
- * Validates issue-types.yml file
+ * Validates issue-types.yml. Descriptions are optional, but must be nonempty when present.
  * @param {string} filePath - Path to issue-types.yml
- * @returns {Object} Validation result {valid: boolean, errors: string[]}
+ * @returns {Object} Validation result {valid: boolean, errors: string[]}; read and parse
+ *   failures are returned as invalid results.
  */
 function validateIssueTypesYml(filePath) {
   try {

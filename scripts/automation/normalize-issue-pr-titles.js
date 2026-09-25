@@ -185,7 +185,8 @@ async function getTypePrefix(item, owner, repo) {
 }
 
 /**
- * Check if a title is already prefixed.
+ * Check if a title starts with a recognized type prefix, including decision and question.
+ * Matching ignores case and requires whitespace after the colon, but no title text.
  */
 function isAlreadyPrefixed(title) {
   const prefixPattern =
