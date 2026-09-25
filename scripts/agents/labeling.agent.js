@@ -606,12 +606,14 @@ async function runLabelingAgent(opts = {}) {
       core.endGroup();
     }
 
-    try {
-      knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
-    } catch (error) {
-      core.warning(
-        `[labeling.agent] Label refresh failed, continuing with tracked state: ${error.message}`
-      );
+    if (!dryRun) {
+      try {
+        knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
+      } catch (error) {
+        core.warning(
+          `[labeling.agent] Label refresh failed, continuing with tracked state: ${error.message}`
+        );
+      }
     }
 
     // Step 4: Apply defaults for missing required labels.
@@ -639,17 +641,26 @@ async function runLabelingAgent(opts = {}) {
         dryRun,
       });
 
-      try {
-        knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
-      } catch (error) {
-        core.warning(
-          `[labeling.agent] Label refresh failed, continuing with tracked state: ${error.message}`
-        );
-        if (![...knownLabels].some((l) => l.startsWith('status:')) && !dryRun) {
+      if (dryRun) {
+        if (![...knownLabels].some((l) => l.startsWith('status:'))) {
           markAdded(isPR ? 'status:needs-review' : 'status:needs-triage');
         }
-        if (![...knownLabels].some((l) => l.startsWith('priority:')) && !dryRun) {
+        if (![...knownLabels].some((l) => l.startsWith('priority:'))) {
           markAdded('priority:normal');
+        }
+      } else {
+        try {
+          knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
+        } catch (error) {
+          core.warning(
+            `[labeling.agent] Label refresh failed, continuing with tracked state: ${error.message}`
+          );
+          if (![...knownLabels].some((l) => l.startsWith('status:'))) {
+            markAdded(isPR ? 'status:needs-review' : 'status:needs-triage');
+          }
+          if (![...knownLabels].some((l) => l.startsWith('priority:'))) {
+            markAdded('priority:normal');
+          }
         }
       }
       core.endGroup();
@@ -771,7 +782,7 @@ async function runLabelingAgent(opts = {}) {
           dryRun,
           isPR,
         });
-        if (!dryRun) markAdded('type:task');
+        markAdded('type:task');
       } catch (error) {
         core.warning(`[labeling.agent] Default type application failed: ${error.message}`);
         report.errors.push(`Default type error: ${error.message}`);
@@ -808,13 +819,17 @@ async function runLabelingAgent(opts = {}) {
     try {
       core.startGroup('Reconciling managed label state');
       let live;
-      try {
-        live = await fetchLiveLabels(octokit, owner, repo, number);
-      } catch (error) {
-        core.warning(
-          `[labeling.agent] Final live fetch failed, reconciling tracked state: ${error.message}`
-        );
+      if (dryRun) {
         live = [...knownLabels];
+      } else {
+        try {
+          live = await fetchLiveLabels(octokit, owner, repo, number);
+        } catch (error) {
+          core.warning(
+            `[labeling.agent] Final live fetch failed, reconciling tracked state: ${error.message}`
+          );
+          live = [...knownLabels];
+        }
       }
 
       const liveTypes = live.filter((l) => l.startsWith('type:'));
@@ -857,11 +872,15 @@ async function runLabelingAgent(opts = {}) {
       }
 
       let standardizeList;
-      try {
-        standardizeList = await fetchLiveLabels(octokit, owner, repo, number);
-      } catch (error) {
-        core.warning(`[labeling.agent] Live fetch before standardize failed: ${error.message}`);
+      if (dryRun) {
         standardizeList = [...knownLabels];
+      } else {
+        try {
+          standardizeList = await fetchLiveLabels(octokit, owner, repo, number);
+        } catch (error) {
+          core.warning(`[labeling.agent] Live fetch before standardize failed: ${error.message}`);
+          standardizeList = [...knownLabels];
+        }
       }
       const standardized = await standardizeLabelsOnItem(
         octokit,

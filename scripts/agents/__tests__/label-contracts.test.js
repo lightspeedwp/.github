@@ -835,6 +835,35 @@ describe('label governance contracts (#3545)', () => {
       }
     });
 
+    test('dry-run reports planned defaults without writing them', async () => {
+      const octokit = createMockOctokit([]);
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'Coordinate rollout' }),
+        github: octokit,
+        dryRun: true,
+      });
+
+      expect(octokit.calls.added).toEqual([]);
+      expect(octokit.calls.removed).toEqual([]);
+      expect(report.added).toEqual(
+        expect.arrayContaining(['status:needs-triage', 'priority:normal', 'type:task'])
+      );
+    });
+
+    test('dry-run reports stale type removal for a native-type replacement', async () => {
+      const octokit = createMockOctokit(['type:bug'], { nativeType: 'Chore' });
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'Coordinate rollout' }),
+        github: octokit,
+        dryRun: true,
+      });
+
+      expect(octokit.calls.added).toEqual([]);
+      expect(octokit.calls.removed).toEqual([]);
+      expect(report.added).toContain('type:chore');
+      expect(report.removed).toContain('type:bug');
+    });
+
     test('reports a failed default type write instead of marking it added', async () => {
       const octokit = createMockOctokit([]);
       const throwing = {
