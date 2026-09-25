@@ -402,14 +402,39 @@ All contributors, agents, and AI assistants must comply with these standards.*
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
+## Code graphs (optional)
+
+graft and graphify build local code graphs that help agents locate code. Both are
+optional. Nothing in this repo depends on them, and without them agents should
+search the code as usual.
+
+- **Install** (once per machine): `npm install -g @nanonets/graft` and
+  `uv tool install "graphifyy[mcp]"`. With npm 12 or later, rerun the graft
+  install with the `--allow-scripts=...` list npm prints, or its native parsers
+  do not build and `graft` fails to start.
+- **Build** (once per clone or worktree, then after large changes): `graft build`
+  and `graphify update .`. Both are deterministic and need no API key or model.
+  `graft/` and `graphify-out/` are gitignored, so each checkout builds its own.
+  graphify suggests committing `graphify-out/`, but its `graph.json` can exceed
+  GitHub's 100 MB file limit.
+- **OpenCode**: `opencode.json` registers both MCP servers, and
+  `.opencode/plugins/graphify.js` adds a one-time reminder to query the graph.
+  Without the tools or a built graph, the servers fail to start and OpenCode
+  carries on without them.
+- **Other agents** (Claude Code, Codex, Cursor, Copilot) ignore those OpenCode
+  files. Follow the graft and graphify sections below only when `graft` or
+  `graphify` is installed and `graft/` or `graphify-out/graph.json` exists.
+- The two sections below are written by `graft init` and
+  `graphify opencode install`, which rewrite them on every run, so correct
+  them here rather than editing them. `graft grep` treats its pattern as a
+  regex: add `--fixed` to search for a literal string. `graft/INDEX.md` is an
+  entry point, not a complete list of nodes.
+
 <!-- graft:start -->
 ## Graft — repo context graph
 
-When built, this repo is indexed in `graft/`: small linked markdown nodes that
-explain each system and carry exact file:line spans. `graft/` and
-`graphify-out/` are generated per checkout and gitignored. In a fresh clone or
-worktree, run `graft build` and `graphify update .` once; until then the graft
-and graphify MCP servers in `opencode.json` fail to start, which is harmless.
+This repo is indexed in `graft/`: small linked markdown nodes that explain each
+system and carry exact file:line spans, kept in sync with the code through git.
 
 For ANY task here — understanding how something works, finding where code lives,
 or scoping a change — get context from the graph before grepping or opening
@@ -424,7 +449,7 @@ hotspots), no LLM, no key.
   for understanding or editing, the top node IS the answer — cite its
   `covers:` file:line spans and edit straight from `--source`. For
   exhaustive tasks ("every occurrence / every caller of this pattern"), ranked
-  results are top-N, not complete — run `graft grep --fixed "<literal>"` instead
+  results are top-N, not complete — run `graft grep "<literal>"` instead
   (exhaustive over indexed files, grouped by enclosing symbol), falling back
   to raw `grep -rn` only for unindexed files.
 - `graft skeleton <file>` → every definition's signature + span, ~10× cheaper
@@ -433,7 +458,7 @@ hotspots), no LLM, no key.
   Add `--direction out` for what it calls, or `--depth N` to walk
   transitively for the full blast radius. For structural questions, skip
   ranking and use this directly.
-- Or browse: `graft/INDEX.md` is the entry point; follow its links.
+- Or browse: `graft/INDEX.md` lists every node; follow the links.
 - Monorepos and folders of multiple repos rank fairly across sub-projects —
   hits carry `[scope/]` labels naming which one they're from. Narrow with
   `graft ask "<task>" --in <scope>/` once you know where you're working.
@@ -449,7 +474,7 @@ no API key, $0).
 
 ## graphify
 
-When graphify-out/graph.json exists, this project has a knowledge graph there with god nodes, community structure, and cross-file relationships.
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
 
 When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
 
