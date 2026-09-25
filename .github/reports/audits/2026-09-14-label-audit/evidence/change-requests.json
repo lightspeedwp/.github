@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-24",
+  "updated_at": "2026-09-25",
   "requests": [
     {
       "kind": "CONSTITUTION-APPROVAL",
@@ -24,11 +24,24 @@
         "organisation native issue types (T040c, FR-019)"
       ],
       "implemented_in": "https://github.com/lightspeedwp/.github/pull/3534",
-      "status": "pending",
+      "status": "approved-in-principle",
       "approved_by": null,
       "approved_at": null,
       "approval_comment": null,
-      "blocks": "merge of #3534"
+      "blocks": "merge of #3534",
+      "approved_in_principle": {
+        "scope": "Decision replaces Question; use of type:decision",
+        "by": "ashleyshaw",
+        "at": "2026-09-25",
+        "comment": "https://github.com/lightspeedwp/.github/issues/3556#issuecomment-5825322410",
+        "outstanding": [
+          "25 names and descriptions",
+          "12 inferred colours",
+          "label-colour parity",
+          "manual organisation issue-type steps (T040c)",
+          "companion request #3557"
+        ]
+      }
     },
     {
       "kind": "TEMPLATE-UPDATE-REQUEST",
@@ -45,7 +58,17 @@
       "approved_by": null,
       "approved_at": null,
       "approval_comment": null,
-      "blocks": "merge of #3534"
+      "blocks": "merge of #3534",
+      "next_step_request": {
+        "by": "ashleyshaw",
+        "at": "2026-09-25",
+        "comment": "https://github.com/lightspeedwp/.github/issues/3557#issuecomment-5825322577",
+        "asks": [
+          "confirm the default area (template and contract now both area:governance)",
+          "verify the issue chooser Discussions link",
+          "coordinate approval with #3556"
+        ]
+      }
     }
   ]
 }
