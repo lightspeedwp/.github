@@ -96,6 +96,13 @@ const BRANCH_PREFIX_TYPE_MAP = {
   'a11y/': 'type:a11y',
 };
 
+/**
+ * Reads a YAML file whose top level must be a list.
+ * @param {string} path - File path to read.
+ * @param {string} purpose - Short name for the file, used in error messages.
+ * @returns {Array} The parsed list.
+ * @throws {Error} If the file is missing or its top level is not a list.
+ */
 function readYamlArrayFile(path, purpose) {
   if (!fs.existsSync(path)) {
     throw new Error(`[labeling.agent] Missing ${purpose} file at: ${path}`);

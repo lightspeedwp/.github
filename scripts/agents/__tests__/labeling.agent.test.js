@@ -16,6 +16,13 @@ const yaml = require('js-yaml');
 
 const repoRoot = path.resolve(__dirname, '../../..');
 
+/**
+ * Runs ES module code in a child Node process from the repository root, because
+ * labeling.agent.js imports ESM-only packages that Jest cannot load directly.
+ * @param {string} code - Module code; its last console.log line must be JSON.
+ * @param {Object} [env={}] - Extra environment variables for the child process.
+ * @returns {Object} The JSON object from the last line the code printed.
+ */
 function runNodeEsm(code, env = {}) {
   const raw = execFileSync(process.execPath, ['--input-type=module', '-e', code], {
     cwd: repoRoot,
@@ -38,6 +45,17 @@ const FAKE_GITHUB = `
   } } };
 `;
 
+/**
+ * Calls standardizeLabelsOnItem against the fake Octokit, with type:bug and
+ * status:needs-triage as the canonical set.
+ * @param {Object} options
+ * @param {string[]} options.labels - Labels currently on the item.
+ * @param {Object} [options.aliasMap={}] - Alias to canonical label map.
+ * @param {boolean} [options.dryRun=false] - Pass dry-run mode through.
+ * @param {boolean} [options.removeUnmapped=false] - Allow removing unmapped labels.
+ * @param {boolean} [options.failAdd=false] - Make addLabels throw.
+ * @returns {Object} The result or error, recorded write calls, request args and log lines.
+ */
 function standardize({
   labels,
   aliasMap = {},
@@ -68,6 +86,15 @@ function standardize({
   `);
 }
 
+/**
+ * Runs runLabelingAgent end to end against a temporary labels.yml and labeler
+ * config and the fake Octokit.
+ * @param {Object} [options={}]
+ * @param {string[]} [options.labels] - Labels currently on the test issue.
+ * @param {Object} [options.env={}] - Environment overrides (for example DRY_RUN).
+ * @param {Object} [options.options={}] - Options passed to runLabelingAgent.
+ * @returns {Object} The agent report, recorded write calls and request args.
+ */
 function runAgent({
   labels = ['status:needs-triage', 'priority:normal', 'type:bug', 'bug', 'area:builds'],
   env = {},
