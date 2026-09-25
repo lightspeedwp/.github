@@ -46,6 +46,7 @@ const KEYWORD_TYPE_MAP = {
   'new feature': 'type:feature',
   improvement: 'type:feature',
   docs: 'type:docs',
+  doc: 'type:docs',
   documentation: 'type:docs',
   readme: 'type:docs',
   guide: 'type:docs',
