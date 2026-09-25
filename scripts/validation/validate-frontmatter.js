@@ -465,13 +465,15 @@ async function validateFrontmatter(filePaths) {
     // Write log file
     logger.writeToFile();
 
-    // Exit with appropriate code
+    // Set the exit code instead of calling process.exit(): with piped
+    // stdout, exit() can drop buffered output, which cut the final
+    // "Validation log written to:" line intermittently.
     const hasErrors = stats.errors > 0;
-    process.exit(hasErrors ? 1 : 0);
+    process.exitCode = hasErrors ? 1 : 0;
   } catch (error) {
     logger.error('Validation failed', null, { error: error.message });
     logger.writeToFile();
-    process.exit(1);
+    process.exitCode = 1;
   }
 }
 
