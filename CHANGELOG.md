@@ -26,12 +26,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+
 ### Changed
 
+- **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
 - **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
 - **Faster, Safer Workflows** — Workflows run faster, stop the metrics loop and pin every action to a fixed commit. Dependabot, Mergify and CodeRabbit now skip dead or generated paths. (#3474, #3476)
+- **Stricter Workflow Linting** — Workflow scripts now pass shell linting at every level, and the plugin and theme examples are valid and pinned to fixed commits. (#3478)
 
 ### Removed
 
@@ -40,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Metrics Aggregator Tolerates Malformed Artifacts** — Branch-validation metrics now skip a malformed artifact with a warning instead of discarding the whole run. ([#3528](https://github.com/lightspeedwp/.github/issues/3528))
+- **Broken Diagrams Repaired** — 123 diagrams in 36 documents render again; the diagram tidy-up bot now places accessibility titles correctly and no longer edits surrounding text. (#3490)
 - **PR Agent Tests Run Again** — Fixed 6 PR agent test suites that could not load, so 95 more tests now run. (#3472)
 - **Actions Import Regression Guarded** — A test now fails if a default import of the Actions toolkit returns, which is what blocked the upgrade. ([#3561](https://github.com/lightspeedwp/.github/issues/3561))
 - **Labelling Agent Crash on @actions/core 3** — The labelling and project sync agents now load with both current and upcoming versions of the GitHub Actions toolkit. ([#3503](https://github.com/lightspeedwp/.github/pull/3503))
