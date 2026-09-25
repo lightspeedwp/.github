@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+- **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
 
 ### Changed
 
@@ -45,6 +46,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
+- **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
+- **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
   ### Added
 
@@ -59,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Composite Action Docs Matched Reality** — Dropped both deleted actions from the reference and replaced the claim that composite actions are tested in `workflow-harness.yml`. (#3570)
 - **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
 - **Labelling Keeps Unknown Labels** — The labelling automation no longer removes labels missing from the label list unless they map to an approved label, its dry-run mode now changes nothing, and it applies only valid type labels. (#3564)
 - **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
