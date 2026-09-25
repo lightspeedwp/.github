@@ -1,0 +1,63 @@
+{
+  "workflow": "label-audit-report.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/label-audit-report.yml",
+  "size_bytes": 3248,
+  "purpose": "Monthly and on-demand audit reports of meta:* label coverage and status:needs-review / status:needs-triage age, uploaded as artefacts.",
+  "triggers": [
+    "schedule: \"0 4 1 * *\"",
+    "workflow_dispatch (inputs: format markdown/json/csv, verbose boolean)"
+  ],
+  "jobs": [
+    {
+      "id": "audit-labels",
+      "summary": "Checkout, setup Node, npm ci, create .github/reports/audits, run review-meta-labels.js and review-status-labels.js (markdown on schedule, chosen format on dispatch), upload the reports folder (30 days), echo success/failure."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/automation/review-meta-labels.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/automation/review-status-labels.js",
+      "exists": true
+    }
+  ],
+  "actions_used": ["actions/checkout@v7", "actions/setup-node@v7", "actions/upload-artifact@v7"],
+  "labels_referenced": [],
+  "labels_not_in_canonical": [],
+  "script_labels_not_in_canonical": [
+    {
+      "label": "meta:dependabot-security",
+      "evidence": "scripts/automation/review-meta-labels.js:23"
+    }
+  ],
+  "permissions": {
+    "workflow": {
+      "contents": "read",
+      "issues": "read",
+      "pull-requests": "read"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "Reports are written inside the runner and only kept as a 30-day artefact; nothing is committed, so there is no durable audit trail.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/label-audit-report.yml:92"
+    },
+    {
+      "issue": "review-meta-labels.js audits meta:dependabot-security, which is not in labels.yml.",
+      "evidence": "scripts/automation/review-meta-labels.js:23"
+    },
+    {
+      "issue": "Scheduled at 04:00 UTC, inside the 02:00/03:00/04:00 cluster.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/label-audit-report.yml:5"
+    },
+    {
+      "issue": "Scripts default to lightspeedwp/.github via LabelManager, so the audit is single-repository.",
+      "evidence": "scripts/automation/includes/label-management.js:9"
+    }
+  ],
+  "overlaps_with": [
+    "labeling-unified.yml (scheduled-cleanup job is labelled an audit report but is a no-op)"
+  ]
+}
