@@ -347,6 +347,22 @@ describe('label governance contracts (#3545)', () => {
       );
     });
 
+    test('all-globs-to-all-files requires every changed file to match', () => {
+      const rules = {
+        'area:testing': [
+          {
+            'changed-files': [{ 'all-globs-to-all-files': ['**/*.js', '**/*.test.js'] }],
+          },
+        ],
+      };
+      expect(
+        labelerUtils.determineLabelsFromRules(prCtx('test/contracts'), rules, [
+          'src/a.js',
+          'tests/a.test.js',
+        ])
+      ).toEqual([]);
+    });
+
     test('matchers OR within one object', () => {
       const rules = {
         'type:docs': [{ 'head-branch': ['^docs/.*', '^doc/.*'] }],
@@ -435,11 +451,29 @@ describe('label governance contracts (#3545)', () => {
       expect(octokit.calls.removed).toContain('type:bug');
     });
 
+    test('native type write failure is contained and does not add a default', async () => {
+      const octokit = createMockOctokit([], { nativeType: 'Chore' });
+      const addLabels = octokit.rest.issues.addLabels;
+      octokit.rest.issues.addLabels = async (params) => {
+        if (params.labels.includes('type:chore')) throw new Error('temporary write failure');
+        return addLabels(params);
+      };
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'Tidy labels' }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(report.errors.some((error) => error.includes('Native type label error'))).toBe(true);
+      expect(octokit.calls.added).not.toContain('type:task');
+    });
+
     test('whole-word fallback does not classify substrings', () => {
       expect(agent.detectIssueTypeFromContent('decision', '')).toBeNull();
       expect(agent.detectIssueTypeFromContent('specific', '')).toBeNull();
       expect(agent.detectIssueTypeFromContent('prefix', '')).toBeNull();
       expect(agent.detectIssueTypeFromContent('fix: deliberate', '')).toBe('type:bug');
+      expect(agent.detectIssueTypeFromContent('', 'fix:123')).toBe('type:bug');
+      expect(agent.detectIssueTypeFromContent('', 'fixes #123')).toBe('type:bug');
     });
 
     test('live type suppresses content double-add on stale payload', async () => {
@@ -605,6 +639,33 @@ describe('label governance contracts (#3545)', () => {
       const result = runGuardrail();
       expect(result.status).toBe(0);
       expect(result.stdout).toMatch(/pr_docs\.md/);
+    });
+
+    test('ignores labels in template body outside frontmatter', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'template-frontmatter-'));
+      const templatesDir = path.join(dir, '.github/PULL_REQUEST_TEMPLATE');
+      fs.mkdirSync(templatesDir, { recursive: true });
+      fs.copyFileSync(
+        path.join(REPO_ROOT, '.github/labels.yml'),
+        path.join(dir, '.github/labels.yml')
+      );
+      fs.writeFileSync(
+        path.join(templatesDir, 'pr_body.md'),
+        '---\\nlabels:\\n  - type:bug\\n---\\n# Body\\nlabels: ["type:bogus"]\\n'
+      );
+      const result = spawnSync(
+        'node',
+        [
+          path.join(REPO_ROOT, 'scripts/validation/validate-labels-before-creation.cjs'),
+          '--scan-templates',
+          '--templates-dir',
+          templatesDir,
+          '--canonical-file',
+          path.join(dir, '.github/labels.yml'),
+        ],
+        { encoding: 'utf8' }
+      );
+      expect(result.status).toBe(0);
     });
 
     test('a new non-canonical template label fails the gate', () => {

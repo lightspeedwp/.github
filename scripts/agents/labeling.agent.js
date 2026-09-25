@@ -186,7 +186,9 @@ function detectTypeFromBranch(branchName = '') {
 function containsKeyword(text, keyword) {
   const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const value = String(text ?? '');
-  return new RegExp(`(^|[^a-z0-9_])${escaped}(?=$|[^a-z0-9_])`, 'i').test(value);
+  const leadingBoundary = /^[a-z0-9_]/i.test(keyword) ? '(^|[^a-z0-9_])' : '';
+  const trailingBoundary = /[a-z0-9_]$/i.test(keyword) ? '(?=$|[^a-z0-9_])' : '';
+  return new RegExp(`${leadingBoundary}${escaped}${trailingBoundary}`, 'i').test(value);
 }
 
 /**
@@ -610,9 +612,6 @@ async function runLabelingAgent(opts = {}) {
         if (![...knownLabels].some((l) => l.startsWith('priority:')) && !dryRun) {
           markAdded('priority:normal');
         }
-        if (!isPR && ![...knownLabels].some((l) => l.startsWith('type:')) && !dryRun) {
-          markAdded('type:task');
-        }
       }
       core.endGroup();
     } catch (error) {
@@ -626,18 +625,23 @@ async function runLabelingAgent(opts = {}) {
     const liveTypeLabels = [...knownLabels].filter((l) => l.startsWith('type:'));
     let contentType = null;
     if (!isPR && nativeTypeLabel) {
-      if (!knownLabels.has(nativeTypeLabel)) {
-        if (!dryRun) {
-          await octokit.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: number,
-            labels: [nativeTypeLabel],
-          });
+      try {
+        if (!knownLabels.has(nativeTypeLabel)) {
+          if (!dryRun) {
+            await octokit.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number: number,
+              labels: [nativeTypeLabel],
+            });
+          }
+          markAdded(nativeTypeLabel);
         }
-        markAdded(nativeTypeLabel);
+        report.rulesApplied.push(`Native issue type: ${nativeTypeLabel}`);
+      } catch (error) {
+        core.warning(`[labeling.agent] Native type label application failed: ${error.message}`);
+        report.errors.push(`Native type label error: ${error.message}`);
       }
-      report.rulesApplied.push(`Native issue type: ${nativeTypeLabel}`);
     } else if (!isPR && liveTypeLabels.length === 0) {
       try {
         contentType = detectIssueTypeFromContent(
@@ -665,7 +669,7 @@ async function runLabelingAgent(opts = {}) {
 
     // Deferred type default for issues: only when content detection found
     // nothing, so exactly one type is ever introduced per run.
-    if (!isPR && ![...knownLabels].some((l) => l.startsWith('type:'))) {
+    if (!isPR && !nativeTypeLabel && ![...knownLabels].some((l) => l.startsWith('type:'))) {
       try {
         await applyDefaultType({
           github: octokit,

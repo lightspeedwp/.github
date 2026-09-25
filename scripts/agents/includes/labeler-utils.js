@@ -99,7 +99,7 @@ function matchesFilePatterns(changedFiles, filePatterns) {
         return patterns.some((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
       }
       if (key === 'all-globs-to-all-files') {
-        return patterns.every((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
+        return patterns.every((pattern) => changedFiles.every((file) => minimatch(file, pattern)));
       }
       if (key === 'any-glob-to-all-files') {
         return patterns.some((pattern) => changedFiles.every((file) => minimatch(file, pattern)));

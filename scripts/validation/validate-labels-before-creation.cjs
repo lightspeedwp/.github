@@ -90,7 +90,7 @@ function loadCanonicalLabels(filePath) {
 
     return labels;
   } catch (error) {
-    throw new Error(`Failed to load canonical labels: ${error.message}`);
+    throw new Error(`Failed to load canonical labels: ${error.message}`, { cause: error });
   }
 }
 
@@ -256,9 +256,29 @@ const GRANDFATHERED_TEMPLATE_LABELS = new Set([
  */
 function templateFrontmatterLabels(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
-  const match = content.match(/^labels:\s*\[(.*)\]/m);
+  const match = content.match(/^---\s*\n([\s\S]*?)\n---(?:\s*\n|$)/);
   if (!match) return [];
-  return match[1].split(',').map(l => l.trim().replace(/^["']|["']$/g, '')).filter(Boolean);
+
+  let frontmatter;
+  try {
+    frontmatter = yaml.load(match[1]);
+  } catch {
+    return [];
+  }
+
+  const labels = frontmatter && frontmatter.labels;
+  if (Array.isArray(labels)) {
+    return labels
+      .filter((label) => typeof label === 'string' && label.trim())
+      .map((label) => label.trim());
+  }
+  if (typeof labels === 'string') {
+    return labels
+      .split(',')
+      .map((label) => label.trim())
+      .filter(Boolean);
+  }
+  return [];
 }
 
 /**
