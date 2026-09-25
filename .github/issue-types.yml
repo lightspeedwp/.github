@@ -7,101 +7,126 @@
 
 issue_types:
   - name: Task
-    color: 4393F8
+    color: 0969DA
     label: type:task
+    description: 'Small, well‑scoped unit of work (e.g., configure theme.json tokens, tweak template parts, set up redirects, write a snippet). Executable without major design/discovery and typically completed within a day or two.'
 
   - name: Bug
-    color: 9F3734
+    color: B91C1C
     label: type:bug
+    description: 'Broken or incorrect behaviour: PHP errors/notices, block render issues, styling regressions, JS console errors, REST problems, Woo checkout breakage. Provide steps to reproduce, expected/actual results, and environment.'
 
   - name: Feature
-    color: 3FB950
+    color: 2A7A3B
     label: type:feature
+    description: 'Net‑new value: new block, pattern library, settings screen, CPT integration, gateway, or content model. Shippable outcome with clear AC, user impact, and non‑functional criteria (a11y, performance, security).'
 
   - name: Design
-    color: AB7DF8
+    color: 8957E5
     label: type:design
+    description: 'Design artefacts/decisions: UX flows, wireframes, hi‑fi Figma, block/pattern specs, theme.json tokens, component states, microcopy, a11y checks, and handoff notes for dev.'
 
   - name: Epic
-    color: AB7DF8
+    color: 3467D3
     label: type:epic
+    description: 'Parent issue grouping stories/tasks across repos to achieve a larger outcome. Defines scope, success metrics, and timebox. Tracks progress via child issues converted from task lists.'
 
-  - name: Question
-    color: 4393F8
-    label: type:question
+  - name: Decision
+    color: 3467D3
+    label: type:decision
+    description: 'Record a decision: context, options considered, the outcome and who decided, and its consequences. Links the follow-up work; decisions that change files go through a docs/ branch.'
 
   - name: Improvement
-    color: 3FB950
+    color: 2A7A3B
     label: type:improve
+    description: 'Improve existing behaviour: UX polish, editor controls, copy tone, schema updates, minor UI/logic tweaks—no net‑new feature but noticeable quality uplift.'
 
   - name: Chore
-    color: 9198A1
+    color: 57606A
     label: type:chore
+    description: "Small housekeeping tasks: label hygiene, repo/settings tweaks, file moves, minor non‑functional clean‑ups that don't fit refactor/maintenance buckets."
 
   - name: CI
-    color: 4393F8
+    color: C5DEF5
     label: type:ci
+    description: 'CI pipelines and checks: GitHub Actions workflows, required checks, linting and test gates, CI reliability and speed.'
 
   - name: Automation
-    color: 4393F8
+    color: D0D7DE
     label: type:automation
+    description: 'Workflow automation: Actions/bots for labelling, changelog generation, preview builds, backports, scheduled chores—reduce toil and tighten feedback loops.'
 
   - name: Test Coverage
     color: D29922
     label: type:test
+    description: 'Add/expand tests: PHPUnit, Playwright/E2E, visual regression, or manual QA plans for key templates/blocks—raise confidence and prevent regressions.'
 
   - name: Performance
-    color: D29922
+    color: F2D06D
     label: type:performance
+    description: 'Improve speed/efficiency: asset budgets, code splitting, images, query tuning, caching, block render performance, Core Web Vitals (LCP/INP/CLS) targets with before/after metrics.'
 
   - name: Accessibility
-    color: DB61A2
+    color: 8957E5
     label: type:a11y
+    description: 'Accessibility to WCAG 2.2 AA: semantics, keyboard nav, focus management, ARIA, contrast, visible labels in editor/front‑end; include assistive technology notes.'
 
   - name: Security
-    color: 9F3734
+    color: CF222E
     label: type:security
+    description: 'Hardening & fixes: sanitisation/escaping, nonces, capability checks, CSRF/XSS, secure uploads, dependency vulnerabilities; include threat model notes where relevant.'
 
   - name: Compatibility
-    color: 8D4821
+    color: 0D7F6F
     label: type:compat
+    description: 'Version/ecosystem support: WordPress core, PHP min/tested‑up‑to, Gutenberg packages, WooCommerce, Multisite, RTL; ensure parity across the support matrix.'
 
   - name: Refactor
-    color: 9198A1
+    color: B1BAC4
     label: type:refactor
+    description: 'Internal restructuring without behaviour change: split components, modernise hooks/filters, adopt block supports, reduce tech debt, improve readability/testability.'
 
   - name: Release
-    color: 3FB950
+    color: 1A7F37
     label: type:release
+    description: 'Prepare and ship: semver, changelog, "tested up to", WordPress.org deploy, migrations/deprecations, rollback and comms plan.'
 
   - name: Dependency Update
-    color: 8D4821
+    color: 007580
     label: type:dependency
+    description: 'Dependency upgrades and management: npm/Composer bumps, Dependabot updates, lockfile refreshes, deprecations and breaking-change migrations.'
 
   - name: Documentation
-    color: 9198A1
+    color: 3467D3
     label: type:docs
+    description: 'Create/update docs: READMEs, inline docs, hook references, examples, contributor guides, deployment runbooks, saved replies, and user‑facing content where needed.'
 
   - name: Research
-    color: 9198A1
+    color: C5DEF5
     label: type:research
+    description: 'Time‑boxed investigation/PoC to answer a question (e.g., Block Bindings feasibility, pattern variations, new API). Must deliver a decision and next steps.'
 
   - name: Audit
-    color: 9198A1
+    color: D29922
     label: type:audit
+    description: 'Structured review of a codebase or site: dependency/license risk, a11y/perf/security audit, content or SEO audit with findings and recommendations.'
 
   - name: Review
-    color: 4393F8
+    color: 0969DA
     label: type:review
+    description: 'Focused request for peer (or design) review. Link PR(s), list areas of concern, and define acceptance criteria for approval.'
 
   - name: AI Ops
-    color: 4393F8
+    color: B1BAC4
     label: type:aiops
+    description: 'Manage AI assets/workflows: Copilot prompts and instructions, saved replies, code‑assist guardrails, evaluations; ensure safe, consistent automation across repos.'
 
   - name: Content Modelling
-    color: AB7DF8
+    color: B4A7E8
     label: type:content-modelling
+    description: 'Define and document content structure: IA, post types/CPTs, taxonomies, fields (core/ACF), relationships, slugs/URLs, templates & patterns, governance, migration needs. Produces a schema and mapping for design, authoring and development.'
 
   - name: Build
-    color: 4393F8
+    color: C5DEF5
     label: type:build
+    description: 'Build pipeline & tooling: wp-scripts, webpack/esbuild, PostCSS, PHPCS, release automation, artefact optimisation, cache strategy.'
