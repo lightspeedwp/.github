@@ -12,7 +12,7 @@
  *   Skipped in CI, where hooks are not used and workflows are the gate.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { accessSync, constants, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -29,6 +29,16 @@ function git(...args) {
   }
 }
 
+function isExecutableFile(file) {
+  try {
+    if (!statSync(file).isFile()) return false;
+    if (process.platform !== 'win32') accessSync(file, constants.X_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export function findProblems() {
   const root = git('rev-parse', '--show-toplevel');
   if (!root) return [];
@@ -38,18 +48,24 @@ export function findProblems() {
     return ['core.hooksPath is not set, so the Husky hooks are not active.'];
   }
 
+  const expectedDirectory = path.join(root, '.husky', '_');
   const directory = path.resolve(root, hooksPath);
+  if (path.relative(expectedDirectory, directory) !== '') {
+    return [
+      `core.hooksPath is ${hooksPath}, not .husky/_; Git will not run the repository Husky hooks.`,
+    ];
+  }
   if (!existsSync(directory)) {
     return [`core.hooksPath is ${hooksPath}, which does not exist, so Git runs no hooks.`];
   }
 
-  return HOOKS.filter((hook) => !existsSync(path.join(directory, hook))).map(
-    (hook) => `${hook} is missing from ${hooksPath}.`
+  return HOOKS.filter((hook) => !isExecutableFile(path.join(directory, hook))).map(
+    (hook) => `${hook} is missing or not executable in ${hooksPath}.`
   );
 }
 
 function main() {
-  if (process.env.CI) return;
+  if (process.env.CI === 'true') return;
 
   const problems = findProblems();
   if (!problems.length) return;

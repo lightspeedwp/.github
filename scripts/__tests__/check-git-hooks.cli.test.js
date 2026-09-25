@@ -27,6 +27,12 @@ function run(directory, ...args) {
 
 const git = (directory, ...args) => execFileSync('git', ['-C', directory, ...args]);
 
+function writeHook(directory, hook, mode = 0o755) {
+  const file = path.join(directory, '.husky', '_', hook);
+  fs.writeFileSync(file, '');
+  if (process.platform !== 'win32') fs.chmodSync(file, mode);
+}
+
 describe('check-git-hooks CLI', () => {
   const directories = [];
   afterAll(() => directories.forEach((d) => fs.rmSync(d, { force: true, recursive: true })));
@@ -41,6 +47,19 @@ describe('check-git-hooks CLI', () => {
     expect(result.stderr).toContain('npm run prepare');
 
     expect(run(directory, '--strict').status).toBe(1);
+  });
+
+  test('warns when core.hooksPath uses another directory', () => {
+    const directory = repo((d) => {
+      fs.mkdirSync(path.join(d, 'custom-hooks'), { recursive: true });
+      for (const hook of ['pre-commit', 'pre-push']) {
+        fs.writeFileSync(path.join(d, 'custom-hooks', hook), '');
+      }
+      git(d, 'config', 'core.hooksPath', 'custom-hooks');
+    });
+    directories.push(directory);
+
+    expect(run(directory, '--strict').stderr).toContain('not .husky/_');
   });
 
   test('warns when core.hooksPath is unset', () => {
@@ -61,11 +80,25 @@ describe('check-git-hooks CLI', () => {
     expect(run(directory, '--strict').stderr).toContain('pre-push is missing');
   });
 
+  test('reports a non-executable hook as missing', () => {
+    if (process.platform === 'win32') return;
+
+    const directory = repo((d) => {
+      fs.mkdirSync(path.join(d, '.husky', '_'), { recursive: true });
+      writeHook(d, 'pre-commit');
+      writeHook(d, 'pre-push', 0o644);
+      git(d, 'config', 'core.hooksPath', '.husky/_');
+    });
+    directories.push(directory);
+
+    expect(run(directory, '--strict').stderr).toContain('pre-push is missing or not executable');
+  });
+
   test('passes silently when both hooks are installed', () => {
     const directory = repo((d) => {
       fs.mkdirSync(path.join(d, '.husky', '_'), { recursive: true });
       for (const hook of ['pre-commit', 'pre-push']) {
-        fs.writeFileSync(path.join(d, '.husky', '_', hook), '');
+        writeHook(d, hook);
       }
       git(d, 'config', 'core.hooksPath', '.husky/_');
     });
@@ -87,5 +120,18 @@ describe('check-git-hooks CLI', () => {
     });
     expect(result.status).toBe(0);
     expect(result.stderr).toBe('');
+  });
+
+  test('does not treat CI=false as CI', () => {
+    const directory = repo(() => {});
+    directories.push(directory);
+
+    const result = spawnSync(process.execPath, [script, '--strict'], {
+      cwd: directory,
+      encoding: 'utf8',
+      env: { ...process.env, CI: 'false' },
+    });
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('Git hooks are not installed');
   });
 });

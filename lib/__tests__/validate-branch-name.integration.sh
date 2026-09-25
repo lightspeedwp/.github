@@ -21,21 +21,6 @@ NC='\033[0m' # No Color
 TESTS_PASSED=0
 TESTS_FAILED=0
 
-# Test function
-test_case() {
-  local name="$1"
-  local expected="$2"
-  local actual="$3"
-
-  if [ "$expected" = "$actual" ]; then
-    echo -e "${GREEN}✓${NC} $name"
-    ((TESTS_PASSED++))
-  else
-    echo -e "${RED}✗${NC} $name (expected: $expected, got: $actual)"
-    ((TESTS_FAILED++))
-  fi
-}
-
 echo "=== Branch Name Validation Integration Tests ==="
 echo
 
@@ -50,11 +35,24 @@ else
 fi
 
 # Test 2: Husky runs the hook (#3493)
-if grep -q "lib/hooks/pre-push" "$HUSKY_HOOK_PATH" 2>/dev/null; then
+FIXTURE_DIR=$(mktemp -d)
+trap 'rm -rf "$FIXTURE_DIR"' EXIT
+git -C "$FIXTURE_DIR" init -q
+git -C "$FIXTURE_DIR" symbolic-ref HEAD refs/heads/invalid
+git -C "$FIXTURE_DIR" -c user.name=Test -c user.email=test@example.invalid commit --allow-empty -qm init
+
+DIRECT_OUTPUT=$(cd "$PROJECT_ROOT" || exit 1; GIT_DIR="$FIXTURE_DIR/.git" GIT_WORK_TREE="$FIXTURE_DIR" node "$HOOK_PATH" 2>&1)
+DIRECT_STATUS=$?
+HUSKY_OUTPUT=$(cd "$PROJECT_ROOT" || exit 1; GIT_DIR="$FIXTURE_DIR/.git" GIT_WORK_TREE="$FIXTURE_DIR" "$HUSKY_HOOK_PATH" 2>&1)
+HUSKY_STATUS=$?
+
+if [ "$DIRECT_STATUS" -eq 1 ] && \
+  [ "$HUSKY_STATUS" -eq "$DIRECT_STATUS" ] && \
+  [ "$HUSKY_OUTPUT" = "$DIRECT_OUTPUT" ]; then
   echo -e "${GREEN}✓${NC} $HUSKY_HOOK_PATH runs the pre-push hook"
   ((TESTS_PASSED++))
 else
-  echo -e "${RED}✗${NC} $HUSKY_HOOK_PATH does not run lib/hooks/pre-push"
+  echo -e "${RED}✗${NC} $HUSKY_HOOK_PATH does not match the pre-push hook"
   ((TESTS_FAILED++))
 fi
 
