@@ -405,8 +405,11 @@ All contributors, agents, and AI assistants must comply with these standards.*
 <!-- graft:start -->
 ## Graft — repo context graph
 
-This repo is indexed in `graft/`: small linked markdown nodes that explain each
-system and carry exact file:line spans, kept in sync with the code through git.
+When built, this repo is indexed in `graft/`: small linked markdown nodes that
+explain each system and carry exact file:line spans. `graft/` and
+`graphify-out/` are generated per checkout and gitignored. In a fresh clone or
+worktree, run `graft build` and `graphify update .` once; until then the graft
+and graphify MCP servers in `opencode.json` fail to start, which is harmless.
 
 For ANY task here — understanding how something works, finding where code lives,
 or scoping a change — get context from the graph before grepping or opening
@@ -430,7 +433,7 @@ hotspots), no LLM, no key.
   Add `--direction out` for what it calls, or `--depth N` to walk
   transitively for the full blast radius. For structural questions, skip
   ranking and use this directly.
-- Or browse: `graft/INDEX.md` lists every node; follow the links.
+- Or browse: `graft/INDEX.md` is the entry point; follow its links.
 - Monorepos and folders of multiple repos rank fairly across sub-projects —
   hits carry `[scope/]` labels naming which one they're from. Narrow with
   `graft ask "<task>" --in <scope>/` once you know where you're working.
@@ -446,7 +449,7 @@ no API key, $0).
 
 ## graphify
 
-This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+When graphify-out/graph.json exists, this project has a knowledge graph there with god nodes, community structure, and cross-file relationships.
 
 When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
 
