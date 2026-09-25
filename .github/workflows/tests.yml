@@ -45,10 +45,17 @@ jobs:
             if [ -s "$changed_files" ]; then
               docs_only=true
               while IFS= read -r -d '' file; do
-                if [[ "$file" != docs/* && "$file" != *.md ]]; then
-                  docs_only=false
-                  break
-                fi
+                case "$file" in
+                  docs/LABEL_STRATEGY.md | docs/LABELING.md)
+                    docs_only=false
+                    break
+                    ;;
+                  docs/*.md) ;;
+                  *)
+                    docs_only=false
+                    break
+                    ;;
+                esac
               done < "$changed_files"
             fi
           fi
