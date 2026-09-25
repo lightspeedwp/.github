@@ -102,6 +102,11 @@ An invalid or escaping path returns `400 Bad Request` with code
 }
 ```
 
+`strict` defaults to `false`. In non-strict mode, an open or draft pull request
+is counted in `links_unmerged` and reported in `errors`, but `valid` remains
+`true` when no link is invalid. In strict mode, any unmerged link sets `valid`
+to `false`; `links_unmerged` still identifies the unmerged links.
+
 **Response (200 OK)**:
 
 ```json
@@ -110,7 +115,15 @@ An invalid or escaping path returns `400 Bad Request` with code
   "links_checked": 25,
   "links_valid": 24,
   "links_invalid": 0,
-  "errors": []
+  "links_unmerged": 1,
+  "errors": [
+    {
+      "line_number": 42,
+      "link": "#2845",
+      "error": "PR is open (not merged)",
+      "suggestion": "Wait for PR to be merged or update changelog entry"
+    }
+  ]
 }
 ```
 

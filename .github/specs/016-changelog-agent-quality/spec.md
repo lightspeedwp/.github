@@ -12,7 +12,7 @@
 
 ### User Story 1 - Root-Level Convenience Alias for Local Changelog Validation (Priority: P1)
 
-The changelog validation engine (`.github/validation/changelog/`) already runs locally with clear, actionable output and is wired into CI via `.github/workflows/changelog-validation.yml`. What's missing is a root-level `npm run` alias so developers don't need to `cd .github/validation/changelog` first, and confirmation that its existing feedback (error type, line number, fix suggestion) is sufficient without further changes.
+The changelog validation engine (`.github/validation/changelog/`) already runs locally with clear, actionable output and is wired into CI via `.github/workflows/changelog-unified.yml`. What's missing is a root-level `npm run` alias so developers don't need to `cd .github/validation/changelog` first, and confirmation that its existing feedback (error type, line number, fix suggestion) is sufficient without further changes.
 
 **Why this priority**: This is the remaining friction point in an otherwise-complete validation workflow. Adding the alias is low-risk and unblocks the rest of this spec's user stories, which depend on it as their local entry point.
 

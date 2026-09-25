@@ -229,7 +229,7 @@ ChangelogEntry
 ValidationResult
   ├─ id, timestamp, valid, entries_total, entries_valid
   ├── 1-to-many → ErrorObject
-  └── many-to-1 → Skill (via skill_version)
+  └── many-to-1 → Skill (via skill_id and skill_version)
 
 ErrorObject
   ├─ error_code, message, entry_id, suggestion
@@ -237,7 +237,7 @@ ErrorObject
 
 SkillMetadata
   ├─ id, version, inputs, outputs, error_codes
-  └── 1-to-many → ValidationResult (via skill_version)
+  └── 1-to-many → ValidationResult (via skill_id and skill_version)
 
 GitHubPullRequest (external)
   └── linked-from → ChangelogEntry (via pr_issues)

@@ -260,10 +260,11 @@ if (!skipValidation) {
 
 - Prefer an OS-backed advisory reader/writer lock when the runtime and file
   system provide one.
-- The portable fallback uses an exclusive coordination mutex, a writer-intent
-  file, one active-reader marker per validation, and an exclusive write-lock
-  file. Every file contains a random owner token, PID, hostname, creation time,
-  lease expiry, and last-heartbeat time.
+- The portable fallback uses an exclusive coordination mutex, a separate
+  exclusive recovery mutex, a writer-intent file, one active-reader marker per
+  validation, and an exclusive write-lock file. Every file contains a random
+  owner token, PID, hostname, creation time, lease expiry, and last-heartbeat
+  time.
 - Creation uses exclusive mode (`wx`). The owner refreshes its heartbeat before
   half the lease elapses and removes a file only when its token still matches.
 - On `EEXIST`, acquisition reads the owner metadata. A same-host PID that
@@ -274,9 +275,13 @@ if (!skipValidation) {
   and its heartbeat metadata remains unchanged for an additional recovery
   grace period. Corrupt metadata must likewise remain unchanged beyond that
   grace period.
-- Recovery is an atomic compare-and-remove, never a path-based unlink after a
-  check (two contenders could both pass the check, and the second would delete
-  a new owner's live lock):
+- All contenders that may create, replace, or recover a lock participate in the
+  separate exclusive recovery mutex for the critical section that changes a lock
+  path. Recovery holds that mutex continuously from stale validation through
+  owner-token and inode identity comparison and unlink, including any restore or
+  cleanup. This serialises the complete compare-and-remove operation and is
+  never a path-based unlink after a separate check (two contenders could both
+  pass the check, and the second would delete a new owner's live lock):
   1. Record the stale file's owner token and inode.
   2. `rename()` it to a tombstone unique to this contender
      (`<lock>.stale.<contender-token>`). Rename is atomic, so it moves exactly
@@ -288,8 +293,10 @@ if (!skipValidation) {
   4. Every owner checks that its token is still in the lock file immediately
      before each write, as a fence. An owner that finds its lock missing or
      replaced aborts without writing.
-- The coordination mutex is recovered the same way, so recovering it cannot
-  delete a live mutex either. This prevents an abandoned `.changelog.lock` from
+- The coordination mutex participates in the same recovery protocol. A stale
+  coordination mutex is validated and compared under the recovery mutex before
+  unlink; the recovery mutex is separate from the coordination mutex, so this
+  recovery cannot deadlock. This prevents an abandoned `.changelog.lock` from
   blocking future runs without deleting a live owner's lock.
 
 **Reader/writer protocol**:

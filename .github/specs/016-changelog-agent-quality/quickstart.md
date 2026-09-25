@@ -309,17 +309,23 @@ node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.tes
 
 ```bash
 # 1. Create a test PR (in CI simulation)
-# 2. Run workflow that calls the shipped validator package
-# 3. Verify labels are applied based on result
-# 4. Verify PR is blocked if validation fails
+CHANGELOG_CHANGED="${CHANGELOG_CHANGED:-true}"
+PR_NUMBER="${PR_NUMBER:-3500}"
+HEAD_REF="${HEAD_REF:-current-branch}"
 
-# Pseudo-code (actual workflow in .github/workflows/changelog-unified.yml):
-if node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.md; then
-  # Validation passed
+if [ "$CHANGELOG_CHANGED" == "false" ]; then
+  echo "No changelog files modified in this PR"
+  exit 0
+fi
+
+if node .github/validation/changelog/bin/validate.js \
+  --changelog-path CHANGELOG.md \
+  --trigger pr_submission \
+  --pr-number "$PR_NUMBER" \
+  --branch "$HEAD_REF"; then
   gh pr edit --add-label "meta:has-changelog"
   echo "✓ Validation passed; label applied"
 else
-  # Validation failed
   gh pr edit --add-label "meta:needs-changelog-fix"
   gh pr review --request-changes --body "Changelog validation failed. See comments."
   echo "✓ Validation failed; PR blocked with feedback"
@@ -328,6 +334,7 @@ fi
 
 **Expected Outcomes**:
 
+- ✅ PR with no `CHANGELOG.md` change skips validation
 - ✅ PR with valid changelog entries gets `meta:has-changelog` label
 - ✅ PR with invalid entries gets `meta:needs-changelog-fix` label
 - ✅ PR with invalid entries has merge blocked
@@ -400,7 +407,7 @@ grep -q "validation failed" docs/agents/changelog-agent/TROUBLESHOOTING.md && \
 
 ```bash
 # Run test suite with coverage report
-npm test -- --coverage
+npm --prefix agents/changelog-agent test -- --coverage --coverageThreshold='{"global":{"branches":85,"functions":85,"lines":85,"statements":85}}'
 
 # Expected output includes:
 # Lines        : XX.XX% ( X / X )
