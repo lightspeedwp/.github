@@ -14,12 +14,14 @@ describe('Qodo PR-Agent skill runner', () => {
   let output;
   let diff;
   let capture;
+  let credentialCapture;
 
   beforeEach(() => {
     directory = fs.mkdtempSync(path.join(os.tmpdir(), 'qodo-runner-test-'));
     output = path.join(directory, 'output');
     diff = path.join(directory, 'input.diff');
     capture = path.join(directory, 'invocation.txt');
+    credentialCapture = path.join(directory, 'credential.txt');
     fs.writeFileSync(diff, 'diff --git a/file b/file\n');
     const bin = path.join(directory, 'bin');
     fs.mkdirSync(bin);
@@ -27,7 +29,10 @@ describe('Qodo PR-Agent skill runner', () => {
     fs.writeFileSync(
       path.join(bin, 'python3'),
       `#!/bin/sh
-if [ "$1" = '-c' ]; then exit 0; fi
+if [ "$1" = '-c' ]; then
+  if [ "$MOCK_PYTHON_UNSUPPORTED" = 'true' ]; then exit 1; fi
+  exit 0
+fi
 exec "${python}" "$@"
 `,
       { mode: 0o755 }
@@ -36,6 +41,7 @@ exec "${python}" "$@"
       path.join(bin, 'pipx'),
       `#!/bin/sh
 printf '%s\\n' "$@" > "$MOCK_CAPTURE"
+printf '%s\\n' "$ANTHROPIC__KEY" > "$MOCK_ENV_CAPTURE"
 if [ "$MOCK_FAILURE" = 'rate' ]; then echo 'HTTP 429 rate limit' >&2; exit 1; fi
 if [ "$MOCK_FAILURE" = 'error' ]; then echo 'upstream failed' >&2; exit 1; fi
 while [ "$#" -gt 0 ]; do
@@ -47,7 +53,13 @@ while [ "$#" -gt 0 ]; do
 done
 if [ -n "$markdown" ]; then
   printf '%s\\n' 'Suggestion: clipped output' > "$markdown"
-  if [ -n "$json" ]; then printf '%s\\n' '{"suggestions":[1]}' > "$json"; fi
+  if [ -n "$json" ]; then
+    if [ "$MOCK_JSON" = 'invalid' ]; then
+      printf '%s\\n' '{invalid' > "$json"
+    else
+      printf '%s\\n' '{"suggestions":[1]}' > "$json"
+    fi
+  fi
 else
   printf '%s\\n' 'Suggested PR summary'
 fi
@@ -72,7 +84,10 @@ fi
         ...process.env,
         PATH: `${path.join(directory, 'bin')}:${process.env.PATH}`,
         MOCK_CAPTURE: capture,
+        MOCK_ENV_CAPTURE: credentialCapture,
         MOCK_FAILURE: '',
+        MOCK_JSON: '',
+        MOCK_PYTHON_UNSUPPORTED: '',
         ANTHROPIC_API_KEY_QODO_PR_AGENT: '',
         ANTHROPIC_API_KEY: '',
         GITHUB_TOKEN: '',
@@ -156,6 +171,56 @@ fi
     expect(result.status).toBe(0);
     expect(JSON.parse(result.stdout)).toMatchObject({ status: 'ok', data: { suggestions: [1] } });
     expect(fs.readFileSync(capture, 'utf8')).toContain('--json-output');
+  });
+
+  it('treats malformed upstream JSON as absent while keeping the Markdown result', () => {
+    const result = run(['review', '--diff-file', diff], {
+      ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+      MOCK_JSON: 'invalid',
+    });
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout)).toMatchObject({
+      status: 'ok',
+      markdown: 'Suggestion: clipped output\n',
+      data: null,
+    });
+  });
+
+  it('uses the dedicated key before the fallback key without putting either in arguments', () => {
+    const result = run(['review', '--diff-file', diff], {
+      ANTHROPIC_API_KEY_QODO_PR_AGENT: 'dedicated-test-key',
+      ANTHROPIC_API_KEY: 'fallback-test-key',
+    });
+    expect(result.status).toBe(0);
+    expect(fs.readFileSync(credentialCapture, 'utf8').trim()).toBe('dedicated-test-key');
+    expect(fs.readFileSync(capture, 'utf8')).not.toMatch(/dedicated-test-key|fallback-test-key/);
+  });
+
+  it('uses the fallback key when the dedicated key is absent', () => {
+    const result = run(['review', '--diff-file', diff], {
+      ANTHROPIC_API_KEY: 'fallback-test-key',
+    });
+    expect(result.status).toBe(0);
+    expect(fs.readFileSync(credentialCapture, 'utf8').trim()).toBe('fallback-test-key');
+  });
+
+  it('passes a question with spaces and shell punctuation as one argument', () => {
+    const question = 'Why does value=$(false); remain literal?';
+    const result = run(['ask', '--diff-file', diff, '--question', question], {
+      ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+    });
+    expect(result.status).toBe(0);
+    expect(fs.readFileSync(capture, 'utf8').split('\n')).toContain(question);
+  });
+
+  it('skips when no supported execution runtime is available', () => {
+    const result = run(['review', '--diff-file', diff], {
+      ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+      MOCK_PYTHON_UNSUPPORTED: 'true',
+    });
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout)).toMatchObject({ status: 'skipped', reason: 'no-runtime' });
+    expect(fs.existsSync(capture)).toBe(false);
   });
 
   it('resolves a relative --out directory to an absolute path', () => {

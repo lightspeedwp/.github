@@ -4,6 +4,8 @@
  * Source of truth: .github/specs/017-qodo-pr-agent-integration/contracts/reusable-workflow.md
  */
 import fs from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import os from 'node:os';
 import path from 'node:path';
 import vm from 'node:vm';
 import YAML from 'yaml';
@@ -237,6 +239,51 @@ describe('Qodo PR-Agent reusable workflow', () => {
     expect(doc.jobs.run.outputs.outcome).toContain('steps.qodo.outcome');
     const recordEnv = doc.jobs.record.steps.find((step) => step.name === 'Write run record').env;
     expect(recordEnv.RUN_RESULT).toContain('needs.run.outputs.outcome');
+  });
+
+  it.each([
+    ['ok', 'success', 'success'],
+    ['ok', 'failure', 'failure'],
+    ['no-credential', 'skipped', 'skipped:no-credential'],
+  ])('writes a %s/%s run record as %s', (reason, runResult, outcome) => {
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'qodo-record-test-'));
+    const summaryPath = path.join(directory, 'summary.md');
+    const recordStep = doc.jobs.record.steps.find((step) => step.name === 'Write run record');
+    try {
+      const result = spawnSync('bash', ['-e', '-c', recordStep.run], {
+        cwd: directory,
+        encoding: 'utf8',
+        timeout: 10000,
+        env: {
+          ...process.env,
+          REPOSITORY: 'lightspeedwp/.github',
+          PR_NUMBER: '42',
+          TOOL: 'auto',
+          TRIGGER: 'pull_request',
+          REASON: reason,
+          RUN_RESULT: runResult,
+          STARTED_AT: '',
+          EVENT_AT: '2026-10-01T10:00:00Z',
+          GITHUB_STEP_SUMMARY: summaryPath,
+        },
+      });
+      expect(result.status).toBe(0);
+      const record = JSON.parse(fs.readFileSync(path.join(directory, 'qodo-pr-agent-run.json')));
+      expect(record).toStrictEqual({
+        repository: 'lightspeedwp/.github',
+        pr: 42,
+        tool: 'auto',
+        trigger: 'pull_request',
+        outcome,
+        duration_seconds: 0,
+        model: 'anthropic/claude-sonnet-5',
+        started_at: '',
+        event_at: '2026-10-01T10:00:00Z',
+      });
+      expect(fs.readFileSync(summaryPath, 'utf8')).toContain(JSON.stringify(record, null, 2));
+    } finally {
+      fs.rmSync(directory, { recursive: true, force: true });
+    }
   });
 
   it('passes the contracted environment to Qodo PR-Agent', () => {

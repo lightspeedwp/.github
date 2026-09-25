@@ -170,6 +170,20 @@ describe('qodo-pr-agent-report SC-001 eligibility', () => {
     ]).sc001;
     expect(sc001).toStrictEqual({ automatic: 3, withinLimit: 1, rate: 1 / 3 });
   });
+
+  it('keeps command runs out of the rate even when they finish promptly', () => {
+    const event_at = '2026-10-01T10:00:00Z';
+    const started_at = '2026-10-01T10:01:00Z';
+    const timely = { outcome: 'success', event_at, started_at, duration_seconds: 60 };
+    const summary = aggregate([
+      { ...timely, tool: 'review' },
+      { ...timely, tool: 'auto' },
+      { ...timely, tool: 'auto', outcome: 'skipped:no-credential' },
+    ]);
+
+    expect(summary.executed).toBe(2);
+    expect(summary.sc001).toStrictEqual({ automatic: 2, withinLimit: 1, rate: 0.5 });
+  });
 });
 
 // A streamed archive (as written by actions/upload-artifact): general-purpose
@@ -201,6 +215,17 @@ describe('qodo-pr-agent-report helpers', () => {
     ]);
     expect(readFromZip(archive, 'qodo-pr-agent-run.json')).toBe('{"outcome":"success"}');
     expect(readFromZip(Buffer.alloc(0), 'qodo-pr-agent-run.json')).toBeNull();
+  });
+
+  it('does not accept a similarly named archive entry', () => {
+    const archive = zipOf('nested/qodo-pr-agent-run.json', '{"outcome":"success"}');
+    expect(readFromZip(archive, 'qodo-pr-agent-run.json')).toBeNull();
+  });
+
+  it('propagates corrupt compressed data for the requested archive entry', () => {
+    const archive = zipOf('qodo-pr-agent-run.json', '{"outcome":"success"}');
+    archive.fill(0, 30 + Buffer.byteLength('qodo-pr-agent-run.json'));
+    expect(() => readFromZip(archive, 'qodo-pr-agent-run.json')).toThrow();
   });
 
   it('requires --since in YYYY-MM-DD form', () => {
