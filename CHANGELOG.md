@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Code Graphs for OpenCode** — OpenCode now uses graft and graphify code graphs, through their MCP servers and the graphify plugin, to locate code before searching files. The generated graph folders are not committed.
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 
 ### Changed
