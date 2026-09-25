@@ -50,7 +50,8 @@ updates:
       - '/skills/pdfs/js'
     # Weekly: 13 directories on a daily schedule meant up to 13 grouped PRs a
     # day, each needing a human review (#3476). Security updates are not
-    # affected by this schedule and still open as soon as an advisory lands.
+    # affected by this schedule; they are triggered by alerts when a patched
+    # version is available.
     schedule:
       interval: weekly
       day: monday
