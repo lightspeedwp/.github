@@ -8,7 +8,7 @@ on:
   # bulk relabel queued ~660 runs, and each re-applied default labels from
   # a stale payload, undoing the manual changes.
   issues:
-    types: [opened, edited, reopened]
+    types: [opened, edited, reopened, typed, untyped]
   discussion:
     types: [created, edited, answered]
   schedule:
@@ -24,14 +24,14 @@ on:
 permissions:
   contents: read
 
-# One group per item and action (#3531): github.event.number exists only on
-# PR events, so every issue event had its own group. A group holds one
-# running and one pending run, and a newer pending run replaces the older
-# one, so a burst of edits collapses. The action is part of the key so an
-# `edited` run never replaces a pending `opened` run (which applies the
-# triage label). Running jobs are never cancelled mid-apply.
+# One group per item and action class (#3531): github.event.number exists only
+# on PR events, so every issue event had its own group. A group holds one
+# running and one pending run, and a newer pending run replaces the older one,
+# so a burst of edits collapses. Typed and untyped actions share a transition
+# class; other actions retain separate groups. Running jobs are never
+# cancelled mid-apply.
 concurrency:
-  group: labeling-unified-${{ github.event_name }}-${{ github.event.action }}-${{ github.event.pull_request.number || github.event.issue.number || github.event.discussion.number || github.run_id }}
+  group: labeling-unified-${{ github.event_name }}-${{ contains(fromJSON('["typed","untyped"]'), github.event.action) && 'type-transition' || github.event.action }}-${{ github.event.pull_request.number || github.event.issue.number || github.event.discussion.number || github.run_id }}
   cancel-in-progress: false
 
 env:
@@ -58,9 +58,17 @@ jobs:
       - run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
       - name: Validate labeling configs
         run: node scripts/validation/validate-labeling-configs.cjs
+      - name: Label governance contracts (#3545)
+        # Jest contract suite proving canonical emitters, branch-mapping
+        # parity, labeler schema, one-type reconciliation, idempotence and
+        # router/agent convergence. Blocking: this job gates every other
+        # job in the workflow.
+        run: npx jest --config .jest.config.cjs scripts/agents/__tests__/label-contracts.test.js --coverage=false --forceExit
       - name: Guardrail — unknown labels in templates
-        run: node scripts/validation/validate-labels-before-creation.cjs
-        continue-on-error: true
+        # Scans PR template frontmatter against .github/labels.yml. Known
+        # LOCKED-template violations are grandfathered with warnings (see
+        # the script); any new unknown label fails this job (#3545).
+        run: node scripts/validation/validate-labels-before-creation.cjs --scan-templates
 
   file-labels:
     name: File/branch labels (PRs)
