@@ -864,6 +864,35 @@ describe('label governance contracts (#3545)', () => {
       expect(report.removed).toContain('type:bug');
     });
 
+    test('does not report a default status as added when its write and refresh fail', async () => {
+      const octokit = createMockOctokit([]);
+      const addLabels = octokit.rest.issues.addLabels;
+      let reads = 0;
+      octokit.rest.issues.addLabels = async (args) => {
+        if (args.labels.includes('status:needs-triage')) {
+          throw new Error('status write failed');
+        }
+        return addLabels(args);
+      };
+      octokit.rest.issues.listLabelsOnIssue = async () => {
+        reads += 1;
+        if (reads === 1) return { data: [] };
+        throw new Error('label refresh unavailable');
+      };
+
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'Coordinate rollout' }),
+        github: octokit,
+        dryRun: false,
+      });
+
+      expect(report.added).not.toContain('status:needs-triage');
+      expect(report.added).toEqual(expect.arrayContaining(['priority:normal', 'type:task']));
+      expect(report.errors).toEqual(
+        expect.arrayContaining([expect.stringContaining('Default status error')])
+      );
+    });
+
     test('reports a failed default type write instead of marking it added', async () => {
       const octokit = createMockOctokit([]);
       const throwing = {

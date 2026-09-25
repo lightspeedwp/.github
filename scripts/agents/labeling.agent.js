@@ -622,7 +622,7 @@ async function runLabelingAgent(opts = {}) {
     // can never stack a second type onto a detected one (#3545).
     try {
       core.startGroup('Applying default labels');
-      await applyDefaultStatus({
+      const statusResult = await applyDefaultStatus({
         github: octokit,
         owner,
         repo,
@@ -631,8 +631,13 @@ async function runLabelingAgent(opts = {}) {
         dryRun,
         isPR,
       });
+      if (statusResult?.error) {
+        report.errors.push(`Default status error: ${statusResult.error.message}`);
+      } else if (statusResult) {
+        markAdded(statusResult.label);
+      }
 
-      await applyDefaultPriority({
+      const priorityResult = await applyDefaultPriority({
         github: octokit,
         owner,
         repo,
@@ -640,27 +645,19 @@ async function runLabelingAgent(opts = {}) {
         currentLabels: [...knownLabels],
         dryRun,
       });
+      if (priorityResult?.error) {
+        report.errors.push(`Default priority error: ${priorityResult.error.message}`);
+      } else if (priorityResult) {
+        markAdded(priorityResult.label);
+      }
 
-      if (dryRun) {
-        if (![...knownLabels].some((l) => l.startsWith('status:'))) {
-          markAdded(isPR ? 'status:needs-review' : 'status:needs-triage');
-        }
-        if (![...knownLabels].some((l) => l.startsWith('priority:'))) {
-          markAdded('priority:normal');
-        }
-      } else {
+      if (!dryRun) {
         try {
           knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
         } catch (error) {
           core.warning(
             `[labeling.agent] Label refresh failed, continuing with tracked state: ${error.message}`
           );
-          if (![...knownLabels].some((l) => l.startsWith('status:'))) {
-            markAdded(isPR ? 'status:needs-review' : 'status:needs-triage');
-          }
-          if (![...knownLabels].some((l) => l.startsWith('priority:'))) {
-            markAdded('priority:normal');
-          }
         }
       }
       core.endGroup();

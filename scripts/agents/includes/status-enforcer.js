@@ -117,7 +117,7 @@ const enforceOneHotStatus = enforceOneHotLabels;
  * @param {string[]} params.currentLabels - Current labels on the item
  * @param {boolean} params.dryRun - If true, only log actions without applying
  * @param {boolean} [params.isPR] - Whether this is a PR (vs issue)
- * @returns {Promise<void>}
+ * @returns {Promise<{label: string, error: Error}|null>} Planned label and write error, or null when not needed
  */
 async function applyDefaultStatus({
   github,
@@ -131,29 +131,30 @@ async function applyDefaultStatus({
   try {
     // Check if any status:* label exists
     const hasStatus = currentLabels.some((label) => label.startsWith('status:'));
+    if (hasStatus) return null;
 
-    if (!hasStatus) {
-      const defaultStatus = isPR ? 'status:needs-review' : 'status:needs-triage';
+    const defaultStatus = isPR ? 'status:needs-review' : 'status:needs-triage';
+    core.info(
+      `[label-enforcer] No status label found on #${number}, applying default: ${defaultStatus}`
+    );
 
-      core.info(
-        `[label-enforcer] No status label found on #${number}, applying default: ${defaultStatus}`
-      );
+    if (dryRun) {
+      core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultStatus}`);
+      return { label: defaultStatus, error: null };
+    }
 
-      if (!dryRun) {
-        try {
-          await github.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: number,
-            labels: [defaultStatus],
-          });
-          core.info(`[label-enforcer] Applied default status: ${defaultStatus} to #${number}`);
-        } catch (error) {
-          core.warning(`[label-enforcer] Failed to add default status label: ${error.message}`);
-        }
-      } else {
-        core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultStatus}`);
-      }
+    try {
+      await github.rest.issues.addLabels({
+        owner,
+        repo,
+        issue_number: number,
+        labels: [defaultStatus],
+      });
+      core.info(`[label-enforcer] Applied default status: ${defaultStatus} to #${number}`);
+      return { label: defaultStatus, error: null };
+    } catch (error) {
+      core.warning(`[label-enforcer] Failed to add default status label: ${error.message}`);
+      return { label: defaultStatus, error };
     }
   } catch (error) {
     core.error(`[label-enforcer] Error applying default status: ${error.message}`);
@@ -172,7 +173,7 @@ async function applyDefaultStatus({
  * @param {number} params.number - Issue/PR number
  * @param {string[]} params.currentLabels - Current labels on the item
  * @param {boolean} params.dryRun - If true, only log actions without applying
- * @returns {Promise<void>}
+ * @returns {Promise<{label: string, error: Error}|null>} Planned label and write error, or null when not needed
  */
 async function applyDefaultPriority({
   github,
@@ -185,29 +186,30 @@ async function applyDefaultPriority({
   try {
     // Check if any priority:* label exists
     const hasPriority = currentLabels.some((label) => label.startsWith('priority:'));
+    if (hasPriority) return null;
 
-    if (!hasPriority) {
-      const defaultPriority = 'priority:normal';
+    const defaultPriority = 'priority:normal';
+    core.info(
+      `[label-enforcer] No priority label found on #${number}, applying default: ${defaultPriority}`
+    );
 
-      core.info(
-        `[label-enforcer] No priority label found on #${number}, applying default: ${defaultPriority}`
-      );
+    if (dryRun) {
+      core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultPriority}`);
+      return { label: defaultPriority, error: null };
+    }
 
-      if (!dryRun) {
-        try {
-          await github.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: number,
-            labels: [defaultPriority],
-          });
-          core.info(`[label-enforcer] Applied default priority: ${defaultPriority} to #${number}`);
-        } catch (error) {
-          core.warning(`[label-enforcer] Failed to add default priority label: ${error.message}`);
-        }
-      } else {
-        core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultPriority}`);
-      }
+    try {
+      await github.rest.issues.addLabels({
+        owner,
+        repo,
+        issue_number: number,
+        labels: [defaultPriority],
+      });
+      core.info(`[label-enforcer] Applied default priority: ${defaultPriority} to #${number}`);
+      return { label: defaultPriority, error: null };
+    } catch (error) {
+      core.warning(`[label-enforcer] Failed to add default priority label: ${error.message}`);
+      return { label: defaultPriority, error };
     }
   } catch (error) {
     core.error(`[label-enforcer] Error applying default priority: ${error.message}`);
