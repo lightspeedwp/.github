@@ -78,5 +78,6 @@ jobs:
             .github/workflows/orchestrate-phase-progression.yml \
             .github/workflows/phase-progression.yml \
             .github/workflows/pr-template-routing.yml \
+            .github/workflows/tests.yml \
             .github/workflows/validate-specifications.yml \
             .github/workflows/workflow-lint.yml
