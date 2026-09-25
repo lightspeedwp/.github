@@ -699,11 +699,11 @@ describe('label governance contracts (#3545)', () => {
       expect(agent.detectIssueTypeFromContent('prefix', '')).toBeNull();
       expect(agent.detectIssueTypeFromContent('fix: deliberate', '')).toBe('type:bug');
       expect(agent.detectIssueTypeFromContent('', 'fix:123')).toBe('type:bug');
-      expect(agent.detectIssueTypeFromContent('', 'fixes #123')).toBe('type:bug');
     });
 
-    test('closing-reference boilerplate does not imply a bug', () => {
+    test('issue-closing boilerplate does not imply a bug', () => {
       expect(agent.detectIssueTypeFromContent('', 'Closes #123')).toBeNull();
+      expect(agent.detectIssueTypeFromContent('', 'Fixes #123')).toBeNull();
     });
 
     test('explicit title prefixes take precedence over keyword order', () => {
