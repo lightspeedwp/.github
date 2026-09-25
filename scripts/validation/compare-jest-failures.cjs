@@ -32,11 +32,32 @@ function failureIds(report, rootDir) {
     throw new Error('Not a Jest --json report (missing testResults)');
   }
 
+  const hasExecutedAssertions = report.testResults.some((suite) =>
+    (suite.assertionResults || []).some(
+      (test) => test.status === 'passed' || test.status === 'failed'
+    )
+  );
+  const hasFailedSuite = report.testResults.some(
+    (suite) =>
+      suite.status === 'failed' &&
+      !(suite.assertionResults || []).some((test) => test.status === 'failed')
+  );
+  const hasExecutedTests =
+    report.testResults.length > 0 &&
+    Number.isInteger(report.numTotalTestSuites) &&
+    report.numTotalTestSuites > 0 &&
+    Number.isInteger(report.numTotalTests) &&
+    ((report.numTotalTests > 0 && hasExecutedAssertions) || hasFailedSuite);
+  if (!hasExecutedTests) {
+    throw new Error('Jest report contains no executed tests');
+  }
+
   const ids = new Map();
 
   for (const suite of report.testResults) {
     const file = path.relative(rootDir, suite.name).split(path.sep).join('/');
-    const failedTests = (suite.assertionResults || []).filter((test) => test.status === 'failed');
+    const assertionResults = suite.assertionResults || [];
+    const failedTests = assertionResults.filter((test) => test.status === 'failed');
 
     for (const test of failedTests) {
       const id = `${file}::${test.fullName}`;
