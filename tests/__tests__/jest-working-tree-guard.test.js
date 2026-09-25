@@ -27,10 +27,14 @@ function runGuard(directory, during, { skipSetup = false } = {}) {
     const fs = require("node:fs");
     const { setup, teardown } = require(${JSON.stringify(guard)});
     (async () => {
-      ${skipSetup ? '' : 'await setup();'}
-      ${during}
-      try { await teardown(); console.log("PASS"); }
-      catch (error) { console.log("FAIL " + error.message); }
+      try {
+        ${skipSetup ? '' : 'await setup();'}
+        ${during}
+        await teardown();
+        console.log("PASS");
+      } catch (error) {
+        console.log("FAIL " + error.message);
+      }
     })();
   `;
   const env = { ...process.env };
@@ -68,6 +72,28 @@ describe('working tree guard', () => {
     );
     expect(output).toContain('FAIL');
     expect(output).toContain('tracked.txt');
+  });
+
+  test('fails when a test deletes an untracked file', () => {
+    const { directory } = make();
+    fs.writeFileSync(path.join(directory, 'untracked.txt'), 'temporary\n');
+    const output = runGuard(directory, 'fs.unlinkSync("untracked.txt");');
+    expect(output).toContain('FAIL');
+    expect(output).toContain('?? untracked.txt');
+  });
+
+  test('passes outside a Git work tree', () => {
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'tree-guard-no-git-'));
+    directories.push(directory);
+    expect(runGuard(directory, '')).toContain('PASS');
+  });
+
+  test('surfaces Git errors inside a work tree', () => {
+    const { directory } = make();
+    fs.writeFileSync(path.join(directory, '.git', 'config'), '[invalid\n');
+    const output = runGuard(directory, '');
+    expect(output).toContain('FAIL');
+    expect(output).toMatch(/bad config|invalid config|config file/i);
   });
 
   test('passes when nothing changes, including a rename made before the run', () => {

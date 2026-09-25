@@ -186,7 +186,7 @@ describe('Phase 2B Performance Validation', () => {
     });
 
     it('should generate HTML dashboard', () => {
-      const tempDir = fs.mkdtempSync(path.join(__dirname, '.tmp-html-'));
+      const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'phase-2b-html-'));
       const dashboardPath = path.join(tempDir, 'phase-2b-dashboard.html');
 
       try {

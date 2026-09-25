@@ -441,6 +441,13 @@ async function collectMetricsSnapshot(changelogPath, options = {}) {
     // Save snapshot
     const saveResult = metricsBuilder.saveMetricsSnapshot(snapshot, metricsDir);
 
+    if (!saveResult.success) {
+      result.error = saveResult.error;
+      result.status = 'failed';
+      result.message = `Metrics collection failed: ${saveResult.error}`;
+      return result;
+    }
+
     result.success = true;
     result.snapshot = snapshot;
     result.file_path = saveResult.file_path;

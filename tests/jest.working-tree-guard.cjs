@@ -10,10 +10,10 @@
  * Skipped outside a Git work tree. Set ALLOW_TEST_ARTEFACTS=1 to bypass,
  * e.g. when deliberately regenerating reports with GENERATE_REPORTS=true.
  */
-const { execFileSync } = require("node:child_process");
+const { execFileSync } = require('node:child_process');
 
-const KEY = "__workingTreeGuardBefore";
-const NOT_A_WORK_TREE = "not-a-work-tree";
+const KEY = '__workingTreeGuardBefore';
+const NOT_A_WORK_TREE = 'not-a-work-tree';
 
 /**
  * Status entries as `XY path`. With -z, a rename or copy (X or Y is R/C) is
@@ -22,16 +22,17 @@ const NOT_A_WORK_TREE = "not-a-work-tree";
 function status() {
   let output;
   try {
-    output = execFileSync(
-      "git",
-      ["status", "--porcelain=v1", "-z", "--untracked-files=all"],
-      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
-    );
-  } catch {
-    return null; // Not a Git work tree.
+    output = execFileSync('git', ['status', '--porcelain=v1', '-z', '--untracked-files=all'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+  } catch (error) {
+    const message = `${error.stderr || ''}${error.stdout || ''}${error.message || ''}`;
+    if (/not a git repository/i.test(message)) return null;
+    throw error;
   }
 
-  const fields = output.split("\0");
+  const fields = output.split('\0');
   const entries = [];
   for (let i = 0; i < fields.length; i += 1) {
     const entry = fields[i];
@@ -45,12 +46,12 @@ function status() {
 function hashOf(entry) {
   const file = entry.slice(3);
   try {
-    return execFileSync("git", ["hash-object", "--", file], {
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"],
+    return execFileSync('git', ['hash-object', '--', file], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
     }).trim();
   } catch {
-    return "missing";
+    return 'missing';
   }
 }
 
@@ -61,7 +62,7 @@ function snapshot() {
 }
 
 function disabled() {
-  return process.env.ALLOW_TEST_ARTEFACTS === "1";
+  return process.env.ALLOW_TEST_ARTEFACTS === '1';
 }
 
 async function setup() {
@@ -75,25 +76,22 @@ async function teardown() {
   if (before === NOT_A_WORK_TREE) return;
   if (!(before instanceof Map)) {
     // Setup did not record a snapshot, so the guard cannot check this run.
-    console.warn(
-      "⚠️  Working tree guard did not run: no snapshot from globalSetup (#3498).",
-    );
+    console.warn('⚠️  Working tree guard did not run: no snapshot from globalSetup (#3498).');
     return;
   }
 
   const after = snapshot();
   if (!(after instanceof Map)) return;
-  const changed = [...after]
-    .filter(([entry, hash]) => before.get(entry) !== hash)
-    .map(([entry]) => entry);
+  const entries = new Set([...before.keys(), ...after.keys()]);
+  const changed = [...entries].filter((entry) => before.get(entry) !== after.get(entry));
 
   if (changed.length) {
     throw new Error(
       [
-        "Tests changed the working tree; write test output to os.tmpdir() instead (#3498):",
+        'Tests changed the working tree; write test output to os.tmpdir() instead (#3498):',
         ...changed.map((entry) => `  ${entry}`),
-        "Set ALLOW_TEST_ARTEFACTS=1 to bypass when regenerating reports on purpose.",
-      ].join("\n"),
+        'Set ALLOW_TEST_ARTEFACTS=1 to bypass when regenerating reports on purpose.',
+      ].join('\n')
     );
   }
 }

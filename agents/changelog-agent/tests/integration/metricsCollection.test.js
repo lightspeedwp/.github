@@ -74,6 +74,25 @@ describe('Metrics Collection Workflow', () => {
       expect(result.file_path).toBeDefined();
     });
 
+    test('should report snapshot save failures', async () => {
+      const invalidMetricsDir = path.join(TEST_DIR, 'metrics-file');
+      fs.writeFileSync(invalidMetricsDir, 'not a directory');
+
+      const result = await agent.collectMetricsSnapshot(TEST_CHANGELOG, {
+        version: '1.0.0',
+        metricsDir: invalidMetricsDir,
+      });
+
+      expect(result).toMatchObject({
+        success: false,
+        file_path: null,
+        snapshot: null,
+        status: 'failed',
+      });
+      expect(result.error).toEqual(expect.any(String));
+      expect(result.message).toContain('Metrics collection failed:');
+    });
+
     test('should generate valid metrics snapshot structure', async () => {
       const result = await agent.collectMetricsSnapshot(TEST_CHANGELOG, {
         version: '1.0.0',
