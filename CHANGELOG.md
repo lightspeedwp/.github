@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Weekly Release Cadence** — Added a weekly release schedule and human review for every release. (#3476)
+- **Weekly Dependency Updates** — npm dependency update proposals now run weekly on Mondays instead of daily, and every Dependabot pull request keeps a human code-owner review. GitHub Actions updates stay daily. (#3476)
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
