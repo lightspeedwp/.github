@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+- **Actions and Automation Audit** — A verified audit of the active workflows, composite actions and their test coverage. Records that the workflow test harness cannot execute and that its contract tests pass while asserting it, and lists the reported-but-disproven findings so they are not re-raised. ([#3570](https://github.com/lightspeedwp/.github/issues/3570))
 
 ### Changed
 
