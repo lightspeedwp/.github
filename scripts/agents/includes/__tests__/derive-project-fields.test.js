@@ -4,6 +4,7 @@ const path = require("path");
 const yaml = require("js-yaml");
 const {
   deriveProjectFieldValues,
+  inferTypeFromContext,
   run,
 } = require("../derive-project-fields.cjs");
 
@@ -131,5 +132,90 @@ describe("derive-project-fields.cjs", () => {
     expect(output).toContain("status=In review");
     expect(output).toContain("priority=Critical");
     expect(output).toContain("type=Bug");
+  });
+});
+
+describe("issue-type inference uses canonical Type labels", () => {
+  const mappings = issueFieldsConfig.project_field_mappings || {};
+
+  function infer(overrides) {
+    return inferTypeFromContext({ mappings, ...overrides });
+  }
+
+  function deriveType(overrides) {
+    return deriveProjectFieldValues({
+      cfg: issueFieldsConfig,
+      labels: [],
+      eventName: "pull_request",
+      eventAction: "opened",
+      ...overrides,
+    }).type;
+  }
+
+  // Regression coverage for the retired type:documentation and
+  // type:integration rules. Those labels are absent from
+  // project_field_mappings.Type, so every match resolved to an empty string and
+  // silently fell through to the generic default.
+  test.each([
+    ["documentation", "Documentation"],
+    ["docs", "Documentation"],
+    ["readme", "Documentation"],
+    ["guide", "Documentation"],
+    ["integration", "Compatibility"],
+    ["compatibility", "Compatibility"],
+    ["interop", "Compatibility"],
+    ["interoperability", "Compatibility"],
+    ["dependency", "Dependency Update"],
+    ["dependencies", "Dependency Update"],
+  ])("infers %s content as %s", (keyword, expected) => {
+    expect(infer({ title: `Update the ${keyword} surface` })).toBe(expected);
+  });
+
+  test.each([
+    ["documentation", "Documentation"],
+    ["guide", "Documentation"],
+  ])("infers %s from the body when the title has no signal", (keyword, expected) => {
+    expect(infer({ title: "Misc", body: `Rewrite the ${keyword} pages` })).toBe(
+      expected,
+    );
+  });
+
+  test.each(["docs/readme-cleanup", "doc/fix-typos"])(
+    "infers Documentation from the %s branch prefix",
+    (headRef) => {
+      expect(infer({ headRef })).toBe("Documentation");
+    },
+  );
+
+  test.each([
+    ["docs/readme-cleanup", "Documentation"],
+    ["docs/plugin-advisories", "Documentation"],
+    ["fix/widget-rendering", "Bug"],
+    ["feat/new-endpoint", "Feature"],
+  ])("derives the canonical Type for a %s pull request", (headRef, expected) => {
+    expect(deriveType({ headRef })).toBe(expected);
+  });
+
+  test("keeps an explicit label ahead of any content inference", () => {
+    expect(
+      infer({ labels: ["type:bug"], title: "Update the documentation" }),
+    ).toBe("Bug");
+  });
+
+  test("an unmapped rule no longer swallows a later matching rule", () => {
+    // If a rule label is missing from the config the match must be skipped so a
+    // later, mapped rule can still classify the content.
+    const partialMappings = { Type: { "type:feature": "Feature" } };
+
+    expect(
+      inferTypeFromContext({
+        mappings: partialMappings,
+        title: "Improve the documentation and add a feature flag",
+      }),
+    ).toBe("Feature");
+  });
+
+  test("returns the generic default when nothing matches", () => {
+    expect(infer({ title: "Misc" })).toBe("");
   });
 });
