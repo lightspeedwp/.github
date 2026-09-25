@@ -418,18 +418,20 @@ search the code as usual.
   graphify suggests committing `graphify-out/`, but its `graph.json` can exceed
   GitHub's 100 MB file limit.
 - **OpenCode**: `opencode.json` registers both MCP servers, and
-  `.opencode/plugins/graphify.js` adds a one-time reminder to query the graph.
+  `.opencode/plugins/graphify.js` adds a one-time reminder, per session, to
+  query the graph.
   Without the tools or a built graph, the servers fail to start and OpenCode
   carries on without them.
 - **Other agents** (Claude Code, Codex, Cursor, Copilot) ignore those OpenCode
   files. Follow the graft and graphify sections below only when `graft` or
   `graphify` is installed and `graft/` or `graphify-out/graph.json` exists.
-- The two sections below are written by `graft init` and
-  `graphify opencode install`, which rewrite them on every run, so correct
-  them here rather than editing them. `graft grep` treats its pattern as a
-  regex: add `--fixed` to search for a literal string. `graft/INDEX.md` is an
-  entry point, not a complete list of nodes. After rerunning graphify, keep the
-  blank line after its `Rules:` line, which markdownlint requires.
+- The two sections below and `.opencode/plugins/graphify.js` come from
+  `graft init` and `graphify opencode install`, adjusted for this repo. Rerunning
+  either tool restores its upstream text, so reapply the adjustments: `--fixed`
+  on graft's literal `graft grep` example, the `graft/INDEX.md` entry-point
+  wording, the blank line after graphify's `Rules:` line (markdownlint), and
+  this repo's plugin, which appends its reminder to command output instead of
+  prefixing the command (the upstream prefix breaks under Windows PowerShell).
 
 <!-- graft:start -->
 ## Graft — repo context graph
@@ -450,7 +452,7 @@ hotspots), no LLM, no key.
   for understanding or editing, the top node IS the answer — cite its
   `covers:` file:line spans and edit straight from `--source`. For
   exhaustive tasks ("every occurrence / every caller of this pattern"), ranked
-  results are top-N, not complete — run `graft grep "<literal>"` instead
+  results are top-N, not complete — run `graft grep --fixed "<literal>"` instead
   (exhaustive over indexed files, grouped by enclosing symbol), falling back
   to raw `grep -rn` only for unindexed files.
 - `graft skeleton <file>` → every definition's signature + span, ~10× cheaper
@@ -459,7 +461,8 @@ hotspots), no LLM, no key.
   Add `--direction out` for what it calls, or `--depth N` to walk
   transitively for the full blast radius. For structural questions, skip
   ranking and use this directly.
-- Or browse: `graft/INDEX.md` lists every node; follow the links.
+- Or browse: `graft/INDEX.md` is the entry point; follow its links. It is not
+  a complete list of nodes, so use `graft ask` or `graft grep --fixed` to be exhaustive.
 - Monorepos and folders of multiple repos rank fairly across sub-projects —
   hits carry `[scope/]` labels naming which one they're from. Narrow with
   `graft ask "<task>" --in <scope>/` once you know where you're working.
