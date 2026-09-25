@@ -73,7 +73,10 @@ Bash commands never reach the hook (FR-013, research R13).
 | Bash write verb or redirection (outside quotes) naming a protected guard file | the path | enforcement is on (FR-013a, research R12) |
 | `mcp__github__create_pull_request` | `head`, `base` | `head` not compliant; or, on `.github`, `base == main` and `head` not `release/*`/`hotfix/*` |
 
-MCP calls and `gh` commands whose owner isn't `lightspeedwp` (compared case-insensitively) are always allowed.
+MCP calls and `gh` commands whose owner isn't `lightspeedwp` (compared case-insensitively) are always allowed. On
+other `lightspeedwp` repositories only names are checked: branch creation, the target branch of file writes, and PR
+heads (FR-009 scope). `git push` checks every refspec, allows tag-only pushes and refuses `--all`, `--branches` and
+`--mirror`. Here-document bodies are ignored, but the rest of their opening line is checked (research R14).
 
 **Git write, for guard faults (FR-012a)**: `git commit`, `git push`, and branch operations that create, rename, delete or force-reset a branch (`git branch -m/-M/-d/-D/-f`, `git checkout -b/-B`, `git switch -c/-C`), plus `gh pr create` and `gh api` writes. Switching to an existing branch is not a git write.
 

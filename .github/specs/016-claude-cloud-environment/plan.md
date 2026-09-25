@@ -42,6 +42,9 @@ per `.nvmrc`.
 **Testing**:
 
 - Jest (`.jest.config.cjs`), black-box tests that spawn the hook with JSON on stdin
+- CI gate (FR-023): `.github/workflows/claude-guard-tests.yml` runs the guard, SessionStart and docs contract
+  tests on every PR into `develop` or `main`, exiting early when nothing guard-related changed; branch protection
+  requires it (T048)
 - shellcheck
 - actionlint
 - existing `scripts/validation/__tests__/cleanup-branches.test.js` extended
@@ -82,10 +85,10 @@ of branches a day.
 | IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
 | V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
 | VI. UK English, security | UK English in docs and messages. No secrets. While enforcing, the guard fails closed on unknown file sets, unverifiable legacy PRs and its own faults (for git writes). With enforcement off, guard faults warn and allow the writes (FR-013). It protects its own files and every settings file that can disable hooks. The switch can't be changed from inside a session. CODEOWNERS covers `.claude/`. The threat model is written down (R13). The workflow has least-privilege permissions and pinned actions | ✅ |
-| VII. Spec quality | Checklist 16/16. Clarified in three sessions. FR-013a protected paths resolved | ✅ |
+| VII. Spec quality | Requirements checklist 16/16 and security checklist 32/32. Clarified across two recorded sessions (16 questions), plus two follow-up clarification rounds. FR-013a protected paths (five files) resolved | ✅ |
 | VIII. Enforcement and compliance ≥95% | The guard blocks before push. Cleanup removes empty `claude/*` branches that would lower the compliance metric | ✅ |
 | IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |
-| X. Metrics-driven | Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 | ✅ (justified) |
+| X. Metrics-driven | Automated validation runs on every PR (FR-023). Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 | ✅ (justified) |
 
 **Documentation exception vs `CLAUDE.md` ("never commit feature work directly to `main`")**: the exception covers
 only `.github/specs/**` and `docs/**`, which aren't feature work. GitHub branch protection still applies to the
@@ -108,7 +111,9 @@ files. All gates still pass.
 ├── contracts/
 │   ├── hooks.md         # SessionStart + PreToolUse contract
 │   └── branch-cleanup.md
-├── checklists/requirements.md
+├── checklists/
+│   ├── requirements.md  # spec quality (16/16)
+│   └── security.md      # guard and security review (32/32)
 └── tasks.md             # Phase 2 (/speckit-tasks, not created here)
 ```
 
@@ -121,13 +126,22 @@ files. All gates still pass.
 │   ├── setup.sh                   # environment setup script (exists)
 │   └── environment.env            # environment variables (exists)
 └── hooks/
-    ├── session-start.sh           # update: documentation exception in the context text
-    └── enforce-branch-name.mjs    # update: documentation exception (R4), legacy PR exception (R9),
-                                   #   fault handling (R11), self-protection (R12)
+    ├── session-start.sh           # rename only fresh claude/* branches; exceptions and protected files in the context
+    └── enforce-branch-name.mjs    # documentation exception (R4), legacy PR exception over REST (R9), fault
+                                   #   handling (R11), self-protection incl. managed settings (R12), gh CLI,
+                                   #   names-only rules on other lightspeedwp repositories (FR-009 scope)
+
+.github/workflows/
+└── claude-guard-tests.yml         # FR-023 CI gate for the contract tests
 
 scripts/
 └── __tests__/
-    └── enforce-branch-name-hook.test.js   # new: black-box guard contract tests
+    ├── enforce-branch-name-hook.test.js   # black-box guard contract tests
+    ├── session-start-hook.test.js         # black-box SessionStart contract tests (incl. SC-005 timing)
+    └── helpers/claude-hook-harness.js     # temp repo + bare origin, gh/npm/git ls-remote stubs
+
+tests/js/
+└── claude-cloud-environment-docs.test.js  # spec/plan/tasks/contract consistency checks
 
 # Delivered with spec 009 / #3358 (amendment, after #3358 merges):
 scripts/lib/constants.js                   # AUTO_DELETE_PREFIXES, AUTO_DELETE_MIN_AGE_DAYS, reason code

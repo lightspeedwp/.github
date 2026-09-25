@@ -187,7 +187,7 @@ implementation in lightspeedwp/.github#3524.
 
   All three accept `disableAllHooks` or overriding hook entries.
 
-  **Spec**: FR-013a now lists all four paths (third clarification session, threat-model question).
+  **Spec**: FR-013a lists all five paths: the four above plus `/etc/claude-code/managed-settings.json` (security checklist review, CHK001).
 - **CODEOWNERS**: Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed`, following the existing explicit-path
   convention. The global `*` rule already covers it, but an explicit line makes the requirement visible and
   survives changes to the fallback.
@@ -214,3 +214,17 @@ implementation in lightspeedwp/.github#3524.
   `scripts/validation/validate-branch-name.js`, which imports `lib/validate-branch-name.js`. The guard imports the
   same library (R3), so the guard and CI can't disagree. `scripts/validation/validate-branch-name.cjs` is a
   separate CommonJS copy that CI doesn't run. Merging the two is out of scope here (see spec 009 finding F5).
+
+## R14. Shell-parsing gaps found in review (CodeRabbit on #3524)
+
+- **Decision**:
+  - Here-documents: remove only the body. The rest of the opening line (redirects, pipes, `&&`) stays, so
+    `cat <<'EOF' > .claude/settings.json` is still seen as a write to a protected file.
+  - Pushes: check every refspec after the remote. `--tags` skips only tag-only pushes, `refs/tags/*` refspecs
+    are allowed, and `--all`, `--branches` and `--mirror` are refused because they push protected branches.
+  - Session start never hard-resets `main`, and `package.json` being newer than the installed tree also triggers
+    `npm install`.
+- **Rationale**: Each was a real bypass or wrong behaviour on the committed guard. Agents often write files with
+  `cat <<'EOF' > file`, so the here-document case is the most likely in practice.
+- **Alternatives considered**: Restricting the reset to renamed placeholder branches only; rejected because
+  FR-002 syncs any clean branch with no commits of its own, and that reset only fast-forwards.

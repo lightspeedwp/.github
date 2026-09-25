@@ -33,7 +33,7 @@ Configured in claude.ai. The canonical copy is kept in `.claude/cloud/`.
 | Forbidden or invalid | the validator fails (for example `claude/*`, unknown type, malformed) | refused | refused |
 | Protected | `main` or `LS_BASE_BRANCH` | refused (rename target) | `main`: always refused. Base branch: allowed only under the documentation exception, otherwise refused |
 | Bot-owned | `dependabot/*`, `renovate/*` (validator exemption) | allowed | allowed |
-| Legacy PR branch | Forbidden or invalid, but exists on GitHub **and** is the head of an open PR (checked through `git ls-remote` and `gh pr list`, and fails closed) | refused | allowed (FR-006) |
+| Legacy PR branch | Forbidden or invalid, but exists on GitHub **and** is the head of an open PR (checked through `git ls-remote` and the REST lookup `gh api repos/{owner}/{repo}/pulls?head=…`, requiring the PR's head repository to equal its base repository, and fails closed) | refused | allowed (FR-006) |
 
 **Protected guard files** (FR-013a): `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`,
 `~/.claude/settings.json` and `/etc/claude-code/managed-settings.json`. Edits through the Edit, Write, MultiEdit or NotebookEdit tools, or through Bash write

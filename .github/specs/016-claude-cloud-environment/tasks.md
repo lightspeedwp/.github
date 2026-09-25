@@ -88,7 +88,7 @@ it's refused (quickstart §1, §4).
   - `gh` returning `[]`, exiting non-zero or timing out → exit 2
   - commit on that branch with an open PR → exit 0
   - creating a new `copilot/*` branch → exit 2
-  - the `gh` stub returning an open PR whose head is in a fork (`isCrossRepository: true`) → exit 2 (FR-006)
+  - the `gh` stub returning an open PR whose head is in a fork (`head.repo.full_name` differs from `base.repo.full_name`) → exit 2 (FR-006)
 - [x] T011 [P] [US1] Add GitHub MCP cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
   - `create_pull_request` from `feat/a-b` into `main` on `.github` → exit 2
   - head `claude/x-y` → exit 2
@@ -160,6 +160,7 @@ it's refused (quickstart §1, §4).
 - [x] T046 [US1] Make every enforcing refusal start with "Branch guard:", so the SC-007 transcript search for "Branch guard" finds refusals as well as warnings, and suggest a name only when the validator's suggestion itself passes the validator (FR-011, SC-007). Add both to the refusal-message test.
 - [ ] T050 [P] [US1] Add an SC-005 case to `scripts/__tests__/session-start-hook.test.js`: run `session-start.sh` as a cloud `startup` with dependencies already current (installed tree newer than the lockfile, `npm` stubbed, local `origin`) and assert it exits 0 within 30 seconds of wall-clock time and doesn't call `npm install` (SC-005).
 - [ ] T049 [US1] Limit the guard's protected-branch rules, documentation exception and `main` base rule in `.claude/hooks/enforce-branch-name.mjs` to `lightspeedwp/.github`. On other `lightspeedwp` repositories (MCP tools, `gh pr create`, `gh api`), check only names: branch creation, the target branch of file writes, and PR heads. Add cases to `scripts/__tests__/enforce-branch-name-hook.test.js`: `push_files` to `main` on `lightspeedwp/other` → exit 0; to `claude/x` on `lightspeedwp/other` → exit 2; a PR from `feat/a-b` into `main` on `lightspeedwp/other` → exit 0 (FR-009 scope).
+- [ ] T051 [US1] Fix the shell-parsing and session-start gaps from the CodeRabbit review of #3524 (research R14) in `.claude/hooks/enforce-branch-name.mjs`, `.claude/hooks/session-start.sh`, `.github/workflows/claude-guard-tests.yml` and `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, with tests: `cat <<'EOF' > .claude/settings.json` → exit 2; `git push origin feat/good-name main` and `git push --tags origin main` → exit 2; `git push --tags` → exit 0; `--all`, `--branches` and `--mirror` → exit 2; a clean `main` is never hard-reset; `package.json` newer than the installed tree runs `npm install`; the CI filter also matches `package.json`, `package-lock.json`, `.nvmrc` and `.jest.config.cjs`.
 - [x] T024 [US1] Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed` to `CODEOWNERS` under the "AI and Copilot Instructions" block (FR-013a).
 - [x] T025 [US1] Run `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js` (including the T041 speed test), `shellcheck .claude/hooks/session-start.sh` and `npx eslint .claude/hooks/enforce-branch-name.mjs`. Fix everything until it's green.
 
@@ -202,7 +203,7 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - that the guard applies in local sessions too
   - the threat model (accidents plus obvious self-bypasses; CI and CODEOWNERS are the final gate)
   - that the enforcement switch is read only from the environment a session starts with, and can't be changed from inside the session
-  - the four protected files: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json` and `~/.claude/settings.json`
+  - the five protected files: `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`, `~/.claude/settings.json` and `/etc/claude-code/managed-settings.json`
   - self-protection, the CODEOWNERS entry, and the required "Require review from Code Owners" setting on `develop` and `main`
   - the guard's speed target (150 ms or less per call; the legacy PR check runs only when a write would otherwise be refused, SC-008)
   - the guard-unavailable behaviour, and which commands count as git writes during a fault
@@ -217,10 +218,10 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 - [ ] T035 [US3] Run quickstart §5 against `develop` once #3358 merges, and confirm the auto-approved list only contains merged `claude/*` branches with no open PR that are at least a day old.
 - [x] T036 [US3] Add the CHANGELOG entry for the environment and guard (done in #3524).
 - [x] T037 [US3] Update the CHANGELOG entry in `CHANGELOG.md` under Unreleased/Added for the new guard behaviours. It must be 250 characters or less, linked to #3524, and pass `node scripts/validation/validate-changelog.cjs CHANGELOG.md`.
-- [x] T047 [US3] Add a workflow (for example `.github/workflows/claude-guard-tests.yml`, actions pinned by SHA, read-only permissions) that runs `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js` on PRs that change `.claude/**`, those tests or `.github/specs/016-claude-cloud-environment/**`, with `jq` and `git` available. It must pass `actionlint` (FR-023).
-- [ ] T048 [US3] Owner action: after T047 merges, mark its check as required in branch protection (or the ruleset) for `develop` and `main`, and add the step to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-023, FR-019, US3 scenario 7).
 - [ ] T042 [US3] Owner action: turn on "Require review from Code Owners" in branch protection (or the ruleset) for both `develop` and `main`, so the `/.claude/` CODEOWNERS entry from T024 blocks unreviewed changes to the guard (FR-013a, US3 scenario 3).
 - [ ] T043 [US3] After T042, run quickstart §4 step 7 and record both `true` results in the #3524 PR description. Add the same check to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md`.
+- [x] T047 [US3] Add a workflow (for example `.github/workflows/claude-guard-tests.yml`, actions pinned by SHA, read-only permissions) that runs `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js` on PRs that change `.claude/**`, those tests or `.github/specs/016-claude-cloud-environment/**`, with `jq` and `git` available. It must pass `actionlint` (FR-023).
+- [ ] T048 [US3] Owner action: after T047 merges, mark its check as required in branch protection (or the ruleset) for `develop` and `main`, and add the step to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-023, FR-019, US3 scenario 7).
 
 **Checkpoint**: Everything is documented and the cleanup is running.
 
@@ -243,6 +244,10 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 - **US1 (Phase 3)**: Needs Phase 2.
   - Tests T008–T014 and T041 are written first and should fail where behaviour is missing.
   - T020–T023 all edit the same file, so do them one after another.
+  - Once T007 and T022 are live, the guard refuses the agent's own edits to `.claude/hooks/**` and the settings
+    files while enforcement is on (FR-013a). So T021, T045, T049, T050 and T051 are delivered as one change that
+    an Owner applies (or a session an Owner starts with `LS_ENFORCE_BRANCH_NAMES=0`), never by the agent
+    working around the guard.
 - **US2 (Phase 4)**: Independent of US1 code. T028 is an Owner action. T030 needs T028 and ideally the US1 merge.
 - **US3 (Phase 5)**:
   - T032 needs the US1 behaviour to be settled.
