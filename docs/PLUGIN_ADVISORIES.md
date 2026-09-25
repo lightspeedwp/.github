@@ -1,7 +1,7 @@
 # Plugin Advisories: Native Replacements, Gravity Forms Usage and Hosting-Stack Guidance
 
 - **Review owner:** LightSpeed Team
-- **Last reviewed:** 2026-09-19
+- **Last reviewed:** 2026-09-25
 - **Status:** active
 - **Companion issue:** [#1396](https://github.com/lightspeedwp/.github/issues/1396)
 
@@ -9,37 +9,49 @@ This document is the single versioned home for plugin advisories. Every
 advisory names its replacement or its alternative, never only the
 restriction. The canonical list of what may be installed is the companion
 [Approved Plugin Register](PLUGIN_REGISTER.md); anything not on that list
-is not approved. Status legend used below: **shipped** means the replacement
-exists in the starter codebase today with a link; **planned** means it does
-not exist yet and the link points at the tracking issue (or states that none
-exists yet).
+is not approved.
 
-Enforcement mechanism: the starter plugin ships a redundant-plugin admin
-notice (`inc/class-redundant-plugins-notice.php`) backed by a registry with
-`replaced`/`planned` statuses. `planned` entries never prompt for
-deactivation. Add registry entries as replacements ship.
+Generated projects use these implementation sources; retired starter
+repositories are not authoritative:
 
-## 1. Replaced natively in the starter theme/plugin
+| Generated artefact | Implementation source                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------- |
+| Plugin             | [`lightspeedwp/block-plugin-scaffold`](https://github.com/lightspeedwp/block-plugin-scaffold) `develop` |
+| Theme              | [`lightspeedwp/block-theme-scaffold`](https://github.com/lightspeedwp/block-theme-scaffold) `develop`   |
 
-| Plugin | Native replacement | Status | Caveat |
-|---|---|---|---|
-| Safe SVG | `upload_mimes` gated on a capability plus `enshrined/svg-sanitize` on upload | planned ([ls-starter-plugin#3](https://github.com/lightspeedwp/ls-starter-plugin/issues/3)) | SVG is executable markup: allowing the mime type without server-side sanitising re-opens stored-XSS. The filter alone is not a replacement. Sanitize with `enshrined/svg-sanitize` (used by Safe SVG itself and TYPO3 core) on `wp_handle_upload_prefilter`, and gate the mime type on an upload capability so only trusted roles can upload SVG. The starter registry already carries this as `planned` and warns without prompting deactivation. |
-| WP Mail SMTP, Change Mail Sender | `phpmailer_init` from constants plus sender fields in Settings → General | partial: from-name/address shipped ([ls-starter-plugin#11](https://github.com/lightspeedwp/ls-starter-plugin/pull/11)); constants and settings fields planned ([ls-starter-plugin#2](https://github.com/lightspeedwp/ls-starter-plugin/issues/2)) | `phpmailer_init` fires after core calls `setFrom()`, so set `From`/`FromName`/`Sender` from constants there; the `wp_mail_from` / `wp_mail_from_name` filters are the simpler path for sender identity alone. Do not store SMTP passwords in the database when constants will do. The starter registry marks Change Mail Sender `replaced` (from-name/address handled). |
-| Cachebuster | `filemtime()` asset versioning helper | shipped ([ls-starter-plugin#11](https://github.com/lightspeedwp/ls-starter-plugin/pull/11), `inc/class-cachebusting.php`; registry status `replaced`) | Version strings must change when file contents change; `filemtime()` on the asset path does this with no build step and no stale-cache risk. |
-| Disable Emails | `pre_wp_mail` short-circuit driven by `wp_get_environment_type()` | planned (no tracking issue yet) | `pre_wp_mail` (core since 5.7) short-circuits `wp_mail()` when the filter returns non-null. Gate on environment type (core since 5.5: `local`, `development`, `staging`, `production`, defaulting to `production`) so non-production never sends. Unlike the plugin, this keeps password-reset and admin mails working in production. |
-| View Transitions | native CSS `@view-transition` | planned (no tracking issue yet) | `@view-transition` (cross-document opt-in) is **not** Baseline as of September 2026 — treat it as progressive enhancement with identical no-animation fallback, and verify current Baseline status before relying on it. Same-document transitions via `document.startViewTransition()` have wider support. |
-| Carousel Slider Block | CSS scroll-snap with core blocks | planned (no tracking issue yet) | `scroll-snap-type` / `scroll-snap-align` are Baseline widely available (all browsers since 2022) and compose with core Group/Columns blocks, so most marketing carousels need no JS library and no extra DOM weight. |
-| GTM4WP, Google Site Kit | container snippet and `dataLayer` output from the enhancement plugin | planned (no tracking issue yet) | Emit `window.dataLayer = window.dataLayer || []` before the container snippet and push named events (`dataLayer.push({ event: 'signup' })`) from theme/plugin code; configure tags and triggers in the container. This keeps markup vendor-neutral: swapping analytics vendors means editing container config, not theme code. |
-| WPFront Scroll Top | CSS plus a few lines of JS in the theme | planned (no tracking issue yet) | A positioned button, `scroll-behavior: smooth` (with `prefers-reduced-motion` respect), and a scroll listener is under 30 lines. No settings UI or extra payload is justified. |
-| Disable Comments RB | core discussion settings | planned (no tracking issue yet) | Settings → Discussion already disables comments and pings globally and per post type; a plugin adds nothing except another settings surface that can drift from core. |
-| User Menus, Visibility Logic for Elementor | block theme templates and template parts | planned (no tracking issue yet) | Block visibility and template-part conditions belong in theme templates where they are version-controlled and reviewable, not in per-element plugin metadata. |
-| Social Sharing Block | pattern with plain share URLs, no JS | planned (no tracking issue yet) | Share intents are plain links (`https://www.facebook.com/sharer/sharer.php?u=…`, `https://x.com/intent/post?url=…`, `mailto:`, WhatsApp `wa.me`). A block pattern renders them with zero JS; third-party share scripts are a tracking and performance liability. |
-| JWT Authentication for WP-API | core Application Passwords | planned (no tracking issue yet) | Application Passwords (core since 5.6) give per-user, individually revocable credentials over Basic Auth on HTTPS, with usage metadata and no extra plugin surface. JWT plugins add token lifecycle, secret storage and revocation problems core already solved. |
-| Yoast Duplicate Post | row action plus `wp_insert_post` clone | planned (no tracking issue yet) | Cloning is `get_post()` → `wp_insert_post()` with copied taxonomies and meta in one admin row action. The plugin's scheduling and bulk features are out of scope until a client asks for them. |
+Status legend used below:
+
+- **available** — present in WordPress core or in the current `develop` branch
+  of a generator, with a direct source link.
+- **planned** — not implemented yet, with a tracking issue in the generator
+  repository that will own the implementation.
+- **conditional** — permitted only after project-specific approval; the
+  advisory does not grant that approval.
+
+Verify the current generator branch before changing a status. An example,
+instruction or issue in a generator is not evidence that the feature ships.
+
+## 1. Replaced natively in generated projects
+
+| Plugin                                     | Native replacement                                                                                                          | Status                                                                                                                                                      | Caveat                                                                                                                                                                                              |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Safe SVG                                   | Capability-gated `upload_mimes` plus `enshrined/svg-sanitize` on upload                                                     | planned ([block-plugin-scaffold#37](https://github.com/lightspeedwp/block-plugin-scaffold/issues/37))                                                       | SVG is executable markup. The MIME filter alone is not a replacement: sanitise the uploaded file server-side and allow SVG only for roles with the required upload capability.                      |
+| WP Mail SMTP, Change Mail Sender           | Configured `PHPMailer` transport and sender values from deployment secrets, plus sender fields in generated plugin settings | planned ([block-plugin-scaffold#37](https://github.com/lightspeedwp/block-plugin-scaffold/issues/37))                                                       | `phpmailer_init` fires after core sets defaults. Configure transport and sender values there, keep credentials outside the database, and test password-reset and admin mail in production mode.     |
+| Cachebuster                                | WordPress build-manifest version from `*.asset.php`                                                                         | available ([block-theme-scaffold `functions.php`](https://github.com/lightspeedwp/block-theme-scaffold/blob/develop/functions.php))                         | The generated theme uses the build asset's version and falls back to the theme version. Do not use `filemtime()` as proof of freshness: timestamps can remain unchanged when content changes.       |
+| Disable Emails                             | `pre_wp_mail` short-circuit driven by `wp_get_environment_type()`                                                           | planned ([block-plugin-scaffold#37](https://github.com/lightspeedwp/block-plugin-scaffold/issues/37))                                                       | Return a non-null value only outside production. The default must remain production so a missing or unrecognised environment never suppresses live transactional mail.                              |
+| View Transitions                           | Native CSS `@view-transition` with an identical no-animation fallback                                                       | planned ([block-theme-scaffold#9](https://github.com/lightspeedwp/block-theme-scaffold/issues/9))                                                           | Treat cross-document transitions as progressive enhancement, respect reduced-motion preferences and verify support for the project's browser matrix before relying on them.                         |
+| Carousel Slider Block                      | CSS scroll-snap with core Group and Columns blocks                                                                          | planned ([block-theme-scaffold#9](https://github.com/lightspeedwp/block-theme-scaffold/issues/9))                                                           | Use native scrolling and keyboard-operable controls. Do not add autoplay or JavaScript unless a documented project requirement needs them.                                                          |
+| GTM4WP, Google Site Kit                    | Container snippet and vendor-neutral `dataLayer` events in the generated plugin                                             | planned ([block-plugin-scaffold#37](https://github.com/lightspeedwp/block-plugin-scaffold/issues/37))                                                       | Initialise `window.dataLayer` before the container and push named events from generated code. Keep vendor tags and triggers in the container so changing providers does not require theme rewrites. |
+| WPFront Scroll Top                         | Generated `ScrollToTop` component                                                                                           | available ([block-plugin-scaffold component](https://github.com/lightspeedwp/block-plugin-scaffold/blob/develop/src/components/ScrollToTop/ScrollToTop.js)) | The component is exported but not automatically placed by every generated site. Verify keyboard behaviour, touch-target size and reduced-motion handling when integrating it.                       |
+| Disable Comments RB                        | WordPress core discussion settings                                                                                          | available ([WordPress core](https://wordpress.org/documentation/article/settings-discussion-screen/))                                                       | Settings → Discussion can disable comments and pings globally and per post type. A plugin only adds another settings surface that can drift from core.                                              |
+| User Menus, Visibility Logic for Elementor | Block-theme templates, template parts and navigation                                                                        | planned ([block-theme-scaffold#9](https://github.com/lightspeedwp/block-theme-scaffold/issues/9))                                                           | Keep conditional presentation in version-controlled theme structures. Do not carry Elementor-specific visibility metadata into a generated block theme.                                             |
+| Social Sharing Block                       | Pattern with plain share URLs and no third-party JavaScript                                                                 | planned ([block-theme-scaffold#9](https://github.com/lightspeedwp/block-theme-scaffold/issues/9))                                                           | Share intents can be ordinary links. Third-party share scripts add tracking, payload and consent work without helping the basic action.                                                             |
+| JWT Authentication for WP-API              | WordPress core Application Passwords                                                                                        | available ([WordPress core](https://developer.wordpress.org/advanced-administration/security/application-passwords/))                                       | Use HTTPS and individually issued, revocable credentials. Do not add a second token and secret lifecycle when core credentials meet the requirement.                                                |
+| Yoast Duplicate Post                       | Capability-checked row action plus a reviewed `wp_insert_post()` clone                                                      | planned ([block-plugin-scaffold#37](https://github.com/lightspeedwp/block-plugin-scaffold/issues/37))                                                       | Copy only supported post fields, taxonomies and meta. Scheduling and bulk duplication remain out of scope until a project explicitly requires them.                                                 |
 
 ## 2. Gravity Forms usage advisory
 
-**Reason:** Gravity Forms is a full form framework: conditional logic, multi-page state, file handling and its theme CSS/JS ship on every page that renders a form. That payload is proportionate for enquiry, application, quote and upload forms — it is disproportionate for site-wide elements, newsletter sign-ups and pop-ups, where it adds render-blocking weight to every page view and degrades Core Web Vitals (particularly INP and LCP on mobile). Gravity Forms' own documentation provides `gform_disable_css` but warns that disabling it breaks conditional logic, honeypot hiding and multi-page forms — evidence the payload is structural, not optional.
+**Reason:** Gravity Forms is a full form framework: conditional logic, multi-page state, file handling and its theme CSS/JS ship on every page that renders a form. That payload is proportionate for enquiry, application, quote and upload forms. It is disproportionate when a newsletter form or pop-up loads the framework on every page, increasing transfer and execution cost and potentially degrading Core Web Vitals. Gravity Forms' own documentation provides `gform_disable_css` but warns that disabling it breaks conditional logic, honeypot hiding and multi-page forms — evidence the payload is structural, not optional.
 
 **Rule:**
 
@@ -53,22 +65,22 @@ deactivation. Add registry entries as replacements ship.
 ```html
 <form id="newsletter-signup" method="post" action="/wp-json/ls/v1/newsletter">
   <label for="newsletter-email">Email address</label>
-  <input id="newsletter-email" name="email" type="email" required autocomplete="email">
+  <input id="newsletter-email" name="email" type="email" required autocomplete="email" />
   <button type="submit">Subscribe</button>
 </form>
 <script>
-document.getElementById('newsletter-signup').addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const response = await fetch(form.action, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: form.email.value }),
+  document.getElementById('newsletter-signup').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const response = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: form.elements.email.value }),
+    });
+    form.outerHTML = response.ok
+      ? '<p role="status">Subscribed. Please check your inbox.</p>'
+      : '<p role="alert">Subscription failed. Please try again later.</p>';
   });
-  form.outerHTML = response.ok
-    ? '<p role="status">Subscribed. Please check your inbox.</p>'
-    : '<p role="alert">Subscription failed. Please try again later.</p>';
-});
 </script>
 ```
 
@@ -77,7 +89,7 @@ add_action( 'rest_api_init', function () {
 	register_rest_route( 'ls/v1', '/newsletter', array(
 		'methods'             => 'POST',
 		'callback'            => 'ls_newsletter_subscribe',
-		'permission_callback' => '__return_true', // Public endpoint: rate-limit and validate below.
+		'permission_callback' => '__return_true',
 		'args'                => array(
 			'email' => array(
 				'required'          => true,
@@ -88,31 +100,85 @@ add_action( 'rest_api_init', function () {
 	) );
 } );
 
+function ls_newsletter_rate_limited( $email ) {
+	$ip = isset( $_SERVER['REMOTE_ADDR'] )
+		? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
+		: 'unknown';
+	$limits = array(
+		array(
+			'prefix' => 'ls_newsletter_ip_',
+			'value'  => $ip,
+			'max'    => 20,
+		),
+		array(
+			'prefix' => 'ls_newsletter_email_',
+			'value'  => strtolower( $email ),
+			'max'    => 3,
+		),
+	);
+	$counts = array();
+
+	foreach ( $limits as $limit ) {
+		$key   = $limit['prefix'] . wp_hash( $limit['value'], 'auth' );
+		$count = (int) get_transient( $key );
+		if ( $count >= $limit['max'] ) {
+			return true;
+		}
+		$counts[ $key ] = $count + 1;
+	}
+
+	foreach ( $counts as $key => $count ) {
+		set_transient( $key, $count, HOUR_IN_SECONDS );
+	}
+
+	return false;
+}
+
 function ls_newsletter_subscribe( WP_REST_Request $request ) {
+	$email = sanitize_email( $request['email'] );
+	if ( ls_newsletter_rate_limited( $email ) ) {
+		return new WP_Error(
+			'subscribe_rate_limited',
+			'Subscription rate limit exceeded.',
+			array(
+				'status'      => 429,
+				'Retry-After' => HOUR_IN_SECONDS,
+			)
+		);
+	}
+
 	$response = wp_remote_post(
 		'https://provider.example/api/subscribe',
 		array(
 			'timeout' => 10,
 			'headers' => array(
-				'Authorization' => 'Bearer ' . PROVIDER_API_KEY, // Constant, never the database.
+				'Authorization' => 'Bearer ' . PROVIDER_API_KEY,
 			),
-			'body'    => array( 'email' => $request['email'] ),
+			'body'    => array( 'email' => $email ),
 		)
 	);
-	if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+	if ( is_wp_error( $response ) ) {
+		return new WP_Error( 'subscribe_failed', 'Subscription failed.', array( 'status' => 502 ) );
+	}
+	$status_code = (int) wp_remote_retrieve_response_code( $response );
+	if ( $status_code < 200 || $status_code >= 300 ) {
 		return new WP_Error( 'subscribe_failed', 'Subscription failed.', array( 'status' => 502 ) );
 	}
 	return array( 'subscribed' => true );
 }
 ```
 
-Adapt the provider call to the newsletter vendor in use; keep the secret in a
-constant, validate and rate-limit the route, and return `role="status"` /
-`role="alert"` regions so assistive technology announces the outcome.
+The example allows 20 requests per IP and three per email address per hour,
+storing only WordPress hashes of those values. Tune both limits to the provider's
+contract, use a shared rate-limit service when traffic spans multiple application
+servers, and keep the provider secret in a constant rather than the database.
+Return `role="status"` / `role="alert"` regions so assistive technology announces
+the outcome.
 
 ### Pop-up: `<dialog>` with minimal JS
 
 ```html
+<button id="site-popup-trigger" type="button">Open offer</button>
 <dialog id="site-popup" aria-labelledby="site-popup-title">
   <h2 id="site-popup-title">Special offer</h2>
   <p>Offer copy goes here.</p>
@@ -121,12 +187,12 @@ constant, validate and rate-limit the route, and return `role="status"` /
   </form>
 </dialog>
 <script>
-const popup = document.getElementById('site-popup');
-document.getElementById('site-popup-trigger').addEventListener('click', () => {
-  if (typeof popup.showModal === 'function') {
-    popup.showModal();
-  }
-});
+  const popup = document.getElementById('site-popup');
+  document.getElementById('site-popup-trigger').addEventListener('click', () => {
+    if (typeof popup.showModal === 'function') {
+      popup.showModal();
+    }
+  });
 </script>
 ```
 
@@ -144,7 +210,7 @@ These stay as plugins, with reasons:
 - **Wordfence** — endpoint firewall, malware scanning and login hardening are a security product, not theme logic; incident response depends on its telemetry.
 - **User Switching** — capability-checked user impersonation for support; reimplementing session handling is a security risk with no upside.
 - **Yoast SEO** — schema output, sitemaps, redirects UI and content analysis are a maintained product surface; partial reimplementation drifts from SEO best practice silently.
-- **All payment gateways** — money movement requires PCI-aware, vendor-maintained integrations; custom gateway code is a compliance and liability risk.
+- **Concrete payment gateway plugins** — money movement requires PCI-aware, vendor-maintained integrations, so gateways stay plugins rather than theme code. No concrete gateway is globally approved: require an exact plugin/version allowlist and project approval before installation. WooCommerce core does not process payments.
 - **WooCommerce Subscriptions** — recurring billing, proration, dunning and gateway token management are commerce-critical logic no theme should own.
 - **FacetWP** — indexed faceted search over large catalogues is a performance specialty; naive `WP_Query` faceting does not scale.
 - **SearchWP** — relevance-ranked search with custom sources and stemming; core search has no ranking model.
@@ -156,7 +222,7 @@ These stay as plugins, with reasons:
 
 - **WP Rocket:** the fleet already runs nginx FastCGI page caching and Cloudflare edge caching, so a third page-cache layer is redundant and a stale-content risk (three invalidation paths instead of one). Approve for asset optimisation only — or not at all — on LightSpeed hosting. Gravity Forms' own cache FAQ independently warns that page caching serves stale output to dynamic, conditional and AJAX-driven forms.
 - **Accessibility Checker:** run accessibility checks in CI (axe-core via `axe-core` npm package or pa11y-ci in a GitHub Action, gating on serious/critical violations) rather than as a production plugin. Production checkers add runtime weight to every page view and report after users are already affected; CI reports before merge. Automated engines catch roughly half of WCAG issues — pair with periodic human audit, not with a production plugin.
-- **Redirection:** use the Redirection plugin. Web administrators need to manage rules themselves, and the plugin scales to that workload — server-level redirects would force every rule change through fleet config and the deploy pipeline. Reserve nginx-level redirects for one-off migration spikes managed by the fleet team.
+- **Redirection:** prefer fleet-managed nginx rules for migrations, bulk URL changes and other high-volume redirects because they are deterministic and part of the deployment path. Use the Redirection plugin only when editors need to manage a bounded set of day-to-day rules themselves; record the owner and review process.
 - **Analytics:** one tool owns each event. No duplicate purchase, checkout or form events across Site Kit, GTM, WooCommerce Google Analytics Pro and the Gravity Forms add-on. Duplicate ownership double-counts conversions and makes every report untrustworthy; map event ownership explicitly (which tool fires `purchase`, which fires `form_submit`) during analytics setup and audit it when adding tools.
 
 ## References
@@ -169,4 +235,4 @@ These stay as plugins, with reasons:
 - Gravity Forms docs: `gform_disable_css` (with accessibility caveats), cache and script-optimiser FAQ.
 - Cloudflare APO docs, nginx FastCGI caching guidance.
 - `enshrined/svg-sanitize` (composer library; sanitizer behind Safe SVG and TYPO3 core).
-- Starter code: `ls-starter-plugin/inc/class-redundant-plugins-notice.php`, `ls-starter-plugin/inc/class-cachebusting.php`; tracking issues [ls-starter-plugin#2](https://github.com/lightspeedwp/ls-starter-plugin/issues/2) (mail sender) and [ls-starter-plugin#3](https://github.com/lightspeedwp/ls-starter-plugin/issues/3) (SVG).
+- Generator sources: [`block-plugin-scaffold`](https://github.com/lightspeedwp/block-plugin-scaffold) and [`block-theme-scaffold`](https://github.com/lightspeedwp/block-theme-scaffold), including [plugin replacement tracking](https://github.com/lightspeedwp/block-plugin-scaffold/issues/37) and [theme replacement tracking](https://github.com/lightspeedwp/block-theme-scaffold/issues/9).
