@@ -176,7 +176,7 @@ function detectIssueTypeFromContent(title = '', body = '') {
 /**
  * Migrates labels that are not in the canonical set.
  *
- * A label with a canonical mapping (an alias in labels.yml) is replaced by its
+ * A label with a canonical mapping (an entry in `aliasMap`) is replaced by its
  * canonical label. A label with no mapping is kept unless `removeUnmapped` is
  * true: spec 008 FR-022 forbids removing labels only because they are missing
  * from labels.yml until the approved consolidation mapping exists.
@@ -187,11 +187,14 @@ function detectIssueTypeFromContent(title = '', body = '') {
  * @param {number} number - Issue/PR number.
  * @param {string[]} currentLabels
  * @param {Set<string>} canonicalSet
- * @param {Object} aliasMap
- * @param {boolean} dryRun - When true, no API call is made.
+ * @param {Object} aliasMap - Alias names mapped to canonical label names.
+ * @param {boolean} dryRun - When true, report proposed changes without API writes.
  * @param {function} log
  * @param {boolean} [removeUnmapped=false] - Remove labels that have no mapping.
- * @returns {Promise<{migrated: string[], removed: string[], kept: string[]}>}
+ * @returns {Promise<{migrated: string[], removed: string[], kept: string[]}>} Migrations as
+ *   "old -> new" strings, unmapped labels removed, and unmapped labels kept. Canonical
+ *   labels are omitted; dry runs return proposed migrations and removals.
+ * @throws Errors from label API writes or the log callback propagate.
  */
 async function standardizeLabelsOnItem(
   github,
@@ -245,14 +248,17 @@ async function standardizeLabelsOnItem(
 }
 
 /**
- * Main orchestrator for labeling agent with comprehensive error handling
+ * Apply labeling rules to the issue or PR in the GitHub context.
  * @param {Object} opts - Configuration options
  * @param {Object} [opts.context=github.context] - GitHub context
  * @param {Object} [opts.github] - Octokit instance
- * @param {boolean} [opts.dryRun] - Dry run mode; defaults to the DRY_RUN environment variable
- * @param {boolean} [opts.removeUnmapped] - Remove labels with no canonical mapping; defaults to the LABELING_REMOVE_UNMAPPED environment variable (off)
- * @param {number} [opts.maxRetries=3] - Maximum retry attempts for API calls
- * @returns {Promise<Object>} Report object with summary of actions taken
+ * @param {boolean} [opts.dryRun] - Skip label writes when true; defaults to whether DRY_RUN is 'true'.
+ * @param {boolean} [opts.removeUnmapped] - Remove labels with no canonical mapping; defaults to whether LABELING_REMOVE_UNMAPPED is 'true'.
+ * @param {number} [opts.maxRetries=3] - Maximum attempts to add labels from labeler rules.
+ * @returns {Promise<Object>} Report with added, removed, migrated, rulesApplied,
+ *   errors, success, and duration in milliseconds. Removals exclude migrated aliases;
+ *   dry runs include proposed actions. Success can be true even when an individual
+ *   step records an error. Caught configuration, step, and fatal errors are recorded.
  */
 async function runLabelingAgent(opts = {}) {
   const startTime = Date.now();
