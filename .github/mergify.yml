@@ -42,7 +42,20 @@ pull_request_rules:
   #
   # Mergify skips pull requests in a conflict or already in the merge queue
   # (`queue-position = -1`), so one needing manual conflict resolution still
-  # reports DIRTY, and a queued one is left to the queue.
+  # reports DIRTY, and a queued one is left to the queue. Mergify applies the
+  # same no-conflict requirement itself, independent of `-conflict` here, so
+  # that condition is belt-and-braces rather than the only guard.
+  #
+  # A pull request that is behind *and* conflicting is the one case this rule
+  # cannot help, and the `update` check stays red until someone resolves it by
+  # hand: `update` merges the base in, and merging cannot resolve a conflict.
+  # That used to be the common case here, because the changelog gate requires
+  # an `[Unreleased]` entry on nearly every pull request and every entry lands
+  # in the same short list, so two open pull requests almost always collided on
+  # CHANGELOG.md (#3574). `.gitattributes` now marks that file `merge=union`,
+  # which keeps both sides' additions and removes the collision.
+  # `scripts/validation/__tests__/changelog-merge-strategy.test.js` reproduces
+  # the two-branch case and fails if that attribute is removed.
   #
   # Cost: develop's ruleset sets `dismiss_stale_reviews_on_push`, so this
   # action dismisses existing approvals on the pull request it touches. That is

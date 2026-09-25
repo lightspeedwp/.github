@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Changelog Merges No Longer Conflict** — `CHANGELOG.md` is union-merged, so a pull request is not blocked behind `develop` when another one added a changelog entry. (#3574)
 - **Composite Action Docs Matched Reality** — Dropped both deleted actions from the reference and replaced the claim that composite actions are tested in `workflow-harness.yml`. (#3570)
 - **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
 - **Labelling Keeps Unknown Labels** — The labelling automation no longer removes labels missing from the label list unless they map to an approved label, its dry-run mode now changes nothing, and it applies only valid type labels. (#3564)
