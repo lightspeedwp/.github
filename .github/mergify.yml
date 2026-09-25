@@ -1,9 +1,10 @@
 # Mergify configuration.
 # Schema: https://docs.mergify.com/mergify-configuration-schema.json
 #
-# Scope: Dependabot updates on develop only. The develop ruleset still
-# requires the three required checks and one code-owner approval, so
-# Mergify never merges anything a human has not approved.
+# Scope: keep pull requests current against develop, and auto-merge Dependabot
+# updates once the develop ruleset is satisfied. The ruleset still requires the
+# required checks and one code-owner approval, so Mergify never merges anything
+# a human has not approved.
 #
 # Removed (#3476): the queue, auto-approve, imgbot and meta-agent rules.
 # They gated on a check named "All Checks Passed" that no workflow has
@@ -12,47 +13,44 @@
 # that actually merged Dependabot PRs is auto_merge below, so it is kept.
 
 pull_request_rules:
-  # develop requires branches to be up to date before merging, so rebase
-  # Dependabot PRs whenever develop moves ahead.
-  - name: Keep Dependabot updates on develop current
-    conditions:
-      - author~=^(dependabot\[bot\]|app/dependabot)$
-      - base=develop
-      - -draft
-      - -conflict
-      - "#commits-behind > 0"
-    actions:
-      update: {}
-
-  # Human-authored PRs fall behind whenever develop moves, and the develop
-  # ruleset blocks them until they are current — the queue showed a long tail
-  # of BEHIND PRs. This merges the base branch in so CI re-runs against the
-  # current tree.
+  # Every open pull request against develop merges it in as soon as it falls
+  # behind, so nothing is ever blocked on staleness alone.
   #
-  # Gated on a staleness threshold rather than a label, following Mergify's own
-  # documented example (https://docs.mergify.com/actions/update/). A label was
-  # rejected: this repository's label governance requires every label to be
-  # canonical and family-prefixed (AGENTS.md), `keep-up-to-date` was neither,
-  # and adding it would mean a locked-file change needing @ashley's approval.
-  # A threshold keeps this useful with no new label and no governance debt.
+  # develop's ruleset uses a strict up-to-date policy, so a PR one commit
+  # behind is blocked from merging exactly as much as one twenty behind. An
+  # earlier revision of this rule waited until a PR was more than five commits
+  # behind; that left a band of PRs permanently stuck until they drifted past
+  # the threshold. The threshold is gone so the rule fires at any staleness.
   #
-  # The threshold (5) was chosen from the observed spread of open PRs: most sit
-  # 4-8 commits behind, and the worst at 11-25. Updating only once a PR is
-  # clearly stale avoids re-triggering CI across the whole queue on every single
-  # develop push, while still self-healing before a PR becomes hard to rebase.
+  # This replaced a Dependabot-only rule. It is a strict superset of it, so
+  # keeping both would have matched every Dependabot pull request twice and
+  # run the same update action from two rules.
   #
-  # `update` takes no parameters here, so Mergify uses `update_method: merge`
-  # (the documented default for pull_request_rules). `merge` is also the
-  # fork-safe choice: `update_method: rebase` with `update_bot_account` is
-  # deprecated for repositories that receive fork PRs, and this repository
-  # is public. Mergify never rebases conflicting branches, so a PR that
-  # needs manual conflict resolution still reports DIRTY.
-  - name: Keep stale pull requests current
+  # `-draft` excludes work-in-progress, following Mergify's own documented
+  # linear history example. A draft is not waiting to merge, and re-running CI
+  # on every open draft on every develop push is pure cost.
+  #
+  # `update` rather than `rebase`: `rebase` has to impersonate a GitHub user
+  # and cannot impersonate a bot-owned account, so it fails outright on
+  # Dependabot pull requests, and it refuses fork pull requests entirely.
+  # `update` merges the base in, needs no impersonation, and works on forks
+  # (https://docs.mergify.com/workflow/actions/rebase/).
+  #
+  # Mergify skips pull requests in a conflict or already in the merge queue
+  # (`queue-position = -1`), so one needing manual conflict resolution still
+  # reports DIRTY, and a queued one is left to the queue.
+  #
+  # Cost: develop's ruleset sets `dismiss_stale_reviews_on_push`, so this
+  # action dismisses existing approvals on the pull request it touches. That is
+  # correct rather than incidental — the code the reviewer approved has moved
+  # underneath them — but it does mean a review must be given again after each
+  # merge to develop.
+  - name: Keep all pull requests on develop current
     conditions:
       - base=develop
       - -draft
       - -conflict
-      - "#commits-behind > 5"
+      - '#commits-behind > 0'
     actions:
       update: {}
 
@@ -63,5 +61,11 @@ merge_protections_settings:
   # author on every branch, which previously auto-merged human PRs against
   # an unprotected release branch
   # (https://docs.mergify.com/merge-protections/auto-merge/).
+  #
+  # This is inert unless a `merge_protections` rule below matches the PR, or
+  # the merge queue is enabled: with no matching rule there are no
+  # success_conditions to evaluate, and Mergify reports "does not match any
+  # conditions of the merge protections". Left as-is deliberately — the gate
+  # that matters is the develop ruleset (code-owner review), not Mergify's.
   auto_merge_conditions:
     - author~=^(dependabot\[bot\]|app/dependabot)$

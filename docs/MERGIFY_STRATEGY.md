@@ -2,8 +2,8 @@
 file_type: documentation
 title: Mergify Strategy & Implementation
 description: Complete guide to Mergify configuration, auto-merge rules, and troubleshooting
-version: v1.0.2
-last_updated: '2026-09-24'
+version: v1.0.3
+last_updated: '2026-09-25'
 owners:
   - lightspeedwp
 ---
@@ -36,14 +36,14 @@ This document describes how Mergify is configured and used for automated pull re
 
 Mergify is a GitHub App that automates pull request merging based on configurable rules. We use it for:
 
-1. **Dependabot dependency updates** - Merge base branch in when they fall behind
-2. **Stale pull requests** - Merge base branch in once a PR is more than 5 commits behind
-3. **Dependabot auto-merge** - Merge once GitHub branch protection is satisfied
+1. **Keeping every pull request current** - Merge the base branch in as soon as a PR falls behind
+2. **Dependabot auto-merge** - Merge once GitHub branch protection is satisfied
 
 ### Current Status
 
 - **Configuration File**: `.github/mergify.yml`
-- **Active Rules**: 2 update rules (Dependabot, and any PR >5 commits behind) + Dependabot auto-merge
+- **Active Rules**: 1 update rule (any non-draft PR against `develop` that falls behind) +
+  Dependabot auto-merge
 - **Known Issues**: none known. The queue, imgbot and meta-agent rules were removed in #3476
   because they gated on an "All Checks Passed" check no workflow produces. Human PRs still
   require a human code-owner approval; Mergify never bypasses that.
@@ -123,13 +123,12 @@ We standardly use **squash** for clean history.
 
 ## Auto-Merge Rules
 
-### Rule 1: Keep Dependabot PRs Current
+### Rule 1: Keep All Pull Requests on Develop Current
 
-**Purpose**: Merge the base branch into Dependabot PRs when develop moves ahead
+**Purpose**: Merge the base branch into any pull request once `develop` moves ahead
 
 **Conditions**:
 
-- Author is Dependabot (`dependabot[bot]` or `app/dependabot`)
 - Base branch is `develop`
 - Not a draft
 - No merge conflicts
@@ -138,36 +137,41 @@ We standardly use **squash** for clean history.
 **Actions**:
 
 - `update: {}` — Mergify merges `develop` into the PR branch, which re-triggers CI against
-  the current tree. The action defaults to `update_method: merge`, which is also the
-  fork-safe choice (`rebase` + `update_bot_account` is deprecated for repos that receive
-  fork PRs, and this repository is public).
+  the current tree.
 
 **Trigger**: Automatic on develop updates
 
-**Verified**: working — Mergify has pushed `Merge branch 'develop' into dependabot/...`
-commits to open Dependabot PRs. A PR showing BEHIND simply means develop moved again
-after its last update.
+**Verified**: working — Mergify pushed updates across all 13 open Dependabot PRs on
+2026-09-25, taking roughly 20-30 seconds per PR, so a full sweep of a large queue takes
+several minutes. A PR showing BEHIND immediately after a merge may just be queued behind
+others.
 
----
+**Why `update` and not `rebase`**: the `rebase` action has to impersonate a GitHub user, and
+Mergify cannot impersonate an account owned by another GitHub App — so it fails outright on
+Dependabot PRs unless a human `bot_account` is set. It also refuses fork PRs entirely.
+`update` merges the base in, needs no impersonation, and works on forks.
 
-### Rule 2: Keep Stale Pull Requests Current
+**Why no staleness threshold**: an earlier revision of this rule waited until a PR was more
+than five commits behind. The `develop` ruleset uses a strict up-to-date policy, so a PR one
+commit behind is blocked from merging exactly as much as one twenty behind. A threshold
+leaves a band of PRs stuck until they drift past it, so the rule now fires at any staleness.
 
-**Purpose**: Same as Rule 1, for human-authored PRs, gated on a staleness threshold
+**Why drafts are excluded**: Mergify's own documented linear-history example filters drafts.
+A draft is not waiting to merge, and re-running CI on every open draft on every `develop`
+push is pure cost.
 
-**Conditions**: base `develop`, not a draft, no conflicts, more than 5 commits behind
-
-**Why a threshold, not a label**: this repository's label governance requires every label
-to be canonical and family-prefixed (AGENTS.md). A `keep-up-to-date` label was neither,
-and adding it would require a locked-file change and @ashley's approval. A threshold
-achieves the same result with no new label and no governance debt. The threshold of 5
-came from the observed spread of open PRs (most 4-8 behind, worst 11-25).
+**Side effect to be aware of**: `develop`'s ruleset sets `dismiss_stale_reviews_on_push`, so
+this action dismisses existing approvals on the PR it touches. That is correct — the
+reviewed code moved underneath the reviewer — but it does mean a review has to be given
+again after each merge to `develop`.
 
 **Limitations**: Mergify never rebases a conflicting branch, so a PR with conflicts still
-reports DIRTY and needs manual resolution.
+reports DIRTY and needs manual resolution. PRs already in the merge queue are also skipped
+(`queue-position = -1`); the queue keeps those current itself.
 
 ---
 
-### Rule 2: Auto-Approve and Queue Dependabot Updates
+### Rule 2 (removed in #3476): Auto-Approve and Queue Dependabot Updates
 
 **Purpose**: Approve and queue Dependabot PRs for automatic merging
 
@@ -201,7 +205,7 @@ reports DIRTY and needs manual resolution.
 
 ---
 
-### Rule 3: Keep ImgBot Current
+### Rule 3 (removed in #3476): Keep ImgBot Current
 
 **Purpose**: Rebase ImgBot image optimization PRs if develop moved ahead
 
@@ -228,7 +232,7 @@ reports DIRTY and needs manual resolution.
 
 ---
 
-### Rule 4: Auto-Merge ImgBot Optimizations
+### Rule 4 (removed in #3476): Auto-Merge ImgBot Optimizations
 
 **Purpose**: Automatically merge ImgBot image optimization PRs when CI passes
 
@@ -254,7 +258,7 @@ reports DIRTY and needs manual resolution.
 
 ---
 
-### Rule 5: Auto-Merge Meta-Agent Sync
+### Rule 5 (removed in #3476): Auto-Merge Meta-Agent Sync
 
 **Purpose**: Automatically merge automated metadata update PRs
 
