@@ -15,6 +15,7 @@ type:feature:
 type:bug:
   - head-branch:
       - ^fix/.*
+      - ^hotfix/.*
 type:docs:
   - head-branch:
       - ^docs?/.*

@@ -240,6 +240,40 @@ describe('label governance contracts (#3545)', () => {
       }
       expect(mismatches).toEqual([]);
     });
+
+    test('hotfix type remains synchronized with the router', () => {
+      const mapping = repoYaml('.github/branch-labels.yml').branch_labels;
+      const labeler = repoYaml('.github/labeler.yml');
+      const routerType = mapping.hotfix.default_labels.find((label) => label.startsWith('type:'));
+      const rules = Array.isArray(labeler[routerType])
+        ? labeler[routerType]
+        : [labeler[routerType]];
+      const patterns = rules.filter(Boolean).flatMap((rule) => rule['head-branch'] || []);
+      const releaseRules = Array.isArray(labeler['type:release'])
+        ? labeler['type:release']
+        : [labeler['type:release']];
+      const releasePatterns = releaseRules
+        .filter(Boolean)
+        .flatMap((rule) => rule['head-branch'] || []);
+
+      expect(patterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(true);
+      expect(releasePatterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(
+        false
+      );
+    });
+  });
+
+  describe('workflow trigger contract', () => {
+    test('labeling workflow observes native issue type transitions', () => {
+      const workflow = fs.readFileSync(
+        path.join(REPO_ROOT, '.github/workflows/labeling-unified.yml'),
+        'utf8'
+      );
+
+      expect(workflow).toMatch(
+        /issues:\s*\n\s*types:\s*\[[^\]]*\btyped\b[^\]]*\buntyped\b[^\]]*\]/s
+      );
+    });
   });
 
   describe('labeler schema contract', () => {
