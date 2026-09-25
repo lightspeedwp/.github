@@ -702,6 +702,10 @@ describe('label governance contracts (#3545)', () => {
       expect(agent.detectIssueTypeFromContent('', 'fixes #123')).toBe('type:bug');
     });
 
+    test('closing-reference boilerplate does not imply a bug', () => {
+      expect(agent.detectIssueTypeFromContent('', 'Closes #123')).toBeNull();
+    });
+
     test('explicit title prefixes take precedence over keyword order', () => {
       expect(agent.detectIssueTypeFromContent('feat: improve error messages', '')).toBe(
         'type:feature'

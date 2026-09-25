@@ -38,7 +38,6 @@ const KEYWORD_TYPE_MAP = {
   error: 'type:bug',
   'fix:': 'type:bug',
   fixes: 'type:bug',
-  'closes #': 'type:bug',
   hotfix: 'type:bug',
   feature: 'type:feature',
   feat: 'type:feature',
