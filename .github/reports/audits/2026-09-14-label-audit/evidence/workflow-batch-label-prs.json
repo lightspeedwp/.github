@@ -1,0 +1,71 @@
+{
+  "workflow": "batch-label-prs.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/batch-label-prs.yml",
+  "size_bytes": 1734,
+  "purpose": "Manually dispatched bulk labelling of every open PR (or one PR) from branch prefix, changed files and PR content via scripts/batch-label-prs.js; dry-run by default.",
+  "triggers": ["workflow_dispatch (inputs: dry_run choice default \"true\", pr_number string)"],
+  "jobs": [
+    {
+      "id": "batch-label",
+      "summary": "Checkout (fetch-depth 0), setup Node from .nvmrc, `npm ci || true`, run scripts/batch-label-prs.js with --dry-run and/or --pr=<n>, upload labeling-report.json (30 days)."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/batch-label-prs.js",
+      "exists": true
+    }
+  ],
+  "actions_used": ["actions/checkout@v7", "actions/setup-node@v7", "actions/upload-artifact@v7"],
+  "labels_referenced": [],
+  "labels_not_in_canonical": [],
+  "script_labels_not_in_canonical": [
+    {
+      "label": "type:documentation",
+      "evidence": "scripts/batch-label-prs.js:26"
+    },
+    {
+      "label": "type:dependencies",
+      "evidence": "scripts/batch-label-prs.js:35"
+    }
+  ],
+  "permissions": {
+    "batch-label": {
+      "pull-requests": "write",
+      "issues": "write",
+      "contents": "read"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "`npm ci || true` hides dependency installation failures; the script then fails later with a less obvious error.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/batch-label-prs.yml:41"
+    },
+    {
+      "issue": "`inputs.pr_number` is interpolated directly into the shell command (script injection vector for anyone able to dispatch).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/batch-label-prs.yml:47"
+    },
+    {
+      "issue": "Script branch-prefix map emits labels that are not in labels.yml (type:documentation, type:dependencies instead of type:docs, type:dependency).",
+      "evidence": "scripts/batch-label-prs.js:26"
+    },
+    {
+      "issue": "Script hard-codes OWNER/REPO to lightspeedwp/.github, so the workflow is not portable to other repositories.",
+      "evidence": "scripts/batch-label-prs.js:14"
+    },
+    {
+      "issue": "A fourth independent branch-to-type map (also in labeling.agent.js, .github/labeler.yml and scripts/pr-template-router.js), so the maps drift.",
+      "evidence": "scripts/batch-label-prs.js:24"
+    },
+    {
+      "issue": "Actions pinned to mutable tags, whereas the active labeling-unified.yml pins commit SHAs.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/batch-label-prs.yml:30"
+    }
+  ],
+  "overlaps_with": [
+    "labeling-unified.yml (agent-labels job on PR events)",
+    "pr-template-routing.yml (branch-based PR labels)",
+    "labeling.yml",
+    "labeling-governance.yml"
+  ]
+}

@@ -1,0 +1,380 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T024",
+  "docs_checked": [
+    "docs/ISSUE_CREATION_GUIDE.md",
+    "docs/ISSUE_FIELDS.md",
+    "docs/ISSUE_LABELS.md",
+    "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+    "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+    "docs/ISSUE_PR_TITLE_GOVERNANCE.md",
+    "docs/ISSUE_TRIAGE.md",
+    "docs/ISSUE_TRIAGE_AUTOMATION.md",
+    "docs/ISSUE_TRIAGE_LABELING.md",
+    "docs/ISSUE_TYPES.md",
+    "docs/ISSUE_UPDATES_GUIDE.md",
+    "docs/LABEL_COLOR_STRATEGY.md",
+    "docs/LABEL_INVENTORY.md",
+    "docs/LABEL_MANAGEMENT_CLI.md",
+    "docs/LABEL_STRATEGY.md",
+    "docs/PR_CREATION_PROCESS.md",
+    "docs/PR_LABELS.md",
+    "docs/PR_TEMPLATE_VALIDATION.md",
+    "CLAUDE.md",
+    "AGENTS.md"
+  ],
+  "gap_count": 36,
+  "summary": {
+    "add_to_canonical": 0,
+    "remove_from_docs": 17,
+    "deprecated": 12,
+    "decide": 7
+  },
+  "gaps": [
+    {
+      "gap_type": "documentation_only",
+      "label": "area:docs",
+      "locations": [
+        "docs/ISSUE_MAINTENANCE_SCRIPTS.md:309",
+        "docs/ISSUE_TRIAGE_LABELING.md:105",
+        "docs/ISSUE_TRIAGE_LABELING.md:445",
+        "docs/ISSUE_UPDATES_GUIDE.md:19",
+        "docs/ISSUE_UPDATES_GUIDE.md:463",
+        "docs/ISSUE_UPDATES_GUIDE.md:502",
+        "CLAUDE.md:287"
+      ],
+      "occurrences": 7,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "area:labels",
+      "locations": ["docs/LABEL_INVENTORY.md:159", "CLAUDE.md:287"],
+      "occurrences": 2,
+      "recommendation": "decide",
+      "reason": "Not in labels.yml and not in the spec 008 mapping; decide in T043 whether to import it or remove it from the doc."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "area:quality",
+      "locations": ["docs/LABEL_INVENTORY.md:165"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "meta:dependabot-security",
+      "locations": ["docs/LABEL_INVENTORY.md:135"],
+      "occurrences": 1,
+      "recommendation": "decide",
+      "reason": "Not in labels.yml and not in the spec 008 mapping; decide in T043 whether to import it or remove it from the doc."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "meta:duplicate",
+      "locations": ["CLAUDE.md:288", "CLAUDE.md:296"],
+      "occurrences": 2,
+      "recommendation": "decide",
+      "reason": "Not in labels.yml and not in the spec 008 mapping; decide in T043 whether to import it or remove it from the doc."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "meta:needs-audit",
+      "locations": ["CLAUDE.md:288"],
+      "occurrences": 1,
+      "recommendation": "decide",
+      "reason": "Not in labels.yml and not in the spec 008 mapping; decide in T043 whether to import it or remove it from the doc."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "meta:triage",
+      "locations": ["docs/LABEL_STRATEGY.md:91"],
+      "occurrences": 1,
+      "recommendation": "decide",
+      "reason": "Not in labels.yml and not in the spec 008 mapping; decide in T043 whether to import it or remove it from the doc."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "priority:medium",
+      "locations": ["docs/ISSUE_MANAGEMENT_QUICKSTART.md:116"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "priority:urgent",
+      "locations": ["docs/ISSUE_TRIAGE_LABELING.md:116"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "Use priority:critical (CLAUDE.md label rules)."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "status:closed",
+      "locations": [
+        "docs/ISSUE_MANAGEMENT_QUICKSTART.md:108",
+        "docs/ISSUE_MANAGEMENT_QUICKSTART.md:181"
+      ],
+      "occurrences": 2,
+      "recommendation": "decide",
+      "reason": "Not in labels.yml and not in the spec 008 mapping; decide in T043 whether to import it or remove it from the doc."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "status:ready-for-use",
+      "locations": [
+        "docs/ISSUE_UPDATES_GUIDE.md:19",
+        "docs/ISSUE_UPDATES_GUIDE.md:463",
+        "docs/ISSUE_UPDATES_GUIDE.md:503"
+      ],
+      "occurrences": 3,
+      "recommendation": "decide",
+      "reason": "Not in labels.yml and not in the spec 008 mapping; decide in T043 whether to import it or remove it from the doc."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:ai-ops",
+      "locations": [
+        "docs/ISSUE_FIELDS.md:75",
+        "docs/ISSUE_FIELDS.md:251",
+        "docs/ISSUE_PR_TITLE_GOVERNANCE.md:186",
+        "docs/ISSUE_TYPES.md:55",
+        "docs/ISSUE_TYPES.md:89",
+        "docs/ISSUE_UPDATES_GUIDE.md:463",
+        "docs/ISSUE_UPDATES_GUIDE.md:500"
+      ],
+      "occurrences": 7,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:code-refactor",
+      "locations": ["docs/ISSUE_TRIAGE_LABELING.md:94"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "The type family is fixed at the 25 labels in issue-types.yml (FR-008, FR-014); replace with the matching canonical type label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:compatibility",
+      "locations": [
+        "docs/ISSUE_FIELDS.md:80",
+        "docs/ISSUE_FIELDS.md:261",
+        "docs/ISSUE_TYPES.md:46",
+        "docs/ISSUE_TYPES.md:80"
+      ],
+      "occurrences": 4,
+      "recommendation": "remove_from_docs",
+      "reason": "The type family is fixed at the 25 labels in issue-types.yml (FR-008, FR-014); replace with the matching canonical type label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:discussion",
+      "locations": ["docs/LABEL_COLOR_STRATEGY.md:119"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "The type family is fixed at the 25 labels in issue-types.yml (FR-008, FR-014); replace with the matching canonical type label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:documentation",
+      "locations": [
+        "docs/ISSUE_FIELDS.md:62",
+        "docs/ISSUE_MANAGEMENT_QUICKSTART.md:96",
+        "docs/ISSUE_PR_TITLE_GOVERNANCE.md:176",
+        "docs/ISSUE_TRIAGE_LABELING.md:92",
+        "docs/ISSUE_TRIAGE_LABELING.md:444",
+        "docs/ISSUE_TYPES.md:50",
+        "docs/ISSUE_TYPES.md:84",
+        "docs/LABEL_COLOR_STRATEGY.md:118",
+        "CLAUDE.md:284"
+      ],
+      "occurrences": 9,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:enhancement",
+      "locations": ["docs/ISSUE_FIELDS.md:61"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:improvement",
+      "locations": ["docs/ISSUE_TRIAGE_LABELING.md:90"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "The type family is fixed at the 25 labels in issue-types.yml (FR-008, FR-014); replace with the matching canonical type label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:integration",
+      "locations": [
+        "docs/ISSUE_FIELDS.md:78",
+        "docs/ISSUE_FIELDS.md:259",
+        "docs/ISSUE_TYPES.md:47",
+        "docs/ISSUE_TYPES.md:81"
+      ],
+      "occurrences": 4,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:investigation",
+      "locations": ["docs/ISSUE_FIELDS.md:72", "docs/ISSUE_FIELDS.md:268"],
+      "occurrences": 2,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:maintenance",
+      "locations": [
+        "docs/ISSUE_FIELDS.md:69",
+        "docs/ISSUE_FIELDS.md:243",
+        "docs/ISSUE_TYPES.md:49",
+        "docs/ISSUE_TYPES.md:83"
+      ],
+      "occurrences": 4,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:story",
+      "locations": [
+        "docs/ISSUE_FIELDS.md:82",
+        "docs/ISSUE_TRIAGE_LABELING.md:89",
+        "docs/ISSUE_TYPES.md:37",
+        "docs/ISSUE_TYPES.md:71"
+      ],
+      "occurrences": 4,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:support",
+      "locations": ["docs/ISSUE_FIELDS.md:86"],
+      "occurrences": 1,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "documentation_only",
+      "label": "type:ui",
+      "locations": [
+        "docs/ISSUE_FIELDS.md:65",
+        "docs/ISSUE_FIELDS.md:234",
+        "docs/LABEL_COLOR_STRATEGY.md:237"
+      ],
+      "occurrences": 3,
+      "recommendation": "remove_from_docs",
+      "reason": "Retired or merged by spec 008 (FR-012, FR-014, FR-015); update the doc to the approved label."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:documentation",
+      "locations": [".github/label-governance-policy.yml:15 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: type:docs."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:maintenance",
+      "locations": [".github/label-governance-policy.yml:21 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: type:chore."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:ai-ops",
+      "locations": [".github/label-governance-policy.yml:24 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: type:aiops."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:compatibility",
+      "locations": [".github/label-governance-policy.yml:28 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: type:compat."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:investigation",
+      "locations": [".github/label-governance-policy.yml:30 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: type:research."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:support",
+      "locations": [".github/label-governance-policy.yml:36 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: none."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:story",
+      "locations": [".github/label-governance-policy.yml:38 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: none."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:enhancement",
+      "locations": [".github/label-governance-policy.yml:42 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: type:improve."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "type:help",
+      "locations": [".github/label-governance-policy.yml:43 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: none."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "area:labels",
+      "locations": [".github/label-governance-policy.yml:46 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: none."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "meta:duplicate",
+      "locations": [".github/label-governance-policy.yml:68 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: none."
+    },
+    {
+      "gap_type": "policy_only",
+      "label": "meta:dependabot-security",
+      "locations": [".github/label-governance-policy.yml:69 (2026-09-14 snapshot)"],
+      "occurrences": 1,
+      "recommendation": "deprecated",
+      "reason": "Removed from the never-delete list by T055; approved equivalent: none."
+    }
+  ]
+}
