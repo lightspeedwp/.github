@@ -12,14 +12,14 @@
 
 ## Requirement Completeness
 
-- [ ] CHK001 Are rollback requirements for deleted GitHub labels stated in the spec itself, rather than only in research R8 and the dry-run contract? [Gap, Spec §FR-016, Research §R8]
-- [ ] CHK002 Are requirements defined for what happens to closed issues and PRs that carry a label being deleted (history loss is accepted, or the label is migrated first)? [Gap, Spec §FR-016]
-- [ ] CHK003 Are requirements defined for labels applied to GitHub Discussions, which share repository labels and would also lose them on deletion? [Gap, Spec §FR-016]
-- [ ] CHK004 Does the spec state which repositories are in scope for deletion (archived repositories, forks, template repositories, repositories where the GitHub App is not installed)? [Gap, Spec §FR-016, Spec §FR-018]
-- [ ] CHK005 Is every destructive action (rename, merge, retire, delete, team-scope, type swap, native type removal) tied to a named approval artefact before it may run? [Completeness, Spec §FR-009, Spec §FR-016, Spec §FR-019]
-- [ ] CHK006 Are requirements defined for notifying teams or repository owners before labels are deleted from their repositories? [Gap]
-- [ ] CHK007 Is the full label mapping (every source, action and target) required to exist and be approved before any GitHub change, not only described by example? [Completeness, Spec §FR-012, Contracts §label-mapping-schema]
-- [ ] CHK008 Are requirements defined for migrating issues off the Maintenance, Story and Integration native types in every repository, including closed issues? [Completeness, Spec §FR-019]
+- [x] CHK001 Are rollback requirements for deleted GitHub labels stated in the spec itself, rather than only in research R8 and the dry-run contract? [Gap, Spec §FR-016, Research §R8]
+- [x] CHK002 Are requirements defined for what happens to closed issues and PRs that carry a label being deleted (history loss is accepted, or the label is migrated first)? [Gap, Spec §FR-016]
+- [x] CHK003 Are requirements defined for labels applied to GitHub Discussions, which share repository labels and would also lose them on deletion? [Gap, Spec §FR-016]
+- [x] CHK004 Does the spec state which repositories are in scope for deletion (archived repositories, forks, template repositories, repositories where the GitHub App is not installed)? [Gap, Spec §FR-016, Spec §FR-018]
+- [x] CHK005 Is every destructive action (rename, merge, retire, delete, team-scope, type swap, native type removal) tied to a named approval artefact before it may run? [Completeness, Spec §FR-009, Spec §FR-016, Spec §FR-019]
+- [x] CHK006 Are requirements defined for notifying teams or repository owners before labels are deleted from their repositories? [Gap]
+- [x] CHK007 Is the full label mapping (every source, action and target) required to exist and be approved before any GitHub change, not only described by example? [Completeness, Spec §FR-012, Contracts §label-mapping-schema]
+- [x] CHK008 Are requirements defined for migrating issues off the Maintenance, Story and Integration native types in every repository, including closed issues? [Completeness, Spec §FR-019]
 
 ## Requirement Clarity
 
