@@ -32,11 +32,11 @@
 
 ## Requirement Consistency
 
-- [ ] CHK015 Do FR-016's "no repository exceptions" and SC-009's "documented team-scoped Linear labels only" agree with the closed issue #95's allowance for repository-specific exceptions? [Conflict, Spec §FR-016, Spec §SC-009]
-- [ ] CHK016 Is the order approve → configuration → GitHub changes → GitHub deletion → Linear clean-up stated identically in the spec, the plan and the tasks? [Consistency, Plan §Consolidation Execution Plan, Edge Cases]
-- [ ] CHK017 Are merge targets in FR-012 consistent with the re-prefix targets in FR-015 and the native-type migrations in FR-019 (for example `type:maintenance` → Chore everywhere)? [Consistency, Spec §FR-012, Spec §FR-015, Spec §FR-019]
-- [ ] CHK018 Are the rules for `destructive_cleanup.enabled` (always `false`; run-time flag) consistent across the spec, plan, tasks T055/T067, the data model and the dry-run contract? [Consistency, Spec §FR-016]
-- [ ] CHK019 Does the one-`type:*`-label rule hold across every merge, re-prefix and retirement in FR-012 and FR-015, with no mapping that could leave zero or two type labels? [Consistency, Spec §FR-012, Spec §FR-015]
+- [x] CHK015 Do FR-016's "no repository exceptions" and SC-009's "documented team-scoped Linear labels only" agree with the closed issue #95's allowance for repository-specific exceptions? [Conflict, Spec §FR-016, Spec §SC-009]
+- [x] CHK016 Is the order approve → configuration → GitHub changes → GitHub deletion → Linear clean-up stated identically in the spec, the plan and the tasks? [Consistency, Plan §Consolidation Execution Plan, Edge Cases]
+- [x] CHK017 Are merge targets in FR-012 consistent with the re-prefix targets in FR-015 and the native-type migrations in FR-019 (for example `type:maintenance` → Chore everywhere)? [Consistency, Spec §FR-012, Spec §FR-015, Spec §FR-019]
+- [x] CHK018 Are the rules for `destructive_cleanup.enabled` (always `false`; run-time flag) consistent across the spec, plan, tasks T055/T067, the data model and the dry-run contract? [Consistency, Spec §FR-016]
+- [x] CHK019 Does the one-`type:*`-label rule hold across every merge, re-prefix and retirement in FR-012 and FR-015, with no mapping that could leave zero or two type labels? [Consistency, Spec §FR-012, Spec §FR-015]
 
 ## Acceptance Criteria Quality
 
@@ -70,7 +70,7 @@
 
 - [ ] CHK036 Is the assumption that GitHub rename preserves issue and PR associations recorded, with how it will be confirmed before the run? [Assumption, Spec §FR-012, Research §R1]
 - [ ] CHK037 Is the dependency on Discussions being enabled (for moving `type:question` issues) recorded with a stated fallback in the spec, not only in research? [Dependency, Spec §FR-014, Research §R4]
-- [ ] CHK038 Is the dependency between the configuration PR merging and the GitHub changes starting stated as a hard requirement in the spec? [Dependency, Spec §FR-009, Plan §Consolidation Execution Plan]
+- [x] CHK038 Is the dependency between the configuration PR merging and the GitHub changes starting stated as a hard requirement in the spec? [Dependency, Spec §FR-009, Plan §Consolidation Execution Plan]
 
 ## Notes
 
