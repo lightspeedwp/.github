@@ -58,6 +58,12 @@ fi
 
   afterEach(() => fs.rmSync(directory, { recursive: true, force: true }));
 
+  /**
+   * Run the shell skill with mock tools and isolated output.
+   * @param {string[]} args - Arguments passed to the runner.
+   * @param {object} [env] - Environment overrides for this invocation.
+   * @returns {import('node:child_process').SpawnSyncReturns<string>} Process result.
+   */
   function run(args, env = {}) {
     return spawnSync('bash', [runner, ...args, '--out', output], {
       encoding: 'utf8',

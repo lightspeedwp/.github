@@ -30,6 +30,13 @@ const records = [
   { tool: 'none', outcome: 'skipped:command-not-allowed', duration_seconds: 0 },
 ];
 
+/**
+ * Build a local-header-only zip entry for archive extraction tests.
+ * @param {string} name - Entry name.
+ * @param {string} content - Uncompressed entry contents.
+ * @param {number} [method=8] - Compression method: deflate (8) or stored (0).
+ * @returns {Buffer} A zip archive containing the entry.
+ */
 function zipOf(name, content, method = 8) {
   const data = method === 8 ? zlib.deflateRawSync(Buffer.from(content)) : Buffer.from(content);
   const header = Buffer.alloc(30);

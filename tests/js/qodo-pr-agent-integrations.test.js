@@ -10,11 +10,22 @@ import path from 'node:path';
 
 const repoRoot = path.resolve(__dirname, '../..');
 
+/**
+ * Read a repository asset, returning an empty string when it is absent.
+ * @param {string} relativePath - Path relative to the repository root.
+ * @returns {string} The asset's UTF-8 contents or an empty string.
+ */
 function read(relativePath) {
   const full = path.join(repoRoot, relativePath);
   return fs.existsSync(full) ? fs.readFileSync(full, 'utf8') : '';
 }
 
+/**
+ * Extract a Markdown heading's body up to the next heading.
+ * @param {string} markdown - Markdown document to search.
+ * @param {string} heading - Exact heading to locate.
+ * @returns {string|null} Section body, or null when the heading is absent.
+ */
 function extractSection(markdown, heading) {
   const start = markdown.indexOf(`\n${heading}\n`);
   if (start === -1) return null;
@@ -23,6 +34,11 @@ function extractSection(markdown, heading) {
   return next === -1 ? body : body.slice(0, next);
 }
 
+/**
+ * Find the pinned PR-Agent image digest in text.
+ * @param {string} text - Workflow or runner source to inspect.
+ * @returns {string|null} SHA-256 digest, or null when no image is pinned.
+ */
 function digestOf(text) {
   const match = text.match(/pragent\/pr-agent@(sha256:[a-f0-9]{64})/);
   return match ? match[1] : null;

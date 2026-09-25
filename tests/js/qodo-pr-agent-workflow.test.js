@@ -12,6 +12,11 @@ const repoRoot = path.resolve(__dirname, '../..');
 const reusablePath = '.github/workflows/qodo-pr-agent-reusable.yml';
 const callerPath = '.github/workflows/qodo-pr-agent.yml';
 
+/**
+ * Read and parse a workflow fixture, tolerating a missing file.
+ * @param {string} relativePath - Path relative to the repository root.
+ * @returns {{raw: string, doc: object}} Source text and parsed workflow.
+ */
 function load(relativePath) {
   const full = path.join(repoRoot, relativePath);
   if (!fs.existsSync(full)) return { raw: '', doc: {} };
@@ -32,20 +37,42 @@ const ALLOWED_COMMANDS = [
   '/help',
 ];
 
+/**
+ * Gather steps from every job in a workflow.
+ * @param {object} doc - Parsed workflow document.
+ * @returns {object[]} Job steps in workflow order.
+ */
 function allSteps(doc) {
   return Object.values(doc.jobs || {}).flatMap((job) => job.steps || []);
 }
 
+/**
+ * Find the step that runs the pinned PR-Agent container.
+ * @param {object} doc - Parsed workflow document.
+ * @returns {object|undefined} Container step, if present.
+ */
 function qodoStep(doc) {
   return allSteps(doc).find((step) =>
     String(step.uses || '').startsWith('docker://pragent/pr-agent')
   );
 }
 
+/**
+ * Find the token exchange step in the run job.
+ * @param {object} doc - Parsed workflow document.
+ * @returns {object|undefined} Token step, if present.
+ */
 function tokenStep(doc) {
   return (doc.jobs?.run?.steps || []).find((step) => step.id === 'token');
 }
 
+/**
+ * Execute the workflow's token exchange script with mocked Actions services.
+ * @param {object} [options] - Environment overrides and mock HTTP response.
+ * @param {object} [options.env] - Variables supplied to the script.
+ * @param {object} [options.response] - Fields overriding a successful response.
+ * @returns {Promise<object>} Captured outputs and service mocks.
+ */
 async function runTokenExchange({ env = {}, response } = {}) {
   const outputs = {};
   const core = {
@@ -82,11 +109,24 @@ async function runTokenExchange({ env = {}, response } = {}) {
   return { outputs, core, fetch };
 }
 
+/**
+ * Join the preflight scripts from the workflow steps.
+ * @param {object} doc - Parsed workflow document.
+ * @returns {string} Script bodies joined with newlines.
+ */
 function preflightScript(doc) {
   const steps = doc.jobs?.preflight?.steps || [];
   return steps.map((step) => String(step.with?.script || step.run || '')).join('\n');
 }
 
+/**
+ * Execute preflight with a synthetic event and mocked Actions core.
+ * @param {object} [options] - Event, payload and environment overrides.
+ * @param {string} [options.eventName] - GitHub event name.
+ * @param {object} [options.payload] - Event payload; a fixture is used when absent.
+ * @param {object} [options.env] - Variables supplied to the script.
+ * @returns {object} Captured outputs and Actions core mock.
+ */
 function runPreflight({ eventName = 'pull_request', payload, env = {} } = {}) {
   const outputs = {};
   const core = {
