@@ -465,6 +465,7 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 
 1. Confirm `destructive_cleanup.enabled` is still `false` in `label-governance-policy.yml`, and that the deletion log shows only repositories with approved dry runs.
 2. Confirm every deleted label has a snapshot entry with name, colour, description and item numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
+3. Re-run the deletion for one finished repository and confirm it makes no API write (FR-023).
 
 ### Test 13: Linear Clean-up
 

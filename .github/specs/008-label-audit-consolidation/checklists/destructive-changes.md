@@ -47,11 +47,11 @@
 
 ## Scenario Coverage
 
-- [ ] CHK024 Are requirements defined for a run that stops part-way (some repositories done, others not): resume, re-run or roll back? [Gap, Recovery Flow]
-- [ ] CHK025 Are re-run requirements defined so that repeating a stage has no further effect once it has succeeded? [Gap, Recovery Flow]
-- [ ] CHK026 Are requirements defined for a repository whose dry run is rejected or changed after approval (approval invalidated, new dry run needed)? [Gap, Alternate Flow, Spec §FR-016]
-- [ ] CHK027 Are requirements defined for someone creating or applying a label in a repository between its dry run and its deletion run? [Gap, Exception Flow, Spec §FR-016]
-- [ ] CHK028 Are requirements defined for rolling back Linear merges, where issues were relabelled and source labels retired? [Gap, Recovery Flow, Spec §FR-012]
+- [x] CHK024 Are requirements defined for a run that stops part-way (some repositories done, others not): resume, re-run or roll back? [Gap, Recovery Flow]
+- [x] CHK025 Are re-run requirements defined so that repeating a stage has no further effect once it has succeeded? [Gap, Recovery Flow]
+- [x] CHK026 Are requirements defined for a repository whose dry run is rejected or changed after approval (approval invalidated, new dry run needed)? [Gap, Alternate Flow, Spec §FR-016]
+- [x] CHK027 Are requirements defined for someone creating or applying a label in a repository between its dry run and its deletion run? [Gap, Exception Flow, Spec §FR-016]
+- [x] CHK028 Are requirements defined for rolling back Linear merges, where issues were relabelled and source labels retired? [Gap, Recovery Flow, Spec §FR-012]
 
 ## Edge Case Coverage
 

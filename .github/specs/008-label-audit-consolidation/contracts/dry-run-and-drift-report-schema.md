@@ -11,6 +11,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
   "repository": "lightspeedwp/example-repo",
   "generated_at": "2026-09-24T00:00:00Z",
   "approved_set_commit": "<develop commit of labels.yml>",
+  "executed_at": null,
   "label_count": 212,
   "pages_read": 3,
   "approved_set_count": 191,
