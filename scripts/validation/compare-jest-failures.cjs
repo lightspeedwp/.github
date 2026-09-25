@@ -19,6 +19,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const SUITE_FAILURE = '<suite failed to run>';
+const SNAPSHOT_FAILURE = '<snapshot failure>';
 const OPTIONS = ['--head', '--head-root', '--base', '--base-root'];
 
 /**
@@ -44,6 +45,10 @@ function failureIds(report, rootDir) {
     if (suite.status === 'failed' && failedTests.length === 0) {
       ids.add(`${file}::${SUITE_FAILURE}`);
     }
+  }
+
+  if (report.snapshot?.failure === true) {
+    ids.add(SNAPSHOT_FAILURE);
   }
 
   return ids;
@@ -113,4 +118,4 @@ if (require.main === module) {
   process.exitCode = main(process.argv.slice(2));
 }
 
-module.exports = { failureIds, compare, formatReport, main, SUITE_FAILURE };
+module.exports = { failureIds, compare, formatReport, main, SNAPSHOT_FAILURE, SUITE_FAILURE };

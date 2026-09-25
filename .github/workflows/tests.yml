@@ -19,8 +19,45 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  scope:
+    name: Detect test scope
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      docs_only: ${{ steps.scope.outputs.docs_only }}
+    steps:
+      - name: Checkout changed files
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Detect documentation-only changes
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          docs_only=false
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            changed_files="$RUNNER_TEMP/tests-changed-files"
+            git diff --name-only --no-renames -z "$BASE_SHA" HEAD > "$changed_files"
+            if [ -s "$changed_files" ]; then
+              docs_only=true
+              while IFS= read -r -d '' file; do
+                if [[ "$file" != docs/* && "$file" != *.md ]]; then
+                  docs_only=false
+                  break
+                fi
+              done < "$changed_files"
+            fi
+          fi
+          echo "docs_only=$docs_only" >> "$GITHUB_OUTPUT"
+
   jest:
     name: Jest (${{ matrix.target }})
+    needs: scope
+    if: needs.scope.outputs.docs_only != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -49,13 +86,20 @@ jobs:
         run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
 
       - name: Run Jest
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           # Failing tests are expected on develop; the compare job decides.
           # A missing or invalid report fails closed there.
+          jest_status=0
           npx jest --config .jest.config.cjs --ci --coverage=false \
-            --json --outputFile=jest-report.json || true
+            --json --outputFile=jest-report.json || jest_status=$?
           jq -r '"suites=\(.numTotalTestSuites) failed_suites=\(.numFailedTestSuites) tests=\(.numTotalTests) failed=\(.numFailedTests)"' \
             jest-report.json 2>/dev/null || echo "::warning::No Jest report was written"
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] \
+            && { [ "$jest_status" -ne 0 ] || [ ! -s jest-report.json ]; }; then
+            exit 1
+          fi
 
       - name: Check the suite left the working tree clean
         run: |
@@ -77,12 +121,18 @@ jobs:
 
   compare:
     name: No new test failures
-    needs: jest
+    needs: [scope, jest]
     if: always() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Report documentation-only skip
+        if: needs.scope.outputs.docs_only == 'true'
+        run: |
+          echo "Documentation-only pull request; Jest comparison skipped." >> "$GITHUB_STEP_SUMMARY"
+
       - name: Checkout comparison script
+        if: needs.scope.outputs.docs_only != 'true'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -90,12 +140,14 @@ jobs:
           sparse-checkout: scripts/validation
 
       - name: Download reports
+        if: needs.scope.outputs.docs_only != 'true'
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           pattern: jest-report-*
           path: reports
 
       - name: Compare head with base
+        if: needs.scope.outputs.docs_only != 'true'
         run: |
           set -o pipefail
           for target in head base; do

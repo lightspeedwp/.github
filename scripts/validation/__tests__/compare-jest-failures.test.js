@@ -2,7 +2,13 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 
-const { compare, failureIds, main, SUITE_FAILURE } = require('../compare-jest-failures.cjs');
+const {
+  compare,
+  failureIds,
+  main,
+  SNAPSHOT_FAILURE,
+  SUITE_FAILURE,
+} = require('../compare-jest-failures.cjs');
 
 function suite(name, { status = 'passed', failed = [], passed = [] } = {}) {
   return {
@@ -31,6 +37,12 @@ describe('failureIds', () => {
     const report = { testResults: [suite('/head/c/z.test.js', { status: 'failed' })] };
 
     expect([...failureIds(report, '/head')]).toEqual([`c/z.test.js::${SUITE_FAILURE}`]);
+  });
+
+  test('records an aggregate snapshot failure', () => {
+    const report = { snapshot: { failure: true }, testResults: [] };
+
+    expect([...failureIds(report, '/head')]).toEqual([SNAPSHOT_FAILURE]);
   });
 
   test('rejects input that is not a Jest report', () => {
