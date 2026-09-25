@@ -516,8 +516,8 @@ done
 **Example Diagrams:**
 
 ```mermaid
-accTitle: Graph Diagram
 graph TB
+    accTitle: Graph Diagram
     A["Step 1"] --> B["Step 2"]
     B --> C{Decision}
     C -->|Yes| D["Action A"]
@@ -526,8 +526,8 @@ accDescr: Detailed diagram
 ```
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     Client["Client"] -->|Request| Agent["Agent"]
     Agent -->|Process| Engine["Execution Engine"]
     Engine -->|Result| Client
