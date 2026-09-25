@@ -96,9 +96,15 @@ jobs:
 
           # Parse JSON and set outputs
           echo "DEBUG: Parsing JSON fields..."
+          # Ownership (#3545): the router writes type/priority defaults only.
+          # Scope-derived area labels stay in the routing output for
+          # visibility, but area:* is owned by actions/labeler (file signals
+          # with sync), so filter area labels out before applying defaults —
+          # otherwise scope guesses and labeler sync fight over the same
+          # labels on every push.
           BRANCH_TYPE=$(echo "$ROUTING_JSON" | jq -r '.branch_type' 2>&1)
           TEMPLATE=$(echo "$ROUTING_JSON" | jq -r '.template' 2>&1)
-          ALL_LABELS=$(echo "$ROUTING_JSON" | jq -r '.all_labels | join(",")' 2>&1)
+          ALL_LABELS=$(echo "$ROUTING_JSON" | jq -r '.default_labels | map(select(startswith("type:") or startswith("priority:"))) | join(",")' 2>&1)
           SCOPE=$(echo "$ROUTING_JSON" | jq -r '.scope' 2>&1)
 
           echo "DEBUG: Parsed values:"
