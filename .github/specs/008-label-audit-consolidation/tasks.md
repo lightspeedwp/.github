@@ -382,7 +382,7 @@ These two tasks come first. The list they use is `contracts/issue-types-org-sett
 
 ### Stage 0b: Immediate — Labelling Agent Guard (FR-017, FR-022; research R14)
 
-The active labelling agent removes labels outside `labels.yml` today, so this runs now, in its own PR from a `fix/` branch (for example `fix/labeling-agent-label-removal`), separate from `audit/label-consolidation`.
+The active labelling agent removes labels outside `labels.yml` today, so this runs now, in its own PR from a `fix/` branch (for example `fix/labeling-agent-label-removal`), separate from `audit/label-consolidation`. **In review: PR [#3564](https://github.com/lightspeedwp/.github/pull/3564)** (branch `fix/labeling-agent-label-removal`) implements T040d–T040g; tick them when it merges.
 
 - [ ] T040d [US4] In `scripts/agents/labeling.agent.js`, change `standardizeLabelsOnItem` (lines 216–240) so it never removes a label only because it is missing from `labels.yml`: when an alias maps the label, add the canonical label and remove the old one; when no alias exists, leave the label in place and log it. Add an option (default off) that allows unmapped removal, for Stage 3 onwards (FR-022)
 - [ ] T040e [US4] In `scripts/agents/run-labeling-agent.js`, pass `{ dryRun: process.env.DRY_RUN === 'true' }` to `runLabelingAgent()`, and check that no `github.rest.issues.*` write call runs when `dryRun` is true (FR-022; `labeling-unified.yml` lines 133 and 168 already set `DRY_RUN`)
