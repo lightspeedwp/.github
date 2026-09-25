@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
-- **Test Check on Every Pull Request** — Non-documentation pull requests now run the full test suite and fail only on failures they introduce; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
+- **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 
 ### Changed
 
