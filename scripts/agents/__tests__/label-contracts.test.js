@@ -796,7 +796,7 @@ describe('label governance contracts (#3545)', () => {
     });
   });
 
->  describe('router/agent convergence (#3525 case)', () => {
+  describe('router/agent convergence (#3525 case)', () => {
     test('docs/ PR converges to type:docs regardless of order', async () => {
       // Router-first: router applied type:docs, agent must keep exactly it.
       const routerFirst = createMockOctokit(routeBranch('docs/spec-x'));

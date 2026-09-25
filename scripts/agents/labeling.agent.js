@@ -35,6 +35,7 @@ const KEYWORD_TYPE_MAP = {
   bug: 'type:bug',
   defect: 'type:bug',
   error: 'type:bug',
+  fix: 'type:bug',
   'fix:': 'type:bug',
   fixes: 'type:bug',
   'closes #': 'type:bug',
@@ -45,6 +46,7 @@ const KEYWORD_TYPE_MAP = {
   'new feature': 'type:feature',
   improvement: 'type:feature',
   docs: 'type:docs',
+  doc: 'type:docs',
   documentation: 'type:docs',
   readme: 'type:docs',
   guide: 'type:docs',
@@ -146,7 +148,21 @@ function loadIssueTypeMap(path = ISSUE_TYPES_CONFIG) {
   );
 }
 
-async function fetchNativeIssueTypeLabel(octokit, owner, repo, number, issueTypeMap) {
+function loadIssueTypeLabelMap(path = ISSUE_TYPES_CONFIG) {
+  return loadIssueTypeMap(path);
+}
+
+function labelForIssueType(typeName, issueTypeMap, canonicalSet) {
+  if (!typeName) return null;
+  const key = String(typeName).toLowerCase();
+  const mapped = issueTypeMap.get(key);
+  if (mapped && (!canonicalSet || canonicalSet.has(mapped))) return mapped;
+
+  const slug = `type:${key.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+  return canonicalSet && canonicalSet.has(slug) ? slug : null;
+}
+
+async function fetchNativeIssueTypeLabel(octokit, owner, repo, number, issueTypeMap, canonicalSet) {
   const { data } = await octokit.rest.issues.get({
     owner,
     repo,
@@ -158,7 +174,7 @@ async function fetchNativeIssueTypeLabel(octokit, owner, repo, number, issueType
     null;
   if (!nativeType) return null;
 
-  const label = issueTypeMap.get(String(nativeType).toLowerCase()) || null;
+  const label = labelForIssueType(nativeType, issueTypeMap, canonicalSet);
   if (!label) {
     core.warning(`[labeling.agent] Native issue type '${nativeType}' is not mapped`);
   }
@@ -198,7 +214,22 @@ function containsKeyword(text, keyword) {
  * @param {string} body - Issue/PR body
  * @returns {string|null} Canonical type label or null if none matched
  */
-function detectIssueTypeFromContent(title = '', body = '') {
+function detectTypeFromTitlePrefix(title = '', canonicalSet = null) {
+  const match = /^\s*([a-z][a-z-]*)(?:\([^)]*\))?!?:\s/i.exec(title || '');
+  if (!match) return null;
+  const prefix = match[1].toLowerCase();
+  const direct = `type:${prefix}`;
+  if (canonicalSet && canonicalSet.has(direct)) return direct;
+  return KEYWORD_TYPE_MAP[prefix] || null;
+}
+
+function detectIssueTypeFromContent(title = '', body = '', canonicalSet = null) {
+  const fromPrefix = detectTypeFromTitlePrefix(title, canonicalSet);
+  if (fromPrefix) {
+    core.info(`[labeling.agent] Detected type from title prefix: ${fromPrefix}`);
+    return fromPrefix;
+  }
+
   for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
     if (containsKeyword(title, keyword)) {
       core.info(`[labeling.agent] Detected type from title keyword '${keyword}': ${typeLabel}`);
@@ -490,7 +521,8 @@ async function runLabelingAgent(opts = {}) {
           owner,
           repo,
           number,
-          issueTypeMap
+          issueTypeMap,
+          canonicalSet
         );
         if (nativeTypeLabel) {
           core.info(`[labeling.agent] Using native issue type label: ${nativeTypeLabel}`);
@@ -505,7 +537,7 @@ async function runLabelingAgent(opts = {}) {
       // from it, and the webhook does not say which type was removed, so
       // clear the type labels and re-derive one below (title prefix,
       // keywords, then the default), exactly as for a new issue.
-      if (!issueTypeName && context.payload.action === 'untyped') {
+      if (!nativeTypeLookupFailed && !nativeTypeLabel && context.payload.action === 'untyped') {
         const staleTypes = [...knownLabels].filter((l) => l.startsWith('type:'));
         for (const label of staleTypes) {
           if (!dryRun) {
@@ -563,7 +595,11 @@ async function runLabelingAgent(opts = {}) {
         const prestatement =
           isPR || nativeTypeLabel || nativeTypeLookupFailed
             ? null
-            : detectIssueTypeFromContent(context.payload.issue.title, context.payload.issue.body);
+            : detectIssueTypeFromContent(
+                context.payload.issue.title,
+                context.payload.issue.body,
+                canonicalSet
+              );
         const preWinner = resolveTypeWinner({
           liveTypes: preTypes,
           branchType: isPR ? branchType : null,
@@ -669,7 +705,8 @@ async function runLabelingAgent(opts = {}) {
       try {
         contentType = detectIssueTypeFromContent(
           context.payload.issue.title,
-          context.payload.issue.body
+          context.payload.issue.body,
+          canonicalSet
         );
 
         if (contentType && !knownLabels.has(contentType)) {
@@ -875,6 +912,8 @@ export {
   containsKeyword,
   detectTypeFromBranch,
   loadIssueTypeMap,
+  loadIssueTypeLabelMap,
+  labelForIssueType,
   fetchNativeIssueTypeLabel,
   loadCanonicalLabels,
   loadAliasMap,
