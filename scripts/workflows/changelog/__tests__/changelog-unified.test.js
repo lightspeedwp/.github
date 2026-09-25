@@ -45,6 +45,7 @@ function renderExpressions(script, expressions) {
 async function runGithubScript(script, options = {}) {
   const core = {
     info: jest.fn(),
+    warning: jest.fn(),
     setFailed: jest.fn(),
     setOutput: jest.fn(),
   };
@@ -70,7 +71,23 @@ async function runGithubScript(script, options = {}) {
     },
     repo: { owner: 'lightspeedwp', repo: '.github' },
   };
-  const github = options.github || { rest: { issues: {}, pulls: {} } };
+  // The gate script reads the changed-file list from the PR files API and
+  // the total from the payload (#3521). Default the payload count to the
+  // mocked listing unless the test overrides it via totalChanged (e.g. to
+  // simulate a truncated API response past GitHub's 3,000-file cap).
+  const payloadPr = context?.payload?.pull_request;
+  if (payloadPr) {
+    if (payloadPr.number === undefined) {
+      payloadPr.number = 3405;
+    }
+    if (payloadPr.changed_files === undefined) {
+      payloadPr.changed_files = options.totalChanged ?? (options.changedFiles || []).length;
+    }
+  }
+  const github = options.github || {
+    paginate: jest.fn(async () => (options.changedFiles || []).map((filename) => ({ filename }))),
+    rest: { issues: {}, pulls: {} },
+  };
   const processValue = { env: options.env || {} };
   const execute = new AsyncFunction('context', 'core', 'github', 'require', 'process', script);
 
@@ -321,10 +338,7 @@ describe('require-gate inline script', () => {
       changedFiles: ['scripts/example.js', 'CHANGELOG.md'],
     });
 
-    expect(result.childProcess.execSync).toHaveBeenCalledWith(
-      'git diff --name-only base-sha head-sha',
-      expect.objectContaining({ encoding: 'utf8' })
-    );
+    expect(result.github.paginate).toHaveBeenCalled();
     expect(outputValue(result.core, 'run_validation')).toBe('true');
     expect(result.core.setFailed).not.toHaveBeenCalled();
   });
@@ -378,6 +392,19 @@ describe('require-gate inline script', () => {
 
     expect(outputValue(result.core, 'run_validation')).toBe('false');
     expect(result.core.setFailed).not.toHaveBeenCalled();
+  });
+
+  test('requires a changelog when the file list is truncated past the API cap (#3521)', async () => {
+    const result = await runGithubScript(gateScript, {
+      changedFiles: ['docs/guide.md', 'README.md'],
+      totalChanged: 3500,
+      context: contextWith({ labels: ['type:docs'] }),
+    });
+
+    expect(outputValue(result.core, 'run_validation')).toBeUndefined();
+    expect(result.core.setFailed).toHaveBeenCalledWith(
+      'PR requires a CHANGELOG.md update or the meta:no-changelog label.'
+    );
   });
 });
 
