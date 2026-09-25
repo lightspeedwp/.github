@@ -285,7 +285,10 @@ describe('label governance contracts (#3545)', () => {
       const groupLine = workflow.split('\n').find((line) => line.trim().startsWith('group:'));
 
       expect(groupLine).toBeDefined();
-      expect(groupLine).not.toContain('github.event.action');
+      expect(groupLine).toContain(
+        'contains(fromJSON(\'["typed","untyped"]\'), github.event.action)'
+      );
+      expect(groupLine).toContain("'type-transition' || github.event.action");
       expect(groupLine).toContain('github.event.issue.number');
     });
   });

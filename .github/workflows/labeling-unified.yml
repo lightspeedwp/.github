@@ -24,13 +24,14 @@ on:
 permissions:
   contents: read
 
-# One group per item (#3531): github.event.number exists only on PR events,
-# so every issue event had its own group. A group holds one running and one
-# pending run, and a newer pending run replaces the older one, so a burst of
-# edits collapses. Typed and untyped actions share the key so native-type
-# transitions cannot overlap. Running jobs are never cancelled mid-apply.
+# One group per item and action class (#3531): github.event.number exists only
+# on PR events, so every issue event had its own group. A group holds one
+# running and one pending run, and a newer pending run replaces the older one,
+# so a burst of edits collapses. Typed and untyped actions share a transition
+# class; other actions retain separate groups. Running jobs are never
+# cancelled mid-apply.
 concurrency:
-  group: labeling-unified-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.issue.number || github.event.discussion.number || github.run_id }}
+  group: labeling-unified-${{ github.event_name }}-${{ contains(fromJSON('["typed","untyped"]'), github.event.action) && 'type-transition' || github.event.action }}-${{ github.event.pull_request.number || github.event.issue.number || github.event.discussion.number || github.run_id }}
   cancel-in-progress: false
 
 env:
