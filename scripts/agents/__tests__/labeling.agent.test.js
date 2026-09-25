@@ -38,17 +38,33 @@ const FAKE_GITHUB = `
   } } };
 `;
 
-function standardize({ labels, aliasMap = {}, dryRun = false, removeUnmapped = false }) {
+function standardize({
+  labels,
+  aliasMap = {},
+  dryRun = false,
+  removeUnmapped = false,
+  failAdd = false,
+}) {
   return runNodeEsm(`
     const { standardizeLabelsOnItem } = await import('./scripts/agents/labeling.agent.js');
     ${FAKE_GITHUB}
+    if (${failAdd}) {
+      github.rest.issues.addLabels = async (args) => {
+        calls.push(['addLabels', args.labels]);
+        throw new Error('replacement could not be added');
+      };
+    }
     const logs = [];
-    const result = await standardizeLabelsOnItem(
-      github, 'o', 'r', 1, ${JSON.stringify(labels)},
-      new Set(['type:bug', 'status:needs-triage']),
-      ${JSON.stringify(aliasMap)}, ${dryRun}, (message) => logs.push(message), ${removeUnmapped},
-    );
-    console.log(JSON.stringify({ result, calls, requests, logs }));
+    try {
+      const result = await standardizeLabelsOnItem(
+        github, 'o', 'r', 1, ${JSON.stringify(labels)},
+        new Set(['type:bug', 'status:needs-triage']),
+        ${JSON.stringify(aliasMap)}, ${dryRun}, (message) => logs.push(message), ${removeUnmapped},
+      );
+      console.log(JSON.stringify({ result, calls, requests, logs }));
+    } catch (error) {
+      console.log(JSON.stringify({ error: error.message, calls, requests, logs }));
+    }
   `);
 }
 
@@ -191,13 +207,32 @@ describe('labeling.agent', () => {
         '[labeling.agent] Kept non-canonical label with no mapping: meta:external on #1',
       ]);
     });
+
+    it('does not remove an alias if adding its replacement fails', () => {
+      const { error, calls, logs } = standardize({
+        labels: ['bug'],
+        aliasMap: { bug: 'type:bug' },
+        failAdd: true,
+      });
+      expect(error).toBe('replacement could not be added');
+      expect(calls).toEqual([['addLabels', ['type:bug']]]);
+      expect(logs).toEqual([]);
+    });
   });
 
   describe('corrected type labels (FR-017)', () => {
     it.each([
       ['documentation', 'type:docs'],
+      ['docs', 'type:docs'],
+      ['doc', 'type:docs'],
+      ['readme', 'type:docs'],
+      ['guide', 'type:docs'],
       ['dependencies', 'type:dependency'],
+      ['dependency', 'type:dependency'],
+      ['bump version', 'type:dependency'],
       ['accessibility', 'type:a11y'],
+      ['a11y', 'type:a11y'],
+      ['wcag', 'type:a11y'],
     ])('detects %s in content as %s', (keyword, expected) => {
       const { titleType, bodyType } = runNodeEsm(`
         const { detectIssueTypeFromContent } = await import('./scripts/agents/labeling.agent.js');
@@ -212,6 +247,7 @@ describe('labeling.agent', () => {
 
     it.each([
       ['docs/update-guide', 'type:docs'],
+      ['doc/update-guide', 'type:docs'],
       ['deps/update-packages', 'type:dependency'],
       ['A11Y/improve-contrast', 'type:a11y'],
     ])('detects branch %s as %s', (branch, expected) => {
@@ -249,6 +285,69 @@ describe('labeling.agent', () => {
     expect(report.removed).toEqual(['area:builds']);
   });
 
+  it('keeps unmapped labels during a default dry run', () => {
+    const { report, calls } = runAgent({ env: { DRY_RUN: 'true' } });
+    expect(calls).toEqual([]);
+    expect(report.success).toBe(true);
+    expect(report.errors).toEqual([]);
+    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.removed).toEqual([]);
+  });
+
+  it('keeps the runner in dry-run mode without making GitHub API writes', () => {
+    const fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'labeling-runner-'));
+    try {
+      const labelsConfig = path.join(fixtureDir, 'labels.yml');
+      const labelerRules = path.join(fixtureDir, 'labeler.yml');
+      const eventPath = path.join(fixtureDir, 'event.json');
+      const summaryFile = path.join(fixtureDir, 'summary.md');
+      fs.writeFileSync(labelsConfig, yaml.dump([{ name: 'type:bug', aliases: ['bug'] }]));
+      fs.writeFileSync(labelerRules, '{}\n');
+      fs.writeFileSync(
+        eventPath,
+        JSON.stringify({
+          issue: {
+            number: 1,
+            title: 'Maintenance request',
+            body: '',
+            labels: [
+              { name: 'status:needs-triage' },
+              { name: 'priority:normal' },
+              { name: 'type:bug' },
+              { name: 'bug' },
+              { name: 'area:builds' },
+            ],
+          },
+        })
+      );
+      fs.writeFileSync(summaryFile, '');
+
+      const output = execFileSync(process.execPath, ['scripts/agents/run-labeling-agent.js'], {
+        cwd: repoRoot,
+        encoding: 'utf8',
+        timeout: 10000,
+        env: {
+          ...process.env,
+          DRY_RUN: 'true',
+          LABELING_REMOVE_UNMAPPED: 'false',
+          LABELS_CONFIG: labelsConfig,
+          LABELER_RULES: labelerRules,
+          GITHUB_EVENT_PATH: eventPath,
+          GITHUB_EVENT_NAME: 'issues',
+          GITHUB_REPOSITORY: 'o/r',
+          GITHUB_TOKEN: 'local-test-token',
+          GITHUB_API_URL: 'http://127.0.0.1:1',
+          GITHUB_STEP_SUMMARY: summaryFile,
+        },
+      });
+      expect(output).toContain('DRY_RUN=true');
+      expect(output).toContain('0 added, 0 removed, 1 migrated, 0 errors');
+      expect(fs.readFileSync(summaryFile, 'utf8')).not.toContain('Removed Labels');
+    } finally {
+      fs.rmSync(fixtureDir, { recursive: true, force: true });
+    }
+  });
+
   it('migrates mapped labels and keeps unmapped labels by default in the agent report', () => {
     const { report, calls } = runAgent();
     expect(report.success).toBe(true);
@@ -276,6 +375,17 @@ describe('labeling.agent', () => {
     expect(calls).toEqual([
       ['addLabels', ['type:bug']],
       ['removeLabel', 'bug'],
+    ]);
+  });
+
+  it('lets an explicit removal option override LABELING_REMOVE_UNMAPPED=false', () => {
+    const { report, calls } = runAgent({ options: { removeUnmapped: true } });
+    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.removed).toEqual(['area:builds']);
+    expect(calls).toEqual([
+      ['addLabels', ['type:bug']],
+      ['removeLabel', 'bug'],
+      ['removeLabel', 'area:builds'],
     ]);
   });
 
