@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **Stale Pull Requests Self-Update** — Eligible non-draft PRs targeting `develop` merge it in when more than five commits behind instead of blocking on staleness. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
+- **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
@@ -47,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
 - **Labelling Keeps Unknown Labels** — The labelling automation no longer removes labels missing from the label list unless they map to an approved label, its dry-run mode now changes nothing, and it applies only valid type labels. (#3564)
 - **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
 - **Metrics Aggregator Tolerates Malformed Artifacts** — Branch-validation metrics now skip a malformed artifact with a warning instead of discarding the whole run. ([#3528](https://github.com/lightspeedwp/.github/issues/3528))
