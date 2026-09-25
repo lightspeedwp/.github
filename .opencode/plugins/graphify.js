@@ -7,11 +7,19 @@
 import { existsSync } from "fs";
 import { join } from "path";
 
-// JSON.stringify double-quotes the path (escaping any quotes in it), which bash, zsh and
-// PowerShell all accept, so checkouts whose path contains spaces still work.
+// Quote the path as one literal shell argument. Single quotes stop $, backtick and backslash
+// handling in both POSIX shells and PowerShell; only an embedded single quote needs escaping, and
+// PowerShell and POSIX shells spell that differently. On Windows the separators become forward
+// slashes, which every Windows shell accepts; on POSIX a backslash is a filename character, so
+// the path is left alone.
+const shellQuote = (path) =>
+  process.platform === "win32"
+    ? `'${path.replace(/\\/g, "/").replace(/'/g, "''")}'`
+    : `'${path.replace(/'/g, "'\\''")}'`;
+
 const reminder = (graph) =>
   `[graphify] knowledge graph at ${graph}. For focused questions, run ` +
-  `graphify query "<question>" --graph ${JSON.stringify(graph)} (scoped subgraph, usually much smaller than ` +
+  `graphify query "<question>" --graph ${shellQuote(graph)} (scoped subgraph, usually much smaller than ` +
   "GRAPH_REPORT.md) instead of grepping raw files. Read GRAPH_REPORT.md next to it only for " +
   "broad architecture context.";
 
