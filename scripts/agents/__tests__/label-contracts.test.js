@@ -276,6 +276,18 @@ describe('label governance contracts (#3545)', () => {
         /issues:\s*\n\s*types:\s*\[[^\]]*\btyped\b[^\]]*\buntyped\b[^\]]*\]/s
       );
     });
+
+    test('labeling workflow serializes actions for the same issue', () => {
+      const workflow = fs.readFileSync(
+        path.join(REPO_ROOT, '.github/workflows/labeling-unified.yml'),
+        'utf8'
+      );
+      const groupLine = workflow.split('\n').find((line) => line.trim().startsWith('group:'));
+
+      expect(groupLine).toBeDefined();
+      expect(groupLine).not.toContain('github.event.action');
+      expect(groupLine).toContain('github.event.issue.number');
+    });
   });
 
   describe('labeler schema contract', () => {
@@ -572,6 +584,33 @@ describe('label governance contracts (#3545)', () => {
       ]);
       expect(octokit.calls.removed).toContain('type:docs');
       expect(report.rulesApplied).toContain('Content-based type detection: type:bug');
+    });
+
+    test('untyped run revalidates a concurrently assigned native type', async () => {
+      const octokit = createMockOctokit(['type:docs']);
+      let lookups = 0;
+      octokit.rest.issues.get = async () => {
+        lookups += 1;
+        return { data: { type: lookups === 1 ? null : { name: 'Chore' } } };
+      };
+
+      const report = await agent.runLabelingAgent({
+        context: issueContext({
+          title: 'fix: concurrent native type assignment',
+          labels: ['type:docs'],
+          action: 'untyped',
+        }),
+        github: octokit,
+        dryRun: false,
+      });
+
+      expect(octokit.state.labels.filter((label) => label.startsWith('type:'))).toEqual([
+        'type:chore',
+      ]);
+      expect(report.rulesApplied).toContain('Native issue type: type:chore');
+      expect(report.rulesApplied).not.toContain(
+        'Cleared stale type label after native type removal: type:docs'
+      );
     });
 
     test('native type write failure is contained and does not add a default', async () => {

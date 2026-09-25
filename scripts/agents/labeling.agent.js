@@ -629,16 +629,36 @@ async function runLabelingAgent(opts = {}) {
     const isUntypedIssueEvent =
       !isPR && context.payload.action === 'untyped' && !nativeTypeLookupFailed && !nativeTypeLabel;
     if (isUntypedIssueEvent) {
-      for (const label of liveTypeLabels) {
-        try {
-          if (!dryRun) {
-            await removeLabelSafe(octokit, owner, repo, number, label);
+      try {
+        nativeTypeLabel = await fetchNativeIssueTypeLabel(
+          octokit,
+          owner,
+          repo,
+          number,
+          issueTypeMap
+        );
+        if (nativeTypeLabel) {
+          core.info(`[labeling.agent] Revalidated native issue type label: ${nativeTypeLabel}`);
+        }
+      } catch (error) {
+        nativeTypeLookupFailed = true;
+        core.warning(`[labeling.agent] Native issue type revalidation failed: ${error.message}`);
+        report.errors.push(`Native issue type revalidation error: ${error.message}`);
+      }
+      if (!nativeTypeLookupFailed && !nativeTypeLabel) {
+        for (const label of liveTypeLabels) {
+          try {
+            if (!dryRun) {
+              await removeLabelSafe(octokit, owner, repo, number, label);
+            }
+            markRemoved(label);
+            report.rulesApplied.push(
+              `Cleared stale type label after native type removal: ${label}`
+            );
+          } catch (error) {
+            core.warning(`[labeling.agent] Stale type label removal failed: ${error.message}`);
+            report.errors.push(`Stale type label removal error: ${error.message}`);
           }
-          markRemoved(label);
-          report.rulesApplied.push(`Cleared stale type label after native type removal: ${label}`);
-        } catch (error) {
-          core.warning(`[labeling.agent] Stale type label removal failed: ${error.message}`);
-          report.errors.push(`Stale type label removal error: ${error.message}`);
         }
       }
     }
