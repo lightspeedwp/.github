@@ -99,3 +99,16 @@ describe('Qodo PR-Agent integration sections', () => {
     expect(issueAgent).toMatch(/similar_issue`?[^\n]*deferred/i);
   });
 });
+
+describe('Qodo PR-Agent operations documentation', () => {
+  it('documents the response to a secret repeated in a comment (spec edge case)', () => {
+    const operations = extractSection(read('docs/QODO_PR_AGENT.md'), '## Operations');
+    expect(operations).not.toBeNull();
+    const section = extractSection(operations, '### Secrets in Qodo PR-Agent comments');
+    expect(section).not.toBeNull();
+    expect(section).toMatch(/known limitation/i);
+    expect(section).toMatch(/delete the comment/i);
+    expect(section).toMatch(/rotate/i);
+    expect(section).toContain('QODO_PR_AGENT_ENABLED');
+  });
+});

@@ -104,6 +104,14 @@ Set the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` to `false`, at repos
 
 As a second line of defence, revoke or cap the dedicated key in the Anthropic console.
 
+### Secrets in Qodo PR-Agent comments
+
+This is a known limitation: the model's output can't be guaranteed never to repeat a secret that appears in a PR's changes. The workflow's own logs mask the model credential, but a comment Qodo PR-Agent posts is ordinary PR content. If a comment contains a secret:
+
+1. **Delete the comment.** Any maintainer can do this, and it should be done straight away.
+2. **Rotate the exposed secret** wherever it's used. Deleting the comment doesn't undo the exposure, because notifications and caches may already hold a copy.
+3. **If it happens again**, set `QODO_PR_AGENT_ENABLED` to `false` (see [Kill-switch](#kill-switch)) and open an issue describing the PR and the kind of secret, without repeating it.
+
 ### Credential and spend
 
 There are two ways to provide the credential. If both are configured, the stored key wins, as it does in the Anthropic SDKs.
