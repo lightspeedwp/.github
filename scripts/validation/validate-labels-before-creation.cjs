@@ -256,21 +256,31 @@ const GRANDFATHERED_TEMPLATE_LABELS = new Set([
  */
 function templateFrontmatterLabels(filePath) {
   const content = fs.readFileSync(filePath, 'utf-8');
+  const hasFrontmatterStart = /^---\s*\n/.test(content);
   const match = content.match(/^---\s*\n([\s\S]*?)\n---(?:\s*\n|$)/);
-  if (!match) return [];
+  if (!match) {
+    if (hasFrontmatterStart) {
+      throw new Error(`Template ${filePath} has malformed frontmatter`);
+    }
+    return [];
+  }
 
   let frontmatter;
   try {
     frontmatter = yaml.load(match[1]);
-  } catch {
-    return [];
+  } catch (error) {
+    throw new Error(`Template ${filePath} has invalid YAML frontmatter: ${error.message}`, {
+      cause: error,
+    });
   }
 
   const labels = frontmatter && frontmatter.labels;
+  if (labels === undefined || labels === null) return [];
   if (Array.isArray(labels)) {
-    return labels
-      .filter((label) => typeof label === 'string' && label.trim())
-      .map((label) => label.trim());
+    if (labels.some((label) => typeof label !== 'string' || !label.trim())) {
+      throw new Error(`Template ${filePath} labels must be non-empty strings`);
+    }
+    return labels.map((label) => label.trim());
   }
   if (typeof labels === 'string') {
     return labels
@@ -278,7 +288,7 @@ function templateFrontmatterLabels(filePath) {
       .map((label) => label.trim())
       .filter(Boolean);
   }
-  return [];
+  throw new Error(`Template ${filePath} labels must be a list or comma-separated string`);
 }
 
 /**
@@ -294,7 +304,15 @@ function validateTemplates(templatesDir, canonicalLabels) {
   const files = fs.readdirSync(templatesDir).filter(f => f.startsWith('pr_') && f.endsWith('.md'));
 
   for (const file of files) {
-    for (const label of templateFrontmatterLabels(require('path').join(templatesDir, file))) {
+    let labels;
+    try {
+      labels = templateFrontmatterLabels(require('path').join(templatesDir, file));
+    } catch (error) {
+      errors.push(error.message);
+      continue;
+    }
+
+    for (const label of labels) {
       if (canonicalLabels.has(label)) continue;
       const key = `${file}:${label}`;
       if (GRANDFATHERED_TEMPLATE_LABELS.has(key)) {

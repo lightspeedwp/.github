@@ -668,6 +668,62 @@ describe('label governance contracts (#3545)', () => {
       expect(result.status).toBe(0);
     });
 
+    test('malformed frontmatter fails the gate', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'template-malformed-'));
+      const templatesDir = path.join(dir, '.github/PULL_REQUEST_TEMPLATE');
+      fs.mkdirSync(templatesDir, { recursive: true });
+      fs.copyFileSync(
+        path.join(REPO_ROOT, '.github/labels.yml'),
+        path.join(dir, '.github/labels.yml')
+      );
+      fs.writeFileSync(
+        path.join(templatesDir, 'pr_malformed.md'),
+        '---\nlabels: [type:bug\n---\n# Malformed\n'
+      );
+      const result = spawnSync(
+        'node',
+        [
+          path.join(REPO_ROOT, 'scripts/validation/validate-labels-before-creation.cjs'),
+          '--scan-templates',
+          '--templates-dir',
+          templatesDir,
+          '--canonical-file',
+          path.join(dir, '.github/labels.yml'),
+        ],
+        { encoding: 'utf8' }
+      );
+      expect(result.status).not.toBe(0);
+      expect(result.stdout).toMatch(/invalid YAML frontmatter|malformed frontmatter/);
+    });
+
+    test('unsupported frontmatter labels values fail the gate', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'template-labels-shape-'));
+      const templatesDir = path.join(dir, '.github/PULL_REQUEST_TEMPLATE');
+      fs.mkdirSync(templatesDir, { recursive: true });
+      fs.copyFileSync(
+        path.join(REPO_ROOT, '.github/labels.yml'),
+        path.join(dir, '.github/labels.yml')
+      );
+      fs.writeFileSync(
+        path.join(templatesDir, 'pr_shape.md'),
+        '---\nlabels:\n  bug: true\n---\n# Shape\n'
+      );
+      const result = spawnSync(
+        'node',
+        [
+          path.join(REPO_ROOT, 'scripts/validation/validate-labels-before-creation.cjs'),
+          '--scan-templates',
+          '--templates-dir',
+          templatesDir,
+          '--canonical-file',
+          path.join(dir, '.github/labels.yml'),
+        ],
+        { encoding: 'utf8' }
+      );
+      expect(result.status).not.toBe(0);
+      expect(result.stdout).toMatch(/labels must be a list|labels must be non-empty/);
+    });
+
     test('a new non-canonical template label fails the gate', () => {
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'template-gate-'));
       fs.mkdirSync(path.join(dir, '.github/PULL_REQUEST_TEMPLATE'), {
