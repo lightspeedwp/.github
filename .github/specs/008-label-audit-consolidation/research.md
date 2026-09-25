@@ -319,6 +319,30 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 - **Rationale**: Follows the strategy wherever it speaks, without inventing an `area:*` rule inside this spec; existing `area:*` labels already use colours outside the strategy's families.
 - **Alternatives considered**: The strategy's families for every import (needs a new `area:*` rule first); the request's colours for everything (breaks the `meta:*` rule).
 
+### R17. Label names on the audit branch before #3362 merges (FR-011)
+
+- **Decision**: Stage 0c switches label names in the spec artefacts, analysis reports and label docs on `audit/label-consolidation` to `aiops:*`, `type:aiops` and `spec:*`. The four 2026-09-14 snapshot files keep the names they recorded and gain a `target_name` per label; `renamed-label-references.json` keeps the old names because it lists the references still to change.
+- **Rationale**: Readers of #3362 see the agreed names, while the snapshot stays an accurate record of `labels.yml` on 2026-09-14. The evidence test checks internal consistency, so it passes either way.
+- **Alternatives considered**: Rename the snapshot files too (makes the record inaccurate); rename everything including the reference list (it would then list nothing to change).
+
+### R18. When the configuration rename ships (FR-011)
+
+- **Finding**: Until #3564 merges, `labeling.agent.js` removes every label that is not in `labels.yml`. Renaming `labels.yml` before the labels are renamed in GitHub would strip `ai-ops:*` and `openspec:*` from every item the agent processes. `validate-labeling-configs.cjs` (lines 42 and 47), `orchestrate-phase-progression.yml` and nine test files hard-code the old prefixes.
+- **Decision**: `labels.yml`, `pr_aiops.md`, scripts, workflows, validators and tests change in the Stage 2 configuration PR, approved by a new `[LABEL-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]`, merged after #3564 and applied in GitHub (Stage 3) in the same session.
+- **Alternatives considered**: A separate PR straight after #3362 without waiting for #3564; putting it in #3362.
+
+### R19. `openspec:` names that are not in `labels.yml`
+
+- **Finding**: About 20 `openspec:` names are used in scripts and docs but not defined in `labels.yml`, for example `openspec:specification-pending` (194 references, including `handle-issue-created.cjs`), `openspec:status`, `openspec:domain` and `openspec:priority` (`scripts/SCRIPT-REGISTRY.md`).
+- **Decision**: The prefix is renamed everywhere; each name is recorded as a labelling gap and the T043 mapping maps it to one of the 9 `spec:*` labels or retires it.
+- **Alternatives considered**: Rename only the 9 defined labels; map each name before renaming.
+
+### R20. Spec-number labels
+
+- **Finding**: `spec:001` (about 170 references) marks which spec an issue belongs to, in `.github/projects/active/prd-combined-agent/ISSUE_LABELING_PLAN.md`, `bulk-label-issues.sh` and `tests/bash/bulk-label-issues.bats`.
+- **Decision**: Spec-number labels move to `spec-id:NNN` in the configuration PR, so `spec:*` holds only the spec-status labels and one-per-family checks stay correct. This matches the existing `task:<ID>` labels.
+- **Alternatives considered**: Keep `spec:NNN` beside the status labels; retire spec-number labels and link specs in the issue body.
+
 ### R10. Decision issue template
 
 - **Decision**: `.github/ISSUE_TEMPLATE/06-decision.md` replaces `06-question.md`, following the existing template frontmatter (`name`, `about`, `title`, `labels`, `recommended_branch`, `file_type`) and ending with Definition of Ready and Definition of Done checklists. Full content in `contracts/decision-issue-template.md`.

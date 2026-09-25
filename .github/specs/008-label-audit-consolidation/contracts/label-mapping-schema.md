@@ -55,12 +55,13 @@ Defines `evidence/linear-labels.json` and the mapping table attached to the `[LA
 | `color` | string or null | For `import` | Six-digit hex; the `docs/LABEL_COLOR_STRATEGY.md` colour where the family has a rule, otherwise the colour in the approved request |
 | `description` | string or null | For `import` | The label description to write to `labels.yml` |
 | `change_request` | integer or null | | The `[LABEL-UPDATE-REQUEST]` issue that approves the entry (for example `3554`) |
+| `gap` | boolean | | `true` when `source` is used in files but not defined in `labels.yml` (for example non-canonical `openspec:*` names); defaults to `false` |
 
 ## Actions
 
 | Action | Meaning | Example |
 | --- | --- | --- |
-| `rename` | Rename in place; associations kept | `ai-ops:agents` → `aiops:agents` (FR-011) |
+| `rename` | Rename in place; associations kept | `ai-ops:agents` → `aiops:agents`, `spec:001` → `spec-id:001` (FR-011) |
 | `import` | Add to `labels.yml` and every repository | `area:builds` (FR-012) |
 | `merge` | Move every issue to `target`, then retire or delete the source | `priority:medium` → `priority:normal` (FR-012) |
 | `re-prefix` | Replace a Linear-only `type:*` label with `target` plus `concept_label` | `type:maintenance` → `type:chore` + `area:maintenance` (FR-015) |
@@ -77,6 +78,8 @@ Defines `evidence/linear-labels.json` and the mapping table attached to the `[LA
 5. After applying all mappings, the `type:*` family has exactly 25 labels.
 6. Every `import` has `color` and `description`; a `meta:*` import uses `57606A`, and any family with a strategy rule uses that rule's colour.
 7. No mapping merges `area:observability` into `area:monitoring` (both are imported), and `area:agents`, `area:instructions` and `area:prompts` map to their `aiops:*` labels.
+8. Every non-canonical `openspec:` name found in files has an entry with `gap: true`, mapped to one of the 9 `spec:*` labels or retired (FR-011).
+9. No `spec:*` target is a spec number; spec numbers use `spec-id:NNN`.
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)

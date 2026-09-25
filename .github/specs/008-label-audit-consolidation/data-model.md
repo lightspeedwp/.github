@@ -367,6 +367,7 @@ One approved change to one label.
 | `color` | hex (6) or null | Required for `import`; from `docs/LABEL_COLOR_STRATEGY.md` where the family has a rule, otherwise from the approved request (FR-012) |
 | `description` | string or null | Required for `import`; for #3554 labels, the description in #3554 |
 | `change_request` | integer or null | The `[LABEL-UPDATE-REQUEST]` issue that approves this entry (for example 3554) |
+| `gap` | boolean | `true` for a source used in files but not defined in `labels.yml` (for example the non-canonical `openspec:*` names, R19); its `action` is `rename` to a defined `spec:*` label or `retire` |
 
 **Rule**: After all mappings are applied, every issue has exactly one `type:*` label and the type family has exactly 25 labels.
 
@@ -443,6 +444,17 @@ One of the 25 canonical issue types (FR-014, FR-019, FR-020). Source: `.github/i
 | `decided_at` | date or null | Dated approval or rejection; the label is removed within one day (SC-010) |
 
 **Rules**: not used for ordinary review (`status:needs-review`) or a generic block (`status:blocked`); review completion is not consent.
+
+### 13. Snapshot Target Name
+
+Added to each label record in the four 2026-09-14 snapshot files (`canonical-labels.json`, `label-families.json`, `label-inventory.json`, `label-inventory.csv`) in Stage 0c (R17).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `name` | string | Unchanged: the name recorded on 2026-09-14 |
+| `target_name` | string | The FR-011 name (`ai-ops:agents` → `aiops:agents`, `openspec:planning` → `spec:planning`); equal to `name` for labels that are not renamed |
+
+**Rule**: counts, families and every other recorded value stay unchanged.
 
 ### Consolidation State Transitions
 

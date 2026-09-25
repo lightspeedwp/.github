@@ -497,6 +497,23 @@ Run the agent in dry-run mode against an issue carrying a label that is not in `
 
 Pass when all three hold and the agent's unit tests pass.
 
+### Test 17: Label Names on the Audit Branch (FR-011, Stage 0c)
+
+Run from the repository root on `audit/label-consolidation`:
+
+```bash
+A=.github/reports/audits/2026-09-14-label-audit
+SNAP="$A/evidence/canonical-labels.json $A/evidence/label-families.json $A/label-inventory.json $A/label-inventory.csv $A/evidence/renamed-label-references.json"
+git grep -n -i -E '[a-z0-9_-]+:ai-ops|ai-ops:[a-z*]|openspec:[a-z*]' -- .github/specs/008-label-audit-consolidation "$A" docs/LABEL_INVENTORY.md docs/LABELING_FAQ.md $(for f in $SNAP; do echo ":!$f"; done)
+```
+
+Pass when:
+
+- the search prints only lines that name an old label as a rename source (a `from`, "was" or `→` mention, or a clarification quoting the question), never as a current label name
+- each of the four snapshot files gives every label a `target_name`, and every label keeps its recorded `name`
+- `renamed-label-references.json` is unchanged since 2026-09-14
+- `npx jest --config .jest.config.cjs scripts/validation/__tests__/label-audit-evidence.test.js` passes
+
 ## Acceptance Criteria Summary
 
 ### All Tests Must Pass
