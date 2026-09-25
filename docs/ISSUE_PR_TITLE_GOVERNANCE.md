@@ -3,7 +3,7 @@ title: Issue & PR Title Governance
 description: Standards for consistent, clear issue and pull request titles across the organization
 document_type: Specification
 created_date: 2026-09-04
-last_updated: 2026-09-04
+last_updated: 2026-09-25
 authors:
   - LightSpeed Team
 maintainer: LightSpeed Team
@@ -184,6 +184,9 @@ Always use the **short type label** from [BRANCHING_STRATEGY.md](./BRANCHING_STR
 | type:design | `design` | `type:design` |
 | type:audit | `audit` | `type:audit` |
 | type:ai-ops | `aiops` | `type:ai-ops`, `ai-ops`, `ai` |
+| type:decision | `decision` | `type:decision`, `adr` |
+
+**Decision and Question.** Decision issues use the `decision:` prefix, for example `decision: label-consolidation - Choose the AI label family`. A decision that changes files is made on a `docs/` branch, so its PR uses `docs:`. Question is no longer an issue type: new questions go to GitHub Discussions and get no issue title. Existing issues still titled `question:` keep their titles until they are converted to Discussions or relabelled.
 
 ---
 
