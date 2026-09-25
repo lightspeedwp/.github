@@ -105,17 +105,19 @@ function createMockOctokit(initialLabels, { nativeType = null } = {}) {
   return octokit;
 }
 
-function issueContext({ title, body = '', labels = [] }) {
+function issueContext({ title, body = '', labels = [], action = null }) {
+  const payload = {
+    issue: {
+      number: 3545,
+      title,
+      body,
+      labels: labels.map((name) => ({ name })),
+    },
+  };
+  if (action) payload.action = action;
   return {
     repo: { owner: 'lightspeedwp', repo: '.github' },
-    payload: {
-      issue: {
-        number: 3545,
-        title,
-        body,
-        labels: labels.map((name) => ({ name })),
-      },
-    },
+    payload,
   };
 }
 
@@ -551,6 +553,25 @@ describe('label governance contracts (#3545)', () => {
       });
       expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
       expect(octokit.calls.removed).toContain('type:bug');
+    });
+
+    test('untyped issue clears the stale native type before content fallback', async () => {
+      const octokit = createMockOctokit(['type:docs']);
+      const report = await agent.runLabelingAgent({
+        context: issueContext({
+          title: 'fix: untyped issue needs a fresh type',
+          labels: ['type:docs'],
+          action: 'untyped',
+        }),
+        github: octokit,
+        dryRun: false,
+      });
+
+      expect(octokit.state.labels.filter((label) => label.startsWith('type:'))).toEqual([
+        'type:bug',
+      ]);
+      expect(octokit.calls.removed).toContain('type:docs');
+      expect(report.rulesApplied).toContain('Content-based type detection: type:bug');
     });
 
     test('native type write failure is contained and does not add a default', async () => {

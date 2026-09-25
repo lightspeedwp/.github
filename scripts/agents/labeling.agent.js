@@ -626,6 +626,23 @@ async function runLabelingAgent(opts = {}) {
     // Step 5: Resolve one type for issues. Native issue type is authoritative;
     // content keywords are only a fallback when no type is already live.
     const liveTypeLabels = [...knownLabels].filter((l) => l.startsWith('type:'));
+    const isUntypedIssueEvent =
+      !isPR && context.payload.action === 'untyped' && !nativeTypeLookupFailed && !nativeTypeLabel;
+    if (isUntypedIssueEvent) {
+      for (const label of liveTypeLabels) {
+        try {
+          if (!dryRun) {
+            await removeLabelSafe(octokit, owner, repo, number, label);
+          }
+          markRemoved(label);
+          report.rulesApplied.push(`Cleared stale type label after native type removal: ${label}`);
+        } catch (error) {
+          core.warning(`[labeling.agent] Stale type label removal failed: ${error.message}`);
+          report.errors.push(`Stale type label removal error: ${error.message}`);
+        }
+      }
+    }
+    const hasTypeLabel = [...knownLabels].some((l) => l.startsWith('type:'));
     let contentType = null;
     if (!isPR && nativeTypeLabel) {
       try {
@@ -645,7 +662,7 @@ async function runLabelingAgent(opts = {}) {
         core.warning(`[labeling.agent] Native type label application failed: ${error.message}`);
         report.errors.push(`Native type label error: ${error.message}`);
       }
-    } else if (!isPR && !nativeTypeLookupFailed && liveTypeLabels.length === 0) {
+    } else if (!isPR && !nativeTypeLookupFailed && !hasTypeLabel) {
       try {
         contentType = detectIssueTypeFromContent(
           context.payload.issue.title,
