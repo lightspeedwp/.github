@@ -462,7 +462,7 @@ hotspots), no LLM, no key.
   transitively for the full blast radius. For structural questions, skip
   ranking and use this directly.
 - Or browse: `graft/INDEX.md` is the entry point; follow its links. It is not
-  a complete list of nodes, so use `graft ask` or `graft grep --fixed` to be exhaustive.
+  a complete list of nodes; for exhaustive searches use `graft grep --fixed`.
 - Monorepos and folders of multiple repos rank fairly across sub-projects —
   hits carry `[scope/]` labels naming which one they're from. Narrow with
   `graft ask "<task>" --in <scope>/` once you know where you're working.

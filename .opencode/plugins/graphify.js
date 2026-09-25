@@ -7,22 +7,29 @@
 import { existsSync } from "fs";
 import { join } from "path";
 
-const REMINDER =
-  "[graphify] knowledge graph at graphify-out/. For focused questions, run graphify query with " +
-  "your question (scoped subgraph, usually much smaller than GRAPH_REPORT.md) instead of " +
-  "grepping raw files. Read GRAPH_REPORT.md only for broad architecture context.";
+const reminder = (graph) =>
+  `[graphify] knowledge graph at ${graph}. For focused questions, run ` +
+  `graphify query "<question>" --graph ${graph} (scoped subgraph, usually much smaller than ` +
+  "GRAPH_REPORT.md) instead of grepping raw files. Read GRAPH_REPORT.md next to it only for " +
+  "broad architecture context.";
 
 export const GraphifyPlugin = async ({ directory, worktree }) => {
   const reminded = new Set();
-  // Sessions can start below the repository root, so look at the worktree root first.
-  const hasGraph = () =>
-    [worktree, directory].some((d) => d && existsSync(join(d, "graphify-out", "graph.json")));
+  // Sessions can start below the repository root, so prefer the worktree root's graph, and give
+  // the agent its absolute path so the suggested command works from any working directory.
+  const findGraph = () =>
+    [worktree, directory]
+      .filter(Boolean)
+      .map((d) => join(d, "graphify-out", "graph.json"))
+      .find((p) => existsSync(p));
 
   return {
     "tool.execute.after": async (input, output) => {
-      if (input.tool !== "bash" || reminded.has(input.sessionID) || !hasGraph()) return;
+      if (input.tool !== "bash" || reminded.has(input.sessionID)) return;
+      const graph = findGraph();
+      if (!graph) return;
       reminded.add(input.sessionID);
-      output.output = `${output.output ?? ""}\n\n${REMINDER}`;
+      output.output = `${output.output ?? ""}\n\n${reminder(graph)}`;
     },
     event: async ({ event }) => {
       if (event.type === "session.deleted") reminded.delete(event.properties?.info?.id);
