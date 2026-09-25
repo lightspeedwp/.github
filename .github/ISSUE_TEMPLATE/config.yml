@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Questions and support
+    url: https://github.com/lightspeedwp/.github/discussions
+    about: Ask questions in GitHub Discussions. Issues are for tracked work; decisions use the Decision template.
   - name: LightSpeed WP Support
     url: https://lightspeedwp.agency
     about: For paid support inquiries, please contact us directly via our website.
