@@ -75,6 +75,37 @@
 
 ---
 
+## FR-011 Rename Impact
+
+Spec 008 FR-011 renames two label families. The 16 renames below come from the 2026-09-14 snapshot (`evidence/canonical-labels.json`, `target_name`). The labels themselves change in the Stage 2 configuration PR, after the labelling agent fix (#3564), so this audit records the impact only.
+
+| Current label (`labels.yml`) | Target label |
+| --- | --- |
+| `ai-ops:instructions` | `aiops:instructions` |
+| `ai-ops:chat-modes` | `aiops:chat-modes` |
+| `ai-ops:agents` | `aiops:agents` |
+| `ai-ops:prompts` | `aiops:prompts` |
+| `ai-ops:datasets` | `aiops:datasets` |
+| `ai-ops:evaluations` | `aiops:evaluations` |
+| `ai-ops:tools` | `aiops:tools` |
+| `openspec:discovery` | `spec:discovery` |
+| `openspec:planning` | `spec:planning` |
+| `openspec:specification-in-progress` | `spec:specification-in-progress` |
+| `openspec:specification-complete` | `spec:specification-complete` |
+| `openspec:implementation-pending` | `spec:implementation-pending` |
+| `openspec:implementation-in-progress` | `spec:implementation-in-progress` |
+| `openspec:status-testing` | `spec:status-testing` |
+| `openspec:status-production` | `spec:status-production` |
+| `openspec:implementation-complete` | `spec:implementation-complete` |
+
+**Old-prefix references** (task T044, `evidence/renamed-label-references.json`, file and line for each; `*/archived/*`, `*/reports/*` and `node_modules` excluded):
+
+- `ai-ops` names (including `type:ai-ops`): 63 references. By location: `docs` 35, `agents` 14, `.github/labels.yml` 7, `.github/PULL_REQUEST_TEMPLATE` 2, `scripts` 2, `skills` 2, `.github/label-governance-policy.yml` 1.
+- `openspec:` names: 282 references, including about 20 names that are not in `labels.yml` (for example `openspec:specification-pending`). By location: `scripts` 229, `docs` 30, `agents` 14, `.github/labels.yml` 9.
+- Automation that must change with the rename: the allowed-prefix list in `scripts/validation/validate-labeling-configs.cjs`, `.github/workflows/orchestrate-phase-progression.yml`, `scripts/automation/handlers/handle-issue-created.cjs` and the tests that name the old labels (spec 008 tasks T057a and T043a). The PR template `pr_aiops.md` still applies `type:ai-ops` and needs a `[TEMPLATE-UPDATE-REQUEST]` (task T046b).
+
+---
+
 ## Label Inventory Summary
 
 ### By Family (Top Families)
@@ -150,6 +181,7 @@
 - `evidence/github-api-labels.json` - GitHub API state (fallback)
 - `evidence/documentation-references.json` - Documentation inventory (18 files)
 - `evidence/archived-workflows.json` - Archived workflow inventory (11 workflows)
+- `evidence/renamed-label-references.json` - File and line of every reference to a label being renamed, merged or retired (458 references, T044)
 
 ---
 
@@ -171,7 +203,7 @@
 
 ## Sign-Off
 
-**Audit Status**: ⚠️ MVP local reconciliation complete; orphan-label validation remains incomplete pending a verified live GitHub label inventory
+**Audit Status**: ⚠️ Incomplete. Local reconciliation and the FR-011 rename-impact evidence are complete; orphan-label validation remains incomplete pending a verified live GitHub label inventory (task T041)
 
 **Findings Summary**:
 - 1 HIGH and 1 MEDIUM finding requiring governance decision (no CRITICAL findings)
