@@ -11,17 +11,17 @@
  */
 // TODO: Align this helper with the latest automation spec updates.
 
-import * as core from "@actions/core";
+import * as core from '@actions/core';
 
 // Preferred ordering for retaining a single status label when multiples exist.
 const STATUS_PRIORITY_ORDER = [
-  "status:blocked",
-  "status:needs-review",
-  "status:in-progress",
-  "status:needs-qa",
-  "status:ready",
-  "status:needs-triage",
-  "status:done",
+  'status:blocked',
+  'status:needs-review',
+  'status:in-progress',
+  'status:needs-qa',
+  'status:ready',
+  'status:needs-triage',
+  'status:done',
 ];
 
 function _pickPrimaryStatus(statusLabels) {
@@ -44,19 +44,12 @@ function _pickPrimaryStatus(statusLabels) {
  * @param {boolean} params.dryRun - If true, only log actions without applying
  * @returns {Promise<void>}
  */
-async function enforceOneHotLabels({
-  github,
-  owner,
-  repo,
-  number,
-  currentLabels,
-  dryRun = false,
-}) {
+async function enforceOneHotLabels({ github, owner, repo, number, currentLabels, dryRun = false }) {
   try {
     const categories = {
-      "status:": [],
-      "priority:": [],
-      "type:": [],
+      'status:': [],
+      'priority:': [],
+      'type:': [],
     };
 
     // Group labels by category
@@ -73,15 +66,12 @@ async function enforceOneHotLabels({
     for (const [prefix, labels] of Object.entries(categories)) {
       if (labels.length > 1) {
         // Use priority ordering for status labels, first label for others
-        const keep =
-          prefix === "status:" ? _pickPrimaryStatus(labels) : labels[0];
+        const keep = prefix === 'status:' ? _pickPrimaryStatus(labels) : labels[0];
         const remove = labels.filter((l) => l !== keep);
         core.info(
-          `[label-enforcer] Multiple ${prefix}* labels found on #${number}: ${labels.join(", ")}`,
+          `[label-enforcer] Multiple ${prefix}* labels found on #${number}: ${labels.join(', ')}`
         );
-        core.info(
-          `[label-enforcer] Keeping: ${keep}, removing: ${remove.join(", ")}`,
-        );
+        core.info(`[label-enforcer] Keeping: ${keep}, removing: ${remove.join(', ')}`);
 
         for (const label of remove) {
           if (!dryRun) {
@@ -92,15 +82,11 @@ async function enforceOneHotLabels({
                 issue_number: number,
                 name: label,
               });
-              core.info(
-                `[label-enforcer] Removed extra label: ${label} from #${number}`,
-              );
+              core.info(`[label-enforcer] Removed extra label: ${label} from #${number}`);
             } catch (error) {
               // Label might already be removed or not exist
               if (error.status !== 404) {
-                core.warning(
-                  `[label-enforcer] Failed to remove label ${label}: ${error.message}`,
-                );
+                core.warning(`[label-enforcer] Failed to remove label ${label}: ${error.message}`);
               }
             }
           } else {
@@ -110,9 +96,7 @@ async function enforceOneHotLabels({
       }
     }
   } catch (error) {
-    core.error(
-      `[label-enforcer] Error enforcing one-hot labels: ${error.message}`,
-    );
+    core.error(`[label-enforcer] Error enforcing one-hot labels: ${error.message}`);
     throw error;
   }
 }
@@ -133,7 +117,7 @@ const enforceOneHotStatus = enforceOneHotLabels;
  * @param {string[]} params.currentLabels - Current labels on the item
  * @param {boolean} params.dryRun - If true, only log actions without applying
  * @param {boolean} [params.isPR] - Whether this is a PR (vs issue)
- * @returns {Promise<void>}
+ * @returns {Promise<{label: string, error: Error}|null>} Planned label and write error, or null when not needed
  */
 async function applyDefaultStatus({
   github,
@@ -146,43 +130,34 @@ async function applyDefaultStatus({
 }) {
   try {
     // Check if any status:* label exists
-    const hasStatus = currentLabels.some((label) =>
-      label.startsWith("status:"),
+    const hasStatus = currentLabels.some((label) => label.startsWith('status:'));
+    if (hasStatus) return null;
+
+    const defaultStatus = isPR ? 'status:needs-review' : 'status:needs-triage';
+    core.info(
+      `[label-enforcer] No status label found on #${number}, applying default: ${defaultStatus}`
     );
 
-    if (!hasStatus) {
-      const defaultStatus = isPR
-        ? "status:needs-review"
-        : "status:needs-triage";
+    if (dryRun) {
+      core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultStatus}`);
+      return { label: defaultStatus, error: null };
+    }
 
-      core.info(
-        `[label-enforcer] No status label found on #${number}, applying default: ${defaultStatus}`,
-      );
-
-      if (!dryRun) {
-        try {
-          await github.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: number,
-            labels: [defaultStatus],
-          });
-          core.info(
-            `[label-enforcer] Applied default status: ${defaultStatus} to #${number}`,
-          );
-        } catch (error) {
-          core.warning(
-            `[label-enforcer] Failed to add default status label: ${error.message}`,
-          );
-        }
-      } else {
-        core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultStatus}`);
-      }
+    try {
+      await github.rest.issues.addLabels({
+        owner,
+        repo,
+        issue_number: number,
+        labels: [defaultStatus],
+      });
+      core.info(`[label-enforcer] Applied default status: ${defaultStatus} to #${number}`);
+      return { label: defaultStatus, error: null };
+    } catch (error) {
+      core.warning(`[label-enforcer] Failed to add default status label: ${error.message}`);
+      return { label: defaultStatus, error };
     }
   } catch (error) {
-    core.error(
-      `[label-enforcer] Error applying default status: ${error.message}`,
-    );
+    core.error(`[label-enforcer] Error applying default status: ${error.message}`);
     throw error;
   }
 }
@@ -198,7 +173,7 @@ async function applyDefaultStatus({
  * @param {number} params.number - Issue/PR number
  * @param {string[]} params.currentLabels - Current labels on the item
  * @param {boolean} params.dryRun - If true, only log actions without applying
- * @returns {Promise<void>}
+ * @returns {Promise<{label: string, error: Error}|null>} Planned label and write error, or null when not needed
  */
 async function applyDefaultPriority({
   github,
@@ -210,41 +185,34 @@ async function applyDefaultPriority({
 }) {
   try {
     // Check if any priority:* label exists
-    const hasPriority = currentLabels.some((label) =>
-      label.startsWith("priority:"),
+    const hasPriority = currentLabels.some((label) => label.startsWith('priority:'));
+    if (hasPriority) return null;
+
+    const defaultPriority = 'priority:normal';
+    core.info(
+      `[label-enforcer] No priority label found on #${number}, applying default: ${defaultPriority}`
     );
 
-    if (!hasPriority) {
-      const defaultPriority = "priority:normal";
+    if (dryRun) {
+      core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultPriority}`);
+      return { label: defaultPriority, error: null };
+    }
 
-      core.info(
-        `[label-enforcer] No priority label found on #${number}, applying default: ${defaultPriority}`,
-      );
-
-      if (!dryRun) {
-        try {
-          await github.rest.issues.addLabels({
-            owner,
-            repo,
-            issue_number: number,
-            labels: [defaultPriority],
-          });
-          core.info(
-            `[label-enforcer] Applied default priority: ${defaultPriority} to #${number}`,
-          );
-        } catch (error) {
-          core.warning(
-            `[label-enforcer] Failed to add default priority label: ${error.message}`,
-          );
-        }
-      } else {
-        core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultPriority}`);
-      }
+    try {
+      await github.rest.issues.addLabels({
+        owner,
+        repo,
+        issue_number: number,
+        labels: [defaultPriority],
+      });
+      core.info(`[label-enforcer] Applied default priority: ${defaultPriority} to #${number}`);
+      return { label: defaultPriority, error: null };
+    } catch (error) {
+      core.warning(`[label-enforcer] Failed to add default priority label: ${error.message}`);
+      return { label: defaultPriority, error };
     }
   } catch (error) {
-    core.error(
-      `[label-enforcer] Error applying default priority: ${error.message}`,
-    );
+    core.error(`[label-enforcer] Error applying default priority: ${error.message}`);
     throw error;
   }
 }
@@ -274,16 +242,16 @@ async function applyDefaultType({
 }) {
   try {
     // Check if any type:* label exists
-    const hasType = currentLabels.some((label) => label.startsWith("type:"));
+    const hasType = currentLabels.some((label) => label.startsWith('type:'));
 
     if (!hasType) {
       // Default type based on item type
       // For PRs, type should be determined by branch prefix (handled by labeler)
       // So we only apply fallback if still missing after labeler runs
-      const defaultType = isPR ? "type:chore" : "type:task";
+      const defaultType = isPR ? 'type:chore' : 'type:task';
 
       core.info(
-        `[label-enforcer] No type label found on #${number}, applying default: ${defaultType}`,
+        `[label-enforcer] No type label found on #${number}, applying default: ${defaultType}`
       );
 
       if (!dryRun) {
@@ -294,22 +262,17 @@ async function applyDefaultType({
             issue_number: number,
             labels: [defaultType],
           });
-          core.info(
-            `[label-enforcer] Applied default type: ${defaultType} to #${number}`,
-          );
+          core.info(`[label-enforcer] Applied default type: ${defaultType} to #${number}`);
         } catch (error) {
-          core.warning(
-            `[label-enforcer] Failed to add default type label: ${error.message}`,
-          );
+          core.warning(`[label-enforcer] Failed to add default type label: ${error.message}`);
+          throw error;
         }
       } else {
         core.info(`[label-enforcer] [DRY RUN] Would add: ${defaultType}`);
       }
     }
   } catch (error) {
-    core.error(
-      `[label-enforcer] Error applying default type: ${error.message}`,
-    );
+    core.error(`[label-enforcer] Error applying default type: ${error.message}`);
     throw error;
   }
 }
