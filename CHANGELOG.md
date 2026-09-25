@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
 - **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
@@ -60,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
+- **Windows Markdown Lint Commits Fixed** — Committing markdown changes on Windows no longer fails; the linter is now resolved directly instead of through a command that Windows could not locate. (#3459)
 - **Branding Agent Footer Config Path Fixed** — Corrected the same stale config path and dedup regex bugs in `branding.agent.js`. (#3456)
 - **Reference Detection Test Isolation Fixed** — Isolated the rename-scenario test from leaked fixture state; remaining match defect tracked separately. (#3452)
 - **Broken Reference Checks** — Fixed path matching, default and named import detection, and injected test indexes, so all reference detection tests pass. (#3460)
