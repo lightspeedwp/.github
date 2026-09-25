@@ -92,12 +92,26 @@ describe("RetryStrategy", () => {
       const delay1 = strategy.calculateDelay(1); // ~2000ms
       const delay2 = strategy.calculateDelay(2); // ~4000ms
 
-      expect(delay0).toBeGreaterThan(900);
-      expect(delay0).toBeLessThan(1100);
-      expect(delay1).toBeGreaterThan(1800);
-      expect(delay1).toBeLessThan(2200);
-      expect(delay2).toBeGreaterThan(3600);
-      expect(delay2).toBeLessThan(4400);
+      // Jitter is ±10% and rounded, so the bounds are inclusive; strict
+      // bounds failed intermittently when a delay landed exactly on one.
+      expect(delay0).toBeGreaterThanOrEqual(900);
+      expect(delay0).toBeLessThanOrEqual(1100);
+      expect(delay1).toBeGreaterThanOrEqual(1800);
+      expect(delay1).toBeLessThanOrEqual(2200);
+      expect(delay2).toBeGreaterThanOrEqual(3600);
+      expect(delay2).toBeLessThanOrEqual(4400);
+    });
+
+    test.each([
+      [0, 900],
+      [1 - Number.EPSILON, 1100],
+    ])("stays within the jitter range at the extremes (Math.random = %p)", (random, expected) => {
+      const randomSpy = jest.spyOn(Math, "random").mockReturnValue(random);
+      try {
+        expect(strategy.calculateDelay(0)).toBe(expected);
+      } finally {
+        randomSpy.mockRestore();
+      }
     });
 
     test("caps delay at maxDelayMs", () => {
