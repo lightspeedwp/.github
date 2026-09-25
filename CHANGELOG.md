@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Stale Pull Requests Self-Update** — A pull request well behind the base branch now merges it in automatically instead of blocking on staleness. ([#3476](https://github.com/lightspeedwp/.github/pull/3476))
+- **Stale Pull Requests Self-Update** — Eligible non-draft PRs targeting `develop` merge it in when more than five commits behind instead of blocking on staleness. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
