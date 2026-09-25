@@ -303,8 +303,14 @@ describe('MetricsCollectionOrchestrator', () => {
     const startTime = Date.now();
     orchestrator.startTime = startTime;
 
-    // Simulate some processing time
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Simulate some processing time. The sleep carries 50ms of headroom above
+    // the bound asserted below: `execution.duration` is
+    // `Date.now() - startTime` measured across two reads with millisecond
+    // granularity, so a sleep sitting exactly on the asserted bound lands on
+    // 99ms roughly one run in six under parallel load (#3572). The headroom
+    // keeps the assertion meaningful - it still fails if duration is zero,
+    // negative or never populated - without depending on timer precision.
+    await new Promise((resolve) => setTimeout(resolve, 150));
 
     orchestrator.results = [
       {
