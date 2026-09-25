@@ -148,35 +148,43 @@ const ALLOWED_CHANGED_FILES_KEYS = [
 
 function assertChangedFilesShape(label, rule) {
   const value = rule["changed-files"];
-  // In the v5+ list form each rule object's 'changed-files' is a matcher
-  // map ({any-glob-to-any-file: [...]}), never a bare array or scalar.
-  // actions/labeler v7 drops anything else for the rule, so reject it
-  // here instead of letting CI silently ignore file rules (#3545).
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
+  if (!Array.isArray(value) || value.length === 0) {
     fail(
-      `Rule for '${label}' must use the matcher-map form of 'changed-files' (e.g. any-glob-to-any-file: [...])`,
+      `Rule for '${label}' must use a non-empty list of changed-files matcher objects`,
     );
   }
-  const entries = Object.entries(value);
-  if (entries.length === 0) {
-    fail(`Rule for '${label}' has an empty 'changed-files' matcher map`);
-  }
-  for (const [key, globs] of entries) {
-    if (!ALLOWED_CHANGED_FILES_KEYS.includes(key)) {
+
+  value.forEach((matcher, matcherIndex) => {
+    if (!matcher || typeof matcher !== "object" || Array.isArray(matcher)) {
       fail(
-        `Rule for '${label}' uses unknown changed-files matcher '${key}' (allowed: ${ALLOWED_CHANGED_FILES_KEYS.join(", ")})`,
+        `Rule for '${label}' changed-files matcher ${matcherIndex} must be an object`,
       );
     }
-    if (
-      !Array.isArray(globs) ||
-      globs.length === 0 ||
-      globs.some((g) => typeof g !== "string" || g.length === 0)
-    ) {
+
+    const entries = Object.entries(matcher);
+    if (entries.length === 0) {
       fail(
-        `Rule for '${label}' matcher '${key}' must list at least one glob string`,
+        `Rule for '${label}' changed-files matcher ${matcherIndex} must not be empty`,
       );
     }
-  }
+
+    for (const [key, globs] of entries) {
+      if (!ALLOWED_CHANGED_FILES_KEYS.includes(key)) {
+        fail(
+          `Rule for '${label}' uses unknown changed-files matcher '${key}' (allowed: ${ALLOWED_CHANGED_FILES_KEYS.join(", ")})`,
+        );
+      }
+      if (
+        !Array.isArray(globs) ||
+        globs.length === 0 ||
+        globs.some((g) => typeof g !== "string" || g.length === 0)
+      ) {
+        fail(
+          `Rule for '${label}' matcher '${key}' must list at least one glob string`,
+        );
+      }
+    }
+  });
 }
 
 function assertHeadBranchShape(label, rule) {

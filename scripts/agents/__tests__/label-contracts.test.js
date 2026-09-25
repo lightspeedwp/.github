@@ -64,7 +64,7 @@ function canonicalLabelSet() {
 // Live-API mock: behaves like the issues labels endpoints against an
 // in-memory label set, including 404 on removing an absent label.
 // ---------------------------------------------------------------------------
-function createMockOctokit(initialLabels) {
+function createMockOctokit(initialLabels, { nativeType = null } = {}) {
   const state = { labels: [...initialLabels] };
   const calls = { added: [], removed: [] };
   const octokit = {
@@ -72,6 +72,9 @@ function createMockOctokit(initialLabels) {
     calls,
     rest: {
       issues: {
+        get: async () => ({
+          data: { type: nativeType ? { name: nativeType } : null },
+        }),
         listLabelsOnIssue: async () => ({
           data: state.labels.map((name) => ({ name })),
         }),
@@ -271,14 +274,27 @@ describe('label governance contracts (#3545)', () => {
 
     test('list-form changed-files passes validation', () => {
       const result = runValidatorWithLabeler({
-        'area:testing': [{ 'changed-files': { 'any-glob-to-any-file': ['tests/**/*'] } }],
+        'area:testing': [{ 'changed-files': [{ 'any-glob-to-any-file': ['tests/**/*'] }] }],
       });
       expect(result.status).toBe(0);
     });
 
+    test('repository changed-files rules use the action list form', () => {
+      const labeler = repoYaml('.github/labeler.yml');
+      const invalid = [];
+      for (const [label, rules] of Object.entries(labeler)) {
+        for (const rule of rules) {
+          if (rule['changed-files'] && !Array.isArray(rule['changed-files'])) {
+            invalid.push(label);
+          }
+        }
+      }
+      expect(invalid).toEqual([]);
+    });
+
     test('unknown matcher key fails validation', () => {
       const result = runValidatorWithLabeler({
-        'area:testing': [{ 'changed-files': { 'fuzzy-glob': ['tests/**/*'] } }],
+        'area:testing': [{ 'changed-files': [{ 'fuzzy-glob': ['tests/**/*'] }] }],
       });
       expect(result.status).not.toBe(0);
     });
@@ -292,7 +308,7 @@ describe('label governance contracts (#3545)', () => {
 
     test('array-form file rule matches', () => {
       const rules = {
-        'area:testing': [{ 'changed-files': { 'any-glob-to-any-file': ['tests/**/*'] } }],
+        'area:testing': [{ 'changed-files': [{ 'any-glob-to-any-file': ['tests/**/*'] }] }],
       };
       expect(
         labelerUtils.determineLabelsFromRules(prCtx('docs/something'), rules, [
@@ -301,11 +317,26 @@ describe('label governance contracts (#3545)', () => {
       ).toEqual(['area:testing']);
     });
 
+    test('file matcher arrays apply area labels from changed files', () => {
+      const rules = {
+        'area:ci': [
+          {
+            'changed-files': [{ 'any-glob-to-any-file': ['.github/workflows/**', 'ci/**/*'] }],
+          },
+        ],
+      };
+      expect(
+        labelerUtils.determineLabelsFromRules(prCtx('ci/update'), rules, [
+          '.github/workflows/tests.yml',
+        ])
+      ).toEqual(['area:ci']);
+    });
+
     test('array-form objects AND together', () => {
       const rules = {
         'area:testing': [
           { 'head-branch': ['^docs/.*'] },
-          { 'changed-files': { 'any-glob-to-any-file': ['tests/**/*'] } },
+          { 'changed-files': [{ 'any-glob-to-any-file': ['tests/**/*'] }] },
         ],
       };
       expect(labelerUtils.determineLabelsFromRules(prCtx('docs/x'), rules, ['src/a.js'])).toEqual(
@@ -325,7 +356,7 @@ describe('label governance contracts (#3545)', () => {
       ]);
     });
 
-    test('legacy flat-object form still resolves', () => {
+    test('mapping-form changed-files does not match', () => {
       const rules = {
         'area:testing': {
           'changed-files': { 'any-glob-to-any-file': ['tests/**/*'] },
@@ -333,7 +364,7 @@ describe('label governance contracts (#3545)', () => {
       };
       expect(
         labelerUtils.determineLabelsFromRules(prCtx('docs/y'), rules, ['tests/a.test.js'])
-      ).toEqual(['area:testing']);
+      ).toEqual([]);
     });
 
     test('skipFamilies suppresses caller-owned families', async () => {
@@ -378,6 +409,37 @@ describe('label governance contracts (#3545)', () => {
       const types = octokit.state.labels.filter((l) => l.startsWith('type:'));
       expect(types).toEqual(['type:bug']);
       expect(report.errors).toEqual([]);
+    });
+
+    test('native issue type wins over conflicting content and defaults', async () => {
+      const octokit = createMockOctokit([], { nativeType: 'Chore' });
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'fix: this looks like a bug', body: 'issue details' }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+      expect(octokit.calls.added).not.toContain('type:bug');
+      expect(octokit.calls.added).not.toContain('type:task');
+      expect(report.rulesApplied).toContain('Native issue type: type:chore');
+    });
+
+    test('native issue type replaces a stale conflicting live label', async () => {
+      const octokit = createMockOctokit(['type:bug'], { nativeType: 'Chore' });
+      await agent.runLabelingAgent({
+        context: issueContext({ title: 'fix: stale payload', labels: ['type:bug'] }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(octokit.state.labels.filter((l) => l.startsWith('type:'))).toEqual(['type:chore']);
+      expect(octokit.calls.removed).toContain('type:bug');
+    });
+
+    test('whole-word fallback does not classify substrings', () => {
+      expect(agent.detectIssueTypeFromContent('decision', '')).toBeNull();
+      expect(agent.detectIssueTypeFromContent('specific', '')).toBeNull();
+      expect(agent.detectIssueTypeFromContent('prefix', '')).toBeNull();
+      expect(agent.detectIssueTypeFromContent('fix: deliberate', '')).toBe('type:bug');
     });
 
     test('live type suppresses content double-add on stale payload', async () => {
@@ -485,12 +547,48 @@ describe('label governance contracts (#3545)', () => {
         path.join(REPO_ROOT, '.github/workflows/pr-template-routing.yml'),
         'utf8'
       );
-      expect(workflow).toMatch(/\.default_labels \| join/);
-      expect(workflow).not.toMatch(/\.all_labels \| join/);
+      expect(workflow).toContain('.default_labels | map(select');
+      expect(workflow).not.toContain('.all_labels | join');
       expect(routeBranch('docs/claude-cloud-environment-spec')).toContain('type:docs');
     });
   });
 
+  describe('area ownership contract', () => {
+    test('router defaults contain no area labels', () => {
+      const mapping = repoYaml('.github/branch-labels.yml').branch_labels;
+      const areaDefaults = Object.entries(mapping).flatMap(([branchType, config]) =>
+        (config.default_labels || [])
+          .filter((label) => label.startsWith('area:'))
+          .map((label) => `${branchType}:${label}`)
+      );
+      expect(areaDefaults).toEqual([]);
+    });
+
+    test('ci, build and audit branches leave area ownership to the file labeler', () => {
+      for (const branch of ['ci/update', 'build/bundle', 'audit/labels']) {
+        expect(routeBranch(branch).some((label) => label.startsWith('area:'))).toBe(false);
+      }
+      const rules = repoYaml('.github/labeler.yml');
+      expect(
+        labelerUtils.determineLabelsFromRules(
+          {
+            payload: { pull_request: { head: { ref: 'ci/update' }, number: 1 } },
+            ref: 'refs/heads/develop',
+          },
+          rules,
+          ['.github/workflows/tests.yml']
+        )
+      ).toContain('area:ci');
+    });
+
+    test('router filters area labels before applying defaults', () => {
+      const workflow = fs.readFileSync(
+        path.join(REPO_ROOT, '.github/workflows/pr-template-routing.yml'),
+        'utf8'
+      );
+      expect(workflow).toMatch(/map\(select\(startswith\("type:"\) or startswith\("priority:"\)\)/);
+    });
+  });
   describe('template-frontmatter contract', () => {
     function runGuardrail() {
       return spawnSync(

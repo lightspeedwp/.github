@@ -10,8 +10,6 @@
  * Usage: Import for labeler rule integration.
  * ============================================================================
  */
-// TODO: Align this helper with the latest automation spec updates.
-
 import fs from 'fs';
 import { load } from 'js-yaml';
 import * as core from '@actions/core';
@@ -79,38 +77,39 @@ function matchesBranchPattern(branchName, patterns) {
 /**
  * Checks if any changed files match the provided patterns
  * @param {string[]} changedFiles - Array of changed file paths
- * @param {Object} filePatterns - File pattern configuration from labeler.yml
- * @returns {boolean} True if any files match the patterns
+ * @param {Object[]} filePatterns - Changed-files matcher objects from labeler.yml
+ * @returns {boolean} True if any matcher matches the patterns
  */
 function matchesFilePatterns(changedFiles, filePatterns) {
-  if (!changedFiles || !filePatterns) {
+  if (!Array.isArray(changedFiles) || !Array.isArray(filePatterns) || filePatterns.length === 0) {
     return false;
   }
 
-  // Handle 'any-glob-to-any-file' pattern (OR logic)
-  if (filePatterns['any-glob-to-any-file']) {
-    const patterns = filePatterns['any-glob-to-any-file'];
-    return patterns.some((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
-  }
+  return filePatterns.some((matcher) => {
+    if (!matcher || typeof matcher !== 'object' || Array.isArray(matcher)) {
+      return false;
+    }
 
-  // Handle 'all-globs-to-all-files' pattern (AND logic)
-  if (filePatterns['all-globs-to-all-files']) {
-    const patterns = filePatterns['all-globs-to-all-files'];
-    return patterns.every((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
-  }
+    return Object.entries(matcher).some(([key, patterns]) => {
+      if (!Array.isArray(patterns) || patterns.length === 0) {
+        return false;
+      }
 
-  // Handle 'any-glob-to-all-files' pattern
-  if (filePatterns['any-glob-to-all-files']) {
-    const patterns = filePatterns['any-glob-to-all-files'];
-    return patterns.some((pattern) => changedFiles.every((file) => minimatch(file, pattern)));
-  }
-
-  // Handle simple array of patterns (default to any-glob-to-any-file)
-  if (Array.isArray(filePatterns)) {
-    return filePatterns.some((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
-  }
-
-  return false;
+      if (key === 'any-glob-to-any-file') {
+        return patterns.some((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
+      }
+      if (key === 'all-globs-to-all-files') {
+        return patterns.every((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
+      }
+      if (key === 'any-glob-to-all-files') {
+        return patterns.some((pattern) => changedFiles.every((file) => minimatch(file, pattern)));
+      }
+      if (key === 'all-globs-to-any-file') {
+        return patterns.every((pattern) => changedFiles.some((file) => minimatch(file, pattern)));
+      }
+      return false;
+    });
+  });
 }
 
 /**
