@@ -330,11 +330,19 @@ describe("Metrics Agent Phase 2 - Integration Tests", () => {
     test("single repository collection should complete efficiently", async () => {
       const startTime = Date.now();
 
-      // Simulate collection
-      await new Promise((resolve) => setTimeout(resolve, 100)); // Simulate 100ms work
+      // Simulate collection. The sleep carries 50ms of headroom above the
+      // bound asserted below: `elapsed` is `Date.now() - startTime` measured
+      // across two reads with millisecond granularity, so a sleep sitting
+      // exactly on the asserted bound lands on 99ms under parallel load and
+      // failed roughly one full-suite run in four (#3572). The headroom keeps
+      // the assertion meaningful - it still fails if the work is skipped or
+      // the elapsed time is not tracked - without depending on timer
+      // precision. The upper bound is unaffected.
+      await new Promise((resolve) => setTimeout(resolve, 150));
 
       const elapsed = Date.now() - startTime;
 
+      expect(elapsed).toBeGreaterThanOrEqual(100);
       expect(elapsed).toBeLessThan(1000); // Should be under 1 second in practice
     });
 
