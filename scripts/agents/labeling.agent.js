@@ -28,16 +28,16 @@ import { buildLabelingReport } from './includes/label-reporting.js';
 // Environment configurable paths (fallback to repo defaults)
 const LABELS_CONFIG = process.env.LABELS_CONFIG || '.github/labels.yml';
 const LABELER_RULES = process.env.LABELER_RULES || '.github/labeler.yml';
+const ISSUE_TYPES_CONFIG = process.env.ISSUE_TYPES_CONFIG || '.github/issue-types.yml';
 
-// Enhanced content-based type detection heuristics
+// Content fallback signals use explicit markers and whole-word matching.
 const KEYWORD_TYPE_MAP = {
   bug: 'type:bug',
   fix: 'type:bug',
-  'fixes #': 'type:bug',
-  'closes #': 'type:bug',
   defect: 'type:bug',
   error: 'type:bug',
-  issue: 'type:bug',
+  'fix:': 'type:bug',
+  hotfix: 'type:bug',
   feature: 'type:feature',
   feat: 'type:feature',
   enhancement: 'type:feature',
@@ -76,7 +76,11 @@ const KEYWORD_TYPE_MAP = {
   wcag: 'type:a11y',
 };
 
-// Branch prefix to type mapping for PRs
+// Branch prefix to type mapping for PRs. Values must stay canonical
+// (see .github/labels.yml) and in parity with .github/branch-labels.yml
+// default_labels (see scripts/agents/__tests__/label-contracts.test.js).
+// Ownership: on PRs the router (branch-labels.yml) is the sole type writer;
+// the agent uses this map only to recognise branch intent when reconciling.
 const BRANCH_PREFIX_TYPE_MAP = {
   'feat/': 'type:feature',
   'feature/': 'type:feature',
@@ -85,6 +89,7 @@ const BRANCH_PREFIX_TYPE_MAP = {
   'hotfix/': 'type:bug',
   'docs/': 'type:docs',
   'doc/': 'type:docs',
+  'audit/': 'type:review',
   'test/': 'type:test',
   'tests/': 'type:test',
   'perf/': 'type:performance',
@@ -96,13 +101,6 @@ const BRANCH_PREFIX_TYPE_MAP = {
   'a11y/': 'type:a11y',
 };
 
-/**
- * Reads a YAML file whose top level must be a list.
- * @param {string} path - File path to read.
- * @param {string} purpose - Short name for the file, used in error messages.
- * @returns {Array} The parsed list.
- * @throws {Error} If the file is missing or its top level is not a list.
- */
 function readYamlArrayFile(path, purpose) {
   if (!fs.existsSync(path)) {
     throw new Error(`[labeling.agent] Missing ${purpose} file at: ${path}`);
@@ -133,6 +131,42 @@ function loadAliasMap() {
   return buildLabelAliasMap(labelsData);
 }
 
+function loadIssueTypeMap(path = ISSUE_TYPES_CONFIG) {
+  if (!fs.existsSync(path)) {
+    throw new Error(`[labeling.agent] Missing issue types file at: ${path}`);
+  }
+  const data = load(fs.readFileSync(path, 'utf8'));
+  if (!data || !Array.isArray(data.issue_types)) {
+    throw new Error(`[labeling.agent] Expected issue_types array in: ${path}`);
+  }
+  return new Map(
+    data.issue_types
+      .filter((entry) => entry && typeof entry.name === 'string' && typeof entry.label === 'string')
+      .map((entry) => [entry.name.toLowerCase(), entry.label])
+  );
+}
+
+async function fetchNativeIssueTypeLabel(octokit, owner, repo, number, issueTypeMap) {
+  const { data } = await octokit.rest.issues.get({
+    owner,
+    repo,
+    issue_number: number,
+  });
+  const nativeType =
+    (typeof data?.type === 'string' ? data.type : data?.type?.name) ||
+    data?.issue_type?.name ||
+    null;
+  if (!nativeType) {
+    return { label: null, present: false };
+  }
+
+  const label = issueTypeMap.get(String(nativeType).toLowerCase()) || null;
+  if (!label) {
+    core.warning(`[labeling.agent] Native issue type '${nativeType}' is not mapped`);
+  }
+  return { label, present: true };
+}
+
 /**
  * Detect issue type from branch name using prefix patterns
  * @param {string} branchName - Branch name to analyze
@@ -151,27 +185,41 @@ function detectTypeFromBranch(branchName = '') {
   return null;
 }
 
+function containsKeyword(text, keyword) {
+  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const value = String(text ?? '');
+  const leadingBoundary = /^[a-z0-9_]/i.test(keyword) ? '(^|[^a-z0-9_])' : '';
+  const trailingBoundary = /[a-z0-9_]$/i.test(keyword) ? '(?=$|[^a-z0-9_])' : '';
+  return new RegExp(`${leadingBoundary}${escaped}${trailingBoundary}`, 'i').test(value);
+}
+
 /**
- * Detect issue type from content (title + body) using keyword heuristics
- * Enhanced with priority ordering - checks title first for higher confidence
+ * Detect issue type from content (title + body) using explicit, whole-word
+ * fallback signals. Native issue types are handled before this function.
  * @param {string} title - Issue/PR title
  * @param {string} body - Issue/PR body
  * @returns {string|null} Canonical type label or null if none matched
  */
 function detectIssueTypeFromContent(title = '', body = '') {
-  // Check title first (higher confidence)
-  const lowerTitle = title.toLowerCase();
+  const prefix = String(title ?? '').match(/^\s*([a-z0-9]+)(?:\([^)]*\))?!?:/i);
+  if (prefix) {
+    const keyword = prefix[1].toLowerCase();
+    const typeLabel = KEYWORD_TYPE_MAP[keyword] || KEYWORD_TYPE_MAP[`${keyword}:`];
+    if (typeLabel) {
+      core.info(`[labeling.agent] Detected type from title prefix '${keyword}:': ${typeLabel}`);
+      return typeLabel;
+    }
+  }
+
   for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
-    if (lowerTitle.includes(keyword.toLowerCase())) {
+    if (containsKeyword(title, keyword)) {
       core.info(`[labeling.agent] Detected type from title keyword '${keyword}': ${typeLabel}`);
       return typeLabel;
     }
   }
 
-  // Check body if no match in title
-  const lowerBody = body.toLowerCase();
   for (const [keyword, typeLabel] of Object.entries(KEYWORD_TYPE_MAP)) {
-    if (lowerBody.includes(keyword.toLowerCase())) {
+    if (containsKeyword(body, keyword)) {
       core.info(`[labeling.agent] Detected type from body keyword '${keyword}': ${typeLabel}`);
       return typeLabel;
     }
@@ -181,27 +229,114 @@ function detectIssueTypeFromContent(title = '', body = '') {
 }
 
 /**
- * Migrates labels that are not in the canonical set.
+ * Removes a label, treating "already absent" (404) as success so a label
+ * removed earlier in the run (or by a concurrent workflow) is never an
+ * error. Other failures are rethrown for the caller to record.
+ */
+async function removeLabelSafe(octokit, owner, repo, number, label) {
+  try {
+    await octokit.rest.issues.removeLabel({
+      owner,
+      repo,
+      issue_number: number,
+      name: label,
+    });
+    return true;
+  } catch (error) {
+    if (error && error.status === 404) {
+      core.info(`[labeling.agent] Label already absent, skipping removal: ${label} on #${number}`);
+      return false;
+    }
+    throw error;
+  }
+}
+
+/**
+ * Reads the item's live labels from the API. Event payloads go stale while
+ * runs queue, so every mutating decision reconciles against this, never
+ * against the payload snapshot alone (#3545).
  *
- * A label with a canonical mapping (an entry in `aliasMap`) is replaced by its
- * canonical label. A label with no mapping is kept unless `removeUnmapped` is
- * true: spec 008 FR-022 forbids removing labels only because they are missing
- * from labels.yml until the approved consolidation mapping exists.
+ * @returns {Promise<string[]>} Live label names.
+ */
+async function fetchLiveLabels(octokit, owner, repo, number) {
+  const names = [];
+  let page = 1;
+  for (;;) {
+    const { data } = await octokit.rest.issues.listLabelsOnIssue({
+      owner,
+      repo,
+      issue_number: number,
+      per_page: 100,
+      page,
+    });
+    if (!data.length) break;
+    for (const label of data) {
+      if (label && label.name) names.push(label.name);
+    }
+    if (data.length < 100) break;
+    page += 1;
+  }
+  return names;
+}
+
+// Explicit severity rank so duplicate priority labels resolve
+// deterministically (never "first in the API array").
+const PRIORITY_SEVERITY_ORDER = [
+  'priority:critical',
+  'priority:high',
+  'priority:important',
+  'priority:normal',
+  'priority:low',
+  'priority:minor',
+];
+
+/**
+ * Deterministically picks the single surviving type label.
  *
+ * Precedence (no reliance on API/event ordering):
+ *   1. nativeType, when it is live (the issue's authoritative type);
+ *   2. branchType, when it is live (the router's branch intent);
+ *   3. contentType, when it is live (fresh content signal);
+ *   4. otherwise the earliest label in canonical labels.yml order.
+ *
+ * @returns {string|null} Winning label, or null when none are live.
+ */
+function resolveTypeWinner({ liveTypes, nativeType, branchType, contentType, canonicalOrder }) {
+  const live = new Set(liveTypes);
+  if (nativeType && live.has(nativeType)) return nativeType;
+  if (branchType && live.has(branchType)) return branchType;
+  if (contentType && live.has(contentType)) return contentType;
+  for (const name of canonicalOrder) {
+    if (live.has(name)) return name;
+  }
+  return liveTypes[0] || null;
+}
+
+/**
+ * Deterministically picks the surviving priority label by severity rank,
+ * falling back to canonical order for unknown values.
+ */
+function resolvePriorityWinner({ livePriorities, canonicalOrder }) {
+  for (const name of PRIORITY_SEVERITY_ORDER) {
+    if (livePriorities.includes(name)) return name;
+  }
+  for (const name of canonicalOrder) {
+    if (livePriorities.includes(name)) return name;
+  }
+  return livePriorities[0] || null;
+}
+
+/**
+ * Removes or migrates any label on an issue/PR that is not in the canonical set.
  * @param {Object} github - Octokit instance.
  * @param {string} owner
  * @param {string} repo
  * @param {number} number - Issue/PR number.
  * @param {string[]} currentLabels
  * @param {Set<string>} canonicalSet
- * @param {Object} aliasMap - Alias names mapped to canonical label names.
- * @param {boolean} dryRun - When true, report proposed changes without API writes.
+ * @param {Object} aliasMap
+ * @param {boolean} dryRun
  * @param {function} log
- * @param {boolean} [removeUnmapped=false] - Remove labels that have no mapping.
- * @returns {Promise<{migrated: string[], removed: string[], kept: string[]}>} Migrations as
- *   "old -> new" strings, unmapped labels removed, and unmapped labels kept. Canonical
- *   labels are omitted; dry runs return proposed migrations and removals.
- * @throws Errors from label API writes or the log callback propagate.
  */
 async function standardizeLabelsOnItem(
   github,
@@ -235,19 +370,14 @@ async function standardizeLabelsOnItem(
           labels: [canonical],
         });
       }
-      result.migrated.push(`${label} -> ${canonical}`);
+      result.migrated.push({ from: label, to: canonical });
       log(`[labeling.agent] Migrated: ${label} -> ${canonical} on #${number}`);
     } else {
       result.removed.push(label);
     }
 
     if (!dryRun) {
-      await github.rest.issues.removeLabel({
-        owner,
-        repo,
-        issue_number: number,
-        name: label,
-      });
+      await removeLabelSafe(github, owner, repo, number, label);
     }
     log(`[labeling.agent] Removed non-canonical label: ${label} from #${number}`);
   }
@@ -255,17 +385,13 @@ async function standardizeLabelsOnItem(
 }
 
 /**
- * Apply labeling rules to the issue or PR in the GitHub context.
+ * Main orchestrator for labeling agent with comprehensive error handling
  * @param {Object} opts - Configuration options
  * @param {Object} [opts.context=github.context] - GitHub context
  * @param {Object} [opts.github] - Octokit instance
- * @param {boolean} [opts.dryRun] - Skip label writes when true; defaults to whether DRY_RUN is 'true'.
- * @param {boolean} [opts.removeUnmapped] - Remove labels with no canonical mapping; defaults to whether LABELING_REMOVE_UNMAPPED is 'true'.
- * @param {number} [opts.maxRetries=3] - Maximum attempts to add labels from labeler rules.
- * @returns {Promise<Object>} Report with added, removed, migrated, rulesApplied,
- *   errors, success, and duration in milliseconds. Removals exclude migrated aliases;
- *   dry runs include proposed actions. Success can be true even when an individual
- *   step records an error. Caught configuration, step, and fatal errors are recorded.
+ * @param {boolean} [opts.dryRun=false] - Dry run mode
+ * @param {number} [opts.maxRetries=3] - Maximum retry attempts for API calls
+ * @returns {Promise<Object>} Report object with summary of actions taken
  */
 async function runLabelingAgent(opts = {}) {
   const startTime = Date.now();
@@ -311,7 +437,7 @@ async function runLabelingAgent(opts = {}) {
     }
 
     // Load canonical configurations with error handling
-    let canonicalSet, aliasMap, labelerRules;
+    let canonicalSet, aliasMap, labelerRules, issueTypeMap;
     try {
       core.startGroup('Loading canonical configurations');
       canonicalSet = loadCanonicalLabels();
@@ -319,6 +445,9 @@ async function runLabelingAgent(opts = {}) {
 
       aliasMap = loadAliasMap();
       core.info(`[labeling.agent] Loaded ${Object.keys(aliasMap).length} label aliases`);
+
+      issueTypeMap = loadIssueTypeMap();
+      core.info(`[labeling.agent] Loaded ${issueTypeMap.size} native issue types`);
 
       labelerRules = fetchLabelerRules(LABELER_RULES);
       core.info(`[labeling.agent] Loaded ${Object.keys(labelerRules).length} labeler rules`);
@@ -332,29 +461,90 @@ async function runLabelingAgent(opts = {}) {
       return report;
     }
 
-    // Get current labels
-    const currentLabels = isIssue
+    // Labels known to be present, tracked across every mutation below.
+    // The event payload goes stale while runs queue, so this starts from
+    // the live API state and is updated after each stage (#3545).
+    const snapshotLabels = isIssue
       ? (context.payload.issue.labels || []).map((l) => l.name)
       : (context.payload.pull_request.labels || []).map((l) => l.name);
 
     core.info(
-      `[labeling.agent] Current labels (${currentLabels.length}): ${currentLabels.join(', ') || 'none'}`
+      `[labeling.agent] Payload labels (${snapshotLabels.length}): ${snapshotLabels.join(', ') || 'none'}`
     );
 
-    // Step 1: Apply labeler rules (branch patterns and file changes)
+    let knownLabels;
+    try {
+      knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
+    } catch (error) {
+      core.warning(
+        `[labeling.agent] Live label fetch failed, falling back to payload snapshot: ${error.message}`
+      );
+      report.errors.push(`Live label fetch error: ${error.message}`);
+      knownLabels = new Set(snapshotLabels);
+    }
+
+    core.info(
+      `[labeling.agent] Current labels (${knownLabels.size}): ${[...knownLabels].join(', ') || 'none'}`
+    );
+
+    const markAdded = (label) => {
+      knownLabels.add(label);
+      report.added.push(label);
+    };
+    const markRemoved = (label) => {
+      knownLabels.delete(label);
+      report.removed.push(label);
+    };
+
+    // Canonical order for deterministic fallbacks (stable file order,
+    // never API/event ordering).
+    const canonicalOrder = [...canonicalSet];
+
+    // Branch intent for PRs, used for precedence only. The router owns
+    // PR type labels; the agent never adds competing types (#3545).
+    const branchName = isPR ? context.payload.pull_request.head.ref : '';
+    const branchType = isPR ? detectTypeFromBranch(branchName) : null;
+    let nativeTypeLabel = null;
+    let nativeTypeLookupFailed = false;
+    let nativeTypeUnmapped = false;
+    if (!isPR) {
+      try {
+        const nativeTypeResult = await fetchNativeIssueTypeLabel(
+          octokit,
+          owner,
+          repo,
+          number,
+          issueTypeMap
+        );
+        nativeTypeLabel = nativeTypeResult.label;
+        nativeTypeUnmapped = nativeTypeResult.present && !nativeTypeResult.label;
+        if (nativeTypeLabel) {
+          core.info(`[labeling.agent] Using native issue type label: ${nativeTypeLabel}`);
+        }
+      } catch (error) {
+        nativeTypeLookupFailed = true;
+        core.warning(`[labeling.agent] Native issue type lookup failed: ${error.message}`);
+        report.errors.push(`Native issue type lookup error: ${error.message}`);
+      }
+    }
+
+    // Step 1: Apply labeler rules (branch patterns and file changes).
+    // On PRs, type:* is router-owned and skipped here so the agent never
+    // writes a family another writer owns (#3545).
     try {
       core.startGroup('Applying labeler rules');
       const appliedFromRules = await applyLabelerRules({
         github: octokit,
         context,
         labelerRules,
-        currentLabels,
+        currentLabels: [...knownLabels],
         dryRun,
         maxRetries,
+        skipFamilies: isPR ? ['type:'] : [],
       });
 
       if (appliedFromRules.length > 0) {
-        report.added.push(...appliedFromRules);
+        for (const label of appliedFromRules) markAdded(label);
         report.rulesApplied.push(`File/branch patterns matched: ${appliedFromRules.join(', ')}`);
       }
       core.endGroup();
@@ -364,38 +554,49 @@ async function runLabelingAgent(opts = {}) {
       core.endGroup();
     }
 
-    // Step 2: Detect type from branch prefix (for PRs)
-    if (isPR) {
-      try {
-        const branchName = context.payload.pull_request.head.ref;
-        const branchType = detectTypeFromBranch(branchName);
-        if (branchType && !currentLabels.includes(branchType)) {
-          if (!dryRun) {
-            await octokit.rest.issues.addLabels({
-              owner,
-              repo,
-              issue_number: number,
-              labels: [branchType],
-            });
-          }
-          report.added.push(branchType);
-          report.rulesApplied.push(`Branch prefix detection: ${branchType}`);
-        }
-      } catch (error) {
-        core.warning(`[labeling.agent] Branch type detection failed: ${error.message}`);
-        report.errors.push(`Branch detection error: ${error.message}`);
-      }
-    }
+    // (No branch-prefix type adds: PR types are owned by the router.
+    // branchType above feeds final precedence only.)
 
     // Step 3: Enforce one-hot constraints (status, priority, type)
+    // against tracked state, then refresh from live so later stages
+    // observe one-hot removals. Types are pre-ordered winner-first so the
+    // first-keep rule below cannot transiently drop the deterministic
+    // winner ahead of final reconciliation.
     try {
       core.startGroup('Enforcing one-hot label constraints');
+      const preTypes = [...knownLabels].filter((l) => l.startsWith('type:'));
+      if (preTypes.length > 1) {
+        const prestatement =
+          isPR || nativeTypeLabel || nativeTypeLookupFailed || nativeTypeUnmapped
+            ? null
+            : detectIssueTypeFromContent(context.payload.issue.title, context.payload.issue.body);
+        const preWinner = resolveTypeWinner({
+          liveTypes: preTypes,
+          branchType: isPR ? branchType : null,
+          nativeType: nativeTypeLabel,
+          contentType: !isPR ? prestatement : null,
+          canonicalOrder,
+        });
+        if (preWinner) {
+          knownLabels = new Set([preWinner, ...[...knownLabels].filter((l) => l !== preWinner)]);
+        }
+      }
+      const prePriorities = [...knownLabels].filter((l) => l.startsWith('priority:'));
+      if (prePriorities.length > 1) {
+        const preWinner = resolvePriorityWinner({
+          livePriorities: prePriorities,
+          canonicalOrder,
+        });
+        if (preWinner) {
+          knownLabels = new Set([preWinner, ...[...knownLabels].filter((l) => l !== preWinner)]);
+        }
+      }
       await enforceOneHotLabels({
         github: octokit,
         owner,
         repo,
         number,
-        currentLabels,
+        currentLabels: [...knownLabels],
         dryRun,
       });
       core.endGroup();
@@ -405,37 +606,60 @@ async function runLabelingAgent(opts = {}) {
       core.endGroup();
     }
 
-    // Step 4: Apply defaults for missing required labels
+    if (!dryRun) {
+      try {
+        knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
+      } catch (error) {
+        core.warning(
+          `[labeling.agent] Label refresh failed, continuing with tracked state: ${error.message}`
+        );
+      }
+    }
+
+    // Step 4: Apply defaults for missing required labels.
+    // PR types are router-owned and never added here; issues fall back
+    // to content detection (Step 5) before the type default, so a default
+    // can never stack a second type onto a detected one (#3545).
     try {
       core.startGroup('Applying default labels');
-      await applyDefaultStatus({
+      const statusResult = await applyDefaultStatus({
         github: octokit,
         owner,
         repo,
         number,
-        currentLabels,
+        currentLabels: [...knownLabels],
         dryRun,
         isPR,
       });
+      if (statusResult?.error) {
+        report.errors.push(`Default status error: ${statusResult.error.message}`);
+      } else if (statusResult) {
+        markAdded(statusResult.label);
+      }
 
-      await applyDefaultPriority({
+      const priorityResult = await applyDefaultPriority({
         github: octokit,
         owner,
         repo,
         number,
-        currentLabels,
+        currentLabels: [...knownLabels],
         dryRun,
       });
+      if (priorityResult?.error) {
+        report.errors.push(`Default priority error: ${priorityResult.error.message}`);
+      } else if (priorityResult) {
+        markAdded(priorityResult.label);
+      }
 
-      await applyDefaultType({
-        github: octokit,
-        owner,
-        repo,
-        number,
-        currentLabels,
-        dryRun,
-        isPR,
-      });
+      if (!dryRun) {
+        try {
+          knownLabels = new Set(await fetchLiveLabels(octokit, owner, repo, number));
+        } catch (error) {
+          core.warning(
+            `[labeling.agent] Label refresh failed, continuing with tracked state: ${error.message}`
+          );
+        }
+      }
       core.endGroup();
     } catch (error) {
       core.warning(`[labeling.agent] Default label application failed: ${error.message}`);
@@ -443,25 +667,92 @@ async function runLabelingAgent(opts = {}) {
       core.endGroup();
     }
 
-    // Step 5: Content-based type detection (if no type label yet)
-    const hasTypeLabel = currentLabels.some((l) => l.startsWith('type:'));
-    if (!hasTypeLabel) {
+    // Step 5: Resolve one type for issues. Native issue type is authoritative;
+    // content keywords are only a fallback when no type is already live.
+    const liveTypeLabels = [...knownLabels].filter((l) => l.startsWith('type:'));
+    const clearStaleTypeLabels = async (reason) => {
+      for (const label of liveTypeLabels) {
+        try {
+          if (!dryRun) {
+            await removeLabelSafe(octokit, owner, repo, number, label);
+          }
+          markRemoved(label);
+          report.rulesApplied.push(`${reason}: ${label}`);
+        } catch (error) {
+          core.warning(`[labeling.agent] Stale type label removal failed: ${error.message}`);
+          report.errors.push(`Stale type label removal error: ${error.message}`);
+        }
+      }
+    };
+    const isUntypedIssueEvent =
+      !isPR &&
+      context.payload.action === 'untyped' &&
+      !nativeTypeLookupFailed &&
+      !nativeTypeUnmapped &&
+      !nativeTypeLabel;
+    if (isUntypedIssueEvent) {
       try {
-        const title = isIssue ? context.payload.issue.title : context.payload.pull_request.title;
-        const body = isIssue ? context.payload.issue.body : context.payload.pull_request.body;
-        const detectedType = detectIssueTypeFromContent(title, body);
-
-        if (detectedType) {
+        const nativeTypeResult = await fetchNativeIssueTypeLabel(
+          octokit,
+          owner,
+          repo,
+          number,
+          issueTypeMap
+        );
+        nativeTypeLabel = nativeTypeResult.label;
+        nativeTypeUnmapped = nativeTypeResult.present && !nativeTypeResult.label;
+        if (nativeTypeLabel) {
+          core.info(`[labeling.agent] Revalidated native issue type label: ${nativeTypeLabel}`);
+        }
+      } catch (error) {
+        nativeTypeLookupFailed = true;
+        core.warning(`[labeling.agent] Native issue type revalidation failed: ${error.message}`);
+        report.errors.push(`Native issue type revalidation error: ${error.message}`);
+      }
+    }
+    if (!isPR && nativeTypeUnmapped) {
+      await clearStaleTypeLabels('Cleared stale type label for unmapped native type');
+    } else if (isUntypedIssueEvent && !nativeTypeLabel) {
+      await clearStaleTypeLabels('Cleared stale type label after native type removal');
+    }
+    const hasTypeLabel = [...knownLabels].some((l) => l.startsWith('type:'));
+    let contentType = null;
+    if (!isPR && nativeTypeLabel) {
+      try {
+        if (!knownLabels.has(nativeTypeLabel)) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
               repo,
               issue_number: number,
-              labels: [detectedType],
+              labels: [nativeTypeLabel],
             });
           }
-          report.added.push(detectedType);
-          report.rulesApplied.push(`Content-based type detection: ${detectedType}`);
+          markAdded(nativeTypeLabel);
+        }
+        report.rulesApplied.push(`Native issue type: ${nativeTypeLabel}`);
+      } catch (error) {
+        core.warning(`[labeling.agent] Native type label application failed: ${error.message}`);
+        report.errors.push(`Native type label error: ${error.message}`);
+      }
+    } else if (!isPR && !nativeTypeLookupFailed && !nativeTypeUnmapped && !hasTypeLabel) {
+      try {
+        contentType = detectIssueTypeFromContent(
+          context.payload.issue.title,
+          context.payload.issue.body
+        );
+
+        if (contentType && !knownLabels.has(contentType)) {
+          if (!dryRun) {
+            await octokit.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number: number,
+              labels: [contentType],
+            });
+          }
+          markAdded(contentType);
+          report.rulesApplied.push(`Content-based type detection: ${contentType}`);
         }
       } catch (error) {
         core.warning(`[labeling.agent] Content type detection failed: ${error.message}`);
@@ -469,11 +760,37 @@ async function runLabelingAgent(opts = {}) {
       }
     }
 
+    // Deferred type default for issues: only when content detection found
+    // nothing, so exactly one type is ever introduced per run.
+    if (
+      !isPR &&
+      !nativeTypeLabel &&
+      !nativeTypeLookupFailed &&
+      !nativeTypeUnmapped &&
+      ![...knownLabels].some((l) => l.startsWith('type:'))
+    ) {
+      try {
+        await applyDefaultType({
+          github: octokit,
+          owner,
+          repo,
+          number,
+          currentLabels: [...knownLabels],
+          dryRun,
+          isPR,
+        });
+        markAdded('type:task');
+      } catch (error) {
+        core.warning(`[labeling.agent] Default type application failed: ${error.message}`);
+        report.errors.push(`Default type error: ${error.message}`);
+      }
+    }
+
     // Step 6: Changelog nudge for PRs
     if (isPR) {
       try {
-        const changelogLabels = ['meta:no-changelog', 'meta:needs-changelog', 'meta:changelog'];
-        if (!currentLabels.some((l) => changelogLabels.includes(l))) {
+        const changelogLabels = ['meta:no-changelog', 'meta:needs-changelog'];
+        if (![...knownLabels].some((l) => changelogLabels.includes(l))) {
           if (!dryRun) {
             await octokit.rest.issues.addLabels({
               owner,
@@ -482,7 +799,7 @@ async function runLabelingAgent(opts = {}) {
               labels: ['meta:needs-changelog'],
             });
           }
-          report.added.push('meta:needs-changelog');
+          markAdded('meta:needs-changelog');
           core.info('[labeling.agent] Added meta:needs-changelog');
         }
       } catch (error) {
@@ -491,15 +808,83 @@ async function runLabelingAgent(opts = {}) {
       }
     }
 
-    // Step 7: Standardize/migrate non-canonical labels
+    // Step 7: Final reconciliation toward the deterministic managed state.
+    // Re-reads live labels, then converges: at most one type:* (by
+    // precedence, never array order), status/priority defaults already
+    // applied above, non-canonical labels migrated/removed 404-tolerantly.
+    // A rerun with unchanged inputs mutates nothing (idempotent).
     try {
-      core.startGroup('Standardizing labels');
+      core.startGroup('Reconciling managed label state');
+      let live;
+      if (dryRun) {
+        live = [...knownLabels];
+      } else {
+        try {
+          live = await fetchLiveLabels(octokit, owner, repo, number);
+        } catch (error) {
+          core.warning(
+            `[labeling.agent] Final live fetch failed, reconciling tracked state: ${error.message}`
+          );
+          live = [...knownLabels];
+        }
+      }
+
+      const liveTypes = live.filter((l) => l.startsWith('type:'));
+      if (liveTypes.length > 1) {
+        const winner = resolveTypeWinner({
+          liveTypes,
+          branchType: isPR ? branchType : null,
+          nativeType: nativeTypeLabel,
+          contentType: !isPR ? contentType : null,
+          canonicalOrder,
+        });
+        core.info(
+          `[labeling.agent] Multiple type labels live on #${number}: ${liveTypes.join(', ')}; keeping ${winner}`
+        );
+        for (const label of liveTypes) {
+          if (label === winner) continue;
+          if (!dryRun) {
+            await removeLabelSafe(octokit, owner, repo, number, label);
+          }
+          markRemoved(label);
+        }
+      }
+
+      const livePriorities = live.filter((l) => l.startsWith('priority:'));
+      if (livePriorities.length > 1) {
+        const winner = resolvePriorityWinner({
+          livePriorities,
+          canonicalOrder,
+        });
+        core.info(
+          `[labeling.agent] Multiple priority labels live on #${number}: ${livePriorities.join(', ')}; keeping ${winner}`
+        );
+        for (const label of livePriorities) {
+          if (label === winner) continue;
+          if (!dryRun) {
+            await removeLabelSafe(octokit, owner, repo, number, label);
+          }
+          markRemoved(label);
+        }
+      }
+
+      let standardizeList;
+      if (dryRun) {
+        standardizeList = [...knownLabels];
+      } else {
+        try {
+          standardizeList = await fetchLiveLabels(octokit, owner, repo, number);
+        } catch (error) {
+          core.warning(`[labeling.agent] Live fetch before standardize failed: ${error.message}`);
+          standardizeList = [...knownLabels];
+        }
+      }
       const standardized = await standardizeLabelsOnItem(
         octokit,
         owner,
         repo,
         number,
-        currentLabels,
+        standardizeList,
         canonicalSet,
         aliasMap,
         dryRun,
@@ -510,8 +895,8 @@ async function runLabelingAgent(opts = {}) {
       report.removed.push(...standardized.removed);
       core.endGroup();
     } catch (error) {
-      core.warning(`[labeling.agent] Label standardization failed: ${error.message}`);
-      report.errors.push(`Standardization error: ${error.message}`);
+      core.warning(`[labeling.agent] Label reconciliation failed: ${error.message}`);
+      report.errors.push(`Reconciliation error: ${error.message}`);
       core.endGroup();
     }
 
@@ -547,8 +932,17 @@ async function runLabelingAgent(opts = {}) {
   }
 }
 
-// Check if this module is being run directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Check if this module is being run directly (transform-safe: import.meta
+// does not survive the repo's babel CJS transform, which breaks Jest
+// loading; an argv suffix check is equivalent for CLI use).
+const isMainModule =
+  typeof process !== 'undefined' &&
+  Array.isArray(process.argv) &&
+  typeof process.argv[1] === 'string' &&
+  (process.argv[1].endsWith('scripts/agents/labeling.agent.js') ||
+    process.argv[1].endsWith('scripts\\agents\\labeling.agent.js'));
+
+if (isMainModule) {
   runLabelingAgent().catch((error) => {
     core.error(`[labeling.agent] Unhandled error: ${error.message}`);
     core.error(error.stack);
@@ -559,11 +953,18 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
 export {
   runLabelingAgent,
-  standardizeLabelsOnItem,
-  KEYWORD_TYPE_MAP,
-  BRANCH_PREFIX_TYPE_MAP,
   detectIssueTypeFromContent,
+  containsKeyword,
   detectTypeFromBranch,
+  loadIssueTypeMap,
+  fetchNativeIssueTypeLabel,
   loadCanonicalLabels,
   loadAliasMap,
+  fetchLiveLabels,
+  removeLabelSafe,
+  resolveTypeWinner,
+  resolvePriorityWinner,
+  standardizeLabelsOnItem,
+  BRANCH_PREFIX_TYPE_MAP,
+  KEYWORD_TYPE_MAP,
 };
