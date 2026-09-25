@@ -7,6 +7,13 @@ const workflowsDirectory = path.join(repositoryRoot, '.github/workflows');
 const actionsDirectory = path.join(repositoryRoot, '.github/actions');
 
 /**
+ * GitHub accepts either filename for action metadata; `action.yml` is the
+ * preferred form. Both are discovered and both satisfy a reference.
+ * https://docs.github.com/en/actions/reference/workflows-and-actions/metadata-syntax
+ */
+const ACTION_METADATA_FILES = ['action.yml', 'action.yaml'];
+
+/**
  * Directories under `.github/` whose YAML is a copy-source template rather
  * than a workflow GitHub executes. `.github/examples/` feeds `gh workflow
  * new`, so a workflow file there is intentional and exempt from the
@@ -56,10 +63,17 @@ function loadYaml(absolutePath) {
 
 /**
  * Every repository-local `uses:` in the active workflows, as
- * [workflowFile, reference] pairs. A reference appears in one of two places:
- * a step's `uses:`, or a job's `uses:` when the job calls a reusable
- * workflow. Both are collected, because a job-level call to a missing
- * workflow is just as broken as a step-level one.
+ * [workflowFile, normalisedReference, type] triples. A reference appears in
+ * one of two places: a step's `uses:`, or a job's `uses:` when the job calls a
+ * reusable workflow. Both are collected, because a job-level call to a missing
+ * workflow is just as broken as a step-level one, and the two forms have
+ * different target requirements.
+ *
+ * `$/` is GitHub's self-repository reference and resolves to the same
+ * repository at the running commit, so it is normalised to `./` and checked
+ * against the working tree like any other local path. It must not carry an
+ * `@ref` suffix.
+ * https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
  */
 function listLocalReferences() {
   const references = [];
@@ -69,12 +83,12 @@ function listLocalReferences() {
 
     for (const job of Object.values(parsed.jobs || {})) {
       if (typeof job.uses === 'string') {
-        references.push([name, job.uses]);
+        references.push([name, normaliseLocalReference(job.uses), 'job']);
       }
 
       for (const step of job.steps || []) {
         if (typeof step.uses === 'string') {
-          references.push([name, step.uses]);
+          references.push([name, normaliseLocalReference(step.uses), 'step']);
         }
       }
     }
@@ -83,9 +97,19 @@ function listLocalReferences() {
   return references.filter(([, reference]) => reference.startsWith('./'));
 }
 
+function normaliseLocalReference(reference) {
+  return reference.startsWith('$/') ? `./${reference.slice(2)}` : reference;
+}
+
+function hasActionMetadata(absoluteDirectory) {
+  return ACTION_METADATA_FILES.some((filename) =>
+    fs.existsSync(path.join(absoluteDirectory, filename))
+  );
+}
+
 /**
  * Every action directory under `.github/actions/`, as paths relative to that
- * directory. An action is a directory containing `action.yml`, so nested
+ * directory. An action is a directory containing action metadata, so nested
  * actions (`foo/bar/action.yml`) are found too and reported as `foo/bar` — the
  * same shape a `uses:` reference produces.
  */
@@ -100,7 +124,7 @@ function listActionDirectories(directory = actionsDirectory, prefix = '') {
     const relative = prefix ? `${prefix}/${entry.name}` : entry.name;
     const absolute = path.join(directory, entry.name);
 
-    if (fs.existsSync(path.join(absolute, 'action.yml'))) {
+    if (hasActionMetadata(absolute)) {
       found.push(relative);
     }
 
@@ -112,26 +136,36 @@ function listActionDirectories(directory = actionsDirectory, prefix = '') {
 
 /**
  * Why a local `uses:` reference is unusable, or null when it is well-formed and
- * resolvable. GitHub distinguishes the two kinds of local reference: a
- * `uses:` to `.github/workflows/<file>` calls that workflow file, while a
- * `uses:` to `.github/actions/<dir>` calls the directory's `action.yml`.
- * Pointing an action reference at the `action.yml` file itself is not a valid
- * form, so an existing file is not on its own proof of a valid reference.
+ * resolvable.
+ *
+ * The reference type decides what a valid target is, so an arbitrary existing
+ * path cannot satisfy a reference:
+ *
+ * - A `job` `uses:` calls a reusable workflow, which must be a file under
+ *   `.github/workflows/`.
+ * - A `step` `uses:` calls an action directory, which must contain `action.yml`
+ *   or `action.yaml`. Naming the metadata file itself is not a valid form.
  */
-function describeUnresolvableReference(reference) {
+function describeUnresolvableReference(reference, type) {
   const target = path.join(repositoryRoot, reference.slice(2));
 
-  if (reference.startsWith('./.github/actions/')) {
-    if (/(^|\/)[^/]+\.ya?ml$/.test(reference)) {
-      return 'points at a file; a local action reference must name the action directory';
+  if (type === 'job') {
+    if (!reference.startsWith('./.github/workflows/')) {
+      return 'a job reference must name a reusable workflow under .github/workflows/';
     }
 
-    return fs.existsSync(path.join(target, 'action.yml'))
-      ? null
-      : 'no action.yml in that directory';
+    return fs.existsSync(target) ? null : 'no such workflow file';
   }
 
-  return fs.existsSync(target) ? null : 'no such file';
+  if (!reference.startsWith('./.github/actions/')) {
+    return 'a step reference must name an action directory under .github/actions/';
+  }
+
+  if (/(^|\/)[^/]+\.ya?ml$/.test(reference)) {
+    return 'points at a file; a local action reference must name the action directory';
+  }
+
+  return hasActionMetadata(target) ? null : 'no action.yml or action.yaml in that directory';
 }
 
 // GitHub Actions only registers workflows in .github/workflows/, so a
@@ -158,11 +192,11 @@ describe('workflow reachability', () => {
   test('every local uses: reference in an active workflow is well-formed and resolves', () => {
     const unresolved = [];
 
-    for (const [workflow, reference] of listLocalReferences()) {
-      const problem = describeUnresolvableReference(reference);
+    for (const [workflow, reference, type] of listLocalReferences()) {
+      const problem = describeUnresolvableReference(reference, type);
 
       if (problem) {
-        unresolved.push(`${workflow}: ${reference} (${problem})`);
+        unresolved.push(`${workflow}: ${reference} (${type}: ${problem})`);
       }
     }
 
@@ -181,14 +215,20 @@ describe('workflow reachability', () => {
     expect(orphans).toEqual([]);
   });
 
-  test('the composite action contract suite covers every live composite action', () => {
+  test('the composite action contract suite registers a case for every live action', () => {
     const contractTest = fs.readFileSync(
       path.join(__dirname, 'workflow-consolidation-actions.test.js'),
       'utf8'
     );
+    // Compare against the names in the executable `test.each([...])` list, so a
+    // name appearing only in a comment or another string is not counted as
+    // coverage.
+    const registered = [...contractTest.matchAll(/test\.each\(\[([^\]]*)\]/g)].flatMap((match) =>
+      [...match[1].matchAll(/'([^']+)'/g)].map((entry) => entry[1])
+    );
 
-    for (const name of listActionDirectories()) {
-      expect(contractTest).toContain(`'${name}'`);
-    }
+    const uncovered = listActionDirectories().filter((name) => !registered.includes(name));
+
+    expect(uncovered).toEqual([]);
   });
 });
