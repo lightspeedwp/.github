@@ -116,4 +116,19 @@ describe('header-footer', () => {
     const output = fs.readFileSync(filePath, 'utf8');
     expect(output).toContain('Fixture default phrase.');
   });
+
+  test('getFooterPhrases honours a config with only a top-level default (#3538)', async () => {
+    const fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'header-footer-default-only-'));
+    fs.mkdirSync(path.join(fixtureDir, '.github'), { recursive: true });
+    fs.writeFileSync(
+      path.join(fixtureDir, '.github', 'footers.yml'),
+      ['default:', '  phrases:', '    - "Fixture default phrase."', ''].join('\n')
+    );
+    cwdSpy = jest.spyOn(process, 'cwd').mockReturnValue(fixtureDir);
+
+    const { getFooterPhrases } = await import('../header-footer.js');
+
+    expect(getFooterPhrases('docs')).toEqual(['Fixture default phrase.']);
+    expect(getFooterPhrases('unknown')).toEqual(['Fixture default phrase.']);
+  });
 });
