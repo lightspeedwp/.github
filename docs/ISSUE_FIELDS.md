@@ -2,9 +2,9 @@
 title: Issue Fields Specification
 description: Canonical specification for GitHub organization issue fields, type mappings, and project automation configuration
 file_type: documentation
-version: v1.0.10
+version: v1.0.11
 created_date: '2026-05-31'
-last_updated: '2026-08-21'
+last_updated: '2026-09-24'
 authors:
   - LightSpeed Team
 maintainer: LightSpeed Team
@@ -23,7 +23,7 @@ stability: stable
 
 # Issue Fields Specification
 
-**Version**: v1.0.9
+**Version**: v1.0.11
 **Created**: 2026-05-31
 **Owner**: LightSpeed Team
 **Reference Config**: `.github/issue-fields.yml`
@@ -42,7 +42,7 @@ This document specifies the organization-level issue fields, type mappings, and 
 
 **Key Outcomes**:
 
-- All 32 issue types mapped to 10 project field values (preserves domain context)
+- All 25 canonical issue types mapped to 11 project field values (preserves domain context)
 - Eliminates collapse of domain-specific types to generic "Task"
 - Enables project automation based on type for better reporting and workflow
 - Maintains GitHub API compatibility with existing project views
@@ -51,78 +51,66 @@ This document specifies the organization-level issue fields, type mappings, and 
 
 ## 1. Issue Type Taxonomy & Project Field Mapping
 
-### 1.1 Complete Type Mapping (32 Types → 10 Project Fields)
+### 1.1 Complete Type Mapping (25 Types → 11 Project Fields)
 
 | Issue Type | Project Field | Rationale |
 | --- | --- | --- |
 | `type:bug` | Bug | Critical issues requiring fix |
 | `type:feature` | Feature | New functionality/capabilities |
-| `type:improve` | Feature | Enhancement to existing feature |
-| `type:enhancement` | Feature | Enhancement (alias for improve) |
-| `type:documentation` | Documentation | Docs, guides, specifications |
+| `type:docs` | Documentation | Documentation |
 | `type:task` | Task | Generic work without specific type |
+| `type:release` | Release | Release management/deployment |
+| `type:improve` | Feature | Enhancement to existing feature |
 | `type:design` | Design | Design artefacts/decisions |
-| `type:ui` | Design | UI implementation/consistency |
 | `type:a11y` | Design | Accessibility improvements |
 | `type:chore` | Chore | General maintenance tasks |
 | `type:refactor` | Chore | Code quality improvements |
-| `type:maintenance` | Chore | System upkeep/updates |
-| `type:release` | Release | Release management/deployment |
-| `type:research` | Research | Investigation/discovery/POCs |
-| `type:investigation` | Research | Issue diagnosis/root cause analysis |
 | `type:automation` | Automation | Workflow automation/task automation |
 | `type:test` | Automation | Test coverage/infrastructure |
-| `type:ai-ops` | Automation | AI operations/agents/tooling |
-| `type:ci` | Automation | CI/CD pipelines |
+| `type:aiops` | Automation | AI Ops |
 | `type:build` | Automation | Build system improvements |
-| `type:integration` | Integration | External system integrations |
-| `type:dependency` | Integration | Dependency updates/management |
-| `type:compatibility` | Integration | Cross-platform compatibility |
-| `type:epic` | Task | Parent issue grouping stories |
-| `type:story` | Task | User-centred vertical slice |
-| `type:review` | Task | Peer review/QA/validation |
-| `type:audit` | Task | Security/code/process audits |
-| `type:question` | Task | Clarification request/open question |
-| `type:support` | Task | Support request/troubleshooting |
-| `type:content-modelling` | Task | Content structure/CPTs/taxonomy |
-| `type:performance` | Task | Performance optimization work |
+| `type:compat` | Compatibility | Compatibility |
+| `type:research` | Research | Investigation/discovery/POCs |
 | `type:security` | Task | Security issues/improvements |
+| `type:performance` | Task | Performance optimization work |
+| `type:audit` | Task | Security/code/process audits |
+| `type:epic` | Task | Parent issue grouping stories |
+| `type:decision` | Task | Decision record: context, options, outcome, consequences |
+| `type:content-modelling` | Task | Content structure/CPTs/taxonomy |
+| `type:review` | Task | Peer review/QA/validation |
+| `type:ci` | Automation | CI/CD pipelines |
+| `type:dependency` | Dependency Update | Dependency updates/management |
 
-**Total Coverage**: All 32 canonical types mapped to 10 project field values; 0 unmapped types
+**Total Coverage**: All 25 canonical types mapped to 11 project field values; 0 unmapped types
 
 ### 1.2 Type Category Groups
 
 ```
-Feature Delivery (3 types)
+Feature Delivery (2 types)
 ├── type:feature → Feature
-├── type:improve → Feature
-└── type:enhancement → Feature
+└── type:improve → Feature
 
-Quality & Maintenance (3 types)
+Quality & Maintenance (2 types)
 ├── type:chore → Chore
-├── type:refactor → Chore
-└── type:maintenance → Chore
+└── type:refactor → Chore
 
-Design & UX (3 types)
+Design & UX (2 types)
 ├── type:design → Design
-├── type:ui → Design
 └── type:a11y → Design
 
 Technical Infrastructure (5 types)
 ├── type:automation → Automation
 ├── type:test → Automation
-├── type:ai-ops → Automation
+├── type:aiops → Automation
 ├── type:ci → Automation
 └── type:build → Automation
 
-Engagement & Analysis (2 types)
-├── type:research → Research
-└── type:investigation → Research
+Analysis & Exploration (1 type)
+└── type:research → Research
 
-Integration & Connections (3 types)
-├── type:integration → Integration
-├── type:dependency → Integration
-└── type:compatibility → Integration
+Integration & Dependencies (2 types)
+├── type:compat → Compatibility
+└── type:dependency → Dependency Update
 
 Critical Issues (1 type)
 └── type:bug → Bug
@@ -131,13 +119,17 @@ Delivery Management (1 type)
 └── type:release → Release
 
 Documentation (1 type)
-└── type:documentation → Documentation
+└── type:docs → Documentation
 
-Unspecified Work (1 type)
-└── type:task → Task
-
-Security (1 type)
-└── type:security → Task* (*routed as Task but tracked separately)
+Tracked as Task (8 types)
+├── type:task → Task
+├── type:security → Task* (*routed as Task but tracked separately via its label)
+├── type:performance → Task
+├── type:audit → Task
+├── type:epic → Task
+├── type:decision → Task
+├── type:content-modelling → Task
+└── type:review → Task
 ```
 
 ---
@@ -155,16 +147,16 @@ The previous mapping (Bug, Feature, Documentation, Task) collapsed all types to 
 - **Poor reporting** — No visibility into which types consume effort (e.g., are we spending too much on research?)
 - **Missed optimization** — Can't identify bottlenecks by type (e.g., feature slow? bug backlog growing?)
 
-### 2.2 Why 10 Values (Instead of 32)?
+### 2.2 Why 11 Values (Instead of 25)?
 
-With 10 project field values, we maintain meaningful distinctions without fragmenting project views:
+With 11 project field values, we maintain meaningful distinctions without fragmenting project views:
 
 **Grouping principles**:
 
 1. **Preserve critical distinctions** (Bug vs. Feature vs. Documentation) — these must remain separate
 2. **Group related workflows** (Design/UX/Accessibility work → Design)
 3. **Balance practical limits** — GitHub recommends <20 project field options for usability
-4. **Enable key automations** (Release, Research, Integration work need visibility)
+4. **Enable key automations** (Release, Research, Compatibility and Dependency Update work need visibility)
 5. **Keep security trackable** (routed as Task but labelled separately for filtering)
 
 ---
@@ -181,7 +173,7 @@ All organization issues support these fields:
 | --- | --- | --- | --- | --- |
 | **Priority** | single_select | Critical, Important, Normal, Minor | No | Current importance level |
 | **Effort** | single_select | XS, S, M, L, XL, XXL, XXXL | No | Relative sizing estimate |
-| **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task | No | **Expanded mapping** — all 32 types covered |
+| **Type** | single_select | Bug, Feature, Design, Chore, Automation, Research, Documentation, Compatibility, Dependency Update, Release, Task | No | **Expanded mapping** — all 25 types covered |
 | **Start date** | date | YYYY-MM-DD | No | Planned start date |
 | **Target date** | date | YYYY-MM-DD | No | Expected completion date |
 
@@ -198,20 +190,21 @@ All organization issues support these fields:
 
 ### 3.3 Enabled Issue Types (GitHub Native)
 
-These are the GitHub native issue types supported by the organization:
+`organization_issue_fields.enabled_issue_types` lists the native issue types that `scripts/agents/includes/sync-issue-fields.cjs` may write. It holds every target in the Type mapping above:
 
 - Bug
 - Feature
 - Task
-- Epic
-- Maintenance
-- Chore
-- Research
-- Support
-- Documentation
 - Release
+- Design
+- Chore
+- Automation
+- Compatibility
+- Dependency Update
+- Research
+- Documentation
 
-All LightSpeed custom types (type:design, type:automation, etc.) are mapped to these native types in `.github/issue-fields.yml`.
+The full list of 25 native issue types, with descriptions and colours, is `.github/issue-types.yml`. A type such as Decision or Security is mapped to a broader native type (Task) for syncing, and keeps its own `type:*` label for filtering. If a target type does not yet exist in the organisation, the sync skips it and logs the available types.
 
 ---
 
@@ -231,7 +224,6 @@ All LightSpeed custom types (type:design, type:automation, etc.) are mapped to t
 **Design & UX Group** → Project Field: Design
 
 - `type:design` — Design system, component design, layout work
-- `type:ui` — UI implementation, visual consistency
 - `type:a11y` — Accessibility improvements, compliance
 
 *Rationale*: These are related to user-facing design work and often share stakeholders (designers, UX researchers).
@@ -239,35 +231,32 @@ All LightSpeed custom types (type:design, type:automation, etc.) are mapped to t
 **Quality & Maintenance Group** → Project Field: Chore
 
 - `type:chore` — General maintenance tasks
-- `type:refactor` — Code quality improvements (previously unmapped)
-- `type:maintenance` — System upkeep, dependency updates
+- `type:refactor` — Code quality improvements
 
-*Rationale*: All improve code quality and system health; often low priority but necessary.
+*Rationale*: Both improve code quality and system health; often low priority but necessary.
 
 **Automation & Infrastructure Group** → Project Field: Automation
 
 - `type:automation` — Workflow automation, task automation
 - `type:test` — Test coverage, test infrastructure
-- `type:ai-ops` — AI operations, tooling, agent work
+- `type:aiops` — AI operations, tooling, agent work
 - `type:ci` — CI/CD pipelines, GitHub Actions
-- `type:build` — Build system improvements (previously unmapped)
+- `type:build` — Build system improvements
 
 *Rationale*: All enable or improve development velocity and infrastructure reliability.
 
-**Integration & Dependencies Group** → Project Field: Integration
+**Integration & Dependencies Group** → Project Fields: Compatibility, Dependency Update
 
-- `type:integration` — External system integrations
+- `type:compat` — Compatibility with WordPress, PHP, WooCommerce and other platforms
 - `type:dependency` — Dependency updates, version management
-- `type:compatibility` — Compatibility improvements, cross-platform work
 
-*Rationale*: All involve external systems or dependencies.
+*Rationale*: Both involve external systems or dependencies, and each has its own native issue type.
 
 **Analysis & Exploration Group** → Project Field: Research
 
 - `type:research` — Investigations, proof-of-concepts
-- `type:investigation` — Issue diagnosis, root cause analysis
 
-*Rationale*: Both are exploratory work with uncertain scope/duration.
+*Rationale*: Exploratory work with uncertain scope/duration.
 
 ### 4.3 Catch-All Type
 
@@ -282,12 +271,12 @@ All LightSpeed custom types (type:design, type:automation, etc.) are mapped to t
 ### Phase 1: Configuration Update (Current)
 
 - ✅ Document expanded mapping (this file)
-- ✅ Update `.github/issue-fields.yml` with all 32 type mappings
-- ✅ Verify no unmapped types (all 32 types now mapped)
+- ✅ Update `.github/issue-fields.yml` with all 25 type mappings
+- ✅ Verify no unmapped types (all 25 types now mapped)
 
 ### Phase 2: Validation (Issue #684 - Type Naming)
 
-- Verify all 32 types are correctly used in existing issues
+- Verify all 25 types are correctly used in existing issues
 - Update type naming consistency across the repository
 - Document any type aliases or deprecated types
 
@@ -387,7 +376,7 @@ This specification should be reviewed:
 
 ### 9.1 Project Field Usability
 
-With 10 project field values, the Type field remains:
+With 11 project field values, the Type field remains:
 
 - **Scannable** — Users can quickly distinguish types in project views
 - **Meaningful** — Each value conveys distinct semantic information
@@ -407,11 +396,12 @@ Why both exist:
 | Date | Change | Author |
 | --- | --- | --- |
 | 2026-05-31 | Initial specification v1.0.0 — 32 type → 10 project field mapping | LightSpeed Team |
+| 2026-09-24 | v1.0.11 — 25 canonical types → 11 project field values; Decision replaces Question; non-canonical aliases removed | LightSpeed Team |
 
 ---
 
 **Document Status**: ✅ Active
-**Last Updated**: 2026-05-31
+**Last Updated**: 2026-09-24
 **Next Review**: 2027-05-31 (annual)
 **Owner**: LightSpeed Team
 
@@ -435,7 +425,7 @@ The following project field features are enabled across all LightSpeed repositor
 - **Sprint** — Iteration field for sprint planning
 - **Priority** — Issue importance level (Critical, Important, Normal, Minor)
 - **Effort** — Relative sizing (XS, S, M, L, XL, XXL, XXXL)
-- **Type** — 10 semantic project fields (Bug, Feature, Design, Chore, Automation, Research, Documentation, Integration, Release, Task)
+- **Type** — 11 semantic project fields (Bug, Feature, Design, Chore, Automation, Research, Documentation, Compatibility, Dependency Update, Release, Task)
 - **date** — Start and target dates
 - **text** — Spec Link and other custom text fields
 - **single_select** — Domain, Delivery Track, Team, Risk, Customer Impact, Technical Impact
