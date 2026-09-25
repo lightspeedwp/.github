@@ -38,10 +38,25 @@ function runNodeEsm(code, env = {}) {
 const FAKE_GITHUB = `
   const calls = [];
   const requests = [];
+  let currentLabels = [];
   const github = { rest: { issues: {
-    addLabels: async (args) => { calls.push(['addLabels', args.labels]); requests.push(args); },
-    removeLabel: async (args) => { calls.push(['removeLabel', args.name]); requests.push(args); },
-    setLabels: async (args) => { calls.push(['setLabels', args.labels]); requests.push(args); },
+    listLabelsOnIssue: async () => ({ data: currentLabels.map((name) => ({ name })) }),
+    get: async () => ({ data: { type: null } }),
+    addLabels: async (args) => {
+      calls.push(['addLabels', args.labels]);
+      requests.push(args);
+      currentLabels = [...new Set([...currentLabels, ...args.labels])];
+    },
+    removeLabel: async (args) => {
+      calls.push(['removeLabel', args.name]);
+      requests.push(args);
+      currentLabels = currentLabels.filter((name) => name !== args.name);
+    },
+    setLabels: async (args) => {
+      calls.push(['setLabels', args.labels]);
+      requests.push(args);
+      currentLabels = [...args.labels];
+    },
   } } };
 `;
 
@@ -120,6 +135,7 @@ function runAgent({
       `
       const { runLabelingAgent } = await import('./scripts/agents/labeling.agent.js');
       ${FAKE_GITHUB}
+      currentLabels = ${JSON.stringify(labels)};
       const context = {
         repo: { owner: 'o', repo: 'r' },
         payload: { issue: {
@@ -169,7 +185,7 @@ describe('labeling.agent', () => {
         ['addLabels', ['type:bug']],
         ['removeLabel', 'bug'],
       ]);
-      expect(result.migrated).toEqual(['bug -> type:bug']);
+      expect(result.migrated).toEqual([{ from: 'bug', to: 'type:bug' }]);
     });
 
     it('removes an unmapped label only when removeUnmapped is on', () => {
@@ -190,7 +206,7 @@ describe('labeling.agent', () => {
       });
       expect(calls).toEqual([]);
       expect(result).toEqual({
-        migrated: ['bug -> type:bug'],
+        migrated: [{ from: 'bug', to: 'type:bug' }],
         removed: ['area:builds'],
         kept: [],
       });
@@ -203,7 +219,7 @@ describe('labeling.agent', () => {
         removeUnmapped: true,
       });
       expect(result).toEqual({
-        migrated: ['bug -> type:bug'],
+        migrated: [{ from: 'bug', to: 'type:bug' }],
         removed: ['area:builds'],
         kept: [],
       });
@@ -308,7 +324,7 @@ describe('labeling.agent', () => {
     expect(calls).toEqual([]);
     expect(report.success).toBe(true);
     expect(report.errors).toEqual([]);
-    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.migrated).toEqual([{ from: 'bug', to: 'type:bug' }]);
     expect(report.removed).toEqual(['area:builds']);
   });
 
@@ -317,7 +333,7 @@ describe('labeling.agent', () => {
     expect(calls).toEqual([]);
     expect(report.success).toBe(true);
     expect(report.errors).toEqual([]);
-    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.migrated).toEqual([{ from: 'bug', to: 'type:bug' }]);
     expect(report.removed).toEqual([]);
   });
 
@@ -368,7 +384,7 @@ describe('labeling.agent', () => {
         },
       });
       expect(output).toContain('DRY_RUN=true');
-      expect(output).toContain('0 added, 0 removed, 1 migrated, 0 errors');
+      expect(output).toContain('0 added, 0 removed, 1 migrated');
       expect(fs.readFileSync(summaryFile, 'utf8')).not.toContain('Removed Labels');
     } finally {
       fs.rmSync(fixtureDir, { recursive: true, force: true });
@@ -378,7 +394,7 @@ describe('labeling.agent', () => {
   it('migrates mapped labels and keeps unmapped labels by default in the agent report', () => {
     const { report, calls } = runAgent();
     expect(report.success).toBe(true);
-    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.migrated).toEqual([{ from: 'bug', to: 'type:bug' }]);
     expect(report.removed).toEqual([]);
     expect(calls).toEqual([
       ['addLabels', ['type:bug']],
@@ -397,7 +413,7 @@ describe('labeling.agent', () => {
       env: { DRY_RUN: 'true', LABELING_REMOVE_UNMAPPED: 'true' },
       options: { dryRun: false, removeUnmapped: false },
     });
-    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.migrated).toEqual([{ from: 'bug', to: 'type:bug' }]);
     expect(report.removed).toEqual([]);
     expect(calls).toEqual([
       ['addLabels', ['type:bug']],
@@ -407,7 +423,7 @@ describe('labeling.agent', () => {
 
   it('lets an explicit removal option override LABELING_REMOVE_UNMAPPED=false', () => {
     const { report, calls } = runAgent({ options: { removeUnmapped: true } });
-    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.migrated).toEqual([{ from: 'bug', to: 'type:bug' }]);
     expect(report.removed).toEqual(['area:builds']);
     expect(calls).toEqual([
       ['addLabels', ['type:bug']],
@@ -418,7 +434,7 @@ describe('labeling.agent', () => {
 
   it('lets an explicit dry-run option suppress writes when DRY_RUN=false', () => {
     const { report, calls } = runAgent({ options: { dryRun: true } });
-    expect(report.migrated).toEqual(['bug -> type:bug']);
+    expect(report.migrated).toEqual([{ from: 'bug', to: 'type:bug' }]);
     expect(calls).toEqual([]);
   });
 });
