@@ -482,6 +482,7 @@ async function runLabelingAgent(opts = {}) {
     const branchName = isPR ? context.payload.pull_request.head.ref : '';
     const branchType = isPR ? detectTypeFromBranch(branchName) : null;
     let nativeTypeLabel = null;
+    let nativeTypeLookupFailed = false;
     if (!isPR) {
       try {
         nativeTypeLabel = await fetchNativeIssueTypeLabel(
@@ -495,7 +496,9 @@ async function runLabelingAgent(opts = {}) {
           core.info(`[labeling.agent] Using native issue type label: ${nativeTypeLabel}`);
         }
       } catch (error) {
+        nativeTypeLookupFailed = true;
         core.warning(`[labeling.agent] Native issue type lookup failed: ${error.message}`);
+        report.errors.push(`Native issue type lookup error: ${error.message}`);
       }
     }
 
@@ -538,7 +541,7 @@ async function runLabelingAgent(opts = {}) {
       const preTypes = [...knownLabels].filter((l) => l.startsWith('type:'));
       if (preTypes.length > 1) {
         const prestatement =
-          isPR || nativeTypeLabel
+          isPR || nativeTypeLabel || nativeTypeLookupFailed
             ? null
             : detectIssueTypeFromContent(context.payload.issue.title, context.payload.issue.body);
         const preWinner = resolveTypeWinner({
@@ -642,7 +645,7 @@ async function runLabelingAgent(opts = {}) {
         core.warning(`[labeling.agent] Native type label application failed: ${error.message}`);
         report.errors.push(`Native type label error: ${error.message}`);
       }
-    } else if (!isPR && liveTypeLabels.length === 0) {
+    } else if (!isPR && !nativeTypeLookupFailed && liveTypeLabels.length === 0) {
       try {
         contentType = detectIssueTypeFromContent(
           context.payload.issue.title,
@@ -669,7 +672,12 @@ async function runLabelingAgent(opts = {}) {
 
     // Deferred type default for issues: only when content detection found
     // nothing, so exactly one type is ever introduced per run.
-    if (!isPR && !nativeTypeLabel && ![...knownLabels].some((l) => l.startsWith('type:'))) {
+    if (
+      !isPR &&
+      !nativeTypeLabel &&
+      !nativeTypeLookupFailed &&
+      ![...knownLabels].some((l) => l.startsWith('type:'))
+    ) {
       try {
         await applyDefaultType({
           github: octokit,

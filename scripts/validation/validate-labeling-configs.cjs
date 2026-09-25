@@ -93,7 +93,7 @@ function assertLabelerConfig(labeler) {
     // rejected here (#3545).
     if (!Array.isArray(rules) || rules.length === 0) {
       fail(
-        `Rule for '${label}' must be a non-empty array of match objects (v5+ list form with 'changed-files' / 'head-branch' entries)`,
+        `Rule for '${label}' must be a non-empty array of rule objects (each must include 'changed-files', 'head-branch', 'all', or 'any')`,
       );
     }
     const ruleList = rules;
@@ -102,37 +102,7 @@ function assertLabelerConfig(labeler) {
     }
 
     for (const rule of ruleList) {
-      for (const key of Object.keys(rule)) {
-        if (!ALLOWED_RULE_KEYS.includes(key)) {
-          fail(
-            `Rule for '${label}' uses unknown match key '${key}' (allowed: ${ALLOWED_RULE_KEYS.join(", ")})`,
-          );
-        }
-      }
-      const hasHeadBranch = Object.prototype.hasOwnProperty.call(
-        rule,
-        "head-branch",
-      );
-      const hasChangedFiles = Object.prototype.hasOwnProperty.call(
-        rule,
-        "changed-files",
-      );
-
-      if (!hasHeadBranch && !hasChangedFiles) {
-        fail(
-          `Rule for '${label}' must include at least one of 'head-branch' or 'changed-files'`,
-        );
-      }
-      if (hasHeadBranch) assertHeadBranchShape(label, rule);
-      if (hasChangedFiles) assertChangedFilesShape(label, rule);
-      for (const group of ["all", "any"]) {
-        if (Object.prototype.hasOwnProperty.call(rule, group)) {
-          const members = rule[group];
-          if (!Array.isArray(members) || members.length === 0) {
-            fail(`Rule for '${label}' group '${group}' must be a non-empty array`);
-          }
-        }
-      }
+      assertRuleObjectShape(label, rule);
     }
   }
 }
@@ -145,6 +115,45 @@ const ALLOWED_CHANGED_FILES_KEYS = [
   "all-globs-to-any-file",
   "all-globs-to-all-files",
 ];
+
+function assertRuleObjectShape(label, rule, location = "rule") {
+  if (!rule || typeof rule !== "object" || Array.isArray(rule)) {
+    fail(`Rule for '${label}' ${location} must be an object`);
+  }
+
+  for (const key of Object.keys(rule)) {
+    if (!ALLOWED_RULE_KEYS.includes(key)) {
+      fail(
+        `Rule for '${label}' uses unknown match key '${key}' (allowed: ${ALLOWED_RULE_KEYS.join(", ")})`,
+      );
+    }
+  }
+
+  const hasHeadBranch = Object.prototype.hasOwnProperty.call(rule, "head-branch");
+  const hasChangedFiles = Object.prototype.hasOwnProperty.call(rule, "changed-files");
+  const hasAll = Object.prototype.hasOwnProperty.call(rule, "all");
+  const hasAny = Object.prototype.hasOwnProperty.call(rule, "any");
+
+  if (!hasHeadBranch && !hasChangedFiles && !hasAll && !hasAny) {
+    fail(
+      `Rule for '${label}' ${location} must include 'head-branch', 'changed-files', 'all', or 'any'`,
+    );
+  }
+
+  if (hasHeadBranch) assertHeadBranchShape(label, rule);
+  if (hasChangedFiles) assertChangedFilesShape(label, rule);
+
+  for (const group of ["all", "any"]) {
+    if (!Object.prototype.hasOwnProperty.call(rule, group)) continue;
+    const members = rule[group];
+    if (!Array.isArray(members) || members.length === 0) {
+      fail(`Rule for '${label}' group '${group}' must be a non-empty array`);
+    }
+    members.forEach((member, index) => {
+      assertRuleObjectShape(label, member, `${location}.${group}[${index}]`);
+    });
+  }
+}
 
 function assertChangedFilesShape(label, rule) {
   const value = rule["changed-files"];

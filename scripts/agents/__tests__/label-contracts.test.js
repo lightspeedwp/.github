@@ -279,6 +279,36 @@ describe('label governance contracts (#3545)', () => {
       expect(result.status).toBe(0);
     });
 
+    test('all and any groups pass validation with valid members', () => {
+      const result = runValidatorWithLabeler({
+        'area:testing': [
+          {
+            all: [
+              { 'head-branch': ['^test/.*'] },
+              { 'changed-files': [{ 'any-glob-to-any-file': ['tests/**/*'] }] },
+            ],
+          },
+        ],
+        'area:documentation': [
+          {
+            any: [
+              { 'head-branch': ['^docs/.*'] },
+              { 'changed-files': [{ 'any-glob-to-any-file': ['docs/**/*'] }] },
+            ],
+          },
+        ],
+      });
+      expect(result.status).toBe(0);
+    });
+
+    test('invalid all or any members fail validation', () => {
+      const result = runValidatorWithLabeler({
+        'area:testing': [{ all: [{ 'head-branch': [] }] }],
+      });
+      expect(result.status).not.toBe(0);
+      expect(result.stderr).toMatch(/head-branch/);
+    });
+
     test('repository changed-files rules use the action list form', () => {
       const labeler = repoYaml('.github/labeler.yml');
       const invalid = [];
@@ -345,6 +375,44 @@ describe('label governance contracts (#3545)', () => {
       expect(labelerUtils.determineLabelsFromRules(prCtx('docs/x'), rules, ['tests/a.js'])).toEqual(
         ['area:testing']
       );
+    });
+
+    test('all group requires every nested rule to match', () => {
+      const rules = {
+        'area:testing': [
+          {
+            all: [
+              { 'head-branch': ['^test/.*'] },
+              { 'changed-files': [{ 'any-glob-to-any-file': ['tests/**/*'] }] },
+            ],
+          },
+        ],
+      };
+      expect(
+        labelerUtils.determineLabelsFromRules(prCtx('test/contracts'), rules, ['tests/a.js'])
+      ).toEqual(['area:testing']);
+      expect(
+        labelerUtils.determineLabelsFromRules(prCtx('docs/contracts'), rules, ['tests/a.js'])
+      ).toEqual([]);
+    });
+
+    test('any group matches when one nested rule matches', () => {
+      const rules = {
+        'area:docs': [
+          {
+            any: [
+              { 'head-branch': ['^docs/.*'] },
+              { 'changed-files': [{ 'any-glob-to-any-file': ['docs/**/*'] }] },
+            ],
+          },
+        ],
+      };
+      expect(
+        labelerUtils.determineLabelsFromRules(prCtx('feature/contracts'), rules, ['docs/a.md'])
+      ).toEqual(['area:docs']);
+      expect(
+        labelerUtils.determineLabelsFromRules(prCtx('feature/contracts'), rules, ['src/a.js'])
+      ).toEqual([]);
     });
 
     test('all-globs-to-all-files requires every changed file to match', () => {
@@ -465,6 +533,24 @@ describe('label governance contracts (#3545)', () => {
       });
       expect(report.errors.some((error) => error.includes('Native type label error'))).toBe(true);
       expect(octokit.calls.added).not.toContain('type:task');
+    });
+
+    test('native lookup failure suppresses content and default type writes', async () => {
+      const octokit = createMockOctokit([]);
+      octokit.rest.issues.get = async () => {
+        throw new Error('native lookup unavailable');
+      };
+      const report = await agent.runLabelingAgent({
+        context: issueContext({ title: 'fix: content fallback must not run' }),
+        github: octokit,
+        dryRun: false,
+      });
+      expect(octokit.state.labels.filter((label) => label.startsWith('type:'))).toEqual([]);
+      expect(octokit.calls.added).not.toContain('type:bug');
+      expect(octokit.calls.added).not.toContain('type:task');
+      expect(report.errors.some((error) => error.includes('Native issue type lookup error'))).toBe(
+        true
+      );
     });
 
     test('whole-word fallback does not classify substrings', () => {
@@ -651,7 +737,7 @@ describe('label governance contracts (#3545)', () => {
       );
       fs.writeFileSync(
         path.join(templatesDir, 'pr_body.md'),
-        '---\\nlabels:\\n  - type:bug\\n---\\n# Body\\nlabels: ["type:bogus"]\\n'
+        '---\nlabels:\n  - type:bug\n---\n# Body\nlabels: ["type:bogus"]\n'
       );
       const result = spawnSync(
         'node',

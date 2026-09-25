@@ -160,32 +160,59 @@ function determineLabelsFromRules(context, labelerRules, changedFiles = []) {
  * @returns {boolean} True if the rule object matches
  */
 function matchesRuleObject(rule, branchName, changedFiles = []) {
-  let matched = false;
-  let hasMatcher = false;
+  const conditions = [];
+  let hasDirectMatcher = false;
+  let directMatched = false;
 
-  if (rule['head-branch'] && branchName) {
-    hasMatcher = true;
+  if (rule['head-branch']) {
+    hasDirectMatcher = true;
     const patterns = Array.isArray(rule['head-branch'])
       ? rule['head-branch']
       : [rule['head-branch']];
 
     if (matchesBranchPattern(branchName, patterns)) {
       core.info(`[labeler-utils] Rule matched branch pattern for: ${branchName}`);
-      matched = true;
+      directMatched = true;
     }
   }
 
-  if (rule['changed-files'] && changedFiles.length > 0) {
-    hasMatcher = true;
+  if (rule['changed-files']) {
+    hasDirectMatcher = true;
     if (matchesFilePatterns(changedFiles, rule['changed-files'])) {
       core.info(
         `[labeler-utils] Rule matched file patterns for ${changedFiles.length} changed files`
       );
-      matched = true;
+      directMatched = true;
     }
   }
 
-  return hasMatcher && matched;
+  if (hasDirectMatcher) {
+    conditions.push(directMatched);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(rule, 'all')) {
+    if (
+      !Array.isArray(rule.all) ||
+      rule.all.length === 0 ||
+      !rule.all.every((member) => matchesRuleObject(member, branchName, changedFiles))
+    ) {
+      return false;
+    }
+    conditions.push(true);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(rule, 'any')) {
+    if (
+      !Array.isArray(rule.any) ||
+      rule.any.length === 0 ||
+      !rule.any.some((member) => matchesRuleObject(member, branchName, changedFiles))
+    ) {
+      return false;
+    }
+    conditions.push(true);
+  }
+
+  return conditions.length > 0 && conditions.every(Boolean);
 }
 
 /**
