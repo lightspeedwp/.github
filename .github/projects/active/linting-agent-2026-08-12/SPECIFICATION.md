@@ -54,8 +54,8 @@ A **portable, configurable linting agent** that:
 ### 2.1 Agent Architecture
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A["Linting Agent Invoked"] --> B["Parse Input Targets"]
     B --> C["Load Canonical Config"]
     C --> D["Match Rules to Files"]
@@ -103,8 +103,8 @@ accDescr: Detailed diagram
 ### 2.4 Supported Linters
 
 ```mermaid
-accTitle: Graph Diagram
 graph LR
+    accTitle: Graph Diagram
     A["Linting Agent"] --> B["JavaScript/TypeScript"]
     A --> C["Markdown"]
     A --> D["YAML"]
@@ -271,8 +271,8 @@ accDescr: Detailed diagram
 ### Test Architecture
 
 ```mermaid
-accTitle: Graph Diagram
 graph TD
+    accTitle: Graph Diagram
     A["Unit Tests<br/>linting.agent.js functions"] -->|covers| B["Config Parsing"]
     A -->|covers| C["File Matching"]
     A -->|covers| D["Finding Normalisation"]

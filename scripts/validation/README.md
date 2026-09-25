@@ -36,15 +36,9 @@ The validation system provides automated checking of:
 All schema files are stored in `../../.schemas/`.
 
 ```mermaid
----
-config:
-  theme: default
-  look: handDrawn
-  layout: elk
-  accTitle: Validation System Flow
-  accDescr: Flowchart showing file discovery through log output with configuration, schema, and pattern inputs
----
 graph TD
+    accTitle: Validation System Flow
+    accDescr: Flowchart showing file discovery through log output with configuration, schema, and pattern inputs
     A[File Discovery] --> B[Frontmatter Extraction]
     B --> C[Schema Validation]
     C --> D[LightSpeed Rules Check]
@@ -72,7 +66,7 @@ graph TD
 
 - **`__tests__/validate-frontmatter.test.js`** — Test suite for frontmatter validation
 - **`__tests__/validate-branch-names.test.js`** — Jest test suite for branch name validation (38 allowed types, forbidden prefix rejection, format validation)
-- **`validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
+- **`__tests__/validate-coderabbit-yml.test.js`** — Jest test suite for the CodeRabbit YAML validator
 
 ## Features
 
