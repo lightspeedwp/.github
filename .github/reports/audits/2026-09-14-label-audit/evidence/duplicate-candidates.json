@@ -1,0 +1,215 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T021",
+  "source": "evidence/canonical-labels.json (169 labels, 2026-09-14 snapshot)",
+  "count": 23,
+  "candidates": [
+    {
+      "family": "status",
+      "label1": "status:done",
+      "label2": "status:completed",
+      "relationship": "same-family",
+      "reason_duplicate": "Both mean the work is finished.",
+      "confidence": "high",
+      "decided_in": "spec FR-012 (status:completed \u2192 status:done)"
+    },
+    {
+      "family": "area",
+      "label1": "area:tests",
+      "label2": "area:testing",
+      "relationship": "same-family",
+      "reason_duplicate": "Both cover test code and test harnesses.",
+      "confidence": "high",
+      "decided_in": "spec FR-012 (area:tests \u2192 area:testing)"
+    },
+    {
+      "family": "priority",
+      "label1": "priority:important",
+      "label2": "priority:high",
+      "relationship": "same-family",
+      "reason_duplicate": "Two scales overlap: critical/important/normal/minor and high/low. \"High\" sits between critical and normal, as \"important\" does.",
+      "confidence": "medium",
+      "decided_in": null
+    },
+    {
+      "family": "priority",
+      "label1": "priority:minor",
+      "label2": "priority:low",
+      "relationship": "same-family",
+      "reason_duplicate": "\"Low\" and \"minor\" both mean the lowest urgency.",
+      "confidence": "medium",
+      "decided_in": null
+    },
+    {
+      "family": "status",
+      "label1": "status:needs-qa",
+      "label2": "status:needs-testing",
+      "relationship": "same-family",
+      "reason_duplicate": "Both mean the item waits for verification before release.",
+      "confidence": "medium",
+      "decided_in": null
+    },
+    {
+      "family": "meta",
+      "label1": "meta:stale",
+      "label2": "meta:no-issue-activity",
+      "relationship": "same-family",
+      "reason_duplicate": "Both mark inactive items; stale is the generic form of no-issue-activity and no-pr-activity.",
+      "confidence": "medium",
+      "decided_in": null
+    },
+    {
+      "family": "area / comp",
+      "label1": "area:block-editor",
+      "label2": "comp:block-editor",
+      "relationship": "cross-family",
+      "reason_duplicate": "The same block editor concept exists as an area and as a component label.",
+      "confidence": "high",
+      "decided_in": null
+    },
+    {
+      "family": "area / aiops",
+      "label1": "area:agents",
+      "label2": "aiops:agents",
+      "relationship": "cross-family",
+      "reason_duplicate": "AI agent work is labelled in two families.",
+      "confidence": "high",
+      "decided_in": "spec FR-012, 2026-09-24 clarification (area:agents \u2192 aiops:agents)"
+    },
+    {
+      "family": "area / aiops",
+      "label1": "area:instructions",
+      "label2": "aiops:instructions",
+      "relationship": "cross-family",
+      "reason_duplicate": "AI instruction files are labelled in two families.",
+      "confidence": "high",
+      "decided_in": "spec FR-012, 2026-09-24 clarification (area:instructions \u2192 aiops:instructions)"
+    },
+    {
+      "family": "area / aiops",
+      "label1": "area:prompts",
+      "label2": "aiops:prompts",
+      "relationship": "cross-family",
+      "reason_duplicate": "Reusable prompts are labelled in two families.",
+      "confidence": "high",
+      "decided_in": "spec FR-012, 2026-09-24 clarification (area:prompts \u2192 aiops:prompts)"
+    },
+    {
+      "family": "area",
+      "label1": "area:operations",
+      "label2": "area:infrastructure",
+      "relationship": "same-family",
+      "reason_duplicate": "Operations and infrastructure overlap (hosting, platform, deployment); FR-012 already merges area:platform into area:infrastructure and area:ops into area:operations.",
+      "confidence": "medium",
+      "decided_in": null
+    },
+    {
+      "family": "area / compat",
+      "label1": "area:compatibility",
+      "label2": "compat:wordpress",
+      "relationship": "cross-family",
+      "reason_duplicate": "A general compatibility area overlaps the whole compat:* family (wordpress, php, woocommerce, gutenberg, rtl, multisite).",
+      "confidence": "medium",
+      "decided_in": null
+    },
+    {
+      "family": "contrib / discussion",
+      "label1": "contrib:discussion",
+      "label2": "discussion:community",
+      "relationship": "cross-family",
+      "reason_duplicate": "A contributor-discussion label overlaps the discussion:* category labels.",
+      "confidence": "low",
+      "decided_in": null
+    },
+    {
+      "family": "area",
+      "label1": "area:ai",
+      "label2": "area:agents",
+      "relationship": "same-family",
+      "reason_duplicate": "area:ai is the umbrella area label for AI work and stays; its children area:agents, area:instructions and area:prompts move to aiops:* (FR-012), and area:skills is decided in T043.",
+      "confidence": "low",
+      "decided_in": null
+    },
+    {
+      "family": "type / area",
+      "label1": "type:a11y",
+      "label2": "area:a11y",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:security",
+      "label2": "area:security",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:performance",
+      "label2": "area:performance",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:ci",
+      "label2": "area:ci",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:automation",
+      "label2": "area:automation",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:docs",
+      "label2": "area:documentation",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:dependency",
+      "label2": "area:dependencies",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:release",
+      "label2": "area:release",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    },
+    {
+      "family": "type / area",
+      "label1": "type:chore",
+      "label2": "area:maintenance",
+      "relationship": "type-vs-area",
+      "reason_duplicate": "Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "confidence": "low",
+      "decided_in": "intentional (FR-015)"
+    }
+  ]
+}

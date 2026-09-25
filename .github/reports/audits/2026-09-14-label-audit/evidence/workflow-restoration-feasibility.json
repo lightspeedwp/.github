@@ -1,0 +1,92 @@
+{
+  "workflows": [
+    {
+      "workflow": "batch-label-prs.yml",
+      "feasibility": "high",
+      "recommendation": "rebuild",
+      "effort": "moderate",
+      "gap_filled_by": null,
+      "rationale": "The script exists and the workflow is dispatch-only and low-risk. Restoring it as it stands would bring back a fourth branch-to-type map with non-canonical outputs (batch-label-prs.js:26, 35). Rebuild it as a workflow_dispatch backfill mode of labeling-unified.yml that loops the agent over open PRs."
+    },
+    {
+      "workflow": "issue-labeling-automation.yml",
+      "feasibility": "low",
+      "recommendation": "rebuild",
+      "effort": "moderate",
+      "gap_filled_by": "scripts/agents/labeling.agent.js",
+      "rationale": "Its core script is missing and the dry-run expression never allowed writes, so there is nothing working to restore. New and edited issues are covered by the agent; only the backfill of existing issues is missing, and that belongs in the same backfill mode as batch-label-prs."
+    },
+    {
+      "workflow": "label-audit-report.yml",
+      "feasibility": "high",
+      "recommendation": "restore",
+      "effort": "minimal",
+      "gap_filled_by": null,
+      "rationale": "Read-only permissions, both scripts exist, no write risk. Restore it with a staggered cron (away from 04:00), or move its two steps into the scheduled-cleanup job, which today runs the agent without any issue or PR. Drop meta:dependabot-security from review-meta-labels.js unless that label is approved."
+    },
+    {
+      "workflow": "labeling-governance.yml",
+      "feasibility": "low",
+      "recommendation": "rebuild",
+      "effort": "moderate",
+      "gap_filled_by": "labeling-unified.yml",
+      "rationale": "A whole restore would duplicate labeling-unified.yml and, while validate-issue-fields.cjs fails, block every PR. Port its three unique jobs into labeling-unified.yml: close-time status clean-up, a required label check that needs type:*, and the Dependabot security label once meta:dependabot-security is approved through [LABEL-UPDATE-REQUEST]."
+    },
+    {
+      "workflow": "labeling.yml",
+      "feasibility": "low",
+      "recommendation": "retire",
+      "effort": "minimal",
+      "gap_filled_by": "labeling-unified.yml",
+      "rationale": "Fully replaced by labeling-unified.yml, which keeps the labeler plus agent flow with SHA pinning, per-job permissions and the #3531 trigger and concurrency fixes."
+    },
+    {
+      "workflow": "manage-blocking-status-labels.yml",
+      "feasibility": "high",
+      "recommendation": "rebuild",
+      "effort": "moderate",
+      "gap_filled_by": null,
+      "rationale": "The logic is self-contained and uses a canonical label, but a full scan per issue event does not scale. Process only the triggering issue on events, keep a staggered daily sweep for blocker closures, add a concurrency group, and keep manually applied status:blocked labels."
+    },
+    {
+      "workflow": "meta-labels-sync.yml",
+      "feasibility": "high",
+      "recommendation": "restore",
+      "effort": "minimal",
+      "gap_filled_by": null,
+      "rationale": "Both scripts exist and use canonical labels. Nothing active maintains meta:has-pr or meta:stale. Restore it with a cron away from 02:00-05:17, a choice-type dryRun input, and an entry in workflow-lint.yml's explicit list (workflow-lint.yml:60-62)."
+    },
+    {
+      "workflow": "openspec-sync-labels.yml",
+      "feasibility": "low",
+      "recommendation": "retire",
+      "effort": "minimal",
+      "gap_filled_by": null,
+      "rationale": "Obsolete under FR-011/FR-013 and never functional (the handler has no entrypoint). If spec:* phase progression is wanted after the rename, specify it as a new Spec Kit feature."
+    },
+    {
+      "workflow": "openspec-validate-labels.yml",
+      "feasibility": "low",
+      "recommendation": "retire",
+      "effort": "minimal",
+      "gap_filled_by": null,
+      "rationale": "Obsolete under FR-011/FR-013; handlers have no entrypoints; permissions were read-only; the label map targets non-canonical labels."
+    },
+    {
+      "workflow": "remediate-bare-labels.yml",
+      "feasibility": "medium",
+      "recommendation": "rebuild",
+      "effort": "moderate",
+      "gap_filled_by": "scripts/agents/labeling.agent.js",
+      "rationale": "The agent covers per-item clean-up but deletes rather than migrates. Move the mapping into labels.yml `aliases` (read by buildLabelAliasMap, label-lookup.js:27-38) after correcting its 8 non-canonical targets, then add a paginated, dry-run-by-default backfill. Do not restore the scheduled live-write behaviour."
+    },
+    {
+      "workflow": "validate-issue-labels.yml",
+      "feasibility": "high",
+      "recommendation": "retire",
+      "effort": "minimal",
+      "gap_filled_by": "scripts/agents/labeling.agent.js",
+      "rationale": "Superseded by the agent's clean-up. Its guidance recommends five non-canonical labels. The one useful behaviour, telling the contributor, is better added to the agent (one comment when it removes or migrates a label)."
+    }
+  ]
+}
