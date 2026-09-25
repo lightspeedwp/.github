@@ -68,7 +68,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
   - Reusing a shared `ANTHROPIC_API_KEY`: spend can't be separated. Rejected.
   - Opus models: higher cost for a pilot whose main outputs are summaries. Rejected for the default; a repository can override.
   - OpenAI: no existing organisation convention. Rejected.
-  - Federation only, with no key option: blocked until Q-13 confirms the runner accepts the exchanged token. Rejected for now; both are supported.
+  - Federation only, with no key option: blocked until Q-13 confirms the runner accepts the exchanged token. Rejected for now. The federation route is implemented but stays unverified, and pending validation, until Q-13 passes; the dedicated key is the supported route.
 
 ## R5. Triggers, eligibility and command guard
 

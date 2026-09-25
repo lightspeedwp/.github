@@ -24,7 +24,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
-      id-token: write # keyless Workload Identity Federation
+      "id-token": write # keyless Workload Identity Federation (key quoted only in this doc)
     with: # keyless; omit to use the key secret only
       federation_rule_id: ${{ vars.QODO_PR_AGENT_FEDERATION_RULE_ID }}
       organization_id: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
@@ -34,7 +34,7 @@ jobs:
       model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}
 ```
 
-The calling job must grant `id-token: write`, because the `run` job requests it. A caller that doesn't grant it fails to start.
+The calling job must grant the `id-token` permission as `write`, because the `run` job requests it. A caller that doesn't grant it fails to start.
 
 ## Inputs
 
@@ -78,7 +78,7 @@ A failed exchange (denied rule, incomplete configuration, endpoint unreachable) 
    - Token exchange (`id: token`, only when `inputs.federation_rule_id` is set): see [Credential resolution](#credential-resolution).
    - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow. The step uses `continue-on-error: true`, so an invalid key, rate limit or upstream outage records `failure` and emits a notice without failing the PR (FR-006, SC-003).
 3. **`record`** (`needs: [preflight, run]`, `if: always()` unless the preflight reason is `not-a-command`, `bot-sender` or `not-a-pr`, `permissions: {}`). It writes the run record ([data model](../data-model.md#run-record)), with outcome `success`, `failure` or `skipped:<reason>`, to `$GITHUB_STEP_SUMMARY`, and uploads it as artefact `qodo-pr-agent-run-${{ github.run_id }}` (retention 30 days). It then calls `lightspeedwp/.github/.github/actions/collect-metrics@<sha>` (non-blocking). It is referenced by path and SHA so it needs no checkout, and works in consuming repositories too.
-4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write`, `issues: write` and `id-token: write` (used only by the token exchange), and nothing else. It does **not** get `contents: write`, because nothing is ever pushed.
+4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write`, `issues: write` and the `id-token` permission as `write` (used only by the federation exchange), and nothing else. It does **not** get `contents: write`, because nothing is ever pushed.
 5. **Concurrency**: `group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one.
 
 ## Environment passed to the Qodo PR-Agent step

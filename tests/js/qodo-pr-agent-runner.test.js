@@ -186,22 +186,22 @@ fi
     });
   });
 
-  it('uses the dedicated key before the fallback key without putting either in arguments', () => {
+  it('uses the dedicated key without putting it in arguments', () => {
     const result = run(['review', '--diff-file', diff], {
       ANTHROPIC_API_KEY_QODO_PR_AGENT: 'dedicated-test-key',
-      ANTHROPIC_API_KEY: 'fallback-test-key',
+      ANTHROPIC_API_KEY: 'shared-test-key',
     });
     expect(result.status).toBe(0);
     expect(fs.readFileSync(credentialCapture, 'utf8').trim()).toBe('dedicated-test-key');
-    expect(fs.readFileSync(capture, 'utf8')).not.toMatch(/dedicated-test-key|fallback-test-key/);
+    expect(fs.readFileSync(capture, 'utf8')).not.toMatch(/dedicated-test-key|shared-test-key/);
   });
 
-  it('uses the fallback key when the dedicated key is absent', () => {
+  it('ignores a shared ANTHROPIC_API_KEY when the dedicated key is absent', () => {
     const result = run(['review', '--diff-file', diff], {
-      ANTHROPIC_API_KEY: 'fallback-test-key',
+      ANTHROPIC_API_KEY: 'shared-test-key',
     });
     expect(result.status).toBe(0);
-    expect(fs.readFileSync(credentialCapture, 'utf8').trim()).toBe('fallback-test-key');
+    expect(JSON.parse(result.stdout)).toMatchObject({ status: 'skipped', reason: 'no-credential' });
   });
 
   it('passes a question with spaces and shell punctuation as one argument', () => {

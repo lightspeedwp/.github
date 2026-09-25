@@ -105,7 +105,8 @@ else
 fi
 
 # --- Credentials (never printed, never passed on the command line) -----------
-ANTHROPIC__KEY="${ANTHROPIC_API_KEY_QODO_PR_AGENT:-${ANTHROPIC_API_KEY:-}}"
+# Dedicated key only (FR-002): a shared ANTHROPIC_API_KEY is deliberately ignored.
+ANTHROPIC__KEY="${ANTHROPIC_API_KEY_QODO_PR_AGENT:-}"
 [ -n "$ANTHROPIC__KEY" ] || emit skipped no-credential
 export ANTHROPIC__KEY
 

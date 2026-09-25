@@ -21,16 +21,17 @@ function read(relativePath) {
 }
 
 /**
- * Extract a Markdown heading's body up to the next heading.
+ * Extract a Markdown heading's body up to the next heading of the same or a higher level.
  * @param {string} markdown - Markdown document to search.
- * @param {string} heading - Exact heading to locate.
+ * @param {string} heading - Exact heading to locate, including its `#` marks.
  * @returns {string|null} Section body, or null when the heading is absent.
  */
 function extractSection(markdown, heading) {
   const start = markdown.indexOf(`\n${heading}\n`);
   if (start === -1) return null;
+  const level = heading.match(/^#+/)[0].length;
   const body = markdown.slice(start + heading.length + 2);
-  const next = body.search(/^#{1,2} /m);
+  const next = body.search(new RegExp(`^#{1,${level}} `, 'm'));
   return next === -1 ? body : body.slice(0, next);
 }
 

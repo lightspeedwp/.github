@@ -38,7 +38,7 @@ scripts/run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--que
 | `--diff-file` | one of | Unified diff (`git diff origin/develop...HEAD > pr.diff`). Needs no GitHub token. |
 | `--question` | for `ask` | The question text |
 | `--out` | no | Output directory (default: a temp directory) |
-| `ANTHROPIC_API_KEY_QODO_PR_AGENT` | yes | Falls back to `ANTHROPIC_API_KEY` for local use |
+| `ANTHROPIC_API_KEY_QODO_PR_AGENT` | yes | The dedicated key only; a shared `ANTHROPIC_API_KEY` is ignored so spend stays separate |
 | `GITHUB_TOKEN` | PR mode | Read access to the PR is enough |
 
 **Runtime**: Docker, preferred, runs the same digest-pinned image as the workflow. Otherwise `pipx` with Python 3.12 or newer runs `pr-agent==0.46.0`.

@@ -41,7 +41,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 - **Project Type**: Governance and automation assets in a control-plane repository: workflow, config, skill and documentation.
 - **Performance Goals**: The automatic output is posted within 10 minutes of a PR being opened or marked ready (SC-001). The job timeout is 15 minutes.
 - **Constraints**:
-  - Least privilege: no `contents: write`, and no checkout. The `run` job's `id-token: write` is used only by the optional federation token exchange.
+  - Least privilege: no `contents: write`, and no checkout. The `run` job's OIDC write permission (`id-token` set to `write`) is used only by the optional federation exchange.
   - No `pull_request_target`.
   - Never blocks merge (SC-003).
   - Spend is capped at the provider and reported (SC-008).
@@ -66,7 +66,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 
 **Gate result**: PASS. Principle III uses the platform-required locations exception; there are no violations.
 
-**Post-design re-check (after Phase 1, repeated 2026-09-24 after clarification)**: the contracts introduce no violations, including the federation token exchange (least-privilege `id-token: write` on the `run` job only). The config contract locks the governance keys, the workflow contract forbids checkout, write-contents and `pull_request_target`, and the skill contract never publishes. Gate still **PASS**.
+**Post-design re-check (after Phase 1, repeated 2026-09-24 after clarification)**: the contracts introduce no violations, including the federation token exchange (the OIDC write permission is granted to the `run` job only). The config contract locks the governance keys, the workflow contract forbids checkout, write-contents and `pull_request_target`, and the skill contract never publishes. Gate still **PASS**.
 
 ## Project Structure
 

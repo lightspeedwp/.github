@@ -90,7 +90,7 @@ Qodo PR-Agent feedback is AI review feedback, and follows the same `FEEDBACK_RES
 ## Safety
 
 - **No code is checked out or executed.** Qodo PR-Agent reads the PR through the GitHub API.
-- **Fork PRs** receive neither secrets nor an OIDC token, so they are skipped with a `fork` notice. A maintainer can still run commands on them.
+- **Fork PRs**: automatic runs on fork `pull_request` events receive neither secrets nor an OIDC token, so they are skipped with a `fork` notice. A maintainer command on a fork PR is a separate `issue_comment` path: it runs in this repository's context and does use the configured credential, so only run commands on fork PRs you trust.
 - **It never blocks a PR.** A missing or invalid credential, a provider rate limit or outage, the kill-switch, or an ineligible event all produce a notice and a successful check. Failed runs are still recorded as `failure` in the run record.
 - **It never commits, merges, approves or labels.** The locked keys in `.pr_agent.toml` enforce this, and `tests/js/qodo-pr-agent-config.test.js` asserts them.
 - **Configuration is read from the default branch.** A PR cannot change its own review settings.

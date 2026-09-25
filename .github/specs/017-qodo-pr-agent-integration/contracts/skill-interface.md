@@ -30,7 +30,7 @@ run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--question "<
 
 **Environment**:
 
-- `ANTHROPIC_API_KEY_QODO_PR_AGENT`, or `ANTHROPIC_API_KEY` as a local fallback. The script maps it to `ANTHROPIC__KEY`.
+- `ANTHROPIC_API_KEY_QODO_PR_AGENT` only (FR-002: a dedicated key, with no fallback to a shared `ANTHROPIC_API_KEY`). The script maps it to `ANTHROPIC__KEY`.
 - `GITHUB_TOKEN`, for PR mode only.
 
 **Runtime**: the script prefers `docker run` of the pinned image digest, which is the same digest as the reusable workflow. Otherwise it uses `pipx run pr-agent==0.46.0` (needs Python ≥ 3.12).
