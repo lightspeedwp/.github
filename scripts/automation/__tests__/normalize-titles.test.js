@@ -6,6 +6,7 @@
 const {
   normalizeTitle,
   isAlreadyPrefixed,
+  getTypePrefix,
   parseArgs,
   formatDate,
 } = require("../normalize-issue-pr-titles");
@@ -117,6 +118,8 @@ describe("normalizeTitle()", () => {
         "qa",
         "uat",
         "audit",
+        "decision",
+        "question",
       ];
 
       prefixes.forEach((prefix) => {
@@ -538,5 +541,17 @@ describe("Boundary conditions and error tolerance", () => {
         expect(isAlreadyPrefixed(result)).toBe(true);
       }
     });
+  });
+});
+
+describe("getTypePrefix() for Decision and Question issues", () => {
+  it("gives type:decision issues the decision prefix, not chore", async () => {
+    const item = { number: 1, labels: [{ name: "type:decision" }] };
+    await expect(getTypePrefix(item, "o", "r")).resolves.toBe("decision");
+  });
+
+  it("keeps the question prefix for issues still labelled type:question", async () => {
+    const item = { number: 2, labels: [{ name: "type:question" }] };
+    await expect(getTypePrefix(item, "o", "r")).resolves.toBe("question");
   });
 });
