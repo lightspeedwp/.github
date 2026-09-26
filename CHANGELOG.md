@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Wiring Guard Stops Blaming Healthy Tests** — The test wiring guard now reports an incomplete test listing as such, instead of naming suites that are in fact discovered. ([#3575](https://github.com/lightspeedwp/.github/issues/3575))
 - **Composite Action Docs Matched Reality** — Dropped both deleted actions from the reference and replaced the claim that composite actions are tested in `workflow-harness.yml`. (#3570)
 - **Issue-Type Inference Corrected** — Documentation, integration and compatibility content now lands on its correct issue type instead of a generic default. ([#3568](https://github.com/lightspeedwp/.github/issues/3568))
 - **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
