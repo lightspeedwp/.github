@@ -144,7 +144,7 @@ Frontmatter Validation Merge Artifacts:
 2. Run on develop branch: Does the error occur?
 3. Run on audit branch without merging develop changes: Does the error still occur?
 4. Conclusion:
-   - If error on develop + error on audit (different) → Likely infrastructure issue (ENVIRONMENTAL)
+   - If error on develop + error on audit (different) → AMBIGUOUS, requires investigation. A different error does not establish a shared infrastructure cause; classify it only after comparing each failure
    - If error on develop + no error on audit → Likely merge conflict in CI config (ENVIRONMENTAL)
    - If no error on develop + error on audit → Likely audit code issue (AUDIT-INTRODUCED)
 

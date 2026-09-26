@@ -305,13 +305,16 @@ if (!skipValidation) {
 - The recovery mutex is itself recovered, or the protocol deadlocks: a process
   that exits while holding it leaves every later contender unable to enter the
   protocol at all, so the abandoned `.changelog.recovery.lock` can never be
-  removed. The recovery mutex therefore requires an OS-backed lock — an
-  `O_CREAT | O_EXCL` lock file, an advisory `flock`, or a named mutex on
-  Windows — not the portable stat-and-compare fallback used for `.changelog.lock`.
-  If a platform offers no OS-backed primitive, the fallback recovery mutex is
-  not used: contenders wait for the OS-released handle instead of attempting
-  portable recovery. The portable recovery step applies only to lock files whose
-  owner identity and heartbeat are recorded on disk.
+  removed. The recovery mutex therefore requires a primitive the operating system
+  releases when the holder exits: an advisory `flock`/`fcntl` lock, or a named
+  mutex or kernel semaphore on Windows. An `O_CREAT | O_EXCL` lock file is **not**
+  one of these — the file survives process exit, so using it would reproduce the
+  deadlock this rule exists to prevent. The portable stat-and-compare fallback
+  used for `.changelog.lock` is likewise not used here. If a platform offers no
+  OS-released primitive, the fallback recovery mutex is not used at all and the
+  operation is refused with a clear error rather than risking an unrecoverable
+  lock. The portable recovery step applies only to lock files whose owner identity
+  and heartbeat are recorded on disk.
 
 **Reader/writer protocol**:
 

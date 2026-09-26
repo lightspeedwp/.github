@@ -52,7 +52,7 @@ Only a `VALID` entry reaches `MERGED`.
   "release_date": "2026-09-20",
   "category": "Added",
   "content": "Support for changelog validation in local development environments with clear feedback",
-  "pr_issues": ["#3372", "PR-3373"],
+  "pr_issues": ["#3372", "#3373"],
   "character_count": 86,
   "line_number": 15
 }

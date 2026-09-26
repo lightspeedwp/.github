@@ -8,6 +8,12 @@
 
 Classify and document six categories of CI check failures on PR #3367 (governance audit implementation) as environmental issues (pre-existing on develop or merge artifacts) rather than audit-introduced defects. Establish failure classification framework, evidence-based remediation approach, and provide clear team communication to unblock PR review and merge.
 
+> **Status: historical record, not completed evidence.** Only User Story 1 (changelog) was
+> verified. User Stories 2–4 (Mermaid, frontmatter, agent-spec, lint) were never verified
+> against `develop`, and per the resolution note in `spec.md` the CI failures this plan was
+> written to classify no longer occur. The classifications below are the claims made on
+> 2026-09-18, not findings a reviewer can rely on. Re-verify before reusing any of them.
+
 ## Technical Context
 
 **Project Type**: Governance/Documentation remediation (not a traditional software feature)

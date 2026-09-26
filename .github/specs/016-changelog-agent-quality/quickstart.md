@@ -361,7 +361,10 @@ if node .github/validation/changelog/bin/validate.js \
 else
   gh pr edit --add-label "meta:needs-changelog"
   gh pr review --request-changes --body "Changelog validation failed. See comments."
-  echo "✓ Validation failed; PR blocked with feedback"
+  echo "✗ Validation failed; PR blocked with feedback"
+  # Exit nonzero so this scenario can detect a failed gate; a trailing echo
+  # would otherwise leave the block with status 0 after a blocked pull request.
+  exit 1
 fi
 ```
 

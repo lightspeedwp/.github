@@ -47,7 +47,14 @@ find . -name "*changelog*validator*" -o -name "*validate*changelog*" -type f
 ```bash
 cd /home/user/.github
 # Example (adjust path based on actual script location):
-npm run validate:changelog 2>&1 | tee /tmp/develop-changelog-results.txt
+# NOTE: the root `validate:changelog` script runs the changelog *safety audit*
+# (scripts/validation/validate-changelog-safety.js), which reports repository-wide
+# statistics. It cannot establish an entry-level pass/fail baseline. Use the
+# feature-016 engine, which reports per-entry results:
+set -o pipefail
+node .github/validation/changelog/bin/validate.js \
+  --changelog-path CHANGELOG.md --output json \
+  | tee /tmp/develop-changelog-results.json
 # OR: node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.md --output text
 
 # Count compliant entries (look for "✓" or "PASS" in output)
@@ -58,7 +65,10 @@ grep -c "✓\|PASS\|compliant" /tmp/develop-changelog-results.txt
 **Step 3: Switch to audit branch and run again**
 
 ```bash
-git checkout audit/017-ci-failure-remediation
+# The failures are attributed to PR #3367, whose branch is
+# audit/governance-audit-implementation (plan.md, "Branch"). Comparing against
+# the specification branch would not establish whether that PR introduced them.
+git checkout audit/governance-audit-implementation
 npm run validate:changelog 2>&1 | tee /tmp/audit-changelog-results.txt
 
 # Count compliant entries
@@ -155,9 +165,16 @@ for file in "${FAILING_FILES[@]}"; do
   echo "=== Validating $file on develop ==="
   git show origin/develop:"$file" > /tmp/mermaid-develop.md
   
-  # Run Mermaid validator (adjust command for your setup):
-  # NOTE: no `validate:mermaid` npm script exists yet; add it before relying on this step
-npm run validate:mermaid /tmp/mermaid-develop.md 2>&1 | tee /tmp/mermaid-develop-result.txt
+  # Mermaid validation: no `validate:mermaid` npm script exists, so this step
+  # cannot yet produce evidence. Until it is implemented, record the category as
+  # UNVERIFIED rather than substituting a command that does not run. pipefail is
+  # required so a missing script cannot be masked by tee exiting 0.
+  set -o pipefail
+  if npm run validate:mermaid --silent >/dev/null 2>&1; then
+    npm run validate:mermaid /tmp/mermaid-develop.md 2>&1 | tee /tmp/mermaid-develop-result.txt
+  else
+    echo "UNVERIFIED: validate:mermaid is not implemented; classification cannot be made"
+  fi
 done
 
 # Compare with audit branch results (should have same errors)
@@ -334,11 +351,17 @@ Error: "Cross-Reference Validation: ❌ Failed"
 ```bash
 cd /home/user/.github
 git status
-# Should show you're on the audit/017... branch
+# Should show you're on audit/governance-audit-implementation (PR #3367's branch)
 
-# Find and run the agent spec validation script:
-# NOTE: no `validate:agent-spec` npm script exists yet; add it before relying on this step
-npm run validate:agent-spec 2>&1 | tee /tmp/audit-local-result.txt
+# Agent spec validation: no `validate:agent-spec` npm script exists, so this
+# step cannot yet produce evidence. Record the category as UNVERIFIED rather
+# than substituting a command that does not run. pipefail stops tee masking it.
+set -o pipefail
+if npm run validate:agent-spec --silent >/dev/null 2>&1; then
+  npm run validate:agent-spec 2>&1 | tee /tmp/audit-local-result.txt
+else
+  echo "UNVERIFIED: validate:agent-spec is not implemented; classification cannot be made"
+fi
 
 # Does the same error occur? YES/NO
 ```
@@ -349,8 +372,15 @@ npm run validate:agent-spec 2>&1 | tee /tmp/audit-local-result.txt
 git checkout develop
 git pull origin develop
 
-# NOTE: no `validate:agent-spec` npm script exists yet; add it before relying on this step
-npm run validate:agent-spec 2>&1 | tee /tmp/develop-local-result.txt
+# Agent spec validation: no `validate:agent-spec` npm script exists, so this
+# step cannot yet produce evidence. Record the category as UNVERIFIED rather
+# than substituting a command that does not run. pipefail stops tee masking it.
+set -o pipefail
+if npm run validate:agent-spec --silent >/dev/null 2>&1; then
+  npm run validate:agent-spec 2>&1 | tee /tmp/develop-local-result.txt
+else
+  echo "UNVERIFIED: validate:agent-spec is not implemented; classification cannot be made"
+fi
 
 # Does the error occur on develop too?
 # Compare errors:

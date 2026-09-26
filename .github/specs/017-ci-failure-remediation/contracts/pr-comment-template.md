@@ -38,7 +38,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ## Failure Categories (6 Total)
 
-### 1. Changelog Entry Validation (PRE-EXISTING on develop)
+### 1. Changelog Entry Validation ({{classification_1}})
 
 **Count**: {{noncompliant}} non-compliant entries out of {{total}} total ({{pct}}%)  
 **Baseline**: {{baseline_compliant}}/{{total}} entries compliant ({{baseline_pct}}%) on both branches  
@@ -61,7 +61,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ---
 
-### 2. Mermaid Diagram Validation (MERGE ARTIFACT from develop)
+### 2. Mermaid Diagram Validation ({{classification_2}})
 
 **Count**: [N] files failing Mermaid diagram validation  
 **Source**: Spec files (`.github/specs/`) merged from develop branch  
@@ -69,8 +69,8 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 - Files with Mermaid validation errors: [list specific files]
 - File existence check on `develop`: **ALL EXIST** with identical violations
 - Examples:
-  - `.github/specs/001-governance-audit/architecture.md` — Invalid syntax at line 15 (pre-exists on develop)
-  - `.github/specs/002-audit-rules/diagram.md` — Missing required node (pre-exists on develop)
+  - `.github/specs/001-governance-audit/architecture.md` — Invalid syntax at line 15 ({{pre_existing_evidence}})
+  - `.github/specs/002-audit-rules/diagram.md` — Missing required node ({{pre_existing_evidence}})
 
 **Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations in merged spec files  
 **Remediation**: Separate maintenance track (spec 017 category 2)  
@@ -85,7 +85,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ---
 
-### 3. Frontmatter Validation (MERGE ARTIFACT from develop)
+### 3. Frontmatter Validation ({{classification_3}})
 
 **Count**: [N] spec files failing frontmatter validation  
 **Source**: Spec frontmatter fields from develop branch  
@@ -98,8 +98,8 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 - Files with frontmatter errors: [list specific files]
 - File existence check on `develop`: **ALL EXIST** with identical violations
 - Examples:
-  - `.github/specs/004-branch-naming-strategy/spec.md` — Missing "Created" date field (pre-exists on develop)
-  - `.github/specs/*/spec.md` — Status values not matching governance enum (pre-exist on develop)
+  - `.github/specs/004-branch-naming-strategy/spec.md` — Missing "Created" date field ({{pre_existing_evidence}})
+  - `.github/specs/*/spec.md` — Status values not matching governance enum ({{pre_existing_evidence}})
 
 **Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations in merged spec files  
 **Remediation**: Separate maintenance track (spec 017 category 3)  
@@ -114,7 +114,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ---
 
-### 4. Agent Spec Validation (INVESTIGATION REQUIRED)
+### 4. Agent Spec Validation ({{classification_4}})
 
 **Status**: 🔍 Classification pending investigation  
 **Check Name**: Agent Spec Validation  
@@ -145,7 +145,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ---
 
-### 5. Milestone Assignment (GOVERNANCE WORKFLOW REQUIREMENT)
+### 5. Milestone Assignment ({{classification_5}})
 
 **Requirement**: GitHub Projects milestone field must be assigned on the pull request under review  
 **Type**: Manual UI action (not code-enforced)  
@@ -170,7 +170,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ---
 
-### 6. Lint & Testing Failures (MERGE ARTIFACT from develop)
+### 6. Lint & Testing Failures ({{classification_6}})
 
 **Count**: [N] files with lint violations; [M] testing failures  
 **Source**: Configuration and workflow files merged from develop  
@@ -181,10 +181,10 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 **Evidence**:
 - Files with lint errors: [list specific files]
-- File existence check on develop: **ALL EXIST** with identical violations under current linting rules (ESLint v9.0, PHPCS 2026.x)
+- File existence check on develop: **{{existence_check_result}}** with {{violation_comparison}}
 - Examples:
-  - `.github/workflows/old-workflow.yml` — Uses deprecated `setup-node@v3` action (pre-exists on develop)
-  - `.github/scripts/validate-*.js` — ESLint nit violations (pre-exist on develop)
+  - `.github/workflows/old-workflow.yml` — Uses deprecated `setup-node@v3` action ({{pre_existing_evidence}})
+  - `.github/scripts/validate-*.js` — ESLint nit violations ({{pre_existing_evidence}})
 
 **Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations in merged development files  
 **Remediation**: Separate maintenance track (spec 017 category 6)  
