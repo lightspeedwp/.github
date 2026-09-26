@@ -44,16 +44,28 @@ function addUnreleasedEntry(directory, label) {
 /**
  * A self-contained repository with the same union attribute the real one
  * declares, so the merge is exercised through git rather than asserted on
- * the text of .gitattributes.
+ * the text of .gitattributes. Pass `union: false` to reproduce the state
+ * before the attribute existed, which is what makes the pair of tests prove
+ * the attribute is the cause rather than merely present.
  */
-function buildFixtureRepository() {
+function buildFixtureRepository({ union = true } = {}) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-merge-'));
 
   temporaryDirectories.push(directory);
 
   expect(git(directory, ['init', '--quiet', '--initial-branch=main']).status).toBe(0);
   fs.writeFileSync(path.join(directory, 'CHANGELOG.md'), '## [Unreleased]\n\n### Added\n');
-  fs.copyFileSync(gitattributesPath, path.join(directory, '.gitattributes'));
+
+  const attributes = fs
+    .readFileSync(gitattributesPath, 'utf8')
+    .split('\n')
+    .filter((line) => !/^CHANGELOG\.md\s+merge=union$/.test(line))
+    .join('\n');
+
+  fs.writeFileSync(
+    path.join(directory, '.gitattributes'),
+    union ? fs.readFileSync(gitattributesPath, 'utf8') : attributes
+  );
   expect(git(directory, ['add', '.']).status).toBe(0);
   expect(git(directory, ['commit', '--quiet', '-m', 'base']).status).toBe(0);
 
@@ -103,6 +115,17 @@ describe('changelog merge strategy (#3574)', () => {
     expect(merged).not.toMatch(/^<{7}/m);
     expect(git(directory, ['rev-parse', '--verify', '--quiet', 'MERGE_HEAD']).status).not.toBe(0);
     expect(git(directory, ['rev-parse', 'HEAD^']).stdout.trim()).toBe(second);
+  });
+
+  // The baseline this fixes. Without the attribute, the same two branches
+  // conflict — so the passing test above demonstrates the attribute is the
+  // cause of the difference, not an incidental property of the fixture.
+  test('the same two branches conflict once the attribute is removed', () => {
+    const { directory, first } = buildFixtureRepository({ union: false });
+    const merge = git(directory, ['merge', '--no-edit', first]);
+
+    expect(merge.stdout + merge.stderr).toMatch(/CONFLICT/);
+    expect(fs.readFileSync(path.join(directory, 'CHANGELOG.md'), 'utf8')).toMatch(/^<{7}/m);
   });
 
   // A genuine duplicate still has to be caught somewhere, because union can
