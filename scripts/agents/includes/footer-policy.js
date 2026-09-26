@@ -68,6 +68,46 @@ export const FOOTER_PATTERNS = [
 ];
 
 /**
+ * A deliberately narrow subset of {@link FOOTER_PATTERNS} that is safe to
+ * match anywhere in a document, not just at end of file.
+ *
+ * Why this exists. `ensureFooter()` only ever tests the pattern list against
+ * the very end of a file, so a phrase-shaped line in the middle of a document
+ * is invisible to it. An auditing tool has no such luxury: it must look at
+ * every line, and several patterns are generic enough to begin ordinary prose:
+ * `Questions?`, `Update when`, `Use responsibly`, `Keep tone`, `Keep prompts`,
+ * `Link policies`, `Reuse beats`, `Copy, adapt` and `Need help?` all accept any
+ * trailing text via `[^\n]*`. A standalone line such as
+ * "Update when the API version changes." would match, and a bulk cleanup would
+ * delete it as a stranded footer.
+ *
+ * Every pattern below is anchored on wording no ordinary sentence begins with,
+ * several carrying an emoji. That makes a mid-document match a footer with
+ * essentially no false-positive risk, which is the property required before
+ * deleting a line that is not at EOF.
+ *
+ * Deliberately start-anchored only: what makes these safe is that the line
+ * *begins* with the phrase. Trailing text is common in real footers (they carry
+ * links and punctuation), so anchoring the end too would reject legitimate
+ * matches for no safety gain.
+ *
+ * @type {string[]}
+ */
+export const HIGH_CONFIDENCE_FOOTER_PATTERNS = [
+  'Maintained with ❤️',
+  'Built by 🧱',
+  'Have questions\\? Ping us on GitHub',
+  'This page brought to you by',
+  'Docs signed by 🤖',
+  'Made with ❤️',
+];
+
+// Start-anchored: the opener must begin the line. See the note above.
+const HIGH_CONFIDENCE_PHRASE_RE = new RegExp(
+  `^[*_]?(?:${HIGH_CONFIDENCE_FOOTER_PATTERNS.join('|')})`
+);
+
+/**
  * Build the footer regex from the patterns array.
  *
  * The result is anchored to the end of the whole file and required to *start*
@@ -124,6 +164,20 @@ const LINK_LINE_RE = /^\s*\[.*?\]\(.*?\)\s*$/;
  */
 export function isFooterPhraseLine(line) {
   return PHRASE_LINE_RE.test(String(line).trim());
+}
+
+/**
+ * Is this line a footer phrase that is safe to recognise away from EOF?
+ *
+ * Use this for any mid-document ("stranded") footer detection. Use
+ * {@link isFooterPhraseLine} only where position already guarantees the match
+ * is a footer, i.e. the end-of-file region and the footer-exempt policy check.
+ *
+ * @param {string} line - A single line
+ * @returns {boolean} True when the line is an unmistakable footer phrase
+ */
+export function isHighConfidenceFooterPhraseLine(line) {
+  return HIGH_CONFIDENCE_PHRASE_RE.test(String(line).trim());
 }
 
 /**

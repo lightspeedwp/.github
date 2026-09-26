@@ -48,6 +48,7 @@ import path from 'path';
 import { execFileSync } from 'child_process';
 import {
   isFooterPhraseLine,
+  isHighConfidenceFooterPhraseLine,
   isFooterLinkLine,
   isThematicBreakLine,
   isFooterExemptPath,
@@ -96,20 +97,33 @@ export function computeFenceMask(lines) {
   let openLength = 0;
 
   for (let i = 0; i < lines.length; i++) {
-    const trimmed = lines[i].trim();
-    const match = trimmed.match(/^(`{3,}|~{3,})/);
+    // CommonMark: a fence opens or closes only after 0-3 spaces of indent. A
+    // line indented 4+ is an indented code block, not a fence, so it must not
+    // be read as one -- trimming first would misread indented code as a
+    // delimiter and unmask everything after it.
+    const match = lines[i].match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
     if (match) {
       const char = match[1][0];
       const length = match[1].length;
+      const info = match[2];
       if (openChar === null) {
+        // A backtick fence's info string may not contain a backtick, so
+        // ```a`b` is code, not a fence opener.
+        if (char === '`' && info.includes('`')) {
+          continue;
+        }
         openChar = char;
         openLength = length;
         mask[i] = true;
-      } else if (char === openChar && length >= openLength) {
+      } else if (char === openChar && length >= openLength && info.trim() === '') {
+        // A closing fence is the marker plus whitespace only. Without this, a
+        // line such as ```bash inside an open block would close it early and
+        // the rest of the real code block would be unmasked -- which is how
+        // footer-shaped lines inside code blocks come to be deleted.
         openChar = null;
         mask[i] = true;
       } else {
-        mask[i] = true; // Nested fence char: content, not a delimiter.
+        mask[i] = true; // Nested or annotated fence: content, not a delimiter.
       }
       continue;
     }
@@ -244,6 +258,19 @@ export function analyseContent(content, options = {}) {
       strandedRegions++;
     }
 
+    // Safety gate for anything not at end of file. At EOF, position already
+    // proves the match is a footer, so the full pattern list is safe there.
+    // Mid-document it is not: several patterns are generic enough to begin an
+    // ordinary sentence ("Update when ...", "Questions? ...", "Keep tone
+    // ..."), and this tool rewrites ~9,500 files, so one false positive
+    // silently deletes real prose. A stranded region is therefore removed only
+    // when every phrase in it is unmistakable -- see
+    // isHighConfidenceFooterPhraseLine.
+    const allHighConfidence = region.every((p) => isHighConfidenceFooterPhraseLine(lines[p]));
+    if (!atEof && !allHighConfidence) {
+      continue;
+    }
+
     // Keep the trailing block of an at-EOF region; drop everything else.
     const keep = !exempt && atEof ? lastPhrase : null;
     const doomed = region.filter((p) => p !== keep);
@@ -326,11 +353,19 @@ export function listMarkdownFiles(cwd) {
  * @returns {string[]} Repo-relative POSIX paths
  */
 export function listChangedMarkdownFiles(cwd, base, head) {
-  const out = execFileSync('git', ['diff', '--name-only', '-z', base, head, '--', '*.md'], {
-    cwd,
-    encoding: 'utf8',
-    maxBuffer: 1 << 28,
-  });
+  // Three dots, not two: `base...head` diffs from the merge base, so the result
+  // is the files this branch actually changed. `base head` also returns
+  // everything that landed on the base branch after the branch point, which
+  // would fail a PR over backlog the author never touched.
+  const out = execFileSync(
+    'git',
+    ['diff', '--name-only', '-z', `${base}...${head}`, '--', '*.md'],
+    {
+      cwd,
+      encoding: 'utf8',
+      maxBuffer: 1 << 28,
+    }
+  );
   return out.split('\0').filter(Boolean);
 }
 

@@ -15,6 +15,8 @@ import {
   isFooterLinkLine,
   isThematicBreakLine,
   isFooterExemptPath,
+  isHighConfidenceFooterPhraseLine,
+  HIGH_CONFIDENCE_FOOTER_PATTERNS,
   FOOTER_EXEMPT_DIR_NAMES,
 } from '../footer-policy.js';
 
@@ -92,6 +94,84 @@ describe('footer-policy', () => {
       // take real content with it.
       for (const pattern of FOOTER_PATTERNS) {
         expect(pattern).not.toContain('[\\s\\S]');
+      }
+    });
+  });
+
+  describe('isHighConfidenceFooterPhraseLine', () => {
+    test('accepts the unmistakable footer forms', () => {
+      const footers = [
+        '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*',
+        '_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_',
+        '*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*',
+        '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
+        '_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_',
+        'Made with ❤️ by the LightSpeed team.',
+        '*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*',
+      ];
+      for (const line of footers) {
+        expect(isHighConfidenceFooterPhraseLine(line)).toBe(true);
+      }
+    });
+
+    test('rejects prose that merely begins with a generic footer opener', () => {
+      // This is the whole point of the narrower set: the full pattern list
+      // matches all of these, and each is a plausible sentence in a document.
+      const prose = [
+        'Update when the API version changes.',
+        'Questions? See the runbook.',
+        'Use responsibly; tailor to the thread.',
+        'Keep tone human, clear, and kind.',
+        'Keep prompts versioned for sanity.',
+        'Link policies; avoid assumptions.',
+        'Reuse beats rework. Share improvements.',
+        'Copy, adapt, and keep shipping.',
+        'Clarity first, then code. Thanks for reading.',
+        'Improvements welcome—PRs encouraged.',
+        'Thanks for helping contributors.',
+        'Need help? Say hi—work with us.',
+        'Tweak the variables, get results fast.',
+        'Your feedback shapes the next iteration.',
+        'Prefer a guided setup? Book a consult.',
+        'Thanks for helping us get this to the right place!',
+      ];
+      for (const line of prose) {
+        expect(isHighConfidenceFooterPhraseLine(line)).toBe(false);
+      }
+    });
+
+    test('rejects the generic openers that the full list does match', () => {
+      // Pins the relationship between the two predicates: anything the narrow
+      // set rejects but the full set accepts is exactly the ambiguous class.
+      const ambiguous = ['Update when guidance changes.', 'Questions? Open an issue.'];
+      for (const line of ambiguous) {
+        expect(isFooterPhraseLine(line)).toBe(true);
+        expect(isHighConfidenceFooterPhraseLine(line)).toBe(false);
+      }
+    });
+
+    test('is start-anchored, so a mid-sentence mention is rejected', () => {
+      expect(isHighConfidenceFooterPhraseLine('We still use the Built by 🧱 footer here.')).toBe(
+        false
+      );
+    });
+
+    test('the narrow set is a genuine subset of the full list', () => {
+      // Every opener in HIGH_CONFIDENCE_FOOTER_PATTERNS must also be recognised
+      // by the full list. Written out rather than derived from the pattern
+      // strings so a future edit to either list is a visible test failure.
+      const openers = [
+        'Maintained with ❤️',
+        'Built by 🧱',
+        'Have questions? Ping us on GitHub',
+        'This page brought to you by',
+        'Docs signed by 🤖',
+        'Made with ❤️',
+      ];
+      expect(HIGH_CONFIDENCE_FOOTER_PATTERNS).toHaveLength(openers.length);
+      for (const opener of openers) {
+        expect(isFooterPhraseLine(opener)).toBe(true);
+        expect(isHighConfidenceFooterPhraseLine(opener)).toBe(true);
       }
     });
   });

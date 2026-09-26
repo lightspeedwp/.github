@@ -226,6 +226,142 @@ describe('analyseContent', () => {
     });
   });
 
+  describe('fence detection follows CommonMark (regression)', () => {
+    // A closing fence is the marker plus whitespace only. Treating ```bash as
+    // a closer ended the block early, unmasked the rest of the real code, and
+    // let a footer-shaped line inside that code be deleted.
+    test('a fence-like line with an info string does not close an open block', () => {
+      const mask = computeFenceMask([
+        '```markdown',
+        '```bash',
+        'echo "still inside the block"',
+        '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
+        '```',
+        'outside',
+      ]);
+      expect(mask).toEqual([true, true, true, true, true, false]);
+    });
+
+    test('a footer phrase inside such a block survives analysis', () => {
+      const content = doc(
+        '# Doc',
+        '',
+        '```markdown',
+        '```bash',
+        'nested example',
+        PHRASE,
+        '```',
+        '',
+        PHRASE,
+        LINK,
+        '',
+        PHRASE,
+        LINK
+      );
+      const result = analyseContent(content);
+      // The fenced copy is preserved; only the two real copies are reconciled.
+      expect(result.cleaned).toContain('```bash\nnested example\n' + PHRASE);
+      expect(result.removedBlocks).toBe(1);
+    });
+
+    test('a 4-space indented fence is indented code, not a delimiter', () => {
+      const mask = computeFenceMask(['    ```', 'still code', '    ```', 'outside']);
+      expect(mask).toEqual([false, false, false, false]);
+    });
+
+    test('a backtick opener whose info string contains a backtick is not a fence', () => {
+      const mask = computeFenceMask(['```a`b', PHRASE, 'text']);
+      expect(mask).toEqual([false, false, false]);
+    });
+
+    test('a tilde fence still closes on trailing whitespace', () => {
+      const mask = computeFenceMask(['~~~', 'x', '~~~   ', 'outside']);
+      expect(mask).toEqual([true, true, true, false]);
+    });
+  });
+
+  describe('stranded regions require a high-confidence phrase (regression)', () => {
+    // The full pattern list accepts any trailing text, so patterns such as
+    // "Update when", "Questions?" and "Keep tone" also begin ordinary prose.
+    // At EOF that is harmless because position proves the match. Mid-document
+    // it is not, and this tool rewrites thousands of files, so a false positive
+    // would delete real content.
+    const genericProse = [
+      '# Runbook',
+      '',
+      'Update when the API version changes.',
+      '',
+      '## Notes',
+      '',
+      'Use responsibly; tailor to the thread.',
+      '',
+      'Real content that must survive.',
+      '',
+    ].join('\n');
+
+    test('leaves generic phrase-shaped prose alone when stranded', () => {
+      const result = analyseContent(genericProse);
+      expect(result.removedBlocks).toBe(0);
+      expect(result.changed).toBe(false);
+      expect(result.cleaned).toContain('Update when the API version changes.');
+      expect(result.cleaned).toContain('Use responsibly; tailor to the thread.');
+      expect(result.cleaned).toContain('Real content that must survive.');
+    });
+
+    test('still removes a stranded region of unmistakable footers', () => {
+      // Same shape as the AGENTS.md pile: two real footers above real content.
+      const realFootersStranded = doc(
+        '# Title',
+        '',
+        'Intro.',
+        '',
+        '---',
+        '',
+        PHRASE,
+        LINK,
+        '',
+        PHRASE,
+        LINK,
+        '',
+        '## Real Section',
+        '',
+        'This content must survive.'
+      );
+      const result = analyseContent(realFootersStranded);
+      expect(result.removedBlocks).toBe(2);
+      expect(result.cleaned).not.toContain('Built by 🧱');
+      expect(result.cleaned).toContain('## Real Section');
+      expect(result.cleaned).toContain('This content must survive.');
+    });
+
+    test('leaves a single generic footer at EOF alone', () => {
+      // Position is decisive at EOF, so a lone generic footer is a legitimate
+      // footer and is the generator's to own, not this tool's to delete.
+      const atEof = doc('# Doc', '', 'Prose.', '', 'Questions? See the runbook.');
+      const result = analyseContent(atEof);
+      expect(result.removedBlocks).toBe(0);
+      expect(result.changed).toBe(false);
+      expect(result.cleaned).toContain('Questions? See the runbook.');
+    });
+
+    test('still collapses a compounded generic pile at EOF to one', () => {
+      const piled = doc(
+        '# Doc',
+        '',
+        'Prose.',
+        '',
+        'Questions? See the runbook.',
+        '',
+        'Update when guidance changes.'
+      );
+      const result = analyseContent(piled);
+      expect(result.removedBlocks).toBe(1);
+      expect(result.cleaned).toContain('Update when guidance changes.');
+      expect(result.cleaned).not.toContain('Questions? See the runbook.');
+      expect(result.cleaned).toContain('Prose.');
+    });
+  });
+
   describe('frontmatter is never touched', () => {
     test('preserves frontmatter byte-for-byte', () => {
       const content = doc(
@@ -277,24 +413,27 @@ describe('analyseContent', () => {
       doc('# T', '', '```', PHRASE, '```', '', PHRASE, LINK),
     ];
 
+    // Strips everything the tool is allowed to touch, so what remains is the
+    // document's real content. Comparing input against output is the tool's
+    // central promise; an earlier version of this test asserted only that a
+    // length was >= 0, which passes for any input including a no-op.
+    const stripFooterMachinery = (text) =>
+      text.split('\n').filter((l) => {
+        const t = l.trim();
+        return (
+          t !== '' &&
+          t !== '---' &&
+          !/^\s*\[.*?\]\(.*?\)\s*$/.test(l) &&
+          !/^[*_]?(Maintained with ❤️|Built by 🧱|Have questions\?|This page brought to you by|Docs signed by 🤖|Made with ❤️)/.test(
+            t
+          )
+        );
+      });
+
     test.each(samples)('never removes a non-blank, non-footer content line', (content) => {
       for (const exempt of [false, true]) {
-        const before = analyseContent(content, { exempt }).cleaned;
-        const strip = (text) =>
-          text.split('\n').filter((l) => {
-            const t = l.trim();
-            return (
-              t !== '' &&
-              t !== '---' &&
-              !/^\s*\[.*?\]\(.*?\)\s*$/.test(l) &&
-              !/^[*_]?(Maintained with ❤️|Built by 🧱|Have questions\?|This page brought to you by|Docs signed by 🤖|Made with ❤️)/.test(
-                t
-              )
-            );
-          });
-        // The fence delimiters are dropped by this crude filter, so compare the
-        // prose either side of them separately via the full-content check below.
-        expect(strip(before).length).toBeGreaterThanOrEqual(0);
+        const after = analyseContent(content, { exempt }).cleaned;
+        expect(stripFooterMachinery(after)).toEqual(stripFooterMachinery(content));
       }
     });
 
@@ -341,7 +480,7 @@ describe('parseArgs', () => {
   });
 
   test('rejects an unknown flag rather than ignoring it', () => {
-    expect(() => parseArgs('--nope')).toThrow(/Unknown argument/);
+    expect(() => parseArgs(['--nope'])).toThrow(/Unknown argument/);
   });
 });
 

@@ -321,7 +321,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          # Match every other job in this repo. Pinning a literal here drifted
+          # behind .nvmrc and `npm ci` failed on @babel/core's engine range.
+          node-version-file: '.nvmrc'
           cache: npm
 
       - name: Install dependencies
@@ -349,12 +351,16 @@ jobs:
             base="$(git rev-parse "${head}^" 2>/dev/null || true)"
           fi
           if [ -z "$base" ]; then
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "enabled=false"
+            } >> "$GITHUB_OUTPUT"
             echo "No resolvable diff range; skipping the footer guard."
           else
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-            echo "base=$base" >> "$GITHUB_OUTPUT"
-            echo "head=$head" >> "$GITHUB_OUTPUT"
+            {
+              echo "enabled=true"
+              echo "base=$base"
+              echo "head=$head"
+            } >> "$GITHUB_OUTPUT"
           fi
 
       - name: Check changed Markdown files for duplicate footer blocks

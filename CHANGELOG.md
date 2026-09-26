@@ -33,12 +33,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
-- **Footer Duplicate Guard** — A dry-run-by-default tool collapses compounded footer blocks, a shared module states once what a footer is and where footers belong, and a CI job fails a pull request that adds duplicate, stranded, or policy-exempt blocks. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Footer Duplicates Caught Before Merge** — A new check fails a change that adds compounded or misplaced footer blocks, and a dry-run tool clears the ones already committed. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
 
 ### Changed
 
 - **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
-- **Footer Policy Actually Enforced** — The meta agent now skips the directories the footer guide has always exempted (`references/`, `examples/`, `templates/` and friends), instead of footering roughly 5,500 files that should never have carried one. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Footer Policy Actually Enforced** — Reference, example, and template files no longer get a footer added, matching the exemptions the documentation has always described. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
 - **Stale Pull Requests Self-Update** — Eligible non-draft, non-fork PRs targeting `develop` now merge it in as soon as they fall behind, so nothing stays blocked on staleness alone. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
 - **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
