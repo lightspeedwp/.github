@@ -29,9 +29,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+- **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
+- **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
 
 ### Changed
 
+- **Stale Pull Requests Self-Update** — Eligible non-draft, non-fork PRs targeting `develop` now merge it in as soon as they fall behind, so nothing stays blocked on staleness alone. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
+- **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
+- **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
 - **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
@@ -42,10 +47,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
+- **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
+- **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
 ### Fixed
 
 - **Semantic-Version Release Branches** — Branch checks in CI and the npm script now accept documented release names such as `release/v1.2.3` and `release/v1.2.3-rc1`. ([#3555](https://github.com/lightspeedwp/.github/issues/3555))
+- **Wiring Guard Stops Blaming Healthy Tests** — The test wiring guard now reports an incomplete test listing as such, instead of naming suites that are in fact discovered. ([#3575](https://github.com/lightspeedwp/.github/issues/3575))
+- **Composite Action Docs Matched Reality** — Dropped both deleted actions from the reference and replaced the claim that composite actions are tested in `workflow-harness.yml`. (#3570)
+- **Issue-Type Inference Corrected** — Documentation, integration and compatibility content now lands on its correct issue type instead of a generic default. ([#3568](https://github.com/lightspeedwp/.github/issues/3568))
+- **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
+- **Labelling Keeps Unknown Labels** — The labelling automation no longer removes labels missing from the label list unless they map to an approved label, its dry-run mode now changes nothing, and it applies only valid type labels. (#3564)
+- **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
 - **Metrics Aggregator Tolerates Malformed Artifacts** — Branch-validation metrics now skip a malformed artifact with a warning instead of discarding the whole run. ([#3528](https://github.com/lightspeedwp/.github/issues/3528))
 - **Broken Diagrams Repaired** — 123 diagrams in 36 documents render again; the diagram tidy-up bot now places accessibility titles correctly and no longer edits surrounding text. (#3490)
 - **PR Agent Tests Run Again** — Fixed 6 PR agent test suites that could not load, so 95 more tests now run. (#3472)
@@ -60,6 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
+- **Windows Markdown Lint Commits Fixed** — Committing markdown changes on Windows no longer fails; the linter is now resolved directly instead of through a command that Windows could not locate. (#3459)
 - **Branding Agent Footer Config Path Fixed** — Corrected the same stale config path and dedup regex bugs in `branding.agent.js`. (#3456)
 - **Reference Detection Test Isolation Fixed** — Isolated the rename-scenario test from leaked fixture state; remaining match defect tracked separately. (#3452)
 - **Broken Reference Checks** — Fixed path matching, default and named import detection, and injected test indexes, so all reference detection tests pass. (#3460)
@@ -116,6 +130,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **GitHub Label Audit** — Audited all 169 canonical labels: `type:decision` had no issue type and 12 protected labels were missing from the label list, so they were removed from it. Added evidence and the label consolidation plan. (#3362)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
 - **Branch Cleanup Audit Added** — Added safe-cleanup guidance with keep, review and delete categories. (#3128)
