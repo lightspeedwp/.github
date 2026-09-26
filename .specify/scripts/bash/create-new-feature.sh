@@ -199,9 +199,21 @@ cd "$REPO_ROOT"
 
 # Resolve specs directory from configuration (.specify/init-options.json) with fallback to .github/specs
 # This allows customization of spec location while maintaining consistency across all speckit commands
-SPECS_DIR="$REPO_ROOT/$(read_specs_directory "$REPO_ROOT")"
+if ! SPECS_DIRECTORY=$(read_specs_directory "$REPO_ROOT"); then
+    echo "Error: Unable to read specs_directory configuration" >&2
+    exit 1
+fi
+
+case "$SPECS_DIRECTORY" in
+    ""|/*|.|..|./*|../*|*/.|*/..|*/./*|*/../*)
+        echo "Error: specs_directory must be a repository-relative path without '.' or '..' segments: $SPECS_DIRECTORY" >&2
+        exit 1
+        ;;
+esac
+
+SPECS_DIR="$REPO_ROOT/$SPECS_DIRECTORY"
 if [ "$DRY_RUN" != true ]; then
-    mkdir -p "$SPECS_DIR"
+    mkdir -p -- "$SPECS_DIR"
 fi
 
 # Function to generate branch name with stop word filtering and length filtering

@@ -1,165 +1,293 @@
+#!/usr/bin/env node
+
 /**
- * Agent Structure Checker (T016)
- * Verifies all 7 required components for standardized agent folder structure:
- * 1. AGENT.md (agent definition)
- * 2. CHANGELOG.md (changelog)
- * 3. package.json (dependencies and metadata)
- * 4. README.md (documentation)
- * 5. skills/ (agent-specific skills)
- * 6. tests/ (test suite)
- * 7. config/ (configuration files)
+ * Agent Structure Checker (T035)
+ * Phase 4: Standardize Agent Folder Structure
+ * Validates that all agents conform to the 7-component folder structure
  */
 
 import fs from 'fs';
 import path from 'path';
+import PackageJsonValidator from './package-json-validator.js';
 
-export class StructureChecker {
+/**
+ * Required components for agent structure (7-item template)
+ */
+const REQUIRED_COMPONENTS = {
+  'AGENT.md': { type: 'file', description: 'Agent definition' },
+  'CHANGELOG.md': { type: 'file', description: 'Version history' },
+  'package.json': { type: 'file', description: 'Dependencies and scripts' },
+  'README.md': { type: 'file', description: 'Documentation' },
+  skills: { type: 'directory', description: 'Agent-specific skills' },
+  tests: { type: 'directory', description: 'Test suite' },
+  config: { type: 'directory', description: 'Configuration files' },
+};
+
+class StructureChecker {
   constructor(options = {}) {
     this.rootDir = options.rootDir || process.cwd();
-    this.requiredFiles = options.requiredFiles || [
-      'AGENT.md',
-      'CHANGELOG.md',
-      'package.json',
-      'README.md',
-    ];
-    this.requiredDirs = options.requiredDirs || ['skills', 'tests', 'config'];
+    this.agentsDir = path.join(this.rootDir, 'agents');
+    this.results = {
+      total: 0,
+      conformant: 0,
+      nonConformant: 0,
+      byAgent: [],
+    };
   }
 
   /**
-   * Check if agent folder exists and contains required structure
+   * Check a single agent's folder structure
    */
   checkAgent(agentPath) {
-    const fullPath = path.join(this.rootDir, agentPath);
-    const result = {
-      agent: agentPath,
-      exists: fs.existsSync(fullPath),
-      conformant: true,
-      missing: [],
-      warnings: [],
-      details: {
-        files: {},
-        directories: {},
-      },
+    const agentName = path.basename(agentPath);
+    const missing = [];
+    const present = [];
+    const issues = [];
+
+    // Check each required component
+    for (const [component, info] of Object.entries(REQUIRED_COMPONENTS)) {
+      const componentPath = path.join(agentPath, component);
+      const pathExists = fs.existsSync(componentPath);
+      const exists =
+        pathExists &&
+        (info.type === 'directory'
+          ? fs.statSync(componentPath).isDirectory()
+          : fs.statSync(componentPath).isFile());
+
+      if (!exists) {
+        missing.push({
+          component,
+          type: info.type,
+          description: info.description,
+        });
+      } else {
+        present.push(component);
+
+        // Validate file-specific requirements
+        // Push whatever issues each validator found, regardless of its own
+        // `valid` flag (which only reflects error-severity issues) - warning-only
+        // results were previously dropped here and never surfaced to the caller.
+        if (component === 'package.json') {
+          const validation = this.validatePackageJson(componentPath);
+          issues.push(...validation.issues);
+        } else if (component === 'CHANGELOG.md') {
+          const validation = this.validateChangelog(componentPath);
+          issues.push(...validation.issues);
+        } else if (component === 'AGENT.md') {
+          const validation = this.validateAgentMd(componentPath);
+          issues.push(...validation.issues);
+        } else if (component === 'config') {
+          const validation = this.validateConfigDir(componentPath);
+          issues.push(...validation.issues);
+        }
+      }
+    }
+
+    // Warnings are surfaced in `issues` for reporting but do not gate conformance -
+    // phase-4-structure-audit.js already treats error/warning severities differently
+    // downstream ("Fix validation errors before component is considered conformant").
+    const isConformant =
+      missing.length === 0 && issues.filter((issue) => issue.severity === 'error').length === 0;
+
+    return {
+      agent: agentName,
+      path: agentPath,
+      conformant: isConformant,
+      present,
+      missing,
+      issues,
+      componentCount: present.length,
+      maxComponents: Object.keys(REQUIRED_COMPONENTS).length,
     };
-
-    if (!result.exists) {
-      result.conformant = false;
-      result.missing.push('Agent folder does not exist');
-      return result;
-    }
-
-    // Check required files
-    for (const file of this.requiredFiles) {
-      const filePath = path.join(fullPath, file);
-      const exists = fs.existsSync(filePath);
-      result.details.files[file] = exists;
-
-      if (!exists) {
-        result.conformant = false;
-        result.missing.push(`Missing required file: ${file}`);
-      }
-    }
-
-    // Check required directories
-    for (const dir of this.requiredDirs) {
-      const dirPath = path.join(fullPath, dir);
-      const exists = fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory();
-      result.details.directories[dir] = exists;
-
-      if (!exists) {
-        result.conformant = false;
-        result.missing.push(`Missing required directory: ${dir}`);
-      }
-    }
-
-    // Additional validation: package.json structure
-    if (result.details.files['package.json']) {
-      try {
-        const pkgPath = path.join(fullPath, 'package.json');
-        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-
-        if (!pkg.name) {
-          result.warnings.push('package.json missing required field: name');
-        }
-        if (!pkg.version) {
-          result.warnings.push('package.json missing recommended field: version');
-        }
-      } catch (error) {
-        result.warnings.push(`Cannot parse package.json: ${error.message}`);
-      }
-    }
-
-    // Additional validation: AGENT.md exists and has content
-    if (result.details.files['AGENT.md']) {
-      try {
-        const agentMdPath = path.join(fullPath, 'AGENT.md');
-        const content = fs.readFileSync(agentMdPath, 'utf-8');
-        if (!content || content.trim().length === 0) {
-          result.warnings.push('AGENT.md is empty');
-        }
-      } catch (error) {
-        result.warnings.push(`Cannot read AGENT.md: ${error.message}`);
-      }
-    }
-
-    return result;
   }
 
   /**
-   * Check all agents in agents/ folder
+   * Validate package.json requirements
    */
-  checkAllAgents(agentsDir = 'agents') {
-    const fullPath = path.join(this.rootDir, agentsDir);
-    const results = [];
+  validatePackageJson(packageJsonPath) {
+    const validator = new PackageJsonValidator({ rootDir: this.rootDir });
+    const result = validator.validate(packageJsonPath);
+    const issues = [...result.errors, ...result.warnings].map((issue) => ({
+      component: 'package.json',
+      field: issue.field,
+      severity: issue.severity,
+      message: issue.message,
+    }));
 
-    if (!fs.existsSync(fullPath)) {
-      return results;
+    return {
+      valid: result.valid,
+      issues,
+    };
+  }
+
+  /**
+   * Validate CHANGELOG.md format
+   */
+  validateChangelog(changelogPath) {
+    const issues = [];
+
+    try {
+      const content = fs.readFileSync(changelogPath, 'utf-8');
+
+      if (content.length < 100) {
+        issues.push({
+          component: 'CHANGELOG.md',
+          severity: 'warning',
+          message: 'CHANGELOG appears too short (<100 chars)',
+        });
+      }
+
+      if (!content.includes('##') || !content.includes('Added')) {
+        issues.push({
+          component: 'CHANGELOG.md',
+          severity: 'warning',
+          message: 'CHANGELOG should use "## [version]" and "### Added" sections',
+        });
+      }
+    } catch (error) {
+      issues.push({
+        component: 'CHANGELOG.md',
+        severity: 'error',
+        message: `Cannot read: ${error.message}`,
+      });
     }
 
-    const entries = fs.readdirSync(fullPath, { withFileTypes: true });
-    for (const entry of entries) {
-      if (entry.isDirectory() && !entry.name.startsWith('.')) {
-        const agentPath = path.join(agentsDir, entry.name);
-        results.push(this.checkAgent(agentPath));
+    return {
+      valid: issues.filter((i) => i.severity === 'error').length === 0,
+      issues,
+    };
+  }
+
+  /**
+   * Validate AGENT.md format
+   */
+  validateAgentMd(agentMdPath) {
+    const issues = [];
+
+    try {
+      const content = fs.readFileSync(agentMdPath, 'utf-8');
+
+      if (content.length < 200) {
+        issues.push({
+          component: 'AGENT.md',
+          severity: 'warning',
+          message: 'AGENT.md appears incomplete (<200 chars)',
+        });
+      }
+
+      const requiredSections = ['Description', 'Capabilities', 'Skills'];
+      for (const section of requiredSections) {
+        if (!content.includes(section)) {
+          issues.push({
+            component: 'AGENT.md',
+            severity: 'warning',
+            message: `Missing recommended section: ${section}`,
+          });
+        }
+      }
+    } catch (error) {
+      issues.push({
+        component: 'AGENT.md',
+        severity: 'error',
+        message: `Cannot read: ${error.message}`,
+      });
+    }
+
+    return {
+      valid: issues.filter((i) => i.severity === 'error').length === 0,
+      issues,
+    };
+  }
+
+  /**
+   * Validate config/ directory structure
+   */
+  validateConfigDir(configDirPath) {
+    const issues = [];
+
+    try {
+      const files = fs.readdirSync(configDirPath);
+
+      const hasDefaultJson = files.includes('default.json');
+      const hasEnvExample = files.includes('.env.example');
+
+      if (!hasDefaultJson) {
+        issues.push({
+          component: 'config',
+          severity: 'warning',
+          message: 'Missing config/default.json',
+        });
+      }
+
+      if (!hasEnvExample) {
+        issues.push({
+          component: 'config',
+          severity: 'warning',
+          message: 'Missing config/.env.example',
+        });
+      }
+    } catch (error) {
+      issues.push({
+        component: 'config',
+        severity: 'error',
+        message: `Cannot read: ${error.message}`,
+      });
+    }
+
+    return {
+      valid: issues.filter((i) => i.severity === 'error').length === 0,
+      issues,
+    };
+  }
+
+  /**
+   * Check all agents in the agents/ directory
+   */
+  checkAllAgents() {
+    if (!fs.existsSync(this.agentsDir)) {
+      console.error(`Agents directory not found: ${this.agentsDir}`);
+      return this.results;
+    }
+
+    const entries = fs.readdirSync(this.agentsDir, { withFileTypes: true });
+    const agentDirs = entries
+      .filter((entry) => entry.isDirectory() && !entry.name.startsWith('.'))
+      .map((entry) => path.join(this.agentsDir, entry.name));
+
+    for (const agentPath of agentDirs) {
+      const result = this.checkAgent(agentPath);
+      this.results.byAgent.push(result);
+
+      this.results.total++;
+      if (result.conformant) {
+        this.results.conformant++;
+      } else {
+        this.results.nonConformant++;
       }
     }
 
-    return results;
+    return this.results;
   }
 
   /**
    * Generate summary report
    */
-  generateSummary(results) {
-    const summary = {
-      totalAgents: results.length,
-      conformant: results.filter((r) => r.conformant).length,
-      nonConformant: results.filter((r) => !r.conformant).length,
-      conformancePercentage:
-        results.length > 0
-          ? Math.round((results.filter((r) => r.conformant).length / results.length) * 100)
-          : 0,
-      missingByFile: {},
-      missingByDirectory: {},
+  generateSummary() {
+    const total = this.results.total;
+    const conformant = this.results.conformant;
+    const nonConformant = this.results.nonConformant;
+    const conformancePercentage = total > 0 ? Math.round((conformant / total) * 100) : 0;
+
+    return {
+      timestamp: new Date().toISOString(),
+      summary: {
+        total,
+        conformant,
+        nonConformant,
+        conformancePercentage,
+      },
+      details: this.results.byAgent,
     };
-
-    // Count missing files
-    for (const file of this.requiredFiles) {
-      const missingCount = results.filter((r) => !r.details.files[file]).length;
-      if (missingCount > 0) {
-        summary.missingByFile[file] = missingCount;
-      }
-    }
-
-    // Count missing directories
-    for (const dir of this.requiredDirs) {
-      const missingCount = results.filter((r) => !r.details.directories[dir]).length;
-      if (missingCount > 0) {
-        summary.missingByDirectory[dir] = missingCount;
-      }
-    }
-
-    return summary;
   }
 }
 
