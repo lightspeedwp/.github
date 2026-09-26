@@ -58,7 +58,6 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
-0. **Note**: the opt-in and path freshness gate (#3540) runs at step 6, after `tasks.md` is resolved and the existing-issue set is known. It cannot run first, because the count it reports and the specification paths it checks are only knowable once those steps have completed.
 1. Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
 2. **IF EXISTS**: Load `.specify/memory/constitution.md` for project principles and governance constraints.
 3. From the executed script, extract the path to **tasks**.
@@ -77,7 +76,7 @@ git config --get remote.origin.url
    - Check that the **specification inputs** exist: the resolved feature directory, `tasks.md`, `spec.md`, `plan.md`, and any contracts those documents reference. If one of these is missing, stop and report it rather than creating issues from an incomplete spec.
    - Do **not** require implementation target paths to exist. Task descriptions name the exact file a task will create (`T012 [P] [US1] Create User model in src/models/user.py`), so requiring those paths to pre-exist would drop every legitimate creation task. Only drop a task when the specification artefact it depends on is absent, and report it (for example, `T048 depends on .github/specs/003-requirements-checklist/, which is not on this branch — skipping`).
 7. For each remaining task in the list, use the GitHub MCP server to create a new issue in the repository that is representative of the Git remote. Task lines in `tasks.md` start with a markdown checkbox, so first strip the leading `- [ ]` (and any `[P]` / `[US#]` markers) to recover the task ID and its description. Create the issue with a single canonical title of the form `T001: <description>`, with the ID written once followed by the task description (for example, the line `- [ ] T001 Create project structure` becomes the title `T001: Create project structure`).
-   - **Skip** any task whose ID is already present in the set of existing issues from the previous step, and report it (for example, `T001 already has an issue, skipping`).
+   - **Skip** any task whose ID is already present in the set of existing issues gathered in step 5, and report it (for example, `T001 already has an issue, skipping`).
    - Only create issues for tasks that do not yet have a matching issue.
 
 > [!CAUTION]
