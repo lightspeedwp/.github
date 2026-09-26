@@ -6,6 +6,10 @@
 
 # - .markdownlint-cli2.cjs
 
+# Node.js dependencies (third-party, not part of this repo)
+
+**/node_modules/**
+
 # Large comprehensive documents with formatting debt
 
 AWESOME_GITHUB_MAPPING_STRATEGY.md

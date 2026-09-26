@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Requirements Quality Checklist Schema",
+  "description": "Data model for checklist items, dimensions, and validation state",
+  "type": "object",
+  "properties": {
+    "checklist": {
+      "type": "object",
+      "description": "Root checklist container",
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "description": "Checklist metadata and context",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique checklist identifier (UUID or slug)",
+              "pattern": "^[a-z0-9-]+$"
+            },
+            "domain": {
+              "type": "string",
+              "description": "Checklist domain",
+              "enum": ["base", "ux", "api", "security", "performance", "custom"]
+            },
+            "audience": {
+              "type": "string",
+              "description": "Intended audience",
+              "enum": ["author", "peer", "stakeholder", "integration"]
+            },
+            "specificationRef": {
+              "type": "string",
+              "description": "Reference to specification (file path or URL)"
+            },
+            "generatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When checklist was generated"
+            },
+            "lastReviewedAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When checklist was last reviewed"
+            }
+          },
+          "required": ["id", "domain", "audience"]
+        },
+        "items": {
+          "type": "array",
+          "description": "Checklist items array",
+          "items": {
+            "type": "object",
+            "description": "Single checklist item",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Item ID (CHK-###-{dimension})",
+                "pattern": "^CHK-\\d{3}-[A-Za-z-]+$"
+              },
+              "question": {
+                "type": "string",
+                "description": "Requirements-quality question (not implementation test)"
+              },
+              "dimension": {
+                "type": "string",
+                "description": "Quality dimension",
+                "enum": [
+                  "Completeness",
+                  "Clarity",
+                  "Consistency",
+                  "Measurability",
+                  "Scenario-Coverage",
+                  "Edge-Cases",
+                  "Dependencies",
+                  "Ambiguities"
+                ]
+              },
+              "specReference": {
+                "type": "string",
+                "description": "Reference to spec section (e.g., '[Spec §FR-1]', '[Gap]', '[Ambiguity]')"
+              },
+              "state": {
+                "type": "string",
+                "description": "Checkbox state",
+                "enum": ["unchecked", "checked", "gap", "ambiguity", "ambiguity-critical"]
+              },
+              "reviewerComment": {
+                "type": "string",
+                "description": "Optional comment from reviewer"
+              },
+              "priority": {
+                "type": "string",
+                "description": "Item priority level",
+                "enum": ["critical", "high", "medium", "low"]
+              }
+            },
+            "required": ["id", "question", "dimension", "state"]
+          }
+        },
+        "summary": {
+          "type": "object",
+          "description": "Checklist completion summary",
+          "properties": {
+            "totalItems": {
+              "type": "integer",
+              "description": "Total number of items"
+            },
+            "checkedItems": {
+              "type": "integer",
+              "description": "Number of checked items"
+            },
+            "uncheckedItems": {
+              "type": "integer",
+              "description": "Number of unchecked items"
+            },
+            "completionPercent": {
+              "type": "number",
+              "description": "Completion percentage (0-100)",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "gaps": {
+              "type": "integer",
+              "description": "Number of [Gap] markers"
+            },
+            "ambiguities": {
+              "type": "integer",
+              "description": "Number of [Ambiguity] markers"
+            },
+            "criticalAmbiguities": {
+              "type": "integer",
+              "description": "Number of [Ambiguity-Critical] markers"
+            },
+            "status": {
+              "type": "string",
+              "description": "Overall checklist status",
+              "enum": ["pass", "fail", "in-progress"]
+            }
+          },
+          "required": [
+            "totalItems",
+            "checkedItems",
+            "uncheckedItems",
+            "completionPercent",
+            "status"
+          ]
+        }
+      },
+      "required": ["metadata", "items", "summary"]
+    }
+  },
+  "required": ["checklist"]
+}
