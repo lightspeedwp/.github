@@ -1,5 +1,7 @@
 // Regression coverage for #3522: RegistryValidator must evaluate the
 // loaded registry schema (via ajv), not just check for truthy fields.
+const fs = require('fs');
+const os = require('os');
 const path = require('path');
 
 // Resolve the schema from this file, not process.cwd(), so the
@@ -147,5 +149,33 @@ describe('RegistryValidator schema evaluation (#3522)', () => {
 
     expect(result.valid).toBe(false);
     expect(result.errors.join('\n')).toMatch(/required property 'skills'/);
+  });
+
+  // A present-but-uncompilable schema must fail closed, not degrade to the
+  // permissive structural path that #3522 exists to replace.
+  test('reports invalid when the schema exists but cannot be compiled', async () => {
+    const RegistryValidator = await loadValidator();
+    const rootDir = fs.mkdtempSync(path.join(os.tmpdir(), 'registry-schema-'));
+    const schemaPath = 'broken-schema.json';
+    fs.writeFileSync(
+      path.join(rootDir, schemaPath),
+      JSON.stringify({ type: 'object', properties: { a: { $ref: '#/$defs/missing' } }, $defs: {} })
+    );
+
+    try {
+      const validator = new RegistryValidator({ rootDir, schemaPath });
+
+      expect(validator.schema).not.toBeNull();
+      expect(validator.validateFn).toBeNull();
+      expect(validator.schemaError).toEqual(expect.any(String));
+
+      // The permissive fallback would accept this malformed registry.
+      const result = validator.validateObject({ skills: [{}] }, 'fixture');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors.join('\n')).toMatch(/schema could not be compiled/i);
+    } finally {
+      fs.rmSync(rootDir, { recursive: true, force: true });
+    }
   });
 });

@@ -16,6 +16,7 @@ export class RegistryValidator {
       options.schemaPath ||
       '.github/specs/014-agents-restructure-consolidate/contracts/registry-schema.json';
     this.schema = this.loadSchema();
+    this.schemaError = null;
     this.validateFn = this.compileSchema();
   }
 
@@ -33,8 +34,15 @@ export class RegistryValidator {
 
   /**
    * Compile the loaded schema with ajv (same convention as
-   * validate-agents.js). Returns null when no schema was loaded so
-   * callers fall back to minimal structural validation.
+   * validate-agents.js).
+   *
+   * A missing schema and an uncompilable schema are deliberately different
+   * outcomes. When no schema file exists the caller falls back to minimal
+   * structural validation, which is the documented contract. When a schema
+   * does exist but ajv cannot compile it, falling back would silently accept
+   * registries the contract rejects, which is the bug #3522 exists to fix, so
+   * the failure is recorded and every validation result is invalid until the
+   * schema is corrected.
    */
   compileSchema() {
     if (!this.schema) {
@@ -45,7 +53,11 @@ export class RegistryValidator {
       addFormats(this.ajv);
       return this.ajv.compile(this.schema);
     } catch (error) {
-      console.warn(`Could not compile registry schema: ${error.message}`);
+      this.schemaError = error.message;
+      console.warn(
+        `Could not compile registry schema: ${error.message}. ` +
+          'Registries will be reported invalid until the schema is corrected.'
+      );
       return null;
     }
   }
@@ -84,6 +96,20 @@ export class RegistryValidator {
       return {
         valid: false,
         errors: ['Registry must be an object'],
+      };
+    }
+
+    // A schema that exists but could not be compiled must not degrade to the
+    // permissive structural path, or a broken contract would silently accept
+    // the registries it exists to reject.
+    if (this.schemaError) {
+      return {
+        valid: false,
+        errors: [
+          `Registry schema could not be compiled: ${this.schemaError}`,
+          'Registries cannot be validated until the schema is corrected',
+        ],
+        path,
       };
     }
 
