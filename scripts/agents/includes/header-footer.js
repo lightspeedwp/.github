@@ -6,19 +6,17 @@
 // TODO: Align this helper with the latest automation spec updates.
 
 import fs from 'fs';
-import path from 'path';
-import { load } from 'js-yaml';
+import {
+  loadFooterConfig as loadSharedFooterConfig,
+  resolveFooterPhrases,
+  selectFooterPhrase,
+} from './footer-phrases.js';
 
 /**
  * Load footer configuration from footers.yml
  */
 function loadFooterConfig() {
-  const configPath = path.join(process.cwd(), '.github/footers.yml');
-  if (!fs.existsSync(configPath)) {
-    return null;
-  }
-  const content = fs.readFileSync(configPath, 'utf-8');
-  return load(content);
+  return loadSharedFooterConfig();
 }
 
 /**
@@ -38,23 +36,7 @@ const DEFAULT_FOOTERS = [
  * @returns {Array<string>} Array of footer phrases
  */
 function getFooterPhrases(category = 'default') {
-  const config = loadFooterConfig();
-  if (!config) {
-    return DEFAULT_FOOTERS;
-  }
-
-  // Try to get category-specific footers
-  if (config.categories && config.categories[category] && config.categories[category].phrases) {
-    return config.categories[category].phrases;
-  }
-
-  // Fall back to the top-level default block (footers.yml has `default`
-  // as a sibling of `categories`, not nested inside it).
-  if (config.default && config.default.phrases) {
-    return config.default.phrases;
-  }
-
-  return DEFAULT_FOOTERS;
+  return resolveFooterPhrases(loadFooterConfig(), category, DEFAULT_FOOTERS);
 }
 
 /**
@@ -64,23 +46,7 @@ function getFooterPhrases(category = 'default') {
  * @returns {string} Selected footer phrase
  */
 function selectFooter(phrases, seed = null) {
-  if (!phrases || phrases.length === 0) {
-    return DEFAULT_FOOTERS[0];
-  }
-
-  if (seed) {
-    // Simple hash function for deterministic selection
-    let hash = 0;
-    for (let i = 0; i < seed.length; i++) {
-      hash = (hash << 5) - hash + seed.charCodeAt(i);
-      hash = hash | 0; // Convert to 32-bit integer
-    }
-    const index = Math.abs(hash) % phrases.length;
-    return phrases[index];
-  }
-
-  // Random selection
-  return phrases[Math.floor(Math.random() * phrases.length)];
+  return selectFooterPhrase(phrases, seed, DEFAULT_FOOTERS[0]);
 }
 
 /**
