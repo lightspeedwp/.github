@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
+- **Linear Review Platform** — Pull requests now carry a risk score in Linear, and an agent's comment names the agent and model behind it. Setup is in the Linear Integration guide. (#2234)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 - **Qodo PR-Agent Pilot** — Pull requests on this repository now get an automatic summary and improvement suggestions alongside CodeRabbit, and maintainers can ask questions with commands such as `/ask`. (#3532)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
