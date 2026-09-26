@@ -42,8 +42,25 @@ describe("submitPr (Skill 5)", () => {
       expect(result.missingFields.length).toBeGreaterThan(0);
     });
 
-    test("should validate PR before submission", async () => {
-      const invalidPr = {
+    test("should reject explicit labels:null at the array boundary (#3544)", async () => {
+      const nullLabelsPr = {
+        title: "Test PR",
+        body: "## Body",
+        head: "feat/test",
+        base: "develop",
+        labels: null,
+      };
+
+      const result = await submitPr({
+        pr: nullLabelsPr,
+        githubContext: validContext,
+      });
+
+      expect(result.valid).toBe(false);
+      expect(result.missingFields).toContain("labels");
+    });
+
+    test("should validate PR before submission", async () => {      const invalidPr = {
         title: "",
         body: "Short",
         head: "feat/test",
