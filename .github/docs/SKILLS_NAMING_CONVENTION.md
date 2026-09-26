@@ -1,14 +1,25 @@
 # Skills Naming Convention
 
-**Format**: `{category}/{scope}-{title}`
+Per the [Agent Skills specification](https://agentskills.io/specification), a
+skill's `name` must match its own directory name and may contain only lowercase
+letters, digits, and hyphens — no underscores, and no leading, trailing, or
+consecutive hyphens.
+
+**Format**: `skills/<category>/<provider>/<skill>/SKILL.md`
 
 ## Examples
 
-- `validation/changelog-format-check.js`
-- `audit/structure-conformance-audit.js`
-- `reporting/agent-metrics-report.js`
-- `registry/skill-registry-generator.js`
-- `utilities/file-hash-calculator.js`
+- `skills/local/plugin-provided/github/gh-address-comments/SKILL.md`
+- `skills/local/plugin-provided/google-drive/google-sheets/SKILL.md`
+- `skills/validation/changelog-format-check/SKILL.md`
+
+## Layout
+
+- `<category>` groups skills functionally
+- `<provider>` groups skills by the plugin that supplies them (optional)
+- `<skill>` is the directory name and **must** equal the frontmatter `name`
+
+Skills with no provider grouping use `skills/<category>/<skill>/`.
 
 ## Categories
 
@@ -22,17 +33,17 @@
 
 ## Guidelines
 
-- Use kebab-case for skill names
-- Prefix with category subdirectory
-- Keep scope clear and specific
+- Use kebab-case for skill names (`[a-z0-9-]+`)
+- Keep the directory name and frontmatter `name` identical
+- Avoid underscores: `github__github` is invalid, use `github/github`
 - Avoid generic names (helper, util, etc.)
-- Document purpose in file header
+- Document purpose in the file header
 
 ## Rationale
 
 This convention ensures:
 
-- Skills are discoverable by category
-- Purpose is clear from the filename
+- Skills are discoverable by category and provider
+- Purpose is clear from the naming
 - Naming is consistent across all agents
-- Skills can be organized into root `skills/` directory by category
+- Registries validate against the 014 `generatedSkill` contract

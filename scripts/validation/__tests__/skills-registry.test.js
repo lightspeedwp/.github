@@ -47,11 +47,50 @@ describe('directory-based agent skill discovery', () => {
     expect(skills).toHaveLength(1);
     expect(skills[0]).toEqual(
       expect.objectContaining({
-        id: 'agent:test-agent/test-skill',
+        id: 'test-skill',
         name: 'test-skill',
-        path: path.join(skillPath, 'SKILL.md'),
+        category: 'uncategorised',
+        location: 'test-agent',
       })
     );
-    expect(skills[0].agentskills_io_compliant.compliant).toBe(true);
+    expect(skills[0].agentskills_compliant).toBe(true);
+    expect(skills[0].compliance_violations).toEqual(['hasInputs', 'hasOutputs', 'hasExamples']);
+  });
+
+  it('derives the category from a provider grouping directory', () => {
+    const providerPath = path.join(
+      rootDir,
+      'agents',
+      'test-agent',
+      'skills',
+      'plugin-provided',
+      'github'
+    );
+    fs.mkdirSync(providerPath, { recursive: true });
+    fs.writeFileSync(
+      path.join(providerPath, 'SKILL.md'),
+      ['---', 'name: github', 'description: Provider skill.', '---'].join('\n')
+    );
+
+    const generator = new SkillsRegistryGenerator({ rootDir });
+    const skills = generator.scanAllSkills();
+    const providerSkill = skills.find((skill) => skill.id === 'github');
+
+    expect(providerSkill).toBeDefined();
+    expect(providerSkill).toEqual(
+      expect.objectContaining({
+        id: 'github',
+        name: 'github',
+        category: 'plugin-provided',
+        location: 'test-agent',
+      })
+    );
+  });
+
+  it('normalises provider-namespaced names to schema-legal segments', () => {
+    const generator = new SkillsRegistryGenerator({ rootDir });
+
+    expect(generator.generateSkillId('github__github')).toBe('github-github');
+    expect(generator.sanitiseSegment('Google Drive')).toBe('google-drive');
   });
 });

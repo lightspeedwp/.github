@@ -9194,61 +9194,61 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/linear__linear/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/linear/linear/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-drive/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-drive/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/SKILL.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/github__github/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/github/github/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/github__gh-fix-ci/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/github/gh-fix-ci/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-drive-comments/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-drive-comments/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/github__yeet/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/github/yeet/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/github__gh-address-comments/SKILL.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/github/gh-address-comments/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
@@ -11414,7 +11414,7 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/linear__linear/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/linear/linear/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
@@ -11426,49 +11426,49 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-drive-comments/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-drive-comments/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-drive/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-drive/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/SKILL.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/github__yeet/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/github/yeet/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/github__github/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/github/github/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/github__gh-fix-ci/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/github/gh-fix-ci/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
@@ -11486,7 +11486,7 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/github__gh-address-comments/SKILL.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/github/gh-address-comments/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
@@ -15122,61 +15122,61 @@
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/linear__linear/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/linear/linear/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-drive-comments/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-drive-comments/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-drive/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-drive/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/SKILL.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github__github/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github/github/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github__gh-fix-ci/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github/gh-fix-ci/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github__gh-address-comments/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github/gh-address-comments/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github__yeet/SKILL.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/github/yeet/SKILL.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
@@ -16562,223 +16562,223 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-visual-iteration.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-visual-iteration.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-thumbnail-visual-verification.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-thumbnail-visual-verification.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-template-reference-deck-copy-workflow.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-template-reference-deck-copy-workflow.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-template-migration.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-template-migration.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-target-presentation-guard.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-target-presentation-guard.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-slide-planning-and-layout-selection.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-slide-planning-and-layout-selection.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-slide-archetype-mapping.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-slide-archetype-mapping.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-request-shapes-and-write-safety.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-request-shapes-and-write-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-read-before-write-and-deck-scope.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-read-before-write-and-deck-scope.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-new-deck-and-final-pass.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-new-deck-and-final-pass.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-import-presentation.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-import-presentation.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-google-slides-mcp-discovery.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-google-slides-mcp-discovery.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-connector-runtime-and-safety.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-connector-runtime-and-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-chart-workflows.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-chart-workflows.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-slides/references/reference-batch-update-recipes.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-slides/references/reference-batch-update-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/references/style-profiles.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/references/style-profiles.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-live-read-search-safety.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-live-read-search-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-import-spreadsheet-to-native-sheets.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-import-spreadsheet-to-native-sheets.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-formula-patterns.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-formula-patterns.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-edit-workflow.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-edit-workflow.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-chart-recipes.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-chart-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-batch-update-recipes.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-batch-update-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-table-formatting-deep-dive.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-table-formatting-deep-dive.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-smart-chips-and-building-blocks.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-smart-chips-and-building-blocks.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-section-completeness-and-final-pass.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-section-completeness-and-final-pass.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-response-and-list-format.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-response-and-list-format.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-request-shapes-and-write-safety.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-request-shapes-and-write-safety.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-pdf-export-visual-qa.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-pdf-export-visual-qa.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-native-create-direct.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-native-create-direct.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-meeting-notes-direct.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-meeting-notes-direct.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-import-docx-to-native-docs.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-import-docx-to-native-docs.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-headings-and-question-format.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-headings-and-question-format.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-foreground-guard.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-foreground-guard.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-figures-and-image-insertion.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-figures-and-image-insertion.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-direct-request-composition.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-direct-request-composition.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-connector-runtime-and-safety.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-connector-runtime-and-safety.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-docs/references/reference-citations-and-hyperlinks.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-docs/references/reference-citations-and-hyperlinks.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
@@ -25442,223 +25442,223 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-visual-iteration.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-visual-iteration.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-thumbnail-visual-verification.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-thumbnail-visual-verification.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-template-reference-deck-copy-workflow.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-template-reference-deck-copy-workflow.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-template-migration.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-template-migration.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-target-presentation-guard.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-target-presentation-guard.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-slide-planning-and-layout-selection.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-slide-planning-and-layout-selection.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-slide-archetype-mapping.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-slide-archetype-mapping.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-request-shapes-and-write-safety.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-request-shapes-and-write-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-read-before-write-and-deck-scope.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-read-before-write-and-deck-scope.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-new-deck-and-final-pass.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-new-deck-and-final-pass.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-import-presentation.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-import-presentation.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-google-slides-mcp-discovery.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-google-slides-mcp-discovery.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-connector-runtime-and-safety.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-connector-runtime-and-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-chart-workflows.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-chart-workflows.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-slides/references/reference-batch-update-recipes.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-slides/references/reference-batch-update-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/references/style-profiles.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/references/style-profiles.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-live-read-search-safety.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-live-read-search-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-import-spreadsheet-to-native-sheets.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-import-spreadsheet-to-native-sheets.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-formula-patterns.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-formula-patterns.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-edit-workflow.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-edit-workflow.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-chart-recipes.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-chart-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-sheets/references/reference-batch-update-recipes.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-sheets/references/reference-batch-update-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-table-formatting-deep-dive.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-table-formatting-deep-dive.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-smart-chips-and-building-blocks.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-smart-chips-and-building-blocks.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-section-completeness-and-final-pass.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-section-completeness-and-final-pass.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-response-and-list-format.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-response-and-list-format.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-request-shapes-and-write-safety.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-request-shapes-and-write-safety.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-pdf-export-visual-qa.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-pdf-export-visual-qa.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-native-create-direct.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-native-create-direct.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-meeting-notes-direct.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-meeting-notes-direct.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-import-docx-to-native-docs.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-import-docx-to-native-docs.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-headings-and-question-format.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-headings-and-question-format.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-foreground-guard.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-foreground-guard.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-figures-and-image-insertion.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-figures-and-image-insertion.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-direct-request-composition.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-direct-request-composition.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-connector-runtime-and-safety.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-connector-runtime-and-safety.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-docs/references/reference-citations-and-hyperlinks.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-docs/references/reference-citations-and-hyperlinks.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
@@ -30584,223 +30584,223 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-visual-iteration.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-visual-iteration.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-thumbnail-visual-verification.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-thumbnail-visual-verification.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-template-reference-deck-copy-workflow.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-template-reference-deck-copy-workflow.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-template-migration.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-template-migration.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-target-presentation-guard.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-target-presentation-guard.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-slide-planning-and-layout-selection.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-slide-planning-and-layout-selection.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-slide-archetype-mapping.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-slide-archetype-mapping.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-request-shapes-and-write-safety.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-request-shapes-and-write-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-read-before-write-and-deck-scope.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-read-before-write-and-deck-scope.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-new-deck-and-final-pass.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-new-deck-and-final-pass.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-import-presentation.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-import-presentation.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-google-slides-mcp-discovery.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-google-slides-mcp-discovery.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-connector-runtime-and-safety.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-connector-runtime-and-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-chart-workflows.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-chart-workflows.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-slides/references/reference-batch-update-recipes.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-slides/references/reference-batch-update-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/references/style-profiles.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/references/style-profiles.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/references/reference-live-read-search-safety.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/references/reference-live-read-search-safety.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/references/reference-import-spreadsheet-to-native-sheets.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/references/reference-import-spreadsheet-to-native-sheets.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/references/reference-formula-patterns.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/references/reference-formula-patterns.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/references/reference-edit-workflow.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/references/reference-edit-workflow.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/references/reference-chart-recipes.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/references/reference-chart-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-sheets/references/reference-batch-update-recipes.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-sheets/references/reference-batch-update-recipes.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-table-formatting-deep-dive.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-table-formatting-deep-dive.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-smart-chips-and-building-blocks.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-smart-chips-and-building-blocks.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-section-completeness-and-final-pass.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-section-completeness-and-final-pass.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-response-and-list-format.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-response-and-list-format.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-request-shapes-and-write-safety.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-request-shapes-and-write-safety.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-pdf-export-visual-qa.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-pdf-export-visual-qa.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-native-create-direct.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-native-create-direct.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-meeting-notes-direct.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-meeting-notes-direct.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-import-docx-to-native-docs.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-import-docx-to-native-docs.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-headings-and-question-format.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-headings-and-question-format.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-foreground-guard.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-foreground-guard.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-figures-and-image-insertion.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-figures-and-image-insertion.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-direct-request-composition.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-direct-request-composition.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-connector-runtime-and-safety.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-connector-runtime-and-safety.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-docs/references/reference-citations-and-hyperlinks.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-docs/references/reference-citations-and-hyperlinks.md",
       "category": "docs",
       "defaultFooter": "lightspeed-standard",
       "footerText": "---\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*"
@@ -31130,25 +31130,25 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-drive/references/slides/visual-change-loop.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-drive/references/slides/visual-change-loop.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-drive/references/slides/sheets-chart-replacement.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-drive/references/slides/sheets-chart-replacement.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-drive/references/slides/deck-scope-verification.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-drive/references/slides/deck-scope-verification.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive__google-drive/references/slides/chart-refresh-workflows.md",
+      "path": "agents/wp-config-agent/skills/plugin-provided/google-drive/google-drive/references/slides/chart-refresh-workflows.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
@@ -35852,25 +35852,25 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-drive/references/slides/visual-change-loop.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-drive/references/slides/visual-change-loop.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-drive/references/slides/sheets-chart-replacement.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-drive/references/slides/sheets-chart-replacement.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-drive/references/slides/deck-scope-verification.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-drive/references/slides/deck-scope-verification.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive__google-drive/references/slides/chart-refresh-workflows.md",
+      "path": "agents/linear-advisor-agent/skills/plugin-provided/google-drive/google-drive/references/slides/chart-refresh-workflows.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
@@ -40640,25 +40640,25 @@
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-drive/references/slides/visual-change-loop.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-drive/references/slides/visual-change-loop.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-drive/references/slides/sheets-chart-replacement.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-drive/references/slides/sheets-chart-replacement.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-drive/references/slides/deck-scope-verification.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-drive/references/slides/deck-scope-verification.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"
     },
     {
-      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive__google-drive/references/slides/chart-refresh-workflows.md",
+      "path": "agents/zendesk-support-agent/skills/local/plugin-provided/google-drive/google-drive/references/slides/chart-refresh-workflows.md",
       "category": "agents",
       "defaultFooter": "ai-ops-standard",
       "footerText": "---\n\n*Maintained by the 🤖 LightSpeedWP Automation Team*"

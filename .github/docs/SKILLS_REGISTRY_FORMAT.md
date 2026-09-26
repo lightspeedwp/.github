@@ -15,22 +15,16 @@ Each skill entry contains:
 
 ```json
 {
-  "id": "category/skill-name",
+  "id": "skill-name",
   "name": "skill-name",
   "category": "category",
-  "path": "/path/to/skill/file",
+  "location": "agent-name",
   "description": "Brief description",
-  "type": "javascript|shell|python|yaml|json",
+  "type": "action|query|transform|utility",
   "version": "1.0.0",
-  "agentskills_io_compliant": {
-    "compliant": true,
-    "checks": {
-      "hasDescription": true,
-      "hasInputs": true,
-      "hasOutputs": true,
-      "hasExamples": true
-    }
-  }
+  "agentskills_compliant": true,
+  "compliance_violations": ["hasDescription"],
+  "used_by": []
 }
 ```
 
@@ -70,7 +64,7 @@ A skill is considered compliant when its frontmatter carries a non-empty name an
 
 1. **Discover skills by category**: Load `skills/by-category/{category}.json`
 2. **Find all skills**: Load consolidated `skills/registry.json`
-3. **Check compliance**: Filter by `agentskills_io_compliant.compliant === true`
+3. **Check compliance**: Filter by `agentskills_compliant === true`
 4. **Find violations**: See agents/reports/compliance-violations-report.json
 
 ## Updating the Registry

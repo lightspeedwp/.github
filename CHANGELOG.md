@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Specs and Skills Validation Tooling** — Added validation tooling and docs for agent folders, skills registries, and manifest files. Registries now validate against the 014 contract. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
@@ -130,8 +131,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Validation Audit Specification Added** — Added the quality audit specification with duplicate detection. (#3348)
 
-- **Specs Directory Fix Scripts & Docs** — Speckit scripts now take the specs directory from configuration, with backward-compatible defaults. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
-- **Specs Directory Fix Phase 7 Tasks** — Appended convergence validation tasks tracking deferred Phase 6 verification work for the specs-directory fix. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
+- **Specs Directory Scripts & Docs** — Speckit scripts now take the specs directory from configuration, with backward-compatible defaults. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
+- **Specs Directory Phase 7 Tasks** — Appended convergence validation tasks tracking deferred Phase 6 verification work for the specs directory. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
 

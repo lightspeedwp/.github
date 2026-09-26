@@ -7,23 +7,16 @@ const schemaPath = path.resolve(
 );
 
 const skill = {
-  id: 'agent:test-agent/test-skill',
+  id: 'test-skill',
   name: 'test-skill',
-  category: 'agent:test-agent',
-  path: 'agents/test-agent/skills/test-skill/SKILL.md',
+  category: 'test-category',
+  location: 'test-agent',
   description: 'Test skill',
-  type: 'unknown',
+  type: 'utility',
   version: '1.0.0',
-  agentskills_io_compliant: {
-    compliant: true,
-    checks: {
-      hasName: true,
-      hasDescription: true,
-      hasInputs: false,
-      hasOutputs: false,
-      hasExamples: false,
-    },
-  },
+  agentskills_compliant: true,
+  compliance_violations: [],
+  used_by: [],
 };
 
 const registry = {
@@ -32,7 +25,7 @@ const registry = {
   schema: 'https://agentskills.io/schema/v1',
   summary: {
     total: 1,
-    byCategory: { 'agent:test-agent': 1 },
+    byCategory: { 'test-category': 1 },
     compliant: 1,
     compliancePercentage: 100,
   },
@@ -42,7 +35,7 @@ const registry = {
 const categoryRegistry = {
   timestamp: '2026-09-23T00:00:00.000Z',
   version: '1.0.0',
-  category: 'agent:test-agent',
+  category: 'test-category',
   skills: [skill],
   summary: { total: 1, compliant: 1, compliancePercentage: 100 },
 };
@@ -52,11 +45,11 @@ describe('SkillsRegistryValidator', () => {
     const validator = new SkillsRegistryValidator(schemaPath);
 
     const result = validator.validateRegistries(registry, {
-      'agent:test-agent': categoryRegistry,
+      'test-category': categoryRegistry,
     });
 
     expect(result.consolidated.valid).toBe(true);
-    expect(result.categories['agent:test-agent'].valid).toBe(true);
+    expect(result.categories['test-category'].valid).toBe(true);
   });
 
   it('propagates category schema errors into the validation report', () => {
@@ -64,12 +57,12 @@ describe('SkillsRegistryValidator', () => {
     const invalidCategoryRegistry = { ...categoryRegistry, summary: undefined };
 
     const result = validator.validateRegistries(registry, {
-      'agent:test-agent': invalidCategoryRegistry,
+      'test-category': invalidCategoryRegistry,
     });
 
     expect(result.consolidated.valid).toBe(true);
-    expect(result.categories['agent:test-agent'].valid).toBe(false);
-    expect(result.categories['agent:test-agent'].errors.length).toBeGreaterThan(0);
+    expect(result.categories['test-category'].valid).toBe(false);
+    expect(result.categories['test-category'].errors.length).toBeGreaterThan(0);
   });
 
   it('propagates consolidated schema errors into the validation report', () => {
@@ -77,11 +70,23 @@ describe('SkillsRegistryValidator', () => {
     const invalidRegistry = { ...registry, summary: undefined };
 
     const result = validator.validateRegistries(invalidRegistry, {
-      'agent:test-agent': categoryRegistry,
+      'test-category': categoryRegistry,
     });
 
     expect(result.consolidated.valid).toBe(false);
     expect(result.consolidated.errors.length).toBeGreaterThan(0);
-    expect(result.categories['agent:test-agent'].valid).toBe(true);
+    expect(result.categories['test-category'].valid).toBe(true);
+  });
+
+  it('rejects skill ids that are not schema-legal', () => {
+    const validator = new SkillsRegistryValidator(schemaPath);
+    const invalidRegistry = {
+      ...registry,
+      skills: [{ ...skill, id: 'github__github', name: 'github__github' }],
+    };
+
+    const result = validator.validateRegistries(invalidRegistry, {});
+
+    expect(result.consolidated.valid).toBe(false);
   });
 });
