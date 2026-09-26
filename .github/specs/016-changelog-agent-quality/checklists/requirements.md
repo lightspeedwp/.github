@@ -41,7 +41,7 @@
   - ✅ FR-003: Skill invocation via npm CLI specified; optional REST API wrapper clarified
   - ✅ FR-006: Documentation location and required sections specified exactly
   - ✅ FR-008: "run on every PR that modifies CHANGELOG.md" — testable via workflow logs
-  - ✅ FR-009: Bypass mechanism clarified (automatic by branch type: chore/ and deps/ skip validation)
+  - ✅ FR-009: Bypass mechanism clarified (bot author, docs-only diff, or an explicit `meta:no-changelog` label; branch name is not a bypass)
   - ✅ FR-011: Concurrent execution behavior specified (file-level locks, merge blocks until validation)
   
 - [x] Success criteria are measurable
@@ -62,7 +62,7 @@
   
 - [x] Edge cases are identified
   - ✅ Missing changelog file handling
-  - ✅ Automated commit handling (deps, chores) — now clarified with automatic bypass by branch type
+  - ✅ Automated commit handling (deps, chores) — clarified: a `chore/` or `deps/` branch with a code diff still needs a changelog entry or `meta:no-changelog`
   - ✅ Concurrent skill execution (race conditions) — now clarified with file-level locking strategy
   - ✅ Special characters and Unicode in entries
   - ✅ File system permissions on skills
@@ -112,7 +112,7 @@
 
 **Clarifications Integrated**:
 
-- Q1: Validation bypass mechanism → Automatic by branch type (chore/ and deps/ skip, others require validation)
+- Q1: Validation bypass mechanism → Match the shipped gate: bot author, docs-only diff, or `meta:no-changelog`. Branch-name prefix is not a bypass
 - Q2: Skill invocation patterns → Primary npm CLI commands with optional REST API wrapper
 - Q3: Concurrent execution strategy → File-level locks; merge blocks until validation completes
 

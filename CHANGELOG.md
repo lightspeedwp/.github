@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
@@ -35,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
 - **Stale Pull Requests Self-Update** — Eligible non-draft, non-fork PRs targeting `develop` now merge it in as soon as they fall behind, so nothing stays blocked on staleness alone. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
 - **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
@@ -53,6 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
+- **Local Git Hooks Now Run** — Restored the branch name check before a push, which never ran, and added a warning when hooks are not installed. (#3493)
 - **Graph Path No Longer Escaped for a Guessed Shell** — A plain graph path is passed through unquoted, so the suggested command is correct in any shell. ([#3567](https://github.com/lightspeedwp/.github/pull/3567))
 - **Changelog Merges No Longer Conflict** — The changelog file is union-merged, so a git merge of two branches that each add an entry keeps both instead of conflicting. (#3574)
 - **Issue Types Matched by Signal Strength** — A title naming a subject now classifies by that subject, so a test or compatibility update is no longer filed as a feature. ([#3577](https://github.com/lightspeedwp/.github/issues/3577))
@@ -62,7 +66,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Issue-Type Inference Corrected** — Documentation, integration and compatibility content now lands on its correct issue type instead of a generic default. ([#3568](https://github.com/lightspeedwp/.github/issues/3568))
 - **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
 - **Labelling Keeps Unknown Labels** — The labelling automation no longer removes labels missing from the label list unless they map to an approved label, its dry-run mode now changes nothing, and it applies only valid type labels. (#3564)
-- **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
 - **Metrics Aggregator Tolerates Malformed Artifacts** — Branch-validation metrics now skip a malformed artifact with a warning instead of discarding the whole run. ([#3528](https://github.com/lightspeedwp/.github/issues/3528))
 - **Broken Diagrams Repaired** — 123 diagrams in 36 documents render again; the diagram tidy-up bot now places accessibility titles correctly and no longer edits surrounding text. (#3490)
 - **PR Agent Tests Run Again** — Fixed 6 PR agent test suites that could not load, so 95 more tests now run. (#3472)
@@ -75,6 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate with identical scope.
 - **Bot PR Template Bodies** — Fixed-branch bot PRs (docs regen, maintenance, metrics) now ship full pr_chore sections so the template gate passes on automation-authored PRs.
 - **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
+- **Tests No Longer Write Into the Repository** — Moved three suites' output to temporary folders, and a test run now fails if it changes any repository file. (#3498)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
 - **Windows Markdown Lint Commits Fixed** — Committing markdown changes on Windows no longer fails; the linter is now resolved directly instead of through a command that Windows could not locate. (#3459)

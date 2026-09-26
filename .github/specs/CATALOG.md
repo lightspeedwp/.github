@@ -43,6 +43,14 @@ All specification catalog entries MUST follow this exact column order and naming
 
 ---
 
+## Resolved Specifications
+
+| # | Slug | Title | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
+| 017 | ci-failure-remediation | CI Failure Remediation (Environmental Issues) | Resolved | 2026-09-18 | [./017-ci-failure-remediation/spec.md](./017-ci-failure-remediation/spec.md) |
+
+---
+
 ## Draft Specifications
 
 | # | Slug | Title | Status | Created | Link |
@@ -221,7 +229,7 @@ Currently no archived or deprecated specifications. All numbered specifications 
 
 - **Existing Specifications**: 001-012 (preserved as-is, no renumbering)
 - **Audit Specification**: 013 (this specification catalog refactoring)
-- **Future Numbering**: Next specification = highest current + 1 (014, 015, etc.)
+- **Future Numbering**: Next specification = highest current + 1; check the tables above and the `.github/specs/` folders first
 - **No Reuse Policy**: Archived/deprecated specs keep their numbers; future specs get next available
 
 For details, see [MAINTENANCE.md](./MAINTENANCE.md).
@@ -248,8 +256,8 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Determine next number: current highest is 013, so next is 014
-2. Create directory: `.github/specs/014-{slug}/`
+1. Determine next number: take the highest number in this catalog and in `.github/specs/` (017 at the time of writing) and add 1 (018)
+2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `018-{slug}`)
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
 5. Request approval from @ashley (governance authority)
@@ -258,6 +266,7 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 - **Draft**: New specification pending governance approval
 - **Active**: Approved and in use
+- **Resolved**: Closed because the problem it addressed no longer occurs; kept for the record
 - **Archived**: No longer used; superseded, cancelled, or deprecated; preserved for historical traceability
 
 ---

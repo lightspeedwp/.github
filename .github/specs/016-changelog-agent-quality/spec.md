@@ -12,7 +12,7 @@
 
 ### User Story 1 - Root-Level Convenience Alias for Local Changelog Validation (Priority: P1)
 
-The changelog validation engine (`.github/validation/changelog/`) already runs locally with clear, actionable output and is wired into CI via `.github/workflows/changelog-validation.yml`. What's missing is a root-level `npm run` alias so developers don't need to `cd .github/validation/changelog` first, and confirmation that its existing feedback (error type, line number, fix suggestion) is sufficient without further changes.
+The changelog validation engine (`.github/validation/changelog/`) already runs locally with clear, actionable output and is wired into CI via `.github/workflows/changelog-unified.yml`. What's missing is a root-level `npm run` alias so developers don't need to `cd .github/validation/changelog` first, and confirmation that its existing feedback (error type, line number, fix suggestion) is sufficient without further changes.
 
 **Why this priority**: This is the remaining friction point in an otherwise-complete validation workflow. Adding the alias is low-risk and unblocks the rest of this spec's user stories, which depend on it as their local entry point.
 
@@ -21,7 +21,7 @@ The changelog validation engine (`.github/validation/changelog/`) already runs l
 **Acceptance Scenarios**:
 
 1. **Given** a changelog entry that is too long (>250 chars), **When** developer runs validation locally, **Then** the tool reports "Entry exceeds 250-character limit (256 chars found): '[entry text]...'" with line number and fix suggestion
-2. **Given** a changelog entry with no linked PR/issue, **When** developer runs validation locally, **Then** the tool reports "Entry missing PR/issue link (required format: #123 or PR-456)" with fix suggestion
+2. **Given** a changelog entry with no linked PR/issue, **When** developer runs validation locally, **Then** the tool reports "Entry missing PR/issue link" and, in its fix suggestion, the machine-validated format `#123` (see `data-model.md`; a bare `PR-456` is not recognised by the shipped engine and is still reported missing)
 3. **Given** all valid entries, **When** developer runs validation locally, **Then** the tool exits with code 0 and reports "✅ All entries pass validation"
 4. **Given** mixed valid and invalid entries, **When** developer runs validation, **Then** tool reports all failures with specific guidance for each, allows developer to see all issues before fixing (not fail-fast)
 
@@ -67,13 +67,13 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 **Why this priority**: Changelog labels are part of the broader labeling strategy and must be synchronized with PR routing, automation, and metrics tracking. This integration ensures end-to-end consistency.
 
-**Independent Test**: Can be fully tested by verifying: (1) changelog validation applies correct `meta:changelog-*` labels to PRs, (2) workflow rejects PRs with non-canonical changelog labels, (3) PR template includes changelog-related label guidance, (4) labeling is consistent across all changelog workflows.
+**Independent Test**: Can be fully tested by verifying: (1) changelog validation uses the two canonical labels `meta:needs-changelog` and `meta:no-changelog` from `.github/labels.yml`, (2) workflow rejects PRs carrying non-canonical changelog labels, (3) PR template includes changelog-related label guidance, (4) labeling is consistent across all changelog workflows.
 
 **Acceptance Scenarios**:
 
-1. **Given** a PR with changelog entries, **When** the workflow validates, **Then** it applies label `meta:has-changelog` if all entries pass validation
-2. **Given** a PR with changelog entries that fail validation, **When** the workflow validates, **Then** it applies label `meta:needs-changelog-fix` and blocks merge with clear feedback
-3. **Given** the canonical label set, **When** scanning PR labels, **Then** all changelog-related labels (`meta:has-changelog`, `meta:needs-changelog-fix`, `meta:changelog-*`) are from the canonical set in `.github/labels.yml`
+1. **Given** a PR with changelog entries, **When** the workflow validates, **Then** it clears `meta:needs-changelog` if all entries pass validation
+2. **Given** a PR with changelog entries that fail validation, **When** the workflow validates, **Then** it keeps `meta:needs-changelog` applied and blocks merge with clear feedback
+3. **Given** the canonical label set, **When** scanning PR labels, **Then** every changelog-related label is one of the two that exist in `.github/labels.yml` (`meta:needs-changelog`, `meta:no-changelog`)
 4. **Given** PR processing, **When** the labeling workflow runs, **Then** changelog labels are applied automatically with no manual intervention needed
 
 ---
@@ -94,11 +94,11 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - **FR-002**: Validation tool MUST check changelog entries for: length (≤250 chars), PR/issue linking, formatting consistency (Keep a Changelog format), no implementation details — already implemented in `.github/validation/changelog/rules.json` (8 rules); this FR is a verification/regression check, not new build
 - **FR-003**: Changelog agent MUST have at minimum 3 skills: `validate` (entry validation), `check-links` (PR/issue verification), `merge` (changelog consolidation), each invokable via npm CLI commands (e.g., `npm run changelog:validate`); optional REST API wrapper for external agent integration. `validate` already exists as the engine covered by FR-001; `check-links` and `merge` are the net-new skills this FR requires
 - **FR-004**: Each changelog skill MUST have: unique ID, version, description, triggers, input schema, output schema, error handling specification
-- **FR-005**: Validation failures MUST be clearly reported with: specific error type, location (line number/entry), expected format, actual content, fix suggestion
+- **FR-005**: Validation failures MUST be clearly reported using the canonical `ErrorObject` fields defined in `data-model.md`: `error_code`, `message`, `entry_id`, `line_number`, `suggestion` and `severity`, plus `expected_format` and `actual_value` where the failure concerns a value's format
 - **FR-006**: Changelog documentation MUST exist at `docs/agents/changelog-agent/` with: README.md (overview, quick start), SKILLS.md (skill reference), INTEGRATION.md (workflow integration), TROUBLESHOOTING.md (common issues and fixes), API.md (detailed API documentation)
-- **FR-007**: Changelog workflow MUST apply labels from canonical set (`.github/labels.yml`) with prefix `meta:` for changelog status tracking
-- **FR-008**: Validation workflow MUST run on every PR that modifies CHANGELOG.md and provide feedback via GitHub PR comments or status checks
-- **FR-009**: Workflow MUST block merge if changelog entries fail validation, with automatic bypass for branches matching `chore/` or `deps/` prefixes (no explicit label required; bypass is automatic by branch type)
+- **FR-007**: Changelog workflow MUST use only the two changelog labels that exist in the canonical set in `.github/labels.yml` — `meta:needs-changelog` (a changelog update is required) and `meta:no-changelog` (exempt, refused for high-impact change types). No other changelog label may be applied, because `labels.yml` is a locked file
+- **FR-008**: Validation workflow MUST run on every PR that modifies CHANGELOG.md and provides feedback via GitHub PR comments or status checks, except pull requests the gate never reaches: the `require-gate` job is skipped outright for `imgbot[bot]`, and its in-script author checks skip Dependabot and docs-bot before any file is inspected
+- **FR-009**: Workflow MUST block merge if changelog entries fail validation, with the same bypasses as the shipped gate: the `require-gate` job does not run at all for `imgbot[bot]` (a job-level `if:`, not an in-script check), and its in-script author checks skip Dependabot and docs-bot; then docs-only diffs (every changed file under `docs/**` or ending in `.md`), and the `meta:no-changelog` label. Branch-name prefix is deliberately not a bypass, so a `chore/` branch with a code diff still needs a changelog entry or the label. **Order of tests matters, and there is no conflict with FR-008**: the shipped gate tests `changed.includes("CHANGELOG.md")` and returns `run_validation = true` *before* it evaluates the docs-only exemption, so a pull request that changes only `CHANGELOG.md` is validated and never reaches the `docs/**`/`*.md` test. The author skips come earlier still, so FR-008 holds only for pull requests that reach the file inspection at all: a Dependabot or docs-bot pull request is skipped before any file is examined, and is not validated even if it modifies the root `CHANGELOG.md`. A `CHANGELOG.md` nested under `docs/` is still treated as docs-only, since the guard matches the root path exactly. This ordering is covered by `scripts/workflows/changelog/__tests__/changelog-unified.test.js` ("runs validation when the root changelog changed", "exempts a nested CHANGELOG.md under docs/ as docs-only")
 - **FR-010**: Scripts and validation logic currently scattered across `scripts/validation/`, `agents/changelog-agent/`, and `scripts/workflows/` MUST be reorganized into changelog agent skill directories with clear purpose and no duplication
 - **FR-011**: Changelog operations MUST use a reader/writer protocol: Validate and check-links register active reader markers while reading; Merge and Format first publish writer intent to block new readers, wait for existing readers to finish, then acquire the exclusive write lock. Locks and markers MUST carry owner tokens, process/host identity, leases, and heartbeats so stale state can be recovered without removing an active owner's lock; concurrent Validate operations remain allowed
 
@@ -106,7 +106,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 - **Changelog Entry**: A single line or paragraph in CHANGELOG.md representing a user-facing change; attributes: version, type (feat/fix/breaking), content, PR/issue link, character count
 - **Validation Result**: Output of changelog validation; attributes: entry ID, valid (boolean), errors (array of error objects), warnings (array), fix suggestions
-- **Error Object**: Structured error report; attributes: error_type (length/formatting/linking/clarity), message, location (line number), expected_format, actual_value, fix_suggestion
+- **Error Object**: Structured error report; attributes: error_code (LENGTH, MISSING_LINK, FORMAT, CLARITY, SYNTAX), message, entry_id, line_number, suggestion, severity; optional: field, expected_format, actual_value
 - **Skill Metadata**: Configuration for a changelog skill; attributes: id, version, description, triggers, input_schema, output_schema, error_codes
 
 ## Success Criteria (mandatory)
@@ -128,7 +128,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 ### Session 2026-09-19
 
-- Q1: Validation bypass mechanism → A: Automatic bypass by PR type (chore/ and deps/ branches skip validation; all other branches require changelog validation)
+- Q1: Validation bypass mechanism → A: Match the shipped gate exactly (Dependabot/docs-bot authors, docs-only diffs, or the `meta:no-changelog` label); branch-name prefix is not a bypass
 - Q2: Skill invocation patterns → A: Primary npm CLI commands (`npm run changelog:validate`, etc.); optional REST API wrapper for external agents
 - Q3: Concurrent execution & race conditions → A: File-level locks with merge operations blocking until validation completes (concurrent validate operations allowed)
 
@@ -138,8 +138,8 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - The validation engine at `.github/validation/changelog/` (shipped via PR #3350, #3378) is the canonical implementation and will not be duplicated; this spec extends and re-exposes it rather than replacing it
 - The agentskills.io specification (<https://agentskills.io/specification>) remains the authoritative source for skill metadata structure
 - The prd-agent documentation at `docs/agents/prd-agent/` serves as the style and structure template for changelog agent docs
-- The changelog requirement follows the shipped gate in `.github/workflows/changelog-unified.yml`: it is skipped for Dependabot and docs-bot pull requests and for docs-only diffs (`docs/**` or `*.md`); any other pull request needs a `CHANGELOG.md` update or the `meta:no-changelog` label, and that label is refused for high-impact release-related change types
-- The canonical label set in `.github/labels.yml` already includes changelog-related labels or they will be added as part of this work
+- The changelog requirement follows the shipped gate in `.github/workflows/changelog-unified.yml`, whose tests run in this order: the `require-gate` job is skipped entirely when `github.actor` is `imgbot[bot]`, and its in-script author checks then skip Dependabot and docs-bot; a pull request containing both `meta:needs-changelog` and `meta:no-changelog` fails, as does `meta:no-changelog` on a high-impact release-related change type; a diff containing the root `CHANGELOG.md` is validated; then docs-only diffs (`docs/**` or `*.md`) are skipped, as is `meta:no-changelog`; any other pull request fails, needing a `CHANGELOG.md` update or the label
+- The canonical label set in `.github/labels.yml` already provides `meta:needs-changelog` and `meta:no-changelog`; this spec reuses those two names and invents no new labels, because `.github/labels.yml` is a locked file
 - Node.js and npm are available in all environments where changelog validation runs (local, CI, agent runtime)
 - The changelog agent is a Node.js-based system (consistent with existing agent implementations in the repository)
 - The validation workflow integrates with GitHub Actions and PR status checks (no external CI system required)

@@ -30,7 +30,7 @@ This document captures research findings, design decisions, and best practices f
 **Validation Rules Identified** (from spec and existing docs):
 
 - Entry length: ≤250 characters (user-focused, actionable)
-- Mandatory PR/issue linking: Every entry must link to at least one PR or issue (#NNN or PR-NNN format)
+- Mandatory PR/issue linking: Every entry must link to at least one PR or issue. Only `#NNN` (pull request) and `issues/#NNN` (issue) are resolved by the shipped engine; a bare `PR-NNN` is a human-readable convention that is not machine-validated
 - Formatting: Section headings must match Keep a Changelog structure
 - Clarity: No implementation details (no code snippets, no internal architecture references)
 - Date format: ISO 8601 (YYYY-MM-DD) in release headers
@@ -157,18 +157,19 @@ version and invocation contract use namespaced string entries in the standard
       "valid": false,
       "errors": [
         {
-          "type": "LENGTH",
+          "error_code": "LENGTH",
           "message": "Entry exceeds 250-character limit",
-          "actual": "262 characters",
-          "expected": "≤250 characters",
-          "current_value": "Added support for OAuth2 authentication with provider...",
-          "suggestion": "Shorten entry to focus on user-facing benefit, not implementation details"
+          "actual_value": "262 characters",
+          "expected_format": "≤250 characters",
+          "suggestion": "Shorten entry to focus on user-facing benefit, not implementation details",
+          "severity": "ERROR"
         },
         {
-          "type": "MISSING_LINK",
+          "error_code": "MISSING_LINK",
           "message": "Entry missing required PR/issue link",
-          "expected": "Format: #123 or PR-456",
-          "suggestion": "Add PR link to entry (e.g., '#2845') or create issue if missing"
+          "expected_format": "Format: #123 (or issues/#123 for an issue)",
+          "suggestion": "Add PR link to entry (e.g., '#2845') or create issue if missing",
+          "severity": "ERROR"
         }
       ],
       "warnings": []
@@ -195,7 +196,7 @@ Line 15: Entry exceeds 250-character limit
   Fix: Shorten to focus on user-facing benefit, not implementation
 
 Line 22: Entry missing required PR/issue link
-  Expected: Format #123 or PR-456
+  Expected: Format #123 (or issues/#123 for an issue)
   Fix: Add PR link (e.g., '#2845') or create issue if missing
 
 ✅ Validation complete. Fix issues above and re-run.
@@ -207,7 +208,7 @@ Line 22: Entry missing required PR/issue link
 
 ### 5. Bypass Mechanism for Automated Commits
 
-**Decision**: Automatic bypass by branch type (chore/ and deps/ branches skip validation)
+**Decision**: Match the shipped gate (Dependabot/docs-bot authors, docs-only diffs, or the `meta:no-changelog` label). Branch-name prefix is not a bypass
 
 **Rationale**:
 
@@ -219,22 +220,25 @@ Line 22: Entry missing required PR/issue link
 **Bypass Logic**:
 
 ```javascript
-// In workflow:
-const branchType = branch.split('/')[0]; // Extract type from branch name
-const skipValidation = ['chore', 'deps'].includes(branchType);
+// In workflow, mirroring .github/workflows/changelog-unified.yml.
+// The branch name is deliberately not consulted: a chore/ branch carrying a code
+// diff still needs a changelog entry or the meta:no-changelog label.
+const isBotAuthor = ['dependabot[bot]', 'app/dependabot', 'app/lightspeed-docs-bot'].includes(author);
+const isDocsOnly = changedFiles.length > 0 && changedFiles.every(f => f.startsWith('docs/') || f.endsWith('.md'));
+const skipValidation = isBotAuthor || isDocsOnly || hasNoChangelogLabel;
 
 if (!skipValidation) {
   // Run validation and block merge if invalid
 } else {
   // Skip validation; log bypass reason
-  console.log(`Branch type '${branchType}' bypasses changelog validation`);
+  console.log(`Bypass reason '${bypassReason}' skips changelog validation`);
 }
 ```
 
-**Affected Branch Types**:
+**Bypass Conditions** (as shipped in `changelog-unified.yml`):
 
-- ✅ Skip: `chore/*`, `deps/*`
-- ❌ Require validation: All others (feat, fix, hotfix, release, refactor, docs, test, perf, security, etc.)
+- ✅ Skip: Dependabot and docs-bot authors, docs-only diffs (every changed file under `docs/**` or ending in `.md`), and the `meta:no-changelog` label
+- ❌ Require validation: everything else. Branch-name prefix is **not** a bypass, so `chore/*` and `deps/*` branches still need a changelog entry or `meta:no-changelog` unless their diff is docs-only
 
 **Rationale for Selection**:
 
@@ -260,10 +264,11 @@ if (!skipValidation) {
 
 - Prefer an OS-backed advisory reader/writer lock when the runtime and file
   system provide one.
-- The portable fallback uses an exclusive coordination mutex, a writer-intent
-  file, one active-reader marker per validation, and an exclusive write-lock
-  file. Every file contains a random owner token, PID, hostname, creation time,
-  lease expiry, and last-heartbeat time.
+- The portable fallback uses an exclusive coordination mutex, a separate
+  exclusive recovery mutex, a writer-intent file, one active-reader marker per
+  validation, and an exclusive write-lock file. Every file contains a random
+  owner token, PID, hostname, creation time, lease expiry, and last-heartbeat
+  time.
 - Creation uses exclusive mode (`wx`). The owner refreshes its heartbeat before
   half the lease elapses and removes a file only when its token still matches.
 - On `EEXIST`, acquisition reads the owner metadata. A same-host PID that
@@ -274,9 +279,13 @@ if (!skipValidation) {
   and its heartbeat metadata remains unchanged for an additional recovery
   grace period. Corrupt metadata must likewise remain unchanged beyond that
   grace period.
-- Recovery is an atomic compare-and-remove, never a path-based unlink after a
-  check (two contenders could both pass the check, and the second would delete
-  a new owner's live lock):
+- All contenders that may create, replace, or recover a lock participate in the
+  separate exclusive recovery mutex for the critical section that changes a lock
+  path. Recovery holds that mutex continuously from stale validation through
+  owner-token and inode identity comparison and unlink, including any restore or
+  cleanup. This serialises the complete compare-and-remove operation and is
+  never a path-based unlink after a separate check (two contenders could both
+  pass the check, and the second would delete a new owner's live lock):
   1. Record the stale file's owner token and inode.
   2. `rename()` it to a tombstone unique to this contender
      (`<lock>.stale.<contender-token>`). Rename is atomic, so it moves exactly
@@ -288,9 +297,24 @@ if (!skipValidation) {
   4. Every owner checks that its token is still in the lock file immediately
      before each write, as a fence. An owner that finds its lock missing or
      replaced aborts without writing.
-- The coordination mutex is recovered the same way, so recovering it cannot
-  delete a live mutex either. This prevents an abandoned `.changelog.lock` from
+- The coordination mutex participates in the same recovery protocol. A stale
+  coordination mutex is validated and compared under the recovery mutex before
+  unlink; the recovery mutex is separate from the coordination mutex, so this
+  recovery cannot deadlock. This prevents an abandoned `.changelog.lock` from
   blocking future runs without deleting a live owner's lock.
+- The recovery mutex is itself recovered, or the protocol deadlocks: a process
+  that exits while holding it leaves every later contender unable to enter the
+  protocol at all, so the abandoned `.changelog.recovery.lock` can never be
+  removed. The recovery mutex therefore requires a primitive the operating system
+  releases when the holder exits: an advisory `flock`/`fcntl` lock, or a named
+  mutex or kernel semaphore on Windows. An `O_CREAT | O_EXCL` lock file is **not**
+  one of these — the file survives process exit, so using it would reproduce the
+  deadlock this rule exists to prevent. The portable stat-and-compare fallback
+  used for `.changelog.lock` is likewise not used here. If a platform offers no
+  OS-released primitive, the fallback recovery mutex is not used at all and the
+  operation is refused with a clear error rather than risking an unrecoverable
+  lock. The portable recovery step applies only to lock files whose owner identity
+  and heartbeat are recorded on disk.
 
 **Reader/writer protocol**:
 
@@ -325,29 +349,29 @@ active.
 - Prefix `meta:` distinguishes metadata labels from feature/type labels
 - Labels enable filtering PRs by changelog status in dashboards
 
-**Changelog Labels** (to be added/verified in `.github/labels.yml`):
+**Changelog Labels** (the only two changelog labels in the canonical `.github/labels.yml`):
 
-- `meta:has-changelog` — PR has valid changelog entry(ies); validation passed
-- `meta:needs-changelog` — PR requires changelog entry; missing or will fail validation
-- `meta:needs-changelog-fix` — PR has changelog entries but validation failed; developer action required
-- `meta:changelog-exempt` — PR explicitly exempted from changelog requirement (rare, documented)
+- `meta:needs-changelog` — PR requires a changelog entry; missing, or validation will fail
+- `meta:no-changelog` — PR is exempt from the changelog requirement; refused for high-impact release-related change types
+
+`meta:has-changelog`, `meta:needs-changelog-fix` and `meta:changelog-exempt` are **not** in the canonical set and are not used: passing validation is signalled by *clearing* `meta:needs-changelog`, which avoids adding a label that the locked `labels.yml` does not define.
 
 **Label Application Logic**:
 
 ```javascript
 // After validation:
 if (validationPassed) {
-  applyLabel('meta:has-changelog');
-  removeLabels(['meta:needs-changelog', 'meta:needs-changelog-fix']);
+  removeLabel('meta:needs-changelog');
 } else if (validationFailed) {
-  applyLabel('meta:needs-changelog-fix');
-  removeLabels(['meta:has-changelog']);
+  applyLabel('meta:needs-changelog');
   blockMerge('Changelog entries failed validation');
 }
 
-// For non-user-facing changes (chore, deps):
-if (bypassValidation) {
-  applyLabel('meta:changelog-exempt');
+// The label records an author's explicit, auditable exemption. It is never
+// applied automatically from the branch name, and it is refused for
+// high-impact release-related change types.
+if (explicitlyExempt) {
+  applyLabel('meta:no-changelog');
 }
 ```
 
@@ -409,9 +433,9 @@ docs/agents/changelog-agent/
 | Skill Metadata   | agentskills.io spec                 | Cross-agent compatibility                 |
 | Invocation       | npm CLI primary + REST API optional | Matches repo patterns, developer-friendly |
 | Error Reporting  | Structured JSON + human-readable    | Machine-parseable and user-friendly       |
-| Bypass Strategy  | Automatic by branch type            | Reduces friction for chores/deps          |
+| Bypass Strategy  | Match the shipped gate              | Same behaviour users already have         |
 | Concurrency      | File-level locks on merge           | Prevents corruption                       |
-| Labels           | Canonical set with meta: prefix     | Enables automation and reporting          |
+| Labels           | The two canonical `meta:` labels   | `labels.yml` is locked, so no new labels  |
 | Documentation    | Mirror prd-agent structure          | Consistency and familiarity               |
 
 ---
@@ -447,7 +471,7 @@ docs/agents/changelog-agent/
 
 ## Open Questions Resolved
 
-✅ **Q1: Validation bypass mechanism** → Automatic by branch type
+✅ **Q1: Validation bypass mechanism** → Match the shipped gate, not branch type
 ✅ **Q2: Skill invocation patterns** → npm CLI primary with optional REST API
 ✅ **Q3: Concurrent execution strategy** → File-level locks with merge blocking
 

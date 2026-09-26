@@ -10,6 +10,7 @@
   "$defs": {
     "combinedRegistry": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["agents", "skills"],
       "not": { "anyOf": [{ "required": ["schema"] }, { "required": ["category"] }] },
       "properties": {
@@ -19,6 +20,7 @@
     },
     "agent": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["id", "name", "version", "folder_path", "status"],
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
@@ -35,6 +37,7 @@
     },
     "legacySkill": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["id", "name", "version", "location", "category"],
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
@@ -50,6 +53,7 @@
     },
     "consolidatedSkillsRegistry": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["timestamp", "version", "schema", "summary", "skills"],
       "not": { "anyOf": [{ "required": ["agents"] }, { "required": ["category"] }] },
       "properties": {
@@ -66,6 +70,7 @@
     },
     "categorySkillsRegistry": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["timestamp", "version", "category", "summary", "skills"],
       "not": { "anyOf": [{ "required": ["agents"] }, { "required": ["schema"] }] },
       "properties": {
@@ -82,6 +87,7 @@
     },
     "generatedSkill": {
       "type": "object",
+      "additionalProperties": false,
       "required": [
         "id",
         "name",
@@ -95,12 +101,12 @@
         "used_by"
       ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "name": { "type": "string", "minLength": 1 },
-        "category": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "location": { "type": "string", "pattern": "^(root|[a-z0-9-]+)$" },
         "description": { "type": "string", "minLength": 1 },
-        "type": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["action", "query", "transform", "utility"] },
         "version": { "$ref": "#/$defs/version" },
         "agentskills_compliant": { "type": "boolean" },
         "compliance_violations": { "type": "array", "items": { "type": "string" } },
@@ -109,6 +115,7 @@
     },
     "consolidatedSummary": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["total", "byCategory", "compliant", "compliancePercentage"],
       "properties": {
         "total": { "type": "integer", "minimum": 0 },
@@ -122,6 +129,7 @@
     },
     "categorySummary": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["total", "compliant", "compliancePercentage"],
       "properties": {
         "total": { "type": "integer", "minimum": 0 },

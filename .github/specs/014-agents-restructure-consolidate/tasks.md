@@ -93,7 +93,7 @@
 - [ ] T040 [P] [US2] Document agent package.json requirements in .github/docs/PACKAGE_JSON_REQUIREMENTS.md
 - [x] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
 - [ ] T042 [P] [US2] Create validation script for package.json compliance in scripts/validation/lib/package-json-validator.js
-- [x] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
+- [ ] T043 [US2] Generate summary: total agents audited, conformant count, deviations list
 - [ ] T044 [P] [US2] Create unit tests for structure validation in `scripts/validation/__tests__/structure-validation.test.js`
 
 ---
@@ -104,7 +104,7 @@
 
 **Independent Test**: Run deduplication audit, identify duplicates with similarity scores, create consolidation recommendations
 
-- [ ] T045 [P] [US3] Implement skills catalog scanner in scripts/validation/lib/skills-catalog.js (enumerate agents/[*]/skills/ and skills/)
+- [ ] T045 [P] [US3] Implement skills catalog scanner in scripts/validation/lib/skills-catalog.js (enumerate agents/*/skills/ and skills/)
 - [ ] T046 [US3] Document skills naming convention in .github/docs/SKILLS_NAMING_CONVENTION.md (mandate: {category}/{scope}-{title} pattern)
 - [ ] T047 [P] [US3] Create category subdirectories in skills/ for: validation, audit, reporting, registry, utilities (per Decision 2)
 - [x] T048 [P] [US3] Implement SHA-256 content hashing in scripts/validation/lib/dedup-engine.js
@@ -127,7 +127,7 @@
 **Independent Test**: Generate registry from filesystem, validate schema, check compliance status
 
 - [ ] T058 [P] [US4] Implement skills registry generator in scripts/validation/lib/skills-registry-generator.js
-- [ ] T059 [US4] Scan all agent skills in agents/[*]/skills/ and root skills/ in scripts/validation/lib/skills-scanner.js
+- [ ] T059 [US4] Scan all agent skills in agents/*/skills/ and root skills/ in scripts/validation/lib/skills-scanner.js
 - [ ] T060 [P] [US4] Implement agentskills.io compliance checker in scripts/validation/lib/compliance-checker.js (per Decision 1 research)
 - [ ] T061 [P] [US4] Extract skill metadata (id, name, version, location, type, description) and populate registry
 - [ ] T062 [US4] Generate consolidated skills registry and save to skills/registry.json

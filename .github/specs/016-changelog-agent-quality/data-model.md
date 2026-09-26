@@ -23,13 +23,13 @@
 | `release_date`    | date \| `"Unreleased"` | No | Release date (ISO 8601: YYYY-MM-DD), or the literal `"Unreleased"` | Valid date or `"Unreleased"`                                        |
 | `category`        | enum          | Yes      | Entry type per Keep a Changelog     | One of: Added, Changed, Fixed, Deprecated, Removed, Security               |
 | `content`         | string        | Yes      | User-facing change description      | 1-250 characters, no implementation details                                |
-| `pr_issues`       | array[string] | Yes      | PR/issue references                 | At least one; format: "#123" or "PR-456"                                   |
+| `pr_issues`       | array[string] | Yes      | PR/issue references                 | At least one; only `#123` resolves to a pull request and `issues/#123` to an issue (see below) |
 | `character_count` | integer       | Yes      | Length of `content` field           | ≤250                                                                       |
 | `line_number`     | integer       | Yes      | Current line number in CHANGELOG.md | Positive integer; mutable when entries move or earlier content is inserted |
 
 **Relationships**:
 
-- One-to-many: `ChangelogEntry` → `ValidationError` (one entry can have multiple validation errors)
+- One-to-many: `ChangelogEntry` → `ErrorObject` (one entry can have multiple validation errors)
 - Many-to-many: `ChangelogEntry` ↔ `GitHubPullRequest` (via `pr_issues` links)
 
 **Lifecycle/State Transitions**:
@@ -52,7 +52,7 @@ Only a `VALID` entry reaches `MERGED`.
   "release_date": "2026-09-20",
   "category": "Added",
   "content": "Support for changelog validation in local development environments with clear feedback",
-  "pr_issues": ["#3372", "PR-3373"],
+  "pr_issues": ["#3372", "#3373"],
   "character_count": 86,
   "line_number": 15
 }
@@ -101,8 +101,10 @@ Only a `VALID` entry reaches `MERGED`.
     {
       "entry_id": "sha256:8a798890fe93817163b10b5f474ef2ef",
       "line_number": 15,
-      "error_type": "LENGTH",
-      "message": "Entry exceeds 250-character limit"
+      "error_code": "LENGTH",
+      "message": "Entry exceeds 250-character limit",
+      "suggestion": "Shorten entry to focus on user-facing benefit, not implementation details",
+      "severity": "ERROR"
     }
   ],
   "warnings": [],
@@ -158,7 +160,7 @@ Only a `VALID` entry reaches `MERGED`.
 
 | Field           | Type               | Required | Description                               | Validation                                                                                  |
 | --------------- | ------------------ | -------- | ----------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `name`          | string             | Yes      | Skill identifier and directory name       | 1-64 lowercase alphanumeric/hyphen characters; no leading, trailing, or consecutive hyphens |
+| `name`          | string             | Yes      | Skill identifier and directory name       | 1-64 lowercase alphanumeric/hyphen characters; no leading, trailing, or consecutive hyphens; must equal the containing directory name, as the Agent Skills specification requires |
 | `description`   | string             | Yes      | What the skill does and when to use it    | 1-1024 characters                                                                           |
 | `license`       | string             | No       | Licence name or bundled licence reference | Non-empty when present                                                                      |
 | `compatibility` | string             | No       | Environment requirements                  | 1-500 characters when present                                                               |
@@ -212,7 +214,10 @@ metadata:
 
 **Validation Rules**:
 
-- If changelog entry has `pr_issues: ["#3372"]`, that PR must exist and be merged (state = merged)
+- If a `pr_issues` reference resolves to a pull request, that PR must exist and be merged (state = merged)
+- If a `pr_issues` reference resolves to an issue, the issue must exist; an issue has no merged state, so any state (open or closed) is valid
+- Only `#123` and `issues/#123` are resolved today. The shipped engine matches `/#(\d+)/` and `/issues\/#(\d+)/`, so a bare `PR-456` matches neither and is counted as no link at all rather than as a valid one
+- A full markdown link (`[PR-456](https://github.com/lightspeedwp/.github/pull/456)`) satisfies only the non-empty-target check in `checkLinkValidity`; it is still not resolved to a pull request, because neither regex matches a `/pull/456` path. Until the engine gains a `/pull/(\d+)/` matcher, only the `#123` form proves a reference exists and is merged
 - Link validation happens in `changelog-check-links` skill
 - Invalid links are reported as MISSING_LINK errors
 
@@ -223,13 +228,13 @@ metadata:
 ```
 ChangelogEntry
   ├─ id, version, category, content, pr_issues
-  ├── 1-to-many → ValidationError
+  ├── 1-to-many → ErrorObject
   └── many-to-1 → ValidationResult
 
 ValidationResult
   ├─ id, timestamp, valid, entries_total, entries_valid
   ├── 1-to-many → ErrorObject
-  └── many-to-1 → Skill (via skill_version)
+  └── many-to-1 → Skill (via skill_id and skill_version)
 
 ErrorObject
   ├─ error_code, message, entry_id, suggestion
@@ -237,7 +242,7 @@ ErrorObject
 
 SkillMetadata
   ├─ id, version, inputs, outputs, error_codes
-  └── 1-to-many → ValidationResult (via skill_version)
+  └── 1-to-many → ValidationResult (via skill_id and skill_version)
 
 GitHubPullRequest (external)
   └── linked-from → ChangelogEntry (via pr_issues)
@@ -253,8 +258,8 @@ GitHubPullRequest (external)
 | ------------------------- | ---------- | -------------------------------------------------------------------- | ---------------- |
 | Content length            | Business   | `len(content) ≤ 250`                                                 | SC-001           |
 | PR/issue link             | Business   | `pr_issues.length ≥ 1`                                               | FR-002           |
-| Valid PR/issue format     | Business   | Format matches `#\d+` or `PR-\d+`                                    | FR-002           |
-| PR must exist             | Business   | Linked PR must be merged (open, draft or closed-unmerged are invalid) | Best practice    |
+| Valid PR/issue format     | Business   | Format matches `#\d+` (pull request) or `issues/#\d+` (issue); a bare `PR-NNN` is not resolved | FR-002           |
+| Merged PR check           | Business   | Applies to pull-request references only: a linked PR must be merged (open, draft or closed-unmerged are invalid). Issue references are exempt because an issue has no merged state | Best practice    |
 | No implementation details | Business   | Scan for code snippets, function names, API details                  | Clarity rule     |
 | Valid category            | Structural | Must be one of: Added, Changed, Fixed, Deprecated, Removed, Security | Keep a Changelog |
 
