@@ -20,6 +20,7 @@ import os from 'os';
 import path from 'path';
 import {
   analyseContent,
+  run,
   findFrontmatterRange,
   computeFenceMask,
   parseArgs,
@@ -451,6 +452,39 @@ describe('analyseContent', () => {
         }
       }
     });
+  });
+});
+
+describe('run() path containment', () => {
+  // --fix writes in place and --paths-from is operator-supplied, so a list
+  // holding an absolute path or a ../ segment must not be able to rewrite
+  // files outside the repository.
+  test('refuses a path that resolves outside the repository', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-escape-'));
+    const list = path.join(dir, 'list.txt');
+    fs.writeFileSync(list, '/etc/passwd\n');
+    expect(() => run({ cwd: dir, pathsFrom: list, fix: true, check: false })).toThrow(
+      /outside the repository/
+    );
+  });
+
+  test('refuses a ../ escape', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-escape-'));
+    const list = path.join(dir, 'list.txt');
+    fs.writeFileSync(list, '../outside.md\n');
+    expect(() => run({ cwd: dir, pathsFrom: list, fix: true, check: false })).toThrow(
+      /outside the repository/
+    );
+  });
+
+  test('accepts a path inside the repository', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-inside-'));
+    const list = path.join(dir, 'list.txt');
+    fs.writeFileSync(path.join(dir, 'a.md'), doc('# A', '', PHRASE, LINK, '', PHRASE, LINK));
+    fs.writeFileSync(list, 'a.md\n');
+    const report = run({ cwd: dir, pathsFrom: list, fix: true, check: false });
+    expect(report.files).toBe(1);
+    expect(fs.readFileSync(path.join(dir, 'a.md'), 'utf8').match(/Built by 🧱/g)).toHaveLength(1);
   });
 });
 

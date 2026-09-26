@@ -408,8 +408,28 @@ export function parseArgs(argv) {
  * @param {object} options - Parsed CLI options
  * @returns {object} Report
  */
+/**
+ * Is `target` the repository root itself, or inside it?
+ *
+ * Used to keep an operator-supplied path list from escaping the repository.
+ * Compares resolved paths with a trailing separator so a sibling directory
+ * sharing a name prefix (`/repo-backup` vs `/repo`) is not treated as inside.
+ *
+ * @param {string} root - Resolved repository root
+ * @param {string} target - Resolved candidate path
+ * @returns {boolean} True when target is root or beneath it
+ */
+function isInside(root, target) {
+  if (target === root) {
+    return true;
+  }
+  const prefix = root.endsWith(path.sep) ? root : root + path.sep;
+  return target.startsWith(prefix);
+}
+
 export function run(options) {
   const cwd = options.cwd;
+  const repoRoot = path.resolve(cwd);
 
   let files;
   if (options.pathsFrom) {
@@ -429,7 +449,15 @@ export function run(options) {
 
   const findings = [];
   for (const relPath of files) {
-    const abs = path.join(cwd, relPath);
+    const abs = path.resolve(repoRoot, relPath);
+    // A --paths-from list is operator-supplied and --fix writes in place, so
+    // refuse anything that resolves outside the repository. Without this an
+    // absolute path or a ../ segment in the list would let a malformed batch
+    // file rewrite arbitrary readable files. Only enforced for an explicit
+    // list; git-derived paths are already repo-relative by construction.
+    if (options.pathsFrom && !isInside(repoRoot, abs)) {
+      throw new Error(`Refusing path outside the repository: ${relPath} (resolved to ${abs})`);
+    }
     let content;
     try {
       content = fs.readFileSync(abs, 'utf8');
