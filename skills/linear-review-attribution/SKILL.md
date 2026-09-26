@@ -21,13 +21,13 @@ Use this skill when you are about to:
 Do not use it for ordinary commits, local reviews, or anything outside a pull
 request.
 
-## The One Command
+## Emitting the block
 
-Emit the comment body with the emitter and pipe it to `gh`. Never hand-write the
-`linear:extension` block: the emitter validates the contract (integer `level`
-1-4, 40-character `sha`, at most 8 explanations of at most 200 characters, model
-at most 200 characters) and fails loudly when something is wrong. A block that is
-invalid is not rejected by Linear — it is silently ignored, with no feedback.
+Never hand-write the `linear:extension` block: the emitter validates the
+contract (integer `level` 1-4, 40-character `sha`, at most 8 explanations of at
+most 200 characters, model at most 200 characters) and fails loudly when
+something is wrong. A block that is invalid is not rejected by Linear — it is
+silently ignored, with no feedback.
 
 ```bash
 PR_FILES=$(gh pr diff --name-only | paste -sd,)
@@ -38,13 +38,48 @@ node scripts/automation/linear-review-extension.cjs \
   --agent claude \
   --model "Opus 4.5" \
   --sha "$PR_SHA" \
-  --visible \
+  --visible
+```
+
+### Preferred: prepend it to the comment you already post
+
+Most review runs end with a comment anyway. Put the block at the **top** of that
+comment and post it once:
+
+```bash
+node scripts/automation/linear-review-extension.cjs \
+  --files "$PR_FILES" --agent claude --model "Opus 4.5" --sha "$PR_SHA" \
+  > /tmp/linear-extension.md
+
+# then compose your review, with the block above it, and post that one comment
+```
+
+This is the default because it leaves exactly one comment carrying the
+attribution, and editing it on a later push updates the attribution in place.
+Linear reads the block from a pull request comment, a review, or a review
+comment, so it does not need to live in a comment of its own.
+
+### Alternative: post it as its own comment
+
+```bash
+node scripts/automation/linear-review-extension.cjs \
+  --files "$PR_FILES" --agent claude --model "Opus 4.5" --sha "$PR_SHA" \
   | gh pr comment --body-file -
 ```
 
-To add human-readable context, write your prose to a temporary file and append
-the emitter's output to it, then pass that file to `gh pr comment --body-file`.
-Keep the marker and the `linear:extension` block intact.
+`gh pr comment` **only ever creates a new comment.** It has no update mode, so
+this form is **create-only**: run it once per pull request, not once per push,
+or it leaves a trail of near-identical comments. If you need a standalone
+comment to track new commits, delete the previous one first:
+
+```bash
+gh api "repos/{owner}/{repo}/issues/{pr}/comments" --paginate \
+  --jq '.[] | select(.body | contains("lightspeed-linear-review")) | .id' \
+  | xargs -r -I{} gh api --method DELETE "repos/{owner}/{repo}/issues/comments/{}"
+```
+
+Note this filters on the marker alone, without the bot-author check the workflow
+uses, because your own comment is authored by you, not by a bot.
 
 ## Choosing the Agent
 
@@ -96,10 +131,11 @@ change. Add context in prose instead.
 - Never pass a `level` or a `sha` that the emitter did not produce.
 - Never pass another tool's `--agent` or `--model` to make the comment look like
   it came from a different agent.
-- Re-run the emitter for every new push; the score is tied to `headRefOid`.
-- Keep the `<!-- lightspeed-linear-review -->` marker in the body. The workflow
-  finds its own comment by that marker to update it in place, and without it you
-  will leave a trail of duplicate comments.
+- Re-run the emitter whenever the head commit changes; the score is tied to
+  `headRefOid`. Reuse your existing comment rather than adding another one.
+- Keep the `<!-- lightspeed-linear-review -->` marker. The workflow finds its own
+  comment by that marker, and it is how you find and replace your previous block
+  when you update.
 
 ## Not an Escape Hatch
 

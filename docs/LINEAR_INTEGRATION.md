@@ -64,8 +64,16 @@ integration. Do not plan work that depends on them:
 | Private-team issue sharing          | Enterprise                                                                                       |
 | Owner-only "Workspace restrictions" | Enterprise                                                                                       |
 
-Every step in this guide requires a **workspace Admin**. If a setting is not
-visible to you, ask a workspace Admin.
+Which steps need a **workspace Admin** and which do not:
+
+| Step                                                           | Needs                                                       |
+| -------------------------------------------------------------- | ----------------------------------------------------------- |
+| Install the GitHub App, grant code access, pick repositories   | **GitHub organisation owner** (GitHub's rule, not Linear's) |
+| Enable the integration, Code Intelligence, Triage Intelligence | **Workspace Admin**                                         |
+| Connect your own GitHub account, turn on your own code reviews | **You** — self-service, no Admin needed                     |
+
+So a reviewer can be reading and reviewing in Linear on their own without any
+Admin involvement. Ask an Admin only for the workspace-level switches.
 
 ## Reviews setup
 
@@ -155,11 +163,29 @@ set. Put `visible` on each plugin object, not on the block.
 
 ### Emitting an attributed comment
 
-Any local AI agent emits its comment through one command:
+Any local AI agent produces the block with one command:
 
 ```bash
-node scripts/automation/linear-review-extension.cjs --files <paths> --agent claude --model "<model>" --sha <sha> | gh pr comment --body-file -
+node scripts/automation/linear-review-extension.cjs --files <paths> --agent claude --model "<model>" --sha <sha>
 ```
+
+**Prepend it to the comment you already post.** Linear reads the block from a
+pull request comment, a review, or a review comment, so it does not need a
+comment of its own. Prepending leaves one comment, and editing that comment on
+a later push updates the attribution in place.
+
+```bash
+node scripts/automation/linear-review-extension.cjs \
+  --files "$PR_FILES" --agent claude --model "Opus 4.5" --sha "$PR_SHA" \
+  > /tmp/linear-extension.md
+# compose your review with that block at the top, then post that one comment
+```
+
+`gh pr comment` can also post the block on its own, but it is **create-only** —
+it has no update mode, so use it once per pull request rather than once per push,
+or it leaves a trail of near-identical comments. The skill
+`skills/linear-review-attribution/SKILL.md` has the delete-then-repost variant
+for when a standalone comment really is wanted.
 
 `onBehalfOf` is what makes Linear show the agent's name and avatar next to the
 comment. The script in `scripts/automation/linear-review-extension.cjs` is the
@@ -208,15 +234,16 @@ Linear reads `.gitattributes` to group files in a pull request diff and to count
 **implementation** lines separately from tests and documentation. Choose **File
 type** grouping in a pull request to see the result.
 
-| Attribute               | Paths in this repository                                                                                                                            |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `review-generated`      | `coverage/**`, `node_modules/**`, `website/dist/**`, `logs/**`, `.github/reports/**`, `metrics-artifacts/**`, `package-lock.json`, minified bundles |
-| `review-assets`         | `assets/**`, `website/public/assets/**`, `website/public/fonts/**`, images and fonts                                                                |
-| `review-test`           | `**/__tests__/**`, `tests/**`, `*.test.js`, `*.spec.js`, `*.bats`                                                                                   |
-| `review-documentation`  | `docs/**`, `cookbook/**`, and every other `*.md`                                                                                                    |
-| `review-agent-guidance` | `AGENTS.md`, `CLAUDE.md`, `.github/custom-instructions.md`, `agents/**`, `skills/**`, `prompts/**`, `instructions/**`, `workflows/**`               |
-| `review-localization`   | Reserved; no locale trees exist yet                                                                                                                 |
-| `review-implementation` | Everything else — workflows, scripts, config, schemas                                                                                               |
+| Attribute               | Paths in this repository                                                                                                                                                                            |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `review-generated`      | `coverage/**`, `node_modules/**`, `website/dist/**`, `logs/**`, `.github/reports/**`, `metrics-artifacts/**`, `package-lock.json`, minified bundles                                                 |
+| `review-assets`         | `assets/**`, `website/public/assets/**`, `website/public/fonts/**`, images and fonts                                                                                                                |
+| `review-test`           | `**/__tests__/**`, `tests/**`, `*.test.js`, `*.spec.js`, `*.bats`                                                                                                                                   |
+| `review-documentation`  | `docs/**`, `cookbook/**`, and every other `*.md`                                                                                                                                                    |
+| `review-agent-guidance` | `AGENTS.md`, `CLAUDE.md`, `.github/custom-instructions.md`, `.github/copilot-instructions.md`, `.github/instructions/**`, `agents/**`, `skills/**`, `prompts/**`, `instructions/**`, `workflows/**` |
+
+| `review-localization` | Reserved; no locale trees exist yet |
+| `review-implementation` | Everything else — workflows, scripts, config, schemas |
 
 ### Why each file gets exactly one category
 
@@ -315,13 +342,15 @@ suggestion settings.
 > ⚠️ **Read this before enabling it on this organisation.**
 >
 > GitHub issues sync into Linear automatically, so Triage Intelligence runs on
-> **every** issue this repository opens. But `.github/labels.yml` and
-> `.github/issue-types.yml` are **locked** canonical configuration: 158 labels
-> across 8 families and 24 issue types, mirrored into organisation settings and
-> consumed by labelling automation, metrics, and agent routing. An auto-applied
-> suggestion that renames or re-families a label corrupts label history across
-> 300+ issues and PRs, and breaks the labeler and agent routers at the same
-> time.
+> **every** issue this repository opens. An auto-applied label does not change
+> the label definitions in `.github/labels.yml` — it puts that label **on an
+> issue**, and that is the risk. Labels are the routing key for this
+> organisation: 158 labels across 8 families and 24 issue types, mirrored into
+> organisation settings and consumed by the labeler, metrics, and agent
+> routing. A wrong label on an issue steers it to the wrong team and the wrong
+> automation, and skews the metrics that report on all of it. A one-off
+> mislabel is a five-second fix; a batch of them is a cleanup across 300+
+> issues and PRs.
 
 Therefore, when enabling Triage Intelligence:
 

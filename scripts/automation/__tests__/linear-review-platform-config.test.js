@@ -81,6 +81,13 @@ describe('.gitattributes review categories', () => {
     ['instructions/languages.instructions.md', 'review-agent-guidance'],
     ['agents/reviewer-agent/agent.md', 'review-agent-guidance'],
     ['prompts/prompts.md', 'review-agent-guidance'],
+    // Repo-local AI agent instructions. These were classified as documentation,
+    // which put them in the wrong Linear review group and inflated the
+    // documentation share of every pull request that touched them.
+    ['.github/custom-instructions.md', 'review-agent-guidance'],
+    ['.github/copilot-instructions.md', 'review-agent-guidance'],
+    ['.github/instructions/agent-spec.instructions.md', 'review-agent-guidance'],
+    ['.github/instructions/README.md', 'review-agent-guidance'],
     ['coverage/lcov.info', 'review-generated'],
     ['package-lock.json', 'review-generated'],
     ['.github/reports/metrics/x.json', 'review-generated'],
@@ -139,6 +146,37 @@ describe(`${WORKFLOW_PATH} attribution honesty`, () => {
         continue;
       }
       expect(use).toMatch(/@[0-9a-f]{40}$/);
+    }
+  });
+});
+
+/**
+ * `gh pr comment` only ever creates a comment. It has no update mode, so any
+ * documentation that pipes the emitter into it and also claims the block is
+ * updated in place will leave a trail of near-identical comments on every push.
+ * The skill claimed exactly that, so the contract is asserted here to stop the
+ * two documents drifting apart again.
+ */
+describe('documented local publishing command matches its actual behaviour', () => {
+  const DOCS = ['docs/LINEAR_INTEGRATION.md', 'skills/linear-review-attribution/SKILL.md'];
+
+  test.each(DOCS)('%s uses the emitter', (file) => {
+    const contents = fs.readFileSync(path.join(REPO_ROOT, file), 'utf8');
+
+    expect(contents).toContain('scripts/automation/linear-review-extension.cjs');
+  });
+
+  test.each(DOCS)('%s offers prepending to an existing comment', (file) => {
+    const contents = fs.readFileSync(path.join(REPO_ROOT, file), 'utf8');
+
+    expect(contents).toMatch(/prepend/i);
+  });
+
+  test.each(DOCS)('%s labels the standalone gh pr comment form as create-only', (file) => {
+    const contents = fs.readFileSync(path.join(REPO_ROOT, file), 'utf8');
+
+    if (contents.includes('gh pr comment')) {
+      expect(contents).toMatch(/create-only/i);
     }
   });
 });

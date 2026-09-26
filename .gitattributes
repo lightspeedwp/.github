@@ -123,6 +123,8 @@ AGENTS.md review-agent-guidance -review-implementation -review-test -review-docu
 CLAUDE.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
 GEMINI.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
 .github/custom-instructions.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+.github/copilot-instructions.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+.github/instructions/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
 agents/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
 skills/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
 prompts/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
