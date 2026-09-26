@@ -1,22 +1,22 @@
 ---
 file_type: "documentation"
 title: "Husky Pre-commit Hooks"
-description: "Using Husky to enforce quality gates (linting/tests) before commits"
+description: "Using Husky for local linting and branch validation"
 version: "1.0.0"
-last_updated: "2026-09-22""
+last_updated: "2026-09-25"
 owners: ["LightSpeed DevOps"]
 tags: ["husky", "pre-commit", "lint-staged", "automation", "linting"]
 ---
 
 # Husky Pre-commit Hooks
 
-We use **Husky** to run linting and formatting checks locally before code is committed, serving as a "first line" quality gate. This ensures that by the time code reaches CI, it has already passed basic standards.
+We use **Husky** to run lint-staged before commits and validate branch names before pushes, serving as a first-line quality gate. Full tests and integration checks run in CI.
 
 ## Status and Rationale
 
-**Status:** *Fully implemented and active.* Husky automatically installs when you run `npm install` and provides pre-commit and pre-push hooks to maintain code quality.
+**Status:** *Fully implemented and active.* Husky automatically installs when you run `npm install`, providing pre-commit linting and pre-push branch validation.
 
-**Why Husky:** Running checks locally speeds up feedback. It prevents "easy" issues (like code style or obvious test failures) from ever reaching the repo, which reduces CI failures and iteration time. This aligns with our goal that *"files are linted properly and tests pass"* before pushing.
+**Why Husky:** Running checks locally speeds up feedback. It catches style issues before commit and invalid branch names before push, while CI remains responsible for the full test suite.
 
 ## Installation
 
@@ -90,22 +90,25 @@ This runs lint-staged, which processes only your staged files according to the c
 
 ## Pre-push Hook
 
-Our pre-push hook is defined in **`.husky/pre-push`** and runs the full test suite before allowing a push to the remote repository:
+Our pre-push hook is defined in **`.husky/pre-push`** and validates the branch name before allowing a push to the remote repository:
 
 ```bash
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Run tests before push
-npm test
+#!/usr/bin/env sh
+node lib/hooks/pre-push "$@"
 ```
 
-This ensures that all tests pass before code is shared with the team. The hook runs:
+If the branch name does not follow the naming strategy, the push is aborted. The full test suite runs in CI, not in this hook.
 
-- JavaScript/TypeScript unit tests (Jest)
-- Any other configured test suites
+### Hooks not running
 
-If tests fail, the push is aborted and you must fix the issues before trying again.
+`core.hooksPath` is `.husky/_`, which only `npm run prepare` creates. After `npm ci --ignore-scripts` (worktrees, bots) that directory is missing and Git runs **no hooks, without warning**. Check and fix:
+
+```bash
+npm run hooks:check
+npm run prepare
+```
+
+`npm test` runs the same check first and prints a warning when hooks are missing.
 
 ## Workflow Overview
 
@@ -120,7 +123,7 @@ flowchart LR
     D -->|Yes| F[Commit Created]
     F --> G[git push]
     G --> H{Pre-push Hook}
-    H -->|Run Tests| I{Tests Pass?}
+    H -->|Validate Branch Name| I{Branch Name Valid?}
     I -->|No| J[Push Aborted]
     I -->|Yes| K[Push to Remote]
     E --> L[Fix Issues]
@@ -152,7 +155,7 @@ Even in these cases, ensure CI passes before merging to main branches.
 The pre-commit and pre-push hooks run subsets of what CI does:
 
 - **Pre-commit**: Runs linting and formatting on staged files
-- **Pre-push**: Runs the full test suite
+- **Pre-push**: Validates the branch name; the full test suite runs in CI
 - **CI**: Runs everything (linting, tests, builds, integration tests)
 
 This multi-layered approach provides:
@@ -220,19 +223,19 @@ If lint-staged fails:
    git commit -m "Your message"
    ```
 
-### Test Failures on Push
+### Branch Validation Failure on Push
 
 If the pre-push hook fails:
 
-1. Run tests locally to see detailed output:
+1. Run the branch-name validator locally:
 
    ```bash
-   npm test
+   npm run validate:branch-name -- --current
    ```
 
-2. Fix failing tests
+2. Rename the branch to match the repository naming strategy
 
-3. Commit fixes and push again
+3. Push again
 
 ## Setup Reference (for Maintainers)
 
@@ -255,11 +258,8 @@ EOF
 
 # Create pre-push hook
 cat > .husky/pre-push << 'EOF'
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Run tests before push
-npm test
+#!/usr/bin/env sh
+node lib/hooks/pre-push "$@"
 EOF
 
 # Make hooks executable
@@ -372,8 +372,9 @@ npm run lint:pkg-json # npmpackagejsonlint
 # Run the pre-push hook manually
 .husky/pre-push
 
-# This will run: npm test
-# All tests must pass
+# With no ref-update records on stdin this falls back to the checked-out branch.
+# A real `git push` supplies one record per ref, and the hook validates every
+# branch in that push. The full test suite runs in CI, not in this hook.
 ```
 
 ---
@@ -484,26 +485,17 @@ rm bad-syntax.js
 ### Scenario 3: Test Pre-push Hook
 
 ```bash
-# Break a test intentionally
-cat > test-break.test.js << 'EOF'
-test('intentional failure', () => {
-  expect(true).toBe(false);
-});
-EOF
+# Create a branch that violates the naming strategy
+git switch -c feature/Invalid_Name
 
-git add test-break.test.js
-git commit -m "test: intentional test failure"
+# Run the hook directly
+.husky/pre-push
 
-# Attempt to push (will trigger pre-push hook)
-git push origin develop
-
-# Expected: Pre-push hook runs npm test
-# Expected: Test fails, push is blocked
-# Result: You see test output
+# Expected: branch validation fails with status 1
 
 # Clean up
-git reset HEAD~1 test-break.test.js
-rm test-break.test.js
+git switch -
+git branch -D feature/Invalid_Name
 ```
 
 ---
@@ -649,7 +641,7 @@ time npm run lint:all
 | -------------------- | ---------------------------------- | ------------------------------- |
 | **Quick check**      | `npm run lint:all`                 | All linters pass                |
 | **Pre-commit test**  | `npx lint-staged --debug`          | Shows files that will be linted |
-| **Pre-push test**    | `npm test`                         | All tests pass                  |
+| **Pre-push test**    | `.husky/pre-push`                  | Validates the current branch    |
 | **Manual hook test** | `.husky/pre-commit`                | Runs without errors             |
 | **Debug hook**       | `HUS_DEBUG=* git commit -m "test"` | Shows Husky debug output        |
 | **Verify install**   | `npm list husky`                   | Shows <husky@9.x.x>             |
