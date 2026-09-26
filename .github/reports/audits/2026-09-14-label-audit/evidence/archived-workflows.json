@@ -1,0 +1,16 @@
+{
+  "archived_workflows": [
+    "batch-label-prs.yml",
+    "issue-labeling-automation.yml",
+    "label-audit-report.yml",
+    "labeling-governance.yml",
+    "labeling.yml",
+    "manage-blocking-status-labels.yml",
+    "meta-labels-sync.yml",
+    "openspec-sync-labels.yml",
+    "openspec-validate-labels.yml",
+    "remediate-bare-labels.yml",
+    "validate-issue-labels.yml"
+  ],
+  "count": 11
+}
