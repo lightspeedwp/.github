@@ -132,16 +132,16 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 - [ ] Audit-only test completed
 - [ ] Root cause identified
 
-**Tentative Classification**: 🟡 ENVIRONMENTAL (likely infrastructure side effect or develop branch baseline issue)  
+**Tentative Classification**: {{tentative_classification_4}}  
 **Remediation**: Separate infrastructure investigation  
 **Effort Estimate**: Low (diagnostic work; implementation depends on findings)  
 **Owner**: @[infra-team] (infrastructure/automation)  
 **Target Date**: {{target_window}}
 
 **What This Means for Review**:
-- Classification being confirmed; likely not audit-related
+- {{category_4_review_note}}
 - Investigation details will be posted as follow-up comment
-- Does not block audit PR merge once classified as environmental
+- {{category_4_merge_effect}}
 
 ---
 
@@ -253,6 +253,13 @@ Example: *"For Changelog validation, I think we should compare against a specifi
 ---
 
 ## Contract Validation Rules
+
+**A category awaiting investigation has no classification to assert.** The comment
+either omits it, or the whole comment is withheld until the investigation
+completes. "Post it now and refine later" is not permitted: a provisional
+classification reads to a reviewer as a settled one. A `{{tentative_classification}}`
+placeholder is not a classification — it must be replaced with a real one, or the
+category dropped, before posting.
 
 When posting this comment, every one of these must be true. They are not
 assertions about any particular pull request; work them out from the evidence you

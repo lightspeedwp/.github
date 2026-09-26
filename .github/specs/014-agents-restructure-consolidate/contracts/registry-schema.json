@@ -101,12 +101,12 @@
         "used_by"
       ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "name": { "type": "string", "minLength": 1 },
-        "category": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "location": { "type": "string", "pattern": "^(root|[a-z0-9-]+)$" },
         "description": { "type": "string", "minLength": 1 },
-        "type": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["action", "query", "transform", "utility"] },
         "version": { "$ref": "#/$defs/version" },
         "agentskills_compliant": { "type": "boolean" },
         "compliance_violations": { "type": "array", "items": { "type": "string" } },

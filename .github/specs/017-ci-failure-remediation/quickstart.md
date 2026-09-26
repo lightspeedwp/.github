@@ -47,15 +47,17 @@ find . -name "*changelog*validator*" -o -name "*validate*changelog*" -type f
 ```bash
 cd /home/user/.github
 # Example (adjust path based on actual script location):
-# NOTE: the root `validate:changelog` script runs the changelog *safety audit*
+# The root `validate:changelog` script runs the changelog *safety audit*
 # (scripts/validation/validate-changelog-safety.js), which reports repository-wide
 # statistics. It cannot establish an entry-level pass/fail baseline. Use the
-# feature-016 engine, which reports per-entry results:
+# feature-016 engine, which reports per-entry results.
+#
+# Text output, not JSON: the count and the cross-branch diff below read this file,
+# so the format written here must match the format they parse.
 set -o pipefail
 node .github/validation/changelog/bin/validate.js \
-  --changelog-path CHANGELOG.md --output json \
-  | tee /tmp/develop-changelog-results.json
-# OR: node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.md --output text
+  --changelog-path CHANGELOG.md --output text \
+  | tee /tmp/develop-changelog-results.txt
 
 # Count compliant entries (look for "✓" or "PASS" in output)
 grep -c "✓\|PASS\|compliant" /tmp/develop-changelog-results.txt
@@ -69,7 +71,11 @@ grep -c "✓\|PASS\|compliant" /tmp/develop-changelog-results.txt
 # audit/governance-audit-implementation (plan.md, "Branch"). Comparing against
 # the specification branch would not establish whether that PR introduced them.
 git checkout audit/governance-audit-implementation
-npm run validate:changelog 2>&1 | tee /tmp/audit-changelog-results.txt
+# Same engine, same format and same output path shape as the develop run, so the
+# two files are comparable line for line.
+node .github/validation/changelog/bin/validate.js \
+  --changelog-path CHANGELOG.md --output text \
+  | tee /tmp/audit-changelog-results.txt
 
 # Count compliant entries
 grep -c "✓\|PASS\|compliant" /tmp/audit-changelog-results.txt
@@ -165,16 +171,12 @@ for file in "${FAILING_FILES[@]}"; do
   echo "=== Validating $file on develop ==="
   git show origin/develop:"$file" > /tmp/mermaid-develop.md
   
-  # Mermaid validation: no `validate:mermaid` npm script exists, so this step
-  # cannot yet produce evidence. Until it is implemented, record the category as
-  # UNVERIFIED rather than substituting a command that does not run. pipefail is
-  # required so a missing script cannot be masked by tee exiting 0.
+  # The Mermaid validator is `validate:mermaid-syntax`; there is no
+  # `validate:mermaid` script. pipefail is required so a nonzero exit is not
+  # masked by tee exiting 0.
   set -o pipefail
-  if npm run validate:mermaid --silent >/dev/null 2>&1; then
-    npm run validate:mermaid /tmp/mermaid-develop.md 2>&1 | tee /tmp/mermaid-develop-result.txt
-  else
-    echo "UNVERIFIED: validate:mermaid is not implemented; classification cannot be made"
-  fi
+  npm run validate:mermaid-syntax 2>&1 | tee /tmp/mermaid-develop-result.txt
+  echo "mermaid syntax exit: ${PIPESTATUS[0]:-$?}"
 done
 
 # Compare with audit branch results (should have same errors)
@@ -353,15 +355,12 @@ cd /home/user/.github
 git status
 # Should show you're on audit/governance-audit-implementation (PR #3367's branch)
 
-# Agent spec validation: no `validate:agent-spec` npm script exists, so this
-# step cannot yet produce evidence. Record the category as UNVERIFIED rather
-# than substituting a command that does not run. pipefail stops tee masking it.
+# Agent spec validation is `validate:agents` (agent frontmatter); there is no
+# `validate:agent-spec` script. A nonzero exit is a real finding, not a
+# missing command, so pipefail is required for the status to survive tee.
 set -o pipefail
-if npm run validate:agent-spec --silent >/dev/null 2>&1; then
-  npm run validate:agent-spec 2>&1 | tee /tmp/audit-local-result.txt
-else
-  echo "UNVERIFIED: validate:agent-spec is not implemented; classification cannot be made"
-fi
+npm run validate:agents 2>&1 | tee /tmp/audit-local-result.txt
+echo "agent frontmatter exit: ${PIPESTATUS[0]:-$?}"
 
 # Does the same error occur? YES/NO
 ```
@@ -372,15 +371,12 @@ fi
 git checkout develop
 git pull origin develop
 
-# Agent spec validation: no `validate:agent-spec` npm script exists, so this
-# step cannot yet produce evidence. Record the category as UNVERIFIED rather
-# than substituting a command that does not run. pipefail stops tee masking it.
+# Agent spec validation is `validate:agents` (agent frontmatter); there is no
+# `validate:agent-spec` script. A nonzero exit is a real finding, not a
+# missing command, so pipefail is required for the status to survive tee.
 set -o pipefail
-if npm run validate:agent-spec --silent >/dev/null 2>&1; then
-  npm run validate:agent-spec 2>&1 | tee /tmp/develop-local-result.txt
-else
-  echo "UNVERIFIED: validate:agent-spec is not implemented; classification cannot be made"
-fi
+npm run validate:agents 2>&1 | tee /tmp/develop-local-result.txt
+echo "agent frontmatter exit: ${PIPESTATUS[0]:-$?}"
 
 # Does the error occur on develop too?
 # Compare errors:
@@ -674,7 +670,7 @@ git show origin/develop:.github/specs/001-governance-audit/spec.md
 
 # Run validation scripts
 npm run validate:changelog   # defined
-npm run validate:mermaid     # NOT DEFINED YET - add the script first
+npm run validate:mermaid-syntax  # the Mermaid validator's real name
 npm run lint                 # defined
 npm test                     # defined
 
