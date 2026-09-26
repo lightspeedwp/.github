@@ -372,7 +372,9 @@ npm run lint:pkg-json # npmpackagejsonlint
 # Run the pre-push hook manually
 .husky/pre-push
 
-# This validates the current branch name; the full test suite runs in CI
+# With no ref-update records on stdin this falls back to the checked-out branch.
+# A real `git push` supplies one record per ref, and the hook validates every
+# branch in that push. The full test suite runs in CI, not in this hook.
 ```
 
 ---
