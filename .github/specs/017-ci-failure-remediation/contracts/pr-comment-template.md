@@ -15,6 +15,12 @@
 > against the pull request you are commenting on, and replace each `{{placeholder}}` before posting.
 > Never carry a figure over from an earlier pull request: a stale count presented as a measurement is
 > worse than no comment, because reviewers will act on it.
+>
+> The same applies to the verdicts, not only the numbers. A template that asserts
+> "implementation is clean", a confidence level, or "ready for merge" will happily
+> tell a reviewer that a different pull request is approved when it is not. Derive
+> every `{{placeholder}}` — counts *and* conclusions — from evidence you actually
+> gathered for the pull request under review.
 
 ```markdown
 ## CI Failure Classification & Remediation Roadmap
@@ -23,10 +29,10 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ### Executive Summary for Reviewers
 
-✅ **Audit governance implementation is clean** — Audited changes do not introduce new CI violations  
-🟡 **Environmental failures documented below** — All failures are pre-existing or merge artifacts  
-📊 **Classification confidence: HIGH** — Each category has documented evidence and validation methodology  
-🚀 **Ready for merge** — Environmental failures do not block audit implementation
+{{verdict_line_1}}  
+{{verdict_line_2}}  
+📊 **Classification confidence: {{confidence}}** — {{confidence_basis}}  
+{{readiness_verdict}}
 
 ---
 
@@ -141,13 +147,13 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ### 5. Milestone Assignment (GOVERNANCE WORKFLOW REQUIREMENT)
 
-**Requirement**: GitHub Projects milestone field must be assigned on PR #3367  
+**Requirement**: GitHub Projects milestone field must be assigned on the pull request under review  
 **Type**: Manual UI action (not code-enforced)  
 **Current Status**: ⏳ UNASSIGNED (or ✅ ASSIGNED to [milestone name])
 
 **Assignment Steps**:
 1. Navigate to GitHub Projects board for this repository
-2. Find PR #3367 card
+2. Find the pull request's card
 3. Click "Milestone" field
 4. Select appropriate governance audit milestone
 
@@ -208,16 +214,16 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ## What This Classification Means for Approval
 
-✅ **Code Review**: Audit governance implementation is clean; no audit-related violations  
-✅ **Quality Gate**: All check failures are environmental; merge is not blocked on environmental issues  
-✅ **Governance Impact**: Audit framework is functioning correctly; CI infrastructure updates are separate maintenance  
-🚀 **Ready to Merge**: All conditions met (environmental failures documented, remediation roadmaps established, no audit-related violations)
+**Code Review**: {{code_review_conclusion}}  
+**Quality Gate**: {{quality_gate_conclusion}}  
+**Governance Impact**: {{governance_conclusion}}  
+**Merge readiness**: {{merge_readiness}}
 
 ---
 
 ## Verification Checklist for Reviewers
 
-- [ ] All 6 failure categories are classified (no unclassified failures)
+- [ ] All {{category_count}} failure categories are classified (no unclassified failures)
 - [ ] Each category has documented evidence (comparison methodology, validation output)
 - [ ] Each environmental category has assigned remediation owner and timeline
 - [ ] Audit code itself passes current quality standards
@@ -248,9 +254,11 @@ Example: *"For Changelog validation, I think we should compare against a specifi
 
 ## Contract Validation Rules
 
-When posting this comment to PR #3367:
+When posting this comment, every one of these must be true. They are not
+assertions about any particular pull request; work them out from the evidence you
+have actually gathered:
 
-1. **✅ All 6 categories MUST be included** (no omissions)
+1. **✅ All {{category_count}} categories MUST be included** (no omissions)
 2. **✅ Each category MUST have:**
    - Count of failures (or "TBD pending investigation")
    - Explicit ENVIRONMENTAL or AUDIT-INTRODUCED classification
