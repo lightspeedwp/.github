@@ -136,6 +136,42 @@ describe('working tree guard', () => {
     expect(output).toContain('untracked.txt');
   });
 
+  test('fails when a test replaces a file with a symlink', () => {
+    // git hash-object and statSync both follow a symlink, so replacing a file
+    // with a link to identical content left the snapshot value unchanged.
+    const { directory } = make();
+    fs.writeFileSync(path.join(directory, 'target.txt'), 'payload\n');
+    fs.writeFileSync(path.join(directory, 'untracked.txt'), 'payload\n');
+    const output = runGuard(
+      directory,
+      [
+        'const fs = require("node:fs");',
+        `fs.unlinkSync(${JSON.stringify(path.join(directory, 'untracked.txt'))});`,
+        `fs.symlinkSync("target.txt", ${JSON.stringify(path.join(directory, 'untracked.txt'))});`,
+      ].join('\n      ')
+    );
+    expect(output).toContain('FAIL');
+    expect(output).toContain('untracked.txt');
+  });
+
+  test('fails when a test retargets a symlink between identical files', () => {
+    const { directory } = make();
+    fs.writeFileSync(path.join(directory, 'one.txt'), 'same\n');
+    fs.writeFileSync(path.join(directory, 'two.txt'), 'same\n');
+    const link = path.join(directory, 'untracked.txt');
+    fs.symlinkSync('one.txt', link);
+    const output = runGuard(
+      directory,
+      [
+        'const fs = require("node:fs");',
+        `fs.unlinkSync(${JSON.stringify(link)});`,
+        `fs.symlinkSync("two.txt", ${JSON.stringify(link)});`,
+      ].join('\n      ')
+    );
+    expect(output).toContain('FAIL');
+    expect(output).toContain('untracked.txt');
+  });
+
   test('passes outside a Git work tree', () => {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'tree-guard-no-git-'));
     directories.push(directory);

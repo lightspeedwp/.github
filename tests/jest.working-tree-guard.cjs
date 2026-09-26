@@ -24,7 +24,7 @@
  * reports with GENERATE_REPORTS=true.
  */
 const { execFileSync } = require('node:child_process');
-const { statSync } = require('node:fs');
+const { lstatSync, readlinkSync, statSync } = require('node:fs');
 const path = require('node:path');
 
 const KEY = '__workingTreeGuardBefore';
@@ -74,6 +74,21 @@ function status(cwd) {
 
 function hashOf(entry, cwd) {
   const file = entry.slice(3);
+  const absolute = path.resolve(cwd, file);
+
+  // A symlink must be snapshotted by its link text, not by what it points at.
+  // Both `git hash-object` and `statSync` follow the link, so replacing a file
+  // with a symlink to identical content -- or retargeting a symlink between two
+  // files with identical content -- left the value unchanged and the mutation
+  // passed. lstatSync does not follow, so the type and link target are visible.
+  let link;
+  try {
+    if (lstatSync(absolute).isSymbolicLink()) link = readlinkSync(absolute);
+  } catch {
+    // Deleted between the status call and here; the content hash covers it.
+  }
+  if (link !== undefined) return `symlink:${link}`;
+
   const content = (() => {
     try {
       return execFileSync('git', ['hash-object', '--', file], {
@@ -91,7 +106,7 @@ function hashOf(entry, cwd) {
   // records the executable bit, so include it and the change is caught.
   let mode = 'no-mode';
   try {
-    mode = (statSync(path.resolve(cwd, file)).mode & 0o111).toString(8);
+    mode = (statSync(absolute).mode & 0o111).toString(8);
   } catch {
     // Deleted or unreadable: the content hash already reflects that.
   }
