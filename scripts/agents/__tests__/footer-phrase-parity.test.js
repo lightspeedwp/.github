@@ -75,6 +75,37 @@ describe('footer phrase parity (#3544)', () => {
     expect(headerFooter.DEFAULT_FOOTERS).not.toEqual(branding.DEFAULT_FOOTERS);
   });
 
+  test('both callers delegate to the shared module rather than reimplementing it', async () => {
+    // The output matrix above cannot catch a reimplementation: a copy that
+    // behaves identically leaves every assertion green. Injected and verified --
+    // a duplicated algorithm in header-footer.js passed all 7 tests. So the
+    // single-source constraint is asserted structurally here, on the call sites.
+    const headerFooter = await import('../includes/header-footer.js');
+    const branding = await import('../branding.agent.js');
+
+    // Matched on the name only: under ESM-to-CJS interop the call is emitted as
+    // `(0, _footerPhrases.resolveFooterPhrases)(...)`, so a strict
+    // `name(` pattern would not match a genuine delegation.
+    expect(headerFooter.getFooterPhrases.toString()).toContain('resolveFooterPhrases');
+    expect(headerFooter.selectFooter.toString()).toContain('selectFooterPhrase');
+    expect(branding.getFooterPhrases.toString()).toContain('resolveFooterPhrases');
+    expect(branding.selectFooter.toString()).toContain('selectFooterPhrase');
+  });
+
+  test('only the shared module carries the selection algorithm', () => {
+    // Belt and braces: if a caller is later refactored so the function-identity
+    // check no longer applies, no caller may carry its own copy of the
+    // category-then-default resolution or the seeded hash.
+    for (const caller of ['../includes/header-footer.js', '../branding.agent.js']) {
+      const source = fs.readFileSync(require.resolve(caller), 'utf8');
+      expect(source).not.toMatch(/config\.categories\s*&&/);
+      expect(source).not.toMatch(/charCodeAt\(/);
+    }
+    const shared = fs.readFileSync(require.resolve('../includes/footer-phrases.js'), 'utf8');
+    expect(shared).toMatch(/config\.categories\s*&&/);
+    expect(shared).toMatch(/charCodeAt\(/);
+  });
+
   test('shared module resolves the full contract directly', async () => {
     const { resolveFooterPhrases, selectFooterPhrase } = await import(
       '../includes/footer-phrases.js'
