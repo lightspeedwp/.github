@@ -1,0 +1,294 @@
+# Contract: CI Failure Classification Comment Format
+
+**Purpose**: Standardized markdown format for communicating CI failure classifications to PR reviewers
+
+**Usage Context**: Posted on PR #3367 (governance audit implementation) to explain which CI check failures are environmental (pre-existing) vs. audit-related
+
+**Last Updated**: 2026-09-18 | **Spec**: 017-ci-failure-remediation
+
+---
+
+## Template
+
+> **Every figure below is a worked example, not a reusable fact.** The counts, percentages and verdicts
+> come from PR #3367 as measured on 2026-09-18 and are frozen into this example. Recompute every number
+> against the pull request you are commenting on, and replace each `{{placeholder}}` before posting.
+> Never carry a figure over from an earlier pull request: a stale count presented as a measurement is
+> worse than no comment, because reviewers will act on it.
+>
+> The same applies to the verdicts, not only the numbers. A template that asserts
+> "implementation is clean", a confidence level, or "ready for merge" will happily
+> tell a reviewer that a different pull request is approved when it is not. Derive
+> every `{{placeholder}}` — counts *and* conclusions — from evidence you actually
+> gathered for the pull request under review.
+
+```markdown
+## CI Failure Classification & Remediation Roadmap
+
+This pull request introduces **{{failure_count}} CI check failures** across {{category_count}} categories. **{{environmental_or_audit}}**
+
+### Executive Summary for Reviewers
+
+{{verdict_line_1}}  
+{{verdict_line_2}}  
+📊 **Classification confidence: {{confidence}}** — {{confidence_basis}}  
+{{readiness_verdict}}
+
+---
+
+## Failure Categories (6 Total)
+
+### 1. Changelog Entry Validation ({{classification_1}})
+
+**Count**: {{noncompliant}} non-compliant entries out of {{total}} total ({{pct}}%)  
+**Baseline**: {{baseline_compliant}}/{{total}} entries compliant ({{baseline_pct}}%) on both branches  
+**Evidence**:
+- Changelog validation script run on `develop` branch: **{{baseline_compliant}}/{{total}} compliant**
+- Changelog validation script run on the change branch: **{{branch_compliant}}/{{total}} compliant**
+- **Delta**: {{delta}} (0 confirms a pre-existing baseline)
+- Failures: Long entries (>250 chars), unexplained abbreviations, implementation details
+
+**Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations, not audit-introduced  
+**Remediation**: Separate maintenance track (spec 017 category 1)  
+**Effort Estimate**: {{effort}} ({{noncompliant}} entries need revision to Keep a Changelog format)  
+**Owner**: @[changelog-maintainer] (governance team)  
+**Target Date**: Post-audit-merge remediation sprint
+
+**What This Means for Review**:
+- The audit PR does not make changelog compliance worse
+- These {{noncompliant}} non-compliant entries existed before the change under review
+- This is a known governance issue (tracked separately) not caused by the audit implementation
+
+---
+
+### 2. Mermaid Diagram Validation ({{classification_2}})
+
+**Count**: [N] files failing Mermaid diagram validation  
+**Source**: Spec files (`.github/specs/`) merged from develop branch  
+**Evidence**:
+- Files with Mermaid validation errors: [list specific files]
+- File existence check on `develop`: **ALL EXIST** with identical violations
+- Examples:
+  - `.github/specs/001-governance-audit/architecture.md` — Invalid syntax at line 15 ({{pre_existing_evidence}})
+  - `.github/specs/002-audit-rules/diagram.md` — Missing required node ({{pre_existing_evidence}})
+
+**Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations in merged spec files  
+**Remediation**: Separate maintenance track (spec 017 category 2)  
+**Effort Estimate**: Medium (file-by-file Mermaid format review and correction)  
+**Owner**: @[spec-maintainer] (documentation team)  
+**Target Date**: Post-audit-merge documentation improvement sprint
+
+**What This Means for Review**:
+- The audit did not introduce Mermaid validation violations
+- These are inherited from the develop branch spec files
+- The audit itself correctly documents architecture; inherited files need updates
+
+---
+
+### 3. Frontmatter Validation ({{classification_3}})
+
+**Count**: [N] spec files failing frontmatter validation  
+**Source**: Spec frontmatter fields from develop branch  
+**Violations**:
+- Field format errors (e.g., date fields not YYYY-MM-DD format)
+- Required fields missing in inherited spec files
+- Status field values not matching enumeration
+
+**Evidence**:
+- Files with frontmatter errors: [list specific files]
+- File existence check on `develop`: **ALL EXIST** with identical violations
+- Examples:
+  - `.github/specs/004-branch-naming-strategy/spec.md` — Missing "Created" date field ({{pre_existing_evidence}})
+  - `.github/specs/*/spec.md` — Status values not matching governance enum ({{pre_existing_evidence}})
+
+**Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations in merged spec files  
+**Remediation**: Separate maintenance track (spec 017 category 3)  
+**Effort Estimate**: Low-Medium (frontmatter schema update and file migration)  
+**Owner**: @[spec-coordinator] (governance team)  
+**Target Date**: {{target_date}}
+
+**What This Means for Review**:
+- The audit did not create frontmatter validation rules
+- These violations come from existing spec files
+- The audit implementation correctly follows spec standards
+
+---
+
+### 4. Agent Spec Validation ({{classification_4}})
+
+**Status**: 🔍 Classification pending investigation  
+**Check Name**: Agent Spec Validation  
+**Error Message**: [Extract from CI check run]  
+**Failing Test**: [Specific automation check component, e.g., "frontmatter", "cross-reference"]
+
+**Investigation Approach**:
+1. Reproduce locally: Run agent spec validation script on development machine → [RESULT]
+2. Test on develop branch: Does error occur on develop with current rules? → [RESULT]
+3. Test on audit branch: Does error occur on audit after removing merged develop changes? → [RESULT]
+
+**Investigation Status**: 
+- [ ] Local reproduction completed
+- [ ] Develop branch baseline established
+- [ ] Audit-only test completed
+- [ ] Root cause identified
+
+**Tentative Classification**: {{tentative_classification_4}}  
+**Remediation**: Separate infrastructure investigation  
+**Effort Estimate**: Low (diagnostic work; implementation depends on findings)  
+**Owner**: @[infra-team] (infrastructure/automation)  
+**Target Date**: {{target_window}}
+
+**What This Means for Review**:
+- {{category_4_review_note}}
+- Investigation details will be posted as follow-up comment
+- {{category_4_merge_effect}}
+
+---
+
+### 5. Milestone Assignment ({{classification_5}})
+
+**Requirement**: GitHub Projects milestone field must be assigned on the pull request under review  
+**Type**: Manual UI action (not code-enforced)  
+**Current Status**: ⏳ UNASSIGNED (or ✅ ASSIGNED to [milestone name])
+
+**Assignment Steps**:
+1. Navigate to GitHub Projects board for this repository
+2. Find the pull request's card
+3. Click "Milestone" field
+4. Select appropriate governance audit milestone
+
+**Compliance Status**: ✅ MANUAL ASSIGNMENT — Can be completed via GitHub UI  
+**Remediation**: Complete before merge (one-time action, <1 minute)  
+**Effort Estimate**: Minimal  
+**Owner**: @[pr-author] or @[governance-lead]  
+**Target Date**: Before merge
+
+**What This Means for Review**:
+- No code change needed; UI assignment only
+- Does not block review; can be assigned anytime
+- Recommend completing before final approval
+
+---
+
+### 6. Lint & Testing Failures ({{classification_6}})
+
+**Count**: [N] files with lint violations; [M] testing failures  
+**Source**: Configuration and workflow files merged from develop  
+**Violations**:
+- ESLint rules violations in `.github/workflows/` (deprecated GitHub Actions, old patterns)
+- PHPCS violations in development configuration files
+- Test coverage gaps from pre-existing test infrastructure
+
+**Evidence**:
+- Files with lint errors: [list specific files]
+- File existence check on develop: **{{existence_check_result}}** with {{violation_comparison}}
+- Examples:
+  - `.github/workflows/old-workflow.yml` — Uses deprecated `setup-node@v3` action ({{pre_existing_evidence}})
+  - `.github/scripts/validate-*.js` — ESLint nit violations ({{pre_existing_evidence}})
+
+**Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations in merged development files  
+**Remediation**: Separate maintenance track (spec 017 category 6)  
+**Effort Estimate**: Medium (workflow and configuration file updates)  
+**Owner**: @[devops-lead] (CI/CD team) & @[dev-lead] (engineering)  
+**Target Date**: {{target_window}}
+
+**What This Means for Review**:
+- The audit code itself passes linting and tests
+- These failures are from outdated development infrastructure
+- The audit implementation meets current code quality standards
+
+---
+
+## Remediation Roadmap (6 Categories)
+
+| Category | Priority | Effort | Owner | Target Q | Issue Tracking |
+|----------|----------|--------|-------|----------|---|
+| Changelog validation | {{priority}} | {{effort}} | @changelog-maintainer | {{target_date}} | Separate epic |
+| Mermaid diagrams | {{priority}} | {{effort}} | @spec-maintainer | {{target_date}} | [GitHub issue link] |
+| Frontmatter validation | {{priority}} | {{effort}} | @spec-coordinator | {{target_date}} | [GitHub issue link] |
+| Agent spec validation | P2 | Low | @infra-team | This week | [GitHub issue link] |
+| Milestone assignment | P0 | Minimal | PR author | Before merge | N/A |
+| Lint/testing | P3 | Medium | @devops-lead | Q1 2027 | [GitHub issue link] |
+
+---
+
+## What This Classification Means for Approval
+
+**Code Review**: {{code_review_conclusion}}  
+**Quality Gate**: {{quality_gate_conclusion}}  
+**Governance Impact**: {{governance_conclusion}}  
+**Merge readiness**: {{merge_readiness}}
+
+---
+
+## Verification Checklist for Reviewers
+
+- [ ] All {{category_count}} failure categories are classified (no unclassified failures)
+- [ ] Each category has documented evidence (comparison methodology, validation output)
+- [ ] Each environmental category has assigned remediation owner and timeline
+- [ ] Audit code itself passes current quality standards
+- [ ] Milestone assignment is documented (can be completed via UI)
+- [ ] Team understands which failures are environmental vs. audit-related
+
+---
+
+## Questions or Disagreements?
+
+If a reviewer disputes any classification or has questions about evidence:
+
+1. Comment on this thread with the specific category and concern
+2. Provide alternative evidence or testing methodology
+3. Governance team will investigate and update classification as needed
+
+Example: *"For Changelog validation, I think we should compare against a specific rule version. Can we clarify which version of the changelog validator was used?"*
+
+---
+
+**Generated by**: `/speckit-plan` (governance audit remediation workflow)  
+**Date**: 2026-09-18  
+**Reference**: Spec 017 — CI Failure Remediation (Environmental Issues)  
+**Related PR**: #3367 (Governance Audit Implementation)
+```
+
+---
+
+## Contract Validation Rules
+
+**A category awaiting investigation has no classification to assert.** The comment
+either omits it, or the whole comment is withheld until the investigation
+completes. "Post it now and refine later" is not permitted: a provisional
+classification reads to a reviewer as a settled one. A `{{tentative_classification}}`
+placeholder is not a classification — it must be replaced with a real one, or the
+category dropped, before posting.
+
+When posting this comment, every one of these must be true. They are not
+assertions about any particular pull request; work them out from the evidence you
+have actually gathered:
+
+1. **✅ All {{category_count}} categories MUST be included** (no omissions)
+2. **✅ Each category MUST have:**
+   - Count of failures (or "TBD pending investigation")
+   - Explicit ENVIRONMENTAL or AUDIT-INTRODUCED classification
+   - Evidence description (how we validated it)
+   - Remediation owner assigned
+   - Effort estimate provided
+3. **✅ Executive summary MUST be clear** (one-glance understanding for reviewers)
+4. **✅ No ambiguous language** — Use specific file names, error messages, methodology
+5. **✅ Remediation roadmap MUST include ownership** (name or @mention of owner)
+
+## Failure Cases (Do Not Post If)
+
+- ❌ Any category remains UNCLASSIFIED
+- ❌ Missing evidence for any classification
+- ❌ Ambiguous language ("probably environmental" or "seems pre-existing")
+- ❌ No remediation owner assigned for environmental failures
+- ❌ Milestone assignment status not updated
+
+---
+
+## References
+
+- **Specification**: [spec.md](../spec.md)
+- **Data Model**: [data-model.md](../data-model.md) — Validation methods and evidence requirements
+- **Plan**: [plan.md](../plan.md) — Phase 1 design deliverables
+- **Quick Start**: [quickstart.md](../quickstart.md) — How to validate each classification
