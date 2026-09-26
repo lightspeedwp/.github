@@ -3,7 +3,7 @@ title: "Changelog"
 description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
 file_type: "documentation"
 created_date: "2025-09-20"
-last_updated: "2026-09-15"
+last_updated: "2026-09-25"
 consolidation_phase: "Phase 1 (merged sections)"
 owners:
   - LightSpeed Team
@@ -138,6 +138,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Plugin Advisories and Register** — Added current scaffold tracking, safe asset versioning, a rate-limited newsletter example and project-controlled gateway approval. ([#1396](https://github.com/lightspeedwp/.github/issues/1396))
 - **GitHub Label Audit** — Audited all 169 canonical labels: `type:decision` had no issue type and 12 protected labels were missing from the label list, so they were removed from it. Added evidence and the label consolidation plan. (#3362)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
