@@ -12,21 +12,26 @@ import { join } from "path";
 // plugin API reports no shell, so each step is only used while it is valid in
 // both POSIX shells and PowerShell:
 //
-//  1. A path with no shell metacharacter needs no quoting at all.
-//  2. Inside double quotes, POSIX shells and PowerShell agree on every character
+//  1. On Windows a backslash is a path separator and forward slashes are
+//     accepted by every Windows shell, so normalise first. On POSIX a backslash
+//     is a legal filename character and must be left alone.
+//  2. A path with no shell metacharacter then needs no quoting at all.
+//  3. Inside double quotes, POSIX shells and PowerShell agree on every character
 //     except " $ ` and \, so a path free of those is safe to double-quote. This
 //     is what covers spaces and apostrophes, which is the common real case.
-//  3. Only a path containing one of those four still differs between shells, so
+//  4. Only a path containing one of those four still differs between shells, so
 //     the platform is the last remaining signal.
 const SHELL_SAFE_PATH = /^[A-Za-z0-9_@+=:,./-]+$/;
 const DOUBLE_QUOTE_UNSAFE = /["$`\\]/;
 
 const shellQuote = (path) => {
-  if (SHELL_SAFE_PATH.test(path)) return path;
-  if (!DOUBLE_QUOTE_UNSAFE.test(path)) return `"${path}"`;
+  const normalised =
+    process.platform === "win32" ? path.replace(/\\/g, "/") : path;
+  if (SHELL_SAFE_PATH.test(normalised)) return normalised;
+  if (!DOUBLE_QUOTE_UNSAFE.test(normalised)) return `"${normalised}"`;
   return process.platform === "win32"
-    ? `'${path.replace(/\\/g, "/").replace(/'/g, "''")}'`
-    : `'${path.replace(/'/g, "'\\''")}'`;
+    ? `'${normalised.replace(/'/g, "''")}'`
+    : `'${normalised.replace(/'/g, "'\\''")}'`;
 };
 
 const reminder = (graph) =>

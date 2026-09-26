@@ -88,4 +88,46 @@ describe("graphify reminder quotes the graph path safely", () => {
     );
     expect(output.output).toBe("bash done");
   });
+  test("normalises Windows separators so a native path needs no shell guess", async () => {
+    // A native Windows path is full of backslashes, which are double-quote
+    // unsafe, so without this normalisation every Windows path would fall
+    // through to PowerShell-only escaping and a POSIX shell on Windows would
+    // swallow any apostrophe in it. A backslash is a legal filename character
+    // on Linux, so the same input can be built here and the platform mocked.
+    const real = process.platform;
+    Object.defineProperty(process, "platform", {
+      value: "win32",
+      configurable: true,
+    });
+    try {
+      const outer = fs.mkdtempSync(path.join(os.tmpdir(), "graphify-win-"));
+      // A backslash is a legal filename character on Linux, so a component
+      // containing one reproduces a native Windows path for the plugin to see.
+      const root = path.join(outer, "win\\style");
+      fs.mkdirSync(path.join(root, "graphify-out"), { recursive: true });
+      fs.writeFileSync(path.join(root, "graphify-out", "graph.json"), "{}");
+
+      const plugin = await GraphifyPlugin({ directory: root, worktree: root });
+      const output = { output: "bash done" };
+      await plugin["tool.execute.after"](
+        { tool: "bash", sessionID: "win" },
+        output,
+      );
+
+      // Forward slashes and no quoting at all: correct in cmd, PowerShell and
+      // Bash, so nothing about the shell had to be assumed.
+      const arg = graphArg(output.output);
+      expect(root).toContain("\\");
+      expect(arg).not.toContain("\\");
+      expect(arg).not.toContain("'");
+      expect(arg).toBe(
+        `${root.replace(/\\/g, "/")}/graphify-out/graph.json`,
+      );
+    } finally {
+      Object.defineProperty(process, "platform", {
+        value: real,
+        configurable: true,
+      });
+    }
+  });
 });
