@@ -21,7 +21,7 @@ The changelog validation engine (`.github/validation/changelog/`) already runs l
 **Acceptance Scenarios**:
 
 1. **Given** a changelog entry that is too long (>250 chars), **When** developer runs validation locally, **Then** the tool reports "Entry exceeds 250-character limit (256 chars found): '[entry text]...'" with line number and fix suggestion
-2. **Given** a changelog entry with no linked PR/issue, **When** developer runs validation locally, **Then** the tool reports "Entry missing PR/issue link (required format: #123 or PR-456)" with fix suggestion
+2. **Given** a changelog entry with no linked PR/issue, **When** developer runs validation locally, **Then** the tool reports "Entry missing PR/issue link" and, in its fix suggestion, the machine-validated format `#123` (see `data-model.md`; a bare `PR-456` is not recognised by the shipped engine and is still reported missing)
 3. **Given** all valid entries, **When** developer runs validation locally, **Then** the tool exits with code 0 and reports "✅ All entries pass validation"
 4. **Given** mixed valid and invalid entries, **When** developer runs validation, **Then** tool reports all failures with specific guidance for each, allows developer to see all issues before fixing (not fail-fast)
 
@@ -96,7 +96,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - **FR-004**: Each changelog skill MUST have: unique ID, version, description, triggers, input schema, output schema, error handling specification
 - **FR-005**: Validation failures MUST be clearly reported using the canonical `ErrorObject` fields defined in `data-model.md`: `error_code`, `message`, `entry_id`, `line_number`, `suggestion` and `severity`, plus `expected_format` and `actual_value` where the failure concerns a value's format
 - **FR-006**: Changelog documentation MUST exist at `docs/agents/changelog-agent/` with: README.md (overview, quick start), SKILLS.md (skill reference), INTEGRATION.md (workflow integration), TROUBLESHOOTING.md (common issues and fixes), API.md (detailed API documentation)
-- **FR-007**: Changelog workflow MUST apply labels from canonical set (`.github/labels.yml`) with prefix `meta:` for changelog status tracking
+- **FR-007**: Changelog workflow MUST use only the two changelog labels that exist in the canonical set in `.github/labels.yml` — `meta:needs-changelog` (a changelog update is required) and `meta:no-changelog` (exempt, refused for high-impact change types). No other changelog label may be applied, because `labels.yml` is a locked file
 - **FR-008**: Validation workflow MUST run on every PR that modifies CHANGELOG.md and provide feedback via GitHub PR comments or status checks
 - **FR-009**: Workflow MUST block merge if changelog entries fail validation, with the same bypasses as the shipped gate: Dependabot and docs-bot authors, docs-only diffs (every changed file under `docs/**` or ending in `.md`), and the `meta:no-changelog` label. Branch-name prefix is deliberately not a bypass, so a `chore/` branch with a code diff still needs a changelog entry or the label
 - **FR-010**: Scripts and validation logic currently scattered across `scripts/validation/`, `agents/changelog-agent/`, and `scripts/workflows/` MUST be reorganized into changelog agent skill directories with clear purpose and no duplication

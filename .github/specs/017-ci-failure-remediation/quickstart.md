@@ -48,7 +48,7 @@ find . -name "*changelog*validator*" -o -name "*validate*changelog*" -type f
 cd /home/user/.github
 # Example (adjust path based on actual script location):
 npm run validate:changelog 2>&1 | tee /tmp/develop-changelog-results.txt
-# OR: node .github/validation/changelog/validator.js CHANGELOG.md
+# OR: node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.md --output text
 
 # Count compliant entries (look for "✓" or "PASS" in output)
 grep -c "✓\|PASS\|compliant" /tmp/develop-changelog-results.txt

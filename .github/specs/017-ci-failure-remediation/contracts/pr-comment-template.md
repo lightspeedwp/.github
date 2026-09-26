@@ -10,10 +10,16 @@
 
 ## Template
 
+> **Every figure below is a worked example, not a reusable fact.** The counts, percentages and verdicts
+> come from PR #3367 as measured on 2026-09-18 and are frozen into this example. Recompute every number
+> against the pull request you are commenting on, and replace each `{{placeholder}}` before posting.
+> Never carry a figure over from an earlier pull request: a stale count presented as a measurement is
+> worse than no comment, because reviewers will act on it.
+
 ```markdown
 ## CI Failure Classification & Remediation Roadmap
 
-This pull request introduces **29 CI check failures** across 6 categories. **All are environmental** (pre-existing on develop or merge artifacts) rather than audit-code-quality issues.
+This pull request introduces **{{failure_count}} CI check failures** across {{category_count}} categories. **{{environmental_or_audit}}**
 
 ### Executive Summary for Reviewers
 
