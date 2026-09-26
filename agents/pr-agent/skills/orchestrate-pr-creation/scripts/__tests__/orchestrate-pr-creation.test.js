@@ -123,6 +123,19 @@ Test PR`,
       expect(result.pr.labels).toEqual([]);
     });
 
+    test("should forward explicit labels:null unchanged (#3544)", async () => {
+      // orchestrate-pr-creation assembles caller data; it does not own
+      // label normalisation. An explicit null must pass through untouched
+      // (no crash, no silent coercion) so submit-pr's Array.isArray
+      // boundary owns the rejection.
+      const prNullLabels = { ...validPr, labels: null };
+
+      const result = await orchestratePrCreation({ pr: prNullLabels });
+
+      expect(result.success).toBe(true);
+      expect(result.pr.labels).toBeNull();
+    });
+
     test("should handle frontmatter without frontmatter marker", async () => {
       const prNoFrontmatter = {
         ...validPr,
