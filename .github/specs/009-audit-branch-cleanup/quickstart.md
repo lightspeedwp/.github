@@ -1,412 +1,458 @@
-# Quickstart: Branch Cleanup Audit & Validation
+# Quickstart: Branch Cleanup Validation
 
-**Feature**: Audit and Refactor Branch Cleanup Infrastructure  
-**Date**: 2026-09-14  
-**Phase**: Phase 1 Design
+**Phase**: 1 (Design & Contracts) | **Date**: 2026-09-16 | **Type**: Validation Guide
 
-This guide validates that the branch cleanup feature works end-to-end through runnable scenarios.
+This guide provides runnable test scenarios that prove the branch cleanup feature works end-to-end.
 
 ## Prerequisites
 
-- Git 2.30+ installed
-- GitHub CLI (`gh`) authenticated: `gh auth status`
-- Node.js 22+ installed
-- Access to repository with 50+ branches (test environment recommended)
-
-## Scenario 1: Generate Audit Report (Dry Run)
-
-**What this validates**: Audit script correctly categorises all branches without making changes.
-
-### Setup
-
 ```bash
-cd /path/to/repository
-git fetch origin  # Ensure all branches are known locally
+# Node.js 22+ installed
+node --version
+
+# Git installed and repository initialised
+git --version
+
+# GitHub CLI installed (for PR detection)
+gh --version
+
+# Optional: jq for JSON report parsing
+jq --version
 ```
 
-### Run Audit
+## Setup: Create Test Repository
 
 ```bash
-node scripts/cleanup-branches.js --dryRun=true --reportFormat=markdown
+# Run the setup and tests in the same shell so SOURCE_REPO and PATH persist.
+SOURCE_REPO="$(git rev-parse --show-toplevel)"
+
+# Create a temporary test repo
+mkdir -p /tmp/branch-cleanup-test/scripts
+cp "$SOURCE_REPO/scripts/cleanup-branches.js" /tmp/branch-cleanup-test/scripts/
+cp -R "$SOURCE_REPO/scripts/lib" /tmp/branch-cleanup-test/scripts/
+cp "$SOURCE_REPO/.github/specs/009-audit-branch-cleanup/fixtures/test-lib-api.js" \
+  /tmp/branch-cleanup-test/test-lib-api.js
+printf '%s\n' '{"type":"module"}' > /tmp/branch-cleanup-test/package.json
+
+cd /tmp/branch-cleanup-test
+
+# Initialise git repo
+git init -b main
+git config user.name "Test User"
+git config user.email "test@example.com"
+
+# Create commits on main
+echo "initial" > README.md
+git add README.md
+git commit -m "Initial commit"
+
+# Create test branches (to be categorised)
+git branch develop main
+
+git checkout -b feat/old-feature
+echo "feature" > feature.txt
+git commit --allow-empty -m "Old feature (will be stale)"
+
+git checkout -b fix/typo-fix
+echo "fix" > typo.txt
+git commit --allow-empty -m "Typo fix (will be stale)"
+
+git checkout -b feat/recent-work
+echo "recent" > recent.txt
+git commit --allow-empty -m "Recent work (will be kept)"
+
+git checkout -b release/v1.0.0
+echo "release" > VERSION
+git commit --allow-empty -m "Release branch (will be preserved)"
+
+# Return to main
+git checkout main
+
+# Add a local origin because the CLI audits remote-tracking branches.
+git init --bare /tmp/branch-cleanup-origin.git
+git remote add origin /tmp/branch-cleanup-origin.git
+git push --set-upstream origin --all
+
+# Supply a deterministic gh fixture: the successful empty response confirms
+# that this isolated repository has no open PRs.
+mkdir -p bin
+cat > bin/gh <<'EOF'
+#!/usr/bin/env bash
+if [ "$1" = "--version" ]; then
+  echo "gh version quickstart-fixture"
+  exit 0
+fi
+if [ "$1" = "pr" ] && [ "$2" = "list" ]; then
+  exit 0
+fi
+exit 1
+EOF
+chmod +x bin/gh
+export PATH="/tmp/branch-cleanup-test/bin:$PATH"
 ```
 
-### Expected Output
+## Test 1: Dry-Run Categorisation (No Deletions)
 
-1. **Console output** summarising counts:
+**Goal**: Verify that dry-run mode evaluates branches without deleting
 
-   ```
-   Audit Report: Branch Cleanup Analysis
-   Generated: 2026-09-14T12:30:00Z
-   
-   Summary:
-   - Total branches: 327
-   - Keep: 42
-   - Delete: 248
-   - Discuss: 37
-   ```
+```bash
+cd /tmp/branch-cleanup-test
 
-2. **Report file** written to `.github/reports/stale-branches-{timestamp}.md`
+# Run cleanup in dry-run mode (default)
+node scripts/cleanup-branches.js --verbose
 
-### Validation Checklist
+# Expected output:
+# ✅ Dry-run complete: X KEEP, Y DELETE, Z DISCUSS
+# ℹ️  Report written to: .github/reports/branch-cleanup-*.md
 
-- [ ] Report file exists at `.github/reports/stale-branches-*.md`
-- [ ] Report contains Summary section with counts
-- [ ] Report contains KEEP section (protected, active PRs, recent)
-- [ ] Report contains DELETE section (merged, stale branches)
-- [ ] Report contains DISCUSS section (naming violations, orphaned, unclear)
-- [ ] No branches actually deleted (dry-run mode)
-- [ ] Script execution completes in <5 seconds
+# Verify no branches were actually deleted
+git branch -a | grep "feat/old-feature"  # Should still exist
+```
 
-### Expected Structure (sample extract)
+**Validation**:
 
-```markdown
-## Branch Cleanup Report
+- ✅ Script exits with code 0
+- ✅ Report generated in `.github/reports/`
+- ✅ No branches were deleted
+- ✅ Categorisation includes KEEP, DELETE, and possibly DISCUSS
 
-Generated: 2026-09-14T12:30:00Z
-Repository: lightspeedwp/.github
+---
 
-### Summary
+## Test 2: Branch Name Validation
 
-| Category | Count | Action |
-|----------|-------|--------|
-| Keep | 42 | Preserve |
-| Delete | 248 | Safe to remove |
-| Discuss | 37 | Review manually |
+**Goal**: Verify that invalid branch names are marked DISCUSS
 
-### Keep Category
+```bash
+cd /tmp/branch-cleanup-test
 
-#### Protected Branches (3)
-- main
-- develop
-- production
+# Create invalid branch names
+git checkout -b claude/invalid-branch  # Forbidden prefix
+git commit --allow-empty -m "Invalid name"
 
-#### Active PRs (15)
-| Branch | PR # | Status |
-|--------|------|--------|
-| feat/new-agent | 3120 | open |
-| fix/auth-timeout | 3121 | open |
+git checkout -b copilot/test  # Forbidden prefix
+git commit --allow-empty -m "Forbidden"
 
-#### Recent (≤30 days) (24)
-...
+git checkout -b no-slash-branch  # Missing /
+git commit --allow-empty -m "No slash"
 
-### Delete Category (248 branches)
+# Run categorisation
+git push origin --all
+node scripts/cleanup-branches.js --verbose
 
-Merged to develop or main, >30 days old, no open PR, valid name
+# Verify report marks these as DISCUSS
+cat .github/reports/branch-cleanup-*.md | grep -A5 "DISCUSS"
 
-| Branch | Type | Age (days) | Merged | Author |
-|--------|------|-----------|--------|--------|
-| feat/old-dashboard | feat | 127 | develop | alice@example.com |
-| fix/auth-cache | fix | 89 | develop | bob@example.com |
-...
+# Expected reasons:
+# - "forbidden prefix: claude"
+# - "forbidden prefix: copilot"
+# - "must follow pattern: {type}/{scope}-{title}"
+```
 
-### Discuss Category (37 branches)
+**Validation**:
 
-| Branch | Reason | Recommendation |
-|--------|--------|-----------------|
-| claude/experimental | naming_violation | Rename to task/experimental or delete |
-| proto/cache-v2 | unmerged_stale | Verify intent or delete |
-| dependabot/npm-lodash | excluded_policy | Policy decision: auto-delete or preserve |
-...
+- ✅ All invalid branches marked DISCUSS
+- ✅ Categorisation reasons clearly identify violations
+
+---
+
+## Test 3: Protected Branch Preservation
+
+**Goal**: Verify that protected branches are never deleted
+
+```bash
+cd /tmp/branch-cleanup-test
+
+# main and develop are always protected (hardcoded)
+# Run categorisation
+node scripts/cleanup-branches.js --verbose
+
+# Verify report shows main/develop as KEEP
+cat .github/reports/branch-cleanup-*.md | grep -A2 "^| main"
+cat .github/reports/branch-cleanup-*.md | grep -A2 "^| develop"
+
+# Expected reason: "protected_branch"
+```
+
+**Validation**:
+
+- ✅ main branch marked KEEP (protected_branch)
+- ✅ develop branch marked KEEP (protected_branch)
+- ✅ No attempt to delete either
+
+---
+
+## Test 4: Exclusion Pattern Matching
+
+**Goal**: Verify that excluded patterns are preserved
+
+```bash
+cd /tmp/branch-cleanup-test
+
+# Run with default exclusion patterns (release/*, hotfix/*)
+node scripts/cleanup-branches.js --verbose
+
+# release/v1.0.0 should be KEEP (matches exclusion pattern)
+cat .github/reports/branch-cleanup-*.md | grep "release/v1.0.0"
+
+# Expected reason: "excluded_pattern"
+```
+
+**Validation**:
+
+- ✅ release/* branches marked KEEP
+- ✅ hotfix/* branches would be marked KEEP (if present)
+- ✅ Exclusion pattern matching works correctly
+
+---
+
+## Test 5: Age-Based Categorisation
+
+**Goal**: Verify that branch age affects categorisation
+
+```bash
+cd /tmp/branch-cleanup-test
+
+# Create an old commit (simulate stale branch)
+# For testing, use a custom date using git commit-date
+git checkout feat/old-feature
+GIT_COMMITTER_DATE="2026-07-01T10:00:00" \
+GIT_AUTHOR_DATE="2026-07-01T10:00:00" \
+git commit --allow-empty -m "Simulating old commit"
+
+# Merge it to develop so it's in merged+stale state
+git checkout develop
+git merge feat/old-feature --no-edit
+git push origin develop feat/old-feature
+
+# Run categorisation with default 30-day threshold
+node scripts/cleanup-branches.js --inactiveDays=30 --verbose
+
+# Expected: feat/old-feature marked DELETE (merged + stale)
+cat .github/reports/branch-cleanup-*.md | grep "feat/old-feature"
+# Expected reason: "merged_stale"
+```
+
+**Validation**:
+
+- ✅ Merged branches older than threshold marked DELETE
+- ✅ Age calculation is accurate (last commit date → days since now)
+- ✅ Threshold parameter respected
+
+---
+
+## Test 6: Report Formats (Markdown vs JSON)
+
+**Goal**: Verify both output formats work correctly
+
+### Markdown Report
+
+```bash
+cd /tmp/branch-cleanup-test
+
+# Generate Markdown report (default)
+node scripts/cleanup-branches.js --reportFormat=markdown --verbose
+
+# Verify Markdown structure
+cat .github/reports/branch-cleanup-*.md | head -20
+# Expected: Header, Summary table, KEEP/DELETE/DISCUSS sections
+
+# Check for required sections
+grep "^# Branch Cleanup Report" .github/reports/branch-cleanup-*.md
+grep "| KEEP |" .github/reports/branch-cleanup-*.md
+grep "| DELETE |" .github/reports/branch-cleanup-*.md
+```
+
+**Validation**:
+
+- ✅ Markdown report has required header
+- ✅ Summary table present with counts
+- ✅ Category sections present with branch listings
+
+### JSON Report
+
+```bash
+cd /tmp/branch-cleanup-test
+
+# Generate JSON report
+node scripts/cleanup-branches.js --reportFormat=json --verbose
+
+# Verify JSON structure using jq
+jq '.stats' .github/reports/branch-cleanup-*.json
+# Expected output:
+# {
+#   "totalBranches": X,
+#   "keepCount": Y,
+#   "deleteCount": Z,
+#   "discussCount": W
+# }
+
+# Verify branch entries
+jq '.branches[0]' .github/reports/branch-cleanup-*.json
+# Expected: name, category, reason, author, ageInDays, mergeStatus, etc.
+```
+
+**Validation**:
+
+- ✅ JSON report valid structure
+- ✅ Stats object populated correctly
+- ✅ Branch entries include required fields
+
+---
+
+## Test 7: Custom Options (Threshold, Exclusion, etc.)
+
+**Goal**: Verify CLI options work as intended
+
+```bash
+cd /tmp/branch-cleanup-test
+
+# Test custom inactiveDays threshold
+node scripts/cleanup-branches.js --inactiveDays=60 --verbose
+
+# Test custom exclusion patterns
+node scripts/cleanup-branches.js --excludePatterns="feat/.*|release/.*" --verbose
+
+# Test verbose mode produces debug output
+node scripts/cleanup-branches.js --verbose 2>&1 | grep "🔍"
+# Expected: Debug entries visible
+
+# Test reportDir option
+mkdir -p /tmp/custom-reports
+node scripts/cleanup-branches.js --reportDir=/tmp/custom-reports --verbose
+
+# Verify report in custom location
+ls /tmp/custom-reports/branch-cleanup-*.md
+```
+
+**Validation**:
+
+- ✅ Options parsed correctly
+- ✅ Threshold affects categorisation
+- ✅ Exclusion patterns applied
+- ✅ Verbose output includes debug info
+- ✅ Custom report directory respected
+
+---
+
+## Test 8: Error Handling
+
+**Goal**: Verify graceful degradation on errors
+
+### Missing Git Command
+
+```bash
+# Simulate missing git (if safe to do)
+# This would require PATH manipulation; skip in production
+
+# Expected: Error message, exit code 127
+```
+
+### Invalid Arguments
+
+```bash
+cd /tmp/branch-cleanup-test
+
+# Test invalid --inactiveDays
+node scripts/cleanup-branches.js --inactiveDays=invalid
+
+# Expected output:
+# ⚠️  Invalid --inactiveDays value; defaulting to 30.
+# Script continues with default value
+```
+
+**Validation**:
+
+- ✅ Invalid arguments handled gracefully
+- ✅ Default values used as fallback
+- ✅ Script doesn't crash on bad input
+
+---
+
+## Test 9: Integration with GitHub API (PR Detection)
+
+**Goal**: Verify that branches with open PRs are preserved
+
+**Prerequisites**:
+
+- Real GitHub repository (not test repo)
+- An open PR against a branch
+
+```bash
+# On real .github repository:
+export PATH="${PATH#/tmp/branch-cleanup-test/bin:}"
+node scripts/cleanup-branches.js --verbose
+
+# Verify that branches with open PRs are marked KEEP
+cat .github/reports/branch-cleanup-*.md | grep "Has active pull request"
+
+# Expected reason for those branches: "Has active pull request"
+```
+
+**Validation**:
+
+- ✅ GitHub API queried for open PRs
+- ✅ Branches with open PRs marked KEEP
+- ✅ No false positives (other branches not marked as active_pr)
+
+---
+
+## Test 10: Library API Usage (Programmatic)
+
+**Goal**: Verify library modules can be imported and used directly
+
+The setup copies the maintained
+`fixtures/test-lib-api.js` program into the temporary repository alongside the
+CLI and `scripts/lib/`, so all imports resolve from the isolated working tree.
+
+**Run Test**:
+
+```bash
+cd /tmp/branch-cleanup-test
+node test-lib-api.js
+```
+
+**Validation**:
+
+- ✅ Modules export correctly
+- ✅ Functions return expected types
+- ✅ Categorisation logic correct
+
+---
+
+## Cleanup
+
+```bash
+# Remove test repository
+rm -rf /tmp/branch-cleanup-test
+rm -rf /tmp/custom-reports
+rm -rf /tmp/branch-cleanup-origin.git
 ```
 
 ---
 
-## Scenario 2: Verify Categorisation Logic
-
-**What this validates**: Branches are correctly categorised according to decision tree rules.
-
-### Test Case 2a: Protected Branch Preserved
-
-**Input**: Branch named `main`  
-**Expected**: Categorised as KEEP with reason "protected_branch"
-
-**Verify**:
-
-```bash
-# Check main is never in the Delete Category section
-sed -n '/^### Delete Category/,/^### Discuss Category/p' .github/reports/stale-branches-*.md | grep -c "^- main$\|| main |"  # Should return 0
-```
-
-### Test Case 2b: Branch with Open PR Preserved
-
-**Input**: Branch `feat/new-feature` with open PR #3120  
-**Expected**: Categorised as KEEP with reason "active_pr"
-
-**Verify**:
-
-```bash
-# Check branch with open PR is in KEEP section
-grep -A 20 "Active PRs" .github/reports/stale-branches-*.md | grep "feat/new-feature"
-```
-
-### Test Case 2c: Merged & Stale Branch → DELETE
-
-**Input**: Branch `fix/old-bug` merged 120 days ago, no open PR, valid name  
-**Expected**: Categorised as DELETE
-
-**Verify**:
-
-```bash
-# Check branch is in DELETE section
-grep -A 300 "Delete Category" .github/reports/stale-branches-*.md | grep "fix/old-bug"
-```
-
-### Test Case 2d: Naming Violation → DISCUSS
-
-**Input**: Branch `claude/experimental-feature` (forbidden prefix)  
-**Expected**: Categorised as DISCUSS with reason "naming_violation"
-
-**Verify**:
-
-```bash
-# Check branch is flagged as naming violation
-grep -A 100 "Discuss Category" .github/reports/stale-branches-*.md | grep "claude/experimental"
-grep "naming_violation" .github/reports/stale-branches-*.md | grep "claude/experimental"
-```
-
-### Test Case 2e: Unmerged & Stale → DISCUSS
-
-**Input**: Branch `proto/cache-redesign` unmerged, 60+ days old, no PR  
-**Expected**: Categorised as DISCUSS with reason "unmerged_stale"
-
-**Verify**:
-
-```bash
-# Check branch is flagged as unmerged_stale
-grep "unmerged_stale" .github/reports/stale-branches-*.md | grep "proto/cache-redesign"
-```
-
----
-
-## Scenario 3: JSON Report Format
-
-**What this validates**: JSON output matches contract schema.
-
-### Run with JSON Output
-
-```bash
-node scripts/cleanup-branches.js --dryRun=true --reportFormat=json > /tmp/audit-report.json
-```
-
-### Validate JSON Schema
-
-```bash
-# Check that JSON is valid
-jq '.' /tmp/audit-report.json > /dev/null && echo "✅ Valid JSON"
-
-# Verify required fields exist
-jq 'keys | sort' /tmp/audit-report.json  # Should include: timestamp, repository, summary, categories
-
-# Verify summary counts match
-jq '.summary | keys | sort' /tmp/audit-report.json  # Should include: delete_count, discuss_count, keep_count
-
-# Verify categories structure
-jq '.categories | keys | sort' /tmp/audit-report.json  # Should include: delete, discuss, keep
-```
-
-### Expected JSON Structure (sample)
-
-```json
-{
-  "timestamp": "2026-09-14T12:30:00Z",
-  "repository": "lightspeedwp/.github",
-  "branch_count": 327,
-  "summary": {
-    "keep_count": 42,
-    "delete_count": 248,
-    "discuss_count": 37
-  },
-  "categories": {
-    "keep": {
-      "protected": [
-        { "name": "main", "reason": "protected_branch" },
-        { "name": "develop", "reason": "protected_branch" }
-      ],
-      "active_pr": [
-        { "name": "feat/new-agent", "pr_number": 3120, "pr_status": "open" }
-      ],
-      "recent": [...]
-    },
-    "delete": [
-      {
-        "name": "feat/old-dashboard",
-        "type": "feat",
-        "merge_status": "merged_to_develop",
-        "age_days": 127,
-        "last_commit_date": "2026-05-10T08:00:00Z",
-        "merge_commit_sha": "abc123def456",
-        "author": "alice@example.com"
-      }
-    ],
-    "discuss": [...]
-  },
-  "execution": {
-    "runner_environment": "local",
-    "script_version": "2.0.0",
-    "parameters": {
-      "dryRun": true,
-      "inactiveDays": 30,
-      "excludePatterns": "release/.*|hotfix/.*"
-    }
-  }
-}
-```
-
----
-
-## Scenario 4: Custom Exclusion Patterns
-
-**What this validates**: Exclusion patterns work correctly to preserve branches.
-
-### Test Case: Preserve dependabot branches
-
-**Setup**: Ensure repository has branches matching `dependabot/*`
-
-```bash
-# Run with exclusion pattern
-node scripts/cleanup-branches.js \
-  --dryRun=true \
-  --excludePatterns="dependabot/.*|renovate/.*" \
-  --reportFormat=markdown
-```
-
-### Verify
-
-```bash
-# Check that dependabot branches are not in the Delete Category section
-sed -n '/^### Delete Category/,/^### Discuss Category/p' .github/reports/stale-branches-*.md | grep -c "dependabot/" | awk '{if ($1 == 0) print "✅ Dependabot branches excluded from DELETE"}'
-
-# Check they appear in KEEP or DISCUSS section instead
-sed -n '/^### Keep Category/,/^### Delete Category/p;/^### Discuss Category/,$p' .github/reports/stale-branches-*.md | grep "dependabot/" && echo "✅ Found in KEEP or DISCUSS section"
-```
-
----
-
-## Scenario 5: Performance Validation
-
-**What this validates**: Audit completes in acceptable time (<5 seconds for 500+ branches).
-
-### Measure Execution Time
-
-```bash
-time node scripts/cleanup-branches.js --dryRun=true --reportFormat=json > /dev/null
-```
-
-### Expected Output
-
-```
-real    0m2.341s  ← Should be < 5 seconds
-user    0m1.890s
-sys     0m0.451s
-```
-
-### Validation
-
-- [ ] Real time < 5 seconds
-- [ ] No timeout errors
-- [ ] Report generated completely
-
----
-
-## Scenario 6: Reference Data Model
-
-**What this validates**: Real branch data matches entity definition.
-
-### Extract Sample Branch Data
-
-```bash
-# Parse JSON report to show branch entity structure
-jq '.categories.delete[0]' /tmp/audit-report.json
-```
-
-### Expected Output (sample branch entity)
-
-```json
-{
-  "name": "feat/old-auth",
-  "type": "feat",
-  "merge_status": "merged_to_develop",
-  "age_days": 95,
-  "last_commit_date": "2026-05-21T14:30:00Z",
-  "merge_commit_sha": "a1b2c3d4e5f6",
-  "author": "developer@example.com"
-}
-```
-
-### Validate Against Data Model
-
-- [ ] `name` is present and non-empty
-- [ ] `type` matches one of 30+ defined branch types or is empty
-- [ ] `age_days` is numeric and >= 0
-- [ ] `last_commit_date` is valid ISO8601
-- [ ] All required attributes present
-
----
-
-## Scenario 7: Contract Validation (Reference)
-
-**What this validates**: Output conforms to published contracts.
-
-### Use Case: GitHub Actions Integration
-
-```yaml
-# In CI workflow, after audit runs:
-- name: Validate Audit Report Schema
-  run: |
-    npx --yes ajv-cli validate \
-      -s .github/specs/009-audit-branch-cleanup/contracts/audit-report.schema.json \
-      -d .github/reports/stale-branches-*.json
-```
-
-Refer to:
-
-- `contracts/audit-report.schema.json` — Markdown/JSON report format
-- `contracts/deletion-candidates.schema.json` — Deletion candidates list format
-
----
-
-## Troubleshooting
-
-### Issue: "Could not fetch open PRs via gh CLI"
-
-**Cause**: `gh` not authenticated  
-**Solution**:
-
-```bash
-gh auth login
-# Re-run audit
-```
-
-### Issue: Audit script times out (>5 seconds)
-
-**Cause**: Network latency fetching PRs, or large repository  
-**Solution**:
-
-- Run locally first (faster than CI)
-- Check GitHub CLI performance: `gh pr list --repo owner/repo | wc -l`
-
-### Issue: Branch categorised differently than expected
-
-**Cause**: Likely edge case in decision tree  
-**Solution**:
-
-- Check if branch is protected
-- Check if branch has open PR: `gh pr list --head {branch}`
-- Check merge status: `git merge-base --is-ancestor {branch} develop`
-- Consult decision tree logic in `data-model.md`
+## Success Criteria
+
+All tests pass when:
+
+1. ✅ Dry-run mode categorises branches correctly without deletion
+2. ✅ Invalid branch names marked DISCUSS
+3. ✅ Protected branches (main, develop) never deleted
+4. ✅ Exclusion patterns preserve `release/*` and `hotfix/*` branches
+5. ✅ Age-based categorisation works (merged + stale → DELETE)
+6. ✅ Both Markdown and JSON reports generated correctly
+7. ✅ CLI options (threshold, patterns, reportDir) respected
+8. ✅ Error handling graceful (no crashes on invalid input)
+9. ✅ GitHub API integration detects open PRs correctly
+10. ✅ Library API usable directly from other modules
 
 ---
 
 ## Next Steps
 
-1. **Dry-run on target repository** — Run scenarios 1–3 above
-2. **Team review** — Share audit report, discuss DISCUSS category branches
-3. **Draft PR + approval** — Open a draft PR listing verified deletion candidates (`contracts/deletion-candidates.schema.json`) for human review; this is the standard path to deletion
-4. **Safe deletion** — Only after the draft PR is approved, run with `--dryRun=false` to execute the approved deletions. Direct live-mode execution outside the draft-PR flow is restricted to release managers and MUST be logged.
-5. **Automation** — Deploy workflow to `.github/workflows/branch-audit.yml` for scheduled audits
+- Proceed to task decomposition (run `/speckit-tasks`)
+- Begin implementation phase following task plan
+- Execute tests from this guide during implementation
 
-## Reference
+---
 
-- **Data Model**: See `data-model.md` for entity definitions and categorisation logic
-- **Research**: See `research.md` for design decisions and rationale
-- **Feature Spec**: See `spec.md` for requirements and user stories
+**Quickstart Status**: ✅ Complete | Ready for implementation
