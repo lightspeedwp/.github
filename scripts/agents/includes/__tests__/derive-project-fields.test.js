@@ -204,13 +204,14 @@ describe("issue-type inference uses canonical Type labels", () => {
 
   test("an unmapped rule no longer swallows a later matching rule", () => {
     // If a rule label is missing from the config the match must be skipped so a
-    // later, mapped rule can still classify the content.
+    // later, mapped rule can still classify the content. "Fix" matches the
+    // unmapped type:bug rule first; the mapped type:feature rule must still win.
     const partialMappings = { Type: { "type:feature": "Feature" } };
 
     expect(
       inferTypeFromContext({
         mappings: partialMappings,
-        title: "Improve the documentation and add a feature flag",
+        title: "Fix the feature flag",
       }),
     ).toBe("Feature");
   });
