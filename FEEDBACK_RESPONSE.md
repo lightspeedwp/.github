@@ -1,0 +1,54 @@
+---
+file_type: feedback-response
+title: AI Feedback Response — #3500
+description: Tracks CodeRabbit and Qodo review feedback for the 014/016/017 specification pull request
+created_date: '2026-09-26'
+status: active
+tags:
+  - ai-feedback
+  - documentation
+  - specs
+---
+
+# AI Feedback Response
+
+Pull request: #3500 — adds specs 016 and 017, updates spec 014, and extends the specification catalogue.
+
+All feedback items addressed in this pull request are listed below. Anything not fixed here is
+deferred to a tracked follow-up issue.
+
+## Linked issues
+
+Closes #3465
+
+- Relates to #3464, #3434 (epic and originating refactor, not completed by this pull request)
+- Deferred follow-ups: #3519, #3522
+
+## Feedback
+
+| Feedback | Status | Response | Reference |
+| --- | --- | --- | --- |
+| One error-object contract across the specifications: `ErrorObject` was mixed with `ValidationError`, and `error_code`/`error_type`/`type` and `expected_format`/`actual_value`/`current_value` diverged between files | ✅ Addressed | One name (`ErrorObject`) and one field set (`error_code`, `message`, `entry_id`, `line_number`, `field`, `expected_format`, `actual_value`, `suggestion`, `severity`) across `data-model.md`, `spec.md`, `research.md` and the REST contract. `spec.md` and FR-005 were the missed spots and now name the canonical fields | `23cf74620c`, `4c11647bff` |
+| Merged-state validation applied to issue references as well as pull requests; issues have no merged state | ✅ Addressed | `data-model.md` requires a linked pull request to exist and be merged, and requires an issue only to exist, stating that an issue has no merged state. The business rule is scoped to pull-request references | `23cf74620c` |
+| Branch-type bypass for `chore/` and `deps/` prefixes, which the shipped gate does not implement | ✅ Addressed | `changelog-unified.yml` skips Dependabot and docs-bot authors, docs-only diffs, and the `meta:no-changelog` label. FR-009, Q1, `research.md` and the decision table now match it and state that branch prefix is not a bypass | `4af8501b79` |
+| Specification required changelog labels that do not exist: `meta:has-changelog`, `meta:needs-changelog-fix`, `meta:changelog-exempt` | ✅ Addressed | The canonical set has only `meta:needs-changelog` and `meta:no-changelog`. Because `.github/labels.yml` is locked, the specification was corrected rather than the labels: passing validation clears `meta:needs-changelog`, failing keeps it | `4af8501b79` |
+| `pr_issues` accepted `PR-456`, but the engine matches only `/#(\d+)/` so such an entry is reported missing | ✅ Addressed | `data-model.md` records `#123` as the only machine-validated form, keeps `PR-456` as a human-readable convention, and states that a full markdown URL is what makes it checkable. The acceptance scenario no longer promises a format the tool rejects | `07cf08f282` |
+| Specification 017 quickstart ran `node .github/validation/changelog/validator.js`, which does not exist | ✅ Addressed | Corrected to `node .github/validation/changelog/bin/validate.js --changelog-path CHANGELOG.md --output text`; the command was executed and runs | `07cf08f282` |
+| Specification 017 quickstart ran `npm run validate:mermaid` and `npm run validate:agent-spec`, neither of which exists in `package.json` | ✅ Addressed | Both are marked as not yet defined, and the summary block separates the defined scripts from the missing ones | `b27885990b` |
+| Specification 017 comment template shipped a previous pull request's measurements (48/54 entries, 88.9%, "within 48 hours", Q4 2026) as reusable facts | ✅ Addressed | All 15 figures are now `{{placeholders}}` under a warning that every number must be recomputed, because a stale count presented as a measurement is worse than no comment | `b27885990b` |
+| Specification 014 registry schema accepted invalid skill metadata: no object schema set `additionalProperties: false`, so misspelled fields such as `complianceViolations` and `agentskills_compliant_typo` validated cleanly | ✅ Addressed | `additionalProperties: false` added to all eight object schemas. Reproduced five invalid documents passing before the change; confirmed afterwards that three well-formed registry shapes still validate and the misspelled cases are rejected | `b27885990b` |
+| Further prose-level design findings in specifications 016 and 017 raised on repeat review rounds | 📋 Deferred | Three full review rounds produced a new variant of the same prose findings each time on a documentation-only pull request, so no further changes were made. Tracked for a dedicated documentation pass | #3519 |
+| The stricter 014 registry schema is not enforced at runtime, because the validator does not read the loaded schema | 📋 Deferred | The schema contract is now correct, but making the validator consume it is a code change outside this documentation-only pull request | #3522 |
+
+## Completeness
+
+- All feedback items addressed in this pull request are recorded above with the commit that fixed them.
+- Remaining feedback is tracked in #3519 and #3522, both open.
+- All feedback is addressed or explicitly deferred; nothing was silently dropped.
+
+## Verification
+
+- Full Jest suite: 285 suites, 5651 passed, 14 todo, 0 failed.
+- `additionalProperties: false` change verified by validating documents against the schema before and after.
+- `node .github/validation/changelog/bin/validate.js` executed to confirm the corrected quickstart command runs.
+- Every changelog label named in the specifications exists in `.github/labels.yml`.
