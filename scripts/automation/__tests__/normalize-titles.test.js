@@ -73,9 +73,10 @@ describe("normalizeTitle()", () => {
 
     it("should handle prefixes with various spacing", () => {
       expect(normalizeTitle("feat:  Add feature", "feat")).toBeNull(); // double space - matches
-      // Note: 'fix:Add something' without space does NOT match the pattern, so it gets prefixed
+      // A recognised prefix without a space after the colon is repaired, not
+      // prefixed again (#3578).
       expect(normalizeTitle("fix:Add something", "fix")).toBe(
-        "fix: fix:Add something",
+        "fix: Add something",
       );
     });
 
@@ -144,9 +145,10 @@ describe("normalizeTitle()", () => {
     it("should not normalize if title is just prefix and colon with space", () => {
       expect(normalizeTitle("feat: ", "feat")).toBeNull(); // colon with space matches
       expect(normalizeTitle("fix: ", "fix")).toBeNull(); // colon with space matches
-      // Without space after colon, they don't match the pattern
-      expect(normalizeTitle("feat:", "feat")).toBe("feat: feat:");
-      expect(normalizeTitle("fix:", "fix")).toBe("fix: fix:");
+      // Without a space after the colon the missing space is added, leaving a
+      // single prefix rather than doubling it (#3578).
+      expect(normalizeTitle("feat:", "feat")).toBe("feat: ");
+      expect(normalizeTitle("fix:", "fix")).toBe("fix: ");
     });
 
     it("should handle title that looks like prefix but isnt", () => {
@@ -611,17 +613,36 @@ describe("CommonJS and JavaScript normalisers stay in parity", () => {
     }
   });
 
-  it("normalises a malformed decision title in both implementations", () => {
+  it("repairs a malformed decision title in both implementations", () => {
     for (const normalizer of [
       cjsNormalizer,
       { normalizeTitle, isAlreadyPrefixed },
     ]) {
       expect(
         normalizer.normalizeTitle("decision:Adopt GraphQL", "decision"),
-      ).toBe("decision: decision:Adopt GraphQL");
+      ).toBe("decision: Adopt GraphQL");
       expect(
         normalizer.normalizeTitle("question:How do we sync", "question"),
-      ).toBe("question: question:How do we sync");
+      ).toBe("question: How do we sync");
+    }
+  });
+
+  it("never produces a doubled prefix", () => {
+    for (const normalizer of [cjsNormalizer, { normalizeTitle }]) {
+      for (const prefix of ["decision", "question", "feat", "fix", "chore"]) {
+        const repaired = normalizer.normalizeTitle(`${prefix}:Something`, prefix);
+        expect(repaired).toBe(`${prefix}: Something`);
+        // Exactly one prefix, so a second pass is a no-op.
+        expect(normalizer.normalizeTitle(repaired, prefix)).toBeNull();
+      }
+    }
+  });
+
+  it("preserves the author's capitalisation when repairing", () => {
+    for (const normalizer of [cjsNormalizer, { normalizeTitle }]) {
+      expect(normalizer.normalizeTitle("DECISION:Adopt GraphQL", "decision")).toBe(
+        "DECISION: Adopt GraphQL",
+      );
     }
   });
 });
