@@ -14,8 +14,9 @@ tags:
 
 Pull request: #3500 — adds specs 016 and 017, updates spec 014, and extends the specification catalogue.
 
-All feedback items addressed in this pull request are listed below. Anything not fixed here is
-deferred to a tracked follow-up issue.
+All feedback items addressed in this pull request are listed below. Feedback that is not fixed
+here is either deferred to a tracked follow-up issue or explicitly rejected with evidence;
+nothing is silently dropped.
 
 ## Linked issues
 

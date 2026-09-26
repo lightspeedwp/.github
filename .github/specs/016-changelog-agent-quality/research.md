@@ -30,7 +30,7 @@ This document captures research findings, design decisions, and best practices f
 **Validation Rules Identified** (from spec and existing docs):
 
 - Entry length: ≤250 characters (user-focused, actionable)
-- Mandatory PR/issue linking: Every entry must link to at least one PR or issue (#NNN or PR-NNN format)
+- Mandatory PR/issue linking: Every entry must link to at least one PR or issue. Only `#NNN` (pull request) and `issues/#NNN` (issue) are resolved by the shipped engine; a bare `PR-NNN` is a human-readable convention that is not machine-validated
 - Formatting: Section headings must match Keep a Changelog structure
 - Clarity: No implementation details (no code snippets, no internal architecture references)
 - Date format: ISO 8601 (YYYY-MM-DD) in release headers
@@ -167,7 +167,7 @@ version and invocation contract use namespaced string entries in the standard
         {
           "error_code": "MISSING_LINK",
           "message": "Entry missing required PR/issue link",
-          "expected_format": "Format: #123 or PR-456",
+          "expected_format": "Format: #123 (or issues/#123 for an issue)",
           "suggestion": "Add PR link to entry (e.g., '#2845') or create issue if missing",
           "severity": "ERROR"
         }
@@ -196,7 +196,7 @@ Line 15: Entry exceeds 250-character limit
   Fix: Shorten to focus on user-facing benefit, not implementation
 
 Line 22: Entry missing required PR/issue link
-  Expected: Format #123 or PR-456
+  Expected: Format #123 (or issues/#123 for an issue)
   Fix: Add PR link (e.g., '#2845') or create issue if missing
 
 ✅ Validation complete. Fix issues above and re-run.
@@ -220,9 +220,12 @@ Line 22: Entry missing required PR/issue link
 **Bypass Logic**:
 
 ```javascript
-// In workflow:
-const branchType = branch.split('/')[0]; // Extract type from branch name
-const skipValidation = ['chore', 'deps'].includes(branchType);
+// In workflow, mirroring .github/workflows/changelog-unified.yml.
+// The branch name is deliberately not consulted: a chore/ branch carrying a code
+// diff still needs a changelog entry or the meta:no-changelog label.
+const isBotAuthor = ['dependabot[bot]', 'app/dependabot', 'app/lightspeed-docs-bot'].includes(author);
+const isDocsOnly = changedFiles.length > 0 && changedFiles.every(f => f.startsWith('docs/') || f.endsWith('.md'));
+const skipValidation = isBotAuthor || isDocsOnly || hasNoChangelogLabel;
 
 if (!skipValidation) {
   // Run validation and block merge if invalid
@@ -299,6 +302,16 @@ if (!skipValidation) {
   unlink; the recovery mutex is separate from the coordination mutex, so this
   recovery cannot deadlock. This prevents an abandoned `.changelog.lock` from
   blocking future runs without deleting a live owner's lock.
+- The recovery mutex is itself recovered, or the protocol deadlocks: a process
+  that exits while holding it leaves every later contender unable to enter the
+  protocol at all, so the abandoned `.changelog.recovery.lock` can never be
+  removed. The recovery mutex therefore requires an OS-backed lock — an
+  `O_CREAT | O_EXCL` lock file, an advisory `flock`, or a named mutex on
+  Windows — not the portable stat-and-compare fallback used for `.changelog.lock`.
+  If a platform offers no OS-backed primitive, the fallback recovery mutex is
+  not used: contenders wait for the OS-released handle instead of attempting
+  portable recovery. The portable recovery step applies only to lock files whose
+  owner identity and heartbeat are recorded on disk.
 
 **Reader/writer protocol**:
 
@@ -351,8 +364,10 @@ if (validationPassed) {
   blockMerge('Changelog entries failed validation');
 }
 
-// For non-user-facing changes (chore, deps):
-if (bypassValidation) {
+// The label records an author's explicit, auditable exemption. It is never
+// applied automatically from the branch name, and it is refused for
+// high-impact release-related change types.
+if (explicitlyExempt) {
   applyLabel('meta:no-changelog');
 }
 ```

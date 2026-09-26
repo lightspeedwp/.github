@@ -262,7 +262,7 @@ node .github/validation/changelog/bin/validate.js --help | grep -q "Options" && 
 # Test 2: Exit codes follow contract
 set +e
 MISSING_FILE_JSON="$(node .github/validation/changelog/bin/validate.js \
-  --changelog-path /nonexistent/file.md --output json)"
+  --changelog-path CHANGELOG.missing.md --output json)"
 MISSING_FILE_STATUS=$?
 set -e
 printf '%s' "$MISSING_FILE_JSON" | \
@@ -313,7 +313,40 @@ CHANGELOG_CHANGED="${CHANGELOG_CHANGED:-true}"
 PR_NUMBER="${PR_NUMBER:-3500}"
 HEAD_REF="${HEAD_REF:-current-branch}"
 
-if [ "$CHANGELOG_CHANGED" == "false" ]; then
+# The shipped gate skips on author, diff shape, or the meta:no-changelog label.
+# Each condition is exercised here so the scenario proves the documented set
+# rather than accepting a precomputed flag.
+run_case() {  # run_case <label> <author> <files> <has_no_changelog_label>
+  local label="$1" author="$2" files="$3" no_changelog="$4"
+  local changed=false every_file_docs=true
+  for f in $files; do
+    case "$f" in docs/*|*.md) ;; *) every_file_docs=false ;; esac
+    changed=true
+  done
+  case "$author" in
+    dependabot\[bot\]|app/dependabot|app/lightspeed-docs-bot)
+      echo "  $label: skipped (bot author)"; return 0 ;;
+  esac
+  if [ "$changed" = false ]; then
+    echo "  $label: skipped (no files changed)"; return 0
+  fi
+  if [ "$every_file_docs" = true ]; then
+    echo "  $label: skipped (docs-only diff)"; return 0
+  fi
+  if [ "$no_changelog" = true ]; then
+    echo "  $label: skipped (meta:no-changelog)"; return 0
+  fi
+  echo "  $label: validation required"
+}
+
+run_case "dependabot"  "dependabot[bot]"        "src/index.js"          false
+run_case "docs-bot"    "app/lightspeed-docs-bot" "src/index.js"         false
+run_case "docs-only"   "human"                   "docs/guide.md"        false
+run_case "no-changelog" "human"                  "src/index.js"         true
+run_case "code change" "human"                   "src/index.js"         false
+echo "  (CHANGELOG_CHANGED=${CHANGELOG_CHANGED:-true} honoured for the real run below)"
+
+if [ "${CHANGELOG_CHANGED:-true}" == "false" ]; then
   echo "No changelog files modified in this PR"
   exit 0
 fi
@@ -363,17 +396,24 @@ done
 [ "$missing" -eq 0 ] || exit 1
 
 # Verify content completeness
-grep -q "Quick Start" docs/agents/changelog-agent/README.md && \
-  echo "✓ README has quick start"
-
-grep -q "changelog-validate" docs/agents/changelog-agent/SKILLS.md && \
-  echo "✓ SKILLS.md documents skills"
-
-grep -q "GitHub Actions" docs/agents/changelog-agent/INTEGRATION.md && \
-  echo "✓ INTEGRATION.md covers workflows"
-
-grep -q "validation failed" docs/agents/changelog-agent/TROUBLESHOOTING.md && \
-  echo "✓ TROUBLESHOOTING covers common issues"
+# Each check must fail the scenario: a chain of `&&` lets an early failure be
+# masked by a later success, leaving the block with exit status 0.
+docs_failed=0
+for doc_check in \
+  "Quick Start:docs/agents/changelog-agent/README.md" \
+  "changelog-validate:docs/agents/changelog-agent/SKILLS.md" \
+  "GitHub Actions:docs/agents/changelog-agent/INTEGRATION.md" \
+  "validation failed:docs/agents/changelog-agent/TROUBLESHOOTING.md"; do
+  needle="${doc_check%%:*}"
+  file="${doc_check#*:}"
+  if grep -q "$needle" "$file"; then
+    echo "✓ $file contains '$needle'"
+  else
+    echo "✗ $file is missing '$needle'"
+    docs_failed=1
+  fi
+done
+[ "$docs_failed" -eq 0 ] || exit 1
 ```
 
 **Expected Output**:
