@@ -43,6 +43,40 @@ Closes #3465
 | Further prose-level design findings in specifications 016 and 017 raised on repeat review rounds | 📋 Deferred | Three full review rounds produced a new variant of the same prose findings each time on a documentation-only pull request, so no further changes were made. Tracked for a dedicated documentation pass | #3519 |
 | The stricter 014 registry schema is not enforced at runtime, because the validator does not read the loaded schema | 📋 Deferred | The schema contract is now correct, but making the validator consume it is a code change outside this documentation-only pull request | #3522 |
 
+## Qodo review of the current head
+
+Four findings were open against `ae222337d2`. All four are addressed in
+`0ea0b3e6c2`, and the reasoning is recorded here because Qodo resolved its
+threads on the push rather than leaving them to close individually.
+
+- **Baseline comparison read a file nothing writes.** The develop step wrote
+  `/tmp/develop-changelog-results.json` while the count and the cross-branch diff
+  read `.txt`, and the grep pattern could not match JSON either. This was
+  introduced by an earlier fix in this pull request. Both branches now run the
+  same engine with `--output text` and matching filenames. Verified by executing
+  it: the engine exits 0 and writes the file the next step reads. This also
+  closes the "run the same entry validator on both branches" item in #3519.
+- **Quickstart invoked scripts that do not exist.** `validate:mermaid` and
+  `validate:agent-spec` are absent, but the repository does expose Mermaid and
+  agent validation as `validate:mermaid-syntax` and `validate:agents`, both of
+  which run. An earlier fix here had wrapped the missing names in guards that
+  printed `UNVERIFIED`, which recorded a false gap rather than fixing the call.
+  All three call sites now invoke the real scripts, with `pipefail` preserving a
+  nonzero exit — for `validate:agents` that exit is a real finding.
+- **The registry schema still accepted malformed skill metadata.**
+  `additionalProperties: false` blocks undeclared and misspelled fields but says
+  nothing about the values of declared ones, and `generatedSkill.id`, `.category`
+  and `.type` were `minLength: 1` only: `Bad_ID`, `Not A Category!` and
+  `../etc/passwd` all validated. `id` and `category` now require the
+  `^[a-z0-9-]+$` slug that `legacySkill` already enforced, and `type` takes the
+  same four-value enum. Not enforced at runtime until #3522 (PR #3550) lands.
+- **The comment template contradicted its own posting rules.** A category
+  asserted `ENVIRONMENTAL (likely ...)` and that the pull request was not
+  blocked, while the rules forbid posting an unclassified category. The verdict
+  and its two consequences are placeholders, and the rules now state the
+  constraint. What the standard *should* be remains the spec owner's decision in
+  #3519.
+
 ## CodeRabbit CLI review
 
 Ran the prompt the review comments suggest, following the documented agent
