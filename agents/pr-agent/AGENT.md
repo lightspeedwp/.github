@@ -51,6 +51,14 @@ The complete User Story 2 guarantees are not implemented yet. Commit/diff-derive
 **Validate only** — run validation skills (branch name, labels) without submitting.
 **Dry run** — orchestrate and validate the PR object without creating it on GitHub.
 
+## Qodo PR-Agent integration
+
+[Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+
+- **Invocation**: [`skills/qodo-pr-agent`](../../skills/qodo-pr-agent/SKILL.md) in **diff mode** (before the PR exists) for (1) `describe`, as an optional source for the diff-derived body section, and (2) `review` and `improve`, as the "AI-review findings" input to the self-review gate (spec 015 US2).
+- **On output**: Use the summary as source material only. Template routing and the final PR body stay owned by this agent. Findings are listed in the self-review gate for the author to resolve.
+- **Fallback**: Existing body generation and gate behaviour, with the gate recording "no Qodo PR-Agent input (skipped)". When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
+
 ## Implementation Reference
 
 - **Folder:** `agents/pr-agent/`

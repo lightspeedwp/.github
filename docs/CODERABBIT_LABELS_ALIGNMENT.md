@@ -315,6 +315,10 @@ When `.github/labels.yml` or `.github/issue-types.yml` changes:
 
 ---
 
+## Relationship to Qodo PR-Agent
+
+CodeRabbit remains the organisation's **primary automatic reviewer**, and it owns the review verdict. [Qodo PR-Agent](./QODO_PR_AGENT.md) runs alongside it on `lightspeedwp/.github` as a pilot. It adds a PR summary comment and improvement suggestions, plus on-demand maintainer commands (`/review`, `/ask`, `/update_changelog`). Qodo PR-Agent never applies labels, so nothing in this label alignment changes. The full split of responsibilities is in [Qodo PR-Agent → Who does what](./QODO_PR_AGENT.md#who-does-what).
+
 ## Related Documentation
 
 - [.github/labels.yml](./.github/labels.yml) — **Source of truth** for 158 canonical labels (LOCKED)

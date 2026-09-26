@@ -30,6 +30,12 @@ This directory contains the active GitHub Actions workflows for this repository.
 - **documentation.yml** - Regenerates impacted READMEs on PR/push to `develop`; audit and maintenance via manual dispatch
 - **validate-specifications.yml** - Audits `.github/specs/`, validates the catalog, lints changed markdown, runs Bats tests
 
+### AI Review
+
+- **qodo-pr-agent.yml** - Qodo PR-Agent pilot caller: PR summary and improvement suggestions on non-draft PRs (opened, reopened, ready for review), plus maintainer comment commands
+- **qodo-pr-agent-reusable.yml** - Organisation-standard Qodo PR-Agent run definition (`workflow_call`), which other repositories can call; see `docs/QODO_PR_AGENT.md`
+- **qodo-pr-agent-report.yml** - Daily Qodo PR-Agent pilot report (runs, outcomes, estimated spend) on a schedule and by manual dispatch
+
 ## Archived Workflows
 
 Superseded workflows are preserved under `archived/2026-09-11/` with a manifest and restoration procedures. See `archived/INDEX.md`.

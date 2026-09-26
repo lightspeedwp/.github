@@ -20,6 +20,23 @@ Portable reusable assets MUST NOT live under `.github/`. They belong in top-leve
 
 **Rationale**: Reusable assets need to be discoverable and portable. `.github/` is GitHub-centric; portable assets must stand alone. Duplication causes maintenance debt and inconsistency. Single source of truth per concept.
 
+**Exception: platform-required locations.** A reusable file MAY live where GitHub or the tool that
+loads it requires, and only there, when no other location works. This covers:
+
+- Reusable workflows that other repositories call with `workflow_call`. GitHub only resolves
+  `uses: owner/repo/.github/workflows/<file>.yml@ref`, so they MUST live in `.github/workflows/`.
+- Tool configuration that the tool reads from a fixed path, such as `.coderabbit.yml` and
+  `.pr_agent.toml` at the repository root.
+
+The exception covers only the file the platform loads. Logic it wraps MUST live in a portable
+top-level folder wherever it can (for example, a skill the workflow calls). Every such file MUST be
+listed as consumable in `docs/WORKFLOWS.md` or its feature's documentation. A specification that
+relies on the exception MUST name it in its plan's Constitution Check. It is not recorded as a
+violation.
+
+**Rationale for the exception**: A reusable workflow in root `workflows/` cannot be called by other
+repositories, and copying it into each consumer causes the drift this principle exists to prevent.
+
 ### IV. Technology-Agnostic Guidance (Universal Principles)
 
 All instruction files, review guidance, and standards MUST apply universally across the organisation's diverse tech stacks (WordPress plugins, Node.js/TypeScript systems, infrastructure-as-code, MCP servers). NO framework-specific, language-specific, or project-type-specific implementation details in central guidance.
@@ -215,6 +232,8 @@ When a PR uses a forbidden prefix (e.g., `claude/my-feature`), fallback routing 
 - Repository-local Copilot/agent custom instructions
 - Organisation-wide labels, labeler rules, issue types
 - GitHub Actions workflows for this repository
+- Reusable workflows that other repositories call (`workflow_call`), under the Principle III
+  platform-required locations exception
 - Reports, audits, active project artifacts
 
 ## Development Workflow

@@ -1,0 +1,103 @@
+# Qodo PR-Agent — LightSpeed organisation-standard configuration
+#
+# Qodo PR-Agent (https://github.com/the-pr-agent/pr-agent, formerly qodo-ai/pr-agent)
+# complements CodeRabbit: CodeRabbit remains the primary automatic reviewer.
+# Qodo PR-Agent posts PR summaries and improvement suggestions, and answers
+# maintainer commands. It never edits the PR body, applies labels or commits.
+#
+# - Documentation: docs/QODO_PR_AGENT.md
+# - Specification: .github/specs/017-qodo-pr-agent-integration/
+# - Contract (asserted by tests/js/qodo-pr-agent-config.test.js):
+#   .github/specs/017-qodo-pr-agent-integration/contracts/pr-agent-config.md
+#
+# Qodo PR-Agent reads this file from the DEFAULT branch, so changes take effect
+# only after merge. Other repositories inherit it via the reusable workflow
+# (.github/workflows/qodo-pr-agent-reusable.yml), which loads it as
+# `extra_config_url`. They may override individual keys in their own
+# `.pr_agent.toml`, except keys marked `# locked:` below.
+#
+# Trigger policy (which tools run automatically, who may run commands) lives in
+# the workflow, not here. Never put credentials in this file.
+
+[config]
+model = "anthropic/claude-sonnet-5"
+fallback_models = ["anthropic/claude-haiku-4-5-20251001"]
+# Upstream clamps every model to this budget (default 32000).
+max_model_tokens = 64000
+large_patch_policy = "clip"
+# locked: all output in UK English (FR-007). Upstream static headings stay US English.
+response_language = "en-GB"
+# locked: Qodo PR-Agent must never apply or remove labels (FR-008).
+enable_custom_labels = false
+
+[ignore]
+glob = [
+  "node_modules/**",
+  ".github/workflows/archived/**",
+  ".github/reports/**",
+  "**/*.lock",
+  "package-lock.json",
+]
+
+[pr_description]
+# locked: post the summary as a comment, never overwrite the routed PR template (FR-012).
+publish_description_as_comment = true
+publish_description_as_comment_persistent = true
+# locked: no labels from describe (FR-008).
+publish_labels = false
+# locked: titles follow the PR template convention.
+generate_ai_title = false
+extra_instructions = """
+Write in UK English. Follow the organisation standards in AGENTS.md; do not restate them.
+Stay technology-agnostic and concise: summarise what changed and why, for a reviewer.
+Never reproduce credentials, tokens or keys found in the diff; refer to them by file and line only.
+Never suggest editing .github/labels.yml, .github/issue-types.yml or the issue and PR templates: they are locked.
+"""
+
+[pr_reviewer]
+# locked: the defaults add unprefixed labels ("possible security issue", "Review effort x/5") (FR-008).
+enable_review_labels_security = false
+enable_review_labels_effort = false
+persistent_comment = true
+extra_instructions = """
+Write in UK English. Follow the organisation standards in AGENTS.md; do not restate them.
+Stay technology-agnostic. Report only concrete, actionable findings with file and line references.
+This is an on-demand second opinion: CodeRabbit is the primary reviewer, so do not issue an approval verdict.
+Never reproduce credentials, tokens or keys found in the diff; refer to them by file and line only.
+Never suggest editing .github/labels.yml, .github/issue-types.yml or the issue and PR templates: they are locked.
+"""
+
+[pr_code_suggestions]
+# locked: suggestions are never committed by Qodo PR-Agent (FR-009).
+commitable_code_suggestions = false
+persistent_comment = true
+extra_instructions = """
+Write in UK English. Follow the organisation standards in AGENTS.md; do not restate them.
+Stay technology-agnostic. Prefer fewer, higher-value suggestions over style nits.
+Never reproduce credentials, tokens or keys found in the diff; refer to them by file and line only.
+Never suggest editing .github/labels.yml, .github/issue-types.yml or the issue and PR templates: they are locked.
+"""
+
+[pr_questions]
+extra_instructions = """
+Write in UK English. Follow the organisation standards in AGENTS.md; do not restate them.
+Stay technology-agnostic and answer only from the PR's changes and context.
+Never reproduce credentials, tokens or keys found in the diff; refer to them by file and line only.
+"""
+
+[pr_update_changelog]
+# locked: proposals are posted as a comment, never pushed (FR-009).
+push_changelog_changes = false
+extra_instructions = """
+Write in UK English. Follow the organisation standards in AGENTS.md; do not restate them.
+Propose one entry of at most 250 characters, user-facing, with no implementation detail.
+Link the PR and use a Keep a Changelog category: Added, Changed, Fixed or Removed.
+Never reproduce credentials, tokens or keys found in the diff; refer to them by file and line only.
+"""
+
+[pr_add_docs]
+extra_instructions = """
+Write in UK English. Follow the organisation standards in AGENTS.md; do not restate them.
+Stay technology-agnostic and match the documentation style already used in each file.
+Never reproduce credentials, tokens or keys found in the diff; refer to them by file and line only.
+"""

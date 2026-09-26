@@ -142,6 +142,15 @@ The workflow accepts these inputs:
 - `github-token`: GitHub token for API access (required)
 - `require-changelog`: Whether to enforce changelog entries (default: `false`)
 
+## Qodo PR-Agent integration
+
+[Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+
+- **Invocation**: [`skills/qodo-pr-agent`](../../skills/qodo-pr-agent/SKILL.md) with `review`, in PR mode or diff mode, and `ask` for targeted questions.
+- **On output**: Merge the findings as inputs to this review, and apply LightSpeed standards on top. Qodo PR-Agent is never a separate verdict: CodeRabbit and human reviewers own the verdict.
+- **Fallback**: Review proceeds exactly as it does today, without the input. When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
+- **Configuration**: this is an optional input. It needs `ANTHROPIC_API_KEY_QODO_PR_AGENT` (and `GITHUB_TOKEN` in PR mode) where the agent runs, and there is no workflow input to set.
+
 ## Best Practices
 
 1. **Review Automation**: This agent assists reviewers but doesn't replace human code review

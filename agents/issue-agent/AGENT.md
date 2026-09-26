@@ -328,6 +328,7 @@ gh workflow run milestone-distribution.yml -f job=reassign-v1-to-v1-1
 - **Metrics**: Feeds issue data to reporting systems
 - **Release Automation**: Type and label metadata drives changelog generation
 - **Openspec Tracking**: Monitored via openspec status labels
+- **Qodo PR-Agent `similar_issue`**: deferred. The upstream tool is experimental, needs OpenAI embeddings and isn't included in the Action image (spec 017, [research R8](../../.github/specs/017-qodo-pr-agent-integration/research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)).
 
 ## Error Handling & Recovery
 
