@@ -7,17 +7,23 @@
 import { existsSync } from "fs";
 import { join } from "path";
 
-// Quote the path as one literal shell argument. Most graph paths are plain
-// absolute paths that no shell will split or interpret, so emit those bare: that
-// is correct in bash, zsh and every PowerShell, and it removes the need to guess
-// which shell OpenCode will run. Only a path containing a shell metacharacter
-// needs quoting, and for that case no single form is valid in both POSIX shells
-// and PowerShell (`''` versus `'\''`), while the plugin API reports no shell, so
-// the platform is the only remaining signal.
+// Quote the path as one literal shell argument, choosing the least quoting that
+// is still correct, so the suggestion is right without knowing the shell. The
+// plugin API reports no shell, so each step is only used while it is valid in
+// both POSIX shells and PowerShell:
+//
+//  1. A path with no shell metacharacter needs no quoting at all.
+//  2. Inside double quotes, POSIX shells and PowerShell agree on every character
+//     except " $ ` and \, so a path free of those is safe to double-quote. This
+//     is what covers spaces and apostrophes, which is the common real case.
+//  3. Only a path containing one of those four still differs between shells, so
+//     the platform is the last remaining signal.
 const SHELL_SAFE_PATH = /^[A-Za-z0-9_@+=:,./-]+$/;
+const DOUBLE_QUOTE_UNSAFE = /["$`\\]/;
 
 const shellQuote = (path) => {
   if (SHELL_SAFE_PATH.test(path)) return path;
+  if (!DOUBLE_QUOTE_UNSAFE.test(path)) return `"${path}"`;
   return process.platform === "win32"
     ? `'${path.replace(/\\/g, "/").replace(/'/g, "''")}'`
     : `'${path.replace(/'/g, "'\\''")}'`;
