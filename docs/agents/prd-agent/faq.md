@@ -390,4 +390,4 @@ A typical PRD takes ~5000 tokens to generate, costing:
 **Most Common**: Setup issues, quality questions, estimation help  
 **If All Else Fails**: Reach out on Slack or GitHub Issues
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Need help? Say hi—work with us.

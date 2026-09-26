@@ -99,4 +99,4 @@ Do not summarize onboarding for its own sake. Confirm only the defaults that mat
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

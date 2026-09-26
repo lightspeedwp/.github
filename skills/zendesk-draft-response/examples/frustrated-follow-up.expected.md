@@ -13,4 +13,4 @@ I have the screenshots in the thread now and will use those as the basis for the
 - Do not ask for screenshots again.
 - Do not promise a fix or ETA unless confirmed elsewhere.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

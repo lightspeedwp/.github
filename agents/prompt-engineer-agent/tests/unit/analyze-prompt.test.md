@@ -148,4 +148,4 @@ These tests will be implemented in Phase 3 (Testing & Validation) with proper te
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

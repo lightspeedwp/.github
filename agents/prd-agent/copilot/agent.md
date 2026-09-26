@@ -263,4 +263,4 @@ In GitHub Code Spaces:
 **Provider Support**: GitHub Copilot (Custom Agent), GitHub Code Spaces  
 **Memory Registry**: `agent:mode-prd` (primary agent entry, copilot-native)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

@@ -312,4 +312,4 @@ If you encounter any of these, the PRD is not ready for estimation:
 **Estimation Goal**: High-confidence effort forecasts that reduce schedule surprises  
 **Questions?** See [FAQ](./faq.md)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

@@ -84,4 +84,4 @@ By signing below, the approver confirms that the UAT has been completed to satis
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

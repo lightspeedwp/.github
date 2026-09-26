@@ -358,4 +358,4 @@ Load these resources as needed during development:
   - Example questions and answers
   - Running an evaluation with the provided scripts
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

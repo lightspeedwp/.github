@@ -310,5 +310,4 @@ Before finalizing, review:
 **Quality Focus**: Clarity, specificity, testability, estimability  
 **Questions?** See [FAQ](./faq.md)
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+Made with ❤️ by the LightSpeed team.

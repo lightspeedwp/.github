@@ -13,4 +13,4 @@ See the [details](#details) section.
 
 This file should pass the combined validator.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

@@ -86,4 +86,4 @@ Each claim must be backed by evidence, reviewed, and approved before inclusion i
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

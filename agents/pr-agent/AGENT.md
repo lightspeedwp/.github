@@ -59,5 +59,4 @@ The complete User Story 2 guarantees are not implemented yet. Commit/diff-derive
 
 ---
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Made with ❤️ by the LightSpeed team.

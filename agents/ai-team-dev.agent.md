@@ -32,5 +32,4 @@ Do not invent layers or frameworks that the repository does not use.
 
 Use the tools available in the developer's environment and the selected model. Resolve ordinary implementation details autonomously. Ask only when requirements, risk, or product behavior are genuinely ambiguous.
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Need help? Say hi—work with us.

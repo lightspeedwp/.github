@@ -36,4 +36,4 @@ status: draft
 - Review date: {{review.date}}
 - Notes: {{review.notes}}
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

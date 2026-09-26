@@ -140,4 +140,4 @@ Eliminate long-lived credentials:
 - Never skip security scanning
 - Monitor workflows for failures and anomalies
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

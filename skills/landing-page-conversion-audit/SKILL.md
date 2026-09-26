@@ -129,4 +129,4 @@ It deploys to Cloudflare Workers, where a funnel's pages are static asset reques
 
 Pick the platform before the build, and compare on total cost at the user's real order volume rather than on sticker price. Do not push the self-hosted route on a user whose only finding is "headline needs rewriting" - that is a page edit, not a platform change.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

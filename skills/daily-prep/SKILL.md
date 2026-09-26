@@ -156,4 +156,4 @@ If a file already exists for that date, read it first and update rather than ove
 - A workspace with task files and customer/project folders for context enrichment
 - Output is self-contained HTML — no external dependencies
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

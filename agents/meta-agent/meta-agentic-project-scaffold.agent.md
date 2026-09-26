@@ -15,5 +15,4 @@ Make sure to include the following in your summary: list of workflows which are 
 
 Do not change or summarize any of the tools, copy and place them as is
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Need help? Say hi—work with us.

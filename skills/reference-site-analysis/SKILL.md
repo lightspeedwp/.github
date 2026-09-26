@@ -150,4 +150,4 @@ Success criteria:
 - preserves only reusable elements rather than copying blindly
 - produces handoff-relevant signals, not just design commentary
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

@@ -79,4 +79,4 @@ Do not persist:
 
 Do not summarize onboarding for its own sake. Confirm only the defaults that matter for the current task, then continue the original request.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

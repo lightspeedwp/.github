@@ -54,5 +54,4 @@ _Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
 _Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
 [Contact](https://lightspeedwp.agency/contact)
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Need help? Say hi—work with us.

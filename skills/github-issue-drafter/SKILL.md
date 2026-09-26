@@ -33,4 +33,4 @@ description: create github-ready markdown issue drafts for lightspeed figma desi
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

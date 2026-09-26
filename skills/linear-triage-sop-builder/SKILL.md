@@ -89,4 +89,4 @@ A good SOP:
 
 A structured SOP with roles, review cadence, triage actions, escalation rules, and the expected end state of a clean triage queue.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

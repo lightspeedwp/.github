@@ -254,4 +254,4 @@ git checkout -b hotfix/rollback-v1.2.4 tags/v1.2.3
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+Need help? Say hi—work with us.

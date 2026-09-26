@@ -98,3 +98,5 @@ import { submitPr } from './scripts/submit-pr.js';
 
 const result = await submitPr({ pr, githubContext, dryRun: true });
 ```
+
+Need help? Say hi—work with us.

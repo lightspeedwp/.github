@@ -103,5 +103,4 @@ Provide enterprise-grade, portable changelog management using Keep a Changelog 1
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+Made with ❤️ by the LightSpeed team.

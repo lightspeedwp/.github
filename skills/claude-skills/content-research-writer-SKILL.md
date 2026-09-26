@@ -558,4 +558,4 @@ Recommended structure for writing projects:
 - Writing case studies
 - Developing course outlines
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

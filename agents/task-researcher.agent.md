@@ -291,4 +291,4 @@ When research is complete, you WILL provide:
 - You WILL present single solution with implementation readiness assessment and next steps
 - You WILL deliver clear handoff for implementation planning with actionable recommendations
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

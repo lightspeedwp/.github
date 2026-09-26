@@ -57,5 +57,4 @@ _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+Made with ❤️ by the LightSpeed team.

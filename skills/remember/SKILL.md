@@ -131,4 +131,4 @@ Common scenarios that warrant memory updates:
 - Coding style decisions and rationale
 - Cross-project patterns that work well
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

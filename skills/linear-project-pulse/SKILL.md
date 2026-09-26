@@ -76,4 +76,4 @@ A good result:
 
 A concise project-level status takeaway plus a few key signals about risk, momentum, and next focus.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

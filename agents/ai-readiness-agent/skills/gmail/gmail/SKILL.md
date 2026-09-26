@@ -95,4 +95,4 @@ If thread or inbox data is missing, say that Gmail access may be unavailable or 
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

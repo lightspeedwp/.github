@@ -233,4 +233,4 @@ Before finalising, check that:
 - Multi-page repeated issues are consolidated where sensible.
 - The final output is suitable for Google Docs or includes a created document link when requested.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

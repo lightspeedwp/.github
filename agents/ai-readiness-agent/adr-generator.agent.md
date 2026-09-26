@@ -223,4 +223,4 @@ Your work is complete when:
 6. Document follows all formatting standards
 7. Quality checklist items are satisfied
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

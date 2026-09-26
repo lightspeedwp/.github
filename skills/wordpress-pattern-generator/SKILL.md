@@ -58,4 +58,4 @@ description: create wordpress block theme pattern files, php pattern headers, st
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

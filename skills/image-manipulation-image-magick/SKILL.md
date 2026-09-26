@@ -261,4 +261,4 @@ magick "$img" -resize 427x240 "thumbnails/thumb_$filename"
 - Some complex operations may require additional ImageMagick delegates
 - On older Linux systems, use `convert` instead of `magick` (ImageMagick 6.x vs 7.x)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

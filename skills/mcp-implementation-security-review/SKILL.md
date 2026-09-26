@@ -339,4 +339,4 @@ List every check that could not be fully resolved from source code, specifying w
 - **Get explicit approval:** Route the exception through security/release approval with an owner and an expiration or review date.
 - **Track and re-evaluate:** Record the approved exception with compliance results and revisit it on expiry or whenever the server, tools, traffic profile, or exposure changes.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

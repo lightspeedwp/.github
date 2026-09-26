@@ -58,3 +58,5 @@ const result = await orchestratePrCreation({
   pr: { owner, repo, title, body, head, base, labels },
 });
 ```
+
+Need help? Say hi—work with us.

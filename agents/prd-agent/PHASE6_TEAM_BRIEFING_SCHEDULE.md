@@ -242,4 +242,4 @@ completion_status: "pending"
 **Status**: Ready for execution (team leads to schedule)  
 **Owner**: Ash Shaw
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Need help? Say hi—work with us.

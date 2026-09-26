@@ -91,3 +91,5 @@ const result = await validateAndApplyLabels({
   templateFile: 'pr_feature.md',
 });
 ```
+
+Need help? Say hi—work with us.

@@ -104,4 +104,4 @@ Outputs should be Markdown-first and easy to paste into Google Docs. If asked fo
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

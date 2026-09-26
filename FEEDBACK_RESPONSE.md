@@ -133,3 +133,5 @@ as checklist items rather than fixed here:
 - `additionalProperties: false` change verified by validating documents against the schema before and after.
 - `node .github/validation/changelog/bin/validate.js` executed to confirm the corrected quickstart command runs.
 - Every changelog label named in the specifications exists in `.github/labels.yml`.
+
+Made with ❤️ by the LightSpeed team.

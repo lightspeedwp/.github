@@ -250,4 +250,4 @@ If the user asks for a reviewed-and-improved version instead of only critique:
 - QA this weekly support summary for claims that are not backed by the reported numbers.
 - Review this knowledge draft and tell me whether it is safe to publish or should stay internal.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

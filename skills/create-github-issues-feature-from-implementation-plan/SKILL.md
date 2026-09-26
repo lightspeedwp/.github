@@ -27,4 +27,4 @@ Create GitHub Issues for the implementation plan at `${file}`.
 - Description: Phase details, requirements, and context
 - Labels: Appropriate for issue type (feature/chore)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

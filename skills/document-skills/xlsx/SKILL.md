@@ -315,4 +315,4 @@ The script returns JSON with error details:
 - Document data sources for hardcoded values
 - Include notes for key calculations and model sections
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

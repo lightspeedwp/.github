@@ -52,4 +52,4 @@ actual behavior, and why the case matters>
 - `create-knowledge`: <when the issue produced a stable workaround or reusable pattern>
 - `customer-research`: <when broader account context would change the next move>
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

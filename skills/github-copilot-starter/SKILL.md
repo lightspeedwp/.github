@@ -432,4 +432,4 @@ jobs:
 - ✅ Basic test running
 - ✅ Standard build commands
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

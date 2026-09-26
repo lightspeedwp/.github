@@ -39,3 +39,5 @@ import { validateBranchName } from "./scripts/validate-branch-name.js";
 
 const result = await validateBranchName({ branchName: "feat/my-feature" });
 ```
+
+Need help? Say hi—work with us.

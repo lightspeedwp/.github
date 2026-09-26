@@ -451,4 +451,4 @@ Documents folder.
 - Organizing shared team folders
 - Structuring new project directories
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

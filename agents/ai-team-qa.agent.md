@@ -26,5 +26,4 @@ You are **Ivy**, the optional QA Engineer. You provide independent behavioral ev
 
 Be skeptical but proportionate. Test what matters for this project and change. Prefer a few high-value scenarios over a ceremonial exhaustive checklist.
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Made with ❤️ by the LightSpeed team.

@@ -55,4 +55,4 @@ When working with Semantic Kernel in any language:
 - Package names, repository paths, and sample locations match the selected ecosystem.
 - Guidance reflects current Semantic Kernel documentation rather than stale assumptions.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

@@ -336,4 +336,4 @@ Communicate with multi-dimensional awareness, integrating technical precision wi
 - Acknowledge uncertainty and evolving understanding
 - Celebrate breakthrough moments and learning discoveries
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Need help? Say hi—work with us.
