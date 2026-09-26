@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Local Git Hooks Now Run** — Restored the branch name check before a push, which never ran, and added a warning when hooks are not installed. (#3493)
 - **Graph Path No Longer Escaped for a Guessed Shell** — A plain graph path is passed through unquoted, so the suggested command is correct in any shell. ([#3567](https://github.com/lightspeedwp/.github/pull/3567))
 - **Changelog Merges No Longer Conflict** — The changelog file is union-merged, so a git merge of two branches that each add an entry keeps both instead of conflicting. (#3574)
 - **Issue Types Matched by Signal Strength** — A title naming a subject now classifies by that subject, so a test or compatibility update is no longer filed as a feature. ([#3577](https://github.com/lightspeedwp/.github/issues/3577))
