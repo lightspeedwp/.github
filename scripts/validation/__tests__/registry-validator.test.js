@@ -17,25 +17,37 @@ async function loadValidator() {
   return RegistryValidator;
 }
 
+const VALID_AGENT = {
+  id: 'test-agent',
+  name: 'Test Agent',
+  version: '1.0.0',
+  folder_path: 'agents/test-agent',
+  status: 'active',
+};
+
+// `combinedRegistry` references legacySkill, which carries fewer required
+// fields than the `generatedSkill` used by the split registries. Both shapes
+// are valid, so each fixture matches the branch that accepts it.
+const LEGACY_SKILL = {
+  id: 'test-skill',
+  name: 'Test Skill',
+  version: '1.0.0',
+  location: 'test-skill',
+  category: 'testing',
+};
+
+const GENERATED_SKILL = {
+  ...LEGACY_SKILL,
+  description: 'A skill used to exercise registry validation.',
+  type: 'utility',
+  agentskills_compliant: true,
+  compliance_violations: [],
+  used_by: [],
+};
+
 const VALID_REGISTRY = {
-  agents: [
-    {
-      id: 'test-agent',
-      name: 'Test Agent',
-      version: '1.0.0',
-      folder_path: 'agents/test-agent',
-      status: 'active',
-    },
-  ],
-  skills: [
-    {
-      id: 'test-skill',
-      name: 'Test Skill',
-      version: '1.0.0',
-      location: 'test-skill',
-      category: 'testing',
-    },
-  ],
+  agents: [VALID_AGENT],
+  skills: [LEGACY_SKILL],
 };
 
 describe('RegistryValidator schema evaluation (#3522)', () => {
@@ -92,5 +104,48 @@ describe('RegistryValidator schema evaluation (#3522)', () => {
     expect(validator.validateFn).toBeNull();
     expect(validator.validateObject({ skills: [{}] }, 'fixture').valid).toBe(true);
     expect(validator.validateObject({}, 'fixture').valid).toBe(false);
+  });
+
+  // Split registries are separate oneOf branches, so they must not be
+  // rejected for omitting the unrelated collection. See #3522.
+  test.each([
+    [
+      'consolidated skills registry',
+      {
+        timestamp: '2026-01-01T00:00:00.000Z',
+        version: '1.0.0',
+        schema: 'https://agentskills.io/schema/v1',
+        summary: { total: 1, byCategory: { testing: 1 }, compliant: 1, compliancePercentage: 100 },
+        skills: [GENERATED_SKILL],
+      },
+    ],
+    [
+      'per-category skills registry',
+      {
+        timestamp: '2026-01-01T00:00:00.000Z',
+        version: '1.0.0',
+        category: 'testing',
+        summary: { total: 1, compliant: 1, compliancePercentage: 100 },
+        skills: [GENERATED_SKILL],
+      },
+    ],
+  ])('accepts a %s that omits agents', async (_label, registry) => {
+    const validator = await schemaValidator();
+
+    const result = validator.validateObject(registry, 'fixture');
+
+    expect(result.errors).toEqual([]);
+    expect(result.valid).toBe(true);
+  });
+
+  // The schema has no agents-only branch, so an agents registry without a
+  // `skills` key is correctly rejected. Documented rather than worked around.
+  test('rejects an agents-only registry, which no schema branch describes', async () => {
+    const validator = await schemaValidator();
+
+    const result = validator.validateObject({ agents: [VALID_AGENT] }, 'fixture');
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.join('\n')).toMatch(/required property 'skills'/);
   });
 });
