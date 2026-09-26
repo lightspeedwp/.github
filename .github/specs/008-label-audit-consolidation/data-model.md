@@ -50,7 +50,7 @@
 | `name` | string | ✅ | Human-readable family name |
 | `total_count` | integer | ✅ | Number of labels in this family (from canonical file) |
 | `description` | string | ✅ | Family purpose and usage guidelines |
-| `is_immutable` | boolean | ✅ | True for `type:*` family (25 labels, never change) |
+| `is_immutable` | boolean | ✅ | True for `type:*` family (exactly 25 labels since the Stage 0a swap; changes only via the approved FR-014 swap) |
 | `canonical_count` | integer | ✅ | Labels defined in canonical labels.yml |
 | `source_files` | string[] | ✅ | Files defining this family (e.g., [".github/labels.yml", ".github/issue-types.yml"]) |
 
@@ -60,7 +60,7 @@
 {
   "id": "type",
   "name": "Issue Type",
-  "total_count": 25,
+  "total_count": 26,
   "description": "Categorize work by nature (bug, feature, docs, test, etc.). Immutable - tied to GitHub issue types.",
   "is_immutable": true,
   "canonical_count": 25,
@@ -326,7 +326,7 @@ Each label MUST pass these checks:
 2. **Family Membership**: Family must exist in families list
 3. **Color Code**: Must be valid hex color (6 characters)
 4. **Description**: Must be non-empty and descriptive
-5. **Type Family Immutability**: All 25 type: labels must be present and unchanged
+5. **Type Family Control**: Exactly 25 type labels, each mapped to one issue type (`type:decision` mapped, `type:question` retired in Stage 0a)
 6. **Consistency**: If canonical, should not have duplication_status != "unique"
 
 ### Audit Completeness Checks
@@ -346,6 +346,124 @@ Each label MUST pass these checks:
 ✅ Validation rules testable and automatable  
 ✅ Audit completeness criteria defined  
 ✅ Ready for task decomposition and implementation
+
+## Consolidation Entities (User Story 4)
+
+Added 2026-09-24. These entities support FR-011 to FR-017; formats are defined in `contracts/label-mapping-schema.md` and `contracts/dry-run-and-drift-report-schema.md`.
+
+### 6. Label Mapping
+
+One approved change to one label.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `source` | string | Exact label name in GitHub and/or Linear |
+| `systems` | set | `github`, `linear` |
+| `action` | enum | `rename`, `import`, `merge`, `re-prefix`, `retire`, `team-scope`, `swap` |
+| `target` | string or null | Exists in `labels.yml` after the change |
+| `concept_label` | string or null | `re-prefix` only |
+| `issue_count` | integer | Items carrying `source` at generation time |
+| `requirement` | FR id | FR-011, FR-012, FR-014 or FR-015 |
+| `color` | hex (6) or null | Required for `import`; from `docs/LABEL_COLOR_STRATEGY.md` where the family has a rule, otherwise from the approved request (FR-012) |
+| `description` | string or null | Required for `import`; for #3554 labels, the description in #3554 |
+| `change_request` | integer or null | The `[LABEL-UPDATE-REQUEST]` issue that approves this entry (for example 3554) |
+| `gap` | boolean | `true` for a source used in files but not defined in `labels.yml` (for example the non-canonical `openspec:*` names, R19); its `action` is `rename` to a defined `spec:*` label or `retire` |
+
+**Rule**: After all mappings are applied, every issue has exactly one `type:*` label and the type family has exactly 25 labels.
+
+### 7. Change Request
+
+A governance approval that unlocks a locked file.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `kind` | enum | `LABEL-UPDATE-REQUEST`, `ISSUE-TYPE-UPDATE-REQUEST`, `TEMPLATE-UPDATE-REQUEST`, `MIGRATION` (OpenSpec paths) |
+| `issue_number` | integer | GitHub issue in `lightspeedwp/.github` |
+| `mappings` | list | Label Mappings covered (label requests only) |
+| `status` | enum | `draft` → `open` → `approved` → `merged` (or `rejected`) |
+| `approved_by` | string | `ashleyshaw` for locked files |
+
+### 8. Repository Dry Run
+
+The per-repository deletion proposal (FR-016).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `repository` | string | `lightspeedwp/{repo}` |
+| `label_count` / `pages_read` | integer | `pages_read × 100 ≥ label_count` |
+| `to_delete` | list | Each with a snapshot and `migrate_to` for open items |
+| `approval` | object | `pending` → `approved` → `executed` (or `skipped`) |
+
+### 9. Gate
+
+Replaces closed issue #95 in `label-governance-policy.yml`.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `gated_by_issue` | integer | The new gate issue number |
+| `enabled` | boolean | Always `false` in the repository; deletion is authorised per run by `--apply --confirm-gate <gate issue>` plus an approved dry run |
+| `approved_orphan_labels` | list | Filled from approved dry runs |
+
+### 10. Drift Report
+
+The single weekly report issue (FR-017).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `differences` | list | Location, label, difference type, first seen, item count |
+| `allowed_exceptions` | list | Documented team-scoped Linear labels |
+| `status` | enum | `drift` or `no drift` (SC-009 steady state) |
+
+### 11. Issue Type
+
+One of the 25 canonical issue types (FR-014, FR-019, FR-020). Source: `.github/issue-types.yml`; values listed in `contracts/issue-types-org-settings.md`.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `name` | string | Unique; exactly matches the organisation's native issue type name |
+| `label` | string | The one `type:*` label for this type; exists in `labels.yml` |
+| `color` | hex (6) | From `docs/LABEL_COLOR_STRATEGY.md`; identical to the label's colour in `labels.yml` |
+| `native_color` | enum | `gray`, `blue`, `green`, `yellow`, `orange`, `red`, `pink`, `purple`; the colour's family name (Teal → green) |
+| `description` | string | Required; the same text in `issue-types.yml` and the organisation settings page |
+| `template` | file | Exactly one issue template in `.github/ISSUE_TEMPLATE/` |
+
+**Rules**: exactly 25 issue types; names, labels and templates are one-to-one; a native type is removed only after zero issues use it.
+
+### 12. Approval Gate Label
+
+`meta:needs-approval` (FR-021), applied to an issue while a named approver's decision is pending.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `approver` | string | Named on the issue (for example `@ashley`) |
+| `decision_requested` | string | What must be decided |
+| `scope` | string | What the decision affects |
+| `options` | string | The options or proposed change |
+| `risk` | string | What goes wrong if decided badly |
+| `acceptance_evidence` | string | What will show the decision was applied |
+| `decided_at` | date or null | Dated approval or rejection; the label is removed within one day (SC-010) |
+
+**Rules**: not used for ordinary review (`status:needs-review`) or a generic block (`status:blocked`); review completion is not consent.
+
+### 13. Snapshot Target Name
+
+Added to each label record in the four 2026-09-14 snapshot files (`canonical-labels.json`, `label-families.json`, `label-inventory.json`, `label-inventory.csv`) in Stage 0c (R17).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `name` | string | Unchanged: the name recorded on 2026-09-14 |
+| `target_name` | string | The FR-011 name (`ai-ops:agents` → `aiops:agents`, `openspec:planning` → `spec:planning`); equal to `name` for labels that are not renamed |
+
+**Rule**: counts, families and every other recorded value stay unchanged.
+
+### Consolidation State Transitions
+
+```text
+Approval Gate Label: applied (decision pending) → removed (dated decision recorded)
+Label Mapping:     proposed → approved (Change Request merged) → applied-github → applied-linear → verified (drift report clean)
+Repository Dry Run: generated → approved → executed → verified
+                              ↘ skipped (no approval: nothing deleted)
+```
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

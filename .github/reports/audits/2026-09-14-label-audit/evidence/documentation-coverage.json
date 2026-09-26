@@ -1,0 +1,1023 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T018",
+  "docs_checked": [
+    "docs/LABELING.md",
+    "docs/LABELING_EXAMPLES.md",
+    "docs/LABELING_FAQ.md",
+    "docs/LABELING_GOVERNANCE.md",
+    "docs/LABEL_COLOR_STRATEGY.md",
+    "docs/LABEL_INVENTORY.md",
+    "docs/LABEL_MANAGEMENT_CLI.md",
+    "docs/LABEL_STRATEGY.md"
+  ],
+  "label_count": 169,
+  "documented": 142,
+  "undocumented_count": 27,
+  "undocumented": [
+    "status:completed",
+    "priority:high",
+    "priority:low",
+    "type:decision",
+    "type:compat",
+    "type:docs",
+    "type:aiops",
+    "area:governance",
+    "area:qa",
+    "area:operations",
+    "area:agents",
+    "area:skills",
+    "area:instructions",
+    "area:prompts",
+    "area:playwright",
+    "area:jest",
+    "area:phpunit",
+    "area:pagespeed",
+    "openspec:discovery",
+    "openspec:planning",
+    "openspec:specification-in-progress",
+    "openspec:specification-complete",
+    "openspec:implementation-pending",
+    "openspec:implementation-in-progress",
+    "openspec:status-testing",
+    "openspec:status-production",
+    "openspec:implementation-complete"
+  ],
+  "labels": [
+    {
+      "label": "status:needs-planning",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-triage",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABELING_GOVERNANCE.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "status:ready",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "status:in-progress",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABELING_GOVERNANCE.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "status:on-hold",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-design",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-design-review",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-figma-update",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-dev",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-review",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABELING_GOVERNANCE.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "status:needs-qa",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-testing",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-documentation",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:in-discussion",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:needs-more-info",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:blocked",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "status:duplicate",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "status:wontfix",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "status:done",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "status:completed",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "status:needs-audit",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "priority:critical",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "priority:important",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "priority:normal",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "priority:minor",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "priority:high",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "priority:low",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "type:task",
+      "documented": true,
+      "doc_files": ["docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:bug",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABELING_GOVERNANCE.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "type:feature",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABELING_GOVERNANCE.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "type:design",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "type:epic",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:question",
+      "documented": true,
+      "doc_files": ["docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:improve",
+      "documented": true,
+      "doc_files": ["docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:chore",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "type:ci",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:automation",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:test",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:decision",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "type:performance",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "type:a11y",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "type:security",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "type:compat",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "type:refactor",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:release",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:dependency",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md"
+      ]
+    },
+    {
+      "label": "type:docs",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "type:research",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:audit",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:review",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:aiops",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "type:content-modelling",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "type:build",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "meta:needs-changelog",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "meta:no-changelog",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_MANAGEMENT_CLI.md"
+      ]
+    },
+    {
+      "label": "meta:has-pr",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_MANAGEMENT_CLI.md"
+      ]
+    },
+    {
+      "label": "meta:no-issue-activity",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "meta:no-pr-activity",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "meta:stale",
+      "documented": true,
+      "doc_files": [
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_MANAGEMENT_CLI.md"
+      ]
+    },
+    {
+      "label": "release:patch",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "release:minor",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "release:major",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "release:hotfix",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:core",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:governance",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:qa",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:operations",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:block-editor",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "area:theme",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:documentation",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:tests",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:scripts",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:assets",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:woocommerce",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:content",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:design-system",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:navigation",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:forms",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:plugins",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:search",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:seo",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:analytics",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:infrastructure",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:i18n",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:ci",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_COLOR_STRATEGY.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "area:deployment",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:dependencies",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:integration",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:automation",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:testing",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:performance",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:a11y",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:security",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:compatibility",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:release",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:maintenance",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:ai",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "area:agents",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:skills",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:instructions",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:prompts",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:playwright",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:jest",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:phpunit",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "area:pagespeed",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "comp:block-editor",
+      "documented": true,
+      "doc_files": [
+        "docs/LABELING_EXAMPLES.md",
+        "docs/LABELING_FAQ.md",
+        "docs/LABEL_INVENTORY.md",
+        "docs/LABEL_STRATEGY.md"
+      ]
+    },
+    {
+      "label": "comp:block-inserter",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-variations",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-supports",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-locking",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-bindings",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-templates",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-patterns",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:template-parts",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-json",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:theme-json",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:wp-admin",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:settings",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:post-settings",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:style-variations",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:block-styles",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:color-palette",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:typography",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:section-styles",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "comp:spacing",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "lang:php",
+      "documented": true,
+      "doc_files": ["docs/LABEL_COLOR_STRATEGY.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "lang:js",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "lang:css",
+      "documented": true,
+      "doc_files": ["docs/LABELING_FAQ.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "lang:html",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "lang:md",
+      "documented": true,
+      "doc_files": ["docs/LABELING_EXAMPLES.md", "docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "lang:json",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "lang:yaml",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "env:prototype",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "env:staging",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "env:live",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "compat:wordpress",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "compat:php",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "compat:woocommerce",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "compat:gutenberg",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "compat:rtl",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "compat:multisite",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "cpt:posts",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "cpt:pages",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "ai-ops:instructions",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "ai-ops:chat-modes",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "ai-ops:agents",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "ai-ops:prompts",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "ai-ops:datasets",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "ai-ops:evaluations",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "ai-ops:tools",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "contrib:good-first-issue",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "contrib:help-wanted",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "contrib:discussion",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md"]
+    },
+    {
+      "label": "discussion:announcement",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "discussion:showcase",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "discussion:community",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "discussion:feedback",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "discussion:support",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "discussion:sponsorship",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "discussion:partnership",
+      "documented": true,
+      "doc_files": ["docs/LABEL_INVENTORY.md", "docs/LABEL_STRATEGY.md"]
+    },
+    {
+      "label": "openspec:discovery",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:planning",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:specification-complete",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:status-testing",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:status-production",
+      "documented": false,
+      "doc_files": []
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "documented": false,
+      "doc_files": []
+    }
+  ]
+}
