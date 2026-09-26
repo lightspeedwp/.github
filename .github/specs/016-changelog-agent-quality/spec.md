@@ -67,13 +67,13 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 **Why this priority**: Changelog labels are part of the broader labeling strategy and must be synchronized with PR routing, automation, and metrics tracking. This integration ensures end-to-end consistency.
 
-**Independent Test**: Can be fully tested by verifying: (1) changelog validation applies correct `meta:changelog-*` labels to PRs, (2) workflow rejects PRs with non-canonical changelog labels, (3) PR template includes changelog-related label guidance, (4) labeling is consistent across all changelog workflows.
+**Independent Test**: Can be fully tested by verifying: (1) changelog validation uses the two canonical labels `meta:needs-changelog` and `meta:no-changelog` from `.github/labels.yml`, (2) workflow rejects PRs carrying non-canonical changelog labels, (3) PR template includes changelog-related label guidance, (4) labeling is consistent across all changelog workflows.
 
 **Acceptance Scenarios**:
 
-1. **Given** a PR with changelog entries, **When** the workflow validates, **Then** it applies label `meta:has-changelog` if all entries pass validation
-2. **Given** a PR with changelog entries that fail validation, **When** the workflow validates, **Then** it applies label `meta:needs-changelog-fix` and blocks merge with clear feedback
-3. **Given** the canonical label set, **When** scanning PR labels, **Then** all changelog-related labels (`meta:has-changelog`, `meta:needs-changelog-fix`, `meta:changelog-*`) are from the canonical set in `.github/labels.yml`
+1. **Given** a PR with changelog entries, **When** the workflow validates, **Then** it clears `meta:needs-changelog` if all entries pass validation
+2. **Given** a PR with changelog entries that fail validation, **When** the workflow validates, **Then** it keeps `meta:needs-changelog` applied and blocks merge with clear feedback
+3. **Given** the canonical label set, **When** scanning PR labels, **Then** every changelog-related label is one of the two that exist in `.github/labels.yml` (`meta:needs-changelog`, `meta:no-changelog`)
 4. **Given** PR processing, **When** the labeling workflow runs, **Then** changelog labels are applied automatically with no manual intervention needed
 
 ---
@@ -98,7 +98,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - **FR-006**: Changelog documentation MUST exist at `docs/agents/changelog-agent/` with: README.md (overview, quick start), SKILLS.md (skill reference), INTEGRATION.md (workflow integration), TROUBLESHOOTING.md (common issues and fixes), API.md (detailed API documentation)
 - **FR-007**: Changelog workflow MUST apply labels from canonical set (`.github/labels.yml`) with prefix `meta:` for changelog status tracking
 - **FR-008**: Validation workflow MUST run on every PR that modifies CHANGELOG.md and provide feedback via GitHub PR comments or status checks
-- **FR-009**: Workflow MUST block merge if changelog entries fail validation, with automatic bypass for branches matching `chore/` or `deps/` prefixes (no explicit label required; bypass is automatic by branch type)
+- **FR-009**: Workflow MUST block merge if changelog entries fail validation, with the same bypasses as the shipped gate: Dependabot and docs-bot authors, docs-only diffs (every changed file under `docs/**` or ending in `.md`), and the `meta:no-changelog` label. Branch-name prefix is deliberately not a bypass, so a `chore/` branch with a code diff still needs a changelog entry or the label
 - **FR-010**: Scripts and validation logic currently scattered across `scripts/validation/`, `agents/changelog-agent/`, and `scripts/workflows/` MUST be reorganized into changelog agent skill directories with clear purpose and no duplication
 - **FR-011**: Changelog operations MUST use a reader/writer protocol: Validate and check-links register active reader markers while reading; Merge and Format first publish writer intent to block new readers, wait for existing readers to finish, then acquire the exclusive write lock. Locks and markers MUST carry owner tokens, process/host identity, leases, and heartbeats so stale state can be recovered without removing an active owner's lock; concurrent Validate operations remain allowed
 
@@ -128,7 +128,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 ### Session 2026-09-19
 
-- Q1: Validation bypass mechanism → A: Automatic bypass by PR type (chore/ and deps/ branches skip validation; all other branches require changelog validation)
+- Q1: Validation bypass mechanism → A: Match the shipped gate exactly (Dependabot/docs-bot authors, docs-only diffs, or the `meta:no-changelog` label); branch-name prefix is not a bypass
 - Q2: Skill invocation patterns → A: Primary npm CLI commands (`npm run changelog:validate`, etc.); optional REST API wrapper for external agents
 - Q3: Concurrent execution & race conditions → A: File-level locks with merge operations blocking until validation completes (concurrent validate operations allowed)
 
@@ -139,7 +139,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 - The agentskills.io specification (<https://agentskills.io/specification>) remains the authoritative source for skill metadata structure
 - The prd-agent documentation at `docs/agents/prd-agent/` serves as the style and structure template for changelog agent docs
 - The changelog requirement follows the shipped gate in `.github/workflows/changelog-unified.yml`: it is skipped for Dependabot and docs-bot pull requests and for docs-only diffs (`docs/**` or `*.md`); any other pull request needs a `CHANGELOG.md` update or the `meta:no-changelog` label, and that label is refused for high-impact release-related change types
-- The canonical label set in `.github/labels.yml` already includes changelog-related labels or they will be added as part of this work
+- The canonical label set in `.github/labels.yml` already provides `meta:needs-changelog` and `meta:no-changelog`; this spec reuses those two names and invents no new labels, because `.github/labels.yml` is a locked file
 - Node.js and npm are available in all environments where changelog validation runs (local, CI, agent runtime)
 - The changelog agent is a Node.js-based system (consistent with existing agent implementations in the repository)
 - The validation workflow integrates with GitHub Actions and PR status checks (no external CI system required)

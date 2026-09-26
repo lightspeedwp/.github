@@ -208,7 +208,7 @@ Line 22: Entry missing required PR/issue link
 
 ### 5. Bypass Mechanism for Automated Commits
 
-**Decision**: Automatic bypass by branch type (chore/ and deps/ branches skip validation)
+**Decision**: Match the shipped gate (Dependabot/docs-bot authors, docs-only diffs, or the `meta:no-changelog` label). Branch-name prefix is not a bypass
 
 **Rationale**:
 
@@ -228,14 +228,14 @@ if (!skipValidation) {
   // Run validation and block merge if invalid
 } else {
   // Skip validation; log bypass reason
-  console.log(`Branch type '${branchType}' bypasses changelog validation`);
+  console.log(`Bypass reason '${bypassReason}' skips changelog validation`);
 }
 ```
 
-**Affected Branch Types**:
+**Bypass Conditions** (as shipped in `changelog-unified.yml`):
 
-- ✅ Skip: `chore/*`, `deps/*`
-- ❌ Require validation: All others (feat, fix, hotfix, release, refactor, docs, test, perf, security, etc.)
+- ✅ Skip: Dependabot and docs-bot authors, docs-only diffs (every changed file under `docs/**` or ending in `.md`), and the `meta:no-changelog` label
+- ❌ Require validation: everything else. Branch-name prefix is **not** a bypass, so `chore/*` and `deps/*` branches still need a changelog entry or `meta:no-changelog` unless their diff is docs-only
 
 **Rationale for Selection**:
 
@@ -333,29 +333,27 @@ active.
 - Prefix `meta:` distinguishes metadata labels from feature/type labels
 - Labels enable filtering PRs by changelog status in dashboards
 
-**Changelog Labels** (to be added/verified in `.github/labels.yml`):
+**Changelog Labels** (the only two changelog labels in the canonical `.github/labels.yml`):
 
-- `meta:has-changelog` — PR has valid changelog entry(ies); validation passed
-- `meta:needs-changelog` — PR requires changelog entry; missing or will fail validation
-- `meta:needs-changelog-fix` — PR has changelog entries but validation failed; developer action required
-- `meta:changelog-exempt` — PR explicitly exempted from changelog requirement (rare, documented)
+- `meta:needs-changelog` — PR requires a changelog entry; missing, or validation will fail
+- `meta:no-changelog` — PR is exempt from the changelog requirement; refused for high-impact release-related change types
+
+`meta:has-changelog`, `meta:needs-changelog-fix` and `meta:changelog-exempt` are **not** in the canonical set and are not used: passing validation is signalled by *clearing* `meta:needs-changelog`, which avoids adding a label that the locked `labels.yml` does not define.
 
 **Label Application Logic**:
 
 ```javascript
 // After validation:
 if (validationPassed) {
-  applyLabel('meta:has-changelog');
-  removeLabels(['meta:needs-changelog', 'meta:needs-changelog-fix']);
+  removeLabel('meta:needs-changelog');
 } else if (validationFailed) {
-  applyLabel('meta:needs-changelog-fix');
-  removeLabels(['meta:has-changelog']);
+  applyLabel('meta:needs-changelog');
   blockMerge('Changelog entries failed validation');
 }
 
 // For non-user-facing changes (chore, deps):
 if (bypassValidation) {
-  applyLabel('meta:changelog-exempt');
+  applyLabel('meta:no-changelog');
 }
 ```
 
@@ -417,9 +415,9 @@ docs/agents/changelog-agent/
 | Skill Metadata   | agentskills.io spec                 | Cross-agent compatibility                 |
 | Invocation       | npm CLI primary + REST API optional | Matches repo patterns, developer-friendly |
 | Error Reporting  | Structured JSON + human-readable    | Machine-parseable and user-friendly       |
-| Bypass Strategy  | Automatic by branch type            | Reduces friction for chores/deps          |
+| Bypass Strategy  | Match the shipped gate              | Same behaviour users already have         |
 | Concurrency      | File-level locks on merge           | Prevents corruption                       |
-| Labels           | Canonical set with meta: prefix     | Enables automation and reporting          |
+| Labels           | The two canonical `meta:` labels   | `labels.yml` is locked, so no new labels  |
 | Documentation    | Mirror prd-agent structure          | Consistency and familiarity               |
 
 ---
@@ -455,7 +453,7 @@ docs/agents/changelog-agent/
 
 ## Open Questions Resolved
 
-✅ **Q1: Validation bypass mechanism** → Automatic by branch type
+✅ **Q1: Validation bypass mechanism** → Match the shipped gate, not branch type
 ✅ **Q2: Skill invocation patterns** → npm CLI primary with optional REST API
 ✅ **Q3: Concurrent execution strategy** → File-level locks with merge blocking
 

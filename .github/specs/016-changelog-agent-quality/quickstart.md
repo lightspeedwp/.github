@@ -323,10 +323,10 @@ if node .github/validation/changelog/bin/validate.js \
   --trigger pr_submission \
   --pr-number "$PR_NUMBER" \
   --branch "$HEAD_REF"; then
-  gh pr edit --add-label "meta:has-changelog"
-  echo "✓ Validation passed; label applied"
+  gh pr edit --remove-label "meta:needs-changelog"
+  echo "✓ Validation passed; meta:needs-changelog cleared"
 else
-  gh pr edit --add-label "meta:needs-changelog-fix"
+  gh pr edit --add-label "meta:needs-changelog"
   gh pr review --request-changes --body "Changelog validation failed. See comments."
   echo "✓ Validation failed; PR blocked with feedback"
 fi
@@ -335,8 +335,8 @@ fi
 **Expected Outcomes**:
 
 - ✅ PR with no `CHANGELOG.md` change skips validation
-- ✅ PR with valid changelog entries gets `meta:has-changelog` label
-- ✅ PR with invalid entries gets `meta:needs-changelog-fix` label
+- ✅ PR with valid changelog entries has `meta:needs-changelog` cleared
+- ✅ PR with invalid entries keeps `meta:needs-changelog` applied
 - ✅ PR with invalid entries has merge blocked
 - ✅ Developer sees PR comment with specific error details
 - ✅ Dependabot and docs-bot PRs, docs-only diffs, and PRs labelled `meta:no-changelog` (not allowed for high-impact release types) skip the changelog requirement

@@ -23,7 +23,7 @@
 | `release_date`    | date \| `"Unreleased"` | No | Release date (ISO 8601: YYYY-MM-DD), or the literal `"Unreleased"` | Valid date or `"Unreleased"`                                        |
 | `category`        | enum          | Yes      | Entry type per Keep a Changelog     | One of: Added, Changed, Fixed, Deprecated, Removed, Security               |
 | `content`         | string        | Yes      | User-facing change description      | 1-250 characters, no implementation details                                |
-| `pr_issues`       | array[string] | Yes      | PR/issue references                 | At least one; format: "#123" or "PR-456"                                   |
+| `pr_issues`       | array[string] | Yes      | PR/issue references                 | At least one; `#123` is the only form the shipped engine recognises (see below) |
 | `character_count` | integer       | Yes      | Length of `content` field           | ≤250                                                                       |
 | `line_number`     | integer       | Yes      | Current line number in CHANGELOG.md | Positive integer; mutable when entries move or earlier content is inserted |
 
@@ -216,6 +216,8 @@ metadata:
 
 - If a `pr_issues` reference resolves to a pull request, that PR must exist and be merged (state = merged)
 - If a `pr_issues` reference resolves to an issue, the issue must exist; an issue has no merged state, so any state (open or closed) is valid
+- Only the `#123` form is machine-validated today. The shipped engine matches `/#(\d+)/` and `/issues\/#(\d+)/`, so a `PR-456` reference matches neither and is counted as no link at all rather than as a valid one
+- `PR-456` remains a documented human-readable convention, but linking it to a full markdown URL (`[PR-456](https://github.com/lightspeedwp/.github/pull/456)`) is what makes it machine-checkable
 - Link validation happens in `changelog-check-links` skill
 - Invalid links are reported as MISSING_LINK errors
 
