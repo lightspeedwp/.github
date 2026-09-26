@@ -52,12 +52,26 @@ workflow in `https://docs.coderabbit.ai/cli/overview`:
   findings (9 major, 1 minor). All 10 addressed.
 - `coderabbit review --agent --base develop` (pass 2) — 10 further findings.
 
-Per that guidance, "Only run the loop twice", the loop stops here. Pass 2 is
-recorded rather than chased, because the remaining findings are about the prose of
-specifications 016 and 017 describing a system that has not been built: there is
-no implementation to check a claim against, so each pass raises further
-"what happens if" questions about hypothetical behaviour. Continuing would not
-converge.
+Per that guidance, "Only run the loop twice", no further review loop runs here.
+The pass-2 findings were then routed to their existing trackers rather than
+re-fixed in this pull request:
+
+- Five were the same defects already listed in #3519, re-raised against the
+  corrected prose: inconclusive classifications, category verdicts in the comment
+  template, the wrong comparison branch, losing the file type when linting, and
+  posting the comment without re-verification.
+- The `CHANGELOG.md` docs-only bypass, limiting automatic labelling to
+  non-exemption labels, running one validator on both branches, and testing the
+  shipped workflow rather than a local simulation were appended to #3519 as new
+  checklist items.
+- The generated performance fixture is covered by #3498 and PR #3499, which stops
+  tests writing into the repository.
+
+The reason the tail does not converge is that specifications 016 and 017 describe
+a system that has not been built: there is no implementation to check a claim
+against, so each pass raises further questions about hypothetical behaviour.
+#3519 and #3470 are the right home for those decisions, which is where they now
+sit.
 
 Two pass-2 findings are worth acting on independently of the loop:
 
