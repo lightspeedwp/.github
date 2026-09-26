@@ -74,6 +74,10 @@ const TYPE_PREFIXES = {
   qa: "qa",
   uat: "uat",
   audit: "audit",
+  decision: "decision",
+  // Question is retired (questions go to Discussions); issues still labelled
+  // type:question keep a question: prefix until they are converted.
+  question: "question",
   task: "chore",
   improvement: "feat",
   improve: "feat",
@@ -180,21 +184,45 @@ async function getTypePrefix(item, owner, repo) {
   return "chore";
 }
 
+// Single source for the recognised prefix list, so the canonical-spacing check
+// and the leading-prefix check below can never drift apart (#3578).
+const KNOWN_PREFIXES =
+  "fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|decision|question";
+
 /**
- * Check if a title is already prefixed.
+ * Check if a title starts with a recognized type prefix, including decision and question.
+ * Matching ignores case and requires whitespace after the colon, but no title text.
  */
 function isAlreadyPrefixed(title) {
-  const prefixPattern =
-    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit):\s*/i;
-  return prefixPattern.test(title);
+  return new RegExp(`^(${KNOWN_PREFIXES}):\\s+`, "i").test(title);
+}
+
+/**
+ * Recognise a leading prefix independently of whether its spacing is canonical.
+ * Returns the matched prefix including its colon, or "" when the title carries
+ * no recognised prefix.
+ */
+function matchLeadingPrefix(title) {
+  const match = new RegExp(`^(${KNOWN_PREFIXES}):`, "i").exec(String(title || ""));
+  return match ? match[0] : "";
 }
 
 /**
  * Normalize a title by adding type prefix.
+ *
+ * A recognised prefix whose colon is not followed by whitespace is repaired in
+ * place rather than prefixed a second time, so "decision:Adopt GraphQL" becomes
+ * "decision: Adopt GraphQL" instead of "decision: decision:Adopt GraphQL" (#3578).
  */
 function normalizeTitle(title, prefix) {
   if (isAlreadyPrefixed(title)) {
     return null; // Already prefixed, no change needed
+  }
+
+  const existing = matchLeadingPrefix(title);
+  if (existing) {
+    // Keep the author's capitalisation; only the missing space is added.
+    return `${existing} ${String(title).slice(existing.length)}`;
   }
 
   return `${prefix}: ${title}`;

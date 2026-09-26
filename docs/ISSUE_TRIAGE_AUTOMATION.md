@@ -361,12 +361,12 @@ Enforcement happens in `.github/workflows/template-enforcement.yml`:
 All issues must have exactly one `type:*` label:
 
 - `type:task`, `type:bug`, `type:feature`, `type:design`, `type:epic`
-- `type:story`, `type:improve`, `type:refactor`, `type:build`, `type:ci`
-- `type:automation`, `type:test`, `type:performance`, `type:a11y`, `type:security`
-- `type:compatibility`, `type:integration`, `type:release`, `type:maintenance`
-- `type:documentation`, `type:research`, `type:audit`, `type:review`
-- `type:ai-ops`, `type:content-modelling`, `type:question`, `type:support`
-- `type:ux-feedback`, `type:help`
+- `type:decision`, `type:improve`, `type:chore`, `type:ci`, `type:automation`
+- `type:test`, `type:performance`, `type:a11y`, `type:security`, `type:compat`
+- `type:refactor`, `type:release`, `type:dependency`, `type:docs`, `type:research`
+- `type:audit`, `type:review`, `type:aiops`, `type:content-modelling`, `type:build`
+
+The list matches `.github/issue-types.yml` (25 types). Questions go to GitHub Discussions.
 
 ---
 
