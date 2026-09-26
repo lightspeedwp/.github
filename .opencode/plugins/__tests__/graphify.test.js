@@ -92,6 +92,18 @@ describe("graphify reminder quotes the graph path safely", () => {
     }
   });
 
+  test("offers no runnable example for a percent sign, which cmd.exe expands", async () => {
+    // cmd.exe expands %VAR% even inside double quotes, so a literal
+    // %USERNAME% directory would be rewritten before graphify ever saw it. On
+    // POSIX a percent sign is an ordinary filename character, so the path is
+    // still safe there, but it has no form that is right in both.
+    const { root, output } = await reminderFor("%USERNAME%");
+    expect(root).toContain("%USERNAME%");
+    expect(graphArg(output)).toBeUndefined();
+    expect(output).not.toContain("--graph");
+    expect(output).toContain("no runnable scoped example");
+  });
+
   test("offers no runnable example for a path no shell quotes the same way", async () => {
     // A dollar sign, double quote, backtick or backslash has no portable form:
     // it needs POSIX '\'' or PowerShell '' for an apostrophe, and cmd.exe cannot

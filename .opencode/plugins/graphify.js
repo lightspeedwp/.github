@@ -18,15 +18,16 @@ import { join } from "path";
 //     is a legal filename character and must be left alone.
 //  2. A path with no shell metacharacter then needs no quoting at all.
 //  3. Double quotes group in POSIX shells, PowerShell and cmd.exe alike, and
-//     inside them those three agree on every character except " $ ` and \. A
-//     path free of those four is therefore safe to double-quote, which covers
-//     spaces and apostrophes.
-//  4. A path containing one of those four has no portable form: it needs POSIX
-//     '\'' or PowerShell '' for an apostrophe, and cmd.exe cannot group it at
-//     all. Rather than emit a command that is wrong in some shell, the caller
-//     drops the runnable example.
+//     inside them POSIX shells and PowerShell treat every character literally.
+//     cmd.exe does not: it still expands %VAR% inside double quotes, so a
+//     percent sign is hostile there. A path free of " $ ` \ and % is therefore
+//     safe to double-quote, which covers spaces and apostrophes.
+//  4. A path containing one of those has no portable form: it needs POSIX
+//     '\'' or PowerShell '' for an apostrophe, and cmd.exe cannot group it
+//     and would expand %VAR% anyway. Rather than emit a command that is wrong
+//     in some shell, the caller drops the runnable example.
 const SHELL_SAFE_PATH = /^[A-Za-z0-9_@+=:,./-]+$/;
-const DOUBLE_QUOTE_UNSAFE = /["$`\\]/;
+const DOUBLE_QUOTE_UNSAFE = /["$`\\%]/;
 
 const shellQuote = (path) => {
   const normalised =
