@@ -25,8 +25,8 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "fix/": "type:bug",
   "bugfix/": "type:bug",
   "hotfix/": "type:bug",
-  "docs/": "type:documentation",
-  "doc/": "type:documentation",
+  "docs/": "type:docs",
+  "doc/": "type:docs",
   "test/": "type:test",
   "tests/": "type:test",
   "perf/": "type:performance",
@@ -39,19 +39,23 @@ const BRANCH_PREFIX_TYPE_MAP = {
   "a11y/": "type:a11y",
 };
 
+// Ordered most-specific signal first: inferMappedValueFromText takes the first
+// rule that both matches and has a configured mapping, so a low-signal rule
+// placed early shadows every specific rule below it.
+//
+// type:feature is therefore last. Its patterns include bare action verbs
+// (add, implement, build, develop) that appear in almost any title, so while
+// it sat second it captured "Add dependency upgrade" and "Implement
+// compatibility support" as Feature before either subject rule was reached.
+// Keep subject-bearing rules above it, and keep type:test above type:compat so
+// "integration test" stays a test rather than a compatibility change.
 const TYPE_KEYWORDS = [
   {
     label: "type:bug",
     patterns: [/\b(bug|defect|error|crash|broken|failure|fix)\b/i],
   },
   {
-    label: "type:feature",
-    patterns: [
-      /\b(feature|enhancement|improvement|add|implement|build|develop)\b/i,
-    ],
-  },
-  {
-    label: "type:documentation",
+    label: "type:docs",
     patterns: [
       /\b(documentation|docs|readme|guide|tutorial|document|explain|clarify)\b/i,
     ],
@@ -85,8 +89,14 @@ const TYPE_KEYWORDS = [
     patterns: [/\b(automation|workflow|action|bot|script|pipeline)\b/i],
   },
   {
-    label: "type:integration",
-    patterns: [/\b(integration|dependency|compatibility|interop)\b/i],
+    label: "type:dependency",
+    patterns: [/\b(dependency|dependencies|dependency bump|dep bump)\b/i],
+  },
+  {
+    label: "type:compat",
+    patterns: [
+      /\b(integration|compatibility|compat|interop|interoperability)\b/i,
+    ],
   },
   {
     label: "type:release",
@@ -95,6 +105,12 @@ const TYPE_KEYWORDS = [
   {
     label: "type:a11y",
     patterns: [/\b(a11y|accessibility|wcag)\b/i],
+  },
+  {
+    label: "type:feature",
+    patterns: [
+      /\b(feature|enhancement|improvement|add|implement|build|develop)\b/i,
+    ],
   },
 ];
 
@@ -116,8 +132,17 @@ const PRIORITY_KEYWORDS = [
 function inferMappedValueFromText(text, rules, mapping) {
   const haystack = String(text || "");
   for (const rule of rules) {
-    if (rule.patterns.some((pattern) => pattern.test(haystack))) {
-      return mapping?.[rule.label] || "";
+    if (!rule.patterns.some((pattern) => pattern.test(haystack))) {
+      continue;
+    }
+    // Keep scanning when a matched rule has no configured mapping, otherwise an
+    // unmapped label silently swallows the match and the value falls through to
+    // a generic default. scripts/agents/includes/__tests__/field-parity.test.js
+    // asserts every rule label is configured, so this only guards against a
+    // config edited without the rules.
+    const mapped = mapping?.[rule.label];
+    if (mapped) {
+      return mapped;
     }
   }
   return "";
@@ -308,6 +333,9 @@ if (require.main === module) {
 }
 
 module.exports = {
+  BRANCH_PREFIX_TYPE_MAP,
+  TYPE_KEYWORDS,
+  PRIORITY_KEYWORDS,
   deriveProjectFieldValues,
   inferPriorityFromContext,
   inferTypeFromContext,

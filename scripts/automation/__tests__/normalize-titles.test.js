@@ -6,9 +6,11 @@
 const {
   normalizeTitle,
   isAlreadyPrefixed,
+  getTypePrefix,
   parseArgs,
   formatDate,
 } = require("../normalize-issue-pr-titles");
+const cjsNormalizer = require("../normalize-issue-pr-titles.cjs");
 
 describe("normalizeTitle()", () => {
   describe("Basic functionality", () => {
@@ -71,9 +73,10 @@ describe("normalizeTitle()", () => {
 
     it("should handle prefixes with various spacing", () => {
       expect(normalizeTitle("feat:  Add feature", "feat")).toBeNull(); // double space - matches
-      // Note: 'fix:Add something' without space does NOT match the pattern, so it gets prefixed
+      // A recognised prefix without a space after the colon is repaired, not
+      // prefixed again (#3578).
       expect(normalizeTitle("fix:Add something", "fix")).toBe(
-        "fix: fix:Add something",
+        "fix: Add something",
       );
     });
 
@@ -117,6 +120,8 @@ describe("normalizeTitle()", () => {
         "qa",
         "uat",
         "audit",
+        "decision",
+        "question",
       ];
 
       prefixes.forEach((prefix) => {
@@ -140,9 +145,10 @@ describe("normalizeTitle()", () => {
     it("should not normalize if title is just prefix and colon with space", () => {
       expect(normalizeTitle("feat: ", "feat")).toBeNull(); // colon with space matches
       expect(normalizeTitle("fix: ", "fix")).toBeNull(); // colon with space matches
-      // Without space after colon, they don't match the pattern
-      expect(normalizeTitle("feat:", "feat")).toBe("feat: feat:");
-      expect(normalizeTitle("fix:", "fix")).toBe("fix: fix:");
+      // Without a space after the colon the missing space is added, leaving a
+      // single prefix rather than doubling it (#3578).
+      expect(normalizeTitle("feat:", "feat")).toBe("feat: ");
+      expect(normalizeTitle("fix:", "fix")).toBe("fix: ");
     });
 
     it("should handle title that looks like prefix but isnt", () => {
@@ -538,5 +544,105 @@ describe("Boundary conditions and error tolerance", () => {
         expect(isAlreadyPrefixed(result)).toBe(true);
       }
     });
+  });
+});
+
+describe("getTypePrefix() for Decision and Question issues", () => {
+  it("gives type:decision issues the decision prefix, not chore", async () => {
+    const item = { number: 1, labels: [{ name: "type:decision" }] };
+    await expect(getTypePrefix(item, "o", "r")).resolves.toBe("decision");
+  });
+
+  it("keeps the question prefix for issues still labelled type:question", async () => {
+    const item = { number: 2, labels: [{ name: "type:question" }] };
+    await expect(getTypePrefix(item, "o", "r")).resolves.toBe("question");
+  });
+});
+
+describe("CommonJS and JavaScript normalisers stay in parity", () => {
+  // scripts/automation ships both normalize-issue-pr-titles.cjs and
+  // normalize-issue-pr-titles.js. Requiring the extensionless path resolves to
+  // the .js file, so the .cjs copy drifted unnoticed: it accepted bare
+  // "decision:"/"question:" prefixes because its pattern used \s* while the
+  // .js used \s+, leaving malformed titles unnormalised.
+  const titles = [
+    "feat: Add new feature",
+    "fix: Fix bug",
+    "docs: Update documentation",
+    "decision: Adopt GraphQL",
+    "question: How do we sync",
+    "DECISION: Adopt GraphQL",
+    "feat:",
+    "fix:",
+    "decision:",
+    "question:",
+    "feat: ",
+    "decision: ",
+    "feat:  Double space",
+    "feat:\tTab",
+    "Add new feature",
+    "feature: Not a valid prefix",
+    "bug: Not a valid prefix",
+    "Something decision: in the middle",
+    "HTTP: The web protocol",
+    "feat: Note: nested colon",
+    "",
+    "   ",
+  ];
+
+  it.each(titles)("isAlreadyPrefixed agrees on %j", (title) => {
+    expect(cjsNormalizer.isAlreadyPrefixed(title)).toBe(
+      isAlreadyPrefixed(title),
+    );
+  });
+
+  it.each(titles)("normalizeTitle agrees on %j", (title) => {
+    for (const prefix of ["decision", "question", "feat", "chore"]) {
+      expect(cjsNormalizer.normalizeTitle(title, prefix)).toBe(
+        normalizeTitle(title, prefix),
+      );
+    }
+  });
+
+  it("requires whitespace after the colon for decision and question", () => {
+    for (const check of [cjsNormalizer.isAlreadyPrefixed, isAlreadyPrefixed]) {
+      expect(check("decision:Adopt GraphQL")).toBe(false);
+      expect(check("question:How do we sync")).toBe(false);
+      expect(check("decision: Adopt GraphQL")).toBe(true);
+      expect(check("question: How do we sync")).toBe(true);
+    }
+  });
+
+  it("repairs a malformed decision title in both implementations", () => {
+    for (const normalizer of [
+      cjsNormalizer,
+      { normalizeTitle, isAlreadyPrefixed },
+    ]) {
+      expect(
+        normalizer.normalizeTitle("decision:Adopt GraphQL", "decision"),
+      ).toBe("decision: Adopt GraphQL");
+      expect(
+        normalizer.normalizeTitle("question:How do we sync", "question"),
+      ).toBe("question: How do we sync");
+    }
+  });
+
+  it("never produces a doubled prefix", () => {
+    for (const normalizer of [cjsNormalizer, { normalizeTitle }]) {
+      for (const prefix of ["decision", "question", "feat", "fix", "chore"]) {
+        const repaired = normalizer.normalizeTitle(`${prefix}:Something`, prefix);
+        expect(repaired).toBe(`${prefix}: Something`);
+        // Exactly one prefix, so a second pass is a no-op.
+        expect(normalizer.normalizeTitle(repaired, prefix)).toBeNull();
+      }
+    }
+  });
+
+  it("preserves the author's capitalisation when repairing", () => {
+    for (const normalizer of [cjsNormalizer, { normalizeTitle }]) {
+      expect(normalizer.normalizeTitle("DECISION:Adopt GraphQL", "decision")).toBe(
+        "DECISION: Adopt GraphQL",
+      );
+    }
   });
 });

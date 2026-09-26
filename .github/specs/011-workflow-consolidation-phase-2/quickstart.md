@@ -7,6 +7,24 @@ date_created: "2026-09-14"
 
 **Purpose:** Validate Phase 2 implementation by running end-to-end scenarios that prove each unified workflow functions correctly.
 
+> ⚠️ **Partly superseded (2026-09-25, #3570).** The commands below that exercise
+> `workflow-harness.yml`, `error-isolation-test.yml`, `validate-check` and
+> `aggregate-tests` cannot be run as written. Those four files were inert as
+> merged and have been removed from `develop`:
+>
+> - `workflow-harness.yml` and `error-isolation-test.yml` sat in `.github/tests/`,
+>   which GitHub does not register as a workflow directory, so `gh workflow run`
+>   could never find them. `workflow-harness.yml` is resolved in #3571.
+> - `validate-check` and `aggregate-tests` were called by no active workflow.
+>   PR #3359 re-adds and wires both.
+>
+> Several steps also reference `validate-composite-actions.yml`, which was never
+> committed to any branch, so those commands were already unrunnable before this
+> change. Composite action behaviour is now covered by the contract suite in
+> `.github/actions/__tests__/workflow-consolidation-actions.test.js` — run
+> `npx jest --config .jest.config.cjs .github/actions/__tests__/` instead of the
+> `gh workflow run` invocations in Phase 1.
+
 **Prerequisites:**
 
 - Feature branch: `refactor/workflow-consolidation-phase-2` (checked out)

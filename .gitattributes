@@ -14,6 +14,19 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 
+# The changelog is append-only and almost every pull request adds an entry to
+# the same short `[Unreleased]` list, so two open pull requests edit the same
+# lines. A plain merge then conflicts, and the losing pull request has to have
+# `develop` merged in by hand before it can pass the required status checks.
+#
+# `union` resolves that automatically by keeping both sides' additions, which
+# is the correct merge for a file nobody edits in place. A genuine duplicate is
+# still caught: the changelog validator's CHK_UNIQUE_CONTENT rule flags entries
+# more than 90% similar, and
+# `scripts/validation/__tests__/changelog-merge-strategy.test.js` fails if this
+# line is removed or changed.
+CHANGELOG.md merge=union
+
 # Treat images and fonts as binary
 *.png binary
 *.jpg binary

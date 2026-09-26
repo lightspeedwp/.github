@@ -211,13 +211,15 @@ Maps file patterns and branch names to labels:
 
 ```yaml
 "type:feature":
-  head-branch: ["^feat/.*", "^feature/.*"]
+  - head-branch:
+      - "^feat/.*"
+      - "^feature/.*"
 
 "area:block-editor":
-  changed-files:
-    any-glob-to-any-file:
-      - "src/blocks/**"
-      - "**/block.json"
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/blocks/**"
+          - "**/block.json"
 ```
 
 ### `.github/issue-types.yml`
@@ -233,6 +235,11 @@ Maps issue template types to labels:
   color: 3FB950
   label: type:feature
 ```
+
+For issues, the live GitHub native issue type is authoritative. Its mapped
+`type:*` label is applied before content fallback; keyword detection is used
+only when no native type is available. Content fallback uses explicit,
+whole-word signals rather than substring matches.
 
 ---
 

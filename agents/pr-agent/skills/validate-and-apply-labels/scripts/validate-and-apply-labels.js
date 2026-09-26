@@ -99,12 +99,15 @@ const EXCLUSIVE_FAMILIES = {
 
 export async function validateAndApplyLabels(input) {
   const {
-    labels = [],
+    labels: inputLabels = [],
     branchType,
     templateFile,
     templateMetadata = null,
     config = {},
   } = input;
+  // The destructured default covers only `undefined`; normalise an explicit
+  // `null` once at the boundary so both validation paths can iterate safely.
+  const labels = inputLabels ?? [];
 
   // Handle branchType-based label mapping (if either branchType or templateFile is explicitly provided)
   if ("branchType" in input || "templateFile" in input) {

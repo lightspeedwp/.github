@@ -226,7 +226,7 @@ CodeRabbit documentation references issue-types.yml (line 4 in issue-types.yml h
 | Feature | `type:feature` | ✅ Yes | ✅ Correct |
 | Design | `type:design` | ✅ Yes | ✅ Correct |
 | Epic | `type:epic` | ✅ Yes | ✅ Correct |
-| Question | `type:question` | ✅ Yes | ✅ Correct |
+| Decision | `type:decision` | ✅ Yes | ✅ Correct |
 | Improvement | `type:improve` | ✅ Yes | ✅ Correct |
 | Chore | `type:chore` | ✅ Yes | ✅ Correct |
 | CI | `type:ci` | ✅ Yes | ✅ Correct |

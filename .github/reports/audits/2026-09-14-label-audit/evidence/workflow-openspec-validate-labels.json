@@ -1,0 +1,75 @@
+{
+  "workflow": "openspec-validate-labels.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/openspec-validate-labels.yml",
+  "size_bytes": 2057,
+  "purpose": "Suggest an initial OpenSpec label when an issue opens and validate OpenSpec label combinations when a label is added.",
+  "triggers": [
+    "issues: types [opened, labeled]",
+    "workflow_dispatch (inputs: issue_number, verbose)"
+  ],
+  "jobs": [
+    {
+      "id": "validate-labels",
+      "summary": "Checkout, setup Node, npm ci; handle-issue-created.cjs on open; handle-issue-labeled.cjs --validate-only on label and on dispatch; echo results."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/automation/handlers/handle-issue-created.cjs",
+      "exists": true
+    },
+    {
+      "path": "scripts/automation/handlers/handle-issue-labeled.cjs",
+      "exists": true
+    }
+  ],
+  "actions_used": ["actions/checkout@v7", "actions/setup-node@v7"],
+  "labels_referenced": [],
+  "labels_not_in_canonical": [],
+  "script_labels_not_in_canonical": [
+    {
+      "label": "openspec:specification-pending",
+      "evidence": "scripts/automation/handlers/handle-issue-created.cjs:18"
+    },
+    {
+      "label": "type:enhancement",
+      "evidence": "scripts/automation/handlers/handle-issue-created.cjs:19"
+    },
+    {
+      "label": "type:documentation",
+      "evidence": "scripts/automation/handlers/handle-issue-created.cjs:21"
+    }
+  ],
+  "permissions": {
+    "workflow": {
+      "issues": "read",
+      "contents": "read"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "Neither handler has a CLI entrypoint (module.exports only), so every step is a no-op.",
+      "evidence": "scripts/automation/handlers/handle-issue-created.cjs:149"
+    },
+    {
+      "issue": "issues: read permission, while handle-issue-created.cjs exports applyInitialLabel, which needs write access.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/openspec-validate-labels.yml:18"
+    },
+    {
+      "issue": "Type-to-OpenSpec map keys on type:enhancement and type:documentation (not canonical) and targets openspec:specification-pending (not canonical).",
+      "evidence": "scripts/automation/handlers/handle-issue-created.cjs:17"
+    },
+    {
+      "issue": "`github.event.label.name` interpolated into the shell.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/openspec-validate-labels.yml:52"
+    },
+    {
+      "issue": "Spec 008 FR-011 renames openspec:* to spec:* and FR-013 replaces OpenSpec with Spec Kit.",
+      "evidence": ".github/specs/008-label-audit-consolidation/spec.md:188"
+    }
+  ],
+  "overlaps_with": [
+    "openspec-sync-labels.yml (issues labeled, same handler)",
+    "labeling-unified.yml (issues opened)"
+  ]
+}

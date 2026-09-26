@@ -77,7 +77,7 @@ Compare GitHub API output against canonical file:
 ```bash
 # Extract label count from canonical file
 grep "^- name:" .github/labels.yml | wc -l
-# Expected: 147
+# Expected: 169
 
 # Cross-check with audit report
 # All labels in GitHub should appear in audit inventory OR be flagged as "ORPHAN"
@@ -93,7 +93,7 @@ grep "^- name:" .github/labels.yml | wc -l
 
 ## Test 2: Validate Type Labels (Immutable Set)
 
-**Purpose**: Confirm 25 type labels are present and unchanged
+**Purpose**: Confirm the 25 mapped type labels are present (canonical has 26 until the FR-014 swap)
 
 ### Extract Type Labels
 
@@ -101,11 +101,12 @@ From canonical file:
 
 ```bash
 grep "^- name: type:" .github/labels.yml | sort
-# Should output exactly 25 labels
+# At the audit (2026-09-14): 26 labels (includes unmapped type:decision)
+# Since Stage 0a (T040b): exactly 25 (type:question retired)
 # Should include: type:task, type:bug, type:feature, type:docs, etc.
 
 grep "^- name: type:" .github/labels.yml | wc -l
-# Expected: 25 (exactly, no more, no less)
+# Expected: 26 before consolidation, 25 after
 ```
 
 From issue types:
@@ -131,7 +132,7 @@ comm -23 <(grep "^- name: type:" .github/labels.yml | sed 's/.*: //' | sed 's/ *
 
 **Pass Condition**:
 
-- ✅ Exactly 25 type labels in canonical file
+- ✅ 26 type labels in canonical file before consolidation (25 after)
 - ✅ Exactly 25 type labels in issue-types.yml
 - ✅ All 25 names match between files
 - ✅ All 25 colors match between files
@@ -152,7 +153,7 @@ grep "^ *- " .github/label-governance-policy.yml | \
 
 # Count governance protected labels
 wc -l /tmp/policy-labels.txt
-# Expected: 43 labels in policy
+# Expected: 57 labels in policy
 ```
 
 ### Verify Against Canonical
@@ -309,7 +310,7 @@ head -1 .github/reports/audits/2026-09-14-label-audit/label-inventory.csv
 
 # Verify CSV row count matches canonical label count
 wc -l .github/reports/audits/2026-09-14-label-audit/label-inventory.csv
-# Expected: 148 lines (1 header + 147 labels)
+# Expected: 170 lines (1 header + 169 labels)
 
 # Validate JSON syntax
 jq empty .github/reports/audits/2026-09-14-label-audit/label-inventory.json
@@ -325,7 +326,7 @@ jq '.families | keys' .github/reports/audits/2026-09-14-label-audit/label-invent
 - ✅ All required audit files present in output directory
 - ✅ CSV file well-formed with correct column headers
 - ✅ JSON files valid and parseable
-- ✅ Row/element counts match expected totals (147 labels, 15 families, 11 workflows)
+- ✅ Row/element counts match expected totals (169 labels, 15 families, 11 workflows)
 - ✅ No missing sections in main report
 
 ---
@@ -392,6 +393,128 @@ sed -n '/^## Recommendations/,/^## [^R]/p' \
 - ✅ High-impact recommendations have detailed rationale
 
 ---
+
+## Consolidation Validation (User Story 4)
+
+Run these after each consolidation stage. Formats are in `contracts/label-mapping-schema.md`, `contracts/dry-run-and-drift-report-schema.md` and `contracts/decision-issue-template.md`.
+
+### Test 9: Mapping and Approval (before any change)
+
+```bash
+# Every target in the mapping exists in the proposed labels.yml
+jq -r '.mappings[] | select(.target != null) | .target' .github/reports/audits/2026-09-14-label-audit/evidence/linear-labels.json | sort -u > /tmp/targets.txt
+grep "^- name:" .github/labels.yml | sed 's/- name: *//' | sort -u > /tmp/canonical.txt
+comm -23 /tmp/targets.txt /tmp/canonical.txt
+# Expected: no output
+```
+
+**Pass condition**: No missing targets; the `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` issues are approved by @ashley.
+
+### Test 10: Configuration Update (after the config PR merges)
+
+```bash
+grep -c "^- name: type:" .github/labels.yml                 # Expected: 25
+grep -c "label: type:" .github/issue-types.yml              # Expected: 25
+grep -c "type:question" .github/labels.yml .github/issue-types.yml .github/issue-fields.yml .github/label-governance-policy.yml
+# Expected: 0 in every file
+test -f .github/ISSUE_TEMPLATE/06-decision.md && ! test -f .github/ISSUE_TEMPLATE/06-question.md && echo OK
+grep -rE "^- name: (ai-ops|openspec):" .github/labels.yml   # Expected: no output
+```
+
+### Test 10b: Native Issue Types (FR-019)
+
+- The organisation's native issue types, listed from GitHub, have exactly the same 25 names as `.github/issue-types.yml` (Decision included; no Question, Maintenance, Story or Integration).
+- `evidence/native-issue-types.json` shows zero issues left on removed types before they were removed.
+
+### Test 10c: Issue Type Colours and Descriptions (FR-020)
+
+```bash
+node -e "
+const yaml=require('js-yaml'),fs=require('fs');
+const it=yaml.load(fs.readFileSync('.github/issue-types.yml','utf8')).issue_types;
+const lab=Object.fromEntries(yaml.load(fs.readFileSync('.github/labels.yml','utf8')).map(l=>[l.name,String(l.color).toUpperCase()]));
+const bad=it.filter(t=>!t.description||lab[t.label]!==String(t.color).toUpperCase());
+console.log(it.length, bad.map(t=>t.name));"
+# Expected: 25 []
+```
+
+- Every hex in `issue-types.yml` appears in `docs/LABEL_COLOR_STRATEGY.md`.
+- The organisation settings page shows the same names, descriptions and native colours as `contracts/issue-types-org-settings.md`.
+
+### Test 11: OpenSpec Rename (FR-013)
+
+```bash
+grep -rli openspec . --exclude-dir=node_modules --exclude-dir=.git | grep -vE '/reports/|/archived/'
+find . -path ./node_modules -prune -o -iname '*openspec*' -print | grep -vE '/reports/|/archived/'
+# Expected: no output from either command
+```
+
+### Test 12: GitHub Dry Run and Deletion (FR-016)
+
+For each repository:
+
+1. Confirm `evidence/dry-run/{repo}.json` exists and `pages_read × 100 ≥ label_count`.
+2. Confirm the gate issue has @ashley's approval comment for that repository.
+3. After the run, list labels with pagination and compare with `labels.yml`:
+
+```bash
+gh label list -R lightspeedwp/{repo} --limit 1000 --json name -q '.[].name' | sort > /tmp/repo.txt
+comm -3 /tmp/repo.txt /tmp/canonical.txt
+# Expected: no output
+```
+
+1. Confirm `destructive_cleanup.enabled` is still `false` in `label-governance-policy.yml`, and that the deletion log shows only repositories with approved dry runs.
+2. Confirm every deleted label has a snapshot entry with name, colour, description and item numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
+3. Re-run the deletion for one finished repository and confirm it makes no API write (FR-023).
+
+### Test 13: Linear Clean-up
+
+- Every Linear workspace label is in `labels.yml`, apart from documented team-scoped labels (for example `area:flow` in the Flow team).
+- No Linear issue carries two `type:*` labels.
+- `spec:*` label descriptions no longer mention OpenSpec.
+
+### Test 14: Drift Check (FR-017, SC-009)
+
+- Confirm the workflow authenticates with the organisation GitHub App and the read-only `LINEAR_API_KEY` secret, and that no credential appears in the repository (FR-018).
+- Trigger the drift workflow manually once.
+- **Pass condition**: the "Label drift report" issue shows "No drift", with team-scoped Linear labels listed only under allowed exceptions.
+
+### Test 15: Approval Gate Label (FR-021, SC-010)
+
+```bash
+# Every open spec 008 change request or gate issue waiting for a decision carries the label
+gh issue list --repo lightspeedwp/.github --label meta:needs-approval --state open --json number,title
+# Expected: the open change requests and the gate issue; none whose decision was recorded more than a day ago
+```
+
+Pass when the list matches the open requests and no issue keeps the label after its dated decision.
+
+### Test 16: Labelling Agent Guard (FR-022)
+
+Run the agent in dry-run mode against an issue carrying a label that is not in `labels.yml`:
+
+- Before Stage 3: nothing is removed and the run log shows no `Removed non-canonical label` lines
+- With `DRY_RUN=true`: no API write is made at all
+- The agent applies only `type:*` labels that exist in `labels.yml` (no `type:documentation`, `type:dependencies` or `type:accessibility`)
+
+Pass when all three hold and the agent's unit tests pass.
+
+### Test 17: Label Names on the Audit Branch (FR-011, Stage 0c)
+
+Run from the repository root on `audit/label-consolidation`:
+
+```bash
+A=.github/reports/audits/2026-09-14-label-audit
+SNAP="$A/evidence/canonical-labels.json $A/evidence/label-families.json $A/label-inventory.json $A/label-inventory.csv $A/evidence/renamed-label-references.json"
+git grep -n -i -E '[a-z0-9_-]+:ai-ops|ai-ops:[a-z*]|openspec:[a-z*]' -- .github/specs/008-label-audit-consolidation "$A" docs/LABEL_INVENTORY.md docs/LABELING_FAQ.md $(for f in $SNAP; do echo ":!$f"; done)
+```
+
+Pass when:
+
+- the search prints only lines that name an old label as a rename source (a `from`, "was", "to" or `→` mention, or a clarification quoting the question), quote or count what another file contains (findings about policy or docs, `documentation-coverage.json`, `duplicate-consolidation-analysis.json`, the `workflow-*.json` files), or sit in `openspec_labels` frontmatter, which the FR-013 Spec Kit rename covers; never a line that uses an old name as a current or proposed label
+- each of the four snapshot files gives every label a `target_name`, and every label keeps its recorded `name`
+- `renamed-label-references.json` is unchanged since 2026-09-14
+- `npx jest --config .jest.config.cjs scripts/validation/__tests__/label-audit-evidence.test.js` passes
 
 ## Acceptance Criteria Summary
 

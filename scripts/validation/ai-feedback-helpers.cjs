@@ -14,9 +14,14 @@
  * @param {string} repo - Repository name
  * @param {number} prNumber - PR number
  * @param {string} prBody - PR body content
+ * @param {object} [options]
+ * @param {string|null} [options.feedbackContent] - FEEDBACK_RESPONSE.md content
+ *   supplied by the caller (e.g. fetched from the PR head via the API), or
+ *   null when the PR has no such file. When omitted, the file is read from
+ *   the working directory.
  * @returns {object} Validation result with passed status and issues
  */
-async function validateAIFeedback(owner, repo, prNumber, prBody) {
+async function validateAIFeedback(owner, repo, prNumber, prBody, options = {}) {
   const validation = {
     passed: true,
     issues: {
@@ -43,9 +48,17 @@ async function validateAIFeedback(owner, repo, prNumber, prBody) {
   }
 
   // Check for FEEDBACK_RESPONSE.md file
-  const fs = require('fs');
-  const feedbackResponsePath = 'FEEDBACK_RESPONSE.md';
-  const hasFeedbackResponse = fs.existsSync(feedbackResponsePath);
+  let content = null;
+  if (Object.hasOwn(options, 'feedbackContent')) {
+    content = typeof options.feedbackContent === 'string' ? options.feedbackContent : null;
+  } else {
+    const fs = require('fs');
+    const feedbackResponsePath = 'FEEDBACK_RESPONSE.md';
+    if (fs.existsSync(feedbackResponsePath)) {
+      content = fs.readFileSync(feedbackResponsePath, 'utf8');
+    }
+  }
+  const hasFeedbackResponse = content !== null;
 
   if (!hasFeedbackResponse) {
     // Note: missing feedback response is a warning, not a failure
@@ -54,7 +67,6 @@ async function validateAIFeedback(owner, repo, prNumber, prBody) {
 
   // Validate FEEDBACK_RESPONSE.md content if it exists
   if (hasFeedbackResponse) {
-    const content = fs.readFileSync(feedbackResponsePath, 'utf8');
     const fileValidation = validateFeedbackResponseFile(content);
 
     if (!fileValidation.valid) {
@@ -133,7 +145,9 @@ function checkInvalidStatuses(content) {
   const invalidStatuses = [];
 
   // Pattern for status markers followed by text
-  const statusPattern = /^[^✅📋❌]*([✅📋❌])\s+(.+?)(?=\n|$)/gm;
+  // `u` is required: 📋 is a surrogate pair, and without it the character
+  // class holds two lone code units, so 📋 lines never matched.
+  const statusPattern = /^[^✅📋❌]*([✅📋❌])\s+(.+?)(?=\n|$)/gmu;
   let match;
   const validStatusTexts = ['addressed', 'deferred', 'rejected'];
 

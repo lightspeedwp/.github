@@ -159,10 +159,24 @@ jobs:
       - name: Prune old metrics artifacts
         shell: bash
         run: |
+          set -euo pipefail
           keep=30
-          mapfile -t stale < <(find metrics-artifacts -maxdepth 1 -type f -name '*.json' -printf '%T@\t%p\n' 2>/dev/null | sort -rn -k1,1 -k2,2 | tail -n +$((keep + 1)) | cut -f2- || true)
+          if [ ! -d metrics-artifacts ]; then
+            echo "No metrics-artifacts directory; nothing to prune."
+            exit 0
+          fi
+          # Newest first by filename: names start with a UTC timestamp
+          # (YYYYMMDD-HHMMSS-<run id>.json). mtime is useless here because
+          # checkout gives every file the same one. The pipeline runs
+          # synchronously into a NUL-delimited file so a failure fails this
+          # step (process substitution would hide it).
+          list=$(mktemp)
+          find metrics-artifacts -maxdepth 1 -type f -name '*.json' -print0 \
+            | sort -z -r | tail -z -n +$((keep + 1)) > "$list"
+          mapfile -d '' -t stale < "$list"
+          rm -f -- "$list"
           if [ "${#stale[@]}" -gt 0 ]; then
-            printf '%s\n' "${stale[@]}" | xargs rm -f --
+            rm -f -- "${stale[@]}"
             echo "Pruned ${#stale[@]} artifact(s), kept latest $keep."
           else
             echo "Nothing to prune (≤ $keep artifacts present)."

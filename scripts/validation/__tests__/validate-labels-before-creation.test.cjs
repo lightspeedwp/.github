@@ -10,7 +10,7 @@
  * 5. Error and warning messages
  */
 
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const path = require('path');
 
 const SCRIPT_PATH = path.join(__dirname, '../validate-labels-before-creation.cjs');
@@ -24,8 +24,9 @@ const LABELS_FILE = path.join(__dirname, '../../../.github/labels.yml');
 function validateLabels(labels) {
   const labelStr = labels.join(',');
   try {
-    execSync(
-      `node ${SCRIPT_PATH} --labels "${labelStr}" --canonical-file ${LABELS_FILE}`,
+    execFileSync(
+      process.execPath,
+      [SCRIPT_PATH, '--labels', labelStr, '--canonical-file', LABELS_FILE],
       { stdio: 'pipe' }
     );
     return { valid: true, errors: [], warnings: [] };
@@ -57,7 +58,7 @@ describe('Label Validation', () => {
         'type:bug',
         'status:needs-triage',
         'priority:critical',
-        'area:ci'
+        'area:ci',
       ]);
       expect(result.valid).toBe(true);
       expect(result.errors.length).toBe(0);
@@ -68,10 +69,10 @@ describe('Label Validation', () => {
         'type:bug',
         'type:feature',
         'type:task',
-        'type:documentation',
+        'type:docs',
         'type:design',
         'type:refactor',
-        'type:chore'
+        'type:chore',
       ];
 
       for (const type of types) {
@@ -81,11 +82,7 @@ describe('Label Validation', () => {
     });
 
     test('accepts multiple meta: labels (allowed exception)', () => {
-      const result = validateLabels([
-        'type:bug',
-        'meta:needs-changelog',
-        'meta:has-pr'
-      ]);
+      const result = validateLabels(['type:bug', 'meta:needs-changelog', 'meta:has-pr']);
       expect(result.valid).toBe(true);
     });
   });
@@ -94,13 +91,13 @@ describe('Label Validation', () => {
     test('rejects bare "bug" label', () => {
       const result = validateLabels(['bug']);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes('bug'))).toBe(true);
+      expect(result.errors.some((e) => e.includes('bug'))).toBe(true);
     });
 
     test('rejects bare "feature" label', () => {
       const result = validateLabels(['feature']);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes('feature'))).toBe(true);
+      expect(result.errors.some((e) => e.includes('feature'))).toBe(true);
     });
 
     test('rejects all common bare labels', () => {
@@ -114,7 +111,7 @@ describe('Label Validation', () => {
         'ci',
         'docs',
         'release',
-        'automation'
+        'automation',
       ];
 
       for (const bare of bareLabels) {
@@ -126,7 +123,7 @@ describe('Label Validation', () => {
     test('detects bare labels in mixed set', () => {
       const result = validateLabels(['type:bug', 'feature', 'status:needs-triage']);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes('feature'))).toBe(true);
+      expect(result.errors.some((e) => e.includes('feature'))).toBe(true);
     });
   });
 
@@ -134,7 +131,7 @@ describe('Label Validation', () => {
     test('rejects unknown label', () => {
       const result = validateLabels(['type:unknown']);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes('not found'))).toBe(true);
+      expect(result.errors.some((e) => e.includes('not found'))).toBe(true);
     });
 
     test('rejects completely made-up label', () => {
@@ -147,25 +144,17 @@ describe('Label Validation', () => {
     test('rejects multiple type: labels', () => {
       const result = validateLabels(['type:bug', 'type:feature']);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes('Multiple labels'))).toBe(true);
+      expect(result.errors.some((e) => e.includes('Multiple labels'))).toBe(true);
     });
 
     test('rejects multiple status: labels', () => {
-      const result = validateLabels([
-        'type:bug',
-        'status:needs-triage',
-        'status:in-progress'
-      ]);
+      const result = validateLabels(['type:bug', 'status:needs-triage', 'status:in-progress']);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes('Multiple labels'))).toBe(true);
+      expect(result.errors.some((e) => e.includes('Multiple labels'))).toBe(true);
     });
 
     test('rejects multiple priority: labels', () => {
-      const result = validateLabels([
-        'type:bug',
-        'priority:critical',
-        'priority:important'
-      ]);
+      const result = validateLabels(['type:bug', 'priority:critical', 'priority:important']);
       expect(result.valid).toBe(false);
     });
 
@@ -174,17 +163,13 @@ describe('Label Validation', () => {
         'type:bug',
         'meta:needs-changelog',
         'meta:has-pr',
-        'meta:duplicate'
+        'meta:no-issue-activity',
       ]);
       expect(result.valid).toBe(true);
     });
 
     test('allows multiple comp: labels (exception)', () => {
-      const result = validateLabels([
-        'type:feature',
-        'comp:block-editor',
-        'comp:theme-json'
-      ]);
+      const result = validateLabels(['type:feature', 'comp:block-editor', 'comp:theme-json']);
       expect(result.valid).toBe(true);
     });
   });
@@ -193,16 +178,11 @@ describe('Label Validation', () => {
     test('requires at least one type: label', () => {
       const result = validateLabels(['status:needs-triage', 'priority:critical']);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes("Missing required 'type:*'"))).toBe(true);
+      expect(result.errors.some((e) => e.includes("Missing required 'type:*'"))).toBe(true);
     });
 
     test('passes with any type: variant', () => {
-      const types = [
-        'type:bug',
-        'type:feature',
-        'type:task',
-        'type:documentation'
-      ];
+      const types = ['type:bug', 'type:feature', 'type:task', 'type:docs'];
 
       for (const type of types) {
         const result = validateLabels([type]);
@@ -214,12 +194,12 @@ describe('Label Validation', () => {
   describe('Warnings', () => {
     test('warns about bare label "bug"', () => {
       const result = validateLabels(['bug']);
-      expect(result.warnings.some(w => w.includes('Bare label'))).toBe(true);
+      expect(result.warnings.some((w) => w.includes('Bare label'))).toBe(true);
     });
 
     test('suggests corrections for bare labels', () => {
       const result = validateLabels(['bug']);
-      expect(result.warnings.some(w => w.includes('type:bug'))).toBe(true);
+      expect(result.warnings.some((w) => w.includes('type:bug'))).toBe(true);
     });
   });
 
@@ -227,7 +207,7 @@ describe('Label Validation', () => {
     test('handles empty label list', () => {
       const result = validateLabels([]);
       expect(result.valid).toBe(false);
-      expect(result.errors.some(e => e.includes("Missing required 'type:*'"))).toBe(true);
+      expect(result.errors.some((e) => e.includes("Missing required 'type:*'"))).toBe(true);
     });
 
     test('ignores whitespace in labels', () => {
@@ -242,7 +222,7 @@ describe('Label Validation', () => {
         'status:ready',
         'priority:normal',
         'area:ci',
-        'meta:needs-changelog'
+        'meta:needs-changelog',
       ];
       const result = validateLabels(labels);
       expect(result.valid).toBe(true);

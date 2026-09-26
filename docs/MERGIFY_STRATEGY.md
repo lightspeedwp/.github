@@ -2,8 +2,8 @@
 file_type: documentation
 title: Mergify Strategy & Implementation
 description: Complete guide to Mergify configuration, auto-merge rules, and troubleshooting
-version: v1.0.1
-last_updated: '2026-08-21'
+version: v1.0.3
+last_updated: '2026-09-25'
 owners:
   - lightspeedwp
 ---
@@ -11,6 +11,14 @@ owners:
 # Mergify Strategy & Implementation
 
 This document describes how Mergify is configured and used for automated pull request merging in the LightSpeedWP/.github repository.
+
+> [!WARNING]
+> **Partially historical.** The authoritative configuration is `.github/mergify.yml`.
+> The "Overview", "Current Status" and "Auto-Merge Rules" sections below reflect the
+> current file. Sections describing imgbot, meta-agent, and the merge queue document
+> configuration that was **removed in #3476** and are kept only for history. The queue
+> is no longer configured; the develop ruleset plus a human code-owner approval is the
+> merge gate.
 
 ## Table of Contents
 
@@ -28,17 +36,22 @@ This document describes how Mergify is configured and used for automated pull re
 
 Mergify is a GitHub App that automates pull request merging based on configurable rules. We use it for:
 
-1. **Dependabot dependency updates** - Auto-merge when CI passes
-2. **ImgBot image optimisations** - Auto-merge when CI passes
-3. **Meta-agent sync PRs** - Auto-merge automated metadata updates
-4. **Merge queue management** - Sequential merging to prevent conflicts
-5. **Flaky test detection** - Integration with CI/CD health monitoring
+1. **Keeping every same-repository pull request current** - Merge the base branch in as soon as a PR falls behind
+2. **Dependabot auto-merge** - Merge once GitHub branch protection is satisfied
 
 ### Current Status
 
 - **Configuration File**: `.github/mergify.yml`
-- **Active Rules**: 4 auto-merge rules + 1 queue rule
-- **Known Issues**: Dependabot auto-merge not working; meta-agent double-merge attempts
+- **Active Rules**: 1 update rule (any non-draft, non-fork PR against `develop` that falls behind) +
+  Dependabot auto-merge
+- **Known Issues**: none known. The queue, imgbot and meta-agent rules were removed in #3476
+  because they gated on an "All Checks Passed" check no workflow produces. Human PRs still
+  require a human code-owner approval; Mergify never bypasses that.
+
+> **Note:** Mergify cannot auto-merge a human PR even when configured to. The `develop`
+> ruleset requires a code-owner approval, and Mergify's auto-merge only fires once branch
+> protection is satisfied. Dependabot PRs are not merged by Mergify either until a human
+> approves them. This is intentional, not a misconfiguration.
 
 ## Architecture
 
@@ -110,30 +123,61 @@ We standardly use **squash** for clean history.
 
 ## Auto-Merge Rules
 
-### Rule 1: Keep Dependabot PRs Current
+### Rule 1: Keep All Same-Repository Pull Requests on Develop Current
 
-**Purpose**: Rebase Dependabot PRs if develop branch moved ahead
+**Purpose**: Merge the base branch into any same-repository pull request once `develop` moves ahead
 
 **Conditions**:
 
-- Author is Dependabot (`dependabot[bot]` or `app/dependabot`)
 - Base branch is `develop`
-- Has `area:dependencies` label
 - Not a draft
+- Not from a fork
 - No merge conflicts
 - More than 0 commits behind
 
 **Actions**:
 
-- Rebase the PR to incorporate latest develop changes
+- `update: {}` — Mergify merges `develop` into the PR branch, which re-triggers CI against
+  the current tree.
 
 **Trigger**: Automatic on develop updates
 
-**Current Status**: ⚠️ **May not be working** - Base branch needs to update for trigger
+**Verified**: working — Mergify pushed updates across all 13 open Dependabot PRs on
+2026-09-25, taking roughly 20-30 seconds per PR, so a full sweep of a large queue takes
+several minutes. A PR showing BEHIND immediately after a merge may just be queued behind
+others.
+
+**Why `update` and not `rebase`**: the `rebase` action has to impersonate a GitHub user, and
+Mergify cannot impersonate an account owned by another GitHub App — so it fails outright on
+Dependabot PRs unless a human `bot_account` is set. It also refuses fork PRs entirely.
+`update` merges the base in and needs no impersonation.
+
+**Why no staleness threshold**: an earlier revision of this rule waited until a PR was more
+than five commits behind. The `develop` ruleset uses a strict up-to-date policy, so a PR one
+commit behind is blocked from merging exactly as much as one twenty behind. A threshold
+leaves a band of PRs stuck until they drift past it, so the rule now fires at any staleness.
+
+**Why forks are excluded**: Mergify can only write a fork's head branch when the contributor has
+enabled maintainer edits. Without that permission the update action fails and the PR remains
+behind, so `-from-fork` keeps the rule's behaviour aligned with what it can guarantee.
+
+**Why drafts are excluded**: Mergify's own documented linear-history example filters drafts.
+A draft is not waiting to merge, and re-running CI on every open draft on every `develop`
+push is pure cost.
+
+**Side effect to be aware of**: `develop`'s ruleset sets `dismiss_stale_reviews_on_push`, so
+this action dismisses existing approvals on the PR it touches. That is correct — the
+reviewed code moved underneath the reviewer — but it does mean a review has to be given
+again after each merge to `develop`.
+
+**Limitations**: Mergify never rebases a conflicting branch, so a PR with conflicts still
+reports DIRTY and needs manual resolution. Fork PRs are excluded because the action depends on
+maintainer-edit permission. PRs already in the merge queue are also skipped
+(`queue-position = -1`); the queue keeps those current itself.
 
 ---
 
-### Rule 2: Auto-Approve and Queue Dependabot Updates
+### Rule 2 (removed in #3476): Auto-Approve and Queue Dependabot Updates
 
 **Purpose**: Approve and queue Dependabot PRs for automatic merging
 
@@ -167,7 +211,7 @@ We standardly use **squash** for clean history.
 
 ---
 
-### Rule 3: Keep ImgBot Current
+### Rule 3 (removed in #3476): Keep ImgBot Current
 
 **Purpose**: Rebase ImgBot image optimization PRs if develop moved ahead
 
@@ -194,7 +238,7 @@ We standardly use **squash** for clean history.
 
 ---
 
-### Rule 4: Auto-Merge ImgBot Optimizations
+### Rule 4 (removed in #3476): Auto-Merge ImgBot Optimizations
 
 **Purpose**: Automatically merge ImgBot image optimization PRs when CI passes
 
@@ -220,7 +264,7 @@ We standardly use **squash** for clean history.
 
 ---
 
-### Rule 5: Auto-Merge Meta-Agent Sync
+### Rule 5 (removed in #3476): Auto-Merge Meta-Agent Sync
 
 **Purpose**: Automatically merge automated metadata update PRs
 

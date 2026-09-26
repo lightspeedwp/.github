@@ -67,4 +67,19 @@ describe('branding.agent footer functions', () => {
     expect(afterFirstRun).toBe(afterSecondRun);
     expect(afterSecondRun.trim().split(/\n\s*\n/)).toHaveLength(3);
   });
+
+  test('getFooterPhrases honours a config with only a top-level default (#3538)', async () => {
+    const fixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), 'branding-agent-default-only-'));
+    fs.mkdirSync(path.join(fixtureDir, '.github'), { recursive: true });
+    fs.writeFileSync(
+      path.join(fixtureDir, '.github', 'footers.yml'),
+      ['default:', '  phrases:', '    - "Need help? Say hi."', ''].join('\n')
+    );
+    cwdSpy = jest.spyOn(process, 'cwd').mockReturnValue(fixtureDir);
+
+    const { getFooterPhrases } = await import('../branding.agent.js');
+
+    expect(getFooterPhrases('docs')).toEqual(['Need help? Say hi.']);
+    expect(getFooterPhrases('unknown')).toEqual(['Need help? Say hi.']);
+  });
 });

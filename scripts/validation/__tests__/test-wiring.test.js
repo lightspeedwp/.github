@@ -3,7 +3,13 @@
 // scripts with their own test()/assert harness) must each have a dedicated
 // npm script owner. If files go unrun, this test fails instead of the
 // regression going unseen.
+//
+// The nested listing is read the way it is on purpose (#3575). This guard is
+// only as trustworthy as the child process it interrogates, so a child that
+// fails or returns a clipped listing must say so rather than let a short list
+// of paths be reported as "these files are undiscovered".
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
@@ -59,19 +65,99 @@ function toPosix(file) {
   return path.relative(ROOT, file).split(path.sep).join('/');
 }
 
-function jestListTests(cwd, extraArgs = []) {
-  const result = spawnSync(
-    process.execPath,
-    ['node_modules/jest/bin/jest.js', '--config', '.jest.config.cjs', '--listTests', ...extraArgs],
-    { cwd, encoding: 'utf8' }
+// The root config reads these to override which tests are discovered. The
+// nested listing has to describe the DEFAULT root configuration, not whatever
+// a caller scoped the parent run to: a run with one of these set made the
+// child list 230 files instead of 282 and the guard then reported 50 healthy
+// files as undiscovered (#3575).
+const DISCOVERY_OVERRIDES = [
+  'JEST_IGNORE_PATTERN',
+  'JEST_TEST_MATCH_1',
+  'JEST_TEST_MATCH_2',
+  'JEST_TEST_MATCH_3',
+  'JEST_TEST_MATCH_4',
+  'JEST_TEST_MATCH_5',
+  'JEST_TEST_MATCH_6',
+];
+
+function defaultDiscoveryEnv() {
+  const env = { ...process.env };
+  for (const key of DISCOVERY_OVERRIDES) {
+    delete env[key];
+  }
+  return env;
+}
+
+let listingCounter = 0;
+
+/**
+ * Ask a Jest CLI which tests it would run, and return the resolved paths.
+ *
+ * `--json --outputFile` is used instead of reading stdout, for two reasons:
+ *
+ *  - `--outputFile` makes Jest write the list with one synchronous
+ *    writeFileSync rather than console.log, so the payload cannot be clipped by
+ *    a stdout pipe that the process exits before it drains. That is the
+ *    load-dependent short list reported in #3575.
+ *  - `--json` makes the payload a JSON array, so a partial file fails to parse
+ *    and is reported as an incomplete listing. Plain newline-delimited paths
+ *    have no completeness marker, so a clipped list is indistinguishable from
+ *    a genuinely shorter one.
+ *
+ * Any failure to obtain a complete listing throws with that diagnosis.
+ */
+function listTestsWithJest({ command, cwd, extraArgs = [] }) {
+  const outputFile = path.join(
+    os.tmpdir(),
+    `jest-list-tests-${process.pid}-${listingCounter++}.json`
   );
-  expect(result.status).toBe(0);
-  return new Set(
-    result.stdout
-      .split(/\r?\n/)
-      .filter(Boolean)
-      .map((file) => toPosix(path.resolve(cwd, file)))
-  );
+
+  try {
+    const result = spawnSync(
+      process.execPath,
+      [...command, '--listTests', '--json', '--outputFile', outputFile, ...extraArgs],
+      {
+        cwd,
+        encoding: 'utf8',
+        env: defaultDiscoveryEnv(),
+        maxBuffer: 16 * 1024 * 1024,
+      }
+    );
+
+    if (result.error) {
+      throw new Error(`the nested Jest listing did not run: ${result.error.message}`);
+    }
+    if (result.status !== 0) {
+      throw new Error(
+        `the nested Jest listing exited with status ${result.status}` +
+          `${result.signal ? ` (signal ${result.signal})` : ''}, so its result is unknown:\n${result.stderr}`
+      );
+    }
+    if (!fs.existsSync(outputFile)) {
+      throw new Error(
+        'the nested Jest listing produced no output file, so the listing is incomplete. This is not a wiring failure.'
+      );
+    }
+
+    let listed;
+    try {
+      listed = JSON.parse(fs.readFileSync(outputFile, 'utf8'));
+    } catch (cause) {
+      throw new Error(
+        `the nested Jest listing is not valid JSON, so it is incomplete rather than short: ${cause.message}`,
+        { cause }
+      );
+    }
+    if (!Array.isArray(listed)) {
+      throw new Error(
+        `the nested Jest listing was ${typeof listed}, expected an array of test paths.`
+      );
+    }
+
+    return listed.map((file) => path.resolve(cwd, file));
+  } finally {
+    fs.rmSync(outputFile, { force: true });
+  }
 }
 
 describe('jest runner wiring (#3552)', () => {
@@ -84,13 +170,23 @@ describe('jest runner wiring (#3552)', () => {
     const files = listTestFiles(ROOT).map(toPosix).sort();
     expect(files.length).toBeGreaterThan(0);
 
-    const listed = jestListTests(ROOT);
+    const listedPaths = listTestsWithJest({
+      command: ['node_modules/jest/bin/jest.js'],
+      cwd: ROOT,
+      extraArgs: ['--config', '.jest.config.cjs'],
+    });
     const expected = files.filter(
       (file) =>
         !STANDALONE_FILES.includes(file) &&
         !KNOWN_SKIP_DIRS.some((dir) => file === dir || file.startsWith(dir))
     );
+    const listed = new Set(listedPaths.map(toPosix));
     const missing = expected.filter((file) => !listed.has(file));
+    // listTestsWithJest only ever returns a complete listing, so anything
+    // missing here is a real wiring break and the path below names it. A
+    // separate "is the listing suspiciously short?" assertion is deliberately
+    // absent: it cannot tell a clipped listing from a genuine break, and once
+    // the listing is known to be complete it is implied by this one.
     expect(missing).toEqual([]);
   }, 300000);
 
@@ -121,12 +217,6 @@ describe('jest runner wiring (#3552)', () => {
 
   test('nested pr-agent runner selects every test file it owns', () => {
     const agentDir = path.join(ROOT, 'agents/pr-agent');
-    const result = spawnSync(
-      process.execPath,
-      [path.join(agentDir, 'scripts/jest-vm.js'), '--listTests'],
-      { cwd: agentDir, encoding: 'utf8' }
-    );
-    expect(result.status).toBe(0);
 
     // Compare against the files on disk rather than a count, so a nested
     // jest config that silently drops the skill-level suites fails here.
@@ -135,11 +225,11 @@ describe('jest runner wiring (#3552)', () => {
       .sort();
     expect(onDisk.length).toBeGreaterThan(0);
 
-    const listed = result.stdout
-      .split(/\r?\n/)
-      .filter(Boolean)
-      .map((file) => toPosix(path.resolve(agentDir, file)))
-      .sort();
+    const listedPaths = listTestsWithJest({
+      command: [path.join(agentDir, 'scripts/jest-vm.js')],
+      cwd: agentDir,
+    });
+    const listed = listedPaths.map((file) => toPosix(path.resolve(file))).sort();
     expect(listed).toEqual(onDisk);
   }, 120000);
 });

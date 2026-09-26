@@ -1,0 +1,154 @@
+{
+  "workflow": "labeling-governance.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml",
+  "size_bytes": 21273,
+  "purpose": "Combined label governance: standard labelling (config validation, label sync, template guardrail, labelling agent, report), bare-label detection, Dependabot security label, status-label clean-up on issue close, and a required 'Labeling Governance Check' status on PRs.",
+  "triggers": [
+    "push: branches [develop]",
+    "pull_request: branches [develop], types [opened, edited, synchronize, reopened, ready_for_review]",
+    "issues: types [opened, edited, reopened, closed]",
+    "discussion: types [created, edited, answered, labeled, unlabeled]",
+    "workflow_dispatch (inputs: dry_run, report_commit)"
+  ],
+  "jobs": [
+    {
+      "id": "standard-labeling",
+      "summary": "Validate labeling configs and issue fields, run label-sync.js, check-template-labels.js, run-labeling-agent.js, report-writer.js; upload report; optionally commit report to develop."
+    },
+    {
+      "id": "detect-bare-labels",
+      "summary": "Load labels.yml with js-yaml and warn when the current PR/issue carries labels outside the canonical set (warning only)."
+    },
+    {
+      "id": "label-dependabot-security",
+      "summary": "On Dependabot PRs, create meta:dependabot-security if missing and add/remove it based on CVE/GHSA/vulnerability patterns in title and body."
+    },
+    {
+      "id": "cleanup-labels-on-close",
+      "summary": "On issue close, remove status:needs-triage, status:in-progress and status:needs-review."
+    },
+    {
+      "id": "labeling-check",
+      "summary": "Needs standard-labeling; requires at least one type:/area:/priority:/meta: label, creates or updates a 'Labeling Governance Check' check run and fails the job when requirements are not met."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/validation/validate-labeling-configs.cjs",
+      "exists": true
+    },
+    {
+      "path": "scripts/validation/validate-issue-fields.cjs",
+      "exists": true
+    },
+    {
+      "path": "scripts/agents/includes/label-sync.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/agents/includes/check-template-labels.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/agents/run-labeling-agent.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/agents/includes/report-writer.js",
+      "exists": true
+    }
+  ],
+  "actions_used": [
+    "actions/checkout@v7",
+    "actions/setup-node@v7",
+    "actions/github-script@v9",
+    "actions/upload-artifact@v7"
+  ],
+  "labels_referenced": [
+    "meta:dependabot-security",
+    "meta:skip-labeling",
+    "status:in-progress",
+    "status:needs-review",
+    "status:needs-triage",
+    "type:*/area:*/priority:*/meta:* (required prefixes)"
+  ],
+  "labels_not_in_canonical": ["meta:dependabot-security", "meta:skip-labeling"],
+  "permissions": {
+    "workflow": {
+      "contents": "read",
+      "issues": "write",
+      "pull-requests": "write",
+      "discussions": "write"
+    },
+    "detect-bare-labels": {
+      "contents": "read",
+      "issues": "write",
+      "pull-requests": "write"
+    },
+    "label-dependabot-security": {
+      "contents": "read",
+      "pull-requests": "write",
+      "issues": "write"
+    },
+    "cleanup-labels-on-close": {
+      "issues": "write"
+    },
+    "labeling-check": {
+      "checks": "write",
+      "pull-requests": "read",
+      "issues": "write"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "scripts/validation/validate-issue-fields.cjs currently exits 1 (10 project Type mappings missing from labels.yml, docs/ISSUE_FIELDS.md missing type:docs; run locally on 2026-09-24), so standard-labeling would fail and the required check would fail on every PR.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:69"
+    },
+    {
+      "issue": "label-sync.js only exports functions and has no entrypoint, so the 'Sync labels with canonical set' step does nothing.",
+      "evidence": "scripts/agents/includes/label-sync.js:441"
+    },
+    {
+      "issue": "report-writer.js uses `require.main === module` in an ES-module package (\"type\": \"module\", package.json:50) and throws ReferenceError (reproduced locally), failing 'Generate report'.",
+      "evidence": "scripts/agents/includes/report-writer.js:282"
+    },
+    {
+      "issue": "detect-bare-labels reads `github.event_name` inside github-script, where `github` is the Octokit client; the value is undefined, so PR runs always read context.payload.issue and skip. Detection only warns.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:163"
+    },
+    {
+      "issue": "label-dependabot-security creates meta:dependabot-security at runtime, bypassing the locked labels.yml.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:227"
+    },
+    {
+      "issue": "labeling-check hard-codes status=success, so the failure-comment branch is dead code.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:359"
+    },
+    {
+      "issue": "A meta:* label alone satisfies the required-label check, so a PR with only meta:needs-changelog passes without any type:* label.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:336"
+    },
+    {
+      "issue": "Same push/pull_request/issues/discussion triggers as labeling.yml; both ran the labelling agent on the same events.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:3"
+    },
+    {
+      "issue": "report_commit pushes to develop while the workflow only has contents: read, so the push fails.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling-governance.yml:114"
+    },
+    {
+      "issue": "dry_run is ignored: run-labeling-agent.js calls runLabelingAgent() with no options and the agent reads only opts.dryRun, never DRY_RUN.",
+      "evidence": "scripts/agents/run-labeling-agent.js:6"
+    },
+    {
+      "issue": "push and discussion events run a full npm install, but the agent returns immediately without an issue or PR in context.",
+      "evidence": "scripts/agents/labeling.agent.js:290"
+    }
+  ],
+  "overlaps_with": [
+    "labeling.yml (identical triggers, same agent)",
+    "validate-issue-labels.yml (bare-label detection on issues)",
+    "labeling-unified.yml",
+    "remediate-bare-labels.yml"
+  ]
+}

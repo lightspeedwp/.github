@@ -96,9 +96,15 @@ jobs:
 
           # Parse JSON and set outputs
           echo "DEBUG: Parsing JSON fields..."
+          # Ownership (#3545): the router writes type/priority defaults only.
+          # Scope-derived area labels stay in the routing output for
+          # visibility, but area:* is owned by actions/labeler (file signals
+          # with sync), so filter area labels out before applying defaults —
+          # otherwise scope guesses and labeler sync fight over the same
+          # labels on every push.
           BRANCH_TYPE=$(echo "$ROUTING_JSON" | jq -r '.branch_type' 2>&1)
           TEMPLATE=$(echo "$ROUTING_JSON" | jq -r '.template' 2>&1)
-          ALL_LABELS=$(echo "$ROUTING_JSON" | jq -r '.all_labels | join(",")' 2>&1)
+          ALL_LABELS=$(echo "$ROUTING_JSON" | jq -r '.default_labels | map(select(startswith("type:") or startswith("priority:"))) | join(",")' 2>&1)
           SCOPE=$(echo "$ROUTING_JSON" | jq -r '.scope' 2>&1)
 
           echo "DEBUG: Parsed values:"
@@ -107,10 +113,12 @@ jobs:
           echo "DEBUG:   labels='$ALL_LABELS'"
           echo "DEBUG:   scope='$SCOPE'"
 
-          echo "branch_type=$BRANCH_TYPE" >> $GITHUB_OUTPUT
-          echo "template=$TEMPLATE" >> $GITHUB_OUTPUT
-          echo "labels=$ALL_LABELS" >> $GITHUB_OUTPUT
-          echo "scope=$SCOPE" >> $GITHUB_OUTPUT
+          {
+            echo "branch_type=$BRANCH_TYPE"
+            echo "template=$TEMPLATE"
+            echo "labels=$ALL_LABELS"
+            echo "scope=$SCOPE"
+          } >> "$GITHUB_OUTPUT"
 
           echo "DEBUG: Outputs written successfully"
 
@@ -124,10 +132,10 @@ jobs:
           TEMPLATE_FILE=".github/PULL_REQUEST_TEMPLATE/${ROUTE_TEMPLATE}.md"
           if [ -f "$TEMPLATE_FILE" ]; then
             echo "✓ Template found: $TEMPLATE_FILE"
-            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "⚠ Template not found: $TEMPLATE_FILE"
-            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Verify PR body matches template
