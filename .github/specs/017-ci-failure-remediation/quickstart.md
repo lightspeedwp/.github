@@ -156,7 +156,8 @@ for file in "${FAILING_FILES[@]}"; do
   git show origin/develop:"$file" > /tmp/mermaid-develop.md
   
   # Run Mermaid validator (adjust command for your setup):
-  npm run validate:mermaid /tmp/mermaid-develop.md 2>&1 | tee /tmp/mermaid-develop-result.txt
+  # NOTE: no `validate:mermaid` npm script exists yet; add it before relying on this step
+npm run validate:mermaid /tmp/mermaid-develop.md 2>&1 | tee /tmp/mermaid-develop-result.txt
 done
 
 # Compare with audit branch results (should have same errors)
@@ -336,6 +337,7 @@ git status
 # Should show you're on the audit/017... branch
 
 # Find and run the agent spec validation script:
+# NOTE: no `validate:agent-spec` npm script exists yet; add it before relying on this step
 npm run validate:agent-spec 2>&1 | tee /tmp/audit-local-result.txt
 
 # Does the same error occur? YES/NO
@@ -347,6 +349,7 @@ npm run validate:agent-spec 2>&1 | tee /tmp/audit-local-result.txt
 git checkout develop
 git pull origin develop
 
+# NOTE: no `validate:agent-spec` npm script exists yet; add it before relying on this step
 npm run validate:agent-spec 2>&1 | tee /tmp/develop-local-result.txt
 
 # Does the error occur on develop too?
@@ -640,10 +643,10 @@ git ls-tree origin/develop .github/specs/
 git show origin/develop:.github/specs/001-governance-audit/spec.md
 
 # Run validation scripts
-npm run validate:changelog
-npm run validate:mermaid
-npm run lint
-npm test
+npm run validate:changelog   # defined
+npm run validate:mermaid     # NOT DEFINED YET - add the script first
+npm run lint                 # defined
+npm test                     # defined
 
 # Compare outputs
 diff file1.txt file2.txt

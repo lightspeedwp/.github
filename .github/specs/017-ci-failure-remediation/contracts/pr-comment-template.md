@@ -34,23 +34,23 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 ### 1. Changelog Entry Validation (PRE-EXISTING on develop)
 
-**Count**: 48 non-compliant entries out of 54 total (88.9%)  
-**Baseline**: 6/54 entries compliant (11.1%) on both develop and audit branches  
+**Count**: {{noncompliant}} non-compliant entries out of {{total}} total ({{pct}}%)  
+**Baseline**: {{baseline_compliant}}/{{total}} entries compliant ({{baseline_pct}}%) on both branches  
 **Evidence**:
-- Changelog validation script run on `develop` branch: **6/54 compliant**
-- Changelog validation script run on `audit/017-ci-failure-remediation` branch: **6/54 compliant**
-- **Delta**: 0 (identical results confirm pre-existing baseline)
+- Changelog validation script run on `develop` branch: **{{baseline_compliant}}/{{total}} compliant**
+- Changelog validation script run on the change branch: **{{branch_compliant}}/{{total}} compliant**
+- **Delta**: {{delta}} (0 confirms a pre-existing baseline)
 - Failures: Long entries (>250 chars), unexplained abbreviations, implementation details
 
 **Compliance Status**: 🟡 ENVIRONMENTAL — Pre-existing violations, not audit-introduced  
 **Remediation**: Separate maintenance track (spec 017 category 1)  
-**Effort Estimate**: Medium (48 entries need revision to Keep a Changelog format)  
+**Effort Estimate**: {{effort}} ({{noncompliant}} entries need revision to Keep a Changelog format)  
 **Owner**: @[changelog-maintainer] (governance team)  
 **Target Date**: Post-audit-merge remediation sprint
 
 **What This Means for Review**:
 - The audit PR does not make changelog compliance worse
-- The 48 non-compliant entries existed before audit changes
+- These {{noncompliant}} non-compliant entries existed before the change under review
 - This is a known governance issue (tracked separately) not caused by the audit implementation
 
 ---
@@ -99,7 +99,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 **Remediation**: Separate maintenance track (spec 017 category 3)  
 **Effort Estimate**: Low-Medium (frontmatter schema update and file migration)  
 **Owner**: @[spec-coordinator] (governance team)  
-**Target Date**: Q4 2026 governance process improvement
+**Target Date**: {{target_date}}
 
 **What This Means for Review**:
 - The audit did not create frontmatter validation rules
@@ -130,7 +130,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 **Remediation**: Separate infrastructure investigation  
 **Effort Estimate**: Low (diagnostic work; implementation depends on findings)  
 **Owner**: @[infra-team] (infrastructure/automation)  
-**Target Date**: Within 48 hours of investigation
+**Target Date**: {{target_window}}
 
 **What This Means for Review**:
 - Classification being confirmed; likely not audit-related
@@ -184,7 +184,7 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 **Remediation**: Separate maintenance track (spec 017 category 6)  
 **Effort Estimate**: Medium (workflow and configuration file updates)  
 **Owner**: @[devops-lead] (CI/CD team) & @[dev-lead] (engineering)  
-**Target Date**: Q4 2026 CI infrastructure update sprint
+**Target Date**: {{target_window}}
 
 **What This Means for Review**:
 - The audit code itself passes linting and tests
@@ -197,9 +197,9 @@ This pull request introduces **{{failure_count}} CI check failures** across {{ca
 
 | Category | Priority | Effort | Owner | Target Q | Issue Tracking |
 |----------|----------|--------|-------|----------|---|
-| Changelog validation | P1 | Medium | @changelog-maintainer | Q4 2026 | Separate epic |
-| Mermaid diagrams | P2 | Medium | @spec-maintainer | Q4 2026 | [GitHub issue link] |
-| Frontmatter validation | P2 | Low-Medium | @spec-coordinator | Q4 2026 | [GitHub issue link] |
+| Changelog validation | {{priority}} | {{effort}} | @changelog-maintainer | {{target_date}} | Separate epic |
+| Mermaid diagrams | {{priority}} | {{effort}} | @spec-maintainer | {{target_date}} | [GitHub issue link] |
+| Frontmatter validation | {{priority}} | {{effort}} | @spec-coordinator | {{target_date}} | [GitHub issue link] |
 | Agent spec validation | P2 | Low | @infra-team | This week | [GitHub issue link] |
 | Milestone assignment | P0 | Minimal | PR author | Before merge | N/A |
 | Lint/testing | P3 | Medium | @devops-lead | Q1 2027 | [GitHub issue link] |
