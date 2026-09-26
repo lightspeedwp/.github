@@ -1,12 +1,11 @@
 ---
-name: "speckit-taskstoissues"
-description: "Convert existing tasks into actionable, dependency-ordered GitHub issues for the feature based on available design artifacts."
-compatibility: "Requires spec-kit project structure with .specify/ directory"
+name: 'speckit-taskstoissues'
+description: 'Convert existing tasks into actionable, dependency-ordered GitHub issues for the feature based on available design artifacts.'
+compatibility: 'Requires spec-kit project structure with .specify/ directory'
 metadata:
-  author: "github-spec-kit"
-  source: "templates/commands/taskstoissues.md"
+  author: 'github-spec-kit'
+  source: 'templates/commands/taskstoissues.md'
 ---
-
 
 ## User Input
 
@@ -123,4 +122,4 @@ Check if `.specify/extensions.yml` exists in the project root.
     After emitting the block above you MUST actually invoke the hook and wait for it to finish before continuing. Run it the same way you would run the command yourself in this agent/session (the invocation may differ from the literal `{command}` id shown above, e.g. a skills-mode agent runs it as `/skill:speckit-...` or `$speckit-...`). Emitting the block alone does not run the hook.
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
