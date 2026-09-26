@@ -449,6 +449,90 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(outputs).toStrictEqual({ enabled: 'false', reason: 'no-credential', tool: 'none' });
     });
 
+    it.each(['OWNER', 'MEMBER', 'COLLABORATOR'])(
+      'accepts a command from %s on a fork PR in the base repository context',
+      (association) => {
+        const { outputs, core } = runPreflight({
+          eventName: 'issue_comment',
+          payload: {
+            sender: { type: 'User' },
+            repository: { full_name: 'lightspeedwp/.github' },
+            issue: {
+              pull_request: { url: 'https://api.github.com/repos/lightspeedwp/.github/pulls/42' },
+            },
+            comment: { body: '\t/ASK\nWhy?  ', author_association: association },
+          },
+        });
+        expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'ask' });
+        expect(core.notice).not.toHaveBeenCalled();
+      }
+    );
+
+    it.each(['NONE', 'FIRST_TIMER', 'FIRST_TIME_CONTRIBUTOR', undefined])(
+      'denies a recognised command from an unauthorised association: %s',
+      (association) => {
+        const { outputs, core } = runPreflight({
+          eventName: 'issue_comment',
+          payload: {
+            issue: { pull_request: {} },
+            comment: { body: '/review', author_association: association },
+          },
+        });
+        expect(outputs).toStrictEqual({
+          enabled: 'false',
+          reason: 'author-not-allowed',
+          tool: 'none',
+        });
+        expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent skipped: author-not-allowed');
+      }
+    );
+
+    it.each(['/reviewer', '/review;echo', '/ask?why', '/review/'])(
+      'requires an exact command token instead of accepting %s',
+      (body) => {
+        const { outputs } = runPreflight({
+          eventName: 'issue_comment',
+          payload: {
+            issue: { pull_request: {} },
+            comment: { body, author_association: 'OWNER' },
+          },
+        });
+        expect(outputs).toStrictEqual({
+          enabled: 'false',
+          reason: 'command-not-allowed',
+          tool: 'none',
+        });
+      }
+    );
+
+    it.each([
+      ['kill-switch', { KILL_SWITCH: 'FaLsE' }, { type: 'User' }],
+      ['bot-sender', {}, { type: 'Bot' }],
+    ])('applies the %s guard even to an authorised maintainer command', (reason, env, sender) => {
+      const { outputs } = runPreflight({
+        eventName: 'issue_comment',
+        env,
+        payload: {
+          sender,
+          issue: { pull_request: {} },
+          comment: { body: '/review', author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool: 'none' });
+    });
+
+    it.each(['', '  ', 'Please /review this PR', '> /review'])(
+      'ignores an ordinary comment without emitting a skip notice: %j',
+      (body) => {
+        const { outputs, core } = runPreflight({
+          eventName: 'issue_comment',
+          payload: { issue: { pull_request: {} }, comment: { body, author_association: 'OWNER' } },
+        });
+        expect(outputs).toStrictEqual({ enabled: 'false', reason: 'not-a-command', tool: 'none' });
+        expect(core.notice).not.toHaveBeenCalled();
+      }
+    );
+
     it('skips unsupported events rather than running a tool', () => {
       const { outputs } = runPreflight({ eventName: 'push' });
       expect(outputs).toStrictEqual({

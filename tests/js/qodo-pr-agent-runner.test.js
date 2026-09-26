@@ -25,7 +25,30 @@ describe('Qodo PR-Agent skill runner', () => {
     fs.writeFileSync(diff, 'diff --git a/file b/file\n');
     const bin = path.join(directory, 'bin');
     fs.mkdirSync(bin);
-    fs.writeFileSync(path.join(bin, 'docker'), '#!/bin/sh\nexit 1\n', { mode: 0o755 });
+    fs.writeFileSync(
+      path.join(bin, 'docker'),
+      `#!/bin/sh
+if [ "$1" = 'info' ]; then [ "$MOCK_DOCKER" = 'true' ]; exit $?; fi
+printf '%s\\n' "$@" > "$MOCK_CAPTURE"
+printf '%s\\n' "$ANTHROPIC__KEY" "$GITHUB__USER_TOKEN" > "$MOCK_ENV_CAPTURE"
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -v)
+      case "$2" in *:/work/out) output_dir="\${2%:/work/out}" ;; esac
+      shift ;;
+    --json-output) json=true; shift ;;
+  esac
+  shift
+done
+if [ -n "$output_dir" ]; then
+  printf '%s\\n' 'Docker diff suggestion' > "$output_dir/out.md"
+  if [ "$json" = 'true' ]; then printf '%s\\n' '{"suggestions":[]}' > "$output_dir/out.json"; fi
+else
+  printf '%s\\n' 'Docker PR suggestion'
+fi
+`,
+      { mode: 0o755 }
+    );
     fs.writeFileSync(
       path.join(bin, 'python3'),
       `#!/bin/sh
@@ -88,6 +111,7 @@ fi
         MOCK_FAILURE: '',
         MOCK_JSON: '',
         MOCK_PYTHON_UNSUPPORTED: '',
+        MOCK_DOCKER: '',
         ANTHROPIC_API_KEY_QODO_PR_AGENT: '',
         ANTHROPIC_API_KEY: '',
         GITHUB_TOKEN: '',
@@ -272,5 +296,130 @@ fi
     });
     expect(result.status).toBe(2);
     expect(JSON.parse(result.stdout)).toMatchObject({ status: 'error', reason, tool: 'review' });
+  });
+
+  it.each(['generate_labels', 'update_changelog', 'add_docs', 'not-a-tool'])(
+    'skips unsupported diff tool %s before invoking a runtime',
+    (tool) => {
+      const result = run([tool, '--diff-file', diff], {
+        ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+        MOCK_DOCKER: 'true',
+      });
+      expect(result.status).toBe(0);
+      expect(JSON.parse(result.stdout)).toStrictEqual({
+        status: 'skipped',
+        reason: 'tool-disabled',
+        tool,
+        markdown: null,
+        data: null,
+        truncated: false,
+      });
+      expect(fs.existsSync(capture)).toBe(false);
+    }
+  );
+
+  it('rejects a tool name that only partially matches a supported PR tool', () => {
+    const result = run(['rev', '--pr-url', 'https://github.com/org/repo/pull/1']);
+    expect(result.status).toBe(0);
+    expect(JSON.parse(result.stdout)).toMatchObject({ status: 'skipped', reason: 'tool-disabled' });
+    expect(fs.existsSync(capture)).toBe(false);
+  });
+
+  describe('Docker execution', () => {
+    it.each(['review', 'improve', 'describe', 'ask'])(
+      'runs diff-mode %s with read-only input and separate output mounts',
+      (tool) => {
+        const spacedDiff = path.join(directory, 'input with spaces.diff');
+        fs.renameSync(diff, spacedDiff);
+        output = path.join(directory, 'output with spaces');
+        const question = 'Why does $(false); stay literal?';
+        const result = run(
+          [
+            tool,
+            '--diff-file',
+            path.relative(process.cwd(), spacedDiff),
+            ...(tool === 'ask' ? ['--question', question] : []),
+          ],
+          {
+            ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+            MOCK_DOCKER: 'true',
+            // Docker must take precedence even if the pipx Python check would fail.
+            MOCK_PYTHON_UNSUPPORTED: 'true',
+          }
+        );
+        expect(result.status).toBe(0);
+        expect(JSON.parse(result.stdout)).toStrictEqual({
+          status: 'ok',
+          reason: null,
+          tool,
+          markdown: 'Docker diff suggestion\n',
+          data: tool === 'review' ? { suggestions: [] } : null,
+          truncated: false,
+        });
+        const args = fs.readFileSync(capture, 'utf8').trimEnd().split('\n');
+        expect(args.slice(0, 6)).toStrictEqual([
+          'run',
+          '--rm',
+          '-e',
+          'ANTHROPIC__KEY',
+          '--entrypoint',
+          'python',
+        ]);
+        expect(args).toEqual(
+          expect.arrayContaining([
+            `${spacedDiff}:/work/input.diff:ro`,
+            `${output}:/work/out`,
+            '--diff-file',
+            '/work/input.diff',
+            '--output',
+            '/work/out/out.md',
+            '--config.publish_output=false',
+            '--config.propagate_tool_errors=true',
+            '--config.response_language=en-GB',
+            '--config.model=anthropic/claude-sonnet-5',
+          ])
+        );
+        expect(args.find((arg) => arg.startsWith('pragent/'))).toMatch(
+          /^pragent\/pr-agent@sha256:[a-f0-9]{64}$/
+        );
+        expect(args.includes('--json-output')).toBe(tool === 'review');
+        if (tool === 'review')
+          expect(args[args.indexOf('--json-output') + 1]).toBe('/work/out/out.json');
+        if (tool === 'ask') expect(args[args.indexOf('ask') + 1]).toBe(question);
+        expect(args).not.toContain('--spec');
+        expect(args).not.toContain('test-only-key');
+        expect(JSON.parse(fs.readFileSync(path.join(output, 'result.json'), 'utf8'))).toStrictEqual(
+          JSON.parse(result.stdout)
+        );
+      }
+    );
+
+    it('passes PR credentials through the environment and captures container stdout', () => {
+      const url = 'https://github.com/org/repo/pull/1';
+      const result = run(['review', '--pr-url', url], {
+        ANTHROPIC_API_KEY_QODO_PR_AGENT: 'docker-test-key',
+        GITHUB_TOKEN: 'docker-test-token',
+        MOCK_DOCKER: 'true',
+      });
+      expect(result.status).toBe(0);
+      expect(JSON.parse(result.stdout)).toStrictEqual({
+        status: 'ok',
+        reason: null,
+        tool: 'review',
+        markdown: 'Docker PR suggestion\n',
+        data: null,
+        truncated: false,
+      });
+      const args = fs.readFileSync(capture, 'utf8').trimEnd().split('\n');
+      expect(args[args.indexOf('--pr_url') + 1]).toBe(url);
+      expect(args[args.indexOf('GITHUB__USER_TOKEN') - 1]).toBe('-e');
+      expect(args).not.toContain('-v');
+      expect(args).not.toContain('--json-output');
+      expect(fs.readFileSync(credentialCapture, 'utf8')).toBe(
+        'docker-test-key\ndocker-test-token\n'
+      );
+      expect(args.join('\n')).not.toMatch(/docker-test-key|docker-test-token/);
+      expect(result.stdout + result.stderr).not.toMatch(/docker-test-key|docker-test-token/);
+    });
   });
 });

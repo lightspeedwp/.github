@@ -34,9 +34,21 @@ describe('qodo-pr-agent-report CLI', () => {
       preload,
       `const fs = require('node:fs');
 const requests = [];
+const responses = process.env.MOCK_RESPONSES
+  ? JSON.parse(fs.readFileSync(process.env.MOCK_RESPONSES, 'utf8')) : null;
 globalThis.fetch = async (url, options) => {
   requests.push({ url, headers: options.headers });
   fs.writeFileSync(process.env.MOCK_REQUEST_LOG, JSON.stringify(requests));
+  if (responses) {
+    const response = responses[url];
+    if (!response) throw new Error('Unexpected request: ' + url);
+    return {
+      ok: (response.status || 200) === 200,
+      status: response.status || 200,
+      json: async () => response.json,
+      arrayBuffer: async () => Buffer.from(response.archive, 'base64'),
+    };
+  }
   if (process.env.MOCK_API_FAILURE === 'true') return { ok: false, status: 503 };
   if (url.includes('/workflows/')) {
     return { ok: true, json: async () => ({ workflow_runs: [{ id: 7 }, { id: 8 }] }) };
@@ -72,6 +84,7 @@ globalThis.fetch = async (url, options) => {
         GITHUB_STEP_SUMMARY: '',
         MOCK_REQUEST_LOG: requestLog,
         MOCK_API_FAILURE: '',
+        MOCK_RESPONSES: '',
         MOCK_ZIP_BASE64: zipRecord({
           tool: 'auto',
           outcome: 'success',
@@ -139,5 +152,148 @@ globalThis.fetch = async (url, options) => {
     expect(result.status).toBe(1);
     expect(result.stderr).toContain('GitHub API 503');
     expect(fs.existsSync(out)).toBe(false);
+  });
+
+  it('writes only the step summary when it is the sole destination', () => {
+    const summary = path.join(directory, 'summary.md');
+    const result = run(['--since', '2026-10-01'], { GITHUB_STEP_SUMMARY: summary });
+    expect(result.status).toBe(0);
+    expect(result.stdout).toBe('');
+    expect(fs.readFileSync(summary, 'utf8')).toContain('# Qodo PR-Agent pilot report');
+  });
+
+  it('rejects invalid arguments before making any API request', () => {
+    const result = run(['--since', 'October 1']);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('--since YYYY-MM-DD is required');
+    expect(fs.existsSync(requestLog)).toBe(false);
+  });
+
+  describe('artefact collection boundaries', () => {
+    const api = 'https://api.github.com/repos/lightspeedwp/.github';
+    const runsUrl = (page) =>
+      `${api}/actions/workflows/qodo-pr-agent.yml/runs?created=%3E%3D2026-10-01&per_page=100&page=${page}`;
+    const artefactsUrl = (id) => `${api}/actions/runs/${id}/artifacts`;
+    const archiveUrl = 'https://example.invalid/archive/selected';
+    const selected = {
+      name: 'qodo-pr-agent-run-selected',
+      expired: false,
+      archive_download_url: archiveUrl,
+    };
+
+    /** Run the CLI against an exact URL-to-response fixture; unmatched requests fail. */
+    function runWithResponses(responses, args = []) {
+      const fixture = path.join(directory, 'responses.json');
+      fs.writeFileSync(fixture, JSON.stringify(responses));
+      return run(['--since', '2026-10-01', ...args], { MOCK_RESPONSES: fixture });
+    }
+
+    it('continues after a full page and includes records from the next page', () => {
+      const firstPage = Array.from({ length: 100 }, (_, i) => ({ id: i + 1 }));
+      const responses = {
+        [runsUrl(1)]: { json: { workflow_runs: firstPage } },
+        [runsUrl(2)]: { json: { workflow_runs: [{ id: 101 }] } },
+        [artefactsUrl(101)]: { json: { artifacts: [selected] } },
+        [archiveUrl]: {
+          archive: zipRecord({ tool: 'ask', outcome: 'failure', duration_seconds: 17 }).toString(
+            'base64'
+          ),
+        },
+      };
+      for (const { id } of firstPage) responses[artefactsUrl(id)] = { json: { artifacts: [] } };
+
+      const result = runWithResponses(responses);
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain('| `ask` | 1 |');
+      expect(result.stdout).toContain('Median run duration: **17 s**');
+      const urls = JSON.parse(fs.readFileSync(requestLog, 'utf8')).map(({ url }) => url);
+      expect(urls.filter((url) => url.includes('/workflows/'))).toStrictEqual([
+        runsUrl(1),
+        runsUrl(2),
+      ]);
+      expect(urls).toHaveLength(104);
+    });
+
+    it('stops after ten full pages even if more runs may exist', () => {
+      const responses = {};
+      for (let page = 1; page <= 10; page += 1) {
+        const runs = Array.from({ length: 100 }, (_, i) => ({ id: (page - 1) * 100 + i + 1 }));
+        responses[runsUrl(page)] = { json: { workflow_runs: runs } };
+        for (const { id } of runs) responses[artefactsUrl(id)] = { json: { artifacts: [] } };
+      }
+      const result = runWithResponses(responses);
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain('**0** of 0 records');
+      const requests = JSON.parse(fs.readFileSync(requestLog, 'utf8'));
+      expect(requests.filter(({ url }) => url.includes('/workflows/'))).toHaveLength(10);
+      expect(requests).toHaveLength(1010);
+    });
+
+    it('downloads only the first matching unexpired artefact', () => {
+      const result = runWithResponses({
+        [runsUrl(1)]: { json: { workflow_runs: [{ id: 7 }] } },
+        [artefactsUrl(7)]: {
+          json: {
+            artifacts: [
+              { name: 'unrelated', expired: false },
+              { name: 'qodo-pr-agent-run-expired', expired: true },
+              selected,
+              { ...selected, archive_download_url: 'https://example.invalid/not-selected' },
+            ],
+          },
+        },
+        [archiveUrl]: {
+          archive: zipRecord({ tool: 'review', outcome: 'success' }).toString('base64'),
+        },
+      });
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain('**1** of 1 records');
+      expect(JSON.parse(fs.readFileSync(requestLog, 'utf8')).map(({ url }) => url)).toStrictEqual([
+        runsUrl(1),
+        artefactsUrl(7),
+        archiveUrl,
+      ]);
+    });
+
+    it('returns an empty report without requesting artefacts when there are no runs', () => {
+      const result = runWithResponses({ [runsUrl(1)]: { json: { workflow_runs: [] } } });
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain('**0** of 0 records');
+      expect(JSON.parse(fs.readFileSync(requestLog, 'utf8'))).toHaveLength(1);
+    });
+
+    it('skips an archive that contains no run record', () => {
+      const result = runWithResponses({
+        [runsUrl(1)]: { json: { workflow_runs: [{ id: 7 }] } },
+        [artefactsUrl(7)]: { json: { artifacts: [selected] } },
+        // Empty ZIP end-of-central-directory record.
+        [archiveUrl]: {
+          archive: Buffer.from('504b0506000000000000000000000000000000000000', 'hex').toString(
+            'base64'
+          ),
+        },
+      });
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain('**0** of 0 records');
+    });
+
+    it.each(['artefact listing', 'archive download'])(
+      'propagates a failed %s without writing a partial report',
+      (stage) => {
+        const out = path.join(directory, 'reports');
+        const failureUrl = stage === 'artefact listing' ? artefactsUrl(7) : archiveUrl;
+        const result = runWithResponses(
+          {
+            [runsUrl(1)]: { json: { workflow_runs: [{ id: 7 }] } },
+            [artefactsUrl(7)]: { json: { artifacts: [selected] } },
+            [failureUrl]: { status: 403 },
+          },
+          ['--out', out]
+        );
+        expect(result.status).toBe(1);
+        expect(result.stderr).toContain(`GitHub API 403 for ${failureUrl}`);
+        expect(fs.existsSync(out)).toBe(false);
+      }
+    );
   });
 });

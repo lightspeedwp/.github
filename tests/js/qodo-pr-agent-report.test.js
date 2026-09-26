@@ -184,6 +184,51 @@ describe('qodo-pr-agent-report SC-001 eligibility', () => {
     expect(summary.executed).toBe(2);
     expect(summary.sc001).toStrictEqual({ automatic: 2, withinLimit: 1, rate: 0.5 });
   });
+
+  it('normalises numeric strings and absent durations for executed runs', () => {
+    const summary = aggregate([
+      { tool: 'review', outcome: 'success', duration_seconds: '20' },
+      { tool: 'ask', outcome: 'failure' },
+      { tool: 'auto', outcome: 'skipped:fork', duration_seconds: 900 },
+    ]);
+    expect(summary.medianDurationSeconds).toBe(10);
+    expect(summary.executed).toBe(2);
+    expect(summary.estimatedSpendUsd).toBeCloseTo(0.24);
+    expect(summary.sc001).toStrictEqual({ automatic: 0, withinLimit: 0, rate: null });
+  });
+
+  it.each([{ tokensPerRun: 0 }, { pricePerMtok: 0 }])(
+    'honours a zero cost assumption: %j',
+    (options) => {
+      expect(aggregate(records, options).estimatedSpendUsd).toBe(0);
+    }
+  );
+
+  it.each([{ event_at: undefined }, { event_at: 'invalid' }, { started_at: 'invalid' }])(
+    'counts an automatic success with unusable timing only in the denominator: %j',
+    (timing) => {
+      const summary = aggregate([{ ...records[0], ...timing }]);
+      expect(summary.sc001).toStrictEqual({ automatic: 1, withinLimit: 0, rate: 0 });
+      expect(summary.executed).toBe(1);
+    }
+  );
+
+  it('renders a measured zero rate and duration rather than unavailable metrics', () => {
+    const report = renderReport(
+      aggregate([{ tool: 'auto', outcome: 'failure', duration_seconds: 0 }]),
+      {
+        repo: 'team/project',
+        workflow: 'pilot.yml',
+        since: '2026-10-01',
+        generated: '2026-10-15',
+        tokensPerRun: 20000,
+        pricePerMtok: 6,
+      }
+    );
+    expect(report).toContain('Median run duration: **0 s**');
+    expect(report).toContain('**0.0%** (0 of 1; target 95%)');
+    expect(report).toContain('**≈ $0.12**');
+  });
 });
 
 // A streamed archive (as written by actions/upload-artifact): general-purpose
@@ -226,6 +271,46 @@ describe('qodo-pr-agent-report helpers', () => {
     const archive = zipOf('qodo-pr-agent-run.json', '{"outcome":"success"}');
     archive.fill(0, 30 + Buffer.byteLength('qodo-pr-agent-run.json'));
     expect(() => readFromZip(archive, 'qodo-pr-agent-run.json')).toThrow();
+  });
+
+  it.each([0, 8])(
+    'preserves UTF-8 entry names and contents with compression method %s',
+    (method) => {
+      const name = 'résumé.json';
+      const content = '{"suggestion":"Préférer £ à $ — ✓"}';
+      expect(readFromZip(zipOf(name, content, method), name)).toBe(content);
+    }
+  );
+
+  it('skips an unrelated corrupt entry without trying to decompress it', () => {
+    const unrelated = zipOf('other.json', 'unrelated');
+    unrelated.fill(0xff, 30 + Buffer.byteLength('other.json'));
+    const archive = Buffer.concat([unrelated, zipOf('qodo-pr-agent-run.json', '{}')]);
+    expect(readFromZip(archive, 'qodo-pr-agent-run.json')).toBe('{}');
+  });
+
+  it('skips local extra fields when finding entry data', () => {
+    const name = 'qodo-pr-agent-run.json';
+    const archive = zipOf(name, '{"tool":"review"}');
+    const dataStart = 30 + Buffer.byteLength(name);
+    // An unknown ZIP extra field containing two bytes.
+    const extra = Buffer.from([0xfe, 0xca, 2, 0, 1, 2]);
+    archive.writeUInt16LE(extra.length, 28);
+    const withExtra = Buffer.concat([
+      archive.subarray(0, dataStart),
+      extra,
+      archive.subarray(dataStart),
+    ]);
+    expect(readFromZip(withExtra, name)).toBe('{"tool":"review"}');
+  });
+
+  it('finds streamed entries when the archive has a maximum-length ZIP comment', () => {
+    const archive = Buffer.from(STREAMED_ZIP_BASE64, 'base64');
+    const comment = Buffer.alloc(65535, 0x61);
+    archive.writeUInt16LE(comment.length, archive.length - 2);
+    expect(readFromZip(Buffer.concat([archive, comment]), 'qodo-pr-agent-metrics.json')).toBe(
+      '{"m":1}'
+    );
   });
 
   it('requires --since in YYYY-MM-DD form', () => {
