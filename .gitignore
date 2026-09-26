@@ -65,3 +65,4 @@ node_modules/
 # Prevent local Claude Code settings from being committed
 .claude/settings*.json
 .claude/.settings*.json
+.github/validation/changelog/data/

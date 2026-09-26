@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChecklistItem",
+  "description": "Individual quality checkpoint within a dimension",
+  "type": "object",
+  "required": ["id", "dimension_id", "question", "pass_criteria"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z-0-9]+$",
+      "description": "Unique identifier"
+    },
+    "dimension_id": {
+      "type": "string",
+      "pattern": "^[a-z-]+$",
+      "description": "Reference to parent ChecklistDimension"
+    },
+    "question": {
+      "type": "string",
+      "description": "The actual checklist question"
+    },
+    "pass_criteria": {
+      "type": "string",
+      "description": "How to determine if this item passes"
+    },
+    "fail_criteria": {
+      "type": "string",
+      "description": "Clarification on what constitutes failure (optional)"
+    },
+    "guidance": {
+      "type": "string",
+      "description": "Helpful explanation or tips for evaluation"
+    },
+    "reference_examples": {
+      "type": "object",
+      "properties": {
+        "good": {
+          "type": "string",
+          "description": "Example of good implementation"
+        },
+        "bad": {
+          "type": "string",
+          "description": "Example of poor implementation"
+        }
+      }
+    },
+    "audience_applicability": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["author", "peer", "stakeholder", "integration"]
+      },
+      "description": "Which audiences use this item (empty = all)"
+    },
+    "score_scale": {
+      "type": "string",
+      "enum": ["binary", "scale"],
+      "default": "binary",
+      "description": "Scoring method: binary (yes/no) or scale (0-3)"
+    }
+  },
+  "additionalProperties": false
+}

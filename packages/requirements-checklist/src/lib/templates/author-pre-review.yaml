@@ -1,0 +1,110 @@
+name: author-pre-review
+audience: Specification authors
+time_estimate_minutes: 30
+description: Self-review checklist for specification authors before peer review submission
+
+items:
+  - id: AUTH-001
+    dimension: Completeness
+    question: Are all required sections present?
+    description: Specification must include overview, user scenarios, requirements, success criteria, assumptions, and edge cases
+    audience: [author]
+    pass_criteria: All 6 required sections are documented
+    suggestion: Add missing sections following the specification template structure
+    reference_examples:
+      - 'Standard sections listed in spec template'
+
+  - id: AUTH-002
+    dimension: Completeness
+    question: Is there substantial content depth?
+    description: Specification should contain enough detail to guide implementation without ambiguity
+    audience: [author]
+    pass_criteria: Specification exceeds 500 characters with substantive detail
+    suggestion: Expand sections with concrete examples and specific requirements
+    reference_examples:
+      - 'Requirements with concrete examples rather than generic statements'
+
+  - id: AUTH-003
+    dimension: Clarity
+    question: Are technical terms defined and consistent?
+    description: Check for undefined jargon and terminology drift throughout the document
+    audience: [author]
+    pass_criteria: All domain-specific terms are defined on first use; consistent usage throughout
+    suggestion: Add glossary section or define terms inline before first use
+    reference_examples:
+      - 'API endpoint, user context, state management'
+
+  - id: AUTH-004
+    dimension: Measurability
+    question: Are success criteria quantified?
+    description: Each success criterion must be testable with specific, measurable outcomes
+    audience: [author]
+    pass_criteria: All success criteria include quantifiable thresholds (%, ms, counts, etc.)
+    suggestion: Replace vague criteria (fast, many, good) with specific metrics
+    reference_examples:
+      - "Response time < 200ms (not 'fast')"
+      - "95% success rate (not 'high availability')"
+
+  - id: AUTH-005
+    dimension: Consistency
+    question: Is naming consistent throughout the specification?
+    description: Check for terminology variance (e.g., 'user' vs 'consumer' vs 'client')
+    audience: [author]
+    pass_criteria: 'All concepts use consistent terminology; no synonymous terms for the same concept'
+    suggestion: Create a terminology map and review document for consistency
+    reference_examples:
+      - "Use 'user' consistently, not 'user', 'consumer', and 'client' interchangeably"
+
+  - id: AUTH-006
+    dimension: Scenario Coverage
+    question: Are primary user journeys documented?
+    description: Specification should cover happy path and key alternative flows
+    audience: [author]
+    pass_criteria: At least one primary user journey documented with steps
+    suggestion: Add user journey section with given/when/then format for key flows
+    reference_examples:
+      - 'Happy path: user logs in → configures settings → saves → success'
+
+  - id: AUTH-007
+    dimension: Edge Cases
+    question: Are error states and boundary conditions identified?
+    description: Edge cases help implementers avoid surprises in unusual conditions
+    audience: [author]
+    pass_criteria: At least 3 edge cases documented (e.g., invalid input, timeout, empty state)
+    suggestion: Brainstorm error states and boundary conditions for your domain
+    reference_examples:
+      - 'Empty dataset handling'
+      - 'Concurrent request handling'
+      - 'Rate limit exceeded'
+
+  - id: AUTH-008
+    dimension: Dependencies
+    question: Are external dependencies and assumptions documented?
+    description: Identify what's assumed about external systems, infrastructure, or availability
+    audience: [author]
+    pass_criteria: External dependencies and critical assumptions are explicitly listed
+    suggestion: Add section listing external APIs, services, and assumptions
+    reference_examples:
+      - 'Assumes payment gateway availability'
+      - 'Requires PostgreSQL >= 12'
+
+  - id: AUTH-009
+    dimension: Ambiguities
+    question: Are there unresolved decisions or ambiguous requirements?
+    description: Flag anything that could be interpreted multiple ways
+    audience: [author]
+    pass_criteria: 'No unresolved questions; all ambiguities are marked as [DECISION NEEDED]'
+    suggestion: 'Mark ambiguities with [DECISION NEEDED] and add to clarification backlog'
+    reference_examples:
+      - 'Example: [DECISION NEEDED] Should rate limit reset be per-user or global?'
+
+  - id: AUTH-010
+    dimension: Completeness
+    question: Is implementation scope clearly defined?
+    description: Distinguish between MVP scope and future enhancements
+    audience: [author]
+    pass_criteria: MVP features clearly marked; post-launch features identified separately
+    suggestion: Create MVP vs Roadmap sections or use clear markers
+    reference_examples:
+      - 'MVP: Core CRUD operations'
+      - 'Post-launch: Advanced filtering, reporting'
