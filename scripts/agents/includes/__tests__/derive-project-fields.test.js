@@ -220,3 +220,47 @@ describe("issue-type inference uses canonical Type labels", () => {
     expect(infer({ title: "Misc" })).toBe("");
   });
 });
+
+describe("type keyword rules are ordered by signal strength", () => {
+  const mappings = issueFieldsConfig.project_field_mappings || {};
+
+  function infer(title) {
+    return inferTypeFromContext({ mappings, title });
+  }
+
+  // type:feature matches bare action verbs (add, implement, build, develop), so
+  // while it sat above the subject rules it captured every title that both
+  // named a subject and started with a verb. These cases pin the ordering so a
+  // later rule insertion cannot quietly reintroduce that shadowing.
+  test.each([
+    ["Add dependency upgrade", "Dependency Update"],
+    ["Implement compatibility support", "Compatibility"],
+    ["Add interoperability for runners", "Compatibility"],
+    ["Add GitHub Action for releases", "Automation"],
+    ["Add integration test for the sync", "Automation"],
+    ["Add a new endpoint", "Feature"],
+    ["Implement dark mode", "Feature"],
+  ])("infers %j as %s", (title, expected) => {
+    expect(infer(title)).toBe(expected);
+  });
+
+  test("a subject rule wins over a generic action verb in the body too", () => {
+    expect(
+      inferTypeFromContext({
+        mappings,
+        title: "Misc",
+        body: "Add dependency upgrade support",
+      }),
+    ).toBe("Dependency Update");
+  });
+
+  test("an explicit label still beats every keyword rule", () => {
+    expect(
+      inferTypeFromContext({
+        mappings,
+        labels: ["type:bug"],
+        title: "Add dependency upgrade",
+      }),
+    ).toBe("Bug");
+  });
+});
