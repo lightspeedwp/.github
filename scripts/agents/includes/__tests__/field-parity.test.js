@@ -1,7 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 const yaml = require("js-yaml");
-const { deriveProjectFieldValues } = require("../derive-project-fields.cjs");
+const {
+  BRANCH_PREFIX_TYPE_MAP,
+  PRIORITY_KEYWORDS,
+  TYPE_KEYWORDS,
+  deriveProjectFieldValues,
+} = require("../derive-project-fields.cjs");
 
 /**
  * Field-parity regression suite.
@@ -138,6 +143,50 @@ describe("issue-field vocabulary parity", () => {
   test("Effort default is a declared Effort option", () => {
     expect(effortOptions.size).toBeGreaterThan(0);
     expect(effortOptions.has(effortField.default)).toBe(true);
+  });
+});
+
+describe("inference rules only reference configured labels", () => {
+  // A rule whose label is absent from project_field_mappings resolves to an
+  // empty string, so the content match is discarded and the value silently
+  // falls through to the generic default. That is how the retired
+  // type:documentation and type:integration rules kept Documentation,
+  // Compatibility and Dependency Update items landing on Chore.
+  const typeLabels = new Set(Object.keys(mappings.Type || {}));
+  const priorityLabels = new Set(Object.keys(mappings.Priority || {}));
+
+  test("every branch-prefix type label is configured", () => {
+    const unmapped = Object.entries(BRANCH_PREFIX_TYPE_MAP)
+      .filter(([, label]) => !typeLabels.has(label))
+      .map(([prefix, label]) => `${prefix} -> ${label}`);
+
+    expect(unmapped).toEqual([]);
+  });
+
+  test("every type keyword rule label is configured", () => {
+    const unmapped = TYPE_KEYWORDS.filter(
+      (rule) => !typeLabels.has(rule.label),
+    ).map((rule) => rule.label);
+
+    expect(unmapped).toEqual([]);
+  });
+
+  test("every priority keyword rule label is configured", () => {
+    const unmapped = PRIORITY_KEYWORDS.filter(
+      (rule) => !priorityLabels.has(rule.label),
+    ).map((rule) => rule.label);
+
+    expect(unmapped).toEqual([]);
+  });
+
+  test("no inference rule references a retired type label", () => {
+    const referenced = [
+      ...Object.values(BRANCH_PREFIX_TYPE_MAP),
+      ...TYPE_KEYWORDS.map((rule) => rule.label),
+    ];
+
+    expect(referenced).not.toContain("type:documentation");
+    expect(referenced).not.toContain("type:integration");
   });
 });
 
