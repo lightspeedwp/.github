@@ -59,6 +59,9 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
+0. **Opt-in and path freshness gate (do this first, #3540)**: bulk issue creation is opt-in per spec, and stale spec paths must never be baked into new issues.
+   - Count the tasks in `tasks.md` that lack a matching issue (same ID rules as step 1 below). Report that count plus the spec directory, and **ask the user for explicit confirmation before creating anything** when the count is greater than zero. Do not create issues without that confirmation.
+   - Verify every file path referenced by the tasks (spec directory, `spec.md`, `plan.md`, contracts) exists in the working tree. Drop tasks whose paths no longer exist and report them (for example, `T048 references .github/specs/003-requirements-checklist/, which is not on this branch — skipping`) instead of creating issues with stale paths.
 1. Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
 2. **IF EXISTS**: Load `.specify/memory/constitution.md` for project principles and governance constraints.
 3. From the executed script, extract the path to **tasks**.
@@ -119,53 +122,3 @@ Check if `.specify/extensions.yml` exists in the project root.
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
