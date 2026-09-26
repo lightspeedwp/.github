@@ -1,0 +1,319 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T023",
+  "note": "Proposals marked needs_approval are not in the approved FR-012 merge table; they need @ashley's decision in the Stage 1 [LABEL-UPDATE-REQUEST] before any change.",
+  "recommendations": [
+    {
+      "pair": ["status:done", "status:completed"],
+      "action": "merge",
+      "canonical": "status:done",
+      "rationale": "Already approved in spec FR-012 (status:completed \u2192 status:done).",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": false
+    },
+    {
+      "pair": ["area:tests", "area:testing"],
+      "action": "merge",
+      "canonical": "area:testing",
+      "rationale": "Already approved in spec FR-012 (area:tests \u2192 area:testing).",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [
+        ".coderabbit.yml",
+        ".github/issue-fields.yml",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_TYPES.md",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+        "scripts/apply-triage-improvements.js",
+        "scripts/automation/__tests__/handle-needs-review.test.js",
+        "scripts/automation/audit-bare-labels.js",
+        "scripts/automation/handlers/handle-needs-review.js",
+        "scripts/automation/handlers/handle-needs-triage.js",
+        "scripts/batch-label-prs.js",
+        "scripts/consolidate-issue-types.js",
+        "scripts/triage-issues-needs-triage.js"
+      ],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": false
+    },
+    {
+      "pair": ["priority:important", "priority:high"],
+      "action": "merge",
+      "canonical": "priority:important",
+      "rationale": "Keep the four-step scale (critical, important, normal, minor) that labels.yml documents first; merge high \u2192 important.",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [
+        "agents/discovery-agent/skills/lightspeed-task-breakdown-planner/references/issue-draft-rules.md",
+        "agents/issue-agent/AGENT.md",
+        "agents/issue-agent/issues.agent.md",
+        "agents/issue-agent/shared/__tests__/fixtures/issues.json",
+        "agents/issue-agent/shared/__tests__/fixtures/labels.json",
+        "agents/issue-agent/shared/__tests__/mocks/github-api.js",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_CREATION_GUIDE.md",
+        "agents/prd-agent/PHASE5_EXECUTION_PLAN.md",
+        "agents/prd-agent/skills/delivery-planner/references/issue-draft-rules.md",
+        "packages/metadata-agent/src/api-client.js",
+        "packages/metadata-agent/tests/fixtures/sample-issues.js",
+        "scripts/agents/includes/__tests__/label-utils.test.js",
+        "scripts/agents/includes/__tests__/milestone-allocation.test.js",
+        "scripts/agents/includes/__tests__/milestone-assignment.test.js",
+        "scripts/agents/includes/milestone-assignment.js",
+        "scripts/apply-triage-improvements.js",
+        "scripts/automation/__tests__/add-issue-template-sections.test.js",
+        "scripts/automation/__tests__/api/api-batch-and-performance.test.js",
+        "scripts/automation/__tests__/api/api-issues-and-labels.test.js",
+        "scripts/automation/__tests__/api/api-pr-and-milestones.test.js",
+        "scripts/automation/__tests__/api/github-fixtures.js",
+        "scripts/automation/__tests__/audit-issue-metadata.test.js",
+        "scripts/automation/__tests__/dor-dod-validation.test.js",
+        "scripts/automation/__tests__/enhance-issue-completeness.test.js",
+        "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+        "scripts/automation/__tests__/phase-3-integration.test.js",
+        "scripts/automation/__tests__/sync-labels-on-event.test.js",
+        "scripts/automation/content-analysis-agent.js",
+        "scripts/automation/examples-milestone-usage.js",
+        "scripts/automation/handlers/handle-needs-triage.js",
+        "scripts/triage-issues-needs-triage.js"
+      ],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": true
+    },
+    {
+      "pair": ["priority:minor", "priority:low"],
+      "action": "merge",
+      "canonical": "priority:minor",
+      "rationale": "Same scale; merge low \u2192 minor.",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [
+        ".coderabbit.yml",
+        "agents/discovery-agent/skills/lightspeed-task-breakdown-planner/references/issue-draft-rules.md",
+        "agents/issue-agent/shared/__tests__/fixtures/labels.json",
+        "agents/prd-agent/skills/delivery-planner/references/issue-draft-rules.md",
+        "agents/prompt-engineer-agent/rules/.github-rules.js",
+        "packages/metadata-agent/src/label-utils.js",
+        "scripts/apply-triage-improvements.js",
+        "scripts/automation/__tests__/phase-3-integration.test.js",
+        "scripts/triage-issues-needs-triage.js"
+      ],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": true
+    },
+    {
+      "pair": ["status:needs-qa", "status:needs-testing"],
+      "action": "merge",
+      "canonical": "status:needs-testing",
+      "rationale": "Mirror the area:qa / area:testing split only if QA sign-off is a separate step; otherwise merge needs-qa \u2192 needs-testing. Needs @ashley's decision.",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [
+        ".github/issue-fields.yml",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_CREATION_GUIDE.md",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_TYPES.md",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/PR_CREATION_PROCESS.md",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+        "scripts/agents/includes/status-enforcer.js",
+        "scripts/automation/audit-bare-labels.js",
+        "scripts/consolidate-issue-types.js"
+      ],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": true
+    },
+    {
+      "pair": ["meta:stale", "meta:no-issue-activity"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Keep meta:no-issue-activity and meta:no-pr-activity for the stale bot, and define meta:stale as their umbrella, or retire meta:stale if no automation applies it.",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["area:block-editor", "comp:block-editor"],
+      "action": "merge",
+      "canonical": "comp:block-editor",
+      "rationale": "The comp:* family holds every other block-editor component, so keep comp:block-editor and retire area:block-editor.",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [
+        ".coderabbit.yml",
+        ".github/labeler.yml",
+        "agents/labeling-agent/AGENT.md",
+        "agents/labeling-agent/labeling.agent.md",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/LABEL_STRATEGY.md",
+        "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+        "scripts/automation/audit-bare-labels.js"
+      ],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": true
+    },
+    {
+      "pair": ["area:agents", "aiops:agents"],
+      "action": "merge",
+      "canonical": "aiops:agents",
+      "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:agents \u2192 aiops:agents).",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [
+        "agents/pr-agent/__tests__/integration/label-application-scenarios.test.js",
+        "agents/pr-agent/__tests__/integration/performance-edge-cases.test.js",
+        "agents/pr-agent/__tests__/integration/sequential-skill-execution.test.js",
+        "agents/pr-agent/__tests__/integration/setup.js",
+        "agents/pr-agent/skills/validate-and-apply-labels/SKILL.md",
+        "agents/pr-agent/skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js"
+      ],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": false
+    },
+    {
+      "pair": ["area:instructions", "aiops:instructions"],
+      "action": "merge",
+      "canonical": "aiops:instructions",
+      "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:instructions \u2192 aiops:instructions).",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": false
+    },
+    {
+      "pair": ["area:prompts", "aiops:prompts"],
+      "action": "merge",
+      "canonical": "aiops:prompts",
+      "rationale": "Already approved in spec FR-012, 2026-09-24 clarification (area:prompts \u2192 aiops:prompts).",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": false
+    },
+    {
+      "pair": ["area:operations", "area:infrastructure"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Keep both with sharper descriptions: operations for running and supporting services, infrastructure for hosting and platform.",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["area:compatibility", "compat:wordpress"],
+      "action": "retire",
+      "canonical": "compat:*",
+      "rationale": "Retire area:compatibility; use a specific compat:* label with type:compat.",
+      "migration": "rename in place where the target does not exist, otherwise relabel then retire (FR-012)",
+      "automation_impact": [
+        ".github/issue-fields.yml",
+        "agents/linear-advisor-agent/agent/references/agent_files/ISSUE_TEMPLATE/15-compatibility.md"
+      ],
+      "rollout": "Stage 2 configuration PR + Stage 3 relabel",
+      "needs_approval": true
+    },
+    {
+      "pair": ["contrib:discussion", "discussion:community"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "contrib:* marks contributor entry points; discussion:* marks Discussions categories. Keep both.",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["area:ai", "area:agents"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: area:ai is the umbrella area label for AI work and stays; its children area:agents, area:instructions and area:prompts move to aiops:* (FR-012), and area:skills is decided in T043.",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:a11y", "area:a11y"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:security", "area:security"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:performance", "area:performance"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:ci", "area:ci"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:automation", "area:automation"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:docs", "area:documentation"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:dependency", "area:dependencies"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:release", "area:release"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    },
+    {
+      "pair": ["type:chore", "area:maintenance"],
+      "action": "keep",
+      "canonical": "both",
+      "rationale": "Not duplicates: Type says what kind of work it is; area says which part of the system. FR-015 relies on this split (for example type:chore + area:maintenance).",
+      "migration": "none",
+      "automation_impact": [],
+      "rollout": "none",
+      "needs_approval": false
+    }
+  ]
+}
