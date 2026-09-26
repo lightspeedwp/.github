@@ -82,6 +82,60 @@ describe('working tree guard', () => {
     expect(output).toContain('?? untracked.txt');
   });
 
+  test('guards the repository named by globalConfig.rootDir, not the process directory', () => {
+    // Jest can be launched from anywhere with an absolute --config path. Using
+    // process.cwd() made the guard record `not-a-work-tree` and disable itself.
+    const { directory, git } = make();
+    git('config', 'user.email', 't@t');
+    git('config', 'user.name', 't');
+    fs.writeFileSync(path.join(directory, 'tracked.txt'), 'clean\n');
+    git('add', '-A');
+    git('commit', '-qm', 'init');
+
+    const script = `
+      const fs = require("node:fs");
+      const path = require("node:path");
+      const { setup, teardown } = require(${JSON.stringify(guard)});
+      (async () => {
+        try {
+          await setup({ rootDir: ${JSON.stringify(directory)} });
+          fs.writeFileSync(path.join(${JSON.stringify(directory)}, "stray.txt"), "x");
+          await teardown({ rootDir: ${JSON.stringify(directory)} });
+          console.log("PASS");
+        } catch (error) {
+          console.log("FAIL " + error.message);
+        }
+      })();
+    `;
+    const env = { ...process.env };
+    delete env.ALLOW_TEST_ARTEFACTS;
+    // cwd is deliberately NOT the repository.
+    const result = spawnSync(process.execPath, ['-e', script], {
+      cwd: os.tmpdir(),
+      encoding: 'utf8',
+      env,
+    });
+    const output = `${result.stdout}${result.stderr}`;
+    expect(output).toContain('FAIL');
+    expect(output).toContain('stray.txt');
+  });
+
+  test('fails when a test changes only a file mode', () => {
+    // `git hash-object` covers content only, so a chmod left the snapshot value
+    // unchanged and the change passed unnoticed even though git reports it.
+    const { directory } = make();
+    fs.writeFileSync(path.join(directory, 'untracked.txt'), 'artefact\n');
+    const output = runGuard(
+      directory,
+      'require("fs").chmodSync(require("path").join(dir, "untracked.txt"), 0o755);'.replace(
+        'dir',
+        JSON.stringify(directory)
+      )
+    );
+    expect(output).toContain('FAIL');
+    expect(output).toContain('untracked.txt');
+  });
+
   test('passes outside a Git work tree', () => {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'tree-guard-no-git-'));
     directories.push(directory);
